@@ -4,6 +4,9 @@ import 'package:meta/meta.dart';
 ///
 /// Defines the public endpoint for the AWS Glue service.
 class GlueApi {
+  final _client;
+  GlueApi(client) : _client = client.configured('Glue', serializer: 'json');
+
   /// Creates one or more partitions in a batch operation.
   ///
   /// [catalogId]: The ID of the catalog in which the partition is to be
@@ -22,7 +25,13 @@ class GlueApi {
       @required String databaseName,
       @required String tableName,
       @required List<PartitionInput> partitionInputList}) async {
-    return BatchCreatePartitionResponse.fromJson({});
+    var response_ = await _client.send('BatchCreatePartition', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      'PartitionInputList': partitionInputList,
+    });
+    return BatchCreatePartitionResponse.fromJson(response_);
   }
 
   /// Deletes a list of connection definitions from the Data Catalog.
@@ -34,7 +43,11 @@ class GlueApi {
   Future<BatchDeleteConnectionResponse> batchDeleteConnection(
       List<String> connectionNameList,
       {String catalogId}) async {
-    return BatchDeleteConnectionResponse.fromJson({});
+    var response_ = await _client.send('BatchDeleteConnection', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'ConnectionNameList': connectionNameList,
+    });
+    return BatchDeleteConnectionResponse.fromJson(response_);
   }
 
   /// Deletes one or more partitions in a batch operation.
@@ -55,7 +68,13 @@ class GlueApi {
       @required String databaseName,
       @required String tableName,
       @required List<PartitionValueList> partitionsToDelete}) async {
-    return BatchDeletePartitionResponse.fromJson({});
+    var response_ = await _client.send('BatchDeletePartition', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      'PartitionsToDelete': partitionsToDelete,
+    });
+    return BatchDeletePartitionResponse.fromJson(response_);
   }
 
   /// Deletes multiple tables at once.
@@ -83,7 +102,12 @@ class GlueApi {
       {String catalogId,
       @required String databaseName,
       @required List<String> tablesToDelete}) async {
-    return BatchDeleteTableResponse.fromJson({});
+    var response_ = await _client.send('BatchDeleteTable', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TablesToDelete': tablesToDelete,
+    });
+    return BatchDeleteTableResponse.fromJson(response_);
   }
 
   /// Deletes a specified batch of versions of a table.
@@ -105,7 +129,13 @@ class GlueApi {
       @required String databaseName,
       @required String tableName,
       @required List<String> versionIds}) async {
-    return BatchDeleteTableVersionResponse.fromJson({});
+    var response_ = await _client.send('BatchDeleteTableVersion', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      'VersionIds': versionIds,
+    });
+    return BatchDeleteTableVersionResponse.fromJson(response_);
   }
 
   /// Returns a list of resource metadata for a given list of crawler names.
@@ -118,7 +148,10 @@ class GlueApi {
   /// from the `ListCrawlers` operation.
   Future<BatchGetCrawlersResponse> batchGetCrawlers(
       List<String> crawlerNames) async {
-    return BatchGetCrawlersResponse.fromJson({});
+    var response_ = await _client.send('BatchGetCrawlers', {
+      'CrawlerNames': crawlerNames,
+    });
+    return BatchGetCrawlersResponse.fromJson(response_);
   }
 
   /// Returns a list of resource metadata for a given list of development
@@ -131,7 +164,10 @@ class GlueApi {
   /// names returned from the `ListDevEndpoint` operation.
   Future<BatchGetDevEndpointsResponse> batchGetDevEndpoints(
       List<String> devEndpointNames) async {
-    return BatchGetDevEndpointsResponse.fromJson({});
+    var response_ = await _client.send('BatchGetDevEndpoints', {
+      'DevEndpointNames': devEndpointNames,
+    });
+    return BatchGetDevEndpointsResponse.fromJson(response_);
   }
 
   /// Returns a list of resource metadata for a given list of job names. After
@@ -143,7 +179,10 @@ class GlueApi {
   /// [jobNames]: A list of job names, which might be the names returned from
   /// the `ListJobs` operation.
   Future<BatchGetJobsResponse> batchGetJobs(List<String> jobNames) async {
-    return BatchGetJobsResponse.fromJson({});
+    var response_ = await _client.send('BatchGetJobs', {
+      'JobNames': jobNames,
+    });
+    return BatchGetJobsResponse.fromJson(response_);
   }
 
   /// Retrieves partitions in a batch request.
@@ -163,7 +202,13 @@ class GlueApi {
       @required String databaseName,
       @required String tableName,
       @required List<PartitionValueList> partitionsToGet}) async {
-    return BatchGetPartitionResponse.fromJson({});
+    var response_ = await _client.send('BatchGetPartition', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      'PartitionsToGet': partitionsToGet,
+    });
+    return BatchGetPartitionResponse.fromJson(response_);
   }
 
   /// Returns a list of resource metadata for a given list of trigger names.
@@ -176,7 +221,10 @@ class GlueApi {
   /// from the `ListTriggers` operation.
   Future<BatchGetTriggersResponse> batchGetTriggers(
       List<String> triggerNames) async {
-    return BatchGetTriggersResponse.fromJson({});
+    var response_ = await _client.send('BatchGetTriggers', {
+      'TriggerNames': triggerNames,
+    });
+    return BatchGetTriggersResponse.fromJson(response_);
   }
 
   /// Returns a list of resource metadata for a given list of workflow names.
@@ -192,7 +240,11 @@ class GlueApi {
   /// workflow resource metadata.
   Future<BatchGetWorkflowsResponse> batchGetWorkflows(List<String> names,
       {bool includeGraph}) async {
-    return BatchGetWorkflowsResponse.fromJson({});
+    var response_ = await _client.send('BatchGetWorkflows', {
+      'Names': names,
+      if (includeGraph != null) 'IncludeGraph': includeGraph,
+    });
+    return BatchGetWorkflowsResponse.fromJson(response_);
   }
 
   /// Stops one or more job runs for a specified job definition.
@@ -203,7 +255,11 @@ class GlueApi {
   /// definition.
   Future<BatchStopJobRunResponse> batchStopJobRun(
       {@required String jobName, @required List<String> jobRunIds}) async {
-    return BatchStopJobRunResponse.fromJson({});
+    var response_ = await _client.send('BatchStopJobRun', {
+      'JobName': jobName,
+      'JobRunIds': jobRunIds,
+    });
+    return BatchStopJobRunResponse.fromJson(response_);
   }
 
   /// Cancels (stops) a task run. Machine learning task runs are asynchronous
@@ -217,7 +273,11 @@ class GlueApi {
   /// [taskRunId]: A unique identifier for the task run.
   Future<CancelMLTaskRunResponse> cancelMLTaskRun(
       {@required String transformId, @required String taskRunId}) async {
-    return CancelMLTaskRunResponse.fromJson({});
+    var response_ = await _client.send('CancelMLTaskRun', {
+      'TransformId': transformId,
+      'TaskRunId': taskRunId,
+    });
+    return CancelMLTaskRunResponse.fromJson(response_);
   }
 
   /// Creates a classifier in the user's account. This can be a
@@ -240,7 +300,13 @@ class GlueApi {
       CreateXmlClassifierRequest xmlClassifier,
       CreateJsonClassifierRequest jsonClassifier,
       CreateCsvClassifierRequest csvClassifier}) async {
-    return CreateClassifierResponse.fromJson({});
+    var response_ = await _client.send('CreateClassifier', {
+      if (grokClassifier != null) 'GrokClassifier': grokClassifier,
+      if (xmlClassifier != null) 'XMLClassifier': xmlClassifier,
+      if (jsonClassifier != null) 'JsonClassifier': jsonClassifier,
+      if (csvClassifier != null) 'CsvClassifier': csvClassifier,
+    });
+    return CreateClassifierResponse.fromJson(response_);
   }
 
   /// Creates a connection definition in the Data Catalog.
@@ -253,7 +319,11 @@ class GlueApi {
   Future<CreateConnectionResponse> createConnection(
       ConnectionInput connectionInput,
       {String catalogId}) async {
-    return CreateConnectionResponse.fromJson({});
+    var response_ = await _client.send('CreateConnection', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'ConnectionInput': connectionInput,
+    });
+    return CreateConnectionResponse.fromJson(response_);
   }
 
   /// Creates a new crawler with specified targets, role, configuration, and
@@ -313,7 +383,22 @@ class GlueApi {
       String configuration,
       String crawlerSecurityConfiguration,
       Map<String, String> tags}) async {
-    return CreateCrawlerResponse.fromJson({});
+    var response_ = await _client.send('CreateCrawler', {
+      'Name': name,
+      'Role': role,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      if (description != null) 'Description': description,
+      'Targets': targets,
+      if (schedule != null) 'Schedule': schedule,
+      if (classifiers != null) 'Classifiers': classifiers,
+      if (tablePrefix != null) 'TablePrefix': tablePrefix,
+      if (schemaChangePolicy != null) 'SchemaChangePolicy': schemaChangePolicy,
+      if (configuration != null) 'Configuration': configuration,
+      if (crawlerSecurityConfiguration != null)
+        'CrawlerSecurityConfiguration': crawlerSecurityConfiguration,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateCrawlerResponse.fromJson(response_);
   }
 
   /// Creates a new database in a Data Catalog.
@@ -324,7 +409,11 @@ class GlueApi {
   /// [databaseInput]: The metadata for the database.
   Future<CreateDatabaseResponse> createDatabase(DatabaseInput databaseInput,
       {String catalogId}) async {
-    return CreateDatabaseResponse.fromJson({});
+    var response_ = await _client.send('CreateDatabase', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseInput': databaseInput,
+    });
+    return CreateDatabaseResponse.fromJson(response_);
   }
 
   /// Creates a new development endpoint.
@@ -421,7 +510,25 @@ class GlueApi {
       String securityConfiguration,
       Map<String, String> tags,
       Map<String, String> arguments}) async {
-    return CreateDevEndpointResponse.fromJson({});
+    var response_ = await _client.send('CreateDevEndpoint', {
+      'EndpointName': endpointName,
+      'RoleArn': roleArn,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (subnetId != null) 'SubnetId': subnetId,
+      if (publicKey != null) 'PublicKey': publicKey,
+      if (publicKeys != null) 'PublicKeys': publicKeys,
+      if (numberOfNodes != null) 'NumberOfNodes': numberOfNodes,
+      if (workerType != null) 'WorkerType': workerType,
+      if (numberOfWorkers != null) 'NumberOfWorkers': numberOfWorkers,
+      if (extraPythonLibsS3Path != null)
+        'ExtraPythonLibsS3Path': extraPythonLibsS3Path,
+      if (extraJarsS3Path != null) 'ExtraJarsS3Path': extraJarsS3Path,
+      if (securityConfiguration != null)
+        'SecurityConfiguration': securityConfiguration,
+      if (tags != null) 'Tags': tags,
+      if (arguments != null) 'Arguments': arguments,
+    });
+    return CreateDevEndpointResponse.fromJson(response_);
   }
 
   /// Creates a new job definition.
@@ -552,7 +659,29 @@ class GlueApi {
       String glueVersion,
       int numberOfWorkers,
       String workerType}) async {
-    return CreateJobResponse.fromJson({});
+    var response_ = await _client.send('CreateJob', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (logUri != null) 'LogUri': logUri,
+      'Role': role,
+      if (executionProperty != null) 'ExecutionProperty': executionProperty,
+      'Command': command,
+      if (defaultArguments != null) 'DefaultArguments': defaultArguments,
+      if (connections != null) 'Connections': connections,
+      if (maxRetries != null) 'MaxRetries': maxRetries,
+      if (allocatedCapacity != null) 'AllocatedCapacity': allocatedCapacity,
+      if (timeout != null) 'Timeout': timeout,
+      if (maxCapacity != null) 'MaxCapacity': maxCapacity,
+      if (securityConfiguration != null)
+        'SecurityConfiguration': securityConfiguration,
+      if (tags != null) 'Tags': tags,
+      if (notificationProperty != null)
+        'NotificationProperty': notificationProperty,
+      if (glueVersion != null) 'GlueVersion': glueVersion,
+      if (numberOfWorkers != null) 'NumberOfWorkers': numberOfWorkers,
+      if (workerType != null) 'WorkerType': workerType,
+    });
+    return CreateJobResponse.fromJson(response_);
   }
 
   /// Creates an AWS Glue machine learning transform. This operation creates the
@@ -630,7 +759,19 @@ class GlueApi {
       int numberOfWorkers,
       int timeout,
       int maxRetries}) async {
-    return CreateMLTransformResponse.fromJson({});
+    var response_ = await _client.send('CreateMLTransform', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'InputRecordTables': inputRecordTables,
+      'Parameters': parameters,
+      'Role': role,
+      if (maxCapacity != null) 'MaxCapacity': maxCapacity,
+      if (workerType != null) 'WorkerType': workerType,
+      if (numberOfWorkers != null) 'NumberOfWorkers': numberOfWorkers,
+      if (timeout != null) 'Timeout': timeout,
+      if (maxRetries != null) 'MaxRetries': maxRetries,
+    });
+    return CreateMLTransformResponse.fromJson(response_);
   }
 
   /// Creates a new partition.
@@ -651,7 +792,13 @@ class GlueApi {
       @required String databaseName,
       @required String tableName,
       @required PartitionInput partitionInput}) async {
-    return CreatePartitionResponse.fromJson({});
+    var response_ = await _client.send('CreatePartition', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      'PartitionInput': partitionInput,
+    });
+    return CreatePartitionResponse.fromJson(response_);
   }
 
   /// Transforms a directed acyclic graph (DAG) into code.
@@ -665,7 +812,12 @@ class GlueApi {
       {List<CodeGenNode> dagNodes,
       List<CodeGenEdge> dagEdges,
       String language}) async {
-    return CreateScriptResponse.fromJson({});
+    var response_ = await _client.send('CreateScript', {
+      if (dagNodes != null) 'DagNodes': dagNodes,
+      if (dagEdges != null) 'DagEdges': dagEdges,
+      if (language != null) 'Language': language,
+    });
+    return CreateScriptResponse.fromJson(response_);
   }
 
   /// Creates a new security configuration. A security configuration is a set of
@@ -681,7 +833,11 @@ class GlueApi {
   Future<CreateSecurityConfigurationResponse> createSecurityConfiguration(
       {@required String name,
       @required EncryptionConfiguration encryptionConfiguration}) async {
-    return CreateSecurityConfigurationResponse.fromJson({});
+    var response_ = await _client.send('CreateSecurityConfiguration', {
+      'Name': name,
+      'EncryptionConfiguration': encryptionConfiguration,
+    });
+    return CreateSecurityConfigurationResponse.fromJson(response_);
   }
 
   /// Creates a new table definition in the Data Catalog.
@@ -698,7 +854,12 @@ class GlueApi {
       {String catalogId,
       @required String databaseName,
       @required TableInput tableInput}) async {
-    return CreateTableResponse.fromJson({});
+    var response_ = await _client.send('CreateTable', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableInput': tableInput,
+    });
+    return CreateTableResponse.fromJson(response_);
   }
 
   /// Creates a new trigger.
@@ -741,7 +902,18 @@ class GlueApi {
       String description,
       bool startOnCreation,
       Map<String, String> tags}) async {
-    return CreateTriggerResponse.fromJson({});
+    var response_ = await _client.send('CreateTrigger', {
+      'Name': name,
+      if (workflowName != null) 'WorkflowName': workflowName,
+      'Type': type,
+      if (schedule != null) 'Schedule': schedule,
+      if (predicate != null) 'Predicate': predicate,
+      'Actions': actions,
+      if (description != null) 'Description': description,
+      if (startOnCreation != null) 'StartOnCreation': startOnCreation,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateTriggerResponse.fromJson(response_);
   }
 
   /// Creates a new function definition in the Data Catalog.
@@ -758,7 +930,12 @@ class GlueApi {
       {String catalogId,
       @required String databaseName,
       @required UserDefinedFunctionInput functionInput}) async {
-    return CreateUserDefinedFunctionResponse.fromJson({});
+    var response_ = await _client.send('CreateUserDefinedFunction', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'FunctionInput': functionInput,
+    });
+    return CreateUserDefinedFunctionResponse.fromJson(response_);
   }
 
   /// Creates a new workflow.
@@ -776,14 +953,24 @@ class GlueApi {
       {String description,
       Map<String, String> defaultRunProperties,
       Map<String, String> tags}) async {
-    return CreateWorkflowResponse.fromJson({});
+    var response_ = await _client.send('CreateWorkflow', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (defaultRunProperties != null)
+        'DefaultRunProperties': defaultRunProperties,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateWorkflowResponse.fromJson(response_);
   }
 
   /// Removes a classifier from the Data Catalog.
   ///
   /// [name]: Name of the classifier to remove.
   Future<DeleteClassifierResponse> deleteClassifier(String name) async {
-    return DeleteClassifierResponse.fromJson({});
+    var response_ = await _client.send('DeleteClassifier', {
+      'Name': name,
+    });
+    return DeleteClassifierResponse.fromJson(response_);
   }
 
   /// Deletes a connection from the Data Catalog.
@@ -794,7 +981,11 @@ class GlueApi {
   /// [connectionName]: The name of the connection to delete.
   Future<DeleteConnectionResponse> deleteConnection(String connectionName,
       {String catalogId}) async {
-    return DeleteConnectionResponse.fromJson({});
+    var response_ = await _client.send('DeleteConnection', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'ConnectionName': connectionName,
+    });
+    return DeleteConnectionResponse.fromJson(response_);
   }
 
   /// Removes a specified crawler from the AWS Glue Data Catalog, unless the
@@ -802,7 +993,10 @@ class GlueApi {
   ///
   /// [name]: The name of the crawler to remove.
   Future<DeleteCrawlerResponse> deleteCrawler(String name) async {
-    return DeleteCrawlerResponse.fromJson({});
+    var response_ = await _client.send('DeleteCrawler', {
+      'Name': name,
+    });
+    return DeleteCrawlerResponse.fromJson(response_);
   }
 
   /// Removes a specified database from a Data Catalog.
@@ -828,7 +1022,11 @@ class GlueApi {
   /// must be all lowercase.
   Future<DeleteDatabaseResponse> deleteDatabase(String name,
       {String catalogId}) async {
-    return DeleteDatabaseResponse.fromJson({});
+    var response_ = await _client.send('DeleteDatabase', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'Name': name,
+    });
+    return DeleteDatabaseResponse.fromJson(response_);
   }
 
   /// Deletes a specified development endpoint.
@@ -836,7 +1034,10 @@ class GlueApi {
   /// [endpointName]: The name of the `DevEndpoint`.
   Future<DeleteDevEndpointResponse> deleteDevEndpoint(
       String endpointName) async {
-    return DeleteDevEndpointResponse.fromJson({});
+    var response_ = await _client.send('DeleteDevEndpoint', {
+      'EndpointName': endpointName,
+    });
+    return DeleteDevEndpointResponse.fromJson(response_);
   }
 
   /// Deletes a specified job definition. If the job definition is not found, no
@@ -844,7 +1045,10 @@ class GlueApi {
   ///
   /// [jobName]: The name of the job definition to delete.
   Future<DeleteJobResponse> deleteJob(String jobName) async {
-    return DeleteJobResponse.fromJson({});
+    var response_ = await _client.send('DeleteJob', {
+      'JobName': jobName,
+    });
+    return DeleteJobResponse.fromJson(response_);
   }
 
   /// Deletes an AWS Glue machine learning transform. Machine learning
@@ -858,7 +1062,10 @@ class GlueApi {
   /// [transformId]: The unique identifier of the transform to delete.
   Future<DeleteMLTransformResponse> deleteMLTransform(
       String transformId) async {
-    return DeleteMLTransformResponse.fromJson({});
+    var response_ = await _client.send('DeleteMLTransform', {
+      'TransformId': transformId,
+    });
+    return DeleteMLTransformResponse.fromJson(response_);
   }
 
   /// Deletes a specified partition.
@@ -878,7 +1085,13 @@ class GlueApi {
       @required String databaseName,
       @required String tableName,
       @required List<String> partitionValues}) async {
-    return DeletePartitionResponse.fromJson({});
+    var response_ = await _client.send('DeletePartition', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      'PartitionValues': partitionValues,
+    });
+    return DeletePartitionResponse.fromJson(response_);
   }
 
   /// Deletes a specified policy.
@@ -886,7 +1099,11 @@ class GlueApi {
   /// [policyHashCondition]: The hash value returned when this policy was set.
   Future<DeleteResourcePolicyResponse> deleteResourcePolicy(
       {String policyHashCondition}) async {
-    return DeleteResourcePolicyResponse.fromJson({});
+    var response_ = await _client.send('DeleteResourcePolicy', {
+      if (policyHashCondition != null)
+        'PolicyHashCondition': policyHashCondition,
+    });
+    return DeleteResourcePolicyResponse.fromJson(response_);
   }
 
   /// Deletes a specified security configuration.
@@ -894,7 +1111,10 @@ class GlueApi {
   /// [name]: The name of the security configuration to delete.
   Future<DeleteSecurityConfigurationResponse> deleteSecurityConfiguration(
       String name) async {
-    return DeleteSecurityConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DeleteSecurityConfiguration', {
+      'Name': name,
+    });
+    return DeleteSecurityConfigurationResponse.fromJson(response_);
   }
 
   /// Removes a table definition from the Data Catalog.
@@ -923,7 +1143,12 @@ class GlueApi {
       {String catalogId,
       @required String databaseName,
       @required String name}) async {
-    return DeleteTableResponse.fromJson({});
+    var response_ = await _client.send('DeleteTable', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'Name': name,
+    });
+    return DeleteTableResponse.fromJson(response_);
   }
 
   /// Deletes a specified version of a table.
@@ -944,7 +1169,13 @@ class GlueApi {
       @required String databaseName,
       @required String tableName,
       @required String versionId}) async {
-    return DeleteTableVersionResponse.fromJson({});
+    var response_ = await _client.send('DeleteTableVersion', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      'VersionId': versionId,
+    });
+    return DeleteTableVersionResponse.fromJson(response_);
   }
 
   /// Deletes a specified trigger. If the trigger is not found, no exception is
@@ -952,7 +1183,10 @@ class GlueApi {
   ///
   /// [name]: The name of the trigger to delete.
   Future<DeleteTriggerResponse> deleteTrigger(String name) async {
-    return DeleteTriggerResponse.fromJson({});
+    var response_ = await _client.send('DeleteTrigger', {
+      'Name': name,
+    });
+    return DeleteTriggerResponse.fromJson(response_);
   }
 
   /// Deletes an existing function definition from the Data Catalog.
@@ -968,14 +1202,22 @@ class GlueApi {
       {String catalogId,
       @required String databaseName,
       @required String functionName}) async {
-    return DeleteUserDefinedFunctionResponse.fromJson({});
+    var response_ = await _client.send('DeleteUserDefinedFunction', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'FunctionName': functionName,
+    });
+    return DeleteUserDefinedFunctionResponse.fromJson(response_);
   }
 
   /// Deletes a workflow.
   ///
   /// [name]: Name of the workflow to be deleted.
   Future<DeleteWorkflowResponse> deleteWorkflow(String name) async {
-    return DeleteWorkflowResponse.fromJson({});
+    var response_ = await _client.send('DeleteWorkflow', {
+      'Name': name,
+    });
+    return DeleteWorkflowResponse.fromJson(response_);
   }
 
   /// Retrieves the status of a migration operation.
@@ -984,14 +1226,20 @@ class GlueApi {
   /// the AWS account ID.
   Future<GetCatalogImportStatusResponse> getCatalogImportStatus(
       {String catalogId}) async {
-    return GetCatalogImportStatusResponse.fromJson({});
+    var response_ = await _client.send('GetCatalogImportStatus', {
+      if (catalogId != null) 'CatalogId': catalogId,
+    });
+    return GetCatalogImportStatusResponse.fromJson(response_);
   }
 
   /// Retrieve a classifier by name.
   ///
   /// [name]: Name of the classifier to retrieve.
   Future<GetClassifierResponse> getClassifier(String name) async {
-    return GetClassifierResponse.fromJson({});
+    var response_ = await _client.send('GetClassifier', {
+      'Name': name,
+    });
+    return GetClassifierResponse.fromJson(response_);
   }
 
   /// Lists all classifier objects in the Data Catalog.
@@ -1001,7 +1249,11 @@ class GlueApi {
   /// [nextToken]: An optional continuation token.
   Future<GetClassifiersResponse> getClassifiers(
       {int maxResults, String nextToken}) async {
-    return GetClassifiersResponse.fromJson({});
+    var response_ = await _client.send('GetClassifiers', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetClassifiersResponse.fromJson(response_);
   }
 
   /// Retrieves a connection definition from the Data Catalog.
@@ -1019,7 +1271,12 @@ class GlueApi {
   /// the connection properties.
   Future<GetConnectionResponse> getConnection(String name,
       {String catalogId, bool hidePassword}) async {
-    return GetConnectionResponse.fromJson({});
+    var response_ = await _client.send('GetConnection', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'Name': name,
+      if (hidePassword != null) 'HidePassword': hidePassword,
+    });
+    return GetConnectionResponse.fromJson(response_);
   }
 
   /// Retrieves a list of connection definitions from the Data Catalog.
@@ -1045,14 +1302,24 @@ class GlueApi {
       bool hidePassword,
       String nextToken,
       int maxResults}) async {
-    return GetConnectionsResponse.fromJson({});
+    var response_ = await _client.send('GetConnections', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      if (filter != null) 'Filter': filter,
+      if (hidePassword != null) 'HidePassword': hidePassword,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetConnectionsResponse.fromJson(response_);
   }
 
   /// Retrieves metadata for a specified crawler.
   ///
   /// [name]: The name of the crawler to retrieve metadata for.
   Future<GetCrawlerResponse> getCrawler(String name) async {
-    return GetCrawlerResponse.fromJson({});
+    var response_ = await _client.send('GetCrawler', {
+      'Name': name,
+    });
+    return GetCrawlerResponse.fromJson(response_);
   }
 
   /// Retrieves metrics about specified crawlers.
@@ -1065,7 +1332,12 @@ class GlueApi {
   /// [nextToken]: A continuation token, if this is a continuation call.
   Future<GetCrawlerMetricsResponse> getCrawlerMetrics(
       {List<String> crawlerNameList, int maxResults, String nextToken}) async {
-    return GetCrawlerMetricsResponse.fromJson({});
+    var response_ = await _client.send('GetCrawlerMetrics', {
+      if (crawlerNameList != null) 'CrawlerNameList': crawlerNameList,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetCrawlerMetricsResponse.fromJson(response_);
   }
 
   /// Retrieves metadata for all crawlers defined in the customer account.
@@ -1075,7 +1347,11 @@ class GlueApi {
   /// [nextToken]: A continuation token, if this is a continuation request.
   Future<GetCrawlersResponse> getCrawlers(
       {int maxResults, String nextToken}) async {
-    return GetCrawlersResponse.fromJson({});
+    var response_ = await _client.send('GetCrawlers', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetCrawlersResponse.fromJson(response_);
   }
 
   /// Retrieves the security configuration for a specified catalog.
@@ -1085,7 +1361,10 @@ class GlueApi {
   /// default.
   Future<GetDataCatalogEncryptionSettingsResponse>
       getDataCatalogEncryptionSettings({String catalogId}) async {
-    return GetDataCatalogEncryptionSettingsResponse.fromJson({});
+    var response_ = await _client.send('GetDataCatalogEncryptionSettings', {
+      if (catalogId != null) 'CatalogId': catalogId,
+    });
+    return GetDataCatalogEncryptionSettingsResponse.fromJson(response_);
   }
 
   /// Retrieves the definition of a specified database.
@@ -1097,7 +1376,11 @@ class GlueApi {
   /// should be all lowercase.
   Future<GetDatabaseResponse> getDatabase(String name,
       {String catalogId}) async {
-    return GetDatabaseResponse.fromJson({});
+    var response_ = await _client.send('GetDatabase', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'Name': name,
+    });
+    return GetDatabaseResponse.fromJson(response_);
   }
 
   /// Retrieves all databases defined in a given Data Catalog.
@@ -1110,7 +1393,12 @@ class GlueApi {
   /// [maxResults]: The maximum number of databases to return in one response.
   Future<GetDatabasesResponse> getDatabases(
       {String catalogId, String nextToken, int maxResults}) async {
-    return GetDatabasesResponse.fromJson({});
+    var response_ = await _client.send('GetDatabases', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetDatabasesResponse.fromJson(response_);
   }
 
   /// Transforms a Python script into a directed acyclic graph (DAG).
@@ -1118,7 +1406,10 @@ class GlueApi {
   /// [pythonScript]: The Python script to transform.
   Future<GetDataflowGraphResponse> getDataflowGraph(
       {String pythonScript}) async {
-    return GetDataflowGraphResponse.fromJson({});
+    var response_ = await _client.send('GetDataflowGraph', {
+      if (pythonScript != null) 'PythonScript': pythonScript,
+    });
+    return GetDataflowGraphResponse.fromJson(response_);
   }
 
   /// Retrieves information about a specified development endpoint.
@@ -1132,7 +1423,10 @@ class GlueApi {
   ///
   /// [endpointName]: Name of the `DevEndpoint` to retrieve information for.
   Future<GetDevEndpointResponse> getDevEndpoint(String endpointName) async {
-    return GetDevEndpointResponse.fromJson({});
+    var response_ = await _client.send('GetDevEndpoint', {
+      'EndpointName': endpointName,
+    });
+    return GetDevEndpointResponse.fromJson(response_);
   }
 
   /// Retrieves all the development endpoints in this AWS account.
@@ -1149,14 +1443,21 @@ class GlueApi {
   /// [nextToken]: A continuation token, if this is a continuation call.
   Future<GetDevEndpointsResponse> getDevEndpoints(
       {int maxResults, String nextToken}) async {
-    return GetDevEndpointsResponse.fromJson({});
+    var response_ = await _client.send('GetDevEndpoints', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetDevEndpointsResponse.fromJson(response_);
   }
 
   /// Retrieves an existing job definition.
   ///
   /// [jobName]: The name of the job definition to retrieve.
   Future<GetJobResponse> getJob(String jobName) async {
-    return GetJobResponse.fromJson({});
+    var response_ = await _client.send('GetJob', {
+      'JobName': jobName,
+    });
+    return GetJobResponse.fromJson(response_);
   }
 
   /// Returns information on a job bookmark entry.
@@ -1166,7 +1467,11 @@ class GlueApi {
   /// [runId]: The unique run identifier associated with this job run.
   Future<GetJobBookmarkResponse> getJobBookmark(String jobName,
       {String runId}) async {
-    return GetJobBookmarkResponse.fromJson({});
+    var response_ = await _client.send('GetJobBookmark', {
+      'JobName': jobName,
+      if (runId != null) 'RunId': runId,
+    });
+    return GetJobBookmarkResponse.fromJson(response_);
   }
 
   /// Retrieves the metadata for a given job run.
@@ -1181,7 +1486,13 @@ class GlueApi {
       {@required String jobName,
       @required String runId,
       bool predecessorsIncluded}) async {
-    return GetJobRunResponse.fromJson({});
+    var response_ = await _client.send('GetJobRun', {
+      'JobName': jobName,
+      'RunId': runId,
+      if (predecessorsIncluded != null)
+        'PredecessorsIncluded': predecessorsIncluded,
+    });
+    return GetJobRunResponse.fromJson(response_);
   }
 
   /// Retrieves metadata for all runs of a given job definition.
@@ -1194,7 +1505,12 @@ class GlueApi {
   /// [maxResults]: The maximum size of the response.
   Future<GetJobRunsResponse> getJobRuns(String jobName,
       {String nextToken, int maxResults}) async {
-    return GetJobRunsResponse.fromJson({});
+    var response_ = await _client.send('GetJobRuns', {
+      'JobName': jobName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetJobRunsResponse.fromJson(response_);
   }
 
   /// Retrieves all current job definitions.
@@ -1203,7 +1519,11 @@ class GlueApi {
   ///
   /// [maxResults]: The maximum size of the response.
   Future<GetJobsResponse> getJobs({String nextToken, int maxResults}) async {
-    return GetJobsResponse.fromJson({});
+    var response_ = await _client.send('GetJobs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetJobsResponse.fromJson(response_);
   }
 
   /// Gets details for a specific task run on a machine learning transform.
@@ -1217,7 +1537,11 @@ class GlueApi {
   /// [taskRunId]: The unique identifier of the task run.
   Future<GetMLTaskRunResponse> getMLTaskRun(
       {@required String transformId, @required String taskRunId}) async {
-    return GetMLTaskRunResponse.fromJson({});
+    var response_ = await _client.send('GetMLTaskRun', {
+      'TransformId': transformId,
+      'TaskRunId': taskRunId,
+    });
+    return GetMLTaskRunResponse.fromJson(response_);
   }
 
   /// Gets a list of runs for a machine learning transform. Machine learning
@@ -1245,7 +1569,14 @@ class GlueApi {
       int maxResults,
       TaskRunFilterCriteria filter,
       TaskRunSortCriteria sort}) async {
-    return GetMLTaskRunsResponse.fromJson({});
+    var response_ = await _client.send('GetMLTaskRuns', {
+      'TransformId': transformId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filter != null) 'Filter': filter,
+      if (sort != null) 'Sort': sort,
+    });
+    return GetMLTaskRunsResponse.fromJson(response_);
   }
 
   /// Gets an AWS Glue machine learning transform artifact and all its
@@ -1258,7 +1589,10 @@ class GlueApi {
   /// [transformId]: The unique identifier of the transform, generated at the
   /// time that the transform was created.
   Future<GetMLTransformResponse> getMLTransform(String transformId) async {
-    return GetMLTransformResponse.fromJson({});
+    var response_ = await _client.send('GetMLTransform', {
+      'TransformId': transformId,
+    });
+    return GetMLTransformResponse.fromJson(response_);
   }
 
   /// Gets a sortable, filterable list of existing AWS Glue machine learning
@@ -1280,7 +1614,13 @@ class GlueApi {
       int maxResults,
       TransformFilterCriteria filter,
       TransformSortCriteria sort}) async {
-    return GetMLTransformsResponse.fromJson({});
+    var response_ = await _client.send('GetMLTransforms', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filter != null) 'Filter': filter,
+      if (sort != null) 'Sort': sort,
+    });
+    return GetMLTransformsResponse.fromJson(response_);
   }
 
   /// Creates mappings.
@@ -1292,7 +1632,12 @@ class GlueApi {
   /// [location]: Parameters for the mapping.
   Future<GetMappingResponse> getMapping(CatalogEntry source,
       {List<CatalogEntry> sinks, Location location}) async {
-    return GetMappingResponse.fromJson({});
+    var response_ = await _client.send('GetMapping', {
+      'Source': source,
+      if (sinks != null) 'Sinks': sinks,
+      if (location != null) 'Location': location,
+    });
+    return GetMappingResponse.fromJson(response_);
   }
 
   /// Retrieves information about a specified partition.
@@ -1311,7 +1656,13 @@ class GlueApi {
       @required String databaseName,
       @required String tableName,
       @required List<String> partitionValues}) async {
-    return GetPartitionResponse.fromJson({});
+    var response_ = await _client.send('GetPartition', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      'PartitionValues': partitionValues,
+    });
+    return GetPartitionResponse.fromJson(response_);
   }
 
   /// Retrieves information about the partitions in a table.
@@ -1427,7 +1778,16 @@ class GlueApi {
       String nextToken,
       Segment segment,
       int maxResults}) async {
-    return GetPartitionsResponse.fromJson({});
+    var response_ = await _client.send('GetPartitions', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      if (expression != null) 'Expression': expression,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (segment != null) 'Segment': segment,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetPartitionsResponse.fromJson(response_);
   }
 
   /// Gets code to perform a specified mapping.
@@ -1447,12 +1807,20 @@ class GlueApi {
       List<CatalogEntry> sinks,
       Location location,
       String language}) async {
-    return GetPlanResponse.fromJson({});
+    var response_ = await _client.send('GetPlan', {
+      'Mapping': mapping,
+      'Source': source,
+      if (sinks != null) 'Sinks': sinks,
+      if (location != null) 'Location': location,
+      if (language != null) 'Language': language,
+    });
+    return GetPlanResponse.fromJson(response_);
   }
 
   /// Retrieves a specified resource policy.
   Future<GetResourcePolicyResponse> getResourcePolicy() async {
-    return GetResourcePolicyResponse.fromJson({});
+    var response_ = await _client.send('GetResourcePolicy', {});
+    return GetResourcePolicyResponse.fromJson(response_);
   }
 
   /// Retrieves a specified security configuration.
@@ -1460,7 +1828,10 @@ class GlueApi {
   /// [name]: The name of the security configuration to retrieve.
   Future<GetSecurityConfigurationResponse> getSecurityConfiguration(
       String name) async {
-    return GetSecurityConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetSecurityConfiguration', {
+      'Name': name,
+    });
+    return GetSecurityConfigurationResponse.fromJson(response_);
   }
 
   /// Retrieves a list of all security configurations.
@@ -1470,7 +1841,11 @@ class GlueApi {
   /// [nextToken]: A continuation token, if this is a continuation call.
   Future<GetSecurityConfigurationsResponse> getSecurityConfigurations(
       {int maxResults, String nextToken}) async {
-    return GetSecurityConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('GetSecurityConfigurations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetSecurityConfigurationsResponse.fromJson(response_);
   }
 
   /// Retrieves the `Table` definition in a Data Catalog for a specified table.
@@ -1487,7 +1862,12 @@ class GlueApi {
       {String catalogId,
       @required String databaseName,
       @required String name}) async {
-    return GetTableResponse.fromJson({});
+    var response_ = await _client.send('GetTable', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'Name': name,
+    });
+    return GetTableResponse.fromJson(response_);
   }
 
   /// Retrieves a specified version of a table.
@@ -1509,7 +1889,13 @@ class GlueApi {
       @required String databaseName,
       @required String tableName,
       String versionId}) async {
-    return GetTableVersionResponse.fromJson({});
+    var response_ = await _client.send('GetTableVersion', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      if (versionId != null) 'VersionId': versionId,
+    });
+    return GetTableVersionResponse.fromJson(response_);
   }
 
   /// Retrieves a list of strings that identify available versions of a
@@ -1534,7 +1920,14 @@ class GlueApi {
       @required String tableName,
       String nextToken,
       int maxResults}) async {
-    return GetTableVersionsResponse.fromJson({});
+    var response_ = await _client.send('GetTableVersions', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetTableVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves the definitions of some or all of the tables in a given
@@ -1558,7 +1951,14 @@ class GlueApi {
       String expression,
       String nextToken,
       int maxResults}) async {
-    return GetTablesResponse.fromJson({});
+    var response_ = await _client.send('GetTables', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      if (expression != null) 'Expression': expression,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetTablesResponse.fromJson(response_);
   }
 
   /// Retrieves a list of tags associated with a resource.
@@ -1566,14 +1966,20 @@ class GlueApi {
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource for which to
   /// retrieve tags.
   Future<GetTagsResponse> getTags(String resourceArn) async {
-    return GetTagsResponse.fromJson({});
+    var response_ = await _client.send('GetTags', {
+      'ResourceArn': resourceArn,
+    });
+    return GetTagsResponse.fromJson(response_);
   }
 
   /// Retrieves the definition of a trigger.
   ///
   /// [name]: The name of the trigger to retrieve.
   Future<GetTriggerResponse> getTrigger(String name) async {
-    return GetTriggerResponse.fromJson({});
+    var response_ = await _client.send('GetTrigger', {
+      'Name': name,
+    });
+    return GetTriggerResponse.fromJson(response_);
   }
 
   /// Gets all the triggers associated with a job.
@@ -1587,7 +1993,12 @@ class GlueApi {
   /// [maxResults]: The maximum size of the response.
   Future<GetTriggersResponse> getTriggers(
       {String nextToken, String dependentJobName, int maxResults}) async {
-    return GetTriggersResponse.fromJson({});
+    var response_ = await _client.send('GetTriggers', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dependentJobName != null) 'DependentJobName': dependentJobName,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetTriggersResponse.fromJson(response_);
   }
 
   /// Retrieves a specified function definition from the Data Catalog.
@@ -1603,7 +2014,12 @@ class GlueApi {
       {String catalogId,
       @required String databaseName,
       @required String functionName}) async {
-    return GetUserDefinedFunctionResponse.fromJson({});
+    var response_ = await _client.send('GetUserDefinedFunction', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'FunctionName': functionName,
+    });
+    return GetUserDefinedFunctionResponse.fromJson(response_);
   }
 
   /// Retrieves multiple function definitions from the Data Catalog.
@@ -1627,7 +2043,14 @@ class GlueApi {
       @required String pattern,
       String nextToken,
       int maxResults}) async {
-    return GetUserDefinedFunctionsResponse.fromJson({});
+    var response_ = await _client.send('GetUserDefinedFunctions', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'Pattern': pattern,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetUserDefinedFunctionsResponse.fromJson(response_);
   }
 
   /// Retrieves resource metadata for a workflow.
@@ -1638,7 +2061,11 @@ class GlueApi {
   /// workflow resource metadata.
   Future<GetWorkflowResponse> getWorkflow(String name,
       {bool includeGraph}) async {
-    return GetWorkflowResponse.fromJson({});
+    var response_ = await _client.send('GetWorkflow', {
+      'Name': name,
+      if (includeGraph != null) 'IncludeGraph': includeGraph,
+    });
+    return GetWorkflowResponse.fromJson(response_);
   }
 
   /// Retrieves the metadata for a given workflow run.
@@ -1653,7 +2080,12 @@ class GlueApi {
       {@required String name,
       @required String runId,
       bool includeGraph}) async {
-    return GetWorkflowRunResponse.fromJson({});
+    var response_ = await _client.send('GetWorkflowRun', {
+      'Name': name,
+      'RunId': runId,
+      if (includeGraph != null) 'IncludeGraph': includeGraph,
+    });
+    return GetWorkflowRunResponse.fromJson(response_);
   }
 
   /// Retrieves the workflow run properties which were set during the run.
@@ -1664,7 +2096,11 @@ class GlueApi {
   /// returned.
   Future<GetWorkflowRunPropertiesResponse> getWorkflowRunProperties(
       {@required String name, @required String runId}) async {
-    return GetWorkflowRunPropertiesResponse.fromJson({});
+    var response_ = await _client.send('GetWorkflowRunProperties', {
+      'Name': name,
+      'RunId': runId,
+    });
+    return GetWorkflowRunPropertiesResponse.fromJson(response_);
   }
 
   /// Retrieves metadata for all runs of a given workflow.
@@ -1680,7 +2116,13 @@ class GlueApi {
   /// response.
   Future<GetWorkflowRunsResponse> getWorkflowRuns(String name,
       {bool includeGraph, String nextToken, int maxResults}) async {
-    return GetWorkflowRunsResponse.fromJson({});
+    var response_ = await _client.send('GetWorkflowRuns', {
+      'Name': name,
+      if (includeGraph != null) 'IncludeGraph': includeGraph,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetWorkflowRunsResponse.fromJson(response_);
   }
 
   /// Imports an existing Amazon Athena Data Catalog to AWS Glue
@@ -1689,7 +2131,10 @@ class GlueApi {
   /// the AWS account ID.
   Future<ImportCatalogToGlueResponse> importCatalogToGlue(
       {String catalogId}) async {
-    return ImportCatalogToGlueResponse.fromJson({});
+    var response_ = await _client.send('ImportCatalogToGlue', {
+      if (catalogId != null) 'CatalogId': catalogId,
+    });
+    return ImportCatalogToGlueResponse.fromJson(response_);
   }
 
   /// Retrieves the names of all crawler resources in this AWS account, or the
@@ -1708,7 +2153,12 @@ class GlueApi {
   /// [tags]: Specifies to return only these tagged resources.
   Future<ListCrawlersResponse> listCrawlers(
       {int maxResults, String nextToken, Map<String, String> tags}) async {
-    return ListCrawlersResponse.fromJson({});
+    var response_ = await _client.send('ListCrawlers', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return ListCrawlersResponse.fromJson(response_);
   }
 
   /// Retrieves the names of all `DevEndpoint` resources in this AWS account, or
@@ -1727,7 +2177,12 @@ class GlueApi {
   /// [tags]: Specifies to return only these tagged resources.
   Future<ListDevEndpointsResponse> listDevEndpoints(
       {String nextToken, int maxResults, Map<String, String> tags}) async {
-    return ListDevEndpointsResponse.fromJson({});
+    var response_ = await _client.send('ListDevEndpoints', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (tags != null) 'Tags': tags,
+    });
+    return ListDevEndpointsResponse.fromJson(response_);
   }
 
   /// Retrieves the names of all job resources in this AWS account, or the
@@ -1746,7 +2201,12 @@ class GlueApi {
   /// [tags]: Specifies to return only these tagged resources.
   Future<ListJobsResponse> listJobs(
       {String nextToken, int maxResults, Map<String, String> tags}) async {
-    return ListJobsResponse.fromJson({});
+    var response_ = await _client.send('ListJobs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (tags != null) 'Tags': tags,
+    });
+    return ListJobsResponse.fromJson(response_);
   }
 
   /// Retrieves the names of all trigger resources in this AWS account, or the
@@ -1772,7 +2232,13 @@ class GlueApi {
       String dependentJobName,
       int maxResults,
       Map<String, String> tags}) async {
-    return ListTriggersResponse.fromJson({});
+    var response_ = await _client.send('ListTriggers', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dependentJobName != null) 'DependentJobName': dependentJobName,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (tags != null) 'Tags': tags,
+    });
+    return ListTriggersResponse.fromJson(response_);
   }
 
   /// Lists names of workflows created in the account.
@@ -1782,7 +2248,11 @@ class GlueApi {
   /// [maxResults]: The maximum size of a list to return.
   Future<ListWorkflowsResponse> listWorkflows(
       {String nextToken, int maxResults}) async {
-    return ListWorkflowsResponse.fromJson({});
+    var response_ = await _client.send('ListWorkflows', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListWorkflowsResponse.fromJson(response_);
   }
 
   /// Sets the security configuration for a specified catalog. After the
@@ -1797,7 +2267,11 @@ class GlueApi {
       putDataCatalogEncryptionSettings(
           DataCatalogEncryptionSettings dataCatalogEncryptionSettings,
           {String catalogId}) async {
-    return PutDataCatalogEncryptionSettingsResponse.fromJson({});
+    var response_ = await _client.send('PutDataCatalogEncryptionSettings', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DataCatalogEncryptionSettings': dataCatalogEncryptionSettings,
+    });
+    return PutDataCatalogEncryptionSettingsResponse.fromJson(response_);
   }
 
   /// Sets the Data Catalog resource policy for access control.
@@ -1815,7 +2289,14 @@ class GlueApi {
   /// existence of a policy.
   Future<PutResourcePolicyResponse> putResourcePolicy(String policyInJson,
       {String policyHashCondition, String policyExistsCondition}) async {
-    return PutResourcePolicyResponse.fromJson({});
+    var response_ = await _client.send('PutResourcePolicy', {
+      'PolicyInJson': policyInJson,
+      if (policyHashCondition != null)
+        'PolicyHashCondition': policyHashCondition,
+      if (policyExistsCondition != null)
+        'PolicyExistsCondition': policyExistsCondition,
+    });
+    return PutResourcePolicyResponse.fromJson(response_);
   }
 
   /// Puts the specified workflow run properties for the given workflow run. If
@@ -1832,7 +2313,12 @@ class GlueApi {
       {@required String name,
       @required String runId,
       @required Map<String, String> runProperties}) async {
-    return PutWorkflowRunPropertiesResponse.fromJson({});
+    var response_ = await _client.send('PutWorkflowRunProperties', {
+      'Name': name,
+      'RunId': runId,
+      'RunProperties': runProperties,
+    });
+    return PutWorkflowRunPropertiesResponse.fromJson(response_);
   }
 
   /// Resets a bookmark entry.
@@ -1842,7 +2328,11 @@ class GlueApi {
   /// [runId]: The unique run identifier associated with this job run.
   Future<ResetJobBookmarkResponse> resetJobBookmark(String jobName,
       {String runId}) async {
-    return ResetJobBookmarkResponse.fromJson({});
+    var response_ = await _client.send('ResetJobBookmark', {
+      'JobName': jobName,
+      if (runId != null) 'RunId': runId,
+    });
+    return ResetJobBookmarkResponse.fromJson(response_);
   }
 
   /// Searches a set of tables based on properties in the table metadata as well
@@ -1880,7 +2370,15 @@ class GlueApi {
       String searchText,
       List<SortCriterion> sortCriteria,
       int maxResults}) async {
-    return SearchTablesResponse.fromJson({});
+    var response_ = await _client.send('SearchTables', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+      if (searchText != null) 'SearchText': searchText,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return SearchTablesResponse.fromJson(response_);
   }
 
   /// Starts a crawl using the specified crawler, regardless of what is
@@ -1889,7 +2387,10 @@ class GlueApi {
   ///
   /// [name]: Name of the crawler to start.
   Future<StartCrawlerResponse> startCrawler(String name) async {
-    return StartCrawlerResponse.fromJson({});
+    var response_ = await _client.send('StartCrawler', {
+      'Name': name,
+    });
+    return StartCrawlerResponse.fromJson(response_);
   }
 
   /// Changes the schedule state of the specified crawler to `SCHEDULED`, unless
@@ -1899,7 +2400,10 @@ class GlueApi {
   /// [crawlerName]: Name of the crawler to schedule.
   Future<StartCrawlerScheduleResponse> startCrawlerSchedule(
       String crawlerName) async {
-    return StartCrawlerScheduleResponse.fromJson({});
+    var response_ = await _client.send('StartCrawlerSchedule', {
+      'CrawlerName': crawlerName,
+    });
+    return StartCrawlerScheduleResponse.fromJson(response_);
   }
 
   /// Begins an asynchronous task to export all labeled data for a particular
@@ -1918,7 +2422,11 @@ class GlueApi {
   /// [outputS3Path]: The Amazon S3 path where you export the labels.
   Future<StartExportLabelsTaskRunResponse> startExportLabelsTaskRun(
       {@required String transformId, @required String outputS3Path}) async {
-    return StartExportLabelsTaskRunResponse.fromJson({});
+    var response_ = await _client.send('StartExportLabelsTaskRun', {
+      'TransformId': transformId,
+      'OutputS3Path': outputS3Path,
+    });
+    return StartExportLabelsTaskRunResponse.fromJson(response_);
   }
 
   /// Enables you to provide additional labels (examples of truth) to be used to
@@ -1960,7 +2468,12 @@ class GlueApi {
       {@required String transformId,
       @required String inputS3Path,
       bool replaceAllLabels}) async {
-    return StartImportLabelsTaskRunResponse.fromJson({});
+    var response_ = await _client.send('StartImportLabelsTaskRun', {
+      'TransformId': transformId,
+      'InputS3Path': inputS3Path,
+      if (replaceAllLabels != null) 'ReplaceAllLabels': replaceAllLabels,
+    });
+    return StartImportLabelsTaskRunResponse.fromJson(response_);
   }
 
   /// Starts a job run using a job definition.
@@ -2049,7 +2562,21 @@ class GlueApi {
       NotificationProperty notificationProperty,
       String workerType,
       int numberOfWorkers}) async {
-    return StartJobRunResponse.fromJson({});
+    var response_ = await _client.send('StartJobRun', {
+      'JobName': jobName,
+      if (jobRunId != null) 'JobRunId': jobRunId,
+      if (arguments != null) 'Arguments': arguments,
+      if (allocatedCapacity != null) 'AllocatedCapacity': allocatedCapacity,
+      if (timeout != null) 'Timeout': timeout,
+      if (maxCapacity != null) 'MaxCapacity': maxCapacity,
+      if (securityConfiguration != null)
+        'SecurityConfiguration': securityConfiguration,
+      if (notificationProperty != null)
+        'NotificationProperty': notificationProperty,
+      if (workerType != null) 'WorkerType': workerType,
+      if (numberOfWorkers != null) 'NumberOfWorkers': numberOfWorkers,
+    });
+    return StartJobRunResponse.fromJson(response_);
   }
 
   /// Starts a task to estimate the quality of the transform.
@@ -2064,7 +2591,10 @@ class GlueApi {
   /// [transformId]: The unique identifier of the machine learning transform.
   Future<StartMLEvaluationTaskRunResponse> startMLEvaluationTaskRun(
       String transformId) async {
-    return StartMLEvaluationTaskRunResponse.fromJson({});
+    var response_ = await _client.send('StartMLEvaluationTaskRun', {
+      'TransformId': transformId,
+    });
+    return StartMLEvaluationTaskRunResponse.fromJson(response_);
   }
 
   /// Starts the active learning workflow for your machine learning transform to
@@ -2091,7 +2621,11 @@ class GlueApi {
   Future<StartMLLabelingSetGenerationTaskRunResponse>
       startMLLabelingSetGenerationTaskRun(
           {@required String transformId, @required String outputS3Path}) async {
-    return StartMLLabelingSetGenerationTaskRunResponse.fromJson({});
+    var response_ = await _client.send('StartMLLabelingSetGenerationTaskRun', {
+      'TransformId': transformId,
+      'OutputS3Path': outputS3Path,
+    });
+    return StartMLLabelingSetGenerationTaskRunResponse.fromJson(response_);
   }
 
   /// Starts an existing trigger. See
@@ -2100,21 +2634,30 @@ class GlueApi {
   ///
   /// [name]: The name of the trigger to start.
   Future<StartTriggerResponse> startTrigger(String name) async {
-    return StartTriggerResponse.fromJson({});
+    var response_ = await _client.send('StartTrigger', {
+      'Name': name,
+    });
+    return StartTriggerResponse.fromJson(response_);
   }
 
   /// Starts a new run of the specified workflow.
   ///
   /// [name]: The name of the workflow to start.
   Future<StartWorkflowRunResponse> startWorkflowRun(String name) async {
-    return StartWorkflowRunResponse.fromJson({});
+    var response_ = await _client.send('StartWorkflowRun', {
+      'Name': name,
+    });
+    return StartWorkflowRunResponse.fromJson(response_);
   }
 
   /// If the specified crawler is running, stops the crawl.
   ///
   /// [name]: Name of the crawler to stop.
   Future<StopCrawlerResponse> stopCrawler(String name) async {
-    return StopCrawlerResponse.fromJson({});
+    var response_ = await _client.send('StopCrawler', {
+      'Name': name,
+    });
+    return StopCrawlerResponse.fromJson(response_);
   }
 
   /// Sets the schedule state of the specified crawler to `NOT_SCHEDULED`, but
@@ -2123,14 +2666,20 @@ class GlueApi {
   /// [crawlerName]: Name of the crawler whose schedule state to set.
   Future<StopCrawlerScheduleResponse> stopCrawlerSchedule(
       String crawlerName) async {
-    return StopCrawlerScheduleResponse.fromJson({});
+    var response_ = await _client.send('StopCrawlerSchedule', {
+      'CrawlerName': crawlerName,
+    });
+    return StopCrawlerScheduleResponse.fromJson(response_);
   }
 
   /// Stops a specified trigger.
   ///
   /// [name]: The name of the trigger to stop.
   Future<StopTriggerResponse> stopTrigger(String name) async {
-    return StopTriggerResponse.fromJson({});
+    var response_ = await _client.send('StopTrigger', {
+      'Name': name,
+    });
+    return StopTriggerResponse.fromJson(response_);
   }
 
   /// Adds tags to a resource. A tag is a label you can assign to an AWS
@@ -2146,7 +2695,11 @@ class GlueApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tagsToAdd}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'TagsToAdd': tagsToAdd,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes tags from a resource.
@@ -2158,7 +2711,11 @@ class GlueApi {
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn,
       @required List<String> tagsToRemove}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagsToRemove': tagsToRemove,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Modifies an existing classifier (a `GrokClassifier`, an `XMLClassifier`, a
@@ -2177,7 +2734,13 @@ class GlueApi {
       UpdateXmlClassifierRequest xmlClassifier,
       UpdateJsonClassifierRequest jsonClassifier,
       UpdateCsvClassifierRequest csvClassifier}) async {
-    return UpdateClassifierResponse.fromJson({});
+    var response_ = await _client.send('UpdateClassifier', {
+      if (grokClassifier != null) 'GrokClassifier': grokClassifier,
+      if (xmlClassifier != null) 'XMLClassifier': xmlClassifier,
+      if (jsonClassifier != null) 'JsonClassifier': jsonClassifier,
+      if (csvClassifier != null) 'CsvClassifier': csvClassifier,
+    });
+    return UpdateClassifierResponse.fromJson(response_);
   }
 
   /// Updates a connection definition in the Data Catalog.
@@ -2193,7 +2756,12 @@ class GlueApi {
       {String catalogId,
       @required String name,
       @required ConnectionInput connectionInput}) async {
-    return UpdateConnectionResponse.fromJson({});
+    var response_ = await _client.send('UpdateConnection', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'Name': name,
+      'ConnectionInput': connectionInput,
+    });
+    return UpdateConnectionResponse.fromJson(response_);
   }
 
   /// Updates a crawler. If a crawler is running, you must stop it using
@@ -2245,7 +2813,21 @@ class GlueApi {
       SchemaChangePolicy schemaChangePolicy,
       String configuration,
       String crawlerSecurityConfiguration}) async {
-    return UpdateCrawlerResponse.fromJson({});
+    var response_ = await _client.send('UpdateCrawler', {
+      'Name': name,
+      if (role != null) 'Role': role,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      if (description != null) 'Description': description,
+      if (targets != null) 'Targets': targets,
+      if (schedule != null) 'Schedule': schedule,
+      if (classifiers != null) 'Classifiers': classifiers,
+      if (tablePrefix != null) 'TablePrefix': tablePrefix,
+      if (schemaChangePolicy != null) 'SchemaChangePolicy': schemaChangePolicy,
+      if (configuration != null) 'Configuration': configuration,
+      if (crawlerSecurityConfiguration != null)
+        'CrawlerSecurityConfiguration': crawlerSecurityConfiguration,
+    });
+    return UpdateCrawlerResponse.fromJson(response_);
   }
 
   /// Updates the schedule of a crawler using a `cron` expression.
@@ -2260,7 +2842,11 @@ class GlueApi {
   Future<UpdateCrawlerScheduleResponse> updateCrawlerSchedule(
       String crawlerName,
       {String schedule}) async {
-    return UpdateCrawlerScheduleResponse.fromJson({});
+    var response_ = await _client.send('UpdateCrawlerSchedule', {
+      'CrawlerName': crawlerName,
+      if (schedule != null) 'Schedule': schedule,
+    });
+    return UpdateCrawlerScheduleResponse.fromJson(response_);
   }
 
   /// Updates an existing database definition in a Data Catalog.
@@ -2277,7 +2863,12 @@ class GlueApi {
       {String catalogId,
       @required String name,
       @required DatabaseInput databaseInput}) async {
-    return UpdateDatabaseResponse.fromJson({});
+    var response_ = await _client.send('UpdateDatabase', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'Name': name,
+      'DatabaseInput': databaseInput,
+    });
+    return UpdateDatabaseResponse.fromJson(response_);
   }
 
   /// Updates a specified development endpoint.
@@ -2310,7 +2901,17 @@ class GlueApi {
       bool updateEtlLibraries,
       List<String> deleteArguments,
       Map<String, String> addArguments}) async {
-    return UpdateDevEndpointResponse.fromJson({});
+    var response_ = await _client.send('UpdateDevEndpoint', {
+      'EndpointName': endpointName,
+      if (publicKey != null) 'PublicKey': publicKey,
+      if (addPublicKeys != null) 'AddPublicKeys': addPublicKeys,
+      if (deletePublicKeys != null) 'DeletePublicKeys': deletePublicKeys,
+      if (customLibraries != null) 'CustomLibraries': customLibraries,
+      if (updateEtlLibraries != null) 'UpdateEtlLibraries': updateEtlLibraries,
+      if (deleteArguments != null) 'DeleteArguments': deleteArguments,
+      if (addArguments != null) 'AddArguments': addArguments,
+    });
+    return UpdateDevEndpointResponse.fromJson(response_);
   }
 
   /// Updates an existing job definition.
@@ -2320,7 +2921,11 @@ class GlueApi {
   /// [jobUpdate]: Specifies the values with which to update the job definition.
   Future<UpdateJobResponse> updateJob(
       {@required String jobName, @required JobUpdate jobUpdate}) async {
-    return UpdateJobResponse.fromJson({});
+    var response_ = await _client.send('UpdateJob', {
+      'JobName': jobName,
+      'JobUpdate': jobUpdate,
+    });
+    return UpdateJobResponse.fromJson(response_);
   }
 
   /// Updates an existing machine learning transform. Call this operation to
@@ -2388,7 +2993,19 @@ class GlueApi {
       int numberOfWorkers,
       int timeout,
       int maxRetries}) async {
-    return UpdateMLTransformResponse.fromJson({});
+    var response_ = await _client.send('UpdateMLTransform', {
+      'TransformId': transformId,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (parameters != null) 'Parameters': parameters,
+      if (role != null) 'Role': role,
+      if (maxCapacity != null) 'MaxCapacity': maxCapacity,
+      if (workerType != null) 'WorkerType': workerType,
+      if (numberOfWorkers != null) 'NumberOfWorkers': numberOfWorkers,
+      if (timeout != null) 'Timeout': timeout,
+      if (maxRetries != null) 'MaxRetries': maxRetries,
+    });
+    return UpdateMLTransformResponse.fromJson(response_);
   }
 
   /// Updates a partition.
@@ -2411,7 +3028,14 @@ class GlueApi {
       @required String tableName,
       @required List<String> partitionValueList,
       @required PartitionInput partitionInput}) async {
-    return UpdatePartitionResponse.fromJson({});
+    var response_ = await _client.send('UpdatePartition', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableName': tableName,
+      'PartitionValueList': partitionValueList,
+      'PartitionInput': partitionInput,
+    });
+    return UpdatePartitionResponse.fromJson(response_);
   }
 
   /// Updates a metadata table in the Data Catalog.
@@ -2433,7 +3057,13 @@ class GlueApi {
       @required String databaseName,
       @required TableInput tableInput,
       bool skipArchive}) async {
-    return UpdateTableResponse.fromJson({});
+    var response_ = await _client.send('UpdateTable', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'TableInput': tableInput,
+      if (skipArchive != null) 'SkipArchive': skipArchive,
+    });
+    return UpdateTableResponse.fromJson(response_);
   }
 
   /// Updates a trigger definition.
@@ -2443,7 +3073,11 @@ class GlueApi {
   /// [triggerUpdate]: The new values with which to update the trigger.
   Future<UpdateTriggerResponse> updateTrigger(
       {@required String name, @required TriggerUpdate triggerUpdate}) async {
-    return UpdateTriggerResponse.fromJson({});
+    var response_ = await _client.send('UpdateTrigger', {
+      'Name': name,
+      'TriggerUpdate': triggerUpdate,
+    });
+    return UpdateTriggerResponse.fromJson(response_);
   }
 
   /// Updates an existing function definition in the Data Catalog.
@@ -2463,7 +3097,13 @@ class GlueApi {
       @required String databaseName,
       @required String functionName,
       @required UserDefinedFunctionInput functionInput}) async {
-    return UpdateUserDefinedFunctionResponse.fromJson({});
+    var response_ = await _client.send('UpdateUserDefinedFunction', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DatabaseName': databaseName,
+      'FunctionName': functionName,
+      'FunctionInput': functionInput,
+    });
+    return UpdateUserDefinedFunctionResponse.fromJson(response_);
   }
 
   /// Updates an existing workflow.
@@ -2476,7 +3116,13 @@ class GlueApi {
   /// each execution of the workflow.
   Future<UpdateWorkflowResponse> updateWorkflow(String name,
       {String description, Map<String, String> defaultRunProperties}) async {
-    return UpdateWorkflowResponse.fromJson({});
+    var response_ = await _client.send('UpdateWorkflow', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (defaultRunProperties != null)
+        'DefaultRunProperties': defaultRunProperties,
+    });
+    return UpdateWorkflowResponse.fromJson(response_);
   }
 }
 
@@ -2526,7 +3172,24 @@ class Action {
     this.notificationProperty,
     this.crawlerName,
   });
-  static Action fromJson(Map<String, dynamic> json) => Action();
+  static Action fromJson(Map<String, dynamic> json) => Action(
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        arguments: json.containsKey('Arguments')
+            ? (json['Arguments'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        timeout: json.containsKey('Timeout') ? json['Timeout'] as int : null,
+        securityConfiguration: json.containsKey('SecurityConfiguration')
+            ? json['SecurityConfiguration'] as String
+            : null,
+        notificationProperty: json.containsKey('NotificationProperty')
+            ? NotificationProperty.fromJson(json['NotificationProperty'])
+            : null,
+        crawlerName: json.containsKey('CrawlerName')
+            ? json['CrawlerName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class BatchCreatePartitionResponse {
@@ -2537,7 +3200,13 @@ class BatchCreatePartitionResponse {
     this.errors,
   });
   static BatchCreatePartitionResponse fromJson(Map<String, dynamic> json) =>
-      BatchCreatePartitionResponse();
+      BatchCreatePartitionResponse(
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List)
+                .map((e) => PartitionError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDeleteConnectionResponse {
@@ -2554,7 +3223,15 @@ class BatchDeleteConnectionResponse {
     this.errors,
   });
   static BatchDeleteConnectionResponse fromJson(Map<String, dynamic> json) =>
-      BatchDeleteConnectionResponse();
+      BatchDeleteConnectionResponse(
+        succeeded: json.containsKey('Succeeded')
+            ? (json['Succeeded'] as List).map((e) => e as String).toList()
+            : null,
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as Map)
+                .map((k, v) => MapEntry(k as String, ErrorDetail.fromJson(v)))
+            : null,
+      );
 }
 
 class BatchDeletePartitionResponse {
@@ -2565,7 +3242,13 @@ class BatchDeletePartitionResponse {
     this.errors,
   });
   static BatchDeletePartitionResponse fromJson(Map<String, dynamic> json) =>
-      BatchDeletePartitionResponse();
+      BatchDeletePartitionResponse(
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List)
+                .map((e) => PartitionError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDeleteTableResponse {
@@ -2576,7 +3259,13 @@ class BatchDeleteTableResponse {
     this.errors,
   });
   static BatchDeleteTableResponse fromJson(Map<String, dynamic> json) =>
-      BatchDeleteTableResponse();
+      BatchDeleteTableResponse(
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List)
+                .map((e) => TableError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDeleteTableVersionResponse {
@@ -2588,7 +3277,13 @@ class BatchDeleteTableVersionResponse {
     this.errors,
   });
   static BatchDeleteTableVersionResponse fromJson(Map<String, dynamic> json) =>
-      BatchDeleteTableVersionResponse();
+      BatchDeleteTableVersionResponse(
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List)
+                .map((e) => TableVersionError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchGetCrawlersResponse {
@@ -2603,7 +3298,18 @@ class BatchGetCrawlersResponse {
     this.crawlersNotFound,
   });
   static BatchGetCrawlersResponse fromJson(Map<String, dynamic> json) =>
-      BatchGetCrawlersResponse();
+      BatchGetCrawlersResponse(
+        crawlers: json.containsKey('Crawlers')
+            ? (json['Crawlers'] as List)
+                .map((e) => Crawler.fromJson(e))
+                .toList()
+            : null,
+        crawlersNotFound: json.containsKey('CrawlersNotFound')
+            ? (json['CrawlersNotFound'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class BatchGetDevEndpointsResponse {
@@ -2618,7 +3324,18 @@ class BatchGetDevEndpointsResponse {
     this.devEndpointsNotFound,
   });
   static BatchGetDevEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      BatchGetDevEndpointsResponse();
+      BatchGetDevEndpointsResponse(
+        devEndpoints: json.containsKey('DevEndpoints')
+            ? (json['DevEndpoints'] as List)
+                .map((e) => DevEndpoint.fromJson(e))
+                .toList()
+            : null,
+        devEndpointsNotFound: json.containsKey('DevEndpointsNotFound')
+            ? (json['DevEndpointsNotFound'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class BatchGetJobsResponse {
@@ -2633,7 +3350,14 @@ class BatchGetJobsResponse {
     this.jobsNotFound,
   });
   static BatchGetJobsResponse fromJson(Map<String, dynamic> json) =>
-      BatchGetJobsResponse();
+      BatchGetJobsResponse(
+        jobs: json.containsKey('Jobs')
+            ? (json['Jobs'] as List).map((e) => Job.fromJson(e)).toList()
+            : null,
+        jobsNotFound: json.containsKey('JobsNotFound')
+            ? (json['JobsNotFound'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class BatchGetPartitionResponse {
@@ -2649,7 +3373,18 @@ class BatchGetPartitionResponse {
     this.unprocessedKeys,
   });
   static BatchGetPartitionResponse fromJson(Map<String, dynamic> json) =>
-      BatchGetPartitionResponse();
+      BatchGetPartitionResponse(
+        partitions: json.containsKey('Partitions')
+            ? (json['Partitions'] as List)
+                .map((e) => Partition.fromJson(e))
+                .toList()
+            : null,
+        unprocessedKeys: json.containsKey('UnprocessedKeys')
+            ? (json['UnprocessedKeys'] as List)
+                .map((e) => PartitionValueList.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchGetTriggersResponse {
@@ -2664,7 +3399,18 @@ class BatchGetTriggersResponse {
     this.triggersNotFound,
   });
   static BatchGetTriggersResponse fromJson(Map<String, dynamic> json) =>
-      BatchGetTriggersResponse();
+      BatchGetTriggersResponse(
+        triggers: json.containsKey('Triggers')
+            ? (json['Triggers'] as List)
+                .map((e) => Trigger.fromJson(e))
+                .toList()
+            : null,
+        triggersNotFound: json.containsKey('TriggersNotFound')
+            ? (json['TriggersNotFound'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class BatchGetWorkflowsResponse {
@@ -2679,7 +3425,18 @@ class BatchGetWorkflowsResponse {
     this.missingWorkflows,
   });
   static BatchGetWorkflowsResponse fromJson(Map<String, dynamic> json) =>
-      BatchGetWorkflowsResponse();
+      BatchGetWorkflowsResponse(
+        workflows: json.containsKey('Workflows')
+            ? (json['Workflows'] as List)
+                .map((e) => Workflow.fromJson(e))
+                .toList()
+            : null,
+        missingWorkflows: json.containsKey('MissingWorkflows')
+            ? (json['MissingWorkflows'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Records an error that occurred when attempting to stop a specified job run.
@@ -2699,7 +3456,14 @@ class BatchStopJobRunError {
     this.errorDetail,
   });
   static BatchStopJobRunError fromJson(Map<String, dynamic> json) =>
-      BatchStopJobRunError();
+      BatchStopJobRunError(
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobRunId:
+            json.containsKey('JobRunId') ? json['JobRunId'] as String : null,
+        errorDetail: json.containsKey('ErrorDetail')
+            ? ErrorDetail.fromJson(json['ErrorDetail'])
+            : null,
+      );
 }
 
 class BatchStopJobRunResponse {
@@ -2716,7 +3480,18 @@ class BatchStopJobRunResponse {
     this.errors,
   });
   static BatchStopJobRunResponse fromJson(Map<String, dynamic> json) =>
-      BatchStopJobRunResponse();
+      BatchStopJobRunResponse(
+        successfulSubmissions: json.containsKey('SuccessfulSubmissions')
+            ? (json['SuccessfulSubmissions'] as List)
+                .map((e) => BatchStopJobRunSuccessfulSubmission.fromJson(e))
+                .toList()
+            : null,
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List)
+                .map((e) => BatchStopJobRunError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Records a successful request to stop a specified `JobRun`.
@@ -2733,7 +3508,11 @@ class BatchStopJobRunSuccessfulSubmission {
   });
   static BatchStopJobRunSuccessfulSubmission fromJson(
           Map<String, dynamic> json) =>
-      BatchStopJobRunSuccessfulSubmission();
+      BatchStopJobRunSuccessfulSubmission(
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobRunId:
+            json.containsKey('JobRunId') ? json['JobRunId'] as String : null,
+      );
 }
 
 class CancelMLTaskRunResponse {
@@ -2752,7 +3531,14 @@ class CancelMLTaskRunResponse {
     this.status,
   });
   static CancelMLTaskRunResponse fromJson(Map<String, dynamic> json) =>
-      CancelMLTaskRunResponse();
+      CancelMLTaskRunResponse(
+        transformId: json.containsKey('TransformId')
+            ? json['TransformId'] as String
+            : null,
+        taskRunId:
+            json.containsKey('TaskRunId') ? json['TaskRunId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Specifies a table definition in the AWS Glue Data Catalog.
@@ -2767,6 +3553,7 @@ class CatalogEntry {
     @required this.databaseName,
     @required this.tableName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A structure containing migration status information.
@@ -2786,7 +3573,17 @@ class CatalogImportStatus {
     this.importedBy,
   });
   static CatalogImportStatus fromJson(Map<String, dynamic> json) =>
-      CatalogImportStatus();
+      CatalogImportStatus(
+        importCompleted: json.containsKey('ImportCompleted')
+            ? json['ImportCompleted'] as bool
+            : null,
+        importTime: json.containsKey('ImportTime')
+            ? DateTime.parse(json['ImportTime'])
+            : null,
+        importedBy: json.containsKey('ImportedBy')
+            ? json['ImportedBy'] as String
+            : null,
+      );
 }
 
 /// Specifies an AWS Glue Data Catalog target.
@@ -2801,7 +3598,11 @@ class CatalogTarget {
     @required this.databaseName,
     @required this.tables,
   });
-  static CatalogTarget fromJson(Map<String, dynamic> json) => CatalogTarget();
+  static CatalogTarget fromJson(Map<String, dynamic> json) => CatalogTarget(
+        databaseName: json['DatabaseName'] as String,
+        tables: (json['Tables'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Classifiers are triggered during a crawl task. A classifier checks whether a
@@ -2832,7 +3633,20 @@ class Classifier {
     this.jsonClassifier,
     this.csvClassifier,
   });
-  static Classifier fromJson(Map<String, dynamic> json) => Classifier();
+  static Classifier fromJson(Map<String, dynamic> json) => Classifier(
+        grokClassifier: json.containsKey('GrokClassifier')
+            ? GrokClassifier.fromJson(json['GrokClassifier'])
+            : null,
+        xmlClassifier: json.containsKey('XMLClassifier')
+            ? XmlClassifier.fromJson(json['XMLClassifier'])
+            : null,
+        jsonClassifier: json.containsKey('JsonClassifier')
+            ? JsonClassifier.fromJson(json['JsonClassifier'])
+            : null,
+        csvClassifier: json.containsKey('CsvClassifier')
+            ? CsvClassifier.fromJson(json['CsvClassifier'])
+            : null,
+      );
 }
 
 /// Specifies how Amazon CloudWatch data should be encrypted.
@@ -2849,7 +3663,14 @@ class CloudWatchEncryption {
     this.kmsKeyArn,
   });
   static CloudWatchEncryption fromJson(Map<String, dynamic> json) =>
-      CloudWatchEncryption();
+      CloudWatchEncryption(
+        cloudWatchEncryptionMode: json.containsKey('CloudWatchEncryptionMode')
+            ? json['CloudWatchEncryptionMode'] as String
+            : null,
+        kmsKeyArn:
+            json.containsKey('KmsKeyArn') ? json['KmsKeyArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a directional edge in a directed acyclic graph (DAG).
@@ -2868,7 +3689,14 @@ class CodeGenEdge {
     @required this.target,
     this.targetParameter,
   });
-  static CodeGenEdge fromJson(Map<String, dynamic> json) => CodeGenEdge();
+  static CodeGenEdge fromJson(Map<String, dynamic> json) => CodeGenEdge(
+        source: json['Source'] as String,
+        target: json['Target'] as String,
+        targetParameter: json.containsKey('TargetParameter')
+            ? json['TargetParameter'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a node in a directed acyclic graph (DAG)
@@ -2891,7 +3719,16 @@ class CodeGenNode {
     @required this.args,
     this.lineNumber,
   });
-  static CodeGenNode fromJson(Map<String, dynamic> json) => CodeGenNode();
+  static CodeGenNode fromJson(Map<String, dynamic> json) => CodeGenNode(
+        id: json['Id'] as String,
+        nodeType: json['NodeType'] as String,
+        args: (json['Args'] as List)
+            .map((e) => CodeGenNodeArg.fromJson(e))
+            .toList(),
+        lineNumber:
+            json.containsKey('LineNumber') ? json['LineNumber'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An argument or property of a node.
@@ -2910,7 +3747,12 @@ class CodeGenNodeArg {
     @required this.value,
     this.param,
   });
-  static CodeGenNodeArg fromJson(Map<String, dynamic> json) => CodeGenNodeArg();
+  static CodeGenNodeArg fromJson(Map<String, dynamic> json) => CodeGenNodeArg(
+        name: json['Name'] as String,
+        value: json['Value'] as String,
+        param: json.containsKey('Param') ? json['Param'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A column in a `Table`.
@@ -2933,7 +3775,16 @@ class Column {
     this.comment,
     this.parameters,
   });
-  static Column fromJson(Map<String, dynamic> json) => Column();
+  static Column fromJson(Map<String, dynamic> json) => Column(
+        name: json['Name'] as String,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines a condition under which a trigger fires.
@@ -2962,7 +3813,20 @@ class Condition {
     this.crawlerName,
     this.crawlState,
   });
-  static Condition fromJson(Map<String, dynamic> json) => Condition();
+  static Condition fromJson(Map<String, dynamic> json) => Condition(
+        logicalOperator: json.containsKey('LogicalOperator')
+            ? json['LogicalOperator'] as String
+            : null,
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        crawlerName: json.containsKey('CrawlerName')
+            ? json['CrawlerName'] as String
+            : null,
+        crawlState: json.containsKey('CrawlState')
+            ? json['CrawlState'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The confusion matrix shows you what your transform is predicting accurately
@@ -2994,8 +3858,20 @@ class ConfusionMatrix {
     this.numTrueNegatives,
     this.numFalseNegatives,
   });
-  static ConfusionMatrix fromJson(Map<String, dynamic> json) =>
-      ConfusionMatrix();
+  static ConfusionMatrix fromJson(Map<String, dynamic> json) => ConfusionMatrix(
+        numTruePositives: json.containsKey('NumTruePositives')
+            ? BigInt.from(json['NumTruePositives'])
+            : null,
+        numFalsePositives: json.containsKey('NumFalsePositives')
+            ? BigInt.from(json['NumFalsePositives'])
+            : null,
+        numTrueNegatives: json.containsKey('NumTrueNegatives')
+            ? BigInt.from(json['NumTrueNegatives'])
+            : null,
+        numFalseNegatives: json.containsKey('NumFalseNegatives')
+            ? BigInt.from(json['NumFalseNegatives'])
+            : null,
+      );
 }
 
 /// Defines a connection to a data source.
@@ -3075,7 +3951,36 @@ class Connection {
     this.lastUpdatedTime,
     this.lastUpdatedBy,
   });
-  static Connection fromJson(Map<String, dynamic> json) => Connection();
+  static Connection fromJson(Map<String, dynamic> json) => Connection(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        connectionType: json.containsKey('ConnectionType')
+            ? json['ConnectionType'] as String
+            : null,
+        matchCriteria: json.containsKey('MatchCriteria')
+            ? (json['MatchCriteria'] as List).map((e) => e as String).toList()
+            : null,
+        connectionProperties: json.containsKey('ConnectionProperties')
+            ? (json['ConnectionProperties'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        physicalConnectionRequirements:
+            json.containsKey('PhysicalConnectionRequirements')
+                ? PhysicalConnectionRequirements.fromJson(
+                    json['PhysicalConnectionRequirements'])
+                : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+        lastUpdatedBy: json.containsKey('LastUpdatedBy')
+            ? json['LastUpdatedBy'] as String
+            : null,
+      );
 }
 
 /// A structure that is used to specify a connection to create or update.
@@ -3109,6 +4014,7 @@ class ConnectionInput {
     @required this.connectionProperties,
     this.physicalConnectionRequirements,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The data structure used by the Data Catalog to encrypt the password as part
@@ -3147,7 +4053,14 @@ class ConnectionPasswordEncryption {
     this.awsKmsKeyId,
   });
   static ConnectionPasswordEncryption fromJson(Map<String, dynamic> json) =>
-      ConnectionPasswordEncryption();
+      ConnectionPasswordEncryption(
+        returnConnectionPasswordEncrypted:
+            json['ReturnConnectionPasswordEncrypted'] as bool,
+        awsKmsKeyId: json.containsKey('AwsKmsKeyId')
+            ? json['AwsKmsKeyId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the connections used by a job.
@@ -3158,8 +4071,12 @@ class ConnectionsList {
   ConnectionsList({
     this.connections,
   });
-  static ConnectionsList fromJson(Map<String, dynamic> json) =>
-      ConnectionsList();
+  static ConnectionsList fromJson(Map<String, dynamic> json) => ConnectionsList(
+        connections: json.containsKey('Connections')
+            ? (json['Connections'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The details of a crawl in the workflow.
@@ -3190,7 +4107,22 @@ class Crawl {
     this.logGroup,
     this.logStream,
   });
-  static Crawl fromJson(Map<String, dynamic> json) => Crawl();
+  static Crawl fromJson(Map<String, dynamic> json) => Crawl(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        startedOn: json.containsKey('StartedOn')
+            ? DateTime.parse(json['StartedOn'])
+            : null,
+        completedOn: json.containsKey('CompletedOn')
+            ? DateTime.parse(json['CompletedOn'])
+            : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        logGroup:
+            json.containsKey('LogGroup') ? json['LogGroup'] as String : null,
+        logStream:
+            json.containsKey('LogStream') ? json['LogStream'] as String : null,
+      );
 }
 
 /// Specifies a crawler program that examines a data source and uses classifiers
@@ -3275,7 +4207,53 @@ class Crawler {
     this.configuration,
     this.crawlerSecurityConfiguration,
   });
-  static Crawler fromJson(Map<String, dynamic> json) => Crawler();
+  static Crawler fromJson(Map<String, dynamic> json) => Crawler(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        targets: json.containsKey('Targets')
+            ? CrawlerTargets.fromJson(json['Targets'])
+            : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        classifiers: json.containsKey('Classifiers')
+            ? (json['Classifiers'] as List).map((e) => e as String).toList()
+            : null,
+        schemaChangePolicy: json.containsKey('SchemaChangePolicy')
+            ? SchemaChangePolicy.fromJson(json['SchemaChangePolicy'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tablePrefix: json.containsKey('TablePrefix')
+            ? json['TablePrefix'] as String
+            : null,
+        schedule: json.containsKey('Schedule')
+            ? Schedule.fromJson(json['Schedule'])
+            : null,
+        crawlElapsedTime: json.containsKey('CrawlElapsedTime')
+            ? BigInt.from(json['CrawlElapsedTime'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        lastCrawl: json.containsKey('LastCrawl')
+            ? LastCrawlInfo.fromJson(json['LastCrawl'])
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        configuration: json.containsKey('Configuration')
+            ? json['Configuration'] as String
+            : null,
+        crawlerSecurityConfiguration:
+            json.containsKey('CrawlerSecurityConfiguration')
+                ? json['CrawlerSecurityConfiguration'] as String
+                : null,
+      );
 }
 
 /// Metrics for a specified crawler.
@@ -3315,7 +4293,32 @@ class CrawlerMetrics {
     this.tablesUpdated,
     this.tablesDeleted,
   });
-  static CrawlerMetrics fromJson(Map<String, dynamic> json) => CrawlerMetrics();
+  static CrawlerMetrics fromJson(Map<String, dynamic> json) => CrawlerMetrics(
+        crawlerName: json.containsKey('CrawlerName')
+            ? json['CrawlerName'] as String
+            : null,
+        timeLeftSeconds: json.containsKey('TimeLeftSeconds')
+            ? json['TimeLeftSeconds'] as double
+            : null,
+        stillEstimating: json.containsKey('StillEstimating')
+            ? json['StillEstimating'] as bool
+            : null,
+        lastRuntimeSeconds: json.containsKey('LastRuntimeSeconds')
+            ? json['LastRuntimeSeconds'] as double
+            : null,
+        medianRuntimeSeconds: json.containsKey('MedianRuntimeSeconds')
+            ? json['MedianRuntimeSeconds'] as double
+            : null,
+        tablesCreated: json.containsKey('TablesCreated')
+            ? json['TablesCreated'] as int
+            : null,
+        tablesUpdated: json.containsKey('TablesUpdated')
+            ? json['TablesUpdated'] as int
+            : null,
+        tablesDeleted: json.containsKey('TablesDeleted')
+            ? json['TablesDeleted'] as int
+            : null,
+      );
 }
 
 /// The details of a Crawler node present in the workflow.
@@ -3327,7 +4330,11 @@ class CrawlerNodeDetails {
     this.crawls,
   });
   static CrawlerNodeDetails fromJson(Map<String, dynamic> json) =>
-      CrawlerNodeDetails();
+      CrawlerNodeDetails(
+        crawls: json.containsKey('Crawls')
+            ? (json['Crawls'] as List).map((e) => Crawl.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Specifies data stores to crawl.
@@ -3350,7 +4357,29 @@ class CrawlerTargets {
     this.dynamoDBTargets,
     this.catalogTargets,
   });
-  static CrawlerTargets fromJson(Map<String, dynamic> json) => CrawlerTargets();
+  static CrawlerTargets fromJson(Map<String, dynamic> json) => CrawlerTargets(
+        s3Targets: json.containsKey('S3Targets')
+            ? (json['S3Targets'] as List)
+                .map((e) => S3Target.fromJson(e))
+                .toList()
+            : null,
+        jdbcTargets: json.containsKey('JdbcTargets')
+            ? (json['JdbcTargets'] as List)
+                .map((e) => JdbcTarget.fromJson(e))
+                .toList()
+            : null,
+        dynamoDBTargets: json.containsKey('DynamoDBTargets')
+            ? (json['DynamoDBTargets'] as List)
+                .map((e) => DynamoDBTarget.fromJson(e))
+                .toList()
+            : null,
+        catalogTargets: json.containsKey('CatalogTargets')
+            ? (json['CatalogTargets'] as List)
+                .map((e) => CatalogTarget.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateClassifierResponse {
@@ -3405,6 +4434,7 @@ class CreateCsvClassifierRequest {
     this.disableValueTrimming,
     this.allowSingleColumn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateDatabaseResponse {
@@ -3496,7 +4526,59 @@ class CreateDevEndpointResponse {
     this.arguments,
   });
   static CreateDevEndpointResponse fromJson(Map<String, dynamic> json) =>
-      CreateDevEndpointResponse();
+      CreateDevEndpointResponse(
+        endpointName: json.containsKey('EndpointName')
+            ? json['EndpointName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        yarnEndpointAddress: json.containsKey('YarnEndpointAddress')
+            ? json['YarnEndpointAddress'] as String
+            : null,
+        zeppelinRemoteSparkInterpreterPort:
+            json.containsKey('ZeppelinRemoteSparkInterpreterPort')
+                ? json['ZeppelinRemoteSparkInterpreterPort'] as int
+                : null,
+        numberOfNodes: json.containsKey('NumberOfNodes')
+            ? json['NumberOfNodes'] as int
+            : null,
+        workerType: json.containsKey('WorkerType')
+            ? json['WorkerType'] as String
+            : null,
+        numberOfWorkers: json.containsKey('NumberOfWorkers')
+            ? json['NumberOfWorkers'] as int
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        extraPythonLibsS3Path: json.containsKey('ExtraPythonLibsS3Path')
+            ? json['ExtraPythonLibsS3Path'] as String
+            : null,
+        extraJarsS3Path: json.containsKey('ExtraJarsS3Path')
+            ? json['ExtraJarsS3Path'] as String
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        securityConfiguration: json.containsKey('SecurityConfiguration')
+            ? json['SecurityConfiguration'] as String
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        arguments: json.containsKey('Arguments')
+            ? (json['Arguments'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Specifies a `grok` classifier for `CreateClassifier` to create.
@@ -3520,6 +4602,7 @@ class CreateGrokClassifierRequest {
     @required this.grokPattern,
     this.customPatterns,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateJobResponse {
@@ -3530,7 +4613,9 @@ class CreateJobResponse {
     this.name,
   });
   static CreateJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateJobResponse();
+      CreateJobResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Specifies a JSON classifier for `CreateClassifier` to create.
@@ -3547,6 +4632,7 @@ class CreateJsonClassifierRequest {
     @required this.name,
     @required this.jsonPath,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateMLTransformResponse {
@@ -3557,7 +4643,11 @@ class CreateMLTransformResponse {
     this.transformId,
   });
   static CreateMLTransformResponse fromJson(Map<String, dynamic> json) =>
-      CreateMLTransformResponse();
+      CreateMLTransformResponse(
+        transformId: json.containsKey('TransformId')
+            ? json['TransformId'] as String
+            : null,
+      );
 }
 
 class CreatePartitionResponse {
@@ -3578,7 +4668,13 @@ class CreateScriptResponse {
     this.scalaCode,
   });
   static CreateScriptResponse fromJson(Map<String, dynamic> json) =>
-      CreateScriptResponse();
+      CreateScriptResponse(
+        pythonScript: json.containsKey('PythonScript')
+            ? json['PythonScript'] as String
+            : null,
+        scalaCode:
+            json.containsKey('ScalaCode') ? json['ScalaCode'] as String : null,
+      );
 }
 
 class CreateSecurityConfigurationResponse {
@@ -3594,7 +4690,12 @@ class CreateSecurityConfigurationResponse {
   });
   static CreateSecurityConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateSecurityConfigurationResponse();
+      CreateSecurityConfigurationResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+      );
 }
 
 class CreateTableResponse {
@@ -3611,7 +4712,9 @@ class CreateTriggerResponse {
     this.name,
   });
   static CreateTriggerResponse fromJson(Map<String, dynamic> json) =>
-      CreateTriggerResponse();
+      CreateTriggerResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateUserDefinedFunctionResponse {
@@ -3629,7 +4732,9 @@ class CreateWorkflowResponse {
     this.name,
   });
   static CreateWorkflowResponse fromJson(Map<String, dynamic> json) =>
-      CreateWorkflowResponse();
+      CreateWorkflowResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Specifies an XML classifier for `CreateClassifier` to create.
@@ -3652,6 +4757,7 @@ class CreateXmlClassifierRequest {
     @required this.name,
     this.rowTag,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A classifier for custom `CSV` content.
@@ -3700,7 +4806,34 @@ class CsvClassifier {
     this.disableValueTrimming,
     this.allowSingleColumn,
   });
-  static CsvClassifier fromJson(Map<String, dynamic> json) => CsvClassifier();
+  static CsvClassifier fromJson(Map<String, dynamic> json) => CsvClassifier(
+        name: json['Name'] as String,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        delimiter:
+            json.containsKey('Delimiter') ? json['Delimiter'] as String : null,
+        quoteSymbol: json.containsKey('QuoteSymbol')
+            ? json['QuoteSymbol'] as String
+            : null,
+        containsHeader: json.containsKey('ContainsHeader')
+            ? json['ContainsHeader'] as String
+            : null,
+        header: json.containsKey('Header')
+            ? (json['Header'] as List).map((e) => e as String).toList()
+            : null,
+        disableValueTrimming: json.containsKey('DisableValueTrimming')
+            ? json['DisableValueTrimming'] as bool
+            : null,
+        allowSingleColumn: json.containsKey('AllowSingleColumn')
+            ? json['AllowSingleColumn'] as bool
+            : null,
+      );
 }
 
 /// Contains configuration information for maintaining Data Catalog security.
@@ -3720,7 +4853,17 @@ class DataCatalogEncryptionSettings {
     this.connectionPasswordEncryption,
   });
   static DataCatalogEncryptionSettings fromJson(Map<String, dynamic> json) =>
-      DataCatalogEncryptionSettings();
+      DataCatalogEncryptionSettings(
+        encryptionAtRest: json.containsKey('EncryptionAtRest')
+            ? EncryptionAtRest.fromJson(json['EncryptionAtRest'])
+            : null,
+        connectionPasswordEncryption:
+            json.containsKey('ConnectionPasswordEncryption')
+                ? ConnectionPasswordEncryption.fromJson(
+                    json['ConnectionPasswordEncryption'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The AWS Lake Formation principal.
@@ -3732,7 +4875,13 @@ class DataLakePrincipal {
     this.dataLakePrincipalIdentifier,
   });
   static DataLakePrincipal fromJson(Map<String, dynamic> json) =>
-      DataLakePrincipal();
+      DataLakePrincipal(
+        dataLakePrincipalIdentifier:
+            json.containsKey('DataLakePrincipalIdentifier')
+                ? json['DataLakePrincipalIdentifier'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The `Database` object represents a logical grouping of tables that might
@@ -3765,7 +4914,28 @@ class Database {
     this.createTime,
     this.createTableDefaultPermissions,
   });
-  static Database fromJson(Map<String, dynamic> json) => Database();
+  static Database fromJson(Map<String, dynamic> json) => Database(
+        name: json['Name'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        locationUri: json.containsKey('LocationUri')
+            ? json['LocationUri'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        createTableDefaultPermissions:
+            json.containsKey('CreateTableDefaultPermissions')
+                ? (json['CreateTableDefaultPermissions'] as List)
+                    .map((e) => PrincipalPermissions.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// The structure used to create or update a database.
@@ -3795,6 +4965,7 @@ class DatabaseInput {
     this.parameters,
     this.createTableDefaultPermissions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteClassifierResponse {
@@ -3835,7 +5006,9 @@ class DeleteJobResponse {
     this.jobName,
   });
   static DeleteJobResponse fromJson(Map<String, dynamic> json) =>
-      DeleteJobResponse();
+      DeleteJobResponse(
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+      );
 }
 
 class DeleteMLTransformResponse {
@@ -3846,7 +5019,11 @@ class DeleteMLTransformResponse {
     this.transformId,
   });
   static DeleteMLTransformResponse fromJson(Map<String, dynamic> json) =>
-      DeleteMLTransformResponse();
+      DeleteMLTransformResponse(
+        transformId: json.containsKey('TransformId')
+            ? json['TransformId'] as String
+            : null,
+      );
 }
 
 class DeletePartitionResponse {
@@ -3888,7 +5065,9 @@ class DeleteTriggerResponse {
     this.name,
   });
   static DeleteTriggerResponse fromJson(Map<String, dynamic> json) =>
-      DeleteTriggerResponse();
+      DeleteTriggerResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class DeleteUserDefinedFunctionResponse {
@@ -3906,7 +5085,9 @@ class DeleteWorkflowResponse {
     this.name,
   });
   static DeleteWorkflowResponse fromJson(Map<String, dynamic> json) =>
-      DeleteWorkflowResponse();
+      DeleteWorkflowResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// A development endpoint where a developer can remotely debug extract,
@@ -4065,7 +5246,76 @@ class DevEndpoint {
     this.securityConfiguration,
     this.arguments,
   });
-  static DevEndpoint fromJson(Map<String, dynamic> json) => DevEndpoint();
+  static DevEndpoint fromJson(Map<String, dynamic> json) => DevEndpoint(
+        endpointName: json.containsKey('EndpointName')
+            ? json['EndpointName'] as String
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        yarnEndpointAddress: json.containsKey('YarnEndpointAddress')
+            ? json['YarnEndpointAddress'] as String
+            : null,
+        privateAddress: json.containsKey('PrivateAddress')
+            ? json['PrivateAddress'] as String
+            : null,
+        zeppelinRemoteSparkInterpreterPort:
+            json.containsKey('ZeppelinRemoteSparkInterpreterPort')
+                ? json['ZeppelinRemoteSparkInterpreterPort'] as int
+                : null,
+        publicAddress: json.containsKey('PublicAddress')
+            ? json['PublicAddress'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        workerType: json.containsKey('WorkerType')
+            ? json['WorkerType'] as String
+            : null,
+        numberOfWorkers: json.containsKey('NumberOfWorkers')
+            ? json['NumberOfWorkers'] as int
+            : null,
+        numberOfNodes: json.containsKey('NumberOfNodes')
+            ? json['NumberOfNodes'] as int
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        extraPythonLibsS3Path: json.containsKey('ExtraPythonLibsS3Path')
+            ? json['ExtraPythonLibsS3Path'] as String
+            : null,
+        extraJarsS3Path: json.containsKey('ExtraJarsS3Path')
+            ? json['ExtraJarsS3Path'] as String
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        lastUpdateStatus: json.containsKey('LastUpdateStatus')
+            ? json['LastUpdateStatus'] as String
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        lastModifiedTimestamp: json.containsKey('LastModifiedTimestamp')
+            ? DateTime.parse(json['LastModifiedTimestamp'])
+            : null,
+        publicKey:
+            json.containsKey('PublicKey') ? json['PublicKey'] as String : null,
+        publicKeys: json.containsKey('PublicKeys')
+            ? (json['PublicKeys'] as List).map((e) => e as String).toList()
+            : null,
+        securityConfiguration: json.containsKey('SecurityConfiguration')
+            ? json['SecurityConfiguration'] as String
+            : null,
+        arguments: json.containsKey('Arguments')
+            ? (json['Arguments'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Custom libraries to be loaded into a development endpoint.
@@ -4093,6 +5343,7 @@ class DevEndpointCustomLibraries {
     this.extraPythonLibsS3Path,
     this.extraJarsS3Path,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies an Amazon DynamoDB table to crawl.
@@ -4103,7 +5354,10 @@ class DynamoDBTarget {
   DynamoDBTarget({
     this.path,
   });
-  static DynamoDBTarget fromJson(Map<String, dynamic> json) => DynamoDBTarget();
+  static DynamoDBTarget fromJson(Map<String, dynamic> json) => DynamoDBTarget(
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An edge represents a directed connection between two AWS Glue components
@@ -4119,7 +5373,13 @@ class Edge {
     this.sourceId,
     this.destinationId,
   });
-  static Edge fromJson(Map<String, dynamic> json) => Edge();
+  static Edge fromJson(Map<String, dynamic> json) => Edge(
+        sourceId:
+            json.containsKey('SourceId') ? json['SourceId'] as String : null,
+        destinationId: json.containsKey('DestinationId')
+            ? json['DestinationId'] as String
+            : null,
+      );
 }
 
 /// Specifies the encryption-at-rest configuration for the Data Catalog.
@@ -4135,7 +5395,13 @@ class EncryptionAtRest {
     this.sseAwsKmsKeyId,
   });
   static EncryptionAtRest fromJson(Map<String, dynamic> json) =>
-      EncryptionAtRest();
+      EncryptionAtRest(
+        catalogEncryptionMode: json['CatalogEncryptionMode'] as String,
+        sseAwsKmsKeyId: json.containsKey('SseAwsKmsKeyId')
+            ? json['SseAwsKmsKeyId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies an encryption configuration.
@@ -4156,7 +5422,20 @@ class EncryptionConfiguration {
     this.jobBookmarksEncryption,
   });
   static EncryptionConfiguration fromJson(Map<String, dynamic> json) =>
-      EncryptionConfiguration();
+      EncryptionConfiguration(
+        s3Encryption: json.containsKey('S3Encryption')
+            ? (json['S3Encryption'] as List)
+                .map((e) => S3Encryption.fromJson(e))
+                .toList()
+            : null,
+        cloudWatchEncryption: json.containsKey('CloudWatchEncryption')
+            ? CloudWatchEncryption.fromJson(json['CloudWatchEncryption'])
+            : null,
+        jobBookmarksEncryption: json.containsKey('JobBookmarksEncryption')
+            ? JobBookmarksEncryption.fromJson(json['JobBookmarksEncryption'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains details about an error.
@@ -4171,7 +5450,13 @@ class ErrorDetail {
     this.errorCode,
     this.errorMessage,
   });
-  static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail();
+  static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Evaluation metrics provide an estimate of the quality of your machine
@@ -4188,7 +5473,12 @@ class EvaluationMetrics {
     this.findMatchesMetrics,
   });
   static EvaluationMetrics fromJson(Map<String, dynamic> json) =>
-      EvaluationMetrics();
+      EvaluationMetrics(
+        transformType: json['TransformType'] as String,
+        findMatchesMetrics: json.containsKey('FindMatchesMetrics')
+            ? FindMatchesMetrics.fromJson(json['FindMatchesMetrics'])
+            : null,
+      );
 }
 
 /// An execution property of a job.
@@ -4202,7 +5492,12 @@ class ExecutionProperty {
     this.maxConcurrentRuns,
   });
   static ExecutionProperty fromJson(Map<String, dynamic> json) =>
-      ExecutionProperty();
+      ExecutionProperty(
+        maxConcurrentRuns: json.containsKey('MaxConcurrentRuns')
+            ? json['MaxConcurrentRuns'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies configuration properties for an exporting labels task run.
@@ -4215,7 +5510,11 @@ class ExportLabelsTaskRunProperties {
     this.outputS3Path,
   });
   static ExportLabelsTaskRunProperties fromJson(Map<String, dynamic> json) =>
-      ExportLabelsTaskRunProperties();
+      ExportLabelsTaskRunProperties(
+        outputS3Path: json.containsKey('OutputS3Path')
+            ? json['OutputS3Path'] as String
+            : null,
+      );
 }
 
 /// The evaluation metrics for the find matches algorithm. The quality of your
@@ -4275,7 +5574,18 @@ class FindMatchesMetrics {
     this.confusionMatrix,
   });
   static FindMatchesMetrics fromJson(Map<String, dynamic> json) =>
-      FindMatchesMetrics();
+      FindMatchesMetrics(
+        areaUnderPRCurve: json.containsKey('AreaUnderPRCurve')
+            ? json['AreaUnderPRCurve'] as double
+            : null,
+        precision:
+            json.containsKey('Precision') ? json['Precision'] as double : null,
+        recall: json.containsKey('Recall') ? json['Recall'] as double : null,
+        f1: json.containsKey('F1') ? json['F1'] as double : null,
+        confusionMatrix: json.containsKey('ConfusionMatrix')
+            ? ConfusionMatrix.fromJson(json['ConfusionMatrix'])
+            : null,
+      );
 }
 
 /// The parameters to configure the find matches transform.
@@ -4332,7 +5642,21 @@ class FindMatchesParameters {
     this.enforceProvidedLabels,
   });
   static FindMatchesParameters fromJson(Map<String, dynamic> json) =>
-      FindMatchesParameters();
+      FindMatchesParameters(
+        primaryKeyColumnName: json.containsKey('PrimaryKeyColumnName')
+            ? json['PrimaryKeyColumnName'] as String
+            : null,
+        precisionRecallTradeoff: json.containsKey('PrecisionRecallTradeoff')
+            ? json['PrecisionRecallTradeoff'] as double
+            : null,
+        accuracyCostTradeoff: json.containsKey('AccuracyCostTradeoff')
+            ? json['AccuracyCostTradeoff'] as double
+            : null,
+        enforceProvidedLabels: json.containsKey('EnforceProvidedLabels')
+            ? json['EnforceProvidedLabels'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies configuration properties for a Find Matches task run.
@@ -4352,7 +5676,12 @@ class FindMatchesTaskRunProperties {
     this.jobRunId,
   });
   static FindMatchesTaskRunProperties fromJson(Map<String, dynamic> json) =>
-      FindMatchesTaskRunProperties();
+      FindMatchesTaskRunProperties(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobRunId:
+            json.containsKey('JobRunId') ? json['JobRunId'] as String : null,
+      );
 }
 
 class GetCatalogImportStatusResponse {
@@ -4363,7 +5692,11 @@ class GetCatalogImportStatusResponse {
     this.importStatus,
   });
   static GetCatalogImportStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetCatalogImportStatusResponse();
+      GetCatalogImportStatusResponse(
+        importStatus: json.containsKey('ImportStatus')
+            ? CatalogImportStatus.fromJson(json['ImportStatus'])
+            : null,
+      );
 }
 
 class GetClassifierResponse {
@@ -4374,7 +5707,11 @@ class GetClassifierResponse {
     this.classifier,
   });
   static GetClassifierResponse fromJson(Map<String, dynamic> json) =>
-      GetClassifierResponse();
+      GetClassifierResponse(
+        classifier: json.containsKey('Classifier')
+            ? Classifier.fromJson(json['Classifier'])
+            : null,
+      );
 }
 
 class GetClassifiersResponse {
@@ -4389,7 +5726,15 @@ class GetClassifiersResponse {
     this.nextToken,
   });
   static GetClassifiersResponse fromJson(Map<String, dynamic> json) =>
-      GetClassifiersResponse();
+      GetClassifiersResponse(
+        classifiers: json.containsKey('Classifiers')
+            ? (json['Classifiers'] as List)
+                .map((e) => Classifier.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetConnectionResponse {
@@ -4400,7 +5745,11 @@ class GetConnectionResponse {
     this.connection,
   });
   static GetConnectionResponse fromJson(Map<String, dynamic> json) =>
-      GetConnectionResponse();
+      GetConnectionResponse(
+        connection: json.containsKey('Connection')
+            ? Connection.fromJson(json['Connection'])
+            : null,
+      );
 }
 
 /// Filters the connection definitions that are returned by the `GetConnections`
@@ -4418,6 +5767,7 @@ class GetConnectionsFilter {
     this.matchCriteria,
     this.connectionType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetConnectionsResponse {
@@ -4433,7 +5783,15 @@ class GetConnectionsResponse {
     this.nextToken,
   });
   static GetConnectionsResponse fromJson(Map<String, dynamic> json) =>
-      GetConnectionsResponse();
+      GetConnectionsResponse(
+        connectionList: json.containsKey('ConnectionList')
+            ? (json['ConnectionList'] as List)
+                .map((e) => Connection.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetCrawlerMetricsResponse {
@@ -4449,7 +5807,15 @@ class GetCrawlerMetricsResponse {
     this.nextToken,
   });
   static GetCrawlerMetricsResponse fromJson(Map<String, dynamic> json) =>
-      GetCrawlerMetricsResponse();
+      GetCrawlerMetricsResponse(
+        crawlerMetricsList: json.containsKey('CrawlerMetricsList')
+            ? (json['CrawlerMetricsList'] as List)
+                .map((e) => CrawlerMetrics.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetCrawlerResponse {
@@ -4460,7 +5826,11 @@ class GetCrawlerResponse {
     this.crawler,
   });
   static GetCrawlerResponse fromJson(Map<String, dynamic> json) =>
-      GetCrawlerResponse();
+      GetCrawlerResponse(
+        crawler: json.containsKey('Crawler')
+            ? Crawler.fromJson(json['Crawler'])
+            : null,
+      );
 }
 
 class GetCrawlersResponse {
@@ -4476,7 +5846,15 @@ class GetCrawlersResponse {
     this.nextToken,
   });
   static GetCrawlersResponse fromJson(Map<String, dynamic> json) =>
-      GetCrawlersResponse();
+      GetCrawlersResponse(
+        crawlers: json.containsKey('Crawlers')
+            ? (json['Crawlers'] as List)
+                .map((e) => Crawler.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetDataCatalogEncryptionSettingsResponse {
@@ -4488,7 +5866,13 @@ class GetDataCatalogEncryptionSettingsResponse {
   });
   static GetDataCatalogEncryptionSettingsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetDataCatalogEncryptionSettingsResponse();
+      GetDataCatalogEncryptionSettingsResponse(
+        dataCatalogEncryptionSettings:
+            json.containsKey('DataCatalogEncryptionSettings')
+                ? DataCatalogEncryptionSettings.fromJson(
+                    json['DataCatalogEncryptionSettings'])
+                : null,
+      );
 }
 
 class GetDatabaseResponse {
@@ -4499,7 +5883,11 @@ class GetDatabaseResponse {
     this.database,
   });
   static GetDatabaseResponse fromJson(Map<String, dynamic> json) =>
-      GetDatabaseResponse();
+      GetDatabaseResponse(
+        database: json.containsKey('Database')
+            ? Database.fromJson(json['Database'])
+            : null,
+      );
 }
 
 class GetDatabasesResponse {
@@ -4515,7 +5903,13 @@ class GetDatabasesResponse {
     this.nextToken,
   });
   static GetDatabasesResponse fromJson(Map<String, dynamic> json) =>
-      GetDatabasesResponse();
+      GetDatabasesResponse(
+        databaseList: (json['DatabaseList'] as List)
+            .map((e) => Database.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetDataflowGraphResponse {
@@ -4530,7 +5924,18 @@ class GetDataflowGraphResponse {
     this.dagEdges,
   });
   static GetDataflowGraphResponse fromJson(Map<String, dynamic> json) =>
-      GetDataflowGraphResponse();
+      GetDataflowGraphResponse(
+        dagNodes: json.containsKey('DagNodes')
+            ? (json['DagNodes'] as List)
+                .map((e) => CodeGenNode.fromJson(e))
+                .toList()
+            : null,
+        dagEdges: json.containsKey('DagEdges')
+            ? (json['DagEdges'] as List)
+                .map((e) => CodeGenEdge.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetDevEndpointResponse {
@@ -4541,7 +5946,11 @@ class GetDevEndpointResponse {
     this.devEndpoint,
   });
   static GetDevEndpointResponse fromJson(Map<String, dynamic> json) =>
-      GetDevEndpointResponse();
+      GetDevEndpointResponse(
+        devEndpoint: json.containsKey('DevEndpoint')
+            ? DevEndpoint.fromJson(json['DevEndpoint'])
+            : null,
+      );
 }
 
 class GetDevEndpointsResponse {
@@ -4557,7 +5966,15 @@ class GetDevEndpointsResponse {
     this.nextToken,
   });
   static GetDevEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      GetDevEndpointsResponse();
+      GetDevEndpointsResponse(
+        devEndpoints: json.containsKey('DevEndpoints')
+            ? (json['DevEndpoints'] as List)
+                .map((e) => DevEndpoint.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetJobBookmarkResponse {
@@ -4568,7 +5985,11 @@ class GetJobBookmarkResponse {
     this.jobBookmarkEntry,
   });
   static GetJobBookmarkResponse fromJson(Map<String, dynamic> json) =>
-      GetJobBookmarkResponse();
+      GetJobBookmarkResponse(
+        jobBookmarkEntry: json.containsKey('JobBookmarkEntry')
+            ? JobBookmarkEntry.fromJson(json['JobBookmarkEntry'])
+            : null,
+      );
 }
 
 class GetJobResponse {
@@ -4578,7 +5999,9 @@ class GetJobResponse {
   GetJobResponse({
     this.job,
   });
-  static GetJobResponse fromJson(Map<String, dynamic> json) => GetJobResponse();
+  static GetJobResponse fromJson(Map<String, dynamic> json) => GetJobResponse(
+        job: json.containsKey('Job') ? Job.fromJson(json['Job']) : null,
+      );
 }
 
 class GetJobRunResponse {
@@ -4589,7 +6012,10 @@ class GetJobRunResponse {
     this.jobRun,
   });
   static GetJobRunResponse fromJson(Map<String, dynamic> json) =>
-      GetJobRunResponse();
+      GetJobRunResponse(
+        jobRun:
+            json.containsKey('JobRun') ? JobRun.fromJson(json['JobRun']) : null,
+      );
 }
 
 class GetJobRunsResponse {
@@ -4604,7 +6030,13 @@ class GetJobRunsResponse {
     this.nextToken,
   });
   static GetJobRunsResponse fromJson(Map<String, dynamic> json) =>
-      GetJobRunsResponse();
+      GetJobRunsResponse(
+        jobRuns: json.containsKey('JobRuns')
+            ? (json['JobRuns'] as List).map((e) => JobRun.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetJobsResponse {
@@ -4618,8 +6050,13 @@ class GetJobsResponse {
     this.jobs,
     this.nextToken,
   });
-  static GetJobsResponse fromJson(Map<String, dynamic> json) =>
-      GetJobsResponse();
+  static GetJobsResponse fromJson(Map<String, dynamic> json) => GetJobsResponse(
+        jobs: json.containsKey('Jobs')
+            ? (json['Jobs'] as List).map((e) => Job.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetMLTaskRunResponse {
@@ -4666,7 +6103,35 @@ class GetMLTaskRunResponse {
     this.executionTime,
   });
   static GetMLTaskRunResponse fromJson(Map<String, dynamic> json) =>
-      GetMLTaskRunResponse();
+      GetMLTaskRunResponse(
+        transformId: json.containsKey('TransformId')
+            ? json['TransformId'] as String
+            : null,
+        taskRunId:
+            json.containsKey('TaskRunId') ? json['TaskRunId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        logGroupName: json.containsKey('LogGroupName')
+            ? json['LogGroupName'] as String
+            : null,
+        properties: json.containsKey('Properties')
+            ? TaskRunProperties.fromJson(json['Properties'])
+            : null,
+        errorString: json.containsKey('ErrorString')
+            ? json['ErrorString'] as String
+            : null,
+        startedOn: json.containsKey('StartedOn')
+            ? DateTime.parse(json['StartedOn'])
+            : null,
+        lastModifiedOn: json.containsKey('LastModifiedOn')
+            ? DateTime.parse(json['LastModifiedOn'])
+            : null,
+        completedOn: json.containsKey('CompletedOn')
+            ? DateTime.parse(json['CompletedOn'])
+            : null,
+        executionTime: json.containsKey('ExecutionTime')
+            ? json['ExecutionTime'] as int
+            : null,
+      );
 }
 
 class GetMLTaskRunsResponse {
@@ -4681,7 +6146,15 @@ class GetMLTaskRunsResponse {
     this.nextToken,
   });
   static GetMLTaskRunsResponse fromJson(Map<String, dynamic> json) =>
-      GetMLTaskRunsResponse();
+      GetMLTaskRunsResponse(
+        taskRuns: json.containsKey('TaskRuns')
+            ? (json['TaskRuns'] as List)
+                .map((e) => TaskRun.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetMLTransformResponse {
@@ -4783,7 +6256,53 @@ class GetMLTransformResponse {
     this.maxRetries,
   });
   static GetMLTransformResponse fromJson(Map<String, dynamic> json) =>
-      GetMLTransformResponse();
+      GetMLTransformResponse(
+        transformId: json.containsKey('TransformId')
+            ? json['TransformId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        createdOn: json.containsKey('CreatedOn')
+            ? DateTime.parse(json['CreatedOn'])
+            : null,
+        lastModifiedOn: json.containsKey('LastModifiedOn')
+            ? DateTime.parse(json['LastModifiedOn'])
+            : null,
+        inputRecordTables: json.containsKey('InputRecordTables')
+            ? (json['InputRecordTables'] as List)
+                .map((e) => GlueTable.fromJson(e))
+                .toList()
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? TransformParameters.fromJson(json['Parameters'])
+            : null,
+        evaluationMetrics: json.containsKey('EvaluationMetrics')
+            ? EvaluationMetrics.fromJson(json['EvaluationMetrics'])
+            : null,
+        labelCount:
+            json.containsKey('LabelCount') ? json['LabelCount'] as int : null,
+        schema: json.containsKey('Schema')
+            ? (json['Schema'] as List)
+                .map((e) => SchemaColumn.fromJson(e))
+                .toList()
+            : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        maxCapacity: json.containsKey('MaxCapacity')
+            ? json['MaxCapacity'] as double
+            : null,
+        workerType: json.containsKey('WorkerType')
+            ? json['WorkerType'] as String
+            : null,
+        numberOfWorkers: json.containsKey('NumberOfWorkers')
+            ? json['NumberOfWorkers'] as int
+            : null,
+        timeout: json.containsKey('Timeout') ? json['Timeout'] as int : null,
+        maxRetries:
+            json.containsKey('MaxRetries') ? json['MaxRetries'] as int : null,
+      );
 }
 
 class GetMLTransformsResponse {
@@ -4798,7 +6317,13 @@ class GetMLTransformsResponse {
     this.nextToken,
   });
   static GetMLTransformsResponse fromJson(Map<String, dynamic> json) =>
-      GetMLTransformsResponse();
+      GetMLTransformsResponse(
+        transforms: (json['Transforms'] as List)
+            .map((e) => MLTransform.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetMappingResponse {
@@ -4809,7 +6334,11 @@ class GetMappingResponse {
     @required this.mapping,
   });
   static GetMappingResponse fromJson(Map<String, dynamic> json) =>
-      GetMappingResponse();
+      GetMappingResponse(
+        mapping: (json['Mapping'] as List)
+            .map((e) => MappingEntry.fromJson(e))
+            .toList(),
+      );
 }
 
 class GetPartitionResponse {
@@ -4820,7 +6349,11 @@ class GetPartitionResponse {
     this.partition,
   });
   static GetPartitionResponse fromJson(Map<String, dynamic> json) =>
-      GetPartitionResponse();
+      GetPartitionResponse(
+        partition: json.containsKey('Partition')
+            ? Partition.fromJson(json['Partition'])
+            : null,
+      );
 }
 
 class GetPartitionsResponse {
@@ -4836,7 +6369,15 @@ class GetPartitionsResponse {
     this.nextToken,
   });
   static GetPartitionsResponse fromJson(Map<String, dynamic> json) =>
-      GetPartitionsResponse();
+      GetPartitionsResponse(
+        partitions: json.containsKey('Partitions')
+            ? (json['Partitions'] as List)
+                .map((e) => Partition.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetPlanResponse {
@@ -4850,8 +6391,13 @@ class GetPlanResponse {
     this.pythonScript,
     this.scalaCode,
   });
-  static GetPlanResponse fromJson(Map<String, dynamic> json) =>
-      GetPlanResponse();
+  static GetPlanResponse fromJson(Map<String, dynamic> json) => GetPlanResponse(
+        pythonScript: json.containsKey('PythonScript')
+            ? json['PythonScript'] as String
+            : null,
+        scalaCode:
+            json.containsKey('ScalaCode') ? json['ScalaCode'] as String : null,
+      );
 }
 
 class GetResourcePolicyResponse {
@@ -4874,7 +6420,20 @@ class GetResourcePolicyResponse {
     this.updateTime,
   });
   static GetResourcePolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetResourcePolicyResponse();
+      GetResourcePolicyResponse(
+        policyInJson: json.containsKey('PolicyInJson')
+            ? json['PolicyInJson'] as String
+            : null,
+        policyHash: json.containsKey('PolicyHash')
+            ? json['PolicyHash'] as String
+            : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        updateTime: json.containsKey('UpdateTime')
+            ? DateTime.parse(json['UpdateTime'])
+            : null,
+      );
 }
 
 class GetSecurityConfigurationResponse {
@@ -4885,7 +6444,11 @@ class GetSecurityConfigurationResponse {
     this.securityConfiguration,
   });
   static GetSecurityConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      GetSecurityConfigurationResponse();
+      GetSecurityConfigurationResponse(
+        securityConfiguration: json.containsKey('SecurityConfiguration')
+            ? SecurityConfiguration.fromJson(json['SecurityConfiguration'])
+            : null,
+      );
 }
 
 class GetSecurityConfigurationsResponse {
@@ -4901,7 +6464,15 @@ class GetSecurityConfigurationsResponse {
   });
   static GetSecurityConfigurationsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetSecurityConfigurationsResponse();
+      GetSecurityConfigurationsResponse(
+        securityConfigurations: json.containsKey('SecurityConfigurations')
+            ? (json['SecurityConfigurations'] as List)
+                .map((e) => SecurityConfiguration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetTableResponse {
@@ -4912,7 +6483,9 @@ class GetTableResponse {
     this.table,
   });
   static GetTableResponse fromJson(Map<String, dynamic> json) =>
-      GetTableResponse();
+      GetTableResponse(
+        table: json.containsKey('Table') ? Table.fromJson(json['Table']) : null,
+      );
 }
 
 class GetTableVersionResponse {
@@ -4923,7 +6496,11 @@ class GetTableVersionResponse {
     this.tableVersion,
   });
   static GetTableVersionResponse fromJson(Map<String, dynamic> json) =>
-      GetTableVersionResponse();
+      GetTableVersionResponse(
+        tableVersion: json.containsKey('TableVersion')
+            ? TableVersion.fromJson(json['TableVersion'])
+            : null,
+      );
 }
 
 class GetTableVersionsResponse {
@@ -4939,7 +6516,15 @@ class GetTableVersionsResponse {
     this.nextToken,
   });
   static GetTableVersionsResponse fromJson(Map<String, dynamic> json) =>
-      GetTableVersionsResponse();
+      GetTableVersionsResponse(
+        tableVersions: json.containsKey('TableVersions')
+            ? (json['TableVersions'] as List)
+                .map((e) => TableVersion.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetTablesResponse {
@@ -4954,7 +6539,13 @@ class GetTablesResponse {
     this.nextToken,
   });
   static GetTablesResponse fromJson(Map<String, dynamic> json) =>
-      GetTablesResponse();
+      GetTablesResponse(
+        tableList: json.containsKey('TableList')
+            ? (json['TableList'] as List).map((e) => Table.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetTagsResponse {
@@ -4964,8 +6555,12 @@ class GetTagsResponse {
   GetTagsResponse({
     this.tags,
   });
-  static GetTagsResponse fromJson(Map<String, dynamic> json) =>
-      GetTagsResponse();
+  static GetTagsResponse fromJson(Map<String, dynamic> json) => GetTagsResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetTriggerResponse {
@@ -4976,7 +6571,11 @@ class GetTriggerResponse {
     this.trigger,
   });
   static GetTriggerResponse fromJson(Map<String, dynamic> json) =>
-      GetTriggerResponse();
+      GetTriggerResponse(
+        trigger: json.containsKey('Trigger')
+            ? Trigger.fromJson(json['Trigger'])
+            : null,
+      );
 }
 
 class GetTriggersResponse {
@@ -4992,7 +6591,15 @@ class GetTriggersResponse {
     this.nextToken,
   });
   static GetTriggersResponse fromJson(Map<String, dynamic> json) =>
-      GetTriggersResponse();
+      GetTriggersResponse(
+        triggers: json.containsKey('Triggers')
+            ? (json['Triggers'] as List)
+                .map((e) => Trigger.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetUserDefinedFunctionResponse {
@@ -5003,7 +6610,11 @@ class GetUserDefinedFunctionResponse {
     this.userDefinedFunction,
   });
   static GetUserDefinedFunctionResponse fromJson(Map<String, dynamic> json) =>
-      GetUserDefinedFunctionResponse();
+      GetUserDefinedFunctionResponse(
+        userDefinedFunction: json.containsKey('UserDefinedFunction')
+            ? UserDefinedFunction.fromJson(json['UserDefinedFunction'])
+            : null,
+      );
 }
 
 class GetUserDefinedFunctionsResponse {
@@ -5019,7 +6630,15 @@ class GetUserDefinedFunctionsResponse {
     this.nextToken,
   });
   static GetUserDefinedFunctionsResponse fromJson(Map<String, dynamic> json) =>
-      GetUserDefinedFunctionsResponse();
+      GetUserDefinedFunctionsResponse(
+        userDefinedFunctions: json.containsKey('UserDefinedFunctions')
+            ? (json['UserDefinedFunctions'] as List)
+                .map((e) => UserDefinedFunction.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetWorkflowResponse {
@@ -5030,7 +6649,11 @@ class GetWorkflowResponse {
     this.workflow,
   });
   static GetWorkflowResponse fromJson(Map<String, dynamic> json) =>
-      GetWorkflowResponse();
+      GetWorkflowResponse(
+        workflow: json.containsKey('Workflow')
+            ? Workflow.fromJson(json['Workflow'])
+            : null,
+      );
 }
 
 class GetWorkflowRunPropertiesResponse {
@@ -5041,7 +6664,12 @@ class GetWorkflowRunPropertiesResponse {
     this.runProperties,
   });
   static GetWorkflowRunPropertiesResponse fromJson(Map<String, dynamic> json) =>
-      GetWorkflowRunPropertiesResponse();
+      GetWorkflowRunPropertiesResponse(
+        runProperties: json.containsKey('RunProperties')
+            ? (json['RunProperties'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetWorkflowRunResponse {
@@ -5052,7 +6680,9 @@ class GetWorkflowRunResponse {
     this.run,
   });
   static GetWorkflowRunResponse fromJson(Map<String, dynamic> json) =>
-      GetWorkflowRunResponse();
+      GetWorkflowRunResponse(
+        run: json.containsKey('Run') ? WorkflowRun.fromJson(json['Run']) : null,
+      );
 }
 
 class GetWorkflowRunsResponse {
@@ -5068,7 +6698,15 @@ class GetWorkflowRunsResponse {
     this.nextToken,
   });
   static GetWorkflowRunsResponse fromJson(Map<String, dynamic> json) =>
-      GetWorkflowRunsResponse();
+      GetWorkflowRunsResponse(
+        runs: json.containsKey('Runs')
+            ? (json['Runs'] as List)
+                .map((e) => WorkflowRun.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The database and table in the AWS Glue Data Catalog that is used for input
@@ -5092,7 +6730,16 @@ class GlueTable {
     this.catalogId,
     this.connectionName,
   });
-  static GlueTable fromJson(Map<String, dynamic> json) => GlueTable();
+  static GlueTable fromJson(Map<String, dynamic> json) => GlueTable(
+        databaseName: json['DatabaseName'] as String,
+        tableName: json['TableName'] as String,
+        catalogId:
+            json.containsKey('CatalogId') ? json['CatalogId'] as String : null,
+        connectionName: json.containsKey('ConnectionName')
+            ? json['ConnectionName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A classifier that uses `grok` patterns.
@@ -5132,7 +6779,22 @@ class GrokClassifier {
     @required this.grokPattern,
     this.customPatterns,
   });
-  static GrokClassifier fromJson(Map<String, dynamic> json) => GrokClassifier();
+  static GrokClassifier fromJson(Map<String, dynamic> json) => GrokClassifier(
+        name: json['Name'] as String,
+        classification: json['Classification'] as String,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        grokPattern: json['GrokPattern'] as String,
+        customPatterns: json.containsKey('CustomPatterns')
+            ? json['CustomPatterns'] as String
+            : null,
+      );
 }
 
 class ImportCatalogToGlueResponse {
@@ -5155,7 +6817,12 @@ class ImportLabelsTaskRunProperties {
     this.replace,
   });
   static ImportLabelsTaskRunProperties fromJson(Map<String, dynamic> json) =>
-      ImportLabelsTaskRunProperties();
+      ImportLabelsTaskRunProperties(
+        inputS3Path: json.containsKey('InputS3Path')
+            ? json['InputS3Path'] as String
+            : null,
+        replace: json.containsKey('Replace') ? json['Replace'] as bool : null,
+      );
 }
 
 /// Specifies a JDBC data store to crawl.
@@ -5176,7 +6843,16 @@ class JdbcTarget {
     this.path,
     this.exclusions,
   });
-  static JdbcTarget fromJson(Map<String, dynamic> json) => JdbcTarget();
+  static JdbcTarget fromJson(Map<String, dynamic> json) => JdbcTarget(
+        connectionName: json.containsKey('ConnectionName')
+            ? json['ConnectionName'] as String
+            : null,
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        exclusions: json.containsKey('Exclusions')
+            ? (json['Exclusions'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a job definition.
@@ -5325,7 +7001,57 @@ class Job {
     this.notificationProperty,
     this.glueVersion,
   });
-  static Job fromJson(Map<String, dynamic> json) => Job();
+  static Job fromJson(Map<String, dynamic> json) => Job(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        logUri: json.containsKey('LogUri') ? json['LogUri'] as String : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        createdOn: json.containsKey('CreatedOn')
+            ? DateTime.parse(json['CreatedOn'])
+            : null,
+        lastModifiedOn: json.containsKey('LastModifiedOn')
+            ? DateTime.parse(json['LastModifiedOn'])
+            : null,
+        executionProperty: json.containsKey('ExecutionProperty')
+            ? ExecutionProperty.fromJson(json['ExecutionProperty'])
+            : null,
+        command: json.containsKey('Command')
+            ? JobCommand.fromJson(json['Command'])
+            : null,
+        defaultArguments: json.containsKey('DefaultArguments')
+            ? (json['DefaultArguments'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        connections: json.containsKey('Connections')
+            ? ConnectionsList.fromJson(json['Connections'])
+            : null,
+        maxRetries:
+            json.containsKey('MaxRetries') ? json['MaxRetries'] as int : null,
+        allocatedCapacity: json.containsKey('AllocatedCapacity')
+            ? json['AllocatedCapacity'] as int
+            : null,
+        timeout: json.containsKey('Timeout') ? json['Timeout'] as int : null,
+        maxCapacity: json.containsKey('MaxCapacity')
+            ? json['MaxCapacity'] as double
+            : null,
+        workerType: json.containsKey('WorkerType')
+            ? json['WorkerType'] as String
+            : null,
+        numberOfWorkers: json.containsKey('NumberOfWorkers')
+            ? json['NumberOfWorkers'] as int
+            : null,
+        securityConfiguration: json.containsKey('SecurityConfiguration')
+            ? json['SecurityConfiguration'] as String
+            : null,
+        notificationProperty: json.containsKey('NotificationProperty')
+            ? NotificationProperty.fromJson(json['NotificationProperty'])
+            : null,
+        glueVersion: json.containsKey('GlueVersion')
+            ? json['GlueVersion'] as String
+            : null,
+      );
 }
 
 /// Defines a point that a job can resume processing.
@@ -5361,7 +7087,19 @@ class JobBookmarkEntry {
     this.jobBookmark,
   });
   static JobBookmarkEntry fromJson(Map<String, dynamic> json) =>
-      JobBookmarkEntry();
+      JobBookmarkEntry(
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+        run: json.containsKey('Run') ? json['Run'] as int : null,
+        attempt: json.containsKey('Attempt') ? json['Attempt'] as int : null,
+        previousRunId: json.containsKey('PreviousRunId')
+            ? json['PreviousRunId'] as String
+            : null,
+        runId: json.containsKey('RunId') ? json['RunId'] as String : null,
+        jobBookmark: json.containsKey('JobBookmark')
+            ? json['JobBookmark'] as String
+            : null,
+      );
 }
 
 /// Specifies how job bookmark data should be encrypted.
@@ -5378,7 +7116,15 @@ class JobBookmarksEncryption {
     this.kmsKeyArn,
   });
   static JobBookmarksEncryption fromJson(Map<String, dynamic> json) =>
-      JobBookmarksEncryption();
+      JobBookmarksEncryption(
+        jobBookmarksEncryptionMode:
+            json.containsKey('JobBookmarksEncryptionMode')
+                ? json['JobBookmarksEncryptionMode'] as String
+                : null,
+        kmsKeyArn:
+            json.containsKey('KmsKeyArn') ? json['KmsKeyArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies code executed when a job is run.
@@ -5400,7 +7146,16 @@ class JobCommand {
     this.scriptLocation,
     this.pythonVersion,
   });
-  static JobCommand fromJson(Map<String, dynamic> json) => JobCommand();
+  static JobCommand fromJson(Map<String, dynamic> json) => JobCommand(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        scriptLocation: json.containsKey('ScriptLocation')
+            ? json['ScriptLocation'] as String
+            : null,
+        pythonVersion: json.containsKey('PythonVersion')
+            ? json['PythonVersion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The details of a Job node present in the workflow.
@@ -5411,7 +7166,11 @@ class JobNodeDetails {
   JobNodeDetails({
     this.jobRuns,
   });
-  static JobNodeDetails fromJson(Map<String, dynamic> json) => JobNodeDetails();
+  static JobNodeDetails fromJson(Map<String, dynamic> json) => JobNodeDetails(
+        jobRuns: json.containsKey('JobRuns')
+            ? (json['JobRuns'] as List).map((e) => JobRun.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains information about a job run.
@@ -5576,7 +7335,69 @@ class JobRun {
     this.notificationProperty,
     this.glueVersion,
   });
-  static JobRun fromJson(Map<String, dynamic> json) => JobRun();
+  static JobRun fromJson(Map<String, dynamic> json) => JobRun(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        attempt: json.containsKey('Attempt') ? json['Attempt'] as int : null,
+        previousRunId: json.containsKey('PreviousRunId')
+            ? json['PreviousRunId'] as String
+            : null,
+        triggerName: json.containsKey('TriggerName')
+            ? json['TriggerName'] as String
+            : null,
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        startedOn: json.containsKey('StartedOn')
+            ? DateTime.parse(json['StartedOn'])
+            : null,
+        lastModifiedOn: json.containsKey('LastModifiedOn')
+            ? DateTime.parse(json['LastModifiedOn'])
+            : null,
+        completedOn: json.containsKey('CompletedOn')
+            ? DateTime.parse(json['CompletedOn'])
+            : null,
+        jobRunState: json.containsKey('JobRunState')
+            ? json['JobRunState'] as String
+            : null,
+        arguments: json.containsKey('Arguments')
+            ? (json['Arguments'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        predecessorRuns: json.containsKey('PredecessorRuns')
+            ? (json['PredecessorRuns'] as List)
+                .map((e) => Predecessor.fromJson(e))
+                .toList()
+            : null,
+        allocatedCapacity: json.containsKey('AllocatedCapacity')
+            ? json['AllocatedCapacity'] as int
+            : null,
+        executionTime: json.containsKey('ExecutionTime')
+            ? json['ExecutionTime'] as int
+            : null,
+        timeout: json.containsKey('Timeout') ? json['Timeout'] as int : null,
+        maxCapacity: json.containsKey('MaxCapacity')
+            ? json['MaxCapacity'] as double
+            : null,
+        workerType: json.containsKey('WorkerType')
+            ? json['WorkerType'] as String
+            : null,
+        numberOfWorkers: json.containsKey('NumberOfWorkers')
+            ? json['NumberOfWorkers'] as int
+            : null,
+        securityConfiguration: json.containsKey('SecurityConfiguration')
+            ? json['SecurityConfiguration'] as String
+            : null,
+        logGroupName: json.containsKey('LogGroupName')
+            ? json['LogGroupName'] as String
+            : null,
+        notificationProperty: json.containsKey('NotificationProperty')
+            ? NotificationProperty.fromJson(json['NotificationProperty'])
+            : null,
+        glueVersion: json.containsKey('GlueVersion')
+            ? json['GlueVersion'] as String
+            : null,
+      );
 }
 
 /// Specifies information used to update an existing job definition. The
@@ -5711,6 +7532,7 @@ class JobUpdate {
     this.notificationProperty,
     this.glueVersion,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A classifier for `JSON` content.
@@ -5739,7 +7561,18 @@ class JsonClassifier {
     this.version,
     @required this.jsonPath,
   });
-  static JsonClassifier fromJson(Map<String, dynamic> json) => JsonClassifier();
+  static JsonClassifier fromJson(Map<String, dynamic> json) => JsonClassifier(
+        name: json['Name'] as String,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        jsonPath: json['JsonPath'] as String,
+      );
 }
 
 /// Specifies configuration properties for a labeling set generation task run.
@@ -5753,7 +7586,11 @@ class LabelingSetGenerationTaskRunProperties {
   });
   static LabelingSetGenerationTaskRunProperties fromJson(
           Map<String, dynamic> json) =>
-      LabelingSetGenerationTaskRunProperties();
+      LabelingSetGenerationTaskRunProperties(
+        outputS3Path: json.containsKey('OutputS3Path')
+            ? json['OutputS3Path'] as String
+            : null,
+      );
 }
 
 /// Status and error information about the most recent crawl.
@@ -5784,7 +7621,22 @@ class LastCrawlInfo {
     this.messagePrefix,
     this.startTime,
   });
-  static LastCrawlInfo fromJson(Map<String, dynamic> json) => LastCrawlInfo();
+  static LastCrawlInfo fromJson(Map<String, dynamic> json) => LastCrawlInfo(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        logGroup:
+            json.containsKey('LogGroup') ? json['LogGroup'] as String : null,
+        logStream:
+            json.containsKey('LogStream') ? json['LogStream'] as String : null,
+        messagePrefix: json.containsKey('MessagePrefix')
+            ? json['MessagePrefix'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+      );
 }
 
 class ListCrawlersResponse {
@@ -5801,7 +7653,13 @@ class ListCrawlersResponse {
     this.nextToken,
   });
   static ListCrawlersResponse fromJson(Map<String, dynamic> json) =>
-      ListCrawlersResponse();
+      ListCrawlersResponse(
+        crawlerNames: json.containsKey('CrawlerNames')
+            ? (json['CrawlerNames'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDevEndpointsResponse {
@@ -5818,7 +7676,15 @@ class ListDevEndpointsResponse {
     this.nextToken,
   });
   static ListDevEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      ListDevEndpointsResponse();
+      ListDevEndpointsResponse(
+        devEndpointNames: json.containsKey('DevEndpointNames')
+            ? (json['DevEndpointNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListJobsResponse {
@@ -5834,7 +7700,13 @@ class ListJobsResponse {
     this.nextToken,
   });
   static ListJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListJobsResponse();
+      ListJobsResponse(
+        jobNames: json.containsKey('JobNames')
+            ? (json['JobNames'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTriggersResponse {
@@ -5851,7 +7723,13 @@ class ListTriggersResponse {
     this.nextToken,
   });
   static ListTriggersResponse fromJson(Map<String, dynamic> json) =>
-      ListTriggersResponse();
+      ListTriggersResponse(
+        triggerNames: json.containsKey('TriggerNames')
+            ? (json['TriggerNames'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListWorkflowsResponse {
@@ -5866,7 +7744,13 @@ class ListWorkflowsResponse {
     this.nextToken,
   });
   static ListWorkflowsResponse fromJson(Map<String, dynamic> json) =>
-      ListWorkflowsResponse();
+      ListWorkflowsResponse(
+        workflows: json.containsKey('Workflows')
+            ? (json['Workflows'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The location of resources.
@@ -5885,6 +7769,7 @@ class Location {
     this.s3,
     this.dynamoDB,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A structure for a machine learning transform.
@@ -5995,7 +7880,53 @@ class MLTransform {
     this.timeout,
     this.maxRetries,
   });
-  static MLTransform fromJson(Map<String, dynamic> json) => MLTransform();
+  static MLTransform fromJson(Map<String, dynamic> json) => MLTransform(
+        transformId: json.containsKey('TransformId')
+            ? json['TransformId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        createdOn: json.containsKey('CreatedOn')
+            ? DateTime.parse(json['CreatedOn'])
+            : null,
+        lastModifiedOn: json.containsKey('LastModifiedOn')
+            ? DateTime.parse(json['LastModifiedOn'])
+            : null,
+        inputRecordTables: json.containsKey('InputRecordTables')
+            ? (json['InputRecordTables'] as List)
+                .map((e) => GlueTable.fromJson(e))
+                .toList()
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? TransformParameters.fromJson(json['Parameters'])
+            : null,
+        evaluationMetrics: json.containsKey('EvaluationMetrics')
+            ? EvaluationMetrics.fromJson(json['EvaluationMetrics'])
+            : null,
+        labelCount:
+            json.containsKey('LabelCount') ? json['LabelCount'] as int : null,
+        schema: json.containsKey('Schema')
+            ? (json['Schema'] as List)
+                .map((e) => SchemaColumn.fromJson(e))
+                .toList()
+            : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        maxCapacity: json.containsKey('MaxCapacity')
+            ? json['MaxCapacity'] as double
+            : null,
+        workerType: json.containsKey('WorkerType')
+            ? json['WorkerType'] as String
+            : null,
+        numberOfWorkers: json.containsKey('NumberOfWorkers')
+            ? json['NumberOfWorkers'] as int
+            : null,
+        timeout: json.containsKey('Timeout') ? json['Timeout'] as int : null,
+        maxRetries:
+            json.containsKey('MaxRetries') ? json['MaxRetries'] as int : null,
+      );
 }
 
 /// Defines a mapping.
@@ -6026,7 +7957,27 @@ class MappingEntry {
     this.targetPath,
     this.targetType,
   });
-  static MappingEntry fromJson(Map<String, dynamic> json) => MappingEntry();
+  static MappingEntry fromJson(Map<String, dynamic> json) => MappingEntry(
+        sourceTable: json.containsKey('SourceTable')
+            ? json['SourceTable'] as String
+            : null,
+        sourcePath: json.containsKey('SourcePath')
+            ? json['SourcePath'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        targetTable: json.containsKey('TargetTable')
+            ? json['TargetTable'] as String
+            : null,
+        targetPath: json.containsKey('TargetPath')
+            ? json['TargetPath'] as String
+            : null,
+        targetType: json.containsKey('TargetType')
+            ? json['TargetType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A node represents an AWS Glue component like Trigger, Job etc. which is part
@@ -6058,7 +8009,21 @@ class Node {
     this.jobDetails,
     this.crawlerDetails,
   });
-  static Node fromJson(Map<String, dynamic> json) => Node();
+  static Node fromJson(Map<String, dynamic> json) => Node(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        uniqueId:
+            json.containsKey('UniqueId') ? json['UniqueId'] as String : null,
+        triggerDetails: json.containsKey('TriggerDetails')
+            ? TriggerNodeDetails.fromJson(json['TriggerDetails'])
+            : null,
+        jobDetails: json.containsKey('JobDetails')
+            ? JobNodeDetails.fromJson(json['JobDetails'])
+            : null,
+        crawlerDetails: json.containsKey('CrawlerDetails')
+            ? CrawlerNodeDetails.fromJson(json['CrawlerDetails'])
+            : null,
+      );
 }
 
 /// Specifies configuration properties of a notification.
@@ -6071,7 +8036,12 @@ class NotificationProperty {
     this.notifyDelayAfter,
   });
   static NotificationProperty fromJson(Map<String, dynamic> json) =>
-      NotificationProperty();
+      NotificationProperty(
+        notifyDelayAfter: json.containsKey('NotifyDelayAfter')
+            ? json['NotifyDelayAfter'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the sort order of a sorted column.
@@ -6087,7 +8057,11 @@ class Order {
     @required this.column,
     @required this.sortOrder,
   });
-  static Order fromJson(Map<String, dynamic> json) => Order();
+  static Order fromJson(Map<String, dynamic> json) => Order(
+        column: json['Column'] as String,
+        sortOrder: json['SortOrder'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a slice of table data.
@@ -6127,7 +8101,32 @@ class Partition {
     this.parameters,
     this.lastAnalyzedTime,
   });
-  static Partition fromJson(Map<String, dynamic> json) => Partition();
+  static Partition fromJson(Map<String, dynamic> json) => Partition(
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastAccessTime: json.containsKey('LastAccessTime')
+            ? DateTime.parse(json['LastAccessTime'])
+            : null,
+        storageDescriptor: json.containsKey('StorageDescriptor')
+            ? StorageDescriptor.fromJson(json['StorageDescriptor'])
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        lastAnalyzedTime: json.containsKey('LastAnalyzedTime')
+            ? DateTime.parse(json['LastAnalyzedTime'])
+            : null,
+      );
 }
 
 /// Contains information about a partition error.
@@ -6142,7 +8141,14 @@ class PartitionError {
     this.partitionValues,
     this.errorDetail,
   });
-  static PartitionError fromJson(Map<String, dynamic> json) => PartitionError();
+  static PartitionError fromJson(Map<String, dynamic> json) => PartitionError(
+        partitionValues: json.containsKey('PartitionValues')
+            ? (json['PartitionValues'] as List).map((e) => e as String).toList()
+            : null,
+        errorDetail: json.containsKey('ErrorDetail')
+            ? ErrorDetail.fromJson(json['ErrorDetail'])
+            : null,
+      );
 }
 
 /// The structure used to create and update a partition.
@@ -6171,6 +8177,7 @@ class PartitionInput {
     this.parameters,
     this.lastAnalyzedTime,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains a list of values defining partitions.
@@ -6182,7 +8189,10 @@ class PartitionValueList {
     @required this.values,
   });
   static PartitionValueList fromJson(Map<String, dynamic> json) =>
-      PartitionValueList();
+      PartitionValueList(
+        values: (json['Values'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the physical requirements for a connection.
@@ -6204,7 +8214,19 @@ class PhysicalConnectionRequirements {
     this.availabilityZone,
   });
   static PhysicalConnectionRequirements fromJson(Map<String, dynamic> json) =>
-      PhysicalConnectionRequirements();
+      PhysicalConnectionRequirements(
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        securityGroupIdList: json.containsKey('SecurityGroupIdList')
+            ? (json['SecurityGroupIdList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A job run that was used in the predicate of a conditional trigger that
@@ -6220,7 +8242,10 @@ class Predecessor {
     this.jobName,
     this.runId,
   });
-  static Predecessor fromJson(Map<String, dynamic> json) => Predecessor();
+  static Predecessor fromJson(Map<String, dynamic> json) => Predecessor(
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        runId: json.containsKey('RunId') ? json['RunId'] as String : null,
+      );
 }
 
 /// Defines the predicate of the trigger, which determines when it fires.
@@ -6236,7 +8261,15 @@ class Predicate {
     this.logical,
     this.conditions,
   });
-  static Predicate fromJson(Map<String, dynamic> json) => Predicate();
+  static Predicate fromJson(Map<String, dynamic> json) => Predicate(
+        logical: json.containsKey('Logical') ? json['Logical'] as String : null,
+        conditions: json.containsKey('Conditions')
+            ? (json['Conditions'] as List)
+                .map((e) => Condition.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Permissions granted to a principal.
@@ -6252,7 +8285,15 @@ class PrincipalPermissions {
     this.permissions,
   });
   static PrincipalPermissions fromJson(Map<String, dynamic> json) =>
-      PrincipalPermissions();
+      PrincipalPermissions(
+        principal: json.containsKey('Principal')
+            ? DataLakePrincipal.fromJson(json['Principal'])
+            : null,
+        permissions: json.containsKey('Permissions')
+            ? (json['Permissions'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines a property predicate.
@@ -6271,6 +8312,7 @@ class PropertyPredicate {
     this.value,
     this.comparator,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutDataCatalogEncryptionSettingsResponse {
@@ -6289,7 +8331,11 @@ class PutResourcePolicyResponse {
     this.policyHash,
   });
   static PutResourcePolicyResponse fromJson(Map<String, dynamic> json) =>
-      PutResourcePolicyResponse();
+      PutResourcePolicyResponse(
+        policyHash: json.containsKey('PolicyHash')
+            ? json['PolicyHash'] as String
+            : null,
+      );
 }
 
 class PutWorkflowRunPropertiesResponse {
@@ -6306,7 +8352,11 @@ class ResetJobBookmarkResponse {
     this.jobBookmarkEntry,
   });
   static ResetJobBookmarkResponse fromJson(Map<String, dynamic> json) =>
-      ResetJobBookmarkResponse();
+      ResetJobBookmarkResponse(
+        jobBookmarkEntry: json.containsKey('JobBookmarkEntry')
+            ? JobBookmarkEntry.fromJson(json['JobBookmarkEntry'])
+            : null,
+      );
 }
 
 /// The URIs for function resources.
@@ -6321,7 +8371,13 @@ class ResourceUri {
     this.resourceType,
     this.uri,
   });
-  static ResourceUri fromJson(Map<String, dynamic> json) => ResourceUri();
+  static ResourceUri fromJson(Map<String, dynamic> json) => ResourceUri(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        uri: json.containsKey('Uri') ? json['Uri'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies how Amazon Simple Storage Service (Amazon S3) data should be
@@ -6338,7 +8394,14 @@ class S3Encryption {
     this.s3EncryptionMode,
     this.kmsKeyArn,
   });
-  static S3Encryption fromJson(Map<String, dynamic> json) => S3Encryption();
+  static S3Encryption fromJson(Map<String, dynamic> json) => S3Encryption(
+        s3EncryptionMode: json.containsKey('S3EncryptionMode')
+            ? json['S3EncryptionMode'] as String
+            : null,
+        kmsKeyArn:
+            json.containsKey('KmsKeyArn') ? json['KmsKeyArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a data store in Amazon Simple Storage Service (Amazon S3).
@@ -6355,7 +8418,13 @@ class S3Target {
     this.path,
     this.exclusions,
   });
-  static S3Target fromJson(Map<String, dynamic> json) => S3Target();
+  static S3Target fromJson(Map<String, dynamic> json) => S3Target(
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        exclusions: json.containsKey('Exclusions')
+            ? (json['Exclusions'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A scheduling object using a `cron` statement to schedule an event.
@@ -6374,7 +8443,12 @@ class Schedule {
     this.scheduleExpression,
     this.state,
   });
-  static Schedule fromJson(Map<String, dynamic> json) => Schedule();
+  static Schedule fromJson(Map<String, dynamic> json) => Schedule(
+        scheduleExpression: json.containsKey('ScheduleExpression')
+            ? json['ScheduleExpression'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// A policy that specifies update and deletion behaviors for the crawler.
@@ -6390,7 +8464,15 @@ class SchemaChangePolicy {
     this.deleteBehavior,
   });
   static SchemaChangePolicy fromJson(Map<String, dynamic> json) =>
-      SchemaChangePolicy();
+      SchemaChangePolicy(
+        updateBehavior: json.containsKey('UpdateBehavior')
+            ? json['UpdateBehavior'] as String
+            : null,
+        deleteBehavior: json.containsKey('DeleteBehavior')
+            ? json['DeleteBehavior'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A key-value pair representing a column and data type that this transform can
@@ -6407,7 +8489,12 @@ class SchemaColumn {
     this.name,
     this.dataType,
   });
-  static SchemaColumn fromJson(Map<String, dynamic> json) => SchemaColumn();
+  static SchemaColumn fromJson(Map<String, dynamic> json) => SchemaColumn(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        dataType:
+            json.containsKey('DataType') ? json['DataType'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SearchTablesResponse {
@@ -6423,7 +8510,13 @@ class SearchTablesResponse {
     this.tableList,
   });
   static SearchTablesResponse fromJson(Map<String, dynamic> json) =>
-      SearchTablesResponse();
+      SearchTablesResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        tableList: json.containsKey('TableList')
+            ? (json['TableList'] as List).map((e) => Table.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Specifies a security configuration.
@@ -6443,7 +8536,15 @@ class SecurityConfiguration {
     this.encryptionConfiguration,
   });
   static SecurityConfiguration fromJson(Map<String, dynamic> json) =>
-      SecurityConfiguration();
+      SecurityConfiguration(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        createdTimeStamp: json.containsKey('CreatedTimeStamp')
+            ? DateTime.parse(json['CreatedTimeStamp'])
+            : null,
+        encryptionConfiguration: json.containsKey('EncryptionConfiguration')
+            ? EncryptionConfiguration.fromJson(json['EncryptionConfiguration'])
+            : null,
+      );
 }
 
 /// Defines a non-overlapping region of a table's partitions, allowing multiple
@@ -6460,6 +8561,7 @@ class Segment {
     @required this.segmentNumber,
     @required this.totalSegments,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a serialization/deserialization program (SerDe) that
@@ -6480,7 +8582,17 @@ class SerDeInfo {
     this.serializationLibrary,
     this.parameters,
   });
-  static SerDeInfo fromJson(Map<String, dynamic> json) => SerDeInfo();
+  static SerDeInfo fromJson(Map<String, dynamic> json) => SerDeInfo(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        serializationLibrary: json.containsKey('SerializationLibrary')
+            ? json['SerializationLibrary'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies skewed values in a table. Skewed values are those that occur with
@@ -6500,7 +8612,24 @@ class SkewedInfo {
     this.skewedColumnValues,
     this.skewedColumnValueLocationMaps,
   });
-  static SkewedInfo fromJson(Map<String, dynamic> json) => SkewedInfo();
+  static SkewedInfo fromJson(Map<String, dynamic> json) => SkewedInfo(
+        skewedColumnNames: json.containsKey('SkewedColumnNames')
+            ? (json['SkewedColumnNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        skewedColumnValues: json.containsKey('SkewedColumnValues')
+            ? (json['SkewedColumnValues'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        skewedColumnValueLocationMaps:
+            json.containsKey('SkewedColumnValueLocationMaps')
+                ? (json['SkewedColumnValueLocationMaps'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as String))
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SortCriterion {
@@ -6512,6 +8641,7 @@ class SortCriterion {
     this.fieldName,
     this.sort,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartCrawlerResponse {
@@ -6534,7 +8664,10 @@ class StartExportLabelsTaskRunResponse {
     this.taskRunId,
   });
   static StartExportLabelsTaskRunResponse fromJson(Map<String, dynamic> json) =>
-      StartExportLabelsTaskRunResponse();
+      StartExportLabelsTaskRunResponse(
+        taskRunId:
+            json.containsKey('TaskRunId') ? json['TaskRunId'] as String : null,
+      );
 }
 
 class StartImportLabelsTaskRunResponse {
@@ -6545,7 +8678,10 @@ class StartImportLabelsTaskRunResponse {
     this.taskRunId,
   });
   static StartImportLabelsTaskRunResponse fromJson(Map<String, dynamic> json) =>
-      StartImportLabelsTaskRunResponse();
+      StartImportLabelsTaskRunResponse(
+        taskRunId:
+            json.containsKey('TaskRunId') ? json['TaskRunId'] as String : null,
+      );
 }
 
 class StartJobRunResponse {
@@ -6556,7 +8692,10 @@ class StartJobRunResponse {
     this.jobRunId,
   });
   static StartJobRunResponse fromJson(Map<String, dynamic> json) =>
-      StartJobRunResponse();
+      StartJobRunResponse(
+        jobRunId:
+            json.containsKey('JobRunId') ? json['JobRunId'] as String : null,
+      );
 }
 
 class StartMLEvaluationTaskRunResponse {
@@ -6567,7 +8706,10 @@ class StartMLEvaluationTaskRunResponse {
     this.taskRunId,
   });
   static StartMLEvaluationTaskRunResponse fromJson(Map<String, dynamic> json) =>
-      StartMLEvaluationTaskRunResponse();
+      StartMLEvaluationTaskRunResponse(
+        taskRunId:
+            json.containsKey('TaskRunId') ? json['TaskRunId'] as String : null,
+      );
 }
 
 class StartMLLabelingSetGenerationTaskRunResponse {
@@ -6579,7 +8721,10 @@ class StartMLLabelingSetGenerationTaskRunResponse {
   });
   static StartMLLabelingSetGenerationTaskRunResponse fromJson(
           Map<String, dynamic> json) =>
-      StartMLLabelingSetGenerationTaskRunResponse();
+      StartMLLabelingSetGenerationTaskRunResponse(
+        taskRunId:
+            json.containsKey('TaskRunId') ? json['TaskRunId'] as String : null,
+      );
 }
 
 class StartTriggerResponse {
@@ -6590,7 +8735,9 @@ class StartTriggerResponse {
     this.name,
   });
   static StartTriggerResponse fromJson(Map<String, dynamic> json) =>
-      StartTriggerResponse();
+      StartTriggerResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class StartWorkflowRunResponse {
@@ -6601,7 +8748,9 @@ class StartWorkflowRunResponse {
     this.runId,
   });
   static StartWorkflowRunResponse fromJson(Map<String, dynamic> json) =>
-      StartWorkflowRunResponse();
+      StartWorkflowRunResponse(
+        runId: json.containsKey('RunId') ? json['RunId'] as String : null,
+      );
 }
 
 class StopCrawlerResponse {
@@ -6624,7 +8773,9 @@ class StopTriggerResponse {
     this.name,
   });
   static StopTriggerResponse fromJson(Map<String, dynamic> json) =>
-      StopTriggerResponse();
+      StopTriggerResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Describes the physical storage of table data.
@@ -6686,7 +8837,46 @@ class StorageDescriptor {
     this.storedAsSubDirectories,
   });
   static StorageDescriptor fromJson(Map<String, dynamic> json) =>
-      StorageDescriptor();
+      StorageDescriptor(
+        columns: json.containsKey('Columns')
+            ? (json['Columns'] as List).map((e) => Column.fromJson(e)).toList()
+            : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        inputFormat: json.containsKey('InputFormat')
+            ? json['InputFormat'] as String
+            : null,
+        outputFormat: json.containsKey('OutputFormat')
+            ? json['OutputFormat'] as String
+            : null,
+        compressed:
+            json.containsKey('Compressed') ? json['Compressed'] as bool : null,
+        numberOfBuckets: json.containsKey('NumberOfBuckets')
+            ? json['NumberOfBuckets'] as int
+            : null,
+        serdeInfo: json.containsKey('SerdeInfo')
+            ? SerDeInfo.fromJson(json['SerdeInfo'])
+            : null,
+        bucketColumns: json.containsKey('BucketColumns')
+            ? (json['BucketColumns'] as List).map((e) => e as String).toList()
+            : null,
+        sortColumns: json.containsKey('SortColumns')
+            ? (json['SortColumns'] as List)
+                .map((e) => Order.fromJson(e))
+                .toList()
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        skewedInfo: json.containsKey('SkewedInfo')
+            ? SkewedInfo.fromJson(json['SkewedInfo'])
+            : null,
+        storedAsSubDirectories: json.containsKey('StoredAsSubDirectories')
+            ? json['StoredAsSubDirectories'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a collection of related data organized in columns and rows.
@@ -6771,7 +8961,56 @@ class Table {
     this.createdBy,
     this.isRegisteredWithLakeFormation,
   });
-  static Table fromJson(Map<String, dynamic> json) => Table();
+  static Table fromJson(Map<String, dynamic> json) => Table(
+        name: json['Name'] as String,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        owner: json.containsKey('Owner') ? json['Owner'] as String : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        updateTime: json.containsKey('UpdateTime')
+            ? DateTime.parse(json['UpdateTime'])
+            : null,
+        lastAccessTime: json.containsKey('LastAccessTime')
+            ? DateTime.parse(json['LastAccessTime'])
+            : null,
+        lastAnalyzedTime: json.containsKey('LastAnalyzedTime')
+            ? DateTime.parse(json['LastAnalyzedTime'])
+            : null,
+        retention:
+            json.containsKey('Retention') ? json['Retention'] as int : null,
+        storageDescriptor: json.containsKey('StorageDescriptor')
+            ? StorageDescriptor.fromJson(json['StorageDescriptor'])
+            : null,
+        partitionKeys: json.containsKey('PartitionKeys')
+            ? (json['PartitionKeys'] as List)
+                .map((e) => Column.fromJson(e))
+                .toList()
+            : null,
+        viewOriginalText: json.containsKey('ViewOriginalText')
+            ? json['ViewOriginalText'] as String
+            : null,
+        viewExpandedText: json.containsKey('ViewExpandedText')
+            ? json['ViewExpandedText'] as String
+            : null,
+        tableType:
+            json.containsKey('TableType') ? json['TableType'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        createdBy:
+            json.containsKey('CreatedBy') ? json['CreatedBy'] as String : null,
+        isRegisteredWithLakeFormation:
+            json.containsKey('IsRegisteredWithLakeFormation')
+                ? json['IsRegisteredWithLakeFormation'] as bool
+                : null,
+      );
 }
 
 /// An error record for table operations.
@@ -6787,7 +9026,13 @@ class TableError {
     this.tableName,
     this.errorDetail,
   });
-  static TableError fromJson(Map<String, dynamic> json) => TableError();
+  static TableError fromJson(Map<String, dynamic> json) => TableError(
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        errorDetail: json.containsKey('ErrorDetail')
+            ? ErrorDetail.fromJson(json['ErrorDetail'])
+            : null,
+      );
 }
 
 /// A structure used to define a table.
@@ -6851,6 +9096,7 @@ class TableInput {
     this.tableType,
     this.parameters,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a version of a table.
@@ -6866,7 +9112,11 @@ class TableVersion {
     this.table,
     this.versionId,
   });
-  static TableVersion fromJson(Map<String, dynamic> json) => TableVersion();
+  static TableVersion fromJson(Map<String, dynamic> json) => TableVersion(
+        table: json.containsKey('Table') ? Table.fromJson(json['Table']) : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 /// An error record for table-version operations.
@@ -6887,7 +9137,15 @@ class TableVersionError {
     this.errorDetail,
   });
   static TableVersionError fromJson(Map<String, dynamic> json) =>
-      TableVersionError();
+      TableVersionError(
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        errorDetail: json.containsKey('ErrorDetail')
+            ? ErrorDetail.fromJson(json['ErrorDetail'])
+            : null,
+      );
 }
 
 class TagResourceResponse {
@@ -6942,7 +9200,35 @@ class TaskRun {
     this.completedOn,
     this.executionTime,
   });
-  static TaskRun fromJson(Map<String, dynamic> json) => TaskRun();
+  static TaskRun fromJson(Map<String, dynamic> json) => TaskRun(
+        transformId: json.containsKey('TransformId')
+            ? json['TransformId'] as String
+            : null,
+        taskRunId:
+            json.containsKey('TaskRunId') ? json['TaskRunId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        logGroupName: json.containsKey('LogGroupName')
+            ? json['LogGroupName'] as String
+            : null,
+        properties: json.containsKey('Properties')
+            ? TaskRunProperties.fromJson(json['Properties'])
+            : null,
+        errorString: json.containsKey('ErrorString')
+            ? json['ErrorString'] as String
+            : null,
+        startedOn: json.containsKey('StartedOn')
+            ? DateTime.parse(json['StartedOn'])
+            : null,
+        lastModifiedOn: json.containsKey('LastModifiedOn')
+            ? DateTime.parse(json['LastModifiedOn'])
+            : null,
+        completedOn: json.containsKey('CompletedOn')
+            ? DateTime.parse(json['CompletedOn'])
+            : null,
+        executionTime: json.containsKey('ExecutionTime')
+            ? json['ExecutionTime'] as int
+            : null,
+      );
 }
 
 /// The criteria that are used to filter the task runs for the machine learning
@@ -6966,6 +9252,7 @@ class TaskRunFilterCriteria {
     this.startedBefore,
     this.startedAfter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration properties for the task run.
@@ -6994,7 +9281,30 @@ class TaskRunProperties {
     this.findMatchesTaskRunProperties,
   });
   static TaskRunProperties fromJson(Map<String, dynamic> json) =>
-      TaskRunProperties();
+      TaskRunProperties(
+        taskType:
+            json.containsKey('TaskType') ? json['TaskType'] as String : null,
+        importLabelsTaskRunProperties:
+            json.containsKey('ImportLabelsTaskRunProperties')
+                ? ImportLabelsTaskRunProperties.fromJson(
+                    json['ImportLabelsTaskRunProperties'])
+                : null,
+        exportLabelsTaskRunProperties:
+            json.containsKey('ExportLabelsTaskRunProperties')
+                ? ExportLabelsTaskRunProperties.fromJson(
+                    json['ExportLabelsTaskRunProperties'])
+                : null,
+        labelingSetGenerationTaskRunProperties:
+            json.containsKey('LabelingSetGenerationTaskRunProperties')
+                ? LabelingSetGenerationTaskRunProperties.fromJson(
+                    json['LabelingSetGenerationTaskRunProperties'])
+                : null,
+        findMatchesTaskRunProperties:
+            json.containsKey('FindMatchesTaskRunProperties')
+                ? FindMatchesTaskRunProperties.fromJson(
+                    json['FindMatchesTaskRunProperties'])
+                : null,
+      );
 }
 
 /// The sorting criteria that are used to sort the list of task runs for the
@@ -7012,6 +9322,7 @@ class TaskRunSortCriteria {
     @required this.column,
     @required this.sortDirection,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The criteria used to filter the machine learning transforms.
@@ -7057,6 +9368,7 @@ class TransformFilterCriteria {
     this.lastModifiedAfter,
     this.schema,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The algorithm-specific parameters that are associated with the machine
@@ -7076,7 +9388,13 @@ class TransformParameters {
     this.findMatchesParameters,
   });
   static TransformParameters fromJson(Map<String, dynamic> json) =>
-      TransformParameters();
+      TransformParameters(
+        transformType: json['TransformType'] as String,
+        findMatchesParameters: json.containsKey('FindMatchesParameters')
+            ? FindMatchesParameters.fromJson(json['FindMatchesParameters'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The sorting criteria that are associated with the machine learning
@@ -7094,6 +9412,7 @@ class TransformSortCriteria {
     @required this.column,
     @required this.sortDirection,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a specific trigger.
@@ -7139,7 +9458,26 @@ class Trigger {
     this.actions,
     this.predicate,
   });
-  static Trigger fromJson(Map<String, dynamic> json) => Trigger();
+  static Trigger fromJson(Map<String, dynamic> json) => Trigger(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        workflowName: json.containsKey('WorkflowName')
+            ? json['WorkflowName'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        schedule:
+            json.containsKey('Schedule') ? json['Schedule'] as String : null,
+        actions: json.containsKey('Actions')
+            ? (json['Actions'] as List).map((e) => Action.fromJson(e)).toList()
+            : null,
+        predicate: json.containsKey('Predicate')
+            ? Predicate.fromJson(json['Predicate'])
+            : null,
+      );
 }
 
 /// The details of a Trigger node present in the workflow.
@@ -7151,7 +9489,11 @@ class TriggerNodeDetails {
     this.trigger,
   });
   static TriggerNodeDetails fromJson(Map<String, dynamic> json) =>
-      TriggerNodeDetails();
+      TriggerNodeDetails(
+        trigger: json.containsKey('Trigger')
+            ? Trigger.fromJson(json['Trigger'])
+            : null,
+      );
 }
 
 /// A structure used to provide information used to update a trigger. This
@@ -7182,6 +9524,7 @@ class TriggerUpdate {
     this.actions,
     this.predicate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -7248,6 +9591,7 @@ class UpdateCsvClassifierRequest {
     this.disableValueTrimming,
     this.allowSingleColumn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateDatabaseResponse {
@@ -7283,6 +9627,7 @@ class UpdateGrokClassifierRequest {
     this.grokPattern,
     this.customPatterns,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateJobResponse {
@@ -7293,7 +9638,9 @@ class UpdateJobResponse {
     this.jobName,
   });
   static UpdateJobResponse fromJson(Map<String, dynamic> json) =>
-      UpdateJobResponse();
+      UpdateJobResponse(
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+      );
 }
 
 /// Specifies a JSON classifier to be updated.
@@ -7310,6 +9657,7 @@ class UpdateJsonClassifierRequest {
     @required this.name,
     this.jsonPath,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateMLTransformResponse {
@@ -7320,7 +9668,11 @@ class UpdateMLTransformResponse {
     this.transformId,
   });
   static UpdateMLTransformResponse fromJson(Map<String, dynamic> json) =>
-      UpdateMLTransformResponse();
+      UpdateMLTransformResponse(
+        transformId: json.containsKey('TransformId')
+            ? json['TransformId'] as String
+            : null,
+      );
 }
 
 class UpdatePartitionResponse {
@@ -7343,7 +9695,11 @@ class UpdateTriggerResponse {
     this.trigger,
   });
   static UpdateTriggerResponse fromJson(Map<String, dynamic> json) =>
-      UpdateTriggerResponse();
+      UpdateTriggerResponse(
+        trigger: json.containsKey('Trigger')
+            ? Trigger.fromJson(json['Trigger'])
+            : null,
+      );
 }
 
 class UpdateUserDefinedFunctionResponse {
@@ -7361,7 +9717,9 @@ class UpdateWorkflowResponse {
     this.name,
   });
   static UpdateWorkflowResponse fromJson(Map<String, dynamic> json) =>
-      UpdateWorkflowResponse();
+      UpdateWorkflowResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Specifies an XML classifier to be updated.
@@ -7384,6 +9742,7 @@ class UpdateXmlClassifierRequest {
     this.classification,
     this.rowTag,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the equivalent of a Hive user-defined function (`UDF`)
@@ -7416,7 +9775,25 @@ class UserDefinedFunction {
     this.resourceUris,
   });
   static UserDefinedFunction fromJson(Map<String, dynamic> json) =>
-      UserDefinedFunction();
+      UserDefinedFunction(
+        functionName: json.containsKey('FunctionName')
+            ? json['FunctionName'] as String
+            : null,
+        className:
+            json.containsKey('ClassName') ? json['ClassName'] as String : null,
+        ownerName:
+            json.containsKey('OwnerName') ? json['OwnerName'] as String : null,
+        ownerType:
+            json.containsKey('OwnerType') ? json['OwnerType'] as String : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        resourceUris: json.containsKey('ResourceUris')
+            ? (json['ResourceUris'] as List)
+                .map((e) => ResourceUri.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A structure used to create or update a user-defined function.
@@ -7443,6 +9820,7 @@ class UserDefinedFunctionInput {
     this.ownerType,
     this.resourceUris,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A workflow represents a flow in which AWS Glue components should be executed
@@ -7480,7 +9858,28 @@ class Workflow {
     this.lastRun,
     this.graph,
   });
-  static Workflow fromJson(Map<String, dynamic> json) => Workflow();
+  static Workflow fromJson(Map<String, dynamic> json) => Workflow(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        defaultRunProperties: json.containsKey('DefaultRunProperties')
+            ? (json['DefaultRunProperties'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        createdOn: json.containsKey('CreatedOn')
+            ? DateTime.parse(json['CreatedOn'])
+            : null,
+        lastModifiedOn: json.containsKey('LastModifiedOn')
+            ? DateTime.parse(json['LastModifiedOn'])
+            : null,
+        lastRun: json.containsKey('LastRun')
+            ? WorkflowRun.fromJson(json['LastRun'])
+            : null,
+        graph: json.containsKey('Graph')
+            ? WorkflowGraph.fromJson(json['Graph'])
+            : null,
+      );
 }
 
 /// A workflow graph represents the complete workflow containing all the AWS
@@ -7499,7 +9898,14 @@ class WorkflowGraph {
     this.nodes,
     this.edges,
   });
-  static WorkflowGraph fromJson(Map<String, dynamic> json) => WorkflowGraph();
+  static WorkflowGraph fromJson(Map<String, dynamic> json) => WorkflowGraph(
+        nodes: json.containsKey('Nodes')
+            ? (json['Nodes'] as List).map((e) => Node.fromJson(e)).toList()
+            : null,
+        edges: json.containsKey('Edges')
+            ? (json['Edges'] as List).map((e) => Edge.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A workflow run is an execution of a workflow providing all the runtime
@@ -7540,7 +9946,29 @@ class WorkflowRun {
     this.statistics,
     this.graph,
   });
-  static WorkflowRun fromJson(Map<String, dynamic> json) => WorkflowRun();
+  static WorkflowRun fromJson(Map<String, dynamic> json) => WorkflowRun(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        workflowRunId: json.containsKey('WorkflowRunId')
+            ? json['WorkflowRunId'] as String
+            : null,
+        workflowRunProperties: json.containsKey('WorkflowRunProperties')
+            ? (json['WorkflowRunProperties'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        startedOn: json.containsKey('StartedOn')
+            ? DateTime.parse(json['StartedOn'])
+            : null,
+        completedOn: json.containsKey('CompletedOn')
+            ? DateTime.parse(json['CompletedOn'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statistics: json.containsKey('Statistics')
+            ? WorkflowRunStatistics.fromJson(json['Statistics'])
+            : null,
+        graph: json.containsKey('Graph')
+            ? WorkflowGraph.fromJson(json['Graph'])
+            : null,
+      );
 }
 
 /// Workflow run statistics provides statistics about the workflow run.
@@ -7572,7 +10000,26 @@ class WorkflowRunStatistics {
     this.runningActions,
   });
   static WorkflowRunStatistics fromJson(Map<String, dynamic> json) =>
-      WorkflowRunStatistics();
+      WorkflowRunStatistics(
+        totalActions: json.containsKey('TotalActions')
+            ? json['TotalActions'] as int
+            : null,
+        timeoutActions: json.containsKey('TimeoutActions')
+            ? json['TimeoutActions'] as int
+            : null,
+        failedActions: json.containsKey('FailedActions')
+            ? json['FailedActions'] as int
+            : null,
+        stoppedActions: json.containsKey('StoppedActions')
+            ? json['StoppedActions'] as int
+            : null,
+        succeededActions: json.containsKey('SucceededActions')
+            ? json['SucceededActions'] as int
+            : null,
+        runningActions: json.containsKey('RunningActions')
+            ? json['RunningActions'] as int
+            : null,
+      );
 }
 
 /// A classifier for `XML` content.
@@ -7607,5 +10054,17 @@ class XmlClassifier {
     this.version,
     this.rowTag,
   });
-  static XmlClassifier fromJson(Map<String, dynamic> json) => XmlClassifier();
+  static XmlClassifier fromJson(Map<String, dynamic> json) => XmlClassifier(
+        name: json['Name'] as String,
+        classification: json['Classification'] as String,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        rowTag: json.containsKey('RowTag') ? json['RowTag'] as String : null,
+      );
 }

@@ -15,6 +15,11 @@ import 'dart:typed_data';
 /// [What Is AWS Database Migration Service?](https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html)
 /// in the _AWS Database Migration User Guide._
 class DatabaseMigrationServiceApi {
+  final _client;
+  DatabaseMigrationServiceApi(client)
+      : _client =
+            client.configured('Database Migration Service', serializer: 'json');
+
   /// Adds metadata tags to an AWS DMS resource, including replication instance,
   /// endpoint, security group, and migration task. These tags can also be used
   /// with cost allocation reporting to track cost associated with DMS
@@ -29,7 +34,11 @@ class DatabaseMigrationServiceApi {
   /// [tags]: One or more tags to be assigned to the resource.
   Future<AddTagsToResourceResponse> addTagsToResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return AddTagsToResourceResponse.fromJson({});
+    var response_ = await _client.send('AddTagsToResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return AddTagsToResourceResponse.fromJson(response_);
   }
 
   /// Applies a pending maintenance action to a resource (for example, to a
@@ -56,7 +65,12 @@ class DatabaseMigrationServiceApi {
       {@required String replicationInstanceArn,
       @required String applyAction,
       @required String optInType}) async {
-    return ApplyPendingMaintenanceActionResponse.fromJson({});
+    var response_ = await _client.send('ApplyPendingMaintenanceAction', {
+      'ReplicationInstanceArn': replicationInstanceArn,
+      'ApplyAction': applyAction,
+      'OptInType': optInType,
+    });
+    return ApplyPendingMaintenanceActionResponse.fromJson(response_);
   }
 
   /// Creates an endpoint using the provided settings.
@@ -183,7 +197,36 @@ class DatabaseMigrationServiceApi {
       KinesisSettings kinesisSettings,
       ElasticsearchSettings elasticsearchSettings,
       RedshiftSettings redshiftSettings}) async {
-    return CreateEndpointResponse.fromJson({});
+    var response_ = await _client.send('CreateEndpoint', {
+      'EndpointIdentifier': endpointIdentifier,
+      'EndpointType': endpointType,
+      'EngineName': engineName,
+      if (username != null) 'Username': username,
+      if (password != null) 'Password': password,
+      if (serverName != null) 'ServerName': serverName,
+      if (port != null) 'Port': port,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      if (extraConnectionAttributes != null)
+        'ExtraConnectionAttributes': extraConnectionAttributes,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (tags != null) 'Tags': tags,
+      if (certificateArn != null) 'CertificateArn': certificateArn,
+      if (sslMode != null) 'SslMode': sslMode,
+      if (serviceAccessRoleArn != null)
+        'ServiceAccessRoleArn': serviceAccessRoleArn,
+      if (externalTableDefinition != null)
+        'ExternalTableDefinition': externalTableDefinition,
+      if (dynamoDbSettings != null) 'DynamoDbSettings': dynamoDbSettings,
+      if (s3Settings != null) 'S3Settings': s3Settings,
+      if (dmsTransferSettings != null)
+        'DmsTransferSettings': dmsTransferSettings,
+      if (mongoDbSettings != null) 'MongoDbSettings': mongoDbSettings,
+      if (kinesisSettings != null) 'KinesisSettings': kinesisSettings,
+      if (elasticsearchSettings != null)
+        'ElasticsearchSettings': elasticsearchSettings,
+      if (redshiftSettings != null) 'RedshiftSettings': redshiftSettings,
+    });
+    return CreateEndpointResponse.fromJson(response_);
   }
 
   ///  Creates an AWS DMS event notification subscription.
@@ -245,7 +288,16 @@ class DatabaseMigrationServiceApi {
       List<String> sourceIds,
       bool enabled,
       List<Tag> tags}) async {
-    return CreateEventSubscriptionResponse.fromJson({});
+    var response_ = await _client.send('CreateEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (sourceIds != null) 'SourceIds': sourceIds,
+      if (enabled != null) 'Enabled': enabled,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateEventSubscriptionResponse.fromJson(response_);
   }
 
   /// Creates the replication instance using the specified parameters.
@@ -341,7 +393,27 @@ class DatabaseMigrationServiceApi {
       String kmsKeyId,
       bool publiclyAccessible,
       String dnsNameServers}) async {
-    return CreateReplicationInstanceResponse.fromJson({});
+    var response_ = await _client.send('CreateReplicationInstance', {
+      'ReplicationInstanceIdentifier': replicationInstanceIdentifier,
+      if (allocatedStorage != null) 'AllocatedStorage': allocatedStorage,
+      'ReplicationInstanceClass': replicationInstanceClass,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (replicationSubnetGroupIdentifier != null)
+        'ReplicationSubnetGroupIdentifier': replicationSubnetGroupIdentifier,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (tags != null) 'Tags': tags,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (dnsNameServers != null) 'DnsNameServers': dnsNameServers,
+    });
+    return CreateReplicationInstanceResponse.fromJson(response_);
   }
 
   /// Creates a replication subnet group given a list of the subnet IDs in a
@@ -365,7 +437,13 @@ class DatabaseMigrationServiceApi {
       @required String replicationSubnetGroupDescription,
       @required List<String> subnetIds,
       List<Tag> tags}) async {
-    return CreateReplicationSubnetGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateReplicationSubnetGroup', {
+      'ReplicationSubnetGroupIdentifier': replicationSubnetGroupIdentifier,
+      'ReplicationSubnetGroupDescription': replicationSubnetGroupDescription,
+      'SubnetIds': subnetIds,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateReplicationSubnetGroupResponse.fromJson(response_);
   }
 
   /// Creates a replication task using the specified parameters.
@@ -443,7 +521,21 @@ class DatabaseMigrationServiceApi {
       String cdcStartPosition,
       String cdcStopPosition,
       List<Tag> tags}) async {
-    return CreateReplicationTaskResponse.fromJson({});
+    var response_ = await _client.send('CreateReplicationTask', {
+      'ReplicationTaskIdentifier': replicationTaskIdentifier,
+      'SourceEndpointArn': sourceEndpointArn,
+      'TargetEndpointArn': targetEndpointArn,
+      'ReplicationInstanceArn': replicationInstanceArn,
+      'MigrationType': migrationType,
+      'TableMappings': tableMappings,
+      if (replicationTaskSettings != null)
+        'ReplicationTaskSettings': replicationTaskSettings,
+      if (cdcStartTime != null) 'CdcStartTime': cdcStartTime,
+      if (cdcStartPosition != null) 'CdcStartPosition': cdcStartPosition,
+      if (cdcStopPosition != null) 'CdcStopPosition': cdcStopPosition,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateReplicationTaskResponse.fromJson(response_);
   }
 
   /// Deletes the specified certificate.
@@ -452,7 +544,10 @@ class DatabaseMigrationServiceApi {
   /// certificate.
   Future<DeleteCertificateResponse> deleteCertificate(
       String certificateArn) async {
-    return DeleteCertificateResponse.fromJson({});
+    var response_ = await _client.send('DeleteCertificate', {
+      'CertificateArn': certificateArn,
+    });
+    return DeleteCertificateResponse.fromJson(response_);
   }
 
   /// Deletes the specified endpoint.
@@ -463,7 +558,10 @@ class DatabaseMigrationServiceApi {
   /// [endpointArn]: The Amazon Resource Name (ARN) string that uniquely
   /// identifies the endpoint.
   Future<DeleteEndpointResponse> deleteEndpoint(String endpointArn) async {
-    return DeleteEndpointResponse.fromJson({});
+    var response_ = await _client.send('DeleteEndpoint', {
+      'EndpointArn': endpointArn,
+    });
+    return DeleteEndpointResponse.fromJson(response_);
   }
 
   ///  Deletes an AWS DMS event subscription.
@@ -472,7 +570,10 @@ class DatabaseMigrationServiceApi {
   /// be deleted.
   Future<DeleteEventSubscriptionResponse> deleteEventSubscription(
       String subscriptionName) async {
-    return DeleteEventSubscriptionResponse.fromJson({});
+    var response_ = await _client.send('DeleteEventSubscription', {
+      'SubscriptionName': subscriptionName,
+    });
+    return DeleteEventSubscriptionResponse.fromJson(response_);
   }
 
   /// Deletes the specified replication instance.
@@ -484,7 +585,10 @@ class DatabaseMigrationServiceApi {
   /// replication instance to be deleted.
   Future<DeleteReplicationInstanceResponse> deleteReplicationInstance(
       String replicationInstanceArn) async {
-    return DeleteReplicationInstanceResponse.fromJson({});
+    var response_ = await _client.send('DeleteReplicationInstance', {
+      'ReplicationInstanceArn': replicationInstanceArn,
+    });
+    return DeleteReplicationInstanceResponse.fromJson(response_);
   }
 
   /// Deletes a subnet group.
@@ -493,7 +597,10 @@ class DatabaseMigrationServiceApi {
   /// replication instance.
   Future<DeleteReplicationSubnetGroupResponse> deleteReplicationSubnetGroup(
       String replicationSubnetGroupIdentifier) async {
-    return DeleteReplicationSubnetGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteReplicationSubnetGroup', {
+      'ReplicationSubnetGroupIdentifier': replicationSubnetGroupIdentifier,
+    });
+    return DeleteReplicationSubnetGroupResponse.fromJson(response_);
   }
 
   /// Deletes the specified replication task.
@@ -502,7 +609,10 @@ class DatabaseMigrationServiceApi {
   /// task to be deleted.
   Future<DeleteReplicationTaskResponse> deleteReplicationTask(
       String replicationTaskArn) async {
-    return DeleteReplicationTaskResponse.fromJson({});
+    var response_ = await _client.send('DeleteReplicationTask', {
+      'ReplicationTaskArn': replicationTaskArn,
+    });
+    return DeleteReplicationTaskResponse.fromJson(response_);
   }
 
   /// Lists all of the AWS DMS attributes for a customer account. These
@@ -516,7 +626,8 @@ class DatabaseMigrationServiceApi {
   ///
   /// This command does not take any parameters.
   Future<DescribeAccountAttributesResponse> describeAccountAttributes() async {
-    return DescribeAccountAttributesResponse.fromJson({});
+    var response_ = await _client.send('DescribeAccountAttributes', {});
+    return DescribeAccountAttributesResponse.fromJson(response_);
   }
 
   /// Provides a description of the certificate.
@@ -536,7 +647,12 @@ class DatabaseMigrationServiceApi {
   /// marker, up to the vlue specified by `MaxRecords`.
   Future<DescribeCertificatesResponse> describeCertificates(
       {List<Filter> filters, int maxRecords, String marker}) async {
-    return DescribeCertificatesResponse.fromJson({});
+    var response_ = await _client.send('DescribeCertificates', {
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeCertificatesResponse.fromJson(response_);
   }
 
   /// Describes the status of the connections that have been made between the
@@ -561,7 +677,12 @@ class DatabaseMigrationServiceApi {
   /// marker, up to the value specified by `MaxRecords`.
   Future<DescribeConnectionsResponse> describeConnections(
       {List<Filter> filters, int maxRecords, String marker}) async {
-    return DescribeConnectionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeConnections', {
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeConnectionsResponse.fromJson(response_);
   }
 
   /// Returns information about the type of endpoints available.
@@ -584,7 +705,12 @@ class DatabaseMigrationServiceApi {
   /// marker, up to the value specified by `MaxRecords`.
   Future<DescribeEndpointTypesResponse> describeEndpointTypes(
       {List<Filter> filters, int maxRecords, String marker}) async {
-    return DescribeEndpointTypesResponse.fromJson({});
+    var response_ = await _client.send('DescribeEndpointTypes', {
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEndpointTypesResponse.fromJson(response_);
   }
 
   /// Returns information about the endpoints for your account in the current
@@ -609,7 +735,12 @@ class DatabaseMigrationServiceApi {
   /// marker, up to the value specified by `MaxRecords`.
   Future<DescribeEndpointsResponse> describeEndpoints(
       {List<Filter> filters, int maxRecords, String marker}) async {
-    return DescribeEndpointsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEndpoints', {
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEndpointsResponse.fromJson(response_);
   }
 
   /// Lists categories for all event source types, or, if specified, for a
@@ -625,7 +756,11 @@ class DatabaseMigrationServiceApi {
   /// [filters]: Filters applied to the action.
   Future<DescribeEventCategoriesResponse> describeEventCategories(
       {String sourceType, List<Filter> filters}) async {
-    return DescribeEventCategoriesResponse.fromJson({});
+    var response_ = await _client.send('DescribeEventCategories', {
+      if (sourceType != null) 'SourceType': sourceType,
+      if (filters != null) 'Filters': filters,
+    });
+    return DescribeEventCategoriesResponse.fromJson(response_);
   }
 
   /// Lists all the event subscriptions for a customer account. The description
@@ -657,7 +792,13 @@ class DatabaseMigrationServiceApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DescribeEventSubscriptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEventSubscriptions', {
+      if (subscriptionName != null) 'SubscriptionName': subscriptionName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEventSubscriptionsResponse.fromJson(response_);
   }
 
   ///  Lists events for a given source identifier and source type. You can also
@@ -704,7 +845,18 @@ class DatabaseMigrationServiceApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DescribeEventsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      if (sourceIdentifier != null) 'SourceIdentifier': sourceIdentifier,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (duration != null) 'Duration': duration,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEventsResponse.fromJson(response_);
   }
 
   /// Returns information about the replication instance types that can be
@@ -725,7 +877,12 @@ class DatabaseMigrationServiceApi {
   Future<DescribeOrderableReplicationInstancesResponse>
       describeOrderableReplicationInstances(
           {int maxRecords, String marker}) async {
-    return DescribeOrderableReplicationInstancesResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeOrderableReplicationInstances', {
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeOrderableReplicationInstancesResponse.fromJson(response_);
   }
 
   /// For internal use only
@@ -753,7 +910,14 @@ class DatabaseMigrationServiceApi {
           List<Filter> filters,
           String marker,
           int maxRecords}) async {
-    return DescribePendingMaintenanceActionsResponse.fromJson({});
+    var response_ = await _client.send('DescribePendingMaintenanceActions', {
+      if (replicationInstanceArn != null)
+        'ReplicationInstanceArn': replicationInstanceArn,
+      if (filters != null) 'Filters': filters,
+      if (marker != null) 'Marker': marker,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return DescribePendingMaintenanceActionsResponse.fromJson(response_);
   }
 
   /// Returns the status of the RefreshSchemas operation.
@@ -762,7 +926,10 @@ class DatabaseMigrationServiceApi {
   /// identifies the endpoint.
   Future<DescribeRefreshSchemasStatusResponse> describeRefreshSchemasStatus(
       String endpointArn) async {
-    return DescribeRefreshSchemasStatusResponse.fromJson({});
+    var response_ = await _client.send('DescribeRefreshSchemasStatus', {
+      'EndpointArn': endpointArn,
+    });
+    return DescribeRefreshSchemasStatusResponse.fromJson(response_);
   }
 
   /// Returns information about the task logs for the specified task.
@@ -785,7 +952,12 @@ class DatabaseMigrationServiceApi {
   Future<DescribeReplicationInstanceTaskLogsResponse>
       describeReplicationInstanceTaskLogs(String replicationInstanceArn,
           {int maxRecords, String marker}) async {
-    return DescribeReplicationInstanceTaskLogsResponse.fromJson({});
+    var response_ = await _client.send('DescribeReplicationInstanceTaskLogs', {
+      'ReplicationInstanceArn': replicationInstanceArn,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeReplicationInstanceTaskLogsResponse.fromJson(response_);
   }
 
   /// Returns information about replication instances for your account in the
@@ -810,7 +982,12 @@ class DatabaseMigrationServiceApi {
   /// marker, up to the value specified by `MaxRecords`.
   Future<DescribeReplicationInstancesResponse> describeReplicationInstances(
       {List<Filter> filters, int maxRecords, String marker}) async {
-    return DescribeReplicationInstancesResponse.fromJson({});
+    var response_ = await _client.send('DescribeReplicationInstances', {
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeReplicationInstancesResponse.fromJson(response_);
   }
 
   /// Returns information about the replication subnet groups.
@@ -832,7 +1009,12 @@ class DatabaseMigrationServiceApi {
   Future<DescribeReplicationSubnetGroupsResponse>
       describeReplicationSubnetGroups(
           {List<Filter> filters, int maxRecords, String marker}) async {
-    return DescribeReplicationSubnetGroupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeReplicationSubnetGroups', {
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeReplicationSubnetGroupsResponse.fromJson(response_);
   }
 
   /// Returns the task assessment results from Amazon S3. This action always
@@ -858,7 +1040,13 @@ class DatabaseMigrationServiceApi {
   Future<DescribeReplicationTaskAssessmentResultsResponse>
       describeReplicationTaskAssessmentResults(
           {String replicationTaskArn, int maxRecords, String marker}) async {
-    return DescribeReplicationTaskAssessmentResultsResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeReplicationTaskAssessmentResults', {
+      if (replicationTaskArn != null) 'ReplicationTaskArn': replicationTaskArn,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeReplicationTaskAssessmentResultsResponse.fromJson(response_);
   }
 
   /// Returns information about replication tasks for your account in the
@@ -891,7 +1079,13 @@ class DatabaseMigrationServiceApi {
       int maxRecords,
       String marker,
       bool withoutSettings}) async {
-    return DescribeReplicationTasksResponse.fromJson({});
+    var response_ = await _client.send('DescribeReplicationTasks', {
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (withoutSettings != null) 'WithoutSettings': withoutSettings,
+    });
+    return DescribeReplicationTasksResponse.fromJson(response_);
   }
 
   /// Returns information about the schema for the specified endpoint.
@@ -913,7 +1107,12 @@ class DatabaseMigrationServiceApi {
   /// marker, up to the value specified by `MaxRecords`.
   Future<DescribeSchemasResponse> describeSchemas(String endpointArn,
       {int maxRecords, String marker}) async {
-    return DescribeSchemasResponse.fromJson({});
+    var response_ = await _client.send('DescribeSchemas', {
+      'EndpointArn': endpointArn,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeSchemasResponse.fromJson(response_);
   }
 
   /// Returns table statistics on the database migration task, including table
@@ -950,7 +1149,13 @@ class DatabaseMigrationServiceApi {
       {int maxRecords,
       String marker,
       List<Filter> filters}) async {
-    return DescribeTableStatisticsResponse.fromJson({});
+    var response_ = await _client.send('DescribeTableStatistics', {
+      'ReplicationTaskArn': replicationTaskArn,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (filters != null) 'Filters': filters,
+    });
+    return DescribeTableStatisticsResponse.fromJson(response_);
   }
 
   /// Uploads the specified certificate.
@@ -972,7 +1177,13 @@ class DatabaseMigrationServiceApi {
       {String certificatePem,
       Uint8List certificateWallet,
       List<Tag> tags}) async {
-    return ImportCertificateResponse.fromJson({});
+    var response_ = await _client.send('ImportCertificate', {
+      'CertificateIdentifier': certificateIdentifier,
+      if (certificatePem != null) 'CertificatePem': certificatePem,
+      if (certificateWallet != null) 'CertificateWallet': certificateWallet,
+      if (tags != null) 'Tags': tags,
+    });
+    return ImportCertificateResponse.fromJson(response_);
   }
 
   /// Lists all tags for an AWS DMS resource.
@@ -981,7 +1192,10 @@ class DatabaseMigrationServiceApi {
   /// identifies the AWS DMS resource.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Modifies the specified endpoint.
@@ -1097,7 +1311,35 @@ class DatabaseMigrationServiceApi {
       KinesisSettings kinesisSettings,
       ElasticsearchSettings elasticsearchSettings,
       RedshiftSettings redshiftSettings}) async {
-    return ModifyEndpointResponse.fromJson({});
+    var response_ = await _client.send('ModifyEndpoint', {
+      'EndpointArn': endpointArn,
+      if (endpointIdentifier != null) 'EndpointIdentifier': endpointIdentifier,
+      if (endpointType != null) 'EndpointType': endpointType,
+      if (engineName != null) 'EngineName': engineName,
+      if (username != null) 'Username': username,
+      if (password != null) 'Password': password,
+      if (serverName != null) 'ServerName': serverName,
+      if (port != null) 'Port': port,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      if (extraConnectionAttributes != null)
+        'ExtraConnectionAttributes': extraConnectionAttributes,
+      if (certificateArn != null) 'CertificateArn': certificateArn,
+      if (sslMode != null) 'SslMode': sslMode,
+      if (serviceAccessRoleArn != null)
+        'ServiceAccessRoleArn': serviceAccessRoleArn,
+      if (externalTableDefinition != null)
+        'ExternalTableDefinition': externalTableDefinition,
+      if (dynamoDbSettings != null) 'DynamoDbSettings': dynamoDbSettings,
+      if (s3Settings != null) 'S3Settings': s3Settings,
+      if (dmsTransferSettings != null)
+        'DmsTransferSettings': dmsTransferSettings,
+      if (mongoDbSettings != null) 'MongoDbSettings': mongoDbSettings,
+      if (kinesisSettings != null) 'KinesisSettings': kinesisSettings,
+      if (elasticsearchSettings != null)
+        'ElasticsearchSettings': elasticsearchSettings,
+      if (redshiftSettings != null) 'RedshiftSettings': redshiftSettings,
+    });
+    return ModifyEndpointResponse.fromJson(response_);
   }
 
   /// Modifies an existing AWS DMS event notification subscription.
@@ -1125,7 +1367,14 @@ class DatabaseMigrationServiceApi {
       String sourceType,
       List<String> eventCategories,
       bool enabled}) async {
-    return ModifyEventSubscriptionResponse.fromJson({});
+    var response_ = await _client.send('ModifyEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      if (snsTopicArn != null) 'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (enabled != null) 'Enabled': enabled,
+    });
+    return ModifyEventSubscriptionResponse.fromJson(response_);
   }
 
   /// Modifies the replication instance to apply new settings. You can change
@@ -1205,7 +1454,26 @@ class DatabaseMigrationServiceApi {
       bool allowMajorVersionUpgrade,
       bool autoMinorVersionUpgrade,
       String replicationInstanceIdentifier}) async {
-    return ModifyReplicationInstanceResponse.fromJson({});
+    var response_ = await _client.send('ModifyReplicationInstance', {
+      'ReplicationInstanceArn': replicationInstanceArn,
+      if (allocatedStorage != null) 'AllocatedStorage': allocatedStorage,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+      if (replicationInstanceClass != null)
+        'ReplicationInstanceClass': replicationInstanceClass,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (allowMajorVersionUpgrade != null)
+        'AllowMajorVersionUpgrade': allowMajorVersionUpgrade,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (replicationInstanceIdentifier != null)
+        'ReplicationInstanceIdentifier': replicationInstanceIdentifier,
+    });
+    return ModifyReplicationInstanceResponse.fromJson(response_);
   }
 
   /// Modifies the settings for the specified replication subnet group.
@@ -1221,7 +1489,13 @@ class DatabaseMigrationServiceApi {
       {@required String replicationSubnetGroupIdentifier,
       String replicationSubnetGroupDescription,
       @required List<String> subnetIds}) async {
-    return ModifyReplicationSubnetGroupResponse.fromJson({});
+    var response_ = await _client.send('ModifyReplicationSubnetGroup', {
+      'ReplicationSubnetGroupIdentifier': replicationSubnetGroupIdentifier,
+      if (replicationSubnetGroupDescription != null)
+        'ReplicationSubnetGroupDescription': replicationSubnetGroupDescription,
+      'SubnetIds': subnetIds,
+    });
+    return ModifyReplicationSubnetGroupResponse.fromJson(response_);
   }
 
   /// Modifies the specified replication task.
@@ -1293,7 +1567,19 @@ class DatabaseMigrationServiceApi {
       DateTime cdcStartTime,
       String cdcStartPosition,
       String cdcStopPosition}) async {
-    return ModifyReplicationTaskResponse.fromJson({});
+    var response_ = await _client.send('ModifyReplicationTask', {
+      'ReplicationTaskArn': replicationTaskArn,
+      if (replicationTaskIdentifier != null)
+        'ReplicationTaskIdentifier': replicationTaskIdentifier,
+      if (migrationType != null) 'MigrationType': migrationType,
+      if (tableMappings != null) 'TableMappings': tableMappings,
+      if (replicationTaskSettings != null)
+        'ReplicationTaskSettings': replicationTaskSettings,
+      if (cdcStartTime != null) 'CdcStartTime': cdcStartTime,
+      if (cdcStartPosition != null) 'CdcStartPosition': cdcStartPosition,
+      if (cdcStopPosition != null) 'CdcStopPosition': cdcStopPosition,
+    });
+    return ModifyReplicationTaskResponse.fromJson(response_);
   }
 
   /// Reboots a replication instance. Rebooting results in a momentary outage,
@@ -1308,7 +1594,11 @@ class DatabaseMigrationServiceApi {
   Future<RebootReplicationInstanceResponse> rebootReplicationInstance(
       String replicationInstanceArn,
       {bool forceFailover}) async {
-    return RebootReplicationInstanceResponse.fromJson({});
+    var response_ = await _client.send('RebootReplicationInstance', {
+      'ReplicationInstanceArn': replicationInstanceArn,
+      if (forceFailover != null) 'ForceFailover': forceFailover,
+    });
+    return RebootReplicationInstanceResponse.fromJson(response_);
   }
 
   /// Populates the schema for the specified endpoint. This is an asynchronous
@@ -1323,7 +1613,11 @@ class DatabaseMigrationServiceApi {
   Future<RefreshSchemasResponse> refreshSchemas(
       {@required String endpointArn,
       @required String replicationInstanceArn}) async {
-    return RefreshSchemasResponse.fromJson({});
+    var response_ = await _client.send('RefreshSchemas', {
+      'EndpointArn': endpointArn,
+      'ReplicationInstanceArn': replicationInstanceArn,
+    });
+    return RefreshSchemasResponse.fromJson(response_);
   }
 
   /// Reloads the target database table with the source data.
@@ -1345,7 +1639,12 @@ class DatabaseMigrationServiceApi {
       {@required String replicationTaskArn,
       @required List<TableToReload> tablesToReload,
       String reloadOption}) async {
-    return ReloadTablesResponse.fromJson({});
+    var response_ = await _client.send('ReloadTables', {
+      'ReplicationTaskArn': replicationTaskArn,
+      'TablesToReload': tablesToReload,
+      if (reloadOption != null) 'ReloadOption': reloadOption,
+    });
+    return ReloadTablesResponse.fromJson(response_);
   }
 
   /// Removes metadata tags from a DMS resource.
@@ -1356,7 +1655,11 @@ class DatabaseMigrationServiceApi {
   /// [tagKeys]: The tag key (name) of the tag to be removed.
   Future<RemoveTagsFromResourceResponse> removeTagsFromResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return RemoveTagsFromResourceResponse.fromJson({});
+    var response_ = await _client.send('RemoveTagsFromResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return RemoveTagsFromResourceResponse.fromJson(response_);
   }
 
   /// Starts the replication task.
@@ -1403,7 +1706,14 @@ class DatabaseMigrationServiceApi {
       DateTime cdcStartTime,
       String cdcStartPosition,
       String cdcStopPosition}) async {
-    return StartReplicationTaskResponse.fromJson({});
+    var response_ = await _client.send('StartReplicationTask', {
+      'ReplicationTaskArn': replicationTaskArn,
+      'StartReplicationTaskType': startReplicationTaskType,
+      if (cdcStartTime != null) 'CdcStartTime': cdcStartTime,
+      if (cdcStartPosition != null) 'CdcStartPosition': cdcStartPosition,
+      if (cdcStopPosition != null) 'CdcStopPosition': cdcStopPosition,
+    });
+    return StartReplicationTaskResponse.fromJson(response_);
   }
 
   ///  Starts the replication task assessment for unsupported data types in the
@@ -1413,7 +1723,10 @@ class DatabaseMigrationServiceApi {
   /// task.
   Future<StartReplicationTaskAssessmentResponse> startReplicationTaskAssessment(
       String replicationTaskArn) async {
-    return StartReplicationTaskAssessmentResponse.fromJson({});
+    var response_ = await _client.send('StartReplicationTaskAssessment', {
+      'ReplicationTaskArn': replicationTaskArn,
+    });
+    return StartReplicationTaskAssessmentResponse.fromJson(response_);
   }
 
   /// Stops the replication task.
@@ -1422,7 +1735,10 @@ class DatabaseMigrationServiceApi {
   /// task to be stopped.
   Future<StopReplicationTaskResponse> stopReplicationTask(
       String replicationTaskArn) async {
-    return StopReplicationTaskResponse.fromJson({});
+    var response_ = await _client.send('StopReplicationTask', {
+      'ReplicationTaskArn': replicationTaskArn,
+    });
+    return StopReplicationTaskResponse.fromJson(response_);
   }
 
   /// Tests the connection between the replication instance and the endpoint.
@@ -1435,7 +1751,11 @@ class DatabaseMigrationServiceApi {
   Future<TestConnectionResponse> testConnection(
       {@required String replicationInstanceArn,
       @required String endpointArn}) async {
-    return TestConnectionResponse.fromJson({});
+    var response_ = await _client.send('TestConnection', {
+      'ReplicationInstanceArn': replicationInstanceArn,
+      'EndpointArn': endpointArn,
+    });
+    return TestConnectionResponse.fromJson(response_);
   }
 }
 
@@ -1456,7 +1776,13 @@ class AccountQuota {
     this.used,
     this.max,
   });
-  static AccountQuota fromJson(Map<String, dynamic> json) => AccountQuota();
+  static AccountQuota fromJson(Map<String, dynamic> json) => AccountQuota(
+        accountQuotaName: json.containsKey('AccountQuotaName')
+            ? json['AccountQuotaName'] as String
+            : null,
+        used: json.containsKey('Used') ? BigInt.from(json['Used']) : null,
+        max: json.containsKey('Max') ? BigInt.from(json['Max']) : null,
+      );
 }
 
 class AddTagsToResourceResponse {
@@ -1475,7 +1801,13 @@ class ApplyPendingMaintenanceActionResponse {
   });
   static ApplyPendingMaintenanceActionResponse fromJson(
           Map<String, dynamic> json) =>
-      ApplyPendingMaintenanceActionResponse();
+      ApplyPendingMaintenanceActionResponse(
+        resourcePendingMaintenanceActions:
+            json.containsKey('ResourcePendingMaintenanceActions')
+                ? ResourcePendingMaintenanceActions.fromJson(
+                    json['ResourcePendingMaintenanceActions'])
+                : null,
+      );
 }
 
 class AvailabilityZone {
@@ -1486,7 +1818,9 @@ class AvailabilityZone {
     this.name,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// The SSL certificate that can be used to encrypt connections between the
@@ -1536,7 +1870,37 @@ class Certificate {
     this.signingAlgorithm,
     this.keyLength,
   });
-  static Certificate fromJson(Map<String, dynamic> json) => Certificate();
+  static Certificate fromJson(Map<String, dynamic> json) => Certificate(
+        certificateIdentifier: json.containsKey('CertificateIdentifier')
+            ? json['CertificateIdentifier'] as String
+            : null,
+        certificateCreationDate: json.containsKey('CertificateCreationDate')
+            ? DateTime.parse(json['CertificateCreationDate'])
+            : null,
+        certificatePem: json.containsKey('CertificatePem')
+            ? json['CertificatePem'] as String
+            : null,
+        certificateWallet: json.containsKey('CertificateWallet')
+            ? Uint8List(json['CertificateWallet'])
+            : null,
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        certificateOwner: json.containsKey('CertificateOwner')
+            ? json['CertificateOwner'] as String
+            : null,
+        validFromDate: json.containsKey('ValidFromDate')
+            ? DateTime.parse(json['ValidFromDate'])
+            : null,
+        validToDate: json.containsKey('ValidToDate')
+            ? DateTime.parse(json['ValidToDate'])
+            : null,
+        signingAlgorithm: json.containsKey('SigningAlgorithm')
+            ? json['SigningAlgorithm'] as String
+            : null,
+        keyLength:
+            json.containsKey('KeyLength') ? json['KeyLength'] as int : null,
+      );
 }
 
 class Connection {
@@ -1570,7 +1934,25 @@ class Connection {
     this.endpointIdentifier,
     this.replicationInstanceIdentifier,
   });
-  static Connection fromJson(Map<String, dynamic> json) => Connection();
+  static Connection fromJson(Map<String, dynamic> json) => Connection(
+        replicationInstanceArn: json.containsKey('ReplicationInstanceArn')
+            ? json['ReplicationInstanceArn'] as String
+            : null,
+        endpointArn: json.containsKey('EndpointArn')
+            ? json['EndpointArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        lastFailureMessage: json.containsKey('LastFailureMessage')
+            ? json['LastFailureMessage'] as String
+            : null,
+        endpointIdentifier: json.containsKey('EndpointIdentifier')
+            ? json['EndpointIdentifier'] as String
+            : null,
+        replicationInstanceIdentifier:
+            json.containsKey('ReplicationInstanceIdentifier')
+                ? json['ReplicationInstanceIdentifier'] as String
+                : null,
+      );
 }
 
 class CreateEndpointResponse {
@@ -1581,7 +1963,11 @@ class CreateEndpointResponse {
     this.endpoint,
   });
   static CreateEndpointResponse fromJson(Map<String, dynamic> json) =>
-      CreateEndpointResponse();
+      CreateEndpointResponse(
+        endpoint: json.containsKey('Endpoint')
+            ? Endpoint.fromJson(json['Endpoint'])
+            : null,
+      );
 }
 
 class CreateEventSubscriptionResponse {
@@ -1592,7 +1978,11 @@ class CreateEventSubscriptionResponse {
     this.eventSubscription,
   });
   static CreateEventSubscriptionResponse fromJson(Map<String, dynamic> json) =>
-      CreateEventSubscriptionResponse();
+      CreateEventSubscriptionResponse(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class CreateReplicationInstanceResponse {
@@ -1604,7 +1994,11 @@ class CreateReplicationInstanceResponse {
   });
   static CreateReplicationInstanceResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateReplicationInstanceResponse();
+      CreateReplicationInstanceResponse(
+        replicationInstance: json.containsKey('ReplicationInstance')
+            ? ReplicationInstance.fromJson(json['ReplicationInstance'])
+            : null,
+      );
 }
 
 class CreateReplicationSubnetGroupResponse {
@@ -1616,7 +2010,11 @@ class CreateReplicationSubnetGroupResponse {
   });
   static CreateReplicationSubnetGroupResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateReplicationSubnetGroupResponse();
+      CreateReplicationSubnetGroupResponse(
+        replicationSubnetGroup: json.containsKey('ReplicationSubnetGroup')
+            ? ReplicationSubnetGroup.fromJson(json['ReplicationSubnetGroup'])
+            : null,
+      );
 }
 
 class CreateReplicationTaskResponse {
@@ -1627,7 +2025,11 @@ class CreateReplicationTaskResponse {
     this.replicationTask,
   });
   static CreateReplicationTaskResponse fromJson(Map<String, dynamic> json) =>
-      CreateReplicationTaskResponse();
+      CreateReplicationTaskResponse(
+        replicationTask: json.containsKey('ReplicationTask')
+            ? ReplicationTask.fromJson(json['ReplicationTask'])
+            : null,
+      );
 }
 
 class DeleteCertificateResponse {
@@ -1638,7 +2040,11 @@ class DeleteCertificateResponse {
     this.certificate,
   });
   static DeleteCertificateResponse fromJson(Map<String, dynamic> json) =>
-      DeleteCertificateResponse();
+      DeleteCertificateResponse(
+        certificate: json.containsKey('Certificate')
+            ? Certificate.fromJson(json['Certificate'])
+            : null,
+      );
 }
 
 class DeleteEndpointResponse {
@@ -1649,7 +2055,11 @@ class DeleteEndpointResponse {
     this.endpoint,
   });
   static DeleteEndpointResponse fromJson(Map<String, dynamic> json) =>
-      DeleteEndpointResponse();
+      DeleteEndpointResponse(
+        endpoint: json.containsKey('Endpoint')
+            ? Endpoint.fromJson(json['Endpoint'])
+            : null,
+      );
 }
 
 class DeleteEventSubscriptionResponse {
@@ -1660,7 +2070,11 @@ class DeleteEventSubscriptionResponse {
     this.eventSubscription,
   });
   static DeleteEventSubscriptionResponse fromJson(Map<String, dynamic> json) =>
-      DeleteEventSubscriptionResponse();
+      DeleteEventSubscriptionResponse(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class DeleteReplicationInstanceResponse {
@@ -1672,7 +2086,11 @@ class DeleteReplicationInstanceResponse {
   });
   static DeleteReplicationInstanceResponse fromJson(
           Map<String, dynamic> json) =>
-      DeleteReplicationInstanceResponse();
+      DeleteReplicationInstanceResponse(
+        replicationInstance: json.containsKey('ReplicationInstance')
+            ? ReplicationInstance.fromJson(json['ReplicationInstance'])
+            : null,
+      );
 }
 
 class DeleteReplicationSubnetGroupResponse {
@@ -1690,7 +2108,11 @@ class DeleteReplicationTaskResponse {
     this.replicationTask,
   });
   static DeleteReplicationTaskResponse fromJson(Map<String, dynamic> json) =>
-      DeleteReplicationTaskResponse();
+      DeleteReplicationTaskResponse(
+        replicationTask: json.containsKey('ReplicationTask')
+            ? ReplicationTask.fromJson(json['ReplicationTask'])
+            : null,
+      );
 }
 
 class DescribeAccountAttributesResponse {
@@ -1717,7 +2139,16 @@ class DescribeAccountAttributesResponse {
   });
   static DescribeAccountAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAccountAttributesResponse();
+      DescribeAccountAttributesResponse(
+        accountQuotas: json.containsKey('AccountQuotas')
+            ? (json['AccountQuotas'] as List)
+                .map((e) => AccountQuota.fromJson(e))
+                .toList()
+            : null,
+        uniqueAccountIdentifier: json.containsKey('UniqueAccountIdentifier')
+            ? json['UniqueAccountIdentifier'] as String
+            : null,
+      );
 }
 
 class DescribeCertificatesResponse {
@@ -1733,7 +2164,14 @@ class DescribeCertificatesResponse {
     this.certificates,
   });
   static DescribeCertificatesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeCertificatesResponse();
+      DescribeCertificatesResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        certificates: json.containsKey('Certificates')
+            ? (json['Certificates'] as List)
+                .map((e) => Certificate.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeConnectionsResponse {
@@ -1750,7 +2188,14 @@ class DescribeConnectionsResponse {
     this.connections,
   });
   static DescribeConnectionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeConnectionsResponse();
+      DescribeConnectionsResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        connections: json.containsKey('Connections')
+            ? (json['Connections'] as List)
+                .map((e) => Connection.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeEndpointTypesResponse {
@@ -1767,7 +2212,14 @@ class DescribeEndpointTypesResponse {
     this.supportedEndpointTypes,
   });
   static DescribeEndpointTypesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEndpointTypesResponse();
+      DescribeEndpointTypesResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        supportedEndpointTypes: json.containsKey('SupportedEndpointTypes')
+            ? (json['SupportedEndpointTypes'] as List)
+                .map((e) => SupportedEndpointType.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeEndpointsResponse {
@@ -1784,7 +2236,14 @@ class DescribeEndpointsResponse {
     this.endpoints,
   });
   static DescribeEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEndpointsResponse();
+      DescribeEndpointsResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        endpoints: json.containsKey('Endpoints')
+            ? (json['Endpoints'] as List)
+                .map((e) => Endpoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeEventCategoriesResponse {
@@ -1795,7 +2254,13 @@ class DescribeEventCategoriesResponse {
     this.eventCategoryGroupList,
   });
   static DescribeEventCategoriesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventCategoriesResponse();
+      DescribeEventCategoriesResponse(
+        eventCategoryGroupList: json.containsKey('EventCategoryGroupList')
+            ? (json['EventCategoryGroupList'] as List)
+                .map((e) => EventCategoryGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeEventSubscriptionsResponse {
@@ -1813,7 +2278,14 @@ class DescribeEventSubscriptionsResponse {
   });
   static DescribeEventSubscriptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeEventSubscriptionsResponse();
+      DescribeEventSubscriptionsResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        eventSubscriptionsList: json.containsKey('EventSubscriptionsList')
+            ? (json['EventSubscriptionsList'] as List)
+                .map((e) => EventSubscription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeEventsResponse {
@@ -1830,7 +2302,12 @@ class DescribeEventsResponse {
     this.events,
   });
   static DescribeEventsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventsResponse();
+      DescribeEventsResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DescribeOrderableReplicationInstancesResponse {
@@ -1848,7 +2325,15 @@ class DescribeOrderableReplicationInstancesResponse {
   });
   static DescribeOrderableReplicationInstancesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeOrderableReplicationInstancesResponse();
+      DescribeOrderableReplicationInstancesResponse(
+        orderableReplicationInstances:
+            json.containsKey('OrderableReplicationInstances')
+                ? (json['OrderableReplicationInstances'] as List)
+                    .map((e) => OrderableReplicationInstance.fromJson(e))
+                    .toList()
+                : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribePendingMaintenanceActionsResponse {
@@ -1866,7 +2351,14 @@ class DescribePendingMaintenanceActionsResponse {
   });
   static DescribePendingMaintenanceActionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribePendingMaintenanceActionsResponse();
+      DescribePendingMaintenanceActionsResponse(
+        pendingMaintenanceActions: json.containsKey('PendingMaintenanceActions')
+            ? (json['PendingMaintenanceActions'] as List)
+                .map((e) => ResourcePendingMaintenanceActions.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeRefreshSchemasStatusResponse {
@@ -1878,7 +2370,11 @@ class DescribeRefreshSchemasStatusResponse {
   });
   static DescribeRefreshSchemasStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeRefreshSchemasStatusResponse();
+      DescribeRefreshSchemasStatusResponse(
+        refreshSchemasStatus: json.containsKey('RefreshSchemasStatus')
+            ? RefreshSchemasStatus.fromJson(json['RefreshSchemasStatus'])
+            : null,
+      );
 }
 
 class DescribeReplicationInstanceTaskLogsResponse {
@@ -1901,7 +2397,18 @@ class DescribeReplicationInstanceTaskLogsResponse {
   });
   static DescribeReplicationInstanceTaskLogsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeReplicationInstanceTaskLogsResponse();
+      DescribeReplicationInstanceTaskLogsResponse(
+        replicationInstanceArn: json.containsKey('ReplicationInstanceArn')
+            ? json['ReplicationInstanceArn'] as String
+            : null,
+        replicationInstanceTaskLogs:
+            json.containsKey('ReplicationInstanceTaskLogs')
+                ? (json['ReplicationInstanceTaskLogs'] as List)
+                    .map((e) => ReplicationInstanceTaskLog.fromJson(e))
+                    .toList()
+                : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeReplicationInstancesResponse {
@@ -1919,7 +2426,14 @@ class DescribeReplicationInstancesResponse {
   });
   static DescribeReplicationInstancesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeReplicationInstancesResponse();
+      DescribeReplicationInstancesResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        replicationInstances: json.containsKey('ReplicationInstances')
+            ? (json['ReplicationInstances'] as List)
+                .map((e) => ReplicationInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeReplicationSubnetGroupsResponse {
@@ -1937,7 +2451,14 @@ class DescribeReplicationSubnetGroupsResponse {
   });
   static DescribeReplicationSubnetGroupsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeReplicationSubnetGroupsResponse();
+      DescribeReplicationSubnetGroupsResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        replicationSubnetGroups: json.containsKey('ReplicationSubnetGroups')
+            ? (json['ReplicationSubnetGroups'] as List)
+                .map((e) => ReplicationSubnetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeReplicationTaskAssessmentResultsResponse {
@@ -1959,7 +2480,18 @@ class DescribeReplicationTaskAssessmentResultsResponse {
   });
   static DescribeReplicationTaskAssessmentResultsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeReplicationTaskAssessmentResultsResponse();
+      DescribeReplicationTaskAssessmentResultsResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        bucketName: json.containsKey('BucketName')
+            ? json['BucketName'] as String
+            : null,
+        replicationTaskAssessmentResults:
+            json.containsKey('ReplicationTaskAssessmentResults')
+                ? (json['ReplicationTaskAssessmentResults'] as List)
+                    .map((e) => ReplicationTaskAssessmentResult.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class DescribeReplicationTasksResponse {
@@ -1976,7 +2508,14 @@ class DescribeReplicationTasksResponse {
     this.replicationTasks,
   });
   static DescribeReplicationTasksResponse fromJson(Map<String, dynamic> json) =>
-      DescribeReplicationTasksResponse();
+      DescribeReplicationTasksResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        replicationTasks: json.containsKey('ReplicationTasks')
+            ? (json['ReplicationTasks'] as List)
+                .map((e) => ReplicationTask.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeSchemasResponse {
@@ -1993,7 +2532,12 @@ class DescribeSchemasResponse {
     this.schemas,
   });
   static DescribeSchemasResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSchemasResponse();
+      DescribeSchemasResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        schemas: json.containsKey('Schemas')
+            ? (json['Schemas'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class DescribeTableStatisticsResponse {
@@ -2014,7 +2558,17 @@ class DescribeTableStatisticsResponse {
     this.marker,
   });
   static DescribeTableStatisticsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTableStatisticsResponse();
+      DescribeTableStatisticsResponse(
+        replicationTaskArn: json.containsKey('ReplicationTaskArn')
+            ? json['ReplicationTaskArn'] as String
+            : null,
+        tableStatistics: json.containsKey('TableStatistics')
+            ? (json['TableStatistics'] as List)
+                .map((e) => TableStatistics.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 ///  The settings in JSON format for the DMS Transfer type source endpoint.
@@ -2030,7 +2584,15 @@ class DmsTransferSettings {
     this.bucketName,
   });
   static DmsTransferSettings fromJson(Map<String, dynamic> json) =>
-      DmsTransferSettings();
+      DmsTransferSettings(
+        serviceAccessRoleArn: json.containsKey('ServiceAccessRoleArn')
+            ? json['ServiceAccessRoleArn'] as String
+            : null,
+        bucketName: json.containsKey('BucketName')
+            ? json['BucketName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DynamoDbSettings {
@@ -2041,7 +2603,10 @@ class DynamoDbSettings {
     @required this.serviceAccessRoleArn,
   });
   static DynamoDbSettings fromJson(Map<String, dynamic> json) =>
-      DynamoDbSettings();
+      DynamoDbSettings(
+        serviceAccessRoleArn: json['ServiceAccessRoleArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ElasticsearchSettings {
@@ -2066,7 +2631,17 @@ class ElasticsearchSettings {
     this.errorRetryDuration,
   });
   static ElasticsearchSettings fromJson(Map<String, dynamic> json) =>
-      ElasticsearchSettings();
+      ElasticsearchSettings(
+        serviceAccessRoleArn: json['ServiceAccessRoleArn'] as String,
+        endpointUri: json['EndpointUri'] as String,
+        fullLoadErrorPercentage: json.containsKey('FullLoadErrorPercentage')
+            ? json['FullLoadErrorPercentage'] as int
+            : null,
+        errorRetryDuration: json.containsKey('ErrorRetryDuration')
+            ? json['ErrorRetryDuration'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Endpoint {
@@ -2206,7 +2781,72 @@ class Endpoint {
     this.elasticsearchSettings,
     this.redshiftSettings,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        endpointIdentifier: json.containsKey('EndpointIdentifier')
+            ? json['EndpointIdentifier'] as String
+            : null,
+        endpointType: json.containsKey('EndpointType')
+            ? json['EndpointType'] as String
+            : null,
+        engineName: json.containsKey('EngineName')
+            ? json['EngineName'] as String
+            : null,
+        engineDisplayName: json.containsKey('EngineDisplayName')
+            ? json['EngineDisplayName'] as String
+            : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        serverName: json.containsKey('ServerName')
+            ? json['ServerName'] as String
+            : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        extraConnectionAttributes: json.containsKey('ExtraConnectionAttributes')
+            ? json['ExtraConnectionAttributes'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        endpointArn: json.containsKey('EndpointArn')
+            ? json['EndpointArn'] as String
+            : null,
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        sslMode: json.containsKey('SslMode') ? json['SslMode'] as String : null,
+        serviceAccessRoleArn: json.containsKey('ServiceAccessRoleArn')
+            ? json['ServiceAccessRoleArn'] as String
+            : null,
+        externalTableDefinition: json.containsKey('ExternalTableDefinition')
+            ? json['ExternalTableDefinition'] as String
+            : null,
+        externalId: json.containsKey('ExternalId')
+            ? json['ExternalId'] as String
+            : null,
+        dynamoDbSettings: json.containsKey('DynamoDbSettings')
+            ? DynamoDbSettings.fromJson(json['DynamoDbSettings'])
+            : null,
+        s3Settings: json.containsKey('S3Settings')
+            ? S3Settings.fromJson(json['S3Settings'])
+            : null,
+        dmsTransferSettings: json.containsKey('DmsTransferSettings')
+            ? DmsTransferSettings.fromJson(json['DmsTransferSettings'])
+            : null,
+        mongoDbSettings: json.containsKey('MongoDbSettings')
+            ? MongoDbSettings.fromJson(json['MongoDbSettings'])
+            : null,
+        kinesisSettings: json.containsKey('KinesisSettings')
+            ? KinesisSettings.fromJson(json['KinesisSettings'])
+            : null,
+        elasticsearchSettings: json.containsKey('ElasticsearchSettings')
+            ? ElasticsearchSettings.fromJson(json['ElasticsearchSettings'])
+            : null,
+        redshiftSettings: json.containsKey('RedshiftSettings')
+            ? RedshiftSettings.fromJson(json['RedshiftSettings'])
+            : null,
+      );
 }
 
 class Event {
@@ -2234,7 +2874,19 @@ class Event {
     this.eventCategories,
     this.date,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        sourceIdentifier: json.containsKey('SourceIdentifier')
+            ? json['SourceIdentifier'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+      );
 }
 
 class EventCategoryGroup {
@@ -2252,7 +2904,14 @@ class EventCategoryGroup {
     this.eventCategories,
   });
   static EventCategoryGroup fromJson(Map<String, dynamic> json) =>
-      EventCategoryGroup();
+      EventCategoryGroup(
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class EventSubscription {
@@ -2308,7 +2967,33 @@ class EventSubscription {
     this.enabled,
   });
   static EventSubscription fromJson(Map<String, dynamic> json) =>
-      EventSubscription();
+      EventSubscription(
+        customerAwsId: json.containsKey('CustomerAwsId')
+            ? json['CustomerAwsId'] as String
+            : null,
+        custSubscriptionId: json.containsKey('CustSubscriptionId')
+            ? json['CustSubscriptionId'] as String
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicArn')
+            ? json['SnsTopicArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        subscriptionCreationTime: json.containsKey('SubscriptionCreationTime')
+            ? json['SubscriptionCreationTime'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        sourceIdsList: json.containsKey('SourceIdsList')
+            ? (json['SourceIdsList'] as List).map((e) => e as String).toList()
+            : null,
+        eventCategoriesList: json.containsKey('EventCategoriesList')
+            ? (json['EventCategoriesList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
 }
 
 class Filter {
@@ -2322,6 +3007,7 @@ class Filter {
     @required this.name,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ImportCertificateResponse {
@@ -2332,7 +3018,11 @@ class ImportCertificateResponse {
     this.certificate,
   });
   static ImportCertificateResponse fromJson(Map<String, dynamic> json) =>
-      ImportCertificateResponse();
+      ImportCertificateResponse(
+        certificate: json.containsKey('Certificate')
+            ? Certificate.fromJson(json['Certificate'])
+            : null,
+      );
 }
 
 class KinesisSettings {
@@ -2353,8 +3043,17 @@ class KinesisSettings {
     this.messageFormat,
     this.serviceAccessRoleArn,
   });
-  static KinesisSettings fromJson(Map<String, dynamic> json) =>
-      KinesisSettings();
+  static KinesisSettings fromJson(Map<String, dynamic> json) => KinesisSettings(
+        streamArn:
+            json.containsKey('StreamArn') ? json['StreamArn'] as String : null,
+        messageFormat: json.containsKey('MessageFormat')
+            ? json['MessageFormat'] as String
+            : null,
+        serviceAccessRoleArn: json.containsKey('ServiceAccessRoleArn')
+            ? json['ServiceAccessRoleArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListTagsForResourceResponse {
@@ -2365,7 +3064,11 @@ class ListTagsForResourceResponse {
     this.tagList,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tagList: json.containsKey('TagList')
+            ? (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ModifyEndpointResponse {
@@ -2376,7 +3079,11 @@ class ModifyEndpointResponse {
     this.endpoint,
   });
   static ModifyEndpointResponse fromJson(Map<String, dynamic> json) =>
-      ModifyEndpointResponse();
+      ModifyEndpointResponse(
+        endpoint: json.containsKey('Endpoint')
+            ? Endpoint.fromJson(json['Endpoint'])
+            : null,
+      );
 }
 
 class ModifyEventSubscriptionResponse {
@@ -2387,7 +3094,11 @@ class ModifyEventSubscriptionResponse {
     this.eventSubscription,
   });
   static ModifyEventSubscriptionResponse fromJson(Map<String, dynamic> json) =>
-      ModifyEventSubscriptionResponse();
+      ModifyEventSubscriptionResponse(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class ModifyReplicationInstanceResponse {
@@ -2399,7 +3110,11 @@ class ModifyReplicationInstanceResponse {
   });
   static ModifyReplicationInstanceResponse fromJson(
           Map<String, dynamic> json) =>
-      ModifyReplicationInstanceResponse();
+      ModifyReplicationInstanceResponse(
+        replicationInstance: json.containsKey('ReplicationInstance')
+            ? ReplicationInstance.fromJson(json['ReplicationInstance'])
+            : null,
+      );
 }
 
 class ModifyReplicationSubnetGroupResponse {
@@ -2411,7 +3126,11 @@ class ModifyReplicationSubnetGroupResponse {
   });
   static ModifyReplicationSubnetGroupResponse fromJson(
           Map<String, dynamic> json) =>
-      ModifyReplicationSubnetGroupResponse();
+      ModifyReplicationSubnetGroupResponse(
+        replicationSubnetGroup: json.containsKey('ReplicationSubnetGroup')
+            ? ReplicationSubnetGroup.fromJson(json['ReplicationSubnetGroup'])
+            : null,
+      );
 }
 
 class ModifyReplicationTaskResponse {
@@ -2422,7 +3141,11 @@ class ModifyReplicationTaskResponse {
     this.replicationTask,
   });
   static ModifyReplicationTaskResponse fromJson(Map<String, dynamic> json) =>
-      ModifyReplicationTaskResponse();
+      ModifyReplicationTaskResponse(
+        replicationTask: json.containsKey('ReplicationTask')
+            ? ReplicationTask.fromJson(json['ReplicationTask'])
+            : null,
+      );
 }
 
 class MongoDbSettings {
@@ -2505,8 +3228,39 @@ class MongoDbSettings {
     this.authSource,
     this.kmsKeyId,
   });
-  static MongoDbSettings fromJson(Map<String, dynamic> json) =>
-      MongoDbSettings();
+  static MongoDbSettings fromJson(Map<String, dynamic> json) => MongoDbSettings(
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        password:
+            json.containsKey('Password') ? json['Password'] as String : null,
+        serverName: json.containsKey('ServerName')
+            ? json['ServerName'] as String
+            : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        authType:
+            json.containsKey('AuthType') ? json['AuthType'] as String : null,
+        authMechanism: json.containsKey('AuthMechanism')
+            ? json['AuthMechanism'] as String
+            : null,
+        nestingLevel: json.containsKey('NestingLevel')
+            ? json['NestingLevel'] as String
+            : null,
+        extractDocId: json.containsKey('ExtractDocId')
+            ? json['ExtractDocId'] as String
+            : null,
+        docsToInvestigate: json.containsKey('DocsToInvestigate')
+            ? json['DocsToInvestigate'] as String
+            : null,
+        authSource: json.containsKey('AuthSource')
+            ? json['AuthSource'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class OrderableReplicationInstance {
@@ -2562,7 +3316,37 @@ class OrderableReplicationInstance {
     this.releaseStatus,
   });
   static OrderableReplicationInstance fromJson(Map<String, dynamic> json) =>
-      OrderableReplicationInstance();
+      OrderableReplicationInstance(
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        replicationInstanceClass: json.containsKey('ReplicationInstanceClass')
+            ? json['ReplicationInstanceClass'] as String
+            : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        minAllocatedStorage: json.containsKey('MinAllocatedStorage')
+            ? json['MinAllocatedStorage'] as int
+            : null,
+        maxAllocatedStorage: json.containsKey('MaxAllocatedStorage')
+            ? json['MaxAllocatedStorage'] as int
+            : null,
+        defaultAllocatedStorage: json.containsKey('DefaultAllocatedStorage')
+            ? json['DefaultAllocatedStorage'] as int
+            : null,
+        includedAllocatedStorage: json.containsKey('IncludedAllocatedStorage')
+            ? json['IncludedAllocatedStorage'] as int
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        releaseStatus: json.containsKey('ReleaseStatus')
+            ? json['ReleaseStatus'] as String
+            : null,
+      );
 }
 
 class PendingMaintenanceAction {
@@ -2605,7 +3389,24 @@ class PendingMaintenanceAction {
     this.description,
   });
   static PendingMaintenanceAction fromJson(Map<String, dynamic> json) =>
-      PendingMaintenanceAction();
+      PendingMaintenanceAction(
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        autoAppliedAfterDate: json.containsKey('AutoAppliedAfterDate')
+            ? DateTime.parse(json['AutoAppliedAfterDate'])
+            : null,
+        forcedApplyDate: json.containsKey('ForcedApplyDate')
+            ? DateTime.parse(json['ForcedApplyDate'])
+            : null,
+        optInStatus: json.containsKey('OptInStatus')
+            ? json['OptInStatus'] as String
+            : null,
+        currentApplyDate: json.containsKey('CurrentApplyDate')
+            ? DateTime.parse(json['CurrentApplyDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class RebootReplicationInstanceResponse {
@@ -2617,7 +3418,11 @@ class RebootReplicationInstanceResponse {
   });
   static RebootReplicationInstanceResponse fromJson(
           Map<String, dynamic> json) =>
-      RebootReplicationInstanceResponse();
+      RebootReplicationInstanceResponse(
+        replicationInstance: json.containsKey('ReplicationInstance')
+            ? ReplicationInstance.fromJson(json['ReplicationInstance'])
+            : null,
+      );
 }
 
 class RedshiftSettings {
@@ -2776,7 +3581,78 @@ class RedshiftSettings {
     this.writeBufferSize,
   });
   static RedshiftSettings fromJson(Map<String, dynamic> json) =>
-      RedshiftSettings();
+      RedshiftSettings(
+        acceptAnyDate: json.containsKey('AcceptAnyDate')
+            ? json['AcceptAnyDate'] as bool
+            : null,
+        afterConnectScript: json.containsKey('AfterConnectScript')
+            ? json['AfterConnectScript'] as String
+            : null,
+        bucketFolder: json.containsKey('BucketFolder')
+            ? json['BucketFolder'] as String
+            : null,
+        bucketName: json.containsKey('BucketName')
+            ? json['BucketName'] as String
+            : null,
+        connectionTimeout: json.containsKey('ConnectionTimeout')
+            ? json['ConnectionTimeout'] as int
+            : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        dateFormat: json.containsKey('DateFormat')
+            ? json['DateFormat'] as String
+            : null,
+        emptyAsNull: json.containsKey('EmptyAsNull')
+            ? json['EmptyAsNull'] as bool
+            : null,
+        encryptionMode: json.containsKey('EncryptionMode')
+            ? json['EncryptionMode'] as String
+            : null,
+        fileTransferUploadStreams: json.containsKey('FileTransferUploadStreams')
+            ? json['FileTransferUploadStreams'] as int
+            : null,
+        loadTimeout:
+            json.containsKey('LoadTimeout') ? json['LoadTimeout'] as int : null,
+        maxFileSize:
+            json.containsKey('MaxFileSize') ? json['MaxFileSize'] as int : null,
+        password:
+            json.containsKey('Password') ? json['Password'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        removeQuotes: json.containsKey('RemoveQuotes')
+            ? json['RemoveQuotes'] as bool
+            : null,
+        replaceInvalidChars: json.containsKey('ReplaceInvalidChars')
+            ? json['ReplaceInvalidChars'] as String
+            : null,
+        replaceChars: json.containsKey('ReplaceChars')
+            ? json['ReplaceChars'] as String
+            : null,
+        serverName: json.containsKey('ServerName')
+            ? json['ServerName'] as String
+            : null,
+        serviceAccessRoleArn: json.containsKey('ServiceAccessRoleArn')
+            ? json['ServiceAccessRoleArn'] as String
+            : null,
+        serverSideEncryptionKmsKeyId:
+            json.containsKey('ServerSideEncryptionKmsKeyId')
+                ? json['ServerSideEncryptionKmsKeyId'] as String
+                : null,
+        timeFormat: json.containsKey('TimeFormat')
+            ? json['TimeFormat'] as String
+            : null,
+        trimBlanks:
+            json.containsKey('TrimBlanks') ? json['TrimBlanks'] as bool : null,
+        truncateColumns: json.containsKey('TruncateColumns')
+            ? json['TruncateColumns'] as bool
+            : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        writeBufferSize: json.containsKey('WriteBufferSize')
+            ? json['WriteBufferSize'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RefreshSchemasResponse {
@@ -2787,7 +3663,11 @@ class RefreshSchemasResponse {
     this.refreshSchemasStatus,
   });
   static RefreshSchemasResponse fromJson(Map<String, dynamic> json) =>
-      RefreshSchemasResponse();
+      RefreshSchemasResponse(
+        refreshSchemasStatus: json.containsKey('RefreshSchemasStatus')
+            ? RefreshSchemasStatus.fromJson(json['RefreshSchemasStatus'])
+            : null,
+      );
 }
 
 class RefreshSchemasStatus {
@@ -2815,7 +3695,21 @@ class RefreshSchemasStatus {
     this.lastFailureMessage,
   });
   static RefreshSchemasStatus fromJson(Map<String, dynamic> json) =>
-      RefreshSchemasStatus();
+      RefreshSchemasStatus(
+        endpointArn: json.containsKey('EndpointArn')
+            ? json['EndpointArn'] as String
+            : null,
+        replicationInstanceArn: json.containsKey('ReplicationInstanceArn')
+            ? json['ReplicationInstanceArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        lastRefreshDate: json.containsKey('LastRefreshDate')
+            ? DateTime.parse(json['LastRefreshDate'])
+            : null,
+        lastFailureMessage: json.containsKey('LastFailureMessage')
+            ? json['LastFailureMessage'] as String
+            : null,
+      );
 }
 
 class ReloadTablesResponse {
@@ -2826,7 +3720,11 @@ class ReloadTablesResponse {
     this.replicationTaskArn,
   });
   static ReloadTablesResponse fromJson(Map<String, dynamic> json) =>
-      ReloadTablesResponse();
+      ReloadTablesResponse(
+        replicationTaskArn: json.containsKey('ReplicationTaskArn')
+            ? json['ReplicationTaskArn'] as String
+            : null,
+      );
 }
 
 class RemoveTagsFromResourceResponse {
@@ -2962,7 +3860,87 @@ class ReplicationInstance {
     this.dnsNameServers,
   });
   static ReplicationInstance fromJson(Map<String, dynamic> json) =>
-      ReplicationInstance();
+      ReplicationInstance(
+        replicationInstanceIdentifier:
+            json.containsKey('ReplicationInstanceIdentifier')
+                ? json['ReplicationInstanceIdentifier'] as String
+                : null,
+        replicationInstanceClass: json.containsKey('ReplicationInstanceClass')
+            ? json['ReplicationInstanceClass'] as String
+            : null,
+        replicationInstanceStatus: json.containsKey('ReplicationInstanceStatus')
+            ? json['ReplicationInstanceStatus'] as String
+            : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        instanceCreateTime: json.containsKey('InstanceCreateTime')
+            ? DateTime.parse(json['InstanceCreateTime'])
+            : null,
+        vpcSecurityGroups: json.containsKey('VpcSecurityGroups')
+            ? (json['VpcSecurityGroups'] as List)
+                .map((e) => VpcSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        replicationSubnetGroup: json.containsKey('ReplicationSubnetGroup')
+            ? ReplicationSubnetGroup.fromJson(json['ReplicationSubnetGroup'])
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        pendingModifiedValues: json.containsKey('PendingModifiedValues')
+            ? ReplicationPendingModifiedValues.fromJson(
+                json['PendingModifiedValues'])
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        autoMinorVersionUpgrade: json.containsKey('AutoMinorVersionUpgrade')
+            ? json['AutoMinorVersionUpgrade'] as bool
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        replicationInstanceArn: json.containsKey('ReplicationInstanceArn')
+            ? json['ReplicationInstanceArn'] as String
+            : null,
+        replicationInstancePublicIpAddress:
+            json.containsKey('ReplicationInstancePublicIpAddress')
+                ? json['ReplicationInstancePublicIpAddress'] as String
+                : null,
+        replicationInstancePrivateIpAddress:
+            json.containsKey('ReplicationInstancePrivateIpAddress')
+                ? json['ReplicationInstancePrivateIpAddress'] as String
+                : null,
+        replicationInstancePublicIpAddresses:
+            json.containsKey('ReplicationInstancePublicIpAddresses')
+                ? (json['ReplicationInstancePublicIpAddresses'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        replicationInstancePrivateIpAddresses:
+            json.containsKey('ReplicationInstancePrivateIpAddresses')
+                ? (json['ReplicationInstancePrivateIpAddresses'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        publiclyAccessible: json.containsKey('PubliclyAccessible')
+            ? json['PubliclyAccessible'] as bool
+            : null,
+        secondaryAvailabilityZone: json.containsKey('SecondaryAvailabilityZone')
+            ? json['SecondaryAvailabilityZone'] as String
+            : null,
+        freeUntil: json.containsKey('FreeUntil')
+            ? DateTime.parse(json['FreeUntil'])
+            : null,
+        dnsNameServers: json.containsKey('DnsNameServers')
+            ? json['DnsNameServers'] as String
+            : null,
+      );
 }
 
 /// Contains metadata for a replication instance task log.
@@ -2982,7 +3960,18 @@ class ReplicationInstanceTaskLog {
     this.replicationInstanceTaskLogSize,
   });
   static ReplicationInstanceTaskLog fromJson(Map<String, dynamic> json) =>
-      ReplicationInstanceTaskLog();
+      ReplicationInstanceTaskLog(
+        replicationTaskName: json.containsKey('ReplicationTaskName')
+            ? json['ReplicationTaskName'] as String
+            : null,
+        replicationTaskArn: json.containsKey('ReplicationTaskArn')
+            ? json['ReplicationTaskArn'] as String
+            : null,
+        replicationInstanceTaskLogSize:
+            json.containsKey('ReplicationInstanceTaskLogSize')
+                ? BigInt.from(json['ReplicationInstanceTaskLogSize'])
+                : null,
+      );
 }
 
 class ReplicationPendingModifiedValues {
@@ -3011,7 +4000,18 @@ class ReplicationPendingModifiedValues {
     this.engineVersion,
   });
   static ReplicationPendingModifiedValues fromJson(Map<String, dynamic> json) =>
-      ReplicationPendingModifiedValues();
+      ReplicationPendingModifiedValues(
+        replicationInstanceClass: json.containsKey('ReplicationInstanceClass')
+            ? json['ReplicationInstanceClass'] as String
+            : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+      );
 }
 
 class ReplicationSubnetGroup {
@@ -3038,7 +4038,23 @@ class ReplicationSubnetGroup {
     this.subnets,
   });
   static ReplicationSubnetGroup fromJson(Map<String, dynamic> json) =>
-      ReplicationSubnetGroup();
+      ReplicationSubnetGroup(
+        replicationSubnetGroupIdentifier:
+            json.containsKey('ReplicationSubnetGroupIdentifier')
+                ? json['ReplicationSubnetGroupIdentifier'] as String
+                : null,
+        replicationSubnetGroupDescription:
+            json.containsKey('ReplicationSubnetGroupDescription')
+                ? json['ReplicationSubnetGroupDescription'] as String
+                : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetGroupStatus: json.containsKey('SubnetGroupStatus')
+            ? json['SubnetGroupStatus'] as String
+            : null,
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => Subnet.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ReplicationTask {
@@ -3142,8 +4158,58 @@ class ReplicationTask {
     this.replicationTaskArn,
     this.replicationTaskStats,
   });
-  static ReplicationTask fromJson(Map<String, dynamic> json) =>
-      ReplicationTask();
+  static ReplicationTask fromJson(Map<String, dynamic> json) => ReplicationTask(
+        replicationTaskIdentifier: json.containsKey('ReplicationTaskIdentifier')
+            ? json['ReplicationTaskIdentifier'] as String
+            : null,
+        sourceEndpointArn: json.containsKey('SourceEndpointArn')
+            ? json['SourceEndpointArn'] as String
+            : null,
+        targetEndpointArn: json.containsKey('TargetEndpointArn')
+            ? json['TargetEndpointArn'] as String
+            : null,
+        replicationInstanceArn: json.containsKey('ReplicationInstanceArn')
+            ? json['ReplicationInstanceArn'] as String
+            : null,
+        migrationType: json.containsKey('MigrationType')
+            ? json['MigrationType'] as String
+            : null,
+        tableMappings: json.containsKey('TableMappings')
+            ? json['TableMappings'] as String
+            : null,
+        replicationTaskSettings: json.containsKey('ReplicationTaskSettings')
+            ? json['ReplicationTaskSettings'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        lastFailureMessage: json.containsKey('LastFailureMessage')
+            ? json['LastFailureMessage'] as String
+            : null,
+        stopReason: json.containsKey('StopReason')
+            ? json['StopReason'] as String
+            : null,
+        replicationTaskCreationDate:
+            json.containsKey('ReplicationTaskCreationDate')
+                ? DateTime.parse(json['ReplicationTaskCreationDate'])
+                : null,
+        replicationTaskStartDate: json.containsKey('ReplicationTaskStartDate')
+            ? DateTime.parse(json['ReplicationTaskStartDate'])
+            : null,
+        cdcStartPosition: json.containsKey('CdcStartPosition')
+            ? json['CdcStartPosition'] as String
+            : null,
+        cdcStopPosition: json.containsKey('CdcStopPosition')
+            ? json['CdcStopPosition'] as String
+            : null,
+        recoveryCheckpoint: json.containsKey('RecoveryCheckpoint')
+            ? json['RecoveryCheckpoint'] as String
+            : null,
+        replicationTaskArn: json.containsKey('ReplicationTaskArn')
+            ? json['ReplicationTaskArn'] as String
+            : null,
+        replicationTaskStats: json.containsKey('ReplicationTaskStats')
+            ? ReplicationTaskStats.fromJson(json['ReplicationTaskStats'])
+            : null,
+      );
 }
 
 ///  The task assessment report in JSON format.
@@ -3180,7 +4246,30 @@ class ReplicationTaskAssessmentResult {
     this.s3ObjectUrl,
   });
   static ReplicationTaskAssessmentResult fromJson(Map<String, dynamic> json) =>
-      ReplicationTaskAssessmentResult();
+      ReplicationTaskAssessmentResult(
+        replicationTaskIdentifier: json.containsKey('ReplicationTaskIdentifier')
+            ? json['ReplicationTaskIdentifier'] as String
+            : null,
+        replicationTaskArn: json.containsKey('ReplicationTaskArn')
+            ? json['ReplicationTaskArn'] as String
+            : null,
+        replicationTaskLastAssessmentDate:
+            json.containsKey('ReplicationTaskLastAssessmentDate')
+                ? DateTime.parse(json['ReplicationTaskLastAssessmentDate'])
+                : null,
+        assessmentStatus: json.containsKey('AssessmentStatus')
+            ? json['AssessmentStatus'] as String
+            : null,
+        assessmentResultsFile: json.containsKey('AssessmentResultsFile')
+            ? json['AssessmentResultsFile'] as String
+            : null,
+        assessmentResults: json.containsKey('AssessmentResults')
+            ? json['AssessmentResults'] as String
+            : null,
+        s3ObjectUrl: json.containsKey('S3ObjectUrl')
+            ? json['S3ObjectUrl'] as String
+            : null,
+      );
 }
 
 class ReplicationTaskStats {
@@ -3211,7 +4300,26 @@ class ReplicationTaskStats {
     this.tablesErrored,
   });
   static ReplicationTaskStats fromJson(Map<String, dynamic> json) =>
-      ReplicationTaskStats();
+      ReplicationTaskStats(
+        fullLoadProgressPercent: json.containsKey('FullLoadProgressPercent')
+            ? json['FullLoadProgressPercent'] as int
+            : null,
+        elapsedTimeMillis: json.containsKey('ElapsedTimeMillis')
+            ? BigInt.from(json['ElapsedTimeMillis'])
+            : null,
+        tablesLoaded: json.containsKey('TablesLoaded')
+            ? json['TablesLoaded'] as int
+            : null,
+        tablesLoading: json.containsKey('TablesLoading')
+            ? json['TablesLoading'] as int
+            : null,
+        tablesQueued: json.containsKey('TablesQueued')
+            ? json['TablesQueued'] as int
+            : null,
+        tablesErrored: json.containsKey('TablesErrored')
+            ? json['TablesErrored'] as int
+            : null,
+      );
 }
 
 class ResourcePendingMaintenanceActions {
@@ -3230,7 +4338,17 @@ class ResourcePendingMaintenanceActions {
   });
   static ResourcePendingMaintenanceActions fromJson(
           Map<String, dynamic> json) =>
-      ResourcePendingMaintenanceActions();
+      ResourcePendingMaintenanceActions(
+        resourceIdentifier: json.containsKey('ResourceIdentifier')
+            ? json['ResourceIdentifier'] as String
+            : null,
+        pendingMaintenanceActionDetails:
+            json.containsKey('PendingMaintenanceActionDetails')
+                ? (json['PendingMaintenanceActionDetails'] as List)
+                    .map((e) => PendingMaintenanceAction.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Settings for exporting data to Amazon S3.
@@ -3442,7 +4560,67 @@ class S3Settings {
     this.cdcInsertsOnly,
     this.timestampColumnName,
   });
-  static S3Settings fromJson(Map<String, dynamic> json) => S3Settings();
+  static S3Settings fromJson(Map<String, dynamic> json) => S3Settings(
+        serviceAccessRoleArn: json.containsKey('ServiceAccessRoleArn')
+            ? json['ServiceAccessRoleArn'] as String
+            : null,
+        externalTableDefinition: json.containsKey('ExternalTableDefinition')
+            ? json['ExternalTableDefinition'] as String
+            : null,
+        csvRowDelimiter: json.containsKey('CsvRowDelimiter')
+            ? json['CsvRowDelimiter'] as String
+            : null,
+        csvDelimiter: json.containsKey('CsvDelimiter')
+            ? json['CsvDelimiter'] as String
+            : null,
+        bucketFolder: json.containsKey('BucketFolder')
+            ? json['BucketFolder'] as String
+            : null,
+        bucketName: json.containsKey('BucketName')
+            ? json['BucketName'] as String
+            : null,
+        compressionType: json.containsKey('CompressionType')
+            ? json['CompressionType'] as String
+            : null,
+        encryptionMode: json.containsKey('EncryptionMode')
+            ? json['EncryptionMode'] as String
+            : null,
+        serverSideEncryptionKmsKeyId:
+            json.containsKey('ServerSideEncryptionKmsKeyId')
+                ? json['ServerSideEncryptionKmsKeyId'] as String
+                : null,
+        dataFormat: json.containsKey('DataFormat')
+            ? json['DataFormat'] as String
+            : null,
+        encodingType: json.containsKey('EncodingType')
+            ? json['EncodingType'] as String
+            : null,
+        dictPageSizeLimit: json.containsKey('DictPageSizeLimit')
+            ? json['DictPageSizeLimit'] as int
+            : null,
+        rowGroupLength: json.containsKey('RowGroupLength')
+            ? json['RowGroupLength'] as int
+            : null,
+        dataPageSize: json.containsKey('DataPageSize')
+            ? json['DataPageSize'] as int
+            : null,
+        parquetVersion: json.containsKey('ParquetVersion')
+            ? json['ParquetVersion'] as String
+            : null,
+        enableStatistics: json.containsKey('EnableStatistics')
+            ? json['EnableStatistics'] as bool
+            : null,
+        includeOpForFullLoad: json.containsKey('IncludeOpForFullLoad')
+            ? json['IncludeOpForFullLoad'] as bool
+            : null,
+        cdcInsertsOnly: json.containsKey('CdcInsertsOnly')
+            ? json['CdcInsertsOnly'] as bool
+            : null,
+        timestampColumnName: json.containsKey('TimestampColumnName')
+            ? json['TimestampColumnName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartReplicationTaskAssessmentResponse {
@@ -3454,7 +4632,11 @@ class StartReplicationTaskAssessmentResponse {
   });
   static StartReplicationTaskAssessmentResponse fromJson(
           Map<String, dynamic> json) =>
-      StartReplicationTaskAssessmentResponse();
+      StartReplicationTaskAssessmentResponse(
+        replicationTask: json.containsKey('ReplicationTask')
+            ? ReplicationTask.fromJson(json['ReplicationTask'])
+            : null,
+      );
 }
 
 class StartReplicationTaskResponse {
@@ -3465,7 +4647,11 @@ class StartReplicationTaskResponse {
     this.replicationTask,
   });
   static StartReplicationTaskResponse fromJson(Map<String, dynamic> json) =>
-      StartReplicationTaskResponse();
+      StartReplicationTaskResponse(
+        replicationTask: json.containsKey('ReplicationTask')
+            ? ReplicationTask.fromJson(json['ReplicationTask'])
+            : null,
+      );
 }
 
 class StopReplicationTaskResponse {
@@ -3476,7 +4662,11 @@ class StopReplicationTaskResponse {
     this.replicationTask,
   });
   static StopReplicationTaskResponse fromJson(Map<String, dynamic> json) =>
-      StopReplicationTaskResponse();
+      StopReplicationTaskResponse(
+        replicationTask: json.containsKey('ReplicationTask')
+            ? ReplicationTask.fromJson(json['ReplicationTask'])
+            : null,
+      );
 }
 
 class Subnet {
@@ -3494,7 +4684,17 @@ class Subnet {
     this.subnetAvailabilityZone,
     this.subnetStatus,
   });
-  static Subnet fromJson(Map<String, dynamic> json) => Subnet();
+  static Subnet fromJson(Map<String, dynamic> json) => Subnet(
+        subnetIdentifier: json.containsKey('SubnetIdentifier')
+            ? json['SubnetIdentifier'] as String
+            : null,
+        subnetAvailabilityZone: json.containsKey('SubnetAvailabilityZone')
+            ? AvailabilityZone.fromJson(json['SubnetAvailabilityZone'])
+            : null,
+        subnetStatus: json.containsKey('SubnetStatus')
+            ? json['SubnetStatus'] as String
+            : null,
+      );
 }
 
 class SupportedEndpointType {
@@ -3520,7 +4720,20 @@ class SupportedEndpointType {
     this.engineDisplayName,
   });
   static SupportedEndpointType fromJson(Map<String, dynamic> json) =>
-      SupportedEndpointType();
+      SupportedEndpointType(
+        engineName: json.containsKey('EngineName')
+            ? json['EngineName'] as String
+            : null,
+        supportsCdc: json.containsKey('SupportsCDC')
+            ? json['SupportsCDC'] as bool
+            : null,
+        endpointType: json.containsKey('EndpointType')
+            ? json['EndpointType'] as String
+            : null,
+        engineDisplayName: json.containsKey('EngineDisplayName')
+            ? json['EngineDisplayName'] as String
+            : null,
+      );
 }
 
 class TableStatistics {
@@ -3620,8 +4833,52 @@ class TableStatistics {
     this.validationState,
     this.validationStateDetails,
   });
-  static TableStatistics fromJson(Map<String, dynamic> json) =>
-      TableStatistics();
+  static TableStatistics fromJson(Map<String, dynamic> json) => TableStatistics(
+        schemaName: json.containsKey('SchemaName')
+            ? json['SchemaName'] as String
+            : null,
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        inserts:
+            json.containsKey('Inserts') ? BigInt.from(json['Inserts']) : null,
+        deletes:
+            json.containsKey('Deletes') ? BigInt.from(json['Deletes']) : null,
+        updates:
+            json.containsKey('Updates') ? BigInt.from(json['Updates']) : null,
+        ddls: json.containsKey('Ddls') ? BigInt.from(json['Ddls']) : null,
+        fullLoadRows: json.containsKey('FullLoadRows')
+            ? BigInt.from(json['FullLoadRows'])
+            : null,
+        fullLoadCondtnlChkFailedRows:
+            json.containsKey('FullLoadCondtnlChkFailedRows')
+                ? BigInt.from(json['FullLoadCondtnlChkFailedRows'])
+                : null,
+        fullLoadErrorRows: json.containsKey('FullLoadErrorRows')
+            ? BigInt.from(json['FullLoadErrorRows'])
+            : null,
+        lastUpdateTime: json.containsKey('LastUpdateTime')
+            ? DateTime.parse(json['LastUpdateTime'])
+            : null,
+        tableState: json.containsKey('TableState')
+            ? json['TableState'] as String
+            : null,
+        validationPendingRecords: json.containsKey('ValidationPendingRecords')
+            ? BigInt.from(json['ValidationPendingRecords'])
+            : null,
+        validationFailedRecords: json.containsKey('ValidationFailedRecords')
+            ? BigInt.from(json['ValidationFailedRecords'])
+            : null,
+        validationSuspendedRecords:
+            json.containsKey('ValidationSuspendedRecords')
+                ? BigInt.from(json['ValidationSuspendedRecords'])
+                : null,
+        validationState: json.containsKey('ValidationState')
+            ? json['ValidationState'] as String
+            : null,
+        validationStateDetails: json.containsKey('ValidationStateDetails')
+            ? json['ValidationStateDetails'] as String
+            : null,
+      );
 }
 
 class TableToReload {
@@ -3635,6 +4892,7 @@ class TableToReload {
     this.schemaName,
     this.tableName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Tag {
@@ -3656,7 +4914,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TestConnectionResponse {
@@ -3667,7 +4929,11 @@ class TestConnectionResponse {
     this.connection,
   });
   static TestConnectionResponse fromJson(Map<String, dynamic> json) =>
-      TestConnectionResponse();
+      TestConnectionResponse(
+        connection: json.containsKey('Connection')
+            ? Connection.fromJson(json['Connection'])
+            : null,
+      );
 }
 
 class VpcSecurityGroupMembership {
@@ -3682,5 +4948,10 @@ class VpcSecurityGroupMembership {
     this.status,
   });
   static VpcSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      VpcSecurityGroupMembership();
+      VpcSecurityGroupMembership(
+        vpcSecurityGroupId: json.containsKey('VpcSecurityGroupId')
+            ? json['VpcSecurityGroupId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }

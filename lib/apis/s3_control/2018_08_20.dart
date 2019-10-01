@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 ///  AWS S3 Control provides access to Amazon S3 control plane operations.
 class S3ControlApi {
+  final _client;
+  S3ControlApi(client)
+      : _client = client.configured('S3 Control', serializer: 'rest-xml');
+
   /// Creates an Amazon S3 batch operations job.
   ///
   /// [accountId]:
@@ -44,14 +48,30 @@ class S3ControlApi {
       String description,
       @required int priority,
       @required String roleArn}) async {
-    return CreateJobResult.fromJson({});
+    var response_ = await _client.send('CreateJob', {
+      'AccountId': accountId,
+      if (confirmationRequired != null)
+        'ConfirmationRequired': confirmationRequired,
+      'Operation': operation,
+      'Report': report,
+      'ClientRequestToken': clientRequestToken,
+      'Manifest': manifest,
+      if (description != null) 'Description': description,
+      'Priority': priority,
+      'RoleArn': roleArn,
+    });
+    return CreateJobResult.fromJson(response_);
   }
 
   /// Deletes the block public access configuration for the specified account.
   ///
   /// [accountId]: The account ID for the AWS account whose block public access
   /// configuration you want to delete.
-  Future<void> deletePublicAccessBlock(String accountId) async {}
+  Future<void> deletePublicAccessBlock(String accountId) async {
+    await _client.send('DeletePublicAccessBlock', {
+      'AccountId': accountId,
+    });
+  }
 
   /// Retrieves the configuration parameters and status for a batch operations
   /// job.
@@ -61,14 +81,21 @@ class S3ControlApi {
   /// [jobId]: The ID for the job whose information you want to retrieve.
   Future<DescribeJobResult> describeJob(
       {@required String accountId, @required String jobId}) async {
-    return DescribeJobResult.fromJson({});
+    var response_ = await _client.send('DescribeJob', {
+      'AccountId': accountId,
+      'JobId': jobId,
+    });
+    return DescribeJobResult.fromJson(response_);
   }
 
   ///
   /// [accountId]:
   Future<GetPublicAccessBlockOutput> getPublicAccessBlock(
       String accountId) async {
-    return GetPublicAccessBlockOutput.fromJson({});
+    var response_ = await _client.send('GetPublicAccessBlock', {
+      'AccountId': accountId,
+    });
+    return GetPublicAccessBlockOutput.fromJson(response_);
   }
 
   /// Lists current jobs and jobs that have ended within the last 30 days for
@@ -89,7 +116,13 @@ class S3ControlApi {
   /// enable you to retrieve the next page of results.
   Future<ListJobsResult> listJobs(String accountId,
       {List<String> jobStatuses, String nextToken, int maxResults}) async {
-    return ListJobsResult.fromJson({});
+    var response_ = await _client.send('ListJobs', {
+      'AccountId': accountId,
+      if (jobStatuses != null) 'JobStatuses': jobStatuses,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListJobsResult.fromJson(response_);
   }
 
   ///
@@ -98,7 +131,12 @@ class S3ControlApi {
   /// [accountId]:
   Future<void> putPublicAccessBlock(
       {@required PublicAccessBlockConfiguration publicAccessBlockConfiguration,
-      @required String accountId}) async {}
+      @required String accountId}) async {
+    await _client.send('PutPublicAccessBlock', {
+      'PublicAccessBlockConfiguration': publicAccessBlockConfiguration,
+      'AccountId': accountId,
+    });
+  }
 
   /// Updates an existing job's priority.
   ///
@@ -111,7 +149,12 @@ class S3ControlApi {
       {@required String accountId,
       @required String jobId,
       @required int priority}) async {
-    return UpdateJobPriorityResult.fromJson({});
+    var response_ = await _client.send('UpdateJobPriority', {
+      'AccountId': accountId,
+      'JobId': jobId,
+      'Priority': priority,
+    });
+    return UpdateJobPriorityResult.fromJson(response_);
   }
 
   /// Updates the status for the specified job. Use this operation to confirm
@@ -132,7 +175,13 @@ class S3ControlApi {
       @required String jobId,
       @required String requestedJobStatus,
       String statusUpdateReason}) async {
-    return UpdateJobStatusResult.fromJson({});
+    var response_ = await _client.send('UpdateJobStatus', {
+      'AccountId': accountId,
+      'JobId': jobId,
+      'RequestedJobStatus': requestedJobStatus,
+      if (statusUpdateReason != null) 'StatusUpdateReason': statusUpdateReason,
+    });
+    return UpdateJobStatusResult.fromJson(response_);
   }
 }
 
@@ -144,8 +193,9 @@ class CreateJobResult {
   CreateJobResult({
     this.jobId,
   });
-  static CreateJobResult fromJson(Map<String, dynamic> json) =>
-      CreateJobResult();
+  static CreateJobResult fromJson(Map<String, dynamic> json) => CreateJobResult(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 class DescribeJobResult {
@@ -157,7 +207,11 @@ class DescribeJobResult {
     this.job,
   });
   static DescribeJobResult fromJson(Map<String, dynamic> json) =>
-      DescribeJobResult();
+      DescribeJobResult(
+        job: json.containsKey('Job')
+            ? JobDescriptor.fromJson(json['Job'])
+            : null,
+      );
 }
 
 class GetPublicAccessBlockOutput {
@@ -167,7 +221,13 @@ class GetPublicAccessBlockOutput {
     this.publicAccessBlockConfiguration,
   });
   static GetPublicAccessBlockOutput fromJson(Map<String, dynamic> json) =>
-      GetPublicAccessBlockOutput();
+      GetPublicAccessBlockOutput(
+        publicAccessBlockConfiguration:
+            json.containsKey('PublicAccessBlockConfiguration')
+                ? PublicAccessBlockConfiguration.fromJson(
+                    json['PublicAccessBlockConfiguration'])
+                : null,
+      );
 }
 
 /// A container element for the job configuration and status information
@@ -254,7 +314,51 @@ class JobDescriptor {
     this.suspendedDate,
     this.suspendedCause,
   });
-  static JobDescriptor fromJson(Map<String, dynamic> json) => JobDescriptor();
+  static JobDescriptor fromJson(Map<String, dynamic> json) => JobDescriptor(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        confirmationRequired: json.containsKey('ConfirmationRequired')
+            ? json['ConfirmationRequired'] as bool
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        jobArn: json.containsKey('JobArn') ? json['JobArn'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        manifest: json.containsKey('Manifest')
+            ? JobManifest.fromJson(json['Manifest'])
+            : null,
+        operation: json.containsKey('Operation')
+            ? JobOperation.fromJson(json['Operation'])
+            : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        progressSummary: json.containsKey('ProgressSummary')
+            ? JobProgressSummary.fromJson(json['ProgressSummary'])
+            : null,
+        statusUpdateReason: json.containsKey('StatusUpdateReason')
+            ? json['StatusUpdateReason'] as String
+            : null,
+        failureReasons: json.containsKey('FailureReasons')
+            ? (json['FailureReasons'] as List)
+                .map((e) => JobFailure.fromJson(e))
+                .toList()
+            : null,
+        report: json.containsKey('Report')
+            ? JobReport.fromJson(json['Report'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        terminationDate: json.containsKey('TerminationDate')
+            ? DateTime.parse(json['TerminationDate'])
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        suspendedDate: json.containsKey('SuspendedDate')
+            ? DateTime.parse(json['SuspendedDate'])
+            : null,
+        suspendedCause: json.containsKey('SuspendedCause')
+            ? json['SuspendedCause'] as String
+            : null,
+      );
 }
 
 /// If this job failed, this element indicates why the job failed.
@@ -269,7 +373,14 @@ class JobFailure {
     this.failureCode,
     this.failureReason,
   });
-  static JobFailure fromJson(Map<String, dynamic> json) => JobFailure();
+  static JobFailure fromJson(Map<String, dynamic> json) => JobFailure(
+        failureCode: json.containsKey('FailureCode')
+            ? json['FailureCode'] as String
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+      );
 }
 
 /// Contains the configuration and status information for a single job retrieved
@@ -315,7 +426,25 @@ class JobListDescriptor {
     this.progressSummary,
   });
   static JobListDescriptor fromJson(Map<String, dynamic> json) =>
-      JobListDescriptor();
+      JobListDescriptor(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        operation:
+            json.containsKey('Operation') ? json['Operation'] as String : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        terminationDate: json.containsKey('TerminationDate')
+            ? DateTime.parse(json['TerminationDate'])
+            : null,
+        progressSummary: json.containsKey('ProgressSummary')
+            ? JobProgressSummary.fromJson(json['ProgressSummary'])
+            : null,
+      );
 }
 
 /// Contains the configuration information for a job's manifest.
@@ -331,7 +460,11 @@ class JobManifest {
     @required this.spec,
     @required this.location,
   });
-  static JobManifest fromJson(Map<String, dynamic> json) => JobManifest();
+  static JobManifest fromJson(Map<String, dynamic> json) => JobManifest(
+        spec: JobManifestSpec.fromJson(json['Spec']),
+        location: JobManifestLocation.fromJson(json['Location']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the information required to locate a manifest object.
@@ -352,7 +485,14 @@ class JobManifestLocation {
     @required this.eTag,
   });
   static JobManifestLocation fromJson(Map<String, dynamic> json) =>
-      JobManifestLocation();
+      JobManifestLocation(
+        objectArn: json['ObjectArn'] as String,
+        objectVersionId: json.containsKey('ObjectVersionId')
+            ? json['ObjectVersionId'] as String
+            : null,
+        eTag: json['ETag'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the format of a manifest. If the manifest is in CSV format, also
@@ -370,8 +510,13 @@ class JobManifestSpec {
     @required this.format,
     this.fields,
   });
-  static JobManifestSpec fromJson(Map<String, dynamic> json) =>
-      JobManifestSpec();
+  static JobManifestSpec fromJson(Map<String, dynamic> json) => JobManifestSpec(
+        format: json['Format'] as String,
+        fields: json.containsKey('Fields')
+            ? (json['Fields'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The operation that you want this job to perform on each object listed in the
@@ -406,7 +551,25 @@ class JobOperation {
     this.s3PutObjectTagging,
     this.s3InitiateRestoreObject,
   });
-  static JobOperation fromJson(Map<String, dynamic> json) => JobOperation();
+  static JobOperation fromJson(Map<String, dynamic> json) => JobOperation(
+        lambdaInvoke: json.containsKey('LambdaInvoke')
+            ? LambdaInvokeOperation.fromJson(json['LambdaInvoke'])
+            : null,
+        s3PutObjectCopy: json.containsKey('S3PutObjectCopy')
+            ? S3CopyObjectOperation.fromJson(json['S3PutObjectCopy'])
+            : null,
+        s3PutObjectAcl: json.containsKey('S3PutObjectAcl')
+            ? S3SetObjectAclOperation.fromJson(json['S3PutObjectAcl'])
+            : null,
+        s3PutObjectTagging: json.containsKey('S3PutObjectTagging')
+            ? S3SetObjectTaggingOperation.fromJson(json['S3PutObjectTagging'])
+            : null,
+        s3InitiateRestoreObject: json.containsKey('S3InitiateRestoreObject')
+            ? S3InitiateRestoreObjectOperation.fromJson(
+                json['S3InitiateRestoreObject'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the total number of tasks that the specified job has executed, the
@@ -424,7 +587,17 @@ class JobProgressSummary {
     this.numberOfTasksFailed,
   });
   static JobProgressSummary fromJson(Map<String, dynamic> json) =>
-      JobProgressSummary();
+      JobProgressSummary(
+        totalNumberOfTasks: json.containsKey('TotalNumberOfTasks')
+            ? BigInt.from(json['TotalNumberOfTasks'])
+            : null,
+        numberOfTasksSucceeded: json.containsKey('NumberOfTasksSucceeded')
+            ? BigInt.from(json['NumberOfTasksSucceeded'])
+            : null,
+        numberOfTasksFailed: json.containsKey('NumberOfTasksFailed')
+            ? BigInt.from(json['NumberOfTasksFailed'])
+            : null,
+      );
 }
 
 /// Contains the configuration parameters for a job-completion report.
@@ -454,7 +627,16 @@ class JobReport {
     this.prefix,
     this.reportScope,
   });
-  static JobReport fromJson(Map<String, dynamic> json) => JobReport();
+  static JobReport fromJson(Map<String, dynamic> json) => JobReport(
+        bucket: json.containsKey('Bucket') ? json['Bucket'] as String : null,
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        enabled: json['Enabled'] as bool,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        reportScope: json.containsKey('ReportScope')
+            ? json['ReportScope'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the configuration parameters for a `Lambda Invoke` operation.
@@ -467,7 +649,12 @@ class LambdaInvokeOperation {
     this.functionArn,
   });
   static LambdaInvokeOperation fromJson(Map<String, dynamic> json) =>
-      LambdaInvokeOperation();
+      LambdaInvokeOperation(
+        functionArn: json.containsKey('FunctionArn')
+            ? json['FunctionArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListJobsResult {
@@ -483,7 +670,15 @@ class ListJobsResult {
     this.nextToken,
     this.jobs,
   });
-  static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult();
+  static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        jobs: json.containsKey('Jobs')
+            ? (json['Jobs'] as List)
+                .map((e) => JobListDescriptor.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class PublicAccessBlockConfiguration {
@@ -502,7 +697,21 @@ class PublicAccessBlockConfiguration {
     this.restrictPublicBuckets,
   });
   static PublicAccessBlockConfiguration fromJson(Map<String, dynamic> json) =>
-      PublicAccessBlockConfiguration();
+      PublicAccessBlockConfiguration(
+        blockPublicAcls: json.containsKey('BlockPublicAcls')
+            ? json['BlockPublicAcls'] as bool
+            : null,
+        ignorePublicAcls: json.containsKey('IgnorePublicAcls')
+            ? json['IgnorePublicAcls'] as bool
+            : null,
+        blockPublicPolicy: json.containsKey('BlockPublicPolicy')
+            ? json['BlockPublicPolicy'] as bool
+            : null,
+        restrictPublicBuckets: json.containsKey('RestrictPublicBuckets')
+            ? json['RestrictPublicBuckets'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class S3AccessControlList {
@@ -515,7 +724,13 @@ class S3AccessControlList {
     this.grants,
   });
   static S3AccessControlList fromJson(Map<String, dynamic> json) =>
-      S3AccessControlList();
+      S3AccessControlList(
+        owner: S3ObjectOwner.fromJson(json['Owner']),
+        grants: json.containsKey('Grants')
+            ? (json['Grants'] as List).map((e) => S3Grant.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class S3AccessControlPolicy {
@@ -528,7 +743,15 @@ class S3AccessControlPolicy {
     this.cannedAccessControlList,
   });
   static S3AccessControlPolicy fromJson(Map<String, dynamic> json) =>
-      S3AccessControlPolicy();
+      S3AccessControlPolicy(
+        accessControlList: json.containsKey('AccessControlList')
+            ? S3AccessControlList.fromJson(json['AccessControlList'])
+            : null,
+        cannedAccessControlList: json.containsKey('CannedAccessControlList')
+            ? json['CannedAccessControlList'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the configuration parameters for a PUT Copy object operation.
@@ -588,7 +811,61 @@ class S3CopyObjectOperation {
     this.objectLockRetainUntilDate,
   });
   static S3CopyObjectOperation fromJson(Map<String, dynamic> json) =>
-      S3CopyObjectOperation();
+      S3CopyObjectOperation(
+        targetResource: json.containsKey('TargetResource')
+            ? json['TargetResource'] as String
+            : null,
+        cannedAccessControlList: json.containsKey('CannedAccessControlList')
+            ? json['CannedAccessControlList'] as String
+            : null,
+        accessControlGrants: json.containsKey('AccessControlGrants')
+            ? (json['AccessControlGrants'] as List)
+                .map((e) => S3Grant.fromJson(e))
+                .toList()
+            : null,
+        metadataDirective: json.containsKey('MetadataDirective')
+            ? json['MetadataDirective'] as String
+            : null,
+        modifiedSinceConstraint: json.containsKey('ModifiedSinceConstraint')
+            ? DateTime.parse(json['ModifiedSinceConstraint'])
+            : null,
+        newObjectMetadata: json.containsKey('NewObjectMetadata')
+            ? S3ObjectMetadata.fromJson(json['NewObjectMetadata'])
+            : null,
+        newObjectTagging: json.containsKey('NewObjectTagging')
+            ? (json['NewObjectTagging'] as List)
+                .map((e) => S3Tag.fromJson(e))
+                .toList()
+            : null,
+        redirectLocation: json.containsKey('RedirectLocation')
+            ? json['RedirectLocation'] as String
+            : null,
+        requesterPays: json.containsKey('RequesterPays')
+            ? json['RequesterPays'] as bool
+            : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        unModifiedSinceConstraint: json.containsKey('UnModifiedSinceConstraint')
+            ? DateTime.parse(json['UnModifiedSinceConstraint'])
+            : null,
+        sseAwsKmsKeyId: json.containsKey('SSEAwsKmsKeyId')
+            ? json['SSEAwsKmsKeyId'] as String
+            : null,
+        targetKeyPrefix: json.containsKey('TargetKeyPrefix')
+            ? json['TargetKeyPrefix'] as String
+            : null,
+        objectLockLegalHoldStatus: json.containsKey('ObjectLockLegalHoldStatus')
+            ? json['ObjectLockLegalHoldStatus'] as String
+            : null,
+        objectLockMode: json.containsKey('ObjectLockMode')
+            ? json['ObjectLockMode'] as String
+            : null,
+        objectLockRetainUntilDate: json.containsKey('ObjectLockRetainUntilDate')
+            ? DateTime.parse(json['ObjectLockRetainUntilDate'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class S3Grant {
@@ -600,7 +877,15 @@ class S3Grant {
     this.grantee,
     this.permission,
   });
-  static S3Grant fromJson(Map<String, dynamic> json) => S3Grant();
+  static S3Grant fromJson(Map<String, dynamic> json) => S3Grant(
+        grantee: json.containsKey('Grantee')
+            ? S3Grantee.fromJson(json['Grantee'])
+            : null,
+        permission: json.containsKey('Permission')
+            ? json['Permission'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class S3Grantee {
@@ -615,7 +900,18 @@ class S3Grantee {
     this.identifier,
     this.displayName,
   });
-  static S3Grantee fromJson(Map<String, dynamic> json) => S3Grantee();
+  static S3Grantee fromJson(Map<String, dynamic> json) => S3Grantee(
+        typeIdentifier: json.containsKey('TypeIdentifier')
+            ? json['TypeIdentifier'] as String
+            : null,
+        identifier: json.containsKey('Identifier')
+            ? json['Identifier'] as String
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the configuration parameters for an Initiate Glacier Restore job.
@@ -633,7 +929,15 @@ class S3InitiateRestoreObjectOperation {
     this.glacierJobTier,
   });
   static S3InitiateRestoreObjectOperation fromJson(Map<String, dynamic> json) =>
-      S3InitiateRestoreObjectOperation();
+      S3InitiateRestoreObjectOperation(
+        expirationInDays: json.containsKey('ExpirationInDays')
+            ? json['ExpirationInDays'] as int
+            : null,
+        glacierJobTier: json.containsKey('GlacierJobTier')
+            ? json['GlacierJobTier'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class S3ObjectMetadata {
@@ -673,7 +977,43 @@ class S3ObjectMetadata {
     this.sseAlgorithm,
   });
   static S3ObjectMetadata fromJson(Map<String, dynamic> json) =>
-      S3ObjectMetadata();
+      S3ObjectMetadata(
+        cacheControl: json.containsKey('CacheControl')
+            ? json['CacheControl'] as String
+            : null,
+        contentDisposition: json.containsKey('ContentDisposition')
+            ? json['ContentDisposition'] as String
+            : null,
+        contentEncoding: json.containsKey('ContentEncoding')
+            ? json['ContentEncoding'] as String
+            : null,
+        contentLanguage: json.containsKey('ContentLanguage')
+            ? json['ContentLanguage'] as String
+            : null,
+        userMetadata: json.containsKey('UserMetadata')
+            ? (json['UserMetadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        contentLength: json.containsKey('ContentLength')
+            ? BigInt.from(json['ContentLength'])
+            : null,
+        contentMd5: json.containsKey('ContentMD5')
+            ? json['ContentMD5'] as String
+            : null,
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        httpExpiresDate: json.containsKey('HttpExpiresDate')
+            ? DateTime.parse(json['HttpExpiresDate'])
+            : null,
+        requesterCharged: json.containsKey('RequesterCharged')
+            ? json['RequesterCharged'] as bool
+            : null,
+        sseAlgorithm: json.containsKey('SSEAlgorithm')
+            ? json['SSEAlgorithm'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class S3ObjectOwner {
@@ -685,7 +1025,13 @@ class S3ObjectOwner {
     this.id,
     this.displayName,
   });
-  static S3ObjectOwner fromJson(Map<String, dynamic> json) => S3ObjectOwner();
+  static S3ObjectOwner fromJson(Map<String, dynamic> json) => S3ObjectOwner(
+        id: json.containsKey('ID') ? json['ID'] as String : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the configuration parameters for a Set Object ACL operation. Amazon
@@ -699,7 +1045,12 @@ class S3SetObjectAclOperation {
     this.accessControlPolicy,
   });
   static S3SetObjectAclOperation fromJson(Map<String, dynamic> json) =>
-      S3SetObjectAclOperation();
+      S3SetObjectAclOperation(
+        accessControlPolicy: json.containsKey('AccessControlPolicy')
+            ? S3AccessControlPolicy.fromJson(json['AccessControlPolicy'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the configuration parameters for a Set Object Tagging operation.
@@ -714,7 +1065,12 @@ class S3SetObjectTaggingOperation {
     this.tagSet,
   });
   static S3SetObjectTaggingOperation fromJson(Map<String, dynamic> json) =>
-      S3SetObjectTaggingOperation();
+      S3SetObjectTaggingOperation(
+        tagSet: json.containsKey('TagSet')
+            ? (json['TagSet'] as List).map((e) => S3Tag.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class S3Tag {
@@ -726,7 +1082,11 @@ class S3Tag {
     @required this.key,
     @required this.value,
   });
-  static S3Tag fromJson(Map<String, dynamic> json) => S3Tag();
+  static S3Tag fromJson(Map<String, dynamic> json) => S3Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateJobPriorityResult {
@@ -741,7 +1101,10 @@ class UpdateJobPriorityResult {
     @required this.priority,
   });
   static UpdateJobPriorityResult fromJson(Map<String, dynamic> json) =>
-      UpdateJobPriorityResult();
+      UpdateJobPriorityResult(
+        jobId: json['JobId'] as String,
+        priority: json['Priority'] as int,
+      );
 }
 
 class UpdateJobStatusResult {
@@ -760,5 +1123,11 @@ class UpdateJobStatusResult {
     this.statusUpdateReason,
   });
   static UpdateJobStatusResult fromJson(Map<String, dynamic> json) =>
-      UpdateJobStatusResult();
+      UpdateJobStatusResult(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusUpdateReason: json.containsKey('StatusUpdateReason')
+            ? json['StatusUpdateReason'] as String
+            : null,
+      );
 }

@@ -63,6 +63,11 @@ import 'package:meta/meta.dart';
 /// [_AWS Application Discovery Service User Guide_](http://docs.aws.amazon.com/application-discovery/latest/userguide/)
 /// .
 class ApplicationDiscoveryServiceApi {
+  final _client;
+  ApplicationDiscoveryServiceApi(client)
+      : _client = client.configured('Application Discovery Service',
+            serializer: 'json');
+
   /// Associates one or more configuration items with an application.
   ///
   /// [applicationConfigurationId]: The configuration ID of an application with
@@ -74,7 +79,12 @@ class ApplicationDiscoveryServiceApi {
       associateConfigurationItemsToApplication(
           {@required String applicationConfigurationId,
           @required List<String> configurationIds}) async {
-    return AssociateConfigurationItemsToApplicationResponse.fromJson({});
+    var response_ =
+        await _client.send('AssociateConfigurationItemsToApplication', {
+      'applicationConfigurationId': applicationConfigurationId,
+      'configurationIds': configurationIds,
+    });
+    return AssociateConfigurationItemsToApplicationResponse.fromJson(response_);
   }
 
   /// Deletes one or more import tasks, each identified by their import ID. Each
@@ -91,7 +101,10 @@ class ApplicationDiscoveryServiceApi {
   /// [importTaskIds]: The IDs for the import tasks that you want to delete.
   Future<BatchDeleteImportDataResponse> batchDeleteImportData(
       List<String> importTaskIds) async {
-    return BatchDeleteImportDataResponse.fromJson({});
+    var response_ = await _client.send('BatchDeleteImportData', {
+      'importTaskIds': importTaskIds,
+    });
+    return BatchDeleteImportDataResponse.fromJson(response_);
   }
 
   /// Creates an application with the given name and description.
@@ -101,7 +114,11 @@ class ApplicationDiscoveryServiceApi {
   /// [description]: Description of the application to be created.
   Future<CreateApplicationResponse> createApplication(String name,
       {String description}) async {
-    return CreateApplicationResponse.fromJson({});
+    var response_ = await _client.send('CreateApplication', {
+      'name': name,
+      if (description != null) 'description': description,
+    });
+    return CreateApplicationResponse.fromJson(response_);
   }
 
   /// Creates one or more tags for configuration items. Tags are metadata that
@@ -118,7 +135,11 @@ class ApplicationDiscoveryServiceApi {
   Future<CreateTagsResponse> createTags(
       {@required List<String> configurationIds,
       @required List<Tag> tags}) async {
-    return CreateTagsResponse.fromJson({});
+    var response_ = await _client.send('CreateTags', {
+      'configurationIds': configurationIds,
+      'tags': tags,
+    });
+    return CreateTagsResponse.fromJson(response_);
   }
 
   /// Deletes a list of applications and their associations with configuration
@@ -127,7 +148,10 @@ class ApplicationDiscoveryServiceApi {
   /// [configurationIds]: Configuration ID of an application to be deleted.
   Future<DeleteApplicationsResponse> deleteApplications(
       List<String> configurationIds) async {
-    return DeleteApplicationsResponse.fromJson({});
+    var response_ = await _client.send('DeleteApplications', {
+      'configurationIds': configurationIds,
+    });
+    return DeleteApplicationsResponse.fromJson(response_);
   }
 
   /// Deletes the association between configuration items and one or more tags.
@@ -143,7 +167,11 @@ class ApplicationDiscoveryServiceApi {
   ///  `{"key": "serverType", "value": "webServer"}`
   Future<DeleteTagsResponse> deleteTags(List<String> configurationIds,
       {List<Tag> tags}) async {
-    return DeleteTagsResponse.fromJson({});
+    var response_ = await _client.send('DeleteTags', {
+      'configurationIds': configurationIds,
+      if (tags != null) 'tags': tags,
+    });
+    return DeleteTagsResponse.fromJson(response_);
   }
 
   /// Lists agents or connectors as specified by ID or other filters. All
@@ -172,7 +200,13 @@ class ApplicationDiscoveryServiceApi {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeAgentsResponse.fromJson({});
+    var response_ = await _client.send('DescribeAgents', {
+      if (agentIds != null) 'agentIds': agentIds,
+      if (filters != null) 'filters': filters,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeAgentsResponse.fromJson(response_);
   }
 
   /// Retrieves attributes for a list of configuration item IDs.
@@ -202,7 +236,10 @@ class ApplicationDiscoveryServiceApi {
   /// [configurationIds]: One or more configuration IDs.
   Future<DescribeConfigurationsResponse> describeConfigurations(
       List<String> configurationIds) async {
-    return DescribeConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfigurations', {
+      'configurationIds': configurationIds,
+    });
+    return DescribeConfigurationsResponse.fromJson(response_);
   }
 
   /// Lists exports as specified by ID. All continuous exports associated with
@@ -217,7 +254,12 @@ class ApplicationDiscoveryServiceApi {
   /// [nextToken]: The token from the previous call to `DescribeExportTasks`.
   Future<DescribeContinuousExportsResponse> describeContinuousExports(
       {List<String> exportIds, int maxResults, String nextToken}) async {
-    return DescribeContinuousExportsResponse.fromJson({});
+    var response_ = await _client.send('DescribeContinuousExports', {
+      if (exportIds != null) 'exportIds': exportIds,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeContinuousExportsResponse.fromJson(response_);
   }
 
   ///  `DescribeExportConfigurations` is deprecated. Use
@@ -232,7 +274,12 @@ class ApplicationDiscoveryServiceApi {
   /// [nextToken]: The token from the previous call to describe-export-tasks.
   Future<DescribeExportConfigurationsResponse> describeExportConfigurations(
       {List<String> exportIds, int maxResults, String nextToken}) async {
-    return DescribeExportConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('DescribeExportConfigurations', {
+      if (exportIds != null) 'exportIds': exportIds,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeExportConfigurationsResponse.fromJson(response_);
   }
 
   /// Retrieve status of one or more export tasks. You can retrieve the status
@@ -260,7 +307,13 @@ class ApplicationDiscoveryServiceApi {
       List<ExportFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeExportTasksResponse.fromJson({});
+    var response_ = await _client.send('DescribeExportTasks', {
+      if (exportIds != null) 'exportIds': exportIds,
+      if (filters != null) 'filters': filters,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeExportTasksResponse.fromJson(response_);
   }
 
   /// Returns an array of import tasks for your account, including status
@@ -279,7 +332,12 @@ class ApplicationDiscoveryServiceApi {
       {List<ImportTaskFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeImportTasksResponse.fromJson({});
+    var response_ = await _client.send('DescribeImportTasks', {
+      if (filters != null) 'filters': filters,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeImportTasksResponse.fromJson(response_);
   }
 
   /// Retrieves a list of configuration items that have tags as specified by the
@@ -310,7 +368,12 @@ class ApplicationDiscoveryServiceApi {
   /// of results.
   Future<DescribeTagsResponse> describeTags(
       {List<TagFilter> filters, int maxResults, String nextToken}) async {
-    return DescribeTagsResponse.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      if (filters != null) 'filters': filters,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeTagsResponse.fromJson(response_);
   }
 
   /// Disassociates one or more configuration items from an application.
@@ -324,7 +387,13 @@ class ApplicationDiscoveryServiceApi {
       disassociateConfigurationItemsFromApplication(
           {@required String applicationConfigurationId,
           @required List<String> configurationIds}) async {
-    return DisassociateConfigurationItemsFromApplicationResponse.fromJson({});
+    var response_ =
+        await _client.send('DisassociateConfigurationItemsFromApplication', {
+      'applicationConfigurationId': applicationConfigurationId,
+      'configurationIds': configurationIds,
+    });
+    return DisassociateConfigurationItemsFromApplicationResponse.fromJson(
+        response_);
   }
 
   /// Deprecated. Use `StartExportTask` instead.
@@ -336,7 +405,8 @@ class ApplicationDiscoveryServiceApi {
   /// _DescribeExportConfigurations_ API. The system imposes a limit of two
   /// configuration exports in six hours.
   Future<ExportConfigurationsResponse> exportConfigurations() async {
-    return ExportConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('ExportConfigurations', {});
+    return ExportConfigurationsResponse.fromJson(response_);
   }
 
   /// Retrieves a short summary of discovered assets.
@@ -344,7 +414,8 @@ class ApplicationDiscoveryServiceApi {
   /// This API operation takes no request parameters and is called as is at the
   /// command prompt as shown in the example.
   Future<GetDiscoverySummaryResponse> getDiscoverySummary() async {
-    return GetDiscoverySummaryResponse.fromJson({});
+    var response_ = await _client.send('GetDiscoverySummary', {});
+    return GetDiscoverySummaryResponse.fromJson(response_);
   }
 
   /// Retrieves a list of configuration items as specified by the value passed
@@ -382,7 +453,14 @@ class ApplicationDiscoveryServiceApi {
       int maxResults,
       String nextToken,
       List<OrderByElement> orderBy}) async {
-    return ListConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('ListConfigurations', {
+      'configurationType': configurationType,
+      if (filters != null) 'filters': filters,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (orderBy != null) 'orderBy': orderBy,
+    });
+    return ListConfigurationsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of servers that are one network hop away from a specified
@@ -412,12 +490,22 @@ class ApplicationDiscoveryServiceApi {
       List<String> neighborConfigurationIds,
       int maxResults,
       String nextToken}) async {
-    return ListServerNeighborsResponse.fromJson({});
+    var response_ = await _client.send('ListServerNeighbors', {
+      'configurationId': configurationId,
+      if (portInformationNeeded != null)
+        'portInformationNeeded': portInformationNeeded,
+      if (neighborConfigurationIds != null)
+        'neighborConfigurationIds': neighborConfigurationIds,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListServerNeighborsResponse.fromJson(response_);
   }
 
   /// Start the continuous flow of agent's discovered data into Amazon Athena.
   Future<StartContinuousExportResponse> startContinuousExport() async {
-    return StartContinuousExportResponse.fromJson({});
+    var response_ = await _client.send('StartContinuousExport', {});
+    return StartContinuousExportResponse.fromJson(response_);
   }
 
   /// Instructs the specified agents or connectors to start collecting data.
@@ -432,7 +520,10 @@ class ApplicationDiscoveryServiceApi {
   /// in the _Description_ field.
   Future<StartDataCollectionByAgentIdsResponse> startDataCollectionByAgentIds(
       List<String> agentIds) async {
-    return StartDataCollectionByAgentIdsResponse.fromJson({});
+    var response_ = await _client.send('StartDataCollectionByAgentIds', {
+      'agentIds': agentIds,
+    });
+    return StartDataCollectionByAgentIdsResponse.fromJson(response_);
   }
 
   ///  Begins the export of discovered data to an S3 bucket.
@@ -471,7 +562,13 @@ class ApplicationDiscoveryServiceApi {
       List<ExportFilter> filters,
       DateTime startTime,
       DateTime endTime}) async {
-    return StartExportTaskResponse.fromJson({});
+    var response_ = await _client.send('StartExportTask', {
+      if (exportDataFormat != null) 'exportDataFormat': exportDataFormat,
+      if (filters != null) 'filters': filters,
+      if (startTime != null) 'startTime': startTime,
+      if (endTime != null) 'endTime': endTime,
+    });
+    return StartExportTaskResponse.fromJson(response_);
   }
 
   /// Starts an import task, which allows you to import details of your
@@ -532,7 +629,12 @@ class ApplicationDiscoveryServiceApi {
       {String clientRequestToken,
       @required String name,
       @required String importUrl}) async {
-    return StartImportTaskResponse.fromJson({});
+    var response_ = await _client.send('StartImportTask', {
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+      'name': name,
+      'importUrl': importUrl,
+    });
+    return StartImportTaskResponse.fromJson(response_);
   }
 
   /// Stop the continuous flow of agent's discovered data into Amazon Athena.
@@ -540,7 +642,10 @@ class ApplicationDiscoveryServiceApi {
   /// [exportId]: The unique ID assigned to this export.
   Future<StopContinuousExportResponse> stopContinuousExport(
       String exportId) async {
-    return StopContinuousExportResponse.fromJson({});
+    var response_ = await _client.send('StopContinuousExport', {
+      'exportId': exportId,
+    });
+    return StopContinuousExportResponse.fromJson(response_);
   }
 
   /// Instructs the specified agents or connectors to stop collecting data.
@@ -549,7 +654,10 @@ class ApplicationDiscoveryServiceApi {
   /// collecting data.
   Future<StopDataCollectionByAgentIdsResponse> stopDataCollectionByAgentIds(
       List<String> agentIds) async {
-    return StopDataCollectionByAgentIdsResponse.fromJson({});
+    var response_ = await _client.send('StopDataCollectionByAgentIds', {
+      'agentIds': agentIds,
+    });
+    return StopDataCollectionByAgentIdsResponse.fromJson(response_);
   }
 
   /// Updates metadata about an application.
@@ -561,7 +669,12 @@ class ApplicationDiscoveryServiceApi {
   /// [description]: New description of the application to be updated.
   Future<UpdateApplicationResponse> updateApplication(String configurationId,
       {String name, String description}) async {
-    return UpdateApplicationResponse.fromJson({});
+    var response_ = await _client.send('UpdateApplication', {
+      'configurationId': configurationId,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+    });
+    return UpdateApplicationResponse.fromJson(response_);
   }
 }
 
@@ -587,7 +700,15 @@ class AgentConfigurationStatus {
     this.description,
   });
   static AgentConfigurationStatus fromJson(Map<String, dynamic> json) =>
-      AgentConfigurationStatus();
+      AgentConfigurationStatus(
+        agentId: json.containsKey('agentId') ? json['agentId'] as String : null,
+        operationSucceeded: json.containsKey('operationSucceeded')
+            ? json['operationSucceeded'] as bool
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+      );
 }
 
 /// Information about agents or connectors associated with the user’s AWS
@@ -638,7 +759,32 @@ class AgentInfo {
     this.agentType,
     this.registeredTime,
   });
-  static AgentInfo fromJson(Map<String, dynamic> json) => AgentInfo();
+  static AgentInfo fromJson(Map<String, dynamic> json) => AgentInfo(
+        agentId: json.containsKey('agentId') ? json['agentId'] as String : null,
+        hostName:
+            json.containsKey('hostName') ? json['hostName'] as String : null,
+        agentNetworkInfoList: json.containsKey('agentNetworkInfoList')
+            ? (json['agentNetworkInfoList'] as List)
+                .map((e) => AgentNetworkInfo.fromJson(e))
+                .toList()
+            : null,
+        connectorId: json.containsKey('connectorId')
+            ? json['connectorId'] as String
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        health: json.containsKey('health') ? json['health'] as String : null,
+        lastHealthPingTime: json.containsKey('lastHealthPingTime')
+            ? json['lastHealthPingTime'] as String
+            : null,
+        collectionStatus: json.containsKey('collectionStatus')
+            ? json['collectionStatus'] as String
+            : null,
+        agentType:
+            json.containsKey('agentType') ? json['agentType'] as String : null,
+        registeredTime: json.containsKey('registeredTime')
+            ? json['registeredTime'] as String
+            : null,
+      );
 }
 
 /// Network details about the host where the agent/connector resides.
@@ -654,7 +800,13 @@ class AgentNetworkInfo {
     this.macAddress,
   });
   static AgentNetworkInfo fromJson(Map<String, dynamic> json) =>
-      AgentNetworkInfo();
+      AgentNetworkInfo(
+        ipAddress:
+            json.containsKey('ipAddress') ? json['ipAddress'] as String : null,
+        macAddress: json.containsKey('macAddress')
+            ? json['macAddress'] as String
+            : null,
+      );
 }
 
 class AssociateConfigurationItemsToApplicationResponse {
@@ -682,7 +834,16 @@ class BatchDeleteImportDataError {
     this.errorDescription,
   });
   static BatchDeleteImportDataError fromJson(Map<String, dynamic> json) =>
-      BatchDeleteImportDataError();
+      BatchDeleteImportDataError(
+        importTaskId: json.containsKey('importTaskId')
+            ? json['importTaskId'] as String
+            : null,
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        errorDescription: json.containsKey('errorDescription')
+            ? json['errorDescription'] as String
+            : null,
+      );
 }
 
 class BatchDeleteImportDataResponse {
@@ -694,7 +855,13 @@ class BatchDeleteImportDataResponse {
     this.errors,
   });
   static BatchDeleteImportDataResponse fromJson(Map<String, dynamic> json) =>
-      BatchDeleteImportDataResponse();
+      BatchDeleteImportDataResponse(
+        errors: json.containsKey('errors')
+            ? (json['errors'] as List)
+                .map((e) => BatchDeleteImportDataError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Tags for a configuration item. Tags are metadata that help you categorize IT
@@ -726,7 +893,19 @@ class ConfigurationTag {
     this.timeOfCreation,
   });
   static ConfigurationTag fromJson(Map<String, dynamic> json) =>
-      ConfigurationTag();
+      ConfigurationTag(
+        configurationType: json.containsKey('configurationType')
+            ? json['configurationType'] as String
+            : null,
+        configurationId: json.containsKey('configurationId')
+            ? json['configurationId'] as String
+            : null,
+        key: json.containsKey('key') ? json['key'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+        timeOfCreation: json.containsKey('timeOfCreation')
+            ? DateTime.parse(json['timeOfCreation'])
+            : null,
+      );
 }
 
 /// A list of continuous export descriptions.
@@ -826,7 +1005,29 @@ class ContinuousExportDescription {
     this.schemaStorageConfig,
   });
   static ContinuousExportDescription fromJson(Map<String, dynamic> json) =>
-      ContinuousExportDescription();
+      ContinuousExportDescription(
+        exportId:
+            json.containsKey('exportId') ? json['exportId'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusDetail: json.containsKey('statusDetail')
+            ? json['statusDetail'] as String
+            : null,
+        s3Bucket:
+            json.containsKey('s3Bucket') ? json['s3Bucket'] as String : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        stopTime: json.containsKey('stopTime')
+            ? DateTime.parse(json['stopTime'])
+            : null,
+        dataSource: json.containsKey('dataSource')
+            ? json['dataSource'] as String
+            : null,
+        schemaStorageConfig: json.containsKey('schemaStorageConfig')
+            ? (json['schemaStorageConfig'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateApplicationResponse {
@@ -837,7 +1038,11 @@ class CreateApplicationResponse {
     this.configurationId,
   });
   static CreateApplicationResponse fromJson(Map<String, dynamic> json) =>
-      CreateApplicationResponse();
+      CreateApplicationResponse(
+        configurationId: json.containsKey('configurationId')
+            ? json['configurationId'] as String
+            : null,
+      );
 }
 
 class CreateTagsResponse {
@@ -879,7 +1084,15 @@ class CustomerAgentInfo {
     @required this.unknownAgents,
   });
   static CustomerAgentInfo fromJson(Map<String, dynamic> json) =>
-      CustomerAgentInfo();
+      CustomerAgentInfo(
+        activeAgents: json['activeAgents'] as int,
+        healthyAgents: json['healthyAgents'] as int,
+        blackListedAgents: json['blackListedAgents'] as int,
+        shutdownAgents: json['shutdownAgents'] as int,
+        unhealthyAgents: json['unhealthyAgents'] as int,
+        totalAgents: json['totalAgents'] as int,
+        unknownAgents: json['unknownAgents'] as int,
+      );
 }
 
 /// Inventory data for installed discovery connectors.
@@ -915,7 +1128,15 @@ class CustomerConnectorInfo {
     @required this.unknownConnectors,
   });
   static CustomerConnectorInfo fromJson(Map<String, dynamic> json) =>
-      CustomerConnectorInfo();
+      CustomerConnectorInfo(
+        activeConnectors: json['activeConnectors'] as int,
+        healthyConnectors: json['healthyConnectors'] as int,
+        blackListedConnectors: json['blackListedConnectors'] as int,
+        shutdownConnectors: json['shutdownConnectors'] as int,
+        unhealthyConnectors: json['unhealthyConnectors'] as int,
+        totalConnectors: json['totalConnectors'] as int,
+        unknownConnectors: json['unknownConnectors'] as int,
+      );
 }
 
 class DeleteApplicationsResponse {
@@ -951,7 +1172,15 @@ class DescribeAgentsResponse {
     this.nextToken,
   });
   static DescribeAgentsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAgentsResponse();
+      DescribeAgentsResponse(
+        agentsInfo: json.containsKey('agentsInfo')
+            ? (json['agentsInfo'] as List)
+                .map((e) => AgentInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeConfigurationsResponse {
@@ -962,7 +1191,14 @@ class DescribeConfigurationsResponse {
     this.configurations,
   });
   static DescribeConfigurationsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeConfigurationsResponse();
+      DescribeConfigurationsResponse(
+        configurations: json.containsKey('configurations')
+            ? (json['configurations'] as List)
+                .map((e) => (e as Map)
+                    .map((k, v) => MapEntry(k as String, v as String)))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeContinuousExportsResponse {
@@ -978,7 +1214,15 @@ class DescribeContinuousExportsResponse {
   });
   static DescribeContinuousExportsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeContinuousExportsResponse();
+      DescribeContinuousExportsResponse(
+        descriptions: json.containsKey('descriptions')
+            ? (json['descriptions'] as List)
+                .map((e) => ContinuousExportDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeExportConfigurationsResponse {
@@ -993,7 +1237,15 @@ class DescribeExportConfigurationsResponse {
   });
   static DescribeExportConfigurationsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeExportConfigurationsResponse();
+      DescribeExportConfigurationsResponse(
+        exportsInfo: json.containsKey('exportsInfo')
+            ? (json['exportsInfo'] as List)
+                .map((e) => ExportInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeExportTasksResponse {
@@ -1013,7 +1265,15 @@ class DescribeExportTasksResponse {
     this.nextToken,
   });
   static DescribeExportTasksResponse fromJson(Map<String, dynamic> json) =>
-      DescribeExportTasksResponse();
+      DescribeExportTasksResponse(
+        exportsInfo: json.containsKey('exportsInfo')
+            ? (json['exportsInfo'] as List)
+                .map((e) => ExportInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeImportTasksResponse {
@@ -1029,7 +1289,15 @@ class DescribeImportTasksResponse {
     this.tasks,
   });
   static DescribeImportTasksResponse fromJson(Map<String, dynamic> json) =>
-      DescribeImportTasksResponse();
+      DescribeImportTasksResponse(
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        tasks: json.containsKey('tasks')
+            ? (json['tasks'] as List)
+                .map((e) => ImportTask.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeTagsResponse {
@@ -1045,7 +1313,15 @@ class DescribeTagsResponse {
     this.nextToken,
   });
   static DescribeTagsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTagsResponse();
+      DescribeTagsResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List)
+                .map((e) => ConfigurationTag.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DisassociateConfigurationItemsFromApplicationResponse {
@@ -1063,7 +1339,10 @@ class ExportConfigurationsResponse {
     this.exportId,
   });
   static ExportConfigurationsResponse fromJson(Map<String, dynamic> json) =>
-      ExportConfigurationsResponse();
+      ExportConfigurationsResponse(
+        exportId:
+            json.containsKey('exportId') ? json['exportId'] as String : null,
+      );
 }
 
 /// Used to select which agent's data is to be exported. A single agent ID may
@@ -1088,6 +1367,7 @@ class ExportFilter {
     @required this.values,
     @required this.condition,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information regarding the export status of discovered data. The value is an
@@ -1133,7 +1413,24 @@ class ExportInfo {
     this.requestedStartTime,
     this.requestedEndTime,
   });
-  static ExportInfo fromJson(Map<String, dynamic> json) => ExportInfo();
+  static ExportInfo fromJson(Map<String, dynamic> json) => ExportInfo(
+        exportId: json['exportId'] as String,
+        exportStatus: json['exportStatus'] as String,
+        statusMessage: json['statusMessage'] as String,
+        configurationsDownloadUrl: json.containsKey('configurationsDownloadUrl')
+            ? json['configurationsDownloadUrl'] as String
+            : null,
+        exportRequestTime: DateTime.parse(json['exportRequestTime']),
+        isTruncated: json.containsKey('isTruncated')
+            ? json['isTruncated'] as bool
+            : null,
+        requestedStartTime: json.containsKey('requestedStartTime')
+            ? DateTime.parse(json['requestedStartTime'])
+            : null,
+        requestedEndTime: json.containsKey('requestedEndTime')
+            ? DateTime.parse(json['requestedEndTime'])
+            : null,
+      );
 }
 
 /// A filter that can use conditional operators.
@@ -1162,6 +1459,7 @@ class Filter {
     @required this.values,
     @required this.condition,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetDiscoverySummaryResponse {
@@ -1193,7 +1491,26 @@ class GetDiscoverySummaryResponse {
     this.connectorSummary,
   });
   static GetDiscoverySummaryResponse fromJson(Map<String, dynamic> json) =>
-      GetDiscoverySummaryResponse();
+      GetDiscoverySummaryResponse(
+        servers:
+            json.containsKey('servers') ? BigInt.from(json['servers']) : null,
+        applications: json.containsKey('applications')
+            ? BigInt.from(json['applications'])
+            : null,
+        serversMappedToApplications:
+            json.containsKey('serversMappedToApplications')
+                ? BigInt.from(json['serversMappedToApplications'])
+                : null,
+        serversMappedtoTags: json.containsKey('serversMappedtoTags')
+            ? BigInt.from(json['serversMappedtoTags'])
+            : null,
+        agentSummary: json.containsKey('agentSummary')
+            ? CustomerAgentInfo.fromJson(json['agentSummary'])
+            : null,
+        connectorSummary: json.containsKey('connectorSummary')
+            ? CustomerConnectorInfo.fromJson(json['connectorSummary'])
+            : null,
+      );
 }
 
 /// An array of information related to the import task request that includes
@@ -1283,7 +1600,42 @@ class ImportTask {
     this.applicationImportFailure,
     this.errorsAndFailedEntriesZip,
   });
-  static ImportTask fromJson(Map<String, dynamic> json) => ImportTask();
+  static ImportTask fromJson(Map<String, dynamic> json) => ImportTask(
+        importTaskId: json.containsKey('importTaskId')
+            ? json['importTaskId'] as String
+            : null,
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        importUrl:
+            json.containsKey('importUrl') ? json['importUrl'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        importRequestTime: json.containsKey('importRequestTime')
+            ? DateTime.parse(json['importRequestTime'])
+            : null,
+        importCompletionTime: json.containsKey('importCompletionTime')
+            ? DateTime.parse(json['importCompletionTime'])
+            : null,
+        importDeletedTime: json.containsKey('importDeletedTime')
+            ? DateTime.parse(json['importDeletedTime'])
+            : null,
+        serverImportSuccess: json.containsKey('serverImportSuccess')
+            ? json['serverImportSuccess'] as int
+            : null,
+        serverImportFailure: json.containsKey('serverImportFailure')
+            ? json['serverImportFailure'] as int
+            : null,
+        applicationImportSuccess: json.containsKey('applicationImportSuccess')
+            ? json['applicationImportSuccess'] as int
+            : null,
+        applicationImportFailure: json.containsKey('applicationImportFailure')
+            ? json['applicationImportFailure'] as int
+            : null,
+        errorsAndFailedEntriesZip: json.containsKey('errorsAndFailedEntriesZip')
+            ? json['errorsAndFailedEntriesZip'] as String
+            : null,
+      );
 }
 
 /// A name-values pair of elements you can use to filter the results when
@@ -1306,6 +1658,7 @@ class ImportTaskFilter {
     this.name,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListConfigurationsResponse {
@@ -1325,7 +1678,16 @@ class ListConfigurationsResponse {
     this.nextToken,
   });
   static ListConfigurationsResponse fromJson(Map<String, dynamic> json) =>
-      ListConfigurationsResponse();
+      ListConfigurationsResponse(
+        configurations: json.containsKey('configurations')
+            ? (json['configurations'] as List)
+                .map((e) => (e as Map)
+                    .map((k, v) => MapEntry(k as String, v as String)))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListServerNeighborsResponse {
@@ -1348,7 +1710,16 @@ class ListServerNeighborsResponse {
     this.knownDependencyCount,
   });
   static ListServerNeighborsResponse fromJson(Map<String, dynamic> json) =>
-      ListServerNeighborsResponse();
+      ListServerNeighborsResponse(
+        neighbors: (json['neighbors'] as List)
+            .map((e) => NeighborConnectionDetail.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        knownDependencyCount: json.containsKey('knownDependencyCount')
+            ? BigInt.from(json['knownDependencyCount'])
+            : null,
+      );
 }
 
 /// Details about neighboring servers.
@@ -1376,7 +1747,17 @@ class NeighborConnectionDetail {
     @required this.connectionsCount,
   });
   static NeighborConnectionDetail fromJson(Map<String, dynamic> json) =>
-      NeighborConnectionDetail();
+      NeighborConnectionDetail(
+        sourceServerId: json['sourceServerId'] as String,
+        destinationServerId: json['destinationServerId'] as String,
+        destinationPort: json.containsKey('destinationPort')
+            ? json['destinationPort'] as int
+            : null,
+        transportProtocol: json.containsKey('transportProtocol')
+            ? json['transportProtocol'] as String
+            : null,
+        connectionsCount: BigInt.from(json['connectionsCount']),
+      );
 }
 
 /// A field and direction for ordered output.
@@ -1391,6 +1772,7 @@ class OrderByElement {
     @required this.fieldName,
     this.sortOrder,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartContinuousExportResponse {
@@ -1421,7 +1803,22 @@ class StartContinuousExportResponse {
     this.schemaStorageConfig,
   });
   static StartContinuousExportResponse fromJson(Map<String, dynamic> json) =>
-      StartContinuousExportResponse();
+      StartContinuousExportResponse(
+        exportId:
+            json.containsKey('exportId') ? json['exportId'] as String : null,
+        s3Bucket:
+            json.containsKey('s3Bucket') ? json['s3Bucket'] as String : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        dataSource: json.containsKey('dataSource')
+            ? json['dataSource'] as String
+            : null,
+        schemaStorageConfig: json.containsKey('schemaStorageConfig')
+            ? (json['schemaStorageConfig'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class StartDataCollectionByAgentIdsResponse {
@@ -1436,7 +1833,13 @@ class StartDataCollectionByAgentIdsResponse {
   });
   static StartDataCollectionByAgentIdsResponse fromJson(
           Map<String, dynamic> json) =>
-      StartDataCollectionByAgentIdsResponse();
+      StartDataCollectionByAgentIdsResponse(
+        agentsConfigurationStatus: json.containsKey('agentsConfigurationStatus')
+            ? (json['agentsConfigurationStatus'] as List)
+                .map((e) => AgentConfigurationStatus.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class StartExportTaskResponse {
@@ -1447,7 +1850,10 @@ class StartExportTaskResponse {
     this.exportId,
   });
   static StartExportTaskResponse fromJson(Map<String, dynamic> json) =>
-      StartExportTaskResponse();
+      StartExportTaskResponse(
+        exportId:
+            json.containsKey('exportId') ? json['exportId'] as String : null,
+      );
 }
 
 class StartImportTaskResponse {
@@ -1460,7 +1866,10 @@ class StartImportTaskResponse {
     this.task,
   });
   static StartImportTaskResponse fromJson(Map<String, dynamic> json) =>
-      StartImportTaskResponse();
+      StartImportTaskResponse(
+        task:
+            json.containsKey('task') ? ImportTask.fromJson(json['task']) : null,
+      );
 }
 
 class StopContinuousExportResponse {
@@ -1476,7 +1885,14 @@ class StopContinuousExportResponse {
     this.stopTime,
   });
   static StopContinuousExportResponse fromJson(Map<String, dynamic> json) =>
-      StopContinuousExportResponse();
+      StopContinuousExportResponse(
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        stopTime: json.containsKey('stopTime')
+            ? DateTime.parse(json['stopTime'])
+            : null,
+      );
 }
 
 class StopDataCollectionByAgentIdsResponse {
@@ -1491,7 +1907,13 @@ class StopDataCollectionByAgentIdsResponse {
   });
   static StopDataCollectionByAgentIdsResponse fromJson(
           Map<String, dynamic> json) =>
-      StopDataCollectionByAgentIdsResponse();
+      StopDataCollectionByAgentIdsResponse(
+        agentsConfigurationStatus: json.containsKey('agentsConfigurationStatus')
+            ? (json['agentsConfigurationStatus'] as List)
+                .map((e) => AgentConfigurationStatus.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Metadata that help you categorize IT assets.
@@ -1506,6 +1928,7 @@ class Tag {
     @required this.key,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The tag filter. Valid names are: `tagKey`, `tagValue`, `configurationId`.
@@ -1520,6 +1943,7 @@ class TagFilter {
     @required this.name,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateApplicationResponse {

@@ -18,6 +18,10 @@ import 'package:meta/meta.dart';
 ///  Visit [http://aws.amazon.com/simpledb/](http://aws.amazon.com/simpledb/)
 /// for more information.
 class SimpleDBApi {
+  final _client;
+  SimpleDBApi(client)
+      : _client = client.configured('SimpleDB', serializer: 'query');
+
   ///  Performs multiple DeleteAttributes operations in a single call, which
   /// reduces round trips and latencies. This enables Amazon SimpleDB to
   /// optimize requests, which generally yields better throughput.
@@ -51,7 +55,12 @@ class SimpleDBApi {
   /// [items]: A list of items on which to perform the operation.
   Future<void> batchDeleteAttributes(
       {@required String domainName,
-      @required List<DeletableItem> items}) async {}
+      @required List<DeletableItem> items}) async {
+    await _client.send('BatchDeleteAttributes', {
+      'DomainName': domainName,
+      'Items': items,
+    });
+  }
 
   ///  The `BatchPutAttributes` operation creates or replaces attributes within
   /// one or more items. By using this operation, the client can perform
@@ -108,7 +117,12 @@ class SimpleDBApi {
   /// [items]: A list of items on which to perform the operation.
   Future<void> batchPutAttributes(
       {@required String domainName,
-      @required List<ReplaceableItem> items}) async {}
+      @required List<ReplaceableItem> items}) async {
+    await _client.send('BatchPutAttributes', {
+      'DomainName': domainName,
+      'Items': items,
+    });
+  }
 
   ///  The `CreateDomain` operation creates a new domain. The domain name should
   /// be unique among the domains associated with the Access Key ID provided in
@@ -126,7 +140,11 @@ class SimpleDBApi {
   /// [domainName]: The name of the domain to create. The name can range between
   /// 3 and 255 characters and can contain the following characters: a-z, A-Z,
   /// 0-9, '_', '-', and '.'.
-  Future<void> createDomain(String domainName) async {}
+  Future<void> createDomain(String domainName) async {
+    await _client.send('CreateDomain', {
+      'DomainName': domainName,
+    });
+  }
 
   ///  Deletes one or more attributes associated with an item. If all attributes
   /// of the item are deleted, the item is deleted.
@@ -159,7 +177,14 @@ class SimpleDBApi {
       {@required String domainName,
       @required String itemName,
       List<DeletableAttribute> attributes,
-      UpdateCondition expected}) async {}
+      UpdateCondition expected}) async {
+    await _client.send('DeleteAttributes', {
+      'DomainName': domainName,
+      'ItemName': itemName,
+      if (attributes != null) 'Attributes': attributes,
+      if (expected != null) 'Expected': expected,
+    });
+  }
 
   ///  The `DeleteDomain` operation deletes a domain. Any items (and their
   /// attributes) in the domain are deleted as well. The `DeleteDomain`
@@ -170,7 +195,11 @@ class SimpleDBApi {
   /// error response.
   ///
   /// [domainName]: The name of the domain to delete.
-  Future<void> deleteDomain(String domainName) async {}
+  Future<void> deleteDomain(String domainName) async {
+    await _client.send('DeleteDomain', {
+      'DomainName': domainName,
+    });
+  }
 
   ///  Returns information about the domain, including when the domain was
   /// created, the number of items and attributes in the domain, and the size of
@@ -178,7 +207,10 @@ class SimpleDBApi {
   ///
   /// [domainName]: The name of the domain for which to display the metadata of.
   Future<DomainMetadataResult> domainMetadata(String domainName) async {
-    return DomainMetadataResult.fromJson({});
+    var response_ = await _client.send('DomainMetadata', {
+      'DomainName': domainName,
+    });
+    return DomainMetadataResult.fromJson(response_);
   }
 
   ///  Returns all of the attributes associated with the specified item.
@@ -208,7 +240,13 @@ class SimpleDBApi {
       @required String itemName,
       List<String> attributeNames,
       bool consistentRead}) async {
-    return GetAttributesResult.fromJson({});
+    var response_ = await _client.send('GetAttributes', {
+      'DomainName': domainName,
+      'ItemName': itemName,
+      if (attributeNames != null) 'AttributeNames': attributeNames,
+      if (consistentRead != null) 'ConsistentRead': consistentRead,
+    });
+    return GetAttributesResult.fromJson(response_);
   }
 
   ///  The `ListDomains` operation lists all domains associated with the Access
@@ -226,7 +264,11 @@ class SimpleDBApi {
   /// list of domain names.
   Future<ListDomainsResult> listDomains(
       {int maxNumberOfDomains, String nextToken}) async {
-    return ListDomainsResult.fromJson({});
+    var response_ = await _client.send('ListDomains', {
+      if (maxNumberOfDomains != null) 'MaxNumberOfDomains': maxNumberOfDomains,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListDomainsResult.fromJson(response_);
   }
 
   ///  The PutAttributes operation creates or replaces attributes in an item.
@@ -281,7 +323,14 @@ class SimpleDBApi {
       {@required String domainName,
       @required String itemName,
       @required List<ReplaceableAttribute> attributes,
-      UpdateCondition expected}) async {}
+      UpdateCondition expected}) async {
+    await _client.send('PutAttributes', {
+      'DomainName': domainName,
+      'ItemName': itemName,
+      'Attributes': attributes,
+      if (expected != null) 'Expected': expected,
+    });
+  }
 
   ///  The `Select` operation returns a set of attributes for `ItemNames` that
   /// match the select expression. `Select` is similar to the standard SQL
@@ -309,7 +358,12 @@ class SimpleDBApi {
   /// immediately before your read.
   Future<SelectResult> select(String selectExpression,
       {String nextToken, bool consistentRead}) async {
-    return SelectResult.fromJson({});
+    var response_ = await _client.send('Select', {
+      'SelectExpression': selectExpression,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (consistentRead != null) 'ConsistentRead': consistentRead,
+    });
+    return SelectResult.fromJson(response_);
   }
 }
 
@@ -330,7 +384,16 @@ class Attribute {
     @required this.value,
     this.alternateValueEncoding,
   });
-  static Attribute fromJson(Map<String, dynamic> json) => Attribute();
+  static Attribute fromJson(Map<String, dynamic> json) => Attribute(
+        name: json['Name'] as String,
+        alternateNameEncoding: json.containsKey('AlternateNameEncoding')
+            ? json['AlternateNameEncoding'] as String
+            : null,
+        value: json['Value'] as String,
+        alternateValueEncoding: json.containsKey('AlternateValueEncoding')
+            ? json['AlternateValueEncoding'] as String
+            : null,
+      );
 }
 
 class DeletableAttribute {
@@ -344,6 +407,7 @@ class DeletableAttribute {
     @required this.name,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeletableItem {
@@ -355,6 +419,7 @@ class DeletableItem {
     @required this.name,
     this.attributes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DomainMetadataResult {
@@ -389,7 +454,27 @@ class DomainMetadataResult {
     this.timestamp,
   });
   static DomainMetadataResult fromJson(Map<String, dynamic> json) =>
-      DomainMetadataResult();
+      DomainMetadataResult(
+        itemCount:
+            json.containsKey('ItemCount') ? json['ItemCount'] as int : null,
+        itemNamesSizeBytes: json.containsKey('ItemNamesSizeBytes')
+            ? BigInt.from(json['ItemNamesSizeBytes'])
+            : null,
+        attributeNameCount: json.containsKey('AttributeNameCount')
+            ? json['AttributeNameCount'] as int
+            : null,
+        attributeNamesSizeBytes: json.containsKey('AttributeNamesSizeBytes')
+            ? BigInt.from(json['AttributeNamesSizeBytes'])
+            : null,
+        attributeValueCount: json.containsKey('AttributeValueCount')
+            ? json['AttributeValueCount'] as int
+            : null,
+        attributeValuesSizeBytes: json.containsKey('AttributeValuesSizeBytes')
+            ? BigInt.from(json['AttributeValuesSizeBytes'])
+            : null,
+        timestamp:
+            json.containsKey('Timestamp') ? json['Timestamp'] as int : null,
+      );
 }
 
 class GetAttributesResult {
@@ -400,7 +485,13 @@ class GetAttributesResult {
     this.attributes,
   });
   static GetAttributesResult fromJson(Map<String, dynamic> json) =>
-      GetAttributesResult();
+      GetAttributesResult(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class Item {
@@ -417,7 +508,15 @@ class Item {
     this.alternateNameEncoding,
     @required this.attributes,
   });
-  static Item fromJson(Map<String, dynamic> json) => Item();
+  static Item fromJson(Map<String, dynamic> json) => Item(
+        name: json['Name'] as String,
+        alternateNameEncoding: json.containsKey('AlternateNameEncoding')
+            ? json['AlternateNameEncoding'] as String
+            : null,
+        attributes: (json['Attributes'] as List)
+            .map((e) => Attribute.fromJson(e))
+            .toList(),
+      );
 }
 
 class ListDomainsResult {
@@ -433,7 +532,13 @@ class ListDomainsResult {
     this.nextToken,
   });
   static ListDomainsResult fromJson(Map<String, dynamic> json) =>
-      ListDomainsResult();
+      ListDomainsResult(
+        domainNames: json.containsKey('DomainNames')
+            ? (json['DomainNames'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ReplaceableAttribute {
@@ -452,6 +557,7 @@ class ReplaceableAttribute {
     @required this.value,
     this.replace,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ReplaceableItem {
@@ -465,6 +571,7 @@ class ReplaceableItem {
     @required this.name,
     @required this.attributes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SelectResult {
@@ -480,7 +587,13 @@ class SelectResult {
     this.items,
     this.nextToken,
   });
-  static SelectResult fromJson(Map<String, dynamic> json) => SelectResult();
+  static SelectResult fromJson(Map<String, dynamic> json) => SelectResult(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => Item.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 ///  Specifies the conditions under which data should be updated. If an update
@@ -507,4 +620,5 @@ class UpdateCondition {
     this.value,
     this.exists,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

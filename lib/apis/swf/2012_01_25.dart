@@ -18,6 +18,9 @@ import 'package:meta/meta.dart';
 /// _[Amazon SWF Developer Guide](https://docs.aws.amazon.com/amazonswf/latest/developerguide/)_
 /// .
 class SwfApi {
+  final _client;
+  SwfApi(client) : _client = client.configured('SWF', serializer: 'json');
+
   /// Returns the number of closed workflow executions within the given domain
   /// that meet the specified filtering criteria.
   ///
@@ -102,7 +105,16 @@ class SwfApi {
       WorkflowTypeFilter typeFilter,
       TagFilter tagFilter,
       CloseStatusFilter closeStatusFilter}) async {
-    return WorkflowExecutionCount.fromJson({});
+    var response_ = await _client.send('CountClosedWorkflowExecutions', {
+      'domain': domain,
+      if (startTimeFilter != null) 'startTimeFilter': startTimeFilter,
+      if (closeTimeFilter != null) 'closeTimeFilter': closeTimeFilter,
+      if (executionFilter != null) 'executionFilter': executionFilter,
+      if (typeFilter != null) 'typeFilter': typeFilter,
+      if (tagFilter != null) 'tagFilter': tagFilter,
+      if (closeStatusFilter != null) 'closeStatusFilter': closeStatusFilter,
+    });
+    return WorkflowExecutionCount.fromJson(response_);
   }
 
   /// Returns the number of open workflow executions within the given domain
@@ -171,7 +183,14 @@ class SwfApi {
       WorkflowTypeFilter typeFilter,
       TagFilter tagFilter,
       WorkflowExecutionFilter executionFilter}) async {
-    return WorkflowExecutionCount.fromJson({});
+    var response_ = await _client.send('CountOpenWorkflowExecutions', {
+      'domain': domain,
+      'startTimeFilter': startTimeFilter,
+      if (typeFilter != null) 'typeFilter': typeFilter,
+      if (tagFilter != null) 'tagFilter': tagFilter,
+      if (executionFilter != null) 'executionFilter': executionFilter,
+    });
+    return WorkflowExecutionCount.fromJson(response_);
   }
 
   /// Returns the estimated number of activity tasks in the specified task list.
@@ -207,7 +226,11 @@ class SwfApi {
   /// [taskList]: The name of the task list.
   Future<PendingTaskCount> countPendingActivityTasks(
       {@required String domain, @required TaskList taskList}) async {
-    return PendingTaskCount.fromJson({});
+    var response_ = await _client.send('CountPendingActivityTasks', {
+      'domain': domain,
+      'taskList': taskList,
+    });
+    return PendingTaskCount.fromJson(response_);
   }
 
   /// Returns the estimated number of decision tasks in the specified task list.
@@ -243,7 +266,11 @@ class SwfApi {
   /// [taskList]: The name of the task list.
   Future<PendingTaskCount> countPendingDecisionTasks(
       {@required String domain, @required TaskList taskList}) async {
-    return PendingTaskCount.fromJson({});
+    var response_ = await _client.send('CountPendingDecisionTasks', {
+      'domain': domain,
+      'taskList': taskList,
+    });
+    return PendingTaskCount.fromJson(response_);
   }
 
   /// Deprecates the specified _activity type_. After an activity type has been
@@ -287,7 +314,12 @@ class SwfApi {
   ///
   /// [activityType]: The activity type to deprecate.
   Future<void> deprecateActivityType(
-      {@required String domain, @required ActivityType activityType}) async {}
+      {@required String domain, @required ActivityType activityType}) async {
+    await _client.send('DeprecateActivityType', {
+      'domain': domain,
+      'activityType': activityType,
+    });
+  }
 
   /// Deprecates the specified domain. After a domain has been deprecated it
   /// cannot be used to create new workflow executions or register new types.
@@ -321,7 +353,11 @@ class SwfApi {
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [name]: The name of the domain to deprecate.
-  Future<void> deprecateDomain(String name) async {}
+  Future<void> deprecateDomain(String name) async {
+    await _client.send('DeprecateDomain', {
+      'name': name,
+    });
+  }
 
   /// Deprecates the specified _workflow type_. After a workflow type has been
   /// deprecated, you cannot create new executions of that type. Executions that
@@ -364,7 +400,12 @@ class SwfApi {
   ///
   /// [workflowType]: The workflow type to deprecate.
   Future<void> deprecateWorkflowType(
-      {@required String domain, @required WorkflowType workflowType}) async {}
+      {@required String domain, @required WorkflowType workflowType}) async {
+    await _client.send('DeprecateWorkflowType', {
+      'domain': domain,
+      'workflowType': workflowType,
+    });
+  }
 
   /// Returns information about the specified activity type. This includes
   /// configuration settings provided when the type was registered and other
@@ -406,7 +447,11 @@ class SwfApi {
   /// activity was registered.
   Future<ActivityTypeDetail> describeActivityType(
       {@required String domain, @required ActivityType activityType}) async {
-    return ActivityTypeDetail.fromJson({});
+    var response_ = await _client.send('DescribeActivityType', {
+      'domain': domain,
+      'activityType': activityType,
+    });
+    return ActivityTypeDetail.fromJson(response_);
   }
 
   /// Returns information about the specified domain, including description and
@@ -435,7 +480,10 @@ class SwfApi {
   ///
   /// [name]: The name of the domain to describe.
   Future<DomainDetail> describeDomain(String name) async {
-    return DomainDetail.fromJson({});
+    var response_ = await _client.send('DescribeDomain', {
+      'name': name,
+    });
+    return DomainDetail.fromJson(response_);
   }
 
   /// Returns information about the specified workflow execution including its
@@ -470,7 +518,11 @@ class SwfApi {
   /// [execution]: The workflow execution to describe.
   Future<WorkflowExecutionDetail> describeWorkflowExecution(
       {@required String domain, @required WorkflowExecution execution}) async {
-    return WorkflowExecutionDetail.fromJson({});
+    var response_ = await _client.send('DescribeWorkflowExecution', {
+      'domain': domain,
+      'execution': execution,
+    });
+    return WorkflowExecutionDetail.fromJson(response_);
   }
 
   /// Returns information about the specified _workflow type_. This includes
@@ -512,7 +564,11 @@ class SwfApi {
   /// [workflowType]: The workflow type to describe.
   Future<WorkflowTypeDetail> describeWorkflowType(
       {@required String domain, @required WorkflowType workflowType}) async {
-    return WorkflowTypeDetail.fromJson({});
+    var response_ = await _client.send('DescribeWorkflowType', {
+      'domain': domain,
+      'workflowType': workflowType,
+    });
+    return WorkflowTypeDetail.fromJson(response_);
   }
 
   /// Returns the history of the specified workflow execution. The results may
@@ -570,7 +626,14 @@ class SwfApi {
       String nextPageToken,
       int maximumPageSize,
       bool reverseOrder}) async {
-    return History.fromJson({});
+    var response_ = await _client.send('GetWorkflowExecutionHistory', {
+      'domain': domain,
+      'execution': execution,
+      if (nextPageToken != null) 'nextPageToken': nextPageToken,
+      if (maximumPageSize != null) 'maximumPageSize': maximumPageSize,
+      if (reverseOrder != null) 'reverseOrder': reverseOrder,
+    });
+    return History.fromJson(response_);
   }
 
   /// Returns information about all activities registered in the specified
@@ -632,7 +695,15 @@ class SwfApi {
       String nextPageToken,
       int maximumPageSize,
       bool reverseOrder}) async {
-    return ActivityTypeInfos.fromJson({});
+    var response_ = await _client.send('ListActivityTypes', {
+      'domain': domain,
+      if (name != null) 'name': name,
+      'registrationStatus': registrationStatus,
+      if (nextPageToken != null) 'nextPageToken': nextPageToken,
+      if (maximumPageSize != null) 'maximumPageSize': maximumPageSize,
+      if (reverseOrder != null) 'reverseOrder': reverseOrder,
+    });
+    return ActivityTypeInfos.fromJson(response_);
   }
 
   /// Returns a list of closed workflow executions in the specified domain that
@@ -745,7 +816,19 @@ class SwfApi {
       String nextPageToken,
       int maximumPageSize,
       bool reverseOrder}) async {
-    return WorkflowExecutionInfos.fromJson({});
+    var response_ = await _client.send('ListClosedWorkflowExecutions', {
+      'domain': domain,
+      if (startTimeFilter != null) 'startTimeFilter': startTimeFilter,
+      if (closeTimeFilter != null) 'closeTimeFilter': closeTimeFilter,
+      if (executionFilter != null) 'executionFilter': executionFilter,
+      if (closeStatusFilter != null) 'closeStatusFilter': closeStatusFilter,
+      if (typeFilter != null) 'typeFilter': typeFilter,
+      if (tagFilter != null) 'tagFilter': tagFilter,
+      if (nextPageToken != null) 'nextPageToken': nextPageToken,
+      if (maximumPageSize != null) 'maximumPageSize': maximumPageSize,
+      if (reverseOrder != null) 'reverseOrder': reverseOrder,
+    });
+    return WorkflowExecutionInfos.fromJson(response_);
   }
 
   /// Returns the list of domains registered in the account. The results may be
@@ -799,7 +882,13 @@ class SwfApi {
   /// `name` of the domains.
   Future<DomainInfos> listDomains(String registrationStatus,
       {String nextPageToken, int maximumPageSize, bool reverseOrder}) async {
-    return DomainInfos.fromJson({});
+    var response_ = await _client.send('ListDomains', {
+      if (nextPageToken != null) 'nextPageToken': nextPageToken,
+      'registrationStatus': registrationStatus,
+      if (maximumPageSize != null) 'maximumPageSize': maximumPageSize,
+      if (reverseOrder != null) 'reverseOrder': reverseOrder,
+    });
+    return DomainInfos.fromJson(response_);
   }
 
   /// Returns a list of open workflow executions in the specified domain that
@@ -892,7 +981,17 @@ class SwfApi {
       int maximumPageSize,
       bool reverseOrder,
       WorkflowExecutionFilter executionFilter}) async {
-    return WorkflowExecutionInfos.fromJson({});
+    var response_ = await _client.send('ListOpenWorkflowExecutions', {
+      'domain': domain,
+      'startTimeFilter': startTimeFilter,
+      if (typeFilter != null) 'typeFilter': typeFilter,
+      if (tagFilter != null) 'tagFilter': tagFilter,
+      if (nextPageToken != null) 'nextPageToken': nextPageToken,
+      if (maximumPageSize != null) 'maximumPageSize': maximumPageSize,
+      if (reverseOrder != null) 'reverseOrder': reverseOrder,
+      if (executionFilter != null) 'executionFilter': executionFilter,
+    });
+    return WorkflowExecutionInfos.fromJson(response_);
   }
 
   /// List tags for a given domain.
@@ -900,7 +999,10 @@ class SwfApi {
   /// [resourceArn]: The Amazon Resource Name (ARN) for the Amazon SWF domain.
   Future<ListTagsForResourceOutput> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   /// Returns information about workflow types in the specified domain. The
@@ -959,7 +1061,15 @@ class SwfApi {
       String nextPageToken,
       int maximumPageSize,
       bool reverseOrder}) async {
-    return WorkflowTypeInfos.fromJson({});
+    var response_ = await _client.send('ListWorkflowTypes', {
+      'domain': domain,
+      if (name != null) 'name': name,
+      'registrationStatus': registrationStatus,
+      if (nextPageToken != null) 'nextPageToken': nextPageToken,
+      if (maximumPageSize != null) 'maximumPageSize': maximumPageSize,
+      if (reverseOrder != null) 'reverseOrder': reverseOrder,
+    });
+    return WorkflowTypeInfos.fromJson(response_);
   }
 
   /// Used by workers to get an ActivityTask from the specified activity
@@ -1017,7 +1127,12 @@ class SwfApi {
       {@required String domain,
       @required TaskList taskList,
       String identity}) async {
-    return ActivityTask.fromJson({});
+    var response_ = await _client.send('PollForActivityTask', {
+      'domain': domain,
+      'taskList': taskList,
+      if (identity != null) 'identity': identity,
+    });
+    return ActivityTask.fromJson(response_);
   }
 
   /// Used by deciders to get a DecisionTask from the specified decision
@@ -1114,7 +1229,15 @@ class SwfApi {
       String nextPageToken,
       int maximumPageSize,
       bool reverseOrder}) async {
-    return DecisionTask.fromJson({});
+    var response_ = await _client.send('PollForDecisionTask', {
+      'domain': domain,
+      'taskList': taskList,
+      if (identity != null) 'identity': identity,
+      if (nextPageToken != null) 'nextPageToken': nextPageToken,
+      if (maximumPageSize != null) 'maximumPageSize': maximumPageSize,
+      if (reverseOrder != null) 'reverseOrder': reverseOrder,
+    });
+    return DecisionTask.fromJson(response_);
   }
 
   /// Used by activity workers to report to the service that the ActivityTask
@@ -1176,7 +1299,11 @@ class SwfApi {
   /// [details]: If specified, contains details about the progress of the task.
   Future<ActivityTaskStatus> recordActivityTaskHeartbeat(String taskToken,
       {String details}) async {
-    return ActivityTaskStatus.fromJson({});
+    var response_ = await _client.send('RecordActivityTaskHeartbeat', {
+      'taskToken': taskToken,
+      if (details != null) 'details': details,
+    });
+    return ActivityTaskStatus.fromJson(response_);
   }
 
   /// Registers a new _activity type_ along with its configuration settings in
@@ -1299,7 +1426,25 @@ class SwfApi {
       TaskList defaultTaskList,
       String defaultTaskPriority,
       String defaultTaskScheduleToStartTimeout,
-      String defaultTaskScheduleToCloseTimeout}) async {}
+      String defaultTaskScheduleToCloseTimeout}) async {
+    await _client.send('RegisterActivityType', {
+      'domain': domain,
+      'name': name,
+      'version': version,
+      if (description != null) 'description': description,
+      if (defaultTaskStartToCloseTimeout != null)
+        'defaultTaskStartToCloseTimeout': defaultTaskStartToCloseTimeout,
+      if (defaultTaskHeartbeatTimeout != null)
+        'defaultTaskHeartbeatTimeout': defaultTaskHeartbeatTimeout,
+      if (defaultTaskList != null) 'defaultTaskList': defaultTaskList,
+      if (defaultTaskPriority != null)
+        'defaultTaskPriority': defaultTaskPriority,
+      if (defaultTaskScheduleToStartTimeout != null)
+        'defaultTaskScheduleToStartTimeout': defaultTaskScheduleToStartTimeout,
+      if (defaultTaskScheduleToCloseTimeout != null)
+        'defaultTaskScheduleToCloseTimeout': defaultTaskScheduleToCloseTimeout,
+    });
+  }
 
   /// Registers a new domain.
   ///
@@ -1357,7 +1502,15 @@ class SwfApi {
       {@required String name,
       String description,
       @required String workflowExecutionRetentionPeriodInDays,
-      List<ResourceTag> tags}) async {}
+      List<ResourceTag> tags}) async {
+    await _client.send('RegisterDomain', {
+      'name': name,
+      if (description != null) 'description': description,
+      'workflowExecutionRetentionPeriodInDays':
+          workflowExecutionRetentionPeriodInDays,
+      if (tags != null) 'tags': tags,
+    });
+  }
 
   /// Registers a new _workflow type_ and its configuration settings in the
   /// specified domain.
@@ -1494,7 +1647,24 @@ class SwfApi {
       TaskList defaultTaskList,
       String defaultTaskPriority,
       String defaultChildPolicy,
-      String defaultLambdaRole}) async {}
+      String defaultLambdaRole}) async {
+    await _client.send('RegisterWorkflowType', {
+      'domain': domain,
+      'name': name,
+      'version': version,
+      if (description != null) 'description': description,
+      if (defaultTaskStartToCloseTimeout != null)
+        'defaultTaskStartToCloseTimeout': defaultTaskStartToCloseTimeout,
+      if (defaultExecutionStartToCloseTimeout != null)
+        'defaultExecutionStartToCloseTimeout':
+            defaultExecutionStartToCloseTimeout,
+      if (defaultTaskList != null) 'defaultTaskList': defaultTaskList,
+      if (defaultTaskPriority != null)
+        'defaultTaskPriority': defaultTaskPriority,
+      if (defaultChildPolicy != null) 'defaultChildPolicy': defaultChildPolicy,
+      if (defaultLambdaRole != null) 'defaultLambdaRole': defaultLambdaRole,
+    });
+  }
 
   /// Records a `WorkflowExecutionCancelRequested` event in the currently
   /// running workflow execution identified by the given domain, workflowId, and
@@ -1538,7 +1708,13 @@ class SwfApi {
   Future<void> requestCancelWorkflowExecution(
       {@required String domain,
       @required String workflowId,
-      String runId}) async {}
+      String runId}) async {
+    await _client.send('RequestCancelWorkflowExecution', {
+      'domain': domain,
+      'workflowId': workflowId,
+      if (runId != null) 'runId': runId,
+    });
+  }
 
   /// Used by workers to tell the service that the ActivityTask identified by
   /// the `taskToken` was successfully canceled. Additional `details` can be
@@ -1588,7 +1764,12 @@ class SwfApi {
   ///
   /// [details]:  Information about the cancellation.
   Future<void> respondActivityTaskCanceled(String taskToken,
-      {String details}) async {}
+      {String details}) async {
+    await _client.send('RespondActivityTaskCanceled', {
+      'taskToken': taskToken,
+      if (details != null) 'details': details,
+    });
+  }
 
   /// Used by workers to tell the service that the ActivityTask identified by
   /// the `taskToken` completed successfully with a `result` (if provided). The
@@ -1639,7 +1820,12 @@ class SwfApi {
   /// [result]: The result of the activity task. It is a free form string that
   /// is implementation specific.
   Future<void> respondActivityTaskCompleted(String taskToken,
-      {String result}) async {}
+      {String result}) async {
+    await _client.send('RespondActivityTaskCompleted', {
+      'taskToken': taskToken,
+      if (result != null) 'result': result,
+    });
+  }
 
   /// Used by workers to tell the service that the ActivityTask identified by
   /// the `taskToken` has failed with `reason` (if specified). The `reason` and
@@ -1685,7 +1871,13 @@ class SwfApi {
   ///
   /// [details]:  Detailed information about the failure.
   Future<void> respondActivityTaskFailed(String taskToken,
-      {String reason, String details}) async {}
+      {String reason, String details}) async {
+    await _client.send('RespondActivityTaskFailed', {
+      'taskToken': taskToken,
+      if (reason != null) 'reason': reason,
+      if (details != null) 'details': details,
+    });
+  }
 
   /// Used by deciders to tell the service that the DecisionTask identified by
   /// the `taskToken` has successfully completed. The `decisions` argument
@@ -1720,7 +1912,13 @@ class SwfApi {
   ///
   /// [executionContext]: User defined context to add to workflow execution.
   Future<void> respondDecisionTaskCompleted(String taskToken,
-      {List<Decision> decisions, String executionContext}) async {}
+      {List<Decision> decisions, String executionContext}) async {
+    await _client.send('RespondDecisionTaskCompleted', {
+      'taskToken': taskToken,
+      if (decisions != null) 'decisions': decisions,
+      if (executionContext != null) 'executionContext': executionContext,
+    });
+  }
 
   /// Records a `WorkflowExecutionSignaled` event in the workflow execution
   /// history and creates a decision task for the workflow execution identified
@@ -1770,7 +1968,15 @@ class SwfApi {
       @required String workflowId,
       String runId,
       @required String signalName,
-      String input}) async {}
+      String input}) async {
+    await _client.send('SignalWorkflowExecution', {
+      'domain': domain,
+      'workflowId': workflowId,
+      if (runId != null) 'runId': runId,
+      'signalName': signalName,
+      if (input != null) 'input': input,
+    });
+  }
 
   /// Starts an execution of the workflow type in the specified domain using the
   /// provided `workflowId` and input data.
@@ -1950,7 +2156,22 @@ class SwfApi {
       String taskStartToCloseTimeout,
       String childPolicy,
       String lambdaRole}) async {
-    return Run.fromJson({});
+    var response_ = await _client.send('StartWorkflowExecution', {
+      'domain': domain,
+      'workflowId': workflowId,
+      'workflowType': workflowType,
+      if (taskList != null) 'taskList': taskList,
+      if (taskPriority != null) 'taskPriority': taskPriority,
+      if (input != null) 'input': input,
+      if (executionStartToCloseTimeout != null)
+        'executionStartToCloseTimeout': executionStartToCloseTimeout,
+      if (tagList != null) 'tagList': tagList,
+      if (taskStartToCloseTimeout != null)
+        'taskStartToCloseTimeout': taskStartToCloseTimeout,
+      if (childPolicy != null) 'childPolicy': childPolicy,
+      if (lambdaRole != null) 'lambdaRole': lambdaRole,
+    });
+    return Run.fromJson(response_);
   }
 
   /// Add a tag to a Amazon SWF domain.
@@ -1966,7 +2187,12 @@ class SwfApi {
   /// Tags may only contain unicode letters, digits, whitespace, or these
   /// symbols: `_ . : / = + - @`.
   Future<void> tagResource(
-      {@required String resourceArn, @required List<ResourceTag> tags}) async {}
+      {@required String resourceArn, @required List<ResourceTag> tags}) async {
+    await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+  }
 
   /// Records a `WorkflowExecutionTerminated` event and forces closure of the
   /// workflow execution identified by the given domain, runId, and workflowId.
@@ -2042,7 +2268,16 @@ class SwfApi {
       String runId,
       String reason,
       String details,
-      String childPolicy}) async {}
+      String childPolicy}) async {
+    await _client.send('TerminateWorkflowExecution', {
+      'domain': domain,
+      'workflowId': workflowId,
+      if (runId != null) 'runId': runId,
+      if (reason != null) 'reason': reason,
+      if (details != null) 'details': details,
+      if (childPolicy != null) 'childPolicy': childPolicy,
+    });
+  }
 
   /// Undeprecates a previously deprecated _activity type_. After an activity
   /// type has been undeprecated, you can create new tasks of that activity
@@ -2084,7 +2319,12 @@ class SwfApi {
   ///
   /// [activityType]: The activity type to undeprecate.
   Future<void> undeprecateActivityType(
-      {@required String domain, @required ActivityType activityType}) async {}
+      {@required String domain, @required ActivityType activityType}) async {
+    await _client.send('UndeprecateActivityType', {
+      'domain': domain,
+      'activityType': activityType,
+    });
+  }
 
   /// Undeprecates a previously deprecated domain. After a domain has been
   /// undeprecated it can be used to create new workflow executions or register
@@ -2115,7 +2355,11 @@ class SwfApi {
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [name]: The name of the domain of the deprecated workflow type.
-  Future<void> undeprecateDomain(String name) async {}
+  Future<void> undeprecateDomain(String name) async {
+    await _client.send('UndeprecateDomain', {
+      'name': name,
+    });
+  }
 
   /// Undeprecates a previously deprecated _workflow type_. After a workflow
   /// type has been undeprecated, you can create new executions of that type.
@@ -2156,7 +2400,12 @@ class SwfApi {
   ///
   /// [workflowType]: The name of the domain of the deprecated workflow type.
   Future<void> undeprecateWorkflowType(
-      {@required String domain, @required WorkflowType workflowType}) async {}
+      {@required String domain, @required WorkflowType workflowType}) async {
+    await _client.send('UndeprecateWorkflowType', {
+      'domain': domain,
+      'workflowType': workflowType,
+    });
+  }
 
   /// Remove a tag from a Amazon SWF domain.
   ///
@@ -2164,7 +2413,12 @@ class SwfApi {
   ///
   /// [tagKeys]: The list of tags to remove from the Amazon SWF domain.
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+  }
 }
 
 /// Unit of work sent to an activity worker.
@@ -2199,7 +2453,15 @@ class ActivityTask {
     @required this.activityType,
     this.input,
   });
-  static ActivityTask fromJson(Map<String, dynamic> json) => ActivityTask();
+  static ActivityTask fromJson(Map<String, dynamic> json) => ActivityTask(
+        taskToken: json['taskToken'] as String,
+        activityId: json['activityId'] as String,
+        startedEventId: BigInt.from(json['startedEventId']),
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        activityType: ActivityType.fromJson(json['activityType']),
+        input: json.containsKey('input') ? json['input'] as String : null,
+      );
 }
 
 /// Provides the details of the `ActivityTaskCancelRequested` event.
@@ -2219,7 +2481,11 @@ class ActivityTaskCancelRequestedEventAttributes {
   });
   static ActivityTaskCancelRequestedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ActivityTaskCancelRequestedEventAttributes();
+      ActivityTaskCancelRequestedEventAttributes(
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+        activityId: json['activityId'] as String,
+      );
 }
 
 /// Provides the details of the `ActivityTaskCanceled` event.
@@ -2251,7 +2517,15 @@ class ActivityTaskCanceledEventAttributes {
   });
   static ActivityTaskCanceledEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ActivityTaskCanceledEventAttributes();
+      ActivityTaskCanceledEventAttributes(
+        details: json.containsKey('details') ? json['details'] as String : null,
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+        latestCancelRequestedEventId:
+            json.containsKey('latestCancelRequestedEventId')
+                ? BigInt.from(json['latestCancelRequestedEventId'])
+                : null,
+      );
 }
 
 /// Provides the details of the `ActivityTaskCompleted` event.
@@ -2276,7 +2550,11 @@ class ActivityTaskCompletedEventAttributes {
   });
   static ActivityTaskCompletedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ActivityTaskCompletedEventAttributes();
+      ActivityTaskCompletedEventAttributes(
+        result: json.containsKey('result') ? json['result'] as String : null,
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Provides the details of the `ActivityTaskFailed` event.
@@ -2305,7 +2583,12 @@ class ActivityTaskFailedEventAttributes {
   });
   static ActivityTaskFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ActivityTaskFailedEventAttributes();
+      ActivityTaskFailedEventAttributes(
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+        details: json.containsKey('details') ? json['details'] as String : null,
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Provides the details of the `ActivityTaskScheduled` event.
@@ -2377,7 +2660,30 @@ class ActivityTaskScheduledEventAttributes {
   });
   static ActivityTaskScheduledEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ActivityTaskScheduledEventAttributes();
+      ActivityTaskScheduledEventAttributes(
+        activityType: ActivityType.fromJson(json['activityType']),
+        activityId: json['activityId'] as String,
+        input: json.containsKey('input') ? json['input'] as String : null,
+        control: json.containsKey('control') ? json['control'] as String : null,
+        scheduleToStartTimeout: json.containsKey('scheduleToStartTimeout')
+            ? json['scheduleToStartTimeout'] as String
+            : null,
+        scheduleToCloseTimeout: json.containsKey('scheduleToCloseTimeout')
+            ? json['scheduleToCloseTimeout'] as String
+            : null,
+        startToCloseTimeout: json.containsKey('startToCloseTimeout')
+            ? json['startToCloseTimeout'] as String
+            : null,
+        taskList: TaskList.fromJson(json['taskList']),
+        taskPriority: json.containsKey('taskPriority')
+            ? json['taskPriority'] as String
+            : null,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+        heartbeatTimeout: json.containsKey('heartbeatTimeout')
+            ? json['heartbeatTimeout'] as String
+            : null,
+      );
 }
 
 /// Provides the details of the `ActivityTaskStarted` event.
@@ -2397,7 +2703,11 @@ class ActivityTaskStartedEventAttributes {
   });
   static ActivityTaskStartedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ActivityTaskStartedEventAttributes();
+      ActivityTaskStartedEventAttributes(
+        identity:
+            json.containsKey('identity') ? json['identity'] as String : null,
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+      );
 }
 
 /// Status information about an activity task.
@@ -2409,7 +2719,9 @@ class ActivityTaskStatus {
     @required this.cancelRequested,
   });
   static ActivityTaskStatus fromJson(Map<String, dynamic> json) =>
-      ActivityTaskStatus();
+      ActivityTaskStatus(
+        cancelRequested: json['cancelRequested'] as bool,
+      );
 }
 
 /// Provides the details of the `ActivityTaskTimedOut` event.
@@ -2439,7 +2751,12 @@ class ActivityTaskTimedOutEventAttributes {
   });
   static ActivityTaskTimedOutEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ActivityTaskTimedOutEventAttributes();
+      ActivityTaskTimedOutEventAttributes(
+        timeoutType: json['timeoutType'] as String,
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+        details: json.containsKey('details') ? json['details'] as String : null,
+      );
 }
 
 /// Represents an activity type.
@@ -2464,7 +2781,11 @@ class ActivityType {
     @required this.name,
     @required this.version,
   });
-  static ActivityType fromJson(Map<String, dynamic> json) => ActivityType();
+  static ActivityType fromJson(Map<String, dynamic> json) => ActivityType(
+        name: json['name'] as String,
+        version: json['version'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration settings registered with the activity type.
@@ -2538,7 +2859,30 @@ class ActivityTypeConfiguration {
     this.defaultTaskScheduleToCloseTimeout,
   });
   static ActivityTypeConfiguration fromJson(Map<String, dynamic> json) =>
-      ActivityTypeConfiguration();
+      ActivityTypeConfiguration(
+        defaultTaskStartToCloseTimeout:
+            json.containsKey('defaultTaskStartToCloseTimeout')
+                ? json['defaultTaskStartToCloseTimeout'] as String
+                : null,
+        defaultTaskHeartbeatTimeout:
+            json.containsKey('defaultTaskHeartbeatTimeout')
+                ? json['defaultTaskHeartbeatTimeout'] as String
+                : null,
+        defaultTaskList: json.containsKey('defaultTaskList')
+            ? TaskList.fromJson(json['defaultTaskList'])
+            : null,
+        defaultTaskPriority: json.containsKey('defaultTaskPriority')
+            ? json['defaultTaskPriority'] as String
+            : null,
+        defaultTaskScheduleToStartTimeout:
+            json.containsKey('defaultTaskScheduleToStartTimeout')
+                ? json['defaultTaskScheduleToStartTimeout'] as String
+                : null,
+        defaultTaskScheduleToCloseTimeout:
+            json.containsKey('defaultTaskScheduleToCloseTimeout')
+                ? json['defaultTaskScheduleToCloseTimeout'] as String
+                : null,
+      );
 }
 
 /// Detailed information about an activity type.
@@ -2564,7 +2908,11 @@ class ActivityTypeDetail {
     @required this.configuration,
   });
   static ActivityTypeDetail fromJson(Map<String, dynamic> json) =>
-      ActivityTypeDetail();
+      ActivityTypeDetail(
+        typeInfo: ActivityTypeInfo.fromJson(json['typeInfo']),
+        configuration:
+            ActivityTypeConfiguration.fromJson(json['configuration']),
+      );
 }
 
 /// Detailed information about an activity type.
@@ -2593,7 +2941,17 @@ class ActivityTypeInfo {
     this.deprecationDate,
   });
   static ActivityTypeInfo fromJson(Map<String, dynamic> json) =>
-      ActivityTypeInfo();
+      ActivityTypeInfo(
+        activityType: ActivityType.fromJson(json['activityType']),
+        status: json['status'] as String,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        creationDate: DateTime.parse(json['creationDate']),
+        deprecationDate: json.containsKey('deprecationDate')
+            ? DateTime.parse(json['deprecationDate'])
+            : null,
+      );
 }
 
 /// Contains a paginated list of activity type information structures.
@@ -2615,7 +2973,14 @@ class ActivityTypeInfos {
     this.nextPageToken,
   });
   static ActivityTypeInfos fromJson(Map<String, dynamic> json) =>
-      ActivityTypeInfos();
+      ActivityTypeInfos(
+        typeInfos: (json['typeInfos'] as List)
+            .map((e) => ActivityTypeInfo.fromJson(e))
+            .toList(),
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 /// Provides the details of the `CancelTimer` decision.
@@ -2646,6 +3011,7 @@ class CancelTimerDecisionAttributes {
   CancelTimerDecisionAttributes({
     @required this.timerId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `CancelTimerFailed` event.
@@ -2677,7 +3043,12 @@ class CancelTimerFailedEventAttributes {
     @required this.decisionTaskCompletedEventId,
   });
   static CancelTimerFailedEventAttributes fromJson(Map<String, dynamic> json) =>
-      CancelTimerFailedEventAttributes();
+      CancelTimerFailedEventAttributes(
+        timerId: json['timerId'] as String,
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Provides the details of the `CancelWorkflowExecution` decision.
@@ -2708,6 +3079,7 @@ class CancelWorkflowExecutionDecisionAttributes {
   CancelWorkflowExecutionDecisionAttributes({
     this.details,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `CancelWorkflowExecutionFailed` event.
@@ -2736,7 +3108,11 @@ class CancelWorkflowExecutionFailedEventAttributes {
   });
   static CancelWorkflowExecutionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      CancelWorkflowExecutionFailedEventAttributes();
+      CancelWorkflowExecutionFailedEventAttributes(
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Provide details of the `ChildWorkflowExecutionCanceled` event.
@@ -2771,7 +3147,14 @@ class ChildWorkflowExecutionCanceledEventAttributes {
   });
   static ChildWorkflowExecutionCanceledEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ChildWorkflowExecutionCanceledEventAttributes();
+      ChildWorkflowExecutionCanceledEventAttributes(
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        details: json.containsKey('details') ? json['details'] as String : null,
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Provides the details of the `ChildWorkflowExecutionCompleted` event.
@@ -2806,7 +3189,14 @@ class ChildWorkflowExecutionCompletedEventAttributes {
   });
   static ChildWorkflowExecutionCompletedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ChildWorkflowExecutionCompletedEventAttributes();
+      ChildWorkflowExecutionCompletedEventAttributes(
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        result: json.containsKey('result') ? json['result'] as String : null,
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Provides the details of the `ChildWorkflowExecutionFailed` event.
@@ -2845,7 +3235,15 @@ class ChildWorkflowExecutionFailedEventAttributes {
   });
   static ChildWorkflowExecutionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ChildWorkflowExecutionFailedEventAttributes();
+      ChildWorkflowExecutionFailedEventAttributes(
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+        details: json.containsKey('details') ? json['details'] as String : null,
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Provides the details of the `ChildWorkflowExecutionStarted` event.
@@ -2869,7 +3267,12 @@ class ChildWorkflowExecutionStartedEventAttributes {
   });
   static ChildWorkflowExecutionStartedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ChildWorkflowExecutionStartedEventAttributes();
+      ChildWorkflowExecutionStartedEventAttributes(
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+      );
 }
 
 /// Provides the details of the `ChildWorkflowExecutionTerminated` event.
@@ -2900,7 +3303,13 @@ class ChildWorkflowExecutionTerminatedEventAttributes {
   });
   static ChildWorkflowExecutionTerminatedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ChildWorkflowExecutionTerminatedEventAttributes();
+      ChildWorkflowExecutionTerminatedEventAttributes(
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Provides the details of the `ChildWorkflowExecutionTimedOut` event.
@@ -2936,7 +3345,14 @@ class ChildWorkflowExecutionTimedOutEventAttributes {
   });
   static ChildWorkflowExecutionTimedOutEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ChildWorkflowExecutionTimedOutEventAttributes();
+      ChildWorkflowExecutionTimedOutEventAttributes(
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        timeoutType: json['timeoutType'] as String,
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Used to filter the closed workflow executions in visibility APIs by their
@@ -2949,6 +3365,7 @@ class CloseStatusFilter {
   CloseStatusFilter({
     @required this.status,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `CompleteWorkflowExecution` decision.
@@ -2980,6 +3397,7 @@ class CompleteWorkflowExecutionDecisionAttributes {
   CompleteWorkflowExecutionDecisionAttributes({
     this.result,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `CompleteWorkflowExecutionFailed` event.
@@ -3008,7 +3426,11 @@ class CompleteWorkflowExecutionFailedEventAttributes {
   });
   static CompleteWorkflowExecutionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      CompleteWorkflowExecutionFailedEventAttributes();
+      CompleteWorkflowExecutionFailedEventAttributes(
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Provides the details of the `ContinueAsNewWorkflowExecution` decision.
@@ -3140,6 +3562,7 @@ class ContinueAsNewWorkflowExecutionDecisionAttributes {
     this.workflowTypeVersion,
     this.lambdaRole,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `ContinueAsNewWorkflowExecutionFailed` event.
@@ -3168,7 +3591,11 @@ class ContinueAsNewWorkflowExecutionFailedEventAttributes {
   });
   static ContinueAsNewWorkflowExecutionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ContinueAsNewWorkflowExecutionFailedEventAttributes();
+      ContinueAsNewWorkflowExecutionFailedEventAttributes(
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Specifies a decision made by the decider. A decision can be one of these
@@ -3426,6 +3853,7 @@ class Decision {
     this.startChildWorkflowExecutionDecisionAttributes,
     this.scheduleLambdaFunctionDecisionAttributes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A structure that represents a decision task. Decision tasks are sent to
@@ -3474,7 +3902,22 @@ class DecisionTask {
     this.nextPageToken,
     this.previousStartedEventId,
   });
-  static DecisionTask fromJson(Map<String, dynamic> json) => DecisionTask();
+  static DecisionTask fromJson(Map<String, dynamic> json) => DecisionTask(
+        taskToken: json['taskToken'] as String,
+        startedEventId: BigInt.from(json['startedEventId']),
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        events: (json['events'] as List)
+            .map((e) => HistoryEvent.fromJson(e))
+            .toList(),
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+        previousStartedEventId: json.containsKey('previousStartedEventId')
+            ? BigInt.from(json['previousStartedEventId'])
+            : null,
+      );
 }
 
 /// Provides the details of the `DecisionTaskCompleted` event.
@@ -3499,7 +3942,13 @@ class DecisionTaskCompletedEventAttributes {
   });
   static DecisionTaskCompletedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      DecisionTaskCompletedEventAttributes();
+      DecisionTaskCompletedEventAttributes(
+        executionContext: json.containsKey('executionContext')
+            ? json['executionContext'] as String
+            : null,
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Provides details about the `DecisionTaskScheduled` event.
@@ -3531,7 +3980,15 @@ class DecisionTaskScheduledEventAttributes {
   });
   static DecisionTaskScheduledEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      DecisionTaskScheduledEventAttributes();
+      DecisionTaskScheduledEventAttributes(
+        taskList: TaskList.fromJson(json['taskList']),
+        taskPriority: json.containsKey('taskPriority')
+            ? json['taskPriority'] as String
+            : null,
+        startToCloseTimeout: json.containsKey('startToCloseTimeout')
+            ? json['startToCloseTimeout'] as String
+            : null,
+      );
 }
 
 /// Provides the details of the `DecisionTaskStarted` event.
@@ -3551,7 +4008,11 @@ class DecisionTaskStartedEventAttributes {
   });
   static DecisionTaskStartedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      DecisionTaskStartedEventAttributes();
+      DecisionTaskStartedEventAttributes(
+        identity:
+            json.containsKey('identity') ? json['identity'] as String : null,
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+      );
 }
 
 /// Provides the details of the `DecisionTaskTimedOut` event.
@@ -3577,7 +4038,11 @@ class DecisionTaskTimedOutEventAttributes {
   });
   static DecisionTaskTimedOutEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      DecisionTaskTimedOutEventAttributes();
+      DecisionTaskTimedOutEventAttributes(
+        timeoutType: json['timeoutType'] as String,
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Contains the configuration settings of a domain.
@@ -3589,7 +4054,10 @@ class DomainConfiguration {
     @required this.workflowExecutionRetentionPeriodInDays,
   });
   static DomainConfiguration fromJson(Map<String, dynamic> json) =>
-      DomainConfiguration();
+      DomainConfiguration(
+        workflowExecutionRetentionPeriodInDays:
+            json['workflowExecutionRetentionPeriodInDays'] as String,
+      );
 }
 
 /// Contains details of a domain.
@@ -3606,7 +4074,10 @@ class DomainDetail {
     @required this.domainInfo,
     @required this.configuration,
   });
-  static DomainDetail fromJson(Map<String, dynamic> json) => DomainDetail();
+  static DomainDetail fromJson(Map<String, dynamic> json) => DomainDetail(
+        domainInfo: DomainInfo.fromJson(json['domainInfo']),
+        configuration: DomainConfiguration.fromJson(json['configuration']),
+      );
 }
 
 /// Contains general information about a domain.
@@ -3637,7 +4108,14 @@ class DomainInfo {
     this.description,
     this.arn,
   });
-  static DomainInfo fromJson(Map<String, dynamic> json) => DomainInfo();
+  static DomainInfo fromJson(Map<String, dynamic> json) => DomainInfo(
+        name: json['name'] as String,
+        status: json['status'] as String,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+      );
 }
 
 /// Contains a paginated collection of DomainInfo structures.
@@ -3658,7 +4136,14 @@ class DomainInfos {
     @required this.domainInfos,
     this.nextPageToken,
   });
-  static DomainInfos fromJson(Map<String, dynamic> json) => DomainInfos();
+  static DomainInfos fromJson(Map<String, dynamic> json) => DomainInfos(
+        domainInfos: (json['domainInfos'] as List)
+            .map((e) => DomainInfo.fromJson(e))
+            .toList(),
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 /// Used to filter the workflow executions in visibility APIs by various
@@ -3677,6 +4162,7 @@ class ExecutionTimeFilter {
     @required this.oldestDate,
     this.latestDate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `ExternalWorkflowExecutionCancelRequested`
@@ -3699,7 +4185,11 @@ class ExternalWorkflowExecutionCancelRequestedEventAttributes {
   });
   static ExternalWorkflowExecutionCancelRequestedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ExternalWorkflowExecutionCancelRequestedEventAttributes();
+      ExternalWorkflowExecutionCancelRequestedEventAttributes(
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+      );
 }
 
 /// Provides the details of the `ExternalWorkflowExecutionSignaled` event.
@@ -3719,7 +4209,11 @@ class ExternalWorkflowExecutionSignaledEventAttributes {
   });
   static ExternalWorkflowExecutionSignaledEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ExternalWorkflowExecutionSignaledEventAttributes();
+      ExternalWorkflowExecutionSignaledEventAttributes(
+        workflowExecution:
+            WorkflowExecution.fromJson(json['workflowExecution']),
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+      );
 }
 
 /// Provides the details of the `FailWorkflowExecution` decision.
@@ -3754,6 +4248,7 @@ class FailWorkflowExecutionDecisionAttributes {
     this.reason,
     this.details,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `FailWorkflowExecutionFailed` event.
@@ -3782,7 +4277,11 @@ class FailWorkflowExecutionFailedEventAttributes {
   });
   static FailWorkflowExecutionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      FailWorkflowExecutionFailedEventAttributes();
+      FailWorkflowExecutionFailedEventAttributes(
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Paginated representation of a workflow history for a workflow execution.
@@ -3805,7 +4304,14 @@ class History {
     @required this.events,
     this.nextPageToken,
   });
-  static History fromJson(Map<String, dynamic> json) => History();
+  static History fromJson(Map<String, dynamic> json) => History(
+        events: (json['events'] as List)
+            .map((e) => HistoryEvent.fromJson(e))
+            .toList(),
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 /// Event within a workflow execution. A history event can be one of these
@@ -4326,7 +4832,286 @@ class HistoryEvent {
     this.scheduleLambdaFunctionFailedEventAttributes,
     this.startLambdaFunctionFailedEventAttributes,
   });
-  static HistoryEvent fromJson(Map<String, dynamic> json) => HistoryEvent();
+  static HistoryEvent fromJson(Map<String, dynamic> json) => HistoryEvent(
+        eventTimestamp: DateTime.parse(json['eventTimestamp']),
+        eventType: json['eventType'] as String,
+        eventId: BigInt.from(json['eventId']),
+        workflowExecutionStartedEventAttributes:
+            json.containsKey('workflowExecutionStartedEventAttributes')
+                ? WorkflowExecutionStartedEventAttributes.fromJson(
+                    json['workflowExecutionStartedEventAttributes'])
+                : null,
+        workflowExecutionCompletedEventAttributes:
+            json.containsKey('workflowExecutionCompletedEventAttributes')
+                ? WorkflowExecutionCompletedEventAttributes.fromJson(
+                    json['workflowExecutionCompletedEventAttributes'])
+                : null,
+        completeWorkflowExecutionFailedEventAttributes:
+            json.containsKey('completeWorkflowExecutionFailedEventAttributes')
+                ? CompleteWorkflowExecutionFailedEventAttributes.fromJson(
+                    json['completeWorkflowExecutionFailedEventAttributes'])
+                : null,
+        workflowExecutionFailedEventAttributes:
+            json.containsKey('workflowExecutionFailedEventAttributes')
+                ? WorkflowExecutionFailedEventAttributes.fromJson(
+                    json['workflowExecutionFailedEventAttributes'])
+                : null,
+        failWorkflowExecutionFailedEventAttributes:
+            json.containsKey('failWorkflowExecutionFailedEventAttributes')
+                ? FailWorkflowExecutionFailedEventAttributes.fromJson(
+                    json['failWorkflowExecutionFailedEventAttributes'])
+                : null,
+        workflowExecutionTimedOutEventAttributes:
+            json.containsKey('workflowExecutionTimedOutEventAttributes')
+                ? WorkflowExecutionTimedOutEventAttributes.fromJson(
+                    json['workflowExecutionTimedOutEventAttributes'])
+                : null,
+        workflowExecutionCanceledEventAttributes:
+            json.containsKey('workflowExecutionCanceledEventAttributes')
+                ? WorkflowExecutionCanceledEventAttributes.fromJson(
+                    json['workflowExecutionCanceledEventAttributes'])
+                : null,
+        cancelWorkflowExecutionFailedEventAttributes:
+            json.containsKey('cancelWorkflowExecutionFailedEventAttributes')
+                ? CancelWorkflowExecutionFailedEventAttributes.fromJson(
+                    json['cancelWorkflowExecutionFailedEventAttributes'])
+                : null,
+        workflowExecutionContinuedAsNewEventAttributes:
+            json.containsKey('workflowExecutionContinuedAsNewEventAttributes')
+                ? WorkflowExecutionContinuedAsNewEventAttributes.fromJson(
+                    json['workflowExecutionContinuedAsNewEventAttributes'])
+                : null,
+        continueAsNewWorkflowExecutionFailedEventAttributes: json.containsKey(
+                'continueAsNewWorkflowExecutionFailedEventAttributes')
+            ? ContinueAsNewWorkflowExecutionFailedEventAttributes.fromJson(
+                json['continueAsNewWorkflowExecutionFailedEventAttributes'])
+            : null,
+        workflowExecutionTerminatedEventAttributes:
+            json.containsKey('workflowExecutionTerminatedEventAttributes')
+                ? WorkflowExecutionTerminatedEventAttributes.fromJson(
+                    json['workflowExecutionTerminatedEventAttributes'])
+                : null,
+        workflowExecutionCancelRequestedEventAttributes:
+            json.containsKey('workflowExecutionCancelRequestedEventAttributes')
+                ? WorkflowExecutionCancelRequestedEventAttributes.fromJson(
+                    json['workflowExecutionCancelRequestedEventAttributes'])
+                : null,
+        decisionTaskScheduledEventAttributes:
+            json.containsKey('decisionTaskScheduledEventAttributes')
+                ? DecisionTaskScheduledEventAttributes.fromJson(
+                    json['decisionTaskScheduledEventAttributes'])
+                : null,
+        decisionTaskStartedEventAttributes:
+            json.containsKey('decisionTaskStartedEventAttributes')
+                ? DecisionTaskStartedEventAttributes.fromJson(
+                    json['decisionTaskStartedEventAttributes'])
+                : null,
+        decisionTaskCompletedEventAttributes:
+            json.containsKey('decisionTaskCompletedEventAttributes')
+                ? DecisionTaskCompletedEventAttributes.fromJson(
+                    json['decisionTaskCompletedEventAttributes'])
+                : null,
+        decisionTaskTimedOutEventAttributes:
+            json.containsKey('decisionTaskTimedOutEventAttributes')
+                ? DecisionTaskTimedOutEventAttributes.fromJson(
+                    json['decisionTaskTimedOutEventAttributes'])
+                : null,
+        activityTaskScheduledEventAttributes:
+            json.containsKey('activityTaskScheduledEventAttributes')
+                ? ActivityTaskScheduledEventAttributes.fromJson(
+                    json['activityTaskScheduledEventAttributes'])
+                : null,
+        activityTaskStartedEventAttributes:
+            json.containsKey('activityTaskStartedEventAttributes')
+                ? ActivityTaskStartedEventAttributes.fromJson(
+                    json['activityTaskStartedEventAttributes'])
+                : null,
+        activityTaskCompletedEventAttributes:
+            json.containsKey('activityTaskCompletedEventAttributes')
+                ? ActivityTaskCompletedEventAttributes.fromJson(
+                    json['activityTaskCompletedEventAttributes'])
+                : null,
+        activityTaskFailedEventAttributes:
+            json.containsKey('activityTaskFailedEventAttributes')
+                ? ActivityTaskFailedEventAttributes.fromJson(
+                    json['activityTaskFailedEventAttributes'])
+                : null,
+        activityTaskTimedOutEventAttributes:
+            json.containsKey('activityTaskTimedOutEventAttributes')
+                ? ActivityTaskTimedOutEventAttributes.fromJson(
+                    json['activityTaskTimedOutEventAttributes'])
+                : null,
+        activityTaskCanceledEventAttributes:
+            json.containsKey('activityTaskCanceledEventAttributes')
+                ? ActivityTaskCanceledEventAttributes.fromJson(
+                    json['activityTaskCanceledEventAttributes'])
+                : null,
+        activityTaskCancelRequestedEventAttributes:
+            json.containsKey('activityTaskCancelRequestedEventAttributes')
+                ? ActivityTaskCancelRequestedEventAttributes.fromJson(
+                    json['activityTaskCancelRequestedEventAttributes'])
+                : null,
+        workflowExecutionSignaledEventAttributes:
+            json.containsKey('workflowExecutionSignaledEventAttributes')
+                ? WorkflowExecutionSignaledEventAttributes.fromJson(
+                    json['workflowExecutionSignaledEventAttributes'])
+                : null,
+        markerRecordedEventAttributes:
+            json.containsKey('markerRecordedEventAttributes')
+                ? MarkerRecordedEventAttributes.fromJson(
+                    json['markerRecordedEventAttributes'])
+                : null,
+        recordMarkerFailedEventAttributes:
+            json.containsKey('recordMarkerFailedEventAttributes')
+                ? RecordMarkerFailedEventAttributes.fromJson(
+                    json['recordMarkerFailedEventAttributes'])
+                : null,
+        timerStartedEventAttributes:
+            json.containsKey('timerStartedEventAttributes')
+                ? TimerStartedEventAttributes.fromJson(
+                    json['timerStartedEventAttributes'])
+                : null,
+        timerFiredEventAttributes: json.containsKey('timerFiredEventAttributes')
+            ? TimerFiredEventAttributes.fromJson(
+                json['timerFiredEventAttributes'])
+            : null,
+        timerCanceledEventAttributes:
+            json.containsKey('timerCanceledEventAttributes')
+                ? TimerCanceledEventAttributes.fromJson(
+                    json['timerCanceledEventAttributes'])
+                : null,
+        startChildWorkflowExecutionInitiatedEventAttributes: json.containsKey(
+                'startChildWorkflowExecutionInitiatedEventAttributes')
+            ? StartChildWorkflowExecutionInitiatedEventAttributes.fromJson(
+                json['startChildWorkflowExecutionInitiatedEventAttributes'])
+            : null,
+        childWorkflowExecutionStartedEventAttributes:
+            json.containsKey('childWorkflowExecutionStartedEventAttributes')
+                ? ChildWorkflowExecutionStartedEventAttributes.fromJson(
+                    json['childWorkflowExecutionStartedEventAttributes'])
+                : null,
+        childWorkflowExecutionCompletedEventAttributes:
+            json.containsKey('childWorkflowExecutionCompletedEventAttributes')
+                ? ChildWorkflowExecutionCompletedEventAttributes.fromJson(
+                    json['childWorkflowExecutionCompletedEventAttributes'])
+                : null,
+        childWorkflowExecutionFailedEventAttributes:
+            json.containsKey('childWorkflowExecutionFailedEventAttributes')
+                ? ChildWorkflowExecutionFailedEventAttributes.fromJson(
+                    json['childWorkflowExecutionFailedEventAttributes'])
+                : null,
+        childWorkflowExecutionTimedOutEventAttributes:
+            json.containsKey('childWorkflowExecutionTimedOutEventAttributes')
+                ? ChildWorkflowExecutionTimedOutEventAttributes.fromJson(
+                    json['childWorkflowExecutionTimedOutEventAttributes'])
+                : null,
+        childWorkflowExecutionCanceledEventAttributes:
+            json.containsKey('childWorkflowExecutionCanceledEventAttributes')
+                ? ChildWorkflowExecutionCanceledEventAttributes.fromJson(
+                    json['childWorkflowExecutionCanceledEventAttributes'])
+                : null,
+        childWorkflowExecutionTerminatedEventAttributes:
+            json.containsKey('childWorkflowExecutionTerminatedEventAttributes')
+                ? ChildWorkflowExecutionTerminatedEventAttributes.fromJson(
+                    json['childWorkflowExecutionTerminatedEventAttributes'])
+                : null,
+        signalExternalWorkflowExecutionInitiatedEventAttributes: json
+                .containsKey(
+                    'signalExternalWorkflowExecutionInitiatedEventAttributes')
+            ? SignalExternalWorkflowExecutionInitiatedEventAttributes.fromJson(
+                json['signalExternalWorkflowExecutionInitiatedEventAttributes'])
+            : null,
+        externalWorkflowExecutionSignaledEventAttributes:
+            json.containsKey('externalWorkflowExecutionSignaledEventAttributes')
+                ? ExternalWorkflowExecutionSignaledEventAttributes.fromJson(
+                    json['externalWorkflowExecutionSignaledEventAttributes'])
+                : null,
+        signalExternalWorkflowExecutionFailedEventAttributes: json.containsKey(
+                'signalExternalWorkflowExecutionFailedEventAttributes')
+            ? SignalExternalWorkflowExecutionFailedEventAttributes.fromJson(
+                json['signalExternalWorkflowExecutionFailedEventAttributes'])
+            : null,
+        externalWorkflowExecutionCancelRequestedEventAttributes: json
+                .containsKey(
+                    'externalWorkflowExecutionCancelRequestedEventAttributes')
+            ? ExternalWorkflowExecutionCancelRequestedEventAttributes.fromJson(
+                json['externalWorkflowExecutionCancelRequestedEventAttributes'])
+            : null,
+        requestCancelExternalWorkflowExecutionInitiatedEventAttributes: json
+                .containsKey(
+                    'requestCancelExternalWorkflowExecutionInitiatedEventAttributes')
+            ? RequestCancelExternalWorkflowExecutionInitiatedEventAttributes
+                .fromJson(json[
+                    'requestCancelExternalWorkflowExecutionInitiatedEventAttributes'])
+            : null,
+        requestCancelExternalWorkflowExecutionFailedEventAttributes: json
+                .containsKey(
+                    'requestCancelExternalWorkflowExecutionFailedEventAttributes')
+            ? RequestCancelExternalWorkflowExecutionFailedEventAttributes
+                .fromJson(json[
+                    'requestCancelExternalWorkflowExecutionFailedEventAttributes'])
+            : null,
+        scheduleActivityTaskFailedEventAttributes:
+            json.containsKey('scheduleActivityTaskFailedEventAttributes')
+                ? ScheduleActivityTaskFailedEventAttributes.fromJson(
+                    json['scheduleActivityTaskFailedEventAttributes'])
+                : null,
+        requestCancelActivityTaskFailedEventAttributes:
+            json.containsKey('requestCancelActivityTaskFailedEventAttributes')
+                ? RequestCancelActivityTaskFailedEventAttributes.fromJson(
+                    json['requestCancelActivityTaskFailedEventAttributes'])
+                : null,
+        startTimerFailedEventAttributes:
+            json.containsKey('startTimerFailedEventAttributes')
+                ? StartTimerFailedEventAttributes.fromJson(
+                    json['startTimerFailedEventAttributes'])
+                : null,
+        cancelTimerFailedEventAttributes:
+            json.containsKey('cancelTimerFailedEventAttributes')
+                ? CancelTimerFailedEventAttributes.fromJson(
+                    json['cancelTimerFailedEventAttributes'])
+                : null,
+        startChildWorkflowExecutionFailedEventAttributes:
+            json.containsKey('startChildWorkflowExecutionFailedEventAttributes')
+                ? StartChildWorkflowExecutionFailedEventAttributes.fromJson(
+                    json['startChildWorkflowExecutionFailedEventAttributes'])
+                : null,
+        lambdaFunctionScheduledEventAttributes:
+            json.containsKey('lambdaFunctionScheduledEventAttributes')
+                ? LambdaFunctionScheduledEventAttributes.fromJson(
+                    json['lambdaFunctionScheduledEventAttributes'])
+                : null,
+        lambdaFunctionStartedEventAttributes:
+            json.containsKey('lambdaFunctionStartedEventAttributes')
+                ? LambdaFunctionStartedEventAttributes.fromJson(
+                    json['lambdaFunctionStartedEventAttributes'])
+                : null,
+        lambdaFunctionCompletedEventAttributes:
+            json.containsKey('lambdaFunctionCompletedEventAttributes')
+                ? LambdaFunctionCompletedEventAttributes.fromJson(
+                    json['lambdaFunctionCompletedEventAttributes'])
+                : null,
+        lambdaFunctionFailedEventAttributes:
+            json.containsKey('lambdaFunctionFailedEventAttributes')
+                ? LambdaFunctionFailedEventAttributes.fromJson(
+                    json['lambdaFunctionFailedEventAttributes'])
+                : null,
+        lambdaFunctionTimedOutEventAttributes:
+            json.containsKey('lambdaFunctionTimedOutEventAttributes')
+                ? LambdaFunctionTimedOutEventAttributes.fromJson(
+                    json['lambdaFunctionTimedOutEventAttributes'])
+                : null,
+        scheduleLambdaFunctionFailedEventAttributes:
+            json.containsKey('scheduleLambdaFunctionFailedEventAttributes')
+                ? ScheduleLambdaFunctionFailedEventAttributes.fromJson(
+                    json['scheduleLambdaFunctionFailedEventAttributes'])
+                : null,
+        startLambdaFunctionFailedEventAttributes:
+            json.containsKey('startLambdaFunctionFailedEventAttributes')
+                ? StartLambdaFunctionFailedEventAttributes.fromJson(
+                    json['startLambdaFunctionFailedEventAttributes'])
+                : null,
+      );
 }
 
 /// Provides the details of the `LambdaFunctionCompleted` event. It isn't set
@@ -4352,7 +5137,11 @@ class LambdaFunctionCompletedEventAttributes {
   });
   static LambdaFunctionCompletedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionCompletedEventAttributes();
+      LambdaFunctionCompletedEventAttributes(
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+        result: json.containsKey('result') ? json['result'] as String : null,
+      );
 }
 
 /// Provides the details of the `LambdaFunctionFailed` event. It isn't set for
@@ -4382,7 +5171,12 @@ class LambdaFunctionFailedEventAttributes {
   });
   static LambdaFunctionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionFailedEventAttributes();
+      LambdaFunctionFailedEventAttributes(
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+        details: json.containsKey('details') ? json['details'] as String : null,
+      );
 }
 
 /// Provides the details of the `LambdaFunctionScheduled` event. It isn't set
@@ -4420,7 +5214,17 @@ class LambdaFunctionScheduledEventAttributes {
   });
   static LambdaFunctionScheduledEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionScheduledEventAttributes();
+      LambdaFunctionScheduledEventAttributes(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        control: json.containsKey('control') ? json['control'] as String : null,
+        input: json.containsKey('input') ? json['input'] as String : null,
+        startToCloseTimeout: json.containsKey('startToCloseTimeout')
+            ? json['startToCloseTimeout'] as String
+            : null,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Provides the details of the `LambdaFunctionStarted` event. It isn't set for
@@ -4436,7 +5240,9 @@ class LambdaFunctionStartedEventAttributes {
   });
   static LambdaFunctionStartedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionStartedEventAttributes();
+      LambdaFunctionStartedEventAttributes(
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+      );
 }
 
 /// Provides details of the `LambdaFunctionTimedOut` event.
@@ -4461,7 +5267,13 @@ class LambdaFunctionTimedOutEventAttributes {
   });
   static LambdaFunctionTimedOutEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionTimedOutEventAttributes();
+      LambdaFunctionTimedOutEventAttributes(
+        scheduledEventId: BigInt.from(json['scheduledEventId']),
+        startedEventId: BigInt.from(json['startedEventId']),
+        timeoutType: json.containsKey('timeoutType')
+            ? json['timeoutType'] as String
+            : null,
+      );
 }
 
 class ListTagsForResourceOutput {
@@ -4472,7 +5284,13 @@ class ListTagsForResourceOutput {
     this.tags,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List)
+                .map((e) => ResourceTag.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides the details of the `MarkerRecorded` event.
@@ -4495,7 +5313,12 @@ class MarkerRecordedEventAttributes {
     @required this.decisionTaskCompletedEventId,
   });
   static MarkerRecordedEventAttributes fromJson(Map<String, dynamic> json) =>
-      MarkerRecordedEventAttributes();
+      MarkerRecordedEventAttributes(
+        markerName: json['markerName'] as String,
+        details: json.containsKey('details') ? json['details'] as String : null,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Contains the count of tasks in a task list.
@@ -4512,7 +5335,11 @@ class PendingTaskCount {
     this.truncated,
   });
   static PendingTaskCount fromJson(Map<String, dynamic> json) =>
-      PendingTaskCount();
+      PendingTaskCount(
+        count: json['count'] as int,
+        truncated:
+            json.containsKey('truncated') ? json['truncated'] as bool : null,
+      );
 }
 
 /// Provides the details of the `RecordMarker` decision.
@@ -4547,6 +5374,7 @@ class RecordMarkerDecisionAttributes {
     @required this.markerName,
     this.details,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `RecordMarkerFailed` event.
@@ -4579,7 +5407,12 @@ class RecordMarkerFailedEventAttributes {
   });
   static RecordMarkerFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      RecordMarkerFailedEventAttributes();
+      RecordMarkerFailedEventAttributes(
+        markerName: json['markerName'] as String,
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Provides the details of the `RequestCancelActivityTask` decision.
@@ -4610,6 +5443,7 @@ class RequestCancelActivityTaskDecisionAttributes {
   RequestCancelActivityTaskDecisionAttributes({
     @required this.activityId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `RequestCancelActivityTaskFailed` event.
@@ -4643,7 +5477,12 @@ class RequestCancelActivityTaskFailedEventAttributes {
   });
   static RequestCancelActivityTaskFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      RequestCancelActivityTaskFailedEventAttributes();
+      RequestCancelActivityTaskFailedEventAttributes(
+        activityId: json['activityId'] as String,
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Provides the details of the `RequestCancelExternalWorkflowExecution`
@@ -4684,6 +5523,7 @@ class RequestCancelExternalWorkflowExecutionDecisionAttributes {
     this.runId,
     this.control,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `RequestCancelExternalWorkflowExecutionFailed`
@@ -4736,7 +5576,15 @@ class RequestCancelExternalWorkflowExecutionFailedEventAttributes {
   });
   static RequestCancelExternalWorkflowExecutionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      RequestCancelExternalWorkflowExecutionFailedEventAttributes();
+      RequestCancelExternalWorkflowExecutionFailedEventAttributes(
+        workflowId: json['workflowId'] as String,
+        runId: json.containsKey('runId') ? json['runId'] as String : null,
+        cause: json['cause'] as String,
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+        control: json.containsKey('control') ? json['control'] as String : null,
+      );
 }
 
 /// Provides the details of the
@@ -4767,7 +5615,14 @@ class RequestCancelExternalWorkflowExecutionInitiatedEventAttributes {
   });
   static RequestCancelExternalWorkflowExecutionInitiatedEventAttributes
       fromJson(Map<String, dynamic> json) =>
-          RequestCancelExternalWorkflowExecutionInitiatedEventAttributes();
+          RequestCancelExternalWorkflowExecutionInitiatedEventAttributes(
+            workflowId: json['workflowId'] as String,
+            runId: json.containsKey('runId') ? json['runId'] as String : null,
+            decisionTaskCompletedEventId:
+                BigInt.from(json['decisionTaskCompletedEventId']),
+            control:
+                json.containsKey('control') ? json['control'] as String : null,
+          );
 }
 
 /// Tags are key-value pairs that can be associated with Amazon SWF state
@@ -4786,7 +5641,11 @@ class ResourceTag {
     @required this.key,
     this.value,
   });
-  static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag();
+  static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag(
+        key: json['key'] as String,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the `runId` of a workflow execution.
@@ -4799,7 +5658,9 @@ class Run {
   Run({
     this.runId,
   });
-  static Run fromJson(Map<String, dynamic> json) => Run();
+  static Run fromJson(Map<String, dynamic> json) => Run(
+        runId: json.containsKey('runId') ? json['runId'] as String : null,
+      );
 }
 
 /// Provides the details of the `ScheduleActivityTask` decision.
@@ -4945,6 +5806,7 @@ class ScheduleActivityTaskDecisionAttributes {
     this.startToCloseTimeout,
     this.heartbeatTimeout,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `ScheduleActivityTaskFailed` event.
@@ -4983,7 +5845,13 @@ class ScheduleActivityTaskFailedEventAttributes {
   });
   static ScheduleActivityTaskFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ScheduleActivityTaskFailedEventAttributes();
+      ScheduleActivityTaskFailedEventAttributes(
+        activityType: ActivityType.fromJson(json['activityType']),
+        activityId: json['activityId'] as String,
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Decision attributes specified in `scheduleLambdaFunctionDecisionAttributes`
@@ -5017,6 +5885,7 @@ class ScheduleLambdaFunctionDecisionAttributes {
     this.input,
     this.startToCloseTimeout,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `ScheduleLambdaFunctionFailed` event. It isn't
@@ -5054,7 +5923,13 @@ class ScheduleLambdaFunctionFailedEventAttributes {
   });
   static ScheduleLambdaFunctionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      ScheduleLambdaFunctionFailedEventAttributes();
+      ScheduleLambdaFunctionFailedEventAttributes(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Provides the details of the `SignalExternalWorkflowExecution` decision.
@@ -5104,6 +5979,7 @@ class SignalExternalWorkflowExecutionDecisionAttributes {
     this.input,
     this.control,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `SignalExternalWorkflowExecutionFailed` event.
@@ -5154,7 +6030,15 @@ class SignalExternalWorkflowExecutionFailedEventAttributes {
   });
   static SignalExternalWorkflowExecutionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      SignalExternalWorkflowExecutionFailedEventAttributes();
+      SignalExternalWorkflowExecutionFailedEventAttributes(
+        workflowId: json['workflowId'] as String,
+        runId: json.containsKey('runId') ? json['runId'] as String : null,
+        cause: json['cause'] as String,
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+        control: json.containsKey('control') ? json['control'] as String : null,
+      );
 }
 
 /// Provides the details of the `SignalExternalWorkflowExecutionInitiated`
@@ -5192,7 +6076,15 @@ class SignalExternalWorkflowExecutionInitiatedEventAttributes {
   });
   static SignalExternalWorkflowExecutionInitiatedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      SignalExternalWorkflowExecutionInitiatedEventAttributes();
+      SignalExternalWorkflowExecutionInitiatedEventAttributes(
+        workflowId: json['workflowId'] as String,
+        runId: json.containsKey('runId') ? json['runId'] as String : null,
+        signalName: json['signalName'] as String,
+        input: json.containsKey('input') ? json['input'] as String : null,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+        control: json.containsKey('control') ? json['control'] as String : null,
+      );
 }
 
 /// Provides the details of the `StartChildWorkflowExecution` decision.
@@ -5354,6 +6246,7 @@ class StartChildWorkflowExecutionDecisionAttributes {
     this.tagList,
     this.lambdaRole,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `StartChildWorkflowExecutionFailed` event.
@@ -5408,7 +6301,15 @@ class StartChildWorkflowExecutionFailedEventAttributes {
   });
   static StartChildWorkflowExecutionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      StartChildWorkflowExecutionFailedEventAttributes();
+      StartChildWorkflowExecutionFailedEventAttributes(
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        cause: json['cause'] as String,
+        workflowId: json['workflowId'] as String,
+        initiatedEventId: BigInt.from(json['initiatedEventId']),
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+        control: json.containsKey('control') ? json['control'] as String : null,
+      );
 }
 
 /// Provides the details of the `StartChildWorkflowExecutionInitiated` event.
@@ -5499,7 +6400,32 @@ class StartChildWorkflowExecutionInitiatedEventAttributes {
   });
   static StartChildWorkflowExecutionInitiatedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      StartChildWorkflowExecutionInitiatedEventAttributes();
+      StartChildWorkflowExecutionInitiatedEventAttributes(
+        workflowId: json['workflowId'] as String,
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        control: json.containsKey('control') ? json['control'] as String : null,
+        input: json.containsKey('input') ? json['input'] as String : null,
+        executionStartToCloseTimeout:
+            json.containsKey('executionStartToCloseTimeout')
+                ? json['executionStartToCloseTimeout'] as String
+                : null,
+        taskList: TaskList.fromJson(json['taskList']),
+        taskPriority: json.containsKey('taskPriority')
+            ? json['taskPriority'] as String
+            : null,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+        childPolicy: json['childPolicy'] as String,
+        taskStartToCloseTimeout: json.containsKey('taskStartToCloseTimeout')
+            ? json['taskStartToCloseTimeout'] as String
+            : null,
+        tagList: json.containsKey('tagList')
+            ? (json['tagList'] as List).map((e) => e as String).toList()
+            : null,
+        lambdaRole: json.containsKey('lambdaRole')
+            ? json['lambdaRole'] as String
+            : null,
+      );
 }
 
 /// Provides the details of the `StartLambdaFunctionFailed` event. It isn't set
@@ -5532,7 +6458,13 @@ class StartLambdaFunctionFailedEventAttributes {
   });
   static StartLambdaFunctionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      StartLambdaFunctionFailedEventAttributes();
+      StartLambdaFunctionFailedEventAttributes(
+        scheduledEventId: json.containsKey('scheduledEventId')
+            ? BigInt.from(json['scheduledEventId'])
+            : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 /// Provides the details of the `StartTimer` decision.
@@ -5580,6 +6512,7 @@ class StartTimerDecisionAttributes {
     this.control,
     @required this.startToFireTimeout,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `StartTimerFailed` event.
@@ -5611,7 +6544,12 @@ class StartTimerFailedEventAttributes {
     @required this.decisionTaskCompletedEventId,
   });
   static StartTimerFailedEventAttributes fromJson(Map<String, dynamic> json) =>
-      StartTimerFailedEventAttributes();
+      StartTimerFailedEventAttributes(
+        timerId: json['timerId'] as String,
+        cause: json['cause'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Used to filter the workflow executions in visibility APIs based on a tag.
@@ -5626,6 +6564,7 @@ class TagFilter {
   TagFilter({
     @required this.tag,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a task list.
@@ -5636,7 +6575,10 @@ class TaskList {
   TaskList({
     @required this.name,
   });
-  static TaskList fromJson(Map<String, dynamic> json) => TaskList();
+  static TaskList fromJson(Map<String, dynamic> json) => TaskList(
+        name: json['name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Provides the details of the `TimerCanceled` event.
@@ -5661,7 +6603,12 @@ class TimerCanceledEventAttributes {
     @required this.decisionTaskCompletedEventId,
   });
   static TimerCanceledEventAttributes fromJson(Map<String, dynamic> json) =>
-      TimerCanceledEventAttributes();
+      TimerCanceledEventAttributes(
+        timerId: json['timerId'] as String,
+        startedEventId: BigInt.from(json['startedEventId']),
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Provides the details of the `TimerFired` event.
@@ -5679,7 +6626,10 @@ class TimerFiredEventAttributes {
     @required this.startedEventId,
   });
   static TimerFiredEventAttributes fromJson(Map<String, dynamic> json) =>
-      TimerFiredEventAttributes();
+      TimerFiredEventAttributes(
+        timerId: json['timerId'] as String,
+        startedEventId: BigInt.from(json['startedEventId']),
+      );
 }
 
 /// Provides the details of the `TimerStarted` event.
@@ -5710,7 +6660,13 @@ class TimerStartedEventAttributes {
     @required this.decisionTaskCompletedEventId,
   });
   static TimerStartedEventAttributes fromJson(Map<String, dynamic> json) =>
-      TimerStartedEventAttributes();
+      TimerStartedEventAttributes(
+        timerId: json['timerId'] as String,
+        control: json.containsKey('control') ? json['control'] as String : null,
+        startToFireTimeout: json['startToFireTimeout'] as String,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Represents a workflow execution.
@@ -5726,7 +6682,11 @@ class WorkflowExecution {
     @required this.runId,
   });
   static WorkflowExecution fromJson(Map<String, dynamic> json) =>
-      WorkflowExecution();
+      WorkflowExecution(
+        workflowId: json['workflowId'] as String,
+        runId: json['runId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the details of the `WorkflowExecutionCancelRequested` event.
@@ -5755,7 +6715,15 @@ class WorkflowExecutionCancelRequestedEventAttributes {
   });
   static WorkflowExecutionCancelRequestedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      WorkflowExecutionCancelRequestedEventAttributes();
+      WorkflowExecutionCancelRequestedEventAttributes(
+        externalWorkflowExecution: json.containsKey('externalWorkflowExecution')
+            ? WorkflowExecution.fromJson(json['externalWorkflowExecution'])
+            : null,
+        externalInitiatedEventId: json.containsKey('externalInitiatedEventId')
+            ? BigInt.from(json['externalInitiatedEventId'])
+            : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Provides the details of the `WorkflowExecutionCanceled` event.
@@ -5775,7 +6743,11 @@ class WorkflowExecutionCanceledEventAttributes {
   });
   static WorkflowExecutionCanceledEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      WorkflowExecutionCanceledEventAttributes();
+      WorkflowExecutionCanceledEventAttributes(
+        details: json.containsKey('details') ? json['details'] as String : null,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Provides the details of the `WorkflowExecutionCompleted` event.
@@ -5795,7 +6767,11 @@ class WorkflowExecutionCompletedEventAttributes {
   });
   static WorkflowExecutionCompletedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      WorkflowExecutionCompletedEventAttributes();
+      WorkflowExecutionCompletedEventAttributes(
+        result: json.containsKey('result') ? json['result'] as String : null,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// The configuration settings for a workflow execution including timeout
@@ -5858,7 +6834,19 @@ class WorkflowExecutionConfiguration {
     this.lambdaRole,
   });
   static WorkflowExecutionConfiguration fromJson(Map<String, dynamic> json) =>
-      WorkflowExecutionConfiguration();
+      WorkflowExecutionConfiguration(
+        taskStartToCloseTimeout: json['taskStartToCloseTimeout'] as String,
+        executionStartToCloseTimeout:
+            json['executionStartToCloseTimeout'] as String,
+        taskList: TaskList.fromJson(json['taskList']),
+        taskPriority: json.containsKey('taskPriority')
+            ? json['taskPriority'] as String
+            : null,
+        childPolicy: json['childPolicy'] as String,
+        lambdaRole: json.containsKey('lambdaRole')
+            ? json['lambdaRole'] as String
+            : null,
+      );
 }
 
 /// Provides the details of the `WorkflowExecutionContinuedAsNew` event.
@@ -5935,7 +6923,31 @@ class WorkflowExecutionContinuedAsNewEventAttributes {
   });
   static WorkflowExecutionContinuedAsNewEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      WorkflowExecutionContinuedAsNewEventAttributes();
+      WorkflowExecutionContinuedAsNewEventAttributes(
+        input: json.containsKey('input') ? json['input'] as String : null,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+        newExecutionRunId: json['newExecutionRunId'] as String,
+        executionStartToCloseTimeout:
+            json.containsKey('executionStartToCloseTimeout')
+                ? json['executionStartToCloseTimeout'] as String
+                : null,
+        taskList: TaskList.fromJson(json['taskList']),
+        taskPriority: json.containsKey('taskPriority')
+            ? json['taskPriority'] as String
+            : null,
+        taskStartToCloseTimeout: json.containsKey('taskStartToCloseTimeout')
+            ? json['taskStartToCloseTimeout'] as String
+            : null,
+        childPolicy: json['childPolicy'] as String,
+        tagList: json.containsKey('tagList')
+            ? (json['tagList'] as List).map((e) => e as String).toList()
+            : null,
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        lambdaRole: json.containsKey('lambdaRole')
+            ? json['lambdaRole'] as String
+            : null,
+      );
 }
 
 /// Contains the count of workflow executions returned from
@@ -5953,7 +6965,11 @@ class WorkflowExecutionCount {
     this.truncated,
   });
   static WorkflowExecutionCount fromJson(Map<String, dynamic> json) =>
-      WorkflowExecutionCount();
+      WorkflowExecutionCount(
+        count: json['count'] as int,
+        truncated:
+            json.containsKey('truncated') ? json['truncated'] as bool : null,
+      );
 }
 
 /// Contains details about a workflow execution.
@@ -5988,7 +7004,19 @@ class WorkflowExecutionDetail {
     this.latestExecutionContext,
   });
   static WorkflowExecutionDetail fromJson(Map<String, dynamic> json) =>
-      WorkflowExecutionDetail();
+      WorkflowExecutionDetail(
+        executionInfo: WorkflowExecutionInfo.fromJson(json['executionInfo']),
+        executionConfiguration: WorkflowExecutionConfiguration.fromJson(
+            json['executionConfiguration']),
+        openCounts: WorkflowExecutionOpenCounts.fromJson(json['openCounts']),
+        latestActivityTaskTimestamp:
+            json.containsKey('latestActivityTaskTimestamp')
+                ? DateTime.parse(json['latestActivityTaskTimestamp'])
+                : null,
+        latestExecutionContext: json.containsKey('latestExecutionContext')
+            ? json['latestExecutionContext'] as String
+            : null,
+      );
 }
 
 /// Provides the details of the `WorkflowExecutionFailed` event.
@@ -6012,7 +7040,12 @@ class WorkflowExecutionFailedEventAttributes {
   });
   static WorkflowExecutionFailedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      WorkflowExecutionFailedEventAttributes();
+      WorkflowExecutionFailedEventAttributes(
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+        details: json.containsKey('details') ? json['details'] as String : null,
+        decisionTaskCompletedEventId:
+            BigInt.from(json['decisionTaskCompletedEventId']),
+      );
 }
 
 /// Used to filter the workflow executions in visibility APIs by their
@@ -6024,6 +7057,7 @@ class WorkflowExecutionFilter {
   WorkflowExecutionFilter({
     @required this.workflowId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about a workflow execution.
@@ -6088,7 +7122,27 @@ class WorkflowExecutionInfo {
     this.cancelRequested,
   });
   static WorkflowExecutionInfo fromJson(Map<String, dynamic> json) =>
-      WorkflowExecutionInfo();
+      WorkflowExecutionInfo(
+        execution: WorkflowExecution.fromJson(json['execution']),
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        startTimestamp: DateTime.parse(json['startTimestamp']),
+        closeTimestamp: json.containsKey('closeTimestamp')
+            ? DateTime.parse(json['closeTimestamp'])
+            : null,
+        executionStatus: json['executionStatus'] as String,
+        closeStatus: json.containsKey('closeStatus')
+            ? json['closeStatus'] as String
+            : null,
+        parent: json.containsKey('parent')
+            ? WorkflowExecution.fromJson(json['parent'])
+            : null,
+        tagList: json.containsKey('tagList')
+            ? (json['tagList'] as List).map((e) => e as String).toList()
+            : null,
+        cancelRequested: json.containsKey('cancelRequested')
+            ? json['cancelRequested'] as bool
+            : null,
+      );
 }
 
 /// Contains a paginated list of information about workflow executions.
@@ -6110,7 +7164,14 @@ class WorkflowExecutionInfos {
     this.nextPageToken,
   });
   static WorkflowExecutionInfos fromJson(Map<String, dynamic> json) =>
-      WorkflowExecutionInfos();
+      WorkflowExecutionInfos(
+        executionInfos: (json['executionInfos'] as List)
+            .map((e) => WorkflowExecutionInfo.fromJson(e))
+            .toList(),
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 /// Contains the counts of open tasks, child workflow executions and timers for
@@ -6141,7 +7202,15 @@ class WorkflowExecutionOpenCounts {
     this.openLambdaFunctions,
   });
   static WorkflowExecutionOpenCounts fromJson(Map<String, dynamic> json) =>
-      WorkflowExecutionOpenCounts();
+      WorkflowExecutionOpenCounts(
+        openActivityTasks: json['openActivityTasks'] as int,
+        openDecisionTasks: json['openDecisionTasks'] as int,
+        openTimers: json['openTimers'] as int,
+        openChildWorkflowExecutions: json['openChildWorkflowExecutions'] as int,
+        openLambdaFunctions: json.containsKey('openLambdaFunctions')
+            ? json['openLambdaFunctions'] as int
+            : null,
+      );
 }
 
 /// Provides the details of the `WorkflowExecutionSignaled` event.
@@ -6175,7 +7244,16 @@ class WorkflowExecutionSignaledEventAttributes {
   });
   static WorkflowExecutionSignaledEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      WorkflowExecutionSignaledEventAttributes();
+      WorkflowExecutionSignaledEventAttributes(
+        signalName: json['signalName'] as String,
+        input: json.containsKey('input') ? json['input'] as String : null,
+        externalWorkflowExecution: json.containsKey('externalWorkflowExecution')
+            ? WorkflowExecution.fromJson(json['externalWorkflowExecution'])
+            : null,
+        externalInitiatedEventId: json.containsKey('externalInitiatedEventId')
+            ? BigInt.from(json['externalInitiatedEventId'])
+            : null,
+      );
 }
 
 /// Provides details of `WorkflowExecutionStarted` event.
@@ -6262,7 +7340,37 @@ class WorkflowExecutionStartedEventAttributes {
   });
   static WorkflowExecutionStartedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      WorkflowExecutionStartedEventAttributes();
+      WorkflowExecutionStartedEventAttributes(
+        input: json.containsKey('input') ? json['input'] as String : null,
+        executionStartToCloseTimeout:
+            json.containsKey('executionStartToCloseTimeout')
+                ? json['executionStartToCloseTimeout'] as String
+                : null,
+        taskStartToCloseTimeout: json.containsKey('taskStartToCloseTimeout')
+            ? json['taskStartToCloseTimeout'] as String
+            : null,
+        childPolicy: json['childPolicy'] as String,
+        taskList: TaskList.fromJson(json['taskList']),
+        taskPriority: json.containsKey('taskPriority')
+            ? json['taskPriority'] as String
+            : null,
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        tagList: json.containsKey('tagList')
+            ? (json['tagList'] as List).map((e) => e as String).toList()
+            : null,
+        continuedExecutionRunId: json.containsKey('continuedExecutionRunId')
+            ? json['continuedExecutionRunId'] as String
+            : null,
+        parentWorkflowExecution: json.containsKey('parentWorkflowExecution')
+            ? WorkflowExecution.fromJson(json['parentWorkflowExecution'])
+            : null,
+        parentInitiatedEventId: json.containsKey('parentInitiatedEventId')
+            ? BigInt.from(json['parentInitiatedEventId'])
+            : null,
+        lambdaRole: json.containsKey('lambdaRole')
+            ? json['lambdaRole'] as String
+            : null,
+      );
 }
 
 /// Provides the details of the `WorkflowExecutionTerminated` event.
@@ -6302,7 +7410,12 @@ class WorkflowExecutionTerminatedEventAttributes {
   });
   static WorkflowExecutionTerminatedEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      WorkflowExecutionTerminatedEventAttributes();
+      WorkflowExecutionTerminatedEventAttributes(
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+        details: json.containsKey('details') ? json['details'] as String : null,
+        childPolicy: json['childPolicy'] as String,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Provides the details of the `WorkflowExecutionTimedOut` event.
@@ -6331,7 +7444,10 @@ class WorkflowExecutionTimedOutEventAttributes {
   });
   static WorkflowExecutionTimedOutEventAttributes fromJson(
           Map<String, dynamic> json) =>
-      WorkflowExecutionTimedOutEventAttributes();
+      WorkflowExecutionTimedOutEventAttributes(
+        timeoutType: json['timeoutType'] as String,
+        childPolicy: json['childPolicy'] as String,
+      );
 }
 
 /// Represents a workflow type.
@@ -6356,7 +7472,11 @@ class WorkflowType {
     @required this.name,
     @required this.version,
   });
-  static WorkflowType fromJson(Map<String, dynamic> json) => WorkflowType();
+  static WorkflowType fromJson(Map<String, dynamic> json) => WorkflowType(
+        name: json['name'] as String,
+        version: json['version'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration settings of a workflow type.
@@ -6445,7 +7565,28 @@ class WorkflowTypeConfiguration {
     this.defaultLambdaRole,
   });
   static WorkflowTypeConfiguration fromJson(Map<String, dynamic> json) =>
-      WorkflowTypeConfiguration();
+      WorkflowTypeConfiguration(
+        defaultTaskStartToCloseTimeout:
+            json.containsKey('defaultTaskStartToCloseTimeout')
+                ? json['defaultTaskStartToCloseTimeout'] as String
+                : null,
+        defaultExecutionStartToCloseTimeout:
+            json.containsKey('defaultExecutionStartToCloseTimeout')
+                ? json['defaultExecutionStartToCloseTimeout'] as String
+                : null,
+        defaultTaskList: json.containsKey('defaultTaskList')
+            ? TaskList.fromJson(json['defaultTaskList'])
+            : null,
+        defaultTaskPriority: json.containsKey('defaultTaskPriority')
+            ? json['defaultTaskPriority'] as String
+            : null,
+        defaultChildPolicy: json.containsKey('defaultChildPolicy')
+            ? json['defaultChildPolicy'] as String
+            : null,
+        defaultLambdaRole: json.containsKey('defaultLambdaRole')
+            ? json['defaultLambdaRole'] as String
+            : null,
+      );
 }
 
 /// Contains details about a workflow type.
@@ -6472,7 +7613,11 @@ class WorkflowTypeDetail {
     @required this.configuration,
   });
   static WorkflowTypeDetail fromJson(Map<String, dynamic> json) =>
-      WorkflowTypeDetail();
+      WorkflowTypeDetail(
+        typeInfo: WorkflowTypeInfo.fromJson(json['typeInfo']),
+        configuration:
+            WorkflowTypeConfiguration.fromJson(json['configuration']),
+      );
 }
 
 /// Used to filter workflow execution query results by type. Each parameter, if
@@ -6488,6 +7633,7 @@ class WorkflowTypeFilter {
     @required this.name,
     this.version,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about a workflow type.
@@ -6516,7 +7662,17 @@ class WorkflowTypeInfo {
     this.deprecationDate,
   });
   static WorkflowTypeInfo fromJson(Map<String, dynamic> json) =>
-      WorkflowTypeInfo();
+      WorkflowTypeInfo(
+        workflowType: WorkflowType.fromJson(json['workflowType']),
+        status: json['status'] as String,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        creationDate: DateTime.parse(json['creationDate']),
+        deprecationDate: json.containsKey('deprecationDate')
+            ? DateTime.parse(json['deprecationDate'])
+            : null,
+      );
 }
 
 /// Contains a paginated list of information structures about workflow types.
@@ -6538,5 +7694,12 @@ class WorkflowTypeInfos {
     this.nextPageToken,
   });
   static WorkflowTypeInfos fromJson(Map<String, dynamic> json) =>
-      WorkflowTypeInfos();
+      WorkflowTypeInfos(
+        typeInfos: (json['typeInfos'] as List)
+            .map((e) => WorkflowTypeInfo.fromJson(e))
+            .toList(),
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }

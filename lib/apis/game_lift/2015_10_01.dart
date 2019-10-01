@@ -39,6 +39,10 @@ import 'dart:typed_data';
 ///
 /// **[Task-based list of API actions](https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html)**
 class GameLiftApi {
+  final _client;
+  GameLiftApi(client)
+      : _client = client.configured('GameLift', serializer: 'json');
+
   /// Registers a player's acceptance or rejection of a proposed FlexMatch
   /// match. A matchmaking configuration may require player acceptance; if so,
   /// then matches built with that configuration cannot be completed unless all
@@ -95,7 +99,12 @@ class GameLiftApi {
       {@required String ticketId,
       @required List<String> playerIds,
       @required String acceptanceType}) async {
-    return AcceptMatchOutput.fromJson({});
+    var response_ = await _client.send('AcceptMatch', {
+      'TicketId': ticketId,
+      'PlayerIds': playerIds,
+      'AcceptanceType': acceptanceType,
+    });
+    return AcceptMatchOutput.fromJson(response_);
   }
 
   /// Creates an alias for a fleet. In most situations, you can use an alias ID
@@ -142,7 +151,12 @@ class GameLiftApi {
       {@required String name,
       String description,
       @required RoutingStrategy routingStrategy}) async {
-    return CreateAliasOutput.fromJson({});
+    var response_ = await _client.send('CreateAlias', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'RoutingStrategy': routingStrategy,
+    });
+    return CreateAliasOutput.fromJson(response_);
   }
 
   /// Creates a new Amazon GameLift build record for your game server binary
@@ -226,7 +240,13 @@ class GameLiftApi {
       String version,
       S3Location storageLocation,
       String operatingSystem}) async {
-    return CreateBuildOutput.fromJson({});
+    var response_ = await _client.send('CreateBuild', {
+      if (name != null) 'Name': name,
+      if (version != null) 'Version': version,
+      if (storageLocation != null) 'StorageLocation': storageLocation,
+      if (operatingSystem != null) 'OperatingSystem': operatingSystem,
+    });
+    return CreateBuildOutput.fromJson(response_);
   }
 
   /// Creates a new fleet to run your game servers. whether they are custom game
@@ -446,7 +466,34 @@ class GameLiftApi {
       String fleetType,
       String instanceRoleArn,
       CertificateConfiguration certificateConfiguration}) async {
-    return CreateFleetOutput.fromJson({});
+    var response_ = await _client.send('CreateFleet', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (buildId != null) 'BuildId': buildId,
+      if (scriptId != null) 'ScriptId': scriptId,
+      if (serverLaunchPath != null) 'ServerLaunchPath': serverLaunchPath,
+      if (serverLaunchParameters != null)
+        'ServerLaunchParameters': serverLaunchParameters,
+      if (logPaths != null) 'LogPaths': logPaths,
+      'EC2InstanceType': ec2InstanceType,
+      if (ec2InboundPermissions != null)
+        'EC2InboundPermissions': ec2InboundPermissions,
+      if (newGameSessionProtectionPolicy != null)
+        'NewGameSessionProtectionPolicy': newGameSessionProtectionPolicy,
+      if (runtimeConfiguration != null)
+        'RuntimeConfiguration': runtimeConfiguration,
+      if (resourceCreationLimitPolicy != null)
+        'ResourceCreationLimitPolicy': resourceCreationLimitPolicy,
+      if (metricGroups != null) 'MetricGroups': metricGroups,
+      if (peerVpcAwsAccountId != null)
+        'PeerVpcAwsAccountId': peerVpcAwsAccountId,
+      if (peerVpcId != null) 'PeerVpcId': peerVpcId,
+      if (fleetType != null) 'FleetType': fleetType,
+      if (instanceRoleArn != null) 'InstanceRoleArn': instanceRoleArn,
+      if (certificateConfiguration != null)
+        'CertificateConfiguration': certificateConfiguration,
+    });
+    return CreateFleetOutput.fromJson(response_);
   }
 
   /// Creates a multiplayer game session for players. This action creates a game
@@ -556,7 +603,18 @@ class GameLiftApi {
       String gameSessionId,
       String idempotencyToken,
       String gameSessionData}) async {
-    return CreateGameSessionOutput.fromJson({});
+    var response_ = await _client.send('CreateGameSession', {
+      if (fleetId != null) 'FleetId': fleetId,
+      if (aliasId != null) 'AliasId': aliasId,
+      'MaximumPlayerSessionCount': maximumPlayerSessionCount,
+      if (name != null) 'Name': name,
+      if (gameProperties != null) 'GameProperties': gameProperties,
+      if (creatorId != null) 'CreatorId': creatorId,
+      if (gameSessionId != null) 'GameSessionId': gameSessionId,
+      if (idempotencyToken != null) 'IdempotencyToken': idempotencyToken,
+      if (gameSessionData != null) 'GameSessionData': gameSessionData,
+    });
+    return CreateGameSessionOutput.fromJson(response_);
   }
 
   /// Establishes a new queue for processing requests to place new game
@@ -627,7 +685,14 @@ class GameLiftApi {
       {int timeoutInSeconds,
       List<PlayerLatencyPolicy> playerLatencyPolicies,
       List<GameSessionQueueDestination> destinations}) async {
-    return CreateGameSessionQueueOutput.fromJson({});
+    var response_ = await _client.send('CreateGameSessionQueue', {
+      'Name': name,
+      if (timeoutInSeconds != null) 'TimeoutInSeconds': timeoutInSeconds,
+      if (playerLatencyPolicies != null)
+        'PlayerLatencyPolicies': playerLatencyPolicies,
+      if (destinations != null) 'Destinations': destinations,
+    });
+    return CreateGameSessionQueueOutput.fromJson(response_);
   }
 
   /// Defines a new matchmaking configuration for use with FlexMatch. A
@@ -756,7 +821,24 @@ class GameLiftApi {
       List<GameProperty> gameProperties,
       String gameSessionData,
       String backfillMode}) async {
-    return CreateMatchmakingConfigurationOutput.fromJson({});
+    var response_ = await _client.send('CreateMatchmakingConfiguration', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'GameSessionQueueArns': gameSessionQueueArns,
+      'RequestTimeoutSeconds': requestTimeoutSeconds,
+      if (acceptanceTimeoutSeconds != null)
+        'AcceptanceTimeoutSeconds': acceptanceTimeoutSeconds,
+      'AcceptanceRequired': acceptanceRequired,
+      'RuleSetName': ruleSetName,
+      if (notificationTarget != null) 'NotificationTarget': notificationTarget,
+      if (additionalPlayerCount != null)
+        'AdditionalPlayerCount': additionalPlayerCount,
+      if (customEventData != null) 'CustomEventData': customEventData,
+      if (gameProperties != null) 'GameProperties': gameProperties,
+      if (gameSessionData != null) 'GameSessionData': gameSessionData,
+      if (backfillMode != null) 'BackfillMode': backfillMode,
+    });
+    return CreateMatchmakingConfigurationOutput.fromJson(response_);
   }
 
   /// Creates a new rule set for FlexMatch matchmaking. A rule set describes the
@@ -812,7 +894,11 @@ class GameLiftApi {
   /// description field.
   Future<CreateMatchmakingRuleSetOutput> createMatchmakingRuleSet(
       {@required String name, @required String ruleSetBody}) async {
-    return CreateMatchmakingRuleSetOutput.fromJson({});
+    var response_ = await _client.send('CreateMatchmakingRuleSet', {
+      'Name': name,
+      'RuleSetBody': ruleSetBody,
+    });
+    return CreateMatchmakingRuleSetOutput.fromJson(response_);
   }
 
   /// Reserves an open player slot in an active game session. Before a player
@@ -857,7 +943,12 @@ class GameLiftApi {
       {@required String gameSessionId,
       @required String playerId,
       String playerData}) async {
-    return CreatePlayerSessionOutput.fromJson({});
+    var response_ = await _client.send('CreatePlayerSession', {
+      'GameSessionId': gameSessionId,
+      'PlayerId': playerId,
+      if (playerData != null) 'PlayerData': playerData,
+    });
+    return CreatePlayerSessionOutput.fromJson(response_);
   }
 
   /// Reserves open slots in a game session for a group of players. Before
@@ -902,7 +993,12 @@ class GameLiftApi {
       {@required String gameSessionId,
       @required List<String> playerIds,
       Map<String, String> playerDataMap}) async {
-    return CreatePlayerSessionsOutput.fromJson({});
+    var response_ = await _client.send('CreatePlayerSessions', {
+      'GameSessionId': gameSessionId,
+      'PlayerIds': playerIds,
+      if (playerDataMap != null) 'PlayerDataMap': playerDataMap,
+    });
+    return CreatePlayerSessionsOutput.fromJson(response_);
   }
 
   /// Creates a new script record for your Realtime Servers script. Realtime
@@ -981,7 +1077,13 @@ class GameLiftApi {
       String version,
       S3Location storageLocation,
       Uint8List zipFile}) async {
-    return CreateScriptOutput.fromJson({});
+    var response_ = await _client.send('CreateScript', {
+      if (name != null) 'Name': name,
+      if (version != null) 'Version': version,
+      if (storageLocation != null) 'StorageLocation': storageLocation,
+      if (zipFile != null) 'ZipFile': zipFile,
+    });
+    return CreateScriptOutput.fromJson(response_);
   }
 
   /// Requests authorization to create or delete a peer connection between the
@@ -1039,7 +1141,11 @@ class GameLiftApi {
   Future<CreateVpcPeeringAuthorizationOutput> createVpcPeeringAuthorization(
       {@required String gameLiftAwsAccountId,
       @required String peerVpcId}) async {
-    return CreateVpcPeeringAuthorizationOutput.fromJson({});
+    var response_ = await _client.send('CreateVpcPeeringAuthorization', {
+      'GameLiftAwsAccountId': gameLiftAwsAccountId,
+      'PeerVpcId': peerVpcId,
+    });
+    return CreateVpcPeeringAuthorizationOutput.fromJson(response_);
   }
 
   /// Establishes a VPC peering connection between a virtual private cloud (VPC)
@@ -1097,7 +1203,12 @@ class GameLiftApi {
       {@required String fleetId,
       @required String peerVpcAwsAccountId,
       @required String peerVpcId}) async {
-    return CreateVpcPeeringConnectionOutput.fromJson({});
+    var response_ = await _client.send('CreateVpcPeeringConnection', {
+      'FleetId': fleetId,
+      'PeerVpcAwsAccountId': peerVpcAwsAccountId,
+      'PeerVpcId': peerVpcId,
+    });
+    return CreateVpcPeeringConnectionOutput.fromJson(response_);
   }
 
   /// Deletes an alias. This action removes all record of the alias. Game
@@ -1118,7 +1229,11 @@ class GameLiftApi {
   ///
   /// [aliasId]: Unique identifier for a fleet alias. Specify the alias you want
   /// to delete.
-  Future<void> deleteAlias(String aliasId) async {}
+  Future<void> deleteAlias(String aliasId) async {
+    await _client.send('DeleteAlias', {
+      'AliasId': aliasId,
+    });
+  }
 
   /// Deletes a build. This action permanently deletes the build record and any
   /// uploaded build files.
@@ -1145,7 +1260,11 @@ class GameLiftApi {
   /// *    DeleteBuild
   ///
   /// [buildId]: Unique identifier for a build to delete.
-  Future<void> deleteBuild(String buildId) async {}
+  Future<void> deleteBuild(String buildId) async {
+    await _client.send('DeleteBuild', {
+      'BuildId': buildId,
+    });
+  }
 
   /// Deletes everything related to a fleet. Before deleting a fleet, you must
   /// set the fleet's desired capacity to zero. See UpdateFleetCapacity.
@@ -1206,7 +1325,11 @@ class GameLiftApi {
   ///     *    StopFleetActions
   ///
   /// [fleetId]: Unique identifier for a fleet to be deleted.
-  Future<void> deleteFleet(String fleetId) async {}
+  Future<void> deleteFleet(String fleetId) async {
+    await _client.send('DeleteFleet', {
+      'FleetId': fleetId,
+    });
+  }
 
   /// Deletes a game session queue. This action means that any
   /// StartGameSessionPlacement requests that reference this queue will fail. To
@@ -1224,7 +1347,10 @@ class GameLiftApi {
   /// Queue names must be unique within each region.
   Future<DeleteGameSessionQueueOutput> deleteGameSessionQueue(
       String name) async {
-    return DeleteGameSessionQueueOutput.fromJson({});
+    var response_ = await _client.send('DeleteGameSessionQueue', {
+      'Name': name,
+    });
+    return DeleteGameSessionQueueOutput.fromJson(response_);
   }
 
   /// Permanently removes a FlexMatch matchmaking configuration. To delete,
@@ -1252,7 +1378,10 @@ class GameLiftApi {
   /// [name]: Unique identifier for a matchmaking configuration
   Future<DeleteMatchmakingConfigurationOutput> deleteMatchmakingConfiguration(
       String name) async {
-    return DeleteMatchmakingConfigurationOutput.fromJson({});
+    var response_ = await _client.send('DeleteMatchmakingConfiguration', {
+      'Name': name,
+    });
+    return DeleteMatchmakingConfigurationOutput.fromJson(response_);
   }
 
   /// Deletes an existing matchmaking rule set. To delete the rule set, provide
@@ -1288,7 +1417,10 @@ class GameLiftApi {
   /// set body.)
   Future<DeleteMatchmakingRuleSetOutput> deleteMatchmakingRuleSet(
       String name) async {
-    return DeleteMatchmakingRuleSetOutput.fromJson({});
+    var response_ = await _client.send('DeleteMatchmakingRuleSet', {
+      'Name': name,
+    });
+    return DeleteMatchmakingRuleSetOutput.fromJson(response_);
   }
 
   /// Deletes a fleet scaling policy. This action means that the policy is no
@@ -1325,7 +1457,12 @@ class GameLiftApi {
   ///
   /// [fleetId]: Unique identifier for a fleet to be deleted.
   Future<void> deleteScalingPolicy(
-      {@required String name, @required String fleetId}) async {}
+      {@required String name, @required String fleetId}) async {
+    await _client.send('DeleteScalingPolicy', {
+      'Name': name,
+      'FleetId': fleetId,
+    });
+  }
 
   /// Deletes a Realtime script. This action permanently deletes the script
   /// record. If script files were uploaded, they are also deleted (files stored
@@ -1355,7 +1492,11 @@ class GameLiftApi {
   /// *    DeleteScript
   ///
   /// [scriptId]: Unique identifier for a Realtime script to delete.
-  Future<void> deleteScript(String scriptId) async {}
+  Future<void> deleteScript(String scriptId) async {
+    await _client.send('DeleteScript', {
+      'ScriptId': scriptId,
+    });
+  }
 
   /// Cancels a pending VPC peering authorization for the specified VPC. If you
   /// need to delete an existing VPC peering connection, call
@@ -1386,7 +1527,11 @@ class GameLiftApi {
   Future<DeleteVpcPeeringAuthorizationOutput> deleteVpcPeeringAuthorization(
       {@required String gameLiftAwsAccountId,
       @required String peerVpcId}) async {
-    return DeleteVpcPeeringAuthorizationOutput.fromJson({});
+    var response_ = await _client.send('DeleteVpcPeeringAuthorization', {
+      'GameLiftAwsAccountId': gameLiftAwsAccountId,
+      'PeerVpcId': peerVpcId,
+    });
+    return DeleteVpcPeeringAuthorizationOutput.fromJson(response_);
   }
 
   /// Removes a VPC peering connection. To delete the connection, you must have
@@ -1421,7 +1566,11 @@ class GameLiftApi {
   Future<DeleteVpcPeeringConnectionOutput> deleteVpcPeeringConnection(
       {@required String fleetId,
       @required String vpcPeeringConnectionId}) async {
-    return DeleteVpcPeeringConnectionOutput.fromJson({});
+    var response_ = await _client.send('DeleteVpcPeeringConnection', {
+      'FleetId': fleetId,
+      'VpcPeeringConnectionId': vpcPeeringConnectionId,
+    });
+    return DeleteVpcPeeringConnectionOutput.fromJson(response_);
   }
 
   /// Retrieves properties for an alias. This operation returns all alias
@@ -1446,7 +1595,10 @@ class GameLiftApi {
   /// [aliasId]: Unique identifier for a fleet alias. Specify the alias you want
   /// to retrieve.
   Future<DescribeAliasOutput> describeAlias(String aliasId) async {
-    return DescribeAliasOutput.fromJson({});
+    var response_ = await _client.send('DescribeAlias', {
+      'AliasId': aliasId,
+    });
+    return DescribeAliasOutput.fromJson(response_);
   }
 
   /// Retrieves properties for a build. To request a build record, specify a
@@ -1472,7 +1624,10 @@ class GameLiftApi {
   ///
   /// [buildId]: Unique identifier for a build to retrieve properties for.
   Future<DescribeBuildOutput> describeBuild(String buildId) async {
-    return DescribeBuildOutput.fromJson({});
+    var response_ = await _client.send('DescribeBuild', {
+      'BuildId': buildId,
+    });
+    return DescribeBuildOutput.fromJson(response_);
   }
 
   /// Retrieves the following information for the specified EC2 instance type:
@@ -1543,7 +1698,10 @@ class GameLiftApi {
   /// all types.
   Future<DescribeEc2InstanceLimitsOutput> describeEc2InstanceLimits(
       {String ec2InstanceType}) async {
-    return DescribeEc2InstanceLimitsOutput.fromJson({});
+    var response_ = await _client.send('DescribeEC2InstanceLimits', {
+      if (ec2InstanceType != null) 'EC2InstanceType': ec2InstanceType,
+    });
+    return DescribeEc2InstanceLimitsOutput.fromJson(response_);
   }
 
   /// Retrieves fleet properties, including metadata, status, and configuration,
@@ -1619,7 +1777,12 @@ class GameLiftApi {
   /// of fleet IDs.
   Future<DescribeFleetAttributesOutput> describeFleetAttributes(
       {List<String> fleetIds, int limit, String nextToken}) async {
-    return DescribeFleetAttributesOutput.fromJson({});
+    var response_ = await _client.send('DescribeFleetAttributes', {
+      if (fleetIds != null) 'FleetIds': fleetIds,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeFleetAttributesOutput.fromJson(response_);
   }
 
   /// Retrieves the current status of fleet capacity for one or more fleets.
@@ -1698,7 +1861,12 @@ class GameLiftApi {
   /// of fleet IDs.
   Future<DescribeFleetCapacityOutput> describeFleetCapacity(
       {List<String> fleetIds, int limit, String nextToken}) async {
-    return DescribeFleetCapacityOutput.fromJson({});
+    var response_ = await _client.send('DescribeFleetCapacity', {
+      if (fleetIds != null) 'FleetIds': fleetIds,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeFleetCapacityOutput.fromJson(response_);
   }
 
   /// Retrieves entries from the specified fleet's event log. You can specify a
@@ -1777,7 +1945,14 @@ class GameLiftApi {
       DateTime endTime,
       int limit,
       String nextToken}) async {
-    return DescribeFleetEventsOutput.fromJson({});
+    var response_ = await _client.send('DescribeFleetEvents', {
+      'FleetId': fleetId,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeFleetEventsOutput.fromJson(response_);
   }
 
   /// Retrieves the inbound connection permissions for a fleet. Connection
@@ -1837,7 +2012,10 @@ class GameLiftApi {
   /// [fleetId]: Unique identifier for a fleet to retrieve port settings for.
   Future<DescribeFleetPortSettingsOutput> describeFleetPortSettings(
       String fleetId) async {
-    return DescribeFleetPortSettingsOutput.fromJson({});
+    var response_ = await _client.send('DescribeFleetPortSettings', {
+      'FleetId': fleetId,
+    });
+    return DescribeFleetPortSettingsOutput.fromJson(response_);
   }
 
   /// Retrieves utilization statistics for one or more fleets. You can request
@@ -1914,7 +2092,12 @@ class GameLiftApi {
   /// of fleet IDs.
   Future<DescribeFleetUtilizationOutput> describeFleetUtilization(
       {List<String> fleetIds, int limit, String nextToken}) async {
-    return DescribeFleetUtilizationOutput.fromJson({});
+    var response_ = await _client.send('DescribeFleetUtilization', {
+      if (fleetIds != null) 'FleetIds': fleetIds,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeFleetUtilizationOutput.fromJson(response_);
   }
 
   /// Retrieves properties, including the protection policy in force, for one or
@@ -1975,7 +2158,15 @@ class GameLiftApi {
       String statusFilter,
       int limit,
       String nextToken}) async {
-    return DescribeGameSessionDetailsOutput.fromJson({});
+    var response_ = await _client.send('DescribeGameSessionDetails', {
+      if (fleetId != null) 'FleetId': fleetId,
+      if (gameSessionId != null) 'GameSessionId': gameSessionId,
+      if (aliasId != null) 'AliasId': aliasId,
+      if (statusFilter != null) 'StatusFilter': statusFilter,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeGameSessionDetailsOutput.fromJson(response_);
   }
 
   /// Retrieves properties and current status of a game session placement
@@ -2005,7 +2196,10 @@ class GameLiftApi {
   /// [placementId]: Unique identifier for a game session placement to retrieve.
   Future<DescribeGameSessionPlacementOutput> describeGameSessionPlacement(
       String placementId) async {
-    return DescribeGameSessionPlacementOutput.fromJson({});
+    var response_ = await _client.send('DescribeGameSessionPlacement', {
+      'PlacementId': placementId,
+    });
+    return DescribeGameSessionPlacementOutput.fromJson(response_);
   }
 
   /// Retrieves the properties for one or more game session queues. When
@@ -2035,7 +2229,12 @@ class GameLiftApi {
   /// value.
   Future<DescribeGameSessionQueuesOutput> describeGameSessionQueues(
       {List<String> names, int limit, String nextToken}) async {
-    return DescribeGameSessionQueuesOutput.fromJson({});
+    var response_ = await _client.send('DescribeGameSessionQueues', {
+      if (names != null) 'Names': names,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeGameSessionQueuesOutput.fromJson(response_);
   }
 
   /// Retrieves a set of one or more game sessions. Request a specific game
@@ -2099,7 +2298,15 @@ class GameLiftApi {
       String statusFilter,
       int limit,
       String nextToken}) async {
-    return DescribeGameSessionsOutput.fromJson({});
+    var response_ = await _client.send('DescribeGameSessions', {
+      if (fleetId != null) 'FleetId': fleetId,
+      if (gameSessionId != null) 'GameSessionId': gameSessionId,
+      if (aliasId != null) 'AliasId': aliasId,
+      if (statusFilter != null) 'StatusFilter': statusFilter,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeGameSessionsOutput.fromJson(response_);
   }
 
   /// Retrieves information about a fleet's instances, including instance IDs.
@@ -2126,7 +2333,13 @@ class GameLiftApi {
   /// value.
   Future<DescribeInstancesOutput> describeInstances(String fleetId,
       {String instanceId, int limit, String nextToken}) async {
-    return DescribeInstancesOutput.fromJson({});
+    var response_ = await _client.send('DescribeInstances', {
+      'FleetId': fleetId,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeInstancesOutput.fromJson(response_);
   }
 
   /// Retrieves one or more matchmaking tickets. Use this operation to retrieve
@@ -2166,7 +2379,10 @@ class GameLiftApi {
   /// up to 10 ID values.
   Future<DescribeMatchmakingOutput> describeMatchmaking(
       List<String> ticketIds) async {
-    return DescribeMatchmakingOutput.fromJson({});
+    var response_ = await _client.send('DescribeMatchmaking', {
+      'TicketIds': ticketIds,
+    });
+    return DescribeMatchmakingOutput.fromJson(response_);
   }
 
   /// Retrieves the details of FlexMatch matchmaking configurations. With this
@@ -2222,7 +2438,13 @@ class GameLiftApi {
           String ruleSetName,
           int limit,
           String nextToken}) async {
-    return DescribeMatchmakingConfigurationsOutput.fromJson({});
+    var response_ = await _client.send('DescribeMatchmakingConfigurations', {
+      if (names != null) 'Names': names,
+      if (ruleSetName != null) 'RuleSetName': ruleSetName,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMatchmakingConfigurationsOutput.fromJson(response_);
   }
 
   /// Retrieves the details for FlexMatch matchmaking rule sets. You can request
@@ -2268,7 +2490,12 @@ class GameLiftApi {
   /// value.
   Future<DescribeMatchmakingRuleSetsOutput> describeMatchmakingRuleSets(
       {List<String> names, int limit, String nextToken}) async {
-    return DescribeMatchmakingRuleSetsOutput.fromJson({});
+    var response_ = await _client.send('DescribeMatchmakingRuleSets', {
+      if (names != null) 'Names': names,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMatchmakingRuleSetsOutput.fromJson(response_);
   }
 
   /// Retrieves properties for one or more player sessions. This action can be
@@ -2339,7 +2566,16 @@ class GameLiftApi {
       String playerSessionStatusFilter,
       int limit,
       String nextToken}) async {
-    return DescribePlayerSessionsOutput.fromJson({});
+    var response_ = await _client.send('DescribePlayerSessions', {
+      if (gameSessionId != null) 'GameSessionId': gameSessionId,
+      if (playerId != null) 'PlayerId': playerId,
+      if (playerSessionId != null) 'PlayerSessionId': playerSessionId,
+      if (playerSessionStatusFilter != null)
+        'PlayerSessionStatusFilter': playerSessionStatusFilter,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribePlayerSessionsOutput.fromJson(response_);
   }
 
   /// Retrieves the current run-time configuration for the specified fleet. The
@@ -2397,7 +2633,10 @@ class GameLiftApi {
   /// for.
   Future<DescribeRuntimeConfigurationOutput> describeRuntimeConfiguration(
       String fleetId) async {
-    return DescribeRuntimeConfigurationOutput.fromJson({});
+    var response_ = await _client.send('DescribeRuntimeConfiguration', {
+      'FleetId': fleetId,
+    });
+    return DescribeRuntimeConfigurationOutput.fromJson(response_);
   }
 
   /// Retrieves all scaling policies applied to a fleet.
@@ -2465,7 +2704,13 @@ class GameLiftApi {
   /// value.
   Future<DescribeScalingPoliciesOutput> describeScalingPolicies(String fleetId,
       {String statusFilter, int limit, String nextToken}) async {
-    return DescribeScalingPoliciesOutput.fromJson({});
+    var response_ = await _client.send('DescribeScalingPolicies', {
+      'FleetId': fleetId,
+      if (statusFilter != null) 'StatusFilter': statusFilter,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeScalingPoliciesOutput.fromJson(response_);
   }
 
   /// Retrieves properties for a Realtime script.
@@ -2493,7 +2738,10 @@ class GameLiftApi {
   /// [scriptId]: Unique identifier for a Realtime script to retrieve properties
   /// for.
   Future<DescribeScriptOutput> describeScript(String scriptId) async {
-    return DescribeScriptOutput.fromJson({});
+    var response_ = await _client.send('DescribeScript', {
+      'ScriptId': scriptId,
+    });
+    return DescribeScriptOutput.fromJson(response_);
   }
 
   /// Retrieves valid VPC peering authorizations that are pending for the AWS
@@ -2514,7 +2762,8 @@ class GameLiftApi {
   /// *    DeleteVpcPeeringConnection
   Future<DescribeVpcPeeringAuthorizationsOutput>
       describeVpcPeeringAuthorizations() async {
-    return DescribeVpcPeeringAuthorizationsOutput.fromJson({});
+    var response_ = await _client.send('DescribeVpcPeeringAuthorizations', {});
+    return DescribeVpcPeeringAuthorizationsOutput.fromJson(response_);
   }
 
   /// Retrieves information on VPC peering connections. Use this operation to
@@ -2542,7 +2791,10 @@ class GameLiftApi {
   /// [fleetId]: Unique identifier for a fleet.
   Future<DescribeVpcPeeringConnectionsOutput> describeVpcPeeringConnections(
       {String fleetId}) async {
-    return DescribeVpcPeeringConnectionsOutput.fromJson({});
+    var response_ = await _client.send('DescribeVpcPeeringConnections', {
+      if (fleetId != null) 'FleetId': fleetId,
+    });
+    return DescribeVpcPeeringConnectionsOutput.fromJson(response_);
   }
 
   /// Retrieves the location of stored game session logs for a specified game
@@ -2578,7 +2830,10 @@ class GameLiftApi {
   /// [gameSessionId]: Unique identifier for the game session to get logs for.
   Future<GetGameSessionLogUrlOutput> getGameSessionLogUrl(
       String gameSessionId) async {
-    return GetGameSessionLogUrlOutput.fromJson({});
+    var response_ = await _client.send('GetGameSessionLogUrl', {
+      'GameSessionId': gameSessionId,
+    });
+    return GetGameSessionLogUrlOutput.fromJson(response_);
   }
 
   /// Requests remote access to a fleet instance. Remote access is useful for
@@ -2609,7 +2864,11 @@ class GameLiftApi {
   /// You can access an instance in any status.
   Future<GetInstanceAccessOutput> getInstanceAccess(
       {@required String fleetId, @required String instanceId}) async {
-    return GetInstanceAccessOutput.fromJson({});
+    var response_ = await _client.send('GetInstanceAccess', {
+      'FleetId': fleetId,
+      'InstanceId': instanceId,
+    });
+    return GetInstanceAccessOutput.fromJson(response_);
   }
 
   /// Retrieves all aliases for this AWS account. You can filter the result set
@@ -2659,7 +2918,14 @@ class GameLiftApi {
       String name,
       int limit,
       String nextToken}) async {
-    return ListAliasesOutput.fromJson({});
+    var response_ = await _client.send('ListAliases', {
+      if (routingStrategyType != null)
+        'RoutingStrategyType': routingStrategyType,
+      if (name != null) 'Name': name,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAliasesOutput.fromJson(response_);
   }
 
   /// Retrieves build records for all builds associated with the AWS account in
@@ -2711,7 +2977,12 @@ class GameLiftApi {
   /// value.
   Future<ListBuildsOutput> listBuilds(
       {String status, int limit, String nextToken}) async {
-    return ListBuildsOutput.fromJson({});
+    var response_ = await _client.send('ListBuilds', {
+      if (status != null) 'Status': status,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListBuildsOutput.fromJson(response_);
   }
 
   /// Retrieves a collection of fleet records for this AWS account. You can
@@ -2785,7 +3056,13 @@ class GameLiftApi {
   /// value.
   Future<ListFleetsOutput> listFleets(
       {String buildId, String scriptId, int limit, String nextToken}) async {
-    return ListFleetsOutput.fromJson({});
+    var response_ = await _client.send('ListFleets', {
+      if (buildId != null) 'BuildId': buildId,
+      if (scriptId != null) 'ScriptId': scriptId,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListFleetsOutput.fromJson(response_);
   }
 
   /// Retrieves script records for all Realtime scripts that are associated with
@@ -2816,7 +3093,11 @@ class GameLiftApi {
   /// action. To start at the beginning of the result set, do not specify a
   /// value.
   Future<ListScriptsOutput> listScripts({int limit, String nextToken}) async {
-    return ListScriptsOutput.fromJson({});
+    var response_ = await _client.send('ListScripts', {
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListScriptsOutput.fromJson(response_);
   }
 
   /// Creates or updates a scaling policy for a fleet. Scaling policies are used
@@ -3012,7 +3293,21 @@ class GameLiftApi {
       @required String metricName,
       String policyType,
       TargetConfiguration targetConfiguration}) async {
-    return PutScalingPolicyOutput.fromJson({});
+    var response_ = await _client.send('PutScalingPolicy', {
+      'Name': name,
+      'FleetId': fleetId,
+      if (scalingAdjustment != null) 'ScalingAdjustment': scalingAdjustment,
+      if (scalingAdjustmentType != null)
+        'ScalingAdjustmentType': scalingAdjustmentType,
+      if (threshold != null) 'Threshold': threshold,
+      if (comparisonOperator != null) 'ComparisonOperator': comparisonOperator,
+      if (evaluationPeriods != null) 'EvaluationPeriods': evaluationPeriods,
+      'MetricName': metricName,
+      if (policyType != null) 'PolicyType': policyType,
+      if (targetConfiguration != null)
+        'TargetConfiguration': targetConfiguration,
+    });
+    return PutScalingPolicyOutput.fromJson(response_);
   }
 
   /// Retrieves a fresh set of credentials for use when uploading a new set of
@@ -3043,7 +3338,10 @@ class GameLiftApi {
   /// [buildId]: Unique identifier for a build to get credentials for.
   Future<RequestUploadCredentialsOutput> requestUploadCredentials(
       String buildId) async {
-    return RequestUploadCredentialsOutput.fromJson({});
+    var response_ = await _client.send('RequestUploadCredentials', {
+      'BuildId': buildId,
+    });
+    return RequestUploadCredentialsOutput.fromJson(response_);
   }
 
   /// Retrieves the fleet ID that a specified alias is currently pointing to.
@@ -3062,7 +3360,10 @@ class GameLiftApi {
   ///
   /// [aliasId]: Unique identifier for the alias you want to resolve.
   Future<ResolveAliasOutput> resolveAlias(String aliasId) async {
-    return ResolveAliasOutput.fromJson({});
+    var response_ = await _client.send('ResolveAlias', {
+      'AliasId': aliasId,
+    });
+    return ResolveAliasOutput.fromJson(response_);
   }
 
   /// Retrieves all active game sessions that match a set of search criteria and
@@ -3227,7 +3528,15 @@ class GameLiftApi {
       String sortExpression,
       int limit,
       String nextToken}) async {
-    return SearchGameSessionsOutput.fromJson({});
+    var response_ = await _client.send('SearchGameSessions', {
+      if (fleetId != null) 'FleetId': fleetId,
+      if (aliasId != null) 'AliasId': aliasId,
+      if (filterExpression != null) 'FilterExpression': filterExpression,
+      if (sortExpression != null) 'SortExpression': sortExpression,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return SearchGameSessionsOutput.fromJson(response_);
   }
 
   /// Resumes activity on a fleet that was suspended with StopFleetActions.
@@ -3293,7 +3602,11 @@ class GameLiftApi {
   /// [actions]: List of actions to restart on the fleet.
   Future<StartFleetActionsOutput> startFleetActions(
       {@required String fleetId, @required List<String> actions}) async {
-    return StartFleetActionsOutput.fromJson({});
+    var response_ = await _client.send('StartFleetActions', {
+      'FleetId': fleetId,
+      'Actions': actions,
+    });
+    return StartFleetActionsOutput.fromJson(response_);
   }
 
   /// Places a request for a new game session in a queue (see
@@ -3401,7 +3714,18 @@ class GameLiftApi {
       List<PlayerLatency> playerLatencies,
       List<DesiredPlayerSession> desiredPlayerSessions,
       String gameSessionData}) async {
-    return StartGameSessionPlacementOutput.fromJson({});
+    var response_ = await _client.send('StartGameSessionPlacement', {
+      'PlacementId': placementId,
+      'GameSessionQueueName': gameSessionQueueName,
+      if (gameProperties != null) 'GameProperties': gameProperties,
+      'MaximumPlayerSessionCount': maximumPlayerSessionCount,
+      if (gameSessionName != null) 'GameSessionName': gameSessionName,
+      if (playerLatencies != null) 'PlayerLatencies': playerLatencies,
+      if (desiredPlayerSessions != null)
+        'DesiredPlayerSessions': desiredPlayerSessions,
+      if (gameSessionData != null) 'GameSessionData': gameSessionData,
+    });
+    return StartGameSessionPlacementOutput.fromJson(response_);
   }
 
   /// Finds new players to fill open slots in an existing game session. This
@@ -3486,7 +3810,13 @@ class GameLiftApi {
       @required String configurationName,
       @required String gameSessionArn,
       @required List<Player> players}) async {
-    return StartMatchBackfillOutput.fromJson({});
+    var response_ = await _client.send('StartMatchBackfill', {
+      if (ticketId != null) 'TicketId': ticketId,
+      'ConfigurationName': configurationName,
+      'GameSessionArn': gameSessionArn,
+      'Players': players,
+    });
+    return StartMatchBackfillOutput.fromJson(response_);
   }
 
   /// Uses FlexMatch to create a game match for a group of players based on
@@ -3597,7 +3927,12 @@ class GameLiftApi {
       {String ticketId,
       @required String configurationName,
       @required List<Player> players}) async {
-    return StartMatchmakingOutput.fromJson({});
+    var response_ = await _client.send('StartMatchmaking', {
+      if (ticketId != null) 'TicketId': ticketId,
+      'ConfigurationName': configurationName,
+      'Players': players,
+    });
+    return StartMatchmakingOutput.fromJson(response_);
   }
 
   /// Suspends activity on a fleet. Currently, this operation is used to stop a
@@ -3665,7 +4000,11 @@ class GameLiftApi {
   /// [actions]: List of actions to suspend on the fleet.
   Future<StopFleetActionsOutput> stopFleetActions(
       {@required String fleetId, @required List<String> actions}) async {
-    return StopFleetActionsOutput.fromJson({});
+    var response_ = await _client.send('StopFleetActions', {
+      'FleetId': fleetId,
+      'Actions': actions,
+    });
+    return StopFleetActionsOutput.fromJson(response_);
   }
 
   /// Cancels a game session placement that is in `PENDING` status. To stop a
@@ -3695,7 +4034,10 @@ class GameLiftApi {
   /// [placementId]: Unique identifier for a game session placement to cancel.
   Future<StopGameSessionPlacementOutput> stopGameSessionPlacement(
       String placementId) async {
-    return StopGameSessionPlacementOutput.fromJson({});
+    var response_ = await _client.send('StopGameSessionPlacement', {
+      'PlacementId': placementId,
+    });
+    return StopGameSessionPlacementOutput.fromJson(response_);
   }
 
   /// Cancels a matchmaking ticket or match backfill ticket that is currently
@@ -3731,7 +4073,10 @@ class GameLiftApi {
   ///
   /// [ticketId]: Unique identifier for a matchmaking ticket.
   Future<StopMatchmakingOutput> stopMatchmaking(String ticketId) async {
-    return StopMatchmakingOutput.fromJson({});
+    var response_ = await _client.send('StopMatchmaking', {
+      'TicketId': ticketId,
+    });
+    return StopMatchmakingOutput.fromJson(response_);
   }
 
   /// Updates properties for an alias. To update properties, specify the alias
@@ -3765,7 +4110,13 @@ class GameLiftApi {
       {String name,
       String description,
       RoutingStrategy routingStrategy}) async {
-    return UpdateAliasOutput.fromJson({});
+    var response_ = await _client.send('UpdateAlias', {
+      'AliasId': aliasId,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (routingStrategy != null) 'RoutingStrategy': routingStrategy,
+    });
+    return UpdateAliasOutput.fromJson(response_);
   }
 
   /// Updates metadata in a build record, including the build name and version.
@@ -3799,7 +4150,12 @@ class GameLiftApi {
   /// strings do not need to be unique.
   Future<UpdateBuildOutput> updateBuild(String buildId,
       {String name, String version}) async {
-    return UpdateBuildOutput.fromJson({});
+    var response_ = await _client.send('UpdateBuild', {
+      'BuildId': buildId,
+      if (name != null) 'Name': name,
+      if (version != null) 'Version': version,
+    });
+    return UpdateBuildOutput.fromJson(response_);
   }
 
   /// Updates fleet properties, including name and description, for a fleet. To
@@ -3886,7 +4242,17 @@ class GameLiftApi {
       String newGameSessionProtectionPolicy,
       ResourceCreationLimitPolicy resourceCreationLimitPolicy,
       List<String> metricGroups}) async {
-    return UpdateFleetAttributesOutput.fromJson({});
+    var response_ = await _client.send('UpdateFleetAttributes', {
+      'FleetId': fleetId,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (newGameSessionProtectionPolicy != null)
+        'NewGameSessionProtectionPolicy': newGameSessionProtectionPolicy,
+      if (resourceCreationLimitPolicy != null)
+        'ResourceCreationLimitPolicy': resourceCreationLimitPolicy,
+      if (metricGroups != null) 'MetricGroups': metricGroups,
+    });
+    return UpdateFleetAttributesOutput.fromJson(response_);
   }
 
   /// Updates capacity settings for a fleet. Use this action to specify the
@@ -3966,7 +4332,13 @@ class GameLiftApi {
   /// if not set is 1.
   Future<UpdateFleetCapacityOutput> updateFleetCapacity(String fleetId,
       {int desiredInstances, int minSize, int maxSize}) async {
-    return UpdateFleetCapacityOutput.fromJson({});
+    var response_ = await _client.send('UpdateFleetCapacity', {
+      'FleetId': fleetId,
+      if (desiredInstances != null) 'DesiredInstances': desiredInstances,
+      if (minSize != null) 'MinSize': minSize,
+      if (maxSize != null) 'MaxSize': maxSize,
+    });
+    return UpdateFleetCapacityOutput.fromJson(response_);
   }
 
   /// Updates port settings for a fleet. To update settings, specify the fleet
@@ -4033,7 +4405,14 @@ class GameLiftApi {
   Future<UpdateFleetPortSettingsOutput> updateFleetPortSettings(String fleetId,
       {List<IpPermission> inboundPermissionAuthorizations,
       List<IpPermission> inboundPermissionRevocations}) async {
-    return UpdateFleetPortSettingsOutput.fromJson({});
+    var response_ = await _client.send('UpdateFleetPortSettings', {
+      'FleetId': fleetId,
+      if (inboundPermissionAuthorizations != null)
+        'InboundPermissionAuthorizations': inboundPermissionAuthorizations,
+      if (inboundPermissionRevocations != null)
+        'InboundPermissionRevocations': inboundPermissionRevocations,
+    });
+    return UpdateFleetPortSettingsOutput.fromJson(response_);
   }
 
   /// Updates game session properties. This includes the session name, maximum
@@ -4088,7 +4467,16 @@ class GameLiftApi {
       String name,
       String playerSessionCreationPolicy,
       String protectionPolicy}) async {
-    return UpdateGameSessionOutput.fromJson({});
+    var response_ = await _client.send('UpdateGameSession', {
+      'GameSessionId': gameSessionId,
+      if (maximumPlayerSessionCount != null)
+        'MaximumPlayerSessionCount': maximumPlayerSessionCount,
+      if (name != null) 'Name': name,
+      if (playerSessionCreationPolicy != null)
+        'PlayerSessionCreationPolicy': playerSessionCreationPolicy,
+      if (protectionPolicy != null) 'ProtectionPolicy': protectionPolicy,
+    });
+    return UpdateGameSessionOutput.fromJson(response_);
   }
 
   /// Updates settings for a game session queue, which determines how new game
@@ -4130,7 +4518,14 @@ class GameLiftApi {
       {int timeoutInSeconds,
       List<PlayerLatencyPolicy> playerLatencyPolicies,
       List<GameSessionQueueDestination> destinations}) async {
-    return UpdateGameSessionQueueOutput.fromJson({});
+    var response_ = await _client.send('UpdateGameSessionQueue', {
+      'Name': name,
+      if (timeoutInSeconds != null) 'TimeoutInSeconds': timeoutInSeconds,
+      if (playerLatencyPolicies != null)
+        'PlayerLatencyPolicies': playerLatencyPolicies,
+      if (destinations != null) 'Destinations': destinations,
+    });
+    return UpdateGameSessionQueueOutput.fromJson(response_);
   }
 
   /// Updates settings for a FlexMatch matchmaking configuration. These changes
@@ -4239,7 +4634,26 @@ class GameLiftApi {
       List<GameProperty> gameProperties,
       String gameSessionData,
       String backfillMode}) async {
-    return UpdateMatchmakingConfigurationOutput.fromJson({});
+    var response_ = await _client.send('UpdateMatchmakingConfiguration', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (gameSessionQueueArns != null)
+        'GameSessionQueueArns': gameSessionQueueArns,
+      if (requestTimeoutSeconds != null)
+        'RequestTimeoutSeconds': requestTimeoutSeconds,
+      if (acceptanceTimeoutSeconds != null)
+        'AcceptanceTimeoutSeconds': acceptanceTimeoutSeconds,
+      if (acceptanceRequired != null) 'AcceptanceRequired': acceptanceRequired,
+      if (ruleSetName != null) 'RuleSetName': ruleSetName,
+      if (notificationTarget != null) 'NotificationTarget': notificationTarget,
+      if (additionalPlayerCount != null)
+        'AdditionalPlayerCount': additionalPlayerCount,
+      if (customEventData != null) 'CustomEventData': customEventData,
+      if (gameProperties != null) 'GameProperties': gameProperties,
+      if (gameSessionData != null) 'GameSessionData': gameSessionData,
+      if (backfillMode != null) 'BackfillMode': backfillMode,
+    });
+    return UpdateMatchmakingConfigurationOutput.fromJson(response_);
   }
 
   /// Updates the current run-time configuration for the specified fleet, which
@@ -4319,7 +4733,11 @@ class GameLiftApi {
   Future<UpdateRuntimeConfigurationOutput> updateRuntimeConfiguration(
       {@required String fleetId,
       @required RuntimeConfiguration runtimeConfiguration}) async {
-    return UpdateRuntimeConfigurationOutput.fromJson({});
+    var response_ = await _client.send('UpdateRuntimeConfiguration', {
+      'FleetId': fleetId,
+      'RuntimeConfiguration': runtimeConfiguration,
+    });
+    return UpdateRuntimeConfigurationOutput.fromJson(response_);
   }
 
   /// Updates Realtime script metadata and content.
@@ -4384,7 +4802,14 @@ class GameLiftApi {
       String version,
       S3Location storageLocation,
       Uint8List zipFile}) async {
-    return UpdateScriptOutput.fromJson({});
+    var response_ = await _client.send('UpdateScript', {
+      'ScriptId': scriptId,
+      if (name != null) 'Name': name,
+      if (version != null) 'Version': version,
+      if (storageLocation != null) 'StorageLocation': storageLocation,
+      if (zipFile != null) 'ZipFile': zipFile,
+    });
+    return UpdateScriptOutput.fromJson(response_);
   }
 
   /// Validates the syntax of a matchmaking rule or rule set. This operation
@@ -4420,7 +4845,10 @@ class GameLiftApi {
   /// JSON string.
   Future<ValidateMatchmakingRuleSetOutput> validateMatchmakingRuleSet(
       String ruleSetBody) async {
-    return ValidateMatchmakingRuleSetOutput.fromJson({});
+    var response_ = await _client.send('ValidateMatchmakingRuleSet', {
+      'RuleSetBody': ruleSetBody,
+    });
+    return ValidateMatchmakingRuleSetOutput.fromJson(response_);
   }
 }
 
@@ -4479,7 +4907,24 @@ class Alias {
     this.creationTime,
     this.lastUpdatedTime,
   });
-  static Alias fromJson(Map<String, dynamic> json) => Alias();
+  static Alias fromJson(Map<String, dynamic> json) => Alias(
+        aliasId: json.containsKey('AliasId') ? json['AliasId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        aliasArn:
+            json.containsKey('AliasArn') ? json['AliasArn'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        routingStrategy: json.containsKey('RoutingStrategy')
+            ? RoutingStrategy.fromJson(json['RoutingStrategy'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+      );
 }
 
 /// Values for use in Player attribute key:value pairs. This object lets you
@@ -4508,7 +4953,18 @@ class AttributeValue {
     this.sl,
     this.sdm,
   });
-  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
+  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue(
+        s: json.containsKey('S') ? json['S'] as String : null,
+        n: json.containsKey('N') ? json['N'] as double : null,
+        sl: json.containsKey('SL')
+            ? (json['SL'] as List).map((e) => e as String).toList()
+            : null,
+        sdm: json.containsKey('SDM')
+            ? (json['SDM'] as Map)
+                .map((k, v) => MapEntry(k as String, v as double))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Temporary access credentials used for uploading game build files to Amazon
@@ -4530,7 +4986,17 @@ class AwsCredentials {
     this.secretAccessKey,
     this.sessionToken,
   });
-  static AwsCredentials fromJson(Map<String, dynamic> json) => AwsCredentials();
+  static AwsCredentials fromJson(Map<String, dynamic> json) => AwsCredentials(
+        accessKeyId: json.containsKey('AccessKeyId')
+            ? json['AccessKeyId'] as String
+            : null,
+        secretAccessKey: json.containsKey('SecretAccessKey')
+            ? json['SecretAccessKey'] as String
+            : null,
+        sessionToken: json.containsKey('SessionToken')
+            ? json['SessionToken'] as String
+            : null,
+      );
 }
 
 /// Properties describing a custom game build.
@@ -4597,7 +5063,21 @@ class Build {
     this.operatingSystem,
     this.creationTime,
   });
-  static Build fromJson(Map<String, dynamic> json) => Build();
+  static Build fromJson(Map<String, dynamic> json) => Build(
+        buildId: json.containsKey('BuildId') ? json['BuildId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        sizeOnDisk: json.containsKey('SizeOnDisk')
+            ? BigInt.from(json['SizeOnDisk'])
+            : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 class CertificateConfiguration {
@@ -4607,7 +5087,10 @@ class CertificateConfiguration {
     @required this.certificateType,
   });
   static CertificateConfiguration fromJson(Map<String, dynamic> json) =>
-      CertificateConfiguration();
+      CertificateConfiguration(
+        certificateType: json['CertificateType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the returned data in response to a request action.
@@ -4619,7 +5102,9 @@ class CreateAliasOutput {
     this.alias,
   });
   static CreateAliasOutput fromJson(Map<String, dynamic> json) =>
-      CreateAliasOutput();
+      CreateAliasOutput(
+        alias: json.containsKey('Alias') ? Alias.fromJson(json['Alias']) : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4644,7 +5129,15 @@ class CreateBuildOutput {
     this.storageLocation,
   });
   static CreateBuildOutput fromJson(Map<String, dynamic> json) =>
-      CreateBuildOutput();
+      CreateBuildOutput(
+        build: json.containsKey('Build') ? Build.fromJson(json['Build']) : null,
+        uploadCredentials: json.containsKey('UploadCredentials')
+            ? AwsCredentials.fromJson(json['UploadCredentials'])
+            : null,
+        storageLocation: json.containsKey('StorageLocation')
+            ? S3Location.fromJson(json['StorageLocation'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4656,7 +5149,11 @@ class CreateFleetOutput {
     this.fleetAttributes,
   });
   static CreateFleetOutput fromJson(Map<String, dynamic> json) =>
-      CreateFleetOutput();
+      CreateFleetOutput(
+        fleetAttributes: json.containsKey('FleetAttributes')
+            ? FleetAttributes.fromJson(json['FleetAttributes'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4668,7 +5165,11 @@ class CreateGameSessionOutput {
     this.gameSession,
   });
   static CreateGameSessionOutput fromJson(Map<String, dynamic> json) =>
-      CreateGameSessionOutput();
+      CreateGameSessionOutput(
+        gameSession: json.containsKey('GameSession')
+            ? GameSession.fromJson(json['GameSession'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4680,7 +5181,11 @@ class CreateGameSessionQueueOutput {
     this.gameSessionQueue,
   });
   static CreateGameSessionQueueOutput fromJson(Map<String, dynamic> json) =>
-      CreateGameSessionQueueOutput();
+      CreateGameSessionQueueOutput(
+        gameSessionQueue: json.containsKey('GameSessionQueue')
+            ? GameSessionQueue.fromJson(json['GameSessionQueue'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4693,7 +5198,11 @@ class CreateMatchmakingConfigurationOutput {
   });
   static CreateMatchmakingConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      CreateMatchmakingConfigurationOutput();
+      CreateMatchmakingConfigurationOutput(
+        configuration: json.containsKey('Configuration')
+            ? MatchmakingConfiguration.fromJson(json['Configuration'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4705,7 +5214,9 @@ class CreateMatchmakingRuleSetOutput {
     @required this.ruleSet,
   });
   static CreateMatchmakingRuleSetOutput fromJson(Map<String, dynamic> json) =>
-      CreateMatchmakingRuleSetOutput();
+      CreateMatchmakingRuleSetOutput(
+        ruleSet: MatchmakingRuleSet.fromJson(json['RuleSet']),
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4717,7 +5228,11 @@ class CreatePlayerSessionOutput {
     this.playerSession,
   });
   static CreatePlayerSessionOutput fromJson(Map<String, dynamic> json) =>
-      CreatePlayerSessionOutput();
+      CreatePlayerSessionOutput(
+        playerSession: json.containsKey('PlayerSession')
+            ? PlayerSession.fromJson(json['PlayerSession'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4729,7 +5244,13 @@ class CreatePlayerSessionsOutput {
     this.playerSessions,
   });
   static CreatePlayerSessionsOutput fromJson(Map<String, dynamic> json) =>
-      CreatePlayerSessionsOutput();
+      CreatePlayerSessionsOutput(
+        playerSessions: json.containsKey('PlayerSessions')
+            ? (json['PlayerSessions'] as List)
+                .map((e) => PlayerSession.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateScriptOutput {
@@ -4745,7 +5266,10 @@ class CreateScriptOutput {
     this.script,
   });
   static CreateScriptOutput fromJson(Map<String, dynamic> json) =>
-      CreateScriptOutput();
+      CreateScriptOutput(
+        script:
+            json.containsKey('Script') ? Script.fromJson(json['Script']) : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4758,7 +5282,11 @@ class CreateVpcPeeringAuthorizationOutput {
   });
   static CreateVpcPeeringAuthorizationOutput fromJson(
           Map<String, dynamic> json) =>
-      CreateVpcPeeringAuthorizationOutput();
+      CreateVpcPeeringAuthorizationOutput(
+        vpcPeeringAuthorization: json.containsKey('VpcPeeringAuthorization')
+            ? VpcPeeringAuthorization.fromJson(json['VpcPeeringAuthorization'])
+            : null,
+      );
 }
 
 class CreateVpcPeeringConnectionOutput {
@@ -4809,7 +5337,9 @@ class DescribeAliasOutput {
     this.alias,
   });
   static DescribeAliasOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAliasOutput();
+      DescribeAliasOutput(
+        alias: json.containsKey('Alias') ? Alias.fromJson(json['Alias']) : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4821,7 +5351,9 @@ class DescribeBuildOutput {
     this.build,
   });
   static DescribeBuildOutput fromJson(Map<String, dynamic> json) =>
-      DescribeBuildOutput();
+      DescribeBuildOutput(
+        build: json.containsKey('Build') ? Build.fromJson(json['Build']) : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4834,7 +5366,13 @@ class DescribeEc2InstanceLimitsOutput {
     this.ec2InstanceLimits,
   });
   static DescribeEc2InstanceLimitsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeEc2InstanceLimitsOutput();
+      DescribeEc2InstanceLimitsOutput(
+        ec2InstanceLimits: json.containsKey('EC2InstanceLimits')
+            ? (json['EC2InstanceLimits'] as List)
+                .map((e) => Ec2InstanceLimit.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4853,7 +5391,15 @@ class DescribeFleetAttributesOutput {
     this.nextToken,
   });
   static DescribeFleetAttributesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeFleetAttributesOutput();
+      DescribeFleetAttributesOutput(
+        fleetAttributes: json.containsKey('FleetAttributes')
+            ? (json['FleetAttributes'] as List)
+                .map((e) => FleetAttributes.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4873,7 +5419,15 @@ class DescribeFleetCapacityOutput {
     this.nextToken,
   });
   static DescribeFleetCapacityOutput fromJson(Map<String, dynamic> json) =>
-      DescribeFleetCapacityOutput();
+      DescribeFleetCapacityOutput(
+        fleetCapacity: json.containsKey('FleetCapacity')
+            ? (json['FleetCapacity'] as List)
+                .map((e) => FleetCapacity.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4892,7 +5446,13 @@ class DescribeFleetEventsOutput {
     this.nextToken,
   });
   static DescribeFleetEventsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeFleetEventsOutput();
+      DescribeFleetEventsOutput(
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4904,7 +5464,13 @@ class DescribeFleetPortSettingsOutput {
     this.inboundPermissions,
   });
   static DescribeFleetPortSettingsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeFleetPortSettingsOutput();
+      DescribeFleetPortSettingsOutput(
+        inboundPermissions: json.containsKey('InboundPermissions')
+            ? (json['InboundPermissions'] as List)
+                .map((e) => IpPermission.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4923,7 +5489,15 @@ class DescribeFleetUtilizationOutput {
     this.nextToken,
   });
   static DescribeFleetUtilizationOutput fromJson(Map<String, dynamic> json) =>
-      DescribeFleetUtilizationOutput();
+      DescribeFleetUtilizationOutput(
+        fleetUtilization: json.containsKey('FleetUtilization')
+            ? (json['FleetUtilization'] as List)
+                .map((e) => FleetUtilization.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4943,7 +5517,15 @@ class DescribeGameSessionDetailsOutput {
     this.nextToken,
   });
   static DescribeGameSessionDetailsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeGameSessionDetailsOutput();
+      DescribeGameSessionDetailsOutput(
+        gameSessionDetails: json.containsKey('GameSessionDetails')
+            ? (json['GameSessionDetails'] as List)
+                .map((e) => GameSessionDetail.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4956,7 +5538,11 @@ class DescribeGameSessionPlacementOutput {
   });
   static DescribeGameSessionPlacementOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeGameSessionPlacementOutput();
+      DescribeGameSessionPlacementOutput(
+        gameSessionPlacement: json.containsKey('GameSessionPlacement')
+            ? GameSessionPlacement.fromJson(json['GameSessionPlacement'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4974,7 +5560,15 @@ class DescribeGameSessionQueuesOutput {
     this.nextToken,
   });
   static DescribeGameSessionQueuesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeGameSessionQueuesOutput();
+      DescribeGameSessionQueuesOutput(
+        gameSessionQueues: json.containsKey('GameSessionQueues')
+            ? (json['GameSessionQueues'] as List)
+                .map((e) => GameSessionQueue.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -4993,7 +5587,15 @@ class DescribeGameSessionsOutput {
     this.nextToken,
   });
   static DescribeGameSessionsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeGameSessionsOutput();
+      DescribeGameSessionsOutput(
+        gameSessions: json.containsKey('GameSessions')
+            ? (json['GameSessions'] as List)
+                .map((e) => GameSession.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -5011,7 +5613,15 @@ class DescribeInstancesOutput {
     this.nextToken,
   });
   static DescribeInstancesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeInstancesOutput();
+      DescribeInstancesOutput(
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -5030,7 +5640,15 @@ class DescribeMatchmakingConfigurationsOutput {
   });
   static DescribeMatchmakingConfigurationsOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeMatchmakingConfigurationsOutput();
+      DescribeMatchmakingConfigurationsOutput(
+        configurations: json.containsKey('Configurations')
+            ? (json['Configurations'] as List)
+                .map((e) => MatchmakingConfiguration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -5042,7 +5660,13 @@ class DescribeMatchmakingOutput {
     this.ticketList,
   });
   static DescribeMatchmakingOutput fromJson(Map<String, dynamic> json) =>
-      DescribeMatchmakingOutput();
+      DescribeMatchmakingOutput(
+        ticketList: json.containsKey('TicketList')
+            ? (json['TicketList'] as List)
+                .map((e) => MatchmakingTicket.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -5061,7 +5685,13 @@ class DescribeMatchmakingRuleSetsOutput {
   });
   static DescribeMatchmakingRuleSetsOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeMatchmakingRuleSetsOutput();
+      DescribeMatchmakingRuleSetsOutput(
+        ruleSets: (json['RuleSets'] as List)
+            .map((e) => MatchmakingRuleSet.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -5080,7 +5710,15 @@ class DescribePlayerSessionsOutput {
     this.nextToken,
   });
   static DescribePlayerSessionsOutput fromJson(Map<String, dynamic> json) =>
-      DescribePlayerSessionsOutput();
+      DescribePlayerSessionsOutput(
+        playerSessions: json.containsKey('PlayerSessions')
+            ? (json['PlayerSessions'] as List)
+                .map((e) => PlayerSession.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -5094,7 +5732,11 @@ class DescribeRuntimeConfigurationOutput {
   });
   static DescribeRuntimeConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeRuntimeConfigurationOutput();
+      DescribeRuntimeConfigurationOutput(
+        runtimeConfiguration: json.containsKey('RuntimeConfiguration')
+            ? RuntimeConfiguration.fromJson(json['RuntimeConfiguration'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -5113,7 +5755,15 @@ class DescribeScalingPoliciesOutput {
     this.nextToken,
   });
   static DescribeScalingPoliciesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeScalingPoliciesOutput();
+      DescribeScalingPoliciesOutput(
+        scalingPolicies: json.containsKey('ScalingPolicies')
+            ? (json['ScalingPolicies'] as List)
+                .map((e) => ScalingPolicy.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeScriptOutput {
@@ -5124,7 +5774,10 @@ class DescribeScriptOutput {
     this.script,
   });
   static DescribeScriptOutput fromJson(Map<String, dynamic> json) =>
-      DescribeScriptOutput();
+      DescribeScriptOutput(
+        script:
+            json.containsKey('Script') ? Script.fromJson(json['Script']) : null,
+      );
 }
 
 class DescribeVpcPeeringAuthorizationsOutput {
@@ -5137,7 +5790,13 @@ class DescribeVpcPeeringAuthorizationsOutput {
   });
   static DescribeVpcPeeringAuthorizationsOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeVpcPeeringAuthorizationsOutput();
+      DescribeVpcPeeringAuthorizationsOutput(
+        vpcPeeringAuthorizations: json.containsKey('VpcPeeringAuthorizations')
+            ? (json['VpcPeeringAuthorizations'] as List)
+                .map((e) => VpcPeeringAuthorization.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -5150,7 +5809,13 @@ class DescribeVpcPeeringConnectionsOutput {
   });
   static DescribeVpcPeeringConnectionsOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeVpcPeeringConnectionsOutput();
+      DescribeVpcPeeringConnectionsOutput(
+        vpcPeeringConnections: json.containsKey('VpcPeeringConnections')
+            ? (json['VpcPeeringConnections'] as List)
+                .map((e) => VpcPeeringConnection.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Player information for use when creating player sessions using a game
@@ -5167,6 +5832,7 @@ class DesiredPlayerSession {
     this.playerId,
     this.playerData,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Current status of fleet capacity. The number of active instances should
@@ -5248,7 +5914,16 @@ class Ec2InstanceCounts {
     this.terminating,
   });
   static Ec2InstanceCounts fromJson(Map<String, dynamic> json) =>
-      Ec2InstanceCounts();
+      Ec2InstanceCounts(
+        desired: json.containsKey('DESIRED') ? json['DESIRED'] as int : null,
+        minimum: json.containsKey('MINIMUM') ? json['MINIMUM'] as int : null,
+        maximum: json.containsKey('MAXIMUM') ? json['MAXIMUM'] as int : null,
+        pending: json.containsKey('PENDING') ? json['PENDING'] as int : null,
+        active: json.containsKey('ACTIVE') ? json['ACTIVE'] as int : null,
+        idle: json.containsKey('IDLE') ? json['IDLE'] as int : null,
+        terminating:
+            json.containsKey('TERMINATING') ? json['TERMINATING'] as int : null,
+      );
 }
 
 /// Maximum number of instances allowed based on the Amazon Elastic Compute
@@ -5276,7 +5951,17 @@ class Ec2InstanceLimit {
     this.instanceLimit,
   });
   static Ec2InstanceLimit fromJson(Map<String, dynamic> json) =>
-      Ec2InstanceLimit();
+      Ec2InstanceLimit(
+        ec2InstanceType: json.containsKey('EC2InstanceType')
+            ? json['EC2InstanceType'] as String
+            : null,
+        currentInstances: json.containsKey('CurrentInstances')
+            ? json['CurrentInstances'] as int
+            : null,
+        instanceLimit: json.containsKey('InstanceLimit')
+            ? json['InstanceLimit'] as int
+            : null,
+      );
 }
 
 /// Log entry describing an event that involves Amazon GameLift resources (such
@@ -5415,7 +6100,21 @@ class Event {
     this.eventTime,
     this.preSignedLogUrl,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        eventCode:
+            json.containsKey('EventCode') ? json['EventCode'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        eventTime: json.containsKey('EventTime')
+            ? DateTime.parse(json['EventTime'])
+            : null,
+        preSignedLogUrl: json.containsKey('PreSignedLogUrl')
+            ? json['PreSignedLogUrl'] as String
+            : null,
+      );
 }
 
 /// General properties describing a fleet.
@@ -5606,8 +6305,64 @@ class FleetAttributes {
     this.instanceRoleArn,
     this.certificateConfiguration,
   });
-  static FleetAttributes fromJson(Map<String, dynamic> json) =>
-      FleetAttributes();
+  static FleetAttributes fromJson(Map<String, dynamic> json) => FleetAttributes(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        fleetArn:
+            json.containsKey('FleetArn') ? json['FleetArn'] as String : null,
+        fleetType:
+            json.containsKey('FleetType') ? json['FleetType'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        terminationTime: json.containsKey('TerminationTime')
+            ? DateTime.parse(json['TerminationTime'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        buildId: json.containsKey('BuildId') ? json['BuildId'] as String : null,
+        scriptId:
+            json.containsKey('ScriptId') ? json['ScriptId'] as String : null,
+        serverLaunchPath: json.containsKey('ServerLaunchPath')
+            ? json['ServerLaunchPath'] as String
+            : null,
+        serverLaunchParameters: json.containsKey('ServerLaunchParameters')
+            ? json['ServerLaunchParameters'] as String
+            : null,
+        logPaths: json.containsKey('LogPaths')
+            ? (json['LogPaths'] as List).map((e) => e as String).toList()
+            : null,
+        newGameSessionProtectionPolicy:
+            json.containsKey('NewGameSessionProtectionPolicy')
+                ? json['NewGameSessionProtectionPolicy'] as String
+                : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+        resourceCreationLimitPolicy:
+            json.containsKey('ResourceCreationLimitPolicy')
+                ? ResourceCreationLimitPolicy.fromJson(
+                    json['ResourceCreationLimitPolicy'])
+                : null,
+        metricGroups: json.containsKey('MetricGroups')
+            ? (json['MetricGroups'] as List).map((e) => e as String).toList()
+            : null,
+        stoppedActions: json.containsKey('StoppedActions')
+            ? (json['StoppedActions'] as List).map((e) => e as String).toList()
+            : null,
+        instanceRoleArn: json.containsKey('InstanceRoleArn')
+            ? json['InstanceRoleArn'] as String
+            : null,
+        certificateConfiguration: json.containsKey('CertificateConfiguration')
+            ? CertificateConfiguration.fromJson(
+                json['CertificateConfiguration'])
+            : null,
+      );
 }
 
 /// Information about the fleet's capacity. Fleet capacity is measured in EC2
@@ -5674,7 +6429,15 @@ class FleetCapacity {
     this.instanceType,
     this.instanceCounts,
   });
-  static FleetCapacity fromJson(Map<String, dynamic> json) => FleetCapacity();
+  static FleetCapacity fromJson(Map<String, dynamic> json) => FleetCapacity(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        instanceCounts: json.containsKey('InstanceCounts')
+            ? Ec2InstanceCounts.fromJson(json['InstanceCounts'])
+            : null,
+      );
 }
 
 /// Current status of fleet utilization, including the number of game and player
@@ -5747,7 +6510,21 @@ class FleetUtilization {
     this.maximumPlayerSessionCount,
   });
   static FleetUtilization fromJson(Map<String, dynamic> json) =>
-      FleetUtilization();
+      FleetUtilization(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        activeServerProcessCount: json.containsKey('ActiveServerProcessCount')
+            ? json['ActiveServerProcessCount'] as int
+            : null,
+        activeGameSessionCount: json.containsKey('ActiveGameSessionCount')
+            ? json['ActiveGameSessionCount'] as int
+            : null,
+        currentPlayerSessionCount: json.containsKey('CurrentPlayerSessionCount')
+            ? json['CurrentPlayerSessionCount'] as int
+            : null,
+        maximumPlayerSessionCount: json.containsKey('MaximumPlayerSessionCount')
+            ? json['MaximumPlayerSessionCount'] as int
+            : null,
+      );
 }
 
 /// Set of key-value pairs that contain information about a game session. When
@@ -5768,7 +6545,11 @@ class GameProperty {
     @required this.key,
     @required this.value,
   });
-  static GameProperty fromJson(Map<String, dynamic> json) => GameProperty();
+  static GameProperty fromJson(Map<String, dynamic> json) => GameProperty(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Properties describing a game session.
@@ -5900,7 +6681,50 @@ class GameSession {
     this.gameSessionData,
     this.matchmakerData,
   });
-  static GameSession fromJson(Map<String, dynamic> json) => GameSession();
+  static GameSession fromJson(Map<String, dynamic> json) => GameSession(
+        gameSessionId: json.containsKey('GameSessionId')
+            ? json['GameSessionId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        terminationTime: json.containsKey('TerminationTime')
+            ? DateTime.parse(json['TerminationTime'])
+            : null,
+        currentPlayerSessionCount: json.containsKey('CurrentPlayerSessionCount')
+            ? json['CurrentPlayerSessionCount'] as int
+            : null,
+        maximumPlayerSessionCount: json.containsKey('MaximumPlayerSessionCount')
+            ? json['MaximumPlayerSessionCount'] as int
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+        gameProperties: json.containsKey('GameProperties')
+            ? (json['GameProperties'] as List)
+                .map((e) => GameProperty.fromJson(e))
+                .toList()
+            : null,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        dnsName: json.containsKey('DnsName') ? json['DnsName'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        playerSessionCreationPolicy:
+            json.containsKey('PlayerSessionCreationPolicy')
+                ? json['PlayerSessionCreationPolicy'] as String
+                : null,
+        creatorId:
+            json.containsKey('CreatorId') ? json['CreatorId'] as String : null,
+        gameSessionData: json.containsKey('GameSessionData')
+            ? json['GameSessionData'] as String
+            : null,
+        matchmakerData: json.containsKey('MatchmakerData')
+            ? json['MatchmakerData'] as String
+            : null,
+      );
 }
 
 /// Connection information for the new game session that is created with
@@ -5937,7 +6761,20 @@ class GameSessionConnectionInfo {
     this.matchedPlayerSessions,
   });
   static GameSessionConnectionInfo fromJson(Map<String, dynamic> json) =>
-      GameSessionConnectionInfo();
+      GameSessionConnectionInfo(
+        gameSessionArn: json.containsKey('GameSessionArn')
+            ? json['GameSessionArn'] as String
+            : null,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        dnsName: json.containsKey('DnsName') ? json['DnsName'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        matchedPlayerSessions: json.containsKey('MatchedPlayerSessions')
+            ? (json['MatchedPlayerSessions'] as List)
+                .map((e) => MatchedPlayerSession.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A game session's properties plus the protection policy currently in force.
@@ -5959,7 +6796,14 @@ class GameSessionDetail {
     this.protectionPolicy,
   });
   static GameSessionDetail fromJson(Map<String, dynamic> json) =>
-      GameSessionDetail();
+      GameSessionDetail(
+        gameSession: json.containsKey('GameSession')
+            ? GameSession.fromJson(json['GameSession'])
+            : null,
+        protectionPolicy: json.containsKey('ProtectionPolicy')
+            ? json['ProtectionPolicy'] as String
+            : null,
+      );
 }
 
 /// Object that describes a StartGameSessionPlacement request. This object
@@ -6096,7 +6940,61 @@ class GameSessionPlacement {
     this.matchmakerData,
   });
   static GameSessionPlacement fromJson(Map<String, dynamic> json) =>
-      GameSessionPlacement();
+      GameSessionPlacement(
+        placementId: json.containsKey('PlacementId')
+            ? json['PlacementId'] as String
+            : null,
+        gameSessionQueueName: json.containsKey('GameSessionQueueName')
+            ? json['GameSessionQueueName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        gameProperties: json.containsKey('GameProperties')
+            ? (json['GameProperties'] as List)
+                .map((e) => GameProperty.fromJson(e))
+                .toList()
+            : null,
+        maximumPlayerSessionCount: json.containsKey('MaximumPlayerSessionCount')
+            ? json['MaximumPlayerSessionCount'] as int
+            : null,
+        gameSessionName: json.containsKey('GameSessionName')
+            ? json['GameSessionName'] as String
+            : null,
+        gameSessionId: json.containsKey('GameSessionId')
+            ? json['GameSessionId'] as String
+            : null,
+        gameSessionArn: json.containsKey('GameSessionArn')
+            ? json['GameSessionArn'] as String
+            : null,
+        gameSessionRegion: json.containsKey('GameSessionRegion')
+            ? json['GameSessionRegion'] as String
+            : null,
+        playerLatencies: json.containsKey('PlayerLatencies')
+            ? (json['PlayerLatencies'] as List)
+                .map((e) => PlayerLatency.fromJson(e))
+                .toList()
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        dnsName: json.containsKey('DnsName') ? json['DnsName'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        placedPlayerSessions: json.containsKey('PlacedPlayerSessions')
+            ? (json['PlacedPlayerSessions'] as List)
+                .map((e) => PlacedPlayerSession.fromJson(e))
+                .toList()
+            : null,
+        gameSessionData: json.containsKey('GameSessionData')
+            ? json['GameSessionData'] as String
+            : null,
+        matchmakerData: json.containsKey('MatchmakerData')
+            ? json['MatchmakerData'] as String
+            : null,
+      );
 }
 
 /// Configuration of a queue that is used to process game session placement
@@ -6164,7 +7062,25 @@ class GameSessionQueue {
     this.destinations,
   });
   static GameSessionQueue fromJson(Map<String, dynamic> json) =>
-      GameSessionQueue();
+      GameSessionQueue(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        gameSessionQueueArn: json.containsKey('GameSessionQueueArn')
+            ? json['GameSessionQueueArn'] as String
+            : null,
+        timeoutInSeconds: json.containsKey('TimeoutInSeconds')
+            ? json['TimeoutInSeconds'] as int
+            : null,
+        playerLatencyPolicies: json.containsKey('PlayerLatencyPolicies')
+            ? (json['PlayerLatencyPolicies'] as List)
+                .map((e) => PlayerLatencyPolicy.fromJson(e))
+                .toList()
+            : null,
+        destinations: json.containsKey('Destinations')
+            ? (json['Destinations'] as List)
+                .map((e) => GameSessionQueueDestination.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Fleet designated in a game session queue. Requests for new game sessions in
@@ -6188,7 +7104,12 @@ class GameSessionQueueDestination {
     this.destinationArn,
   });
   static GameSessionQueueDestination fromJson(Map<String, dynamic> json) =>
-      GameSessionQueueDestination();
+      GameSessionQueueDestination(
+        destinationArn: json.containsKey('DestinationArn')
+            ? json['DestinationArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the returned data in response to a request action.
@@ -6203,7 +7124,11 @@ class GetGameSessionLogUrlOutput {
     this.preSignedUrl,
   });
   static GetGameSessionLogUrlOutput fromJson(Map<String, dynamic> json) =>
-      GetGameSessionLogUrlOutput();
+      GetGameSessionLogUrlOutput(
+        preSignedUrl: json.containsKey('PreSignedUrl')
+            ? json['PreSignedUrl'] as String
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -6216,7 +7141,11 @@ class GetInstanceAccessOutput {
     this.instanceAccess,
   });
   static GetInstanceAccessOutput fromJson(Map<String, dynamic> json) =>
-      GetInstanceAccessOutput();
+      GetInstanceAccessOutput(
+        instanceAccess: json.containsKey('InstanceAccess')
+            ? InstanceAccess.fromJson(json['InstanceAccess'])
+            : null,
+      );
 }
 
 /// Properties that describe an instance of a virtual computing resource that
@@ -6270,7 +7199,23 @@ class Instance {
     this.status,
     this.creationTime,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        dnsName: json.containsKey('DnsName') ? json['DnsName'] as String : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// Information required to remotely connect to a fleet instance. Access is
@@ -6298,7 +7243,20 @@ class InstanceAccess {
     this.operatingSystem,
     this.credentials,
   });
-  static InstanceAccess fromJson(Map<String, dynamic> json) => InstanceAccess();
+  static InstanceAccess fromJson(Map<String, dynamic> json) => InstanceAccess(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+        credentials: json.containsKey('Credentials')
+            ? InstanceCredentials.fromJson(json['Credentials'])
+            : null,
+      );
 }
 
 /// Set of credentials required to remotely access a fleet instance. Access
@@ -6318,7 +7276,11 @@ class InstanceCredentials {
     this.secret,
   });
   static InstanceCredentials fromJson(Map<String, dynamic> json) =>
-      InstanceCredentials();
+      InstanceCredentials(
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        secret: json.containsKey('Secret') ? json['Secret'] as String : null,
+      );
 }
 
 /// A range of IP addresses and port settings that allow inbound traffic to
@@ -6351,7 +7313,13 @@ class IpPermission {
     @required this.ipRange,
     @required this.protocol,
   });
-  static IpPermission fromJson(Map<String, dynamic> json) => IpPermission();
+  static IpPermission fromJson(Map<String, dynamic> json) => IpPermission(
+        fromPort: json['FromPort'] as int,
+        toPort: json['ToPort'] as int,
+        ipRange: json['IpRange'] as String,
+        protocol: json['Protocol'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the returned data in response to a request action.
@@ -6369,7 +7337,13 @@ class ListAliasesOutput {
     this.nextToken,
   });
   static ListAliasesOutput fromJson(Map<String, dynamic> json) =>
-      ListAliasesOutput();
+      ListAliasesOutput(
+        aliases: json.containsKey('Aliases')
+            ? (json['Aliases'] as List).map((e) => Alias.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -6387,7 +7361,13 @@ class ListBuildsOutput {
     this.nextToken,
   });
   static ListBuildsOutput fromJson(Map<String, dynamic> json) =>
-      ListBuildsOutput();
+      ListBuildsOutput(
+        builds: json.containsKey('Builds')
+            ? (json['Builds'] as List).map((e) => Build.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -6408,7 +7388,13 @@ class ListFleetsOutput {
     this.nextToken,
   });
   static ListFleetsOutput fromJson(Map<String, dynamic> json) =>
-      ListFleetsOutput();
+      ListFleetsOutput(
+        fleetIds: json.containsKey('FleetIds')
+            ? (json['FleetIds'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListScriptsOutput {
@@ -6425,7 +7411,13 @@ class ListScriptsOutput {
     this.nextToken,
   });
   static ListScriptsOutput fromJson(Map<String, dynamic> json) =>
-      ListScriptsOutput();
+      ListScriptsOutput(
+        scripts: json.containsKey('Scripts')
+            ? (json['Scripts'] as List).map((e) => Script.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents a new player session that is created as a result of a successful
@@ -6447,7 +7439,13 @@ class MatchedPlayerSession {
     this.playerSessionId,
   });
   static MatchedPlayerSession fromJson(Map<String, dynamic> json) =>
-      MatchedPlayerSession();
+      MatchedPlayerSession(
+        playerId:
+            json.containsKey('PlayerId') ? json['PlayerId'] as String : null,
+        playerSessionId: json.containsKey('PlayerSessionId')
+            ? json['PlayerSessionId'] as String
+            : null,
+      );
 }
 
 /// Guidelines for use with FlexMatch to match players into games. All
@@ -6549,7 +7547,52 @@ class MatchmakingConfiguration {
     this.backfillMode,
   });
   static MatchmakingConfiguration fromJson(Map<String, dynamic> json) =>
-      MatchmakingConfiguration();
+      MatchmakingConfiguration(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        gameSessionQueueArns: json.containsKey('GameSessionQueueArns')
+            ? (json['GameSessionQueueArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        requestTimeoutSeconds: json.containsKey('RequestTimeoutSeconds')
+            ? json['RequestTimeoutSeconds'] as int
+            : null,
+        acceptanceTimeoutSeconds: json.containsKey('AcceptanceTimeoutSeconds')
+            ? json['AcceptanceTimeoutSeconds'] as int
+            : null,
+        acceptanceRequired: json.containsKey('AcceptanceRequired')
+            ? json['AcceptanceRequired'] as bool
+            : null,
+        ruleSetName: json.containsKey('RuleSetName')
+            ? json['RuleSetName'] as String
+            : null,
+        notificationTarget: json.containsKey('NotificationTarget')
+            ? json['NotificationTarget'] as String
+            : null,
+        additionalPlayerCount: json.containsKey('AdditionalPlayerCount')
+            ? json['AdditionalPlayerCount'] as int
+            : null,
+        customEventData: json.containsKey('CustomEventData')
+            ? json['CustomEventData'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        gameProperties: json.containsKey('GameProperties')
+            ? (json['GameProperties'] as List)
+                .map((e) => GameProperty.fromJson(e))
+                .toList()
+            : null,
+        gameSessionData: json.containsKey('GameSessionData')
+            ? json['GameSessionData'] as String
+            : null,
+        backfillMode: json.containsKey('BackfillMode')
+            ? json['BackfillMode'] as String
+            : null,
+      );
 }
 
 /// Set of rule statements, used with FlexMatch, that determine how to build
@@ -6604,7 +7647,15 @@ class MatchmakingRuleSet {
     this.creationTime,
   });
   static MatchmakingRuleSet fromJson(Map<String, dynamic> json) =>
-      MatchmakingRuleSet();
+      MatchmakingRuleSet(
+        ruleSetName: json.containsKey('RuleSetName')
+            ? json['RuleSetName'] as String
+            : null,
+        ruleSetBody: json['RuleSetBody'] as String,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// Ticket generated to track the progress of a matchmaking request. Each ticket
@@ -6704,7 +7755,36 @@ class MatchmakingTicket {
     this.estimatedWaitTime,
   });
   static MatchmakingTicket fromJson(Map<String, dynamic> json) =>
-      MatchmakingTicket();
+      MatchmakingTicket(
+        ticketId:
+            json.containsKey('TicketId') ? json['TicketId'] as String : null,
+        configurationName: json.containsKey('ConfigurationName')
+            ? json['ConfigurationName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        players: json.containsKey('Players')
+            ? (json['Players'] as List).map((e) => Player.fromJson(e)).toList()
+            : null,
+        gameSessionConnectionInfo: json.containsKey('GameSessionConnectionInfo')
+            ? GameSessionConnectionInfo.fromJson(
+                json['GameSessionConnectionInfo'])
+            : null,
+        estimatedWaitTime: json.containsKey('EstimatedWaitTime')
+            ? json['EstimatedWaitTime'] as int
+            : null,
+      );
 }
 
 /// Information about a player session that was created as part of a
@@ -6738,7 +7818,13 @@ class PlacedPlayerSession {
     this.playerSessionId,
   });
   static PlacedPlayerSession fromJson(Map<String, dynamic> json) =>
-      PlacedPlayerSession();
+      PlacedPlayerSession(
+        playerId:
+            json.containsKey('PlayerId') ? json['PlayerId'] as String : null,
+        playerSessionId: json.containsKey('PlayerSessionId')
+            ? json['PlayerSessionId'] as String
+            : null,
+      );
 }
 
 /// Represents a player in matchmaking. When starting a matchmaking request, a
@@ -6775,7 +7861,20 @@ class Player {
     this.team,
     this.latencyInMs,
   });
-  static Player fromJson(Map<String, dynamic> json) => Player();
+  static Player fromJson(Map<String, dynamic> json) => Player(
+        playerId:
+            json.containsKey('PlayerId') ? json['PlayerId'] as String : null,
+        playerAttributes: json.containsKey('PlayerAttributes')
+            ? (json['PlayerAttributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        team: json.containsKey('Team') ? json['Team'] as String : null,
+        latencyInMs: json.containsKey('LatencyInMs')
+            ? (json['LatencyInMs'] as Map)
+                .map((k, v) => MapEntry(k as String, v as int))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Regional latency information for a player, used when requesting a new game
@@ -6800,7 +7899,17 @@ class PlayerLatency {
     this.regionIdentifier,
     this.latencyInMilliseconds,
   });
-  static PlayerLatency fromJson(Map<String, dynamic> json) => PlayerLatency();
+  static PlayerLatency fromJson(Map<String, dynamic> json) => PlayerLatency(
+        playerId:
+            json.containsKey('PlayerId') ? json['PlayerId'] as String : null,
+        regionIdentifier: json.containsKey('RegionIdentifier')
+            ? json['RegionIdentifier'] as String
+            : null,
+        latencyInMilliseconds: json.containsKey('LatencyInMilliseconds')
+            ? json['LatencyInMilliseconds'] as double
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Queue setting that determines the highest latency allowed for individual
@@ -6831,7 +7940,16 @@ class PlayerLatencyPolicy {
     this.policyDurationSeconds,
   });
   static PlayerLatencyPolicy fromJson(Map<String, dynamic> json) =>
-      PlayerLatencyPolicy();
+      PlayerLatencyPolicy(
+        maximumIndividualPlayerLatencyMilliseconds:
+            json.containsKey('MaximumIndividualPlayerLatencyMilliseconds')
+                ? json['MaximumIndividualPlayerLatencyMilliseconds'] as int
+                : null,
+        policyDurationSeconds: json.containsKey('PolicyDurationSeconds')
+            ? json['PolicyDurationSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Properties describing a player session. Player session objects are created
@@ -6929,7 +8047,31 @@ class PlayerSession {
     this.port,
     this.playerData,
   });
-  static PlayerSession fromJson(Map<String, dynamic> json) => PlayerSession();
+  static PlayerSession fromJson(Map<String, dynamic> json) => PlayerSession(
+        playerSessionId: json.containsKey('PlayerSessionId')
+            ? json['PlayerSessionId'] as String
+            : null,
+        playerId:
+            json.containsKey('PlayerId') ? json['PlayerId'] as String : null,
+        gameSessionId: json.containsKey('GameSessionId')
+            ? json['GameSessionId'] as String
+            : null,
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        terminationTime: json.containsKey('TerminationTime')
+            ? DateTime.parse(json['TerminationTime'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        dnsName: json.containsKey('DnsName') ? json['DnsName'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        playerData: json.containsKey('PlayerData')
+            ? json['PlayerData'] as String
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -6942,7 +8084,9 @@ class PutScalingPolicyOutput {
     this.name,
   });
   static PutScalingPolicyOutput fromJson(Map<String, dynamic> json) =>
-      PutScalingPolicyOutput();
+      PutScalingPolicyOutput(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -6960,7 +8104,14 @@ class RequestUploadCredentialsOutput {
     this.storageLocation,
   });
   static RequestUploadCredentialsOutput fromJson(Map<String, dynamic> json) =>
-      RequestUploadCredentialsOutput();
+      RequestUploadCredentialsOutput(
+        uploadCredentials: json.containsKey('UploadCredentials')
+            ? AwsCredentials.fromJson(json['UploadCredentials'])
+            : null,
+        storageLocation: json.containsKey('StorageLocation')
+            ? S3Location.fromJson(json['StorageLocation'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -6972,7 +8123,9 @@ class ResolveAliasOutput {
     this.fleetId,
   });
   static ResolveAliasOutput fromJson(Map<String, dynamic> json) =>
-      ResolveAliasOutput();
+      ResolveAliasOutput(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+      );
 }
 
 /// Policy that limits the number of game sessions a player can create on the
@@ -6999,7 +8152,15 @@ class ResourceCreationLimitPolicy {
     this.policyPeriodInMinutes,
   });
   static ResourceCreationLimitPolicy fromJson(Map<String, dynamic> json) =>
-      ResourceCreationLimitPolicy();
+      ResourceCreationLimitPolicy(
+        newGameSessionsPerCreator: json.containsKey('NewGameSessionsPerCreator')
+            ? json['NewGameSessionsPerCreator'] as int
+            : null,
+        policyPeriodInMinutes: json.containsKey('PolicyPeriodInMinutes')
+            ? json['PolicyPeriodInMinutes'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Routing configuration for a fleet alias.
@@ -7040,8 +8201,12 @@ class RoutingStrategy {
     this.fleetId,
     this.message,
   });
-  static RoutingStrategy fromJson(Map<String, dynamic> json) =>
-      RoutingStrategy();
+  static RoutingStrategy fromJson(Map<String, dynamic> json) => RoutingStrategy(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A collection of server process configurations that describe what processes
@@ -7122,7 +8287,22 @@ class RuntimeConfiguration {
     this.gameSessionActivationTimeoutSeconds,
   });
   static RuntimeConfiguration fromJson(Map<String, dynamic> json) =>
-      RuntimeConfiguration();
+      RuntimeConfiguration(
+        serverProcesses: json.containsKey('ServerProcesses')
+            ? (json['ServerProcesses'] as List)
+                .map((e) => ServerProcess.fromJson(e))
+                .toList()
+            : null,
+        maxConcurrentGameSessionActivations:
+            json.containsKey('MaxConcurrentGameSessionActivations')
+                ? json['MaxConcurrentGameSessionActivations'] as int
+                : null,
+        gameSessionActivationTimeoutSeconds:
+            json.containsKey('GameSessionActivationTimeoutSeconds')
+                ? json['GameSessionActivationTimeoutSeconds'] as int
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Location in Amazon Simple Storage Service (Amazon S3) where build or script
@@ -7152,7 +8332,15 @@ class S3Location {
     this.roleArn,
     this.objectVersion,
   });
-  static S3Location fromJson(Map<String, dynamic> json) => S3Location();
+  static S3Location fromJson(Map<String, dynamic> json) => S3Location(
+        bucket: json.containsKey('Bucket') ? json['Bucket'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        objectVersion: json.containsKey('ObjectVersion')
+            ? json['ObjectVersion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Rule that controls how a fleet is scaled. Scaling policies are uniquely
@@ -7303,7 +8491,34 @@ class ScalingPolicy {
     this.policyType,
     this.targetConfiguration,
   });
-  static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy();
+  static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        scalingAdjustment: json.containsKey('ScalingAdjustment')
+            ? json['ScalingAdjustment'] as int
+            : null,
+        scalingAdjustmentType: json.containsKey('ScalingAdjustmentType')
+            ? json['ScalingAdjustmentType'] as String
+            : null,
+        comparisonOperator: json.containsKey('ComparisonOperator')
+            ? json['ComparisonOperator'] as String
+            : null,
+        threshold:
+            json.containsKey('Threshold') ? json['Threshold'] as double : null,
+        evaluationPeriods: json.containsKey('EvaluationPeriods')
+            ? json['EvaluationPeriods'] as int
+            : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        policyType: json.containsKey('PolicyType')
+            ? json['PolicyType'] as String
+            : null,
+        targetConfiguration: json.containsKey('TargetConfiguration')
+            ? TargetConfiguration.fromJson(json['TargetConfiguration'])
+            : null,
+      );
 }
 
 /// Properties describing a Realtime script.
@@ -7350,7 +8565,21 @@ class Script {
     this.creationTime,
     this.storageLocation,
   });
-  static Script fromJson(Map<String, dynamic> json) => Script();
+  static Script fromJson(Map<String, dynamic> json) => Script(
+        scriptId:
+            json.containsKey('ScriptId') ? json['ScriptId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        sizeOnDisk: json.containsKey('SizeOnDisk')
+            ? BigInt.from(json['SizeOnDisk'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        storageLocation: json.containsKey('StorageLocation')
+            ? S3Location.fromJson(json['StorageLocation'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7369,7 +8598,15 @@ class SearchGameSessionsOutput {
     this.nextToken,
   });
   static SearchGameSessionsOutput fromJson(Map<String, dynamic> json) =>
-      SearchGameSessionsOutput();
+      SearchGameSessionsOutput(
+        gameSessions: json.containsKey('GameSessions')
+            ? (json['GameSessions'] as List)
+                .map((e) => GameSession.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A set of instructions for launching server processes on each instance in a
@@ -7404,7 +8641,14 @@ class ServerProcess {
     this.parameters,
     @required this.concurrentExecutions,
   });
-  static ServerProcess fromJson(Map<String, dynamic> json) => ServerProcess();
+  static ServerProcess fromJson(Map<String, dynamic> json) => ServerProcess(
+        launchPath: json['LaunchPath'] as String,
+        parameters: json.containsKey('Parameters')
+            ? json['Parameters'] as String
+            : null,
+        concurrentExecutions: json['ConcurrentExecutions'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartFleetActionsOutput {
@@ -7424,7 +8668,11 @@ class StartGameSessionPlacementOutput {
     this.gameSessionPlacement,
   });
   static StartGameSessionPlacementOutput fromJson(Map<String, dynamic> json) =>
-      StartGameSessionPlacementOutput();
+      StartGameSessionPlacementOutput(
+        gameSessionPlacement: json.containsKey('GameSessionPlacement')
+            ? GameSessionPlacement.fromJson(json['GameSessionPlacement'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7438,7 +8686,11 @@ class StartMatchBackfillOutput {
     this.matchmakingTicket,
   });
   static StartMatchBackfillOutput fromJson(Map<String, dynamic> json) =>
-      StartMatchBackfillOutput();
+      StartMatchBackfillOutput(
+        matchmakingTicket: json.containsKey('MatchmakingTicket')
+            ? MatchmakingTicket.fromJson(json['MatchmakingTicket'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7452,7 +8704,11 @@ class StartMatchmakingOutput {
     this.matchmakingTicket,
   });
   static StartMatchmakingOutput fromJson(Map<String, dynamic> json) =>
-      StartMatchmakingOutput();
+      StartMatchmakingOutput(
+        matchmakingTicket: json.containsKey('MatchmakingTicket')
+            ? MatchmakingTicket.fromJson(json['MatchmakingTicket'])
+            : null,
+      );
 }
 
 class StopFleetActionsOutput {
@@ -7471,7 +8727,11 @@ class StopGameSessionPlacementOutput {
     this.gameSessionPlacement,
   });
   static StopGameSessionPlacementOutput fromJson(Map<String, dynamic> json) =>
-      StopGameSessionPlacementOutput();
+      StopGameSessionPlacementOutput(
+        gameSessionPlacement: json.containsKey('GameSessionPlacement')
+            ? GameSessionPlacement.fromJson(json['GameSessionPlacement'])
+            : null,
+      );
 }
 
 class StopMatchmakingOutput {
@@ -7519,7 +8779,10 @@ class TargetConfiguration {
     @required this.targetValue,
   });
   static TargetConfiguration fromJson(Map<String, dynamic> json) =>
-      TargetConfiguration();
+      TargetConfiguration(
+        targetValue: json['TargetValue'] as double,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the returned data in response to a request action.
@@ -7531,7 +8794,9 @@ class UpdateAliasOutput {
     this.alias,
   });
   static UpdateAliasOutput fromJson(Map<String, dynamic> json) =>
-      UpdateAliasOutput();
+      UpdateAliasOutput(
+        alias: json.containsKey('Alias') ? Alias.fromJson(json['Alias']) : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7543,7 +8808,9 @@ class UpdateBuildOutput {
     this.build,
   });
   static UpdateBuildOutput fromJson(Map<String, dynamic> json) =>
-      UpdateBuildOutput();
+      UpdateBuildOutput(
+        build: json.containsKey('Build') ? Build.fromJson(json['Build']) : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7555,7 +8822,9 @@ class UpdateFleetAttributesOutput {
     this.fleetId,
   });
   static UpdateFleetAttributesOutput fromJson(Map<String, dynamic> json) =>
-      UpdateFleetAttributesOutput();
+      UpdateFleetAttributesOutput(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7567,7 +8836,9 @@ class UpdateFleetCapacityOutput {
     this.fleetId,
   });
   static UpdateFleetCapacityOutput fromJson(Map<String, dynamic> json) =>
-      UpdateFleetCapacityOutput();
+      UpdateFleetCapacityOutput(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7579,7 +8850,9 @@ class UpdateFleetPortSettingsOutput {
     this.fleetId,
   });
   static UpdateFleetPortSettingsOutput fromJson(Map<String, dynamic> json) =>
-      UpdateFleetPortSettingsOutput();
+      UpdateFleetPortSettingsOutput(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7591,7 +8864,11 @@ class UpdateGameSessionOutput {
     this.gameSession,
   });
   static UpdateGameSessionOutput fromJson(Map<String, dynamic> json) =>
-      UpdateGameSessionOutput();
+      UpdateGameSessionOutput(
+        gameSession: json.containsKey('GameSession')
+            ? GameSession.fromJson(json['GameSession'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7603,7 +8880,11 @@ class UpdateGameSessionQueueOutput {
     this.gameSessionQueue,
   });
   static UpdateGameSessionQueueOutput fromJson(Map<String, dynamic> json) =>
-      UpdateGameSessionQueueOutput();
+      UpdateGameSessionQueueOutput(
+        gameSessionQueue: json.containsKey('GameSessionQueue')
+            ? GameSessionQueue.fromJson(json['GameSessionQueue'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7616,7 +8897,11 @@ class UpdateMatchmakingConfigurationOutput {
   });
   static UpdateMatchmakingConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      UpdateMatchmakingConfigurationOutput();
+      UpdateMatchmakingConfigurationOutput(
+        configuration: json.containsKey('Configuration')
+            ? MatchmakingConfiguration.fromJson(json['Configuration'])
+            : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7629,7 +8914,11 @@ class UpdateRuntimeConfigurationOutput {
     this.runtimeConfiguration,
   });
   static UpdateRuntimeConfigurationOutput fromJson(Map<String, dynamic> json) =>
-      UpdateRuntimeConfigurationOutput();
+      UpdateRuntimeConfigurationOutput(
+        runtimeConfiguration: json.containsKey('RuntimeConfiguration')
+            ? RuntimeConfiguration.fromJson(json['RuntimeConfiguration'])
+            : null,
+      );
 }
 
 class UpdateScriptOutput {
@@ -7645,7 +8934,10 @@ class UpdateScriptOutput {
     this.script,
   });
   static UpdateScriptOutput fromJson(Map<String, dynamic> json) =>
-      UpdateScriptOutput();
+      UpdateScriptOutput(
+        script:
+            json.containsKey('Script') ? Script.fromJson(json['Script']) : null,
+      );
 }
 
 /// Represents the returned data in response to a request action.
@@ -7657,7 +8949,9 @@ class ValidateMatchmakingRuleSetOutput {
     this.valid,
   });
   static ValidateMatchmakingRuleSetOutput fromJson(Map<String, dynamic> json) =>
-      ValidateMatchmakingRuleSetOutput();
+      ValidateMatchmakingRuleSetOutput(
+        valid: json.containsKey('Valid') ? json['Valid'] as bool : null,
+      );
 }
 
 /// Represents an authorization for a VPC peering connection between the VPC for
@@ -7710,7 +9004,22 @@ class VpcPeeringAuthorization {
     this.expirationTime,
   });
   static VpcPeeringAuthorization fromJson(Map<String, dynamic> json) =>
-      VpcPeeringAuthorization();
+      VpcPeeringAuthorization(
+        gameLiftAwsAccountId: json.containsKey('GameLiftAwsAccountId')
+            ? json['GameLiftAwsAccountId'] as String
+            : null,
+        peerVpcAwsAccountId: json.containsKey('PeerVpcAwsAccountId')
+            ? json['PeerVpcAwsAccountId'] as String
+            : null,
+        peerVpcId:
+            json.containsKey('PeerVpcId') ? json['PeerVpcId'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        expirationTime: json.containsKey('ExpirationTime')
+            ? DateTime.parse(json['ExpirationTime'])
+            : null,
+      );
 }
 
 /// Represents a peering connection between a VPC on one of your AWS accounts
@@ -7771,7 +9080,23 @@ class VpcPeeringConnection {
     this.gameLiftVpcId,
   });
   static VpcPeeringConnection fromJson(Map<String, dynamic> json) =>
-      VpcPeeringConnection();
+      VpcPeeringConnection(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        ipV4CidrBlock: json.containsKey('IpV4CidrBlock')
+            ? json['IpV4CidrBlock'] as String
+            : null,
+        vpcPeeringConnectionId: json.containsKey('VpcPeeringConnectionId')
+            ? json['VpcPeeringConnectionId'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? VpcPeeringConnectionStatus.fromJson(json['Status'])
+            : null,
+        peerVpcId:
+            json.containsKey('PeerVpcId') ? json['PeerVpcId'] as String : null,
+        gameLiftVpcId: json.containsKey('GameLiftVpcId')
+            ? json['GameLiftVpcId'] as String
+            : null,
+      );
 }
 
 /// Represents status information for a VPC peering connection. Status is
@@ -7791,5 +9116,8 @@ class VpcPeeringConnectionStatus {
     this.message,
   });
   static VpcPeeringConnectionStatus fromJson(Map<String, dynamic> json) =>
-      VpcPeeringConnectionStatus();
+      VpcPeeringConnectionStatus(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }

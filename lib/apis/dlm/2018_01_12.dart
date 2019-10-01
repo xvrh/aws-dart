@@ -11,6 +11,9 @@ import 'package:meta/meta.dart';
 /// [Automating the Amazon EBS Snapshot Lifecycle](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html)
 /// in the _Amazon EC2 User Guide_.
 class DlmApi {
+  final _client;
+  DlmApi(client) : _client = client.configured('DLM', serializer: 'rest-json');
+
   /// Creates a policy to manage the lifecycle of the specified AWS resources.
   /// You can create up to 100 lifecycle policies.
   ///
@@ -31,7 +34,13 @@ class DlmApi {
       @required String description,
       @required String state,
       @required PolicyDetails policyDetails}) async {
-    return CreateLifecyclePolicyResponse.fromJson({});
+    var response_ = await _client.send('CreateLifecyclePolicy', {
+      'ExecutionRoleArn': executionRoleArn,
+      'Description': description,
+      'State': state,
+      'PolicyDetails': policyDetails,
+    });
+    return CreateLifecyclePolicyResponse.fromJson(response_);
   }
 
   /// Deletes the specified lifecycle policy and halts the automated operations
@@ -40,7 +49,10 @@ class DlmApi {
   /// [policyId]: The identifier of the lifecycle policy.
   Future<DeleteLifecyclePolicyResponse> deleteLifecyclePolicy(
       String policyId) async {
-    return DeleteLifecyclePolicyResponse.fromJson({});
+    var response_ = await _client.send('DeleteLifecyclePolicy', {
+      'PolicyId': policyId,
+    });
+    return DeleteLifecyclePolicyResponse.fromJson(response_);
   }
 
   /// Gets summary information about all or the specified data lifecycle
@@ -70,14 +82,24 @@ class DlmApi {
       List<String> resourceTypes,
       List<String> targetTags,
       List<String> tagsToAdd}) async {
-    return GetLifecyclePoliciesResponse.fromJson({});
+    var response_ = await _client.send('GetLifecyclePolicies', {
+      if (policyIds != null) 'PolicyIds': policyIds,
+      if (state != null) 'State': state,
+      if (resourceTypes != null) 'ResourceTypes': resourceTypes,
+      if (targetTags != null) 'TargetTags': targetTags,
+      if (tagsToAdd != null) 'TagsToAdd': tagsToAdd,
+    });
+    return GetLifecyclePoliciesResponse.fromJson(response_);
   }
 
   /// Gets detailed information about the specified lifecycle policy.
   ///
   /// [policyId]: The identifier of the lifecycle policy.
   Future<GetLifecyclePolicyResponse> getLifecyclePolicy(String policyId) async {
-    return GetLifecyclePolicyResponse.fromJson({});
+    var response_ = await _client.send('GetLifecyclePolicy', {
+      'PolicyId': policyId,
+    });
+    return GetLifecyclePolicyResponse.fromJson(response_);
   }
 
   /// Updates the specified lifecycle policy.
@@ -100,7 +122,14 @@ class DlmApi {
       String state,
       String description,
       PolicyDetails policyDetails}) async {
-    return UpdateLifecyclePolicyResponse.fromJson({});
+    var response_ = await _client.send('UpdateLifecyclePolicy', {
+      'PolicyId': policyId,
+      if (executionRoleArn != null) 'ExecutionRoleArn': executionRoleArn,
+      if (state != null) 'State': state,
+      if (description != null) 'Description': description,
+      if (policyDetails != null) 'PolicyDetails': policyDetails,
+    });
+    return UpdateLifecyclePolicyResponse.fromJson(response_);
   }
 }
 
@@ -112,7 +141,10 @@ class CreateLifecyclePolicyResponse {
     this.policyId,
   });
   static CreateLifecyclePolicyResponse fromJson(Map<String, dynamic> json) =>
-      CreateLifecyclePolicyResponse();
+      CreateLifecyclePolicyResponse(
+        policyId:
+            json.containsKey('PolicyId') ? json['PolicyId'] as String : null,
+      );
 }
 
 /// Specifies when to create snapshots of EBS volumes.
@@ -135,7 +167,14 @@ class CreateRule {
     @required this.intervalUnit,
     this.times,
   });
-  static CreateRule fromJson(Map<String, dynamic> json) => CreateRule();
+  static CreateRule fromJson(Map<String, dynamic> json) => CreateRule(
+        interval: json['Interval'] as int,
+        intervalUnit: json['IntervalUnit'] as String,
+        times: json.containsKey('Times')
+            ? (json['Times'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteLifecyclePolicyResponse {
@@ -152,7 +191,13 @@ class GetLifecyclePoliciesResponse {
     this.policies,
   });
   static GetLifecyclePoliciesResponse fromJson(Map<String, dynamic> json) =>
-      GetLifecyclePoliciesResponse();
+      GetLifecyclePoliciesResponse(
+        policies: json.containsKey('Policies')
+            ? (json['Policies'] as List)
+                .map((e) => LifecyclePolicySummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetLifecyclePolicyResponse {
@@ -163,7 +208,11 @@ class GetLifecyclePolicyResponse {
     this.policy,
   });
   static GetLifecyclePolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetLifecyclePolicyResponse();
+      GetLifecyclePolicyResponse(
+        policy: json.containsKey('Policy')
+            ? LifecyclePolicy.fromJson(json['Policy'])
+            : null,
+      );
 }
 
 /// Detailed information about a lifecycle policy.
@@ -199,8 +248,26 @@ class LifecyclePolicy {
     this.dateModified,
     this.policyDetails,
   });
-  static LifecyclePolicy fromJson(Map<String, dynamic> json) =>
-      LifecyclePolicy();
+  static LifecyclePolicy fromJson(Map<String, dynamic> json) => LifecyclePolicy(
+        policyId:
+            json.containsKey('PolicyId') ? json['PolicyId'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        executionRoleArn: json.containsKey('ExecutionRoleArn')
+            ? json['ExecutionRoleArn'] as String
+            : null,
+        dateCreated: json.containsKey('DateCreated')
+            ? DateTime.parse(json['DateCreated'])
+            : null,
+        dateModified: json.containsKey('DateModified')
+            ? DateTime.parse(json['DateModified'])
+            : null,
+        policyDetails: json.containsKey('PolicyDetails')
+            ? PolicyDetails.fromJson(json['PolicyDetails'])
+            : null,
+      );
 }
 
 /// Summary information about a lifecycle policy.
@@ -220,7 +287,14 @@ class LifecyclePolicySummary {
     this.state,
   });
   static LifecyclePolicySummary fromJson(Map<String, dynamic> json) =>
-      LifecyclePolicySummary();
+      LifecyclePolicySummary(
+        policyId:
+            json.containsKey('PolicyId') ? json['PolicyId'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Optional parameters that can be added to the policy. The set of valid
@@ -236,7 +310,12 @@ class Parameters {
   Parameters({
     this.excludeBootVolume,
   });
-  static Parameters fromJson(Map<String, dynamic> json) => Parameters();
+  static Parameters fromJson(Map<String, dynamic> json) => Parameters(
+        excludeBootVolume: json.containsKey('ExcludeBootVolume')
+            ? json['ExcludeBootVolume'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the configuration of a lifecycle policy.
@@ -264,7 +343,26 @@ class PolicyDetails {
     this.schedules,
     this.parameters,
   });
-  static PolicyDetails fromJson(Map<String, dynamic> json) => PolicyDetails();
+  static PolicyDetails fromJson(Map<String, dynamic> json) => PolicyDetails(
+        policyType: json.containsKey('PolicyType')
+            ? json['PolicyType'] as String
+            : null,
+        resourceTypes: json.containsKey('ResourceTypes')
+            ? (json['ResourceTypes'] as List).map((e) => e as String).toList()
+            : null,
+        targetTags: json.containsKey('TargetTags')
+            ? (json['TargetTags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        schedules: json.containsKey('Schedules')
+            ? (json['Schedules'] as List)
+                .map((e) => Schedule.fromJson(e))
+                .toList()
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? Parameters.fromJson(json['Parameters'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the number of snapshots to keep for each EBS volume.
@@ -275,7 +373,10 @@ class RetainRule {
   RetainRule({
     @required this.count,
   });
-  static RetainRule fromJson(Map<String, dynamic> json) => RetainRule();
+  static RetainRule fromJson(Map<String, dynamic> json) => RetainRule(
+        count: json['Count'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a schedule.
@@ -312,7 +413,26 @@ class Schedule {
     this.createRule,
     this.retainRule,
   });
-  static Schedule fromJson(Map<String, dynamic> json) => Schedule();
+  static Schedule fromJson(Map<String, dynamic> json) => Schedule(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        copyTags:
+            json.containsKey('CopyTags') ? json['CopyTags'] as bool : null,
+        tagsToAdd: json.containsKey('TagsToAdd')
+            ? (json['TagsToAdd'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        variableTags: json.containsKey('VariableTags')
+            ? (json['VariableTags'] as List)
+                .map((e) => Tag.fromJson(e))
+                .toList()
+            : null,
+        createRule: json.containsKey('CreateRule')
+            ? CreateRule.fromJson(json['CreateRule'])
+            : null,
+        retainRule: json.containsKey('RetainRule')
+            ? RetainRule.fromJson(json['RetainRule'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a tag for a resource.
@@ -327,7 +447,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateLifecyclePolicyResponse {

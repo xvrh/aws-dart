@@ -39,6 +39,10 @@ import 'package:meta/meta.dart';
 ///
 ///  `delete-resolver-endpoint --resolver-endpoint-id [resolver_endpoint_id]`
 class Route53ResolverApi {
+  final _client;
+  Route53ResolverApi(client)
+      : _client = client.configured('Route53Resolver', serializer: 'json');
+
   /// Adds IP addresses to an inbound or an outbound resolver endpoint. If you
   /// want to adding more than one IP address, submit one
   /// `AssociateResolverEndpointIpAddress` request for each IP address.
@@ -56,7 +60,11 @@ class Route53ResolverApi {
       associateResolverEndpointIpAddress(
           {@required String resolverEndpointId,
           @required IpAddressUpdate ipAddress}) async {
-    return AssociateResolverEndpointIpAddressResponse.fromJson({});
+    var response_ = await _client.send('AssociateResolverEndpointIpAddress', {
+      'ResolverEndpointId': resolverEndpointId,
+      'IpAddress': ipAddress,
+    });
+    return AssociateResolverEndpointIpAddressResponse.fromJson(response_);
   }
 
   /// Associates a resolver rule with a VPC. When you associate a rule with a
@@ -77,7 +85,12 @@ class Route53ResolverApi {
       {@required String resolverRuleId,
       String name,
       @required String vpcId}) async {
-    return AssociateResolverRuleResponse.fromJson({});
+    var response_ = await _client.send('AssociateResolverRule', {
+      'ResolverRuleId': resolverRuleId,
+      if (name != null) 'Name': name,
+      'VPCId': vpcId,
+    });
+    return AssociateResolverRuleResponse.fromJson(response_);
   }
 
   /// Creates a resolver endpoint. There are two types of resolver endpoints,
@@ -124,7 +137,15 @@ class Route53ResolverApi {
       @required String direction,
       @required List<IpAddressRequest> ipAddresses,
       List<Tag> tags}) async {
-    return CreateResolverEndpointResponse.fromJson({});
+    var response_ = await _client.send('CreateResolverEndpoint', {
+      'CreatorRequestId': creatorRequestId,
+      if (name != null) 'Name': name,
+      'SecurityGroupIds': securityGroupIds,
+      'Direction': direction,
+      'IpAddresses': ipAddresses,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateResolverEndpointResponse.fromJson(response_);
   }
 
   /// For DNS queries that originate in your VPCs, specifies which resolver
@@ -165,7 +186,16 @@ class Route53ResolverApi {
       List<TargetAddress> targetIps,
       String resolverEndpointId,
       List<Tag> tags}) async {
-    return CreateResolverRuleResponse.fromJson({});
+    var response_ = await _client.send('CreateResolverRule', {
+      'CreatorRequestId': creatorRequestId,
+      if (name != null) 'Name': name,
+      'RuleType': ruleType,
+      'DomainName': domainName,
+      if (targetIps != null) 'TargetIps': targetIps,
+      if (resolverEndpointId != null) 'ResolverEndpointId': resolverEndpointId,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateResolverRuleResponse.fromJson(response_);
   }
 
   /// Deletes a resolver endpoint. The effect of deleting a resolver endpoint
@@ -181,7 +211,10 @@ class Route53ResolverApi {
   /// delete.
   Future<DeleteResolverEndpointResponse> deleteResolverEndpoint(
       String resolverEndpointId) async {
-    return DeleteResolverEndpointResponse.fromJson({});
+    var response_ = await _client.send('DeleteResolverEndpoint', {
+      'ResolverEndpointId': resolverEndpointId,
+    });
+    return DeleteResolverEndpointResponse.fromJson(response_);
   }
 
   /// Deletes a resolver rule. Before you can delete a resolver rule, you must
@@ -191,7 +224,10 @@ class Route53ResolverApi {
   /// [resolverRuleId]: The ID of the resolver rule that you want to delete.
   Future<DeleteResolverRuleResponse> deleteResolverRule(
       String resolverRuleId) async {
-    return DeleteResolverRuleResponse.fromJson({});
+    var response_ = await _client.send('DeleteResolverRule', {
+      'ResolverRuleId': resolverRuleId,
+    });
+    return DeleteResolverRuleResponse.fromJson(response_);
   }
 
   /// Removes IP addresses from an inbound or an outbound resolver endpoint. If
@@ -210,7 +246,12 @@ class Route53ResolverApi {
       disassociateResolverEndpointIpAddress(
           {@required String resolverEndpointId,
           @required IpAddressUpdate ipAddress}) async {
-    return DisassociateResolverEndpointIpAddressResponse.fromJson({});
+    var response_ =
+        await _client.send('DisassociateResolverEndpointIpAddress', {
+      'ResolverEndpointId': resolverEndpointId,
+      'IpAddress': ipAddress,
+    });
+    return DisassociateResolverEndpointIpAddressResponse.fromJson(response_);
   }
 
   /// Removes the association between a specified resolver rule and a specified
@@ -228,7 +269,11 @@ class Route53ResolverApi {
   /// disassociate from the specified VPC.
   Future<DisassociateResolverRuleResponse> disassociateResolverRule(
       {@required String vpcId, @required String resolverRuleId}) async {
-    return DisassociateResolverRuleResponse.fromJson({});
+    var response_ = await _client.send('DisassociateResolverRule', {
+      'VPCId': vpcId,
+      'ResolverRuleId': resolverRuleId,
+    });
+    return DisassociateResolverRuleResponse.fromJson(response_);
   }
 
   /// Gets information about a specified resolver endpoint, such as whether it's
@@ -239,7 +284,10 @@ class Route53ResolverApi {
   /// information about.
   Future<GetResolverEndpointResponse> getResolverEndpoint(
       String resolverEndpointId) async {
-    return GetResolverEndpointResponse.fromJson({});
+    var response_ = await _client.send('GetResolverEndpoint', {
+      'ResolverEndpointId': resolverEndpointId,
+    });
+    return GetResolverEndpointResponse.fromJson(response_);
   }
 
   /// Gets information about a specified resolver rule, such as the domain name
@@ -249,7 +297,10 @@ class Route53ResolverApi {
   /// [resolverRuleId]: The ID of the resolver rule that you want to get
   /// information about.
   Future<GetResolverRuleResponse> getResolverRule(String resolverRuleId) async {
-    return GetResolverRuleResponse.fromJson({});
+    var response_ = await _client.send('GetResolverRule', {
+      'ResolverRuleId': resolverRuleId,
+    });
+    return GetResolverRuleResponse.fromJson(response_);
   }
 
   /// Gets information about an association between a specified resolver rule
@@ -260,7 +311,10 @@ class Route53ResolverApi {
   /// you want to get information about.
   Future<GetResolverRuleAssociationResponse> getResolverRuleAssociation(
       String resolverRuleAssociationId) async {
-    return GetResolverRuleAssociationResponse.fromJson({});
+    var response_ = await _client.send('GetResolverRuleAssociation', {
+      'ResolverRuleAssociationId': resolverRuleAssociationId,
+    });
+    return GetResolverRuleAssociationResponse.fromJson(response_);
   }
 
   /// Gets information about a resolver rule policy. A resolver rule policy
@@ -271,7 +325,10 @@ class Route53ResolverApi {
   /// about.
   Future<GetResolverRulePolicyResponse> getResolverRulePolicy(
       String arn) async {
-    return GetResolverRulePolicyResponse.fromJson({});
+    var response_ = await _client.send('GetResolverRulePolicy', {
+      'Arn': arn,
+    });
+    return GetResolverRulePolicyResponse.fromJson(response_);
   }
 
   /// Gets the IP addresses for a specified resolver endpoint.
@@ -294,7 +351,12 @@ class Route53ResolverApi {
   Future<ListResolverEndpointIpAddressesResponse>
       listResolverEndpointIpAddresses(String resolverEndpointId,
           {int maxResults, String nextToken}) async {
-    return ListResolverEndpointIpAddressesResponse.fromJson({});
+    var response_ = await _client.send('ListResolverEndpointIpAddresses', {
+      'ResolverEndpointId': resolverEndpointId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListResolverEndpointIpAddressesResponse.fromJson(response_);
   }
 
   /// Lists all the resolver endpoints that were created using the current AWS
@@ -323,7 +385,12 @@ class Route53ResolverApi {
   /// `Filters`, if any, as in the previous request.
   Future<ListResolverEndpointsResponse> listResolverEndpoints(
       {int maxResults, String nextToken, List<Filter> filters}) async {
-    return ListResolverEndpointsResponse.fromJson({});
+    var response_ = await _client.send('ListResolverEndpoints', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListResolverEndpointsResponse.fromJson(response_);
   }
 
   /// Lists the associations that were created between resolver rules and VPCs
@@ -352,7 +419,12 @@ class Route53ResolverApi {
   /// values for `Filters`, if any, as in the previous request.
   Future<ListResolverRuleAssociationsResponse> listResolverRuleAssociations(
       {int maxResults, String nextToken, List<Filter> filters}) async {
-    return ListResolverRuleAssociationsResponse.fromJson({});
+    var response_ = await _client.send('ListResolverRuleAssociations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListResolverRuleAssociationsResponse.fromJson(response_);
   }
 
   /// Lists the resolver rules that were created using the current AWS account.
@@ -379,7 +451,12 @@ class Route53ResolverApi {
   /// `Filters`, if any, as in the previous request.
   Future<ListResolverRulesResponse> listResolverRules(
       {int maxResults, String nextToken, List<Filter> filters}) async {
-    return ListResolverRulesResponse.fromJson({});
+    var response_ = await _client.send('ListResolverRules', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListResolverRulesResponse.fromJson(response_);
   }
 
   /// Lists the tags that you associated with the specified resource.
@@ -399,7 +476,12 @@ class Route53ResolverApi {
   /// previous response.
   Future<ListTagsForResourceResponse> listTagsForResource(String resourceArn,
       {int maxResults, String nextToken}) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Specifies the Resolver operations and resources that you want to allow
@@ -413,7 +495,11 @@ class Route53ResolverApi {
   /// account.
   Future<PutResolverRulePolicyResponse> putResolverRulePolicy(
       {@required String arn, @required String resolverRulePolicy}) async {
-    return PutResolverRulePolicyResponse.fromJson({});
+    var response_ = await _client.send('PutResolverRulePolicy', {
+      'Arn': arn,
+      'ResolverRulePolicy': resolverRulePolicy,
+    });
+    return PutResolverRulePolicyResponse.fromJson(response_);
   }
 
   /// Adds one or more tags to a specified resource.
@@ -437,7 +523,11 @@ class Route53ResolverApi {
   /// [tags]: The tags that you want to add to the specified resource.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes one or more tags from a specified resource.
@@ -461,7 +551,11 @@ class Route53ResolverApi {
   /// [tagKeys]: The tags that you want to remove to the specified resource.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates the name of an inbound or an outbound resolver endpoint.
@@ -473,7 +567,11 @@ class Route53ResolverApi {
   Future<UpdateResolverEndpointResponse> updateResolverEndpoint(
       String resolverEndpointId,
       {String name}) async {
-    return UpdateResolverEndpointResponse.fromJson({});
+    var response_ = await _client.send('UpdateResolverEndpoint', {
+      'ResolverEndpointId': resolverEndpointId,
+      if (name != null) 'Name': name,
+    });
+    return UpdateResolverEndpointResponse.fromJson(response_);
   }
 
   /// Updates settings for a specified resolver rule. `ResolverRuleId` is
@@ -486,7 +584,11 @@ class Route53ResolverApi {
   Future<UpdateResolverRuleResponse> updateResolverRule(
       {@required String resolverRuleId,
       @required ResolverRuleConfig config}) async {
-    return UpdateResolverRuleResponse.fromJson({});
+    var response_ = await _client.send('UpdateResolverRule', {
+      'ResolverRuleId': resolverRuleId,
+      'Config': config,
+    });
+    return UpdateResolverRuleResponse.fromJson(response_);
   }
 }
 
@@ -499,7 +601,11 @@ class AssociateResolverEndpointIpAddressResponse {
   });
   static AssociateResolverEndpointIpAddressResponse fromJson(
           Map<String, dynamic> json) =>
-      AssociateResolverEndpointIpAddressResponse();
+      AssociateResolverEndpointIpAddressResponse(
+        resolverEndpoint: json.containsKey('ResolverEndpoint')
+            ? ResolverEndpoint.fromJson(json['ResolverEndpoint'])
+            : null,
+      );
 }
 
 class AssociateResolverRuleResponse {
@@ -511,7 +617,11 @@ class AssociateResolverRuleResponse {
     this.resolverRuleAssociation,
   });
   static AssociateResolverRuleResponse fromJson(Map<String, dynamic> json) =>
-      AssociateResolverRuleResponse();
+      AssociateResolverRuleResponse(
+        resolverRuleAssociation: json.containsKey('ResolverRuleAssociation')
+            ? ResolverRuleAssociation.fromJson(json['ResolverRuleAssociation'])
+            : null,
+      );
 }
 
 class CreateResolverEndpointResponse {
@@ -523,7 +633,11 @@ class CreateResolverEndpointResponse {
     this.resolverEndpoint,
   });
   static CreateResolverEndpointResponse fromJson(Map<String, dynamic> json) =>
-      CreateResolverEndpointResponse();
+      CreateResolverEndpointResponse(
+        resolverEndpoint: json.containsKey('ResolverEndpoint')
+            ? ResolverEndpoint.fromJson(json['ResolverEndpoint'])
+            : null,
+      );
 }
 
 class CreateResolverRuleResponse {
@@ -535,7 +649,11 @@ class CreateResolverRuleResponse {
     this.resolverRule,
   });
   static CreateResolverRuleResponse fromJson(Map<String, dynamic> json) =>
-      CreateResolverRuleResponse();
+      CreateResolverRuleResponse(
+        resolverRule: json.containsKey('ResolverRule')
+            ? ResolverRule.fromJson(json['ResolverRule'])
+            : null,
+      );
 }
 
 class DeleteResolverEndpointResponse {
@@ -547,7 +665,11 @@ class DeleteResolverEndpointResponse {
     this.resolverEndpoint,
   });
   static DeleteResolverEndpointResponse fromJson(Map<String, dynamic> json) =>
-      DeleteResolverEndpointResponse();
+      DeleteResolverEndpointResponse(
+        resolverEndpoint: json.containsKey('ResolverEndpoint')
+            ? ResolverEndpoint.fromJson(json['ResolverEndpoint'])
+            : null,
+      );
 }
 
 class DeleteResolverRuleResponse {
@@ -559,7 +681,11 @@ class DeleteResolverRuleResponse {
     this.resolverRule,
   });
   static DeleteResolverRuleResponse fromJson(Map<String, dynamic> json) =>
-      DeleteResolverRuleResponse();
+      DeleteResolverRuleResponse(
+        resolverRule: json.containsKey('ResolverRule')
+            ? ResolverRule.fromJson(json['ResolverRule'])
+            : null,
+      );
 }
 
 class DisassociateResolverEndpointIpAddressResponse {
@@ -571,7 +697,11 @@ class DisassociateResolverEndpointIpAddressResponse {
   });
   static DisassociateResolverEndpointIpAddressResponse fromJson(
           Map<String, dynamic> json) =>
-      DisassociateResolverEndpointIpAddressResponse();
+      DisassociateResolverEndpointIpAddressResponse(
+        resolverEndpoint: json.containsKey('ResolverEndpoint')
+            ? ResolverEndpoint.fromJson(json['ResolverEndpoint'])
+            : null,
+      );
 }
 
 class DisassociateResolverRuleResponse {
@@ -583,7 +713,11 @@ class DisassociateResolverRuleResponse {
     this.resolverRuleAssociation,
   });
   static DisassociateResolverRuleResponse fromJson(Map<String, dynamic> json) =>
-      DisassociateResolverRuleResponse();
+      DisassociateResolverRuleResponse(
+        resolverRuleAssociation: json.containsKey('ResolverRuleAssociation')
+            ? ResolverRuleAssociation.fromJson(json['ResolverRuleAssociation'])
+            : null,
+      );
 }
 
 /// For `List` operations, an optional specification to return a subset of
@@ -607,6 +741,7 @@ class Filter {
     this.name,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetResolverEndpointResponse {
@@ -618,7 +753,11 @@ class GetResolverEndpointResponse {
     this.resolverEndpoint,
   });
   static GetResolverEndpointResponse fromJson(Map<String, dynamic> json) =>
-      GetResolverEndpointResponse();
+      GetResolverEndpointResponse(
+        resolverEndpoint: json.containsKey('ResolverEndpoint')
+            ? ResolverEndpoint.fromJson(json['ResolverEndpoint'])
+            : null,
+      );
 }
 
 class GetResolverRuleAssociationResponse {
@@ -631,7 +770,11 @@ class GetResolverRuleAssociationResponse {
   });
   static GetResolverRuleAssociationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetResolverRuleAssociationResponse();
+      GetResolverRuleAssociationResponse(
+        resolverRuleAssociation: json.containsKey('ResolverRuleAssociation')
+            ? ResolverRuleAssociation.fromJson(json['ResolverRuleAssociation'])
+            : null,
+      );
 }
 
 class GetResolverRulePolicyResponse {
@@ -643,7 +786,11 @@ class GetResolverRulePolicyResponse {
     this.resolverRulePolicy,
   });
   static GetResolverRulePolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetResolverRulePolicyResponse();
+      GetResolverRulePolicyResponse(
+        resolverRulePolicy: json.containsKey('ResolverRulePolicy')
+            ? json['ResolverRulePolicy'] as String
+            : null,
+      );
 }
 
 class GetResolverRuleResponse {
@@ -655,7 +802,11 @@ class GetResolverRuleResponse {
     this.resolverRule,
   });
   static GetResolverRuleResponse fromJson(Map<String, dynamic> json) =>
-      GetResolverRuleResponse();
+      GetResolverRuleResponse(
+        resolverRule: json.containsKey('ResolverRule')
+            ? ResolverRule.fromJson(json['ResolverRule'])
+            : null,
+      );
 }
 
 /// In an CreateResolverEndpoint request, a subnet and IP address that you want
@@ -671,6 +822,7 @@ class IpAddressRequest {
     @required this.subnetId,
     this.ip,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// In the response to a GetResolverEndpoint request, information about the IP
@@ -710,7 +862,22 @@ class IpAddressResponse {
     this.modificationTime,
   });
   static IpAddressResponse fromJson(Map<String, dynamic> json) =>
-      IpAddressResponse();
+      IpAddressResponse(
+        ipId: json.containsKey('IpId') ? json['IpId'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        ip: json.containsKey('Ip') ? json['Ip'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        modificationTime: json.containsKey('ModificationTime')
+            ? json['ModificationTime'] as String
+            : null,
+      );
 }
 
 /// In an UpdateResolverEndpoint request, information about an IP address to
@@ -733,6 +900,7 @@ class IpAddressUpdate {
     this.subnetId,
     this.ip,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListResolverEndpointIpAddressesResponse {
@@ -756,7 +924,17 @@ class ListResolverEndpointIpAddressesResponse {
   });
   static ListResolverEndpointIpAddressesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListResolverEndpointIpAddressesResponse();
+      ListResolverEndpointIpAddressesResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        ipAddresses: json.containsKey('IpAddresses')
+            ? (json['IpAddresses'] as List)
+                .map((e) => IpAddressResponse.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListResolverEndpointsResponse {
@@ -779,7 +957,17 @@ class ListResolverEndpointsResponse {
     this.resolverEndpoints,
   });
   static ListResolverEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      ListResolverEndpointsResponse();
+      ListResolverEndpointsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        resolverEndpoints: json.containsKey('ResolverEndpoints')
+            ? (json['ResolverEndpoints'] as List)
+                .map((e) => ResolverEndpoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListResolverRuleAssociationsResponse {
@@ -803,7 +991,17 @@ class ListResolverRuleAssociationsResponse {
   });
   static ListResolverRuleAssociationsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListResolverRuleAssociationsResponse();
+      ListResolverRuleAssociationsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        resolverRuleAssociations: json.containsKey('ResolverRuleAssociations')
+            ? (json['ResolverRuleAssociations'] as List)
+                .map((e) => ResolverRuleAssociation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListResolverRulesResponse {
@@ -826,7 +1024,17 @@ class ListResolverRulesResponse {
     this.resolverRules,
   });
   static ListResolverRulesResponse fromJson(Map<String, dynamic> json) =>
-      ListResolverRulesResponse();
+      ListResolverRulesResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        resolverRules: json.containsKey('ResolverRules')
+            ? (json['ResolverRules'] as List)
+                .map((e) => ResolverRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -845,7 +1053,13 @@ class ListTagsForResourceResponse {
     this.nextToken,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The response to a `PutResolverRulePolicy` request.
@@ -857,7 +1071,11 @@ class PutResolverRulePolicyResponse {
     this.returnValue,
   });
   static PutResolverRulePolicyResponse fromJson(Map<String, dynamic> json) =>
-      PutResolverRulePolicyResponse();
+      PutResolverRulePolicyResponse(
+        returnValue: json.containsKey('ReturnValue')
+            ? json['ReturnValue'] as bool
+            : null,
+      );
 }
 
 /// In the response to a CreateResolverEndpoint, DeleteResolverEndpoint,
@@ -930,7 +1148,36 @@ class ResolverEndpoint {
     this.modificationTime,
   });
   static ResolverEndpoint fromJson(Map<String, dynamic> json) =>
-      ResolverEndpoint();
+      ResolverEndpoint(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        direction:
+            json.containsKey('Direction') ? json['Direction'] as String : null,
+        ipAddressCount: json.containsKey('IpAddressCount')
+            ? json['IpAddressCount'] as int
+            : null,
+        hostVpcId:
+            json.containsKey('HostVPCId') ? json['HostVPCId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        modificationTime: json.containsKey('ModificationTime')
+            ? json['ModificationTime'] as String
+            : null,
+      );
 }
 
 /// For queries that originate in your VPC, detailed information about a
@@ -999,7 +1246,35 @@ class ResolverRule {
     this.ownerId,
     this.shareStatus,
   });
-  static ResolverRule fromJson(Map<String, dynamic> json) => ResolverRule();
+  static ResolverRule fromJson(Map<String, dynamic> json) => ResolverRule(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        ruleType:
+            json.containsKey('RuleType') ? json['RuleType'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        targetIps: json.containsKey('TargetIps')
+            ? (json['TargetIps'] as List)
+                .map((e) => TargetAddress.fromJson(e))
+                .toList()
+            : null,
+        resolverEndpointId: json.containsKey('ResolverEndpointId')
+            ? json['ResolverEndpointId'] as String
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        shareStatus: json.containsKey('ShareStatus')
+            ? json['ShareStatus'] as String
+            : null,
+      );
 }
 
 /// In the response to an AssociateResolverRule, DisassociateResolverRule, or
@@ -1037,7 +1312,18 @@ class ResolverRuleAssociation {
     this.statusMessage,
   });
   static ResolverRuleAssociation fromJson(Map<String, dynamic> json) =>
-      ResolverRuleAssociation();
+      ResolverRuleAssociation(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        resolverRuleId: json.containsKey('ResolverRuleId')
+            ? json['ResolverRuleId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        vpcId: json.containsKey('VPCId') ? json['VPCId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// In an UpdateResolverRule request, information about the changes that you
@@ -1060,6 +1346,7 @@ class ResolverRuleConfig {
     this.targetIps,
     this.resolverEndpointId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// One tag that you want to add to the specified resource. A tag consists of a
@@ -1079,7 +1366,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -1102,7 +1393,11 @@ class TargetAddress {
     @required this.ip,
     this.port,
   });
-  static TargetAddress fromJson(Map<String, dynamic> json) => TargetAddress();
+  static TargetAddress fromJson(Map<String, dynamic> json) => TargetAddress(
+        ip: json['Ip'] as String,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -1119,7 +1414,11 @@ class UpdateResolverEndpointResponse {
     this.resolverEndpoint,
   });
   static UpdateResolverEndpointResponse fromJson(Map<String, dynamic> json) =>
-      UpdateResolverEndpointResponse();
+      UpdateResolverEndpointResponse(
+        resolverEndpoint: json.containsKey('ResolverEndpoint')
+            ? ResolverEndpoint.fromJson(json['ResolverEndpoint'])
+            : null,
+      );
 }
 
 class UpdateResolverRuleResponse {
@@ -1130,5 +1429,9 @@ class UpdateResolverRuleResponse {
     this.resolverRule,
   });
   static UpdateResolverRuleResponse fromJson(Map<String, dynamic> json) =>
-      UpdateResolverRuleResponse();
+      UpdateResolverRuleResponse(
+        resolverRule: json.containsKey('ResolverRule')
+            ? ResolverRule.fromJson(json['ResolverRule'])
+            : null,
+      );
 }

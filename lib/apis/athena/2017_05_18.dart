@@ -19,6 +19,9 @@ import 'package:meta/meta.dart';
 /// [Examples and Code Samples](https://docs.aws.amazon.com/athena/latest/ug/code-samples.html)
 /// in the _Amazon Athena User Guide_.
 class AthenaApi {
+  final _client;
+  AthenaApi(client) : _client = client.configured('Athena', serializer: 'json');
+
   /// Returns the details of a single named query or a list of up to 50 queries,
   /// which you provide as an array of query ID strings. Requires you to have
   /// access to the workgroup in which the queries were saved. Use
@@ -33,7 +36,10 @@ class AthenaApi {
   /// [namedQueryIds]: An array of query IDs.
   Future<BatchGetNamedQueryOutput> batchGetNamedQuery(
       List<String> namedQueryIds) async {
-    return BatchGetNamedQueryOutput.fromJson({});
+    var response_ = await _client.send('BatchGetNamedQuery', {
+      'NamedQueryIds': namedQueryIds,
+    });
+    return BatchGetNamedQueryOutput.fromJson(response_);
   }
 
   /// Returns the details of a single query execution or a list of up to 50
@@ -47,7 +53,10 @@ class AthenaApi {
   /// [queryExecutionIds]: An array of query execution IDs.
   Future<BatchGetQueryExecutionOutput> batchGetQueryExecution(
       List<String> queryExecutionIds) async {
-    return BatchGetQueryExecutionOutput.fromJson({});
+    var response_ = await _client.send('BatchGetQueryExecution', {
+      'QueryExecutionIds': queryExecutionIds,
+    });
+    return BatchGetQueryExecutionOutput.fromJson(response_);
   }
 
   /// Creates a named query in the specified workgroup. Requires that you have
@@ -87,7 +96,15 @@ class AthenaApi {
       @required String queryString,
       String clientRequestToken,
       String workGroup}) async {
-    return CreateNamedQueryOutput.fromJson({});
+    var response_ = await _client.send('CreateNamedQuery', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'Database': database,
+      'QueryString': queryString,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (workGroup != null) 'WorkGroup': workGroup,
+    });
+    return CreateNamedQueryOutput.fromJson(response_);
   }
 
   /// Creates a workgroup with the specified name.
@@ -112,7 +129,13 @@ class AthenaApi {
       {WorkGroupConfiguration configuration,
       String description,
       List<Tag> tags}) async {
-    return CreateWorkGroupOutput.fromJson({});
+    var response_ = await _client.send('CreateWorkGroup', {
+      'Name': name,
+      if (configuration != null) 'Configuration': configuration,
+      if (description != null) 'Description': description,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateWorkGroupOutput.fromJson(response_);
   }
 
   /// Deletes the named query if you have access to the workgroup in which the
@@ -124,7 +147,10 @@ class AthenaApi {
   ///
   /// [namedQueryId]: The unique ID of the query to delete.
   Future<DeleteNamedQueryOutput> deleteNamedQuery(String namedQueryId) async {
-    return DeleteNamedQueryOutput.fromJson({});
+    var response_ = await _client.send('DeleteNamedQuery', {
+      'NamedQueryId': namedQueryId,
+    });
+    return DeleteNamedQueryOutput.fromJson(response_);
   }
 
   /// Deletes the workgroup with the specified name. The primary workgroup
@@ -136,7 +162,12 @@ class AthenaApi {
   /// contents even if the workgroup contains any named queries.
   Future<DeleteWorkGroupOutput> deleteWorkGroup(String workGroup,
       {bool recursiveDeleteOption}) async {
-    return DeleteWorkGroupOutput.fromJson({});
+    var response_ = await _client.send('DeleteWorkGroup', {
+      'WorkGroup': workGroup,
+      if (recursiveDeleteOption != null)
+        'RecursiveDeleteOption': recursiveDeleteOption,
+    });
+    return DeleteWorkGroupOutput.fromJson(response_);
   }
 
   /// Returns information about a single query. Requires that you have access to
@@ -145,7 +176,10 @@ class AthenaApi {
   /// [namedQueryId]: The unique ID of the query. Use ListNamedQueries to get
   /// query IDs.
   Future<GetNamedQueryOutput> getNamedQuery(String namedQueryId) async {
-    return GetNamedQueryOutput.fromJson({});
+    var response_ = await _client.send('GetNamedQuery', {
+      'NamedQueryId': namedQueryId,
+    });
+    return GetNamedQueryOutput.fromJson(response_);
   }
 
   /// Returns information about a single execution of a query if you have access
@@ -155,7 +189,10 @@ class AthenaApi {
   /// [queryExecutionId]: The unique ID of the query execution.
   Future<GetQueryExecutionOutput> getQueryExecution(
       String queryExecutionId) async {
-    return GetQueryExecutionOutput.fromJson({});
+    var response_ = await _client.send('GetQueryExecution', {
+      'QueryExecutionId': queryExecutionId,
+    });
+    return GetQueryExecutionOutput.fromJson(response_);
   }
 
   /// Returns the results of a single query execution specified by
@@ -172,14 +209,22 @@ class AthenaApi {
   /// request.
   Future<GetQueryResultsOutput> getQueryResults(String queryExecutionId,
       {String nextToken, int maxResults}) async {
-    return GetQueryResultsOutput.fromJson({});
+    var response_ = await _client.send('GetQueryResults', {
+      'QueryExecutionId': queryExecutionId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetQueryResultsOutput.fromJson(response_);
   }
 
   /// Returns information about the workgroup with the specified name.
   ///
   /// [workGroup]: The name of the workgroup.
   Future<GetWorkGroupOutput> getWorkGroup(String workGroup) async {
-    return GetWorkGroupOutput.fromJson({});
+    var response_ = await _client.send('GetWorkGroup', {
+      'WorkGroup': workGroup,
+    });
+    return GetWorkGroupOutput.fromJson(response_);
   }
 
   /// Provides a list of available query IDs only for queries saved in the
@@ -198,7 +243,12 @@ class AthenaApi {
   /// being returned.
   Future<ListNamedQueriesOutput> listNamedQueries(
       {String nextToken, int maxResults, String workGroup}) async {
-    return ListNamedQueriesOutput.fromJson({});
+    var response_ = await _client.send('ListNamedQueries', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (workGroup != null) 'WorkGroup': workGroup,
+    });
+    return ListNamedQueriesOutput.fromJson(response_);
   }
 
   /// Provides a list of available query execution IDs for the queries in the
@@ -219,7 +269,12 @@ class AthenaApi {
   /// returned.
   Future<ListQueryExecutionsOutput> listQueryExecutions(
       {String nextToken, int maxResults, String workGroup}) async {
-    return ListQueryExecutionsOutput.fromJson({});
+    var response_ = await _client.send('ListQueryExecutions', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (workGroup != null) 'WorkGroup': workGroup,
+    });
+    return ListQueryExecutionsOutput.fromJson(response_);
   }
 
   /// Lists the tags associated with this workgroup.
@@ -235,7 +290,12 @@ class AthenaApi {
   /// that lists the tags for the workgroup resource.
   Future<ListTagsForResourceOutput> listTagsForResource(String resourceArn,
       {String nextToken, int maxResults}) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceARN': resourceArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   /// Lists available workgroups for the account.
@@ -246,7 +306,11 @@ class AthenaApi {
   /// [maxResults]: The maximum number of workgroups to return in this request.
   Future<ListWorkGroupsOutput> listWorkGroups(
       {String nextToken, int maxResults}) async {
-    return ListWorkGroupsOutput.fromJson({});
+    var response_ = await _client.send('ListWorkGroups', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListWorkGroupsOutput.fromJson(response_);
   }
 
   /// Runs the SQL query statements contained in the `Query`. Requires you to
@@ -287,7 +351,16 @@ class AthenaApi {
       QueryExecutionContext queryExecutionContext,
       ResultConfiguration resultConfiguration,
       String workGroup}) async {
-    return StartQueryExecutionOutput.fromJson({});
+    var response_ = await _client.send('StartQueryExecution', {
+      'QueryString': queryString,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (queryExecutionContext != null)
+        'QueryExecutionContext': queryExecutionContext,
+      if (resultConfiguration != null)
+        'ResultConfiguration': resultConfiguration,
+      if (workGroup != null) 'WorkGroup': workGroup,
+    });
+    return StartQueryExecutionOutput.fromJson(response_);
   }
 
   /// Stops a query execution. Requires you to have access to the workgroup in
@@ -300,7 +373,10 @@ class AthenaApi {
   /// [queryExecutionId]: The unique ID of the query execution to stop.
   Future<StopQueryExecutionOutput> stopQueryExecution(
       String queryExecutionId) async {
-    return StopQueryExecutionOutput.fromJson({});
+    var response_ = await _client.send('StopQueryExecution', {
+      'QueryExecutionId': queryExecutionId,
+    });
+    return StopQueryExecutionOutput.fromJson(response_);
   }
 
   /// Adds one or more tags to the resource, such as a workgroup. A tag is a
@@ -325,7 +401,11 @@ class AthenaApi {
   /// resource, such as a workgroup.
   Future<TagResourceOutput> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceOutput.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceARN': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceOutput.fromJson(response_);
   }
 
   /// Removes one or more tags from the workgroup resource. Takes as an input a
@@ -339,7 +419,11 @@ class AthenaApi {
   /// workgroup resource.
   Future<UntagResourceOutput> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceOutput.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceARN': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceOutput.fromJson(response_);
   }
 
   /// Updates the workgroup with the specified name. The workgroup's name cannot
@@ -357,7 +441,14 @@ class AthenaApi {
       {String description,
       WorkGroupConfigurationUpdates configurationUpdates,
       String state}) async {
-    return UpdateWorkGroupOutput.fromJson({});
+    var response_ = await _client.send('UpdateWorkGroup', {
+      'WorkGroup': workGroup,
+      if (description != null) 'Description': description,
+      if (configurationUpdates != null)
+        'ConfigurationUpdates': configurationUpdates,
+      if (state != null) 'State': state,
+    });
+    return UpdateWorkGroupOutput.fromJson(response_);
   }
 }
 
@@ -373,7 +464,18 @@ class BatchGetNamedQueryOutput {
     this.unprocessedNamedQueryIds,
   });
   static BatchGetNamedQueryOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetNamedQueryOutput();
+      BatchGetNamedQueryOutput(
+        namedQueries: json.containsKey('NamedQueries')
+            ? (json['NamedQueries'] as List)
+                .map((e) => NamedQuery.fromJson(e))
+                .toList()
+            : null,
+        unprocessedNamedQueryIds: json.containsKey('UnprocessedNamedQueryIds')
+            ? (json['UnprocessedNamedQueryIds'] as List)
+                .map((e) => UnprocessedNamedQueryId.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchGetQueryExecutionOutput {
@@ -388,7 +490,19 @@ class BatchGetQueryExecutionOutput {
     this.unprocessedQueryExecutionIds,
   });
   static BatchGetQueryExecutionOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetQueryExecutionOutput();
+      BatchGetQueryExecutionOutput(
+        queryExecutions: json.containsKey('QueryExecutions')
+            ? (json['QueryExecutions'] as List)
+                .map((e) => QueryExecution.fromJson(e))
+                .toList()
+            : null,
+        unprocessedQueryExecutionIds:
+            json.containsKey('UnprocessedQueryExecutionIds')
+                ? (json['UnprocessedQueryExecutionIds'] as List)
+                    .map((e) => UnprocessedQueryExecutionId.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Information about the columns in a query execution result.
@@ -437,7 +551,27 @@ class ColumnInfo {
     this.nullable,
     this.caseSensitive,
   });
-  static ColumnInfo fromJson(Map<String, dynamic> json) => ColumnInfo();
+  static ColumnInfo fromJson(Map<String, dynamic> json) => ColumnInfo(
+        catalogName: json.containsKey('CatalogName')
+            ? json['CatalogName'] as String
+            : null,
+        schemaName: json.containsKey('SchemaName')
+            ? json['SchemaName'] as String
+            : null,
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        name: json['Name'] as String,
+        label: json.containsKey('Label') ? json['Label'] as String : null,
+        type: json['Type'] as String,
+        precision:
+            json.containsKey('Precision') ? json['Precision'] as int : null,
+        scale: json.containsKey('Scale') ? json['Scale'] as int : null,
+        nullable:
+            json.containsKey('Nullable') ? json['Nullable'] as String : null,
+        caseSensitive: json.containsKey('CaseSensitive')
+            ? json['CaseSensitive'] as bool
+            : null,
+      );
 }
 
 class CreateNamedQueryOutput {
@@ -448,7 +582,11 @@ class CreateNamedQueryOutput {
     this.namedQueryId,
   });
   static CreateNamedQueryOutput fromJson(Map<String, dynamic> json) =>
-      CreateNamedQueryOutput();
+      CreateNamedQueryOutput(
+        namedQueryId: json.containsKey('NamedQueryId')
+            ? json['NamedQueryId'] as String
+            : null,
+      );
 }
 
 class CreateWorkGroupOutput {
@@ -465,7 +603,11 @@ class Datum {
   Datum({
     this.varCharValue,
   });
-  static Datum fromJson(Map<String, dynamic> json) => Datum();
+  static Datum fromJson(Map<String, dynamic> json) => Datum(
+        varCharValue: json.containsKey('VarCharValue')
+            ? json['VarCharValue'] as String
+            : null,
+      );
 }
 
 class DeleteNamedQueryOutput {
@@ -501,7 +643,11 @@ class EncryptionConfiguration {
     this.kmsKey,
   });
   static EncryptionConfiguration fromJson(Map<String, dynamic> json) =>
-      EncryptionConfiguration();
+      EncryptionConfiguration(
+        encryptionOption: json['EncryptionOption'] as String,
+        kmsKey: json.containsKey('KmsKey') ? json['KmsKey'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetNamedQueryOutput {
@@ -512,7 +658,11 @@ class GetNamedQueryOutput {
     this.namedQuery,
   });
   static GetNamedQueryOutput fromJson(Map<String, dynamic> json) =>
-      GetNamedQueryOutput();
+      GetNamedQueryOutput(
+        namedQuery: json.containsKey('NamedQuery')
+            ? NamedQuery.fromJson(json['NamedQuery'])
+            : null,
+      );
 }
 
 class GetQueryExecutionOutput {
@@ -523,7 +673,11 @@ class GetQueryExecutionOutput {
     this.queryExecution,
   });
   static GetQueryExecutionOutput fromJson(Map<String, dynamic> json) =>
-      GetQueryExecutionOutput();
+      GetQueryExecutionOutput(
+        queryExecution: json.containsKey('QueryExecution')
+            ? QueryExecution.fromJson(json['QueryExecution'])
+            : null,
+      );
 }
 
 class GetQueryResultsOutput {
@@ -542,7 +696,16 @@ class GetQueryResultsOutput {
     this.nextToken,
   });
   static GetQueryResultsOutput fromJson(Map<String, dynamic> json) =>
-      GetQueryResultsOutput();
+      GetQueryResultsOutput(
+        updateCount: json.containsKey('UpdateCount')
+            ? BigInt.from(json['UpdateCount'])
+            : null,
+        resultSet: json.containsKey('ResultSet')
+            ? ResultSet.fromJson(json['ResultSet'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetWorkGroupOutput {
@@ -553,7 +716,11 @@ class GetWorkGroupOutput {
     this.workGroup,
   });
   static GetWorkGroupOutput fromJson(Map<String, dynamic> json) =>
-      GetWorkGroupOutput();
+      GetWorkGroupOutput(
+        workGroup: json.containsKey('WorkGroup')
+            ? WorkGroup.fromJson(json['WorkGroup'])
+            : null,
+      );
 }
 
 class ListNamedQueriesOutput {
@@ -568,7 +735,13 @@ class ListNamedQueriesOutput {
     this.nextToken,
   });
   static ListNamedQueriesOutput fromJson(Map<String, dynamic> json) =>
-      ListNamedQueriesOutput();
+      ListNamedQueriesOutput(
+        namedQueryIds: json.containsKey('NamedQueryIds')
+            ? (json['NamedQueryIds'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListQueryExecutionsOutput {
@@ -583,7 +756,15 @@ class ListQueryExecutionsOutput {
     this.nextToken,
   });
   static ListQueryExecutionsOutput fromJson(Map<String, dynamic> json) =>
-      ListQueryExecutionsOutput();
+      ListQueryExecutionsOutput(
+        queryExecutionIds: json.containsKey('QueryExecutionIds')
+            ? (json['QueryExecutionIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceOutput {
@@ -598,7 +779,13 @@ class ListTagsForResourceOutput {
     this.nextToken,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListWorkGroupsOutput {
@@ -614,7 +801,15 @@ class ListWorkGroupsOutput {
     this.nextToken,
   });
   static ListWorkGroupsOutput fromJson(Map<String, dynamic> json) =>
-      ListWorkGroupsOutput();
+      ListWorkGroupsOutput(
+        workGroups: json.containsKey('WorkGroups')
+            ? (json['WorkGroups'] as List)
+                .map((e) => WorkGroupSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A query, where `QueryString` is the list of SQL query statements that
@@ -646,7 +841,19 @@ class NamedQuery {
     this.namedQueryId,
     this.workGroup,
   });
-  static NamedQuery fromJson(Map<String, dynamic> json) => NamedQuery();
+  static NamedQuery fromJson(Map<String, dynamic> json) => NamedQuery(
+        name: json['Name'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        database: json['Database'] as String,
+        queryString: json['QueryString'] as String,
+        namedQueryId: json.containsKey('NamedQueryId')
+            ? json['NamedQueryId'] as String
+            : null,
+        workGroup:
+            json.containsKey('WorkGroup') ? json['WorkGroup'] as String : null,
+      );
 }
 
 /// Information about a single instance of a query execution.
@@ -695,7 +902,29 @@ class QueryExecution {
     this.statistics,
     this.workGroup,
   });
-  static QueryExecution fromJson(Map<String, dynamic> json) => QueryExecution();
+  static QueryExecution fromJson(Map<String, dynamic> json) => QueryExecution(
+        queryExecutionId: json.containsKey('QueryExecutionId')
+            ? json['QueryExecutionId'] as String
+            : null,
+        query: json.containsKey('Query') ? json['Query'] as String : null,
+        statementType: json.containsKey('StatementType')
+            ? json['StatementType'] as String
+            : null,
+        resultConfiguration: json.containsKey('ResultConfiguration')
+            ? ResultConfiguration.fromJson(json['ResultConfiguration'])
+            : null,
+        queryExecutionContext: json.containsKey('QueryExecutionContext')
+            ? QueryExecutionContext.fromJson(json['QueryExecutionContext'])
+            : null,
+        status: json.containsKey('Status')
+            ? QueryExecutionStatus.fromJson(json['Status'])
+            : null,
+        statistics: json.containsKey('Statistics')
+            ? QueryExecutionStatistics.fromJson(json['Statistics'])
+            : null,
+        workGroup:
+            json.containsKey('WorkGroup') ? json['WorkGroup'] as String : null,
+      );
 }
 
 /// The database in which the query execution occurs.
@@ -707,7 +936,11 @@ class QueryExecutionContext {
     this.database,
   });
   static QueryExecutionContext fromJson(Map<String, dynamic> json) =>
-      QueryExecutionContext();
+      QueryExecutionContext(
+        database:
+            json.containsKey('Database') ? json['Database'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The amount of data scanned during the query execution and the amount of time
@@ -724,7 +957,15 @@ class QueryExecutionStatistics {
     this.dataScannedInBytes,
   });
   static QueryExecutionStatistics fromJson(Map<String, dynamic> json) =>
-      QueryExecutionStatistics();
+      QueryExecutionStatistics(
+        engineExecutionTimeInMillis:
+            json.containsKey('EngineExecutionTimeInMillis')
+                ? BigInt.from(json['EngineExecutionTimeInMillis'])
+                : null,
+        dataScannedInBytes: json.containsKey('DataScannedInBytes')
+            ? BigInt.from(json['DataScannedInBytes'])
+            : null,
+      );
 }
 
 /// The completion date, current state, submission time, and state change reason
@@ -755,7 +996,18 @@ class QueryExecutionStatus {
     this.completionDateTime,
   });
   static QueryExecutionStatus fromJson(Map<String, dynamic> json) =>
-      QueryExecutionStatus();
+      QueryExecutionStatus(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateChangeReason: json.containsKey('StateChangeReason')
+            ? json['StateChangeReason'] as String
+            : null,
+        submissionDateTime: json.containsKey('SubmissionDateTime')
+            ? DateTime.parse(json['SubmissionDateTime'])
+            : null,
+        completionDateTime: json.containsKey('CompletionDateTime')
+            ? DateTime.parse(json['CompletionDateTime'])
+            : null,
+      );
 }
 
 /// The location in Amazon S3 where query results are stored and the encryption
@@ -790,7 +1042,15 @@ class ResultConfiguration {
     this.encryptionConfiguration,
   });
   static ResultConfiguration fromJson(Map<String, dynamic> json) =>
-      ResultConfiguration();
+      ResultConfiguration(
+        outputLocation: json.containsKey('OutputLocation')
+            ? json['OutputLocation'] as String
+            : null,
+        encryptionConfiguration: json.containsKey('EncryptionConfiguration')
+            ? EncryptionConfiguration.fromJson(json['EncryptionConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The information about the updates in the query results, such as output
@@ -836,6 +1096,7 @@ class ResultConfigurationUpdates {
     this.encryptionConfiguration,
     this.removeEncryptionConfiguration,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The metadata and rows that comprise a query result set. The metadata
@@ -852,7 +1113,14 @@ class ResultSet {
     this.rows,
     this.resultSetMetadata,
   });
-  static ResultSet fromJson(Map<String, dynamic> json) => ResultSet();
+  static ResultSet fromJson(Map<String, dynamic> json) => ResultSet(
+        rows: json.containsKey('Rows')
+            ? (json['Rows'] as List).map((e) => Row.fromJson(e)).toList()
+            : null,
+        resultSetMetadata: json.containsKey('ResultSetMetadata')
+            ? ResultSetMetadata.fromJson(json['ResultSetMetadata'])
+            : null,
+      );
 }
 
 /// The metadata that describes the column structure and data types of a table
@@ -865,7 +1133,13 @@ class ResultSetMetadata {
     this.columnInfo,
   });
   static ResultSetMetadata fromJson(Map<String, dynamic> json) =>
-      ResultSetMetadata();
+      ResultSetMetadata(
+        columnInfo: json.containsKey('ColumnInfo')
+            ? (json['ColumnInfo'] as List)
+                .map((e) => ColumnInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The rows that comprise a query result table.
@@ -876,7 +1150,11 @@ class Row {
   Row({
     this.data,
   });
-  static Row fromJson(Map<String, dynamic> json) => Row();
+  static Row fromJson(Map<String, dynamic> json) => Row(
+        data: json.containsKey('Data')
+            ? (json['Data'] as List).map((e) => Datum.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class StartQueryExecutionOutput {
@@ -887,7 +1165,11 @@ class StartQueryExecutionOutput {
     this.queryExecutionId,
   });
   static StartQueryExecutionOutput fromJson(Map<String, dynamic> json) =>
-      StartQueryExecutionOutput();
+      StartQueryExecutionOutput(
+        queryExecutionId: json.containsKey('QueryExecutionId')
+            ? json['QueryExecutionId'] as String
+            : null,
+      );
 }
 
 class StopQueryExecutionOutput {
@@ -922,7 +1204,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceOutput {
@@ -950,7 +1236,16 @@ class UnprocessedNamedQueryId {
     this.errorMessage,
   });
   static UnprocessedNamedQueryId fromJson(Map<String, dynamic> json) =>
-      UnprocessedNamedQueryId();
+      UnprocessedNamedQueryId(
+        namedQueryId: json.containsKey('NamedQueryId')
+            ? json['NamedQueryId'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Describes a query execution that failed to process.
@@ -972,7 +1267,16 @@ class UnprocessedQueryExecutionId {
     this.errorMessage,
   });
   static UnprocessedQueryExecutionId fromJson(Map<String, dynamic> json) =>
-      UnprocessedQueryExecutionId();
+      UnprocessedQueryExecutionId(
+        queryExecutionId: json.containsKey('QueryExecutionId')
+            ? json['QueryExecutionId'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class UntagResourceOutput {
@@ -1027,7 +1331,19 @@ class WorkGroup {
     this.description,
     this.creationTime,
   });
-  static WorkGroup fromJson(Map<String, dynamic> json) => WorkGroup();
+  static WorkGroup fromJson(Map<String, dynamic> json) => WorkGroup(
+        name: json['Name'] as String,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        configuration: json.containsKey('Configuration')
+            ? WorkGroupConfiguration.fromJson(json['Configuration'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// The configuration of the workgroup, which includes the location in Amazon S3
@@ -1080,7 +1396,27 @@ class WorkGroupConfiguration {
     this.requesterPaysEnabled,
   });
   static WorkGroupConfiguration fromJson(Map<String, dynamic> json) =>
-      WorkGroupConfiguration();
+      WorkGroupConfiguration(
+        resultConfiguration: json.containsKey('ResultConfiguration')
+            ? ResultConfiguration.fromJson(json['ResultConfiguration'])
+            : null,
+        enforceWorkGroupConfiguration:
+            json.containsKey('EnforceWorkGroupConfiguration')
+                ? json['EnforceWorkGroupConfiguration'] as bool
+                : null,
+        publishCloudWatchMetricsEnabled:
+            json.containsKey('PublishCloudWatchMetricsEnabled')
+                ? json['PublishCloudWatchMetricsEnabled'] as bool
+                : null,
+        bytesScannedCutoffPerQuery:
+            json.containsKey('BytesScannedCutoffPerQuery')
+                ? BigInt.from(json['BytesScannedCutoffPerQuery'])
+                : null,
+        requesterPaysEnabled: json.containsKey('RequesterPaysEnabled')
+            ? json['RequesterPaysEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration information that will be updated for this workgroup, which
@@ -1130,6 +1466,7 @@ class WorkGroupConfigurationUpdates {
     this.removeBytesScannedCutoffPerQuery,
     this.requesterPaysEnabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The summary information for the workgroup, which includes its name, state,
@@ -1154,5 +1491,14 @@ class WorkGroupSummary {
     this.creationTime,
   });
   static WorkGroupSummary fromJson(Map<String, dynamic> json) =>
-      WorkGroupSummary();
+      WorkGroupSummary(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }

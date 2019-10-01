@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 /// Provides APIs for creating and managing Amazon SageMaker resources.
 class SageMakerApi {
+  final _client;
+  SageMakerApi(client)
+      : _client = client.configured('SageMaker', serializer: 'json');
+
   /// Adds or overwrites one or more tags for the specified Amazon SageMaker
   /// resource. You can add tags to notebook instances, training jobs,
   /// hyperparameter tuning jobs, batch transform jobs, models, labeling jobs,
@@ -31,7 +35,11 @@ class SageMakerApi {
   /// SageMaker sets the value to an empty string.
   Future<AddTagsOutput> addTags(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return AddTagsOutput.fromJson({});
+    var response_ = await _client.send('AddTags', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return AddTagsOutput.fromJson(response_);
   }
 
   /// Create a machine learning algorithm that you can use in Amazon SageMaker
@@ -88,7 +96,19 @@ class SageMakerApi {
       InferenceSpecification inferenceSpecification,
       AlgorithmValidationSpecification validationSpecification,
       bool certifyForMarketplace}) async {
-    return CreateAlgorithmOutput.fromJson({});
+    var response_ = await _client.send('CreateAlgorithm', {
+      'AlgorithmName': algorithmName,
+      if (algorithmDescription != null)
+        'AlgorithmDescription': algorithmDescription,
+      'TrainingSpecification': trainingSpecification,
+      if (inferenceSpecification != null)
+        'InferenceSpecification': inferenceSpecification,
+      if (validationSpecification != null)
+        'ValidationSpecification': validationSpecification,
+      if (certifyForMarketplace != null)
+        'CertifyForMarketplace': certifyForMarketplace,
+    });
+    return CreateAlgorithmOutput.fromJson(response_);
   }
 
   /// Creates a Git repository as a resource in your Amazon SageMaker account.
@@ -111,7 +131,11 @@ class SageMakerApi {
   Future<CreateCodeRepositoryOutput> createCodeRepository(
       {@required String codeRepositoryName,
       @required GitConfig gitConfig}) async {
-    return CreateCodeRepositoryOutput.fromJson({});
+    var response_ = await _client.send('CreateCodeRepository', {
+      'CodeRepositoryName': codeRepositoryName,
+      'GitConfig': gitConfig,
+    });
+    return CreateCodeRepositoryOutput.fromJson(response_);
   }
 
   /// Starts a model compilation job. After the model has been compiled, Amazon
@@ -183,7 +207,14 @@ class SageMakerApi {
       @required InputConfig inputConfig,
       @required OutputConfig outputConfig,
       @required StoppingCondition stoppingCondition}) async {
-    return CreateCompilationJobResponse.fromJson({});
+    var response_ = await _client.send('CreateCompilationJob', {
+      'CompilationJobName': compilationJobName,
+      'RoleArn': roleArn,
+      'InputConfig': inputConfig,
+      'OutputConfig': outputConfig,
+      'StoppingCondition': stoppingCondition,
+    });
+    return CreateCompilationJobResponse.fromJson(response_);
   }
 
   /// Creates an endpoint using the endpoint configuration specified in the
@@ -239,7 +270,12 @@ class SageMakerApi {
       {@required String endpointName,
       @required String endpointConfigName,
       List<Tag> tags}) async {
-    return CreateEndpointOutput.fromJson({});
+    var response_ = await _client.send('CreateEndpoint', {
+      'EndpointName': endpointName,
+      'EndpointConfigName': endpointConfigName,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateEndpointOutput.fromJson(response_);
   }
 
   /// Creates an endpoint configuration that Amazon SageMaker hosting services
@@ -283,7 +319,13 @@ class SageMakerApi {
       @required List<ProductionVariant> productionVariants,
       List<Tag> tags,
       String kmsKeyId}) async {
-    return CreateEndpointConfigOutput.fromJson({});
+    var response_ = await _client.send('CreateEndpointConfig', {
+      'EndpointConfigName': endpointConfigName,
+      'ProductionVariants': productionVariants,
+      if (tags != null) 'Tags': tags,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+    });
+    return CreateEndpointConfigOutput.fromJson(response_);
   }
 
   /// Starts a hyperparameter tuning job. A hyperparameter tuning job finds the
@@ -343,7 +385,15 @@ class SageMakerApi {
       HyperParameterTrainingJobDefinition trainingJobDefinition,
       HyperParameterTuningJobWarmStartConfig warmStartConfig,
       List<Tag> tags}) async {
-    return CreateHyperParameterTuningJobResponse.fromJson({});
+    var response_ = await _client.send('CreateHyperParameterTuningJob', {
+      'HyperParameterTuningJobName': hyperParameterTuningJobName,
+      'HyperParameterTuningJobConfig': hyperParameterTuningJobConfig,
+      if (trainingJobDefinition != null)
+        'TrainingJobDefinition': trainingJobDefinition,
+      if (warmStartConfig != null) 'WarmStartConfig': warmStartConfig,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateHyperParameterTuningJobResponse.fromJson(response_);
   }
 
   /// Creates a job that uses workers to label the data objects in your input
@@ -459,7 +509,21 @@ class SageMakerApi {
       LabelingJobAlgorithmsConfig labelingJobAlgorithmsConfig,
       @required HumanTaskConfig humanTaskConfig,
       List<Tag> tags}) async {
-    return CreateLabelingJobResponse.fromJson({});
+    var response_ = await _client.send('CreateLabelingJob', {
+      'LabelingJobName': labelingJobName,
+      'LabelAttributeName': labelAttributeName,
+      'InputConfig': inputConfig,
+      'OutputConfig': outputConfig,
+      'RoleArn': roleArn,
+      if (labelCategoryConfigS3Uri != null)
+        'LabelCategoryConfigS3Uri': labelCategoryConfigS3Uri,
+      if (stoppingConditions != null) 'StoppingConditions': stoppingConditions,
+      if (labelingJobAlgorithmsConfig != null)
+        'LabelingJobAlgorithmsConfig': labelingJobAlgorithmsConfig,
+      'HumanTaskConfig': humanTaskConfig,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateLabelingJobResponse.fromJson(response_);
   }
 
   /// Creates a model in Amazon SageMaker. In the request, you name the model
@@ -539,7 +603,17 @@ class SageMakerApi {
       List<Tag> tags,
       VpcConfig vpcConfig,
       bool enableNetworkIsolation}) async {
-    return CreateModelOutput.fromJson({});
+    var response_ = await _client.send('CreateModel', {
+      'ModelName': modelName,
+      if (primaryContainer != null) 'PrimaryContainer': primaryContainer,
+      if (containers != null) 'Containers': containers,
+      'ExecutionRoleArn': executionRoleArn,
+      if (tags != null) 'Tags': tags,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+      if (enableNetworkIsolation != null)
+        'EnableNetworkIsolation': enableNetworkIsolation,
+    });
+    return CreateModelOutput.fromJson(response_);
   }
 
   /// Creates a model package that you can use to create Amazon SageMaker models
@@ -583,7 +657,20 @@ class SageMakerApi {
       ModelPackageValidationSpecification validationSpecification,
       SourceAlgorithmSpecification sourceAlgorithmSpecification,
       bool certifyForMarketplace}) async {
-    return CreateModelPackageOutput.fromJson({});
+    var response_ = await _client.send('CreateModelPackage', {
+      'ModelPackageName': modelPackageName,
+      if (modelPackageDescription != null)
+        'ModelPackageDescription': modelPackageDescription,
+      if (inferenceSpecification != null)
+        'InferenceSpecification': inferenceSpecification,
+      if (validationSpecification != null)
+        'ValidationSpecification': validationSpecification,
+      if (sourceAlgorithmSpecification != null)
+        'SourceAlgorithmSpecification': sourceAlgorithmSpecification,
+      if (certifyForMarketplace != null)
+        'CertifyForMarketplace': certifyForMarketplace,
+    });
+    return CreateModelPackageOutput.fromJson(response_);
   }
 
   /// Creates an Amazon SageMaker notebook instance. A notebook instance is a
@@ -729,7 +816,27 @@ class SageMakerApi {
       String defaultCodeRepository,
       List<String> additionalCodeRepositories,
       String rootAccess}) async {
-    return CreateNotebookInstanceOutput.fromJson({});
+    var response_ = await _client.send('CreateNotebookInstance', {
+      'NotebookInstanceName': notebookInstanceName,
+      'InstanceType': instanceType,
+      if (subnetId != null) 'SubnetId': subnetId,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      'RoleArn': roleArn,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (tags != null) 'Tags': tags,
+      if (lifecycleConfigName != null)
+        'LifecycleConfigName': lifecycleConfigName,
+      if (directInternetAccess != null)
+        'DirectInternetAccess': directInternetAccess,
+      if (volumeSizeInGB != null) 'VolumeSizeInGB': volumeSizeInGB,
+      if (acceleratorTypes != null) 'AcceleratorTypes': acceleratorTypes,
+      if (defaultCodeRepository != null)
+        'DefaultCodeRepository': defaultCodeRepository,
+      if (additionalCodeRepositories != null)
+        'AdditionalCodeRepositories': additionalCodeRepositories,
+      if (rootAccess != null) 'RootAccess': rootAccess,
+    });
+    return CreateNotebookInstanceOutput.fromJson(response_);
   }
 
   /// Creates a lifecycle configuration that you can associate with a notebook
@@ -766,7 +873,14 @@ class SageMakerApi {
           String notebookInstanceLifecycleConfigName,
           {List<NotebookInstanceLifecycleHook> onCreate,
           List<NotebookInstanceLifecycleHook> onStart}) async {
-    return CreateNotebookInstanceLifecycleConfigOutput.fromJson({});
+    var response_ =
+        await _client.send('CreateNotebookInstanceLifecycleConfig', {
+      'NotebookInstanceLifecycleConfigName':
+          notebookInstanceLifecycleConfigName,
+      if (onCreate != null) 'OnCreate': onCreate,
+      if (onStart != null) 'OnStart': onStart,
+    });
+    return CreateNotebookInstanceLifecycleConfigOutput.fromJson(response_);
   }
 
   /// Returns a URL that you can use to connect to the Jupyter server from a
@@ -797,7 +911,13 @@ class SageMakerApi {
   Future<CreatePresignedNotebookInstanceUrlOutput>
       createPresignedNotebookInstanceUrl(String notebookInstanceName,
           {int sessionExpirationDurationInSeconds}) async {
-    return CreatePresignedNotebookInstanceUrlOutput.fromJson({});
+    var response_ = await _client.send('CreatePresignedNotebookInstanceUrl', {
+      'NotebookInstanceName': notebookInstanceName,
+      if (sessionExpirationDurationInSeconds != null)
+        'SessionExpirationDurationInSeconds':
+            sessionExpirationDurationInSeconds,
+    });
+    return CreatePresignedNotebookInstanceUrlOutput.fromJson(response_);
   }
 
   /// Starts a model training job. After training completes, Amazon SageMaker
@@ -984,7 +1104,27 @@ class SageMakerApi {
       bool enableInterContainerTrafficEncryption,
       bool enableManagedSpotTraining,
       CheckpointConfig checkpointConfig}) async {
-    return CreateTrainingJobResponse.fromJson({});
+    var response_ = await _client.send('CreateTrainingJob', {
+      'TrainingJobName': trainingJobName,
+      if (hyperParameters != null) 'HyperParameters': hyperParameters,
+      'AlgorithmSpecification': algorithmSpecification,
+      'RoleArn': roleArn,
+      if (inputDataConfig != null) 'InputDataConfig': inputDataConfig,
+      'OutputDataConfig': outputDataConfig,
+      'ResourceConfig': resourceConfig,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+      'StoppingCondition': stoppingCondition,
+      if (tags != null) 'Tags': tags,
+      if (enableNetworkIsolation != null)
+        'EnableNetworkIsolation': enableNetworkIsolation,
+      if (enableInterContainerTrafficEncryption != null)
+        'EnableInterContainerTrafficEncryption':
+            enableInterContainerTrafficEncryption,
+      if (enableManagedSpotTraining != null)
+        'EnableManagedSpotTraining': enableManagedSpotTraining,
+      if (checkpointConfig != null) 'CheckpointConfig': checkpointConfig,
+    });
+    return CreateTrainingJobResponse.fromJson(response_);
   }
 
   /// Starts a transform job. A transform job uses a trained model to get
@@ -1103,7 +1243,21 @@ class SageMakerApi {
       @required TransformResources transformResources,
       DataProcessing dataProcessing,
       List<Tag> tags}) async {
-    return CreateTransformJobResponse.fromJson({});
+    var response_ = await _client.send('CreateTransformJob', {
+      'TransformJobName': transformJobName,
+      'ModelName': modelName,
+      if (maxConcurrentTransforms != null)
+        'MaxConcurrentTransforms': maxConcurrentTransforms,
+      if (maxPayloadInMB != null) 'MaxPayloadInMB': maxPayloadInMB,
+      if (batchStrategy != null) 'BatchStrategy': batchStrategy,
+      if (environment != null) 'Environment': environment,
+      'TransformInput': transformInput,
+      'TransformOutput': transformOutput,
+      'TransformResources': transformResources,
+      if (dataProcessing != null) 'DataProcessing': dataProcessing,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateTransformJobResponse.fromJson(response_);
   }
 
   /// Creates a new work team for labeling your data. A work team is defined by
@@ -1141,18 +1295,34 @@ class SageMakerApi {
       @required String description,
       NotificationConfiguration notificationConfiguration,
       List<Tag> tags}) async {
-    return CreateWorkteamResponse.fromJson({});
+    var response_ = await _client.send('CreateWorkteam', {
+      'WorkteamName': workteamName,
+      'MemberDefinitions': memberDefinitions,
+      'Description': description,
+      if (notificationConfiguration != null)
+        'NotificationConfiguration': notificationConfiguration,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateWorkteamResponse.fromJson(response_);
   }
 
   /// Removes the specified algorithm from your account.
   ///
   /// [algorithmName]: The name of the algorithm to delete.
-  Future<void> deleteAlgorithm(String algorithmName) async {}
+  Future<void> deleteAlgorithm(String algorithmName) async {
+    await _client.send('DeleteAlgorithm', {
+      'AlgorithmName': algorithmName,
+    });
+  }
 
   /// Deletes the specified Git repository from your account.
   ///
   /// [codeRepositoryName]: The name of the Git repository to delete.
-  Future<void> deleteCodeRepository(String codeRepositoryName) async {}
+  Future<void> deleteCodeRepository(String codeRepositoryName) async {
+    await _client.send('DeleteCodeRepository', {
+      'CodeRepositoryName': codeRepositoryName,
+    });
+  }
 
   /// Deletes an endpoint. Amazon SageMaker frees up all of the resources that
   /// were deployed when the endpoint was created.
@@ -1163,7 +1333,11 @@ class SageMakerApi {
   /// API call.
   ///
   /// [endpointName]: The name of the endpoint that you want to delete.
-  Future<void> deleteEndpoint(String endpointName) async {}
+  Future<void> deleteEndpoint(String endpointName) async {
+    await _client.send('DeleteEndpoint', {
+      'EndpointName': endpointName,
+    });
+  }
 
   /// Deletes an endpoint configuration. The `DeleteEndpointConfig` API deletes
   /// only the specified configuration. It does not delete endpoints created
@@ -1171,7 +1345,11 @@ class SageMakerApi {
   ///
   /// [endpointConfigName]: The name of the endpoint configuration that you want
   /// to delete.
-  Future<void> deleteEndpointConfig(String endpointConfigName) async {}
+  Future<void> deleteEndpointConfig(String endpointConfigName) async {
+    await _client.send('DeleteEndpointConfig', {
+      'EndpointConfigName': endpointConfigName,
+    });
+  }
 
   /// Deletes a model. The `DeleteModel` API deletes only the model entry that
   /// was created in Amazon SageMaker when you called the
@@ -1180,7 +1358,11 @@ class SageMakerApi {
   /// that you specified when creating the model.
   ///
   /// [modelName]: The name of the model to delete.
-  Future<void> deleteModel(String modelName) async {}
+  Future<void> deleteModel(String modelName) async {
+    await _client.send('DeleteModel', {
+      'ModelName': modelName,
+    });
+  }
 
   /// Deletes a model package.
   ///
@@ -1190,7 +1372,11 @@ class SageMakerApi {
   ///
   /// [modelPackageName]: The name of the model package. The name must have 1 to
   /// 63 characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
-  Future<void> deleteModelPackage(String modelPackageName) async {}
+  Future<void> deleteModelPackage(String modelPackageName) async {
+    await _client.send('DeleteModelPackage', {
+      'ModelPackageName': modelPackageName,
+    });
+  }
 
   ///  Deletes an Amazon SageMaker notebook instance. Before you can delete a
   /// notebook instance, you must call the `StopNotebookInstance` API.
@@ -1203,14 +1389,23 @@ class SageMakerApi {
   ///
   /// [notebookInstanceName]: The name of the Amazon SageMaker notebook instance
   /// to delete.
-  Future<void> deleteNotebookInstance(String notebookInstanceName) async {}
+  Future<void> deleteNotebookInstance(String notebookInstanceName) async {
+    await _client.send('DeleteNotebookInstance', {
+      'NotebookInstanceName': notebookInstanceName,
+    });
+  }
 
   /// Deletes a notebook instance lifecycle configuration.
   ///
   /// [notebookInstanceLifecycleConfigName]: The name of the lifecycle
   /// configuration to delete.
   Future<void> deleteNotebookInstanceLifecycleConfig(
-      String notebookInstanceLifecycleConfigName) async {}
+      String notebookInstanceLifecycleConfigName) async {
+    await _client.send('DeleteNotebookInstanceLifecycleConfig', {
+      'NotebookInstanceLifecycleConfigName':
+          notebookInstanceLifecycleConfigName,
+    });
+  }
 
   /// Deletes the specified tags from an Amazon SageMaker resource.
   ///
@@ -1228,14 +1423,21 @@ class SageMakerApi {
   /// [tagKeys]: An array or one or more tag keys to delete.
   Future<DeleteTagsOutput> deleteTags(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return DeleteTagsOutput.fromJson({});
+    var response_ = await _client.send('DeleteTags', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return DeleteTagsOutput.fromJson(response_);
   }
 
   /// Deletes an existing work team. This operation can't be undone.
   ///
   /// [workteamName]: The name of the work team to delete.
   Future<DeleteWorkteamResponse> deleteWorkteam(String workteamName) async {
-    return DeleteWorkteamResponse.fromJson({});
+    var response_ = await _client.send('DeleteWorkteam', {
+      'WorkteamName': workteamName,
+    });
+    return DeleteWorkteamResponse.fromJson(response_);
   }
 
   /// Returns a description of the specified algorithm that is in your account.
@@ -1243,7 +1445,10 @@ class SageMakerApi {
   /// [algorithmName]: The name of the algorithm to describe.
   Future<DescribeAlgorithmOutput> describeAlgorithm(
       String algorithmName) async {
-    return DescribeAlgorithmOutput.fromJson({});
+    var response_ = await _client.send('DescribeAlgorithm', {
+      'AlgorithmName': algorithmName,
+    });
+    return DescribeAlgorithmOutput.fromJson(response_);
   }
 
   /// Gets details about the specified Git repository.
@@ -1251,7 +1456,10 @@ class SageMakerApi {
   /// [codeRepositoryName]: The name of the Git repository to describe.
   Future<DescribeCodeRepositoryOutput> describeCodeRepository(
       String codeRepositoryName) async {
-    return DescribeCodeRepositoryOutput.fromJson({});
+    var response_ = await _client.send('DescribeCodeRepository', {
+      'CodeRepositoryName': codeRepositoryName,
+    });
+    return DescribeCodeRepositoryOutput.fromJson(response_);
   }
 
   /// Returns information about a model compilation job.
@@ -1264,14 +1472,20 @@ class SageMakerApi {
   /// information about.
   Future<DescribeCompilationJobResponse> describeCompilationJob(
       String compilationJobName) async {
-    return DescribeCompilationJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeCompilationJob', {
+      'CompilationJobName': compilationJobName,
+    });
+    return DescribeCompilationJobResponse.fromJson(response_);
   }
 
   /// Returns the description of an endpoint.
   ///
   /// [endpointName]: The name of the endpoint.
   Future<DescribeEndpointOutput> describeEndpoint(String endpointName) async {
-    return DescribeEndpointOutput.fromJson({});
+    var response_ = await _client.send('DescribeEndpoint', {
+      'EndpointName': endpointName,
+    });
+    return DescribeEndpointOutput.fromJson(response_);
   }
 
   /// Returns the description of an endpoint configuration created using the
@@ -1280,7 +1494,10 @@ class SageMakerApi {
   /// [endpointConfigName]: The name of the endpoint configuration.
   Future<DescribeEndpointConfigOutput> describeEndpointConfig(
       String endpointConfigName) async {
-    return DescribeEndpointConfigOutput.fromJson({});
+    var response_ = await _client.send('DescribeEndpointConfig', {
+      'EndpointConfigName': endpointConfigName,
+    });
+    return DescribeEndpointConfigOutput.fromJson(response_);
   }
 
   /// Gets a description of a hyperparameter tuning job.
@@ -1289,7 +1506,10 @@ class SageMakerApi {
   Future<DescribeHyperParameterTuningJobResponse>
       describeHyperParameterTuningJob(
           String hyperParameterTuningJobName) async {
-    return DescribeHyperParameterTuningJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeHyperParameterTuningJob', {
+      'HyperParameterTuningJobName': hyperParameterTuningJobName,
+    });
+    return DescribeHyperParameterTuningJobResponse.fromJson(response_);
   }
 
   /// Gets information about a labeling job.
@@ -1297,14 +1517,20 @@ class SageMakerApi {
   /// [labelingJobName]: The name of the labeling job to return information for.
   Future<DescribeLabelingJobResponse> describeLabelingJob(
       String labelingJobName) async {
-    return DescribeLabelingJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeLabelingJob', {
+      'LabelingJobName': labelingJobName,
+    });
+    return DescribeLabelingJobResponse.fromJson(response_);
   }
 
   /// Describes a model that you created using the `CreateModel` API.
   ///
   /// [modelName]: The name of the model.
   Future<DescribeModelOutput> describeModel(String modelName) async {
-    return DescribeModelOutput.fromJson({});
+    var response_ = await _client.send('DescribeModel', {
+      'ModelName': modelName,
+    });
+    return DescribeModelOutput.fromJson(response_);
   }
 
   /// Returns a description of the specified model package, which is used to
@@ -1316,7 +1542,10 @@ class SageMakerApi {
   /// [modelPackageName]: The name of the model package to describe.
   Future<DescribeModelPackageOutput> describeModelPackage(
       String modelPackageName) async {
-    return DescribeModelPackageOutput.fromJson({});
+    var response_ = await _client.send('DescribeModelPackage', {
+      'ModelPackageName': modelPackageName,
+    });
+    return DescribeModelPackageOutput.fromJson(response_);
   }
 
   /// Returns information about a notebook instance.
@@ -1325,7 +1554,10 @@ class SageMakerApi {
   /// information about.
   Future<DescribeNotebookInstanceOutput> describeNotebookInstance(
       String notebookInstanceName) async {
-    return DescribeNotebookInstanceOutput.fromJson({});
+    var response_ = await _client.send('DescribeNotebookInstance', {
+      'NotebookInstanceName': notebookInstanceName,
+    });
+    return DescribeNotebookInstanceOutput.fromJson(response_);
   }
 
   /// Returns a description of a notebook instance lifecycle configuration.
@@ -1338,7 +1570,12 @@ class SageMakerApi {
   Future<DescribeNotebookInstanceLifecycleConfigOutput>
       describeNotebookInstanceLifecycleConfig(
           String notebookInstanceLifecycleConfigName) async {
-    return DescribeNotebookInstanceLifecycleConfigOutput.fromJson({});
+    var response_ =
+        await _client.send('DescribeNotebookInstanceLifecycleConfig', {
+      'NotebookInstanceLifecycleConfigName':
+          notebookInstanceLifecycleConfigName,
+    });
+    return DescribeNotebookInstanceLifecycleConfigOutput.fromJson(response_);
   }
 
   /// Gets information about a work team provided by a vendor. It returns
@@ -1348,7 +1585,10 @@ class SageMakerApi {
   /// to describe.
   Future<DescribeSubscribedWorkteamResponse> describeSubscribedWorkteam(
       String workteamArn) async {
-    return DescribeSubscribedWorkteamResponse.fromJson({});
+    var response_ = await _client.send('DescribeSubscribedWorkteam', {
+      'WorkteamArn': workteamArn,
+    });
+    return DescribeSubscribedWorkteamResponse.fromJson(response_);
   }
 
   /// Returns information about a training job.
@@ -1356,7 +1596,10 @@ class SageMakerApi {
   /// [trainingJobName]: The name of the training job.
   Future<DescribeTrainingJobResponse> describeTrainingJob(
       String trainingJobName) async {
-    return DescribeTrainingJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeTrainingJob', {
+      'TrainingJobName': trainingJobName,
+    });
+    return DescribeTrainingJobResponse.fromJson(response_);
   }
 
   /// Returns information about a transform job.
@@ -1365,7 +1608,10 @@ class SageMakerApi {
   /// details of.
   Future<DescribeTransformJobResponse> describeTransformJob(
       String transformJobName) async {
-    return DescribeTransformJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeTransformJob', {
+      'TransformJobName': transformJobName,
+    });
+    return DescribeTransformJobResponse.fromJson(response_);
   }
 
   /// Gets information about a specific work team. You can see information such
@@ -1374,7 +1620,10 @@ class SageMakerApi {
   ///
   /// [workteamName]: The name of the work team to return a description of.
   Future<DescribeWorkteamResponse> describeWorkteam(String workteamName) async {
-    return DescribeWorkteamResponse.fromJson({});
+    var response_ = await _client.send('DescribeWorkteam', {
+      'WorkteamName': workteamName,
+    });
+    return DescribeWorkteamResponse.fromJson(response_);
   }
 
   /// An auto-complete API for the search functionality in the Amazon SageMaker
@@ -1389,7 +1638,11 @@ class SageMakerApi {
   /// response.
   Future<GetSearchSuggestionsResponse> getSearchSuggestions(String resource,
       {SuggestionQuery suggestionQuery}) async {
-    return GetSearchSuggestionsResponse.fromJson({});
+    var response_ = await _client.send('GetSearchSuggestions', {
+      'Resource': resource,
+      if (suggestionQuery != null) 'SuggestionQuery': suggestionQuery,
+    });
+    return GetSearchSuggestionsResponse.fromJson(response_);
   }
 
   /// Lists the machine learning algorithms that have been created.
@@ -1421,7 +1674,16 @@ class SageMakerApi {
       String nextToken,
       String sortBy,
       String sortOrder}) async {
-    return ListAlgorithmsOutput.fromJson({});
+    var response_ = await _client.send('ListAlgorithms', {
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+    });
+    return ListAlgorithmsOutput.fromJson(response_);
   }
 
   /// Gets a list of the Git repositories in your account.
@@ -1461,7 +1723,20 @@ class SageMakerApi {
       String nextToken,
       String sortBy,
       String sortOrder}) async {
-    return ListCodeRepositoriesOutput.fromJson({});
+    var response_ = await _client.send('ListCodeRepositories', {
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (lastModifiedTimeAfter != null)
+        'LastModifiedTimeAfter': lastModifiedTimeAfter,
+      if (lastModifiedTimeBefore != null)
+        'LastModifiedTimeBefore': lastModifiedTimeBefore,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+    });
+    return ListCodeRepositoriesOutput.fromJson(response_);
   }
 
   /// Lists model compilation jobs that satisfy various filters.
@@ -1510,7 +1785,21 @@ class SageMakerApi {
       String statusEquals,
       String sortBy,
       String sortOrder}) async {
-    return ListCompilationJobsResponse.fromJson({});
+    var response_ = await _client.send('ListCompilationJobs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (lastModifiedTimeAfter != null)
+        'LastModifiedTimeAfter': lastModifiedTimeAfter,
+      if (lastModifiedTimeBefore != null)
+        'LastModifiedTimeBefore': lastModifiedTimeBefore,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (statusEquals != null) 'StatusEquals': statusEquals,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+    });
+    return ListCompilationJobsResponse.fromJson(response_);
   }
 
   /// Lists endpoint configurations.
@@ -1544,7 +1833,16 @@ class SageMakerApi {
       String nameContains,
       DateTime creationTimeBefore,
       DateTime creationTimeAfter}) async {
-    return ListEndpointConfigsOutput.fromJson({});
+    var response_ = await _client.send('ListEndpointConfigs', {
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+    });
+    return ListEndpointConfigsOutput.fromJson(response_);
   }
 
   /// Lists endpoints.
@@ -1587,7 +1885,21 @@ class SageMakerApi {
       DateTime lastModifiedTimeBefore,
       DateTime lastModifiedTimeAfter,
       String statusEquals}) async {
-    return ListEndpointsOutput.fromJson({});
+    var response_ = await _client.send('ListEndpoints', {
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (lastModifiedTimeBefore != null)
+        'LastModifiedTimeBefore': lastModifiedTimeBefore,
+      if (lastModifiedTimeAfter != null)
+        'LastModifiedTimeAfter': lastModifiedTimeAfter,
+      if (statusEquals != null) 'StatusEquals': statusEquals,
+    });
+    return ListEndpointsOutput.fromJson(response_);
   }
 
   /// Gets a list of HyperParameterTuningJobSummary objects that describe the
@@ -1632,7 +1944,21 @@ class SageMakerApi {
       DateTime lastModifiedTimeAfter,
       DateTime lastModifiedTimeBefore,
       String statusEquals}) async {
-    return ListHyperParameterTuningJobsResponse.fromJson({});
+    var response_ = await _client.send('ListHyperParameterTuningJobs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (lastModifiedTimeAfter != null)
+        'LastModifiedTimeAfter': lastModifiedTimeAfter,
+      if (lastModifiedTimeBefore != null)
+        'LastModifiedTimeBefore': lastModifiedTimeBefore,
+      if (statusEquals != null) 'StatusEquals': statusEquals,
+    });
+    return ListHyperParameterTuningJobsResponse.fromJson(response_);
   }
 
   /// Gets a list of labeling jobs.
@@ -1676,7 +2002,21 @@ class SageMakerApi {
       String sortBy,
       String sortOrder,
       String statusEquals}) async {
-    return ListLabelingJobsResponse.fromJson({});
+    var response_ = await _client.send('ListLabelingJobs', {
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (lastModifiedTimeAfter != null)
+        'LastModifiedTimeAfter': lastModifiedTimeAfter,
+      if (lastModifiedTimeBefore != null)
+        'LastModifiedTimeBefore': lastModifiedTimeBefore,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (statusEquals != null) 'StatusEquals': statusEquals,
+    });
+    return ListLabelingJobsResponse.fromJson(response_);
   }
 
   /// Gets a list of labeling jobs assigned to a specified work team.
@@ -1712,7 +2052,18 @@ class SageMakerApi {
       String jobReferenceCodeContains,
       String sortBy,
       String sortOrder}) async {
-    return ListLabelingJobsForWorkteamResponse.fromJson({});
+    var response_ = await _client.send('ListLabelingJobsForWorkteam', {
+      'WorkteamArn': workteamArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (jobReferenceCodeContains != null)
+        'JobReferenceCodeContains': jobReferenceCodeContains,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+    });
+    return ListLabelingJobsForWorkteamResponse.fromJson(response_);
   }
 
   /// Lists the model packages that have been created.
@@ -1745,7 +2096,16 @@ class SageMakerApi {
       String nextToken,
       String sortBy,
       String sortOrder}) async {
-    return ListModelPackagesOutput.fromJson({});
+    var response_ = await _client.send('ListModelPackages', {
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+    });
+    return ListModelPackagesOutput.fromJson(response_);
   }
 
   /// Lists models created with the
@@ -1778,7 +2138,16 @@ class SageMakerApi {
       String nameContains,
       DateTime creationTimeBefore,
       DateTime creationTimeAfter}) async {
-    return ListModelsOutput.fromJson({});
+    var response_ = await _client.send('ListModels', {
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+    });
+    return ListModelsOutput.fromJson(response_);
   }
 
   /// Lists notebook instance lifestyle configurations created with the
@@ -1821,7 +2190,20 @@ class SageMakerApi {
           DateTime creationTimeAfter,
           DateTime lastModifiedTimeBefore,
           DateTime lastModifiedTimeAfter}) async {
-    return ListNotebookInstanceLifecycleConfigsOutput.fromJson({});
+    var response_ = await _client.send('ListNotebookInstanceLifecycleConfigs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (lastModifiedTimeBefore != null)
+        'LastModifiedTimeBefore': lastModifiedTimeBefore,
+      if (lastModifiedTimeAfter != null)
+        'LastModifiedTimeAfter': lastModifiedTimeAfter,
+    });
+    return ListNotebookInstanceLifecycleConfigsOutput.fromJson(response_);
   }
 
   /// Returns a list of the Amazon SageMaker notebook instances in the
@@ -1888,7 +2270,28 @@ class SageMakerApi {
       String notebookInstanceLifecycleConfigNameContains,
       String defaultCodeRepositoryContains,
       String additionalCodeRepositoryEquals}) async {
-    return ListNotebookInstancesOutput.fromJson({});
+    var response_ = await _client.send('ListNotebookInstances', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (lastModifiedTimeBefore != null)
+        'LastModifiedTimeBefore': lastModifiedTimeBefore,
+      if (lastModifiedTimeAfter != null)
+        'LastModifiedTimeAfter': lastModifiedTimeAfter,
+      if (statusEquals != null) 'StatusEquals': statusEquals,
+      if (notebookInstanceLifecycleConfigNameContains != null)
+        'NotebookInstanceLifecycleConfigNameContains':
+            notebookInstanceLifecycleConfigNameContains,
+      if (defaultCodeRepositoryContains != null)
+        'DefaultCodeRepositoryContains': defaultCodeRepositoryContains,
+      if (additionalCodeRepositoryEquals != null)
+        'AdditionalCodeRepositoryEquals': additionalCodeRepositoryEquals,
+    });
+    return ListNotebookInstancesOutput.fromJson(response_);
   }
 
   /// Gets a list of the work teams that you are subscribed to in the AWS
@@ -1906,7 +2309,12 @@ class SageMakerApi {
   /// the response.
   Future<ListSubscribedWorkteamsResponse> listSubscribedWorkteams(
       {String nameContains, String nextToken, int maxResults}) async {
-    return ListSubscribedWorkteamsResponse.fromJson({});
+    var response_ = await _client.send('ListSubscribedWorkteams', {
+      if (nameContains != null) 'NameContains': nameContains,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListSubscribedWorkteamsResponse.fromJson(response_);
   }
 
   /// Returns the tags for the specified Amazon SageMaker resource.
@@ -1921,7 +2329,12 @@ class SageMakerApi {
   /// [maxResults]: Maximum number of tags to return.
   Future<ListTagsOutput> listTags(String resourceArn,
       {String nextToken, int maxResults}) async {
-    return ListTagsOutput.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'ResourceArn': resourceArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTagsOutput.fromJson(response_);
   }
 
   /// Lists training jobs.
@@ -1965,7 +2378,21 @@ class SageMakerApi {
       String statusEquals,
       String sortBy,
       String sortOrder}) async {
-    return ListTrainingJobsResponse.fromJson({});
+    var response_ = await _client.send('ListTrainingJobs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (lastModifiedTimeAfter != null)
+        'LastModifiedTimeAfter': lastModifiedTimeAfter,
+      if (lastModifiedTimeBefore != null)
+        'LastModifiedTimeBefore': lastModifiedTimeBefore,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (statusEquals != null) 'StatusEquals': statusEquals,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+    });
+    return ListTrainingJobsResponse.fromJson(response_);
   }
 
   /// Gets a list of TrainingJobSummary objects that describe the training jobs
@@ -1999,7 +2426,17 @@ class SageMakerApi {
           String statusEquals,
           String sortBy,
           String sortOrder}) async {
-    return ListTrainingJobsForHyperParameterTuningJobResponse.fromJson({});
+    var response_ =
+        await _client.send('ListTrainingJobsForHyperParameterTuningJob', {
+      'HyperParameterTuningJobName': hyperParameterTuningJobName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (statusEquals != null) 'StatusEquals': statusEquals,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+    });
+    return ListTrainingJobsForHyperParameterTuningJobResponse.fromJson(
+        response_);
   }
 
   /// Lists transform jobs.
@@ -2043,7 +2480,21 @@ class SageMakerApi {
       String sortOrder,
       String nextToken,
       int maxResults}) async {
-    return ListTransformJobsResponse.fromJson({});
+    var response_ = await _client.send('ListTransformJobs', {
+      if (creationTimeAfter != null) 'CreationTimeAfter': creationTimeAfter,
+      if (creationTimeBefore != null) 'CreationTimeBefore': creationTimeBefore,
+      if (lastModifiedTimeAfter != null)
+        'LastModifiedTimeAfter': lastModifiedTimeAfter,
+      if (lastModifiedTimeBefore != null)
+        'LastModifiedTimeBefore': lastModifiedTimeBefore,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (statusEquals != null) 'StatusEquals': statusEquals,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTransformJobsResponse.fromJson(response_);
   }
 
   /// Gets a list of work teams that you have defined in a region. The list may
@@ -2069,7 +2520,14 @@ class SageMakerApi {
       String nameContains,
       String nextToken,
       int maxResults}) async {
-    return ListWorkteamsResponse.fromJson({});
+    var response_ = await _client.send('ListWorkteams', {
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nameContains != null) 'NameContains': nameContains,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListWorkteamsResponse.fromJson(response_);
   }
 
   /// Renders the UI template so that you can preview the worker's experience.
@@ -2086,7 +2544,12 @@ class SageMakerApi {
       {@required UiTemplate uiTemplate,
       @required RenderableTask task,
       @required String roleArn}) async {
-    return RenderUiTemplateResponse.fromJson({});
+    var response_ = await _client.send('RenderUiTemplate', {
+      'UiTemplate': uiTemplate,
+      'Task': task,
+      'RoleArn': roleArn,
+    });
+    return RenderUiTemplateResponse.fromJson(response_);
   }
 
   /// Finds Amazon SageMaker resources that match a search query. Matching
@@ -2126,7 +2589,15 @@ class SageMakerApi {
       String sortOrder,
       String nextToken,
       int maxResults}) async {
-    return SearchResponse.fromJson({});
+    var response_ = await _client.send('Search', {
+      'Resource': resource,
+      if (searchExpression != null) 'SearchExpression': searchExpression,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return SearchResponse.fromJson(response_);
   }
 
   /// Launches an ML compute instance with the latest version of the libraries
@@ -2136,7 +2607,11 @@ class SageMakerApi {
   /// can connect to your Jupyter notebook.
   ///
   /// [notebookInstanceName]: The name of the notebook instance to start.
-  Future<void> startNotebookInstance(String notebookInstanceName) async {}
+  Future<void> startNotebookInstance(String notebookInstanceName) async {
+    await _client.send('StartNotebookInstance', {
+      'NotebookInstanceName': notebookInstanceName,
+    });
+  }
 
   /// Stops a model compilation job.
   ///
@@ -2150,7 +2625,11 @@ class SageMakerApi {
   /// CompilationJobSummary$CompilationJobStatus to `Stopped`.
   ///
   /// [compilationJobName]: The name of the model compilation job to stop.
-  Future<void> stopCompilationJob(String compilationJobName) async {}
+  Future<void> stopCompilationJob(String compilationJobName) async {
+    await _client.send('StopCompilationJob', {
+      'CompilationJobName': compilationJobName,
+    });
+  }
 
   /// Stops a running hyperparameter tuning job and all running training jobs
   /// that the tuning job launched.
@@ -2163,14 +2642,22 @@ class SageMakerApi {
   ///
   /// [hyperParameterTuningJobName]: The name of the tuning job to stop.
   Future<void> stopHyperParameterTuningJob(
-      String hyperParameterTuningJobName) async {}
+      String hyperParameterTuningJobName) async {
+    await _client.send('StopHyperParameterTuningJob', {
+      'HyperParameterTuningJobName': hyperParameterTuningJobName,
+    });
+  }
 
   /// Stops a running labeling job. A job that is stopped cannot be restarted.
   /// Any results obtained before the job is stopped are placed in the Amazon S3
   /// output bucket.
   ///
   /// [labelingJobName]: The name of the labeling job to stop.
-  Future<void> stopLabelingJob(String labelingJobName) async {}
+  Future<void> stopLabelingJob(String labelingJobName) async {
+    await _client.send('StopLabelingJob', {
+      'LabelingJobName': labelingJobName,
+    });
+  }
 
   /// Terminates the ML compute instance. Before terminating the instance,
   /// Amazon SageMaker disconnects the ML storage volume from it. Amazon
@@ -2184,7 +2671,11 @@ class SageMakerApi {
   /// work.
   ///
   /// [notebookInstanceName]: The name of the notebook instance to terminate.
-  Future<void> stopNotebookInstance(String notebookInstanceName) async {}
+  Future<void> stopNotebookInstance(String notebookInstanceName) async {
+    await _client.send('StopNotebookInstance', {
+      'NotebookInstanceName': notebookInstanceName,
+    });
+  }
 
   /// Stops a training job. To stop a job, Amazon SageMaker sends the algorithm
   /// the `SIGTERM` signal, which delays job termination for 120 seconds.
@@ -2196,7 +2687,11 @@ class SageMakerApi {
   /// sets the status to `Stopped`.
   ///
   /// [trainingJobName]: The name of the training job to stop.
-  Future<void> stopTrainingJob(String trainingJobName) async {}
+  Future<void> stopTrainingJob(String trainingJobName) async {
+    await _client.send('StopTrainingJob', {
+      'TrainingJobName': trainingJobName,
+    });
+  }
 
   /// Stops a transform job.
   ///
@@ -2206,7 +2701,11 @@ class SageMakerApi {
   /// completed, Amazon SageMaker doesn't store the job's output in Amazon S3.
   ///
   /// [transformJobName]: The name of the transform job to stop.
-  Future<void> stopTransformJob(String transformJobName) async {}
+  Future<void> stopTransformJob(String transformJobName) async {
+    await _client.send('StopTransformJob', {
+      'TransformJobName': transformJobName,
+    });
+  }
 
   /// Updates the specified Git repository with the specified values.
   ///
@@ -2221,7 +2720,11 @@ class SageMakerApi {
   Future<UpdateCodeRepositoryOutput> updateCodeRepository(
       String codeRepositoryName,
       {GitConfigForUpdate gitConfig}) async {
-    return UpdateCodeRepositoryOutput.fromJson({});
+    var response_ = await _client.send('UpdateCodeRepository', {
+      'CodeRepositoryName': codeRepositoryName,
+      if (gitConfig != null) 'GitConfig': gitConfig,
+    });
+    return UpdateCodeRepositoryOutput.fromJson(response_);
   }
 
   /// Deploys the new `EndpointConfig` specified in the request, switches to
@@ -2249,7 +2752,11 @@ class SageMakerApi {
   Future<UpdateEndpointOutput> updateEndpoint(
       {@required String endpointName,
       @required String endpointConfigName}) async {
-    return UpdateEndpointOutput.fromJson({});
+    var response_ = await _client.send('UpdateEndpoint', {
+      'EndpointName': endpointName,
+      'EndpointConfigName': endpointConfigName,
+    });
+    return UpdateEndpointOutput.fromJson(response_);
   }
 
   /// Updates variant weight of one or more variants associated with an existing
@@ -2271,7 +2778,11 @@ class SageMakerApi {
           @required
               List<DesiredWeightAndCapacity>
                   desiredWeightsAndCapacities}) async {
-    return UpdateEndpointWeightsAndCapacitiesOutput.fromJson({});
+    var response_ = await _client.send('UpdateEndpointWeightsAndCapacities', {
+      'EndpointName': endpointName,
+      'DesiredWeightsAndCapacities': desiredWeightsAndCapacities,
+    });
+    return UpdateEndpointWeightsAndCapacitiesOutput.fromJson(response_);
   }
 
   /// Updates a notebook instance. NotebookInstance updates include upgrading or
@@ -2376,7 +2887,30 @@ class SageMakerApi {
       bool disassociateDefaultCodeRepository,
       bool disassociateAdditionalCodeRepositories,
       String rootAccess}) async {
-    return UpdateNotebookInstanceOutput.fromJson({});
+    var response_ = await _client.send('UpdateNotebookInstance', {
+      'NotebookInstanceName': notebookInstanceName,
+      if (instanceType != null) 'InstanceType': instanceType,
+      if (roleArn != null) 'RoleArn': roleArn,
+      if (lifecycleConfigName != null)
+        'LifecycleConfigName': lifecycleConfigName,
+      if (disassociateLifecycleConfig != null)
+        'DisassociateLifecycleConfig': disassociateLifecycleConfig,
+      if (volumeSizeInGB != null) 'VolumeSizeInGB': volumeSizeInGB,
+      if (defaultCodeRepository != null)
+        'DefaultCodeRepository': defaultCodeRepository,
+      if (additionalCodeRepositories != null)
+        'AdditionalCodeRepositories': additionalCodeRepositories,
+      if (acceleratorTypes != null) 'AcceleratorTypes': acceleratorTypes,
+      if (disassociateAcceleratorTypes != null)
+        'DisassociateAcceleratorTypes': disassociateAcceleratorTypes,
+      if (disassociateDefaultCodeRepository != null)
+        'DisassociateDefaultCodeRepository': disassociateDefaultCodeRepository,
+      if (disassociateAdditionalCodeRepositories != null)
+        'DisassociateAdditionalCodeRepositories':
+            disassociateAdditionalCodeRepositories,
+      if (rootAccess != null) 'RootAccess': rootAccess,
+    });
+    return UpdateNotebookInstanceOutput.fromJson(response_);
   }
 
   /// Updates a notebook instance lifecycle configuration created with the
@@ -2396,7 +2930,14 @@ class SageMakerApi {
           String notebookInstanceLifecycleConfigName,
           {List<NotebookInstanceLifecycleHook> onCreate,
           List<NotebookInstanceLifecycleHook> onStart}) async {
-    return UpdateNotebookInstanceLifecycleConfigOutput.fromJson({});
+    var response_ =
+        await _client.send('UpdateNotebookInstanceLifecycleConfig', {
+      'NotebookInstanceLifecycleConfigName':
+          notebookInstanceLifecycleConfigName,
+      if (onCreate != null) 'OnCreate': onCreate,
+      if (onStart != null) 'OnStart': onStart,
+    });
+    return UpdateNotebookInstanceLifecycleConfigOutput.fromJson(response_);
   }
 
   /// Updates an existing work team with new member definitions or description.
@@ -2414,7 +2955,14 @@ class SageMakerApi {
       {List<MemberDefinition> memberDefinitions,
       String description,
       NotificationConfiguration notificationConfiguration}) async {
-    return UpdateWorkteamResponse.fromJson({});
+    var response_ = await _client.send('UpdateWorkteam', {
+      'WorkteamName': workteamName,
+      if (memberDefinitions != null) 'MemberDefinitions': memberDefinitions,
+      if (description != null) 'Description': description,
+      if (notificationConfiguration != null)
+        'NotificationConfiguration': notificationConfiguration,
+    });
+    return UpdateWorkteamResponse.fromJson(response_);
   }
 }
 
@@ -2425,7 +2973,11 @@ class AddTagsOutput {
   AddTagsOutput({
     this.tags,
   });
-  static AddTagsOutput fromJson(Map<String, dynamic> json) => AddTagsOutput();
+  static AddTagsOutput fromJson(Map<String, dynamic> json) => AddTagsOutput(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Specifies the training algorithm to use in a
@@ -2489,7 +3041,21 @@ class AlgorithmSpecification {
     this.metricDefinitions,
   });
   static AlgorithmSpecification fromJson(Map<String, dynamic> json) =>
-      AlgorithmSpecification();
+      AlgorithmSpecification(
+        trainingImage: json.containsKey('TrainingImage')
+            ? json['TrainingImage'] as String
+            : null,
+        algorithmName: json.containsKey('AlgorithmName')
+            ? json['AlgorithmName'] as String
+            : null,
+        trainingInputMode: json['TrainingInputMode'] as String,
+        metricDefinitions: json.containsKey('MetricDefinitions')
+            ? (json['MetricDefinitions'] as List)
+                .map((e) => MetricDefinition.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the validation and image scan statuses of the algorithm.
@@ -2505,7 +3071,18 @@ class AlgorithmStatusDetails {
     this.imageScanStatuses,
   });
   static AlgorithmStatusDetails fromJson(Map<String, dynamic> json) =>
-      AlgorithmStatusDetails();
+      AlgorithmStatusDetails(
+        validationStatuses: json.containsKey('ValidationStatuses')
+            ? (json['ValidationStatuses'] as List)
+                .map((e) => AlgorithmStatusItem.fromJson(e))
+                .toList()
+            : null,
+        imageScanStatuses: json.containsKey('ImageScanStatuses')
+            ? (json['ImageScanStatuses'] as List)
+                .map((e) => AlgorithmStatusItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the overall status of an algorithm.
@@ -2525,7 +3102,13 @@ class AlgorithmStatusItem {
     this.failureReason,
   });
   static AlgorithmStatusItem fromJson(Map<String, dynamic> json) =>
-      AlgorithmStatusItem();
+      AlgorithmStatusItem(
+        name: json['Name'] as String,
+        status: json['Status'] as String,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+      );
 }
 
 /// Provides summary information about an algorithm.
@@ -2553,7 +3136,15 @@ class AlgorithmSummary {
     @required this.algorithmStatus,
   });
   static AlgorithmSummary fromJson(Map<String, dynamic> json) =>
-      AlgorithmSummary();
+      AlgorithmSummary(
+        algorithmName: json['AlgorithmName'] as String,
+        algorithmArn: json['AlgorithmArn'] as String,
+        algorithmDescription: json.containsKey('AlgorithmDescription')
+            ? json['AlgorithmDescription'] as String
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        algorithmStatus: json['AlgorithmStatus'] as String,
+      );
 }
 
 /// Defines a training job and a batch transform job that Amazon SageMaker runs
@@ -2580,7 +3171,15 @@ class AlgorithmValidationProfile {
     this.transformJobDefinition,
   });
   static AlgorithmValidationProfile fromJson(Map<String, dynamic> json) =>
-      AlgorithmValidationProfile();
+      AlgorithmValidationProfile(
+        profileName: json['ProfileName'] as String,
+        trainingJobDefinition:
+            TrainingJobDefinition.fromJson(json['TrainingJobDefinition']),
+        transformJobDefinition: json.containsKey('TransformJobDefinition')
+            ? TransformJobDefinition.fromJson(json['TransformJobDefinition'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies configurations for one or more training jobs that Amazon SageMaker
@@ -2599,7 +3198,13 @@ class AlgorithmValidationSpecification {
     @required this.validationProfiles,
   });
   static AlgorithmValidationSpecification fromJson(Map<String, dynamic> json) =>
-      AlgorithmValidationSpecification();
+      AlgorithmValidationSpecification(
+        validationRole: json['ValidationRole'] as String,
+        validationProfiles: (json['ValidationProfiles'] as List)
+            .map((e) => AlgorithmValidationProfile.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configures how labels are consolidated across human workers.
@@ -2815,7 +3420,11 @@ class AnnotationConsolidationConfig {
     @required this.annotationConsolidationLambdaArn,
   });
   static AnnotationConsolidationConfig fromJson(Map<String, dynamic> json) =>
-      AnnotationConsolidationConfig();
+      AnnotationConsolidationConfig(
+        annotationConsolidationLambdaArn:
+            json['AnnotationConsolidationLambdaArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of categorical hyperparameters to tune.
@@ -2831,7 +3440,11 @@ class CategoricalParameterRange {
     @required this.values,
   });
   static CategoricalParameterRange fromJson(Map<String, dynamic> json) =>
-      CategoricalParameterRange();
+      CategoricalParameterRange(
+        name: json['Name'] as String,
+        values: (json['Values'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the possible values for a categorical hyperparameter.
@@ -2844,7 +3457,10 @@ class CategoricalParameterRangeSpecification {
   });
   static CategoricalParameterRangeSpecification fromJson(
           Map<String, dynamic> json) =>
-      CategoricalParameterRangeSpecification();
+      CategoricalParameterRangeSpecification(
+        values: (json['Values'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A channel is a named input source that training algorithms can consume.
@@ -2912,7 +3528,25 @@ class Channel {
     this.inputMode,
     this.shuffleConfig,
   });
-  static Channel fromJson(Map<String, dynamic> json) => Channel();
+  static Channel fromJson(Map<String, dynamic> json) => Channel(
+        channelName: json['ChannelName'] as String,
+        dataSource: DataSource.fromJson(json['DataSource']),
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        compressionType: json.containsKey('CompressionType')
+            ? json['CompressionType'] as String
+            : null,
+        recordWrapperType: json.containsKey('RecordWrapperType')
+            ? json['RecordWrapperType'] as String
+            : null,
+        inputMode:
+            json.containsKey('InputMode') ? json['InputMode'] as String : null,
+        shuffleConfig: json.containsKey('ShuffleConfig')
+            ? ShuffleConfig.fromJson(json['ShuffleConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines a named input source, called a channel, to be used by an algorithm.
@@ -2951,7 +3585,26 @@ class ChannelSpecification {
     @required this.supportedInputModes,
   });
   static ChannelSpecification fromJson(Map<String, dynamic> json) =>
-      ChannelSpecification();
+      ChannelSpecification(
+        name: json['Name'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        isRequired:
+            json.containsKey('IsRequired') ? json['IsRequired'] as bool : null,
+        supportedContentTypes: (json['SupportedContentTypes'] as List)
+            .map((e) => e as String)
+            .toList(),
+        supportedCompressionTypes: json.containsKey('SupportedCompressionTypes')
+            ? (json['SupportedCompressionTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        supportedInputModes: (json['SupportedInputModes'] as List)
+            .map((e) => e as String)
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the output location for managed spot training
@@ -2970,7 +3623,12 @@ class CheckpointConfig {
     this.localPath,
   });
   static CheckpointConfig fromJson(Map<String, dynamic> json) =>
-      CheckpointConfig();
+      CheckpointConfig(
+        s3Uri: json['S3Uri'] as String,
+        localPath:
+            json.containsKey('LocalPath') ? json['LocalPath'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies summary information about a Git repository.
@@ -3000,7 +3658,15 @@ class CodeRepositorySummary {
     this.gitConfig,
   });
   static CodeRepositorySummary fromJson(Map<String, dynamic> json) =>
-      CodeRepositorySummary();
+      CodeRepositorySummary(
+        codeRepositoryName: json['CodeRepositoryName'] as String,
+        codeRepositoryArn: json['CodeRepositoryArn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        gitConfig: json.containsKey('GitConfig')
+            ? GitConfig.fromJson(json['GitConfig'])
+            : null,
+      );
 }
 
 /// Identifies a Amazon Cognito user group. A user group can be used in on or
@@ -3023,7 +3689,12 @@ class CognitoMemberDefinition {
     @required this.clientId,
   });
   static CognitoMemberDefinition fromJson(Map<String, dynamic> json) =>
-      CognitoMemberDefinition();
+      CognitoMemberDefinition(
+        userPool: json['UserPool'] as String,
+        userGroup: json['UserGroup'] as String,
+        clientId: json['ClientId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A summary of a model compilation job.
@@ -3064,7 +3735,22 @@ class CompilationJobSummary {
     @required this.compilationJobStatus,
   });
   static CompilationJobSummary fromJson(Map<String, dynamic> json) =>
-      CompilationJobSummary();
+      CompilationJobSummary(
+        compilationJobName: json['CompilationJobName'] as String,
+        compilationJobArn: json['CompilationJobArn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        compilationStartTime: json.containsKey('CompilationStartTime')
+            ? DateTime.parse(json['CompilationStartTime'])
+            : null,
+        compilationEndTime: json.containsKey('CompilationEndTime')
+            ? DateTime.parse(json['CompilationEndTime'])
+            : null,
+        compilationTargetDevice: json['CompilationTargetDevice'] as String,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        compilationJobStatus: json['CompilationJobStatus'] as String,
+      );
 }
 
 /// Describes the container, as part of model definition.
@@ -3133,7 +3819,23 @@ class ContainerDefinition {
     this.modelPackageName,
   });
   static ContainerDefinition fromJson(Map<String, dynamic> json) =>
-      ContainerDefinition();
+      ContainerDefinition(
+        containerHostname: json.containsKey('ContainerHostname')
+            ? json['ContainerHostname'] as String
+            : null,
+        image: json.containsKey('Image') ? json['Image'] as String : null,
+        modelDataUrl: json.containsKey('ModelDataUrl')
+            ? json['ModelDataUrl'] as String
+            : null,
+        environment: json.containsKey('Environment')
+            ? (json['Environment'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        modelPackageName: json.containsKey('ModelPackageName')
+            ? json['ModelPackageName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of continuous hyperparameters to tune.
@@ -3188,7 +3890,15 @@ class ContinuousParameterRange {
     this.scalingType,
   });
   static ContinuousParameterRange fromJson(Map<String, dynamic> json) =>
-      ContinuousParameterRange();
+      ContinuousParameterRange(
+        name: json['Name'] as String,
+        minValue: json['MinValue'] as String,
+        maxValue: json['MaxValue'] as String,
+        scalingType: json.containsKey('ScalingType')
+            ? json['ScalingType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the possible values for a continuous hyperparameter.
@@ -3205,7 +3915,11 @@ class ContinuousParameterRangeSpecification {
   });
   static ContinuousParameterRangeSpecification fromJson(
           Map<String, dynamic> json) =>
-      ContinuousParameterRangeSpecification();
+      ContinuousParameterRangeSpecification(
+        minValue: json['MinValue'] as String,
+        maxValue: json['MaxValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateAlgorithmOutput {
@@ -3216,7 +3930,9 @@ class CreateAlgorithmOutput {
     @required this.algorithmArn,
   });
   static CreateAlgorithmOutput fromJson(Map<String, dynamic> json) =>
-      CreateAlgorithmOutput();
+      CreateAlgorithmOutput(
+        algorithmArn: json['AlgorithmArn'] as String,
+      );
 }
 
 class CreateCodeRepositoryOutput {
@@ -3227,7 +3943,9 @@ class CreateCodeRepositoryOutput {
     @required this.codeRepositoryArn,
   });
   static CreateCodeRepositoryOutput fromJson(Map<String, dynamic> json) =>
-      CreateCodeRepositoryOutput();
+      CreateCodeRepositoryOutput(
+        codeRepositoryArn: json['CodeRepositoryArn'] as String,
+      );
 }
 
 class CreateCompilationJobResponse {
@@ -3242,7 +3960,9 @@ class CreateCompilationJobResponse {
     @required this.compilationJobArn,
   });
   static CreateCompilationJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateCompilationJobResponse();
+      CreateCompilationJobResponse(
+        compilationJobArn: json['CompilationJobArn'] as String,
+      );
 }
 
 class CreateEndpointConfigOutput {
@@ -3253,7 +3973,9 @@ class CreateEndpointConfigOutput {
     @required this.endpointConfigArn,
   });
   static CreateEndpointConfigOutput fromJson(Map<String, dynamic> json) =>
-      CreateEndpointConfigOutput();
+      CreateEndpointConfigOutput(
+        endpointConfigArn: json['EndpointConfigArn'] as String,
+      );
 }
 
 class CreateEndpointOutput {
@@ -3264,7 +3986,9 @@ class CreateEndpointOutput {
     @required this.endpointArn,
   });
   static CreateEndpointOutput fromJson(Map<String, dynamic> json) =>
-      CreateEndpointOutput();
+      CreateEndpointOutput(
+        endpointArn: json['EndpointArn'] as String,
+      );
 }
 
 class CreateHyperParameterTuningJobResponse {
@@ -3277,7 +4001,10 @@ class CreateHyperParameterTuningJobResponse {
   });
   static CreateHyperParameterTuningJobResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateHyperParameterTuningJobResponse();
+      CreateHyperParameterTuningJobResponse(
+        hyperParameterTuningJobArn:
+            json['HyperParameterTuningJobArn'] as String,
+      );
 }
 
 class CreateLabelingJobResponse {
@@ -3289,7 +4016,9 @@ class CreateLabelingJobResponse {
     @required this.labelingJobArn,
   });
   static CreateLabelingJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateLabelingJobResponse();
+      CreateLabelingJobResponse(
+        labelingJobArn: json['LabelingJobArn'] as String,
+      );
 }
 
 class CreateModelOutput {
@@ -3300,7 +4029,9 @@ class CreateModelOutput {
     @required this.modelArn,
   });
   static CreateModelOutput fromJson(Map<String, dynamic> json) =>
-      CreateModelOutput();
+      CreateModelOutput(
+        modelArn: json['ModelArn'] as String,
+      );
 }
 
 class CreateModelPackageOutput {
@@ -3311,7 +4042,9 @@ class CreateModelPackageOutput {
     @required this.modelPackageArn,
   });
   static CreateModelPackageOutput fromJson(Map<String, dynamic> json) =>
-      CreateModelPackageOutput();
+      CreateModelPackageOutput(
+        modelPackageArn: json['ModelPackageArn'] as String,
+      );
 }
 
 class CreateNotebookInstanceLifecycleConfigOutput {
@@ -3323,7 +4056,12 @@ class CreateNotebookInstanceLifecycleConfigOutput {
   });
   static CreateNotebookInstanceLifecycleConfigOutput fromJson(
           Map<String, dynamic> json) =>
-      CreateNotebookInstanceLifecycleConfigOutput();
+      CreateNotebookInstanceLifecycleConfigOutput(
+        notebookInstanceLifecycleConfigArn:
+            json.containsKey('NotebookInstanceLifecycleConfigArn')
+                ? json['NotebookInstanceLifecycleConfigArn'] as String
+                : null,
+      );
 }
 
 class CreateNotebookInstanceOutput {
@@ -3334,7 +4072,11 @@ class CreateNotebookInstanceOutput {
     this.notebookInstanceArn,
   });
   static CreateNotebookInstanceOutput fromJson(Map<String, dynamic> json) =>
-      CreateNotebookInstanceOutput();
+      CreateNotebookInstanceOutput(
+        notebookInstanceArn: json.containsKey('NotebookInstanceArn')
+            ? json['NotebookInstanceArn'] as String
+            : null,
+      );
 }
 
 class CreatePresignedNotebookInstanceUrlOutput {
@@ -3346,7 +4088,11 @@ class CreatePresignedNotebookInstanceUrlOutput {
   });
   static CreatePresignedNotebookInstanceUrlOutput fromJson(
           Map<String, dynamic> json) =>
-      CreatePresignedNotebookInstanceUrlOutput();
+      CreatePresignedNotebookInstanceUrlOutput(
+        authorizedUrl: json.containsKey('AuthorizedUrl')
+            ? json['AuthorizedUrl'] as String
+            : null,
+      );
 }
 
 class CreateTrainingJobResponse {
@@ -3357,7 +4103,9 @@ class CreateTrainingJobResponse {
     @required this.trainingJobArn,
   });
   static CreateTrainingJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateTrainingJobResponse();
+      CreateTrainingJobResponse(
+        trainingJobArn: json['TrainingJobArn'] as String,
+      );
 }
 
 class CreateTransformJobResponse {
@@ -3368,7 +4116,9 @@ class CreateTransformJobResponse {
     @required this.transformJobArn,
   });
   static CreateTransformJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateTransformJobResponse();
+      CreateTransformJobResponse(
+        transformJobArn: json['TransformJobArn'] as String,
+      );
 }
 
 class CreateWorkteamResponse {
@@ -3380,7 +4130,11 @@ class CreateWorkteamResponse {
     this.workteamArn,
   });
   static CreateWorkteamResponse fromJson(Map<String, dynamic> json) =>
-      CreateWorkteamResponse();
+      CreateWorkteamResponse(
+        workteamArn: json.containsKey('WorkteamArn')
+            ? json['WorkteamArn'] as String
+            : null,
+      );
 }
 
 /// The data structure used to specify the data to be used for inference in a
@@ -3438,7 +4192,18 @@ class DataProcessing {
     this.outputFilter,
     this.joinSource,
   });
-  static DataProcessing fromJson(Map<String, dynamic> json) => DataProcessing();
+  static DataProcessing fromJson(Map<String, dynamic> json) => DataProcessing(
+        inputFilter: json.containsKey('InputFilter')
+            ? json['InputFilter'] as String
+            : null,
+        outputFilter: json.containsKey('OutputFilter')
+            ? json['OutputFilter'] as String
+            : null,
+        joinSource: json.containsKey('JoinSource')
+            ? json['JoinSource'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the location of the channel data.
@@ -3453,7 +4218,15 @@ class DataSource {
     this.s3DataSource,
     this.fileSystemDataSource,
   });
-  static DataSource fromJson(Map<String, dynamic> json) => DataSource();
+  static DataSource fromJson(Map<String, dynamic> json) => DataSource(
+        s3DataSource: json.containsKey('S3DataSource')
+            ? S3DataSource.fromJson(json['S3DataSource'])
+            : null,
+        fileSystemDataSource: json.containsKey('FileSystemDataSource')
+            ? FileSystemDataSource.fromJson(json['FileSystemDataSource'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteTagsOutput {
@@ -3471,7 +4244,9 @@ class DeleteWorkteamResponse {
     @required this.success,
   });
   static DeleteWorkteamResponse fromJson(Map<String, dynamic> json) =>
-      DeleteWorkteamResponse();
+      DeleteWorkteamResponse(
+        success: json['Success'] as bool,
+      );
 }
 
 /// Gets the Amazon EC2 Container Registry path of the docker image of the model
@@ -3500,7 +4275,17 @@ class DeployedImage {
     this.resolvedImage,
     this.resolutionTime,
   });
-  static DeployedImage fromJson(Map<String, dynamic> json) => DeployedImage();
+  static DeployedImage fromJson(Map<String, dynamic> json) => DeployedImage(
+        specifiedImage: json.containsKey('SpecifiedImage')
+            ? json['SpecifiedImage'] as String
+            : null,
+        resolvedImage: json.containsKey('ResolvedImage')
+            ? json['ResolvedImage'] as String
+            : null,
+        resolutionTime: json.containsKey('ResolutionTime')
+            ? DateTime.parse(json['ResolutionTime'])
+            : null,
+      );
 }
 
 class DescribeAlgorithmOutput {
@@ -3552,7 +4337,31 @@ class DescribeAlgorithmOutput {
     this.certifyForMarketplace,
   });
   static DescribeAlgorithmOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAlgorithmOutput();
+      DescribeAlgorithmOutput(
+        algorithmName: json['AlgorithmName'] as String,
+        algorithmArn: json['AlgorithmArn'] as String,
+        algorithmDescription: json.containsKey('AlgorithmDescription')
+            ? json['AlgorithmDescription'] as String
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        trainingSpecification:
+            TrainingSpecification.fromJson(json['TrainingSpecification']),
+        inferenceSpecification: json.containsKey('InferenceSpecification')
+            ? InferenceSpecification.fromJson(json['InferenceSpecification'])
+            : null,
+        validationSpecification: json.containsKey('ValidationSpecification')
+            ? AlgorithmValidationSpecification.fromJson(
+                json['ValidationSpecification'])
+            : null,
+        algorithmStatus: json['AlgorithmStatus'] as String,
+        algorithmStatusDetails:
+            AlgorithmStatusDetails.fromJson(json['AlgorithmStatusDetails']),
+        productId:
+            json.containsKey('ProductId') ? json['ProductId'] as String : null,
+        certifyForMarketplace: json.containsKey('CertifyForMarketplace')
+            ? json['CertifyForMarketplace'] as bool
+            : null,
+      );
 }
 
 class DescribeCodeRepositoryOutput {
@@ -3582,7 +4391,15 @@ class DescribeCodeRepositoryOutput {
     this.gitConfig,
   });
   static DescribeCodeRepositoryOutput fromJson(Map<String, dynamic> json) =>
-      DescribeCodeRepositoryOutput();
+      DescribeCodeRepositoryOutput(
+        codeRepositoryName: json['CodeRepositoryName'] as String,
+        codeRepositoryArn: json['CodeRepositoryArn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        gitConfig: json.containsKey('GitConfig')
+            ? GitConfig.fromJson(json['GitConfig'])
+            : null,
+      );
 }
 
 class DescribeCompilationJobResponse {
@@ -3658,7 +4475,26 @@ class DescribeCompilationJobResponse {
     @required this.outputConfig,
   });
   static DescribeCompilationJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeCompilationJobResponse();
+      DescribeCompilationJobResponse(
+        compilationJobName: json['CompilationJobName'] as String,
+        compilationJobArn: json['CompilationJobArn'] as String,
+        compilationJobStatus: json['CompilationJobStatus'] as String,
+        compilationStartTime: json.containsKey('CompilationStartTime')
+            ? DateTime.parse(json['CompilationStartTime'])
+            : null,
+        compilationEndTime: json.containsKey('CompilationEndTime')
+            ? DateTime.parse(json['CompilationEndTime'])
+            : null,
+        stoppingCondition:
+            StoppingCondition.fromJson(json['StoppingCondition']),
+        creationTime: DateTime.parse(json['CreationTime']),
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        failureReason: json['FailureReason'] as String,
+        modelArtifacts: ModelArtifacts.fromJson(json['ModelArtifacts']),
+        roleArn: json['RoleArn'] as String,
+        inputConfig: InputConfig.fromJson(json['InputConfig']),
+        outputConfig: OutputConfig.fromJson(json['OutputConfig']),
+      );
 }
 
 class DescribeEndpointConfigOutput {
@@ -3687,7 +4523,16 @@ class DescribeEndpointConfigOutput {
     @required this.creationTime,
   });
   static DescribeEndpointConfigOutput fromJson(Map<String, dynamic> json) =>
-      DescribeEndpointConfigOutput();
+      DescribeEndpointConfigOutput(
+        endpointConfigName: json['EndpointConfigName'] as String,
+        endpointConfigArn: json['EndpointConfigArn'] as String,
+        productionVariants: (json['ProductionVariants'] as List)
+            .map((e) => ProductionVariant.fromJson(e))
+            .toList(),
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+      );
 }
 
 class DescribeEndpointOutput {
@@ -3756,7 +4601,22 @@ class DescribeEndpointOutput {
     @required this.lastModifiedTime,
   });
   static DescribeEndpointOutput fromJson(Map<String, dynamic> json) =>
-      DescribeEndpointOutput();
+      DescribeEndpointOutput(
+        endpointName: json['EndpointName'] as String,
+        endpointArn: json['EndpointArn'] as String,
+        endpointConfigName: json['EndpointConfigName'] as String,
+        productionVariants: json.containsKey('ProductionVariants')
+            ? (json['ProductionVariants'] as List)
+                .map((e) => ProductionVariantSummary.fromJson(e))
+                .toList()
+            : null,
+        endpointStatus: json['EndpointStatus'] as String,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+      );
 }
 
 class DescribeHyperParameterTuningJobResponse {
@@ -3834,7 +4694,46 @@ class DescribeHyperParameterTuningJobResponse {
   });
   static DescribeHyperParameterTuningJobResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeHyperParameterTuningJobResponse();
+      DescribeHyperParameterTuningJobResponse(
+        hyperParameterTuningJobName:
+            json['HyperParameterTuningJobName'] as String,
+        hyperParameterTuningJobArn:
+            json['HyperParameterTuningJobArn'] as String,
+        hyperParameterTuningJobConfig: HyperParameterTuningJobConfig.fromJson(
+            json['HyperParameterTuningJobConfig']),
+        trainingJobDefinition: json.containsKey('TrainingJobDefinition')
+            ? HyperParameterTrainingJobDefinition.fromJson(
+                json['TrainingJobDefinition'])
+            : null,
+        hyperParameterTuningJobStatus:
+            json['HyperParameterTuningJobStatus'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        hyperParameterTuningEndTime:
+            json.containsKey('HyperParameterTuningEndTime')
+                ? DateTime.parse(json['HyperParameterTuningEndTime'])
+                : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        trainingJobStatusCounters: TrainingJobStatusCounters.fromJson(
+            json['TrainingJobStatusCounters']),
+        objectiveStatusCounters:
+            ObjectiveStatusCounters.fromJson(json['ObjectiveStatusCounters']),
+        bestTrainingJob: json.containsKey('BestTrainingJob')
+            ? HyperParameterTrainingJobSummary.fromJson(json['BestTrainingJob'])
+            : null,
+        overallBestTrainingJob: json.containsKey('OverallBestTrainingJob')
+            ? HyperParameterTrainingJobSummary.fromJson(
+                json['OverallBestTrainingJob'])
+            : null,
+        warmStartConfig: json.containsKey('WarmStartConfig')
+            ? HyperParameterTuningJobWarmStartConfig.fromJson(
+                json['WarmStartConfig'])
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+      );
 }
 
 class DescribeLabelingJobResponse {
@@ -3956,7 +4855,42 @@ class DescribeLabelingJobResponse {
     this.labelingJobOutput,
   });
   static DescribeLabelingJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLabelingJobResponse();
+      DescribeLabelingJobResponse(
+        labelingJobStatus: json['LabelingJobStatus'] as String,
+        labelCounters: LabelCounters.fromJson(json['LabelCounters']),
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        jobReferenceCode: json['JobReferenceCode'] as String,
+        labelingJobName: json['LabelingJobName'] as String,
+        labelingJobArn: json['LabelingJobArn'] as String,
+        labelAttributeName: json.containsKey('LabelAttributeName')
+            ? json['LabelAttributeName'] as String
+            : null,
+        inputConfig: LabelingJobInputConfig.fromJson(json['InputConfig']),
+        outputConfig: LabelingJobOutputConfig.fromJson(json['OutputConfig']),
+        roleArn: json['RoleArn'] as String,
+        labelCategoryConfigS3Uri: json.containsKey('LabelCategoryConfigS3Uri')
+            ? json['LabelCategoryConfigS3Uri'] as String
+            : null,
+        stoppingConditions: json.containsKey('StoppingConditions')
+            ? LabelingJobStoppingConditions.fromJson(json['StoppingConditions'])
+            : null,
+        labelingJobAlgorithmsConfig:
+            json.containsKey('LabelingJobAlgorithmsConfig')
+                ? LabelingJobAlgorithmsConfig.fromJson(
+                    json['LabelingJobAlgorithmsConfig'])
+                : null,
+        humanTaskConfig: HumanTaskConfig.fromJson(json['HumanTaskConfig']),
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        labelingJobOutput: json.containsKey('LabelingJobOutput')
+            ? LabelingJobOutput.fromJson(json['LabelingJobOutput'])
+            : null,
+      );
 }
 
 class DescribeModelOutput {
@@ -4006,7 +4940,26 @@ class DescribeModelOutput {
     this.enableNetworkIsolation,
   });
   static DescribeModelOutput fromJson(Map<String, dynamic> json) =>
-      DescribeModelOutput();
+      DescribeModelOutput(
+        modelName: json['ModelName'] as String,
+        primaryContainer: json.containsKey('PrimaryContainer')
+            ? ContainerDefinition.fromJson(json['PrimaryContainer'])
+            : null,
+        containers: json.containsKey('Containers')
+            ? (json['Containers'] as List)
+                .map((e) => ContainerDefinition.fromJson(e))
+                .toList()
+            : null,
+        executionRoleArn: json['ExecutionRoleArn'] as String,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        modelArn: json['ModelArn'] as String,
+        enableNetworkIsolation: json.containsKey('EnableNetworkIsolation')
+            ? json['EnableNetworkIsolation'] as bool
+            : null,
+      );
 }
 
 class DescribeModelPackageOutput {
@@ -4055,7 +5008,32 @@ class DescribeModelPackageOutput {
     this.certifyForMarketplace,
   });
   static DescribeModelPackageOutput fromJson(Map<String, dynamic> json) =>
-      DescribeModelPackageOutput();
+      DescribeModelPackageOutput(
+        modelPackageName: json['ModelPackageName'] as String,
+        modelPackageArn: json['ModelPackageArn'] as String,
+        modelPackageDescription: json.containsKey('ModelPackageDescription')
+            ? json['ModelPackageDescription'] as String
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        inferenceSpecification: json.containsKey('InferenceSpecification')
+            ? InferenceSpecification.fromJson(json['InferenceSpecification'])
+            : null,
+        sourceAlgorithmSpecification:
+            json.containsKey('SourceAlgorithmSpecification')
+                ? SourceAlgorithmSpecification.fromJson(
+                    json['SourceAlgorithmSpecification'])
+                : null,
+        validationSpecification: json.containsKey('ValidationSpecification')
+            ? ModelPackageValidationSpecification.fromJson(
+                json['ValidationSpecification'])
+            : null,
+        modelPackageStatus: json['ModelPackageStatus'] as String,
+        modelPackageStatusDetails: ModelPackageStatusDetails.fromJson(
+            json['ModelPackageStatusDetails']),
+        certifyForMarketplace: json.containsKey('CertifyForMarketplace')
+            ? json['CertifyForMarketplace'] as bool
+            : null,
+      );
 }
 
 class DescribeNotebookInstanceLifecycleConfigOutput {
@@ -4088,7 +5066,32 @@ class DescribeNotebookInstanceLifecycleConfigOutput {
   });
   static DescribeNotebookInstanceLifecycleConfigOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeNotebookInstanceLifecycleConfigOutput();
+      DescribeNotebookInstanceLifecycleConfigOutput(
+        notebookInstanceLifecycleConfigArn:
+            json.containsKey('NotebookInstanceLifecycleConfigArn')
+                ? json['NotebookInstanceLifecycleConfigArn'] as String
+                : null,
+        notebookInstanceLifecycleConfigName:
+            json.containsKey('NotebookInstanceLifecycleConfigName')
+                ? json['NotebookInstanceLifecycleConfigName'] as String
+                : null,
+        onCreate: json.containsKey('OnCreate')
+            ? (json['OnCreate'] as List)
+                .map((e) => NotebookInstanceLifecycleHook.fromJson(e))
+                .toList()
+            : null,
+        onStart: json.containsKey('OnStart')
+            ? (json['OnStart'] as List)
+                .map((e) => NotebookInstanceLifecycleHook.fromJson(e))
+                .toList()
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 class DescribeNotebookInstanceOutput {
@@ -4216,7 +5219,68 @@ class DescribeNotebookInstanceOutput {
     this.rootAccess,
   });
   static DescribeNotebookInstanceOutput fromJson(Map<String, dynamic> json) =>
-      DescribeNotebookInstanceOutput();
+      DescribeNotebookInstanceOutput(
+        notebookInstanceArn: json.containsKey('NotebookInstanceArn')
+            ? json['NotebookInstanceArn'] as String
+            : null,
+        notebookInstanceName: json.containsKey('NotebookInstanceName')
+            ? json['NotebookInstanceName'] as String
+            : null,
+        notebookInstanceStatus: json.containsKey('NotebookInstanceStatus')
+            ? json['NotebookInstanceStatus'] as String
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        notebookInstanceLifecycleConfigName:
+            json.containsKey('NotebookInstanceLifecycleConfigName')
+                ? json['NotebookInstanceLifecycleConfigName'] as String
+                : null,
+        directInternetAccess: json.containsKey('DirectInternetAccess')
+            ? json['DirectInternetAccess'] as String
+            : null,
+        volumeSizeInGB: json.containsKey('VolumeSizeInGB')
+            ? json['VolumeSizeInGB'] as int
+            : null,
+        acceleratorTypes: json.containsKey('AcceleratorTypes')
+            ? (json['AcceleratorTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        defaultCodeRepository: json.containsKey('DefaultCodeRepository')
+            ? json['DefaultCodeRepository'] as String
+            : null,
+        additionalCodeRepositories:
+            json.containsKey('AdditionalCodeRepositories')
+                ? (json['AdditionalCodeRepositories'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        rootAccess: json.containsKey('RootAccess')
+            ? json['RootAccess'] as String
+            : null,
+      );
 }
 
 class DescribeSubscribedWorkteamResponse {
@@ -4228,7 +5292,10 @@ class DescribeSubscribedWorkteamResponse {
   });
   static DescribeSubscribedWorkteamResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeSubscribedWorkteamResponse();
+      DescribeSubscribedWorkteamResponse(
+        subscribedWorkteam:
+            SubscribedWorkteam.fromJson(json['SubscribedWorkteam']),
+      );
 }
 
 class DescribeTrainingJobResponse {
@@ -4469,7 +5536,83 @@ class DescribeTrainingJobResponse {
     this.billableTimeInSeconds,
   });
   static DescribeTrainingJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTrainingJobResponse();
+      DescribeTrainingJobResponse(
+        trainingJobName: json['TrainingJobName'] as String,
+        trainingJobArn: json['TrainingJobArn'] as String,
+        tuningJobArn: json.containsKey('TuningJobArn')
+            ? json['TuningJobArn'] as String
+            : null,
+        labelingJobArn: json.containsKey('LabelingJobArn')
+            ? json['LabelingJobArn'] as String
+            : null,
+        modelArtifacts: ModelArtifacts.fromJson(json['ModelArtifacts']),
+        trainingJobStatus: json['TrainingJobStatus'] as String,
+        secondaryStatus: json['SecondaryStatus'] as String,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        hyperParameters: json.containsKey('HyperParameters')
+            ? (json['HyperParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        algorithmSpecification:
+            AlgorithmSpecification.fromJson(json['AlgorithmSpecification']),
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? (json['InputDataConfig'] as List)
+                .map((e) => Channel.fromJson(e))
+                .toList()
+            : null,
+        outputDataConfig: json.containsKey('OutputDataConfig')
+            ? OutputDataConfig.fromJson(json['OutputDataConfig'])
+            : null,
+        resourceConfig: ResourceConfig.fromJson(json['ResourceConfig']),
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+        stoppingCondition:
+            StoppingCondition.fromJson(json['StoppingCondition']),
+        creationTime: DateTime.parse(json['CreationTime']),
+        trainingStartTime: json.containsKey('TrainingStartTime')
+            ? DateTime.parse(json['TrainingStartTime'])
+            : null,
+        trainingEndTime: json.containsKey('TrainingEndTime')
+            ? DateTime.parse(json['TrainingEndTime'])
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        secondaryStatusTransitions:
+            json.containsKey('SecondaryStatusTransitions')
+                ? (json['SecondaryStatusTransitions'] as List)
+                    .map((e) => SecondaryStatusTransition.fromJson(e))
+                    .toList()
+                : null,
+        finalMetricDataList: json.containsKey('FinalMetricDataList')
+            ? (json['FinalMetricDataList'] as List)
+                .map((e) => MetricData.fromJson(e))
+                .toList()
+            : null,
+        enableNetworkIsolation: json.containsKey('EnableNetworkIsolation')
+            ? json['EnableNetworkIsolation'] as bool
+            : null,
+        enableInterContainerTrafficEncryption:
+            json.containsKey('EnableInterContainerTrafficEncryption')
+                ? json['EnableInterContainerTrafficEncryption'] as bool
+                : null,
+        enableManagedSpotTraining: json.containsKey('EnableManagedSpotTraining')
+            ? json['EnableManagedSpotTraining'] as bool
+            : null,
+        checkpointConfig: json.containsKey('CheckpointConfig')
+            ? CheckpointConfig.fromJson(json['CheckpointConfig'])
+            : null,
+        trainingTimeInSeconds: json.containsKey('TrainingTimeInSeconds')
+            ? json['TrainingTimeInSeconds'] as int
+            : null,
+        billableTimeInSeconds: json.containsKey('BillableTimeInSeconds')
+            ? json['BillableTimeInSeconds'] as int
+            : null,
+      );
 }
 
 class DescribeTransformJobResponse {
@@ -4567,7 +5710,47 @@ class DescribeTransformJobResponse {
     this.dataProcessing,
   });
   static DescribeTransformJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTransformJobResponse();
+      DescribeTransformJobResponse(
+        transformJobName: json['TransformJobName'] as String,
+        transformJobArn: json['TransformJobArn'] as String,
+        transformJobStatus: json['TransformJobStatus'] as String,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        modelName: json['ModelName'] as String,
+        maxConcurrentTransforms: json.containsKey('MaxConcurrentTransforms')
+            ? json['MaxConcurrentTransforms'] as int
+            : null,
+        maxPayloadInMB: json.containsKey('MaxPayloadInMB')
+            ? json['MaxPayloadInMB'] as int
+            : null,
+        batchStrategy: json.containsKey('BatchStrategy')
+            ? json['BatchStrategy'] as String
+            : null,
+        environment: json.containsKey('Environment')
+            ? (json['Environment'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        transformInput: TransformInput.fromJson(json['TransformInput']),
+        transformOutput: json.containsKey('TransformOutput')
+            ? TransformOutput.fromJson(json['TransformOutput'])
+            : null,
+        transformResources:
+            TransformResources.fromJson(json['TransformResources']),
+        creationTime: DateTime.parse(json['CreationTime']),
+        transformStartTime: json.containsKey('TransformStartTime')
+            ? DateTime.parse(json['TransformStartTime'])
+            : null,
+        transformEndTime: json.containsKey('TransformEndTime')
+            ? DateTime.parse(json['TransformEndTime'])
+            : null,
+        labelingJobArn: json.containsKey('LabelingJobArn')
+            ? json['LabelingJobArn'] as String
+            : null,
+        dataProcessing: json.containsKey('DataProcessing')
+            ? DataProcessing.fromJson(json['DataProcessing'])
+            : null,
+      );
 }
 
 class DescribeWorkteamResponse {
@@ -4578,7 +5761,9 @@ class DescribeWorkteamResponse {
     @required this.workteam,
   });
   static DescribeWorkteamResponse fromJson(Map<String, dynamic> json) =>
-      DescribeWorkteamResponse();
+      DescribeWorkteamResponse(
+        workteam: Workteam.fromJson(json['Workteam']),
+      );
 }
 
 /// Specifies weight and capacity values for a production variant.
@@ -4597,6 +5782,7 @@ class DesiredWeightAndCapacity {
     this.desiredWeight,
     this.desiredInstanceCount,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides summary information for an endpoint configuration.
@@ -4616,7 +5802,11 @@ class EndpointConfigSummary {
     @required this.creationTime,
   });
   static EndpointConfigSummary fromJson(Map<String, dynamic> json) =>
-      EndpointConfigSummary();
+      EndpointConfigSummary(
+        endpointConfigName: json['EndpointConfigName'] as String,
+        endpointConfigArn: json['EndpointConfigArn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+      );
 }
 
 /// Provides summary information for an endpoint.
@@ -4676,8 +5866,13 @@ class EndpointSummary {
     @required this.lastModifiedTime,
     @required this.endpointStatus,
   });
-  static EndpointSummary fromJson(Map<String, dynamic> json) =>
-      EndpointSummary();
+  static EndpointSummary fromJson(Map<String, dynamic> json) => EndpointSummary(
+        endpointName: json['EndpointName'] as String,
+        endpointArn: json['EndpointArn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        endpointStatus: json['EndpointStatus'] as String,
+      );
 }
 
 /// Specifies a file system data source for a channel.
@@ -4703,7 +5898,13 @@ class FileSystemDataSource {
     @required this.directoryPath,
   });
   static FileSystemDataSource fromJson(Map<String, dynamic> json) =>
-      FileSystemDataSource();
+      FileSystemDataSource(
+        fileSystemId: json['FileSystemId'] as String,
+        fileSystemAccessMode: json['FileSystemAccessMode'] as String,
+        fileSystemType: json['FileSystemType'] as String,
+        directoryPath: json['DirectoryPath'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A conditional statement for a search expression that includes a Boolean
@@ -4816,6 +6017,7 @@ class Filter {
     this.operator,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Shows the final value for the objective metric for a training job that was
@@ -4840,7 +6042,11 @@ class FinalHyperParameterTuningJobObjectiveMetric {
   });
   static FinalHyperParameterTuningJobObjectiveMetric fromJson(
           Map<String, dynamic> json) =>
-      FinalHyperParameterTuningJobObjectiveMetric();
+      FinalHyperParameterTuningJobObjectiveMetric(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        metricName: json['MetricName'] as String,
+        value: json['Value'] as double,
+      );
 }
 
 class GetSearchSuggestionsResponse {
@@ -4851,7 +6057,13 @@ class GetSearchSuggestionsResponse {
     this.propertyNameSuggestions,
   });
   static GetSearchSuggestionsResponse fromJson(Map<String, dynamic> json) =>
-      GetSearchSuggestionsResponse();
+      GetSearchSuggestionsResponse(
+        propertyNameSuggestions: json.containsKey('PropertyNameSuggestions')
+            ? (json['PropertyNameSuggestions'] as List)
+                .map((e) => PropertyNameSuggestion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Specifies configuration details for a Git repository in your AWS account.
@@ -4875,7 +6087,13 @@ class GitConfig {
     this.branch,
     this.secretArn,
   });
-  static GitConfig fromJson(Map<String, dynamic> json) => GitConfig();
+  static GitConfig fromJson(Map<String, dynamic> json) => GitConfig(
+        repositoryUrl: json['RepositoryUrl'] as String,
+        branch: json.containsKey('Branch') ? json['Branch'] as String : null,
+        secretArn:
+            json.containsKey('SecretArn') ? json['SecretArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies configuration details for a Git repository when the repository is
@@ -4892,6 +6110,7 @@ class GitConfigForUpdate {
   GitConfigForUpdate({
     this.secretArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information required for human workers to complete a labeling task.
@@ -5150,8 +6369,33 @@ class HumanTaskConfig {
     @required this.annotationConsolidationConfig,
     this.publicWorkforceTaskPrice,
   });
-  static HumanTaskConfig fromJson(Map<String, dynamic> json) =>
-      HumanTaskConfig();
+  static HumanTaskConfig fromJson(Map<String, dynamic> json) => HumanTaskConfig(
+        workteamArn: json['WorkteamArn'] as String,
+        uiConfig: UiConfig.fromJson(json['UiConfig']),
+        preHumanTaskLambdaArn: json['PreHumanTaskLambdaArn'] as String,
+        taskKeywords: json.containsKey('TaskKeywords')
+            ? (json['TaskKeywords'] as List).map((e) => e as String).toList()
+            : null,
+        taskTitle: json['TaskTitle'] as String,
+        taskDescription: json['TaskDescription'] as String,
+        numberOfHumanWorkersPerDataObject:
+            json['NumberOfHumanWorkersPerDataObject'] as int,
+        taskTimeLimitInSeconds: json['TaskTimeLimitInSeconds'] as int,
+        taskAvailabilityLifetimeInSeconds:
+            json.containsKey('TaskAvailabilityLifetimeInSeconds')
+                ? json['TaskAvailabilityLifetimeInSeconds'] as int
+                : null,
+        maxConcurrentTaskCount: json.containsKey('MaxConcurrentTaskCount')
+            ? json['MaxConcurrentTaskCount'] as int
+            : null,
+        annotationConsolidationConfig: AnnotationConsolidationConfig.fromJson(
+            json['AnnotationConsolidationConfig']),
+        publicWorkforceTaskPrice: json.containsKey('PublicWorkforceTaskPrice')
+            ? PublicWorkforceTaskPrice.fromJson(
+                json['PublicWorkforceTaskPrice'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies which training algorithm to use for training jobs that a
@@ -5200,7 +6444,21 @@ class HyperParameterAlgorithmSpecification {
   });
   static HyperParameterAlgorithmSpecification fromJson(
           Map<String, dynamic> json) =>
-      HyperParameterAlgorithmSpecification();
+      HyperParameterAlgorithmSpecification(
+        trainingImage: json.containsKey('TrainingImage')
+            ? json['TrainingImage'] as String
+            : null,
+        trainingInputMode: json['TrainingInputMode'] as String,
+        algorithmName: json.containsKey('AlgorithmName')
+            ? json['AlgorithmName'] as String
+            : null,
+        metricDefinitions: json.containsKey('MetricDefinitions')
+            ? (json['MetricDefinitions'] as List)
+                .map((e) => MetricDefinition.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines a hyperparameter to be used by an algorithm.
@@ -5239,7 +6497,24 @@ class HyperParameterSpecification {
     this.defaultValue,
   });
   static HyperParameterSpecification fromJson(Map<String, dynamic> json) =>
-      HyperParameterSpecification();
+      HyperParameterSpecification(
+        name: json['Name'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        type: json['Type'] as String,
+        range: json.containsKey('Range')
+            ? ParameterRange.fromJson(json['Range'])
+            : null,
+        isTunable:
+            json.containsKey('IsTunable') ? json['IsTunable'] as bool : null,
+        isRequired:
+            json.containsKey('IsRequired') ? json['IsRequired'] as bool : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the training jobs launched by a hyperparameter tuning job.
@@ -5331,7 +6606,41 @@ class HyperParameterTrainingJobDefinition {
   });
   static HyperParameterTrainingJobDefinition fromJson(
           Map<String, dynamic> json) =>
-      HyperParameterTrainingJobDefinition();
+      HyperParameterTrainingJobDefinition(
+        staticHyperParameters: json.containsKey('StaticHyperParameters')
+            ? (json['StaticHyperParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        algorithmSpecification: HyperParameterAlgorithmSpecification.fromJson(
+            json['AlgorithmSpecification']),
+        roleArn: json['RoleArn'] as String,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? (json['InputDataConfig'] as List)
+                .map((e) => Channel.fromJson(e))
+                .toList()
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+        outputDataConfig: OutputDataConfig.fromJson(json['OutputDataConfig']),
+        resourceConfig: ResourceConfig.fromJson(json['ResourceConfig']),
+        stoppingCondition:
+            StoppingCondition.fromJson(json['StoppingCondition']),
+        enableNetworkIsolation: json.containsKey('EnableNetworkIsolation')
+            ? json['EnableNetworkIsolation'] as bool
+            : null,
+        enableInterContainerTrafficEncryption:
+            json.containsKey('EnableInterContainerTrafficEncryption')
+                ? json['EnableInterContainerTrafficEncryption'] as bool
+                : null,
+        enableManagedSpotTraining: json.containsKey('EnableManagedSpotTraining')
+            ? json['EnableManagedSpotTraining'] as bool
+            : null,
+        checkpointConfig: json.containsKey('CheckpointConfig')
+            ? CheckpointConfig.fromJson(json['CheckpointConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies summary information about a training job.
@@ -5404,7 +6713,34 @@ class HyperParameterTrainingJobSummary {
     this.objectiveStatus,
   });
   static HyperParameterTrainingJobSummary fromJson(Map<String, dynamic> json) =>
-      HyperParameterTrainingJobSummary();
+      HyperParameterTrainingJobSummary(
+        trainingJobName: json['TrainingJobName'] as String,
+        trainingJobArn: json['TrainingJobArn'] as String,
+        tuningJobName: json.containsKey('TuningJobName')
+            ? json['TuningJobName'] as String
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        trainingStartTime: json.containsKey('TrainingStartTime')
+            ? DateTime.parse(json['TrainingStartTime'])
+            : null,
+        trainingEndTime: json.containsKey('TrainingEndTime')
+            ? DateTime.parse(json['TrainingEndTime'])
+            : null,
+        trainingJobStatus: json['TrainingJobStatus'] as String,
+        tunedHyperParameters: (json['TunedHyperParameters'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        finalHyperParameterTuningJobObjectiveMetric:
+            json.containsKey('FinalHyperParameterTuningJobObjectiveMetric')
+                ? FinalHyperParameterTuningJobObjectiveMetric.fromJson(
+                    json['FinalHyperParameterTuningJobObjectiveMetric'])
+                : null,
+        objectiveStatus: json.containsKey('ObjectiveStatus')
+            ? json['ObjectiveStatus'] as String
+            : null,
+      );
 }
 
 /// Configures a hyperparameter tuning job.
@@ -5453,7 +6789,23 @@ class HyperParameterTuningJobConfig {
     this.trainingJobEarlyStoppingType,
   });
   static HyperParameterTuningJobConfig fromJson(Map<String, dynamic> json) =>
-      HyperParameterTuningJobConfig();
+      HyperParameterTuningJobConfig(
+        strategy: json['Strategy'] as String,
+        hyperParameterTuningJobObjective:
+            json.containsKey('HyperParameterTuningJobObjective')
+                ? HyperParameterTuningJobObjective.fromJson(
+                    json['HyperParameterTuningJobObjective'])
+                : null,
+        resourceLimits: ResourceLimits.fromJson(json['ResourceLimits']),
+        parameterRanges: json.containsKey('ParameterRanges')
+            ? ParameterRanges.fromJson(json['ParameterRanges'])
+            : null,
+        trainingJobEarlyStoppingType:
+            json.containsKey('TrainingJobEarlyStoppingType')
+                ? json['TrainingJobEarlyStoppingType'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the objective metric for a hyperparameter tuning job. Hyperparameter
@@ -5473,7 +6825,11 @@ class HyperParameterTuningJobObjective {
     @required this.metricName,
   });
   static HyperParameterTuningJobObjective fromJson(Map<String, dynamic> json) =>
-      HyperParameterTuningJobObjective();
+      HyperParameterTuningJobObjective(
+        type: json['Type'] as String,
+        metricName: json['MetricName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides summary information about a hyperparameter tuning job.
@@ -5527,7 +6883,30 @@ class HyperParameterTuningJobSummary {
     this.resourceLimits,
   });
   static HyperParameterTuningJobSummary fromJson(Map<String, dynamic> json) =>
-      HyperParameterTuningJobSummary();
+      HyperParameterTuningJobSummary(
+        hyperParameterTuningJobName:
+            json['HyperParameterTuningJobName'] as String,
+        hyperParameterTuningJobArn:
+            json['HyperParameterTuningJobArn'] as String,
+        hyperParameterTuningJobStatus:
+            json['HyperParameterTuningJobStatus'] as String,
+        strategy: json['Strategy'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        hyperParameterTuningEndTime:
+            json.containsKey('HyperParameterTuningEndTime')
+                ? DateTime.parse(json['HyperParameterTuningEndTime'])
+                : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        trainingJobStatusCounters: TrainingJobStatusCounters.fromJson(
+            json['TrainingJobStatusCounters']),
+        objectiveStatusCounters:
+            ObjectiveStatusCounters.fromJson(json['ObjectiveStatusCounters']),
+        resourceLimits: json.containsKey('ResourceLimits')
+            ? ResourceLimits.fromJson(json['ResourceLimits'])
+            : null,
+      );
 }
 
 /// Specifies the configuration for a hyperparameter tuning job that uses one or
@@ -5591,7 +6970,14 @@ class HyperParameterTuningJobWarmStartConfig {
   });
   static HyperParameterTuningJobWarmStartConfig fromJson(
           Map<String, dynamic> json) =>
-      HyperParameterTuningJobWarmStartConfig();
+      HyperParameterTuningJobWarmStartConfig(
+        parentHyperParameterTuningJobs:
+            (json['ParentHyperParameterTuningJobs'] as List)
+                .map((e) => ParentHyperParameterTuningJob.fromJson(e))
+                .toList(),
+        warmStartType: json['WarmStartType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines how to perform inference generation after a training job is run.
@@ -5622,7 +7008,26 @@ class InferenceSpecification {
     @required this.supportedResponseMimeTypes,
   });
   static InferenceSpecification fromJson(Map<String, dynamic> json) =>
-      InferenceSpecification();
+      InferenceSpecification(
+        containers: (json['Containers'] as List)
+            .map((e) => ModelPackageContainerDefinition.fromJson(e))
+            .toList(),
+        supportedTransformInstanceTypes:
+            (json['SupportedTransformInstanceTypes'] as List)
+                .map((e) => e as String)
+                .toList(),
+        supportedRealtimeInferenceInstanceTypes:
+            (json['SupportedRealtimeInferenceInstanceTypes'] as List)
+                .map((e) => e as String)
+                .toList(),
+        supportedContentTypes: (json['SupportedContentTypes'] as List)
+            .map((e) => e as String)
+            .toList(),
+        supportedResponseMimeTypes: (json['SupportedResponseMIMETypes'] as List)
+            .map((e) => e as String)
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the location of input model artifacts, the name
@@ -5720,7 +7125,12 @@ class InputConfig {
     @required this.dataInputConfig,
     @required this.framework,
   });
-  static InputConfig fromJson(Map<String, dynamic> json) => InputConfig();
+  static InputConfig fromJson(Map<String, dynamic> json) => InputConfig(
+        s3Uri: json['S3Uri'] as String,
+        dataInputConfig: json['DataInputConfig'] as String,
+        framework: json['Framework'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// For a hyperparameter of the integer type, specifies the range that a
@@ -5766,7 +7176,15 @@ class IntegerParameterRange {
     this.scalingType,
   });
   static IntegerParameterRange fromJson(Map<String, dynamic> json) =>
-      IntegerParameterRange();
+      IntegerParameterRange(
+        name: json['Name'] as String,
+        minValue: json['MinValue'] as String,
+        maxValue: json['MaxValue'] as String,
+        scalingType: json.containsKey('ScalingType')
+            ? json['ScalingType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the possible values for an integer hyperparameter.
@@ -5783,7 +7201,11 @@ class IntegerParameterRangeSpecification {
   });
   static IntegerParameterRangeSpecification fromJson(
           Map<String, dynamic> json) =>
-      IntegerParameterRangeSpecification();
+      IntegerParameterRangeSpecification(
+        minValue: json['MinValue'] as String,
+        maxValue: json['MaxValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a breakdown of the number of objects labeled.
@@ -5810,7 +7232,22 @@ class LabelCounters {
     this.failedNonRetryableError,
     this.unlabeled,
   });
-  static LabelCounters fromJson(Map<String, dynamic> json) => LabelCounters();
+  static LabelCounters fromJson(Map<String, dynamic> json) => LabelCounters(
+        totalLabeled: json.containsKey('TotalLabeled')
+            ? json['TotalLabeled'] as int
+            : null,
+        humanLabeled: json.containsKey('HumanLabeled')
+            ? json['HumanLabeled'] as int
+            : null,
+        machineLabeled: json.containsKey('MachineLabeled')
+            ? json['MachineLabeled'] as int
+            : null,
+        failedNonRetryableError: json.containsKey('FailedNonRetryableError')
+            ? json['FailedNonRetryableError'] as int
+            : null,
+        unlabeled:
+            json.containsKey('Unlabeled') ? json['Unlabeled'] as int : null,
+      );
 }
 
 /// Provides counts for human-labeled tasks in the labeling job.
@@ -5831,7 +7268,15 @@ class LabelCountersForWorkteam {
     this.total,
   });
   static LabelCountersForWorkteam fromJson(Map<String, dynamic> json) =>
-      LabelCountersForWorkteam();
+      LabelCountersForWorkteam(
+        humanLabeled: json.containsKey('HumanLabeled')
+            ? json['HumanLabeled'] as int
+            : null,
+        pendingHuman: json.containsKey('PendingHuman')
+            ? json['PendingHuman'] as int
+            : null,
+        total: json.containsKey('Total') ? json['Total'] as int : null,
+      );
 }
 
 /// Provides configuration information for auto-labeling of your data objects. A
@@ -5877,7 +7322,19 @@ class LabelingJobAlgorithmsConfig {
     this.labelingJobResourceConfig,
   });
   static LabelingJobAlgorithmsConfig fromJson(Map<String, dynamic> json) =>
-      LabelingJobAlgorithmsConfig();
+      LabelingJobAlgorithmsConfig(
+        labelingJobAlgorithmSpecificationArn:
+            json['LabelingJobAlgorithmSpecificationArn'] as String,
+        initialActiveLearningModelArn:
+            json.containsKey('InitialActiveLearningModelArn')
+                ? json['InitialActiveLearningModelArn'] as String
+                : null,
+        labelingJobResourceConfig: json.containsKey('LabelingJobResourceConfig')
+            ? LabelingJobResourceConfig.fromJson(
+                json['LabelingJobResourceConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes of the data specified by the customer. Use these to describe the
@@ -5892,7 +7349,14 @@ class LabelingJobDataAttributes {
     this.contentClassifiers,
   });
   static LabelingJobDataAttributes fromJson(Map<String, dynamic> json) =>
-      LabelingJobDataAttributes();
+      LabelingJobDataAttributes(
+        contentClassifiers: json.containsKey('ContentClassifiers')
+            ? (json['ContentClassifiers'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the location of input data.
@@ -5904,7 +7368,10 @@ class LabelingJobDataSource {
     @required this.s3DataSource,
   });
   static LabelingJobDataSource fromJson(Map<String, dynamic> json) =>
-      LabelingJobDataSource();
+      LabelingJobDataSource(
+        s3DataSource: LabelingJobS3DataSource.fromJson(json['S3DataSource']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides summary information for a work team.
@@ -5936,7 +7403,21 @@ class LabelingJobForWorkteamSummary {
     this.numberOfHumanWorkersPerDataObject,
   });
   static LabelingJobForWorkteamSummary fromJson(Map<String, dynamic> json) =>
-      LabelingJobForWorkteamSummary();
+      LabelingJobForWorkteamSummary(
+        labelingJobName: json.containsKey('LabelingJobName')
+            ? json['LabelingJobName'] as String
+            : null,
+        jobReferenceCode: json['JobReferenceCode'] as String,
+        workRequesterAccountId: json['WorkRequesterAccountId'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        labelCounters: json.containsKey('LabelCounters')
+            ? LabelCountersForWorkteam.fromJson(json['LabelCounters'])
+            : null,
+        numberOfHumanWorkersPerDataObject:
+            json.containsKey('NumberOfHumanWorkersPerDataObject')
+                ? json['NumberOfHumanWorkersPerDataObject'] as int
+                : null,
+      );
 }
 
 /// Input configuration information for a labeling job.
@@ -5952,7 +7433,13 @@ class LabelingJobInputConfig {
     this.dataAttributes,
   });
   static LabelingJobInputConfig fromJson(Map<String, dynamic> json) =>
-      LabelingJobInputConfig();
+      LabelingJobInputConfig(
+        dataSource: LabelingJobDataSource.fromJson(json['DataSource']),
+        dataAttributes: json.containsKey('DataAttributes')
+            ? LabelingJobDataAttributes.fromJson(json['DataAttributes'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the location of the output produced by the labeling job.
@@ -5969,7 +7456,13 @@ class LabelingJobOutput {
     this.finalActiveLearningModelArn,
   });
   static LabelingJobOutput fromJson(Map<String, dynamic> json) =>
-      LabelingJobOutput();
+      LabelingJobOutput(
+        outputDatasetS3Uri: json['OutputDatasetS3Uri'] as String,
+        finalActiveLearningModelArn:
+            json.containsKey('FinalActiveLearningModelArn')
+                ? json['FinalActiveLearningModelArn'] as String
+                : null,
+      );
 }
 
 /// Output configuration information for a labeling job.
@@ -6003,7 +7496,12 @@ class LabelingJobOutputConfig {
     this.kmsKeyId,
   });
   static LabelingJobOutputConfig fromJson(Map<String, dynamic> json) =>
-      LabelingJobOutputConfig();
+      LabelingJobOutputConfig(
+        s3OutputPath: json['S3OutputPath'] as String,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides configuration information for labeling jobs.
@@ -6027,7 +7525,12 @@ class LabelingJobResourceConfig {
     this.volumeKmsKeyId,
   });
   static LabelingJobResourceConfig fromJson(Map<String, dynamic> json) =>
-      LabelingJobResourceConfig();
+      LabelingJobResourceConfig(
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Amazon S3 location of the input data objects.
@@ -6040,7 +7543,10 @@ class LabelingJobS3DataSource {
     @required this.manifestS3Uri,
   });
   static LabelingJobS3DataSource fromJson(Map<String, dynamic> json) =>
-      LabelingJobS3DataSource();
+      LabelingJobS3DataSource(
+        manifestS3Uri: json['ManifestS3Uri'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A set of conditions for stopping a labeling job. If any of the conditions
@@ -6058,7 +7564,17 @@ class LabelingJobStoppingConditions {
     this.maxPercentageOfInputDatasetLabeled,
   });
   static LabelingJobStoppingConditions fromJson(Map<String, dynamic> json) =>
-      LabelingJobStoppingConditions();
+      LabelingJobStoppingConditions(
+        maxHumanLabeledObjectCount:
+            json.containsKey('MaxHumanLabeledObjectCount')
+                ? json['MaxHumanLabeledObjectCount'] as int
+                : null,
+        maxPercentageOfInputDatasetLabeled:
+            json.containsKey('MaxPercentageOfInputDatasetLabeled')
+                ? json['MaxPercentageOfInputDatasetLabeled'] as int
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides summary information about a labeling job.
@@ -6120,7 +7636,29 @@ class LabelingJobSummary {
     this.inputConfig,
   });
   static LabelingJobSummary fromJson(Map<String, dynamic> json) =>
-      LabelingJobSummary();
+      LabelingJobSummary(
+        labelingJobName: json['LabelingJobName'] as String,
+        labelingJobArn: json['LabelingJobArn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        labelingJobStatus: json['LabelingJobStatus'] as String,
+        labelCounters: LabelCounters.fromJson(json['LabelCounters']),
+        workteamArn: json['WorkteamArn'] as String,
+        preHumanTaskLambdaArn: json['PreHumanTaskLambdaArn'] as String,
+        annotationConsolidationLambdaArn:
+            json.containsKey('AnnotationConsolidationLambdaArn')
+                ? json['AnnotationConsolidationLambdaArn'] as String
+                : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        labelingJobOutput: json.containsKey('LabelingJobOutput')
+            ? LabelingJobOutput.fromJson(json['LabelingJobOutput'])
+            : null,
+        inputConfig: json.containsKey('InputConfig')
+            ? LabelingJobInputConfig.fromJson(json['InputConfig'])
+            : null,
+      );
 }
 
 class ListAlgorithmsOutput {
@@ -6136,7 +7674,13 @@ class ListAlgorithmsOutput {
     this.nextToken,
   });
   static ListAlgorithmsOutput fromJson(Map<String, dynamic> json) =>
-      ListAlgorithmsOutput();
+      ListAlgorithmsOutput(
+        algorithmSummaryList: (json['AlgorithmSummaryList'] as List)
+            .map((e) => AlgorithmSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListCodeRepositoriesOutput {
@@ -6166,7 +7710,13 @@ class ListCodeRepositoriesOutput {
     this.nextToken,
   });
   static ListCodeRepositoriesOutput fromJson(Map<String, dynamic> json) =>
-      ListCodeRepositoriesOutput();
+      ListCodeRepositoriesOutput(
+        codeRepositorySummaryList: (json['CodeRepositorySummaryList'] as List)
+            .map((e) => CodeRepositorySummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListCompilationJobsResponse {
@@ -6184,7 +7734,13 @@ class ListCompilationJobsResponse {
     this.nextToken,
   });
   static ListCompilationJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListCompilationJobsResponse();
+      ListCompilationJobsResponse(
+        compilationJobSummaries: (json['CompilationJobSummaries'] as List)
+            .map((e) => CompilationJobSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListEndpointConfigsOutput {
@@ -6201,7 +7757,13 @@ class ListEndpointConfigsOutput {
     this.nextToken,
   });
   static ListEndpointConfigsOutput fromJson(Map<String, dynamic> json) =>
-      ListEndpointConfigsOutput();
+      ListEndpointConfigsOutput(
+        endpointConfigs: (json['EndpointConfigs'] as List)
+            .map((e) => EndpointConfigSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListEndpointsOutput {
@@ -6217,7 +7779,13 @@ class ListEndpointsOutput {
     this.nextToken,
   });
   static ListEndpointsOutput fromJson(Map<String, dynamic> json) =>
-      ListEndpointsOutput();
+      ListEndpointsOutput(
+        endpoints: (json['Endpoints'] as List)
+            .map((e) => EndpointSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListHyperParameterTuningJobsResponse {
@@ -6236,7 +7804,14 @@ class ListHyperParameterTuningJobsResponse {
   });
   static ListHyperParameterTuningJobsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListHyperParameterTuningJobsResponse();
+      ListHyperParameterTuningJobsResponse(
+        hyperParameterTuningJobSummaries:
+            (json['HyperParameterTuningJobSummaries'] as List)
+                .map((e) => HyperParameterTuningJobSummary.fromJson(e))
+                .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListLabelingJobsForWorkteamResponse {
@@ -6253,7 +7828,13 @@ class ListLabelingJobsForWorkteamResponse {
   });
   static ListLabelingJobsForWorkteamResponse fromJson(
           Map<String, dynamic> json) =>
-      ListLabelingJobsForWorkteamResponse();
+      ListLabelingJobsForWorkteamResponse(
+        labelingJobSummaryList: (json['LabelingJobSummaryList'] as List)
+            .map((e) => LabelingJobForWorkteamSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListLabelingJobsResponse {
@@ -6269,7 +7850,15 @@ class ListLabelingJobsResponse {
     this.nextToken,
   });
   static ListLabelingJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListLabelingJobsResponse();
+      ListLabelingJobsResponse(
+        labelingJobSummaryList: json.containsKey('LabelingJobSummaryList')
+            ? (json['LabelingJobSummaryList'] as List)
+                .map((e) => LabelingJobSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListModelPackagesOutput {
@@ -6286,7 +7875,13 @@ class ListModelPackagesOutput {
     this.nextToken,
   });
   static ListModelPackagesOutput fromJson(Map<String, dynamic> json) =>
-      ListModelPackagesOutput();
+      ListModelPackagesOutput(
+        modelPackageSummaryList: (json['ModelPackageSummaryList'] as List)
+            .map((e) => ModelPackageSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListModelsOutput {
@@ -6302,7 +7897,13 @@ class ListModelsOutput {
     this.nextToken,
   });
   static ListModelsOutput fromJson(Map<String, dynamic> json) =>
-      ListModelsOutput();
+      ListModelsOutput(
+        models: (json['Models'] as List)
+            .map((e) => ModelSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListNotebookInstanceLifecycleConfigsOutput {
@@ -6321,7 +7922,16 @@ class ListNotebookInstanceLifecycleConfigsOutput {
   });
   static ListNotebookInstanceLifecycleConfigsOutput fromJson(
           Map<String, dynamic> json) =>
-      ListNotebookInstanceLifecycleConfigsOutput();
+      ListNotebookInstanceLifecycleConfigsOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        notebookInstanceLifecycleConfigs: json
+                .containsKey('NotebookInstanceLifecycleConfigs')
+            ? (json['NotebookInstanceLifecycleConfigs'] as List)
+                .map((e) => NotebookInstanceLifecycleConfigSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListNotebookInstancesOutput {
@@ -6339,7 +7949,15 @@ class ListNotebookInstancesOutput {
     this.notebookInstances,
   });
   static ListNotebookInstancesOutput fromJson(Map<String, dynamic> json) =>
-      ListNotebookInstancesOutput();
+      ListNotebookInstancesOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        notebookInstances: json.containsKey('NotebookInstances')
+            ? (json['NotebookInstances'] as List)
+                .map((e) => NotebookInstanceSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListSubscribedWorkteamsResponse {
@@ -6355,7 +7973,13 @@ class ListSubscribedWorkteamsResponse {
     this.nextToken,
   });
   static ListSubscribedWorkteamsResponse fromJson(Map<String, dynamic> json) =>
-      ListSubscribedWorkteamsResponse();
+      ListSubscribedWorkteamsResponse(
+        subscribedWorkteams: (json['SubscribedWorkteams'] as List)
+            .map((e) => SubscribedWorkteam.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsOutput {
@@ -6371,7 +7995,13 @@ class ListTagsOutput {
     this.tags,
     this.nextToken,
   });
-  static ListTagsOutput fromJson(Map<String, dynamic> json) => ListTagsOutput();
+  static ListTagsOutput fromJson(Map<String, dynamic> json) => ListTagsOutput(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTrainingJobsForHyperParameterTuningJobResponse {
@@ -6390,7 +8020,13 @@ class ListTrainingJobsForHyperParameterTuningJobResponse {
   });
   static ListTrainingJobsForHyperParameterTuningJobResponse fromJson(
           Map<String, dynamic> json) =>
-      ListTrainingJobsForHyperParameterTuningJobResponse();
+      ListTrainingJobsForHyperParameterTuningJobResponse(
+        trainingJobSummaries: (json['TrainingJobSummaries'] as List)
+            .map((e) => HyperParameterTrainingJobSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTrainingJobsResponse {
@@ -6406,7 +8042,13 @@ class ListTrainingJobsResponse {
     this.nextToken,
   });
   static ListTrainingJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListTrainingJobsResponse();
+      ListTrainingJobsResponse(
+        trainingJobSummaries: (json['TrainingJobSummaries'] as List)
+            .map((e) => TrainingJobSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTransformJobsResponse {
@@ -6422,7 +8064,13 @@ class ListTransformJobsResponse {
     this.nextToken,
   });
   static ListTransformJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListTransformJobsResponse();
+      ListTransformJobsResponse(
+        transformJobSummaries: (json['TransformJobSummaries'] as List)
+            .map((e) => TransformJobSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListWorkteamsResponse {
@@ -6438,7 +8086,13 @@ class ListWorkteamsResponse {
     this.nextToken,
   });
   static ListWorkteamsResponse fromJson(Map<String, dynamic> json) =>
-      ListWorkteamsResponse();
+      ListWorkteamsResponse(
+        workteams: (json['Workteams'] as List)
+            .map((e) => Workteam.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Defines the Amazon Cognito user group that is part of a work team.
@@ -6450,7 +8104,12 @@ class MemberDefinition {
     this.cognitoMemberDefinition,
   });
   static MemberDefinition fromJson(Map<String, dynamic> json) =>
-      MemberDefinition();
+      MemberDefinition(
+        cognitoMemberDefinition: json.containsKey('CognitoMemberDefinition')
+            ? CognitoMemberDefinition.fromJson(json['CognitoMemberDefinition'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The name, value, and date and time of a metric that was emitted to Amazon
@@ -6470,7 +8129,15 @@ class MetricData {
     this.value,
     this.timestamp,
   });
-  static MetricData fromJson(Map<String, dynamic> json) => MetricData();
+  static MetricData fromJson(Map<String, dynamic> json) => MetricData(
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        value: json.containsKey('Value') ? json['Value'] as double : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+      );
 }
 
 /// Specifies a metric that the training algorithm writes to `stderr` or
@@ -6492,7 +8159,11 @@ class MetricDefinition {
     @required this.regex,
   });
   static MetricDefinition fromJson(Map<String, dynamic> json) =>
-      MetricDefinition();
+      MetricDefinition(
+        name: json['Name'] as String,
+        regex: json['Regex'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the location that is configured for storing model
@@ -6505,7 +8176,9 @@ class ModelArtifacts {
   ModelArtifacts({
     @required this.s3ModelArtifacts,
   });
-  static ModelArtifacts fromJson(Map<String, dynamic> json) => ModelArtifacts();
+  static ModelArtifacts fromJson(Map<String, dynamic> json) => ModelArtifacts(
+        s3ModelArtifacts: json['S3ModelArtifacts'] as String,
+      );
 }
 
 /// Describes the Docker container for the model package.
@@ -6544,7 +8217,21 @@ class ModelPackageContainerDefinition {
     this.productId,
   });
   static ModelPackageContainerDefinition fromJson(Map<String, dynamic> json) =>
-      ModelPackageContainerDefinition();
+      ModelPackageContainerDefinition(
+        containerHostname: json.containsKey('ContainerHostname')
+            ? json['ContainerHostname'] as String
+            : null,
+        image: json['Image'] as String,
+        imageDigest: json.containsKey('ImageDigest')
+            ? json['ImageDigest'] as String
+            : null,
+        modelDataUrl: json.containsKey('ModelDataUrl')
+            ? json['ModelDataUrl'] as String
+            : null,
+        productId:
+            json.containsKey('ProductId') ? json['ProductId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the validation and image scan statuses of the model package.
@@ -6561,7 +8248,16 @@ class ModelPackageStatusDetails {
     this.imageScanStatuses,
   });
   static ModelPackageStatusDetails fromJson(Map<String, dynamic> json) =>
-      ModelPackageStatusDetails();
+      ModelPackageStatusDetails(
+        validationStatuses: (json['ValidationStatuses'] as List)
+            .map((e) => ModelPackageStatusItem.fromJson(e))
+            .toList(),
+        imageScanStatuses: json.containsKey('ImageScanStatuses')
+            ? (json['ImageScanStatuses'] as List)
+                .map((e) => ModelPackageStatusItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the overall status of a model package.
@@ -6582,7 +8278,13 @@ class ModelPackageStatusItem {
     this.failureReason,
   });
   static ModelPackageStatusItem fromJson(Map<String, dynamic> json) =>
-      ModelPackageStatusItem();
+      ModelPackageStatusItem(
+        name: json['Name'] as String,
+        status: json['Status'] as String,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+      );
 }
 
 /// Provides summary information about a model package.
@@ -6610,7 +8312,15 @@ class ModelPackageSummary {
     @required this.modelPackageStatus,
   });
   static ModelPackageSummary fromJson(Map<String, dynamic> json) =>
-      ModelPackageSummary();
+      ModelPackageSummary(
+        modelPackageName: json['ModelPackageName'] as String,
+        modelPackageArn: json['ModelPackageArn'] as String,
+        modelPackageDescription: json.containsKey('ModelPackageDescription')
+            ? json['ModelPackageDescription'] as String
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        modelPackageStatus: json['ModelPackageStatus'] as String,
+      );
 }
 
 /// Contains data, such as the inputs and targeted instance types that are used
@@ -6631,7 +8341,12 @@ class ModelPackageValidationProfile {
     @required this.transformJobDefinition,
   });
   static ModelPackageValidationProfile fromJson(Map<String, dynamic> json) =>
-      ModelPackageValidationProfile();
+      ModelPackageValidationProfile(
+        profileName: json['ProfileName'] as String,
+        transformJobDefinition:
+            TransformJobDefinition.fromJson(json['TransformJobDefinition']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies batch transform jobs that Amazon SageMaker runs to validate your
@@ -6651,7 +8366,13 @@ class ModelPackageValidationSpecification {
   });
   static ModelPackageValidationSpecification fromJson(
           Map<String, dynamic> json) =>
-      ModelPackageValidationSpecification();
+      ModelPackageValidationSpecification(
+        validationRole: json['ValidationRole'] as String,
+        validationProfiles: (json['ValidationProfiles'] as List)
+            .map((e) => ModelPackageValidationProfile.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides summary information about a model.
@@ -6670,7 +8391,11 @@ class ModelSummary {
     @required this.modelArn,
     @required this.creationTime,
   });
-  static ModelSummary fromJson(Map<String, dynamic> json) => ModelSummary();
+  static ModelSummary fromJson(Map<String, dynamic> json) => ModelSummary(
+        modelName: json['ModelName'] as String,
+        modelArn: json['ModelArn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+      );
 }
 
 /// Defines a list of `NestedFilters` objects. To satisfy the conditions
@@ -6706,6 +8431,7 @@ class NestedFilters {
     @required this.nestedPropertyName,
     @required this.filters,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a summary of a notebook instance lifecycle configuration.
@@ -6730,7 +8456,18 @@ class NotebookInstanceLifecycleConfigSummary {
   });
   static NotebookInstanceLifecycleConfigSummary fromJson(
           Map<String, dynamic> json) =>
-      NotebookInstanceLifecycleConfigSummary();
+      NotebookInstanceLifecycleConfigSummary(
+        notebookInstanceLifecycleConfigName:
+            json['NotebookInstanceLifecycleConfigName'] as String,
+        notebookInstanceLifecycleConfigArn:
+            json['NotebookInstanceLifecycleConfigArn'] as String,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+      );
 }
 
 /// Contains the notebook instance lifecycle configuration script.
@@ -6759,7 +8496,10 @@ class NotebookInstanceLifecycleHook {
     this.content,
   });
   static NotebookInstanceLifecycleHook fromJson(Map<String, dynamic> json) =>
-      NotebookInstanceLifecycleHook();
+      NotebookInstanceLifecycleHook(
+        content: json.containsKey('Content') ? json['Content'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides summary information for an Amazon SageMaker notebook instance.
@@ -6826,7 +8566,36 @@ class NotebookInstanceSummary {
     this.additionalCodeRepositories,
   });
   static NotebookInstanceSummary fromJson(Map<String, dynamic> json) =>
-      NotebookInstanceSummary();
+      NotebookInstanceSummary(
+        notebookInstanceName: json['NotebookInstanceName'] as String,
+        notebookInstanceArn: json['NotebookInstanceArn'] as String,
+        notebookInstanceStatus: json.containsKey('NotebookInstanceStatus')
+            ? json['NotebookInstanceStatus'] as String
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        notebookInstanceLifecycleConfigName:
+            json.containsKey('NotebookInstanceLifecycleConfigName')
+                ? json['NotebookInstanceLifecycleConfigName'] as String
+                : null,
+        defaultCodeRepository: json.containsKey('DefaultCodeRepository')
+            ? json['DefaultCodeRepository'] as String
+            : null,
+        additionalCodeRepositories:
+            json.containsKey('AdditionalCodeRepositories')
+                ? (json['AdditionalCodeRepositories'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+      );
 }
 
 /// Configures SNS notifications of available or expiring work items for work
@@ -6839,7 +8608,12 @@ class NotificationConfiguration {
     this.notificationTopicArn,
   });
   static NotificationConfiguration fromJson(Map<String, dynamic> json) =>
-      NotificationConfiguration();
+      NotificationConfiguration(
+        notificationTopicArn: json.containsKey('NotificationTopicArn')
+            ? json['NotificationTopicArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the number of training jobs that this hyperparameter tuning job
@@ -6868,7 +8642,12 @@ class ObjectiveStatusCounters {
     this.failed,
   });
   static ObjectiveStatusCounters fromJson(Map<String, dynamic> json) =>
-      ObjectiveStatusCounters();
+      ObjectiveStatusCounters(
+        succeeded:
+            json.containsKey('Succeeded') ? json['Succeeded'] as int : null,
+        pending: json.containsKey('Pending') ? json['Pending'] as int : null,
+        failed: json.containsKey('Failed') ? json['Failed'] as int : null,
+      );
 }
 
 /// Contains information about the output location for the compiled model and
@@ -6886,7 +8665,11 @@ class OutputConfig {
     @required this.s3OutputLocation,
     @required this.targetDevice,
   });
-  static OutputConfig fromJson(Map<String, dynamic> json) => OutputConfig();
+  static OutputConfig fromJson(Map<String, dynamic> json) => OutputConfig(
+        s3OutputLocation: json['S3OutputLocation'] as String,
+        targetDevice: json['TargetDevice'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about how to store model training results (model
@@ -6942,7 +8725,12 @@ class OutputDataConfig {
     @required this.s3OutputPath,
   });
   static OutputDataConfig fromJson(Map<String, dynamic> json) =>
-      OutputDataConfig();
+      OutputDataConfig(
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        s3OutputPath: json['S3OutputPath'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the possible values for categorical, continuous, and integer
@@ -6967,7 +8755,24 @@ class ParameterRange {
     this.continuousParameterRangeSpecification,
     this.categoricalParameterRangeSpecification,
   });
-  static ParameterRange fromJson(Map<String, dynamic> json) => ParameterRange();
+  static ParameterRange fromJson(Map<String, dynamic> json) => ParameterRange(
+        integerParameterRangeSpecification:
+            json.containsKey('IntegerParameterRangeSpecification')
+                ? IntegerParameterRangeSpecification.fromJson(
+                    json['IntegerParameterRangeSpecification'])
+                : null,
+        continuousParameterRangeSpecification:
+            json.containsKey('ContinuousParameterRangeSpecification')
+                ? ContinuousParameterRangeSpecification.fromJson(
+                    json['ContinuousParameterRangeSpecification'])
+                : null,
+        categoricalParameterRangeSpecification:
+            json.containsKey('CategoricalParameterRangeSpecification')
+                ? CategoricalParameterRangeSpecification.fromJson(
+                    json['CategoricalParameterRangeSpecification'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies ranges of integer, continuous, and categorical hyperparameters
@@ -7000,8 +8805,25 @@ class ParameterRanges {
     this.continuousParameterRanges,
     this.categoricalParameterRanges,
   });
-  static ParameterRanges fromJson(Map<String, dynamic> json) =>
-      ParameterRanges();
+  static ParameterRanges fromJson(Map<String, dynamic> json) => ParameterRanges(
+        integerParameterRanges: json.containsKey('IntegerParameterRanges')
+            ? (json['IntegerParameterRanges'] as List)
+                .map((e) => IntegerParameterRange.fromJson(e))
+                .toList()
+            : null,
+        continuousParameterRanges: json.containsKey('ContinuousParameterRanges')
+            ? (json['ContinuousParameterRanges'] as List)
+                .map((e) => ContinuousParameterRange.fromJson(e))
+                .toList()
+            : null,
+        categoricalParameterRanges:
+            json.containsKey('CategoricalParameterRanges')
+                ? (json['CategoricalParameterRanges'] as List)
+                    .map((e) => CategoricalParameterRange.fromJson(e))
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A previously completed or stopped hyperparameter tuning job to be used as a
@@ -7015,7 +8837,13 @@ class ParentHyperParameterTuningJob {
     this.hyperParameterTuningJobName,
   });
   static ParentHyperParameterTuningJob fromJson(Map<String, dynamic> json) =>
-      ParentHyperParameterTuningJob();
+      ParentHyperParameterTuningJob(
+        hyperParameterTuningJobName:
+            json.containsKey('HyperParameterTuningJobName')
+                ? json['HyperParameterTuningJobName'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Identifies a model that you want to host and the resources to deploy for
@@ -7057,7 +8885,19 @@ class ProductionVariant {
     this.acceleratorType,
   });
   static ProductionVariant fromJson(Map<String, dynamic> json) =>
-      ProductionVariant();
+      ProductionVariant(
+        variantName: json['VariantName'] as String,
+        modelName: json['ModelName'] as String,
+        initialInstanceCount: json['InitialInstanceCount'] as int,
+        instanceType: json['InstanceType'] as String,
+        initialVariantWeight: json.containsKey('InitialVariantWeight')
+            ? json['InitialVariantWeight'] as double
+            : null,
+        acceleratorType: json.containsKey('AcceleratorType')
+            ? json['AcceleratorType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes weight and capacities for a production variant associated with an
@@ -7096,7 +8936,26 @@ class ProductionVariantSummary {
     this.desiredInstanceCount,
   });
   static ProductionVariantSummary fromJson(Map<String, dynamic> json) =>
-      ProductionVariantSummary();
+      ProductionVariantSummary(
+        variantName: json['VariantName'] as String,
+        deployedImages: json.containsKey('DeployedImages')
+            ? (json['DeployedImages'] as List)
+                .map((e) => DeployedImage.fromJson(e))
+                .toList()
+            : null,
+        currentWeight: json.containsKey('CurrentWeight')
+            ? json['CurrentWeight'] as double
+            : null,
+        desiredWeight: json.containsKey('DesiredWeight')
+            ? json['DesiredWeight'] as double
+            : null,
+        currentInstanceCount: json.containsKey('CurrentInstanceCount')
+            ? json['CurrentInstanceCount'] as int
+            : null,
+        desiredInstanceCount: json.containsKey('DesiredInstanceCount')
+            ? json['DesiredInstanceCount'] as int
+            : null,
+      );
 }
 
 /// A type of `SuggestionQuery`. A suggestion query for retrieving property
@@ -7110,6 +8969,7 @@ class PropertyNameQuery {
   PropertyNameQuery({
     @required this.propertyNameHint,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A property name returned from a `GetSearchSuggestions` call that specifies a
@@ -7123,7 +8983,11 @@ class PropertyNameSuggestion {
     this.propertyName,
   });
   static PropertyNameSuggestion fromJson(Map<String, dynamic> json) =>
-      PropertyNameSuggestion();
+      PropertyNameSuggestion(
+        propertyName: json.containsKey('PropertyName')
+            ? json['PropertyName'] as String
+            : null,
+      );
 }
 
 /// Defines the amount of money paid to an Amazon Mechanical Turk worker for
@@ -7217,7 +9081,12 @@ class PublicWorkforceTaskPrice {
     this.amountInUsd,
   });
   static PublicWorkforceTaskPrice fromJson(Map<String, dynamic> json) =>
-      PublicWorkforceTaskPrice();
+      PublicWorkforceTaskPrice(
+        amountInUsd: json.containsKey('AmountInUsd')
+            ? Usd.fromJson(json['AmountInUsd'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RenderUiTemplateResponse {
@@ -7233,7 +9102,12 @@ class RenderUiTemplateResponse {
     @required this.errors,
   });
   static RenderUiTemplateResponse fromJson(Map<String, dynamic> json) =>
-      RenderUiTemplateResponse();
+      RenderUiTemplateResponse(
+        renderedContent: json['RenderedContent'] as String,
+        errors: (json['Errors'] as List)
+            .map((e) => RenderingError.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Contains input values for a task.
@@ -7248,6 +9122,7 @@ class RenderableTask {
   RenderableTask({
     @required this.input,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A description of an error that occurred while rendering the template.
@@ -7262,7 +9137,10 @@ class RenderingError {
     @required this.code,
     @required this.message,
   });
-  static RenderingError fromJson(Map<String, dynamic> json) => RenderingError();
+  static RenderingError fromJson(Map<String, dynamic> json) => RenderingError(
+        code: json['Code'] as String,
+        message: json['Message'] as String,
+      );
 }
 
 /// Describes the resources, including ML compute instances and ML storage
@@ -7309,7 +9187,15 @@ class ResourceConfig {
     @required this.volumeSizeInGB,
     this.volumeKmsKeyId,
   });
-  static ResourceConfig fromJson(Map<String, dynamic> json) => ResourceConfig();
+  static ResourceConfig fromJson(Map<String, dynamic> json) => ResourceConfig(
+        instanceType: json['InstanceType'] as String,
+        instanceCount: json['InstanceCount'] as int,
+        volumeSizeInGB: json['VolumeSizeInGB'] as int,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the maximum number of training jobs and parallel training jobs
@@ -7327,7 +9213,11 @@ class ResourceLimits {
     @required this.maxNumberOfTrainingJobs,
     @required this.maxParallelTrainingJobs,
   });
-  static ResourceLimits fromJson(Map<String, dynamic> json) => ResourceLimits();
+  static ResourceLimits fromJson(Map<String, dynamic> json) => ResourceLimits(
+        maxNumberOfTrainingJobs: json['MaxNumberOfTrainingJobs'] as int,
+        maxParallelTrainingJobs: json['MaxParallelTrainingJobs'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the S3 data source.
@@ -7415,7 +9305,17 @@ class S3DataSource {
     this.s3DataDistributionType,
     this.attributeNames,
   });
-  static S3DataSource fromJson(Map<String, dynamic> json) => S3DataSource();
+  static S3DataSource fromJson(Map<String, dynamic> json) => S3DataSource(
+        s3DataType: json['S3DataType'] as String,
+        s3Uri: json['S3Uri'] as String,
+        s3DataDistributionType: json.containsKey('S3DataDistributionType')
+            ? json['S3DataDistributionType'] as String
+            : null,
+        attributeNames: json.containsKey('AttributeNames')
+            ? (json['AttributeNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A multi-expression that searches for the specified resource or resources in
@@ -7461,6 +9361,7 @@ class SearchExpression {
     this.subExpressions,
     this.operator,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An individual search result record that contains a single resource object.
@@ -7471,7 +9372,11 @@ class SearchRecord {
   SearchRecord({
     this.trainingJob,
   });
-  static SearchRecord fromJson(Map<String, dynamic> json) => SearchRecord();
+  static SearchRecord fromJson(Map<String, dynamic> json) => SearchRecord(
+        trainingJob: json.containsKey('TrainingJob')
+            ? TrainingJob.fromJson(json['TrainingJob'])
+            : null,
+      );
 }
 
 class SearchResponse {
@@ -7487,7 +9392,15 @@ class SearchResponse {
     this.results,
     this.nextToken,
   });
-  static SearchResponse fromJson(Map<String, dynamic> json) => SearchResponse();
+  static SearchResponse fromJson(Map<String, dynamic> json) => SearchResponse(
+        results: json.containsKey('Results')
+            ? (json['Results'] as List)
+                .map((e) => SearchRecord.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// An array element of DescribeTrainingJobResponse$SecondaryStatusTransitions.
@@ -7608,7 +9521,16 @@ class SecondaryStatusTransition {
     this.statusMessage,
   });
   static SecondaryStatusTransition fromJson(Map<String, dynamic> json) =>
-      SecondaryStatusTransition();
+      SecondaryStatusTransition(
+        status: json['Status'] as String,
+        startTime: DateTime.parse(json['StartTime']),
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// A configuration for a shuffle option for input data in a channel. If you use
@@ -7632,7 +9554,10 @@ class ShuffleConfig {
   ShuffleConfig({
     @required this.seed,
   });
-  static ShuffleConfig fromJson(Map<String, dynamic> json) => ShuffleConfig();
+  static ShuffleConfig fromJson(Map<String, dynamic> json) => ShuffleConfig(
+        seed: BigInt.from(json['Seed']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies an algorithm that was used to create the model package. The
@@ -7653,8 +9578,13 @@ class SourceAlgorithm {
     this.modelDataUrl,
     @required this.algorithmName,
   });
-  static SourceAlgorithm fromJson(Map<String, dynamic> json) =>
-      SourceAlgorithm();
+  static SourceAlgorithm fromJson(Map<String, dynamic> json) => SourceAlgorithm(
+        modelDataUrl: json.containsKey('ModelDataUrl')
+            ? json['ModelDataUrl'] as String
+            : null,
+        algorithmName: json['AlgorithmName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of algorithms that were used to create a model package.
@@ -7666,7 +9596,12 @@ class SourceAlgorithmSpecification {
     @required this.sourceAlgorithms,
   });
   static SourceAlgorithmSpecification fromJson(Map<String, dynamic> json) =>
-      SourceAlgorithmSpecification();
+      SourceAlgorithmSpecification(
+        sourceAlgorithms: (json['SourceAlgorithms'] as List)
+            .map((e) => SourceAlgorithm.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a limit to how long a model training or compilation job can run.
@@ -7710,7 +9645,15 @@ class StoppingCondition {
     this.maxWaitTimeInSeconds,
   });
   static StoppingCondition fromJson(Map<String, dynamic> json) =>
-      StoppingCondition();
+      StoppingCondition(
+        maxRuntimeInSeconds: json.containsKey('MaxRuntimeInSeconds')
+            ? json['MaxRuntimeInSeconds'] as int
+            : null,
+        maxWaitTimeInSeconds: json.containsKey('MaxWaitTimeInSeconds')
+            ? json['MaxWaitTimeInSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a work team of a vendor that does the a labelling job.
@@ -7737,7 +9680,20 @@ class SubscribedWorkteam {
     this.listingId,
   });
   static SubscribedWorkteam fromJson(Map<String, dynamic> json) =>
-      SubscribedWorkteam();
+      SubscribedWorkteam(
+        workteamArn: json['WorkteamArn'] as String,
+        marketplaceTitle: json.containsKey('MarketplaceTitle')
+            ? json['MarketplaceTitle'] as String
+            : null,
+        sellerName: json.containsKey('SellerName')
+            ? json['SellerName'] as String
+            : null,
+        marketplaceDescription: json.containsKey('MarketplaceDescription')
+            ? json['MarketplaceDescription'] as String
+            : null,
+        listingId:
+            json.containsKey('ListingId') ? json['ListingId'] as String : null,
+      );
 }
 
 /// Limits the property names that are included in the response.
@@ -7749,6 +9705,7 @@ class SuggestionQuery {
   SuggestionQuery({
     this.propertyNameQuery,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a tag.
@@ -7763,7 +9720,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about a training job.
@@ -7973,7 +9934,90 @@ class TrainingJob {
     this.enableInterContainerTrafficEncryption,
     this.tags,
   });
-  static TrainingJob fromJson(Map<String, dynamic> json) => TrainingJob();
+  static TrainingJob fromJson(Map<String, dynamic> json) => TrainingJob(
+        trainingJobName: json.containsKey('TrainingJobName')
+            ? json['TrainingJobName'] as String
+            : null,
+        trainingJobArn: json.containsKey('TrainingJobArn')
+            ? json['TrainingJobArn'] as String
+            : null,
+        tuningJobArn: json.containsKey('TuningJobArn')
+            ? json['TuningJobArn'] as String
+            : null,
+        labelingJobArn: json.containsKey('LabelingJobArn')
+            ? json['LabelingJobArn'] as String
+            : null,
+        modelArtifacts: json.containsKey('ModelArtifacts')
+            ? ModelArtifacts.fromJson(json['ModelArtifacts'])
+            : null,
+        trainingJobStatus: json.containsKey('TrainingJobStatus')
+            ? json['TrainingJobStatus'] as String
+            : null,
+        secondaryStatus: json.containsKey('SecondaryStatus')
+            ? json['SecondaryStatus'] as String
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        hyperParameters: json.containsKey('HyperParameters')
+            ? (json['HyperParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        algorithmSpecification: json.containsKey('AlgorithmSpecification')
+            ? AlgorithmSpecification.fromJson(json['AlgorithmSpecification'])
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? (json['InputDataConfig'] as List)
+                .map((e) => Channel.fromJson(e))
+                .toList()
+            : null,
+        outputDataConfig: json.containsKey('OutputDataConfig')
+            ? OutputDataConfig.fromJson(json['OutputDataConfig'])
+            : null,
+        resourceConfig: json.containsKey('ResourceConfig')
+            ? ResourceConfig.fromJson(json['ResourceConfig'])
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+        stoppingCondition: json.containsKey('StoppingCondition')
+            ? StoppingCondition.fromJson(json['StoppingCondition'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        trainingStartTime: json.containsKey('TrainingStartTime')
+            ? DateTime.parse(json['TrainingStartTime'])
+            : null,
+        trainingEndTime: json.containsKey('TrainingEndTime')
+            ? DateTime.parse(json['TrainingEndTime'])
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        secondaryStatusTransitions:
+            json.containsKey('SecondaryStatusTransitions')
+                ? (json['SecondaryStatusTransitions'] as List)
+                    .map((e) => SecondaryStatusTransition.fromJson(e))
+                    .toList()
+                : null,
+        finalMetricDataList: json.containsKey('FinalMetricDataList')
+            ? (json['FinalMetricDataList'] as List)
+                .map((e) => MetricData.fromJson(e))
+                .toList()
+            : null,
+        enableNetworkIsolation: json.containsKey('EnableNetworkIsolation')
+            ? json['EnableNetworkIsolation'] as bool
+            : null,
+        enableInterContainerTrafficEncryption:
+            json.containsKey('EnableInterContainerTrafficEncryption')
+                ? json['EnableInterContainerTrafficEncryption'] as bool
+                : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Defines the input needed to run a training job using the algorithm.
@@ -8021,7 +10065,21 @@ class TrainingJobDefinition {
     @required this.stoppingCondition,
   });
   static TrainingJobDefinition fromJson(Map<String, dynamic> json) =>
-      TrainingJobDefinition();
+      TrainingJobDefinition(
+        trainingInputMode: json['TrainingInputMode'] as String,
+        hyperParameters: json.containsKey('HyperParameters')
+            ? (json['HyperParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        inputDataConfig: (json['InputDataConfig'] as List)
+            .map((e) => Channel.fromJson(e))
+            .toList(),
+        outputDataConfig: OutputDataConfig.fromJson(json['OutputDataConfig']),
+        resourceConfig: ResourceConfig.fromJson(json['ResourceConfig']),
+        stoppingCondition:
+            StoppingCondition.fromJson(json['StoppingCondition']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The numbers of training jobs launched by a hyperparameter tuning job,
@@ -8057,7 +10115,19 @@ class TrainingJobStatusCounters {
     this.stopped,
   });
   static TrainingJobStatusCounters fromJson(Map<String, dynamic> json) =>
-      TrainingJobStatusCounters();
+      TrainingJobStatusCounters(
+        completed:
+            json.containsKey('Completed') ? json['Completed'] as int : null,
+        inProgress:
+            json.containsKey('InProgress') ? json['InProgress'] as int : null,
+        retryableError: json.containsKey('RetryableError')
+            ? json['RetryableError'] as int
+            : null,
+        nonRetryableError: json.containsKey('NonRetryableError')
+            ? json['NonRetryableError'] as int
+            : null,
+        stopped: json.containsKey('Stopped') ? json['Stopped'] as int : null,
+      );
 }
 
 /// Provides summary information about a training job.
@@ -8091,7 +10161,18 @@ class TrainingJobSummary {
     @required this.trainingJobStatus,
   });
   static TrainingJobSummary fromJson(Map<String, dynamic> json) =>
-      TrainingJobSummary();
+      TrainingJobSummary(
+        trainingJobName: json['TrainingJobName'] as String,
+        trainingJobArn: json['TrainingJobArn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        trainingEndTime: json.containsKey('TrainingEndTime')
+            ? DateTime.parse(json['TrainingEndTime'])
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        trainingJobStatus: json['TrainingJobStatus'] as String,
+      );
 }
 
 /// Defines how the algorithm is used for a training job.
@@ -8140,7 +10221,40 @@ class TrainingSpecification {
     this.supportedTuningJobObjectiveMetrics,
   });
   static TrainingSpecification fromJson(Map<String, dynamic> json) =>
-      TrainingSpecification();
+      TrainingSpecification(
+        trainingImage: json['TrainingImage'] as String,
+        trainingImageDigest: json.containsKey('TrainingImageDigest')
+            ? json['TrainingImageDigest'] as String
+            : null,
+        supportedHyperParameters: json.containsKey('SupportedHyperParameters')
+            ? (json['SupportedHyperParameters'] as List)
+                .map((e) => HyperParameterSpecification.fromJson(e))
+                .toList()
+            : null,
+        supportedTrainingInstanceTypes:
+            (json['SupportedTrainingInstanceTypes'] as List)
+                .map((e) => e as String)
+                .toList(),
+        supportsDistributedTraining:
+            json.containsKey('SupportsDistributedTraining')
+                ? json['SupportsDistributedTraining'] as bool
+                : null,
+        metricDefinitions: json.containsKey('MetricDefinitions')
+            ? (json['MetricDefinitions'] as List)
+                .map((e) => MetricDefinition.fromJson(e))
+                .toList()
+            : null,
+        trainingChannels: (json['TrainingChannels'] as List)
+            .map((e) => ChannelSpecification.fromJson(e))
+            .toList(),
+        supportedTuningJobObjectiveMetrics:
+            json.containsKey('SupportedTuningJobObjectiveMetrics')
+                ? (json['SupportedTuningJobObjectiveMetrics'] as List)
+                    .map((e) => HyperParameterTuningJobObjective.fromJson(e))
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the location of the channel data.
@@ -8152,7 +10266,10 @@ class TransformDataSource {
     @required this.s3DataSource,
   });
   static TransformDataSource fromJson(Map<String, dynamic> json) =>
-      TransformDataSource();
+      TransformDataSource(
+        s3DataSource: TransformS3DataSource.fromJson(json['S3DataSource']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the input source of a transform job and the way the transform job
@@ -8210,7 +10327,18 @@ class TransformInput {
     this.compressionType,
     this.splitType,
   });
-  static TransformInput fromJson(Map<String, dynamic> json) => TransformInput();
+  static TransformInput fromJson(Map<String, dynamic> json) => TransformInput(
+        dataSource: TransformDataSource.fromJson(json['DataSource']),
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        compressionType: json.containsKey('CompressionType')
+            ? json['CompressionType'] as String
+            : null,
+        splitType:
+            json.containsKey('SplitType') ? json['SplitType'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the input needed to run a transform job using the inference
@@ -8257,7 +10385,26 @@ class TransformJobDefinition {
     @required this.transformResources,
   });
   static TransformJobDefinition fromJson(Map<String, dynamic> json) =>
-      TransformJobDefinition();
+      TransformJobDefinition(
+        maxConcurrentTransforms: json.containsKey('MaxConcurrentTransforms')
+            ? json['MaxConcurrentTransforms'] as int
+            : null,
+        maxPayloadInMB: json.containsKey('MaxPayloadInMB')
+            ? json['MaxPayloadInMB'] as int
+            : null,
+        batchStrategy: json.containsKey('BatchStrategy')
+            ? json['BatchStrategy'] as String
+            : null,
+        environment: json.containsKey('Environment')
+            ? (json['Environment'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        transformInput: TransformInput.fromJson(json['TransformInput']),
+        transformOutput: TransformOutput.fromJson(json['TransformOutput']),
+        transformResources:
+            TransformResources.fromJson(json['TransformResources']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a summary of a transform job. Multiple `TransformJobSummary`
@@ -8298,7 +10445,21 @@ class TransformJobSummary {
     this.failureReason,
   });
   static TransformJobSummary fromJson(Map<String, dynamic> json) =>
-      TransformJobSummary();
+      TransformJobSummary(
+        transformJobName: json['TransformJobName'] as String,
+        transformJobArn: json['TransformJobArn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        transformEndTime: json.containsKey('TransformEndTime')
+            ? DateTime.parse(json['TransformEndTime'])
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        transformJobStatus: json['TransformJobStatus'] as String,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+      );
 }
 
 /// Describes the results of a transform job.
@@ -8370,8 +10531,16 @@ class TransformOutput {
     this.assembleWith,
     this.kmsKeyId,
   });
-  static TransformOutput fromJson(Map<String, dynamic> json) =>
-      TransformOutput();
+  static TransformOutput fromJson(Map<String, dynamic> json) => TransformOutput(
+        s3OutputPath: json['S3OutputPath'] as String,
+        accept: json.containsKey('Accept') ? json['Accept'] as String : null,
+        assembleWith: json.containsKey('AssembleWith')
+            ? json['AssembleWith'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the resources, including ML instance types and ML instance count,
@@ -8408,7 +10577,14 @@ class TransformResources {
     this.volumeKmsKeyId,
   });
   static TransformResources fromJson(Map<String, dynamic> json) =>
-      TransformResources();
+      TransformResources(
+        instanceType: json['InstanceType'] as String,
+        instanceCount: json['InstanceCount'] as int,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the S3 data source.
@@ -8468,7 +10644,11 @@ class TransformS3DataSource {
     @required this.s3Uri,
   });
   static TransformS3DataSource fromJson(Map<String, dynamic> json) =>
-      TransformS3DataSource();
+      TransformS3DataSource(
+        s3DataType: json['S3DataType'] as String,
+        s3Uri: json['S3Uri'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents an amount of money in United States dollars/
@@ -8487,7 +10667,14 @@ class Usd {
     this.cents,
     this.tenthFractionsOfaCent,
   });
-  static Usd fromJson(Map<String, dynamic> json) => Usd();
+  static Usd fromJson(Map<String, dynamic> json) => Usd(
+        dollars: json.containsKey('Dollars') ? json['Dollars'] as int : null,
+        cents: json.containsKey('Cents') ? json['Cents'] as int : null,
+        tenthFractionsOfaCent: json.containsKey('TenthFractionsOfACent')
+            ? json['TenthFractionsOfACent'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provided configuration information for the worker UI for a labeling job.
@@ -8500,7 +10687,10 @@ class UiConfig {
   UiConfig({
     @required this.uiTemplateS3Uri,
   });
-  static UiConfig fromJson(Map<String, dynamic> json) => UiConfig();
+  static UiConfig fromJson(Map<String, dynamic> json) => UiConfig(
+        uiTemplateS3Uri: json['UiTemplateS3Uri'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Liquid template for the worker user interface.
@@ -8511,6 +10701,7 @@ class UiTemplate {
   UiTemplate({
     @required this.content,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateCodeRepositoryOutput {
@@ -8521,7 +10712,9 @@ class UpdateCodeRepositoryOutput {
     @required this.codeRepositoryArn,
   });
   static UpdateCodeRepositoryOutput fromJson(Map<String, dynamic> json) =>
-      UpdateCodeRepositoryOutput();
+      UpdateCodeRepositoryOutput(
+        codeRepositoryArn: json['CodeRepositoryArn'] as String,
+      );
 }
 
 class UpdateEndpointOutput {
@@ -8532,7 +10725,9 @@ class UpdateEndpointOutput {
     @required this.endpointArn,
   });
   static UpdateEndpointOutput fromJson(Map<String, dynamic> json) =>
-      UpdateEndpointOutput();
+      UpdateEndpointOutput(
+        endpointArn: json['EndpointArn'] as String,
+      );
 }
 
 class UpdateEndpointWeightsAndCapacitiesOutput {
@@ -8544,7 +10739,9 @@ class UpdateEndpointWeightsAndCapacitiesOutput {
   });
   static UpdateEndpointWeightsAndCapacitiesOutput fromJson(
           Map<String, dynamic> json) =>
-      UpdateEndpointWeightsAndCapacitiesOutput();
+      UpdateEndpointWeightsAndCapacitiesOutput(
+        endpointArn: json['EndpointArn'] as String,
+      );
 }
 
 class UpdateNotebookInstanceLifecycleConfigOutput {
@@ -8568,7 +10765,9 @@ class UpdateWorkteamResponse {
     @required this.workteam,
   });
   static UpdateWorkteamResponse fromJson(Map<String, dynamic> json) =>
-      UpdateWorkteamResponse();
+      UpdateWorkteamResponse(
+        workteam: Workteam.fromJson(json['Workteam']),
+      );
 }
 
 /// Specifies a VPC that your training jobs and hosted models have access to.
@@ -8597,7 +10796,12 @@ class VpcConfig {
     @required this.securityGroupIds,
     @required this.subnets,
   });
-  static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig();
+  static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig(
+        securityGroupIds:
+            (json['SecurityGroupIds'] as List).map((e) => e as String).toList(),
+        subnets: (json['Subnets'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides details about a labeling work team.
@@ -8642,5 +10846,29 @@ class Workteam {
     this.lastUpdatedDate,
     this.notificationConfiguration,
   });
-  static Workteam fromJson(Map<String, dynamic> json) => Workteam();
+  static Workteam fromJson(Map<String, dynamic> json) => Workteam(
+        workteamName: json['WorkteamName'] as String,
+        memberDefinitions: (json['MemberDefinitions'] as List)
+            .map((e) => MemberDefinition.fromJson(e))
+            .toList(),
+        workteamArn: json['WorkteamArn'] as String,
+        productListingIds: json.containsKey('ProductListingIds')
+            ? (json['ProductListingIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        description: json['Description'] as String,
+        subDomain:
+            json.containsKey('SubDomain') ? json['SubDomain'] as String : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        lastUpdatedDate: json.containsKey('LastUpdatedDate')
+            ? DateTime.parse(json['LastUpdatedDate'])
+            : null,
+        notificationConfiguration: json.containsKey('NotificationConfiguration')
+            ? NotificationConfiguration.fromJson(
+                json['NotificationConfiguration'])
+            : null,
+      );
 }

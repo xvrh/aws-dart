@@ -26,6 +26,9 @@ import 'dart:typed_data';
 /// For information about how to use a Query API, see
 /// [Making API Requests](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html).
 class SsmApi {
+  final _client;
+  SsmApi(client) : _client = client.configured('SSM', serializer: 'json');
+
   /// Adds or overwrites one or more tags for the specified resource. Tags are
   /// metadata that you can assign to your documents, managed instances,
   /// maintenance windows, Parameter Store parameters, and patch baselines. Tags
@@ -86,7 +89,12 @@ class SsmApi {
       {@required String resourceType,
       @required String resourceId,
       @required List<Tag> tags}) async {
-    return AddTagsToResourceResult.fromJson({});
+    var response_ = await _client.send('AddTagsToResource', {
+      'ResourceType': resourceType,
+      'ResourceId': resourceId,
+      'Tags': tags,
+    });
+    return AddTagsToResourceResult.fromJson(response_);
   }
 
   /// Attempts to cancel the command specified by the Command ID. There is no
@@ -100,7 +108,11 @@ class SsmApi {
   /// instance on which it was requested.
   Future<CancelCommandResult> cancelCommand(String commandId,
       {List<String> instanceIds}) async {
-    return CancelCommandResult.fromJson({});
+    var response_ = await _client.send('CancelCommand', {
+      'CommandId': commandId,
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+    });
+    return CancelCommandResult.fromJson(response_);
   }
 
   /// Stops a maintenance window execution that is already in progress and
@@ -110,7 +122,10 @@ class SsmApi {
   /// [windowExecutionId]: The ID of the maintenance window execution to stop.
   Future<CancelMaintenanceWindowExecutionResult>
       cancelMaintenanceWindowExecution(String windowExecutionId) async {
-    return CancelMaintenanceWindowExecutionResult.fromJson({});
+    var response_ = await _client.send('CancelMaintenanceWindowExecution', {
+      'WindowExecutionId': windowExecutionId,
+    });
+    return CancelMaintenanceWindowExecutionResult.fromJson(response_);
   }
 
   /// Registers your on-premises server or virtual machine with Amazon EC2 so
@@ -173,7 +188,16 @@ class SsmApi {
       int registrationLimit,
       DateTime expirationDate,
       List<Tag> tags}) async {
-    return CreateActivationResult.fromJson({});
+    var response_ = await _client.send('CreateActivation', {
+      if (description != null) 'Description': description,
+      if (defaultInstanceName != null)
+        'DefaultInstanceName': defaultInstanceName,
+      'IamRole': iamRole,
+      if (registrationLimit != null) 'RegistrationLimit': registrationLimit,
+      if (expirationDate != null) 'ExpirationDate': expirationDate,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateActivationResult.fromJson(response_);
   }
 
   /// Associates the specified Systems Manager document with the specified
@@ -277,7 +301,22 @@ class SsmApi {
       String maxErrors,
       String maxConcurrency,
       String complianceSeverity}) async {
-    return CreateAssociationResult.fromJson({});
+    var response_ = await _client.send('CreateAssociation', {
+      'Name': name,
+      if (documentVersion != null) 'DocumentVersion': documentVersion,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (parameters != null) 'Parameters': parameters,
+      if (targets != null) 'Targets': targets,
+      if (scheduleExpression != null) 'ScheduleExpression': scheduleExpression,
+      if (outputLocation != null) 'OutputLocation': outputLocation,
+      if (associationName != null) 'AssociationName': associationName,
+      if (automationTargetParameterName != null)
+        'AutomationTargetParameterName': automationTargetParameterName,
+      if (maxErrors != null) 'MaxErrors': maxErrors,
+      if (maxConcurrency != null) 'MaxConcurrency': maxConcurrency,
+      if (complianceSeverity != null) 'ComplianceSeverity': complianceSeverity,
+    });
+    return CreateAssociationResult.fromJson(response_);
   }
 
   /// Associates the specified Systems Manager document with the specified
@@ -294,7 +333,10 @@ class SsmApi {
   /// [entries]: One or more associations.
   Future<CreateAssociationBatchResult> createAssociationBatch(
       List<CreateAssociationBatchRequestEntry> entries) async {
-    return CreateAssociationBatchResult.fromJson({});
+    var response_ = await _client.send('CreateAssociationBatch', {
+      'Entries': entries,
+    });
+    return CreateAssociationBatchResult.fromJson(response_);
   }
 
   /// Creates a Systems Manager document.
@@ -363,7 +405,17 @@ class SsmApi {
       String documentFormat,
       String targetType,
       List<Tag> tags}) async {
-    return CreateDocumentResult.fromJson({});
+    var response_ = await _client.send('CreateDocument', {
+      'Content': content,
+      if (attachments != null) 'Attachments': attachments,
+      'Name': name,
+      if (versionName != null) 'VersionName': versionName,
+      if (documentType != null) 'DocumentType': documentType,
+      if (documentFormat != null) 'DocumentFormat': documentFormat,
+      if (targetType != null) 'TargetType': targetType,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDocumentResult.fromJson(response_);
   }
 
   /// Creates a new maintenance window.
@@ -439,7 +491,20 @@ class SsmApi {
       @required bool allowUnassociatedTargets,
       String clientToken,
       List<Tag> tags}) async {
-    return CreateMaintenanceWindowResult.fromJson({});
+    var response_ = await _client.send('CreateMaintenanceWindow', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (startDate != null) 'StartDate': startDate,
+      if (endDate != null) 'EndDate': endDate,
+      'Schedule': schedule,
+      if (scheduleTimezone != null) 'ScheduleTimezone': scheduleTimezone,
+      'Duration': duration,
+      'Cutoff': cutoff,
+      'AllowUnassociatedTargets': allowUnassociatedTargets,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateMaintenanceWindowResult.fromJson(response_);
   }
 
   /// Creates a new OpsItem. You must have permission in AWS Identity and Access
@@ -517,7 +582,17 @@ class SsmApi {
       @required String source,
       @required String title,
       List<Tag> tags}) async {
-    return CreateOpsItemResponse.fromJson({});
+    var response_ = await _client.send('CreateOpsItem', {
+      'Description': description,
+      if (operationalData != null) 'OperationalData': operationalData,
+      if (notifications != null) 'Notifications': notifications,
+      if (priority != null) 'Priority': priority,
+      if (relatedOpsItems != null) 'RelatedOpsItems': relatedOpsItems,
+      'Source': source,
+      'Title': title,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateOpsItemResponse.fromJson(response_);
   }
 
   /// Creates a patch baseline.
@@ -612,7 +687,25 @@ class SsmApi {
       List<PatchSource> sources,
       String clientToken,
       List<Tag> tags}) async {
-    return CreatePatchBaselineResult.fromJson({});
+    var response_ = await _client.send('CreatePatchBaseline', {
+      if (operatingSystem != null) 'OperatingSystem': operatingSystem,
+      'Name': name,
+      if (globalFilters != null) 'GlobalFilters': globalFilters,
+      if (approvalRules != null) 'ApprovalRules': approvalRules,
+      if (approvedPatches != null) 'ApprovedPatches': approvedPatches,
+      if (approvedPatchesComplianceLevel != null)
+        'ApprovedPatchesComplianceLevel': approvedPatchesComplianceLevel,
+      if (approvedPatchesEnableNonSecurity != null)
+        'ApprovedPatchesEnableNonSecurity': approvedPatchesEnableNonSecurity,
+      if (rejectedPatches != null) 'RejectedPatches': rejectedPatches,
+      if (rejectedPatchesAction != null)
+        'RejectedPatchesAction': rejectedPatchesAction,
+      if (description != null) 'Description': description,
+      if (sources != null) 'Sources': sources,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreatePatchBaselineResult.fromJson(response_);
   }
 
   /// Creates a resource data sync configuration to a single bucket in Amazon
@@ -634,7 +727,11 @@ class SsmApi {
   Future<CreateResourceDataSyncResult> createResourceDataSync(
       {@required String syncName,
       @required ResourceDataSyncS3Destination s3Destination}) async {
-    return CreateResourceDataSyncResult.fromJson({});
+    var response_ = await _client.send('CreateResourceDataSync', {
+      'SyncName': syncName,
+      'S3Destination': s3Destination,
+    });
+    return CreateResourceDataSyncResult.fromJson(response_);
   }
 
   /// Deletes an activation. You are not required to delete an activation. If
@@ -644,7 +741,10 @@ class SsmApi {
   ///
   /// [activationId]: The ID of the activation that you want to delete.
   Future<DeleteActivationResult> deleteActivation(String activationId) async {
-    return DeleteActivationResult.fromJson({});
+    var response_ = await _client.send('DeleteActivation', {
+      'ActivationId': activationId,
+    });
+    return DeleteActivationResult.fromJson(response_);
   }
 
   /// Disassociates the specified Systems Manager document from the specified
@@ -662,7 +762,12 @@ class SsmApi {
   /// [associationId]: The association ID that you want to delete.
   Future<DeleteAssociationResult> deleteAssociation(
       {String name, String instanceId, String associationId}) async {
-    return DeleteAssociationResult.fromJson({});
+    var response_ = await _client.send('DeleteAssociation', {
+      if (name != null) 'Name': name,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (associationId != null) 'AssociationId': associationId,
+    });
+    return DeleteAssociationResult.fromJson(response_);
   }
 
   /// Deletes the Systems Manager document and all instance associations to the
@@ -681,7 +786,12 @@ class SsmApi {
   /// If not provided, all versions of the document are deleted.
   Future<DeleteDocumentResult> deleteDocument(String name,
       {String documentVersion, String versionName}) async {
-    return DeleteDocumentResult.fromJson({});
+    var response_ = await _client.send('DeleteDocument', {
+      'Name': name,
+      if (documentVersion != null) 'DocumentVersion': documentVersion,
+      if (versionName != null) 'VersionName': versionName,
+    });
+    return DeleteDocumentResult.fromJson(response_);
   }
 
   /// Delete a custom inventory type, or the data associated with a custom
@@ -713,7 +823,13 @@ class SsmApi {
   /// [clientToken]: User-provided idempotency token.
   Future<DeleteInventoryResult> deleteInventory(String typeName,
       {String schemaDeleteOption, bool dryRun, String clientToken}) async {
-    return DeleteInventoryResult.fromJson({});
+    var response_ = await _client.send('DeleteInventory', {
+      'TypeName': typeName,
+      if (schemaDeleteOption != null) 'SchemaDeleteOption': schemaDeleteOption,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return DeleteInventoryResult.fromJson(response_);
   }
 
   /// Deletes a maintenance window.
@@ -721,21 +837,30 @@ class SsmApi {
   /// [windowId]: The ID of the maintenance window to delete.
   Future<DeleteMaintenanceWindowResult> deleteMaintenanceWindow(
       String windowId) async {
-    return DeleteMaintenanceWindowResult.fromJson({});
+    var response_ = await _client.send('DeleteMaintenanceWindow', {
+      'WindowId': windowId,
+    });
+    return DeleteMaintenanceWindowResult.fromJson(response_);
   }
 
   /// Delete a parameter from the system.
   ///
   /// [name]: The name of the parameter to delete.
   Future<DeleteParameterResult> deleteParameter(String name) async {
-    return DeleteParameterResult.fromJson({});
+    var response_ = await _client.send('DeleteParameter', {
+      'Name': name,
+    });
+    return DeleteParameterResult.fromJson(response_);
   }
 
   /// Delete a list of parameters.
   ///
   /// [names]: The names of the parameters to delete.
   Future<DeleteParametersResult> deleteParameters(List<String> names) async {
-    return DeleteParametersResult.fromJson({});
+    var response_ = await _client.send('DeleteParameters', {
+      'Names': names,
+    });
+    return DeleteParametersResult.fromJson(response_);
   }
 
   /// Deletes a patch baseline.
@@ -743,7 +868,10 @@ class SsmApi {
   /// [baselineId]: The ID of the patch baseline to delete.
   Future<DeletePatchBaselineResult> deletePatchBaseline(
       String baselineId) async {
-    return DeletePatchBaselineResult.fromJson({});
+    var response_ = await _client.send('DeletePatchBaseline', {
+      'BaselineId': baselineId,
+    });
+    return DeletePatchBaselineResult.fromJson(response_);
   }
 
   /// Deletes a Resource Data Sync configuration. After the configuration is
@@ -754,7 +882,10 @@ class SsmApi {
   /// [syncName]: The name of the configuration to delete.
   Future<DeleteResourceDataSyncResult> deleteResourceDataSync(
       String syncName) async {
-    return DeleteResourceDataSyncResult.fromJson({});
+    var response_ = await _client.send('DeleteResourceDataSync', {
+      'SyncName': syncName,
+    });
+    return DeleteResourceDataSyncResult.fromJson(response_);
   }
 
   /// Removes the server or virtual machine from the list of registered servers.
@@ -765,7 +896,10 @@ class SsmApi {
   /// it using the activation process.
   Future<DeregisterManagedInstanceResult> deregisterManagedInstance(
       String instanceId) async {
-    return DeregisterManagedInstanceResult.fromJson({});
+    var response_ = await _client.send('DeregisterManagedInstance', {
+      'InstanceId': instanceId,
+    });
+    return DeregisterManagedInstanceResult.fromJson(response_);
   }
 
   /// Removes a patch group from a patch baseline.
@@ -778,7 +912,11 @@ class SsmApi {
   Future<DeregisterPatchBaselineForPatchGroupResult>
       deregisterPatchBaselineForPatchGroup(
           {@required String baselineId, @required String patchGroup}) async {
-    return DeregisterPatchBaselineForPatchGroupResult.fromJson({});
+    var response_ = await _client.send('DeregisterPatchBaselineForPatchGroup', {
+      'BaselineId': baselineId,
+      'PatchGroup': patchGroup,
+    });
+    return DeregisterPatchBaselineForPatchGroupResult.fromJson(response_);
   }
 
   /// Removes a target from a maintenance window.
@@ -796,7 +934,13 @@ class SsmApi {
           {@required String windowId,
           @required String windowTargetId,
           bool safe}) async {
-    return DeregisterTargetFromMaintenanceWindowResult.fromJson({});
+    var response_ =
+        await _client.send('DeregisterTargetFromMaintenanceWindow', {
+      'WindowId': windowId,
+      'WindowTargetId': windowTargetId,
+      if (safe != null) 'Safe': safe,
+    });
+    return DeregisterTargetFromMaintenanceWindowResult.fromJson(response_);
   }
 
   /// Removes a task from a maintenance window.
@@ -808,7 +952,11 @@ class SsmApi {
   Future<DeregisterTaskFromMaintenanceWindowResult>
       deregisterTaskFromMaintenanceWindow(
           {@required String windowId, @required String windowTaskId}) async {
-    return DeregisterTaskFromMaintenanceWindowResult.fromJson({});
+    var response_ = await _client.send('DeregisterTaskFromMaintenanceWindow', {
+      'WindowId': windowId,
+      'WindowTaskId': windowTaskId,
+    });
+    return DeregisterTaskFromMaintenanceWindowResult.fromJson(response_);
   }
 
   /// Describes details about the activation, such as the date and time the
@@ -828,7 +976,12 @@ class SsmApi {
       {List<DescribeActivationsFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeActivationsResult.fromJson({});
+    var response_ = await _client.send('DescribeActivations', {
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeActivationsResult.fromJson(response_);
   }
 
   /// Describes the association for the specified target or instance. If you
@@ -854,7 +1007,13 @@ class SsmApi {
       String instanceId,
       String associationId,
       String associationVersion}) async {
-    return DescribeAssociationResult.fromJson({});
+    var response_ = await _client.send('DescribeAssociation', {
+      if (name != null) 'Name': name,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (associationId != null) 'AssociationId': associationId,
+      if (associationVersion != null) 'AssociationVersion': associationVersion,
+    });
+    return DescribeAssociationResult.fromJson(response_);
   }
 
   /// Use this API action to view information about a specific execution of a
@@ -887,7 +1046,14 @@ class SsmApi {
           List<AssociationExecutionTargetsFilter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeAssociationExecutionTargetsResult.fromJson({});
+    var response_ = await _client.send('DescribeAssociationExecutionTargets', {
+      'AssociationId': associationId,
+      'ExecutionId': executionId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAssociationExecutionTargetsResult.fromJson(response_);
   }
 
   /// Use this API action to view all executions for a specific association ID.
@@ -915,7 +1081,13 @@ class SsmApi {
       {List<AssociationExecutionFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeAssociationExecutionsResult.fromJson({});
+    var response_ = await _client.send('DescribeAssociationExecutions', {
+      'AssociationId': associationId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAssociationExecutionsResult.fromJson(response_);
   }
 
   /// Provides details about all active and terminated Automation executions.
@@ -933,7 +1105,12 @@ class SsmApi {
       {List<AutomationExecutionFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeAutomationExecutionsResult.fromJson({});
+    var response_ = await _client.send('DescribeAutomationExecutions', {
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAutomationExecutionsResult.fromJson(response_);
   }
 
   /// Information about all active and terminated step executions in an
@@ -960,7 +1137,14 @@ class SsmApi {
           String nextToken,
           int maxResults,
           bool reverseOrder}) async {
-    return DescribeAutomationStepExecutionsResult.fromJson({});
+    var response_ = await _client.send('DescribeAutomationStepExecutions', {
+      'AutomationExecutionId': automationExecutionId,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (reverseOrder != null) 'ReverseOrder': reverseOrder,
+    });
+    return DescribeAutomationStepExecutionsResult.fromJson(response_);
   }
 
   /// Lists all patches eligible to be included in a patch baseline.
@@ -975,7 +1159,12 @@ class SsmApi {
       {List<PatchOrchestratorFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeAvailablePatchesResult.fromJson({});
+    var response_ = await _client.send('DescribeAvailablePatches', {
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAvailablePatchesResult.fromJson(response_);
   }
 
   /// Describes the specified Systems Manager document.
@@ -990,7 +1179,12 @@ class SsmApi {
   /// value is unique across all versions of a document, and cannot be changed.
   Future<DescribeDocumentResult> describeDocument(String name,
       {String documentVersion, String versionName}) async {
-    return DescribeDocumentResult.fromJson({});
+    var response_ = await _client.send('DescribeDocument', {
+      'Name': name,
+      if (documentVersion != null) 'DocumentVersion': documentVersion,
+      if (versionName != null) 'VersionName': versionName,
+    });
+    return DescribeDocumentResult.fromJson(response_);
   }
 
   /// Describes the permissions for a Systems Manager document. If you created
@@ -1004,7 +1198,11 @@ class SsmApi {
   /// type can be _Share_.
   Future<DescribeDocumentPermissionResponse> describeDocumentPermission(
       {@required String name, @required String permissionType}) async {
-    return DescribeDocumentPermissionResponse.fromJson({});
+    var response_ = await _client.send('DescribeDocumentPermission', {
+      'Name': name,
+      'PermissionType': permissionType,
+    });
+    return DescribeDocumentPermissionResponse.fromJson(response_);
   }
 
   /// All associations for the instance(s).
@@ -1020,7 +1218,13 @@ class SsmApi {
   Future<DescribeEffectiveInstanceAssociationsResult>
       describeEffectiveInstanceAssociations(String instanceId,
           {int maxResults, String nextToken}) async {
-    return DescribeEffectiveInstanceAssociationsResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeEffectiveInstanceAssociations', {
+      'InstanceId': instanceId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeEffectiveInstanceAssociationsResult.fromJson(response_);
   }
 
   /// Retrieves the current effective patches (the patch and the approval state)
@@ -1037,7 +1241,13 @@ class SsmApi {
   Future<DescribeEffectivePatchesForPatchBaselineResult>
       describeEffectivePatchesForPatchBaseline(String baselineId,
           {int maxResults, String nextToken}) async {
-    return DescribeEffectivePatchesForPatchBaselineResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeEffectivePatchesForPatchBaseline', {
+      'BaselineId': baselineId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeEffectivePatchesForPatchBaselineResult.fromJson(response_);
   }
 
   /// The status of the associations for the instance(s).
@@ -1054,7 +1264,12 @@ class SsmApi {
   Future<DescribeInstanceAssociationsStatusResult>
       describeInstanceAssociationsStatus(String instanceId,
           {int maxResults, String nextToken}) async {
-    return DescribeInstanceAssociationsStatusResult.fromJson({});
+    var response_ = await _client.send('DescribeInstanceAssociationsStatus', {
+      'InstanceId': instanceId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeInstanceAssociationsStatusResult.fromJson(response_);
   }
 
   /// Describes one or more of your instances. You can use this to get
@@ -1096,7 +1311,14 @@ class SsmApi {
       List<InstanceInformationStringFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeInstanceInformationResult.fromJson({});
+    var response_ = await _client.send('DescribeInstanceInformation', {
+      if (instanceInformationFilterList != null)
+        'InstanceInformationFilterList': instanceInformationFilterList,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeInstanceInformationResult.fromJson(response_);
   }
 
   /// Retrieves the high-level patch state of one or more instances.
@@ -1112,7 +1334,12 @@ class SsmApi {
       List<String> instanceIds,
       {String nextToken,
       int maxResults}) async {
-    return DescribeInstancePatchStatesResult.fromJson({});
+    var response_ = await _client.send('DescribeInstancePatchStates', {
+      'InstanceIds': instanceIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeInstancePatchStatesResult.fromJson(response_);
   }
 
   /// Retrieves the high-level patch state for the instances in the specified
@@ -1138,7 +1365,14 @@ class SsmApi {
           {List<InstancePatchStateFilter> filters,
           String nextToken,
           int maxResults}) async {
-    return DescribeInstancePatchStatesForPatchGroupResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeInstancePatchStatesForPatchGroup', {
+      'PatchGroup': patchGroup,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeInstancePatchStatesForPatchGroupResult.fromJson(response_);
   }
 
   /// Retrieves information about the patches on the specified instance and
@@ -1160,7 +1394,13 @@ class SsmApi {
       {List<PatchOrchestratorFilter> filters,
       String nextToken,
       int maxResults}) async {
-    return DescribeInstancePatchesResult.fromJson({});
+    var response_ = await _client.send('DescribeInstancePatches', {
+      'InstanceId': instanceId,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeInstancePatchesResult.fromJson(response_);
   }
 
   /// Describes a specific delete inventory operation.
@@ -1176,7 +1416,12 @@ class SsmApi {
   /// the next set of results.
   Future<DescribeInventoryDeletionsResult> describeInventoryDeletions(
       {String deletionId, String nextToken, int maxResults}) async {
-    return DescribeInventoryDeletionsResult.fromJson({});
+    var response_ = await _client.send('DescribeInventoryDeletions', {
+      if (deletionId != null) 'DeletionId': deletionId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeInventoryDeletionsResult.fromJson(response_);
   }
 
   /// Retrieves the individual task executions (one per target) for a particular
@@ -1206,7 +1451,16 @@ class SsmApi {
           List<MaintenanceWindowFilter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeMaintenanceWindowExecutionTaskInvocationsResult.fromJson({});
+    var response_ = await _client
+        .send('DescribeMaintenanceWindowExecutionTaskInvocations', {
+      'WindowExecutionId': windowExecutionId,
+      'TaskId': taskId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMaintenanceWindowExecutionTaskInvocationsResult.fromJson(
+        response_);
   }
 
   /// For a given maintenance window execution, lists the tasks that were run.
@@ -1229,7 +1483,14 @@ class SsmApi {
           {List<MaintenanceWindowFilter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeMaintenanceWindowExecutionTasksResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeMaintenanceWindowExecutionTasks', {
+      'WindowExecutionId': windowExecutionId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMaintenanceWindowExecutionTasksResult.fromJson(response_);
   }
 
   /// Lists the executions of a maintenance window. This includes information
@@ -1259,7 +1520,13 @@ class SsmApi {
           {List<MaintenanceWindowFilter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeMaintenanceWindowExecutionsResult.fromJson({});
+    var response_ = await _client.send('DescribeMaintenanceWindowExecutions', {
+      'WindowId': windowId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMaintenanceWindowExecutionsResult.fromJson(response_);
   }
 
   /// Retrieves information about upcoming executions of a maintenance window.
@@ -1291,7 +1558,15 @@ class SsmApi {
           List<PatchOrchestratorFilter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeMaintenanceWindowScheduleResult.fromJson({});
+    var response_ = await _client.send('DescribeMaintenanceWindowSchedule', {
+      if (windowId != null) 'WindowId': windowId,
+      if (targets != null) 'Targets': targets,
+      if (resourceType != null) 'ResourceType': resourceType,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMaintenanceWindowScheduleResult.fromJson(response_);
   }
 
   /// Lists the targets registered with the maintenance window.
@@ -1314,7 +1589,13 @@ class SsmApi {
           {List<MaintenanceWindowFilter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeMaintenanceWindowTargetsResult.fromJson({});
+    var response_ = await _client.send('DescribeMaintenanceWindowTargets', {
+      'WindowId': windowId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMaintenanceWindowTargetsResult.fromJson(response_);
   }
 
   /// Lists the tasks in a maintenance window.
@@ -1337,7 +1618,13 @@ class SsmApi {
       {List<MaintenanceWindowFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeMaintenanceWindowTasksResult.fromJson({});
+    var response_ = await _client.send('DescribeMaintenanceWindowTasks', {
+      'WindowId': windowId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMaintenanceWindowTasksResult.fromJson(response_);
   }
 
   /// Retrieves the maintenance windows in an AWS account.
@@ -1355,7 +1642,12 @@ class SsmApi {
       {List<MaintenanceWindowFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeMaintenanceWindowsResult.fromJson({});
+    var response_ = await _client.send('DescribeMaintenanceWindows', {
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMaintenanceWindowsResult.fromJson(response_);
   }
 
   /// Retrieves information about the maintenance window targets or tasks that
@@ -1379,7 +1671,13 @@ class SsmApi {
           @required String resourceType,
           int maxResults,
           String nextToken}) async {
-    return DescribeMaintenanceWindowsForTargetResult.fromJson({});
+    var response_ = await _client.send('DescribeMaintenanceWindowsForTarget', {
+      'Targets': targets,
+      'ResourceType': resourceType,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeMaintenanceWindowsForTargetResult.fromJson(response_);
   }
 
   /// Query a set of OpsItems. You must have permission in AWS Identity and
@@ -1463,7 +1761,12 @@ class SsmApi {
       {List<OpsItemFilter> opsItemFilters,
       int maxResults,
       String nextToken}) async {
-    return DescribeOpsItemsResponse.fromJson({});
+    var response_ = await _client.send('DescribeOpsItems', {
+      if (opsItemFilters != null) 'OpsItemFilters': opsItemFilters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeOpsItemsResponse.fromJson(response_);
   }
 
   /// Get information about a parameter.
@@ -1492,7 +1795,13 @@ class SsmApi {
       List<ParameterStringFilter> parameterFilters,
       int maxResults,
       String nextToken}) async {
-    return DescribeParametersResult.fromJson({});
+    var response_ = await _client.send('DescribeParameters', {
+      if (filters != null) 'Filters': filters,
+      if (parameterFilters != null) 'ParameterFilters': parameterFilters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeParametersResult.fromJson(response_);
   }
 
   /// Lists the patch baselines in your AWS account.
@@ -1511,7 +1820,12 @@ class SsmApi {
       {List<PatchOrchestratorFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribePatchBaselinesResult.fromJson({});
+    var response_ = await _client.send('DescribePatchBaselines', {
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribePatchBaselinesResult.fromJson(response_);
   }
 
   /// Returns high-level aggregated patch compliance state for a patch group.
@@ -1520,7 +1834,10 @@ class SsmApi {
   /// retrieved.
   Future<DescribePatchGroupStateResult> describePatchGroupState(
       String patchGroup) async {
-    return DescribePatchGroupStateResult.fromJson({});
+    var response_ = await _client.send('DescribePatchGroupState', {
+      'PatchGroup': patchGroup,
+    });
+    return DescribePatchGroupStateResult.fromJson(response_);
   }
 
   /// Lists all patch groups that have been registered with patch baselines.
@@ -1536,7 +1853,12 @@ class SsmApi {
       {int maxResults,
       List<PatchOrchestratorFilter> filters,
       String nextToken}) async {
-    return DescribePatchGroupsResult.fromJson({});
+    var response_ = await _client.send('DescribePatchGroups', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribePatchGroupsResult.fromJson(response_);
   }
 
   /// Lists the properties of available patches organized by product, product
@@ -1596,7 +1918,14 @@ class SsmApi {
       String patchSet,
       int maxResults,
       String nextToken}) async {
-    return DescribePatchPropertiesResult.fromJson({});
+    var response_ = await _client.send('DescribePatchProperties', {
+      'OperatingSystem': operatingSystem,
+      'Property': property,
+      if (patchSet != null) 'PatchSet': patchSet,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribePatchPropertiesResult.fromJson(response_);
   }
 
   /// Retrieves a list of all active sessions (both connected and disconnected)
@@ -1616,7 +1945,13 @@ class SsmApi {
   /// the request.
   Future<DescribeSessionsResponse> describeSessions(String state,
       {int maxResults, String nextToken, List<SessionFilter> filters}) async {
-    return DescribeSessionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeSessions', {
+      'State': state,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+    });
+    return DescribeSessionsResponse.fromJson(response_);
   }
 
   /// Get detailed information about a particular Automation execution.
@@ -1627,7 +1962,10 @@ class SsmApi {
   /// initiated.
   Future<GetAutomationExecutionResult> getAutomationExecution(
       String automationExecutionId) async {
-    return GetAutomationExecutionResult.fromJson({});
+    var response_ = await _client.send('GetAutomationExecution', {
+      'AutomationExecutionId': automationExecutionId,
+    });
+    return GetAutomationExecutionResult.fromJson(response_);
   }
 
   /// Returns detailed information about command execution for an invocation or
@@ -1646,7 +1984,12 @@ class SsmApi {
       {@required String commandId,
       @required String instanceId,
       String pluginName}) async {
-    return GetCommandInvocationResult.fromJson({});
+    var response_ = await _client.send('GetCommandInvocation', {
+      'CommandId': commandId,
+      'InstanceId': instanceId,
+      if (pluginName != null) 'PluginName': pluginName,
+    });
+    return GetCommandInvocationResult.fromJson(response_);
   }
 
   /// Retrieves the Session Manager connection status for an instance to
@@ -1655,7 +1998,10 @@ class SsmApi {
   ///
   /// [target]: The ID of the instance.
   Future<GetConnectionStatusResponse> getConnectionStatus(String target) async {
-    return GetConnectionStatusResponse.fromJson({});
+    var response_ = await _client.send('GetConnectionStatus', {
+      'Target': target,
+    });
+    return GetConnectionStatusResponse.fromJson(response_);
   }
 
   /// Retrieves the default patch baseline. Note that Systems Manager supports
@@ -1669,7 +2015,10 @@ class SsmApi {
   /// operating system.
   Future<GetDefaultPatchBaselineResult> getDefaultPatchBaseline(
       {String operatingSystem}) async {
-    return GetDefaultPatchBaselineResult.fromJson({});
+    var response_ = await _client.send('GetDefaultPatchBaseline', {
+      if (operatingSystem != null) 'OperatingSystem': operatingSystem,
+    });
+    return GetDefaultPatchBaselineResult.fromJson(response_);
   }
 
   /// Retrieves the current snapshot for the patch baseline the instance uses.
@@ -1683,7 +2032,12 @@ class SsmApi {
   Future<GetDeployablePatchSnapshotForInstanceResult>
       getDeployablePatchSnapshotForInstance(
           {@required String instanceId, @required String snapshotId}) async {
-    return GetDeployablePatchSnapshotForInstanceResult.fromJson({});
+    var response_ =
+        await _client.send('GetDeployablePatchSnapshotForInstance', {
+      'InstanceId': instanceId,
+      'SnapshotId': snapshotId,
+    });
+    return GetDeployablePatchSnapshotForInstanceResult.fromJson(response_);
   }
 
   /// Gets the contents of the specified Systems Manager document.
@@ -1702,7 +2056,13 @@ class SsmApi {
       {String versionName,
       String documentVersion,
       String documentFormat}) async {
-    return GetDocumentResult.fromJson({});
+    var response_ = await _client.send('GetDocument', {
+      'Name': name,
+      if (versionName != null) 'VersionName': versionName,
+      if (documentVersion != null) 'DocumentVersion': documentVersion,
+      if (documentFormat != null) 'DocumentFormat': documentFormat,
+    });
+    return GetDocumentResult.fromJson(response_);
   }
 
   /// Query inventory information.
@@ -1729,7 +2089,14 @@ class SsmApi {
       List<ResultAttribute> resultAttributes,
       String nextToken,
       int maxResults}) async {
-    return GetInventoryResult.fromJson({});
+    var response_ = await _client.send('GetInventory', {
+      if (filters != null) 'Filters': filters,
+      if (aggregators != null) 'Aggregators': aggregators,
+      if (resultAttributes != null) 'ResultAttributes': resultAttributes,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetInventoryResult.fromJson(response_);
   }
 
   /// Return a list of inventory type names for the account, or return a list of
@@ -1756,7 +2123,14 @@ class SsmApi {
       int maxResults,
       bool aggregator,
       bool subType}) async {
-    return GetInventorySchemaResult.fromJson({});
+    var response_ = await _client.send('GetInventorySchema', {
+      if (typeName != null) 'TypeName': typeName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (aggregator != null) 'Aggregator': aggregator,
+      if (subType != null) 'SubType': subType,
+    });
+    return GetInventorySchemaResult.fromJson(response_);
   }
 
   /// Retrieves a maintenance window.
@@ -1765,7 +2139,10 @@ class SsmApi {
   /// retrieve information.
   Future<GetMaintenanceWindowResult> getMaintenanceWindow(
       String windowId) async {
-    return GetMaintenanceWindowResult.fromJson({});
+    var response_ = await _client.send('GetMaintenanceWindow', {
+      'WindowId': windowId,
+    });
+    return GetMaintenanceWindowResult.fromJson(response_);
   }
 
   /// Retrieves details about a specific a maintenance window execution.
@@ -1774,7 +2151,10 @@ class SsmApi {
   /// includes the task.
   Future<GetMaintenanceWindowExecutionResult> getMaintenanceWindowExecution(
       String windowExecutionId) async {
-    return GetMaintenanceWindowExecutionResult.fromJson({});
+    var response_ = await _client.send('GetMaintenanceWindowExecution', {
+      'WindowExecutionId': windowExecutionId,
+    });
+    return GetMaintenanceWindowExecutionResult.fromJson(response_);
   }
 
   /// Retrieves the details about a specific task run as part of a maintenance
@@ -1788,7 +2168,11 @@ class SsmApi {
   Future<GetMaintenanceWindowExecutionTaskResult>
       getMaintenanceWindowExecutionTask(
           {@required String windowExecutionId, @required String taskId}) async {
-    return GetMaintenanceWindowExecutionTaskResult.fromJson({});
+    var response_ = await _client.send('GetMaintenanceWindowExecutionTask', {
+      'WindowExecutionId': windowExecutionId,
+      'TaskId': taskId,
+    });
+    return GetMaintenanceWindowExecutionTaskResult.fromJson(response_);
   }
 
   /// Retrieves information about a specific task running on a specific target.
@@ -1805,7 +2189,14 @@ class SsmApi {
           {@required String windowExecutionId,
           @required String taskId,
           @required String invocationId}) async {
-    return GetMaintenanceWindowExecutionTaskInvocationResult.fromJson({});
+    var response_ =
+        await _client.send('GetMaintenanceWindowExecutionTaskInvocation', {
+      'WindowExecutionId': windowExecutionId,
+      'TaskId': taskId,
+      'InvocationId': invocationId,
+    });
+    return GetMaintenanceWindowExecutionTaskInvocationResult.fromJson(
+        response_);
   }
 
   /// Lists the tasks in a maintenance window.
@@ -1815,7 +2206,11 @@ class SsmApi {
   /// [windowTaskId]: The maintenance window task ID to retrieve.
   Future<GetMaintenanceWindowTaskResult> getMaintenanceWindowTask(
       {@required String windowId, @required String windowTaskId}) async {
-    return GetMaintenanceWindowTaskResult.fromJson({});
+    var response_ = await _client.send('GetMaintenanceWindowTask', {
+      'WindowId': windowId,
+      'WindowTaskId': windowTaskId,
+    });
+    return GetMaintenanceWindowTaskResult.fromJson(response_);
   }
 
   /// Get information about an OpsItem by using the ID. You must have permission
@@ -1832,7 +2227,10 @@ class SsmApi {
   ///
   /// [opsItemId]: The ID of the OpsItem that you want to get.
   Future<GetOpsItemResponse> getOpsItem(String opsItemId) async {
-    return GetOpsItemResponse.fromJson({});
+    var response_ = await _client.send('GetOpsItem', {
+      'OpsItemId': opsItemId,
+    });
+    return GetOpsItemResponse.fromJson(response_);
   }
 
   /// View a summary of OpsItems based on specified filters and aggregators.
@@ -1850,7 +2248,13 @@ class SsmApi {
   /// the next set of results.
   Future<GetOpsSummaryResult> getOpsSummary(List<OpsAggregator> aggregators,
       {List<OpsFilter> filters, String nextToken, int maxResults}) async {
-    return GetOpsSummaryResult.fromJson({});
+    var response_ = await _client.send('GetOpsSummary', {
+      if (filters != null) 'Filters': filters,
+      'Aggregators': aggregators,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetOpsSummaryResult.fromJson(response_);
   }
 
   /// Get information about a parameter by using the parameter name. Don't
@@ -1862,7 +2266,11 @@ class SsmApi {
   /// This flag is ignored for String and StringList parameter types.
   Future<GetParameterResult> getParameter(String name,
       {bool withDecryption}) async {
-    return GetParameterResult.fromJson({});
+    var response_ = await _client.send('GetParameter', {
+      'Name': name,
+      if (withDecryption != null) 'WithDecryption': withDecryption,
+    });
+    return GetParameterResult.fromJson(response_);
   }
 
   /// Query a list of all parameters used by the AWS account.
@@ -1880,7 +2288,13 @@ class SsmApi {
   /// this token from a previous call.)
   Future<GetParameterHistoryResult> getParameterHistory(String name,
       {bool withDecryption, int maxResults, String nextToken}) async {
-    return GetParameterHistoryResult.fromJson({});
+    var response_ = await _client.send('GetParameterHistory', {
+      'Name': name,
+      if (withDecryption != null) 'WithDecryption': withDecryption,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetParameterHistoryResult.fromJson(response_);
   }
 
   /// Get details of a parameter. Don't confuse this API action with the
@@ -1893,7 +2307,11 @@ class SsmApi {
   /// StringList parameter types.
   Future<GetParametersResult> getParameters(List<String> names,
       {bool withDecryption}) async {
-    return GetParametersResult.fromJson({});
+    var response_ = await _client.send('GetParameters', {
+      'Names': names,
+      if (withDecryption != null) 'WithDecryption': withDecryption,
+    });
+    return GetParametersResult.fromJson(response_);
   }
 
   /// Retrieve parameters in a specific hierarchy. For more information, see
@@ -1948,14 +2366,25 @@ class SsmApi {
       bool withDecryption,
       int maxResults,
       String nextToken}) async {
-    return GetParametersByPathResult.fromJson({});
+    var response_ = await _client.send('GetParametersByPath', {
+      'Path': path,
+      if (recursive != null) 'Recursive': recursive,
+      if (parameterFilters != null) 'ParameterFilters': parameterFilters,
+      if (withDecryption != null) 'WithDecryption': withDecryption,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetParametersByPathResult.fromJson(response_);
   }
 
   /// Retrieves information about a patch baseline.
   ///
   /// [baselineId]: The ID of the patch baseline to retrieve.
   Future<GetPatchBaselineResult> getPatchBaseline(String baselineId) async {
-    return GetPatchBaselineResult.fromJson({});
+    var response_ = await _client.send('GetPatchBaseline', {
+      'BaselineId': baselineId,
+    });
+    return GetPatchBaselineResult.fromJson(response_);
   }
 
   /// Retrieves the patch baseline that should be used for the specified patch
@@ -1969,7 +2398,11 @@ class SsmApi {
   Future<GetPatchBaselineForPatchGroupResult> getPatchBaselineForPatchGroup(
       String patchGroup,
       {String operatingSystem}) async {
-    return GetPatchBaselineForPatchGroupResult.fromJson({});
+    var response_ = await _client.send('GetPatchBaselineForPatchGroup', {
+      'PatchGroup': patchGroup,
+      if (operatingSystem != null) 'OperatingSystem': operatingSystem,
+    });
+    return GetPatchBaselineForPatchGroupResult.fromJson(response_);
   }
 
   ///  `ServiceSetting` is an account-level setting for an AWS service. This
@@ -1992,7 +2425,10 @@ class SsmApi {
   ///
   /// [settingId]: The ID of the service setting to get.
   Future<GetServiceSettingResult> getServiceSetting(String settingId) async {
-    return GetServiceSettingResult.fromJson({});
+    var response_ = await _client.send('GetServiceSetting', {
+      'SettingId': settingId,
+    });
+    return GetServiceSettingResult.fromJson(response_);
   }
 
   /// A parameter label is a user-defined alias to help you manage different
@@ -2039,7 +2475,12 @@ class SsmApi {
       {@required String name,
       BigInt parameterVersion,
       @required List<String> labels}) async {
-    return LabelParameterVersionResult.fromJson({});
+    var response_ = await _client.send('LabelParameterVersion', {
+      'Name': name,
+      if (parameterVersion != null) 'ParameterVersion': parameterVersion,
+      'Labels': labels,
+    });
+    return LabelParameterVersionResult.fromJson(response_);
   }
 
   /// Retrieves all versions of an association for a specific association ID.
@@ -2057,7 +2498,12 @@ class SsmApi {
       String associationId,
       {int maxResults,
       String nextToken}) async {
-    return ListAssociationVersionsResult.fromJson({});
+    var response_ = await _client.send('ListAssociationVersions', {
+      'AssociationId': associationId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAssociationVersionsResult.fromJson(response_);
   }
 
   /// Lists the associations for the specified Systems Manager document or
@@ -2076,7 +2522,13 @@ class SsmApi {
       {List<AssociationFilter> associationFilterList,
       int maxResults,
       String nextToken}) async {
-    return ListAssociationsResult.fromJson({});
+    var response_ = await _client.send('ListAssociations', {
+      if (associationFilterList != null)
+        'AssociationFilterList': associationFilterList,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAssociationsResult.fromJson(response_);
   }
 
   /// An invocation is copy of a command sent to a specific instance. A command
@@ -2109,7 +2561,15 @@ class SsmApi {
       String nextToken,
       List<CommandFilter> filters,
       bool details}) async {
-    return ListCommandInvocationsResult.fromJson({});
+    var response_ = await _client.send('ListCommandInvocations', {
+      if (commandId != null) 'CommandId': commandId,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+      if (details != null) 'Details': details,
+    });
+    return ListCommandInvocationsResult.fromJson(response_);
   }
 
   /// Lists the commands requested by users of the AWS account.
@@ -2133,7 +2593,14 @@ class SsmApi {
       int maxResults,
       String nextToken,
       List<CommandFilter> filters}) async {
-    return ListCommandsResult.fromJson({});
+    var response_ = await _client.send('ListCommands', {
+      if (commandId != null) 'CommandId': commandId,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListCommandsResult.fromJson(response_);
   }
 
   /// For a specified resource ID, this API action returns a list of compliance
@@ -2163,7 +2630,14 @@ class SsmApi {
       List<String> resourceTypes,
       String nextToken,
       int maxResults}) async {
-    return ListComplianceItemsResult.fromJson({});
+    var response_ = await _client.send('ListComplianceItems', {
+      if (filters != null) 'Filters': filters,
+      if (resourceIds != null) 'ResourceIds': resourceIds,
+      if (resourceTypes != null) 'ResourceTypes': resourceTypes,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListComplianceItemsResult.fromJson(response_);
   }
 
   /// Returns a summary count of compliant and non-compliant resources for a
@@ -2184,7 +2658,12 @@ class SsmApi {
       {List<ComplianceStringFilter> filters,
       String nextToken,
       int maxResults}) async {
-    return ListComplianceSummariesResult.fromJson({});
+    var response_ = await _client.send('ListComplianceSummaries', {
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListComplianceSummariesResult.fromJson(response_);
   }
 
   /// List all versions for a document.
@@ -2199,7 +2678,12 @@ class SsmApi {
   /// this token from a previous call.)
   Future<ListDocumentVersionsResult> listDocumentVersions(String name,
       {int maxResults, String nextToken}) async {
-    return ListDocumentVersionsResult.fromJson({});
+    var response_ = await _client.send('ListDocumentVersions', {
+      'Name': name,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListDocumentVersionsResult.fromJson(response_);
   }
 
   /// Describes one or more of your Systems Manager documents.
@@ -2221,7 +2705,13 @@ class SsmApi {
       List<DocumentKeyValuesFilter> filters,
       int maxResults,
       String nextToken}) async {
-    return ListDocumentsResult.fromJson({});
+    var response_ = await _client.send('ListDocuments', {
+      if (documentFilterList != null) 'DocumentFilterList': documentFilterList,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListDocumentsResult.fromJson(response_);
   }
 
   /// A list of inventory items returned by the request.
@@ -2245,7 +2735,14 @@ class SsmApi {
       List<InventoryFilter> filters,
       String nextToken,
       int maxResults}) async {
-    return ListInventoryEntriesResult.fromJson({});
+    var response_ = await _client.send('ListInventoryEntries', {
+      'InstanceId': instanceId,
+      'TypeName': typeName,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListInventoryEntriesResult.fromJson(response_);
   }
 
   /// Returns a resource-level summary count. The summary includes information
@@ -2265,7 +2762,12 @@ class SsmApi {
       {List<ComplianceStringFilter> filters,
       String nextToken,
       int maxResults}) async {
-    return ListResourceComplianceSummariesResult.fromJson({});
+    var response_ = await _client.send('ListResourceComplianceSummaries', {
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListResourceComplianceSummariesResult.fromJson(response_);
   }
 
   /// Lists your resource data sync configurations. Includes information about
@@ -2288,7 +2790,11 @@ class SsmApi {
   /// the next set of results.
   Future<ListResourceDataSyncResult> listResourceDataSync(
       {String nextToken, int maxResults}) async {
-    return ListResourceDataSyncResult.fromJson({});
+    var response_ = await _client.send('ListResourceDataSync', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListResourceDataSyncResult.fromJson(response_);
   }
 
   /// Returns a list of the tags assigned to the specified resource.
@@ -2298,7 +2804,11 @@ class SsmApi {
   /// [resourceId]: The resource ID for which you want to see a list of tags.
   Future<ListTagsForResourceResult> listTagsForResource(
       {@required String resourceType, @required String resourceId}) async {
-    return ListTagsForResourceResult.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceType': resourceType,
+      'ResourceId': resourceId,
+    });
+    return ListTagsForResourceResult.fromJson(response_);
   }
 
   /// Shares a Systems Manager document publicly or privately. If you share a
@@ -2324,7 +2834,13 @@ class SsmApi {
       @required String permissionType,
       List<String> accountIdsToAdd,
       List<String> accountIdsToRemove}) async {
-    return ModifyDocumentPermissionResponse.fromJson({});
+    var response_ = await _client.send('ModifyDocumentPermission', {
+      'Name': name,
+      'PermissionType': permissionType,
+      if (accountIdsToAdd != null) 'AccountIdsToAdd': accountIdsToAdd,
+      if (accountIdsToRemove != null) 'AccountIdsToRemove': accountIdsToRemove,
+    });
+    return ModifyDocumentPermissionResponse.fromJson(response_);
   }
 
   /// Registers a compliance type and other compliance details on a designated
@@ -2400,7 +2916,15 @@ class SsmApi {
       @required ComplianceExecutionSummary executionSummary,
       @required List<ComplianceItemEntry> items,
       String itemContentHash}) async {
-    return PutComplianceItemsResult.fromJson({});
+    var response_ = await _client.send('PutComplianceItems', {
+      'ResourceId': resourceId,
+      'ResourceType': resourceType,
+      'ComplianceType': complianceType,
+      'ExecutionSummary': executionSummary,
+      'Items': items,
+      if (itemContentHash != null) 'ItemContentHash': itemContentHash,
+    });
+    return PutComplianceItemsResult.fromJson(response_);
   }
 
   /// Bulk update custom inventory items on one more instance. The request adds
@@ -2414,7 +2938,11 @@ class SsmApi {
   Future<PutInventoryResult> putInventory(
       {@required String instanceId,
       @required List<InventoryItem> items}) async {
-    return PutInventoryResult.fromJson({});
+    var response_ = await _client.send('PutInventory', {
+      'InstanceId': instanceId,
+      'Items': items,
+    });
+    return PutInventoryResult.fromJson(response_);
   }
 
   /// Add a parameter to the system.
@@ -2617,7 +3145,19 @@ class SsmApi {
       List<Tag> tags,
       String tier,
       String policies}) async {
-    return PutParameterResult.fromJson({});
+    var response_ = await _client.send('PutParameter', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'Value': value,
+      'Type': type,
+      if (keyId != null) 'KeyId': keyId,
+      if (overwrite != null) 'Overwrite': overwrite,
+      if (allowedPattern != null) 'AllowedPattern': allowedPattern,
+      if (tags != null) 'Tags': tags,
+      if (tier != null) 'Tier': tier,
+      if (policies != null) 'Policies': policies,
+    });
+    return PutParameterResult.fromJson(response_);
   }
 
   /// Defines the default patch baseline for the relevant operating system.
@@ -2632,7 +3172,10 @@ class SsmApi {
   /// patch baseline.
   Future<RegisterDefaultPatchBaselineResult> registerDefaultPatchBaseline(
       String baselineId) async {
-    return RegisterDefaultPatchBaselineResult.fromJson({});
+    var response_ = await _client.send('RegisterDefaultPatchBaseline', {
+      'BaselineId': baselineId,
+    });
+    return RegisterDefaultPatchBaselineResult.fromJson(response_);
   }
 
   /// Registers a patch baseline for a patch group.
@@ -2645,7 +3188,11 @@ class SsmApi {
   Future<RegisterPatchBaselineForPatchGroupResult>
       registerPatchBaselineForPatchGroup(
           {@required String baselineId, @required String patchGroup}) async {
-    return RegisterPatchBaselineForPatchGroupResult.fromJson({});
+    var response_ = await _client.send('RegisterPatchBaselineForPatchGroup', {
+      'BaselineId': baselineId,
+      'PatchGroup': patchGroup,
+    });
+    return RegisterPatchBaselineForPatchGroupResult.fromJson(response_);
   }
 
   /// Registers a target with a maintenance window.
@@ -2714,7 +3261,16 @@ class SsmApi {
           String name,
           String description,
           String clientToken}) async {
-    return RegisterTargetWithMaintenanceWindowResult.fromJson({});
+    var response_ = await _client.send('RegisterTargetWithMaintenanceWindow', {
+      'WindowId': windowId,
+      'ResourceType': resourceType,
+      'Targets': targets,
+      if (ownerInformation != null) 'OwnerInformation': ownerInformation,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return RegisterTargetWithMaintenanceWindowResult.fromJson(response_);
   }
 
   /// Adds a new task to a maintenance window.
@@ -2805,7 +3361,24 @@ class SsmApi {
           String name,
           String description,
           String clientToken}) async {
-    return RegisterTaskWithMaintenanceWindowResult.fromJson({});
+    var response_ = await _client.send('RegisterTaskWithMaintenanceWindow', {
+      'WindowId': windowId,
+      'Targets': targets,
+      'TaskArn': taskArn,
+      if (serviceRoleArn != null) 'ServiceRoleArn': serviceRoleArn,
+      'TaskType': taskType,
+      if (taskParameters != null) 'TaskParameters': taskParameters,
+      if (taskInvocationParameters != null)
+        'TaskInvocationParameters': taskInvocationParameters,
+      if (priority != null) 'Priority': priority,
+      'MaxConcurrency': maxConcurrency,
+      'MaxErrors': maxErrors,
+      if (loggingInfo != null) 'LoggingInfo': loggingInfo,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return RegisterTaskWithMaintenanceWindowResult.fromJson(response_);
   }
 
   /// Removes tag keys from the specified resource.
@@ -2840,7 +3413,12 @@ class SsmApi {
       {@required String resourceType,
       @required String resourceId,
       @required List<String> tagKeys}) async {
-    return RemoveTagsFromResourceResult.fromJson({});
+    var response_ = await _client.send('RemoveTagsFromResource', {
+      'ResourceType': resourceType,
+      'ResourceId': resourceId,
+      'TagKeys': tagKeys,
+    });
+    return RemoveTagsFromResourceResult.fromJson(response_);
   }
 
   ///  `ServiceSetting` is an account-level setting for an AWS service. This
@@ -2864,7 +3442,10 @@ class SsmApi {
   /// [settingId]: The ID of the service setting to reset.
   Future<ResetServiceSettingResult> resetServiceSetting(
       String settingId) async {
-    return ResetServiceSettingResult.fromJson({});
+    var response_ = await _client.send('ResetServiceSetting', {
+      'SettingId': settingId,
+    });
+    return ResetServiceSettingResult.fromJson(response_);
   }
 
   /// Reconnects a session to an instance after it has been disconnected.
@@ -2879,7 +3460,10 @@ class SsmApi {
   ///
   /// [sessionId]: The ID of the disconnected session to resume.
   Future<ResumeSessionResponse> resumeSession(String sessionId) async {
-    return ResumeSessionResponse.fromJson({});
+    var response_ = await _client.send('ResumeSession', {
+      'SessionId': sessionId,
+    });
+    return ResumeSessionResponse.fromJson(response_);
   }
 
   /// Sends a signal to an Automation execution to change the current behavior
@@ -2911,7 +3495,12 @@ class SsmApi {
       {@required String automationExecutionId,
       @required String signalType,
       Map<String, List<String>> payload}) async {
-    return SendAutomationSignalResult.fromJson({});
+    var response_ = await _client.send('SendAutomationSignal', {
+      'AutomationExecutionId': automationExecutionId,
+      'SignalType': signalType,
+      if (payload != null) 'Payload': payload,
+    });
+    return SendAutomationSignalResult.fromJson(response_);
   }
 
   /// Runs commands on one or more managed instances.
@@ -3018,7 +3607,27 @@ class SsmApi {
       String serviceRoleArn,
       NotificationConfig notificationConfig,
       CloudWatchOutputConfig cloudWatchOutputConfig}) async {
-    return SendCommandResult.fromJson({});
+    var response_ = await _client.send('SendCommand', {
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      if (targets != null) 'Targets': targets,
+      'DocumentName': documentName,
+      if (documentVersion != null) 'DocumentVersion': documentVersion,
+      if (documentHash != null) 'DocumentHash': documentHash,
+      if (documentHashType != null) 'DocumentHashType': documentHashType,
+      if (timeoutSeconds != null) 'TimeoutSeconds': timeoutSeconds,
+      if (comment != null) 'Comment': comment,
+      if (parameters != null) 'Parameters': parameters,
+      if (outputS3Region != null) 'OutputS3Region': outputS3Region,
+      if (outputS3BucketName != null) 'OutputS3BucketName': outputS3BucketName,
+      if (outputS3KeyPrefix != null) 'OutputS3KeyPrefix': outputS3KeyPrefix,
+      if (maxConcurrency != null) 'MaxConcurrency': maxConcurrency,
+      if (maxErrors != null) 'MaxErrors': maxErrors,
+      if (serviceRoleArn != null) 'ServiceRoleArn': serviceRoleArn,
+      if (notificationConfig != null) 'NotificationConfig': notificationConfig,
+      if (cloudWatchOutputConfig != null)
+        'CloudWatchOutputConfig': cloudWatchOutputConfig,
+    });
+    return SendCommandResult.fromJson(response_);
   }
 
   /// Use this API action to run an association immediately and only one time.
@@ -3028,7 +3637,10 @@ class SsmApi {
   /// only one time.
   Future<StartAssociationsOnceResult> startAssociationsOnce(
       List<String> associationIds) async {
-    return StartAssociationsOnceResult.fromJson({});
+    var response_ = await _client.send('StartAssociationsOnce', {
+      'AssociationIds': associationIds,
+    });
+    return StartAssociationsOnceResult.fromJson(response_);
   }
 
   /// Initiates execution of an Automation document.
@@ -3096,7 +3708,21 @@ class SsmApi {
       String maxConcurrency,
       String maxErrors,
       List<TargetLocation> targetLocations}) async {
-    return StartAutomationExecutionResult.fromJson({});
+    var response_ = await _client.send('StartAutomationExecution', {
+      'DocumentName': documentName,
+      if (documentVersion != null) 'DocumentVersion': documentVersion,
+      if (parameters != null) 'Parameters': parameters,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (mode != null) 'Mode': mode,
+      if (targetParameterName != null)
+        'TargetParameterName': targetParameterName,
+      if (targets != null) 'Targets': targets,
+      if (targetMaps != null) 'TargetMaps': targetMaps,
+      if (maxConcurrency != null) 'MaxConcurrency': maxConcurrency,
+      if (maxErrors != null) 'MaxErrors': maxErrors,
+      if (targetLocations != null) 'TargetLocations': targetLocations,
+    });
+    return StartAutomationExecutionResult.fromJson(response_);
   }
 
   /// Initiates a connection to a target (for example, an instance) for a
@@ -3121,7 +3747,12 @@ class SsmApi {
   /// [parameters]: Reserved for future use.
   Future<StartSessionResponse> startSession(String target,
       {String documentName, Map<String, List<String>> parameters}) async {
-    return StartSessionResponse.fromJson({});
+    var response_ = await _client.send('StartSession', {
+      'Target': target,
+      if (documentName != null) 'DocumentName': documentName,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return StartSessionResponse.fromJson(response_);
   }
 
   /// Stop an Automation that is currently running.
@@ -3133,7 +3764,11 @@ class SsmApi {
   Future<StopAutomationExecutionResult> stopAutomationExecution(
       String automationExecutionId,
       {String type}) async {
-    return StopAutomationExecutionResult.fromJson({});
+    var response_ = await _client.send('StopAutomationExecution', {
+      'AutomationExecutionId': automationExecutionId,
+      if (type != null) 'Type': type,
+    });
+    return StopAutomationExecutionResult.fromJson(response_);
   }
 
   /// Permanently ends a session and closes the data connection between the
@@ -3142,7 +3777,10 @@ class SsmApi {
   ///
   /// [sessionId]: The ID of the session to terminate.
   Future<TerminateSessionResponse> terminateSession(String sessionId) async {
-    return TerminateSessionResponse.fromJson({});
+    var response_ = await _client.send('TerminateSession', {
+      'SessionId': sessionId,
+    });
+    return TerminateSessionResponse.fromJson(response_);
   }
 
   /// Updates an association. You can update the association name and version,
@@ -3241,7 +3879,23 @@ class SsmApi {
       String maxErrors,
       String maxConcurrency,
       String complianceSeverity}) async {
-    return UpdateAssociationResult.fromJson({});
+    var response_ = await _client.send('UpdateAssociation', {
+      'AssociationId': associationId,
+      if (parameters != null) 'Parameters': parameters,
+      if (documentVersion != null) 'DocumentVersion': documentVersion,
+      if (scheduleExpression != null) 'ScheduleExpression': scheduleExpression,
+      if (outputLocation != null) 'OutputLocation': outputLocation,
+      if (name != null) 'Name': name,
+      if (targets != null) 'Targets': targets,
+      if (associationName != null) 'AssociationName': associationName,
+      if (associationVersion != null) 'AssociationVersion': associationVersion,
+      if (automationTargetParameterName != null)
+        'AutomationTargetParameterName': automationTargetParameterName,
+      if (maxErrors != null) 'MaxErrors': maxErrors,
+      if (maxConcurrency != null) 'MaxConcurrency': maxConcurrency,
+      if (complianceSeverity != null) 'ComplianceSeverity': complianceSeverity,
+    });
+    return UpdateAssociationResult.fromJson(response_);
   }
 
   /// Updates the status of the Systems Manager document associated with the
@@ -3256,7 +3910,12 @@ class SsmApi {
       {@required String name,
       @required String instanceId,
       @required AssociationStatus associationStatus}) async {
-    return UpdateAssociationStatusResult.fromJson({});
+    var response_ = await _client.send('UpdateAssociationStatus', {
+      'Name': name,
+      'InstanceId': instanceId,
+      'AssociationStatus': associationStatus,
+    });
+    return UpdateAssociationStatusResult.fromJson(response_);
   }
 
   /// Updates one or more values for an SSM document.
@@ -3289,7 +3948,16 @@ class SsmApi {
       String documentVersion,
       String documentFormat,
       String targetType}) async {
-    return UpdateDocumentResult.fromJson({});
+    var response_ = await _client.send('UpdateDocument', {
+      'Content': content,
+      if (attachments != null) 'Attachments': attachments,
+      'Name': name,
+      if (versionName != null) 'VersionName': versionName,
+      if (documentVersion != null) 'DocumentVersion': documentVersion,
+      if (documentFormat != null) 'DocumentFormat': documentFormat,
+      if (targetType != null) 'TargetType': targetType,
+    });
+    return UpdateDocumentResult.fromJson(response_);
   }
 
   /// Set the default version of a document.
@@ -3301,7 +3969,11 @@ class SsmApi {
   /// as the default version.
   Future<UpdateDocumentDefaultVersionResult> updateDocumentDefaultVersion(
       {@required String name, @required String documentVersion}) async {
-    return UpdateDocumentDefaultVersionResult.fromJson({});
+    var response_ = await _client.send('UpdateDocumentDefaultVersion', {
+      'Name': name,
+      'DocumentVersion': documentVersion,
+    });
+    return UpdateDocumentDefaultVersionResult.fromJson(response_);
   }
 
   /// Updates an existing maintenance window. Only specified parameters are
@@ -3358,7 +4030,22 @@ class SsmApi {
       bool allowUnassociatedTargets,
       bool enabled,
       bool replace}) async {
-    return UpdateMaintenanceWindowResult.fromJson({});
+    var response_ = await _client.send('UpdateMaintenanceWindow', {
+      'WindowId': windowId,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (startDate != null) 'StartDate': startDate,
+      if (endDate != null) 'EndDate': endDate,
+      if (schedule != null) 'Schedule': schedule,
+      if (scheduleTimezone != null) 'ScheduleTimezone': scheduleTimezone,
+      if (duration != null) 'Duration': duration,
+      if (cutoff != null) 'Cutoff': cutoff,
+      if (allowUnassociatedTargets != null)
+        'AllowUnassociatedTargets': allowUnassociatedTargets,
+      if (enabled != null) 'Enabled': enabled,
+      if (replace != null) 'Replace': replace,
+    });
+    return UpdateMaintenanceWindowResult.fromJson(response_);
   }
 
   /// Modifies the target of an existing maintenance window. You can change the
@@ -3408,7 +4095,16 @@ class SsmApi {
       String name,
       String description,
       bool replace}) async {
-    return UpdateMaintenanceWindowTargetResult.fromJson({});
+    var response_ = await _client.send('UpdateMaintenanceWindowTarget', {
+      'WindowId': windowId,
+      'WindowTargetId': windowTargetId,
+      if (targets != null) 'Targets': targets,
+      if (ownerInformation != null) 'OwnerInformation': ownerInformation,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (replace != null) 'Replace': replace,
+    });
+    return UpdateMaintenanceWindowTargetResult.fromJson(response_);
   }
 
   /// Modifies a task assigned to a maintenance window. You can't change the
@@ -3518,7 +4214,24 @@ class SsmApi {
       String name,
       String description,
       bool replace}) async {
-    return UpdateMaintenanceWindowTaskResult.fromJson({});
+    var response_ = await _client.send('UpdateMaintenanceWindowTask', {
+      'WindowId': windowId,
+      'WindowTaskId': windowTaskId,
+      if (targets != null) 'Targets': targets,
+      if (taskArn != null) 'TaskArn': taskArn,
+      if (serviceRoleArn != null) 'ServiceRoleArn': serviceRoleArn,
+      if (taskParameters != null) 'TaskParameters': taskParameters,
+      if (taskInvocationParameters != null)
+        'TaskInvocationParameters': taskInvocationParameters,
+      if (priority != null) 'Priority': priority,
+      if (maxConcurrency != null) 'MaxConcurrency': maxConcurrency,
+      if (maxErrors != null) 'MaxErrors': maxErrors,
+      if (loggingInfo != null) 'LoggingInfo': loggingInfo,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (replace != null) 'Replace': replace,
+    });
+    return UpdateMaintenanceWindowTaskResult.fromJson(response_);
   }
 
   /// Assigns or changes an Amazon Identity and Access Management (IAM) role for
@@ -3530,7 +4243,11 @@ class SsmApi {
   /// [iamRole]: The IAM role you want to assign or change.
   Future<UpdateManagedInstanceRoleResult> updateManagedInstanceRole(
       {@required String instanceId, @required String iamRole}) async {
-    return UpdateManagedInstanceRoleResult.fromJson({});
+    var response_ = await _client.send('UpdateManagedInstanceRole', {
+      'InstanceId': instanceId,
+      'IamRole': iamRole,
+    });
+    return UpdateManagedInstanceRoleResult.fromJson(response_);
   }
 
   /// Edit or change an OpsItem. You must have permission in AWS Identity and
@@ -3606,7 +4323,19 @@ class SsmApi {
       List<RelatedOpsItem> relatedOpsItems,
       String status,
       String title}) async {
-    return UpdateOpsItemResponse.fromJson({});
+    var response_ = await _client.send('UpdateOpsItem', {
+      if (description != null) 'Description': description,
+      if (operationalData != null) 'OperationalData': operationalData,
+      if (operationalDataToDelete != null)
+        'OperationalDataToDelete': operationalDataToDelete,
+      if (notifications != null) 'Notifications': notifications,
+      if (priority != null) 'Priority': priority,
+      if (relatedOpsItems != null) 'RelatedOpsItems': relatedOpsItems,
+      if (status != null) 'Status': status,
+      'OpsItemId': opsItemId,
+      if (title != null) 'Title': title,
+    });
+    return UpdateOpsItemResponse.fromJson(response_);
   }
 
   /// Modifies an existing patch baseline. Fields not specified in the request
@@ -3683,7 +4412,24 @@ class SsmApi {
       String description,
       List<PatchSource> sources,
       bool replace}) async {
-    return UpdatePatchBaselineResult.fromJson({});
+    var response_ = await _client.send('UpdatePatchBaseline', {
+      'BaselineId': baselineId,
+      if (name != null) 'Name': name,
+      if (globalFilters != null) 'GlobalFilters': globalFilters,
+      if (approvalRules != null) 'ApprovalRules': approvalRules,
+      if (approvedPatches != null) 'ApprovedPatches': approvedPatches,
+      if (approvedPatchesComplianceLevel != null)
+        'ApprovedPatchesComplianceLevel': approvedPatchesComplianceLevel,
+      if (approvedPatchesEnableNonSecurity != null)
+        'ApprovedPatchesEnableNonSecurity': approvedPatchesEnableNonSecurity,
+      if (rejectedPatches != null) 'RejectedPatches': rejectedPatches,
+      if (rejectedPatchesAction != null)
+        'RejectedPatchesAction': rejectedPatchesAction,
+      if (description != null) 'Description': description,
+      if (sources != null) 'Sources': sources,
+      if (replace != null) 'Replace': replace,
+    });
+    return UpdatePatchBaselineResult.fromJson(response_);
   }
 
   ///  `ServiceSetting` is an account-level setting for an AWS service. This
@@ -3709,7 +4455,11 @@ class SsmApi {
   /// [settingValue]: The new value to specify for the service setting.
   Future<UpdateServiceSettingResult> updateServiceSetting(
       {@required String settingId, @required String settingValue}) async {
-    return UpdateServiceSettingResult.fromJson({});
+    var response_ = await _client.send('UpdateServiceSetting', {
+      'SettingId': settingId,
+      'SettingValue': settingValue,
+    });
+    return UpdateServiceSettingResult.fromJson(response_);
   }
 }
 
@@ -3763,7 +4513,34 @@ class Activation {
     this.createdDate,
     this.tags,
   });
-  static Activation fromJson(Map<String, dynamic> json) => Activation();
+  static Activation fromJson(Map<String, dynamic> json) => Activation(
+        activationId: json.containsKey('ActivationId')
+            ? json['ActivationId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        defaultInstanceName: json.containsKey('DefaultInstanceName')
+            ? json['DefaultInstanceName'] as String
+            : null,
+        iamRole: json.containsKey('IamRole') ? json['IamRole'] as String : null,
+        registrationLimit: json.containsKey('RegistrationLimit')
+            ? json['RegistrationLimit'] as int
+            : null,
+        registrationsCount: json.containsKey('RegistrationsCount')
+            ? json['RegistrationsCount'] as int
+            : null,
+        expirationDate: json.containsKey('ExpirationDate')
+            ? DateTime.parse(json['ExpirationDate'])
+            : null,
+        expired: json.containsKey('Expired') ? json['Expired'] as bool : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class AddTagsToResourceResult {
@@ -3818,7 +4595,36 @@ class Association {
     this.scheduleExpression,
     this.associationName,
   });
-  static Association fromJson(Map<String, dynamic> json) => Association();
+  static Association fromJson(Map<String, dynamic> json) => Association(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        associationVersion: json.containsKey('AssociationVersion')
+            ? json['AssociationVersion'] as String
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        lastExecutionDate: json.containsKey('LastExecutionDate')
+            ? DateTime.parse(json['LastExecutionDate'])
+            : null,
+        overview: json.containsKey('Overview')
+            ? AssociationOverview.fromJson(json['Overview'])
+            : null,
+        scheduleExpression: json.containsKey('ScheduleExpression')
+            ? json['ScheduleExpression'] as String
+            : null,
+        associationName: json.containsKey('AssociationName')
+            ? json['AssociationName'] as String
+            : null,
+      );
 }
 
 /// Describes the parameters for a document.
@@ -3931,7 +4737,66 @@ class AssociationDescription {
     this.complianceSeverity,
   });
   static AssociationDescription fromJson(Map<String, dynamic> json) =>
-      AssociationDescription();
+      AssociationDescription(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        associationVersion: json.containsKey('AssociationVersion')
+            ? json['AssociationVersion'] as String
+            : null,
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+        lastUpdateAssociationDate: json.containsKey('LastUpdateAssociationDate')
+            ? DateTime.parse(json['LastUpdateAssociationDate'])
+            : null,
+        status: json.containsKey('Status')
+            ? AssociationStatus.fromJson(json['Status'])
+            : null,
+        overview: json.containsKey('Overview')
+            ? AssociationOverview.fromJson(json['Overview'])
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        automationTargetParameterName:
+            json.containsKey('AutomationTargetParameterName')
+                ? json['AutomationTargetParameterName'] as String
+                : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        scheduleExpression: json.containsKey('ScheduleExpression')
+            ? json['ScheduleExpression'] as String
+            : null,
+        outputLocation: json.containsKey('OutputLocation')
+            ? InstanceAssociationOutputLocation.fromJson(json['OutputLocation'])
+            : null,
+        lastExecutionDate: json.containsKey('LastExecutionDate')
+            ? DateTime.parse(json['LastExecutionDate'])
+            : null,
+        lastSuccessfulExecutionDate:
+            json.containsKey('LastSuccessfulExecutionDate')
+                ? DateTime.parse(json['LastSuccessfulExecutionDate'])
+                : null,
+        associationName: json.containsKey('AssociationName')
+            ? json['AssociationName'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        complianceSeverity: json.containsKey('ComplianceSeverity')
+            ? json['ComplianceSeverity'] as String
+            : null,
+      );
 }
 
 /// Includes information about the specified association.
@@ -3972,7 +4837,30 @@ class AssociationExecution {
     this.resourceCountByStatus,
   });
   static AssociationExecution fromJson(Map<String, dynamic> json) =>
-      AssociationExecution();
+      AssociationExecution(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        associationVersion: json.containsKey('AssociationVersion')
+            ? json['AssociationVersion'] as String
+            : null,
+        executionId: json.containsKey('ExecutionId')
+            ? json['ExecutionId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        detailedStatus: json.containsKey('DetailedStatus')
+            ? json['DetailedStatus'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        lastExecutionDate: json.containsKey('LastExecutionDate')
+            ? DateTime.parse(json['LastExecutionDate'])
+            : null,
+        resourceCountByStatus: json.containsKey('ResourceCountByStatus')
+            ? json['ResourceCountByStatus'] as String
+            : null,
+      );
 }
 
 /// Filters used in the request.
@@ -3991,6 +4879,7 @@ class AssociationExecutionFilter {
     @required this.value,
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Includes information about the specified association execution.
@@ -4034,7 +4923,33 @@ class AssociationExecutionTarget {
     this.outputSource,
   });
   static AssociationExecutionTarget fromJson(Map<String, dynamic> json) =>
-      AssociationExecutionTarget();
+      AssociationExecutionTarget(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        associationVersion: json.containsKey('AssociationVersion')
+            ? json['AssociationVersion'] as String
+            : null,
+        executionId: json.containsKey('ExecutionId')
+            ? json['ExecutionId'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        detailedStatus: json.containsKey('DetailedStatus')
+            ? json['DetailedStatus'] as String
+            : null,
+        lastExecutionDate: json.containsKey('LastExecutionDate')
+            ? DateTime.parse(json['LastExecutionDate'])
+            : null,
+        outputSource: json.containsKey('OutputSource')
+            ? OutputSource.fromJson(json['OutputSource'])
+            : null,
+      );
 }
 
 /// Filters for the association execution.
@@ -4049,6 +4964,7 @@ class AssociationExecutionTargetsFilter {
     @required this.key,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a filter.
@@ -4063,6 +4979,7 @@ class AssociationFilter {
     @required this.key,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the association.
@@ -4084,7 +5001,17 @@ class AssociationOverview {
     this.associationStatusAggregatedCount,
   });
   static AssociationOverview fromJson(Map<String, dynamic> json) =>
-      AssociationOverview();
+      AssociationOverview(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        detailedStatus: json.containsKey('DetailedStatus')
+            ? json['DetailedStatus'] as String
+            : null,
+        associationStatusAggregatedCount:
+            json.containsKey('AssociationStatusAggregatedCount')
+                ? (json['AssociationStatusAggregatedCount'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as int))
+                : null,
+      );
 }
 
 /// Describes an association status.
@@ -4108,7 +5035,15 @@ class AssociationStatus {
     this.additionalInfo,
   });
   static AssociationStatus fromJson(Map<String, dynamic> json) =>
-      AssociationStatus();
+      AssociationStatus(
+        date: DateTime.parse(json['Date']),
+        name: json['Name'] as String,
+        message: json['Message'] as String,
+        additionalInfo: json.containsKey('AdditionalInfo')
+            ? json['AdditionalInfo'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the association version.
@@ -4195,7 +5130,45 @@ class AssociationVersionInfo {
     this.complianceSeverity,
   });
   static AssociationVersionInfo fromJson(Map<String, dynamic> json) =>
-      AssociationVersionInfo();
+      AssociationVersionInfo(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        associationVersion: json.containsKey('AssociationVersion')
+            ? json['AssociationVersion'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        scheduleExpression: json.containsKey('ScheduleExpression')
+            ? json['ScheduleExpression'] as String
+            : null,
+        outputLocation: json.containsKey('OutputLocation')
+            ? InstanceAssociationOutputLocation.fromJson(json['OutputLocation'])
+            : null,
+        associationName: json.containsKey('AssociationName')
+            ? json['AssociationName'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        complianceSeverity: json.containsKey('ComplianceSeverity')
+            ? json['ComplianceSeverity'] as String
+            : null,
+      );
 }
 
 /// A structure that includes attributes that describe a document attachment.
@@ -4223,7 +5196,14 @@ class AttachmentContent {
     this.url,
   });
   static AttachmentContent fromJson(Map<String, dynamic> json) =>
-      AttachmentContent();
+      AttachmentContent(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        size: json.containsKey('Size') ? BigInt.from(json['Size']) : null,
+        hash: json.containsKey('Hash') ? json['Hash'] as String : null,
+        hashType:
+            json.containsKey('HashType') ? json['HashType'] as String : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
 }
 
 /// An attribute of an attachment, such as the attachment name.
@@ -4235,7 +5215,9 @@ class AttachmentInformation {
     this.name,
   });
   static AttachmentInformation fromJson(Map<String, dynamic> json) =>
-      AttachmentInformation();
+      AttachmentInformation(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// A key and value pair that identifies the location of an attachment to a
@@ -4253,6 +5235,7 @@ class AttachmentsSource {
     this.key,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Detailed information about the current state of an individual Automation
@@ -4371,7 +5354,88 @@ class AutomationExecution {
     this.progressCounters,
   });
   static AutomationExecution fromJson(Map<String, dynamic> json) =>
-      AutomationExecution();
+      AutomationExecution(
+        automationExecutionId: json.containsKey('AutomationExecutionId')
+            ? json['AutomationExecutionId'] as String
+            : null,
+        documentName: json.containsKey('DocumentName')
+            ? json['DocumentName'] as String
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        executionStartTime: json.containsKey('ExecutionStartTime')
+            ? DateTime.parse(json['ExecutionStartTime'])
+            : null,
+        executionEndTime: json.containsKey('ExecutionEndTime')
+            ? DateTime.parse(json['ExecutionEndTime'])
+            : null,
+        automationExecutionStatus: json.containsKey('AutomationExecutionStatus')
+            ? json['AutomationExecutionStatus'] as String
+            : null,
+        stepExecutions: json.containsKey('StepExecutions')
+            ? (json['StepExecutions'] as List)
+                .map((e) => StepExecution.fromJson(e))
+                .toList()
+            : null,
+        stepExecutionsTruncated: json.containsKey('StepExecutionsTruncated')
+            ? json['StepExecutionsTruncated'] as bool
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        outputs: json.containsKey('Outputs')
+            ? (json['Outputs'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        failureMessage: json.containsKey('FailureMessage')
+            ? json['FailureMessage'] as String
+            : null,
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+        parentAutomationExecutionId:
+            json.containsKey('ParentAutomationExecutionId')
+                ? json['ParentAutomationExecutionId'] as String
+                : null,
+        executedBy: json.containsKey('ExecutedBy')
+            ? json['ExecutedBy'] as String
+            : null,
+        currentStepName: json.containsKey('CurrentStepName')
+            ? json['CurrentStepName'] as String
+            : null,
+        currentAction: json.containsKey('CurrentAction')
+            ? json['CurrentAction'] as String
+            : null,
+        targetParameterName: json.containsKey('TargetParameterName')
+            ? json['TargetParameterName'] as String
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        targetMaps: json.containsKey('TargetMaps')
+            ? (json['TargetMaps'] as List)
+                .map((e) => (e as Map).map((k, v) => MapEntry(
+                    k as String, (v as List).map((e) => e as String).toList())))
+                .toList()
+            : null,
+        resolvedTargets: json.containsKey('ResolvedTargets')
+            ? ResolvedTargets.fromJson(json['ResolvedTargets'])
+            : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        target: json.containsKey('Target') ? json['Target'] as String : null,
+        targetLocations: json.containsKey('TargetLocations')
+            ? (json['TargetLocations'] as List)
+                .map((e) => TargetLocation.fromJson(e))
+                .toList()
+            : null,
+        progressCounters: json.containsKey('ProgressCounters')
+            ? ProgressCounters.fromJson(json['ProgressCounters'])
+            : null,
+      );
 }
 
 /// A filter used to match specific automation executions. This is used to limit
@@ -4390,6 +5454,7 @@ class AutomationExecutionFilter {
     @required this.key,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about a specific Automation execution.
@@ -4493,7 +5558,72 @@ class AutomationExecutionMetadata {
     this.automationType,
   });
   static AutomationExecutionMetadata fromJson(Map<String, dynamic> json) =>
-      AutomationExecutionMetadata();
+      AutomationExecutionMetadata(
+        automationExecutionId: json.containsKey('AutomationExecutionId')
+            ? json['AutomationExecutionId'] as String
+            : null,
+        documentName: json.containsKey('DocumentName')
+            ? json['DocumentName'] as String
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        automationExecutionStatus: json.containsKey('AutomationExecutionStatus')
+            ? json['AutomationExecutionStatus'] as String
+            : null,
+        executionStartTime: json.containsKey('ExecutionStartTime')
+            ? DateTime.parse(json['ExecutionStartTime'])
+            : null,
+        executionEndTime: json.containsKey('ExecutionEndTime')
+            ? DateTime.parse(json['ExecutionEndTime'])
+            : null,
+        executedBy: json.containsKey('ExecutedBy')
+            ? json['ExecutedBy'] as String
+            : null,
+        logFile: json.containsKey('LogFile') ? json['LogFile'] as String : null,
+        outputs: json.containsKey('Outputs')
+            ? (json['Outputs'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+        parentAutomationExecutionId:
+            json.containsKey('ParentAutomationExecutionId')
+                ? json['ParentAutomationExecutionId'] as String
+                : null,
+        currentStepName: json.containsKey('CurrentStepName')
+            ? json['CurrentStepName'] as String
+            : null,
+        currentAction: json.containsKey('CurrentAction')
+            ? json['CurrentAction'] as String
+            : null,
+        failureMessage: json.containsKey('FailureMessage')
+            ? json['FailureMessage'] as String
+            : null,
+        targetParameterName: json.containsKey('TargetParameterName')
+            ? json['TargetParameterName'] as String
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        targetMaps: json.containsKey('TargetMaps')
+            ? (json['TargetMaps'] as List)
+                .map((e) => (e as Map).map((k, v) => MapEntry(
+                    k as String, (v as List).map((e) => e as String).toList())))
+                .toList()
+            : null,
+        resolvedTargets: json.containsKey('ResolvedTargets')
+            ? ResolvedTargets.fromJson(json['ResolvedTargets'])
+            : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        target: json.containsKey('Target') ? json['Target'] as String : null,
+        automationType: json.containsKey('AutomationType')
+            ? json['AutomationType'] as String
+            : null,
+      );
 }
 
 /// Whether or not the command was successfully canceled. There is no guarantee
@@ -4513,7 +5643,11 @@ class CancelMaintenanceWindowExecutionResult {
   });
   static CancelMaintenanceWindowExecutionResult fromJson(
           Map<String, dynamic> json) =>
-      CancelMaintenanceWindowExecutionResult();
+      CancelMaintenanceWindowExecutionResult(
+        windowExecutionId: json.containsKey('WindowExecutionId')
+            ? json['WindowExecutionId'] as String
+            : null,
+      );
 }
 
 /// Configuration options for sending command output to CloudWatch Logs.
@@ -4532,7 +5666,15 @@ class CloudWatchOutputConfig {
     this.cloudWatchOutputEnabled,
   });
   static CloudWatchOutputConfig fromJson(Map<String, dynamic> json) =>
-      CloudWatchOutputConfig();
+      CloudWatchOutputConfig(
+        cloudWatchLogGroupName: json.containsKey('CloudWatchLogGroupName')
+            ? json['CloudWatchLogGroupName'] as String
+            : null,
+        cloudWatchOutputEnabled: json.containsKey('CloudWatchOutputEnabled')
+            ? json['CloudWatchOutputEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a command request.
@@ -4692,7 +5834,70 @@ class Command {
     this.notificationConfig,
     this.cloudWatchOutputConfig,
   });
-  static Command fromJson(Map<String, dynamic> json) => Command();
+  static Command fromJson(Map<String, dynamic> json) => Command(
+        commandId:
+            json.containsKey('CommandId') ? json['CommandId'] as String : null,
+        documentName: json.containsKey('DocumentName')
+            ? json['DocumentName'] as String
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        expiresAfter: json.containsKey('ExpiresAfter')
+            ? DateTime.parse(json['ExpiresAfter'])
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        instanceIds: json.containsKey('InstanceIds')
+            ? (json['InstanceIds'] as List).map((e) => e as String).toList()
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        requestedDateTime: json.containsKey('RequestedDateTime')
+            ? DateTime.parse(json['RequestedDateTime'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        outputS3Region: json.containsKey('OutputS3Region')
+            ? json['OutputS3Region'] as String
+            : null,
+        outputS3BucketName: json.containsKey('OutputS3BucketName')
+            ? json['OutputS3BucketName'] as String
+            : null,
+        outputS3KeyPrefix: json.containsKey('OutputS3KeyPrefix')
+            ? json['OutputS3KeyPrefix'] as String
+            : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        targetCount:
+            json.containsKey('TargetCount') ? json['TargetCount'] as int : null,
+        completedCount: json.containsKey('CompletedCount')
+            ? json['CompletedCount'] as int
+            : null,
+        errorCount:
+            json.containsKey('ErrorCount') ? json['ErrorCount'] as int : null,
+        deliveryTimedOutCount: json.containsKey('DeliveryTimedOutCount')
+            ? json['DeliveryTimedOutCount'] as int
+            : null,
+        serviceRole: json.containsKey('ServiceRole')
+            ? json['ServiceRole'] as String
+            : null,
+        notificationConfig: json.containsKey('NotificationConfig')
+            ? NotificationConfig.fromJson(json['NotificationConfig'])
+            : null,
+        cloudWatchOutputConfig: json.containsKey('CloudWatchOutputConfig')
+            ? CloudWatchOutputConfig.fromJson(json['CloudWatchOutputConfig'])
+            : null,
+      );
 }
 
 /// Describes a command filter.
@@ -4747,6 +5952,7 @@ class CommandFilter {
     @required this.key,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An invocation is copy of a command sent to a specific instance. A command
@@ -4880,7 +6086,53 @@ class CommandInvocation {
     this.cloudWatchOutputConfig,
   });
   static CommandInvocation fromJson(Map<String, dynamic> json) =>
-      CommandInvocation();
+      CommandInvocation(
+        commandId:
+            json.containsKey('CommandId') ? json['CommandId'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceName: json.containsKey('InstanceName')
+            ? json['InstanceName'] as String
+            : null,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        documentName: json.containsKey('DocumentName')
+            ? json['DocumentName'] as String
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        requestedDateTime: json.containsKey('RequestedDateTime')
+            ? DateTime.parse(json['RequestedDateTime'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        traceOutput: json.containsKey('TraceOutput')
+            ? json['TraceOutput'] as String
+            : null,
+        standardOutputUrl: json.containsKey('StandardOutputUrl')
+            ? json['StandardOutputUrl'] as String
+            : null,
+        standardErrorUrl: json.containsKey('StandardErrorUrl')
+            ? json['StandardErrorUrl'] as String
+            : null,
+        commandPlugins: json.containsKey('CommandPlugins')
+            ? (json['CommandPlugins'] as List)
+                .map((e) => CommandPlugin.fromJson(e))
+                .toList()
+            : null,
+        serviceRole: json.containsKey('ServiceRole')
+            ? json['ServiceRole'] as String
+            : null,
+        notificationConfig: json.containsKey('NotificationConfig')
+            ? NotificationConfig.fromJson(json['NotificationConfig'])
+            : null,
+        cloudWatchOutputConfig: json.containsKey('CloudWatchOutputConfig')
+            ? CloudWatchOutputConfig.fromJson(json['CloudWatchOutputConfig'])
+            : null,
+      );
 }
 
 /// Describes plugin details.
@@ -5013,7 +6265,38 @@ class CommandPlugin {
     this.outputS3BucketName,
     this.outputS3KeyPrefix,
   });
-  static CommandPlugin fromJson(Map<String, dynamic> json) => CommandPlugin();
+  static CommandPlugin fromJson(Map<String, dynamic> json) => CommandPlugin(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        responseCode: json.containsKey('ResponseCode')
+            ? json['ResponseCode'] as int
+            : null,
+        responseStartDateTime: json.containsKey('ResponseStartDateTime')
+            ? DateTime.parse(json['ResponseStartDateTime'])
+            : null,
+        responseFinishDateTime: json.containsKey('ResponseFinishDateTime')
+            ? DateTime.parse(json['ResponseFinishDateTime'])
+            : null,
+        output: json.containsKey('Output') ? json['Output'] as String : null,
+        standardOutputUrl: json.containsKey('StandardOutputUrl')
+            ? json['StandardOutputUrl'] as String
+            : null,
+        standardErrorUrl: json.containsKey('StandardErrorUrl')
+            ? json['StandardErrorUrl'] as String
+            : null,
+        outputS3Region: json.containsKey('OutputS3Region')
+            ? json['OutputS3Region'] as String
+            : null,
+        outputS3BucketName: json.containsKey('OutputS3BucketName')
+            ? json['OutputS3BucketName'] as String
+            : null,
+        outputS3KeyPrefix: json.containsKey('OutputS3KeyPrefix')
+            ? json['OutputS3KeyPrefix'] as String
+            : null,
+      );
 }
 
 /// A summary of the call execution that includes an execution ID, the type of
@@ -5039,7 +6322,16 @@ class ComplianceExecutionSummary {
     this.executionType,
   });
   static ComplianceExecutionSummary fromJson(Map<String, dynamic> json) =>
-      ComplianceExecutionSummary();
+      ComplianceExecutionSummary(
+        executionTime: DateTime.parse(json['ExecutionTime']),
+        executionId: json.containsKey('ExecutionId')
+            ? json['ExecutionId'] as String
+            : null,
+        executionType: json.containsKey('ExecutionType')
+            ? json['ExecutionType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the compliance as defined by the resource type. For
@@ -5094,7 +6386,29 @@ class ComplianceItem {
     this.executionSummary,
     this.details,
   });
-  static ComplianceItem fromJson(Map<String, dynamic> json) => ComplianceItem();
+  static ComplianceItem fromJson(Map<String, dynamic> json) => ComplianceItem(
+        complianceType: json.containsKey('ComplianceType')
+            ? json['ComplianceType'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        title: json.containsKey('Title') ? json['Title'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        severity:
+            json.containsKey('Severity') ? json['Severity'] as String : null,
+        executionSummary: json.containsKey('ExecutionSummary')
+            ? ComplianceExecutionSummary.fromJson(json['ExecutionSummary'])
+            : null,
+        details: json.containsKey('Details')
+            ? (json['Details'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Information about a compliance item.
@@ -5127,6 +6441,7 @@ class ComplianceItemEntry {
     @required this.status,
     this.details,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// One or more filters. Use a filter to return a more specific list of results.
@@ -5146,6 +6461,7 @@ class ComplianceStringFilter {
     this.values,
     this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A summary of compliance information by compliance type.
@@ -5166,7 +6482,17 @@ class ComplianceSummaryItem {
     this.nonCompliantSummary,
   });
   static ComplianceSummaryItem fromJson(Map<String, dynamic> json) =>
-      ComplianceSummaryItem();
+      ComplianceSummaryItem(
+        complianceType: json.containsKey('ComplianceType')
+            ? json['ComplianceType'] as String
+            : null,
+        compliantSummary: json.containsKey('CompliantSummary')
+            ? CompliantSummary.fromJson(json['CompliantSummary'])
+            : null,
+        nonCompliantSummary: json.containsKey('NonCompliantSummary')
+            ? NonCompliantSummary.fromJson(json['NonCompliantSummary'])
+            : null,
+      );
 }
 
 /// A summary of resources that are compliant. The summary is organized
@@ -5183,7 +6509,14 @@ class CompliantSummary {
     this.severitySummary,
   });
   static CompliantSummary fromJson(Map<String, dynamic> json) =>
-      CompliantSummary();
+      CompliantSummary(
+        compliantCount: json.containsKey('CompliantCount')
+            ? json['CompliantCount'] as int
+            : null,
+        severitySummary: json.containsKey('SeveritySummary')
+            ? SeveritySummary.fromJson(json['SeveritySummary'])
+            : null,
+      );
 }
 
 class CreateActivationResult {
@@ -5200,7 +6533,14 @@ class CreateActivationResult {
     this.activationCode,
   });
   static CreateActivationResult fromJson(Map<String, dynamic> json) =>
-      CreateActivationResult();
+      CreateActivationResult(
+        activationId: json.containsKey('ActivationId')
+            ? json['ActivationId'] as String
+            : null,
+        activationCode: json.containsKey('ActivationCode')
+            ? json['ActivationCode'] as String
+            : null,
+      );
 }
 
 /// Describes the association of a Systems Manager SSM document and an instance.
@@ -5298,7 +6638,44 @@ class CreateAssociationBatchRequestEntry {
   });
   static CreateAssociationBatchRequestEntry fromJson(
           Map<String, dynamic> json) =>
-      CreateAssociationBatchRequestEntry();
+      CreateAssociationBatchRequestEntry(
+        name: json['Name'] as String,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        automationTargetParameterName:
+            json.containsKey('AutomationTargetParameterName')
+                ? json['AutomationTargetParameterName'] as String
+                : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        scheduleExpression: json.containsKey('ScheduleExpression')
+            ? json['ScheduleExpression'] as String
+            : null,
+        outputLocation: json.containsKey('OutputLocation')
+            ? InstanceAssociationOutputLocation.fromJson(json['OutputLocation'])
+            : null,
+        associationName: json.containsKey('AssociationName')
+            ? json['AssociationName'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        complianceSeverity: json.containsKey('ComplianceSeverity')
+            ? json['ComplianceSeverity'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateAssociationBatchResult {
@@ -5313,7 +6690,18 @@ class CreateAssociationBatchResult {
     this.failed,
   });
   static CreateAssociationBatchResult fromJson(Map<String, dynamic> json) =>
-      CreateAssociationBatchResult();
+      CreateAssociationBatchResult(
+        successful: json.containsKey('Successful')
+            ? (json['Successful'] as List)
+                .map((e) => AssociationDescription.fromJson(e))
+                .toList()
+            : null,
+        failed: json.containsKey('Failed')
+            ? (json['Failed'] as List)
+                .map((e) => FailedCreateAssociation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateAssociationResult {
@@ -5324,7 +6712,11 @@ class CreateAssociationResult {
     this.associationDescription,
   });
   static CreateAssociationResult fromJson(Map<String, dynamic> json) =>
-      CreateAssociationResult();
+      CreateAssociationResult(
+        associationDescription: json.containsKey('AssociationDescription')
+            ? AssociationDescription.fromJson(json['AssociationDescription'])
+            : null,
+      );
 }
 
 class CreateDocumentResult {
@@ -5335,7 +6727,11 @@ class CreateDocumentResult {
     this.documentDescription,
   });
   static CreateDocumentResult fromJson(Map<String, dynamic> json) =>
-      CreateDocumentResult();
+      CreateDocumentResult(
+        documentDescription: json.containsKey('DocumentDescription')
+            ? DocumentDescription.fromJson(json['DocumentDescription'])
+            : null,
+      );
 }
 
 class CreateMaintenanceWindowResult {
@@ -5346,7 +6742,10 @@ class CreateMaintenanceWindowResult {
     this.windowId,
   });
   static CreateMaintenanceWindowResult fromJson(Map<String, dynamic> json) =>
-      CreateMaintenanceWindowResult();
+      CreateMaintenanceWindowResult(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+      );
 }
 
 class CreateOpsItemResponse {
@@ -5357,7 +6756,10 @@ class CreateOpsItemResponse {
     this.opsItemId,
   });
   static CreateOpsItemResponse fromJson(Map<String, dynamic> json) =>
-      CreateOpsItemResponse();
+      CreateOpsItemResponse(
+        opsItemId:
+            json.containsKey('OpsItemId') ? json['OpsItemId'] as String : null,
+      );
 }
 
 class CreatePatchBaselineResult {
@@ -5368,7 +6770,11 @@ class CreatePatchBaselineResult {
     this.baselineId,
   });
   static CreatePatchBaselineResult fromJson(Map<String, dynamic> json) =>
-      CreatePatchBaselineResult();
+      CreatePatchBaselineResult(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+      );
 }
 
 class CreateResourceDataSyncResult {
@@ -5417,7 +6823,16 @@ class DeleteInventoryResult {
     this.deletionSummary,
   });
   static DeleteInventoryResult fromJson(Map<String, dynamic> json) =>
-      DeleteInventoryResult();
+      DeleteInventoryResult(
+        deletionId: json.containsKey('DeletionId')
+            ? json['DeletionId'] as String
+            : null,
+        typeName:
+            json.containsKey('TypeName') ? json['TypeName'] as String : null,
+        deletionSummary: json.containsKey('DeletionSummary')
+            ? InventoryDeletionSummary.fromJson(json['DeletionSummary'])
+            : null,
+      );
 }
 
 class DeleteMaintenanceWindowResult {
@@ -5428,7 +6843,10 @@ class DeleteMaintenanceWindowResult {
     this.windowId,
   });
   static DeleteMaintenanceWindowResult fromJson(Map<String, dynamic> json) =>
-      DeleteMaintenanceWindowResult();
+      DeleteMaintenanceWindowResult(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+      );
 }
 
 class DeleteParameterResult {
@@ -5450,7 +6868,18 @@ class DeleteParametersResult {
     this.invalidParameters,
   });
   static DeleteParametersResult fromJson(Map<String, dynamic> json) =>
-      DeleteParametersResult();
+      DeleteParametersResult(
+        deletedParameters: json.containsKey('DeletedParameters')
+            ? (json['DeletedParameters'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        invalidParameters: json.containsKey('InvalidParameters')
+            ? (json['InvalidParameters'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class DeletePatchBaselineResult {
@@ -5461,7 +6890,11 @@ class DeletePatchBaselineResult {
     this.baselineId,
   });
   static DeletePatchBaselineResult fromJson(Map<String, dynamic> json) =>
-      DeletePatchBaselineResult();
+      DeletePatchBaselineResult(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+      );
 }
 
 class DeleteResourceDataSyncResult {
@@ -5489,7 +6922,14 @@ class DeregisterPatchBaselineForPatchGroupResult {
   });
   static DeregisterPatchBaselineForPatchGroupResult fromJson(
           Map<String, dynamic> json) =>
-      DeregisterPatchBaselineForPatchGroupResult();
+      DeregisterPatchBaselineForPatchGroupResult(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+        patchGroup: json.containsKey('PatchGroup')
+            ? json['PatchGroup'] as String
+            : null,
+      );
 }
 
 class DeregisterTargetFromMaintenanceWindowResult {
@@ -5505,7 +6945,13 @@ class DeregisterTargetFromMaintenanceWindowResult {
   });
   static DeregisterTargetFromMaintenanceWindowResult fromJson(
           Map<String, dynamic> json) =>
-      DeregisterTargetFromMaintenanceWindowResult();
+      DeregisterTargetFromMaintenanceWindowResult(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        windowTargetId: json.containsKey('WindowTargetId')
+            ? json['WindowTargetId'] as String
+            : null,
+      );
 }
 
 class DeregisterTaskFromMaintenanceWindowResult {
@@ -5521,7 +6967,13 @@ class DeregisterTaskFromMaintenanceWindowResult {
   });
   static DeregisterTaskFromMaintenanceWindowResult fromJson(
           Map<String, dynamic> json) =>
-      DeregisterTaskFromMaintenanceWindowResult();
+      DeregisterTaskFromMaintenanceWindowResult(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        windowTaskId: json.containsKey('WindowTaskId')
+            ? json['WindowTaskId'] as String
+            : null,
+      );
 }
 
 /// Filter for the DescribeActivation API.
@@ -5536,6 +6988,7 @@ class DescribeActivationsFilter {
     this.filterKey,
     this.filterValues,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DescribeActivationsResult {
@@ -5551,7 +7004,15 @@ class DescribeActivationsResult {
     this.nextToken,
   });
   static DescribeActivationsResult fromJson(Map<String, dynamic> json) =>
-      DescribeActivationsResult();
+      DescribeActivationsResult(
+        activationList: json.containsKey('ActivationList')
+            ? (json['ActivationList'] as List)
+                .map((e) => Activation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeAssociationExecutionTargetsResult {
@@ -5568,7 +7029,16 @@ class DescribeAssociationExecutionTargetsResult {
   });
   static DescribeAssociationExecutionTargetsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeAssociationExecutionTargetsResult();
+      DescribeAssociationExecutionTargetsResult(
+        associationExecutionTargets:
+            json.containsKey('AssociationExecutionTargets')
+                ? (json['AssociationExecutionTargets'] as List)
+                    .map((e) => AssociationExecutionTarget.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeAssociationExecutionsResult {
@@ -5585,7 +7055,15 @@ class DescribeAssociationExecutionsResult {
   });
   static DescribeAssociationExecutionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeAssociationExecutionsResult();
+      DescribeAssociationExecutionsResult(
+        associationExecutions: json.containsKey('AssociationExecutions')
+            ? (json['AssociationExecutions'] as List)
+                .map((e) => AssociationExecution.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeAssociationResult {
@@ -5596,7 +7074,11 @@ class DescribeAssociationResult {
     this.associationDescription,
   });
   static DescribeAssociationResult fromJson(Map<String, dynamic> json) =>
-      DescribeAssociationResult();
+      DescribeAssociationResult(
+        associationDescription: json.containsKey('AssociationDescription')
+            ? AssociationDescription.fromJson(json['AssociationDescription'])
+            : null,
+      );
 }
 
 class DescribeAutomationExecutionsResult {
@@ -5614,7 +7096,16 @@ class DescribeAutomationExecutionsResult {
   });
   static DescribeAutomationExecutionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeAutomationExecutionsResult();
+      DescribeAutomationExecutionsResult(
+        automationExecutionMetadataList:
+            json.containsKey('AutomationExecutionMetadataList')
+                ? (json['AutomationExecutionMetadataList'] as List)
+                    .map((e) => AutomationExecutionMetadata.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeAutomationStepExecutionsResult {
@@ -5632,7 +7123,15 @@ class DescribeAutomationStepExecutionsResult {
   });
   static DescribeAutomationStepExecutionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeAutomationStepExecutionsResult();
+      DescribeAutomationStepExecutionsResult(
+        stepExecutions: json.containsKey('StepExecutions')
+            ? (json['StepExecutions'] as List)
+                .map((e) => StepExecution.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeAvailablePatchesResult {
@@ -5648,7 +7147,13 @@ class DescribeAvailablePatchesResult {
     this.nextToken,
   });
   static DescribeAvailablePatchesResult fromJson(Map<String, dynamic> json) =>
-      DescribeAvailablePatchesResult();
+      DescribeAvailablePatchesResult(
+        patches: json.containsKey('Patches')
+            ? (json['Patches'] as List).map((e) => Patch.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeDocumentPermissionResponse {
@@ -5661,7 +7166,11 @@ class DescribeDocumentPermissionResponse {
   });
   static DescribeDocumentPermissionResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeDocumentPermissionResponse();
+      DescribeDocumentPermissionResponse(
+        accountIds: json.containsKey('AccountIds')
+            ? (json['AccountIds'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class DescribeDocumentResult {
@@ -5672,7 +7181,11 @@ class DescribeDocumentResult {
     this.document,
   });
   static DescribeDocumentResult fromJson(Map<String, dynamic> json) =>
-      DescribeDocumentResult();
+      DescribeDocumentResult(
+        document: json.containsKey('Document')
+            ? DocumentDescription.fromJson(json['Document'])
+            : null,
+      );
 }
 
 class DescribeEffectiveInstanceAssociationsResult {
@@ -5689,7 +7202,15 @@ class DescribeEffectiveInstanceAssociationsResult {
   });
   static DescribeEffectiveInstanceAssociationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEffectiveInstanceAssociationsResult();
+      DescribeEffectiveInstanceAssociationsResult(
+        associations: json.containsKey('Associations')
+            ? (json['Associations'] as List)
+                .map((e) => InstanceAssociation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeEffectivePatchesForPatchBaselineResult {
@@ -5706,7 +7227,15 @@ class DescribeEffectivePatchesForPatchBaselineResult {
   });
   static DescribeEffectivePatchesForPatchBaselineResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEffectivePatchesForPatchBaselineResult();
+      DescribeEffectivePatchesForPatchBaselineResult(
+        effectivePatches: json.containsKey('EffectivePatches')
+            ? (json['EffectivePatches'] as List)
+                .map((e) => EffectivePatch.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInstanceAssociationsStatusResult {
@@ -5723,7 +7252,16 @@ class DescribeInstanceAssociationsStatusResult {
   });
   static DescribeInstanceAssociationsStatusResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeInstanceAssociationsStatusResult();
+      DescribeInstanceAssociationsStatusResult(
+        instanceAssociationStatusInfos:
+            json.containsKey('InstanceAssociationStatusInfos')
+                ? (json['InstanceAssociationStatusInfos'] as List)
+                    .map((e) => InstanceAssociationStatusInfo.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInstanceInformationResult {
@@ -5740,7 +7278,15 @@ class DescribeInstanceInformationResult {
   });
   static DescribeInstanceInformationResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeInstanceInformationResult();
+      DescribeInstanceInformationResult(
+        instanceInformationList: json.containsKey('InstanceInformationList')
+            ? (json['InstanceInformationList'] as List)
+                .map((e) => InstanceInformation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInstancePatchStatesForPatchGroupResult {
@@ -5757,7 +7303,15 @@ class DescribeInstancePatchStatesForPatchGroupResult {
   });
   static DescribeInstancePatchStatesForPatchGroupResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeInstancePatchStatesForPatchGroupResult();
+      DescribeInstancePatchStatesForPatchGroupResult(
+        instancePatchStates: json.containsKey('InstancePatchStates')
+            ? (json['InstancePatchStates'] as List)
+                .map((e) => InstancePatchState.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInstancePatchStatesResult {
@@ -5774,7 +7328,15 @@ class DescribeInstancePatchStatesResult {
   });
   static DescribeInstancePatchStatesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeInstancePatchStatesResult();
+      DescribeInstancePatchStatesResult(
+        instancePatchStates: json.containsKey('InstancePatchStates')
+            ? (json['InstancePatchStates'] as List)
+                .map((e) => InstancePatchState.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInstancePatchesResult {
@@ -5804,7 +7366,15 @@ class DescribeInstancePatchesResult {
     this.nextToken,
   });
   static DescribeInstancePatchesResult fromJson(Map<String, dynamic> json) =>
-      DescribeInstancePatchesResult();
+      DescribeInstancePatchesResult(
+        patches: json.containsKey('Patches')
+            ? (json['Patches'] as List)
+                .map((e) => PatchComplianceData.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInventoryDeletionsResult {
@@ -5820,7 +7390,15 @@ class DescribeInventoryDeletionsResult {
     this.nextToken,
   });
   static DescribeInventoryDeletionsResult fromJson(Map<String, dynamic> json) =>
-      DescribeInventoryDeletionsResult();
+      DescribeInventoryDeletionsResult(
+        inventoryDeletions: json.containsKey('InventoryDeletions')
+            ? (json['InventoryDeletions'] as List)
+                .map((e) => InventoryDeletionStatusItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMaintenanceWindowExecutionTaskInvocationsResult {
@@ -5838,7 +7416,18 @@ class DescribeMaintenanceWindowExecutionTaskInvocationsResult {
   });
   static DescribeMaintenanceWindowExecutionTaskInvocationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeMaintenanceWindowExecutionTaskInvocationsResult();
+      DescribeMaintenanceWindowExecutionTaskInvocationsResult(
+        windowExecutionTaskInvocationIdentities: json
+                .containsKey('WindowExecutionTaskInvocationIdentities')
+            ? (json['WindowExecutionTaskInvocationIdentities'] as List)
+                .map((e) =>
+                    MaintenanceWindowExecutionTaskInvocationIdentity.fromJson(
+                        e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMaintenanceWindowExecutionTasksResult {
@@ -5856,7 +7445,16 @@ class DescribeMaintenanceWindowExecutionTasksResult {
   });
   static DescribeMaintenanceWindowExecutionTasksResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeMaintenanceWindowExecutionTasksResult();
+      DescribeMaintenanceWindowExecutionTasksResult(
+        windowExecutionTaskIdentities: json
+                .containsKey('WindowExecutionTaskIdentities')
+            ? (json['WindowExecutionTaskIdentities'] as List)
+                .map((e) => MaintenanceWindowExecutionTaskIdentity.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMaintenanceWindowExecutionsResult {
@@ -5873,7 +7471,15 @@ class DescribeMaintenanceWindowExecutionsResult {
   });
   static DescribeMaintenanceWindowExecutionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeMaintenanceWindowExecutionsResult();
+      DescribeMaintenanceWindowExecutionsResult(
+        windowExecutions: json.containsKey('WindowExecutions')
+            ? (json['WindowExecutions'] as List)
+                .map((e) => MaintenanceWindowExecution.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMaintenanceWindowScheduleResult {
@@ -5891,7 +7497,15 @@ class DescribeMaintenanceWindowScheduleResult {
   });
   static DescribeMaintenanceWindowScheduleResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeMaintenanceWindowScheduleResult();
+      DescribeMaintenanceWindowScheduleResult(
+        scheduledWindowExecutions: json.containsKey('ScheduledWindowExecutions')
+            ? (json['ScheduledWindowExecutions'] as List)
+                .map((e) => ScheduledWindowExecution.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMaintenanceWindowTargetsResult {
@@ -5908,7 +7522,15 @@ class DescribeMaintenanceWindowTargetsResult {
   });
   static DescribeMaintenanceWindowTargetsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeMaintenanceWindowTargetsResult();
+      DescribeMaintenanceWindowTargetsResult(
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List)
+                .map((e) => MaintenanceWindowTarget.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMaintenanceWindowTasksResult {
@@ -5925,7 +7547,15 @@ class DescribeMaintenanceWindowTasksResult {
   });
   static DescribeMaintenanceWindowTasksResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeMaintenanceWindowTasksResult();
+      DescribeMaintenanceWindowTasksResult(
+        tasks: json.containsKey('Tasks')
+            ? (json['Tasks'] as List)
+                .map((e) => MaintenanceWindowTask.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMaintenanceWindowsForTargetResult {
@@ -5943,7 +7573,15 @@ class DescribeMaintenanceWindowsForTargetResult {
   });
   static DescribeMaintenanceWindowsForTargetResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeMaintenanceWindowsForTargetResult();
+      DescribeMaintenanceWindowsForTargetResult(
+        windowIdentities: json.containsKey('WindowIdentities')
+            ? (json['WindowIdentities'] as List)
+                .map((e) => MaintenanceWindowIdentityForTarget.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMaintenanceWindowsResult {
@@ -5959,7 +7597,15 @@ class DescribeMaintenanceWindowsResult {
     this.nextToken,
   });
   static DescribeMaintenanceWindowsResult fromJson(Map<String, dynamic> json) =>
-      DescribeMaintenanceWindowsResult();
+      DescribeMaintenanceWindowsResult(
+        windowIdentities: json.containsKey('WindowIdentities')
+            ? (json['WindowIdentities'] as List)
+                .map((e) => MaintenanceWindowIdentity.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeOpsItemsResponse {
@@ -5975,7 +7621,15 @@ class DescribeOpsItemsResponse {
     this.opsItemSummaries,
   });
   static DescribeOpsItemsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeOpsItemsResponse();
+      DescribeOpsItemsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        opsItemSummaries: json.containsKey('OpsItemSummaries')
+            ? (json['OpsItemSummaries'] as List)
+                .map((e) => OpsItemSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeParametersResult {
@@ -5991,7 +7645,15 @@ class DescribeParametersResult {
     this.nextToken,
   });
   static DescribeParametersResult fromJson(Map<String, dynamic> json) =>
-      DescribeParametersResult();
+      DescribeParametersResult(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => ParameterMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribePatchBaselinesResult {
@@ -6007,7 +7669,15 @@ class DescribePatchBaselinesResult {
     this.nextToken,
   });
   static DescribePatchBaselinesResult fromJson(Map<String, dynamic> json) =>
-      DescribePatchBaselinesResult();
+      DescribePatchBaselinesResult(
+        baselineIdentities: json.containsKey('BaselineIdentities')
+            ? (json['BaselineIdentities'] as List)
+                .map((e) => PatchBaselineIdentity.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribePatchGroupStateResult {
@@ -6057,7 +7727,38 @@ class DescribePatchGroupStateResult {
     this.instancesWithUnreportedNotApplicablePatches,
   });
   static DescribePatchGroupStateResult fromJson(Map<String, dynamic> json) =>
-      DescribePatchGroupStateResult();
+      DescribePatchGroupStateResult(
+        instances:
+            json.containsKey('Instances') ? json['Instances'] as int : null,
+        instancesWithInstalledPatches:
+            json.containsKey('InstancesWithInstalledPatches')
+                ? json['InstancesWithInstalledPatches'] as int
+                : null,
+        instancesWithInstalledOtherPatches:
+            json.containsKey('InstancesWithInstalledOtherPatches')
+                ? json['InstancesWithInstalledOtherPatches'] as int
+                : null,
+        instancesWithInstalledRejectedPatches:
+            json.containsKey('InstancesWithInstalledRejectedPatches')
+                ? json['InstancesWithInstalledRejectedPatches'] as int
+                : null,
+        instancesWithMissingPatches:
+            json.containsKey('InstancesWithMissingPatches')
+                ? json['InstancesWithMissingPatches'] as int
+                : null,
+        instancesWithFailedPatches:
+            json.containsKey('InstancesWithFailedPatches')
+                ? json['InstancesWithFailedPatches'] as int
+                : null,
+        instancesWithNotApplicablePatches:
+            json.containsKey('InstancesWithNotApplicablePatches')
+                ? json['InstancesWithNotApplicablePatches'] as int
+                : null,
+        instancesWithUnreportedNotApplicablePatches:
+            json.containsKey('InstancesWithUnreportedNotApplicablePatches')
+                ? json['InstancesWithUnreportedNotApplicablePatches'] as int
+                : null,
+      );
 }
 
 class DescribePatchGroupsResult {
@@ -6078,7 +7779,15 @@ class DescribePatchGroupsResult {
     this.nextToken,
   });
   static DescribePatchGroupsResult fromJson(Map<String, dynamic> json) =>
-      DescribePatchGroupsResult();
+      DescribePatchGroupsResult(
+        mappings: json.containsKey('Mappings')
+            ? (json['Mappings'] as List)
+                .map((e) => PatchGroupPatchBaselineMapping.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribePatchPropertiesResult {
@@ -6095,7 +7804,16 @@ class DescribePatchPropertiesResult {
     this.nextToken,
   });
   static DescribePatchPropertiesResult fromJson(Map<String, dynamic> json) =>
-      DescribePatchPropertiesResult();
+      DescribePatchPropertiesResult(
+        properties: json.containsKey('Properties')
+            ? (json['Properties'] as List)
+                .map((e) => (e as Map)
+                    .map((k, v) => MapEntry(k as String, v as String)))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeSessionsResponse {
@@ -6111,7 +7829,15 @@ class DescribeSessionsResponse {
     this.nextToken,
   });
   static DescribeSessionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSessionsResponse();
+      DescribeSessionsResponse(
+        sessions: json.containsKey('Sessions')
+            ? (json['Sessions'] as List)
+                .map((e) => Session.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A default version of a document.
@@ -6132,7 +7858,15 @@ class DocumentDefaultVersionDescription {
   });
   static DocumentDefaultVersionDescription fromJson(
           Map<String, dynamic> json) =>
-      DocumentDefaultVersionDescription();
+      DocumentDefaultVersionDescription(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        defaultVersion: json.containsKey('DefaultVersion')
+            ? json['DefaultVersion'] as String
+            : null,
+        defaultVersionName: json.containsKey('DefaultVersionName')
+            ? json['DefaultVersionName'] as String
+            : null,
+      );
 }
 
 /// Describes a Systems Manager document.
@@ -6241,7 +7975,64 @@ class DocumentDescription {
     this.attachmentsInformation,
   });
   static DocumentDescription fromJson(Map<String, dynamic> json) =>
-      DocumentDescription();
+      DocumentDescription(
+        sha1: json.containsKey('Sha1') ? json['Sha1'] as String : null,
+        hash: json.containsKey('Hash') ? json['Hash'] as String : null,
+        hashType:
+            json.containsKey('HashType') ? json['HashType'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        versionName: json.containsKey('VersionName')
+            ? json['VersionName'] as String
+            : null,
+        owner: json.containsKey('Owner') ? json['Owner'] as String : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusInformation: json.containsKey('StatusInformation')
+            ? json['StatusInformation'] as String
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => DocumentParameter.fromJson(e))
+                .toList()
+            : null,
+        platformTypes: json.containsKey('PlatformTypes')
+            ? (json['PlatformTypes'] as List).map((e) => e as String).toList()
+            : null,
+        documentType: json.containsKey('DocumentType')
+            ? json['DocumentType'] as String
+            : null,
+        schemaVersion: json.containsKey('SchemaVersion')
+            ? json['SchemaVersion'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        defaultVersion: json.containsKey('DefaultVersion')
+            ? json['DefaultVersion'] as String
+            : null,
+        documentFormat: json.containsKey('DocumentFormat')
+            ? json['DocumentFormat'] as String
+            : null,
+        targetType: json.containsKey('TargetType')
+            ? json['TargetType'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        attachmentsInformation: json.containsKey('AttachmentsInformation')
+            ? (json['AttachmentsInformation'] as List)
+                .map((e) => AttachmentInformation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a filter.
@@ -6256,6 +8047,7 @@ class DocumentFilter {
     @required this.key,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the name of a Systems Manager document.
@@ -6309,7 +8101,34 @@ class DocumentIdentifier {
     this.tags,
   });
   static DocumentIdentifier fromJson(Map<String, dynamic> json) =>
-      DocumentIdentifier();
+      DocumentIdentifier(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        owner: json.containsKey('Owner') ? json['Owner'] as String : null,
+        versionName: json.containsKey('VersionName')
+            ? json['VersionName'] as String
+            : null,
+        platformTypes: json.containsKey('PlatformTypes')
+            ? (json['PlatformTypes'] as List).map((e) => e as String).toList()
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        documentType: json.containsKey('DocumentType')
+            ? json['DocumentType'] as String
+            : null,
+        schemaVersion: json.containsKey('SchemaVersion')
+            ? json['SchemaVersion'] as String
+            : null,
+        documentFormat: json.containsKey('DocumentFormat')
+            ? json['DocumentFormat'] as String
+            : null,
+        targetType: json.containsKey('TargetType')
+            ? json['TargetType'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// One or more filters. Use a filter to return a more specific list of
@@ -6353,6 +8172,7 @@ class DocumentKeyValuesFilter {
     this.key,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Parameters specified in a System Manager document that run on the server
@@ -6379,7 +8199,16 @@ class DocumentParameter {
     this.defaultValue,
   });
   static DocumentParameter fromJson(Map<String, dynamic> json) =>
-      DocumentParameter();
+      DocumentParameter(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+      );
 }
 
 /// Version information about the document.
@@ -6425,7 +8254,28 @@ class DocumentVersionInfo {
     this.statusInformation,
   });
   static DocumentVersionInfo fromJson(Map<String, dynamic> json) =>
-      DocumentVersionInfo();
+      DocumentVersionInfo(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        versionName: json.containsKey('VersionName')
+            ? json['VersionName'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        isDefaultVersion: json.containsKey('IsDefaultVersion')
+            ? json['IsDefaultVersion'] as bool
+            : null,
+        documentFormat: json.containsKey('DocumentFormat')
+            ? json['DocumentFormat'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusInformation: json.containsKey('StatusInformation')
+            ? json['StatusInformation'] as String
+            : null,
+      );
 }
 
 /// The EffectivePatch structure defines metadata about a patch along with the
@@ -6449,7 +8299,12 @@ class EffectivePatch {
     this.patch,
     this.patchStatus,
   });
-  static EffectivePatch fromJson(Map<String, dynamic> json) => EffectivePatch();
+  static EffectivePatch fromJson(Map<String, dynamic> json) => EffectivePatch(
+        patch: json.containsKey('Patch') ? Patch.fromJson(json['Patch']) : null,
+        patchStatus: json.containsKey('PatchStatus')
+            ? PatchStatus.fromJson(json['PatchStatus'])
+            : null,
+      );
 }
 
 /// Describes a failed association.
@@ -6469,7 +8324,13 @@ class FailedCreateAssociation {
     this.fault,
   });
   static FailedCreateAssociation fromJson(Map<String, dynamic> json) =>
-      FailedCreateAssociation();
+      FailedCreateAssociation(
+        entry: json.containsKey('Entry')
+            ? CreateAssociationBatchRequestEntry.fromJson(json['Entry'])
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        fault: json.containsKey('Fault') ? json['Fault'] as String : null,
+      );
 }
 
 /// Information about an Automation failure.
@@ -6491,7 +8352,18 @@ class FailureDetails {
     this.failureType,
     this.details,
   });
-  static FailureDetails fromJson(Map<String, dynamic> json) => FailureDetails();
+  static FailureDetails fromJson(Map<String, dynamic> json) => FailureDetails(
+        failureStage: json.containsKey('FailureStage')
+            ? json['FailureStage'] as String
+            : null,
+        failureType: json.containsKey('FailureType')
+            ? json['FailureType'] as String
+            : null,
+        details: json.containsKey('Details')
+            ? (json['Details'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+      );
 }
 
 class GetAutomationExecutionResult {
@@ -6502,7 +8374,11 @@ class GetAutomationExecutionResult {
     this.automationExecution,
   });
   static GetAutomationExecutionResult fromJson(Map<String, dynamic> json) =>
-      GetAutomationExecutionResult();
+      GetAutomationExecutionResult(
+        automationExecution: json.containsKey('AutomationExecution')
+            ? AutomationExecution.fromJson(json['AutomationExecution'])
+            : null,
+      );
 }
 
 class GetCommandInvocationResult {
@@ -6653,7 +8529,54 @@ class GetCommandInvocationResult {
     this.cloudWatchOutputConfig,
   });
   static GetCommandInvocationResult fromJson(Map<String, dynamic> json) =>
-      GetCommandInvocationResult();
+      GetCommandInvocationResult(
+        commandId:
+            json.containsKey('CommandId') ? json['CommandId'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        documentName: json.containsKey('DocumentName')
+            ? json['DocumentName'] as String
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        pluginName: json.containsKey('PluginName')
+            ? json['PluginName'] as String
+            : null,
+        responseCode: json.containsKey('ResponseCode')
+            ? json['ResponseCode'] as int
+            : null,
+        executionStartDateTime: json.containsKey('ExecutionStartDateTime')
+            ? json['ExecutionStartDateTime'] as String
+            : null,
+        executionElapsedTime: json.containsKey('ExecutionElapsedTime')
+            ? json['ExecutionElapsedTime'] as String
+            : null,
+        executionEndDateTime: json.containsKey('ExecutionEndDateTime')
+            ? json['ExecutionEndDateTime'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        standardOutputContent: json.containsKey('StandardOutputContent')
+            ? json['StandardOutputContent'] as String
+            : null,
+        standardOutputUrl: json.containsKey('StandardOutputUrl')
+            ? json['StandardOutputUrl'] as String
+            : null,
+        standardErrorContent: json.containsKey('StandardErrorContent')
+            ? json['StandardErrorContent'] as String
+            : null,
+        standardErrorUrl: json.containsKey('StandardErrorUrl')
+            ? json['StandardErrorUrl'] as String
+            : null,
+        cloudWatchOutputConfig: json.containsKey('CloudWatchOutputConfig')
+            ? CloudWatchOutputConfig.fromJson(json['CloudWatchOutputConfig'])
+            : null,
+      );
 }
 
 class GetConnectionStatusResponse {
@@ -6669,7 +8592,10 @@ class GetConnectionStatusResponse {
     this.status,
   });
   static GetConnectionStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetConnectionStatusResponse();
+      GetConnectionStatusResponse(
+        target: json.containsKey('Target') ? json['Target'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class GetDefaultPatchBaselineResult {
@@ -6684,7 +8610,14 @@ class GetDefaultPatchBaselineResult {
     this.operatingSystem,
   });
   static GetDefaultPatchBaselineResult fromJson(Map<String, dynamic> json) =>
-      GetDefaultPatchBaselineResult();
+      GetDefaultPatchBaselineResult(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+      );
 }
 
 class GetDeployablePatchSnapshotForInstanceResult {
@@ -6710,7 +8643,18 @@ class GetDeployablePatchSnapshotForInstanceResult {
   });
   static GetDeployablePatchSnapshotForInstanceResult fromJson(
           Map<String, dynamic> json) =>
-      GetDeployablePatchSnapshotForInstanceResult();
+      GetDeployablePatchSnapshotForInstanceResult(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        snapshotDownloadUrl: json.containsKey('SnapshotDownloadUrl')
+            ? json['SnapshotDownloadUrl'] as String
+            : null,
+        product: json.containsKey('Product') ? json['Product'] as String : null,
+      );
 }
 
 class GetDocumentResult {
@@ -6760,7 +8704,31 @@ class GetDocumentResult {
     this.attachmentsContent,
   });
   static GetDocumentResult fromJson(Map<String, dynamic> json) =>
-      GetDocumentResult();
+      GetDocumentResult(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        versionName: json.containsKey('VersionName')
+            ? json['VersionName'] as String
+            : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusInformation: json.containsKey('StatusInformation')
+            ? json['StatusInformation'] as String
+            : null,
+        content: json.containsKey('Content') ? json['Content'] as String : null,
+        documentType: json.containsKey('DocumentType')
+            ? json['DocumentType'] as String
+            : null,
+        documentFormat: json.containsKey('DocumentFormat')
+            ? json['DocumentFormat'] as String
+            : null,
+        attachmentsContent: json.containsKey('AttachmentsContent')
+            ? (json['AttachmentsContent'] as List)
+                .map((e) => AttachmentContent.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetInventoryResult {
@@ -6777,7 +8745,15 @@ class GetInventoryResult {
     this.nextToken,
   });
   static GetInventoryResult fromJson(Map<String, dynamic> json) =>
-      GetInventoryResult();
+      GetInventoryResult(
+        entities: json.containsKey('Entities')
+            ? (json['Entities'] as List)
+                .map((e) => InventoryResultEntity.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetInventorySchemaResult {
@@ -6793,7 +8769,15 @@ class GetInventorySchemaResult {
     this.nextToken,
   });
   static GetInventorySchemaResult fromJson(Map<String, dynamic> json) =>
-      GetInventorySchemaResult();
+      GetInventorySchemaResult(
+        schemas: json.containsKey('Schemas')
+            ? (json['Schemas'] as List)
+                .map((e) => InventoryItemSchema.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetMaintenanceWindowExecutionResult {
@@ -6826,7 +8810,24 @@ class GetMaintenanceWindowExecutionResult {
   });
   static GetMaintenanceWindowExecutionResult fromJson(
           Map<String, dynamic> json) =>
-      GetMaintenanceWindowExecutionResult();
+      GetMaintenanceWindowExecutionResult(
+        windowExecutionId: json.containsKey('WindowExecutionId')
+            ? json['WindowExecutionId'] as String
+            : null,
+        taskIds: json.containsKey('TaskIds')
+            ? (json['TaskIds'] as List).map((e) => e as String).toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+      );
 }
 
 class GetMaintenanceWindowExecutionTaskInvocationResult {
@@ -6885,7 +8886,41 @@ class GetMaintenanceWindowExecutionTaskInvocationResult {
   });
   static GetMaintenanceWindowExecutionTaskInvocationResult fromJson(
           Map<String, dynamic> json) =>
-      GetMaintenanceWindowExecutionTaskInvocationResult();
+      GetMaintenanceWindowExecutionTaskInvocationResult(
+        windowExecutionId: json.containsKey('WindowExecutionId')
+            ? json['WindowExecutionId'] as String
+            : null,
+        taskExecutionId: json.containsKey('TaskExecutionId')
+            ? json['TaskExecutionId'] as String
+            : null,
+        invocationId: json.containsKey('InvocationId')
+            ? json['InvocationId'] as String
+            : null,
+        executionId: json.containsKey('ExecutionId')
+            ? json['ExecutionId'] as String
+            : null,
+        taskType:
+            json.containsKey('TaskType') ? json['TaskType'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? json['Parameters'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        ownerInformation: json.containsKey('OwnerInformation')
+            ? json['OwnerInformation'] as String
+            : null,
+        windowTargetId: json.containsKey('WindowTargetId')
+            ? json['WindowTargetId'] as String
+            : null,
+      );
 }
 
 class GetMaintenanceWindowExecutionTaskResult {
@@ -6962,7 +8997,41 @@ class GetMaintenanceWindowExecutionTaskResult {
   });
   static GetMaintenanceWindowExecutionTaskResult fromJson(
           Map<String, dynamic> json) =>
-      GetMaintenanceWindowExecutionTaskResult();
+      GetMaintenanceWindowExecutionTaskResult(
+        windowExecutionId: json.containsKey('WindowExecutionId')
+            ? json['WindowExecutionId'] as String
+            : null,
+        taskExecutionId: json.containsKey('TaskExecutionId')
+            ? json['TaskExecutionId'] as String
+            : null,
+        taskArn: json.containsKey('TaskArn') ? json['TaskArn'] as String : null,
+        serviceRole: json.containsKey('ServiceRole')
+            ? json['ServiceRole'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        taskParameters: json.containsKey('TaskParameters')
+            ? (json['TaskParameters'] as List)
+                .map((e) => (e as Map).map((k, v) => MapEntry(k as String,
+                    MaintenanceWindowTaskParameterValueExpression.fromJson(v))))
+                .toList()
+            : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+      );
 }
 
 class GetMaintenanceWindowResult {
@@ -7038,7 +9107,37 @@ class GetMaintenanceWindowResult {
     this.modifiedDate,
   });
   static GetMaintenanceWindowResult fromJson(Map<String, dynamic> json) =>
-      GetMaintenanceWindowResult();
+      GetMaintenanceWindowResult(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        startDate:
+            json.containsKey('StartDate') ? json['StartDate'] as String : null,
+        endDate: json.containsKey('EndDate') ? json['EndDate'] as String : null,
+        schedule:
+            json.containsKey('Schedule') ? json['Schedule'] as String : null,
+        scheduleTimezone: json.containsKey('ScheduleTimezone')
+            ? json['ScheduleTimezone'] as String
+            : null,
+        nextExecutionTime: json.containsKey('NextExecutionTime')
+            ? json['NextExecutionTime'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        cutoff: json.containsKey('Cutoff') ? json['Cutoff'] as int : null,
+        allowUnassociatedTargets: json.containsKey('AllowUnassociatedTargets')
+            ? json['AllowUnassociatedTargets'] as bool
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        modifiedDate: json.containsKey('ModifiedDate')
+            ? DateTime.parse(json['ModifiedDate'])
+            : null,
+      );
 }
 
 class GetMaintenanceWindowTaskResult {
@@ -7121,7 +9220,44 @@ class GetMaintenanceWindowTaskResult {
     this.description,
   });
   static GetMaintenanceWindowTaskResult fromJson(Map<String, dynamic> json) =>
-      GetMaintenanceWindowTaskResult();
+      GetMaintenanceWindowTaskResult(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        windowTaskId: json.containsKey('WindowTaskId')
+            ? json['WindowTaskId'] as String
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        taskArn: json.containsKey('TaskArn') ? json['TaskArn'] as String : null,
+        serviceRoleArn: json.containsKey('ServiceRoleArn')
+            ? json['ServiceRoleArn'] as String
+            : null,
+        taskType:
+            json.containsKey('TaskType') ? json['TaskType'] as String : null,
+        taskParameters: json.containsKey('TaskParameters')
+            ? (json['TaskParameters'] as Map).map((k, v) => MapEntry(
+                k as String,
+                MaintenanceWindowTaskParameterValueExpression.fromJson(v)))
+            : null,
+        taskInvocationParameters: json.containsKey('TaskInvocationParameters')
+            ? MaintenanceWindowTaskInvocationParameters.fromJson(
+                json['TaskInvocationParameters'])
+            : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        loggingInfo: json.containsKey('LoggingInfo')
+            ? LoggingInfo.fromJson(json['LoggingInfo'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class GetOpsItemResponse {
@@ -7132,7 +9268,11 @@ class GetOpsItemResponse {
     this.opsItem,
   });
   static GetOpsItemResponse fromJson(Map<String, dynamic> json) =>
-      GetOpsItemResponse();
+      GetOpsItemResponse(
+        opsItem: json.containsKey('OpsItem')
+            ? OpsItem.fromJson(json['OpsItem'])
+            : null,
+      );
 }
 
 class GetOpsSummaryResult {
@@ -7148,7 +9288,15 @@ class GetOpsSummaryResult {
     this.nextToken,
   });
   static GetOpsSummaryResult fromJson(Map<String, dynamic> json) =>
-      GetOpsSummaryResult();
+      GetOpsSummaryResult(
+        entities: json.containsKey('Entities')
+            ? (json['Entities'] as List)
+                .map((e) => OpsEntity.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetParameterHistoryResult {
@@ -7164,7 +9312,15 @@ class GetParameterHistoryResult {
     this.nextToken,
   });
   static GetParameterHistoryResult fromJson(Map<String, dynamic> json) =>
-      GetParameterHistoryResult();
+      GetParameterHistoryResult(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => ParameterHistory.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetParameterResult {
@@ -7175,7 +9331,11 @@ class GetParameterResult {
     this.parameter,
   });
   static GetParameterResult fromJson(Map<String, dynamic> json) =>
-      GetParameterResult();
+      GetParameterResult(
+        parameter: json.containsKey('Parameter')
+            ? Parameter.fromJson(json['Parameter'])
+            : null,
+      );
 }
 
 class GetParametersByPathResult {
@@ -7191,7 +9351,15 @@ class GetParametersByPathResult {
     this.nextToken,
   });
   static GetParametersByPathResult fromJson(Map<String, dynamic> json) =>
-      GetParametersByPathResult();
+      GetParametersByPathResult(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetParametersResult {
@@ -7207,7 +9375,18 @@ class GetParametersResult {
     this.invalidParameters,
   });
   static GetParametersResult fromJson(Map<String, dynamic> json) =>
-      GetParametersResult();
+      GetParametersResult(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        invalidParameters: json.containsKey('InvalidParameters')
+            ? (json['InvalidParameters'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class GetPatchBaselineForPatchGroupResult {
@@ -7228,7 +9407,17 @@ class GetPatchBaselineForPatchGroupResult {
   });
   static GetPatchBaselineForPatchGroupResult fromJson(
           Map<String, dynamic> json) =>
-      GetPatchBaselineForPatchGroupResult();
+      GetPatchBaselineForPatchGroupResult(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+        patchGroup: json.containsKey('PatchGroup')
+            ? json['PatchGroup'] as String
+            : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+      );
 }
 
 class GetPatchBaselineResult {
@@ -7303,7 +9492,55 @@ class GetPatchBaselineResult {
     this.sources,
   });
   static GetPatchBaselineResult fromJson(Map<String, dynamic> json) =>
-      GetPatchBaselineResult();
+      GetPatchBaselineResult(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+        globalFilters: json.containsKey('GlobalFilters')
+            ? PatchFilterGroup.fromJson(json['GlobalFilters'])
+            : null,
+        approvalRules: json.containsKey('ApprovalRules')
+            ? PatchRuleGroup.fromJson(json['ApprovalRules'])
+            : null,
+        approvedPatches: json.containsKey('ApprovedPatches')
+            ? (json['ApprovedPatches'] as List).map((e) => e as String).toList()
+            : null,
+        approvedPatchesComplianceLevel:
+            json.containsKey('ApprovedPatchesComplianceLevel')
+                ? json['ApprovedPatchesComplianceLevel'] as String
+                : null,
+        approvedPatchesEnableNonSecurity:
+            json.containsKey('ApprovedPatchesEnableNonSecurity')
+                ? json['ApprovedPatchesEnableNonSecurity'] as bool
+                : null,
+        rejectedPatches: json.containsKey('RejectedPatches')
+            ? (json['RejectedPatches'] as List).map((e) => e as String).toList()
+            : null,
+        rejectedPatchesAction: json.containsKey('RejectedPatchesAction')
+            ? json['RejectedPatchesAction'] as String
+            : null,
+        patchGroups: json.containsKey('PatchGroups')
+            ? (json['PatchGroups'] as List).map((e) => e as String).toList()
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        modifiedDate: json.containsKey('ModifiedDate')
+            ? DateTime.parse(json['ModifiedDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        sources: json.containsKey('Sources')
+            ? (json['Sources'] as List)
+                .map((e) => PatchSource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The query result body of the GetServiceSetting API action.
@@ -7315,7 +9552,11 @@ class GetServiceSettingResult {
     this.serviceSetting,
   });
   static GetServiceSettingResult fromJson(Map<String, dynamic> json) =>
-      GetServiceSettingResult();
+      GetServiceSettingResult(
+        serviceSetting: json.containsKey('ServiceSetting')
+            ? ServiceSetting.fromJson(json['ServiceSetting'])
+            : null,
+      );
 }
 
 /// Status information about the aggregated associations.
@@ -7332,7 +9573,16 @@ class InstanceAggregatedAssociationOverview {
   });
   static InstanceAggregatedAssociationOverview fromJson(
           Map<String, dynamic> json) =>
-      InstanceAggregatedAssociationOverview();
+      InstanceAggregatedAssociationOverview(
+        detailedStatus: json.containsKey('DetailedStatus')
+            ? json['DetailedStatus'] as String
+            : null,
+        instanceAssociationStatusAggregatedCount:
+            json.containsKey('InstanceAssociationStatusAggregatedCount')
+                ? (json['InstanceAssociationStatusAggregatedCount'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as int))
+                : null,
+      );
 }
 
 /// One or more association documents on the instance.
@@ -7356,7 +9606,18 @@ class InstanceAssociation {
     this.associationVersion,
   });
   static InstanceAssociation fromJson(Map<String, dynamic> json) =>
-      InstanceAssociation();
+      InstanceAssociation(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        content: json.containsKey('Content') ? json['Content'] as String : null,
+        associationVersion: json.containsKey('AssociationVersion')
+            ? json['AssociationVersion'] as String
+            : null,
+      );
 }
 
 /// An Amazon S3 bucket where you want to store the results of this request.
@@ -7369,7 +9630,12 @@ class InstanceAssociationOutputLocation {
   });
   static InstanceAssociationOutputLocation fromJson(
           Map<String, dynamic> json) =>
-      InstanceAssociationOutputLocation();
+      InstanceAssociationOutputLocation(
+        s3Location: json.containsKey('S3Location')
+            ? S3OutputLocation.fromJson(json['S3Location'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The URL of Amazon S3 bucket where you want to store the results of this
@@ -7383,7 +9649,11 @@ class InstanceAssociationOutputUrl {
     this.s3OutputUrl,
   });
   static InstanceAssociationOutputUrl fromJson(Map<String, dynamic> json) =>
-      InstanceAssociationOutputUrl();
+      InstanceAssociationOutputUrl(
+        s3OutputUrl: json.containsKey('S3OutputUrl')
+            ? S3OutputUrl.fromJson(json['S3OutputUrl'])
+            : null,
+      );
 }
 
 /// Status information about the instance association.
@@ -7440,7 +9710,39 @@ class InstanceAssociationStatusInfo {
     this.associationName,
   });
   static InstanceAssociationStatusInfo fromJson(Map<String, dynamic> json) =>
-      InstanceAssociationStatusInfo();
+      InstanceAssociationStatusInfo(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        associationVersion: json.containsKey('AssociationVersion')
+            ? json['AssociationVersion'] as String
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        executionDate: json.containsKey('ExecutionDate')
+            ? DateTime.parse(json['ExecutionDate'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        detailedStatus: json.containsKey('DetailedStatus')
+            ? json['DetailedStatus'] as String
+            : null,
+        executionSummary: json.containsKey('ExecutionSummary')
+            ? json['ExecutionSummary'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        outputUrl: json.containsKey('OutputUrl')
+            ? InstanceAssociationOutputUrl.fromJson(json['OutputUrl'])
+            : null,
+        associationName: json.containsKey('AssociationName')
+            ? json['AssociationName'] as String
+            : null,
+      );
 }
 
 /// Describes a filter for a specific list of instances.
@@ -7531,7 +9833,63 @@ class InstanceInformation {
     this.associationOverview,
   });
   static InstanceInformation fromJson(Map<String, dynamic> json) =>
-      InstanceInformation();
+      InstanceInformation(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        pingStatus: json.containsKey('PingStatus')
+            ? json['PingStatus'] as String
+            : null,
+        lastPingDateTime: json.containsKey('LastPingDateTime')
+            ? DateTime.parse(json['LastPingDateTime'])
+            : null,
+        agentVersion: json.containsKey('AgentVersion')
+            ? json['AgentVersion'] as String
+            : null,
+        isLatestVersion: json.containsKey('IsLatestVersion')
+            ? json['IsLatestVersion'] as bool
+            : null,
+        platformType: json.containsKey('PlatformType')
+            ? json['PlatformType'] as String
+            : null,
+        platformName: json.containsKey('PlatformName')
+            ? json['PlatformName'] as String
+            : null,
+        platformVersion: json.containsKey('PlatformVersion')
+            ? json['PlatformVersion'] as String
+            : null,
+        activationId: json.containsKey('ActivationId')
+            ? json['ActivationId'] as String
+            : null,
+        iamRole: json.containsKey('IamRole') ? json['IamRole'] as String : null,
+        registrationDate: json.containsKey('RegistrationDate')
+            ? DateTime.parse(json['RegistrationDate'])
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        ipAddress:
+            json.containsKey('IPAddress') ? json['IPAddress'] as String : null,
+        computerName: json.containsKey('ComputerName')
+            ? json['ComputerName'] as String
+            : null,
+        associationStatus: json.containsKey('AssociationStatus')
+            ? json['AssociationStatus'] as String
+            : null,
+        lastAssociationExecutionDate:
+            json.containsKey('LastAssociationExecutionDate')
+                ? DateTime.parse(json['LastAssociationExecutionDate'])
+                : null,
+        lastSuccessfulAssociationExecutionDate:
+            json.containsKey('LastSuccessfulAssociationExecutionDate')
+                ? DateTime.parse(json['LastSuccessfulAssociationExecutionDate'])
+                : null,
+        associationOverview: json.containsKey('AssociationOverview')
+            ? InstanceAggregatedAssociationOverview.fromJson(
+                json['AssociationOverview'])
+            : null,
+      );
 }
 
 /// Describes a filter for a specific list of instances. You can filter
@@ -7553,6 +9911,7 @@ class InstanceInformationFilter {
     @required this.key,
     @required this.valueSet,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The filters to describe or get information about your managed instances.
@@ -7570,6 +9929,7 @@ class InstanceInformationStringFilter {
     @required this.key,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the high-level patch compliance state for a managed instance,
@@ -7671,7 +10031,44 @@ class InstancePatchState {
     @required this.operation,
   });
   static InstancePatchState fromJson(Map<String, dynamic> json) =>
-      InstancePatchState();
+      InstancePatchState(
+        instanceId: json['InstanceId'] as String,
+        patchGroup: json['PatchGroup'] as String,
+        baselineId: json['BaselineId'] as String,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        installOverrideList: json.containsKey('InstallOverrideList')
+            ? json['InstallOverrideList'] as String
+            : null,
+        ownerInformation: json.containsKey('OwnerInformation')
+            ? json['OwnerInformation'] as String
+            : null,
+        installedCount: json.containsKey('InstalledCount')
+            ? json['InstalledCount'] as int
+            : null,
+        installedOtherCount: json.containsKey('InstalledOtherCount')
+            ? json['InstalledOtherCount'] as int
+            : null,
+        installedRejectedCount: json.containsKey('InstalledRejectedCount')
+            ? json['InstalledRejectedCount'] as int
+            : null,
+        missingCount: json.containsKey('MissingCount')
+            ? json['MissingCount'] as int
+            : null,
+        failedCount:
+            json.containsKey('FailedCount') ? json['FailedCount'] as int : null,
+        unreportedNotApplicableCount:
+            json.containsKey('UnreportedNotApplicableCount')
+                ? json['UnreportedNotApplicableCount'] as int
+                : null,
+        notApplicableCount: json.containsKey('NotApplicableCount')
+            ? json['NotApplicableCount'] as int
+            : null,
+        operationStartTime: DateTime.parse(json['OperationStartTime']),
+        operationEndTime: DateTime.parse(json['OperationEndTime']),
+        operation: json['Operation'] as String,
+      );
 }
 
 /// Defines a filter used in DescribeInstancePatchStatesForPatchGroup used to
@@ -7693,6 +10090,7 @@ class InstancePatchStateFilter {
     @required this.values,
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the inventory type and attribute for the aggregation execution.
@@ -7713,6 +10111,7 @@ class InventoryAggregator {
     this.aggregators,
     this.groups,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Status information returned by the `DeleteInventory` action.
@@ -7751,7 +10150,28 @@ class InventoryDeletionStatusItem {
     this.lastStatusUpdateTime,
   });
   static InventoryDeletionStatusItem fromJson(Map<String, dynamic> json) =>
-      InventoryDeletionStatusItem();
+      InventoryDeletionStatusItem(
+        deletionId: json.containsKey('DeletionId')
+            ? json['DeletionId'] as String
+            : null,
+        typeName:
+            json.containsKey('TypeName') ? json['TypeName'] as String : null,
+        deletionStartTime: json.containsKey('DeletionStartTime')
+            ? DateTime.parse(json['DeletionStartTime'])
+            : null,
+        lastStatus: json.containsKey('LastStatus')
+            ? json['LastStatus'] as String
+            : null,
+        lastStatusMessage: json.containsKey('LastStatusMessage')
+            ? json['LastStatusMessage'] as String
+            : null,
+        deletionSummary: json.containsKey('DeletionSummary')
+            ? InventoryDeletionSummary.fromJson(json['DeletionSummary'])
+            : null,
+        lastStatusUpdateTime: json.containsKey('LastStatusUpdateTime')
+            ? DateTime.parse(json['LastStatusUpdateTime'])
+            : null,
+      );
 }
 
 /// Information about the delete operation.
@@ -7772,7 +10192,18 @@ class InventoryDeletionSummary {
     this.summaryItems,
   });
   static InventoryDeletionSummary fromJson(Map<String, dynamic> json) =>
-      InventoryDeletionSummary();
+      InventoryDeletionSummary(
+        totalCount:
+            json.containsKey('TotalCount') ? json['TotalCount'] as int : null,
+        remainingCount: json.containsKey('RemainingCount')
+            ? json['RemainingCount'] as int
+            : null,
+        summaryItems: json.containsKey('SummaryItems')
+            ? (json['SummaryItems'] as List)
+                .map((e) => InventoryDeletionSummaryItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Either a count, remaining count, or a version number in a delete inventory
@@ -7793,7 +10224,13 @@ class InventoryDeletionSummaryItem {
     this.remainingCount,
   });
   static InventoryDeletionSummaryItem fromJson(Map<String, dynamic> json) =>
-      InventoryDeletionSummaryItem();
+      InventoryDeletionSummaryItem(
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        remainingCount: json.containsKey('RemainingCount')
+            ? json['RemainingCount'] as int
+            : null,
+      );
 }
 
 /// One or more filters. Use a filter to return a more specific list of results.
@@ -7815,6 +10252,7 @@ class InventoryFilter {
     @required this.values,
     this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A user-defined set of one or more filters on which to aggregate inventory
@@ -7834,6 +10272,7 @@ class InventoryGroup {
     @required this.name,
     @required this.filters,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information collected from managed instances based on your inventory policy
@@ -7875,6 +10314,7 @@ class InventoryItem {
     this.content,
     this.context,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes are the entries within the inventory item content. It contains
@@ -7891,7 +10331,10 @@ class InventoryItemAttribute {
     @required this.dataType,
   });
   static InventoryItemAttribute fromJson(Map<String, dynamic> json) =>
-      InventoryItemAttribute();
+      InventoryItemAttribute(
+        name: json['Name'] as String,
+        dataType: json['DataType'] as String,
+      );
 }
 
 /// The inventory item schema definition. Users can use this to compose
@@ -7922,7 +10365,16 @@ class InventoryItemSchema {
     this.displayName,
   });
   static InventoryItemSchema fromJson(Map<String, dynamic> json) =>
-      InventoryItemSchema();
+      InventoryItemSchema(
+        typeName: json['TypeName'] as String,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        attributes: (json['Attributes'] as List)
+            .map((e) => InventoryItemAttribute.fromJson(e))
+            .toList(),
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+      );
 }
 
 /// Inventory query results.
@@ -7940,7 +10392,13 @@ class InventoryResultEntity {
     this.data,
   });
   static InventoryResultEntity fromJson(Map<String, dynamic> json) =>
-      InventoryResultEntity();
+      InventoryResultEntity(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        data: json.containsKey('Data')
+            ? (json['Data'] as Map).map((k, v) =>
+                MapEntry(k as String, InventoryResultItem.fromJson(v)))
+            : null,
+      );
 }
 
 /// The inventory result item.
@@ -7972,7 +10430,20 @@ class InventoryResultItem {
     @required this.content,
   });
   static InventoryResultItem fromJson(Map<String, dynamic> json) =>
-      InventoryResultItem();
+      InventoryResultItem(
+        typeName: json['TypeName'] as String,
+        schemaVersion: json['SchemaVersion'] as String,
+        captureTime: json.containsKey('CaptureTime')
+            ? json['CaptureTime'] as String
+            : null,
+        contentHash: json.containsKey('ContentHash')
+            ? json['ContentHash'] as String
+            : null,
+        content: (json['Content'] as List)
+            .map((e) =>
+                (e as Map).map((k, v) => MapEntry(k as String, v as String)))
+            .toList(),
+      );
 }
 
 class LabelParameterVersionResult {
@@ -7986,7 +10457,11 @@ class LabelParameterVersionResult {
     this.invalidLabels,
   });
   static LabelParameterVersionResult fromJson(Map<String, dynamic> json) =>
-      LabelParameterVersionResult();
+      LabelParameterVersionResult(
+        invalidLabels: json.containsKey('InvalidLabels')
+            ? (json['InvalidLabels'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class ListAssociationVersionsResult {
@@ -8003,7 +10478,15 @@ class ListAssociationVersionsResult {
     this.nextToken,
   });
   static ListAssociationVersionsResult fromJson(Map<String, dynamic> json) =>
-      ListAssociationVersionsResult();
+      ListAssociationVersionsResult(
+        associationVersions: json.containsKey('AssociationVersions')
+            ? (json['AssociationVersions'] as List)
+                .map((e) => AssociationVersionInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListAssociationsResult {
@@ -8019,7 +10502,15 @@ class ListAssociationsResult {
     this.nextToken,
   });
   static ListAssociationsResult fromJson(Map<String, dynamic> json) =>
-      ListAssociationsResult();
+      ListAssociationsResult(
+        associations: json.containsKey('Associations')
+            ? (json['Associations'] as List)
+                .map((e) => Association.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListCommandInvocationsResult {
@@ -8035,7 +10526,15 @@ class ListCommandInvocationsResult {
     this.nextToken,
   });
   static ListCommandInvocationsResult fromJson(Map<String, dynamic> json) =>
-      ListCommandInvocationsResult();
+      ListCommandInvocationsResult(
+        commandInvocations: json.containsKey('CommandInvocations')
+            ? (json['CommandInvocations'] as List)
+                .map((e) => CommandInvocation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListCommandsResult {
@@ -8051,7 +10550,15 @@ class ListCommandsResult {
     this.nextToken,
   });
   static ListCommandsResult fromJson(Map<String, dynamic> json) =>
-      ListCommandsResult();
+      ListCommandsResult(
+        commands: json.containsKey('Commands')
+            ? (json['Commands'] as List)
+                .map((e) => Command.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListComplianceItemsResult {
@@ -8067,7 +10574,15 @@ class ListComplianceItemsResult {
     this.nextToken,
   });
   static ListComplianceItemsResult fromJson(Map<String, dynamic> json) =>
-      ListComplianceItemsResult();
+      ListComplianceItemsResult(
+        complianceItems: json.containsKey('ComplianceItems')
+            ? (json['ComplianceItems'] as List)
+                .map((e) => ComplianceItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListComplianceSummariesResult {
@@ -8086,7 +10601,15 @@ class ListComplianceSummariesResult {
     this.nextToken,
   });
   static ListComplianceSummariesResult fromJson(Map<String, dynamic> json) =>
-      ListComplianceSummariesResult();
+      ListComplianceSummariesResult(
+        complianceSummaryItems: json.containsKey('ComplianceSummaryItems')
+            ? (json['ComplianceSummaryItems'] as List)
+                .map((e) => ComplianceSummaryItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDocumentVersionsResult {
@@ -8102,7 +10625,15 @@ class ListDocumentVersionsResult {
     this.nextToken,
   });
   static ListDocumentVersionsResult fromJson(Map<String, dynamic> json) =>
-      ListDocumentVersionsResult();
+      ListDocumentVersionsResult(
+        documentVersions: json.containsKey('DocumentVersions')
+            ? (json['DocumentVersions'] as List)
+                .map((e) => DocumentVersionInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDocumentsResult {
@@ -8118,7 +10649,15 @@ class ListDocumentsResult {
     this.nextToken,
   });
   static ListDocumentsResult fromJson(Map<String, dynamic> json) =>
-      ListDocumentsResult();
+      ListDocumentsResult(
+        documentIdentifiers: json.containsKey('DocumentIdentifiers')
+            ? (json['DocumentIdentifiers'] as List)
+                .map((e) => DocumentIdentifier.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListInventoryEntriesResult {
@@ -8150,7 +10689,27 @@ class ListInventoryEntriesResult {
     this.nextToken,
   });
   static ListInventoryEntriesResult fromJson(Map<String, dynamic> json) =>
-      ListInventoryEntriesResult();
+      ListInventoryEntriesResult(
+        typeName:
+            json.containsKey('TypeName') ? json['TypeName'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        schemaVersion: json.containsKey('SchemaVersion')
+            ? json['SchemaVersion'] as String
+            : null,
+        captureTime: json.containsKey('CaptureTime')
+            ? json['CaptureTime'] as String
+            : null,
+        entries: json.containsKey('Entries')
+            ? (json['Entries'] as List)
+                .map((e) => (e as Map)
+                    .map((k, v) => MapEntry(k as String, v as String)))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListResourceComplianceSummariesResult {
@@ -8170,7 +10729,16 @@ class ListResourceComplianceSummariesResult {
   });
   static ListResourceComplianceSummariesResult fromJson(
           Map<String, dynamic> json) =>
-      ListResourceComplianceSummariesResult();
+      ListResourceComplianceSummariesResult(
+        resourceComplianceSummaryItems:
+            json.containsKey('ResourceComplianceSummaryItems')
+                ? (json['ResourceComplianceSummaryItems'] as List)
+                    .map((e) => ResourceComplianceSummaryItem.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListResourceDataSyncResult {
@@ -8187,7 +10755,15 @@ class ListResourceDataSyncResult {
     this.nextToken,
   });
   static ListResourceDataSyncResult fromJson(Map<String, dynamic> json) =>
-      ListResourceDataSyncResult();
+      ListResourceDataSyncResult(
+        resourceDataSyncItems: json.containsKey('ResourceDataSyncItems')
+            ? (json['ResourceDataSyncItems'] as List)
+                .map((e) => ResourceDataSyncItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResult {
@@ -8198,7 +10774,11 @@ class ListTagsForResourceResult {
     this.tagList,
   });
   static ListTagsForResourceResult fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResult();
+      ListTagsForResourceResult(
+        tagList: json.containsKey('TagList')
+            ? (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Information about an Amazon S3 bucket to write instance-level logs to.
@@ -8223,7 +10803,14 @@ class LoggingInfo {
     this.s3KeyPrefix,
     @required this.s3Region,
   });
-  static LoggingInfo fromJson(Map<String, dynamic> json) => LoggingInfo();
+  static LoggingInfo fromJson(Map<String, dynamic> json) => LoggingInfo(
+        s3BucketName: json['S3BucketName'] as String,
+        s3KeyPrefix: json.containsKey('S3KeyPrefix')
+            ? json['S3KeyPrefix'] as String
+            : null,
+        s3Region: json['S3Region'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The parameters for an AUTOMATION task type.
@@ -8258,7 +10845,16 @@ class MaintenanceWindowAutomationParameters {
   });
   static MaintenanceWindowAutomationParameters fromJson(
           Map<String, dynamic> json) =>
-      MaintenanceWindowAutomationParameters();
+      MaintenanceWindowAutomationParameters(
+        documentVersion: json.containsKey('DocumentVersion')
+            ? json['DocumentVersion'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the information about an execution of a maintenance window.
@@ -8291,7 +10887,23 @@ class MaintenanceWindowExecution {
     this.endTime,
   });
   static MaintenanceWindowExecution fromJson(Map<String, dynamic> json) =>
-      MaintenanceWindowExecution();
+      MaintenanceWindowExecution(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        windowExecutionId: json.containsKey('WindowExecutionId')
+            ? json['WindowExecutionId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+      );
 }
 
 /// Information about a task execution performed as part of a maintenance window
@@ -8334,7 +10946,27 @@ class MaintenanceWindowExecutionTaskIdentity {
   });
   static MaintenanceWindowExecutionTaskIdentity fromJson(
           Map<String, dynamic> json) =>
-      MaintenanceWindowExecutionTaskIdentity();
+      MaintenanceWindowExecutionTaskIdentity(
+        windowExecutionId: json.containsKey('WindowExecutionId')
+            ? json['WindowExecutionId'] as String
+            : null,
+        taskExecutionId: json.containsKey('TaskExecutionId')
+            ? json['TaskExecutionId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        taskArn: json.containsKey('TaskArn') ? json['TaskArn'] as String : null,
+        taskType:
+            json.containsKey('TaskType') ? json['TaskType'] as String : null,
+      );
 }
 
 /// Describes the information about a task invocation for a particular target as
@@ -8399,7 +11031,41 @@ class MaintenanceWindowExecutionTaskInvocationIdentity {
   });
   static MaintenanceWindowExecutionTaskInvocationIdentity fromJson(
           Map<String, dynamic> json) =>
-      MaintenanceWindowExecutionTaskInvocationIdentity();
+      MaintenanceWindowExecutionTaskInvocationIdentity(
+        windowExecutionId: json.containsKey('WindowExecutionId')
+            ? json['WindowExecutionId'] as String
+            : null,
+        taskExecutionId: json.containsKey('TaskExecutionId')
+            ? json['TaskExecutionId'] as String
+            : null,
+        invocationId: json.containsKey('InvocationId')
+            ? json['InvocationId'] as String
+            : null,
+        executionId: json.containsKey('ExecutionId')
+            ? json['ExecutionId'] as String
+            : null,
+        taskType:
+            json.containsKey('TaskType') ? json['TaskType'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? json['Parameters'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        ownerInformation: json.containsKey('OwnerInformation')
+            ? json['OwnerInformation'] as String
+            : null,
+        windowTargetId: json.containsKey('WindowTargetId')
+            ? json['WindowTargetId'] as String
+            : null,
+      );
 }
 
 /// Filter used in the request. Supported filter keys are Name and Enabled.
@@ -8414,6 +11080,7 @@ class MaintenanceWindowFilter {
     this.key,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the maintenance window.
@@ -8472,7 +11139,28 @@ class MaintenanceWindowIdentity {
     this.nextExecutionTime,
   });
   static MaintenanceWindowIdentity fromJson(Map<String, dynamic> json) =>
-      MaintenanceWindowIdentity();
+      MaintenanceWindowIdentity(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        cutoff: json.containsKey('Cutoff') ? json['Cutoff'] as int : null,
+        schedule:
+            json.containsKey('Schedule') ? json['Schedule'] as String : null,
+        scheduleTimezone: json.containsKey('ScheduleTimezone')
+            ? json['ScheduleTimezone'] as String
+            : null,
+        endDate: json.containsKey('EndDate') ? json['EndDate'] as String : null,
+        startDate:
+            json.containsKey('StartDate') ? json['StartDate'] as String : null,
+        nextExecutionTime: json.containsKey('NextExecutionTime')
+            ? json['NextExecutionTime'] as String
+            : null,
+      );
 }
 
 /// The maintenance window to which the specified target belongs.
@@ -8489,7 +11177,11 @@ class MaintenanceWindowIdentityForTarget {
   });
   static MaintenanceWindowIdentityForTarget fromJson(
           Map<String, dynamic> json) =>
-      MaintenanceWindowIdentityForTarget();
+      MaintenanceWindowIdentityForTarget(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// The parameters for a LAMBDA task type.
@@ -8534,7 +11226,16 @@ class MaintenanceWindowLambdaParameters {
   });
   static MaintenanceWindowLambdaParameters fromJson(
           Map<String, dynamic> json) =>
-      MaintenanceWindowLambdaParameters();
+      MaintenanceWindowLambdaParameters(
+        clientContext: json.containsKey('ClientContext')
+            ? json['ClientContext'] as String
+            : null,
+        qualifier:
+            json.containsKey('Qualifier') ? json['Qualifier'] as String : null,
+        payload:
+            json.containsKey('Payload') ? Uint8List(json['Payload']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The parameters for a RUN_COMMAND task type.
@@ -8603,7 +11304,35 @@ class MaintenanceWindowRunCommandParameters {
   });
   static MaintenanceWindowRunCommandParameters fromJson(
           Map<String, dynamic> json) =>
-      MaintenanceWindowRunCommandParameters();
+      MaintenanceWindowRunCommandParameters(
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        documentHash: json.containsKey('DocumentHash')
+            ? json['DocumentHash'] as String
+            : null,
+        documentHashType: json.containsKey('DocumentHashType')
+            ? json['DocumentHashType'] as String
+            : null,
+        notificationConfig: json.containsKey('NotificationConfig')
+            ? NotificationConfig.fromJson(json['NotificationConfig'])
+            : null,
+        outputS3BucketName: json.containsKey('OutputS3BucketName')
+            ? json['OutputS3BucketName'] as String
+            : null,
+        outputS3KeyPrefix: json.containsKey('OutputS3KeyPrefix')
+            ? json['OutputS3KeyPrefix'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        serviceRoleArn: json.containsKey('ServiceRoleArn')
+            ? json['ServiceRoleArn'] as String
+            : null,
+        timeoutSeconds: json.containsKey('TimeoutSeconds')
+            ? json['TimeoutSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The parameters for a STEP_FUNCTIONS task.
@@ -8638,7 +11367,11 @@ class MaintenanceWindowStepFunctionsParameters {
   });
   static MaintenanceWindowStepFunctionsParameters fromJson(
           Map<String, dynamic> json) =>
-      MaintenanceWindowStepFunctionsParameters();
+      MaintenanceWindowStepFunctionsParameters(
+        input: json.containsKey('Input') ? json['Input'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The target registered with the maintenance window.
@@ -8684,7 +11417,26 @@ class MaintenanceWindowTarget {
     this.description,
   });
   static MaintenanceWindowTarget fromJson(Map<String, dynamic> json) =>
-      MaintenanceWindowTarget();
+      MaintenanceWindowTarget(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        windowTargetId: json.containsKey('WindowTargetId')
+            ? json['WindowTargetId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        ownerInformation: json.containsKey('OwnerInformation')
+            ? json['OwnerInformation'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Information about a task defined for a maintenance window.
@@ -8768,7 +11520,39 @@ class MaintenanceWindowTask {
     this.description,
   });
   static MaintenanceWindowTask fromJson(Map<String, dynamic> json) =>
-      MaintenanceWindowTask();
+      MaintenanceWindowTask(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        windowTaskId: json.containsKey('WindowTaskId')
+            ? json['WindowTaskId'] as String
+            : null,
+        taskArn: json.containsKey('TaskArn') ? json['TaskArn'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        taskParameters: json.containsKey('TaskParameters')
+            ? (json['TaskParameters'] as Map).map((k, v) => MapEntry(
+                k as String,
+                MaintenanceWindowTaskParameterValueExpression.fromJson(v)))
+            : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        loggingInfo: json.containsKey('LoggingInfo')
+            ? LoggingInfo.fromJson(json['LoggingInfo'])
+            : null,
+        serviceRoleArn: json.containsKey('ServiceRoleArn')
+            ? json['ServiceRoleArn'] as String
+            : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// The parameters for task execution.
@@ -8793,7 +11577,22 @@ class MaintenanceWindowTaskInvocationParameters {
   });
   static MaintenanceWindowTaskInvocationParameters fromJson(
           Map<String, dynamic> json) =>
-      MaintenanceWindowTaskInvocationParameters();
+      MaintenanceWindowTaskInvocationParameters(
+        runCommand: json.containsKey('RunCommand')
+            ? MaintenanceWindowRunCommandParameters.fromJson(json['RunCommand'])
+            : null,
+        automation: json.containsKey('Automation')
+            ? MaintenanceWindowAutomationParameters.fromJson(json['Automation'])
+            : null,
+        stepFunctions: json.containsKey('StepFunctions')
+            ? MaintenanceWindowStepFunctionsParameters.fromJson(
+                json['StepFunctions'])
+            : null,
+        lambda: json.containsKey('Lambda')
+            ? MaintenanceWindowLambdaParameters.fromJson(json['Lambda'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the values for a task parameter.
@@ -8807,7 +11606,12 @@ class MaintenanceWindowTaskParameterValueExpression {
   });
   static MaintenanceWindowTaskParameterValueExpression fromJson(
           Map<String, dynamic> json) =>
-      MaintenanceWindowTaskParameterValueExpression();
+      MaintenanceWindowTaskParameterValueExpression(
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ModifyDocumentPermissionResponse {
@@ -8830,7 +11634,14 @@ class NonCompliantSummary {
     this.severitySummary,
   });
   static NonCompliantSummary fromJson(Map<String, dynamic> json) =>
-      NonCompliantSummary();
+      NonCompliantSummary(
+        nonCompliantCount: json.containsKey('NonCompliantCount')
+            ? json['NonCompliantCount'] as int
+            : null,
+        severitySummary: json.containsKey('SeveritySummary')
+            ? SeveritySummary.fromJson(json['SeveritySummary'])
+            : null,
+      );
 }
 
 /// Configurations for sending notifications.
@@ -8858,7 +11669,20 @@ class NotificationConfig {
     this.notificationType,
   });
   static NotificationConfig fromJson(Map<String, dynamic> json) =>
-      NotificationConfig();
+      NotificationConfig(
+        notificationArn: json.containsKey('NotificationArn')
+            ? json['NotificationArn'] as String
+            : null,
+        notificationEvents: json.containsKey('NotificationEvents')
+            ? (json['NotificationEvents'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        notificationType: json.containsKey('NotificationType')
+            ? json['NotificationType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// One or more aggregators for viewing counts of OpsItems using different
@@ -8891,6 +11715,7 @@ class OpsAggregator {
     this.filters,
     this.aggregators,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The result of the query.
@@ -8905,7 +11730,13 @@ class OpsEntity {
     this.id,
     this.data,
   });
-  static OpsEntity fromJson(Map<String, dynamic> json) => OpsEntity();
+  static OpsEntity fromJson(Map<String, dynamic> json) => OpsEntity(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        data: json.containsKey('Data')
+            ? (json['Data'] as Map)
+                .map((k, v) => MapEntry(k as String, OpsEntityItem.fromJson(v)))
+            : null,
+      );
 }
 
 /// The OpsItem summaries result item.
@@ -8916,7 +11747,14 @@ class OpsEntityItem {
   OpsEntityItem({
     this.content,
   });
-  static OpsEntityItem fromJson(Map<String, dynamic> json) => OpsEntityItem();
+  static OpsEntityItem fromJson(Map<String, dynamic> json) => OpsEntityItem(
+        content: json.containsKey('Content')
+            ? (json['Content'] as List)
+                .map((e) => (e as Map)
+                    .map((k, v) => MapEntry(k as String, v as String)))
+                .toList()
+            : null,
+      );
 }
 
 /// A filter for viewing OpsItem summaries.
@@ -8935,6 +11773,7 @@ class OpsFilter {
     @required this.values,
     this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Operations engineers and IT professionals use OpsCenter to view,
@@ -9032,7 +11871,43 @@ class OpsItem {
     this.source,
     this.operationalData,
   });
-  static OpsItem fromJson(Map<String, dynamic> json) => OpsItem();
+  static OpsItem fromJson(Map<String, dynamic> json) => OpsItem(
+        createdBy:
+            json.containsKey('CreatedBy') ? json['CreatedBy'] as String : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        notifications: json.containsKey('Notifications')
+            ? (json['Notifications'] as List)
+                .map((e) => OpsItemNotification.fromJson(e))
+                .toList()
+            : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        relatedOpsItems: json.containsKey('RelatedOpsItems')
+            ? (json['RelatedOpsItems'] as List)
+                .map((e) => RelatedOpsItem.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        opsItemId:
+            json.containsKey('OpsItemId') ? json['OpsItemId'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        title: json.containsKey('Title') ? json['Title'] as String : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        operationalData: json.containsKey('OperationalData')
+            ? (json['OperationalData'] as Map).map(
+                (k, v) => MapEntry(k as String, OpsItemDataValue.fromJson(v)))
+            : null,
+      );
 }
 
 /// An object that defines the value of the key and its type in the
@@ -9050,7 +11925,11 @@ class OpsItemDataValue {
     this.type,
   });
   static OpsItemDataValue fromJson(Map<String, dynamic> json) =>
-      OpsItemDataValue();
+      OpsItemDataValue(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an OpsItem filter.
@@ -9069,6 +11948,7 @@ class OpsItemFilter {
     @required this.values,
     @required this.operator,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A notification about the OpsItem.
@@ -9081,7 +11961,10 @@ class OpsItemNotification {
     this.arn,
   });
   static OpsItemNotification fromJson(Map<String, dynamic> json) =>
-      OpsItemNotification();
+      OpsItemNotification(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A count of OpsItems.
@@ -9131,7 +12014,29 @@ class OpsItemSummary {
     this.title,
     this.operationalData,
   });
-  static OpsItemSummary fromJson(Map<String, dynamic> json) => OpsItemSummary();
+  static OpsItemSummary fromJson(Map<String, dynamic> json) => OpsItemSummary(
+        createdBy:
+            json.containsKey('CreatedBy') ? json['CreatedBy'] as String : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        opsItemId:
+            json.containsKey('OpsItemId') ? json['OpsItemId'] as String : null,
+        title: json.containsKey('Title') ? json['Title'] as String : null,
+        operationalData: json.containsKey('OperationalData')
+            ? (json['OperationalData'] as Map).map(
+                (k, v) => MapEntry(k as String, OpsItemDataValue.fromJson(v)))
+            : null,
+      );
 }
 
 /// Information about the source where the association execution details are
@@ -9148,7 +12053,14 @@ class OutputSource {
     this.outputSourceId,
     this.outputSourceType,
   });
-  static OutputSource fromJson(Map<String, dynamic> json) => OutputSource();
+  static OutputSource fromJson(Map<String, dynamic> json) => OutputSource(
+        outputSourceId: json.containsKey('OutputSourceId')
+            ? json['OutputSourceId'] as String
+            : null,
+        outputSourceType: json.containsKey('OutputSourceType')
+            ? json['OutputSourceType'] as String
+            : null,
+      );
 }
 
 /// An Amazon EC2 Systems Manager parameter in Parameter Store.
@@ -9195,7 +12107,22 @@ class Parameter {
     this.lastModifiedDate,
     this.arn,
   });
-  static Parameter fromJson(Map<String, dynamic> json) => Parameter();
+  static Parameter fromJson(Map<String, dynamic> json) => Parameter(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        selector:
+            json.containsKey('Selector') ? json['Selector'] as String : null,
+        sourceResult: json.containsKey('SourceResult')
+            ? json['SourceResult'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+      );
 }
 
 /// Information about parameter usage.
@@ -9257,7 +12184,35 @@ class ParameterHistory {
     this.policies,
   });
   static ParameterHistory fromJson(Map<String, dynamic> json) =>
-      ParameterHistory();
+      ParameterHistory(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        lastModifiedUser: json.containsKey('LastModifiedUser')
+            ? json['LastModifiedUser'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        allowedPattern: json.containsKey('AllowedPattern')
+            ? json['AllowedPattern'] as String
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        labels: json.containsKey('Labels')
+            ? (json['Labels'] as List).map((e) => e as String).toList()
+            : null,
+        tier: json.containsKey('Tier') ? json['Tier'] as String : null,
+        policies: json.containsKey('Policies')
+            ? (json['Policies'] as List)
+                .map((e) => ParameterInlinePolicy.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// One or more policies assigned to a parameter.
@@ -9281,7 +12236,17 @@ class ParameterInlinePolicy {
     this.policyStatus,
   });
   static ParameterInlinePolicy fromJson(Map<String, dynamic> json) =>
-      ParameterInlinePolicy();
+      ParameterInlinePolicy(
+        policyText: json.containsKey('PolicyText')
+            ? json['PolicyText'] as String
+            : null,
+        policyType: json.containsKey('PolicyType')
+            ? json['PolicyType'] as String
+            : null,
+        policyStatus: json.containsKey('PolicyStatus')
+            ? json['PolicyStatus'] as String
+            : null,
+      );
 }
 
 /// Metadata includes information like the ARN of the last user and the
@@ -9333,7 +12298,31 @@ class ParameterMetadata {
     this.policies,
   });
   static ParameterMetadata fromJson(Map<String, dynamic> json) =>
-      ParameterMetadata();
+      ParameterMetadata(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        lastModifiedUser: json.containsKey('LastModifiedUser')
+            ? json['LastModifiedUser'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        allowedPattern: json.containsKey('AllowedPattern')
+            ? json['AllowedPattern'] as String
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        tier: json.containsKey('Tier') ? json['Tier'] as String : null,
+        policies: json.containsKey('Policies')
+            ? (json['Policies'] as List)
+                .map((e) => ParameterInlinePolicy.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// One or more filters. Use a filter to return a more specific list of results.
@@ -9359,6 +12348,7 @@ class ParameterStringFilter {
     this.option,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This data type is deprecated. Instead, use ParameterStringFilter.
@@ -9373,6 +12363,7 @@ class ParametersFilter {
     @required this.key,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents metadata about a patch.
@@ -9434,7 +12425,37 @@ class Patch {
     this.msrcNumber,
     this.language,
   });
-  static Patch fromJson(Map<String, dynamic> json) => Patch();
+  static Patch fromJson(Map<String, dynamic> json) => Patch(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        releaseDate: json.containsKey('ReleaseDate')
+            ? DateTime.parse(json['ReleaseDate'])
+            : null,
+        title: json.containsKey('Title') ? json['Title'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        contentUrl: json.containsKey('ContentUrl')
+            ? json['ContentUrl'] as String
+            : null,
+        vendor: json.containsKey('Vendor') ? json['Vendor'] as String : null,
+        productFamily: json.containsKey('ProductFamily')
+            ? json['ProductFamily'] as String
+            : null,
+        product: json.containsKey('Product') ? json['Product'] as String : null,
+        classification: json.containsKey('Classification')
+            ? json['Classification'] as String
+            : null,
+        msrcSeverity: json.containsKey('MsrcSeverity')
+            ? json['MsrcSeverity'] as String
+            : null,
+        kbNumber:
+            json.containsKey('KbNumber') ? json['KbNumber'] as String : null,
+        msrcNumber: json.containsKey('MsrcNumber')
+            ? json['MsrcNumber'] as String
+            : null,
+        language:
+            json.containsKey('Language') ? json['Language'] as String : null,
+      );
 }
 
 /// Defines the basic information about a patch baseline.
@@ -9465,7 +12486,23 @@ class PatchBaselineIdentity {
     this.defaultBaseline,
   });
   static PatchBaselineIdentity fromJson(Map<String, dynamic> json) =>
-      PatchBaselineIdentity();
+      PatchBaselineIdentity(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+        baselineName: json.containsKey('BaselineName')
+            ? json['BaselineName'] as String
+            : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+        baselineDescription: json.containsKey('BaselineDescription')
+            ? json['BaselineDescription'] as String
+            : null,
+        defaultBaseline: json.containsKey('DefaultBaseline')
+            ? json['DefaultBaseline'] as bool
+            : null,
+      );
 }
 
 /// Information about the state of a patch on a particular instance as it
@@ -9504,7 +12541,14 @@ class PatchComplianceData {
     @required this.installedTime,
   });
   static PatchComplianceData fromJson(Map<String, dynamic> json) =>
-      PatchComplianceData();
+      PatchComplianceData(
+        title: json['Title'] as String,
+        kbId: json['KBId'] as String,
+        classification: json['Classification'] as String,
+        severity: json['Severity'] as String,
+        state: json['State'] as String,
+        installedTime: DateTime.parse(json['InstalledTime']),
+      );
 }
 
 ///  Defines which patches should be included in a patch baseline.
@@ -9540,7 +12584,11 @@ class PatchFilter {
     @required this.key,
     @required this.values,
   });
-  static PatchFilter fromJson(Map<String, dynamic> json) => PatchFilter();
+  static PatchFilter fromJson(Map<String, dynamic> json) => PatchFilter(
+        key: json['Key'] as String,
+        values: (json['Values'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A set of patch filters, typically used for approval rules.
@@ -9552,7 +12600,12 @@ class PatchFilterGroup {
     @required this.patchFilters,
   });
   static PatchFilterGroup fromJson(Map<String, dynamic> json) =>
-      PatchFilterGroup();
+      PatchFilterGroup(
+        patchFilters: (json['PatchFilters'] as List)
+            .map((e) => PatchFilter.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The mapping between a patch group and the patch baseline the patch group is
@@ -9569,7 +12622,14 @@ class PatchGroupPatchBaselineMapping {
     this.baselineIdentity,
   });
   static PatchGroupPatchBaselineMapping fromJson(Map<String, dynamic> json) =>
-      PatchGroupPatchBaselineMapping();
+      PatchGroupPatchBaselineMapping(
+        patchGroup: json.containsKey('PatchGroup')
+            ? json['PatchGroup'] as String
+            : null,
+        baselineIdentity: json.containsKey('BaselineIdentity')
+            ? PatchBaselineIdentity.fromJson(json['BaselineIdentity'])
+            : null,
+      );
 }
 
 /// Defines a filter used in Patch Manager APIs.
@@ -9584,6 +12644,7 @@ class PatchOrchestratorFilter {
     this.key,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines an approval rule for a patch baseline.
@@ -9613,7 +12674,17 @@ class PatchRule {
     @required this.approveAfterDays,
     this.enableNonSecurity,
   });
-  static PatchRule fromJson(Map<String, dynamic> json) => PatchRule();
+  static PatchRule fromJson(Map<String, dynamic> json) => PatchRule(
+        patchFilterGroup: PatchFilterGroup.fromJson(json['PatchFilterGroup']),
+        complianceLevel: json.containsKey('ComplianceLevel')
+            ? json['ComplianceLevel'] as String
+            : null,
+        approveAfterDays: json['ApproveAfterDays'] as int,
+        enableNonSecurity: json.containsKey('EnableNonSecurity')
+            ? json['EnableNonSecurity'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A set of rules defining the approval rules for a patch baseline.
@@ -9624,7 +12695,12 @@ class PatchRuleGroup {
   PatchRuleGroup({
     @required this.patchRules,
   });
-  static PatchRuleGroup fromJson(Map<String, dynamic> json) => PatchRuleGroup();
+  static PatchRuleGroup fromJson(Map<String, dynamic> json) => PatchRuleGroup(
+        patchRules: (json['PatchRules'] as List)
+            .map((e) => PatchRule.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the patches to use to update the instances, including
@@ -9655,7 +12731,12 @@ class PatchSource {
     @required this.products,
     @required this.configuration,
   });
-  static PatchSource fromJson(Map<String, dynamic> json) => PatchSource();
+  static PatchSource fromJson(Map<String, dynamic> json) => PatchSource(
+        name: json['Name'] as String,
+        products: (json['Products'] as List).map((e) => e as String).toList(),
+        configuration: json['Configuration'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the approval status of a patch.
@@ -9676,7 +12757,17 @@ class PatchStatus {
     this.complianceLevel,
     this.approvalDate,
   });
-  static PatchStatus fromJson(Map<String, dynamic> json) => PatchStatus();
+  static PatchStatus fromJson(Map<String, dynamic> json) => PatchStatus(
+        deploymentStatus: json.containsKey('DeploymentStatus')
+            ? json['DeploymentStatus'] as String
+            : null,
+        complianceLevel: json.containsKey('ComplianceLevel')
+            ? json['ComplianceLevel'] as String
+            : null,
+        approvalDate: json.containsKey('ApprovalDate')
+            ? DateTime.parse(json['ApprovalDate'])
+            : null,
+      );
 }
 
 /// An aggregate of step execution statuses displayed in the AWS Console for a
@@ -9710,7 +12801,21 @@ class ProgressCounters {
     this.timedOutSteps,
   });
   static ProgressCounters fromJson(Map<String, dynamic> json) =>
-      ProgressCounters();
+      ProgressCounters(
+        totalSteps:
+            json.containsKey('TotalSteps') ? json['TotalSteps'] as int : null,
+        successSteps: json.containsKey('SuccessSteps')
+            ? json['SuccessSteps'] as int
+            : null,
+        failedSteps:
+            json.containsKey('FailedSteps') ? json['FailedSteps'] as int : null,
+        cancelledSteps: json.containsKey('CancelledSteps')
+            ? json['CancelledSteps'] as int
+            : null,
+        timedOutSteps: json.containsKey('TimedOutSteps')
+            ? json['TimedOutSteps'] as int
+            : null,
+      );
 }
 
 class PutComplianceItemsResult {
@@ -9727,7 +12832,9 @@ class PutInventoryResult {
     this.message,
   });
   static PutInventoryResult fromJson(Map<String, dynamic> json) =>
-      PutInventoryResult();
+      PutInventoryResult(
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 class PutParameterResult {
@@ -9743,7 +12850,10 @@ class PutParameterResult {
     this.version,
   });
   static PutParameterResult fromJson(Map<String, dynamic> json) =>
-      PutParameterResult();
+      PutParameterResult(
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+      );
 }
 
 class RegisterDefaultPatchBaselineResult {
@@ -9755,7 +12865,11 @@ class RegisterDefaultPatchBaselineResult {
   });
   static RegisterDefaultPatchBaselineResult fromJson(
           Map<String, dynamic> json) =>
-      RegisterDefaultPatchBaselineResult();
+      RegisterDefaultPatchBaselineResult(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+      );
 }
 
 class RegisterPatchBaselineForPatchGroupResult {
@@ -9771,7 +12885,14 @@ class RegisterPatchBaselineForPatchGroupResult {
   });
   static RegisterPatchBaselineForPatchGroupResult fromJson(
           Map<String, dynamic> json) =>
-      RegisterPatchBaselineForPatchGroupResult();
+      RegisterPatchBaselineForPatchGroupResult(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+        patchGroup: json.containsKey('PatchGroup')
+            ? json['PatchGroup'] as String
+            : null,
+      );
 }
 
 class RegisterTargetWithMaintenanceWindowResult {
@@ -9783,7 +12904,11 @@ class RegisterTargetWithMaintenanceWindowResult {
   });
   static RegisterTargetWithMaintenanceWindowResult fromJson(
           Map<String, dynamic> json) =>
-      RegisterTargetWithMaintenanceWindowResult();
+      RegisterTargetWithMaintenanceWindowResult(
+        windowTargetId: json.containsKey('WindowTargetId')
+            ? json['WindowTargetId'] as String
+            : null,
+      );
 }
 
 class RegisterTaskWithMaintenanceWindowResult {
@@ -9795,7 +12920,11 @@ class RegisterTaskWithMaintenanceWindowResult {
   });
   static RegisterTaskWithMaintenanceWindowResult fromJson(
           Map<String, dynamic> json) =>
-      RegisterTaskWithMaintenanceWindowResult();
+      RegisterTaskWithMaintenanceWindowResult(
+        windowTaskId: json.containsKey('WindowTaskId')
+            ? json['WindowTaskId'] as String
+            : null,
+      );
 }
 
 /// An OpsItems that shares something in common with the current OpsItem. For
@@ -9808,7 +12937,10 @@ class RelatedOpsItem {
   RelatedOpsItem({
     @required this.opsItemId,
   });
-  static RelatedOpsItem fromJson(Map<String, dynamic> json) => RelatedOpsItem();
+  static RelatedOpsItem fromJson(Map<String, dynamic> json) => RelatedOpsItem(
+        opsItemId: json['OpsItemId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RemoveTagsFromResourceResult {
@@ -9827,7 +12959,11 @@ class ResetServiceSettingResult {
     this.serviceSetting,
   });
   static ResetServiceSettingResult fromJson(Map<String, dynamic> json) =>
-      ResetServiceSettingResult();
+      ResetServiceSettingResult(
+        serviceSetting: json.containsKey('ServiceSetting')
+            ? ServiceSetting.fromJson(json['ServiceSetting'])
+            : null,
+      );
 }
 
 /// Information about targets that resolved during the Automation execution.
@@ -9843,8 +12979,13 @@ class ResolvedTargets {
     this.parameterValues,
     this.truncated,
   });
-  static ResolvedTargets fromJson(Map<String, dynamic> json) =>
-      ResolvedTargets();
+  static ResolvedTargets fromJson(Map<String, dynamic> json) => ResolvedTargets(
+        parameterValues: json.containsKey('ParameterValues')
+            ? (json['ParameterValues'] as List).map((e) => e as String).toList()
+            : null,
+        truncated:
+            json.containsKey('Truncated') ? json['Truncated'] as bool : null,
+      );
 }
 
 /// Compliance summary information for a specific resource.
@@ -9885,7 +13026,30 @@ class ResourceComplianceSummaryItem {
     this.nonCompliantSummary,
   });
   static ResourceComplianceSummaryItem fromJson(Map<String, dynamic> json) =>
-      ResourceComplianceSummaryItem();
+      ResourceComplianceSummaryItem(
+        complianceType: json.containsKey('ComplianceType')
+            ? json['ComplianceType'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        overallSeverity: json.containsKey('OverallSeverity')
+            ? json['OverallSeverity'] as String
+            : null,
+        executionSummary: json.containsKey('ExecutionSummary')
+            ? ComplianceExecutionSummary.fromJson(json['ExecutionSummary'])
+            : null,
+        compliantSummary: json.containsKey('CompliantSummary')
+            ? CompliantSummary.fromJson(json['CompliantSummary'])
+            : null,
+        nonCompliantSummary: json.containsKey('NonCompliantSummary')
+            ? NonCompliantSummary.fromJson(json['NonCompliantSummary'])
+            : null,
+      );
 }
 
 /// Information about a Resource Data Sync configuration, including its current
@@ -9922,7 +13086,28 @@ class ResourceDataSyncItem {
     this.lastSyncStatusMessage,
   });
   static ResourceDataSyncItem fromJson(Map<String, dynamic> json) =>
-      ResourceDataSyncItem();
+      ResourceDataSyncItem(
+        syncName:
+            json.containsKey('SyncName') ? json['SyncName'] as String : null,
+        s3Destination: json.containsKey('S3Destination')
+            ? ResourceDataSyncS3Destination.fromJson(json['S3Destination'])
+            : null,
+        lastSyncTime: json.containsKey('LastSyncTime')
+            ? DateTime.parse(json['LastSyncTime'])
+            : null,
+        lastSuccessfulSyncTime: json.containsKey('LastSuccessfulSyncTime')
+            ? DateTime.parse(json['LastSuccessfulSyncTime'])
+            : null,
+        lastStatus: json.containsKey('LastStatus')
+            ? json['LastStatus'] as String
+            : null,
+        syncCreatedTime: json.containsKey('SyncCreatedTime')
+            ? DateTime.parse(json['SyncCreatedTime'])
+            : null,
+        lastSyncStatusMessage: json.containsKey('LastSyncStatusMessage')
+            ? json['LastSyncStatusMessage'] as String
+            : null,
+      );
 }
 
 /// Information about the target Amazon S3 bucket for the Resource Data Sync.
@@ -9953,7 +13138,16 @@ class ResourceDataSyncS3Destination {
     this.awskmsKeyArn,
   });
   static ResourceDataSyncS3Destination fromJson(Map<String, dynamic> json) =>
-      ResourceDataSyncS3Destination();
+      ResourceDataSyncS3Destination(
+        bucketName: json['BucketName'] as String,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        syncFormat: json['SyncFormat'] as String,
+        region: json['Region'] as String,
+        awskmsKeyArn: json.containsKey('AWSKMSKeyARN')
+            ? json['AWSKMSKeyARN'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The inventory item result attribute.
@@ -9965,6 +13159,7 @@ class ResultAttribute {
   ResultAttribute({
     @required this.typeName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ResumeSessionResponse {
@@ -9996,7 +13191,15 @@ class ResumeSessionResponse {
     this.streamUrl,
   });
   static ResumeSessionResponse fromJson(Map<String, dynamic> json) =>
-      ResumeSessionResponse();
+      ResumeSessionResponse(
+        sessionId:
+            json.containsKey('SessionId') ? json['SessionId'] as String : null,
+        tokenValue: json.containsKey('TokenValue')
+            ? json['TokenValue'] as String
+            : null,
+        streamUrl:
+            json.containsKey('StreamUrl') ? json['StreamUrl'] as String : null,
+      );
 }
 
 /// An Amazon S3 bucket where you want to store the results of this request.
@@ -10018,7 +13221,18 @@ class S3OutputLocation {
     this.outputS3KeyPrefix,
   });
   static S3OutputLocation fromJson(Map<String, dynamic> json) =>
-      S3OutputLocation();
+      S3OutputLocation(
+        outputS3Region: json.containsKey('OutputS3Region')
+            ? json['OutputS3Region'] as String
+            : null,
+        outputS3BucketName: json.containsKey('OutputS3BucketName')
+            ? json['OutputS3BucketName'] as String
+            : null,
+        outputS3KeyPrefix: json.containsKey('OutputS3KeyPrefix')
+            ? json['OutputS3KeyPrefix'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A URL for the Amazon S3 bucket where you want to store the results of this
@@ -10031,7 +13245,10 @@ class S3OutputUrl {
   S3OutputUrl({
     this.outputUrl,
   });
-  static S3OutputUrl fromJson(Map<String, dynamic> json) => S3OutputUrl();
+  static S3OutputUrl fromJson(Map<String, dynamic> json) => S3OutputUrl(
+        outputUrl:
+            json.containsKey('OutputUrl') ? json['OutputUrl'] as String : null,
+      );
 }
 
 /// Information about a scheduled execution for a maintenance window.
@@ -10052,7 +13269,14 @@ class ScheduledWindowExecution {
     this.executionTime,
   });
   static ScheduledWindowExecution fromJson(Map<String, dynamic> json) =>
-      ScheduledWindowExecution();
+      ScheduledWindowExecution(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        executionTime: json.containsKey('ExecutionTime')
+            ? json['ExecutionTime'] as String
+            : null,
+      );
 }
 
 class SendAutomationSignalResult {
@@ -10070,7 +13294,11 @@ class SendCommandResult {
     this.command,
   });
   static SendCommandResult fromJson(Map<String, dynamic> json) =>
-      SendCommandResult();
+      SendCommandResult(
+        command: json.containsKey('Command')
+            ? Command.fromJson(json['Command'])
+            : null,
+      );
 }
 
 /// The service setting data structure.
@@ -10128,7 +13356,21 @@ class ServiceSetting {
     this.arn,
     this.status,
   });
-  static ServiceSetting fromJson(Map<String, dynamic> json) => ServiceSetting();
+  static ServiceSetting fromJson(Map<String, dynamic> json) => ServiceSetting(
+        settingId:
+            json.containsKey('SettingId') ? json['SettingId'] as String : null,
+        settingValue: json.containsKey('SettingValue')
+            ? json['SettingValue'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        lastModifiedUser: json.containsKey('LastModifiedUser')
+            ? json['LastModifiedUser'] as String
+            : null,
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Information about a Session Manager connection to an instance.
@@ -10174,7 +13416,26 @@ class Session {
     this.details,
     this.outputUrl,
   });
-  static Session fromJson(Map<String, dynamic> json) => Session();
+  static Session fromJson(Map<String, dynamic> json) => Session(
+        sessionId:
+            json.containsKey('SessionId') ? json['SessionId'] as String : null,
+        target: json.containsKey('Target') ? json['Target'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        startDate: json.containsKey('StartDate')
+            ? DateTime.parse(json['StartDate'])
+            : null,
+        endDate: json.containsKey('EndDate')
+            ? DateTime.parse(json['EndDate'])
+            : null,
+        documentName: json.containsKey('DocumentName')
+            ? json['DocumentName'] as String
+            : null,
+        owner: json.containsKey('Owner') ? json['Owner'] as String : null,
+        details: json.containsKey('Details') ? json['Details'] as String : null,
+        outputUrl: json.containsKey('OutputUrl')
+            ? SessionManagerOutputUrl.fromJson(json['OutputUrl'])
+            : null,
+      );
 }
 
 /// Describes a filter for Session Manager information.
@@ -10218,6 +13479,7 @@ class SessionFilter {
     @required this.key,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Reserved for future use.
@@ -10233,7 +13495,14 @@ class SessionManagerOutputUrl {
     this.cloudWatchOutputUrl,
   });
   static SessionManagerOutputUrl fromJson(Map<String, dynamic> json) =>
-      SessionManagerOutputUrl();
+      SessionManagerOutputUrl(
+        s3OutputUrl: json.containsKey('S3OutputUrl')
+            ? json['S3OutputUrl'] as String
+            : null,
+        cloudWatchOutputUrl: json.containsKey('CloudWatchOutputUrl')
+            ? json['CloudWatchOutputUrl'] as String
+            : null,
+      );
 }
 
 /// The number of managed instances found for each patch severity level defined
@@ -10277,8 +13546,22 @@ class SeveritySummary {
     this.informationalCount,
     this.unspecifiedCount,
   });
-  static SeveritySummary fromJson(Map<String, dynamic> json) =>
-      SeveritySummary();
+  static SeveritySummary fromJson(Map<String, dynamic> json) => SeveritySummary(
+        criticalCount: json.containsKey('CriticalCount')
+            ? json['CriticalCount'] as int
+            : null,
+        highCount:
+            json.containsKey('HighCount') ? json['HighCount'] as int : null,
+        mediumCount:
+            json.containsKey('MediumCount') ? json['MediumCount'] as int : null,
+        lowCount: json.containsKey('LowCount') ? json['LowCount'] as int : null,
+        informationalCount: json.containsKey('InformationalCount')
+            ? json['InformationalCount'] as int
+            : null,
+        unspecifiedCount: json.containsKey('UnspecifiedCount')
+            ? json['UnspecifiedCount'] as int
+            : null,
+      );
 }
 
 class StartAssociationsOnceResult {
@@ -10295,7 +13578,11 @@ class StartAutomationExecutionResult {
     this.automationExecutionId,
   });
   static StartAutomationExecutionResult fromJson(Map<String, dynamic> json) =>
-      StartAutomationExecutionResult();
+      StartAutomationExecutionResult(
+        automationExecutionId: json.containsKey('AutomationExecutionId')
+            ? json['AutomationExecutionId'] as String
+            : null,
+      );
 }
 
 class StartSessionResponse {
@@ -10327,7 +13614,15 @@ class StartSessionResponse {
     this.streamUrl,
   });
   static StartSessionResponse fromJson(Map<String, dynamic> json) =>
-      StartSessionResponse();
+      StartSessionResponse(
+        sessionId:
+            json.containsKey('SessionId') ? json['SessionId'] as String : null,
+        tokenValue: json.containsKey('TokenValue')
+            ? json['TokenValue'] as String
+            : null,
+        streamUrl:
+            json.containsKey('StreamUrl') ? json['StreamUrl'] as String : null,
+      );
 }
 
 /// Detailed information about an the execution state of an Automation step.
@@ -10434,7 +13729,67 @@ class StepExecution {
     this.targets,
     this.targetLocation,
   });
-  static StepExecution fromJson(Map<String, dynamic> json) => StepExecution();
+  static StepExecution fromJson(Map<String, dynamic> json) => StepExecution(
+        stepName:
+            json.containsKey('StepName') ? json['StepName'] as String : null,
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        timeoutSeconds: json.containsKey('TimeoutSeconds')
+            ? BigInt.from(json['TimeoutSeconds'])
+            : null,
+        onFailure:
+            json.containsKey('OnFailure') ? json['OnFailure'] as String : null,
+        maxAttempts:
+            json.containsKey('MaxAttempts') ? json['MaxAttempts'] as int : null,
+        executionStartTime: json.containsKey('ExecutionStartTime')
+            ? DateTime.parse(json['ExecutionStartTime'])
+            : null,
+        executionEndTime: json.containsKey('ExecutionEndTime')
+            ? DateTime.parse(json['ExecutionEndTime'])
+            : null,
+        stepStatus: json.containsKey('StepStatus')
+            ? json['StepStatus'] as String
+            : null,
+        responseCode: json.containsKey('ResponseCode')
+            ? json['ResponseCode'] as String
+            : null,
+        inputs: json.containsKey('Inputs')
+            ? (json['Inputs'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        outputs: json.containsKey('Outputs')
+            ? (json['Outputs'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        response:
+            json.containsKey('Response') ? json['Response'] as String : null,
+        failureMessage: json.containsKey('FailureMessage')
+            ? json['FailureMessage'] as String
+            : null,
+        failureDetails: json.containsKey('FailureDetails')
+            ? FailureDetails.fromJson(json['FailureDetails'])
+            : null,
+        stepExecutionId: json.containsKey('StepExecutionId')
+            ? json['StepExecutionId'] as String
+            : null,
+        overriddenParameters: json.containsKey('OverriddenParameters')
+            ? (json['OverriddenParameters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        isEnd: json.containsKey('IsEnd') ? json['IsEnd'] as bool : null,
+        nextStep:
+            json.containsKey('NextStep') ? json['NextStep'] as String : null,
+        isCritical:
+            json.containsKey('IsCritical') ? json['IsCritical'] as bool : null,
+        validNextSteps: json.containsKey('ValidNextSteps')
+            ? (json['ValidNextSteps'] as List).map((e) => e as String).toList()
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        targetLocation: json.containsKey('TargetLocation')
+            ? TargetLocation.fromJson(json['TargetLocation'])
+            : null,
+      );
 }
 
 /// A filter to limit the amount of step execution information returned by the
@@ -10452,6 +13807,7 @@ class StepExecutionFilter {
     @required this.key,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StopAutomationExecutionResult {
@@ -10476,7 +13832,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An array of search criteria that targets instances using a Key,Value
@@ -10534,7 +13894,13 @@ class Target {
     this.key,
     this.values,
   });
-  static Target fromJson(Map<String, dynamic> json) => Target();
+  static Target fromJson(Map<String, dynamic> json) => Target(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The combination of AWS Regions and accounts targeted by the current
@@ -10564,7 +13930,25 @@ class TargetLocation {
     this.targetLocationMaxErrors,
     this.executionRoleName,
   });
-  static TargetLocation fromJson(Map<String, dynamic> json) => TargetLocation();
+  static TargetLocation fromJson(Map<String, dynamic> json) => TargetLocation(
+        accounts: json.containsKey('Accounts')
+            ? (json['Accounts'] as List).map((e) => e as String).toList()
+            : null,
+        regions: json.containsKey('Regions')
+            ? (json['Regions'] as List).map((e) => e as String).toList()
+            : null,
+        targetLocationMaxConcurrency:
+            json.containsKey('TargetLocationMaxConcurrency')
+                ? json['TargetLocationMaxConcurrency'] as String
+                : null,
+        targetLocationMaxErrors: json.containsKey('TargetLocationMaxErrors')
+            ? json['TargetLocationMaxErrors'] as String
+            : null,
+        executionRoleName: json.containsKey('ExecutionRoleName')
+            ? json['ExecutionRoleName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TerminateSessionResponse {
@@ -10575,7 +13959,10 @@ class TerminateSessionResponse {
     this.sessionId,
   });
   static TerminateSessionResponse fromJson(Map<String, dynamic> json) =>
-      TerminateSessionResponse();
+      TerminateSessionResponse(
+        sessionId:
+            json.containsKey('SessionId') ? json['SessionId'] as String : null,
+      );
 }
 
 class UpdateAssociationResult {
@@ -10586,7 +13973,11 @@ class UpdateAssociationResult {
     this.associationDescription,
   });
   static UpdateAssociationResult fromJson(Map<String, dynamic> json) =>
-      UpdateAssociationResult();
+      UpdateAssociationResult(
+        associationDescription: json.containsKey('AssociationDescription')
+            ? AssociationDescription.fromJson(json['AssociationDescription'])
+            : null,
+      );
 }
 
 class UpdateAssociationStatusResult {
@@ -10597,7 +13988,11 @@ class UpdateAssociationStatusResult {
     this.associationDescription,
   });
   static UpdateAssociationStatusResult fromJson(Map<String, dynamic> json) =>
-      UpdateAssociationStatusResult();
+      UpdateAssociationStatusResult(
+        associationDescription: json.containsKey('AssociationDescription')
+            ? AssociationDescription.fromJson(json['AssociationDescription'])
+            : null,
+      );
 }
 
 class UpdateDocumentDefaultVersionResult {
@@ -10610,7 +14005,11 @@ class UpdateDocumentDefaultVersionResult {
   });
   static UpdateDocumentDefaultVersionResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateDocumentDefaultVersionResult();
+      UpdateDocumentDefaultVersionResult(
+        description: json.containsKey('Description')
+            ? DocumentDefaultVersionDescription.fromJson(json['Description'])
+            : null,
+      );
 }
 
 class UpdateDocumentResult {
@@ -10621,7 +14020,11 @@ class UpdateDocumentResult {
     this.documentDescription,
   });
   static UpdateDocumentResult fromJson(Map<String, dynamic> json) =>
-      UpdateDocumentResult();
+      UpdateDocumentResult(
+        documentDescription: json.containsKey('DocumentDescription')
+            ? DocumentDescription.fromJson(json['DocumentDescription'])
+            : null,
+      );
 }
 
 class UpdateMaintenanceWindowResult {
@@ -10683,7 +14086,28 @@ class UpdateMaintenanceWindowResult {
     this.enabled,
   });
   static UpdateMaintenanceWindowResult fromJson(Map<String, dynamic> json) =>
-      UpdateMaintenanceWindowResult();
+      UpdateMaintenanceWindowResult(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        startDate:
+            json.containsKey('StartDate') ? json['StartDate'] as String : null,
+        endDate: json.containsKey('EndDate') ? json['EndDate'] as String : null,
+        schedule:
+            json.containsKey('Schedule') ? json['Schedule'] as String : null,
+        scheduleTimezone: json.containsKey('ScheduleTimezone')
+            ? json['ScheduleTimezone'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        cutoff: json.containsKey('Cutoff') ? json['Cutoff'] as int : null,
+        allowUnassociatedTargets: json.containsKey('AllowUnassociatedTargets')
+            ? json['AllowUnassociatedTargets'] as bool
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
 }
 
 class UpdateMaintenanceWindowTargetResult {
@@ -10715,7 +14139,23 @@ class UpdateMaintenanceWindowTargetResult {
   });
   static UpdateMaintenanceWindowTargetResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateMaintenanceWindowTargetResult();
+      UpdateMaintenanceWindowTargetResult(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        windowTargetId: json.containsKey('WindowTargetId')
+            ? json['WindowTargetId'] as String
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        ownerInformation: json.containsKey('OwnerInformation')
+            ? json['OwnerInformation'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class UpdateMaintenanceWindowTaskResult {
@@ -10790,7 +14230,42 @@ class UpdateMaintenanceWindowTaskResult {
   });
   static UpdateMaintenanceWindowTaskResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateMaintenanceWindowTaskResult();
+      UpdateMaintenanceWindowTaskResult(
+        windowId:
+            json.containsKey('WindowId') ? json['WindowId'] as String : null,
+        windowTaskId: json.containsKey('WindowTaskId')
+            ? json['WindowTaskId'] as String
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        taskArn: json.containsKey('TaskArn') ? json['TaskArn'] as String : null,
+        serviceRoleArn: json.containsKey('ServiceRoleArn')
+            ? json['ServiceRoleArn'] as String
+            : null,
+        taskParameters: json.containsKey('TaskParameters')
+            ? (json['TaskParameters'] as Map).map((k, v) => MapEntry(
+                k as String,
+                MaintenanceWindowTaskParameterValueExpression.fromJson(v)))
+            : null,
+        taskInvocationParameters: json.containsKey('TaskInvocationParameters')
+            ? MaintenanceWindowTaskInvocationParameters.fromJson(
+                json['TaskInvocationParameters'])
+            : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        maxConcurrency: json.containsKey('MaxConcurrency')
+            ? json['MaxConcurrency'] as String
+            : null,
+        maxErrors:
+            json.containsKey('MaxErrors') ? json['MaxErrors'] as String : null,
+        loggingInfo: json.containsKey('LoggingInfo')
+            ? LoggingInfo.fromJson(json['LoggingInfo'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class UpdateManagedInstanceRoleResult {
@@ -10873,7 +14348,52 @@ class UpdatePatchBaselineResult {
     this.sources,
   });
   static UpdatePatchBaselineResult fromJson(Map<String, dynamic> json) =>
-      UpdatePatchBaselineResult();
+      UpdatePatchBaselineResult(
+        baselineId: json.containsKey('BaselineId')
+            ? json['BaselineId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+        globalFilters: json.containsKey('GlobalFilters')
+            ? PatchFilterGroup.fromJson(json['GlobalFilters'])
+            : null,
+        approvalRules: json.containsKey('ApprovalRules')
+            ? PatchRuleGroup.fromJson(json['ApprovalRules'])
+            : null,
+        approvedPatches: json.containsKey('ApprovedPatches')
+            ? (json['ApprovedPatches'] as List).map((e) => e as String).toList()
+            : null,
+        approvedPatchesComplianceLevel:
+            json.containsKey('ApprovedPatchesComplianceLevel')
+                ? json['ApprovedPatchesComplianceLevel'] as String
+                : null,
+        approvedPatchesEnableNonSecurity:
+            json.containsKey('ApprovedPatchesEnableNonSecurity')
+                ? json['ApprovedPatchesEnableNonSecurity'] as bool
+                : null,
+        rejectedPatches: json.containsKey('RejectedPatches')
+            ? (json['RejectedPatches'] as List).map((e) => e as String).toList()
+            : null,
+        rejectedPatchesAction: json.containsKey('RejectedPatchesAction')
+            ? json['RejectedPatchesAction'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        modifiedDate: json.containsKey('ModifiedDate')
+            ? DateTime.parse(json['ModifiedDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        sources: json.containsKey('Sources')
+            ? (json['Sources'] as List)
+                .map((e) => PatchSource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The result body of the UpdateServiceSetting API action.

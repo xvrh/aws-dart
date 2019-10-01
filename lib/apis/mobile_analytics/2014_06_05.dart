@@ -3,6 +3,11 @@ import 'package:meta/meta.dart';
 /// Amazon Mobile Analytics is a service for collecting, visualizing, and
 /// understanding app usage data at scale.
 class MobileAnalyticsApi {
+  final _client;
+  MobileAnalyticsApi(client)
+      : _client =
+            client.configured('Mobile Analytics', serializer: 'rest-json');
+
   /// The PutEvents operation records one or more events. You can have up to
   /// 1,500 unique custom events per app, any combination of up to 40 attributes
   /// and metrics per custom event, and any number of attribute or metric
@@ -17,7 +22,14 @@ class MobileAnalyticsApi {
   Future<void> putEvents(
       {@required List<Event> events,
       @required String clientContext,
-      String clientContextEncoding}) async {}
+      String clientContextEncoding}) async {
+    await _client.send('PutEvents', {
+      'events': events,
+      'clientContext': clientContext,
+      if (clientContextEncoding != null)
+        'clientContextEncoding': clientContextEncoding,
+    });
+  }
 }
 
 /// A JSON object representing a batch of unique event occurrences in your app.
@@ -56,6 +68,7 @@ class Event {
     this.attributes,
     this.metrics,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the session. Session information is required on ALL events.
@@ -80,4 +93,5 @@ class Session {
     this.startTimestamp,
     this.stopTimestamp,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

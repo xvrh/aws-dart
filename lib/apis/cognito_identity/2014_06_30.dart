@@ -22,6 +22,10 @@ import 'package:meta/meta.dart';
 /// For more information see
 /// [Amazon Cognito Federated Identities](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
 class CognitoIdentityApi {
+  final _client;
+  CognitoIdentityApi(client)
+      : _client = client.configured('Cognito Identity', serializer: 'json');
+
   /// Creates a new identity pool. The identity pool is a store of user identity
   /// information that is specific to your AWS account. The limit on identity
   /// pools is 60 per account. The keys for `SupportedLoginProviders` are as
@@ -77,7 +81,21 @@ class CognitoIdentityApi {
       List<CognitoIdentityProvider> cognitoIdentityProviders,
       List<String> samlProviderARNs,
       Map<String, String> identityPoolTags}) async {
-    return IdentityPool.fromJson({});
+    var response_ = await _client.send('CreateIdentityPool', {
+      'IdentityPoolName': identityPoolName,
+      'AllowUnauthenticatedIdentities': allowUnauthenticatedIdentities,
+      if (supportedLoginProviders != null)
+        'SupportedLoginProviders': supportedLoginProviders,
+      if (developerProviderName != null)
+        'DeveloperProviderName': developerProviderName,
+      if (openIdConnectProviderARNs != null)
+        'OpenIdConnectProviderARNs': openIdConnectProviderARNs,
+      if (cognitoIdentityProviders != null)
+        'CognitoIdentityProviders': cognitoIdentityProviders,
+      if (samlProviderARNs != null) 'SamlProviderARNs': samlProviderARNs,
+      if (identityPoolTags != null) 'IdentityPoolTags': identityPoolTags,
+    });
+    return IdentityPool.fromJson(response_);
   }
 
   /// Deletes identities from an identity pool. You can specify a list of 1-60
@@ -88,7 +106,10 @@ class CognitoIdentityApi {
   /// [identityIdsToDelete]: A list of 1-60 identities that you want to delete.
   Future<DeleteIdentitiesResponse> deleteIdentities(
       List<String> identityIdsToDelete) async {
-    return DeleteIdentitiesResponse.fromJson({});
+    var response_ = await _client.send('DeleteIdentities', {
+      'IdentityIdsToDelete': identityIdsToDelete,
+    });
+    return DeleteIdentitiesResponse.fromJson(response_);
   }
 
   /// Deletes an identity pool. Once a pool is deleted, users will not be able
@@ -97,7 +118,11 @@ class CognitoIdentityApi {
   /// You must use AWS Developer credentials to call this API.
   ///
   /// [identityPoolId]: An identity pool ID in the format REGION:GUID.
-  Future<void> deleteIdentityPool(String identityPoolId) async {}
+  Future<void> deleteIdentityPool(String identityPoolId) async {
+    await _client.send('DeleteIdentityPool', {
+      'IdentityPoolId': identityPoolId,
+    });
+  }
 
   /// Returns metadata related to the given identity, including when the
   /// identity was created and any associated linked logins.
@@ -106,7 +131,10 @@ class CognitoIdentityApi {
   ///
   /// [identityId]: A unique identifier in the format REGION:GUID.
   Future<IdentityDescription> describeIdentity(String identityId) async {
-    return IdentityDescription.fromJson({});
+    var response_ = await _client.send('DescribeIdentity', {
+      'IdentityId': identityId,
+    });
+    return IdentityDescription.fromJson(response_);
   }
 
   /// Gets details about a particular identity pool, including the pool name, ID
@@ -116,7 +144,10 @@ class CognitoIdentityApi {
   ///
   /// [identityPoolId]: An identity pool ID in the format REGION:GUID.
   Future<IdentityPool> describeIdentityPool(String identityPoolId) async {
-    return IdentityPool.fromJson({});
+    var response_ = await _client.send('DescribeIdentityPool', {
+      'IdentityPoolId': identityPoolId,
+    });
+    return IdentityPool.fromJson(response_);
   }
 
   /// Returns credentials for the provided identity ID. Any provided logins will
@@ -149,7 +180,12 @@ class CognitoIdentityApi {
       String identityId,
       {Map<String, String> logins,
       String customRoleArn}) async {
-    return GetCredentialsForIdentityResponse.fromJson({});
+    var response_ = await _client.send('GetCredentialsForIdentity', {
+      'IdentityId': identityId,
+      if (logins != null) 'Logins': logins,
+      if (customRoleArn != null) 'CustomRoleArn': customRoleArn,
+    });
+    return GetCredentialsForIdentityResponse.fromJson(response_);
   }
 
   /// Generates (or retrieves) a Cognito ID. Supplying multiple logins will
@@ -179,7 +215,12 @@ class CognitoIdentityApi {
   /// *   Digits: `www.digits.com`
   Future<GetIdResponse> getId(String identityPoolId,
       {String accountId, Map<String, String> logins}) async {
-    return GetIdResponse.fromJson({});
+    var response_ = await _client.send('GetId', {
+      if (accountId != null) 'AccountId': accountId,
+      'IdentityPoolId': identityPoolId,
+      if (logins != null) 'Logins': logins,
+    });
+    return GetIdResponse.fromJson(response_);
   }
 
   /// Gets the roles for an identity pool.
@@ -189,7 +230,10 @@ class CognitoIdentityApi {
   /// [identityPoolId]: An identity pool ID in the format REGION:GUID.
   Future<GetIdentityPoolRolesResponse> getIdentityPoolRoles(
       String identityPoolId) async {
-    return GetIdentityPoolRolesResponse.fromJson({});
+    var response_ = await _client.send('GetIdentityPoolRoles', {
+      'IdentityPoolId': identityPoolId,
+    });
+    return GetIdentityPoolRolesResponse.fromJson(response_);
   }
 
   /// Gets an OpenID token, using a known Cognito ID. This known Cognito ID is
@@ -209,7 +253,11 @@ class CognitoIdentityApi {
   /// OpenId Connect provider, always include the `id_token`.
   Future<GetOpenIdTokenResponse> getOpenIdToken(String identityId,
       {Map<String, String> logins}) async {
-    return GetOpenIdTokenResponse.fromJson({});
+    var response_ = await _client.send('GetOpenIdToken', {
+      'IdentityId': identityId,
+      if (logins != null) 'Logins': logins,
+    });
+    return GetOpenIdTokenResponse.fromJson(response_);
   }
 
   /// Registers (or retrieves) a Cognito `IdentityId` and an OpenID Connect
@@ -258,7 +306,13 @@ class CognitoIdentityApi {
           String identityId,
           @required Map<String, String> logins,
           BigInt tokenDuration}) async {
-    return GetOpenIdTokenForDeveloperIdentityResponse.fromJson({});
+    var response_ = await _client.send('GetOpenIdTokenForDeveloperIdentity', {
+      'IdentityPoolId': identityPoolId,
+      if (identityId != null) 'IdentityId': identityId,
+      'Logins': logins,
+      if (tokenDuration != null) 'TokenDuration': tokenDuration,
+    });
+    return GetOpenIdTokenForDeveloperIdentityResponse.fromJson(response_);
   }
 
   /// Lists the identities in an identity pool.
@@ -279,7 +333,13 @@ class CognitoIdentityApi {
       @required int maxResults,
       String nextToken,
       bool hideDisabled}) async {
-    return ListIdentitiesResponse.fromJson({});
+    var response_ = await _client.send('ListIdentities', {
+      'IdentityPoolId': identityPoolId,
+      'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (hideDisabled != null) 'HideDisabled': hideDisabled,
+    });
+    return ListIdentitiesResponse.fromJson(response_);
   }
 
   /// Lists all of the Cognito identity pools registered for your account.
@@ -291,7 +351,11 @@ class CognitoIdentityApi {
   /// [nextToken]: A pagination token.
   Future<ListIdentityPoolsResponse> listIdentityPools(int maxResults,
       {String nextToken}) async {
-    return ListIdentityPoolsResponse.fromJson({});
+    var response_ = await _client.send('ListIdentityPools', {
+      'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListIdentityPoolsResponse.fromJson(response_);
   }
 
   /// Lists the tags that are assigned to an Amazon Cognito identity pool.
@@ -306,7 +370,10 @@ class CognitoIdentityApi {
   /// the tags are assigned to.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Retrieves the `IdentityID` associated with a `DeveloperUserIdentifier` or
@@ -353,7 +420,15 @@ class CognitoIdentityApi {
       String developerUserIdentifier,
       int maxResults,
       String nextToken}) async {
-    return LookupDeveloperIdentityResponse.fromJson({});
+    var response_ = await _client.send('LookupDeveloperIdentity', {
+      'IdentityPoolId': identityPoolId,
+      if (identityId != null) 'IdentityId': identityId,
+      if (developerUserIdentifier != null)
+        'DeveloperUserIdentifier': developerUserIdentifier,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return LookupDeveloperIdentityResponse.fromJson(response_);
   }
 
   /// Merges two users having different `IdentityId`s, existing in the same
@@ -391,7 +466,13 @@ class CognitoIdentityApi {
       @required String destinationUserIdentifier,
       @required String developerProviderName,
       @required String identityPoolId}) async {
-    return MergeDeveloperIdentitiesResponse.fromJson({});
+    var response_ = await _client.send('MergeDeveloperIdentities', {
+      'SourceUserIdentifier': sourceUserIdentifier,
+      'DestinationUserIdentifier': destinationUserIdentifier,
+      'DeveloperProviderName': developerProviderName,
+      'IdentityPoolId': identityPoolId,
+    });
+    return MergeDeveloperIdentitiesResponse.fromJson(response_);
   }
 
   /// Sets the roles for an identity pool. These roles are used when making
@@ -414,7 +495,13 @@ class CognitoIdentityApi {
   Future<void> setIdentityPoolRoles(
       {@required String identityPoolId,
       @required Map<String, String> roles,
-      Map<String, RoleMapping> roleMappings}) async {}
+      Map<String, RoleMapping> roleMappings}) async {
+    await _client.send('SetIdentityPoolRoles', {
+      'IdentityPoolId': identityPoolId,
+      'Roles': roles,
+      if (roleMappings != null) 'RoleMappings': roleMappings,
+    });
+  }
 
   /// Assigns a set of tags to an Amazon Cognito identity pool. A tag is a label
   /// that you can use to categorize and manage identity pools in different
@@ -442,7 +529,11 @@ class CognitoIdentityApi {
   /// [tags]: The tags to assign to the identity pool.
   Future<TagResourceResponse> tagResource(String resourceArn,
       {Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      if (tags != null) 'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Unlinks a `DeveloperUserIdentifier` from an existing identity. Unlinked
@@ -466,7 +557,14 @@ class CognitoIdentityApi {
       {@required String identityId,
       @required String identityPoolId,
       @required String developerProviderName,
-      @required String developerUserIdentifier}) async {}
+      @required String developerUserIdentifier}) async {
+    await _client.send('UnlinkDeveloperIdentity', {
+      'IdentityId': identityId,
+      'IdentityPoolId': identityPoolId,
+      'DeveloperProviderName': developerProviderName,
+      'DeveloperUserIdentifier': developerUserIdentifier,
+    });
+  }
 
   /// Unlinks a federated identity from an existing account. Unlinked logins
   /// will be considered new identities next time they are seen. Removing the
@@ -483,7 +581,13 @@ class CognitoIdentityApi {
   Future<void> unlinkIdentity(
       {@required String identityId,
       @required Map<String, String> logins,
-      @required List<String> loginsToRemove}) async {}
+      @required List<String> loginsToRemove}) async {
+    await _client.send('UnlinkIdentity', {
+      'IdentityId': identityId,
+      'Logins': logins,
+      'LoginsToRemove': loginsToRemove,
+    });
+  }
 
   /// Removes the specified tags from an Amazon Cognito identity pool. You can
   /// use this action up to 5 times per second, per account
@@ -494,7 +598,11 @@ class CognitoIdentityApi {
   /// [tagKeys]: The keys of the tags to remove from the user pool.
   Future<UntagResourceResponse> untagResource(String resourceArn,
       {List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates an identity pool.
@@ -536,7 +644,22 @@ class CognitoIdentityApi {
       List<CognitoIdentityProvider> cognitoIdentityProviders,
       List<String> samlProviderARNs,
       Map<String, String> identityPoolTags}) async {
-    return IdentityPool.fromJson({});
+    var response_ = await _client.send('UpdateIdentityPool', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityPoolName': identityPoolName,
+      'AllowUnauthenticatedIdentities': allowUnauthenticatedIdentities,
+      if (supportedLoginProviders != null)
+        'SupportedLoginProviders': supportedLoginProviders,
+      if (developerProviderName != null)
+        'DeveloperProviderName': developerProviderName,
+      if (openIdConnectProviderARNs != null)
+        'OpenIdConnectProviderARNs': openIdConnectProviderARNs,
+      if (cognitoIdentityProviders != null)
+        'CognitoIdentityProviders': cognitoIdentityProviders,
+      if (samlProviderARNs != null) 'SamlProviderARNs': samlProviderARNs,
+      if (identityPoolTags != null) 'IdentityPoolTags': identityPoolTags,
+    });
+    return IdentityPool.fromJson(response_);
   }
 }
 
@@ -567,7 +690,17 @@ class CognitoIdentityProvider {
     this.serverSideTokenCheck,
   });
   static CognitoIdentityProvider fromJson(Map<String, dynamic> json) =>
-      CognitoIdentityProvider();
+      CognitoIdentityProvider(
+        providerName: json.containsKey('ProviderName')
+            ? json['ProviderName'] as String
+            : null,
+        clientId:
+            json.containsKey('ClientId') ? json['ClientId'] as String : null,
+        serverSideTokenCheck: json.containsKey('ServerSideTokenCheck')
+            ? json['ServerSideTokenCheck'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Credentials for the provided identity ID.
@@ -590,7 +723,19 @@ class Credentials {
     this.sessionToken,
     this.expiration,
   });
-  static Credentials fromJson(Map<String, dynamic> json) => Credentials();
+  static Credentials fromJson(Map<String, dynamic> json) => Credentials(
+        accessKeyId: json.containsKey('AccessKeyId')
+            ? json['AccessKeyId'] as String
+            : null,
+        secretKey:
+            json.containsKey('SecretKey') ? json['SecretKey'] as String : null,
+        sessionToken: json.containsKey('SessionToken')
+            ? json['SessionToken'] as String
+            : null,
+        expiration: json.containsKey('Expiration')
+            ? DateTime.parse(json['Expiration'])
+            : null,
+      );
 }
 
 /// Returned in response to a successful `DeleteIdentities` operation.
@@ -603,7 +748,13 @@ class DeleteIdentitiesResponse {
     this.unprocessedIdentityIds,
   });
   static DeleteIdentitiesResponse fromJson(Map<String, dynamic> json) =>
-      DeleteIdentitiesResponse();
+      DeleteIdentitiesResponse(
+        unprocessedIdentityIds: json.containsKey('UnprocessedIdentityIds')
+            ? (json['UnprocessedIdentityIds'] as List)
+                .map((e) => UnprocessedIdentityId.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returned in response to a successful `GetCredentialsForIdentity` operation.
@@ -620,7 +771,14 @@ class GetCredentialsForIdentityResponse {
   });
   static GetCredentialsForIdentityResponse fromJson(
           Map<String, dynamic> json) =>
-      GetCredentialsForIdentityResponse();
+      GetCredentialsForIdentityResponse(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+        credentials: json.containsKey('Credentials')
+            ? Credentials.fromJson(json['Credentials'])
+            : null,
+      );
 }
 
 /// Returned in response to a GetId request.
@@ -631,7 +789,11 @@ class GetIdResponse {
   GetIdResponse({
     this.identityId,
   });
-  static GetIdResponse fromJson(Map<String, dynamic> json) => GetIdResponse();
+  static GetIdResponse fromJson(Map<String, dynamic> json) => GetIdResponse(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+      );
 }
 
 /// Returned in response to a successful `GetIdentityPoolRoles` operation.
@@ -655,7 +817,19 @@ class GetIdentityPoolRolesResponse {
     this.roleMappings,
   });
   static GetIdentityPoolRolesResponse fromJson(Map<String, dynamic> json) =>
-      GetIdentityPoolRolesResponse();
+      GetIdentityPoolRolesResponse(
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+        roles: json.containsKey('Roles')
+            ? (json['Roles'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        roleMappings: json.containsKey('RoleMappings')
+            ? (json['RoleMappings'] as Map)
+                .map((k, v) => MapEntry(k as String, RoleMapping.fromJson(v)))
+            : null,
+      );
 }
 
 /// Returned in response to a successful `GetOpenIdTokenForDeveloperIdentity`
@@ -673,7 +847,12 @@ class GetOpenIdTokenForDeveloperIdentityResponse {
   });
   static GetOpenIdTokenForDeveloperIdentityResponse fromJson(
           Map<String, dynamic> json) =>
-      GetOpenIdTokenForDeveloperIdentityResponse();
+      GetOpenIdTokenForDeveloperIdentityResponse(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+        token: json.containsKey('Token') ? json['Token'] as String : null,
+      );
 }
 
 /// Returned in response to a successful GetOpenIdToken request.
@@ -690,7 +869,12 @@ class GetOpenIdTokenResponse {
     this.token,
   });
   static GetOpenIdTokenResponse fromJson(Map<String, dynamic> json) =>
-      GetOpenIdTokenResponse();
+      GetOpenIdTokenResponse(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+        token: json.containsKey('Token') ? json['Token'] as String : null,
+      );
 }
 
 /// A description of the identity.
@@ -714,7 +898,20 @@ class IdentityDescription {
     this.lastModifiedDate,
   });
   static IdentityDescription fromJson(Map<String, dynamic> json) =>
-      IdentityDescription();
+      IdentityDescription(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+        logins: json.containsKey('Logins')
+            ? (json['Logins'] as List).map((e) => e as String).toList()
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+      );
 }
 
 /// An object representing an Amazon Cognito identity pool.
@@ -760,7 +957,38 @@ class IdentityPool {
     this.samlProviderARNs,
     this.identityPoolTags,
   });
-  static IdentityPool fromJson(Map<String, dynamic> json) => IdentityPool();
+  static IdentityPool fromJson(Map<String, dynamic> json) => IdentityPool(
+        identityPoolId: json['IdentityPoolId'] as String,
+        identityPoolName: json['IdentityPoolName'] as String,
+        allowUnauthenticatedIdentities:
+            json['AllowUnauthenticatedIdentities'] as bool,
+        supportedLoginProviders: json.containsKey('SupportedLoginProviders')
+            ? (json['SupportedLoginProviders'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        developerProviderName: json.containsKey('DeveloperProviderName')
+            ? json['DeveloperProviderName'] as String
+            : null,
+        openIdConnectProviderARNs: json.containsKey('OpenIdConnectProviderARNs')
+            ? (json['OpenIdConnectProviderARNs'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        cognitoIdentityProviders: json.containsKey('CognitoIdentityProviders')
+            ? (json['CognitoIdentityProviders'] as List)
+                .map((e) => CognitoIdentityProvider.fromJson(e))
+                .toList()
+            : null,
+        samlProviderARNs: json.containsKey('SamlProviderARNs')
+            ? (json['SamlProviderARNs'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        identityPoolTags: json.containsKey('IdentityPoolTags')
+            ? (json['IdentityPoolTags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A description of the identity pool.
@@ -776,7 +1004,14 @@ class IdentityPoolShortDescription {
     this.identityPoolName,
   });
   static IdentityPoolShortDescription fromJson(Map<String, dynamic> json) =>
-      IdentityPoolShortDescription();
+      IdentityPoolShortDescription(
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+        identityPoolName: json.containsKey('IdentityPoolName')
+            ? json['IdentityPoolName'] as String
+            : null,
+      );
 }
 
 /// The response to a ListIdentities request.
@@ -796,7 +1031,18 @@ class ListIdentitiesResponse {
     this.nextToken,
   });
   static ListIdentitiesResponse fromJson(Map<String, dynamic> json) =>
-      ListIdentitiesResponse();
+      ListIdentitiesResponse(
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+        identities: json.containsKey('Identities')
+            ? (json['Identities'] as List)
+                .map((e) => IdentityDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The result of a successful ListIdentityPools action.
@@ -812,7 +1058,15 @@ class ListIdentityPoolsResponse {
     this.nextToken,
   });
   static ListIdentityPoolsResponse fromJson(Map<String, dynamic> json) =>
-      ListIdentityPoolsResponse();
+      ListIdentityPoolsResponse(
+        identityPools: json.containsKey('IdentityPools')
+            ? (json['IdentityPools'] as List)
+                .map((e) => IdentityPoolShortDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -823,7 +1077,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Returned in response to a successful `LookupDeveloperIdentity` action.
@@ -850,7 +1109,19 @@ class LookupDeveloperIdentityResponse {
     this.nextToken,
   });
   static LookupDeveloperIdentityResponse fromJson(Map<String, dynamic> json) =>
-      LookupDeveloperIdentityResponse();
+      LookupDeveloperIdentityResponse(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+        developerUserIdentifierList:
+            json.containsKey('DeveloperUserIdentifierList')
+                ? (json['DeveloperUserIdentifierList'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A rule that maps a claim name, a claim value, and a match type to a role
@@ -876,7 +1147,13 @@ class MappingRule {
     @required this.value,
     @required this.roleArn,
   });
-  static MappingRule fromJson(Map<String, dynamic> json) => MappingRule();
+  static MappingRule fromJson(Map<String, dynamic> json) => MappingRule(
+        claim: json['Claim'] as String,
+        matchType: json['MatchType'] as String,
+        value: json['Value'] as String,
+        roleArn: json['RoleARN'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Returned in response to a successful `MergeDeveloperIdentities` action.
@@ -888,7 +1165,11 @@ class MergeDeveloperIdentitiesResponse {
     this.identityId,
   });
   static MergeDeveloperIdentitiesResponse fromJson(Map<String, dynamic> json) =>
-      MergeDeveloperIdentitiesResponse();
+      MergeDeveloperIdentitiesResponse(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+      );
 }
 
 /// A role mapping.
@@ -918,7 +1199,16 @@ class RoleMapping {
     this.ambiguousRoleResolution,
     this.rulesConfiguration,
   });
-  static RoleMapping fromJson(Map<String, dynamic> json) => RoleMapping();
+  static RoleMapping fromJson(Map<String, dynamic> json) => RoleMapping(
+        type: json['Type'] as String,
+        ambiguousRoleResolution: json.containsKey('AmbiguousRoleResolution')
+            ? json['AmbiguousRoleResolution'] as String
+            : null,
+        rulesConfiguration: json.containsKey('RulesConfiguration')
+            ? RulesConfigurationType.fromJson(json['RulesConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for rules.
@@ -932,7 +1222,12 @@ class RulesConfigurationType {
     @required this.rules,
   });
   static RulesConfigurationType fromJson(Map<String, dynamic> json) =>
-      RulesConfigurationType();
+      RulesConfigurationType(
+        rules: (json['Rules'] as List)
+            .map((e) => MappingRule.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -955,7 +1250,13 @@ class UnprocessedIdentityId {
     this.errorCode,
   });
   static UnprocessedIdentityId fromJson(Map<String, dynamic> json) =>
-      UnprocessedIdentityId();
+      UnprocessedIdentityId(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+      );
 }
 
 class UntagResourceResponse {

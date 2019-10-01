@@ -9,6 +9,10 @@ import 'package:meta/meta.dart';
 /// This API interface reference for AWS DataSync contains documentation for a
 /// programming interface that you can use to manage AWS DataSync.
 class DataSyncApi {
+  final _client;
+  DataSyncApi(client)
+      : _client = client.configured('DataSync', serializer: 'json');
+
   /// Cancels execution of a task.
   ///
   /// When you cancel a task execution, the transfer of some files are abruptly
@@ -24,7 +28,10 @@ class DataSyncApi {
   /// to cancel.
   Future<CancelTaskExecutionResponse> cancelTaskExecution(
       String taskExecutionArn) async {
-    return CancelTaskExecutionResponse.fromJson({});
+    var response_ = await _client.send('CancelTaskExecution', {
+      'TaskExecutionArn': taskExecutionArn,
+    });
+    return CancelTaskExecutionResponse.fromJson(response_);
   }
 
   /// Activates an AWS DataSync agent that you have deployed on your host. The
@@ -97,7 +104,15 @@ class DataSyncApi {
       String vpcEndpointId,
       List<String> subnetArns,
       List<String> securityGroupArns}) async {
-    return CreateAgentResponse.fromJson({});
+    var response_ = await _client.send('CreateAgent', {
+      'ActivationKey': activationKey,
+      if (agentName != null) 'AgentName': agentName,
+      if (tags != null) 'Tags': tags,
+      if (vpcEndpointId != null) 'VpcEndpointId': vpcEndpointId,
+      if (subnetArns != null) 'SubnetArns': subnetArns,
+      if (securityGroupArns != null) 'SecurityGroupArns': securityGroupArns,
+    });
+    return CreateAgentResponse.fromJson(response_);
   }
 
   /// Creates an endpoint for an Amazon EFS file system.
@@ -141,7 +156,13 @@ class DataSyncApi {
       @required String efsFilesystemArn,
       @required Ec2Config ec2Config,
       List<TagListEntry> tags}) async {
-    return CreateLocationEfsResponse.fromJson({});
+    var response_ = await _client.send('CreateLocationEfs', {
+      if (subdirectory != null) 'Subdirectory': subdirectory,
+      'EfsFilesystemArn': efsFilesystemArn,
+      'Ec2Config': ec2Config,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateLocationEfsResponse.fromJson(response_);
   }
 
   /// Creates an endpoint for a Network File System (NFS) file system.
@@ -193,7 +214,14 @@ class DataSyncApi {
       @required OnPremConfig onPremConfig,
       NfsMountOptions mountOptions,
       List<TagListEntry> tags}) async {
-    return CreateLocationNfsResponse.fromJson({});
+    var response_ = await _client.send('CreateLocationNfs', {
+      'Subdirectory': subdirectory,
+      'ServerHostname': serverHostname,
+      'OnPremConfig': onPremConfig,
+      if (mountOptions != null) 'MountOptions': mountOptions,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateLocationNfsResponse.fromJson(response_);
   }
 
   /// Creates an endpoint for an Amazon S3 bucket.
@@ -221,7 +249,13 @@ class DataSyncApi {
       @required String s3BucketArn,
       @required S3Config s3Config,
       List<TagListEntry> tags}) async {
-    return CreateLocationS3Response.fromJson({});
+    var response_ = await _client.send('CreateLocationS3', {
+      if (subdirectory != null) 'Subdirectory': subdirectory,
+      'S3BucketArn': s3BucketArn,
+      'S3Config': s3Config,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateLocationS3Response.fromJson(response_);
   }
 
   /// Creates an endpoint for a Server Message Block (SMB) file system.
@@ -278,7 +312,17 @@ class DataSyncApi {
       @required List<String> agentArns,
       SmbMountOptions mountOptions,
       List<TagListEntry> tags}) async {
-    return CreateLocationSmbResponse.fromJson({});
+    var response_ = await _client.send('CreateLocationSmb', {
+      'Subdirectory': subdirectory,
+      'ServerHostname': serverHostname,
+      'User': user,
+      if (domain != null) 'Domain': domain,
+      'Password': password,
+      'AgentArns': agentArns,
+      if (mountOptions != null) 'MountOptions': mountOptions,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateLocationSmbResponse.fromJson(response_);
   }
 
   /// Creates a task. A task is a set of two locations (source and destination)
@@ -342,7 +386,17 @@ class DataSyncApi {
       Options options,
       List<FilterRule> excludes,
       List<TagListEntry> tags}) async {
-    return CreateTaskResponse.fromJson({});
+    var response_ = await _client.send('CreateTask', {
+      'SourceLocationArn': sourceLocationArn,
+      'DestinationLocationArn': destinationLocationArn,
+      if (cloudWatchLogGroupArn != null)
+        'CloudWatchLogGroupArn': cloudWatchLogGroupArn,
+      if (name != null) 'Name': name,
+      if (options != null) 'Options': options,
+      if (excludes != null) 'Excludes': excludes,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateTaskResponse.fromJson(response_);
   }
 
   /// Deletes an agent. To specify which agent to delete, use the Amazon
@@ -354,21 +408,30 @@ class DataSyncApi {
   /// `ListAgents` operation to return a list of agents for your account and AWS
   /// Region.
   Future<DeleteAgentResponse> deleteAgent(String agentArn) async {
-    return DeleteAgentResponse.fromJson({});
+    var response_ = await _client.send('DeleteAgent', {
+      'AgentArn': agentArn,
+    });
+    return DeleteAgentResponse.fromJson(response_);
   }
 
   /// Deletes the configuration of a location used by AWS DataSync.
   ///
   /// [locationArn]: The Amazon Resource Name (ARN) of the location to delete.
   Future<DeleteLocationResponse> deleteLocation(String locationArn) async {
-    return DeleteLocationResponse.fromJson({});
+    var response_ = await _client.send('DeleteLocation', {
+      'LocationArn': locationArn,
+    });
+    return DeleteLocationResponse.fromJson(response_);
   }
 
   /// Deletes a task.
   ///
   /// [taskArn]: The Amazon Resource Name (ARN) of the task to delete.
   Future<DeleteTaskResponse> deleteTask(String taskArn) async {
-    return DeleteTaskResponse.fromJson({});
+    var response_ = await _client.send('DeleteTask', {
+      'TaskArn': taskArn,
+    });
+    return DeleteTaskResponse.fromJson(response_);
   }
 
   /// Returns metadata such as the name, the network interfaces, and the status
@@ -378,7 +441,10 @@ class DataSyncApi {
   ///
   /// [agentArn]: The Amazon Resource Name (ARN) of the agent to describe.
   Future<DescribeAgentResponse> describeAgent(String agentArn) async {
-    return DescribeAgentResponse.fromJson({});
+    var response_ = await _client.send('DescribeAgent', {
+      'AgentArn': agentArn,
+    });
+    return DescribeAgentResponse.fromJson(response_);
   }
 
   /// Returns metadata, such as the path information about an Amazon EFS
@@ -388,7 +454,10 @@ class DataSyncApi {
   /// describe.
   Future<DescribeLocationEfsResponse> describeLocationEfs(
       String locationArn) async {
-    return DescribeLocationEfsResponse.fromJson({});
+    var response_ = await _client.send('DescribeLocationEfs', {
+      'LocationArn': locationArn,
+    });
+    return DescribeLocationEfsResponse.fromJson(response_);
   }
 
   /// Returns metadata, such as the path information, about a NFS location.
@@ -397,7 +466,10 @@ class DataSyncApi {
   /// describe.
   Future<DescribeLocationNfsResponse> describeLocationNfs(
       String locationArn) async {
-    return DescribeLocationNfsResponse.fromJson({});
+    var response_ = await _client.send('DescribeLocationNfs', {
+      'LocationArn': locationArn,
+    });
+    return DescribeLocationNfsResponse.fromJson(response_);
   }
 
   /// Returns metadata, such as bucket name, about an Amazon S3 bucket location.
@@ -406,7 +478,10 @@ class DataSyncApi {
   /// location to describe.
   Future<DescribeLocationS3Response> describeLocationS3(
       String locationArn) async {
-    return DescribeLocationS3Response.fromJson({});
+    var response_ = await _client.send('DescribeLocationS3', {
+      'LocationArn': locationArn,
+    });
+    return DescribeLocationS3Response.fromJson(response_);
   }
 
   /// Returns metadata, such as the path and user information about a SMB
@@ -416,14 +491,20 @@ class DataSyncApi {
   /// describe.
   Future<DescribeLocationSmbResponse> describeLocationSmb(
       String locationArn) async {
-    return DescribeLocationSmbResponse.fromJson({});
+    var response_ = await _client.send('DescribeLocationSmb', {
+      'LocationArn': locationArn,
+    });
+    return DescribeLocationSmbResponse.fromJson(response_);
   }
 
   /// Returns metadata about a task.
   ///
   /// [taskArn]: The Amazon Resource Name (ARN) of the task to describe.
   Future<DescribeTaskResponse> describeTask(String taskArn) async {
-    return DescribeTaskResponse.fromJson({});
+    var response_ = await _client.send('DescribeTask', {
+      'TaskArn': taskArn,
+    });
+    return DescribeTaskResponse.fromJson(response_);
   }
 
   /// Returns detailed metadata about a task that is being executed.
@@ -432,7 +513,10 @@ class DataSyncApi {
   /// being executed.
   Future<DescribeTaskExecutionResponse> describeTaskExecution(
       String taskExecutionArn) async {
-    return DescribeTaskExecutionResponse.fromJson({});
+    var response_ = await _client.send('DescribeTaskExecution', {
+      'TaskExecutionArn': taskExecutionArn,
+    });
+    return DescribeTaskExecutionResponse.fromJson(response_);
   }
 
   /// Returns a list of agents owned by an AWS account in the AWS Region
@@ -454,7 +538,11 @@ class DataSyncApi {
   /// begin the next list of agents.
   Future<ListAgentsResponse> listAgents(
       {int maxResults, String nextToken}) async {
-    return ListAgentsResponse.fromJson({});
+    var response_ = await _client.send('ListAgents', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAgentsResponse.fromJson(response_);
   }
 
   /// Returns a lists of source and destination locations.
@@ -470,7 +558,11 @@ class DataSyncApi {
   /// begin the next list of locations.
   Future<ListLocationsResponse> listLocations(
       {int maxResults, String nextToken}) async {
-    return ListLocationsResponse.fromJson({});
+    var response_ = await _client.send('ListLocations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListLocationsResponse.fromJson(response_);
   }
 
   /// Returns all the tags associated with a specified resources.
@@ -484,7 +576,12 @@ class DataSyncApi {
   /// begin the next list of locations.
   Future<ListTagsForResourceResponse> listTagsForResource(String resourceArn,
       {int maxResults, String nextToken}) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Returns a list of executed tasks.
@@ -498,7 +595,12 @@ class DataSyncApi {
   /// begin the next list of the executed tasks.
   Future<ListTaskExecutionsResponse> listTaskExecutions(
       {String taskArn, int maxResults, String nextToken}) async {
-    return ListTaskExecutionsResponse.fromJson({});
+    var response_ = await _client.send('ListTaskExecutions', {
+      if (taskArn != null) 'TaskArn': taskArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTaskExecutionsResponse.fromJson(response_);
   }
 
   /// Returns a list of all the tasks.
@@ -509,7 +611,11 @@ class DataSyncApi {
   /// begin the next list of tasks.
   Future<ListTasksResponse> listTasks(
       {int maxResults, String nextToken}) async {
-    return ListTasksResponse.fromJson({});
+    var response_ = await _client.send('ListTasks', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTasksResponse.fromJson(response_);
   }
 
   /// Starts a specific invocation of a task. A `TaskExecution` value represents
@@ -530,7 +636,12 @@ class DataSyncApi {
   /// "|" (that is, a pipe). For example: `"/folder1|/folder2"`
   Future<StartTaskExecutionResponse> startTaskExecution(String taskArn,
       {Options overrideOptions, List<FilterRule> includes}) async {
-    return StartTaskExecutionResponse.fromJson({});
+    var response_ = await _client.send('StartTaskExecution', {
+      'TaskArn': taskArn,
+      if (overrideOptions != null) 'OverrideOptions': overrideOptions,
+      if (includes != null) 'Includes': includes,
+    });
+    return StartTaskExecutionResponse.fromJson(response_);
   }
 
   /// Applies a key-value pair to an AWS resource.
@@ -541,7 +652,11 @@ class DataSyncApi {
   /// [tags]: The tags to apply.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<TagListEntry> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes a tag from an AWS resource.
@@ -552,7 +667,11 @@ class DataSyncApi {
   /// [keys]: The keys in the key-value pair in the tag to remove.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> keys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'Keys': keys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates the name of an agent.
@@ -562,7 +681,11 @@ class DataSyncApi {
   /// [name]: The name that you want to use to configure the agent.
   Future<UpdateAgentResponse> updateAgent(String agentArn,
       {String name}) async {
-    return UpdateAgentResponse.fromJson({});
+    var response_ = await _client.send('UpdateAgent', {
+      'AgentArn': agentArn,
+      if (name != null) 'Name': name,
+    });
+    return UpdateAgentResponse.fromJson(response_);
   }
 
   /// Updates the metadata associated with a task.
@@ -584,7 +707,15 @@ class DataSyncApi {
       List<FilterRule> excludes,
       String name,
       String cloudWatchLogGroupArn}) async {
-    return UpdateTaskResponse.fromJson({});
+    var response_ = await _client.send('UpdateTask', {
+      'TaskArn': taskArn,
+      if (options != null) 'Options': options,
+      if (excludes != null) 'Excludes': excludes,
+      if (name != null) 'Name': name,
+      if (cloudWatchLogGroupArn != null)
+        'CloudWatchLogGroupArn': cloudWatchLogGroupArn,
+    });
+    return UpdateTaskResponse.fromJson(response_);
   }
 }
 
@@ -606,7 +737,12 @@ class AgentListEntry {
     this.name,
     this.status,
   });
-  static AgentListEntry fromJson(Map<String, dynamic> json) => AgentListEntry();
+  static AgentListEntry fromJson(Map<String, dynamic> json) => AgentListEntry(
+        agentArn:
+            json.containsKey('AgentArn') ? json['AgentArn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class CancelTaskExecutionResponse {
@@ -625,7 +761,10 @@ class CreateAgentResponse {
     this.agentArn,
   });
   static CreateAgentResponse fromJson(Map<String, dynamic> json) =>
-      CreateAgentResponse();
+      CreateAgentResponse(
+        agentArn:
+            json.containsKey('AgentArn') ? json['AgentArn'] as String : null,
+      );
 }
 
 /// CreateLocationEfs
@@ -638,7 +777,11 @@ class CreateLocationEfsResponse {
     this.locationArn,
   });
   static CreateLocationEfsResponse fromJson(Map<String, dynamic> json) =>
-      CreateLocationEfsResponse();
+      CreateLocationEfsResponse(
+        locationArn: json.containsKey('LocationArn')
+            ? json['LocationArn'] as String
+            : null,
+      );
 }
 
 /// CreateLocationNfsResponse
@@ -651,7 +794,11 @@ class CreateLocationNfsResponse {
     this.locationArn,
   });
   static CreateLocationNfsResponse fromJson(Map<String, dynamic> json) =>
-      CreateLocationNfsResponse();
+      CreateLocationNfsResponse(
+        locationArn: json.containsKey('LocationArn')
+            ? json['LocationArn'] as String
+            : null,
+      );
 }
 
 /// CreateLocationS3Response
@@ -664,7 +811,11 @@ class CreateLocationS3Response {
     this.locationArn,
   });
   static CreateLocationS3Response fromJson(Map<String, dynamic> json) =>
-      CreateLocationS3Response();
+      CreateLocationS3Response(
+        locationArn: json.containsKey('LocationArn')
+            ? json['LocationArn'] as String
+            : null,
+      );
 }
 
 /// CreateLocationSmbResponse
@@ -677,7 +828,11 @@ class CreateLocationSmbResponse {
     this.locationArn,
   });
   static CreateLocationSmbResponse fromJson(Map<String, dynamic> json) =>
-      CreateLocationSmbResponse();
+      CreateLocationSmbResponse(
+        locationArn: json.containsKey('LocationArn')
+            ? json['LocationArn'] as String
+            : null,
+      );
 }
 
 /// CreateTaskResponse
@@ -689,7 +844,9 @@ class CreateTaskResponse {
     this.taskArn,
   });
   static CreateTaskResponse fromJson(Map<String, dynamic> json) =>
-      CreateTaskResponse();
+      CreateTaskResponse(
+        taskArn: json.containsKey('TaskArn') ? json['TaskArn'] as String : null,
+      );
 }
 
 class DeleteAgentResponse {
@@ -748,7 +905,24 @@ class DescribeAgentResponse {
     this.privateLinkConfig,
   });
   static DescribeAgentResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAgentResponse();
+      DescribeAgentResponse(
+        agentArn:
+            json.containsKey('AgentArn') ? json['AgentArn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        lastConnectionTime: json.containsKey('LastConnectionTime')
+            ? DateTime.parse(json['LastConnectionTime'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        endpointType: json.containsKey('EndpointType')
+            ? json['EndpointType'] as String
+            : null,
+        privateLinkConfig: json.containsKey('PrivateLinkConfig')
+            ? PrivateLinkConfig.fromJson(json['PrivateLinkConfig'])
+            : null,
+      );
 }
 
 /// DescribeLocationEfsResponse
@@ -771,7 +945,20 @@ class DescribeLocationEfsResponse {
     this.creationTime,
   });
   static DescribeLocationEfsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLocationEfsResponse();
+      DescribeLocationEfsResponse(
+        locationArn: json.containsKey('LocationArn')
+            ? json['LocationArn'] as String
+            : null,
+        locationUri: json.containsKey('LocationUri')
+            ? json['LocationUri'] as String
+            : null,
+        ec2Config: json.containsKey('Ec2Config')
+            ? Ec2Config.fromJson(json['Ec2Config'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// DescribeLocationNfsResponse
@@ -798,7 +985,23 @@ class DescribeLocationNfsResponse {
     this.creationTime,
   });
   static DescribeLocationNfsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLocationNfsResponse();
+      DescribeLocationNfsResponse(
+        locationArn: json.containsKey('LocationArn')
+            ? json['LocationArn'] as String
+            : null,
+        locationUri: json.containsKey('LocationUri')
+            ? json['LocationUri'] as String
+            : null,
+        onPremConfig: json.containsKey('OnPremConfig')
+            ? OnPremConfig.fromJson(json['OnPremConfig'])
+            : null,
+        mountOptions: json.containsKey('MountOptions')
+            ? NfsMountOptions.fromJson(json['MountOptions'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// DescribeLocationS3Response
@@ -821,7 +1024,20 @@ class DescribeLocationS3Response {
     this.creationTime,
   });
   static DescribeLocationS3Response fromJson(Map<String, dynamic> json) =>
-      DescribeLocationS3Response();
+      DescribeLocationS3Response(
+        locationArn: json.containsKey('LocationArn')
+            ? json['LocationArn'] as String
+            : null,
+        locationUri: json.containsKey('LocationUri')
+            ? json['LocationUri'] as String
+            : null,
+        s3Config: json.containsKey('S3Config')
+            ? S3Config.fromJson(json['S3Config'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// DescribeLocationSmbResponse
@@ -859,7 +1075,25 @@ class DescribeLocationSmbResponse {
     this.creationTime,
   });
   static DescribeLocationSmbResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLocationSmbResponse();
+      DescribeLocationSmbResponse(
+        locationArn: json.containsKey('LocationArn')
+            ? json['LocationArn'] as String
+            : null,
+        locationUri: json.containsKey('LocationUri')
+            ? json['LocationUri'] as String
+            : null,
+        agentArns: json.containsKey('AgentArns')
+            ? (json['AgentArns'] as List).map((e) => e as String).toList()
+            : null,
+        user: json.containsKey('User') ? json['User'] as String : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        mountOptions: json.containsKey('MountOptions')
+            ? SmbMountOptions.fromJson(json['MountOptions'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// DescribeTaskExecutionResponse
@@ -946,7 +1180,46 @@ class DescribeTaskExecutionResponse {
     this.result,
   });
   static DescribeTaskExecutionResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTaskExecutionResponse();
+      DescribeTaskExecutionResponse(
+        taskExecutionArn: json.containsKey('TaskExecutionArn')
+            ? json['TaskExecutionArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        options: json.containsKey('Options')
+            ? Options.fromJson(json['Options'])
+            : null,
+        excludes: json.containsKey('Excludes')
+            ? (json['Excludes'] as List)
+                .map((e) => FilterRule.fromJson(e))
+                .toList()
+            : null,
+        includes: json.containsKey('Includes')
+            ? (json['Includes'] as List)
+                .map((e) => FilterRule.fromJson(e))
+                .toList()
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        estimatedFilesToTransfer: json.containsKey('EstimatedFilesToTransfer')
+            ? BigInt.from(json['EstimatedFilesToTransfer'])
+            : null,
+        estimatedBytesToTransfer: json.containsKey('EstimatedBytesToTransfer')
+            ? BigInt.from(json['EstimatedBytesToTransfer'])
+            : null,
+        filesTransferred: json.containsKey('FilesTransferred')
+            ? BigInt.from(json['FilesTransferred'])
+            : null,
+        bytesWritten: json.containsKey('BytesWritten')
+            ? BigInt.from(json['BytesWritten'])
+            : null,
+        bytesTransferred: json.containsKey('BytesTransferred')
+            ? BigInt.from(json['BytesTransferred'])
+            : null,
+        result: json.containsKey('Result')
+            ? TaskExecutionResultDetail.fromJson(json['Result'])
+            : null,
+      );
 }
 
 /// DescribeTaskResponse
@@ -1031,7 +1304,51 @@ class DescribeTaskResponse {
     this.creationTime,
   });
   static DescribeTaskResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTaskResponse();
+      DescribeTaskResponse(
+        taskArn: json.containsKey('TaskArn') ? json['TaskArn'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        currentTaskExecutionArn: json.containsKey('CurrentTaskExecutionArn')
+            ? json['CurrentTaskExecutionArn'] as String
+            : null,
+        sourceLocationArn: json.containsKey('SourceLocationArn')
+            ? json['SourceLocationArn'] as String
+            : null,
+        destinationLocationArn: json.containsKey('DestinationLocationArn')
+            ? json['DestinationLocationArn'] as String
+            : null,
+        cloudWatchLogGroupArn: json.containsKey('CloudWatchLogGroupArn')
+            ? json['CloudWatchLogGroupArn'] as String
+            : null,
+        sourceNetworkInterfaceArns:
+            json.containsKey('SourceNetworkInterfaceArns')
+                ? (json['SourceNetworkInterfaceArns'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        destinationNetworkInterfaceArns:
+            json.containsKey('DestinationNetworkInterfaceArns')
+                ? (json['DestinationNetworkInterfaceArns'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        options: json.containsKey('Options')
+            ? Options.fromJson(json['Options'])
+            : null,
+        excludes: json.containsKey('Excludes')
+            ? (json['Excludes'] as List)
+                .map((e) => FilterRule.fromJson(e))
+                .toList()
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorDetail: json.containsKey('ErrorDetail')
+            ? json['ErrorDetail'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// The subnet and the security group that DataSync uses to access target EFS
@@ -1051,7 +1368,13 @@ class Ec2Config {
     @required this.subnetArn,
     @required this.securityGroupArns,
   });
-  static Ec2Config fromJson(Map<String, dynamic> json) => Ec2Config();
+  static Ec2Config fromJson(Map<String, dynamic> json) => Ec2Config(
+        subnetArn: json['SubnetArn'] as String,
+        securityGroupArns: (json['SecurityGroupArns'] as List)
+            .map((e) => e as String)
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies which files, folders and objects to include or exclude when
@@ -1070,7 +1393,13 @@ class FilterRule {
     this.filterType,
     this.value,
   });
-  static FilterRule fromJson(Map<String, dynamic> json) => FilterRule();
+  static FilterRule fromJson(Map<String, dynamic> json) => FilterRule(
+        filterType: json.containsKey('FilterType')
+            ? json['FilterType'] as String
+            : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// ListAgentsResponse
@@ -1087,7 +1416,15 @@ class ListAgentsResponse {
     this.nextToken,
   });
   static ListAgentsResponse fromJson(Map<String, dynamic> json) =>
-      ListAgentsResponse();
+      ListAgentsResponse(
+        agents: json.containsKey('Agents')
+            ? (json['Agents'] as List)
+                .map((e) => AgentListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// ListLocationsResponse
@@ -1104,7 +1441,15 @@ class ListLocationsResponse {
     this.nextToken,
   });
   static ListLocationsResponse fromJson(Map<String, dynamic> json) =>
-      ListLocationsResponse();
+      ListLocationsResponse(
+        locations: json.containsKey('Locations')
+            ? (json['Locations'] as List)
+                .map((e) => LocationListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// ListTagsForResourceResponse
@@ -1121,7 +1466,15 @@ class ListTagsForResourceResponse {
     this.nextToken,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List)
+                .map((e) => TagListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// ListTaskExecutionsResponse
@@ -1138,7 +1491,15 @@ class ListTaskExecutionsResponse {
     this.nextToken,
   });
   static ListTaskExecutionsResponse fromJson(Map<String, dynamic> json) =>
-      ListTaskExecutionsResponse();
+      ListTaskExecutionsResponse(
+        taskExecutions: json.containsKey('TaskExecutions')
+            ? (json['TaskExecutions'] as List)
+                .map((e) => TaskExecutionListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// ListTasksResponse
@@ -1155,7 +1516,15 @@ class ListTasksResponse {
     this.nextToken,
   });
   static ListTasksResponse fromJson(Map<String, dynamic> json) =>
-      ListTasksResponse();
+      ListTasksResponse(
+        tasks: json.containsKey('Tasks')
+            ? (json['Tasks'] as List)
+                .map((e) => TaskListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents a single entry in a list of locations. `LocationListEntry`
@@ -1193,7 +1562,14 @@ class LocationListEntry {
     this.locationUri,
   });
   static LocationListEntry fromJson(Map<String, dynamic> json) =>
-      LocationListEntry();
+      LocationListEntry(
+        locationArn: json.containsKey('LocationArn')
+            ? json['LocationArn'] as String
+            : null,
+        locationUri: json.containsKey('LocationUri')
+            ? json['LocationUri'] as String
+            : null,
+      );
 }
 
 /// Represents the mount options that are available for DataSync to access an
@@ -1208,8 +1584,10 @@ class NfsMountOptions {
   NfsMountOptions({
     this.version,
   });
-  static NfsMountOptions fromJson(Map<String, dynamic> json) =>
-      NfsMountOptions();
+  static NfsMountOptions fromJson(Map<String, dynamic> json) => NfsMountOptions(
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of Amazon Resource Names (ARNs) of agents to use for a Network File
@@ -1221,7 +1599,10 @@ class OnPremConfig {
   OnPremConfig({
     @required this.agentArns,
   });
-  static OnPremConfig fromJson(Map<String, dynamic> json) => OnPremConfig();
+  static OnPremConfig fromJson(Map<String, dynamic> json) => OnPremConfig(
+        agentArns: (json['AgentArns'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the options that are available to control the behavior of a
@@ -1356,7 +1737,28 @@ class Options {
     this.posixPermissions,
     this.bytesPerSecond,
   });
-  static Options fromJson(Map<String, dynamic> json) => Options();
+  static Options fromJson(Map<String, dynamic> json) => Options(
+        verifyMode: json.containsKey('VerifyMode')
+            ? json['VerifyMode'] as String
+            : null,
+        atime: json.containsKey('Atime') ? json['Atime'] as String : null,
+        mtime: json.containsKey('Mtime') ? json['Mtime'] as String : null,
+        uid: json.containsKey('Uid') ? json['Uid'] as String : null,
+        gid: json.containsKey('Gid') ? json['Gid'] as String : null,
+        preserveDeletedFiles: json.containsKey('PreserveDeletedFiles')
+            ? json['PreserveDeletedFiles'] as String
+            : null,
+        preserveDevices: json.containsKey('PreserveDevices')
+            ? json['PreserveDevices'] as String
+            : null,
+        posixPermissions: json.containsKey('PosixPermissions')
+            ? json['PosixPermissions'] as String
+            : null,
+        bytesPerSecond: json.containsKey('BytesPerSecond')
+            ? BigInt.from(json['BytesPerSecond'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The VPC endpoint, subnet and security group that an agent uses to access IP
@@ -1390,7 +1792,22 @@ class PrivateLinkConfig {
     this.securityGroupArns,
   });
   static PrivateLinkConfig fromJson(Map<String, dynamic> json) =>
-      PrivateLinkConfig();
+      PrivateLinkConfig(
+        vpcEndpointId: json.containsKey('VpcEndpointId')
+            ? json['VpcEndpointId'] as String
+            : null,
+        privateLinkEndpoint: json.containsKey('PrivateLinkEndpoint')
+            ? json['PrivateLinkEndpoint'] as String
+            : null,
+        subnetArns: json.containsKey('SubnetArns')
+            ? (json['SubnetArns'] as List).map((e) => e as String).toList()
+            : null,
+        securityGroupArns: json.containsKey('SecurityGroupArns')
+            ? (json['SecurityGroupArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// The Amazon Resource Name (ARN) of the AWS Identity and Access Management
@@ -1406,7 +1823,10 @@ class S3Config {
   S3Config({
     @required this.bucketAccessRoleArn,
   });
-  static S3Config fromJson(Map<String, dynamic> json) => S3Config();
+  static S3Config fromJson(Map<String, dynamic> json) => S3Config(
+        bucketAccessRoleArn: json['BucketAccessRoleArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the mount options that are available for DataSync to access an
@@ -1421,8 +1841,10 @@ class SmbMountOptions {
   SmbMountOptions({
     this.version,
   });
-  static SmbMountOptions fromJson(Map<String, dynamic> json) =>
-      SmbMountOptions();
+  static SmbMountOptions fromJson(Map<String, dynamic> json) => SmbMountOptions(
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// StartTaskExecutionResponse
@@ -1435,7 +1857,11 @@ class StartTaskExecutionResponse {
     this.taskExecutionArn,
   });
   static StartTaskExecutionResponse fromJson(Map<String, dynamic> json) =>
-      StartTaskExecutionResponse();
+      StartTaskExecutionResponse(
+        taskExecutionArn: json.containsKey('TaskExecutionArn')
+            ? json['TaskExecutionArn'] as String
+            : null,
+      );
 }
 
 /// Represents a single entry in a list of AWS resource tags. `TagListEntry`
@@ -1452,7 +1878,11 @@ class TagListEntry {
     @required this.key,
     this.value,
   });
-  static TagListEntry fromJson(Map<String, dynamic> json) => TagListEntry();
+  static TagListEntry fromJson(Map<String, dynamic> json) => TagListEntry(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -1476,7 +1906,12 @@ class TaskExecutionListEntry {
     this.status,
   });
   static TaskExecutionListEntry fromJson(Map<String, dynamic> json) =>
-      TaskExecutionListEntry();
+      TaskExecutionListEntry(
+        taskExecutionArn: json.containsKey('TaskExecutionArn')
+            ? json['TaskExecutionArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes the detailed result of a `TaskExecution` operation. This result
@@ -1523,7 +1958,31 @@ class TaskExecutionResultDetail {
     this.errorDetail,
   });
   static TaskExecutionResultDetail fromJson(Map<String, dynamic> json) =>
-      TaskExecutionResultDetail();
+      TaskExecutionResultDetail(
+        prepareDuration: json.containsKey('PrepareDuration')
+            ? BigInt.from(json['PrepareDuration'])
+            : null,
+        prepareStatus: json.containsKey('PrepareStatus')
+            ? json['PrepareStatus'] as String
+            : null,
+        transferDuration: json.containsKey('TransferDuration')
+            ? BigInt.from(json['TransferDuration'])
+            : null,
+        transferStatus: json.containsKey('TransferStatus')
+            ? json['TransferStatus'] as String
+            : null,
+        verifyDuration: json.containsKey('VerifyDuration')
+            ? BigInt.from(json['VerifyDuration'])
+            : null,
+        verifyStatus: json.containsKey('VerifyStatus')
+            ? json['VerifyStatus'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorDetail: json.containsKey('ErrorDetail')
+            ? json['ErrorDetail'] as String
+            : null,
+      );
 }
 
 /// Represents a single entry in a list of tasks. `TaskListEntry` returns an
@@ -1545,7 +2004,11 @@ class TaskListEntry {
     this.status,
     this.name,
   });
-  static TaskListEntry fromJson(Map<String, dynamic> json) => TaskListEntry();
+  static TaskListEntry fromJson(Map<String, dynamic> json) => TaskListEntry(
+        taskArn: json.containsKey('TaskArn') ? json['TaskArn'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class UntagResourceResponse {

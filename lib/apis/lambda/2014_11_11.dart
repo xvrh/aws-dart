@@ -12,6 +12,10 @@ import 'dart:typed_data';
 /// [AWS LambdaL How it Works](http://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html)
 /// in the AWS Lambda Developer Guide.
 class LambdaApi {
+  final _client;
+  LambdaApi(client)
+      : _client = client.configured('Lambda', serializer: 'rest-json');
+
   /// Identifies a stream as an event source for an AWS Lambda function. It can
   /// be either an Amazon Kinesis stream or a Amazon DynamoDB stream. AWS Lambda
   /// invokes the specified function when records are posted to the stream.
@@ -62,7 +66,14 @@ class LambdaApi {
       @required String role,
       int batchSize,
       Map<String, String> parameters}) async {
-    return EventSourceConfiguration.fromJson({});
+    var response_ = await _client.send('AddEventSource', {
+      'EventSource': eventSource,
+      'FunctionName': functionName,
+      'Role': role,
+      if (batchSize != null) 'BatchSize': batchSize,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return EventSourceConfiguration.fromJson(response_);
   }
 
   /// Deletes the specified Lambda function code and configuration.
@@ -70,7 +81,11 @@ class LambdaApi {
   /// This operation requires permission for the `lambda:DeleteFunction` action.
   ///
   /// [functionName]: The Lambda function to delete.
-  Future<void> deleteFunction(String functionName) async {}
+  Future<void> deleteFunction(String functionName) async {
+    await _client.send('DeleteFunction', {
+      'FunctionName': functionName,
+    });
+  }
 
   /// Returns configuration information for the specified event source mapping
   /// (see AddEventSource).
@@ -79,7 +94,10 @@ class LambdaApi {
   ///
   /// [uuid]: The AWS Lambda assigned ID of the event source mapping.
   Future<EventSourceConfiguration> getEventSource(String uuid) async {
-    return EventSourceConfiguration.fromJson({});
+    var response_ = await _client.send('GetEventSource', {
+      'UUID': uuid,
+    });
+    return EventSourceConfiguration.fromJson(response_);
   }
 
   /// Returns the configuration information of the Lambda function and a
@@ -92,7 +110,10 @@ class LambdaApi {
   ///
   /// [functionName]: The Lambda function name.
   Future<GetFunctionResponse> getFunction(String functionName) async {
-    return GetFunctionResponse.fromJson({});
+    var response_ = await _client.send('GetFunction', {
+      'FunctionName': functionName,
+    });
+    return GetFunctionResponse.fromJson(response_);
   }
 
   /// Returns the configuration information of the Lambda function. This the
@@ -106,7 +127,10 @@ class LambdaApi {
   /// retrieve the configuration information.
   Future<FunctionConfiguration> getFunctionConfiguration(
       String functionName) async {
-    return FunctionConfiguration.fromJson({});
+    var response_ = await _client.send('GetFunctionConfiguration', {
+      'FunctionName': functionName,
+    });
+    return FunctionConfiguration.fromJson(response_);
   }
 
   /// Submits an invocation request to AWS Lambda. Upon receiving the request,
@@ -122,7 +146,11 @@ class LambdaApi {
   /// input.
   Future<InvokeAsyncResponse> invokeAsync(
       {@required String functionName, @required Uint8List invokeArgs}) async {
-    return InvokeAsyncResponse.fromJson({});
+    var response_ = await _client.send('InvokeAsync', {
+      'FunctionName': functionName,
+      'InvokeArgs': invokeArgs,
+    });
+    return InvokeAsyncResponse.fromJson(response_);
   }
 
   /// Returns a list of event source mappings you created using the
@@ -151,7 +179,13 @@ class LambdaApi {
       String functionName,
       String marker,
       int maxItems}) async {
-    return ListEventSourcesResponse.fromJson({});
+    var response_ = await _client.send('ListEventSources', {
+      if (eventSourceArn != null) 'EventSourceArn': eventSourceArn,
+      if (functionName != null) 'FunctionName': functionName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListEventSourcesResponse.fromJson(response_);
   }
 
   /// Returns a list of your Lambda functions. For each function, the response
@@ -169,7 +203,11 @@ class LambdaApi {
   /// 0.
   Future<ListFunctionsResponse> listFunctions(
       {String marker, int maxItems}) async {
-    return ListFunctionsResponse.fromJson({});
+    var response_ = await _client.send('ListFunctions', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListFunctionsResponse.fromJson(response_);
   }
 
   /// Removes an event source mapping. This means AWS Lambda will no longer
@@ -179,7 +217,11 @@ class LambdaApi {
   /// action.
   ///
   /// [uuid]: The event source mapping ID.
-  Future<void> removeEventSource(String uuid) async {}
+  Future<void> removeEventSource(String uuid) async {
+    await _client.send('RemoveEventSource', {
+      'UUID': uuid,
+    });
+  }
 
   /// Updates the configuration parameters for the specified Lambda function by
   /// using the values provided in the request. You provide only the parameters
@@ -218,7 +260,15 @@ class LambdaApi {
       String description,
       int timeout,
       int memorySize}) async {
-    return FunctionConfiguration.fromJson({});
+    var response_ = await _client.send('UpdateFunctionConfiguration', {
+      'FunctionName': functionName,
+      if (role != null) 'Role': role,
+      if (handler != null) 'Handler': handler,
+      if (description != null) 'Description': description,
+      if (timeout != null) 'Timeout': timeout,
+      if (memorySize != null) 'MemorySize': memorySize,
+    });
+    return FunctionConfiguration.fromJson(response_);
   }
 
   /// Creates a new Lambda function or updates an existing function. The
@@ -276,7 +326,18 @@ class LambdaApi {
       String description,
       int timeout,
       int memorySize}) async {
-    return FunctionConfiguration.fromJson({});
+    var response_ = await _client.send('UploadFunction', {
+      'FunctionName': functionName,
+      'FunctionZip': functionZip,
+      'Runtime': runtime,
+      'Role': role,
+      'Handler': handler,
+      'Mode': mode,
+      if (description != null) 'Description': description,
+      if (timeout != null) 'Timeout': timeout,
+      if (memorySize != null) 'MemorySize': memorySize,
+    });
+    return FunctionConfiguration.fromJson(response_);
   }
 }
 
@@ -331,7 +392,28 @@ class EventSourceConfiguration {
     this.status,
   });
   static EventSourceConfiguration fromJson(Map<String, dynamic> json) =>
-      EventSourceConfiguration();
+      EventSourceConfiguration(
+        uuid: json.containsKey('UUID') ? json['UUID'] as String : null,
+        batchSize:
+            json.containsKey('BatchSize') ? json['BatchSize'] as int : null,
+        eventSource: json.containsKey('EventSource')
+            ? json['EventSource'] as String
+            : null,
+        functionName: json.containsKey('FunctionName')
+            ? json['FunctionName'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        isActive:
+            json.containsKey('IsActive') ? json['IsActive'] as bool : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// The object for the Lambda function location.
@@ -348,7 +430,13 @@ class FunctionCodeLocation {
     this.location,
   });
   static FunctionCodeLocation fromJson(Map<String, dynamic> json) =>
-      FunctionCodeLocation();
+      FunctionCodeLocation(
+        repositoryType: json.containsKey('RepositoryType')
+            ? json['RepositoryType'] as String
+            : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+      );
 }
 
 /// A complex type that describes function metadata.
@@ -411,7 +499,32 @@ class FunctionConfiguration {
     this.lastModified,
   });
   static FunctionConfiguration fromJson(Map<String, dynamic> json) =>
-      FunctionConfiguration();
+      FunctionConfiguration(
+        functionName: json.containsKey('FunctionName')
+            ? json['FunctionName'] as String
+            : null,
+        functionArn: json.containsKey('FunctionARN')
+            ? json['FunctionARN'] as String
+            : null,
+        configurationId: json.containsKey('ConfigurationId')
+            ? json['ConfigurationId'] as String
+            : null,
+        runtime: json.containsKey('Runtime') ? json['Runtime'] as String : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        handler: json.containsKey('Handler') ? json['Handler'] as String : null,
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+        codeSize:
+            json.containsKey('CodeSize') ? BigInt.from(json['CodeSize']) : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        timeout: json.containsKey('Timeout') ? json['Timeout'] as int : null,
+        memorySize:
+            json.containsKey('MemorySize') ? json['MemorySize'] as int : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+      );
 }
 
 /// This response contains the object for AWS Lambda function location (see
@@ -426,7 +539,14 @@ class GetFunctionResponse {
     this.code,
   });
   static GetFunctionResponse fromJson(Map<String, dynamic> json) =>
-      GetFunctionResponse();
+      GetFunctionResponse(
+        configuration: json.containsKey('Configuration')
+            ? FunctionConfiguration.fromJson(json['Configuration'])
+            : null,
+        code: json.containsKey('Code')
+            ? FunctionCodeLocation.fromJson(json['Code'])
+            : null,
+      );
 }
 
 /// Upon success, it returns empty response. Otherwise, throws an exception.
@@ -438,7 +558,9 @@ class InvokeAsyncResponse {
     this.status,
   });
   static InvokeAsyncResponse fromJson(Map<String, dynamic> json) =>
-      InvokeAsyncResponse();
+      InvokeAsyncResponse(
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 /// Contains a list of event sources (see API_EventSourceConfiguration)
@@ -454,7 +576,16 @@ class ListEventSourcesResponse {
     this.eventSources,
   });
   static ListEventSourcesResponse fromJson(Map<String, dynamic> json) =>
-      ListEventSourcesResponse();
+      ListEventSourcesResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        eventSources: json.containsKey('EventSources')
+            ? (json['EventSources'] as List)
+                .map((e) => EventSourceConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains a list of AWS Lambda function configurations (see
@@ -471,5 +602,14 @@ class ListFunctionsResponse {
     this.functions,
   });
   static ListFunctionsResponse fromJson(Map<String, dynamic> json) =>
-      ListFunctionsResponse();
+      ListFunctionsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        functions: json.containsKey('Functions')
+            ? (json['Functions'] as List)
+                .map((e) => FunctionConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }

@@ -24,6 +24,10 @@ import 'package:meta/meta.dart';
 /// is as follows, and we list following some related topics from the user
 /// guide.
 class NeptuneApi {
+  final _client;
+  NeptuneApi(client)
+      : _client = client.configured('Neptune', serializer: 'query');
+
   /// Associates an Identity and Access Management (IAM) role from an Neptune DB
   /// cluster.
   ///
@@ -34,7 +38,12 @@ class NeptuneApi {
   /// with the Neptune DB cluster, for example
   /// `arn:aws:iam::123456789012:role/NeptuneAccessRole`.
   Future<void> addRoleToDBCluster(
-      {@required String dbClusterIdentifier, @required String roleArn}) async {}
+      {@required String dbClusterIdentifier, @required String roleArn}) async {
+    await _client.send('AddRoleToDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      'RoleArn': roleArn,
+    });
+  }
 
   /// Adds a source identifier to an existing event notification subscription.
   ///
@@ -60,7 +69,11 @@ class NeptuneApi {
       addSourceIdentifierToSubscription(
           {@required String subscriptionName,
           @required String sourceIdentifier}) async {
-    return AddSourceIdentifierToSubscriptionResult.fromJson({});
+    var response_ = await _client.send('AddSourceIdentifierToSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SourceIdentifier': sourceIdentifier,
+    });
+    return AddSourceIdentifierToSubscriptionResult.fromJson(response_);
   }
 
   /// Adds metadata tags to an Amazon Neptune resource. These tags can also be
@@ -75,7 +88,12 @@ class NeptuneApi {
   ///
   /// [tags]: The tags to be assigned to the Amazon Neptune resource.
   Future<void> addTagsToResource(
-      {@required String resourceName, @required List<Tag> tags}) async {}
+      {@required String resourceName, @required List<Tag> tags}) async {
+    await _client.send('AddTagsToResource', {
+      'ResourceName': resourceName,
+      'Tags': tags,
+    });
+  }
 
   /// Applies a pending maintenance action to a resource (for example, to a DB
   /// instance).
@@ -105,7 +123,12 @@ class NeptuneApi {
       {@required String resourceIdentifier,
       @required String applyAction,
       @required String optInType}) async {
-    return ApplyPendingMaintenanceActionResult.fromJson({});
+    var response_ = await _client.send('ApplyPendingMaintenanceAction', {
+      'ResourceIdentifier': resourceIdentifier,
+      'ApplyAction': applyAction,
+      'OptInType': optInType,
+    });
+    return ApplyPendingMaintenanceActionResult.fromJson(response_);
   }
 
   /// Copies the specified DB cluster parameter group.
@@ -152,7 +175,16 @@ class NeptuneApi {
       @required String targetDBClusterParameterGroupIdentifier,
       @required String targetDBClusterParameterGroupDescription,
       List<Tag> tags}) async {
-    return CopyDBClusterParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CopyDBClusterParameterGroup', {
+      'SourceDBClusterParameterGroupIdentifier':
+          sourceDBClusterParameterGroupIdentifier,
+      'TargetDBClusterParameterGroupIdentifier':
+          targetDBClusterParameterGroupIdentifier,
+      'TargetDBClusterParameterGroupDescription':
+          targetDBClusterParameterGroupDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return CopyDBClusterParameterGroupResult.fromJson(response_);
   }
 
   /// Copies a snapshot of a DB cluster.
@@ -226,7 +258,15 @@ class NeptuneApi {
       String preSignedUrl,
       bool copyTags,
       List<Tag> tags}) async {
-    return CopyDBClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('CopyDBClusterSnapshot', {
+      'SourceDBClusterSnapshotIdentifier': sourceDBClusterSnapshotIdentifier,
+      'TargetDBClusterSnapshotIdentifier': targetDBClusterSnapshotIdentifier,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (preSignedUrl != null) 'PreSignedUrl': preSignedUrl,
+      if (copyTags != null) 'CopyTags': copyTags,
+      if (tags != null) 'Tags': tags,
+    });
+    return CopyDBClusterSnapshotResult.fromJson(response_);
   }
 
   /// Copies the specified DB parameter group.
@@ -267,7 +307,13 @@ class NeptuneApi {
       @required String targetDBParameterGroupIdentifier,
       @required String targetDBParameterGroupDescription,
       List<Tag> tags}) async {
-    return CopyDBParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CopyDBParameterGroup', {
+      'SourceDBParameterGroupIdentifier': sourceDBParameterGroupIdentifier,
+      'TargetDBParameterGroupIdentifier': targetDBParameterGroupIdentifier,
+      'TargetDBParameterGroupDescription': targetDBParameterGroupDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return CopyDBParameterGroupResult.fromJson(response_);
   }
 
   /// Creates a new Amazon Neptune DB cluster.
@@ -467,7 +513,40 @@ class NeptuneApi {
       String preSignedUrl,
       bool enableIamDatabaseAuthentication,
       List<String> enableCloudwatchLogsExports}) async {
-    return CreateDBClusterResult.fromJson({});
+    var response_ = await _client.send('CreateDBCluster', {
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (characterSetName != null) 'CharacterSetName': characterSetName,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (port != null) 'Port': port,
+      if (masterUsername != null) 'MasterUsername': masterUsername,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (replicationSourceIdentifier != null)
+        'ReplicationSourceIdentifier': replicationSourceIdentifier,
+      if (tags != null) 'Tags': tags,
+      if (storageEncrypted != null) 'StorageEncrypted': storageEncrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (preSignedUrl != null) 'PreSignedUrl': preSignedUrl,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+    });
+    return CreateDBClusterResult.fromJson(response_);
   }
 
   /// Creates a new DB cluster parameter group.
@@ -525,7 +604,13 @@ class NeptuneApi {
       @required String dbParameterGroupFamily,
       @required String description,
       List<Tag> tags}) async {
-    return CreateDBClusterParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBClusterParameterGroup', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      'Description': description,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBClusterParameterGroupResult.fromJson(response_);
   }
 
   /// Creates a snapshot of a DB cluster.
@@ -559,7 +644,12 @@ class NeptuneApi {
       {@required String dbClusterSnapshotIdentifier,
       @required String dbClusterIdentifier,
       List<Tag> tags}) async {
-    return CreateDBClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateDBClusterSnapshot', {
+      'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBClusterSnapshotResult.fromJson(response_);
   }
 
   /// Creates a new DB instance.
@@ -856,7 +946,63 @@ class NeptuneApi {
       bool enablePerformanceInsights,
       String performanceInsightsKmsKeyId,
       List<String> enableCloudwatchLogsExports}) async {
-    return CreateDBInstanceResult.fromJson({});
+    var response_ = await _client.send('CreateDBInstance', {
+      if (dbName != null) 'DBName': dbName,
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (allocatedStorage != null) 'AllocatedStorage': allocatedStorage,
+      'DBInstanceClass': dbInstanceClass,
+      'Engine': engine,
+      if (masterUsername != null) 'MasterUsername': masterUsername,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (dbSecurityGroups != null) 'DBSecurityGroups': dbSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (port != null) 'Port': port,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (characterSetName != null) 'CharacterSetName': characterSetName,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (tags != null) 'Tags': tags,
+      if (dbClusterIdentifier != null)
+        'DBClusterIdentifier': dbClusterIdentifier,
+      if (storageType != null) 'StorageType': storageType,
+      if (tdeCredentialArn != null) 'TdeCredentialArn': tdeCredentialArn,
+      if (tdeCredentialPassword != null)
+        'TdeCredentialPassword': tdeCredentialPassword,
+      if (storageEncrypted != null) 'StorageEncrypted': storageEncrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (domain != null) 'Domain': domain,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+      if (monitoringInterval != null) 'MonitoringInterval': monitoringInterval,
+      if (monitoringRoleArn != null) 'MonitoringRoleArn': monitoringRoleArn,
+      if (domainIamRoleName != null) 'DomainIAMRoleName': domainIamRoleName,
+      if (promotionTier != null) 'PromotionTier': promotionTier,
+      if (timezone != null) 'Timezone': timezone,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enablePerformanceInsights != null)
+        'EnablePerformanceInsights': enablePerformanceInsights,
+      if (performanceInsightsKmsKeyId != null)
+        'PerformanceInsightsKMSKeyId': performanceInsightsKmsKeyId,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+    });
+    return CreateDBInstanceResult.fromJson(response_);
   }
 
   /// Creates a new DB parameter group.
@@ -911,7 +1057,13 @@ class NeptuneApi {
       @required String dbParameterGroupFamily,
       @required String description,
       List<Tag> tags}) async {
-    return CreateDBParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      'Description': description,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBParameterGroupResult.fromJson(response_);
   }
 
   /// Creates a new DB subnet group. DB subnet groups must contain at least one
@@ -935,7 +1087,13 @@ class NeptuneApi {
       @required String dbSubnetGroupDescription,
       @required List<String> subnetIds,
       List<Tag> tags}) async {
-    return CreateDBSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBSubnetGroup', {
+      'DBSubnetGroupName': dbSubnetGroupName,
+      'DBSubnetGroupDescription': dbSubnetGroupDescription,
+      'SubnetIds': subnetIds,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBSubnetGroupResult.fromJson(response_);
   }
 
   /// Creates an event notification subscription. This action requires a topic
@@ -1014,7 +1172,16 @@ class NeptuneApi {
       List<String> sourceIds,
       bool enabled,
       List<Tag> tags}) async {
-    return CreateEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('CreateEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (sourceIds != null) 'SourceIds': sourceIds,
+      if (enabled != null) 'Enabled': enabled,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateEventSubscriptionResult.fromJson(response_);
   }
 
   /// The DeleteDBCluster action deletes a previously provisioned DB cluster.
@@ -1055,7 +1222,13 @@ class NeptuneApi {
   /// *   Cannot end with a hyphen or contain two consecutive hyphens
   Future<DeleteDBClusterResult> deleteDBCluster(String dbClusterIdentifier,
       {bool skipFinalSnapshot, String finalDBSnapshotIdentifier}) async {
-    return DeleteDBClusterResult.fromJson({});
+    var response_ = await _client.send('DeleteDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (skipFinalSnapshot != null) 'SkipFinalSnapshot': skipFinalSnapshot,
+      if (finalDBSnapshotIdentifier != null)
+        'FinalDBSnapshotIdentifier': finalDBSnapshotIdentifier,
+    });
+    return DeleteDBClusterResult.fromJson(response_);
   }
 
   /// Deletes a specified DB cluster parameter group. The DB cluster parameter
@@ -1071,7 +1244,11 @@ class NeptuneApi {
   ///
   /// *   Cannot be associated with any DB clusters.
   Future<void> deleteDBClusterParameterGroup(
-      String dbClusterParameterGroupName) async {}
+      String dbClusterParameterGroupName) async {
+    await _client.send('DeleteDBClusterParameterGroup', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+    });
+  }
 
   /// Deletes a DB cluster snapshot. If the snapshot is being copied, the copy
   /// operation is terminated.
@@ -1087,7 +1264,10 @@ class NeptuneApi {
   /// `available` state.
   Future<DeleteDBClusterSnapshotResult> deleteDBClusterSnapshot(
       String dbClusterSnapshotIdentifier) async {
-    return DeleteDBClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteDBClusterSnapshot', {
+      'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+    });
+    return DeleteDBClusterSnapshotResult.fromJson(response_);
   }
 
   /// The DeleteDBInstance action deletes a previously provisioned DB instance.
@@ -1147,7 +1327,13 @@ class NeptuneApi {
   /// *   Cannot be specified when deleting a Read Replica.
   Future<DeleteDBInstanceResult> deleteDBInstance(String dbInstanceIdentifier,
       {bool skipFinalSnapshot, String finalDBSnapshotIdentifier}) async {
-    return DeleteDBInstanceResult.fromJson({});
+    var response_ = await _client.send('DeleteDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (skipFinalSnapshot != null) 'SkipFinalSnapshot': skipFinalSnapshot,
+      if (finalDBSnapshotIdentifier != null)
+        'FinalDBSnapshotIdentifier': finalDBSnapshotIdentifier,
+    });
+    return DeleteDBInstanceResult.fromJson(response_);
   }
 
   /// Deletes a specified DBParameterGroup. The DBParameterGroup to be deleted
@@ -1162,7 +1348,11 @@ class NeptuneApi {
   /// *   You can't delete a default DB parameter group
   ///
   /// *   Cannot be associated with any DB instances
-  Future<void> deleteDBParameterGroup(String dbParameterGroupName) async {}
+  Future<void> deleteDBParameterGroup(String dbParameterGroupName) async {
+    await _client.send('DeleteDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+    });
+  }
 
   /// Deletes a DB subnet group.
   ///
@@ -1181,7 +1371,11 @@ class NeptuneApi {
   /// default.
   ///
   /// Example: `mySubnetgroup`
-  Future<void> deleteDBSubnetGroup(String dbSubnetGroupName) async {}
+  Future<void> deleteDBSubnetGroup(String dbSubnetGroupName) async {
+    await _client.send('DeleteDBSubnetGroup', {
+      'DBSubnetGroupName': dbSubnetGroupName,
+    });
+  }
 
   /// Deletes an event notification subscription.
   ///
@@ -1189,7 +1383,10 @@ class NeptuneApi {
   /// want to delete.
   Future<DeleteEventSubscriptionResult> deleteEventSubscription(
       String subscriptionName) async {
-    return DeleteEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('DeleteEventSubscription', {
+      'SubscriptionName': subscriptionName,
+    });
+    return DeleteEventSubscriptionResult.fromJson(response_);
   }
 
   ///  Returns a list of `DBClusterParameterGroup` descriptions. If a
@@ -1224,7 +1421,14 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBClusterParameterGroupsMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterParameterGroups', {
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBClusterParameterGroupsMessage.fromJson(response_);
   }
 
   /// Returns the detailed parameter list for a particular DB cluster parameter
@@ -1262,7 +1466,14 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBClusterParameterGroupDetails.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterParameters', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (source != null) 'Source': source,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBClusterParameterGroupDetails.fromJson(response_);
   }
 
   /// Returns a list of DB cluster snapshot attribute names and values for a
@@ -1284,7 +1495,10 @@ class NeptuneApi {
   Future<DescribeDBClusterSnapshotAttributesResult>
       describeDBClusterSnapshotAttributes(
           String dbClusterSnapshotIdentifier) async {
-    return DescribeDBClusterSnapshotAttributesResult.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterSnapshotAttributes', {
+      'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+    });
+    return DescribeDBClusterSnapshotAttributesResult.fromJson(response_);
   }
 
   /// Returns information about DB cluster snapshots. This API action supports
@@ -1379,7 +1593,19 @@ class NeptuneApi {
       String marker,
       bool includeShared,
       bool includePublic}) async {
-    return DBClusterSnapshotMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterSnapshots', {
+      if (dbClusterIdentifier != null)
+        'DBClusterIdentifier': dbClusterIdentifier,
+      if (dbClusterSnapshotIdentifier != null)
+        'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+      if (snapshotType != null) 'SnapshotType': snapshotType,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (includeShared != null) 'IncludeShared': includeShared,
+      if (includePublic != null) 'IncludePublic': includePublic,
+    });
+    return DBClusterSnapshotMessage.fromJson(response_);
   }
 
   /// Returns information about provisioned DB clusters. This API supports
@@ -1419,7 +1645,14 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBClusterMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBClusters', {
+      if (dbClusterIdentifier != null)
+        'DBClusterIdentifier': dbClusterIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBClusterMessage.fromJson(response_);
   }
 
   /// Returns a list of the available DB engines.
@@ -1473,7 +1706,21 @@ class NeptuneApi {
       bool defaultOnly,
       bool listSupportedCharacterSets,
       bool listSupportedTimezones}) async {
-    return DBEngineVersionMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBEngineVersions', {
+      if (engine != null) 'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (dbParameterGroupFamily != null)
+        'DBParameterGroupFamily': dbParameterGroupFamily,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (defaultOnly != null) 'DefaultOnly': defaultOnly,
+      if (listSupportedCharacterSets != null)
+        'ListSupportedCharacterSets': listSupportedCharacterSets,
+      if (listSupportedTimezones != null)
+        'ListSupportedTimezones': listSupportedTimezones,
+    });
+    return DBEngineVersionMessage.fromJson(response_);
   }
 
   /// Returns information about provisioned instances. This API supports
@@ -1518,7 +1765,14 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBInstanceMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBInstances', {
+      if (dbInstanceIdentifier != null)
+        'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBInstanceMessage.fromJson(response_);
   }
 
   /// Returns a list of `DBParameterGroup` descriptions. If a
@@ -1553,7 +1807,14 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBParameterGroupsMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBParameterGroups', {
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBParameterGroupsMessage.fromJson(response_);
   }
 
   /// Returns the detailed parameter list for a particular DB parameter group.
@@ -1592,7 +1853,14 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBParameterGroupDetails.fromJson({});
+    var response_ = await _client.send('DescribeDBParameters', {
+      'DBParameterGroupName': dbParameterGroupName,
+      if (source != null) 'Source': source,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBParameterGroupDetails.fromJson(response_);
   }
 
   /// Returns a list of DBSubnetGroup descriptions. If a DBSubnetGroupName is
@@ -1625,7 +1893,13 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBSubnetGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBSubnetGroups', {
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBSubnetGroupMessage.fromJson(response_);
   }
 
   /// Returns the default engine and system parameter information for the
@@ -1652,7 +1926,14 @@ class NeptuneApi {
   Future<DescribeEngineDefaultClusterParametersResult>
       describeEngineDefaultClusterParameters(String dbParameterGroupFamily,
           {List<Filter> filters, int maxRecords, String marker}) async {
-    return DescribeEngineDefaultClusterParametersResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeEngineDefaultClusterParameters', {
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEngineDefaultClusterParametersResult.fromJson(response_);
   }
 
   /// Returns the default engine and system parameter information for the
@@ -1680,7 +1961,13 @@ class NeptuneApi {
       {List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DescribeEngineDefaultParametersResult.fromJson({});
+    var response_ = await _client.send('DescribeEngineDefaultParameters', {
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEngineDefaultParametersResult.fromJson(response_);
   }
 
   /// Displays a list of categories for all event source types, or, if
@@ -1694,7 +1981,11 @@ class NeptuneApi {
   /// [filters]: This parameter is not currently supported.
   Future<EventCategoriesMessage> describeEventCategories(
       {String sourceType, List<Filter> filters}) async {
-    return EventCategoriesMessage.fromJson({});
+    var response_ = await _client.send('DescribeEventCategories', {
+      if (sourceType != null) 'SourceType': sourceType,
+      if (filters != null) 'Filters': filters,
+    });
+    return EventCategoriesMessage.fromJson(response_);
   }
 
   /// Lists all the subscription descriptions for a customer account. The
@@ -1727,7 +2018,13 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return EventSubscriptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEventSubscriptions', {
+      if (subscriptionName != null) 'SubscriptionName': subscriptionName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return EventSubscriptionsMessage.fromJson(response_);
   }
 
   /// Returns events related to DB instances, DB security groups, DB snapshots,
@@ -1805,7 +2102,18 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return EventsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      if (sourceIdentifier != null) 'SourceIdentifier': sourceIdentifier,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (duration != null) 'Duration': duration,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return EventsMessage.fromJson(response_);
   }
 
   /// Returns a list of orderable DB instance options for the specified engine.
@@ -1850,7 +2158,17 @@ class NeptuneApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return OrderableDBInstanceOptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeOrderableDBInstanceOptions', {
+      'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (vpc != null) 'Vpc': vpc,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return OrderableDBInstanceOptionsMessage.fromJson(response_);
   }
 
   /// Returns a list of resources (for example, DB instances) that have at least
@@ -1890,7 +2208,13 @@ class NeptuneApi {
       List<Filter> filters,
       String marker,
       int maxRecords}) async {
-    return PendingMaintenanceActionsMessage.fromJson({});
+    var response_ = await _client.send('DescribePendingMaintenanceActions', {
+      if (resourceIdentifier != null) 'ResourceIdentifier': resourceIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (marker != null) 'Marker': marker,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return PendingMaintenanceActionsMessage.fromJson(response_);
   }
 
   /// You can call DescribeValidDBInstanceModifications to learn what
@@ -1901,7 +2225,10 @@ class NeptuneApi {
   /// instance.
   Future<DescribeValidDBInstanceModificationsResult>
       describeValidDBInstanceModifications(String dbInstanceIdentifier) async {
-    return DescribeValidDBInstanceModificationsResult.fromJson({});
+    var response_ = await _client.send('DescribeValidDBInstanceModifications', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+    });
+    return DescribeValidDBInstanceModificationsResult.fromJson(response_);
   }
 
   /// Forces a failover for a DB cluster.
@@ -1931,7 +2258,13 @@ class NeptuneApi {
   /// cluster. For example, `mydbcluster-replica1`.
   Future<FailoverDBClusterResult> failoverDBCluster(
       {String dbClusterIdentifier, String targetDBInstanceIdentifier}) async {
-    return FailoverDBClusterResult.fromJson({});
+    var response_ = await _client.send('FailoverDBCluster', {
+      if (dbClusterIdentifier != null)
+        'DBClusterIdentifier': dbClusterIdentifier,
+      if (targetDBInstanceIdentifier != null)
+        'TargetDBInstanceIdentifier': targetDBInstanceIdentifier,
+    });
+    return FailoverDBClusterResult.fromJson(response_);
   }
 
   /// Lists all tags on an Amazon Neptune resource.
@@ -1944,7 +2277,11 @@ class NeptuneApi {
   /// [filters]: This parameter is not currently supported.
   Future<TagListMessage> listTagsForResource(String resourceName,
       {List<Filter> filters}) async {
-    return TagListMessage.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceName': resourceName,
+      if (filters != null) 'Filters': filters,
+    });
+    return TagListMessage.fromJson(response_);
   }
 
   /// Modify a setting for a DB cluster. You can change one or more database
@@ -2087,7 +2424,31 @@ class NeptuneApi {
       bool enableIamDatabaseAuthentication,
       CloudwatchLogsExportConfiguration cloudwatchLogsExportConfiguration,
       String engineVersion}) async {
-    return ModifyDBClusterResult.fromJson({});
+    var response_ = await _client.send('ModifyDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (newDBClusterIdentifier != null)
+        'NewDBClusterIdentifier': newDBClusterIdentifier,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (port != null) 'Port': port,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (cloudwatchLogsExportConfiguration != null)
+        'CloudwatchLogsExportConfiguration': cloudwatchLogsExportConfiguration,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+    });
+    return ModifyDBClusterResult.fromJson(response_);
   }
 
   ///  Modifies the parameters of a DB cluster parameter group. To modify more
@@ -2119,7 +2480,11 @@ class NeptuneApi {
   Future<DBClusterParameterGroupNameMessage> modifyDBClusterParameterGroup(
       {@required String dbClusterParameterGroupName,
       @required List<Parameter> parameters}) async {
-    return DBClusterParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ModifyDBClusterParameterGroup', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      'Parameters': parameters,
+    });
+    return DBClusterParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Adds an attribute and values to, or removes an attribute and values from,
@@ -2173,7 +2538,13 @@ class NeptuneApi {
           @required String attributeName,
           List<String> valuesToAdd,
           List<String> valuesToRemove}) async {
-    return ModifyDBClusterSnapshotAttributeResult.fromJson({});
+    var response_ = await _client.send('ModifyDBClusterSnapshotAttribute', {
+      'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+      'AttributeName': attributeName,
+      if (valuesToAdd != null) 'ValuesToAdd': valuesToAdd,
+      if (valuesToRemove != null) 'ValuesToRemove': valuesToRemove,
+    });
+    return ModifyDBClusterSnapshotAttributeResult.fromJson(response_);
   }
 
   /// Modifies settings for a DB instance. You can change one or more database
@@ -2483,7 +2854,59 @@ class NeptuneApi {
       String performanceInsightsKmsKeyId,
       CloudwatchLogsExportConfiguration
           cloudwatchLogsExportConfiguration}) async {
-    return ModifyDBInstanceResult.fromJson({});
+    var response_ = await _client.send('ModifyDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (allocatedStorage != null) 'AllocatedStorage': allocatedStorage,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (dbSecurityGroups != null) 'DBSecurityGroups': dbSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (allowMajorVersionUpgrade != null)
+        'AllowMajorVersionUpgrade': allowMajorVersionUpgrade,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (newDBInstanceIdentifier != null)
+        'NewDBInstanceIdentifier': newDBInstanceIdentifier,
+      if (storageType != null) 'StorageType': storageType,
+      if (tdeCredentialArn != null) 'TdeCredentialArn': tdeCredentialArn,
+      if (tdeCredentialPassword != null)
+        'TdeCredentialPassword': tdeCredentialPassword,
+      if (caCertificateIdentifier != null)
+        'CACertificateIdentifier': caCertificateIdentifier,
+      if (domain != null) 'Domain': domain,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+      if (monitoringInterval != null) 'MonitoringInterval': monitoringInterval,
+      if (dbPortNumber != null) 'DBPortNumber': dbPortNumber,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (monitoringRoleArn != null) 'MonitoringRoleArn': monitoringRoleArn,
+      if (domainIamRoleName != null) 'DomainIAMRoleName': domainIamRoleName,
+      if (promotionTier != null) 'PromotionTier': promotionTier,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enablePerformanceInsights != null)
+        'EnablePerformanceInsights': enablePerformanceInsights,
+      if (performanceInsightsKmsKeyId != null)
+        'PerformanceInsightsKMSKeyId': performanceInsightsKmsKeyId,
+      if (cloudwatchLogsExportConfiguration != null)
+        'CloudwatchLogsExportConfiguration': cloudwatchLogsExportConfiguration,
+    });
+    return ModifyDBInstanceResult.fromJson(response_);
   }
 
   /// Modifies the parameters of a DB parameter group. To modify more than one
@@ -2527,7 +2950,11 @@ class NeptuneApi {
   Future<DBParameterGroupNameMessage> modifyDBParameterGroup(
       {@required String dbParameterGroupName,
       @required List<Parameter> parameters}) async {
-    return DBParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ModifyDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+      'Parameters': parameters,
+    });
+    return DBParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Modifies an existing DB subnet group. DB subnet groups must contain at
@@ -2548,7 +2975,13 @@ class NeptuneApi {
       {@required String dbSubnetGroupName,
       String dbSubnetGroupDescription,
       @required List<String> subnetIds}) async {
-    return ModifyDBSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('ModifyDBSubnetGroup', {
+      'DBSubnetGroupName': dbSubnetGroupName,
+      if (dbSubnetGroupDescription != null)
+        'DBSubnetGroupDescription': dbSubnetGroupDescription,
+      'SubnetIds': subnetIds,
+    });
+    return ModifyDBSubnetGroupResult.fromJson(response_);
   }
 
   /// Modifies an existing event notification subscription. Note that you can't
@@ -2584,7 +3017,14 @@ class NeptuneApi {
       String sourceType,
       List<String> eventCategories,
       bool enabled}) async {
-    return ModifyEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('ModifyEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      if (snsTopicArn != null) 'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (enabled != null) 'Enabled': enabled,
+    });
+    return ModifyEventSubscriptionResult.fromJson(response_);
   }
 
   /// Not supported.
@@ -2592,7 +3032,10 @@ class NeptuneApi {
   /// [dbClusterIdentifier]: Not supported.
   Future<PromoteReadReplicaDBClusterResult> promoteReadReplicaDBCluster(
       String dbClusterIdentifier) async {
-    return PromoteReadReplicaDBClusterResult.fromJson({});
+    var response_ = await _client.send('PromoteReadReplicaDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+    });
+    return PromoteReadReplicaDBClusterResult.fromJson(response_);
   }
 
   /// You might need to reboot your DB instance, usually for maintenance
@@ -2618,7 +3061,11 @@ class NeptuneApi {
   /// MultiAZ.
   Future<RebootDBInstanceResult> rebootDBInstance(String dbInstanceIdentifier,
       {bool forceFailover}) async {
-    return RebootDBInstanceResult.fromJson({});
+    var response_ = await _client.send('RebootDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (forceFailover != null) 'ForceFailover': forceFailover,
+    });
+    return RebootDBInstanceResult.fromJson(response_);
   }
 
   /// Disassociates an Identity and Access Management (IAM) role from a DB
@@ -2631,7 +3078,12 @@ class NeptuneApi {
   /// from the DB cluster, for example
   /// `arn:aws:iam::123456789012:role/NeptuneAccessRole`.
   Future<void> removeRoleFromDBCluster(
-      {@required String dbClusterIdentifier, @required String roleArn}) async {}
+      {@required String dbClusterIdentifier, @required String roleArn}) async {
+    await _client.send('RemoveRoleFromDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      'RoleArn': roleArn,
+    });
+  }
 
   /// Removes a source identifier from an existing event notification
   /// subscription.
@@ -2646,7 +3098,12 @@ class NeptuneApi {
       removeSourceIdentifierFromSubscription(
           {@required String subscriptionName,
           @required String sourceIdentifier}) async {
-    return RemoveSourceIdentifierFromSubscriptionResult.fromJson({});
+    var response_ =
+        await _client.send('RemoveSourceIdentifierFromSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SourceIdentifier': sourceIdentifier,
+    });
+    return RemoveSourceIdentifierFromSubscriptionResult.fromJson(response_);
   }
 
   /// Removes metadata tags from an Amazon Neptune resource.
@@ -2658,7 +3115,12 @@ class NeptuneApi {
   ///
   /// [tagKeys]: The tag key (name) of the tag to be removed.
   Future<void> removeTagsFromResource(
-      {@required String resourceName, @required List<String> tagKeys}) async {}
+      {@required String resourceName, @required List<String> tagKeys}) async {
+    await _client.send('RemoveTagsFromResource', {
+      'ResourceName': resourceName,
+      'TagKeys': tagKeys,
+    });
+  }
 
   ///  Modifies the parameters of a DB cluster parameter group to the default
   /// value. To reset specific parameters submit a list of the following:
@@ -2687,7 +3149,12 @@ class NeptuneApi {
       String dbClusterParameterGroupName,
       {bool resetAllParameters,
       List<Parameter> parameters}) async {
-    return DBClusterParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ResetDBClusterParameterGroup', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (resetAllParameters != null) 'ResetAllParameters': resetAllParameters,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return DBClusterParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Modifies the parameters of a DB parameter group to the engine/system
@@ -2721,7 +3188,12 @@ class NeptuneApi {
       String dbParameterGroupName,
       {bool resetAllParameters,
       List<Parameter> parameters}) async {
-    return DBParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ResetDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+      if (resetAllParameters != null) 'ResetAllParameters': resetAllParameters,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return DBParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Creates a new DB cluster from a DB snapshot or DB cluster snapshot.
@@ -2847,7 +3319,28 @@ class NeptuneApi {
       bool enableIamDatabaseAuthentication,
       List<String> enableCloudwatchLogsExports,
       String dbClusterParameterGroupName}) async {
-    return RestoreDBClusterFromSnapshotResult.fromJson({});
+    var response_ = await _client.send('RestoreDBClusterFromSnapshot', {
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      'DBClusterIdentifier': dbClusterIdentifier,
+      'SnapshotIdentifier': snapshotIdentifier,
+      'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (port != null) 'Port': port,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (tags != null) 'Tags': tags,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+    });
+    return RestoreDBClusterFromSnapshotResult.fromJson(response_);
   }
 
   /// Restores a DB cluster to an arbitrary point in time. Users can restore to
@@ -3002,7 +3495,28 @@ class NeptuneApi {
       bool enableIamDatabaseAuthentication,
       List<String> enableCloudwatchLogsExports,
       String dbClusterParameterGroupName}) async {
-    return RestoreDBClusterToPointInTimeResult.fromJson({});
+    var response_ = await _client.send('RestoreDBClusterToPointInTime', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (restoreType != null) 'RestoreType': restoreType,
+      'SourceDBClusterIdentifier': sourceDBClusterIdentifier,
+      if (restoreToTime != null) 'RestoreToTime': restoreToTime,
+      if (useLatestRestorableTime != null)
+        'UseLatestRestorableTime': useLatestRestorableTime,
+      if (port != null) 'Port': port,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (tags != null) 'Tags': tags,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+    });
+    return RestoreDBClusterToPointInTimeResult.fromJson(response_);
   }
 }
 
@@ -3014,7 +3528,11 @@ class AddSourceIdentifierToSubscriptionResult {
   });
   static AddSourceIdentifierToSubscriptionResult fromJson(
           Map<String, dynamic> json) =>
-      AddSourceIdentifierToSubscriptionResult();
+      AddSourceIdentifierToSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class ApplyPendingMaintenanceActionResult {
@@ -3025,7 +3543,13 @@ class ApplyPendingMaintenanceActionResult {
   });
   static ApplyPendingMaintenanceActionResult fromJson(
           Map<String, dynamic> json) =>
-      ApplyPendingMaintenanceActionResult();
+      ApplyPendingMaintenanceActionResult(
+        resourcePendingMaintenanceActions:
+            json.containsKey('ResourcePendingMaintenanceActions')
+                ? ResourcePendingMaintenanceActions.fromJson(
+                    json['ResourcePendingMaintenanceActions'])
+                : null,
+      );
 }
 
 /// Specifies an Availability Zone.
@@ -3037,7 +3561,9 @@ class AvailabilityZone {
     this.name,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Specifies a character set.
@@ -3052,7 +3578,14 @@ class CharacterSet {
     this.characterSetName,
     this.characterSetDescription,
   });
-  static CharacterSet fromJson(Map<String, dynamic> json) => CharacterSet();
+  static CharacterSet fromJson(Map<String, dynamic> json) => CharacterSet(
+        characterSetName: json.containsKey('CharacterSetName')
+            ? json['CharacterSetName'] as String
+            : null,
+        characterSetDescription: json.containsKey('CharacterSetDescription')
+            ? json['CharacterSetDescription'] as String
+            : null,
+      );
 }
 
 /// The configuration setting for the log types to be enabled for export to
@@ -3071,6 +3604,7 @@ class CloudwatchLogsExportConfiguration {
     this.enableLogTypes,
     this.disableLogTypes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CopyDBClusterParameterGroupResult {
@@ -3081,7 +3615,11 @@ class CopyDBClusterParameterGroupResult {
   });
   static CopyDBClusterParameterGroupResult fromJson(
           Map<String, dynamic> json) =>
-      CopyDBClusterParameterGroupResult();
+      CopyDBClusterParameterGroupResult(
+        dbClusterParameterGroup: json.containsKey('DBClusterParameterGroup')
+            ? DBClusterParameterGroup.fromJson(json['DBClusterParameterGroup'])
+            : null,
+      );
 }
 
 class CopyDBClusterSnapshotResult {
@@ -3091,7 +3629,11 @@ class CopyDBClusterSnapshotResult {
     this.dbClusterSnapshot,
   });
   static CopyDBClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CopyDBClusterSnapshotResult();
+      CopyDBClusterSnapshotResult(
+        dbClusterSnapshot: json.containsKey('DBClusterSnapshot')
+            ? DBClusterSnapshot.fromJson(json['DBClusterSnapshot'])
+            : null,
+      );
 }
 
 class CopyDBParameterGroupResult {
@@ -3101,7 +3643,11 @@ class CopyDBParameterGroupResult {
     this.dbParameterGroup,
   });
   static CopyDBParameterGroupResult fromJson(Map<String, dynamic> json) =>
-      CopyDBParameterGroupResult();
+      CopyDBParameterGroupResult(
+        dbParameterGroup: json.containsKey('DBParameterGroup')
+            ? DBParameterGroup.fromJson(json['DBParameterGroup'])
+            : null,
+      );
 }
 
 class CreateDBClusterParameterGroupResult {
@@ -3112,7 +3658,11 @@ class CreateDBClusterParameterGroupResult {
   });
   static CreateDBClusterParameterGroupResult fromJson(
           Map<String, dynamic> json) =>
-      CreateDBClusterParameterGroupResult();
+      CreateDBClusterParameterGroupResult(
+        dbClusterParameterGroup: json.containsKey('DBClusterParameterGroup')
+            ? DBClusterParameterGroup.fromJson(json['DBClusterParameterGroup'])
+            : null,
+      );
 }
 
 class CreateDBClusterResult {
@@ -3122,7 +3672,11 @@ class CreateDBClusterResult {
     this.dbCluster,
   });
   static CreateDBClusterResult fromJson(Map<String, dynamic> json) =>
-      CreateDBClusterResult();
+      CreateDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class CreateDBClusterSnapshotResult {
@@ -3132,7 +3686,11 @@ class CreateDBClusterSnapshotResult {
     this.dbClusterSnapshot,
   });
   static CreateDBClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateDBClusterSnapshotResult();
+      CreateDBClusterSnapshotResult(
+        dbClusterSnapshot: json.containsKey('DBClusterSnapshot')
+            ? DBClusterSnapshot.fromJson(json['DBClusterSnapshot'])
+            : null,
+      );
 }
 
 class CreateDBInstanceResult {
@@ -3142,7 +3700,11 @@ class CreateDBInstanceResult {
     this.dbInstance,
   });
   static CreateDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      CreateDBInstanceResult();
+      CreateDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class CreateDBParameterGroupResult {
@@ -3152,7 +3714,11 @@ class CreateDBParameterGroupResult {
     this.dbParameterGroup,
   });
   static CreateDBParameterGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateDBParameterGroupResult();
+      CreateDBParameterGroupResult(
+        dbParameterGroup: json.containsKey('DBParameterGroup')
+            ? DBParameterGroup.fromJson(json['DBParameterGroup'])
+            : null,
+      );
 }
 
 class CreateDBSubnetGroupResult {
@@ -3162,7 +3728,11 @@ class CreateDBSubnetGroupResult {
     this.dbSubnetGroup,
   });
   static CreateDBSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateDBSubnetGroupResult();
+      CreateDBSubnetGroupResult(
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? DBSubnetGroup.fromJson(json['DBSubnetGroup'])
+            : null,
+      );
 }
 
 class CreateEventSubscriptionResult {
@@ -3172,7 +3742,11 @@ class CreateEventSubscriptionResult {
     this.eventSubscription,
   });
   static CreateEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      CreateEventSubscriptionResult();
+      CreateEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 /// Contains the details of an Amazon Neptune DB cluster.
@@ -3362,7 +3936,125 @@ class DBCluster {
     this.clusterCreateTime,
     this.enabledCloudwatchLogsExports,
   });
-  static DBCluster fromJson(Map<String, dynamic> json) => DBCluster();
+  static DBCluster fromJson(Map<String, dynamic> json) => DBCluster(
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        backupRetentionPeriod: json.containsKey('BackupRetentionPeriod')
+            ? json['BackupRetentionPeriod'] as int
+            : null,
+        characterSetName: json.containsKey('CharacterSetName')
+            ? json['CharacterSetName'] as String
+            : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        dbClusterIdentifier: json.containsKey('DBClusterIdentifier')
+            ? json['DBClusterIdentifier'] as String
+            : null,
+        dbClusterParameterGroup: json.containsKey('DBClusterParameterGroup')
+            ? json['DBClusterParameterGroup'] as String
+            : null,
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? json['DBSubnetGroup'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        percentProgress: json.containsKey('PercentProgress')
+            ? json['PercentProgress'] as String
+            : null,
+        earliestRestorableTime: json.containsKey('EarliestRestorableTime')
+            ? DateTime.parse(json['EarliestRestorableTime'])
+            : null,
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+        readerEndpoint: json.containsKey('ReaderEndpoint')
+            ? json['ReaderEndpoint'] as String
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        latestRestorableTime: json.containsKey('LatestRestorableTime')
+            ? DateTime.parse(json['LatestRestorableTime'])
+            : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        dbClusterOptionGroupMemberships:
+            json.containsKey('DBClusterOptionGroupMemberships')
+                ? (json['DBClusterOptionGroupMemberships'] as List)
+                    .map((e) => DBClusterOptionGroupStatus.fromJson(e))
+                    .toList()
+                : null,
+        preferredBackupWindow: json.containsKey('PreferredBackupWindow')
+            ? json['PreferredBackupWindow'] as String
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        replicationSourceIdentifier:
+            json.containsKey('ReplicationSourceIdentifier')
+                ? json['ReplicationSourceIdentifier'] as String
+                : null,
+        readReplicaIdentifiers: json.containsKey('ReadReplicaIdentifiers')
+            ? (json['ReadReplicaIdentifiers'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        dbClusterMembers: json.containsKey('DBClusterMembers')
+            ? (json['DBClusterMembers'] as List)
+                .map((e) => DBClusterMember.fromJson(e))
+                .toList()
+            : null,
+        vpcSecurityGroups: json.containsKey('VpcSecurityGroups')
+            ? (json['VpcSecurityGroups'] as List)
+                .map((e) => VpcSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        hostedZoneId: json.containsKey('HostedZoneId')
+            ? json['HostedZoneId'] as String
+            : null,
+        storageEncrypted: json.containsKey('StorageEncrypted')
+            ? json['StorageEncrypted'] as bool
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        dbClusterResourceId: json.containsKey('DbClusterResourceId')
+            ? json['DbClusterResourceId'] as String
+            : null,
+        dbClusterArn: json.containsKey('DBClusterArn')
+            ? json['DBClusterArn'] as String
+            : null,
+        associatedRoles: json.containsKey('AssociatedRoles')
+            ? (json['AssociatedRoles'] as List)
+                .map((e) => DBClusterRole.fromJson(e))
+                .toList()
+            : null,
+        iamDatabaseAuthenticationEnabled:
+            json.containsKey('IAMDatabaseAuthenticationEnabled')
+                ? json['IAMDatabaseAuthenticationEnabled'] as bool
+                : null,
+        cloneGroupId: json.containsKey('CloneGroupId')
+            ? json['CloneGroupId'] as String
+            : null,
+        clusterCreateTime: json.containsKey('ClusterCreateTime')
+            ? DateTime.parse(json['ClusterCreateTime'])
+            : null,
+        enabledCloudwatchLogsExports:
+            json.containsKey('EnabledCloudwatchLogsExports')
+                ? (json['EnabledCloudwatchLogsExports'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+      );
 }
 
 /// Contains information about an instance that is part of a DB cluster.
@@ -3388,8 +4080,21 @@ class DBClusterMember {
     this.dbClusterParameterGroupStatus,
     this.promotionTier,
   });
-  static DBClusterMember fromJson(Map<String, dynamic> json) =>
-      DBClusterMember();
+  static DBClusterMember fromJson(Map<String, dynamic> json) => DBClusterMember(
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        isClusterWriter: json.containsKey('IsClusterWriter')
+            ? json['IsClusterWriter'] as bool
+            : null,
+        dbClusterParameterGroupStatus:
+            json.containsKey('DBClusterParameterGroupStatus')
+                ? json['DBClusterParameterGroupStatus'] as String
+                : null,
+        promotionTier: json.containsKey('PromotionTier')
+            ? json['PromotionTier'] as int
+            : null,
+      );
 }
 
 class DBClusterMessage {
@@ -3405,7 +4110,14 @@ class DBClusterMessage {
     this.dbClusters,
   });
   static DBClusterMessage fromJson(Map<String, dynamic> json) =>
-      DBClusterMessage();
+      DBClusterMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbClusters: json.containsKey('DBClusters')
+            ? (json['DBClusters'] as List)
+                .map((e) => DBCluster.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains status information for a DB cluster option group.
@@ -3421,7 +4133,12 @@ class DBClusterOptionGroupStatus {
     this.status,
   });
   static DBClusterOptionGroupStatus fromJson(Map<String, dynamic> json) =>
-      DBClusterOptionGroupStatus();
+      DBClusterOptionGroupStatus(
+        dbClusterOptionGroupName: json.containsKey('DBClusterOptionGroupName')
+            ? json['DBClusterOptionGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Contains the details of an Amazon Neptune DB cluster parameter group.
@@ -3450,7 +4167,22 @@ class DBClusterParameterGroup {
     this.dbClusterParameterGroupArn,
   });
   static DBClusterParameterGroup fromJson(Map<String, dynamic> json) =>
-      DBClusterParameterGroup();
+      DBClusterParameterGroup(
+        dbClusterParameterGroupName:
+            json.containsKey('DBClusterParameterGroupName')
+                ? json['DBClusterParameterGroupName'] as String
+                : null,
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        dbClusterParameterGroupArn:
+            json.containsKey('DBClusterParameterGroupArn')
+                ? json['DBClusterParameterGroupArn'] as String
+                : null,
+      );
 }
 
 class DBClusterParameterGroupDetails {
@@ -3468,7 +4200,14 @@ class DBClusterParameterGroupDetails {
     this.marker,
   });
   static DBClusterParameterGroupDetails fromJson(Map<String, dynamic> json) =>
-      DBClusterParameterGroupDetails();
+      DBClusterParameterGroupDetails(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DBClusterParameterGroupNameMessage {
@@ -3493,7 +4232,12 @@ class DBClusterParameterGroupNameMessage {
   });
   static DBClusterParameterGroupNameMessage fromJson(
           Map<String, dynamic> json) =>
-      DBClusterParameterGroupNameMessage();
+      DBClusterParameterGroupNameMessage(
+        dbClusterParameterGroupName:
+            json.containsKey('DBClusterParameterGroupName')
+                ? json['DBClusterParameterGroupName'] as String
+                : null,
+      );
 }
 
 class DBClusterParameterGroupsMessage {
@@ -3511,7 +4255,14 @@ class DBClusterParameterGroupsMessage {
     this.dbClusterParameterGroups,
   });
   static DBClusterParameterGroupsMessage fromJson(Map<String, dynamic> json) =>
-      DBClusterParameterGroupsMessage();
+      DBClusterParameterGroupsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbClusterParameterGroups: json.containsKey('DBClusterParameterGroups')
+            ? (json['DBClusterParameterGroups'] as List)
+                .map((e) => DBClusterParameterGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes an AWS Identity and Access Management (IAM) role that is
@@ -3538,7 +4289,10 @@ class DBClusterRole {
     this.roleArn,
     this.status,
   });
-  static DBClusterRole fromJson(Map<String, dynamic> json) => DBClusterRole();
+  static DBClusterRole fromJson(Map<String, dynamic> json) => DBClusterRole(
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Contains the details for an Amazon Neptune DB cluster snapshot
@@ -3638,7 +4392,64 @@ class DBClusterSnapshot {
     this.iamDatabaseAuthenticationEnabled,
   });
   static DBClusterSnapshot fromJson(Map<String, dynamic> json) =>
-      DBClusterSnapshot();
+      DBClusterSnapshot(
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        dbClusterSnapshotIdentifier:
+            json.containsKey('DBClusterSnapshotIdentifier')
+                ? json['DBClusterSnapshotIdentifier'] as String
+                : null,
+        dbClusterIdentifier: json.containsKey('DBClusterIdentifier')
+            ? json['DBClusterIdentifier'] as String
+            : null,
+        snapshotCreateTime: json.containsKey('SnapshotCreateTime')
+            ? DateTime.parse(json['SnapshotCreateTime'])
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        clusterCreateTime: json.containsKey('ClusterCreateTime')
+            ? DateTime.parse(json['ClusterCreateTime'])
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        snapshotType: json.containsKey('SnapshotType')
+            ? json['SnapshotType'] as String
+            : null,
+        percentProgress: json.containsKey('PercentProgress')
+            ? json['PercentProgress'] as int
+            : null,
+        storageEncrypted: json.containsKey('StorageEncrypted')
+            ? json['StorageEncrypted'] as bool
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        dbClusterSnapshotArn: json.containsKey('DBClusterSnapshotArn')
+            ? json['DBClusterSnapshotArn'] as String
+            : null,
+        sourceDBClusterSnapshotArn:
+            json.containsKey('SourceDBClusterSnapshotArn')
+                ? json['SourceDBClusterSnapshotArn'] as String
+                : null,
+        iamDatabaseAuthenticationEnabled:
+            json.containsKey('IAMDatabaseAuthenticationEnabled')
+                ? json['IAMDatabaseAuthenticationEnabled'] as bool
+                : null,
+      );
 }
 
 /// Contains the name and values of a manual DB cluster snapshot attribute.
@@ -3668,7 +4479,14 @@ class DBClusterSnapshotAttribute {
     this.attributeValues,
   });
   static DBClusterSnapshotAttribute fromJson(Map<String, dynamic> json) =>
-      DBClusterSnapshotAttribute();
+      DBClusterSnapshotAttribute(
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+        attributeValues: json.containsKey('AttributeValues')
+            ? (json['AttributeValues'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Contains the results of a successful call to the
@@ -3691,7 +4509,18 @@ class DBClusterSnapshotAttributesResult {
   });
   static DBClusterSnapshotAttributesResult fromJson(
           Map<String, dynamic> json) =>
-      DBClusterSnapshotAttributesResult();
+      DBClusterSnapshotAttributesResult(
+        dbClusterSnapshotIdentifier:
+            json.containsKey('DBClusterSnapshotIdentifier')
+                ? json['DBClusterSnapshotIdentifier'] as String
+                : null,
+        dbClusterSnapshotAttributes:
+            json.containsKey('DBClusterSnapshotAttributes')
+                ? (json['DBClusterSnapshotAttributes'] as List)
+                    .map((e) => DBClusterSnapshotAttribute.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class DBClusterSnapshotMessage {
@@ -3709,7 +4538,14 @@ class DBClusterSnapshotMessage {
     this.dbClusterSnapshots,
   });
   static DBClusterSnapshotMessage fromJson(Map<String, dynamic> json) =>
-      DBClusterSnapshotMessage();
+      DBClusterSnapshotMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbClusterSnapshots: json.containsKey('DBClusterSnapshots')
+            ? (json['DBClusterSnapshots'] as List)
+                .map((e) => DBClusterSnapshot.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  This data type is used as a response element in the action
@@ -3772,8 +4608,52 @@ class DBEngineVersion {
     this.supportsLogExportsToCloudwatchLogs,
     this.supportsReadReplica,
   });
-  static DBEngineVersion fromJson(Map<String, dynamic> json) =>
-      DBEngineVersion();
+  static DBEngineVersion fromJson(Map<String, dynamic> json) => DBEngineVersion(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        dbEngineDescription: json.containsKey('DBEngineDescription')
+            ? json['DBEngineDescription'] as String
+            : null,
+        dbEngineVersionDescription:
+            json.containsKey('DBEngineVersionDescription')
+                ? json['DBEngineVersionDescription'] as String
+                : null,
+        defaultCharacterSet: json.containsKey('DefaultCharacterSet')
+            ? CharacterSet.fromJson(json['DefaultCharacterSet'])
+            : null,
+        supportedCharacterSets: json.containsKey('SupportedCharacterSets')
+            ? (json['SupportedCharacterSets'] as List)
+                .map((e) => CharacterSet.fromJson(e))
+                .toList()
+            : null,
+        validUpgradeTarget: json.containsKey('ValidUpgradeTarget')
+            ? (json['ValidUpgradeTarget'] as List)
+                .map((e) => UpgradeTarget.fromJson(e))
+                .toList()
+            : null,
+        supportedTimezones: json.containsKey('SupportedTimezones')
+            ? (json['SupportedTimezones'] as List)
+                .map((e) => Timezone.fromJson(e))
+                .toList()
+            : null,
+        exportableLogTypes: json.containsKey('ExportableLogTypes')
+            ? (json['ExportableLogTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        supportsLogExportsToCloudwatchLogs:
+            json.containsKey('SupportsLogExportsToCloudwatchLogs')
+                ? json['SupportsLogExportsToCloudwatchLogs'] as bool
+                : null,
+        supportsReadReplica: json.containsKey('SupportsReadReplica')
+            ? json['SupportsReadReplica'] as bool
+            : null,
+      );
 }
 
 class DBEngineVersionMessage {
@@ -3790,7 +4670,14 @@ class DBEngineVersionMessage {
     this.dbEngineVersions,
   });
   static DBEngineVersionMessage fromJson(Map<String, dynamic> json) =>
-      DBEngineVersionMessage();
+      DBEngineVersionMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbEngineVersions: json.containsKey('DBEngineVersions')
+            ? (json['DBEngineVersions'] as List)
+                .map((e) => DBEngineVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the details of an Amazon Neptune DB instance.
@@ -4044,7 +4931,181 @@ class DBInstance {
     this.performanceInsightsKmsKeyId,
     this.enabledCloudwatchLogsExports,
   });
-  static DBInstance fromJson(Map<String, dynamic> json) => DBInstance();
+  static DBInstance fromJson(Map<String, dynamic> json) => DBInstance(
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        dbInstanceStatus: json.containsKey('DBInstanceStatus')
+            ? json['DBInstanceStatus'] as String
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        dbName: json.containsKey('DBName') ? json['DBName'] as String : null,
+        endpoint: json.containsKey('Endpoint')
+            ? Endpoint.fromJson(json['Endpoint'])
+            : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        instanceCreateTime: json.containsKey('InstanceCreateTime')
+            ? DateTime.parse(json['InstanceCreateTime'])
+            : null,
+        preferredBackupWindow: json.containsKey('PreferredBackupWindow')
+            ? json['PreferredBackupWindow'] as String
+            : null,
+        backupRetentionPeriod: json.containsKey('BackupRetentionPeriod')
+            ? json['BackupRetentionPeriod'] as int
+            : null,
+        dbSecurityGroups: json.containsKey('DBSecurityGroups')
+            ? (json['DBSecurityGroups'] as List)
+                .map((e) => DBSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        vpcSecurityGroups: json.containsKey('VpcSecurityGroups')
+            ? (json['VpcSecurityGroups'] as List)
+                .map((e) => VpcSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        dbParameterGroups: json.containsKey('DBParameterGroups')
+            ? (json['DBParameterGroups'] as List)
+                .map((e) => DBParameterGroupStatus.fromJson(e))
+                .toList()
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? DBSubnetGroup.fromJson(json['DBSubnetGroup'])
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        pendingModifiedValues: json.containsKey('PendingModifiedValues')
+            ? PendingModifiedValues.fromJson(json['PendingModifiedValues'])
+            : null,
+        latestRestorableTime: json.containsKey('LatestRestorableTime')
+            ? DateTime.parse(json['LatestRestorableTime'])
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        autoMinorVersionUpgrade: json.containsKey('AutoMinorVersionUpgrade')
+            ? json['AutoMinorVersionUpgrade'] as bool
+            : null,
+        readReplicaSourceDBInstanceIdentifier:
+            json.containsKey('ReadReplicaSourceDBInstanceIdentifier')
+                ? json['ReadReplicaSourceDBInstanceIdentifier'] as String
+                : null,
+        readReplicaDBInstanceIdentifiers:
+            json.containsKey('ReadReplicaDBInstanceIdentifiers')
+                ? (json['ReadReplicaDBInstanceIdentifiers'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        readReplicaDBClusterIdentifiers:
+            json.containsKey('ReadReplicaDBClusterIdentifiers')
+                ? (json['ReadReplicaDBClusterIdentifiers'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        optionGroupMemberships: json.containsKey('OptionGroupMemberships')
+            ? (json['OptionGroupMemberships'] as List)
+                .map((e) => OptionGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        characterSetName: json.containsKey('CharacterSetName')
+            ? json['CharacterSetName'] as String
+            : null,
+        secondaryAvailabilityZone: json.containsKey('SecondaryAvailabilityZone')
+            ? json['SecondaryAvailabilityZone'] as String
+            : null,
+        publiclyAccessible: json.containsKey('PubliclyAccessible')
+            ? json['PubliclyAccessible'] as bool
+            : null,
+        statusInfos: json.containsKey('StatusInfos')
+            ? (json['StatusInfos'] as List)
+                .map((e) => DBInstanceStatusInfo.fromJson(e))
+                .toList()
+            : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        tdeCredentialArn: json.containsKey('TdeCredentialArn')
+            ? json['TdeCredentialArn'] as String
+            : null,
+        dbInstancePort: json.containsKey('DbInstancePort')
+            ? json['DbInstancePort'] as int
+            : null,
+        dbClusterIdentifier: json.containsKey('DBClusterIdentifier')
+            ? json['DBClusterIdentifier'] as String
+            : null,
+        storageEncrypted: json.containsKey('StorageEncrypted')
+            ? json['StorageEncrypted'] as bool
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        dbiResourceId: json.containsKey('DbiResourceId')
+            ? json['DbiResourceId'] as String
+            : null,
+        caCertificateIdentifier: json.containsKey('CACertificateIdentifier')
+            ? json['CACertificateIdentifier'] as String
+            : null,
+        domainMemberships: json.containsKey('DomainMemberships')
+            ? (json['DomainMemberships'] as List)
+                .map((e) => DomainMembership.fromJson(e))
+                .toList()
+            : null,
+        copyTagsToSnapshot: json.containsKey('CopyTagsToSnapshot')
+            ? json['CopyTagsToSnapshot'] as bool
+            : null,
+        monitoringInterval: json.containsKey('MonitoringInterval')
+            ? json['MonitoringInterval'] as int
+            : null,
+        enhancedMonitoringResourceArn:
+            json.containsKey('EnhancedMonitoringResourceArn')
+                ? json['EnhancedMonitoringResourceArn'] as String
+                : null,
+        monitoringRoleArn: json.containsKey('MonitoringRoleArn')
+            ? json['MonitoringRoleArn'] as String
+            : null,
+        promotionTier: json.containsKey('PromotionTier')
+            ? json['PromotionTier'] as int
+            : null,
+        dbInstanceArn: json.containsKey('DBInstanceArn')
+            ? json['DBInstanceArn'] as String
+            : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+        iamDatabaseAuthenticationEnabled:
+            json.containsKey('IAMDatabaseAuthenticationEnabled')
+                ? json['IAMDatabaseAuthenticationEnabled'] as bool
+                : null,
+        performanceInsightsEnabled:
+            json.containsKey('PerformanceInsightsEnabled')
+                ? json['PerformanceInsightsEnabled'] as bool
+                : null,
+        performanceInsightsKmsKeyId:
+            json.containsKey('PerformanceInsightsKMSKeyId')
+                ? json['PerformanceInsightsKMSKeyId'] as String
+                : null,
+        enabledCloudwatchLogsExports:
+            json.containsKey('EnabledCloudwatchLogsExports')
+                ? (json['EnabledCloudwatchLogsExports'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+      );
 }
 
 class DBInstanceMessage {
@@ -4061,7 +5122,14 @@ class DBInstanceMessage {
     this.dbInstances,
   });
   static DBInstanceMessage fromJson(Map<String, dynamic> json) =>
-      DBInstanceMessage();
+      DBInstanceMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbInstances: json.containsKey('DBInstances')
+            ? (json['DBInstances'] as List)
+                .map((e) => DBInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides a list of status information for a DB instance.
@@ -4088,7 +5156,14 @@ class DBInstanceStatusInfo {
     this.message,
   });
   static DBInstanceStatusInfo fromJson(Map<String, dynamic> json) =>
-      DBInstanceStatusInfo();
+      DBInstanceStatusInfo(
+        statusType: json.containsKey('StatusType')
+            ? json['StatusType'] as String
+            : null,
+        normal: json.containsKey('Normal') ? json['Normal'] as bool : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Contains the details of an Amazon Neptune DB parameter group.
@@ -4116,7 +5191,20 @@ class DBParameterGroup {
     this.dbParameterGroupArn,
   });
   static DBParameterGroup fromJson(Map<String, dynamic> json) =>
-      DBParameterGroup();
+      DBParameterGroup(
+        dbParameterGroupName: json.containsKey('DBParameterGroupName')
+            ? json['DBParameterGroupName'] as String
+            : null,
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        dbParameterGroupArn: json.containsKey('DBParameterGroupArn')
+            ? json['DBParameterGroupArn'] as String
+            : null,
+      );
 }
 
 class DBParameterGroupDetails {
@@ -4133,7 +5221,14 @@ class DBParameterGroupDetails {
     this.marker,
   });
   static DBParameterGroupDetails fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupDetails();
+      DBParameterGroupDetails(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DBParameterGroupNameMessage {
@@ -4144,7 +5239,11 @@ class DBParameterGroupNameMessage {
     this.dbParameterGroupName,
   });
   static DBParameterGroupNameMessage fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupNameMessage();
+      DBParameterGroupNameMessage(
+        dbParameterGroupName: json.containsKey('DBParameterGroupName')
+            ? json['DBParameterGroupName'] as String
+            : null,
+      );
 }
 
 /// The status of the DB parameter group.
@@ -4170,7 +5269,14 @@ class DBParameterGroupStatus {
     this.parameterApplyStatus,
   });
   static DBParameterGroupStatus fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupStatus();
+      DBParameterGroupStatus(
+        dbParameterGroupName: json.containsKey('DBParameterGroupName')
+            ? json['DBParameterGroupName'] as String
+            : null,
+        parameterApplyStatus: json.containsKey('ParameterApplyStatus')
+            ? json['ParameterApplyStatus'] as String
+            : null,
+      );
 }
 
 class DBParameterGroupsMessage {
@@ -4187,7 +5293,14 @@ class DBParameterGroupsMessage {
     this.dbParameterGroups,
   });
   static DBParameterGroupsMessage fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupsMessage();
+      DBParameterGroupsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbParameterGroups: json.containsKey('DBParameterGroups')
+            ? (json['DBParameterGroups'] as List)
+                .map((e) => DBParameterGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Specifies membership in a designated DB security group.
@@ -4203,7 +5316,12 @@ class DBSecurityGroupMembership {
     this.status,
   });
   static DBSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      DBSecurityGroupMembership();
+      DBSecurityGroupMembership(
+        dbSecurityGroupName: json.containsKey('DBSecurityGroupName')
+            ? json['DBSecurityGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Contains the details of an Amazon Neptune DB subnet group.
@@ -4237,7 +5355,24 @@ class DBSubnetGroup {
     this.subnets,
     this.dbSubnetGroupArn,
   });
-  static DBSubnetGroup fromJson(Map<String, dynamic> json) => DBSubnetGroup();
+  static DBSubnetGroup fromJson(Map<String, dynamic> json) => DBSubnetGroup(
+        dbSubnetGroupName: json.containsKey('DBSubnetGroupName')
+            ? json['DBSubnetGroupName'] as String
+            : null,
+        dbSubnetGroupDescription: json.containsKey('DBSubnetGroupDescription')
+            ? json['DBSubnetGroupDescription'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetGroupStatus: json.containsKey('SubnetGroupStatus')
+            ? json['SubnetGroupStatus'] as String
+            : null,
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => Subnet.fromJson(e)).toList()
+            : null,
+        dbSubnetGroupArn: json.containsKey('DBSubnetGroupArn')
+            ? json['DBSubnetGroupArn'] as String
+            : null,
+      );
 }
 
 class DBSubnetGroupMessage {
@@ -4254,7 +5389,14 @@ class DBSubnetGroupMessage {
     this.dbSubnetGroups,
   });
   static DBSubnetGroupMessage fromJson(Map<String, dynamic> json) =>
-      DBSubnetGroupMessage();
+      DBSubnetGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbSubnetGroups: json.containsKey('DBSubnetGroups')
+            ? (json['DBSubnetGroups'] as List)
+                .map((e) => DBSubnetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteDBClusterResult {
@@ -4264,7 +5406,11 @@ class DeleteDBClusterResult {
     this.dbCluster,
   });
   static DeleteDBClusterResult fromJson(Map<String, dynamic> json) =>
-      DeleteDBClusterResult();
+      DeleteDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class DeleteDBClusterSnapshotResult {
@@ -4274,7 +5420,11 @@ class DeleteDBClusterSnapshotResult {
     this.dbClusterSnapshot,
   });
   static DeleteDBClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      DeleteDBClusterSnapshotResult();
+      DeleteDBClusterSnapshotResult(
+        dbClusterSnapshot: json.containsKey('DBClusterSnapshot')
+            ? DBClusterSnapshot.fromJson(json['DBClusterSnapshot'])
+            : null,
+      );
 }
 
 class DeleteDBInstanceResult {
@@ -4284,7 +5434,11 @@ class DeleteDBInstanceResult {
     this.dbInstance,
   });
   static DeleteDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      DeleteDBInstanceResult();
+      DeleteDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class DeleteEventSubscriptionResult {
@@ -4294,7 +5448,11 @@ class DeleteEventSubscriptionResult {
     this.eventSubscription,
   });
   static DeleteEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      DeleteEventSubscriptionResult();
+      DeleteEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class DescribeDBClusterSnapshotAttributesResult {
@@ -4305,7 +5463,13 @@ class DescribeDBClusterSnapshotAttributesResult {
   });
   static DescribeDBClusterSnapshotAttributesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeDBClusterSnapshotAttributesResult();
+      DescribeDBClusterSnapshotAttributesResult(
+        dbClusterSnapshotAttributesResult:
+            json.containsKey('DBClusterSnapshotAttributesResult')
+                ? DBClusterSnapshotAttributesResult.fromJson(
+                    json['DBClusterSnapshotAttributesResult'])
+                : null,
+      );
 }
 
 class DescribeEngineDefaultClusterParametersResult {
@@ -4316,7 +5480,11 @@ class DescribeEngineDefaultClusterParametersResult {
   });
   static DescribeEngineDefaultClusterParametersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEngineDefaultClusterParametersResult();
+      DescribeEngineDefaultClusterParametersResult(
+        engineDefaults: json.containsKey('EngineDefaults')
+            ? EngineDefaults.fromJson(json['EngineDefaults'])
+            : null,
+      );
 }
 
 class DescribeEngineDefaultParametersResult {
@@ -4327,7 +5495,11 @@ class DescribeEngineDefaultParametersResult {
   });
   static DescribeEngineDefaultParametersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEngineDefaultParametersResult();
+      DescribeEngineDefaultParametersResult(
+        engineDefaults: json.containsKey('EngineDefaults')
+            ? EngineDefaults.fromJson(json['EngineDefaults'])
+            : null,
+      );
 }
 
 class DescribeValidDBInstanceModificationsResult {
@@ -4338,7 +5510,13 @@ class DescribeValidDBInstanceModificationsResult {
   });
   static DescribeValidDBInstanceModificationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeValidDBInstanceModificationsResult();
+      DescribeValidDBInstanceModificationsResult(
+        validDBInstanceModificationsMessage:
+            json.containsKey('ValidDBInstanceModificationsMessage')
+                ? ValidDBInstanceModificationsMessage.fromJson(
+                    json['ValidDBInstanceModificationsMessage'])
+                : null,
+      );
 }
 
 /// An Active Directory Domain membership record associated with a DB instance.
@@ -4364,7 +5542,14 @@ class DomainMembership {
     this.iamRoleName,
   });
   static DomainMembership fromJson(Map<String, dynamic> json) =>
-      DomainMembership();
+      DomainMembership(
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        fqdn: json.containsKey('FQDN') ? json['FQDN'] as String : null,
+        iamRoleName: json.containsKey('IAMRoleName')
+            ? json['IAMRoleName'] as String
+            : null,
+      );
 }
 
 /// A range of double values.
@@ -4379,7 +5564,10 @@ class DoubleRange {
     this.from,
     this.to,
   });
-  static DoubleRange fromJson(Map<String, dynamic> json) => DoubleRange();
+  static DoubleRange fromJson(Map<String, dynamic> json) => DoubleRange(
+        from: json.containsKey('From') ? json['From'] as double : null,
+        to: json.containsKey('To') ? json['To'] as double : null,
+      );
 }
 
 /// Specifies a connection endpoint.
@@ -4399,7 +5587,13 @@ class Endpoint {
     this.port,
     this.hostedZoneId,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        hostedZoneId: json.containsKey('HostedZoneId')
+            ? json['HostedZoneId'] as String
+            : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -4422,7 +5616,17 @@ class EngineDefaults {
     this.marker,
     this.parameters,
   });
-  static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults();
+  static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults(
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  This data type is used as a response element in the DescribeEvents action.
@@ -4453,7 +5657,21 @@ class Event {
     this.date,
     this.sourceArn,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        sourceIdentifier: json.containsKey('SourceIdentifier')
+            ? json['SourceIdentifier'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+        sourceArn:
+            json.containsKey('SourceArn') ? json['SourceArn'] as String : null,
+      );
 }
 
 /// Contains the results of a successful invocation of the
@@ -4470,7 +5688,14 @@ class EventCategoriesMap {
     this.eventCategories,
   });
   static EventCategoriesMap fromJson(Map<String, dynamic> json) =>
-      EventCategoriesMap();
+      EventCategoriesMap(
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class EventCategoriesMessage {
@@ -4481,7 +5706,13 @@ class EventCategoriesMessage {
     this.eventCategoriesMapList,
   });
   static EventCategoriesMessage fromJson(Map<String, dynamic> json) =>
-      EventCategoriesMessage();
+      EventCategoriesMessage(
+        eventCategoriesMapList: json.containsKey('EventCategoriesMapList')
+            ? (json['EventCategoriesMapList'] as List)
+                .map((e) => EventCategoriesMap.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the results of a successful invocation of the
@@ -4541,7 +5772,36 @@ class EventSubscription {
     this.eventSubscriptionArn,
   });
   static EventSubscription fromJson(Map<String, dynamic> json) =>
-      EventSubscription();
+      EventSubscription(
+        customerAwsId: json.containsKey('CustomerAwsId')
+            ? json['CustomerAwsId'] as String
+            : null,
+        custSubscriptionId: json.containsKey('CustSubscriptionId')
+            ? json['CustSubscriptionId'] as String
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicArn')
+            ? json['SnsTopicArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        subscriptionCreationTime: json.containsKey('SubscriptionCreationTime')
+            ? json['SubscriptionCreationTime'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        sourceIdsList: json.containsKey('SourceIdsList')
+            ? (json['SourceIdsList'] as List).map((e) => e as String).toList()
+            : null,
+        eventCategoriesList: json.containsKey('EventCategoriesList')
+            ? (json['EventCategoriesList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        eventSubscriptionArn: json.containsKey('EventSubscriptionArn')
+            ? json['EventSubscriptionArn'] as String
+            : null,
+      );
 }
 
 class EventSubscriptionsMessage {
@@ -4559,7 +5819,14 @@ class EventSubscriptionsMessage {
     this.eventSubscriptionsList,
   });
   static EventSubscriptionsMessage fromJson(Map<String, dynamic> json) =>
-      EventSubscriptionsMessage();
+      EventSubscriptionsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        eventSubscriptionsList: json.containsKey('EventSubscriptionsList')
+            ? (json['EventSubscriptionsList'] as List)
+                .map((e) => EventSubscription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class EventsMessage {
@@ -4575,7 +5842,12 @@ class EventsMessage {
     this.marker,
     this.events,
   });
-  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage();
+  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class FailoverDBClusterResult {
@@ -4585,7 +5857,11 @@ class FailoverDBClusterResult {
     this.dbCluster,
   });
   static FailoverDBClusterResult fromJson(Map<String, dynamic> json) =>
-      FailoverDBClusterResult();
+      FailoverDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 /// This type is not currently supported.
@@ -4600,6 +5876,7 @@ class Filter {
     @required this.name,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ModifyDBClusterResult {
@@ -4609,7 +5886,11 @@ class ModifyDBClusterResult {
     this.dbCluster,
   });
   static ModifyDBClusterResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBClusterResult();
+      ModifyDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class ModifyDBClusterSnapshotAttributeResult {
@@ -4620,7 +5901,13 @@ class ModifyDBClusterSnapshotAttributeResult {
   });
   static ModifyDBClusterSnapshotAttributeResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyDBClusterSnapshotAttributeResult();
+      ModifyDBClusterSnapshotAttributeResult(
+        dbClusterSnapshotAttributesResult:
+            json.containsKey('DBClusterSnapshotAttributesResult')
+                ? DBClusterSnapshotAttributesResult.fromJson(
+                    json['DBClusterSnapshotAttributesResult'])
+                : null,
+      );
 }
 
 class ModifyDBInstanceResult {
@@ -4630,7 +5917,11 @@ class ModifyDBInstanceResult {
     this.dbInstance,
   });
   static ModifyDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBInstanceResult();
+      ModifyDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class ModifyDBSubnetGroupResult {
@@ -4640,7 +5931,11 @@ class ModifyDBSubnetGroupResult {
     this.dbSubnetGroup,
   });
   static ModifyDBSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBSubnetGroupResult();
+      ModifyDBSubnetGroupResult(
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? DBSubnetGroup.fromJson(json['DBSubnetGroup'])
+            : null,
+      );
 }
 
 class ModifyEventSubscriptionResult {
@@ -4650,7 +5945,11 @@ class ModifyEventSubscriptionResult {
     this.eventSubscription,
   });
   static ModifyEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      ModifyEventSubscriptionResult();
+      ModifyEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 /// Provides information on the option groups the DB instance is a member of.
@@ -4669,7 +5968,12 @@ class OptionGroupMembership {
     this.status,
   });
   static OptionGroupMembership fromJson(Map<String, dynamic> json) =>
-      OptionGroupMembership();
+      OptionGroupMembership(
+        optionGroupName: json.containsKey('OptionGroupName')
+            ? json['OptionGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Contains a list of available options for a DB instance.
@@ -4761,7 +6065,69 @@ class OrderableDBInstanceOption {
     this.maxIopsPerGib,
   });
   static OrderableDBInstanceOption fromJson(Map<String, dynamic> json) =>
-      OrderableDBInstanceOption();
+      OrderableDBInstanceOption(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => AvailabilityZone.fromJson(e))
+                .toList()
+            : null,
+        multiAZCapable: json.containsKey('MultiAZCapable')
+            ? json['MultiAZCapable'] as bool
+            : null,
+        readReplicaCapable: json.containsKey('ReadReplicaCapable')
+            ? json['ReadReplicaCapable'] as bool
+            : null,
+        vpc: json.containsKey('Vpc') ? json['Vpc'] as bool : null,
+        supportsStorageEncryption: json.containsKey('SupportsStorageEncryption')
+            ? json['SupportsStorageEncryption'] as bool
+            : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        supportsIops: json.containsKey('SupportsIops')
+            ? json['SupportsIops'] as bool
+            : null,
+        supportsEnhancedMonitoring:
+            json.containsKey('SupportsEnhancedMonitoring')
+                ? json['SupportsEnhancedMonitoring'] as bool
+                : null,
+        supportsIamDatabaseAuthentication:
+            json.containsKey('SupportsIAMDatabaseAuthentication')
+                ? json['SupportsIAMDatabaseAuthentication'] as bool
+                : null,
+        supportsPerformanceInsights:
+            json.containsKey('SupportsPerformanceInsights')
+                ? json['SupportsPerformanceInsights'] as bool
+                : null,
+        minStorageSize: json.containsKey('MinStorageSize')
+            ? json['MinStorageSize'] as int
+            : null,
+        maxStorageSize: json.containsKey('MaxStorageSize')
+            ? json['MaxStorageSize'] as int
+            : null,
+        minIopsPerDbInstance: json.containsKey('MinIopsPerDbInstance')
+            ? json['MinIopsPerDbInstance'] as int
+            : null,
+        maxIopsPerDbInstance: json.containsKey('MaxIopsPerDbInstance')
+            ? json['MaxIopsPerDbInstance'] as int
+            : null,
+        minIopsPerGib: json.containsKey('MinIopsPerGib')
+            ? json['MinIopsPerGib'] as double
+            : null,
+        maxIopsPerGib: json.containsKey('MaxIopsPerGib')
+            ? json['MaxIopsPerGib'] as double
+            : null,
+      );
 }
 
 class OrderableDBInstanceOptionsMessage {
@@ -4781,7 +6147,15 @@ class OrderableDBInstanceOptionsMessage {
   });
   static OrderableDBInstanceOptionsMessage fromJson(
           Map<String, dynamic> json) =>
-      OrderableDBInstanceOptionsMessage();
+      OrderableDBInstanceOptionsMessage(
+        orderableDBInstanceOptions:
+            json.containsKey('OrderableDBInstanceOptions')
+                ? (json['OrderableDBInstanceOptions'] as List)
+                    .map((e) => OrderableDBInstanceOption.fromJson(e))
+                    .toList()
+                : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Specifies a parameter.
@@ -4830,7 +6204,35 @@ class Parameter {
     this.minimumEngineVersion,
     this.applyMethod,
   });
-  static Parameter fromJson(Map<String, dynamic> json) => Parameter();
+  static Parameter fromJson(Map<String, dynamic> json) => Parameter(
+        parameterName: json.containsKey('ParameterName')
+            ? json['ParameterName'] as String
+            : null,
+        parameterValue: json.containsKey('ParameterValue')
+            ? json['ParameterValue'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        applyType:
+            json.containsKey('ApplyType') ? json['ApplyType'] as String : null,
+        dataType:
+            json.containsKey('DataType') ? json['DataType'] as String : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+        isModifiable: json.containsKey('IsModifiable')
+            ? json['IsModifiable'] as bool
+            : null,
+        minimumEngineVersion: json.containsKey('MinimumEngineVersion')
+            ? json['MinimumEngineVersion'] as String
+            : null,
+        applyMethod: json.containsKey('ApplyMethod')
+            ? json['ApplyMethod'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of the log types whose configuration is still pending. In other
@@ -4849,7 +6251,18 @@ class PendingCloudwatchLogsExports {
     this.logTypesToDisable,
   });
   static PendingCloudwatchLogsExports fromJson(Map<String, dynamic> json) =>
-      PendingCloudwatchLogsExports();
+      PendingCloudwatchLogsExports(
+        logTypesToEnable: json.containsKey('LogTypesToEnable')
+            ? (json['LogTypesToEnable'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        logTypesToDisable: json.containsKey('LogTypesToDisable')
+            ? (json['LogTypesToDisable'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Provides information about a pending maintenance action for a resource.
@@ -4893,7 +6306,24 @@ class PendingMaintenanceAction {
     this.description,
   });
   static PendingMaintenanceAction fromJson(Map<String, dynamic> json) =>
-      PendingMaintenanceAction();
+      PendingMaintenanceAction(
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        autoAppliedAfterDate: json.containsKey('AutoAppliedAfterDate')
+            ? DateTime.parse(json['AutoAppliedAfterDate'])
+            : null,
+        forcedApplyDate: json.containsKey('ForcedApplyDate')
+            ? DateTime.parse(json['ForcedApplyDate'])
+            : null,
+        optInStatus: json.containsKey('OptInStatus')
+            ? json['OptInStatus'] as String
+            : null,
+        currentApplyDate: json.containsKey('CurrentApplyDate')
+            ? DateTime.parse(json['CurrentApplyDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class PendingMaintenanceActionsMessage {
@@ -4911,7 +6341,14 @@ class PendingMaintenanceActionsMessage {
     this.marker,
   });
   static PendingMaintenanceActionsMessage fromJson(Map<String, dynamic> json) =>
-      PendingMaintenanceActionsMessage();
+      PendingMaintenanceActionsMessage(
+        pendingMaintenanceActions: json.containsKey('PendingMaintenanceActions')
+            ? (json['PendingMaintenanceActions'] as List)
+                .map((e) => ResourcePendingMaintenanceActions.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 ///  This data type is used as a response element in the ModifyDBInstance
@@ -4986,7 +6423,46 @@ class PendingModifiedValues {
     this.pendingCloudwatchLogsExports,
   });
   static PendingModifiedValues fromJson(Map<String, dynamic> json) =>
-      PendingModifiedValues();
+      PendingModifiedValues(
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        masterUserPassword: json.containsKey('MasterUserPassword')
+            ? json['MasterUserPassword'] as String
+            : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        backupRetentionPeriod: json.containsKey('BackupRetentionPeriod')
+            ? json['BackupRetentionPeriod'] as int
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        caCertificateIdentifier: json.containsKey('CACertificateIdentifier')
+            ? json['CACertificateIdentifier'] as String
+            : null,
+        dbSubnetGroupName: json.containsKey('DBSubnetGroupName')
+            ? json['DBSubnetGroupName'] as String
+            : null,
+        pendingCloudwatchLogsExports:
+            json.containsKey('PendingCloudwatchLogsExports')
+                ? PendingCloudwatchLogsExports.fromJson(
+                    json['PendingCloudwatchLogsExports'])
+                : null,
+      );
 }
 
 class PromoteReadReplicaDBClusterResult {
@@ -4997,7 +6473,11 @@ class PromoteReadReplicaDBClusterResult {
   });
   static PromoteReadReplicaDBClusterResult fromJson(
           Map<String, dynamic> json) =>
-      PromoteReadReplicaDBClusterResult();
+      PromoteReadReplicaDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 /// A range of integer values.
@@ -5019,7 +6499,11 @@ class Range {
     this.to,
     this.step,
   });
-  static Range fromJson(Map<String, dynamic> json) => Range();
+  static Range fromJson(Map<String, dynamic> json) => Range(
+        from: json.containsKey('From') ? json['From'] as int : null,
+        to: json.containsKey('To') ? json['To'] as int : null,
+        step: json.containsKey('Step') ? json['Step'] as int : null,
+      );
 }
 
 class RebootDBInstanceResult {
@@ -5029,7 +6513,11 @@ class RebootDBInstanceResult {
     this.dbInstance,
   });
   static RebootDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      RebootDBInstanceResult();
+      RebootDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class RemoveSourceIdentifierFromSubscriptionResult {
@@ -5040,7 +6528,11 @@ class RemoveSourceIdentifierFromSubscriptionResult {
   });
   static RemoveSourceIdentifierFromSubscriptionResult fromJson(
           Map<String, dynamic> json) =>
-      RemoveSourceIdentifierFromSubscriptionResult();
+      RemoveSourceIdentifierFromSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 /// Describes the pending maintenance actions for a resource.
@@ -5058,7 +6550,17 @@ class ResourcePendingMaintenanceActions {
   });
   static ResourcePendingMaintenanceActions fromJson(
           Map<String, dynamic> json) =>
-      ResourcePendingMaintenanceActions();
+      ResourcePendingMaintenanceActions(
+        resourceIdentifier: json.containsKey('ResourceIdentifier')
+            ? json['ResourceIdentifier'] as String
+            : null,
+        pendingMaintenanceActionDetails:
+            json.containsKey('PendingMaintenanceActionDetails')
+                ? (json['PendingMaintenanceActionDetails'] as List)
+                    .map((e) => PendingMaintenanceAction.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class RestoreDBClusterFromSnapshotResult {
@@ -5069,7 +6571,11 @@ class RestoreDBClusterFromSnapshotResult {
   });
   static RestoreDBClusterFromSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      RestoreDBClusterFromSnapshotResult();
+      RestoreDBClusterFromSnapshotResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class RestoreDBClusterToPointInTimeResult {
@@ -5080,7 +6586,11 @@ class RestoreDBClusterToPointInTimeResult {
   });
   static RestoreDBClusterToPointInTimeResult fromJson(
           Map<String, dynamic> json) =>
-      RestoreDBClusterToPointInTimeResult();
+      RestoreDBClusterToPointInTimeResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 /// Specifies a subnet.
@@ -5102,7 +6612,17 @@ class Subnet {
     this.subnetAvailabilityZone,
     this.subnetStatus,
   });
-  static Subnet fromJson(Map<String, dynamic> json) => Subnet();
+  static Subnet fromJson(Map<String, dynamic> json) => Subnet(
+        subnetIdentifier: json.containsKey('SubnetIdentifier')
+            ? json['SubnetIdentifier'] as String
+            : null,
+        subnetAvailabilityZone: json.containsKey('SubnetAvailabilityZone')
+            ? AvailabilityZone.fromJson(json['SubnetAvailabilityZone'])
+            : null,
+        subnetStatus: json.containsKey('SubnetStatus')
+            ? json['SubnetStatus'] as String
+            : null,
+      );
 }
 
 /// Metadata assigned to an Amazon Neptune resource consisting of a key-value
@@ -5126,7 +6646,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagListMessage {
@@ -5136,7 +6660,11 @@ class TagListMessage {
   TagListMessage({
     this.tagList,
   });
-  static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage();
+  static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage(
+        tagList: json.containsKey('TagList')
+            ? (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A time zone associated with a DBInstance.
@@ -5147,7 +6675,11 @@ class Timezone {
   Timezone({
     this.timezoneName,
   });
-  static Timezone fromJson(Map<String, dynamic> json) => Timezone();
+  static Timezone fromJson(Map<String, dynamic> json) => Timezone(
+        timezoneName: json.containsKey('TimezoneName')
+            ? json['TimezoneName'] as String
+            : null,
+      );
 }
 
 /// The version of the database engine that a DB instance can be upgraded to.
@@ -5176,7 +6708,21 @@ class UpgradeTarget {
     this.autoUpgrade,
     this.isMajorVersionUpgrade,
   });
-  static UpgradeTarget fromJson(Map<String, dynamic> json) => UpgradeTarget();
+  static UpgradeTarget fromJson(Map<String, dynamic> json) => UpgradeTarget(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        autoUpgrade: json.containsKey('AutoUpgrade')
+            ? json['AutoUpgrade'] as bool
+            : null,
+        isMajorVersionUpgrade: json.containsKey('IsMajorVersionUpgrade')
+            ? json['IsMajorVersionUpgrade'] as bool
+            : null,
+      );
 }
 
 /// Information about valid modifications that you can make to your DB instance.
@@ -5192,7 +6738,13 @@ class ValidDBInstanceModificationsMessage {
   });
   static ValidDBInstanceModificationsMessage fromJson(
           Map<String, dynamic> json) =>
-      ValidDBInstanceModificationsMessage();
+      ValidDBInstanceModificationsMessage(
+        storage: json.containsKey('Storage')
+            ? (json['Storage'] as List)
+                .map((e) => ValidStorageOptions.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about valid modifications that you can make to your DB instance.
@@ -5221,7 +6773,26 @@ class ValidStorageOptions {
     this.iopsToStorageRatio,
   });
   static ValidStorageOptions fromJson(Map<String, dynamic> json) =>
-      ValidStorageOptions();
+      ValidStorageOptions(
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        storageSize: json.containsKey('StorageSize')
+            ? (json['StorageSize'] as List)
+                .map((e) => Range.fromJson(e))
+                .toList()
+            : null,
+        provisionedIops: json.containsKey('ProvisionedIops')
+            ? (json['ProvisionedIops'] as List)
+                .map((e) => Range.fromJson(e))
+                .toList()
+            : null,
+        iopsToStorageRatio: json.containsKey('IopsToStorageRatio')
+            ? (json['IopsToStorageRatio'] as List)
+                .map((e) => DoubleRange.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// This data type is used as a response element for queries on VPC security
@@ -5238,5 +6809,10 @@ class VpcSecurityGroupMembership {
     this.status,
   });
   static VpcSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      VpcSecurityGroupMembership();
+      VpcSecurityGroupMembership(
+        vpcSecurityGroupId: json.containsKey('VpcSecurityGroupId')
+            ? json['VpcSecurityGroupId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }

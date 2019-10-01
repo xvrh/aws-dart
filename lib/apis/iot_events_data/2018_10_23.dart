@@ -6,6 +6,10 @@ import 'dart:typed_data';
 /// Events Data API commands enable you to send inputs to detectors, list
 /// detectors, and view or update a detector's status.
 class IotEventsDataApi {
+  final _client;
+  IotEventsDataApi(client)
+      : _client = client.configured('IoT Events Data', serializer: 'rest-json');
+
   /// Sends a set of messages to the AWS IoT Events system. Each message payload
   /// is transformed into the input you specify (`"inputName"`) and ingested
   /// into any detectors that monitor that input. If multiple messages are sent,
@@ -18,7 +22,10 @@ class IotEventsDataApi {
   /// "string"}'`
   Future<BatchPutMessageResponse> batchPutMessage(
       List<Message> messages) async {
-    return BatchPutMessageResponse.fromJson({});
+    var response_ = await _client.send('BatchPutMessage', {
+      'messages': messages,
+    });
+    return BatchPutMessageResponse.fromJson(response_);
   }
 
   /// Updates the state, variable values, and timer settings of one or more
@@ -28,7 +35,10 @@ class IotEventsDataApi {
   /// values to update.
   Future<BatchUpdateDetectorResponse> batchUpdateDetector(
       List<UpdateDetectorRequest> detectors) async {
-    return BatchUpdateDetectorResponse.fromJson({});
+    var response_ = await _client.send('BatchUpdateDetector', {
+      'detectors': detectors,
+    });
+    return BatchUpdateDetectorResponse.fromJson(response_);
   }
 
   /// Returns information about the specified detector (instance).
@@ -40,7 +50,11 @@ class IotEventsDataApi {
   /// created because of the given key ID.
   Future<DescribeDetectorResponse> describeDetector(String detectorModelName,
       {String keyValue}) async {
-    return DescribeDetectorResponse.fromJson({});
+    var response_ = await _client.send('DescribeDetector', {
+      'detectorModelName': detectorModelName,
+      if (keyValue != null) 'keyValue': keyValue,
+    });
+    return DescribeDetectorResponse.fromJson(response_);
   }
 
   /// Lists detectors (the instances of a detector model).
@@ -56,7 +70,13 @@ class IotEventsDataApi {
   /// [maxResults]: The maximum number of results to return at one time.
   Future<ListDetectorsResponse> listDetectors(String detectorModelName,
       {String stateName, String nextToken, int maxResults}) async {
-    return ListDetectorsResponse.fromJson({});
+    var response_ = await _client.send('ListDetectors', {
+      'detectorModelName': detectorModelName,
+      if (stateName != null) 'stateName': stateName,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDetectorsResponse.fromJson(response_);
   }
 }
 
@@ -78,7 +98,15 @@ class BatchPutMessageErrorEntry {
     this.errorMessage,
   });
   static BatchPutMessageErrorEntry fromJson(Map<String, dynamic> json) =>
-      BatchPutMessageErrorEntry();
+      BatchPutMessageErrorEntry(
+        messageId:
+            json.containsKey('messageId') ? json['messageId'] as String : null,
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+      );
 }
 
 class BatchPutMessageResponse {
@@ -89,7 +117,14 @@ class BatchPutMessageResponse {
     this.batchPutMessageErrorEntries,
   });
   static BatchPutMessageResponse fromJson(Map<String, dynamic> json) =>
-      BatchPutMessageResponse();
+      BatchPutMessageResponse(
+        batchPutMessageErrorEntries:
+            json.containsKey('BatchPutMessageErrorEntries')
+                ? (json['BatchPutMessageErrorEntries'] as List)
+                    .map((e) => BatchPutMessageErrorEntry.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Information about the error that occured when attempting to update a
@@ -111,7 +146,15 @@ class BatchUpdateDetectorErrorEntry {
     this.errorMessage,
   });
   static BatchUpdateDetectorErrorEntry fromJson(Map<String, dynamic> json) =>
-      BatchUpdateDetectorErrorEntry();
+      BatchUpdateDetectorErrorEntry(
+        messageId:
+            json.containsKey('messageId') ? json['messageId'] as String : null,
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+      );
 }
 
 class BatchUpdateDetectorResponse {
@@ -123,7 +166,14 @@ class BatchUpdateDetectorResponse {
     this.batchUpdateDetectorErrorEntries,
   });
   static BatchUpdateDetectorResponse fromJson(Map<String, dynamic> json) =>
-      BatchUpdateDetectorResponse();
+      BatchUpdateDetectorResponse(
+        batchUpdateDetectorErrorEntries:
+            json.containsKey('batchUpdateDetectorErrorEntries')
+                ? (json['batchUpdateDetectorErrorEntries'] as List)
+                    .map((e) => BatchUpdateDetectorErrorEntry.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class DescribeDetectorResponse {
@@ -134,7 +184,11 @@ class DescribeDetectorResponse {
     this.detector,
   });
   static DescribeDetectorResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDetectorResponse();
+      DescribeDetectorResponse(
+        detector: json.containsKey('detector')
+            ? Detector.fromJson(json['detector'])
+            : null,
+      );
 }
 
 /// Information about the detector (instance).
@@ -166,7 +220,25 @@ class Detector {
     this.creationTime,
     this.lastUpdateTime,
   });
-  static Detector fromJson(Map<String, dynamic> json) => Detector();
+  static Detector fromJson(Map<String, dynamic> json) => Detector(
+        detectorModelName: json.containsKey('detectorModelName')
+            ? json['detectorModelName'] as String
+            : null,
+        keyValue:
+            json.containsKey('keyValue') ? json['keyValue'] as String : null,
+        detectorModelVersion: json.containsKey('detectorModelVersion')
+            ? json['detectorModelVersion'] as String
+            : null,
+        state: json.containsKey('state')
+            ? DetectorState.fromJson(json['state'])
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+      );
 }
 
 /// Information about the current state of the detector instance.
@@ -185,7 +257,13 @@ class DetectorState {
     @required this.variables,
     @required this.timers,
   });
-  static DetectorState fromJson(Map<String, dynamic> json) => DetectorState();
+  static DetectorState fromJson(Map<String, dynamic> json) => DetectorState(
+        stateName: json['stateName'] as String,
+        variables: (json['variables'] as List)
+            .map((e) => Variable.fromJson(e))
+            .toList(),
+        timers: (json['timers'] as List).map((e) => Timer.fromJson(e)).toList(),
+      );
 }
 
 /// The new state, variable values, and timer settings of the detector
@@ -207,6 +285,7 @@ class DetectorStateDefinition {
     @required this.variables,
     @required this.timers,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the detector state.
@@ -218,7 +297,10 @@ class DetectorStateSummary {
     this.stateName,
   });
   static DetectorStateSummary fromJson(Map<String, dynamic> json) =>
-      DetectorStateSummary();
+      DetectorStateSummary(
+        stateName:
+            json.containsKey('stateName') ? json['stateName'] as String : null,
+      );
 }
 
 /// Information about the detector (instance).
@@ -250,8 +332,25 @@ class DetectorSummary {
     this.creationTime,
     this.lastUpdateTime,
   });
-  static DetectorSummary fromJson(Map<String, dynamic> json) =>
-      DetectorSummary();
+  static DetectorSummary fromJson(Map<String, dynamic> json) => DetectorSummary(
+        detectorModelName: json.containsKey('detectorModelName')
+            ? json['detectorModelName'] as String
+            : null,
+        keyValue:
+            json.containsKey('keyValue') ? json['keyValue'] as String : null,
+        detectorModelVersion: json.containsKey('detectorModelVersion')
+            ? json['detectorModelVersion'] as String
+            : null,
+        state: json.containsKey('state')
+            ? DetectorStateSummary.fromJson(json['state'])
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+      );
 }
 
 class ListDetectorsResponse {
@@ -267,7 +366,15 @@ class ListDetectorsResponse {
     this.nextToken,
   });
   static ListDetectorsResponse fromJson(Map<String, dynamic> json) =>
-      ListDetectorsResponse();
+      ListDetectorsResponse(
+        detectorSummaries: json.containsKey('detectorSummaries')
+            ? (json['detectorSummaries'] as List)
+                .map((e) => DetectorSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Information about a message.
@@ -288,6 +395,7 @@ class Message {
     @required this.inputName,
     @required this.payload,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The current state of a timer.
@@ -302,7 +410,10 @@ class Timer {
     @required this.name,
     @required this.timestamp,
   });
-  static Timer fromJson(Map<String, dynamic> json) => Timer();
+  static Timer fromJson(Map<String, dynamic> json) => Timer(
+        name: json['name'] as String,
+        timestamp: DateTime.parse(json['timestamp']),
+      );
 }
 
 /// The new setting of a timer.
@@ -318,6 +429,7 @@ class TimerDefinition {
     @required this.name,
     @required this.seconds,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information used to update the detector (instance).
@@ -343,6 +455,7 @@ class UpdateDetectorRequest {
     this.keyValue,
     @required this.state,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The current state of the variable.
@@ -357,7 +470,10 @@ class Variable {
     @required this.name,
     @required this.value,
   });
-  static Variable fromJson(Map<String, dynamic> json) => Variable();
+  static Variable fromJson(Map<String, dynamic> json) => Variable(
+        name: json['name'] as String,
+        value: json['value'] as String,
+      );
 }
 
 /// The new value of the variable.
@@ -372,4 +488,5 @@ class VariableDefinition {
     @required this.name,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

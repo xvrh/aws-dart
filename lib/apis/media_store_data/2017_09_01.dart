@@ -5,12 +5,19 @@ import 'dart:typed_data';
 /// Amazon S3 service. Objects are the fundamental entities that are stored in
 /// AWS Elemental MediaStore.
 class MediaStoreDataApi {
+  final _client;
+  MediaStoreDataApi(client)
+      : _client = client.configured('MediaStore Data', serializer: 'rest-json');
+
   /// Deletes an object at the specified path.
   ///
   /// [path]: The path (including the file name) where the object is stored in
   /// the container. Format: <folder name>/<folder name>/<file name>
   Future<DeleteObjectResponse> deleteObject(String path) async {
-    return DeleteObjectResponse.fromJson({});
+    var response_ = await _client.send('DeleteObject', {
+      'Path': path,
+    });
+    return DeleteObjectResponse.fromJson(response_);
   }
 
   /// Gets the headers for an object at the specified path.
@@ -18,7 +25,10 @@ class MediaStoreDataApi {
   /// [path]: The path (including the file name) where the object is stored in
   /// the container. Format: <folder name>/<folder name>/<file name>
   Future<DescribeObjectResponse> describeObject(String path) async {
-    return DescribeObjectResponse.fromJson({});
+    var response_ = await _client.send('DescribeObject', {
+      'Path': path,
+    });
+    return DescribeObjectResponse.fromJson(response_);
   }
 
   /// Downloads the object at the specified path. If the object’s upload
@@ -58,7 +68,11 @@ class MediaStoreDataApi {
   /// AWS Elemental MediaStore ignores this header for partially uploaded
   /// objects that have streaming upload availability.
   Future<GetObjectResponse> getObject(String path, {String range}) async {
-    return GetObjectResponse.fromJson({});
+    var response_ = await _client.send('GetObject', {
+      'Path': path,
+      if (range != null) 'Range': range,
+    });
+    return GetObjectResponse.fromJson(response_);
   }
 
   /// Provides a list of metadata entries about folders and objects in the
@@ -87,7 +101,12 @@ class MediaStoreDataApi {
   /// Tokens expire after 15 minutes.
   Future<ListItemsResponse> listItems(
       {String path, int maxResults, String nextToken}) async {
-    return ListItemsResponse.fromJson({});
+    var response_ = await _client.send('ListItems', {
+      if (path != null) 'Path': path,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListItemsResponse.fromJson(response_);
   }
 
   /// Uploads an object to the specified path. Object sizes are limited to 25 MB
@@ -152,7 +171,15 @@ class MediaStoreDataApi {
       String cacheControl,
       String storageClass,
       String uploadAvailability}) async {
-    return PutObjectResponse.fromJson({});
+    var response_ = await _client.send('PutObject', {
+      'Body': body,
+      'Path': path,
+      if (contentType != null) 'ContentType': contentType,
+      if (cacheControl != null) 'CacheControl': cacheControl,
+      if (storageClass != null) 'StorageClass': storageClass,
+      if (uploadAvailability != null) 'UploadAvailability': uploadAvailability,
+    });
+    return PutObjectResponse.fromJson(response_);
   }
 }
 
@@ -191,7 +218,21 @@ class DescribeObjectResponse {
     this.lastModified,
   });
   static DescribeObjectResponse fromJson(Map<String, dynamic> json) =>
-      DescribeObjectResponse();
+      DescribeObjectResponse(
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        contentLength: json.containsKey('ContentLength')
+            ? BigInt.from(json['ContentLength'])
+            : null,
+        cacheControl: json.containsKey('CacheControl')
+            ? json['CacheControl'] as String
+            : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+      );
 }
 
 class GetObjectResponse {
@@ -237,7 +278,26 @@ class GetObjectResponse {
     @required this.statusCode,
   });
   static GetObjectResponse fromJson(Map<String, dynamic> json) =>
-      GetObjectResponse();
+      GetObjectResponse(
+        body: json.containsKey('Body') ? Uint8List(json['Body']) : null,
+        cacheControl: json.containsKey('CacheControl')
+            ? json['CacheControl'] as String
+            : null,
+        contentRange: json.containsKey('ContentRange')
+            ? json['ContentRange'] as String
+            : null,
+        contentLength: json.containsKey('ContentLength')
+            ? BigInt.from(json['ContentLength'])
+            : null,
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        statusCode: json['StatusCode'] as int,
+      );
 }
 
 /// A metadata entry for a folder or object.
@@ -268,7 +328,20 @@ class Item {
     this.contentType,
     this.contentLength,
   });
-  static Item fromJson(Map<String, dynamic> json) => Item();
+  static Item fromJson(Map<String, dynamic> json) => Item(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        contentLength: json.containsKey('ContentLength')
+            ? BigInt.from(json['ContentLength'])
+            : null,
+      );
 }
 
 class ListItemsResponse {
@@ -287,7 +360,13 @@ class ListItemsResponse {
     this.nextToken,
   });
   static ListItemsResponse fromJson(Map<String, dynamic> json) =>
-      ListItemsResponse();
+      ListItemsResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => Item.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class PutObjectResponse {
@@ -307,5 +386,13 @@ class PutObjectResponse {
     this.storageClass,
   });
   static PutObjectResponse fromJson(Map<String, dynamic> json) =>
-      PutObjectResponse();
+      PutObjectResponse(
+        contentSha256: json.containsKey('ContentSHA256')
+            ? json['ContentSHA256'] as String
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+      );
 }

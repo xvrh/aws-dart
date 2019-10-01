@@ -12,12 +12,19 @@ import 'package:meta/meta.dart';
 /// behavior and mapping information for the origin server and the ad decision
 /// server (ADS).
 class MediaTailorApi {
+  final _client;
+  MediaTailorApi(client)
+      : _client = client.configured('MediaTailor', serializer: 'rest-json');
+
   /// Deletes the playback configuration for the specified name.
   ///
   /// [name]: The identifier for the playback configuration.
   Future<DeletePlaybackConfigurationResponse> deletePlaybackConfiguration(
       String name) async {
-    return DeletePlaybackConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DeletePlaybackConfiguration', {
+      'Name': name,
+    });
+    return DeletePlaybackConfigurationResponse.fromJson(response_);
   }
 
   /// Returns the playback configuration for the specified name.
@@ -25,7 +32,10 @@ class MediaTailorApi {
   /// [name]: The identifier for the playback configuration.
   Future<GetPlaybackConfigurationResponse> getPlaybackConfiguration(
       String name) async {
-    return GetPlaybackConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetPlaybackConfiguration', {
+      'Name': name,
+    });
+    return GetPlaybackConfigurationResponse.fromJson(response_);
   }
 
   /// Returns a list of the playback configurations defined in AWS Elemental
@@ -42,7 +52,11 @@ class MediaTailorApi {
   /// of results.
   Future<ListPlaybackConfigurationsResponse> listPlaybackConfigurations(
       {int maxResults, String nextToken}) async {
-    return ListPlaybackConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('ListPlaybackConfigurations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListPlaybackConfigurationsResponse.fromJson(response_);
   }
 
   /// Returns a list of the tags assigned to the specified playback
@@ -53,7 +67,10 @@ class MediaTailorApi {
   /// configuration request.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Adds a new playback configuration to AWS Elemental MediaTailor.
@@ -98,7 +115,20 @@ class MediaTailorApi {
       Map<String, String> tags,
       String transcodeProfileName,
       String videoContentSourceUrl}) async {
-    return PutPlaybackConfigurationResponse.fromJson({});
+    var response_ = await _client.send('PutPlaybackConfiguration', {
+      if (adDecisionServerUrl != null)
+        'AdDecisionServerUrl': adDecisionServerUrl,
+      if (cdnConfiguration != null) 'CdnConfiguration': cdnConfiguration,
+      if (dashConfiguration != null) 'DashConfiguration': dashConfiguration,
+      if (name != null) 'Name': name,
+      if (slateAdUrl != null) 'SlateAdUrl': slateAdUrl,
+      if (tags != null) 'Tags': tags,
+      if (transcodeProfileName != null)
+        'TranscodeProfileName': transcodeProfileName,
+      if (videoContentSourceUrl != null)
+        'VideoContentSourceUrl': videoContentSourceUrl,
+    });
+    return PutPlaybackConfigurationResponse.fromJson(response_);
   }
 
   /// Adds tags to the specified playback configuration resource. You can
@@ -112,7 +142,12 @@ class MediaTailorApi {
   /// "Key1": "Value1", "Key2": "Value2" }
   Future<void> tagResource(
       {@required String resourceArn,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+  }
 
   /// Removes tags from the specified playback configuration resource. You can
   /// specify one or more tags to remove.
@@ -124,7 +159,12 @@ class MediaTailorApi {
   /// [tagKeys]: A comma-separated list of the tag keys to remove from the
   /// playback configuration.
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 }
 
 /// The configuration for using a content delivery network (CDN), like Amazon
@@ -152,7 +192,15 @@ class CdnConfiguration {
     this.contentSegmentUrlPrefix,
   });
   static CdnConfiguration fromJson(Map<String, dynamic> json) =>
-      CdnConfiguration();
+      CdnConfiguration(
+        adSegmentUrlPrefix: json.containsKey('AdSegmentUrlPrefix')
+            ? json['AdSegmentUrlPrefix'] as String
+            : null,
+        contentSegmentUrlPrefix: json.containsKey('ContentSegmentUrlPrefix')
+            ? json['ContentSegmentUrlPrefix'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration for DASH content.
@@ -185,7 +233,17 @@ class DashConfiguration {
     this.originManifestType,
   });
   static DashConfiguration fromJson(Map<String, dynamic> json) =>
-      DashConfiguration();
+      DashConfiguration(
+        manifestEndpointPrefix: json.containsKey('ManifestEndpointPrefix')
+            ? json['ManifestEndpointPrefix'] as String
+            : null,
+        mpdLocation: json.containsKey('MpdLocation')
+            ? json['MpdLocation'] as String
+            : null,
+        originManifestType: json.containsKey('OriginManifestType')
+            ? json['OriginManifestType'] as String
+            : null,
+      );
 }
 
 /// The configuration for DASH PUT operations.
@@ -211,6 +269,7 @@ class DashConfigurationForPut {
     this.mpdLocation,
     this.originManifestType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeletePlaybackConfigurationResponse {
@@ -289,7 +348,44 @@ class GetPlaybackConfigurationResponse {
     this.videoContentSourceUrl,
   });
   static GetPlaybackConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      GetPlaybackConfigurationResponse();
+      GetPlaybackConfigurationResponse(
+        adDecisionServerUrl: json.containsKey('AdDecisionServerUrl')
+            ? json['AdDecisionServerUrl'] as String
+            : null,
+        cdnConfiguration: json.containsKey('CdnConfiguration')
+            ? CdnConfiguration.fromJson(json['CdnConfiguration'])
+            : null,
+        dashConfiguration: json.containsKey('DashConfiguration')
+            ? DashConfiguration.fromJson(json['DashConfiguration'])
+            : null,
+        hlsConfiguration: json.containsKey('HlsConfiguration')
+            ? HlsConfiguration.fromJson(json['HlsConfiguration'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        playbackConfigurationArn: json.containsKey('PlaybackConfigurationArn')
+            ? json['PlaybackConfigurationArn'] as String
+            : null,
+        playbackEndpointPrefix: json.containsKey('PlaybackEndpointPrefix')
+            ? json['PlaybackEndpointPrefix'] as String
+            : null,
+        sessionInitializationEndpointPrefix:
+            json.containsKey('SessionInitializationEndpointPrefix')
+                ? json['SessionInitializationEndpointPrefix'] as String
+                : null,
+        slateAdUrl: json.containsKey('SlateAdUrl')
+            ? json['SlateAdUrl'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        transcodeProfileName: json.containsKey('TranscodeProfileName')
+            ? json['TranscodeProfileName'] as String
+            : null,
+        videoContentSourceUrl: json.containsKey('VideoContentSourceUrl')
+            ? json['VideoContentSourceUrl'] as String
+            : null,
+      );
 }
 
 /// The configuration for HLS content.
@@ -302,7 +398,11 @@ class HlsConfiguration {
     this.manifestEndpointPrefix,
   });
   static HlsConfiguration fromJson(Map<String, dynamic> json) =>
-      HlsConfiguration();
+      HlsConfiguration(
+        manifestEndpointPrefix: json.containsKey('ManifestEndpointPrefix')
+            ? json['ManifestEndpointPrefix'] as String
+            : null,
+      );
 }
 
 class ListPlaybackConfigurationsResponse {
@@ -321,7 +421,15 @@ class ListPlaybackConfigurationsResponse {
   });
   static ListPlaybackConfigurationsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListPlaybackConfigurationsResponse();
+      ListPlaybackConfigurationsResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => PlaybackConfiguration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -333,7 +441,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The AWSMediaTailor configuration.
@@ -406,7 +519,44 @@ class PlaybackConfiguration {
     this.videoContentSourceUrl,
   });
   static PlaybackConfiguration fromJson(Map<String, dynamic> json) =>
-      PlaybackConfiguration();
+      PlaybackConfiguration(
+        adDecisionServerUrl: json.containsKey('AdDecisionServerUrl')
+            ? json['AdDecisionServerUrl'] as String
+            : null,
+        cdnConfiguration: json.containsKey('CdnConfiguration')
+            ? CdnConfiguration.fromJson(json['CdnConfiguration'])
+            : null,
+        dashConfiguration: json.containsKey('DashConfiguration')
+            ? DashConfiguration.fromJson(json['DashConfiguration'])
+            : null,
+        hlsConfiguration: json.containsKey('HlsConfiguration')
+            ? HlsConfiguration.fromJson(json['HlsConfiguration'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        playbackConfigurationArn: json.containsKey('PlaybackConfigurationArn')
+            ? json['PlaybackConfigurationArn'] as String
+            : null,
+        playbackEndpointPrefix: json.containsKey('PlaybackEndpointPrefix')
+            ? json['PlaybackEndpointPrefix'] as String
+            : null,
+        sessionInitializationEndpointPrefix:
+            json.containsKey('SessionInitializationEndpointPrefix')
+                ? json['SessionInitializationEndpointPrefix'] as String
+                : null,
+        slateAdUrl: json.containsKey('SlateAdUrl')
+            ? json['SlateAdUrl'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        transcodeProfileName: json.containsKey('TranscodeProfileName')
+            ? json['TranscodeProfileName'] as String
+            : null,
+        videoContentSourceUrl: json.containsKey('VideoContentSourceUrl')
+            ? json['VideoContentSourceUrl'] as String
+            : null,
+      );
 }
 
 class PutPlaybackConfigurationResponse {
@@ -478,5 +628,42 @@ class PutPlaybackConfigurationResponse {
     this.videoContentSourceUrl,
   });
   static PutPlaybackConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      PutPlaybackConfigurationResponse();
+      PutPlaybackConfigurationResponse(
+        adDecisionServerUrl: json.containsKey('AdDecisionServerUrl')
+            ? json['AdDecisionServerUrl'] as String
+            : null,
+        cdnConfiguration: json.containsKey('CdnConfiguration')
+            ? CdnConfiguration.fromJson(json['CdnConfiguration'])
+            : null,
+        dashConfiguration: json.containsKey('DashConfiguration')
+            ? DashConfiguration.fromJson(json['DashConfiguration'])
+            : null,
+        hlsConfiguration: json.containsKey('HlsConfiguration')
+            ? HlsConfiguration.fromJson(json['HlsConfiguration'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        playbackConfigurationArn: json.containsKey('PlaybackConfigurationArn')
+            ? json['PlaybackConfigurationArn'] as String
+            : null,
+        playbackEndpointPrefix: json.containsKey('PlaybackEndpointPrefix')
+            ? json['PlaybackEndpointPrefix'] as String
+            : null,
+        sessionInitializationEndpointPrefix:
+            json.containsKey('SessionInitializationEndpointPrefix')
+                ? json['SessionInitializationEndpointPrefix'] as String
+                : null,
+        slateAdUrl: json.containsKey('SlateAdUrl')
+            ? json['SlateAdUrl'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        transcodeProfileName: json.containsKey('TranscodeProfileName')
+            ? json['TranscodeProfileName'] as String
+            : null,
+        videoContentSourceUrl: json.containsKey('VideoContentSourceUrl')
+            ? json['VideoContentSourceUrl'] as String
+            : null,
+      );
 }

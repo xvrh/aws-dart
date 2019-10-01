@@ -2,27 +2,40 @@ import 'package:meta/meta.dart';
 
 /// This section provides documentation for the AWS RoboMaker API operations.
 class RoboMakerApi {
+  final _client;
+  RoboMakerApi(client)
+      : _client = client.configured('RoboMaker', serializer: 'rest-json');
+
   /// Describes one or more simulation jobs.
   ///
   /// [jobs]: A list of Amazon Resource Names (ARNs) of simulation jobs to
   /// describe.
   Future<BatchDescribeSimulationJobResponse> batchDescribeSimulationJob(
       List<String> jobs) async {
-    return BatchDescribeSimulationJobResponse.fromJson({});
+    var response_ = await _client.send('BatchDescribeSimulationJob', {
+      'jobs': jobs,
+    });
+    return BatchDescribeSimulationJobResponse.fromJson(response_);
   }
 
   /// Cancels the specified deployment job.
   ///
   /// [job]: The deployment job ARN to cancel.
   Future<CancelDeploymentJobResponse> cancelDeploymentJob(String job) async {
-    return CancelDeploymentJobResponse.fromJson({});
+    var response_ = await _client.send('CancelDeploymentJob', {
+      'job': job,
+    });
+    return CancelDeploymentJobResponse.fromJson(response_);
   }
 
   /// Cancels the specified simulation job.
   ///
   /// [job]: The simulation job ARN to cancel.
   Future<CancelSimulationJobResponse> cancelSimulationJob(String job) async {
-    return CancelSimulationJobResponse.fromJson({});
+    var response_ = await _client.send('CancelSimulationJob', {
+      'job': job,
+    });
+    return CancelSimulationJobResponse.fromJson(response_);
   }
 
   /// Deploys a specific version of a robot application to robots in a fleet.
@@ -54,7 +67,14 @@ class RoboMakerApi {
       @required String fleet,
       @required List<DeploymentApplicationConfig> deploymentApplicationConfigs,
       Map<String, String> tags}) async {
-    return CreateDeploymentJobResponse.fromJson({});
+    var response_ = await _client.send('CreateDeploymentJob', {
+      if (deploymentConfig != null) 'deploymentConfig': deploymentConfig,
+      'clientRequestToken': clientRequestToken,
+      'fleet': fleet,
+      'deploymentApplicationConfigs': deploymentApplicationConfigs,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDeploymentJobResponse.fromJson(response_);
   }
 
   /// Creates a fleet, a logical group of robots running the same robot
@@ -66,7 +86,11 @@ class RoboMakerApi {
   /// the fleet.
   Future<CreateFleetResponse> createFleet(String name,
       {Map<String, String> tags}) async {
-    return CreateFleetResponse.fromJson({});
+    var response_ = await _client.send('CreateFleet', {
+      'name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateFleetResponse.fromJson(response_);
   }
 
   /// Creates a robot.
@@ -84,7 +108,13 @@ class RoboMakerApi {
       @required String architecture,
       @required String greengrassGroupId,
       Map<String, String> tags}) async {
-    return CreateRobotResponse.fromJson({});
+    var response_ = await _client.send('CreateRobot', {
+      'name': name,
+      'architecture': architecture,
+      'greengrassGroupId': greengrassGroupId,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateRobotResponse.fromJson(response_);
   }
 
   /// Creates a robot application.
@@ -103,7 +133,13 @@ class RoboMakerApi {
       @required List<SourceConfig> sources,
       @required RobotSoftwareSuite robotSoftwareSuite,
       Map<String, String> tags}) async {
-    return CreateRobotApplicationResponse.fromJson({});
+    var response_ = await _client.send('CreateRobotApplication', {
+      'name': name,
+      'sources': sources,
+      'robotSoftwareSuite': robotSoftwareSuite,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateRobotApplicationResponse.fromJson(response_);
   }
 
   /// Creates a version of a robot application.
@@ -116,7 +152,11 @@ class RoboMakerApi {
   Future<CreateRobotApplicationVersionResponse> createRobotApplicationVersion(
       String application,
       {String currentRevisionId}) async {
-    return CreateRobotApplicationVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateRobotApplicationVersion', {
+      'application': application,
+      if (currentRevisionId != null) 'currentRevisionId': currentRevisionId,
+    });
+    return CreateRobotApplicationVersionResponse.fromJson(response_);
   }
 
   /// Creates a simulation application.
@@ -142,7 +182,15 @@ class RoboMakerApi {
       @required RobotSoftwareSuite robotSoftwareSuite,
       RenderingEngine renderingEngine,
       Map<String, String> tags}) async {
-    return CreateSimulationApplicationResponse.fromJson({});
+    var response_ = await _client.send('CreateSimulationApplication', {
+      'name': name,
+      'sources': sources,
+      'simulationSoftwareSuite': simulationSoftwareSuite,
+      'robotSoftwareSuite': robotSoftwareSuite,
+      if (renderingEngine != null) 'renderingEngine': renderingEngine,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateSimulationApplicationResponse.fromJson(response_);
   }
 
   /// Creates a simulation application with a specific revision id.
@@ -155,7 +203,11 @@ class RoboMakerApi {
   Future<CreateSimulationApplicationVersionResponse>
       createSimulationApplicationVersion(String application,
           {String currentRevisionId}) async {
-    return CreateSimulationApplicationVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateSimulationApplicationVersion', {
+      'application': application,
+      if (currentRevisionId != null) 'currentRevisionId': currentRevisionId,
+    });
+    return CreateSimulationApplicationVersionResponse.fromJson(response_);
   }
 
   /// Creates a simulation job.
@@ -222,21 +274,41 @@ class RoboMakerApi {
       List<DataSourceConfig> dataSources,
       Map<String, String> tags,
       VpcConfig vpcConfig}) async {
-    return CreateSimulationJobResponse.fromJson({});
+    var response_ = await _client.send('CreateSimulationJob', {
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+      if (outputLocation != null) 'outputLocation': outputLocation,
+      if (loggingConfig != null) 'loggingConfig': loggingConfig,
+      'maxJobDurationInSeconds': maxJobDurationInSeconds,
+      'iamRole': iamRole,
+      if (failureBehavior != null) 'failureBehavior': failureBehavior,
+      if (robotApplications != null) 'robotApplications': robotApplications,
+      if (simulationApplications != null)
+        'simulationApplications': simulationApplications,
+      if (dataSources != null) 'dataSources': dataSources,
+      if (tags != null) 'tags': tags,
+      if (vpcConfig != null) 'vpcConfig': vpcConfig,
+    });
+    return CreateSimulationJobResponse.fromJson(response_);
   }
 
   /// Deletes a fleet.
   ///
   /// [fleet]: The Amazon Resource Name (ARN) of the fleet.
   Future<DeleteFleetResponse> deleteFleet(String fleet) async {
-    return DeleteFleetResponse.fromJson({});
+    var response_ = await _client.send('DeleteFleet', {
+      'fleet': fleet,
+    });
+    return DeleteFleetResponse.fromJson(response_);
   }
 
   /// Deletes a robot.
   ///
   /// [robot]: The Amazon Resource Name (ARN) of the robot.
   Future<DeleteRobotResponse> deleteRobot(String robot) async {
-    return DeleteRobotResponse.fromJson({});
+    var response_ = await _client.send('DeleteRobot', {
+      'robot': robot,
+    });
+    return DeleteRobotResponse.fromJson(response_);
   }
 
   /// Deletes a robot application.
@@ -248,7 +320,11 @@ class RoboMakerApi {
   Future<DeleteRobotApplicationResponse> deleteRobotApplication(
       String application,
       {String applicationVersion}) async {
-    return DeleteRobotApplicationResponse.fromJson({});
+    var response_ = await _client.send('DeleteRobotApplication', {
+      'application': application,
+      if (applicationVersion != null) 'applicationVersion': applicationVersion,
+    });
+    return DeleteRobotApplicationResponse.fromJson(response_);
   }
 
   /// Deletes a simulation application.
@@ -260,7 +336,11 @@ class RoboMakerApi {
   Future<DeleteSimulationApplicationResponse> deleteSimulationApplication(
       String application,
       {String applicationVersion}) async {
-    return DeleteSimulationApplicationResponse.fromJson({});
+    var response_ = await _client.send('DeleteSimulationApplication', {
+      'application': application,
+      if (applicationVersion != null) 'applicationVersion': applicationVersion,
+    });
+    return DeleteSimulationApplicationResponse.fromJson(response_);
   }
 
   /// Deregisters a robot.
@@ -270,7 +350,11 @@ class RoboMakerApi {
   /// [robot]: The Amazon Resource Name (ARN) of the robot.
   Future<DeregisterRobotResponse> deregisterRobot(
       {@required String fleet, @required String robot}) async {
-    return DeregisterRobotResponse.fromJson({});
+    var response_ = await _client.send('DeregisterRobot', {
+      'fleet': fleet,
+      'robot': robot,
+    });
+    return DeregisterRobotResponse.fromJson(response_);
   }
 
   /// Describes a deployment job.
@@ -278,21 +362,30 @@ class RoboMakerApi {
   /// [job]: The Amazon Resource Name (ARN) of the deployment job.
   Future<DescribeDeploymentJobResponse> describeDeploymentJob(
       String job) async {
-    return DescribeDeploymentJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeDeploymentJob', {
+      'job': job,
+    });
+    return DescribeDeploymentJobResponse.fromJson(response_);
   }
 
   /// Describes a fleet.
   ///
   /// [fleet]: The Amazon Resource Name (ARN) of the fleet.
   Future<DescribeFleetResponse> describeFleet(String fleet) async {
-    return DescribeFleetResponse.fromJson({});
+    var response_ = await _client.send('DescribeFleet', {
+      'fleet': fleet,
+    });
+    return DescribeFleetResponse.fromJson(response_);
   }
 
   /// Describes a robot.
   ///
   /// [robot]: The Amazon Resource Name (ARN) of the robot to be described.
   Future<DescribeRobotResponse> describeRobot(String robot) async {
-    return DescribeRobotResponse.fromJson({});
+    var response_ = await _client.send('DescribeRobot', {
+      'robot': robot,
+    });
+    return DescribeRobotResponse.fromJson(response_);
   }
 
   /// Describes a robot application.
@@ -303,7 +396,11 @@ class RoboMakerApi {
   Future<DescribeRobotApplicationResponse> describeRobotApplication(
       String application,
       {String applicationVersion}) async {
-    return DescribeRobotApplicationResponse.fromJson({});
+    var response_ = await _client.send('DescribeRobotApplication', {
+      'application': application,
+      if (applicationVersion != null) 'applicationVersion': applicationVersion,
+    });
+    return DescribeRobotApplicationResponse.fromJson(response_);
   }
 
   /// Describes a simulation application.
@@ -315,7 +412,11 @@ class RoboMakerApi {
   Future<DescribeSimulationApplicationResponse> describeSimulationApplication(
       String application,
       {String applicationVersion}) async {
-    return DescribeSimulationApplicationResponse.fromJson({});
+    var response_ = await _client.send('DescribeSimulationApplication', {
+      'application': application,
+      if (applicationVersion != null) 'applicationVersion': applicationVersion,
+    });
+    return DescribeSimulationApplicationResponse.fromJson(response_);
   }
 
   /// Describes a simulation job.
@@ -324,7 +425,10 @@ class RoboMakerApi {
   /// described.
   Future<DescribeSimulationJobResponse> describeSimulationJob(
       String job) async {
-    return DescribeSimulationJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeSimulationJob', {
+      'job': job,
+    });
+    return DescribeSimulationJobResponse.fromJson(response_);
   }
 
   /// Returns a list of deployment jobs for a fleet. You can optionally provide
@@ -358,7 +462,12 @@ class RoboMakerApi {
   /// up to 100 results and a `nextToken` value if applicable.
   Future<ListDeploymentJobsResponse> listDeploymentJobs(
       {List<Filter> filters, String nextToken, int maxResults}) async {
-    return ListDeploymentJobsResponse.fromJson({});
+    var response_ = await _client.send('ListDeploymentJobs', {
+      if (filters != null) 'filters': filters,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDeploymentJobsResponse.fromJson(response_);
   }
 
   /// Returns a list of fleets. You can optionally provide filters to retrieve
@@ -389,7 +498,12 @@ class RoboMakerApi {
   /// complete value of the filtered item. You can use up to three filters.
   Future<ListFleetsResponse> listFleets(
       {String nextToken, int maxResults, List<Filter> filters}) async {
-    return ListFleetsResponse.fromJson({});
+    var response_ = await _client.send('ListFleets', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (filters != null) 'filters': filters,
+    });
+    return ListFleetsResponse.fromJson(response_);
   }
 
   /// Returns a list of robot application. You can optionally provide filters to
@@ -425,7 +539,13 @@ class RoboMakerApi {
       String nextToken,
       int maxResults,
       List<Filter> filters}) async {
-    return ListRobotApplicationsResponse.fromJson({});
+    var response_ = await _client.send('ListRobotApplications', {
+      if (versionQualifier != null) 'versionQualifier': versionQualifier,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (filters != null) 'filters': filters,
+    });
+    return ListRobotApplicationsResponse.fromJson(response_);
   }
 
   /// Returns a list of robots. You can optionally provide filters to retrieve
@@ -459,7 +579,12 @@ class RoboMakerApi {
   /// `Available`.
   Future<ListRobotsResponse> listRobots(
       {String nextToken, int maxResults, List<Filter> filters}) async {
-    return ListRobotsResponse.fromJson({});
+    var response_ = await _client.send('ListRobots', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (filters != null) 'filters': filters,
+    });
+    return ListRobotsResponse.fromJson(response_);
   }
 
   /// Returns a list of simulation applications. You can optionally provide
@@ -496,7 +621,13 @@ class RoboMakerApi {
       String nextToken,
       int maxResults,
       List<Filter> filters}) async {
-    return ListSimulationApplicationsResponse.fromJson({});
+    var response_ = await _client.send('ListSimulationApplications', {
+      if (versionQualifier != null) 'versionQualifier': versionQualifier,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (filters != null) 'filters': filters,
+    });
+    return ListSimulationApplicationsResponse.fromJson(response_);
   }
 
   /// Returns a list of simulation jobs. You can optionally provide filters to
@@ -530,7 +661,12 @@ class RoboMakerApi {
   /// items with the status `Preparing` or the status `Running`.
   Future<ListSimulationJobsResponse> listSimulationJobs(
       {String nextToken, int maxResults, List<Filter> filters}) async {
-    return ListSimulationJobsResponse.fromJson({});
+    var response_ = await _client.send('ListSimulationJobs', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (filters != null) 'filters': filters,
+    });
+    return ListSimulationJobsResponse.fromJson(response_);
   }
 
   /// Lists all tags on a AWS RoboMaker resource.
@@ -539,7 +675,10 @@ class RoboMakerApi {
   /// be listed.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Registers a robot with a fleet.
@@ -549,14 +688,21 @@ class RoboMakerApi {
   /// [robot]: The Amazon Resource Name (ARN) of the robot.
   Future<RegisterRobotResponse> registerRobot(
       {@required String fleet, @required String robot}) async {
-    return RegisterRobotResponse.fromJson({});
+    var response_ = await _client.send('RegisterRobot', {
+      'fleet': fleet,
+      'robot': robot,
+    });
+    return RegisterRobotResponse.fromJson(response_);
   }
 
   /// Restarts a running simulation job.
   ///
   /// [job]: The Amazon Resource Name (ARN) of the simulation job.
   Future<RestartSimulationJobResponse> restartSimulationJob(String job) async {
-    return RestartSimulationJobResponse.fromJson({});
+    var response_ = await _client.send('RestartSimulationJob', {
+      'job': job,
+    });
+    return RestartSimulationJobResponse.fromJson(response_);
   }
 
   /// Syncrhonizes robots in a fleet to the latest deployment. This is helpful
@@ -568,7 +714,11 @@ class RoboMakerApi {
   /// [fleet]: The target fleet for the synchronization.
   Future<SyncDeploymentJobResponse> syncDeploymentJob(
       {@required String clientRequestToken, @required String fleet}) async {
-    return SyncDeploymentJobResponse.fromJson({});
+    var response_ = await _client.send('SyncDeploymentJob', {
+      'clientRequestToken': clientRequestToken,
+      'fleet': fleet,
+    });
+    return SyncDeploymentJobResponse.fromJson(response_);
   }
 
   /// Adds or edits tags for a AWS RoboMaker resource.
@@ -588,7 +738,11 @@ class RoboMakerApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes the specified tags from the specified AWS RoboMaker resource.
@@ -605,7 +759,11 @@ class RoboMakerApi {
   /// unattached from the resource.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates a robot application.
@@ -623,7 +781,13 @@ class RoboMakerApi {
       @required List<SourceConfig> sources,
       @required RobotSoftwareSuite robotSoftwareSuite,
       String currentRevisionId}) async {
-    return UpdateRobotApplicationResponse.fromJson({});
+    var response_ = await _client.send('UpdateRobotApplication', {
+      'application': application,
+      'sources': sources,
+      'robotSoftwareSuite': robotSoftwareSuite,
+      if (currentRevisionId != null) 'currentRevisionId': currentRevisionId,
+    });
+    return UpdateRobotApplicationResponse.fromJson(response_);
   }
 
   /// Updates a simulation application.
@@ -647,7 +811,15 @@ class RoboMakerApi {
       @required RobotSoftwareSuite robotSoftwareSuite,
       RenderingEngine renderingEngine,
       String currentRevisionId}) async {
-    return UpdateSimulationApplicationResponse.fromJson({});
+    var response_ = await _client.send('UpdateSimulationApplication', {
+      'application': application,
+      'sources': sources,
+      'simulationSoftwareSuite': simulationSoftwareSuite,
+      'robotSoftwareSuite': robotSoftwareSuite,
+      if (renderingEngine != null) 'renderingEngine': renderingEngine,
+      if (currentRevisionId != null) 'currentRevisionId': currentRevisionId,
+    });
+    return UpdateSimulationApplicationResponse.fromJson(response_);
   }
 }
 
@@ -664,7 +836,16 @@ class BatchDescribeSimulationJobResponse {
   });
   static BatchDescribeSimulationJobResponse fromJson(
           Map<String, dynamic> json) =>
-      BatchDescribeSimulationJobResponse();
+      BatchDescribeSimulationJobResponse(
+        jobs: json.containsKey('jobs')
+            ? (json['jobs'] as List)
+                .map((e) => SimulationJob.fromJson(e))
+                .toList()
+            : null,
+        unprocessedJobs: json.containsKey('unprocessedJobs')
+            ? (json['unprocessedJobs'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class CancelDeploymentJobResponse {
@@ -776,7 +957,33 @@ class CreateDeploymentJobResponse {
     this.tags,
   });
   static CreateDeploymentJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateDeploymentJobResponse();
+      CreateDeploymentJobResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        fleet: json.containsKey('fleet') ? json['fleet'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        deploymentApplicationConfigs:
+            json.containsKey('deploymentApplicationConfigs')
+                ? (json['deploymentApplicationConfigs'] as List)
+                    .map((e) => DeploymentApplicationConfig.fromJson(e))
+                    .toList()
+                : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        deploymentConfig: json.containsKey('deploymentConfig')
+            ? DeploymentConfig.fromJson(json['deploymentConfig'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateFleetResponse {
@@ -799,7 +1006,17 @@ class CreateFleetResponse {
     this.tags,
   });
   static CreateFleetResponse fromJson(Map<String, dynamic> json) =>
-      CreateFleetResponse();
+      CreateFleetResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateRobotApplicationResponse {
@@ -839,7 +1056,27 @@ class CreateRobotApplicationResponse {
     this.tags,
   });
   static CreateRobotApplicationResponse fromJson(Map<String, dynamic> json) =>
-      CreateRobotApplicationResponse();
+      CreateRobotApplicationResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        sources: json.containsKey('sources')
+            ? (json['sources'] as List).map((e) => Source.fromJson(e)).toList()
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateRobotApplicationVersionResponse {
@@ -876,7 +1113,23 @@ class CreateRobotApplicationVersionResponse {
   });
   static CreateRobotApplicationVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateRobotApplicationVersionResponse();
+      CreateRobotApplicationVersionResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        sources: json.containsKey('sources')
+            ? (json['sources'] as List).map((e) => Source.fromJson(e)).toList()
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+      );
 }
 
 class CreateRobotResponse {
@@ -908,7 +1161,23 @@ class CreateRobotResponse {
     this.tags,
   });
   static CreateRobotResponse fromJson(Map<String, dynamic> json) =>
-      CreateRobotResponse();
+      CreateRobotResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        greengrassGroupId: json.containsKey('greengrassGroupId')
+            ? json['greengrassGroupId'] as String
+            : null,
+        architecture: json.containsKey('architecture')
+            ? json['architecture'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateSimulationApplicationResponse {
@@ -957,7 +1226,33 @@ class CreateSimulationApplicationResponse {
   });
   static CreateSimulationApplicationResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateSimulationApplicationResponse();
+      CreateSimulationApplicationResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        sources: json.containsKey('sources')
+            ? (json['sources'] as List).map((e) => Source.fromJson(e)).toList()
+            : null,
+        simulationSoftwareSuite: json.containsKey('simulationSoftwareSuite')
+            ? SimulationSoftwareSuite.fromJson(json['simulationSoftwareSuite'])
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+        renderingEngine: json.containsKey('renderingEngine')
+            ? RenderingEngine.fromJson(json['renderingEngine'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateSimulationApplicationVersionResponse {
@@ -1002,7 +1297,29 @@ class CreateSimulationApplicationVersionResponse {
   });
   static CreateSimulationApplicationVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateSimulationApplicationVersionResponse();
+      CreateSimulationApplicationVersionResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        sources: json.containsKey('sources')
+            ? (json['sources'] as List).map((e) => Source.fromJson(e)).toList()
+            : null,
+        simulationSoftwareSuite: json.containsKey('simulationSoftwareSuite')
+            ? SimulationSoftwareSuite.fromJson(json['simulationSoftwareSuite'])
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+        renderingEngine: json.containsKey('renderingEngine')
+            ? RenderingEngine.fromJson(json['renderingEngine'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+      );
 }
 
 class CreateSimulationJobResponse {
@@ -1140,7 +1457,60 @@ class CreateSimulationJobResponse {
     this.vpcConfig,
   });
   static CreateSimulationJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateSimulationJobResponse();
+      CreateSimulationJobResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        lastStartedAt: json.containsKey('lastStartedAt')
+            ? DateTime.parse(json['lastStartedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        failureBehavior: json.containsKey('failureBehavior')
+            ? json['failureBehavior'] as String
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+        outputLocation: json.containsKey('outputLocation')
+            ? OutputLocation.fromJson(json['outputLocation'])
+            : null,
+        loggingConfig: json.containsKey('loggingConfig')
+            ? LoggingConfig.fromJson(json['loggingConfig'])
+            : null,
+        maxJobDurationInSeconds: json.containsKey('maxJobDurationInSeconds')
+            ? BigInt.from(json['maxJobDurationInSeconds'])
+            : null,
+        simulationTimeMillis: json.containsKey('simulationTimeMillis')
+            ? BigInt.from(json['simulationTimeMillis'])
+            : null,
+        iamRole: json.containsKey('iamRole') ? json['iamRole'] as String : null,
+        robotApplications: json.containsKey('robotApplications')
+            ? (json['robotApplications'] as List)
+                .map((e) => RobotApplicationConfig.fromJson(e))
+                .toList()
+            : null,
+        simulationApplications: json.containsKey('simulationApplications')
+            ? (json['simulationApplications'] as List)
+                .map((e) => SimulationApplicationConfig.fromJson(e))
+                .toList()
+            : null,
+        dataSources: json.containsKey('dataSources')
+            ? (json['dataSources'] as List)
+                .map((e) => DataSource.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        vpcConfig: json.containsKey('vpcConfig')
+            ? VpcConfigResponse.fromJson(json['vpcConfig'])
+            : null,
+      );
 }
 
 /// Information about a data source.
@@ -1159,7 +1529,16 @@ class DataSource {
     this.s3Bucket,
     this.s3Keys,
   });
-  static DataSource fromJson(Map<String, dynamic> json) => DataSource();
+  static DataSource fromJson(Map<String, dynamic> json) => DataSource(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        s3Bucket:
+            json.containsKey('s3Bucket') ? json['s3Bucket'] as String : null,
+        s3Keys: json.containsKey('s3Keys')
+            ? (json['s3Keys'] as List)
+                .map((e) => S3KeyOutput.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a data source.
@@ -1178,6 +1557,7 @@ class DataSourceConfig {
     @required this.s3Bucket,
     @required this.s3Keys,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteFleetResponse {
@@ -1222,7 +1602,12 @@ class DeploymentApplicationConfig {
     @required this.launchConfig,
   });
   static DeploymentApplicationConfig fromJson(Map<String, dynamic> json) =>
-      DeploymentApplicationConfig();
+      DeploymentApplicationConfig(
+        application: json['application'] as String,
+        applicationVersion: json['applicationVersion'] as String,
+        launchConfig: DeploymentLaunchConfig.fromJson(json['launchConfig']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a deployment configuration.
@@ -1245,7 +1630,21 @@ class DeploymentConfig {
     this.robotDeploymentTimeoutInSeconds,
   });
   static DeploymentConfig fromJson(Map<String, dynamic> json) =>
-      DeploymentConfig();
+      DeploymentConfig(
+        concurrentDeploymentPercentage:
+            json.containsKey('concurrentDeploymentPercentage')
+                ? json['concurrentDeploymentPercentage'] as int
+                : null,
+        failureThresholdPercentage:
+            json.containsKey('failureThresholdPercentage')
+                ? json['failureThresholdPercentage'] as int
+                : null,
+        robotDeploymentTimeoutInSeconds:
+            json.containsKey('robotDeploymentTimeoutInSeconds')
+                ? BigInt.from(json['robotDeploymentTimeoutInSeconds'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a deployment job.
@@ -1285,7 +1684,29 @@ class DeploymentJob {
     this.failureCode,
     this.createdAt,
   });
-  static DeploymentJob fromJson(Map<String, dynamic> json) => DeploymentJob();
+  static DeploymentJob fromJson(Map<String, dynamic> json) => DeploymentJob(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        fleet: json.containsKey('fleet') ? json['fleet'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        deploymentApplicationConfigs:
+            json.containsKey('deploymentApplicationConfigs')
+                ? (json['deploymentApplicationConfigs'] as List)
+                    .map((e) => DeploymentApplicationConfig.fromJson(e))
+                    .toList()
+                : null,
+        deploymentConfig: json.containsKey('deploymentConfig')
+            ? DeploymentConfig.fromJson(json['deploymentConfig'])
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+      );
 }
 
 /// Configuration information for a deployment launch.
@@ -1316,7 +1737,21 @@ class DeploymentLaunchConfig {
     this.environmentVariables,
   });
   static DeploymentLaunchConfig fromJson(Map<String, dynamic> json) =>
-      DeploymentLaunchConfig();
+      DeploymentLaunchConfig(
+        packageName: json['packageName'] as String,
+        preLaunchFile: json.containsKey('preLaunchFile')
+            ? json['preLaunchFile'] as String
+            : null,
+        launchFile: json['launchFile'] as String,
+        postLaunchFile: json.containsKey('postLaunchFile')
+            ? json['postLaunchFile'] as String
+            : null,
+        environmentVariables: json.containsKey('environmentVariables')
+            ? (json['environmentVariables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeregisterRobotResponse {
@@ -1331,7 +1766,10 @@ class DeregisterRobotResponse {
     this.robot,
   });
   static DeregisterRobotResponse fromJson(Map<String, dynamic> json) =>
-      DeregisterRobotResponse();
+      DeregisterRobotResponse(
+        fleet: json.containsKey('fleet') ? json['fleet'] as String : null,
+        robot: json.containsKey('robot') ? json['robot'] as String : null,
+      );
 }
 
 class DescribeDeploymentJobResponse {
@@ -1379,7 +1817,38 @@ class DescribeDeploymentJobResponse {
     this.tags,
   });
   static DescribeDeploymentJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDeploymentJobResponse();
+      DescribeDeploymentJobResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        fleet: json.containsKey('fleet') ? json['fleet'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        deploymentConfig: json.containsKey('deploymentConfig')
+            ? DeploymentConfig.fromJson(json['deploymentConfig'])
+            : null,
+        deploymentApplicationConfigs:
+            json.containsKey('deploymentApplicationConfigs')
+                ? (json['deploymentApplicationConfigs'] as List)
+                    .map((e) => DeploymentApplicationConfig.fromJson(e))
+                    .toList()
+                : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        robotDeploymentSummary: json.containsKey('robotDeploymentSummary')
+            ? (json['robotDeploymentSummary'] as List)
+                .map((e) => RobotDeployment.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DescribeFleetResponse {
@@ -1418,7 +1887,29 @@ class DescribeFleetResponse {
     this.tags,
   });
   static DescribeFleetResponse fromJson(Map<String, dynamic> json) =>
-      DescribeFleetResponse();
+      DescribeFleetResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        robots: json.containsKey('robots')
+            ? (json['robots'] as List).map((e) => Robot.fromJson(e)).toList()
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        lastDeploymentStatus: json.containsKey('lastDeploymentStatus')
+            ? json['lastDeploymentStatus'] as String
+            : null,
+        lastDeploymentJob: json.containsKey('lastDeploymentJob')
+            ? json['lastDeploymentJob'] as String
+            : null,
+        lastDeploymentTime: json.containsKey('lastDeploymentTime')
+            ? DateTime.parse(json['lastDeploymentTime'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DescribeRobotApplicationResponse {
@@ -1458,7 +1949,27 @@ class DescribeRobotApplicationResponse {
     this.tags,
   });
   static DescribeRobotApplicationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeRobotApplicationResponse();
+      DescribeRobotApplicationResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        sources: json.containsKey('sources')
+            ? (json['sources'] as List).map((e) => Source.fromJson(e)).toList()
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DescribeRobotResponse {
@@ -1505,7 +2016,32 @@ class DescribeRobotResponse {
     this.tags,
   });
   static DescribeRobotResponse fromJson(Map<String, dynamic> json) =>
-      DescribeRobotResponse();
+      DescribeRobotResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        fleetArn:
+            json.containsKey('fleetArn') ? json['fleetArn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        greengrassGroupId: json.containsKey('greengrassGroupId')
+            ? json['greengrassGroupId'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        architecture: json.containsKey('architecture')
+            ? json['architecture'] as String
+            : null,
+        lastDeploymentJob: json.containsKey('lastDeploymentJob')
+            ? json['lastDeploymentJob'] as String
+            : null,
+        lastDeploymentTime: json.containsKey('lastDeploymentTime')
+            ? DateTime.parse(json['lastDeploymentTime'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DescribeSimulationApplicationResponse {
@@ -1554,7 +2090,33 @@ class DescribeSimulationApplicationResponse {
   });
   static DescribeSimulationApplicationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeSimulationApplicationResponse();
+      DescribeSimulationApplicationResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        sources: json.containsKey('sources')
+            ? (json['sources'] as List).map((e) => Source.fromJson(e)).toList()
+            : null,
+        simulationSoftwareSuite: json.containsKey('simulationSoftwareSuite')
+            ? SimulationSoftwareSuite.fromJson(json['simulationSoftwareSuite'])
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+        renderingEngine: json.containsKey('renderingEngine')
+            ? RenderingEngine.fromJson(json['renderingEngine'])
+            : null,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DescribeSimulationJobResponse {
@@ -1707,7 +2269,67 @@ class DescribeSimulationJobResponse {
     this.networkInterface,
   });
   static DescribeSimulationJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSimulationJobResponse();
+      DescribeSimulationJobResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        lastStartedAt: json.containsKey('lastStartedAt')
+            ? DateTime.parse(json['lastStartedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        failureBehavior: json.containsKey('failureBehavior')
+            ? json['failureBehavior'] as String
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+        outputLocation: json.containsKey('outputLocation')
+            ? OutputLocation.fromJson(json['outputLocation'])
+            : null,
+        loggingConfig: json.containsKey('loggingConfig')
+            ? LoggingConfig.fromJson(json['loggingConfig'])
+            : null,
+        maxJobDurationInSeconds: json.containsKey('maxJobDurationInSeconds')
+            ? BigInt.from(json['maxJobDurationInSeconds'])
+            : null,
+        simulationTimeMillis: json.containsKey('simulationTimeMillis')
+            ? BigInt.from(json['simulationTimeMillis'])
+            : null,
+        iamRole: json.containsKey('iamRole') ? json['iamRole'] as String : null,
+        robotApplications: json.containsKey('robotApplications')
+            ? (json['robotApplications'] as List)
+                .map((e) => RobotApplicationConfig.fromJson(e))
+                .toList()
+            : null,
+        simulationApplications: json.containsKey('simulationApplications')
+            ? (json['simulationApplications'] as List)
+                .map((e) => SimulationApplicationConfig.fromJson(e))
+                .toList()
+            : null,
+        dataSources: json.containsKey('dataSources')
+            ? (json['dataSources'] as List)
+                .map((e) => DataSource.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        vpcConfig: json.containsKey('vpcConfig')
+            ? VpcConfigResponse.fromJson(json['vpcConfig'])
+            : null,
+        networkInterface: json.containsKey('networkInterface')
+            ? NetworkInterface.fromJson(json['networkInterface'])
+            : null,
+      );
 }
 
 /// Information about a filter.
@@ -1722,6 +2344,7 @@ class Filter {
     this.name,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a fleet.
@@ -1752,7 +2375,22 @@ class Fleet {
     this.lastDeploymentJob,
     this.lastDeploymentTime,
   });
-  static Fleet fromJson(Map<String, dynamic> json) => Fleet();
+  static Fleet fromJson(Map<String, dynamic> json) => Fleet(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        lastDeploymentStatus: json.containsKey('lastDeploymentStatus')
+            ? json['lastDeploymentStatus'] as String
+            : null,
+        lastDeploymentJob: json.containsKey('lastDeploymentJob')
+            ? json['lastDeploymentJob'] as String
+            : null,
+        lastDeploymentTime: json.containsKey('lastDeploymentTime')
+            ? DateTime.parse(json['lastDeploymentTime'])
+            : null,
+      );
 }
 
 /// Information about a launch configuration.
@@ -1775,7 +2413,18 @@ class LaunchConfig {
     this.environmentVariables,
     this.portForwardingConfig,
   });
-  static LaunchConfig fromJson(Map<String, dynamic> json) => LaunchConfig();
+  static LaunchConfig fromJson(Map<String, dynamic> json) => LaunchConfig(
+        packageName: json['packageName'] as String,
+        launchFile: json['launchFile'] as String,
+        environmentVariables: json.containsKey('environmentVariables')
+            ? (json['environmentVariables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        portForwardingConfig: json.containsKey('portForwardingConfig')
+            ? PortForwardingConfig.fromJson(json['portForwardingConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListDeploymentJobsResponse {
@@ -1793,7 +2442,15 @@ class ListDeploymentJobsResponse {
     this.nextToken,
   });
   static ListDeploymentJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListDeploymentJobsResponse();
+      ListDeploymentJobsResponse(
+        deploymentJobs: json.containsKey('deploymentJobs')
+            ? (json['deploymentJobs'] as List)
+                .map((e) => DeploymentJob.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListFleetsResponse {
@@ -1811,7 +2468,15 @@ class ListFleetsResponse {
     this.nextToken,
   });
   static ListFleetsResponse fromJson(Map<String, dynamic> json) =>
-      ListFleetsResponse();
+      ListFleetsResponse(
+        fleetDetails: json.containsKey('fleetDetails')
+            ? (json['fleetDetails'] as List)
+                .map((e) => Fleet.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListRobotApplicationsResponse {
@@ -1830,7 +2495,15 @@ class ListRobotApplicationsResponse {
     this.nextToken,
   });
   static ListRobotApplicationsResponse fromJson(Map<String, dynamic> json) =>
-      ListRobotApplicationsResponse();
+      ListRobotApplicationsResponse(
+        robotApplicationSummaries: json.containsKey('robotApplicationSummaries')
+            ? (json['robotApplicationSummaries'] as List)
+                .map((e) => RobotApplicationSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListRobotsResponse {
@@ -1848,7 +2521,13 @@ class ListRobotsResponse {
     this.nextToken,
   });
   static ListRobotsResponse fromJson(Map<String, dynamic> json) =>
-      ListRobotsResponse();
+      ListRobotsResponse(
+        robots: json.containsKey('robots')
+            ? (json['robots'] as List).map((e) => Robot.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListSimulationApplicationsResponse {
@@ -1868,7 +2547,16 @@ class ListSimulationApplicationsResponse {
   });
   static ListSimulationApplicationsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListSimulationApplicationsResponse();
+      ListSimulationApplicationsResponse(
+        simulationApplicationSummaries:
+            json.containsKey('simulationApplicationSummaries')
+                ? (json['simulationApplicationSummaries'] as List)
+                    .map((e) => SimulationApplicationSummary.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListSimulationJobsResponse {
@@ -1886,7 +2574,13 @@ class ListSimulationJobsResponse {
     this.nextToken,
   });
   static ListSimulationJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListSimulationJobsResponse();
+      ListSimulationJobsResponse(
+        simulationJobSummaries: (json['simulationJobSummaries'] as List)
+            .map((e) => SimulationJobSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1897,7 +2591,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The logging configuration.
@@ -1908,7 +2607,10 @@ class LoggingConfig {
   LoggingConfig({
     @required this.recordAllRosTopics,
   });
-  static LoggingConfig fromJson(Map<String, dynamic> json) => LoggingConfig();
+  static LoggingConfig fromJson(Map<String, dynamic> json) => LoggingConfig(
+        recordAllRosTopics: json['recordAllRosTopics'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a network interface.
@@ -1928,7 +2630,17 @@ class NetworkInterface {
     this.publicIpAddress,
   });
   static NetworkInterface fromJson(Map<String, dynamic> json) =>
-      NetworkInterface();
+      NetworkInterface(
+        networkInterfaceId: json.containsKey('networkInterfaceId')
+            ? json['networkInterfaceId'] as String
+            : null,
+        privateIpAddress: json.containsKey('privateIpAddress')
+            ? json['privateIpAddress'] as String
+            : null,
+        publicIpAddress: json.containsKey('publicIpAddress')
+            ? json['publicIpAddress'] as String
+            : null,
+      );
 }
 
 /// The output location.
@@ -1943,7 +2655,13 @@ class OutputLocation {
     this.s3Bucket,
     this.s3Prefix,
   });
-  static OutputLocation fromJson(Map<String, dynamic> json) => OutputLocation();
+  static OutputLocation fromJson(Map<String, dynamic> json) => OutputLocation(
+        s3Bucket:
+            json.containsKey('s3Bucket') ? json['s3Bucket'] as String : null,
+        s3Prefix:
+            json.containsKey('s3Prefix') ? json['s3Prefix'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration information for port forwarding.
@@ -1955,7 +2673,14 @@ class PortForwardingConfig {
     this.portMappings,
   });
   static PortForwardingConfig fromJson(Map<String, dynamic> json) =>
-      PortForwardingConfig();
+      PortForwardingConfig(
+        portMappings: json.containsKey('portMappings')
+            ? (json['portMappings'] as List)
+                .map((e) => PortMapping.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a port mapping.
@@ -1975,7 +2700,14 @@ class PortMapping {
     @required this.applicationPort,
     this.enableOnPublicIp,
   });
-  static PortMapping fromJson(Map<String, dynamic> json) => PortMapping();
+  static PortMapping fromJson(Map<String, dynamic> json) => PortMapping(
+        jobPort: json['jobPort'] as int,
+        applicationPort: json['applicationPort'] as int,
+        enableOnPublicIp: json.containsKey('enableOnPublicIp')
+            ? json['enableOnPublicIp'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the progress of a deployment job.
@@ -2026,7 +2758,21 @@ class ProgressDetail {
     this.estimatedTimeRemainingSeconds,
     this.targetResource,
   });
-  static ProgressDetail fromJson(Map<String, dynamic> json) => ProgressDetail();
+  static ProgressDetail fromJson(Map<String, dynamic> json) => ProgressDetail(
+        currentProgress: json.containsKey('currentProgress')
+            ? json['currentProgress'] as String
+            : null,
+        percentDone: json.containsKey('percentDone')
+            ? json['percentDone'] as double
+            : null,
+        estimatedTimeRemainingSeconds:
+            json.containsKey('estimatedTimeRemainingSeconds')
+                ? json['estimatedTimeRemainingSeconds'] as int
+                : null,
+        targetResource: json.containsKey('targetResource')
+            ? json['targetResource'] as String
+            : null,
+      );
 }
 
 class RegisterRobotResponse {
@@ -2041,7 +2787,10 @@ class RegisterRobotResponse {
     this.robot,
   });
   static RegisterRobotResponse fromJson(Map<String, dynamic> json) =>
-      RegisterRobotResponse();
+      RegisterRobotResponse(
+        fleet: json.containsKey('fleet') ? json['fleet'] as String : null,
+        robot: json.containsKey('robot') ? json['robot'] as String : null,
+      );
 }
 
 /// Information about a rendering engine.
@@ -2056,8 +2805,11 @@ class RenderingEngine {
     this.name,
     this.version,
   });
-  static RenderingEngine fromJson(Map<String, dynamic> json) =>
-      RenderingEngine();
+  static RenderingEngine fromJson(Map<String, dynamic> json) => RenderingEngine(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RestartSimulationJobResponse {
@@ -2106,7 +2858,28 @@ class Robot {
     this.lastDeploymentJob,
     this.lastDeploymentTime,
   });
-  static Robot fromJson(Map<String, dynamic> json) => Robot();
+  static Robot fromJson(Map<String, dynamic> json) => Robot(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        fleetArn:
+            json.containsKey('fleetArn') ? json['fleetArn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        greenGrassGroupId: json.containsKey('greenGrassGroupId')
+            ? json['greenGrassGroupId'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        architecture: json.containsKey('architecture')
+            ? json['architecture'] as String
+            : null,
+        lastDeploymentJob: json.containsKey('lastDeploymentJob')
+            ? json['lastDeploymentJob'] as String
+            : null,
+        lastDeploymentTime: json.containsKey('lastDeploymentTime')
+            ? DateTime.parse(json['lastDeploymentTime'])
+            : null,
+      );
 }
 
 /// Application configuration information for a robot.
@@ -2126,7 +2899,14 @@ class RobotApplicationConfig {
     @required this.launchConfig,
   });
   static RobotApplicationConfig fromJson(Map<String, dynamic> json) =>
-      RobotApplicationConfig();
+      RobotApplicationConfig(
+        application: json['application'] as String,
+        applicationVersion: json.containsKey('applicationVersion')
+            ? json['applicationVersion'] as String
+            : null,
+        launchConfig: LaunchConfig.fromJson(json['launchConfig']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Summary information for a robot application.
@@ -2155,7 +2935,17 @@ class RobotApplicationSummary {
     this.robotSoftwareSuite,
   });
   static RobotApplicationSummary fromJson(Map<String, dynamic> json) =>
-      RobotApplicationSummary();
+      RobotApplicationSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+      );
 }
 
 /// Information about a robot deployment.
@@ -2191,8 +2981,25 @@ class RobotDeployment {
     this.failureReason,
     this.failureCode,
   });
-  static RobotDeployment fromJson(Map<String, dynamic> json) =>
-      RobotDeployment();
+  static RobotDeployment fromJson(Map<String, dynamic> json) => RobotDeployment(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        deploymentStartTime: json.containsKey('deploymentStartTime')
+            ? DateTime.parse(json['deploymentStartTime'])
+            : null,
+        deploymentFinishTime: json.containsKey('deploymentFinishTime')
+            ? DateTime.parse(json['deploymentFinishTime'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        progressDetail: json.containsKey('progressDetail')
+            ? ProgressDetail.fromJson(json['progressDetail'])
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+      );
 }
 
 /// Information about a robot software suite.
@@ -2208,7 +3015,11 @@ class RobotSoftwareSuite {
     this.version,
   });
   static RobotSoftwareSuite fromJson(Map<String, dynamic> json) =>
-      RobotSoftwareSuite();
+      RobotSoftwareSuite(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about S3 keys.
@@ -2223,7 +3034,10 @@ class S3KeyOutput {
     this.s3Key,
     this.etag,
   });
-  static S3KeyOutput fromJson(Map<String, dynamic> json) => S3KeyOutput();
+  static S3KeyOutput fromJson(Map<String, dynamic> json) => S3KeyOutput(
+        s3Key: json.containsKey('s3Key') ? json['s3Key'] as String : null,
+        etag: json.containsKey('etag') ? json['etag'] as String : null,
+      );
 }
 
 /// Information about a simulation application configuration.
@@ -2243,7 +3057,14 @@ class SimulationApplicationConfig {
     @required this.launchConfig,
   });
   static SimulationApplicationConfig fromJson(Map<String, dynamic> json) =>
-      SimulationApplicationConfig();
+      SimulationApplicationConfig(
+        application: json['application'] as String,
+        applicationVersion: json.containsKey('applicationVersion')
+            ? json['applicationVersion'] as String
+            : null,
+        launchConfig: LaunchConfig.fromJson(json['launchConfig']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Summary information for a simulation application.
@@ -2276,7 +3097,20 @@ class SimulationApplicationSummary {
     this.simulationSoftwareSuite,
   });
   static SimulationApplicationSummary fromJson(Map<String, dynamic> json) =>
-      SimulationApplicationSummary();
+      SimulationApplicationSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+        simulationSoftwareSuite: json.containsKey('simulationSoftwareSuite')
+            ? SimulationSoftwareSuite.fromJson(json['simulationSoftwareSuite'])
+            : null,
+      );
 }
 
 /// Information about a simulation job.
@@ -2376,7 +3210,67 @@ class SimulationJob {
     this.vpcConfig,
     this.networkInterface,
   });
-  static SimulationJob fromJson(Map<String, dynamic> json) => SimulationJob();
+  static SimulationJob fromJson(Map<String, dynamic> json) => SimulationJob(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        lastStartedAt: json.containsKey('lastStartedAt')
+            ? DateTime.parse(json['lastStartedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        failureBehavior: json.containsKey('failureBehavior')
+            ? json['failureBehavior'] as String
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+        outputLocation: json.containsKey('outputLocation')
+            ? OutputLocation.fromJson(json['outputLocation'])
+            : null,
+        loggingConfig: json.containsKey('loggingConfig')
+            ? LoggingConfig.fromJson(json['loggingConfig'])
+            : null,
+        maxJobDurationInSeconds: json.containsKey('maxJobDurationInSeconds')
+            ? BigInt.from(json['maxJobDurationInSeconds'])
+            : null,
+        simulationTimeMillis: json.containsKey('simulationTimeMillis')
+            ? BigInt.from(json['simulationTimeMillis'])
+            : null,
+        iamRole: json.containsKey('iamRole') ? json['iamRole'] as String : null,
+        robotApplications: json.containsKey('robotApplications')
+            ? (json['robotApplications'] as List)
+                .map((e) => RobotApplicationConfig.fromJson(e))
+                .toList()
+            : null,
+        simulationApplications: json.containsKey('simulationApplications')
+            ? (json['simulationApplications'] as List)
+                .map((e) => SimulationApplicationConfig.fromJson(e))
+                .toList()
+            : null,
+        dataSources: json.containsKey('dataSources')
+            ? (json['dataSources'] as List)
+                .map((e) => DataSource.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        vpcConfig: json.containsKey('vpcConfig')
+            ? VpcConfigResponse.fromJson(json['vpcConfig'])
+            : null,
+        networkInterface: json.containsKey('networkInterface')
+            ? NetworkInterface.fromJson(json['networkInterface'])
+            : null,
+      );
 }
 
 /// Summary information for a simulation job.
@@ -2413,7 +3307,28 @@ class SimulationJobSummary {
     this.dataSourceNames,
   });
   static SimulationJobSummary fromJson(Map<String, dynamic> json) =>
-      SimulationJobSummary();
+      SimulationJobSummary(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        simulationApplicationNames:
+            json.containsKey('simulationApplicationNames')
+                ? (json['simulationApplicationNames'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        robotApplicationNames: json.containsKey('robotApplicationNames')
+            ? (json['robotApplicationNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        dataSourceNames: json.containsKey('dataSourceNames')
+            ? (json['dataSourceNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Information about a simulation software suite.
@@ -2429,7 +3344,11 @@ class SimulationSoftwareSuite {
     this.version,
   });
   static SimulationSoftwareSuite fromJson(Map<String, dynamic> json) =>
-      SimulationSoftwareSuite();
+      SimulationSoftwareSuite(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a source.
@@ -2452,7 +3371,15 @@ class Source {
     this.etag,
     this.architecture,
   });
-  static Source fromJson(Map<String, dynamic> json) => Source();
+  static Source fromJson(Map<String, dynamic> json) => Source(
+        s3Bucket:
+            json.containsKey('s3Bucket') ? json['s3Bucket'] as String : null,
+        s3Key: json.containsKey('s3Key') ? json['s3Key'] as String : null,
+        etag: json.containsKey('etag') ? json['etag'] as String : null,
+        architecture: json.containsKey('architecture')
+            ? json['architecture'] as String
+            : null,
+      );
 }
 
 /// Information about a source configuration.
@@ -2471,6 +3398,7 @@ class SourceConfig {
     this.s3Key,
     this.architecture,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SyncDeploymentJobResponse {
@@ -2568,7 +3496,29 @@ class SyncDeploymentJobResponse {
     this.createdAt,
   });
   static SyncDeploymentJobResponse fromJson(Map<String, dynamic> json) =>
-      SyncDeploymentJobResponse();
+      SyncDeploymentJobResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        fleet: json.containsKey('fleet') ? json['fleet'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        deploymentConfig: json.containsKey('deploymentConfig')
+            ? DeploymentConfig.fromJson(json['deploymentConfig'])
+            : null,
+        deploymentApplicationConfigs:
+            json.containsKey('deploymentApplicationConfigs')
+                ? (json['deploymentApplicationConfigs'] as List)
+                    .map((e) => DeploymentApplicationConfig.fromJson(e))
+                    .toList()
+                : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+      );
 }
 
 class TagResourceResponse {
@@ -2616,7 +3566,23 @@ class UpdateRobotApplicationResponse {
     this.revisionId,
   });
   static UpdateRobotApplicationResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRobotApplicationResponse();
+      UpdateRobotApplicationResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        sources: json.containsKey('sources')
+            ? (json['sources'] as List).map((e) => Source.fromJson(e)).toList()
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+      );
 }
 
 class UpdateSimulationApplicationResponse {
@@ -2661,7 +3627,29 @@ class UpdateSimulationApplicationResponse {
   });
   static UpdateSimulationApplicationResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateSimulationApplicationResponse();
+      UpdateSimulationApplicationResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        sources: json.containsKey('sources')
+            ? (json['sources'] as List).map((e) => Source.fromJson(e)).toList()
+            : null,
+        simulationSoftwareSuite: json.containsKey('simulationSoftwareSuite')
+            ? SimulationSoftwareSuite.fromJson(json['simulationSoftwareSuite'])
+            : null,
+        robotSoftwareSuite: json.containsKey('robotSoftwareSuite')
+            ? RobotSoftwareSuite.fromJson(json['robotSoftwareSuite'])
+            : null,
+        renderingEngine: json.containsKey('renderingEngine')
+            ? RenderingEngine.fromJson(json['renderingEngine'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+      );
 }
 
 /// If your simulation job accesses resources in a VPC, you provide this
@@ -2683,6 +3671,7 @@ class VpcConfig {
     this.securityGroups,
     this.assignPublicIp,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// VPC configuration associated with your simulation job.
@@ -2706,5 +3695,16 @@ class VpcConfigResponse {
     this.assignPublicIp,
   });
   static VpcConfigResponse fromJson(Map<String, dynamic> json) =>
-      VpcConfigResponse();
+      VpcConfigResponse(
+        subnets: json.containsKey('subnets')
+            ? (json['subnets'] as List).map((e) => e as String).toList()
+            : null,
+        securityGroups: json.containsKey('securityGroups')
+            ? (json['securityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        vpcId: json.containsKey('vpcId') ? json['vpcId'] as String : null,
+        assignPublicIp: json.containsKey('assignPublicIp')
+            ? json['assignPublicIp'] as bool
+            : null,
+      );
 }

@@ -22,6 +22,9 @@ import 'dart:typed_data';
 /// *   AWS VPN: [AWS VPN product page](http://aws.amazon.com/vpn),
 /// [AWS VPN documentation](http://aws.amazon.com/documentation/vpn)
 class Ec2Api {
+  final _client;
+  Ec2Api(client) : _client = client.configured('EC2', serializer: 'ec2');
+
   /// Accepts the Convertible Reserved Instance exchange quote described in the
   /// GetReservedInstancesExchangeQuote call.
   ///
@@ -41,7 +44,13 @@ class Ec2Api {
       acceptReservedInstancesExchangeQuote(List<String> reservedInstanceIds,
           {bool dryRun,
           List<TargetConfigurationRequest> targetConfigurations}) async {
-    return AcceptReservedInstancesExchangeQuoteResult.fromJson({});
+    var response_ = await _client.send('AcceptReservedInstancesExchangeQuote', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ReservedInstanceIds': reservedInstanceIds,
+      if (targetConfigurations != null)
+        'TargetConfigurations': targetConfigurations,
+    });
+    return AcceptReservedInstancesExchangeQuoteResult.fromJson(response_);
   }
 
   /// Accepts a request to attach a VPC to a transit gateway.
@@ -60,7 +69,11 @@ class Ec2Api {
   Future<AcceptTransitGatewayVpcAttachmentResult>
       acceptTransitGatewayVpcAttachment(String transitGatewayAttachmentId,
           {bool dryRun}) async {
-    return AcceptTransitGatewayVpcAttachmentResult.fromJson({});
+    var response_ = await _client.send('AcceptTransitGatewayVpcAttachment', {
+      'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return AcceptTransitGatewayVpcAttachmentResult.fromJson(response_);
   }
 
   /// Accepts one or more interface VPC endpoint connection requests to your VPC
@@ -78,7 +91,12 @@ class Ec2Api {
       {bool dryRun,
       @required String serviceId,
       @required List<String> vpcEndpointIds}) async {
-    return AcceptVpcEndpointConnectionsResult.fromJson({});
+    var response_ = await _client.send('AcceptVpcEndpointConnections', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ServiceId': serviceId,
+      'VpcEndpointIds': vpcEndpointIds,
+    });
+    return AcceptVpcEndpointConnectionsResult.fromJson(response_);
   }
 
   /// Accept a VPC peering connection request. To accept a request, the VPC
@@ -98,7 +116,12 @@ class Ec2Api {
   /// specify this parameter in the request.
   Future<AcceptVpcPeeringConnectionResult> acceptVpcPeeringConnection(
       {bool dryRun, String vpcPeeringConnectionId}) async {
-    return AcceptVpcPeeringConnectionResult.fromJson({});
+    var response_ = await _client.send('AcceptVpcPeeringConnection', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (vpcPeeringConnectionId != null)
+        'VpcPeeringConnectionId': vpcPeeringConnectionId,
+    });
+    return AcceptVpcPeeringConnectionResult.fromJson(response_);
   }
 
   /// Advertises an IPv4 address range that is provisioned for use with your AWS
@@ -128,7 +151,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<AdvertiseByoipCidrResult> advertiseByoipCidr(String cidr,
       {bool dryRun}) async {
-    return AdvertiseByoipCidrResult.fromJson({});
+    var response_ = await _client.send('AdvertiseByoipCidr', {
+      'Cidr': cidr,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return AdvertiseByoipCidrResult.fromJson(response_);
   }
 
   /// Allocates an Elastic IP address to your AWS account. After you allocate
@@ -179,7 +206,13 @@ class Ec2Api {
       String address,
       String publicIpv4Pool,
       bool dryRun}) async {
-    return AllocateAddressResult.fromJson({});
+    var response_ = await _client.send('AllocateAddress', {
+      if (domain != null) 'Domain': domain,
+      if (address != null) 'Address': address,
+      if (publicIpv4Pool != null) 'PublicIpv4Pool': publicIpv4Pool,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return AllocateAddressResult.fromJson(response_);
   }
 
   /// Allocates a Dedicated Host to your account. At a minimum, specify the
@@ -226,7 +259,16 @@ class Ec2Api {
       @required int quantity,
       List<TagSpecification> tagSpecifications,
       String hostRecovery}) async {
-    return AllocateHostsResult.fromJson({});
+    var response_ = await _client.send('AllocateHosts', {
+      if (autoPlacement != null) 'AutoPlacement': autoPlacement,
+      'AvailabilityZone': availabilityZone,
+      if (clientToken != null) 'ClientToken': clientToken,
+      'InstanceType': instanceType,
+      'Quantity': quantity,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (hostRecovery != null) 'HostRecovery': hostRecovery,
+    });
+    return AllocateHostsResult.fromJson(response_);
   }
 
   /// Applies a security group to the association between the target network and
@@ -252,7 +294,15 @@ class Ec2Api {
           @required String vpcId,
           @required List<String> securityGroupIds,
           bool dryRun}) async {
-    return ApplySecurityGroupsToClientVpnTargetNetworkResult.fromJson({});
+    var response_ =
+        await _client.send('ApplySecurityGroupsToClientVpnTargetNetwork', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      'VpcId': vpcId,
+      'SecurityGroupIds': securityGroupIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ApplySecurityGroupsToClientVpnTargetNetworkResult.fromJson(
+        response_);
   }
 
   /// Assigns one or more IPv6 addresses to the specified network interface. You
@@ -278,7 +328,12 @@ class Ec2Api {
       String networkInterfaceId,
       {int ipv6AddressCount,
       List<String> ipv6Addresses}) async {
-    return AssignIpv6AddressesResult.fromJson({});
+    var response_ = await _client.send('AssignIpv6Addresses', {
+      if (ipv6AddressCount != null) 'Ipv6AddressCount': ipv6AddressCount,
+      if (ipv6Addresses != null) 'Ipv6Addresses': ipv6Addresses,
+      'NetworkInterfaceId': networkInterfaceId,
+    });
+    return AssignIpv6AddressesResult.fromJson(response_);
   }
 
   /// Assigns one or more secondary private IP addresses to the specified
@@ -325,7 +380,14 @@ class Ec2Api {
       {bool allowReassignment,
       List<String> privateIpAddresses,
       int secondaryPrivateIpAddressCount}) async {
-    return AssignPrivateIpAddressesResult.fromJson({});
+    var response_ = await _client.send('AssignPrivateIpAddresses', {
+      if (allowReassignment != null) 'AllowReassignment': allowReassignment,
+      'NetworkInterfaceId': networkInterfaceId,
+      if (privateIpAddresses != null) 'PrivateIpAddresses': privateIpAddresses,
+      if (secondaryPrivateIpAddressCount != null)
+        'SecondaryPrivateIpAddressCount': secondaryPrivateIpAddressCount,
+    });
+    return AssignPrivateIpAddressesResult.fromJson(response_);
   }
 
   /// Associates an Elastic IP address with an instance or a network interface.
@@ -401,7 +463,16 @@ class Ec2Api {
       bool dryRun,
       String networkInterfaceId,
       String privateIpAddress}) async {
-    return AssociateAddressResult.fromJson({});
+    var response_ = await _client.send('AssociateAddress', {
+      if (allocationId != null) 'AllocationId': allocationId,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (publicIp != null) 'PublicIp': publicIp,
+      if (allowReassociation != null) 'AllowReassociation': allowReassociation,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (networkInterfaceId != null) 'NetworkInterfaceId': networkInterfaceId,
+      if (privateIpAddress != null) 'PrivateIpAddress': privateIpAddress,
+    });
+    return AssociateAddressResult.fromJson(response_);
   }
 
   /// Associates a target network with a Client VPN endpoint. A target network
@@ -428,7 +499,13 @@ class Ec2Api {
       @required String subnetId,
       String clientToken,
       bool dryRun}) async {
-    return AssociateClientVpnTargetNetworkResult.fromJson({});
+    var response_ = await _client.send('AssociateClientVpnTargetNetwork', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      'SubnetId': subnetId,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return AssociateClientVpnTargetNetworkResult.fromJson(response_);
   }
 
   /// Associates a set of DHCP options (that you've previously created) with the
@@ -457,7 +534,13 @@ class Ec2Api {
   Future<void> associateDhcpOptions(
       {@required String dhcpOptionsId,
       @required String vpcId,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    await _client.send('AssociateDhcpOptions', {
+      'DhcpOptionsId': dhcpOptionsId,
+      'VpcId': vpcId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Associates an IAM instance profile with a running or stopped instance. You
   /// cannot associate more than one IAM instance profile with an instance.
@@ -468,7 +551,11 @@ class Ec2Api {
   Future<AssociateIamInstanceProfileResult> associateIamInstanceProfile(
       {@required IamInstanceProfileSpecification iamInstanceProfile,
       @required String instanceId}) async {
-    return AssociateIamInstanceProfileResult.fromJson({});
+    var response_ = await _client.send('AssociateIamInstanceProfile', {
+      'IamInstanceProfile': iamInstanceProfile,
+      'InstanceId': instanceId,
+    });
+    return AssociateIamInstanceProfileResult.fromJson(response_);
   }
 
   /// Associates a subnet with a route table. The subnet and route table must be
@@ -494,7 +581,12 @@ class Ec2Api {
       {bool dryRun,
       @required String routeTableId,
       @required String subnetId}) async {
-    return AssociateRouteTableResult.fromJson({});
+    var response_ = await _client.send('AssociateRouteTable', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'RouteTableId': routeTableId,
+      'SubnetId': subnetId,
+    });
+    return AssociateRouteTableResult.fromJson(response_);
   }
 
   /// Associates a CIDR block with your subnet. You can only associate a single
@@ -507,7 +599,11 @@ class Ec2Api {
   /// [subnetId]: The ID of your subnet.
   Future<AssociateSubnetCidrBlockResult> associateSubnetCidrBlock(
       {@required String ipv6CidrBlock, @required String subnetId}) async {
-    return AssociateSubnetCidrBlockResult.fromJson({});
+    var response_ = await _client.send('AssociateSubnetCidrBlock', {
+      'Ipv6CidrBlock': ipv6CidrBlock,
+      'SubnetId': subnetId,
+    });
+    return AssociateSubnetCidrBlockResult.fromJson(response_);
   }
 
   /// Associates the specified attachment with the specified transit gateway
@@ -526,7 +622,12 @@ class Ec2Api {
           {@required String transitGatewayRouteTableId,
           @required String transitGatewayAttachmentId,
           bool dryRun}) async {
-    return AssociateTransitGatewayRouteTableResult.fromJson({});
+    var response_ = await _client.send('AssociateTransitGatewayRouteTable', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return AssociateTransitGatewayRouteTableResult.fromJson(response_);
   }
 
   /// Associates a CIDR block with your VPC. You can associate a secondary IPv4
@@ -547,7 +648,13 @@ class Ec2Api {
   /// [vpcId]: The ID of the VPC.
   Future<AssociateVpcCidrBlockResult> associateVpcCidrBlock(String vpcId,
       {bool amazonProvidedIpv6CidrBlock, String cidrBlock}) async {
-    return AssociateVpcCidrBlockResult.fromJson({});
+    var response_ = await _client.send('AssociateVpcCidrBlock', {
+      if (amazonProvidedIpv6CidrBlock != null)
+        'AmazonProvidedIpv6CidrBlock': amazonProvidedIpv6CidrBlock,
+      if (cidrBlock != null) 'CidrBlock': cidrBlock,
+      'VpcId': vpcId,
+    });
+    return AssociateVpcCidrBlockResult.fromJson(response_);
   }
 
   /// Links an EC2-Classic instance to a ClassicLink-enabled VPC through one or
@@ -580,7 +687,13 @@ class Ec2Api {
       @required List<String> groups,
       @required String instanceId,
       @required String vpcId}) async {
-    return AttachClassicLinkVpcResult.fromJson({});
+    var response_ = await _client.send('AttachClassicLinkVpc', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'Groups': groups,
+      'InstanceId': instanceId,
+      'VpcId': vpcId,
+    });
+    return AttachClassicLinkVpcResult.fromJson(response_);
   }
 
   /// Attaches an internet gateway to a VPC, enabling connectivity between the
@@ -599,7 +712,13 @@ class Ec2Api {
   Future<void> attachInternetGateway(
       {bool dryRun,
       @required String internetGatewayId,
-      @required String vpcId}) async {}
+      @required String vpcId}) async {
+    await _client.send('AttachInternetGateway', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'InternetGatewayId': internetGatewayId,
+      'VpcId': vpcId,
+    });
+  }
 
   /// Attaches a network interface to an instance.
   ///
@@ -619,7 +738,13 @@ class Ec2Api {
       bool dryRun,
       @required String instanceId,
       @required String networkInterfaceId}) async {
-    return AttachNetworkInterfaceResult.fromJson({});
+    var response_ = await _client.send('AttachNetworkInterface', {
+      'DeviceIndex': deviceIndex,
+      if (dryRun != null) 'DryRun': dryRun,
+      'InstanceId': instanceId,
+      'NetworkInterfaceId': networkInterfaceId,
+    });
+    return AttachNetworkInterfaceResult.fromJson(response_);
   }
 
   /// Attaches an EBS volume to a running or stopped instance and exposes it to
@@ -668,7 +793,13 @@ class Ec2Api {
       @required String instanceId,
       @required String volumeId,
       bool dryRun}) async {
-    return VolumeAttachment.fromJson({});
+    var response_ = await _client.send('AttachVolume', {
+      'Device': device,
+      'InstanceId': instanceId,
+      'VolumeId': volumeId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return VolumeAttachment.fromJson(response_);
   }
 
   /// Attaches a virtual private gateway to a VPC. You can attach one virtual
@@ -690,7 +821,12 @@ class Ec2Api {
       {@required String vpcId,
       @required String vpnGatewayId,
       bool dryRun}) async {
-    return AttachVpnGatewayResult.fromJson({});
+    var response_ = await _client.send('AttachVpnGateway', {
+      'VpcId': vpcId,
+      'VpnGatewayId': vpnGatewayId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return AttachVpnGatewayResult.fromJson(response_);
   }
 
   /// Adds an ingress authorization rule to a Client VPN endpoint. Ingress
@@ -727,7 +863,16 @@ class Ec2Api {
       String description,
       String clientToken,
       bool dryRun}) async {
-    return AuthorizeClientVpnIngressResult.fromJson({});
+    var response_ = await _client.send('AuthorizeClientVpnIngress', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      'TargetNetworkCidr': targetNetworkCidr,
+      if (accessGroupId != null) 'AccessGroupId': accessGroupId,
+      if (authorizeAllGroups != null) 'AuthorizeAllGroups': authorizeAllGroups,
+      if (description != null) 'Description': description,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return AuthorizeClientVpnIngressResult.fromJson(response_);
   }
 
   /// [VPC only] Adds the specified egress rules to a security group for use
@@ -782,7 +927,21 @@ class Ec2Api {
       String ipProtocol,
       int toPort,
       String sourceSecurityGroupName,
-      String sourceSecurityGroupOwnerId}) async {}
+      String sourceSecurityGroupOwnerId}) async {
+    await _client.send('AuthorizeSecurityGroupEgress', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'GroupId': groupId,
+      if (ipPermissions != null) 'IpPermissions': ipPermissions,
+      if (cidrIp != null) 'CidrIp': cidrIp,
+      if (fromPort != null) 'FromPort': fromPort,
+      if (ipProtocol != null) 'IpProtocol': ipProtocol,
+      if (toPort != null) 'ToPort': toPort,
+      if (sourceSecurityGroupName != null)
+        'SourceSecurityGroupName': sourceSecurityGroupName,
+      if (sourceSecurityGroupOwnerId != null)
+        'SourceSecurityGroupOwnerId': sourceSecurityGroupOwnerId,
+    });
+  }
 
   /// Adds the specified ingress rules to a security group.
   ///
@@ -873,7 +1032,22 @@ class Ec2Api {
       String sourceSecurityGroupName,
       String sourceSecurityGroupOwnerId,
       int toPort,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    await _client.send('AuthorizeSecurityGroupIngress', {
+      if (cidrIp != null) 'CidrIp': cidrIp,
+      if (fromPort != null) 'FromPort': fromPort,
+      if (groupId != null) 'GroupId': groupId,
+      if (groupName != null) 'GroupName': groupName,
+      if (ipPermissions != null) 'IpPermissions': ipPermissions,
+      if (ipProtocol != null) 'IpProtocol': ipProtocol,
+      if (sourceSecurityGroupName != null)
+        'SourceSecurityGroupName': sourceSecurityGroupName,
+      if (sourceSecurityGroupOwnerId != null)
+        'SourceSecurityGroupOwnerId': sourceSecurityGroupOwnerId,
+      if (toPort != null) 'ToPort': toPort,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Bundles an Amazon instance store-backed Windows instance.
   ///
@@ -906,7 +1080,12 @@ class Ec2Api {
       {@required String instanceId,
       @required Storage storage,
       bool dryRun}) async {
-    return BundleInstanceResult.fromJson({});
+    var response_ = await _client.send('BundleInstance', {
+      'InstanceId': instanceId,
+      'Storage': storage,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return BundleInstanceResult.fromJson(response_);
   }
 
   /// Cancels a bundling operation for an instance store-backed Windows
@@ -920,7 +1099,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<CancelBundleTaskResult> cancelBundleTask(String bundleId,
       {bool dryRun}) async {
-    return CancelBundleTaskResult.fromJson({});
+    var response_ = await _client.send('CancelBundleTask', {
+      'BundleId': bundleId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CancelBundleTaskResult.fromJson(response_);
   }
 
   /// Cancels the specified Capacity Reservation, releases the reserved
@@ -942,7 +1125,11 @@ class Ec2Api {
   Future<CancelCapacityReservationResult> cancelCapacityReservation(
       String capacityReservationId,
       {bool dryRun}) async {
-    return CancelCapacityReservationResult.fromJson({});
+    var response_ = await _client.send('CancelCapacityReservation', {
+      'CapacityReservationId': capacityReservationId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CancelCapacityReservationResult.fromJson(response_);
   }
 
   /// Cancels an active conversion task. The task can be the import of an
@@ -963,7 +1150,13 @@ class Ec2Api {
   ///
   /// [reasonMessage]: The reason for canceling the conversion task.
   Future<void> cancelConversionTask(String conversionTaskId,
-      {bool dryRun, String reasonMessage}) async {}
+      {bool dryRun, String reasonMessage}) async {
+    await _client.send('CancelConversionTask', {
+      'ConversionTaskId': conversionTaskId,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (reasonMessage != null) 'ReasonMessage': reasonMessage,
+    });
+  }
 
   /// Cancels an active export task. The request removes all artifacts of the
   /// export, including any partially-created Amazon S3 objects. If the export
@@ -972,7 +1165,11 @@ class Ec2Api {
   ///
   /// [exportTaskId]: The ID of the export task. This is the ID returned by
   /// `CreateInstanceExportTask`.
-  Future<void> cancelExportTask(String exportTaskId) async {}
+  Future<void> cancelExportTask(String exportTaskId) async {
+    await _client.send('CancelExportTask', {
+      'ExportTaskId': exportTaskId,
+    });
+  }
 
   /// Cancels an in-process import virtual machine or import snapshot task.
   ///
@@ -987,7 +1184,12 @@ class Ec2Api {
   /// canceled.
   Future<CancelImportTaskResult> cancelImportTask(
       {String cancelReason, bool dryRun, String importTaskId}) async {
-    return CancelImportTaskResult.fromJson({});
+    var response_ = await _client.send('CancelImportTask', {
+      if (cancelReason != null) 'CancelReason': cancelReason,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (importTaskId != null) 'ImportTaskId': importTaskId,
+    });
+    return CancelImportTaskResult.fromJson(response_);
   }
 
   /// Cancels the specified Reserved Instance listing in the Reserved Instance
@@ -1000,7 +1202,10 @@ class Ec2Api {
   /// [reservedInstancesListingId]: The ID of the Reserved Instance listing.
   Future<CancelReservedInstancesListingResult> cancelReservedInstancesListing(
       String reservedInstancesListingId) async {
-    return CancelReservedInstancesListingResult.fromJson({});
+    var response_ = await _client.send('CancelReservedInstancesListing', {
+      'ReservedInstancesListingId': reservedInstancesListingId,
+    });
+    return CancelReservedInstancesListingResult.fromJson(response_);
   }
 
   /// Cancels the specified Spot Fleet requests.
@@ -1025,7 +1230,12 @@ class Ec2Api {
       {bool dryRun,
       @required List<String> spotFleetRequestIds,
       @required bool terminateInstances}) async {
-    return CancelSpotFleetRequestsResponse.fromJson({});
+    var response_ = await _client.send('CancelSpotFleetRequests', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'SpotFleetRequestIds': spotFleetRequestIds,
+      'TerminateInstances': terminateInstances,
+    });
+    return CancelSpotFleetRequestsResponse.fromJson(response_);
   }
 
   /// Cancels one or more Spot Instance requests.
@@ -1044,7 +1254,11 @@ class Ec2Api {
   Future<CancelSpotInstanceRequestsResult> cancelSpotInstanceRequests(
       List<String> spotInstanceRequestIds,
       {bool dryRun}) async {
-    return CancelSpotInstanceRequestsResult.fromJson({});
+    var response_ = await _client.send('CancelSpotInstanceRequests', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'SpotInstanceRequestIds': spotInstanceRequestIds,
+    });
+    return CancelSpotInstanceRequestsResult.fromJson(response_);
   }
 
   /// Determines whether a product code is associated with an instance. This
@@ -1064,7 +1278,12 @@ class Ec2Api {
       {@required String instanceId,
       @required String productCode,
       bool dryRun}) async {
-    return ConfirmProductInstanceResult.fromJson({});
+    var response_ = await _client.send('ConfirmProductInstance', {
+      'InstanceId': instanceId,
+      'ProductCode': productCode,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ConfirmProductInstanceResult.fromJson(response_);
   }
 
   /// Copies the specified Amazon FPGA Image (AFI) to the current Region.
@@ -1093,7 +1312,15 @@ class Ec2Api {
       String name,
       @required String sourceRegion,
       String clientToken}) async {
-    return CopyFpgaImageResult.fromJson({});
+    var response_ = await _client.send('CopyFpgaImage', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'SourceFpgaImageId': sourceFpgaImageId,
+      if (description != null) 'Description': description,
+      if (name != null) 'Name': name,
+      'SourceRegion': sourceRegion,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return CopyFpgaImageResult.fromJson(response_);
   }
 
   /// Initiates the copy of an AMI from the specified source Region to the
@@ -1172,7 +1399,17 @@ class Ec2Api {
       @required String sourceImageId,
       @required String sourceRegion,
       bool dryRun}) async {
-    return CopyImageResult.fromJson({});
+    var response_ = await _client.send('CopyImage', {
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (description != null) 'Description': description,
+      if (encrypted != null) 'Encrypted': encrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      'Name': name,
+      'SourceImageId': sourceImageId,
+      'SourceRegion': sourceRegion,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CopyImageResult.fromJson(response_);
   }
 
   /// Copies a point-in-time snapshot of an EBS volume and stores it in Amazon
@@ -1272,7 +1509,17 @@ class Ec2Api {
       @required String sourceRegion,
       @required String sourceSnapshotId,
       bool dryRun}) async {
-    return CopySnapshotResult.fromJson({});
+    var response_ = await _client.send('CopySnapshot', {
+      if (description != null) 'Description': description,
+      if (destinationRegion != null) 'DestinationRegion': destinationRegion,
+      if (encrypted != null) 'Encrypted': encrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (presignedUrl != null) 'PresignedUrl': presignedUrl,
+      'SourceRegion': sourceRegion,
+      'SourceSnapshotId': sourceSnapshotId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CopySnapshotResult.fromJson(response_);
   }
 
   /// Creates a new Capacity Reservation with the specified attributes.
@@ -1404,7 +1651,24 @@ class Ec2Api {
       String instanceMatchCriteria,
       List<TagSpecification> tagSpecifications,
       bool dryRun}) async {
-    return CreateCapacityReservationResult.fromJson({});
+    var response_ = await _client.send('CreateCapacityReservation', {
+      if (clientToken != null) 'ClientToken': clientToken,
+      'InstanceType': instanceType,
+      'InstancePlatform': instancePlatform,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (availabilityZoneId != null) 'AvailabilityZoneId': availabilityZoneId,
+      if (tenancy != null) 'Tenancy': tenancy,
+      'InstanceCount': instanceCount,
+      if (ebsOptimized != null) 'EbsOptimized': ebsOptimized,
+      if (ephemeralStorage != null) 'EphemeralStorage': ephemeralStorage,
+      if (endDate != null) 'EndDate': endDate,
+      if (endDateType != null) 'EndDateType': endDateType,
+      if (instanceMatchCriteria != null)
+        'InstanceMatchCriteria': instanceMatchCriteria,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateCapacityReservationResult.fromJson(response_);
   }
 
   /// Creates a Client VPN endpoint. A Client VPN endpoint is the resource you
@@ -1482,7 +1746,20 @@ class Ec2Api {
       bool dryRun,
       String clientToken,
       List<TagSpecification> tagSpecifications}) async {
-    return CreateClientVpnEndpointResult.fromJson({});
+    var response_ = await _client.send('CreateClientVpnEndpoint', {
+      'ClientCidrBlock': clientCidrBlock,
+      'ServerCertificateArn': serverCertificateArn,
+      'AuthenticationOptions': authenticationOptions,
+      'ConnectionLogOptions': connectionLogOptions,
+      if (dnsServers != null) 'DnsServers': dnsServers,
+      if (transportProtocol != null) 'TransportProtocol': transportProtocol,
+      if (description != null) 'Description': description,
+      if (splitTunnel != null) 'SplitTunnel': splitTunnel,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+    });
+    return CreateClientVpnEndpointResult.fromJson(response_);
   }
 
   /// Adds a route to a network to a Client VPN endpoint. Each Client VPN
@@ -1529,7 +1806,15 @@ class Ec2Api {
       String description,
       String clientToken,
       bool dryRun}) async {
-    return CreateClientVpnRouteResult.fromJson({});
+    var response_ = await _client.send('CreateClientVpnRoute', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      'DestinationCidrBlock': destinationCidrBlock,
+      'TargetVpcSubnetId': targetVpcSubnetId,
+      if (description != null) 'Description': description,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateClientVpnRouteResult.fromJson(response_);
   }
 
   /// Provides information to AWS about your VPN customer gateway device. The
@@ -1584,7 +1869,14 @@ class Ec2Api {
       String certificateArn,
       @required String type,
       bool dryRun}) async {
-    return CreateCustomerGatewayResult.fromJson({});
+    var response_ = await _client.send('CreateCustomerGateway', {
+      'BgpAsn': bgpAsn,
+      if (publicIp != null) 'PublicIp': publicIp,
+      if (certificateArn != null) 'CertificateArn': certificateArn,
+      'Type': type,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateCustomerGatewayResult.fromJson(response_);
   }
 
   /// Creates a default subnet with a size `/20` IPv4 CIDR block in the
@@ -1602,7 +1894,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<CreateDefaultSubnetResult> createDefaultSubnet(String availabilityZone,
       {bool dryRun}) async {
-    return CreateDefaultSubnetResult.fromJson({});
+    var response_ = await _client.send('CreateDefaultSubnet', {
+      'AvailabilityZone': availabilityZone,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateDefaultSubnetResult.fromJson(response_);
   }
 
   /// Creates a default VPC with a size `/16` IPv4 CIDR block and a default
@@ -1626,7 +1922,10 @@ class Ec2Api {
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<CreateDefaultVpcResult> createDefaultVpc({bool dryRun}) async {
-    return CreateDefaultVpcResult.fromJson({});
+    var response_ = await _client.send('CreateDefaultVpc', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateDefaultVpcResult.fromJson(response_);
   }
 
   /// Creates a set of DHCP options for your VPC. After creating the set, you
@@ -1683,7 +1982,11 @@ class Ec2Api {
   Future<CreateDhcpOptionsResult> createDhcpOptions(
       List<NewDhcpConfiguration> dhcpConfigurations,
       {bool dryRun}) async {
-    return CreateDhcpOptionsResult.fromJson({});
+    var response_ = await _client.send('CreateDhcpOptions', {
+      'DhcpConfigurations': dhcpConfigurations,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateDhcpOptionsResult.fromJson(response_);
   }
 
   /// [IPv6 only] Creates an egress-only internet gateway for your VPC. An
@@ -1706,7 +2009,12 @@ class Ec2Api {
       String vpcId,
       {String clientToken,
       bool dryRun}) async {
-    return CreateEgressOnlyInternetGatewayResult.fromJson({});
+    var response_ = await _client.send('CreateEgressOnlyInternetGateway', {
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (dryRun != null) 'DryRun': dryRun,
+      'VpcId': vpcId,
+    });
+    return CreateEgressOnlyInternetGatewayResult.fromJson(response_);
   }
 
   /// Launches an EC2 Fleet.
@@ -1788,7 +2096,25 @@ class Ec2Api {
       DateTime validUntil,
       bool replaceUnhealthyInstances,
       List<TagSpecification> tagSpecifications}) async {
-    return CreateFleetResult.fromJson({});
+    var response_ = await _client.send('CreateFleet', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (spotOptions != null) 'SpotOptions': spotOptions,
+      if (onDemandOptions != null) 'OnDemandOptions': onDemandOptions,
+      if (excessCapacityTerminationPolicy != null)
+        'ExcessCapacityTerminationPolicy': excessCapacityTerminationPolicy,
+      'LaunchTemplateConfigs': launchTemplateConfigs,
+      'TargetCapacitySpecification': targetCapacitySpecification,
+      if (terminateInstancesWithExpiration != null)
+        'TerminateInstancesWithExpiration': terminateInstancesWithExpiration,
+      if (type != null) 'Type': type,
+      if (validFrom != null) 'ValidFrom': validFrom,
+      if (validUntil != null) 'ValidUntil': validUntil,
+      if (replaceUnhealthyInstances != null)
+        'ReplaceUnhealthyInstances': replaceUnhealthyInstances,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+    });
+    return CreateFleetResult.fromJson(response_);
   }
 
   /// Creates one or more flow logs to capture information about IP traffic for
@@ -1891,7 +2217,20 @@ class Ec2Api {
       String logDestinationType,
       String logDestination,
       String logFormat}) async {
-    return CreateFlowLogsResult.fromJson({});
+    var response_ = await _client.send('CreateFlowLogs', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (deliverLogsPermissionArn != null)
+        'DeliverLogsPermissionArn': deliverLogsPermissionArn,
+      if (logGroupName != null) 'LogGroupName': logGroupName,
+      'ResourceIds': resourceIds,
+      'ResourceType': resourceType,
+      'TrafficType': trafficType,
+      if (logDestinationType != null) 'LogDestinationType': logDestinationType,
+      if (logDestination != null) 'LogDestination': logDestination,
+      if (logFormat != null) 'LogFormat': logFormat,
+    });
+    return CreateFlowLogsResult.fromJson(response_);
   }
 
   /// Creates an Amazon FPGA Image (AFI) from the specified design checkpoint
@@ -1929,7 +2268,16 @@ class Ec2Api {
       String description,
       String name,
       String clientToken}) async {
-    return CreateFpgaImageResult.fromJson({});
+    var response_ = await _client.send('CreateFpgaImage', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'InputStorageLocation': inputStorageLocation,
+      if (logsStorageLocation != null)
+        'LogsStorageLocation': logsStorageLocation,
+      if (description != null) 'Description': description,
+      if (name != null) 'Name': name,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return CreateFpgaImageResult.fromJson(response_);
   }
 
   /// Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance that
@@ -1976,7 +2324,16 @@ class Ec2Api {
       @required String instanceId,
       @required String name,
       bool noReboot}) async {
-    return CreateImageResult.fromJson({});
+    var response_ = await _client.send('CreateImage', {
+      if (blockDeviceMappings != null)
+        'BlockDeviceMappings': blockDeviceMappings,
+      if (description != null) 'Description': description,
+      if (dryRun != null) 'DryRun': dryRun,
+      'InstanceId': instanceId,
+      'Name': name,
+      if (noReboot != null) 'NoReboot': noReboot,
+    });
+    return CreateImageResult.fromJson(response_);
   }
 
   /// Exports a running or stopped instance to an S3 bucket.
@@ -1999,7 +2356,13 @@ class Ec2Api {
       {String description,
       ExportToS3TaskSpecification exportToS3Task,
       String targetEnvironment}) async {
-    return CreateInstanceExportTaskResult.fromJson({});
+    var response_ = await _client.send('CreateInstanceExportTask', {
+      if (description != null) 'Description': description,
+      if (exportToS3Task != null) 'ExportToS3Task': exportToS3Task,
+      'InstanceId': instanceId,
+      if (targetEnvironment != null) 'TargetEnvironment': targetEnvironment,
+    });
+    return CreateInstanceExportTaskResult.fromJson(response_);
   }
 
   /// Creates an internet gateway for use with a VPC. After creating the
@@ -2014,7 +2377,10 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<CreateInternetGatewayResult> createInternetGateway(
       {bool dryRun}) async {
-    return CreateInternetGatewayResult.fromJson({});
+    var response_ = await _client.send('CreateInternetGateway', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateInternetGatewayResult.fromJson(response_);
   }
 
   /// Creates a 2048-bit RSA key pair with the specified name. Amazon EC2 stores
@@ -2042,7 +2408,11 @@ class Ec2Api {
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<KeyPair> createKeyPair(String keyName, {bool dryRun}) async {
-    return KeyPair.fromJson({});
+    var response_ = await _client.send('CreateKeyPair', {
+      'KeyName': keyName,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return KeyPair.fromJson(response_);
   }
 
   /// Creates a launch template. A launch template contains the parameters to
@@ -2077,7 +2447,15 @@ class Ec2Api {
       String versionDescription,
       @required RequestLaunchTemplateData launchTemplateData,
       List<TagSpecification> tagSpecifications}) async {
-    return CreateLaunchTemplateResult.fromJson({});
+    var response_ = await _client.send('CreateLaunchTemplate', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+      'LaunchTemplateName': launchTemplateName,
+      if (versionDescription != null) 'VersionDescription': versionDescription,
+      'LaunchTemplateData': launchTemplateData,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+    });
+    return CreateLaunchTemplateResult.fromJson(response_);
   }
 
   /// Creates a new version for a launch template. You can specify an existing
@@ -2122,7 +2500,16 @@ class Ec2Api {
       String launchTemplateName,
       String sourceVersion,
       String versionDescription}) async {
-    return CreateLaunchTemplateVersionResult.fromJson({});
+    var response_ = await _client.send('CreateLaunchTemplateVersion', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (launchTemplateId != null) 'LaunchTemplateId': launchTemplateId,
+      if (launchTemplateName != null) 'LaunchTemplateName': launchTemplateName,
+      if (sourceVersion != null) 'SourceVersion': sourceVersion,
+      if (versionDescription != null) 'VersionDescription': versionDescription,
+      'LaunchTemplateData': launchTemplateData,
+    });
+    return CreateLaunchTemplateVersionResult.fromJson(response_);
   }
 
   /// Creates a NAT gateway in the specified public subnet. This action creates
@@ -2148,7 +2535,12 @@ class Ec2Api {
       {@required String allocationId,
       String clientToken,
       @required String subnetId}) async {
-    return CreateNatGatewayResult.fromJson({});
+    var response_ = await _client.send('CreateNatGateway', {
+      'AllocationId': allocationId,
+      if (clientToken != null) 'ClientToken': clientToken,
+      'SubnetId': subnetId,
+    });
+    return CreateNatGatewayResult.fromJson(response_);
   }
 
   /// Creates a network ACL in a VPC. Network ACLs provide an optional layer of
@@ -2166,7 +2558,11 @@ class Ec2Api {
   /// [vpcId]: The ID of the VPC.
   Future<CreateNetworkAclResult> createNetworkAcl(String vpcId,
       {bool dryRun}) async {
-    return CreateNetworkAclResult.fromJson({});
+    var response_ = await _client.send('CreateNetworkAcl', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VpcId': vpcId,
+    });
+    return CreateNetworkAclResult.fromJson(response_);
   }
 
   /// Creates an entry (a rule) in a network ACL with the specified rule number.
@@ -2238,7 +2634,20 @@ class Ec2Api {
       PortRange portRange,
       @required String protocol,
       @required String ruleAction,
-      @required int ruleNumber}) async {}
+      @required int ruleNumber}) async {
+    await _client.send('CreateNetworkAclEntry', {
+      if (cidrBlock != null) 'CidrBlock': cidrBlock,
+      if (dryRun != null) 'DryRun': dryRun,
+      'Egress': egress,
+      if (icmpTypeCode != null) 'IcmpTypeCode': icmpTypeCode,
+      if (ipv6CidrBlock != null) 'Ipv6CidrBlock': ipv6CidrBlock,
+      'NetworkAclId': networkAclId,
+      if (portRange != null) 'PortRange': portRange,
+      'Protocol': protocol,
+      'RuleAction': ruleAction,
+      'RuleNumber': ruleNumber,
+    });
+  }
 
   /// Creates a network interface in the specified subnet.
   ///
@@ -2300,7 +2709,20 @@ class Ec2Api {
       List<PrivateIpAddressSpecification> privateIpAddresses,
       int secondaryPrivateIpAddressCount,
       String interfaceType}) async {
-    return CreateNetworkInterfaceResult.fromJson({});
+    var response_ = await _client.send('CreateNetworkInterface', {
+      if (description != null) 'Description': description,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (groups != null) 'Groups': groups,
+      if (ipv6AddressCount != null) 'Ipv6AddressCount': ipv6AddressCount,
+      if (ipv6Addresses != null) 'Ipv6Addresses': ipv6Addresses,
+      if (privateIpAddress != null) 'PrivateIpAddress': privateIpAddress,
+      if (privateIpAddresses != null) 'PrivateIpAddresses': privateIpAddresses,
+      if (secondaryPrivateIpAddressCount != null)
+        'SecondaryPrivateIpAddressCount': secondaryPrivateIpAddressCount,
+      if (interfaceType != null) 'InterfaceType': interfaceType,
+      'SubnetId': subnetId,
+    });
+    return CreateNetworkInterfaceResult.fromJson(response_);
   }
 
   /// Grants an AWS-authorized account permission to attach the specified
@@ -2328,7 +2750,14 @@ class Ec2Api {
           String awsService,
           @required String permission,
           bool dryRun}) async {
-    return CreateNetworkInterfacePermissionResult.fromJson({});
+    var response_ = await _client.send('CreateNetworkInterfacePermission', {
+      'NetworkInterfaceId': networkInterfaceId,
+      if (awsAccountId != null) 'AwsAccountId': awsAccountId,
+      if (awsService != null) 'AwsService': awsService,
+      'Permission': permission,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateNetworkInterfacePermissionResult.fromJson(response_);
   }
 
   /// Creates a placement group in which to launch instances. The strategy of
@@ -2364,7 +2793,14 @@ class Ec2Api {
       {bool dryRun,
       String groupName,
       String strategy,
-      int partitionCount}) async {}
+      int partitionCount}) async {
+    await _client.send('CreatePlacementGroup', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (groupName != null) 'GroupName': groupName,
+      if (strategy != null) 'Strategy': strategy,
+      if (partitionCount != null) 'PartitionCount': partitionCount,
+    });
+  }
 
   /// Creates a listing for Amazon EC2 Standard Reserved Instances to be sold in
   /// the Reserved Instance Marketplace. You can submit one Standard Reserved
@@ -2412,7 +2848,13 @@ class Ec2Api {
       @required int instanceCount,
       @required List<PriceScheduleSpecification> priceSchedules,
       @required String reservedInstancesId}) async {
-    return CreateReservedInstancesListingResult.fromJson({});
+    var response_ = await _client.send('CreateReservedInstancesListing', {
+      'ClientToken': clientToken,
+      'InstanceCount': instanceCount,
+      'PriceSchedules': priceSchedules,
+      'ReservedInstancesId': reservedInstancesId,
+    });
+    return CreateReservedInstancesListingResult.fromJson(response_);
   }
 
   /// Creates a route in a route table within a VPC.
@@ -2480,7 +2922,24 @@ class Ec2Api {
       String transitGatewayId,
       String networkInterfaceId,
       String vpcPeeringConnectionId}) async {
-    return CreateRouteResult.fromJson({});
+    var response_ = await _client.send('CreateRoute', {
+      if (destinationCidrBlock != null)
+        'DestinationCidrBlock': destinationCidrBlock,
+      if (destinationIpv6CidrBlock != null)
+        'DestinationIpv6CidrBlock': destinationIpv6CidrBlock,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (egressOnlyInternetGatewayId != null)
+        'EgressOnlyInternetGatewayId': egressOnlyInternetGatewayId,
+      if (gatewayId != null) 'GatewayId': gatewayId,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (natGatewayId != null) 'NatGatewayId': natGatewayId,
+      if (transitGatewayId != null) 'TransitGatewayId': transitGatewayId,
+      if (networkInterfaceId != null) 'NetworkInterfaceId': networkInterfaceId,
+      'RouteTableId': routeTableId,
+      if (vpcPeeringConnectionId != null)
+        'VpcPeeringConnectionId': vpcPeeringConnectionId,
+    });
+    return CreateRouteResult.fromJson(response_);
   }
 
   /// Creates a route table for the specified VPC. After you create a route
@@ -2498,7 +2957,11 @@ class Ec2Api {
   /// [vpcId]: The ID of the VPC.
   Future<CreateRouteTableResult> createRouteTable(String vpcId,
       {bool dryRun}) async {
-    return CreateRouteTableResult.fromJson({});
+    var response_ = await _client.send('CreateRouteTable', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VpcId': vpcId,
+    });
+    return CreateRouteTableResult.fromJson(response_);
   }
 
   /// Creates a security group.
@@ -2557,7 +3020,13 @@ class Ec2Api {
       @required String groupName,
       String vpcId,
       bool dryRun}) async {
-    return CreateSecurityGroupResult.fromJson({});
+    var response_ = await _client.send('CreateSecurityGroup', {
+      'Description': description,
+      'GroupName': groupName,
+      if (vpcId != null) 'VpcId': vpcId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateSecurityGroupResult.fromJson(response_);
   }
 
   /// Creates a snapshot of an EBS volume and stores it in Amazon S3. You can
@@ -2610,7 +3079,13 @@ class Ec2Api {
       {String description,
       List<TagSpecification> tagSpecifications,
       bool dryRun}) async {
-    return Snapshot.fromJson({});
+    var response_ = await _client.send('CreateSnapshot', {
+      if (description != null) 'Description': description,
+      'VolumeId': volumeId,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return Snapshot.fromJson(response_);
   }
 
   /// Creates crash-consistent snapshots of multiple EBS volumes and stores the
@@ -2640,7 +3115,14 @@ class Ec2Api {
       List<TagSpecification> tagSpecifications,
       bool dryRun,
       String copyTagsFromSource}) async {
-    return CreateSnapshotsResult.fromJson({});
+    var response_ = await _client.send('CreateSnapshots', {
+      if (description != null) 'Description': description,
+      'InstanceSpecification': instanceSpecification,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (copyTagsFromSource != null) 'CopyTagsFromSource': copyTagsFromSource,
+    });
+    return CreateSnapshotsResult.fromJson(response_);
   }
 
   /// Creates a data feed for Spot Instances, enabling you to view Spot Instance
@@ -2662,7 +3144,12 @@ class Ec2Api {
       String bucket,
       {bool dryRun,
       String prefix}) async {
-    return CreateSpotDatafeedSubscriptionResult.fromJson({});
+    var response_ = await _client.send('CreateSpotDatafeedSubscription', {
+      'Bucket': bucket,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (prefix != null) 'Prefix': prefix,
+    });
+    return CreateSpotDatafeedSubscriptionResult.fromJson(response_);
   }
 
   /// Creates a subnet in an existing VPC.
@@ -2721,7 +3208,15 @@ class Ec2Api {
       String ipv6CidrBlock,
       @required String vpcId,
       bool dryRun}) async {
-    return CreateSubnetResult.fromJson({});
+    var response_ = await _client.send('CreateSubnet', {
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (availabilityZoneId != null) 'AvailabilityZoneId': availabilityZoneId,
+      'CidrBlock': cidrBlock,
+      if (ipv6CidrBlock != null) 'Ipv6CidrBlock': ipv6CidrBlock,
+      'VpcId': vpcId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateSubnetResult.fromJson(response_);
   }
 
   /// Adds or overwrites the specified tags for the specified Amazon EC2
@@ -2753,7 +3248,13 @@ class Ec2Api {
   Future<void> createTags(
       {bool dryRun,
       @required List<String> resources,
-      @required List<Tag> tags}) async {}
+      @required List<Tag> tags}) async {
+    await _client.send('CreateTags', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'Resources': resources,
+      'Tags': tags,
+    });
+  }
 
   /// Creates a Traffic Mirror filter.
   ///
@@ -2783,7 +3284,13 @@ class Ec2Api {
       List<TagSpecification> tagSpecifications,
       bool dryRun,
       String clientToken}) async {
-    return CreateTrafficMirrorFilterResult.fromJson({});
+    var response_ = await _client.send('CreateTrafficMirrorFilter', {
+      if (description != null) 'Description': description,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return CreateTrafficMirrorFilterResult.fromJson(response_);
   }
 
   /// Creates a Traffic Mirror rule.
@@ -2844,7 +3351,22 @@ class Ec2Api {
       String description,
       bool dryRun,
       String clientToken}) async {
-    return CreateTrafficMirrorFilterRuleResult.fromJson({});
+    var response_ = await _client.send('CreateTrafficMirrorFilterRule', {
+      'TrafficMirrorFilterId': trafficMirrorFilterId,
+      'TrafficDirection': trafficDirection,
+      'RuleNumber': ruleNumber,
+      'RuleAction': ruleAction,
+      if (destinationPortRange != null)
+        'DestinationPortRange': destinationPortRange,
+      if (sourcePortRange != null) 'SourcePortRange': sourcePortRange,
+      if (protocol != null) 'Protocol': protocol,
+      'DestinationCidrBlock': destinationCidrBlock,
+      'SourceCidrBlock': sourceCidrBlock,
+      if (description != null) 'Description': description,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return CreateTrafficMirrorFilterRuleResult.fromJson(response_);
   }
 
   /// Creates a Traffic Mirror session.
@@ -2911,7 +3433,19 @@ class Ec2Api {
       List<TagSpecification> tagSpecifications,
       bool dryRun,
       String clientToken}) async {
-    return CreateTrafficMirrorSessionResult.fromJson({});
+    var response_ = await _client.send('CreateTrafficMirrorSession', {
+      'NetworkInterfaceId': networkInterfaceId,
+      'TrafficMirrorTargetId': trafficMirrorTargetId,
+      'TrafficMirrorFilterId': trafficMirrorFilterId,
+      if (packetLength != null) 'PacketLength': packetLength,
+      'SessionNumber': sessionNumber,
+      if (virtualNetworkId != null) 'VirtualNetworkId': virtualNetworkId,
+      if (description != null) 'Description': description,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return CreateTrafficMirrorSessionResult.fromJson(response_);
   }
 
   /// Creates a target for your Traffic Mirror session.
@@ -2952,7 +3486,16 @@ class Ec2Api {
       List<TagSpecification> tagSpecifications,
       bool dryRun,
       String clientToken}) async {
-    return CreateTrafficMirrorTargetResult.fromJson({});
+    var response_ = await _client.send('CreateTrafficMirrorTarget', {
+      if (networkInterfaceId != null) 'NetworkInterfaceId': networkInterfaceId,
+      if (networkLoadBalancerArn != null)
+        'NetworkLoadBalancerArn': networkLoadBalancerArn,
+      if (description != null) 'Description': description,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return CreateTrafficMirrorTargetResult.fromJson(response_);
   }
 
   /// Creates a transit gateway.
@@ -2994,7 +3537,13 @@ class Ec2Api {
       TransitGatewayRequestOptions options,
       List<TagSpecification> tagSpecifications,
       bool dryRun}) async {
-    return CreateTransitGatewayResult.fromJson({});
+    var response_ = await _client.send('CreateTransitGateway', {
+      if (description != null) 'Description': description,
+      if (options != null) 'Options': options,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateTransitGatewayResult.fromJson(response_);
   }
 
   /// Creates a static route for the specified transit gateway route table.
@@ -3018,7 +3567,15 @@ class Ec2Api {
       String transitGatewayAttachmentId,
       bool blackhole,
       bool dryRun}) async {
-    return CreateTransitGatewayRouteResult.fromJson({});
+    var response_ = await _client.send('CreateTransitGatewayRoute', {
+      'DestinationCidrBlock': destinationCidrBlock,
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      if (transitGatewayAttachmentId != null)
+        'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (blackhole != null) 'Blackhole': blackhole,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateTransitGatewayRouteResult.fromJson(response_);
   }
 
   /// Creates a route table for the specified transit gateway.
@@ -3035,7 +3592,12 @@ class Ec2Api {
       String transitGatewayId,
       {List<TagSpecification> tagSpecifications,
       bool dryRun}) async {
-    return CreateTransitGatewayRouteTableResult.fromJson({});
+    var response_ = await _client.send('CreateTransitGatewayRouteTable', {
+      'TransitGatewayId': transitGatewayId,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateTransitGatewayRouteTableResult.fromJson(response_);
   }
 
   /// Attaches the specified VPC to the specified transit gateway.
@@ -3072,7 +3634,15 @@ class Ec2Api {
           CreateTransitGatewayVpcAttachmentRequestOptions options,
           List<TagSpecification> tagSpecifications,
           bool dryRun}) async {
-    return CreateTransitGatewayVpcAttachmentResult.fromJson({});
+    var response_ = await _client.send('CreateTransitGatewayVpcAttachment', {
+      'TransitGatewayId': transitGatewayId,
+      'VpcId': vpcId,
+      'SubnetIds': subnetIds,
+      if (options != null) 'Options': options,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateTransitGatewayVpcAttachmentResult.fromJson(response_);
   }
 
   /// Creates an EBS volume that can be attached to an instance in the same
@@ -3187,7 +3757,18 @@ class Ec2Api {
       String volumeType,
       bool dryRun,
       List<TagSpecification> tagSpecifications}) async {
-    return Volume.fromJson({});
+    var response_ = await _client.send('CreateVolume', {
+      'AvailabilityZone': availabilityZone,
+      if (encrypted != null) 'Encrypted': encrypted,
+      if (iops != null) 'Iops': iops,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (size != null) 'Size': size,
+      if (snapshotId != null) 'SnapshotId': snapshotId,
+      if (volumeType != null) 'VolumeType': volumeType,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+    });
+    return Volume.fromJson(response_);
   }
 
   /// Creates a VPC with the specified IPv4 CIDR block. The smallest VPC you can
@@ -3241,7 +3822,14 @@ class Ec2Api {
       {bool amazonProvidedIpv6CidrBlock,
       bool dryRun,
       String instanceTenancy}) async {
-    return CreateVpcResult.fromJson({});
+    var response_ = await _client.send('CreateVpc', {
+      'CidrBlock': cidrBlock,
+      if (amazonProvidedIpv6CidrBlock != null)
+        'AmazonProvidedIpv6CidrBlock': amazonProvidedIpv6CidrBlock,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (instanceTenancy != null) 'InstanceTenancy': instanceTenancy,
+    });
+    return CreateVpcResult.fromJson(response_);
   }
 
   /// Creates a VPC endpoint for a specified service. An endpoint enables you to
@@ -3321,7 +3909,19 @@ class Ec2Api {
       List<String> securityGroupIds,
       String clientToken,
       bool privateDnsEnabled}) async {
-    return CreateVpcEndpointResult.fromJson({});
+    var response_ = await _client.send('CreateVpcEndpoint', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (vpcEndpointType != null) 'VpcEndpointType': vpcEndpointType,
+      'VpcId': vpcId,
+      'ServiceName': serviceName,
+      if (policyDocument != null) 'PolicyDocument': policyDocument,
+      if (routeTableIds != null) 'RouteTableIds': routeTableIds,
+      if (subnetIds != null) 'SubnetIds': subnetIds,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (privateDnsEnabled != null) 'PrivateDnsEnabled': privateDnsEnabled,
+    });
+    return CreateVpcEndpointResult.fromJson(response_);
   }
 
   /// Creates a connection notification for a specified VPC endpoint or VPC
@@ -3360,7 +3960,16 @@ class Ec2Api {
           @required String connectionNotificationArn,
           @required List<String> connectionEvents,
           String clientToken}) async {
-    return CreateVpcEndpointConnectionNotificationResult.fromJson({});
+    var response_ =
+        await _client.send('CreateVpcEndpointConnectionNotification', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (serviceId != null) 'ServiceId': serviceId,
+      if (vpcEndpointId != null) 'VpcEndpointId': vpcEndpointId,
+      'ConnectionNotificationArn': connectionNotificationArn,
+      'ConnectionEvents': connectionEvents,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return CreateVpcEndpointConnectionNotificationResult.fromJson(response_);
   }
 
   /// Creates a VPC endpoint service configuration to which service consumers
@@ -3393,7 +4002,14 @@ class Ec2Api {
           {bool dryRun,
           bool acceptanceRequired,
           String clientToken}) async {
-    return CreateVpcEndpointServiceConfigurationResult.fromJson({});
+    var response_ =
+        await _client.send('CreateVpcEndpointServiceConfiguration', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (acceptanceRequired != null) 'AcceptanceRequired': acceptanceRequired,
+      'NetworkLoadBalancerArns': networkLoadBalancerArns,
+      if (clientToken != null) 'ClientToken': clientToken,
+    });
+    return CreateVpcEndpointServiceConfigurationResult.fromJson(response_);
   }
 
   /// Requests a VPC peering connection between two VPCs: a requester VPC that
@@ -3440,7 +4056,14 @@ class Ec2Api {
       String peerVpcId,
       String vpcId,
       String peerRegion}) async {
-    return CreateVpcPeeringConnectionResult.fromJson({});
+    var response_ = await _client.send('CreateVpcPeeringConnection', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (peerOwnerId != null) 'PeerOwnerId': peerOwnerId,
+      if (peerVpcId != null) 'PeerVpcId': peerVpcId,
+      if (vpcId != null) 'VpcId': vpcId,
+      if (peerRegion != null) 'PeerRegion': peerRegion,
+    });
+    return CreateVpcPeeringConnectionResult.fromJson(response_);
   }
 
   /// Creates a VPN connection between an existing virtual private gateway and a
@@ -3487,7 +4110,15 @@ class Ec2Api {
       String transitGatewayId,
       bool dryRun,
       VpnConnectionOptionsSpecification options}) async {
-    return CreateVpnConnectionResult.fromJson({});
+    var response_ = await _client.send('CreateVpnConnection', {
+      'CustomerGatewayId': customerGatewayId,
+      'Type': type,
+      if (vpnGatewayId != null) 'VpnGatewayId': vpnGatewayId,
+      if (transitGatewayId != null) 'TransitGatewayId': transitGatewayId,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (options != null) 'Options': options,
+    });
+    return CreateVpnConnectionResult.fromJson(response_);
   }
 
   /// Creates a static route associated with a VPN connection between an
@@ -3505,7 +4136,12 @@ class Ec2Api {
   /// [vpnConnectionId]: The ID of the VPN connection.
   Future<void> createVpnConnectionRoute(
       {@required String destinationCidrBlock,
-      @required String vpnConnectionId}) async {}
+      @required String vpnConnectionId}) async {
+    await _client.send('CreateVpnConnectionRoute', {
+      'DestinationCidrBlock': destinationCidrBlock,
+      'VpnConnectionId': vpnConnectionId,
+    });
+  }
 
   /// Creates a virtual private gateway. A virtual private gateway is the
   /// endpoint on the VPC side of your VPN connection. You can create a virtual
@@ -3532,7 +4168,13 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<CreateVpnGatewayResult> createVpnGateway(String type,
       {String availabilityZone, BigInt amazonSideAsn, bool dryRun}) async {
-    return CreateVpnGatewayResult.fromJson({});
+    var response_ = await _client.send('CreateVpnGateway', {
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      'Type': type,
+      if (amazonSideAsn != null) 'AmazonSideAsn': amazonSideAsn,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateVpnGatewayResult.fromJson(response_);
   }
 
   /// Deletes the specified Client VPN endpoint. You must disassociate all
@@ -3547,7 +4189,11 @@ class Ec2Api {
   Future<DeleteClientVpnEndpointResult> deleteClientVpnEndpoint(
       String clientVpnEndpointId,
       {bool dryRun}) async {
-    return DeleteClientVpnEndpointResult.fromJson({});
+    var response_ = await _client.send('DeleteClientVpnEndpoint', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteClientVpnEndpointResult.fromJson(response_);
   }
 
   /// Deletes a route from a Client VPN endpoint. You can only delete routes
@@ -3573,7 +4219,13 @@ class Ec2Api {
       String targetVpcSubnetId,
       @required String destinationCidrBlock,
       bool dryRun}) async {
-    return DeleteClientVpnRouteResult.fromJson({});
+    var response_ = await _client.send('DeleteClientVpnRoute', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (targetVpcSubnetId != null) 'TargetVpcSubnetId': targetVpcSubnetId,
+      'DestinationCidrBlock': destinationCidrBlock,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteClientVpnRouteResult.fromJson(response_);
   }
 
   /// Deletes the specified customer gateway. You must delete the VPN connection
@@ -3586,7 +4238,12 @@ class Ec2Api {
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<void> deleteCustomerGateway(String customerGatewayId,
-      {bool dryRun}) async {}
+      {bool dryRun}) async {
+    await _client.send('DeleteCustomerGateway', {
+      'CustomerGatewayId': customerGatewayId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes the specified set of DHCP options. You must disassociate the set
   /// of DHCP options before you can delete it. You can disassociate the set of
@@ -3599,7 +4256,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> deleteDhcpOptions(String dhcpOptionsId, {bool dryRun}) async {}
+  Future<void> deleteDhcpOptions(String dhcpOptionsId, {bool dryRun}) async {
+    await _client.send('DeleteDhcpOptions', {
+      'DhcpOptionsId': dhcpOptionsId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes an egress-only internet gateway.
   ///
@@ -3612,7 +4274,11 @@ class Ec2Api {
   Future<DeleteEgressOnlyInternetGatewayResult> deleteEgressOnlyInternetGateway(
       String egressOnlyInternetGatewayId,
       {bool dryRun}) async {
-    return DeleteEgressOnlyInternetGatewayResult.fromJson({});
+    var response_ = await _client.send('DeleteEgressOnlyInternetGateway', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'EgressOnlyInternetGatewayId': egressOnlyInternetGatewayId,
+    });
+    return DeleteEgressOnlyInternetGatewayResult.fromJson(response_);
   }
 
   /// Deletes the specified EC2 Fleet.
@@ -3637,7 +4303,12 @@ class Ec2Api {
       {bool dryRun,
       @required List<String> fleetIds,
       @required bool terminateInstances}) async {
-    return DeleteFleetsResult.fromJson({});
+    var response_ = await _client.send('DeleteFleets', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'FleetIds': fleetIds,
+      'TerminateInstances': terminateInstances,
+    });
+    return DeleteFleetsResult.fromJson(response_);
   }
 
   /// Deletes one or more flow logs.
@@ -3652,7 +4323,11 @@ class Ec2Api {
   /// Constraint: Maximum of 1000 flow log IDs.
   Future<DeleteFlowLogsResult> deleteFlowLogs(List<String> flowLogIds,
       {bool dryRun}) async {
-    return DeleteFlowLogsResult.fromJson({});
+    var response_ = await _client.send('DeleteFlowLogs', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'FlowLogIds': flowLogIds,
+    });
+    return DeleteFlowLogsResult.fromJson(response_);
   }
 
   /// Deletes the specified Amazon FPGA Image (AFI).
@@ -3665,7 +4340,11 @@ class Ec2Api {
   /// [fpgaImageId]: The ID of the AFI.
   Future<DeleteFpgaImageResult> deleteFpgaImage(String fpgaImageId,
       {bool dryRun}) async {
-    return DeleteFpgaImageResult.fromJson({});
+    var response_ = await _client.send('DeleteFpgaImage', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'FpgaImageId': fpgaImageId,
+    });
+    return DeleteFpgaImageResult.fromJson(response_);
   }
 
   /// Deletes the specified internet gateway. You must detach the internet
@@ -3678,7 +4357,12 @@ class Ec2Api {
   ///
   /// [internetGatewayId]: The ID of the internet gateway.
   Future<void> deleteInternetGateway(String internetGatewayId,
-      {bool dryRun}) async {}
+      {bool dryRun}) async {
+    await _client.send('DeleteInternetGateway', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'InternetGatewayId': internetGatewayId,
+    });
+  }
 
   /// Deletes the specified key pair, by removing the public key from Amazon
   /// EC2.
@@ -3689,7 +4373,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> deleteKeyPair(String keyName, {bool dryRun}) async {}
+  Future<void> deleteKeyPair(String keyName, {bool dryRun}) async {
+    await _client.send('DeleteKeyPair', {
+      'KeyName': keyName,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes a launch template. Deleting a launch template deletes all of its
   /// versions.
@@ -3706,7 +4395,12 @@ class Ec2Api {
   /// either the launch template ID or launch template name in the request.
   Future<DeleteLaunchTemplateResult> deleteLaunchTemplate(
       {bool dryRun, String launchTemplateId, String launchTemplateName}) async {
-    return DeleteLaunchTemplateResult.fromJson({});
+    var response_ = await _client.send('DeleteLaunchTemplate', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (launchTemplateId != null) 'LaunchTemplateId': launchTemplateId,
+      if (launchTemplateName != null) 'LaunchTemplateName': launchTemplateName,
+    });
+    return DeleteLaunchTemplateResult.fromJson(response_);
   }
 
   /// Deletes one or more versions of a launch template. You cannot delete the
@@ -3733,7 +4427,13 @@ class Ec2Api {
       {bool dryRun,
       String launchTemplateId,
       String launchTemplateName}) async {
-    return DeleteLaunchTemplateVersionsResult.fromJson({});
+    var response_ = await _client.send('DeleteLaunchTemplateVersions', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (launchTemplateId != null) 'LaunchTemplateId': launchTemplateId,
+      if (launchTemplateName != null) 'LaunchTemplateName': launchTemplateName,
+      'Versions': versions,
+    });
+    return DeleteLaunchTemplateVersionsResult.fromJson(response_);
   }
 
   /// Deletes the specified NAT gateway. Deleting a NAT gateway disassociates
@@ -3743,7 +4443,10 @@ class Ec2Api {
   ///
   /// [natGatewayId]: The ID of the NAT gateway.
   Future<DeleteNatGatewayResult> deleteNatGateway(String natGatewayId) async {
-    return DeleteNatGatewayResult.fromJson({});
+    var response_ = await _client.send('DeleteNatGateway', {
+      'NatGatewayId': natGatewayId,
+    });
+    return DeleteNatGatewayResult.fromJson(response_);
   }
 
   /// Deletes the specified network ACL. You can't delete the ACL if it's
@@ -3755,7 +4458,12 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   ///
   /// [networkAclId]: The ID of the network ACL.
-  Future<void> deleteNetworkAcl(String networkAclId, {bool dryRun}) async {}
+  Future<void> deleteNetworkAcl(String networkAclId, {bool dryRun}) async {
+    await _client.send('DeleteNetworkAcl', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'NetworkAclId': networkAclId,
+    });
+  }
 
   /// Deletes the specified ingress or egress entry (rule) from the specified
   /// network ACL.
@@ -3774,7 +4482,14 @@ class Ec2Api {
       {bool dryRun,
       @required bool egress,
       @required String networkAclId,
-      @required int ruleNumber}) async {}
+      @required int ruleNumber}) async {
+    await _client.send('DeleteNetworkAclEntry', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'Egress': egress,
+      'NetworkAclId': networkAclId,
+      'RuleNumber': ruleNumber,
+    });
+  }
 
   /// Deletes the specified network interface. You must detach the network
   /// interface before you can delete it.
@@ -3786,7 +4501,12 @@ class Ec2Api {
   ///
   /// [networkInterfaceId]: The ID of the network interface.
   Future<void> deleteNetworkInterface(String networkInterfaceId,
-      {bool dryRun}) async {}
+      {bool dryRun}) async {
+    await _client.send('DeleteNetworkInterface', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'NetworkInterfaceId': networkInterfaceId,
+    });
+  }
 
   /// Deletes a permission for a network interface. By default, you cannot
   /// delete the permission if the account for which you're removing the
@@ -3806,7 +4526,12 @@ class Ec2Api {
   Future<DeleteNetworkInterfacePermissionResult>
       deleteNetworkInterfacePermission(String networkInterfacePermissionId,
           {bool force, bool dryRun}) async {
-    return DeleteNetworkInterfacePermissionResult.fromJson({});
+    var response_ = await _client.send('DeleteNetworkInterfacePermission', {
+      'NetworkInterfacePermissionId': networkInterfacePermissionId,
+      if (force != null) 'Force': force,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteNetworkInterfacePermissionResult.fromJson(response_);
   }
 
   /// Deletes the specified placement group. You must terminate all instances in
@@ -3821,7 +4546,12 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   ///
   /// [groupName]: The name of the placement group.
-  Future<void> deletePlacementGroup(String groupName, {bool dryRun}) async {}
+  Future<void> deletePlacementGroup(String groupName, {bool dryRun}) async {
+    await _client.send('DeletePlacementGroup', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'GroupName': groupName,
+    });
+  }
 
   /// Deletes the specified route from the specified route table.
   ///
@@ -3840,7 +4570,16 @@ class Ec2Api {
   Future<void> deleteRoute(String routeTableId,
       {String destinationCidrBlock,
       String destinationIpv6CidrBlock,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    await _client.send('DeleteRoute', {
+      if (destinationCidrBlock != null)
+        'DestinationCidrBlock': destinationCidrBlock,
+      if (destinationIpv6CidrBlock != null)
+        'DestinationIpv6CidrBlock': destinationIpv6CidrBlock,
+      if (dryRun != null) 'DryRun': dryRun,
+      'RouteTableId': routeTableId,
+    });
+  }
 
   /// Deletes the specified route table. You must disassociate the route table
   /// from any subnets before you can delete it. You can't delete the main route
@@ -3852,7 +4591,12 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   ///
   /// [routeTableId]: The ID of the route table.
-  Future<void> deleteRouteTable(String routeTableId, {bool dryRun}) async {}
+  Future<void> deleteRouteTable(String routeTableId, {bool dryRun}) async {
+    await _client.send('DeleteRouteTable', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'RouteTableId': routeTableId,
+    });
+  }
 
   /// Deletes a security group.
   ///
@@ -3871,7 +4615,13 @@ class Ec2Api {
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<void> deleteSecurityGroup(
-      {String groupId, String groupName, bool dryRun}) async {}
+      {String groupId, String groupName, bool dryRun}) async {
+    await _client.send('DeleteSecurityGroup', {
+      if (groupId != null) 'GroupId': groupId,
+      if (groupName != null) 'GroupName': groupName,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes the specified snapshot.
   ///
@@ -3897,7 +4647,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> deleteSnapshot(String snapshotId, {bool dryRun}) async {}
+  Future<void> deleteSnapshot(String snapshotId, {bool dryRun}) async {
+    await _client.send('DeleteSnapshot', {
+      'SnapshotId': snapshotId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes the data feed for Spot Instances.
   ///
@@ -3905,7 +4660,11 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> deleteSpotDatafeedSubscription({bool dryRun}) async {}
+  Future<void> deleteSpotDatafeedSubscription({bool dryRun}) async {
+    await _client.send('DeleteSpotDatafeedSubscription', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes the specified subnet. You must terminate all running instances in
   /// the subnet before you can delete the subnet.
@@ -3916,7 +4675,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> deleteSubnet(String subnetId, {bool dryRun}) async {}
+  Future<void> deleteSubnet(String subnetId, {bool dryRun}) async {
+    await _client.send('DeleteSubnet', {
+      'SubnetId': subnetId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes the specified set of tags from the specified set of resources.
   ///
@@ -3945,7 +4709,13 @@ class Ec2Api {
   /// specified resources. We do not delete AWS-generated tags (tags that have
   /// the `aws:` prefix).
   Future<void> deleteTags(List<String> resources,
-      {bool dryRun, List<Tag> tags}) async {}
+      {bool dryRun, List<Tag> tags}) async {
+    await _client.send('DeleteTags', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'Resources': resources,
+      if (tags != null) 'Tags': tags,
+    });
+  }
 
   /// Deletes the specified Traffic Mirror filter.
   ///
@@ -3961,7 +4731,11 @@ class Ec2Api {
   Future<DeleteTrafficMirrorFilterResult> deleteTrafficMirrorFilter(
       String trafficMirrorFilterId,
       {bool dryRun}) async {
-    return DeleteTrafficMirrorFilterResult.fromJson({});
+    var response_ = await _client.send('DeleteTrafficMirrorFilter', {
+      'TrafficMirrorFilterId': trafficMirrorFilterId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteTrafficMirrorFilterResult.fromJson(response_);
   }
 
   /// Deletes the specified Traffic Mirror rule.
@@ -3975,7 +4749,11 @@ class Ec2Api {
   Future<DeleteTrafficMirrorFilterRuleResult> deleteTrafficMirrorFilterRule(
       String trafficMirrorFilterRuleId,
       {bool dryRun}) async {
-    return DeleteTrafficMirrorFilterRuleResult.fromJson({});
+    var response_ = await _client.send('DeleteTrafficMirrorFilterRule', {
+      'TrafficMirrorFilterRuleId': trafficMirrorFilterRuleId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteTrafficMirrorFilterRuleResult.fromJson(response_);
   }
 
   /// Deletes the specified Traffic Mirror session.
@@ -3989,7 +4767,11 @@ class Ec2Api {
   Future<DeleteTrafficMirrorSessionResult> deleteTrafficMirrorSession(
       String trafficMirrorSessionId,
       {bool dryRun}) async {
-    return DeleteTrafficMirrorSessionResult.fromJson({});
+    var response_ = await _client.send('DeleteTrafficMirrorSession', {
+      'TrafficMirrorSessionId': trafficMirrorSessionId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteTrafficMirrorSessionResult.fromJson(response_);
   }
 
   /// Deletes the specified Traffic Mirror target.
@@ -4006,7 +4788,11 @@ class Ec2Api {
   Future<DeleteTrafficMirrorTargetResult> deleteTrafficMirrorTarget(
       String trafficMirrorTargetId,
       {bool dryRun}) async {
-    return DeleteTrafficMirrorTargetResult.fromJson({});
+    var response_ = await _client.send('DeleteTrafficMirrorTarget', {
+      'TrafficMirrorTargetId': trafficMirrorTargetId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteTrafficMirrorTargetResult.fromJson(response_);
   }
 
   /// Deletes the specified transit gateway.
@@ -4020,7 +4806,11 @@ class Ec2Api {
   Future<DeleteTransitGatewayResult> deleteTransitGateway(
       String transitGatewayId,
       {bool dryRun}) async {
-    return DeleteTransitGatewayResult.fromJson({});
+    var response_ = await _client.send('DeleteTransitGateway', {
+      'TransitGatewayId': transitGatewayId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteTransitGatewayResult.fromJson(response_);
   }
 
   /// Deletes the specified route from the specified transit gateway route
@@ -4039,7 +4829,12 @@ class Ec2Api {
       {@required String transitGatewayRouteTableId,
       @required String destinationCidrBlock,
       bool dryRun}) async {
-    return DeleteTransitGatewayRouteResult.fromJson({});
+    var response_ = await _client.send('DeleteTransitGatewayRoute', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      'DestinationCidrBlock': destinationCidrBlock,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteTransitGatewayRouteResult.fromJson(response_);
   }
 
   /// Deletes the specified transit gateway route table. You must disassociate
@@ -4055,7 +4850,11 @@ class Ec2Api {
   Future<DeleteTransitGatewayRouteTableResult> deleteTransitGatewayRouteTable(
       String transitGatewayRouteTableId,
       {bool dryRun}) async {
-    return DeleteTransitGatewayRouteTableResult.fromJson({});
+    var response_ = await _client.send('DeleteTransitGatewayRouteTable', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteTransitGatewayRouteTableResult.fromJson(response_);
   }
 
   /// Deletes the specified VPC attachment.
@@ -4069,7 +4868,11 @@ class Ec2Api {
   Future<DeleteTransitGatewayVpcAttachmentResult>
       deleteTransitGatewayVpcAttachment(String transitGatewayAttachmentId,
           {bool dryRun}) async {
-    return DeleteTransitGatewayVpcAttachmentResult.fromJson({});
+    var response_ = await _client.send('DeleteTransitGatewayVpcAttachment', {
+      'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteTransitGatewayVpcAttachmentResult.fromJson(response_);
   }
 
   /// Deletes the specified EBS volume. The volume must be in the `available`
@@ -4087,7 +4890,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> deleteVolume(String volumeId, {bool dryRun}) async {}
+  Future<void> deleteVolume(String volumeId, {bool dryRun}) async {
+    await _client.send('DeleteVolume', {
+      'VolumeId': volumeId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes the specified VPC. You must detach or delete all gateways and
   /// resources that are associated with the VPC before you can delete it. For
@@ -4102,7 +4910,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> deleteVpc(String vpcId, {bool dryRun}) async {}
+  Future<void> deleteVpc(String vpcId, {bool dryRun}) async {
+    await _client.send('DeleteVpc', {
+      'VpcId': vpcId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes one or more VPC endpoint connection notifications.
   ///
@@ -4116,7 +4929,12 @@ class Ec2Api {
       deleteVpcEndpointConnectionNotifications(
           List<String> connectionNotificationIds,
           {bool dryRun}) async {
-    return DeleteVpcEndpointConnectionNotificationsResult.fromJson({});
+    var response_ =
+        await _client.send('DeleteVpcEndpointConnectionNotifications', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ConnectionNotificationIds': connectionNotificationIds,
+    });
+    return DeleteVpcEndpointConnectionNotificationsResult.fromJson(response_);
   }
 
   /// Deletes one or more VPC endpoint service configurations in your account.
@@ -4133,7 +4951,12 @@ class Ec2Api {
   Future<DeleteVpcEndpointServiceConfigurationsResult>
       deleteVpcEndpointServiceConfigurations(List<String> serviceIds,
           {bool dryRun}) async {
-    return DeleteVpcEndpointServiceConfigurationsResult.fromJson({});
+    var response_ =
+        await _client.send('DeleteVpcEndpointServiceConfigurations', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ServiceIds': serviceIds,
+    });
+    return DeleteVpcEndpointServiceConfigurationsResult.fromJson(response_);
   }
 
   /// Deletes one or more specified VPC endpoints. Deleting a gateway endpoint
@@ -4150,7 +4973,11 @@ class Ec2Api {
   Future<DeleteVpcEndpointsResult> deleteVpcEndpoints(
       List<String> vpcEndpointIds,
       {bool dryRun}) async {
-    return DeleteVpcEndpointsResult.fromJson({});
+    var response_ = await _client.send('DeleteVpcEndpoints', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VpcEndpointIds': vpcEndpointIds,
+    });
+    return DeleteVpcEndpointsResult.fromJson(response_);
   }
 
   /// Deletes a VPC peering connection. Either the owner of the requester VPC or
@@ -4168,7 +4995,11 @@ class Ec2Api {
   Future<DeleteVpcPeeringConnectionResult> deleteVpcPeeringConnection(
       String vpcPeeringConnectionId,
       {bool dryRun}) async {
-    return DeleteVpcPeeringConnectionResult.fromJson({});
+    var response_ = await _client.send('DeleteVpcPeeringConnection', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VpcPeeringConnectionId': vpcPeeringConnectionId,
+    });
+    return DeleteVpcPeeringConnectionResult.fromJson(response_);
   }
 
   /// Deletes the specified VPN connection.
@@ -4189,7 +5020,12 @@ class Ec2Api {
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<void> deleteVpnConnection(String vpnConnectionId,
-      {bool dryRun}) async {}
+      {bool dryRun}) async {
+    await _client.send('DeleteVpnConnection', {
+      'VpnConnectionId': vpnConnectionId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Deletes the specified static route associated with a VPN connection
   /// between an existing virtual private gateway and a VPN customer gateway.
@@ -4202,7 +5038,12 @@ class Ec2Api {
   /// [vpnConnectionId]: The ID of the VPN connection.
   Future<void> deleteVpnConnectionRoute(
       {@required String destinationCidrBlock,
-      @required String vpnConnectionId}) async {}
+      @required String vpnConnectionId}) async {
+    await _client.send('DeleteVpnConnectionRoute', {
+      'DestinationCidrBlock': destinationCidrBlock,
+      'VpnConnectionId': vpnConnectionId,
+    });
+  }
 
   /// Deletes the specified virtual private gateway. We recommend that before
   /// you delete a virtual private gateway, you detach it from the VPC and
@@ -4216,7 +5057,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> deleteVpnGateway(String vpnGatewayId, {bool dryRun}) async {}
+  Future<void> deleteVpnGateway(String vpnGatewayId, {bool dryRun}) async {
+    await _client.send('DeleteVpnGateway', {
+      'VpnGatewayId': vpnGatewayId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Releases the specified address range that you provisioned for use with
   /// your AWS resources through bring your own IP addresses (BYOIP) and deletes
@@ -4236,7 +5082,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DeprovisionByoipCidrResult> deprovisionByoipCidr(String cidr,
       {bool dryRun}) async {
-    return DeprovisionByoipCidrResult.fromJson({});
+    var response_ = await _client.send('DeprovisionByoipCidr', {
+      'Cidr': cidr,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeprovisionByoipCidrResult.fromJson(response_);
   }
 
   /// Deregisters the specified AMI. After you deregister an AMI, it can't be
@@ -4256,7 +5106,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> deregisterImage(String imageId, {bool dryRun}) async {}
+  Future<void> deregisterImage(String imageId, {bool dryRun}) async {
+    await _client.send('DeregisterImage', {
+      'ImageId': imageId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Describes attributes of your AWS account. The following are the supported
   /// account attributes:
@@ -4286,7 +5141,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DescribeAccountAttributesResult> describeAccountAttributes(
       {List<String> attributeNames, bool dryRun}) async {
-    return DescribeAccountAttributesResult.fromJson({});
+    var response_ = await _client.send('DescribeAccountAttributes', {
+      if (attributeNames != null) 'AttributeNames': attributeNames,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeAccountAttributesResult.fromJson(response_);
   }
 
   /// Describes the specified Elastic IP addresses or all of your Elastic IP
@@ -4345,7 +5204,13 @@ class Ec2Api {
       List<String> publicIps,
       List<String> allocationIds,
       bool dryRun}) async {
-    return DescribeAddressesResult.fromJson({});
+    var response_ = await _client.send('DescribeAddresses', {
+      if (filters != null) 'Filters': filters,
+      if (publicIps != null) 'PublicIps': publicIps,
+      if (allocationIds != null) 'AllocationIds': allocationIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeAddressesResult.fromJson(response_);
   }
 
   /// Describes the longer ID format settings for all resource types in a
@@ -4373,7 +5238,10 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DescribeAggregateIdFormatResult> describeAggregateIdFormat(
       {bool dryRun}) async {
-    return DescribeAggregateIdFormatResult.fromJson({});
+    var response_ = await _client.send('DescribeAggregateIdFormat', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeAggregateIdFormatResult.fromJson(response_);
   }
 
   /// Describes the Availability Zones that are available to you. The results
@@ -4414,7 +5282,13 @@ class Ec2Api {
       List<String> zoneNames,
       List<String> zoneIds,
       bool dryRun}) async {
-    return DescribeAvailabilityZonesResult.fromJson({});
+    var response_ = await _client.send('DescribeAvailabilityZones', {
+      if (filters != null) 'Filters': filters,
+      if (zoneNames != null) 'ZoneNames': zoneNames,
+      if (zoneIds != null) 'ZoneIds': zoneIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeAvailabilityZonesResult.fromJson(response_);
   }
 
   /// Describes the specified bundle tasks or all of your bundle tasks.
@@ -4461,7 +5335,12 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DescribeBundleTasksResult> describeBundleTasks(
       {List<String> bundleIds, List<Filter> filters, bool dryRun}) async {
-    return DescribeBundleTasksResult.fromJson({});
+    var response_ = await _client.send('DescribeBundleTasks', {
+      if (bundleIds != null) 'BundleIds': bundleIds,
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeBundleTasksResult.fromJson(response_);
   }
 
   /// Describes the IP address ranges that were specified in calls to
@@ -4482,7 +5361,12 @@ class Ec2Api {
   /// [nextToken]: The token for the next page of results.
   Future<DescribeByoipCidrsResult> describeByoipCidrs(int maxResults,
       {bool dryRun, String nextToken}) async {
-    return DescribeByoipCidrsResult.fromJson({});
+    var response_ = await _client.send('DescribeByoipCidrs', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeByoipCidrsResult.fromJson(response_);
   }
 
   /// Describes one or more of your Capacity Reservations. The results describe
@@ -4509,7 +5393,15 @@ class Ec2Api {
       int maxResults,
       List<Filter> filters,
       bool dryRun}) async {
-    return DescribeCapacityReservationsResult.fromJson({});
+    var response_ = await _client.send('DescribeCapacityReservations', {
+      if (capacityReservationIds != null)
+        'CapacityReservationIds': capacityReservationIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeCapacityReservationsResult.fromJson(response_);
   }
 
   /// Describes one or more of your linked EC2-Classic instances. This request
@@ -4559,7 +5451,14 @@ class Ec2Api {
       List<String> instanceIds,
       int maxResults,
       String nextToken}) async {
-    return DescribeClassicLinkInstancesResult.fromJson({});
+    var response_ = await _client.send('DescribeClassicLinkInstances', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeClassicLinkInstancesResult.fromJson(response_);
   }
 
   /// Describes the authorization rules for a specified Client VPN endpoint.
@@ -4585,7 +5484,14 @@ class Ec2Api {
           String nextToken,
           List<Filter> filters,
           int maxResults}) async {
-    return DescribeClientVpnAuthorizationRulesResult.fromJson({});
+    var response_ = await _client.send('DescribeClientVpnAuthorizationRules', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeClientVpnAuthorizationRulesResult.fromJson(response_);
   }
 
   /// Describes active client connections and connections that have been
@@ -4613,7 +5519,14 @@ class Ec2Api {
       String nextToken,
       int maxResults,
       bool dryRun}) async {
-    return DescribeClientVpnConnectionsResult.fromJson({});
+    var response_ = await _client.send('DescribeClientVpnConnections', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeClientVpnConnectionsResult.fromJson(response_);
   }
 
   /// Describes one or more Client VPN endpoints in the account.
@@ -4639,7 +5552,15 @@ class Ec2Api {
       String nextToken,
       List<Filter> filters,
       bool dryRun}) async {
-    return DescribeClientVpnEndpointsResult.fromJson({});
+    var response_ = await _client.send('DescribeClientVpnEndpoints', {
+      if (clientVpnEndpointIds != null)
+        'ClientVpnEndpointIds': clientVpnEndpointIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeClientVpnEndpointsResult.fromJson(response_);
   }
 
   /// Describes the routes for the specified Client VPN endpoint.
@@ -4665,7 +5586,14 @@ class Ec2Api {
       int maxResults,
       String nextToken,
       bool dryRun}) async {
-    return DescribeClientVpnRoutesResult.fromJson({});
+    var response_ = await _client.send('DescribeClientVpnRoutes', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeClientVpnRoutesResult.fromJson(response_);
   }
 
   /// Describes the target networks associated with the specified Client VPN
@@ -4695,7 +5623,15 @@ class Ec2Api {
       String nextToken,
       List<Filter> filters,
       bool dryRun}) async {
-    return DescribeClientVpnTargetNetworksResult.fromJson({});
+    var response_ = await _client.send('DescribeClientVpnTargetNetworks', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (associationIds != null) 'AssociationIds': associationIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeClientVpnTargetNetworksResult.fromJson(response_);
   }
 
   /// Describes the specified conversion tasks or all your conversion tasks. For
@@ -4714,7 +5650,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DescribeConversionTasksResult> describeConversionTasks(
       {List<String> conversionTaskIds, bool dryRun}) async {
-    return DescribeConversionTasksResult.fromJson({});
+    var response_ = await _client.send('DescribeConversionTasks', {
+      if (conversionTaskIds != null) 'ConversionTaskIds': conversionTaskIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeConversionTasksResult.fromJson(response_);
   }
 
   /// Describes one or more of your VPN customer gateways.
@@ -4761,7 +5701,12 @@ class Ec2Api {
       {List<String> customerGatewayIds,
       List<Filter> filters,
       bool dryRun}) async {
-    return DescribeCustomerGatewaysResult.fromJson({});
+    var response_ = await _client.send('DescribeCustomerGateways', {
+      if (customerGatewayIds != null) 'CustomerGatewayIds': customerGatewayIds,
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeCustomerGatewaysResult.fromJson(response_);
   }
 
   /// Describes one or more of your DHCP options sets.
@@ -4811,7 +5756,14 @@ class Ec2Api {
       bool dryRun,
       String nextToken,
       int maxResults}) async {
-    return DescribeDhcpOptionsResult.fromJson({});
+    var response_ = await _client.send('DescribeDhcpOptions', {
+      if (dhcpOptionsIds != null) 'DhcpOptionsIds': dhcpOptionsIds,
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeDhcpOptionsResult.fromJson(response_);
   }
 
   /// Describes one or more of your egress-only internet gateways.
@@ -4835,7 +5787,14 @@ class Ec2Api {
           List<String> egressOnlyInternetGatewayIds,
           int maxResults,
           String nextToken}) async {
-    return DescribeEgressOnlyInternetGatewaysResult.fromJson({});
+    var response_ = await _client.send('DescribeEgressOnlyInternetGateways', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (egressOnlyInternetGatewayIds != null)
+        'EgressOnlyInternetGatewayIds': egressOnlyInternetGatewayIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeEgressOnlyInternetGatewaysResult.fromJson(response_);
   }
 
   /// Describes the Elastic Graphics accelerator associated with your instances.
@@ -4877,7 +5836,14 @@ class Ec2Api {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeElasticGpusResult.fromJson({});
+    var response_ = await _client.send('DescribeElasticGpus', {
+      if (elasticGpuIds != null) 'ElasticGpuIds': elasticGpuIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeElasticGpusResult.fromJson(response_);
   }
 
   /// Describes the specified export image tasks or all your export image tasks.
@@ -4901,7 +5867,14 @@ class Ec2Api {
       List<String> exportImageTaskIds,
       int maxResults,
       String nextToken}) async {
-    return DescribeExportImageTasksResult.fromJson({});
+    var response_ = await _client.send('DescribeExportImageTasks', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (exportImageTaskIds != null) 'ExportImageTaskIds': exportImageTaskIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeExportImageTasksResult.fromJson(response_);
   }
 
   /// Describes the specified export instance tasks or all your export instance
@@ -4910,7 +5883,10 @@ class Ec2Api {
   /// [exportTaskIds]: The export task IDs.
   Future<DescribeExportTasksResult> describeExportTasks(
       {List<String> exportTaskIds}) async {
-    return DescribeExportTasksResult.fromJson({});
+    var response_ = await _client.send('DescribeExportTasks', {
+      if (exportTaskIds != null) 'ExportTaskIds': exportTaskIds,
+    });
+    return DescribeExportTasksResult.fromJson(response_);
   }
 
   /// Describes the events for the specified EC2 Fleet during the specified
@@ -4942,7 +5918,15 @@ class Ec2Api {
       String nextToken,
       @required String fleetId,
       @required DateTime startTime}) async {
-    return DescribeFleetHistoryResult.fromJson({});
+    var response_ = await _client.send('DescribeFleetHistory', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (eventType != null) 'EventType': eventType,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'FleetId': fleetId,
+      'StartTime': startTime,
+    });
+    return DescribeFleetHistoryResult.fromJson(response_);
   }
 
   /// Describes the running instances for the specified EC2 Fleet.
@@ -4969,7 +5953,14 @@ class Ec2Api {
       int maxResults,
       String nextToken,
       List<Filter> filters}) async {
-    return DescribeFleetInstancesResult.fromJson({});
+    var response_ = await _client.send('DescribeFleetInstances', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'FleetId': fleetId,
+      if (filters != null) 'Filters': filters,
+    });
+    return DescribeFleetInstancesResult.fromJson(response_);
   }
 
   /// Describes the specified EC2 Fleets or all your EC2 Fleets.
@@ -5011,7 +6002,14 @@ class Ec2Api {
       String nextToken,
       List<String> fleetIds,
       List<Filter> filters}) async {
-    return DescribeFleetsResult.fromJson({});
+    var response_ = await _client.send('DescribeFleets', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (fleetIds != null) 'FleetIds': fleetIds,
+      if (filters != null) 'Filters': filters,
+    });
+    return DescribeFleetsResult.fromJson(response_);
   }
 
   /// Describes one or more flow logs. To view the information in your flow logs
@@ -5055,7 +6053,14 @@ class Ec2Api {
       List<String> flowLogIds,
       int maxResults,
       String nextToken}) async {
-    return DescribeFlowLogsResult.fromJson({});
+    var response_ = await _client.send('DescribeFlowLogs', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filter != null) 'Filter': filter,
+      if (flowLogIds != null) 'FlowLogIds': flowLogIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeFlowLogsResult.fromJson(response_);
   }
 
   /// Describes the specified attribute of the specified Amazon FPGA Image
@@ -5073,7 +6078,12 @@ class Ec2Api {
       {bool dryRun,
       @required String fpgaImageId,
       @required String attribute}) async {
-    return DescribeFpgaImageAttributeResult.fromJson({});
+    var response_ = await _client.send('DescribeFpgaImageAttribute', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'FpgaImageId': fpgaImageId,
+      'Attribute': attribute,
+    });
+    return DescribeFpgaImageAttributeResult.fromJson(response_);
   }
 
   /// Describes the Amazon FPGA Images (AFIs) available to you. These include
@@ -5133,7 +6143,15 @@ class Ec2Api {
       List<Filter> filters,
       String nextToken,
       int maxResults}) async {
-    return DescribeFpgaImagesResult.fromJson({});
+    var response_ = await _client.send('DescribeFpgaImages', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (fpgaImageIds != null) 'FpgaImageIds': fpgaImageIds,
+      if (owners != null) 'Owners': owners,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeFpgaImagesResult.fromJson(response_);
   }
 
   /// Describes the Dedicated Host reservations that are available to purchase.
@@ -5183,7 +6201,15 @@ class Ec2Api {
           int minDuration,
           String nextToken,
           String offeringId}) async {
-    return DescribeHostReservationOfferingsResult.fromJson({});
+    var response_ = await _client.send('DescribeHostReservationOfferings', {
+      if (filter != null) 'Filter': filter,
+      if (maxDuration != null) 'MaxDuration': maxDuration,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (minDuration != null) 'MinDuration': minDuration,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (offeringId != null) 'OfferingId': offeringId,
+    });
+    return DescribeHostReservationOfferingsResult.fromJson(response_);
   }
 
   /// Describes reservations that are associated with Dedicated Hosts in your
@@ -5222,7 +6248,14 @@ class Ec2Api {
       List<String> hostReservationIdSet,
       int maxResults,
       String nextToken}) async {
-    return DescribeHostReservationsResult.fromJson({});
+    var response_ = await _client.send('DescribeHostReservations', {
+      if (filter != null) 'Filter': filter,
+      if (hostReservationIdSet != null)
+        'HostReservationIdSet': hostReservationIdSet,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeHostReservationsResult.fromJson(response_);
   }
 
   /// Describes the specified Dedicated Hosts or all your Dedicated Hosts.
@@ -5273,7 +6306,13 @@ class Ec2Api {
       List<String> hostIds,
       int maxResults,
       String nextToken}) async {
-    return DescribeHostsResult.fromJson({});
+    var response_ = await _client.send('DescribeHosts', {
+      if (filter != null) 'Filter': filter,
+      if (hostIds != null) 'HostIds': hostIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeHostsResult.fromJson(response_);
   }
 
   /// Describes your IAM instance profile associations.
@@ -5298,7 +6337,14 @@ class Ec2Api {
           List<Filter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeIamInstanceProfileAssociationsResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeIamInstanceProfileAssociations', {
+      if (associationIds != null) 'AssociationIds': associationIds,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeIamInstanceProfileAssociationsResult.fromJson(response_);
   }
 
   /// Describes the ID format settings for your resources on a per-Region basis,
@@ -5336,7 +6382,10 @@ class Ec2Api {
   /// `vpc-cidr-block-association` | `vpc-endpoint` | `vpc-peering-connection` |
   /// `vpn-connection` | `vpn-gateway`
   Future<DescribeIdFormatResult> describeIdFormat({String resource}) async {
-    return DescribeIdFormatResult.fromJson({});
+    var response_ = await _client.send('DescribeIdFormat', {
+      if (resource != null) 'Resource': resource,
+    });
+    return DescribeIdFormatResult.fromJson(response_);
   }
 
   /// Describes the ID format settings for resources for the specified IAM user,
@@ -5377,7 +6426,11 @@ class Ec2Api {
   Future<DescribeIdentityIdFormatResult> describeIdentityIdFormat(
       String principalArn,
       {String resource}) async {
-    return DescribeIdentityIdFormatResult.fromJson({});
+    var response_ = await _client.send('DescribeIdentityIdFormat', {
+      'PrincipalArn': principalArn,
+      if (resource != null) 'Resource': resource,
+    });
+    return DescribeIdentityIdFormatResult.fromJson(response_);
   }
 
   /// Describes the specified attribute of the specified AMI. You can specify
@@ -5400,7 +6453,12 @@ class Ec2Api {
       {@required String attribute,
       @required String imageId,
       bool dryRun}) async {
-    return ImageAttribute.fromJson({});
+    var response_ = await _client.send('DescribeImageAttribute', {
+      'Attribute': attribute,
+      'ImageId': imageId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ImageAttribute.fromJson(response_);
   }
 
   /// Describes the specified images (AMIs, AKIs, and ARIs) available to you or
@@ -5529,7 +6587,14 @@ class Ec2Api {
       List<String> imageIds,
       List<String> owners,
       bool dryRun}) async {
-    return DescribeImagesResult.fromJson({});
+    var response_ = await _client.send('DescribeImages', {
+      if (executableUsers != null) 'ExecutableUsers': executableUsers,
+      if (filters != null) 'Filters': filters,
+      if (imageIds != null) 'ImageIds': imageIds,
+      if (owners != null) 'Owners': owners,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeImagesResult.fromJson(response_);
   }
 
   /// Displays details about an import virtual machine or import snapshot tasks
@@ -5554,7 +6619,14 @@ class Ec2Api {
       List<String> importTaskIds,
       int maxResults,
       String nextToken}) async {
-    return DescribeImportImageTasksResult.fromJson({});
+    var response_ = await _client.send('DescribeImportImageTasks', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (importTaskIds != null) 'ImportTaskIds': importTaskIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeImportImageTasksResult.fromJson(response_);
   }
 
   /// Describes your import snapshot tasks.
@@ -5579,7 +6651,14 @@ class Ec2Api {
       List<String> importTaskIds,
       int maxResults,
       String nextToken}) async {
-    return DescribeImportSnapshotTasksResult.fromJson({});
+    var response_ = await _client.send('DescribeImportSnapshotTasks', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (importTaskIds != null) 'ImportTaskIds': importTaskIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeImportSnapshotTasksResult.fromJson(response_);
   }
 
   /// Describes the specified attribute of the specified instance. You can
@@ -5603,7 +6682,12 @@ class Ec2Api {
       {@required String attribute,
       bool dryRun,
       @required String instanceId}) async {
-    return InstanceAttribute.fromJson({});
+    var response_ = await _client.send('DescribeInstanceAttribute', {
+      'Attribute': attribute,
+      if (dryRun != null) 'DryRun': dryRun,
+      'InstanceId': instanceId,
+    });
+    return InstanceAttribute.fromJson(response_);
   }
 
   /// Describes the credit option for CPU usage of the specified T2 or T3
@@ -5660,7 +6744,14 @@ class Ec2Api {
           List<String> instanceIds,
           int maxResults,
           String nextToken}) async {
-    return DescribeInstanceCreditSpecificationsResult.fromJson({});
+    var response_ = await _client.send('DescribeInstanceCreditSpecifications', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeInstanceCreditSpecificationsResult.fromJson(response_);
   }
 
   /// Describes the status of the specified instances or all of your instances.
@@ -5763,7 +6854,16 @@ class Ec2Api {
       String nextToken,
       bool dryRun,
       bool includeAllInstances}) async {
-    return DescribeInstanceStatusResult.fromJson({});
+    var response_ = await _client.send('DescribeInstanceStatus', {
+      if (filters != null) 'Filters': filters,
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (includeAllInstances != null)
+        'IncludeAllInstances': includeAllInstances,
+    });
+    return DescribeInstanceStatusResult.fromJson(response_);
   }
 
   /// Describes the specified instances or all of AWS account's instances.
@@ -6060,7 +7160,14 @@ class Ec2Api {
       bool dryRun,
       int maxResults,
       String nextToken}) async {
-    return DescribeInstancesResult.fromJson({});
+    var response_ = await _client.send('DescribeInstances', {
+      if (filters != null) 'Filters': filters,
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeInstancesResult.fromJson(response_);
   }
 
   /// Describes one or more of your internet gateways.
@@ -6107,7 +7214,14 @@ class Ec2Api {
       List<String> internetGatewayIds,
       String nextToken,
       int maxResults}) async {
-    return DescribeInternetGatewaysResult.fromJson({});
+    var response_ = await _client.send('DescribeInternetGateways', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (internetGatewayIds != null) 'InternetGatewayIds': internetGatewayIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeInternetGatewaysResult.fromJson(response_);
   }
 
   /// Describes the specified key pairs or all of your key pairs.
@@ -6132,7 +7246,12 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DescribeKeyPairsResult> describeKeyPairs(
       {List<Filter> filters, List<String> keyNames, bool dryRun}) async {
-    return DescribeKeyPairsResult.fromJson({});
+    var response_ = await _client.send('DescribeKeyPairs', {
+      if (filters != null) 'Filters': filters,
+      if (keyNames != null) 'KeyNames': keyNames,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeKeyPairsResult.fromJson(response_);
   }
 
   /// Describes one or more versions of a specified launch template. You can
@@ -6192,7 +7311,18 @@ class Ec2Api {
       String nextToken,
       int maxResults,
       List<Filter> filters}) async {
-    return DescribeLaunchTemplateVersionsResult.fromJson({});
+    var response_ = await _client.send('DescribeLaunchTemplateVersions', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (launchTemplateId != null) 'LaunchTemplateId': launchTemplateId,
+      if (launchTemplateName != null) 'LaunchTemplateName': launchTemplateName,
+      if (versions != null) 'Versions': versions,
+      if (minVersion != null) 'MinVersion': minVersion,
+      if (maxVersion != null) 'MaxVersion': maxVersion,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+    });
+    return DescribeLaunchTemplateVersionsResult.fromJson(response_);
   }
 
   /// Describes one or more launch templates.
@@ -6234,7 +7364,16 @@ class Ec2Api {
       List<Filter> filters,
       String nextToken,
       int maxResults}) async {
-    return DescribeLaunchTemplatesResult.fromJson({});
+    var response_ = await _client.send('DescribeLaunchTemplates', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (launchTemplateIds != null) 'LaunchTemplateIds': launchTemplateIds,
+      if (launchTemplateNames != null)
+        'LaunchTemplateNames': launchTemplateNames,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeLaunchTemplatesResult.fromJson(response_);
   }
 
   /// Describes your Elastic IP addresses that are being moved to the EC2-VPC
@@ -6269,7 +7408,14 @@ class Ec2Api {
       int maxResults,
       String nextToken,
       List<String> publicIps}) async {
-    return DescribeMovingAddressesResult.fromJson({});
+    var response_ = await _client.send('DescribeMovingAddresses', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (publicIps != null) 'PublicIps': publicIps,
+    });
+    return DescribeMovingAddressesResult.fromJson(response_);
   }
 
   /// Describes one or more of your NAT gateways.
@@ -6307,7 +7453,13 @@ class Ec2Api {
       int maxResults,
       List<String> natGatewayIds,
       String nextToken}) async {
-    return DescribeNatGatewaysResult.fromJson({});
+    var response_ = await _client.send('DescribeNatGateways', {
+      if (filter != null) 'Filter': filter,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (natGatewayIds != null) 'NatGatewayIds': natGatewayIds,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeNatGatewaysResult.fromJson(response_);
   }
 
   /// Describes one or more of your network ACLs.
@@ -6389,7 +7541,14 @@ class Ec2Api {
       List<String> networkAclIds,
       String nextToken,
       int maxResults}) async {
-    return DescribeNetworkAclsResult.fromJson({});
+    var response_ = await _client.send('DescribeNetworkAcls', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (networkAclIds != null) 'NetworkAclIds': networkAclIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeNetworkAclsResult.fromJson(response_);
   }
 
   /// Describes a network interface attribute. You can specify only one
@@ -6407,7 +7566,12 @@ class Ec2Api {
   Future<DescribeNetworkInterfaceAttributeResult>
       describeNetworkInterfaceAttribute(String networkInterfaceId,
           {String attribute, bool dryRun}) async {
-    return DescribeNetworkInterfaceAttributeResult.fromJson({});
+    var response_ = await _client.send('DescribeNetworkInterfaceAttribute', {
+      if (attribute != null) 'Attribute': attribute,
+      if (dryRun != null) 'DryRun': dryRun,
+      'NetworkInterfaceId': networkInterfaceId,
+    });
+    return DescribeNetworkInterfaceAttributeResult.fromJson(response_);
   }
 
   /// Describes the permissions for your network interfaces.
@@ -6442,7 +7606,14 @@ class Ec2Api {
           List<Filter> filters,
           String nextToken,
           int maxResults}) async {
-    return DescribeNetworkInterfacePermissionsResult.fromJson({});
+    var response_ = await _client.send('DescribeNetworkInterfacePermissions', {
+      if (networkInterfacePermissionIds != null)
+        'NetworkInterfacePermissionIds': networkInterfacePermissionIds,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeNetworkInterfacePermissionsResult.fromJson(response_);
   }
 
   /// Describes one or more of your network interfaces.
@@ -6576,7 +7747,15 @@ class Ec2Api {
       List<String> networkInterfaceIds,
       String nextToken,
       int maxResults}) async {
-    return DescribeNetworkInterfacesResult.fromJson({});
+    var response_ = await _client.send('DescribeNetworkInterfaces', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (networkInterfaceIds != null)
+        'NetworkInterfaceIds': networkInterfaceIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeNetworkInterfacesResult.fromJson(response_);
   }
 
   /// Describes the specified placement groups or all of your placement groups.
@@ -6605,7 +7784,12 @@ class Ec2Api {
   /// specified.
   Future<DescribePlacementGroupsResult> describePlacementGroups(
       {List<Filter> filters, bool dryRun, List<String> groupNames}) async {
-    return DescribePlacementGroupsResult.fromJson({});
+    var response_ = await _client.send('DescribePlacementGroups', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (groupNames != null) 'GroupNames': groupNames,
+    });
+    return DescribePlacementGroupsResult.fromJson(response_);
   }
 
   /// Describes available AWS services in a prefix list format, which includes
@@ -6639,7 +7823,14 @@ class Ec2Api {
       int maxResults,
       String nextToken,
       List<String> prefixListIds}) async {
-    return DescribePrefixListsResult.fromJson({});
+    var response_ = await _client.send('DescribePrefixLists', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (prefixListIds != null) 'PrefixListIds': prefixListIds,
+    });
+    return DescribePrefixListsResult.fromJson(response_);
   }
 
   /// Describes the ID format settings for the root user and all IAM roles and
@@ -6688,7 +7879,13 @@ class Ec2Api {
       List<String> resources,
       int maxResults,
       String nextToken}) async {
-    return DescribePrincipalIdFormatResult.fromJson({});
+    var response_ = await _client.send('DescribePrincipalIdFormat', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (resources != null) 'Resources': resources,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribePrincipalIdFormatResult.fromJson(response_);
   }
 
   /// Describes the specified IPv4 address pools.
@@ -6702,7 +7899,12 @@ class Ec2Api {
   /// `nextToken` value.
   Future<DescribePublicIpv4PoolsResult> describePublicIpv4Pools(
       {List<String> poolIds, String nextToken, int maxResults}) async {
-    return DescribePublicIpv4PoolsResult.fromJson({});
+    var response_ = await _client.send('DescribePublicIpv4Pools', {
+      if (poolIds != null) 'PoolIds': poolIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribePublicIpv4PoolsResult.fromJson(response_);
   }
 
   /// Describes the Regions that are enabled for your account, or all Regions.
@@ -6739,7 +7941,13 @@ class Ec2Api {
       List<String> regionNames,
       bool dryRun,
       bool allRegions}) async {
-    return DescribeRegionsResult.fromJson({});
+    var response_ = await _client.send('DescribeRegions', {
+      if (filters != null) 'Filters': filters,
+      if (regionNames != null) 'RegionNames': regionNames,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (allRegions != null) 'AllRegions': allRegions,
+    });
+    return DescribeRegionsResult.fromJson(response_);
   }
 
   /// Describes one or more of the Reserved Instances that you purchased.
@@ -6822,7 +8030,15 @@ class Ec2Api {
       List<String> reservedInstancesIds,
       bool dryRun,
       String offeringType}) async {
-    return DescribeReservedInstancesResult.fromJson({});
+    var response_ = await _client.send('DescribeReservedInstances', {
+      if (filters != null) 'Filters': filters,
+      if (offeringClass != null) 'OfferingClass': offeringClass,
+      if (reservedInstancesIds != null)
+        'ReservedInstancesIds': reservedInstancesIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (offeringType != null) 'OfferingType': offeringType,
+    });
+    return DescribeReservedInstancesResult.fromJson(response_);
   }
 
   /// Describes your account's Reserved Instance listings in the Reserved
@@ -6870,7 +8086,14 @@ class Ec2Api {
           {List<Filter> filters,
           String reservedInstancesId,
           String reservedInstancesListingId}) async {
-    return DescribeReservedInstancesListingsResult.fromJson({});
+    var response_ = await _client.send('DescribeReservedInstancesListings', {
+      if (filters != null) 'Filters': filters,
+      if (reservedInstancesId != null)
+        'ReservedInstancesId': reservedInstancesId,
+      if (reservedInstancesListingId != null)
+        'ReservedInstancesListingId': reservedInstancesListingId,
+    });
+    return DescribeReservedInstancesListingsResult.fromJson(response_);
   }
 
   /// Describes the modifications made to your Reserved Instances. If no
@@ -6928,7 +8151,14 @@ class Ec2Api {
           {List<Filter> filters,
           List<String> reservedInstancesModificationIds,
           String nextToken}) async {
-    return DescribeReservedInstancesModificationsResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeReservedInstancesModifications', {
+      if (filters != null) 'Filters': filters,
+      if (reservedInstancesModificationIds != null)
+        'ReservedInstancesModificationIds': reservedInstancesModificationIds,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeReservedInstancesModificationsResult.fromJson(response_);
   }
 
   /// Describes Reserved Instance offerings that are available for purchase.
@@ -7064,7 +8294,25 @@ class Ec2Api {
           int maxResults,
           String nextToken,
           String offeringType}) async {
-    return DescribeReservedInstancesOfferingsResult.fromJson({});
+    var response_ = await _client.send('DescribeReservedInstancesOfferings', {
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (filters != null) 'Filters': filters,
+      if (includeMarketplace != null) 'IncludeMarketplace': includeMarketplace,
+      if (instanceType != null) 'InstanceType': instanceType,
+      if (maxDuration != null) 'MaxDuration': maxDuration,
+      if (maxInstanceCount != null) 'MaxInstanceCount': maxInstanceCount,
+      if (minDuration != null) 'MinDuration': minDuration,
+      if (offeringClass != null) 'OfferingClass': offeringClass,
+      if (productDescription != null) 'ProductDescription': productDescription,
+      if (reservedInstancesOfferingIds != null)
+        'ReservedInstancesOfferingIds': reservedInstancesOfferingIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (instanceTenancy != null) 'InstanceTenancy': instanceTenancy,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (offeringType != null) 'OfferingType': offeringType,
+    });
+    return DescribeReservedInstancesOfferingsResult.fromJson(response_);
   }
 
   /// Describes one or more of your route tables.
@@ -7167,7 +8415,14 @@ class Ec2Api {
       List<String> routeTableIds,
       String nextToken,
       int maxResults}) async {
-    return DescribeRouteTablesResult.fromJson({});
+    var response_ = await _client.send('DescribeRouteTables', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (routeTableIds != null) 'RouteTableIds': routeTableIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeRouteTablesResult.fromJson(response_);
   }
 
   /// Finds available schedules that meet the specified criteria.
@@ -7227,7 +8482,20 @@ class Ec2Api {
           int minSlotDurationInHours,
           String nextToken,
           @required ScheduledInstanceRecurrenceRequest recurrence}) async {
-    return DescribeScheduledInstanceAvailabilityResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeScheduledInstanceAvailability', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      'FirstSlotStartTimeRange': firstSlotStartTimeRange,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (maxSlotDurationInHours != null)
+        'MaxSlotDurationInHours': maxSlotDurationInHours,
+      if (minSlotDurationInHours != null)
+        'MinSlotDurationInHours': minSlotDurationInHours,
+      if (nextToken != null) 'NextToken': nextToken,
+      'Recurrence': recurrence,
+    });
+    return DescribeScheduledInstanceAvailabilityResult.fromJson(response_);
   }
 
   /// Describes the specified Scheduled Instances or all your Scheduled
@@ -7267,7 +8535,16 @@ class Ec2Api {
       String nextToken,
       List<String> scheduledInstanceIds,
       SlotStartTimeRangeRequest slotStartTimeRange}) async {
-    return DescribeScheduledInstancesResult.fromJson({});
+    var response_ = await _client.send('DescribeScheduledInstances', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (scheduledInstanceIds != null)
+        'ScheduledInstanceIds': scheduledInstanceIds,
+      if (slotStartTimeRange != null) 'SlotStartTimeRange': slotStartTimeRange,
+    });
+    return DescribeScheduledInstancesResult.fromJson(response_);
   }
 
   /// [VPC only] Describes the VPCs on the other side of a VPC peering
@@ -7283,7 +8560,11 @@ class Ec2Api {
   Future<DescribeSecurityGroupReferencesResult> describeSecurityGroupReferences(
       List<String> groupId,
       {bool dryRun}) async {
-    return DescribeSecurityGroupReferencesResult.fromJson({});
+    var response_ = await _client.send('DescribeSecurityGroupReferences', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'GroupId': groupId,
+    });
+    return DescribeSecurityGroupReferencesResult.fromJson(response_);
   }
 
   /// Describes the specified security groups or all of your security groups.
@@ -7404,7 +8685,15 @@ class Ec2Api {
       bool dryRun,
       String nextToken,
       int maxResults}) async {
-    return DescribeSecurityGroupsResult.fromJson({});
+    var response_ = await _client.send('DescribeSecurityGroups', {
+      if (filters != null) 'Filters': filters,
+      if (groupIds != null) 'GroupIds': groupIds,
+      if (groupNames != null) 'GroupNames': groupNames,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeSecurityGroupsResult.fromJson(response_);
   }
 
   /// Describes the specified attribute of the specified snapshot. You can
@@ -7426,7 +8715,12 @@ class Ec2Api {
       {@required String attribute,
       @required String snapshotId,
       bool dryRun}) async {
-    return DescribeSnapshotAttributeResult.fromJson({});
+    var response_ = await _client.send('DescribeSnapshotAttribute', {
+      'Attribute': attribute,
+      'SnapshotId': snapshotId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeSnapshotAttributeResult.fromJson(response_);
   }
 
   /// Describes the specified EBS snapshots available to you or all of the EBS
@@ -7558,7 +8852,17 @@ class Ec2Api {
       List<String> restorableByUserIds,
       List<String> snapshotIds,
       bool dryRun}) async {
-    return DescribeSnapshotsResult.fromJson({});
+    var response_ = await _client.send('DescribeSnapshots', {
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (ownerIds != null) 'OwnerIds': ownerIds,
+      if (restorableByUserIds != null)
+        'RestorableByUserIds': restorableByUserIds,
+      if (snapshotIds != null) 'SnapshotIds': snapshotIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeSnapshotsResult.fromJson(response_);
   }
 
   /// Describes the data feed for Spot Instances. For more information, see
@@ -7571,7 +8875,10 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DescribeSpotDatafeedSubscriptionResult>
       describeSpotDatafeedSubscription({bool dryRun}) async {
-    return DescribeSpotDatafeedSubscriptionResult.fromJson({});
+    var response_ = await _client.send('DescribeSpotDatafeedSubscription', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeSpotDatafeedSubscriptionResult.fromJson(response_);
   }
 
   /// Describes the running instances for the specified Spot Fleet.
@@ -7594,7 +8901,13 @@ class Ec2Api {
       {bool dryRun,
       int maxResults,
       String nextToken}) async {
-    return DescribeSpotFleetInstancesResponse.fromJson({});
+    var response_ = await _client.send('DescribeSpotFleetInstances', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'SpotFleetRequestId': spotFleetRequestId,
+    });
+    return DescribeSpotFleetInstancesResponse.fromJson(response_);
   }
 
   /// Describes the events for the specified Spot Fleet request during the
@@ -7631,7 +8944,15 @@ class Ec2Api {
           String nextToken,
           @required String spotFleetRequestId,
           @required DateTime startTime}) async {
-    return DescribeSpotFleetRequestHistoryResponse.fromJson({});
+    var response_ = await _client.send('DescribeSpotFleetRequestHistory', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (eventType != null) 'EventType': eventType,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'SpotFleetRequestId': spotFleetRequestId,
+      'StartTime': startTime,
+    });
+    return DescribeSpotFleetRequestHistoryResponse.fromJson(response_);
   }
 
   /// Describes your Spot Fleet requests.
@@ -7657,7 +8978,14 @@ class Ec2Api {
       int maxResults,
       String nextToken,
       List<String> spotFleetRequestIds}) async {
-    return DescribeSpotFleetRequestsResponse.fromJson({});
+    var response_ = await _client.send('DescribeSpotFleetRequests', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (spotFleetRequestIds != null)
+        'SpotFleetRequestIds': spotFleetRequestIds,
+    });
+    return DescribeSpotFleetRequestsResponse.fromJson(response_);
   }
 
   /// Describes the specified Spot Instance requests.
@@ -7814,7 +9142,15 @@ class Ec2Api {
       List<String> spotInstanceRequestIds,
       String nextToken,
       int maxResults}) async {
-    return DescribeSpotInstanceRequestsResult.fromJson({});
+    var response_ = await _client.send('DescribeSpotInstanceRequests', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (spotInstanceRequestIds != null)
+        'SpotInstanceRequestIds': spotInstanceRequestIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeSpotInstanceRequestsResult.fromJson(response_);
   }
 
   /// Describes the Spot price history. For more information, see
@@ -7882,7 +9218,19 @@ class Ec2Api {
       String nextToken,
       List<String> productDescriptions,
       DateTime startTime}) async {
-    return DescribeSpotPriceHistoryResult.fromJson({});
+    var response_ = await _client.send('DescribeSpotPriceHistory', {
+      if (filters != null) 'Filters': filters,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (endTime != null) 'EndTime': endTime,
+      if (instanceTypes != null) 'InstanceTypes': instanceTypes,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (productDescriptions != null)
+        'ProductDescriptions': productDescriptions,
+      if (startTime != null) 'StartTime': startTime,
+    });
+    return DescribeSpotPriceHistoryResult.fromJson(response_);
   }
 
   /// [VPC only] Describes the stale security group rules for security groups in
@@ -7908,7 +9256,13 @@ class Ec2Api {
       {bool dryRun,
       int maxResults,
       String nextToken}) async {
-    return DescribeStaleSecurityGroupsResult.fromJson({});
+    var response_ = await _client.send('DescribeStaleSecurityGroups', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'VpcId': vpcId,
+    });
+    return DescribeStaleSecurityGroupsResult.fromJson(response_);
   }
 
   /// Describes one or more of your subnets.
@@ -7985,7 +9339,14 @@ class Ec2Api {
       bool dryRun,
       String nextToken,
       int maxResults}) async {
-    return DescribeSubnetsResult.fromJson({});
+    var response_ = await _client.send('DescribeSubnets', {
+      if (filters != null) 'Filters': filters,
+      if (subnetIds != null) 'SubnetIds': subnetIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeSubnetsResult.fromJson(response_);
   }
 
   /// Describes the specified tags for your EC2 resources.
@@ -8029,7 +9390,13 @@ class Ec2Api {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeTagsResult.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeTagsResult.fromJson(response_);
   }
 
   /// Describes one or more Traffic Mirror filters.
@@ -8058,7 +9425,15 @@ class Ec2Api {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeTrafficMirrorFiltersResult.fromJson({});
+    var response_ = await _client.send('DescribeTrafficMirrorFilters', {
+      if (trafficMirrorFilterIds != null)
+        'TrafficMirrorFilterIds': trafficMirrorFilterIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeTrafficMirrorFiltersResult.fromJson(response_);
   }
 
   /// Describes one or more Traffic Mirror sessions. By default, all Traffic
@@ -8105,7 +9480,15 @@ class Ec2Api {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeTrafficMirrorSessionsResult.fromJson({});
+    var response_ = await _client.send('DescribeTrafficMirrorSessions', {
+      if (trafficMirrorSessionIds != null)
+        'TrafficMirrorSessionIds': trafficMirrorSessionIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeTrafficMirrorSessionsResult.fromJson(response_);
   }
 
   /// Information about one or more Traffic Mirror targets.
@@ -8143,7 +9526,15 @@ class Ec2Api {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeTrafficMirrorTargetsResult.fromJson({});
+    var response_ = await _client.send('DescribeTrafficMirrorTargets', {
+      if (trafficMirrorTargetIds != null)
+        'TrafficMirrorTargetIds': trafficMirrorTargetIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeTrafficMirrorTargetsResult.fromJson(response_);
   }
 
   /// Describes one or more attachments between resources and transit gateways.
@@ -8196,7 +9587,15 @@ class Ec2Api {
           int maxResults,
           String nextToken,
           bool dryRun}) async {
-    return DescribeTransitGatewayAttachmentsResult.fromJson({});
+    var response_ = await _client.send('DescribeTransitGatewayAttachments', {
+      if (transitGatewayAttachmentIds != null)
+        'TransitGatewayAttachmentIds': transitGatewayAttachmentIds,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeTransitGatewayAttachmentsResult.fromJson(response_);
   }
 
   /// Describes one or more transit gateway route tables. By default, all
@@ -8242,7 +9641,15 @@ class Ec2Api {
           int maxResults,
           String nextToken,
           bool dryRun}) async {
-    return DescribeTransitGatewayRouteTablesResult.fromJson({});
+    var response_ = await _client.send('DescribeTransitGatewayRouteTables', {
+      if (transitGatewayRouteTableIds != null)
+        'TransitGatewayRouteTableIds': transitGatewayRouteTableIds,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeTransitGatewayRouteTablesResult.fromJson(response_);
   }
 
   /// Describes one or more VPC attachments. By default, all VPC attachments are
@@ -8279,7 +9686,15 @@ class Ec2Api {
           int maxResults,
           String nextToken,
           bool dryRun}) async {
-    return DescribeTransitGatewayVpcAttachmentsResult.fromJson({});
+    var response_ = await _client.send('DescribeTransitGatewayVpcAttachments', {
+      if (transitGatewayAttachmentIds != null)
+        'TransitGatewayAttachmentIds': transitGatewayAttachmentIds,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeTransitGatewayVpcAttachmentsResult.fromJson(response_);
   }
 
   /// Describes one or more transit gateways. By default, all transit gateways
@@ -8339,7 +9754,14 @@ class Ec2Api {
       int maxResults,
       String nextToken,
       bool dryRun}) async {
-    return DescribeTransitGatewaysResult.fromJson({});
+    var response_ = await _client.send('DescribeTransitGateways', {
+      if (transitGatewayIds != null) 'TransitGatewayIds': transitGatewayIds,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeTransitGatewaysResult.fromJson(response_);
   }
 
   /// Describes the specified attribute of the specified volume. You can specify
@@ -8361,7 +9783,12 @@ class Ec2Api {
       {@required String attribute,
       @required String volumeId,
       bool dryRun}) async {
-    return DescribeVolumeAttributeResult.fromJson({});
+    var response_ = await _client.send('DescribeVolumeAttribute', {
+      'Attribute': attribute,
+      'VolumeId': volumeId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeVolumeAttributeResult.fromJson(response_);
   }
 
   /// Describes the status of the specified volumes. Volume status provides the
@@ -8468,7 +9895,14 @@ class Ec2Api {
       String nextToken,
       List<String> volumeIds,
       bool dryRun}) async {
-    return DescribeVolumeStatusResult.fromJson({});
+    var response_ = await _client.send('DescribeVolumeStatus', {
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (volumeIds != null) 'VolumeIds': volumeIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeVolumeStatusResult.fromJson(response_);
   }
 
   /// Describes the specified EBS volumes or all of your EBS volumes.
@@ -8561,7 +9995,14 @@ class Ec2Api {
       bool dryRun,
       int maxResults,
       String nextToken}) async {
-    return DescribeVolumesResult.fromJson({});
+    var response_ = await _client.send('DescribeVolumes', {
+      if (filters != null) 'Filters': filters,
+      if (volumeIds != null) 'VolumeIds': volumeIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeVolumesResult.fromJson(response_);
   }
 
   /// Reports the current modification status of EBS volumes.
@@ -8604,7 +10045,14 @@ class Ec2Api {
       List<Filter> filters,
       String nextToken,
       int maxResults}) async {
-    return DescribeVolumesModificationsResult.fromJson({});
+    var response_ = await _client.send('DescribeVolumesModifications', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (volumeIds != null) 'VolumeIds': volumeIds,
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeVolumesModificationsResult.fromJson(response_);
   }
 
   /// Describes the specified attribute of the specified VPC. You can specify
@@ -8620,7 +10068,12 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DescribeVpcAttributeResult> describeVpcAttribute(
       {@required String attribute, @required String vpcId, bool dryRun}) async {
-    return DescribeVpcAttributeResult.fromJson({});
+    var response_ = await _client.send('DescribeVpcAttribute', {
+      'Attribute': attribute,
+      'VpcId': vpcId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeVpcAttributeResult.fromJson(response_);
   }
 
   /// Describes the ClassicLink status of one or more VPCs.
@@ -8649,7 +10102,12 @@ class Ec2Api {
   /// status.
   Future<DescribeVpcClassicLinkResult> describeVpcClassicLink(
       {List<Filter> filters, bool dryRun, List<String> vpcIds}) async {
-    return DescribeVpcClassicLinkResult.fromJson({});
+    var response_ = await _client.send('DescribeVpcClassicLink', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (vpcIds != null) 'VpcIds': vpcIds,
+    });
+    return DescribeVpcClassicLinkResult.fromJson(response_);
   }
 
   /// Describes the ClassicLink DNS support status of one or more VPCs. If
@@ -8671,7 +10129,12 @@ class Ec2Api {
   Future<DescribeVpcClassicLinkDnsSupportResult>
       describeVpcClassicLinkDnsSupport(
           {int maxResults, String nextToken, List<String> vpcIds}) async {
-    return DescribeVpcClassicLinkDnsSupportResult.fromJson({});
+    var response_ = await _client.send('DescribeVpcClassicLinkDnsSupport', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (vpcIds != null) 'VpcIds': vpcIds,
+    });
+    return DescribeVpcClassicLinkDnsSupportResult.fromJson(response_);
   }
 
   /// Describes the connection notifications for VPC endpoints and VPC endpoint
@@ -8712,7 +10175,16 @@ class Ec2Api {
           List<Filter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeVpcEndpointConnectionNotificationsResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeVpcEndpointConnectionNotifications', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (connectionNotificationId != null)
+        'ConnectionNotificationId': connectionNotificationId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeVpcEndpointConnectionNotificationsResult.fromJson(response_);
   }
 
   /// Describes the VPC endpoint connections to your VPC endpoint services,
@@ -8748,7 +10220,13 @@ class Ec2Api {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeVpcEndpointConnectionsResult.fromJson({});
+    var response_ = await _client.send('DescribeVpcEndpointConnections', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeVpcEndpointConnectionsResult.fromJson(response_);
   }
 
   /// Describes the VPC endpoint service configurations in your account (your
@@ -8794,7 +10272,15 @@ class Ec2Api {
           List<Filter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeVpcEndpointServiceConfigurationsResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeVpcEndpointServiceConfigurations', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (serviceIds != null) 'ServiceIds': serviceIds,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeVpcEndpointServiceConfigurationsResult.fromJson(response_);
   }
 
   /// Describes the principals (service consumers) that are permitted to
@@ -8827,7 +10313,15 @@ class Ec2Api {
           List<Filter> filters,
           int maxResults,
           String nextToken}) async {
-    return DescribeVpcEndpointServicePermissionsResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeVpcEndpointServicePermissions', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ServiceId': serviceId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeVpcEndpointServicePermissionsResult.fromJson(response_);
   }
 
   /// Describes available services to which you can create a VPC endpoint.
@@ -8867,7 +10361,14 @@ class Ec2Api {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeVpcEndpointServicesResult.fromJson({});
+    var response_ = await _client.send('DescribeVpcEndpointServices', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (serviceNames != null) 'ServiceNames': serviceNames,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeVpcEndpointServicesResult.fromJson(response_);
   }
 
   /// Describes one or more of your VPC endpoints.
@@ -8915,7 +10416,14 @@ class Ec2Api {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeVpcEndpointsResult.fromJson({});
+    var response_ = await _client.send('DescribeVpcEndpoints', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (vpcEndpointIds != null) 'VpcEndpointIds': vpcEndpointIds,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeVpcEndpointsResult.fromJson(response_);
   }
 
   /// Describes one or more of your VPC peering connections.
@@ -8980,7 +10488,15 @@ class Ec2Api {
       List<String> vpcPeeringConnectionIds,
       String nextToken,
       int maxResults}) async {
-    return DescribeVpcPeeringConnectionsResult.fromJson({});
+    var response_ = await _client.send('DescribeVpcPeeringConnections', {
+      if (filters != null) 'Filters': filters,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (vpcPeeringConnectionIds != null)
+        'VpcPeeringConnectionIds': vpcPeeringConnectionIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeVpcPeeringConnectionsResult.fromJson(response_);
   }
 
   /// Describes one or more of your VPCs.
@@ -9050,7 +10566,14 @@ class Ec2Api {
       bool dryRun,
       String nextToken,
       int maxResults}) async {
-    return DescribeVpcsResult.fromJson({});
+    var response_ = await _client.send('DescribeVpcs', {
+      if (filters != null) 'Filters': filters,
+      if (vpcIds != null) 'VpcIds': vpcIds,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeVpcsResult.fromJson(response_);
   }
 
   /// Describes one or more of your VPN connections.
@@ -9110,7 +10633,12 @@ class Ec2Api {
       {List<Filter> filters,
       List<String> vpnConnectionIds,
       bool dryRun}) async {
-    return DescribeVpnConnectionsResult.fromJson({});
+    var response_ = await _client.send('DescribeVpnConnections', {
+      if (filters != null) 'Filters': filters,
+      if (vpnConnectionIds != null) 'VpnConnectionIds': vpnConnectionIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeVpnConnectionsResult.fromJson(response_);
   }
 
   /// Describes one or more of your virtual private gateways.
@@ -9160,7 +10688,12 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DescribeVpnGatewaysResult> describeVpnGateways(
       {List<Filter> filters, List<String> vpnGatewayIds, bool dryRun}) async {
-    return DescribeVpnGatewaysResult.fromJson({});
+    var response_ = await _client.send('DescribeVpnGateways', {
+      if (filters != null) 'Filters': filters,
+      if (vpnGatewayIds != null) 'VpnGatewayIds': vpnGatewayIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DescribeVpnGatewaysResult.fromJson(response_);
   }
 
   /// Unlinks (detaches) a linked EC2-Classic instance from a VPC. After the
@@ -9180,7 +10713,12 @@ class Ec2Api {
       {bool dryRun,
       @required String instanceId,
       @required String vpcId}) async {
-    return DetachClassicLinkVpcResult.fromJson({});
+    var response_ = await _client.send('DetachClassicLinkVpc', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'InstanceId': instanceId,
+      'VpcId': vpcId,
+    });
+    return DetachClassicLinkVpcResult.fromJson(response_);
   }
 
   /// Detaches an internet gateway from a VPC, disabling connectivity between
@@ -9198,7 +10736,13 @@ class Ec2Api {
   Future<void> detachInternetGateway(
       {bool dryRun,
       @required String internetGatewayId,
-      @required String vpcId}) async {}
+      @required String vpcId}) async {
+    await _client.send('DetachInternetGateway', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'InternetGatewayId': internetGatewayId,
+      'VpcId': vpcId,
+    });
+  }
 
   /// Detaches a network interface from an instance.
   ///
@@ -9226,7 +10770,13 @@ class Ec2Api {
   /// detached network interface might still be visible. The instance metadata
   /// will get updated when you stop and start the instance.
   Future<void> detachNetworkInterface(String attachmentId,
-      {bool dryRun, bool force}) async {}
+      {bool dryRun, bool force}) async {
+    await _client.send('DetachNetworkInterface', {
+      'AttachmentId': attachmentId,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (force != null) 'Force': force,
+    });
+  }
 
   /// Detaches an EBS volume from an instance. Make sure to unmount any file
   /// systems on the device within your operating system before detaching the
@@ -9264,7 +10814,14 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<VolumeAttachment> detachVolume(String volumeId,
       {String device, bool force, String instanceId, bool dryRun}) async {
-    return VolumeAttachment.fromJson({});
+    var response_ = await _client.send('DetachVolume', {
+      if (device != null) 'Device': device,
+      if (force != null) 'Force': force,
+      if (instanceId != null) 'InstanceId': instanceId,
+      'VolumeId': volumeId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return VolumeAttachment.fromJson(response_);
   }
 
   /// Detaches a virtual private gateway from a VPC. You do this if you're
@@ -9288,7 +10845,13 @@ class Ec2Api {
   Future<void> detachVpnGateway(
       {@required String vpcId,
       @required String vpnGatewayId,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    await _client.send('DetachVpnGateway', {
+      'VpcId': vpcId,
+      'VpnGatewayId': vpnGatewayId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Disables EBS encryption by default for your account in the current Region.
   ///
@@ -9308,7 +10871,10 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<DisableEbsEncryptionByDefaultResult> disableEbsEncryptionByDefault(
       {bool dryRun}) async {
-    return DisableEbsEncryptionByDefaultResult.fromJson({});
+    var response_ = await _client.send('DisableEbsEncryptionByDefault', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DisableEbsEncryptionByDefaultResult.fromJson(response_);
   }
 
   /// Disables the specified resource attachment from propagating routes to the
@@ -9327,7 +10893,13 @@ class Ec2Api {
           {@required String transitGatewayRouteTableId,
           @required String transitGatewayAttachmentId,
           bool dryRun}) async {
-    return DisableTransitGatewayRouteTablePropagationResult.fromJson({});
+    var response_ =
+        await _client.send('DisableTransitGatewayRouteTablePropagation', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DisableTransitGatewayRouteTablePropagationResult.fromJson(response_);
   }
 
   /// Disables a virtual private gateway (VGW) from propagating routes to a
@@ -9337,7 +10909,12 @@ class Ec2Api {
   ///
   /// [routeTableId]: The ID of the route table.
   Future<void> disableVgwRoutePropagation(
-      {@required String gatewayId, @required String routeTableId}) async {}
+      {@required String gatewayId, @required String routeTableId}) async {
+    await _client.send('DisableVgwRoutePropagation', {
+      'GatewayId': gatewayId,
+      'RouteTableId': routeTableId,
+    });
+  }
 
   /// Disables ClassicLink for a VPC. You cannot disable ClassicLink for a VPC
   /// that has EC2-Classic instances linked to it.
@@ -9350,7 +10927,11 @@ class Ec2Api {
   /// [vpcId]: The ID of the VPC.
   Future<DisableVpcClassicLinkResult> disableVpcClassicLink(String vpcId,
       {bool dryRun}) async {
-    return DisableVpcClassicLinkResult.fromJson({});
+    var response_ = await _client.send('DisableVpcClassicLink', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VpcId': vpcId,
+    });
+    return DisableVpcClassicLinkResult.fromJson(response_);
   }
 
   /// Disables ClassicLink DNS support for a VPC. If disabled, DNS hostnames
@@ -9363,7 +10944,10 @@ class Ec2Api {
   /// [vpcId]: The ID of the VPC.
   Future<DisableVpcClassicLinkDnsSupportResult> disableVpcClassicLinkDnsSupport(
       {String vpcId}) async {
-    return DisableVpcClassicLinkDnsSupportResult.fromJson({});
+    var response_ = await _client.send('DisableVpcClassicLinkDnsSupport', {
+      if (vpcId != null) 'VpcId': vpcId,
+    });
+    return DisableVpcClassicLinkDnsSupportResult.fromJson(response_);
   }
 
   /// Disassociates an Elastic IP address from the instance or network interface
@@ -9387,7 +10971,13 @@ class Ec2Api {
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<void> disassociateAddress(
-      {String associationId, String publicIp, bool dryRun}) async {}
+      {String associationId, String publicIp, bool dryRun}) async {
+    await _client.send('DisassociateAddress', {
+      if (associationId != null) 'AssociationId': associationId,
+      if (publicIp != null) 'PublicIp': publicIp,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Disassociates a target network from the specified Client VPN endpoint.
   /// When you disassociate the last target network from a Client VPN, the
@@ -9415,7 +11005,12 @@ class Ec2Api {
           {@required String clientVpnEndpointId,
           @required String associationId,
           bool dryRun}) async {
-    return DisassociateClientVpnTargetNetworkResult.fromJson({});
+    var response_ = await _client.send('DisassociateClientVpnTargetNetwork', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      'AssociationId': associationId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DisassociateClientVpnTargetNetworkResult.fromJson(response_);
   }
 
   /// Disassociates an IAM instance profile from a running or stopped instance.
@@ -9425,7 +11020,10 @@ class Ec2Api {
   /// [associationId]: The ID of the IAM instance profile association.
   Future<DisassociateIamInstanceProfileResult> disassociateIamInstanceProfile(
       String associationId) async {
-    return DisassociateIamInstanceProfileResult.fromJson({});
+    var response_ = await _client.send('DisassociateIamInstanceProfile', {
+      'AssociationId': associationId,
+    });
+    return DisassociateIamInstanceProfileResult.fromJson(response_);
   }
 
   /// Disassociates a subnet from a route table.
@@ -9444,7 +11042,12 @@ class Ec2Api {
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<void> disassociateRouteTable(String associationId,
-      {bool dryRun}) async {}
+      {bool dryRun}) async {
+    await _client.send('DisassociateRouteTable', {
+      'AssociationId': associationId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Disassociates a CIDR block from a subnet. Currently, you can disassociate
   /// an IPv6 CIDR block only. You must detach or delete all gateways and
@@ -9454,7 +11057,10 @@ class Ec2Api {
   /// [associationId]: The association ID for the CIDR block.
   Future<DisassociateSubnetCidrBlockResult> disassociateSubnetCidrBlock(
       String associationId) async {
-    return DisassociateSubnetCidrBlockResult.fromJson({});
+    var response_ = await _client.send('DisassociateSubnetCidrBlock', {
+      'AssociationId': associationId,
+    });
+    return DisassociateSubnetCidrBlockResult.fromJson(response_);
   }
 
   /// Disassociates a resource attachment from a transit gateway route table.
@@ -9472,7 +11078,12 @@ class Ec2Api {
           {@required String transitGatewayRouteTableId,
           @required String transitGatewayAttachmentId,
           bool dryRun}) async {
-    return DisassociateTransitGatewayRouteTableResult.fromJson({});
+    var response_ = await _client.send('DisassociateTransitGatewayRouteTable', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DisassociateTransitGatewayRouteTableResult.fromJson(response_);
   }
 
   /// Disassociates a CIDR block from a VPC. To disassociate the CIDR block, you
@@ -9486,7 +11097,10 @@ class Ec2Api {
   /// [associationId]: The association ID for the CIDR block.
   Future<DisassociateVpcCidrBlockResult> disassociateVpcCidrBlock(
       String associationId) async {
-    return DisassociateVpcCidrBlockResult.fromJson({});
+    var response_ = await _client.send('DisassociateVpcCidrBlock', {
+      'AssociationId': associationId,
+    });
+    return DisassociateVpcCidrBlockResult.fromJson(response_);
   }
 
   /// Enables EBS encryption by default for your account in the current Region.
@@ -9514,7 +11128,10 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<EnableEbsEncryptionByDefaultResult> enableEbsEncryptionByDefault(
       {bool dryRun}) async {
-    return EnableEbsEncryptionByDefaultResult.fromJson({});
+    var response_ = await _client.send('EnableEbsEncryptionByDefault', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return EnableEbsEncryptionByDefaultResult.fromJson(response_);
   }
 
   /// Enables the specified attachment to propagate routes to the specified
@@ -9533,7 +11150,13 @@ class Ec2Api {
           {@required String transitGatewayRouteTableId,
           @required String transitGatewayAttachmentId,
           bool dryRun}) async {
-    return EnableTransitGatewayRouteTablePropagationResult.fromJson({});
+    var response_ =
+        await _client.send('EnableTransitGatewayRouteTablePropagation', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return EnableTransitGatewayRouteTablePropagationResult.fromJson(response_);
   }
 
   /// Enables a virtual private gateway (VGW) to propagate routes to the
@@ -9547,7 +11170,12 @@ class Ec2Api {
   /// associated with the same VPC that the virtual private gateway is attached
   /// to.
   Future<void> enableVgwRoutePropagation(
-      {@required String gatewayId, @required String routeTableId}) async {}
+      {@required String gatewayId, @required String routeTableId}) async {
+    await _client.send('EnableVgwRoutePropagation', {
+      'GatewayId': gatewayId,
+      'RouteTableId': routeTableId,
+    });
+  }
 
   /// Enables I/O operations for a volume that had I/O operations disabled
   /// because the data on the volume was potentially inconsistent.
@@ -9558,7 +11186,12 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   ///
   /// [volumeId]: The ID of the volume.
-  Future<void> enableVolumeIO(String volumeId, {bool dryRun}) async {}
+  Future<void> enableVolumeIO(String volumeId, {bool dryRun}) async {
+    await _client.send('EnableVolumeIO', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VolumeId': volumeId,
+    });
+  }
 
   /// Enables a VPC for ClassicLink. You can then link EC2-Classic instances to
   /// your ClassicLink-enabled VPC to allow communication over private IP
@@ -9578,7 +11211,11 @@ class Ec2Api {
   /// [vpcId]: The ID of the VPC.
   Future<EnableVpcClassicLinkResult> enableVpcClassicLink(String vpcId,
       {bool dryRun}) async {
-    return EnableVpcClassicLinkResult.fromJson({});
+    var response_ = await _client.send('EnableVpcClassicLink', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VpcId': vpcId,
+    });
+    return EnableVpcClassicLinkResult.fromJson(response_);
   }
 
   /// Enables a VPC to support DNS hostname resolution for ClassicLink. If
@@ -9593,7 +11230,10 @@ class Ec2Api {
   /// [vpcId]: The ID of the VPC.
   Future<EnableVpcClassicLinkDnsSupportResult> enableVpcClassicLinkDnsSupport(
       {String vpcId}) async {
-    return EnableVpcClassicLinkDnsSupportResult.fromJson({});
+    var response_ = await _client.send('EnableVpcClassicLinkDnsSupport', {
+      if (vpcId != null) 'VpcId': vpcId,
+    });
+    return EnableVpcClassicLinkDnsSupportResult.fromJson(response_);
   }
 
   /// Downloads the client certificate revocation list for the specified Client
@@ -9608,7 +11248,13 @@ class Ec2Api {
   Future<ExportClientVpnClientCertificateRevocationListResult>
       exportClientVpnClientCertificateRevocationList(String clientVpnEndpointId,
           {bool dryRun}) async {
-    return ExportClientVpnClientCertificateRevocationListResult.fromJson({});
+    var response_ =
+        await _client.send('ExportClientVpnClientCertificateRevocationList', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ExportClientVpnClientCertificateRevocationListResult.fromJson(
+        response_);
   }
 
   /// Downloads the contents of the Client VPN endpoint configuration file for
@@ -9625,7 +11271,11 @@ class Ec2Api {
   Future<ExportClientVpnClientConfigurationResult>
       exportClientVpnClientConfiguration(String clientVpnEndpointId,
           {bool dryRun}) async {
-    return ExportClientVpnClientConfigurationResult.fromJson({});
+    var response_ = await _client.send('ExportClientVpnClientConfiguration', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ExportClientVpnClientConfigurationResult.fromJson(response_);
   }
 
   /// Exports an Amazon Machine Image (AMI) to a VM file. For more information,
@@ -9662,7 +11312,16 @@ class Ec2Api {
       @required String imageId,
       @required ExportTaskS3LocationRequest s3ExportLocation,
       String roleName}) async {
-    return ExportImageResult.fromJson({});
+    var response_ = await _client.send('ExportImage', {
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (description != null) 'Description': description,
+      'DiskImageFormat': diskImageFormat,
+      if (dryRun != null) 'DryRun': dryRun,
+      'ImageId': imageId,
+      'S3ExportLocation': s3ExportLocation,
+      if (roleName != null) 'RoleName': roleName,
+    });
+    return ExportImageResult.fromJson(response_);
   }
 
   /// Exports routes from the specified transit gateway route table to the
@@ -9711,7 +11370,13 @@ class Ec2Api {
       List<Filter> filters,
       @required String s3Bucket,
       bool dryRun}) async {
-    return ExportTransitGatewayRoutesResult.fromJson({});
+    var response_ = await _client.send('ExportTransitGatewayRoutes', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      if (filters != null) 'Filters': filters,
+      'S3Bucket': s3Bucket,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ExportTransitGatewayRoutesResult.fromJson(response_);
   }
 
   /// Gets usage information about a Capacity Reservation. If the Capacity
@@ -9739,7 +11404,13 @@ class Ec2Api {
       {String nextToken,
       int maxResults,
       bool dryRun}) async {
-    return GetCapacityReservationUsageResult.fromJson({});
+    var response_ = await _client.send('GetCapacityReservationUsage', {
+      'CapacityReservationId': capacityReservationId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return GetCapacityReservationUsageResult.fromJson(response_);
   }
 
   /// Gets the console output for the specified instance. For Linux instances,
@@ -9775,7 +11446,12 @@ class Ec2Api {
   /// Default: disabled (`false`)
   Future<GetConsoleOutputResult> getConsoleOutput(String instanceId,
       {bool dryRun, bool latest}) async {
-    return GetConsoleOutputResult.fromJson({});
+    var response_ = await _client.send('GetConsoleOutput', {
+      'InstanceId': instanceId,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (latest != null) 'Latest': latest,
+    });
+    return GetConsoleOutputResult.fromJson(response_);
   }
 
   /// Retrieve a JPG-format screenshot of a running instance to help with
@@ -9794,7 +11470,12 @@ class Ec2Api {
   /// instance that's in standby or "sleep" mode.
   Future<GetConsoleScreenshotResult> getConsoleScreenshot(String instanceId,
       {bool dryRun, bool wakeUp}) async {
-    return GetConsoleScreenshotResult.fromJson({});
+    var response_ = await _client.send('GetConsoleScreenshot', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'InstanceId': instanceId,
+      if (wakeUp != null) 'WakeUp': wakeUp,
+    });
+    return GetConsoleScreenshotResult.fromJson(response_);
   }
 
   /// Describes the default customer master key (CMK) for EBS encryption by
@@ -9812,7 +11493,10 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<GetEbsDefaultKmsKeyIdResult> getEbsDefaultKmsKeyId(
       {bool dryRun}) async {
-    return GetEbsDefaultKmsKeyIdResult.fromJson({});
+    var response_ = await _client.send('GetEbsDefaultKmsKeyId', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return GetEbsDefaultKmsKeyIdResult.fromJson(response_);
   }
 
   /// Describes whether EBS encryption by default is enabled for your account in
@@ -9828,7 +11512,10 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<GetEbsEncryptionByDefaultResult> getEbsEncryptionByDefault(
       {bool dryRun}) async {
-    return GetEbsEncryptionByDefaultResult.fromJson({});
+    var response_ = await _client.send('GetEbsEncryptionByDefault', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return GetEbsEncryptionByDefaultResult.fromJson(response_);
   }
 
   /// Preview a reservation purchase with configurations that match those of
@@ -9846,7 +11533,11 @@ class Ec2Api {
       getHostReservationPurchasePreview(
           {@required List<String> hostIdSet,
           @required String offeringId}) async {
-    return GetHostReservationPurchasePreviewResult.fromJson({});
+    var response_ = await _client.send('GetHostReservationPurchasePreview', {
+      'HostIdSet': hostIdSet,
+      'OfferingId': offeringId,
+    });
+    return GetHostReservationPurchasePreviewResult.fromJson(response_);
   }
 
   /// Retrieves the configuration data of the specified instance. You can use
@@ -9860,7 +11551,11 @@ class Ec2Api {
   /// [instanceId]: The ID of the instance.
   Future<GetLaunchTemplateDataResult> getLaunchTemplateData(String instanceId,
       {bool dryRun}) async {
-    return GetLaunchTemplateDataResult.fromJson({});
+    var response_ = await _client.send('GetLaunchTemplateData', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'InstanceId': instanceId,
+    });
+    return GetLaunchTemplateDataResult.fromJson(response_);
   }
 
   /// Retrieves the encrypted administrator password for a running Windows
@@ -9894,7 +11589,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<GetPasswordDataResult> getPasswordData(String instanceId,
       {bool dryRun}) async {
-    return GetPasswordDataResult.fromJson({});
+    var response_ = await _client.send('GetPasswordData', {
+      'InstanceId': instanceId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return GetPasswordDataResult.fromJson(response_);
   }
 
   /// Returns a quote and exchange information for exchanging one or more
@@ -9918,7 +11617,13 @@ class Ec2Api {
       getReservedInstancesExchangeQuote(List<String> reservedInstanceIds,
           {bool dryRun,
           List<TargetConfigurationRequest> targetConfigurations}) async {
-    return GetReservedInstancesExchangeQuoteResult.fromJson({});
+    var response_ = await _client.send('GetReservedInstancesExchangeQuote', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ReservedInstanceIds': reservedInstanceIds,
+      if (targetConfigurations != null)
+        'TargetConfigurations': targetConfigurations,
+    });
+    return GetReservedInstancesExchangeQuoteResult.fromJson(response_);
   }
 
   /// Lists the route tables to which the specified resource attachment
@@ -9947,7 +11652,15 @@ class Ec2Api {
           int maxResults,
           String nextToken,
           bool dryRun}) async {
-    return GetTransitGatewayAttachmentPropagationsResult.fromJson({});
+    var response_ =
+        await _client.send('GetTransitGatewayAttachmentPropagations', {
+      'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return GetTransitGatewayAttachmentPropagationsResult.fromJson(response_);
   }
 
   /// Gets information about the associations for the specified transit gateway
@@ -9979,7 +11692,15 @@ class Ec2Api {
           int maxResults,
           String nextToken,
           bool dryRun}) async {
-    return GetTransitGatewayRouteTableAssociationsResult.fromJson({});
+    var response_ =
+        await _client.send('GetTransitGatewayRouteTableAssociations', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return GetTransitGatewayRouteTableAssociationsResult.fromJson(response_);
   }
 
   /// Gets information about the route table propagations for the specified
@@ -10011,7 +11732,15 @@ class Ec2Api {
           int maxResults,
           String nextToken,
           bool dryRun}) async {
-    return GetTransitGatewayRouteTablePropagationsResult.fromJson({});
+    var response_ =
+        await _client.send('GetTransitGatewayRouteTablePropagations', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return GetTransitGatewayRouteTablePropagationsResult.fromJson(response_);
   }
 
   /// Uploads a client certificate revocation list to the specified Client VPN
@@ -10038,7 +11767,14 @@ class Ec2Api {
           {@required String clientVpnEndpointId,
           @required String certificateRevocationList,
           bool dryRun}) async {
-    return ImportClientVpnClientCertificateRevocationListResult.fromJson({});
+    var response_ =
+        await _client.send('ImportClientVpnClientCertificateRevocationList', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      'CertificateRevocationList': certificateRevocationList,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ImportClientVpnClientCertificateRevocationListResult.fromJson(
+        response_);
   }
 
   /// Import single or multi-volume disk images or EBS snapshots into an Amazon
@@ -10139,7 +11875,21 @@ class Ec2Api {
       String licenseType,
       String platform,
       String roleName}) async {
-    return ImportImageResult.fromJson({});
+    var response_ = await _client.send('ImportImage', {
+      if (architecture != null) 'Architecture': architecture,
+      if (clientData != null) 'ClientData': clientData,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (description != null) 'Description': description,
+      if (diskContainers != null) 'DiskContainers': diskContainers,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (encrypted != null) 'Encrypted': encrypted,
+      if (hypervisor != null) 'Hypervisor': hypervisor,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (licenseType != null) 'LicenseType': licenseType,
+      if (platform != null) 'Platform': platform,
+      if (roleName != null) 'RoleName': roleName,
+    });
+    return ImportImageResult.fromJson(response_);
   }
 
   /// Creates an import instance task using metadata from the specified disk
@@ -10168,7 +11918,15 @@ class Ec2Api {
       List<DiskImage> diskImages,
       bool dryRun,
       ImportInstanceLaunchSpecification launchSpecification}) async {
-    return ImportInstanceResult.fromJson({});
+    var response_ = await _client.send('ImportInstance', {
+      if (description != null) 'Description': description,
+      if (diskImages != null) 'DiskImages': diskImages,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (launchSpecification != null)
+        'LaunchSpecification': launchSpecification,
+      'Platform': platform,
+    });
+    return ImportInstanceResult.fromJson(response_);
   }
 
   /// Imports the public key from an RSA key pair that you created with a
@@ -10195,7 +11953,12 @@ class Ec2Api {
       {bool dryRun,
       @required String keyName,
       @required Uint8List publicKeyMaterial}) async {
-    return ImportKeyPairResult.fromJson({});
+    var response_ = await _client.send('ImportKeyPair', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'KeyName': keyName,
+      'PublicKeyMaterial': publicKeyMaterial,
+    });
+    return ImportKeyPairResult.fromJson(response_);
   }
 
   /// Imports a disk into an EBS snapshot.
@@ -10264,7 +12027,17 @@ class Ec2Api {
       bool encrypted,
       String kmsKeyId,
       String roleName}) async {
-    return ImportSnapshotResult.fromJson({});
+    var response_ = await _client.send('ImportSnapshot', {
+      if (clientData != null) 'ClientData': clientData,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (description != null) 'Description': description,
+      if (diskContainer != null) 'DiskContainer': diskContainer,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (encrypted != null) 'Encrypted': encrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (roleName != null) 'RoleName': roleName,
+    });
+    return ImportSnapshotResult.fromJson(response_);
   }
 
   /// Creates an import volume task using metadata from the specified disk
@@ -10293,7 +12066,14 @@ class Ec2Api {
       bool dryRun,
       @required DiskImageDetail image,
       @required VolumeDetail volume}) async {
-    return ImportVolumeResult.fromJson({});
+    var response_ = await _client.send('ImportVolume', {
+      'AvailabilityZone': availabilityZone,
+      if (description != null) 'Description': description,
+      if (dryRun != null) 'DryRun': dryRun,
+      'Image': image,
+      'Volume': volume,
+    });
+    return ImportVolumeResult.fromJson(response_);
   }
 
   /// Modifies a Capacity Reservation's capacity and the conditions under which
@@ -10341,7 +12121,14 @@ class Ec2Api {
       DateTime endDate,
       String endDateType,
       bool dryRun}) async {
-    return ModifyCapacityReservationResult.fromJson({});
+    var response_ = await _client.send('ModifyCapacityReservation', {
+      'CapacityReservationId': capacityReservationId,
+      if (instanceCount != null) 'InstanceCount': instanceCount,
+      if (endDate != null) 'EndDate': endDate,
+      if (endDateType != null) 'EndDateType': endDateType,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyCapacityReservationResult.fromJson(response_);
   }
 
   /// Modifies the specified Client VPN endpoint. You can only modify an
@@ -10391,7 +12178,18 @@ class Ec2Api {
       String description,
       bool splitTunnel,
       bool dryRun}) async {
-    return ModifyClientVpnEndpointResult.fromJson({});
+    var response_ = await _client.send('ModifyClientVpnEndpoint', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (serverCertificateArn != null)
+        'ServerCertificateArn': serverCertificateArn,
+      if (connectionLogOptions != null)
+        'ConnectionLogOptions': connectionLogOptions,
+      if (dnsServers != null) 'DnsServers': dnsServers,
+      if (description != null) 'Description': description,
+      if (splitTunnel != null) 'SplitTunnel': splitTunnel,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyClientVpnEndpointResult.fromJson(response_);
   }
 
   /// Changes the default customer master key (CMK) for EBS encryption by
@@ -10438,7 +12236,11 @@ class Ec2Api {
   Future<ModifyEbsDefaultKmsKeyIdResult> modifyEbsDefaultKmsKeyId(
       String kmsKeyId,
       {bool dryRun}) async {
-    return ModifyEbsDefaultKmsKeyIdResult.fromJson({});
+    var response_ = await _client.send('ModifyEbsDefaultKmsKeyId', {
+      'KmsKeyId': kmsKeyId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyEbsDefaultKmsKeyIdResult.fromJson(response_);
   }
 
   /// Modifies the specified EC2 Fleet.
@@ -10493,7 +12295,14 @@ class Ec2Api {
       @required
           TargetCapacitySpecificationRequest
               targetCapacitySpecification}) async {
-    return ModifyFleetResult.fromJson({});
+    var response_ = await _client.send('ModifyFleet', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (excessCapacityTerminationPolicy != null)
+        'ExcessCapacityTerminationPolicy': excessCapacityTerminationPolicy,
+      'FleetId': fleetId,
+      'TargetCapacitySpecification': targetCapacitySpecification,
+    });
+    return ModifyFleetResult.fromJson(response_);
   }
 
   /// Modifies the specified attribute of the specified Amazon FPGA Image (AFI).
@@ -10535,7 +12344,19 @@ class Ec2Api {
       LoadPermissionModifications loadPermission,
       String description,
       String name}) async {
-    return ModifyFpgaImageAttributeResult.fromJson({});
+    var response_ = await _client.send('ModifyFpgaImageAttribute', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'FpgaImageId': fpgaImageId,
+      if (attribute != null) 'Attribute': attribute,
+      if (operationType != null) 'OperationType': operationType,
+      if (userIds != null) 'UserIds': userIds,
+      if (userGroups != null) 'UserGroups': userGroups,
+      if (productCodes != null) 'ProductCodes': productCodes,
+      if (loadPermission != null) 'LoadPermission': loadPermission,
+      if (description != null) 'Description': description,
+      if (name != null) 'Name': name,
+    });
+    return ModifyFpgaImageAttributeResult.fromJson(response_);
   }
 
   /// Modify the auto-placement setting of a Dedicated Host. When auto-placement
@@ -10556,7 +12377,12 @@ class Ec2Api {
   /// in the _Amazon Elastic Compute Cloud User Guide_.
   Future<ModifyHostsResult> modifyHosts(List<String> hostIds,
       {String autoPlacement, String hostRecovery}) async {
-    return ModifyHostsResult.fromJson({});
+    var response_ = await _client.send('ModifyHosts', {
+      if (autoPlacement != null) 'AutoPlacement': autoPlacement,
+      'HostIds': hostIds,
+      if (hostRecovery != null) 'HostRecovery': hostRecovery,
+    });
+    return ModifyHostsResult.fromJson(response_);
   }
 
   /// Modifies the ID format for the specified resource on a per-Region basis.
@@ -10605,7 +12431,12 @@ class Ec2Api {
   /// [useLongIds]: Indicate whether the resource should use longer IDs
   /// (17-character IDs).
   Future<void> modifyIdFormat(
-      {@required String resource, @required bool useLongIds}) async {}
+      {@required String resource, @required bool useLongIds}) async {
+    await _client.send('ModifyIdFormat', {
+      'Resource': resource,
+      'UseLongIds': useLongIds,
+    });
+  }
 
   /// Modifies the ID format of a resource for a specified IAM user, IAM role,
   /// or the root user for an account; or all IAM users, IAM roles, and the root
@@ -10658,7 +12489,13 @@ class Ec2Api {
   Future<void> modifyIdentityIdFormat(
       {@required String principalArn,
       @required String resource,
-      @required bool useLongIds}) async {}
+      @required bool useLongIds}) async {
+    await _client.send('ModifyIdentityIdFormat', {
+      'PrincipalArn': principalArn,
+      'Resource': resource,
+      'UseLongIds': useLongIds,
+    });
+  }
 
   /// Modifies the specified attribute of the specified AMI. You can specify
   /// only one attribute at a time. You can use the `Attribute` parameter to
@@ -10709,7 +12546,20 @@ class Ec2Api {
       List<String> userGroups,
       List<String> userIds,
       String value,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    await _client.send('ModifyImageAttribute', {
+      if (attribute != null) 'Attribute': attribute,
+      if (description != null) 'Description': description,
+      'ImageId': imageId,
+      if (launchPermission != null) 'LaunchPermission': launchPermission,
+      if (operationType != null) 'OperationType': operationType,
+      if (productCodes != null) 'ProductCodes': productCodes,
+      if (userGroups != null) 'UserGroups': userGroups,
+      if (userIds != null) 'UserIds': userIds,
+      if (value != null) 'Value': value,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Modifies the specified attribute of the specified instance. You can
   /// specify only one attribute at a time.
@@ -10823,7 +12673,29 @@ class Ec2Api {
       AttributeValue ramdisk,
       AttributeValue sriovNetSupport,
       BlobAttributeValue userData,
-      String value}) async {}
+      String value}) async {
+    await _client.send('ModifyInstanceAttribute', {
+      if (sourceDestCheck != null) 'SourceDestCheck': sourceDestCheck,
+      if (attribute != null) 'Attribute': attribute,
+      if (blockDeviceMappings != null)
+        'BlockDeviceMappings': blockDeviceMappings,
+      if (disableApiTermination != null)
+        'DisableApiTermination': disableApiTermination,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (ebsOptimized != null) 'EbsOptimized': ebsOptimized,
+      if (enaSupport != null) 'EnaSupport': enaSupport,
+      if (groups != null) 'Groups': groups,
+      'InstanceId': instanceId,
+      if (instanceInitiatedShutdownBehavior != null)
+        'InstanceInitiatedShutdownBehavior': instanceInitiatedShutdownBehavior,
+      if (instanceType != null) 'InstanceType': instanceType,
+      if (kernel != null) 'Kernel': kernel,
+      if (ramdisk != null) 'Ramdisk': ramdisk,
+      if (sriovNetSupport != null) 'SriovNetSupport': sriovNetSupport,
+      if (userData != null) 'UserData': userData,
+      if (value != null) 'Value': value,
+    });
+  }
 
   /// Modifies the Capacity Reservation settings for a stopped instance. Use
   /// this action to configure an instance to target a specific Capacity
@@ -10846,7 +12718,14 @@ class Ec2Api {
           @required
               CapacityReservationSpecification capacityReservationSpecification,
           bool dryRun}) async {
-    return ModifyInstanceCapacityReservationAttributesResult.fromJson({});
+    var response_ =
+        await _client.send('ModifyInstanceCapacityReservationAttributes', {
+      'InstanceId': instanceId,
+      'CapacityReservationSpecification': capacityReservationSpecification,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyInstanceCapacityReservationAttributesResult.fromJson(
+        response_);
   }
 
   /// Modifies the credit option for CPU usage on a running or stopped T2 or T3
@@ -10872,7 +12751,12 @@ class Ec2Api {
           List<InstanceCreditSpecificationRequest> instanceCreditSpecifications,
           {bool dryRun,
           String clientToken}) async {
-    return ModifyInstanceCreditSpecificationResult.fromJson({});
+    var response_ = await _client.send('ModifyInstanceCreditSpecification', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+      'InstanceCreditSpecifications': instanceCreditSpecifications,
+    });
+    return ModifyInstanceCreditSpecificationResult.fromJson(response_);
   }
 
   /// Modifies the start time for a scheduled Amazon EC2 instance event.
@@ -10893,7 +12777,13 @@ class Ec2Api {
       @required String instanceId,
       @required String instanceEventId,
       @required DateTime notBefore}) async {
-    return ModifyInstanceEventStartTimeResult.fromJson({});
+    var response_ = await _client.send('ModifyInstanceEventStartTime', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'InstanceId': instanceId,
+      'InstanceEventId': instanceEventId,
+      'NotBefore': notBefore,
+    });
+    return ModifyInstanceEventStartTimeResult.fromJson(response_);
   }
 
   /// Modifies the placement attributes for a specified instance. You can do the
@@ -10947,7 +12837,15 @@ class Ec2Api {
       String hostId,
       String tenancy,
       int partitionNumber}) async {
-    return ModifyInstancePlacementResult.fromJson({});
+    var response_ = await _client.send('ModifyInstancePlacement', {
+      if (affinity != null) 'Affinity': affinity,
+      if (groupName != null) 'GroupName': groupName,
+      if (hostId != null) 'HostId': hostId,
+      'InstanceId': instanceId,
+      if (tenancy != null) 'Tenancy': tenancy,
+      if (partitionNumber != null) 'PartitionNumber': partitionNumber,
+    });
+    return ModifyInstancePlacementResult.fromJson(response_);
   }
 
   /// Modifies a launch template. You can specify which version of the launch
@@ -10979,7 +12877,14 @@ class Ec2Api {
       String launchTemplateId,
       String launchTemplateName,
       String defaultVersion}) async {
-    return ModifyLaunchTemplateResult.fromJson({});
+    var response_ = await _client.send('ModifyLaunchTemplate', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (launchTemplateId != null) 'LaunchTemplateId': launchTemplateId,
+      if (launchTemplateName != null) 'LaunchTemplateName': launchTemplateName,
+      if (defaultVersion != null) 'DefaultVersion': defaultVersion,
+    });
+    return ModifyLaunchTemplateResult.fromJson(response_);
   }
 
   /// Modifies the specified network interface attribute. You can specify only
@@ -11015,7 +12920,16 @@ class Ec2Api {
       AttributeValue description,
       bool dryRun,
       List<String> groups,
-      AttributeBooleanValue sourceDestCheck}) async {}
+      AttributeBooleanValue sourceDestCheck}) async {
+    await _client.send('ModifyNetworkInterfaceAttribute', {
+      if (attachment != null) 'Attachment': attachment,
+      if (description != null) 'Description': description,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (groups != null) 'Groups': groups,
+      'NetworkInterfaceId': networkInterfaceId,
+      if (sourceDestCheck != null) 'SourceDestCheck': sourceDestCheck,
+    });
+  }
 
   /// Modifies the Availability Zone, instance count, instance type, or network
   /// platform (EC2-Classic or EC2-VPC) of your Reserved Instances. The Reserved
@@ -11040,7 +12954,12 @@ class Ec2Api {
       String clientToken,
       @required
           List<ReservedInstancesConfiguration> targetConfigurations}) async {
-    return ModifyReservedInstancesResult.fromJson({});
+    var response_ = await _client.send('ModifyReservedInstances', {
+      'ReservedInstancesIds': reservedInstancesIds,
+      if (clientToken != null) 'ClientToken': clientToken,
+      'TargetConfigurations': targetConfigurations,
+    });
+    return ModifyReservedInstancesResult.fromJson(response_);
   }
 
   /// Adds or removes permission settings for the specified snapshot. You may
@@ -11082,7 +13001,18 @@ class Ec2Api {
       List<String> groupNames,
       String operationType,
       List<String> userIds,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    await _client.send('ModifySnapshotAttribute', {
+      if (attribute != null) 'Attribute': attribute,
+      if (createVolumePermission != null)
+        'CreateVolumePermission': createVolumePermission,
+      if (groupNames != null) 'GroupNames': groupNames,
+      if (operationType != null) 'OperationType': operationType,
+      'SnapshotId': snapshotId,
+      if (userIds != null) 'UserIds': userIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Modifies the specified Spot Fleet request.
   ///
@@ -11131,7 +13061,15 @@ class Ec2Api {
       {String excessCapacityTerminationPolicy,
       int targetCapacity,
       int onDemandTargetCapacity}) async {
-    return ModifySpotFleetRequestResponse.fromJson({});
+    var response_ = await _client.send('ModifySpotFleetRequest', {
+      if (excessCapacityTerminationPolicy != null)
+        'ExcessCapacityTerminationPolicy': excessCapacityTerminationPolicy,
+      'SpotFleetRequestId': spotFleetRequestId,
+      if (targetCapacity != null) 'TargetCapacity': targetCapacity,
+      if (onDemandTargetCapacity != null)
+        'OnDemandTargetCapacity': onDemandTargetCapacity,
+    });
+    return ModifySpotFleetRequestResponse.fromJson(response_);
   }
 
   /// Modifies a subnet attribute. You can only modify one attribute at a time.
@@ -11153,7 +13091,15 @@ class Ec2Api {
   /// [subnetId]: The ID of the subnet.
   Future<void> modifySubnetAttribute(String subnetId,
       {AttributeBooleanValue assignIpv6AddressOnCreation,
-      AttributeBooleanValue mapPublicIpOnLaunch}) async {}
+      AttributeBooleanValue mapPublicIpOnLaunch}) async {
+    await _client.send('ModifySubnetAttribute', {
+      if (assignIpv6AddressOnCreation != null)
+        'AssignIpv6AddressOnCreation': assignIpv6AddressOnCreation,
+      if (mapPublicIpOnLaunch != null)
+        'MapPublicIpOnLaunch': mapPublicIpOnLaunch,
+      'SubnetId': subnetId,
+    });
+  }
 
   /// Allows or restricts mirroring network services.
   ///
@@ -11185,7 +13131,15 @@ class Ec2Api {
           {List<String> addNetworkServices,
           List<String> removeNetworkServices,
           bool dryRun}) async {
-    return ModifyTrafficMirrorFilterNetworkServicesResult.fromJson({});
+    var response_ =
+        await _client.send('ModifyTrafficMirrorFilterNetworkServices', {
+      'TrafficMirrorFilterId': trafficMirrorFilterId,
+      if (addNetworkServices != null) 'AddNetworkServices': addNetworkServices,
+      if (removeNetworkServices != null)
+        'RemoveNetworkServices': removeNetworkServices,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyTrafficMirrorFilterNetworkServicesResult.fromJson(response_);
   }
 
   /// Modifies the specified Traffic Mirror rule.
@@ -11243,7 +13197,23 @@ class Ec2Api {
       String description,
       List<String> removeFields,
       bool dryRun}) async {
-    return ModifyTrafficMirrorFilterRuleResult.fromJson({});
+    var response_ = await _client.send('ModifyTrafficMirrorFilterRule', {
+      'TrafficMirrorFilterRuleId': trafficMirrorFilterRuleId,
+      if (trafficDirection != null) 'TrafficDirection': trafficDirection,
+      if (ruleNumber != null) 'RuleNumber': ruleNumber,
+      if (ruleAction != null) 'RuleAction': ruleAction,
+      if (destinationPortRange != null)
+        'DestinationPortRange': destinationPortRange,
+      if (sourcePortRange != null) 'SourcePortRange': sourcePortRange,
+      if (protocol != null) 'Protocol': protocol,
+      if (destinationCidrBlock != null)
+        'DestinationCidrBlock': destinationCidrBlock,
+      if (sourceCidrBlock != null) 'SourceCidrBlock': sourceCidrBlock,
+      if (description != null) 'Description': description,
+      if (removeFields != null) 'RemoveFields': removeFields,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyTrafficMirrorFilterRuleResult.fromJson(response_);
   }
 
   /// Modifies a Traffic Mirror session.
@@ -11292,7 +13262,20 @@ class Ec2Api {
       String description,
       List<String> removeFields,
       bool dryRun}) async {
-    return ModifyTrafficMirrorSessionResult.fromJson({});
+    var response_ = await _client.send('ModifyTrafficMirrorSession', {
+      'TrafficMirrorSessionId': trafficMirrorSessionId,
+      if (trafficMirrorTargetId != null)
+        'TrafficMirrorTargetId': trafficMirrorTargetId,
+      if (trafficMirrorFilterId != null)
+        'TrafficMirrorFilterId': trafficMirrorFilterId,
+      if (packetLength != null) 'PacketLength': packetLength,
+      if (sessionNumber != null) 'SessionNumber': sessionNumber,
+      if (virtualNetworkId != null) 'VirtualNetworkId': virtualNetworkId,
+      if (description != null) 'Description': description,
+      if (removeFields != null) 'RemoveFields': removeFields,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyTrafficMirrorSessionResult.fromJson(response_);
   }
 
   /// Modifies the specified VPC attachment.
@@ -11316,7 +13299,14 @@ class Ec2Api {
           List<String> removeSubnetIds,
           ModifyTransitGatewayVpcAttachmentRequestOptions options,
           bool dryRun}) async {
-    return ModifyTransitGatewayVpcAttachmentResult.fromJson({});
+    var response_ = await _client.send('ModifyTransitGatewayVpcAttachment', {
+      'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (addSubnetIds != null) 'AddSubnetIds': addSubnetIds,
+      if (removeSubnetIds != null) 'RemoveSubnetIds': removeSubnetIds,
+      if (options != null) 'Options': options,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyTransitGatewayVpcAttachmentResult.fromJson(response_);
   }
 
   /// You can modify several parameters of an existing EBS volume, including
@@ -11382,7 +13372,14 @@ class Ec2Api {
   /// Default: If no IOPS value is specified, the existing value is retained.
   Future<ModifyVolumeResult> modifyVolume(String volumeId,
       {bool dryRun, int size, String volumeType, int iops}) async {
-    return ModifyVolumeResult.fromJson({});
+    var response_ = await _client.send('ModifyVolume', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VolumeId': volumeId,
+      if (size != null) 'Size': size,
+      if (volumeType != null) 'VolumeType': volumeType,
+      if (iops != null) 'Iops': iops,
+    });
+    return ModifyVolumeResult.fromJson(response_);
   }
 
   /// Modifies a volume attribute.
@@ -11407,7 +13404,13 @@ class Ec2Api {
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<void> modifyVolumeAttribute(String volumeId,
-      {AttributeBooleanValue autoEnableIO, bool dryRun}) async {}
+      {AttributeBooleanValue autoEnableIO, bool dryRun}) async {
+    await _client.send('ModifyVolumeAttribute', {
+      if (autoEnableIO != null) 'AutoEnableIO': autoEnableIO,
+      'VolumeId': volumeId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Modifies the specified attribute of the specified VPC.
   ///
@@ -11432,7 +13435,13 @@ class Ec2Api {
   /// [vpcId]: The ID of the VPC.
   Future<void> modifyVpcAttribute(String vpcId,
       {AttributeBooleanValue enableDnsHostnames,
-      AttributeBooleanValue enableDnsSupport}) async {}
+      AttributeBooleanValue enableDnsSupport}) async {
+    await _client.send('ModifyVpcAttribute', {
+      if (enableDnsHostnames != null) 'EnableDnsHostnames': enableDnsHostnames,
+      if (enableDnsSupport != null) 'EnableDnsSupport': enableDnsSupport,
+      'VpcId': vpcId,
+    });
+  }
 
   /// Modifies attributes of a specified VPC endpoint. The attributes that you
   /// can modify depend on the type of VPC endpoint (interface or gateway). For
@@ -11485,7 +13494,23 @@ class Ec2Api {
       List<String> addSecurityGroupIds,
       List<String> removeSecurityGroupIds,
       bool privateDnsEnabled}) async {
-    return ModifyVpcEndpointResult.fromJson({});
+    var response_ = await _client.send('ModifyVpcEndpoint', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VpcEndpointId': vpcEndpointId,
+      if (resetPolicy != null) 'ResetPolicy': resetPolicy,
+      if (policyDocument != null) 'PolicyDocument': policyDocument,
+      if (addRouteTableIds != null) 'AddRouteTableIds': addRouteTableIds,
+      if (removeRouteTableIds != null)
+        'RemoveRouteTableIds': removeRouteTableIds,
+      if (addSubnetIds != null) 'AddSubnetIds': addSubnetIds,
+      if (removeSubnetIds != null) 'RemoveSubnetIds': removeSubnetIds,
+      if (addSecurityGroupIds != null)
+        'AddSecurityGroupIds': addSecurityGroupIds,
+      if (removeSecurityGroupIds != null)
+        'RemoveSecurityGroupIds': removeSecurityGroupIds,
+      if (privateDnsEnabled != null) 'PrivateDnsEnabled': privateDnsEnabled,
+    });
+    return ModifyVpcEndpointResult.fromJson(response_);
   }
 
   /// Modifies a connection notification for VPC endpoint or VPC endpoint
@@ -11509,7 +13534,15 @@ class Ec2Api {
           {bool dryRun,
           String connectionNotificationArn,
           List<String> connectionEvents}) async {
-    return ModifyVpcEndpointConnectionNotificationResult.fromJson({});
+    var response_ =
+        await _client.send('ModifyVpcEndpointConnectionNotification', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ConnectionNotificationId': connectionNotificationId,
+      if (connectionNotificationArn != null)
+        'ConnectionNotificationArn': connectionNotificationArn,
+      if (connectionEvents != null) 'ConnectionEvents': connectionEvents,
+    });
+    return ModifyVpcEndpointConnectionNotificationResult.fromJson(response_);
   }
 
   /// Modifies the attributes of your VPC endpoint service configuration. You
@@ -11538,7 +13571,17 @@ class Ec2Api {
           bool acceptanceRequired,
           List<String> addNetworkLoadBalancerArns,
           List<String> removeNetworkLoadBalancerArns}) async {
-    return ModifyVpcEndpointServiceConfigurationResult.fromJson({});
+    var response_ =
+        await _client.send('ModifyVpcEndpointServiceConfiguration', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ServiceId': serviceId,
+      if (acceptanceRequired != null) 'AcceptanceRequired': acceptanceRequired,
+      if (addNetworkLoadBalancerArns != null)
+        'AddNetworkLoadBalancerArns': addNetworkLoadBalancerArns,
+      if (removeNetworkLoadBalancerArns != null)
+        'RemoveNetworkLoadBalancerArns': removeNetworkLoadBalancerArns,
+    });
+    return ModifyVpcEndpointServiceConfigurationResult.fromJson(response_);
   }
 
   /// Modifies the permissions for your
@@ -11569,7 +13612,15 @@ class Ec2Api {
           {bool dryRun,
           List<String> addAllowedPrincipals,
           List<String> removeAllowedPrincipals}) async {
-    return ModifyVpcEndpointServicePermissionsResult.fromJson({});
+    var response_ = await _client.send('ModifyVpcEndpointServicePermissions', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ServiceId': serviceId,
+      if (addAllowedPrincipals != null)
+        'AddAllowedPrincipals': addAllowedPrincipals,
+      if (removeAllowedPrincipals != null)
+        'RemoveAllowedPrincipals': removeAllowedPrincipals,
+    });
+    return ModifyVpcEndpointServicePermissionsResult.fromJson(response_);
   }
 
   /// Modifies the VPC peering connection options on one side of a VPC peering
@@ -11617,7 +13668,15 @@ class Ec2Api {
           bool dryRun,
           PeeringConnectionOptionsRequest
               requesterPeeringConnectionOptions}) async {
-    return ModifyVpcPeeringConnectionOptionsResult.fromJson({});
+    var response_ = await _client.send('ModifyVpcPeeringConnectionOptions', {
+      if (accepterPeeringConnectionOptions != null)
+        'AccepterPeeringConnectionOptions': accepterPeeringConnectionOptions,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (requesterPeeringConnectionOptions != null)
+        'RequesterPeeringConnectionOptions': requesterPeeringConnectionOptions,
+      'VpcPeeringConnectionId': vpcPeeringConnectionId,
+    });
+    return ModifyVpcPeeringConnectionOptionsResult.fromJson(response_);
   }
 
   /// Modifies the instance tenancy attribute of the specified VPC. You can
@@ -11645,7 +13704,12 @@ class Ec2Api {
       {@required String vpcId,
       @required String instanceTenancy,
       bool dryRun}) async {
-    return ModifyVpcTenancyResult.fromJson({});
+    var response_ = await _client.send('ModifyVpcTenancy', {
+      'VpcId': vpcId,
+      'InstanceTenancy': instanceTenancy,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyVpcTenancyResult.fromJson(response_);
   }
 
   /// Modifies the target gateway of an AWS Site-to-Site VPN connection. The
@@ -11710,7 +13774,14 @@ class Ec2Api {
       String customerGatewayId,
       String vpnGatewayId,
       bool dryRun}) async {
-    return ModifyVpnConnectionResult.fromJson({});
+    var response_ = await _client.send('ModifyVpnConnection', {
+      'VpnConnectionId': vpnConnectionId,
+      if (transitGatewayId != null) 'TransitGatewayId': transitGatewayId,
+      if (customerGatewayId != null) 'CustomerGatewayId': customerGatewayId,
+      if (vpnGatewayId != null) 'VpnGatewayId': vpnGatewayId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyVpnConnectionResult.fromJson(response_);
   }
 
   /// Modifies the VPN tunnel endpoint certificate.
@@ -11727,7 +13798,12 @@ class Ec2Api {
       {@required String vpnConnectionId,
       @required String vpnTunnelOutsideIpAddress,
       bool dryRun}) async {
-    return ModifyVpnTunnelCertificateResult.fromJson({});
+    var response_ = await _client.send('ModifyVpnTunnelCertificate', {
+      'VpnConnectionId': vpnConnectionId,
+      'VpnTunnelOutsideIpAddress': vpnTunnelOutsideIpAddress,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyVpnTunnelCertificateResult.fromJson(response_);
   }
 
   /// Modifies the options for a VPN tunnel in an AWS Site-to-Site VPN
@@ -11752,7 +13828,13 @@ class Ec2Api {
       @required String vpnTunnelOutsideIpAddress,
       @required ModifyVpnTunnelOptionsSpecification tunnelOptions,
       bool dryRun}) async {
-    return ModifyVpnTunnelOptionsResult.fromJson({});
+    var response_ = await _client.send('ModifyVpnTunnelOptions', {
+      'VpnConnectionId': vpnConnectionId,
+      'VpnTunnelOutsideIpAddress': vpnTunnelOutsideIpAddress,
+      'TunnelOptions': tunnelOptions,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ModifyVpnTunnelOptionsResult.fromJson(response_);
   }
 
   /// Enables detailed monitoring for a running instance. Otherwise, basic
@@ -11770,7 +13852,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<MonitorInstancesResult> monitorInstances(List<String> instanceIds,
       {bool dryRun}) async {
-    return MonitorInstancesResult.fromJson({});
+    var response_ = await _client.send('MonitorInstances', {
+      'InstanceIds': instanceIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return MonitorInstancesResult.fromJson(response_);
   }
 
   /// Moves an Elastic IP address from the EC2-Classic platform to the EC2-VPC
@@ -11790,7 +13876,11 @@ class Ec2Api {
   /// [publicIp]: The Elastic IP address.
   Future<MoveAddressToVpcResult> moveAddressToVpc(String publicIp,
       {bool dryRun}) async {
-    return MoveAddressToVpcResult.fromJson({});
+    var response_ = await _client.send('MoveAddressToVpc', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'PublicIp': publicIp,
+    });
+    return MoveAddressToVpcResult.fromJson(response_);
   }
 
   /// Provisions an address range for use with your AWS resources through bring
@@ -11829,7 +13919,14 @@ class Ec2Api {
       {CidrAuthorizationContext cidrAuthorizationContext,
       String description,
       bool dryRun}) async {
-    return ProvisionByoipCidrResult.fromJson({});
+    var response_ = await _client.send('ProvisionByoipCidr', {
+      'Cidr': cidr,
+      if (cidrAuthorizationContext != null)
+        'CidrAuthorizationContext': cidrAuthorizationContext,
+      if (description != null) 'Description': description,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ProvisionByoipCidrResult.fromJson(response_);
   }
 
   /// Purchase a reservation with configurations that match those of your
@@ -11863,7 +13960,14 @@ class Ec2Api {
       @required List<String> hostIdSet,
       String limitPrice,
       @required String offeringId}) async {
-    return PurchaseHostReservationResult.fromJson({});
+    var response_ = await _client.send('PurchaseHostReservation', {
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (currencyCode != null) 'CurrencyCode': currencyCode,
+      'HostIdSet': hostIdSet,
+      if (limitPrice != null) 'LimitPrice': limitPrice,
+      'OfferingId': offeringId,
+    });
+    return PurchaseHostReservationResult.fromJson(response_);
   }
 
   /// Purchases a Reserved Instance for use with your account. With Reserved
@@ -11900,7 +14004,13 @@ class Ec2Api {
           @required String reservedInstancesOfferingId,
           bool dryRun,
           ReservedInstanceLimitPrice limitPrice}) async {
-    return PurchaseReservedInstancesOfferingResult.fromJson({});
+    var response_ = await _client.send('PurchaseReservedInstancesOffering', {
+      'InstanceCount': instanceCount,
+      'ReservedInstancesOfferingId': reservedInstancesOfferingId,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (limitPrice != null) 'LimitPrice': limitPrice,
+    });
+    return PurchaseReservedInstancesOfferingResult.fromJson(response_);
   }
 
   /// Purchases the Scheduled Instances with the specified schedule.
@@ -11929,7 +14039,12 @@ class Ec2Api {
       List<PurchaseRequest> purchaseRequests,
       {String clientToken,
       bool dryRun}) async {
-    return PurchaseScheduledInstancesResult.fromJson({});
+    var response_ = await _client.send('PurchaseScheduledInstances', {
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (dryRun != null) 'DryRun': dryRun,
+      'PurchaseRequests': purchaseRequests,
+    });
+    return PurchaseScheduledInstancesResult.fromJson(response_);
   }
 
   /// Requests a reboot of the specified instances. This operation is
@@ -11950,7 +14065,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> rebootInstances(List<String> instanceIds, {bool dryRun}) async {}
+  Future<void> rebootInstances(List<String> instanceIds, {bool dryRun}) async {
+    await _client.send('RebootInstances', {
+      'InstanceIds': instanceIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Registers an AMI. When you're creating an AMI, this is the final step you
   /// must complete before you can launch an instance from the AMI. For more
@@ -12057,7 +14177,23 @@ class Ec2Api {
       String rootDeviceName,
       String sriovNetSupport,
       String virtualizationType}) async {
-    return RegisterImageResult.fromJson({});
+    var response_ = await _client.send('RegisterImage', {
+      if (imageLocation != null) 'ImageLocation': imageLocation,
+      if (architecture != null) 'Architecture': architecture,
+      if (blockDeviceMappings != null)
+        'BlockDeviceMappings': blockDeviceMappings,
+      if (description != null) 'Description': description,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (enaSupport != null) 'EnaSupport': enaSupport,
+      if (kernelId != null) 'KernelId': kernelId,
+      'Name': name,
+      if (billingProducts != null) 'BillingProducts': billingProducts,
+      if (ramdiskId != null) 'RamdiskId': ramdiskId,
+      if (rootDeviceName != null) 'RootDeviceName': rootDeviceName,
+      if (sriovNetSupport != null) 'SriovNetSupport': sriovNetSupport,
+      if (virtualizationType != null) 'VirtualizationType': virtualizationType,
+    });
+    return RegisterImageResult.fromJson(response_);
   }
 
   /// Rejects a request to attach a VPC to a transit gateway.
@@ -12076,7 +14212,11 @@ class Ec2Api {
   Future<RejectTransitGatewayVpcAttachmentResult>
       rejectTransitGatewayVpcAttachment(String transitGatewayAttachmentId,
           {bool dryRun}) async {
-    return RejectTransitGatewayVpcAttachmentResult.fromJson({});
+    var response_ = await _client.send('RejectTransitGatewayVpcAttachment', {
+      'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return RejectTransitGatewayVpcAttachmentResult.fromJson(response_);
   }
 
   /// Rejects one or more VPC endpoint connection requests to your VPC endpoint
@@ -12094,7 +14234,12 @@ class Ec2Api {
       {bool dryRun,
       @required String serviceId,
       @required List<String> vpcEndpointIds}) async {
-    return RejectVpcEndpointConnectionsResult.fromJson({});
+    var response_ = await _client.send('RejectVpcEndpointConnections', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'ServiceId': serviceId,
+      'VpcEndpointIds': vpcEndpointIds,
+    });
+    return RejectVpcEndpointConnectionsResult.fromJson(response_);
   }
 
   /// Rejects a VPC peering connection request. The VPC peering connection must
@@ -12113,7 +14258,11 @@ class Ec2Api {
   Future<RejectVpcPeeringConnectionResult> rejectVpcPeeringConnection(
       String vpcPeeringConnectionId,
       {bool dryRun}) async {
-    return RejectVpcPeeringConnectionResult.fromJson({});
+    var response_ = await _client.send('RejectVpcPeeringConnection', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'VpcPeeringConnectionId': vpcPeeringConnectionId,
+    });
+    return RejectVpcPeeringConnectionResult.fromJson(response_);
   }
 
   /// Releases the specified Elastic IP address.
@@ -12146,7 +14295,13 @@ class Ec2Api {
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<void> releaseAddress(
-      {String allocationId, String publicIp, bool dryRun}) async {}
+      {String allocationId, String publicIp, bool dryRun}) async {
+    await _client.send('ReleaseAddress', {
+      if (allocationId != null) 'AllocationId': allocationId,
+      if (publicIp != null) 'PublicIp': publicIp,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// When you no longer want to use an On-Demand Dedicated Host it can be
   /// released. On-Demand billing is stopped and the host goes into `released`
@@ -12163,7 +14318,10 @@ class Ec2Api {
   ///
   /// [hostIds]: The IDs of the Dedicated Hosts to release.
   Future<ReleaseHostsResult> releaseHosts(List<String> hostIds) async {
-    return ReleaseHostsResult.fromJson({});
+    var response_ = await _client.send('ReleaseHosts', {
+      'HostIds': hostIds,
+    });
+    return ReleaseHostsResult.fromJson(response_);
   }
 
   /// Replaces an IAM instance profile for the specified running instance. You
@@ -12180,7 +14338,11 @@ class Ec2Api {
       replaceIamInstanceProfileAssociation(
           {@required IamInstanceProfileSpecification iamInstanceProfile,
           @required String associationId}) async {
-    return ReplaceIamInstanceProfileAssociationResult.fromJson({});
+    var response_ = await _client.send('ReplaceIamInstanceProfileAssociation', {
+      'IamInstanceProfile': iamInstanceProfile,
+      'AssociationId': associationId,
+    });
+    return ReplaceIamInstanceProfileAssociationResult.fromJson(response_);
   }
 
   /// Changes which network ACL a subnet is associated with. By default when you
@@ -12205,7 +14367,12 @@ class Ec2Api {
       {@required String associationId,
       bool dryRun,
       @required String networkAclId}) async {
-    return ReplaceNetworkAclAssociationResult.fromJson({});
+    var response_ = await _client.send('ReplaceNetworkAclAssociation', {
+      'AssociationId': associationId,
+      if (dryRun != null) 'DryRun': dryRun,
+      'NetworkAclId': networkAclId,
+    });
+    return ReplaceNetworkAclAssociationResult.fromJson(response_);
   }
 
   /// Replaces an entry (rule) in a network ACL. For more information, see
@@ -12259,7 +14426,20 @@ class Ec2Api {
       PortRange portRange,
       @required String protocol,
       @required String ruleAction,
-      @required int ruleNumber}) async {}
+      @required int ruleNumber}) async {
+    await _client.send('ReplaceNetworkAclEntry', {
+      if (cidrBlock != null) 'CidrBlock': cidrBlock,
+      if (dryRun != null) 'DryRun': dryRun,
+      'Egress': egress,
+      if (icmpTypeCode != null) 'IcmpTypeCode': icmpTypeCode,
+      if (ipv6CidrBlock != null) 'Ipv6CidrBlock': ipv6CidrBlock,
+      'NetworkAclId': networkAclId,
+      if (portRange != null) 'PortRange': portRange,
+      'Protocol': protocol,
+      'RuleAction': ruleAction,
+      'RuleNumber': ruleNumber,
+    });
+  }
 
   /// Replaces an existing route within a route table in a VPC. You must provide
   /// only one of the following: internet gateway or virtual private gateway,
@@ -12309,7 +14489,25 @@ class Ec2Api {
       String natGatewayId,
       String transitGatewayId,
       String networkInterfaceId,
-      String vpcPeeringConnectionId}) async {}
+      String vpcPeeringConnectionId}) async {
+    await _client.send('ReplaceRoute', {
+      if (destinationCidrBlock != null)
+        'DestinationCidrBlock': destinationCidrBlock,
+      if (destinationIpv6CidrBlock != null)
+        'DestinationIpv6CidrBlock': destinationIpv6CidrBlock,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (egressOnlyInternetGatewayId != null)
+        'EgressOnlyInternetGatewayId': egressOnlyInternetGatewayId,
+      if (gatewayId != null) 'GatewayId': gatewayId,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (natGatewayId != null) 'NatGatewayId': natGatewayId,
+      if (transitGatewayId != null) 'TransitGatewayId': transitGatewayId,
+      if (networkInterfaceId != null) 'NetworkInterfaceId': networkInterfaceId,
+      'RouteTableId': routeTableId,
+      if (vpcPeeringConnectionId != null)
+        'VpcPeeringConnectionId': vpcPeeringConnectionId,
+    });
+  }
 
   /// Changes the route table associated with a given subnet in a VPC. After the
   /// operation completes, the subnet uses the routes in the new route table
@@ -12334,7 +14532,12 @@ class Ec2Api {
       {@required String associationId,
       bool dryRun,
       @required String routeTableId}) async {
-    return ReplaceRouteTableAssociationResult.fromJson({});
+    var response_ = await _client.send('ReplaceRouteTableAssociation', {
+      'AssociationId': associationId,
+      if (dryRun != null) 'DryRun': dryRun,
+      'RouteTableId': routeTableId,
+    });
+    return ReplaceRouteTableAssociationResult.fromJson(response_);
   }
 
   /// Replaces the specified route in the specified transit gateway route table.
@@ -12359,7 +14562,15 @@ class Ec2Api {
       String transitGatewayAttachmentId,
       bool blackhole,
       bool dryRun}) async {
-    return ReplaceTransitGatewayRouteResult.fromJson({});
+    var response_ = await _client.send('ReplaceTransitGatewayRoute', {
+      'DestinationCidrBlock': destinationCidrBlock,
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      if (transitGatewayAttachmentId != null)
+        'TransitGatewayAttachmentId': transitGatewayAttachmentId,
+      if (blackhole != null) 'Blackhole': blackhole,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ReplaceTransitGatewayRouteResult.fromJson(response_);
   }
 
   /// Submits feedback about the status of an instance. The instance must be in
@@ -12419,7 +14630,17 @@ class Ec2Api {
       @required List<String> instances,
       @required List<String> reasonCodes,
       DateTime startTime,
-      @required String status}) async {}
+      @required String status}) async {
+    await _client.send('ReportInstanceStatus', {
+      if (description != null) 'Description': description,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (endTime != null) 'EndTime': endTime,
+      'Instances': instances,
+      'ReasonCodes': reasonCodes,
+      if (startTime != null) 'StartTime': startTime,
+      'Status': status,
+    });
+  }
 
   /// Creates a Spot Fleet request.
   ///
@@ -12459,7 +14680,11 @@ class Ec2Api {
   Future<RequestSpotFleetResponse> requestSpotFleet(
       SpotFleetRequestConfigData spotFleetRequestConfig,
       {bool dryRun}) async {
-    return RequestSpotFleetResponse.fromJson({});
+    var response_ = await _client.send('RequestSpotFleet', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'SpotFleetRequestConfig': spotFleetRequestConfig,
+    });
+    return RequestSpotFleetResponse.fromJson(response_);
   }
 
   /// Creates a Spot Instance request.
@@ -12558,7 +14783,25 @@ class Ec2Api {
       DateTime validFrom,
       DateTime validUntil,
       String instanceInterruptionBehavior}) async {
-    return RequestSpotInstancesResult.fromJson({});
+    var response_ = await _client.send('RequestSpotInstances', {
+      if (availabilityZoneGroup != null)
+        'AvailabilityZoneGroup': availabilityZoneGroup,
+      if (blockDurationMinutes != null)
+        'BlockDurationMinutes': blockDurationMinutes,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (instanceCount != null) 'InstanceCount': instanceCount,
+      if (launchGroup != null) 'LaunchGroup': launchGroup,
+      if (launchSpecification != null)
+        'LaunchSpecification': launchSpecification,
+      if (spotPrice != null) 'SpotPrice': spotPrice,
+      if (type != null) 'Type': type,
+      if (validFrom != null) 'ValidFrom': validFrom,
+      if (validUntil != null) 'ValidUntil': validUntil,
+      if (instanceInterruptionBehavior != null)
+        'InstanceInterruptionBehavior': instanceInterruptionBehavior,
+    });
+    return RequestSpotInstancesResult.fromJson(response_);
   }
 
   /// Resets the default customer master key (CMK) for EBS encryption for your
@@ -12576,7 +14819,10 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<ResetEbsDefaultKmsKeyIdResult> resetEbsDefaultKmsKeyId(
       {bool dryRun}) async {
-    return ResetEbsDefaultKmsKeyIdResult.fromJson({});
+    var response_ = await _client.send('ResetEbsDefaultKmsKeyId', {
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ResetEbsDefaultKmsKeyIdResult.fromJson(response_);
   }
 
   /// Resets the specified attribute of the specified Amazon FPGA Image (AFI) to
@@ -12594,7 +14840,12 @@ class Ec2Api {
       String fpgaImageId,
       {bool dryRun,
       String attribute}) async {
-    return ResetFpgaImageAttributeResult.fromJson({});
+    var response_ = await _client.send('ResetFpgaImageAttribute', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'FpgaImageId': fpgaImageId,
+      if (attribute != null) 'Attribute': attribute,
+    });
+    return ResetFpgaImageAttributeResult.fromJson(response_);
   }
 
   /// Resets an attribute of an AMI to its default value.
@@ -12615,7 +14866,13 @@ class Ec2Api {
   Future<void> resetImageAttribute(
       {@required String attribute,
       @required String imageId,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    await _client.send('ResetImageAttribute', {
+      'Attribute': attribute,
+      'ImageId': imageId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Resets an attribute of an instance to its default value. To reset the
   /// `kernel` or `ramdisk`, the instance must be in a stopped state. To reset
@@ -12645,7 +14902,13 @@ class Ec2Api {
   Future<void> resetInstanceAttribute(
       {@required String attribute,
       bool dryRun,
-      @required String instanceId}) async {}
+      @required String instanceId}) async {
+    await _client.send('ResetInstanceAttribute', {
+      'Attribute': attribute,
+      if (dryRun != null) 'DryRun': dryRun,
+      'InstanceId': instanceId,
+    });
+  }
 
   /// Resets a network interface attribute. You can specify only one attribute
   /// at a time.
@@ -12660,7 +14923,13 @@ class Ec2Api {
   /// [sourceDestCheck]: The source/destination checking attribute. Resets the
   /// value to `true`.
   Future<void> resetNetworkInterfaceAttribute(String networkInterfaceId,
-      {bool dryRun, String sourceDestCheck}) async {}
+      {bool dryRun, String sourceDestCheck}) async {
+    await _client.send('ResetNetworkInterfaceAttribute', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'NetworkInterfaceId': networkInterfaceId,
+      if (sourceDestCheck != null) 'SourceDestCheck': sourceDestCheck,
+    });
+  }
 
   /// Resets permission settings for the specified snapshot.
   ///
@@ -12680,7 +14949,13 @@ class Ec2Api {
   Future<void> resetSnapshotAttribute(
       {@required String attribute,
       @required String snapshotId,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    await _client.send('ResetSnapshotAttribute', {
+      'Attribute': attribute,
+      'SnapshotId': snapshotId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Restores an Elastic IP address that was previously moved to the EC2-VPC
   /// platform back to the EC2-Classic platform. You cannot move an Elastic IP
@@ -12695,7 +14970,11 @@ class Ec2Api {
   /// [publicIp]: The Elastic IP address.
   Future<RestoreAddressToClassicResult> restoreAddressToClassic(String publicIp,
       {bool dryRun}) async {
-    return RestoreAddressToClassicResult.fromJson({});
+    var response_ = await _client.send('RestoreAddressToClassic', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'PublicIp': publicIp,
+    });
+    return RestoreAddressToClassicResult.fromJson(response_);
   }
 
   /// Removes an ingress authorization rule from a Client VPN endpoint.
@@ -12722,7 +15001,14 @@ class Ec2Api {
       String accessGroupId,
       bool revokeAllGroups,
       bool dryRun}) async {
-    return RevokeClientVpnIngressResult.fromJson({});
+    var response_ = await _client.send('RevokeClientVpnIngress', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      'TargetNetworkCidr': targetNetworkCidr,
+      if (accessGroupId != null) 'AccessGroupId': accessGroupId,
+      if (revokeAllGroups != null) 'RevokeAllGroups': revokeAllGroups,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return RevokeClientVpnIngressResult.fromJson(response_);
   }
 
   /// [VPC only] Removes the specified egress rules from a security group for
@@ -12774,7 +15060,21 @@ class Ec2Api {
       String ipProtocol,
       int toPort,
       String sourceSecurityGroupName,
-      String sourceSecurityGroupOwnerId}) async {}
+      String sourceSecurityGroupOwnerId}) async {
+    await _client.send('RevokeSecurityGroupEgress', {
+      if (dryRun != null) 'DryRun': dryRun,
+      'GroupId': groupId,
+      if (ipPermissions != null) 'IpPermissions': ipPermissions,
+      if (cidrIp != null) 'CidrIp': cidrIp,
+      if (fromPort != null) 'FromPort': fromPort,
+      if (ipProtocol != null) 'IpProtocol': ipProtocol,
+      if (toPort != null) 'ToPort': toPort,
+      if (sourceSecurityGroupName != null)
+        'SourceSecurityGroupName': sourceSecurityGroupName,
+      if (sourceSecurityGroupOwnerId != null)
+        'SourceSecurityGroupOwnerId': sourceSecurityGroupOwnerId,
+    });
+  }
 
   /// Removes the specified ingress rules from a security group. To remove a
   /// rule, the values that you specify (for example, ports) must match the
@@ -12850,7 +15150,22 @@ class Ec2Api {
       String sourceSecurityGroupName,
       String sourceSecurityGroupOwnerId,
       int toPort,
-      bool dryRun}) async {}
+      bool dryRun}) async {
+    await _client.send('RevokeSecurityGroupIngress', {
+      if (cidrIp != null) 'CidrIp': cidrIp,
+      if (fromPort != null) 'FromPort': fromPort,
+      if (groupId != null) 'GroupId': groupId,
+      if (groupName != null) 'GroupName': groupName,
+      if (ipPermissions != null) 'IpPermissions': ipPermissions,
+      if (ipProtocol != null) 'IpProtocol': ipProtocol,
+      if (sourceSecurityGroupName != null)
+        'SourceSecurityGroupName': sourceSecurityGroupName,
+      if (sourceSecurityGroupOwnerId != null)
+        'SourceSecurityGroupOwnerId': sourceSecurityGroupOwnerId,
+      if (toPort != null) 'ToPort': toPort,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Launches the specified number of instances using an AMI for which you have
   /// permissions.
@@ -13177,7 +15492,53 @@ class Ec2Api {
       CapacityReservationSpecification capacityReservationSpecification,
       HibernationOptionsRequest hibernationOptions,
       List<LicenseConfigurationRequest> licenseSpecifications}) async {
-    return Reservation.fromJson({});
+    var response_ = await _client.send('RunInstances', {
+      if (blockDeviceMappings != null)
+        'BlockDeviceMappings': blockDeviceMappings,
+      if (imageId != null) 'ImageId': imageId,
+      if (instanceType != null) 'InstanceType': instanceType,
+      if (ipv6AddressCount != null) 'Ipv6AddressCount': ipv6AddressCount,
+      if (ipv6Addresses != null) 'Ipv6Addresses': ipv6Addresses,
+      if (kernelId != null) 'KernelId': kernelId,
+      if (keyName != null) 'KeyName': keyName,
+      'MaxCount': maxCount,
+      'MinCount': minCount,
+      if (monitoring != null) 'Monitoring': monitoring,
+      if (placement != null) 'Placement': placement,
+      if (ramdiskId != null) 'RamdiskId': ramdiskId,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (securityGroups != null) 'SecurityGroups': securityGroups,
+      if (subnetId != null) 'SubnetId': subnetId,
+      if (userData != null) 'UserData': userData,
+      if (additionalInfo != null) 'AdditionalInfo': additionalInfo,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (disableApiTermination != null)
+        'DisableApiTermination': disableApiTermination,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (ebsOptimized != null) 'EbsOptimized': ebsOptimized,
+      if (iamInstanceProfile != null) 'IamInstanceProfile': iamInstanceProfile,
+      if (instanceInitiatedShutdownBehavior != null)
+        'InstanceInitiatedShutdownBehavior': instanceInitiatedShutdownBehavior,
+      if (networkInterfaces != null) 'NetworkInterfaces': networkInterfaces,
+      if (privateIpAddress != null) 'PrivateIpAddress': privateIpAddress,
+      if (elasticGpuSpecification != null)
+        'ElasticGpuSpecification': elasticGpuSpecification,
+      if (elasticInferenceAccelerators != null)
+        'ElasticInferenceAccelerators': elasticInferenceAccelerators,
+      if (tagSpecifications != null) 'TagSpecifications': tagSpecifications,
+      if (launchTemplate != null) 'LaunchTemplate': launchTemplate,
+      if (instanceMarketOptions != null)
+        'InstanceMarketOptions': instanceMarketOptions,
+      if (creditSpecification != null)
+        'CreditSpecification': creditSpecification,
+      if (cpuOptions != null) 'CpuOptions': cpuOptions,
+      if (capacityReservationSpecification != null)
+        'CapacityReservationSpecification': capacityReservationSpecification,
+      if (hibernationOptions != null) 'HibernationOptions': hibernationOptions,
+      if (licenseSpecifications != null)
+        'LicenseSpecifications': licenseSpecifications,
+    });
+    return Reservation.fromJson(response_);
   }
 
   /// Launches the specified Scheduled Instances.
@@ -13217,7 +15578,14 @@ class Ec2Api {
       int instanceCount,
       @required ScheduledInstancesLaunchSpecification launchSpecification,
       @required String scheduledInstanceId}) async {
-    return RunScheduledInstancesResult.fromJson({});
+    var response_ = await _client.send('RunScheduledInstances', {
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (instanceCount != null) 'InstanceCount': instanceCount,
+      'LaunchSpecification': launchSpecification,
+      'ScheduledInstanceId': scheduledInstanceId,
+    });
+    return RunScheduledInstancesResult.fromJson(response_);
   }
 
   /// Searches for routes in the specified transit gateway route table.
@@ -13263,7 +15631,13 @@ class Ec2Api {
       @required List<Filter> filters,
       int maxResults,
       bool dryRun}) async {
-    return SearchTransitGatewayRoutesResult.fromJson({});
+    var response_ = await _client.send('SearchTransitGatewayRoutes', {
+      'TransitGatewayRouteTableId': transitGatewayRouteTableId,
+      'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return SearchTransitGatewayRoutesResult.fromJson(response_);
   }
 
   /// Sends a diagnostic interrupt to the specified Amazon EC2 instance to
@@ -13292,8 +15666,12 @@ class Ec2Api {
   /// without actually making the request, and provides an error response. If
   /// you have the required permissions, the error response is
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
-  Future<void> sendDiagnosticInterrupt(String instanceId,
-      {bool dryRun}) async {}
+  Future<void> sendDiagnosticInterrupt(String instanceId, {bool dryRun}) async {
+    await _client.send('SendDiagnosticInterrupt', {
+      'InstanceId': instanceId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+  }
 
   /// Starts an Amazon EBS-backed instance that you've previously stopped.
   ///
@@ -13330,7 +15708,12 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<StartInstancesResult> startInstances(List<String> instanceIds,
       {String additionalInfo, bool dryRun}) async {
-    return StartInstancesResult.fromJson({});
+    var response_ = await _client.send('StartInstances', {
+      'InstanceIds': instanceIds,
+      if (additionalInfo != null) 'AdditionalInfo': additionalInfo,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return StartInstancesResult.fromJson(response_);
   }
 
   /// Stops an Amazon EBS-backed instance.
@@ -13407,7 +15790,13 @@ class Ec2Api {
   /// Default: `false`
   Future<StopInstancesResult> stopInstances(List<String> instanceIds,
       {bool hibernate, bool dryRun, bool force}) async {
-    return StopInstancesResult.fromJson({});
+    var response_ = await _client.send('StopInstances', {
+      'InstanceIds': instanceIds,
+      if (hibernate != null) 'Hibernate': hibernate,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (force != null) 'Force': force,
+    });
+    return StopInstancesResult.fromJson(response_);
   }
 
   /// Terminates active Client VPN endpoint connections. This action can be used
@@ -13433,7 +15822,13 @@ class Ec2Api {
       {String connectionId,
       String username,
       bool dryRun}) async {
-    return TerminateClientVpnConnectionsResult.fromJson({});
+    var response_ = await _client.send('TerminateClientVpnConnections', {
+      'ClientVpnEndpointId': clientVpnEndpointId,
+      if (connectionId != null) 'ConnectionId': connectionId,
+      if (username != null) 'Username': username,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return TerminateClientVpnConnectionsResult.fromJson(response_);
   }
 
   /// Shuts down the specified instances. This operation is idempotent; if you
@@ -13476,7 +15871,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<TerminateInstancesResult> terminateInstances(List<String> instanceIds,
       {bool dryRun}) async {
-    return TerminateInstancesResult.fromJson({});
+    var response_ = await _client.send('TerminateInstances', {
+      'InstanceIds': instanceIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return TerminateInstancesResult.fromJson(response_);
   }
 
   /// Unassigns one or more IPv6 addresses from a network interface.
@@ -13488,7 +15887,11 @@ class Ec2Api {
   Future<UnassignIpv6AddressesResult> unassignIpv6Addresses(
       {@required List<String> ipv6Addresses,
       @required String networkInterfaceId}) async {
-    return UnassignIpv6AddressesResult.fromJson({});
+    var response_ = await _client.send('UnassignIpv6Addresses', {
+      'Ipv6Addresses': ipv6Addresses,
+      'NetworkInterfaceId': networkInterfaceId,
+    });
+    return UnassignIpv6AddressesResult.fromJson(response_);
   }
 
   /// Unassigns one or more secondary private IP addresses from a network
@@ -13501,7 +15904,12 @@ class Ec2Api {
   /// unassign more than one IP address.
   Future<void> unassignPrivateIpAddresses(
       {@required String networkInterfaceId,
-      @required List<String> privateIpAddresses}) async {}
+      @required List<String> privateIpAddresses}) async {
+    await _client.send('UnassignPrivateIpAddresses', {
+      'NetworkInterfaceId': networkInterfaceId,
+      'PrivateIpAddresses': privateIpAddresses,
+    });
+  }
 
   /// Disables detailed monitoring for a running instance. For more information,
   /// see
@@ -13516,7 +15924,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<UnmonitorInstancesResult> unmonitorInstances(List<String> instanceIds,
       {bool dryRun}) async {
-    return UnmonitorInstancesResult.fromJson({});
+    var response_ = await _client.send('UnmonitorInstances', {
+      'InstanceIds': instanceIds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return UnmonitorInstancesResult.fromJson(response_);
   }
 
   /// [VPC only] Updates the description of an egress (outbound) security group
@@ -13547,7 +15959,14 @@ class Ec2Api {
           {bool dryRun,
           String groupId,
           String groupName}) async {
-    return UpdateSecurityGroupRuleDescriptionsEgressResult.fromJson({});
+    var response_ =
+        await _client.send('UpdateSecurityGroupRuleDescriptionsEgress', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (groupId != null) 'GroupId': groupId,
+      if (groupName != null) 'GroupName': groupName,
+      'IpPermissions': ipPermissions,
+    });
+    return UpdateSecurityGroupRuleDescriptionsEgressResult.fromJson(response_);
   }
 
   /// Updates the description of an ingress (inbound) security group rule. You
@@ -13578,7 +15997,14 @@ class Ec2Api {
           {bool dryRun,
           String groupId,
           String groupName}) async {
-    return UpdateSecurityGroupRuleDescriptionsIngressResult.fromJson({});
+    var response_ =
+        await _client.send('UpdateSecurityGroupRuleDescriptionsIngress', {
+      if (dryRun != null) 'DryRun': dryRun,
+      if (groupId != null) 'GroupId': groupId,
+      if (groupName != null) 'GroupName': groupName,
+      'IpPermissions': ipPermissions,
+    });
+    return UpdateSecurityGroupRuleDescriptionsIngressResult.fromJson(response_);
   }
 
   /// Stops advertising an IPv4 address range that is provisioned as an address
@@ -13598,7 +16024,11 @@ class Ec2Api {
   /// `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
   Future<WithdrawByoipCidrResult> withdrawByoipCidr(String cidr,
       {bool dryRun}) async {
-    return WithdrawByoipCidrResult.fromJson({});
+    var response_ = await _client.send('WithdrawByoipCidr', {
+      'Cidr': cidr,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return WithdrawByoipCidrResult.fromJson(response_);
   }
 }
 
@@ -13612,7 +16042,11 @@ class AcceptReservedInstancesExchangeQuoteResult {
   });
   static AcceptReservedInstancesExchangeQuoteResult fromJson(
           Map<String, dynamic> json) =>
-      AcceptReservedInstancesExchangeQuoteResult();
+      AcceptReservedInstancesExchangeQuoteResult(
+        exchangeId: json.containsKey('ExchangeId')
+            ? json['ExchangeId'] as String
+            : null,
+      );
 }
 
 class AcceptTransitGatewayVpcAttachmentResult {
@@ -13624,7 +16058,13 @@ class AcceptTransitGatewayVpcAttachmentResult {
   });
   static AcceptTransitGatewayVpcAttachmentResult fromJson(
           Map<String, dynamic> json) =>
-      AcceptTransitGatewayVpcAttachmentResult();
+      AcceptTransitGatewayVpcAttachmentResult(
+        transitGatewayVpcAttachment:
+            json.containsKey('TransitGatewayVpcAttachment')
+                ? TransitGatewayVpcAttachment.fromJson(
+                    json['TransitGatewayVpcAttachment'])
+                : null,
+      );
 }
 
 class AcceptVpcEndpointConnectionsResult {
@@ -13637,7 +16077,13 @@ class AcceptVpcEndpointConnectionsResult {
   });
   static AcceptVpcEndpointConnectionsResult fromJson(
           Map<String, dynamic> json) =>
-      AcceptVpcEndpointConnectionsResult();
+      AcceptVpcEndpointConnectionsResult(
+        unsuccessful: json.containsKey('Unsuccessful')
+            ? (json['Unsuccessful'] as List)
+                .map((e) => UnsuccessfulItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class AcceptVpcPeeringConnectionResult {
@@ -13648,7 +16094,11 @@ class AcceptVpcPeeringConnectionResult {
     this.vpcPeeringConnection,
   });
   static AcceptVpcPeeringConnectionResult fromJson(Map<String, dynamic> json) =>
-      AcceptVpcPeeringConnectionResult();
+      AcceptVpcPeeringConnectionResult(
+        vpcPeeringConnection: json.containsKey('VpcPeeringConnection')
+            ? VpcPeeringConnection.fromJson(json['VpcPeeringConnection'])
+            : null,
+      );
 }
 
 /// Describes an account attribute.
@@ -13664,7 +16114,16 @@ class AccountAttribute {
     this.attributeValues,
   });
   static AccountAttribute fromJson(Map<String, dynamic> json) =>
-      AccountAttribute();
+      AccountAttribute(
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+        attributeValues: json.containsKey('AttributeValues')
+            ? (json['AttributeValues'] as List)
+                .map((e) => AccountAttributeValue.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a value of an account attribute.
@@ -13676,7 +16135,11 @@ class AccountAttributeValue {
     this.attributeValue,
   });
   static AccountAttributeValue fromJson(Map<String, dynamic> json) =>
-      AccountAttributeValue();
+      AccountAttributeValue(
+        attributeValue: json.containsKey('AttributeValue')
+            ? json['AttributeValue'] as String
+            : null,
+      );
 }
 
 /// Describes a running instance in a Spot Fleet.
@@ -13701,7 +16164,20 @@ class ActiveInstance {
     this.spotInstanceRequestId,
     this.instanceHealth,
   });
-  static ActiveInstance fromJson(Map<String, dynamic> json) => ActiveInstance();
+  static ActiveInstance fromJson(Map<String, dynamic> json) => ActiveInstance(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        spotInstanceRequestId: json.containsKey('SpotInstanceRequestId')
+            ? json['SpotInstanceRequestId'] as String
+            : null,
+        instanceHealth: json.containsKey('InstanceHealth')
+            ? json['InstanceHealth'] as String
+            : null,
+      );
 }
 
 /// Describes an Elastic IP address.
@@ -13750,7 +16226,35 @@ class Address {
     this.tags,
     this.publicIpv4Pool,
   });
-  static Address fromJson(Map<String, dynamic> json) => Address();
+  static Address fromJson(Map<String, dynamic> json) => Address(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        publicIp:
+            json.containsKey('PublicIp') ? json['PublicIp'] as String : null,
+        allocationId: json.containsKey('AllocationId')
+            ? json['AllocationId'] as String
+            : null,
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        networkInterfaceOwnerId: json.containsKey('NetworkInterfaceOwnerId')
+            ? json['NetworkInterfaceOwnerId'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        publicIpv4Pool: json.containsKey('PublicIpv4Pool')
+            ? json['PublicIpv4Pool'] as String
+            : null,
+      );
 }
 
 class AdvertiseByoipCidrResult {
@@ -13761,7 +16265,11 @@ class AdvertiseByoipCidrResult {
     this.byoipCidr,
   });
   static AdvertiseByoipCidrResult fromJson(Map<String, dynamic> json) =>
-      AdvertiseByoipCidrResult();
+      AdvertiseByoipCidrResult(
+        byoipCidr: json.containsKey('ByoipCidr')
+            ? ByoipCidr.fromJson(json['ByoipCidr'])
+            : null,
+      );
 }
 
 class AllocateAddressResult {
@@ -13786,7 +16294,17 @@ class AllocateAddressResult {
     this.domain,
   });
   static AllocateAddressResult fromJson(Map<String, dynamic> json) =>
-      AllocateAddressResult();
+      AllocateAddressResult(
+        publicIp:
+            json.containsKey('PublicIp') ? json['PublicIp'] as String : null,
+        allocationId: json.containsKey('AllocationId')
+            ? json['AllocationId'] as String
+            : null,
+        publicIpv4Pool: json.containsKey('PublicIpv4Pool')
+            ? json['PublicIpv4Pool'] as String
+            : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+      );
 }
 
 /// Contains the output of AllocateHosts.
@@ -13799,7 +16317,11 @@ class AllocateHostsResult {
     this.hostIds,
   });
   static AllocateHostsResult fromJson(Map<String, dynamic> json) =>
-      AllocateHostsResult();
+      AllocateHostsResult(
+        hostIds: json.containsKey('HostIds')
+            ? (json['HostIds'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Describes a principal.
@@ -13815,7 +16337,13 @@ class AllowedPrincipal {
     this.principal,
   });
   static AllowedPrincipal fromJson(Map<String, dynamic> json) =>
-      AllowedPrincipal();
+      AllowedPrincipal(
+        principalType: json.containsKey('PrincipalType')
+            ? json['PrincipalType'] as String
+            : null,
+        principal:
+            json.containsKey('Principal') ? json['Principal'] as String : null,
+      );
 }
 
 class ApplySecurityGroupsToClientVpnTargetNetworkResult {
@@ -13827,7 +16355,13 @@ class ApplySecurityGroupsToClientVpnTargetNetworkResult {
   });
   static ApplySecurityGroupsToClientVpnTargetNetworkResult fromJson(
           Map<String, dynamic> json) =>
-      ApplySecurityGroupsToClientVpnTargetNetworkResult();
+      ApplySecurityGroupsToClientVpnTargetNetworkResult(
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class AssignIpv6AddressesResult {
@@ -13842,7 +16376,16 @@ class AssignIpv6AddressesResult {
     this.networkInterfaceId,
   });
   static AssignIpv6AddressesResult fromJson(Map<String, dynamic> json) =>
-      AssignIpv6AddressesResult();
+      AssignIpv6AddressesResult(
+        assignedIpv6Addresses: json.containsKey('AssignedIpv6Addresses')
+            ? (json['AssignedIpv6Addresses'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+      );
 }
 
 class AssignPrivateIpAddressesResult {
@@ -13857,7 +16400,17 @@ class AssignPrivateIpAddressesResult {
     this.assignedPrivateIpAddresses,
   });
   static AssignPrivateIpAddressesResult fromJson(Map<String, dynamic> json) =>
-      AssignPrivateIpAddressesResult();
+      AssignPrivateIpAddressesResult(
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        assignedPrivateIpAddresses:
+            json.containsKey('AssignedPrivateIpAddresses')
+                ? (json['AssignedPrivateIpAddresses'] as List)
+                    .map((e) => AssignedPrivateIpAddress.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Describes the private IP addresses assigned to a network interface.
@@ -13869,7 +16422,11 @@ class AssignedPrivateIpAddress {
     this.privateIpAddress,
   });
   static AssignedPrivateIpAddress fromJson(Map<String, dynamic> json) =>
-      AssignedPrivateIpAddress();
+      AssignedPrivateIpAddress(
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+      );
 }
 
 class AssociateAddressResult {
@@ -13881,7 +16438,11 @@ class AssociateAddressResult {
     this.associationId,
   });
   static AssociateAddressResult fromJson(Map<String, dynamic> json) =>
-      AssociateAddressResult();
+      AssociateAddressResult(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+      );
 }
 
 class AssociateClientVpnTargetNetworkResult {
@@ -13897,7 +16458,14 @@ class AssociateClientVpnTargetNetworkResult {
   });
   static AssociateClientVpnTargetNetworkResult fromJson(
           Map<String, dynamic> json) =>
-      AssociateClientVpnTargetNetworkResult();
+      AssociateClientVpnTargetNetworkResult(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? AssociationStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 class AssociateIamInstanceProfileResult {
@@ -13909,7 +16477,13 @@ class AssociateIamInstanceProfileResult {
   });
   static AssociateIamInstanceProfileResult fromJson(
           Map<String, dynamic> json) =>
-      AssociateIamInstanceProfileResult();
+      AssociateIamInstanceProfileResult(
+        iamInstanceProfileAssociation:
+            json.containsKey('IamInstanceProfileAssociation')
+                ? IamInstanceProfileAssociation.fromJson(
+                    json['IamInstanceProfileAssociation'])
+                : null,
+      );
 }
 
 class AssociateRouteTableResult {
@@ -13921,7 +16495,11 @@ class AssociateRouteTableResult {
     this.associationId,
   });
   static AssociateRouteTableResult fromJson(Map<String, dynamic> json) =>
-      AssociateRouteTableResult();
+      AssociateRouteTableResult(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+      );
 }
 
 class AssociateSubnetCidrBlockResult {
@@ -13936,7 +16514,14 @@ class AssociateSubnetCidrBlockResult {
     this.subnetId,
   });
   static AssociateSubnetCidrBlockResult fromJson(Map<String, dynamic> json) =>
-      AssociateSubnetCidrBlockResult();
+      AssociateSubnetCidrBlockResult(
+        ipv6CidrBlockAssociation: json.containsKey('Ipv6CidrBlockAssociation')
+            ? SubnetIpv6CidrBlockAssociation.fromJson(
+                json['Ipv6CidrBlockAssociation'])
+            : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+      );
 }
 
 class AssociateTransitGatewayRouteTableResult {
@@ -13948,7 +16533,11 @@ class AssociateTransitGatewayRouteTableResult {
   });
   static AssociateTransitGatewayRouteTableResult fromJson(
           Map<String, dynamic> json) =>
-      AssociateTransitGatewayRouteTableResult();
+      AssociateTransitGatewayRouteTableResult(
+        association: json.containsKey('Association')
+            ? TransitGatewayAssociation.fromJson(json['Association'])
+            : null,
+      );
 }
 
 class AssociateVpcCidrBlockResult {
@@ -13967,7 +16556,16 @@ class AssociateVpcCidrBlockResult {
     this.vpcId,
   });
   static AssociateVpcCidrBlockResult fromJson(Map<String, dynamic> json) =>
-      AssociateVpcCidrBlockResult();
+      AssociateVpcCidrBlockResult(
+        ipv6CidrBlockAssociation: json.containsKey('Ipv6CidrBlockAssociation')
+            ? VpcIpv6CidrBlockAssociation.fromJson(
+                json['Ipv6CidrBlockAssociation'])
+            : null,
+        cidrBlockAssociation: json.containsKey('CidrBlockAssociation')
+            ? VpcCidrBlockAssociation.fromJson(json['CidrBlockAssociation'])
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Describes a target network that is associated with a Client VPN endpoint. A
@@ -13984,7 +16582,13 @@ class AssociatedTargetNetwork {
     this.networkType,
   });
   static AssociatedTargetNetwork fromJson(Map<String, dynamic> json) =>
-      AssociatedTargetNetwork();
+      AssociatedTargetNetwork(
+        networkId:
+            json.containsKey('NetworkId') ? json['NetworkId'] as String : null,
+        networkType: json.containsKey('NetworkType')
+            ? json['NetworkType'] as String
+            : null,
+      );
 }
 
 /// Describes the state of a target network association.
@@ -14001,7 +16605,10 @@ class AssociationStatus {
     this.message,
   });
   static AssociationStatus fromJson(Map<String, dynamic> json) =>
-      AssociationStatus();
+      AssociationStatus(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 class AttachClassicLinkVpcResult {
@@ -14012,7 +16619,9 @@ class AttachClassicLinkVpcResult {
     this.return$,
   });
   static AttachClassicLinkVpcResult fromJson(Map<String, dynamic> json) =>
-      AttachClassicLinkVpcResult();
+      AttachClassicLinkVpcResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 /// Contains the output of AttachNetworkInterface.
@@ -14024,7 +16633,11 @@ class AttachNetworkInterfaceResult {
     this.attachmentId,
   });
   static AttachNetworkInterfaceResult fromJson(Map<String, dynamic> json) =>
-      AttachNetworkInterfaceResult();
+      AttachNetworkInterfaceResult(
+        attachmentId: json.containsKey('AttachmentId')
+            ? json['AttachmentId'] as String
+            : null,
+      );
 }
 
 /// Contains the output of AttachVpnGateway.
@@ -14036,7 +16649,11 @@ class AttachVpnGatewayResult {
     this.vpcAttachment,
   });
   static AttachVpnGatewayResult fromJson(Map<String, dynamic> json) =>
-      AttachVpnGatewayResult();
+      AttachVpnGatewayResult(
+        vpcAttachment: json.containsKey('VpcAttachment')
+            ? VpcAttachment.fromJson(json['VpcAttachment'])
+            : null,
+      );
 }
 
 /// Describes a value for a resource attribute that is a Boolean value.
@@ -14048,7 +16665,10 @@ class AttributeBooleanValue {
     this.value,
   });
   static AttributeBooleanValue fromJson(Map<String, dynamic> json) =>
-      AttributeBooleanValue();
+      AttributeBooleanValue(
+        value: json.containsKey('Value') ? json['Value'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a value for a resource attribute that is a String.
@@ -14059,7 +16679,10 @@ class AttributeValue {
   AttributeValue({
     this.value,
   });
-  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
+  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an authorization rule.
@@ -14094,7 +16717,23 @@ class AuthorizationRule {
     this.status,
   });
   static AuthorizationRule fromJson(Map<String, dynamic> json) =>
-      AuthorizationRule();
+      AuthorizationRule(
+        clientVpnEndpointId: json.containsKey('ClientVpnEndpointId')
+            ? json['ClientVpnEndpointId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+        accessAll:
+            json.containsKey('AccessAll') ? json['AccessAll'] as bool : null,
+        destinationCidr: json.containsKey('DestinationCidr')
+            ? json['DestinationCidr'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? ClientVpnAuthorizationRuleStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 class AuthorizeClientVpnIngressResult {
@@ -14105,7 +16744,11 @@ class AuthorizeClientVpnIngressResult {
     this.status,
   });
   static AuthorizeClientVpnIngressResult fromJson(Map<String, dynamic> json) =>
-      AuthorizeClientVpnIngressResult();
+      AuthorizeClientVpnIngressResult(
+        status: json.containsKey('Status')
+            ? ClientVpnAuthorizationRuleStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 /// Describes an Availability Zone.
@@ -14133,7 +16776,20 @@ class AvailabilityZone {
     this.zoneId,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        messages: json.containsKey('Messages')
+            ? (json['Messages'] as List)
+                .map((e) => AvailabilityZoneMessage.fromJson(e))
+                .toList()
+            : null,
+        regionName: json.containsKey('RegionName')
+            ? json['RegionName'] as String
+            : null,
+        zoneName:
+            json.containsKey('ZoneName') ? json['ZoneName'] as String : null,
+        zoneId: json.containsKey('ZoneId') ? json['ZoneId'] as String : null,
+      );
 }
 
 /// Describes a message about an Availability Zone.
@@ -14145,7 +16801,9 @@ class AvailabilityZoneMessage {
     this.message,
   });
   static AvailabilityZoneMessage fromJson(Map<String, dynamic> json) =>
-      AvailabilityZoneMessage();
+      AvailabilityZoneMessage(
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The capacity information for instances launched onto the Dedicated Host.
@@ -14161,7 +16819,16 @@ class AvailableCapacity {
     this.availablevCpus,
   });
   static AvailableCapacity fromJson(Map<String, dynamic> json) =>
-      AvailableCapacity();
+      AvailableCapacity(
+        availableInstanceCapacity: json.containsKey('AvailableInstanceCapacity')
+            ? (json['AvailableInstanceCapacity'] as List)
+                .map((e) => InstanceCapacity.fromJson(e))
+                .toList()
+            : null,
+        availablevCpus: json.containsKey('AvailableVCpus')
+            ? json['AvailableVCpus'] as int
+            : null,
+      );
 }
 
 class BlobAttributeValue {
@@ -14170,6 +16837,7 @@ class BlobAttributeValue {
   BlobAttributeValue({
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a block device mapping.
@@ -14207,7 +16875,20 @@ class BlockDeviceMapping {
     this.noDevice,
   });
   static BlockDeviceMapping fromJson(Map<String, dynamic> json) =>
-      BlockDeviceMapping();
+      BlockDeviceMapping(
+        deviceName: json.containsKey('DeviceName')
+            ? json['DeviceName'] as String
+            : null,
+        virtualName: json.containsKey('VirtualName')
+            ? json['VirtualName'] as String
+            : null,
+        ebs: json.containsKey('Ebs')
+            ? EbsBlockDevice.fromJson(json['Ebs'])
+            : null,
+        noDevice:
+            json.containsKey('NoDevice') ? json['NoDevice'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of BundleInstance.
@@ -14219,7 +16900,11 @@ class BundleInstanceResult {
     this.bundleTask,
   });
   static BundleInstanceResult fromJson(Map<String, dynamic> json) =>
-      BundleInstanceResult();
+      BundleInstanceResult(
+        bundleTask: json.containsKey('BundleTask')
+            ? BundleTask.fromJson(json['BundleTask'])
+            : null,
+      );
 }
 
 /// Describes a bundle task.
@@ -14258,7 +16943,28 @@ class BundleTask {
     this.storage,
     this.updateTime,
   });
-  static BundleTask fromJson(Map<String, dynamic> json) => BundleTask();
+  static BundleTask fromJson(Map<String, dynamic> json) => BundleTask(
+        bundleId:
+            json.containsKey('BundleId') ? json['BundleId'] as String : null,
+        bundleTaskError: json.containsKey('BundleTaskError')
+            ? BundleTaskError.fromJson(json['BundleTaskError'])
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as String : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        storage: json.containsKey('Storage')
+            ? Storage.fromJson(json['Storage'])
+            : null,
+        updateTime: json.containsKey('UpdateTime')
+            ? DateTime.parse(json['UpdateTime'])
+            : null,
+      );
 }
 
 /// Describes an error for BundleInstance.
@@ -14273,8 +16979,10 @@ class BundleTaskError {
     this.code,
     this.message,
   });
-  static BundleTaskError fromJson(Map<String, dynamic> json) =>
-      BundleTaskError();
+  static BundleTaskError fromJson(Map<String, dynamic> json) => BundleTaskError(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Information about an address range that is provisioned for use with your AWS
@@ -14299,7 +17007,16 @@ class ByoipCidr {
     this.statusMessage,
     this.state,
   });
-  static ByoipCidr fromJson(Map<String, dynamic> json) => ByoipCidr();
+  static ByoipCidr fromJson(Map<String, dynamic> json) => ByoipCidr(
+        cidr: json.containsKey('Cidr') ? json['Cidr'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Contains the output of CancelBundleTask.
@@ -14311,7 +17028,11 @@ class CancelBundleTaskResult {
     this.bundleTask,
   });
   static CancelBundleTaskResult fromJson(Map<String, dynamic> json) =>
-      CancelBundleTaskResult();
+      CancelBundleTaskResult(
+        bundleTask: json.containsKey('BundleTask')
+            ? BundleTask.fromJson(json['BundleTask'])
+            : null,
+      );
 }
 
 class CancelCapacityReservationResult {
@@ -14322,7 +17043,9 @@ class CancelCapacityReservationResult {
     this.return$,
   });
   static CancelCapacityReservationResult fromJson(Map<String, dynamic> json) =>
-      CancelCapacityReservationResult();
+      CancelCapacityReservationResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class CancelImportTaskResult {
@@ -14341,7 +17064,15 @@ class CancelImportTaskResult {
     this.state,
   });
   static CancelImportTaskResult fromJson(Map<String, dynamic> json) =>
-      CancelImportTaskResult();
+      CancelImportTaskResult(
+        importTaskId: json.containsKey('ImportTaskId')
+            ? json['ImportTaskId'] as String
+            : null,
+        previousState: json.containsKey('PreviousState')
+            ? json['PreviousState'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Contains the output of CancelReservedInstancesListing.
@@ -14354,7 +17085,13 @@ class CancelReservedInstancesListingResult {
   });
   static CancelReservedInstancesListingResult fromJson(
           Map<String, dynamic> json) =>
-      CancelReservedInstancesListingResult();
+      CancelReservedInstancesListingResult(
+        reservedInstancesListings: json.containsKey('ReservedInstancesListings')
+            ? (json['ReservedInstancesListings'] as List)
+                .map((e) => ReservedInstancesListing.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a Spot Fleet error.
@@ -14370,7 +17107,10 @@ class CancelSpotFleetRequestsError {
     this.message,
   });
   static CancelSpotFleetRequestsError fromJson(Map<String, dynamic> json) =>
-      CancelSpotFleetRequestsError();
+      CancelSpotFleetRequestsError(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Describes a Spot Fleet request that was not successfully canceled.
@@ -14386,7 +17126,14 @@ class CancelSpotFleetRequestsErrorItem {
     this.spotFleetRequestId,
   });
   static CancelSpotFleetRequestsErrorItem fromJson(Map<String, dynamic> json) =>
-      CancelSpotFleetRequestsErrorItem();
+      CancelSpotFleetRequestsErrorItem(
+        error: json.containsKey('Error')
+            ? CancelSpotFleetRequestsError.fromJson(json['Error'])
+            : null,
+        spotFleetRequestId: json.containsKey('SpotFleetRequestId')
+            ? json['SpotFleetRequestId'] as String
+            : null,
+      );
 }
 
 /// Contains the output of CancelSpotFleetRequests.
@@ -14403,7 +17150,18 @@ class CancelSpotFleetRequestsResponse {
     this.unsuccessfulFleetRequests,
   });
   static CancelSpotFleetRequestsResponse fromJson(Map<String, dynamic> json) =>
-      CancelSpotFleetRequestsResponse();
+      CancelSpotFleetRequestsResponse(
+        successfulFleetRequests: json.containsKey('SuccessfulFleetRequests')
+            ? (json['SuccessfulFleetRequests'] as List)
+                .map((e) => CancelSpotFleetRequestsSuccessItem.fromJson(e))
+                .toList()
+            : null,
+        unsuccessfulFleetRequests: json.containsKey('UnsuccessfulFleetRequests')
+            ? (json['UnsuccessfulFleetRequests'] as List)
+                .map((e) => CancelSpotFleetRequestsErrorItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a Spot Fleet request that was successfully canceled.
@@ -14424,7 +17182,19 @@ class CancelSpotFleetRequestsSuccessItem {
   });
   static CancelSpotFleetRequestsSuccessItem fromJson(
           Map<String, dynamic> json) =>
-      CancelSpotFleetRequestsSuccessItem();
+      CancelSpotFleetRequestsSuccessItem(
+        currentSpotFleetRequestState:
+            json.containsKey('CurrentSpotFleetRequestState')
+                ? json['CurrentSpotFleetRequestState'] as String
+                : null,
+        previousSpotFleetRequestState:
+            json.containsKey('PreviousSpotFleetRequestState')
+                ? json['PreviousSpotFleetRequestState'] as String
+                : null,
+        spotFleetRequestId: json.containsKey('SpotFleetRequestId')
+            ? json['SpotFleetRequestId'] as String
+            : null,
+      );
 }
 
 /// Contains the output of CancelSpotInstanceRequests.
@@ -14436,7 +17206,14 @@ class CancelSpotInstanceRequestsResult {
     this.cancelledSpotInstanceRequests,
   });
   static CancelSpotInstanceRequestsResult fromJson(Map<String, dynamic> json) =>
-      CancelSpotInstanceRequestsResult();
+      CancelSpotInstanceRequestsResult(
+        cancelledSpotInstanceRequests:
+            json.containsKey('CancelledSpotInstanceRequests')
+                ? (json['CancelledSpotInstanceRequests'] as List)
+                    .map((e) => CancelledSpotInstanceRequest.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Describes a request to cancel a Spot Instance.
@@ -14452,7 +17229,12 @@ class CancelledSpotInstanceRequest {
     this.state,
   });
   static CancelledSpotInstanceRequest fromJson(Map<String, dynamic> json) =>
-      CancelledSpotInstanceRequest();
+      CancelledSpotInstanceRequest(
+        spotInstanceRequestId: json.containsKey('SpotInstanceRequestId')
+            ? json['SpotInstanceRequestId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes a Capacity Reservation.
@@ -14586,7 +17368,56 @@ class CapacityReservation {
     this.tags,
   });
   static CapacityReservation fromJson(Map<String, dynamic> json) =>
-      CapacityReservation();
+      CapacityReservation(
+        capacityReservationId: json.containsKey('CapacityReservationId')
+            ? json['CapacityReservationId'] as String
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        capacityReservationArn: json.containsKey('CapacityReservationArn')
+            ? json['CapacityReservationArn'] as String
+            : null,
+        availabilityZoneId: json.containsKey('AvailabilityZoneId')
+            ? json['AvailabilityZoneId'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        instancePlatform: json.containsKey('InstancePlatform')
+            ? json['InstancePlatform'] as String
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        tenancy: json.containsKey('Tenancy') ? json['Tenancy'] as String : null,
+        totalInstanceCount: json.containsKey('TotalInstanceCount')
+            ? json['TotalInstanceCount'] as int
+            : null,
+        availableInstanceCount: json.containsKey('AvailableInstanceCount')
+            ? json['AvailableInstanceCount'] as int
+            : null,
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? json['EbsOptimized'] as bool
+            : null,
+        ephemeralStorage: json.containsKey('EphemeralStorage')
+            ? json['EphemeralStorage'] as bool
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        endDate: json.containsKey('EndDate')
+            ? DateTime.parse(json['EndDate'])
+            : null,
+        endDateType: json.containsKey('EndDateType')
+            ? json['EndDateType'] as String
+            : null,
+        instanceMatchCriteria: json.containsKey('InstanceMatchCriteria')
+            ? json['InstanceMatchCriteria'] as String
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes an instance's Capacity Reservation targeting option. You can
@@ -14617,6 +17448,7 @@ class CapacityReservationSpecification {
     this.capacityReservationPreference,
     this.capacityReservationTarget,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the instance's Capacity Reservation targeting preferences. The
@@ -14646,7 +17478,16 @@ class CapacityReservationSpecificationResponse {
   });
   static CapacityReservationSpecificationResponse fromJson(
           Map<String, dynamic> json) =>
-      CapacityReservationSpecificationResponse();
+      CapacityReservationSpecificationResponse(
+        capacityReservationPreference:
+            json.containsKey('CapacityReservationPreference')
+                ? json['CapacityReservationPreference'] as String
+                : null,
+        capacityReservationTarget: json.containsKey('CapacityReservationTarget')
+            ? CapacityReservationTargetResponse.fromJson(
+                json['CapacityReservationTarget'])
+            : null,
+      );
 }
 
 /// Describes a target Capacity Reservation.
@@ -14657,6 +17498,7 @@ class CapacityReservationTarget {
   CapacityReservationTarget({
     this.capacityReservationId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a target Capacity Reservation.
@@ -14669,7 +17511,11 @@ class CapacityReservationTargetResponse {
   });
   static CapacityReservationTargetResponse fromJson(
           Map<String, dynamic> json) =>
-      CapacityReservationTargetResponse();
+      CapacityReservationTargetResponse(
+        capacityReservationId: json.containsKey('CapacityReservationId')
+            ? json['CapacityReservationId'] as String
+            : null,
+      );
 }
 
 /// Information about the client certificate used for authentication.
@@ -14681,7 +17527,12 @@ class CertificateAuthentication {
     this.clientRootCertificateChain,
   });
   static CertificateAuthentication fromJson(Map<String, dynamic> json) =>
-      CertificateAuthentication();
+      CertificateAuthentication(
+        clientRootCertificateChain:
+            json.containsKey('ClientRootCertificateChain')
+                ? json['ClientRootCertificateChain'] as String
+                : null,
+      );
 }
 
 /// Information about the client certificate to be used for authentication.
@@ -14694,6 +17545,7 @@ class CertificateAuthenticationRequest {
   CertificateAuthenticationRequest({
     this.clientRootCertificateChainArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides authorization for Amazon to bring a specific IP address range to a
@@ -14712,6 +17564,7 @@ class CidrAuthorizationContext {
     @required this.message,
     @required this.signature,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IPv4 CIDR block.
@@ -14722,7 +17575,10 @@ class CidrBlock {
   CidrBlock({
     this.cidrBlock,
   });
-  static CidrBlock fromJson(Map<String, dynamic> json) => CidrBlock();
+  static CidrBlock fromJson(Map<String, dynamic> json) => CidrBlock(
+        cidrBlock:
+            json.containsKey('CidrBlock') ? json['CidrBlock'] as String : null,
+      );
 }
 
 /// Describes the ClassicLink DNS support status of a VPC.
@@ -14738,7 +17594,12 @@ class ClassicLinkDnsSupport {
     this.vpcId,
   });
   static ClassicLinkDnsSupport fromJson(Map<String, dynamic> json) =>
-      ClassicLinkDnsSupport();
+      ClassicLinkDnsSupport(
+        classicLinkDnsSupported: json.containsKey('ClassicLinkDnsSupported')
+            ? json['ClassicLinkDnsSupported'] as bool
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Describes a linked EC2-Classic instance.
@@ -14762,7 +17623,20 @@ class ClassicLinkInstance {
     this.vpcId,
   });
   static ClassicLinkInstance fromJson(Map<String, dynamic> json) =>
-      ClassicLinkInstance();
+      ClassicLinkInstance(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Describes a Classic Load Balancer.
@@ -14774,7 +17648,10 @@ class ClassicLoadBalancer {
     this.name,
   });
   static ClassicLoadBalancer fromJson(Map<String, dynamic> json) =>
-      ClassicLoadBalancer();
+      ClassicLoadBalancer(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the Classic Load Balancers to attach to a Spot Fleet. Spot Fleet
@@ -14787,7 +17664,14 @@ class ClassicLoadBalancersConfig {
     this.classicLoadBalancers,
   });
   static ClassicLoadBalancersConfig fromJson(Map<String, dynamic> json) =>
-      ClassicLoadBalancersConfig();
+      ClassicLoadBalancersConfig(
+        classicLoadBalancers: json.containsKey('ClassicLoadBalancers')
+            ? (json['ClassicLoadBalancers'] as List)
+                .map((e) => ClassicLoadBalancer.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the state of a client certificate revocation list.
@@ -14805,7 +17689,10 @@ class ClientCertificateRevocationListStatus {
   });
   static ClientCertificateRevocationListStatus fromJson(
           Map<String, dynamic> json) =>
-      ClientCertificateRevocationListStatus();
+      ClientCertificateRevocationListStatus(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Describes the client-specific data.
@@ -14828,6 +17715,7 @@ class ClientData {
     this.uploadSize,
     this.uploadStart,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the authentication methods used by a Client VPN endpoint. Client
@@ -14851,7 +17739,15 @@ class ClientVpnAuthentication {
     this.mutualAuthentication,
   });
   static ClientVpnAuthentication fromJson(Map<String, dynamic> json) =>
-      ClientVpnAuthentication();
+      ClientVpnAuthentication(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        activeDirectory: json.containsKey('ActiveDirectory')
+            ? DirectoryServiceAuthentication.fromJson(json['ActiveDirectory'])
+            : null,
+        mutualAuthentication: json.containsKey('MutualAuthentication')
+            ? CertificateAuthentication.fromJson(json['MutualAuthentication'])
+            : null,
+      );
 }
 
 /// Describes the authentication method to be used by a Client VPN endpoint.
@@ -14880,6 +17776,7 @@ class ClientVpnAuthenticationRequest {
     this.activeDirectory,
     this.mutualAuthentication,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the state of an authorization rule.
@@ -14895,7 +17792,10 @@ class ClientVpnAuthorizationRuleStatus {
     this.message,
   });
   static ClientVpnAuthorizationRuleStatus fromJson(Map<String, dynamic> json) =>
-      ClientVpnAuthorizationRuleStatus();
+      ClientVpnAuthorizationRuleStatus(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Describes a client connection.
@@ -14958,7 +17858,44 @@ class ClientVpnConnection {
     this.connectionEndTime,
   });
   static ClientVpnConnection fromJson(Map<String, dynamic> json) =>
-      ClientVpnConnection();
+      ClientVpnConnection(
+        clientVpnEndpointId: json.containsKey('ClientVpnEndpointId')
+            ? json['ClientVpnEndpointId'] as String
+            : null,
+        timestamp:
+            json.containsKey('Timestamp') ? json['Timestamp'] as String : null,
+        connectionId: json.containsKey('ConnectionId')
+            ? json['ConnectionId'] as String
+            : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        connectionEstablishedTime: json.containsKey('ConnectionEstablishedTime')
+            ? json['ConnectionEstablishedTime'] as String
+            : null,
+        ingressBytes: json.containsKey('IngressBytes')
+            ? json['IngressBytes'] as String
+            : null,
+        egressBytes: json.containsKey('EgressBytes')
+            ? json['EgressBytes'] as String
+            : null,
+        ingressPackets: json.containsKey('IngressPackets')
+            ? json['IngressPackets'] as String
+            : null,
+        egressPackets: json.containsKey('EgressPackets')
+            ? json['EgressPackets'] as String
+            : null,
+        clientIp:
+            json.containsKey('ClientIp') ? json['ClientIp'] as String : null,
+        commonName: json.containsKey('CommonName')
+            ? json['CommonName'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? ClientVpnConnectionStatus.fromJson(json['Status'])
+            : null,
+        connectionEndTime: json.containsKey('ConnectionEndTime')
+            ? json['ConnectionEndTime'] as String
+            : null,
+      );
 }
 
 /// Describes the status of a client connection.
@@ -14974,7 +17911,10 @@ class ClientVpnConnectionStatus {
     this.message,
   });
   static ClientVpnConnectionStatus fromJson(Map<String, dynamic> json) =>
-      ClientVpnConnectionStatus();
+      ClientVpnConnectionStatus(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Describes a Client VPN endpoint.
@@ -15055,7 +17995,59 @@ class ClientVpnEndpoint {
     this.tags,
   });
   static ClientVpnEndpoint fromJson(Map<String, dynamic> json) =>
-      ClientVpnEndpoint();
+      ClientVpnEndpoint(
+        clientVpnEndpointId: json.containsKey('ClientVpnEndpointId')
+            ? json['ClientVpnEndpointId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? ClientVpnEndpointStatus.fromJson(json['Status'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        deletionTime: json.containsKey('DeletionTime')
+            ? json['DeletionTime'] as String
+            : null,
+        dnsName: json.containsKey('DnsName') ? json['DnsName'] as String : null,
+        clientCidrBlock: json.containsKey('ClientCidrBlock')
+            ? json['ClientCidrBlock'] as String
+            : null,
+        dnsServers: json.containsKey('DnsServers')
+            ? (json['DnsServers'] as List).map((e) => e as String).toList()
+            : null,
+        splitTunnel: json.containsKey('SplitTunnel')
+            ? json['SplitTunnel'] as bool
+            : null,
+        vpnProtocol: json.containsKey('VpnProtocol')
+            ? json['VpnProtocol'] as String
+            : null,
+        transportProtocol: json.containsKey('TransportProtocol')
+            ? json['TransportProtocol'] as String
+            : null,
+        associatedTargetNetworks: json.containsKey('AssociatedTargetNetworks')
+            ? (json['AssociatedTargetNetworks'] as List)
+                .map((e) => AssociatedTargetNetwork.fromJson(e))
+                .toList()
+            : null,
+        serverCertificateArn: json.containsKey('ServerCertificateArn')
+            ? json['ServerCertificateArn'] as String
+            : null,
+        authenticationOptions: json.containsKey('AuthenticationOptions')
+            ? (json['AuthenticationOptions'] as List)
+                .map((e) => ClientVpnAuthentication.fromJson(e))
+                .toList()
+            : null,
+        connectionLogOptions: json.containsKey('ConnectionLogOptions')
+            ? ConnectionLogResponseOptions.fromJson(
+                json['ConnectionLogOptions'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the state of a Client VPN endpoint.
@@ -15085,7 +18077,10 @@ class ClientVpnEndpointStatus {
     this.message,
   });
   static ClientVpnEndpointStatus fromJson(Map<String, dynamic> json) =>
-      ClientVpnEndpointStatus();
+      ClientVpnEndpointStatus(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Information about a Client VPN endpoint route.
@@ -15124,7 +18119,25 @@ class ClientVpnRoute {
     this.status,
     this.description,
   });
-  static ClientVpnRoute fromJson(Map<String, dynamic> json) => ClientVpnRoute();
+  static ClientVpnRoute fromJson(Map<String, dynamic> json) => ClientVpnRoute(
+        clientVpnEndpointId: json.containsKey('ClientVpnEndpointId')
+            ? json['ClientVpnEndpointId'] as String
+            : null,
+        destinationCidr: json.containsKey('DestinationCidr')
+            ? json['DestinationCidr'] as String
+            : null,
+        targetSubnet: json.containsKey('TargetSubnet')
+            ? json['TargetSubnet'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        origin: json.containsKey('Origin') ? json['Origin'] as String : null,
+        status: json.containsKey('Status')
+            ? ClientVpnRouteStatus.fromJson(json['Status'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Describes the state of a Client VPN endpoint route.
@@ -15141,7 +18154,10 @@ class ClientVpnRouteStatus {
     this.message,
   });
   static ClientVpnRouteStatus fromJson(Map<String, dynamic> json) =>
-      ClientVpnRouteStatus();
+      ClientVpnRouteStatus(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 class ConfirmProductInstanceResult {
@@ -15158,7 +18174,10 @@ class ConfirmProductInstanceResult {
     this.return$,
   });
   static ConfirmProductInstanceResult fromJson(Map<String, dynamic> json) =>
-      ConfirmProductInstanceResult();
+      ConfirmProductInstanceResult(
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 /// Describes the client connection logging options for the Client VPN endpoint.
@@ -15178,6 +18197,7 @@ class ConnectionLogOptions {
     this.cloudwatchLogGroup,
     this.cloudwatchLogStream,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the client connection logging options for a Client VPN
@@ -15201,7 +18221,15 @@ class ConnectionLogResponseOptions {
     this.cloudwatchLogStream,
   });
   static ConnectionLogResponseOptions fromJson(Map<String, dynamic> json) =>
-      ConnectionLogResponseOptions();
+      ConnectionLogResponseOptions(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        cloudwatchLogGroup: json.containsKey('CloudwatchLogGroup')
+            ? json['CloudwatchLogGroup'] as String
+            : null,
+        cloudwatchLogStream: json.containsKey('CloudwatchLogStream')
+            ? json['CloudwatchLogStream'] as String
+            : null,
+      );
 }
 
 /// Describes a connection notification for a VPC endpoint or VPC endpoint
@@ -15239,7 +18267,32 @@ class ConnectionNotification {
     this.connectionNotificationState,
   });
   static ConnectionNotification fromJson(Map<String, dynamic> json) =>
-      ConnectionNotification();
+      ConnectionNotification(
+        connectionNotificationId: json.containsKey('ConnectionNotificationId')
+            ? json['ConnectionNotificationId'] as String
+            : null,
+        serviceId:
+            json.containsKey('ServiceId') ? json['ServiceId'] as String : null,
+        vpcEndpointId: json.containsKey('VpcEndpointId')
+            ? json['VpcEndpointId'] as String
+            : null,
+        connectionNotificationType:
+            json.containsKey('ConnectionNotificationType')
+                ? json['ConnectionNotificationType'] as String
+                : null,
+        connectionNotificationArn: json.containsKey('ConnectionNotificationArn')
+            ? json['ConnectionNotificationArn'] as String
+            : null,
+        connectionEvents: json.containsKey('ConnectionEvents')
+            ? (json['ConnectionEvents'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        connectionNotificationState:
+            json.containsKey('ConnectionNotificationState')
+                ? json['ConnectionNotificationState'] as String
+                : null,
+      );
 }
 
 /// Describes a conversion task.
@@ -15277,7 +18330,27 @@ class ConversionTask {
     this.statusMessage,
     this.tags,
   });
-  static ConversionTask fromJson(Map<String, dynamic> json) => ConversionTask();
+  static ConversionTask fromJson(Map<String, dynamic> json) => ConversionTask(
+        conversionTaskId: json.containsKey('ConversionTaskId')
+            ? json['ConversionTaskId'] as String
+            : null,
+        expirationTime: json.containsKey('ExpirationTime')
+            ? json['ExpirationTime'] as String
+            : null,
+        importInstance: json.containsKey('ImportInstance')
+            ? ImportInstanceTaskDetails.fromJson(json['ImportInstance'])
+            : null,
+        importVolume: json.containsKey('ImportVolume')
+            ? ImportVolumeTaskDetails.fromJson(json['ImportVolume'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class CopyFpgaImageResult {
@@ -15288,7 +18361,11 @@ class CopyFpgaImageResult {
     this.fpgaImageId,
   });
   static CopyFpgaImageResult fromJson(Map<String, dynamic> json) =>
-      CopyFpgaImageResult();
+      CopyFpgaImageResult(
+        fpgaImageId: json.containsKey('FpgaImageId')
+            ? json['FpgaImageId'] as String
+            : null,
+      );
 }
 
 /// Contains the output of CopyImage.
@@ -15299,8 +18376,9 @@ class CopyImageResult {
   CopyImageResult({
     this.imageId,
   });
-  static CopyImageResult fromJson(Map<String, dynamic> json) =>
-      CopyImageResult();
+  static CopyImageResult fromJson(Map<String, dynamic> json) => CopyImageResult(
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+      );
 }
 
 /// Contains the output of CopySnapshot.
@@ -15312,7 +18390,11 @@ class CopySnapshotResult {
     this.snapshotId,
   });
   static CopySnapshotResult fromJson(Map<String, dynamic> json) =>
-      CopySnapshotResult();
+      CopySnapshotResult(
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+      );
 }
 
 /// The CPU options for the instance.
@@ -15327,7 +18409,13 @@ class CpuOptions {
     this.coreCount,
     this.threadsPerCore,
   });
-  static CpuOptions fromJson(Map<String, dynamic> json) => CpuOptions();
+  static CpuOptions fromJson(Map<String, dynamic> json) => CpuOptions(
+        coreCount:
+            json.containsKey('CoreCount') ? json['CoreCount'] as int : null,
+        threadsPerCore: json.containsKey('ThreadsPerCore')
+            ? json['ThreadsPerCore'] as int
+            : null,
+      );
 }
 
 /// The CPU options for the instance. Both the core count and threads per core
@@ -15345,6 +18433,7 @@ class CpuOptionsRequest {
     this.coreCount,
     this.threadsPerCore,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateCapacityReservationResult {
@@ -15355,7 +18444,11 @@ class CreateCapacityReservationResult {
     this.capacityReservation,
   });
   static CreateCapacityReservationResult fromJson(Map<String, dynamic> json) =>
-      CreateCapacityReservationResult();
+      CreateCapacityReservationResult(
+        capacityReservation: json.containsKey('CapacityReservation')
+            ? CapacityReservation.fromJson(json['CapacityReservation'])
+            : null,
+      );
 }
 
 class CreateClientVpnEndpointResult {
@@ -15374,7 +18467,15 @@ class CreateClientVpnEndpointResult {
     this.dnsName,
   });
   static CreateClientVpnEndpointResult fromJson(Map<String, dynamic> json) =>
-      CreateClientVpnEndpointResult();
+      CreateClientVpnEndpointResult(
+        clientVpnEndpointId: json.containsKey('ClientVpnEndpointId')
+            ? json['ClientVpnEndpointId'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? ClientVpnEndpointStatus.fromJson(json['Status'])
+            : null,
+        dnsName: json.containsKey('DnsName') ? json['DnsName'] as String : null,
+      );
 }
 
 class CreateClientVpnRouteResult {
@@ -15385,7 +18486,11 @@ class CreateClientVpnRouteResult {
     this.status,
   });
   static CreateClientVpnRouteResult fromJson(Map<String, dynamic> json) =>
-      CreateClientVpnRouteResult();
+      CreateClientVpnRouteResult(
+        status: json.containsKey('Status')
+            ? ClientVpnRouteStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 /// Contains the output of CreateCustomerGateway.
@@ -15397,7 +18502,11 @@ class CreateCustomerGatewayResult {
     this.customerGateway,
   });
   static CreateCustomerGatewayResult fromJson(Map<String, dynamic> json) =>
-      CreateCustomerGatewayResult();
+      CreateCustomerGatewayResult(
+        customerGateway: json.containsKey('CustomerGateway')
+            ? CustomerGateway.fromJson(json['CustomerGateway'])
+            : null,
+      );
 }
 
 class CreateDefaultSubnetResult {
@@ -15408,7 +18517,10 @@ class CreateDefaultSubnetResult {
     this.subnet,
   });
   static CreateDefaultSubnetResult fromJson(Map<String, dynamic> json) =>
-      CreateDefaultSubnetResult();
+      CreateDefaultSubnetResult(
+        subnet:
+            json.containsKey('Subnet') ? Subnet.fromJson(json['Subnet']) : null,
+      );
 }
 
 class CreateDefaultVpcResult {
@@ -15419,7 +18531,9 @@ class CreateDefaultVpcResult {
     this.vpc,
   });
   static CreateDefaultVpcResult fromJson(Map<String, dynamic> json) =>
-      CreateDefaultVpcResult();
+      CreateDefaultVpcResult(
+        vpc: json.containsKey('Vpc') ? Vpc.fromJson(json['Vpc']) : null,
+      );
 }
 
 class CreateDhcpOptionsResult {
@@ -15430,7 +18544,11 @@ class CreateDhcpOptionsResult {
     this.dhcpOptions,
   });
   static CreateDhcpOptionsResult fromJson(Map<String, dynamic> json) =>
-      CreateDhcpOptionsResult();
+      CreateDhcpOptionsResult(
+        dhcpOptions: json.containsKey('DhcpOptions')
+            ? DhcpOptions.fromJson(json['DhcpOptions'])
+            : null,
+      );
 }
 
 class CreateEgressOnlyInternetGatewayResult {
@@ -15447,7 +18565,15 @@ class CreateEgressOnlyInternetGatewayResult {
   });
   static CreateEgressOnlyInternetGatewayResult fromJson(
           Map<String, dynamic> json) =>
-      CreateEgressOnlyInternetGatewayResult();
+      CreateEgressOnlyInternetGatewayResult(
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        egressOnlyInternetGateway: json.containsKey('EgressOnlyInternetGateway')
+            ? EgressOnlyInternetGateway.fromJson(
+                json['EgressOnlyInternetGateway'])
+            : null,
+      );
 }
 
 /// Describes the instances that could not be launched by the fleet.
@@ -15478,7 +18604,20 @@ class CreateFleetError {
     this.errorMessage,
   });
   static CreateFleetError fromJson(Map<String, dynamic> json) =>
-      CreateFleetError();
+      CreateFleetError(
+        launchTemplateAndOverrides:
+            json.containsKey('LaunchTemplateAndOverrides')
+                ? LaunchTemplateAndOverridesResponse.fromJson(
+                    json['LaunchTemplateAndOverrides'])
+                : null,
+        lifecycle:
+            json.containsKey('Lifecycle') ? json['Lifecycle'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Describes the instances that were launched by the fleet.
@@ -15509,7 +18648,23 @@ class CreateFleetInstance {
     this.platform,
   });
   static CreateFleetInstance fromJson(Map<String, dynamic> json) =>
-      CreateFleetInstance();
+      CreateFleetInstance(
+        launchTemplateAndOverrides:
+            json.containsKey('LaunchTemplateAndOverrides')
+                ? LaunchTemplateAndOverridesResponse.fromJson(
+                    json['LaunchTemplateAndOverrides'])
+                : null,
+        lifecycle:
+            json.containsKey('Lifecycle') ? json['Lifecycle'] as String : null,
+        instanceIds: json.containsKey('InstanceIds')
+            ? (json['InstanceIds'] as List).map((e) => e as String).toList()
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+      );
 }
 
 class CreateFleetResult {
@@ -15530,7 +18685,19 @@ class CreateFleetResult {
     this.instances,
   });
   static CreateFleetResult fromJson(Map<String, dynamic> json) =>
-      CreateFleetResult();
+      CreateFleetResult(
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List)
+                .map((e) => CreateFleetError.fromJson(e))
+                .toList()
+            : null,
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => CreateFleetInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateFlowLogsResult {
@@ -15550,7 +18717,19 @@ class CreateFlowLogsResult {
     this.unsuccessful,
   });
   static CreateFlowLogsResult fromJson(Map<String, dynamic> json) =>
-      CreateFlowLogsResult();
+      CreateFlowLogsResult(
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        flowLogIds: json.containsKey('FlowLogIds')
+            ? (json['FlowLogIds'] as List).map((e) => e as String).toList()
+            : null,
+        unsuccessful: json.containsKey('Unsuccessful')
+            ? (json['Unsuccessful'] as List)
+                .map((e) => UnsuccessfulItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateFpgaImageResult {
@@ -15565,7 +18744,14 @@ class CreateFpgaImageResult {
     this.fpgaImageGlobalId,
   });
   static CreateFpgaImageResult fromJson(Map<String, dynamic> json) =>
-      CreateFpgaImageResult();
+      CreateFpgaImageResult(
+        fpgaImageId: json.containsKey('FpgaImageId')
+            ? json['FpgaImageId'] as String
+            : null,
+        fpgaImageGlobalId: json.containsKey('FpgaImageGlobalId')
+            ? json['FpgaImageGlobalId'] as String
+            : null,
+      );
 }
 
 class CreateImageResult {
@@ -15576,7 +18762,9 @@ class CreateImageResult {
     this.imageId,
   });
   static CreateImageResult fromJson(Map<String, dynamic> json) =>
-      CreateImageResult();
+      CreateImageResult(
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+      );
 }
 
 class CreateInstanceExportTaskResult {
@@ -15587,7 +18775,11 @@ class CreateInstanceExportTaskResult {
     this.exportTask,
   });
   static CreateInstanceExportTaskResult fromJson(Map<String, dynamic> json) =>
-      CreateInstanceExportTaskResult();
+      CreateInstanceExportTaskResult(
+        exportTask: json.containsKey('ExportTask')
+            ? ExportTask.fromJson(json['ExportTask'])
+            : null,
+      );
 }
 
 class CreateInternetGatewayResult {
@@ -15598,7 +18790,11 @@ class CreateInternetGatewayResult {
     this.internetGateway,
   });
   static CreateInternetGatewayResult fromJson(Map<String, dynamic> json) =>
-      CreateInternetGatewayResult();
+      CreateInternetGatewayResult(
+        internetGateway: json.containsKey('InternetGateway')
+            ? InternetGateway.fromJson(json['InternetGateway'])
+            : null,
+      );
 }
 
 class CreateLaunchTemplateResult {
@@ -15609,7 +18805,11 @@ class CreateLaunchTemplateResult {
     this.launchTemplate,
   });
   static CreateLaunchTemplateResult fromJson(Map<String, dynamic> json) =>
-      CreateLaunchTemplateResult();
+      CreateLaunchTemplateResult(
+        launchTemplate: json.containsKey('LaunchTemplate')
+            ? LaunchTemplate.fromJson(json['LaunchTemplate'])
+            : null,
+      );
 }
 
 class CreateLaunchTemplateVersionResult {
@@ -15621,7 +18821,11 @@ class CreateLaunchTemplateVersionResult {
   });
   static CreateLaunchTemplateVersionResult fromJson(
           Map<String, dynamic> json) =>
-      CreateLaunchTemplateVersionResult();
+      CreateLaunchTemplateVersionResult(
+        launchTemplateVersion: json.containsKey('LaunchTemplateVersion')
+            ? LaunchTemplateVersion.fromJson(json['LaunchTemplateVersion'])
+            : null,
+      );
 }
 
 class CreateNatGatewayResult {
@@ -15637,7 +18841,14 @@ class CreateNatGatewayResult {
     this.natGateway,
   });
   static CreateNatGatewayResult fromJson(Map<String, dynamic> json) =>
-      CreateNatGatewayResult();
+      CreateNatGatewayResult(
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        natGateway: json.containsKey('NatGateway')
+            ? NatGateway.fromJson(json['NatGateway'])
+            : null,
+      );
 }
 
 class CreateNetworkAclResult {
@@ -15648,7 +18859,11 @@ class CreateNetworkAclResult {
     this.networkAcl,
   });
   static CreateNetworkAclResult fromJson(Map<String, dynamic> json) =>
-      CreateNetworkAclResult();
+      CreateNetworkAclResult(
+        networkAcl: json.containsKey('NetworkAcl')
+            ? NetworkAcl.fromJson(json['NetworkAcl'])
+            : null,
+      );
 }
 
 /// Contains the output of CreateNetworkInterfacePermission.
@@ -15661,7 +18876,11 @@ class CreateNetworkInterfacePermissionResult {
   });
   static CreateNetworkInterfacePermissionResult fromJson(
           Map<String, dynamic> json) =>
-      CreateNetworkInterfacePermissionResult();
+      CreateNetworkInterfacePermissionResult(
+        interfacePermission: json.containsKey('InterfacePermission')
+            ? NetworkInterfacePermission.fromJson(json['InterfacePermission'])
+            : null,
+      );
 }
 
 /// Contains the output of CreateNetworkInterface.
@@ -15673,7 +18892,11 @@ class CreateNetworkInterfaceResult {
     this.networkInterface,
   });
   static CreateNetworkInterfaceResult fromJson(Map<String, dynamic> json) =>
-      CreateNetworkInterfaceResult();
+      CreateNetworkInterfaceResult(
+        networkInterface: json.containsKey('NetworkInterface')
+            ? NetworkInterface.fromJson(json['NetworkInterface'])
+            : null,
+      );
 }
 
 /// Contains the output of CreateReservedInstancesListing.
@@ -15686,7 +18909,13 @@ class CreateReservedInstancesListingResult {
   });
   static CreateReservedInstancesListingResult fromJson(
           Map<String, dynamic> json) =>
-      CreateReservedInstancesListingResult();
+      CreateReservedInstancesListingResult(
+        reservedInstancesListings: json.containsKey('ReservedInstancesListings')
+            ? (json['ReservedInstancesListings'] as List)
+                .map((e) => ReservedInstancesListing.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateRouteResult {
@@ -15697,7 +18926,9 @@ class CreateRouteResult {
     this.return$,
   });
   static CreateRouteResult fromJson(Map<String, dynamic> json) =>
-      CreateRouteResult();
+      CreateRouteResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class CreateRouteTableResult {
@@ -15708,7 +18939,11 @@ class CreateRouteTableResult {
     this.routeTable,
   });
   static CreateRouteTableResult fromJson(Map<String, dynamic> json) =>
-      CreateRouteTableResult();
+      CreateRouteTableResult(
+        routeTable: json.containsKey('RouteTable')
+            ? RouteTable.fromJson(json['RouteTable'])
+            : null,
+      );
 }
 
 class CreateSecurityGroupResult {
@@ -15719,7 +18954,9 @@ class CreateSecurityGroupResult {
     this.groupId,
   });
   static CreateSecurityGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateSecurityGroupResult();
+      CreateSecurityGroupResult(
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+      );
 }
 
 class CreateSnapshotsResult {
@@ -15730,7 +18967,13 @@ class CreateSnapshotsResult {
     this.snapshots,
   });
   static CreateSnapshotsResult fromJson(Map<String, dynamic> json) =>
-      CreateSnapshotsResult();
+      CreateSnapshotsResult(
+        snapshots: json.containsKey('Snapshots')
+            ? (json['Snapshots'] as List)
+                .map((e) => SnapshotInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of CreateSpotDatafeedSubscription.
@@ -15743,7 +18986,12 @@ class CreateSpotDatafeedSubscriptionResult {
   });
   static CreateSpotDatafeedSubscriptionResult fromJson(
           Map<String, dynamic> json) =>
-      CreateSpotDatafeedSubscriptionResult();
+      CreateSpotDatafeedSubscriptionResult(
+        spotDatafeedSubscription: json.containsKey('SpotDatafeedSubscription')
+            ? SpotDatafeedSubscription.fromJson(
+                json['SpotDatafeedSubscription'])
+            : null,
+      );
 }
 
 class CreateSubnetResult {
@@ -15754,7 +19002,10 @@ class CreateSubnetResult {
     this.subnet,
   });
   static CreateSubnetResult fromJson(Map<String, dynamic> json) =>
-      CreateSubnetResult();
+      CreateSubnetResult(
+        subnet:
+            json.containsKey('Subnet') ? Subnet.fromJson(json['Subnet']) : null,
+      );
 }
 
 class CreateTrafficMirrorFilterResult {
@@ -15771,7 +19022,14 @@ class CreateTrafficMirrorFilterResult {
     this.clientToken,
   });
   static CreateTrafficMirrorFilterResult fromJson(Map<String, dynamic> json) =>
-      CreateTrafficMirrorFilterResult();
+      CreateTrafficMirrorFilterResult(
+        trafficMirrorFilter: json.containsKey('TrafficMirrorFilter')
+            ? TrafficMirrorFilter.fromJson(json['TrafficMirrorFilter'])
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+      );
 }
 
 class CreateTrafficMirrorFilterRuleResult {
@@ -15789,7 +19047,14 @@ class CreateTrafficMirrorFilterRuleResult {
   });
   static CreateTrafficMirrorFilterRuleResult fromJson(
           Map<String, dynamic> json) =>
-      CreateTrafficMirrorFilterRuleResult();
+      CreateTrafficMirrorFilterRuleResult(
+        trafficMirrorFilterRule: json.containsKey('TrafficMirrorFilterRule')
+            ? TrafficMirrorFilterRule.fromJson(json['TrafficMirrorFilterRule'])
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+      );
 }
 
 class CreateTrafficMirrorSessionResult {
@@ -15806,7 +19071,14 @@ class CreateTrafficMirrorSessionResult {
     this.clientToken,
   });
   static CreateTrafficMirrorSessionResult fromJson(Map<String, dynamic> json) =>
-      CreateTrafficMirrorSessionResult();
+      CreateTrafficMirrorSessionResult(
+        trafficMirrorSession: json.containsKey('TrafficMirrorSession')
+            ? TrafficMirrorSession.fromJson(json['TrafficMirrorSession'])
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+      );
 }
 
 class CreateTrafficMirrorTargetResult {
@@ -15823,7 +19095,14 @@ class CreateTrafficMirrorTargetResult {
     this.clientToken,
   });
   static CreateTrafficMirrorTargetResult fromJson(Map<String, dynamic> json) =>
-      CreateTrafficMirrorTargetResult();
+      CreateTrafficMirrorTargetResult(
+        trafficMirrorTarget: json.containsKey('TrafficMirrorTarget')
+            ? TrafficMirrorTarget.fromJson(json['TrafficMirrorTarget'])
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+      );
 }
 
 class CreateTransitGatewayResult {
@@ -15834,7 +19113,11 @@ class CreateTransitGatewayResult {
     this.transitGateway,
   });
   static CreateTransitGatewayResult fromJson(Map<String, dynamic> json) =>
-      CreateTransitGatewayResult();
+      CreateTransitGatewayResult(
+        transitGateway: json.containsKey('TransitGateway')
+            ? TransitGateway.fromJson(json['TransitGateway'])
+            : null,
+      );
 }
 
 class CreateTransitGatewayRouteResult {
@@ -15845,7 +19128,11 @@ class CreateTransitGatewayRouteResult {
     this.route,
   });
   static CreateTransitGatewayRouteResult fromJson(Map<String, dynamic> json) =>
-      CreateTransitGatewayRouteResult();
+      CreateTransitGatewayRouteResult(
+        route: json.containsKey('Route')
+            ? TransitGatewayRoute.fromJson(json['Route'])
+            : null,
+      );
 }
 
 class CreateTransitGatewayRouteTableResult {
@@ -15857,7 +19144,12 @@ class CreateTransitGatewayRouteTableResult {
   });
   static CreateTransitGatewayRouteTableResult fromJson(
           Map<String, dynamic> json) =>
-      CreateTransitGatewayRouteTableResult();
+      CreateTransitGatewayRouteTableResult(
+        transitGatewayRouteTable: json.containsKey('TransitGatewayRouteTable')
+            ? TransitGatewayRouteTable.fromJson(
+                json['TransitGatewayRouteTable'])
+            : null,
+      );
 }
 
 /// Describes the options for a VPC attachment.
@@ -15872,6 +19164,7 @@ class CreateTransitGatewayVpcAttachmentRequestOptions {
     this.dnsSupport,
     this.ipv6Support,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateTransitGatewayVpcAttachmentResult {
@@ -15883,7 +19176,13 @@ class CreateTransitGatewayVpcAttachmentResult {
   });
   static CreateTransitGatewayVpcAttachmentResult fromJson(
           Map<String, dynamic> json) =>
-      CreateTransitGatewayVpcAttachmentResult();
+      CreateTransitGatewayVpcAttachmentResult(
+        transitGatewayVpcAttachment:
+            json.containsKey('TransitGatewayVpcAttachment')
+                ? TransitGatewayVpcAttachment.fromJson(
+                    json['TransitGatewayVpcAttachment'])
+                : null,
+      );
 }
 
 /// Describes the user or group to be added or removed from the list of create
@@ -15900,7 +19199,11 @@ class CreateVolumePermission {
     this.userId,
   });
   static CreateVolumePermission fromJson(Map<String, dynamic> json) =>
-      CreateVolumePermission();
+      CreateVolumePermission(
+        group: json.containsKey('Group') ? json['Group'] as String : null,
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes modifications to the list of create volume permissions for a
@@ -15916,6 +19219,7 @@ class CreateVolumePermissionModifications {
     this.add,
     this.remove,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateVpcEndpointConnectionNotificationResult {
@@ -15932,7 +19236,14 @@ class CreateVpcEndpointConnectionNotificationResult {
   });
   static CreateVpcEndpointConnectionNotificationResult fromJson(
           Map<String, dynamic> json) =>
-      CreateVpcEndpointConnectionNotificationResult();
+      CreateVpcEndpointConnectionNotificationResult(
+        connectionNotification: json.containsKey('ConnectionNotification')
+            ? ConnectionNotification.fromJson(json['ConnectionNotification'])
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+      );
 }
 
 /// Contains the output of CreateVpcEndpoint.
@@ -15949,7 +19260,14 @@ class CreateVpcEndpointResult {
     this.clientToken,
   });
   static CreateVpcEndpointResult fromJson(Map<String, dynamic> json) =>
-      CreateVpcEndpointResult();
+      CreateVpcEndpointResult(
+        vpcEndpoint: json.containsKey('VpcEndpoint')
+            ? VpcEndpoint.fromJson(json['VpcEndpoint'])
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+      );
 }
 
 class CreateVpcEndpointServiceConfigurationResult {
@@ -15966,7 +19284,14 @@ class CreateVpcEndpointServiceConfigurationResult {
   });
   static CreateVpcEndpointServiceConfigurationResult fromJson(
           Map<String, dynamic> json) =>
-      CreateVpcEndpointServiceConfigurationResult();
+      CreateVpcEndpointServiceConfigurationResult(
+        serviceConfiguration: json.containsKey('ServiceConfiguration')
+            ? ServiceConfiguration.fromJson(json['ServiceConfiguration'])
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+      );
 }
 
 class CreateVpcPeeringConnectionResult {
@@ -15977,7 +19302,11 @@ class CreateVpcPeeringConnectionResult {
     this.vpcPeeringConnection,
   });
   static CreateVpcPeeringConnectionResult fromJson(Map<String, dynamic> json) =>
-      CreateVpcPeeringConnectionResult();
+      CreateVpcPeeringConnectionResult(
+        vpcPeeringConnection: json.containsKey('VpcPeeringConnection')
+            ? VpcPeeringConnection.fromJson(json['VpcPeeringConnection'])
+            : null,
+      );
 }
 
 class CreateVpcResult {
@@ -15987,8 +19316,9 @@ class CreateVpcResult {
   CreateVpcResult({
     this.vpc,
   });
-  static CreateVpcResult fromJson(Map<String, dynamic> json) =>
-      CreateVpcResult();
+  static CreateVpcResult fromJson(Map<String, dynamic> json) => CreateVpcResult(
+        vpc: json.containsKey('Vpc') ? Vpc.fromJson(json['Vpc']) : null,
+      );
 }
 
 /// Contains the output of CreateVpnConnection.
@@ -16000,7 +19330,11 @@ class CreateVpnConnectionResult {
     this.vpnConnection,
   });
   static CreateVpnConnectionResult fromJson(Map<String, dynamic> json) =>
-      CreateVpnConnectionResult();
+      CreateVpnConnectionResult(
+        vpnConnection: json.containsKey('VpnConnection')
+            ? VpnConnection.fromJson(json['VpnConnection'])
+            : null,
+      );
 }
 
 /// Contains the output of CreateVpnGateway.
@@ -16012,7 +19346,11 @@ class CreateVpnGatewayResult {
     this.vpnGateway,
   });
   static CreateVpnGatewayResult fromJson(Map<String, dynamic> json) =>
-      CreateVpnGatewayResult();
+      CreateVpnGatewayResult(
+        vpnGateway: json.containsKey('VpnGateway')
+            ? VpnGateway.fromJson(json['VpnGateway'])
+            : null,
+      );
 }
 
 /// Describes the credit option for CPU usage of a T2 or T3 instance.
@@ -16025,7 +19363,11 @@ class CreditSpecification {
     this.cpuCredits,
   });
   static CreditSpecification fromJson(Map<String, dynamic> json) =>
-      CreditSpecification();
+      CreditSpecification(
+        cpuCredits: json.containsKey('CpuCredits')
+            ? json['CpuCredits'] as String
+            : null,
+      );
 }
 
 /// The credit option for CPU usage of a T2 or T3 instance.
@@ -16037,6 +19379,7 @@ class CreditSpecificationRequest {
   CreditSpecificationRequest({
     @required this.cpuCredits,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a customer gateway.
@@ -16074,8 +19417,22 @@ class CustomerGateway {
     this.type,
     this.tags,
   });
-  static CustomerGateway fromJson(Map<String, dynamic> json) =>
-      CustomerGateway();
+  static CustomerGateway fromJson(Map<String, dynamic> json) => CustomerGateway(
+        bgpAsn: json.containsKey('BgpAsn') ? json['BgpAsn'] as String : null,
+        customerGatewayId: json.containsKey('CustomerGatewayId')
+            ? json['CustomerGatewayId'] as String
+            : null,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DeleteClientVpnEndpointResult {
@@ -16086,7 +19443,11 @@ class DeleteClientVpnEndpointResult {
     this.status,
   });
   static DeleteClientVpnEndpointResult fromJson(Map<String, dynamic> json) =>
-      DeleteClientVpnEndpointResult();
+      DeleteClientVpnEndpointResult(
+        status: json.containsKey('Status')
+            ? ClientVpnEndpointStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 class DeleteClientVpnRouteResult {
@@ -16097,7 +19458,11 @@ class DeleteClientVpnRouteResult {
     this.status,
   });
   static DeleteClientVpnRouteResult fromJson(Map<String, dynamic> json) =>
-      DeleteClientVpnRouteResult();
+      DeleteClientVpnRouteResult(
+        status: json.containsKey('Status')
+            ? ClientVpnRouteStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 class DeleteEgressOnlyInternetGatewayResult {
@@ -16109,7 +19474,10 @@ class DeleteEgressOnlyInternetGatewayResult {
   });
   static DeleteEgressOnlyInternetGatewayResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteEgressOnlyInternetGatewayResult();
+      DeleteEgressOnlyInternetGatewayResult(
+        returnCode:
+            json.containsKey('ReturnCode') ? json['ReturnCode'] as bool : null,
+      );
 }
 
 /// Describes an EC2 Fleet error.
@@ -16125,7 +19493,10 @@ class DeleteFleetError {
     this.message,
   });
   static DeleteFleetError fromJson(Map<String, dynamic> json) =>
-      DeleteFleetError();
+      DeleteFleetError(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Describes an EC2 Fleet that was not successfully deleted.
@@ -16141,7 +19512,12 @@ class DeleteFleetErrorItem {
     this.fleetId,
   });
   static DeleteFleetErrorItem fromJson(Map<String, dynamic> json) =>
-      DeleteFleetErrorItem();
+      DeleteFleetErrorItem(
+        error: json.containsKey('Error')
+            ? DeleteFleetError.fromJson(json['Error'])
+            : null,
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+      );
 }
 
 /// Describes an EC2 Fleet that was successfully deleted.
@@ -16161,7 +19537,15 @@ class DeleteFleetSuccessItem {
     this.fleetId,
   });
   static DeleteFleetSuccessItem fromJson(Map<String, dynamic> json) =>
-      DeleteFleetSuccessItem();
+      DeleteFleetSuccessItem(
+        currentFleetState: json.containsKey('CurrentFleetState')
+            ? json['CurrentFleetState'] as String
+            : null,
+        previousFleetState: json.containsKey('PreviousFleetState')
+            ? json['PreviousFleetState'] as String
+            : null,
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+      );
 }
 
 class DeleteFleetsResult {
@@ -16176,7 +19560,19 @@ class DeleteFleetsResult {
     this.unsuccessfulFleetDeletions,
   });
   static DeleteFleetsResult fromJson(Map<String, dynamic> json) =>
-      DeleteFleetsResult();
+      DeleteFleetsResult(
+        successfulFleetDeletions: json.containsKey('SuccessfulFleetDeletions')
+            ? (json['SuccessfulFleetDeletions'] as List)
+                .map((e) => DeleteFleetSuccessItem.fromJson(e))
+                .toList()
+            : null,
+        unsuccessfulFleetDeletions:
+            json.containsKey('UnsuccessfulFleetDeletions')
+                ? (json['UnsuccessfulFleetDeletions'] as List)
+                    .map((e) => DeleteFleetErrorItem.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class DeleteFlowLogsResult {
@@ -16187,7 +19583,13 @@ class DeleteFlowLogsResult {
     this.unsuccessful,
   });
   static DeleteFlowLogsResult fromJson(Map<String, dynamic> json) =>
-      DeleteFlowLogsResult();
+      DeleteFlowLogsResult(
+        unsuccessful: json.containsKey('Unsuccessful')
+            ? (json['Unsuccessful'] as List)
+                .map((e) => UnsuccessfulItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteFpgaImageResult {
@@ -16198,7 +19600,9 @@ class DeleteFpgaImageResult {
     this.return$,
   });
   static DeleteFpgaImageResult fromJson(Map<String, dynamic> json) =>
-      DeleteFpgaImageResult();
+      DeleteFpgaImageResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class DeleteLaunchTemplateResult {
@@ -16209,7 +19613,11 @@ class DeleteLaunchTemplateResult {
     this.launchTemplate,
   });
   static DeleteLaunchTemplateResult fromJson(Map<String, dynamic> json) =>
-      DeleteLaunchTemplateResult();
+      DeleteLaunchTemplateResult(
+        launchTemplate: json.containsKey('LaunchTemplate')
+            ? LaunchTemplate.fromJson(json['LaunchTemplate'])
+            : null,
+      );
 }
 
 /// Describes a launch template version that could not be deleted.
@@ -16234,7 +19642,20 @@ class DeleteLaunchTemplateVersionsResponseErrorItem {
   });
   static DeleteLaunchTemplateVersionsResponseErrorItem fromJson(
           Map<String, dynamic> json) =>
-      DeleteLaunchTemplateVersionsResponseErrorItem();
+      DeleteLaunchTemplateVersionsResponseErrorItem(
+        launchTemplateId: json.containsKey('LaunchTemplateId')
+            ? json['LaunchTemplateId'] as String
+            : null,
+        launchTemplateName: json.containsKey('LaunchTemplateName')
+            ? json['LaunchTemplateName'] as String
+            : null,
+        versionNumber: json.containsKey('VersionNumber')
+            ? BigInt.from(json['VersionNumber'])
+            : null,
+        responseError: json.containsKey('ResponseError')
+            ? ResponseError.fromJson(json['ResponseError'])
+            : null,
+      );
 }
 
 /// Describes a launch template version that was successfully deleted.
@@ -16255,7 +19676,17 @@ class DeleteLaunchTemplateVersionsResponseSuccessItem {
   });
   static DeleteLaunchTemplateVersionsResponseSuccessItem fromJson(
           Map<String, dynamic> json) =>
-      DeleteLaunchTemplateVersionsResponseSuccessItem();
+      DeleteLaunchTemplateVersionsResponseSuccessItem(
+        launchTemplateId: json.containsKey('LaunchTemplateId')
+            ? json['LaunchTemplateId'] as String
+            : null,
+        launchTemplateName: json.containsKey('LaunchTemplateName')
+            ? json['LaunchTemplateName'] as String
+            : null,
+        versionNumber: json.containsKey('VersionNumber')
+            ? BigInt.from(json['VersionNumber'])
+            : null,
+      );
 }
 
 class DeleteLaunchTemplateVersionsResult {
@@ -16274,7 +19705,22 @@ class DeleteLaunchTemplateVersionsResult {
   });
   static DeleteLaunchTemplateVersionsResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteLaunchTemplateVersionsResult();
+      DeleteLaunchTemplateVersionsResult(
+        successfullyDeletedLaunchTemplateVersions: json
+                .containsKey('SuccessfullyDeletedLaunchTemplateVersions')
+            ? (json['SuccessfullyDeletedLaunchTemplateVersions'] as List)
+                .map((e) =>
+                    DeleteLaunchTemplateVersionsResponseSuccessItem.fromJson(e))
+                .toList()
+            : null,
+        unsuccessfullyDeletedLaunchTemplateVersions: json
+                .containsKey('UnsuccessfullyDeletedLaunchTemplateVersions')
+            ? (json['UnsuccessfullyDeletedLaunchTemplateVersions'] as List)
+                .map((e) =>
+                    DeleteLaunchTemplateVersionsResponseErrorItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteNatGatewayResult {
@@ -16285,7 +19731,11 @@ class DeleteNatGatewayResult {
     this.natGatewayId,
   });
   static DeleteNatGatewayResult fromJson(Map<String, dynamic> json) =>
-      DeleteNatGatewayResult();
+      DeleteNatGatewayResult(
+        natGatewayId: json.containsKey('NatGatewayId')
+            ? json['NatGatewayId'] as String
+            : null,
+      );
 }
 
 /// Contains the output for DeleteNetworkInterfacePermission.
@@ -16298,7 +19748,9 @@ class DeleteNetworkInterfacePermissionResult {
   });
   static DeleteNetworkInterfacePermissionResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteNetworkInterfacePermissionResult();
+      DeleteNetworkInterfacePermissionResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class DeleteTrafficMirrorFilterResult {
@@ -16309,7 +19761,11 @@ class DeleteTrafficMirrorFilterResult {
     this.trafficMirrorFilterId,
   });
   static DeleteTrafficMirrorFilterResult fromJson(Map<String, dynamic> json) =>
-      DeleteTrafficMirrorFilterResult();
+      DeleteTrafficMirrorFilterResult(
+        trafficMirrorFilterId: json.containsKey('TrafficMirrorFilterId')
+            ? json['TrafficMirrorFilterId'] as String
+            : null,
+      );
 }
 
 class DeleteTrafficMirrorFilterRuleResult {
@@ -16321,7 +19777,11 @@ class DeleteTrafficMirrorFilterRuleResult {
   });
   static DeleteTrafficMirrorFilterRuleResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteTrafficMirrorFilterRuleResult();
+      DeleteTrafficMirrorFilterRuleResult(
+        trafficMirrorFilterRuleId: json.containsKey('TrafficMirrorFilterRuleId')
+            ? json['TrafficMirrorFilterRuleId'] as String
+            : null,
+      );
 }
 
 class DeleteTrafficMirrorSessionResult {
@@ -16332,7 +19792,11 @@ class DeleteTrafficMirrorSessionResult {
     this.trafficMirrorSessionId,
   });
   static DeleteTrafficMirrorSessionResult fromJson(Map<String, dynamic> json) =>
-      DeleteTrafficMirrorSessionResult();
+      DeleteTrafficMirrorSessionResult(
+        trafficMirrorSessionId: json.containsKey('TrafficMirrorSessionId')
+            ? json['TrafficMirrorSessionId'] as String
+            : null,
+      );
 }
 
 class DeleteTrafficMirrorTargetResult {
@@ -16343,7 +19807,11 @@ class DeleteTrafficMirrorTargetResult {
     this.trafficMirrorTargetId,
   });
   static DeleteTrafficMirrorTargetResult fromJson(Map<String, dynamic> json) =>
-      DeleteTrafficMirrorTargetResult();
+      DeleteTrafficMirrorTargetResult(
+        trafficMirrorTargetId: json.containsKey('TrafficMirrorTargetId')
+            ? json['TrafficMirrorTargetId'] as String
+            : null,
+      );
 }
 
 class DeleteTransitGatewayResult {
@@ -16354,7 +19822,11 @@ class DeleteTransitGatewayResult {
     this.transitGateway,
   });
   static DeleteTransitGatewayResult fromJson(Map<String, dynamic> json) =>
-      DeleteTransitGatewayResult();
+      DeleteTransitGatewayResult(
+        transitGateway: json.containsKey('TransitGateway')
+            ? TransitGateway.fromJson(json['TransitGateway'])
+            : null,
+      );
 }
 
 class DeleteTransitGatewayRouteResult {
@@ -16365,7 +19837,11 @@ class DeleteTransitGatewayRouteResult {
     this.route,
   });
   static DeleteTransitGatewayRouteResult fromJson(Map<String, dynamic> json) =>
-      DeleteTransitGatewayRouteResult();
+      DeleteTransitGatewayRouteResult(
+        route: json.containsKey('Route')
+            ? TransitGatewayRoute.fromJson(json['Route'])
+            : null,
+      );
 }
 
 class DeleteTransitGatewayRouteTableResult {
@@ -16377,7 +19853,12 @@ class DeleteTransitGatewayRouteTableResult {
   });
   static DeleteTransitGatewayRouteTableResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteTransitGatewayRouteTableResult();
+      DeleteTransitGatewayRouteTableResult(
+        transitGatewayRouteTable: json.containsKey('TransitGatewayRouteTable')
+            ? TransitGatewayRouteTable.fromJson(
+                json['TransitGatewayRouteTable'])
+            : null,
+      );
 }
 
 class DeleteTransitGatewayVpcAttachmentResult {
@@ -16389,7 +19870,13 @@ class DeleteTransitGatewayVpcAttachmentResult {
   });
   static DeleteTransitGatewayVpcAttachmentResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteTransitGatewayVpcAttachmentResult();
+      DeleteTransitGatewayVpcAttachmentResult(
+        transitGatewayVpcAttachment:
+            json.containsKey('TransitGatewayVpcAttachment')
+                ? TransitGatewayVpcAttachment.fromJson(
+                    json['TransitGatewayVpcAttachment'])
+                : null,
+      );
 }
 
 class DeleteVpcEndpointConnectionNotificationsResult {
@@ -16402,7 +19889,13 @@ class DeleteVpcEndpointConnectionNotificationsResult {
   });
   static DeleteVpcEndpointConnectionNotificationsResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteVpcEndpointConnectionNotificationsResult();
+      DeleteVpcEndpointConnectionNotificationsResult(
+        unsuccessful: json.containsKey('Unsuccessful')
+            ? (json['Unsuccessful'] as List)
+                .map((e) => UnsuccessfulItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteVpcEndpointServiceConfigurationsResult {
@@ -16415,7 +19908,13 @@ class DeleteVpcEndpointServiceConfigurationsResult {
   });
   static DeleteVpcEndpointServiceConfigurationsResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteVpcEndpointServiceConfigurationsResult();
+      DeleteVpcEndpointServiceConfigurationsResult(
+        unsuccessful: json.containsKey('Unsuccessful')
+            ? (json['Unsuccessful'] as List)
+                .map((e) => UnsuccessfulItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of DeleteVpcEndpoints.
@@ -16427,7 +19926,13 @@ class DeleteVpcEndpointsResult {
     this.unsuccessful,
   });
   static DeleteVpcEndpointsResult fromJson(Map<String, dynamic> json) =>
-      DeleteVpcEndpointsResult();
+      DeleteVpcEndpointsResult(
+        unsuccessful: json.containsKey('Unsuccessful')
+            ? (json['Unsuccessful'] as List)
+                .map((e) => UnsuccessfulItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteVpcPeeringConnectionResult {
@@ -16438,7 +19943,9 @@ class DeleteVpcPeeringConnectionResult {
     this.return$,
   });
   static DeleteVpcPeeringConnectionResult fromJson(Map<String, dynamic> json) =>
-      DeleteVpcPeeringConnectionResult();
+      DeleteVpcPeeringConnectionResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class DeprovisionByoipCidrResult {
@@ -16449,7 +19956,11 @@ class DeprovisionByoipCidrResult {
     this.byoipCidr,
   });
   static DeprovisionByoipCidrResult fromJson(Map<String, dynamic> json) =>
-      DeprovisionByoipCidrResult();
+      DeprovisionByoipCidrResult(
+        byoipCidr: json.containsKey('ByoipCidr')
+            ? ByoipCidr.fromJson(json['ByoipCidr'])
+            : null,
+      );
 }
 
 class DescribeAccountAttributesResult {
@@ -16460,7 +19971,13 @@ class DescribeAccountAttributesResult {
     this.accountAttributes,
   });
   static DescribeAccountAttributesResult fromJson(Map<String, dynamic> json) =>
-      DescribeAccountAttributesResult();
+      DescribeAccountAttributesResult(
+        accountAttributes: json.containsKey('AccountAttributes')
+            ? (json['AccountAttributes'] as List)
+                .map((e) => AccountAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeAddressesResult {
@@ -16471,7 +19988,13 @@ class DescribeAddressesResult {
     this.addresses,
   });
   static DescribeAddressesResult fromJson(Map<String, dynamic> json) =>
-      DescribeAddressesResult();
+      DescribeAddressesResult(
+        addresses: json.containsKey('Addresses')
+            ? (json['Addresses'] as List)
+                .map((e) => Address.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeAggregateIdFormatResult {
@@ -16488,7 +20011,16 @@ class DescribeAggregateIdFormatResult {
     this.statuses,
   });
   static DescribeAggregateIdFormatResult fromJson(Map<String, dynamic> json) =>
-      DescribeAggregateIdFormatResult();
+      DescribeAggregateIdFormatResult(
+        useLongIdsAggregated: json.containsKey('UseLongIdsAggregated')
+            ? json['UseLongIdsAggregated'] as bool
+            : null,
+        statuses: json.containsKey('Statuses')
+            ? (json['Statuses'] as List)
+                .map((e) => IdFormat.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeAvailabilityZonesResult {
@@ -16499,7 +20031,13 @@ class DescribeAvailabilityZonesResult {
     this.availabilityZones,
   });
   static DescribeAvailabilityZonesResult fromJson(Map<String, dynamic> json) =>
-      DescribeAvailabilityZonesResult();
+      DescribeAvailabilityZonesResult(
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => AvailabilityZone.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeBundleTasksResult {
@@ -16510,7 +20048,13 @@ class DescribeBundleTasksResult {
     this.bundleTasks,
   });
   static DescribeBundleTasksResult fromJson(Map<String, dynamic> json) =>
-      DescribeBundleTasksResult();
+      DescribeBundleTasksResult(
+        bundleTasks: json.containsKey('BundleTasks')
+            ? (json['BundleTasks'] as List)
+                .map((e) => BundleTask.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeByoipCidrsResult {
@@ -16526,7 +20070,15 @@ class DescribeByoipCidrsResult {
     this.nextToken,
   });
   static DescribeByoipCidrsResult fromJson(Map<String, dynamic> json) =>
-      DescribeByoipCidrsResult();
+      DescribeByoipCidrsResult(
+        byoipCidrs: json.containsKey('ByoipCidrs')
+            ? (json['ByoipCidrs'] as List)
+                .map((e) => ByoipCidr.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeCapacityReservationsResult {
@@ -16543,7 +20095,15 @@ class DescribeCapacityReservationsResult {
   });
   static DescribeCapacityReservationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeCapacityReservationsResult();
+      DescribeCapacityReservationsResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        capacityReservations: json.containsKey('CapacityReservations')
+            ? (json['CapacityReservations'] as List)
+                .map((e) => CapacityReservation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeClassicLinkInstancesResult {
@@ -16560,7 +20120,15 @@ class DescribeClassicLinkInstancesResult {
   });
   static DescribeClassicLinkInstancesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeClassicLinkInstancesResult();
+      DescribeClassicLinkInstancesResult(
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => ClassicLinkInstance.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeClientVpnAuthorizationRulesResult {
@@ -16577,7 +20145,15 @@ class DescribeClientVpnAuthorizationRulesResult {
   });
   static DescribeClientVpnAuthorizationRulesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeClientVpnAuthorizationRulesResult();
+      DescribeClientVpnAuthorizationRulesResult(
+        authorizationRules: json.containsKey('AuthorizationRules')
+            ? (json['AuthorizationRules'] as List)
+                .map((e) => AuthorizationRule.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeClientVpnConnectionsResult {
@@ -16594,7 +20170,15 @@ class DescribeClientVpnConnectionsResult {
   });
   static DescribeClientVpnConnectionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeClientVpnConnectionsResult();
+      DescribeClientVpnConnectionsResult(
+        connections: json.containsKey('Connections')
+            ? (json['Connections'] as List)
+                .map((e) => ClientVpnConnection.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeClientVpnEndpointsResult {
@@ -16610,7 +20194,15 @@ class DescribeClientVpnEndpointsResult {
     this.nextToken,
   });
   static DescribeClientVpnEndpointsResult fromJson(Map<String, dynamic> json) =>
-      DescribeClientVpnEndpointsResult();
+      DescribeClientVpnEndpointsResult(
+        clientVpnEndpoints: json.containsKey('ClientVpnEndpoints')
+            ? (json['ClientVpnEndpoints'] as List)
+                .map((e) => ClientVpnEndpoint.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeClientVpnRoutesResult {
@@ -16626,7 +20218,15 @@ class DescribeClientVpnRoutesResult {
     this.nextToken,
   });
   static DescribeClientVpnRoutesResult fromJson(Map<String, dynamic> json) =>
-      DescribeClientVpnRoutesResult();
+      DescribeClientVpnRoutesResult(
+        routes: json.containsKey('Routes')
+            ? (json['Routes'] as List)
+                .map((e) => ClientVpnRoute.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeClientVpnTargetNetworksResult {
@@ -16643,7 +20243,15 @@ class DescribeClientVpnTargetNetworksResult {
   });
   static DescribeClientVpnTargetNetworksResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeClientVpnTargetNetworksResult();
+      DescribeClientVpnTargetNetworksResult(
+        clientVpnTargetNetworks: json.containsKey('ClientVpnTargetNetworks')
+            ? (json['ClientVpnTargetNetworks'] as List)
+                .map((e) => TargetNetwork.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeConversionTasksResult {
@@ -16654,7 +20262,13 @@ class DescribeConversionTasksResult {
     this.conversionTasks,
   });
   static DescribeConversionTasksResult fromJson(Map<String, dynamic> json) =>
-      DescribeConversionTasksResult();
+      DescribeConversionTasksResult(
+        conversionTasks: json.containsKey('ConversionTasks')
+            ? (json['ConversionTasks'] as List)
+                .map((e) => ConversionTask.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of DescribeCustomerGateways.
@@ -16666,7 +20280,13 @@ class DescribeCustomerGatewaysResult {
     this.customerGateways,
   });
   static DescribeCustomerGatewaysResult fromJson(Map<String, dynamic> json) =>
-      DescribeCustomerGatewaysResult();
+      DescribeCustomerGatewaysResult(
+        customerGateways: json.containsKey('CustomerGateways')
+            ? (json['CustomerGateways'] as List)
+                .map((e) => CustomerGateway.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeDhcpOptionsResult {
@@ -16682,7 +20302,15 @@ class DescribeDhcpOptionsResult {
     this.nextToken,
   });
   static DescribeDhcpOptionsResult fromJson(Map<String, dynamic> json) =>
-      DescribeDhcpOptionsResult();
+      DescribeDhcpOptionsResult(
+        dhcpOptions: json.containsKey('DhcpOptions')
+            ? (json['DhcpOptions'] as List)
+                .map((e) => DhcpOptions.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeEgressOnlyInternetGatewaysResult {
@@ -16699,7 +20327,16 @@ class DescribeEgressOnlyInternetGatewaysResult {
   });
   static DescribeEgressOnlyInternetGatewaysResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEgressOnlyInternetGatewaysResult();
+      DescribeEgressOnlyInternetGatewaysResult(
+        egressOnlyInternetGateways:
+            json.containsKey('EgressOnlyInternetGateways')
+                ? (json['EgressOnlyInternetGateways'] as List)
+                    .map((e) => EgressOnlyInternetGateway.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeElasticGpusResult {
@@ -16721,7 +20358,17 @@ class DescribeElasticGpusResult {
     this.nextToken,
   });
   static DescribeElasticGpusResult fromJson(Map<String, dynamic> json) =>
-      DescribeElasticGpusResult();
+      DescribeElasticGpusResult(
+        elasticGpuSet: json.containsKey('ElasticGpuSet')
+            ? (json['ElasticGpuSet'] as List)
+                .map((e) => ElasticGpus.fromJson(e))
+                .toList()
+            : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeExportImageTasksResult {
@@ -16737,7 +20384,15 @@ class DescribeExportImageTasksResult {
     this.nextToken,
   });
   static DescribeExportImageTasksResult fromJson(Map<String, dynamic> json) =>
-      DescribeExportImageTasksResult();
+      DescribeExportImageTasksResult(
+        exportImageTasks: json.containsKey('ExportImageTasks')
+            ? (json['ExportImageTasks'] as List)
+                .map((e) => ExportImageTask.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeExportTasksResult {
@@ -16748,7 +20403,13 @@ class DescribeExportTasksResult {
     this.exportTasks,
   });
   static DescribeExportTasksResult fromJson(Map<String, dynamic> json) =>
-      DescribeExportTasksResult();
+      DescribeExportTasksResult(
+        exportTasks: json.containsKey('ExportTasks')
+            ? (json['ExportTasks'] as List)
+                .map((e) => ExportTask.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the instances that could not be launched by the fleet.
@@ -16779,7 +20440,20 @@ class DescribeFleetError {
     this.errorMessage,
   });
   static DescribeFleetError fromJson(Map<String, dynamic> json) =>
-      DescribeFleetError();
+      DescribeFleetError(
+        launchTemplateAndOverrides:
+            json.containsKey('LaunchTemplateAndOverrides')
+                ? LaunchTemplateAndOverridesResponse.fromJson(
+                    json['LaunchTemplateAndOverrides'])
+                : null,
+        lifecycle:
+            json.containsKey('Lifecycle') ? json['Lifecycle'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class DescribeFleetHistoryResult {
@@ -16812,7 +20486,22 @@ class DescribeFleetHistoryResult {
     this.startTime,
   });
   static DescribeFleetHistoryResult fromJson(Map<String, dynamic> json) =>
-      DescribeFleetHistoryResult();
+      DescribeFleetHistoryResult(
+        historyRecords: json.containsKey('HistoryRecords')
+            ? (json['HistoryRecords'] as List)
+                .map((e) => HistoryRecordEntry.fromJson(e))
+                .toList()
+            : null,
+        lastEvaluatedTime: json.containsKey('LastEvaluatedTime')
+            ? DateTime.parse(json['LastEvaluatedTime'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+      );
 }
 
 class DescribeFleetInstancesResult {
@@ -16832,7 +20521,16 @@ class DescribeFleetInstancesResult {
     this.fleetId,
   });
   static DescribeFleetInstancesResult fromJson(Map<String, dynamic> json) =>
-      DescribeFleetInstancesResult();
+      DescribeFleetInstancesResult(
+        activeInstances: json.containsKey('ActiveInstances')
+            ? (json['ActiveInstances'] as List)
+                .map((e) => ActiveInstance.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+      );
 }
 
 /// Describes the instances that were launched by the fleet.
@@ -16863,7 +20561,23 @@ class DescribeFleetsInstances {
     this.platform,
   });
   static DescribeFleetsInstances fromJson(Map<String, dynamic> json) =>
-      DescribeFleetsInstances();
+      DescribeFleetsInstances(
+        launchTemplateAndOverrides:
+            json.containsKey('LaunchTemplateAndOverrides')
+                ? LaunchTemplateAndOverridesResponse.fromJson(
+                    json['LaunchTemplateAndOverrides'])
+                : null,
+        lifecycle:
+            json.containsKey('Lifecycle') ? json['Lifecycle'] as String : null,
+        instanceIds: json.containsKey('InstanceIds')
+            ? (json['InstanceIds'] as List).map((e) => e as String).toList()
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+      );
 }
 
 class DescribeFleetsResult {
@@ -16878,7 +20592,15 @@ class DescribeFleetsResult {
     this.fleets,
   });
   static DescribeFleetsResult fromJson(Map<String, dynamic> json) =>
-      DescribeFleetsResult();
+      DescribeFleetsResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        fleets: json.containsKey('Fleets')
+            ? (json['Fleets'] as List)
+                .map((e) => FleetData.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeFlowLogsResult {
@@ -16894,7 +20616,15 @@ class DescribeFlowLogsResult {
     this.nextToken,
   });
   static DescribeFlowLogsResult fromJson(Map<String, dynamic> json) =>
-      DescribeFlowLogsResult();
+      DescribeFlowLogsResult(
+        flowLogs: json.containsKey('FlowLogs')
+            ? (json['FlowLogs'] as List)
+                .map((e) => FlowLog.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeFpgaImageAttributeResult {
@@ -16905,7 +20635,11 @@ class DescribeFpgaImageAttributeResult {
     this.fpgaImageAttribute,
   });
   static DescribeFpgaImageAttributeResult fromJson(Map<String, dynamic> json) =>
-      DescribeFpgaImageAttributeResult();
+      DescribeFpgaImageAttributeResult(
+        fpgaImageAttribute: json.containsKey('FpgaImageAttribute')
+            ? FpgaImageAttribute.fromJson(json['FpgaImageAttribute'])
+            : null,
+      );
 }
 
 class DescribeFpgaImagesResult {
@@ -16921,7 +20655,15 @@ class DescribeFpgaImagesResult {
     this.nextToken,
   });
   static DescribeFpgaImagesResult fromJson(Map<String, dynamic> json) =>
-      DescribeFpgaImagesResult();
+      DescribeFpgaImagesResult(
+        fpgaImages: json.containsKey('FpgaImages')
+            ? (json['FpgaImages'] as List)
+                .map((e) => FpgaImage.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeHostReservationOfferingsResult {
@@ -16938,7 +20680,15 @@ class DescribeHostReservationOfferingsResult {
   });
   static DescribeHostReservationOfferingsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeHostReservationOfferingsResult();
+      DescribeHostReservationOfferingsResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        offeringSet: json.containsKey('OfferingSet')
+            ? (json['OfferingSet'] as List)
+                .map((e) => HostOffering.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeHostReservationsResult {
@@ -16954,7 +20704,15 @@ class DescribeHostReservationsResult {
     this.nextToken,
   });
   static DescribeHostReservationsResult fromJson(Map<String, dynamic> json) =>
-      DescribeHostReservationsResult();
+      DescribeHostReservationsResult(
+        hostReservationSet: json.containsKey('HostReservationSet')
+            ? (json['HostReservationSet'] as List)
+                .map((e) => HostReservation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeHostsResult {
@@ -16970,7 +20728,13 @@ class DescribeHostsResult {
     this.nextToken,
   });
   static DescribeHostsResult fromJson(Map<String, dynamic> json) =>
-      DescribeHostsResult();
+      DescribeHostsResult(
+        hosts: json.containsKey('Hosts')
+            ? (json['Hosts'] as List).map((e) => Host.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeIamInstanceProfileAssociationsResult {
@@ -16987,7 +20751,16 @@ class DescribeIamInstanceProfileAssociationsResult {
   });
   static DescribeIamInstanceProfileAssociationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeIamInstanceProfileAssociationsResult();
+      DescribeIamInstanceProfileAssociationsResult(
+        iamInstanceProfileAssociations:
+            json.containsKey('IamInstanceProfileAssociations')
+                ? (json['IamInstanceProfileAssociations'] as List)
+                    .map((e) => IamInstanceProfileAssociation.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeIdFormatResult {
@@ -16998,7 +20771,13 @@ class DescribeIdFormatResult {
     this.statuses,
   });
   static DescribeIdFormatResult fromJson(Map<String, dynamic> json) =>
-      DescribeIdFormatResult();
+      DescribeIdFormatResult(
+        statuses: json.containsKey('Statuses')
+            ? (json['Statuses'] as List)
+                .map((e) => IdFormat.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeIdentityIdFormatResult {
@@ -17009,7 +20788,13 @@ class DescribeIdentityIdFormatResult {
     this.statuses,
   });
   static DescribeIdentityIdFormatResult fromJson(Map<String, dynamic> json) =>
-      DescribeIdentityIdFormatResult();
+      DescribeIdentityIdFormatResult(
+        statuses: json.containsKey('Statuses')
+            ? (json['Statuses'] as List)
+                .map((e) => IdFormat.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeImagesResult {
@@ -17020,7 +20805,11 @@ class DescribeImagesResult {
     this.images,
   });
   static DescribeImagesResult fromJson(Map<String, dynamic> json) =>
-      DescribeImagesResult();
+      DescribeImagesResult(
+        images: json.containsKey('Images')
+            ? (json['Images'] as List).map((e) => Image.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DescribeImportImageTasksResult {
@@ -17037,7 +20826,15 @@ class DescribeImportImageTasksResult {
     this.nextToken,
   });
   static DescribeImportImageTasksResult fromJson(Map<String, dynamic> json) =>
-      DescribeImportImageTasksResult();
+      DescribeImportImageTasksResult(
+        importImageTasks: json.containsKey('ImportImageTasks')
+            ? (json['ImportImageTasks'] as List)
+                .map((e) => ImportImageTask.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeImportSnapshotTasksResult {
@@ -17055,7 +20852,15 @@ class DescribeImportSnapshotTasksResult {
   });
   static DescribeImportSnapshotTasksResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeImportSnapshotTasksResult();
+      DescribeImportSnapshotTasksResult(
+        importSnapshotTasks: json.containsKey('ImportSnapshotTasks')
+            ? (json['ImportSnapshotTasks'] as List)
+                .map((e) => ImportSnapshotTask.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInstanceCreditSpecificationsResult {
@@ -17072,7 +20877,16 @@ class DescribeInstanceCreditSpecificationsResult {
   });
   static DescribeInstanceCreditSpecificationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeInstanceCreditSpecificationsResult();
+      DescribeInstanceCreditSpecificationsResult(
+        instanceCreditSpecifications:
+            json.containsKey('InstanceCreditSpecifications')
+                ? (json['InstanceCreditSpecifications'] as List)
+                    .map((e) => InstanceCreditSpecification.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInstanceStatusResult {
@@ -17088,7 +20902,15 @@ class DescribeInstanceStatusResult {
     this.nextToken,
   });
   static DescribeInstanceStatusResult fromJson(Map<String, dynamic> json) =>
-      DescribeInstanceStatusResult();
+      DescribeInstanceStatusResult(
+        instanceStatuses: json.containsKey('InstanceStatuses')
+            ? (json['InstanceStatuses'] as List)
+                .map((e) => InstanceStatus.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInstancesResult {
@@ -17104,7 +20926,15 @@ class DescribeInstancesResult {
     this.nextToken,
   });
   static DescribeInstancesResult fromJson(Map<String, dynamic> json) =>
-      DescribeInstancesResult();
+      DescribeInstancesResult(
+        reservations: json.containsKey('Reservations')
+            ? (json['Reservations'] as List)
+                .map((e) => Reservation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeInternetGatewaysResult {
@@ -17120,7 +20950,15 @@ class DescribeInternetGatewaysResult {
     this.nextToken,
   });
   static DescribeInternetGatewaysResult fromJson(Map<String, dynamic> json) =>
-      DescribeInternetGatewaysResult();
+      DescribeInternetGatewaysResult(
+        internetGateways: json.containsKey('InternetGateways')
+            ? (json['InternetGateways'] as List)
+                .map((e) => InternetGateway.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeKeyPairsResult {
@@ -17131,7 +20969,13 @@ class DescribeKeyPairsResult {
     this.keyPairs,
   });
   static DescribeKeyPairsResult fromJson(Map<String, dynamic> json) =>
-      DescribeKeyPairsResult();
+      DescribeKeyPairsResult(
+        keyPairs: json.containsKey('KeyPairs')
+            ? (json['KeyPairs'] as List)
+                .map((e) => KeyPairInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeLaunchTemplateVersionsResult {
@@ -17148,7 +20992,15 @@ class DescribeLaunchTemplateVersionsResult {
   });
   static DescribeLaunchTemplateVersionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeLaunchTemplateVersionsResult();
+      DescribeLaunchTemplateVersionsResult(
+        launchTemplateVersions: json.containsKey('LaunchTemplateVersions')
+            ? (json['LaunchTemplateVersions'] as List)
+                .map((e) => LaunchTemplateVersion.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeLaunchTemplatesResult {
@@ -17164,7 +21016,15 @@ class DescribeLaunchTemplatesResult {
     this.nextToken,
   });
   static DescribeLaunchTemplatesResult fromJson(Map<String, dynamic> json) =>
-      DescribeLaunchTemplatesResult();
+      DescribeLaunchTemplatesResult(
+        launchTemplates: json.containsKey('LaunchTemplates')
+            ? (json['LaunchTemplates'] as List)
+                .map((e) => LaunchTemplate.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMovingAddressesResult {
@@ -17180,7 +21040,15 @@ class DescribeMovingAddressesResult {
     this.nextToken,
   });
   static DescribeMovingAddressesResult fromJson(Map<String, dynamic> json) =>
-      DescribeMovingAddressesResult();
+      DescribeMovingAddressesResult(
+        movingAddressStatuses: json.containsKey('MovingAddressStatuses')
+            ? (json['MovingAddressStatuses'] as List)
+                .map((e) => MovingAddressStatus.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeNatGatewaysResult {
@@ -17196,7 +21064,15 @@ class DescribeNatGatewaysResult {
     this.nextToken,
   });
   static DescribeNatGatewaysResult fromJson(Map<String, dynamic> json) =>
-      DescribeNatGatewaysResult();
+      DescribeNatGatewaysResult(
+        natGateways: json.containsKey('NatGateways')
+            ? (json['NatGateways'] as List)
+                .map((e) => NatGateway.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeNetworkAclsResult {
@@ -17212,7 +21088,15 @@ class DescribeNetworkAclsResult {
     this.nextToken,
   });
   static DescribeNetworkAclsResult fromJson(Map<String, dynamic> json) =>
-      DescribeNetworkAclsResult();
+      DescribeNetworkAclsResult(
+        networkAcls: json.containsKey('NetworkAcls')
+            ? (json['NetworkAcls'] as List)
+                .map((e) => NetworkAcl.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeNetworkInterfaceAttribute.
@@ -17241,7 +21125,25 @@ class DescribeNetworkInterfaceAttributeResult {
   });
   static DescribeNetworkInterfaceAttributeResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeNetworkInterfaceAttributeResult();
+      DescribeNetworkInterfaceAttributeResult(
+        attachment: json.containsKey('Attachment')
+            ? NetworkInterfaceAttachment.fromJson(json['Attachment'])
+            : null,
+        description: json.containsKey('Description')
+            ? AttributeValue.fromJson(json['Description'])
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        sourceDestCheck: json.containsKey('SourceDestCheck')
+            ? AttributeBooleanValue.fromJson(json['SourceDestCheck'])
+            : null,
+      );
 }
 
 /// Contains the output for DescribeNetworkInterfacePermissions.
@@ -17258,7 +21160,16 @@ class DescribeNetworkInterfacePermissionsResult {
   });
   static DescribeNetworkInterfacePermissionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeNetworkInterfacePermissionsResult();
+      DescribeNetworkInterfacePermissionsResult(
+        networkInterfacePermissions:
+            json.containsKey('NetworkInterfacePermissions')
+                ? (json['NetworkInterfacePermissions'] as List)
+                    .map((e) => NetworkInterfacePermission.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeNetworkInterfaces.
@@ -17275,7 +21186,15 @@ class DescribeNetworkInterfacesResult {
     this.nextToken,
   });
   static DescribeNetworkInterfacesResult fromJson(Map<String, dynamic> json) =>
-      DescribeNetworkInterfacesResult();
+      DescribeNetworkInterfacesResult(
+        networkInterfaces: json.containsKey('NetworkInterfaces')
+            ? (json['NetworkInterfaces'] as List)
+                .map((e) => NetworkInterface.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribePlacementGroupsResult {
@@ -17286,7 +21205,13 @@ class DescribePlacementGroupsResult {
     this.placementGroups,
   });
   static DescribePlacementGroupsResult fromJson(Map<String, dynamic> json) =>
-      DescribePlacementGroupsResult();
+      DescribePlacementGroupsResult(
+        placementGroups: json.containsKey('PlacementGroups')
+            ? (json['PlacementGroups'] as List)
+                .map((e) => PlacementGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribePrefixListsResult {
@@ -17302,7 +21227,15 @@ class DescribePrefixListsResult {
     this.prefixLists,
   });
   static DescribePrefixListsResult fromJson(Map<String, dynamic> json) =>
-      DescribePrefixListsResult();
+      DescribePrefixListsResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        prefixLists: json.containsKey('PrefixLists')
+            ? (json['PrefixLists'] as List)
+                .map((e) => PrefixList.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribePrincipalIdFormatResult {
@@ -17318,7 +21251,15 @@ class DescribePrincipalIdFormatResult {
     this.nextToken,
   });
   static DescribePrincipalIdFormatResult fromJson(Map<String, dynamic> json) =>
-      DescribePrincipalIdFormatResult();
+      DescribePrincipalIdFormatResult(
+        principals: json.containsKey('Principals')
+            ? (json['Principals'] as List)
+                .map((e) => PrincipalIdFormat.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribePublicIpv4PoolsResult {
@@ -17334,7 +21275,15 @@ class DescribePublicIpv4PoolsResult {
     this.nextToken,
   });
   static DescribePublicIpv4PoolsResult fromJson(Map<String, dynamic> json) =>
-      DescribePublicIpv4PoolsResult();
+      DescribePublicIpv4PoolsResult(
+        publicIpv4Pools: json.containsKey('PublicIpv4Pools')
+            ? (json['PublicIpv4Pools'] as List)
+                .map((e) => PublicIpv4Pool.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeRegionsResult {
@@ -17345,7 +21294,11 @@ class DescribeRegionsResult {
     this.regions,
   });
   static DescribeRegionsResult fromJson(Map<String, dynamic> json) =>
-      DescribeRegionsResult();
+      DescribeRegionsResult(
+        regions: json.containsKey('Regions')
+            ? (json['Regions'] as List).map((e) => Region.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains the output of DescribeReservedInstancesListings.
@@ -17358,7 +21311,13 @@ class DescribeReservedInstancesListingsResult {
   });
   static DescribeReservedInstancesListingsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeReservedInstancesListingsResult();
+      DescribeReservedInstancesListingsResult(
+        reservedInstancesListings: json.containsKey('ReservedInstancesListings')
+            ? (json['ReservedInstancesListings'] as List)
+                .map((e) => ReservedInstancesListing.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of DescribeReservedInstancesModifications.
@@ -17376,7 +21335,16 @@ class DescribeReservedInstancesModificationsResult {
   });
   static DescribeReservedInstancesModificationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeReservedInstancesModificationsResult();
+      DescribeReservedInstancesModificationsResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        reservedInstancesModifications:
+            json.containsKey('ReservedInstancesModifications')
+                ? (json['ReservedInstancesModifications'] as List)
+                    .map((e) => ReservedInstancesModification.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Contains the output of DescribeReservedInstancesOfferings.
@@ -17394,7 +21362,16 @@ class DescribeReservedInstancesOfferingsResult {
   });
   static DescribeReservedInstancesOfferingsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeReservedInstancesOfferingsResult();
+      DescribeReservedInstancesOfferingsResult(
+        reservedInstancesOfferings:
+            json.containsKey('ReservedInstancesOfferings')
+                ? (json['ReservedInstancesOfferings'] as List)
+                    .map((e) => ReservedInstancesOffering.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output for DescribeReservedInstances.
@@ -17406,7 +21383,13 @@ class DescribeReservedInstancesResult {
     this.reservedInstances,
   });
   static DescribeReservedInstancesResult fromJson(Map<String, dynamic> json) =>
-      DescribeReservedInstancesResult();
+      DescribeReservedInstancesResult(
+        reservedInstances: json.containsKey('ReservedInstances')
+            ? (json['ReservedInstances'] as List)
+                .map((e) => ReservedInstances.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of DescribeRouteTables.
@@ -17423,7 +21406,15 @@ class DescribeRouteTablesResult {
     this.nextToken,
   });
   static DescribeRouteTablesResult fromJson(Map<String, dynamic> json) =>
-      DescribeRouteTablesResult();
+      DescribeRouteTablesResult(
+        routeTables: json.containsKey('RouteTables')
+            ? (json['RouteTables'] as List)
+                .map((e) => RouteTable.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeScheduledInstanceAvailability.
@@ -17441,7 +21432,16 @@ class DescribeScheduledInstanceAvailabilityResult {
   });
   static DescribeScheduledInstanceAvailabilityResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeScheduledInstanceAvailabilityResult();
+      DescribeScheduledInstanceAvailabilityResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        scheduledInstanceAvailabilitySet:
+            json.containsKey('ScheduledInstanceAvailabilitySet')
+                ? (json['ScheduledInstanceAvailabilitySet'] as List)
+                    .map((e) => ScheduledInstanceAvailability.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Contains the output of DescribeScheduledInstances.
@@ -17458,7 +21458,15 @@ class DescribeScheduledInstancesResult {
     this.scheduledInstanceSet,
   });
   static DescribeScheduledInstancesResult fromJson(Map<String, dynamic> json) =>
-      DescribeScheduledInstancesResult();
+      DescribeScheduledInstancesResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        scheduledInstanceSet: json.containsKey('ScheduledInstanceSet')
+            ? (json['ScheduledInstanceSet'] as List)
+                .map((e) => ScheduledInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeSecurityGroupReferencesResult {
@@ -17470,7 +21478,13 @@ class DescribeSecurityGroupReferencesResult {
   });
   static DescribeSecurityGroupReferencesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeSecurityGroupReferencesResult();
+      DescribeSecurityGroupReferencesResult(
+        securityGroupReferenceSet: json.containsKey('SecurityGroupReferenceSet')
+            ? (json['SecurityGroupReferenceSet'] as List)
+                .map((e) => SecurityGroupReference.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeSecurityGroupsResult {
@@ -17486,7 +21500,15 @@ class DescribeSecurityGroupsResult {
     this.nextToken,
   });
   static DescribeSecurityGroupsResult fromJson(Map<String, dynamic> json) =>
-      DescribeSecurityGroupsResult();
+      DescribeSecurityGroupsResult(
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List)
+                .map((e) => SecurityGroup.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeSnapshotAttribute.
@@ -17507,7 +21529,21 @@ class DescribeSnapshotAttributeResult {
     this.snapshotId,
   });
   static DescribeSnapshotAttributeResult fromJson(Map<String, dynamic> json) =>
-      DescribeSnapshotAttributeResult();
+      DescribeSnapshotAttributeResult(
+        createVolumePermissions: json.containsKey('CreateVolumePermissions')
+            ? (json['CreateVolumePermissions'] as List)
+                .map((e) => CreateVolumePermission.fromJson(e))
+                .toList()
+            : null,
+        productCodes: json.containsKey('ProductCodes')
+            ? (json['ProductCodes'] as List)
+                .map((e) => ProductCode.fromJson(e))
+                .toList()
+            : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+      );
 }
 
 class DescribeSnapshotsResult {
@@ -17525,7 +21561,15 @@ class DescribeSnapshotsResult {
     this.nextToken,
   });
   static DescribeSnapshotsResult fromJson(Map<String, dynamic> json) =>
-      DescribeSnapshotsResult();
+      DescribeSnapshotsResult(
+        snapshots: json.containsKey('Snapshots')
+            ? (json['Snapshots'] as List)
+                .map((e) => Snapshot.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeSpotDatafeedSubscription.
@@ -17538,7 +21582,12 @@ class DescribeSpotDatafeedSubscriptionResult {
   });
   static DescribeSpotDatafeedSubscriptionResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeSpotDatafeedSubscriptionResult();
+      DescribeSpotDatafeedSubscriptionResult(
+        spotDatafeedSubscription: json.containsKey('SpotDatafeedSubscription')
+            ? SpotDatafeedSubscription.fromJson(
+                json['SpotDatafeedSubscription'])
+            : null,
+      );
 }
 
 /// Contains the output of DescribeSpotFleetInstances.
@@ -17561,7 +21610,18 @@ class DescribeSpotFleetInstancesResponse {
   });
   static DescribeSpotFleetInstancesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeSpotFleetInstancesResponse();
+      DescribeSpotFleetInstancesResponse(
+        activeInstances: json.containsKey('ActiveInstances')
+            ? (json['ActiveInstances'] as List)
+                .map((e) => ActiveInstance.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        spotFleetRequestId: json.containsKey('SpotFleetRequestId')
+            ? json['SpotFleetRequestId'] as String
+            : null,
+      );
 }
 
 /// Contains the output of DescribeSpotFleetRequestHistory.
@@ -17597,7 +21657,24 @@ class DescribeSpotFleetRequestHistoryResponse {
   });
   static DescribeSpotFleetRequestHistoryResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeSpotFleetRequestHistoryResponse();
+      DescribeSpotFleetRequestHistoryResponse(
+        historyRecords: json.containsKey('HistoryRecords')
+            ? (json['HistoryRecords'] as List)
+                .map((e) => HistoryRecord.fromJson(e))
+                .toList()
+            : null,
+        lastEvaluatedTime: json.containsKey('LastEvaluatedTime')
+            ? DateTime.parse(json['LastEvaluatedTime'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        spotFleetRequestId: json.containsKey('SpotFleetRequestId')
+            ? json['SpotFleetRequestId'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+      );
 }
 
 /// Contains the output of DescribeSpotFleetRequests.
@@ -17615,7 +21692,15 @@ class DescribeSpotFleetRequestsResponse {
   });
   static DescribeSpotFleetRequestsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeSpotFleetRequestsResponse();
+      DescribeSpotFleetRequestsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        spotFleetRequestConfigs: json.containsKey('SpotFleetRequestConfigs')
+            ? (json['SpotFleetRequestConfigs'] as List)
+                .map((e) => SpotFleetRequestConfig.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of DescribeSpotInstanceRequests.
@@ -17633,7 +21718,15 @@ class DescribeSpotInstanceRequestsResult {
   });
   static DescribeSpotInstanceRequestsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeSpotInstanceRequestsResult();
+      DescribeSpotInstanceRequestsResult(
+        spotInstanceRequests: json.containsKey('SpotInstanceRequests')
+            ? (json['SpotInstanceRequests'] as List)
+                .map((e) => SpotInstanceRequest.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeSpotPriceHistory.
@@ -17650,7 +21743,15 @@ class DescribeSpotPriceHistoryResult {
     this.spotPriceHistory,
   });
   static DescribeSpotPriceHistoryResult fromJson(Map<String, dynamic> json) =>
-      DescribeSpotPriceHistoryResult();
+      DescribeSpotPriceHistoryResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        spotPriceHistory: json.containsKey('SpotPriceHistory')
+            ? (json['SpotPriceHistory'] as List)
+                .map((e) => SpotPrice.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeStaleSecurityGroupsResult {
@@ -17667,7 +21768,15 @@ class DescribeStaleSecurityGroupsResult {
   });
   static DescribeStaleSecurityGroupsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeStaleSecurityGroupsResult();
+      DescribeStaleSecurityGroupsResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        staleSecurityGroupSet: json.containsKey('StaleSecurityGroupSet')
+            ? (json['StaleSecurityGroupSet'] as List)
+                .map((e) => StaleSecurityGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeSubnetsResult {
@@ -17683,7 +21792,13 @@ class DescribeSubnetsResult {
     this.nextToken,
   });
   static DescribeSubnetsResult fromJson(Map<String, dynamic> json) =>
-      DescribeSubnetsResult();
+      DescribeSubnetsResult(
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => Subnet.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeTagsResult {
@@ -17699,7 +21814,15 @@ class DescribeTagsResult {
     this.tags,
   });
   static DescribeTagsResult fromJson(Map<String, dynamic> json) =>
-      DescribeTagsResult();
+      DescribeTagsResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List)
+                .map((e) => TagDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeTrafficMirrorFiltersResult {
@@ -17716,7 +21839,15 @@ class DescribeTrafficMirrorFiltersResult {
   });
   static DescribeTrafficMirrorFiltersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeTrafficMirrorFiltersResult();
+      DescribeTrafficMirrorFiltersResult(
+        trafficMirrorFilters: json.containsKey('TrafficMirrorFilters')
+            ? (json['TrafficMirrorFilters'] as List)
+                .map((e) => TrafficMirrorFilter.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeTrafficMirrorSessionsResult {
@@ -17734,7 +21865,15 @@ class DescribeTrafficMirrorSessionsResult {
   });
   static DescribeTrafficMirrorSessionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeTrafficMirrorSessionsResult();
+      DescribeTrafficMirrorSessionsResult(
+        trafficMirrorSessions: json.containsKey('TrafficMirrorSessions')
+            ? (json['TrafficMirrorSessions'] as List)
+                .map((e) => TrafficMirrorSession.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeTrafficMirrorTargetsResult {
@@ -17751,7 +21890,15 @@ class DescribeTrafficMirrorTargetsResult {
   });
   static DescribeTrafficMirrorTargetsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeTrafficMirrorTargetsResult();
+      DescribeTrafficMirrorTargetsResult(
+        trafficMirrorTargets: json.containsKey('TrafficMirrorTargets')
+            ? (json['TrafficMirrorTargets'] as List)
+                .map((e) => TrafficMirrorTarget.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeTransitGatewayAttachmentsResult {
@@ -17768,7 +21915,15 @@ class DescribeTransitGatewayAttachmentsResult {
   });
   static DescribeTransitGatewayAttachmentsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeTransitGatewayAttachmentsResult();
+      DescribeTransitGatewayAttachmentsResult(
+        transitGatewayAttachments: json.containsKey('TransitGatewayAttachments')
+            ? (json['TransitGatewayAttachments'] as List)
+                .map((e) => TransitGatewayAttachment.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeTransitGatewayRouteTablesResult {
@@ -17785,7 +21940,15 @@ class DescribeTransitGatewayRouteTablesResult {
   });
   static DescribeTransitGatewayRouteTablesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeTransitGatewayRouteTablesResult();
+      DescribeTransitGatewayRouteTablesResult(
+        transitGatewayRouteTables: json.containsKey('TransitGatewayRouteTables')
+            ? (json['TransitGatewayRouteTables'] as List)
+                .map((e) => TransitGatewayRouteTable.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeTransitGatewayVpcAttachmentsResult {
@@ -17802,7 +21965,16 @@ class DescribeTransitGatewayVpcAttachmentsResult {
   });
   static DescribeTransitGatewayVpcAttachmentsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeTransitGatewayVpcAttachmentsResult();
+      DescribeTransitGatewayVpcAttachmentsResult(
+        transitGatewayVpcAttachments:
+            json.containsKey('TransitGatewayVpcAttachments')
+                ? (json['TransitGatewayVpcAttachments'] as List)
+                    .map((e) => TransitGatewayVpcAttachment.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeTransitGatewaysResult {
@@ -17818,7 +21990,15 @@ class DescribeTransitGatewaysResult {
     this.nextToken,
   });
   static DescribeTransitGatewaysResult fromJson(Map<String, dynamic> json) =>
-      DescribeTransitGatewaysResult();
+      DescribeTransitGatewaysResult(
+        transitGateways: json.containsKey('TransitGateways')
+            ? (json['TransitGateways'] as List)
+                .map((e) => TransitGateway.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeVolumeAttribute.
@@ -17838,7 +22018,18 @@ class DescribeVolumeAttributeResult {
     this.volumeId,
   });
   static DescribeVolumeAttributeResult fromJson(Map<String, dynamic> json) =>
-      DescribeVolumeAttributeResult();
+      DescribeVolumeAttributeResult(
+        autoEnableIO: json.containsKey('AutoEnableIO')
+            ? AttributeBooleanValue.fromJson(json['AutoEnableIO'])
+            : null,
+        productCodes: json.containsKey('ProductCodes')
+            ? (json['ProductCodes'] as List)
+                .map((e) => ProductCode.fromJson(e))
+                .toList()
+            : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+      );
 }
 
 class DescribeVolumeStatusResult {
@@ -17854,7 +22045,15 @@ class DescribeVolumeStatusResult {
     this.volumeStatuses,
   });
   static DescribeVolumeStatusResult fromJson(Map<String, dynamic> json) =>
-      DescribeVolumeStatusResult();
+      DescribeVolumeStatusResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        volumeStatuses: json.containsKey('VolumeStatuses')
+            ? (json['VolumeStatuses'] as List)
+                .map((e) => VolumeStatusItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeVolumesModificationsResult {
@@ -17870,7 +22069,15 @@ class DescribeVolumesModificationsResult {
   });
   static DescribeVolumesModificationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeVolumesModificationsResult();
+      DescribeVolumesModificationsResult(
+        volumesModifications: json.containsKey('VolumesModifications')
+            ? (json['VolumesModifications'] as List)
+                .map((e) => VolumeModification.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeVolumesResult {
@@ -17888,7 +22095,13 @@ class DescribeVolumesResult {
     this.nextToken,
   });
   static DescribeVolumesResult fromJson(Map<String, dynamic> json) =>
-      DescribeVolumesResult();
+      DescribeVolumesResult(
+        volumes: json.containsKey('Volumes')
+            ? (json['Volumes'] as List).map((e) => Volume.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeVpcAttributeResult {
@@ -17911,7 +22124,15 @@ class DescribeVpcAttributeResult {
     this.enableDnsSupport,
   });
   static DescribeVpcAttributeResult fromJson(Map<String, dynamic> json) =>
-      DescribeVpcAttributeResult();
+      DescribeVpcAttributeResult(
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        enableDnsHostnames: json.containsKey('EnableDnsHostnames')
+            ? AttributeBooleanValue.fromJson(json['EnableDnsHostnames'])
+            : null,
+        enableDnsSupport: json.containsKey('EnableDnsSupport')
+            ? AttributeBooleanValue.fromJson(json['EnableDnsSupport'])
+            : null,
+      );
 }
 
 class DescribeVpcClassicLinkDnsSupportResult {
@@ -17928,7 +22149,15 @@ class DescribeVpcClassicLinkDnsSupportResult {
   });
   static DescribeVpcClassicLinkDnsSupportResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeVpcClassicLinkDnsSupportResult();
+      DescribeVpcClassicLinkDnsSupportResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        vpcs: json.containsKey('Vpcs')
+            ? (json['Vpcs'] as List)
+                .map((e) => ClassicLinkDnsSupport.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeVpcClassicLinkResult {
@@ -17939,7 +22168,13 @@ class DescribeVpcClassicLinkResult {
     this.vpcs,
   });
   static DescribeVpcClassicLinkResult fromJson(Map<String, dynamic> json) =>
-      DescribeVpcClassicLinkResult();
+      DescribeVpcClassicLinkResult(
+        vpcs: json.containsKey('Vpcs')
+            ? (json['Vpcs'] as List)
+                .map((e) => VpcClassicLink.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeVpcEndpointConnectionNotificationsResult {
@@ -17956,7 +22191,15 @@ class DescribeVpcEndpointConnectionNotificationsResult {
   });
   static DescribeVpcEndpointConnectionNotificationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeVpcEndpointConnectionNotificationsResult();
+      DescribeVpcEndpointConnectionNotificationsResult(
+        connectionNotificationSet: json.containsKey('ConnectionNotificationSet')
+            ? (json['ConnectionNotificationSet'] as List)
+                .map((e) => ConnectionNotification.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeVpcEndpointConnectionsResult {
@@ -17973,7 +22216,15 @@ class DescribeVpcEndpointConnectionsResult {
   });
   static DescribeVpcEndpointConnectionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeVpcEndpointConnectionsResult();
+      DescribeVpcEndpointConnectionsResult(
+        vpcEndpointConnections: json.containsKey('VpcEndpointConnections')
+            ? (json['VpcEndpointConnections'] as List)
+                .map((e) => VpcEndpointConnection.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeVpcEndpointServiceConfigurationsResult {
@@ -17990,7 +22241,15 @@ class DescribeVpcEndpointServiceConfigurationsResult {
   });
   static DescribeVpcEndpointServiceConfigurationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeVpcEndpointServiceConfigurationsResult();
+      DescribeVpcEndpointServiceConfigurationsResult(
+        serviceConfigurations: json.containsKey('ServiceConfigurations')
+            ? (json['ServiceConfigurations'] as List)
+                .map((e) => ServiceConfiguration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeVpcEndpointServicePermissionsResult {
@@ -18007,7 +22266,15 @@ class DescribeVpcEndpointServicePermissionsResult {
   });
   static DescribeVpcEndpointServicePermissionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeVpcEndpointServicePermissionsResult();
+      DescribeVpcEndpointServicePermissionsResult(
+        allowedPrincipals: json.containsKey('AllowedPrincipals')
+            ? (json['AllowedPrincipals'] as List)
+                .map((e) => AllowedPrincipal.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeVpcEndpointServices.
@@ -18029,7 +22296,18 @@ class DescribeVpcEndpointServicesResult {
   });
   static DescribeVpcEndpointServicesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeVpcEndpointServicesResult();
+      DescribeVpcEndpointServicesResult(
+        serviceNames: json.containsKey('ServiceNames')
+            ? (json['ServiceNames'] as List).map((e) => e as String).toList()
+            : null,
+        serviceDetails: json.containsKey('ServiceDetails')
+            ? (json['ServiceDetails'] as List)
+                .map((e) => ServiceDetail.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeVpcEndpoints.
@@ -18046,7 +22324,15 @@ class DescribeVpcEndpointsResult {
     this.nextToken,
   });
   static DescribeVpcEndpointsResult fromJson(Map<String, dynamic> json) =>
-      DescribeVpcEndpointsResult();
+      DescribeVpcEndpointsResult(
+        vpcEndpoints: json.containsKey('VpcEndpoints')
+            ? (json['VpcEndpoints'] as List)
+                .map((e) => VpcEndpoint.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeVpcPeeringConnectionsResult {
@@ -18063,7 +22349,15 @@ class DescribeVpcPeeringConnectionsResult {
   });
   static DescribeVpcPeeringConnectionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeVpcPeeringConnectionsResult();
+      DescribeVpcPeeringConnectionsResult(
+        vpcPeeringConnections: json.containsKey('VpcPeeringConnections')
+            ? (json['VpcPeeringConnections'] as List)
+                .map((e) => VpcPeeringConnection.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeVpcsResult {
@@ -18079,7 +22373,13 @@ class DescribeVpcsResult {
     this.nextToken,
   });
   static DescribeVpcsResult fromJson(Map<String, dynamic> json) =>
-      DescribeVpcsResult();
+      DescribeVpcsResult(
+        vpcs: json.containsKey('Vpcs')
+            ? (json['Vpcs'] as List).map((e) => Vpc.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of DescribeVpnConnections.
@@ -18091,7 +22391,13 @@ class DescribeVpnConnectionsResult {
     this.vpnConnections,
   });
   static DescribeVpnConnectionsResult fromJson(Map<String, dynamic> json) =>
-      DescribeVpnConnectionsResult();
+      DescribeVpnConnectionsResult(
+        vpnConnections: json.containsKey('VpnConnections')
+            ? (json['VpnConnections'] as List)
+                .map((e) => VpnConnection.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of DescribeVpnGateways.
@@ -18103,7 +22409,13 @@ class DescribeVpnGatewaysResult {
     this.vpnGateways,
   });
   static DescribeVpnGatewaysResult fromJson(Map<String, dynamic> json) =>
-      DescribeVpnGatewaysResult();
+      DescribeVpnGatewaysResult(
+        vpnGateways: json.containsKey('VpnGateways')
+            ? (json['VpnGateways'] as List)
+                .map((e) => VpnGateway.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DetachClassicLinkVpcResult {
@@ -18114,7 +22426,9 @@ class DetachClassicLinkVpcResult {
     this.return$,
   });
   static DetachClassicLinkVpcResult fromJson(Map<String, dynamic> json) =>
-      DetachClassicLinkVpcResult();
+      DetachClassicLinkVpcResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 /// Describes a DHCP configuration option.
@@ -18130,7 +22444,14 @@ class DhcpConfiguration {
     this.values,
   });
   static DhcpConfiguration fromJson(Map<String, dynamic> json) =>
-      DhcpConfiguration();
+      DhcpConfiguration(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List)
+                .map((e) => AttributeValue.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a set of DHCP options.
@@ -18153,7 +22474,20 @@ class DhcpOptions {
     this.ownerId,
     this.tags,
   });
-  static DhcpOptions fromJson(Map<String, dynamic> json) => DhcpOptions();
+  static DhcpOptions fromJson(Map<String, dynamic> json) => DhcpOptions(
+        dhcpConfigurations: json.containsKey('DhcpConfigurations')
+            ? (json['DhcpConfigurations'] as List)
+                .map((e) => DhcpConfiguration.fromJson(e))
+                .toList()
+            : null,
+        dhcpOptionsId: json.containsKey('DhcpOptionsId')
+            ? json['DhcpOptionsId'] as String
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes an Active Directory.
@@ -18165,7 +22499,11 @@ class DirectoryServiceAuthentication {
     this.directoryId,
   });
   static DirectoryServiceAuthentication fromJson(Map<String, dynamic> json) =>
-      DirectoryServiceAuthentication();
+      DirectoryServiceAuthentication(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+      );
 }
 
 /// Describes the Active Directory to be used for client authentication.
@@ -18176,6 +22514,7 @@ class DirectoryServiceAuthenticationRequest {
   DirectoryServiceAuthenticationRequest({
     this.directoryId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DisableEbsEncryptionByDefaultResult {
@@ -18187,7 +22526,11 @@ class DisableEbsEncryptionByDefaultResult {
   });
   static DisableEbsEncryptionByDefaultResult fromJson(
           Map<String, dynamic> json) =>
-      DisableEbsEncryptionByDefaultResult();
+      DisableEbsEncryptionByDefaultResult(
+        ebsEncryptionByDefault: json.containsKey('EbsEncryptionByDefault')
+            ? json['EbsEncryptionByDefault'] as bool
+            : null,
+      );
 }
 
 class DisableTransitGatewayRouteTablePropagationResult {
@@ -18199,7 +22542,11 @@ class DisableTransitGatewayRouteTablePropagationResult {
   });
   static DisableTransitGatewayRouteTablePropagationResult fromJson(
           Map<String, dynamic> json) =>
-      DisableTransitGatewayRouteTablePropagationResult();
+      DisableTransitGatewayRouteTablePropagationResult(
+        propagation: json.containsKey('Propagation')
+            ? TransitGatewayPropagation.fromJson(json['Propagation'])
+            : null,
+      );
 }
 
 class DisableVpcClassicLinkDnsSupportResult {
@@ -18211,7 +22558,9 @@ class DisableVpcClassicLinkDnsSupportResult {
   });
   static DisableVpcClassicLinkDnsSupportResult fromJson(
           Map<String, dynamic> json) =>
-      DisableVpcClassicLinkDnsSupportResult();
+      DisableVpcClassicLinkDnsSupportResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class DisableVpcClassicLinkResult {
@@ -18222,7 +22571,9 @@ class DisableVpcClassicLinkResult {
     this.return$,
   });
   static DisableVpcClassicLinkResult fromJson(Map<String, dynamic> json) =>
-      DisableVpcClassicLinkResult();
+      DisableVpcClassicLinkResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class DisassociateClientVpnTargetNetworkResult {
@@ -18238,7 +22589,14 @@ class DisassociateClientVpnTargetNetworkResult {
   });
   static DisassociateClientVpnTargetNetworkResult fromJson(
           Map<String, dynamic> json) =>
-      DisassociateClientVpnTargetNetworkResult();
+      DisassociateClientVpnTargetNetworkResult(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? AssociationStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 class DisassociateIamInstanceProfileResult {
@@ -18250,7 +22608,13 @@ class DisassociateIamInstanceProfileResult {
   });
   static DisassociateIamInstanceProfileResult fromJson(
           Map<String, dynamic> json) =>
-      DisassociateIamInstanceProfileResult();
+      DisassociateIamInstanceProfileResult(
+        iamInstanceProfileAssociation:
+            json.containsKey('IamInstanceProfileAssociation')
+                ? IamInstanceProfileAssociation.fromJson(
+                    json['IamInstanceProfileAssociation'])
+                : null,
+      );
 }
 
 class DisassociateSubnetCidrBlockResult {
@@ -18266,7 +22630,14 @@ class DisassociateSubnetCidrBlockResult {
   });
   static DisassociateSubnetCidrBlockResult fromJson(
           Map<String, dynamic> json) =>
-      DisassociateSubnetCidrBlockResult();
+      DisassociateSubnetCidrBlockResult(
+        ipv6CidrBlockAssociation: json.containsKey('Ipv6CidrBlockAssociation')
+            ? SubnetIpv6CidrBlockAssociation.fromJson(
+                json['Ipv6CidrBlockAssociation'])
+            : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+      );
 }
 
 class DisassociateTransitGatewayRouteTableResult {
@@ -18278,7 +22649,11 @@ class DisassociateTransitGatewayRouteTableResult {
   });
   static DisassociateTransitGatewayRouteTableResult fromJson(
           Map<String, dynamic> json) =>
-      DisassociateTransitGatewayRouteTableResult();
+      DisassociateTransitGatewayRouteTableResult(
+        association: json.containsKey('Association')
+            ? TransitGatewayAssociation.fromJson(json['Association'])
+            : null,
+      );
 }
 
 class DisassociateVpcCidrBlockResult {
@@ -18297,7 +22672,16 @@ class DisassociateVpcCidrBlockResult {
     this.vpcId,
   });
   static DisassociateVpcCidrBlockResult fromJson(Map<String, dynamic> json) =>
-      DisassociateVpcCidrBlockResult();
+      DisassociateVpcCidrBlockResult(
+        ipv6CidrBlockAssociation: json.containsKey('Ipv6CidrBlockAssociation')
+            ? VpcIpv6CidrBlockAssociation.fromJson(
+                json['Ipv6CidrBlockAssociation'])
+            : null,
+        cidrBlockAssociation: json.containsKey('CidrBlockAssociation')
+            ? VpcCidrBlockAssociation.fromJson(json['CidrBlockAssociation'])
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Describes a disk image.
@@ -18316,6 +22700,7 @@ class DiskImage {
     this.image,
     this.volume,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a disk image.
@@ -18347,7 +22732,15 @@ class DiskImageDescription {
     this.size,
   });
   static DiskImageDescription fromJson(Map<String, dynamic> json) =>
-      DiskImageDescription();
+      DiskImageDescription(
+        checksum:
+            json.containsKey('Checksum') ? json['Checksum'] as String : null,
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        importManifestUrl: json.containsKey('ImportManifestUrl')
+            ? json['ImportManifestUrl'] as String
+            : null,
+        size: json.containsKey('Size') ? BigInt.from(json['Size']) : null,
+      );
 }
 
 /// Describes a disk image.
@@ -18375,6 +22768,7 @@ class DiskImageDetail {
     @required this.format,
     @required this.importManifestUrl,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a disk image volume.
@@ -18390,7 +22784,10 @@ class DiskImageVolumeDescription {
     this.size,
   });
   static DiskImageVolumeDescription fromJson(Map<String, dynamic> json) =>
-      DiskImageVolumeDescription();
+      DiskImageVolumeDescription(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        size: json.containsKey('Size') ? BigInt.from(json['Size']) : null,
+      );
 }
 
 /// Describes a DNS entry.
@@ -18405,7 +22802,12 @@ class DnsEntry {
     this.dnsName,
     this.hostedZoneId,
   });
-  static DnsEntry fromJson(Map<String, dynamic> json) => DnsEntry();
+  static DnsEntry fromJson(Map<String, dynamic> json) => DnsEntry(
+        dnsName: json.containsKey('DnsName') ? json['DnsName'] as String : null,
+        hostedZoneId: json.containsKey('HostedZoneId')
+            ? json['HostedZoneId'] as String
+            : null,
+      );
 }
 
 /// Information about the DNS server to be used.
@@ -18424,6 +22826,7 @@ class DnsServersOptionsModifyStructure {
     this.customDnsServers,
     this.enabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a block device for an EBS volume.
@@ -18508,7 +22911,25 @@ class EbsBlockDevice {
     this.encrypted,
     this.kmsKeyId,
   });
-  static EbsBlockDevice fromJson(Map<String, dynamic> json) => EbsBlockDevice();
+  static EbsBlockDevice fromJson(Map<String, dynamic> json) => EbsBlockDevice(
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        volumeSize:
+            json.containsKey('VolumeSize') ? json['VolumeSize'] as int : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a parameter used to set up an EBS volume in a block device
@@ -18533,7 +22954,17 @@ class EbsInstanceBlockDevice {
     this.volumeId,
   });
   static EbsInstanceBlockDevice fromJson(Map<String, dynamic> json) =>
-      EbsInstanceBlockDevice();
+      EbsInstanceBlockDevice(
+        attachTime: json.containsKey('AttachTime')
+            ? DateTime.parse(json['AttachTime'])
+            : null,
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+      );
 }
 
 /// Describes information used to set up an EBS volume specified in a block
@@ -18549,6 +22980,7 @@ class EbsInstanceBlockDeviceSpecification {
     this.deleteOnTermination,
     this.volumeId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an egress-only internet gateway.
@@ -18564,7 +22996,17 @@ class EgressOnlyInternetGateway {
     this.egressOnlyInternetGatewayId,
   });
   static EgressOnlyInternetGateway fromJson(Map<String, dynamic> json) =>
-      EgressOnlyInternetGateway();
+      EgressOnlyInternetGateway(
+        attachments: json.containsKey('Attachments')
+            ? (json['Attachments'] as List)
+                .map((e) => InternetGatewayAttachment.fromJson(e))
+                .toList()
+            : null,
+        egressOnlyInternetGatewayId:
+            json.containsKey('EgressOnlyInternetGatewayId')
+                ? json['EgressOnlyInternetGatewayId'] as String
+                : null,
+      );
 }
 
 /// Describes the association between an instance and an Elastic Graphics
@@ -18591,7 +23033,21 @@ class ElasticGpuAssociation {
     this.elasticGpuAssociationTime,
   });
   static ElasticGpuAssociation fromJson(Map<String, dynamic> json) =>
-      ElasticGpuAssociation();
+      ElasticGpuAssociation(
+        elasticGpuId: json.containsKey('ElasticGpuId')
+            ? json['ElasticGpuId'] as String
+            : null,
+        elasticGpuAssociationId: json.containsKey('ElasticGpuAssociationId')
+            ? json['ElasticGpuAssociationId'] as String
+            : null,
+        elasticGpuAssociationState:
+            json.containsKey('ElasticGpuAssociationState')
+                ? json['ElasticGpuAssociationState'] as String
+                : null,
+        elasticGpuAssociationTime: json.containsKey('ElasticGpuAssociationTime')
+            ? json['ElasticGpuAssociationTime'] as String
+            : null,
+      );
 }
 
 /// Describes the status of an Elastic Graphics accelerator.
@@ -18603,7 +23059,9 @@ class ElasticGpuHealth {
     this.status,
   });
   static ElasticGpuHealth fromJson(Map<String, dynamic> json) =>
-      ElasticGpuHealth();
+      ElasticGpuHealth(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// A specification for an Elastic Graphics accelerator.
@@ -18614,6 +23072,7 @@ class ElasticGpuSpecification {
   ElasticGpuSpecification({
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an elastic GPU.
@@ -18625,7 +23084,9 @@ class ElasticGpuSpecificationResponse {
     this.type,
   });
   static ElasticGpuSpecificationResponse fromJson(Map<String, dynamic> json) =>
-      ElasticGpuSpecificationResponse();
+      ElasticGpuSpecificationResponse(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Describes an Elastic Graphics accelerator.
@@ -18658,7 +23119,26 @@ class ElasticGpus {
     this.elasticGpuState,
     this.instanceId,
   });
-  static ElasticGpus fromJson(Map<String, dynamic> json) => ElasticGpus();
+  static ElasticGpus fromJson(Map<String, dynamic> json) => ElasticGpus(
+        elasticGpuId: json.containsKey('ElasticGpuId')
+            ? json['ElasticGpuId'] as String
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        elasticGpuType: json.containsKey('ElasticGpuType')
+            ? json['ElasticGpuType'] as String
+            : null,
+        elasticGpuHealth: json.containsKey('ElasticGpuHealth')
+            ? ElasticGpuHealth.fromJson(json['ElasticGpuHealth'])
+            : null,
+        elasticGpuState: json.containsKey('ElasticGpuState')
+            ? json['ElasticGpuState'] as String
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+      );
 }
 
 ///  Describes an elastic inference accelerator.
@@ -18670,6 +23150,7 @@ class ElasticInferenceAccelerator {
   ElasticInferenceAccelerator({
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Describes the association between an instance and an elastic inference
@@ -18696,7 +23177,24 @@ class ElasticInferenceAcceleratorAssociation {
   });
   static ElasticInferenceAcceleratorAssociation fromJson(
           Map<String, dynamic> json) =>
-      ElasticInferenceAcceleratorAssociation();
+      ElasticInferenceAcceleratorAssociation(
+        elasticInferenceAcceleratorArn:
+            json.containsKey('ElasticInferenceAcceleratorArn')
+                ? json['ElasticInferenceAcceleratorArn'] as String
+                : null,
+        elasticInferenceAcceleratorAssociationId:
+            json.containsKey('ElasticInferenceAcceleratorAssociationId')
+                ? json['ElasticInferenceAcceleratorAssociationId'] as String
+                : null,
+        elasticInferenceAcceleratorAssociationState:
+            json.containsKey('ElasticInferenceAcceleratorAssociationState')
+                ? json['ElasticInferenceAcceleratorAssociationState'] as String
+                : null,
+        elasticInferenceAcceleratorAssociationTime: json
+                .containsKey('ElasticInferenceAcceleratorAssociationTime')
+            ? DateTime.parse(json['ElasticInferenceAcceleratorAssociationTime'])
+            : null,
+      );
 }
 
 class EnableEbsEncryptionByDefaultResult {
@@ -18708,7 +23206,11 @@ class EnableEbsEncryptionByDefaultResult {
   });
   static EnableEbsEncryptionByDefaultResult fromJson(
           Map<String, dynamic> json) =>
-      EnableEbsEncryptionByDefaultResult();
+      EnableEbsEncryptionByDefaultResult(
+        ebsEncryptionByDefault: json.containsKey('EbsEncryptionByDefault')
+            ? json['EbsEncryptionByDefault'] as bool
+            : null,
+      );
 }
 
 class EnableTransitGatewayRouteTablePropagationResult {
@@ -18720,7 +23222,11 @@ class EnableTransitGatewayRouteTablePropagationResult {
   });
   static EnableTransitGatewayRouteTablePropagationResult fromJson(
           Map<String, dynamic> json) =>
-      EnableTransitGatewayRouteTablePropagationResult();
+      EnableTransitGatewayRouteTablePropagationResult(
+        propagation: json.containsKey('Propagation')
+            ? TransitGatewayPropagation.fromJson(json['Propagation'])
+            : null,
+      );
 }
 
 class EnableVpcClassicLinkDnsSupportResult {
@@ -18732,7 +23238,9 @@ class EnableVpcClassicLinkDnsSupportResult {
   });
   static EnableVpcClassicLinkDnsSupportResult fromJson(
           Map<String, dynamic> json) =>
-      EnableVpcClassicLinkDnsSupportResult();
+      EnableVpcClassicLinkDnsSupportResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class EnableVpcClassicLinkResult {
@@ -18743,7 +23251,9 @@ class EnableVpcClassicLinkResult {
     this.return$,
   });
   static EnableVpcClassicLinkResult fromJson(Map<String, dynamic> json) =>
-      EnableVpcClassicLinkResult();
+      EnableVpcClassicLinkResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 /// Describes an EC2 Fleet or Spot Fleet event.
@@ -18831,7 +23341,17 @@ class EventInformation {
     this.instanceId,
   });
   static EventInformation fromJson(Map<String, dynamic> json) =>
-      EventInformation();
+      EventInformation(
+        eventDescription: json.containsKey('EventDescription')
+            ? json['EventDescription'] as String
+            : null,
+        eventSubType: json.containsKey('EventSubType')
+            ? json['EventSubType'] as String
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+      );
 }
 
 class ExportClientVpnClientCertificateRevocationListResult {
@@ -18847,7 +23367,14 @@ class ExportClientVpnClientCertificateRevocationListResult {
   });
   static ExportClientVpnClientCertificateRevocationListResult fromJson(
           Map<String, dynamic> json) =>
-      ExportClientVpnClientCertificateRevocationListResult();
+      ExportClientVpnClientCertificateRevocationListResult(
+        certificateRevocationList: json.containsKey('CertificateRevocationList')
+            ? json['CertificateRevocationList'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? ClientCertificateRevocationListStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 class ExportClientVpnClientConfigurationResult {
@@ -18859,7 +23386,11 @@ class ExportClientVpnClientConfigurationResult {
   });
   static ExportClientVpnClientConfigurationResult fromJson(
           Map<String, dynamic> json) =>
-      ExportClientVpnClientConfigurationResult();
+      ExportClientVpnClientConfigurationResult(
+        clientConfiguration: json.containsKey('ClientConfiguration')
+            ? json['ClientConfiguration'] as String
+            : null,
+      );
 }
 
 class ExportImageResult {
@@ -18904,7 +23435,29 @@ class ExportImageResult {
     this.statusMessage,
   });
   static ExportImageResult fromJson(Map<String, dynamic> json) =>
-      ExportImageResult();
+      ExportImageResult(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        diskImageFormat: json.containsKey('DiskImageFormat')
+            ? json['DiskImageFormat'] as String
+            : null,
+        exportImageTaskId: json.containsKey('ExportImageTaskId')
+            ? json['ExportImageTaskId'] as String
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        roleName:
+            json.containsKey('RoleName') ? json['RoleName'] as String : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as String : null,
+        s3ExportLocation: json.containsKey('S3ExportLocation')
+            ? ExportTaskS3Location.fromJson(json['S3ExportLocation'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Describes an export image task.
@@ -18940,8 +23493,24 @@ class ExportImageTask {
     this.status,
     this.statusMessage,
   });
-  static ExportImageTask fromJson(Map<String, dynamic> json) =>
-      ExportImageTask();
+  static ExportImageTask fromJson(Map<String, dynamic> json) => ExportImageTask(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        exportImageTaskId: json.containsKey('ExportImageTaskId')
+            ? json['ExportImageTaskId'] as String
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as String : null,
+        s3ExportLocation: json.containsKey('S3ExportLocation')
+            ? ExportTaskS3Location.fromJson(json['S3ExportLocation'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Describes an instance export task.
@@ -18972,7 +23541,24 @@ class ExportTask {
     this.state,
     this.statusMessage,
   });
-  static ExportTask fromJson(Map<String, dynamic> json) => ExportTask();
+  static ExportTask fromJson(Map<String, dynamic> json) => ExportTask(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        exportTaskId: json.containsKey('ExportTaskId')
+            ? json['ExportTaskId'] as String
+            : null,
+        exportToS3Task: json.containsKey('ExportToS3Task')
+            ? ExportToS3Task.fromJson(json['ExportToS3Task'])
+            : null,
+        instanceExportDetails: json.containsKey('InstanceExportDetails')
+            ? InstanceExportDetails.fromJson(json['InstanceExportDetails'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Describes the destination for an export image task.
@@ -18988,7 +23574,12 @@ class ExportTaskS3Location {
     this.s3Prefix,
   });
   static ExportTaskS3Location fromJson(Map<String, dynamic> json) =>
-      ExportTaskS3Location();
+      ExportTaskS3Location(
+        s3Bucket:
+            json.containsKey('S3Bucket') ? json['S3Bucket'] as String : null,
+        s3Prefix:
+            json.containsKey('S3Prefix') ? json['S3Prefix'] as String : null,
+      );
 }
 
 /// Describes the destination for an export image task.
@@ -19003,6 +23594,7 @@ class ExportTaskS3LocationRequest {
     @required this.s3Bucket,
     this.s3Prefix,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the format and location for an instance export task.
@@ -19028,7 +23620,17 @@ class ExportToS3Task {
     this.s3Bucket,
     this.s3Key,
   });
-  static ExportToS3Task fromJson(Map<String, dynamic> json) => ExportToS3Task();
+  static ExportToS3Task fromJson(Map<String, dynamic> json) => ExportToS3Task(
+        containerFormat: json.containsKey('ContainerFormat')
+            ? json['ContainerFormat'] as String
+            : null,
+        diskImageFormat: json.containsKey('DiskImageFormat')
+            ? json['DiskImageFormat'] as String
+            : null,
+        s3Bucket:
+            json.containsKey('S3Bucket') ? json['S3Bucket'] as String : null,
+        s3Key: json.containsKey('S3Key') ? json['S3Key'] as String : null,
+      );
 }
 
 /// Describes an instance export task.
@@ -19055,6 +23657,7 @@ class ExportToS3TaskSpecification {
     this.s3Bucket,
     this.s3Prefix,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ExportTransitGatewayRoutesResult {
@@ -19066,7 +23669,11 @@ class ExportTransitGatewayRoutesResult {
     this.s3Location,
   });
   static ExportTransitGatewayRoutesResult fromJson(Map<String, dynamic> json) =>
-      ExportTransitGatewayRoutesResult();
+      ExportTransitGatewayRoutesResult(
+        s3Location: json.containsKey('S3Location')
+            ? json['S3Location'] as String
+            : null,
+      );
 }
 
 /// A filter name and value pair that is used to return a more specific list of
@@ -19105,6 +23712,7 @@ class Filter {
     this.name,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an EC2 Fleet.
@@ -19223,7 +23831,74 @@ class FleetData {
     this.errors,
     this.instances,
   });
-  static FleetData fromJson(Map<String, dynamic> json) => FleetData();
+  static FleetData fromJson(Map<String, dynamic> json) => FleetData(
+        activityStatus: json.containsKey('ActivityStatus')
+            ? json['ActivityStatus'] as String
+            : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        fleetId: json.containsKey('FleetId') ? json['FleetId'] as String : null,
+        fleetState: json.containsKey('FleetState')
+            ? json['FleetState'] as String
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        excessCapacityTerminationPolicy:
+            json.containsKey('ExcessCapacityTerminationPolicy')
+                ? json['ExcessCapacityTerminationPolicy'] as String
+                : null,
+        fulfilledCapacity: json.containsKey('FulfilledCapacity')
+            ? json['FulfilledCapacity'] as double
+            : null,
+        fulfilledOnDemandCapacity: json.containsKey('FulfilledOnDemandCapacity')
+            ? json['FulfilledOnDemandCapacity'] as double
+            : null,
+        launchTemplateConfigs: json.containsKey('LaunchTemplateConfigs')
+            ? (json['LaunchTemplateConfigs'] as List)
+                .map((e) => FleetLaunchTemplateConfig.fromJson(e))
+                .toList()
+            : null,
+        targetCapacitySpecification:
+            json.containsKey('TargetCapacitySpecification')
+                ? TargetCapacitySpecification.fromJson(
+                    json['TargetCapacitySpecification'])
+                : null,
+        terminateInstancesWithExpiration:
+            json.containsKey('TerminateInstancesWithExpiration')
+                ? json['TerminateInstancesWithExpiration'] as bool
+                : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        validFrom: json.containsKey('ValidFrom')
+            ? DateTime.parse(json['ValidFrom'])
+            : null,
+        validUntil: json.containsKey('ValidUntil')
+            ? DateTime.parse(json['ValidUntil'])
+            : null,
+        replaceUnhealthyInstances: json.containsKey('ReplaceUnhealthyInstances')
+            ? json['ReplaceUnhealthyInstances'] as bool
+            : null,
+        spotOptions: json.containsKey('SpotOptions')
+            ? SpotOptions.fromJson(json['SpotOptions'])
+            : null,
+        onDemandOptions: json.containsKey('OnDemandOptions')
+            ? OnDemandOptions.fromJson(json['OnDemandOptions'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List)
+                .map((e) => DescribeFleetError.fromJson(e))
+                .toList()
+            : null,
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => DescribeFleetsInstances.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a launch template and overrides.
@@ -19240,7 +23915,18 @@ class FleetLaunchTemplateConfig {
     this.overrides,
   });
   static FleetLaunchTemplateConfig fromJson(Map<String, dynamic> json) =>
-      FleetLaunchTemplateConfig();
+      FleetLaunchTemplateConfig(
+        launchTemplateSpecification:
+            json.containsKey('LaunchTemplateSpecification')
+                ? FleetLaunchTemplateSpecification.fromJson(
+                    json['LaunchTemplateSpecification'])
+                : null,
+        overrides: json.containsKey('Overrides')
+            ? (json['Overrides'] as List)
+                .map((e) => FleetLaunchTemplateOverrides.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a launch template and overrides.
@@ -19257,6 +23943,7 @@ class FleetLaunchTemplateConfigRequest {
     this.launchTemplateSpecification,
     this.overrides,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes overrides for a launch template.
@@ -19298,7 +23985,26 @@ class FleetLaunchTemplateOverrides {
     this.placement,
   });
   static FleetLaunchTemplateOverrides fromJson(Map<String, dynamic> json) =>
-      FleetLaunchTemplateOverrides();
+      FleetLaunchTemplateOverrides(
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        maxPrice:
+            json.containsKey('MaxPrice') ? json['MaxPrice'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        weightedCapacity: json.containsKey('WeightedCapacity')
+            ? json['WeightedCapacity'] as double
+            : null,
+        priority:
+            json.containsKey('Priority') ? json['Priority'] as double : null,
+        placement: json.containsKey('Placement')
+            ? PlacementResponse.fromJson(json['Placement'])
+            : null,
+      );
 }
 
 /// Describes overrides for a launch template.
@@ -19339,6 +24045,7 @@ class FleetLaunchTemplateOverridesRequest {
     this.priority,
     this.placement,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a launch template.
@@ -19361,7 +24068,16 @@ class FleetLaunchTemplateSpecification {
     this.version,
   });
   static FleetLaunchTemplateSpecification fromJson(Map<String, dynamic> json) =>
-      FleetLaunchTemplateSpecification();
+      FleetLaunchTemplateSpecification(
+        launchTemplateId: json.containsKey('LaunchTemplateId')
+            ? json['LaunchTemplateId'] as String
+            : null,
+        launchTemplateName: json.containsKey('LaunchTemplateName')
+            ? json['LaunchTemplateName'] as String
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The launch template to use. You must specify either the launch template ID
@@ -19382,6 +24098,7 @@ class FleetLaunchTemplateSpecificationRequest {
     this.launchTemplateName,
     this.version,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a flow log.
@@ -19448,7 +24165,42 @@ class FlowLog {
     this.logDestination,
     this.logFormat,
   });
-  static FlowLog fromJson(Map<String, dynamic> json) => FlowLog();
+  static FlowLog fromJson(Map<String, dynamic> json) => FlowLog(
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        deliverLogsErrorMessage: json.containsKey('DeliverLogsErrorMessage')
+            ? json['DeliverLogsErrorMessage'] as String
+            : null,
+        deliverLogsPermissionArn: json.containsKey('DeliverLogsPermissionArn')
+            ? json['DeliverLogsPermissionArn'] as String
+            : null,
+        deliverLogsStatus: json.containsKey('DeliverLogsStatus')
+            ? json['DeliverLogsStatus'] as String
+            : null,
+        flowLogId:
+            json.containsKey('FlowLogId') ? json['FlowLogId'] as String : null,
+        flowLogStatus: json.containsKey('FlowLogStatus')
+            ? json['FlowLogStatus'] as String
+            : null,
+        logGroupName: json.containsKey('LogGroupName')
+            ? json['LogGroupName'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        trafficType: json.containsKey('TrafficType')
+            ? json['TrafficType'] as String
+            : null,
+        logDestinationType: json.containsKey('LogDestinationType')
+            ? json['LogDestinationType'] as String
+            : null,
+        logDestination: json.containsKey('LogDestination')
+            ? json['LogDestination'] as String
+            : null,
+        logFormat:
+            json.containsKey('LogFormat') ? json['LogFormat'] as String : null,
+      );
 }
 
 /// Describes an Amazon FPGA image (AFI).
@@ -19516,7 +24268,47 @@ class FpgaImage {
     this.public,
     this.dataRetentionSupport,
   });
-  static FpgaImage fromJson(Map<String, dynamic> json) => FpgaImage();
+  static FpgaImage fromJson(Map<String, dynamic> json) => FpgaImage(
+        fpgaImageId: json.containsKey('FpgaImageId')
+            ? json['FpgaImageId'] as String
+            : null,
+        fpgaImageGlobalId: json.containsKey('FpgaImageGlobalId')
+            ? json['FpgaImageGlobalId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        shellVersion: json.containsKey('ShellVersion')
+            ? json['ShellVersion'] as String
+            : null,
+        pciId: json.containsKey('PciId') ? PciId.fromJson(json['PciId']) : null,
+        state: json.containsKey('State')
+            ? FpgaImageState.fromJson(json['State'])
+            : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        updateTime: json.containsKey('UpdateTime')
+            ? DateTime.parse(json['UpdateTime'])
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        ownerAlias: json.containsKey('OwnerAlias')
+            ? json['OwnerAlias'] as String
+            : null,
+        productCodes: json.containsKey('ProductCodes')
+            ? (json['ProductCodes'] as List)
+                .map((e) => ProductCode.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        public: json.containsKey('Public') ? json['Public'] as bool : null,
+        dataRetentionSupport: json.containsKey('DataRetentionSupport')
+            ? json['DataRetentionSupport'] as bool
+            : null,
+      );
 }
 
 /// Describes an Amazon FPGA image (AFI) attribute.
@@ -19544,7 +24336,25 @@ class FpgaImageAttribute {
     this.productCodes,
   });
   static FpgaImageAttribute fromJson(Map<String, dynamic> json) =>
-      FpgaImageAttribute();
+      FpgaImageAttribute(
+        fpgaImageId: json.containsKey('FpgaImageId')
+            ? json['FpgaImageId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        loadPermissions: json.containsKey('LoadPermissions')
+            ? (json['LoadPermissions'] as List)
+                .map((e) => LoadPermission.fromJson(e))
+                .toList()
+            : null,
+        productCodes: json.containsKey('ProductCodes')
+            ? (json['ProductCodes'] as List)
+                .map((e) => ProductCode.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the state of the bitstream generation process for an Amazon FPGA
@@ -19568,7 +24378,10 @@ class FpgaImageState {
     this.code,
     this.message,
   });
-  static FpgaImageState fromJson(Map<String, dynamic> json) => FpgaImageState();
+  static FpgaImageState fromJson(Map<String, dynamic> json) => FpgaImageState(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 class GetCapacityReservationUsageResult {
@@ -19625,7 +24438,28 @@ class GetCapacityReservationUsageResult {
   });
   static GetCapacityReservationUsageResult fromJson(
           Map<String, dynamic> json) =>
-      GetCapacityReservationUsageResult();
+      GetCapacityReservationUsageResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        capacityReservationId: json.containsKey('CapacityReservationId')
+            ? json['CapacityReservationId'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        totalInstanceCount: json.containsKey('TotalInstanceCount')
+            ? json['TotalInstanceCount'] as int
+            : null,
+        availableInstanceCount: json.containsKey('AvailableInstanceCount')
+            ? json['AvailableInstanceCount'] as int
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        instanceUsages: json.containsKey('InstanceUsages')
+            ? (json['InstanceUsages'] as List)
+                .map((e) => InstanceUsage.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetConsoleOutputResult {
@@ -19645,7 +24479,15 @@ class GetConsoleOutputResult {
     this.timestamp,
   });
   static GetConsoleOutputResult fromJson(Map<String, dynamic> json) =>
-      GetConsoleOutputResult();
+      GetConsoleOutputResult(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        output: json.containsKey('Output') ? json['Output'] as String : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+      );
 }
 
 class GetConsoleScreenshotResult {
@@ -19660,7 +24502,13 @@ class GetConsoleScreenshotResult {
     this.instanceId,
   });
   static GetConsoleScreenshotResult fromJson(Map<String, dynamic> json) =>
-      GetConsoleScreenshotResult();
+      GetConsoleScreenshotResult(
+        imageData:
+            json.containsKey('ImageData') ? json['ImageData'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+      );
 }
 
 class GetEbsDefaultKmsKeyIdResult {
@@ -19672,7 +24520,10 @@ class GetEbsDefaultKmsKeyIdResult {
     this.kmsKeyId,
   });
   static GetEbsDefaultKmsKeyIdResult fromJson(Map<String, dynamic> json) =>
-      GetEbsDefaultKmsKeyIdResult();
+      GetEbsDefaultKmsKeyIdResult(
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
 }
 
 class GetEbsEncryptionByDefaultResult {
@@ -19683,7 +24534,11 @@ class GetEbsEncryptionByDefaultResult {
     this.ebsEncryptionByDefault,
   });
   static GetEbsEncryptionByDefaultResult fromJson(Map<String, dynamic> json) =>
-      GetEbsEncryptionByDefaultResult();
+      GetEbsEncryptionByDefaultResult(
+        ebsEncryptionByDefault: json.containsKey('EbsEncryptionByDefault')
+            ? json['EbsEncryptionByDefault'] as bool
+            : null,
+      );
 }
 
 class GetHostReservationPurchasePreviewResult {
@@ -19709,7 +24564,22 @@ class GetHostReservationPurchasePreviewResult {
   });
   static GetHostReservationPurchasePreviewResult fromJson(
           Map<String, dynamic> json) =>
-      GetHostReservationPurchasePreviewResult();
+      GetHostReservationPurchasePreviewResult(
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        purchase: json.containsKey('Purchase')
+            ? (json['Purchase'] as List)
+                .map((e) => Purchase.fromJson(e))
+                .toList()
+            : null,
+        totalHourlyPrice: json.containsKey('TotalHourlyPrice')
+            ? json['TotalHourlyPrice'] as String
+            : null,
+        totalUpfrontPrice: json.containsKey('TotalUpfrontPrice')
+            ? json['TotalUpfrontPrice'] as String
+            : null,
+      );
 }
 
 class GetLaunchTemplateDataResult {
@@ -19720,7 +24590,11 @@ class GetLaunchTemplateDataResult {
     this.launchTemplateData,
   });
   static GetLaunchTemplateDataResult fromJson(Map<String, dynamic> json) =>
-      GetLaunchTemplateDataResult();
+      GetLaunchTemplateDataResult(
+        launchTemplateData: json.containsKey('LaunchTemplateData')
+            ? ResponseLaunchTemplateData.fromJson(json['LaunchTemplateData'])
+            : null,
+      );
 }
 
 class GetPasswordDataResult {
@@ -19740,7 +24614,17 @@ class GetPasswordDataResult {
     this.timestamp,
   });
   static GetPasswordDataResult fromJson(Map<String, dynamic> json) =>
-      GetPasswordDataResult();
+      GetPasswordDataResult(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        passwordData: json.containsKey('PasswordData')
+            ? json['PasswordData'] as String
+            : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+      );
 }
 
 /// Contains the output of GetReservedInstancesExchangeQuote.
@@ -19786,7 +24670,43 @@ class GetReservedInstancesExchangeQuoteResult {
   });
   static GetReservedInstancesExchangeQuoteResult fromJson(
           Map<String, dynamic> json) =>
-      GetReservedInstancesExchangeQuoteResult();
+      GetReservedInstancesExchangeQuoteResult(
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        isValidExchange: json.containsKey('IsValidExchange')
+            ? json['IsValidExchange'] as bool
+            : null,
+        outputReservedInstancesWillExpireAt:
+            json.containsKey('OutputReservedInstancesWillExpireAt')
+                ? DateTime.parse(json['OutputReservedInstancesWillExpireAt'])
+                : null,
+        paymentDue: json.containsKey('PaymentDue')
+            ? json['PaymentDue'] as String
+            : null,
+        reservedInstanceValueRollup:
+            json.containsKey('ReservedInstanceValueRollup')
+                ? ReservationValue.fromJson(json['ReservedInstanceValueRollup'])
+                : null,
+        reservedInstanceValueSet: json.containsKey('ReservedInstanceValueSet')
+            ? (json['ReservedInstanceValueSet'] as List)
+                .map((e) => ReservedInstanceReservationValue.fromJson(e))
+                .toList()
+            : null,
+        targetConfigurationValueRollup: json
+                .containsKey('TargetConfigurationValueRollup')
+            ? ReservationValue.fromJson(json['TargetConfigurationValueRollup'])
+            : null,
+        targetConfigurationValueSet:
+            json.containsKey('TargetConfigurationValueSet')
+                ? (json['TargetConfigurationValueSet'] as List)
+                    .map((e) => TargetReservationValue.fromJson(e))
+                    .toList()
+                : null,
+        validationFailureReason: json.containsKey('ValidationFailureReason')
+            ? json['ValidationFailureReason'] as String
+            : null,
+      );
 }
 
 class GetTransitGatewayAttachmentPropagationsResult {
@@ -19804,7 +24724,16 @@ class GetTransitGatewayAttachmentPropagationsResult {
   });
   static GetTransitGatewayAttachmentPropagationsResult fromJson(
           Map<String, dynamic> json) =>
-      GetTransitGatewayAttachmentPropagationsResult();
+      GetTransitGatewayAttachmentPropagationsResult(
+        transitGatewayAttachmentPropagations:
+            json.containsKey('TransitGatewayAttachmentPropagations')
+                ? (json['TransitGatewayAttachmentPropagations'] as List)
+                    .map((e) => TransitGatewayAttachmentPropagation.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetTransitGatewayRouteTableAssociationsResult {
@@ -19821,7 +24750,15 @@ class GetTransitGatewayRouteTableAssociationsResult {
   });
   static GetTransitGatewayRouteTableAssociationsResult fromJson(
           Map<String, dynamic> json) =>
-      GetTransitGatewayRouteTableAssociationsResult();
+      GetTransitGatewayRouteTableAssociationsResult(
+        associations: json.containsKey('Associations')
+            ? (json['Associations'] as List)
+                .map((e) => TransitGatewayRouteTableAssociation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetTransitGatewayRouteTablePropagationsResult {
@@ -19839,7 +24776,16 @@ class GetTransitGatewayRouteTablePropagationsResult {
   });
   static GetTransitGatewayRouteTablePropagationsResult fromJson(
           Map<String, dynamic> json) =>
-      GetTransitGatewayRouteTablePropagationsResult();
+      GetTransitGatewayRouteTablePropagationsResult(
+        transitGatewayRouteTablePropagations:
+            json.containsKey('TransitGatewayRouteTablePropagations')
+                ? (json['TransitGatewayRouteTablePropagations'] as List)
+                    .map((e) => TransitGatewayRouteTablePropagation.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes a security group.
@@ -19854,8 +24800,12 @@ class GroupIdentifier {
     this.groupName,
     this.groupId,
   });
-  static GroupIdentifier fromJson(Map<String, dynamic> json) =>
-      GroupIdentifier();
+  static GroupIdentifier fromJson(Map<String, dynamic> json) => GroupIdentifier(
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Indicates whether your instance is configured for hibernation. This
@@ -19874,7 +24824,10 @@ class HibernationOptions {
     this.configured,
   });
   static HibernationOptions fromJson(Map<String, dynamic> json) =>
-      HibernationOptions();
+      HibernationOptions(
+        configured:
+            json.containsKey('Configured') ? json['Configured'] as bool : null,
+      );
 }
 
 /// Indicates whether your instance is configured for hibernation. This
@@ -19894,6 +24847,7 @@ class HibernationOptionsRequest {
   HibernationOptionsRequest({
     this.configured,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an event in the history of the Spot Fleet request.
@@ -19922,7 +24876,16 @@ class HistoryRecord {
     this.eventType,
     this.timestamp,
   });
-  static HistoryRecord fromJson(Map<String, dynamic> json) => HistoryRecord();
+  static HistoryRecord fromJson(Map<String, dynamic> json) => HistoryRecord(
+        eventInformation: json.containsKey('EventInformation')
+            ? EventInformation.fromJson(json['EventInformation'])
+            : null,
+        eventType:
+            json.containsKey('EventType') ? json['EventType'] as String : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+      );
 }
 
 /// Describes an event in the history of an EC2 Fleet.
@@ -19943,7 +24906,16 @@ class HistoryRecordEntry {
     this.timestamp,
   });
   static HistoryRecordEntry fromJson(Map<String, dynamic> json) =>
-      HistoryRecordEntry();
+      HistoryRecordEntry(
+        eventInformation: json.containsKey('EventInformation')
+            ? EventInformation.fromJson(json['EventInformation'])
+            : null,
+        eventType:
+            json.containsKey('EventType') ? json['EventType'] as String : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+      );
 }
 
 /// Describes the properties of the Dedicated Host.
@@ -20007,7 +24979,45 @@ class Host {
     this.tags,
     this.hostRecovery,
   });
-  static Host fromJson(Map<String, dynamic> json) => Host();
+  static Host fromJson(Map<String, dynamic> json) => Host(
+        autoPlacement: json.containsKey('AutoPlacement')
+            ? json['AutoPlacement'] as String
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        availableCapacity: json.containsKey('AvailableCapacity')
+            ? AvailableCapacity.fromJson(json['AvailableCapacity'])
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        hostId: json.containsKey('HostId') ? json['HostId'] as String : null,
+        hostProperties: json.containsKey('HostProperties')
+            ? HostProperties.fromJson(json['HostProperties'])
+            : null,
+        hostReservationId: json.containsKey('HostReservationId')
+            ? json['HostReservationId'] as String
+            : null,
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => HostInstance.fromJson(e))
+                .toList()
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        allocationTime: json.containsKey('AllocationTime')
+            ? DateTime.parse(json['AllocationTime'])
+            : null,
+        releaseTime: json.containsKey('ReleaseTime')
+            ? DateTime.parse(json['ReleaseTime'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        hostRecovery: json.containsKey('HostRecovery')
+            ? json['HostRecovery'] as String
+            : null,
+      );
 }
 
 /// Describes an instance running on a Dedicated Host.
@@ -20022,7 +25032,14 @@ class HostInstance {
     this.instanceId,
     this.instanceType,
   });
-  static HostInstance fromJson(Map<String, dynamic> json) => HostInstance();
+  static HostInstance fromJson(Map<String, dynamic> json) => HostInstance(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+      );
 }
 
 /// Details about the Dedicated Host Reservation offering.
@@ -20057,7 +25074,27 @@ class HostOffering {
     this.paymentOption,
     this.upfrontPrice,
   });
-  static HostOffering fromJson(Map<String, dynamic> json) => HostOffering();
+  static HostOffering fromJson(Map<String, dynamic> json) => HostOffering(
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        hourlyPrice: json.containsKey('HourlyPrice')
+            ? json['HourlyPrice'] as String
+            : null,
+        instanceFamily: json.containsKey('InstanceFamily')
+            ? json['InstanceFamily'] as String
+            : null,
+        offeringId: json.containsKey('OfferingId')
+            ? json['OfferingId'] as String
+            : null,
+        paymentOption: json.containsKey('PaymentOption')
+            ? json['PaymentOption'] as String
+            : null,
+        upfrontPrice: json.containsKey('UpfrontPrice')
+            ? json['UpfrontPrice'] as String
+            : null,
+      );
 }
 
 /// Describes properties of a Dedicated Host.
@@ -20081,7 +25118,15 @@ class HostProperties {
     this.sockets,
     this.totalvCpus,
   });
-  static HostProperties fromJson(Map<String, dynamic> json) => HostProperties();
+  static HostProperties fromJson(Map<String, dynamic> json) => HostProperties(
+        cores: json.containsKey('Cores') ? json['Cores'] as int : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        sockets: json.containsKey('Sockets') ? json['Sockets'] as int : null,
+        totalvCpus:
+            json.containsKey('TotalVCpus') ? json['TotalVCpus'] as int : null,
+      );
 }
 
 /// Details about the Dedicated Host Reservation and associated Dedicated Hosts.
@@ -20149,8 +25194,40 @@ class HostReservation {
     this.upfrontPrice,
     this.tags,
   });
-  static HostReservation fromJson(Map<String, dynamic> json) =>
-      HostReservation();
+  static HostReservation fromJson(Map<String, dynamic> json) => HostReservation(
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        end: json.containsKey('End') ? DateTime.parse(json['End']) : null,
+        hostIdSet: json.containsKey('HostIdSet')
+            ? (json['HostIdSet'] as List).map((e) => e as String).toList()
+            : null,
+        hostReservationId: json.containsKey('HostReservationId')
+            ? json['HostReservationId'] as String
+            : null,
+        hourlyPrice: json.containsKey('HourlyPrice')
+            ? json['HourlyPrice'] as String
+            : null,
+        instanceFamily: json.containsKey('InstanceFamily')
+            ? json['InstanceFamily'] as String
+            : null,
+        offeringId: json.containsKey('OfferingId')
+            ? json['OfferingId'] as String
+            : null,
+        paymentOption: json.containsKey('PaymentOption')
+            ? json['PaymentOption'] as String
+            : null,
+        start: json.containsKey('Start') ? DateTime.parse(json['Start']) : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        upfrontPrice: json.containsKey('UpfrontPrice')
+            ? json['UpfrontPrice'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The internet key exchange (IKE) version permitted for the VPN tunnel.
@@ -20162,7 +25239,9 @@ class IkeVersionsListValue {
     this.value,
   });
   static IkeVersionsListValue fromJson(Map<String, dynamic> json) =>
-      IkeVersionsListValue();
+      IkeVersionsListValue(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// The IKE version that is permitted for the VPN tunnel.
@@ -20173,6 +25252,7 @@ class IkeVersionsRequestListValue {
   IkeVersionsRequestListValue({
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IAM instance profile.
@@ -20188,7 +25268,10 @@ class IamInstanceProfile {
     this.id,
   });
   static IamInstanceProfile fromJson(Map<String, dynamic> json) =>
-      IamInstanceProfile();
+      IamInstanceProfile(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+      );
 }
 
 /// Describes an association between an IAM instance profile and an instance.
@@ -20216,7 +25299,21 @@ class IamInstanceProfileAssociation {
     this.timestamp,
   });
   static IamInstanceProfileAssociation fromJson(Map<String, dynamic> json) =>
-      IamInstanceProfileAssociation();
+      IamInstanceProfileAssociation(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        iamInstanceProfile: json.containsKey('IamInstanceProfile')
+            ? IamInstanceProfile.fromJson(json['IamInstanceProfile'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+      );
 }
 
 /// Describes an IAM instance profile.
@@ -20232,7 +25329,11 @@ class IamInstanceProfileSpecification {
     this.name,
   });
   static IamInstanceProfileSpecification fromJson(Map<String, dynamic> json) =>
-      IamInstanceProfileSpecification();
+      IamInstanceProfileSpecification(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the ICMP type and code.
@@ -20247,7 +25348,11 @@ class IcmpTypeCode {
     this.code,
     this.type,
   });
-  static IcmpTypeCode fromJson(Map<String, dynamic> json) => IcmpTypeCode();
+  static IcmpTypeCode fromJson(Map<String, dynamic> json) => IcmpTypeCode(
+        code: json.containsKey('Code') ? json['Code'] as int : null,
+        type: json.containsKey('Type') ? json['Type'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the ID format for a resource.
@@ -20269,7 +25374,15 @@ class IdFormat {
     this.resource,
     this.useLongIds,
   });
-  static IdFormat fromJson(Map<String, dynamic> json) => IdFormat();
+  static IdFormat fromJson(Map<String, dynamic> json) => IdFormat(
+        deadline: json.containsKey('Deadline')
+            ? DateTime.parse(json['Deadline'])
+            : null,
+        resource:
+            json.containsKey('Resource') ? json['Resource'] as String : null,
+        useLongIds:
+            json.containsKey('UseLongIds') ? json['UseLongIds'] as bool : null,
+      );
 }
 
 /// Describes an image.
@@ -20380,7 +25493,69 @@ class Image {
     this.tags,
     this.virtualizationType,
   });
-  static Image fromJson(Map<String, dynamic> json) => Image();
+  static Image fromJson(Map<String, dynamic> json) => Image(
+        architecture: json.containsKey('Architecture')
+            ? json['Architecture'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        imageLocation: json.containsKey('ImageLocation')
+            ? json['ImageLocation'] as String
+            : null,
+        imageType:
+            json.containsKey('ImageType') ? json['ImageType'] as String : null,
+        public: json.containsKey('Public') ? json['Public'] as bool : null,
+        kernelId:
+            json.containsKey('KernelId') ? json['KernelId'] as String : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        productCodes: json.containsKey('ProductCodes')
+            ? (json['ProductCodes'] as List)
+                .map((e) => ProductCode.fromJson(e))
+                .toList()
+            : null,
+        ramdiskId:
+            json.containsKey('RamdiskId') ? json['RamdiskId'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        blockDeviceMappings: json.containsKey('BlockDeviceMappings')
+            ? (json['BlockDeviceMappings'] as List)
+                .map((e) => BlockDeviceMapping.fromJson(e))
+                .toList()
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        enaSupport:
+            json.containsKey('EnaSupport') ? json['EnaSupport'] as bool : null,
+        hypervisor: json.containsKey('Hypervisor')
+            ? json['Hypervisor'] as String
+            : null,
+        imageOwnerAlias: json.containsKey('ImageOwnerAlias')
+            ? json['ImageOwnerAlias'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        rootDeviceName: json.containsKey('RootDeviceName')
+            ? json['RootDeviceName'] as String
+            : null,
+        rootDeviceType: json.containsKey('RootDeviceType')
+            ? json['RootDeviceType'] as String
+            : null,
+        sriovNetSupport: json.containsKey('SriovNetSupport')
+            ? json['SriovNetSupport'] as String
+            : null,
+        stateReason: json.containsKey('StateReason')
+            ? StateReason.fromJson(json['StateReason'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        virtualizationType: json.containsKey('VirtualizationType')
+            ? json['VirtualizationType'] as String
+            : null,
+      );
 }
 
 /// Describes an image attribute.
@@ -20420,7 +25595,36 @@ class ImageAttribute {
     this.ramdiskId,
     this.sriovNetSupport,
   });
-  static ImageAttribute fromJson(Map<String, dynamic> json) => ImageAttribute();
+  static ImageAttribute fromJson(Map<String, dynamic> json) => ImageAttribute(
+        blockDeviceMappings: json.containsKey('BlockDeviceMappings')
+            ? (json['BlockDeviceMappings'] as List)
+                .map((e) => BlockDeviceMapping.fromJson(e))
+                .toList()
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        launchPermissions: json.containsKey('LaunchPermissions')
+            ? (json['LaunchPermissions'] as List)
+                .map((e) => LaunchPermission.fromJson(e))
+                .toList()
+            : null,
+        productCodes: json.containsKey('ProductCodes')
+            ? (json['ProductCodes'] as List)
+                .map((e) => ProductCode.fromJson(e))
+                .toList()
+            : null,
+        description: json.containsKey('Description')
+            ? AttributeValue.fromJson(json['Description'])
+            : null,
+        kernelId: json.containsKey('KernelId')
+            ? AttributeValue.fromJson(json['KernelId'])
+            : null,
+        ramdiskId: json.containsKey('RamdiskId')
+            ? AttributeValue.fromJson(json['RamdiskId'])
+            : null,
+        sriovNetSupport: json.containsKey('SriovNetSupport')
+            ? AttributeValue.fromJson(json['SriovNetSupport'])
+            : null,
+      );
 }
 
 /// Describes the disk container object for an import image task.
@@ -20454,6 +25658,7 @@ class ImageDiskContainer {
     this.url,
     this.userBucket,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ImportClientVpnClientCertificateRevocationListResult {
@@ -20465,7 +25670,9 @@ class ImportClientVpnClientCertificateRevocationListResult {
   });
   static ImportClientVpnClientCertificateRevocationListResult fromJson(
           Map<String, dynamic> json) =>
-      ImportClientVpnClientCertificateRevocationListResult();
+      ImportClientVpnClientCertificateRevocationListResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ImportImageResult {
@@ -20525,7 +25732,41 @@ class ImportImageResult {
     this.statusMessage,
   });
   static ImportImageResult fromJson(Map<String, dynamic> json) =>
-      ImportImageResult();
+      ImportImageResult(
+        architecture: json.containsKey('Architecture')
+            ? json['Architecture'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        hypervisor: json.containsKey('Hypervisor')
+            ? json['Hypervisor'] as String
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        importTaskId: json.containsKey('ImportTaskId')
+            ? json['ImportTaskId'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        licenseType: json.containsKey('LicenseType')
+            ? json['LicenseType'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as String : null,
+        snapshotDetails: json.containsKey('SnapshotDetails')
+            ? (json['SnapshotDetails'] as List)
+                .map((e) => SnapshotDetail.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Describes an import image task.
@@ -20589,8 +25830,41 @@ class ImportImageTask {
     this.status,
     this.statusMessage,
   });
-  static ImportImageTask fromJson(Map<String, dynamic> json) =>
-      ImportImageTask();
+  static ImportImageTask fromJson(Map<String, dynamic> json) => ImportImageTask(
+        architecture: json.containsKey('Architecture')
+            ? json['Architecture'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        hypervisor: json.containsKey('Hypervisor')
+            ? json['Hypervisor'] as String
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        importTaskId: json.containsKey('ImportTaskId')
+            ? json['ImportTaskId'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        licenseType: json.containsKey('LicenseType')
+            ? json['LicenseType'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as String : null,
+        snapshotDetails: json.containsKey('SnapshotDetails')
+            ? (json['SnapshotDetails'] as List)
+                .map((e) => SnapshotDetail.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Describes the launch specification for VM import.
@@ -20646,6 +25920,7 @@ class ImportInstanceLaunchSpecification {
     this.subnetId,
     this.userData,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ImportInstanceResult {
@@ -20656,7 +25931,11 @@ class ImportInstanceResult {
     this.conversionTask,
   });
   static ImportInstanceResult fromJson(Map<String, dynamic> json) =>
-      ImportInstanceResult();
+      ImportInstanceResult(
+        conversionTask: json.containsKey('ConversionTask')
+            ? ConversionTask.fromJson(json['ConversionTask'])
+            : null,
+      );
 }
 
 /// Describes an import instance task.
@@ -20680,7 +25959,21 @@ class ImportInstanceTaskDetails {
     this.volumes,
   });
   static ImportInstanceTaskDetails fromJson(Map<String, dynamic> json) =>
-      ImportInstanceTaskDetails();
+      ImportInstanceTaskDetails(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        volumes: json.containsKey('Volumes')
+            ? (json['Volumes'] as List)
+                .map((e) => ImportInstanceVolumeDetailItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes an import volume task.
@@ -20716,7 +26009,27 @@ class ImportInstanceVolumeDetailItem {
     this.volume,
   });
   static ImportInstanceVolumeDetailItem fromJson(Map<String, dynamic> json) =>
-      ImportInstanceVolumeDetailItem();
+      ImportInstanceVolumeDetailItem(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        bytesConverted: json.containsKey('BytesConverted')
+            ? BigInt.from(json['BytesConverted'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        image: json.containsKey('Image')
+            ? DiskImageDescription.fromJson(json['Image'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        volume: json.containsKey('Volume')
+            ? DiskImageVolumeDescription.fromJson(json['Volume'])
+            : null,
+      );
 }
 
 class ImportKeyPairResult {
@@ -20731,7 +26044,12 @@ class ImportKeyPairResult {
     this.keyName,
   });
   static ImportKeyPairResult fromJson(Map<String, dynamic> json) =>
-      ImportKeyPairResult();
+      ImportKeyPairResult(
+        keyFingerprint: json.containsKey('KeyFingerprint')
+            ? json['KeyFingerprint'] as String
+            : null,
+        keyName: json.containsKey('KeyName') ? json['KeyName'] as String : null,
+      );
 }
 
 class ImportSnapshotResult {
@@ -20750,7 +26068,17 @@ class ImportSnapshotResult {
     this.snapshotTaskDetail,
   });
   static ImportSnapshotResult fromJson(Map<String, dynamic> json) =>
-      ImportSnapshotResult();
+      ImportSnapshotResult(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        importTaskId: json.containsKey('ImportTaskId')
+            ? json['ImportTaskId'] as String
+            : null,
+        snapshotTaskDetail: json.containsKey('SnapshotTaskDetail')
+            ? SnapshotTaskDetail.fromJson(json['SnapshotTaskDetail'])
+            : null,
+      );
 }
 
 /// Describes an import snapshot task.
@@ -20770,7 +26098,17 @@ class ImportSnapshotTask {
     this.snapshotTaskDetail,
   });
   static ImportSnapshotTask fromJson(Map<String, dynamic> json) =>
-      ImportSnapshotTask();
+      ImportSnapshotTask(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        importTaskId: json.containsKey('ImportTaskId')
+            ? json['ImportTaskId'] as String
+            : null,
+        snapshotTaskDetail: json.containsKey('SnapshotTaskDetail')
+            ? SnapshotTaskDetail.fromJson(json['SnapshotTaskDetail'])
+            : null,
+      );
 }
 
 class ImportVolumeResult {
@@ -20781,7 +26119,11 @@ class ImportVolumeResult {
     this.conversionTask,
   });
   static ImportVolumeResult fromJson(Map<String, dynamic> json) =>
-      ImportVolumeResult();
+      ImportVolumeResult(
+        conversionTask: json.containsKey('ConversionTask')
+            ? ConversionTask.fromJson(json['ConversionTask'])
+            : null,
+      );
 }
 
 /// Describes an import volume task.
@@ -20809,7 +26151,23 @@ class ImportVolumeTaskDetails {
     this.volume,
   });
   static ImportVolumeTaskDetails fromJson(Map<String, dynamic> json) =>
-      ImportVolumeTaskDetails();
+      ImportVolumeTaskDetails(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        bytesConverted: json.containsKey('BytesConverted')
+            ? BigInt.from(json['BytesConverted'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        image: json.containsKey('Image')
+            ? DiskImageDescription.fromJson(json['Image'])
+            : null,
+        volume: json.containsKey('Volume')
+            ? DiskImageVolumeDescription.fromJson(json['Volume'])
+            : null,
+      );
 }
 
 /// Describes an instance.
@@ -21023,7 +26381,149 @@ class Instance {
     this.hibernationOptions,
     this.licenses,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        amiLaunchIndex: json.containsKey('AmiLaunchIndex')
+            ? json['AmiLaunchIndex'] as int
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        kernelId:
+            json.containsKey('KernelId') ? json['KernelId'] as String : null,
+        keyName: json.containsKey('KeyName') ? json['KeyName'] as String : null,
+        launchTime: json.containsKey('LaunchTime')
+            ? DateTime.parse(json['LaunchTime'])
+            : null,
+        monitoring: json.containsKey('Monitoring')
+            ? Monitoring.fromJson(json['Monitoring'])
+            : null,
+        placement: json.containsKey('Placement')
+            ? Placement.fromJson(json['Placement'])
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+        productCodes: json.containsKey('ProductCodes')
+            ? (json['ProductCodes'] as List)
+                .map((e) => ProductCode.fromJson(e))
+                .toList()
+            : null,
+        publicDnsName: json.containsKey('PublicDnsName')
+            ? json['PublicDnsName'] as String
+            : null,
+        publicIpAddress: json.containsKey('PublicIpAddress')
+            ? json['PublicIpAddress'] as String
+            : null,
+        ramdiskId:
+            json.containsKey('RamdiskId') ? json['RamdiskId'] as String : null,
+        state: json.containsKey('State')
+            ? InstanceState.fromJson(json['State'])
+            : null,
+        stateTransitionReason: json.containsKey('StateTransitionReason')
+            ? json['StateTransitionReason'] as String
+            : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        architecture: json.containsKey('Architecture')
+            ? json['Architecture'] as String
+            : null,
+        blockDeviceMappings: json.containsKey('BlockDeviceMappings')
+            ? (json['BlockDeviceMappings'] as List)
+                .map((e) => InstanceBlockDeviceMapping.fromJson(e))
+                .toList()
+            : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? json['EbsOptimized'] as bool
+            : null,
+        enaSupport:
+            json.containsKey('EnaSupport') ? json['EnaSupport'] as bool : null,
+        hypervisor: json.containsKey('Hypervisor')
+            ? json['Hypervisor'] as String
+            : null,
+        iamInstanceProfile: json.containsKey('IamInstanceProfile')
+            ? IamInstanceProfile.fromJson(json['IamInstanceProfile'])
+            : null,
+        instanceLifecycle: json.containsKey('InstanceLifecycle')
+            ? json['InstanceLifecycle'] as String
+            : null,
+        elasticGpuAssociations: json.containsKey('ElasticGpuAssociations')
+            ? (json['ElasticGpuAssociations'] as List)
+                .map((e) => ElasticGpuAssociation.fromJson(e))
+                .toList()
+            : null,
+        elasticInferenceAcceleratorAssociations: json
+                .containsKey('ElasticInferenceAcceleratorAssociations')
+            ? (json['ElasticInferenceAcceleratorAssociations'] as List)
+                .map((e) => ElasticInferenceAcceleratorAssociation.fromJson(e))
+                .toList()
+            : null,
+        networkInterfaces: json.containsKey('NetworkInterfaces')
+            ? (json['NetworkInterfaces'] as List)
+                .map((e) => InstanceNetworkInterface.fromJson(e))
+                .toList()
+            : null,
+        rootDeviceName: json.containsKey('RootDeviceName')
+            ? json['RootDeviceName'] as String
+            : null,
+        rootDeviceType: json.containsKey('RootDeviceType')
+            ? json['RootDeviceType'] as String
+            : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        sourceDestCheck: json.containsKey('SourceDestCheck')
+            ? json['SourceDestCheck'] as bool
+            : null,
+        spotInstanceRequestId: json.containsKey('SpotInstanceRequestId')
+            ? json['SpotInstanceRequestId'] as String
+            : null,
+        sriovNetSupport: json.containsKey('SriovNetSupport')
+            ? json['SriovNetSupport'] as String
+            : null,
+        stateReason: json.containsKey('StateReason')
+            ? StateReason.fromJson(json['StateReason'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        virtualizationType: json.containsKey('VirtualizationType')
+            ? json['VirtualizationType'] as String
+            : null,
+        cpuOptions: json.containsKey('CpuOptions')
+            ? CpuOptions.fromJson(json['CpuOptions'])
+            : null,
+        capacityReservationId: json.containsKey('CapacityReservationId')
+            ? json['CapacityReservationId'] as String
+            : null,
+        capacityReservationSpecification:
+            json.containsKey('CapacityReservationSpecification')
+                ? CapacityReservationSpecificationResponse.fromJson(
+                    json['CapacityReservationSpecification'])
+                : null,
+        hibernationOptions: json.containsKey('HibernationOptions')
+            ? HibernationOptions.fromJson(json['HibernationOptions'])
+            : null,
+        licenses: json.containsKey('Licenses')
+            ? (json['Licenses'] as List)
+                .map((e) => LicenseConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes an instance attribute.
@@ -21097,7 +26597,60 @@ class InstanceAttribute {
     this.userData,
   });
   static InstanceAttribute fromJson(Map<String, dynamic> json) =>
-      InstanceAttribute();
+      InstanceAttribute(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        blockDeviceMappings: json.containsKey('BlockDeviceMappings')
+            ? (json['BlockDeviceMappings'] as List)
+                .map((e) => InstanceBlockDeviceMapping.fromJson(e))
+                .toList()
+            : null,
+        disableApiTermination: json.containsKey('DisableApiTermination')
+            ? AttributeBooleanValue.fromJson(json['DisableApiTermination'])
+            : null,
+        enaSupport: json.containsKey('EnaSupport')
+            ? AttributeBooleanValue.fromJson(json['EnaSupport'])
+            : null,
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? AttributeBooleanValue.fromJson(json['EbsOptimized'])
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceInitiatedShutdownBehavior: json
+                .containsKey('InstanceInitiatedShutdownBehavior')
+            ? AttributeValue.fromJson(json['InstanceInitiatedShutdownBehavior'])
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? AttributeValue.fromJson(json['InstanceType'])
+            : null,
+        kernelId: json.containsKey('KernelId')
+            ? AttributeValue.fromJson(json['KernelId'])
+            : null,
+        productCodes: json.containsKey('ProductCodes')
+            ? (json['ProductCodes'] as List)
+                .map((e) => ProductCode.fromJson(e))
+                .toList()
+            : null,
+        ramdiskId: json.containsKey('RamdiskId')
+            ? AttributeValue.fromJson(json['RamdiskId'])
+            : null,
+        rootDeviceName: json.containsKey('RootDeviceName')
+            ? AttributeValue.fromJson(json['RootDeviceName'])
+            : null,
+        sourceDestCheck: json.containsKey('SourceDestCheck')
+            ? AttributeBooleanValue.fromJson(json['SourceDestCheck'])
+            : null,
+        sriovNetSupport: json.containsKey('SriovNetSupport')
+            ? AttributeValue.fromJson(json['SriovNetSupport'])
+            : null,
+        userData: json.containsKey('UserData')
+            ? AttributeValue.fromJson(json['UserData'])
+            : null,
+      );
 }
 
 /// Describes a block device mapping.
@@ -21114,7 +26667,14 @@ class InstanceBlockDeviceMapping {
     this.ebs,
   });
   static InstanceBlockDeviceMapping fromJson(Map<String, dynamic> json) =>
-      InstanceBlockDeviceMapping();
+      InstanceBlockDeviceMapping(
+        deviceName: json.containsKey('DeviceName')
+            ? json['DeviceName'] as String
+            : null,
+        ebs: json.containsKey('Ebs')
+            ? EbsInstanceBlockDevice.fromJson(json['Ebs'])
+            : null,
+      );
 }
 
 /// Describes a block device mapping entry.
@@ -21138,6 +26698,7 @@ class InstanceBlockDeviceMappingSpecification {
     this.noDevice,
     this.virtualName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the instance type that the Dedicated Host supports.
@@ -21159,7 +26720,17 @@ class InstanceCapacity {
     this.totalCapacity,
   });
   static InstanceCapacity fromJson(Map<String, dynamic> json) =>
-      InstanceCapacity();
+      InstanceCapacity(
+        availableCapacity: json.containsKey('AvailableCapacity')
+            ? json['AvailableCapacity'] as int
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        totalCapacity: json.containsKey('TotalCapacity')
+            ? json['TotalCapacity'] as int
+            : null,
+      );
 }
 
 /// Describes a Reserved Instance listing state.
@@ -21175,7 +26746,12 @@ class InstanceCount {
     this.instanceCount,
     this.state,
   });
-  static InstanceCount fromJson(Map<String, dynamic> json) => InstanceCount();
+  static InstanceCount fromJson(Map<String, dynamic> json) => InstanceCount(
+        instanceCount: json.containsKey('InstanceCount')
+            ? json['InstanceCount'] as int
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes the credit option for CPU usage of a T2 or T3 instance.
@@ -21192,7 +26768,14 @@ class InstanceCreditSpecification {
     this.cpuCredits,
   });
   static InstanceCreditSpecification fromJson(Map<String, dynamic> json) =>
-      InstanceCreditSpecification();
+      InstanceCreditSpecification(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        cpuCredits: json.containsKey('CpuCredits')
+            ? json['CpuCredits'] as String
+            : null,
+      );
 }
 
 /// Describes the credit option for CPU usage of a T2 or T3 instance.
@@ -21208,6 +26791,7 @@ class InstanceCreditSpecificationRequest {
     this.instanceId,
     this.cpuCredits,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an instance to export.
@@ -21223,7 +26807,14 @@ class InstanceExportDetails {
     this.targetEnvironment,
   });
   static InstanceExportDetails fromJson(Map<String, dynamic> json) =>
-      InstanceExportDetails();
+      InstanceExportDetails(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        targetEnvironment: json.containsKey('TargetEnvironment')
+            ? json['TargetEnvironment'] as String
+            : null,
+      );
 }
 
 /// Describes an IPv6 address.
@@ -21235,7 +26826,12 @@ class InstanceIpv6Address {
     this.ipv6Address,
   });
   static InstanceIpv6Address fromJson(Map<String, dynamic> json) =>
-      InstanceIpv6Address();
+      InstanceIpv6Address(
+        ipv6Address: json.containsKey('Ipv6Address')
+            ? json['Ipv6Address'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IPv6 address.
@@ -21246,6 +26842,7 @@ class InstanceIpv6AddressRequest {
   InstanceIpv6AddressRequest({
     this.ipv6Address,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the market (purchasing) option for the instances.
@@ -21260,6 +26857,7 @@ class InstanceMarketOptionsRequest {
     this.marketType,
     this.spotOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the monitoring of an instance.
@@ -21275,7 +26873,14 @@ class InstanceMonitoring {
     this.monitoring,
   });
   static InstanceMonitoring fromJson(Map<String, dynamic> json) =>
-      InstanceMonitoring();
+      InstanceMonitoring(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        monitoring: json.containsKey('Monitoring')
+            ? Monitoring.fromJson(json['Monitoring'])
+            : null,
+      );
 }
 
 /// Describes a network interface.
@@ -21351,7 +26956,55 @@ class InstanceNetworkInterface {
     this.interfaceType,
   });
   static InstanceNetworkInterface fromJson(Map<String, dynamic> json) =>
-      InstanceNetworkInterface();
+      InstanceNetworkInterface(
+        association: json.containsKey('Association')
+            ? InstanceNetworkInterfaceAssociation.fromJson(json['Association'])
+            : null,
+        attachment: json.containsKey('Attachment')
+            ? InstanceNetworkInterfaceAttachment.fromJson(json['Attachment'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        ipv6Addresses: json.containsKey('Ipv6Addresses')
+            ? (json['Ipv6Addresses'] as List)
+                .map((e) => InstanceIpv6Address.fromJson(e))
+                .toList()
+            : null,
+        macAddress: json.containsKey('MacAddress')
+            ? json['MacAddress'] as String
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+        privateIpAddresses: json.containsKey('PrivateIpAddresses')
+            ? (json['PrivateIpAddresses'] as List)
+                .map((e) => InstancePrivateIpAddress.fromJson(e))
+                .toList()
+            : null,
+        sourceDestCheck: json.containsKey('SourceDestCheck')
+            ? json['SourceDestCheck'] as bool
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        interfaceType: json.containsKey('InterfaceType')
+            ? json['InterfaceType'] as String
+            : null,
+      );
 }
 
 /// Describes association information for an Elastic IP address (IPv4).
@@ -21373,7 +27026,15 @@ class InstanceNetworkInterfaceAssociation {
   });
   static InstanceNetworkInterfaceAssociation fromJson(
           Map<String, dynamic> json) =>
-      InstanceNetworkInterfaceAssociation();
+      InstanceNetworkInterfaceAssociation(
+        ipOwnerId:
+            json.containsKey('IpOwnerId') ? json['IpOwnerId'] as String : null,
+        publicDnsName: json.containsKey('PublicDnsName')
+            ? json['PublicDnsName'] as String
+            : null,
+        publicIp:
+            json.containsKey('PublicIp') ? json['PublicIp'] as String : null,
+      );
 }
 
 /// Describes a network interface attachment.
@@ -21404,7 +27065,20 @@ class InstanceNetworkInterfaceAttachment {
   });
   static InstanceNetworkInterfaceAttachment fromJson(
           Map<String, dynamic> json) =>
-      InstanceNetworkInterfaceAttachment();
+      InstanceNetworkInterfaceAttachment(
+        attachTime: json.containsKey('AttachTime')
+            ? DateTime.parse(json['AttachTime'])
+            : null,
+        attachmentId: json.containsKey('AttachmentId')
+            ? json['AttachmentId'] as String
+            : null,
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+        deviceIndex:
+            json.containsKey('DeviceIndex') ? json['DeviceIndex'] as int : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes a network interface.
@@ -21507,7 +27181,51 @@ class InstanceNetworkInterfaceSpecification {
   });
   static InstanceNetworkInterfaceSpecification fromJson(
           Map<String, dynamic> json) =>
-      InstanceNetworkInterfaceSpecification();
+      InstanceNetworkInterfaceSpecification(
+        associatePublicIpAddress: json.containsKey('AssociatePublicIpAddress')
+            ? json['AssociatePublicIpAddress'] as bool
+            : null,
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        deviceIndex:
+            json.containsKey('DeviceIndex') ? json['DeviceIndex'] as int : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List).map((e) => e as String).toList()
+            : null,
+        ipv6AddressCount: json.containsKey('Ipv6AddressCount')
+            ? json['Ipv6AddressCount'] as int
+            : null,
+        ipv6Addresses: json.containsKey('Ipv6Addresses')
+            ? (json['Ipv6Addresses'] as List)
+                .map((e) => InstanceIpv6Address.fromJson(e))
+                .toList()
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+        privateIpAddresses: json.containsKey('PrivateIpAddresses')
+            ? (json['PrivateIpAddresses'] as List)
+                .map((e) => PrivateIpAddressSpecification.fromJson(e))
+                .toList()
+            : null,
+        secondaryPrivateIpAddressCount:
+            json.containsKey('SecondaryPrivateIpAddressCount')
+                ? json['SecondaryPrivateIpAddressCount'] as int
+                : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        interfaceType: json.containsKey('InterfaceType')
+            ? json['InterfaceType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a private IPv4 address.
@@ -21533,7 +27251,18 @@ class InstancePrivateIpAddress {
     this.privateIpAddress,
   });
   static InstancePrivateIpAddress fromJson(Map<String, dynamic> json) =>
-      InstancePrivateIpAddress();
+      InstancePrivateIpAddress(
+        association: json.containsKey('Association')
+            ? InstanceNetworkInterfaceAssociation.fromJson(json['Association'])
+            : null,
+        primary: json.containsKey('Primary') ? json['Primary'] as bool : null,
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+      );
 }
 
 /// The instance details to specify which volumes should be snapshotted.
@@ -21548,6 +27277,7 @@ class InstanceSpecification {
     this.instanceId,
     this.excludeBootVolume,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the current state of an instance.
@@ -21588,7 +27318,10 @@ class InstanceState {
     this.code,
     this.name,
   });
-  static InstanceState fromJson(Map<String, dynamic> json) => InstanceState();
+  static InstanceState fromJson(Map<String, dynamic> json) => InstanceState(
+        code: json.containsKey('Code') ? json['Code'] as int : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Describes an instance state change.
@@ -21608,7 +27341,17 @@ class InstanceStateChange {
     this.previousState,
   });
   static InstanceStateChange fromJson(Map<String, dynamic> json) =>
-      InstanceStateChange();
+      InstanceStateChange(
+        currentState: json.containsKey('CurrentState')
+            ? InstanceState.fromJson(json['CurrentState'])
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        previousState: json.containsKey('PreviousState')
+            ? InstanceState.fromJson(json['PreviousState'])
+            : null,
+      );
 }
 
 /// Describes the status of an instance.
@@ -21643,7 +27386,28 @@ class InstanceStatus {
     this.instanceStatus,
     this.systemStatus,
   });
-  static InstanceStatus fromJson(Map<String, dynamic> json) => InstanceStatus();
+  static InstanceStatus fromJson(Map<String, dynamic> json) => InstanceStatus(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List)
+                .map((e) => InstanceStatusEvent.fromJson(e))
+                .toList()
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceState: json.containsKey('InstanceState')
+            ? InstanceState.fromJson(json['InstanceState'])
+            : null,
+        instanceStatus: json.containsKey('InstanceStatus')
+            ? InstanceStatusSummary.fromJson(json['InstanceStatus'])
+            : null,
+        systemStatus: json.containsKey('SystemStatus')
+            ? InstanceStatusSummary.fromJson(json['SystemStatus'])
+            : null,
+      );
 }
 
 /// Describes the instance status.
@@ -21664,7 +27428,13 @@ class InstanceStatusDetails {
     this.status,
   });
   static InstanceStatusDetails fromJson(Map<String, dynamic> json) =>
-      InstanceStatusDetails();
+      InstanceStatusDetails(
+        impairedSince: json.containsKey('ImpairedSince')
+            ? DateTime.parse(json['ImpairedSince'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes a scheduled event for an instance.
@@ -21700,7 +27470,24 @@ class InstanceStatusEvent {
     this.notBeforeDeadline,
   });
   static InstanceStatusEvent fromJson(Map<String, dynamic> json) =>
-      InstanceStatusEvent();
+      InstanceStatusEvent(
+        instanceEventId: json.containsKey('InstanceEventId')
+            ? json['InstanceEventId'] as String
+            : null,
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        notAfter: json.containsKey('NotAfter')
+            ? DateTime.parse(json['NotAfter'])
+            : null,
+        notBefore: json.containsKey('NotBefore')
+            ? DateTime.parse(json['NotBefore'])
+            : null,
+        notBeforeDeadline: json.containsKey('NotBeforeDeadline')
+            ? DateTime.parse(json['NotBeforeDeadline'])
+            : null,
+      );
 }
 
 /// Describes the status of an instance.
@@ -21716,7 +27503,14 @@ class InstanceStatusSummary {
     this.status,
   });
   static InstanceStatusSummary fromJson(Map<String, dynamic> json) =>
-      InstanceStatusSummary();
+      InstanceStatusSummary(
+        details: json.containsKey('Details')
+            ? (json['Details'] as List)
+                .map((e) => InstanceStatusDetails.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Information about the Capacity Reservation usage.
@@ -21732,7 +27526,13 @@ class InstanceUsage {
     this.accountId,
     this.usedInstanceCount,
   });
-  static InstanceUsage fromJson(Map<String, dynamic> json) => InstanceUsage();
+  static InstanceUsage fromJson(Map<String, dynamic> json) => InstanceUsage(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        usedInstanceCount: json.containsKey('UsedInstanceCount')
+            ? json['UsedInstanceCount'] as int
+            : null,
+      );
 }
 
 /// Describes an internet gateway.
@@ -21755,8 +27555,20 @@ class InternetGateway {
     this.ownerId,
     this.tags,
   });
-  static InternetGateway fromJson(Map<String, dynamic> json) =>
-      InternetGateway();
+  static InternetGateway fromJson(Map<String, dynamic> json) => InternetGateway(
+        attachments: json.containsKey('Attachments')
+            ? (json['Attachments'] as List)
+                .map((e) => InternetGatewayAttachment.fromJson(e))
+                .toList()
+            : null,
+        internetGatewayId: json.containsKey('InternetGatewayId')
+            ? json['InternetGatewayId'] as String
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the attachment of a VPC to an internet gateway or an egress-only
@@ -21774,7 +27586,10 @@ class InternetGatewayAttachment {
     this.vpcId,
   });
   static InternetGatewayAttachment fromJson(Map<String, dynamic> json) =>
-      InternetGatewayAttachment();
+      InternetGatewayAttachment(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Describes a set of permissions for a security group rule.
@@ -21823,7 +27638,34 @@ class IpPermission {
     this.toPort,
     this.userIdGroupPairs,
   });
-  static IpPermission fromJson(Map<String, dynamic> json) => IpPermission();
+  static IpPermission fromJson(Map<String, dynamic> json) => IpPermission(
+        fromPort: json.containsKey('FromPort') ? json['FromPort'] as int : null,
+        ipProtocol: json.containsKey('IpProtocol')
+            ? json['IpProtocol'] as String
+            : null,
+        ipRanges: json.containsKey('IpRanges')
+            ? (json['IpRanges'] as List)
+                .map((e) => IpRange.fromJson(e))
+                .toList()
+            : null,
+        ipv6Ranges: json.containsKey('Ipv6Ranges')
+            ? (json['Ipv6Ranges'] as List)
+                .map((e) => Ipv6Range.fromJson(e))
+                .toList()
+            : null,
+        prefixListIds: json.containsKey('PrefixListIds')
+            ? (json['PrefixListIds'] as List)
+                .map((e) => PrefixListId.fromJson(e))
+                .toList()
+            : null,
+        toPort: json.containsKey('ToPort') ? json['ToPort'] as int : null,
+        userIdGroupPairs: json.containsKey('UserIdGroupPairs')
+            ? (json['UserIdGroupPairs'] as List)
+                .map((e) => UserIdGroupPair.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IPv4 range.
@@ -21844,7 +27686,13 @@ class IpRange {
     this.cidrIp,
     this.description,
   });
-  static IpRange fromJson(Map<String, dynamic> json) => IpRange();
+  static IpRange fromJson(Map<String, dynamic> json) => IpRange(
+        cidrIp: json.containsKey('CidrIp') ? json['CidrIp'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IPv6 CIDR block.
@@ -21855,7 +27703,11 @@ class Ipv6CidrBlock {
   Ipv6CidrBlock({
     this.ipv6CidrBlock,
   });
-  static Ipv6CidrBlock fromJson(Map<String, dynamic> json) => Ipv6CidrBlock();
+  static Ipv6CidrBlock fromJson(Map<String, dynamic> json) => Ipv6CidrBlock(
+        ipv6CidrBlock: json.containsKey('Ipv6CidrBlock')
+            ? json['Ipv6CidrBlock'] as String
+            : null,
+      );
 }
 
 /// [EC2-VPC only] Describes an IPv6 range.
@@ -21876,7 +27728,14 @@ class Ipv6Range {
     this.cidrIpv6,
     this.description,
   });
-  static Ipv6Range fromJson(Map<String, dynamic> json) => Ipv6Range();
+  static Ipv6Range fromJson(Map<String, dynamic> json) => Ipv6Range(
+        cidrIpv6:
+            json.containsKey('CidrIpv6') ? json['CidrIpv6'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a key pair.
@@ -21895,7 +27754,15 @@ class KeyPair {
     this.keyMaterial,
     this.keyName,
   });
-  static KeyPair fromJson(Map<String, dynamic> json) => KeyPair();
+  static KeyPair fromJson(Map<String, dynamic> json) => KeyPair(
+        keyFingerprint: json.containsKey('KeyFingerprint')
+            ? json['KeyFingerprint'] as String
+            : null,
+        keyMaterial: json.containsKey('KeyMaterial')
+            ? json['KeyMaterial'] as String
+            : null,
+        keyName: json.containsKey('KeyName') ? json['KeyName'] as String : null,
+      );
 }
 
 /// Describes a key pair.
@@ -21913,7 +27780,12 @@ class KeyPairInfo {
     this.keyFingerprint,
     this.keyName,
   });
-  static KeyPairInfo fromJson(Map<String, dynamic> json) => KeyPairInfo();
+  static KeyPairInfo fromJson(Map<String, dynamic> json) => KeyPairInfo(
+        keyFingerprint: json.containsKey('KeyFingerprint')
+            ? json['KeyFingerprint'] as String
+            : null,
+        keyName: json.containsKey('KeyName') ? json['KeyName'] as String : null,
+      );
 }
 
 /// Describes a launch permission.
@@ -21929,7 +27801,11 @@ class LaunchPermission {
     this.userId,
   });
   static LaunchPermission fromJson(Map<String, dynamic> json) =>
-      LaunchPermission();
+      LaunchPermission(
+        group: json.containsKey('Group') ? json['Group'] as String : null,
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a launch permission modification.
@@ -21945,6 +27821,7 @@ class LaunchPermissionModifications {
     this.add,
     this.remove,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the launch specification for an instance.
@@ -22021,7 +27898,52 @@ class LaunchSpecification {
     this.monitoring,
   });
   static LaunchSpecification fromJson(Map<String, dynamic> json) =>
-      LaunchSpecification();
+      LaunchSpecification(
+        userData:
+            json.containsKey('UserData') ? json['UserData'] as String : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        addressingType: json.containsKey('AddressingType')
+            ? json['AddressingType'] as String
+            : null,
+        blockDeviceMappings: json.containsKey('BlockDeviceMappings')
+            ? (json['BlockDeviceMappings'] as List)
+                .map((e) => BlockDeviceMapping.fromJson(e))
+                .toList()
+            : null,
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? json['EbsOptimized'] as bool
+            : null,
+        iamInstanceProfile: json.containsKey('IamInstanceProfile')
+            ? IamInstanceProfileSpecification.fromJson(
+                json['IamInstanceProfile'])
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        kernelId:
+            json.containsKey('KernelId') ? json['KernelId'] as String : null,
+        keyName: json.containsKey('KeyName') ? json['KeyName'] as String : null,
+        networkInterfaces: json.containsKey('NetworkInterfaces')
+            ? (json['NetworkInterfaces'] as List)
+                .map((e) => InstanceNetworkInterfaceSpecification.fromJson(e))
+                .toList()
+            : null,
+        placement: json.containsKey('Placement')
+            ? SpotPlacement.fromJson(json['Placement'])
+            : null,
+        ramdiskId:
+            json.containsKey('RamdiskId') ? json['RamdiskId'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        monitoring: json.containsKey('Monitoring')
+            ? RunInstancesMonitoringEnabled.fromJson(json['Monitoring'])
+            : null,
+      );
 }
 
 /// Describes a launch template.
@@ -22056,7 +27978,28 @@ class LaunchTemplate {
     this.latestVersionNumber,
     this.tags,
   });
-  static LaunchTemplate fromJson(Map<String, dynamic> json) => LaunchTemplate();
+  static LaunchTemplate fromJson(Map<String, dynamic> json) => LaunchTemplate(
+        launchTemplateId: json.containsKey('LaunchTemplateId')
+            ? json['LaunchTemplateId'] as String
+            : null,
+        launchTemplateName: json.containsKey('LaunchTemplateName')
+            ? json['LaunchTemplateName'] as String
+            : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        createdBy:
+            json.containsKey('CreatedBy') ? json['CreatedBy'] as String : null,
+        defaultVersionNumber: json.containsKey('DefaultVersionNumber')
+            ? BigInt.from(json['DefaultVersionNumber'])
+            : null,
+        latestVersionNumber: json.containsKey('LatestVersionNumber')
+            ? BigInt.from(json['LatestVersionNumber'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes a launch template and overrides.
@@ -22074,7 +28017,16 @@ class LaunchTemplateAndOverridesResponse {
   });
   static LaunchTemplateAndOverridesResponse fromJson(
           Map<String, dynamic> json) =>
-      LaunchTemplateAndOverridesResponse();
+      LaunchTemplateAndOverridesResponse(
+        launchTemplateSpecification:
+            json.containsKey('LaunchTemplateSpecification')
+                ? FleetLaunchTemplateSpecification.fromJson(
+                    json['LaunchTemplateSpecification'])
+                : null,
+        overrides: json.containsKey('Overrides')
+            ? FleetLaunchTemplateOverrides.fromJson(json['Overrides'])
+            : null,
+      );
 }
 
 /// Describes a block device mapping.
@@ -22099,7 +28051,19 @@ class LaunchTemplateBlockDeviceMapping {
     this.noDevice,
   });
   static LaunchTemplateBlockDeviceMapping fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateBlockDeviceMapping();
+      LaunchTemplateBlockDeviceMapping(
+        deviceName: json.containsKey('DeviceName')
+            ? json['DeviceName'] as String
+            : null,
+        virtualName: json.containsKey('VirtualName')
+            ? json['VirtualName'] as String
+            : null,
+        ebs: json.containsKey('Ebs')
+            ? LaunchTemplateEbsBlockDevice.fromJson(json['Ebs'])
+            : null,
+        noDevice:
+            json.containsKey('NoDevice') ? json['NoDevice'] as String : null,
+      );
 }
 
 /// Describes a block device mapping.
@@ -22128,6 +28092,7 @@ class LaunchTemplateBlockDeviceMappingRequest {
     this.ebs,
     this.noDevice,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an instance's Capacity Reservation targeting option. You can
@@ -22154,6 +28119,7 @@ class LaunchTemplateCapacityReservationSpecificationRequest {
     this.capacityReservationPreference,
     this.capacityReservationTarget,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the Capacity Reservation targeting option.
@@ -22177,7 +28143,16 @@ class LaunchTemplateCapacityReservationSpecificationResponse {
   });
   static LaunchTemplateCapacityReservationSpecificationResponse fromJson(
           Map<String, dynamic> json) =>
-      LaunchTemplateCapacityReservationSpecificationResponse();
+      LaunchTemplateCapacityReservationSpecificationResponse(
+        capacityReservationPreference:
+            json.containsKey('CapacityReservationPreference')
+                ? json['CapacityReservationPreference'] as String
+                : null,
+        capacityReservationTarget: json.containsKey('CapacityReservationTarget')
+            ? CapacityReservationTargetResponse.fromJson(
+                json['CapacityReservationTarget'])
+            : null,
+      );
 }
 
 /// Describes a launch template and overrides.
@@ -22194,7 +28169,19 @@ class LaunchTemplateConfig {
     this.overrides,
   });
   static LaunchTemplateConfig fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateConfig();
+      LaunchTemplateConfig(
+        launchTemplateSpecification:
+            json.containsKey('LaunchTemplateSpecification')
+                ? FleetLaunchTemplateSpecification.fromJson(
+                    json['LaunchTemplateSpecification'])
+                : null,
+        overrides: json.containsKey('Overrides')
+            ? (json['Overrides'] as List)
+                .map((e) => LaunchTemplateOverrides.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The CPU options for the instance.
@@ -22210,7 +28197,13 @@ class LaunchTemplateCpuOptions {
     this.threadsPerCore,
   });
   static LaunchTemplateCpuOptions fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateCpuOptions();
+      LaunchTemplateCpuOptions(
+        coreCount:
+            json.containsKey('CoreCount') ? json['CoreCount'] as int : null,
+        threadsPerCore: json.containsKey('ThreadsPerCore')
+            ? json['ThreadsPerCore'] as int
+            : null,
+      );
 }
 
 /// The CPU options for the instance. Both the core count and threads per core
@@ -22227,6 +28220,7 @@ class LaunchTemplateCpuOptionsRequest {
     this.coreCount,
     this.threadsPerCore,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a block device for an EBS volume.
@@ -22263,7 +28257,24 @@ class LaunchTemplateEbsBlockDevice {
     this.volumeType,
   });
   static LaunchTemplateEbsBlockDevice fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateEbsBlockDevice();
+      LaunchTemplateEbsBlockDevice(
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        volumeSize:
+            json.containsKey('VolumeSize') ? json['VolumeSize'] as int : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+      );
 }
 
 /// The parameters for a block device for an EBS volume.
@@ -22314,6 +28325,7 @@ class LaunchTemplateEbsBlockDeviceRequest {
     this.volumeSize,
     this.volumeType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Describes an elastic inference accelerator.
@@ -22325,6 +28337,7 @@ class LaunchTemplateElasticInferenceAccelerator {
   LaunchTemplateElasticInferenceAccelerator({
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Describes an elastic inference accelerator.
@@ -22338,7 +28351,9 @@ class LaunchTemplateElasticInferenceAcceleratorResponse {
   });
   static LaunchTemplateElasticInferenceAcceleratorResponse fromJson(
           Map<String, dynamic> json) =>
-      LaunchTemplateElasticInferenceAcceleratorResponse();
+      LaunchTemplateElasticInferenceAcceleratorResponse(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Indicates whether an instance is configured for hibernation.
@@ -22351,7 +28366,10 @@ class LaunchTemplateHibernationOptions {
     this.configured,
   });
   static LaunchTemplateHibernationOptions fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateHibernationOptions();
+      LaunchTemplateHibernationOptions(
+        configured:
+            json.containsKey('Configured') ? json['Configured'] as bool : null,
+      );
 }
 
 /// Indicates whether the instance is configured for hibernation. This parameter
@@ -22368,6 +28386,7 @@ class LaunchTemplateHibernationOptionsRequest {
   LaunchTemplateHibernationOptionsRequest({
     this.configured,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IAM instance profile.
@@ -22384,7 +28403,10 @@ class LaunchTemplateIamInstanceProfileSpecification {
   });
   static LaunchTemplateIamInstanceProfileSpecification fromJson(
           Map<String, dynamic> json) =>
-      LaunchTemplateIamInstanceProfileSpecification();
+      LaunchTemplateIamInstanceProfileSpecification(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// An IAM instance profile.
@@ -22399,6 +28421,7 @@ class LaunchTemplateIamInstanceProfileSpecificationRequest {
     this.arn,
     this.name,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The market (purchasing) option for the instances.
@@ -22415,7 +28438,14 @@ class LaunchTemplateInstanceMarketOptions {
   });
   static LaunchTemplateInstanceMarketOptions fromJson(
           Map<String, dynamic> json) =>
-      LaunchTemplateInstanceMarketOptions();
+      LaunchTemplateInstanceMarketOptions(
+        marketType: json.containsKey('MarketType')
+            ? json['MarketType'] as String
+            : null,
+        spotOptions: json.containsKey('SpotOptions')
+            ? LaunchTemplateSpotMarketOptions.fromJson(json['SpotOptions'])
+            : null,
+      );
 }
 
 /// The market (purchasing) option for the instances.
@@ -22430,6 +28460,7 @@ class LaunchTemplateInstanceMarketOptionsRequest {
     this.marketType,
     this.spotOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a network interface.
@@ -22492,7 +28523,50 @@ class LaunchTemplateInstanceNetworkInterfaceSpecification {
   });
   static LaunchTemplateInstanceNetworkInterfaceSpecification fromJson(
           Map<String, dynamic> json) =>
-      LaunchTemplateInstanceNetworkInterfaceSpecification();
+      LaunchTemplateInstanceNetworkInterfaceSpecification(
+        associatePublicIpAddress: json.containsKey('AssociatePublicIpAddress')
+            ? json['AssociatePublicIpAddress'] as bool
+            : null,
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        deviceIndex:
+            json.containsKey('DeviceIndex') ? json['DeviceIndex'] as int : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List).map((e) => e as String).toList()
+            : null,
+        interfaceType: json.containsKey('InterfaceType')
+            ? json['InterfaceType'] as String
+            : null,
+        ipv6AddressCount: json.containsKey('Ipv6AddressCount')
+            ? json['Ipv6AddressCount'] as int
+            : null,
+        ipv6Addresses: json.containsKey('Ipv6Addresses')
+            ? (json['Ipv6Addresses'] as List)
+                .map((e) => InstanceIpv6Address.fromJson(e))
+                .toList()
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+        privateIpAddresses: json.containsKey('PrivateIpAddresses')
+            ? (json['PrivateIpAddresses'] as List)
+                .map((e) => PrivateIpAddressSpecification.fromJson(e))
+                .toList()
+            : null,
+        secondaryPrivateIpAddressCount:
+            json.containsKey('SecondaryPrivateIpAddressCount')
+                ? json['SecondaryPrivateIpAddressCount'] as int
+                : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+      );
 }
 
 /// The parameters for a network interface.
@@ -22565,6 +28639,7 @@ class LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
     this.secondaryPrivateIpAddressCount,
     this.subnetId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a license configuration.
@@ -22577,7 +28652,11 @@ class LaunchTemplateLicenseConfiguration {
   });
   static LaunchTemplateLicenseConfiguration fromJson(
           Map<String, dynamic> json) =>
-      LaunchTemplateLicenseConfiguration();
+      LaunchTemplateLicenseConfiguration(
+        licenseConfigurationArn: json.containsKey('LicenseConfigurationArn')
+            ? json['LicenseConfigurationArn'] as String
+            : null,
+      );
 }
 
 /// Describes a license configuration.
@@ -22588,6 +28667,7 @@ class LaunchTemplateLicenseConfigurationRequest {
   LaunchTemplateLicenseConfigurationRequest({
     this.licenseConfigurationArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes overrides for a launch template.
@@ -22626,7 +28706,24 @@ class LaunchTemplateOverrides {
     this.priority,
   });
   static LaunchTemplateOverrides fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateOverrides();
+      LaunchTemplateOverrides(
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        spotPrice:
+            json.containsKey('SpotPrice') ? json['SpotPrice'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        weightedCapacity: json.containsKey('WeightedCapacity')
+            ? json['WeightedCapacity'] as double
+            : null,
+        priority:
+            json.containsKey('Priority') ? json['Priority'] as double : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the placement of an instance.
@@ -22659,7 +28756,20 @@ class LaunchTemplatePlacement {
     this.spreadDomain,
   });
   static LaunchTemplatePlacement fromJson(Map<String, dynamic> json) =>
-      LaunchTemplatePlacement();
+      LaunchTemplatePlacement(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        affinity:
+            json.containsKey('Affinity') ? json['Affinity'] as String : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        hostId: json.containsKey('HostId') ? json['HostId'] as String : null,
+        tenancy: json.containsKey('Tenancy') ? json['Tenancy'] as String : null,
+        spreadDomain: json.containsKey('SpreadDomain')
+            ? json['SpreadDomain'] as String
+            : null,
+      );
 }
 
 /// Describes the placement of an instance.
@@ -22691,6 +28801,7 @@ class LaunchTemplatePlacementRequest {
     this.tenancy,
     this.spreadDomain,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The launch template to use. You must specify either the launch template ID
@@ -22712,6 +28823,7 @@ class LaunchTemplateSpecification {
     this.launchTemplateName,
     this.version,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The options for Spot Instances.
@@ -22744,7 +28856,23 @@ class LaunchTemplateSpotMarketOptions {
     this.instanceInterruptionBehavior,
   });
   static LaunchTemplateSpotMarketOptions fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateSpotMarketOptions();
+      LaunchTemplateSpotMarketOptions(
+        maxPrice:
+            json.containsKey('MaxPrice') ? json['MaxPrice'] as String : null,
+        spotInstanceType: json.containsKey('SpotInstanceType')
+            ? json['SpotInstanceType'] as String
+            : null,
+        blockDurationMinutes: json.containsKey('BlockDurationMinutes')
+            ? json['BlockDurationMinutes'] as int
+            : null,
+        validUntil: json.containsKey('ValidUntil')
+            ? DateTime.parse(json['ValidUntil'])
+            : null,
+        instanceInterruptionBehavior:
+            json.containsKey('InstanceInterruptionBehavior')
+                ? json['InstanceInterruptionBehavior'] as String
+                : null,
+      );
 }
 
 /// The options for Spot Instances.
@@ -22778,6 +28906,7 @@ class LaunchTemplateSpotMarketOptionsRequest {
     this.validUntil,
     this.instanceInterruptionBehavior,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The tag specification for the launch template.
@@ -22793,7 +28922,14 @@ class LaunchTemplateTagSpecification {
     this.tags,
   });
   static LaunchTemplateTagSpecification fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateTagSpecification();
+      LaunchTemplateTagSpecification(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The tags specification for the launch template.
@@ -22811,6 +28947,7 @@ class LaunchTemplateTagSpecificationRequest {
     this.resourceType,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a launch template version.
@@ -22850,7 +28987,31 @@ class LaunchTemplateVersion {
     this.launchTemplateData,
   });
   static LaunchTemplateVersion fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateVersion();
+      LaunchTemplateVersion(
+        launchTemplateId: json.containsKey('LaunchTemplateId')
+            ? json['LaunchTemplateId'] as String
+            : null,
+        launchTemplateName: json.containsKey('LaunchTemplateName')
+            ? json['LaunchTemplateName'] as String
+            : null,
+        versionNumber: json.containsKey('VersionNumber')
+            ? BigInt.from(json['VersionNumber'])
+            : null,
+        versionDescription: json.containsKey('VersionDescription')
+            ? json['VersionDescription'] as String
+            : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        createdBy:
+            json.containsKey('CreatedBy') ? json['CreatedBy'] as String : null,
+        defaultVersion: json.containsKey('DefaultVersion')
+            ? json['DefaultVersion'] as bool
+            : null,
+        launchTemplateData: json.containsKey('LaunchTemplateData')
+            ? ResponseLaunchTemplateData.fromJson(json['LaunchTemplateData'])
+            : null,
+      );
 }
 
 /// Describes the monitoring for the instance.
@@ -22863,7 +29024,9 @@ class LaunchTemplatesMonitoring {
     this.enabled,
   });
   static LaunchTemplatesMonitoring fromJson(Map<String, dynamic> json) =>
-      LaunchTemplatesMonitoring();
+      LaunchTemplatesMonitoring(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
 }
 
 /// Describes the monitoring for the instance.
@@ -22875,6 +29038,7 @@ class LaunchTemplatesMonitoringRequest {
   LaunchTemplatesMonitoringRequest({
     this.enabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a license configuration.
@@ -22886,7 +29050,11 @@ class LicenseConfiguration {
     this.licenseConfigurationArn,
   });
   static LicenseConfiguration fromJson(Map<String, dynamic> json) =>
-      LicenseConfiguration();
+      LicenseConfiguration(
+        licenseConfigurationArn: json.containsKey('LicenseConfigurationArn')
+            ? json['LicenseConfigurationArn'] as String
+            : null,
+      );
 }
 
 /// Describes a license configuration.
@@ -22897,6 +29065,7 @@ class LicenseConfigurationRequest {
   LicenseConfigurationRequest({
     this.licenseConfigurationArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the Classic Load Balancers and target groups to attach to a Spot
@@ -22913,7 +29082,17 @@ class LoadBalancersConfig {
     this.targetGroupsConfig,
   });
   static LoadBalancersConfig fromJson(Map<String, dynamic> json) =>
-      LoadBalancersConfig();
+      LoadBalancersConfig(
+        classicLoadBalancersConfig:
+            json.containsKey('ClassicLoadBalancersConfig')
+                ? ClassicLoadBalancersConfig.fromJson(
+                    json['ClassicLoadBalancersConfig'])
+                : null,
+        targetGroupsConfig: json.containsKey('TargetGroupsConfig')
+            ? TargetGroupsConfig.fromJson(json['TargetGroupsConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a load permission.
@@ -22928,7 +29107,10 @@ class LoadPermission {
     this.userId,
     this.group,
   });
-  static LoadPermission fromJson(Map<String, dynamic> json) => LoadPermission();
+  static LoadPermission fromJson(Map<String, dynamic> json) => LoadPermission(
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+        group: json.containsKey('Group') ? json['Group'] as String : null,
+      );
 }
 
 /// Describes modifications to the load permissions of an Amazon FPGA image
@@ -22944,6 +29126,7 @@ class LoadPermissionModifications {
     this.add,
     this.remove,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a load permission.
@@ -22958,6 +29141,7 @@ class LoadPermissionRequest {
     this.group,
     this.userId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ModifyCapacityReservationResult {
@@ -22968,7 +29152,9 @@ class ModifyCapacityReservationResult {
     this.return$,
   });
   static ModifyCapacityReservationResult fromJson(Map<String, dynamic> json) =>
-      ModifyCapacityReservationResult();
+      ModifyCapacityReservationResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ModifyClientVpnEndpointResult {
@@ -22979,7 +29165,9 @@ class ModifyClientVpnEndpointResult {
     this.return$,
   });
   static ModifyClientVpnEndpointResult fromJson(Map<String, dynamic> json) =>
-      ModifyClientVpnEndpointResult();
+      ModifyClientVpnEndpointResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ModifyEbsDefaultKmsKeyIdResult {
@@ -22991,7 +29179,10 @@ class ModifyEbsDefaultKmsKeyIdResult {
     this.kmsKeyId,
   });
   static ModifyEbsDefaultKmsKeyIdResult fromJson(Map<String, dynamic> json) =>
-      ModifyEbsDefaultKmsKeyIdResult();
+      ModifyEbsDefaultKmsKeyIdResult(
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
 }
 
 class ModifyFleetResult {
@@ -23002,7 +29193,9 @@ class ModifyFleetResult {
     this.return$,
   });
   static ModifyFleetResult fromJson(Map<String, dynamic> json) =>
-      ModifyFleetResult();
+      ModifyFleetResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ModifyFpgaImageAttributeResult {
@@ -23013,7 +29206,11 @@ class ModifyFpgaImageAttributeResult {
     this.fpgaImageAttribute,
   });
   static ModifyFpgaImageAttributeResult fromJson(Map<String, dynamic> json) =>
-      ModifyFpgaImageAttributeResult();
+      ModifyFpgaImageAttributeResult(
+        fpgaImageAttribute: json.containsKey('FpgaImageAttribute')
+            ? FpgaImageAttribute.fromJson(json['FpgaImageAttribute'])
+            : null,
+      );
 }
 
 class ModifyHostsResult {
@@ -23029,7 +29226,16 @@ class ModifyHostsResult {
     this.unsuccessful,
   });
   static ModifyHostsResult fromJson(Map<String, dynamic> json) =>
-      ModifyHostsResult();
+      ModifyHostsResult(
+        successful: json.containsKey('Successful')
+            ? (json['Successful'] as List).map((e) => e as String).toList()
+            : null,
+        unsuccessful: json.containsKey('Unsuccessful')
+            ? (json['Unsuccessful'] as List)
+                .map((e) => UnsuccessfulItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ModifyInstanceCapacityReservationAttributesResult {
@@ -23041,7 +29247,9 @@ class ModifyInstanceCapacityReservationAttributesResult {
   });
   static ModifyInstanceCapacityReservationAttributesResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyInstanceCapacityReservationAttributesResult();
+      ModifyInstanceCapacityReservationAttributesResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ModifyInstanceCreditSpecificationResult {
@@ -23061,7 +29269,22 @@ class ModifyInstanceCreditSpecificationResult {
   });
   static ModifyInstanceCreditSpecificationResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyInstanceCreditSpecificationResult();
+      ModifyInstanceCreditSpecificationResult(
+        successfulInstanceCreditSpecifications:
+            json.containsKey('SuccessfulInstanceCreditSpecifications')
+                ? (json['SuccessfulInstanceCreditSpecifications'] as List)
+                    .map((e) =>
+                        SuccessfulInstanceCreditSpecificationItem.fromJson(e))
+                    .toList()
+                : null,
+        unsuccessfulInstanceCreditSpecifications:
+            json.containsKey('UnsuccessfulInstanceCreditSpecifications')
+                ? (json['UnsuccessfulInstanceCreditSpecifications'] as List)
+                    .map((e) =>
+                        UnsuccessfulInstanceCreditSpecificationItem.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class ModifyInstanceEventStartTimeResult {
@@ -23072,7 +29295,11 @@ class ModifyInstanceEventStartTimeResult {
   });
   static ModifyInstanceEventStartTimeResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyInstanceEventStartTimeResult();
+      ModifyInstanceEventStartTimeResult(
+        event: json.containsKey('Event')
+            ? InstanceStatusEvent.fromJson(json['Event'])
+            : null,
+      );
 }
 
 class ModifyInstancePlacementResult {
@@ -23083,7 +29310,9 @@ class ModifyInstancePlacementResult {
     this.return$,
   });
   static ModifyInstancePlacementResult fromJson(Map<String, dynamic> json) =>
-      ModifyInstancePlacementResult();
+      ModifyInstancePlacementResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ModifyLaunchTemplateResult {
@@ -23094,7 +29323,11 @@ class ModifyLaunchTemplateResult {
     this.launchTemplate,
   });
   static ModifyLaunchTemplateResult fromJson(Map<String, dynamic> json) =>
-      ModifyLaunchTemplateResult();
+      ModifyLaunchTemplateResult(
+        launchTemplate: json.containsKey('LaunchTemplate')
+            ? LaunchTemplate.fromJson(json['LaunchTemplate'])
+            : null,
+      );
 }
 
 /// Contains the output of ModifyReservedInstances.
@@ -23106,7 +29339,12 @@ class ModifyReservedInstancesResult {
     this.reservedInstancesModificationId,
   });
   static ModifyReservedInstancesResult fromJson(Map<String, dynamic> json) =>
-      ModifyReservedInstancesResult();
+      ModifyReservedInstancesResult(
+        reservedInstancesModificationId:
+            json.containsKey('ReservedInstancesModificationId')
+                ? json['ReservedInstancesModificationId'] as String
+                : null,
+      );
 }
 
 /// Contains the output of ModifySpotFleetRequest.
@@ -23118,7 +29356,9 @@ class ModifySpotFleetRequestResponse {
     this.return$,
   });
   static ModifySpotFleetRequestResponse fromJson(Map<String, dynamic> json) =>
-      ModifySpotFleetRequestResponse();
+      ModifySpotFleetRequestResponse(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ModifyTrafficMirrorFilterNetworkServicesResult {
@@ -23130,7 +29370,11 @@ class ModifyTrafficMirrorFilterNetworkServicesResult {
   });
   static ModifyTrafficMirrorFilterNetworkServicesResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyTrafficMirrorFilterNetworkServicesResult();
+      ModifyTrafficMirrorFilterNetworkServicesResult(
+        trafficMirrorFilter: json.containsKey('TrafficMirrorFilter')
+            ? TrafficMirrorFilter.fromJson(json['TrafficMirrorFilter'])
+            : null,
+      );
 }
 
 class ModifyTrafficMirrorFilterRuleResult {
@@ -23142,7 +29386,11 @@ class ModifyTrafficMirrorFilterRuleResult {
   });
   static ModifyTrafficMirrorFilterRuleResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyTrafficMirrorFilterRuleResult();
+      ModifyTrafficMirrorFilterRuleResult(
+        trafficMirrorFilterRule: json.containsKey('TrafficMirrorFilterRule')
+            ? TrafficMirrorFilterRule.fromJson(json['TrafficMirrorFilterRule'])
+            : null,
+      );
 }
 
 class ModifyTrafficMirrorSessionResult {
@@ -23153,7 +29401,11 @@ class ModifyTrafficMirrorSessionResult {
     this.trafficMirrorSession,
   });
   static ModifyTrafficMirrorSessionResult fromJson(Map<String, dynamic> json) =>
-      ModifyTrafficMirrorSessionResult();
+      ModifyTrafficMirrorSessionResult(
+        trafficMirrorSession: json.containsKey('TrafficMirrorSession')
+            ? TrafficMirrorSession.fromJson(json['TrafficMirrorSession'])
+            : null,
+      );
 }
 
 /// Describes the options for a VPC attachment.
@@ -23168,6 +29420,7 @@ class ModifyTransitGatewayVpcAttachmentRequestOptions {
     this.dnsSupport,
     this.ipv6Support,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ModifyTransitGatewayVpcAttachmentResult {
@@ -23179,7 +29432,13 @@ class ModifyTransitGatewayVpcAttachmentResult {
   });
   static ModifyTransitGatewayVpcAttachmentResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyTransitGatewayVpcAttachmentResult();
+      ModifyTransitGatewayVpcAttachmentResult(
+        transitGatewayVpcAttachment:
+            json.containsKey('TransitGatewayVpcAttachment')
+                ? TransitGatewayVpcAttachment.fromJson(
+                    json['TransitGatewayVpcAttachment'])
+                : null,
+      );
 }
 
 class ModifyVolumeResult {
@@ -23190,7 +29449,11 @@ class ModifyVolumeResult {
     this.volumeModification,
   });
   static ModifyVolumeResult fromJson(Map<String, dynamic> json) =>
-      ModifyVolumeResult();
+      ModifyVolumeResult(
+        volumeModification: json.containsKey('VolumeModification')
+            ? VolumeModification.fromJson(json['VolumeModification'])
+            : null,
+      );
 }
 
 class ModifyVpcEndpointConnectionNotificationResult {
@@ -23202,7 +29465,11 @@ class ModifyVpcEndpointConnectionNotificationResult {
   });
   static ModifyVpcEndpointConnectionNotificationResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyVpcEndpointConnectionNotificationResult();
+      ModifyVpcEndpointConnectionNotificationResult(
+        returnValue: json.containsKey('ReturnValue')
+            ? json['ReturnValue'] as bool
+            : null,
+      );
 }
 
 class ModifyVpcEndpointResult {
@@ -23213,7 +29480,9 @@ class ModifyVpcEndpointResult {
     this.return$,
   });
   static ModifyVpcEndpointResult fromJson(Map<String, dynamic> json) =>
-      ModifyVpcEndpointResult();
+      ModifyVpcEndpointResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ModifyVpcEndpointServiceConfigurationResult {
@@ -23225,7 +29494,9 @@ class ModifyVpcEndpointServiceConfigurationResult {
   });
   static ModifyVpcEndpointServiceConfigurationResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyVpcEndpointServiceConfigurationResult();
+      ModifyVpcEndpointServiceConfigurationResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ModifyVpcEndpointServicePermissionsResult {
@@ -23237,7 +29508,11 @@ class ModifyVpcEndpointServicePermissionsResult {
   });
   static ModifyVpcEndpointServicePermissionsResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyVpcEndpointServicePermissionsResult();
+      ModifyVpcEndpointServicePermissionsResult(
+        returnValue: json.containsKey('ReturnValue')
+            ? json['ReturnValue'] as bool
+            : null,
+      );
 }
 
 class ModifyVpcPeeringConnectionOptionsResult {
@@ -23254,7 +29529,18 @@ class ModifyVpcPeeringConnectionOptionsResult {
   });
   static ModifyVpcPeeringConnectionOptionsResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyVpcPeeringConnectionOptionsResult();
+      ModifyVpcPeeringConnectionOptionsResult(
+        accepterPeeringConnectionOptions:
+            json.containsKey('AccepterPeeringConnectionOptions')
+                ? PeeringConnectionOptions.fromJson(
+                    json['AccepterPeeringConnectionOptions'])
+                : null,
+        requesterPeeringConnectionOptions:
+            json.containsKey('RequesterPeeringConnectionOptions')
+                ? PeeringConnectionOptions.fromJson(
+                    json['RequesterPeeringConnectionOptions'])
+                : null,
+      );
 }
 
 class ModifyVpcTenancyResult {
@@ -23265,7 +29551,11 @@ class ModifyVpcTenancyResult {
     this.returnValue,
   });
   static ModifyVpcTenancyResult fromJson(Map<String, dynamic> json) =>
-      ModifyVpcTenancyResult();
+      ModifyVpcTenancyResult(
+        returnValue: json.containsKey('ReturnValue')
+            ? json['ReturnValue'] as bool
+            : null,
+      );
 }
 
 class ModifyVpnConnectionResult {
@@ -23275,7 +29565,11 @@ class ModifyVpnConnectionResult {
     this.vpnConnection,
   });
   static ModifyVpnConnectionResult fromJson(Map<String, dynamic> json) =>
-      ModifyVpnConnectionResult();
+      ModifyVpnConnectionResult(
+        vpnConnection: json.containsKey('VpnConnection')
+            ? VpnConnection.fromJson(json['VpnConnection'])
+            : null,
+      );
 }
 
 class ModifyVpnTunnelCertificateResult {
@@ -23285,7 +29579,11 @@ class ModifyVpnTunnelCertificateResult {
     this.vpnConnection,
   });
   static ModifyVpnTunnelCertificateResult fromJson(Map<String, dynamic> json) =>
-      ModifyVpnTunnelCertificateResult();
+      ModifyVpnTunnelCertificateResult(
+        vpnConnection: json.containsKey('VpnConnection')
+            ? VpnConnection.fromJson(json['VpnConnection'])
+            : null,
+      );
 }
 
 class ModifyVpnTunnelOptionsResult {
@@ -23295,7 +29593,11 @@ class ModifyVpnTunnelOptionsResult {
     this.vpnConnection,
   });
   static ModifyVpnTunnelOptionsResult fromJson(Map<String, dynamic> json) =>
-      ModifyVpnTunnelOptionsResult();
+      ModifyVpnTunnelOptionsResult(
+        vpnConnection: json.containsKey('VpnConnection')
+            ? VpnConnection.fromJson(json['VpnConnection'])
+            : null,
+      );
 }
 
 /// The AWS Site-to-Site VPN tunnel options to modify.
@@ -23441,6 +29743,7 @@ class ModifyVpnTunnelOptionsSpecification {
     this.phase2dhGroupNumbers,
     this.ikeVersions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class MonitorInstancesResult {
@@ -23451,7 +29754,13 @@ class MonitorInstancesResult {
     this.instanceMonitorings,
   });
   static MonitorInstancesResult fromJson(Map<String, dynamic> json) =>
-      MonitorInstancesResult();
+      MonitorInstancesResult(
+        instanceMonitorings: json.containsKey('InstanceMonitorings')
+            ? (json['InstanceMonitorings'] as List)
+                .map((e) => InstanceMonitoring.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the monitoring of an instance.
@@ -23463,7 +29772,9 @@ class Monitoring {
   Monitoring({
     this.state,
   });
-  static Monitoring fromJson(Map<String, dynamic> json) => Monitoring();
+  static Monitoring fromJson(Map<String, dynamic> json) => Monitoring(
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 class MoveAddressToVpcResult {
@@ -23478,7 +29789,12 @@ class MoveAddressToVpcResult {
     this.status,
   });
   static MoveAddressToVpcResult fromJson(Map<String, dynamic> json) =>
-      MoveAddressToVpcResult();
+      MoveAddressToVpcResult(
+        allocationId: json.containsKey('AllocationId')
+            ? json['AllocationId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes the status of a moving Elastic IP address.
@@ -23495,7 +29811,13 @@ class MovingAddressStatus {
     this.publicIp,
   });
   static MovingAddressStatus fromJson(Map<String, dynamic> json) =>
-      MovingAddressStatus();
+      MovingAddressStatus(
+        moveStatus: json.containsKey('MoveStatus')
+            ? json['MoveStatus'] as String
+            : null,
+        publicIp:
+            json.containsKey('PublicIp') ? json['PublicIp'] as String : null,
+      );
 }
 
 /// Describes a NAT gateway.
@@ -23588,7 +29910,38 @@ class NatGateway {
     this.vpcId,
     this.tags,
   });
-  static NatGateway fromJson(Map<String, dynamic> json) => NatGateway();
+  static NatGateway fromJson(Map<String, dynamic> json) => NatGateway(
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        deleteTime: json.containsKey('DeleteTime')
+            ? DateTime.parse(json['DeleteTime'])
+            : null,
+        failureCode: json.containsKey('FailureCode')
+            ? json['FailureCode'] as String
+            : null,
+        failureMessage: json.containsKey('FailureMessage')
+            ? json['FailureMessage'] as String
+            : null,
+        natGatewayAddresses: json.containsKey('NatGatewayAddresses')
+            ? (json['NatGatewayAddresses'] as List)
+                .map((e) => NatGatewayAddress.fromJson(e))
+                .toList()
+            : null,
+        natGatewayId: json.containsKey('NatGatewayId')
+            ? json['NatGatewayId'] as String
+            : null,
+        provisionedBandwidth: json.containsKey('ProvisionedBandwidth')
+            ? ProvisionedBandwidth.fromJson(json['ProvisionedBandwidth'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the IP addresses and network interface associated with a NAT
@@ -23614,7 +29967,18 @@ class NatGatewayAddress {
     this.publicIp,
   });
   static NatGatewayAddress fromJson(Map<String, dynamic> json) =>
-      NatGatewayAddress();
+      NatGatewayAddress(
+        allocationId: json.containsKey('AllocationId')
+            ? json['AllocationId'] as String
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        privateIp:
+            json.containsKey('PrivateIp') ? json['PrivateIp'] as String : null,
+        publicIp:
+            json.containsKey('PublicIp') ? json['PublicIp'] as String : null,
+      );
 }
 
 /// Describes a network ACL.
@@ -23649,7 +30013,28 @@ class NetworkAcl {
     this.vpcId,
     this.ownerId,
   });
-  static NetworkAcl fromJson(Map<String, dynamic> json) => NetworkAcl();
+  static NetworkAcl fromJson(Map<String, dynamic> json) => NetworkAcl(
+        associations: json.containsKey('Associations')
+            ? (json['Associations'] as List)
+                .map((e) => NetworkAclAssociation.fromJson(e))
+                .toList()
+            : null,
+        entries: json.containsKey('Entries')
+            ? (json['Entries'] as List)
+                .map((e) => NetworkAclEntry.fromJson(e))
+                .toList()
+            : null,
+        isDefault:
+            json.containsKey('IsDefault') ? json['IsDefault'] as bool : null,
+        networkAclId: json.containsKey('NetworkAclId')
+            ? json['NetworkAclId'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+      );
 }
 
 /// Describes an association between a network ACL and a subnet.
@@ -23669,7 +30054,16 @@ class NetworkAclAssociation {
     this.subnetId,
   });
   static NetworkAclAssociation fromJson(Map<String, dynamic> json) =>
-      NetworkAclAssociation();
+      NetworkAclAssociation(
+        networkAclAssociationId: json.containsKey('NetworkAclAssociationId')
+            ? json['NetworkAclAssociationId'] as String
+            : null,
+        networkAclId: json.containsKey('NetworkAclId')
+            ? json['NetworkAclId'] as String
+            : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+      );
 }
 
 /// Describes an entry in a network ACL.
@@ -23710,8 +30104,27 @@ class NetworkAclEntry {
     this.ruleAction,
     this.ruleNumber,
   });
-  static NetworkAclEntry fromJson(Map<String, dynamic> json) =>
-      NetworkAclEntry();
+  static NetworkAclEntry fromJson(Map<String, dynamic> json) => NetworkAclEntry(
+        cidrBlock:
+            json.containsKey('CidrBlock') ? json['CidrBlock'] as String : null,
+        egress: json.containsKey('Egress') ? json['Egress'] as bool : null,
+        icmpTypeCode: json.containsKey('IcmpTypeCode')
+            ? IcmpTypeCode.fromJson(json['IcmpTypeCode'])
+            : null,
+        ipv6CidrBlock: json.containsKey('Ipv6CidrBlock')
+            ? json['Ipv6CidrBlock'] as String
+            : null,
+        portRange: json.containsKey('PortRange')
+            ? PortRange.fromJson(json['PortRange'])
+            : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        ruleAction: json.containsKey('RuleAction')
+            ? json['RuleAction'] as String
+            : null,
+        ruleNumber:
+            json.containsKey('RuleNumber') ? json['RuleNumber'] as int : null,
+      );
 }
 
 /// Describes a network interface.
@@ -23801,7 +30214,67 @@ class NetworkInterface {
     this.vpcId,
   });
   static NetworkInterface fromJson(Map<String, dynamic> json) =>
-      NetworkInterface();
+      NetworkInterface(
+        association: json.containsKey('Association')
+            ? NetworkInterfaceAssociation.fromJson(json['Association'])
+            : null,
+        attachment: json.containsKey('Attachment')
+            ? NetworkInterfaceAttachment.fromJson(json['Attachment'])
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        interfaceType: json.containsKey('InterfaceType')
+            ? json['InterfaceType'] as String
+            : null,
+        ipv6Addresses: json.containsKey('Ipv6Addresses')
+            ? (json['Ipv6Addresses'] as List)
+                .map((e) => NetworkInterfaceIpv6Address.fromJson(e))
+                .toList()
+            : null,
+        macAddress: json.containsKey('MacAddress')
+            ? json['MacAddress'] as String
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+        privateIpAddresses: json.containsKey('PrivateIpAddresses')
+            ? (json['PrivateIpAddresses'] as List)
+                .map((e) => NetworkInterfacePrivateIpAddress.fromJson(e))
+                .toList()
+            : null,
+        requesterId: json.containsKey('RequesterId')
+            ? json['RequesterId'] as String
+            : null,
+        requesterManaged: json.containsKey('RequesterManaged')
+            ? json['RequesterManaged'] as bool
+            : null,
+        sourceDestCheck: json.containsKey('SourceDestCheck')
+            ? json['SourceDestCheck'] as bool
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        tagSet: json.containsKey('TagSet')
+            ? (json['TagSet'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Describes association information for an Elastic IP address (IPv4 only).
@@ -23829,7 +30302,21 @@ class NetworkInterfaceAssociation {
     this.publicIp,
   });
   static NetworkInterfaceAssociation fromJson(Map<String, dynamic> json) =>
-      NetworkInterfaceAssociation();
+      NetworkInterfaceAssociation(
+        allocationId: json.containsKey('AllocationId')
+            ? json['AllocationId'] as String
+            : null,
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        ipOwnerId:
+            json.containsKey('IpOwnerId') ? json['IpOwnerId'] as String : null,
+        publicDnsName: json.containsKey('PublicDnsName')
+            ? json['PublicDnsName'] as String
+            : null,
+        publicIp:
+            json.containsKey('PublicIp') ? json['PublicIp'] as String : null,
+      );
 }
 
 /// Describes a network interface attachment.
@@ -23866,7 +30353,26 @@ class NetworkInterfaceAttachment {
     this.status,
   });
   static NetworkInterfaceAttachment fromJson(Map<String, dynamic> json) =>
-      NetworkInterfaceAttachment();
+      NetworkInterfaceAttachment(
+        attachTime: json.containsKey('AttachTime')
+            ? DateTime.parse(json['AttachTime'])
+            : null,
+        attachmentId: json.containsKey('AttachmentId')
+            ? json['AttachmentId'] as String
+            : null,
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+        deviceIndex:
+            json.containsKey('DeviceIndex') ? json['DeviceIndex'] as int : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceOwnerId: json.containsKey('InstanceOwnerId')
+            ? json['InstanceOwnerId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes an attachment change.
@@ -23882,6 +30388,7 @@ class NetworkInterfaceAttachmentChanges {
     this.attachmentId,
     this.deleteOnTermination,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IPv6 address associated with a network interface.
@@ -23893,7 +30400,11 @@ class NetworkInterfaceIpv6Address {
     this.ipv6Address,
   });
   static NetworkInterfaceIpv6Address fromJson(Map<String, dynamic> json) =>
-      NetworkInterfaceIpv6Address();
+      NetworkInterfaceIpv6Address(
+        ipv6Address: json.containsKey('Ipv6Address')
+            ? json['Ipv6Address'] as String
+            : null,
+      );
 }
 
 /// Describes a permission for a network interface.
@@ -23925,7 +30436,27 @@ class NetworkInterfacePermission {
     this.permissionState,
   });
   static NetworkInterfacePermission fromJson(Map<String, dynamic> json) =>
-      NetworkInterfacePermission();
+      NetworkInterfacePermission(
+        networkInterfacePermissionId:
+            json.containsKey('NetworkInterfacePermissionId')
+                ? json['NetworkInterfacePermissionId'] as String
+                : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        awsAccountId: json.containsKey('AwsAccountId')
+            ? json['AwsAccountId'] as String
+            : null,
+        awsService: json.containsKey('AwsService')
+            ? json['AwsService'] as String
+            : null,
+        permission: json.containsKey('Permission')
+            ? json['Permission'] as String
+            : null,
+        permissionState: json.containsKey('PermissionState')
+            ? NetworkInterfacePermissionState.fromJson(json['PermissionState'])
+            : null,
+      );
 }
 
 /// Describes the state of a network interface permission.
@@ -23941,7 +30472,12 @@ class NetworkInterfacePermissionState {
     this.statusMessage,
   });
   static NetworkInterfacePermissionState fromJson(Map<String, dynamic> json) =>
-      NetworkInterfacePermissionState();
+      NetworkInterfacePermissionState(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Describes the private IPv4 address of a network interface.
@@ -23967,7 +30503,18 @@ class NetworkInterfacePrivateIpAddress {
     this.privateIpAddress,
   });
   static NetworkInterfacePrivateIpAddress fromJson(Map<String, dynamic> json) =>
-      NetworkInterfacePrivateIpAddress();
+      NetworkInterfacePrivateIpAddress(
+        association: json.containsKey('Association')
+            ? NetworkInterfaceAssociation.fromJson(json['Association'])
+            : null,
+        primary: json.containsKey('Primary') ? json['Primary'] as bool : null,
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+      );
 }
 
 class NewDhcpConfiguration {
@@ -23979,6 +30526,7 @@ class NewDhcpConfiguration {
     this.key,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the configuration of On-Demand Instances in an EC2 Fleet.
@@ -24014,8 +30562,23 @@ class OnDemandOptions {
     this.minTargetCapacity,
     this.maxTotalPrice,
   });
-  static OnDemandOptions fromJson(Map<String, dynamic> json) =>
-      OnDemandOptions();
+  static OnDemandOptions fromJson(Map<String, dynamic> json) => OnDemandOptions(
+        allocationStrategy: json.containsKey('AllocationStrategy')
+            ? json['AllocationStrategy'] as String
+            : null,
+        singleInstanceType: json.containsKey('SingleInstanceType')
+            ? json['SingleInstanceType'] as bool
+            : null,
+        singleAvailabilityZone: json.containsKey('SingleAvailabilityZone')
+            ? json['SingleAvailabilityZone'] as bool
+            : null,
+        minTargetCapacity: json.containsKey('MinTargetCapacity')
+            ? json['MinTargetCapacity'] as int
+            : null,
+        maxTotalPrice: json.containsKey('MaxTotalPrice')
+            ? json['MaxTotalPrice'] as String
+            : null,
+      );
 }
 
 /// Describes the configuration of On-Demand Instances in an EC2 Fleet.
@@ -24051,6 +30614,7 @@ class OnDemandOptionsRequest {
     this.minTargetCapacity,
     this.maxTotalPrice,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the data that identifies an Amazon FPGA image (AFI) on the PCI
@@ -24074,7 +30638,18 @@ class PciId {
     this.subsystemId,
     this.subsystemVendorId,
   });
-  static PciId fromJson(Map<String, dynamic> json) => PciId();
+  static PciId fromJson(Map<String, dynamic> json) => PciId(
+        deviceId:
+            json.containsKey('DeviceId') ? json['DeviceId'] as String : null,
+        vendorId:
+            json.containsKey('VendorId') ? json['VendorId'] as String : null,
+        subsystemId: json.containsKey('SubsystemId')
+            ? json['SubsystemId'] as String
+            : null,
+        subsystemVendorId: json.containsKey('SubsystemVendorId')
+            ? json['SubsystemVendorId'] as String
+            : null,
+      );
 }
 
 /// Describes the VPC peering connection options.
@@ -24098,7 +30673,20 @@ class PeeringConnectionOptions {
     this.allowEgressFromLocalVpcToRemoteClassicLink,
   });
   static PeeringConnectionOptions fromJson(Map<String, dynamic> json) =>
-      PeeringConnectionOptions();
+      PeeringConnectionOptions(
+        allowDnsResolutionFromRemoteVpc:
+            json.containsKey('AllowDnsResolutionFromRemoteVpc')
+                ? json['AllowDnsResolutionFromRemoteVpc'] as bool
+                : null,
+        allowEgressFromLocalClassicLinkToRemoteVpc:
+            json.containsKey('AllowEgressFromLocalClassicLinkToRemoteVpc')
+                ? json['AllowEgressFromLocalClassicLinkToRemoteVpc'] as bool
+                : null,
+        allowEgressFromLocalVpcToRemoteClassicLink:
+            json.containsKey('AllowEgressFromLocalVpcToRemoteClassicLink')
+                ? json['AllowEgressFromLocalVpcToRemoteClassicLink'] as bool
+                : null,
+      );
 }
 
 /// The VPC peering connection options.
@@ -24120,6 +30708,7 @@ class PeeringConnectionOptionsRequest {
     this.allowEgressFromLocalClassicLinkToRemoteVpc,
     this.allowEgressFromLocalVpcToRemoteClassicLink,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Diffie-Hellmann group number for phase 1 IKE negotiations.
@@ -24131,7 +30720,9 @@ class Phase1dhGroupNumbersListValue {
     this.value,
   });
   static Phase1dhGroupNumbersListValue fromJson(Map<String, dynamic> json) =>
-      Phase1dhGroupNumbersListValue();
+      Phase1dhGroupNumbersListValue(
+        value: json.containsKey('Value') ? json['Value'] as int : null,
+      );
 }
 
 /// Specifies a Diffie-Hellman group number for the VPN tunnel for phase 1 IKE
@@ -24143,6 +30734,7 @@ class Phase1dhGroupNumbersRequestListValue {
   Phase1dhGroupNumbersRequestListValue({
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The encryption algorithm for phase 1 IKE negotiations.
@@ -24155,7 +30747,9 @@ class Phase1EncryptionAlgorithmsListValue {
   });
   static Phase1EncryptionAlgorithmsListValue fromJson(
           Map<String, dynamic> json) =>
-      Phase1EncryptionAlgorithmsListValue();
+      Phase1EncryptionAlgorithmsListValue(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// Specifies the encryption algorithm for the VPN tunnel for phase 1 IKE
@@ -24167,6 +30761,7 @@ class Phase1EncryptionAlgorithmsRequestListValue {
   Phase1EncryptionAlgorithmsRequestListValue({
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The integrity algorithm for phase 1 IKE negotiations.
@@ -24179,7 +30774,9 @@ class Phase1IntegrityAlgorithmsListValue {
   });
   static Phase1IntegrityAlgorithmsListValue fromJson(
           Map<String, dynamic> json) =>
-      Phase1IntegrityAlgorithmsListValue();
+      Phase1IntegrityAlgorithmsListValue(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// Specifies the integrity algorithm for the VPN tunnel for phase 1 IKE
@@ -24191,6 +30788,7 @@ class Phase1IntegrityAlgorithmsRequestListValue {
   Phase1IntegrityAlgorithmsRequestListValue({
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Diffie-Hellmann group number for phase 2 IKE negotiations.
@@ -24202,7 +30800,9 @@ class Phase2dhGroupNumbersListValue {
     this.value,
   });
   static Phase2dhGroupNumbersListValue fromJson(Map<String, dynamic> json) =>
-      Phase2dhGroupNumbersListValue();
+      Phase2dhGroupNumbersListValue(
+        value: json.containsKey('Value') ? json['Value'] as int : null,
+      );
 }
 
 /// Specifies a Diffie-Hellman group number for the VPN tunnel for phase 2 IKE
@@ -24214,6 +30814,7 @@ class Phase2dhGroupNumbersRequestListValue {
   Phase2dhGroupNumbersRequestListValue({
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The encryption algorithm for phase 2 IKE negotiations.
@@ -24226,7 +30827,9 @@ class Phase2EncryptionAlgorithmsListValue {
   });
   static Phase2EncryptionAlgorithmsListValue fromJson(
           Map<String, dynamic> json) =>
-      Phase2EncryptionAlgorithmsListValue();
+      Phase2EncryptionAlgorithmsListValue(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// Specifies the encryption algorithm for the VPN tunnel for phase 2 IKE
@@ -24238,6 +30841,7 @@ class Phase2EncryptionAlgorithmsRequestListValue {
   Phase2EncryptionAlgorithmsRequestListValue({
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The integrity algorithm for phase 2 IKE negotiations.
@@ -24250,7 +30854,9 @@ class Phase2IntegrityAlgorithmsListValue {
   });
   static Phase2IntegrityAlgorithmsListValue fromJson(
           Map<String, dynamic> json) =>
-      Phase2IntegrityAlgorithmsListValue();
+      Phase2IntegrityAlgorithmsListValue(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// Specifies the integrity algorithm for the VPN tunnel for phase 2 IKE
@@ -24262,6 +30868,7 @@ class Phase2IntegrityAlgorithmsRequestListValue {
   Phase2IntegrityAlgorithmsRequestListValue({
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the placement of an instance.
@@ -24304,7 +30911,24 @@ class Placement {
     this.tenancy,
     this.spreadDomain,
   });
-  static Placement fromJson(Map<String, dynamic> json) => Placement();
+  static Placement fromJson(Map<String, dynamic> json) => Placement(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        affinity:
+            json.containsKey('Affinity') ? json['Affinity'] as String : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        partitionNumber: json.containsKey('PartitionNumber')
+            ? json['PartitionNumber'] as int
+            : null,
+        hostId: json.containsKey('HostId') ? json['HostId'] as String : null,
+        tenancy: json.containsKey('Tenancy') ? json['Tenancy'] as String : null,
+        spreadDomain: json.containsKey('SpreadDomain')
+            ? json['SpreadDomain'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a placement group.
@@ -24328,7 +30952,16 @@ class PlacementGroup {
     this.strategy,
     this.partitionCount,
   });
-  static PlacementGroup fromJson(Map<String, dynamic> json) => PlacementGroup();
+  static PlacementGroup fromJson(Map<String, dynamic> json) => PlacementGroup(
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        strategy:
+            json.containsKey('Strategy') ? json['Strategy'] as String : null,
+        partitionCount: json.containsKey('PartitionCount')
+            ? json['PartitionCount'] as int
+            : null,
+      );
 }
 
 /// Describes the placement of an instance.
@@ -24340,7 +30973,10 @@ class PlacementResponse {
     this.groupName,
   });
   static PlacementResponse fromJson(Map<String, dynamic> json) =>
-      PlacementResponse();
+      PlacementResponse(
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+      );
 }
 
 /// Describes a range of ports.
@@ -24355,7 +30991,11 @@ class PortRange {
     this.from,
     this.to,
   });
-  static PortRange fromJson(Map<String, dynamic> json) => PortRange();
+  static PortRange fromJson(Map<String, dynamic> json) => PortRange(
+        from: json.containsKey('From') ? json['From'] as int : null,
+        to: json.containsKey('To') ? json['To'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes prefixes for AWS services.
@@ -24374,7 +31014,17 @@ class PrefixList {
     this.prefixListId,
     this.prefixListName,
   });
-  static PrefixList fromJson(Map<String, dynamic> json) => PrefixList();
+  static PrefixList fromJson(Map<String, dynamic> json) => PrefixList(
+        cidrs: json.containsKey('Cidrs')
+            ? (json['Cidrs'] as List).map((e) => e as String).toList()
+            : null,
+        prefixListId: json.containsKey('PrefixListId')
+            ? json['PrefixListId'] as String
+            : null,
+        prefixListName: json.containsKey('PrefixListName')
+            ? json['PrefixListName'] as String
+            : null,
+      );
 }
 
 /// Describes a prefix list ID.
@@ -24393,7 +31043,15 @@ class PrefixListId {
     this.description,
     this.prefixListId,
   });
-  static PrefixListId fromJson(Map<String, dynamic> json) => PrefixListId();
+  static PrefixListId fromJson(Map<String, dynamic> json) => PrefixListId(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        prefixListId: json.containsKey('PrefixListId')
+            ? json['PrefixListId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the price for a Reserved Instance.
@@ -24427,7 +31085,14 @@ class PriceSchedule {
     this.price,
     this.term,
   });
-  static PriceSchedule fromJson(Map<String, dynamic> json) => PriceSchedule();
+  static PriceSchedule fromJson(Map<String, dynamic> json) => PriceSchedule(
+        active: json.containsKey('Active') ? json['Active'] as bool : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        price: json.containsKey('Price') ? json['Price'] as double : null,
+        term: json.containsKey('Term') ? BigInt.from(json['Term']) : null,
+      );
 }
 
 /// Describes the price for a Reserved Instance.
@@ -24448,6 +31113,7 @@ class PriceScheduleSpecification {
     this.price,
     this.term,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a Reserved Instance offering.
@@ -24462,7 +31128,10 @@ class PricingDetail {
     this.count,
     this.price,
   });
-  static PricingDetail fromJson(Map<String, dynamic> json) => PricingDetail();
+  static PricingDetail fromJson(Map<String, dynamic> json) => PricingDetail(
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        price: json.containsKey('Price') ? json['Price'] as double : null,
+      );
 }
 
 /// PrincipalIdFormat description
@@ -24478,7 +31147,14 @@ class PrincipalIdFormat {
     this.statuses,
   });
   static PrincipalIdFormat fromJson(Map<String, dynamic> json) =>
-      PrincipalIdFormat();
+      PrincipalIdFormat(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        statuses: json.containsKey('Statuses')
+            ? (json['Statuses'] as List)
+                .map((e) => IdFormat.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a secondary private IPv4 address for a network interface.
@@ -24495,7 +31171,13 @@ class PrivateIpAddressSpecification {
     this.privateIpAddress,
   });
   static PrivateIpAddressSpecification fromJson(Map<String, dynamic> json) =>
-      PrivateIpAddressSpecification();
+      PrivateIpAddressSpecification(
+        primary: json.containsKey('Primary') ? json['Primary'] as bool : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a product code.
@@ -24510,7 +31192,14 @@ class ProductCode {
     this.productCodeId,
     this.productCodeType,
   });
-  static ProductCode fromJson(Map<String, dynamic> json) => ProductCode();
+  static ProductCode fromJson(Map<String, dynamic> json) => ProductCode(
+        productCodeId: json.containsKey('ProductCodeId')
+            ? json['ProductCodeId'] as String
+            : null,
+        productCodeType: json.containsKey('ProductCodeType')
+            ? json['ProductCodeType'] as String
+            : null,
+      );
 }
 
 /// Describes a virtual private gateway propagating route.
@@ -24521,7 +31210,10 @@ class PropagatingVgw {
   PropagatingVgw({
     this.gatewayId,
   });
-  static PropagatingVgw fromJson(Map<String, dynamic> json) => PropagatingVgw();
+  static PropagatingVgw fromJson(Map<String, dynamic> json) => PropagatingVgw(
+        gatewayId:
+            json.containsKey('GatewayId') ? json['GatewayId'] as String : null,
+      );
 }
 
 class ProvisionByoipCidrResult {
@@ -24532,7 +31224,11 @@ class ProvisionByoipCidrResult {
     this.byoipCidr,
   });
   static ProvisionByoipCidrResult fromJson(Map<String, dynamic> json) =>
-      ProvisionByoipCidrResult();
+      ProvisionByoipCidrResult(
+        byoipCidr: json.containsKey('ByoipCidr')
+            ? ByoipCidr.fromJson(json['ByoipCidr'])
+            : null,
+      );
 }
 
 /// Reserved. If you need to sustain traffic greater than the
@@ -24578,7 +31274,20 @@ class ProvisionedBandwidth {
     this.status,
   });
   static ProvisionedBandwidth fromJson(Map<String, dynamic> json) =>
-      ProvisionedBandwidth();
+      ProvisionedBandwidth(
+        provisionTime: json.containsKey('ProvisionTime')
+            ? DateTime.parse(json['ProvisionTime'])
+            : null,
+        provisioned: json.containsKey('Provisioned')
+            ? json['Provisioned'] as String
+            : null,
+        requestTime: json.containsKey('RequestTime')
+            ? DateTime.parse(json['RequestTime'])
+            : null,
+        requested:
+            json.containsKey('Requested') ? json['Requested'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes an address pool.
@@ -24605,7 +31314,24 @@ class PublicIpv4Pool {
     this.totalAddressCount,
     this.totalAvailableAddressCount,
   });
-  static PublicIpv4Pool fromJson(Map<String, dynamic> json) => PublicIpv4Pool();
+  static PublicIpv4Pool fromJson(Map<String, dynamic> json) => PublicIpv4Pool(
+        poolId: json.containsKey('PoolId') ? json['PoolId'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        poolAddressRanges: json.containsKey('PoolAddressRanges')
+            ? (json['PoolAddressRanges'] as List)
+                .map((e) => PublicIpv4PoolRange.fromJson(e))
+                .toList()
+            : null,
+        totalAddressCount: json.containsKey('TotalAddressCount')
+            ? json['TotalAddressCount'] as int
+            : null,
+        totalAvailableAddressCount:
+            json.containsKey('TotalAvailableAddressCount')
+                ? json['TotalAvailableAddressCount'] as int
+                : null,
+      );
 }
 
 /// Describes an address range of an IPv4 address pool.
@@ -24629,7 +31355,20 @@ class PublicIpv4PoolRange {
     this.availableAddressCount,
   });
   static PublicIpv4PoolRange fromJson(Map<String, dynamic> json) =>
-      PublicIpv4PoolRange();
+      PublicIpv4PoolRange(
+        firstAddress: json.containsKey('FirstAddress')
+            ? json['FirstAddress'] as String
+            : null,
+        lastAddress: json.containsKey('LastAddress')
+            ? json['LastAddress'] as String
+            : null,
+        addressCount: json.containsKey('AddressCount')
+            ? json['AddressCount'] as int
+            : null,
+        availableAddressCount: json.containsKey('AvailableAddressCount')
+            ? json['AvailableAddressCount'] as int
+            : null,
+      );
 }
 
 /// Describes the result of the purchase.
@@ -24670,7 +31409,30 @@ class Purchase {
     this.paymentOption,
     this.upfrontPrice,
   });
-  static Purchase fromJson(Map<String, dynamic> json) => Purchase();
+  static Purchase fromJson(Map<String, dynamic> json) => Purchase(
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        hostIdSet: json.containsKey('HostIdSet')
+            ? (json['HostIdSet'] as List).map((e) => e as String).toList()
+            : null,
+        hostReservationId: json.containsKey('HostReservationId')
+            ? json['HostReservationId'] as String
+            : null,
+        hourlyPrice: json.containsKey('HourlyPrice')
+            ? json['HourlyPrice'] as String
+            : null,
+        instanceFamily: json.containsKey('InstanceFamily')
+            ? json['InstanceFamily'] as String
+            : null,
+        paymentOption: json.containsKey('PaymentOption')
+            ? json['PaymentOption'] as String
+            : null,
+        upfrontPrice: json.containsKey('UpfrontPrice')
+            ? json['UpfrontPrice'] as String
+            : null,
+      );
 }
 
 class PurchaseHostReservationResult {
@@ -24701,7 +31463,25 @@ class PurchaseHostReservationResult {
     this.totalUpfrontPrice,
   });
   static PurchaseHostReservationResult fromJson(Map<String, dynamic> json) =>
-      PurchaseHostReservationResult();
+      PurchaseHostReservationResult(
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        purchase: json.containsKey('Purchase')
+            ? (json['Purchase'] as List)
+                .map((e) => Purchase.fromJson(e))
+                .toList()
+            : null,
+        totalHourlyPrice: json.containsKey('TotalHourlyPrice')
+            ? json['TotalHourlyPrice'] as String
+            : null,
+        totalUpfrontPrice: json.containsKey('TotalUpfrontPrice')
+            ? json['TotalUpfrontPrice'] as String
+            : null,
+      );
 }
 
 /// Describes a request to purchase Scheduled Instances.
@@ -24716,6 +31496,7 @@ class PurchaseRequest {
     @required this.instanceCount,
     @required this.purchaseToken,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of PurchaseReservedInstancesOffering.
@@ -24728,7 +31509,11 @@ class PurchaseReservedInstancesOfferingResult {
   });
   static PurchaseReservedInstancesOfferingResult fromJson(
           Map<String, dynamic> json) =>
-      PurchaseReservedInstancesOfferingResult();
+      PurchaseReservedInstancesOfferingResult(
+        reservedInstancesId: json.containsKey('ReservedInstancesId')
+            ? json['ReservedInstancesId'] as String
+            : null,
+      );
 }
 
 /// Contains the output of PurchaseScheduledInstances.
@@ -24740,7 +31525,13 @@ class PurchaseScheduledInstancesResult {
     this.scheduledInstanceSet,
   });
   static PurchaseScheduledInstancesResult fromJson(Map<String, dynamic> json) =>
-      PurchaseScheduledInstancesResult();
+      PurchaseScheduledInstancesResult(
+        scheduledInstanceSet: json.containsKey('ScheduledInstanceSet')
+            ? (json['ScheduledInstanceSet'] as List)
+                .map((e) => ScheduledInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a recurring charge.
@@ -24755,8 +31546,11 @@ class RecurringCharge {
     this.amount,
     this.frequency,
   });
-  static RecurringCharge fromJson(Map<String, dynamic> json) =>
-      RecurringCharge();
+  static RecurringCharge fromJson(Map<String, dynamic> json) => RecurringCharge(
+        amount: json.containsKey('Amount') ? json['Amount'] as double : null,
+        frequency:
+            json.containsKey('Frequency') ? json['Frequency'] as String : null,
+      );
 }
 
 /// Describes a Region.
@@ -24776,7 +31570,16 @@ class Region {
     this.regionName,
     this.optInStatus,
   });
-  static Region fromJson(Map<String, dynamic> json) => Region();
+  static Region fromJson(Map<String, dynamic> json) => Region(
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+        regionName: json.containsKey('RegionName')
+            ? json['RegionName'] as String
+            : null,
+        optInStatus: json.containsKey('OptInStatus')
+            ? json['OptInStatus'] as String
+            : null,
+      );
 }
 
 /// Contains the output of RegisterImage.
@@ -24788,7 +31591,9 @@ class RegisterImageResult {
     this.imageId,
   });
   static RegisterImageResult fromJson(Map<String, dynamic> json) =>
-      RegisterImageResult();
+      RegisterImageResult(
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+      );
 }
 
 class RejectTransitGatewayVpcAttachmentResult {
@@ -24800,7 +31605,13 @@ class RejectTransitGatewayVpcAttachmentResult {
   });
   static RejectTransitGatewayVpcAttachmentResult fromJson(
           Map<String, dynamic> json) =>
-      RejectTransitGatewayVpcAttachmentResult();
+      RejectTransitGatewayVpcAttachmentResult(
+        transitGatewayVpcAttachment:
+            json.containsKey('TransitGatewayVpcAttachment')
+                ? TransitGatewayVpcAttachment.fromJson(
+                    json['TransitGatewayVpcAttachment'])
+                : null,
+      );
 }
 
 class RejectVpcEndpointConnectionsResult {
@@ -24812,7 +31623,13 @@ class RejectVpcEndpointConnectionsResult {
   });
   static RejectVpcEndpointConnectionsResult fromJson(
           Map<String, dynamic> json) =>
-      RejectVpcEndpointConnectionsResult();
+      RejectVpcEndpointConnectionsResult(
+        unsuccessful: json.containsKey('Unsuccessful')
+            ? (json['Unsuccessful'] as List)
+                .map((e) => UnsuccessfulItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class RejectVpcPeeringConnectionResult {
@@ -24823,7 +31640,9 @@ class RejectVpcPeeringConnectionResult {
     this.return$,
   });
   static RejectVpcPeeringConnectionResult fromJson(Map<String, dynamic> json) =>
-      RejectVpcPeeringConnectionResult();
+      RejectVpcPeeringConnectionResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class ReleaseHostsResult {
@@ -24839,7 +31658,16 @@ class ReleaseHostsResult {
     this.unsuccessful,
   });
   static ReleaseHostsResult fromJson(Map<String, dynamic> json) =>
-      ReleaseHostsResult();
+      ReleaseHostsResult(
+        successful: json.containsKey('Successful')
+            ? (json['Successful'] as List).map((e) => e as String).toList()
+            : null,
+        unsuccessful: json.containsKey('Unsuccessful')
+            ? (json['Unsuccessful'] as List)
+                .map((e) => UnsuccessfulItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ReplaceIamInstanceProfileAssociationResult {
@@ -24851,7 +31679,13 @@ class ReplaceIamInstanceProfileAssociationResult {
   });
   static ReplaceIamInstanceProfileAssociationResult fromJson(
           Map<String, dynamic> json) =>
-      ReplaceIamInstanceProfileAssociationResult();
+      ReplaceIamInstanceProfileAssociationResult(
+        iamInstanceProfileAssociation:
+            json.containsKey('IamInstanceProfileAssociation')
+                ? IamInstanceProfileAssociation.fromJson(
+                    json['IamInstanceProfileAssociation'])
+                : null,
+      );
 }
 
 class ReplaceNetworkAclAssociationResult {
@@ -24863,7 +31697,11 @@ class ReplaceNetworkAclAssociationResult {
   });
   static ReplaceNetworkAclAssociationResult fromJson(
           Map<String, dynamic> json) =>
-      ReplaceNetworkAclAssociationResult();
+      ReplaceNetworkAclAssociationResult(
+        newAssociationId: json.containsKey('NewAssociationId')
+            ? json['NewAssociationId'] as String
+            : null,
+      );
 }
 
 class ReplaceRouteTableAssociationResult {
@@ -24875,7 +31713,11 @@ class ReplaceRouteTableAssociationResult {
   });
   static ReplaceRouteTableAssociationResult fromJson(
           Map<String, dynamic> json) =>
-      ReplaceRouteTableAssociationResult();
+      ReplaceRouteTableAssociationResult(
+        newAssociationId: json.containsKey('NewAssociationId')
+            ? json['NewAssociationId'] as String
+            : null,
+      );
 }
 
 class ReplaceTransitGatewayRouteResult {
@@ -24886,7 +31728,11 @@ class ReplaceTransitGatewayRouteResult {
     this.route,
   });
   static ReplaceTransitGatewayRouteResult fromJson(Map<String, dynamic> json) =>
-      ReplaceTransitGatewayRouteResult();
+      ReplaceTransitGatewayRouteResult(
+        route: json.containsKey('Route')
+            ? TransitGatewayRoute.fromJson(json['Route'])
+            : null,
+      );
 }
 
 /// The information to include in the launch template.
@@ -25070,6 +31916,7 @@ class RequestLaunchTemplateData {
     this.licenseSpecifications,
     this.hibernationOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of RequestSpotFleet.
@@ -25081,7 +31928,11 @@ class RequestSpotFleetResponse {
     this.spotFleetRequestId,
   });
   static RequestSpotFleetResponse fromJson(Map<String, dynamic> json) =>
-      RequestSpotFleetResponse();
+      RequestSpotFleetResponse(
+        spotFleetRequestId: json.containsKey('SpotFleetRequestId')
+            ? json['SpotFleetRequestId'] as String
+            : null,
+      );
 }
 
 /// Contains the output of RequestSpotInstances.
@@ -25093,7 +31944,13 @@ class RequestSpotInstancesResult {
     this.spotInstanceRequests,
   });
   static RequestSpotInstancesResult fromJson(Map<String, dynamic> json) =>
-      RequestSpotInstancesResult();
+      RequestSpotInstancesResult(
+        spotInstanceRequests: json.containsKey('SpotInstanceRequests')
+            ? (json['SpotInstanceRequests'] as List)
+                .map((e) => SpotInstanceRequest.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the launch specification for an instance.
@@ -25184,6 +32041,7 @@ class RequestSpotLaunchSpecification {
     this.subnetId,
     this.userData,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a reservation.
@@ -25211,7 +32069,25 @@ class Reservation {
     this.requesterId,
     this.reservationId,
   });
-  static Reservation fromJson(Map<String, dynamic> json) => Reservation();
+  static Reservation fromJson(Map<String, dynamic> json) => Reservation(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        requesterId: json.containsKey('RequesterId')
+            ? json['RequesterId'] as String
+            : null,
+        reservationId: json.containsKey('ReservationId')
+            ? json['ReservationId'] as String
+            : null,
+      );
 }
 
 /// The cost associated with the Reserved Instance.
@@ -25232,7 +32108,17 @@ class ReservationValue {
     this.remainingUpfrontValue,
   });
   static ReservationValue fromJson(Map<String, dynamic> json) =>
-      ReservationValue();
+      ReservationValue(
+        hourlyPrice: json.containsKey('HourlyPrice')
+            ? json['HourlyPrice'] as String
+            : null,
+        remainingTotalValue: json.containsKey('RemainingTotalValue')
+            ? json['RemainingTotalValue'] as String
+            : null,
+        remainingUpfrontValue: json.containsKey('RemainingUpfrontValue')
+            ? json['RemainingUpfrontValue'] as String
+            : null,
+      );
 }
 
 /// Describes the limit price of a Reserved Instance offering.
@@ -25249,6 +32135,7 @@ class ReservedInstanceLimitPrice {
     this.amount,
     this.currencyCode,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The total value of the Convertible Reserved Instance.
@@ -25265,7 +32152,14 @@ class ReservedInstanceReservationValue {
     this.reservedInstanceId,
   });
   static ReservedInstanceReservationValue fromJson(Map<String, dynamic> json) =>
-      ReservedInstanceReservationValue();
+      ReservedInstanceReservationValue(
+        reservationValue: json.containsKey('ReservationValue')
+            ? ReservationValue.fromJson(json['ReservationValue'])
+            : null,
+        reservedInstanceId: json.containsKey('ReservedInstanceId')
+            ? json['ReservedInstanceId'] as String
+            : null,
+      );
 }
 
 /// Describes a Reserved Instance.
@@ -25347,7 +32241,55 @@ class ReservedInstances {
     this.tags,
   });
   static ReservedInstances fromJson(Map<String, dynamic> json) =>
-      ReservedInstances();
+      ReservedInstances(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        duration:
+            json.containsKey('Duration') ? BigInt.from(json['Duration']) : null,
+        end: json.containsKey('End') ? DateTime.parse(json['End']) : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        instanceCount: json.containsKey('InstanceCount')
+            ? json['InstanceCount'] as int
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        reservedInstancesId: json.containsKey('ReservedInstancesId')
+            ? json['ReservedInstancesId'] as String
+            : null,
+        start: json.containsKey('Start') ? DateTime.parse(json['Start']) : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        instanceTenancy: json.containsKey('InstanceTenancy')
+            ? json['InstanceTenancy'] as String
+            : null,
+        offeringClass: json.containsKey('OfferingClass')
+            ? json['OfferingClass'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+        scope: json.containsKey('Scope') ? json['Scope'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the configuration settings for the modified Reserved Instances.
@@ -25381,7 +32323,21 @@ class ReservedInstancesConfiguration {
     this.scope,
   });
   static ReservedInstancesConfiguration fromJson(Map<String, dynamic> json) =>
-      ReservedInstancesConfiguration();
+      ReservedInstancesConfiguration(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        instanceCount: json.containsKey('InstanceCount')
+            ? json['InstanceCount'] as int
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        scope: json.containsKey('Scope') ? json['Scope'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the ID of a Reserved Instance.
@@ -25393,7 +32349,11 @@ class ReservedInstancesId {
     this.reservedInstancesId,
   });
   static ReservedInstancesId fromJson(Map<String, dynamic> json) =>
-      ReservedInstancesId();
+      ReservedInstancesId(
+        reservedInstancesId: json.containsKey('ReservedInstancesId')
+            ? json['ReservedInstancesId'] as String
+            : null,
+      );
 }
 
 /// Describes a Reserved Instance listing.
@@ -25444,7 +32404,41 @@ class ReservedInstancesListing {
     this.updateDate,
   });
   static ReservedInstancesListing fromJson(Map<String, dynamic> json) =>
-      ReservedInstancesListing();
+      ReservedInstancesListing(
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        instanceCounts: json.containsKey('InstanceCounts')
+            ? (json['InstanceCounts'] as List)
+                .map((e) => InstanceCount.fromJson(e))
+                .toList()
+            : null,
+        priceSchedules: json.containsKey('PriceSchedules')
+            ? (json['PriceSchedules'] as List)
+                .map((e) => PriceSchedule.fromJson(e))
+                .toList()
+            : null,
+        reservedInstancesId: json.containsKey('ReservedInstancesId')
+            ? json['ReservedInstancesId'] as String
+            : null,
+        reservedInstancesListingId:
+            json.containsKey('ReservedInstancesListingId')
+                ? json['ReservedInstancesListingId'] as String
+                : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        updateDate: json.containsKey('UpdateDate')
+            ? DateTime.parse(json['UpdateDate'])
+            : null,
+      );
 }
 
 /// Describes a Reserved Instance modification.
@@ -25491,7 +32485,38 @@ class ReservedInstancesModification {
     this.updateDate,
   });
   static ReservedInstancesModification fromJson(Map<String, dynamic> json) =>
-      ReservedInstancesModification();
+      ReservedInstancesModification(
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        effectiveDate: json.containsKey('EffectiveDate')
+            ? DateTime.parse(json['EffectiveDate'])
+            : null,
+        modificationResults: json.containsKey('ModificationResults')
+            ? (json['ModificationResults'] as List)
+                .map((e) => ReservedInstancesModificationResult.fromJson(e))
+                .toList()
+            : null,
+        reservedInstancesIds: json.containsKey('ReservedInstancesIds')
+            ? (json['ReservedInstancesIds'] as List)
+                .map((e) => ReservedInstancesId.fromJson(e))
+                .toList()
+            : null,
+        reservedInstancesModificationId:
+            json.containsKey('ReservedInstancesModificationId')
+                ? json['ReservedInstancesModificationId'] as String
+                : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        updateDate: json.containsKey('UpdateDate')
+            ? DateTime.parse(json['UpdateDate'])
+            : null,
+      );
 }
 
 /// Describes the modification request/s.
@@ -25511,7 +32536,15 @@ class ReservedInstancesModificationResult {
   });
   static ReservedInstancesModificationResult fromJson(
           Map<String, dynamic> json) =>
-      ReservedInstancesModificationResult();
+      ReservedInstancesModificationResult(
+        reservedInstancesId: json.containsKey('ReservedInstancesId')
+            ? json['ReservedInstancesId'] as String
+            : null,
+        targetConfiguration: json.containsKey('TargetConfiguration')
+            ? ReservedInstancesConfiguration.fromJson(
+                json['TargetConfiguration'])
+            : null,
+      );
 }
 
 /// Describes a Reserved Instance offering.
@@ -25587,7 +32620,55 @@ class ReservedInstancesOffering {
     this.scope,
   });
   static ReservedInstancesOffering fromJson(Map<String, dynamic> json) =>
-      ReservedInstancesOffering();
+      ReservedInstancesOffering(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        duration:
+            json.containsKey('Duration') ? BigInt.from(json['Duration']) : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        reservedInstancesOfferingId:
+            json.containsKey('ReservedInstancesOfferingId')
+                ? json['ReservedInstancesOfferingId'] as String
+                : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        instanceTenancy: json.containsKey('InstanceTenancy')
+            ? json['InstanceTenancy'] as String
+            : null,
+        marketplace: json.containsKey('Marketplace')
+            ? json['Marketplace'] as bool
+            : null,
+        offeringClass: json.containsKey('OfferingClass')
+            ? json['OfferingClass'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        pricingDetails: json.containsKey('PricingDetails')
+            ? (json['PricingDetails'] as List)
+                .map((e) => PricingDetail.fromJson(e))
+                .toList()
+            : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+        scope: json.containsKey('Scope') ? json['Scope'] as String : null,
+      );
 }
 
 class ResetEbsDefaultKmsKeyIdResult {
@@ -25599,7 +32680,10 @@ class ResetEbsDefaultKmsKeyIdResult {
     this.kmsKeyId,
   });
   static ResetEbsDefaultKmsKeyIdResult fromJson(Map<String, dynamic> json) =>
-      ResetEbsDefaultKmsKeyIdResult();
+      ResetEbsDefaultKmsKeyIdResult(
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
 }
 
 class ResetFpgaImageAttributeResult {
@@ -25610,7 +32694,9 @@ class ResetFpgaImageAttributeResult {
     this.return$,
   });
   static ResetFpgaImageAttributeResult fromJson(Map<String, dynamic> json) =>
-      ResetFpgaImageAttributeResult();
+      ResetFpgaImageAttributeResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 /// Describes the error that's returned when you cannot delete a launch template
@@ -25626,7 +32712,10 @@ class ResponseError {
     this.code,
     this.message,
   });
-  static ResponseError fromJson(Map<String, dynamic> json) => ResponseError();
+  static ResponseError fromJson(Map<String, dynamic> json) => ResponseError(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The information for a launch template.
@@ -25745,7 +32834,100 @@ class ResponseLaunchTemplateData {
     this.hibernationOptions,
   });
   static ResponseLaunchTemplateData fromJson(Map<String, dynamic> json) =>
-      ResponseLaunchTemplateData();
+      ResponseLaunchTemplateData(
+        kernelId:
+            json.containsKey('KernelId') ? json['KernelId'] as String : null,
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? json['EbsOptimized'] as bool
+            : null,
+        iamInstanceProfile: json.containsKey('IamInstanceProfile')
+            ? LaunchTemplateIamInstanceProfileSpecification.fromJson(
+                json['IamInstanceProfile'])
+            : null,
+        blockDeviceMappings: json.containsKey('BlockDeviceMappings')
+            ? (json['BlockDeviceMappings'] as List)
+                .map((e) => LaunchTemplateBlockDeviceMapping.fromJson(e))
+                .toList()
+            : null,
+        networkInterfaces: json.containsKey('NetworkInterfaces')
+            ? (json['NetworkInterfaces'] as List)
+                .map((e) => LaunchTemplateInstanceNetworkInterfaceSpecification
+                    .fromJson(e))
+                .toList()
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        keyName: json.containsKey('KeyName') ? json['KeyName'] as String : null,
+        monitoring: json.containsKey('Monitoring')
+            ? LaunchTemplatesMonitoring.fromJson(json['Monitoring'])
+            : null,
+        placement: json.containsKey('Placement')
+            ? LaunchTemplatePlacement.fromJson(json['Placement'])
+            : null,
+        ramDiskId:
+            json.containsKey('RamDiskId') ? json['RamDiskId'] as String : null,
+        disableApiTermination: json.containsKey('DisableApiTermination')
+            ? json['DisableApiTermination'] as bool
+            : null,
+        instanceInitiatedShutdownBehavior:
+            json.containsKey('InstanceInitiatedShutdownBehavior')
+                ? json['InstanceInitiatedShutdownBehavior'] as String
+                : null,
+        userData:
+            json.containsKey('UserData') ? json['UserData'] as String : null,
+        tagSpecifications: json.containsKey('TagSpecifications')
+            ? (json['TagSpecifications'] as List)
+                .map((e) => LaunchTemplateTagSpecification.fromJson(e))
+                .toList()
+            : null,
+        elasticGpuSpecifications: json.containsKey('ElasticGpuSpecifications')
+            ? (json['ElasticGpuSpecifications'] as List)
+                .map((e) => ElasticGpuSpecificationResponse.fromJson(e))
+                .toList()
+            : null,
+        elasticInferenceAccelerators: json
+                .containsKey('ElasticInferenceAccelerators')
+            ? (json['ElasticInferenceAccelerators'] as List)
+                .map((e) =>
+                    LaunchTemplateElasticInferenceAcceleratorResponse.fromJson(
+                        e))
+                .toList()
+            : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        instanceMarketOptions: json.containsKey('InstanceMarketOptions')
+            ? LaunchTemplateInstanceMarketOptions.fromJson(
+                json['InstanceMarketOptions'])
+            : null,
+        creditSpecification: json.containsKey('CreditSpecification')
+            ? CreditSpecification.fromJson(json['CreditSpecification'])
+            : null,
+        cpuOptions: json.containsKey('CpuOptions')
+            ? LaunchTemplateCpuOptions.fromJson(json['CpuOptions'])
+            : null,
+        capacityReservationSpecification: json
+                .containsKey('CapacityReservationSpecification')
+            ? LaunchTemplateCapacityReservationSpecificationResponse.fromJson(
+                json['CapacityReservationSpecification'])
+            : null,
+        licenseSpecifications: json.containsKey('LicenseSpecifications')
+            ? (json['LicenseSpecifications'] as List)
+                .map((e) => LaunchTemplateLicenseConfiguration.fromJson(e))
+                .toList()
+            : null,
+        hibernationOptions: json.containsKey('HibernationOptions')
+            ? LaunchTemplateHibernationOptions.fromJson(
+                json['HibernationOptions'])
+            : null,
+      );
 }
 
 class RestoreAddressToClassicResult {
@@ -25760,7 +32942,11 @@ class RestoreAddressToClassicResult {
     this.status,
   });
   static RestoreAddressToClassicResult fromJson(Map<String, dynamic> json) =>
-      RestoreAddressToClassicResult();
+      RestoreAddressToClassicResult(
+        publicIp:
+            json.containsKey('PublicIp') ? json['PublicIp'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class RevokeClientVpnIngressResult {
@@ -25771,7 +32957,11 @@ class RevokeClientVpnIngressResult {
     this.status,
   });
   static RevokeClientVpnIngressResult fromJson(Map<String, dynamic> json) =>
-      RevokeClientVpnIngressResult();
+      RevokeClientVpnIngressResult(
+        status: json.containsKey('Status')
+            ? ClientVpnAuthorizationRuleStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 /// Describes a route in a route table.
@@ -25840,7 +33030,43 @@ class Route {
     this.state,
     this.vpcPeeringConnectionId,
   });
-  static Route fromJson(Map<String, dynamic> json) => Route();
+  static Route fromJson(Map<String, dynamic> json) => Route(
+        destinationCidrBlock: json.containsKey('DestinationCidrBlock')
+            ? json['DestinationCidrBlock'] as String
+            : null,
+        destinationIpv6CidrBlock: json.containsKey('DestinationIpv6CidrBlock')
+            ? json['DestinationIpv6CidrBlock'] as String
+            : null,
+        destinationPrefixListId: json.containsKey('DestinationPrefixListId')
+            ? json['DestinationPrefixListId'] as String
+            : null,
+        egressOnlyInternetGatewayId:
+            json.containsKey('EgressOnlyInternetGatewayId')
+                ? json['EgressOnlyInternetGatewayId'] as String
+                : null,
+        gatewayId:
+            json.containsKey('GatewayId') ? json['GatewayId'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceOwnerId: json.containsKey('InstanceOwnerId')
+            ? json['InstanceOwnerId'] as String
+            : null,
+        natGatewayId: json.containsKey('NatGatewayId')
+            ? json['NatGatewayId'] as String
+            : null,
+        transitGatewayId: json.containsKey('TransitGatewayId')
+            ? json['TransitGatewayId'] as String
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        origin: json.containsKey('Origin') ? json['Origin'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        vpcPeeringConnectionId: json.containsKey('VpcPeeringConnectionId')
+            ? json['VpcPeeringConnectionId'] as String
+            : null,
+      );
 }
 
 /// Describes a route table.
@@ -25875,7 +33101,29 @@ class RouteTable {
     this.vpcId,
     this.ownerId,
   });
-  static RouteTable fromJson(Map<String, dynamic> json) => RouteTable();
+  static RouteTable fromJson(Map<String, dynamic> json) => RouteTable(
+        associations: json.containsKey('Associations')
+            ? (json['Associations'] as List)
+                .map((e) => RouteTableAssociation.fromJson(e))
+                .toList()
+            : null,
+        propagatingVgws: json.containsKey('PropagatingVgws')
+            ? (json['PropagatingVgws'] as List)
+                .map((e) => PropagatingVgw.fromJson(e))
+                .toList()
+            : null,
+        routeTableId: json.containsKey('RouteTableId')
+            ? json['RouteTableId'] as String
+            : null,
+        routes: json.containsKey('Routes')
+            ? (json['Routes'] as List).map((e) => Route.fromJson(e)).toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+      );
 }
 
 /// Describes an association between a route table and a subnet.
@@ -25900,7 +33148,17 @@ class RouteTableAssociation {
     this.subnetId,
   });
   static RouteTableAssociation fromJson(Map<String, dynamic> json) =>
-      RouteTableAssociation();
+      RouteTableAssociation(
+        main: json.containsKey('Main') ? json['Main'] as bool : null,
+        routeTableAssociationId: json.containsKey('RouteTableAssociationId')
+            ? json['RouteTableAssociationId'] as String
+            : null,
+        routeTableId: json.containsKey('RouteTableId')
+            ? json['RouteTableId'] as String
+            : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+      );
 }
 
 /// Describes the monitoring of an instance.
@@ -25913,7 +33171,10 @@ class RunInstancesMonitoringEnabled {
     @required this.enabled,
   });
   static RunInstancesMonitoringEnabled fromJson(Map<String, dynamic> json) =>
-      RunInstancesMonitoringEnabled();
+      RunInstancesMonitoringEnabled(
+        enabled: json['Enabled'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of RunScheduledInstances.
@@ -25925,7 +33186,11 @@ class RunScheduledInstancesResult {
     this.instanceIdSet,
   });
   static RunScheduledInstancesResult fromJson(Map<String, dynamic> json) =>
-      RunScheduledInstancesResult();
+      RunScheduledInstancesResult(
+        instanceIdSet: json.containsKey('InstanceIdSet')
+            ? (json['InstanceIdSet'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Describes the storage parameters for S3 and S3 buckets for an instance
@@ -25959,7 +33224,20 @@ class S3Storage {
     this.uploadPolicy,
     this.uploadPolicySignature,
   });
-  static S3Storage fromJson(Map<String, dynamic> json) => S3Storage();
+  static S3Storage fromJson(Map<String, dynamic> json) => S3Storage(
+        awsAccessKeyId: json.containsKey('AWSAccessKeyId')
+            ? json['AWSAccessKeyId'] as String
+            : null,
+        bucket: json.containsKey('Bucket') ? json['Bucket'] as String : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        uploadPolicy: json.containsKey('UploadPolicy')
+            ? Uint8List(json['UploadPolicy'])
+            : null,
+        uploadPolicySignature: json.containsKey('UploadPolicySignature')
+            ? json['UploadPolicySignature'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a Scheduled Instance.
@@ -26027,7 +33305,53 @@ class ScheduledInstance {
     this.totalScheduledInstanceHours,
   });
   static ScheduledInstance fromJson(Map<String, dynamic> json) =>
-      ScheduledInstance();
+      ScheduledInstance(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        hourlyPrice: json.containsKey('HourlyPrice')
+            ? json['HourlyPrice'] as String
+            : null,
+        instanceCount: json.containsKey('InstanceCount')
+            ? json['InstanceCount'] as int
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        networkPlatform: json.containsKey('NetworkPlatform')
+            ? json['NetworkPlatform'] as String
+            : null,
+        nextSlotStartTime: json.containsKey('NextSlotStartTime')
+            ? DateTime.parse(json['NextSlotStartTime'])
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        previousSlotEndTime: json.containsKey('PreviousSlotEndTime')
+            ? DateTime.parse(json['PreviousSlotEndTime'])
+            : null,
+        recurrence: json.containsKey('Recurrence')
+            ? ScheduledInstanceRecurrence.fromJson(json['Recurrence'])
+            : null,
+        scheduledInstanceId: json.containsKey('ScheduledInstanceId')
+            ? json['ScheduledInstanceId'] as String
+            : null,
+        slotDurationInHours: json.containsKey('SlotDurationInHours')
+            ? json['SlotDurationInHours'] as int
+            : null,
+        termEndDate: json.containsKey('TermEndDate')
+            ? DateTime.parse(json['TermEndDate'])
+            : null,
+        termStartDate: json.containsKey('TermStartDate')
+            ? DateTime.parse(json['TermStartDate'])
+            : null,
+        totalScheduledInstanceHours:
+            json.containsKey('TotalScheduledInstanceHours')
+                ? json['TotalScheduledInstanceHours'] as int
+                : null,
+      );
 }
 
 /// Describes a schedule that is available for your Scheduled Instances.
@@ -26088,7 +33412,47 @@ class ScheduledInstanceAvailability {
     this.totalScheduledInstanceHours,
   });
   static ScheduledInstanceAvailability fromJson(Map<String, dynamic> json) =>
-      ScheduledInstanceAvailability();
+      ScheduledInstanceAvailability(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        availableInstanceCount: json.containsKey('AvailableInstanceCount')
+            ? json['AvailableInstanceCount'] as int
+            : null,
+        firstSlotStartTime: json.containsKey('FirstSlotStartTime')
+            ? DateTime.parse(json['FirstSlotStartTime'])
+            : null,
+        hourlyPrice: json.containsKey('HourlyPrice')
+            ? json['HourlyPrice'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        maxTermDurationInDays: json.containsKey('MaxTermDurationInDays')
+            ? json['MaxTermDurationInDays'] as int
+            : null,
+        minTermDurationInDays: json.containsKey('MinTermDurationInDays')
+            ? json['MinTermDurationInDays'] as int
+            : null,
+        networkPlatform: json.containsKey('NetworkPlatform')
+            ? json['NetworkPlatform'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        purchaseToken: json.containsKey('PurchaseToken')
+            ? json['PurchaseToken'] as String
+            : null,
+        recurrence: json.containsKey('Recurrence')
+            ? ScheduledInstanceRecurrence.fromJson(json['Recurrence'])
+            : null,
+        slotDurationInHours: json.containsKey('SlotDurationInHours')
+            ? json['SlotDurationInHours'] as int
+            : null,
+        totalScheduledInstanceHours:
+            json.containsKey('TotalScheduledInstanceHours')
+                ? json['TotalScheduledInstanceHours'] as int
+                : null,
+      );
 }
 
 /// Describes the recurring schedule for a Scheduled Instance.
@@ -26120,7 +33484,20 @@ class ScheduledInstanceRecurrence {
     this.occurrenceUnit,
   });
   static ScheduledInstanceRecurrence fromJson(Map<String, dynamic> json) =>
-      ScheduledInstanceRecurrence();
+      ScheduledInstanceRecurrence(
+        frequency:
+            json.containsKey('Frequency') ? json['Frequency'] as String : null,
+        interval: json.containsKey('Interval') ? json['Interval'] as int : null,
+        occurrenceDaySet: json.containsKey('OccurrenceDaySet')
+            ? (json['OccurrenceDaySet'] as List).map((e) => e as int).toList()
+            : null,
+        occurrenceRelativeToEnd: json.containsKey('OccurrenceRelativeToEnd')
+            ? json['OccurrenceRelativeToEnd'] as bool
+            : null,
+        occurrenceUnit: json.containsKey('OccurrenceUnit')
+            ? json['OccurrenceUnit'] as String
+            : null,
+      );
 }
 
 /// Describes the recurring schedule for a Scheduled Instance.
@@ -26155,6 +33532,7 @@ class ScheduledInstanceRecurrenceRequest {
     this.occurrenceRelativeToEnd,
     this.occurrenceUnit,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a block device mapping for a Scheduled Instance.
@@ -26188,6 +33566,7 @@ class ScheduledInstancesBlockDeviceMapping {
     this.noDevice,
     this.virtualName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an EBS volume for a Scheduled Instance.
@@ -26240,6 +33619,7 @@ class ScheduledInstancesEbs {
     this.volumeSize,
     this.volumeType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IAM instance profile for a Scheduled Instance.
@@ -26254,6 +33634,7 @@ class ScheduledInstancesIamInstanceProfile {
     this.arn,
     this.name,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IPv6 address.
@@ -26264,6 +33645,7 @@ class ScheduledInstancesIpv6Address {
   ScheduledInstancesIpv6Address({
     this.ipv6Address,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the launch specification for a Scheduled Instance.
@@ -26336,6 +33718,7 @@ class ScheduledInstancesLaunchSpecification {
     this.subnetId,
     this.userData,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes whether monitoring is enabled for a Scheduled Instance.
@@ -26346,6 +33729,7 @@ class ScheduledInstancesMonitoring {
   ScheduledInstancesMonitoring({
     this.enabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a network interface for a Scheduled Instance.
@@ -26405,6 +33789,7 @@ class ScheduledInstancesNetworkInterface {
     this.secondaryPrivateIpAddressCount,
     this.subnetId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the placement for a Scheduled Instance.
@@ -26419,6 +33804,7 @@ class ScheduledInstancesPlacement {
     this.availabilityZone,
     this.groupName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a private IPv4 address for a Scheduled Instance.
@@ -26434,6 +33820,7 @@ class ScheduledInstancesPrivateIpAddressConfig {
     this.primary,
     this.privateIpAddress,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SearchTransitGatewayRoutesResult {
@@ -26448,7 +33835,16 @@ class SearchTransitGatewayRoutesResult {
     this.additionalRoutesAvailable,
   });
   static SearchTransitGatewayRoutesResult fromJson(Map<String, dynamic> json) =>
-      SearchTransitGatewayRoutesResult();
+      SearchTransitGatewayRoutesResult(
+        routes: json.containsKey('Routes')
+            ? (json['Routes'] as List)
+                .map((e) => TransitGatewayRoute.fromJson(e))
+                .toList()
+            : null,
+        additionalRoutesAvailable: json.containsKey('AdditionalRoutesAvailable')
+            ? json['AdditionalRoutesAvailable'] as bool
+            : null,
+      );
 }
 
 /// Describes a security group
@@ -26487,7 +33883,29 @@ class SecurityGroup {
     this.tags,
     this.vpcId,
   });
-  static SecurityGroup fromJson(Map<String, dynamic> json) => SecurityGroup();
+  static SecurityGroup fromJson(Map<String, dynamic> json) => SecurityGroup(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        ipPermissions: json.containsKey('IpPermissions')
+            ? (json['IpPermissions'] as List)
+                .map((e) => IpPermission.fromJson(e))
+                .toList()
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+        ipPermissionsEgress: json.containsKey('IpPermissionsEgress')
+            ? (json['IpPermissionsEgress'] as List)
+                .map((e) => IpPermission.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Describes a security group.
@@ -26503,7 +33921,11 @@ class SecurityGroupIdentifier {
     this.groupName,
   });
   static SecurityGroupIdentifier fromJson(Map<String, dynamic> json) =>
-      SecurityGroupIdentifier();
+      SecurityGroupIdentifier(
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+      );
 }
 
 /// Describes a VPC with a security group that references your security group.
@@ -26523,7 +33945,15 @@ class SecurityGroupReference {
     this.vpcPeeringConnectionId,
   });
   static SecurityGroupReference fromJson(Map<String, dynamic> json) =>
-      SecurityGroupReference();
+      SecurityGroupReference(
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+        referencingVpcId: json.containsKey('ReferencingVpcId')
+            ? json['ReferencingVpcId'] as String
+            : null,
+        vpcPeeringConnectionId: json.containsKey('VpcPeeringConnectionId')
+            ? json['VpcPeeringConnectionId'] as String
+            : null,
+      );
 }
 
 /// Describes a service configuration for a VPC endpoint service.
@@ -26578,7 +34008,48 @@ class ServiceConfiguration {
     this.tags,
   });
   static ServiceConfiguration fromJson(Map<String, dynamic> json) =>
-      ServiceConfiguration();
+      ServiceConfiguration(
+        serviceType: json.containsKey('ServiceType')
+            ? (json['ServiceType'] as List)
+                .map((e) => ServiceTypeDetail.fromJson(e))
+                .toList()
+            : null,
+        serviceId:
+            json.containsKey('ServiceId') ? json['ServiceId'] as String : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        serviceState: json.containsKey('ServiceState')
+            ? json['ServiceState'] as String
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        acceptanceRequired: json.containsKey('AcceptanceRequired')
+            ? json['AcceptanceRequired'] as bool
+            : null,
+        managesVpcEndpoints: json.containsKey('ManagesVpcEndpoints')
+            ? json['ManagesVpcEndpoints'] as bool
+            : null,
+        networkLoadBalancerArns: json.containsKey('NetworkLoadBalancerArns')
+            ? (json['NetworkLoadBalancerArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        baseEndpointDnsNames: json.containsKey('BaseEndpointDnsNames')
+            ? (json['BaseEndpointDnsNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes a VPC endpoint service.
@@ -26631,7 +34102,45 @@ class ServiceDetail {
     this.managesVpcEndpoints,
     this.tags,
   });
-  static ServiceDetail fromJson(Map<String, dynamic> json) => ServiceDetail();
+  static ServiceDetail fromJson(Map<String, dynamic> json) => ServiceDetail(
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        serviceId:
+            json.containsKey('ServiceId') ? json['ServiceId'] as String : null,
+        serviceType: json.containsKey('ServiceType')
+            ? (json['ServiceType'] as List)
+                .map((e) => ServiceTypeDetail.fromJson(e))
+                .toList()
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        owner: json.containsKey('Owner') ? json['Owner'] as String : null,
+        baseEndpointDnsNames: json.containsKey('BaseEndpointDnsNames')
+            ? (json['BaseEndpointDnsNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        vpcEndpointPolicySupported:
+            json.containsKey('VpcEndpointPolicySupported')
+                ? json['VpcEndpointPolicySupported'] as bool
+                : null,
+        acceptanceRequired: json.containsKey('AcceptanceRequired')
+            ? json['AcceptanceRequired'] as bool
+            : null,
+        managesVpcEndpoints: json.containsKey('ManagesVpcEndpoints')
+            ? json['ManagesVpcEndpoints'] as bool
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the type of service for a VPC endpoint.
@@ -26643,7 +34152,11 @@ class ServiceTypeDetail {
     this.serviceType,
   });
   static ServiceTypeDetail fromJson(Map<String, dynamic> json) =>
-      ServiceTypeDetail();
+      ServiceTypeDetail(
+        serviceType: json.containsKey('ServiceType')
+            ? json['ServiceType'] as String
+            : null,
+      );
 }
 
 /// Describes the time period for a Scheduled Instance to start its first
@@ -26661,6 +34174,7 @@ class SlotDateTimeRangeRequest {
     @required this.earliestTime,
     @required this.latestTime,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the time period for a Scheduled Instance to start its first
@@ -26676,6 +34190,7 @@ class SlotStartTimeRangeRequest {
     this.earliestTime,
     this.latestTime,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a snapshot.
@@ -26756,7 +34271,41 @@ class Snapshot {
     this.ownerAlias,
     this.tags,
   });
-  static Snapshot fromJson(Map<String, dynamic> json) => Snapshot();
+  static Snapshot fromJson(Map<String, dynamic> json) => Snapshot(
+        dataEncryptionKeyId: json.containsKey('DataEncryptionKeyId')
+            ? json['DataEncryptionKeyId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as String : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateMessage: json.containsKey('StateMessage')
+            ? json['StateMessage'] as String
+            : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        volumeSize:
+            json.containsKey('VolumeSize') ? json['VolumeSize'] as int : null,
+        ownerAlias: json.containsKey('OwnerAlias')
+            ? json['OwnerAlias'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the snapshot created from the imported disk.
@@ -26803,7 +34352,31 @@ class SnapshotDetail {
     this.url,
     this.userBucket,
   });
-  static SnapshotDetail fromJson(Map<String, dynamic> json) => SnapshotDetail();
+  static SnapshotDetail fromJson(Map<String, dynamic> json) => SnapshotDetail(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        deviceName: json.containsKey('DeviceName')
+            ? json['DeviceName'] as String
+            : null,
+        diskImageSize: json.containsKey('DiskImageSize')
+            ? json['DiskImageSize'] as double
+            : null,
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as String : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        userBucket: json.containsKey('UserBucket')
+            ? UserBucketDetails.fromJson(json['UserBucket'])
+            : null,
+      );
 }
 
 /// The disk container object for the import snapshot request.
@@ -26829,6 +34402,7 @@ class SnapshotDiskContainer {
     this.url,
     this.userBucket,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a snapshot.
@@ -26877,7 +34451,30 @@ class SnapshotInfo {
     this.ownerId,
     this.snapshotId,
   });
-  static SnapshotInfo fromJson(Map<String, dynamic> json) => SnapshotInfo();
+  static SnapshotInfo fromJson(Map<String, dynamic> json) => SnapshotInfo(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        volumeSize:
+            json.containsKey('VolumeSize') ? json['VolumeSize'] as int : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as String : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+      );
 }
 
 /// Details about the import snapshot task.
@@ -26930,7 +34527,32 @@ class SnapshotTaskDetail {
     this.userBucket,
   });
   static SnapshotTaskDetail fromJson(Map<String, dynamic> json) =>
-      SnapshotTaskDetail();
+      SnapshotTaskDetail(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        diskImageSize: json.containsKey('DiskImageSize')
+            ? json['DiskImageSize'] as double
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as String : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        userBucket: json.containsKey('UserBucket')
+            ? UserBucketDetails.fromJson(json['UserBucket'])
+            : null,
+      );
 }
 
 /// Describes the data feed for a Spot Instance.
@@ -26958,7 +34580,15 @@ class SpotDatafeedSubscription {
     this.state,
   });
   static SpotDatafeedSubscription fromJson(Map<String, dynamic> json) =>
-      SpotDatafeedSubscription();
+      SpotDatafeedSubscription(
+        bucket: json.containsKey('Bucket') ? json['Bucket'] as String : null,
+        fault: json.containsKey('Fault')
+            ? SpotInstanceStateFault.fromJson(json['Fault'])
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes the launch specification for one or more Spot Instances. If you
@@ -27069,7 +34699,63 @@ class SpotFleetLaunchSpecification {
     this.tagSpecifications,
   });
   static SpotFleetLaunchSpecification fromJson(Map<String, dynamic> json) =>
-      SpotFleetLaunchSpecification();
+      SpotFleetLaunchSpecification(
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        addressingType: json.containsKey('AddressingType')
+            ? json['AddressingType'] as String
+            : null,
+        blockDeviceMappings: json.containsKey('BlockDeviceMappings')
+            ? (json['BlockDeviceMappings'] as List)
+                .map((e) => BlockDeviceMapping.fromJson(e))
+                .toList()
+            : null,
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? json['EbsOptimized'] as bool
+            : null,
+        iamInstanceProfile: json.containsKey('IamInstanceProfile')
+            ? IamInstanceProfileSpecification.fromJson(
+                json['IamInstanceProfile'])
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        kernelId:
+            json.containsKey('KernelId') ? json['KernelId'] as String : null,
+        keyName: json.containsKey('KeyName') ? json['KeyName'] as String : null,
+        monitoring: json.containsKey('Monitoring')
+            ? SpotFleetMonitoring.fromJson(json['Monitoring'])
+            : null,
+        networkInterfaces: json.containsKey('NetworkInterfaces')
+            ? (json['NetworkInterfaces'] as List)
+                .map((e) => InstanceNetworkInterfaceSpecification.fromJson(e))
+                .toList()
+            : null,
+        placement: json.containsKey('Placement')
+            ? SpotPlacement.fromJson(json['Placement'])
+            : null,
+        ramdiskId:
+            json.containsKey('RamdiskId') ? json['RamdiskId'] as String : null,
+        spotPrice:
+            json.containsKey('SpotPrice') ? json['SpotPrice'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        userData:
+            json.containsKey('UserData') ? json['UserData'] as String : null,
+        weightedCapacity: json.containsKey('WeightedCapacity')
+            ? json['WeightedCapacity'] as double
+            : null,
+        tagSpecifications: json.containsKey('TagSpecifications')
+            ? (json['TagSpecifications'] as List)
+                .map((e) => SpotFleetTagSpecification.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes whether monitoring is enabled.
@@ -27083,7 +34769,10 @@ class SpotFleetMonitoring {
     this.enabled,
   });
   static SpotFleetMonitoring fromJson(Map<String, dynamic> json) =>
-      SpotFleetMonitoring();
+      SpotFleetMonitoring(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a Spot Fleet request.
@@ -27116,7 +34805,24 @@ class SpotFleetRequestConfig {
     this.spotFleetRequestState,
   });
   static SpotFleetRequestConfig fromJson(Map<String, dynamic> json) =>
-      SpotFleetRequestConfig();
+      SpotFleetRequestConfig(
+        activityStatus: json.containsKey('ActivityStatus')
+            ? json['ActivityStatus'] as String
+            : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        spotFleetRequestConfig: json.containsKey('SpotFleetRequestConfig')
+            ? SpotFleetRequestConfigData.fromJson(
+                json['SpotFleetRequestConfig'])
+            : null,
+        spotFleetRequestId: json.containsKey('SpotFleetRequestId')
+            ? json['SpotFleetRequestId'] as String
+            : null,
+        spotFleetRequestState: json.containsKey('SpotFleetRequestState')
+            ? json['SpotFleetRequestState'] as String
+            : null,
+      );
 }
 
 /// Describes the configuration of a Spot Fleet request.
@@ -27298,7 +35004,76 @@ class SpotFleetRequestConfigData {
     this.instancePoolsToUseCount,
   });
   static SpotFleetRequestConfigData fromJson(Map<String, dynamic> json) =>
-      SpotFleetRequestConfigData();
+      SpotFleetRequestConfigData(
+        allocationStrategy: json.containsKey('AllocationStrategy')
+            ? json['AllocationStrategy'] as String
+            : null,
+        onDemandAllocationStrategy:
+            json.containsKey('OnDemandAllocationStrategy')
+                ? json['OnDemandAllocationStrategy'] as String
+                : null,
+        clientToken: json.containsKey('ClientToken')
+            ? json['ClientToken'] as String
+            : null,
+        excessCapacityTerminationPolicy:
+            json.containsKey('ExcessCapacityTerminationPolicy')
+                ? json['ExcessCapacityTerminationPolicy'] as String
+                : null,
+        fulfilledCapacity: json.containsKey('FulfilledCapacity')
+            ? json['FulfilledCapacity'] as double
+            : null,
+        onDemandFulfilledCapacity: json.containsKey('OnDemandFulfilledCapacity')
+            ? json['OnDemandFulfilledCapacity'] as double
+            : null,
+        iamFleetRole: json['IamFleetRole'] as String,
+        launchSpecifications: json.containsKey('LaunchSpecifications')
+            ? (json['LaunchSpecifications'] as List)
+                .map((e) => SpotFleetLaunchSpecification.fromJson(e))
+                .toList()
+            : null,
+        launchTemplateConfigs: json.containsKey('LaunchTemplateConfigs')
+            ? (json['LaunchTemplateConfigs'] as List)
+                .map((e) => LaunchTemplateConfig.fromJson(e))
+                .toList()
+            : null,
+        spotPrice:
+            json.containsKey('SpotPrice') ? json['SpotPrice'] as String : null,
+        targetCapacity: json['TargetCapacity'] as int,
+        onDemandTargetCapacity: json.containsKey('OnDemandTargetCapacity')
+            ? json['OnDemandTargetCapacity'] as int
+            : null,
+        onDemandMaxTotalPrice: json.containsKey('OnDemandMaxTotalPrice')
+            ? json['OnDemandMaxTotalPrice'] as String
+            : null,
+        spotMaxTotalPrice: json.containsKey('SpotMaxTotalPrice')
+            ? json['SpotMaxTotalPrice'] as String
+            : null,
+        terminateInstancesWithExpiration:
+            json.containsKey('TerminateInstancesWithExpiration')
+                ? json['TerminateInstancesWithExpiration'] as bool
+                : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        validFrom: json.containsKey('ValidFrom')
+            ? DateTime.parse(json['ValidFrom'])
+            : null,
+        validUntil: json.containsKey('ValidUntil')
+            ? DateTime.parse(json['ValidUntil'])
+            : null,
+        replaceUnhealthyInstances: json.containsKey('ReplaceUnhealthyInstances')
+            ? json['ReplaceUnhealthyInstances'] as bool
+            : null,
+        instanceInterruptionBehavior:
+            json.containsKey('InstanceInterruptionBehavior')
+                ? json['InstanceInterruptionBehavior'] as String
+                : null,
+        loadBalancersConfig: json.containsKey('LoadBalancersConfig')
+            ? LoadBalancersConfig.fromJson(json['LoadBalancersConfig'])
+            : null,
+        instancePoolsToUseCount: json.containsKey('InstancePoolsToUseCount')
+            ? json['InstancePoolsToUseCount'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The tags for a Spot Fleet resource.
@@ -27315,7 +35090,15 @@ class SpotFleetTagSpecification {
     this.tags,
   });
   static SpotFleetTagSpecification fromJson(Map<String, dynamic> json) =>
-      SpotFleetTagSpecification();
+      SpotFleetTagSpecification(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a Spot Instance request.
@@ -27417,7 +35200,61 @@ class SpotInstanceRequest {
     this.instanceInterruptionBehavior,
   });
   static SpotInstanceRequest fromJson(Map<String, dynamic> json) =>
-      SpotInstanceRequest();
+      SpotInstanceRequest(
+        actualBlockHourlyPrice: json.containsKey('ActualBlockHourlyPrice')
+            ? json['ActualBlockHourlyPrice'] as String
+            : null,
+        availabilityZoneGroup: json.containsKey('AvailabilityZoneGroup')
+            ? json['AvailabilityZoneGroup'] as String
+            : null,
+        blockDurationMinutes: json.containsKey('BlockDurationMinutes')
+            ? json['BlockDurationMinutes'] as int
+            : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        fault: json.containsKey('Fault')
+            ? SpotInstanceStateFault.fromJson(json['Fault'])
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        launchGroup: json.containsKey('LaunchGroup')
+            ? json['LaunchGroup'] as String
+            : null,
+        launchSpecification: json.containsKey('LaunchSpecification')
+            ? LaunchSpecification.fromJson(json['LaunchSpecification'])
+            : null,
+        launchedAvailabilityZone: json.containsKey('LaunchedAvailabilityZone')
+            ? json['LaunchedAvailabilityZone'] as String
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        spotInstanceRequestId: json.containsKey('SpotInstanceRequestId')
+            ? json['SpotInstanceRequestId'] as String
+            : null,
+        spotPrice:
+            json.containsKey('SpotPrice') ? json['SpotPrice'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        status: json.containsKey('Status')
+            ? SpotInstanceStatus.fromJson(json['Status'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        validFrom: json.containsKey('ValidFrom')
+            ? DateTime.parse(json['ValidFrom'])
+            : null,
+        validUntil: json.containsKey('ValidUntil')
+            ? DateTime.parse(json['ValidUntil'])
+            : null,
+        instanceInterruptionBehavior:
+            json.containsKey('InstanceInterruptionBehavior')
+                ? json['InstanceInterruptionBehavior'] as String
+                : null,
+      );
 }
 
 /// Describes a Spot Instance state change.
@@ -27433,7 +35270,10 @@ class SpotInstanceStateFault {
     this.message,
   });
   static SpotInstanceStateFault fromJson(Map<String, dynamic> json) =>
-      SpotInstanceStateFault();
+      SpotInstanceStateFault(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Describes the status of a Spot Instance request.
@@ -27456,7 +35296,13 @@ class SpotInstanceStatus {
     this.updateTime,
   });
   static SpotInstanceStatus fromJson(Map<String, dynamic> json) =>
-      SpotInstanceStatus();
+      SpotInstanceStatus(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        updateTime: json.containsKey('UpdateTime')
+            ? DateTime.parse(json['UpdateTime'])
+            : null,
+      );
 }
 
 /// The options for Spot Instances.
@@ -27493,6 +35339,7 @@ class SpotMarketOptions {
     this.validUntil,
     this.instanceInterruptionBehavior,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the configuration of Spot Instances in an EC2 Fleet.
@@ -27546,7 +35393,30 @@ class SpotOptions {
     this.minTargetCapacity,
     this.maxTotalPrice,
   });
-  static SpotOptions fromJson(Map<String, dynamic> json) => SpotOptions();
+  static SpotOptions fromJson(Map<String, dynamic> json) => SpotOptions(
+        allocationStrategy: json.containsKey('AllocationStrategy')
+            ? json['AllocationStrategy'] as String
+            : null,
+        instanceInterruptionBehavior:
+            json.containsKey('InstanceInterruptionBehavior')
+                ? json['InstanceInterruptionBehavior'] as String
+                : null,
+        instancePoolsToUseCount: json.containsKey('InstancePoolsToUseCount')
+            ? json['InstancePoolsToUseCount'] as int
+            : null,
+        singleInstanceType: json.containsKey('SingleInstanceType')
+            ? json['SingleInstanceType'] as bool
+            : null,
+        singleAvailabilityZone: json.containsKey('SingleAvailabilityZone')
+            ? json['SingleAvailabilityZone'] as bool
+            : null,
+        minTargetCapacity: json.containsKey('MinTargetCapacity')
+            ? json['MinTargetCapacity'] as int
+            : null,
+        maxTotalPrice: json.containsKey('MaxTotalPrice')
+            ? json['MaxTotalPrice'] as String
+            : null,
+      );
 }
 
 /// Describes the configuration of Spot Instances in an EC2 Fleet request.
@@ -27601,6 +35471,7 @@ class SpotOptionsRequest {
     this.minTargetCapacity,
     this.maxTotalPrice,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes Spot Instance placement.
@@ -27624,7 +35495,15 @@ class SpotPlacement {
     this.groupName,
     this.tenancy,
   });
-  static SpotPlacement fromJson(Map<String, dynamic> json) => SpotPlacement();
+  static SpotPlacement fromJson(Map<String, dynamic> json) => SpotPlacement(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        tenancy: json.containsKey('Tenancy') ? json['Tenancy'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the maximum price per hour that you are willing to pay for a Spot
@@ -27654,7 +35533,22 @@ class SpotPrice {
     this.spotPrice,
     this.timestamp,
   });
-  static SpotPrice fromJson(Map<String, dynamic> json) => SpotPrice();
+  static SpotPrice fromJson(Map<String, dynamic> json) => SpotPrice(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        spotPrice:
+            json.containsKey('SpotPrice') ? json['SpotPrice'] as String : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+      );
 }
 
 /// Describes a stale rule in a security group.
@@ -27691,7 +35585,24 @@ class StaleIpPermission {
     this.userIdGroupPairs,
   });
   static StaleIpPermission fromJson(Map<String, dynamic> json) =>
-      StaleIpPermission();
+      StaleIpPermission(
+        fromPort: json.containsKey('FromPort') ? json['FromPort'] as int : null,
+        ipProtocol: json.containsKey('IpProtocol')
+            ? json['IpProtocol'] as String
+            : null,
+        ipRanges: json.containsKey('IpRanges')
+            ? (json['IpRanges'] as List).map((e) => e as String).toList()
+            : null,
+        prefixListIds: json.containsKey('PrefixListIds')
+            ? (json['PrefixListIds'] as List).map((e) => e as String).toList()
+            : null,
+        toPort: json.containsKey('ToPort') ? json['ToPort'] as int : null,
+        userIdGroupPairs: json.containsKey('UserIdGroupPairs')
+            ? (json['UserIdGroupPairs'] as List)
+                .map((e) => UserIdGroupPair.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a stale security group (a security group that contains stale
@@ -27724,7 +35635,25 @@ class StaleSecurityGroup {
     this.vpcId,
   });
   static StaleSecurityGroup fromJson(Map<String, dynamic> json) =>
-      StaleSecurityGroup();
+      StaleSecurityGroup(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        staleIpPermissions: json.containsKey('StaleIpPermissions')
+            ? (json['StaleIpPermissions'] as List)
+                .map((e) => StaleIpPermission.fromJson(e))
+                .toList()
+            : null,
+        staleIpPermissionsEgress: json.containsKey('StaleIpPermissionsEgress')
+            ? (json['StaleIpPermissionsEgress'] as List)
+                .map((e) => StaleIpPermission.fromJson(e))
+                .toList()
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 class StartInstancesResult {
@@ -27735,7 +35664,13 @@ class StartInstancesResult {
     this.startingInstances,
   });
   static StartInstancesResult fromJson(Map<String, dynamic> json) =>
-      StartInstancesResult();
+      StartInstancesResult(
+        startingInstances: json.containsKey('StartingInstances')
+            ? (json['StartingInstances'] as List)
+                .map((e) => InstanceStateChange.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a state change.
@@ -27791,7 +35726,10 @@ class StateReason {
     this.code,
     this.message,
   });
-  static StateReason fromJson(Map<String, dynamic> json) => StateReason();
+  static StateReason fromJson(Map<String, dynamic> json) => StateReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 class StopInstancesResult {
@@ -27802,7 +35740,13 @@ class StopInstancesResult {
     this.stoppingInstances,
   });
   static StopInstancesResult fromJson(Map<String, dynamic> json) =>
-      StopInstancesResult();
+      StopInstancesResult(
+        stoppingInstances: json.containsKey('StoppingInstances')
+            ? (json['StoppingInstances'] as List)
+                .map((e) => InstanceStateChange.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the storage location for an instance store-backed AMI.
@@ -27813,7 +35757,10 @@ class Storage {
   Storage({
     this.s3,
   });
-  static Storage fromJson(Map<String, dynamic> json) => Storage();
+  static Storage fromJson(Map<String, dynamic> json) => Storage(
+        s3: json.containsKey('S3') ? S3Storage.fromJson(json['S3']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a storage location in Amazon S3.
@@ -27828,6 +35775,7 @@ class StorageLocation {
     this.bucket,
     this.key,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a subnet.
@@ -27893,7 +35841,45 @@ class Subnet {
     this.tags,
     this.subnetArn,
   });
-  static Subnet fromJson(Map<String, dynamic> json) => Subnet();
+  static Subnet fromJson(Map<String, dynamic> json) => Subnet(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        availabilityZoneId: json.containsKey('AvailabilityZoneId')
+            ? json['AvailabilityZoneId'] as String
+            : null,
+        availableIpAddressCount: json.containsKey('AvailableIpAddressCount')
+            ? json['AvailableIpAddressCount'] as int
+            : null,
+        cidrBlock:
+            json.containsKey('CidrBlock') ? json['CidrBlock'] as String : null,
+        defaultForAz: json.containsKey('DefaultForAz')
+            ? json['DefaultForAz'] as bool
+            : null,
+        mapPublicIpOnLaunch: json.containsKey('MapPublicIpOnLaunch')
+            ? json['MapPublicIpOnLaunch'] as bool
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        assignIpv6AddressOnCreation:
+            json.containsKey('AssignIpv6AddressOnCreation')
+                ? json['AssignIpv6AddressOnCreation'] as bool
+                : null,
+        ipv6CidrBlockAssociationSet:
+            json.containsKey('Ipv6CidrBlockAssociationSet')
+                ? (json['Ipv6CidrBlockAssociationSet'] as List)
+                    .map((e) => SubnetIpv6CidrBlockAssociation.fromJson(e))
+                    .toList()
+                : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        subnetArn:
+            json.containsKey('SubnetArn') ? json['SubnetArn'] as String : null,
+      );
 }
 
 /// Describes the state of a CIDR block.
@@ -27909,7 +35895,12 @@ class SubnetCidrBlockState {
     this.statusMessage,
   });
   static SubnetCidrBlockState fromJson(Map<String, dynamic> json) =>
-      SubnetCidrBlockState();
+      SubnetCidrBlockState(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Describes an IPv6 CIDR block associated with a subnet.
@@ -27929,7 +35920,17 @@ class SubnetIpv6CidrBlockAssociation {
     this.ipv6CidrBlockState,
   });
   static SubnetIpv6CidrBlockAssociation fromJson(Map<String, dynamic> json) =>
-      SubnetIpv6CidrBlockAssociation();
+      SubnetIpv6CidrBlockAssociation(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        ipv6CidrBlock: json.containsKey('Ipv6CidrBlock')
+            ? json['Ipv6CidrBlock'] as String
+            : null,
+        ipv6CidrBlockState: json.containsKey('Ipv6CidrBlockState')
+            ? SubnetCidrBlockState.fromJson(json['Ipv6CidrBlockState'])
+            : null,
+      );
 }
 
 /// Describes the T2 or T3 instance whose credit option for CPU usage was
@@ -27943,7 +35944,11 @@ class SuccessfulInstanceCreditSpecificationItem {
   });
   static SuccessfulInstanceCreditSpecificationItem fromJson(
           Map<String, dynamic> json) =>
-      SuccessfulInstanceCreditSpecificationItem();
+      SuccessfulInstanceCreditSpecificationItem(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+      );
 }
 
 /// Describes a tag.
@@ -27964,7 +35969,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a tag.
@@ -27987,7 +35996,16 @@ class TagDescription {
     this.resourceType,
     this.value,
   });
-  static TagDescription fromJson(Map<String, dynamic> json) => TagDescription();
+  static TagDescription fromJson(Map<String, dynamic> json) => TagDescription(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// The tags to apply to a resource when the resource is being created.
@@ -28008,6 +36026,7 @@ class TagSpecification {
     this.resourceType,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The number of units to request. You can choose to set the target capacity in
@@ -28046,7 +36065,20 @@ class TargetCapacitySpecification {
     this.defaultTargetCapacityType,
   });
   static TargetCapacitySpecification fromJson(Map<String, dynamic> json) =>
-      TargetCapacitySpecification();
+      TargetCapacitySpecification(
+        totalTargetCapacity: json.containsKey('TotalTargetCapacity')
+            ? json['TotalTargetCapacity'] as int
+            : null,
+        onDemandTargetCapacity: json.containsKey('OnDemandTargetCapacity')
+            ? json['OnDemandTargetCapacity'] as int
+            : null,
+        spotTargetCapacity: json.containsKey('SpotTargetCapacity')
+            ? json['SpotTargetCapacity'] as int
+            : null,
+        defaultTargetCapacityType: json.containsKey('DefaultTargetCapacityType')
+            ? json['DefaultTargetCapacityType'] as String
+            : null,
+      );
 }
 
 /// The number of units to request. You can choose to set the target capacity as
@@ -28082,6 +36114,7 @@ class TargetCapacitySpecificationRequest {
     this.spotTargetCapacity,
     this.defaultTargetCapacityType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the Convertible Reserved Instance offering.
@@ -28099,7 +36132,14 @@ class TargetConfiguration {
     this.offeringId,
   });
   static TargetConfiguration fromJson(Map<String, dynamic> json) =>
-      TargetConfiguration();
+      TargetConfiguration(
+        instanceCount: json.containsKey('InstanceCount')
+            ? json['InstanceCount'] as int
+            : null,
+        offeringId: json.containsKey('OfferingId')
+            ? json['OfferingId'] as String
+            : null,
+      );
 }
 
 /// Details about the target configuration.
@@ -28116,6 +36156,7 @@ class TargetConfigurationRequest {
     this.instanceCount,
     @required this.offeringId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a load balancer target group.
@@ -28126,7 +36167,10 @@ class TargetGroup {
   TargetGroup({
     this.arn,
   });
-  static TargetGroup fromJson(Map<String, dynamic> json) => TargetGroup();
+  static TargetGroup fromJson(Map<String, dynamic> json) => TargetGroup(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the target groups to attach to a Spot Fleet. Spot Fleet registers
@@ -28139,7 +36183,14 @@ class TargetGroupsConfig {
     this.targetGroups,
   });
   static TargetGroupsConfig fromJson(Map<String, dynamic> json) =>
-      TargetGroupsConfig();
+      TargetGroupsConfig(
+        targetGroups: json.containsKey('TargetGroups')
+            ? (json['TargetGroups'] as List)
+                .map((e) => TargetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a target network associated with a Client VPN endpoint.
@@ -28171,7 +36222,24 @@ class TargetNetwork {
     this.status,
     this.securityGroups,
   });
-  static TargetNetwork fromJson(Map<String, dynamic> json) => TargetNetwork();
+  static TargetNetwork fromJson(Map<String, dynamic> json) => TargetNetwork(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        targetNetworkId: json.containsKey('TargetNetworkId')
+            ? json['TargetNetworkId'] as String
+            : null,
+        clientVpnEndpointId: json.containsKey('ClientVpnEndpointId')
+            ? json['ClientVpnEndpointId'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? AssociationStatus.fromJson(json['Status'])
+            : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// The total value of the new Convertible Reserved Instances.
@@ -28190,7 +36258,14 @@ class TargetReservationValue {
     this.targetConfiguration,
   });
   static TargetReservationValue fromJson(Map<String, dynamic> json) =>
-      TargetReservationValue();
+      TargetReservationValue(
+        reservationValue: json.containsKey('ReservationValue')
+            ? ReservationValue.fromJson(json['ReservationValue'])
+            : null,
+        targetConfiguration: json.containsKey('TargetConfiguration')
+            ? TargetConfiguration.fromJson(json['TargetConfiguration'])
+            : null,
+      );
 }
 
 class TerminateClientVpnConnectionsResult {
@@ -28210,7 +36285,18 @@ class TerminateClientVpnConnectionsResult {
   });
   static TerminateClientVpnConnectionsResult fromJson(
           Map<String, dynamic> json) =>
-      TerminateClientVpnConnectionsResult();
+      TerminateClientVpnConnectionsResult(
+        clientVpnEndpointId: json.containsKey('ClientVpnEndpointId')
+            ? json['ClientVpnEndpointId'] as String
+            : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        connectionStatuses: json.containsKey('ConnectionStatuses')
+            ? (json['ConnectionStatuses'] as List)
+                .map((e) => TerminateConnectionStatus.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a terminated Client VPN endpoint client connection.
@@ -28230,7 +36316,17 @@ class TerminateConnectionStatus {
     this.currentStatus,
   });
   static TerminateConnectionStatus fromJson(Map<String, dynamic> json) =>
-      TerminateConnectionStatus();
+      TerminateConnectionStatus(
+        connectionId: json.containsKey('ConnectionId')
+            ? json['ConnectionId'] as String
+            : null,
+        previousStatus: json.containsKey('PreviousStatus')
+            ? ClientVpnConnectionStatus.fromJson(json['PreviousStatus'])
+            : null,
+        currentStatus: json.containsKey('CurrentStatus')
+            ? ClientVpnConnectionStatus.fromJson(json['CurrentStatus'])
+            : null,
+      );
 }
 
 class TerminateInstancesResult {
@@ -28241,7 +36337,13 @@ class TerminateInstancesResult {
     this.terminatingInstances,
   });
   static TerminateInstancesResult fromJson(Map<String, dynamic> json) =>
-      TerminateInstancesResult();
+      TerminateInstancesResult(
+        terminatingInstances: json.containsKey('TerminatingInstances')
+            ? (json['TerminatingInstances'] as List)
+                .map((e) => InstanceStateChange.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the Traffic Mirror filter.
@@ -28276,7 +36378,30 @@ class TrafficMirrorFilter {
     this.tags,
   });
   static TrafficMirrorFilter fromJson(Map<String, dynamic> json) =>
-      TrafficMirrorFilter();
+      TrafficMirrorFilter(
+        trafficMirrorFilterId: json.containsKey('TrafficMirrorFilterId')
+            ? json['TrafficMirrorFilterId'] as String
+            : null,
+        ingressFilterRules: json.containsKey('IngressFilterRules')
+            ? (json['IngressFilterRules'] as List)
+                .map((e) => TrafficMirrorFilterRule.fromJson(e))
+                .toList()
+            : null,
+        egressFilterRules: json.containsKey('EgressFilterRules')
+            ? (json['EgressFilterRules'] as List)
+                .map((e) => TrafficMirrorFilterRule.fromJson(e))
+                .toList()
+            : null,
+        networkServices: json.containsKey('NetworkServices')
+            ? (json['NetworkServices'] as List).map((e) => e as String).toList()
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the Traffic Mirror rule.
@@ -28328,7 +36453,38 @@ class TrafficMirrorFilterRule {
     this.description,
   });
   static TrafficMirrorFilterRule fromJson(Map<String, dynamic> json) =>
-      TrafficMirrorFilterRule();
+      TrafficMirrorFilterRule(
+        trafficMirrorFilterRuleId: json.containsKey('TrafficMirrorFilterRuleId')
+            ? json['TrafficMirrorFilterRuleId'] as String
+            : null,
+        trafficMirrorFilterId: json.containsKey('TrafficMirrorFilterId')
+            ? json['TrafficMirrorFilterId'] as String
+            : null,
+        trafficDirection: json.containsKey('TrafficDirection')
+            ? json['TrafficDirection'] as String
+            : null,
+        ruleNumber:
+            json.containsKey('RuleNumber') ? json['RuleNumber'] as int : null,
+        ruleAction: json.containsKey('RuleAction')
+            ? json['RuleAction'] as String
+            : null,
+        protocol: json.containsKey('Protocol') ? json['Protocol'] as int : null,
+        destinationPortRange: json.containsKey('DestinationPortRange')
+            ? TrafficMirrorPortRange.fromJson(json['DestinationPortRange'])
+            : null,
+        sourcePortRange: json.containsKey('SourcePortRange')
+            ? TrafficMirrorPortRange.fromJson(json['SourcePortRange'])
+            : null,
+        destinationCidrBlock: json.containsKey('DestinationCidrBlock')
+            ? json['DestinationCidrBlock'] as String
+            : null,
+        sourceCidrBlock: json.containsKey('SourceCidrBlock')
+            ? json['SourceCidrBlock'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Describes the Traffic Mirror port range.
@@ -28346,7 +36502,10 @@ class TrafficMirrorPortRange {
     this.toPort,
   });
   static TrafficMirrorPortRange fromJson(Map<String, dynamic> json) =>
-      TrafficMirrorPortRange();
+      TrafficMirrorPortRange(
+        fromPort: json.containsKey('FromPort') ? json['FromPort'] as int : null,
+        toPort: json.containsKey('ToPort') ? json['ToPort'] as int : null,
+      );
 }
 
 /// Information about the Traffic Mirror filter rule port range.
@@ -28363,6 +36522,7 @@ class TrafficMirrorPortRangeRequest {
     this.fromPort,
     this.toPort,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a Traffic Mirror session.
@@ -28418,7 +36578,36 @@ class TrafficMirrorSession {
     this.tags,
   });
   static TrafficMirrorSession fromJson(Map<String, dynamic> json) =>
-      TrafficMirrorSession();
+      TrafficMirrorSession(
+        trafficMirrorSessionId: json.containsKey('TrafficMirrorSessionId')
+            ? json['TrafficMirrorSessionId'] as String
+            : null,
+        trafficMirrorTargetId: json.containsKey('TrafficMirrorTargetId')
+            ? json['TrafficMirrorTargetId'] as String
+            : null,
+        trafficMirrorFilterId: json.containsKey('TrafficMirrorFilterId')
+            ? json['TrafficMirrorFilterId'] as String
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        packetLength: json.containsKey('PacketLength')
+            ? json['PacketLength'] as int
+            : null,
+        sessionNumber: json.containsKey('SessionNumber')
+            ? json['SessionNumber'] as int
+            : null,
+        virtualNetworkId: json.containsKey('VirtualNetworkId')
+            ? json['VirtualNetworkId'] as int
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes a Traffic Mirror target.
@@ -28454,7 +36643,25 @@ class TrafficMirrorTarget {
     this.tags,
   });
   static TrafficMirrorTarget fromJson(Map<String, dynamic> json) =>
-      TrafficMirrorTarget();
+      TrafficMirrorTarget(
+        trafficMirrorTargetId: json.containsKey('TrafficMirrorTargetId')
+            ? json['TrafficMirrorTargetId'] as String
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        networkLoadBalancerArn: json.containsKey('NetworkLoadBalancerArn')
+            ? json['NetworkLoadBalancerArn'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes a transit gateway.
@@ -28493,7 +36700,28 @@ class TransitGateway {
     this.options,
     this.tags,
   });
-  static TransitGateway fromJson(Map<String, dynamic> json) => TransitGateway();
+  static TransitGateway fromJson(Map<String, dynamic> json) => TransitGateway(
+        transitGatewayId: json.containsKey('TransitGatewayId')
+            ? json['TransitGatewayId'] as String
+            : null,
+        transitGatewayArn: json.containsKey('TransitGatewayArn')
+            ? json['TransitGatewayArn'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        options: json.containsKey('Options')
+            ? TransitGatewayOptions.fromJson(json['Options'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes an association between a resource attachment and a transit gateway
@@ -28522,7 +36750,23 @@ class TransitGatewayAssociation {
     this.state,
   });
   static TransitGatewayAssociation fromJson(Map<String, dynamic> json) =>
-      TransitGatewayAssociation();
+      TransitGatewayAssociation(
+        transitGatewayRouteTableId:
+            json.containsKey('TransitGatewayRouteTableId')
+                ? json['TransitGatewayRouteTableId'] as String
+                : null,
+        transitGatewayAttachmentId:
+            json.containsKey('TransitGatewayAttachmentId')
+                ? json['TransitGatewayAttachmentId'] as String
+                : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes an attachment between a resource and a transit gateway.
@@ -28570,7 +36814,37 @@ class TransitGatewayAttachment {
     this.tags,
   });
   static TransitGatewayAttachment fromJson(Map<String, dynamic> json) =>
-      TransitGatewayAttachment();
+      TransitGatewayAttachment(
+        transitGatewayAttachmentId:
+            json.containsKey('TransitGatewayAttachmentId')
+                ? json['TransitGatewayAttachmentId'] as String
+                : null,
+        transitGatewayId: json.containsKey('TransitGatewayId')
+            ? json['TransitGatewayId'] as String
+            : null,
+        transitGatewayOwnerId: json.containsKey('TransitGatewayOwnerId')
+            ? json['TransitGatewayOwnerId'] as String
+            : null,
+        resourceOwnerId: json.containsKey('ResourceOwnerId')
+            ? json['ResourceOwnerId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        association: json.containsKey('Association')
+            ? TransitGatewayAttachmentAssociation.fromJson(json['Association'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes an association.
@@ -28587,7 +36861,13 @@ class TransitGatewayAttachmentAssociation {
   });
   static TransitGatewayAttachmentAssociation fromJson(
           Map<String, dynamic> json) =>
-      TransitGatewayAttachmentAssociation();
+      TransitGatewayAttachmentAssociation(
+        transitGatewayRouteTableId:
+            json.containsKey('TransitGatewayRouteTableId')
+                ? json['TransitGatewayRouteTableId'] as String
+                : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes a propagation route table.
@@ -28604,7 +36884,13 @@ class TransitGatewayAttachmentPropagation {
   });
   static TransitGatewayAttachmentPropagation fromJson(
           Map<String, dynamic> json) =>
-      TransitGatewayAttachmentPropagation();
+      TransitGatewayAttachmentPropagation(
+        transitGatewayRouteTableId:
+            json.containsKey('TransitGatewayRouteTableId')
+                ? json['TransitGatewayRouteTableId'] as String
+                : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes the options for a transit gateway.
@@ -28648,7 +36934,37 @@ class TransitGatewayOptions {
     this.dnsSupport,
   });
   static TransitGatewayOptions fromJson(Map<String, dynamic> json) =>
-      TransitGatewayOptions();
+      TransitGatewayOptions(
+        amazonSideAsn: json.containsKey('AmazonSideAsn')
+            ? BigInt.from(json['AmazonSideAsn'])
+            : null,
+        autoAcceptSharedAttachments:
+            json.containsKey('AutoAcceptSharedAttachments')
+                ? json['AutoAcceptSharedAttachments'] as String
+                : null,
+        defaultRouteTableAssociation:
+            json.containsKey('DefaultRouteTableAssociation')
+                ? json['DefaultRouteTableAssociation'] as String
+                : null,
+        associationDefaultRouteTableId:
+            json.containsKey('AssociationDefaultRouteTableId')
+                ? json['AssociationDefaultRouteTableId'] as String
+                : null,
+        defaultRouteTablePropagation:
+            json.containsKey('DefaultRouteTablePropagation')
+                ? json['DefaultRouteTablePropagation'] as String
+                : null,
+        propagationDefaultRouteTableId:
+            json.containsKey('PropagationDefaultRouteTableId')
+                ? json['PropagationDefaultRouteTableId'] as String
+                : null,
+        vpnEcmpSupport: json.containsKey('VpnEcmpSupport')
+            ? json['VpnEcmpSupport'] as String
+            : null,
+        dnsSupport: json.containsKey('DnsSupport')
+            ? json['DnsSupport'] as String
+            : null,
+      );
 }
 
 /// Describes route propagation.
@@ -28676,7 +36992,23 @@ class TransitGatewayPropagation {
     this.state,
   });
   static TransitGatewayPropagation fromJson(Map<String, dynamic> json) =>
-      TransitGatewayPropagation();
+      TransitGatewayPropagation(
+        transitGatewayAttachmentId:
+            json.containsKey('TransitGatewayAttachmentId')
+                ? json['TransitGatewayAttachmentId'] as String
+                : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        transitGatewayRouteTableId:
+            json.containsKey('TransitGatewayRouteTableId')
+                ? json['TransitGatewayRouteTableId'] as String
+                : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes the options for a transit gateway.
@@ -28712,6 +37044,7 @@ class TransitGatewayRequestOptions {
     this.vpnEcmpSupport,
     this.dnsSupport,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a route for a transit gateway route table.
@@ -28735,7 +37068,18 @@ class TransitGatewayRoute {
     this.state,
   });
   static TransitGatewayRoute fromJson(Map<String, dynamic> json) =>
-      TransitGatewayRoute();
+      TransitGatewayRoute(
+        destinationCidrBlock: json.containsKey('DestinationCidrBlock')
+            ? json['DestinationCidrBlock'] as String
+            : null,
+        transitGatewayAttachments: json.containsKey('TransitGatewayAttachments')
+            ? (json['TransitGatewayAttachments'] as List)
+                .map((e) => TransitGatewayRouteAttachment.fromJson(e))
+                .toList()
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes a route attachment.
@@ -28755,7 +37099,18 @@ class TransitGatewayRouteAttachment {
     this.resourceType,
   });
   static TransitGatewayRouteAttachment fromJson(Map<String, dynamic> json) =>
-      TransitGatewayRouteAttachment();
+      TransitGatewayRouteAttachment(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        transitGatewayAttachmentId:
+            json.containsKey('TransitGatewayAttachmentId')
+                ? json['TransitGatewayAttachmentId'] as String
+                : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+      );
 }
 
 /// Describes a transit gateway route table.
@@ -28793,7 +37148,30 @@ class TransitGatewayRouteTable {
     this.tags,
   });
   static TransitGatewayRouteTable fromJson(Map<String, dynamic> json) =>
-      TransitGatewayRouteTable();
+      TransitGatewayRouteTable(
+        transitGatewayRouteTableId:
+            json.containsKey('TransitGatewayRouteTableId')
+                ? json['TransitGatewayRouteTableId'] as String
+                : null,
+        transitGatewayId: json.containsKey('TransitGatewayId')
+            ? json['TransitGatewayId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        defaultAssociationRouteTable:
+            json.containsKey('DefaultAssociationRouteTable')
+                ? json['DefaultAssociationRouteTable'] as bool
+                : null,
+        defaultPropagationRouteTable:
+            json.containsKey('DefaultPropagationRouteTable')
+                ? json['DefaultPropagationRouteTable'] as bool
+                : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes an association between a route table and a resource attachment.
@@ -28818,7 +37196,19 @@ class TransitGatewayRouteTableAssociation {
   });
   static TransitGatewayRouteTableAssociation fromJson(
           Map<String, dynamic> json) =>
-      TransitGatewayRouteTableAssociation();
+      TransitGatewayRouteTableAssociation(
+        transitGatewayAttachmentId:
+            json.containsKey('TransitGatewayAttachmentId')
+                ? json['TransitGatewayAttachmentId'] as String
+                : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes a route table propagation.
@@ -28843,7 +37233,19 @@ class TransitGatewayRouteTablePropagation {
   });
   static TransitGatewayRouteTablePropagation fromJson(
           Map<String, dynamic> json) =>
-      TransitGatewayRouteTablePropagation();
+      TransitGatewayRouteTablePropagation(
+        transitGatewayAttachmentId:
+            json.containsKey('TransitGatewayAttachmentId')
+                ? json['TransitGatewayAttachmentId'] as String
+                : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes a VPC attachment.
@@ -28887,7 +37289,32 @@ class TransitGatewayVpcAttachment {
     this.tags,
   });
   static TransitGatewayVpcAttachment fromJson(Map<String, dynamic> json) =>
-      TransitGatewayVpcAttachment();
+      TransitGatewayVpcAttachment(
+        transitGatewayAttachmentId:
+            json.containsKey('TransitGatewayAttachmentId')
+                ? json['TransitGatewayAttachmentId'] as String
+                : null,
+        transitGatewayId: json.containsKey('TransitGatewayId')
+            ? json['TransitGatewayId'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        vpcOwnerId: json.containsKey('VpcOwnerId')
+            ? json['VpcOwnerId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        options: json.containsKey('Options')
+            ? TransitGatewayVpcAttachmentOptions.fromJson(json['Options'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the VPC attachment options.
@@ -28904,7 +37331,14 @@ class TransitGatewayVpcAttachmentOptions {
   });
   static TransitGatewayVpcAttachmentOptions fromJson(
           Map<String, dynamic> json) =>
-      TransitGatewayVpcAttachmentOptions();
+      TransitGatewayVpcAttachmentOptions(
+        dnsSupport: json.containsKey('DnsSupport')
+            ? json['DnsSupport'] as String
+            : null,
+        ipv6Support: json.containsKey('Ipv6Support')
+            ? json['Ipv6Support'] as String
+            : null,
+      );
 }
 
 /// The VPN tunnel options.
@@ -28984,7 +37418,72 @@ class TunnelOption {
     this.phase2dhGroupNumbers,
     this.ikeVersions,
   });
-  static TunnelOption fromJson(Map<String, dynamic> json) => TunnelOption();
+  static TunnelOption fromJson(Map<String, dynamic> json) => TunnelOption(
+        outsideIpAddress: json.containsKey('OutsideIpAddress')
+            ? json['OutsideIpAddress'] as String
+            : null,
+        tunnelInsideCidr: json.containsKey('TunnelInsideCidr')
+            ? json['TunnelInsideCidr'] as String
+            : null,
+        preSharedKey: json.containsKey('PreSharedKey')
+            ? json['PreSharedKey'] as String
+            : null,
+        phase1LifetimeSeconds: json.containsKey('Phase1LifetimeSeconds')
+            ? json['Phase1LifetimeSeconds'] as int
+            : null,
+        phase2LifetimeSeconds: json.containsKey('Phase2LifetimeSeconds')
+            ? json['Phase2LifetimeSeconds'] as int
+            : null,
+        rekeyMarginTimeSeconds: json.containsKey('RekeyMarginTimeSeconds')
+            ? json['RekeyMarginTimeSeconds'] as int
+            : null,
+        rekeyFuzzPercentage: json.containsKey('RekeyFuzzPercentage')
+            ? json['RekeyFuzzPercentage'] as int
+            : null,
+        replayWindowSize: json.containsKey('ReplayWindowSize')
+            ? json['ReplayWindowSize'] as int
+            : null,
+        dpdTimeoutSeconds: json.containsKey('DpdTimeoutSeconds')
+            ? json['DpdTimeoutSeconds'] as int
+            : null,
+        phase1EncryptionAlgorithms:
+            json.containsKey('Phase1EncryptionAlgorithms')
+                ? (json['Phase1EncryptionAlgorithms'] as List)
+                    .map((e) => Phase1EncryptionAlgorithmsListValue.fromJson(e))
+                    .toList()
+                : null,
+        phase2EncryptionAlgorithms:
+            json.containsKey('Phase2EncryptionAlgorithms')
+                ? (json['Phase2EncryptionAlgorithms'] as List)
+                    .map((e) => Phase2EncryptionAlgorithmsListValue.fromJson(e))
+                    .toList()
+                : null,
+        phase1IntegrityAlgorithms: json.containsKey('Phase1IntegrityAlgorithms')
+            ? (json['Phase1IntegrityAlgorithms'] as List)
+                .map((e) => Phase1IntegrityAlgorithmsListValue.fromJson(e))
+                .toList()
+            : null,
+        phase2IntegrityAlgorithms: json.containsKey('Phase2IntegrityAlgorithms')
+            ? (json['Phase2IntegrityAlgorithms'] as List)
+                .map((e) => Phase2IntegrityAlgorithmsListValue.fromJson(e))
+                .toList()
+            : null,
+        phase1dhGroupNumbers: json.containsKey('Phase1DHGroupNumbers')
+            ? (json['Phase1DHGroupNumbers'] as List)
+                .map((e) => Phase1dhGroupNumbersListValue.fromJson(e))
+                .toList()
+            : null,
+        phase2dhGroupNumbers: json.containsKey('Phase2DHGroupNumbers')
+            ? (json['Phase2DHGroupNumbers'] as List)
+                .map((e) => Phase2dhGroupNumbersListValue.fromJson(e))
+                .toList()
+            : null,
+        ikeVersions: json.containsKey('IkeVersions')
+            ? (json['IkeVersions'] as List)
+                .map((e) => IkeVersionsListValue.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UnassignIpv6AddressesResult {
@@ -28999,7 +37498,16 @@ class UnassignIpv6AddressesResult {
     this.unassignedIpv6Addresses,
   });
   static UnassignIpv6AddressesResult fromJson(Map<String, dynamic> json) =>
-      UnassignIpv6AddressesResult();
+      UnassignIpv6AddressesResult(
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        unassignedIpv6Addresses: json.containsKey('UnassignedIpv6Addresses')
+            ? (json['UnassignedIpv6Addresses'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class UnmonitorInstancesResult {
@@ -29010,7 +37518,13 @@ class UnmonitorInstancesResult {
     this.instanceMonitorings,
   });
   static UnmonitorInstancesResult fromJson(Map<String, dynamic> json) =>
-      UnmonitorInstancesResult();
+      UnmonitorInstancesResult(
+        instanceMonitorings: json.containsKey('InstanceMonitorings')
+            ? (json['InstanceMonitorings'] as List)
+                .map((e) => InstanceMonitoring.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the T2 or T3 instance whose credit option for CPU usage was not
@@ -29029,7 +37543,15 @@ class UnsuccessfulInstanceCreditSpecificationItem {
   });
   static UnsuccessfulInstanceCreditSpecificationItem fromJson(
           Map<String, dynamic> json) =>
-      UnsuccessfulInstanceCreditSpecificationItem();
+      UnsuccessfulInstanceCreditSpecificationItem(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        error: json.containsKey('Error')
+            ? UnsuccessfulInstanceCreditSpecificationItemError.fromJson(
+                json['Error'])
+            : null,
+      );
 }
 
 /// Information about the error for the T2 or T3 instance whose credit option
@@ -29047,7 +37569,10 @@ class UnsuccessfulInstanceCreditSpecificationItemError {
   });
   static UnsuccessfulInstanceCreditSpecificationItemError fromJson(
           Map<String, dynamic> json) =>
-      UnsuccessfulInstanceCreditSpecificationItemError();
+      UnsuccessfulInstanceCreditSpecificationItemError(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Information about items that were not successfully processed in a batch
@@ -29064,7 +37589,14 @@ class UnsuccessfulItem {
     this.resourceId,
   });
   static UnsuccessfulItem fromJson(Map<String, dynamic> json) =>
-      UnsuccessfulItem();
+      UnsuccessfulItem(
+        error: json.containsKey('Error')
+            ? UnsuccessfulItemError.fromJson(json['Error'])
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+      );
 }
 
 /// Information about the error that occurred. For more information about
@@ -29082,7 +37614,10 @@ class UnsuccessfulItemError {
     this.message,
   });
   static UnsuccessfulItemError fromJson(Map<String, dynamic> json) =>
-      UnsuccessfulItemError();
+      UnsuccessfulItemError(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 class UpdateSecurityGroupRuleDescriptionsEgressResult {
@@ -29094,7 +37629,9 @@ class UpdateSecurityGroupRuleDescriptionsEgressResult {
   });
   static UpdateSecurityGroupRuleDescriptionsEgressResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateSecurityGroupRuleDescriptionsEgressResult();
+      UpdateSecurityGroupRuleDescriptionsEgressResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 class UpdateSecurityGroupRuleDescriptionsIngressResult {
@@ -29106,7 +37643,9 @@ class UpdateSecurityGroupRuleDescriptionsIngressResult {
   });
   static UpdateSecurityGroupRuleDescriptionsIngressResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateSecurityGroupRuleDescriptionsIngressResult();
+      UpdateSecurityGroupRuleDescriptionsIngressResult(
+        return$: json.containsKey('Return') ? json['Return'] as bool : null,
+      );
 }
 
 /// Describes the S3 bucket for the disk image.
@@ -29121,6 +37660,7 @@ class UserBucket {
     this.s3Bucket,
     this.s3Key,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the S3 bucket for the disk image.
@@ -29136,7 +37676,11 @@ class UserBucketDetails {
     this.s3Key,
   });
   static UserBucketDetails fromJson(Map<String, dynamic> json) =>
-      UserBucketDetails();
+      UserBucketDetails(
+        s3Bucket:
+            json.containsKey('S3Bucket') ? json['S3Bucket'] as String : null,
+        s3Key: json.containsKey('S3Key') ? json['S3Key'] as String : null,
+      );
 }
 
 /// Describes the user data for an instance.
@@ -29149,6 +37693,7 @@ class UserData {
   UserData({
     this.data,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a security group and AWS account ID pair.
@@ -29199,8 +37744,23 @@ class UserIdGroupPair {
     this.vpcId,
     this.vpcPeeringConnectionId,
   });
-  static UserIdGroupPair fromJson(Map<String, dynamic> json) =>
-      UserIdGroupPair();
+  static UserIdGroupPair fromJson(Map<String, dynamic> json) => UserIdGroupPair(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        peeringStatus: json.containsKey('PeeringStatus')
+            ? json['PeeringStatus'] as String
+            : null,
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        vpcPeeringConnectionId: json.containsKey('VpcPeeringConnectionId')
+            ? json['VpcPeeringConnectionId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes telemetry for a VPN tunnel.
@@ -29232,7 +37792,24 @@ class VgwTelemetry {
     this.statusMessage,
     this.certificateArn,
   });
-  static VgwTelemetry fromJson(Map<String, dynamic> json) => VgwTelemetry();
+  static VgwTelemetry fromJson(Map<String, dynamic> json) => VgwTelemetry(
+        acceptedRouteCount: json.containsKey('AcceptedRouteCount')
+            ? json['AcceptedRouteCount'] as int
+            : null,
+        lastStatusChange: json.containsKey('LastStatusChange')
+            ? DateTime.parse(json['LastStatusChange'])
+            : null,
+        outsideIpAddress: json.containsKey('OutsideIpAddress')
+            ? json['OutsideIpAddress'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+      );
 }
 
 /// Describes a volume.
@@ -29307,7 +37884,37 @@ class Volume {
     this.tags,
     this.volumeType,
   });
-  static Volume fromJson(Map<String, dynamic> json) => Volume();
+  static Volume fromJson(Map<String, dynamic> json) => Volume(
+        attachments: json.containsKey('Attachments')
+            ? (json['Attachments'] as List)
+                .map((e) => VolumeAttachment.fromJson(e))
+                .toList()
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        createTime: json.containsKey('CreateTime')
+            ? DateTime.parse(json['CreateTime'])
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        size: json.containsKey('Size') ? json['Size'] as int : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+      );
 }
 
 /// Describes volume attachment details.
@@ -29339,7 +37946,21 @@ class VolumeAttachment {
     this.deleteOnTermination,
   });
   static VolumeAttachment fromJson(Map<String, dynamic> json) =>
-      VolumeAttachment();
+      VolumeAttachment(
+        attachTime: json.containsKey('AttachTime')
+            ? DateTime.parse(json['AttachTime'])
+            : null,
+        device: json.containsKey('Device') ? json['Device'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+      );
 }
 
 /// Describes an EBS volume.
@@ -29350,6 +37971,7 @@ class VolumeDetail {
   VolumeDetail({
     @required this.size,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the modification status of an EBS volume.
@@ -29408,7 +38030,40 @@ class VolumeModification {
     this.endTime,
   });
   static VolumeModification fromJson(Map<String, dynamic> json) =>
-      VolumeModification();
+      VolumeModification(
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        modificationState: json.containsKey('ModificationState')
+            ? json['ModificationState'] as String
+            : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        targetSize:
+            json.containsKey('TargetSize') ? json['TargetSize'] as int : null,
+        targetIops:
+            json.containsKey('TargetIops') ? json['TargetIops'] as int : null,
+        targetVolumeType: json.containsKey('TargetVolumeType')
+            ? json['TargetVolumeType'] as String
+            : null,
+        originalSize: json.containsKey('OriginalSize')
+            ? json['OriginalSize'] as int
+            : null,
+        originalIops: json.containsKey('OriginalIops')
+            ? json['OriginalIops'] as int
+            : null,
+        originalVolumeType: json.containsKey('OriginalVolumeType')
+            ? json['OriginalVolumeType'] as String
+            : null,
+        progress:
+            json.containsKey('Progress') ? BigInt.from(json['Progress']) : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+      );
 }
 
 /// Describes a volume status operation code.
@@ -29432,7 +38087,15 @@ class VolumeStatusAction {
     this.eventType,
   });
   static VolumeStatusAction fromJson(Map<String, dynamic> json) =>
-      VolumeStatusAction();
+      VolumeStatusAction(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+        eventType:
+            json.containsKey('EventType') ? json['EventType'] as String : null,
+      );
 }
 
 /// Describes a volume status.
@@ -29448,7 +38111,10 @@ class VolumeStatusDetails {
     this.status,
   });
   static VolumeStatusDetails fromJson(Map<String, dynamic> json) =>
-      VolumeStatusDetails();
+      VolumeStatusDetails(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes a volume status event.
@@ -29476,7 +38142,20 @@ class VolumeStatusEvent {
     this.notBefore,
   });
   static VolumeStatusEvent fromJson(Map<String, dynamic> json) =>
-      VolumeStatusEvent();
+      VolumeStatusEvent(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+        eventType:
+            json.containsKey('EventType') ? json['EventType'] as String : null,
+        notAfter: json.containsKey('NotAfter')
+            ? DateTime.parse(json['NotAfter'])
+            : null,
+        notBefore: json.containsKey('NotBefore')
+            ? DateTime.parse(json['NotBefore'])
+            : null,
+      );
 }
 
 /// Describes the status of a volume.
@@ -29492,7 +38171,14 @@ class VolumeStatusInfo {
     this.status,
   });
   static VolumeStatusInfo fromJson(Map<String, dynamic> json) =>
-      VolumeStatusInfo();
+      VolumeStatusInfo(
+        details: json.containsKey('Details')
+            ? (json['Details'] as List)
+                .map((e) => VolumeStatusDetails.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes the volume status.
@@ -29520,7 +38206,26 @@ class VolumeStatusItem {
     this.volumeStatus,
   });
   static VolumeStatusItem fromJson(Map<String, dynamic> json) =>
-      VolumeStatusItem();
+      VolumeStatusItem(
+        actions: json.containsKey('Actions')
+            ? (json['Actions'] as List)
+                .map((e) => VolumeStatusAction.fromJson(e))
+                .toList()
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List)
+                .map((e) => VolumeStatusEvent.fromJson(e))
+                .toList()
+            : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        volumeStatus: json.containsKey('VolumeStatus')
+            ? VolumeStatusInfo.fromJson(json['VolumeStatus'])
+            : null,
+      );
 }
 
 /// Describes a VPC.
@@ -29568,7 +38273,35 @@ class Vpc {
     this.isDefault,
     this.tags,
   });
-  static Vpc fromJson(Map<String, dynamic> json) => Vpc();
+  static Vpc fromJson(Map<String, dynamic> json) => Vpc(
+        cidrBlock:
+            json.containsKey('CidrBlock') ? json['CidrBlock'] as String : null,
+        dhcpOptionsId: json.containsKey('DhcpOptionsId')
+            ? json['DhcpOptionsId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        instanceTenancy: json.containsKey('InstanceTenancy')
+            ? json['InstanceTenancy'] as String
+            : null,
+        ipv6CidrBlockAssociationSet:
+            json.containsKey('Ipv6CidrBlockAssociationSet')
+                ? (json['Ipv6CidrBlockAssociationSet'] as List)
+                    .map((e) => VpcIpv6CidrBlockAssociation.fromJson(e))
+                    .toList()
+                : null,
+        cidrBlockAssociationSet: json.containsKey('CidrBlockAssociationSet')
+            ? (json['CidrBlockAssociationSet'] as List)
+                .map((e) => VpcCidrBlockAssociation.fromJson(e))
+                .toList()
+            : null,
+        isDefault:
+            json.containsKey('IsDefault') ? json['IsDefault'] as bool : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes an attachment between a virtual private gateway and a VPC.
@@ -29583,7 +38316,10 @@ class VpcAttachment {
     this.state,
     this.vpcId,
   });
-  static VpcAttachment fromJson(Map<String, dynamic> json) => VpcAttachment();
+  static VpcAttachment fromJson(Map<String, dynamic> json) => VpcAttachment(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Describes an IPv4 CIDR block associated with a VPC.
@@ -29603,7 +38339,16 @@ class VpcCidrBlockAssociation {
     this.cidrBlockState,
   });
   static VpcCidrBlockAssociation fromJson(Map<String, dynamic> json) =>
-      VpcCidrBlockAssociation();
+      VpcCidrBlockAssociation(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        cidrBlock:
+            json.containsKey('CidrBlock') ? json['CidrBlock'] as String : null,
+        cidrBlockState: json.containsKey('CidrBlockState')
+            ? VpcCidrBlockState.fromJson(json['CidrBlockState'])
+            : null,
+      );
 }
 
 /// Describes the state of a CIDR block.
@@ -29619,7 +38364,12 @@ class VpcCidrBlockState {
     this.statusMessage,
   });
   static VpcCidrBlockState fromJson(Map<String, dynamic> json) =>
-      VpcCidrBlockState();
+      VpcCidrBlockState(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Describes whether a VPC is enabled for ClassicLink.
@@ -29638,7 +38388,15 @@ class VpcClassicLink {
     this.tags,
     this.vpcId,
   });
-  static VpcClassicLink fromJson(Map<String, dynamic> json) => VpcClassicLink();
+  static VpcClassicLink fromJson(Map<String, dynamic> json) => VpcClassicLink(
+        classicLinkEnabled: json.containsKey('ClassicLinkEnabled')
+            ? json['ClassicLinkEnabled'] as bool
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Describes a VPC endpoint.
@@ -29711,7 +38469,56 @@ class VpcEndpoint {
     this.tags,
     this.ownerId,
   });
-  static VpcEndpoint fromJson(Map<String, dynamic> json) => VpcEndpoint();
+  static VpcEndpoint fromJson(Map<String, dynamic> json) => VpcEndpoint(
+        vpcEndpointId: json.containsKey('VpcEndpointId')
+            ? json['VpcEndpointId'] as String
+            : null,
+        vpcEndpointType: json.containsKey('VpcEndpointType')
+            ? json['VpcEndpointType'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        policyDocument: json.containsKey('PolicyDocument')
+            ? json['PolicyDocument'] as String
+            : null,
+        routeTableIds: json.containsKey('RouteTableIds')
+            ? (json['RouteTableIds'] as List).map((e) => e as String).toList()
+            : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => SecurityGroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        privateDnsEnabled: json.containsKey('PrivateDnsEnabled')
+            ? json['PrivateDnsEnabled'] as bool
+            : null,
+        requesterManaged: json.containsKey('RequesterManaged')
+            ? json['RequesterManaged'] as bool
+            : null,
+        networkInterfaceIds: json.containsKey('NetworkInterfaceIds')
+            ? (json['NetworkInterfaceIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        dnsEntries: json.containsKey('DnsEntries')
+            ? (json['DnsEntries'] as List)
+                .map((e) => DnsEntry.fromJson(e))
+                .toList()
+            : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? DateTime.parse(json['CreationTimestamp'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+      );
 }
 
 /// Describes a VPC endpoint connection to a service.
@@ -29748,7 +38555,32 @@ class VpcEndpointConnection {
     this.networkLoadBalancerArns,
   });
   static VpcEndpointConnection fromJson(Map<String, dynamic> json) =>
-      VpcEndpointConnection();
+      VpcEndpointConnection(
+        serviceId:
+            json.containsKey('ServiceId') ? json['ServiceId'] as String : null,
+        vpcEndpointId: json.containsKey('VpcEndpointId')
+            ? json['VpcEndpointId'] as String
+            : null,
+        vpcEndpointOwner: json.containsKey('VpcEndpointOwner')
+            ? json['VpcEndpointOwner'] as String
+            : null,
+        vpcEndpointState: json.containsKey('VpcEndpointState')
+            ? json['VpcEndpointState'] as String
+            : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? DateTime.parse(json['CreationTimestamp'])
+            : null,
+        dnsEntries: json.containsKey('DnsEntries')
+            ? (json['DnsEntries'] as List)
+                .map((e) => DnsEntry.fromJson(e))
+                .toList()
+            : null,
+        networkLoadBalancerArns: json.containsKey('NetworkLoadBalancerArns')
+            ? (json['NetworkLoadBalancerArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Describes an IPv6 CIDR block associated with a VPC.
@@ -29768,7 +38600,17 @@ class VpcIpv6CidrBlockAssociation {
     this.ipv6CidrBlockState,
   });
   static VpcIpv6CidrBlockAssociation fromJson(Map<String, dynamic> json) =>
-      VpcIpv6CidrBlockAssociation();
+      VpcIpv6CidrBlockAssociation(
+        associationId: json.containsKey('AssociationId')
+            ? json['AssociationId'] as String
+            : null,
+        ipv6CidrBlock: json.containsKey('Ipv6CidrBlock')
+            ? json['Ipv6CidrBlock'] as String
+            : null,
+        ipv6CidrBlockState: json.containsKey('Ipv6CidrBlockState')
+            ? VpcCidrBlockState.fromJson(json['Ipv6CidrBlockState'])
+            : null,
+      );
 }
 
 /// Describes a VPC peering connection.
@@ -29802,7 +38644,26 @@ class VpcPeeringConnection {
     this.vpcPeeringConnectionId,
   });
   static VpcPeeringConnection fromJson(Map<String, dynamic> json) =>
-      VpcPeeringConnection();
+      VpcPeeringConnection(
+        accepterVpcInfo: json.containsKey('AccepterVpcInfo')
+            ? VpcPeeringConnectionVpcInfo.fromJson(json['AccepterVpcInfo'])
+            : null,
+        expirationTime: json.containsKey('ExpirationTime')
+            ? DateTime.parse(json['ExpirationTime'])
+            : null,
+        requesterVpcInfo: json.containsKey('RequesterVpcInfo')
+            ? VpcPeeringConnectionVpcInfo.fromJson(json['RequesterVpcInfo'])
+            : null,
+        status: json.containsKey('Status')
+            ? VpcPeeringConnectionStateReason.fromJson(json['Status'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        vpcPeeringConnectionId: json.containsKey('VpcPeeringConnectionId')
+            ? json['VpcPeeringConnectionId'] as String
+            : null,
+      );
 }
 
 /// Describes the VPC peering connection options.
@@ -29826,7 +38687,20 @@ class VpcPeeringConnectionOptionsDescription {
   });
   static VpcPeeringConnectionOptionsDescription fromJson(
           Map<String, dynamic> json) =>
-      VpcPeeringConnectionOptionsDescription();
+      VpcPeeringConnectionOptionsDescription(
+        allowDnsResolutionFromRemoteVpc:
+            json.containsKey('AllowDnsResolutionFromRemoteVpc')
+                ? json['AllowDnsResolutionFromRemoteVpc'] as bool
+                : null,
+        allowEgressFromLocalClassicLinkToRemoteVpc:
+            json.containsKey('AllowEgressFromLocalClassicLinkToRemoteVpc')
+                ? json['AllowEgressFromLocalClassicLinkToRemoteVpc'] as bool
+                : null,
+        allowEgressFromLocalVpcToRemoteClassicLink:
+            json.containsKey('AllowEgressFromLocalVpcToRemoteClassicLink')
+                ? json['AllowEgressFromLocalVpcToRemoteClassicLink'] as bool
+                : null,
+      );
 }
 
 /// Describes the status of a VPC peering connection.
@@ -29842,7 +38716,10 @@ class VpcPeeringConnectionStateReason {
     this.message,
   });
   static VpcPeeringConnectionStateReason fromJson(Map<String, dynamic> json) =>
-      VpcPeeringConnectionStateReason();
+      VpcPeeringConnectionStateReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Describes a VPC in a VPC peering connection.
@@ -29879,7 +38756,27 @@ class VpcPeeringConnectionVpcInfo {
     this.region,
   });
   static VpcPeeringConnectionVpcInfo fromJson(Map<String, dynamic> json) =>
-      VpcPeeringConnectionVpcInfo();
+      VpcPeeringConnectionVpcInfo(
+        cidrBlock:
+            json.containsKey('CidrBlock') ? json['CidrBlock'] as String : null,
+        ipv6CidrBlockSet: json.containsKey('Ipv6CidrBlockSet')
+            ? (json['Ipv6CidrBlockSet'] as List)
+                .map((e) => Ipv6CidrBlock.fromJson(e))
+                .toList()
+            : null,
+        cidrBlockSet: json.containsKey('CidrBlockSet')
+            ? (json['CidrBlockSet'] as List)
+                .map((e) => CidrBlock.fromJson(e))
+                .toList()
+            : null,
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        peeringOptions: json.containsKey('PeeringOptions')
+            ? VpcPeeringConnectionOptionsDescription.fromJson(
+                json['PeeringOptions'])
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+      );
 }
 
 /// Describes a VPN connection.
@@ -29941,7 +38838,44 @@ class VpnConnection {
     this.tags,
     this.vgwTelemetry,
   });
-  static VpnConnection fromJson(Map<String, dynamic> json) => VpnConnection();
+  static VpnConnection fromJson(Map<String, dynamic> json) => VpnConnection(
+        customerGatewayConfiguration:
+            json.containsKey('CustomerGatewayConfiguration')
+                ? json['CustomerGatewayConfiguration'] as String
+                : null,
+        customerGatewayId: json.containsKey('CustomerGatewayId')
+            ? json['CustomerGatewayId'] as String
+            : null,
+        category:
+            json.containsKey('Category') ? json['Category'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        vpnConnectionId: json.containsKey('VpnConnectionId')
+            ? json['VpnConnectionId'] as String
+            : null,
+        vpnGatewayId: json.containsKey('VpnGatewayId')
+            ? json['VpnGatewayId'] as String
+            : null,
+        transitGatewayId: json.containsKey('TransitGatewayId')
+            ? json['TransitGatewayId'] as String
+            : null,
+        options: json.containsKey('Options')
+            ? VpnConnectionOptions.fromJson(json['Options'])
+            : null,
+        routes: json.containsKey('Routes')
+            ? (json['Routes'] as List)
+                .map((e) => VpnStaticRoute.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        vgwTelemetry: json.containsKey('VgwTelemetry')
+            ? (json['VgwTelemetry'] as List)
+                .map((e) => VgwTelemetry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes VPN connection options.
@@ -29958,7 +38892,16 @@ class VpnConnectionOptions {
     this.tunnelOptions,
   });
   static VpnConnectionOptions fromJson(Map<String, dynamic> json) =>
-      VpnConnectionOptions();
+      VpnConnectionOptions(
+        staticRoutesOnly: json.containsKey('StaticRoutesOnly')
+            ? json['StaticRoutesOnly'] as bool
+            : null,
+        tunnelOptions: json.containsKey('TunnelOptions')
+            ? (json['TunnelOptions'] as List)
+                .map((e) => TunnelOption.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes VPN connection options.
@@ -29977,6 +38920,7 @@ class VpnConnectionOptionsSpecification {
     this.staticRoutesOnly,
     this.tunnelOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a virtual private gateway.
@@ -30013,7 +38957,27 @@ class VpnGateway {
     this.amazonSideAsn,
     this.tags,
   });
-  static VpnGateway fromJson(Map<String, dynamic> json) => VpnGateway();
+  static VpnGateway fromJson(Map<String, dynamic> json) => VpnGateway(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        vpcAttachments: json.containsKey('VpcAttachments')
+            ? (json['VpcAttachments'] as List)
+                .map((e) => VpcAttachment.fromJson(e))
+                .toList()
+            : null,
+        vpnGatewayId: json.containsKey('VpnGatewayId')
+            ? json['VpnGatewayId'] as String
+            : null,
+        amazonSideAsn: json.containsKey('AmazonSideAsn')
+            ? BigInt.from(json['AmazonSideAsn'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes a static route for a VPN connection.
@@ -30033,7 +38997,13 @@ class VpnStaticRoute {
     this.source,
     this.state,
   });
-  static VpnStaticRoute fromJson(Map<String, dynamic> json) => VpnStaticRoute();
+  static VpnStaticRoute fromJson(Map<String, dynamic> json) => VpnStaticRoute(
+        destinationCidrBlock: json.containsKey('DestinationCidrBlock')
+            ? json['DestinationCidrBlock'] as String
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// The tunnel options for a VPN connection.
@@ -30179,6 +39149,7 @@ class VpnTunnelOptionsSpecification {
     this.phase2dhGroupNumbers,
     this.ikeVersions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class WithdrawByoipCidrResult {
@@ -30189,5 +39160,9 @@ class WithdrawByoipCidrResult {
     this.byoipCidr,
   });
   static WithdrawByoipCidrResult fromJson(Map<String, dynamic> json) =>
-      WithdrawByoipCidrResult();
+      WithdrawByoipCidrResult(
+        byoipCidr: json.containsKey('ByoipCidr')
+            ? ByoipCidr.fromJson(json['ByoipCidr'])
+            : null,
+      );
 }

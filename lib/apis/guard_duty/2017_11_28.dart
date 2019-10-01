@@ -17,6 +17,10 @@ import 'package:meta/meta.dart';
 /// more information, see
 /// [Amazon GuardDuty User Guide](https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html).
 class GuardDutyApi {
+  final _client;
+  GuardDutyApi(client)
+      : _client = client.configured('GuardDuty', serializer: 'rest-json');
+
   /// Accepts the invitation to be monitored by a master GuardDuty account.
   ///
   /// [detectorId]: The unique ID of the detector of the GuardDuty member
@@ -31,7 +35,12 @@ class GuardDutyApi {
       {@required String detectorId,
       @required String masterId,
       @required String invitationId}) async {
-    return AcceptInvitationResponse.fromJson({});
+    var response_ = await _client.send('AcceptInvitation', {
+      'DetectorId': detectorId,
+      'MasterId': masterId,
+      'InvitationId': invitationId,
+    });
+    return AcceptInvitationResponse.fromJson(response_);
   }
 
   /// Archives GuardDuty findings specified by the list of finding IDs.
@@ -47,7 +56,11 @@ class GuardDutyApi {
   /// [findingIds]: IDs of the findings that you want to archive.
   Future<ArchiveFindingsResponse> archiveFindings(
       {@required String detectorId, @required List<String> findingIds}) async {
-    return ArchiveFindingsResponse.fromJson({});
+    var response_ = await _client.send('ArchiveFindings', {
+      'DetectorId': detectorId,
+      'FindingIds': findingIds,
+    });
+    return ArchiveFindingsResponse.fromJson(response_);
   }
 
   /// Creates a single Amazon GuardDuty detector. A detector is a resource that
@@ -68,7 +81,14 @@ class GuardDutyApi {
       {String clientToken,
       String findingPublishingFrequency,
       Map<String, String> tags}) async {
-    return CreateDetectorResponse.fromJson({});
+    var response_ = await _client.send('CreateDetector', {
+      'Enable': enable,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (findingPublishingFrequency != null)
+        'FindingPublishingFrequency': findingPublishingFrequency,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDetectorResponse.fromJson(response_);
   }
 
   /// Creates a filter using the specified finding criteria.
@@ -102,7 +122,17 @@ class GuardDutyApi {
       @required FindingCriteria findingCriteria,
       String clientToken,
       Map<String, String> tags}) async {
-    return CreateFilterResponse.fromJson({});
+    var response_ = await _client.send('CreateFilter', {
+      'DetectorId': detectorId,
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (action != null) 'Action': action,
+      if (rank != null) 'Rank': rank,
+      'FindingCriteria': findingCriteria,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateFilterResponse.fromJson(response_);
   }
 
   /// Creates a new IPSet - a list of trusted IP addresses that have been
@@ -135,7 +165,16 @@ class GuardDutyApi {
       @required bool activate,
       String clientToken,
       Map<String, String> tags}) async {
-    return CreateIPSetResponse.fromJson({});
+    var response_ = await _client.send('CreateIPSet', {
+      'DetectorId': detectorId,
+      'Name': name,
+      'Format': format,
+      'Location': location,
+      'Activate': activate,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateIPSetResponse.fromJson(response_);
   }
 
   /// Creates member accounts of the current AWS account by specifying a list of
@@ -150,7 +189,11 @@ class GuardDutyApi {
   Future<CreateMembersResponse> createMembers(
       {@required String detectorId,
       @required List<AccountDetail> accountDetails}) async {
-    return CreateMembersResponse.fromJson({});
+    var response_ = await _client.send('CreateMembers', {
+      'DetectorId': detectorId,
+      'AccountDetails': accountDetails,
+    });
+    return CreateMembersResponse.fromJson(response_);
   }
 
   /// Generates example findings of types specified by the list of finding
@@ -162,7 +205,11 @@ class GuardDutyApi {
   /// [findingTypes]: Types of sample findings that you want to generate.
   Future<CreateSampleFindingsResponse> createSampleFindings(String detectorId,
       {List<String> findingTypes}) async {
-    return CreateSampleFindingsResponse.fromJson({});
+    var response_ = await _client.send('CreateSampleFindings', {
+      'DetectorId': detectorId,
+      if (findingTypes != null) 'FindingTypes': findingTypes,
+    });
+    return CreateSampleFindingsResponse.fromJson(response_);
   }
 
   /// Create a new ThreatIntelSet. ThreatIntelSets consist of known malicious IP
@@ -194,7 +241,16 @@ class GuardDutyApi {
       @required bool activate,
       String clientToken,
       Map<String, String> tags}) async {
-    return CreateThreatIntelSetResponse.fromJson({});
+    var response_ = await _client.send('CreateThreatIntelSet', {
+      'DetectorId': detectorId,
+      'Name': name,
+      'Format': format,
+      'Location': location,
+      'Activate': activate,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateThreatIntelSetResponse.fromJson(response_);
   }
 
   /// Declines invitations sent to the current member account by AWS account
@@ -205,14 +261,20 @@ class GuardDutyApi {
   /// invitations from.
   Future<DeclineInvitationsResponse> declineInvitations(
       List<String> accountIds) async {
-    return DeclineInvitationsResponse.fromJson({});
+    var response_ = await _client.send('DeclineInvitations', {
+      'AccountIds': accountIds,
+    });
+    return DeclineInvitationsResponse.fromJson(response_);
   }
 
   /// Deletes a Amazon GuardDuty detector specified by the detector ID.
   ///
   /// [detectorId]: The unique ID of the detector that you want to delete.
   Future<DeleteDetectorResponse> deleteDetector(String detectorId) async {
-    return DeleteDetectorResponse.fromJson({});
+    var response_ = await _client.send('DeleteDetector', {
+      'DetectorId': detectorId,
+    });
+    return DeleteDetectorResponse.fromJson(response_);
   }
 
   /// Deletes the filter specified by the filter name.
@@ -222,7 +284,11 @@ class GuardDutyApi {
   /// [filterName]: The name of the filter you want to delete.
   Future<DeleteFilterResponse> deleteFilter(
       {@required String detectorId, @required String filterName}) async {
-    return DeleteFilterResponse.fromJson({});
+    var response_ = await _client.send('DeleteFilter', {
+      'DetectorId': detectorId,
+      'FilterName': filterName,
+    });
+    return DeleteFilterResponse.fromJson(response_);
   }
 
   /// Deletes the IPSet specified by the IPSet ID.
@@ -232,7 +298,11 @@ class GuardDutyApi {
   /// [ipSetId]: The unique ID of the ipSet you want to delete.
   Future<DeleteIPSetResponse> deleteIPSet(
       {@required String detectorId, @required String ipSetId}) async {
-    return DeleteIPSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteIPSet', {
+      'DetectorId': detectorId,
+      'IpSetId': ipSetId,
+    });
+    return DeleteIPSetResponse.fromJson(response_);
   }
 
   /// Deletes invitations sent to the current member account by AWS accounts
@@ -243,7 +313,10 @@ class GuardDutyApi {
   /// invitations from.
   Future<DeleteInvitationsResponse> deleteInvitations(
       List<String> accountIds) async {
-    return DeleteInvitationsResponse.fromJson({});
+    var response_ = await _client.send('DeleteInvitations', {
+      'AccountIds': accountIds,
+    });
+    return DeleteInvitationsResponse.fromJson(response_);
   }
 
   /// Deletes GuardDuty member accounts (to the current GuardDuty master
@@ -256,7 +329,11 @@ class GuardDutyApi {
   /// you want to delete.
   Future<DeleteMembersResponse> deleteMembers(
       {@required String detectorId, @required List<String> accountIds}) async {
-    return DeleteMembersResponse.fromJson({});
+    var response_ = await _client.send('DeleteMembers', {
+      'DetectorId': detectorId,
+      'AccountIds': accountIds,
+    });
+    return DeleteMembersResponse.fromJson(response_);
   }
 
   /// Deletes ThreatIntelSet specified by the ThreatIntelSet ID.
@@ -268,7 +345,11 @@ class GuardDutyApi {
   /// delete.
   Future<DeleteThreatIntelSetResponse> deleteThreatIntelSet(
       {@required String detectorId, @required String threatIntelSetId}) async {
-    return DeleteThreatIntelSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteThreatIntelSet', {
+      'DetectorId': detectorId,
+      'ThreatIntelSetId': threatIntelSetId,
+    });
+    return DeleteThreatIntelSetResponse.fromJson(response_);
   }
 
   /// Disassociates the current GuardDuty member account from its master
@@ -278,7 +359,10 @@ class GuardDutyApi {
   /// account.
   Future<DisassociateFromMasterAccountResponse> disassociateFromMasterAccount(
       String detectorId) async {
-    return DisassociateFromMasterAccountResponse.fromJson({});
+    var response_ = await _client.send('DisassociateFromMasterAccount', {
+      'DetectorId': detectorId,
+    });
+    return DisassociateFromMasterAccountResponse.fromJson(response_);
   }
 
   /// Disassociates GuardDuty member accounts (to the current GuardDuty master
@@ -291,14 +375,21 @@ class GuardDutyApi {
   /// you want to disassociate from master.
   Future<DisassociateMembersResponse> disassociateMembers(
       {@required String detectorId, @required List<String> accountIds}) async {
-    return DisassociateMembersResponse.fromJson({});
+    var response_ = await _client.send('DisassociateMembers', {
+      'DetectorId': detectorId,
+      'AccountIds': accountIds,
+    });
+    return DisassociateMembersResponse.fromJson(response_);
   }
 
   /// Retrieves an Amazon GuardDuty detector specified by the detectorId.
   ///
   /// [detectorId]: The unique ID of the detector that you want to get.
   Future<GetDetectorResponse> getDetector(String detectorId) async {
-    return GetDetectorResponse.fromJson({});
+    var response_ = await _client.send('GetDetector', {
+      'DetectorId': detectorId,
+    });
+    return GetDetectorResponse.fromJson(response_);
   }
 
   /// Returns the details of the filter specified by the filter name.
@@ -308,7 +399,11 @@ class GuardDutyApi {
   /// [filterName]: The name of the filter you want to get.
   Future<GetFilterResponse> getFilter(
       {@required String detectorId, @required String filterName}) async {
-    return GetFilterResponse.fromJson({});
+    var response_ = await _client.send('GetFilter', {
+      'DetectorId': detectorId,
+      'FilterName': filterName,
+    });
+    return GetFilterResponse.fromJson(response_);
   }
 
   /// Describes Amazon GuardDuty findings specified by finding IDs.
@@ -323,7 +418,12 @@ class GuardDutyApi {
       {@required String detectorId,
       @required List<String> findingIds,
       SortCriteria sortCriteria}) async {
-    return GetFindingsResponse.fromJson({});
+    var response_ = await _client.send('GetFindings', {
+      'DetectorId': detectorId,
+      'FindingIds': findingIds,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+    });
+    return GetFindingsResponse.fromJson(response_);
   }
 
   /// Lists Amazon GuardDuty findings' statistics for the specified detector ID.
@@ -338,7 +438,12 @@ class GuardDutyApi {
       {@required String detectorId,
       @required List<String> findingStatisticTypes,
       FindingCriteria findingCriteria}) async {
-    return GetFindingsStatisticsResponse.fromJson({});
+    var response_ = await _client.send('GetFindingsStatistics', {
+      'DetectorId': detectorId,
+      'FindingStatisticTypes': findingStatisticTypes,
+      if (findingCriteria != null) 'FindingCriteria': findingCriteria,
+    });
+    return GetFindingsStatisticsResponse.fromJson(response_);
   }
 
   /// Retrieves the IPSet specified by the IPSet ID.
@@ -348,13 +453,18 @@ class GuardDutyApi {
   /// [ipSetId]: The unique ID of the ipSet you want to get.
   Future<GetIPSetResponse> getIPSet(
       {@required String detectorId, @required String ipSetId}) async {
-    return GetIPSetResponse.fromJson({});
+    var response_ = await _client.send('GetIPSet', {
+      'DetectorId': detectorId,
+      'IpSetId': ipSetId,
+    });
+    return GetIPSetResponse.fromJson(response_);
   }
 
   /// Returns the count of all GuardDuty membership invitations that were sent
   /// to the current member account except the currently accepted invitation.
   Future<GetInvitationsCountResponse> getInvitationsCount() async {
-    return GetInvitationsCountResponse.fromJson({});
+    var response_ = await _client.send('GetInvitationsCount', {});
+    return GetInvitationsCountResponse.fromJson(response_);
   }
 
   /// Provides the details for the GuardDuty master account associated with the
@@ -363,7 +473,10 @@ class GuardDutyApi {
   /// [detectorId]: The unique ID of the detector of the GuardDuty member
   /// account.
   Future<GetMasterAccountResponse> getMasterAccount(String detectorId) async {
-    return GetMasterAccountResponse.fromJson({});
+    var response_ = await _client.send('GetMasterAccount', {
+      'DetectorId': detectorId,
+    });
+    return GetMasterAccountResponse.fromJson(response_);
   }
 
   /// Retrieves GuardDuty member accounts (to the current GuardDuty master
@@ -376,7 +489,11 @@ class GuardDutyApi {
   /// you want to describe.
   Future<GetMembersResponse> getMembers(
       {@required String detectorId, @required List<String> accountIds}) async {
-    return GetMembersResponse.fromJson({});
+    var response_ = await _client.send('GetMembers', {
+      'DetectorId': detectorId,
+      'AccountIds': accountIds,
+    });
+    return GetMembersResponse.fromJson(response_);
   }
 
   /// Retrieves the ThreatIntelSet that is specified by the ThreatIntelSet ID.
@@ -387,7 +504,11 @@ class GuardDutyApi {
   /// [threatIntelSetId]: The unique ID of the threatIntelSet you want to get.
   Future<GetThreatIntelSetResponse> getThreatIntelSet(
       {@required String detectorId, @required String threatIntelSetId}) async {
-    return GetThreatIntelSetResponse.fromJson({});
+    var response_ = await _client.send('GetThreatIntelSet', {
+      'DetectorId': detectorId,
+      'ThreatIntelSetId': threatIntelSetId,
+    });
+    return GetThreatIntelSetResponse.fromJson(response_);
   }
 
   /// Invites other AWS accounts (created as members of the current AWS account
@@ -412,7 +533,14 @@ class GuardDutyApi {
       @required List<String> accountIds,
       bool disableEmailNotification,
       String message}) async {
-    return InviteMembersResponse.fromJson({});
+    var response_ = await _client.send('InviteMembers', {
+      'DetectorId': detectorId,
+      'AccountIds': accountIds,
+      if (disableEmailNotification != null)
+        'DisableEmailNotification': disableEmailNotification,
+      if (message != null) 'Message': message,
+    });
+    return InviteMembersResponse.fromJson(response_);
   }
 
   /// Lists detectorIds of all the existing Amazon GuardDuty detector resources.
@@ -427,7 +555,11 @@ class GuardDutyApi {
   /// value of NextToken from the previous response to continue listing data.
   Future<ListDetectorsResponse> listDetectors(
       {int maxResults, String nextToken}) async {
-    return ListDetectorsResponse.fromJson({});
+    var response_ = await _client.send('ListDetectors', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListDetectorsResponse.fromJson(response_);
   }
 
   /// Returns a paginated list of the current filters.
@@ -444,7 +576,12 @@ class GuardDutyApi {
   /// value of NextToken from the previous response to continue listing data.
   Future<ListFiltersResponse> listFilters(String detectorId,
       {int maxResults, String nextToken}) async {
-    return ListFiltersResponse.fromJson({});
+    var response_ = await _client.send('ListFilters', {
+      'DetectorId': detectorId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListFiltersResponse.fromJson(response_);
   }
 
   /// Lists Amazon GuardDuty findings for the specified detector ID.
@@ -469,7 +606,14 @@ class GuardDutyApi {
       SortCriteria sortCriteria,
       int maxResults,
       String nextToken}) async {
-    return ListFindingsResponse.fromJson({});
+    var response_ = await _client.send('ListFindings', {
+      'DetectorId': detectorId,
+      if (findingCriteria != null) 'FindingCriteria': findingCriteria,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListFindingsResponse.fromJson(response_);
   }
 
   /// Lists the IPSets of the GuardDuty service specified by the detector ID.
@@ -486,7 +630,12 @@ class GuardDutyApi {
   /// value of NextToken from the previous response to continue listing data.
   Future<ListIPSetsResponse> listIPSets(String detectorId,
       {int maxResults, String nextToken}) async {
-    return ListIPSetsResponse.fromJson({});
+    var response_ = await _client.send('ListIPSets', {
+      'DetectorId': detectorId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListIPSetsResponse.fromJson(response_);
   }
 
   /// Lists all GuardDuty membership invitations that were sent to the current
@@ -502,7 +651,11 @@ class GuardDutyApi {
   /// value of NextToken from the previous response to continue listing data.
   Future<ListInvitationsResponse> listInvitations(
       {int maxResults, String nextToken}) async {
-    return ListInvitationsResponse.fromJson({});
+    var response_ = await _client.send('ListInvitations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListInvitationsResponse.fromJson(response_);
   }
 
   /// Lists details about all member accounts for the current GuardDuty master
@@ -524,7 +677,13 @@ class GuardDutyApi {
   /// have been disassociated).
   Future<ListMembersResponse> listMembers(String detectorId,
       {int maxResults, String nextToken, String onlyAssociated}) async {
-    return ListMembersResponse.fromJson({});
+    var response_ = await _client.send('ListMembers', {
+      'DetectorId': detectorId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (onlyAssociated != null) 'OnlyAssociated': onlyAssociated,
+    });
+    return ListMembersResponse.fromJson(response_);
   }
 
   /// Lists tags for a resource. Tagging is currently supported for detectors,
@@ -536,7 +695,10 @@ class GuardDutyApi {
   /// resource
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Lists the ThreatIntelSets of the GuardDuty service specified by the
@@ -555,7 +717,12 @@ class GuardDutyApi {
   /// value of NextToken from the previous response to continue listing data.
   Future<ListThreatIntelSetsResponse> listThreatIntelSets(String detectorId,
       {int maxResults, String nextToken}) async {
-    return ListThreatIntelSetsResponse.fromJson({});
+    var response_ = await _client.send('ListThreatIntelSets', {
+      'DetectorId': detectorId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListThreatIntelSetsResponse.fromJson(response_);
   }
 
   /// Re-enables GuardDuty to monitor findings of the member accounts specified
@@ -570,7 +737,11 @@ class GuardDutyApi {
   /// findings you want the master account to monitor.
   Future<StartMonitoringMembersResponse> startMonitoringMembers(
       {@required String detectorId, @required List<String> accountIds}) async {
-    return StartMonitoringMembersResponse.fromJson({});
+    var response_ = await _client.send('StartMonitoringMembers', {
+      'DetectorId': detectorId,
+      'AccountIds': accountIds,
+    });
+    return StartMonitoringMembersResponse.fromJson(response_);
   }
 
   /// Disables GuardDuty from monitoring findings of the member accounts
@@ -585,7 +756,11 @@ class GuardDutyApi {
   /// findings you want the master account to stop monitoring.
   Future<StopMonitoringMembersResponse> stopMonitoringMembers(
       {@required String detectorId, @required List<String> accountIds}) async {
-    return StopMonitoringMembersResponse.fromJson({});
+    var response_ = await _client.send('StopMonitoringMembers', {
+      'DetectorId': detectorId,
+      'AccountIds': accountIds,
+    });
+    return StopMonitoringMembersResponse.fromJson(response_);
   }
 
   /// Adds tags to a resource.
@@ -597,7 +772,11 @@ class GuardDutyApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Unarchives Amazon GuardDuty findings specified by the list of finding IDs.
@@ -608,7 +787,11 @@ class GuardDutyApi {
   /// [findingIds]: IDs of the findings that you want to unarchive.
   Future<UnarchiveFindingsResponse> unarchiveFindings(
       {@required String detectorId, @required List<String> findingIds}) async {
-    return UnarchiveFindingsResponse.fromJson({});
+    var response_ = await _client.send('UnarchiveFindings', {
+      'DetectorId': detectorId,
+      'FindingIds': findingIds,
+    });
+    return UnarchiveFindingsResponse.fromJson(response_);
   }
 
   /// Removes tags from a resource.
@@ -619,7 +802,11 @@ class GuardDutyApi {
   /// [tagKeys]: The tag keys to remove from a resource.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates an Amazon GuardDuty detector specified by the detectorId.
@@ -633,7 +820,13 @@ class GuardDutyApi {
   /// customer got Finding updates published.
   Future<UpdateDetectorResponse> updateDetector(String detectorId,
       {bool enable, String findingPublishingFrequency}) async {
-    return UpdateDetectorResponse.fromJson({});
+    var response_ = await _client.send('UpdateDetector', {
+      'DetectorId': detectorId,
+      if (enable != null) 'Enable': enable,
+      if (findingPublishingFrequency != null)
+        'FindingPublishingFrequency': findingPublishingFrequency,
+    });
+    return UpdateDetectorResponse.fromJson(response_);
   }
 
   /// Updates the filter specified by the filter name.
@@ -661,7 +854,15 @@ class GuardDutyApi {
       String action,
       int rank,
       FindingCriteria findingCriteria}) async {
-    return UpdateFilterResponse.fromJson({});
+    var response_ = await _client.send('UpdateFilter', {
+      'DetectorId': detectorId,
+      'FilterName': filterName,
+      if (description != null) 'Description': description,
+      if (action != null) 'Action': action,
+      if (rank != null) 'Rank': rank,
+      if (findingCriteria != null) 'FindingCriteria': findingCriteria,
+    });
+    return UpdateFilterResponse.fromJson(response_);
   }
 
   /// Marks specified Amazon GuardDuty findings as useful or not useful.
@@ -680,7 +881,13 @@ class GuardDutyApi {
       @required List<String> findingIds,
       @required String feedback,
       String comments}) async {
-    return UpdateFindingsFeedbackResponse.fromJson({});
+    var response_ = await _client.send('UpdateFindingsFeedback', {
+      'DetectorId': detectorId,
+      'FindingIds': findingIds,
+      'Feedback': feedback,
+      if (comments != null) 'Comments': comments,
+    });
+    return UpdateFindingsFeedbackResponse.fromJson(response_);
   }
 
   /// Updates the IPSet specified by the IPSet ID.
@@ -703,7 +910,14 @@ class GuardDutyApi {
       String name,
       String location,
       bool activate}) async {
-    return UpdateIPSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateIPSet', {
+      'DetectorId': detectorId,
+      'IpSetId': ipSetId,
+      if (name != null) 'Name': name,
+      if (location != null) 'Location': location,
+      if (activate != null) 'Activate': activate,
+    });
+    return UpdateIPSetResponse.fromJson(response_);
   }
 
   /// Updates the ThreatIntelSet specified by ThreatIntelSet ID.
@@ -728,7 +942,14 @@ class GuardDutyApi {
       String name,
       String location,
       bool activate}) async {
-    return UpdateThreatIntelSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateThreatIntelSet', {
+      'DetectorId': detectorId,
+      'ThreatIntelSetId': threatIntelSetId,
+      if (name != null) 'Name': name,
+      if (location != null) 'Location': location,
+      if (activate != null) 'Activate': activate,
+    });
+    return UpdateThreatIntelSetResponse.fromJson(response_);
   }
 }
 
@@ -759,7 +980,18 @@ class AccessKeyDetails {
     this.userType,
   });
   static AccessKeyDetails fromJson(Map<String, dynamic> json) =>
-      AccessKeyDetails();
+      AccessKeyDetails(
+        accessKeyId: json.containsKey('AccessKeyId')
+            ? json['AccessKeyId'] as String
+            : null,
+        principalId: json.containsKey('PrincipalId')
+            ? json['PrincipalId'] as String
+            : null,
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        userType:
+            json.containsKey('UserType') ? json['UserType'] as String : null,
+      );
 }
 
 /// Contains information about the account.
@@ -774,6 +1006,7 @@ class AccountDetail {
     @required this.accountId,
     @required this.email,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about action.
@@ -800,7 +1033,23 @@ class Action {
     this.networkConnectionAction,
     this.portProbeAction,
   });
-  static Action fromJson(Map<String, dynamic> json) => Action();
+  static Action fromJson(Map<String, dynamic> json) => Action(
+        actionType: json.containsKey('ActionType')
+            ? json['ActionType'] as String
+            : null,
+        awsApiCallAction: json.containsKey('AwsApiCallAction')
+            ? AwsApiCallAction.fromJson(json['AwsApiCallAction'])
+            : null,
+        dnsRequestAction: json.containsKey('DnsRequestAction')
+            ? DnsRequestAction.fromJson(json['DnsRequestAction'])
+            : null,
+        networkConnectionAction: json.containsKey('NetworkConnectionAction')
+            ? NetworkConnectionAction.fromJson(json['NetworkConnectionAction'])
+            : null,
+        portProbeAction: json.containsKey('PortProbeAction')
+            ? PortProbeAction.fromJson(json['PortProbeAction'])
+            : null,
+      );
 }
 
 class ArchiveFindingsResponse {
@@ -834,7 +1083,21 @@ class AwsApiCallAction {
     this.serviceName,
   });
   static AwsApiCallAction fromJson(Map<String, dynamic> json) =>
-      AwsApiCallAction();
+      AwsApiCallAction(
+        api: json.containsKey('Api') ? json['Api'] as String : null,
+        callerType: json.containsKey('CallerType')
+            ? json['CallerType'] as String
+            : null,
+        domainDetails: json.containsKey('DomainDetails')
+            ? DomainDetails.fromJson(json['DomainDetails'])
+            : null,
+        remoteIpDetails: json.containsKey('RemoteIpDetails')
+            ? RemoteIpDetails.fromJson(json['RemoteIpDetails'])
+            : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+      );
 }
 
 /// Contains information about the city associated with the IP address.
@@ -845,7 +1108,10 @@ class City {
   City({
     this.cityName,
   });
-  static City fromJson(Map<String, dynamic> json) => City();
+  static City fromJson(Map<String, dynamic> json) => City(
+        cityName:
+            json.containsKey('CityName') ? json['CityName'] as String : null,
+      );
 }
 
 /// Contains information about the condition.
@@ -912,7 +1178,36 @@ class Condition {
     this.lessThan,
     this.lessThanOrEqual,
   });
-  static Condition fromJson(Map<String, dynamic> json) => Condition();
+  static Condition fromJson(Map<String, dynamic> json) => Condition(
+        eq: json.containsKey('Eq')
+            ? (json['Eq'] as List).map((e) => e as String).toList()
+            : null,
+        neq: json.containsKey('Neq')
+            ? (json['Neq'] as List).map((e) => e as String).toList()
+            : null,
+        gt: json.containsKey('Gt') ? json['Gt'] as int : null,
+        gte: json.containsKey('Gte') ? json['Gte'] as int : null,
+        lt: json.containsKey('Lt') ? json['Lt'] as int : null,
+        lte: json.containsKey('Lte') ? json['Lte'] as int : null,
+        equals: json.containsKey('Equals')
+            ? (json['Equals'] as List).map((e) => e as String).toList()
+            : null,
+        notEquals: json.containsKey('NotEquals')
+            ? (json['NotEquals'] as List).map((e) => e as String).toList()
+            : null,
+        greaterThan: json.containsKey('GreaterThan')
+            ? BigInt.from(json['GreaterThan'])
+            : null,
+        greaterThanOrEqual: json.containsKey('GreaterThanOrEqual')
+            ? BigInt.from(json['GreaterThanOrEqual'])
+            : null,
+        lessThan:
+            json.containsKey('LessThan') ? BigInt.from(json['LessThan']) : null,
+        lessThanOrEqual: json.containsKey('LessThanOrEqual')
+            ? BigInt.from(json['LessThanOrEqual'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the country.
@@ -927,7 +1222,14 @@ class Country {
     this.countryCode,
     this.countryName,
   });
-  static Country fromJson(Map<String, dynamic> json) => Country();
+  static Country fromJson(Map<String, dynamic> json) => Country(
+        countryCode: json.containsKey('CountryCode')
+            ? json['CountryCode'] as String
+            : null,
+        countryName: json.containsKey('CountryName')
+            ? json['CountryName'] as String
+            : null,
+      );
 }
 
 class CreateDetectorResponse {
@@ -938,7 +1240,11 @@ class CreateDetectorResponse {
     this.detectorId,
   });
   static CreateDetectorResponse fromJson(Map<String, dynamic> json) =>
-      CreateDetectorResponse();
+      CreateDetectorResponse(
+        detectorId: json.containsKey('DetectorId')
+            ? json['DetectorId'] as String
+            : null,
+      );
 }
 
 class CreateFilterResponse {
@@ -949,7 +1255,9 @@ class CreateFilterResponse {
     @required this.name,
   });
   static CreateFilterResponse fromJson(Map<String, dynamic> json) =>
-      CreateFilterResponse();
+      CreateFilterResponse(
+        name: json['Name'] as String,
+      );
 }
 
 class CreateIPSetResponse {
@@ -960,7 +1268,9 @@ class CreateIPSetResponse {
     @required this.ipSetId,
   });
   static CreateIPSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateIPSetResponse();
+      CreateIPSetResponse(
+        ipSetId: json['IpSetId'] as String,
+      );
 }
 
 class CreateMembersResponse {
@@ -972,7 +1282,11 @@ class CreateMembersResponse {
     @required this.unprocessedAccounts,
   });
   static CreateMembersResponse fromJson(Map<String, dynamic> json) =>
-      CreateMembersResponse();
+      CreateMembersResponse(
+        unprocessedAccounts: (json['UnprocessedAccounts'] as List)
+            .map((e) => UnprocessedAccount.fromJson(e))
+            .toList(),
+      );
 }
 
 class CreateSampleFindingsResponse {
@@ -989,7 +1303,9 @@ class CreateThreatIntelSetResponse {
     @required this.threatIntelSetId,
   });
   static CreateThreatIntelSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateThreatIntelSetResponse();
+      CreateThreatIntelSetResponse(
+        threatIntelSetId: json['ThreatIntelSetId'] as String,
+      );
 }
 
 class DeclineInvitationsResponse {
@@ -1001,7 +1317,11 @@ class DeclineInvitationsResponse {
     @required this.unprocessedAccounts,
   });
   static DeclineInvitationsResponse fromJson(Map<String, dynamic> json) =>
-      DeclineInvitationsResponse();
+      DeclineInvitationsResponse(
+        unprocessedAccounts: (json['UnprocessedAccounts'] as List)
+            .map((e) => UnprocessedAccount.fromJson(e))
+            .toList(),
+      );
 }
 
 class DeleteDetectorResponse {
@@ -1031,7 +1351,11 @@ class DeleteInvitationsResponse {
     @required this.unprocessedAccounts,
   });
   static DeleteInvitationsResponse fromJson(Map<String, dynamic> json) =>
-      DeleteInvitationsResponse();
+      DeleteInvitationsResponse(
+        unprocessedAccounts: (json['UnprocessedAccounts'] as List)
+            .map((e) => UnprocessedAccount.fromJson(e))
+            .toList(),
+      );
 }
 
 class DeleteMembersResponse {
@@ -1042,7 +1366,11 @@ class DeleteMembersResponse {
     @required this.unprocessedAccounts,
   });
   static DeleteMembersResponse fromJson(Map<String, dynamic> json) =>
-      DeleteMembersResponse();
+      DeleteMembersResponse(
+        unprocessedAccounts: (json['UnprocessedAccounts'] as List)
+            .map((e) => UnprocessedAccount.fromJson(e))
+            .toList(),
+      );
 }
 
 class DeleteThreatIntelSetResponse {
@@ -1067,7 +1395,11 @@ class DisassociateMembersResponse {
     @required this.unprocessedAccounts,
   });
   static DisassociateMembersResponse fromJson(Map<String, dynamic> json) =>
-      DisassociateMembersResponse();
+      DisassociateMembersResponse(
+        unprocessedAccounts: (json['UnprocessedAccounts'] as List)
+            .map((e) => UnprocessedAccount.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Contains information about the DNS request.
@@ -1079,7 +1411,9 @@ class DnsRequestAction {
     this.domain,
   });
   static DnsRequestAction fromJson(Map<String, dynamic> json) =>
-      DnsRequestAction();
+      DnsRequestAction(
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+      );
 }
 
 /// Contains information about the domain.
@@ -1090,7 +1424,9 @@ class DomainDetails {
   DomainDetails({
     this.domain,
   });
-  static DomainDetails fromJson(Map<String, dynamic> json) => DomainDetails();
+  static DomainDetails fromJson(Map<String, dynamic> json) => DomainDetails(
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+      );
 }
 
 /// Contains information about the reason that the finding was generated.
@@ -1101,7 +1437,13 @@ class Evidence {
   Evidence({
     this.threatIntelligenceDetails,
   });
-  static Evidence fromJson(Map<String, dynamic> json) => Evidence();
+  static Evidence fromJson(Map<String, dynamic> json) => Evidence(
+        threatIntelligenceDetails: json.containsKey('ThreatIntelligenceDetails')
+            ? (json['ThreatIntelligenceDetails'] as List)
+                .map((e) => ThreatIntelligenceDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains information about the finding.
@@ -1166,7 +1508,30 @@ class Finding {
     @required this.type,
     @required this.updatedAt,
   });
-  static Finding fromJson(Map<String, dynamic> json) => Finding();
+  static Finding fromJson(Map<String, dynamic> json) => Finding(
+        accountId: json['AccountId'] as String,
+        arn: json['Arn'] as String,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+        createdAt: json['CreatedAt'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        id: json['Id'] as String,
+        partition:
+            json.containsKey('Partition') ? json['Partition'] as String : null,
+        region: json['Region'] as String,
+        resource: Resource.fromJson(json['Resource']),
+        schemaVersion: json['SchemaVersion'] as String,
+        service: json.containsKey('Service')
+            ? Service.fromJson(json['Service'])
+            : null,
+        severity: json['Severity'] as double,
+        title: json.containsKey('Title') ? json['Title'] as String : null,
+        type: json['Type'] as String,
+        updatedAt: json['UpdatedAt'] as String,
+      );
 }
 
 /// Contains finding criteria information.
@@ -1178,8 +1543,13 @@ class FindingCriteria {
   FindingCriteria({
     this.criterion,
   });
-  static FindingCriteria fromJson(Map<String, dynamic> json) =>
-      FindingCriteria();
+  static FindingCriteria fromJson(Map<String, dynamic> json) => FindingCriteria(
+        criterion: json.containsKey('Criterion')
+            ? (json['Criterion'] as Map)
+                .map((k, v) => MapEntry(k as String, Condition.fromJson(v)))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about finding statistics.
@@ -1191,7 +1561,12 @@ class FindingStatistics {
     this.countBySeverity,
   });
   static FindingStatistics fromJson(Map<String, dynamic> json) =>
-      FindingStatistics();
+      FindingStatistics(
+        countBySeverity: json.containsKey('CountBySeverity')
+            ? (json['CountBySeverity'] as Map)
+                .map((k, v) => MapEntry(k as String, v as int))
+            : null,
+      );
 }
 
 /// Contains information about the
@@ -1206,7 +1581,10 @@ class GeoLocation {
     this.lat,
     this.lon,
   });
-  static GeoLocation fromJson(Map<String, dynamic> json) => GeoLocation();
+  static GeoLocation fromJson(Map<String, dynamic> json) => GeoLocation(
+        lat: json.containsKey('Lat') ? json['Lat'] as double : null,
+        lon: json.containsKey('Lon') ? json['Lon'] as double : null,
+      );
 }
 
 class GetDetectorResponse {
@@ -1237,7 +1615,22 @@ class GetDetectorResponse {
     this.tags,
   });
   static GetDetectorResponse fromJson(Map<String, dynamic> json) =>
-      GetDetectorResponse();
+      GetDetectorResponse(
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        findingPublishingFrequency:
+            json.containsKey('FindingPublishingFrequency')
+                ? json['FindingPublishingFrequency'] as String
+                : null,
+        serviceRole: json['ServiceRole'] as String,
+        status: json['Status'] as String,
+        updatedAt:
+            json.containsKey('UpdatedAt') ? json['UpdatedAt'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetFilterResponse {
@@ -1270,7 +1663,19 @@ class GetFilterResponse {
     this.tags,
   });
   static GetFilterResponse fromJson(Map<String, dynamic> json) =>
-      GetFilterResponse();
+      GetFilterResponse(
+        name: json['Name'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        action: json['Action'] as String,
+        rank: json.containsKey('Rank') ? json['Rank'] as int : null,
+        findingCriteria: FindingCriteria.fromJson(json['FindingCriteria']),
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetFindingsResponse {
@@ -1281,7 +1686,10 @@ class GetFindingsResponse {
     @required this.findings,
   });
   static GetFindingsResponse fromJson(Map<String, dynamic> json) =>
-      GetFindingsResponse();
+      GetFindingsResponse(
+        findings:
+            (json['Findings'] as List).map((e) => Finding.fromJson(e)).toList(),
+      );
 }
 
 class GetFindingsStatisticsResponse {
@@ -1292,7 +1700,10 @@ class GetFindingsStatisticsResponse {
     @required this.findingStatistics,
   });
   static GetFindingsStatisticsResponse fromJson(Map<String, dynamic> json) =>
-      GetFindingsStatisticsResponse();
+      GetFindingsStatisticsResponse(
+        findingStatistics:
+            FindingStatistics.fromJson(json['FindingStatistics']),
+      );
 }
 
 class GetIPSetResponse {
@@ -1322,7 +1733,16 @@ class GetIPSetResponse {
     this.tags,
   });
   static GetIPSetResponse fromJson(Map<String, dynamic> json) =>
-      GetIPSetResponse();
+      GetIPSetResponse(
+        name: json['Name'] as String,
+        format: json['Format'] as String,
+        location: json['Location'] as String,
+        status: json['Status'] as String,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetInvitationsCountResponse {
@@ -1333,7 +1753,11 @@ class GetInvitationsCountResponse {
     this.invitationsCount,
   });
   static GetInvitationsCountResponse fromJson(Map<String, dynamic> json) =>
-      GetInvitationsCountResponse();
+      GetInvitationsCountResponse(
+        invitationsCount: json.containsKey('InvitationsCount')
+            ? json['InvitationsCount'] as int
+            : null,
+      );
 }
 
 class GetMasterAccountResponse {
@@ -1344,7 +1768,9 @@ class GetMasterAccountResponse {
     @required this.master,
   });
   static GetMasterAccountResponse fromJson(Map<String, dynamic> json) =>
-      GetMasterAccountResponse();
+      GetMasterAccountResponse(
+        master: Master.fromJson(json['Master']),
+      );
 }
 
 class GetMembersResponse {
@@ -1360,7 +1786,13 @@ class GetMembersResponse {
     @required this.unprocessedAccounts,
   });
   static GetMembersResponse fromJson(Map<String, dynamic> json) =>
-      GetMembersResponse();
+      GetMembersResponse(
+        members:
+            (json['Members'] as List).map((e) => Member.fromJson(e)).toList(),
+        unprocessedAccounts: (json['UnprocessedAccounts'] as List)
+            .map((e) => UnprocessedAccount.fromJson(e))
+            .toList(),
+      );
 }
 
 class GetThreatIntelSetResponse {
@@ -1390,7 +1822,16 @@ class GetThreatIntelSetResponse {
     this.tags,
   });
   static GetThreatIntelSetResponse fromJson(Map<String, dynamic> json) =>
-      GetThreatIntelSetResponse();
+      GetThreatIntelSetResponse(
+        name: json['Name'] as String,
+        format: json['Format'] as String,
+        location: json['Location'] as String,
+        status: json['Status'] as String,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Contains information about the instance profile.
@@ -1406,7 +1847,10 @@ class IamInstanceProfile {
     this.id,
   });
   static IamInstanceProfile fromJson(Map<String, dynamic> json) =>
-      IamInstanceProfile();
+      IamInstanceProfile(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+      );
 }
 
 /// Contains information about the details of an instance.
@@ -1461,8 +1905,45 @@ class InstanceDetails {
     this.productCodes,
     this.tags,
   });
-  static InstanceDetails fromJson(Map<String, dynamic> json) =>
-      InstanceDetails();
+  static InstanceDetails fromJson(Map<String, dynamic> json) => InstanceDetails(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        iamInstanceProfile: json.containsKey('IamInstanceProfile')
+            ? IamInstanceProfile.fromJson(json['IamInstanceProfile'])
+            : null,
+        imageDescription: json.containsKey('ImageDescription')
+            ? json['ImageDescription'] as String
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceState: json.containsKey('InstanceState')
+            ? json['InstanceState'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        launchTime: json.containsKey('LaunchTime')
+            ? json['LaunchTime'] as String
+            : null,
+        networkInterfaces: json.containsKey('NetworkInterfaces')
+            ? (json['NetworkInterfaces'] as List)
+                .map((e) => NetworkInterface.fromJson(e))
+                .toList()
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        productCodes: json.containsKey('ProductCodes')
+            ? (json['ProductCodes'] as List)
+                .map((e) => ProductCode.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains information about the invitation.
@@ -1485,7 +1966,18 @@ class Invitation {
     this.relationshipStatus,
     this.invitedAt,
   });
-  static Invitation fromJson(Map<String, dynamic> json) => Invitation();
+  static Invitation fromJson(Map<String, dynamic> json) => Invitation(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        invitationId: json.containsKey('InvitationId')
+            ? json['InvitationId'] as String
+            : null,
+        relationshipStatus: json.containsKey('RelationshipStatus')
+            ? json['RelationshipStatus'] as String
+            : null,
+        invitedAt:
+            json.containsKey('InvitedAt') ? json['InvitedAt'] as String : null,
+      );
 }
 
 class InviteMembersResponse {
@@ -1497,7 +1989,11 @@ class InviteMembersResponse {
     @required this.unprocessedAccounts,
   });
   static InviteMembersResponse fromJson(Map<String, dynamic> json) =>
-      InviteMembersResponse();
+      InviteMembersResponse(
+        unprocessedAccounts: (json['UnprocessedAccounts'] as List)
+            .map((e) => UnprocessedAccount.fromJson(e))
+            .toList(),
+      );
 }
 
 class ListDetectorsResponse {
@@ -1513,7 +2009,12 @@ class ListDetectorsResponse {
     this.nextToken,
   });
   static ListDetectorsResponse fromJson(Map<String, dynamic> json) =>
-      ListDetectorsResponse();
+      ListDetectorsResponse(
+        detectorIds:
+            (json['DetectorIds'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListFiltersResponse {
@@ -1529,7 +2030,12 @@ class ListFiltersResponse {
     this.nextToken,
   });
   static ListFiltersResponse fromJson(Map<String, dynamic> json) =>
-      ListFiltersResponse();
+      ListFiltersResponse(
+        filterNames:
+            (json['FilterNames'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListFindingsResponse {
@@ -1545,7 +2051,12 @@ class ListFindingsResponse {
     this.nextToken,
   });
   static ListFindingsResponse fromJson(Map<String, dynamic> json) =>
-      ListFindingsResponse();
+      ListFindingsResponse(
+        findingIds:
+            (json['FindingIds'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListIPSetsResponse {
@@ -1561,7 +2072,11 @@ class ListIPSetsResponse {
     this.nextToken,
   });
   static ListIPSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListIPSetsResponse();
+      ListIPSetsResponse(
+        ipSetIds: (json['IpSetIds'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListInvitationsResponse {
@@ -1577,7 +2092,15 @@ class ListInvitationsResponse {
     this.nextToken,
   });
   static ListInvitationsResponse fromJson(Map<String, dynamic> json) =>
-      ListInvitationsResponse();
+      ListInvitationsResponse(
+        invitations: json.containsKey('Invitations')
+            ? (json['Invitations'] as List)
+                .map((e) => Invitation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListMembersResponse {
@@ -1593,7 +2116,13 @@ class ListMembersResponse {
     this.nextToken,
   });
   static ListMembersResponse fromJson(Map<String, dynamic> json) =>
-      ListMembersResponse();
+      ListMembersResponse(
+        members: json.containsKey('Members')
+            ? (json['Members'] as List).map((e) => Member.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1604,7 +2133,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class ListThreatIntelSetsResponse {
@@ -1620,7 +2154,13 @@ class ListThreatIntelSetsResponse {
     this.nextToken,
   });
   static ListThreatIntelSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListThreatIntelSetsResponse();
+      ListThreatIntelSetsResponse(
+        threatIntelSetIds: (json['ThreatIntelSetIds'] as List)
+            .map((e) => e as String)
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains information about the port for the local connection.
@@ -1636,7 +2176,11 @@ class LocalPortDetails {
     this.portName,
   });
   static LocalPortDetails fromJson(Map<String, dynamic> json) =>
-      LocalPortDetails();
+      LocalPortDetails(
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        portName:
+            json.containsKey('PortName') ? json['PortName'] as String : null,
+      );
 }
 
 /// Contains information about the Master account and invitation.
@@ -1659,7 +2203,18 @@ class Master {
     this.relationshipStatus,
     this.invitedAt,
   });
-  static Master fromJson(Map<String, dynamic> json) => Master();
+  static Master fromJson(Map<String, dynamic> json) => Master(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        invitationId: json.containsKey('InvitationId')
+            ? json['InvitationId'] as String
+            : null,
+        relationshipStatus: json.containsKey('RelationshipStatus')
+            ? json['RelationshipStatus'] as String
+            : null,
+        invitedAt:
+            json.containsKey('InvitedAt') ? json['InvitedAt'] as String : null,
+      );
 }
 
 /// Continas information about the member account
@@ -1694,7 +2249,18 @@ class Member {
     this.invitedAt,
     @required this.updatedAt,
   });
-  static Member fromJson(Map<String, dynamic> json) => Member();
+  static Member fromJson(Map<String, dynamic> json) => Member(
+        accountId: json['AccountId'] as String,
+        detectorId: json.containsKey('DetectorId')
+            ? json['DetectorId'] as String
+            : null,
+        masterId: json['MasterId'] as String,
+        email: json['Email'] as String,
+        relationshipStatus: json['RelationshipStatus'] as String,
+        invitedAt:
+            json.containsKey('InvitedAt') ? json['InvitedAt'] as String : null,
+        updatedAt: json['UpdatedAt'] as String,
+      );
 }
 
 /// Contains information about the network connection.
@@ -1726,7 +2292,23 @@ class NetworkConnectionAction {
     this.remotePortDetails,
   });
   static NetworkConnectionAction fromJson(Map<String, dynamic> json) =>
-      NetworkConnectionAction();
+      NetworkConnectionAction(
+        blocked: json.containsKey('Blocked') ? json['Blocked'] as bool : null,
+        connectionDirection: json.containsKey('ConnectionDirection')
+            ? json['ConnectionDirection'] as String
+            : null,
+        localPortDetails: json.containsKey('LocalPortDetails')
+            ? LocalPortDetails.fromJson(json['LocalPortDetails'])
+            : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        remoteIpDetails: json.containsKey('RemoteIpDetails')
+            ? RemoteIpDetails.fromJson(json['RemoteIpDetails'])
+            : null,
+        remotePortDetails: json.containsKey('RemotePortDetails')
+            ? RemotePortDetails.fromJson(json['RemotePortDetails'])
+            : null,
+      );
 }
 
 /// Contains information about the network interface.
@@ -1774,7 +2356,38 @@ class NetworkInterface {
     this.vpcId,
   });
   static NetworkInterface fromJson(Map<String, dynamic> json) =>
-      NetworkInterface();
+      NetworkInterface(
+        ipv6Addresses: json.containsKey('Ipv6Addresses')
+            ? (json['Ipv6Addresses'] as List).map((e) => e as String).toList()
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+        privateIpAddresses: json.containsKey('PrivateIpAddresses')
+            ? (json['PrivateIpAddresses'] as List)
+                .map((e) => PrivateIpAddressDetails.fromJson(e))
+                .toList()
+            : null,
+        publicDnsName: json.containsKey('PublicDnsName')
+            ? json['PublicDnsName'] as String
+            : null,
+        publicIp:
+            json.containsKey('PublicIp') ? json['PublicIp'] as String : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List)
+                .map((e) => SecurityGroup.fromJson(e))
+                .toList()
+            : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 /// Continas information about the organization.
@@ -1798,7 +2411,12 @@ class Organization {
     this.isp,
     this.org,
   });
-  static Organization fromJson(Map<String, dynamic> json) => Organization();
+  static Organization fromJson(Map<String, dynamic> json) => Organization(
+        asn: json.containsKey('Asn') ? json['Asn'] as String : null,
+        asnOrg: json.containsKey('AsnOrg') ? json['AsnOrg'] as String : null,
+        isp: json.containsKey('Isp') ? json['Isp'] as String : null,
+        org: json.containsKey('Org') ? json['Org'] as String : null,
+      );
 }
 
 /// Contains information about the port probe.
@@ -1813,8 +2431,14 @@ class PortProbeAction {
     this.blocked,
     this.portProbeDetails,
   });
-  static PortProbeAction fromJson(Map<String, dynamic> json) =>
-      PortProbeAction();
+  static PortProbeAction fromJson(Map<String, dynamic> json) => PortProbeAction(
+        blocked: json.containsKey('Blocked') ? json['Blocked'] as bool : null,
+        portProbeDetails: json.containsKey('PortProbeDetails')
+            ? (json['PortProbeDetails'] as List)
+                .map((e) => PortProbeDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains information about the port probe details.
@@ -1829,8 +2453,14 @@ class PortProbeDetail {
     this.localPortDetails,
     this.remoteIpDetails,
   });
-  static PortProbeDetail fromJson(Map<String, dynamic> json) =>
-      PortProbeDetail();
+  static PortProbeDetail fromJson(Map<String, dynamic> json) => PortProbeDetail(
+        localPortDetails: json.containsKey('LocalPortDetails')
+            ? LocalPortDetails.fromJson(json['LocalPortDetails'])
+            : null,
+        remoteIpDetails: json.containsKey('RemoteIpDetails')
+            ? RemoteIpDetails.fromJson(json['RemoteIpDetails'])
+            : null,
+      );
 }
 
 /// Contains information about the private IP address.
@@ -1846,7 +2476,14 @@ class PrivateIpAddressDetails {
     this.privateIpAddress,
   });
   static PrivateIpAddressDetails fromJson(Map<String, dynamic> json) =>
-      PrivateIpAddressDetails();
+      PrivateIpAddressDetails(
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+      );
 }
 
 /// Contains information about the product code.
@@ -1861,7 +2498,12 @@ class ProductCode {
     this.code,
     this.productType,
   });
-  static ProductCode fromJson(Map<String, dynamic> json) => ProductCode();
+  static ProductCode fromJson(Map<String, dynamic> json) => ProductCode(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        productType: json.containsKey('ProductType')
+            ? json['ProductType'] as String
+            : null,
+      );
 }
 
 /// Continas information about the remote IP address.
@@ -1888,8 +2530,21 @@ class RemoteIpDetails {
     this.ipAddressV4,
     this.organization,
   });
-  static RemoteIpDetails fromJson(Map<String, dynamic> json) =>
-      RemoteIpDetails();
+  static RemoteIpDetails fromJson(Map<String, dynamic> json) => RemoteIpDetails(
+        city: json.containsKey('City') ? City.fromJson(json['City']) : null,
+        country: json.containsKey('Country')
+            ? Country.fromJson(json['Country'])
+            : null,
+        geoLocation: json.containsKey('GeoLocation')
+            ? GeoLocation.fromJson(json['GeoLocation'])
+            : null,
+        ipAddressV4: json.containsKey('IpAddressV4')
+            ? json['IpAddressV4'] as String
+            : null,
+        organization: json.containsKey('Organization')
+            ? Organization.fromJson(json['Organization'])
+            : null,
+      );
 }
 
 /// Contains information about the remote port.
@@ -1905,7 +2560,11 @@ class RemotePortDetails {
     this.portName,
   });
   static RemotePortDetails fromJson(Map<String, dynamic> json) =>
-      RemotePortDetails();
+      RemotePortDetails(
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        portName:
+            json.containsKey('PortName') ? json['PortName'] as String : null,
+      );
 }
 
 /// Contains information about the resource.
@@ -1926,7 +2585,17 @@ class Resource {
     this.instanceDetails,
     this.resourceType,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        accessKeyDetails: json.containsKey('AccessKeyDetails')
+            ? AccessKeyDetails.fromJson(json['AccessKeyDetails'])
+            : null,
+        instanceDetails: json.containsKey('InstanceDetails')
+            ? InstanceDetails.fromJson(json['InstanceDetails'])
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+      );
 }
 
 /// Contains information about the security group.
@@ -1941,7 +2610,11 @@ class SecurityGroup {
     this.groupId,
     this.groupName,
   });
-  static SecurityGroup fromJson(Map<String, dynamic> json) => SecurityGroup();
+  static SecurityGroup fromJson(Map<String, dynamic> json) => SecurityGroup(
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+      );
 }
 
 /// Contains information about the service.
@@ -1990,7 +2663,34 @@ class Service {
     this.serviceName,
     this.userFeedback,
   });
-  static Service fromJson(Map<String, dynamic> json) => Service();
+  static Service fromJson(Map<String, dynamic> json) => Service(
+        action:
+            json.containsKey('Action') ? Action.fromJson(json['Action']) : null,
+        evidence: json.containsKey('Evidence')
+            ? Evidence.fromJson(json['Evidence'])
+            : null,
+        archived:
+            json.containsKey('Archived') ? json['Archived'] as bool : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        detectorId: json.containsKey('DetectorId')
+            ? json['DetectorId'] as String
+            : null,
+        eventFirstSeen: json.containsKey('EventFirstSeen')
+            ? json['EventFirstSeen'] as String
+            : null,
+        eventLastSeen: json.containsKey('EventLastSeen')
+            ? json['EventLastSeen'] as String
+            : null,
+        resourceRole: json.containsKey('ResourceRole')
+            ? json['ResourceRole'] as String
+            : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        userFeedback: json.containsKey('UserFeedback')
+            ? json['UserFeedback'] as String
+            : null,
+      );
 }
 
 /// Contains information about the criteria for sorting.
@@ -2006,6 +2706,7 @@ class SortCriteria {
     this.attributeName,
     this.orderBy,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartMonitoringMembersResponse {
@@ -2017,7 +2718,11 @@ class StartMonitoringMembersResponse {
     @required this.unprocessedAccounts,
   });
   static StartMonitoringMembersResponse fromJson(Map<String, dynamic> json) =>
-      StartMonitoringMembersResponse();
+      StartMonitoringMembersResponse(
+        unprocessedAccounts: (json['UnprocessedAccounts'] as List)
+            .map((e) => UnprocessedAccount.fromJson(e))
+            .toList(),
+      );
 }
 
 class StopMonitoringMembersResponse {
@@ -2029,7 +2734,11 @@ class StopMonitoringMembersResponse {
     @required this.unprocessedAccounts,
   });
   static StopMonitoringMembersResponse fromJson(Map<String, dynamic> json) =>
-      StopMonitoringMembersResponse();
+      StopMonitoringMembersResponse(
+        unprocessedAccounts: (json['UnprocessedAccounts'] as List)
+            .map((e) => UnprocessedAccount.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Contains information about the tag associated with the resource.
@@ -2044,7 +2753,10 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 class TagResourceResponse {
@@ -2068,7 +2780,14 @@ class ThreatIntelligenceDetail {
     this.threatNames,
   });
   static ThreatIntelligenceDetail fromJson(Map<String, dynamic> json) =>
-      ThreatIntelligenceDetail();
+      ThreatIntelligenceDetail(
+        threatListName: json.containsKey('ThreatListName')
+            ? json['ThreatListName'] as String
+            : null,
+        threatNames: json.containsKey('ThreatNames')
+            ? (json['ThreatNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class UnarchiveFindingsResponse {
@@ -2090,7 +2809,10 @@ class UnprocessedAccount {
     @required this.result,
   });
   static UnprocessedAccount fromJson(Map<String, dynamic> json) =>
-      UnprocessedAccount();
+      UnprocessedAccount(
+        accountId: json['AccountId'] as String,
+        result: json['Result'] as String,
+      );
 }
 
 class UntagResourceResponse {
@@ -2113,7 +2835,9 @@ class UpdateFilterResponse {
     @required this.name,
   });
   static UpdateFilterResponse fromJson(Map<String, dynamic> json) =>
-      UpdateFilterResponse();
+      UpdateFilterResponse(
+        name: json['Name'] as String,
+      );
 }
 
 class UpdateFindingsFeedbackResponse {

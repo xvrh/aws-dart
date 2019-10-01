@@ -32,6 +32,10 @@ import 'package:meta/meta.dart';
 /// perform the three use cases above, as well as give users the ability to
 /// grant access on a selective basis using the IAM model.
 class WorkDocsApi {
+  final _client;
+  WorkDocsApi(client)
+      : _client = client.configured('WorkDocs', serializer: 'rest-json');
+
   /// Aborts the upload of the specified document version that was previously
   /// initiated by InitiateDocumentVersionUpload. The client should make this
   /// call only when it no longer intends to upload the document version, or
@@ -47,7 +51,14 @@ class WorkDocsApi {
   Future<void> abortDocumentVersionUpload(
       {String authenticationToken,
       @required String documentId,
-      @required String versionId}) async {}
+      @required String versionId}) async {
+    await _client.send('AbortDocumentVersionUpload', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      'VersionId': versionId,
+    });
+  }
 
   /// Activates the specified user. Only active users can access Amazon
   /// WorkDocs.
@@ -59,7 +70,12 @@ class WorkDocsApi {
   /// using AWS credentials.
   Future<ActivateUserResponse> activateUser(String userId,
       {String authenticationToken}) async {
-    return ActivateUserResponse.fromJson({});
+    var response_ = await _client.send('ActivateUser', {
+      'UserId': userId,
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+    });
+    return ActivateUserResponse.fromJson(response_);
   }
 
   /// Creates a set of permissions for the specified folder or document. The
@@ -80,7 +96,15 @@ class WorkDocsApi {
       @required String resourceId,
       @required List<SharePrincipal> principals,
       NotificationOptions notificationOptions}) async {
-    return AddResourcePermissionsResponse.fromJson({});
+    var response_ = await _client.send('AddResourcePermissions', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'ResourceId': resourceId,
+      'Principals': principals,
+      if (notificationOptions != null)
+        'NotificationOptions': notificationOptions,
+    });
+    return AddResourcePermissionsResponse.fromJson(response_);
   }
 
   /// Adds a new comment to the specified document version.
@@ -115,7 +139,19 @@ class WorkDocsApi {
       @required String text,
       String visibility,
       bool notifyCollaborators}) async {
-    return CreateCommentResponse.fromJson({});
+    var response_ = await _client.send('CreateComment', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      'VersionId': versionId,
+      if (parentId != null) 'ParentId': parentId,
+      if (threadId != null) 'ThreadId': threadId,
+      'Text': text,
+      if (visibility != null) 'Visibility': visibility,
+      if (notifyCollaborators != null)
+        'NotifyCollaborators': notifyCollaborators,
+    });
+    return CreateCommentResponse.fromJson(response_);
   }
 
   /// Adds one or more custom properties to the specified resource (a folder,
@@ -136,7 +172,14 @@ class WorkDocsApi {
       @required String resourceId,
       String versionId,
       @required Map<String, String> customMetadata}) async {
-    return CreateCustomMetadataResponse.fromJson({});
+    var response_ = await _client.send('CreateCustomMetadata', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'ResourceId': resourceId,
+      if (versionId != null) 'VersionId': versionId,
+      'CustomMetadata': customMetadata,
+    });
+    return CreateCustomMetadataResponse.fromJson(response_);
   }
 
   /// Creates a folder with the specified name and parent folder.
@@ -150,7 +193,13 @@ class WorkDocsApi {
   /// [parentFolderId]: The ID of the parent folder.
   Future<CreateFolderResponse> createFolder(String parentFolderId,
       {String authenticationToken, String name}) async {
-    return CreateFolderResponse.fromJson({});
+    var response_ = await _client.send('CreateFolder', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      if (name != null) 'Name': name,
+      'ParentFolderId': parentFolderId,
+    });
+    return CreateFolderResponse.fromJson(response_);
   }
 
   /// Adds the specified list of labels to the given resource (a document or
@@ -167,7 +216,13 @@ class WorkDocsApi {
       {@required String resourceId,
       @required List<String> labels,
       String authenticationToken}) async {
-    return CreateLabelsResponse.fromJson({});
+    var response_ = await _client.send('CreateLabels', {
+      'ResourceId': resourceId,
+      'Labels': labels,
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+    });
+    return CreateLabelsResponse.fromJson(response_);
   }
 
   /// Configure Amazon WorkDocs to use Amazon SNS notifications. The endpoint
@@ -191,7 +246,13 @@ class WorkDocsApi {
       @required String endpoint,
       @required String protocol,
       @required String subscriptionType}) async {
-    return CreateNotificationSubscriptionResponse.fromJson({});
+    var response_ = await _client.send('CreateNotificationSubscription', {
+      'OrganizationId': organizationId,
+      'Endpoint': endpoint,
+      'Protocol': protocol,
+      'SubscriptionType': subscriptionType,
+    });
+    return CreateNotificationSubscriptionResponse.fromJson(response_);
   }
 
   /// Creates a user in a Simple AD or Microsoft AD directory. The status of a
@@ -226,7 +287,19 @@ class WorkDocsApi {
       String timeZoneId,
       StorageRuleType storageRule,
       String authenticationToken}) async {
-    return CreateUserResponse.fromJson({});
+    var response_ = await _client.send('CreateUser', {
+      if (organizationId != null) 'OrganizationId': organizationId,
+      'Username': username,
+      if (emailAddress != null) 'EmailAddress': emailAddress,
+      'GivenName': givenName,
+      'Surname': surname,
+      'Password': password,
+      if (timeZoneId != null) 'TimeZoneId': timeZoneId,
+      if (storageRule != null) 'StorageRule': storageRule,
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+    });
+    return CreateUserResponse.fromJson(response_);
   }
 
   /// Deactivates the specified user, which revokes the user's access to Amazon
@@ -238,7 +311,13 @@ class WorkDocsApi {
   /// this field when using administrative API actions, as in accessing the API
   /// using AWS credentials.
   Future<void> deactivateUser(String userId,
-      {String authenticationToken}) async {}
+      {String authenticationToken}) async {
+    await _client.send('DeactivateUser', {
+      'UserId': userId,
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+    });
+  }
 
   /// Deletes the specified comment from the document version.
   ///
@@ -255,7 +334,15 @@ class WorkDocsApi {
       {String authenticationToken,
       @required String documentId,
       @required String versionId,
-      @required String commentId}) async {}
+      @required String commentId}) async {
+    await _client.send('DeleteComment', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      'VersionId': versionId,
+      'CommentId': commentId,
+    });
+  }
 
   /// Deletes custom metadata from the specified resource.
   ///
@@ -277,7 +364,15 @@ class WorkDocsApi {
       String versionId,
       List<String> keys,
       bool deleteAll}) async {
-    return DeleteCustomMetadataResponse.fromJson({});
+    var response_ = await _client.send('DeleteCustomMetadata', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'ResourceId': resourceId,
+      if (versionId != null) 'VersionId': versionId,
+      if (keys != null) 'Keys': keys,
+      if (deleteAll != null) 'DeleteAll': deleteAll,
+    });
+    return DeleteCustomMetadataResponse.fromJson(response_);
   }
 
   /// Permanently deletes the specified document and its associated metadata.
@@ -288,7 +383,13 @@ class WorkDocsApi {
   ///
   /// [documentId]: The ID of the document.
   Future<void> deleteDocument(String documentId,
-      {String authenticationToken}) async {}
+      {String authenticationToken}) async {
+    await _client.send('DeleteDocument', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+    });
+  }
 
   /// Permanently deletes the specified folder and its contents.
   ///
@@ -298,7 +399,13 @@ class WorkDocsApi {
   ///
   /// [folderId]: The ID of the folder.
   Future<void> deleteFolder(String folderId,
-      {String authenticationToken}) async {}
+      {String authenticationToken}) async {
+    await _client.send('DeleteFolder', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'FolderId': folderId,
+    });
+  }
 
   /// Deletes the contents of the specified folder.
   ///
@@ -308,7 +415,13 @@ class WorkDocsApi {
   ///
   /// [folderId]: The ID of the folder.
   Future<void> deleteFolderContents(String folderId,
-      {String authenticationToken}) async {}
+      {String authenticationToken}) async {
+    await _client.send('DeleteFolderContents', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'FolderId': folderId,
+    });
+  }
 
   /// Deletes the specified list of labels from a resource.
   ///
@@ -324,7 +437,14 @@ class WorkDocsApi {
   /// resource.
   Future<DeleteLabelsResponse> deleteLabels(String resourceId,
       {String authenticationToken, List<String> labels, bool deleteAll}) async {
-    return DeleteLabelsResponse.fromJson({});
+    var response_ = await _client.send('DeleteLabels', {
+      'ResourceId': resourceId,
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      if (labels != null) 'Labels': labels,
+      if (deleteAll != null) 'DeleteAll': deleteAll,
+    });
+    return DeleteLabelsResponse.fromJson(response_);
   }
 
   /// Deletes the specified subscription from the specified organization.
@@ -334,7 +454,12 @@ class WorkDocsApi {
   /// [organizationId]: The ID of the organization.
   Future<void> deleteNotificationSubscription(
       {@required String subscriptionId,
-      @required String organizationId}) async {}
+      @required String organizationId}) async {
+    await _client.send('DeleteNotificationSubscription', {
+      'SubscriptionId': subscriptionId,
+      'OrganizationId': organizationId,
+    });
+  }
 
   /// Deletes the specified user from a Simple AD or Microsoft AD directory.
   ///
@@ -343,7 +468,13 @@ class WorkDocsApi {
   /// using AWS credentials.
   ///
   /// [userId]: The ID of the user.
-  Future<void> deleteUser(String userId, {String authenticationToken}) async {}
+  Future<void> deleteUser(String userId, {String authenticationToken}) async {
+    await _client.send('DeleteUser', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'UserId': userId,
+    });
+  }
 
   /// Describes the user activities in a specified time period.
   ///
@@ -392,7 +523,21 @@ class WorkDocsApi {
       bool includeIndirectActivities,
       int limit,
       String marker}) async {
-    return DescribeActivitiesResponse.fromJson({});
+    var response_ = await _client.send('DescribeActivities', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (organizationId != null) 'OrganizationId': organizationId,
+      if (activityTypes != null) 'ActivityTypes': activityTypes,
+      if (resourceId != null) 'ResourceId': resourceId,
+      if (userId != null) 'UserId': userId,
+      if (includeIndirectActivities != null)
+        'IncludeIndirectActivities': includeIndirectActivities,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeActivitiesResponse.fromJson(response_);
   }
 
   /// List all the comments for the specified document version.
@@ -415,7 +560,15 @@ class WorkDocsApi {
       @required String versionId,
       int limit,
       String marker}) async {
-    return DescribeCommentsResponse.fromJson({});
+    var response_ = await _client.send('DescribeComments', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      'VersionId': versionId,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeCommentsResponse.fromJson(response_);
   }
 
   /// Retrieves the document versions for the specified document.
@@ -445,7 +598,16 @@ class WorkDocsApi {
       int limit,
       String include,
       String fields}) async {
-    return DescribeDocumentVersionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeDocumentVersions', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+      if (include != null) 'Include': include,
+      if (fields != null) 'Fields': fields,
+    });
+    return DescribeDocumentVersionsResponse.fromJson(response_);
   }
 
   /// Describes the contents of the specified folder, including its documents
@@ -483,7 +645,18 @@ class WorkDocsApi {
       String marker,
       String type,
       String include}) async {
-    return DescribeFolderContentsResponse.fromJson({});
+    var response_ = await _client.send('DescribeFolderContents', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'FolderId': folderId,
+      if (sort != null) 'Sort': sort,
+      if (order != null) 'Order': order,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+      if (type != null) 'Type': type,
+      if (include != null) 'Include': include,
+    });
+    return DescribeFolderContentsResponse.fromJson(response_);
   }
 
   /// Describes the groups specified by the query. Groups are defined by the
@@ -506,7 +679,15 @@ class WorkDocsApi {
       String organizationId,
       String marker,
       int limit}) async {
-    return DescribeGroupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeGroups', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'SearchQuery': searchQuery,
+      if (organizationId != null) 'OrganizationId': organizationId,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeGroupsResponse.fromJson(response_);
   }
 
   /// Lists the specified notification subscriptions.
@@ -520,7 +701,12 @@ class WorkDocsApi {
   Future<DescribeNotificationSubscriptionsResponse>
       describeNotificationSubscriptions(String organizationId,
           {String marker, int limit}) async {
-    return DescribeNotificationSubscriptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeNotificationSubscriptions', {
+      'OrganizationId': organizationId,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeNotificationSubscriptionsResponse.fromJson(response_);
   }
 
   /// Describes the permissions of a specified resource.
@@ -543,7 +729,15 @@ class WorkDocsApi {
       String principalId,
       int limit,
       String marker}) async {
-    return DescribeResourcePermissionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeResourcePermissions', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'ResourceId': resourceId,
+      if (principalId != null) 'PrincipalId': principalId,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeResourcePermissionsResponse.fromJson(response_);
   }
 
   /// Describes the current user's special folders; the `RootFolder` and the
@@ -569,7 +763,12 @@ class WorkDocsApi {
       String authenticationToken,
       {int limit,
       String marker}) async {
-    return DescribeRootFoldersResponse.fromJson({});
+    var response_ = await _client.send('DescribeRootFolders', {
+      'AuthenticationToken': authenticationToken,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeRootFoldersResponse.fromJson(response_);
   }
 
   /// Describes the specified users. You can describe all users or filter the
@@ -614,7 +813,20 @@ class WorkDocsApi {
       String marker,
       int limit,
       String fields}) async {
-    return DescribeUsersResponse.fromJson({});
+    var response_ = await _client.send('DescribeUsers', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      if (organizationId != null) 'OrganizationId': organizationId,
+      if (userIds != null) 'UserIds': userIds,
+      if (query != null) 'Query': query,
+      if (include != null) 'Include': include,
+      if (order != null) 'Order': order,
+      if (sort != null) 'Sort': sort,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+      if (fields != null) 'Fields': fields,
+    });
+    return DescribeUsersResponse.fromJson(response_);
   }
 
   /// Retrieves details of the current user for whom the authentication token
@@ -626,7 +838,10 @@ class WorkDocsApi {
   /// using AWS credentials.
   Future<GetCurrentUserResponse> getCurrentUser(
       String authenticationToken) async {
-    return GetCurrentUserResponse.fromJson({});
+    var response_ = await _client.send('GetCurrentUser', {
+      'AuthenticationToken': authenticationToken,
+    });
+    return GetCurrentUserResponse.fromJson(response_);
   }
 
   /// Retrieves details of a document.
@@ -641,7 +856,14 @@ class WorkDocsApi {
   /// the response.
   Future<GetDocumentResponse> getDocument(String documentId,
       {String authenticationToken, bool includeCustomMetadata}) async {
-    return GetDocumentResponse.fromJson({});
+    var response_ = await _client.send('GetDocument', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      if (includeCustomMetadata != null)
+        'IncludeCustomMetadata': includeCustomMetadata,
+    });
+    return GetDocumentResponse.fromJson(response_);
   }
 
   /// Retrieves the path information (the hierarchy from the root folder) for
@@ -669,7 +891,15 @@ class WorkDocsApi {
       int limit,
       String fields,
       String marker}) async {
-    return GetDocumentPathResponse.fromJson({});
+    var response_ = await _client.send('GetDocumentPath', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      if (limit != null) 'Limit': limit,
+      if (fields != null) 'Fields': fields,
+      if (marker != null) 'Marker': marker,
+    });
+    return GetDocumentPathResponse.fromJson(response_);
   }
 
   /// Retrieves version metadata for the specified document.
@@ -693,7 +923,16 @@ class WorkDocsApi {
       @required String versionId,
       String fields,
       bool includeCustomMetadata}) async {
-    return GetDocumentVersionResponse.fromJson({});
+    var response_ = await _client.send('GetDocumentVersion', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      'VersionId': versionId,
+      if (fields != null) 'Fields': fields,
+      if (includeCustomMetadata != null)
+        'IncludeCustomMetadata': includeCustomMetadata,
+    });
+    return GetDocumentVersionResponse.fromJson(response_);
   }
 
   /// Retrieves the metadata of the specified folder.
@@ -708,7 +947,14 @@ class WorkDocsApi {
   /// response.
   Future<GetFolderResponse> getFolder(String folderId,
       {String authenticationToken, bool includeCustomMetadata}) async {
-    return GetFolderResponse.fromJson({});
+    var response_ = await _client.send('GetFolder', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'FolderId': folderId,
+      if (includeCustomMetadata != null)
+        'IncludeCustomMetadata': includeCustomMetadata,
+    });
+    return GetFolderResponse.fromJson(response_);
   }
 
   /// Retrieves the path information (the hierarchy from the root folder) for
@@ -736,7 +982,15 @@ class WorkDocsApi {
       int limit,
       String fields,
       String marker}) async {
-    return GetFolderPathResponse.fromJson({});
+    var response_ = await _client.send('GetFolderPath', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'FolderId': folderId,
+      if (limit != null) 'Limit': limit,
+      if (fields != null) 'Fields': fields,
+      if (marker != null) 'Marker': marker,
+    });
+    return GetFolderPathResponse.fromJson(response_);
   }
 
   /// Retrieves a collection of resources, including folders and documents. The
@@ -761,7 +1015,15 @@ class WorkDocsApi {
       String collectionType,
       int limit,
       String marker}) async {
-    return GetResourcesResponse.fromJson({});
+    var response_ = await _client.send('GetResources', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      if (userId != null) 'UserId': userId,
+      if (collectionType != null) 'CollectionType': collectionType,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return GetResourcesResponse.fromJson(response_);
   }
 
   /// Creates a new document object and version object.
@@ -802,7 +1064,21 @@ class WorkDocsApi {
       DateTime contentModifiedTimestamp,
       String contentType,
       BigInt documentSizeInBytes}) async {
-    return InitiateDocumentVersionUploadResponse.fromJson({});
+    var response_ = await _client.send('InitiateDocumentVersionUpload', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      if (id != null) 'Id': id,
+      if (name != null) 'Name': name,
+      if (contentCreatedTimestamp != null)
+        'ContentCreatedTimestamp': contentCreatedTimestamp,
+      if (contentModifiedTimestamp != null)
+        'ContentModifiedTimestamp': contentModifiedTimestamp,
+      if (contentType != null) 'ContentType': contentType,
+      if (documentSizeInBytes != null)
+        'DocumentSizeInBytes': documentSizeInBytes,
+      'ParentFolderId': parentFolderId,
+    });
+    return InitiateDocumentVersionUploadResponse.fromJson(response_);
   }
 
   /// Removes all the permissions from the specified resource.
@@ -813,7 +1089,13 @@ class WorkDocsApi {
   ///
   /// [resourceId]: The ID of the resource.
   Future<void> removeAllResourcePermissions(String resourceId,
-      {String authenticationToken}) async {}
+      {String authenticationToken}) async {
+    await _client.send('RemoveAllResourcePermissions', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'ResourceId': resourceId,
+    });
+  }
 
   /// Removes the permission for the specified principal from the specified
   /// resource.
@@ -831,7 +1113,15 @@ class WorkDocsApi {
       {String authenticationToken,
       @required String resourceId,
       @required String principalId,
-      String principalType}) async {}
+      String principalType}) async {
+    await _client.send('RemoveResourcePermission', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'ResourceId': resourceId,
+      'PrincipalId': principalId,
+      if (principalType != null) 'PrincipalType': principalType,
+    });
+  }
 
   /// Updates the specified attributes of a document. The user must have access
   /// to both the document and its parent folder, if applicable.
@@ -852,7 +1142,16 @@ class WorkDocsApi {
       {String authenticationToken,
       String name,
       String parentFolderId,
-      String resourceState}) async {}
+      String resourceState}) async {
+    await _client.send('UpdateDocument', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      if (name != null) 'Name': name,
+      if (parentFolderId != null) 'ParentFolderId': parentFolderId,
+      if (resourceState != null) 'ResourceState': resourceState,
+    });
+  }
 
   /// Changes the status of the document version to ACTIVE.
   ///
@@ -873,7 +1172,15 @@ class WorkDocsApi {
       {String authenticationToken,
       @required String documentId,
       @required String versionId,
-      String versionStatus}) async {}
+      String versionStatus}) async {
+    await _client.send('UpdateDocumentVersion', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'DocumentId': documentId,
+      'VersionId': versionId,
+      if (versionStatus != null) 'VersionStatus': versionStatus,
+    });
+  }
 
   /// Updates the specified attributes of the specified folder. The user must
   /// have access to both the folder and its parent folder, if applicable.
@@ -894,7 +1201,16 @@ class WorkDocsApi {
       {String authenticationToken,
       String name,
       String parentFolderId,
-      String resourceState}) async {}
+      String resourceState}) async {
+    await _client.send('UpdateFolder', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'FolderId': folderId,
+      if (name != null) 'Name': name,
+      if (parentFolderId != null) 'ParentFolderId': parentFolderId,
+      if (resourceState != null) 'ResourceState': resourceState,
+    });
+  }
 
   /// Updates the specified attributes of the specified user, and grants or
   /// revokes administrative privileges to the Amazon WorkDocs site.
@@ -928,7 +1244,20 @@ class WorkDocsApi {
       String timeZoneId,
       String locale,
       String grantPoweruserPrivileges}) async {
-    return UpdateUserResponse.fromJson({});
+    var response_ = await _client.send('UpdateUser', {
+      if (authenticationToken != null)
+        'AuthenticationToken': authenticationToken,
+      'UserId': userId,
+      if (givenName != null) 'GivenName': givenName,
+      if (surname != null) 'Surname': surname,
+      if (type != null) 'Type': type,
+      if (storageRule != null) 'StorageRule': storageRule,
+      if (timeZoneId != null) 'TimeZoneId': timeZoneId,
+      if (locale != null) 'Locale': locale,
+      if (grantPoweruserPrivileges != null)
+        'GrantPoweruserPrivileges': grantPoweruserPrivileges,
+    });
+    return UpdateUserResponse.fromJson(response_);
   }
 }
 
@@ -940,7 +1269,9 @@ class ActivateUserResponse {
     this.user,
   });
   static ActivateUserResponse fromJson(Map<String, dynamic> json) =>
-      ActivateUserResponse();
+      ActivateUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+      );
 }
 
 /// Describes the activity information.
@@ -990,7 +1321,33 @@ class Activity {
     this.originalParent,
     this.commentMetadata,
   });
-  static Activity fromJson(Map<String, dynamic> json) => Activity();
+  static Activity fromJson(Map<String, dynamic> json) => Activity(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        timeStamp: json.containsKey('TimeStamp')
+            ? DateTime.parse(json['TimeStamp'])
+            : null,
+        isIndirectActivity: json.containsKey('IsIndirectActivity')
+            ? json['IsIndirectActivity'] as bool
+            : null,
+        organizationId: json.containsKey('OrganizationId')
+            ? json['OrganizationId'] as String
+            : null,
+        initiator: json.containsKey('Initiator')
+            ? UserMetadata.fromJson(json['Initiator'])
+            : null,
+        participants: json.containsKey('Participants')
+            ? Participants.fromJson(json['Participants'])
+            : null,
+        resourceMetadata: json.containsKey('ResourceMetadata')
+            ? ResourceMetadata.fromJson(json['ResourceMetadata'])
+            : null,
+        originalParent: json.containsKey('OriginalParent')
+            ? ResourceMetadata.fromJson(json['OriginalParent'])
+            : null,
+        commentMetadata: json.containsKey('CommentMetadata')
+            ? CommentMetadata.fromJson(json['CommentMetadata'])
+            : null,
+      );
 }
 
 class AddResourcePermissionsResponse {
@@ -1001,7 +1358,13 @@ class AddResourcePermissionsResponse {
     this.shareResults,
   });
   static AddResourcePermissionsResponse fromJson(Map<String, dynamic> json) =>
-      AddResourcePermissionsResponse();
+      AddResourcePermissionsResponse(
+        shareResults: json.containsKey('ShareResults')
+            ? (json['ShareResults'] as List)
+                .map((e) => ShareResult.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a comment.
@@ -1048,7 +1411,27 @@ class Comment {
     this.visibility,
     this.recipientId,
   });
-  static Comment fromJson(Map<String, dynamic> json) => Comment();
+  static Comment fromJson(Map<String, dynamic> json) => Comment(
+        commentId: json['CommentId'] as String,
+        parentId:
+            json.containsKey('ParentId') ? json['ParentId'] as String : null,
+        threadId:
+            json.containsKey('ThreadId') ? json['ThreadId'] as String : null,
+        text: json.containsKey('Text') ? json['Text'] as String : null,
+        contributor: json.containsKey('Contributor')
+            ? User.fromJson(json['Contributor'])
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        visibility: json.containsKey('Visibility')
+            ? json['Visibility'] as String
+            : null,
+        recipientId: json.containsKey('RecipientId')
+            ? json['RecipientId'] as String
+            : null,
+      );
 }
 
 /// Describes the metadata of a comment.
@@ -1075,8 +1458,22 @@ class CommentMetadata {
     this.commentStatus,
     this.recipientId,
   });
-  static CommentMetadata fromJson(Map<String, dynamic> json) =>
-      CommentMetadata();
+  static CommentMetadata fromJson(Map<String, dynamic> json) => CommentMetadata(
+        commentId:
+            json.containsKey('CommentId') ? json['CommentId'] as String : null,
+        contributor: json.containsKey('Contributor')
+            ? User.fromJson(json['Contributor'])
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        commentStatus: json.containsKey('CommentStatus')
+            ? json['CommentStatus'] as String
+            : null,
+        recipientId: json.containsKey('RecipientId')
+            ? json['RecipientId'] as String
+            : null,
+      );
 }
 
 class CreateCommentResponse {
@@ -1087,7 +1484,11 @@ class CreateCommentResponse {
     this.comment,
   });
   static CreateCommentResponse fromJson(Map<String, dynamic> json) =>
-      CreateCommentResponse();
+      CreateCommentResponse(
+        comment: json.containsKey('Comment')
+            ? Comment.fromJson(json['Comment'])
+            : null,
+      );
 }
 
 class CreateCustomMetadataResponse {
@@ -1104,7 +1505,11 @@ class CreateFolderResponse {
     this.metadata,
   });
   static CreateFolderResponse fromJson(Map<String, dynamic> json) =>
-      CreateFolderResponse();
+      CreateFolderResponse(
+        metadata: json.containsKey('Metadata')
+            ? FolderMetadata.fromJson(json['Metadata'])
+            : null,
+      );
 }
 
 class CreateLabelsResponse {
@@ -1122,7 +1527,11 @@ class CreateNotificationSubscriptionResponse {
   });
   static CreateNotificationSubscriptionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateNotificationSubscriptionResponse();
+      CreateNotificationSubscriptionResponse(
+        subscription: json.containsKey('Subscription')
+            ? Subscription.fromJson(json['Subscription'])
+            : null,
+      );
 }
 
 class CreateUserResponse {
@@ -1133,7 +1542,9 @@ class CreateUserResponse {
     this.user,
   });
   static CreateUserResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserResponse();
+      CreateUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+      );
 }
 
 class DeleteCustomMetadataResponse {
@@ -1160,7 +1571,14 @@ class DescribeActivitiesResponse {
     this.marker,
   });
   static DescribeActivitiesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeActivitiesResponse();
+      DescribeActivitiesResponse(
+        userActivities: json.containsKey('UserActivities')
+            ? (json['UserActivities'] as List)
+                .map((e) => Activity.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeCommentsResponse {
@@ -1176,7 +1594,14 @@ class DescribeCommentsResponse {
     this.marker,
   });
   static DescribeCommentsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeCommentsResponse();
+      DescribeCommentsResponse(
+        comments: json.containsKey('Comments')
+            ? (json['Comments'] as List)
+                .map((e) => Comment.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeDocumentVersionsResponse {
@@ -1192,7 +1617,14 @@ class DescribeDocumentVersionsResponse {
     this.marker,
   });
   static DescribeDocumentVersionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDocumentVersionsResponse();
+      DescribeDocumentVersionsResponse(
+        documentVersions: json.containsKey('DocumentVersions')
+            ? (json['DocumentVersions'] as List)
+                .map((e) => DocumentVersionMetadata.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeFolderContentsResponse {
@@ -1212,7 +1644,19 @@ class DescribeFolderContentsResponse {
     this.marker,
   });
   static DescribeFolderContentsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeFolderContentsResponse();
+      DescribeFolderContentsResponse(
+        folders: json.containsKey('Folders')
+            ? (json['Folders'] as List)
+                .map((e) => FolderMetadata.fromJson(e))
+                .toList()
+            : null,
+        documents: json.containsKey('Documents')
+            ? (json['Documents'] as List)
+                .map((e) => DocumentMetadata.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeGroupsResponse {
@@ -1228,7 +1672,14 @@ class DescribeGroupsResponse {
     this.marker,
   });
   static DescribeGroupsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeGroupsResponse();
+      DescribeGroupsResponse(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupMetadata.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeNotificationSubscriptionsResponse {
@@ -1245,7 +1696,14 @@ class DescribeNotificationSubscriptionsResponse {
   });
   static DescribeNotificationSubscriptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeNotificationSubscriptionsResponse();
+      DescribeNotificationSubscriptionsResponse(
+        subscriptions: json.containsKey('Subscriptions')
+            ? (json['Subscriptions'] as List)
+                .map((e) => Subscription.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeResourcePermissionsResponse {
@@ -1262,7 +1720,14 @@ class DescribeResourcePermissionsResponse {
   });
   static DescribeResourcePermissionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeResourcePermissionsResponse();
+      DescribeResourcePermissionsResponse(
+        principals: json.containsKey('Principals')
+            ? (json['Principals'] as List)
+                .map((e) => Principal.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeRootFoldersResponse {
@@ -1277,7 +1742,14 @@ class DescribeRootFoldersResponse {
     this.marker,
   });
   static DescribeRootFoldersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeRootFoldersResponse();
+      DescribeRootFoldersResponse(
+        folders: json.containsKey('Folders')
+            ? (json['Folders'] as List)
+                .map((e) => FolderMetadata.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeUsersResponse {
@@ -1297,7 +1769,15 @@ class DescribeUsersResponse {
     this.marker,
   });
   static DescribeUsersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUsersResponse();
+      DescribeUsersResponse(
+        users: json.containsKey('Users')
+            ? (json['Users'] as List).map((e) => User.fromJson(e)).toList()
+            : null,
+        totalNumberOfUsers: json.containsKey('TotalNumberOfUsers')
+            ? BigInt.from(json['TotalNumberOfUsers'])
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Describes the document.
@@ -1337,7 +1817,29 @@ class DocumentMetadata {
     this.labels,
   });
   static DocumentMetadata fromJson(Map<String, dynamic> json) =>
-      DocumentMetadata();
+      DocumentMetadata(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        creatorId:
+            json.containsKey('CreatorId') ? json['CreatorId'] as String : null,
+        parentFolderId: json.containsKey('ParentFolderId')
+            ? json['ParentFolderId'] as String
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        modifiedTimestamp: json.containsKey('ModifiedTimestamp')
+            ? DateTime.parse(json['ModifiedTimestamp'])
+            : null,
+        latestVersionMetadata: json.containsKey('LatestVersionMetadata')
+            ? DocumentVersionMetadata.fromJson(json['LatestVersionMetadata'])
+            : null,
+        resourceState: json.containsKey('ResourceState')
+            ? json['ResourceState'] as String
+            : null,
+        labels: json.containsKey('Labels')
+            ? (json['Labels'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Describes a version of a document.
@@ -1397,7 +1899,39 @@ class DocumentVersionMetadata {
     this.source,
   });
   static DocumentVersionMetadata fromJson(Map<String, dynamic> json) =>
-      DocumentVersionMetadata();
+      DocumentVersionMetadata(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        size: json.containsKey('Size') ? BigInt.from(json['Size']) : null,
+        signature:
+            json.containsKey('Signature') ? json['Signature'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        modifiedTimestamp: json.containsKey('ModifiedTimestamp')
+            ? DateTime.parse(json['ModifiedTimestamp'])
+            : null,
+        contentCreatedTimestamp: json.containsKey('ContentCreatedTimestamp')
+            ? DateTime.parse(json['ContentCreatedTimestamp'])
+            : null,
+        contentModifiedTimestamp: json.containsKey('ContentModifiedTimestamp')
+            ? DateTime.parse(json['ContentModifiedTimestamp'])
+            : null,
+        creatorId:
+            json.containsKey('CreatorId') ? json['CreatorId'] as String : null,
+        thumbnail: json.containsKey('Thumbnail')
+            ? (json['Thumbnail'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        source: json.containsKey('Source')
+            ? (json['Source'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Describes a folder.
@@ -1449,7 +1983,33 @@ class FolderMetadata {
     this.size,
     this.latestVersionSize,
   });
-  static FolderMetadata fromJson(Map<String, dynamic> json) => FolderMetadata();
+  static FolderMetadata fromJson(Map<String, dynamic> json) => FolderMetadata(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        creatorId:
+            json.containsKey('CreatorId') ? json['CreatorId'] as String : null,
+        parentFolderId: json.containsKey('ParentFolderId')
+            ? json['ParentFolderId'] as String
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        modifiedTimestamp: json.containsKey('ModifiedTimestamp')
+            ? DateTime.parse(json['ModifiedTimestamp'])
+            : null,
+        resourceState: json.containsKey('ResourceState')
+            ? json['ResourceState'] as String
+            : null,
+        signature:
+            json.containsKey('Signature') ? json['Signature'] as String : null,
+        labels: json.containsKey('Labels')
+            ? (json['Labels'] as List).map((e) => e as String).toList()
+            : null,
+        size: json.containsKey('Size') ? BigInt.from(json['Size']) : null,
+        latestVersionSize: json.containsKey('LatestVersionSize')
+            ? BigInt.from(json['LatestVersionSize'])
+            : null,
+      );
 }
 
 class GetCurrentUserResponse {
@@ -1460,7 +2020,9 @@ class GetCurrentUserResponse {
     this.user,
   });
   static GetCurrentUserResponse fromJson(Map<String, dynamic> json) =>
-      GetCurrentUserResponse();
+      GetCurrentUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+      );
 }
 
 class GetDocumentPathResponse {
@@ -1471,7 +2033,11 @@ class GetDocumentPathResponse {
     this.path,
   });
   static GetDocumentPathResponse fromJson(Map<String, dynamic> json) =>
-      GetDocumentPathResponse();
+      GetDocumentPathResponse(
+        path: json.containsKey('Path')
+            ? ResourcePath.fromJson(json['Path'])
+            : null,
+      );
 }
 
 class GetDocumentResponse {
@@ -1486,7 +2052,15 @@ class GetDocumentResponse {
     this.customMetadata,
   });
   static GetDocumentResponse fromJson(Map<String, dynamic> json) =>
-      GetDocumentResponse();
+      GetDocumentResponse(
+        metadata: json.containsKey('Metadata')
+            ? DocumentMetadata.fromJson(json['Metadata'])
+            : null,
+        customMetadata: json.containsKey('CustomMetadata')
+            ? (json['CustomMetadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetDocumentVersionResponse {
@@ -1501,7 +2075,15 @@ class GetDocumentVersionResponse {
     this.customMetadata,
   });
   static GetDocumentVersionResponse fromJson(Map<String, dynamic> json) =>
-      GetDocumentVersionResponse();
+      GetDocumentVersionResponse(
+        metadata: json.containsKey('Metadata')
+            ? DocumentVersionMetadata.fromJson(json['Metadata'])
+            : null,
+        customMetadata: json.containsKey('CustomMetadata')
+            ? (json['CustomMetadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetFolderPathResponse {
@@ -1512,7 +2094,11 @@ class GetFolderPathResponse {
     this.path,
   });
   static GetFolderPathResponse fromJson(Map<String, dynamic> json) =>
-      GetFolderPathResponse();
+      GetFolderPathResponse(
+        path: json.containsKey('Path')
+            ? ResourcePath.fromJson(json['Path'])
+            : null,
+      );
 }
 
 class GetFolderResponse {
@@ -1527,7 +2113,15 @@ class GetFolderResponse {
     this.customMetadata,
   });
   static GetFolderResponse fromJson(Map<String, dynamic> json) =>
-      GetFolderResponse();
+      GetFolderResponse(
+        metadata: json.containsKey('Metadata')
+            ? FolderMetadata.fromJson(json['Metadata'])
+            : null,
+        customMetadata: json.containsKey('CustomMetadata')
+            ? (json['CustomMetadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetResourcesResponse {
@@ -1547,7 +2141,19 @@ class GetResourcesResponse {
     this.marker,
   });
   static GetResourcesResponse fromJson(Map<String, dynamic> json) =>
-      GetResourcesResponse();
+      GetResourcesResponse(
+        folders: json.containsKey('Folders')
+            ? (json['Folders'] as List)
+                .map((e) => FolderMetadata.fromJson(e))
+                .toList()
+            : null,
+        documents: json.containsKey('Documents')
+            ? (json['Documents'] as List)
+                .map((e) => DocumentMetadata.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Describes the metadata of a user group.
@@ -1562,7 +2168,10 @@ class GroupMetadata {
     this.id,
     this.name,
   });
-  static GroupMetadata fromJson(Map<String, dynamic> json) => GroupMetadata();
+  static GroupMetadata fromJson(Map<String, dynamic> json) => GroupMetadata(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class InitiateDocumentVersionUploadResponse {
@@ -1578,7 +2187,14 @@ class InitiateDocumentVersionUploadResponse {
   });
   static InitiateDocumentVersionUploadResponse fromJson(
           Map<String, dynamic> json) =>
-      InitiateDocumentVersionUploadResponse();
+      InitiateDocumentVersionUploadResponse(
+        metadata: json.containsKey('Metadata')
+            ? DocumentMetadata.fromJson(json['Metadata'])
+            : null,
+        uploadMetadata: json.containsKey('UploadMetadata')
+            ? UploadMetadata.fromJson(json['UploadMetadata'])
+            : null,
+      );
 }
 
 /// Set of options which defines notification preferences of given action.
@@ -1594,6 +2210,7 @@ class NotificationOptions {
     this.sendEmail,
     this.emailMessage,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the users or user groups.
@@ -1608,7 +2225,18 @@ class Participants {
     this.users,
     this.groups,
   });
-  static Participants fromJson(Map<String, dynamic> json) => Participants();
+  static Participants fromJson(Map<String, dynamic> json) => Participants(
+        users: json.containsKey('Users')
+            ? (json['Users'] as List)
+                .map((e) => UserMetadata.fromJson(e))
+                .toList()
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupMetadata.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the permissions.
@@ -1623,7 +2251,10 @@ class PermissionInfo {
     this.role,
     this.type,
   });
-  static PermissionInfo fromJson(Map<String, dynamic> json) => PermissionInfo();
+  static PermissionInfo fromJson(Map<String, dynamic> json) => PermissionInfo(
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Describes a resource.
@@ -1642,7 +2273,15 @@ class Principal {
     this.type,
     this.roles,
   });
-  static Principal fromJson(Map<String, dynamic> json) => Principal();
+  static Principal fromJson(Map<String, dynamic> json) => Principal(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        roles: json.containsKey('Roles')
+            ? (json['Roles'] as List)
+                .map((e) => PermissionInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the metadata of a resource.
@@ -1679,7 +2318,21 @@ class ResourceMetadata {
     this.parentId,
   });
   static ResourceMetadata fromJson(Map<String, dynamic> json) =>
-      ResourceMetadata();
+      ResourceMetadata(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        originalName: json.containsKey('OriginalName')
+            ? json['OriginalName'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        owner: json.containsKey('Owner')
+            ? UserMetadata.fromJson(json['Owner'])
+            : null,
+        parentId:
+            json.containsKey('ParentId') ? json['ParentId'] as String : null,
+      );
 }
 
 /// Describes the path information of a resource.
@@ -1690,7 +2343,13 @@ class ResourcePath {
   ResourcePath({
     this.components,
   });
-  static ResourcePath fromJson(Map<String, dynamic> json) => ResourcePath();
+  static ResourcePath fromJson(Map<String, dynamic> json) => ResourcePath(
+        components: json.containsKey('Components')
+            ? (json['Components'] as List)
+                .map((e) => ResourcePathComponent.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the resource path.
@@ -1706,7 +2365,10 @@ class ResourcePathComponent {
     this.name,
   });
   static ResourcePathComponent fromJson(Map<String, dynamic> json) =>
-      ResourcePathComponent();
+      ResourcePathComponent(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Describes the recipient type and ID, if available.
@@ -1725,6 +2387,7 @@ class SharePrincipal {
     @required this.type,
     @required this.role,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the share results of a resource.
@@ -1755,7 +2418,20 @@ class ShareResult {
     this.shareId,
     this.statusMessage,
   });
-  static ShareResult fromJson(Map<String, dynamic> json) => ShareResult();
+  static ShareResult fromJson(Map<String, dynamic> json) => ShareResult(
+        principalId: json.containsKey('PrincipalId')
+            ? json['PrincipalId'] as String
+            : null,
+        inviteePrincipalId: json.containsKey('InviteePrincipalId')
+            ? json['InviteePrincipalId'] as String
+            : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        shareId: json.containsKey('ShareId') ? json['ShareId'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Describes the storage for a user.
@@ -1770,8 +2446,15 @@ class StorageRuleType {
     this.storageAllocatedInBytes,
     this.storageType,
   });
-  static StorageRuleType fromJson(Map<String, dynamic> json) =>
-      StorageRuleType();
+  static StorageRuleType fromJson(Map<String, dynamic> json) => StorageRuleType(
+        storageAllocatedInBytes: json.containsKey('StorageAllocatedInBytes')
+            ? BigInt.from(json['StorageAllocatedInBytes'])
+            : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a subscription.
@@ -1790,7 +2473,15 @@ class Subscription {
     this.endPoint,
     this.protocol,
   });
-  static Subscription fromJson(Map<String, dynamic> json) => Subscription();
+  static Subscription fromJson(Map<String, dynamic> json) => Subscription(
+        subscriptionId: json.containsKey('SubscriptionId')
+            ? json['SubscriptionId'] as String
+            : null,
+        endPoint:
+            json.containsKey('EndPoint') ? json['EndPoint'] as String : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+      );
 }
 
 class UpdateUserResponse {
@@ -1801,7 +2492,9 @@ class UpdateUserResponse {
     this.user,
   });
   static UpdateUserResponse fromJson(Map<String, dynamic> json) =>
-      UpdateUserResponse();
+      UpdateUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+      );
 }
 
 /// Describes the upload.
@@ -1816,7 +2509,14 @@ class UploadMetadata {
     this.uploadUrl,
     this.signedHeaders,
   });
-  static UploadMetadata fromJson(Map<String, dynamic> json) => UploadMetadata();
+  static UploadMetadata fromJson(Map<String, dynamic> json) => UploadMetadata(
+        uploadUrl:
+            json.containsKey('UploadUrl') ? json['UploadUrl'] as String : null,
+        signedHeaders: json.containsKey('SignedHeaders')
+            ? (json['SignedHeaders'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Describes a user.
@@ -1883,7 +2583,41 @@ class User {
     this.locale,
     this.storage,
   });
-  static User fromJson(Map<String, dynamic> json) => User();
+  static User fromJson(Map<String, dynamic> json) => User(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        emailAddress: json.containsKey('EmailAddress')
+            ? json['EmailAddress'] as String
+            : null,
+        givenName:
+            json.containsKey('GivenName') ? json['GivenName'] as String : null,
+        surname: json.containsKey('Surname') ? json['Surname'] as String : null,
+        organizationId: json.containsKey('OrganizationId')
+            ? json['OrganizationId'] as String
+            : null,
+        rootFolderId: json.containsKey('RootFolderId')
+            ? json['RootFolderId'] as String
+            : null,
+        recycleBinFolderId: json.containsKey('RecycleBinFolderId')
+            ? json['RecycleBinFolderId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        modifiedTimestamp: json.containsKey('ModifiedTimestamp')
+            ? DateTime.parse(json['ModifiedTimestamp'])
+            : null,
+        timeZoneId: json.containsKey('TimeZoneId')
+            ? json['TimeZoneId'] as String
+            : null,
+        locale: json.containsKey('Locale') ? json['Locale'] as String : null,
+        storage: json.containsKey('Storage')
+            ? UserStorageMetadata.fromJson(json['Storage'])
+            : null,
+      );
 }
 
 /// Describes the metadata of the user.
@@ -1910,7 +2644,17 @@ class UserMetadata {
     this.surname,
     this.emailAddress,
   });
-  static UserMetadata fromJson(Map<String, dynamic> json) => UserMetadata();
+  static UserMetadata fromJson(Map<String, dynamic> json) => UserMetadata(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        givenName:
+            json.containsKey('GivenName') ? json['GivenName'] as String : null,
+        surname: json.containsKey('Surname') ? json['Surname'] as String : null,
+        emailAddress: json.containsKey('EmailAddress')
+            ? json['EmailAddress'] as String
+            : null,
+      );
 }
 
 /// Describes the storage for a user.
@@ -1926,5 +2670,12 @@ class UserStorageMetadata {
     this.storageRule,
   });
   static UserStorageMetadata fromJson(Map<String, dynamic> json) =>
-      UserStorageMetadata();
+      UserStorageMetadata(
+        storageUtilizedInBytes: json.containsKey('StorageUtilizedInBytes')
+            ? BigInt.from(json['StorageUtilizedInBytes'])
+            : null,
+        storageRule: json.containsKey('StorageRule')
+            ? StorageRuleType.fromJson(json['StorageRule'])
+            : null,
+      );
 }

@@ -9,6 +9,9 @@ import 'package:meta/meta.dart';
 /// need it. For more information, see the
 /// [User Guide](https://docs.aws.amazon.com/efs/latest/ug/api-reference.html).
 class EfsApi {
+  final _client;
+  EfsApi(client) : _client = client.configured('EFS', serializer: 'rest-json');
+
   /// Creates a new, empty file system. The operation requires a creation token
   /// in the request that Amazon EFS uses to ensure idempotent creation (calling
   /// the operation with same creation token has no effect). If a file system
@@ -128,7 +131,17 @@ class EfsApi {
       String throughputMode,
       double provisionedThroughputInMibps,
       List<Tag> tags}) async {
-    return FileSystemDescription.fromJson({});
+    var response_ = await _client.send('CreateFileSystem', {
+      'CreationToken': creationToken,
+      if (performanceMode != null) 'PerformanceMode': performanceMode,
+      if (encrypted != null) 'Encrypted': encrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (throughputMode != null) 'ThroughputMode': throughputMode,
+      if (provisionedThroughputInMibps != null)
+        'ProvisionedThroughputInMibps': provisionedThroughputInMibps,
+      if (tags != null) 'Tags': tags,
+    });
+    return FileSystemDescription.fromJson(response_);
   }
 
   /// Creates a mount target for a file system. You can then mount the file
@@ -254,7 +267,13 @@ class EfsApi {
       @required String subnetId,
       String ipAddress,
       List<String> securityGroups}) async {
-    return MountTargetDescription.fromJson({});
+    var response_ = await _client.send('CreateMountTarget', {
+      'FileSystemId': fileSystemId,
+      'SubnetId': subnetId,
+      if (ipAddress != null) 'IpAddress': ipAddress,
+      if (securityGroups != null) 'SecurityGroups': securityGroups,
+    });
+    return MountTargetDescription.fromJson(response_);
   }
 
   /// Creates or overwrites tags associated with a file system. Each tag is a
@@ -273,7 +292,12 @@ class EfsApi {
   /// [tags]: An array of `Tag` objects to add. Each `Tag` object is a key-value
   /// pair.
   Future<void> createTags(
-      {@required String fileSystemId, @required List<Tag> tags}) async {}
+      {@required String fileSystemId, @required List<Tag> tags}) async {
+    await _client.send('CreateTags', {
+      'FileSystemId': fileSystemId,
+      'Tags': tags,
+    });
+  }
 
   /// Deletes a file system, permanently severing access to its contents. Upon
   /// return, the file system no longer exists and you can't access any contents
@@ -294,7 +318,11 @@ class EfsApi {
   /// `elasticfilesystem:DeleteFileSystem` action.
   ///
   /// [fileSystemId]: The ID of the file system you want to delete.
-  Future<void> deleteFileSystem(String fileSystemId) async {}
+  Future<void> deleteFileSystem(String fileSystemId) async {
+    await _client.send('DeleteFileSystem', {
+      'FileSystemId': fileSystemId,
+    });
+  }
 
   /// Deletes the specified mount target.
   ///
@@ -325,7 +353,11 @@ class EfsApi {
   /// *    `ec2:DeleteNetworkInterface`
   ///
   /// [mountTargetId]: The ID of the mount target to delete (String).
-  Future<void> deleteMountTarget(String mountTargetId) async {}
+  Future<void> deleteMountTarget(String mountTargetId) async {
+    await _client.send('DeleteMountTarget', {
+      'MountTargetId': mountTargetId,
+    });
+  }
 
   /// Deletes the specified tags from a file system. If the `DeleteTags` request
   /// includes a tag key that doesn't exist, Amazon EFS ignores it and doesn't
@@ -342,7 +374,12 @@ class EfsApi {
   ///
   /// [tagKeys]: A list of tag keys to delete.
   Future<void> deleteTags(
-      {@required String fileSystemId, @required List<String> tagKeys}) async {}
+      {@required String fileSystemId, @required List<String> tagKeys}) async {
+    await _client.send('DeleteTags', {
+      'FileSystemId': fileSystemId,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Returns the description of a specific Amazon EFS file system if either the
   /// file system `CreationToken` or the `FileSystemId` is provided. Otherwise,
@@ -389,7 +426,13 @@ class EfsApi {
       String marker,
       String creationToken,
       String fileSystemId}) async {
-    return DescribeFileSystemsResponse.fromJson({});
+    var response_ = await _client.send('DescribeFileSystems', {
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (marker != null) 'Marker': marker,
+      if (creationToken != null) 'CreationToken': creationToken,
+      if (fileSystemId != null) 'FileSystemId': fileSystemId,
+    });
+    return DescribeFileSystemsResponse.fromJson(response_);
   }
 
   /// Returns the current `LifecycleConfiguration` object for the specified
@@ -406,7 +449,10 @@ class EfsApi {
   /// object you want to retrieve (String).
   Future<LifecycleConfigurationDescription> describeLifecycleConfiguration(
       String fileSystemId) async {
-    return LifecycleConfigurationDescription.fromJson({});
+    var response_ = await _client.send('DescribeLifecycleConfiguration', {
+      'FileSystemId': fileSystemId,
+    });
+    return LifecycleConfigurationDescription.fromJson(response_);
   }
 
   /// Returns the security groups currently in effect for a mount target. This
@@ -425,7 +471,10 @@ class EfsApi {
   /// to retrieve.
   Future<DescribeMountTargetSecurityGroupsResponse>
       describeMountTargetSecurityGroups(String mountTargetId) async {
-    return DescribeMountTargetSecurityGroupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeMountTargetSecurityGroups', {
+      'MountTargetId': mountTargetId,
+    });
+    return DescribeMountTargetSecurityGroupsResponse.fromJson(response_);
   }
 
   /// Returns the descriptions of all the current mount targets, or a specific
@@ -459,7 +508,13 @@ class EfsApi {
       String marker,
       String fileSystemId,
       String mountTargetId}) async {
-    return DescribeMountTargetsResponse.fromJson({});
+    var response_ = await _client.send('DescribeMountTargets', {
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (marker != null) 'Marker': marker,
+      if (fileSystemId != null) 'FileSystemId': fileSystemId,
+      if (mountTargetId != null) 'MountTargetId': mountTargetId,
+    });
+    return DescribeMountTargetsResponse.fromJson(response_);
   }
 
   /// Returns the tags associated with a file system. The order of tags returned
@@ -483,7 +538,12 @@ class EfsApi {
   /// retrieve.
   Future<DescribeTagsResponse> describeTags(String fileSystemId,
       {int maxItems, String marker}) async {
-    return DescribeTagsResponse.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (marker != null) 'Marker': marker,
+      'FileSystemId': fileSystemId,
+    });
+    return DescribeTagsResponse.fromJson(response_);
   }
 
   /// Modifies the set of security groups in effect for a mount target.
@@ -509,7 +569,12 @@ class EfsApi {
   ///
   /// [securityGroups]: An array of up to five VPC security group IDs.
   Future<void> modifyMountTargetSecurityGroups(String mountTargetId,
-      {List<String> securityGroups}) async {}
+      {List<String> securityGroups}) async {
+    await _client.send('ModifyMountTargetSecurityGroups', {
+      'MountTargetId': mountTargetId,
+      if (securityGroups != null) 'SecurityGroups': securityGroups,
+    });
+  }
 
   /// Enables lifecycle management by creating a new `LifecycleConfiguration`
   /// object. A `LifecycleConfiguration` object defines when files in an Amazon
@@ -552,7 +617,11 @@ class EfsApi {
   Future<LifecycleConfigurationDescription> putLifecycleConfiguration(
       {@required String fileSystemId,
       @required List<LifecyclePolicy> lifecyclePolicies}) async {
-    return LifecycleConfigurationDescription.fromJson({});
+    var response_ = await _client.send('PutLifecycleConfiguration', {
+      'FileSystemId': fileSystemId,
+      'LifecyclePolicies': lifecyclePolicies,
+    });
+    return LifecycleConfigurationDescription.fromJson(response_);
   }
 
   /// Updates the throughput mode or the amount of provisioned throughput of an
@@ -573,7 +642,13 @@ class EfsApi {
   /// your file system, you don't need to provide this value in your request.
   Future<FileSystemDescription> updateFileSystem(String fileSystemId,
       {String throughputMode, double provisionedThroughputInMibps}) async {
-    return FileSystemDescription.fromJson({});
+    var response_ = await _client.send('UpdateFileSystem', {
+      'FileSystemId': fileSystemId,
+      if (throughputMode != null) 'ThroughputMode': throughputMode,
+      if (provisionedThroughputInMibps != null)
+        'ProvisionedThroughputInMibps': provisionedThroughputInMibps,
+    });
+    return FileSystemDescription.fromJson(response_);
   }
 }
 
@@ -595,7 +670,17 @@ class DescribeFileSystemsResponse {
     this.nextMarker,
   });
   static DescribeFileSystemsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeFileSystemsResponse();
+      DescribeFileSystemsResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        fileSystems: json.containsKey('FileSystems')
+            ? (json['FileSystems'] as List)
+                .map((e) => FileSystemDescription.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeMountTargetSecurityGroupsResponse {
@@ -607,7 +692,10 @@ class DescribeMountTargetSecurityGroupsResponse {
   });
   static DescribeMountTargetSecurityGroupsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeMountTargetSecurityGroupsResponse();
+      DescribeMountTargetSecurityGroupsResponse(
+        securityGroups:
+            (json['SecurityGroups'] as List).map((e) => e as String).toList(),
+      );
 }
 
 class DescribeMountTargetsResponse {
@@ -630,7 +718,17 @@ class DescribeMountTargetsResponse {
     this.nextMarker,
   });
   static DescribeMountTargetsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeMountTargetsResponse();
+      DescribeMountTargetsResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        mountTargets: json.containsKey('MountTargets')
+            ? (json['MountTargets'] as List)
+                .map((e) => MountTargetDescription.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeTagsResponse {
@@ -652,7 +750,13 @@ class DescribeTagsResponse {
     this.nextMarker,
   });
   static DescribeTagsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTagsResponse();
+      DescribeTagsResponse(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        tags: (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList(),
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 /// A description of the file system.
@@ -745,7 +849,29 @@ class FileSystemDescription {
     @required this.tags,
   });
   static FileSystemDescription fromJson(Map<String, dynamic> json) =>
-      FileSystemDescription();
+      FileSystemDescription(
+        ownerId: json['OwnerId'] as String,
+        creationToken: json['CreationToken'] as String,
+        fileSystemId: json['FileSystemId'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        lifeCycleState: json['LifeCycleState'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        numberOfMountTargets: json['NumberOfMountTargets'] as int,
+        sizeInBytes: FileSystemSize.fromJson(json['SizeInBytes']),
+        performanceMode: json['PerformanceMode'] as String,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        throughputMode: json.containsKey('ThroughputMode')
+            ? json['ThroughputMode'] as String
+            : null,
+        provisionedThroughputInMibps:
+            json.containsKey('ProvisionedThroughputInMibps')
+                ? json['ProvisionedThroughputInMibps'] as double
+                : null,
+        tags: (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList(),
+      );
 }
 
 /// The latest known metered size (in bytes) of data stored in the file system,
@@ -780,7 +906,18 @@ class FileSystemSize {
     this.valueInIA,
     this.valueInStandard,
   });
-  static FileSystemSize fromJson(Map<String, dynamic> json) => FileSystemSize();
+  static FileSystemSize fromJson(Map<String, dynamic> json) => FileSystemSize(
+        value: BigInt.from(json['Value']),
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+        valueInIA: json.containsKey('ValueInIA')
+            ? BigInt.from(json['ValueInIA'])
+            : null,
+        valueInStandard: json.containsKey('ValueInStandard')
+            ? BigInt.from(json['ValueInStandard'])
+            : null,
+      );
 }
 
 class LifecycleConfigurationDescription {
@@ -793,7 +930,13 @@ class LifecycleConfigurationDescription {
   });
   static LifecycleConfigurationDescription fromJson(
           Map<String, dynamic> json) =>
-      LifecycleConfigurationDescription();
+      LifecycleConfigurationDescription(
+        lifecyclePolicies: json.containsKey('LifecyclePolicies')
+            ? (json['LifecyclePolicies'] as List)
+                .map((e) => LifecyclePolicy.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a policy used by EFS lifecycle management to transition files to
@@ -808,8 +951,12 @@ class LifecyclePolicy {
   LifecyclePolicy({
     this.transitionToIA,
   });
-  static LifecyclePolicy fromJson(Map<String, dynamic> json) =>
-      LifecyclePolicy();
+  static LifecyclePolicy fromJson(Map<String, dynamic> json) => LifecyclePolicy(
+        transitionToIA: json.containsKey('TransitionToIA')
+            ? json['TransitionToIA'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a description of a mount target.
@@ -846,7 +993,18 @@ class MountTargetDescription {
     this.networkInterfaceId,
   });
   static MountTargetDescription fromJson(Map<String, dynamic> json) =>
-      MountTargetDescription();
+      MountTargetDescription(
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        mountTargetId: json['MountTargetId'] as String,
+        fileSystemId: json['FileSystemId'] as String,
+        subnetId: json['SubnetId'] as String,
+        lifeCycleState: json['LifeCycleState'] as String,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+      );
 }
 
 /// A tag is a key-value pair. Allowed characters are letters, white space, and
@@ -863,5 +1021,9 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

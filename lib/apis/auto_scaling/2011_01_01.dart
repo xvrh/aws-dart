@@ -11,6 +11,10 @@ import 'package:meta/meta.dart';
 /// required permissions for Amazon EC2 Auto Scaling actions, see the
 /// [Amazon EC2 Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html).
 class AutoScalingApi {
+  final _client;
+  AutoScalingApi(client)
+      : _client = client.configured('Auto Scaling', serializer: 'query');
+
   /// Attaches one or more EC2 instances to the specified Auto Scaling group.
   ///
   /// When you attach instances, Amazon EC2 Auto Scaling increases the desired
@@ -32,7 +36,12 @@ class AutoScalingApi {
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
   Future<void> attachInstances(String autoScalingGroupName,
-      {List<String> instanceIds}) async {}
+      {List<String> instanceIds}) async {
+    await _client.send('AttachInstances', {
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      'AutoScalingGroupName': autoScalingGroupName,
+    });
+  }
 
   /// Attaches one or more target groups to the specified Auto Scaling group.
   ///
@@ -54,7 +63,11 @@ class AutoScalingApi {
       attachLoadBalancerTargetGroups(
           {@required String autoScalingGroupName,
           @required List<String> targetGroupARNs}) async {
-    return AttachLoadBalancerTargetGroupsResultType.fromJson({});
+    var response_ = await _client.send('AttachLoadBalancerTargetGroups', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'TargetGroupARNs': targetGroupARNs,
+    });
+    return AttachLoadBalancerTargetGroupsResultType.fromJson(response_);
   }
 
   /// Attaches one or more Classic Load Balancers to the specified Auto Scaling
@@ -78,7 +91,11 @@ class AutoScalingApi {
   Future<AttachLoadBalancersResultType> attachLoadBalancers(
       {@required String autoScalingGroupName,
       @required List<String> loadBalancerNames}) async {
-    return AttachLoadBalancersResultType.fromJson({});
+    var response_ = await _client.send('AttachLoadBalancers', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'LoadBalancerNames': loadBalancerNames,
+    });
+    return AttachLoadBalancersResultType.fromJson(response_);
   }
 
   /// Deletes one or more scheduled actions for the specified Auto Scaling
@@ -91,7 +108,11 @@ class AutoScalingApi {
   Future<BatchDeleteScheduledActionAnswer> batchDeleteScheduledAction(
       {@required String autoScalingGroupName,
       @required List<String> scheduledActionNames}) async {
-    return BatchDeleteScheduledActionAnswer.fromJson({});
+    var response_ = await _client.send('BatchDeleteScheduledAction', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'ScheduledActionNames': scheduledActionNames,
+    });
+    return BatchDeleteScheduledActionAnswer.fromJson(response_);
   }
 
   /// Creates or updates one or more scheduled scaling actions for an Auto
@@ -109,7 +130,11 @@ class AutoScalingApi {
           @required
               List<ScheduledUpdateGroupActionRequest>
                   scheduledUpdateGroupActions}) async {
-    return BatchPutScheduledUpdateGroupActionAnswer.fromJson({});
+    var response_ = await _client.send('BatchPutScheduledUpdateGroupAction', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'ScheduledUpdateGroupActions': scheduledUpdateGroupActions,
+    });
+    return BatchPutScheduledUpdateGroupActionAnswer.fromJson(response_);
   }
 
   /// Completes the lifecycle action for the specified token or instance with
@@ -159,7 +184,15 @@ class AutoScalingApi {
       String lifecycleActionToken,
       @required String lifecycleActionResult,
       String instanceId}) async {
-    return CompleteLifecycleActionAnswer.fromJson({});
+    var response_ = await _client.send('CompleteLifecycleAction', {
+      'LifecycleHookName': lifecycleHookName,
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (lifecycleActionToken != null)
+        'LifecycleActionToken': lifecycleActionToken,
+      'LifecycleActionResult': lifecycleActionResult,
+      if (instanceId != null) 'InstanceId': instanceId,
+    });
+    return CompleteLifecycleActionAnswer.fromJson(response_);
   }
 
   /// Creates an Auto Scaling group with the specified name and attributes.
@@ -360,7 +393,38 @@ class AutoScalingApi {
       bool newInstancesProtectedFromScaleIn,
       List<LifecycleHookSpecification> lifecycleHookSpecificationList,
       List<Tag> tags,
-      String serviceLinkedRoleArn}) async {}
+      String serviceLinkedRoleArn}) async {
+    await _client.send('CreateAutoScalingGroup', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (launchConfigurationName != null)
+        'LaunchConfigurationName': launchConfigurationName,
+      if (launchTemplate != null) 'LaunchTemplate': launchTemplate,
+      if (mixedInstancesPolicy != null)
+        'MixedInstancesPolicy': mixedInstancesPolicy,
+      if (instanceId != null) 'InstanceId': instanceId,
+      'MinSize': minSize,
+      'MaxSize': maxSize,
+      if (desiredCapacity != null) 'DesiredCapacity': desiredCapacity,
+      if (defaultCooldown != null) 'DefaultCooldown': defaultCooldown,
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      if (loadBalancerNames != null) 'LoadBalancerNames': loadBalancerNames,
+      if (targetGroupARNs != null) 'TargetGroupARNs': targetGroupARNs,
+      if (healthCheckType != null) 'HealthCheckType': healthCheckType,
+      if (healthCheckGracePeriod != null)
+        'HealthCheckGracePeriod': healthCheckGracePeriod,
+      if (placementGroup != null) 'PlacementGroup': placementGroup,
+      if (vpcZoneIdentifier != null) 'VPCZoneIdentifier': vpcZoneIdentifier,
+      if (terminationPolicies != null)
+        'TerminationPolicies': terminationPolicies,
+      if (newInstancesProtectedFromScaleIn != null)
+        'NewInstancesProtectedFromScaleIn': newInstancesProtectedFromScaleIn,
+      if (lifecycleHookSpecificationList != null)
+        'LifecycleHookSpecificationList': lifecycleHookSpecificationList,
+      if (tags != null) 'Tags': tags,
+      if (serviceLinkedRoleArn != null)
+        'ServiceLinkedRoleARN': serviceLinkedRoleArn,
+    });
+  }
 
   /// Creates a launch configuration.
   ///
@@ -560,7 +624,31 @@ class AutoScalingApi {
       String iamInstanceProfile,
       bool ebsOptimized,
       bool associatePublicIpAddress,
-      String placementTenancy}) async {}
+      String placementTenancy}) async {
+    await _client.send('CreateLaunchConfiguration', {
+      'LaunchConfigurationName': launchConfigurationName,
+      if (imageId != null) 'ImageId': imageId,
+      if (keyName != null) 'KeyName': keyName,
+      if (securityGroups != null) 'SecurityGroups': securityGroups,
+      if (classicLinkVpcId != null) 'ClassicLinkVPCId': classicLinkVpcId,
+      if (classicLinkVpcSecurityGroups != null)
+        'ClassicLinkVPCSecurityGroups': classicLinkVpcSecurityGroups,
+      if (userData != null) 'UserData': userData,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (instanceType != null) 'InstanceType': instanceType,
+      if (kernelId != null) 'KernelId': kernelId,
+      if (ramdiskId != null) 'RamdiskId': ramdiskId,
+      if (blockDeviceMappings != null)
+        'BlockDeviceMappings': blockDeviceMappings,
+      if (instanceMonitoring != null) 'InstanceMonitoring': instanceMonitoring,
+      if (spotPrice != null) 'SpotPrice': spotPrice,
+      if (iamInstanceProfile != null) 'IamInstanceProfile': iamInstanceProfile,
+      if (ebsOptimized != null) 'EbsOptimized': ebsOptimized,
+      if (associatePublicIpAddress != null)
+        'AssociatePublicIpAddress': associatePublicIpAddress,
+      if (placementTenancy != null) 'PlacementTenancy': placementTenancy,
+    });
+  }
 
   /// Creates or updates tags for the specified Auto Scaling group.
   ///
@@ -573,7 +661,11 @@ class AutoScalingApi {
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [tags]: One or more tags.
-  Future<void> createOrUpdateTags(List<Tag> tags) async {}
+  Future<void> createOrUpdateTags(List<Tag> tags) async {
+    await _client.send('CreateOrUpdateTags', {
+      'Tags': tags,
+    });
+  }
 
   /// Deletes the specified Auto Scaling group.
   ///
@@ -600,7 +692,12 @@ class AutoScalingApi {
   /// be terminated. This parameter also deletes any lifecycle actions
   /// associated with the group.
   Future<void> deleteAutoScalingGroup(String autoScalingGroupName,
-      {bool forceDelete}) async {}
+      {bool forceDelete}) async {
+    await _client.send('DeleteAutoScalingGroup', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (forceDelete != null) 'ForceDelete': forceDelete,
+    });
+  }
 
   /// Deletes the specified launch configuration.
   ///
@@ -609,8 +706,11 @@ class AutoScalingApi {
   /// for use.
   ///
   /// [launchConfigurationName]: The name of the launch configuration.
-  Future<void> deleteLaunchConfiguration(
-      String launchConfigurationName) async {}
+  Future<void> deleteLaunchConfiguration(String launchConfigurationName) async {
+    await _client.send('DeleteLaunchConfiguration', {
+      'LaunchConfigurationName': launchConfigurationName,
+    });
+  }
 
   /// Deletes the specified lifecycle hook.
   ///
@@ -623,7 +723,11 @@ class AutoScalingApi {
   Future<DeleteLifecycleHookAnswer> deleteLifecycleHook(
       {@required String lifecycleHookName,
       @required String autoScalingGroupName}) async {
-    return DeleteLifecycleHookAnswer.fromJson({});
+    var response_ = await _client.send('DeleteLifecycleHook', {
+      'LifecycleHookName': lifecycleHookName,
+      'AutoScalingGroupName': autoScalingGroupName,
+    });
+    return DeleteLifecycleHookAnswer.fromJson(response_);
   }
 
   /// Deletes the specified notification.
@@ -634,7 +738,12 @@ class AutoScalingApi {
   /// Notification Service (Amazon SNS) topic.
   Future<void> deleteNotificationConfiguration(
       {@required String autoScalingGroupName,
-      @required String topicArn}) async {}
+      @required String topicArn}) async {
+    await _client.send('DeleteNotificationConfiguration', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'TopicARN': topicArn,
+    });
+  }
 
   /// Deletes the specified scaling policy.
   ///
@@ -650,7 +759,13 @@ class AutoScalingApi {
   ///
   /// [policyName]: The name or Amazon Resource Name (ARN) of the policy.
   Future<void> deletePolicy(String policyName,
-      {String autoScalingGroupName}) async {}
+      {String autoScalingGroupName}) async {
+    await _client.send('DeletePolicy', {
+      if (autoScalingGroupName != null)
+        'AutoScalingGroupName': autoScalingGroupName,
+      'PolicyName': policyName,
+    });
+  }
 
   /// Deletes the specified scheduled action.
   ///
@@ -659,12 +774,21 @@ class AutoScalingApi {
   /// [scheduledActionName]: The name of the action to delete.
   Future<void> deleteScheduledAction(
       {@required String autoScalingGroupName,
-      @required String scheduledActionName}) async {}
+      @required String scheduledActionName}) async {
+    await _client.send('DeleteScheduledAction', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'ScheduledActionName': scheduledActionName,
+    });
+  }
 
   /// Deletes the specified tags.
   ///
   /// [tags]: One or more tags.
-  Future<void> deleteTags(List<Tag> tags) async {}
+  Future<void> deleteTags(List<Tag> tags) async {
+    await _client.send('DeleteTags', {
+      'Tags': tags,
+    });
+  }
 
   /// Describes the current Amazon EC2 Auto Scaling resource limits for your AWS
   /// account.
@@ -673,12 +797,14 @@ class AutoScalingApi {
   /// [Amazon EC2 Auto Scaling Limits](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-account-limits.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   Future<DescribeAccountLimitsAnswer> describeAccountLimits() async {
-    return DescribeAccountLimitsAnswer.fromJson({});
+    var response_ = await _client.send('DescribeAccountLimits', {});
+    return DescribeAccountLimitsAnswer.fromJson(response_);
   }
 
   /// Describes the policy adjustment types for use with PutScalingPolicy.
   Future<DescribeAdjustmentTypesAnswer> describeAdjustmentTypes() async {
-    return DescribeAdjustmentTypesAnswer.fromJson({});
+    var response_ = await _client.send('DescribeAdjustmentTypes', {});
+    return DescribeAdjustmentTypesAnswer.fromJson(response_);
   }
 
   /// Describes one or more Auto Scaling groups.
@@ -699,7 +825,13 @@ class AutoScalingApi {
       {List<String> autoScalingGroupNames,
       String nextToken,
       int maxRecords}) async {
-    return AutoScalingGroupsType.fromJson({});
+    var response_ = await _client.send('DescribeAutoScalingGroups', {
+      if (autoScalingGroupNames != null)
+        'AutoScalingGroupNames': autoScalingGroupNames,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return AutoScalingGroupsType.fromJson(response_);
   }
 
   /// Describes one or more Auto Scaling instances.
@@ -716,14 +848,21 @@ class AutoScalingApi {
   /// this token from a previous call.)
   Future<AutoScalingInstancesType> describeAutoScalingInstances(
       {List<String> instanceIds, int maxRecords, String nextToken}) async {
-    return AutoScalingInstancesType.fromJson({});
+    var response_ = await _client.send('DescribeAutoScalingInstances', {
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return AutoScalingInstancesType.fromJson(response_);
   }
 
   /// Describes the notification types that are supported by Amazon EC2 Auto
   /// Scaling.
   Future<DescribeAutoScalingNotificationTypesAnswer>
       describeAutoScalingNotificationTypes() async {
-    return DescribeAutoScalingNotificationTypesAnswer.fromJson({});
+    var response_ =
+        await _client.send('DescribeAutoScalingNotificationTypes', {});
+    return DescribeAutoScalingNotificationTypesAnswer.fromJson(response_);
   }
 
   /// Describes one or more launch configurations.
@@ -740,7 +879,13 @@ class AutoScalingApi {
       {List<String> launchConfigurationNames,
       String nextToken,
       int maxRecords}) async {
-    return LaunchConfigurationsType.fromJson({});
+    var response_ = await _client.send('DescribeLaunchConfigurations', {
+      if (launchConfigurationNames != null)
+        'LaunchConfigurationNames': launchConfigurationNames,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return LaunchConfigurationsType.fromJson(response_);
   }
 
   /// Describes the available types of lifecycle hooks.
@@ -751,7 +896,8 @@ class AutoScalingApi {
   ///
   /// *   autoscaling:EC2_INSTANCE_TERMINATING
   Future<DescribeLifecycleHookTypesAnswer> describeLifecycleHookTypes() async {
-    return DescribeLifecycleHookTypesAnswer.fromJson({});
+    var response_ = await _client.send('DescribeLifecycleHookTypes', {});
+    return DescribeLifecycleHookTypesAnswer.fromJson(response_);
   }
 
   /// Describes the lifecycle hooks for the specified Auto Scaling group.
@@ -763,7 +909,11 @@ class AutoScalingApi {
   Future<DescribeLifecycleHooksAnswer> describeLifecycleHooks(
       String autoScalingGroupName,
       {List<String> lifecycleHookNames}) async {
-    return DescribeLifecycleHooksAnswer.fromJson({});
+    var response_ = await _client.send('DescribeLifecycleHooks', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (lifecycleHookNames != null) 'LifecycleHookNames': lifecycleHookNames,
+    });
+    return DescribeLifecycleHooksAnswer.fromJson(response_);
   }
 
   /// Describes the target groups for the specified Auto Scaling group.
@@ -778,7 +928,12 @@ class AutoScalingApi {
   Future<DescribeLoadBalancerTargetGroupsResponse>
       describeLoadBalancerTargetGroups(String autoScalingGroupName,
           {String nextToken, int maxRecords}) async {
-    return DescribeLoadBalancerTargetGroupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeLoadBalancerTargetGroups', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return DescribeLoadBalancerTargetGroupsResponse.fromJson(response_);
   }
 
   /// Describes the load balancers for the specified Auto Scaling group.
@@ -798,7 +953,12 @@ class AutoScalingApi {
       String autoScalingGroupName,
       {String nextToken,
       int maxRecords}) async {
-    return DescribeLoadBalancersResponse.fromJson({});
+    var response_ = await _client.send('DescribeLoadBalancers', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return DescribeLoadBalancersResponse.fromJson(response_);
   }
 
   /// Describes the available CloudWatch metrics for Amazon EC2 Auto Scaling.
@@ -807,7 +967,8 @@ class AutoScalingApi {
   /// explicitly request this metric when calling EnableMetricsCollection.
   Future<DescribeMetricCollectionTypesAnswer>
       describeMetricCollectionTypes() async {
-    return DescribeMetricCollectionTypesAnswer.fromJson({});
+    var response_ = await _client.send('DescribeMetricCollectionTypes', {});
+    return DescribeMetricCollectionTypesAnswer.fromJson(response_);
   }
 
   /// Describes the notification actions associated with the specified Auto
@@ -825,7 +986,13 @@ class AutoScalingApi {
           {List<String> autoScalingGroupNames,
           String nextToken,
           int maxRecords}) async {
-    return DescribeNotificationConfigurationsAnswer.fromJson({});
+    var response_ = await _client.send('DescribeNotificationConfigurations', {
+      if (autoScalingGroupNames != null)
+        'AutoScalingGroupNames': autoScalingGroupNames,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return DescribeNotificationConfigurationsAnswer.fromJson(response_);
   }
 
   /// Describes the policies for the specified Auto Scaling group.
@@ -851,7 +1018,15 @@ class AutoScalingApi {
       List<String> policyTypes,
       String nextToken,
       int maxRecords}) async {
-    return PoliciesType.fromJson({});
+    var response_ = await _client.send('DescribePolicies', {
+      if (autoScalingGroupName != null)
+        'AutoScalingGroupName': autoScalingGroupName,
+      if (policyNames != null) 'PolicyNames': policyNames,
+      if (policyTypes != null) 'PolicyTypes': policyTypes,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return PoliciesType.fromJson(response_);
   }
 
   /// Describes one or more scaling activities for the specified Auto Scaling
@@ -875,13 +1050,21 @@ class AutoScalingApi {
       String autoScalingGroupName,
       int maxRecords,
       String nextToken}) async {
-    return ActivitiesType.fromJson({});
+    var response_ = await _client.send('DescribeScalingActivities', {
+      if (activityIds != null) 'ActivityIds': activityIds,
+      if (autoScalingGroupName != null)
+        'AutoScalingGroupName': autoScalingGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ActivitiesType.fromJson(response_);
   }
 
   /// Describes the scaling process types for use with ResumeProcesses and
   /// SuspendProcesses.
   Future<ProcessesType> describeScalingProcessTypes() async {
-    return ProcessesType.fromJson({});
+    var response_ = await _client.send('DescribeScalingProcessTypes', {});
+    return ProcessesType.fromJson(response_);
   }
 
   /// Describes the actions scheduled for your Auto Scaling group that haven't
@@ -913,7 +1096,17 @@ class AutoScalingApi {
       DateTime endTime,
       String nextToken,
       int maxRecords}) async {
-    return ScheduledActionsType.fromJson({});
+    var response_ = await _client.send('DescribeScheduledActions', {
+      if (autoScalingGroupName != null)
+        'AutoScalingGroupName': autoScalingGroupName,
+      if (scheduledActionNames != null)
+        'ScheduledActionNames': scheduledActionNames,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return ScheduledActionsType.fromJson(response_);
   }
 
   /// Describes the specified tags.
@@ -938,7 +1131,12 @@ class AutoScalingApi {
   /// default value is `50` and the maximum value is `100`.
   Future<TagsType> describeTags(
       {List<Filter> filters, String nextToken, int maxRecords}) async {
-    return TagsType.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return TagsType.fromJson(response_);
   }
 
   /// Describes the termination policies supported by Amazon EC2 Auto Scaling.
@@ -948,7 +1146,8 @@ class AutoScalingApi {
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   Future<DescribeTerminationPolicyTypesAnswer>
       describeTerminationPolicyTypes() async {
-    return DescribeTerminationPolicyTypesAnswer.fromJson({});
+    var response_ = await _client.send('DescribeTerminationPolicyTypes', {});
+    return DescribeTerminationPolicyTypesAnswer.fromJson(response_);
   }
 
   /// Removes one or more instances from the specified Auto Scaling group.
@@ -979,7 +1178,12 @@ class AutoScalingApi {
       {List<String> instanceIds,
       @required String autoScalingGroupName,
       @required bool shouldDecrementDesiredCapacity}) async {
-    return DetachInstancesAnswer.fromJson({});
+    var response_ = await _client.send('DetachInstances', {
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      'AutoScalingGroupName': autoScalingGroupName,
+      'ShouldDecrementDesiredCapacity': shouldDecrementDesiredCapacity,
+    });
+    return DetachInstancesAnswer.fromJson(response_);
   }
 
   /// Detaches one or more target groups from the specified Auto Scaling group.
@@ -992,7 +1196,11 @@ class AutoScalingApi {
       detachLoadBalancerTargetGroups(
           {@required String autoScalingGroupName,
           @required List<String> targetGroupARNs}) async {
-    return DetachLoadBalancerTargetGroupsResultType.fromJson({});
+    var response_ = await _client.send('DetachLoadBalancerTargetGroups', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'TargetGroupARNs': targetGroupARNs,
+    });
+    return DetachLoadBalancerTargetGroupsResultType.fromJson(response_);
   }
 
   /// Detaches one or more Classic Load Balancers from the specified Auto
@@ -1014,7 +1222,11 @@ class AutoScalingApi {
   Future<DetachLoadBalancersResultType> detachLoadBalancers(
       {@required String autoScalingGroupName,
       @required List<String> loadBalancerNames}) async {
-    return DetachLoadBalancersResultType.fromJson({});
+    var response_ = await _client.send('DetachLoadBalancers', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'LoadBalancerNames': loadBalancerNames,
+    });
+    return DetachLoadBalancersResultType.fromJson(response_);
   }
 
   /// Disables group metrics for the specified Auto Scaling group.
@@ -1040,7 +1252,12 @@ class AutoScalingApi {
   ///
   /// *    `GroupTotalInstances`
   Future<void> disableMetricsCollection(String autoScalingGroupName,
-      {List<String> metrics}) async {}
+      {List<String> metrics}) async {
+    await _client.send('DisableMetricsCollection', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (metrics != null) 'Metrics': metrics,
+    });
+  }
 
   /// Enables group metrics for the specified Auto Scaling group. For more
   /// information, see
@@ -1073,7 +1290,13 @@ class AutoScalingApi {
   Future<void> enableMetricsCollection(
       {@required String autoScalingGroupName,
       List<String> metrics,
-      @required String granularity}) async {}
+      @required String granularity}) async {
+    await _client.send('EnableMetricsCollection', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (metrics != null) 'Metrics': metrics,
+      'Granularity': granularity,
+    });
+  }
 
   /// Moves the specified instances into the standby state.
   ///
@@ -1093,7 +1316,12 @@ class AutoScalingApi {
       {List<String> instanceIds,
       @required String autoScalingGroupName,
       @required bool shouldDecrementDesiredCapacity}) async {
-    return EnterStandbyAnswer.fromJson({});
+    var response_ = await _client.send('EnterStandby', {
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      'AutoScalingGroupName': autoScalingGroupName,
+      'ShouldDecrementDesiredCapacity': shouldDecrementDesiredCapacity,
+    });
+    return EnterStandbyAnswer.fromJson(response_);
   }
 
   /// Executes the specified policy.
@@ -1132,7 +1360,16 @@ class AutoScalingApi {
       {String autoScalingGroupName,
       bool honorCooldown,
       double metricValue,
-      double breachThreshold}) async {}
+      double breachThreshold}) async {
+    await _client.send('ExecutePolicy', {
+      if (autoScalingGroupName != null)
+        'AutoScalingGroupName': autoScalingGroupName,
+      'PolicyName': policyName,
+      if (honorCooldown != null) 'HonorCooldown': honorCooldown,
+      if (metricValue != null) 'MetricValue': metricValue,
+      if (breachThreshold != null) 'BreachThreshold': breachThreshold,
+    });
+  }
 
   /// Moves the specified instances out of the standby state.
   ///
@@ -1146,7 +1383,11 @@ class AutoScalingApi {
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
   Future<ExitStandbyAnswer> exitStandby(String autoScalingGroupName,
       {List<String> instanceIds}) async {
-    return ExitStandbyAnswer.fromJson({});
+    var response_ = await _client.send('ExitStandby', {
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      'AutoScalingGroupName': autoScalingGroupName,
+    });
+    return ExitStandbyAnswer.fromJson(response_);
   }
 
   /// Creates or updates a lifecycle hook for the specified Auto Scaling group.
@@ -1250,7 +1491,20 @@ class AutoScalingApi {
       String notificationMetadata,
       int heartbeatTimeout,
       String defaultResult}) async {
-    return PutLifecycleHookAnswer.fromJson({});
+    var response_ = await _client.send('PutLifecycleHook', {
+      'LifecycleHookName': lifecycleHookName,
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (lifecycleTransition != null)
+        'LifecycleTransition': lifecycleTransition,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (notificationTargetArn != null)
+        'NotificationTargetARN': notificationTargetArn,
+      if (notificationMetadata != null)
+        'NotificationMetadata': notificationMetadata,
+      if (heartbeatTimeout != null) 'HeartbeatTimeout': heartbeatTimeout,
+      if (defaultResult != null) 'DefaultResult': defaultResult,
+    });
+    return PutLifecycleHookAnswer.fromJson(response_);
   }
 
   /// Configures an Auto Scaling group to send notifications when specified
@@ -1274,7 +1528,13 @@ class AutoScalingApi {
   Future<void> putNotificationConfiguration(
       {@required String autoScalingGroupName,
       @required String topicArn,
-      @required List<String> notificationTypes}) async {}
+      @required List<String> notificationTypes}) async {
+    await _client.send('PutNotificationConfiguration', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'TopicARN': topicArn,
+      'NotificationTypes': notificationTypes,
+    });
+  }
 
   /// Creates or updates a scaling policy for an Auto Scaling group. To update
   /// an existing scaling policy, use the existing policy name and set the
@@ -1381,7 +1641,25 @@ class AutoScalingApi {
       List<StepAdjustment> stepAdjustments,
       int estimatedInstanceWarmup,
       TargetTrackingConfiguration targetTrackingConfiguration}) async {
-    return PolicyArnType.fromJson({});
+    var response_ = await _client.send('PutScalingPolicy', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'PolicyName': policyName,
+      if (policyType != null) 'PolicyType': policyType,
+      if (adjustmentType != null) 'AdjustmentType': adjustmentType,
+      if (minAdjustmentStep != null) 'MinAdjustmentStep': minAdjustmentStep,
+      if (minAdjustmentMagnitude != null)
+        'MinAdjustmentMagnitude': minAdjustmentMagnitude,
+      if (scalingAdjustment != null) 'ScalingAdjustment': scalingAdjustment,
+      if (cooldown != null) 'Cooldown': cooldown,
+      if (metricAggregationType != null)
+        'MetricAggregationType': metricAggregationType,
+      if (stepAdjustments != null) 'StepAdjustments': stepAdjustments,
+      if (estimatedInstanceWarmup != null)
+        'EstimatedInstanceWarmup': estimatedInstanceWarmup,
+      if (targetTrackingConfiguration != null)
+        'TargetTrackingConfiguration': targetTrackingConfiguration,
+    });
+    return PolicyArnType.fromJson(response_);
   }
 
   /// Creates or updates a scheduled scaling action for an Auto Scaling group.
@@ -1436,7 +1714,19 @@ class AutoScalingApi {
       String recurrence,
       int minSize,
       int maxSize,
-      int desiredCapacity}) async {}
+      int desiredCapacity}) async {
+    await _client.send('PutScheduledUpdateGroupAction', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'ScheduledActionName': scheduledActionName,
+      if (time != null) 'Time': time,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (recurrence != null) 'Recurrence': recurrence,
+      if (minSize != null) 'MinSize': minSize,
+      if (maxSize != null) 'MaxSize': maxSize,
+      if (desiredCapacity != null) 'DesiredCapacity': desiredCapacity,
+    });
+  }
 
   /// Records a heartbeat for the lifecycle action associated with the specified
   /// token or instance. This extends the timeout by the length of time defined
@@ -1482,7 +1772,14 @@ class AutoScalingApi {
       @required String autoScalingGroupName,
       String lifecycleActionToken,
       String instanceId}) async {
-    return RecordLifecycleActionHeartbeatAnswer.fromJson({});
+    var response_ = await _client.send('RecordLifecycleActionHeartbeat', {
+      'LifecycleHookName': lifecycleHookName,
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (lifecycleActionToken != null)
+        'LifecycleActionToken': lifecycleActionToken,
+      if (instanceId != null) 'InstanceId': instanceId,
+    });
+    return RecordLifecycleActionHeartbeatAnswer.fromJson(response_);
   }
 
   /// Resumes the specified suspended automatic scaling processes, or all
@@ -1513,7 +1810,12 @@ class AutoScalingApi {
   ///
   /// *    `AddToLoadBalancer`
   Future<void> resumeProcesses(String autoScalingGroupName,
-      {List<String> scalingProcesses}) async {}
+      {List<String> scalingProcesses}) async {
+    await _client.send('ResumeProcesses', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (scalingProcesses != null) 'ScalingProcesses': scalingProcesses,
+    });
+  }
 
   /// Sets the size of the specified Auto Scaling group.
   ///
@@ -1534,7 +1836,13 @@ class AutoScalingApi {
   Future<void> setDesiredCapacity(
       {@required String autoScalingGroupName,
       @required int desiredCapacity,
-      bool honorCooldown}) async {}
+      bool honorCooldown}) async {
+    await _client.send('SetDesiredCapacity', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      'DesiredCapacity': desiredCapacity,
+      if (honorCooldown != null) 'HonorCooldown': honorCooldown,
+    });
+  }
 
   /// Sets the health status of the specified instance.
   ///
@@ -1559,7 +1867,14 @@ class AutoScalingApi {
   Future<void> setInstanceHealth(
       {@required String instanceId,
       @required String healthStatus,
-      bool shouldRespectGracePeriod}) async {}
+      bool shouldRespectGracePeriod}) async {
+    await _client.send('SetInstanceHealth', {
+      'InstanceId': instanceId,
+      'HealthStatus': healthStatus,
+      if (shouldRespectGracePeriod != null)
+        'ShouldRespectGracePeriod': shouldRespectGracePeriod,
+    });
+  }
 
   /// Updates the instance protection settings of the specified instances.
   ///
@@ -1578,7 +1893,12 @@ class AutoScalingApi {
       {@required List<String> instanceIds,
       @required String autoScalingGroupName,
       @required bool protectedFromScaleIn}) async {
-    return SetInstanceProtectionAnswer.fromJson({});
+    var response_ = await _client.send('SetInstanceProtection', {
+      'InstanceIds': instanceIds,
+      'AutoScalingGroupName': autoScalingGroupName,
+      'ProtectedFromScaleIn': protectedFromScaleIn,
+    });
+    return SetInstanceProtectionAnswer.fromJson(response_);
   }
 
   /// Suspends the specified automatic scaling processes, or all processes, for
@@ -1614,7 +1934,12 @@ class AutoScalingApi {
   ///
   /// *    `AddToLoadBalancer`
   Future<void> suspendProcesses(String autoScalingGroupName,
-      {List<String> scalingProcesses}) async {}
+      {List<String> scalingProcesses}) async {
+    await _client.send('SuspendProcesses', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (scalingProcesses != null) 'ScalingProcesses': scalingProcesses,
+    });
+  }
 
   /// Terminates the specified instance and optionally adjusts the desired group
   /// size.
@@ -1629,7 +1954,11 @@ class AutoScalingApi {
   Future<ActivityType> terminateInstanceInAutoScalingGroup(
       {@required String instanceId,
       @required bool shouldDecrementDesiredCapacity}) async {
-    return ActivityType.fromJson({});
+    var response_ = await _client.send('TerminateInstanceInAutoScalingGroup', {
+      'InstanceId': instanceId,
+      'ShouldDecrementDesiredCapacity': shouldDecrementDesiredCapacity,
+    });
+    return ActivityType.fromJson(response_);
   }
 
   /// Updates the configuration for the specified Auto Scaling group.
@@ -1800,7 +2129,32 @@ class AutoScalingApi {
       String vpcZoneIdentifier,
       List<String> terminationPolicies,
       bool newInstancesProtectedFromScaleIn,
-      String serviceLinkedRoleArn}) async {}
+      String serviceLinkedRoleArn}) async {
+    await _client.send('UpdateAutoScalingGroup', {
+      'AutoScalingGroupName': autoScalingGroupName,
+      if (launchConfigurationName != null)
+        'LaunchConfigurationName': launchConfigurationName,
+      if (launchTemplate != null) 'LaunchTemplate': launchTemplate,
+      if (mixedInstancesPolicy != null)
+        'MixedInstancesPolicy': mixedInstancesPolicy,
+      if (minSize != null) 'MinSize': minSize,
+      if (maxSize != null) 'MaxSize': maxSize,
+      if (desiredCapacity != null) 'DesiredCapacity': desiredCapacity,
+      if (defaultCooldown != null) 'DefaultCooldown': defaultCooldown,
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      if (healthCheckType != null) 'HealthCheckType': healthCheckType,
+      if (healthCheckGracePeriod != null)
+        'HealthCheckGracePeriod': healthCheckGracePeriod,
+      if (placementGroup != null) 'PlacementGroup': placementGroup,
+      if (vpcZoneIdentifier != null) 'VPCZoneIdentifier': vpcZoneIdentifier,
+      if (terminationPolicies != null)
+        'TerminationPolicies': terminationPolicies,
+      if (newInstancesProtectedFromScaleIn != null)
+        'NewInstancesProtectedFromScaleIn': newInstancesProtectedFromScaleIn,
+      if (serviceLinkedRoleArn != null)
+        'ServiceLinkedRoleARN': serviceLinkedRoleArn,
+    });
+  }
 }
 
 class ActivitiesType {
@@ -1818,7 +2172,13 @@ class ActivitiesType {
     @required this.activities,
     this.nextToken,
   });
-  static ActivitiesType fromJson(Map<String, dynamic> json) => ActivitiesType();
+  static ActivitiesType fromJson(Map<String, dynamic> json) => ActivitiesType(
+        activities: (json['Activities'] as List)
+            .map((e) => Activity.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes scaling activity, which is a long-running process that represents
@@ -1867,7 +2227,24 @@ class Activity {
     this.progress,
     this.details,
   });
-  static Activity fromJson(Map<String, dynamic> json) => Activity();
+  static Activity fromJson(Map<String, dynamic> json) => Activity(
+        activityId: json['ActivityId'] as String,
+        autoScalingGroupName: json['AutoScalingGroupName'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        cause: json['Cause'] as String,
+        startTime: DateTime.parse(json['StartTime']),
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        statusCode: json['StatusCode'] as String,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        progress: json.containsKey('Progress') ? json['Progress'] as int : null,
+        details: json.containsKey('Details') ? json['Details'] as String : null,
+      );
 }
 
 class ActivityType {
@@ -1877,7 +2254,11 @@ class ActivityType {
   ActivityType({
     this.activity,
   });
-  static ActivityType fromJson(Map<String, dynamic> json) => ActivityType();
+  static ActivityType fromJson(Map<String, dynamic> json) => ActivityType(
+        activity: json.containsKey('Activity')
+            ? Activity.fromJson(json['Activity'])
+            : null,
+      );
 }
 
 /// Describes a policy adjustment type.
@@ -1889,7 +2270,11 @@ class AdjustmentType {
   AdjustmentType({
     this.adjustmentType,
   });
-  static AdjustmentType fromJson(Map<String, dynamic> json) => AdjustmentType();
+  static AdjustmentType fromJson(Map<String, dynamic> json) => AdjustmentType(
+        adjustmentType: json.containsKey('AdjustmentType')
+            ? json['AdjustmentType'] as String
+            : null,
+      );
 }
 
 /// Describes an alarm.
@@ -1904,7 +2289,12 @@ class Alarm {
     this.alarmName,
     this.alarmArn,
   });
-  static Alarm fromJson(Map<String, dynamic> json) => Alarm();
+  static Alarm fromJson(Map<String, dynamic> json) => Alarm(
+        alarmName:
+            json.containsKey('AlarmName') ? json['AlarmName'] as String : null,
+        alarmArn:
+            json.containsKey('AlarmARN') ? json['AlarmARN'] as String : null,
+      );
 }
 
 class AttachLoadBalancerTargetGroupsResultType {
@@ -2034,7 +2424,80 @@ class AutoScalingGroup {
     this.serviceLinkedRoleArn,
   });
   static AutoScalingGroup fromJson(Map<String, dynamic> json) =>
-      AutoScalingGroup();
+      AutoScalingGroup(
+        autoScalingGroupName: json['AutoScalingGroupName'] as String,
+        autoScalingGroupArn: json.containsKey('AutoScalingGroupARN')
+            ? json['AutoScalingGroupARN'] as String
+            : null,
+        launchConfigurationName: json.containsKey('LaunchConfigurationName')
+            ? json['LaunchConfigurationName'] as String
+            : null,
+        launchTemplate: json.containsKey('LaunchTemplate')
+            ? LaunchTemplateSpecification.fromJson(json['LaunchTemplate'])
+            : null,
+        mixedInstancesPolicy: json.containsKey('MixedInstancesPolicy')
+            ? MixedInstancesPolicy.fromJson(json['MixedInstancesPolicy'])
+            : null,
+        minSize: json['MinSize'] as int,
+        maxSize: json['MaxSize'] as int,
+        desiredCapacity: json['DesiredCapacity'] as int,
+        defaultCooldown: json['DefaultCooldown'] as int,
+        availabilityZones: (json['AvailabilityZones'] as List)
+            .map((e) => e as String)
+            .toList(),
+        loadBalancerNames: json.containsKey('LoadBalancerNames')
+            ? (json['LoadBalancerNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        targetGroupARNs: json.containsKey('TargetGroupARNs')
+            ? (json['TargetGroupARNs'] as List).map((e) => e as String).toList()
+            : null,
+        healthCheckType: json['HealthCheckType'] as String,
+        healthCheckGracePeriod: json.containsKey('HealthCheckGracePeriod')
+            ? json['HealthCheckGracePeriod'] as int
+            : null,
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+        createdTime: DateTime.parse(json['CreatedTime']),
+        suspendedProcesses: json.containsKey('SuspendedProcesses')
+            ? (json['SuspendedProcesses'] as List)
+                .map((e) => SuspendedProcess.fromJson(e))
+                .toList()
+            : null,
+        placementGroup: json.containsKey('PlacementGroup')
+            ? json['PlacementGroup'] as String
+            : null,
+        vpcZoneIdentifier: json.containsKey('VPCZoneIdentifier')
+            ? json['VPCZoneIdentifier'] as String
+            : null,
+        enabledMetrics: json.containsKey('EnabledMetrics')
+            ? (json['EnabledMetrics'] as List)
+                .map((e) => EnabledMetric.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List)
+                .map((e) => TagDescription.fromJson(e))
+                .toList()
+            : null,
+        terminationPolicies: json.containsKey('TerminationPolicies')
+            ? (json['TerminationPolicies'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        newInstancesProtectedFromScaleIn:
+            json.containsKey('NewInstancesProtectedFromScaleIn')
+                ? json['NewInstancesProtectedFromScaleIn'] as bool
+                : null,
+        serviceLinkedRoleArn: json.containsKey('ServiceLinkedRoleARN')
+            ? json['ServiceLinkedRoleARN'] as String
+            : null,
+      );
 }
 
 class AutoScalingGroupsType {
@@ -2052,7 +2515,13 @@ class AutoScalingGroupsType {
     this.nextToken,
   });
   static AutoScalingGroupsType fromJson(Map<String, dynamic> json) =>
-      AutoScalingGroupsType();
+      AutoScalingGroupsType(
+        autoScalingGroups: (json['AutoScalingGroups'] as List)
+            .map((e) => AutoScalingGroup.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes an EC2 instance associated with an Auto Scaling group.
@@ -2097,7 +2566,20 @@ class AutoScalingInstanceDetails {
     @required this.protectedFromScaleIn,
   });
   static AutoScalingInstanceDetails fromJson(Map<String, dynamic> json) =>
-      AutoScalingInstanceDetails();
+      AutoScalingInstanceDetails(
+        instanceId: json['InstanceId'] as String,
+        autoScalingGroupName: json['AutoScalingGroupName'] as String,
+        availabilityZone: json['AvailabilityZone'] as String,
+        lifecycleState: json['LifecycleState'] as String,
+        healthStatus: json['HealthStatus'] as String,
+        launchConfigurationName: json.containsKey('LaunchConfigurationName')
+            ? json['LaunchConfigurationName'] as String
+            : null,
+        launchTemplate: json.containsKey('LaunchTemplate')
+            ? LaunchTemplateSpecification.fromJson(json['LaunchTemplate'])
+            : null,
+        protectedFromScaleIn: json['ProtectedFromScaleIn'] as bool,
+      );
 }
 
 class AutoScalingInstancesType {
@@ -2115,7 +2597,15 @@ class AutoScalingInstancesType {
     this.nextToken,
   });
   static AutoScalingInstancesType fromJson(Map<String, dynamic> json) =>
-      AutoScalingInstancesType();
+      AutoScalingInstancesType(
+        autoScalingInstances: json.containsKey('AutoScalingInstances')
+            ? (json['AutoScalingInstances'] as List)
+                .map((e) => AutoScalingInstanceDetails.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class BatchDeleteScheduledActionAnswer {
@@ -2127,7 +2617,13 @@ class BatchDeleteScheduledActionAnswer {
     this.failedScheduledActions,
   });
   static BatchDeleteScheduledActionAnswer fromJson(Map<String, dynamic> json) =>
-      BatchDeleteScheduledActionAnswer();
+      BatchDeleteScheduledActionAnswer(
+        failedScheduledActions: json.containsKey('FailedScheduledActions')
+            ? (json['FailedScheduledActions'] as List)
+                .map((e) => FailedScheduledUpdateGroupActionRequest.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchPutScheduledUpdateGroupActionAnswer {
@@ -2141,7 +2637,14 @@ class BatchPutScheduledUpdateGroupActionAnswer {
   });
   static BatchPutScheduledUpdateGroupActionAnswer fromJson(
           Map<String, dynamic> json) =>
-      BatchPutScheduledUpdateGroupActionAnswer();
+      BatchPutScheduledUpdateGroupActionAnswer(
+        failedScheduledUpdateGroupActions: json
+                .containsKey('FailedScheduledUpdateGroupActions')
+            ? (json['FailedScheduledUpdateGroupActions'] as List)
+                .map((e) => FailedScheduledUpdateGroupActionRequest.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a block device mapping.
@@ -2172,7 +2675,16 @@ class BlockDeviceMapping {
     this.noDevice,
   });
   static BlockDeviceMapping fromJson(Map<String, dynamic> json) =>
-      BlockDeviceMapping();
+      BlockDeviceMapping(
+        virtualName: json.containsKey('VirtualName')
+            ? json['VirtualName'] as String
+            : null,
+        deviceName: json['DeviceName'] as String,
+        ebs: json.containsKey('Ebs') ? Ebs.fromJson(json['Ebs']) : null,
+        noDevice:
+            json.containsKey('NoDevice') ? json['NoDevice'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CompleteLifecycleActionAnswer {
@@ -2227,7 +2739,18 @@ class CustomizedMetricSpecification {
     this.unit,
   });
   static CustomizedMetricSpecification fromJson(Map<String, dynamic> json) =>
-      CustomizedMetricSpecification();
+      CustomizedMetricSpecification(
+        metricName: json['MetricName'] as String,
+        namespace: json['Namespace'] as String,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => MetricDimension.fromJson(e))
+                .toList()
+            : null,
+        statistic: json['Statistic'] as String,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteLifecycleHookAnswer {
@@ -2258,7 +2781,23 @@ class DescribeAccountLimitsAnswer {
     this.numberOfLaunchConfigurations,
   });
   static DescribeAccountLimitsAnswer fromJson(Map<String, dynamic> json) =>
-      DescribeAccountLimitsAnswer();
+      DescribeAccountLimitsAnswer(
+        maxNumberOfAutoScalingGroups:
+            json.containsKey('MaxNumberOfAutoScalingGroups')
+                ? json['MaxNumberOfAutoScalingGroups'] as int
+                : null,
+        maxNumberOfLaunchConfigurations:
+            json.containsKey('MaxNumberOfLaunchConfigurations')
+                ? json['MaxNumberOfLaunchConfigurations'] as int
+                : null,
+        numberOfAutoScalingGroups: json.containsKey('NumberOfAutoScalingGroups')
+            ? json['NumberOfAutoScalingGroups'] as int
+            : null,
+        numberOfLaunchConfigurations:
+            json.containsKey('NumberOfLaunchConfigurations')
+                ? json['NumberOfLaunchConfigurations'] as int
+                : null,
+      );
 }
 
 class DescribeAdjustmentTypesAnswer {
@@ -2269,7 +2808,13 @@ class DescribeAdjustmentTypesAnswer {
     this.adjustmentTypes,
   });
   static DescribeAdjustmentTypesAnswer fromJson(Map<String, dynamic> json) =>
-      DescribeAdjustmentTypesAnswer();
+      DescribeAdjustmentTypesAnswer(
+        adjustmentTypes: json.containsKey('AdjustmentTypes')
+            ? (json['AdjustmentTypes'] as List)
+                .map((e) => AdjustmentType.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeAutoScalingNotificationTypesAnswer {
@@ -2281,7 +2826,14 @@ class DescribeAutoScalingNotificationTypesAnswer {
   });
   static DescribeAutoScalingNotificationTypesAnswer fromJson(
           Map<String, dynamic> json) =>
-      DescribeAutoScalingNotificationTypesAnswer();
+      DescribeAutoScalingNotificationTypesAnswer(
+        autoScalingNotificationTypes:
+            json.containsKey('AutoScalingNotificationTypes')
+                ? (json['AutoScalingNotificationTypes'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+      );
 }
 
 class DescribeLifecycleHookTypesAnswer {
@@ -2292,7 +2844,13 @@ class DescribeLifecycleHookTypesAnswer {
     this.lifecycleHookTypes,
   });
   static DescribeLifecycleHookTypesAnswer fromJson(Map<String, dynamic> json) =>
-      DescribeLifecycleHookTypesAnswer();
+      DescribeLifecycleHookTypesAnswer(
+        lifecycleHookTypes: json.containsKey('LifecycleHookTypes')
+            ? (json['LifecycleHookTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class DescribeLifecycleHooksAnswer {
@@ -2303,7 +2861,13 @@ class DescribeLifecycleHooksAnswer {
     this.lifecycleHooks,
   });
   static DescribeLifecycleHooksAnswer fromJson(Map<String, dynamic> json) =>
-      DescribeLifecycleHooksAnswer();
+      DescribeLifecycleHooksAnswer(
+        lifecycleHooks: json.containsKey('LifecycleHooks')
+            ? (json['LifecycleHooks'] as List)
+                .map((e) => LifecycleHook.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeLoadBalancerTargetGroupsResponse {
@@ -2322,7 +2886,15 @@ class DescribeLoadBalancerTargetGroupsResponse {
   });
   static DescribeLoadBalancerTargetGroupsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeLoadBalancerTargetGroupsResponse();
+      DescribeLoadBalancerTargetGroupsResponse(
+        loadBalancerTargetGroups: json.containsKey('LoadBalancerTargetGroups')
+            ? (json['LoadBalancerTargetGroups'] as List)
+                .map((e) => LoadBalancerTargetGroupState.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeLoadBalancersResponse {
@@ -2340,7 +2912,15 @@ class DescribeLoadBalancersResponse {
     this.nextToken,
   });
   static DescribeLoadBalancersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLoadBalancersResponse();
+      DescribeLoadBalancersResponse(
+        loadBalancers: json.containsKey('LoadBalancers')
+            ? (json['LoadBalancers'] as List)
+                .map((e) => LoadBalancerState.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeMetricCollectionTypesAnswer {
@@ -2356,7 +2936,18 @@ class DescribeMetricCollectionTypesAnswer {
   });
   static DescribeMetricCollectionTypesAnswer fromJson(
           Map<String, dynamic> json) =>
-      DescribeMetricCollectionTypesAnswer();
+      DescribeMetricCollectionTypesAnswer(
+        metrics: json.containsKey('Metrics')
+            ? (json['Metrics'] as List)
+                .map((e) => MetricCollectionType.fromJson(e))
+                .toList()
+            : null,
+        granularities: json.containsKey('Granularities')
+            ? (json['Granularities'] as List)
+                .map((e) => MetricGranularityType.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeNotificationConfigurationsAnswer {
@@ -2375,7 +2966,13 @@ class DescribeNotificationConfigurationsAnswer {
   });
   static DescribeNotificationConfigurationsAnswer fromJson(
           Map<String, dynamic> json) =>
-      DescribeNotificationConfigurationsAnswer();
+      DescribeNotificationConfigurationsAnswer(
+        notificationConfigurations: (json['NotificationConfigurations'] as List)
+            .map((e) => NotificationConfiguration.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeTerminationPolicyTypesAnswer {
@@ -2390,7 +2987,13 @@ class DescribeTerminationPolicyTypesAnswer {
   });
   static DescribeTerminationPolicyTypesAnswer fromJson(
           Map<String, dynamic> json) =>
-      DescribeTerminationPolicyTypesAnswer();
+      DescribeTerminationPolicyTypesAnswer(
+        terminationPolicyTypes: json.containsKey('TerminationPolicyTypes')
+            ? (json['TerminationPolicyTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class DetachInstancesAnswer {
@@ -2402,7 +3005,13 @@ class DetachInstancesAnswer {
     this.activities,
   });
   static DetachInstancesAnswer fromJson(Map<String, dynamic> json) =>
-      DetachInstancesAnswer();
+      DetachInstancesAnswer(
+        activities: json.containsKey('Activities')
+            ? (json['Activities'] as List)
+                .map((e) => Activity.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DetachLoadBalancerTargetGroupsResultType {
@@ -2502,7 +3111,23 @@ class Ebs {
     this.iops,
     this.encrypted,
   });
-  static Ebs fromJson(Map<String, dynamic> json) => Ebs();
+  static Ebs fromJson(Map<String, dynamic> json) => Ebs(
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        volumeSize:
+            json.containsKey('VolumeSize') ? json['VolumeSize'] as int : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an enabled metric.
@@ -2533,7 +3158,12 @@ class EnabledMetric {
     this.metric,
     this.granularity,
   });
-  static EnabledMetric fromJson(Map<String, dynamic> json) => EnabledMetric();
+  static EnabledMetric fromJson(Map<String, dynamic> json) => EnabledMetric(
+        metric: json.containsKey('Metric') ? json['Metric'] as String : null,
+        granularity: json.containsKey('Granularity')
+            ? json['Granularity'] as String
+            : null,
+      );
 }
 
 class EnterStandbyAnswer {
@@ -2544,7 +3174,13 @@ class EnterStandbyAnswer {
     this.activities,
   });
   static EnterStandbyAnswer fromJson(Map<String, dynamic> json) =>
-      EnterStandbyAnswer();
+      EnterStandbyAnswer(
+        activities: json.containsKey('Activities')
+            ? (json['Activities'] as List)
+                .map((e) => Activity.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ExitStandbyAnswer {
@@ -2555,7 +3191,13 @@ class ExitStandbyAnswer {
     this.activities,
   });
   static ExitStandbyAnswer fromJson(Map<String, dynamic> json) =>
-      ExitStandbyAnswer();
+      ExitStandbyAnswer(
+        activities: json.containsKey('Activities')
+            ? (json['Activities'] as List)
+                .map((e) => Activity.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a scheduled action that could not be created, updated, or deleted.
@@ -2576,7 +3218,14 @@ class FailedScheduledUpdateGroupActionRequest {
   });
   static FailedScheduledUpdateGroupActionRequest fromJson(
           Map<String, dynamic> json) =>
-      FailedScheduledUpdateGroupActionRequest();
+      FailedScheduledUpdateGroupActionRequest(
+        scheduledActionName: json['ScheduledActionName'] as String,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Describes a filter.
@@ -2592,6 +3241,7 @@ class Filter {
     this.name,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an EC2 instance.
@@ -2631,7 +3281,19 @@ class Instance {
     this.launchTemplate,
     @required this.protectedFromScaleIn,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        instanceId: json['InstanceId'] as String,
+        availabilityZone: json['AvailabilityZone'] as String,
+        lifecycleState: json['LifecycleState'] as String,
+        healthStatus: json['HealthStatus'] as String,
+        launchConfigurationName: json.containsKey('LaunchConfigurationName')
+            ? json['LaunchConfigurationName'] as String
+            : null,
+        launchTemplate: json.containsKey('LaunchTemplate')
+            ? LaunchTemplateSpecification.fromJson(json['LaunchTemplate'])
+            : null,
+        protectedFromScaleIn: json['ProtectedFromScaleIn'] as bool,
+      );
 }
 
 /// Describes whether detailed monitoring is enabled for the Auto Scaling
@@ -2645,7 +3307,10 @@ class InstanceMonitoring {
     this.enabled,
   });
   static InstanceMonitoring fromJson(Map<String, dynamic> json) =>
-      InstanceMonitoring();
+      InstanceMonitoring(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an instances distribution for an Auto Scaling group with
@@ -2727,7 +3392,29 @@ class InstancesDistribution {
     this.spotMaxPrice,
   });
   static InstancesDistribution fromJson(Map<String, dynamic> json) =>
-      InstancesDistribution();
+      InstancesDistribution(
+        onDemandAllocationStrategy:
+            json.containsKey('OnDemandAllocationStrategy')
+                ? json['OnDemandAllocationStrategy'] as String
+                : null,
+        onDemandBaseCapacity: json.containsKey('OnDemandBaseCapacity')
+            ? json['OnDemandBaseCapacity'] as int
+            : null,
+        onDemandPercentageAboveBaseCapacity:
+            json.containsKey('OnDemandPercentageAboveBaseCapacity')
+                ? json['OnDemandPercentageAboveBaseCapacity'] as int
+                : null,
+        spotAllocationStrategy: json.containsKey('SpotAllocationStrategy')
+            ? json['SpotAllocationStrategy'] as String
+            : null,
+        spotInstancePools: json.containsKey('SpotInstancePools')
+            ? json['SpotInstancePools'] as int
+            : null,
+        spotMaxPrice: json.containsKey('SpotMaxPrice')
+            ? json['SpotMaxPrice'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a launch configuration.
@@ -2885,7 +3572,56 @@ class LaunchConfiguration {
     this.placementTenancy,
   });
   static LaunchConfiguration fromJson(Map<String, dynamic> json) =>
-      LaunchConfiguration();
+      LaunchConfiguration(
+        launchConfigurationName: json['LaunchConfigurationName'] as String,
+        launchConfigurationArn: json.containsKey('LaunchConfigurationARN')
+            ? json['LaunchConfigurationARN'] as String
+            : null,
+        imageId: json['ImageId'] as String,
+        keyName: json.containsKey('KeyName') ? json['KeyName'] as String : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        classicLinkVpcId: json.containsKey('ClassicLinkVPCId')
+            ? json['ClassicLinkVPCId'] as String
+            : null,
+        classicLinkVpcSecurityGroups:
+            json.containsKey('ClassicLinkVPCSecurityGroups')
+                ? (json['ClassicLinkVPCSecurityGroups'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        userData:
+            json.containsKey('UserData') ? json['UserData'] as String : null,
+        instanceType: json['InstanceType'] as String,
+        kernelId:
+            json.containsKey('KernelId') ? json['KernelId'] as String : null,
+        ramdiskId:
+            json.containsKey('RamdiskId') ? json['RamdiskId'] as String : null,
+        blockDeviceMappings: json.containsKey('BlockDeviceMappings')
+            ? (json['BlockDeviceMappings'] as List)
+                .map((e) => BlockDeviceMapping.fromJson(e))
+                .toList()
+            : null,
+        instanceMonitoring: json.containsKey('InstanceMonitoring')
+            ? InstanceMonitoring.fromJson(json['InstanceMonitoring'])
+            : null,
+        spotPrice:
+            json.containsKey('SpotPrice') ? json['SpotPrice'] as String : null,
+        iamInstanceProfile: json.containsKey('IamInstanceProfile')
+            ? json['IamInstanceProfile'] as String
+            : null,
+        createdTime: DateTime.parse(json['CreatedTime']),
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? json['EbsOptimized'] as bool
+            : null,
+        associatePublicIpAddress: json.containsKey('AssociatePublicIpAddress')
+            ? json['AssociatePublicIpAddress'] as bool
+            : null,
+        placementTenancy: json.containsKey('PlacementTenancy')
+            ? json['PlacementTenancy'] as String
+            : null,
+      );
 }
 
 class LaunchConfigurationsType {
@@ -2903,7 +3639,13 @@ class LaunchConfigurationsType {
     this.nextToken,
   });
   static LaunchConfigurationsType fromJson(Map<String, dynamic> json) =>
-      LaunchConfigurationsType();
+      LaunchConfigurationsType(
+        launchConfigurations: (json['LaunchConfigurations'] as List)
+            .map((e) => LaunchConfiguration.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes a launch template and overrides.
@@ -2925,7 +3667,19 @@ class LaunchTemplate {
     this.launchTemplateSpecification,
     this.overrides,
   });
-  static LaunchTemplate fromJson(Map<String, dynamic> json) => LaunchTemplate();
+  static LaunchTemplate fromJson(Map<String, dynamic> json) => LaunchTemplate(
+        launchTemplateSpecification:
+            json.containsKey('LaunchTemplateSpecification')
+                ? LaunchTemplateSpecification.fromJson(
+                    json['LaunchTemplateSpecification'])
+                : null,
+        overrides: json.containsKey('Overrides')
+            ? (json['Overrides'] as List)
+                .map((e) => LaunchTemplateOverrides.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an override for a launch template.
@@ -2941,7 +3695,12 @@ class LaunchTemplateOverrides {
     this.instanceType,
   });
   static LaunchTemplateOverrides fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateOverrides();
+      LaunchTemplateOverrides(
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a launch template and the launch template version.
@@ -2972,7 +3731,16 @@ class LaunchTemplateSpecification {
     this.version,
   });
   static LaunchTemplateSpecification fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateSpecification();
+      LaunchTemplateSpecification(
+        launchTemplateId: json.containsKey('LaunchTemplateId')
+            ? json['LaunchTemplateId'] as String
+            : null,
+        launchTemplateName: json.containsKey('LaunchTemplateName')
+            ? json['LaunchTemplateName'] as String
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a lifecycle hook, which tells Amazon EC2 Auto Scaling that you
@@ -3032,7 +3800,33 @@ class LifecycleHook {
     this.globalTimeout,
     this.defaultResult,
   });
-  static LifecycleHook fromJson(Map<String, dynamic> json) => LifecycleHook();
+  static LifecycleHook fromJson(Map<String, dynamic> json) => LifecycleHook(
+        lifecycleHookName: json.containsKey('LifecycleHookName')
+            ? json['LifecycleHookName'] as String
+            : null,
+        autoScalingGroupName: json.containsKey('AutoScalingGroupName')
+            ? json['AutoScalingGroupName'] as String
+            : null,
+        lifecycleTransition: json.containsKey('LifecycleTransition')
+            ? json['LifecycleTransition'] as String
+            : null,
+        notificationTargetArn: json.containsKey('NotificationTargetARN')
+            ? json['NotificationTargetARN'] as String
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+        notificationMetadata: json.containsKey('NotificationMetadata')
+            ? json['NotificationMetadata'] as String
+            : null,
+        heartbeatTimeout: json.containsKey('HeartbeatTimeout')
+            ? json['HeartbeatTimeout'] as int
+            : null,
+        globalTimeout: json.containsKey('GlobalTimeout')
+            ? json['GlobalTimeout'] as int
+            : null,
+        defaultResult: json.containsKey('DefaultResult')
+            ? json['DefaultResult'] as String
+            : null,
+      );
 }
 
 /// Describes a lifecycle hook. Used in combination with CreateAutoScalingGroup.
@@ -3119,6 +3913,7 @@ class LifecycleHookSpecification {
     this.notificationTargetArn,
     this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the state of a Classic Load Balancer.
@@ -3162,7 +3957,12 @@ class LoadBalancerState {
     this.state,
   });
   static LoadBalancerState fromJson(Map<String, dynamic> json) =>
-      LoadBalancerState();
+      LoadBalancerState(
+        loadBalancerName: json.containsKey('LoadBalancerName')
+            ? json['LoadBalancerName'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes the state of a target group.
@@ -3202,7 +4002,13 @@ class LoadBalancerTargetGroupState {
     this.state,
   });
   static LoadBalancerTargetGroupState fromJson(Map<String, dynamic> json) =>
-      LoadBalancerTargetGroupState();
+      LoadBalancerTargetGroupState(
+        loadBalancerTargetGroupArn:
+            json.containsKey('LoadBalancerTargetGroupARN')
+                ? json['LoadBalancerTargetGroupARN'] as String
+                : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Describes a metric.
@@ -3230,7 +4036,9 @@ class MetricCollectionType {
     this.metric,
   });
   static MetricCollectionType fromJson(Map<String, dynamic> json) =>
-      MetricCollectionType();
+      MetricCollectionType(
+        metric: json.containsKey('Metric') ? json['Metric'] as String : null,
+      );
 }
 
 /// Describes the dimension of a metric.
@@ -3245,8 +4053,11 @@ class MetricDimension {
     @required this.name,
     @required this.value,
   });
-  static MetricDimension fromJson(Map<String, dynamic> json) =>
-      MetricDimension();
+  static MetricDimension fromJson(Map<String, dynamic> json) => MetricDimension(
+        name: json['Name'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a granularity of a metric.
@@ -3258,7 +4069,11 @@ class MetricGranularityType {
     this.granularity,
   });
   static MetricGranularityType fromJson(Map<String, dynamic> json) =>
-      MetricGranularityType();
+      MetricGranularityType(
+        granularity: json.containsKey('Granularity')
+            ? json['Granularity'] as String
+            : null,
+      );
 }
 
 /// Describes a mixed instances policy for an Auto Scaling group. With mixed
@@ -3290,7 +4105,15 @@ class MixedInstancesPolicy {
     this.instancesDistribution,
   });
   static MixedInstancesPolicy fromJson(Map<String, dynamic> json) =>
-      MixedInstancesPolicy();
+      MixedInstancesPolicy(
+        launchTemplate: json.containsKey('LaunchTemplate')
+            ? LaunchTemplate.fromJson(json['LaunchTemplate'])
+            : null,
+        instancesDistribution: json.containsKey('InstancesDistribution')
+            ? InstancesDistribution.fromJson(json['InstancesDistribution'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a notification.
@@ -3321,7 +4144,16 @@ class NotificationConfiguration {
     this.notificationType,
   });
   static NotificationConfiguration fromJson(Map<String, dynamic> json) =>
-      NotificationConfiguration();
+      NotificationConfiguration(
+        autoScalingGroupName: json.containsKey('AutoScalingGroupName')
+            ? json['AutoScalingGroupName'] as String
+            : null,
+        topicArn:
+            json.containsKey('TopicARN') ? json['TopicARN'] as String : null,
+        notificationType: json.containsKey('NotificationType')
+            ? json['NotificationType'] as String
+            : null,
+      );
 }
 
 class PoliciesType {
@@ -3338,7 +4170,15 @@ class PoliciesType {
     this.scalingPolicies,
     this.nextToken,
   });
-  static PoliciesType fromJson(Map<String, dynamic> json) => PoliciesType();
+  static PoliciesType fromJson(Map<String, dynamic> json) => PoliciesType(
+        scalingPolicies: json.containsKey('ScalingPolicies')
+            ? (json['ScalingPolicies'] as List)
+                .map((e) => ScalingPolicy.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of PutScalingPolicy.
@@ -3353,7 +4193,13 @@ class PolicyArnType {
     this.policyArn,
     this.alarms,
   });
-  static PolicyArnType fromJson(Map<String, dynamic> json) => PolicyArnType();
+  static PolicyArnType fromJson(Map<String, dynamic> json) => PolicyArnType(
+        policyArn:
+            json.containsKey('PolicyARN') ? json['PolicyARN'] as String : null,
+        alarms: json.containsKey('Alarms')
+            ? (json['Alarms'] as List).map((e) => Alarm.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Represents a predefined metric for a target tracking scaling policy to use
@@ -3396,7 +4242,13 @@ class PredefinedMetricSpecification {
     this.resourceLabel,
   });
   static PredefinedMetricSpecification fromJson(Map<String, dynamic> json) =>
-      PredefinedMetricSpecification();
+      PredefinedMetricSpecification(
+        predefinedMetricType: json['PredefinedMetricType'] as String,
+        resourceLabel: json.containsKey('ResourceLabel')
+            ? json['ResourceLabel'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a process type.
@@ -3427,7 +4279,9 @@ class ProcessType {
   ProcessType({
     @required this.processName,
   });
-  static ProcessType fromJson(Map<String, dynamic> json) => ProcessType();
+  static ProcessType fromJson(Map<String, dynamic> json) => ProcessType(
+        processName: json['ProcessName'] as String,
+      );
 }
 
 class ProcessesType {
@@ -3437,7 +4291,13 @@ class ProcessesType {
   ProcessesType({
     this.processes,
   });
-  static ProcessesType fromJson(Map<String, dynamic> json) => ProcessesType();
+  static ProcessesType fromJson(Map<String, dynamic> json) => ProcessesType(
+        processes: json.containsKey('Processes')
+            ? (json['Processes'] as List)
+                .map((e) => ProcessType.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class PutLifecycleHookAnswer {
@@ -3526,7 +4386,51 @@ class ScalingPolicy {
     this.alarms,
     this.targetTrackingConfiguration,
   });
-  static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy();
+  static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy(
+        autoScalingGroupName: json.containsKey('AutoScalingGroupName')
+            ? json['AutoScalingGroupName'] as String
+            : null,
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        policyArn:
+            json.containsKey('PolicyARN') ? json['PolicyARN'] as String : null,
+        policyType: json.containsKey('PolicyType')
+            ? json['PolicyType'] as String
+            : null,
+        adjustmentType: json.containsKey('AdjustmentType')
+            ? json['AdjustmentType'] as String
+            : null,
+        minAdjustmentStep: json.containsKey('MinAdjustmentStep')
+            ? json['MinAdjustmentStep'] as int
+            : null,
+        minAdjustmentMagnitude: json.containsKey('MinAdjustmentMagnitude')
+            ? json['MinAdjustmentMagnitude'] as int
+            : null,
+        scalingAdjustment: json.containsKey('ScalingAdjustment')
+            ? json['ScalingAdjustment'] as int
+            : null,
+        cooldown: json.containsKey('Cooldown') ? json['Cooldown'] as int : null,
+        stepAdjustments: json.containsKey('StepAdjustments')
+            ? (json['StepAdjustments'] as List)
+                .map((e) => StepAdjustment.fromJson(e))
+                .toList()
+            : null,
+        metricAggregationType: json.containsKey('MetricAggregationType')
+            ? json['MetricAggregationType'] as String
+            : null,
+        estimatedInstanceWarmup: json.containsKey('EstimatedInstanceWarmup')
+            ? json['EstimatedInstanceWarmup'] as int
+            : null,
+        alarms: json.containsKey('Alarms')
+            ? (json['Alarms'] as List).map((e) => Alarm.fromJson(e)).toList()
+            : null,
+        targetTrackingConfiguration:
+            json.containsKey('TargetTrackingConfiguration')
+                ? TargetTrackingConfiguration.fromJson(
+                    json['TargetTrackingConfiguration'])
+                : null,
+      );
 }
 
 class ScheduledActionsType {
@@ -3544,7 +4448,16 @@ class ScheduledActionsType {
     this.nextToken,
   });
   static ScheduledActionsType fromJson(Map<String, dynamic> json) =>
-      ScheduledActionsType();
+      ScheduledActionsType(
+        scheduledUpdateGroupActions:
+            json.containsKey('ScheduledUpdateGroupActions')
+                ? (json['ScheduledUpdateGroupActions'] as List)
+                    .map((e) => ScheduledUpdateGroupAction.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes a scheduled scaling action. Used in response to
@@ -3598,7 +4511,32 @@ class ScheduledUpdateGroupAction {
     this.desiredCapacity,
   });
   static ScheduledUpdateGroupAction fromJson(Map<String, dynamic> json) =>
-      ScheduledUpdateGroupAction();
+      ScheduledUpdateGroupAction(
+        autoScalingGroupName: json.containsKey('AutoScalingGroupName')
+            ? json['AutoScalingGroupName'] as String
+            : null,
+        scheduledActionName: json.containsKey('ScheduledActionName')
+            ? json['ScheduledActionName'] as String
+            : null,
+        scheduledActionArn: json.containsKey('ScheduledActionARN')
+            ? json['ScheduledActionARN'] as String
+            : null,
+        time: json.containsKey('Time') ? DateTime.parse(json['Time']) : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        recurrence: json.containsKey('Recurrence')
+            ? json['Recurrence'] as String
+            : null,
+        minSize: json.containsKey('MinSize') ? json['MinSize'] as int : null,
+        maxSize: json.containsKey('MaxSize') ? json['MaxSize'] as int : null,
+        desiredCapacity: json.containsKey('DesiredCapacity')
+            ? json['DesiredCapacity'] as int
+            : null,
+      );
 }
 
 /// Describes one or more scheduled scaling action updates for a specified Auto
@@ -3653,6 +4591,7 @@ class ScheduledUpdateGroupActionRequest {
     this.maxSize,
     this.desiredCapacity,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SetInstanceProtectionAnswer {
@@ -3717,7 +4656,16 @@ class StepAdjustment {
     this.metricIntervalUpperBound,
     @required this.scalingAdjustment,
   });
-  static StepAdjustment fromJson(Map<String, dynamic> json) => StepAdjustment();
+  static StepAdjustment fromJson(Map<String, dynamic> json) => StepAdjustment(
+        metricIntervalLowerBound: json.containsKey('MetricIntervalLowerBound')
+            ? json['MetricIntervalLowerBound'] as double
+            : null,
+        metricIntervalUpperBound: json.containsKey('MetricIntervalUpperBound')
+            ? json['MetricIntervalUpperBound'] as double
+            : null,
+        scalingAdjustment: json['ScalingAdjustment'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an automatic scaling process that has been suspended. For more
@@ -3734,7 +4682,14 @@ class SuspendedProcess {
     this.suspensionReason,
   });
   static SuspendedProcess fromJson(Map<String, dynamic> json) =>
-      SuspendedProcess();
+      SuspendedProcess(
+        processName: json.containsKey('ProcessName')
+            ? json['ProcessName'] as String
+            : null,
+        suspensionReason: json.containsKey('SuspensionReason')
+            ? json['SuspensionReason'] as String
+            : null,
+      );
 }
 
 /// Describes a tag for an Auto Scaling group.
@@ -3762,6 +4717,7 @@ class Tag {
     this.value,
     this.propagateAtLaunch,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a tag for an Auto Scaling group.
@@ -3789,7 +4745,19 @@ class TagDescription {
     this.value,
     this.propagateAtLaunch,
   });
-  static TagDescription fromJson(Map<String, dynamic> json) => TagDescription();
+  static TagDescription fromJson(Map<String, dynamic> json) => TagDescription(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        propagateAtLaunch: json.containsKey('PropagateAtLaunch')
+            ? json['PropagateAtLaunch'] as bool
+            : null,
+      );
 }
 
 class TagsType {
@@ -3806,7 +4774,15 @@ class TagsType {
     this.tags,
     this.nextToken,
   });
-  static TagsType fromJson(Map<String, dynamic> json) => TagsType();
+  static TagsType fromJson(Map<String, dynamic> json) => TagsType(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List)
+                .map((e) => TagDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents a target tracking scaling policy configuration to use with Amazon
@@ -3837,5 +4813,21 @@ class TargetTrackingConfiguration {
     this.disableScaleIn,
   });
   static TargetTrackingConfiguration fromJson(Map<String, dynamic> json) =>
-      TargetTrackingConfiguration();
+      TargetTrackingConfiguration(
+        predefinedMetricSpecification:
+            json.containsKey('PredefinedMetricSpecification')
+                ? PredefinedMetricSpecification.fromJson(
+                    json['PredefinedMetricSpecification'])
+                : null,
+        customizedMetricSpecification:
+            json.containsKey('CustomizedMetricSpecification')
+                ? CustomizedMetricSpecification.fromJson(
+                    json['CustomizedMetricSpecification'])
+                : null,
+        targetValue: json['TargetValue'] as double,
+        disableScaleIn: json.containsKey('DisableScaleIn')
+            ? json['DisableScaleIn'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

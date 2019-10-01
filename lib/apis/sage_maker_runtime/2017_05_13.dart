@@ -3,6 +3,11 @@ import 'dart:typed_data';
 
 ///  The Amazon SageMaker runtime API.
 class SageMakerRuntimeApi {
+  final _client;
+  SageMakerRuntimeApi(client)
+      : _client =
+            client.configured('SageMaker Runtime', serializer: 'rest-json');
+
   /// After you deploy a model into production using Amazon SageMaker hosting
   /// services, your client applications use this API to get inferences from the
   /// model hosted at the specified endpoint.
@@ -48,7 +53,14 @@ class SageMakerRuntimeApi {
       String contentType,
       String accept,
       String customAttributes}) async {
-    return InvokeEndpointOutput.fromJson({});
+    var response_ = await _client.send('InvokeEndpoint', {
+      'EndpointName': endpointName,
+      'Body': body,
+      if (contentType != null) 'ContentType': contentType,
+      if (accept != null) 'Accept': accept,
+      if (customAttributes != null) 'CustomAttributes': customAttributes,
+    });
+    return InvokeEndpointOutput.fromJson(response_);
   }
 }
 
@@ -74,5 +86,16 @@ class InvokeEndpointOutput {
     this.customAttributes,
   });
   static InvokeEndpointOutput fromJson(Map<String, dynamic> json) =>
-      InvokeEndpointOutput();
+      InvokeEndpointOutput(
+        body: Uint8List(json['Body']),
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        invokedProductionVariant: json.containsKey('InvokedProductionVariant')
+            ? json['InvokedProductionVariant'] as String
+            : null,
+        customAttributes: json.containsKey('CustomAttributes')
+            ? json['CustomAttributes'] as String
+            : null,
+      );
 }

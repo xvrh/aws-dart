@@ -8,6 +8,10 @@ import 'dart:typed_data';
 /// Service (Amazon S3), Amazon Elasticsearch Service (Amazon ES), Amazon
 /// Redshift, and Splunk.
 class FirehoseApi {
+  final _client;
+  FirehoseApi(client)
+      : _client = client.configured('Firehose', serializer: 'json');
+
   /// Creates a Kinesis Data Firehose delivery stream.
   ///
   /// By default, you can create up to 50 delivery streams per AWS Region.
@@ -124,7 +128,26 @@ class FirehoseApi {
           elasticsearchDestinationConfiguration,
       SplunkDestinationConfiguration splunkDestinationConfiguration,
       List<Tag> tags}) async {
-    return CreateDeliveryStreamOutput.fromJson({});
+    var response_ = await _client.send('CreateDeliveryStream', {
+      'DeliveryStreamName': deliveryStreamName,
+      if (deliveryStreamType != null) 'DeliveryStreamType': deliveryStreamType,
+      if (kinesisStreamSourceConfiguration != null)
+        'KinesisStreamSourceConfiguration': kinesisStreamSourceConfiguration,
+      if (s3DestinationConfiguration != null)
+        'S3DestinationConfiguration': s3DestinationConfiguration,
+      if (extendedS3DestinationConfiguration != null)
+        'ExtendedS3DestinationConfiguration':
+            extendedS3DestinationConfiguration,
+      if (redshiftDestinationConfiguration != null)
+        'RedshiftDestinationConfiguration': redshiftDestinationConfiguration,
+      if (elasticsearchDestinationConfiguration != null)
+        'ElasticsearchDestinationConfiguration':
+            elasticsearchDestinationConfiguration,
+      if (splunkDestinationConfiguration != null)
+        'SplunkDestinationConfiguration': splunkDestinationConfiguration,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDeliveryStreamOutput.fromJson(response_);
   }
 
   /// Deletes a delivery stream and its data.
@@ -144,7 +167,10 @@ class FirehoseApi {
   /// [deliveryStreamName]: The name of the delivery stream.
   Future<DeleteDeliveryStreamOutput> deleteDeliveryStream(
       String deliveryStreamName) async {
-    return DeleteDeliveryStreamOutput.fromJson({});
+    var response_ = await _client.send('DeleteDeliveryStream', {
+      'DeliveryStreamName': deliveryStreamName,
+    });
+    return DeleteDeliveryStreamOutput.fromJson(response_);
   }
 
   /// Describes the specified delivery stream and gets the status. For example,
@@ -164,7 +190,13 @@ class FirehoseApi {
       String deliveryStreamName,
       {int limit,
       String exclusiveStartDestinationId}) async {
-    return DescribeDeliveryStreamOutput.fromJson({});
+    var response_ = await _client.send('DescribeDeliveryStream', {
+      'DeliveryStreamName': deliveryStreamName,
+      if (limit != null) 'Limit': limit,
+      if (exclusiveStartDestinationId != null)
+        'ExclusiveStartDestinationId': exclusiveStartDestinationId,
+    });
+    return DescribeDeliveryStreamOutput.fromJson(response_);
   }
 
   /// Lists your delivery streams in alphabetical order of their names.
@@ -202,7 +234,13 @@ class FirehoseApi {
       {int limit,
       String deliveryStreamType,
       String exclusiveStartDeliveryStreamName}) async {
-    return ListDeliveryStreamsOutput.fromJson({});
+    var response_ = await _client.send('ListDeliveryStreams', {
+      if (limit != null) 'Limit': limit,
+      if (deliveryStreamType != null) 'DeliveryStreamType': deliveryStreamType,
+      if (exclusiveStartDeliveryStreamName != null)
+        'ExclusiveStartDeliveryStreamName': exclusiveStartDeliveryStreamName,
+    });
+    return ListDeliveryStreamsOutput.fromJson(response_);
   }
 
   /// Lists the tags for the specified delivery stream. This operation has a
@@ -223,7 +261,13 @@ class FirehoseApi {
       String deliveryStreamName,
       {String exclusiveStartTagKey,
       int limit}) async {
-    return ListTagsForDeliveryStreamOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForDeliveryStream', {
+      'DeliveryStreamName': deliveryStreamName,
+      if (exclusiveStartTagKey != null)
+        'ExclusiveStartTagKey': exclusiveStartTagKey,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListTagsForDeliveryStreamOutput.fromJson(response_);
   }
 
   /// Writes a single data record into an Amazon Kinesis Data Firehose delivery
@@ -275,7 +319,11 @@ class FirehoseApi {
   /// [record]: The record.
   Future<PutRecordOutput> putRecord(
       {@required String deliveryStreamName, @required Record record}) async {
-    return PutRecordOutput.fromJson({});
+    var response_ = await _client.send('PutRecord', {
+      'DeliveryStreamName': deliveryStreamName,
+      'Record': record,
+    });
+    return PutRecordOutput.fromJson(response_);
   }
 
   /// Writes multiple data records into a delivery stream in a single call,
@@ -356,7 +404,11 @@ class FirehoseApi {
   Future<PutRecordBatchOutput> putRecordBatch(
       {@required String deliveryStreamName,
       @required List<Record> records}) async {
-    return PutRecordBatchOutput.fromJson({});
+    var response_ = await _client.send('PutRecordBatch', {
+      'DeliveryStreamName': deliveryStreamName,
+      'Records': records,
+    });
+    return PutRecordBatchOutput.fromJson(response_);
   }
 
   /// Enables server-side encryption (SSE) for the delivery stream.
@@ -388,7 +440,10 @@ class FirehoseApi {
   /// to enable server-side encryption (SSE).
   Future<StartDeliveryStreamEncryptionOutput> startDeliveryStreamEncryption(
       String deliveryStreamName) async {
-    return StartDeliveryStreamEncryptionOutput.fromJson({});
+    var response_ = await _client.send('StartDeliveryStreamEncryption', {
+      'DeliveryStreamName': deliveryStreamName,
+    });
+    return StartDeliveryStreamEncryptionOutput.fromJson(response_);
   }
 
   /// Disables server-side encryption (SSE) for the delivery stream.
@@ -417,7 +472,10 @@ class FirehoseApi {
   /// to disable server-side encryption (SSE).
   Future<StopDeliveryStreamEncryptionOutput> stopDeliveryStreamEncryption(
       String deliveryStreamName) async {
-    return StopDeliveryStreamEncryptionOutput.fromJson({});
+    var response_ = await _client.send('StopDeliveryStreamEncryption', {
+      'DeliveryStreamName': deliveryStreamName,
+    });
+    return StopDeliveryStreamEncryptionOutput.fromJson(response_);
   }
 
   /// Adds or updates tags for the specified delivery stream. A tag is a
@@ -440,7 +498,11 @@ class FirehoseApi {
   /// [tags]: A set of key-value pairs to use to create the tags.
   Future<TagDeliveryStreamOutput> tagDeliveryStream(
       {@required String deliveryStreamName, @required List<Tag> tags}) async {
-    return TagDeliveryStreamOutput.fromJson({});
+    var response_ = await _client.send('TagDeliveryStream', {
+      'DeliveryStreamName': deliveryStreamName,
+      'Tags': tags,
+    });
+    return TagDeliveryStreamOutput.fromJson(response_);
   }
 
   /// Removes tags from the specified delivery stream. Removed tags are deleted,
@@ -457,7 +519,11 @@ class FirehoseApi {
   Future<UntagDeliveryStreamOutput> untagDeliveryStream(
       {@required String deliveryStreamName,
       @required List<String> tagKeys}) async {
-    return UntagDeliveryStreamOutput.fromJson({});
+    var response_ = await _client.send('UntagDeliveryStream', {
+      'DeliveryStreamName': deliveryStreamName,
+      'TagKeys': tagKeys,
+    });
+    return UntagDeliveryStreamOutput.fromJson(response_);
   }
 
   /// Updates the specified destination of the specified delivery stream.
@@ -530,7 +596,22 @@ class FirehoseApi {
       RedshiftDestinationUpdate redshiftDestinationUpdate,
       ElasticsearchDestinationUpdate elasticsearchDestinationUpdate,
       SplunkDestinationUpdate splunkDestinationUpdate}) async {
-    return UpdateDestinationOutput.fromJson({});
+    var response_ = await _client.send('UpdateDestination', {
+      'DeliveryStreamName': deliveryStreamName,
+      'CurrentDeliveryStreamVersionId': currentDeliveryStreamVersionId,
+      'DestinationId': destinationId,
+      if (s3DestinationUpdate != null)
+        'S3DestinationUpdate': s3DestinationUpdate,
+      if (extendedS3DestinationUpdate != null)
+        'ExtendedS3DestinationUpdate': extendedS3DestinationUpdate,
+      if (redshiftDestinationUpdate != null)
+        'RedshiftDestinationUpdate': redshiftDestinationUpdate,
+      if (elasticsearchDestinationUpdate != null)
+        'ElasticsearchDestinationUpdate': elasticsearchDestinationUpdate,
+      if (splunkDestinationUpdate != null)
+        'SplunkDestinationUpdate': splunkDestinationUpdate,
+    });
+    return UpdateDestinationOutput.fromJson(response_);
   }
 }
 
@@ -555,7 +636,14 @@ class BufferingHints {
     this.sizeInmBs,
     this.intervalInSeconds,
   });
-  static BufferingHints fromJson(Map<String, dynamic> json) => BufferingHints();
+  static BufferingHints fromJson(Map<String, dynamic> json) => BufferingHints(
+        sizeInmBs:
+            json.containsKey('SizeInMBs') ? json['SizeInMBs'] as int : null,
+        intervalInSeconds: json.containsKey('IntervalInSeconds')
+            ? json['IntervalInSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the Amazon CloudWatch logging options for your delivery stream.
@@ -577,7 +665,16 @@ class CloudWatchLoggingOptions {
     this.logStreamName,
   });
   static CloudWatchLoggingOptions fromJson(Map<String, dynamic> json) =>
-      CloudWatchLoggingOptions();
+      CloudWatchLoggingOptions(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        logGroupName: json.containsKey('LogGroupName')
+            ? json['LogGroupName'] as String
+            : null,
+        logStreamName: json.containsKey('LogStreamName')
+            ? json['LogStreamName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a `COPY` command for Amazon Redshift.
@@ -620,7 +717,16 @@ class CopyCommand {
     this.dataTableColumns,
     this.copyOptions,
   });
-  static CopyCommand fromJson(Map<String, dynamic> json) => CopyCommand();
+  static CopyCommand fromJson(Map<String, dynamic> json) => CopyCommand(
+        dataTableName: json['DataTableName'] as String,
+        dataTableColumns: json.containsKey('DataTableColumns')
+            ? json['DataTableColumns'] as String
+            : null,
+        copyOptions: json.containsKey('CopyOptions')
+            ? json['CopyOptions'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateDeliveryStreamOutput {
@@ -631,7 +737,11 @@ class CreateDeliveryStreamOutput {
     this.deliveryStreamArn,
   });
   static CreateDeliveryStreamOutput fromJson(Map<String, dynamic> json) =>
-      CreateDeliveryStreamOutput();
+      CreateDeliveryStreamOutput(
+        deliveryStreamArn: json.containsKey('DeliveryStreamARN')
+            ? json['DeliveryStreamARN'] as String
+            : null,
+      );
 }
 
 /// Specifies that you want Kinesis Data Firehose to convert data from the JSON
@@ -666,7 +776,21 @@ class DataFormatConversionConfiguration {
   });
   static DataFormatConversionConfiguration fromJson(
           Map<String, dynamic> json) =>
-      DataFormatConversionConfiguration();
+      DataFormatConversionConfiguration(
+        schemaConfiguration: json.containsKey('SchemaConfiguration')
+            ? SchemaConfiguration.fromJson(json['SchemaConfiguration'])
+            : null,
+        inputFormatConfiguration: json.containsKey('InputFormatConfiguration')
+            ? InputFormatConfiguration.fromJson(
+                json['InputFormatConfiguration'])
+            : null,
+        outputFormatConfiguration: json.containsKey('OutputFormatConfiguration')
+            ? OutputFormatConfiguration.fromJson(
+                json['OutputFormatConfiguration'])
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteDeliveryStreamOutput {
@@ -737,7 +861,31 @@ class DeliveryStreamDescription {
     @required this.hasMoreDestinations,
   });
   static DeliveryStreamDescription fromJson(Map<String, dynamic> json) =>
-      DeliveryStreamDescription();
+      DeliveryStreamDescription(
+        deliveryStreamName: json['DeliveryStreamName'] as String,
+        deliveryStreamArn: json['DeliveryStreamARN'] as String,
+        deliveryStreamStatus: json['DeliveryStreamStatus'] as String,
+        deliveryStreamEncryptionConfiguration:
+            json.containsKey('DeliveryStreamEncryptionConfiguration')
+                ? DeliveryStreamEncryptionConfiguration.fromJson(
+                    json['DeliveryStreamEncryptionConfiguration'])
+                : null,
+        deliveryStreamType: json['DeliveryStreamType'] as String,
+        versionId: json['VersionId'] as String,
+        createTimestamp: json.containsKey('CreateTimestamp')
+            ? DateTime.parse(json['CreateTimestamp'])
+            : null,
+        lastUpdateTimestamp: json.containsKey('LastUpdateTimestamp')
+            ? DateTime.parse(json['LastUpdateTimestamp'])
+            : null,
+        source: json.containsKey('Source')
+            ? SourceDescription.fromJson(json['Source'])
+            : null,
+        destinations: (json['Destinations'] as List)
+            .map((e) => DestinationDescription.fromJson(e))
+            .toList(),
+        hasMoreDestinations: json['HasMoreDestinations'] as bool,
+      );
 }
 
 /// Indicates the server-side encryption (SSE) status for the delivery stream.
@@ -751,7 +899,9 @@ class DeliveryStreamEncryptionConfiguration {
   });
   static DeliveryStreamEncryptionConfiguration fromJson(
           Map<String, dynamic> json) =>
-      DeliveryStreamEncryptionConfiguration();
+      DeliveryStreamEncryptionConfiguration(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class DescribeDeliveryStreamOutput {
@@ -762,7 +912,10 @@ class DescribeDeliveryStreamOutput {
     @required this.deliveryStreamDescription,
   });
   static DescribeDeliveryStreamOutput fromJson(Map<String, dynamic> json) =>
-      DescribeDeliveryStreamOutput();
+      DescribeDeliveryStreamOutput(
+        deliveryStreamDescription: DeliveryStreamDescription.fromJson(
+            json['DeliveryStreamDescription']),
+      );
 }
 
 /// The deserializer you want Kinesis Data Firehose to use for converting the
@@ -791,7 +944,15 @@ class Deserializer {
     this.openxJsonSerDe,
     this.hiveJsonSerDe,
   });
-  static Deserializer fromJson(Map<String, dynamic> json) => Deserializer();
+  static Deserializer fromJson(Map<String, dynamic> json) => Deserializer(
+        openxJsonSerDe: json.containsKey('OpenXJsonSerDe')
+            ? OpenxJsonSerDe.fromJson(json['OpenXJsonSerDe'])
+            : null,
+        hiveJsonSerDe: json.containsKey('HiveJsonSerDe')
+            ? HiveJsonSerDe.fromJson(json['HiveJsonSerDe'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the destination for a delivery stream.
@@ -823,7 +984,33 @@ class DestinationDescription {
     this.splunkDestinationDescription,
   });
   static DestinationDescription fromJson(Map<String, dynamic> json) =>
-      DestinationDescription();
+      DestinationDescription(
+        destinationId: json['DestinationId'] as String,
+        s3DestinationDescription: json.containsKey('S3DestinationDescription')
+            ? S3DestinationDescription.fromJson(
+                json['S3DestinationDescription'])
+            : null,
+        extendedS3DestinationDescription:
+            json.containsKey('ExtendedS3DestinationDescription')
+                ? ExtendedS3DestinationDescription.fromJson(
+                    json['ExtendedS3DestinationDescription'])
+                : null,
+        redshiftDestinationDescription:
+            json.containsKey('RedshiftDestinationDescription')
+                ? RedshiftDestinationDescription.fromJson(
+                    json['RedshiftDestinationDescription'])
+                : null,
+        elasticsearchDestinationDescription:
+            json.containsKey('ElasticsearchDestinationDescription')
+                ? ElasticsearchDestinationDescription.fromJson(
+                    json['ElasticsearchDestinationDescription'])
+                : null,
+        splunkDestinationDescription:
+            json.containsKey('SplunkDestinationDescription')
+                ? SplunkDestinationDescription.fromJson(
+                    json['SplunkDestinationDescription'])
+                : null,
+      );
 }
 
 /// Describes the buffering to perform before delivering data to the Amazon ES
@@ -847,7 +1034,14 @@ class ElasticsearchBufferingHints {
     this.sizeInmBs,
   });
   static ElasticsearchBufferingHints fromJson(Map<String, dynamic> json) =>
-      ElasticsearchBufferingHints();
+      ElasticsearchBufferingHints(
+        intervalInSeconds: json.containsKey('IntervalInSeconds')
+            ? json['IntervalInSeconds'] as int
+            : null,
+        sizeInmBs:
+            json.containsKey('SizeInMBs') ? json['SizeInMBs'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the configuration of a destination in Amazon ES.
@@ -924,6 +1118,7 @@ class ElasticsearchDestinationConfiguration {
     this.processingConfiguration,
     this.cloudWatchLoggingOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The destination description in Amazon ES.
@@ -979,7 +1174,38 @@ class ElasticsearchDestinationDescription {
   });
   static ElasticsearchDestinationDescription fromJson(
           Map<String, dynamic> json) =>
-      ElasticsearchDestinationDescription();
+      ElasticsearchDestinationDescription(
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+        domainArn:
+            json.containsKey('DomainARN') ? json['DomainARN'] as String : null,
+        indexName:
+            json.containsKey('IndexName') ? json['IndexName'] as String : null,
+        typeName:
+            json.containsKey('TypeName') ? json['TypeName'] as String : null,
+        indexRotationPeriod: json.containsKey('IndexRotationPeriod')
+            ? json['IndexRotationPeriod'] as String
+            : null,
+        bufferingHints: json.containsKey('BufferingHints')
+            ? ElasticsearchBufferingHints.fromJson(json['BufferingHints'])
+            : null,
+        retryOptions: json.containsKey('RetryOptions')
+            ? ElasticsearchRetryOptions.fromJson(json['RetryOptions'])
+            : null,
+        s3BackupMode: json.containsKey('S3BackupMode')
+            ? json['S3BackupMode'] as String
+            : null,
+        s3DestinationDescription: json.containsKey('S3DestinationDescription')
+            ? S3DestinationDescription.fromJson(
+                json['S3DestinationDescription'])
+            : null,
+        processingConfiguration: json.containsKey('ProcessingConfiguration')
+            ? ProcessingConfiguration.fromJson(json['ProcessingConfiguration'])
+            : null,
+        cloudWatchLoggingOptions: json.containsKey('CloudWatchLoggingOptions')
+            ? CloudWatchLoggingOptions.fromJson(
+                json['CloudWatchLoggingOptions'])
+            : null,
+      );
 }
 
 /// Describes an update for a destination in Amazon ES.
@@ -1044,6 +1270,7 @@ class ElasticsearchDestinationUpdate {
     this.processingConfiguration,
     this.cloudWatchLoggingOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configures retry behavior in case Kinesis Data Firehose is unable to deliver
@@ -1060,7 +1287,12 @@ class ElasticsearchRetryOptions {
     this.durationInSeconds,
   });
   static ElasticsearchRetryOptions fromJson(Map<String, dynamic> json) =>
-      ElasticsearchRetryOptions();
+      ElasticsearchRetryOptions(
+        durationInSeconds: json.containsKey('DurationInSeconds')
+            ? json['DurationInSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the encryption for a destination in Amazon S3.
@@ -1077,7 +1309,15 @@ class EncryptionConfiguration {
     this.kmsEncryptionConfig,
   });
   static EncryptionConfiguration fromJson(Map<String, dynamic> json) =>
-      EncryptionConfiguration();
+      EncryptionConfiguration(
+        noEncryptionConfig: json.containsKey('NoEncryptionConfig')
+            ? json['NoEncryptionConfig'] as String
+            : null,
+        kmsEncryptionConfig: json.containsKey('KMSEncryptionConfig')
+            ? KmsEncryptionConfig.fromJson(json['KMSEncryptionConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the configuration of a destination in Amazon S3.
@@ -1145,6 +1385,7 @@ class ExtendedS3DestinationConfiguration {
     this.s3BackupConfiguration,
     this.dataFormatConversionConfiguration,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a destination in Amazon S3.
@@ -1213,7 +1454,36 @@ class ExtendedS3DestinationDescription {
     this.dataFormatConversionConfiguration,
   });
   static ExtendedS3DestinationDescription fromJson(Map<String, dynamic> json) =>
-      ExtendedS3DestinationDescription();
+      ExtendedS3DestinationDescription(
+        roleArn: json['RoleARN'] as String,
+        bucketArn: json['BucketARN'] as String,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        errorOutputPrefix: json.containsKey('ErrorOutputPrefix')
+            ? json['ErrorOutputPrefix'] as String
+            : null,
+        bufferingHints: BufferingHints.fromJson(json['BufferingHints']),
+        compressionFormat: json['CompressionFormat'] as String,
+        encryptionConfiguration:
+            EncryptionConfiguration.fromJson(json['EncryptionConfiguration']),
+        cloudWatchLoggingOptions: json.containsKey('CloudWatchLoggingOptions')
+            ? CloudWatchLoggingOptions.fromJson(
+                json['CloudWatchLoggingOptions'])
+            : null,
+        processingConfiguration: json.containsKey('ProcessingConfiguration')
+            ? ProcessingConfiguration.fromJson(json['ProcessingConfiguration'])
+            : null,
+        s3BackupMode: json.containsKey('S3BackupMode')
+            ? json['S3BackupMode'] as String
+            : null,
+        s3BackupDescription: json.containsKey('S3BackupDescription')
+            ? S3DestinationDescription.fromJson(json['S3BackupDescription'])
+            : null,
+        dataFormatConversionConfiguration:
+            json.containsKey('DataFormatConversionConfiguration')
+                ? DataFormatConversionConfiguration.fromJson(
+                    json['DataFormatConversionConfiguration'])
+                : null,
+      );
 }
 
 /// Describes an update for a destination in Amazon S3.
@@ -1281,6 +1551,7 @@ class ExtendedS3DestinationUpdate {
     this.s3BackupUpdate,
     this.dataFormatConversionConfiguration,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The native Hive / HCatalog JsonSerDe. Used by Kinesis Data Firehose for
@@ -1302,7 +1573,14 @@ class HiveJsonSerDe {
   HiveJsonSerDe({
     this.timestampFormats,
   });
-  static HiveJsonSerDe fromJson(Map<String, dynamic> json) => HiveJsonSerDe();
+  static HiveJsonSerDe fromJson(Map<String, dynamic> json) => HiveJsonSerDe(
+        timestampFormats: json.containsKey('TimestampFormats')
+            ? (json['TimestampFormats'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the deserializer you want to use to convert the format of the
@@ -1317,7 +1595,12 @@ class InputFormatConfiguration {
     this.deserializer,
   });
   static InputFormatConfiguration fromJson(Map<String, dynamic> json) =>
-      InputFormatConfiguration();
+      InputFormatConfiguration(
+        deserializer: json.containsKey('Deserializer')
+            ? Deserializer.fromJson(json['Deserializer'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an encryption key for a destination in Amazon S3.
@@ -1332,7 +1615,10 @@ class KmsEncryptionConfig {
     @required this.awskmsKeyArn,
   });
   static KmsEncryptionConfig fromJson(Map<String, dynamic> json) =>
-      KmsEncryptionConfig();
+      KmsEncryptionConfig(
+        awskmsKeyArn: json['AWSKMSKeyARN'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The stream and role Amazon Resource Names (ARNs) for a Kinesis data stream
@@ -1351,6 +1637,7 @@ class KinesisStreamSourceConfiguration {
     @required this.kinesisStreamArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about a Kinesis data stream used as the source for a Kinesis Data
@@ -1376,7 +1663,15 @@ class KinesisStreamSourceDescription {
     this.deliveryStartTimestamp,
   });
   static KinesisStreamSourceDescription fromJson(Map<String, dynamic> json) =>
-      KinesisStreamSourceDescription();
+      KinesisStreamSourceDescription(
+        kinesisStreamArn: json.containsKey('KinesisStreamARN')
+            ? json['KinesisStreamARN'] as String
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+        deliveryStartTimestamp: json.containsKey('DeliveryStartTimestamp')
+            ? DateTime.parse(json['DeliveryStartTimestamp'])
+            : null,
+      );
 }
 
 class ListDeliveryStreamsOutput {
@@ -1391,7 +1686,12 @@ class ListDeliveryStreamsOutput {
     @required this.hasMoreDeliveryStreams,
   });
   static ListDeliveryStreamsOutput fromJson(Map<String, dynamic> json) =>
-      ListDeliveryStreamsOutput();
+      ListDeliveryStreamsOutput(
+        deliveryStreamNames: (json['DeliveryStreamNames'] as List)
+            .map((e) => e as String)
+            .toList(),
+        hasMoreDeliveryStreams: json['HasMoreDeliveryStreams'] as bool,
+      );
 }
 
 class ListTagsForDeliveryStreamOutput {
@@ -1409,7 +1709,10 @@ class ListTagsForDeliveryStreamOutput {
     @required this.hasMoreTags,
   });
   static ListTagsForDeliveryStreamOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForDeliveryStreamOutput();
+      ListTagsForDeliveryStreamOutput(
+        tags: (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList(),
+        hasMoreTags: json['HasMoreTags'] as bool,
+      );
 }
 
 /// The OpenX SerDe. Used by Kinesis Data Firehose for deserializing data, which
@@ -1443,7 +1746,20 @@ class OpenxJsonSerDe {
     this.caseInsensitive,
     this.columnToJsonKeyMappings,
   });
-  static OpenxJsonSerDe fromJson(Map<String, dynamic> json) => OpenxJsonSerDe();
+  static OpenxJsonSerDe fromJson(Map<String, dynamic> json) => OpenxJsonSerDe(
+        convertDotsInJsonKeysToUnderscores:
+            json.containsKey('ConvertDotsInJsonKeysToUnderscores')
+                ? json['ConvertDotsInJsonKeysToUnderscores'] as bool
+                : null,
+        caseInsensitive: json.containsKey('CaseInsensitive')
+            ? json['CaseInsensitive'] as bool
+            : null,
+        columnToJsonKeyMappings: json.containsKey('ColumnToJsonKeyMappings')
+            ? (json['ColumnToJsonKeyMappings'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A serializer to use for converting data to the ORC format before storing it
@@ -1518,7 +1834,42 @@ class OrcSerDe {
     this.dictionaryKeyThreshold,
     this.formatVersion,
   });
-  static OrcSerDe fromJson(Map<String, dynamic> json) => OrcSerDe();
+  static OrcSerDe fromJson(Map<String, dynamic> json) => OrcSerDe(
+        stripeSizeBytes: json.containsKey('StripeSizeBytes')
+            ? json['StripeSizeBytes'] as int
+            : null,
+        blockSizeBytes: json.containsKey('BlockSizeBytes')
+            ? json['BlockSizeBytes'] as int
+            : null,
+        rowIndexStride: json.containsKey('RowIndexStride')
+            ? json['RowIndexStride'] as int
+            : null,
+        enablePadding: json.containsKey('EnablePadding')
+            ? json['EnablePadding'] as bool
+            : null,
+        paddingTolerance: json.containsKey('PaddingTolerance')
+            ? json['PaddingTolerance'] as double
+            : null,
+        compression: json.containsKey('Compression')
+            ? json['Compression'] as String
+            : null,
+        bloomFilterColumns: json.containsKey('BloomFilterColumns')
+            ? (json['BloomFilterColumns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        bloomFilterFalsePositiveProbability:
+            json.containsKey('BloomFilterFalsePositiveProbability')
+                ? json['BloomFilterFalsePositiveProbability'] as double
+                : null,
+        dictionaryKeyThreshold: json.containsKey('DictionaryKeyThreshold')
+            ? json['DictionaryKeyThreshold'] as double
+            : null,
+        formatVersion: json.containsKey('FormatVersion')
+            ? json['FormatVersion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the serializer that you want Kinesis Data Firehose to use to
@@ -1532,7 +1883,12 @@ class OutputFormatConfiguration {
     this.serializer,
   });
   static OutputFormatConfiguration fromJson(Map<String, dynamic> json) =>
-      OutputFormatConfiguration();
+      OutputFormatConfiguration(
+        serializer: json.containsKey('Serializer')
+            ? Serializer.fromJson(json['Serializer'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A serializer to use for converting data to the Parquet format before storing
@@ -1575,7 +1931,28 @@ class ParquetSerDe {
     this.maxPaddingBytes,
     this.writerVersion,
   });
-  static ParquetSerDe fromJson(Map<String, dynamic> json) => ParquetSerDe();
+  static ParquetSerDe fromJson(Map<String, dynamic> json) => ParquetSerDe(
+        blockSizeBytes: json.containsKey('BlockSizeBytes')
+            ? json['BlockSizeBytes'] as int
+            : null,
+        pageSizeBytes: json.containsKey('PageSizeBytes')
+            ? json['PageSizeBytes'] as int
+            : null,
+        compression: json.containsKey('Compression')
+            ? json['Compression'] as String
+            : null,
+        enableDictionaryCompression:
+            json.containsKey('EnableDictionaryCompression')
+                ? json['EnableDictionaryCompression'] as bool
+                : null,
+        maxPaddingBytes: json.containsKey('MaxPaddingBytes')
+            ? json['MaxPaddingBytes'] as int
+            : null,
+        writerVersion: json.containsKey('WriterVersion')
+            ? json['WriterVersion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a data processing configuration.
@@ -1591,7 +1968,15 @@ class ProcessingConfiguration {
     this.processors,
   });
   static ProcessingConfiguration fromJson(Map<String, dynamic> json) =>
-      ProcessingConfiguration();
+      ProcessingConfiguration(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        processors: json.containsKey('Processors')
+            ? (json['Processors'] as List)
+                .map((e) => Processor.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a data processor.
@@ -1606,7 +1991,15 @@ class Processor {
     @required this.type,
     this.parameters,
   });
-  static Processor fromJson(Map<String, dynamic> json) => Processor();
+  static Processor fromJson(Map<String, dynamic> json) => Processor(
+        type: json['Type'] as String,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => ProcessorParameter.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the processor parameter.
@@ -1622,7 +2015,11 @@ class ProcessorParameter {
     @required this.parameterValue,
   });
   static ProcessorParameter fromJson(Map<String, dynamic> json) =>
-      ProcessorParameter();
+      ProcessorParameter(
+        parameterName: json['ParameterName'] as String,
+        parameterValue: json['ParameterValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutRecordBatchOutput {
@@ -1646,7 +2043,14 @@ class PutRecordBatchOutput {
     @required this.requestResponses,
   });
   static PutRecordBatchOutput fromJson(Map<String, dynamic> json) =>
-      PutRecordBatchOutput();
+      PutRecordBatchOutput(
+        failedPutCount: json['FailedPutCount'] as int,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        requestResponses: (json['RequestResponses'] as List)
+            .map((e) => PutRecordBatchResponseEntry.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Contains the result for an individual record from a PutRecordBatch request.
@@ -1669,7 +2073,15 @@ class PutRecordBatchResponseEntry {
     this.errorMessage,
   });
   static PutRecordBatchResponseEntry fromJson(Map<String, dynamic> json) =>
-      PutRecordBatchResponseEntry();
+      PutRecordBatchResponseEntry(
+        recordId:
+            json.containsKey('RecordId') ? json['RecordId'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class PutRecordOutput {
@@ -1684,8 +2096,11 @@ class PutRecordOutput {
     @required this.recordId,
     this.encrypted,
   });
-  static PutRecordOutput fromJson(Map<String, dynamic> json) =>
-      PutRecordOutput();
+  static PutRecordOutput fromJson(Map<String, dynamic> json) => PutRecordOutput(
+        recordId: json['RecordId'] as String,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+      );
 }
 
 /// The unit of data in a delivery stream.
@@ -1697,6 +2112,7 @@ class Record {
   Record({
     @required this.data,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the configuration of a destination in Amazon Redshift.
@@ -1757,6 +2173,7 @@ class RedshiftDestinationConfiguration {
     this.s3BackupConfiguration,
     this.cloudWatchLoggingOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a destination in Amazon Redshift.
@@ -1807,7 +2224,30 @@ class RedshiftDestinationDescription {
     this.cloudWatchLoggingOptions,
   });
   static RedshiftDestinationDescription fromJson(Map<String, dynamic> json) =>
-      RedshiftDestinationDescription();
+      RedshiftDestinationDescription(
+        roleArn: json['RoleARN'] as String,
+        clusterJdbcurl: json['ClusterJDBCURL'] as String,
+        copyCommand: CopyCommand.fromJson(json['CopyCommand']),
+        username: json['Username'] as String,
+        retryOptions: json.containsKey('RetryOptions')
+            ? RedshiftRetryOptions.fromJson(json['RetryOptions'])
+            : null,
+        s3DestinationDescription:
+            S3DestinationDescription.fromJson(json['S3DestinationDescription']),
+        processingConfiguration: json.containsKey('ProcessingConfiguration')
+            ? ProcessingConfiguration.fromJson(json['ProcessingConfiguration'])
+            : null,
+        s3BackupMode: json.containsKey('S3BackupMode')
+            ? json['S3BackupMode'] as String
+            : null,
+        s3BackupDescription: json.containsKey('S3BackupDescription')
+            ? S3DestinationDescription.fromJson(json['S3BackupDescription'])
+            : null,
+        cloudWatchLoggingOptions: json.containsKey('CloudWatchLoggingOptions')
+            ? CloudWatchLoggingOptions.fromJson(
+                json['CloudWatchLoggingOptions'])
+            : null,
+      );
 }
 
 /// Describes an update for a destination in Amazon Redshift.
@@ -1866,6 +2306,7 @@ class RedshiftDestinationUpdate {
     this.s3BackupUpdate,
     this.cloudWatchLoggingOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configures retry behavior in case Kinesis Data Firehose is unable to deliver
@@ -1882,7 +2323,12 @@ class RedshiftRetryOptions {
     this.durationInSeconds,
   });
   static RedshiftRetryOptions fromJson(Map<String, dynamic> json) =>
-      RedshiftRetryOptions();
+      RedshiftRetryOptions(
+        durationInSeconds: json.containsKey('DurationInSeconds')
+            ? json['DurationInSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the configuration of a destination in Amazon S3.
@@ -1938,6 +2384,7 @@ class S3DestinationConfiguration {
     this.encryptionConfiguration,
     this.cloudWatchLoggingOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a destination in Amazon S3.
@@ -1990,7 +2437,22 @@ class S3DestinationDescription {
     this.cloudWatchLoggingOptions,
   });
   static S3DestinationDescription fromJson(Map<String, dynamic> json) =>
-      S3DestinationDescription();
+      S3DestinationDescription(
+        roleArn: json['RoleARN'] as String,
+        bucketArn: json['BucketARN'] as String,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        errorOutputPrefix: json.containsKey('ErrorOutputPrefix')
+            ? json['ErrorOutputPrefix'] as String
+            : null,
+        bufferingHints: BufferingHints.fromJson(json['BufferingHints']),
+        compressionFormat: json['CompressionFormat'] as String,
+        encryptionConfiguration:
+            EncryptionConfiguration.fromJson(json['EncryptionConfiguration']),
+        cloudWatchLoggingOptions: json.containsKey('CloudWatchLoggingOptions')
+            ? CloudWatchLoggingOptions.fromJson(
+                json['CloudWatchLoggingOptions'])
+            : null,
+      );
 }
 
 /// Describes an update for a destination in Amazon S3.
@@ -2046,6 +2508,7 @@ class S3DestinationUpdate {
     this.encryptionConfiguration,
     this.cloudWatchLoggingOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the schema to which you want Kinesis Data Firehose to configure
@@ -2086,7 +2549,20 @@ class SchemaConfiguration {
     this.versionId,
   });
   static SchemaConfiguration fromJson(Map<String, dynamic> json) =>
-      SchemaConfiguration();
+      SchemaConfiguration(
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+        catalogId:
+            json.containsKey('CatalogId') ? json['CatalogId'] as String : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The serializer that you want Kinesis Data Firehose to use to convert data to
@@ -2110,7 +2586,15 @@ class Serializer {
     this.parquetSerDe,
     this.orcSerDe,
   });
-  static Serializer fromJson(Map<String, dynamic> json) => Serializer();
+  static Serializer fromJson(Map<String, dynamic> json) => Serializer(
+        parquetSerDe: json.containsKey('ParquetSerDe')
+            ? ParquetSerDe.fromJson(json['ParquetSerDe'])
+            : null,
+        orcSerDe: json.containsKey('OrcSerDe')
+            ? OrcSerDe.fromJson(json['OrcSerDe'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about a Kinesis data stream used as the source for a Kinesis Data
@@ -2124,7 +2608,13 @@ class SourceDescription {
     this.kinesisStreamSourceDescription,
   });
   static SourceDescription fromJson(Map<String, dynamic> json) =>
-      SourceDescription();
+      SourceDescription(
+        kinesisStreamSourceDescription:
+            json.containsKey('KinesisStreamSourceDescription')
+                ? KinesisStreamSourceDescription.fromJson(
+                    json['KinesisStreamSourceDescription'])
+                : null,
+      );
 }
 
 /// Describes the configuration of a destination in Splunk.
@@ -2179,6 +2669,7 @@ class SplunkDestinationConfiguration {
     this.processingConfiguration,
     this.cloudWatchLoggingOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a destination in Splunk.
@@ -2234,7 +2725,37 @@ class SplunkDestinationDescription {
     this.cloudWatchLoggingOptions,
   });
   static SplunkDestinationDescription fromJson(Map<String, dynamic> json) =>
-      SplunkDestinationDescription();
+      SplunkDestinationDescription(
+        hecEndpoint: json.containsKey('HECEndpoint')
+            ? json['HECEndpoint'] as String
+            : null,
+        hecEndpointType: json.containsKey('HECEndpointType')
+            ? json['HECEndpointType'] as String
+            : null,
+        hecToken:
+            json.containsKey('HECToken') ? json['HECToken'] as String : null,
+        hecAcknowledgmentTimeoutInSeconds:
+            json.containsKey('HECAcknowledgmentTimeoutInSeconds')
+                ? json['HECAcknowledgmentTimeoutInSeconds'] as int
+                : null,
+        retryOptions: json.containsKey('RetryOptions')
+            ? SplunkRetryOptions.fromJson(json['RetryOptions'])
+            : null,
+        s3BackupMode: json.containsKey('S3BackupMode')
+            ? json['S3BackupMode'] as String
+            : null,
+        s3DestinationDescription: json.containsKey('S3DestinationDescription')
+            ? S3DestinationDescription.fromJson(
+                json['S3DestinationDescription'])
+            : null,
+        processingConfiguration: json.containsKey('ProcessingConfiguration')
+            ? ProcessingConfiguration.fromJson(json['ProcessingConfiguration'])
+            : null,
+        cloudWatchLoggingOptions: json.containsKey('CloudWatchLoggingOptions')
+            ? CloudWatchLoggingOptions.fromJson(
+                json['CloudWatchLoggingOptions'])
+            : null,
+      );
 }
 
 /// Describes an update for a destination in Splunk.
@@ -2289,6 +2810,7 @@ class SplunkDestinationUpdate {
     this.processingConfiguration,
     this.cloudWatchLoggingOptions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configures retry behavior in case Kinesis Data Firehose is unable to deliver
@@ -2304,7 +2826,12 @@ class SplunkRetryOptions {
     this.durationInSeconds,
   });
   static SplunkRetryOptions fromJson(Map<String, dynamic> json) =>
-      SplunkRetryOptions();
+      SplunkRetryOptions(
+        durationInSeconds: json.containsKey('DurationInSeconds')
+            ? json['DurationInSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartDeliveryStreamEncryptionOutput {
@@ -2337,7 +2864,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagDeliveryStreamOutput {

@@ -4,6 +4,10 @@ import 'package:meta/meta.dart';
 /// migration status and integrate your resource-specific migration tool by
 /// providing a programmatic interface to Migration Hub.
 class MigrationHubApi {
+  final _client;
+  MigrationHubApi(client)
+      : _client = client.configured('Migration Hub', serializer: 'json');
+
   /// Associates a created artifact of an AWS cloud resource, the target
   /// receiving the migration, with the migration task performed by a migration
   /// tool. This API has the following traits:
@@ -32,7 +36,13 @@ class MigrationHubApi {
       @required String migrationTaskName,
       @required CreatedArtifact createdArtifact,
       bool dryRun}) async {
-    return AssociateCreatedArtifactResult.fromJson({});
+    var response_ = await _client.send('AssociateCreatedArtifact', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+      'CreatedArtifact': createdArtifact,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return AssociateCreatedArtifactResult.fromJson(response_);
   }
 
   /// Associates a discovered resource ID from Application Discovery Service
@@ -51,7 +61,13 @@ class MigrationHubApi {
       @required String migrationTaskName,
       @required DiscoveredResource discoveredResource,
       bool dryRun}) async {
-    return AssociateDiscoveredResourceResult.fromJson({});
+    var response_ = await _client.send('AssociateDiscoveredResource', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+      'DiscoveredResource': discoveredResource,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return AssociateDiscoveredResourceResult.fromJson(response_);
   }
 
   /// Creates a progress update stream which is an AWS resource used for access
@@ -67,7 +83,11 @@ class MigrationHubApi {
   Future<CreateProgressUpdateStreamResult> createProgressUpdateStream(
       String progressUpdateStreamName,
       {bool dryRun}) async {
-    return CreateProgressUpdateStreamResult.fromJson({});
+    var response_ = await _client.send('CreateProgressUpdateStream', {
+      'ProgressUpdateStreamName': progressUpdateStreamName,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return CreateProgressUpdateStreamResult.fromJson(response_);
   }
 
   /// Deletes a progress update stream, including all of its tasks, which was
@@ -101,7 +121,11 @@ class MigrationHubApi {
   Future<DeleteProgressUpdateStreamResult> deleteProgressUpdateStream(
       String progressUpdateStreamName,
       {bool dryRun}) async {
-    return DeleteProgressUpdateStreamResult.fromJson({});
+    var response_ = await _client.send('DeleteProgressUpdateStream', {
+      'ProgressUpdateStreamName': progressUpdateStreamName,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DeleteProgressUpdateStreamResult.fromJson(response_);
   }
 
   /// Gets the migration status of an application.
@@ -110,7 +134,10 @@ class MigrationHubApi {
   /// grouped application.
   Future<DescribeApplicationStateResult> describeApplicationState(
       String applicationId) async {
-    return DescribeApplicationStateResult.fromJson({});
+    var response_ = await _client.send('DescribeApplicationState', {
+      'ApplicationId': applicationId,
+    });
+    return DescribeApplicationStateResult.fromJson(response_);
   }
 
   /// Retrieves a list of all attributes associated with a specific migration
@@ -122,7 +149,11 @@ class MigrationHubApi {
   Future<DescribeMigrationTaskResult> describeMigrationTask(
       {@required String progressUpdateStream,
       @required String migrationTaskName}) async {
-    return DescribeMigrationTaskResult.fromJson({});
+    var response_ = await _client.send('DescribeMigrationTask', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+    });
+    return DescribeMigrationTaskResult.fromJson(response_);
   }
 
   /// Disassociates a created artifact of an AWS resource with a migration task
@@ -154,7 +185,13 @@ class MigrationHubApi {
       @required String migrationTaskName,
       @required String createdArtifactName,
       bool dryRun}) async {
-    return DisassociateCreatedArtifactResult.fromJson({});
+    var response_ = await _client.send('DisassociateCreatedArtifact', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+      'CreatedArtifactName': createdArtifactName,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DisassociateCreatedArtifactResult.fromJson(response_);
   }
 
   /// Disassociate an Application Discovery Service (ADS) discovered resource
@@ -174,7 +211,13 @@ class MigrationHubApi {
       @required String migrationTaskName,
       @required String configurationId,
       bool dryRun}) async {
-    return DisassociateDiscoveredResourceResult.fromJson({});
+    var response_ = await _client.send('DisassociateDiscoveredResource', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+      'ConfigurationId': configurationId,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return DisassociateDiscoveredResourceResult.fromJson(response_);
   }
 
   /// Registers a new migration task which represents a server, database, etc.,
@@ -194,7 +237,12 @@ class MigrationHubApi {
       {@required String progressUpdateStream,
       @required String migrationTaskName,
       bool dryRun}) async {
-    return ImportMigrationTaskResult.fromJson({});
+    var response_ = await _client.send('ImportMigrationTask', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return ImportMigrationTaskResult.fromJson(response_);
   }
 
   /// Lists the created artifacts attached to a given migration task in an
@@ -222,7 +270,13 @@ class MigrationHubApi {
       @required String migrationTaskName,
       String nextToken,
       int maxResults}) async {
-    return ListCreatedArtifactsResult.fromJson({});
+    var response_ = await _client.send('ListCreatedArtifacts', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListCreatedArtifactsResult.fromJson(response_);
   }
 
   /// Lists discovered resources associated with the given `MigrationTask`.
@@ -241,7 +295,13 @@ class MigrationHubApi {
       @required String migrationTaskName,
       String nextToken,
       int maxResults}) async {
-    return ListDiscoveredResourcesResult.fromJson({});
+    var response_ = await _client.send('ListDiscoveredResources', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDiscoveredResourcesResult.fromJson(response_);
   }
 
   /// Lists all, or filtered by resource name, migration tasks associated with
@@ -263,7 +323,12 @@ class MigrationHubApi {
   /// [resourceName]: Filter migration tasks by discovered resource name.
   Future<ListMigrationTasksResult> listMigrationTasks(
       {String nextToken, int maxResults, String resourceName}) async {
-    return ListMigrationTasksResult.fromJson({});
+    var response_ = await _client.send('ListMigrationTasks', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (resourceName != null) 'ResourceName': resourceName,
+    });
+    return ListMigrationTasksResult.fromJson(response_);
   }
 
   /// Lists progress update streams associated with the user account making this
@@ -277,7 +342,11 @@ class MigrationHubApi {
   /// page.
   Future<ListProgressUpdateStreamsResult> listProgressUpdateStreams(
       {String nextToken, int maxResults}) async {
-    return ListProgressUpdateStreamsResult.fromJson({});
+    var response_ = await _client.send('ListProgressUpdateStreams', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListProgressUpdateStreamsResult.fromJson(response_);
   }
 
   /// Sets the migration state of an application. For a given application
@@ -296,7 +365,12 @@ class MigrationHubApi {
       {@required String applicationId,
       @required String status,
       bool dryRun}) async {
-    return NotifyApplicationStateResult.fromJson({});
+    var response_ = await _client.send('NotifyApplicationState', {
+      'ApplicationId': applicationId,
+      'Status': status,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return NotifyApplicationStateResult.fromJson(response_);
   }
 
   /// Notifies Migration Hub of the current status, progress, or other detail
@@ -333,7 +407,15 @@ class MigrationHubApi {
       @required DateTime updateDateTime,
       @required int nextUpdateSeconds,
       bool dryRun}) async {
-    return NotifyMigrationTaskStateResult.fromJson({});
+    var response_ = await _client.send('NotifyMigrationTaskState', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+      'Task': task,
+      'UpdateDateTime': updateDateTime,
+      'NextUpdateSeconds': nextUpdateSeconds,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return NotifyMigrationTaskStateResult.fromJson(response_);
   }
 
   /// Provides identifying details of the resource being migrated so that it can
@@ -389,7 +471,13 @@ class MigrationHubApi {
       @required String migrationTaskName,
       @required List<ResourceAttribute> resourceAttributeList,
       bool dryRun}) async {
-    return PutResourceAttributesResult.fromJson({});
+    var response_ = await _client.send('PutResourceAttributes', {
+      'ProgressUpdateStream': progressUpdateStream,
+      'MigrationTaskName': migrationTaskName,
+      'ResourceAttributeList': resourceAttributeList,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return PutResourceAttributesResult.fromJson(response_);
   }
 }
 
@@ -426,8 +514,13 @@ class CreatedArtifact {
     @required this.name,
     this.description,
   });
-  static CreatedArtifact fromJson(Map<String, dynamic> json) =>
-      CreatedArtifact();
+  static CreatedArtifact fromJson(Map<String, dynamic> json) => CreatedArtifact(
+        name: json['Name'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteProgressUpdateStreamResult {
@@ -448,7 +541,14 @@ class DescribeApplicationStateResult {
     this.lastUpdatedTime,
   });
   static DescribeApplicationStateResult fromJson(Map<String, dynamic> json) =>
-      DescribeApplicationStateResult();
+      DescribeApplicationStateResult(
+        applicationStatus: json.containsKey('ApplicationStatus')
+            ? json['ApplicationStatus'] as String
+            : null,
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+      );
 }
 
 class DescribeMigrationTaskResult {
@@ -459,7 +559,11 @@ class DescribeMigrationTaskResult {
     this.migrationTask,
   });
   static DescribeMigrationTaskResult fromJson(Map<String, dynamic> json) =>
-      DescribeMigrationTaskResult();
+      DescribeMigrationTaskResult(
+        migrationTask: json.containsKey('MigrationTask')
+            ? MigrationTask.fromJson(json['MigrationTask'])
+            : null,
+      );
 }
 
 class DisassociateCreatedArtifactResult {
@@ -491,7 +595,13 @@ class DiscoveredResource {
     this.description,
   });
   static DiscoveredResource fromJson(Map<String, dynamic> json) =>
-      DiscoveredResource();
+      DiscoveredResource(
+        configurationId: json['ConfigurationId'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ImportMigrationTaskResult {
@@ -514,7 +624,15 @@ class ListCreatedArtifactsResult {
     this.createdArtifactList,
   });
   static ListCreatedArtifactsResult fromJson(Map<String, dynamic> json) =>
-      ListCreatedArtifactsResult();
+      ListCreatedArtifactsResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        createdArtifactList: json.containsKey('CreatedArtifactList')
+            ? (json['CreatedArtifactList'] as List)
+                .map((e) => CreatedArtifact.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListDiscoveredResourcesResult {
@@ -532,7 +650,15 @@ class ListDiscoveredResourcesResult {
     this.discoveredResourceList,
   });
   static ListDiscoveredResourcesResult fromJson(Map<String, dynamic> json) =>
-      ListDiscoveredResourcesResult();
+      ListDiscoveredResourcesResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        discoveredResourceList: json.containsKey('DiscoveredResourceList')
+            ? (json['DiscoveredResourceList'] as List)
+                .map((e) => DiscoveredResource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListMigrationTasksResult {
@@ -550,7 +676,15 @@ class ListMigrationTasksResult {
     this.migrationTaskSummaryList,
   });
   static ListMigrationTasksResult fromJson(Map<String, dynamic> json) =>
-      ListMigrationTasksResult();
+      ListMigrationTasksResult(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        migrationTaskSummaryList: json.containsKey('MigrationTaskSummaryList')
+            ? (json['MigrationTaskSummaryList'] as List)
+                .map((e) => MigrationTaskSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListProgressUpdateStreamsResult {
@@ -567,7 +701,16 @@ class ListProgressUpdateStreamsResult {
     this.nextToken,
   });
   static ListProgressUpdateStreamsResult fromJson(Map<String, dynamic> json) =>
-      ListProgressUpdateStreamsResult();
+      ListProgressUpdateStreamsResult(
+        progressUpdateStreamSummaryList:
+            json.containsKey('ProgressUpdateStreamSummaryList')
+                ? (json['ProgressUpdateStreamSummaryList'] as List)
+                    .map((e) => ProgressUpdateStreamSummary.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents a migration task in a migration tool.
@@ -593,7 +736,23 @@ class MigrationTask {
     this.updateDateTime,
     this.resourceAttributeList,
   });
-  static MigrationTask fromJson(Map<String, dynamic> json) => MigrationTask();
+  static MigrationTask fromJson(Map<String, dynamic> json) => MigrationTask(
+        progressUpdateStream: json.containsKey('ProgressUpdateStream')
+            ? json['ProgressUpdateStream'] as String
+            : null,
+        migrationTaskName: json.containsKey('MigrationTaskName')
+            ? json['MigrationTaskName'] as String
+            : null,
+        task: json.containsKey('Task') ? Task.fromJson(json['Task']) : null,
+        updateDateTime: json.containsKey('UpdateDateTime')
+            ? DateTime.parse(json['UpdateDateTime'])
+            : null,
+        resourceAttributeList: json.containsKey('ResourceAttributeList')
+            ? (json['ResourceAttributeList'] as List)
+                .map((e) => ResourceAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// MigrationTaskSummary includes `MigrationTaskName`, `ProgressPercent`,
@@ -626,7 +785,24 @@ class MigrationTaskSummary {
     this.updateDateTime,
   });
   static MigrationTaskSummary fromJson(Map<String, dynamic> json) =>
-      MigrationTaskSummary();
+      MigrationTaskSummary(
+        progressUpdateStream: json.containsKey('ProgressUpdateStream')
+            ? json['ProgressUpdateStream'] as String
+            : null,
+        migrationTaskName: json.containsKey('MigrationTaskName')
+            ? json['MigrationTaskName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        progressPercent: json.containsKey('ProgressPercent')
+            ? json['ProgressPercent'] as int
+            : null,
+        statusDetail: json.containsKey('StatusDetail')
+            ? json['StatusDetail'] as String
+            : null,
+        updateDateTime: json.containsKey('UpdateDateTime')
+            ? DateTime.parse(json['UpdateDateTime'])
+            : null,
+      );
 }
 
 class NotifyApplicationStateResult {
@@ -651,7 +827,11 @@ class ProgressUpdateStreamSummary {
     this.progressUpdateStreamName,
   });
   static ProgressUpdateStreamSummary fromJson(Map<String, dynamic> json) =>
-      ProgressUpdateStreamSummary();
+      ProgressUpdateStreamSummary(
+        progressUpdateStreamName: json.containsKey('ProgressUpdateStreamName')
+            ? json['ProgressUpdateStreamName'] as String
+            : null,
+      );
 }
 
 class PutResourceAttributesResult {
@@ -695,7 +875,11 @@ class ResourceAttribute {
     @required this.value,
   });
   static ResourceAttribute fromJson(Map<String, dynamic> json) =>
-      ResourceAttribute();
+      ResourceAttribute(
+        type: json['Type'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Task object encapsulating task information.
@@ -716,5 +900,14 @@ class Task {
     this.statusDetail,
     this.progressPercent,
   });
-  static Task fromJson(Map<String, dynamic> json) => Task();
+  static Task fromJson(Map<String, dynamic> json) => Task(
+        status: json['Status'] as String,
+        statusDetail: json.containsKey('StatusDetail')
+            ? json['StatusDetail'] as String
+            : null,
+        progressPercent: json.containsKey('ProgressPercent')
+            ? json['ProgressPercent'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

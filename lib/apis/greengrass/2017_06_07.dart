@@ -8,6 +8,10 @@ import 'package:meta/meta.dart';
 /// the cloud by allowing you to author AWS Lambda functions that execute
 /// locally.
 class GreengrassApi {
+  final _client;
+  GreengrassApi(client)
+      : _client = client.configured('Greengrass', serializer: 'rest-json');
+
   /// Associates a role with a group. Your Greengrass core will use the role to
   /// access AWS cloud services. The role's permissions should allow Greengrass
   /// core Lambda functions to perform actions against the cloud.
@@ -18,7 +22,11 @@ class GreengrassApi {
   /// existence of the role is not validated.
   Future<AssociateRoleToGroupResponse> associateRoleToGroup(
       {@required String groupId, @required String roleArn}) async {
-    return AssociateRoleToGroupResponse.fromJson({});
+    var response_ = await _client.send('AssociateRoleToGroup', {
+      'GroupId': groupId,
+      'RoleArn': roleArn,
+    });
+    return AssociateRoleToGroupResponse.fromJson(response_);
   }
 
   /// Associates a role with your account. AWS IoT Greengrass will use the role
@@ -30,7 +38,10 @@ class GreengrassApi {
   /// account.
   Future<AssociateServiceRoleToAccountResponse> associateServiceRoleToAccount(
       String roleArn) async {
-    return AssociateServiceRoleToAccountResponse.fromJson({});
+    var response_ = await _client.send('AssociateServiceRoleToAccount', {
+      'RoleArn': roleArn,
+    });
+    return AssociateServiceRoleToAccountResponse.fromJson(response_);
   }
 
   /// Creates a connector definition. You may provide the initial version of the
@@ -51,7 +62,13 @@ class GreengrassApi {
       ConnectorDefinitionVersion initialVersion,
       String name,
       Map<String, String> tags}) async {
-    return CreateConnectorDefinitionResponse.fromJson({});
+    var response_ = await _client.send('CreateConnectorDefinition', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (initialVersion != null) 'InitialVersion': initialVersion,
+      if (name != null) 'Name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateConnectorDefinitionResponse.fromJson(response_);
   }
 
   /// Creates a version of a connector definition which has already been
@@ -67,7 +84,12 @@ class GreengrassApi {
   Future<CreateConnectorDefinitionVersionResponse>
       createConnectorDefinitionVersion(String connectorDefinitionId,
           {String amznClientToken, List<Connector> connectors}) async {
-    return CreateConnectorDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateConnectorDefinitionVersion', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      'ConnectorDefinitionId': connectorDefinitionId,
+      if (connectors != null) 'Connectors': connectors,
+    });
+    return CreateConnectorDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Creates a core definition. You may provide the initial version of the core
@@ -88,7 +110,13 @@ class GreengrassApi {
       CoreDefinitionVersion initialVersion,
       String name,
       Map<String, String> tags}) async {
-    return CreateCoreDefinitionResponse.fromJson({});
+    var response_ = await _client.send('CreateCoreDefinition', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (initialVersion != null) 'InitialVersion': initialVersion,
+      if (name != null) 'Name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateCoreDefinitionResponse.fromJson(response_);
   }
 
   /// Creates a version of a core definition that has already been defined.
@@ -104,7 +132,12 @@ class GreengrassApi {
       String coreDefinitionId,
       {String amznClientToken,
       List<Core> cores}) async {
-    return CreateCoreDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateCoreDefinitionVersion', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      'CoreDefinitionId': coreDefinitionId,
+      if (cores != null) 'Cores': cores,
+    });
+    return CreateCoreDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Creates a deployment. ''CreateDeployment'' requests are idempotent with
@@ -129,7 +162,14 @@ class GreengrassApi {
       @required String deploymentType,
       @required String groupId,
       String groupVersionId}) async {
-    return CreateDeploymentResponse.fromJson({});
+    var response_ = await _client.send('CreateDeployment', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (deploymentId != null) 'DeploymentId': deploymentId,
+      'DeploymentType': deploymentType,
+      'GroupId': groupId,
+      if (groupVersionId != null) 'GroupVersionId': groupVersionId,
+    });
+    return CreateDeploymentResponse.fromJson(response_);
   }
 
   /// Creates a device definition. You may provide the initial version of the
@@ -150,7 +190,13 @@ class GreengrassApi {
       DeviceDefinitionVersion initialVersion,
       String name,
       Map<String, String> tags}) async {
-    return CreateDeviceDefinitionResponse.fromJson({});
+    var response_ = await _client.send('CreateDeviceDefinition', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (initialVersion != null) 'InitialVersion': initialVersion,
+      if (name != null) 'Name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDeviceDefinitionResponse.fromJson(response_);
   }
 
   /// Creates a version of a device definition that has already been defined.
@@ -165,7 +211,12 @@ class GreengrassApi {
       String deviceDefinitionId,
       {String amznClientToken,
       List<Device> devices}) async {
-    return CreateDeviceDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateDeviceDefinitionVersion', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      'DeviceDefinitionId': deviceDefinitionId,
+      if (devices != null) 'Devices': devices,
+    });
+    return CreateDeviceDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Creates a Lambda function definition which contains a list of Lambda
@@ -188,7 +239,13 @@ class GreengrassApi {
       FunctionDefinitionVersion initialVersion,
       String name,
       Map<String, String> tags}) async {
-    return CreateFunctionDefinitionResponse.fromJson({});
+    var response_ = await _client.send('CreateFunctionDefinition', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (initialVersion != null) 'InitialVersion': initialVersion,
+      if (name != null) 'Name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateFunctionDefinitionResponse.fromJson(response_);
   }
 
   /// Creates a version of a Lambda function definition that has already been
@@ -210,7 +267,13 @@ class GreengrassApi {
           {String amznClientToken,
           FunctionDefaultConfig defaultConfig,
           List<Function> functions}) async {
-    return CreateFunctionDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateFunctionDefinitionVersion', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (defaultConfig != null) 'DefaultConfig': defaultConfig,
+      'FunctionDefinitionId': functionDefinitionId,
+      if (functions != null) 'Functions': functions,
+    });
+    return CreateFunctionDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Creates a group. You may provide the initial version of the group or use
@@ -232,7 +295,13 @@ class GreengrassApi {
       GroupVersion initialVersion,
       String name,
       Map<String, String> tags}) async {
-    return CreateGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateGroup', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (initialVersion != null) 'InitialVersion': initialVersion,
+      if (name != null) 'Name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateGroupResponse.fromJson(response_);
   }
 
   /// Creates a CA for the group. If a CA already exists, it will rotate the
@@ -245,7 +314,11 @@ class GreengrassApi {
   Future<CreateGroupCertificateAuthorityResponse>
       createGroupCertificateAuthority(String groupId,
           {String amznClientToken}) async {
-    return CreateGroupCertificateAuthorityResponse.fromJson({});
+    var response_ = await _client.send('CreateGroupCertificateAuthority', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      'GroupId': groupId,
+    });
+    return CreateGroupCertificateAuthorityResponse.fromJson(response_);
   }
 
   /// Creates a version of a group which has already been defined.
@@ -284,7 +357,25 @@ class GreengrassApi {
       String loggerDefinitionVersionArn,
       String resourceDefinitionVersionArn,
       String subscriptionDefinitionVersionArn}) async {
-    return CreateGroupVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateGroupVersion', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (connectorDefinitionVersionArn != null)
+        'ConnectorDefinitionVersionArn': connectorDefinitionVersionArn,
+      if (coreDefinitionVersionArn != null)
+        'CoreDefinitionVersionArn': coreDefinitionVersionArn,
+      if (deviceDefinitionVersionArn != null)
+        'DeviceDefinitionVersionArn': deviceDefinitionVersionArn,
+      if (functionDefinitionVersionArn != null)
+        'FunctionDefinitionVersionArn': functionDefinitionVersionArn,
+      'GroupId': groupId,
+      if (loggerDefinitionVersionArn != null)
+        'LoggerDefinitionVersionArn': loggerDefinitionVersionArn,
+      if (resourceDefinitionVersionArn != null)
+        'ResourceDefinitionVersionArn': resourceDefinitionVersionArn,
+      if (subscriptionDefinitionVersionArn != null)
+        'SubscriptionDefinitionVersionArn': subscriptionDefinitionVersionArn,
+    });
+    return CreateGroupVersionResponse.fromJson(response_);
   }
 
   /// Creates a logger definition. You may provide the initial version of the
@@ -305,7 +396,13 @@ class GreengrassApi {
       LoggerDefinitionVersion initialVersion,
       String name,
       Map<String, String> tags}) async {
-    return CreateLoggerDefinitionResponse.fromJson({});
+    var response_ = await _client.send('CreateLoggerDefinition', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (initialVersion != null) 'InitialVersion': initialVersion,
+      if (name != null) 'Name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateLoggerDefinitionResponse.fromJson(response_);
   }
 
   /// Creates a version of a logger definition that has already been defined.
@@ -320,7 +417,12 @@ class GreengrassApi {
       String loggerDefinitionId,
       {String amznClientToken,
       List<Logger> loggers}) async {
-    return CreateLoggerDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateLoggerDefinitionVersion', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      'LoggerDefinitionId': loggerDefinitionId,
+      if (loggers != null) 'Loggers': loggers,
+    });
+    return CreateLoggerDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Creates a resource definition which contains a list of resources to be
@@ -342,7 +444,13 @@ class GreengrassApi {
       ResourceDefinitionVersion initialVersion,
       String name,
       Map<String, String> tags}) async {
-    return CreateResourceDefinitionResponse.fromJson({});
+    var response_ = await _client.send('CreateResourceDefinition', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (initialVersion != null) 'InitialVersion': initialVersion,
+      if (name != null) 'Name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateResourceDefinitionResponse.fromJson(response_);
   }
 
   /// Creates a version of a resource definition that has already been defined.
@@ -356,7 +464,12 @@ class GreengrassApi {
   Future<CreateResourceDefinitionVersionResponse>
       createResourceDefinitionVersion(String resourceDefinitionId,
           {String amznClientToken, List<Resource> resources}) async {
-    return CreateResourceDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateResourceDefinitionVersion', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      'ResourceDefinitionId': resourceDefinitionId,
+      if (resources != null) 'Resources': resources,
+    });
+    return CreateResourceDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Creates a software update for a core or group of cores (specified as an
@@ -375,7 +488,17 @@ class GreengrassApi {
       @required List<String> updateTargets,
       @required String updateTargetsArchitecture,
       @required String updateTargetsOperatingSystem}) async {
-    return CreateSoftwareUpdateJobResponse.fromJson({});
+    var response_ = await _client.send('CreateSoftwareUpdateJob', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      'S3UrlSignerRole': s3UrlSignerRole,
+      'SoftwareToUpdate': softwareToUpdate,
+      if (updateAgentLogLevel != null)
+        'UpdateAgentLogLevel': updateAgentLogLevel,
+      'UpdateTargets': updateTargets,
+      'UpdateTargetsArchitecture': updateTargetsArchitecture,
+      'UpdateTargetsOperatingSystem': updateTargetsOperatingSystem,
+    });
+    return CreateSoftwareUpdateJobResponse.fromJson(response_);
   }
 
   /// Creates a subscription definition. You may provide the initial version of
@@ -396,7 +519,13 @@ class GreengrassApi {
       SubscriptionDefinitionVersion initialVersion,
       String name,
       Map<String, String> tags}) async {
-    return CreateSubscriptionDefinitionResponse.fromJson({});
+    var response_ = await _client.send('CreateSubscriptionDefinition', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (initialVersion != null) 'InitialVersion': initialVersion,
+      if (name != null) 'Name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateSubscriptionDefinitionResponse.fromJson(response_);
   }
 
   /// Creates a version of a subscription definition which has already been
@@ -411,7 +540,12 @@ class GreengrassApi {
   Future<CreateSubscriptionDefinitionVersionResponse>
       createSubscriptionDefinitionVersion(String subscriptionDefinitionId,
           {String amznClientToken, List<Subscription> subscriptions}) async {
-    return CreateSubscriptionDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateSubscriptionDefinitionVersion', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      'SubscriptionDefinitionId': subscriptionDefinitionId,
+      if (subscriptions != null) 'Subscriptions': subscriptions,
+    });
+    return CreateSubscriptionDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Deletes a connector definition.
@@ -419,7 +553,10 @@ class GreengrassApi {
   /// [connectorDefinitionId]: The ID of the connector definition.
   Future<DeleteConnectorDefinitionResponse> deleteConnectorDefinition(
       String connectorDefinitionId) async {
-    return DeleteConnectorDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeleteConnectorDefinition', {
+      'ConnectorDefinitionId': connectorDefinitionId,
+    });
+    return DeleteConnectorDefinitionResponse.fromJson(response_);
   }
 
   /// Deletes a core definition.
@@ -427,7 +564,10 @@ class GreengrassApi {
   /// [coreDefinitionId]: The ID of the core definition.
   Future<DeleteCoreDefinitionResponse> deleteCoreDefinition(
       String coreDefinitionId) async {
-    return DeleteCoreDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeleteCoreDefinition', {
+      'CoreDefinitionId': coreDefinitionId,
+    });
+    return DeleteCoreDefinitionResponse.fromJson(response_);
   }
 
   /// Deletes a device definition.
@@ -435,7 +575,10 @@ class GreengrassApi {
   /// [deviceDefinitionId]: The ID of the device definition.
   Future<DeleteDeviceDefinitionResponse> deleteDeviceDefinition(
       String deviceDefinitionId) async {
-    return DeleteDeviceDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeleteDeviceDefinition', {
+      'DeviceDefinitionId': deviceDefinitionId,
+    });
+    return DeleteDeviceDefinitionResponse.fromJson(response_);
   }
 
   /// Deletes a Lambda function definition.
@@ -443,14 +586,20 @@ class GreengrassApi {
   /// [functionDefinitionId]: The ID of the Lambda function definition.
   Future<DeleteFunctionDefinitionResponse> deleteFunctionDefinition(
       String functionDefinitionId) async {
-    return DeleteFunctionDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeleteFunctionDefinition', {
+      'FunctionDefinitionId': functionDefinitionId,
+    });
+    return DeleteFunctionDefinitionResponse.fromJson(response_);
   }
 
   /// Deletes a group.
   ///
   /// [groupId]: The ID of the Greengrass group.
   Future<DeleteGroupResponse> deleteGroup(String groupId) async {
-    return DeleteGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteGroup', {
+      'GroupId': groupId,
+    });
+    return DeleteGroupResponse.fromJson(response_);
   }
 
   /// Deletes a logger definition.
@@ -458,7 +607,10 @@ class GreengrassApi {
   /// [loggerDefinitionId]: The ID of the logger definition.
   Future<DeleteLoggerDefinitionResponse> deleteLoggerDefinition(
       String loggerDefinitionId) async {
-    return DeleteLoggerDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeleteLoggerDefinition', {
+      'LoggerDefinitionId': loggerDefinitionId,
+    });
+    return DeleteLoggerDefinitionResponse.fromJson(response_);
   }
 
   /// Deletes a resource definition.
@@ -466,7 +618,10 @@ class GreengrassApi {
   /// [resourceDefinitionId]: The ID of the resource definition.
   Future<DeleteResourceDefinitionResponse> deleteResourceDefinition(
       String resourceDefinitionId) async {
-    return DeleteResourceDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeleteResourceDefinition', {
+      'ResourceDefinitionId': resourceDefinitionId,
+    });
+    return DeleteResourceDefinitionResponse.fromJson(response_);
   }
 
   /// Deletes a subscription definition.
@@ -474,7 +629,10 @@ class GreengrassApi {
   /// [subscriptionDefinitionId]: The ID of the subscription definition.
   Future<DeleteSubscriptionDefinitionResponse> deleteSubscriptionDefinition(
       String subscriptionDefinitionId) async {
-    return DeleteSubscriptionDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeleteSubscriptionDefinition', {
+      'SubscriptionDefinitionId': subscriptionDefinitionId,
+    });
+    return DeleteSubscriptionDefinitionResponse.fromJson(response_);
   }
 
   /// Disassociates the role from a group.
@@ -482,21 +640,29 @@ class GreengrassApi {
   /// [groupId]: The ID of the Greengrass group.
   Future<DisassociateRoleFromGroupResponse> disassociateRoleFromGroup(
       String groupId) async {
-    return DisassociateRoleFromGroupResponse.fromJson({});
+    var response_ = await _client.send('DisassociateRoleFromGroup', {
+      'GroupId': groupId,
+    });
+    return DisassociateRoleFromGroupResponse.fromJson(response_);
   }
 
   /// Disassociates the service role from your account. Without a service role,
   /// deployments will not work.
   Future<DisassociateServiceRoleFromAccountResponse>
       disassociateServiceRoleFromAccount() async {
-    return DisassociateServiceRoleFromAccountResponse.fromJson({});
+    var response_ =
+        await _client.send('DisassociateServiceRoleFromAccount', {});
+    return DisassociateServiceRoleFromAccountResponse.fromJson(response_);
   }
 
   /// Retrieves the role associated with a particular group.
   ///
   /// [groupId]: The ID of the Greengrass group.
   Future<GetAssociatedRoleResponse> getAssociatedRole(String groupId) async {
-    return GetAssociatedRoleResponse.fromJson({});
+    var response_ = await _client.send('GetAssociatedRole', {
+      'GroupId': groupId,
+    });
+    return GetAssociatedRoleResponse.fromJson(response_);
   }
 
   /// Returns the status of a bulk deployment.
@@ -504,7 +670,10 @@ class GreengrassApi {
   /// [bulkDeploymentId]: The ID of the bulk deployment.
   Future<GetBulkDeploymentStatusResponse> getBulkDeploymentStatus(
       String bulkDeploymentId) async {
-    return GetBulkDeploymentStatusResponse.fromJson({});
+    var response_ = await _client.send('GetBulkDeploymentStatus', {
+      'BulkDeploymentId': bulkDeploymentId,
+    });
+    return GetBulkDeploymentStatusResponse.fromJson(response_);
   }
 
   /// Retrieves the connectivity information for a core.
@@ -512,7 +681,10 @@ class GreengrassApi {
   /// [thingName]: The thing name.
   Future<GetConnectivityInfoResponse> getConnectivityInfo(
       String thingName) async {
-    return GetConnectivityInfoResponse.fromJson({});
+    var response_ = await _client.send('GetConnectivityInfo', {
+      'ThingName': thingName,
+    });
+    return GetConnectivityInfoResponse.fromJson(response_);
   }
 
   /// Retrieves information about a connector definition.
@@ -520,7 +692,10 @@ class GreengrassApi {
   /// [connectorDefinitionId]: The ID of the connector definition.
   Future<GetConnectorDefinitionResponse> getConnectorDefinition(
       String connectorDefinitionId) async {
-    return GetConnectorDefinitionResponse.fromJson({});
+    var response_ = await _client.send('GetConnectorDefinition', {
+      'ConnectorDefinitionId': connectorDefinitionId,
+    });
+    return GetConnectorDefinitionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a connector definition version, including the
@@ -544,7 +719,12 @@ class GreengrassApi {
       {@required String connectorDefinitionId,
       @required String connectorDefinitionVersionId,
       String nextToken}) async {
-    return GetConnectorDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('GetConnectorDefinitionVersion', {
+      'ConnectorDefinitionId': connectorDefinitionId,
+      'ConnectorDefinitionVersionId': connectorDefinitionVersionId,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetConnectorDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a core definition version.
@@ -552,7 +732,10 @@ class GreengrassApi {
   /// [coreDefinitionId]: The ID of the core definition.
   Future<GetCoreDefinitionResponse> getCoreDefinition(
       String coreDefinitionId) async {
-    return GetCoreDefinitionResponse.fromJson({});
+    var response_ = await _client.send('GetCoreDefinition', {
+      'CoreDefinitionId': coreDefinitionId,
+    });
+    return GetCoreDefinitionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a core definition version.
@@ -569,7 +752,11 @@ class GreengrassApi {
   Future<GetCoreDefinitionVersionResponse> getCoreDefinitionVersion(
       {@required String coreDefinitionId,
       @required String coreDefinitionVersionId}) async {
-    return GetCoreDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('GetCoreDefinitionVersion', {
+      'CoreDefinitionId': coreDefinitionId,
+      'CoreDefinitionVersionId': coreDefinitionVersionId,
+    });
+    return GetCoreDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Returns the status of a deployment.
@@ -579,7 +766,11 @@ class GreengrassApi {
   /// [groupId]: The ID of the Greengrass group.
   Future<GetDeploymentStatusResponse> getDeploymentStatus(
       {@required String deploymentId, @required String groupId}) async {
-    return GetDeploymentStatusResponse.fromJson({});
+    var response_ = await _client.send('GetDeploymentStatus', {
+      'DeploymentId': deploymentId,
+      'GroupId': groupId,
+    });
+    return GetDeploymentStatusResponse.fromJson(response_);
   }
 
   /// Retrieves information about a device definition.
@@ -587,7 +778,10 @@ class GreengrassApi {
   /// [deviceDefinitionId]: The ID of the device definition.
   Future<GetDeviceDefinitionResponse> getDeviceDefinition(
       String deviceDefinitionId) async {
-    return GetDeviceDefinitionResponse.fromJson({});
+    var response_ = await _client.send('GetDeviceDefinition', {
+      'DeviceDefinitionId': deviceDefinitionId,
+    });
+    return GetDeviceDefinitionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a device definition version.
@@ -608,7 +802,12 @@ class GreengrassApi {
       {@required String deviceDefinitionId,
       @required String deviceDefinitionVersionId,
       String nextToken}) async {
-    return GetDeviceDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('GetDeviceDefinitionVersion', {
+      'DeviceDefinitionId': deviceDefinitionId,
+      'DeviceDefinitionVersionId': deviceDefinitionVersionId,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetDeviceDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a Lambda function definition, including its
@@ -617,7 +816,10 @@ class GreengrassApi {
   /// [functionDefinitionId]: The ID of the Lambda function definition.
   Future<GetFunctionDefinitionResponse> getFunctionDefinition(
       String functionDefinitionId) async {
-    return GetFunctionDefinitionResponse.fromJson({});
+    var response_ = await _client.send('GetFunctionDefinition', {
+      'FunctionDefinitionId': functionDefinitionId,
+    });
+    return GetFunctionDefinitionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a Lambda function definition version,
@@ -640,14 +842,22 @@ class GreengrassApi {
       {@required String functionDefinitionId,
       @required String functionDefinitionVersionId,
       String nextToken}) async {
-    return GetFunctionDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('GetFunctionDefinitionVersion', {
+      'FunctionDefinitionId': functionDefinitionId,
+      'FunctionDefinitionVersionId': functionDefinitionVersionId,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetFunctionDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a group.
   ///
   /// [groupId]: The ID of the Greengrass group.
   Future<GetGroupResponse> getGroup(String groupId) async {
-    return GetGroupResponse.fromJson({});
+    var response_ = await _client.send('GetGroup', {
+      'GroupId': groupId,
+    });
+    return GetGroupResponse.fromJson(response_);
   }
 
   /// Retreives the CA associated with a group. Returns the public key of the
@@ -659,7 +869,11 @@ class GreengrassApi {
   Future<GetGroupCertificateAuthorityResponse> getGroupCertificateAuthority(
       {@required String certificateAuthorityId,
       @required String groupId}) async {
-    return GetGroupCertificateAuthorityResponse.fromJson({});
+    var response_ = await _client.send('GetGroupCertificateAuthority', {
+      'CertificateAuthorityId': certificateAuthorityId,
+      'GroupId': groupId,
+    });
+    return GetGroupCertificateAuthorityResponse.fromJson(response_);
   }
 
   /// Retrieves the current configuration for the CA used by the group.
@@ -667,7 +881,10 @@ class GreengrassApi {
   /// [groupId]: The ID of the Greengrass group.
   Future<GetGroupCertificateConfigurationResponse>
       getGroupCertificateConfiguration(String groupId) async {
-    return GetGroupCertificateConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetGroupCertificateConfiguration', {
+      'GroupId': groupId,
+    });
+    return GetGroupCertificateConfigurationResponse.fromJson(response_);
   }
 
   /// Retrieves information about a group version.
@@ -682,7 +899,11 @@ class GreengrassApi {
   /// object.
   Future<GetGroupVersionResponse> getGroupVersion(
       {@required String groupId, @required String groupVersionId}) async {
-    return GetGroupVersionResponse.fromJson({});
+    var response_ = await _client.send('GetGroupVersion', {
+      'GroupId': groupId,
+      'GroupVersionId': groupVersionId,
+    });
+    return GetGroupVersionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a logger definition.
@@ -690,7 +911,10 @@ class GreengrassApi {
   /// [loggerDefinitionId]: The ID of the logger definition.
   Future<GetLoggerDefinitionResponse> getLoggerDefinition(
       String loggerDefinitionId) async {
-    return GetLoggerDefinitionResponse.fromJson({});
+    var response_ = await _client.send('GetLoggerDefinition', {
+      'LoggerDefinitionId': loggerDefinitionId,
+    });
+    return GetLoggerDefinitionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a logger definition version.
@@ -711,7 +935,12 @@ class GreengrassApi {
       {@required String loggerDefinitionId,
       @required String loggerDefinitionVersionId,
       String nextToken}) async {
-    return GetLoggerDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('GetLoggerDefinitionVersion', {
+      'LoggerDefinitionId': loggerDefinitionId,
+      'LoggerDefinitionVersionId': loggerDefinitionVersionId,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetLoggerDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a resource definition, including its creation
@@ -720,7 +949,10 @@ class GreengrassApi {
   /// [resourceDefinitionId]: The ID of the resource definition.
   Future<GetResourceDefinitionResponse> getResourceDefinition(
       String resourceDefinitionId) async {
-    return GetResourceDefinitionResponse.fromJson({});
+    var response_ = await _client.send('GetResourceDefinition', {
+      'ResourceDefinitionId': resourceDefinitionId,
+    });
+    return GetResourceDefinitionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a resource definition version, including which
@@ -738,12 +970,17 @@ class GreengrassApi {
   Future<GetResourceDefinitionVersionResponse> getResourceDefinitionVersion(
       {@required String resourceDefinitionId,
       @required String resourceDefinitionVersionId}) async {
-    return GetResourceDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('GetResourceDefinitionVersion', {
+      'ResourceDefinitionId': resourceDefinitionId,
+      'ResourceDefinitionVersionId': resourceDefinitionVersionId,
+    });
+    return GetResourceDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Retrieves the service role that is attached to your account.
   Future<GetServiceRoleForAccountResponse> getServiceRoleForAccount() async {
-    return GetServiceRoleForAccountResponse.fromJson({});
+    var response_ = await _client.send('GetServiceRoleForAccount', {});
+    return GetServiceRoleForAccountResponse.fromJson(response_);
   }
 
   /// Retrieves information about a subscription definition.
@@ -751,7 +988,10 @@ class GreengrassApi {
   /// [subscriptionDefinitionId]: The ID of the subscription definition.
   Future<GetSubscriptionDefinitionResponse> getSubscriptionDefinition(
       String subscriptionDefinitionId) async {
-    return GetSubscriptionDefinitionResponse.fromJson({});
+    var response_ = await _client.send('GetSubscriptionDefinition', {
+      'SubscriptionDefinitionId': subscriptionDefinitionId,
+    });
+    return GetSubscriptionDefinitionResponse.fromJson(response_);
   }
 
   /// Retrieves information about a subscription definition version.
@@ -773,7 +1013,12 @@ class GreengrassApi {
           {String nextToken,
           @required String subscriptionDefinitionId,
           @required String subscriptionDefinitionVersionId}) async {
-    return GetSubscriptionDefinitionVersionResponse.fromJson({});
+    var response_ = await _client.send('GetSubscriptionDefinitionVersion', {
+      if (nextToken != null) 'NextToken': nextToken,
+      'SubscriptionDefinitionId': subscriptionDefinitionId,
+      'SubscriptionDefinitionVersionId': subscriptionDefinitionVersionId,
+    });
+    return GetSubscriptionDefinitionVersionResponse.fromJson(response_);
   }
 
   /// Gets a paginated list of the deployments that have been started in a bulk
@@ -788,7 +1033,12 @@ class GreengrassApi {
   Future<ListBulkDeploymentDetailedReportsResponse>
       listBulkDeploymentDetailedReports(String bulkDeploymentId,
           {String maxResults, String nextToken}) async {
-    return ListBulkDeploymentDetailedReportsResponse.fromJson({});
+    var response_ = await _client.send('ListBulkDeploymentDetailedReports', {
+      'BulkDeploymentId': bulkDeploymentId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListBulkDeploymentDetailedReportsResponse.fromJson(response_);
   }
 
   /// Returns a list of bulk deployments.
@@ -799,7 +1049,11 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListBulkDeploymentsResponse> listBulkDeployments(
       {String maxResults, String nextToken}) async {
-    return ListBulkDeploymentsResponse.fromJson({});
+    var response_ = await _client.send('ListBulkDeployments', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListBulkDeploymentsResponse.fromJson(response_);
   }
 
   /// Lists the versions of a connector definition, which are containers for
@@ -816,7 +1070,12 @@ class GreengrassApi {
   Future<ListConnectorDefinitionVersionsResponse>
       listConnectorDefinitionVersions(String connectorDefinitionId,
           {String maxResults, String nextToken}) async {
-    return ListConnectorDefinitionVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListConnectorDefinitionVersions', {
+      'ConnectorDefinitionId': connectorDefinitionId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListConnectorDefinitionVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of connector definitions.
@@ -827,7 +1086,11 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListConnectorDefinitionsResponse> listConnectorDefinitions(
       {String maxResults, String nextToken}) async {
-    return ListConnectorDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('ListConnectorDefinitions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListConnectorDefinitionsResponse.fromJson(response_);
   }
 
   /// Lists the versions of a core definition.
@@ -842,7 +1105,12 @@ class GreengrassApi {
       String coreDefinitionId,
       {String maxResults,
       String nextToken}) async {
-    return ListCoreDefinitionVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListCoreDefinitionVersions', {
+      'CoreDefinitionId': coreDefinitionId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListCoreDefinitionVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of core definitions.
@@ -853,7 +1121,11 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListCoreDefinitionsResponse> listCoreDefinitions(
       {String maxResults, String nextToken}) async {
-    return ListCoreDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('ListCoreDefinitions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListCoreDefinitionsResponse.fromJson(response_);
   }
 
   /// Returns a history of deployments for the group.
@@ -866,7 +1138,12 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListDeploymentsResponse> listDeployments(String groupId,
       {String maxResults, String nextToken}) async {
-    return ListDeploymentsResponse.fromJson({});
+    var response_ = await _client.send('ListDeployments', {
+      'GroupId': groupId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListDeploymentsResponse.fromJson(response_);
   }
 
   /// Lists the versions of a device definition.
@@ -881,7 +1158,12 @@ class GreengrassApi {
       String deviceDefinitionId,
       {String maxResults,
       String nextToken}) async {
-    return ListDeviceDefinitionVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListDeviceDefinitionVersions', {
+      'DeviceDefinitionId': deviceDefinitionId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListDeviceDefinitionVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of device definitions.
@@ -892,7 +1174,11 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListDeviceDefinitionsResponse> listDeviceDefinitions(
       {String maxResults, String nextToken}) async {
-    return ListDeviceDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('ListDeviceDefinitions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListDeviceDefinitionsResponse.fromJson(response_);
   }
 
   /// Lists the versions of a Lambda function definition.
@@ -907,7 +1193,12 @@ class GreengrassApi {
       String functionDefinitionId,
       {String maxResults,
       String nextToken}) async {
-    return ListFunctionDefinitionVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListFunctionDefinitionVersions', {
+      'FunctionDefinitionId': functionDefinitionId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListFunctionDefinitionVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of Lambda function definitions.
@@ -918,7 +1209,11 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListFunctionDefinitionsResponse> listFunctionDefinitions(
       {String maxResults, String nextToken}) async {
-    return ListFunctionDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('ListFunctionDefinitions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListFunctionDefinitionsResponse.fromJson(response_);
   }
 
   /// Retrieves the current CAs for a group.
@@ -926,7 +1221,10 @@ class GreengrassApi {
   /// [groupId]: The ID of the Greengrass group.
   Future<ListGroupCertificateAuthoritiesResponse>
       listGroupCertificateAuthorities(String groupId) async {
-    return ListGroupCertificateAuthoritiesResponse.fromJson({});
+    var response_ = await _client.send('ListGroupCertificateAuthorities', {
+      'GroupId': groupId,
+    });
+    return ListGroupCertificateAuthoritiesResponse.fromJson(response_);
   }
 
   /// Lists the versions of a group.
@@ -939,7 +1237,12 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListGroupVersionsResponse> listGroupVersions(String groupId,
       {String maxResults, String nextToken}) async {
-    return ListGroupVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListGroupVersions', {
+      'GroupId': groupId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListGroupVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of groups.
@@ -950,7 +1253,11 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListGroupsResponse> listGroups(
       {String maxResults, String nextToken}) async {
-    return ListGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListGroups', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListGroupsResponse.fromJson(response_);
   }
 
   /// Lists the versions of a logger definition.
@@ -965,7 +1272,12 @@ class GreengrassApi {
       String loggerDefinitionId,
       {String maxResults,
       String nextToken}) async {
-    return ListLoggerDefinitionVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListLoggerDefinitionVersions', {
+      'LoggerDefinitionId': loggerDefinitionId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListLoggerDefinitionVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of logger definitions.
@@ -976,7 +1288,11 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListLoggerDefinitionsResponse> listLoggerDefinitions(
       {String maxResults, String nextToken}) async {
-    return ListLoggerDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('ListLoggerDefinitions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListLoggerDefinitionsResponse.fromJson(response_);
   }
 
   /// Lists the versions of a resource definition.
@@ -991,7 +1307,12 @@ class GreengrassApi {
       String resourceDefinitionId,
       {String maxResults,
       String nextToken}) async {
-    return ListResourceDefinitionVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListResourceDefinitionVersions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'ResourceDefinitionId': resourceDefinitionId,
+    });
+    return ListResourceDefinitionVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of resource definitions.
@@ -1002,7 +1323,11 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListResourceDefinitionsResponse> listResourceDefinitions(
       {String maxResults, String nextToken}) async {
-    return ListResourceDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('ListResourceDefinitions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListResourceDefinitionsResponse.fromJson(response_);
   }
 
   /// Lists the versions of a subscription definition.
@@ -1016,7 +1341,12 @@ class GreengrassApi {
   Future<ListSubscriptionDefinitionVersionsResponse>
       listSubscriptionDefinitionVersions(String subscriptionDefinitionId,
           {String maxResults, String nextToken}) async {
-    return ListSubscriptionDefinitionVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListSubscriptionDefinitionVersions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'SubscriptionDefinitionId': subscriptionDefinitionId,
+    });
+    return ListSubscriptionDefinitionVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of subscription definitions.
@@ -1027,7 +1357,11 @@ class GreengrassApi {
   /// are no additional results.
   Future<ListSubscriptionDefinitionsResponse> listSubscriptionDefinitions(
       {String maxResults, String nextToken}) async {
-    return ListSubscriptionDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('ListSubscriptionDefinitions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListSubscriptionDefinitionsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of resource tags for a resource arn.
@@ -1035,7 +1369,10 @@ class GreengrassApi {
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Resets a group's deployments.
@@ -1048,7 +1385,12 @@ class GreengrassApi {
   /// [groupId]: The ID of the Greengrass group.
   Future<ResetDeploymentsResponse> resetDeployments(String groupId,
       {String amznClientToken, bool force}) async {
-    return ResetDeploymentsResponse.fromJson({});
+    var response_ = await _client.send('ResetDeployments', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      if (force != null) 'Force': force,
+      'GroupId': groupId,
+    });
+    return ResetDeploymentsResponse.fromJson(response_);
   }
 
   /// Deploys multiple groups in one operation. This action starts the bulk
@@ -1080,7 +1422,13 @@ class GreengrassApi {
       @required String executionRoleArn,
       @required String inputFileUri,
       Map<String, String> tags}) async {
-    return StartBulkDeploymentResponse.fromJson({});
+    var response_ = await _client.send('StartBulkDeployment', {
+      if (amznClientToken != null) 'AmznClientToken': amznClientToken,
+      'ExecutionRoleArn': executionRoleArn,
+      'InputFileUri': inputFileUri,
+      if (tags != null) 'tags': tags,
+    });
+    return StartBulkDeploymentResponse.fromJson(response_);
   }
 
   /// Stops the execution of a bulk deployment. This action returns a status of
@@ -1092,7 +1440,10 @@ class GreengrassApi {
   /// [bulkDeploymentId]: The ID of the bulk deployment.
   Future<StopBulkDeploymentResponse> stopBulkDeployment(
       String bulkDeploymentId) async {
-    return StopBulkDeploymentResponse.fromJson({});
+    var response_ = await _client.send('StopBulkDeployment', {
+      'BulkDeploymentId': bulkDeploymentId,
+    });
+    return StopBulkDeploymentResponse.fromJson(response_);
   }
 
   /// Add resource tags to a Greengrass Resource. Valid resources are Group,
@@ -1101,7 +1452,12 @@ class GreengrassApi {
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource.
   Future<void> tagResource(String resourceArn,
-      {Map<String, String> tags}) async {}
+      {Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      if (tags != null) 'tags': tags,
+    });
+  }
 
   /// Remove resource tags from a Greengrass Resource.
   ///
@@ -1109,7 +1465,12 @@ class GreengrassApi {
   ///
   /// [tagKeys]: An array of tag keys to delete
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Updates the connectivity information for the core. Any devices that belong
   /// to the group which has this core will receive this information in order to
@@ -1121,7 +1482,11 @@ class GreengrassApi {
   Future<UpdateConnectivityInfoResponse> updateConnectivityInfo(
       String thingName,
       {List<ConnectivityInfo> connectivityInfo}) async {
-    return UpdateConnectivityInfoResponse.fromJson({});
+    var response_ = await _client.send('UpdateConnectivityInfo', {
+      if (connectivityInfo != null) 'ConnectivityInfo': connectivityInfo,
+      'ThingName': thingName,
+    });
+    return UpdateConnectivityInfoResponse.fromJson(response_);
   }
 
   /// Updates a connector definition.
@@ -1132,7 +1497,11 @@ class GreengrassApi {
   Future<UpdateConnectorDefinitionResponse> updateConnectorDefinition(
       String connectorDefinitionId,
       {String name}) async {
-    return UpdateConnectorDefinitionResponse.fromJson({});
+    var response_ = await _client.send('UpdateConnectorDefinition', {
+      'ConnectorDefinitionId': connectorDefinitionId,
+      if (name != null) 'Name': name,
+    });
+    return UpdateConnectorDefinitionResponse.fromJson(response_);
   }
 
   /// Updates a core definition.
@@ -1143,7 +1512,11 @@ class GreengrassApi {
   Future<UpdateCoreDefinitionResponse> updateCoreDefinition(
       String coreDefinitionId,
       {String name}) async {
-    return UpdateCoreDefinitionResponse.fromJson({});
+    var response_ = await _client.send('UpdateCoreDefinition', {
+      'CoreDefinitionId': coreDefinitionId,
+      if (name != null) 'Name': name,
+    });
+    return UpdateCoreDefinitionResponse.fromJson(response_);
   }
 
   /// Updates a device definition.
@@ -1154,7 +1527,11 @@ class GreengrassApi {
   Future<UpdateDeviceDefinitionResponse> updateDeviceDefinition(
       String deviceDefinitionId,
       {String name}) async {
-    return UpdateDeviceDefinitionResponse.fromJson({});
+    var response_ = await _client.send('UpdateDeviceDefinition', {
+      'DeviceDefinitionId': deviceDefinitionId,
+      if (name != null) 'Name': name,
+    });
+    return UpdateDeviceDefinitionResponse.fromJson(response_);
   }
 
   /// Updates a Lambda function definition.
@@ -1165,7 +1542,11 @@ class GreengrassApi {
   Future<UpdateFunctionDefinitionResponse> updateFunctionDefinition(
       String functionDefinitionId,
       {String name}) async {
-    return UpdateFunctionDefinitionResponse.fromJson({});
+    var response_ = await _client.send('UpdateFunctionDefinition', {
+      'FunctionDefinitionId': functionDefinitionId,
+      if (name != null) 'Name': name,
+    });
+    return UpdateFunctionDefinitionResponse.fromJson(response_);
   }
 
   /// Updates a group.
@@ -1174,7 +1555,11 @@ class GreengrassApi {
   ///
   /// [name]: The name of the definition.
   Future<UpdateGroupResponse> updateGroup(String groupId, {String name}) async {
-    return UpdateGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateGroup', {
+      'GroupId': groupId,
+      if (name != null) 'Name': name,
+    });
+    return UpdateGroupResponse.fromJson(response_);
   }
 
   /// Updates the Certificate expiry time for a group.
@@ -1186,7 +1571,12 @@ class GreengrassApi {
   Future<UpdateGroupCertificateConfigurationResponse>
       updateGroupCertificateConfiguration(String groupId,
           {String certificateExpiryInMilliseconds}) async {
-    return UpdateGroupCertificateConfigurationResponse.fromJson({});
+    var response_ = await _client.send('UpdateGroupCertificateConfiguration', {
+      if (certificateExpiryInMilliseconds != null)
+        'CertificateExpiryInMilliseconds': certificateExpiryInMilliseconds,
+      'GroupId': groupId,
+    });
+    return UpdateGroupCertificateConfigurationResponse.fromJson(response_);
   }
 
   /// Updates a logger definition.
@@ -1197,7 +1587,11 @@ class GreengrassApi {
   Future<UpdateLoggerDefinitionResponse> updateLoggerDefinition(
       String loggerDefinitionId,
       {String name}) async {
-    return UpdateLoggerDefinitionResponse.fromJson({});
+    var response_ = await _client.send('UpdateLoggerDefinition', {
+      'LoggerDefinitionId': loggerDefinitionId,
+      if (name != null) 'Name': name,
+    });
+    return UpdateLoggerDefinitionResponse.fromJson(response_);
   }
 
   /// Updates a resource definition.
@@ -1208,7 +1602,11 @@ class GreengrassApi {
   Future<UpdateResourceDefinitionResponse> updateResourceDefinition(
       String resourceDefinitionId,
       {String name}) async {
-    return UpdateResourceDefinitionResponse.fromJson({});
+    var response_ = await _client.send('UpdateResourceDefinition', {
+      if (name != null) 'Name': name,
+      'ResourceDefinitionId': resourceDefinitionId,
+    });
+    return UpdateResourceDefinitionResponse.fromJson(response_);
   }
 
   /// Updates a subscription definition.
@@ -1219,7 +1617,11 @@ class GreengrassApi {
   Future<UpdateSubscriptionDefinitionResponse> updateSubscriptionDefinition(
       String subscriptionDefinitionId,
       {String name}) async {
-    return UpdateSubscriptionDefinitionResponse.fromJson({});
+    var response_ = await _client.send('UpdateSubscriptionDefinition', {
+      if (name != null) 'Name': name,
+      'SubscriptionDefinitionId': subscriptionDefinitionId,
+    });
+    return UpdateSubscriptionDefinitionResponse.fromJson(response_);
   }
 }
 
@@ -1232,7 +1634,11 @@ class AssociateRoleToGroupResponse {
     this.associatedAt,
   });
   static AssociateRoleToGroupResponse fromJson(Map<String, dynamic> json) =>
-      AssociateRoleToGroupResponse();
+      AssociateRoleToGroupResponse(
+        associatedAt: json.containsKey('AssociatedAt')
+            ? json['AssociatedAt'] as String
+            : null,
+      );
 }
 
 class AssociateServiceRoleToAccountResponse {
@@ -1244,7 +1650,11 @@ class AssociateServiceRoleToAccountResponse {
   });
   static AssociateServiceRoleToAccountResponse fromJson(
           Map<String, dynamic> json) =>
-      AssociateServiceRoleToAccountResponse();
+      AssociateServiceRoleToAccountResponse(
+        associatedAt: json.containsKey('AssociatedAt')
+            ? json['AssociatedAt'] as String
+            : null,
+      );
 }
 
 /// Information about a bulk deployment. You cannot start a new bulk deployment
@@ -1264,7 +1674,16 @@ class BulkDeployment {
     this.bulkDeploymentId,
     this.createdAt,
   });
-  static BulkDeployment fromJson(Map<String, dynamic> json) => BulkDeployment();
+  static BulkDeployment fromJson(Map<String, dynamic> json) => BulkDeployment(
+        bulkDeploymentArn: json.containsKey('BulkDeploymentArn')
+            ? json['BulkDeploymentArn'] as String
+            : null,
+        bulkDeploymentId: json.containsKey('BulkDeploymentId')
+            ? json['BulkDeploymentId'] as String
+            : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+      );
 }
 
 /// Relevant metrics on input records processed during bulk deployment.
@@ -1292,7 +1711,17 @@ class BulkDeploymentMetrics {
     this.retryAttempts,
   });
   static BulkDeploymentMetrics fromJson(Map<String, dynamic> json) =>
-      BulkDeploymentMetrics();
+      BulkDeploymentMetrics(
+        invalidInputRecords: json.containsKey('InvalidInputRecords')
+            ? json['InvalidInputRecords'] as int
+            : null,
+        recordsProcessed: json.containsKey('RecordsProcessed')
+            ? json['RecordsProcessed'] as int
+            : null,
+        retryAttempts: json.containsKey('RetryAttempts')
+            ? json['RetryAttempts'] as int
+            : null,
+      );
 }
 
 /// Information about an individual group deployment in a bulk deployment
@@ -1334,7 +1763,32 @@ class BulkDeploymentResult {
     this.groupArn,
   });
   static BulkDeploymentResult fromJson(Map<String, dynamic> json) =>
-      BulkDeploymentResult();
+      BulkDeploymentResult(
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        deploymentArn: json.containsKey('DeploymentArn')
+            ? json['DeploymentArn'] as String
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        deploymentStatus: json.containsKey('DeploymentStatus')
+            ? json['DeploymentStatus'] as String
+            : null,
+        deploymentType: json.containsKey('DeploymentType')
+            ? json['DeploymentType'] as String
+            : null,
+        errorDetails: json.containsKey('ErrorDetails')
+            ? (json['ErrorDetails'] as List)
+                .map((e) => ErrorDetail.fromJson(e))
+                .toList()
+            : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        groupArn:
+            json.containsKey('GroupArn') ? json['GroupArn'] as String : null,
+      );
 }
 
 /// Information about a Greengrass core's connectivity.
@@ -1358,7 +1812,17 @@ class ConnectivityInfo {
     this.portNumber,
   });
   static ConnectivityInfo fromJson(Map<String, dynamic> json) =>
-      ConnectivityInfo();
+      ConnectivityInfo(
+        hostAddress: json.containsKey('HostAddress')
+            ? json['HostAddress'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        metadata:
+            json.containsKey('Metadata') ? json['Metadata'] as String : null,
+        portNumber:
+            json.containsKey('PortNumber') ? json['PortNumber'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a connector. Connectors run on the Greengrass core and
@@ -1381,7 +1845,15 @@ class Connector {
     @required this.id,
     this.parameters,
   });
-  static Connector fromJson(Map<String, dynamic> json) => Connector();
+  static Connector fromJson(Map<String, dynamic> json) => Connector(
+        connectorArn: json['ConnectorArn'] as String,
+        id: json['Id'] as String,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the connector definition version, which is a container for
@@ -1395,7 +1867,14 @@ class ConnectorDefinitionVersion {
     this.connectors,
   });
   static ConnectorDefinitionVersion fromJson(Map<String, dynamic> json) =>
-      ConnectorDefinitionVersion();
+      ConnectorDefinitionVersion(
+        connectors: json.containsKey('Connectors')
+            ? (json['Connectors'] as List)
+                .map((e) => Connector.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a core.
@@ -1420,7 +1899,14 @@ class Core {
     this.syncShadow,
     @required this.thingArn,
   });
-  static Core fromJson(Map<String, dynamic> json) => Core();
+  static Core fromJson(Map<String, dynamic> json) => Core(
+        certificateArn: json['CertificateArn'] as String,
+        id: json['Id'] as String,
+        syncShadow:
+            json.containsKey('SyncShadow') ? json['SyncShadow'] as bool : null,
+        thingArn: json['ThingArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a core definition version.
@@ -1432,7 +1918,12 @@ class CoreDefinitionVersion {
     this.cores,
   });
   static CoreDefinitionVersion fromJson(Map<String, dynamic> json) =>
-      CoreDefinitionVersion();
+      CoreDefinitionVersion(
+        cores: json.containsKey('Cores')
+            ? (json['Cores'] as List).map((e) => Core.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateConnectorDefinitionResponse {
@@ -1470,7 +1961,23 @@ class CreateConnectorDefinitionResponse {
   });
   static CreateConnectorDefinitionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateConnectorDefinitionResponse();
+      CreateConnectorDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateConnectorDefinitionVersionResponse {
@@ -1494,7 +2001,14 @@ class CreateConnectorDefinitionVersionResponse {
   });
   static CreateConnectorDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateConnectorDefinitionVersionResponse();
+      CreateConnectorDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class CreateCoreDefinitionResponse {
@@ -1531,7 +2045,23 @@ class CreateCoreDefinitionResponse {
     this.name,
   });
   static CreateCoreDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      CreateCoreDefinitionResponse();
+      CreateCoreDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateCoreDefinitionVersionResponse {
@@ -1555,7 +2085,14 @@ class CreateCoreDefinitionVersionResponse {
   });
   static CreateCoreDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateCoreDefinitionVersionResponse();
+      CreateCoreDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class CreateDeploymentResponse {
@@ -1570,7 +2107,14 @@ class CreateDeploymentResponse {
     this.deploymentId,
   });
   static CreateDeploymentResponse fromJson(Map<String, dynamic> json) =>
-      CreateDeploymentResponse();
+      CreateDeploymentResponse(
+        deploymentArn: json.containsKey('DeploymentArn')
+            ? json['DeploymentArn'] as String
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+      );
 }
 
 class CreateDeviceDefinitionResponse {
@@ -1607,7 +2151,23 @@ class CreateDeviceDefinitionResponse {
     this.name,
   });
   static CreateDeviceDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      CreateDeviceDefinitionResponse();
+      CreateDeviceDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateDeviceDefinitionVersionResponse {
@@ -1631,7 +2191,14 @@ class CreateDeviceDefinitionVersionResponse {
   });
   static CreateDeviceDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateDeviceDefinitionVersionResponse();
+      CreateDeviceDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class CreateFunctionDefinitionResponse {
@@ -1668,7 +2235,23 @@ class CreateFunctionDefinitionResponse {
     this.name,
   });
   static CreateFunctionDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      CreateFunctionDefinitionResponse();
+      CreateFunctionDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateFunctionDefinitionVersionResponse {
@@ -1692,7 +2275,14 @@ class CreateFunctionDefinitionVersionResponse {
   });
   static CreateFunctionDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateFunctionDefinitionVersionResponse();
+      CreateFunctionDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class CreateGroupCertificateAuthorityResponse {
@@ -1704,7 +2294,12 @@ class CreateGroupCertificateAuthorityResponse {
   });
   static CreateGroupCertificateAuthorityResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateGroupCertificateAuthorityResponse();
+      CreateGroupCertificateAuthorityResponse(
+        groupCertificateAuthorityArn:
+            json.containsKey('GroupCertificateAuthorityArn')
+                ? json['GroupCertificateAuthorityArn'] as String
+                : null,
+      );
 }
 
 class CreateGroupResponse {
@@ -1741,7 +2336,23 @@ class CreateGroupResponse {
     this.name,
   });
   static CreateGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateGroupResponse();
+      CreateGroupResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateGroupVersionResponse {
@@ -1764,7 +2375,14 @@ class CreateGroupVersionResponse {
     this.version,
   });
   static CreateGroupVersionResponse fromJson(Map<String, dynamic> json) =>
-      CreateGroupVersionResponse();
+      CreateGroupVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class CreateLoggerDefinitionResponse {
@@ -1801,7 +2419,23 @@ class CreateLoggerDefinitionResponse {
     this.name,
   });
   static CreateLoggerDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      CreateLoggerDefinitionResponse();
+      CreateLoggerDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateLoggerDefinitionVersionResponse {
@@ -1825,7 +2459,14 @@ class CreateLoggerDefinitionVersionResponse {
   });
   static CreateLoggerDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateLoggerDefinitionVersionResponse();
+      CreateLoggerDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class CreateResourceDefinitionResponse {
@@ -1862,7 +2503,23 @@ class CreateResourceDefinitionResponse {
     this.name,
   });
   static CreateResourceDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      CreateResourceDefinitionResponse();
+      CreateResourceDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateResourceDefinitionVersionResponse {
@@ -1886,7 +2543,14 @@ class CreateResourceDefinitionVersionResponse {
   });
   static CreateResourceDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateResourceDefinitionVersionResponse();
+      CreateResourceDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class CreateSoftwareUpdateJobResponse {
@@ -1901,7 +2565,12 @@ class CreateSoftwareUpdateJobResponse {
     this.iotJobId,
   });
   static CreateSoftwareUpdateJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateSoftwareUpdateJobResponse();
+      CreateSoftwareUpdateJobResponse(
+        iotJobArn:
+            json.containsKey('IotJobArn') ? json['IotJobArn'] as String : null,
+        iotJobId:
+            json.containsKey('IotJobId') ? json['IotJobId'] as String : null,
+      );
 }
 
 class CreateSubscriptionDefinitionResponse {
@@ -1939,7 +2608,23 @@ class CreateSubscriptionDefinitionResponse {
   });
   static CreateSubscriptionDefinitionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateSubscriptionDefinitionResponse();
+      CreateSubscriptionDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateSubscriptionDefinitionVersionResponse {
@@ -1963,7 +2648,14 @@ class CreateSubscriptionDefinitionVersionResponse {
   });
   static CreateSubscriptionDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateSubscriptionDefinitionVersionResponse();
+      CreateSubscriptionDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 /// Information about a definition.
@@ -2005,7 +2697,27 @@ class DefinitionInformation {
     this.tags,
   });
   static DefinitionInformation fromJson(Map<String, dynamic> json) =>
-      DefinitionInformation();
+      DefinitionInformation(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DeleteConnectorDefinitionResponse {
@@ -2083,7 +2795,21 @@ class Deployment {
     this.deploymentType,
     this.groupArn,
   });
-  static Deployment fromJson(Map<String, dynamic> json) => Deployment();
+  static Deployment fromJson(Map<String, dynamic> json) => Deployment(
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        deploymentArn: json.containsKey('DeploymentArn')
+            ? json['DeploymentArn'] as String
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        deploymentType: json.containsKey('DeploymentType')
+            ? json['DeploymentType'] as String
+            : null,
+        groupArn:
+            json.containsKey('GroupArn') ? json['GroupArn'] as String : null,
+      );
 }
 
 /// Information about a device.
@@ -2109,7 +2835,14 @@ class Device {
     this.syncShadow,
     @required this.thingArn,
   });
-  static Device fromJson(Map<String, dynamic> json) => Device();
+  static Device fromJson(Map<String, dynamic> json) => Device(
+        certificateArn: json['CertificateArn'] as String,
+        id: json['Id'] as String,
+        syncShadow:
+            json.containsKey('SyncShadow') ? json['SyncShadow'] as bool : null,
+        thingArn: json['ThingArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a device definition version.
@@ -2121,7 +2854,12 @@ class DeviceDefinitionVersion {
     this.devices,
   });
   static DeviceDefinitionVersion fromJson(Map<String, dynamic> json) =>
-      DeviceDefinitionVersion();
+      DeviceDefinitionVersion(
+        devices: json.containsKey('Devices')
+            ? (json['Devices'] as List).map((e) => Device.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DisassociateRoleFromGroupResponse {
@@ -2134,7 +2872,11 @@ class DisassociateRoleFromGroupResponse {
   });
   static DisassociateRoleFromGroupResponse fromJson(
           Map<String, dynamic> json) =>
-      DisassociateRoleFromGroupResponse();
+      DisassociateRoleFromGroupResponse(
+        disassociatedAt: json.containsKey('DisassociatedAt')
+            ? json['DisassociatedAt'] as String
+            : null,
+      );
 }
 
 class DisassociateServiceRoleFromAccountResponse {
@@ -2146,7 +2888,11 @@ class DisassociateServiceRoleFromAccountResponse {
   });
   static DisassociateServiceRoleFromAccountResponse fromJson(
           Map<String, dynamic> json) =>
-      DisassociateServiceRoleFromAccountResponse();
+      DisassociateServiceRoleFromAccountResponse(
+        disassociatedAt: json.containsKey('DisassociatedAt')
+            ? json['DisassociatedAt'] as String
+            : null,
+      );
 }
 
 /// Details about the error.
@@ -2161,7 +2907,14 @@ class ErrorDetail {
     this.detailedErrorCode,
     this.detailedErrorMessage,
   });
-  static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail();
+  static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail(
+        detailedErrorCode: json.containsKey('DetailedErrorCode')
+            ? json['DetailedErrorCode'] as String
+            : null,
+        detailedErrorMessage: json.containsKey('DetailedErrorMessage')
+            ? json['DetailedErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Information about a Lambda function.
@@ -2182,7 +2935,16 @@ class Function {
     this.functionConfiguration,
     @required this.id,
   });
-  static Function fromJson(Map<String, dynamic> json) => Function();
+  static Function fromJson(Map<String, dynamic> json) => Function(
+        functionArn: json.containsKey('FunctionArn')
+            ? json['FunctionArn'] as String
+            : null,
+        functionConfiguration: json.containsKey('FunctionConfiguration')
+            ? FunctionConfiguration.fromJson(json['FunctionConfiguration'])
+            : null,
+        id: json['Id'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration of the Lambda function.
@@ -2224,7 +2986,24 @@ class FunctionConfiguration {
     this.timeout,
   });
   static FunctionConfiguration fromJson(Map<String, dynamic> json) =>
-      FunctionConfiguration();
+      FunctionConfiguration(
+        encodingType: json.containsKey('EncodingType')
+            ? json['EncodingType'] as String
+            : null,
+        environment: json.containsKey('Environment')
+            ? FunctionConfigurationEnvironment.fromJson(json['Environment'])
+            : null,
+        execArgs:
+            json.containsKey('ExecArgs') ? json['ExecArgs'] as String : null,
+        executable: json.containsKey('Executable')
+            ? json['Executable'] as String
+            : null,
+        memorySize:
+            json.containsKey('MemorySize') ? json['MemorySize'] as int : null,
+        pinned: json.containsKey('Pinned') ? json['Pinned'] as bool : null,
+        timeout: json.containsKey('Timeout') ? json['Timeout'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The environment configuration of the function.
@@ -2254,7 +3033,24 @@ class FunctionConfigurationEnvironment {
     this.variables,
   });
   static FunctionConfigurationEnvironment fromJson(Map<String, dynamic> json) =>
-      FunctionConfigurationEnvironment();
+      FunctionConfigurationEnvironment(
+        accessSysfs: json.containsKey('AccessSysfs')
+            ? json['AccessSysfs'] as bool
+            : null,
+        execution: json.containsKey('Execution')
+            ? FunctionExecutionConfig.fromJson(json['Execution'])
+            : null,
+        resourceAccessPolicies: json.containsKey('ResourceAccessPolicies')
+            ? (json['ResourceAccessPolicies'] as List)
+                .map((e) => ResourceAccessPolicy.fromJson(e))
+                .toList()
+            : null,
+        variables: json.containsKey('Variables')
+            ? (json['Variables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The default configuration that applies to all Lambda functions in the group.
@@ -2266,7 +3062,12 @@ class FunctionDefaultConfig {
     this.execution,
   });
   static FunctionDefaultConfig fromJson(Map<String, dynamic> json) =>
-      FunctionDefaultConfig();
+      FunctionDefaultConfig(
+        execution: json.containsKey('Execution')
+            ? FunctionDefaultExecutionConfig.fromJson(json['Execution'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration information that specifies how a Lambda function runs.
@@ -2280,7 +3081,15 @@ class FunctionDefaultExecutionConfig {
     this.runAs,
   });
   static FunctionDefaultExecutionConfig fromJson(Map<String, dynamic> json) =>
-      FunctionDefaultExecutionConfig();
+      FunctionDefaultExecutionConfig(
+        isolationMode: json.containsKey('IsolationMode')
+            ? json['IsolationMode'] as String
+            : null,
+        runAs: json.containsKey('RunAs')
+            ? FunctionRunAsConfig.fromJson(json['RunAs'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a function definition version.
@@ -2298,7 +3107,17 @@ class FunctionDefinitionVersion {
     this.functions,
   });
   static FunctionDefinitionVersion fromJson(Map<String, dynamic> json) =>
-      FunctionDefinitionVersion();
+      FunctionDefinitionVersion(
+        defaultConfig: json.containsKey('DefaultConfig')
+            ? FunctionDefaultConfig.fromJson(json['DefaultConfig'])
+            : null,
+        functions: json.containsKey('Functions')
+            ? (json['Functions'] as List)
+                .map((e) => Function.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration information that specifies how a Lambda function runs.
@@ -2312,7 +3131,15 @@ class FunctionExecutionConfig {
     this.runAs,
   });
   static FunctionExecutionConfig fromJson(Map<String, dynamic> json) =>
-      FunctionExecutionConfig();
+      FunctionExecutionConfig(
+        isolationMode: json.containsKey('IsolationMode')
+            ? json['IsolationMode'] as String
+            : null,
+        runAs: json.containsKey('RunAs')
+            ? FunctionRunAsConfig.fromJson(json['RunAs'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the user and group whose permissions are used when running the
@@ -2334,7 +3161,11 @@ class FunctionRunAsConfig {
     this.uid,
   });
   static FunctionRunAsConfig fromJson(Map<String, dynamic> json) =>
-      FunctionRunAsConfig();
+      FunctionRunAsConfig(
+        gid: json.containsKey('Gid') ? json['Gid'] as int : null,
+        uid: json.containsKey('Uid') ? json['Uid'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetAssociatedRoleResponse {
@@ -2349,7 +3180,12 @@ class GetAssociatedRoleResponse {
     this.roleArn,
   });
   static GetAssociatedRoleResponse fromJson(Map<String, dynamic> json) =>
-      GetAssociatedRoleResponse();
+      GetAssociatedRoleResponse(
+        associatedAt: json.containsKey('AssociatedAt')
+            ? json['AssociatedAt'] as String
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+      );
 }
 
 class GetBulkDeploymentStatusResponse {
@@ -2380,7 +3216,28 @@ class GetBulkDeploymentStatusResponse {
     this.tags,
   });
   static GetBulkDeploymentStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetBulkDeploymentStatusResponse();
+      GetBulkDeploymentStatusResponse(
+        bulkDeploymentMetrics: json.containsKey('BulkDeploymentMetrics')
+            ? BulkDeploymentMetrics.fromJson(json['BulkDeploymentMetrics'])
+            : null,
+        bulkDeploymentStatus: json.containsKey('BulkDeploymentStatus')
+            ? json['BulkDeploymentStatus'] as String
+            : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        errorDetails: json.containsKey('ErrorDetails')
+            ? (json['ErrorDetails'] as List)
+                .map((e) => ErrorDetail.fromJson(e))
+                .toList()
+            : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetConnectivityInfoResponse {
@@ -2395,7 +3252,14 @@ class GetConnectivityInfoResponse {
     this.message,
   });
   static GetConnectivityInfoResponse fromJson(Map<String, dynamic> json) =>
-      GetConnectivityInfoResponse();
+      GetConnectivityInfoResponse(
+        connectivityInfo: json.containsKey('ConnectivityInfo')
+            ? (json['ConnectivityInfo'] as List)
+                .map((e) => ConnectivityInfo.fromJson(e))
+                .toList()
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 class GetConnectorDefinitionResponse {
@@ -2436,7 +3300,27 @@ class GetConnectorDefinitionResponse {
     this.tags,
   });
   static GetConnectorDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      GetConnectorDefinitionResponse();
+      GetConnectorDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetConnectorDefinitionVersionResponse {
@@ -2470,7 +3354,19 @@ class GetConnectorDefinitionVersionResponse {
   });
   static GetConnectorDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      GetConnectorDefinitionVersionResponse();
+      GetConnectorDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        definition: json.containsKey('Definition')
+            ? ConnectorDefinitionVersion.fromJson(json['Definition'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class GetCoreDefinitionResponse {
@@ -2511,7 +3407,27 @@ class GetCoreDefinitionResponse {
     this.tags,
   });
   static GetCoreDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      GetCoreDefinitionResponse();
+      GetCoreDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetCoreDefinitionVersionResponse {
@@ -2544,7 +3460,19 @@ class GetCoreDefinitionVersionResponse {
     this.version,
   });
   static GetCoreDefinitionVersionResponse fromJson(Map<String, dynamic> json) =>
-      GetCoreDefinitionVersionResponse();
+      GetCoreDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        definition: json.containsKey('Definition')
+            ? CoreDefinitionVersion.fromJson(json['Definition'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class GetDeploymentStatusResponse {
@@ -2573,7 +3501,24 @@ class GetDeploymentStatusResponse {
     this.updatedAt,
   });
   static GetDeploymentStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetDeploymentStatusResponse();
+      GetDeploymentStatusResponse(
+        deploymentStatus: json.containsKey('DeploymentStatus')
+            ? json['DeploymentStatus'] as String
+            : null,
+        deploymentType: json.containsKey('DeploymentType')
+            ? json['DeploymentType'] as String
+            : null,
+        errorDetails: json.containsKey('ErrorDetails')
+            ? (json['ErrorDetails'] as List)
+                .map((e) => ErrorDetail.fromJson(e))
+                .toList()
+            : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        updatedAt:
+            json.containsKey('UpdatedAt') ? json['UpdatedAt'] as String : null,
+      );
 }
 
 class GetDeviceDefinitionResponse {
@@ -2614,7 +3559,27 @@ class GetDeviceDefinitionResponse {
     this.tags,
   });
   static GetDeviceDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      GetDeviceDefinitionResponse();
+      GetDeviceDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetDeviceDefinitionVersionResponse {
@@ -2648,7 +3613,19 @@ class GetDeviceDefinitionVersionResponse {
   });
   static GetDeviceDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      GetDeviceDefinitionVersionResponse();
+      GetDeviceDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        definition: json.containsKey('Definition')
+            ? DeviceDefinitionVersion.fromJson(json['Definition'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class GetFunctionDefinitionResponse {
@@ -2689,7 +3666,27 @@ class GetFunctionDefinitionResponse {
     this.tags,
   });
   static GetFunctionDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      GetFunctionDefinitionResponse();
+      GetFunctionDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetFunctionDefinitionVersionResponse {
@@ -2723,7 +3720,19 @@ class GetFunctionDefinitionVersionResponse {
   });
   static GetFunctionDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      GetFunctionDefinitionVersionResponse();
+      GetFunctionDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        definition: json.containsKey('Definition')
+            ? FunctionDefinitionVersion.fromJson(json['Definition'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class GetGroupCertificateAuthorityResponse {
@@ -2743,7 +3752,19 @@ class GetGroupCertificateAuthorityResponse {
   });
   static GetGroupCertificateAuthorityResponse fromJson(
           Map<String, dynamic> json) =>
-      GetGroupCertificateAuthorityResponse();
+      GetGroupCertificateAuthorityResponse(
+        groupCertificateAuthorityArn:
+            json.containsKey('GroupCertificateAuthorityArn')
+                ? json['GroupCertificateAuthorityArn'] as String
+                : null,
+        groupCertificateAuthorityId:
+            json.containsKey('GroupCertificateAuthorityId')
+                ? json['GroupCertificateAuthorityId'] as String
+                : null,
+        pemEncodedCertificate: json.containsKey('PemEncodedCertificate')
+            ? json['PemEncodedCertificate'] as String
+            : null,
+      );
 }
 
 class GetGroupCertificateConfigurationResponse {
@@ -2765,7 +3786,17 @@ class GetGroupCertificateConfigurationResponse {
   });
   static GetGroupCertificateConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetGroupCertificateConfigurationResponse();
+      GetGroupCertificateConfigurationResponse(
+        certificateAuthorityExpiryInMilliseconds:
+            json.containsKey('CertificateAuthorityExpiryInMilliseconds')
+                ? json['CertificateAuthorityExpiryInMilliseconds'] as String
+                : null,
+        certificateExpiryInMilliseconds:
+            json.containsKey('CertificateExpiryInMilliseconds')
+                ? json['CertificateExpiryInMilliseconds'] as String
+                : null,
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+      );
 }
 
 class GetGroupResponse {
@@ -2806,7 +3837,27 @@ class GetGroupResponse {
     this.tags,
   });
   static GetGroupResponse fromJson(Map<String, dynamic> json) =>
-      GetGroupResponse();
+      GetGroupResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetGroupVersionResponse {
@@ -2834,7 +3885,17 @@ class GetGroupVersionResponse {
     this.version,
   });
   static GetGroupVersionResponse fromJson(Map<String, dynamic> json) =>
-      GetGroupVersionResponse();
+      GetGroupVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        definition: json.containsKey('Definition')
+            ? GroupVersion.fromJson(json['Definition'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class GetLoggerDefinitionResponse {
@@ -2875,7 +3936,27 @@ class GetLoggerDefinitionResponse {
     this.tags,
   });
   static GetLoggerDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      GetLoggerDefinitionResponse();
+      GetLoggerDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetLoggerDefinitionVersionResponse {
@@ -2904,7 +3985,17 @@ class GetLoggerDefinitionVersionResponse {
   });
   static GetLoggerDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      GetLoggerDefinitionVersionResponse();
+      GetLoggerDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        definition: json.containsKey('Definition')
+            ? LoggerDefinitionVersion.fromJson(json['Definition'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class GetResourceDefinitionResponse {
@@ -2945,7 +4036,27 @@ class GetResourceDefinitionResponse {
     this.tags,
   });
   static GetResourceDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      GetResourceDefinitionResponse();
+      GetResourceDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetResourceDefinitionVersionResponse {
@@ -2974,7 +4085,17 @@ class GetResourceDefinitionVersionResponse {
   });
   static GetResourceDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      GetResourceDefinitionVersionResponse();
+      GetResourceDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        definition: json.containsKey('Definition')
+            ? ResourceDefinitionVersion.fromJson(json['Definition'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class GetServiceRoleForAccountResponse {
@@ -2989,7 +4110,12 @@ class GetServiceRoleForAccountResponse {
     this.roleArn,
   });
   static GetServiceRoleForAccountResponse fromJson(Map<String, dynamic> json) =>
-      GetServiceRoleForAccountResponse();
+      GetServiceRoleForAccountResponse(
+        associatedAt: json.containsKey('AssociatedAt')
+            ? json['AssociatedAt'] as String
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+      );
 }
 
 class GetSubscriptionDefinitionResponse {
@@ -3031,7 +4157,27 @@ class GetSubscriptionDefinitionResponse {
   });
   static GetSubscriptionDefinitionResponse fromJson(
           Map<String, dynamic> json) =>
-      GetSubscriptionDefinitionResponse();
+      GetSubscriptionDefinitionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetSubscriptionDefinitionVersionResponse {
@@ -3065,7 +4211,19 @@ class GetSubscriptionDefinitionVersionResponse {
   });
   static GetSubscriptionDefinitionVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      GetSubscriptionDefinitionVersionResponse();
+      GetSubscriptionDefinitionVersionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        definition: json.containsKey('Definition')
+            ? SubscriptionDefinitionVersion.fromJson(json['Definition'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 /// Information about a certificate authority for a group.
@@ -3082,7 +4240,16 @@ class GroupCertificateAuthorityProperties {
   });
   static GroupCertificateAuthorityProperties fromJson(
           Map<String, dynamic> json) =>
-      GroupCertificateAuthorityProperties();
+      GroupCertificateAuthorityProperties(
+        groupCertificateAuthorityArn:
+            json.containsKey('GroupCertificateAuthorityArn')
+                ? json['GroupCertificateAuthorityArn'] as String
+                : null,
+        groupCertificateAuthorityId:
+            json.containsKey('GroupCertificateAuthorityId')
+                ? json['GroupCertificateAuthorityId'] as String
+                : null,
+      );
 }
 
 /// Information about a group.
@@ -3119,7 +4286,23 @@ class GroupInformation {
     this.name,
   });
   static GroupInformation fromJson(Map<String, dynamic> json) =>
-      GroupInformation();
+      GroupInformation(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lastUpdatedTimestamp: json.containsKey('LastUpdatedTimestamp')
+            ? json['LastUpdatedTimestamp'] as String
+            : null,
+        latestVersion: json.containsKey('LatestVersion')
+            ? json['LatestVersion'] as String
+            : null,
+        latestVersionArn: json.containsKey('LatestVersionArn')
+            ? json['LatestVersionArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Group owner related settings for local resources.
@@ -3139,7 +4322,15 @@ class GroupOwnerSetting {
     this.groupOwner,
   });
   static GroupOwnerSetting fromJson(Map<String, dynamic> json) =>
-      GroupOwnerSetting();
+      GroupOwnerSetting(
+        autoAddGroupOwner: json.containsKey('AutoAddGroupOwner')
+            ? json['AutoAddGroupOwner'] as bool
+            : null,
+        groupOwner: json.containsKey('GroupOwner')
+            ? json['GroupOwner'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a group version.
@@ -3174,7 +4365,36 @@ class GroupVersion {
     this.resourceDefinitionVersionArn,
     this.subscriptionDefinitionVersionArn,
   });
-  static GroupVersion fromJson(Map<String, dynamic> json) => GroupVersion();
+  static GroupVersion fromJson(Map<String, dynamic> json) => GroupVersion(
+        connectorDefinitionVersionArn:
+            json.containsKey('ConnectorDefinitionVersionArn')
+                ? json['ConnectorDefinitionVersionArn'] as String
+                : null,
+        coreDefinitionVersionArn: json.containsKey('CoreDefinitionVersionArn')
+            ? json['CoreDefinitionVersionArn'] as String
+            : null,
+        deviceDefinitionVersionArn:
+            json.containsKey('DeviceDefinitionVersionArn')
+                ? json['DeviceDefinitionVersionArn'] as String
+                : null,
+        functionDefinitionVersionArn:
+            json.containsKey('FunctionDefinitionVersionArn')
+                ? json['FunctionDefinitionVersionArn'] as String
+                : null,
+        loggerDefinitionVersionArn:
+            json.containsKey('LoggerDefinitionVersionArn')
+                ? json['LoggerDefinitionVersionArn'] as String
+                : null,
+        resourceDefinitionVersionArn:
+            json.containsKey('ResourceDefinitionVersionArn')
+                ? json['ResourceDefinitionVersionArn'] as String
+                : null,
+        subscriptionDefinitionVersionArn:
+            json.containsKey('SubscriptionDefinitionVersionArn')
+                ? json['SubscriptionDefinitionVersionArn'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListBulkDeploymentDetailedReportsResponse {
@@ -3192,7 +4412,15 @@ class ListBulkDeploymentDetailedReportsResponse {
   });
   static ListBulkDeploymentDetailedReportsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListBulkDeploymentDetailedReportsResponse();
+      ListBulkDeploymentDetailedReportsResponse(
+        deployments: json.containsKey('Deployments')
+            ? (json['Deployments'] as List)
+                .map((e) => BulkDeploymentResult.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListBulkDeploymentsResponse {
@@ -3208,7 +4436,15 @@ class ListBulkDeploymentsResponse {
     this.nextToken,
   });
   static ListBulkDeploymentsResponse fromJson(Map<String, dynamic> json) =>
-      ListBulkDeploymentsResponse();
+      ListBulkDeploymentsResponse(
+        bulkDeployments: json.containsKey('BulkDeployments')
+            ? (json['BulkDeployments'] as List)
+                .map((e) => BulkDeployment.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListConnectorDefinitionVersionsResponse {
@@ -3225,7 +4461,15 @@ class ListConnectorDefinitionVersionsResponse {
   });
   static ListConnectorDefinitionVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListConnectorDefinitionVersionsResponse();
+      ListConnectorDefinitionVersionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => VersionInformation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListConnectorDefinitionsResponse {
@@ -3241,7 +4485,15 @@ class ListConnectorDefinitionsResponse {
     this.nextToken,
   });
   static ListConnectorDefinitionsResponse fromJson(Map<String, dynamic> json) =>
-      ListConnectorDefinitionsResponse();
+      ListConnectorDefinitionsResponse(
+        definitions: json.containsKey('Definitions')
+            ? (json['Definitions'] as List)
+                .map((e) => DefinitionInformation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListCoreDefinitionVersionsResponse {
@@ -3258,7 +4510,15 @@ class ListCoreDefinitionVersionsResponse {
   });
   static ListCoreDefinitionVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListCoreDefinitionVersionsResponse();
+      ListCoreDefinitionVersionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => VersionInformation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListCoreDefinitionsResponse {
@@ -3274,7 +4534,15 @@ class ListCoreDefinitionsResponse {
     this.nextToken,
   });
   static ListCoreDefinitionsResponse fromJson(Map<String, dynamic> json) =>
-      ListCoreDefinitionsResponse();
+      ListCoreDefinitionsResponse(
+        definitions: json.containsKey('Definitions')
+            ? (json['Definitions'] as List)
+                .map((e) => DefinitionInformation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDeploymentsResponse {
@@ -3290,7 +4558,15 @@ class ListDeploymentsResponse {
     this.nextToken,
   });
   static ListDeploymentsResponse fromJson(Map<String, dynamic> json) =>
-      ListDeploymentsResponse();
+      ListDeploymentsResponse(
+        deployments: json.containsKey('Deployments')
+            ? (json['Deployments'] as List)
+                .map((e) => Deployment.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDeviceDefinitionVersionsResponse {
@@ -3307,7 +4583,15 @@ class ListDeviceDefinitionVersionsResponse {
   });
   static ListDeviceDefinitionVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListDeviceDefinitionVersionsResponse();
+      ListDeviceDefinitionVersionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => VersionInformation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListDeviceDefinitionsResponse {
@@ -3323,7 +4607,15 @@ class ListDeviceDefinitionsResponse {
     this.nextToken,
   });
   static ListDeviceDefinitionsResponse fromJson(Map<String, dynamic> json) =>
-      ListDeviceDefinitionsResponse();
+      ListDeviceDefinitionsResponse(
+        definitions: json.containsKey('Definitions')
+            ? (json['Definitions'] as List)
+                .map((e) => DefinitionInformation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListFunctionDefinitionVersionsResponse {
@@ -3340,7 +4632,15 @@ class ListFunctionDefinitionVersionsResponse {
   });
   static ListFunctionDefinitionVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListFunctionDefinitionVersionsResponse();
+      ListFunctionDefinitionVersionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => VersionInformation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListFunctionDefinitionsResponse {
@@ -3356,7 +4656,15 @@ class ListFunctionDefinitionsResponse {
     this.nextToken,
   });
   static ListFunctionDefinitionsResponse fromJson(Map<String, dynamic> json) =>
-      ListFunctionDefinitionsResponse();
+      ListFunctionDefinitionsResponse(
+        definitions: json.containsKey('Definitions')
+            ? (json['Definitions'] as List)
+                .map((e) => DefinitionInformation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListGroupCertificateAuthoritiesResponse {
@@ -3368,7 +4676,14 @@ class ListGroupCertificateAuthoritiesResponse {
   });
   static ListGroupCertificateAuthoritiesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListGroupCertificateAuthoritiesResponse();
+      ListGroupCertificateAuthoritiesResponse(
+        groupCertificateAuthorities:
+            json.containsKey('GroupCertificateAuthorities')
+                ? (json['GroupCertificateAuthorities'] as List)
+                    .map((e) => GroupCertificateAuthorityProperties.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class ListGroupVersionsResponse {
@@ -3384,7 +4699,15 @@ class ListGroupVersionsResponse {
     this.versions,
   });
   static ListGroupVersionsResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupVersionsResponse();
+      ListGroupVersionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => VersionInformation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListGroupsResponse {
@@ -3400,7 +4723,15 @@ class ListGroupsResponse {
     this.nextToken,
   });
   static ListGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupsResponse();
+      ListGroupsResponse(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupInformation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListLoggerDefinitionVersionsResponse {
@@ -3417,7 +4748,15 @@ class ListLoggerDefinitionVersionsResponse {
   });
   static ListLoggerDefinitionVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListLoggerDefinitionVersionsResponse();
+      ListLoggerDefinitionVersionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => VersionInformation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListLoggerDefinitionsResponse {
@@ -3433,7 +4772,15 @@ class ListLoggerDefinitionsResponse {
     this.nextToken,
   });
   static ListLoggerDefinitionsResponse fromJson(Map<String, dynamic> json) =>
-      ListLoggerDefinitionsResponse();
+      ListLoggerDefinitionsResponse(
+        definitions: json.containsKey('Definitions')
+            ? (json['Definitions'] as List)
+                .map((e) => DefinitionInformation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListResourceDefinitionVersionsResponse {
@@ -3450,7 +4797,15 @@ class ListResourceDefinitionVersionsResponse {
   });
   static ListResourceDefinitionVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListResourceDefinitionVersionsResponse();
+      ListResourceDefinitionVersionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => VersionInformation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListResourceDefinitionsResponse {
@@ -3466,7 +4821,15 @@ class ListResourceDefinitionsResponse {
     this.nextToken,
   });
   static ListResourceDefinitionsResponse fromJson(Map<String, dynamic> json) =>
-      ListResourceDefinitionsResponse();
+      ListResourceDefinitionsResponse(
+        definitions: json.containsKey('Definitions')
+            ? (json['Definitions'] as List)
+                .map((e) => DefinitionInformation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListSubscriptionDefinitionVersionsResponse {
@@ -3483,7 +4846,15 @@ class ListSubscriptionDefinitionVersionsResponse {
   });
   static ListSubscriptionDefinitionVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListSubscriptionDefinitionVersionsResponse();
+      ListSubscriptionDefinitionVersionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => VersionInformation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListSubscriptionDefinitionsResponse {
@@ -3500,7 +4871,15 @@ class ListSubscriptionDefinitionsResponse {
   });
   static ListSubscriptionDefinitionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListSubscriptionDefinitionsResponse();
+      ListSubscriptionDefinitionsResponse(
+        definitions: json.containsKey('Definitions')
+            ? (json['Definitions'] as List)
+                .map((e) => DefinitionInformation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -3510,7 +4889,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Attributes that define a local device resource.
@@ -3528,7 +4912,15 @@ class LocalDeviceResourceData {
     this.sourcePath,
   });
   static LocalDeviceResourceData fromJson(Map<String, dynamic> json) =>
-      LocalDeviceResourceData();
+      LocalDeviceResourceData(
+        groupOwnerSetting: json.containsKey('GroupOwnerSetting')
+            ? GroupOwnerSetting.fromJson(json['GroupOwnerSetting'])
+            : null,
+        sourcePath: json.containsKey('SourcePath')
+            ? json['SourcePath'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes that define a local volume resource.
@@ -3550,7 +4942,18 @@ class LocalVolumeResourceData {
     this.sourcePath,
   });
   static LocalVolumeResourceData fromJson(Map<String, dynamic> json) =>
-      LocalVolumeResourceData();
+      LocalVolumeResourceData(
+        destinationPath: json.containsKey('DestinationPath')
+            ? json['DestinationPath'] as String
+            : null,
+        groupOwnerSetting: json.containsKey('GroupOwnerSetting')
+            ? GroupOwnerSetting.fromJson(json['GroupOwnerSetting'])
+            : null,
+        sourcePath: json.containsKey('SourcePath')
+            ? json['SourcePath'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a logger
@@ -3580,7 +4983,14 @@ class Logger {
     this.space,
     @required this.type,
   });
-  static Logger fromJson(Map<String, dynamic> json) => Logger();
+  static Logger fromJson(Map<String, dynamic> json) => Logger(
+        component: json['Component'] as String,
+        id: json['Id'] as String,
+        level: json['Level'] as String,
+        space: json.containsKey('Space') ? json['Space'] as int : null,
+        type: json['Type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a logger definition version.
@@ -3592,7 +5002,12 @@ class LoggerDefinitionVersion {
     this.loggers,
   });
   static LoggerDefinitionVersion fromJson(Map<String, dynamic> json) =>
-      LoggerDefinitionVersion();
+      LoggerDefinitionVersion(
+        loggers: json.containsKey('Loggers')
+            ? (json['Loggers'] as List).map((e) => Logger.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ResetDeploymentsResponse {
@@ -3607,7 +5022,14 @@ class ResetDeploymentsResponse {
     this.deploymentId,
   });
   static ResetDeploymentsResponse fromJson(Map<String, dynamic> json) =>
-      ResetDeploymentsResponse();
+      ResetDeploymentsResponse(
+        deploymentArn: json.containsKey('DeploymentArn')
+            ? json['DeploymentArn'] as String
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+      );
 }
 
 /// Information about a resource.
@@ -3630,7 +5052,13 @@ class Resource {
     @required this.name,
     @required this.resourceDataContainer,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        id: json['Id'] as String,
+        name: json['Name'] as String,
+        resourceDataContainer:
+            ResourceDataContainer.fromJson(json['ResourceDataContainer']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A policy used by the function to access a resource.
@@ -3648,7 +5076,13 @@ class ResourceAccessPolicy {
     @required this.resourceId,
   });
   static ResourceAccessPolicy fromJson(Map<String, dynamic> json) =>
-      ResourceAccessPolicy();
+      ResourceAccessPolicy(
+        permission: json.containsKey('Permission')
+            ? json['Permission'] as String
+            : null,
+        resourceId: json['ResourceId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for resource data. The container takes only one of the following
@@ -3682,7 +5116,30 @@ class ResourceDataContainer {
     this.secretsManagerSecretResourceData,
   });
   static ResourceDataContainer fromJson(Map<String, dynamic> json) =>
-      ResourceDataContainer();
+      ResourceDataContainer(
+        localDeviceResourceData: json.containsKey('LocalDeviceResourceData')
+            ? LocalDeviceResourceData.fromJson(json['LocalDeviceResourceData'])
+            : null,
+        localVolumeResourceData: json.containsKey('LocalVolumeResourceData')
+            ? LocalVolumeResourceData.fromJson(json['LocalVolumeResourceData'])
+            : null,
+        s3MachineLearningModelResourceData:
+            json.containsKey('S3MachineLearningModelResourceData')
+                ? S3MachineLearningModelResourceData.fromJson(
+                    json['S3MachineLearningModelResourceData'])
+                : null,
+        sageMakerMachineLearningModelResourceData:
+            json.containsKey('SageMakerMachineLearningModelResourceData')
+                ? SageMakerMachineLearningModelResourceData.fromJson(
+                    json['SageMakerMachineLearningModelResourceData'])
+                : null,
+        secretsManagerSecretResourceData:
+            json.containsKey('SecretsManagerSecretResourceData')
+                ? SecretsManagerSecretResourceData.fromJson(
+                    json['SecretsManagerSecretResourceData'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a resource definition version.
@@ -3694,7 +5151,14 @@ class ResourceDefinitionVersion {
     this.resources,
   });
   static ResourceDefinitionVersion fromJson(Map<String, dynamic> json) =>
-      ResourceDefinitionVersion();
+      ResourceDefinitionVersion(
+        resources: json.containsKey('Resources')
+            ? (json['Resources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes that define an Amazon S3 machine learning resource.
@@ -3712,7 +5176,13 @@ class S3MachineLearningModelResourceData {
   });
   static S3MachineLearningModelResourceData fromJson(
           Map<String, dynamic> json) =>
-      S3MachineLearningModelResourceData();
+      S3MachineLearningModelResourceData(
+        destinationPath: json.containsKey('DestinationPath')
+            ? json['DestinationPath'] as String
+            : null,
+        s3Uri: json.containsKey('S3Uri') ? json['S3Uri'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes that define an Amazon SageMaker machine learning resource.
@@ -3730,7 +5200,15 @@ class SageMakerMachineLearningModelResourceData {
   });
   static SageMakerMachineLearningModelResourceData fromJson(
           Map<String, dynamic> json) =>
-      SageMakerMachineLearningModelResourceData();
+      SageMakerMachineLearningModelResourceData(
+        destinationPath: json.containsKey('DestinationPath')
+            ? json['DestinationPath'] as String
+            : null,
+        sageMakerJobArn: json.containsKey('SageMakerJobArn')
+            ? json['SageMakerJobArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes that define a secret resource, which references a secret from AWS
@@ -3752,7 +5230,16 @@ class SecretsManagerSecretResourceData {
     this.additionalStagingLabelsToDownload,
   });
   static SecretsManagerSecretResourceData fromJson(Map<String, dynamic> json) =>
-      SecretsManagerSecretResourceData();
+      SecretsManagerSecretResourceData(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        additionalStagingLabelsToDownload:
+            json.containsKey('AdditionalStagingLabelsToDownload')
+                ? (json['AdditionalStagingLabelsToDownload'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartBulkDeploymentResponse {
@@ -3767,7 +5254,14 @@ class StartBulkDeploymentResponse {
     this.bulkDeploymentId,
   });
   static StartBulkDeploymentResponse fromJson(Map<String, dynamic> json) =>
-      StartBulkDeploymentResponse();
+      StartBulkDeploymentResponse(
+        bulkDeploymentArn: json.containsKey('BulkDeploymentArn')
+            ? json['BulkDeploymentArn'] as String
+            : null,
+        bulkDeploymentId: json.containsKey('BulkDeploymentId')
+            ? json['BulkDeploymentId'] as String
+            : null,
+      );
 }
 
 class StopBulkDeploymentResponse {
@@ -3802,7 +5296,13 @@ class Subscription {
     @required this.subject,
     @required this.target,
   });
-  static Subscription fromJson(Map<String, dynamic> json) => Subscription();
+  static Subscription fromJson(Map<String, dynamic> json) => Subscription(
+        id: json['Id'] as String,
+        source: json['Source'] as String,
+        subject: json['Subject'] as String,
+        target: json['Target'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a subscription definition version.
@@ -3814,7 +5314,14 @@ class SubscriptionDefinitionVersion {
     this.subscriptions,
   });
   static SubscriptionDefinitionVersion fromJson(Map<String, dynamic> json) =>
-      SubscriptionDefinitionVersion();
+      SubscriptionDefinitionVersion(
+        subscriptions: json.containsKey('Subscriptions')
+            ? (json['Subscriptions'] as List)
+                .map((e) => Subscription.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateConnectivityInfoResponse {
@@ -3829,7 +5336,10 @@ class UpdateConnectivityInfoResponse {
     this.version,
   });
   static UpdateConnectivityInfoResponse fromJson(Map<String, dynamic> json) =>
-      UpdateConnectivityInfoResponse();
+      UpdateConnectivityInfoResponse(
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 class UpdateConnectorDefinitionResponse {
@@ -3876,7 +5386,17 @@ class UpdateGroupCertificateConfigurationResponse {
   });
   static UpdateGroupCertificateConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateGroupCertificateConfigurationResponse();
+      UpdateGroupCertificateConfigurationResponse(
+        certificateAuthorityExpiryInMilliseconds:
+            json.containsKey('CertificateAuthorityExpiryInMilliseconds')
+                ? json['CertificateAuthorityExpiryInMilliseconds'] as String
+                : null,
+        certificateExpiryInMilliseconds:
+            json.containsKey('CertificateExpiryInMilliseconds')
+                ? json['CertificateExpiryInMilliseconds'] as String
+                : null,
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+      );
 }
 
 class UpdateGroupResponse {
@@ -3925,5 +5445,12 @@ class VersionInformation {
     this.version,
   });
   static VersionInformation fromJson(Map<String, dynamic> json) =>
-      VersionInformation();
+      VersionInformation(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? json['CreationTimestamp'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }

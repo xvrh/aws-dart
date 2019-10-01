@@ -26,6 +26,10 @@ import 'package:meta/meta.dart';
 ///
 /// *   https://api.pricing.ap-south-1.amazonaws.com
 class PricingApi {
+  final _client;
+  PricingApi(client)
+      : _client = client.configured('Pricing', serializer: 'json');
+
   /// Returns the metadata for one service or a list of the metadata for all
   /// services. Use this without a service code to get the service codes for all
   /// services. Use it with a service code, such as `AmazonEC2`, to get
@@ -53,7 +57,13 @@ class PricingApi {
       String formatVersion,
       String nextToken,
       int maxResults}) async {
-    return DescribeServicesResponse.fromJson({});
+    var response_ = await _client.send('DescribeServices', {
+      if (serviceCode != null) 'ServiceCode': serviceCode,
+      if (formatVersion != null) 'FormatVersion': formatVersion,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeServicesResponse.fromJson(response_);
   }
 
   /// Returns a list of attribute values. Attibutes are similar to the details
@@ -78,7 +88,13 @@ class PricingApi {
       @required String attributeName,
       String nextToken,
       int maxResults}) async {
-    return GetAttributeValuesResponse.fromJson({});
+    var response_ = await _client.send('GetAttributeValues', {
+      'ServiceCode': serviceCode,
+      'AttributeName': attributeName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetAttributeValuesResponse.fromJson(response_);
   }
 
   /// Returns a list of all products that match the filter criteria.
@@ -103,7 +119,14 @@ class PricingApi {
       String formatVersion,
       String nextToken,
       int maxResults}) async {
-    return GetProductsResponse.fromJson({});
+    var response_ = await _client.send('GetProducts', {
+      if (serviceCode != null) 'ServiceCode': serviceCode,
+      if (filters != null) 'Filters': filters,
+      if (formatVersion != null) 'FormatVersion': formatVersion,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetProductsResponse.fromJson(response_);
   }
 }
 
@@ -116,7 +139,9 @@ class AttributeValue {
   AttributeValue({
     this.value,
   });
-  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
+  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 class DescribeServicesResponse {
@@ -135,7 +160,18 @@ class DescribeServicesResponse {
     this.nextToken,
   });
   static DescribeServicesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeServicesResponse();
+      DescribeServicesResponse(
+        services: json.containsKey('Services')
+            ? (json['Services'] as List)
+                .map((e) => Service.fromJson(e))
+                .toList()
+            : null,
+        formatVersion: json.containsKey('FormatVersion')
+            ? json['FormatVersion'] as String
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The constraints that you want all returned products to match.
@@ -170,6 +206,7 @@ class Filter {
     @required this.field,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetAttributeValuesResponse {
@@ -186,7 +223,15 @@ class GetAttributeValuesResponse {
     this.nextToken,
   });
   static GetAttributeValuesResponse fromJson(Map<String, dynamic> json) =>
-      GetAttributeValuesResponse();
+      GetAttributeValuesResponse(
+        attributeValues: json.containsKey('AttributeValues')
+            ? (json['AttributeValues'] as List)
+                .map((e) => AttributeValue.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetProductsResponse {
@@ -206,7 +251,16 @@ class GetProductsResponse {
     this.nextToken,
   });
   static GetProductsResponse fromJson(Map<String, dynamic> json) =>
-      GetProductsResponse();
+      GetProductsResponse(
+        formatVersion: json.containsKey('FormatVersion')
+            ? json['FormatVersion'] as String
+            : null,
+        priceList: json.containsKey('PriceList')
+            ? (json['PriceList'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The metadata for a service, such as the service code and available attribute
@@ -222,5 +276,12 @@ class Service {
     this.serviceCode,
     this.attributeNames,
   });
-  static Service fromJson(Map<String, dynamic> json) => Service();
+  static Service fromJson(Map<String, dynamic> json) => Service(
+        serviceCode: json.containsKey('ServiceCode')
+            ? json['ServiceCode'] as String
+            : null,
+        attributeNames: json.containsKey('AttributeNames')
+            ? (json['AttributeNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }

@@ -13,9 +13,16 @@ import 'package:meta/meta.dart';
 /// and endpoints, see
 /// [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region).
 class CloudSearchApi {
+  final _client;
+  CloudSearchApi(client)
+      : _client = client.configured('CloudSearch', serializer: 'query');
+
   /// Creates a new search domain.
   Future<CreateDomainResponse> createDomain(String domainName) async {
-    return CreateDomainResponse.fromJson({});
+    var response_ = await _client.send('CreateDomain', {
+      'DomainName': domainName,
+    });
+    return CreateDomainResponse.fromJson(response_);
   }
 
   /// Configures an `IndexField` for the search domain. Used to create new
@@ -24,7 +31,11 @@ class CloudSearchApi {
   /// index fields.
   Future<DefineIndexFieldResponse> defineIndexField(
       {@required String domainName, @required IndexField indexField}) async {
-    return DefineIndexFieldResponse.fromJson({});
+    var response_ = await _client.send('DefineIndexField', {
+      'DomainName': domainName,
+      'IndexField': indexField,
+    });
+    return DefineIndexFieldResponse.fromJson(response_);
   }
 
   /// Configures a `RankExpression` for the search domain. Used to create new
@@ -34,18 +45,29 @@ class CloudSearchApi {
   Future<DefineRankExpressionResponse> defineRankExpression(
       {@required String domainName,
       @required NamedRankExpression rankExpression}) async {
-    return DefineRankExpressionResponse.fromJson({});
+    var response_ = await _client.send('DefineRankExpression', {
+      'DomainName': domainName,
+      'RankExpression': rankExpression,
+    });
+    return DefineRankExpressionResponse.fromJson(response_);
   }
 
   /// Permanently deletes a search domain and all of its data.
   Future<DeleteDomainResponse> deleteDomain(String domainName) async {
-    return DeleteDomainResponse.fromJson({});
+    var response_ = await _client.send('DeleteDomain', {
+      'DomainName': domainName,
+    });
+    return DeleteDomainResponse.fromJson(response_);
   }
 
   /// Removes an `IndexField` from the search domain.
   Future<DeleteIndexFieldResponse> deleteIndexField(
       {@required String domainName, @required String indexFieldName}) async {
-    return DeleteIndexFieldResponse.fromJson({});
+    var response_ = await _client.send('DeleteIndexField', {
+      'DomainName': domainName,
+      'IndexFieldName': indexFieldName,
+    });
+    return DeleteIndexFieldResponse.fromJson(response_);
   }
 
   /// Removes a `RankExpression` from the search domain.
@@ -53,7 +75,11 @@ class CloudSearchApi {
   /// [rankName]: The name of the `RankExpression` to delete.
   Future<DeleteRankExpressionResponse> deleteRankExpression(
       {@required String domainName, @required String rankName}) async {
-    return DeleteRankExpressionResponse.fromJson({});
+    var response_ = await _client.send('DeleteRankExpression', {
+      'DomainName': domainName,
+      'RankName': rankName,
+    });
+    return DeleteRankExpressionResponse.fromJson(response_);
   }
 
   /// Gets the availability options configured for a domain. By default, shows
@@ -66,13 +92,19 @@ class CloudSearchApi {
   /// [domainName]: The name of the domain you want to describe.
   Future<DescribeAvailabilityOptionsResponse> describeAvailabilityOptions(
       String domainName) async {
-    return DescribeAvailabilityOptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeAvailabilityOptions', {
+      'DomainName': domainName,
+    });
+    return DescribeAvailabilityOptionsResponse.fromJson(response_);
   }
 
   /// Gets the default search field configured for the search domain.
   Future<DescribeDefaultSearchFieldResponse> describeDefaultSearchField(
       String domainName) async {
-    return DescribeDefaultSearchFieldResponse.fromJson({});
+    var response_ = await _client.send('DescribeDefaultSearchField', {
+      'DomainName': domainName,
+    });
+    return DescribeDefaultSearchFieldResponse.fromJson(response_);
   }
 
   /// Gets information about the search domains owned by this account. Can be
@@ -82,7 +114,10 @@ class CloudSearchApi {
   /// domains.
   Future<DescribeDomainsResponse> describeDomains(
       {List<String> domainNames}) async {
-    return DescribeDomainsResponse.fromJson({});
+    var response_ = await _client.send('DescribeDomains', {
+      if (domainNames != null) 'DomainNames': domainNames,
+    });
+    return DescribeDomainsResponse.fromJson(response_);
   }
 
   /// Gets information about the index fields configured for the search domain.
@@ -92,7 +127,11 @@ class CloudSearchApi {
   /// fields.
   Future<DescribeIndexFieldsResponse> describeIndexFields(String domainName,
       {List<String> fieldNames}) async {
-    return DescribeIndexFieldsResponse.fromJson({});
+    var response_ = await _client.send('DescribeIndexFields', {
+      'DomainName': domainName,
+      if (fieldNames != null) 'FieldNames': fieldNames,
+    });
+    return DescribeIndexFieldsResponse.fromJson(response_);
   }
 
   /// Gets the rank expressions configured for the search domain. Can be limited
@@ -104,32 +143,48 @@ class CloudSearchApi {
   Future<DescribeRankExpressionsResponse> describeRankExpressions(
       String domainName,
       {List<String> rankNames}) async {
-    return DescribeRankExpressionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeRankExpressions', {
+      'DomainName': domainName,
+      if (rankNames != null) 'RankNames': rankNames,
+    });
+    return DescribeRankExpressionsResponse.fromJson(response_);
   }
 
   /// Gets information about the resource-based policies that control access to
   /// the domain's document and search services.
   Future<DescribeServiceAccessPoliciesResponse> describeServiceAccessPolicies(
       String domainName) async {
-    return DescribeServiceAccessPoliciesResponse.fromJson({});
+    var response_ = await _client.send('DescribeServiceAccessPolicies', {
+      'DomainName': domainName,
+    });
+    return DescribeServiceAccessPoliciesResponse.fromJson(response_);
   }
 
   /// Gets the stemming dictionary configured for the search domain.
   Future<DescribeStemmingOptionsResponse> describeStemmingOptions(
       String domainName) async {
-    return DescribeStemmingOptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeStemmingOptions', {
+      'DomainName': domainName,
+    });
+    return DescribeStemmingOptionsResponse.fromJson(response_);
   }
 
   /// Gets the stopwords configured for the search domain.
   Future<DescribeStopwordOptionsResponse> describeStopwordOptions(
       String domainName) async {
-    return DescribeStopwordOptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeStopwordOptions', {
+      'DomainName': domainName,
+    });
+    return DescribeStopwordOptionsResponse.fromJson(response_);
   }
 
   /// Gets the synonym dictionary configured for the search domain.
   Future<DescribeSynonymOptionsResponse> describeSynonymOptions(
       String domainName) async {
-    return DescribeSynonymOptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeSynonymOptions', {
+      'DomainName': domainName,
+    });
+    return DescribeSynonymOptionsResponse.fromJson(response_);
   }
 
   /// Tells the search domain to start indexing its documents using the latest
@@ -137,7 +192,10 @@ class CloudSearchApi {
   /// to make options whose OptionStatus has `OptionState` of
   /// `RequiresIndexDocuments` visible in search results.
   Future<IndexDocumentsResponse> indexDocuments(String domainName) async {
-    return IndexDocumentsResponse.fromJson({});
+    var response_ = await _client.send('IndexDocuments', {
+      'DomainName': domainName,
+    });
+    return IndexDocumentsResponse.fromJson(response_);
   }
 
   /// Configures the availability options for a domain. Enabling the Multi-AZ
@@ -154,7 +212,11 @@ class CloudSearchApi {
   /// by setting the Multi-AZ option to `false`.
   Future<UpdateAvailabilityOptionsResponse> updateAvailabilityOptions(
       {@required String domainName, @required bool multiAZ}) async {
-    return UpdateAvailabilityOptionsResponse.fromJson({});
+    var response_ = await _client.send('UpdateAvailabilityOptions', {
+      'DomainName': domainName,
+      'MultiAZ': multiAZ,
+    });
+    return UpdateAvailabilityOptionsResponse.fromJson(response_);
   }
 
   /// Configures the default search field for the search domain. The default
@@ -171,14 +233,22 @@ class CloudSearchApi {
   Future<UpdateDefaultSearchFieldResponse> updateDefaultSearchField(
       {@required String domainName,
       @required String defaultSearchField}) async {
-    return UpdateDefaultSearchFieldResponse.fromJson({});
+    var response_ = await _client.send('UpdateDefaultSearchField', {
+      'DomainName': domainName,
+      'DefaultSearchField': defaultSearchField,
+    });
+    return UpdateDefaultSearchFieldResponse.fromJson(response_);
   }
 
   /// Configures the policies that control access to the domain's document and
   /// search services. The maximum size of an access policy document is 100 KB.
   Future<UpdateServiceAccessPoliciesResponse> updateServiceAccessPolicies(
       {@required String domainName, @required String accessPolicies}) async {
-    return UpdateServiceAccessPoliciesResponse.fromJson({});
+    var response_ = await _client.send('UpdateServiceAccessPolicies', {
+      'DomainName': domainName,
+      'AccessPolicies': accessPolicies,
+    });
+    return UpdateServiceAccessPoliciesResponse.fromJson(response_);
   }
 
   /// Configures a stemming dictionary for the search domain. The stemming
@@ -186,7 +256,11 @@ class CloudSearchApi {
   /// The maximum size of the stemming dictionary is 500 KB.
   Future<UpdateStemmingOptionsResponse> updateStemmingOptions(
       {@required String domainName, @required String stems}) async {
-    return UpdateStemmingOptionsResponse.fromJson({});
+    var response_ = await _client.send('UpdateStemmingOptions', {
+      'DomainName': domainName,
+      'Stems': stems,
+    });
+    return UpdateStemmingOptionsResponse.fromJson(response_);
   }
 
   /// Configures stopwords for the search domain. Stopwords are used during
@@ -194,7 +268,11 @@ class CloudSearchApi {
   /// stopwords dictionary is 10 KB.
   Future<UpdateStopwordOptionsResponse> updateStopwordOptions(
       {@required String domainName, @required String stopwords}) async {
-    return UpdateStopwordOptionsResponse.fromJson({});
+    var response_ = await _client.send('UpdateStopwordOptions', {
+      'DomainName': domainName,
+      'Stopwords': stopwords,
+    });
+    return UpdateStopwordOptionsResponse.fromJson(response_);
   }
 
   /// Configures a synonym dictionary for the search domain. The synonym
@@ -203,7 +281,11 @@ class CloudSearchApi {
   /// KB.
   Future<UpdateSynonymOptionsResponse> updateSynonymOptions(
       {@required String domainName, @required String synonyms}) async {
-    return UpdateSynonymOptionsResponse.fromJson({});
+    var response_ = await _client.send('UpdateSynonymOptions', {
+      'DomainName': domainName,
+      'Synonyms': synonyms,
+    });
+    return UpdateSynonymOptionsResponse.fromJson(response_);
   }
 }
 
@@ -219,7 +301,10 @@ class AccessPoliciesStatus {
     @required this.status,
   });
   static AccessPoliciesStatus fromJson(Map<String, dynamic> json) =>
-      AccessPoliciesStatus();
+      AccessPoliciesStatus(
+        options: json['Options'] as String,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The status and configuration of the domain's availability options.
@@ -234,7 +319,10 @@ class AvailabilityOptionsStatus {
     @required this.status,
   });
   static AvailabilityOptionsStatus fromJson(Map<String, dynamic> json) =>
-      AvailabilityOptionsStatus();
+      AvailabilityOptionsStatus(
+        options: json['Options'] as bool,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// A response message that contains the status of a newly created domain.
@@ -245,7 +333,11 @@ class CreateDomainResponse {
     this.domainStatus,
   });
   static CreateDomainResponse fromJson(Map<String, dynamic> json) =>
-      CreateDomainResponse();
+      CreateDomainResponse(
+        domainStatus: json.containsKey('DomainStatus')
+            ? DomainStatus.fromJson(json['DomainStatus'])
+            : null,
+      );
 }
 
 /// The value of the `DefaultSearchField` configured for this search domain and
@@ -262,7 +354,10 @@ class DefaultSearchFieldStatus {
     @required this.status,
   });
   static DefaultSearchFieldStatus fromJson(Map<String, dynamic> json) =>
-      DefaultSearchFieldStatus();
+      DefaultSearchFieldStatus(
+        options: json['Options'] as String,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// A response message that contains the status of an updated index field.
@@ -273,7 +368,9 @@ class DefineIndexFieldResponse {
     @required this.indexField,
   });
   static DefineIndexFieldResponse fromJson(Map<String, dynamic> json) =>
-      DefineIndexFieldResponse();
+      DefineIndexFieldResponse(
+        indexField: IndexFieldStatus.fromJson(json['IndexField']),
+      );
 }
 
 /// A response message that contains the status of an updated `RankExpression`.
@@ -284,7 +381,9 @@ class DefineRankExpressionResponse {
     @required this.rankExpression,
   });
   static DefineRankExpressionResponse fromJson(Map<String, dynamic> json) =>
-      DefineRankExpressionResponse();
+      DefineRankExpressionResponse(
+        rankExpression: RankExpressionStatus.fromJson(json['RankExpression']),
+      );
 }
 
 /// A response message that contains the status of a newly deleted domain, or no
@@ -296,7 +395,11 @@ class DeleteDomainResponse {
     this.domainStatus,
   });
   static DeleteDomainResponse fromJson(Map<String, dynamic> json) =>
-      DeleteDomainResponse();
+      DeleteDomainResponse(
+        domainStatus: json.containsKey('DomainStatus')
+            ? DomainStatus.fromJson(json['DomainStatus'])
+            : null,
+      );
 }
 
 /// A response message that contains the status of a deleted index field.
@@ -307,7 +410,9 @@ class DeleteIndexFieldResponse {
     @required this.indexField,
   });
   static DeleteIndexFieldResponse fromJson(Map<String, dynamic> json) =>
-      DeleteIndexFieldResponse();
+      DeleteIndexFieldResponse(
+        indexField: IndexFieldStatus.fromJson(json['IndexField']),
+      );
 }
 
 /// A response message that contains the status of a deleted `RankExpression`.
@@ -318,7 +423,9 @@ class DeleteRankExpressionResponse {
     @required this.rankExpression,
   });
   static DeleteRankExpressionResponse fromJson(Map<String, dynamic> json) =>
-      DeleteRankExpressionResponse();
+      DeleteRankExpressionResponse(
+        rankExpression: RankExpressionStatus.fromJson(json['RankExpression']),
+      );
 }
 
 /// The result of a `DescribeAvailabilityOptions` request. Indicates whether or
@@ -333,7 +440,11 @@ class DescribeAvailabilityOptionsResponse {
   });
   static DescribeAvailabilityOptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAvailabilityOptionsResponse();
+      DescribeAvailabilityOptionsResponse(
+        availabilityOptions: json.containsKey('AvailabilityOptions')
+            ? AvailabilityOptionsStatus.fromJson(json['AvailabilityOptions'])
+            : null,
+      );
 }
 
 /// A response message that contains the default search field for a search
@@ -349,7 +460,10 @@ class DescribeDefaultSearchFieldResponse {
   });
   static DescribeDefaultSearchFieldResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeDefaultSearchFieldResponse();
+      DescribeDefaultSearchFieldResponse(
+        defaultSearchField:
+            DefaultSearchFieldStatus.fromJson(json['DefaultSearchField']),
+      );
 }
 
 /// A response message that contains the status of one or more domains.
@@ -360,7 +474,11 @@ class DescribeDomainsResponse {
     @required this.domainStatusList,
   });
   static DescribeDomainsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDomainsResponse();
+      DescribeDomainsResponse(
+        domainStatusList: (json['DomainStatusList'] as List)
+            .map((e) => DomainStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A response message that contains the index fields for a search domain.
@@ -372,7 +490,11 @@ class DescribeIndexFieldsResponse {
     @required this.indexFields,
   });
   static DescribeIndexFieldsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeIndexFieldsResponse();
+      DescribeIndexFieldsResponse(
+        indexFields: (json['IndexFields'] as List)
+            .map((e) => IndexFieldStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A response message that contains the rank expressions for a search domain.
@@ -384,7 +506,11 @@ class DescribeRankExpressionsResponse {
     @required this.rankExpressions,
   });
   static DescribeRankExpressionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeRankExpressionsResponse();
+      DescribeRankExpressionsResponse(
+        rankExpressions: (json['RankExpressions'] as List)
+            .map((e) => RankExpressionStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A response message that contains the access policies for a domain.
@@ -396,7 +522,9 @@ class DescribeServiceAccessPoliciesResponse {
   });
   static DescribeServiceAccessPoliciesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeServiceAccessPoliciesResponse();
+      DescribeServiceAccessPoliciesResponse(
+        accessPolicies: AccessPoliciesStatus.fromJson(json['AccessPolicies']),
+      );
 }
 
 /// A response message that contains the stemming options for a search domain.
@@ -407,7 +535,9 @@ class DescribeStemmingOptionsResponse {
     @required this.stems,
   });
   static DescribeStemmingOptionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeStemmingOptionsResponse();
+      DescribeStemmingOptionsResponse(
+        stems: StemmingOptionsStatus.fromJson(json['Stems']),
+      );
 }
 
 /// A response message that contains the stopword options for a search domain.
@@ -418,7 +548,9 @@ class DescribeStopwordOptionsResponse {
     @required this.stopwords,
   });
   static DescribeStopwordOptionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeStopwordOptionsResponse();
+      DescribeStopwordOptionsResponse(
+        stopwords: StopwordOptionsStatus.fromJson(json['Stopwords']),
+      );
 }
 
 /// A response message that contains the synonym options for a search domain.
@@ -429,7 +561,9 @@ class DescribeSynonymOptionsResponse {
     @required this.synonyms,
   });
   static DescribeSynonymOptionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSynonymOptionsResponse();
+      DescribeSynonymOptionsResponse(
+        synonyms: SynonymOptionsStatus.fromJson(json['Synonyms']),
+      );
 }
 
 /// The current status of the search domain.
@@ -494,7 +628,33 @@ class DomainStatus {
     this.searchPartitionCount,
     this.searchInstanceCount,
   });
-  static DomainStatus fromJson(Map<String, dynamic> json) => DomainStatus();
+  static DomainStatus fromJson(Map<String, dynamic> json) => DomainStatus(
+        domainId: json['DomainId'] as String,
+        domainName: json['DomainName'] as String,
+        created: json.containsKey('Created') ? json['Created'] as bool : null,
+        deleted: json.containsKey('Deleted') ? json['Deleted'] as bool : null,
+        numSearchableDocs: json.containsKey('NumSearchableDocs')
+            ? BigInt.from(json['NumSearchableDocs'])
+            : null,
+        docService: json.containsKey('DocService')
+            ? ServiceEndpoint.fromJson(json['DocService'])
+            : null,
+        searchService: json.containsKey('SearchService')
+            ? ServiceEndpoint.fromJson(json['SearchService'])
+            : null,
+        requiresIndexDocuments: json['RequiresIndexDocuments'] as bool,
+        processing:
+            json.containsKey('Processing') ? json['Processing'] as bool : null,
+        searchInstanceType: json.containsKey('SearchInstanceType')
+            ? json['SearchInstanceType'] as String
+            : null,
+        searchPartitionCount: json.containsKey('SearchPartitionCount')
+            ? json['SearchPartitionCount'] as int
+            : null,
+        searchInstanceCount: json.containsKey('SearchInstanceCount')
+            ? json['SearchInstanceCount'] as int
+            : null,
+      );
 }
 
 /// The result of an `IndexDocuments` action.
@@ -507,7 +667,11 @@ class IndexDocumentsResponse {
     this.fieldNames,
   });
   static IndexDocumentsResponse fromJson(Map<String, dynamic> json) =>
-      IndexDocumentsResponse();
+      IndexDocumentsResponse(
+        fieldNames: json.containsKey('FieldNames')
+            ? (json['FieldNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Defines a field in the index, including its name, type, and the source of
@@ -554,7 +718,25 @@ class IndexField {
     this.textOptions,
     this.sourceAttributes,
   });
-  static IndexField fromJson(Map<String, dynamic> json) => IndexField();
+  static IndexField fromJson(Map<String, dynamic> json) => IndexField(
+        indexFieldName: json['IndexFieldName'] as String,
+        indexFieldType: json['IndexFieldType'] as String,
+        uIntOptions: json.containsKey('UIntOptions')
+            ? UIntOptions.fromJson(json['UIntOptions'])
+            : null,
+        literalOptions: json.containsKey('LiteralOptions')
+            ? LiteralOptions.fromJson(json['LiteralOptions'])
+            : null,
+        textOptions: json.containsKey('TextOptions')
+            ? TextOptions.fromJson(json['TextOptions'])
+            : null,
+        sourceAttributes: json.containsKey('SourceAttributes')
+            ? (json['SourceAttributes'] as List)
+                .map((e) => SourceAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The value of an `IndexField` and its current status.
@@ -568,7 +750,10 @@ class IndexFieldStatus {
     @required this.status,
   });
   static IndexFieldStatus fromJson(Map<String, dynamic> json) =>
-      IndexFieldStatus();
+      IndexFieldStatus(
+        options: IndexField.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// Options that define a literal field in the search index.
@@ -592,7 +777,21 @@ class LiteralOptions {
     this.facetEnabled,
     this.resultEnabled,
   });
-  static LiteralOptions fromJson(Map<String, dynamic> json) => LiteralOptions();
+  static LiteralOptions fromJson(Map<String, dynamic> json) => LiteralOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        resultEnabled: json.containsKey('ResultEnabled')
+            ? json['ResultEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A named expression that can be evaluated at search time and used for ranking
@@ -650,7 +849,11 @@ class NamedRankExpression {
     @required this.rankExpression,
   });
   static NamedRankExpression fromJson(Map<String, dynamic> json) =>
-      NamedRankExpression();
+      NamedRankExpression(
+        rankName: json['RankName'] as String,
+        rankExpression: json['RankExpression'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The status of an option, including when it was last updated and whether it
@@ -687,7 +890,17 @@ class OptionStatus {
     @required this.state,
     this.pendingDeletion,
   });
-  static OptionStatus fromJson(Map<String, dynamic> json) => OptionStatus();
+  static OptionStatus fromJson(Map<String, dynamic> json) => OptionStatus(
+        creationDate: DateTime.parse(json['CreationDate']),
+        updateDate: DateTime.parse(json['UpdateDate']),
+        updateVersion: json.containsKey('UpdateVersion')
+            ? json['UpdateVersion'] as int
+            : null,
+        state: json['State'] as String,
+        pendingDeletion: json.containsKey('PendingDeletion')
+            ? json['PendingDeletion'] as bool
+            : null,
+      );
 }
 
 /// The value of a `RankExpression` and its current status.
@@ -703,7 +916,10 @@ class RankExpressionStatus {
     @required this.status,
   });
   static RankExpressionStatus fromJson(Map<String, dynamic> json) =>
-      RankExpressionStatus();
+      RankExpressionStatus(
+        options: NamedRankExpression.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The endpoint to which service requests can be submitted, including the
@@ -719,8 +935,11 @@ class ServiceEndpoint {
     this.arn,
     this.endpoint,
   });
-  static ServiceEndpoint fromJson(Map<String, dynamic> json) =>
-      ServiceEndpoint();
+  static ServiceEndpoint fromJson(Map<String, dynamic> json) => ServiceEndpoint(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+      );
 }
 
 /// Identifies the source data for an index field. An optional data
@@ -750,8 +969,19 @@ class SourceAttribute {
     this.sourceDataTrimTitle,
     this.sourceDataMap,
   });
-  static SourceAttribute fromJson(Map<String, dynamic> json) =>
-      SourceAttribute();
+  static SourceAttribute fromJson(Map<String, dynamic> json) => SourceAttribute(
+        sourceDataFunction: json['SourceDataFunction'] as String,
+        sourceDataCopy: json.containsKey('SourceDataCopy')
+            ? SourceData.fromJson(json['SourceDataCopy'])
+            : null,
+        sourceDataTrimTitle: json.containsKey('SourceDataTrimTitle')
+            ? SourceDataTrimTitle.fromJson(json['SourceDataTrimTitle'])
+            : null,
+        sourceDataMap: json.containsKey('SourceDataMap')
+            ? SourceDataMap.fromJson(json['SourceDataMap'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The source attribute name and an optional default value to use if a document
@@ -768,7 +998,13 @@ class SourceData {
     @required this.sourceName,
     this.defaultValue,
   });
-  static SourceData fromJson(Map<String, dynamic> json) => SourceData();
+  static SourceData fromJson(Map<String, dynamic> json) => SourceData(
+        sourceName: json['SourceName'] as String,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies how to map source attribute values to custom values when
@@ -789,7 +1025,17 @@ class SourceDataMap {
     this.defaultValue,
     this.cases,
   });
-  static SourceDataMap fromJson(Map<String, dynamic> json) => SourceDataMap();
+  static SourceDataMap fromJson(Map<String, dynamic> json) => SourceDataMap(
+        sourceName: json['SourceName'] as String,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        cases: json.containsKey('Cases')
+            ? (json['Cases'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies how to trim common words from the beginning of a field to enable
@@ -814,7 +1060,17 @@ class SourceDataTrimTitle {
     this.language,
   });
   static SourceDataTrimTitle fromJson(Map<String, dynamic> json) =>
-      SourceDataTrimTitle();
+      SourceDataTrimTitle(
+        sourceName: json['SourceName'] as String,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        separator:
+            json.containsKey('Separator') ? json['Separator'] as String : null,
+        language:
+            json.containsKey('Language') ? json['Language'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The stemming options configured for this search domain and the current
@@ -829,7 +1085,10 @@ class StemmingOptionsStatus {
     @required this.status,
   });
   static StemmingOptionsStatus fromJson(Map<String, dynamic> json) =>
-      StemmingOptionsStatus();
+      StemmingOptionsStatus(
+        options: json['Options'] as String,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The stopword options configured for this search domain and the current
@@ -844,7 +1103,10 @@ class StopwordOptionsStatus {
     @required this.status,
   });
   static StopwordOptionsStatus fromJson(Map<String, dynamic> json) =>
-      StopwordOptionsStatus();
+      StopwordOptionsStatus(
+        options: json['Options'] as String,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The synonym options configured for this search domain and the current status
@@ -859,7 +1121,10 @@ class SynonymOptionsStatus {
     @required this.status,
   });
   static SynonymOptionsStatus fromJson(Map<String, dynamic> json) =>
-      SynonymOptionsStatus();
+      SynonymOptionsStatus(
+        options: json['Options'] as String,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// Options that define a text field in the search index.
@@ -887,7 +1152,21 @@ class TextOptions {
     this.resultEnabled,
     this.textProcessor,
   });
-  static TextOptions fromJson(Map<String, dynamic> json) => TextOptions();
+  static TextOptions fromJson(Map<String, dynamic> json) => TextOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        resultEnabled: json.containsKey('ResultEnabled')
+            ? json['ResultEnabled'] as bool
+            : null,
+        textProcessor: json.containsKey('TextProcessor')
+            ? json['TextProcessor'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Options that define a `uint` field in the search index.
@@ -898,7 +1177,12 @@ class UIntOptions {
   UIntOptions({
     this.defaultValue,
   });
-  static UIntOptions fromJson(Map<String, dynamic> json) => UIntOptions();
+  static UIntOptions fromJson(Map<String, dynamic> json) => UIntOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The result of a `UpdateAvailabilityOptions` request. Contains the status of
@@ -913,7 +1197,11 @@ class UpdateAvailabilityOptionsResponse {
   });
   static UpdateAvailabilityOptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateAvailabilityOptionsResponse();
+      UpdateAvailabilityOptionsResponse(
+        availabilityOptions: json.containsKey('AvailabilityOptions')
+            ? AvailabilityOptionsStatus.fromJson(json['AvailabilityOptions'])
+            : null,
+      );
 }
 
 /// A response message that contains the status of an updated default search
@@ -925,7 +1213,10 @@ class UpdateDefaultSearchFieldResponse {
     @required this.defaultSearchField,
   });
   static UpdateDefaultSearchFieldResponse fromJson(Map<String, dynamic> json) =>
-      UpdateDefaultSearchFieldResponse();
+      UpdateDefaultSearchFieldResponse(
+        defaultSearchField:
+            DefaultSearchFieldStatus.fromJson(json['DefaultSearchField']),
+      );
 }
 
 /// A response message that contains the status of updated access policies.
@@ -937,7 +1228,9 @@ class UpdateServiceAccessPoliciesResponse {
   });
   static UpdateServiceAccessPoliciesResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateServiceAccessPoliciesResponse();
+      UpdateServiceAccessPoliciesResponse(
+        accessPolicies: AccessPoliciesStatus.fromJson(json['AccessPolicies']),
+      );
 }
 
 /// A response message that contains the status of updated stemming options.
@@ -948,7 +1241,9 @@ class UpdateStemmingOptionsResponse {
     @required this.stems,
   });
   static UpdateStemmingOptionsResponse fromJson(Map<String, dynamic> json) =>
-      UpdateStemmingOptionsResponse();
+      UpdateStemmingOptionsResponse(
+        stems: StemmingOptionsStatus.fromJson(json['Stems']),
+      );
 }
 
 /// A response message that contains the status of updated stopword options.
@@ -959,7 +1254,9 @@ class UpdateStopwordOptionsResponse {
     @required this.stopwords,
   });
   static UpdateStopwordOptionsResponse fromJson(Map<String, dynamic> json) =>
-      UpdateStopwordOptionsResponse();
+      UpdateStopwordOptionsResponse(
+        stopwords: StopwordOptionsStatus.fromJson(json['Stopwords']),
+      );
 }
 
 /// A response message that contains the status of updated synonym options.
@@ -970,5 +1267,7 @@ class UpdateSynonymOptionsResponse {
     @required this.synonyms,
   });
   static UpdateSynonymOptionsResponse fromJson(Map<String, dynamic> json) =>
-      UpdateSynonymOptionsResponse();
+      UpdateSynonymOptionsResponse(
+        synonyms: SynonymOptionsStatus.fromJson(json['Synonyms']),
+      );
 }

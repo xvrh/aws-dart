@@ -22,6 +22,9 @@ import 'package:meta/meta.dart';
 /// _[AWS Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html)_
 /// .
 class SfnApi {
+  final _client;
+  SfnApi(client) : _client = client.configured('SFN', serializer: 'json');
+
   /// Creates an activity. An activity is a task that you write in any
   /// programming language and host on any machine that has access to AWS Step
   /// Functions. Activities must poll Step Functions using the `GetActivityTask`
@@ -66,7 +69,11 @@ class SfnApi {
   /// symbols: `_ . : / = + - @`.
   Future<CreateActivityOutput> createActivity(String name,
       {List<Tag> tags}) async {
-    return CreateActivityOutput.fromJson({});
+    var response_ = await _client.send('CreateActivity', {
+      'name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateActivityOutput.fromJson(response_);
   }
 
   /// Creates a state machine. A state machine consists of a collection of
@@ -120,14 +127,23 @@ class SfnApi {
       @required String definition,
       @required String roleArn,
       List<Tag> tags}) async {
-    return CreateStateMachineOutput.fromJson({});
+    var response_ = await _client.send('CreateStateMachine', {
+      'name': name,
+      'definition': definition,
+      'roleArn': roleArn,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateStateMachineOutput.fromJson(response_);
   }
 
   /// Deletes an activity.
   ///
   /// [activityArn]: The Amazon Resource Name (ARN) of the activity to delete.
   Future<DeleteActivityOutput> deleteActivity(String activityArn) async {
-    return DeleteActivityOutput.fromJson({});
+    var response_ = await _client.send('DeleteActivity', {
+      'activityArn': activityArn,
+    });
+    return DeleteActivityOutput.fromJson(response_);
   }
 
   /// Deletes a state machine. This is an asynchronous operation: It sets the
@@ -144,7 +160,10 @@ class SfnApi {
   /// delete.
   Future<DeleteStateMachineOutput> deleteStateMachine(
       String stateMachineArn) async {
-    return DeleteStateMachineOutput.fromJson({});
+    var response_ = await _client.send('DeleteStateMachine', {
+      'stateMachineArn': stateMachineArn,
+    });
+    return DeleteStateMachineOutput.fromJson(response_);
   }
 
   /// Describes an activity.
@@ -156,7 +175,10 @@ class SfnApi {
   ///
   /// [activityArn]: The Amazon Resource Name (ARN) of the activity to describe.
   Future<DescribeActivityOutput> describeActivity(String activityArn) async {
-    return DescribeActivityOutput.fromJson({});
+    var response_ = await _client.send('DescribeActivity', {
+      'activityArn': activityArn,
+    });
+    return DescribeActivityOutput.fromJson(response_);
   }
 
   /// Describes an execution.
@@ -169,7 +191,10 @@ class SfnApi {
   /// [executionArn]: The Amazon Resource Name (ARN) of the execution to
   /// describe.
   Future<DescribeExecutionOutput> describeExecution(String executionArn) async {
-    return DescribeExecutionOutput.fromJson({});
+    var response_ = await _client.send('DescribeExecution', {
+      'executionArn': executionArn,
+    });
+    return DescribeExecutionOutput.fromJson(response_);
   }
 
   /// Describes a state machine.
@@ -183,7 +208,10 @@ class SfnApi {
   /// describe.
   Future<DescribeStateMachineOutput> describeStateMachine(
       String stateMachineArn) async {
-    return DescribeStateMachineOutput.fromJson({});
+    var response_ = await _client.send('DescribeStateMachine', {
+      'stateMachineArn': stateMachineArn,
+    });
+    return DescribeStateMachineOutput.fromJson(response_);
   }
 
   /// Describes the state machine associated with a specific execution.
@@ -197,7 +225,10 @@ class SfnApi {
   /// state machine information for.
   Future<DescribeStateMachineForExecutionOutput>
       describeStateMachineForExecution(String executionArn) async {
-    return DescribeStateMachineForExecutionOutput.fromJson({});
+    var response_ = await _client.send('DescribeStateMachineForExecution', {
+      'executionArn': executionArn,
+    });
+    return DescribeStateMachineForExecutionOutput.fromJson(response_);
   }
 
   /// Used by workers to retrieve a task (with the specified activity ARN) which
@@ -227,7 +258,11 @@ class SfnApi {
   /// in the execution history.
   Future<GetActivityTaskOutput> getActivityTask(String activityArn,
       {String workerName}) async {
-    return GetActivityTaskOutput.fromJson({});
+    var response_ = await _client.send('GetActivityTask', {
+      'activityArn': activityArn,
+      if (workerName != null) 'workerName': workerName,
+    });
+    return GetActivityTaskOutput.fromJson(response_);
   }
 
   /// Returns the history of the specified execution as a list of events. By
@@ -261,7 +296,13 @@ class SfnApi {
   /// InvalidToken_ error.
   Future<GetExecutionHistoryOutput> getExecutionHistory(String executionArn,
       {int maxResults, bool reverseOrder, String nextToken}) async {
-    return GetExecutionHistoryOutput.fromJson({});
+    var response_ = await _client.send('GetExecutionHistory', {
+      'executionArn': executionArn,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (reverseOrder != null) 'reverseOrder': reverseOrder,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return GetExecutionHistoryOutput.fromJson(response_);
   }
 
   /// Lists the existing activities.
@@ -293,7 +334,11 @@ class SfnApi {
   /// InvalidToken_ error.
   Future<ListActivitiesOutput> listActivities(
       {int maxResults, String nextToken}) async {
-    return ListActivitiesOutput.fromJson({});
+    var response_ = await _client.send('ListActivities', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListActivitiesOutput.fromJson(response_);
   }
 
   /// Lists the executions of a state machine that meet the filtering criteria.
@@ -332,7 +377,13 @@ class SfnApi {
   /// InvalidToken_ error.
   Future<ListExecutionsOutput> listExecutions(String stateMachineArn,
       {String statusFilter, int maxResults, String nextToken}) async {
-    return ListExecutionsOutput.fromJson({});
+    var response_ = await _client.send('ListExecutions', {
+      'stateMachineArn': stateMachineArn,
+      if (statusFilter != null) 'statusFilter': statusFilter,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListExecutionsOutput.fromJson(response_);
   }
 
   /// Lists the existing state machines.
@@ -364,7 +415,11 @@ class SfnApi {
   /// InvalidToken_ error.
   Future<ListStateMachinesOutput> listStateMachines(
       {int maxResults, String nextToken}) async {
-    return ListStateMachinesOutput.fromJson({});
+    var response_ = await _client.send('ListStateMachines', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListStateMachinesOutput.fromJson(response_);
   }
 
   /// List tags for a given resource.
@@ -376,7 +431,10 @@ class SfnApi {
   /// machine or activity.
   Future<ListTagsForResourceOutput> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   /// Used by activity workers and task states using the
@@ -393,7 +451,12 @@ class SfnApi {
   /// [cause]: A more detailed explanation of the cause of the failure.
   Future<SendTaskFailureOutput> sendTaskFailure(String taskToken,
       {String error, String cause}) async {
-    return SendTaskFailureOutput.fromJson({});
+    var response_ = await _client.send('SendTaskFailure', {
+      'taskToken': taskToken,
+      if (error != null) 'error': error,
+      if (cause != null) 'cause': cause,
+    });
+    return SendTaskFailureOutput.fromJson(response_);
   }
 
   /// Used by activity workers and task states using the
@@ -423,7 +486,10 @@ class SfnApi {
   /// [context object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
   /// when a workflow enters a task state. See GetActivityTaskOutput$taskToken.
   Future<SendTaskHeartbeatOutput> sendTaskHeartbeat(String taskToken) async {
-    return SendTaskHeartbeatOutput.fromJson({});
+    var response_ = await _client.send('SendTaskHeartbeat', {
+      'taskToken': taskToken,
+    });
+    return SendTaskHeartbeatOutput.fromJson(response_);
   }
 
   /// Used by activity workers and task states using the
@@ -439,7 +505,11 @@ class SfnApi {
   /// [output]: The JSON output of the task.
   Future<SendTaskSuccessOutput> sendTaskSuccess(
       {@required String taskToken, @required String output}) async {
-    return SendTaskSuccessOutput.fromJson({});
+    var response_ = await _client.send('SendTaskSuccess', {
+      'taskToken': taskToken,
+      'output': output,
+    });
+    return SendTaskSuccessOutput.fromJson(response_);
   }
 
   /// Starts a state machine execution.
@@ -481,7 +551,12 @@ class SfnApi {
   /// braces, for example: `"input": "{}"`
   Future<StartExecutionOutput> startExecution(String stateMachineArn,
       {String name, String input}) async {
-    return StartExecutionOutput.fromJson({});
+    var response_ = await _client.send('StartExecution', {
+      'stateMachineArn': stateMachineArn,
+      if (name != null) 'name': name,
+      if (input != null) 'input': input,
+    });
+    return StartExecutionOutput.fromJson(response_);
   }
 
   /// Stops an execution.
@@ -493,7 +568,12 @@ class SfnApi {
   /// [cause]: A more detailed explanation of the cause of the failure.
   Future<StopExecutionOutput> stopExecution(String executionArn,
       {String error, String cause}) async {
-    return StopExecutionOutput.fromJson({});
+    var response_ = await _client.send('StopExecution', {
+      'executionArn': executionArn,
+      if (error != null) 'error': error,
+      if (cause != null) 'cause': cause,
+    });
+    return StopExecutionOutput.fromJson(response_);
   }
 
   /// Add a tag to a Step Functions resource.
@@ -515,7 +595,11 @@ class SfnApi {
   /// symbols: `_ . : / = + - @`.
   Future<TagResourceOutput> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceOutput.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceOutput.fromJson(response_);
   }
 
   /// Remove a tag from a Step Functions resource
@@ -526,7 +610,11 @@ class SfnApi {
   /// [tagKeys]: The list of tags to remove from the resource.
   Future<UntagResourceOutput> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceOutput.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceOutput.fromJson(response_);
   }
 
   /// Updates an existing state machine by modifying its `definition` and/or
@@ -551,7 +639,12 @@ class SfnApi {
   /// machine.
   Future<UpdateStateMachineOutput> updateStateMachine(String stateMachineArn,
       {String definition, String roleArn}) async {
-    return UpdateStateMachineOutput.fromJson({});
+    var response_ = await _client.send('UpdateStateMachine', {
+      'stateMachineArn': stateMachineArn,
+      if (definition != null) 'definition': definition,
+      if (roleArn != null) 'roleArn': roleArn,
+    });
+    return UpdateStateMachineOutput.fromJson(response_);
   }
 }
 
@@ -568,7 +661,10 @@ class ActivityFailedEventDetails {
     this.cause,
   });
   static ActivityFailedEventDetails fromJson(Map<String, dynamic> json) =>
-      ActivityFailedEventDetails();
+      ActivityFailedEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about an activity.
@@ -600,7 +696,11 @@ class ActivityListItem {
     @required this.creationDate,
   });
   static ActivityListItem fromJson(Map<String, dynamic> json) =>
-      ActivityListItem();
+      ActivityListItem(
+        activityArn: json['activityArn'] as String,
+        name: json['name'] as String,
+        creationDate: DateTime.parse(json['creationDate']),
+      );
 }
 
 /// Contains details about an activity schedule failure that occurred during an
@@ -618,7 +718,10 @@ class ActivityScheduleFailedEventDetails {
   });
   static ActivityScheduleFailedEventDetails fromJson(
           Map<String, dynamic> json) =>
-      ActivityScheduleFailedEventDetails();
+      ActivityScheduleFailedEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about an activity scheduled during an execution.
@@ -642,7 +745,16 @@ class ActivityScheduledEventDetails {
     this.heartbeatInSeconds,
   });
   static ActivityScheduledEventDetails fromJson(Map<String, dynamic> json) =>
-      ActivityScheduledEventDetails();
+      ActivityScheduledEventDetails(
+        resource: json['resource'] as String,
+        input: json.containsKey('input') ? json['input'] as String : null,
+        timeoutInSeconds: json.containsKey('timeoutInSeconds')
+            ? BigInt.from(json['timeoutInSeconds'])
+            : null,
+        heartbeatInSeconds: json.containsKey('heartbeatInSeconds')
+            ? BigInt.from(json['heartbeatInSeconds'])
+            : null,
+      );
 }
 
 /// Contains details about the start of an activity during an execution.
@@ -655,7 +767,11 @@ class ActivityStartedEventDetails {
     this.workerName,
   });
   static ActivityStartedEventDetails fromJson(Map<String, dynamic> json) =>
-      ActivityStartedEventDetails();
+      ActivityStartedEventDetails(
+        workerName: json.containsKey('workerName')
+            ? json['workerName'] as String
+            : null,
+      );
 }
 
 /// Contains details about an activity that successfully terminated during an
@@ -668,7 +784,9 @@ class ActivitySucceededEventDetails {
     this.output,
   });
   static ActivitySucceededEventDetails fromJson(Map<String, dynamic> json) =>
-      ActivitySucceededEventDetails();
+      ActivitySucceededEventDetails(
+        output: json.containsKey('output') ? json['output'] as String : null,
+      );
 }
 
 /// Contains details about an activity timeout that occurred during an
@@ -685,7 +803,10 @@ class ActivityTimedOutEventDetails {
     this.cause,
   });
   static ActivityTimedOutEventDetails fromJson(Map<String, dynamic> json) =>
-      ActivityTimedOutEventDetails();
+      ActivityTimedOutEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 class CreateActivityOutput {
@@ -700,7 +821,10 @@ class CreateActivityOutput {
     @required this.creationDate,
   });
   static CreateActivityOutput fromJson(Map<String, dynamic> json) =>
-      CreateActivityOutput();
+      CreateActivityOutput(
+        activityArn: json['activityArn'] as String,
+        creationDate: DateTime.parse(json['creationDate']),
+      );
 }
 
 class CreateStateMachineOutput {
@@ -715,7 +839,10 @@ class CreateStateMachineOutput {
     @required this.creationDate,
   });
   static CreateStateMachineOutput fromJson(Map<String, dynamic> json) =>
-      CreateStateMachineOutput();
+      CreateStateMachineOutput(
+        stateMachineArn: json['stateMachineArn'] as String,
+        creationDate: DateTime.parse(json['creationDate']),
+      );
 }
 
 class DeleteActivityOutput {
@@ -758,7 +885,11 @@ class DescribeActivityOutput {
     @required this.creationDate,
   });
   static DescribeActivityOutput fromJson(Map<String, dynamic> json) =>
-      DescribeActivityOutput();
+      DescribeActivityOutput(
+        activityArn: json['activityArn'] as String,
+        name: json['name'] as String,
+        creationDate: DateTime.parse(json['creationDate']),
+      );
 }
 
 class DescribeExecutionOutput {
@@ -814,7 +945,18 @@ class DescribeExecutionOutput {
     this.output,
   });
   static DescribeExecutionOutput fromJson(Map<String, dynamic> json) =>
-      DescribeExecutionOutput();
+      DescribeExecutionOutput(
+        executionArn: json['executionArn'] as String,
+        stateMachineArn: json['stateMachineArn'] as String,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        status: json['status'] as String,
+        startDate: DateTime.parse(json['startDate']),
+        stopDate: json.containsKey('stopDate')
+            ? DateTime.parse(json['stopDate'])
+            : null,
+        input: json['input'] as String,
+        output: json.containsKey('output') ? json['output'] as String : null,
+      );
 }
 
 class DescribeStateMachineForExecutionOutput {
@@ -846,7 +988,13 @@ class DescribeStateMachineForExecutionOutput {
   });
   static DescribeStateMachineForExecutionOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeStateMachineForExecutionOutput();
+      DescribeStateMachineForExecutionOutput(
+        stateMachineArn: json['stateMachineArn'] as String,
+        name: json['name'] as String,
+        definition: json['definition'] as String,
+        roleArn: json['roleArn'] as String,
+        updateDate: DateTime.parse(json['updateDate']),
+      );
 }
 
 class DescribeStateMachineOutput {
@@ -892,7 +1040,14 @@ class DescribeStateMachineOutput {
     @required this.creationDate,
   });
   static DescribeStateMachineOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStateMachineOutput();
+      DescribeStateMachineOutput(
+        stateMachineArn: json['stateMachineArn'] as String,
+        name: json['name'] as String,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        definition: json['definition'] as String,
+        roleArn: json['roleArn'] as String,
+        creationDate: DateTime.parse(json['creationDate']),
+      );
 }
 
 /// Contains details about an abort of an execution.
@@ -908,7 +1063,10 @@ class ExecutionAbortedEventDetails {
     this.cause,
   });
   static ExecutionAbortedEventDetails fromJson(Map<String, dynamic> json) =>
-      ExecutionAbortedEventDetails();
+      ExecutionAbortedEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about an execution failure event.
@@ -924,7 +1082,10 @@ class ExecutionFailedEventDetails {
     this.cause,
   });
   static ExecutionFailedEventDetails fromJson(Map<String, dynamic> json) =>
-      ExecutionFailedEventDetails();
+      ExecutionFailedEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about an execution.
@@ -968,7 +1129,16 @@ class ExecutionListItem {
     this.stopDate,
   });
   static ExecutionListItem fromJson(Map<String, dynamic> json) =>
-      ExecutionListItem();
+      ExecutionListItem(
+        executionArn: json['executionArn'] as String,
+        stateMachineArn: json['stateMachineArn'] as String,
+        name: json['name'] as String,
+        status: json['status'] as String,
+        startDate: DateTime.parse(json['startDate']),
+        stopDate: json.containsKey('stopDate')
+            ? DateTime.parse(json['stopDate'])
+            : null,
+      );
 }
 
 /// Contains details about the start of the execution.
@@ -985,7 +1155,10 @@ class ExecutionStartedEventDetails {
     this.roleArn,
   });
   static ExecutionStartedEventDetails fromJson(Map<String, dynamic> json) =>
-      ExecutionStartedEventDetails();
+      ExecutionStartedEventDetails(
+        input: json.containsKey('input') ? json['input'] as String : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+      );
 }
 
 /// Contains details about the successful termination of the execution.
@@ -997,7 +1170,9 @@ class ExecutionSucceededEventDetails {
     this.output,
   });
   static ExecutionSucceededEventDetails fromJson(Map<String, dynamic> json) =>
-      ExecutionSucceededEventDetails();
+      ExecutionSucceededEventDetails(
+        output: json.containsKey('output') ? json['output'] as String : null,
+      );
 }
 
 /// Contains details about the execution timeout that occurred during the
@@ -1014,7 +1189,10 @@ class ExecutionTimedOutEventDetails {
     this.cause,
   });
   static ExecutionTimedOutEventDetails fromJson(Map<String, dynamic> json) =>
-      ExecutionTimedOutEventDetails();
+      ExecutionTimedOutEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 class GetActivityTaskOutput {
@@ -1031,7 +1209,11 @@ class GetActivityTaskOutput {
     this.input,
   });
   static GetActivityTaskOutput fromJson(Map<String, dynamic> json) =>
-      GetActivityTaskOutput();
+      GetActivityTaskOutput(
+        taskToken:
+            json.containsKey('taskToken') ? json['taskToken'] as String : null,
+        input: json.containsKey('input') ? json['input'] as String : null,
+      );
 }
 
 class GetExecutionHistoryOutput {
@@ -1050,7 +1232,13 @@ class GetExecutionHistoryOutput {
     this.nextToken,
   });
   static GetExecutionHistoryOutput fromJson(Map<String, dynamic> json) =>
-      GetExecutionHistoryOutput();
+      GetExecutionHistoryOutput(
+        events: (json['events'] as List)
+            .map((e) => HistoryEvent.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Contains details about the events of an execution.
@@ -1190,7 +1378,163 @@ class HistoryEvent {
     this.stateEnteredEventDetails,
     this.stateExitedEventDetails,
   });
-  static HistoryEvent fromJson(Map<String, dynamic> json) => HistoryEvent();
+  static HistoryEvent fromJson(Map<String, dynamic> json) => HistoryEvent(
+        timestamp: DateTime.parse(json['timestamp']),
+        type: json['type'] as String,
+        id: BigInt.from(json['id']),
+        previousEventId: json.containsKey('previousEventId')
+            ? BigInt.from(json['previousEventId'])
+            : null,
+        activityFailedEventDetails:
+            json.containsKey('activityFailedEventDetails')
+                ? ActivityFailedEventDetails.fromJson(
+                    json['activityFailedEventDetails'])
+                : null,
+        activityScheduleFailedEventDetails:
+            json.containsKey('activityScheduleFailedEventDetails')
+                ? ActivityScheduleFailedEventDetails.fromJson(
+                    json['activityScheduleFailedEventDetails'])
+                : null,
+        activityScheduledEventDetails:
+            json.containsKey('activityScheduledEventDetails')
+                ? ActivityScheduledEventDetails.fromJson(
+                    json['activityScheduledEventDetails'])
+                : null,
+        activityStartedEventDetails:
+            json.containsKey('activityStartedEventDetails')
+                ? ActivityStartedEventDetails.fromJson(
+                    json['activityStartedEventDetails'])
+                : null,
+        activitySucceededEventDetails:
+            json.containsKey('activitySucceededEventDetails')
+                ? ActivitySucceededEventDetails.fromJson(
+                    json['activitySucceededEventDetails'])
+                : null,
+        activityTimedOutEventDetails:
+            json.containsKey('activityTimedOutEventDetails')
+                ? ActivityTimedOutEventDetails.fromJson(
+                    json['activityTimedOutEventDetails'])
+                : null,
+        taskFailedEventDetails: json.containsKey('taskFailedEventDetails')
+            ? TaskFailedEventDetails.fromJson(json['taskFailedEventDetails'])
+            : null,
+        taskScheduledEventDetails: json.containsKey('taskScheduledEventDetails')
+            ? TaskScheduledEventDetails.fromJson(
+                json['taskScheduledEventDetails'])
+            : null,
+        taskStartFailedEventDetails:
+            json.containsKey('taskStartFailedEventDetails')
+                ? TaskStartFailedEventDetails.fromJson(
+                    json['taskStartFailedEventDetails'])
+                : null,
+        taskStartedEventDetails: json.containsKey('taskStartedEventDetails')
+            ? TaskStartedEventDetails.fromJson(json['taskStartedEventDetails'])
+            : null,
+        taskSubmitFailedEventDetails:
+            json.containsKey('taskSubmitFailedEventDetails')
+                ? TaskSubmitFailedEventDetails.fromJson(
+                    json['taskSubmitFailedEventDetails'])
+                : null,
+        taskSubmittedEventDetails: json.containsKey('taskSubmittedEventDetails')
+            ? TaskSubmittedEventDetails.fromJson(
+                json['taskSubmittedEventDetails'])
+            : null,
+        taskSucceededEventDetails: json.containsKey('taskSucceededEventDetails')
+            ? TaskSucceededEventDetails.fromJson(
+                json['taskSucceededEventDetails'])
+            : null,
+        taskTimedOutEventDetails: json.containsKey('taskTimedOutEventDetails')
+            ? TaskTimedOutEventDetails.fromJson(
+                json['taskTimedOutEventDetails'])
+            : null,
+        executionFailedEventDetails:
+            json.containsKey('executionFailedEventDetails')
+                ? ExecutionFailedEventDetails.fromJson(
+                    json['executionFailedEventDetails'])
+                : null,
+        executionStartedEventDetails:
+            json.containsKey('executionStartedEventDetails')
+                ? ExecutionStartedEventDetails.fromJson(
+                    json['executionStartedEventDetails'])
+                : null,
+        executionSucceededEventDetails:
+            json.containsKey('executionSucceededEventDetails')
+                ? ExecutionSucceededEventDetails.fromJson(
+                    json['executionSucceededEventDetails'])
+                : null,
+        executionAbortedEventDetails:
+            json.containsKey('executionAbortedEventDetails')
+                ? ExecutionAbortedEventDetails.fromJson(
+                    json['executionAbortedEventDetails'])
+                : null,
+        executionTimedOutEventDetails:
+            json.containsKey('executionTimedOutEventDetails')
+                ? ExecutionTimedOutEventDetails.fromJson(
+                    json['executionTimedOutEventDetails'])
+                : null,
+        mapStateStartedEventDetails:
+            json.containsKey('mapStateStartedEventDetails')
+                ? MapStateStartedEventDetails.fromJson(
+                    json['mapStateStartedEventDetails'])
+                : null,
+        mapIterationStartedEventDetails:
+            json.containsKey('mapIterationStartedEventDetails')
+                ? MapIterationEventDetails.fromJson(
+                    json['mapIterationStartedEventDetails'])
+                : null,
+        mapIterationSucceededEventDetails:
+            json.containsKey('mapIterationSucceededEventDetails')
+                ? MapIterationEventDetails.fromJson(
+                    json['mapIterationSucceededEventDetails'])
+                : null,
+        mapIterationFailedEventDetails:
+            json.containsKey('mapIterationFailedEventDetails')
+                ? MapIterationEventDetails.fromJson(
+                    json['mapIterationFailedEventDetails'])
+                : null,
+        mapIterationAbortedEventDetails:
+            json.containsKey('mapIterationAbortedEventDetails')
+                ? MapIterationEventDetails.fromJson(
+                    json['mapIterationAbortedEventDetails'])
+                : null,
+        lambdaFunctionFailedEventDetails:
+            json.containsKey('lambdaFunctionFailedEventDetails')
+                ? LambdaFunctionFailedEventDetails.fromJson(
+                    json['lambdaFunctionFailedEventDetails'])
+                : null,
+        lambdaFunctionScheduleFailedEventDetails:
+            json.containsKey('lambdaFunctionScheduleFailedEventDetails')
+                ? LambdaFunctionScheduleFailedEventDetails.fromJson(
+                    json['lambdaFunctionScheduleFailedEventDetails'])
+                : null,
+        lambdaFunctionScheduledEventDetails:
+            json.containsKey('lambdaFunctionScheduledEventDetails')
+                ? LambdaFunctionScheduledEventDetails.fromJson(
+                    json['lambdaFunctionScheduledEventDetails'])
+                : null,
+        lambdaFunctionStartFailedEventDetails:
+            json.containsKey('lambdaFunctionStartFailedEventDetails')
+                ? LambdaFunctionStartFailedEventDetails.fromJson(
+                    json['lambdaFunctionStartFailedEventDetails'])
+                : null,
+        lambdaFunctionSucceededEventDetails:
+            json.containsKey('lambdaFunctionSucceededEventDetails')
+                ? LambdaFunctionSucceededEventDetails.fromJson(
+                    json['lambdaFunctionSucceededEventDetails'])
+                : null,
+        lambdaFunctionTimedOutEventDetails:
+            json.containsKey('lambdaFunctionTimedOutEventDetails')
+                ? LambdaFunctionTimedOutEventDetails.fromJson(
+                    json['lambdaFunctionTimedOutEventDetails'])
+                : null,
+        stateEnteredEventDetails: json.containsKey('stateEnteredEventDetails')
+            ? StateEnteredEventDetails.fromJson(
+                json['stateEnteredEventDetails'])
+            : null,
+        stateExitedEventDetails: json.containsKey('stateExitedEventDetails')
+            ? StateExitedEventDetails.fromJson(json['stateExitedEventDetails'])
+            : null,
+      );
 }
 
 /// Contains details about a lambda function that failed during an execution.
@@ -1206,7 +1550,10 @@ class LambdaFunctionFailedEventDetails {
     this.cause,
   });
   static LambdaFunctionFailedEventDetails fromJson(Map<String, dynamic> json) =>
-      LambdaFunctionFailedEventDetails();
+      LambdaFunctionFailedEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about a failed lambda function schedule event that occurred
@@ -1224,7 +1571,10 @@ class LambdaFunctionScheduleFailedEventDetails {
   });
   static LambdaFunctionScheduleFailedEventDetails fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionScheduleFailedEventDetails();
+      LambdaFunctionScheduleFailedEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about a lambda function scheduled during an execution.
@@ -1245,7 +1595,13 @@ class LambdaFunctionScheduledEventDetails {
   });
   static LambdaFunctionScheduledEventDetails fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionScheduledEventDetails();
+      LambdaFunctionScheduledEventDetails(
+        resource: json['resource'] as String,
+        input: json.containsKey('input') ? json['input'] as String : null,
+        timeoutInSeconds: json.containsKey('timeoutInSeconds')
+            ? BigInt.from(json['timeoutInSeconds'])
+            : null,
+      );
 }
 
 /// Contains details about a lambda function that failed to start during an
@@ -1263,7 +1619,10 @@ class LambdaFunctionStartFailedEventDetails {
   });
   static LambdaFunctionStartFailedEventDetails fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionStartFailedEventDetails();
+      LambdaFunctionStartFailedEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about a lambda function that successfully terminated during
@@ -1277,7 +1636,9 @@ class LambdaFunctionSucceededEventDetails {
   });
   static LambdaFunctionSucceededEventDetails fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionSucceededEventDetails();
+      LambdaFunctionSucceededEventDetails(
+        output: json.containsKey('output') ? json['output'] as String : null,
+      );
 }
 
 /// Contains details about a lambda function timeout that occurred during an
@@ -1295,7 +1656,10 @@ class LambdaFunctionTimedOutEventDetails {
   });
   static LambdaFunctionTimedOutEventDetails fromJson(
           Map<String, dynamic> json) =>
-      LambdaFunctionTimedOutEventDetails();
+      LambdaFunctionTimedOutEventDetails(
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 class ListActivitiesOutput {
@@ -1314,7 +1678,13 @@ class ListActivitiesOutput {
     this.nextToken,
   });
   static ListActivitiesOutput fromJson(Map<String, dynamic> json) =>
-      ListActivitiesOutput();
+      ListActivitiesOutput(
+        activities: (json['activities'] as List)
+            .map((e) => ActivityListItem.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListExecutionsOutput {
@@ -1333,7 +1703,13 @@ class ListExecutionsOutput {
     this.nextToken,
   });
   static ListExecutionsOutput fromJson(Map<String, dynamic> json) =>
-      ListExecutionsOutput();
+      ListExecutionsOutput(
+        executions: (json['executions'] as List)
+            .map((e) => ExecutionListItem.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListStateMachinesOutput {
@@ -1351,7 +1727,13 @@ class ListStateMachinesOutput {
     this.nextToken,
   });
   static ListStateMachinesOutput fromJson(Map<String, dynamic> json) =>
-      ListStateMachinesOutput();
+      ListStateMachinesOutput(
+        stateMachines: (json['stateMachines'] as List)
+            .map((e) => StateMachineListItem.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceOutput {
@@ -1362,7 +1744,11 @@ class ListTagsForResourceOutput {
     this.tags,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains details about an iteration of a Map state.
@@ -1378,7 +1764,10 @@ class MapIterationEventDetails {
     this.index,
   });
   static MapIterationEventDetails fromJson(Map<String, dynamic> json) =>
-      MapIterationEventDetails();
+      MapIterationEventDetails(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        index: json.containsKey('index') ? json['index'] as int : null,
+      );
 }
 
 /// Details about a Map state that was started.
@@ -1390,7 +1779,9 @@ class MapStateStartedEventDetails {
     this.length,
   });
   static MapStateStartedEventDetails fromJson(Map<String, dynamic> json) =>
-      MapStateStartedEventDetails();
+      MapStateStartedEventDetails(
+        length: json.containsKey('length') ? json['length'] as int : null,
+      );
 }
 
 class SendTaskFailureOutput {
@@ -1423,7 +1814,10 @@ class StartExecutionOutput {
     @required this.startDate,
   });
   static StartExecutionOutput fromJson(Map<String, dynamic> json) =>
-      StartExecutionOutput();
+      StartExecutionOutput(
+        executionArn: json['executionArn'] as String,
+        startDate: DateTime.parse(json['startDate']),
+      );
 }
 
 /// Contains details about a state entered during an execution.
@@ -1439,7 +1833,10 @@ class StateEnteredEventDetails {
     this.input,
   });
   static StateEnteredEventDetails fromJson(Map<String, dynamic> json) =>
-      StateEnteredEventDetails();
+      StateEnteredEventDetails(
+        name: json['name'] as String,
+        input: json.containsKey('input') ? json['input'] as String : null,
+      );
 }
 
 /// Contains details about an exit from a state during an execution.
@@ -1467,7 +1864,10 @@ class StateExitedEventDetails {
     this.output,
   });
   static StateExitedEventDetails fromJson(Map<String, dynamic> json) =>
-      StateExitedEventDetails();
+      StateExitedEventDetails(
+        name: json['name'] as String,
+        output: json.containsKey('output') ? json['output'] as String : null,
+      );
 }
 
 /// Contains details about the state machine.
@@ -1499,7 +1899,11 @@ class StateMachineListItem {
     @required this.creationDate,
   });
   static StateMachineListItem fromJson(Map<String, dynamic> json) =>
-      StateMachineListItem();
+      StateMachineListItem(
+        stateMachineArn: json['stateMachineArn'] as String,
+        name: json['name'] as String,
+        creationDate: DateTime.parse(json['creationDate']),
+      );
 }
 
 class StopExecutionOutput {
@@ -1510,7 +1914,9 @@ class StopExecutionOutput {
     @required this.stopDate,
   });
   static StopExecutionOutput fromJson(Map<String, dynamic> json) =>
-      StopExecutionOutput();
+      StopExecutionOutput(
+        stopDate: DateTime.parse(json['stopDate']),
+      );
 }
 
 /// Tags are key-value pairs that can be associated with Step Functions state
@@ -1534,7 +1940,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('key') ? json['key'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceOutput {
@@ -1564,7 +1974,12 @@ class TaskFailedEventDetails {
     this.cause,
   });
   static TaskFailedEventDetails fromJson(Map<String, dynamic> json) =>
-      TaskFailedEventDetails();
+      TaskFailedEventDetails(
+        resourceType: json['resourceType'] as String,
+        resource: json['resource'] as String,
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about a task scheduled during an execution.
@@ -1592,7 +2007,15 @@ class TaskScheduledEventDetails {
     this.timeoutInSeconds,
   });
   static TaskScheduledEventDetails fromJson(Map<String, dynamic> json) =>
-      TaskScheduledEventDetails();
+      TaskScheduledEventDetails(
+        resourceType: json['resourceType'] as String,
+        resource: json['resource'] as String,
+        region: json['region'] as String,
+        parameters: json['parameters'] as String,
+        timeoutInSeconds: json.containsKey('timeoutInSeconds')
+            ? BigInt.from(json['timeoutInSeconds'])
+            : null,
+      );
 }
 
 /// Contains details about a task that failed to start during an execution.
@@ -1616,7 +2039,12 @@ class TaskStartFailedEventDetails {
     this.cause,
   });
   static TaskStartFailedEventDetails fromJson(Map<String, dynamic> json) =>
-      TaskStartFailedEventDetails();
+      TaskStartFailedEventDetails(
+        resourceType: json['resourceType'] as String,
+        resource: json['resource'] as String,
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about the start of a task during an execution.
@@ -1632,7 +2060,10 @@ class TaskStartedEventDetails {
     @required this.resource,
   });
   static TaskStartedEventDetails fromJson(Map<String, dynamic> json) =>
-      TaskStartedEventDetails();
+      TaskStartedEventDetails(
+        resourceType: json['resourceType'] as String,
+        resource: json['resource'] as String,
+      );
 }
 
 /// Contains details about a task that failed to submit during an execution.
@@ -1656,7 +2087,12 @@ class TaskSubmitFailedEventDetails {
     this.cause,
   });
   static TaskSubmitFailedEventDetails fromJson(Map<String, dynamic> json) =>
-      TaskSubmitFailedEventDetails();
+      TaskSubmitFailedEventDetails(
+        resourceType: json['resourceType'] as String,
+        resource: json['resource'] as String,
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 /// Contains details about a task submitted to a resource .
@@ -1676,7 +2112,11 @@ class TaskSubmittedEventDetails {
     this.output,
   });
   static TaskSubmittedEventDetails fromJson(Map<String, dynamic> json) =>
-      TaskSubmittedEventDetails();
+      TaskSubmittedEventDetails(
+        resourceType: json['resourceType'] as String,
+        resource: json['resource'] as String,
+        output: json.containsKey('output') ? json['output'] as String : null,
+      );
 }
 
 /// Contains details about the successful completion of a task state.
@@ -1697,7 +2137,11 @@ class TaskSucceededEventDetails {
     this.output,
   });
   static TaskSucceededEventDetails fromJson(Map<String, dynamic> json) =>
-      TaskSucceededEventDetails();
+      TaskSucceededEventDetails(
+        resourceType: json['resourceType'] as String,
+        resource: json['resource'] as String,
+        output: json.containsKey('output') ? json['output'] as String : null,
+      );
 }
 
 /// Contains details about a resource timeout that occurred during an execution.
@@ -1721,7 +2165,12 @@ class TaskTimedOutEventDetails {
     this.cause,
   });
   static TaskTimedOutEventDetails fromJson(Map<String, dynamic> json) =>
-      TaskTimedOutEventDetails();
+      TaskTimedOutEventDetails(
+        resourceType: json['resourceType'] as String,
+        resource: json['resource'] as String,
+        error: json.containsKey('error') ? json['error'] as String : null,
+        cause: json.containsKey('cause') ? json['cause'] as String : null,
+      );
 }
 
 class UntagResourceOutput {
@@ -1738,5 +2187,7 @@ class UpdateStateMachineOutput {
     @required this.updateDate,
   });
   static UpdateStateMachineOutput fromJson(Map<String, dynamic> json) =>
-      UpdateStateMachineOutput();
+      UpdateStateMachineOutput(
+        updateDate: DateTime.parse(json['updateDate']),
+      );
 }

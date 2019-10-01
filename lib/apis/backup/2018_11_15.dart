@@ -7,6 +7,10 @@ import 'package:meta/meta.dart';
 /// restoration, and deletion of backups, while also providing reporting and
 /// auditing.
 class BackupApi {
+  final _client;
+  BackupApi(client)
+      : _client = client.configured('Backup', serializer: 'rest-json');
+
   /// Backup plans are documents that contain information that AWS Backup uses
   /// to schedule tasks that create recovery points of resources.
   ///
@@ -26,7 +30,12 @@ class BackupApi {
   /// plan, that plan is returned. This parameter is optional.
   Future<CreateBackupPlanOutput> createBackupPlan(BackupPlanInput backupPlan,
       {Map<String, String> backupPlanTags, String creatorRequestId}) async {
-    return CreateBackupPlanOutput.fromJson({});
+    var response_ = await _client.send('CreateBackupPlan', {
+      'BackupPlan': backupPlan,
+      if (backupPlanTags != null) 'BackupPlanTags': backupPlanTags,
+      if (creatorRequestId != null) 'CreatorRequestId': creatorRequestId,
+    });
+    return CreateBackupPlanOutput.fromJson(response_);
   }
 
   /// Creates a JSON document that specifies a set of resources to assign to a
@@ -79,7 +88,12 @@ class BackupApi {
       {@required String backupPlanId,
       @required BackupSelection backupSelection,
       String creatorRequestId}) async {
-    return CreateBackupSelectionOutput.fromJson({});
+    var response_ = await _client.send('CreateBackupSelection', {
+      'BackupPlanId': backupPlanId,
+      'BackupSelection': backupSelection,
+      if (creatorRequestId != null) 'CreatorRequestId': creatorRequestId,
+    });
+    return CreateBackupSelectionOutput.fromJson(response_);
   }
 
   /// Creates a logical container where backups are stored. A
@@ -110,7 +124,13 @@ class BackupApi {
       {Map<String, String> backupVaultTags,
       String encryptionKeyArn,
       String creatorRequestId}) async {
-    return CreateBackupVaultOutput.fromJson({});
+    var response_ = await _client.send('CreateBackupVault', {
+      'BackupVaultName': backupVaultName,
+      if (backupVaultTags != null) 'BackupVaultTags': backupVaultTags,
+      if (encryptionKeyArn != null) 'EncryptionKeyArn': encryptionKeyArn,
+      if (creatorRequestId != null) 'CreatorRequestId': creatorRequestId,
+    });
+    return CreateBackupVaultOutput.fromJson(response_);
   }
 
   /// Deletes a backup plan. A backup plan can only be deleted after all
@@ -120,7 +140,10 @@ class BackupApi {
   ///
   /// [backupPlanId]: Uniquely identifies a backup plan.
   Future<DeleteBackupPlanOutput> deleteBackupPlan(String backupPlanId) async {
-    return DeleteBackupPlanOutput.fromJson({});
+    var response_ = await _client.send('DeleteBackupPlan', {
+      'BackupPlanId': backupPlanId,
+    });
+    return DeleteBackupPlanOutput.fromJson(response_);
   }
 
   /// Deletes the resource selection associated with a backup plan that is
@@ -131,7 +154,12 @@ class BackupApi {
   /// [selectionId]: Uniquely identifies the body of a request to assign a set
   /// of resources to a backup plan.
   Future<void> deleteBackupSelection(
-      {@required String backupPlanId, @required String selectionId}) async {}
+      {@required String backupPlanId, @required String selectionId}) async {
+    await _client.send('DeleteBackupSelection', {
+      'BackupPlanId': backupPlanId,
+      'SelectionId': selectionId,
+    });
+  }
 
   /// Deletes the backup vault identified by its name. A vault can be deleted
   /// only if it is empty.
@@ -140,7 +168,11 @@ class BackupApi {
   /// stored. Backup vaults are identified by names that are unique to the
   /// account used to create them and theAWS Region where they are created. They
   /// consist of lowercase letters, numbers, and hyphens.
-  Future<void> deleteBackupVault(String backupVaultName) async {}
+  Future<void> deleteBackupVault(String backupVaultName) async {
+    await _client.send('DeleteBackupVault', {
+      'BackupVaultName': backupVaultName,
+    });
+  }
 
   /// Deletes the policy document that manages permissions on a backup vault.
   ///
@@ -148,7 +180,11 @@ class BackupApi {
   /// stored. Backup vaults are identified by names that are unique to the
   /// account used to create them and the AWS Region where they are created.
   /// They consist of lowercase letters, numbers, and hyphens.
-  Future<void> deleteBackupVaultAccessPolicy(String backupVaultName) async {}
+  Future<void> deleteBackupVaultAccessPolicy(String backupVaultName) async {
+    await _client.send('DeleteBackupVaultAccessPolicy', {
+      'BackupVaultName': backupVaultName,
+    });
+  }
 
   /// Deletes event notifications for the specified backup vault.
   ///
@@ -156,7 +192,11 @@ class BackupApi {
   /// stored. Backup vaults are identified by names that are unique to the
   /// account used to create them and the Region where they are created. They
   /// consist of lowercase letters, numbers, and hyphens.
-  Future<void> deleteBackupVaultNotifications(String backupVaultName) async {}
+  Future<void> deleteBackupVaultNotifications(String backupVaultName) async {
+    await _client.send('DeleteBackupVaultNotifications', {
+      'BackupVaultName': backupVaultName,
+    });
+  }
 
   /// Deletes the recovery point specified by a recovery point ID.
   ///
@@ -170,14 +210,22 @@ class BackupApi {
   /// `arn:aws:backup:us-east-1:123456789012:recovery-point:1EB3B5E7-9EB0-435A-A80B-108B488B0D45`.
   Future<void> deleteRecoveryPoint(
       {@required String backupVaultName,
-      @required String recoveryPointArn}) async {}
+      @required String recoveryPointArn}) async {
+    await _client.send('DeleteRecoveryPoint', {
+      'BackupVaultName': backupVaultName,
+      'RecoveryPointArn': recoveryPointArn,
+    });
+  }
 
   /// Returns metadata associated with creating a backup of a resource.
   ///
   /// [backupJobId]: Uniquely identifies a request to AWS Backup to back up a
   /// resource.
   Future<DescribeBackupJobOutput> describeBackupJob(String backupJobId) async {
-    return DescribeBackupJobOutput.fromJson({});
+    var response_ = await _client.send('DescribeBackupJob', {
+      'BackupJobId': backupJobId,
+    });
+    return DescribeBackupJobOutput.fromJson(response_);
   }
 
   /// Returns metadata about a backup vault specified by its name.
@@ -188,7 +236,10 @@ class BackupApi {
   /// They consist of lowercase letters, numbers, and hyphens.
   Future<DescribeBackupVaultOutput> describeBackupVault(
       String backupVaultName) async {
-    return DescribeBackupVaultOutput.fromJson({});
+    var response_ = await _client.send('DescribeBackupVault', {
+      'BackupVaultName': backupVaultName,
+    });
+    return DescribeBackupVaultOutput.fromJson(response_);
   }
 
   /// Returns information about a saved resource, including the last time it was
@@ -199,7 +250,10 @@ class BackupApi {
   /// resource. The format of the ARN depends on the resource type.
   Future<DescribeProtectedResourceOutput> describeProtectedResource(
       String resourceArn) async {
-    return DescribeProtectedResourceOutput.fromJson({});
+    var response_ = await _client.send('DescribeProtectedResource', {
+      'ResourceArn': resourceArn,
+    });
+    return DescribeProtectedResourceOutput.fromJson(response_);
   }
 
   /// Returns metadata associated with a recovery point, including ID, status,
@@ -216,7 +270,11 @@ class BackupApi {
   Future<DescribeRecoveryPointOutput> describeRecoveryPoint(
       {@required String backupVaultName,
       @required String recoveryPointArn}) async {
-    return DescribeRecoveryPointOutput.fromJson({});
+    var response_ = await _client.send('DescribeRecoveryPoint', {
+      'BackupVaultName': backupVaultName,
+      'RecoveryPointArn': recoveryPointArn,
+    });
+    return DescribeRecoveryPointOutput.fromJson(response_);
   }
 
   /// Returns metadata associated with a restore job that is specified by a job
@@ -226,7 +284,10 @@ class BackupApi {
   /// point.
   Future<DescribeRestoreJobOutput> describeRestoreJob(
       String restoreJobId) async {
-    return DescribeRestoreJobOutput.fromJson({});
+    var response_ = await _client.send('DescribeRestoreJob', {
+      'RestoreJobId': restoreJobId,
+    });
+    return DescribeRestoreJobOutput.fromJson(response_);
   }
 
   /// Returns the backup plan that is specified by the plan ID as a backup
@@ -235,7 +296,10 @@ class BackupApi {
   /// [backupPlanId]: Uniquely identifies a backup plan.
   Future<ExportBackupPlanTemplateOutput> exportBackupPlanTemplate(
       String backupPlanId) async {
-    return ExportBackupPlanTemplateOutput.fromJson({});
+    var response_ = await _client.send('ExportBackupPlanTemplate', {
+      'BackupPlanId': backupPlanId,
+    });
+    return ExportBackupPlanTemplateOutput.fromJson(response_);
   }
 
   /// Returns the body of a backup plan in JSON format, in addition to plan
@@ -247,7 +311,11 @@ class BackupApi {
   /// that are at most 1,024 bytes long. Version IDs cannot be edited.
   Future<GetBackupPlanOutput> getBackupPlan(String backupPlanId,
       {String versionId}) async {
-    return GetBackupPlanOutput.fromJson({});
+    var response_ = await _client.send('GetBackupPlan', {
+      'BackupPlanId': backupPlanId,
+      if (versionId != null) 'VersionId': versionId,
+    });
+    return GetBackupPlanOutput.fromJson(response_);
   }
 
   /// Returns a valid JSON document specifying a backup plan or an error.
@@ -256,7 +324,10 @@ class BackupApi {
   /// format.
   Future<GetBackupPlanFromJsonOutput> getBackupPlanFromJson(
       String backupPlanTemplateJson) async {
-    return GetBackupPlanFromJsonOutput.fromJson({});
+    var response_ = await _client.send('GetBackupPlanFromJSON', {
+      'BackupPlanTemplateJson': backupPlanTemplateJson,
+    });
+    return GetBackupPlanFromJsonOutput.fromJson(response_);
   }
 
   /// Returns the template specified by its `templateId` as a backup plan.
@@ -264,7 +335,10 @@ class BackupApi {
   /// [backupPlanTemplateId]: Uniquely identifies a stored backup plan template.
   Future<GetBackupPlanFromTemplateOutput> getBackupPlanFromTemplate(
       String backupPlanTemplateId) async {
-    return GetBackupPlanFromTemplateOutput.fromJson({});
+    var response_ = await _client.send('GetBackupPlanFromTemplate', {
+      'BackupPlanTemplateId': backupPlanTemplateId,
+    });
+    return GetBackupPlanFromTemplateOutput.fromJson(response_);
   }
 
   /// Returns selection metadata and a document in JSON format that specifies a
@@ -276,7 +350,11 @@ class BackupApi {
   /// of resources to a backup plan.
   Future<GetBackupSelectionOutput> getBackupSelection(
       {@required String backupPlanId, @required String selectionId}) async {
-    return GetBackupSelectionOutput.fromJson({});
+    var response_ = await _client.send('GetBackupSelection', {
+      'BackupPlanId': backupPlanId,
+      'SelectionId': selectionId,
+    });
+    return GetBackupSelectionOutput.fromJson(response_);
   }
 
   /// Returns the access policy document that is associated with the named
@@ -288,7 +366,10 @@ class BackupApi {
   /// They consist of lowercase letters, numbers, and hyphens.
   Future<GetBackupVaultAccessPolicyOutput> getBackupVaultAccessPolicy(
       String backupVaultName) async {
-    return GetBackupVaultAccessPolicyOutput.fromJson({});
+    var response_ = await _client.send('GetBackupVaultAccessPolicy', {
+      'BackupVaultName': backupVaultName,
+    });
+    return GetBackupVaultAccessPolicyOutput.fromJson(response_);
   }
 
   /// Returns event notifications for the specified backup vault.
@@ -299,7 +380,10 @@ class BackupApi {
   /// They consist of lowercase letters, numbers, and hyphens.
   Future<GetBackupVaultNotificationsOutput> getBackupVaultNotifications(
       String backupVaultName) async {
-    return GetBackupVaultNotificationsOutput.fromJson({});
+    var response_ = await _client.send('GetBackupVaultNotifications', {
+      'BackupVaultName': backupVaultName,
+    });
+    return GetBackupVaultNotificationsOutput.fromJson(response_);
   }
 
   /// Returns two sets of metadata key-value pairs. The first set lists the
@@ -323,12 +407,17 @@ class BackupApi {
   Future<GetRecoveryPointRestoreMetadataOutput> getRecoveryPointRestoreMetadata(
       {@required String backupVaultName,
       @required String recoveryPointArn}) async {
-    return GetRecoveryPointRestoreMetadataOutput.fromJson({});
+    var response_ = await _client.send('GetRecoveryPointRestoreMetadata', {
+      'BackupVaultName': backupVaultName,
+      'RecoveryPointArn': recoveryPointArn,
+    });
+    return GetRecoveryPointRestoreMetadataOutput.fromJson(response_);
   }
 
   /// Returns the AWS resource types supported by AWS Backup.
   Future<GetSupportedResourceTypesOutput> getSupportedResourceTypes() async {
-    return GetSupportedResourceTypesOutput.fromJson({});
+    var response_ = await _client.send('GetSupportedResourceTypes', {});
+    return GetSupportedResourceTypesOutput.fromJson(response_);
   }
 
   /// Returns metadata about your backup jobs.
@@ -376,7 +465,17 @@ class BackupApi {
       DateTime byCreatedBefore,
       DateTime byCreatedAfter,
       String byResourceType}) async {
-    return ListBackupJobsOutput.fromJson({});
+    var response_ = await _client.send('ListBackupJobs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (byResourceArn != null) 'ByResourceArn': byResourceArn,
+      if (byState != null) 'ByState': byState,
+      if (byBackupVaultName != null) 'ByBackupVaultName': byBackupVaultName,
+      if (byCreatedBefore != null) 'ByCreatedBefore': byCreatedBefore,
+      if (byCreatedAfter != null) 'ByCreatedAfter': byCreatedAfter,
+      if (byResourceType != null) 'ByResourceType': byResourceType,
+    });
+    return ListBackupJobsOutput.fromJson(response_);
   }
 
   /// Returns metadata of your saved backup plan templates, including the
@@ -390,7 +489,11 @@ class BackupApi {
   /// [maxResults]: The maximum number of items to be returned.
   Future<ListBackupPlanTemplatesOutput> listBackupPlanTemplates(
       {String nextToken, int maxResults}) async {
-    return ListBackupPlanTemplatesOutput.fromJson({});
+    var response_ = await _client.send('ListBackupPlanTemplates', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListBackupPlanTemplatesOutput.fromJson(response_);
   }
 
   /// Returns version metadata of your backup plans, including Amazon Resource
@@ -409,7 +512,12 @@ class BackupApi {
       String backupPlanId,
       {String nextToken,
       int maxResults}) async {
-    return ListBackupPlanVersionsOutput.fromJson({});
+    var response_ = await _client.send('ListBackupPlanVersions', {
+      'BackupPlanId': backupPlanId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListBackupPlanVersionsOutput.fromJson(response_);
   }
 
   /// Returns metadata of your saved backup plans, including Amazon Resource
@@ -427,7 +535,12 @@ class BackupApi {
   /// returns deleted backup plans when set to `TRUE`.
   Future<ListBackupPlansOutput> listBackupPlans(
       {String nextToken, int maxResults, bool includeDeleted}) async {
-    return ListBackupPlansOutput.fromJson({});
+    var response_ = await _client.send('ListBackupPlans', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (includeDeleted != null) 'IncludeDeleted': includeDeleted,
+    });
+    return ListBackupPlansOutput.fromJson(response_);
   }
 
   /// Returns an array containing metadata of the resources associated with the
@@ -443,7 +556,12 @@ class BackupApi {
   /// [maxResults]: The maximum number of items to be returned.
   Future<ListBackupSelectionsOutput> listBackupSelections(String backupPlanId,
       {String nextToken, int maxResults}) async {
-    return ListBackupSelectionsOutput.fromJson({});
+    var response_ = await _client.send('ListBackupSelections', {
+      'BackupPlanId': backupPlanId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListBackupSelectionsOutput.fromJson(response_);
   }
 
   /// Returns a list of recovery point storage containers along with information
@@ -457,7 +575,11 @@ class BackupApi {
   /// [maxResults]: The maximum number of items to be returned.
   Future<ListBackupVaultsOutput> listBackupVaults(
       {String nextToken, int maxResults}) async {
-    return ListBackupVaultsOutput.fromJson({});
+    var response_ = await _client.send('ListBackupVaults', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListBackupVaultsOutput.fromJson(response_);
   }
 
   /// Returns an array of resources successfully backed up by AWS Backup,
@@ -472,7 +594,11 @@ class BackupApi {
   /// [maxResults]: The maximum number of items to be returned.
   Future<ListProtectedResourcesOutput> listProtectedResources(
       {String nextToken, int maxResults}) async {
-    return ListProtectedResourcesOutput.fromJson({});
+    var response_ = await _client.send('ListProtectedResources', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListProtectedResourcesOutput.fromJson(response_);
   }
 
   /// Returns detailed information about the recovery points stored in a backup
@@ -513,7 +639,17 @@ class BackupApi {
       String byBackupPlanId,
       DateTime byCreatedBefore,
       DateTime byCreatedAfter}) async {
-    return ListRecoveryPointsByBackupVaultOutput.fromJson({});
+    var response_ = await _client.send('ListRecoveryPointsByBackupVault', {
+      'BackupVaultName': backupVaultName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (byResourceArn != null) 'ByResourceArn': byResourceArn,
+      if (byResourceType != null) 'ByResourceType': byResourceType,
+      if (byBackupPlanId != null) 'ByBackupPlanId': byBackupPlanId,
+      if (byCreatedBefore != null) 'ByCreatedBefore': byCreatedBefore,
+      if (byCreatedAfter != null) 'ByCreatedAfter': byCreatedAfter,
+    });
+    return ListRecoveryPointsByBackupVaultOutput.fromJson(response_);
   }
 
   /// Returns detailed information about recovery points of the type specified
@@ -532,7 +668,12 @@ class BackupApi {
       String resourceArn,
       {String nextToken,
       int maxResults}) async {
-    return ListRecoveryPointsByResourceOutput.fromJson({});
+    var response_ = await _client.send('ListRecoveryPointsByResource', {
+      'ResourceArn': resourceArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListRecoveryPointsByResourceOutput.fromJson(response_);
   }
 
   /// Returns a list of jobs that AWS Backup initiated to restore a saved
@@ -546,7 +687,11 @@ class BackupApi {
   /// [maxResults]: The maximum number of items to be returned.
   Future<ListRestoreJobsOutput> listRestoreJobs(
       {String nextToken, int maxResults}) async {
-    return ListRestoreJobsOutput.fromJson({});
+    var response_ = await _client.send('ListRestoreJobs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListRestoreJobsOutput.fromJson(response_);
   }
 
   /// Returns a list of key-value pairs assigned to a target recovery point,
@@ -565,7 +710,12 @@ class BackupApi {
   /// [maxResults]: The maximum number of items to be returned.
   Future<ListTagsOutput> listTags(String resourceArn,
       {String nextToken, int maxResults}) async {
-    return ListTagsOutput.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'ResourceArn': resourceArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTagsOutput.fromJson(response_);
   }
 
   /// Sets a resource-based policy that is used to manage access permissions on
@@ -579,7 +729,12 @@ class BackupApi {
   ///
   /// [policy]: The backup vault access policy document in JSON format.
   Future<void> putBackupVaultAccessPolicy(String backupVaultName,
-      {String policy}) async {}
+      {String policy}) async {
+    await _client.send('PutBackupVaultAccessPolicy', {
+      'BackupVaultName': backupVaultName,
+      if (policy != null) 'Policy': policy,
+    });
+  }
 
   /// Turns on notifications on a backup vault for the specified topic and
   /// events.
@@ -598,7 +753,13 @@ class BackupApi {
   Future<void> putBackupVaultNotifications(
       {@required String backupVaultName,
       @required String snsTopicArn,
-      @required List<String> backupVaultEvents}) async {}
+      @required List<String> backupVaultEvents}) async {
+    await _client.send('PutBackupVaultNotifications', {
+      'BackupVaultName': backupVaultName,
+      'SNSTopicArn': snsTopicArn,
+      'BackupVaultEvents': backupVaultEvents,
+    });
+  }
 
   /// Starts a job to create a one-time backup of the specified resource.
   ///
@@ -650,7 +811,18 @@ class BackupApi {
       BigInt completeWindowMinutes,
       Lifecycle lifecycle,
       Map<String, String> recoveryPointTags}) async {
-    return StartBackupJobOutput.fromJson({});
+    var response_ = await _client.send('StartBackupJob', {
+      'BackupVaultName': backupVaultName,
+      'ResourceArn': resourceArn,
+      'IamRoleArn': iamRoleArn,
+      if (idempotencyToken != null) 'IdempotencyToken': idempotencyToken,
+      if (startWindowMinutes != null) 'StartWindowMinutes': startWindowMinutes,
+      if (completeWindowMinutes != null)
+        'CompleteWindowMinutes': completeWindowMinutes,
+      if (lifecycle != null) 'Lifecycle': lifecycle,
+      if (recoveryPointTags != null) 'RecoveryPointTags': recoveryPointTags,
+    });
+    return StartBackupJobOutput.fromJson(response_);
   }
 
   /// Recovers the saved resource identified by an Amazon Resource Name (ARN).
@@ -696,14 +868,25 @@ class BackupApi {
       @required String iamRoleArn,
       String idempotencyToken,
       String resourceType}) async {
-    return StartRestoreJobOutput.fromJson({});
+    var response_ = await _client.send('StartRestoreJob', {
+      'RecoveryPointArn': recoveryPointArn,
+      'Metadata': metadata,
+      'IamRoleArn': iamRoleArn,
+      if (idempotencyToken != null) 'IdempotencyToken': idempotencyToken,
+      if (resourceType != null) 'ResourceType': resourceType,
+    });
+    return StartRestoreJobOutput.fromJson(response_);
   }
 
   /// Attempts to cancel a job to create a one-time backup of a resource.
   ///
   /// [backupJobId]: Uniquely identifies a request to AWS Backup to back up a
   /// resource.
-  Future<void> stopBackupJob(String backupJobId) async {}
+  Future<void> stopBackupJob(String backupJobId) async {
+    await _client.send('StopBackupJob', {
+      'BackupJobId': backupJobId,
+    });
+  }
 
   /// Assigns a set of key-value pairs to a recovery point, backup plan, or
   /// backup vault identified by an Amazon Resource Name (ARN).
@@ -715,7 +898,12 @@ class BackupApi {
   /// can assign your own metadata to the resources you create.
   Future<void> tagResource(
       {@required String resourceArn,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+  }
 
   /// Removes a set of key-value pairs from a recovery point, backup plan, or
   /// backup vault identified by an Amazon Resource Name (ARN)
@@ -726,8 +914,12 @@ class BackupApi {
   /// [tagKeyList]: A list of keys to identify which key-value tags to remove
   /// from a resource.
   Future<void> untagResource(
-      {@required String resourceArn,
-      @required List<String> tagKeyList}) async {}
+      {@required String resourceArn, @required List<String> tagKeyList}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeyList': tagKeyList,
+    });
+  }
 
   /// Replaces the body of a saved backup plan identified by its `backupPlanId`
   /// with the input document in JSON format. The new version is uniquely
@@ -740,7 +932,11 @@ class BackupApi {
   Future<UpdateBackupPlanOutput> updateBackupPlan(
       {@required String backupPlanId,
       @required BackupPlanInput backupPlan}) async {
-    return UpdateBackupPlanOutput.fromJson({});
+    var response_ = await _client.send('UpdateBackupPlan', {
+      'BackupPlanId': backupPlanId,
+      'BackupPlan': backupPlan,
+    });
+    return UpdateBackupPlanOutput.fromJson(response_);
   }
 
   /// Sets the transition lifecycle of a recovery point.
@@ -778,7 +974,12 @@ class BackupApi {
       {@required String backupVaultName,
       @required String recoveryPointArn,
       Lifecycle lifecycle}) async {
-    return UpdateRecoveryPointLifecycleOutput.fromJson({});
+    var response_ = await _client.send('UpdateRecoveryPointLifecycle', {
+      'BackupVaultName': backupVaultName,
+      'RecoveryPointArn': recoveryPointArn,
+      if (lifecycle != null) 'Lifecycle': lifecycle,
+    });
+    return UpdateRecoveryPointLifecycleOutput.fromJson(response_);
   }
 }
 
@@ -882,7 +1083,57 @@ class BackupJob {
     this.resourceType,
     this.bytesTransferred,
   });
-  static BackupJob fromJson(Map<String, dynamic> json) => BackupJob();
+  static BackupJob fromJson(Map<String, dynamic> json) => BackupJob(
+        backupJobId: json.containsKey('BackupJobId')
+            ? json['BackupJobId'] as String
+            : null,
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? DateTime.parse(json['CompletionDate'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        percentDone: json.containsKey('PercentDone')
+            ? json['PercentDone'] as String
+            : null,
+        backupSizeInBytes: json.containsKey('BackupSizeInBytes')
+            ? BigInt.from(json['BackupSizeInBytes'])
+            : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        createdBy: json.containsKey('CreatedBy')
+            ? RecoveryPointCreator.fromJson(json['CreatedBy'])
+            : null,
+        expectedCompletionDate: json.containsKey('ExpectedCompletionDate')
+            ? DateTime.parse(json['ExpectedCompletionDate'])
+            : null,
+        startBy: json.containsKey('StartBy')
+            ? DateTime.parse(json['StartBy'])
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        bytesTransferred: json.containsKey('BytesTransferred')
+            ? BigInt.from(json['BytesTransferred'])
+            : null,
+      );
 }
 
 /// Contains an optional backup plan display name and an array of `BackupRule`
@@ -901,7 +1152,11 @@ class BackupPlan {
     @required this.backupPlanName,
     @required this.rules,
   });
-  static BackupPlan fromJson(Map<String, dynamic> json) => BackupPlan();
+  static BackupPlan fromJson(Map<String, dynamic> json) => BackupPlan(
+        backupPlanName: json['BackupPlanName'] as String,
+        rules:
+            (json['Rules'] as List).map((e) => BackupRule.fromJson(e)).toList(),
+      );
 }
 
 /// Contains an optional backup plan display name and an array of `BackupRule`
@@ -920,6 +1175,7 @@ class BackupPlanInput {
     @required this.backupPlanName,
     @required this.rules,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object specifying metadata associated with a backup plan template.
@@ -935,7 +1191,14 @@ class BackupPlanTemplatesListMember {
     this.backupPlanTemplateName,
   });
   static BackupPlanTemplatesListMember fromJson(Map<String, dynamic> json) =>
-      BackupPlanTemplatesListMember();
+      BackupPlanTemplatesListMember(
+        backupPlanTemplateId: json.containsKey('BackupPlanTemplateId')
+            ? json['BackupPlanTemplateId'] as String
+            : null,
+        backupPlanTemplateName: json.containsKey('BackupPlanTemplateName')
+            ? json['BackupPlanTemplateName'] as String
+            : null,
+      );
 }
 
 /// Contains metadata about a backup plan.
@@ -988,7 +1251,31 @@ class BackupPlansListMember {
     this.lastExecutionDate,
   });
   static BackupPlansListMember fromJson(Map<String, dynamic> json) =>
-      BackupPlansListMember();
+      BackupPlansListMember(
+        backupPlanArn: json.containsKey('BackupPlanArn')
+            ? json['BackupPlanArn'] as String
+            : null,
+        backupPlanId: json.containsKey('BackupPlanId')
+            ? json['BackupPlanId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        deletionDate: json.containsKey('DeletionDate')
+            ? DateTime.parse(json['DeletionDate'])
+            : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        backupPlanName: json.containsKey('BackupPlanName')
+            ? json['BackupPlanName'] as String
+            : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+        lastExecutionDate: json.containsKey('LastExecutionDate')
+            ? DateTime.parse(json['LastExecutionDate'])
+            : null,
+      );
 }
 
 /// Specifies a scheduled task used to back up a selection of resources.
@@ -1043,7 +1330,27 @@ class BackupRule {
     this.recoveryPointTags,
     this.ruleId,
   });
-  static BackupRule fromJson(Map<String, dynamic> json) => BackupRule();
+  static BackupRule fromJson(Map<String, dynamic> json) => BackupRule(
+        ruleName: json['RuleName'] as String,
+        targetBackupVaultName: json['TargetBackupVaultName'] as String,
+        scheduleExpression: json.containsKey('ScheduleExpression')
+            ? json['ScheduleExpression'] as String
+            : null,
+        startWindowMinutes: json.containsKey('StartWindowMinutes')
+            ? BigInt.from(json['StartWindowMinutes'])
+            : null,
+        completionWindowMinutes: json.containsKey('CompletionWindowMinutes')
+            ? BigInt.from(json['CompletionWindowMinutes'])
+            : null,
+        lifecycle: json.containsKey('Lifecycle')
+            ? Lifecycle.fromJson(json['Lifecycle'])
+            : null,
+        recoveryPointTags: json.containsKey('RecoveryPointTags')
+            ? (json['RecoveryPointTags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        ruleId: json.containsKey('RuleId') ? json['RuleId'] as String : null,
+      );
 }
 
 /// Specifies a scheduled task used to back up a selection of resources.
@@ -1091,6 +1398,7 @@ class BackupRuleInput {
     this.lifecycle,
     this.recoveryPointTags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Used to specify a set of resources to a backup plan.
@@ -1119,8 +1427,19 @@ class BackupSelection {
     this.resources,
     this.listOfTags,
   });
-  static BackupSelection fromJson(Map<String, dynamic> json) =>
-      BackupSelection();
+  static BackupSelection fromJson(Map<String, dynamic> json) => BackupSelection(
+        selectionName: json['SelectionName'] as String,
+        iamRoleArn: json['IamRoleArn'] as String,
+        resources: json.containsKey('Resources')
+            ? (json['Resources'] as List).map((e) => e as String).toList()
+            : null,
+        listOfTags: json.containsKey('ListOfTags')
+            ? (json['ListOfTags'] as List)
+                .map((e) => Condition.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains metadata about a `BackupSelection` object.
@@ -1158,7 +1477,26 @@ class BackupSelectionsListMember {
     this.iamRoleArn,
   });
   static BackupSelectionsListMember fromJson(Map<String, dynamic> json) =>
-      BackupSelectionsListMember();
+      BackupSelectionsListMember(
+        selectionId: json.containsKey('SelectionId')
+            ? json['SelectionId'] as String
+            : null,
+        selectionName: json.containsKey('SelectionName')
+            ? json['SelectionName'] as String
+            : null,
+        backupPlanId: json.containsKey('BackupPlanId')
+            ? json['BackupPlanId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+      );
 }
 
 /// Contains metadata about a backup vault.
@@ -1200,7 +1538,26 @@ class BackupVaultListMember {
     this.numberOfRecoveryPoints,
   });
   static BackupVaultListMember fromJson(Map<String, dynamic> json) =>
-      BackupVaultListMember();
+      BackupVaultListMember(
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        encryptionKeyArn: json.containsKey('EncryptionKeyArn')
+            ? json['EncryptionKeyArn'] as String
+            : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+        numberOfRecoveryPoints: json.containsKey('NumberOfRecoveryPoints')
+            ? BigInt.from(json['NumberOfRecoveryPoints'])
+            : null,
+      );
 }
 
 /// Contains `DeleteAt` and `MoveToColdStorageAt` timestamps, which are used to
@@ -1228,7 +1585,14 @@ class CalculatedLifecycle {
     this.deleteAt,
   });
   static CalculatedLifecycle fromJson(Map<String, dynamic> json) =>
-      CalculatedLifecycle();
+      CalculatedLifecycle(
+        moveToColdStorageAt: json.containsKey('MoveToColdStorageAt')
+            ? DateTime.parse(json['MoveToColdStorageAt'])
+            : null,
+        deleteAt: json.containsKey('DeleteAt')
+            ? DateTime.parse(json['DeleteAt'])
+            : null,
+      );
 }
 
 /// Contains an array of triplets made up of a condition type (such as
@@ -1253,7 +1617,12 @@ class Condition {
     @required this.conditionKey,
     @required this.conditionValue,
   });
-  static Condition fromJson(Map<String, dynamic> json) => Condition();
+  static Condition fromJson(Map<String, dynamic> json) => Condition(
+        conditionType: json['ConditionType'] as String,
+        conditionKey: json['ConditionKey'] as String,
+        conditionValue: json['ConditionValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateBackupPlanOutput {
@@ -1282,7 +1651,19 @@ class CreateBackupPlanOutput {
     this.versionId,
   });
   static CreateBackupPlanOutput fromJson(Map<String, dynamic> json) =>
-      CreateBackupPlanOutput();
+      CreateBackupPlanOutput(
+        backupPlanId: json.containsKey('BackupPlanId')
+            ? json['BackupPlanId'] as String
+            : null,
+        backupPlanArn: json.containsKey('BackupPlanArn')
+            ? json['BackupPlanArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 class CreateBackupSelectionOutput {
@@ -1305,7 +1686,17 @@ class CreateBackupSelectionOutput {
     this.creationDate,
   });
   static CreateBackupSelectionOutput fromJson(Map<String, dynamic> json) =>
-      CreateBackupSelectionOutput();
+      CreateBackupSelectionOutput(
+        selectionId: json.containsKey('SelectionId')
+            ? json['SelectionId'] as String
+            : null,
+        backupPlanId: json.containsKey('BackupPlanId')
+            ? json['BackupPlanId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 class CreateBackupVaultOutput {
@@ -1331,7 +1722,17 @@ class CreateBackupVaultOutput {
     this.creationDate,
   });
   static CreateBackupVaultOutput fromJson(Map<String, dynamic> json) =>
-      CreateBackupVaultOutput();
+      CreateBackupVaultOutput(
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 class DeleteBackupPlanOutput {
@@ -1360,7 +1761,19 @@ class DeleteBackupPlanOutput {
     this.versionId,
   });
   static DeleteBackupPlanOutput fromJson(Map<String, dynamic> json) =>
-      DeleteBackupPlanOutput();
+      DeleteBackupPlanOutput(
+        backupPlanId: json.containsKey('BackupPlanId')
+            ? json['BackupPlanId'] as String
+            : null,
+        backupPlanArn: json.containsKey('BackupPlanArn')
+            ? json['BackupPlanArn'] as String
+            : null,
+        deletionDate: json.containsKey('DeletionDate')
+            ? DateTime.parse(json['DeletionDate'])
+            : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 class DescribeBackupJobOutput {
@@ -1463,7 +1876,57 @@ class DescribeBackupJobOutput {
     this.startBy,
   });
   static DescribeBackupJobOutput fromJson(Map<String, dynamic> json) =>
-      DescribeBackupJobOutput();
+      DescribeBackupJobOutput(
+        backupJobId: json.containsKey('BackupJobId')
+            ? json['BackupJobId'] as String
+            : null,
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? DateTime.parse(json['CompletionDate'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        percentDone: json.containsKey('PercentDone')
+            ? json['PercentDone'] as String
+            : null,
+        backupSizeInBytes: json.containsKey('BackupSizeInBytes')
+            ? BigInt.from(json['BackupSizeInBytes'])
+            : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        createdBy: json.containsKey('CreatedBy')
+            ? RecoveryPointCreator.fromJson(json['CreatedBy'])
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        bytesTransferred: json.containsKey('BytesTransferred')
+            ? BigInt.from(json['BytesTransferred'])
+            : null,
+        expectedCompletionDate: json.containsKey('ExpectedCompletionDate')
+            ? DateTime.parse(json['ExpectedCompletionDate'])
+            : null,
+        startBy: json.containsKey('StartBy')
+            ? DateTime.parse(json['StartBy'])
+            : null,
+      );
 }
 
 class DescribeBackupVaultOutput {
@@ -1504,7 +1967,26 @@ class DescribeBackupVaultOutput {
     this.numberOfRecoveryPoints,
   });
   static DescribeBackupVaultOutput fromJson(Map<String, dynamic> json) =>
-      DescribeBackupVaultOutput();
+      DescribeBackupVaultOutput(
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        encryptionKeyArn: json.containsKey('EncryptionKeyArn')
+            ? json['EncryptionKeyArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+        numberOfRecoveryPoints: json.containsKey('NumberOfRecoveryPoints')
+            ? BigInt.from(json['NumberOfRecoveryPoints'])
+            : null,
+      );
 }
 
 class DescribeProtectedResourceOutput {
@@ -1528,7 +2010,17 @@ class DescribeProtectedResourceOutput {
     this.lastBackupTime,
   });
   static DescribeProtectedResourceOutput fromJson(Map<String, dynamic> json) =>
-      DescribeProtectedResourceOutput();
+      DescribeProtectedResourceOutput(
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        lastBackupTime: json.containsKey('LastBackupTime')
+            ? DateTime.parse(json['LastBackupTime'])
+            : null,
+      );
 }
 
 class DescribeRecoveryPointOutput {
@@ -1640,7 +2132,57 @@ class DescribeRecoveryPointOutput {
     this.lastRestoreTime,
   });
   static DescribeRecoveryPointOutput fromJson(Map<String, dynamic> json) =>
-      DescribeRecoveryPointOutput();
+      DescribeRecoveryPointOutput(
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        createdBy: json.containsKey('CreatedBy')
+            ? RecoveryPointCreator.fromJson(json['CreatedBy'])
+            : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? DateTime.parse(json['CompletionDate'])
+            : null,
+        backupSizeInBytes: json.containsKey('BackupSizeInBytes')
+            ? BigInt.from(json['BackupSizeInBytes'])
+            : null,
+        calculatedLifecycle: json.containsKey('CalculatedLifecycle')
+            ? CalculatedLifecycle.fromJson(json['CalculatedLifecycle'])
+            : null,
+        lifecycle: json.containsKey('Lifecycle')
+            ? Lifecycle.fromJson(json['Lifecycle'])
+            : null,
+        encryptionKeyArn: json.containsKey('EncryptionKeyArn')
+            ? json['EncryptionKeyArn'] as String
+            : null,
+        isEncrypted: json.containsKey('IsEncrypted')
+            ? json['IsEncrypted'] as bool
+            : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        lastRestoreTime: json.containsKey('LastRestoreTime')
+            ? DateTime.parse(json['LastRestoreTime'])
+            : null,
+      );
 }
 
 class DescribeRestoreJobOutput {
@@ -1705,7 +2247,40 @@ class DescribeRestoreJobOutput {
     this.createdResourceArn,
   });
   static DescribeRestoreJobOutput fromJson(Map<String, dynamic> json) =>
-      DescribeRestoreJobOutput();
+      DescribeRestoreJobOutput(
+        restoreJobId: json.containsKey('RestoreJobId')
+            ? json['RestoreJobId'] as String
+            : null,
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? DateTime.parse(json['CompletionDate'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        percentDone: json.containsKey('PercentDone')
+            ? json['PercentDone'] as String
+            : null,
+        backupSizeInBytes: json.containsKey('BackupSizeInBytes')
+            ? BigInt.from(json['BackupSizeInBytes'])
+            : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        expectedCompletionTimeMinutes:
+            json.containsKey('ExpectedCompletionTimeMinutes')
+                ? BigInt.from(json['ExpectedCompletionTimeMinutes'])
+                : null,
+        createdResourceArn: json.containsKey('CreatedResourceArn')
+            ? json['CreatedResourceArn'] as String
+            : null,
+      );
 }
 
 class ExportBackupPlanTemplateOutput {
@@ -1721,7 +2296,11 @@ class ExportBackupPlanTemplateOutput {
     this.backupPlanTemplateJson,
   });
   static ExportBackupPlanTemplateOutput fromJson(Map<String, dynamic> json) =>
-      ExportBackupPlanTemplateOutput();
+      ExportBackupPlanTemplateOutput(
+        backupPlanTemplateJson: json.containsKey('BackupPlanTemplateJson')
+            ? json['BackupPlanTemplateJson'] as String
+            : null,
+      );
 }
 
 class GetBackupPlanFromJsonOutput {
@@ -1733,7 +2312,11 @@ class GetBackupPlanFromJsonOutput {
     this.backupPlan,
   });
   static GetBackupPlanFromJsonOutput fromJson(Map<String, dynamic> json) =>
-      GetBackupPlanFromJsonOutput();
+      GetBackupPlanFromJsonOutput(
+        backupPlan: json.containsKey('BackupPlan')
+            ? BackupPlan.fromJson(json['BackupPlan'])
+            : null,
+      );
 }
 
 class GetBackupPlanFromTemplateOutput {
@@ -1745,7 +2328,11 @@ class GetBackupPlanFromTemplateOutput {
     this.backupPlanDocument,
   });
   static GetBackupPlanFromTemplateOutput fromJson(Map<String, dynamic> json) =>
-      GetBackupPlanFromTemplateOutput();
+      GetBackupPlanFromTemplateOutput(
+        backupPlanDocument: json.containsKey('BackupPlanDocument')
+            ? BackupPlan.fromJson(json['BackupPlanDocument'])
+            : null,
+      );
 }
 
 class GetBackupPlanOutput {
@@ -1799,7 +2386,31 @@ class GetBackupPlanOutput {
     this.lastExecutionDate,
   });
   static GetBackupPlanOutput fromJson(Map<String, dynamic> json) =>
-      GetBackupPlanOutput();
+      GetBackupPlanOutput(
+        backupPlan: json.containsKey('BackupPlan')
+            ? BackupPlan.fromJson(json['BackupPlan'])
+            : null,
+        backupPlanId: json.containsKey('BackupPlanId')
+            ? json['BackupPlanId'] as String
+            : null,
+        backupPlanArn: json.containsKey('BackupPlanArn')
+            ? json['BackupPlanArn'] as String
+            : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        deletionDate: json.containsKey('DeletionDate')
+            ? DateTime.parse(json['DeletionDate'])
+            : null,
+        lastExecutionDate: json.containsKey('LastExecutionDate')
+            ? DateTime.parse(json['LastExecutionDate'])
+            : null,
+      );
 }
 
 class GetBackupSelectionOutput {
@@ -1837,7 +2448,23 @@ class GetBackupSelectionOutput {
     this.creatorRequestId,
   });
   static GetBackupSelectionOutput fromJson(Map<String, dynamic> json) =>
-      GetBackupSelectionOutput();
+      GetBackupSelectionOutput(
+        backupSelection: json.containsKey('BackupSelection')
+            ? BackupSelection.fromJson(json['BackupSelection'])
+            : null,
+        selectionId: json.containsKey('SelectionId')
+            ? json['SelectionId'] as String
+            : null,
+        backupPlanId: json.containsKey('BackupPlanId')
+            ? json['BackupPlanId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+      );
 }
 
 class GetBackupVaultAccessPolicyOutput {
@@ -1860,7 +2487,15 @@ class GetBackupVaultAccessPolicyOutput {
     this.policy,
   });
   static GetBackupVaultAccessPolicyOutput fromJson(Map<String, dynamic> json) =>
-      GetBackupVaultAccessPolicyOutput();
+      GetBackupVaultAccessPolicyOutput(
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+      );
 }
 
 class GetBackupVaultNotificationsOutput {
@@ -1891,7 +2526,22 @@ class GetBackupVaultNotificationsOutput {
   });
   static GetBackupVaultNotificationsOutput fromJson(
           Map<String, dynamic> json) =>
-      GetBackupVaultNotificationsOutput();
+      GetBackupVaultNotificationsOutput(
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        snsTopicArn: json.containsKey('SNSTopicArn')
+            ? json['SNSTopicArn'] as String
+            : null,
+        backupVaultEvents: json.containsKey('BackupVaultEvents')
+            ? (json['BackupVaultEvents'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class GetRecoveryPointRestoreMetadataOutput {
@@ -1914,7 +2564,18 @@ class GetRecoveryPointRestoreMetadataOutput {
   });
   static GetRecoveryPointRestoreMetadataOutput fromJson(
           Map<String, dynamic> json) =>
-      GetRecoveryPointRestoreMetadataOutput();
+      GetRecoveryPointRestoreMetadataOutput(
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        restoreMetadata: json.containsKey('RestoreMetadata')
+            ? (json['RestoreMetadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetSupportedResourceTypesOutput {
@@ -1935,7 +2596,11 @@ class GetSupportedResourceTypesOutput {
     this.resourceTypes,
   });
   static GetSupportedResourceTypesOutput fromJson(Map<String, dynamic> json) =>
-      GetSupportedResourceTypesOutput();
+      GetSupportedResourceTypesOutput(
+        resourceTypes: json.containsKey('ResourceTypes')
+            ? (json['ResourceTypes'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Contains an array of `Transition` objects specifying how long in days before
@@ -1953,7 +2618,16 @@ class Lifecycle {
     this.moveToColdStorageAfterDays,
     this.deleteAfterDays,
   });
-  static Lifecycle fromJson(Map<String, dynamic> json) => Lifecycle();
+  static Lifecycle fromJson(Map<String, dynamic> json) => Lifecycle(
+        moveToColdStorageAfterDays:
+            json.containsKey('MoveToColdStorageAfterDays')
+                ? BigInt.from(json['MoveToColdStorageAfterDays'])
+                : null,
+        deleteAfterDays: json.containsKey('DeleteAfterDays')
+            ? BigInt.from(json['DeleteAfterDays'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListBackupJobsOutput {
@@ -1972,7 +2646,15 @@ class ListBackupJobsOutput {
     this.nextToken,
   });
   static ListBackupJobsOutput fromJson(Map<String, dynamic> json) =>
-      ListBackupJobsOutput();
+      ListBackupJobsOutput(
+        backupJobs: json.containsKey('BackupJobs')
+            ? (json['BackupJobs'] as List)
+                .map((e) => BackupJob.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListBackupPlanTemplatesOutput {
@@ -1991,7 +2673,15 @@ class ListBackupPlanTemplatesOutput {
     this.backupPlanTemplatesList,
   });
   static ListBackupPlanTemplatesOutput fromJson(Map<String, dynamic> json) =>
-      ListBackupPlanTemplatesOutput();
+      ListBackupPlanTemplatesOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        backupPlanTemplatesList: json.containsKey('BackupPlanTemplatesList')
+            ? (json['BackupPlanTemplatesList'] as List)
+                .map((e) => BackupPlanTemplatesListMember.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListBackupPlanVersionsOutput {
@@ -2010,7 +2700,15 @@ class ListBackupPlanVersionsOutput {
     this.backupPlanVersionsList,
   });
   static ListBackupPlanVersionsOutput fromJson(Map<String, dynamic> json) =>
-      ListBackupPlanVersionsOutput();
+      ListBackupPlanVersionsOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        backupPlanVersionsList: json.containsKey('BackupPlanVersionsList')
+            ? (json['BackupPlanVersionsList'] as List)
+                .map((e) => BackupPlansListMember.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListBackupPlansOutput {
@@ -2029,7 +2727,15 @@ class ListBackupPlansOutput {
     this.backupPlansList,
   });
   static ListBackupPlansOutput fromJson(Map<String, dynamic> json) =>
-      ListBackupPlansOutput();
+      ListBackupPlansOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        backupPlansList: json.containsKey('BackupPlansList')
+            ? (json['BackupPlansList'] as List)
+                .map((e) => BackupPlansListMember.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListBackupSelectionsOutput {
@@ -2048,7 +2754,15 @@ class ListBackupSelectionsOutput {
     this.backupSelectionsList,
   });
   static ListBackupSelectionsOutput fromJson(Map<String, dynamic> json) =>
-      ListBackupSelectionsOutput();
+      ListBackupSelectionsOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        backupSelectionsList: json.containsKey('BackupSelectionsList')
+            ? (json['BackupSelectionsList'] as List)
+                .map((e) => BackupSelectionsListMember.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListBackupVaultsOutput {
@@ -2069,7 +2783,15 @@ class ListBackupVaultsOutput {
     this.nextToken,
   });
   static ListBackupVaultsOutput fromJson(Map<String, dynamic> json) =>
-      ListBackupVaultsOutput();
+      ListBackupVaultsOutput(
+        backupVaultList: json.containsKey('BackupVaultList')
+            ? (json['BackupVaultList'] as List)
+                .map((e) => BackupVaultListMember.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListProtectedResourcesOutput {
@@ -2089,7 +2811,15 @@ class ListProtectedResourcesOutput {
     this.nextToken,
   });
   static ListProtectedResourcesOutput fromJson(Map<String, dynamic> json) =>
-      ListProtectedResourcesOutput();
+      ListProtectedResourcesOutput(
+        results: json.containsKey('Results')
+            ? (json['Results'] as List)
+                .map((e) => ProtectedResource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListRecoveryPointsByBackupVaultOutput {
@@ -2109,7 +2839,15 @@ class ListRecoveryPointsByBackupVaultOutput {
   });
   static ListRecoveryPointsByBackupVaultOutput fromJson(
           Map<String, dynamic> json) =>
-      ListRecoveryPointsByBackupVaultOutput();
+      ListRecoveryPointsByBackupVaultOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        recoveryPoints: json.containsKey('RecoveryPoints')
+            ? (json['RecoveryPoints'] as List)
+                .map((e) => RecoveryPointByBackupVault.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListRecoveryPointsByResourceOutput {
@@ -2129,7 +2867,15 @@ class ListRecoveryPointsByResourceOutput {
   });
   static ListRecoveryPointsByResourceOutput fromJson(
           Map<String, dynamic> json) =>
-      ListRecoveryPointsByResourceOutput();
+      ListRecoveryPointsByResourceOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        recoveryPoints: json.containsKey('RecoveryPoints')
+            ? (json['RecoveryPoints'] as List)
+                .map((e) => RecoveryPointByResource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListRestoreJobsOutput {
@@ -2148,7 +2894,15 @@ class ListRestoreJobsOutput {
     this.nextToken,
   });
   static ListRestoreJobsOutput fromJson(Map<String, dynamic> json) =>
-      ListRestoreJobsOutput();
+      ListRestoreJobsOutput(
+        restoreJobs: json.containsKey('RestoreJobs')
+            ? (json['RestoreJobs'] as List)
+                .map((e) => RestoreJobsListMember.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsOutput {
@@ -2166,7 +2920,14 @@ class ListTagsOutput {
     this.nextToken,
     this.tags,
   });
-  static ListTagsOutput fromJson(Map<String, dynamic> json) => ListTagsOutput();
+  static ListTagsOutput fromJson(Map<String, dynamic> json) => ListTagsOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A structure that contains information about a backed-up resource.
@@ -2192,7 +2953,17 @@ class ProtectedResource {
     this.lastBackupTime,
   });
   static ProtectedResource fromJson(Map<String, dynamic> json) =>
-      ProtectedResource();
+      ProtectedResource(
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        lastBackupTime: json.containsKey('LastBackupTime')
+            ? DateTime.parse(json['LastBackupTime'])
+            : null,
+      );
 }
 
 /// Contains detailed information about the recovery points stored in a backup
@@ -2298,7 +3069,54 @@ class RecoveryPointByBackupVault {
     this.lastRestoreTime,
   });
   static RecoveryPointByBackupVault fromJson(Map<String, dynamic> json) =>
-      RecoveryPointByBackupVault();
+      RecoveryPointByBackupVault(
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        createdBy: json.containsKey('CreatedBy')
+            ? RecoveryPointCreator.fromJson(json['CreatedBy'])
+            : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? DateTime.parse(json['CompletionDate'])
+            : null,
+        backupSizeInBytes: json.containsKey('BackupSizeInBytes')
+            ? BigInt.from(json['BackupSizeInBytes'])
+            : null,
+        calculatedLifecycle: json.containsKey('CalculatedLifecycle')
+            ? CalculatedLifecycle.fromJson(json['CalculatedLifecycle'])
+            : null,
+        lifecycle: json.containsKey('Lifecycle')
+            ? Lifecycle.fromJson(json['Lifecycle'])
+            : null,
+        encryptionKeyArn: json.containsKey('EncryptionKeyArn')
+            ? json['EncryptionKeyArn'] as String
+            : null,
+        isEncrypted: json.containsKey('IsEncrypted')
+            ? json['IsEncrypted'] as bool
+            : null,
+        lastRestoreTime: json.containsKey('LastRestoreTime')
+            ? DateTime.parse(json['LastRestoreTime'])
+            : null,
+      );
 }
 
 /// Contains detailed information about a saved recovery point.
@@ -2340,7 +3158,24 @@ class RecoveryPointByResource {
     this.backupVaultName,
   });
   static RecoveryPointByResource fromJson(Map<String, dynamic> json) =>
-      RecoveryPointByResource();
+      RecoveryPointByResource(
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        encryptionKeyArn: json.containsKey('EncryptionKeyArn')
+            ? json['EncryptionKeyArn'] as String
+            : null,
+        backupSizeBytes: json.containsKey('BackupSizeBytes')
+            ? BigInt.from(json['BackupSizeBytes'])
+            : null,
+        backupVaultName: json.containsKey('BackupVaultName')
+            ? json['BackupVaultName'] as String
+            : null,
+      );
 }
 
 /// Contains information about the backup plan and rule that AWS Backup used to
@@ -2369,7 +3204,20 @@ class RecoveryPointCreator {
     this.backupRuleId,
   });
   static RecoveryPointCreator fromJson(Map<String, dynamic> json) =>
-      RecoveryPointCreator();
+      RecoveryPointCreator(
+        backupPlanId: json.containsKey('BackupPlanId')
+            ? json['BackupPlanId'] as String
+            : null,
+        backupPlanArn: json.containsKey('BackupPlanArn')
+            ? json['BackupPlanArn'] as String
+            : null,
+        backupPlanVersion: json.containsKey('BackupPlanVersion')
+            ? json['BackupPlanVersion'] as String
+            : null,
+        backupRuleId: json.containsKey('BackupRuleId')
+            ? json['BackupRuleId'] as String
+            : null,
+      );
 }
 
 /// Contains metadata about a restore job.
@@ -2434,7 +3282,40 @@ class RestoreJobsListMember {
     this.createdResourceArn,
   });
   static RestoreJobsListMember fromJson(Map<String, dynamic> json) =>
-      RestoreJobsListMember();
+      RestoreJobsListMember(
+        restoreJobId: json.containsKey('RestoreJobId')
+            ? json['RestoreJobId'] as String
+            : null,
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? DateTime.parse(json['CompletionDate'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        percentDone: json.containsKey('PercentDone')
+            ? json['PercentDone'] as String
+            : null,
+        backupSizeInBytes: json.containsKey('BackupSizeInBytes')
+            ? BigInt.from(json['BackupSizeInBytes'])
+            : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        expectedCompletionTimeMinutes:
+            json.containsKey('ExpectedCompletionTimeMinutes')
+                ? BigInt.from(json['ExpectedCompletionTimeMinutes'])
+                : null,
+        createdResourceArn: json.containsKey('CreatedResourceArn')
+            ? json['CreatedResourceArn'] as String
+            : null,
+      );
 }
 
 class StartBackupJobOutput {
@@ -2457,7 +3338,17 @@ class StartBackupJobOutput {
     this.creationDate,
   });
   static StartBackupJobOutput fromJson(Map<String, dynamic> json) =>
-      StartBackupJobOutput();
+      StartBackupJobOutput(
+        backupJobId: json.containsKey('BackupJobId')
+            ? json['BackupJobId'] as String
+            : null,
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 class StartRestoreJobOutput {
@@ -2468,7 +3359,11 @@ class StartRestoreJobOutput {
     this.restoreJobId,
   });
   static StartRestoreJobOutput fromJson(Map<String, dynamic> json) =>
-      StartRestoreJobOutput();
+      StartRestoreJobOutput(
+        restoreJobId: json.containsKey('RestoreJobId')
+            ? json['RestoreJobId'] as String
+            : null,
+      );
 }
 
 class UpdateBackupPlanOutput {
@@ -2497,7 +3392,19 @@ class UpdateBackupPlanOutput {
     this.versionId,
   });
   static UpdateBackupPlanOutput fromJson(Map<String, dynamic> json) =>
-      UpdateBackupPlanOutput();
+      UpdateBackupPlanOutput(
+        backupPlanId: json.containsKey('BackupPlanId')
+            ? json['BackupPlanId'] as String
+            : null,
+        backupPlanArn: json.containsKey('BackupPlanArn')
+            ? json['BackupPlanArn'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 class UpdateRecoveryPointLifecycleOutput {
@@ -2533,5 +3440,18 @@ class UpdateRecoveryPointLifecycleOutput {
   });
   static UpdateRecoveryPointLifecycleOutput fromJson(
           Map<String, dynamic> json) =>
-      UpdateRecoveryPointLifecycleOutput();
+      UpdateRecoveryPointLifecycleOutput(
+        backupVaultArn: json.containsKey('BackupVaultArn')
+            ? json['BackupVaultArn'] as String
+            : null,
+        recoveryPointArn: json.containsKey('RecoveryPointArn')
+            ? json['RecoveryPointArn'] as String
+            : null,
+        lifecycle: json.containsKey('Lifecycle')
+            ? Lifecycle.fromJson(json['Lifecycle'])
+            : null,
+        calculatedLifecycle: json.containsKey('CalculatedLifecycle')
+            ? CalculatedLifecycle.fromJson(json['CalculatedLifecycle'])
+            : null,
+      );
 }

@@ -2,6 +2,11 @@ import 'package:meta/meta.dart';
 
 /// Pinpoint SMS and Voice Messaging public facing APIs
 class PinpointSmsVoiceApi {
+  final _client;
+  PinpointSmsVoiceApi(client)
+      : _client =
+            client.configured('Pinpoint SMS Voice', serializer: 'rest-json');
+
   /// Create a new configuration set. After you create the configuration set,
   /// you can add one or more event destinations to it.
   ///
@@ -9,7 +14,11 @@ class PinpointSmsVoiceApi {
   /// set.
   Future<CreateConfigurationSetResponse> createConfigurationSet(
       {String configurationSetName}) async {
-    return CreateConfigurationSetResponse.fromJson({});
+    var response_ = await _client.send('CreateConfigurationSet', {
+      if (configurationSetName != null)
+        'ConfigurationSetName': configurationSetName,
+    });
+    return CreateConfigurationSetResponse.fromJson(response_);
   }
 
   /// Create a new event destination in a configuration set.
@@ -21,7 +30,14 @@ class PinpointSmsVoiceApi {
       createConfigurationSetEventDestination(String configurationSetName,
           {EventDestinationDefinition eventDestination,
           String eventDestinationName}) async {
-    return CreateConfigurationSetEventDestinationResponse.fromJson({});
+    var response_ =
+        await _client.send('CreateConfigurationSetEventDestination', {
+      'ConfigurationSetName': configurationSetName,
+      if (eventDestination != null) 'EventDestination': eventDestination,
+      if (eventDestinationName != null)
+        'EventDestinationName': eventDestinationName,
+    });
+    return CreateConfigurationSetEventDestinationResponse.fromJson(response_);
   }
 
   /// Deletes an existing configuration set.
@@ -29,7 +45,10 @@ class PinpointSmsVoiceApi {
   /// [configurationSetName]: ConfigurationSetName
   Future<DeleteConfigurationSetResponse> deleteConfigurationSet(
       String configurationSetName) async {
-    return DeleteConfigurationSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteConfigurationSet', {
+      'ConfigurationSetName': configurationSetName,
+    });
+    return DeleteConfigurationSetResponse.fromJson(response_);
   }
 
   /// Deletes an event destination in a configuration set.
@@ -41,7 +60,12 @@ class PinpointSmsVoiceApi {
       deleteConfigurationSetEventDestination(
           {@required String configurationSetName,
           @required String eventDestinationName}) async {
-    return DeleteConfigurationSetEventDestinationResponse.fromJson({});
+    var response_ =
+        await _client.send('DeleteConfigurationSetEventDestination', {
+      'ConfigurationSetName': configurationSetName,
+      'EventDestinationName': eventDestinationName,
+    });
+    return DeleteConfigurationSetEventDestinationResponse.fromJson(response_);
   }
 
   /// Obtain information about an event destination, including the types of
@@ -51,7 +75,10 @@ class PinpointSmsVoiceApi {
   /// [configurationSetName]: ConfigurationSetName
   Future<GetConfigurationSetEventDestinationsResponse>
       getConfigurationSetEventDestinations(String configurationSetName) async {
-    return GetConfigurationSetEventDestinationsResponse.fromJson({});
+    var response_ = await _client.send('GetConfigurationSetEventDestinations', {
+      'ConfigurationSetName': configurationSetName,
+    });
+    return GetConfigurationSetEventDestinationsResponse.fromJson(response_);
   }
 
   /// List all of the configuration sets associated with your Amazon Pinpoint
@@ -64,7 +91,11 @@ class PinpointSmsVoiceApi {
   /// the response.
   Future<ListConfigurationSetsResponse> listConfigurationSets(
       {String nextToken, String pageSize}) async {
-    return ListConfigurationSetsResponse.fromJson({});
+    var response_ = await _client.send('ListConfigurationSets', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListConfigurationSetsResponse.fromJson(response_);
   }
 
   /// Create a new voice message and send it to a recipient's phone number.
@@ -88,7 +119,17 @@ class PinpointSmsVoiceApi {
       VoiceMessageContent content,
       String destinationPhoneNumber,
       String originationPhoneNumber}) async {
-    return SendVoiceMessageResponse.fromJson({});
+    var response_ = await _client.send('SendVoiceMessage', {
+      if (callerId != null) 'CallerId': callerId,
+      if (configurationSetName != null)
+        'ConfigurationSetName': configurationSetName,
+      if (content != null) 'Content': content,
+      if (destinationPhoneNumber != null)
+        'DestinationPhoneNumber': destinationPhoneNumber,
+      if (originationPhoneNumber != null)
+        'OriginationPhoneNumber': originationPhoneNumber,
+    });
+    return SendVoiceMessageResponse.fromJson(response_);
   }
 
   /// Update an event destination in a configuration set. An event destination
@@ -104,7 +145,13 @@ class PinpointSmsVoiceApi {
           {@required String configurationSetName,
           EventDestinationDefinition eventDestination,
           @required String eventDestinationName}) async {
-    return UpdateConfigurationSetEventDestinationResponse.fromJson({});
+    var response_ =
+        await _client.send('UpdateConfigurationSetEventDestination', {
+      'ConfigurationSetName': configurationSetName,
+      if (eventDestination != null) 'EventDestination': eventDestination,
+      'EventDestinationName': eventDestinationName,
+    });
+    return UpdateConfigurationSetEventDestinationResponse.fromJson(response_);
   }
 }
 
@@ -118,6 +165,7 @@ class CallInstructionsMessageType {
   CallInstructionsMessageType({
     this.text,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains information about an event destination that sends
@@ -137,7 +185,15 @@ class CloudWatchLogsDestination {
     this.logGroupArn,
   });
   static CloudWatchLogsDestination fromJson(Map<String, dynamic> json) =>
-      CloudWatchLogsDestination();
+      CloudWatchLogsDestination(
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        logGroupArn: json.containsKey('LogGroupArn')
+            ? json['LogGroupArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An empty object that indicates that the event destination was created
@@ -201,7 +257,27 @@ class EventDestination {
     this.snsDestination,
   });
   static EventDestination fromJson(Map<String, dynamic> json) =>
-      EventDestination();
+      EventDestination(
+        cloudWatchLogsDestination: json.containsKey('CloudWatchLogsDestination')
+            ? CloudWatchLogsDestination.fromJson(
+                json['CloudWatchLogsDestination'])
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        kinesisFirehoseDestination:
+            json.containsKey('KinesisFirehoseDestination')
+                ? KinesisFirehoseDestination.fromJson(
+                    json['KinesisFirehoseDestination'])
+                : null,
+        matchingEventTypes: json.containsKey('MatchingEventTypes')
+            ? (json['MatchingEventTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        snsDestination: json.containsKey('SnsDestination')
+            ? SnsDestination.fromJson(json['SnsDestination'])
+            : null,
+      );
 }
 
 /// An object that defines a single event destination.
@@ -226,6 +302,7 @@ class EventDestinationDefinition {
     this.matchingEventTypes,
     this.snsDestination,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains information about an event destination.
@@ -237,7 +314,13 @@ class GetConfigurationSetEventDestinationsResponse {
   });
   static GetConfigurationSetEventDestinationsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetConfigurationSetEventDestinationsResponse();
+      GetConfigurationSetEventDestinationsResponse(
+        eventDestinations: json.containsKey('EventDestinations')
+            ? (json['EventDestinations'] as List)
+                .map((e) => EventDestination.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An object that contains information about an event destination that sends
@@ -256,7 +339,15 @@ class KinesisFirehoseDestination {
     this.iamRoleArn,
   });
   static KinesisFirehoseDestination fromJson(Map<String, dynamic> json) =>
-      KinesisFirehoseDestination();
+      KinesisFirehoseDestination(
+        deliveryStreamArn: json.containsKey('DeliveryStreamArn')
+            ? json['DeliveryStreamArn'] as String
+            : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains information about the configuration sets for your
@@ -275,7 +366,15 @@ class ListConfigurationSetsResponse {
     this.nextToken,
   });
   static ListConfigurationSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListConfigurationSetsResponse();
+      ListConfigurationSetsResponse(
+        configurationSets: json.containsKey('ConfigurationSets')
+            ? (json['ConfigurationSets'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// An object that defines a message that contains unformatted text.
@@ -296,6 +395,7 @@ class PlainTextMessageType {
     this.text,
     this.voiceId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that defines a message that contains SSML-formatted text.
@@ -316,6 +416,7 @@ class SsmlMessageType {
     this.text,
     this.voiceId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that that contains the Message ID of a Voice message that was sent
@@ -328,7 +429,10 @@ class SendVoiceMessageResponse {
     this.messageId,
   });
   static SendVoiceMessageResponse fromJson(Map<String, dynamic> json) =>
-      SendVoiceMessageResponse();
+      SendVoiceMessageResponse(
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+      );
 }
 
 /// An object that contains information about an event destination that sends
@@ -341,7 +445,11 @@ class SnsDestination {
   SnsDestination({
     this.topicArn,
   });
-  static SnsDestination fromJson(Map<String, dynamic> json) => SnsDestination();
+  static SnsDestination fromJson(Map<String, dynamic> json) => SnsDestination(
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An empty object that indicates that the event destination was updated
@@ -367,4 +475,5 @@ class VoiceMessageContent {
     this.plainTextMessage,
     this.ssmlMessage,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

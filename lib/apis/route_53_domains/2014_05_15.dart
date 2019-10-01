@@ -3,6 +3,10 @@ import 'package:meta/meta.dart';
 /// Amazon Route 53 API actions let you register domain names and perform
 /// related operations.
 class Route53DomainsApi {
+  final _client;
+  Route53DomainsApi(client)
+      : _client = client.configured('Route 53 Domains', serializer: 'json');
+
   /// This operation checks the availability of one domain name. Note that if
   /// the availability status of a domain is pending, you must submit another
   /// request to determine the availability of the domain name.
@@ -18,7 +22,11 @@ class Route53DomainsApi {
   Future<CheckDomainAvailabilityResponse> checkDomainAvailability(
       String domainName,
       {String idnLangCode}) async {
-    return CheckDomainAvailabilityResponse.fromJson({});
+    var response_ = await _client.send('CheckDomainAvailability', {
+      'DomainName': domainName,
+      if (idnLangCode != null) 'IdnLangCode': idnLangCode,
+    });
+    return CheckDomainAvailabilityResponse.fromJson(response_);
   }
 
   /// Checks whether a domain name can be transferred to Amazon Route 53.
@@ -36,7 +44,11 @@ class Route53DomainsApi {
   Future<CheckDomainTransferabilityResponse> checkDomainTransferability(
       String domainName,
       {String authCode}) async {
-    return CheckDomainTransferabilityResponse.fromJson({});
+    var response_ = await _client.send('CheckDomainTransferability', {
+      'DomainName': domainName,
+      if (authCode != null) 'AuthCode': authCode,
+    });
+    return CheckDomainTransferabilityResponse.fromJson(response_);
   }
 
   /// This operation deletes the specified tags for a domain.
@@ -50,7 +62,11 @@ class Route53DomainsApi {
   Future<DeleteTagsForDomainResponse> deleteTagsForDomain(
       {@required String domainName,
       @required List<String> tagsToDelete}) async {
-    return DeleteTagsForDomainResponse.fromJson({});
+    var response_ = await _client.send('DeleteTagsForDomain', {
+      'DomainName': domainName,
+      'TagsToDelete': tagsToDelete,
+    });
+    return DeleteTagsForDomainResponse.fromJson(response_);
   }
 
   /// This operation disables automatic renewal of domain registration for the
@@ -60,7 +76,10 @@ class Route53DomainsApi {
   /// renewal for.
   Future<DisableDomainAutoRenewResponse> disableDomainAutoRenew(
       String domainName) async {
-    return DisableDomainAutoRenewResponse.fromJson({});
+    var response_ = await _client.send('DisableDomainAutoRenew', {
+      'DomainName': domainName,
+    });
+    return DisableDomainAutoRenewResponse.fromJson(response_);
   }
 
   /// This operation removes the transfer lock on the domain (specifically the
@@ -75,7 +94,10 @@ class Route53DomainsApi {
   /// lock for.
   Future<DisableDomainTransferLockResponse> disableDomainTransferLock(
       String domainName) async {
-    return DisableDomainTransferLockResponse.fromJson({});
+    var response_ = await _client.send('DisableDomainTransferLock', {
+      'DomainName': domainName,
+    });
+    return DisableDomainTransferLockResponse.fromJson(response_);
   }
 
   /// This operation configures Amazon Route 53 to automatically renew the
@@ -94,7 +116,10 @@ class Route53DomainsApi {
   /// renewal for.
   Future<EnableDomainAutoRenewResponse> enableDomainAutoRenew(
       String domainName) async {
-    return EnableDomainAutoRenewResponse.fromJson({});
+    var response_ = await _client.send('EnableDomainAutoRenew', {
+      'DomainName': domainName,
+    });
+    return EnableDomainAutoRenewResponse.fromJson(response_);
   }
 
   /// This operation sets the transfer lock on the domain (specifically the
@@ -107,7 +132,10 @@ class Route53DomainsApi {
   /// lock for.
   Future<EnableDomainTransferLockResponse> enableDomainTransferLock(
       String domainName) async {
-    return EnableDomainTransferLockResponse.fromJson({});
+    var response_ = await _client.send('EnableDomainTransferLock', {
+      'DomainName': domainName,
+    });
+    return EnableDomainTransferLockResponse.fromJson(response_);
   }
 
   /// For operations that require confirmation that the email address for the
@@ -122,7 +150,10 @@ class Route53DomainsApi {
   /// the registrant contact has confirmed that the email address is valid.
   Future<GetContactReachabilityStatusResponse> getContactReachabilityStatus(
       {String domainName}) async {
-    return GetContactReachabilityStatusResponse.fromJson({});
+    var response_ = await _client.send('GetContactReachabilityStatus', {
+      if (domainName != null) 'domainName': domainName,
+    });
+    return GetContactReachabilityStatusResponse.fromJson(response_);
   }
 
   /// This operation returns detailed information about a specified domain that
@@ -132,7 +163,10 @@ class Route53DomainsApi {
   /// [domainName]: The name of the domain that you want to get detailed
   /// information about.
   Future<GetDomainDetailResponse> getDomainDetail(String domainName) async {
-    return GetDomainDetailResponse.fromJson({});
+    var response_ = await _client.send('GetDomainDetail', {
+      'DomainName': domainName,
+    });
+    return GetDomainDetailResponse.fromJson(response_);
   }
 
   /// The GetDomainSuggestions operation returns a list of suggested domain
@@ -158,7 +192,12 @@ class Route53DomainsApi {
       {@required String domainName,
       @required int suggestionCount,
       @required bool onlyAvailable}) async {
-    return GetDomainSuggestionsResponse.fromJson({});
+    var response_ = await _client.send('GetDomainSuggestions', {
+      'DomainName': domainName,
+      'SuggestionCount': suggestionCount,
+      'OnlyAvailable': onlyAvailable,
+    });
+    return GetDomainSuggestionsResponse.fromJson(response_);
   }
 
   /// This operation returns the current status of an operation that is not
@@ -169,7 +208,10 @@ class Route53DomainsApi {
   /// original request.
   Future<GetOperationDetailResponse> getOperationDetail(
       String operationId) async {
-    return GetOperationDetailResponse.fromJson({});
+    var response_ = await _client.send('GetOperationDetail', {
+      'OperationId': operationId,
+    });
+    return GetOperationDetailResponse.fromJson(response_);
   }
 
   /// This operation returns all the domain names registered with Amazon Route
@@ -189,7 +231,11 @@ class Route53DomainsApi {
   ///
   /// Default: 20
   Future<ListDomainsResponse> listDomains({String marker, int maxItems}) async {
-    return ListDomainsResponse.fromJson({});
+    var response_ = await _client.send('ListDomains', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListDomainsResponse.fromJson(response_);
   }
 
   /// This operation returns the operation IDs of operations that are not yet
@@ -211,7 +257,12 @@ class Route53DomainsApi {
   /// Default: 20
   Future<ListOperationsResponse> listOperations(
       {DateTime submittedSince, String marker, int maxItems}) async {
-    return ListOperationsResponse.fromJson({});
+    var response_ = await _client.send('ListOperations', {
+      if (submittedSince != null) 'SubmittedSince': submittedSince,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListOperationsResponse.fromJson(response_);
   }
 
   /// This operation returns all of the tags that are associated with the
@@ -222,7 +273,10 @@ class Route53DomainsApi {
   ///
   /// [domainName]: The domain for which you want to get a list of tags.
   Future<ListTagsForDomainResponse> listTagsForDomain(String domainName) async {
-    return ListTagsForDomainResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForDomain', {
+      'DomainName': domainName,
+    });
+    return ListTagsForDomainResponse.fromJson(response_);
   }
 
   /// This operation registers a domain. Domains are registered either by Amazon
@@ -321,7 +375,22 @@ class Route53DomainsApi {
       bool privacyProtectAdminContact,
       bool privacyProtectRegistrantContact,
       bool privacyProtectTechContact}) async {
-    return RegisterDomainResponse.fromJson({});
+    var response_ = await _client.send('RegisterDomain', {
+      'DomainName': domainName,
+      if (idnLangCode != null) 'IdnLangCode': idnLangCode,
+      'DurationInYears': durationInYears,
+      if (autoRenew != null) 'AutoRenew': autoRenew,
+      'AdminContact': adminContact,
+      'RegistrantContact': registrantContact,
+      'TechContact': techContact,
+      if (privacyProtectAdminContact != null)
+        'PrivacyProtectAdminContact': privacyProtectAdminContact,
+      if (privacyProtectRegistrantContact != null)
+        'PrivacyProtectRegistrantContact': privacyProtectRegistrantContact,
+      if (privacyProtectTechContact != null)
+        'PrivacyProtectTechContact': privacyProtectTechContact,
+    });
+    return RegisterDomainResponse.fromJson(response_);
   }
 
   /// This operation renews a domain for the specified number of years. The cost
@@ -351,7 +420,12 @@ class Route53DomainsApi {
       {@required String domainName,
       int durationInYears,
       @required int currentExpiryYear}) async {
-    return RenewDomainResponse.fromJson({});
+    var response_ = await _client.send('RenewDomain', {
+      'DomainName': domainName,
+      if (durationInYears != null) 'DurationInYears': durationInYears,
+      'CurrentExpiryYear': currentExpiryYear,
+    });
+    return RenewDomainResponse.fromJson(response_);
   }
 
   /// For operations that require confirmation that the email address for the
@@ -363,7 +437,10 @@ class Route53DomainsApi {
   /// resend a confirmation email to the registrant contact.
   Future<ResendContactReachabilityEmailResponse> resendContactReachabilityEmail(
       {String domainName}) async {
-    return ResendContactReachabilityEmailResponse.fromJson({});
+    var response_ = await _client.send('ResendContactReachabilityEmail', {
+      if (domainName != null) 'domainName': domainName,
+    });
+    return ResendContactReachabilityEmailResponse.fromJson(response_);
   }
 
   /// This operation returns the AuthCode for the domain. To transfer a domain
@@ -373,7 +450,10 @@ class Route53DomainsApi {
   /// code for.
   Future<RetrieveDomainAuthCodeResponse> retrieveDomainAuthCode(
       String domainName) async {
-    return RetrieveDomainAuthCodeResponse.fromJson({});
+    var response_ = await _client.send('RetrieveDomainAuthCode', {
+      'DomainName': domainName,
+    });
+    return RetrieveDomainAuthCodeResponse.fromJson(response_);
   }
 
   /// This operation transfers a domain from another registrar to Amazon Route
@@ -475,7 +555,24 @@ class Route53DomainsApi {
       bool privacyProtectAdminContact,
       bool privacyProtectRegistrantContact,
       bool privacyProtectTechContact}) async {
-    return TransferDomainResponse.fromJson({});
+    var response_ = await _client.send('TransferDomain', {
+      'DomainName': domainName,
+      if (idnLangCode != null) 'IdnLangCode': idnLangCode,
+      'DurationInYears': durationInYears,
+      if (nameservers != null) 'Nameservers': nameservers,
+      if (authCode != null) 'AuthCode': authCode,
+      if (autoRenew != null) 'AutoRenew': autoRenew,
+      'AdminContact': adminContact,
+      'RegistrantContact': registrantContact,
+      'TechContact': techContact,
+      if (privacyProtectAdminContact != null)
+        'PrivacyProtectAdminContact': privacyProtectAdminContact,
+      if (privacyProtectRegistrantContact != null)
+        'PrivacyProtectRegistrantContact': privacyProtectRegistrantContact,
+      if (privacyProtectTechContact != null)
+        'PrivacyProtectTechContact': privacyProtectTechContact,
+    });
+    return TransferDomainResponse.fromJson(response_);
   }
 
   /// This operation updates the contact information for a particular domain.
@@ -499,7 +596,13 @@ class Route53DomainsApi {
       {ContactDetail adminContact,
       ContactDetail registrantContact,
       ContactDetail techContact}) async {
-    return UpdateDomainContactResponse.fromJson({});
+    var response_ = await _client.send('UpdateDomainContact', {
+      'DomainName': domainName,
+      if (adminContact != null) 'AdminContact': adminContact,
+      if (registrantContact != null) 'RegistrantContact': registrantContact,
+      if (techContact != null) 'TechContact': techContact,
+    });
+    return UpdateDomainContactResponse.fromJson(response_);
   }
 
   /// This operation updates the specified domain contact's privacy setting.
@@ -543,7 +646,13 @@ class Route53DomainsApi {
       {bool adminPrivacy,
       bool registrantPrivacy,
       bool techPrivacy}) async {
-    return UpdateDomainContactPrivacyResponse.fromJson({});
+    var response_ = await _client.send('UpdateDomainContactPrivacy', {
+      'DomainName': domainName,
+      if (adminPrivacy != null) 'AdminPrivacy': adminPrivacy,
+      if (registrantPrivacy != null) 'RegistrantPrivacy': registrantPrivacy,
+      if (techPrivacy != null) 'TechPrivacy': techPrivacy,
+    });
+    return UpdateDomainContactPrivacyResponse.fromJson(response_);
   }
 
   /// This operation replaces the current set of name servers for the domain
@@ -565,7 +674,12 @@ class Route53DomainsApi {
       {@required String domainName,
       String fiAuthKey,
       @required List<Nameserver> nameservers}) async {
-    return UpdateDomainNameserversResponse.fromJson({});
+    var response_ = await _client.send('UpdateDomainNameservers', {
+      'DomainName': domainName,
+      if (fiAuthKey != null) 'FIAuthKey': fiAuthKey,
+      'Nameservers': nameservers,
+    });
+    return UpdateDomainNameserversResponse.fromJson(response_);
   }
 
   /// This operation adds or updates tags for a specified domain.
@@ -580,7 +694,11 @@ class Route53DomainsApi {
   /// will be replaced.
   Future<UpdateTagsForDomainResponse> updateTagsForDomain(String domainName,
       {List<Tag> tagsToUpdate}) async {
-    return UpdateTagsForDomainResponse.fromJson({});
+    var response_ = await _client.send('UpdateTagsForDomain', {
+      'DomainName': domainName,
+      if (tagsToUpdate != null) 'TagsToUpdate': tagsToUpdate,
+    });
+    return UpdateTagsForDomainResponse.fromJson(response_);
   }
 
   /// Returns all the domain-related billing records for the current AWS account
@@ -610,7 +728,13 @@ class Route53DomainsApi {
   /// Default: 20
   Future<ViewBillingResponse> viewBilling(
       {DateTime start, DateTime end, String marker, int maxItems}) async {
-    return ViewBillingResponse.fromJson({});
+    var response_ = await _client.send('ViewBilling', {
+      if (start != null) 'Start': start,
+      if (end != null) 'End': end,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ViewBillingResponse.fromJson(response_);
   }
 }
 
@@ -645,7 +769,19 @@ class BillingRecord {
     this.billDate,
     this.price,
   });
-  static BillingRecord fromJson(Map<String, dynamic> json) => BillingRecord();
+  static BillingRecord fromJson(Map<String, dynamic> json) => BillingRecord(
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        operation:
+            json.containsKey('Operation') ? json['Operation'] as String : null,
+        invoiceId:
+            json.containsKey('InvoiceId') ? json['InvoiceId'] as String : null,
+        billDate: json.containsKey('BillDate')
+            ? DateTime.parse(json['BillDate'])
+            : null,
+        price: json.containsKey('Price') ? json['Price'] as double : null,
+      );
 }
 
 /// The CheckDomainAvailability response includes the following elements.
@@ -702,7 +838,9 @@ class CheckDomainAvailabilityResponse {
     @required this.availability,
   });
   static CheckDomainAvailabilityResponse fromJson(Map<String, dynamic> json) =>
-      CheckDomainAvailabilityResponse();
+      CheckDomainAvailabilityResponse(
+        availability: json['Availability'] as String,
+      );
 }
 
 /// The CheckDomainTransferability response includes the following elements.
@@ -716,7 +854,10 @@ class CheckDomainTransferabilityResponse {
   });
   static CheckDomainTransferabilityResponse fromJson(
           Map<String, dynamic> json) =>
-      CheckDomainTransferabilityResponse();
+      CheckDomainTransferabilityResponse(
+        transferability:
+            DomainTransferability.fromJson(json['Transferability']),
+      );
 }
 
 /// ContactDetail includes the following elements.
@@ -791,7 +932,41 @@ class ContactDetail {
     this.fax,
     this.extraParams,
   });
-  static ContactDetail fromJson(Map<String, dynamic> json) => ContactDetail();
+  static ContactDetail fromJson(Map<String, dynamic> json) => ContactDetail(
+        firstName:
+            json.containsKey('FirstName') ? json['FirstName'] as String : null,
+        lastName:
+            json.containsKey('LastName') ? json['LastName'] as String : null,
+        contactType: json.containsKey('ContactType')
+            ? json['ContactType'] as String
+            : null,
+        organizationName: json.containsKey('OrganizationName')
+            ? json['OrganizationName'] as String
+            : null,
+        addressLine1: json.containsKey('AddressLine1')
+            ? json['AddressLine1'] as String
+            : null,
+        addressLine2: json.containsKey('AddressLine2')
+            ? json['AddressLine2'] as String
+            : null,
+        city: json.containsKey('City') ? json['City'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        countryCode: json.containsKey('CountryCode')
+            ? json['CountryCode'] as String
+            : null,
+        zipCode: json.containsKey('ZipCode') ? json['ZipCode'] as String : null,
+        phoneNumber: json.containsKey('PhoneNumber')
+            ? json['PhoneNumber'] as String
+            : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        fax: json.containsKey('Fax') ? json['Fax'] as String : null,
+        extraParams: json.containsKey('ExtraParams')
+            ? (json['ExtraParams'] as List)
+                .map((e) => ExtraParam.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteTagsForDomainResponse {
@@ -817,7 +992,9 @@ class DisableDomainTransferLockResponse {
   });
   static DisableDomainTransferLockResponse fromJson(
           Map<String, dynamic> json) =>
-      DisableDomainTransferLockResponse();
+      DisableDomainTransferLockResponse(
+        operationId: json['OperationId'] as String,
+      );
 }
 
 /// Information about one suggested domain name.
@@ -878,7 +1055,14 @@ class DomainSuggestion {
     this.availability,
   });
   static DomainSuggestion fromJson(Map<String, dynamic> json) =>
-      DomainSuggestion();
+      DomainSuggestion(
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        availability: json.containsKey('Availability')
+            ? json['Availability'] as String
+            : null,
+      );
 }
 
 /// Summary information about one domain.
@@ -902,7 +1086,16 @@ class DomainSummary {
     this.transferLock,
     this.expiry,
   });
-  static DomainSummary fromJson(Map<String, dynamic> json) => DomainSummary();
+  static DomainSummary fromJson(Map<String, dynamic> json) => DomainSummary(
+        domainName: json['DomainName'] as String,
+        autoRenew:
+            json.containsKey('AutoRenew') ? json['AutoRenew'] as bool : null,
+        transferLock: json.containsKey('TransferLock')
+            ? json['TransferLock'] as bool
+            : null,
+        expiry:
+            json.containsKey('Expiry') ? DateTime.parse(json['Expiry']) : null,
+      );
 }
 
 /// A complex type that contains information about whether the specified domain
@@ -914,7 +1107,11 @@ class DomainTransferability {
     this.transferable,
   });
   static DomainTransferability fromJson(Map<String, dynamic> json) =>
-      DomainTransferability();
+      DomainTransferability(
+        transferable: json.containsKey('Transferable')
+            ? json['Transferable'] as String
+            : null,
+      );
 }
 
 class EnableDomainAutoRenewResponse {
@@ -933,7 +1130,9 @@ class EnableDomainTransferLockResponse {
     @required this.operationId,
   });
   static EnableDomainTransferLockResponse fromJson(Map<String, dynamic> json) =>
-      EnableDomainTransferLockResponse();
+      EnableDomainTransferLockResponse(
+        operationId: json['OperationId'] as String,
+      );
 }
 
 /// ExtraParam includes the following elements.
@@ -979,7 +1178,11 @@ class ExtraParam {
     @required this.name,
     @required this.value,
   });
-  static ExtraParam fromJson(Map<String, dynamic> json) => ExtraParam();
+  static ExtraParam fromJson(Map<String, dynamic> json) => ExtraParam(
+        name: json['Name'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetContactReachabilityStatusResponse {
@@ -1008,7 +1211,12 @@ class GetContactReachabilityStatusResponse {
   });
   static GetContactReachabilityStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      GetContactReachabilityStatusResponse();
+      GetContactReachabilityStatusResponse(
+        domainName: json.containsKey('domainName')
+            ? json['domainName'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// The GetDomainDetail response includes the following elements.
@@ -1139,7 +1347,59 @@ class GetDomainDetailResponse {
     this.statusList,
   });
   static GetDomainDetailResponse fromJson(Map<String, dynamic> json) =>
-      GetDomainDetailResponse();
+      GetDomainDetailResponse(
+        domainName: json['DomainName'] as String,
+        nameservers: (json['Nameservers'] as List)
+            .map((e) => Nameserver.fromJson(e))
+            .toList(),
+        autoRenew:
+            json.containsKey('AutoRenew') ? json['AutoRenew'] as bool : null,
+        adminContact: ContactDetail.fromJson(json['AdminContact']),
+        registrantContact: ContactDetail.fromJson(json['RegistrantContact']),
+        techContact: ContactDetail.fromJson(json['TechContact']),
+        adminPrivacy: json.containsKey('AdminPrivacy')
+            ? json['AdminPrivacy'] as bool
+            : null,
+        registrantPrivacy: json.containsKey('RegistrantPrivacy')
+            ? json['RegistrantPrivacy'] as bool
+            : null,
+        techPrivacy: json.containsKey('TechPrivacy')
+            ? json['TechPrivacy'] as bool
+            : null,
+        registrarName: json.containsKey('RegistrarName')
+            ? json['RegistrarName'] as String
+            : null,
+        whoIsServer: json.containsKey('WhoIsServer')
+            ? json['WhoIsServer'] as String
+            : null,
+        registrarUrl: json.containsKey('RegistrarUrl')
+            ? json['RegistrarUrl'] as String
+            : null,
+        abuseContactEmail: json.containsKey('AbuseContactEmail')
+            ? json['AbuseContactEmail'] as String
+            : null,
+        abuseContactPhone: json.containsKey('AbuseContactPhone')
+            ? json['AbuseContactPhone'] as String
+            : null,
+        registryDomainId: json.containsKey('RegistryDomainId')
+            ? json['RegistryDomainId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        updatedDate: json.containsKey('UpdatedDate')
+            ? DateTime.parse(json['UpdatedDate'])
+            : null,
+        expirationDate: json.containsKey('ExpirationDate')
+            ? DateTime.parse(json['ExpirationDate'])
+            : null,
+        reseller:
+            json.containsKey('Reseller') ? json['Reseller'] as String : null,
+        dnsSec: json.containsKey('DnsSec') ? json['DnsSec'] as String : null,
+        statusList: json.containsKey('StatusList')
+            ? (json['StatusList'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class GetDomainSuggestionsResponse {
@@ -1152,7 +1412,13 @@ class GetDomainSuggestionsResponse {
     this.suggestionsList,
   });
   static GetDomainSuggestionsResponse fromJson(Map<String, dynamic> json) =>
-      GetDomainSuggestionsResponse();
+      GetDomainSuggestionsResponse(
+        suggestionsList: json.containsKey('SuggestionsList')
+            ? (json['SuggestionsList'] as List)
+                .map((e) => DomainSuggestion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The GetOperationDetail response includes the following elements.
@@ -1184,7 +1450,20 @@ class GetOperationDetailResponse {
     this.submittedDate,
   });
   static GetOperationDetailResponse fromJson(Map<String, dynamic> json) =>
-      GetOperationDetailResponse();
+      GetOperationDetailResponse(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        submittedDate: json.containsKey('SubmittedDate')
+            ? DateTime.parse(json['SubmittedDate'])
+            : null,
+      );
 }
 
 /// The ListDomains response includes the following elements.
@@ -1202,7 +1481,14 @@ class ListDomainsResponse {
     this.nextPageMarker,
   });
   static ListDomainsResponse fromJson(Map<String, dynamic> json) =>
-      ListDomainsResponse();
+      ListDomainsResponse(
+        domains: (json['Domains'] as List)
+            .map((e) => DomainSummary.fromJson(e))
+            .toList(),
+        nextPageMarker: json.containsKey('NextPageMarker')
+            ? json['NextPageMarker'] as String
+            : null,
+      );
 }
 
 /// The ListOperations response includes the following elements.
@@ -1220,7 +1506,14 @@ class ListOperationsResponse {
     this.nextPageMarker,
   });
   static ListOperationsResponse fromJson(Map<String, dynamic> json) =>
-      ListOperationsResponse();
+      ListOperationsResponse(
+        operations: (json['Operations'] as List)
+            .map((e) => OperationSummary.fromJson(e))
+            .toList(),
+        nextPageMarker: json.containsKey('NextPageMarker')
+            ? json['NextPageMarker'] as String
+            : null,
+      );
 }
 
 /// The ListTagsForDomain response includes the following elements.
@@ -1232,7 +1525,9 @@ class ListTagsForDomainResponse {
     @required this.tagList,
   });
   static ListTagsForDomainResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForDomainResponse();
+      ListTagsForDomainResponse(
+        tagList: (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList(),
+      );
 }
 
 /// Nameserver includes the following elements.
@@ -1254,7 +1549,13 @@ class Nameserver {
     @required this.name,
     this.glueIps,
   });
-  static Nameserver fromJson(Map<String, dynamic> json) => Nameserver();
+  static Nameserver fromJson(Map<String, dynamic> json) => Nameserver(
+        name: json['Name'] as String,
+        glueIps: json.containsKey('GlueIps')
+            ? (json['GlueIps'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// OperationSummary includes the following elements.
@@ -1278,7 +1579,12 @@ class OperationSummary {
     @required this.submittedDate,
   });
   static OperationSummary fromJson(Map<String, dynamic> json) =>
-      OperationSummary();
+      OperationSummary(
+        operationId: json['OperationId'] as String,
+        status: json['Status'] as String,
+        type: json['Type'] as String,
+        submittedDate: DateTime.parse(json['SubmittedDate']),
+      );
 }
 
 /// The RegisterDomain response includes the following element.
@@ -1291,7 +1597,9 @@ class RegisterDomainResponse {
     @required this.operationId,
   });
   static RegisterDomainResponse fromJson(Map<String, dynamic> json) =>
-      RegisterDomainResponse();
+      RegisterDomainResponse(
+        operationId: json['OperationId'] as String,
+      );
 }
 
 class RenewDomainResponse {
@@ -1303,7 +1611,9 @@ class RenewDomainResponse {
     @required this.operationId,
   });
   static RenewDomainResponse fromJson(Map<String, dynamic> json) =>
-      RenewDomainResponse();
+      RenewDomainResponse(
+        operationId: json['OperationId'] as String,
+      );
 }
 
 class ResendContactReachabilityEmailResponse {
@@ -1326,7 +1636,17 @@ class ResendContactReachabilityEmailResponse {
   });
   static ResendContactReachabilityEmailResponse fromJson(
           Map<String, dynamic> json) =>
-      ResendContactReachabilityEmailResponse();
+      ResendContactReachabilityEmailResponse(
+        domainName: json.containsKey('domainName')
+            ? json['domainName'] as String
+            : null,
+        emailAddress: json.containsKey('emailAddress')
+            ? json['emailAddress'] as String
+            : null,
+        isAlreadyVerified: json.containsKey('isAlreadyVerified')
+            ? json['isAlreadyVerified'] as bool
+            : null,
+      );
 }
 
 /// The RetrieveDomainAuthCode response includes the following element.
@@ -1338,7 +1658,9 @@ class RetrieveDomainAuthCodeResponse {
     @required this.authCode,
   });
   static RetrieveDomainAuthCodeResponse fromJson(Map<String, dynamic> json) =>
-      RetrieveDomainAuthCodeResponse();
+      RetrieveDomainAuthCodeResponse(
+        authCode: json['AuthCode'] as String,
+      );
 }
 
 /// Each tag includes the following elements.
@@ -1361,7 +1683,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The TranserDomain response includes the following element.
@@ -1374,7 +1700,9 @@ class TransferDomainResponse {
     @required this.operationId,
   });
   static TransferDomainResponse fromJson(Map<String, dynamic> json) =>
-      TransferDomainResponse();
+      TransferDomainResponse(
+        operationId: json['OperationId'] as String,
+      );
 }
 
 /// The UpdateDomainContactPrivacy response includes the following element.
@@ -1388,7 +1716,9 @@ class UpdateDomainContactPrivacyResponse {
   });
   static UpdateDomainContactPrivacyResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateDomainContactPrivacyResponse();
+      UpdateDomainContactPrivacyResponse(
+        operationId: json['OperationId'] as String,
+      );
 }
 
 /// The UpdateDomainContact response includes the following element.
@@ -1401,7 +1731,9 @@ class UpdateDomainContactResponse {
     @required this.operationId,
   });
   static UpdateDomainContactResponse fromJson(Map<String, dynamic> json) =>
-      UpdateDomainContactResponse();
+      UpdateDomainContactResponse(
+        operationId: json['OperationId'] as String,
+      );
 }
 
 /// The UpdateDomainNameservers response includes the following element.
@@ -1414,7 +1746,9 @@ class UpdateDomainNameserversResponse {
     @required this.operationId,
   });
   static UpdateDomainNameserversResponse fromJson(Map<String, dynamic> json) =>
-      UpdateDomainNameserversResponse();
+      UpdateDomainNameserversResponse(
+        operationId: json['OperationId'] as String,
+      );
 }
 
 class UpdateTagsForDomainResponse {
@@ -1438,5 +1772,14 @@ class ViewBillingResponse {
     this.billingRecords,
   });
   static ViewBillingResponse fromJson(Map<String, dynamic> json) =>
-      ViewBillingResponse();
+      ViewBillingResponse(
+        nextPageMarker: json.containsKey('NextPageMarker')
+            ? json['NextPageMarker'] as String
+            : null,
+        billingRecords: json.containsKey('BillingRecords')
+            ? (json['BillingRecords'] as List)
+                .map((e) => BillingRecord.fromJson(e))
+                .toList()
+            : null,
+      );
 }

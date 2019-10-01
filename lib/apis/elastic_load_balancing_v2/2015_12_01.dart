@@ -29,6 +29,11 @@ import 'package:meta/meta.dart';
 /// All Elastic Load Balancing operations are idempotent, which means that they
 /// complete at most one time. If you repeat an operation, it succeeds.
 class ElasticLoadBalancingV2Api {
+  final _client;
+  ElasticLoadBalancingV2Api(client)
+      : _client =
+            client.configured('Elastic Load Balancing v2', serializer: 'query');
+
   /// Adds the specified SSL server certificate to the certificate list for the
   /// specified HTTPS or TLS listener.
   ///
@@ -52,7 +57,11 @@ class ElasticLoadBalancingV2Api {
   Future<AddListenerCertificatesOutput> addListenerCertificates(
       {@required String listenerArn,
       @required List<Certificate> certificates}) async {
-    return AddListenerCertificatesOutput.fromJson({});
+    var response_ = await _client.send('AddListenerCertificates', {
+      'ListenerArn': listenerArn,
+      'Certificates': certificates,
+    });
+    return AddListenerCertificatesOutput.fromJson(response_);
   }
 
   /// Adds the specified tags to the specified Elastic Load Balancing resource.
@@ -70,7 +79,11 @@ class ElasticLoadBalancingV2Api {
   /// [tags]: The tags. Each resource can have a maximum of 10 tags.
   Future<AddTagsOutput> addTags(
       {@required List<String> resourceArns, @required List<Tag> tags}) async {
-    return AddTagsOutput.fromJson({});
+    var response_ = await _client.send('AddTags', {
+      'ResourceArns': resourceArns,
+      'Tags': tags,
+    });
+    return AddTagsOutput.fromJson(response_);
   }
 
   /// Creates a listener for the specified Application Load Balancer or Network
@@ -138,7 +151,15 @@ class ElasticLoadBalancingV2Api {
       String sslPolicy,
       List<Certificate> certificates,
       @required List<Action> defaultActions}) async {
-    return CreateListenerOutput.fromJson({});
+    var response_ = await _client.send('CreateListener', {
+      'LoadBalancerArn': loadBalancerArn,
+      'Protocol': protocol,
+      'Port': port,
+      if (sslPolicy != null) 'SslPolicy': sslPolicy,
+      if (certificates != null) 'Certificates': certificates,
+      'DefaultActions': defaultActions,
+    });
+    return CreateListenerOutput.fromJson(response_);
   }
 
   /// Creates an Application Load Balancer or a Network Load Balancer.
@@ -228,7 +249,17 @@ class ElasticLoadBalancingV2Api {
       List<Tag> tags,
       String type,
       String ipAddressType}) async {
-    return CreateLoadBalancerOutput.fromJson({});
+    var response_ = await _client.send('CreateLoadBalancer', {
+      'Name': name,
+      if (subnets != null) 'Subnets': subnets,
+      if (subnetMappings != null) 'SubnetMappings': subnetMappings,
+      if (securityGroups != null) 'SecurityGroups': securityGroups,
+      if (scheme != null) 'Scheme': scheme,
+      if (tags != null) 'Tags': tags,
+      if (type != null) 'Type': type,
+      if (ipAddressType != null) 'IpAddressType': ipAddressType,
+    });
+    return CreateLoadBalancerOutput.fromJson(response_);
   }
 
   /// Creates a rule for the specified listener. The listener must be associated
@@ -280,7 +311,13 @@ class ElasticLoadBalancingV2Api {
       @required List<RuleCondition> conditions,
       @required int priority,
       @required List<Action> actions}) async {
-    return CreateRuleOutput.fromJson({});
+    var response_ = await _client.send('CreateRule', {
+      'ListenerArn': listenerArn,
+      'Conditions': conditions,
+      'Priority': priority,
+      'Actions': actions,
+    });
+    return CreateRuleOutput.fromJson(response_);
   }
 
   /// Creates a target group.
@@ -402,7 +439,28 @@ class ElasticLoadBalancingV2Api {
       int unhealthyThresholdCount,
       Matcher matcher,
       String targetType}) async {
-    return CreateTargetGroupOutput.fromJson({});
+    var response_ = await _client.send('CreateTargetGroup', {
+      'Name': name,
+      if (protocol != null) 'Protocol': protocol,
+      if (port != null) 'Port': port,
+      if (vpcId != null) 'VpcId': vpcId,
+      if (healthCheckProtocol != null)
+        'HealthCheckProtocol': healthCheckProtocol,
+      if (healthCheckPort != null) 'HealthCheckPort': healthCheckPort,
+      if (healthCheckEnabled != null) 'HealthCheckEnabled': healthCheckEnabled,
+      if (healthCheckPath != null) 'HealthCheckPath': healthCheckPath,
+      if (healthCheckIntervalSeconds != null)
+        'HealthCheckIntervalSeconds': healthCheckIntervalSeconds,
+      if (healthCheckTimeoutSeconds != null)
+        'HealthCheckTimeoutSeconds': healthCheckTimeoutSeconds,
+      if (healthyThresholdCount != null)
+        'HealthyThresholdCount': healthyThresholdCount,
+      if (unhealthyThresholdCount != null)
+        'UnhealthyThresholdCount': unhealthyThresholdCount,
+      if (matcher != null) 'Matcher': matcher,
+      if (targetType != null) 'TargetType': targetType,
+    });
+    return CreateTargetGroupOutput.fromJson(response_);
   }
 
   /// Deletes the specified listener.
@@ -412,7 +470,10 @@ class ElasticLoadBalancingV2Api {
   ///
   /// [listenerArn]: The Amazon Resource Name (ARN) of the listener.
   Future<DeleteListenerOutput> deleteListener(String listenerArn) async {
-    return DeleteListenerOutput.fromJson({});
+    var response_ = await _client.send('DeleteListener', {
+      'ListenerArn': listenerArn,
+    });
+    return DeleteListenerOutput.fromJson(response_);
   }
 
   /// Deletes the specified Application Load Balancer or Network Load Balancer
@@ -430,14 +491,20 @@ class ElasticLoadBalancingV2Api {
   /// [loadBalancerArn]: The Amazon Resource Name (ARN) of the load balancer.
   Future<DeleteLoadBalancerOutput> deleteLoadBalancer(
       String loadBalancerArn) async {
-    return DeleteLoadBalancerOutput.fromJson({});
+    var response_ = await _client.send('DeleteLoadBalancer', {
+      'LoadBalancerArn': loadBalancerArn,
+    });
+    return DeleteLoadBalancerOutput.fromJson(response_);
   }
 
   /// Deletes the specified rule.
   ///
   /// [ruleArn]: The Amazon Resource Name (ARN) of the rule.
   Future<DeleteRuleOutput> deleteRule(String ruleArn) async {
-    return DeleteRuleOutput.fromJson({});
+    var response_ = await _client.send('DeleteRule', {
+      'RuleArn': ruleArn,
+    });
+    return DeleteRuleOutput.fromJson(response_);
   }
 
   /// Deletes the specified target group.
@@ -448,7 +515,10 @@ class ElasticLoadBalancingV2Api {
   /// [targetGroupArn]: The Amazon Resource Name (ARN) of the target group.
   Future<DeleteTargetGroupOutput> deleteTargetGroup(
       String targetGroupArn) async {
-    return DeleteTargetGroupOutput.fromJson({});
+    var response_ = await _client.send('DeleteTargetGroup', {
+      'TargetGroupArn': targetGroupArn,
+    });
+    return DeleteTargetGroupOutput.fromJson(response_);
   }
 
   /// Deregisters the specified targets from the specified target group. After
@@ -463,7 +533,11 @@ class ElasticLoadBalancingV2Api {
   Future<DeregisterTargetsOutput> deregisterTargets(
       {@required String targetGroupArn,
       @required List<TargetDescription> targets}) async {
-    return DeregisterTargetsOutput.fromJson({});
+    var response_ = await _client.send('DeregisterTargets', {
+      'TargetGroupArn': targetGroupArn,
+      'Targets': targets,
+    });
+    return DeregisterTargetsOutput.fromJson(response_);
   }
 
   /// Describes the current Elastic Load Balancing resource limits for your AWS
@@ -481,7 +555,11 @@ class ElasticLoadBalancingV2Api {
   /// [pageSize]: The maximum number of results to return with this call.
   Future<DescribeAccountLimitsOutput> describeAccountLimits(
       {String marker, int pageSize}) async {
-    return DescribeAccountLimitsOutput.fromJson({});
+    var response_ = await _client.send('DescribeAccountLimits', {
+      if (marker != null) 'Marker': marker,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeAccountLimitsOutput.fromJson(response_);
   }
 
   /// Describes the default certificate and the certificate list for the
@@ -505,7 +583,12 @@ class ElasticLoadBalancingV2Api {
       String listenerArn,
       {String marker,
       int pageSize}) async {
-    return DescribeListenerCertificatesOutput.fromJson({});
+    var response_ = await _client.send('DescribeListenerCertificates', {
+      'ListenerArn': listenerArn,
+      if (marker != null) 'Marker': marker,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeListenerCertificatesOutput.fromJson(response_);
   }
 
   /// Describes the specified listeners or the listeners for the specified
@@ -529,7 +612,13 @@ class ElasticLoadBalancingV2Api {
       List<String> listenerArns,
       String marker,
       int pageSize}) async {
-    return DescribeListenersOutput.fromJson({});
+    var response_ = await _client.send('DescribeListeners', {
+      if (loadBalancerArn != null) 'LoadBalancerArn': loadBalancerArn,
+      if (listenerArns != null) 'ListenerArns': listenerArns,
+      if (marker != null) 'Marker': marker,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeListenersOutput.fromJson(response_);
   }
 
   /// Describes the attributes for the specified Application Load Balancer or
@@ -544,7 +633,10 @@ class ElasticLoadBalancingV2Api {
   /// [loadBalancerArn]: The Amazon Resource Name (ARN) of the load balancer.
   Future<DescribeLoadBalancerAttributesOutput> describeLoadBalancerAttributes(
       String loadBalancerArn) async {
-    return DescribeLoadBalancerAttributesOutput.fromJson({});
+    var response_ = await _client.send('DescribeLoadBalancerAttributes', {
+      'LoadBalancerArn': loadBalancerArn,
+    });
+    return DescribeLoadBalancerAttributesOutput.fromJson(response_);
   }
 
   /// Describes the specified load balancers or all of your load balancers.
@@ -567,7 +659,13 @@ class ElasticLoadBalancingV2Api {
       List<String> names,
       String marker,
       int pageSize}) async {
-    return DescribeLoadBalancersOutput.fromJson({});
+    var response_ = await _client.send('DescribeLoadBalancers', {
+      if (loadBalancerArns != null) 'LoadBalancerArns': loadBalancerArns,
+      if (names != null) 'Names': names,
+      if (marker != null) 'Marker': marker,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeLoadBalancersOutput.fromJson(response_);
   }
 
   /// Describes the specified rules or the rules for the specified listener. You
@@ -586,7 +684,13 @@ class ElasticLoadBalancingV2Api {
       List<String> ruleArns,
       String marker,
       int pageSize}) async {
-    return DescribeRulesOutput.fromJson({});
+    var response_ = await _client.send('DescribeRules', {
+      if (listenerArn != null) 'ListenerArn': listenerArn,
+      if (ruleArns != null) 'RuleArns': ruleArns,
+      if (marker != null) 'Marker': marker,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeRulesOutput.fromJson(response_);
   }
 
   /// Describes the specified policies or all policies used for SSL negotiation.
@@ -603,7 +707,12 @@ class ElasticLoadBalancingV2Api {
   /// [pageSize]: The maximum number of results to return with this call.
   Future<DescribeSslPoliciesOutput> describeSslPolicies(
       {List<String> names, String marker, int pageSize}) async {
-    return DescribeSslPoliciesOutput.fromJson({});
+    var response_ = await _client.send('DescribeSSLPolicies', {
+      if (names != null) 'Names': names,
+      if (marker != null) 'Marker': marker,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeSslPoliciesOutput.fromJson(response_);
   }
 
   /// Describes the tags for the specified resources. You can describe the tags
@@ -612,7 +721,10 @@ class ElasticLoadBalancingV2Api {
   ///
   /// [resourceArns]: The Amazon Resource Names (ARN) of the resources.
   Future<DescribeTagsOutput> describeTags(List<String> resourceArns) async {
-    return DescribeTagsOutput.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      'ResourceArns': resourceArns,
+    });
+    return DescribeTagsOutput.fromJson(response_);
   }
 
   /// Describes the attributes for the specified target group.
@@ -626,7 +738,10 @@ class ElasticLoadBalancingV2Api {
   /// [targetGroupArn]: The Amazon Resource Name (ARN) of the target group.
   Future<DescribeTargetGroupAttributesOutput> describeTargetGroupAttributes(
       String targetGroupArn) async {
-    return DescribeTargetGroupAttributesOutput.fromJson({});
+    var response_ = await _client.send('DescribeTargetGroupAttributes', {
+      'TargetGroupArn': targetGroupArn,
+    });
+    return DescribeTargetGroupAttributesOutput.fromJson(response_);
   }
 
   /// Describes the specified target groups or all of your target groups. By
@@ -655,7 +770,14 @@ class ElasticLoadBalancingV2Api {
       List<String> names,
       String marker,
       int pageSize}) async {
-    return DescribeTargetGroupsOutput.fromJson({});
+    var response_ = await _client.send('DescribeTargetGroups', {
+      if (loadBalancerArn != null) 'LoadBalancerArn': loadBalancerArn,
+      if (targetGroupArns != null) 'TargetGroupArns': targetGroupArns,
+      if (names != null) 'Names': names,
+      if (marker != null) 'Marker': marker,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeTargetGroupsOutput.fromJson(response_);
   }
 
   /// Describes the health of the specified targets or all of your targets.
@@ -665,7 +787,11 @@ class ElasticLoadBalancingV2Api {
   /// [targets]: The targets.
   Future<DescribeTargetHealthOutput> describeTargetHealth(String targetGroupArn,
       {List<TargetDescription> targets}) async {
-    return DescribeTargetHealthOutput.fromJson({});
+    var response_ = await _client.send('DescribeTargetHealth', {
+      'TargetGroupArn': targetGroupArn,
+      if (targets != null) 'Targets': targets,
+    });
+    return DescribeTargetHealthOutput.fromJson(response_);
   }
 
   /// Modifies the specified properties of the specified listener.
@@ -721,7 +847,15 @@ class ElasticLoadBalancingV2Api {
       String sslPolicy,
       List<Certificate> certificates,
       List<Action> defaultActions}) async {
-    return ModifyListenerOutput.fromJson({});
+    var response_ = await _client.send('ModifyListener', {
+      'ListenerArn': listenerArn,
+      if (port != null) 'Port': port,
+      if (protocol != null) 'Protocol': protocol,
+      if (sslPolicy != null) 'SslPolicy': sslPolicy,
+      if (certificates != null) 'Certificates': certificates,
+      if (defaultActions != null) 'DefaultActions': defaultActions,
+    });
+    return ModifyListenerOutput.fromJson(response_);
   }
 
   /// Modifies the specified attributes of the specified Application Load
@@ -737,7 +871,11 @@ class ElasticLoadBalancingV2Api {
   Future<ModifyLoadBalancerAttributesOutput> modifyLoadBalancerAttributes(
       {@required String loadBalancerArn,
       @required List<LoadBalancerAttribute> attributes}) async {
-    return ModifyLoadBalancerAttributesOutput.fromJson({});
+    var response_ = await _client.send('ModifyLoadBalancerAttributes', {
+      'LoadBalancerArn': loadBalancerArn,
+      'Attributes': attributes,
+    });
+    return ModifyLoadBalancerAttributesOutput.fromJson(response_);
   }
 
   /// Modifies the specified rule.
@@ -776,7 +914,12 @@ class ElasticLoadBalancingV2Api {
   /// drop specified client requests and return a custom HTTP response.
   Future<ModifyRuleOutput> modifyRule(String ruleArn,
       {List<RuleCondition> conditions, List<Action> actions}) async {
-    return ModifyRuleOutput.fromJson({});
+    var response_ = await _client.send('ModifyRule', {
+      'RuleArn': ruleArn,
+      if (conditions != null) 'Conditions': conditions,
+      if (actions != null) 'Actions': actions,
+    });
+    return ModifyRuleOutput.fromJson(response_);
   }
 
   /// Modifies the health checks used when evaluating the health state of the
@@ -834,7 +977,24 @@ class ElasticLoadBalancingV2Api {
       int healthyThresholdCount,
       int unhealthyThresholdCount,
       Matcher matcher}) async {
-    return ModifyTargetGroupOutput.fromJson({});
+    var response_ = await _client.send('ModifyTargetGroup', {
+      'TargetGroupArn': targetGroupArn,
+      if (healthCheckProtocol != null)
+        'HealthCheckProtocol': healthCheckProtocol,
+      if (healthCheckPort != null) 'HealthCheckPort': healthCheckPort,
+      if (healthCheckPath != null) 'HealthCheckPath': healthCheckPath,
+      if (healthCheckEnabled != null) 'HealthCheckEnabled': healthCheckEnabled,
+      if (healthCheckIntervalSeconds != null)
+        'HealthCheckIntervalSeconds': healthCheckIntervalSeconds,
+      if (healthCheckTimeoutSeconds != null)
+        'HealthCheckTimeoutSeconds': healthCheckTimeoutSeconds,
+      if (healthyThresholdCount != null)
+        'HealthyThresholdCount': healthyThresholdCount,
+      if (unhealthyThresholdCount != null)
+        'UnhealthyThresholdCount': unhealthyThresholdCount,
+      if (matcher != null) 'Matcher': matcher,
+    });
+    return ModifyTargetGroupOutput.fromJson(response_);
   }
 
   /// Modifies the specified attributes of the specified target group.
@@ -845,7 +1005,11 @@ class ElasticLoadBalancingV2Api {
   Future<ModifyTargetGroupAttributesOutput> modifyTargetGroupAttributes(
       {@required String targetGroupArn,
       @required List<TargetGroupAttribute> attributes}) async {
-    return ModifyTargetGroupAttributesOutput.fromJson({});
+    var response_ = await _client.send('ModifyTargetGroupAttributes', {
+      'TargetGroupArn': targetGroupArn,
+      'Attributes': attributes,
+    });
+    return ModifyTargetGroupAttributesOutput.fromJson(response_);
   }
 
   /// Registers the specified targets with the specified target group.
@@ -876,7 +1040,11 @@ class ElasticLoadBalancingV2Api {
   Future<RegisterTargetsOutput> registerTargets(
       {@required String targetGroupArn,
       @required List<TargetDescription> targets}) async {
-    return RegisterTargetsOutput.fromJson({});
+    var response_ = await _client.send('RegisterTargets', {
+      'TargetGroupArn': targetGroupArn,
+      'Targets': targets,
+    });
+    return RegisterTargetsOutput.fromJson(response_);
   }
 
   /// Removes the specified certificate from the certificate list for the
@@ -896,7 +1064,11 @@ class ElasticLoadBalancingV2Api {
   Future<RemoveListenerCertificatesOutput> removeListenerCertificates(
       {@required String listenerArn,
       @required List<Certificate> certificates}) async {
-    return RemoveListenerCertificatesOutput.fromJson({});
+    var response_ = await _client.send('RemoveListenerCertificates', {
+      'ListenerArn': listenerArn,
+      'Certificates': certificates,
+    });
+    return RemoveListenerCertificatesOutput.fromJson(response_);
   }
 
   /// Removes the specified tags from the specified Elastic Load Balancing
@@ -910,7 +1082,11 @@ class ElasticLoadBalancingV2Api {
   Future<RemoveTagsOutput> removeTags(
       {@required List<String> resourceArns,
       @required List<String> tagKeys}) async {
-    return RemoveTagsOutput.fromJson({});
+    var response_ = await _client.send('RemoveTags', {
+      'ResourceArns': resourceArns,
+      'TagKeys': tagKeys,
+    });
+    return RemoveTagsOutput.fromJson(response_);
   }
 
   /// Sets the type of IP addresses used by the subnets of the specified
@@ -924,7 +1100,11 @@ class ElasticLoadBalancingV2Api {
   Future<SetIpAddressTypeOutput> setIpAddressType(
       {@required String loadBalancerArn,
       @required String ipAddressType}) async {
-    return SetIpAddressTypeOutput.fromJson({});
+    var response_ = await _client.send('SetIpAddressType', {
+      'LoadBalancerArn': loadBalancerArn,
+      'IpAddressType': ipAddressType,
+    });
+    return SetIpAddressTypeOutput.fromJson(response_);
   }
 
   /// Sets the priorities of the specified rules.
@@ -936,7 +1116,10 @@ class ElasticLoadBalancingV2Api {
   /// [rulePriorities]: The rule priorities.
   Future<SetRulePrioritiesOutput> setRulePriorities(
       List<RulePriorityPair> rulePriorities) async {
-    return SetRulePrioritiesOutput.fromJson({});
+    var response_ = await _client.send('SetRulePriorities', {
+      'RulePriorities': rulePriorities,
+    });
+    return SetRulePrioritiesOutput.fromJson(response_);
   }
 
   /// Associates the specified security groups with the specified Application
@@ -951,7 +1134,11 @@ class ElasticLoadBalancingV2Api {
   Future<SetSecurityGroupsOutput> setSecurityGroups(
       {@required String loadBalancerArn,
       @required List<String> securityGroups}) async {
-    return SetSecurityGroupsOutput.fromJson({});
+    var response_ = await _client.send('SetSecurityGroups', {
+      'LoadBalancerArn': loadBalancerArn,
+      'SecurityGroups': securityGroups,
+    });
+    return SetSecurityGroupsOutput.fromJson(response_);
   }
 
   /// Enables the Availability Zone for the specified public subnets for the
@@ -973,7 +1160,12 @@ class ElasticLoadBalancingV2Api {
   /// You cannot specify Elastic IP addresses for your subnets.
   Future<SetSubnetsOutput> setSubnets(String loadBalancerArn,
       {List<String> subnets, List<SubnetMapping> subnetMappings}) async {
-    return SetSubnetsOutput.fromJson({});
+    var response_ = await _client.send('SetSubnets', {
+      'LoadBalancerArn': loadBalancerArn,
+      if (subnets != null) 'Subnets': subnets,
+      if (subnetMappings != null) 'SubnetMappings': subnetMappings,
+    });
+    return SetSubnetsOutput.fromJson(response_);
   }
 }
 
@@ -1020,7 +1212,28 @@ class Action {
     this.redirectConfig,
     this.fixedResponseConfig,
   });
-  static Action fromJson(Map<String, dynamic> json) => Action();
+  static Action fromJson(Map<String, dynamic> json) => Action(
+        type: json['Type'] as String,
+        targetGroupArn: json.containsKey('TargetGroupArn')
+            ? json['TargetGroupArn'] as String
+            : null,
+        authenticateOidcConfig: json.containsKey('AuthenticateOidcConfig')
+            ? AuthenticateOidcActionConfig.fromJson(
+                json['AuthenticateOidcConfig'])
+            : null,
+        authenticateCognitoConfig: json.containsKey('AuthenticateCognitoConfig')
+            ? AuthenticateCognitoActionConfig.fromJson(
+                json['AuthenticateCognitoConfig'])
+            : null,
+        order: json.containsKey('Order') ? json['Order'] as int : null,
+        redirectConfig: json.containsKey('RedirectConfig')
+            ? RedirectActionConfig.fromJson(json['RedirectConfig'])
+            : null,
+        fixedResponseConfig: json.containsKey('FixedResponseConfig')
+            ? FixedResponseActionConfig.fromJson(json['FixedResponseConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class AddListenerCertificatesOutput {
@@ -1031,7 +1244,13 @@ class AddListenerCertificatesOutput {
     this.certificates,
   });
   static AddListenerCertificatesOutput fromJson(Map<String, dynamic> json) =>
-      AddListenerCertificatesOutput();
+      AddListenerCertificatesOutput(
+        certificates: json.containsKey('Certificates')
+            ? (json['Certificates'] as List)
+                .map((e) => Certificate.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class AddTagsOutput {
@@ -1095,7 +1314,27 @@ class AuthenticateCognitoActionConfig {
     this.onUnauthenticatedRequest,
   });
   static AuthenticateCognitoActionConfig fromJson(Map<String, dynamic> json) =>
-      AuthenticateCognitoActionConfig();
+      AuthenticateCognitoActionConfig(
+        userPoolArn: json['UserPoolArn'] as String,
+        userPoolClientId: json['UserPoolClientId'] as String,
+        userPoolDomain: json['UserPoolDomain'] as String,
+        sessionCookieName: json.containsKey('SessionCookieName')
+            ? json['SessionCookieName'] as String
+            : null,
+        scope: json.containsKey('Scope') ? json['Scope'] as String : null,
+        sessionTimeout: json.containsKey('SessionTimeout')
+            ? BigInt.from(json['SessionTimeout'])
+            : null,
+        authenticationRequestExtraParams:
+            json.containsKey('AuthenticationRequestExtraParams')
+                ? (json['AuthenticationRequestExtraParams'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as String))
+                : null,
+        onUnauthenticatedRequest: json.containsKey('OnUnauthenticatedRequest')
+            ? json['OnUnauthenticatedRequest'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Request parameters when using an identity provider (IdP) that is compliant
@@ -1177,7 +1416,35 @@ class AuthenticateOidcActionConfig {
     this.useExistingClientSecret,
   });
   static AuthenticateOidcActionConfig fromJson(Map<String, dynamic> json) =>
-      AuthenticateOidcActionConfig();
+      AuthenticateOidcActionConfig(
+        issuer: json['Issuer'] as String,
+        authorizationEndpoint: json['AuthorizationEndpoint'] as String,
+        tokenEndpoint: json['TokenEndpoint'] as String,
+        userInfoEndpoint: json['UserInfoEndpoint'] as String,
+        clientId: json['ClientId'] as String,
+        clientSecret: json.containsKey('ClientSecret')
+            ? json['ClientSecret'] as String
+            : null,
+        sessionCookieName: json.containsKey('SessionCookieName')
+            ? json['SessionCookieName'] as String
+            : null,
+        scope: json.containsKey('Scope') ? json['Scope'] as String : null,
+        sessionTimeout: json.containsKey('SessionTimeout')
+            ? BigInt.from(json['SessionTimeout'])
+            : null,
+        authenticationRequestExtraParams:
+            json.containsKey('AuthenticationRequestExtraParams')
+                ? (json['AuthenticationRequestExtraParams'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as String))
+                : null,
+        onUnauthenticatedRequest: json.containsKey('OnUnauthenticatedRequest')
+            ? json['OnUnauthenticatedRequest'] as String
+            : null,
+        useExistingClientSecret: json.containsKey('UseExistingClientSecret')
+            ? json['UseExistingClientSecret'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an Availability Zone.
@@ -1199,7 +1466,17 @@ class AvailabilityZone {
     this.loadBalancerAddresses,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        zoneName:
+            json.containsKey('ZoneName') ? json['ZoneName'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        loadBalancerAddresses: json.containsKey('LoadBalancerAddresses')
+            ? (json['LoadBalancerAddresses'] as List)
+                .map((e) => LoadBalancerAddress.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about an SSL server certificate.
@@ -1217,7 +1494,14 @@ class Certificate {
     this.certificateArn,
     this.isDefault,
   });
-  static Certificate fromJson(Map<String, dynamic> json) => Certificate();
+  static Certificate fromJson(Map<String, dynamic> json) => Certificate(
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        isDefault:
+            json.containsKey('IsDefault') ? json['IsDefault'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a cipher used in a policy.
@@ -1232,7 +1516,10 @@ class Cipher {
     this.name,
     this.priority,
   });
-  static Cipher fromJson(Map<String, dynamic> json) => Cipher();
+  static Cipher fromJson(Map<String, dynamic> json) => Cipher(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+      );
 }
 
 class CreateListenerOutput {
@@ -1243,7 +1530,13 @@ class CreateListenerOutput {
     this.listeners,
   });
   static CreateListenerOutput fromJson(Map<String, dynamic> json) =>
-      CreateListenerOutput();
+      CreateListenerOutput(
+        listeners: json.containsKey('Listeners')
+            ? (json['Listeners'] as List)
+                .map((e) => Listener.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateLoadBalancerOutput {
@@ -1254,7 +1547,13 @@ class CreateLoadBalancerOutput {
     this.loadBalancers,
   });
   static CreateLoadBalancerOutput fromJson(Map<String, dynamic> json) =>
-      CreateLoadBalancerOutput();
+      CreateLoadBalancerOutput(
+        loadBalancers: json.containsKey('LoadBalancers')
+            ? (json['LoadBalancers'] as List)
+                .map((e) => LoadBalancer.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateRuleOutput {
@@ -1265,7 +1564,11 @@ class CreateRuleOutput {
     this.rules,
   });
   static CreateRuleOutput fromJson(Map<String, dynamic> json) =>
-      CreateRuleOutput();
+      CreateRuleOutput(
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List).map((e) => Rule.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class CreateTargetGroupOutput {
@@ -1276,7 +1579,13 @@ class CreateTargetGroupOutput {
     this.targetGroups,
   });
   static CreateTargetGroupOutput fromJson(Map<String, dynamic> json) =>
-      CreateTargetGroupOutput();
+      CreateTargetGroupOutput(
+        targetGroups: json.containsKey('TargetGroups')
+            ? (json['TargetGroups'] as List)
+                .map((e) => TargetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteListenerOutput {
@@ -1322,7 +1631,14 @@ class DescribeAccountLimitsOutput {
     this.nextMarker,
   });
   static DescribeAccountLimitsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAccountLimitsOutput();
+      DescribeAccountLimitsOutput(
+        limits: json.containsKey('Limits')
+            ? (json['Limits'] as List).map((e) => Limit.fromJson(e)).toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeListenerCertificatesOutput {
@@ -1339,7 +1655,16 @@ class DescribeListenerCertificatesOutput {
   });
   static DescribeListenerCertificatesOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeListenerCertificatesOutput();
+      DescribeListenerCertificatesOutput(
+        certificates: json.containsKey('Certificates')
+            ? (json['Certificates'] as List)
+                .map((e) => Certificate.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeListenersOutput {
@@ -1355,7 +1680,16 @@ class DescribeListenersOutput {
     this.nextMarker,
   });
   static DescribeListenersOutput fromJson(Map<String, dynamic> json) =>
-      DescribeListenersOutput();
+      DescribeListenersOutput(
+        listeners: json.containsKey('Listeners')
+            ? (json['Listeners'] as List)
+                .map((e) => Listener.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeLoadBalancerAttributesOutput {
@@ -1367,7 +1701,13 @@ class DescribeLoadBalancerAttributesOutput {
   });
   static DescribeLoadBalancerAttributesOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeLoadBalancerAttributesOutput();
+      DescribeLoadBalancerAttributesOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List)
+                .map((e) => LoadBalancerAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeLoadBalancersOutput {
@@ -1383,7 +1723,16 @@ class DescribeLoadBalancersOutput {
     this.nextMarker,
   });
   static DescribeLoadBalancersOutput fromJson(Map<String, dynamic> json) =>
-      DescribeLoadBalancersOutput();
+      DescribeLoadBalancersOutput(
+        loadBalancers: json.containsKey('LoadBalancers')
+            ? (json['LoadBalancers'] as List)
+                .map((e) => LoadBalancer.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeRulesOutput {
@@ -1399,7 +1748,14 @@ class DescribeRulesOutput {
     this.nextMarker,
   });
   static DescribeRulesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeRulesOutput();
+      DescribeRulesOutput(
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List).map((e) => Rule.fromJson(e)).toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeSslPoliciesOutput {
@@ -1415,7 +1771,16 @@ class DescribeSslPoliciesOutput {
     this.nextMarker,
   });
   static DescribeSslPoliciesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeSslPoliciesOutput();
+      DescribeSslPoliciesOutput(
+        sslPolicies: json.containsKey('SslPolicies')
+            ? (json['SslPolicies'] as List)
+                .map((e) => SslPolicy.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeTagsOutput {
@@ -1426,7 +1791,13 @@ class DescribeTagsOutput {
     this.tagDescriptions,
   });
   static DescribeTagsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTagsOutput();
+      DescribeTagsOutput(
+        tagDescriptions: json.containsKey('TagDescriptions')
+            ? (json['TagDescriptions'] as List)
+                .map((e) => TagDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeTargetGroupAttributesOutput {
@@ -1438,7 +1809,13 @@ class DescribeTargetGroupAttributesOutput {
   });
   static DescribeTargetGroupAttributesOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeTargetGroupAttributesOutput();
+      DescribeTargetGroupAttributesOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List)
+                .map((e) => TargetGroupAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeTargetGroupsOutput {
@@ -1454,7 +1831,16 @@ class DescribeTargetGroupsOutput {
     this.nextMarker,
   });
   static DescribeTargetGroupsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTargetGroupsOutput();
+      DescribeTargetGroupsOutput(
+        targetGroups: json.containsKey('TargetGroups')
+            ? (json['TargetGroups'] as List)
+                .map((e) => TargetGroup.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeTargetHealthOutput {
@@ -1465,7 +1851,13 @@ class DescribeTargetHealthOutput {
     this.targetHealthDescriptions,
   });
   static DescribeTargetHealthOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTargetHealthOutput();
+      DescribeTargetHealthOutput(
+        targetHealthDescriptions: json.containsKey('TargetHealthDescriptions')
+            ? (json['TargetHealthDescriptions'] as List)
+                .map((e) => TargetHealthDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about an action that returns a custom HTTP response.
@@ -1488,7 +1880,16 @@ class FixedResponseActionConfig {
     this.contentType,
   });
   static FixedResponseActionConfig fromJson(Map<String, dynamic> json) =>
-      FixedResponseActionConfig();
+      FixedResponseActionConfig(
+        messageBody: json.containsKey('MessageBody')
+            ? json['MessageBody'] as String
+            : null,
+        statusCode: json['StatusCode'] as String,
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a host header condition.
@@ -1506,7 +1907,12 @@ class HostHeaderConditionConfig {
     this.values,
   });
   static HostHeaderConditionConfig fromJson(Map<String, dynamic> json) =>
-      HostHeaderConditionConfig();
+      HostHeaderConditionConfig(
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an HTTP header condition.
@@ -1540,7 +1946,15 @@ class HttpHeaderConditionConfig {
     this.values,
   });
   static HttpHeaderConditionConfig fromJson(Map<String, dynamic> json) =>
-      HttpHeaderConditionConfig();
+      HttpHeaderConditionConfig(
+        httpHeaderName: json.containsKey('HttpHeaderName')
+            ? json['HttpHeaderName'] as String
+            : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an HTTP method condition.
@@ -1565,7 +1979,12 @@ class HttpRequestMethodConditionConfig {
     this.values,
   });
   static HttpRequestMethodConditionConfig fromJson(Map<String, dynamic> json) =>
-      HttpRequestMethodConditionConfig();
+      HttpRequestMethodConditionConfig(
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an Elastic Load Balancing resource limit for your AWS
@@ -1599,7 +2018,10 @@ class Limit {
     this.name,
     this.max,
   });
-  static Limit fromJson(Map<String, dynamic> json) => Limit();
+  static Limit fromJson(Map<String, dynamic> json) => Limit(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        max: json.containsKey('Max') ? json['Max'] as String : null,
+      );
 }
 
 /// Information about a listener.
@@ -1636,7 +2058,29 @@ class Listener {
     this.sslPolicy,
     this.defaultActions,
   });
-  static Listener fromJson(Map<String, dynamic> json) => Listener();
+  static Listener fromJson(Map<String, dynamic> json) => Listener(
+        listenerArn: json.containsKey('ListenerArn')
+            ? json['ListenerArn'] as String
+            : null,
+        loadBalancerArn: json.containsKey('LoadBalancerArn')
+            ? json['LoadBalancerArn'] as String
+            : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        certificates: json.containsKey('Certificates')
+            ? (json['Certificates'] as List)
+                .map((e) => Certificate.fromJson(e))
+                .toList()
+            : null,
+        sslPolicy:
+            json.containsKey('SslPolicy') ? json['SslPolicy'] as String : null,
+        defaultActions: json.containsKey('DefaultActions')
+            ? (json['DefaultActions'] as List)
+                .map((e) => Action.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a load balancer.
@@ -1703,7 +2147,38 @@ class LoadBalancer {
     this.securityGroups,
     this.ipAddressType,
   });
-  static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer();
+  static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer(
+        loadBalancerArn: json.containsKey('LoadBalancerArn')
+            ? json['LoadBalancerArn'] as String
+            : null,
+        dnsName: json.containsKey('DNSName') ? json['DNSName'] as String : null,
+        canonicalHostedZoneId: json.containsKey('CanonicalHostedZoneId')
+            ? json['CanonicalHostedZoneId'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        loadBalancerName: json.containsKey('LoadBalancerName')
+            ? json['LoadBalancerName'] as String
+            : null,
+        scheme: json.containsKey('Scheme') ? json['Scheme'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        state: json.containsKey('State')
+            ? LoadBalancerState.fromJson(json['State'])
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => AvailabilityZone.fromJson(e))
+                .toList()
+            : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        ipAddressType: json.containsKey('IpAddressType')
+            ? json['IpAddressType'] as String
+            : null,
+      );
 }
 
 /// Information about a static IP address for a load balancer.
@@ -1719,7 +2194,13 @@ class LoadBalancerAddress {
     this.allocationId,
   });
   static LoadBalancerAddress fromJson(Map<String, dynamic> json) =>
-      LoadBalancerAddress();
+      LoadBalancerAddress(
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        allocationId: json.containsKey('AllocationId')
+            ? json['AllocationId'] as String
+            : null,
+      );
 }
 
 /// Information about a load balancer attribute.
@@ -1769,7 +2250,11 @@ class LoadBalancerAttribute {
     this.value,
   });
   static LoadBalancerAttribute fromJson(Map<String, dynamic> json) =>
-      LoadBalancerAttribute();
+      LoadBalancerAttribute(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the state of the load balancer.
@@ -1788,7 +2273,10 @@ class LoadBalancerState {
     this.reason,
   });
   static LoadBalancerState fromJson(Map<String, dynamic> json) =>
-      LoadBalancerState();
+      LoadBalancerState(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        reason: json.containsKey('Reason') ? json['Reason'] as String : null,
+      );
 }
 
 /// Information to use when checking for a successful response from a target.
@@ -1805,7 +2293,10 @@ class Matcher {
   Matcher({
     @required this.httpCode,
   });
-  static Matcher fromJson(Map<String, dynamic> json) => Matcher();
+  static Matcher fromJson(Map<String, dynamic> json) => Matcher(
+        httpCode: json['HttpCode'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ModifyListenerOutput {
@@ -1816,7 +2307,13 @@ class ModifyListenerOutput {
     this.listeners,
   });
   static ModifyListenerOutput fromJson(Map<String, dynamic> json) =>
-      ModifyListenerOutput();
+      ModifyListenerOutput(
+        listeners: json.containsKey('Listeners')
+            ? (json['Listeners'] as List)
+                .map((e) => Listener.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ModifyLoadBalancerAttributesOutput {
@@ -1828,7 +2325,13 @@ class ModifyLoadBalancerAttributesOutput {
   });
   static ModifyLoadBalancerAttributesOutput fromJson(
           Map<String, dynamic> json) =>
-      ModifyLoadBalancerAttributesOutput();
+      ModifyLoadBalancerAttributesOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List)
+                .map((e) => LoadBalancerAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ModifyRuleOutput {
@@ -1839,7 +2342,11 @@ class ModifyRuleOutput {
     this.rules,
   });
   static ModifyRuleOutput fromJson(Map<String, dynamic> json) =>
-      ModifyRuleOutput();
+      ModifyRuleOutput(
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List).map((e) => Rule.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ModifyTargetGroupAttributesOutput {
@@ -1851,7 +2358,13 @@ class ModifyTargetGroupAttributesOutput {
   });
   static ModifyTargetGroupAttributesOutput fromJson(
           Map<String, dynamic> json) =>
-      ModifyTargetGroupAttributesOutput();
+      ModifyTargetGroupAttributesOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List)
+                .map((e) => TargetGroupAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ModifyTargetGroupOutput {
@@ -1862,7 +2375,13 @@ class ModifyTargetGroupOutput {
     this.targetGroups,
   });
   static ModifyTargetGroupOutput fromJson(Map<String, dynamic> json) =>
-      ModifyTargetGroupOutput();
+      ModifyTargetGroupOutput(
+        targetGroups: json.containsKey('TargetGroups')
+            ? (json['TargetGroups'] as List)
+                .map((e) => TargetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a path pattern condition.
@@ -1882,7 +2401,12 @@ class PathPatternConditionConfig {
     this.values,
   });
   static PathPatternConditionConfig fromJson(Map<String, dynamic> json) =>
-      PathPatternConditionConfig();
+      PathPatternConditionConfig(
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a query string condition.
@@ -1908,7 +2432,14 @@ class QueryStringConditionConfig {
     this.values,
   });
   static QueryStringConditionConfig fromJson(Map<String, dynamic> json) =>
-      QueryStringConditionConfig();
+      QueryStringConditionConfig(
+        values: json.containsKey('Values')
+            ? (json['Values'] as List)
+                .map((e) => QueryStringKeyValuePair.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a key/value pair.
@@ -1924,7 +2455,11 @@ class QueryStringKeyValuePair {
     this.value,
   });
   static QueryStringKeyValuePair fromJson(Map<String, dynamic> json) =>
-      QueryStringKeyValuePair();
+      QueryStringKeyValuePair(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a redirect action.
@@ -1984,7 +2519,16 @@ class RedirectActionConfig {
     @required this.statusCode,
   });
   static RedirectActionConfig fromJson(Map<String, dynamic> json) =>
-      RedirectActionConfig();
+      RedirectActionConfig(
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as String : null,
+        host: json.containsKey('Host') ? json['Host'] as String : null,
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        query: json.containsKey('Query') ? json['Query'] as String : null,
+        statusCode: json['StatusCode'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RegisterTargetsOutput {
@@ -2034,7 +2578,21 @@ class Rule {
     this.actions,
     this.isDefault,
   });
-  static Rule fromJson(Map<String, dynamic> json) => Rule();
+  static Rule fromJson(Map<String, dynamic> json) => Rule(
+        ruleArn: json.containsKey('RuleArn') ? json['RuleArn'] as String : null,
+        priority:
+            json.containsKey('Priority') ? json['Priority'] as String : null,
+        conditions: json.containsKey('Conditions')
+            ? (json['Conditions'] as List)
+                .map((e) => RuleCondition.fromJson(e))
+                .toList()
+            : null,
+        actions: json.containsKey('Actions')
+            ? (json['Actions'] as List).map((e) => Action.fromJson(e)).toList()
+            : null,
+        isDefault:
+            json.containsKey('IsDefault') ? json['IsDefault'] as bool : null,
+      );
 }
 
 /// Information about a condition for a rule.
@@ -2121,7 +2679,32 @@ class RuleCondition {
     this.httpRequestMethodConfig,
     this.sourceIpConfig,
   });
-  static RuleCondition fromJson(Map<String, dynamic> json) => RuleCondition();
+  static RuleCondition fromJson(Map<String, dynamic> json) => RuleCondition(
+        field: json.containsKey('Field') ? json['Field'] as String : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+        hostHeaderConfig: json.containsKey('HostHeaderConfig')
+            ? HostHeaderConditionConfig.fromJson(json['HostHeaderConfig'])
+            : null,
+        pathPatternConfig: json.containsKey('PathPatternConfig')
+            ? PathPatternConditionConfig.fromJson(json['PathPatternConfig'])
+            : null,
+        httpHeaderConfig: json.containsKey('HttpHeaderConfig')
+            ? HttpHeaderConditionConfig.fromJson(json['HttpHeaderConfig'])
+            : null,
+        queryStringConfig: json.containsKey('QueryStringConfig')
+            ? QueryStringConditionConfig.fromJson(json['QueryStringConfig'])
+            : null,
+        httpRequestMethodConfig: json.containsKey('HttpRequestMethodConfig')
+            ? HttpRequestMethodConditionConfig.fromJson(
+                json['HttpRequestMethodConfig'])
+            : null,
+        sourceIpConfig: json.containsKey('SourceIpConfig')
+            ? SourceIpConditionConfig.fromJson(json['SourceIpConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the priorities for the rules for a listener.
@@ -2136,6 +2719,7 @@ class RulePriorityPair {
     this.ruleArn,
     this.priority,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SetIpAddressTypeOutput {
@@ -2146,7 +2730,11 @@ class SetIpAddressTypeOutput {
     this.ipAddressType,
   });
   static SetIpAddressTypeOutput fromJson(Map<String, dynamic> json) =>
-      SetIpAddressTypeOutput();
+      SetIpAddressTypeOutput(
+        ipAddressType: json.containsKey('IpAddressType')
+            ? json['IpAddressType'] as String
+            : null,
+      );
 }
 
 class SetRulePrioritiesOutput {
@@ -2157,7 +2745,11 @@ class SetRulePrioritiesOutput {
     this.rules,
   });
   static SetRulePrioritiesOutput fromJson(Map<String, dynamic> json) =>
-      SetRulePrioritiesOutput();
+      SetRulePrioritiesOutput(
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List).map((e) => Rule.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class SetSecurityGroupsOutput {
@@ -2168,7 +2760,13 @@ class SetSecurityGroupsOutput {
     this.securityGroupIds,
   });
   static SetSecurityGroupsOutput fromJson(Map<String, dynamic> json) =>
-      SetSecurityGroupsOutput();
+      SetSecurityGroupsOutput(
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class SetSubnetsOutput {
@@ -2179,7 +2777,13 @@ class SetSubnetsOutput {
     this.availabilityZones,
   });
   static SetSubnetsOutput fromJson(Map<String, dynamic> json) =>
-      SetSubnetsOutput();
+      SetSubnetsOutput(
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => AvailabilityZone.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a source IP condition.
@@ -2202,7 +2806,12 @@ class SourceIpConditionConfig {
     this.values,
   });
   static SourceIpConditionConfig fromJson(Map<String, dynamic> json) =>
-      SourceIpConditionConfig();
+      SourceIpConditionConfig(
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a policy used for SSL negotiation.
@@ -2221,7 +2830,15 @@ class SslPolicy {
     this.ciphers,
     this.name,
   });
-  static SslPolicy fromJson(Map<String, dynamic> json) => SslPolicy();
+  static SslPolicy fromJson(Map<String, dynamic> json) => SslPolicy(
+        sslProtocols: json.containsKey('SslProtocols')
+            ? (json['SslProtocols'] as List).map((e) => e as String).toList()
+            : null,
+        ciphers: json.containsKey('Ciphers')
+            ? (json['Ciphers'] as List).map((e) => Cipher.fromJson(e)).toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Information about a subnet mapping.
@@ -2236,6 +2853,7 @@ class SubnetMapping {
     this.subnetId,
     this.allocationId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a tag.
@@ -2250,7 +2868,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The tags associated with a resource.
@@ -2265,7 +2887,14 @@ class TagDescription {
     this.resourceArn,
     this.tags,
   });
-  static TagDescription fromJson(Map<String, dynamic> json) => TagDescription();
+  static TagDescription fromJson(Map<String, dynamic> json) => TagDescription(
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Information about a target.
@@ -2305,7 +2934,14 @@ class TargetDescription {
     this.availabilityZone,
   });
   static TargetDescription fromJson(Map<String, dynamic> json) =>
-      TargetDescription();
+      TargetDescription(
+        id: json['Id'] as String,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a target group.
@@ -2384,7 +3020,54 @@ class TargetGroup {
     this.loadBalancerArns,
     this.targetType,
   });
-  static TargetGroup fromJson(Map<String, dynamic> json) => TargetGroup();
+  static TargetGroup fromJson(Map<String, dynamic> json) => TargetGroup(
+        targetGroupArn: json.containsKey('TargetGroupArn')
+            ? json['TargetGroupArn'] as String
+            : null,
+        targetGroupName: json.containsKey('TargetGroupName')
+            ? json['TargetGroupName'] as String
+            : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        healthCheckProtocol: json.containsKey('HealthCheckProtocol')
+            ? json['HealthCheckProtocol'] as String
+            : null,
+        healthCheckPort: json.containsKey('HealthCheckPort')
+            ? json['HealthCheckPort'] as String
+            : null,
+        healthCheckEnabled: json.containsKey('HealthCheckEnabled')
+            ? json['HealthCheckEnabled'] as bool
+            : null,
+        healthCheckIntervalSeconds:
+            json.containsKey('HealthCheckIntervalSeconds')
+                ? json['HealthCheckIntervalSeconds'] as int
+                : null,
+        healthCheckTimeoutSeconds: json.containsKey('HealthCheckTimeoutSeconds')
+            ? json['HealthCheckTimeoutSeconds'] as int
+            : null,
+        healthyThresholdCount: json.containsKey('HealthyThresholdCount')
+            ? json['HealthyThresholdCount'] as int
+            : null,
+        unhealthyThresholdCount: json.containsKey('UnhealthyThresholdCount')
+            ? json['UnhealthyThresholdCount'] as int
+            : null,
+        healthCheckPath: json.containsKey('HealthCheckPath')
+            ? json['HealthCheckPath'] as String
+            : null,
+        matcher: json.containsKey('Matcher')
+            ? Matcher.fromJson(json['Matcher'])
+            : null,
+        loadBalancerArns: json.containsKey('LoadBalancerArns')
+            ? (json['LoadBalancerArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        targetType: json.containsKey('TargetType')
+            ? json['TargetType'] as String
+            : null,
+      );
 }
 
 /// Information about a target group attribute.
@@ -2449,7 +3132,11 @@ class TargetGroupAttribute {
     this.value,
   });
   static TargetGroupAttribute fromJson(Map<String, dynamic> json) =>
-      TargetGroupAttribute();
+      TargetGroupAttribute(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the current health of a target.
@@ -2528,7 +3215,13 @@ class TargetHealth {
     this.reason,
     this.description,
   });
-  static TargetHealth fromJson(Map<String, dynamic> json) => TargetHealth();
+  static TargetHealth fromJson(Map<String, dynamic> json) => TargetHealth(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        reason: json.containsKey('Reason') ? json['Reason'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Information about the health of a target.
@@ -2548,5 +3241,15 @@ class TargetHealthDescription {
     this.targetHealth,
   });
   static TargetHealthDescription fromJson(Map<String, dynamic> json) =>
-      TargetHealthDescription();
+      TargetHealthDescription(
+        target: json.containsKey('Target')
+            ? TargetDescription.fromJson(json['Target'])
+            : null,
+        healthCheckPort: json.containsKey('HealthCheckPort')
+            ? json['HealthCheckPort'] as String
+            : null,
+        targetHealth: json.containsKey('TargetHealth')
+            ? TargetHealth.fromJson(json['TargetHealth'])
+            : null,
+      );
 }

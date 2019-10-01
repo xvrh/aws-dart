@@ -12,6 +12,10 @@ import 'dart:typed_data';
 /// [AWS Lambda: How it Works](https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html)
 /// in the **AWS Lambda Developer Guide**.
 class LambdaApi {
+  final _client;
+  LambdaApi(client)
+      : _client = client.configured('Lambda', serializer: 'rest-json');
+
   /// Adds permissions to the resource-based policy of a version of an
   /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
   /// Use this action to grant layer usage permission to other accounts. You can
@@ -48,7 +52,16 @@ class LambdaApi {
       @required String principal,
       String organizationId,
       String revisionId}) async {
-    return AddLayerVersionPermissionResponse.fromJson({});
+    var response_ = await _client.send('AddLayerVersionPermission', {
+      'LayerName': layerName,
+      'VersionNumber': versionNumber,
+      'StatementId': statementId,
+      'Action': action,
+      'Principal': principal,
+      if (organizationId != null) 'OrganizationId': organizationId,
+      if (revisionId != null) 'RevisionId': revisionId,
+    });
+    return AddLayerVersionPermissionResponse.fromJson(response_);
   }
 
   /// Grants an AWS service or another account permission to use a function. You
@@ -126,7 +139,18 @@ class LambdaApi {
       String eventSourceToken,
       String qualifier,
       String revisionId}) async {
-    return AddPermissionResponse.fromJson({});
+    var response_ = await _client.send('AddPermission', {
+      'FunctionName': functionName,
+      'StatementId': statementId,
+      'Action': action,
+      'Principal': principal,
+      if (sourceArn != null) 'SourceArn': sourceArn,
+      if (sourceAccount != null) 'SourceAccount': sourceAccount,
+      if (eventSourceToken != null) 'EventSourceToken': eventSourceToken,
+      if (qualifier != null) 'Qualifier': qualifier,
+      if (revisionId != null) 'RevisionId': revisionId,
+    });
+    return AddPermissionResponse.fromJson(response_);
   }
 
   /// Creates an
@@ -168,7 +192,14 @@ class LambdaApi {
       @required String functionVersion,
       String description,
       AliasRoutingConfiguration routingConfig}) async {
-    return AliasConfiguration.fromJson({});
+    var response_ = await _client.send('CreateAlias', {
+      'FunctionName': functionName,
+      'Name': name,
+      'FunctionVersion': functionVersion,
+      if (description != null) 'Description': description,
+      if (routingConfig != null) 'RoutingConfig': routingConfig,
+    });
+    return AliasConfiguration.fromJson(response_);
   }
 
   /// Creates a mapping between an event source and an AWS Lambda function.
@@ -236,7 +267,18 @@ class LambdaApi {
       int maximumBatchingWindowInSeconds,
       String startingPosition,
       DateTime startingPositionTimestamp}) async {
-    return EventSourceMappingConfiguration.fromJson({});
+    var response_ = await _client.send('CreateEventSourceMapping', {
+      'EventSourceArn': eventSourceArn,
+      'FunctionName': functionName,
+      if (enabled != null) 'Enabled': enabled,
+      if (batchSize != null) 'BatchSize': batchSize,
+      if (maximumBatchingWindowInSeconds != null)
+        'MaximumBatchingWindowInSeconds': maximumBatchingWindowInSeconds,
+      if (startingPosition != null) 'StartingPosition': startingPosition,
+      if (startingPositionTimestamp != null)
+        'StartingPositionTimestamp': startingPositionTimestamp,
+    });
+    return EventSourceMappingConfiguration.fromJson(response_);
   }
 
   /// Creates a Lambda function. To create a function, you need a
@@ -360,7 +402,25 @@ class LambdaApi {
       TracingConfig tracingConfig,
       Map<String, String> tags,
       List<String> layers}) async {
-    return FunctionConfiguration.fromJson({});
+    var response_ = await _client.send('CreateFunction', {
+      'FunctionName': functionName,
+      'Runtime': runtime,
+      'Role': role,
+      'Handler': handler,
+      'Code': code,
+      if (description != null) 'Description': description,
+      if (timeout != null) 'Timeout': timeout,
+      if (memorySize != null) 'MemorySize': memorySize,
+      if (publish != null) 'Publish': publish,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+      if (deadLetterConfig != null) 'DeadLetterConfig': deadLetterConfig,
+      if (environment != null) 'Environment': environment,
+      if (kmsKeyArn != null) 'KMSKeyArn': kmsKeyArn,
+      if (tracingConfig != null) 'TracingConfig': tracingConfig,
+      if (tags != null) 'Tags': tags,
+      if (layers != null) 'Layers': layers,
+    });
+    return FunctionConfiguration.fromJson(response_);
   }
 
   /// Deletes a Lambda function
@@ -383,7 +443,12 @@ class LambdaApi {
   ///
   /// [name]: The name of the alias.
   Future<void> deleteAlias(
-      {@required String functionName, @required String name}) async {}
+      {@required String functionName, @required String name}) async {
+    await _client.send('DeleteAlias', {
+      'FunctionName': functionName,
+      'Name': name,
+    });
+  }
 
   /// Deletes an
   /// [event source mapping](https://docs.aws.amazon.com/lambda/latest/dg/intro-invocation-modes.html).
@@ -393,7 +458,10 @@ class LambdaApi {
   /// [uuid]: The identifier of the event source mapping.
   Future<EventSourceMappingConfiguration> deleteEventSourceMapping(
       String uuid) async {
-    return EventSourceMappingConfiguration.fromJson({});
+    var response_ = await _client.send('DeleteEventSourceMapping', {
+      'UUID': uuid,
+    });
+    return EventSourceMappingConfiguration.fromJson(response_);
   }
 
   /// Deletes a Lambda function. To delete a specific function version, use the
@@ -423,7 +491,12 @@ class LambdaApi {
   ///
   /// [qualifier]: Specify a version to delete. You can't delete a version
   /// that's referenced by an alias.
-  Future<void> deleteFunction(String functionName, {String qualifier}) async {}
+  Future<void> deleteFunction(String functionName, {String qualifier}) async {
+    await _client.send('DeleteFunction', {
+      'FunctionName': functionName,
+      if (qualifier != null) 'Qualifier': qualifier,
+    });
+  }
 
   /// Removes a concurrent execution limit from a function.
   ///
@@ -441,7 +514,11 @@ class LambdaApi {
   ///
   /// The length constraint applies only to the full ARN. If you specify only
   /// the function name, it is limited to 64 characters in length.
-  Future<void> deleteFunctionConcurrency(String functionName) async {}
+  Future<void> deleteFunctionConcurrency(String functionName) async {
+    await _client.send('DeleteFunctionConcurrency', {
+      'FunctionName': functionName,
+    });
+  }
 
   /// Deletes a version of an
   /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
@@ -453,13 +530,19 @@ class LambdaApi {
   ///
   /// [versionNumber]: The version number.
   Future<void> deleteLayerVersion(
-      {@required String layerName, @required BigInt versionNumber}) async {}
+      {@required String layerName, @required BigInt versionNumber}) async {
+    await _client.send('DeleteLayerVersion', {
+      'LayerName': layerName,
+      'VersionNumber': versionNumber,
+    });
+  }
 
   /// Retrieves details about your account's
   /// [limits](https://docs.aws.amazon.com/lambda/latest/dg/limits.html) and
   /// usage in an AWS Region.
   Future<GetAccountSettingsResponse> getAccountSettings() async {
-    return GetAccountSettingsResponse.fromJson({});
+    var response_ = await _client.send('GetAccountSettings', {});
+    return GetAccountSettingsResponse.fromJson(response_);
   }
 
   /// Returns details about a Lambda function
@@ -483,7 +566,11 @@ class LambdaApi {
   /// [name]: The name of the alias.
   Future<AliasConfiguration> getAlias(
       {@required String functionName, @required String name}) async {
-    return AliasConfiguration.fromJson({});
+    var response_ = await _client.send('GetAlias', {
+      'FunctionName': functionName,
+      'Name': name,
+    });
+    return AliasConfiguration.fromJson(response_);
   }
 
   /// Returns details about an event source mapping. You can get the identifier
@@ -492,7 +579,10 @@ class LambdaApi {
   /// [uuid]: The identifier of the event source mapping.
   Future<EventSourceMappingConfiguration> getEventSourceMapping(
       String uuid) async {
-    return EventSourceMappingConfiguration.fromJson({});
+    var response_ = await _client.send('GetEventSourceMapping', {
+      'UUID': uuid,
+    });
+    return EventSourceMappingConfiguration.fromJson(response_);
   }
 
   /// Returns information about the function or function version, with a link to
@@ -521,7 +611,11 @@ class LambdaApi {
   /// version of the function.
   Future<GetFunctionResponse> getFunction(String functionName,
       {String qualifier}) async {
-    return GetFunctionResponse.fromJson({});
+    var response_ = await _client.send('GetFunction', {
+      'FunctionName': functionName,
+      if (qualifier != null) 'Qualifier': qualifier,
+    });
+    return GetFunctionResponse.fromJson(response_);
   }
 
   /// Returns the version-specific settings of a Lambda function or version. The
@@ -552,7 +646,11 @@ class LambdaApi {
   /// version of the function.
   Future<FunctionConfiguration> getFunctionConfiguration(String functionName,
       {String qualifier}) async {
-    return FunctionConfiguration.fromJson({});
+    var response_ = await _client.send('GetFunctionConfiguration', {
+      'FunctionName': functionName,
+      if (qualifier != null) 'Qualifier': qualifier,
+    });
+    return FunctionConfiguration.fromJson(response_);
   }
 
   /// Returns information about a version of an
@@ -564,7 +662,11 @@ class LambdaApi {
   /// [versionNumber]: The version number.
   Future<GetLayerVersionResponse> getLayerVersion(
       {@required String layerName, @required BigInt versionNumber}) async {
-    return GetLayerVersionResponse.fromJson({});
+    var response_ = await _client.send('GetLayerVersion', {
+      'LayerName': layerName,
+      'VersionNumber': versionNumber,
+    });
+    return GetLayerVersionResponse.fromJson(response_);
   }
 
   /// Returns information about a version of an
@@ -573,7 +675,10 @@ class LambdaApi {
   ///
   /// [arn]: The ARN of the layer version.
   Future<GetLayerVersionResponse> getLayerVersionByArn(String arn) async {
-    return GetLayerVersionResponse.fromJson({});
+    var response_ = await _client.send('GetLayerVersionByArn', {
+      'Arn': arn,
+    });
+    return GetLayerVersionResponse.fromJson(response_);
   }
 
   /// Returns the permission policy for a version of an
@@ -585,7 +690,11 @@ class LambdaApi {
   /// [versionNumber]: The version number.
   Future<GetLayerVersionPolicyResponse> getLayerVersionPolicy(
       {@required String layerName, @required BigInt versionNumber}) async {
-    return GetLayerVersionPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetLayerVersionPolicy', {
+      'LayerName': layerName,
+      'VersionNumber': versionNumber,
+    });
+    return GetLayerVersionPolicyResponse.fromJson(response_);
   }
 
   /// Returns the
@@ -613,7 +722,11 @@ class LambdaApi {
   /// resource.
   Future<GetPolicyResponse> getPolicy(String functionName,
       {String qualifier}) async {
-    return GetPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetPolicy', {
+      'FunctionName': functionName,
+      if (qualifier != null) 'Qualifier': qualifier,
+    });
+    return GetPolicyResponse.fromJson(response_);
   }
 
   /// Invokes a Lambda function. You can invoke a function synchronously (and
@@ -699,7 +812,15 @@ class LambdaApi {
       String clientContext,
       Uint8List payload,
       String qualifier}) async {
-    return InvocationResponse.fromJson({});
+    var response_ = await _client.send('Invoke', {
+      'FunctionName': functionName,
+      if (invocationType != null) 'InvocationType': invocationType,
+      if (logType != null) 'LogType': logType,
+      if (clientContext != null) 'ClientContext': clientContext,
+      if (payload != null) 'Payload': payload,
+      if (qualifier != null) 'Qualifier': qualifier,
+    });
+    return InvocationResponse.fromJson(response_);
   }
 
   /// For asynchronous function invocation, use Invoke.
@@ -725,7 +846,11 @@ class LambdaApi {
   /// input.
   Future<InvokeAsyncResponse> invokeAsync(
       {@required String functionName, @required Uint8List invokeArgs}) async {
-    return InvokeAsyncResponse.fromJson({});
+    var response_ = await _client.send('InvokeAsync', {
+      'FunctionName': functionName,
+      'InvokeArgs': invokeArgs,
+    });
+    return InvokeAsyncResponse.fromJson(response_);
   }
 
   /// Returns a list of
@@ -756,7 +881,13 @@ class LambdaApi {
   /// [maxItems]: Limit the number of aliases returned.
   Future<ListAliasesResponse> listAliases(String functionName,
       {String functionVersion, String marker, int maxItems}) async {
-    return ListAliasesResponse.fromJson({});
+    var response_ = await _client.send('ListAliases', {
+      'FunctionName': functionName,
+      if (functionVersion != null) 'FunctionVersion': functionVersion,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListAliasesResponse.fromJson(response_);
   }
 
   /// Lists event source mappings. Specify an `EventSourceArn` to only show
@@ -796,7 +927,13 @@ class LambdaApi {
       String functionName,
       String marker,
       int maxItems}) async {
-    return ListEventSourceMappingsResponse.fromJson({});
+    var response_ = await _client.send('ListEventSourceMappings', {
+      if (eventSourceArn != null) 'EventSourceArn': eventSourceArn,
+      if (functionName != null) 'FunctionName': functionName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListEventSourceMappingsResponse.fromJson(response_);
   }
 
   /// Returns a list of Lambda functions, with the version-specific
@@ -823,7 +960,13 @@ class LambdaApi {
       String functionVersion,
       String marker,
       int maxItems}) async {
-    return ListFunctionsResponse.fromJson({});
+    var response_ = await _client.send('ListFunctions', {
+      if (masterRegion != null) 'MasterRegion': masterRegion,
+      if (functionVersion != null) 'FunctionVersion': functionVersion,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListFunctionsResponse.fromJson(response_);
   }
 
   /// Lists the versions of an
@@ -842,7 +985,13 @@ class LambdaApi {
   /// [maxItems]: The maximum number of versions to return.
   Future<ListLayerVersionsResponse> listLayerVersions(String layerName,
       {String compatibleRuntime, String marker, int maxItems}) async {
-    return ListLayerVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListLayerVersions', {
+      if (compatibleRuntime != null) 'CompatibleRuntime': compatibleRuntime,
+      'LayerName': layerName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListLayerVersionsResponse.fromJson(response_);
   }
 
   /// Lists
@@ -859,7 +1008,12 @@ class LambdaApi {
   /// [maxItems]: The maximum number of layers to return.
   Future<ListLayersResponse> listLayers(
       {String compatibleRuntime, String marker, int maxItems}) async {
-    return ListLayersResponse.fromJson({});
+    var response_ = await _client.send('ListLayers', {
+      if (compatibleRuntime != null) 'CompatibleRuntime': compatibleRuntime,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListLayersResponse.fromJson(response_);
   }
 
   /// Returns a function's
@@ -868,7 +1022,10 @@ class LambdaApi {
   ///
   /// [resource]: The function's Amazon Resource Name (ARN).
   Future<ListTagsResponse> listTags(String resource) async {
-    return ListTagsResponse.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'Resource': resource,
+    });
+    return ListTagsResponse.fromJson(response_);
   }
 
   /// Returns a list of
@@ -898,7 +1055,12 @@ class LambdaApi {
       String functionName,
       {String marker,
       int maxItems}) async {
-    return ListVersionsByFunctionResponse.fromJson({});
+    var response_ = await _client.send('ListVersionsByFunction', {
+      'FunctionName': functionName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListVersionsByFunctionResponse.fromJson(response_);
   }
 
   /// Creates an
@@ -935,7 +1097,14 @@ class LambdaApi {
       @required LayerVersionContentInput content,
       List<String> compatibleRuntimes,
       String licenseInfo}) async {
-    return PublishLayerVersionResponse.fromJson({});
+    var response_ = await _client.send('PublishLayerVersion', {
+      'LayerName': layerName,
+      if (description != null) 'Description': description,
+      'Content': content,
+      if (compatibleRuntimes != null) 'CompatibleRuntimes': compatibleRuntimes,
+      if (licenseInfo != null) 'LicenseInfo': licenseInfo,
+    });
+    return PublishLayerVersionResponse.fromJson(response_);
   }
 
   /// Creates a
@@ -980,7 +1149,13 @@ class LambdaApi {
   /// function configuration has changed since you last updated it.
   Future<FunctionConfiguration> publishVersion(String functionName,
       {String codeSha256, String description, String revisionId}) async {
-    return FunctionConfiguration.fromJson({});
+    var response_ = await _client.send('PublishVersion', {
+      'FunctionName': functionName,
+      if (codeSha256 != null) 'CodeSha256': codeSha256,
+      if (description != null) 'Description': description,
+      if (revisionId != null) 'RevisionId': revisionId,
+    });
+    return FunctionConfiguration.fromJson(response_);
   }
 
   /// Sets the maximum number of simultaneous executions for a function, and
@@ -1018,7 +1193,11 @@ class LambdaApi {
   Future<Concurrency> putFunctionConcurrency(
       {@required String functionName,
       @required int reservedConcurrentExecutions}) async {
-    return Concurrency.fromJson({});
+    var response_ = await _client.send('PutFunctionConcurrency', {
+      'FunctionName': functionName,
+      'ReservedConcurrentExecutions': reservedConcurrentExecutions,
+    });
+    return Concurrency.fromJson(response_);
   }
 
   /// Removes a statement from the permissions policy for a version of an
@@ -1039,7 +1218,14 @@ class LambdaApi {
       {@required String layerName,
       @required BigInt versionNumber,
       @required String statementId,
-      String revisionId}) async {}
+      String revisionId}) async {
+    await _client.send('RemoveLayerVersionPermission', {
+      'LayerName': layerName,
+      'VersionNumber': versionNumber,
+      'StatementId': statementId,
+      if (revisionId != null) 'RevisionId': revisionId,
+    });
+  }
 
   /// Revokes function-use permission from an AWS service or another account.
   /// You can get the ID of the statement from the output of GetPolicy.
@@ -1073,7 +1259,14 @@ class LambdaApi {
       {@required String functionName,
       @required String statementId,
       String qualifier,
-      String revisionId}) async {}
+      String revisionId}) async {
+    await _client.send('RemovePermission', {
+      'FunctionName': functionName,
+      'StatementId': statementId,
+      if (qualifier != null) 'Qualifier': qualifier,
+      if (revisionId != null) 'RevisionId': revisionId,
+    });
+  }
 
   /// Adds [tags](https://docs.aws.amazon.com/lambda/latest/dg/tagging.html) to
   /// a function.
@@ -1082,7 +1275,12 @@ class LambdaApi {
   ///
   /// [tags]: A list of tags to apply to the function.
   Future<void> tagResource(
-      {@required String resource, @required Map<String, String> tags}) async {}
+      {@required String resource, @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'Resource': resource,
+      'Tags': tags,
+    });
+  }
 
   /// Removes [tags](https://docs.aws.amazon.com/lambda/latest/dg/tagging.html)
   /// from a function.
@@ -1091,7 +1289,12 @@ class LambdaApi {
   ///
   /// [tagKeys]: A list of tag keys to remove from the function.
   Future<void> untagResource(
-      {@required String resource, @required List<String> tagKeys}) async {}
+      {@required String resource, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'Resource': resource,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Updates the configuration of a Lambda function
   /// [alias](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html).
@@ -1131,7 +1334,15 @@ class LambdaApi {
       String description,
       AliasRoutingConfiguration routingConfig,
       String revisionId}) async {
-    return AliasConfiguration.fromJson({});
+    var response_ = await _client.send('UpdateAlias', {
+      'FunctionName': functionName,
+      'Name': name,
+      if (functionVersion != null) 'FunctionVersion': functionVersion,
+      if (description != null) 'Description': description,
+      if (routingConfig != null) 'RoutingConfig': routingConfig,
+      if (revisionId != null) 'RevisionId': revisionId,
+    });
+    return AliasConfiguration.fromJson(response_);
   }
 
   /// Updates an event source mapping. You can change the function that AWS
@@ -1173,7 +1384,15 @@ class LambdaApi {
       bool enabled,
       int batchSize,
       int maximumBatchingWindowInSeconds}) async {
-    return EventSourceMappingConfiguration.fromJson({});
+    var response_ = await _client.send('UpdateEventSourceMapping', {
+      'UUID': uuid,
+      if (functionName != null) 'FunctionName': functionName,
+      if (enabled != null) 'Enabled': enabled,
+      if (batchSize != null) 'BatchSize': batchSize,
+      if (maximumBatchingWindowInSeconds != null)
+        'MaximumBatchingWindowInSeconds': maximumBatchingWindowInSeconds,
+    });
+    return EventSourceMappingConfiguration.fromJson(response_);
   }
 
   /// Updates a Lambda function's code.
@@ -1225,7 +1444,17 @@ class LambdaApi {
       bool publish,
       bool dryRun,
       String revisionId}) async {
-    return FunctionConfiguration.fromJson({});
+    var response_ = await _client.send('UpdateFunctionCode', {
+      'FunctionName': functionName,
+      if (zipFile != null) 'ZipFile': zipFile,
+      if (s3Bucket != null) 'S3Bucket': s3Bucket,
+      if (s3Key != null) 'S3Key': s3Key,
+      if (s3ObjectVersion != null) 'S3ObjectVersion': s3ObjectVersion,
+      if (publish != null) 'Publish': publish,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (revisionId != null) 'RevisionId': revisionId,
+    });
+    return FunctionConfiguration.fromJson(response_);
   }
 
   /// Modify the version-specific settings of a Lambda function.
@@ -1316,7 +1545,23 @@ class LambdaApi {
       TracingConfig tracingConfig,
       String revisionId,
       List<String> layers}) async {
-    return FunctionConfiguration.fromJson({});
+    var response_ = await _client.send('UpdateFunctionConfiguration', {
+      'FunctionName': functionName,
+      if (role != null) 'Role': role,
+      if (handler != null) 'Handler': handler,
+      if (description != null) 'Description': description,
+      if (timeout != null) 'Timeout': timeout,
+      if (memorySize != null) 'MemorySize': memorySize,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+      if (environment != null) 'Environment': environment,
+      if (runtime != null) 'Runtime': runtime,
+      if (deadLetterConfig != null) 'DeadLetterConfig': deadLetterConfig,
+      if (kmsKeyArn != null) 'KMSKeyArn': kmsKeyArn,
+      if (tracingConfig != null) 'TracingConfig': tracingConfig,
+      if (revisionId != null) 'RevisionId': revisionId,
+      if (layers != null) 'Layers': layers,
+    });
+    return FunctionConfiguration.fromJson(response_);
   }
 }
 
@@ -1349,7 +1594,24 @@ class AccountLimit {
     this.concurrentExecutions,
     this.unreservedConcurrentExecutions,
   });
-  static AccountLimit fromJson(Map<String, dynamic> json) => AccountLimit();
+  static AccountLimit fromJson(Map<String, dynamic> json) => AccountLimit(
+        totalCodeSize: json.containsKey('TotalCodeSize')
+            ? BigInt.from(json['TotalCodeSize'])
+            : null,
+        codeSizeUnzipped: json.containsKey('CodeSizeUnzipped')
+            ? BigInt.from(json['CodeSizeUnzipped'])
+            : null,
+        codeSizeZipped: json.containsKey('CodeSizeZipped')
+            ? BigInt.from(json['CodeSizeZipped'])
+            : null,
+        concurrentExecutions: json.containsKey('ConcurrentExecutions')
+            ? json['ConcurrentExecutions'] as int
+            : null,
+        unreservedConcurrentExecutions:
+            json.containsKey('UnreservedConcurrentExecutions')
+                ? json['UnreservedConcurrentExecutions'] as int
+                : null,
+      );
 }
 
 /// The number of functions and amount of storage in use.
@@ -1365,7 +1627,14 @@ class AccountUsage {
     this.totalCodeSize,
     this.functionCount,
   });
-  static AccountUsage fromJson(Map<String, dynamic> json) => AccountUsage();
+  static AccountUsage fromJson(Map<String, dynamic> json) => AccountUsage(
+        totalCodeSize: json.containsKey('TotalCodeSize')
+            ? BigInt.from(json['TotalCodeSize'])
+            : null,
+        functionCount: json.containsKey('FunctionCount')
+            ? BigInt.from(json['FunctionCount'])
+            : null,
+      );
 }
 
 class AddLayerVersionPermissionResponse {
@@ -1381,7 +1650,13 @@ class AddLayerVersionPermissionResponse {
   });
   static AddLayerVersionPermissionResponse fromJson(
           Map<String, dynamic> json) =>
-      AddLayerVersionPermissionResponse();
+      AddLayerVersionPermissionResponse(
+        statement:
+            json.containsKey('Statement') ? json['Statement'] as String : null,
+        revisionId: json.containsKey('RevisionId')
+            ? json['RevisionId'] as String
+            : null,
+      );
 }
 
 class AddPermissionResponse {
@@ -1392,7 +1667,10 @@ class AddPermissionResponse {
     this.statement,
   });
   static AddPermissionResponse fromJson(Map<String, dynamic> json) =>
-      AddPermissionResponse();
+      AddPermissionResponse(
+        statement:
+            json.containsKey('Statement') ? json['Statement'] as String : null,
+      );
 }
 
 /// Provides configuration information about a Lambda function
@@ -1427,7 +1705,23 @@ class AliasConfiguration {
     this.revisionId,
   });
   static AliasConfiguration fromJson(Map<String, dynamic> json) =>
-      AliasConfiguration();
+      AliasConfiguration(
+        aliasArn:
+            json.containsKey('AliasArn') ? json['AliasArn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        functionVersion: json.containsKey('FunctionVersion')
+            ? json['FunctionVersion'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        routingConfig: json.containsKey('RoutingConfig')
+            ? AliasRoutingConfiguration.fromJson(json['RoutingConfig'])
+            : null,
+        revisionId: json.containsKey('RevisionId')
+            ? json['RevisionId'] as String
+            : null,
+      );
 }
 
 /// The
@@ -1442,7 +1736,13 @@ class AliasRoutingConfiguration {
     this.additionalVersionWeights,
   });
   static AliasRoutingConfiguration fromJson(Map<String, dynamic> json) =>
-      AliasRoutingConfiguration();
+      AliasRoutingConfiguration(
+        additionalVersionWeights: json.containsKey('AdditionalVersionWeights')
+            ? (json['AdditionalVersionWeights'] as Map)
+                .map((k, v) => MapEntry(k as String, v as double))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Concurrency {
@@ -1454,7 +1754,12 @@ class Concurrency {
   Concurrency({
     this.reservedConcurrentExecutions,
   });
-  static Concurrency fromJson(Map<String, dynamic> json) => Concurrency();
+  static Concurrency fromJson(Map<String, dynamic> json) => Concurrency(
+        reservedConcurrentExecutions:
+            json.containsKey('ReservedConcurrentExecutions')
+                ? json['ReservedConcurrentExecutions'] as int
+                : null,
+      );
 }
 
 /// The
@@ -1468,7 +1773,11 @@ class DeadLetterConfig {
     this.targetArn,
   });
   static DeadLetterConfig fromJson(Map<String, dynamic> json) =>
-      DeadLetterConfig();
+      DeadLetterConfig(
+        targetArn:
+            json.containsKey('TargetArn') ? json['TargetArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A function's environment variable settings.
@@ -1479,6 +1788,7 @@ class Environment {
   Environment({
     this.variables,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Error messages for environment variables that couldn't be applied.
@@ -1494,7 +1804,11 @@ class EnvironmentError {
     this.message,
   });
   static EnvironmentError fromJson(Map<String, dynamic> json) =>
-      EnvironmentError();
+      EnvironmentError(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The results of a configuration update that applied environment variables.
@@ -1510,7 +1824,15 @@ class EnvironmentResponse {
     this.error,
   });
   static EnvironmentResponse fromJson(Map<String, dynamic> json) =>
-      EnvironmentResponse();
+      EnvironmentResponse(
+        variables: json.containsKey('Variables')
+            ? (json['Variables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        error: json.containsKey('Error')
+            ? EnvironmentError.fromJson(json['Error'])
+            : null,
+      );
 }
 
 /// A mapping between an AWS resource and an AWS Lambda function. See
@@ -1557,7 +1879,31 @@ class EventSourceMappingConfiguration {
     this.stateTransitionReason,
   });
   static EventSourceMappingConfiguration fromJson(Map<String, dynamic> json) =>
-      EventSourceMappingConfiguration();
+      EventSourceMappingConfiguration(
+        uuid: json.containsKey('UUID') ? json['UUID'] as String : null,
+        batchSize:
+            json.containsKey('BatchSize') ? json['BatchSize'] as int : null,
+        maximumBatchingWindowInSeconds:
+            json.containsKey('MaximumBatchingWindowInSeconds')
+                ? json['MaximumBatchingWindowInSeconds'] as int
+                : null,
+        eventSourceArn: json.containsKey('EventSourceArn')
+            ? json['EventSourceArn'] as String
+            : null,
+        functionArn: json.containsKey('FunctionArn')
+            ? json['FunctionArn'] as String
+            : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        lastProcessingResult: json.containsKey('LastProcessingResult')
+            ? json['LastProcessingResult'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateTransitionReason: json.containsKey('StateTransitionReason')
+            ? json['StateTransitionReason'] as String
+            : null,
+      );
 }
 
 /// The code for the Lambda function. You can specify either an object in Amazon
@@ -1584,6 +1930,7 @@ class FunctionCode {
     this.s3Key,
     this.s3ObjectVersion,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about a function's deployment package.
@@ -1599,7 +1946,13 @@ class FunctionCodeLocation {
     this.location,
   });
   static FunctionCodeLocation fromJson(Map<String, dynamic> json) =>
-      FunctionCodeLocation();
+      FunctionCodeLocation(
+        repositoryType: json.containsKey('RepositoryType')
+            ? json['RepositoryType'] as String
+            : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+      );
 }
 
 /// Details about a function's configuration.
@@ -1692,7 +2045,54 @@ class FunctionConfiguration {
     this.layers,
   });
   static FunctionConfiguration fromJson(Map<String, dynamic> json) =>
-      FunctionConfiguration();
+      FunctionConfiguration(
+        functionName: json.containsKey('FunctionName')
+            ? json['FunctionName'] as String
+            : null,
+        functionArn: json.containsKey('FunctionArn')
+            ? json['FunctionArn'] as String
+            : null,
+        runtime: json.containsKey('Runtime') ? json['Runtime'] as String : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        handler: json.containsKey('Handler') ? json['Handler'] as String : null,
+        codeSize:
+            json.containsKey('CodeSize') ? BigInt.from(json['CodeSize']) : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        timeout: json.containsKey('Timeout') ? json['Timeout'] as int : null,
+        memorySize:
+            json.containsKey('MemorySize') ? json['MemorySize'] as int : null,
+        lastModified: json.containsKey('LastModified')
+            ? json['LastModified'] as String
+            : null,
+        codeSha256: json.containsKey('CodeSha256')
+            ? json['CodeSha256'] as String
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfigResponse.fromJson(json['VpcConfig'])
+            : null,
+        deadLetterConfig: json.containsKey('DeadLetterConfig')
+            ? DeadLetterConfig.fromJson(json['DeadLetterConfig'])
+            : null,
+        environment: json.containsKey('Environment')
+            ? EnvironmentResponse.fromJson(json['Environment'])
+            : null,
+        kmsKeyArn:
+            json.containsKey('KMSKeyArn') ? json['KMSKeyArn'] as String : null,
+        tracingConfig: json.containsKey('TracingConfig')
+            ? TracingConfigResponse.fromJson(json['TracingConfig'])
+            : null,
+        masterArn:
+            json.containsKey('MasterArn') ? json['MasterArn'] as String : null,
+        revisionId: json.containsKey('RevisionId')
+            ? json['RevisionId'] as String
+            : null,
+        layers: json.containsKey('Layers')
+            ? (json['Layers'] as List).map((e) => Layer.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetAccountSettingsResponse {
@@ -1707,7 +2107,14 @@ class GetAccountSettingsResponse {
     this.accountUsage,
   });
   static GetAccountSettingsResponse fromJson(Map<String, dynamic> json) =>
-      GetAccountSettingsResponse();
+      GetAccountSettingsResponse(
+        accountLimit: json.containsKey('AccountLimit')
+            ? AccountLimit.fromJson(json['AccountLimit'])
+            : null,
+        accountUsage: json.containsKey('AccountUsage')
+            ? AccountUsage.fromJson(json['AccountUsage'])
+            : null,
+      );
 }
 
 class GetFunctionResponse {
@@ -1732,7 +2139,21 @@ class GetFunctionResponse {
     this.concurrency,
   });
   static GetFunctionResponse fromJson(Map<String, dynamic> json) =>
-      GetFunctionResponse();
+      GetFunctionResponse(
+        configuration: json.containsKey('Configuration')
+            ? FunctionConfiguration.fromJson(json['Configuration'])
+            : null,
+        code: json.containsKey('Code')
+            ? FunctionCodeLocation.fromJson(json['Code'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        concurrency: json.containsKey('Concurrency')
+            ? Concurrency.fromJson(json['Concurrency'])
+            : null,
+      );
 }
 
 class GetLayerVersionPolicyResponse {
@@ -1747,7 +2168,12 @@ class GetLayerVersionPolicyResponse {
     this.revisionId,
   });
   static GetLayerVersionPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetLayerVersionPolicyResponse();
+      GetLayerVersionPolicyResponse(
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+        revisionId: json.containsKey('RevisionId')
+            ? json['RevisionId'] as String
+            : null,
+      );
 }
 
 class GetLayerVersionResponse {
@@ -1788,7 +2214,32 @@ class GetLayerVersionResponse {
     this.licenseInfo,
   });
   static GetLayerVersionResponse fromJson(Map<String, dynamic> json) =>
-      GetLayerVersionResponse();
+      GetLayerVersionResponse(
+        content: json.containsKey('Content')
+            ? LayerVersionContentOutput.fromJson(json['Content'])
+            : null,
+        layerArn:
+            json.containsKey('LayerArn') ? json['LayerArn'] as String : null,
+        layerVersionArn: json.containsKey('LayerVersionArn')
+            ? json['LayerVersionArn'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? json['CreatedDate'] as String
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        compatibleRuntimes: json.containsKey('CompatibleRuntimes')
+            ? (json['CompatibleRuntimes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        licenseInfo: json.containsKey('LicenseInfo')
+            ? json['LicenseInfo'] as String
+            : null,
+      );
 }
 
 class GetPolicyResponse {
@@ -1803,7 +2254,12 @@ class GetPolicyResponse {
     this.revisionId,
   });
   static GetPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetPolicyResponse();
+      GetPolicyResponse(
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+        revisionId: json.containsKey('RevisionId')
+            ? json['RevisionId'] as String
+            : null,
+      );
 }
 
 class InvocationResponse {
@@ -1841,7 +2297,20 @@ class InvocationResponse {
     this.executedVersion,
   });
   static InvocationResponse fromJson(Map<String, dynamic> json) =>
-      InvocationResponse();
+      InvocationResponse(
+        statusCode:
+            json.containsKey('StatusCode') ? json['StatusCode'] as int : null,
+        functionError: json.containsKey('FunctionError')
+            ? json['FunctionError'] as String
+            : null,
+        logResult:
+            json.containsKey('LogResult') ? json['LogResult'] as String : null,
+        payload:
+            json.containsKey('Payload') ? Uint8List(json['Payload']) : null,
+        executedVersion: json.containsKey('ExecutedVersion')
+            ? json['ExecutedVersion'] as String
+            : null,
+      );
 }
 
 /// A success response (`202 Accepted`) indicates that the request is queued for
@@ -1854,7 +2323,9 @@ class InvokeAsyncResponse {
     this.status,
   });
   static InvokeAsyncResponse fromJson(Map<String, dynamic> json) =>
-      InvokeAsyncResponse();
+      InvokeAsyncResponse(
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 /// An
@@ -1870,7 +2341,11 @@ class Layer {
     this.arn,
     this.codeSize,
   });
-  static Layer fromJson(Map<String, dynamic> json) => Layer();
+  static Layer fromJson(Map<String, dynamic> json) => Layer(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        codeSize:
+            json.containsKey('CodeSize') ? BigInt.from(json['CodeSize']) : null,
+      );
 }
 
 /// A ZIP archive that contains the contents of an
@@ -1897,6 +2372,7 @@ class LayerVersionContentInput {
     this.s3ObjectVersion,
     this.zipFile,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about a version of an
@@ -1917,7 +2393,15 @@ class LayerVersionContentOutput {
     this.codeSize,
   });
   static LayerVersionContentOutput fromJson(Map<String, dynamic> json) =>
-      LayerVersionContentOutput();
+      LayerVersionContentOutput(
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        codeSha256: json.containsKey('CodeSha256')
+            ? json['CodeSha256'] as String
+            : null,
+        codeSize:
+            json.containsKey('CodeSize') ? BigInt.from(json['CodeSize']) : null,
+      );
 }
 
 /// Details about a version of an
@@ -1951,7 +2435,27 @@ class LayerVersionsListItem {
     this.licenseInfo,
   });
   static LayerVersionsListItem fromJson(Map<String, dynamic> json) =>
-      LayerVersionsListItem();
+      LayerVersionsListItem(
+        layerVersionArn: json.containsKey('LayerVersionArn')
+            ? json['LayerVersionArn'] as String
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? json['CreatedDate'] as String
+            : null,
+        compatibleRuntimes: json.containsKey('CompatibleRuntimes')
+            ? (json['CompatibleRuntimes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        licenseInfo: json.containsKey('LicenseInfo')
+            ? json['LicenseInfo'] as String
+            : null,
+      );
 }
 
 /// Details about an
@@ -1971,7 +2475,15 @@ class LayersListItem {
     this.layerArn,
     this.latestMatchingVersion,
   });
-  static LayersListItem fromJson(Map<String, dynamic> json) => LayersListItem();
+  static LayersListItem fromJson(Map<String, dynamic> json) => LayersListItem(
+        layerName:
+            json.containsKey('LayerName') ? json['LayerName'] as String : null,
+        layerArn:
+            json.containsKey('LayerArn') ? json['LayerArn'] as String : null,
+        latestMatchingVersion: json.containsKey('LatestMatchingVersion')
+            ? LayerVersionsListItem.fromJson(json['LatestMatchingVersion'])
+            : null,
+      );
 }
 
 class ListAliasesResponse {
@@ -1986,7 +2498,16 @@ class ListAliasesResponse {
     this.aliases,
   });
   static ListAliasesResponse fromJson(Map<String, dynamic> json) =>
-      ListAliasesResponse();
+      ListAliasesResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        aliases: json.containsKey('Aliases')
+            ? (json['Aliases'] as List)
+                .map((e) => AliasConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListEventSourceMappingsResponse {
@@ -2002,7 +2523,16 @@ class ListEventSourceMappingsResponse {
     this.eventSourceMappings,
   });
   static ListEventSourceMappingsResponse fromJson(Map<String, dynamic> json) =>
-      ListEventSourceMappingsResponse();
+      ListEventSourceMappingsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        eventSourceMappings: json.containsKey('EventSourceMappings')
+            ? (json['EventSourceMappings'] as List)
+                .map((e) => EventSourceMappingConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A list of Lambda functions.
@@ -2018,7 +2548,16 @@ class ListFunctionsResponse {
     this.functions,
   });
   static ListFunctionsResponse fromJson(Map<String, dynamic> json) =>
-      ListFunctionsResponse();
+      ListFunctionsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        functions: json.containsKey('Functions')
+            ? (json['Functions'] as List)
+                .map((e) => FunctionConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListLayerVersionsResponse {
@@ -2034,7 +2573,16 @@ class ListLayerVersionsResponse {
     this.layerVersions,
   });
   static ListLayerVersionsResponse fromJson(Map<String, dynamic> json) =>
-      ListLayerVersionsResponse();
+      ListLayerVersionsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        layerVersions: json.containsKey('LayerVersions')
+            ? (json['LayerVersions'] as List)
+                .map((e) => LayerVersionsListItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListLayersResponse {
@@ -2049,7 +2597,16 @@ class ListLayersResponse {
     this.layers,
   });
   static ListLayersResponse fromJson(Map<String, dynamic> json) =>
-      ListLayersResponse();
+      ListLayersResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        layers: json.containsKey('Layers')
+            ? (json['Layers'] as List)
+                .map((e) => LayersListItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListTagsResponse {
@@ -2060,7 +2617,12 @@ class ListTagsResponse {
     this.tags,
   });
   static ListTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsResponse();
+      ListTagsResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class ListVersionsByFunctionResponse {
@@ -2075,7 +2637,16 @@ class ListVersionsByFunctionResponse {
     this.versions,
   });
   static ListVersionsByFunctionResponse fromJson(Map<String, dynamic> json) =>
-      ListVersionsByFunctionResponse();
+      ListVersionsByFunctionResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => FunctionConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class PublishLayerVersionResponse {
@@ -2116,7 +2687,32 @@ class PublishLayerVersionResponse {
     this.licenseInfo,
   });
   static PublishLayerVersionResponse fromJson(Map<String, dynamic> json) =>
-      PublishLayerVersionResponse();
+      PublishLayerVersionResponse(
+        content: json.containsKey('Content')
+            ? LayerVersionContentOutput.fromJson(json['Content'])
+            : null,
+        layerArn:
+            json.containsKey('LayerArn') ? json['LayerArn'] as String : null,
+        layerVersionArn: json.containsKey('LayerVersionArn')
+            ? json['LayerVersionArn'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? json['CreatedDate'] as String
+            : null,
+        version:
+            json.containsKey('Version') ? BigInt.from(json['Version']) : null,
+        compatibleRuntimes: json.containsKey('CompatibleRuntimes')
+            ? (json['CompatibleRuntimes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        licenseInfo: json.containsKey('LicenseInfo')
+            ? json['LicenseInfo'] as String
+            : null,
+      );
 }
 
 /// The function's AWS X-Ray tracing configuration.
@@ -2127,6 +2723,7 @@ class TracingConfig {
   TracingConfig({
     this.mode,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The function's AWS X-Ray tracing configuration.
@@ -2138,7 +2735,9 @@ class TracingConfigResponse {
     this.mode,
   });
   static TracingConfigResponse fromJson(Map<String, dynamic> json) =>
-      TracingConfigResponse();
+      TracingConfigResponse(
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+      );
 }
 
 /// The VPC security groups and subnets that are attached to a Lambda function.
@@ -2153,6 +2752,7 @@ class VpcConfig {
     this.subnetIds,
     this.securityGroupIds,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The VPC security groups and subnets that are attached to a Lambda function.
@@ -2172,5 +2772,15 @@ class VpcConfigResponse {
     this.vpcId,
   });
   static VpcConfigResponse fromJson(Map<String, dynamic> json) =>
-      VpcConfigResponse();
+      VpcConfigResponse(
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }

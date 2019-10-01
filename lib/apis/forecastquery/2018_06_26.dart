@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 /// Provides APIs for creating and managing Amazon Forecast resources.
 class ForecastqueryApi {
+  final _client;
+  ForecastqueryApi(client)
+      : _client = client.configured('forecastquery', serializer: 'json');
+
   /// Retrieves a forecast filtered by the supplied criteria.
   ///
   /// The criteria is a key-value pair. The key is either `item_id` (or the
@@ -58,7 +62,14 @@ class ForecastqueryApi {
       String endDate,
       @required Map<String, String> filters,
       String nextToken}) async {
-    return QueryForecastResponse.fromJson({});
+    var response_ = await _client.send('QueryForecast', {
+      'ForecastArn': forecastArn,
+      if (startDate != null) 'StartDate': startDate,
+      if (endDate != null) 'EndDate': endDate,
+      'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return QueryForecastResponse.fromJson(response_);
   }
 }
 
@@ -74,7 +85,11 @@ class DataPoint {
     this.timestamp,
     this.value,
   });
-  static DataPoint fromJson(Map<String, dynamic> json) => DataPoint();
+  static DataPoint fromJson(Map<String, dynamic> json) => DataPoint(
+        timestamp:
+            json.containsKey('Timestamp') ? json['Timestamp'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as double : null,
+      );
 }
 
 /// Provides information about a forecast. Returned as part of the QueryForecast
@@ -96,7 +111,12 @@ class Forecast {
   Forecast({
     this.predictions,
   });
-  static Forecast fromJson(Map<String, dynamic> json) => Forecast();
+  static Forecast fromJson(Map<String, dynamic> json) => Forecast(
+        predictions: json.containsKey('Predictions')
+            ? (json['Predictions'] as Map).map((k, v) => MapEntry(k as String,
+                (v as List).map((e) => DataPoint.fromJson(e)).toList()))
+            : null,
+      );
 }
 
 class QueryForecastResponse {
@@ -107,5 +127,9 @@ class QueryForecastResponse {
     this.forecast,
   });
   static QueryForecastResponse fromJson(Map<String, dynamic> json) =>
-      QueryForecastResponse();
+      QueryForecastResponse(
+        forecast: json.containsKey('Forecast')
+            ? Forecast.fromJson(json['Forecast'])
+            : null,
+      );
 }

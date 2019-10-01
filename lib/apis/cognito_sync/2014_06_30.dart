@@ -24,6 +24,10 @@ import 'package:meta/meta.dart';
 /// and the
 /// [Developer Guide for iOS](http://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-sync.html).
 class CognitoSyncApi {
+  final _client;
+  CognitoSyncApi(client)
+      : _client = client.configured('Cognito Sync', serializer: 'rest-json');
+
   /// Initiates a bulk publish of all existing datasets for an Identity Pool to
   /// the configured stream. Customers are limited to one successful bulk
   /// publish per 24 hours. Bulk publish is an asynchronous request, customers
@@ -36,7 +40,10 @@ class CognitoSyncApi {
   /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
   /// GUID generation is unique within a region.
   Future<BulkPublishResponse> bulkPublish(String identityPoolId) async {
-    return BulkPublishResponse.fromJson({});
+    var response_ = await _client.send('BulkPublish', {
+      'IdentityPoolId': identityPoolId,
+    });
+    return BulkPublishResponse.fromJson(response_);
   }
 
   /// Deletes the specific dataset. The dataset will be deleted permanently, and
@@ -61,7 +68,12 @@ class CognitoSyncApi {
       {@required String identityPoolId,
       @required String identityId,
       @required String datasetName}) async {
-    return DeleteDatasetResponse.fromJson({});
+    var response_ = await _client.send('DeleteDataset', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityId': identityId,
+      'DatasetName': datasetName,
+    });
+    return DeleteDatasetResponse.fromJson(response_);
   }
 
   /// Gets meta data about a dataset by identity and dataset name. With Amazon
@@ -87,7 +99,12 @@ class CognitoSyncApi {
       {@required String identityPoolId,
       @required String identityId,
       @required String datasetName}) async {
-    return DescribeDatasetResponse.fromJson({});
+    var response_ = await _client.send('DescribeDataset', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityId': identityId,
+      'DatasetName': datasetName,
+    });
+    return DescribeDatasetResponse.fromJson(response_);
   }
 
   /// Gets usage details (for example, data storage) about a particular identity
@@ -101,7 +118,10 @@ class CognitoSyncApi {
   /// GUID generation is unique within a region.
   Future<DescribeIdentityPoolUsageResponse> describeIdentityPoolUsage(
       String identityPoolId) async {
-    return DescribeIdentityPoolUsageResponse.fromJson({});
+    var response_ = await _client.send('DescribeIdentityPoolUsage', {
+      'IdentityPoolId': identityPoolId,
+    });
+    return DescribeIdentityPoolUsageResponse.fromJson(response_);
   }
 
   /// Gets usage information for an identity, including number of datasets and
@@ -119,7 +139,11 @@ class CognitoSyncApi {
   /// GUID generation is unique within a region.
   Future<DescribeIdentityUsageResponse> describeIdentityUsage(
       {@required String identityPoolId, @required String identityId}) async {
-    return DescribeIdentityUsageResponse.fromJson({});
+    var response_ = await _client.send('DescribeIdentityUsage', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityId': identityId,
+    });
+    return DescribeIdentityUsageResponse.fromJson(response_);
   }
 
   /// Get the status of the last BulkPublish operation for an identity pool.
@@ -132,7 +156,10 @@ class CognitoSyncApi {
   /// GUID generation is unique within a region.
   Future<GetBulkPublishDetailsResponse> getBulkPublishDetails(
       String identityPoolId) async {
-    return GetBulkPublishDetailsResponse.fromJson({});
+    var response_ = await _client.send('GetBulkPublishDetails', {
+      'IdentityPoolId': identityPoolId,
+    });
+    return GetBulkPublishDetailsResponse.fromJson(response_);
   }
 
   /// Gets the events and the corresponding Lambda functions associated with an
@@ -144,7 +171,10 @@ class CognitoSyncApi {
   /// [identityPoolId]: The Cognito Identity Pool ID for the request
   Future<GetCognitoEventsResponse> getCognitoEvents(
       String identityPoolId) async {
-    return GetCognitoEventsResponse.fromJson({});
+    var response_ = await _client.send('GetCognitoEvents', {
+      'IdentityPoolId': identityPoolId,
+    });
+    return GetCognitoEventsResponse.fromJson(response_);
   }
 
   /// Gets the configuration settings of an identity pool.
@@ -157,7 +187,10 @@ class CognitoSyncApi {
   /// This is the ID of the pool for which to return a configuration.
   Future<GetIdentityPoolConfigurationResponse> getIdentityPoolConfiguration(
       String identityPoolId) async {
-    return GetIdentityPoolConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetIdentityPoolConfiguration', {
+      'IdentityPoolId': identityPoolId,
+    });
+    return GetIdentityPoolConfigurationResponse.fromJson(response_);
   }
 
   /// Lists datasets for an identity. With Amazon Cognito Sync, each identity
@@ -184,7 +217,13 @@ class CognitoSyncApi {
       @required String identityId,
       String nextToken,
       int maxResults}) async {
-    return ListDatasetsResponse.fromJson({});
+    var response_ = await _client.send('ListDatasets', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityId': identityId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDatasetsResponse.fromJson(response_);
   }
 
   /// Gets a list of identity pools registered with Cognito.
@@ -198,7 +237,11 @@ class CognitoSyncApi {
   /// [maxResults]: The maximum number of results to be returned.
   Future<ListIdentityPoolUsageResponse> listIdentityPoolUsage(
       {String nextToken, int maxResults}) async {
-    return ListIdentityPoolUsageResponse.fromJson({});
+    var response_ = await _client.send('ListIdentityPoolUsage', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListIdentityPoolUsageResponse.fromJson(response_);
   }
 
   /// Gets paginated records, optionally changed after a particular sync count
@@ -237,7 +280,16 @@ class CognitoSyncApi {
       String nextToken,
       int maxResults,
       String syncSessionToken}) async {
-    return ListRecordsResponse.fromJson({});
+    var response_ = await _client.send('ListRecords', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityId': identityId,
+      'DatasetName': datasetName,
+      if (lastSyncCount != null) 'LastSyncCount': lastSyncCount,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (syncSessionToken != null) 'SyncSessionToken': syncSessionToken,
+    });
+    return ListRecordsResponse.fromJson(response_);
   }
 
   /// Registers a device to receive push sync notifications.
@@ -259,7 +311,13 @@ class CognitoSyncApi {
       @required String identityId,
       @required String platform,
       @required String token}) async {
-    return RegisterDeviceResponse.fromJson({});
+    var response_ = await _client.send('RegisterDevice', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityId': identityId,
+      'Platform': platform,
+      'Token': token,
+    });
+    return RegisterDeviceResponse.fromJson(response_);
   }
 
   /// Sets the AWS Lambda function for a given event type for an identity pool.
@@ -276,7 +334,12 @@ class CognitoSyncApi {
   /// [events]: The events to configure
   Future<void> setCognitoEvents(
       {@required String identityPoolId,
-      @required Map<String, String> events}) async {}
+      @required Map<String, String> events}) async {
+    await _client.send('SetCognitoEvents', {
+      'IdentityPoolId': identityPoolId,
+      'Events': events,
+    });
+  }
 
   /// Sets the necessary configuration for push sync.
   ///
@@ -296,7 +359,12 @@ class CognitoSyncApi {
       String identityPoolId,
       {PushSync pushSync,
       CognitoStreams cognitoStreams}) async {
-    return SetIdentityPoolConfigurationResponse.fromJson({});
+    var response_ = await _client.send('SetIdentityPoolConfiguration', {
+      'IdentityPoolId': identityPoolId,
+      if (pushSync != null) 'PushSync': pushSync,
+      if (cognitoStreams != null) 'CognitoStreams': cognitoStreams,
+    });
+    return SetIdentityPoolConfigurationResponse.fromJson(response_);
   }
 
   /// Subscribes to receive notifications when a dataset is modified by another
@@ -319,7 +387,13 @@ class CognitoSyncApi {
       @required String identityId,
       @required String datasetName,
       @required String deviceId}) async {
-    return SubscribeToDatasetResponse.fromJson({});
+    var response_ = await _client.send('SubscribeToDataset', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityId': identityId,
+      'DatasetName': datasetName,
+      'DeviceId': deviceId,
+    });
+    return SubscribeToDatasetResponse.fromJson(response_);
   }
 
   /// Unsubscribes from receiving notifications when a dataset is modified by
@@ -342,7 +416,13 @@ class CognitoSyncApi {
       @required String identityId,
       @required String datasetName,
       @required String deviceId}) async {
-    return UnsubscribeFromDatasetResponse.fromJson({});
+    var response_ = await _client.send('UnsubscribeFromDataset', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityId': identityId,
+      'DatasetName': datasetName,
+      'DeviceId': deviceId,
+    });
+    return UnsubscribeFromDatasetResponse.fromJson(response_);
   }
 
   /// Posts updates to records and adds and deletes records for a dataset and
@@ -393,7 +473,16 @@ class CognitoSyncApi {
       List<RecordPatch> recordPatches,
       @required String syncSessionToken,
       String clientContext}) async {
-    return UpdateRecordsResponse.fromJson({});
+    var response_ = await _client.send('UpdateRecords', {
+      'IdentityPoolId': identityPoolId,
+      'IdentityId': identityId,
+      'DatasetName': datasetName,
+      if (deviceId != null) 'DeviceId': deviceId,
+      if (recordPatches != null) 'RecordPatches': recordPatches,
+      'SyncSessionToken': syncSessionToken,
+      if (clientContext != null) 'ClientContext': clientContext,
+    });
+    return UpdateRecordsResponse.fromJson(response_);
   }
 }
 
@@ -408,7 +497,11 @@ class BulkPublishResponse {
     this.identityPoolId,
   });
   static BulkPublishResponse fromJson(Map<String, dynamic> json) =>
-      BulkPublishResponse();
+      BulkPublishResponse(
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+      );
 }
 
 /// Configuration options for configure Cognito streams.
@@ -435,7 +528,16 @@ class CognitoStreams {
     this.roleArn,
     this.streamingStatus,
   });
-  static CognitoStreams fromJson(Map<String, dynamic> json) => CognitoStreams();
+  static CognitoStreams fromJson(Map<String, dynamic> json) => CognitoStreams(
+        streamName: json.containsKey('StreamName')
+            ? json['StreamName'] as String
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        streamingStatus: json.containsKey('StreamingStatus')
+            ? json['StreamingStatus'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A collection of data for an identity pool. An identity pool can have
@@ -477,7 +579,29 @@ class Dataset {
     this.dataStorage,
     this.numRecords,
   });
-  static Dataset fromJson(Map<String, dynamic> json) => Dataset();
+  static Dataset fromJson(Map<String, dynamic> json) => Dataset(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+        datasetName: json.containsKey('DatasetName')
+            ? json['DatasetName'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        dataStorage: json.containsKey('DataStorage')
+            ? BigInt.from(json['DataStorage'])
+            : null,
+        numRecords: json.containsKey('NumRecords')
+            ? BigInt.from(json['NumRecords'])
+            : null,
+      );
 }
 
 /// Response to a successful DeleteDataset request.
@@ -493,7 +617,11 @@ class DeleteDatasetResponse {
     this.dataset,
   });
   static DeleteDatasetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteDatasetResponse();
+      DeleteDatasetResponse(
+        dataset: json.containsKey('Dataset')
+            ? Dataset.fromJson(json['Dataset'])
+            : null,
+      );
 }
 
 /// Response to a successful DescribeDataset request.
@@ -509,7 +637,11 @@ class DescribeDatasetResponse {
     this.dataset,
   });
   static DescribeDatasetResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDatasetResponse();
+      DescribeDatasetResponse(
+        dataset: json.containsKey('Dataset')
+            ? Dataset.fromJson(json['Dataset'])
+            : null,
+      );
 }
 
 /// Response to a successful DescribeIdentityPoolUsage request.
@@ -522,7 +654,11 @@ class DescribeIdentityPoolUsageResponse {
   });
   static DescribeIdentityPoolUsageResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeIdentityPoolUsageResponse();
+      DescribeIdentityPoolUsageResponse(
+        identityPoolUsage: json.containsKey('IdentityPoolUsage')
+            ? IdentityPoolUsage.fromJson(json['IdentityPoolUsage'])
+            : null,
+      );
 }
 
 /// The response to a successful DescribeIdentityUsage request.
@@ -534,7 +670,11 @@ class DescribeIdentityUsageResponse {
     this.identityUsage,
   });
   static DescribeIdentityUsageResponse fromJson(Map<String, dynamic> json) =>
-      DescribeIdentityUsageResponse();
+      DescribeIdentityUsageResponse(
+        identityUsage: json.containsKey('IdentityUsage')
+            ? IdentityUsage.fromJson(json['IdentityUsage'])
+            : null,
+      );
 }
 
 /// The output for the GetBulkPublishDetails operation.
@@ -576,7 +716,23 @@ class GetBulkPublishDetailsResponse {
     this.failureMessage,
   });
   static GetBulkPublishDetailsResponse fromJson(Map<String, dynamic> json) =>
-      GetBulkPublishDetailsResponse();
+      GetBulkPublishDetailsResponse(
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+        bulkPublishStartTime: json.containsKey('BulkPublishStartTime')
+            ? DateTime.parse(json['BulkPublishStartTime'])
+            : null,
+        bulkPublishCompleteTime: json.containsKey('BulkPublishCompleteTime')
+            ? DateTime.parse(json['BulkPublishCompleteTime'])
+            : null,
+        bulkPublishStatus: json.containsKey('BulkPublishStatus')
+            ? json['BulkPublishStatus'] as String
+            : null,
+        failureMessage: json.containsKey('FailureMessage')
+            ? json['FailureMessage'] as String
+            : null,
+      );
 }
 
 /// The response from the GetCognitoEvents request
@@ -588,7 +744,12 @@ class GetCognitoEventsResponse {
     this.events,
   });
   static GetCognitoEventsResponse fromJson(Map<String, dynamic> json) =>
-      GetCognitoEventsResponse();
+      GetCognitoEventsResponse(
+        events: json.containsKey('Events')
+            ? (json['Events'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The output for the GetIdentityPoolConfiguration operation.
@@ -610,7 +771,17 @@ class GetIdentityPoolConfigurationResponse {
   });
   static GetIdentityPoolConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetIdentityPoolConfigurationResponse();
+      GetIdentityPoolConfigurationResponse(
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+        pushSync: json.containsKey('PushSync')
+            ? PushSync.fromJson(json['PushSync'])
+            : null,
+        cognitoStreams: json.containsKey('CognitoStreams')
+            ? CognitoStreams.fromJson(json['CognitoStreams'])
+            : null,
+      );
 }
 
 /// Usage information for the identity pool.
@@ -636,7 +807,20 @@ class IdentityPoolUsage {
     this.lastModifiedDate,
   });
   static IdentityPoolUsage fromJson(Map<String, dynamic> json) =>
-      IdentityPoolUsage();
+      IdentityPoolUsage(
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+        syncSessionsCount: json.containsKey('SyncSessionsCount')
+            ? BigInt.from(json['SyncSessionsCount'])
+            : null,
+        dataStorage: json.containsKey('DataStorage')
+            ? BigInt.from(json['DataStorage'])
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+      );
 }
 
 /// Usage information for the identity.
@@ -667,7 +851,23 @@ class IdentityUsage {
     this.datasetCount,
     this.dataStorage,
   });
-  static IdentityUsage fromJson(Map<String, dynamic> json) => IdentityUsage();
+  static IdentityUsage fromJson(Map<String, dynamic> json) => IdentityUsage(
+        identityId: json.containsKey('IdentityId')
+            ? json['IdentityId'] as String
+            : null,
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        datasetCount: json.containsKey('DatasetCount')
+            ? json['DatasetCount'] as int
+            : null,
+        dataStorage: json.containsKey('DataStorage')
+            ? BigInt.from(json['DataStorage'])
+            : null,
+      );
 }
 
 /// Returned for a successful ListDatasets request.
@@ -687,7 +887,16 @@ class ListDatasetsResponse {
     this.nextToken,
   });
   static ListDatasetsResponse fromJson(Map<String, dynamic> json) =>
-      ListDatasetsResponse();
+      ListDatasetsResponse(
+        datasets: json.containsKey('Datasets')
+            ? (json['Datasets'] as List)
+                .map((e) => Dataset.fromJson(e))
+                .toList()
+            : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Returned for a successful ListIdentityPoolUsage request.
@@ -711,7 +920,18 @@ class ListIdentityPoolUsageResponse {
     this.nextToken,
   });
   static ListIdentityPoolUsageResponse fromJson(Map<String, dynamic> json) =>
-      ListIdentityPoolUsageResponse();
+      ListIdentityPoolUsageResponse(
+        identityPoolUsages: json.containsKey('IdentityPoolUsages')
+            ? (json['IdentityPoolUsages'] as List)
+                .map((e) => IdentityPoolUsage.fromJson(e))
+                .toList()
+            : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Returned for a successful ListRecordsRequest.
@@ -755,7 +975,35 @@ class ListRecordsResponse {
     this.syncSessionToken,
   });
   static ListRecordsResponse fromJson(Map<String, dynamic> json) =>
-      ListRecordsResponse();
+      ListRecordsResponse(
+        records: json.containsKey('Records')
+            ? (json['Records'] as List).map((e) => Record.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        datasetSyncCount: json.containsKey('DatasetSyncCount')
+            ? BigInt.from(json['DatasetSyncCount'])
+            : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        mergedDatasetNames: json.containsKey('MergedDatasetNames')
+            ? (json['MergedDatasetNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        datasetExists: json.containsKey('DatasetExists')
+            ? json['DatasetExists'] as bool
+            : null,
+        datasetDeletedAfterRequestedSyncCount:
+            json.containsKey('DatasetDeletedAfterRequestedSyncCount')
+                ? json['DatasetDeletedAfterRequestedSyncCount'] as bool
+                : null,
+        syncSessionToken: json.containsKey('SyncSessionToken')
+            ? json['SyncSessionToken'] as String
+            : null,
+      );
 }
 
 /// Configuration options to be applied to the identity pool.
@@ -770,7 +1018,13 @@ class PushSync {
     this.applicationArns,
     this.roleArn,
   });
-  static PushSync fromJson(Map<String, dynamic> json) => PushSync();
+  static PushSync fromJson(Map<String, dynamic> json) => PushSync(
+        applicationArns: json.containsKey('ApplicationArns')
+            ? (json['ApplicationArns'] as List).map((e) => e as String).toList()
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The basic data structure of a dataset.
@@ -801,7 +1055,22 @@ class Record {
     this.lastModifiedBy,
     this.deviceLastModifiedDate,
   });
-  static Record fromJson(Map<String, dynamic> json) => Record();
+  static Record fromJson(Map<String, dynamic> json) => Record(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        syncCount: json.containsKey('SyncCount')
+            ? BigInt.from(json['SyncCount'])
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        deviceLastModifiedDate: json.containsKey('DeviceLastModifiedDate')
+            ? DateTime.parse(json['DeviceLastModifiedDate'])
+            : null,
+      );
 }
 
 /// An update operation for a record.
@@ -828,6 +1097,7 @@ class RecordPatch {
     @required this.syncCount,
     this.deviceLastModifiedDate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Response to a RegisterDevice request.
@@ -839,7 +1109,10 @@ class RegisterDeviceResponse {
     this.deviceId,
   });
   static RegisterDeviceResponse fromJson(Map<String, dynamic> json) =>
-      RegisterDeviceResponse();
+      RegisterDeviceResponse(
+        deviceId:
+            json.containsKey('DeviceId') ? json['DeviceId'] as String : null,
+      );
 }
 
 /// The output for the SetIdentityPoolConfiguration operation
@@ -861,7 +1134,17 @@ class SetIdentityPoolConfigurationResponse {
   });
   static SetIdentityPoolConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      SetIdentityPoolConfigurationResponse();
+      SetIdentityPoolConfigurationResponse(
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+        pushSync: json.containsKey('PushSync')
+            ? PushSync.fromJson(json['PushSync'])
+            : null,
+        cognitoStreams: json.containsKey('CognitoStreams')
+            ? CognitoStreams.fromJson(json['CognitoStreams'])
+            : null,
+      );
 }
 
 /// Response to a SubscribeToDataset request.
@@ -887,5 +1170,9 @@ class UpdateRecordsResponse {
     this.records,
   });
   static UpdateRecordsResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRecordsResponse();
+      UpdateRecordsResponse(
+        records: json.containsKey('Records')
+            ? (json['Records'] as List).map((e) => Record.fromJson(e)).toList()
+            : null,
+      );
 }

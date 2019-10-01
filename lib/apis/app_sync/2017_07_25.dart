@@ -4,6 +4,10 @@ import 'dart:typed_data';
 /// AWS AppSync provides API actions for creating and interacting with data
 /// sources using GraphQL from your application.
 class AppSyncApi {
+  final _client;
+  AppSyncApi(client)
+      : _client = client.configured('AppSync', serializer: 'rest-json');
+
   /// Creates a unique key that you can distribute to clients who are executing
   /// your API.
   ///
@@ -17,7 +21,12 @@ class AppSyncApi {
   /// time. For more information, see .
   Future<CreateApiKeyResponse> createApiKey(String apiId,
       {String description, BigInt expires}) async {
-    return CreateApiKeyResponse.fromJson({});
+    var response_ = await _client.send('CreateApiKey', {
+      'apiId': apiId,
+      if (description != null) 'description': description,
+      if (expires != null) 'expires': expires,
+    });
+    return CreateApiKeyResponse.fromJson(response_);
   }
 
   /// Creates a `DataSource` object.
@@ -53,7 +62,21 @@ class AppSyncApi {
       ElasticsearchDataSourceConfig elasticsearchConfig,
       HttpDataSourceConfig httpConfig,
       RelationalDatabaseDataSourceConfig relationalDatabaseConfig}) async {
-    return CreateDataSourceResponse.fromJson({});
+    var response_ = await _client.send('CreateDataSource', {
+      'apiId': apiId,
+      'name': name,
+      if (description != null) 'description': description,
+      'type': type,
+      if (serviceRoleArn != null) 'serviceRoleArn': serviceRoleArn,
+      if (dynamodbConfig != null) 'dynamodbConfig': dynamodbConfig,
+      if (lambdaConfig != null) 'lambdaConfig': lambdaConfig,
+      if (elasticsearchConfig != null)
+        'elasticsearchConfig': elasticsearchConfig,
+      if (httpConfig != null) 'httpConfig': httpConfig,
+      if (relationalDatabaseConfig != null)
+        'relationalDatabaseConfig': relationalDatabaseConfig,
+    });
+    return CreateDataSourceResponse.fromJson(response_);
   }
 
   /// Creates a `Function` object.
@@ -85,7 +108,17 @@ class AppSyncApi {
       @required String requestMappingTemplate,
       String responseMappingTemplate,
       @required String functionVersion}) async {
-    return CreateFunctionResponse.fromJson({});
+    var response_ = await _client.send('CreateFunction', {
+      'apiId': apiId,
+      'name': name,
+      if (description != null) 'description': description,
+      'dataSourceName': dataSourceName,
+      'requestMappingTemplate': requestMappingTemplate,
+      if (responseMappingTemplate != null)
+        'responseMappingTemplate': responseMappingTemplate,
+      'functionVersion': functionVersion,
+    });
+    return CreateFunctionResponse.fromJson(response_);
   }
 
   /// Creates a `GraphqlApi` object.
@@ -114,7 +147,18 @@ class AppSyncApi {
       Map<String, String> tags,
       List<AdditionalAuthenticationProvider>
           additionalAuthenticationProviders}) async {
-    return CreateGraphqlApiResponse.fromJson({});
+    var response_ = await _client.send('CreateGraphqlApi', {
+      'name': name,
+      if (logConfig != null) 'logConfig': logConfig,
+      'authenticationType': authenticationType,
+      if (userPoolConfig != null) 'userPoolConfig': userPoolConfig,
+      if (openIDConnectConfig != null)
+        'openIDConnectConfig': openIDConnectConfig,
+      if (tags != null) 'tags': tags,
+      if (additionalAuthenticationProviders != null)
+        'additionalAuthenticationProviders': additionalAuthenticationProviders,
+    });
+    return CreateGraphqlApiResponse.fromJson(response_);
   }
 
   /// Creates a `Resolver` object.
@@ -162,7 +206,18 @@ class AppSyncApi {
       String responseMappingTemplate,
       String kind,
       PipelineConfig pipelineConfig}) async {
-    return CreateResolverResponse.fromJson({});
+    var response_ = await _client.send('CreateResolver', {
+      'apiId': apiId,
+      'typeName': typeName,
+      'fieldName': fieldName,
+      if (dataSourceName != null) 'dataSourceName': dataSourceName,
+      'requestMappingTemplate': requestMappingTemplate,
+      if (responseMappingTemplate != null)
+        'responseMappingTemplate': responseMappingTemplate,
+      if (kind != null) 'kind': kind,
+      if (pipelineConfig != null) 'pipelineConfig': pipelineConfig,
+    });
+    return CreateResolverResponse.fromJson(response_);
   }
 
   /// Creates a `Type` object.
@@ -180,7 +235,12 @@ class AppSyncApi {
       {@required String apiId,
       @required String definition,
       @required String format}) async {
-    return CreateTypeResponse.fromJson({});
+    var response_ = await _client.send('CreateType', {
+      'apiId': apiId,
+      'definition': definition,
+      'format': format,
+    });
+    return CreateTypeResponse.fromJson(response_);
   }
 
   /// Deletes an API key.
@@ -190,7 +250,11 @@ class AppSyncApi {
   /// [id]: The ID for the API key.
   Future<DeleteApiKeyResponse> deleteApiKey(
       {@required String apiId, @required String id}) async {
-    return DeleteApiKeyResponse.fromJson({});
+    var response_ = await _client.send('DeleteApiKey', {
+      'apiId': apiId,
+      'id': id,
+    });
+    return DeleteApiKeyResponse.fromJson(response_);
   }
 
   /// Deletes a `DataSource` object.
@@ -200,7 +264,11 @@ class AppSyncApi {
   /// [name]: The name of the data source.
   Future<DeleteDataSourceResponse> deleteDataSource(
       {@required String apiId, @required String name}) async {
-    return DeleteDataSourceResponse.fromJson({});
+    var response_ = await _client.send('DeleteDataSource', {
+      'apiId': apiId,
+      'name': name,
+    });
+    return DeleteDataSourceResponse.fromJson(response_);
   }
 
   /// Deletes a `Function`.
@@ -210,14 +278,21 @@ class AppSyncApi {
   /// [functionId]: The `Function` ID.
   Future<DeleteFunctionResponse> deleteFunction(
       {@required String apiId, @required String functionId}) async {
-    return DeleteFunctionResponse.fromJson({});
+    var response_ = await _client.send('DeleteFunction', {
+      'apiId': apiId,
+      'functionId': functionId,
+    });
+    return DeleteFunctionResponse.fromJson(response_);
   }
 
   /// Deletes a `GraphqlApi` object.
   ///
   /// [apiId]: The API ID.
   Future<DeleteGraphqlApiResponse> deleteGraphqlApi(String apiId) async {
-    return DeleteGraphqlApiResponse.fromJson({});
+    var response_ = await _client.send('DeleteGraphqlApi', {
+      'apiId': apiId,
+    });
+    return DeleteGraphqlApiResponse.fromJson(response_);
   }
 
   /// Deletes a `Resolver` object.
@@ -231,7 +306,12 @@ class AppSyncApi {
       {@required String apiId,
       @required String typeName,
       @required String fieldName}) async {
-    return DeleteResolverResponse.fromJson({});
+    var response_ = await _client.send('DeleteResolver', {
+      'apiId': apiId,
+      'typeName': typeName,
+      'fieldName': fieldName,
+    });
+    return DeleteResolverResponse.fromJson(response_);
   }
 
   /// Deletes a `Type` object.
@@ -241,7 +321,11 @@ class AppSyncApi {
   /// [typeName]: The type name.
   Future<DeleteTypeResponse> deleteType(
       {@required String apiId, @required String typeName}) async {
-    return DeleteTypeResponse.fromJson({});
+    var response_ = await _client.send('DeleteType', {
+      'apiId': apiId,
+      'typeName': typeName,
+    });
+    return DeleteTypeResponse.fromJson(response_);
   }
 
   /// Retrieves a `DataSource` object.
@@ -251,7 +335,11 @@ class AppSyncApi {
   /// [name]: The name of the data source.
   Future<GetDataSourceResponse> getDataSource(
       {@required String apiId, @required String name}) async {
-    return GetDataSourceResponse.fromJson({});
+    var response_ = await _client.send('GetDataSource', {
+      'apiId': apiId,
+      'name': name,
+    });
+    return GetDataSourceResponse.fromJson(response_);
   }
 
   /// Get a `Function`.
@@ -261,14 +349,21 @@ class AppSyncApi {
   /// [functionId]: The `Function` ID.
   Future<GetFunctionResponse> getFunction(
       {@required String apiId, @required String functionId}) async {
-    return GetFunctionResponse.fromJson({});
+    var response_ = await _client.send('GetFunction', {
+      'apiId': apiId,
+      'functionId': functionId,
+    });
+    return GetFunctionResponse.fromJson(response_);
   }
 
   /// Retrieves a `GraphqlApi` object.
   ///
   /// [apiId]: The API ID for the GraphQL API.
   Future<GetGraphqlApiResponse> getGraphqlApi(String apiId) async {
-    return GetGraphqlApiResponse.fromJson({});
+    var response_ = await _client.send('GetGraphqlApi', {
+      'apiId': apiId,
+    });
+    return GetGraphqlApiResponse.fromJson(response_);
   }
 
   /// Retrieves the introspection schema for a GraphQL API.
@@ -283,7 +378,12 @@ class AppSyncApi {
       {@required String apiId,
       @required String format,
       bool includeDirectives}) async {
-    return GetIntrospectionSchemaResponse.fromJson({});
+    var response_ = await _client.send('GetIntrospectionSchema', {
+      'apiId': apiId,
+      'format': format,
+      if (includeDirectives != null) 'includeDirectives': includeDirectives,
+    });
+    return GetIntrospectionSchemaResponse.fromJson(response_);
   }
 
   /// Retrieves a `Resolver` object.
@@ -297,7 +397,12 @@ class AppSyncApi {
       {@required String apiId,
       @required String typeName,
       @required String fieldName}) async {
-    return GetResolverResponse.fromJson({});
+    var response_ = await _client.send('GetResolver', {
+      'apiId': apiId,
+      'typeName': typeName,
+      'fieldName': fieldName,
+    });
+    return GetResolverResponse.fromJson(response_);
   }
 
   /// Retrieves the current status of a schema creation operation.
@@ -305,7 +410,10 @@ class AppSyncApi {
   /// [apiId]: The API ID.
   Future<GetSchemaCreationStatusResponse> getSchemaCreationStatus(
       String apiId) async {
-    return GetSchemaCreationStatusResponse.fromJson({});
+    var response_ = await _client.send('GetSchemaCreationStatus', {
+      'apiId': apiId,
+    });
+    return GetSchemaCreationStatusResponse.fromJson(response_);
   }
 
   /// Retrieves a `Type` object.
@@ -319,7 +427,12 @@ class AppSyncApi {
       {@required String apiId,
       @required String typeName,
       @required String format}) async {
-    return GetTypeResponse.fromJson({});
+    var response_ = await _client.send('GetType', {
+      'apiId': apiId,
+      'typeName': typeName,
+      'format': format,
+    });
+    return GetTypeResponse.fromJson(response_);
   }
 
   /// Lists the API keys for a given API.
@@ -341,7 +454,12 @@ class AppSyncApi {
   /// return.
   Future<ListApiKeysResponse> listApiKeys(String apiId,
       {String nextToken, int maxResults}) async {
-    return ListApiKeysResponse.fromJson({});
+    var response_ = await _client.send('ListApiKeys', {
+      'apiId': apiId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListApiKeysResponse.fromJson(response_);
   }
 
   /// Lists the data sources for a given API.
@@ -356,7 +474,12 @@ class AppSyncApi {
   /// return.
   Future<ListDataSourcesResponse> listDataSources(String apiId,
       {String nextToken, int maxResults}) async {
-    return ListDataSourcesResponse.fromJson({});
+    var response_ = await _client.send('ListDataSources', {
+      'apiId': apiId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDataSourcesResponse.fromJson(response_);
   }
 
   /// List multiple functions.
@@ -371,7 +494,12 @@ class AppSyncApi {
   /// return.
   Future<ListFunctionsResponse> listFunctions(String apiId,
       {String nextToken, int maxResults}) async {
-    return ListFunctionsResponse.fromJson({});
+    var response_ = await _client.send('ListFunctions', {
+      'apiId': apiId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListFunctionsResponse.fromJson(response_);
   }
 
   /// Lists your GraphQL APIs.
@@ -384,7 +512,11 @@ class AppSyncApi {
   /// return.
   Future<ListGraphqlApisResponse> listGraphqlApis(
       {String nextToken, int maxResults}) async {
-    return ListGraphqlApisResponse.fromJson({});
+    var response_ = await _client.send('ListGraphqlApis', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListGraphqlApisResponse.fromJson(response_);
   }
 
   /// Lists the resolvers for a given API and type.
@@ -404,7 +536,13 @@ class AppSyncApi {
       @required String typeName,
       String nextToken,
       int maxResults}) async {
-    return ListResolversResponse.fromJson({});
+    var response_ = await _client.send('ListResolvers', {
+      'apiId': apiId,
+      'typeName': typeName,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListResolversResponse.fromJson(response_);
   }
 
   /// List the resolvers that are associated with a specific function.
@@ -424,7 +562,13 @@ class AppSyncApi {
       @required String functionId,
       String nextToken,
       int maxResults}) async {
-    return ListResolversByFunctionResponse.fromJson({});
+    var response_ = await _client.send('ListResolversByFunction', {
+      'apiId': apiId,
+      'functionId': functionId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListResolversByFunctionResponse.fromJson(response_);
   }
 
   /// Lists the tags for a resource.
@@ -432,7 +576,10 @@ class AppSyncApi {
   /// [resourceArn]: The `GraphqlApi` ARN.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Lists the types for a given API.
@@ -452,7 +599,13 @@ class AppSyncApi {
       @required String format,
       String nextToken,
       int maxResults}) async {
-    return ListTypesResponse.fromJson({});
+    var response_ = await _client.send('ListTypes', {
+      'apiId': apiId,
+      'format': format,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListTypesResponse.fromJson(response_);
   }
 
   /// Adds a new schema to your GraphQL API.
@@ -464,7 +617,11 @@ class AppSyncApi {
   /// [definition]: The schema definition, in GraphQL schema language format.
   Future<StartSchemaCreationResponse> startSchemaCreation(
       {@required String apiId, @required Uint8List definition}) async {
-    return StartSchemaCreationResponse.fromJson({});
+    var response_ = await _client.send('StartSchemaCreation', {
+      'apiId': apiId,
+      'definition': definition,
+    });
+    return StartSchemaCreationResponse.fromJson(response_);
   }
 
   /// Tags a resource with user-supplied tags.
@@ -475,7 +632,11 @@ class AppSyncApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Untags a resource.
@@ -485,7 +646,11 @@ class AppSyncApi {
   /// [tagKeys]: A list of `TagKey` objects.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates an API key.
@@ -504,7 +669,13 @@ class AppSyncApi {
       @required String id,
       String description,
       BigInt expires}) async {
-    return UpdateApiKeyResponse.fromJson({});
+    var response_ = await _client.send('UpdateApiKey', {
+      'apiId': apiId,
+      'id': id,
+      if (description != null) 'description': description,
+      if (expires != null) 'expires': expires,
+    });
+    return UpdateApiKeyResponse.fromJson(response_);
   }
 
   /// Updates a `DataSource` object.
@@ -539,7 +710,21 @@ class AppSyncApi {
       ElasticsearchDataSourceConfig elasticsearchConfig,
       HttpDataSourceConfig httpConfig,
       RelationalDatabaseDataSourceConfig relationalDatabaseConfig}) async {
-    return UpdateDataSourceResponse.fromJson({});
+    var response_ = await _client.send('UpdateDataSource', {
+      'apiId': apiId,
+      'name': name,
+      if (description != null) 'description': description,
+      'type': type,
+      if (serviceRoleArn != null) 'serviceRoleArn': serviceRoleArn,
+      if (dynamodbConfig != null) 'dynamodbConfig': dynamodbConfig,
+      if (lambdaConfig != null) 'lambdaConfig': lambdaConfig,
+      if (elasticsearchConfig != null)
+        'elasticsearchConfig': elasticsearchConfig,
+      if (httpConfig != null) 'httpConfig': httpConfig,
+      if (relationalDatabaseConfig != null)
+        'relationalDatabaseConfig': relationalDatabaseConfig,
+    });
+    return UpdateDataSourceResponse.fromJson(response_);
   }
 
   /// Updates a `Function` object.
@@ -571,7 +756,18 @@ class AppSyncApi {
       @required String requestMappingTemplate,
       String responseMappingTemplate,
       @required String functionVersion}) async {
-    return UpdateFunctionResponse.fromJson({});
+    var response_ = await _client.send('UpdateFunction', {
+      'apiId': apiId,
+      'name': name,
+      if (description != null) 'description': description,
+      'functionId': functionId,
+      'dataSourceName': dataSourceName,
+      'requestMappingTemplate': requestMappingTemplate,
+      if (responseMappingTemplate != null)
+        'responseMappingTemplate': responseMappingTemplate,
+      'functionVersion': functionVersion,
+    });
+    return UpdateFunctionResponse.fromJson(response_);
   }
 
   /// Updates a `GraphqlApi` object.
@@ -603,7 +799,18 @@ class AppSyncApi {
       OpenIDConnectConfig openIDConnectConfig,
       List<AdditionalAuthenticationProvider>
           additionalAuthenticationProviders}) async {
-    return UpdateGraphqlApiResponse.fromJson({});
+    var response_ = await _client.send('UpdateGraphqlApi', {
+      'apiId': apiId,
+      'name': name,
+      if (logConfig != null) 'logConfig': logConfig,
+      if (authenticationType != null) 'authenticationType': authenticationType,
+      if (userPoolConfig != null) 'userPoolConfig': userPoolConfig,
+      if (openIDConnectConfig != null)
+        'openIDConnectConfig': openIDConnectConfig,
+      if (additionalAuthenticationProviders != null)
+        'additionalAuthenticationProviders': additionalAuthenticationProviders,
+    });
+    return UpdateGraphqlApiResponse.fromJson(response_);
   }
 
   /// Updates a `Resolver` object.
@@ -641,7 +848,18 @@ class AppSyncApi {
       String responseMappingTemplate,
       String kind,
       PipelineConfig pipelineConfig}) async {
-    return UpdateResolverResponse.fromJson({});
+    var response_ = await _client.send('UpdateResolver', {
+      'apiId': apiId,
+      'typeName': typeName,
+      'fieldName': fieldName,
+      if (dataSourceName != null) 'dataSourceName': dataSourceName,
+      'requestMappingTemplate': requestMappingTemplate,
+      if (responseMappingTemplate != null)
+        'responseMappingTemplate': responseMappingTemplate,
+      if (kind != null) 'kind': kind,
+      if (pipelineConfig != null) 'pipelineConfig': pipelineConfig,
+    });
+    return UpdateResolverResponse.fromJson(response_);
   }
 
   /// Updates a `Type` object.
@@ -658,7 +876,13 @@ class AppSyncApi {
       @required String typeName,
       String definition,
       @required String format}) async {
-    return UpdateTypeResponse.fromJson({});
+    var response_ = await _client.send('UpdateType', {
+      'apiId': apiId,
+      'typeName': typeName,
+      if (definition != null) 'definition': definition,
+      'format': format,
+    });
+    return UpdateTypeResponse.fromJson(response_);
   }
 }
 
@@ -680,7 +904,18 @@ class AdditionalAuthenticationProvider {
     this.userPoolConfig,
   });
   static AdditionalAuthenticationProvider fromJson(Map<String, dynamic> json) =>
-      AdditionalAuthenticationProvider();
+      AdditionalAuthenticationProvider(
+        authenticationType: json.containsKey('authenticationType')
+            ? json['authenticationType'] as String
+            : null,
+        openIDConnectConfig: json.containsKey('openIDConnectConfig')
+            ? OpenIDConnectConfig.fromJson(json['openIDConnectConfig'])
+            : null,
+        userPoolConfig: json.containsKey('userPoolConfig')
+            ? CognitoUserPoolConfig.fromJson(json['userPoolConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an API key.
@@ -738,7 +973,14 @@ class ApiKey {
     this.description,
     this.expires,
   });
-  static ApiKey fromJson(Map<String, dynamic> json) => ApiKey();
+  static ApiKey fromJson(Map<String, dynamic> json) => ApiKey(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        expires:
+            json.containsKey('expires') ? BigInt.from(json['expires']) : null,
+      );
 }
 
 /// The authorization config in case the HTTP endpoint requires authorization.
@@ -756,7 +998,13 @@ class AuthorizationConfig {
     this.awsIamConfig,
   });
   static AuthorizationConfig fromJson(Map<String, dynamic> json) =>
-      AuthorizationConfig();
+      AuthorizationConfig(
+        authorizationType: json['authorizationType'] as String,
+        awsIamConfig: json.containsKey('awsIamConfig')
+            ? AwsIamConfig.fromJson(json['awsIamConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The AWS IAM configuration.
@@ -771,7 +1019,15 @@ class AwsIamConfig {
     this.signingRegion,
     this.signingServiceName,
   });
-  static AwsIamConfig fromJson(Map<String, dynamic> json) => AwsIamConfig();
+  static AwsIamConfig fromJson(Map<String, dynamic> json) => AwsIamConfig(
+        signingRegion: json.containsKey('signingRegion')
+            ? json['signingRegion'] as String
+            : null,
+        signingServiceName: json.containsKey('signingServiceName')
+            ? json['signingServiceName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an Amazon Cognito user pool configuration.
@@ -792,7 +1048,14 @@ class CognitoUserPoolConfig {
     this.appIdClientRegex,
   });
   static CognitoUserPoolConfig fromJson(Map<String, dynamic> json) =>
-      CognitoUserPoolConfig();
+      CognitoUserPoolConfig(
+        userPoolId: json['userPoolId'] as String,
+        awsRegion: json['awsRegion'] as String,
+        appIdClientRegex: json.containsKey('appIdClientRegex')
+            ? json['appIdClientRegex'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateApiKeyResponse {
@@ -803,7 +1066,10 @@ class CreateApiKeyResponse {
     this.apiKey,
   });
   static CreateApiKeyResponse fromJson(Map<String, dynamic> json) =>
-      CreateApiKeyResponse();
+      CreateApiKeyResponse(
+        apiKey:
+            json.containsKey('apiKey') ? ApiKey.fromJson(json['apiKey']) : null,
+      );
 }
 
 class CreateDataSourceResponse {
@@ -814,7 +1080,11 @@ class CreateDataSourceResponse {
     this.dataSource,
   });
   static CreateDataSourceResponse fromJson(Map<String, dynamic> json) =>
-      CreateDataSourceResponse();
+      CreateDataSourceResponse(
+        dataSource: json.containsKey('dataSource')
+            ? DataSource.fromJson(json['dataSource'])
+            : null,
+      );
 }
 
 class CreateFunctionResponse {
@@ -825,7 +1095,11 @@ class CreateFunctionResponse {
     this.functionConfiguration,
   });
   static CreateFunctionResponse fromJson(Map<String, dynamic> json) =>
-      CreateFunctionResponse();
+      CreateFunctionResponse(
+        functionConfiguration: json.containsKey('functionConfiguration')
+            ? FunctionConfiguration.fromJson(json['functionConfiguration'])
+            : null,
+      );
 }
 
 class CreateGraphqlApiResponse {
@@ -836,7 +1110,11 @@ class CreateGraphqlApiResponse {
     this.graphqlApi,
   });
   static CreateGraphqlApiResponse fromJson(Map<String, dynamic> json) =>
-      CreateGraphqlApiResponse();
+      CreateGraphqlApiResponse(
+        graphqlApi: json.containsKey('graphqlApi')
+            ? GraphqlApi.fromJson(json['graphqlApi'])
+            : null,
+      );
 }
 
 class CreateResolverResponse {
@@ -847,7 +1125,11 @@ class CreateResolverResponse {
     this.resolver,
   });
   static CreateResolverResponse fromJson(Map<String, dynamic> json) =>
-      CreateResolverResponse();
+      CreateResolverResponse(
+        resolver: json.containsKey('resolver')
+            ? Resolver.fromJson(json['resolver'])
+            : null,
+      );
 }
 
 class CreateTypeResponse {
@@ -858,7 +1140,9 @@ class CreateTypeResponse {
     this.type,
   });
   static CreateTypeResponse fromJson(Map<String, dynamic> json) =>
-      CreateTypeResponse();
+      CreateTypeResponse(
+        type: json.containsKey('type') ? Type.fromJson(json['type']) : null,
+      );
 }
 
 /// Describes a data source.
@@ -922,7 +1206,36 @@ class DataSource {
     this.httpConfig,
     this.relationalDatabaseConfig,
   });
-  static DataSource fromJson(Map<String, dynamic> json) => DataSource();
+  static DataSource fromJson(Map<String, dynamic> json) => DataSource(
+        dataSourceArn: json.containsKey('dataSourceArn')
+            ? json['dataSourceArn'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        serviceRoleArn: json.containsKey('serviceRoleArn')
+            ? json['serviceRoleArn'] as String
+            : null,
+        dynamodbConfig: json.containsKey('dynamodbConfig')
+            ? DynamodbDataSourceConfig.fromJson(json['dynamodbConfig'])
+            : null,
+        lambdaConfig: json.containsKey('lambdaConfig')
+            ? LambdaDataSourceConfig.fromJson(json['lambdaConfig'])
+            : null,
+        elasticsearchConfig: json.containsKey('elasticsearchConfig')
+            ? ElasticsearchDataSourceConfig.fromJson(
+                json['elasticsearchConfig'])
+            : null,
+        httpConfig: json.containsKey('httpConfig')
+            ? HttpDataSourceConfig.fromJson(json['httpConfig'])
+            : null,
+        relationalDatabaseConfig: json.containsKey('relationalDatabaseConfig')
+            ? RelationalDatabaseDataSourceConfig.fromJson(
+                json['relationalDatabaseConfig'])
+            : null,
+      );
 }
 
 class DeleteApiKeyResponse {
@@ -978,7 +1291,14 @@ class DynamodbDataSourceConfig {
     this.useCallerCredentials,
   });
   static DynamodbDataSourceConfig fromJson(Map<String, dynamic> json) =>
-      DynamodbDataSourceConfig();
+      DynamodbDataSourceConfig(
+        tableName: json['tableName'] as String,
+        awsRegion: json['awsRegion'] as String,
+        useCallerCredentials: json.containsKey('useCallerCredentials')
+            ? json['useCallerCredentials'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an Elasticsearch data source configuration.
@@ -994,7 +1314,11 @@ class ElasticsearchDataSourceConfig {
     @required this.awsRegion,
   });
   static ElasticsearchDataSourceConfig fromJson(Map<String, dynamic> json) =>
-      ElasticsearchDataSourceConfig();
+      ElasticsearchDataSourceConfig(
+        endpoint: json['endpoint'] as String,
+        awsRegion: json['awsRegion'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A function is a reusable entity. Multiple functions can be used to compose
@@ -1037,7 +1361,30 @@ class FunctionConfiguration {
     this.functionVersion,
   });
   static FunctionConfiguration fromJson(Map<String, dynamic> json) =>
-      FunctionConfiguration();
+      FunctionConfiguration(
+        functionId: json.containsKey('functionId')
+            ? json['functionId'] as String
+            : null,
+        functionArn: json.containsKey('functionArn')
+            ? json['functionArn'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        dataSourceName: json.containsKey('dataSourceName')
+            ? json['dataSourceName'] as String
+            : null,
+        requestMappingTemplate: json.containsKey('requestMappingTemplate')
+            ? json['requestMappingTemplate'] as String
+            : null,
+        responseMappingTemplate: json.containsKey('responseMappingTemplate')
+            ? json['responseMappingTemplate'] as String
+            : null,
+        functionVersion: json.containsKey('functionVersion')
+            ? json['functionVersion'] as String
+            : null,
+      );
 }
 
 class GetDataSourceResponse {
@@ -1048,7 +1395,11 @@ class GetDataSourceResponse {
     this.dataSource,
   });
   static GetDataSourceResponse fromJson(Map<String, dynamic> json) =>
-      GetDataSourceResponse();
+      GetDataSourceResponse(
+        dataSource: json.containsKey('dataSource')
+            ? DataSource.fromJson(json['dataSource'])
+            : null,
+      );
 }
 
 class GetFunctionResponse {
@@ -1059,7 +1410,11 @@ class GetFunctionResponse {
     this.functionConfiguration,
   });
   static GetFunctionResponse fromJson(Map<String, dynamic> json) =>
-      GetFunctionResponse();
+      GetFunctionResponse(
+        functionConfiguration: json.containsKey('functionConfiguration')
+            ? FunctionConfiguration.fromJson(json['functionConfiguration'])
+            : null,
+      );
 }
 
 class GetGraphqlApiResponse {
@@ -1070,7 +1425,11 @@ class GetGraphqlApiResponse {
     this.graphqlApi,
   });
   static GetGraphqlApiResponse fromJson(Map<String, dynamic> json) =>
-      GetGraphqlApiResponse();
+      GetGraphqlApiResponse(
+        graphqlApi: json.containsKey('graphqlApi')
+            ? GraphqlApi.fromJson(json['graphqlApi'])
+            : null,
+      );
 }
 
 class GetIntrospectionSchemaResponse {
@@ -1084,7 +1443,9 @@ class GetIntrospectionSchemaResponse {
     this.schema,
   });
   static GetIntrospectionSchemaResponse fromJson(Map<String, dynamic> json) =>
-      GetIntrospectionSchemaResponse();
+      GetIntrospectionSchemaResponse(
+        schema: json.containsKey('schema') ? Uint8List(json['schema']) : null,
+      );
 }
 
 class GetResolverResponse {
@@ -1095,7 +1456,11 @@ class GetResolverResponse {
     this.resolver,
   });
   static GetResolverResponse fromJson(Map<String, dynamic> json) =>
-      GetResolverResponse();
+      GetResolverResponse(
+        resolver: json.containsKey('resolver')
+            ? Resolver.fromJson(json['resolver'])
+            : null,
+      );
 }
 
 class GetSchemaCreationStatusResponse {
@@ -1111,7 +1476,10 @@ class GetSchemaCreationStatusResponse {
     this.details,
   });
   static GetSchemaCreationStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetSchemaCreationStatusResponse();
+      GetSchemaCreationStatusResponse(
+        status: json.containsKey('status') ? json['status'] as String : null,
+        details: json.containsKey('details') ? json['details'] as String : null,
+      );
 }
 
 class GetTypeResponse {
@@ -1121,8 +1489,9 @@ class GetTypeResponse {
   GetTypeResponse({
     this.type,
   });
-  static GetTypeResponse fromJson(Map<String, dynamic> json) =>
-      GetTypeResponse();
+  static GetTypeResponse fromJson(Map<String, dynamic> json) => GetTypeResponse(
+        type: json.containsKey('type') ? Type.fromJson(json['type']) : null,
+      );
 }
 
 /// Describes a GraphQL API.
@@ -1170,7 +1539,37 @@ class GraphqlApi {
     this.tags,
     this.additionalAuthenticationProviders,
   });
-  static GraphqlApi fromJson(Map<String, dynamic> json) => GraphqlApi();
+  static GraphqlApi fromJson(Map<String, dynamic> json) => GraphqlApi(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        apiId: json.containsKey('apiId') ? json['apiId'] as String : null,
+        authenticationType: json.containsKey('authenticationType')
+            ? json['authenticationType'] as String
+            : null,
+        logConfig: json.containsKey('logConfig')
+            ? LogConfig.fromJson(json['logConfig'])
+            : null,
+        userPoolConfig: json.containsKey('userPoolConfig')
+            ? UserPoolConfig.fromJson(json['userPoolConfig'])
+            : null,
+        openIDConnectConfig: json.containsKey('openIDConnectConfig')
+            ? OpenIDConnectConfig.fromJson(json['openIDConnectConfig'])
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        uris: json.containsKey('uris')
+            ? (json['uris'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        additionalAuthenticationProviders:
+            json.containsKey('additionalAuthenticationProviders')
+                ? (json['additionalAuthenticationProviders'] as List)
+                    .map((e) => AdditionalAuthenticationProvider.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Describes an HTTP data source configuration.
@@ -1189,7 +1588,14 @@ class HttpDataSourceConfig {
     this.authorizationConfig,
   });
   static HttpDataSourceConfig fromJson(Map<String, dynamic> json) =>
-      HttpDataSourceConfig();
+      HttpDataSourceConfig(
+        endpoint:
+            json.containsKey('endpoint') ? json['endpoint'] as String : null,
+        authorizationConfig: json.containsKey('authorizationConfig')
+            ? AuthorizationConfig.fromJson(json['authorizationConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an AWS Lambda data source configuration.
@@ -1201,7 +1607,10 @@ class LambdaDataSourceConfig {
     @required this.lambdaFunctionArn,
   });
   static LambdaDataSourceConfig fromJson(Map<String, dynamic> json) =>
-      LambdaDataSourceConfig();
+      LambdaDataSourceConfig(
+        lambdaFunctionArn: json['lambdaFunctionArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListApiKeysResponse {
@@ -1217,7 +1626,13 @@ class ListApiKeysResponse {
     this.nextToken,
   });
   static ListApiKeysResponse fromJson(Map<String, dynamic> json) =>
-      ListApiKeysResponse();
+      ListApiKeysResponse(
+        apiKeys: json.containsKey('apiKeys')
+            ? (json['apiKeys'] as List).map((e) => ApiKey.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDataSourcesResponse {
@@ -1233,7 +1648,15 @@ class ListDataSourcesResponse {
     this.nextToken,
   });
   static ListDataSourcesResponse fromJson(Map<String, dynamic> json) =>
-      ListDataSourcesResponse();
+      ListDataSourcesResponse(
+        dataSources: json.containsKey('dataSources')
+            ? (json['dataSources'] as List)
+                .map((e) => DataSource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListFunctionsResponse {
@@ -1249,7 +1672,15 @@ class ListFunctionsResponse {
     this.nextToken,
   });
   static ListFunctionsResponse fromJson(Map<String, dynamic> json) =>
-      ListFunctionsResponse();
+      ListFunctionsResponse(
+        functions: json.containsKey('functions')
+            ? (json['functions'] as List)
+                .map((e) => FunctionConfiguration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListGraphqlApisResponse {
@@ -1265,7 +1696,15 @@ class ListGraphqlApisResponse {
     this.nextToken,
   });
   static ListGraphqlApisResponse fromJson(Map<String, dynamic> json) =>
-      ListGraphqlApisResponse();
+      ListGraphqlApisResponse(
+        graphqlApis: json.containsKey('graphqlApis')
+            ? (json['graphqlApis'] as List)
+                .map((e) => GraphqlApi.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListResolversByFunctionResponse {
@@ -1281,7 +1720,15 @@ class ListResolversByFunctionResponse {
     this.nextToken,
   });
   static ListResolversByFunctionResponse fromJson(Map<String, dynamic> json) =>
-      ListResolversByFunctionResponse();
+      ListResolversByFunctionResponse(
+        resolvers: json.containsKey('resolvers')
+            ? (json['resolvers'] as List)
+                .map((e) => Resolver.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListResolversResponse {
@@ -1297,7 +1744,15 @@ class ListResolversResponse {
     this.nextToken,
   });
   static ListResolversResponse fromJson(Map<String, dynamic> json) =>
-      ListResolversResponse();
+      ListResolversResponse(
+        resolvers: json.containsKey('resolvers')
+            ? (json['resolvers'] as List)
+                .map((e) => Resolver.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1308,7 +1763,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class ListTypesResponse {
@@ -1324,7 +1784,13 @@ class ListTypesResponse {
     this.nextToken,
   });
   static ListTypesResponse fromJson(Map<String, dynamic> json) =>
-      ListTypesResponse();
+      ListTypesResponse(
+        types: json.containsKey('types')
+            ? (json['types'] as List).map((e) => Type.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// The CloudWatch Logs configuration.
@@ -1366,7 +1832,14 @@ class LogConfig {
     @required this.cloudWatchLogsRoleArn,
     this.excludeVerboseContent,
   });
-  static LogConfig fromJson(Map<String, dynamic> json) => LogConfig();
+  static LogConfig fromJson(Map<String, dynamic> json) => LogConfig(
+        fieldLogLevel: json['fieldLogLevel'] as String,
+        cloudWatchLogsRoleArn: json['cloudWatchLogsRoleArn'] as String,
+        excludeVerboseContent: json.containsKey('excludeVerboseContent')
+            ? json['excludeVerboseContent'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an OpenID Connect configuration.
@@ -1395,7 +1868,15 @@ class OpenIDConnectConfig {
     this.authTtl,
   });
   static OpenIDConnectConfig fromJson(Map<String, dynamic> json) =>
-      OpenIDConnectConfig();
+      OpenIDConnectConfig(
+        issuer: json['issuer'] as String,
+        clientId:
+            json.containsKey('clientId') ? json['clientId'] as String : null,
+        iatTtl: json.containsKey('iatTTL') ? BigInt.from(json['iatTTL']) : null,
+        authTtl:
+            json.containsKey('authTTL') ? BigInt.from(json['authTTL']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The pipeline configuration for a resolver of kind `PIPELINE`.
@@ -1406,7 +1887,12 @@ class PipelineConfig {
   PipelineConfig({
     this.functions,
   });
-  static PipelineConfig fromJson(Map<String, dynamic> json) => PipelineConfig();
+  static PipelineConfig fromJson(Map<String, dynamic> json) => PipelineConfig(
+        functions: json.containsKey('functions')
+            ? (json['functions'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Amazon RDS HTTP endpoint configuration.
@@ -1434,7 +1920,21 @@ class RdsHttpEndpointConfig {
     this.awsSecretStoreArn,
   });
   static RdsHttpEndpointConfig fromJson(Map<String, dynamic> json) =>
-      RdsHttpEndpointConfig();
+      RdsHttpEndpointConfig(
+        awsRegion:
+            json.containsKey('awsRegion') ? json['awsRegion'] as String : null,
+        dbClusterIdentifier: json.containsKey('dbClusterIdentifier')
+            ? json['dbClusterIdentifier'] as String
+            : null,
+        databaseName: json.containsKey('databaseName')
+            ? json['databaseName'] as String
+            : null,
+        schema: json.containsKey('schema') ? json['schema'] as String : null,
+        awsSecretStoreArn: json.containsKey('awsSecretStoreArn')
+            ? json['awsSecretStoreArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a relational database data source configuration.
@@ -1454,7 +1954,16 @@ class RelationalDatabaseDataSourceConfig {
   });
   static RelationalDatabaseDataSourceConfig fromJson(
           Map<String, dynamic> json) =>
-      RelationalDatabaseDataSourceConfig();
+      RelationalDatabaseDataSourceConfig(
+        relationalDatabaseSourceType:
+            json.containsKey('relationalDatabaseSourceType')
+                ? json['relationalDatabaseSourceType'] as String
+                : null,
+        rdsHttpEndpointConfig: json.containsKey('rdsHttpEndpointConfig')
+            ? RdsHttpEndpointConfig.fromJson(json['rdsHttpEndpointConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a resolver.
@@ -1502,7 +2011,28 @@ class Resolver {
     this.kind,
     this.pipelineConfig,
   });
-  static Resolver fromJson(Map<String, dynamic> json) => Resolver();
+  static Resolver fromJson(Map<String, dynamic> json) => Resolver(
+        typeName:
+            json.containsKey('typeName') ? json['typeName'] as String : null,
+        fieldName:
+            json.containsKey('fieldName') ? json['fieldName'] as String : null,
+        dataSourceName: json.containsKey('dataSourceName')
+            ? json['dataSourceName'] as String
+            : null,
+        resolverArn: json.containsKey('resolverArn')
+            ? json['resolverArn'] as String
+            : null,
+        requestMappingTemplate: json.containsKey('requestMappingTemplate')
+            ? json['requestMappingTemplate'] as String
+            : null,
+        responseMappingTemplate: json.containsKey('responseMappingTemplate')
+            ? json['responseMappingTemplate'] as String
+            : null,
+        kind: json.containsKey('kind') ? json['kind'] as String : null,
+        pipelineConfig: json.containsKey('pipelineConfig')
+            ? PipelineConfig.fromJson(json['pipelineConfig'])
+            : null,
+      );
 }
 
 class StartSchemaCreationResponse {
@@ -1514,7 +2044,9 @@ class StartSchemaCreationResponse {
     this.status,
   });
   static StartSchemaCreationResponse fromJson(Map<String, dynamic> json) =>
-      StartSchemaCreationResponse();
+      StartSchemaCreationResponse(
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 class TagResourceResponse {
@@ -1547,7 +2079,17 @@ class Type {
     this.definition,
     this.format,
   });
-  static Type fromJson(Map<String, dynamic> json) => Type();
+  static Type fromJson(Map<String, dynamic> json) => Type(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        definition: json.containsKey('definition')
+            ? json['definition'] as String
+            : null,
+        format: json.containsKey('format') ? json['format'] as String : null,
+      );
 }
 
 class UntagResourceResponse {
@@ -1564,7 +2106,10 @@ class UpdateApiKeyResponse {
     this.apiKey,
   });
   static UpdateApiKeyResponse fromJson(Map<String, dynamic> json) =>
-      UpdateApiKeyResponse();
+      UpdateApiKeyResponse(
+        apiKey:
+            json.containsKey('apiKey') ? ApiKey.fromJson(json['apiKey']) : null,
+      );
 }
 
 class UpdateDataSourceResponse {
@@ -1575,7 +2120,11 @@ class UpdateDataSourceResponse {
     this.dataSource,
   });
   static UpdateDataSourceResponse fromJson(Map<String, dynamic> json) =>
-      UpdateDataSourceResponse();
+      UpdateDataSourceResponse(
+        dataSource: json.containsKey('dataSource')
+            ? DataSource.fromJson(json['dataSource'])
+            : null,
+      );
 }
 
 class UpdateFunctionResponse {
@@ -1586,7 +2135,11 @@ class UpdateFunctionResponse {
     this.functionConfiguration,
   });
   static UpdateFunctionResponse fromJson(Map<String, dynamic> json) =>
-      UpdateFunctionResponse();
+      UpdateFunctionResponse(
+        functionConfiguration: json.containsKey('functionConfiguration')
+            ? FunctionConfiguration.fromJson(json['functionConfiguration'])
+            : null,
+      );
 }
 
 class UpdateGraphqlApiResponse {
@@ -1597,7 +2150,11 @@ class UpdateGraphqlApiResponse {
     this.graphqlApi,
   });
   static UpdateGraphqlApiResponse fromJson(Map<String, dynamic> json) =>
-      UpdateGraphqlApiResponse();
+      UpdateGraphqlApiResponse(
+        graphqlApi: json.containsKey('graphqlApi')
+            ? GraphqlApi.fromJson(json['graphqlApi'])
+            : null,
+      );
 }
 
 class UpdateResolverResponse {
@@ -1608,7 +2165,11 @@ class UpdateResolverResponse {
     this.resolver,
   });
   static UpdateResolverResponse fromJson(Map<String, dynamic> json) =>
-      UpdateResolverResponse();
+      UpdateResolverResponse(
+        resolver: json.containsKey('resolver')
+            ? Resolver.fromJson(json['resolver'])
+            : null,
+      );
 }
 
 class UpdateTypeResponse {
@@ -1619,7 +2180,9 @@ class UpdateTypeResponse {
     this.type,
   });
   static UpdateTypeResponse fromJson(Map<String, dynamic> json) =>
-      UpdateTypeResponse();
+      UpdateTypeResponse(
+        type: json.containsKey('type') ? Type.fromJson(json['type']) : null,
+      );
 }
 
 /// Describes an Amazon Cognito user pool configuration.
@@ -1645,5 +2208,13 @@ class UserPoolConfig {
     @required this.defaultAction,
     this.appIdClientRegex,
   });
-  static UserPoolConfig fromJson(Map<String, dynamic> json) => UserPoolConfig();
+  static UserPoolConfig fromJson(Map<String, dynamic> json) => UserPoolConfig(
+        userPoolId: json['userPoolId'] as String,
+        awsRegion: json['awsRegion'] as String,
+        defaultAction: json['defaultAction'] as String,
+        appIdClientRegex: json.containsKey('appIdClientRegex')
+            ? json['appIdClientRegex'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

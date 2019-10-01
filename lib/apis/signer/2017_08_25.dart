@@ -9,13 +9,21 @@ import 'package:meta/meta.dart';
 /// information about using AWS Signer, see the
 /// [Code Signing for Amazon FreeRTOS Developer Guide](http://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html).
 class SignerApi {
+  final _client;
+  SignerApi(client)
+      : _client = client.configured('signer', serializer: 'rest-json');
+
   /// Changes the state of an `ACTIVE` signing profile to `CANCELED`. A canceled
   /// profile is still viewable with the `ListSigningProfiles` operation, but it
   /// cannot perform new signing jobs, and is deleted two years after
   /// cancelation.
   ///
   /// [profileName]: The name of the signing profile to be canceled.
-  Future<void> cancelSigningProfile(String profileName) async {}
+  Future<void> cancelSigningProfile(String profileName) async {
+    await _client.send('CancelSigningProfile', {
+      'profileName': profileName,
+    });
+  }
 
   /// Returns information about a specific code signing job. You specify the job
   /// by using the `jobId` value that is returned by the StartSigningJob
@@ -23,7 +31,10 @@ class SignerApi {
   ///
   /// [jobId]: The ID of the signing job on input.
   Future<DescribeSigningJobResponse> describeSigningJob(String jobId) async {
-    return DescribeSigningJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeSigningJob', {
+      'jobId': jobId,
+    });
+    return DescribeSigningJobResponse.fromJson(response_);
   }
 
   /// Returns information on a specific signing platform.
@@ -31,7 +42,10 @@ class SignerApi {
   /// [platformId]: The ID of the target signing platform.
   Future<GetSigningPlatformResponse> getSigningPlatform(
       String platformId) async {
-    return GetSigningPlatformResponse.fromJson({});
+    var response_ = await _client.send('GetSigningPlatform', {
+      'platformId': platformId,
+    });
+    return GetSigningPlatformResponse.fromJson(response_);
   }
 
   /// Returns information on a specific signing profile.
@@ -39,7 +53,10 @@ class SignerApi {
   /// [profileName]: The name of the target signing profile.
   Future<GetSigningProfileResponse> getSigningProfile(
       String profileName) async {
-    return GetSigningProfileResponse.fromJson({});
+    var response_ = await _client.send('GetSigningProfile', {
+      'profileName': profileName,
+    });
+    return GetSigningProfileResponse.fromJson(response_);
   }
 
   /// Lists all your signing jobs. You can use the `maxResults` parameter to
@@ -73,7 +90,14 @@ class SignerApi {
       String requestedBy,
       int maxResults,
       String nextToken}) async {
-    return ListSigningJobsResponse.fromJson({});
+    var response_ = await _client.send('ListSigningJobs', {
+      if (status != null) 'status': status,
+      if (platformId != null) 'platformId': platformId,
+      if (requestedBy != null) 'requestedBy': requestedBy,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListSigningJobsResponse.fromJson(response_);
   }
 
   /// Lists all signing platforms available in AWS Signer that match the request
@@ -104,7 +128,14 @@ class SignerApi {
       String target,
       int maxResults,
       String nextToken}) async {
-    return ListSigningPlatformsResponse.fromJson({});
+    var response_ = await _client.send('ListSigningPlatforms', {
+      if (category != null) 'category': category,
+      if (partner != null) 'partner': partner,
+      if (target != null) 'target': target,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListSigningPlatformsResponse.fromJson(response_);
   }
 
   /// Lists all available signing profiles in your AWS account. Returns only
@@ -127,7 +158,12 @@ class SignerApi {
   /// the response that you just received.
   Future<ListSigningProfilesResponse> listSigningProfiles(
       {bool includeCanceled, int maxResults, String nextToken}) async {
-    return ListSigningProfilesResponse.fromJson({});
+    var response_ = await _client.send('ListSigningProfiles', {
+      if (includeCanceled != null) 'includeCanceled': includeCanceled,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListSigningProfilesResponse.fromJson(response_);
   }
 
   /// Creates a signing profile. A signing profile is an AWS Signer template
@@ -154,7 +190,14 @@ class SignerApi {
       @required String platformId,
       SigningPlatformOverrides overrides,
       Map<String, String> signingParameters}) async {
-    return PutSigningProfileResponse.fromJson({});
+    var response_ = await _client.send('PutSigningProfile', {
+      'profileName': profileName,
+      'signingMaterial': signingMaterial,
+      'platformId': platformId,
+      if (overrides != null) 'overrides': overrides,
+      if (signingParameters != null) 'signingParameters': signingParameters,
+    });
+    return PutSigningProfileResponse.fromJson(response_);
   }
 
   /// Initiates a signing job to be performed on the code provided. Signing jobs
@@ -199,7 +242,13 @@ class SignerApi {
       @required Destination destination,
       String profileName,
       @required String clientRequestToken}) async {
-    return StartSigningJobResponse.fromJson({});
+    var response_ = await _client.send('StartSigningJob', {
+      'source': source,
+      'destination': destination,
+      if (profileName != null) 'profileName': profileName,
+      'clientRequestToken': clientRequestToken,
+    });
+    return StartSigningJobResponse.fromJson(response_);
   }
 }
 
@@ -261,7 +310,43 @@ class DescribeSigningJobResponse {
     this.signedObject,
   });
   static DescribeSigningJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSigningJobResponse();
+      DescribeSigningJobResponse(
+        jobId: json.containsKey('jobId') ? json['jobId'] as String : null,
+        source:
+            json.containsKey('source') ? Source.fromJson(json['source']) : null,
+        signingMaterial: json.containsKey('signingMaterial')
+            ? SigningMaterial.fromJson(json['signingMaterial'])
+            : null,
+        platformId: json.containsKey('platformId')
+            ? json['platformId'] as String
+            : null,
+        profileName: json.containsKey('profileName')
+            ? json['profileName'] as String
+            : null,
+        overrides: json.containsKey('overrides')
+            ? SigningPlatformOverrides.fromJson(json['overrides'])
+            : null,
+        signingParameters: json.containsKey('signingParameters')
+            ? (json['signingParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        completedAt: json.containsKey('completedAt')
+            ? DateTime.parse(json['completedAt'])
+            : null,
+        requestedBy: json.containsKey('requestedBy')
+            ? json['requestedBy'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusReason: json.containsKey('statusReason')
+            ? json['statusReason'] as String
+            : null,
+        signedObject: json.containsKey('signedObject')
+            ? SignedObject.fromJson(json['signedObject'])
+            : null,
+      );
 }
 
 /// Points to an `S3Destination` object that contains information about your S3
@@ -273,6 +358,7 @@ class Destination {
   Destination({
     this.s3,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The encryption algorithm options that are available to an AWS Signer job.
@@ -289,7 +375,11 @@ class EncryptionAlgorithmOptions {
     @required this.defaultValue,
   });
   static EncryptionAlgorithmOptions fromJson(Map<String, dynamic> json) =>
-      EncryptionAlgorithmOptions();
+      EncryptionAlgorithmOptions(
+        allowedValues:
+            (json['allowedValues'] as List).map((e) => e as String).toList(),
+        defaultValue: json['defaultValue'] as String,
+      );
 }
 
 class GetSigningPlatformResponse {
@@ -329,7 +419,26 @@ class GetSigningPlatformResponse {
     this.maxSizeInMB,
   });
   static GetSigningPlatformResponse fromJson(Map<String, dynamic> json) =>
-      GetSigningPlatformResponse();
+      GetSigningPlatformResponse(
+        platformId: json.containsKey('platformId')
+            ? json['platformId'] as String
+            : null,
+        displayName: json.containsKey('displayName')
+            ? json['displayName'] as String
+            : null,
+        partner: json.containsKey('partner') ? json['partner'] as String : null,
+        target: json.containsKey('target') ? json['target'] as String : null,
+        category:
+            json.containsKey('category') ? json['category'] as String : null,
+        signingConfiguration: json.containsKey('signingConfiguration')
+            ? SigningConfiguration.fromJson(json['signingConfiguration'])
+            : null,
+        signingImageFormat: json.containsKey('signingImageFormat')
+            ? SigningImageFormat.fromJson(json['signingImageFormat'])
+            : null,
+        maxSizeInMB:
+            json.containsKey('maxSizeInMB') ? json['maxSizeInMB'] as int : null,
+      );
 }
 
 class GetSigningProfileResponse {
@@ -363,7 +472,25 @@ class GetSigningProfileResponse {
     this.status,
   });
   static GetSigningProfileResponse fromJson(Map<String, dynamic> json) =>
-      GetSigningProfileResponse();
+      GetSigningProfileResponse(
+        profileName: json.containsKey('profileName')
+            ? json['profileName'] as String
+            : null,
+        signingMaterial: json.containsKey('signingMaterial')
+            ? SigningMaterial.fromJson(json['signingMaterial'])
+            : null,
+        platformId: json.containsKey('platformId')
+            ? json['platformId'] as String
+            : null,
+        overrides: json.containsKey('overrides')
+            ? SigningPlatformOverrides.fromJson(json['overrides'])
+            : null,
+        signingParameters: json.containsKey('signingParameters')
+            ? (json['signingParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// The hash algorithms that are available to an AWS Signer job.
@@ -379,7 +506,11 @@ class HashAlgorithmOptions {
     @required this.defaultValue,
   });
   static HashAlgorithmOptions fromJson(Map<String, dynamic> json) =>
-      HashAlgorithmOptions();
+      HashAlgorithmOptions(
+        allowedValues:
+            (json['allowedValues'] as List).map((e) => e as String).toList(),
+        defaultValue: json['defaultValue'] as String,
+      );
 }
 
 class ListSigningJobsResponse {
@@ -394,7 +525,13 @@ class ListSigningJobsResponse {
     this.nextToken,
   });
   static ListSigningJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListSigningJobsResponse();
+      ListSigningJobsResponse(
+        jobs: json.containsKey('jobs')
+            ? (json['jobs'] as List).map((e) => SigningJob.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListSigningPlatformsResponse {
@@ -409,7 +546,15 @@ class ListSigningPlatformsResponse {
     this.nextToken,
   });
   static ListSigningPlatformsResponse fromJson(Map<String, dynamic> json) =>
-      ListSigningPlatformsResponse();
+      ListSigningPlatformsResponse(
+        platforms: json.containsKey('platforms')
+            ? (json['platforms'] as List)
+                .map((e) => SigningPlatform.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListSigningProfilesResponse {
@@ -426,7 +571,15 @@ class ListSigningProfilesResponse {
     this.nextToken,
   });
   static ListSigningProfilesResponse fromJson(Map<String, dynamic> json) =>
-      ListSigningProfilesResponse();
+      ListSigningProfilesResponse(
+        profiles: json.containsKey('profiles')
+            ? (json['profiles'] as List)
+                .map((e) => SigningProfile.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class PutSigningProfileResponse {
@@ -437,7 +590,9 @@ class PutSigningProfileResponse {
     this.arn,
   });
   static PutSigningProfileResponse fromJson(Map<String, dynamic> json) =>
-      PutSigningProfileResponse();
+      PutSigningProfileResponse(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+      );
 }
 
 /// The name and prefix of the S3 bucket where AWS Signer saves your signed
@@ -454,6 +609,7 @@ class S3Destination {
     this.bucketName,
     this.prefix,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The S3 bucket name and key where AWS Signer saved your signed code image.
@@ -468,7 +624,12 @@ class S3SignedObject {
     this.bucketName,
     this.key,
   });
-  static S3SignedObject fromJson(Map<String, dynamic> json) => S3SignedObject();
+  static S3SignedObject fromJson(Map<String, dynamic> json) => S3SignedObject(
+        bucketName: json.containsKey('bucketName')
+            ? json['bucketName'] as String
+            : null,
+        key: json.containsKey('key') ? json['key'] as String : null,
+      );
 }
 
 /// Information about the S3 bucket where you saved your unsigned code.
@@ -487,7 +648,12 @@ class S3Source {
     @required this.key,
     @required this.version,
   });
-  static S3Source fromJson(Map<String, dynamic> json) => S3Source();
+  static S3Source fromJson(Map<String, dynamic> json) => S3Source(
+        bucketName: json['bucketName'] as String,
+        key: json['key'] as String,
+        version: json['version'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Points to an `S3SignedObject` object that contains information about your
@@ -499,7 +665,9 @@ class SignedObject {
   SignedObject({
     this.s3,
   });
-  static SignedObject fromJson(Map<String, dynamic> json) => SignedObject();
+  static SignedObject fromJson(Map<String, dynamic> json) => SignedObject(
+        s3: json.containsKey('s3') ? S3SignedObject.fromJson(json['s3']) : null,
+      );
 }
 
 /// The configuration of an AWS Signer operation.
@@ -515,7 +683,12 @@ class SigningConfiguration {
     @required this.hashAlgorithmOptions,
   });
   static SigningConfiguration fromJson(Map<String, dynamic> json) =>
-      SigningConfiguration();
+      SigningConfiguration(
+        encryptionAlgorithmOptions: EncryptionAlgorithmOptions.fromJson(
+            json['encryptionAlgorithmOptions']),
+        hashAlgorithmOptions:
+            HashAlgorithmOptions.fromJson(json['hashAlgorithmOptions']),
+      );
 }
 
 /// A signing configuration that overrides the default encryption or hash
@@ -534,7 +707,15 @@ class SigningConfigurationOverrides {
     this.hashAlgorithm,
   });
   static SigningConfigurationOverrides fromJson(Map<String, dynamic> json) =>
-      SigningConfigurationOverrides();
+      SigningConfigurationOverrides(
+        encryptionAlgorithm: json.containsKey('encryptionAlgorithm')
+            ? json['encryptionAlgorithm'] as String
+            : null,
+        hashAlgorithm: json.containsKey('hashAlgorithm')
+            ? json['hashAlgorithm'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The image format of an AWS Signer platform or profile.
@@ -550,7 +731,11 @@ class SigningImageFormat {
     @required this.defaultFormat,
   });
   static SigningImageFormat fromJson(Map<String, dynamic> json) =>
-      SigningImageFormat();
+      SigningImageFormat(
+        supportedFormats:
+            (json['supportedFormats'] as List).map((e) => e as String).toList(),
+        defaultFormat: json['defaultFormat'] as String,
+      );
 }
 
 /// Contains information about a signing job.
@@ -584,7 +769,21 @@ class SigningJob {
     this.createdAt,
     this.status,
   });
-  static SigningJob fromJson(Map<String, dynamic> json) => SigningJob();
+  static SigningJob fromJson(Map<String, dynamic> json) => SigningJob(
+        jobId: json.containsKey('jobId') ? json['jobId'] as String : null,
+        source:
+            json.containsKey('source') ? Source.fromJson(json['source']) : null,
+        signedObject: json.containsKey('signedObject')
+            ? SignedObject.fromJson(json['signedObject'])
+            : null,
+        signingMaterial: json.containsKey('signingMaterial')
+            ? SigningMaterial.fromJson(json['signingMaterial'])
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// The ACM certificate that is used to sign your code.
@@ -596,8 +795,10 @@ class SigningMaterial {
   SigningMaterial({
     @required this.certificateArn,
   });
-  static SigningMaterial fromJson(Map<String, dynamic> json) =>
-      SigningMaterial();
+  static SigningMaterial fromJson(Map<String, dynamic> json) => SigningMaterial(
+        certificateArn: json['certificateArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the signing configurations and parameters that is
@@ -639,8 +840,26 @@ class SigningPlatform {
     this.signingImageFormat,
     this.maxSizeInMB,
   });
-  static SigningPlatform fromJson(Map<String, dynamic> json) =>
-      SigningPlatform();
+  static SigningPlatform fromJson(Map<String, dynamic> json) => SigningPlatform(
+        platformId: json.containsKey('platformId')
+            ? json['platformId'] as String
+            : null,
+        displayName: json.containsKey('displayName')
+            ? json['displayName'] as String
+            : null,
+        partner: json.containsKey('partner') ? json['partner'] as String : null,
+        target: json.containsKey('target') ? json['target'] as String : null,
+        category:
+            json.containsKey('category') ? json['category'] as String : null,
+        signingConfiguration: json.containsKey('signingConfiguration')
+            ? SigningConfiguration.fromJson(json['signingConfiguration'])
+            : null,
+        signingImageFormat: json.containsKey('signingImageFormat')
+            ? SigningImageFormat.fromJson(json['signingImageFormat'])
+            : null,
+        maxSizeInMB:
+            json.containsKey('maxSizeInMB') ? json['maxSizeInMB'] as int : null,
+      );
 }
 
 /// Any overrides that are applied to the signing configuration of an AWS Signer
@@ -652,7 +871,13 @@ class SigningPlatformOverrides {
     this.signingConfiguration,
   });
   static SigningPlatformOverrides fromJson(Map<String, dynamic> json) =>
-      SigningPlatformOverrides();
+      SigningPlatformOverrides(
+        signingConfiguration: json.containsKey('signingConfiguration')
+            ? SigningConfigurationOverrides.fromJson(
+                json['signingConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the ACM certificates and AWS Signer configuration
@@ -680,7 +905,22 @@ class SigningProfile {
     this.signingParameters,
     this.status,
   });
-  static SigningProfile fromJson(Map<String, dynamic> json) => SigningProfile();
+  static SigningProfile fromJson(Map<String, dynamic> json) => SigningProfile(
+        profileName: json.containsKey('profileName')
+            ? json['profileName'] as String
+            : null,
+        signingMaterial: json.containsKey('signingMaterial')
+            ? SigningMaterial.fromJson(json['signingMaterial'])
+            : null,
+        platformId: json.containsKey('platformId')
+            ? json['platformId'] as String
+            : null,
+        signingParameters: json.containsKey('signingParameters')
+            ? (json['signingParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// An `S3Source` object that contains information about the S3 bucket where you
@@ -692,7 +932,10 @@ class Source {
   Source({
     this.s3,
   });
-  static Source fromJson(Map<String, dynamic> json) => Source();
+  static Source fromJson(Map<String, dynamic> json) => Source(
+        s3: json.containsKey('s3') ? S3Source.fromJson(json['s3']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartSigningJobResponse {
@@ -703,5 +946,7 @@ class StartSigningJobResponse {
     this.jobId,
   });
   static StartSigningJobResponse fromJson(Map<String, dynamic> json) =>
-      StartSigningJobResponse();
+      StartSigningJobResponse(
+        jobId: json.containsKey('jobId') ? json['jobId'] as String : null,
+      );
 }

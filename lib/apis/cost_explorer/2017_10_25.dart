@@ -16,6 +16,10 @@ import 'package:meta/meta.dart';
 /// For information about costs associated with the Cost Explorer API, see
 /// [AWS Cost Management Pricing](https://aws.amazon.com/aws-cost-management/pricing/).
 class CostExplorerApi {
+  final _client;
+  CostExplorerApi(client)
+      : _client = client.configured('Cost Explorer', serializer: 'json');
+
   /// Retrieves cost and usage metrics for your account. You can specify which
   /// cost and usage-related metric, such as `BlendedCosts` or `UsageQuantity`,
   /// that you want the request to return. You can also filter and group your
@@ -81,7 +85,15 @@ class CostExplorerApi {
       List<String> metrics,
       List<GroupDefinition> groupBy,
       String nextPageToken}) async {
-    return GetCostAndUsageResponse.fromJson({});
+    var response_ = await _client.send('GetCostAndUsage', {
+      'TimePeriod': timePeriod,
+      if (granularity != null) 'Granularity': granularity,
+      if (filter != null) 'Filter': filter,
+      if (metrics != null) 'Metrics': metrics,
+      if (groupBy != null) 'GroupBy': groupBy,
+      if (nextPageToken != null) 'NextPageToken': nextPageToken,
+    });
+    return GetCostAndUsageResponse.fromJson(response_);
   }
 
   /// Retrieves a forecast for how much Amazon Web Services predicts that you
@@ -127,7 +139,15 @@ class CostExplorerApi {
       @required String granularity,
       Expression filter,
       int predictionIntervalLevel}) async {
-    return GetCostForecastResponse.fromJson({});
+    var response_ = await _client.send('GetCostForecast', {
+      'TimePeriod': timePeriod,
+      'Metric': metric,
+      'Granularity': granularity,
+      if (filter != null) 'Filter': filter,
+      if (predictionIntervalLevel != null)
+        'PredictionIntervalLevel': predictionIntervalLevel,
+    });
+    return GetCostForecastResponse.fromJson(response_);
   }
 
   /// Retrieves all available filter values for a specified filter over a period
@@ -236,7 +256,14 @@ class CostExplorerApi {
       @required String dimension,
       String context,
       String nextPageToken}) async {
-    return GetDimensionValuesResponse.fromJson({});
+    var response_ = await _client.send('GetDimensionValues', {
+      if (searchString != null) 'SearchString': searchString,
+      'TimePeriod': timePeriod,
+      'Dimension': dimension,
+      if (context != null) 'Context': context,
+      if (nextPageToken != null) 'NextPageToken': nextPageToken,
+    });
+    return GetDimensionValuesResponse.fromJson(response_);
   }
 
   /// Retrieves the reservation coverage for your account. This enables you to
@@ -366,7 +393,15 @@ class CostExplorerApi {
       Expression filter,
       List<String> metrics,
       String nextPageToken}) async {
-    return GetReservationCoverageResponse.fromJson({});
+    var response_ = await _client.send('GetReservationCoverage', {
+      'TimePeriod': timePeriod,
+      if (groupBy != null) 'GroupBy': groupBy,
+      if (granularity != null) 'Granularity': granularity,
+      if (filter != null) 'Filter': filter,
+      if (metrics != null) 'Metrics': metrics,
+      if (nextPageToken != null) 'NextPageToken': nextPageToken,
+    });
+    return GetReservationCoverageResponse.fromJson(response_);
   }
 
   /// Gets recommendations for which reservations to purchase. These
@@ -428,7 +463,20 @@ class CostExplorerApi {
           ServiceSpecification serviceSpecification,
           int pageSize,
           String nextPageToken}) async {
-    return GetReservationPurchaseRecommendationResponse.fromJson({});
+    var response_ = await _client.send('GetReservationPurchaseRecommendation', {
+      if (accountId != null) 'AccountId': accountId,
+      'Service': service,
+      if (accountScope != null) 'AccountScope': accountScope,
+      if (lookbackPeriodInDays != null)
+        'LookbackPeriodInDays': lookbackPeriodInDays,
+      if (termInYears != null) 'TermInYears': termInYears,
+      if (paymentOption != null) 'PaymentOption': paymentOption,
+      if (serviceSpecification != null)
+        'ServiceSpecification': serviceSpecification,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (nextPageToken != null) 'NextPageToken': nextPageToken,
+    });
+    return GetReservationPurchaseRecommendationResponse.fromJson(response_);
   }
 
   /// Retrieves the reservation utilization for your account. Master accounts in
@@ -496,7 +544,14 @@ class CostExplorerApi {
       String granularity,
       Expression filter,
       String nextPageToken}) async {
-    return GetReservationUtilizationResponse.fromJson({});
+    var response_ = await _client.send('GetReservationUtilization', {
+      'TimePeriod': timePeriod,
+      if (groupBy != null) 'GroupBy': groupBy,
+      if (granularity != null) 'Granularity': granularity,
+      if (filter != null) 'Filter': filter,
+      if (nextPageToken != null) 'NextPageToken': nextPageToken,
+    });
+    return GetReservationUtilizationResponse.fromJson(response_);
   }
 
   /// Creates recommendations that helps you save cost by identifying idle and
@@ -519,7 +574,13 @@ class CostExplorerApi {
       {Expression filter,
       int pageSize,
       String nextPageToken}) async {
-    return GetRightsizingRecommendationResponse.fromJson({});
+    var response_ = await _client.send('GetRightsizingRecommendation', {
+      if (filter != null) 'Filter': filter,
+      'Service': service,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (nextPageToken != null) 'NextPageToken': nextPageToken,
+    });
+    return GetRightsizingRecommendationResponse.fromJson(response_);
   }
 
   /// Queries for available tag keys and tag values for a specified period. You
@@ -540,7 +601,13 @@ class CostExplorerApi {
   /// than the maximum page size.
   Future<GetTagsResponse> getTags(DateInterval timePeriod,
       {String searchString, String tagKey, String nextPageToken}) async {
-    return GetTagsResponse.fromJson({});
+    var response_ = await _client.send('GetTags', {
+      if (searchString != null) 'SearchString': searchString,
+      'TimePeriod': timePeriod,
+      if (tagKey != null) 'TagKey': tagKey,
+      if (nextPageToken != null) 'NextPageToken': nextPageToken,
+    });
+    return GetTagsResponse.fromJson(response_);
   }
 
   /// Retrieves a forecast for how much Amazon Web Services predicts that you
@@ -582,7 +649,15 @@ class CostExplorerApi {
       @required String granularity,
       Expression filter,
       int predictionIntervalLevel}) async {
-    return GetUsageForecastResponse.fromJson({});
+    var response_ = await _client.send('GetUsageForecast', {
+      'TimePeriod': timePeriod,
+      'Metric': metric,
+      'Granularity': granularity,
+      if (filter != null) 'Filter': filter,
+      if (predictionIntervalLevel != null)
+        'PredictionIntervalLevel': predictionIntervalLevel,
+    });
+    return GetUsageForecastResponse.fromJson(response_);
   }
 }
 
@@ -603,7 +678,17 @@ class Coverage {
     this.coverageNormalizedUnits,
     this.coverageCost,
   });
-  static Coverage fromJson(Map<String, dynamic> json) => Coverage();
+  static Coverage fromJson(Map<String, dynamic> json) => Coverage(
+        coverageHours: json.containsKey('CoverageHours')
+            ? CoverageHours.fromJson(json['CoverageHours'])
+            : null,
+        coverageNormalizedUnits: json.containsKey('CoverageNormalizedUnits')
+            ? CoverageNormalizedUnits.fromJson(json['CoverageNormalizedUnits'])
+            : null,
+        coverageCost: json.containsKey('CoverageCost')
+            ? CoverageCost.fromJson(json['CoverageCost'])
+            : null,
+      );
 }
 
 /// Reservation coverage for a specified period, in hours.
@@ -622,7 +707,18 @@ class CoverageByTime {
     this.groups,
     this.total,
   });
-  static CoverageByTime fromJson(Map<String, dynamic> json) => CoverageByTime();
+  static CoverageByTime fromJson(Map<String, dynamic> json) => CoverageByTime(
+        timePeriod: json.containsKey('TimePeriod')
+            ? DateInterval.fromJson(json['TimePeriod'])
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => ReservationCoverageGroup.fromJson(e))
+                .toList()
+            : null,
+        total:
+            json.containsKey('Total') ? Coverage.fromJson(json['Total']) : null,
+      );
 }
 
 /// How much it cost to run an instance.
@@ -633,7 +729,11 @@ class CoverageCost {
   CoverageCost({
     this.onDemandCost,
   });
-  static CoverageCost fromJson(Map<String, dynamic> json) => CoverageCost();
+  static CoverageCost fromJson(Map<String, dynamic> json) => CoverageCost(
+        onDemandCost: json.containsKey('OnDemandCost')
+            ? json['OnDemandCost'] as String
+            : null,
+      );
 }
 
 /// How long a running instance either used a reservation or was On-Demand.
@@ -656,7 +756,20 @@ class CoverageHours {
     this.totalRunningHours,
     this.coverageHoursPercentage,
   });
-  static CoverageHours fromJson(Map<String, dynamic> json) => CoverageHours();
+  static CoverageHours fromJson(Map<String, dynamic> json) => CoverageHours(
+        onDemandHours: json.containsKey('OnDemandHours')
+            ? json['OnDemandHours'] as String
+            : null,
+        reservedHours: json.containsKey('ReservedHours')
+            ? json['ReservedHours'] as String
+            : null,
+        totalRunningHours: json.containsKey('TotalRunningHours')
+            ? json['TotalRunningHours'] as String
+            : null,
+        coverageHoursPercentage: json.containsKey('CoverageHoursPercentage')
+            ? json['CoverageHoursPercentage'] as String
+            : null,
+      );
 }
 
 /// The amount of instance usage, in normalized units. Normalized units enable
@@ -693,7 +806,22 @@ class CoverageNormalizedUnits {
     this.coverageNormalizedUnitsPercentage,
   });
   static CoverageNormalizedUnits fromJson(Map<String, dynamic> json) =>
-      CoverageNormalizedUnits();
+      CoverageNormalizedUnits(
+        onDemandNormalizedUnits: json.containsKey('OnDemandNormalizedUnits')
+            ? json['OnDemandNormalizedUnits'] as String
+            : null,
+        reservedNormalizedUnits: json.containsKey('ReservedNormalizedUnits')
+            ? json['ReservedNormalizedUnits'] as String
+            : null,
+        totalRunningNormalizedUnits:
+            json.containsKey('TotalRunningNormalizedUnits')
+                ? json['TotalRunningNormalizedUnits'] as String
+                : null,
+        coverageNormalizedUnitsPercentage:
+            json.containsKey('CoverageNormalizedUnitsPercentage')
+                ? json['CoverageNormalizedUnitsPercentage'] as String
+                : null,
+      );
 }
 
 /// Context about the current instance.
@@ -738,8 +866,38 @@ class CurrentInstance {
     this.monthlyCost,
     this.currencyCode,
   });
-  static CurrentInstance fromJson(Map<String, dynamic> json) =>
-      CurrentInstance();
+  static CurrentInstance fromJson(Map<String, dynamic> json) => CurrentInstance(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => TagValues.fromJson(e)).toList()
+            : null,
+        resourceDetails: json.containsKey('ResourceDetails')
+            ? ResourceDetails.fromJson(json['ResourceDetails'])
+            : null,
+        resourceUtilization: json.containsKey('ResourceUtilization')
+            ? ResourceUtilization.fromJson(json['ResourceUtilization'])
+            : null,
+        reservationCoveredHoursInLookbackPeriod:
+            json.containsKey('ReservationCoveredHoursInLookbackPeriod')
+                ? json['ReservationCoveredHoursInLookbackPeriod'] as String
+                : null,
+        onDemandHoursInLookbackPeriod:
+            json.containsKey('OnDemandHoursInLookbackPeriod')
+                ? json['OnDemandHoursInLookbackPeriod'] as String
+                : null,
+        totalRunningHoursInLookbackPeriod:
+            json.containsKey('TotalRunningHoursInLookbackPeriod')
+                ? json['TotalRunningHoursInLookbackPeriod'] as String
+                : null,
+        monthlyCost: json.containsKey('MonthlyCost')
+            ? json['MonthlyCost'] as String
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+      );
 }
 
 /// The time period that you want the usage and costs for.
@@ -759,7 +917,11 @@ class DateInterval {
     @required this.start,
     @required this.end,
   });
-  static DateInterval fromJson(Map<String, dynamic> json) => DateInterval();
+  static DateInterval fromJson(Map<String, dynamic> json) => DateInterval(
+        start: json['Start'] as String,
+        end: json['End'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The metadata that you can use to filter and group your results. You can use
@@ -781,6 +943,7 @@ class DimensionValues {
     this.key,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The metadata of a specific type that you can use to filter and group your
@@ -797,7 +960,13 @@ class DimensionValuesWithAttributes {
     this.attributes,
   });
   static DimensionValuesWithAttributes fromJson(Map<String, dynamic> json) =>
-      DimensionValuesWithAttributes();
+      DimensionValuesWithAttributes(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Details about the Amazon EC2 instances that AWS recommends that you
@@ -840,7 +1009,25 @@ class Ec2InstanceDetails {
     this.sizeFlexEligible,
   });
   static Ec2InstanceDetails fromJson(Map<String, dynamic> json) =>
-      Ec2InstanceDetails();
+      Ec2InstanceDetails(
+        family: json.containsKey('Family') ? json['Family'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        tenancy: json.containsKey('Tenancy') ? json['Tenancy'] as String : null,
+        currentGeneration: json.containsKey('CurrentGeneration')
+            ? json['CurrentGeneration'] as bool
+            : null,
+        sizeFlexEligible: json.containsKey('SizeFlexEligible')
+            ? json['SizeFlexEligible'] as bool
+            : null,
+      );
 }
 
 ///  Details on the Amazon EC2 Resource.
@@ -886,7 +1073,24 @@ class Ec2ResourceDetails {
     this.vcpu,
   });
   static Ec2ResourceDetails fromJson(Map<String, dynamic> json) =>
-      Ec2ResourceDetails();
+      Ec2ResourceDetails(
+        hourlyOnDemandRate: json.containsKey('HourlyOnDemandRate')
+            ? json['HourlyOnDemandRate'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        sku: json.containsKey('Sku') ? json['Sku'] as String : null,
+        memory: json.containsKey('Memory') ? json['Memory'] as String : null,
+        networkPerformance: json.containsKey('NetworkPerformance')
+            ? json['NetworkPerformance'] as String
+            : null,
+        storage: json.containsKey('Storage') ? json['Storage'] as String : null,
+        vcpu: json.containsKey('Vcpu') ? json['Vcpu'] as String : null,
+      );
 }
 
 ///  Utilization metrics of the instance.
@@ -907,7 +1111,20 @@ class Ec2ResourceUtilization {
     this.maxStorageUtilizationPercentage,
   });
   static Ec2ResourceUtilization fromJson(Map<String, dynamic> json) =>
-      Ec2ResourceUtilization();
+      Ec2ResourceUtilization(
+        maxCpuUtilizationPercentage:
+            json.containsKey('MaxCpuUtilizationPercentage')
+                ? json['MaxCpuUtilizationPercentage'] as String
+                : null,
+        maxMemoryUtilizationPercentage:
+            json.containsKey('MaxMemoryUtilizationPercentage')
+                ? json['MaxMemoryUtilizationPercentage'] as String
+                : null,
+        maxStorageUtilizationPercentage:
+            json.containsKey('MaxStorageUtilizationPercentage')
+                ? json['MaxStorageUtilizationPercentage'] as String
+                : null,
+      );
 }
 
 /// The Amazon EC2 hardware specifications that you want AWS to provide
@@ -921,7 +1138,12 @@ class Ec2Specification {
     this.offeringClass,
   });
   static Ec2Specification fromJson(Map<String, dynamic> json) =>
-      Ec2Specification();
+      Ec2Specification(
+        offeringClass: json.containsKey('OfferingClass')
+            ? json['OfferingClass'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about the Amazon ES instances that AWS recommends that you purchase.
@@ -949,7 +1171,21 @@ class ESInstanceDetails {
     this.sizeFlexEligible,
   });
   static ESInstanceDetails fromJson(Map<String, dynamic> json) =>
-      ESInstanceDetails();
+      ESInstanceDetails(
+        instanceClass: json.containsKey('InstanceClass')
+            ? json['InstanceClass'] as String
+            : null,
+        instanceSize: json.containsKey('InstanceSize')
+            ? json['InstanceSize'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        currentGeneration: json.containsKey('CurrentGeneration')
+            ? json['CurrentGeneration'] as bool
+            : null,
+        sizeFlexEligible: json.containsKey('SizeFlexEligible')
+            ? json['SizeFlexEligible'] as bool
+            : null,
+      );
 }
 
 /// Details about the Amazon ElastiCache instances that AWS recommends that you
@@ -982,7 +1218,21 @@ class ElastiCacheInstanceDetails {
     this.sizeFlexEligible,
   });
   static ElastiCacheInstanceDetails fromJson(Map<String, dynamic> json) =>
-      ElastiCacheInstanceDetails();
+      ElastiCacheInstanceDetails(
+        family: json.containsKey('Family') ? json['Family'] as String : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        currentGeneration: json.containsKey('CurrentGeneration')
+            ? json['CurrentGeneration'] as bool
+            : null,
+        sizeFlexEligible: json.containsKey('SizeFlexEligible')
+            ? json['SizeFlexEligible'] as bool
+            : null,
+      );
 }
 
 /// Use `Expression` to filter by cost or by usage. There are two patterns:
@@ -1048,6 +1298,7 @@ class Expression {
     this.dimensions,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The forecast created for your query.
@@ -1070,7 +1321,21 @@ class ForecastResult {
     this.predictionIntervalLowerBound,
     this.predictionIntervalUpperBound,
   });
-  static ForecastResult fromJson(Map<String, dynamic> json) => ForecastResult();
+  static ForecastResult fromJson(Map<String, dynamic> json) => ForecastResult(
+        timePeriod: json.containsKey('TimePeriod')
+            ? DateInterval.fromJson(json['TimePeriod'])
+            : null,
+        meanValue:
+            json.containsKey('MeanValue') ? json['MeanValue'] as String : null,
+        predictionIntervalLowerBound:
+            json.containsKey('PredictionIntervalLowerBound')
+                ? json['PredictionIntervalLowerBound'] as String
+                : null,
+        predictionIntervalUpperBound:
+            json.containsKey('PredictionIntervalUpperBound')
+                ? json['PredictionIntervalUpperBound'] as String
+                : null,
+      );
 }
 
 class GetCostAndUsageResponse {
@@ -1092,7 +1357,21 @@ class GetCostAndUsageResponse {
     this.resultsByTime,
   });
   static GetCostAndUsageResponse fromJson(Map<String, dynamic> json) =>
-      GetCostAndUsageResponse();
+      GetCostAndUsageResponse(
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+        groupDefinitions: json.containsKey('GroupDefinitions')
+            ? (json['GroupDefinitions'] as List)
+                .map((e) => GroupDefinition.fromJson(e))
+                .toList()
+            : null,
+        resultsByTime: json.containsKey('ResultsByTime')
+            ? (json['ResultsByTime'] as List)
+                .map((e) => ResultByTime.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetCostForecastResponse {
@@ -1108,7 +1387,16 @@ class GetCostForecastResponse {
     this.forecastResultsByTime,
   });
   static GetCostForecastResponse fromJson(Map<String, dynamic> json) =>
-      GetCostForecastResponse();
+      GetCostForecastResponse(
+        total: json.containsKey('Total')
+            ? MetricValue.fromJson(json['Total'])
+            : null,
+        forecastResultsByTime: json.containsKey('ForecastResultsByTime')
+            ? (json['ForecastResultsByTime'] as List)
+                .map((e) => ForecastResult.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetDimensionValuesResponse {
@@ -1210,7 +1498,16 @@ class GetDimensionValuesResponse {
     this.nextPageToken,
   });
   static GetDimensionValuesResponse fromJson(Map<String, dynamic> json) =>
-      GetDimensionValuesResponse();
+      GetDimensionValuesResponse(
+        dimensionValues: (json['DimensionValues'] as List)
+            .map((e) => DimensionValuesWithAttributes.fromJson(e))
+            .toList(),
+        returnSize: json['ReturnSize'] as int,
+        totalSize: json['TotalSize'] as int,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class GetReservationCoverageResponse {
@@ -1231,7 +1528,16 @@ class GetReservationCoverageResponse {
     this.nextPageToken,
   });
   static GetReservationCoverageResponse fromJson(Map<String, dynamic> json) =>
-      GetReservationCoverageResponse();
+      GetReservationCoverageResponse(
+        coveragesByTime: (json['CoveragesByTime'] as List)
+            .map((e) => CoverageByTime.fromJson(e))
+            .toList(),
+        total:
+            json.containsKey('Total') ? Coverage.fromJson(json['Total']) : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class GetReservationPurchaseRecommendationResponse {
@@ -1252,7 +1558,20 @@ class GetReservationPurchaseRecommendationResponse {
   });
   static GetReservationPurchaseRecommendationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetReservationPurchaseRecommendationResponse();
+      GetReservationPurchaseRecommendationResponse(
+        metadata: json.containsKey('Metadata')
+            ? ReservationPurchaseRecommendationMetadata.fromJson(
+                json['Metadata'])
+            : null,
+        recommendations: json.containsKey('Recommendations')
+            ? (json['Recommendations'] as List)
+                .map((e) => ReservationPurchaseRecommendation.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class GetReservationUtilizationResponse {
@@ -1274,7 +1593,17 @@ class GetReservationUtilizationResponse {
   });
   static GetReservationUtilizationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetReservationUtilizationResponse();
+      GetReservationUtilizationResponse(
+        utilizationsByTime: (json['UtilizationsByTime'] as List)
+            .map((e) => UtilizationByTime.fromJson(e))
+            .toList(),
+        total: json.containsKey('Total')
+            ? ReservationAggregates.fromJson(json['Total'])
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class GetRightsizingRecommendationResponse {
@@ -1298,7 +1627,23 @@ class GetRightsizingRecommendationResponse {
   });
   static GetRightsizingRecommendationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetRightsizingRecommendationResponse();
+      GetRightsizingRecommendationResponse(
+        metadata: json.containsKey('Metadata')
+            ? RightsizingRecommendationMetadata.fromJson(json['Metadata'])
+            : null,
+        summary: json.containsKey('Summary')
+            ? RightsizingRecommendationSummary.fromJson(json['Summary'])
+            : null,
+        rightsizingRecommendations:
+            json.containsKey('RightsizingRecommendations')
+                ? (json['RightsizingRecommendations'] as List)
+                    .map((e) => RightsizingRecommendation.fromJson(e))
+                    .toList()
+                : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class GetTagsResponse {
@@ -1322,8 +1667,14 @@ class GetTagsResponse {
     @required this.returnSize,
     @required this.totalSize,
   });
-  static GetTagsResponse fromJson(Map<String, dynamic> json) =>
-      GetTagsResponse();
+  static GetTagsResponse fromJson(Map<String, dynamic> json) => GetTagsResponse(
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+        tags: (json['Tags'] as List).map((e) => e as String).toList(),
+        returnSize: json['ReturnSize'] as int,
+        totalSize: json['TotalSize'] as int,
+      );
 }
 
 class GetUsageForecastResponse {
@@ -1339,7 +1690,16 @@ class GetUsageForecastResponse {
     this.forecastResultsByTime,
   });
   static GetUsageForecastResponse fromJson(Map<String, dynamic> json) =>
-      GetUsageForecastResponse();
+      GetUsageForecastResponse(
+        total: json.containsKey('Total')
+            ? MetricValue.fromJson(json['Total'])
+            : null,
+        forecastResultsByTime: json.containsKey('ForecastResultsByTime')
+            ? (json['ForecastResultsByTime'] as List)
+                .map((e) => ForecastResult.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// One level of grouped data in the results.
@@ -1354,7 +1714,15 @@ class Group {
     this.keys,
     this.metrics,
   });
-  static Group fromJson(Map<String, dynamic> json) => Group();
+  static Group fromJson(Map<String, dynamic> json) => Group(
+        keys: json.containsKey('Keys')
+            ? (json['Keys'] as List).map((e) => e as String).toList()
+            : null,
+        metrics: json.containsKey('Metrics')
+            ? (json['Metrics'] as Map)
+                .map((k, v) => MapEntry(k as String, MetricValue.fromJson(v)))
+            : null,
+      );
 }
 
 /// Represents a group when you specify a group by criteria or in the response
@@ -1370,8 +1738,11 @@ class GroupDefinition {
     this.type,
     this.key,
   });
-  static GroupDefinition fromJson(Map<String, dynamic> json) =>
-      GroupDefinition();
+  static GroupDefinition fromJson(Map<String, dynamic> json) => GroupDefinition(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about the instances that AWS recommends that you purchase.
@@ -1398,8 +1769,25 @@ class InstanceDetails {
     this.elastiCacheInstanceDetails,
     this.esInstanceDetails,
   });
-  static InstanceDetails fromJson(Map<String, dynamic> json) =>
-      InstanceDetails();
+  static InstanceDetails fromJson(Map<String, dynamic> json) => InstanceDetails(
+        ec2InstanceDetails: json.containsKey('EC2InstanceDetails')
+            ? Ec2InstanceDetails.fromJson(json['EC2InstanceDetails'])
+            : null,
+        rdsInstanceDetails: json.containsKey('RDSInstanceDetails')
+            ? RdsInstanceDetails.fromJson(json['RDSInstanceDetails'])
+            : null,
+        redshiftInstanceDetails: json.containsKey('RedshiftInstanceDetails')
+            ? RedshiftInstanceDetails.fromJson(json['RedshiftInstanceDetails'])
+            : null,
+        elastiCacheInstanceDetails:
+            json.containsKey('ElastiCacheInstanceDetails')
+                ? ElastiCacheInstanceDetails.fromJson(
+                    json['ElastiCacheInstanceDetails'])
+                : null,
+        esInstanceDetails: json.containsKey('ESInstanceDetails')
+            ? ESInstanceDetails.fromJson(json['ESInstanceDetails'])
+            : null,
+      );
 }
 
 /// The aggregated value for a metric.
@@ -1414,7 +1802,10 @@ class MetricValue {
     this.amount,
     this.unit,
   });
-  static MetricValue fromJson(Map<String, dynamic> json) => MetricValue();
+  static MetricValue fromJson(Map<String, dynamic> json) => MetricValue(
+        amount: json.containsKey('Amount') ? json['Amount'] as String : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
 }
 
 ///  Details on the modification recommendation.
@@ -1427,7 +1818,13 @@ class ModifyRecommendationDetail {
     this.targetInstances,
   });
   static ModifyRecommendationDetail fromJson(Map<String, dynamic> json) =>
-      ModifyRecommendationDetail();
+      ModifyRecommendationDetail(
+        targetInstances: json.containsKey('TargetInstances')
+            ? (json['TargetInstances'] as List)
+                .map((e) => TargetInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Details about the Amazon RDS instances that AWS recommends that you
@@ -1473,7 +1870,31 @@ class RdsInstanceDetails {
     this.sizeFlexEligible,
   });
   static RdsInstanceDetails fromJson(Map<String, dynamic> json) =>
-      RdsInstanceDetails();
+      RdsInstanceDetails(
+        family: json.containsKey('Family') ? json['Family'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        databaseEngine: json.containsKey('DatabaseEngine')
+            ? json['DatabaseEngine'] as String
+            : null,
+        databaseEdition: json.containsKey('DatabaseEdition')
+            ? json['DatabaseEdition'] as String
+            : null,
+        deploymentOption: json.containsKey('DeploymentOption')
+            ? json['DeploymentOption'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        currentGeneration: json.containsKey('CurrentGeneration')
+            ? json['CurrentGeneration'] as bool
+            : null,
+        sizeFlexEligible: json.containsKey('SizeFlexEligible')
+            ? json['SizeFlexEligible'] as bool
+            : null,
+      );
 }
 
 /// Details about the Amazon Redshift instances that AWS recommends that you
@@ -1502,7 +1923,18 @@ class RedshiftInstanceDetails {
     this.sizeFlexEligible,
   });
   static RedshiftInstanceDetails fromJson(Map<String, dynamic> json) =>
-      RedshiftInstanceDetails();
+      RedshiftInstanceDetails(
+        family: json.containsKey('Family') ? json['Family'] as String : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        currentGeneration: json.containsKey('CurrentGeneration')
+            ? json['CurrentGeneration'] as bool
+            : null,
+        sizeFlexEligible: json.containsKey('SizeFlexEligible')
+            ? json['SizeFlexEligible'] as bool
+            : null,
+      );
 }
 
 /// The aggregated numbers for your reservation usage.
@@ -1578,7 +2010,51 @@ class ReservationAggregates {
     this.totalAmortizedFee,
   });
   static ReservationAggregates fromJson(Map<String, dynamic> json) =>
-      ReservationAggregates();
+      ReservationAggregates(
+        utilizationPercentage: json.containsKey('UtilizationPercentage')
+            ? json['UtilizationPercentage'] as String
+            : null,
+        utilizationPercentageInUnits:
+            json.containsKey('UtilizationPercentageInUnits')
+                ? json['UtilizationPercentageInUnits'] as String
+                : null,
+        purchasedHours: json.containsKey('PurchasedHours')
+            ? json['PurchasedHours'] as String
+            : null,
+        purchasedUnits: json.containsKey('PurchasedUnits')
+            ? json['PurchasedUnits'] as String
+            : null,
+        totalActualHours: json.containsKey('TotalActualHours')
+            ? json['TotalActualHours'] as String
+            : null,
+        totalActualUnits: json.containsKey('TotalActualUnits')
+            ? json['TotalActualUnits'] as String
+            : null,
+        unusedHours: json.containsKey('UnusedHours')
+            ? json['UnusedHours'] as String
+            : null,
+        unusedUnits: json.containsKey('UnusedUnits')
+            ? json['UnusedUnits'] as String
+            : null,
+        onDemandCostOfRIHoursUsed: json.containsKey('OnDemandCostOfRIHoursUsed')
+            ? json['OnDemandCostOfRIHoursUsed'] as String
+            : null,
+        netRISavings: json.containsKey('NetRISavings')
+            ? json['NetRISavings'] as String
+            : null,
+        totalPotentialRISavings: json.containsKey('TotalPotentialRISavings')
+            ? json['TotalPotentialRISavings'] as String
+            : null,
+        amortizedUpfrontFee: json.containsKey('AmortizedUpfrontFee')
+            ? json['AmortizedUpfrontFee'] as String
+            : null,
+        amortizedRecurringFee: json.containsKey('AmortizedRecurringFee')
+            ? json['AmortizedRecurringFee'] as String
+            : null,
+        totalAmortizedFee: json.containsKey('TotalAmortizedFee')
+            ? json['TotalAmortizedFee'] as String
+            : null,
+      );
 }
 
 /// A group of reservations that share a set of attributes.
@@ -1594,7 +2070,15 @@ class ReservationCoverageGroup {
     this.coverage,
   });
   static ReservationCoverageGroup fromJson(Map<String, dynamic> json) =>
-      ReservationCoverageGroup();
+      ReservationCoverageGroup(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        coverage: json.containsKey('Coverage')
+            ? Coverage.fromJson(json['Coverage'])
+            : null,
+      );
 }
 
 /// A specific reservation that AWS recommends for purchase.
@@ -1635,7 +2119,32 @@ class ReservationPurchaseRecommendation {
   });
   static ReservationPurchaseRecommendation fromJson(
           Map<String, dynamic> json) =>
-      ReservationPurchaseRecommendation();
+      ReservationPurchaseRecommendation(
+        accountScope: json.containsKey('AccountScope')
+            ? json['AccountScope'] as String
+            : null,
+        lookbackPeriodInDays: json.containsKey('LookbackPeriodInDays')
+            ? json['LookbackPeriodInDays'] as String
+            : null,
+        termInYears: json.containsKey('TermInYears')
+            ? json['TermInYears'] as String
+            : null,
+        paymentOption: json.containsKey('PaymentOption')
+            ? json['PaymentOption'] as String
+            : null,
+        serviceSpecification: json.containsKey('ServiceSpecification')
+            ? ServiceSpecification.fromJson(json['ServiceSpecification'])
+            : null,
+        recommendationDetails: json.containsKey('RecommendationDetails')
+            ? (json['RecommendationDetails'] as List)
+                .map((e) => ReservationPurchaseRecommendationDetail.fromJson(e))
+                .toList()
+            : null,
+        recommendationSummary: json.containsKey('RecommendationSummary')
+            ? ReservationPurchaseRecommendationSummary.fromJson(
+                json['RecommendationSummary'])
+            : null,
+      );
 }
 
 /// Details about your recommended reservation purchase.
@@ -1737,7 +2246,78 @@ class ReservationPurchaseRecommendationDetail {
   });
   static ReservationPurchaseRecommendationDetail fromJson(
           Map<String, dynamic> json) =>
-      ReservationPurchaseRecommendationDetail();
+      ReservationPurchaseRecommendationDetail(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        instanceDetails: json.containsKey('InstanceDetails')
+            ? InstanceDetails.fromJson(json['InstanceDetails'])
+            : null,
+        recommendedNumberOfInstancesToPurchase:
+            json.containsKey('RecommendedNumberOfInstancesToPurchase')
+                ? json['RecommendedNumberOfInstancesToPurchase'] as String
+                : null,
+        recommendedNormalizedUnitsToPurchase:
+            json.containsKey('RecommendedNormalizedUnitsToPurchase')
+                ? json['RecommendedNormalizedUnitsToPurchase'] as String
+                : null,
+        minimumNumberOfInstancesUsedPerHour:
+            json.containsKey('MinimumNumberOfInstancesUsedPerHour')
+                ? json['MinimumNumberOfInstancesUsedPerHour'] as String
+                : null,
+        minimumNormalizedUnitsUsedPerHour:
+            json.containsKey('MinimumNormalizedUnitsUsedPerHour')
+                ? json['MinimumNormalizedUnitsUsedPerHour'] as String
+                : null,
+        maximumNumberOfInstancesUsedPerHour:
+            json.containsKey('MaximumNumberOfInstancesUsedPerHour')
+                ? json['MaximumNumberOfInstancesUsedPerHour'] as String
+                : null,
+        maximumNormalizedUnitsUsedPerHour:
+            json.containsKey('MaximumNormalizedUnitsUsedPerHour')
+                ? json['MaximumNormalizedUnitsUsedPerHour'] as String
+                : null,
+        averageNumberOfInstancesUsedPerHour:
+            json.containsKey('AverageNumberOfInstancesUsedPerHour')
+                ? json['AverageNumberOfInstancesUsedPerHour'] as String
+                : null,
+        averageNormalizedUnitsUsedPerHour:
+            json.containsKey('AverageNormalizedUnitsUsedPerHour')
+                ? json['AverageNormalizedUnitsUsedPerHour'] as String
+                : null,
+        averageUtilization: json.containsKey('AverageUtilization')
+            ? json['AverageUtilization'] as String
+            : null,
+        estimatedBreakEvenInMonths:
+            json.containsKey('EstimatedBreakEvenInMonths')
+                ? json['EstimatedBreakEvenInMonths'] as String
+                : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        estimatedMonthlySavingsAmount:
+            json.containsKey('EstimatedMonthlySavingsAmount')
+                ? json['EstimatedMonthlySavingsAmount'] as String
+                : null,
+        estimatedMonthlySavingsPercentage:
+            json.containsKey('EstimatedMonthlySavingsPercentage')
+                ? json['EstimatedMonthlySavingsPercentage'] as String
+                : null,
+        estimatedMonthlyOnDemandCost:
+            json.containsKey('EstimatedMonthlyOnDemandCost')
+                ? json['EstimatedMonthlyOnDemandCost'] as String
+                : null,
+        estimatedReservationCostForLookbackPeriod:
+            json.containsKey('EstimatedReservationCostForLookbackPeriod')
+                ? json['EstimatedReservationCostForLookbackPeriod'] as String
+                : null,
+        upfrontCost: json.containsKey('UpfrontCost')
+            ? json['UpfrontCost'] as String
+            : null,
+        recurringStandardMonthlyCost:
+            json.containsKey('RecurringStandardMonthlyCost')
+                ? json['RecurringStandardMonthlyCost'] as String
+                : null,
+      );
 }
 
 /// Information about this specific recommendation, such as the time stamp for
@@ -1755,7 +2335,14 @@ class ReservationPurchaseRecommendationMetadata {
   });
   static ReservationPurchaseRecommendationMetadata fromJson(
           Map<String, dynamic> json) =>
-      ReservationPurchaseRecommendationMetadata();
+      ReservationPurchaseRecommendationMetadata(
+        recommendationId: json.containsKey('RecommendationId')
+            ? json['RecommendationId'] as String
+            : null,
+        generationTimestamp: json.containsKey('GenerationTimestamp')
+            ? json['GenerationTimestamp'] as String
+            : null,
+      );
 }
 
 /// A summary about this recommendation, such as the currency code, the amount
@@ -1780,7 +2367,19 @@ class ReservationPurchaseRecommendationSummary {
   });
   static ReservationPurchaseRecommendationSummary fromJson(
           Map<String, dynamic> json) =>
-      ReservationPurchaseRecommendationSummary();
+      ReservationPurchaseRecommendationSummary(
+        totalEstimatedMonthlySavingsAmount:
+            json.containsKey('TotalEstimatedMonthlySavingsAmount')
+                ? json['TotalEstimatedMonthlySavingsAmount'] as String
+                : null,
+        totalEstimatedMonthlySavingsPercentage:
+            json.containsKey('TotalEstimatedMonthlySavingsPercentage')
+                ? json['TotalEstimatedMonthlySavingsPercentage'] as String
+                : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+      );
 }
 
 /// A group of reservations that share a set of attributes.
@@ -1804,7 +2403,17 @@ class ReservationUtilizationGroup {
     this.utilization,
   });
   static ReservationUtilizationGroup fromJson(Map<String, dynamic> json) =>
-      ReservationUtilizationGroup();
+      ReservationUtilizationGroup(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        utilization: json.containsKey('Utilization')
+            ? ReservationAggregates.fromJson(json['Utilization'])
+            : null,
+      );
 }
 
 /// Details on the resource.
@@ -1815,8 +2424,11 @@ class ResourceDetails {
   ResourceDetails({
     this.ec2ResourceDetails,
   });
-  static ResourceDetails fromJson(Map<String, dynamic> json) =>
-      ResourceDetails();
+  static ResourceDetails fromJson(Map<String, dynamic> json) => ResourceDetails(
+        ec2ResourceDetails: json.containsKey('EC2ResourceDetails')
+            ? Ec2ResourceDetails.fromJson(json['EC2ResourceDetails'])
+            : null,
+      );
 }
 
 /// Resource utilization of current resource.
@@ -1828,7 +2440,11 @@ class ResourceUtilization {
     this.ec2ResourceUtilization,
   });
   static ResourceUtilization fromJson(Map<String, dynamic> json) =>
-      ResourceUtilization();
+      ResourceUtilization(
+        ec2ResourceUtilization: json.containsKey('EC2ResourceUtilization')
+            ? Ec2ResourceUtilization.fromJson(json['EC2ResourceUtilization'])
+            : null,
+      );
 }
 
 /// The result that is associated with a time period.
@@ -1851,7 +2467,20 @@ class ResultByTime {
     this.groups,
     this.estimated,
   });
-  static ResultByTime fromJson(Map<String, dynamic> json) => ResultByTime();
+  static ResultByTime fromJson(Map<String, dynamic> json) => ResultByTime(
+        timePeriod: json.containsKey('TimePeriod')
+            ? DateInterval.fromJson(json['TimePeriod'])
+            : null,
+        total: json.containsKey('Total')
+            ? (json['Total'] as Map)
+                .map((k, v) => MapEntry(k as String, MetricValue.fromJson(v)))
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List).map((e) => Group.fromJson(e)).toList()
+            : null,
+        estimated:
+            json.containsKey('Estimated') ? json['Estimated'] as bool : null,
+      );
 }
 
 /// Recommendations to rightsize resources.
@@ -1879,7 +2508,26 @@ class RightsizingRecommendation {
     this.terminateRecommendationDetail,
   });
   static RightsizingRecommendation fromJson(Map<String, dynamic> json) =>
-      RightsizingRecommendation();
+      RightsizingRecommendation(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        currentInstance: json.containsKey('CurrentInstance')
+            ? CurrentInstance.fromJson(json['CurrentInstance'])
+            : null,
+        rightsizingType: json.containsKey('RightsizingType')
+            ? json['RightsizingType'] as String
+            : null,
+        modifyRecommendationDetail:
+            json.containsKey('ModifyRecommendationDetail')
+                ? ModifyRecommendationDetail.fromJson(
+                    json['ModifyRecommendationDetail'])
+                : null,
+        terminateRecommendationDetail:
+            json.containsKey('TerminateRecommendationDetail')
+                ? TerminateRecommendationDetail.fromJson(
+                    json['TerminateRecommendationDetail'])
+                : null,
+      );
 }
 
 /// Metadata for this recommendation set.
@@ -1901,7 +2549,17 @@ class RightsizingRecommendationMetadata {
   });
   static RightsizingRecommendationMetadata fromJson(
           Map<String, dynamic> json) =>
-      RightsizingRecommendationMetadata();
+      RightsizingRecommendationMetadata(
+        recommendationId: json.containsKey('RecommendationId')
+            ? json['RecommendationId'] as String
+            : null,
+        generationTimestamp: json.containsKey('GenerationTimestamp')
+            ? json['GenerationTimestamp'] as String
+            : null,
+        lookbackPeriodInDays: json.containsKey('LookbackPeriodInDays')
+            ? json['LookbackPeriodInDays'] as String
+            : null,
+      );
 }
 
 ///  Summary of rightsizing recommendations
@@ -1926,7 +2584,21 @@ class RightsizingRecommendationSummary {
     this.savingsPercentage,
   });
   static RightsizingRecommendationSummary fromJson(Map<String, dynamic> json) =>
-      RightsizingRecommendationSummary();
+      RightsizingRecommendationSummary(
+        totalRecommendationCount: json.containsKey('TotalRecommendationCount')
+            ? json['TotalRecommendationCount'] as String
+            : null,
+        estimatedTotalMonthlySavingsAmount:
+            json.containsKey('EstimatedTotalMonthlySavingsAmount')
+                ? json['EstimatedTotalMonthlySavingsAmount'] as String
+                : null,
+        savingsCurrencyCode: json.containsKey('SavingsCurrencyCode')
+            ? json['SavingsCurrencyCode'] as String
+            : null,
+        savingsPercentage: json.containsKey('SavingsPercentage')
+            ? json['SavingsPercentage'] as String
+            : null,
+      );
 }
 
 /// Hardware specifications for the service that you want recommendations for.
@@ -1939,7 +2611,12 @@ class ServiceSpecification {
     this.ec2Specification,
   });
   static ServiceSpecification fromJson(Map<String, dynamic> json) =>
-      ServiceSpecification();
+      ServiceSpecification(
+        ec2Specification: json.containsKey('EC2Specification')
+            ? Ec2Specification.fromJson(json['EC2Specification'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The values that are available for a tag.
@@ -1954,7 +2631,13 @@ class TagValues {
     this.key,
     this.values,
   });
-  static TagValues fromJson(Map<String, dynamic> json) => TagValues();
+  static TagValues fromJson(Map<String, dynamic> json) => TagValues(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Details on recommended instance.
@@ -1987,7 +2670,27 @@ class TargetInstance {
     this.resourceDetails,
     this.expectedResourceUtilization,
   });
-  static TargetInstance fromJson(Map<String, dynamic> json) => TargetInstance();
+  static TargetInstance fromJson(Map<String, dynamic> json) => TargetInstance(
+        estimatedMonthlyCost: json.containsKey('EstimatedMonthlyCost')
+            ? json['EstimatedMonthlyCost'] as String
+            : null,
+        estimatedMonthlySavings: json.containsKey('EstimatedMonthlySavings')
+            ? json['EstimatedMonthlySavings'] as String
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        defaultTargetInstance: json.containsKey('DefaultTargetInstance')
+            ? json['DefaultTargetInstance'] as bool
+            : null,
+        resourceDetails: json.containsKey('ResourceDetails')
+            ? ResourceDetails.fromJson(json['ResourceDetails'])
+            : null,
+        expectedResourceUtilization: json
+                .containsKey('ExpectedResourceUtilization')
+            ? ResourceUtilization.fromJson(json['ExpectedResourceUtilization'])
+            : null,
+      );
 }
 
 ///  Details on termination recommendation.
@@ -2004,7 +2707,14 @@ class TerminateRecommendationDetail {
     this.currencyCode,
   });
   static TerminateRecommendationDetail fromJson(Map<String, dynamic> json) =>
-      TerminateRecommendationDetail();
+      TerminateRecommendationDetail(
+        estimatedMonthlySavings: json.containsKey('EstimatedMonthlySavings')
+            ? json['EstimatedMonthlySavings'] as String
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+      );
 }
 
 /// The amount of utilization, in hours.
@@ -2024,5 +2734,17 @@ class UtilizationByTime {
     this.total,
   });
   static UtilizationByTime fromJson(Map<String, dynamic> json) =>
-      UtilizationByTime();
+      UtilizationByTime(
+        timePeriod: json.containsKey('TimePeriod')
+            ? DateInterval.fromJson(json['TimePeriod'])
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => ReservationUtilizationGroup.fromJson(e))
+                .toList()
+            : null,
+        total: json.containsKey('Total')
+            ? ReservationAggregates.fromJson(json['Total'])
+            : null,
+      );
 }

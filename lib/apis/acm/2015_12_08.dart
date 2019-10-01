@@ -10,6 +10,9 @@ import 'dart:typed_data';
 /// [_AWS Certificate Manager User Guide_](https://docs.aws.amazon.com/acm/latest/userguide/)
 /// .
 class AcmApi {
+  final _client;
+  AcmApi(client) : _client = client.configured('ACM', serializer: 'json');
+
   /// Adds one or more tags to an ACM certificate. Tags are labels that you can
   /// use to identify and organize your AWS resources. Each tag consists of a
   /// `key` and an optional `value`. You specify the certificate on input by its
@@ -41,7 +44,12 @@ class AcmApi {
   /// [tags]: The key-value pair that defines the tag. The tag value is
   /// optional.
   Future<void> addTagsToCertificate(
-      {@required String certificateArn, @required List<Tag> tags}) async {}
+      {@required String certificateArn, @required List<Tag> tags}) async {
+    await _client.send('AddTagsToCertificate', {
+      'CertificateArn': certificateArn,
+      'Tags': tags,
+    });
+  }
 
   /// Deletes a certificate and its associated private key. If this action
   /// succeeds, the certificate no longer appears in the list that can be
@@ -63,7 +71,11 @@ class AcmApi {
   ///
   /// For more information about ARNs, see
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
-  Future<void> deleteCertificate(String certificateArn) async {}
+  Future<void> deleteCertificate(String certificateArn) async {
+    await _client.send('DeleteCertificate', {
+      'CertificateArn': certificateArn,
+    });
+  }
 
   /// Returns detailed metadata about the specified ACM certificate.
   ///
@@ -77,7 +89,10 @@ class AcmApi {
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<DescribeCertificateResponse> describeCertificate(
       String certificateArn) async {
-    return DescribeCertificateResponse.fromJson({});
+    var response_ = await _client.send('DescribeCertificate', {
+      'CertificateArn': certificateArn,
+    });
+    return DescribeCertificateResponse.fromJson(response_);
   }
 
   /// Exports a private certificate issued by a private certificate authority
@@ -104,7 +119,11 @@ class AcmApi {
   ///  `openssl rsa -in encrypted_key.pem -out decrypted_key.pem`
   Future<ExportCertificateResponse> exportCertificate(
       {@required String certificateArn, @required Uint8List passphrase}) async {
-    return ExportCertificateResponse.fromJson({});
+    var response_ = await _client.send('ExportCertificate', {
+      'CertificateArn': certificateArn,
+      'Passphrase': passphrase,
+    });
+    return ExportCertificateResponse.fromJson(response_);
   }
 
   /// Retrieves a certificate specified by an ARN and its certificate chain .
@@ -123,7 +142,10 @@ class AcmApi {
   /// For more information about ARNs, see
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<GetCertificateResponse> getCertificate(String certificateArn) async {
-    return GetCertificateResponse.fromJson({});
+    var response_ = await _client.send('GetCertificate', {
+      'CertificateArn': certificateArn,
+    });
+    return GetCertificateResponse.fromJson(response_);
   }
 
   /// Imports a certificate into AWS Certificate Manager (ACM) to use with
@@ -201,7 +223,13 @@ class AcmApi {
       @required Uint8List certificate,
       @required Uint8List privateKey,
       Uint8List certificateChain}) async {
-    return ImportCertificateResponse.fromJson({});
+    var response_ = await _client.send('ImportCertificate', {
+      if (certificateArn != null) 'CertificateArn': certificateArn,
+      'Certificate': certificate,
+      'PrivateKey': privateKey,
+      if (certificateChain != null) 'CertificateChain': certificateChain,
+    });
+    return ImportCertificateResponse.fromJson(response_);
   }
 
   /// Retrieves a list of certificate ARNs and domain names. You can request
@@ -227,7 +255,14 @@ class AcmApi {
       Filters includes,
       String nextToken,
       int maxItems}) async {
-    return ListCertificatesResponse.fromJson({});
+    var response_ = await _client.send('ListCertificates', {
+      if (certificateStatuses != null)
+        'CertificateStatuses': certificateStatuses,
+      if (includes != null) 'Includes': includes,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListCertificatesResponse.fromJson(response_);
   }
 
   /// Lists the tags that have been applied to the ACM certificate. Use the
@@ -245,7 +280,10 @@ class AcmApi {
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<ListTagsForCertificateResponse> listTagsForCertificate(
       String certificateArn) async {
-    return ListTagsForCertificateResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForCertificate', {
+      'CertificateArn': certificateArn,
+    });
+    return ListTagsForCertificateResponse.fromJson(response_);
   }
 
   /// Remove one or more tags from an ACM certificate. A tag consists of a
@@ -269,7 +307,12 @@ class AcmApi {
   ///
   /// [tags]: The key-value pair that defines the tag to remove.
   Future<void> removeTagsFromCertificate(
-      {@required String certificateArn, @required List<Tag> tags}) async {}
+      {@required String certificateArn, @required List<Tag> tags}) async {
+    await _client.send('RemoveTagsFromCertificate', {
+      'CertificateArn': certificateArn,
+      'Tags': tags,
+    });
+  }
 
   /// Renews an eligable ACM certificate. At this time, only exported private
   /// certificates can be renewed with this operation. In order to renew your
@@ -287,7 +330,11 @@ class AcmApi {
   ///
   /// For more information about ARNs, see
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
-  Future<void> renewCertificate(String certificateArn) async {}
+  Future<void> renewCertificate(String certificateArn) async {
+    await _client.send('RenewCertificate', {
+      'CertificateArn': certificateArn,
+    });
+  }
 
   /// Requests an ACM certificate for use with other AWS services. To request an
   /// ACM certificate, you must specify a fully qualified domain name (FQDN) in
@@ -382,7 +429,19 @@ class AcmApi {
       List<DomainValidationOption> domainValidationOptions,
       CertificateOptions options,
       String certificateAuthorityArn}) async {
-    return RequestCertificateResponse.fromJson({});
+    var response_ = await _client.send('RequestCertificate', {
+      'DomainName': domainName,
+      if (validationMethod != null) 'ValidationMethod': validationMethod,
+      if (subjectAlternativeNames != null)
+        'SubjectAlternativeNames': subjectAlternativeNames,
+      if (idempotencyToken != null) 'IdempotencyToken': idempotencyToken,
+      if (domainValidationOptions != null)
+        'DomainValidationOptions': domainValidationOptions,
+      if (options != null) 'Options': options,
+      if (certificateAuthorityArn != null)
+        'CertificateAuthorityArn': certificateAuthorityArn,
+    });
+    return RequestCertificateResponse.fromJson(response_);
   }
 
   /// Resends the email that requests domain ownership validation. The domain
@@ -430,7 +489,13 @@ class AcmApi {
   Future<void> resendValidationEmail(
       {@required String certificateArn,
       @required String domain,
-      @required String validationDomain}) async {}
+      @required String validationDomain}) async {
+    await _client.send('ResendValidationEmail', {
+      'CertificateArn': certificateArn,
+      'Domain': domain,
+      'ValidationDomain': validationDomain,
+    });
+  }
 
   /// Updates a certificate. Currently, you can use this function to specify
   /// whether to opt in to or out of recording your certificate in a certificate
@@ -450,7 +515,12 @@ class AcmApi {
   /// not been logged typically produce an error message in a browser.
   Future<void> updateCertificateOptions(
       {@required String certificateArn,
-      @required CertificateOptions options}) async {}
+      @required CertificateOptions options}) async {
+    await _client.send('UpdateCertificateOptions', {
+      'CertificateArn': certificateArn,
+      'Options': options,
+    });
+  }
 }
 
 /// Contains metadata about an ACM certificate. This structure is returned in
@@ -609,7 +679,84 @@ class CertificateDetail {
     this.options,
   });
   static CertificateDetail fromJson(Map<String, dynamic> json) =>
-      CertificateDetail();
+      CertificateDetail(
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        subjectAlternativeNames: json.containsKey('SubjectAlternativeNames')
+            ? (json['SubjectAlternativeNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        domainValidationOptions: json.containsKey('DomainValidationOptions')
+            ? (json['DomainValidationOptions'] as List)
+                .map((e) => DomainValidation.fromJson(e))
+                .toList()
+            : null,
+        serial: json.containsKey('Serial') ? json['Serial'] as String : null,
+        subject: json.containsKey('Subject') ? json['Subject'] as String : null,
+        issuer: json.containsKey('Issuer') ? json['Issuer'] as String : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        issuedAt: json.containsKey('IssuedAt')
+            ? DateTime.parse(json['IssuedAt'])
+            : null,
+        importedAt: json.containsKey('ImportedAt')
+            ? DateTime.parse(json['ImportedAt'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        revokedAt: json.containsKey('RevokedAt')
+            ? DateTime.parse(json['RevokedAt'])
+            : null,
+        revocationReason: json.containsKey('RevocationReason')
+            ? json['RevocationReason'] as String
+            : null,
+        notBefore: json.containsKey('NotBefore')
+            ? DateTime.parse(json['NotBefore'])
+            : null,
+        notAfter: json.containsKey('NotAfter')
+            ? DateTime.parse(json['NotAfter'])
+            : null,
+        keyAlgorithm: json.containsKey('KeyAlgorithm')
+            ? json['KeyAlgorithm'] as String
+            : null,
+        signatureAlgorithm: json.containsKey('SignatureAlgorithm')
+            ? json['SignatureAlgorithm'] as String
+            : null,
+        inUseBy: json.containsKey('InUseBy')
+            ? (json['InUseBy'] as List).map((e) => e as String).toList()
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        renewalSummary: json.containsKey('RenewalSummary')
+            ? RenewalSummary.fromJson(json['RenewalSummary'])
+            : null,
+        keyUsages: json.containsKey('KeyUsages')
+            ? (json['KeyUsages'] as List)
+                .map((e) => KeyUsage.fromJson(e))
+                .toList()
+            : null,
+        extendedKeyUsages: json.containsKey('ExtendedKeyUsages')
+            ? (json['ExtendedKeyUsages'] as List)
+                .map((e) => ExtendedKeyUsage.fromJson(e))
+                .toList()
+            : null,
+        certificateAuthorityArn: json.containsKey('CertificateAuthorityArn')
+            ? json['CertificateAuthorityArn'] as String
+            : null,
+        renewalEligibility: json.containsKey('RenewalEligibility')
+            ? json['RenewalEligibility'] as String
+            : null,
+        options: json.containsKey('Options')
+            ? CertificateOptions.fromJson(json['Options'])
+            : null,
+      );
 }
 
 /// Structure that contains options for your certificate. Currently, you can use
@@ -629,7 +776,13 @@ class CertificateOptions {
     this.certificateTransparencyLoggingPreference,
   });
   static CertificateOptions fromJson(Map<String, dynamic> json) =>
-      CertificateOptions();
+      CertificateOptions(
+        certificateTransparencyLoggingPreference:
+            json.containsKey('CertificateTransparencyLoggingPreference')
+                ? json['CertificateTransparencyLoggingPreference'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This structure is returned in the response object of ListCertificates
@@ -653,7 +806,14 @@ class CertificateSummary {
     this.domainName,
   });
   static CertificateSummary fromJson(Map<String, dynamic> json) =>
-      CertificateSummary();
+      CertificateSummary(
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+      );
 }
 
 class DescribeCertificateResponse {
@@ -664,7 +824,11 @@ class DescribeCertificateResponse {
     this.certificate,
   });
   static DescribeCertificateResponse fromJson(Map<String, dynamic> json) =>
-      DescribeCertificateResponse();
+      DescribeCertificateResponse(
+        certificate: json.containsKey('Certificate')
+            ? CertificateDetail.fromJson(json['Certificate'])
+            : null,
+      );
 }
 
 /// Contains information about the validation of each domain name in the
@@ -707,7 +871,26 @@ class DomainValidation {
     this.validationMethod,
   });
   static DomainValidation fromJson(Map<String, dynamic> json) =>
-      DomainValidation();
+      DomainValidation(
+        domainName: json['DomainName'] as String,
+        validationEmails: json.containsKey('ValidationEmails')
+            ? (json['ValidationEmails'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        validationDomain: json.containsKey('ValidationDomain')
+            ? json['ValidationDomain'] as String
+            : null,
+        validationStatus: json.containsKey('ValidationStatus')
+            ? json['ValidationStatus'] as String
+            : null,
+        resourceRecord: json.containsKey('ResourceRecord')
+            ? ResourceRecord.fromJson(json['ResourceRecord'])
+            : null,
+        validationMethod: json.containsKey('ValidationMethod')
+            ? json['ValidationMethod'] as String
+            : null,
+      );
 }
 
 /// Contains information about the domain names that you want ACM to use to send
@@ -739,6 +922,7 @@ class DomainValidationOption {
     @required this.domainName,
     @required this.validationDomain,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ExportCertificateResponse {
@@ -760,7 +944,17 @@ class ExportCertificateResponse {
     this.privateKey,
   });
   static ExportCertificateResponse fromJson(Map<String, dynamic> json) =>
-      ExportCertificateResponse();
+      ExportCertificateResponse(
+        certificate: json.containsKey('Certificate')
+            ? json['Certificate'] as String
+            : null,
+        certificateChain: json.containsKey('CertificateChain')
+            ? json['CertificateChain'] as String
+            : null,
+        privateKey: json.containsKey('PrivateKey')
+            ? json['PrivateKey'] as String
+            : null,
+      );
 }
 
 /// The Extended Key Usage X.509 v3 extension defines one or more purposes for
@@ -798,7 +992,10 @@ class ExtendedKeyUsage {
     this.oid,
   });
   static ExtendedKeyUsage fromJson(Map<String, dynamic> json) =>
-      ExtendedKeyUsage();
+      ExtendedKeyUsage(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        oid: json.containsKey('OID') ? json['OID'] as String : null,
+      );
 }
 
 /// This structure can be used in the ListCertificates action to filter the
@@ -818,6 +1015,7 @@ class Filters {
     this.keyUsage,
     this.keyTypes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetCertificateResponse {
@@ -834,7 +1032,14 @@ class GetCertificateResponse {
     this.certificateChain,
   });
   static GetCertificateResponse fromJson(Map<String, dynamic> json) =>
-      GetCertificateResponse();
+      GetCertificateResponse(
+        certificate: json.containsKey('Certificate')
+            ? json['Certificate'] as String
+            : null,
+        certificateChain: json.containsKey('CertificateChain')
+            ? json['CertificateChain'] as String
+            : null,
+      );
 }
 
 class ImportCertificateResponse {
@@ -847,7 +1052,11 @@ class ImportCertificateResponse {
     this.certificateArn,
   });
   static ImportCertificateResponse fromJson(Map<String, dynamic> json) =>
-      ImportCertificateResponse();
+      ImportCertificateResponse(
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+      );
 }
 
 /// The Key Usage X.509 v3 extension defines the purpose of the public key
@@ -859,7 +1068,9 @@ class KeyUsage {
   KeyUsage({
     this.name,
   });
-  static KeyUsage fromJson(Map<String, dynamic> json) => KeyUsage();
+  static KeyUsage fromJson(Map<String, dynamic> json) => KeyUsage(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class ListCertificatesResponse {
@@ -875,7 +1086,15 @@ class ListCertificatesResponse {
     this.certificateSummaryList,
   });
   static ListCertificatesResponse fromJson(Map<String, dynamic> json) =>
-      ListCertificatesResponse();
+      ListCertificatesResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        certificateSummaryList: json.containsKey('CertificateSummaryList')
+            ? (json['CertificateSummaryList'] as List)
+                .map((e) => CertificateSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListTagsForCertificateResponse {
@@ -886,7 +1105,11 @@ class ListTagsForCertificateResponse {
     this.tags,
   });
   static ListTagsForCertificateResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForCertificateResponse();
+      ListTagsForCertificateResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains information about the status of ACM's
@@ -919,7 +1142,16 @@ class RenewalSummary {
     this.renewalStatusReason,
     @required this.updatedAt,
   });
-  static RenewalSummary fromJson(Map<String, dynamic> json) => RenewalSummary();
+  static RenewalSummary fromJson(Map<String, dynamic> json) => RenewalSummary(
+        renewalStatus: json['RenewalStatus'] as String,
+        domainValidationOptions: (json['DomainValidationOptions'] as List)
+            .map((e) => DomainValidation.fromJson(e))
+            .toList(),
+        renewalStatusReason: json.containsKey('RenewalStatusReason')
+            ? json['RenewalStatusReason'] as String
+            : null,
+        updatedAt: DateTime.parse(json['UpdatedAt']),
+      );
 }
 
 class RequestCertificateResponse {
@@ -934,7 +1166,11 @@ class RequestCertificateResponse {
     this.certificateArn,
   });
   static RequestCertificateResponse fromJson(Map<String, dynamic> json) =>
-      RequestCertificateResponse();
+      RequestCertificateResponse(
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+      );
 }
 
 /// Contains a DNS record value that you can use to can use to validate
@@ -957,7 +1193,11 @@ class ResourceRecord {
     @required this.type,
     @required this.value,
   });
-  static ResourceRecord fromJson(Map<String, dynamic> json) => ResourceRecord();
+  static ResourceRecord fromJson(Map<String, dynamic> json) => ResourceRecord(
+        name: json['Name'] as String,
+        type: json['Type'] as String,
+        value: json['Value'] as String,
+      );
 }
 
 /// A key-value pair that identifies or specifies metadata about an ACM
@@ -973,5 +1213,9 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

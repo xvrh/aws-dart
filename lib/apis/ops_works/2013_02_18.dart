@@ -89,6 +89,10 @@ import 'package:meta/meta.dart';
 /// You can specify Chef 12, 11.10, or 11.4 for your Linux stack. We recommend
 /// migrating your existing Linux stacks to Chef 12 as soon as possible.
 class OpsWorksApi {
+  final _client;
+  OpsWorksApi(client)
+      : _client = client.configured('OpsWorks', serializer: 'json');
+
   /// Assign a registered instance to a layer.
   ///
   /// *   You can assign registered on-premises instances to any layer type.
@@ -110,7 +114,12 @@ class OpsWorksApi {
   /// [layerIds]: The layer ID, which must correspond to a custom layer. You
   /// cannot assign a registered instance to a built-in layer.
   Future<void> assignInstance(
-      {@required String instanceId, @required List<String> layerIds}) async {}
+      {@required String instanceId, @required List<String> layerIds}) async {
+    await _client.send('AssignInstance', {
+      'InstanceId': instanceId,
+      'LayerIds': layerIds,
+    });
+  }
 
   /// Assigns one of the stack's registered Amazon EBS volumes to a specified
   /// instance. The volume must first be registered with the stack by calling
@@ -128,7 +137,12 @@ class OpsWorksApi {
   /// [volumeId]: The volume ID.
   ///
   /// [instanceId]: The instance ID.
-  Future<void> assignVolume(String volumeId, {String instanceId}) async {}
+  Future<void> assignVolume(String volumeId, {String instanceId}) async {
+    await _client.send('AssignVolume', {
+      'VolumeId': volumeId,
+      if (instanceId != null) 'InstanceId': instanceId,
+    });
+  }
 
   /// Associates one of the stack's registered Elastic IP addresses with a
   /// specified instance. The address must first be registered with the stack by
@@ -144,8 +158,12 @@ class OpsWorksApi {
   /// [elasticIp]: The Elastic IP address.
   ///
   /// [instanceId]: The instance ID.
-  Future<void> associateElasticIp(String elasticIp,
-      {String instanceId}) async {}
+  Future<void> associateElasticIp(String elasticIp, {String instanceId}) async {
+    await _client.send('AssociateElasticIp', {
+      'ElasticIp': elasticIp,
+      if (instanceId != null) 'InstanceId': instanceId,
+    });
+  }
 
   /// Attaches an Elastic Load Balancing load balancer to a specified layer. AWS
   /// OpsWorks Stacks does not support Application Load Balancer. You can only
@@ -171,7 +189,12 @@ class OpsWorksApi {
   /// instance is to be attached.
   Future<void> attachElasticLoadBalancer(
       {@required String elasticLoadBalancerName,
-      @required String layerId}) async {}
+      @required String layerId}) async {
+    await _client.send('AttachElasticLoadBalancer', {
+      'ElasticLoadBalancerName': elasticLoadBalancerName,
+      'LayerId': layerId,
+    });
+  }
 
   /// Creates a clone of a specified stack. For more information, see
   /// [Clone a Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-cloning.html).
@@ -441,7 +464,37 @@ class OpsWorksApi {
       List<String> cloneAppIds,
       String defaultRootDeviceType,
       String agentVersion}) async {
-    return CloneStackResult.fromJson({});
+    var response_ = await _client.send('CloneStack', {
+      'SourceStackId': sourceStackId,
+      if (name != null) 'Name': name,
+      if (region != null) 'Region': region,
+      if (vpcId != null) 'VpcId': vpcId,
+      if (attributes != null) 'Attributes': attributes,
+      'ServiceRoleArn': serviceRoleArn,
+      if (defaultInstanceProfileArn != null)
+        'DefaultInstanceProfileArn': defaultInstanceProfileArn,
+      if (defaultOs != null) 'DefaultOs': defaultOs,
+      if (hostnameTheme != null) 'HostnameTheme': hostnameTheme,
+      if (defaultAvailabilityZone != null)
+        'DefaultAvailabilityZone': defaultAvailabilityZone,
+      if (defaultSubnetId != null) 'DefaultSubnetId': defaultSubnetId,
+      if (customJson != null) 'CustomJson': customJson,
+      if (configurationManager != null)
+        'ConfigurationManager': configurationManager,
+      if (chefConfiguration != null) 'ChefConfiguration': chefConfiguration,
+      if (useCustomCookbooks != null) 'UseCustomCookbooks': useCustomCookbooks,
+      if (useOpsworksSecurityGroups != null)
+        'UseOpsworksSecurityGroups': useOpsworksSecurityGroups,
+      if (customCookbooksSource != null)
+        'CustomCookbooksSource': customCookbooksSource,
+      if (defaultSshKeyName != null) 'DefaultSshKeyName': defaultSshKeyName,
+      if (clonePermissions != null) 'ClonePermissions': clonePermissions,
+      if (cloneAppIds != null) 'CloneAppIds': cloneAppIds,
+      if (defaultRootDeviceType != null)
+        'DefaultRootDeviceType': defaultRootDeviceType,
+      if (agentVersion != null) 'AgentVersion': agentVersion,
+    });
+    return CloneStackResult.fromJson(response_);
   }
 
   /// Creates an app for a specified stack. For more information, see
@@ -512,7 +565,21 @@ class OpsWorksApi {
       SslConfiguration sslConfiguration,
       Map<String, String> attributes,
       List<EnvironmentVariable> environment}) async {
-    return CreateAppResult.fromJson({});
+    var response_ = await _client.send('CreateApp', {
+      'StackId': stackId,
+      if (shortname != null) 'Shortname': shortname,
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (dataSources != null) 'DataSources': dataSources,
+      'Type': type,
+      if (appSource != null) 'AppSource': appSource,
+      if (domains != null) 'Domains': domains,
+      if (enableSsl != null) 'EnableSsl': enableSsl,
+      if (sslConfiguration != null) 'SslConfiguration': sslConfiguration,
+      if (attributes != null) 'Attributes': attributes,
+      if (environment != null) 'Environment': environment,
+    });
+    return CreateAppResult.fromJson(response_);
   }
 
   /// Runs deployment or stack commands. For more information, see
@@ -558,7 +625,16 @@ class OpsWorksApi {
       @required DeploymentCommand command,
       String comment,
       String customJson}) async {
-    return CreateDeploymentResult.fromJson({});
+    var response_ = await _client.send('CreateDeployment', {
+      'StackId': stackId,
+      if (appId != null) 'AppId': appId,
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+      if (layerIds != null) 'LayerIds': layerIds,
+      'Command': command,
+      if (comment != null) 'Comment': comment,
+      if (customJson != null) 'CustomJson': customJson,
+    });
+    return CreateDeploymentResult.fromJson(response_);
   }
 
   /// Creates an instance in a specified stack. For more information, see
@@ -722,7 +798,29 @@ class OpsWorksApi {
       bool ebsOptimized,
       String agentVersion,
       String tenancy}) async {
-    return CreateInstanceResult.fromJson({});
+    var response_ = await _client.send('CreateInstance', {
+      'StackId': stackId,
+      'LayerIds': layerIds,
+      'InstanceType': instanceType,
+      if (autoScalingType != null) 'AutoScalingType': autoScalingType,
+      if (hostname != null) 'Hostname': hostname,
+      if (os != null) 'Os': os,
+      if (amiId != null) 'AmiId': amiId,
+      if (sshKeyName != null) 'SshKeyName': sshKeyName,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (virtualizationType != null) 'VirtualizationType': virtualizationType,
+      if (subnetId != null) 'SubnetId': subnetId,
+      if (architecture != null) 'Architecture': architecture,
+      if (rootDeviceType != null) 'RootDeviceType': rootDeviceType,
+      if (blockDeviceMappings != null)
+        'BlockDeviceMappings': blockDeviceMappings,
+      if (installUpdatesOnBoot != null)
+        'InstallUpdatesOnBoot': installUpdatesOnBoot,
+      if (ebsOptimized != null) 'EbsOptimized': ebsOptimized,
+      if (agentVersion != null) 'AgentVersion': agentVersion,
+      if (tenancy != null) 'Tenancy': tenancy,
+    });
+    return CreateInstanceResult.fromJson(response_);
   }
 
   /// Creates a layer. For more information, see
@@ -839,7 +937,36 @@ class OpsWorksApi {
       bool installUpdatesOnBoot,
       bool useEbsOptimizedInstances,
       LifecycleEventConfiguration lifecycleEventConfiguration}) async {
-    return CreateLayerResult.fromJson({});
+    var response_ = await _client.send('CreateLayer', {
+      'StackId': stackId,
+      'Type': type,
+      'Name': name,
+      'Shortname': shortname,
+      if (attributes != null) 'Attributes': attributes,
+      if (cloudWatchLogsConfiguration != null)
+        'CloudWatchLogsConfiguration': cloudWatchLogsConfiguration,
+      if (customInstanceProfileArn != null)
+        'CustomInstanceProfileArn': customInstanceProfileArn,
+      if (customJson != null) 'CustomJson': customJson,
+      if (customSecurityGroupIds != null)
+        'CustomSecurityGroupIds': customSecurityGroupIds,
+      if (packages != null) 'Packages': packages,
+      if (volumeConfigurations != null)
+        'VolumeConfigurations': volumeConfigurations,
+      if (enableAutoHealing != null) 'EnableAutoHealing': enableAutoHealing,
+      if (autoAssignElasticIps != null)
+        'AutoAssignElasticIps': autoAssignElasticIps,
+      if (autoAssignPublicIps != null)
+        'AutoAssignPublicIps': autoAssignPublicIps,
+      if (customRecipes != null) 'CustomRecipes': customRecipes,
+      if (installUpdatesOnBoot != null)
+        'InstallUpdatesOnBoot': installUpdatesOnBoot,
+      if (useEbsOptimizedInstances != null)
+        'UseEbsOptimizedInstances': useEbsOptimizedInstances,
+      if (lifecycleEventConfiguration != null)
+        'LifecycleEventConfiguration': lifecycleEventConfiguration,
+    });
+    return CreateLayerResult.fromJson(response_);
   }
 
   /// Creates a new stack. For more information, see
@@ -1107,7 +1234,33 @@ class OpsWorksApi {
       String defaultSshKeyName,
       String defaultRootDeviceType,
       String agentVersion}) async {
-    return CreateStackResult.fromJson({});
+    var response_ = await _client.send('CreateStack', {
+      'Name': name,
+      'Region': region,
+      if (vpcId != null) 'VpcId': vpcId,
+      if (attributes != null) 'Attributes': attributes,
+      'ServiceRoleArn': serviceRoleArn,
+      'DefaultInstanceProfileArn': defaultInstanceProfileArn,
+      if (defaultOs != null) 'DefaultOs': defaultOs,
+      if (hostnameTheme != null) 'HostnameTheme': hostnameTheme,
+      if (defaultAvailabilityZone != null)
+        'DefaultAvailabilityZone': defaultAvailabilityZone,
+      if (defaultSubnetId != null) 'DefaultSubnetId': defaultSubnetId,
+      if (customJson != null) 'CustomJson': customJson,
+      if (configurationManager != null)
+        'ConfigurationManager': configurationManager,
+      if (chefConfiguration != null) 'ChefConfiguration': chefConfiguration,
+      if (useCustomCookbooks != null) 'UseCustomCookbooks': useCustomCookbooks,
+      if (useOpsworksSecurityGroups != null)
+        'UseOpsworksSecurityGroups': useOpsworksSecurityGroups,
+      if (customCookbooksSource != null)
+        'CustomCookbooksSource': customCookbooksSource,
+      if (defaultSshKeyName != null) 'DefaultSshKeyName': defaultSshKeyName,
+      if (defaultRootDeviceType != null)
+        'DefaultRootDeviceType': defaultRootDeviceType,
+      if (agentVersion != null) 'AgentVersion': agentVersion,
+    });
+    return CreateStackResult.fromJson(response_);
   }
 
   /// Creates a new user profile.
@@ -1134,7 +1287,14 @@ class OpsWorksApi {
       {String sshUsername,
       String sshPublicKey,
       bool allowSelfManagement}) async {
-    return CreateUserProfileResult.fromJson({});
+    var response_ = await _client.send('CreateUserProfile', {
+      'IamUserArn': iamUserArn,
+      if (sshUsername != null) 'SshUsername': sshUsername,
+      if (sshPublicKey != null) 'SshPublicKey': sshPublicKey,
+      if (allowSelfManagement != null)
+        'AllowSelfManagement': allowSelfManagement,
+    });
+    return CreateUserProfileResult.fromJson(response_);
   }
 
   /// Deletes a specified app.
@@ -1146,7 +1306,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [appId]: The app ID.
-  Future<void> deleteApp(String appId) async {}
+  Future<void> deleteApp(String appId) async {
+    await _client.send('DeleteApp', {
+      'AppId': appId,
+    });
+  }
 
   /// Deletes a specified instance, which terminates the associated Amazon EC2
   /// instance. You must stop an instance before you can delete it.
@@ -1166,7 +1330,13 @@ class OpsWorksApi {
   ///
   /// [deleteVolumes]: Whether to delete the instance's Amazon EBS volumes.
   Future<void> deleteInstance(String instanceId,
-      {bool deleteElasticIp, bool deleteVolumes}) async {}
+      {bool deleteElasticIp, bool deleteVolumes}) async {
+    await _client.send('DeleteInstance', {
+      'InstanceId': instanceId,
+      if (deleteElasticIp != null) 'DeleteElasticIp': deleteElasticIp,
+      if (deleteVolumes != null) 'DeleteVolumes': deleteVolumes,
+    });
+  }
 
   /// Deletes a specified layer. You must first stop and then delete all
   /// associated instances or unassign registered instances. For more
@@ -1180,7 +1350,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [layerId]: The layer ID.
-  Future<void> deleteLayer(String layerId) async {}
+  Future<void> deleteLayer(String layerId) async {
+    await _client.send('DeleteLayer', {
+      'LayerId': layerId,
+    });
+  }
 
   /// Deletes a specified stack. You must first delete all instances, layers,
   /// and apps or deregister registered instances. For more information, see
@@ -1193,7 +1367,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
-  Future<void> deleteStack(String stackId) async {}
+  Future<void> deleteStack(String stackId) async {
+    await _client.send('DeleteStack', {
+      'StackId': stackId,
+    });
+  }
 
   /// Deletes a user profile.
   ///
@@ -1203,7 +1381,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [iamUserArn]: The user's IAM ARN. This can also be a federated user's ARN.
-  Future<void> deleteUserProfile(String iamUserArn) async {}
+  Future<void> deleteUserProfile(String iamUserArn) async {
+    await _client.send('DeleteUserProfile', {
+      'IamUserArn': iamUserArn,
+    });
+  }
 
   /// Deregisters a specified Amazon ECS cluster from a stack. For more
   /// information, see
@@ -1216,7 +1398,11 @@ class OpsWorksApi {
   /// [https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [ecsClusterArn]: The cluster's Amazon Resource Number (ARN).
-  Future<void> deregisterEcsCluster(String ecsClusterArn) async {}
+  Future<void> deregisterEcsCluster(String ecsClusterArn) async {
+    await _client.send('DeregisterEcsCluster', {
+      'EcsClusterArn': ecsClusterArn,
+    });
+  }
 
   /// Deregisters a specified Elastic IP address. The address can then be
   /// registered by another stack. For more information, see
@@ -1229,7 +1415,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [elasticIp]: The Elastic IP address.
-  Future<void> deregisterElasticIp(String elasticIp) async {}
+  Future<void> deregisterElasticIp(String elasticIp) async {
+    await _client.send('DeregisterElasticIp', {
+      'ElasticIp': elasticIp,
+    });
+  }
 
   /// Deregister a registered Amazon EC2 or on-premises instance. This action
   /// removes the instance from the stack and returns it to your control. This
@@ -1243,7 +1433,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
-  Future<void> deregisterInstance(String instanceId) async {}
+  Future<void> deregisterInstance(String instanceId) async {
+    await _client.send('DeregisterInstance', {
+      'InstanceId': instanceId,
+    });
+  }
 
   /// Deregisters an Amazon RDS instance.
   ///
@@ -1254,7 +1448,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [rdsDbInstanceArn]: The Amazon RDS instance's ARN.
-  Future<void> deregisterRdsDbInstance(String rdsDbInstanceArn) async {}
+  Future<void> deregisterRdsDbInstance(String rdsDbInstanceArn) async {
+    await _client.send('DeregisterRdsDbInstance', {
+      'RdsDbInstanceArn': rdsDbInstanceArn,
+    });
+  }
 
   /// Deregisters an Amazon EBS volume. The volume can then be registered by
   /// another stack. For more information, see
@@ -1269,7 +1467,11 @@ class OpsWorksApi {
   /// [volumeId]: The AWS OpsWorks Stacks volume ID, which is the GUID that AWS
   /// OpsWorks Stacks assigned to the instance when you registered the volume
   /// with the stack, not the Amazon EC2 volume ID.
-  Future<void> deregisterVolume(String volumeId) async {}
+  Future<void> deregisterVolume(String volumeId) async {
+    await _client.send('DeregisterVolume', {
+      'VolumeId': volumeId,
+    });
+  }
 
   /// Describes the available AWS OpsWorks Stacks agent versions. You must
   /// specify a stack ID or a configuration manager. `DescribeAgentVersions`
@@ -1281,7 +1483,12 @@ class OpsWorksApi {
   /// [configurationManager]: The configuration manager.
   Future<DescribeAgentVersionsResult> describeAgentVersions(
       {String stackId, StackConfigurationManager configurationManager}) async {
-    return DescribeAgentVersionsResult.fromJson({});
+    var response_ = await _client.send('DescribeAgentVersions', {
+      if (stackId != null) 'StackId': stackId,
+      if (configurationManager != null)
+        'ConfigurationManager': configurationManager,
+    });
+    return DescribeAgentVersionsResult.fromJson(response_);
   }
 
   /// Requests a description of a specified set of apps.
@@ -1302,7 +1509,11 @@ class OpsWorksApi {
   /// apps. Otherwise, it returns a description of every app.
   Future<DescribeAppsResult> describeApps(
       {String stackId, List<String> appIds}) async {
-    return DescribeAppsResult.fromJson({});
+    var response_ = await _client.send('DescribeApps', {
+      if (stackId != null) 'StackId': stackId,
+      if (appIds != null) 'AppIds': appIds,
+    });
+    return DescribeAppsResult.fromJson(response_);
   }
 
   /// Describes the results of specified commands.
@@ -1328,7 +1539,12 @@ class OpsWorksApi {
   /// Otherwise, it returns a description of every command.
   Future<DescribeCommandsResult> describeCommands(
       {String deploymentId, String instanceId, List<String> commandIds}) async {
-    return DescribeCommandsResult.fromJson({});
+    var response_ = await _client.send('DescribeCommands', {
+      if (deploymentId != null) 'DeploymentId': deploymentId,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (commandIds != null) 'CommandIds': commandIds,
+    });
+    return DescribeCommandsResult.fromJson(response_);
   }
 
   /// Requests a description of a specified set of deployments.
@@ -1352,7 +1568,12 @@ class OpsWorksApi {
   /// deployments. Otherwise, it returns a description of every deployment.
   Future<DescribeDeploymentsResult> describeDeployments(
       {String stackId, String appId, List<String> deploymentIds}) async {
-    return DescribeDeploymentsResult.fromJson({});
+    var response_ = await _client.send('DescribeDeployments', {
+      if (stackId != null) 'StackId': stackId,
+      if (appId != null) 'AppId': appId,
+      if (deploymentIds != null) 'DeploymentIds': deploymentIds,
+    });
+    return DescribeDeploymentsResult.fromJson(response_);
   }
 
   /// Describes Amazon ECS clusters that are registered with a stack. If you
@@ -1391,7 +1612,13 @@ class OpsWorksApi {
       String stackId,
       String nextToken,
       int maxResults}) async {
-    return DescribeEcsClustersResult.fromJson({});
+    var response_ = await _client.send('DescribeEcsClusters', {
+      if (ecsClusterArns != null) 'EcsClusterArns': ecsClusterArns,
+      if (stackId != null) 'StackId': stackId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeEcsClustersResult.fromJson(response_);
   }
 
   /// Describes
@@ -1419,7 +1646,12 @@ class OpsWorksApi {
   /// every Elastic IP address.
   Future<DescribeElasticIpsResult> describeElasticIps(
       {String instanceId, String stackId, List<String> ips}) async {
-    return DescribeElasticIpsResult.fromJson({});
+    var response_ = await _client.send('DescribeElasticIps', {
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (stackId != null) 'StackId': stackId,
+      if (ips != null) 'Ips': ips,
+    });
+    return DescribeElasticIpsResult.fromJson(response_);
   }
 
   /// Describes a stack's Elastic Load Balancing instances.
@@ -1439,7 +1671,11 @@ class OpsWorksApi {
   /// Balancing instances for the specified layers.
   Future<DescribeElasticLoadBalancersResult> describeElasticLoadBalancers(
       {String stackId, List<String> layerIds}) async {
-    return DescribeElasticLoadBalancersResult.fromJson({});
+    var response_ = await _client.send('DescribeElasticLoadBalancers', {
+      if (stackId != null) 'StackId': stackId,
+      if (layerIds != null) 'LayerIds': layerIds,
+    });
+    return DescribeElasticLoadBalancersResult.fromJson(response_);
   }
 
   /// Requests a description of a set of instances.
@@ -1463,7 +1699,12 @@ class OpsWorksApi {
   /// instances. Otherwise, it returns a description of every instance.
   Future<DescribeInstancesResult> describeInstances(
       {String stackId, String layerId, List<String> instanceIds}) async {
-    return DescribeInstancesResult.fromJson({});
+    var response_ = await _client.send('DescribeInstances', {
+      if (stackId != null) 'StackId': stackId,
+      if (layerId != null) 'LayerId': layerId,
+      if (instanceIds != null) 'InstanceIds': instanceIds,
+    });
+    return DescribeInstancesResult.fromJson(response_);
   }
 
   /// Requests a description of one or more layers in a specified stack.
@@ -1483,7 +1724,11 @@ class OpsWorksApi {
   /// every layer in the specified stack.
   Future<DescribeLayersResult> describeLayers(
       {String stackId, List<String> layerIds}) async {
-    return DescribeLayersResult.fromJson({});
+    var response_ = await _client.send('DescribeLayers', {
+      if (stackId != null) 'StackId': stackId,
+      if (layerIds != null) 'LayerIds': layerIds,
+    });
+    return DescribeLayersResult.fromJson(response_);
   }
 
   /// Describes load-based auto scaling configurations for specified layers.
@@ -1499,7 +1744,10 @@ class OpsWorksApi {
   /// [layerIds]: An array of layer IDs.
   Future<DescribeLoadBasedAutoScalingResult> describeLoadBasedAutoScaling(
       List<String> layerIds) async {
-    return DescribeLoadBasedAutoScalingResult.fromJson({});
+    var response_ = await _client.send('DescribeLoadBasedAutoScaling', {
+      'LayerIds': layerIds,
+    });
+    return DescribeLoadBasedAutoScalingResult.fromJson(response_);
   }
 
   /// Describes a user's SSH information.
@@ -1509,12 +1757,14 @@ class OpsWorksApi {
   /// permissions. For more information about user permissions, see
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   Future<DescribeMyUserProfileResult> describeMyUserProfile() async {
-    return DescribeMyUserProfileResult.fromJson({});
+    var response_ = await _client.send('DescribeMyUserProfile', {});
+    return DescribeMyUserProfileResult.fromJson(response_);
   }
 
   /// Describes the operating systems that are supported by AWS OpsWorks Stacks.
   Future<DescribeOperatingSystemsResponse> describeOperatingSystems() async {
-    return DescribeOperatingSystemsResponse.fromJson({});
+    var response_ = await _client.send('DescribeOperatingSystems', {});
+    return DescribeOperatingSystemsResponse.fromJson(response_);
   }
 
   /// Describes the permissions for a specified stack.
@@ -1532,7 +1782,11 @@ class OpsWorksApi {
   /// [stackId]: The stack ID.
   Future<DescribePermissionsResult> describePermissions(
       {String iamUserArn, String stackId}) async {
-    return DescribePermissionsResult.fromJson({});
+    var response_ = await _client.send('DescribePermissions', {
+      if (iamUserArn != null) 'IamUserArn': iamUserArn,
+      if (stackId != null) 'StackId': stackId,
+    });
+    return DescribePermissionsResult.fromJson(response_);
   }
 
   /// Describe an instance's RAID arrays.
@@ -1556,7 +1810,12 @@ class OpsWorksApi {
   /// Otherwise, it returns a description of every array.
   Future<DescribeRaidArraysResult> describeRaidArrays(
       {String instanceId, String stackId, List<String> raidArrayIds}) async {
-    return DescribeRaidArraysResult.fromJson({});
+    var response_ = await _client.send('DescribeRaidArrays', {
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (stackId != null) 'StackId': stackId,
+      if (raidArrayIds != null) 'RaidArrayIds': raidArrayIds,
+    });
+    return DescribeRaidArraysResult.fromJson(response_);
   }
 
   /// Describes Amazon RDS instances.
@@ -1576,7 +1835,11 @@ class OpsWorksApi {
   /// described.
   Future<DescribeRdsDbInstancesResult> describeRdsDbInstances(String stackId,
       {List<String> rdsDbInstanceArns}) async {
-    return DescribeRdsDbInstancesResult.fromJson({});
+    var response_ = await _client.send('DescribeRdsDbInstances', {
+      'StackId': stackId,
+      if (rdsDbInstanceArns != null) 'RdsDbInstanceArns': rdsDbInstanceArns,
+    });
+    return DescribeRdsDbInstancesResult.fromJson(response_);
   }
 
   /// Describes AWS OpsWorks Stacks service errors.
@@ -1602,7 +1865,12 @@ class OpsWorksApi {
   /// errors. Otherwise, it returns a description of every error.
   Future<DescribeServiceErrorsResult> describeServiceErrors(
       {String stackId, String instanceId, List<String> serviceErrorIds}) async {
-    return DescribeServiceErrorsResult.fromJson({});
+    var response_ = await _client.send('DescribeServiceErrors', {
+      if (stackId != null) 'StackId': stackId,
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (serviceErrorIds != null) 'ServiceErrorIds': serviceErrorIds,
+    });
+    return DescribeServiceErrorsResult.fromJson(response_);
   }
 
   /// Requests a description of a stack's provisioning parameters.
@@ -1616,7 +1884,10 @@ class OpsWorksApi {
   /// [stackId]: The stack ID.
   Future<DescribeStackProvisioningParametersResult>
       describeStackProvisioningParameters(String stackId) async {
-    return DescribeStackProvisioningParametersResult.fromJson({});
+    var response_ = await _client.send('DescribeStackProvisioningParameters', {
+      'StackId': stackId,
+    });
+    return DescribeStackProvisioningParametersResult.fromJson(response_);
   }
 
   /// Describes the number of layers and apps in a specified stack, and the
@@ -1631,7 +1902,10 @@ class OpsWorksApi {
   /// [stackId]: The stack ID.
   Future<DescribeStackSummaryResult> describeStackSummary(
       String stackId) async {
-    return DescribeStackSummaryResult.fromJson({});
+    var response_ = await _client.send('DescribeStackSummary', {
+      'StackId': stackId,
+    });
+    return DescribeStackSummaryResult.fromJson(response_);
   }
 
   /// Requests a description of one or more stacks.
@@ -1646,7 +1920,10 @@ class OpsWorksApi {
   /// If you omit this parameter, `DescribeStacks` returns a description of
   /// every stack.
   Future<DescribeStacksResult> describeStacks({List<String> stackIds}) async {
-    return DescribeStacksResult.fromJson({});
+    var response_ = await _client.send('DescribeStacks', {
+      if (stackIds != null) 'StackIds': stackIds,
+    });
+    return DescribeStacksResult.fromJson(response_);
   }
 
   /// Describes time-based auto scaling configurations for specified instances.
@@ -1662,7 +1939,10 @@ class OpsWorksApi {
   /// [instanceIds]: An array of instance IDs.
   Future<DescribeTimeBasedAutoScalingResult> describeTimeBasedAutoScaling(
       List<String> instanceIds) async {
-    return DescribeTimeBasedAutoScalingResult.fromJson({});
+    var response_ = await _client.send('DescribeTimeBasedAutoScaling', {
+      'InstanceIds': instanceIds,
+    });
+    return DescribeTimeBasedAutoScalingResult.fromJson(response_);
   }
 
   /// Describe specified users.
@@ -1676,7 +1956,10 @@ class OpsWorksApi {
   /// users to be described.
   Future<DescribeUserProfilesResult> describeUserProfiles(
       {List<String> iamUserArns}) async {
-    return DescribeUserProfilesResult.fromJson({});
+    var response_ = await _client.send('DescribeUserProfiles', {
+      if (iamUserArns != null) 'IamUserArns': iamUserArns,
+    });
+    return DescribeUserProfilesResult.fromJson(response_);
   }
 
   /// Describes an instance's Amazon EBS volumes.
@@ -1708,7 +1991,13 @@ class OpsWorksApi {
       String stackId,
       String raidArrayId,
       List<String> volumeIds}) async {
-    return DescribeVolumesResult.fromJson({});
+    var response_ = await _client.send('DescribeVolumes', {
+      if (instanceId != null) 'InstanceId': instanceId,
+      if (stackId != null) 'StackId': stackId,
+      if (raidArrayId != null) 'RaidArrayId': raidArrayId,
+      if (volumeIds != null) 'VolumeIds': volumeIds,
+    });
+    return DescribeVolumesResult.fromJson(response_);
   }
 
   /// Detaches a specified Elastic Load Balancing instance from its layer.
@@ -1725,7 +2014,12 @@ class OpsWorksApi {
   /// attached to.
   Future<void> detachElasticLoadBalancer(
       {@required String elasticLoadBalancerName,
-      @required String layerId}) async {}
+      @required String layerId}) async {
+    await _client.send('DetachElasticLoadBalancer', {
+      'ElasticLoadBalancerName': elasticLoadBalancerName,
+      'LayerId': layerId,
+    });
+  }
 
   /// Disassociates an Elastic IP address from its instance. The address remains
   /// registered with the stack. For more information, see
@@ -1738,7 +2032,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [elasticIp]: The Elastic IP address.
-  Future<void> disassociateElasticIp(String elasticIp) async {}
+  Future<void> disassociateElasticIp(String elasticIp) async {
+    await _client.send('DisassociateElasticIp', {
+      'ElasticIp': elasticIp,
+    });
+  }
 
   /// Gets a generated host name for the specified layer, based on the current
   /// host name theme.
@@ -1752,7 +2050,10 @@ class OpsWorksApi {
   /// [layerId]: The layer ID.
   Future<GetHostnameSuggestionResult> getHostnameSuggestion(
       String layerId) async {
-    return GetHostnameSuggestionResult.fromJson({});
+    var response_ = await _client.send('GetHostnameSuggestion', {
+      'LayerId': layerId,
+    });
+    return GetHostnameSuggestionResult.fromJson(response_);
   }
 
   /// This action can be used only with Windows stacks.
@@ -1767,7 +2068,11 @@ class OpsWorksApi {
   /// at the time, he or she automatically will be logged out.
   Future<GrantAccessResult> grantAccess(String instanceId,
       {int validForInMinutes}) async {
-    return GrantAccessResult.fromJson({});
+    var response_ = await _client.send('GrantAccess', {
+      'InstanceId': instanceId,
+      if (validForInMinutes != null) 'ValidForInMinutes': validForInMinutes,
+    });
+    return GrantAccessResult.fromJson(response_);
   }
 
   /// Returns a list of tags that are applied to the specified stack or layer.
@@ -1781,7 +2086,12 @@ class OpsWorksApi {
   /// `NextToken` parameter to a `ListTagsRequest` call.
   Future<ListTagsResult> listTags(String resourceArn,
       {int maxResults, String nextToken}) async {
-    return ListTagsResult.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'ResourceArn': resourceArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsResult.fromJson(response_);
   }
 
   /// Reboots a specified instance. For more information, see
@@ -1794,7 +2104,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
-  Future<void> rebootInstance(String instanceId) async {}
+  Future<void> rebootInstance(String instanceId) async {
+    await _client.send('RebootInstance', {
+      'InstanceId': instanceId,
+    });
+  }
 
   /// Registers a specified Amazon ECS cluster with a stack. You can register
   /// only one cluster with a stack. A cluster can be registered with only one
@@ -1812,7 +2126,11 @@ class OpsWorksApi {
   /// [stackId]: The stack ID.
   Future<RegisterEcsClusterResult> registerEcsCluster(
       {@required String ecsClusterArn, @required String stackId}) async {
-    return RegisterEcsClusterResult.fromJson({});
+    var response_ = await _client.send('RegisterEcsCluster', {
+      'EcsClusterArn': ecsClusterArn,
+      'StackId': stackId,
+    });
+    return RegisterEcsClusterResult.fromJson(response_);
   }
 
   /// Registers an Elastic IP address with a specified stack. An address can be
@@ -1832,7 +2150,11 @@ class OpsWorksApi {
   /// [stackId]: The stack ID.
   Future<RegisterElasticIpResult> registerElasticIp(
       {@required String elasticIp, @required String stackId}) async {
-    return RegisterElasticIpResult.fromJson({});
+    var response_ = await _client.send('RegisterElasticIp', {
+      'ElasticIp': elasticIp,
+      'StackId': stackId,
+    });
+    return RegisterElasticIpResult.fromJson(response_);
   }
 
   /// Registers instances that were created outside of AWS OpsWorks Stacks with
@@ -1882,7 +2204,17 @@ class OpsWorksApi {
       String rsaPublicKey,
       String rsaPublicKeyFingerprint,
       InstanceIdentity instanceIdentity}) async {
-    return RegisterInstanceResult.fromJson({});
+    var response_ = await _client.send('RegisterInstance', {
+      'StackId': stackId,
+      if (hostname != null) 'Hostname': hostname,
+      if (publicIp != null) 'PublicIp': publicIp,
+      if (privateIp != null) 'PrivateIp': privateIp,
+      if (rsaPublicKey != null) 'RsaPublicKey': rsaPublicKey,
+      if (rsaPublicKeyFingerprint != null)
+        'RsaPublicKeyFingerprint': rsaPublicKeyFingerprint,
+      if (instanceIdentity != null) 'InstanceIdentity': instanceIdentity,
+    });
+    return RegisterInstanceResult.fromJson(response_);
   }
 
   /// Registers an Amazon RDS instance with a stack.
@@ -1904,7 +2236,14 @@ class OpsWorksApi {
       {@required String stackId,
       @required String rdsDbInstanceArn,
       @required String dbUser,
-      @required String dbPassword}) async {}
+      @required String dbPassword}) async {
+    await _client.send('RegisterRdsDbInstance', {
+      'StackId': stackId,
+      'RdsDbInstanceArn': rdsDbInstanceArn,
+      'DbUser': dbUser,
+      'DbPassword': dbPassword,
+    });
+  }
 
   /// Registers an Amazon EBS volume with a specified stack. A volume can be
   /// registered with only one stack at a time. If the volume is already
@@ -1923,7 +2262,11 @@ class OpsWorksApi {
   /// [stackId]: The stack ID.
   Future<RegisterVolumeResult> registerVolume(String stackId,
       {String ec2VolumeId}) async {
-    return RegisterVolumeResult.fromJson({});
+    var response_ = await _client.send('RegisterVolume', {
+      if (ec2VolumeId != null) 'Ec2VolumeId': ec2VolumeId,
+      'StackId': stackId,
+    });
+    return RegisterVolumeResult.fromJson(response_);
   }
 
   /// Specify the load-based auto scaling configuration for a specified layer.
@@ -1957,7 +2300,14 @@ class OpsWorksApi {
   Future<void> setLoadBasedAutoScaling(String layerId,
       {bool enable,
       AutoScalingThresholds upScaling,
-      AutoScalingThresholds downScaling}) async {}
+      AutoScalingThresholds downScaling}) async {
+    await _client.send('SetLoadBasedAutoScaling', {
+      'LayerId': layerId,
+      if (enable != null) 'Enable': enable,
+      if (upScaling != null) 'UpScaling': upScaling,
+      if (downScaling != null) 'DownScaling': downScaling,
+    });
+  }
 
   /// Specifies a user's permissions. For more information, see
   /// [Security and Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/workingsecurity.html).
@@ -1999,7 +2349,15 @@ class OpsWorksApi {
       @required String iamUserArn,
       bool allowSsh,
       bool allowSudo,
-      String level}) async {}
+      String level}) async {
+    await _client.send('SetPermission', {
+      'StackId': stackId,
+      'IamUserArn': iamUserArn,
+      if (allowSsh != null) 'AllowSsh': allowSsh,
+      if (allowSudo != null) 'AllowSudo': allowSudo,
+      if (level != null) 'Level': level,
+    });
+  }
 
   /// Specify the time-based auto scaling configuration for a specified
   /// instance. For more information, see
@@ -2016,7 +2374,13 @@ class OpsWorksApi {
   /// [autoScalingSchedule]: An `AutoScalingSchedule` with the instance
   /// schedule.
   Future<void> setTimeBasedAutoScaling(String instanceId,
-      {WeeklyAutoScalingSchedule autoScalingSchedule}) async {}
+      {WeeklyAutoScalingSchedule autoScalingSchedule}) async {
+    await _client.send('SetTimeBasedAutoScaling', {
+      'InstanceId': instanceId,
+      if (autoScalingSchedule != null)
+        'AutoScalingSchedule': autoScalingSchedule,
+    });
+  }
 
   /// Starts a specified instance. For more information, see
   /// [Starting, Stopping, and Rebooting Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html).
@@ -2028,7 +2392,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
-  Future<void> startInstance(String instanceId) async {}
+  Future<void> startInstance(String instanceId) async {
+    await _client.send('StartInstance', {
+      'InstanceId': instanceId,
+    });
+  }
 
   /// Starts a stack's instances.
   ///
@@ -2039,7 +2407,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
-  Future<void> startStack(String stackId) async {}
+  Future<void> startStack(String stackId) async {
+    await _client.send('StartStack', {
+      'StackId': stackId,
+    });
+  }
 
   /// Stops a specified instance. When you stop a standard instance, the data
   /// disappears and must be reinstalled when you restart the instance. You can
@@ -2062,7 +2434,12 @@ class OpsWorksApi {
   /// instance. You must also delete the formerly-associated instance in EC2
   /// after troubleshooting and replacing the AWS OpsWorks Stacks instance with
   /// a new one.
-  Future<void> stopInstance(String instanceId, {bool force}) async {}
+  Future<void> stopInstance(String instanceId, {bool force}) async {
+    await _client.send('StopInstance', {
+      'InstanceId': instanceId,
+      if (force != null) 'Force': force,
+    });
+  }
 
   /// Stops a specified stack.
   ///
@@ -2073,7 +2450,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
-  Future<void> stopStack(String stackId) async {}
+  Future<void> stopStack(String stackId) async {
+    await _client.send('StopStack', {
+      'StackId': stackId,
+    });
+  }
 
   /// Apply cost-allocation tags to a specified stack or layer in AWS OpsWorks
   /// Stacks. For more information about how tagging works, see
@@ -2101,7 +2482,12 @@ class OpsWorksApi {
   /// *   A maximum of 40 tags is allowed for any resource.
   Future<void> tagResource(
       {@required String resourceArn,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+  }
 
   /// Unassigns a registered instance from all layers that are using the
   /// instance. The instance remains in the stack as an unassigned instance, and
@@ -2115,7 +2501,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
-  Future<void> unassignInstance(String instanceId) async {}
+  Future<void> unassignInstance(String instanceId) async {
+    await _client.send('UnassignInstance', {
+      'InstanceId': instanceId,
+    });
+  }
 
   /// Unassigns an assigned Amazon EBS volume. The volume remains registered
   /// with the stack. For more information, see
@@ -2128,7 +2518,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [volumeId]: The volume ID.
-  Future<void> unassignVolume(String volumeId) async {}
+  Future<void> unassignVolume(String volumeId) async {
+    await _client.send('UnassignVolume', {
+      'VolumeId': volumeId,
+    });
+  }
 
   /// Removes tags from a specified stack or layer.
   ///
@@ -2136,7 +2530,12 @@ class OpsWorksApi {
   ///
   /// [tagKeys]: A list of the keys of tags to be removed from a stack or layer.
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Updates a specified app.
   ///
@@ -2196,7 +2595,21 @@ class OpsWorksApi {
       bool enableSsl,
       SslConfiguration sslConfiguration,
       Map<String, String> attributes,
-      List<EnvironmentVariable> environment}) async {}
+      List<EnvironmentVariable> environment}) async {
+    await _client.send('UpdateApp', {
+      'AppId': appId,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (dataSources != null) 'DataSources': dataSources,
+      if (type != null) 'Type': type,
+      if (appSource != null) 'AppSource': appSource,
+      if (domains != null) 'Domains': domains,
+      if (enableSsl != null) 'EnableSsl': enableSsl,
+      if (sslConfiguration != null) 'SslConfiguration': sslConfiguration,
+      if (attributes != null) 'Attributes': attributes,
+      if (environment != null) 'Environment': environment,
+    });
+  }
 
   /// Updates a registered Elastic IP address's name. For more information, see
   /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
@@ -2210,7 +2623,12 @@ class OpsWorksApi {
   /// [elasticIp]: The IP address for which you want to update the name.
   ///
   /// [name]: The new name.
-  Future<void> updateElasticIp(String elasticIp, {String name}) async {}
+  Future<void> updateElasticIp(String elasticIp, {String name}) async {
+    await _client.send('UpdateElasticIp', {
+      'ElasticIp': elasticIp,
+      if (name != null) 'Name': name,
+    });
+  }
 
   /// Updates a specified instance.
   ///
@@ -2329,7 +2747,23 @@ class OpsWorksApi {
       String architecture,
       bool installUpdatesOnBoot,
       bool ebsOptimized,
-      String agentVersion}) async {}
+      String agentVersion}) async {
+    await _client.send('UpdateInstance', {
+      'InstanceId': instanceId,
+      if (layerIds != null) 'LayerIds': layerIds,
+      if (instanceType != null) 'InstanceType': instanceType,
+      if (autoScalingType != null) 'AutoScalingType': autoScalingType,
+      if (hostname != null) 'Hostname': hostname,
+      if (os != null) 'Os': os,
+      if (amiId != null) 'AmiId': amiId,
+      if (sshKeyName != null) 'SshKeyName': sshKeyName,
+      if (architecture != null) 'Architecture': architecture,
+      if (installUpdatesOnBoot != null)
+        'InstallUpdatesOnBoot': installUpdatesOnBoot,
+      if (ebsOptimized != null) 'EbsOptimized': ebsOptimized,
+      if (agentVersion != null) 'AgentVersion': agentVersion,
+    });
+  }
 
   /// Updates a specified layer.
   ///
@@ -2423,7 +2857,36 @@ class OpsWorksApi {
       Recipes customRecipes,
       bool installUpdatesOnBoot,
       bool useEbsOptimizedInstances,
-      LifecycleEventConfiguration lifecycleEventConfiguration}) async {}
+      LifecycleEventConfiguration lifecycleEventConfiguration}) async {
+    await _client.send('UpdateLayer', {
+      'LayerId': layerId,
+      if (name != null) 'Name': name,
+      if (shortname != null) 'Shortname': shortname,
+      if (attributes != null) 'Attributes': attributes,
+      if (cloudWatchLogsConfiguration != null)
+        'CloudWatchLogsConfiguration': cloudWatchLogsConfiguration,
+      if (customInstanceProfileArn != null)
+        'CustomInstanceProfileArn': customInstanceProfileArn,
+      if (customJson != null) 'CustomJson': customJson,
+      if (customSecurityGroupIds != null)
+        'CustomSecurityGroupIds': customSecurityGroupIds,
+      if (packages != null) 'Packages': packages,
+      if (volumeConfigurations != null)
+        'VolumeConfigurations': volumeConfigurations,
+      if (enableAutoHealing != null) 'EnableAutoHealing': enableAutoHealing,
+      if (autoAssignElasticIps != null)
+        'AutoAssignElasticIps': autoAssignElasticIps,
+      if (autoAssignPublicIps != null)
+        'AutoAssignPublicIps': autoAssignPublicIps,
+      if (customRecipes != null) 'CustomRecipes': customRecipes,
+      if (installUpdatesOnBoot != null)
+        'InstallUpdatesOnBoot': installUpdatesOnBoot,
+      if (useEbsOptimizedInstances != null)
+        'UseEbsOptimizedInstances': useEbsOptimizedInstances,
+      if (lifecycleEventConfiguration != null)
+        'LifecycleEventConfiguration': lifecycleEventConfiguration,
+    });
+  }
 
   /// Updates a user's SSH public key.
   ///
@@ -2433,7 +2896,11 @@ class OpsWorksApi {
   /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [sshPublicKey]: The user's SSH public key.
-  Future<void> updateMyUserProfile({String sshPublicKey}) async {}
+  Future<void> updateMyUserProfile({String sshPublicKey}) async {
+    await _client.send('UpdateMyUserProfile', {
+      if (sshPublicKey != null) 'SshPublicKey': sshPublicKey,
+    });
+  }
 
   /// Updates an Amazon RDS instance.
   ///
@@ -2449,7 +2916,13 @@ class OpsWorksApi {
   ///
   /// [dbPassword]: The database password.
   Future<void> updateRdsDbInstance(String rdsDbInstanceArn,
-      {String dbUser, String dbPassword}) async {}
+      {String dbUser, String dbPassword}) async {
+    await _client.send('UpdateRdsDbInstance', {
+      'RdsDbInstanceArn': rdsDbInstanceArn,
+      if (dbUser != null) 'DbUser': dbUser,
+      if (dbPassword != null) 'DbPassword': dbPassword,
+    });
+  }
 
   /// Updates a specified stack.
   ///
@@ -2656,7 +3129,34 @@ class OpsWorksApi {
       String defaultSshKeyName,
       String defaultRootDeviceType,
       bool useOpsworksSecurityGroups,
-      String agentVersion}) async {}
+      String agentVersion}) async {
+    await _client.send('UpdateStack', {
+      'StackId': stackId,
+      if (name != null) 'Name': name,
+      if (attributes != null) 'Attributes': attributes,
+      if (serviceRoleArn != null) 'ServiceRoleArn': serviceRoleArn,
+      if (defaultInstanceProfileArn != null)
+        'DefaultInstanceProfileArn': defaultInstanceProfileArn,
+      if (defaultOs != null) 'DefaultOs': defaultOs,
+      if (hostnameTheme != null) 'HostnameTheme': hostnameTheme,
+      if (defaultAvailabilityZone != null)
+        'DefaultAvailabilityZone': defaultAvailabilityZone,
+      if (defaultSubnetId != null) 'DefaultSubnetId': defaultSubnetId,
+      if (customJson != null) 'CustomJson': customJson,
+      if (configurationManager != null)
+        'ConfigurationManager': configurationManager,
+      if (chefConfiguration != null) 'ChefConfiguration': chefConfiguration,
+      if (useCustomCookbooks != null) 'UseCustomCookbooks': useCustomCookbooks,
+      if (customCookbooksSource != null)
+        'CustomCookbooksSource': customCookbooksSource,
+      if (defaultSshKeyName != null) 'DefaultSshKeyName': defaultSshKeyName,
+      if (defaultRootDeviceType != null)
+        'DefaultRootDeviceType': defaultRootDeviceType,
+      if (useOpsworksSecurityGroups != null)
+        'UseOpsworksSecurityGroups': useOpsworksSecurityGroups,
+      if (agentVersion != null) 'AgentVersion': agentVersion,
+    });
+  }
 
   /// Updates a specified user profile.
   ///
@@ -2681,7 +3181,15 @@ class OpsWorksApi {
   Future<void> updateUserProfile(String iamUserArn,
       {String sshUsername,
       String sshPublicKey,
-      bool allowSelfManagement}) async {}
+      bool allowSelfManagement}) async {
+    await _client.send('UpdateUserProfile', {
+      'IamUserArn': iamUserArn,
+      if (sshUsername != null) 'SshUsername': sshUsername,
+      if (sshPublicKey != null) 'SshPublicKey': sshPublicKey,
+      if (allowSelfManagement != null)
+        'AllowSelfManagement': allowSelfManagement,
+    });
+  }
 
   /// Updates an Amazon EBS volume's name or mount point. For more information,
   /// see
@@ -2699,7 +3207,13 @@ class OpsWorksApi {
   ///
   /// [mountPoint]: The new mount point.
   Future<void> updateVolume(String volumeId,
-      {String name, String mountPoint}) async {}
+      {String name, String mountPoint}) async {
+    await _client.send('UpdateVolume', {
+      'VolumeId': volumeId,
+      if (name != null) 'Name': name,
+      if (mountPoint != null) 'MountPoint': mountPoint,
+    });
+  }
 }
 
 /// Describes an agent version.
@@ -2714,7 +3228,12 @@ class AgentVersion {
     this.version,
     this.configurationManager,
   });
-  static AgentVersion fromJson(Map<String, dynamic> json) => AgentVersion();
+  static AgentVersion fromJson(Map<String, dynamic> json) => AgentVersion(
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        configurationManager: json.containsKey('ConfigurationManager')
+            ? StackConfigurationManager.fromJson(json['ConfigurationManager'])
+            : null,
+      );
 }
 
 /// A description of the app.
@@ -2791,7 +3310,44 @@ class App {
     this.createdAt,
     this.environment,
   });
-  static App fromJson(Map<String, dynamic> json) => App();
+  static App fromJson(Map<String, dynamic> json) => App(
+        appId: json.containsKey('AppId') ? json['AppId'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        shortname:
+            json.containsKey('Shortname') ? json['Shortname'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        dataSources: json.containsKey('DataSources')
+            ? (json['DataSources'] as List)
+                .map((e) => DataSource.fromJson(e))
+                .toList()
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        appSource: json.containsKey('AppSource')
+            ? Source.fromJson(json['AppSource'])
+            : null,
+        domains: json.containsKey('Domains')
+            ? (json['Domains'] as List).map((e) => e as String).toList()
+            : null,
+        enableSsl:
+            json.containsKey('EnableSsl') ? json['EnableSsl'] as bool : null,
+        sslConfiguration: json.containsKey('SslConfiguration')
+            ? SslConfiguration.fromJson(json['SslConfiguration'])
+            : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        environment: json.containsKey('Environment')
+            ? (json['Environment'] as List)
+                .map((e) => EnvironmentVariable.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a load-based auto scaling upscaling or downscaling threshold
@@ -2852,7 +3408,30 @@ class AutoScalingThresholds {
     this.alarms,
   });
   static AutoScalingThresholds fromJson(Map<String, dynamic> json) =>
-      AutoScalingThresholds();
+      AutoScalingThresholds(
+        instanceCount: json.containsKey('InstanceCount')
+            ? json['InstanceCount'] as int
+            : null,
+        thresholdsWaitTime: json.containsKey('ThresholdsWaitTime')
+            ? json['ThresholdsWaitTime'] as int
+            : null,
+        ignoreMetricsTime: json.containsKey('IgnoreMetricsTime')
+            ? json['IgnoreMetricsTime'] as int
+            : null,
+        cpuThreshold: json.containsKey('CpuThreshold')
+            ? json['CpuThreshold'] as double
+            : null,
+        memoryThreshold: json.containsKey('MemoryThreshold')
+            ? json['MemoryThreshold'] as double
+            : null,
+        loadThreshold: json.containsKey('LoadThreshold')
+            ? json['LoadThreshold'] as double
+            : null,
+        alarms: json.containsKey('Alarms')
+            ? (json['Alarms'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a block device mapping. This data type maps directly to the Amazon
@@ -2885,7 +3464,20 @@ class BlockDeviceMapping {
     this.ebs,
   });
   static BlockDeviceMapping fromJson(Map<String, dynamic> json) =>
-      BlockDeviceMapping();
+      BlockDeviceMapping(
+        deviceName: json.containsKey('DeviceName')
+            ? json['DeviceName'] as String
+            : null,
+        noDevice:
+            json.containsKey('NoDevice') ? json['NoDevice'] as String : null,
+        virtualName: json.containsKey('VirtualName')
+            ? json['VirtualName'] as String
+            : null,
+        ebs: json.containsKey('Ebs')
+            ? EbsBlockDevice.fromJson(json['Ebs'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the Chef configuration.
@@ -2901,7 +3493,15 @@ class ChefConfiguration {
     this.berkshelfVersion,
   });
   static ChefConfiguration fromJson(Map<String, dynamic> json) =>
-      ChefConfiguration();
+      ChefConfiguration(
+        manageBerkshelf: json.containsKey('ManageBerkshelf')
+            ? json['ManageBerkshelf'] as bool
+            : null,
+        berkshelfVersion: json.containsKey('BerkshelfVersion')
+            ? json['BerkshelfVersion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the response to a `CloneStack` request.
@@ -2913,7 +3513,9 @@ class CloneStackResult {
     this.stackId,
   });
   static CloneStackResult fromJson(Map<String, dynamic> json) =>
-      CloneStackResult();
+      CloneStackResult(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+      );
 }
 
 /// Describes the Amazon CloudWatch logs configuration for a layer.
@@ -2929,7 +3531,15 @@ class CloudWatchLogsConfiguration {
     this.logStreams,
   });
   static CloudWatchLogsConfiguration fromJson(Map<String, dynamic> json) =>
-      CloudWatchLogsConfiguration();
+      CloudWatchLogsConfiguration(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        logStreams: json.containsKey('LogStreams')
+            ? (json['LogStreams'] as List)
+                .map((e) => CloudWatchLogsLogStream.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the Amazon CloudWatch logs configuration for a layer. For detailed
@@ -3014,7 +3624,36 @@ class CloudWatchLogsLogStream {
     this.batchSize,
   });
   static CloudWatchLogsLogStream fromJson(Map<String, dynamic> json) =>
-      CloudWatchLogsLogStream();
+      CloudWatchLogsLogStream(
+        logGroupName: json.containsKey('LogGroupName')
+            ? json['LogGroupName'] as String
+            : null,
+        datetimeFormat: json.containsKey('DatetimeFormat')
+            ? json['DatetimeFormat'] as String
+            : null,
+        timeZone:
+            json.containsKey('TimeZone') ? json['TimeZone'] as String : null,
+        file: json.containsKey('File') ? json['File'] as String : null,
+        fileFingerprintLines: json.containsKey('FileFingerprintLines')
+            ? json['FileFingerprintLines'] as String
+            : null,
+        multiLineStartPattern: json.containsKey('MultiLineStartPattern')
+            ? json['MultiLineStartPattern'] as String
+            : null,
+        initialPosition: json.containsKey('InitialPosition')
+            ? json['InitialPosition'] as String
+            : null,
+        encoding:
+            json.containsKey('Encoding') ? json['Encoding'] as String : null,
+        bufferDuration: json.containsKey('BufferDuration')
+            ? json['BufferDuration'] as int
+            : null,
+        batchCount:
+            json.containsKey('BatchCount') ? json['BatchCount'] as int : null,
+        batchSize:
+            json.containsKey('BatchSize') ? json['BatchSize'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a command.
@@ -3093,7 +3732,28 @@ class Command {
     this.logUrl,
     this.type,
   });
-  static Command fromJson(Map<String, dynamic> json) => Command();
+  static Command fromJson(Map<String, dynamic> json) => Command(
+        commandId:
+            json.containsKey('CommandId') ? json['CommandId'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        acknowledgedAt: json.containsKey('AcknowledgedAt')
+            ? json['AcknowledgedAt'] as String
+            : null,
+        completedAt: json.containsKey('CompletedAt')
+            ? json['CompletedAt'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        exitCode: json.containsKey('ExitCode') ? json['ExitCode'] as int : null,
+        logUrl: json.containsKey('LogUrl') ? json['LogUrl'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Contains the response to a `CreateApp` request.
@@ -3104,8 +3764,9 @@ class CreateAppResult {
   CreateAppResult({
     this.appId,
   });
-  static CreateAppResult fromJson(Map<String, dynamic> json) =>
-      CreateAppResult();
+  static CreateAppResult fromJson(Map<String, dynamic> json) => CreateAppResult(
+        appId: json.containsKey('AppId') ? json['AppId'] as String : null,
+      );
 }
 
 /// Contains the response to a `CreateDeployment` request.
@@ -3118,7 +3779,11 @@ class CreateDeploymentResult {
     this.deploymentId,
   });
   static CreateDeploymentResult fromJson(Map<String, dynamic> json) =>
-      CreateDeploymentResult();
+      CreateDeploymentResult(
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+      );
 }
 
 /// Contains the response to a `CreateInstance` request.
@@ -3130,7 +3795,11 @@ class CreateInstanceResult {
     this.instanceId,
   });
   static CreateInstanceResult fromJson(Map<String, dynamic> json) =>
-      CreateInstanceResult();
+      CreateInstanceResult(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+      );
 }
 
 /// Contains the response to a `CreateLayer` request.
@@ -3142,7 +3811,9 @@ class CreateLayerResult {
     this.layerId,
   });
   static CreateLayerResult fromJson(Map<String, dynamic> json) =>
-      CreateLayerResult();
+      CreateLayerResult(
+        layerId: json.containsKey('LayerId') ? json['LayerId'] as String : null,
+      );
 }
 
 /// Contains the response to a `CreateStack` request.
@@ -3155,7 +3826,9 @@ class CreateStackResult {
     this.stackId,
   });
   static CreateStackResult fromJson(Map<String, dynamic> json) =>
-      CreateStackResult();
+      CreateStackResult(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+      );
 }
 
 /// Contains the response to a `CreateUserProfile` request.
@@ -3167,7 +3840,11 @@ class CreateUserProfileResult {
     this.iamUserArn,
   });
   static CreateUserProfileResult fromJson(Map<String, dynamic> json) =>
-      CreateUserProfileResult();
+      CreateUserProfileResult(
+        iamUserArn: json.containsKey('IamUserArn')
+            ? json['IamUserArn'] as String
+            : null,
+      );
 }
 
 /// Describes an app's data source.
@@ -3187,7 +3864,14 @@ class DataSource {
     this.arn,
     this.databaseName,
   });
-  static DataSource fromJson(Map<String, dynamic> json) => DataSource();
+  static DataSource fromJson(Map<String, dynamic> json) => DataSource(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a deployment of a stack or app.
@@ -3256,7 +3940,33 @@ class Deployment {
     this.customJson,
     this.instanceIds,
   });
-  static Deployment fromJson(Map<String, dynamic> json) => Deployment();
+  static Deployment fromJson(Map<String, dynamic> json) => Deployment(
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        appId: json.containsKey('AppId') ? json['AppId'] as String : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        completedAt: json.containsKey('CompletedAt')
+            ? json['CompletedAt'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        iamUserArn: json.containsKey('IamUserArn')
+            ? json['IamUserArn'] as String
+            : null,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        command: json.containsKey('Command')
+            ? DeploymentCommand.fromJson(json['Command'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        customJson: json.containsKey('CustomJson')
+            ? json['CustomJson'] as String
+            : null,
+        instanceIds: json.containsKey('InstanceIds')
+            ? (json['InstanceIds'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Used to specify a stack or deployment command.
@@ -3330,7 +4040,14 @@ class DeploymentCommand {
     this.args,
   });
   static DeploymentCommand fromJson(Map<String, dynamic> json) =>
-      DeploymentCommand();
+      DeploymentCommand(
+        name: json['Name'] as String,
+        args: json.containsKey('Args')
+            ? (json['Args'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the response to a `DescribeAgentVersions` request.
@@ -3344,7 +4061,13 @@ class DescribeAgentVersionsResult {
     this.agentVersions,
   });
   static DescribeAgentVersionsResult fromJson(Map<String, dynamic> json) =>
-      DescribeAgentVersionsResult();
+      DescribeAgentVersionsResult(
+        agentVersions: json.containsKey('AgentVersions')
+            ? (json['AgentVersions'] as List)
+                .map((e) => AgentVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeApps` request.
@@ -3356,7 +4079,11 @@ class DescribeAppsResult {
     this.apps,
   });
   static DescribeAppsResult fromJson(Map<String, dynamic> json) =>
-      DescribeAppsResult();
+      DescribeAppsResult(
+        apps: json.containsKey('Apps')
+            ? (json['Apps'] as List).map((e) => App.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeCommands` request.
@@ -3369,7 +4096,13 @@ class DescribeCommandsResult {
     this.commands,
   });
   static DescribeCommandsResult fromJson(Map<String, dynamic> json) =>
-      DescribeCommandsResult();
+      DescribeCommandsResult(
+        commands: json.containsKey('Commands')
+            ? (json['Commands'] as List)
+                .map((e) => Command.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeDeployments` request.
@@ -3381,7 +4114,13 @@ class DescribeDeploymentsResult {
     this.deployments,
   });
   static DescribeDeploymentsResult fromJson(Map<String, dynamic> json) =>
-      DescribeDeploymentsResult();
+      DescribeDeploymentsResult(
+        deployments: json.containsKey('Deployments')
+            ? (json['Deployments'] as List)
+                .map((e) => Deployment.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeEcsClusters` request.
@@ -3401,7 +4140,15 @@ class DescribeEcsClustersResult {
     this.nextToken,
   });
   static DescribeEcsClustersResult fromJson(Map<String, dynamic> json) =>
-      DescribeEcsClustersResult();
+      DescribeEcsClustersResult(
+        ecsClusters: json.containsKey('EcsClusters')
+            ? (json['EcsClusters'] as List)
+                .map((e) => EcsCluster.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the response to a `DescribeElasticIps` request.
@@ -3413,7 +4160,13 @@ class DescribeElasticIpsResult {
     this.elasticIps,
   });
   static DescribeElasticIpsResult fromJson(Map<String, dynamic> json) =>
-      DescribeElasticIpsResult();
+      DescribeElasticIpsResult(
+        elasticIps: json.containsKey('ElasticIps')
+            ? (json['ElasticIps'] as List)
+                .map((e) => ElasticIp.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeElasticLoadBalancers` request.
@@ -3427,7 +4180,13 @@ class DescribeElasticLoadBalancersResult {
   });
   static DescribeElasticLoadBalancersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeElasticLoadBalancersResult();
+      DescribeElasticLoadBalancersResult(
+        elasticLoadBalancers: json.containsKey('ElasticLoadBalancers')
+            ? (json['ElasticLoadBalancers'] as List)
+                .map((e) => ElasticLoadBalancer.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeInstances` request.
@@ -3439,7 +4198,13 @@ class DescribeInstancesResult {
     this.instances,
   });
   static DescribeInstancesResult fromJson(Map<String, dynamic> json) =>
-      DescribeInstancesResult();
+      DescribeInstancesResult(
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeLayers` request.
@@ -3451,7 +4216,11 @@ class DescribeLayersResult {
     this.layers,
   });
   static DescribeLayersResult fromJson(Map<String, dynamic> json) =>
-      DescribeLayersResult();
+      DescribeLayersResult(
+        layers: json.containsKey('Layers')
+            ? (json['Layers'] as List).map((e) => Layer.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeLoadBasedAutoScaling` request.
@@ -3466,7 +4235,14 @@ class DescribeLoadBasedAutoScalingResult {
   });
   static DescribeLoadBasedAutoScalingResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeLoadBasedAutoScalingResult();
+      DescribeLoadBasedAutoScalingResult(
+        loadBasedAutoScalingConfigurations:
+            json.containsKey('LoadBasedAutoScalingConfigurations')
+                ? (json['LoadBasedAutoScalingConfigurations'] as List)
+                    .map((e) => LoadBasedAutoScalingConfiguration.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Contains the response to a `DescribeMyUserProfile` request.
@@ -3478,7 +4254,11 @@ class DescribeMyUserProfileResult {
     this.userProfile,
   });
   static DescribeMyUserProfileResult fromJson(Map<String, dynamic> json) =>
-      DescribeMyUserProfileResult();
+      DescribeMyUserProfileResult(
+        userProfile: json.containsKey('UserProfile')
+            ? SelfUserProfile.fromJson(json['UserProfile'])
+            : null,
+      );
 }
 
 /// The response to a `DescribeOperatingSystems` request.
@@ -3490,7 +4270,13 @@ class DescribeOperatingSystemsResponse {
     this.operatingSystems,
   });
   static DescribeOperatingSystemsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeOperatingSystemsResponse();
+      DescribeOperatingSystemsResponse(
+        operatingSystems: json.containsKey('OperatingSystems')
+            ? (json['OperatingSystems'] as List)
+                .map((e) => OperatingSystem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribePermissions` request.
@@ -3512,7 +4298,13 @@ class DescribePermissionsResult {
     this.permissions,
   });
   static DescribePermissionsResult fromJson(Map<String, dynamic> json) =>
-      DescribePermissionsResult();
+      DescribePermissionsResult(
+        permissions: json.containsKey('Permissions')
+            ? (json['Permissions'] as List)
+                .map((e) => Permission.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeRaidArrays` request.
@@ -3524,7 +4316,13 @@ class DescribeRaidArraysResult {
     this.raidArrays,
   });
   static DescribeRaidArraysResult fromJson(Map<String, dynamic> json) =>
-      DescribeRaidArraysResult();
+      DescribeRaidArraysResult(
+        raidArrays: json.containsKey('RaidArrays')
+            ? (json['RaidArrays'] as List)
+                .map((e) => RaidArray.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeRdsDbInstances` request.
@@ -3536,7 +4334,13 @@ class DescribeRdsDbInstancesResult {
     this.rdsDbInstances,
   });
   static DescribeRdsDbInstancesResult fromJson(Map<String, dynamic> json) =>
-      DescribeRdsDbInstancesResult();
+      DescribeRdsDbInstancesResult(
+        rdsDbInstances: json.containsKey('RdsDbInstances')
+            ? (json['RdsDbInstances'] as List)
+                .map((e) => RdsDbInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeServiceErrors` request.
@@ -3549,7 +4353,13 @@ class DescribeServiceErrorsResult {
     this.serviceErrors,
   });
   static DescribeServiceErrorsResult fromJson(Map<String, dynamic> json) =>
-      DescribeServiceErrorsResult();
+      DescribeServiceErrorsResult(
+        serviceErrors: json.containsKey('ServiceErrors')
+            ? (json['ServiceErrors'] as List)
+                .map((e) => ServiceError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeStackProvisioningParameters` request.
@@ -3566,7 +4376,15 @@ class DescribeStackProvisioningParametersResult {
   });
   static DescribeStackProvisioningParametersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeStackProvisioningParametersResult();
+      DescribeStackProvisioningParametersResult(
+        agentInstallerUrl: json.containsKey('AgentInstallerUrl')
+            ? json['AgentInstallerUrl'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeStackSummary` request.
@@ -3578,7 +4396,11 @@ class DescribeStackSummaryResult {
     this.stackSummary,
   });
   static DescribeStackSummaryResult fromJson(Map<String, dynamic> json) =>
-      DescribeStackSummaryResult();
+      DescribeStackSummaryResult(
+        stackSummary: json.containsKey('StackSummary')
+            ? StackSummary.fromJson(json['StackSummary'])
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeStacks` request.
@@ -3590,7 +4412,11 @@ class DescribeStacksResult {
     this.stacks,
   });
   static DescribeStacksResult fromJson(Map<String, dynamic> json) =>
-      DescribeStacksResult();
+      DescribeStacksResult(
+        stacks: json.containsKey('Stacks')
+            ? (json['Stacks'] as List).map((e) => Stack.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeTimeBasedAutoScaling` request.
@@ -3605,7 +4431,14 @@ class DescribeTimeBasedAutoScalingResult {
   });
   static DescribeTimeBasedAutoScalingResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeTimeBasedAutoScalingResult();
+      DescribeTimeBasedAutoScalingResult(
+        timeBasedAutoScalingConfigurations:
+            json.containsKey('TimeBasedAutoScalingConfigurations')
+                ? (json['TimeBasedAutoScalingConfigurations'] as List)
+                    .map((e) => TimeBasedAutoScalingConfiguration.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Contains the response to a `DescribeUserProfiles` request.
@@ -3617,7 +4450,13 @@ class DescribeUserProfilesResult {
     this.userProfiles,
   });
   static DescribeUserProfilesResult fromJson(Map<String, dynamic> json) =>
-      DescribeUserProfilesResult();
+      DescribeUserProfilesResult(
+        userProfiles: json.containsKey('UserProfiles')
+            ? (json['UserProfiles'] as List)
+                .map((e) => UserProfile.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `DescribeVolumes` request.
@@ -3629,7 +4468,11 @@ class DescribeVolumesResult {
     this.volumes,
   });
   static DescribeVolumesResult fromJson(Map<String, dynamic> json) =>
-      DescribeVolumesResult();
+      DescribeVolumesResult(
+        volumes: json.containsKey('Volumes')
+            ? (json['Volumes'] as List).map((e) => Volume.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes an Amazon EBS volume. This data type maps directly to the Amazon
@@ -3669,7 +4512,21 @@ class EbsBlockDevice {
     this.volumeType,
     this.deleteOnTermination,
   });
-  static EbsBlockDevice fromJson(Map<String, dynamic> json) => EbsBlockDevice();
+  static EbsBlockDevice fromJson(Map<String, dynamic> json) => EbsBlockDevice(
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        volumeSize:
+            json.containsKey('VolumeSize') ? json['VolumeSize'] as int : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        deleteOnTermination: json.containsKey('DeleteOnTermination')
+            ? json['DeleteOnTermination'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a registered Amazon ECS cluster.
@@ -3692,7 +4549,18 @@ class EcsCluster {
     this.stackId,
     this.registeredAt,
   });
-  static EcsCluster fromJson(Map<String, dynamic> json) => EcsCluster();
+  static EcsCluster fromJson(Map<String, dynamic> json) => EcsCluster(
+        ecsClusterArn: json.containsKey('EcsClusterArn')
+            ? json['EcsClusterArn'] as String
+            : null,
+        ecsClusterName: json.containsKey('EcsClusterName')
+            ? json['EcsClusterName'] as String
+            : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        registeredAt: json.containsKey('RegisteredAt')
+            ? json['RegisteredAt'] as String
+            : null,
+      );
 }
 
 /// Describes an Elastic IP address.
@@ -3720,7 +4588,15 @@ class ElasticIp {
     this.region,
     this.instanceId,
   });
-  static ElasticIp fromJson(Map<String, dynamic> json) => ElasticIp();
+  static ElasticIp fromJson(Map<String, dynamic> json) => ElasticIp(
+        ip: json.containsKey('Ip') ? json['Ip'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+      );
 }
 
 /// Describes an Elastic Load Balancing instance.
@@ -3765,7 +4641,27 @@ class ElasticLoadBalancer {
     this.ec2InstanceIds,
   });
   static ElasticLoadBalancer fromJson(Map<String, dynamic> json) =>
-      ElasticLoadBalancer();
+      ElasticLoadBalancer(
+        elasticLoadBalancerName: json.containsKey('ElasticLoadBalancerName')
+            ? json['ElasticLoadBalancerName'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        dnsName: json.containsKey('DnsName') ? json['DnsName'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        layerId: json.containsKey('LayerId') ? json['LayerId'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        ec2InstanceIds: json.containsKey('Ec2InstanceIds')
+            ? (json['Ec2InstanceIds'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Represents an app's environment variable.
@@ -3793,7 +4689,12 @@ class EnvironmentVariable {
     this.secure,
   });
   static EnvironmentVariable fromJson(Map<String, dynamic> json) =>
-      EnvironmentVariable();
+      EnvironmentVariable(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+        secure: json.containsKey('Secure') ? json['Secure'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the response to a `GetHostnameSuggestion` request.
@@ -3809,7 +4710,11 @@ class GetHostnameSuggestionResult {
     this.hostname,
   });
   static GetHostnameSuggestionResult fromJson(Map<String, dynamic> json) =>
-      GetHostnameSuggestionResult();
+      GetHostnameSuggestionResult(
+        layerId: json.containsKey('LayerId') ? json['LayerId'] as String : null,
+        hostname:
+            json.containsKey('Hostname') ? json['Hostname'] as String : null,
+      );
 }
 
 /// Contains the response to a `GrantAccess` request.
@@ -3823,7 +4728,11 @@ class GrantAccessResult {
     this.temporaryCredential,
   });
   static GrantAccessResult fromJson(Map<String, dynamic> json) =>
-      GrantAccessResult();
+      GrantAccessResult(
+        temporaryCredential: json.containsKey('TemporaryCredential')
+            ? TemporaryCredential.fromJson(json['TemporaryCredential'])
+            : null,
+      );
 }
 
 /// Describes an instance.
@@ -4047,7 +4956,115 @@ class Instance {
     this.tenancy,
     this.virtualizationType,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        agentVersion: json.containsKey('AgentVersion')
+            ? json['AgentVersion'] as String
+            : null,
+        amiId: json.containsKey('AmiId') ? json['AmiId'] as String : null,
+        architecture: json.containsKey('Architecture')
+            ? json['Architecture'] as String
+            : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        autoScalingType: json.containsKey('AutoScalingType')
+            ? json['AutoScalingType'] as String
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        blockDeviceMappings: json.containsKey('BlockDeviceMappings')
+            ? (json['BlockDeviceMappings'] as List)
+                .map((e) => BlockDeviceMapping.fromJson(e))
+                .toList()
+            : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? json['EbsOptimized'] as bool
+            : null,
+        ec2InstanceId: json.containsKey('Ec2InstanceId')
+            ? json['Ec2InstanceId'] as String
+            : null,
+        ecsClusterArn: json.containsKey('EcsClusterArn')
+            ? json['EcsClusterArn'] as String
+            : null,
+        ecsContainerInstanceArn: json.containsKey('EcsContainerInstanceArn')
+            ? json['EcsContainerInstanceArn'] as String
+            : null,
+        elasticIp:
+            json.containsKey('ElasticIp') ? json['ElasticIp'] as String : null,
+        hostname:
+            json.containsKey('Hostname') ? json['Hostname'] as String : null,
+        infrastructureClass: json.containsKey('InfrastructureClass')
+            ? json['InfrastructureClass'] as String
+            : null,
+        installUpdatesOnBoot: json.containsKey('InstallUpdatesOnBoot')
+            ? json['InstallUpdatesOnBoot'] as bool
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        instanceProfileArn: json.containsKey('InstanceProfileArn')
+            ? json['InstanceProfileArn'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        lastServiceErrorId: json.containsKey('LastServiceErrorId')
+            ? json['LastServiceErrorId'] as String
+            : null,
+        layerIds: json.containsKey('LayerIds')
+            ? (json['LayerIds'] as List).map((e) => e as String).toList()
+            : null,
+        os: json.containsKey('Os') ? json['Os'] as String : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        privateDns: json.containsKey('PrivateDns')
+            ? json['PrivateDns'] as String
+            : null,
+        privateIp:
+            json.containsKey('PrivateIp') ? json['PrivateIp'] as String : null,
+        publicDns:
+            json.containsKey('PublicDns') ? json['PublicDns'] as String : null,
+        publicIp:
+            json.containsKey('PublicIp') ? json['PublicIp'] as String : null,
+        registeredBy: json.containsKey('RegisteredBy')
+            ? json['RegisteredBy'] as String
+            : null,
+        reportedAgentVersion: json.containsKey('ReportedAgentVersion')
+            ? json['ReportedAgentVersion'] as String
+            : null,
+        reportedOs: json.containsKey('ReportedOs')
+            ? ReportedOs.fromJson(json['ReportedOs'])
+            : null,
+        rootDeviceType: json.containsKey('RootDeviceType')
+            ? json['RootDeviceType'] as String
+            : null,
+        rootDeviceVolumeId: json.containsKey('RootDeviceVolumeId')
+            ? json['RootDeviceVolumeId'] as String
+            : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        sshHostDsaKeyFingerprint: json.containsKey('SshHostDsaKeyFingerprint')
+            ? json['SshHostDsaKeyFingerprint'] as String
+            : null,
+        sshHostRsaKeyFingerprint: json.containsKey('SshHostRsaKeyFingerprint')
+            ? json['SshHostRsaKeyFingerprint'] as String
+            : null,
+        sshKeyName: json.containsKey('SshKeyName')
+            ? json['SshKeyName'] as String
+            : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        tenancy: json.containsKey('Tenancy') ? json['Tenancy'] as String : null,
+        virtualizationType: json.containsKey('VirtualizationType')
+            ? json['VirtualizationType'] as String
+            : null,
+      );
 }
 
 /// Contains a description of an Amazon EC2 instance from the Amazon EC2
@@ -4065,6 +5082,7 @@ class InstanceIdentity {
     this.document,
     this.signature,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes how many instances a stack has for each status.
@@ -4151,7 +5169,47 @@ class InstancesCount {
     this.terminating,
     this.unassigning,
   });
-  static InstancesCount fromJson(Map<String, dynamic> json) => InstancesCount();
+  static InstancesCount fromJson(Map<String, dynamic> json) => InstancesCount(
+        assigning:
+            json.containsKey('Assigning') ? json['Assigning'] as int : null,
+        booting: json.containsKey('Booting') ? json['Booting'] as int : null,
+        connectionLost: json.containsKey('ConnectionLost')
+            ? json['ConnectionLost'] as int
+            : null,
+        deregistering: json.containsKey('Deregistering')
+            ? json['Deregistering'] as int
+            : null,
+        online: json.containsKey('Online') ? json['Online'] as int : null,
+        pending: json.containsKey('Pending') ? json['Pending'] as int : null,
+        rebooting:
+            json.containsKey('Rebooting') ? json['Rebooting'] as int : null,
+        registered:
+            json.containsKey('Registered') ? json['Registered'] as int : null,
+        registering:
+            json.containsKey('Registering') ? json['Registering'] as int : null,
+        requested:
+            json.containsKey('Requested') ? json['Requested'] as int : null,
+        runningSetup: json.containsKey('RunningSetup')
+            ? json['RunningSetup'] as int
+            : null,
+        setupFailed:
+            json.containsKey('SetupFailed') ? json['SetupFailed'] as int : null,
+        shuttingDown: json.containsKey('ShuttingDown')
+            ? json['ShuttingDown'] as int
+            : null,
+        startFailed:
+            json.containsKey('StartFailed') ? json['StartFailed'] as int : null,
+        stopFailed:
+            json.containsKey('StopFailed') ? json['StopFailed'] as int : null,
+        stopped: json.containsKey('Stopped') ? json['Stopped'] as int : null,
+        stopping: json.containsKey('Stopping') ? json['Stopping'] as int : null,
+        terminated:
+            json.containsKey('Terminated') ? json['Terminated'] as int : null,
+        terminating:
+            json.containsKey('Terminating') ? json['Terminating'] as int : null,
+        unassigning:
+            json.containsKey('Unassigning') ? json['Unassigning'] as int : null,
+      );
 }
 
 /// Describes a layer.
@@ -4287,7 +5345,76 @@ class Layer {
     this.useEbsOptimizedInstances,
     this.lifecycleEventConfiguration,
   });
-  static Layer fromJson(Map<String, dynamic> json) => Layer();
+  static Layer fromJson(Map<String, dynamic> json) => Layer(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        layerId: json.containsKey('LayerId') ? json['LayerId'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        shortname:
+            json.containsKey('Shortname') ? json['Shortname'] as String : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        cloudWatchLogsConfiguration:
+            json.containsKey('CloudWatchLogsConfiguration')
+                ? CloudWatchLogsConfiguration.fromJson(
+                    json['CloudWatchLogsConfiguration'])
+                : null,
+        customInstanceProfileArn: json.containsKey('CustomInstanceProfileArn')
+            ? json['CustomInstanceProfileArn'] as String
+            : null,
+        customJson: json.containsKey('CustomJson')
+            ? json['CustomJson'] as String
+            : null,
+        customSecurityGroupIds: json.containsKey('CustomSecurityGroupIds')
+            ? (json['CustomSecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        defaultSecurityGroupNames: json.containsKey('DefaultSecurityGroupNames')
+            ? (json['DefaultSecurityGroupNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        packages: json.containsKey('Packages')
+            ? (json['Packages'] as List).map((e) => e as String).toList()
+            : null,
+        volumeConfigurations: json.containsKey('VolumeConfigurations')
+            ? (json['VolumeConfigurations'] as List)
+                .map((e) => VolumeConfiguration.fromJson(e))
+                .toList()
+            : null,
+        enableAutoHealing: json.containsKey('EnableAutoHealing')
+            ? json['EnableAutoHealing'] as bool
+            : null,
+        autoAssignElasticIps: json.containsKey('AutoAssignElasticIps')
+            ? json['AutoAssignElasticIps'] as bool
+            : null,
+        autoAssignPublicIps: json.containsKey('AutoAssignPublicIps')
+            ? json['AutoAssignPublicIps'] as bool
+            : null,
+        defaultRecipes: json.containsKey('DefaultRecipes')
+            ? Recipes.fromJson(json['DefaultRecipes'])
+            : null,
+        customRecipes: json.containsKey('CustomRecipes')
+            ? Recipes.fromJson(json['CustomRecipes'])
+            : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        installUpdatesOnBoot: json.containsKey('InstallUpdatesOnBoot')
+            ? json['InstallUpdatesOnBoot'] as bool
+            : null,
+        useEbsOptimizedInstances: json.containsKey('UseEbsOptimizedInstances')
+            ? json['UseEbsOptimizedInstances'] as bool
+            : null,
+        lifecycleEventConfiguration:
+            json.containsKey('LifecycleEventConfiguration')
+                ? LifecycleEventConfiguration.fromJson(
+                    json['LifecycleEventConfiguration'])
+                : null,
+      );
 }
 
 /// Specifies the lifecycle event configuration
@@ -4300,7 +5427,12 @@ class LifecycleEventConfiguration {
     this.shutdown,
   });
   static LifecycleEventConfiguration fromJson(Map<String, dynamic> json) =>
-      LifecycleEventConfiguration();
+      LifecycleEventConfiguration(
+        shutdown: json.containsKey('Shutdown')
+            ? ShutdownEventConfiguration.fromJson(json['Shutdown'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the response to a `ListTags` request.
@@ -4320,7 +5452,14 @@ class ListTagsResult {
     this.tags,
     this.nextToken,
   });
-  static ListTagsResult fromJson(Map<String, dynamic> json) => ListTagsResult();
+  static ListTagsResult fromJson(Map<String, dynamic> json) => ListTagsResult(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes a layer's load-based auto scaling configuration.
@@ -4349,7 +5488,16 @@ class LoadBasedAutoScalingConfiguration {
   });
   static LoadBasedAutoScalingConfiguration fromJson(
           Map<String, dynamic> json) =>
-      LoadBasedAutoScalingConfiguration();
+      LoadBasedAutoScalingConfiguration(
+        layerId: json.containsKey('LayerId') ? json['LayerId'] as String : null,
+        enable: json.containsKey('Enable') ? json['Enable'] as bool : null,
+        upScaling: json.containsKey('UpScaling')
+            ? AutoScalingThresholds.fromJson(json['UpScaling'])
+            : null,
+        downScaling: json.containsKey('DownScaling')
+            ? AutoScalingThresholds.fromJson(json['DownScaling'])
+            : null,
+      );
 }
 
 /// Describes supported operating systems in AWS OpsWorks Stacks.
@@ -4386,8 +5534,24 @@ class OperatingSystem {
     this.reportedVersion,
     this.supported,
   });
-  static OperatingSystem fromJson(Map<String, dynamic> json) =>
-      OperatingSystem();
+  static OperatingSystem fromJson(Map<String, dynamic> json) => OperatingSystem(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        configurationManagers: json.containsKey('ConfigurationManagers')
+            ? (json['ConfigurationManagers'] as List)
+                .map((e) => OperatingSystemConfigurationManager.fromJson(e))
+                .toList()
+            : null,
+        reportedName: json.containsKey('ReportedName')
+            ? json['ReportedName'] as String
+            : null,
+        reportedVersion: json.containsKey('ReportedVersion')
+            ? json['ReportedVersion'] as String
+            : null,
+        supported:
+            json.containsKey('Supported') ? json['Supported'] as bool : null,
+      );
 }
 
 /// A block that contains information about the configuration manager (Chef) and
@@ -4407,7 +5571,10 @@ class OperatingSystemConfigurationManager {
   });
   static OperatingSystemConfigurationManager fromJson(
           Map<String, dynamic> json) =>
-      OperatingSystemConfigurationManager();
+      OperatingSystemConfigurationManager(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 /// Describes stack or user permissions.
@@ -4450,7 +5617,17 @@ class Permission {
     this.allowSudo,
     this.level,
   });
-  static Permission fromJson(Map<String, dynamic> json) => Permission();
+  static Permission fromJson(Map<String, dynamic> json) => Permission(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        iamUserArn: json.containsKey('IamUserArn')
+            ? json['IamUserArn'] as String
+            : null,
+        allowSsh:
+            json.containsKey('AllowSsh') ? json['AllowSsh'] as bool : null,
+        allowSudo:
+            json.containsKey('AllowSudo') ? json['AllowSudo'] as bool : null,
+        level: json.containsKey('Level') ? json['Level'] as String : null,
+      );
 }
 
 /// Describes an instance's RAID array.
@@ -4510,7 +5687,35 @@ class RaidArray {
     this.volumeType,
     this.iops,
   });
-  static RaidArray fromJson(Map<String, dynamic> json) => RaidArray();
+  static RaidArray fromJson(Map<String, dynamic> json) => RaidArray(
+        raidArrayId: json.containsKey('RaidArrayId')
+            ? json['RaidArrayId'] as String
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        raidLevel:
+            json.containsKey('RaidLevel') ? json['RaidLevel'] as int : null,
+        numberOfDisks: json.containsKey('NumberOfDisks')
+            ? json['NumberOfDisks'] as int
+            : null,
+        size: json.containsKey('Size') ? json['Size'] as int : null,
+        device: json.containsKey('Device') ? json['Device'] as String : null,
+        mountPoint: json.containsKey('MountPoint')
+            ? json['MountPoint'] as String
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+      );
 }
 
 /// Describes an Amazon RDS instance.
@@ -4557,7 +5762,25 @@ class RdsDbInstance {
     this.stackId,
     this.missingOnRds,
   });
-  static RdsDbInstance fromJson(Map<String, dynamic> json) => RdsDbInstance();
+  static RdsDbInstance fromJson(Map<String, dynamic> json) => RdsDbInstance(
+        rdsDbInstanceArn: json.containsKey('RdsDbInstanceArn')
+            ? json['RdsDbInstanceArn'] as String
+            : null,
+        dbInstanceIdentifier: json.containsKey('DbInstanceIdentifier')
+            ? json['DbInstanceIdentifier'] as String
+            : null,
+        dbUser: json.containsKey('DbUser') ? json['DbUser'] as String : null,
+        dbPassword: json.containsKey('DbPassword')
+            ? json['DbPassword'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        missingOnRds: json.containsKey('MissingOnRds')
+            ? json['MissingOnRds'] as bool
+            : null,
+      );
 }
 
 /// AWS OpsWorks Stacks supports five lifecycle events: **setup**,
@@ -4595,7 +5818,24 @@ class Recipes {
     this.undeploy,
     this.shutdown,
   });
-  static Recipes fromJson(Map<String, dynamic> json) => Recipes();
+  static Recipes fromJson(Map<String, dynamic> json) => Recipes(
+        setup: json.containsKey('Setup')
+            ? (json['Setup'] as List).map((e) => e as String).toList()
+            : null,
+        configure: json.containsKey('Configure')
+            ? (json['Configure'] as List).map((e) => e as String).toList()
+            : null,
+        deploy: json.containsKey('Deploy')
+            ? (json['Deploy'] as List).map((e) => e as String).toList()
+            : null,
+        undeploy: json.containsKey('Undeploy')
+            ? (json['Undeploy'] as List).map((e) => e as String).toList()
+            : null,
+        shutdown: json.containsKey('Shutdown')
+            ? (json['Shutdown'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the response to a `RegisterEcsCluster` request.
@@ -4607,7 +5847,11 @@ class RegisterEcsClusterResult {
     this.ecsClusterArn,
   });
   static RegisterEcsClusterResult fromJson(Map<String, dynamic> json) =>
-      RegisterEcsClusterResult();
+      RegisterEcsClusterResult(
+        ecsClusterArn: json.containsKey('EcsClusterArn')
+            ? json['EcsClusterArn'] as String
+            : null,
+      );
 }
 
 /// Contains the response to a `RegisterElasticIp` request.
@@ -4619,7 +5863,10 @@ class RegisterElasticIpResult {
     this.elasticIp,
   });
   static RegisterElasticIpResult fromJson(Map<String, dynamic> json) =>
-      RegisterElasticIpResult();
+      RegisterElasticIpResult(
+        elasticIp:
+            json.containsKey('ElasticIp') ? json['ElasticIp'] as String : null,
+      );
 }
 
 /// Contains the response to a `RegisterInstanceResult` request.
@@ -4631,7 +5878,11 @@ class RegisterInstanceResult {
     this.instanceId,
   });
   static RegisterInstanceResult fromJson(Map<String, dynamic> json) =>
-      RegisterInstanceResult();
+      RegisterInstanceResult(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+      );
 }
 
 /// Contains the response to a `RegisterVolume` request.
@@ -4643,7 +5894,10 @@ class RegisterVolumeResult {
     this.volumeId,
   });
   static RegisterVolumeResult fromJson(Map<String, dynamic> json) =>
-      RegisterVolumeResult();
+      RegisterVolumeResult(
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+      );
 }
 
 /// A registered instance's reported operating system.
@@ -4662,7 +5916,11 @@ class ReportedOs {
     this.name,
     this.version,
   });
-  static ReportedOs fromJson(Map<String, dynamic> json) => ReportedOs();
+  static ReportedOs fromJson(Map<String, dynamic> json) => ReportedOs(
+        family: json.containsKey('Family') ? json['Family'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 /// Describes a user's SSH information.
@@ -4685,8 +5943,18 @@ class SelfUserProfile {
     this.sshUsername,
     this.sshPublicKey,
   });
-  static SelfUserProfile fromJson(Map<String, dynamic> json) =>
-      SelfUserProfile();
+  static SelfUserProfile fromJson(Map<String, dynamic> json) => SelfUserProfile(
+        iamUserArn: json.containsKey('IamUserArn')
+            ? json['IamUserArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        sshUsername: json.containsKey('SshUsername')
+            ? json['SshUsername'] as String
+            : null,
+        sshPublicKey: json.containsKey('SshPublicKey')
+            ? json['SshPublicKey'] as String
+            : null,
+      );
 }
 
 /// Describes an AWS OpsWorks Stacks service error.
@@ -4717,7 +5985,19 @@ class ServiceError {
     this.message,
     this.createdAt,
   });
-  static ServiceError fromJson(Map<String, dynamic> json) => ServiceError();
+  static ServiceError fromJson(Map<String, dynamic> json) => ServiceError(
+        serviceErrorId: json.containsKey('ServiceErrorId')
+            ? json['ServiceErrorId'] as String
+            : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+      );
 }
 
 /// The Shutdown event configuration.
@@ -4736,7 +6016,16 @@ class ShutdownEventConfiguration {
     this.delayUntilElbConnectionsDrained,
   });
   static ShutdownEventConfiguration fromJson(Map<String, dynamic> json) =>
-      ShutdownEventConfiguration();
+      ShutdownEventConfiguration(
+        executionTimeout: json.containsKey('ExecutionTimeout')
+            ? json['ExecutionTimeout'] as int
+            : null,
+        delayUntilElbConnectionsDrained:
+            json.containsKey('DelayUntilElbConnectionsDrained')
+                ? json['DelayUntilElbConnectionsDrained'] as bool
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the information required to retrieve an app or cookbook from a
@@ -4797,7 +6086,18 @@ class Source {
     this.sshKey,
     this.revision,
   });
-  static Source fromJson(Map<String, dynamic> json) => Source();
+  static Source fromJson(Map<String, dynamic> json) => Source(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        password:
+            json.containsKey('Password') ? json['Password'] as String : null,
+        sshKey: json.containsKey('SshKey') ? json['SshKey'] as String : null,
+        revision:
+            json.containsKey('Revision') ? json['Revision'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an app's SSL configuration.
@@ -4818,7 +6118,12 @@ class SslConfiguration {
     this.chain,
   });
   static SslConfiguration fromJson(Map<String, dynamic> json) =>
-      SslConfiguration();
+      SslConfiguration(
+        certificate: json['Certificate'] as String,
+        privateKey: json['PrivateKey'] as String,
+        chain: json.containsKey('Chain') ? json['Chain'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a stack.
@@ -4938,7 +6243,63 @@ class Stack {
     this.defaultRootDeviceType,
     this.agentVersion,
   });
-  static Stack fromJson(Map<String, dynamic> json) => Stack();
+  static Stack fromJson(Map<String, dynamic> json) => Stack(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        serviceRoleArn: json.containsKey('ServiceRoleArn')
+            ? json['ServiceRoleArn'] as String
+            : null,
+        defaultInstanceProfileArn: json.containsKey('DefaultInstanceProfileArn')
+            ? json['DefaultInstanceProfileArn'] as String
+            : null,
+        defaultOs:
+            json.containsKey('DefaultOs') ? json['DefaultOs'] as String : null,
+        hostnameTheme: json.containsKey('HostnameTheme')
+            ? json['HostnameTheme'] as String
+            : null,
+        defaultAvailabilityZone: json.containsKey('DefaultAvailabilityZone')
+            ? json['DefaultAvailabilityZone'] as String
+            : null,
+        defaultSubnetId: json.containsKey('DefaultSubnetId')
+            ? json['DefaultSubnetId'] as String
+            : null,
+        customJson: json.containsKey('CustomJson')
+            ? json['CustomJson'] as String
+            : null,
+        configurationManager: json.containsKey('ConfigurationManager')
+            ? StackConfigurationManager.fromJson(json['ConfigurationManager'])
+            : null,
+        chefConfiguration: json.containsKey('ChefConfiguration')
+            ? ChefConfiguration.fromJson(json['ChefConfiguration'])
+            : null,
+        useCustomCookbooks: json.containsKey('UseCustomCookbooks')
+            ? json['UseCustomCookbooks'] as bool
+            : null,
+        useOpsworksSecurityGroups: json.containsKey('UseOpsworksSecurityGroups')
+            ? json['UseOpsworksSecurityGroups'] as bool
+            : null,
+        customCookbooksSource: json.containsKey('CustomCookbooksSource')
+            ? Source.fromJson(json['CustomCookbooksSource'])
+            : null,
+        defaultSshKeyName: json.containsKey('DefaultSshKeyName')
+            ? json['DefaultSshKeyName'] as String
+            : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+        defaultRootDeviceType: json.containsKey('DefaultRootDeviceType')
+            ? json['DefaultRootDeviceType'] as String
+            : null,
+        agentVersion: json.containsKey('AgentVersion')
+            ? json['AgentVersion'] as String
+            : null,
+      );
 }
 
 /// Describes the configuration manager.
@@ -4956,7 +6317,11 @@ class StackConfigurationManager {
     this.version,
   });
   static StackConfigurationManager fromJson(Map<String, dynamic> json) =>
-      StackConfigurationManager();
+      StackConfigurationManager(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Summarizes the number of layers, instances, and apps in a stack.
@@ -4987,7 +6352,18 @@ class StackSummary {
     this.appsCount,
     this.instancesCount,
   });
-  static StackSummary fromJson(Map<String, dynamic> json) => StackSummary();
+  static StackSummary fromJson(Map<String, dynamic> json) => StackSummary(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        layersCount:
+            json.containsKey('LayersCount') ? json['LayersCount'] as int : null,
+        appsCount:
+            json.containsKey('AppsCount') ? json['AppsCount'] as int : null,
+        instancesCount: json.containsKey('InstancesCount')
+            ? InstancesCount.fromJson(json['InstancesCount'])
+            : null,
+      );
 }
 
 /// Contains the data needed by RDP clients such as the Microsoft Remote Desktop
@@ -5015,7 +6391,18 @@ class TemporaryCredential {
     this.instanceId,
   });
   static TemporaryCredential fromJson(Map<String, dynamic> json) =>
-      TemporaryCredential();
+      TemporaryCredential(
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        password:
+            json.containsKey('Password') ? json['Password'] as String : null,
+        validForInMinutes: json.containsKey('ValidForInMinutes')
+            ? json['ValidForInMinutes'] as int
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+      );
 }
 
 /// Describes an instance's time-based auto scaling configuration.
@@ -5032,7 +6419,14 @@ class TimeBasedAutoScalingConfiguration {
   });
   static TimeBasedAutoScalingConfiguration fromJson(
           Map<String, dynamic> json) =>
-      TimeBasedAutoScalingConfiguration();
+      TimeBasedAutoScalingConfiguration(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        autoScalingSchedule: json.containsKey('AutoScalingSchedule')
+            ? WeeklyAutoScalingSchedule.fromJson(json['AutoScalingSchedule'])
+            : null,
+      );
 }
 
 /// Describes a user's SSH information.
@@ -5061,7 +6455,21 @@ class UserProfile {
     this.sshPublicKey,
     this.allowSelfManagement,
   });
-  static UserProfile fromJson(Map<String, dynamic> json) => UserProfile();
+  static UserProfile fromJson(Map<String, dynamic> json) => UserProfile(
+        iamUserArn: json.containsKey('IamUserArn')
+            ? json['IamUserArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        sshUsername: json.containsKey('SshUsername')
+            ? json['SshUsername'] as String
+            : null,
+        sshPublicKey: json.containsKey('SshPublicKey')
+            ? json['SshPublicKey'] as String
+            : null,
+        allowSelfManagement: json.containsKey('AllowSelfManagement')
+            ? json['AllowSelfManagement'] as bool
+            : null,
+      );
 }
 
 /// Describes an instance's Amazon EBS volume.
@@ -5146,7 +6554,36 @@ class Volume {
     this.iops,
     this.encrypted,
   });
-  static Volume fromJson(Map<String, dynamic> json) => Volume();
+  static Volume fromJson(Map<String, dynamic> json) => Volume(
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        ec2VolumeId: json.containsKey('Ec2VolumeId')
+            ? json['Ec2VolumeId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        raidArrayId: json.containsKey('RaidArrayId')
+            ? json['RaidArrayId'] as String
+            : null,
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        size: json.containsKey('Size') ? json['Size'] as int : null,
+        device: json.containsKey('Device') ? json['Device'] as String : null,
+        mountPoint: json.containsKey('MountPoint')
+            ? json['MountPoint'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+      );
 }
 
 /// Describes an Amazon EBS volume configuration.
@@ -5202,7 +6639,20 @@ class VolumeConfiguration {
     this.encrypted,
   });
   static VolumeConfiguration fromJson(Map<String, dynamic> json) =>
-      VolumeConfiguration();
+      VolumeConfiguration(
+        mountPoint: json['MountPoint'] as String,
+        raidLevel:
+            json.containsKey('RaidLevel') ? json['RaidLevel'] as int : null,
+        numberOfDisks: json['NumberOfDisks'] as int,
+        size: json['Size'] as int,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a time-based instance's auto scaling schedule. The schedule
@@ -5256,5 +6706,35 @@ class WeeklyAutoScalingSchedule {
     this.sunday,
   });
   static WeeklyAutoScalingSchedule fromJson(Map<String, dynamic> json) =>
-      WeeklyAutoScalingSchedule();
+      WeeklyAutoScalingSchedule(
+        monday: json.containsKey('Monday')
+            ? (json['Monday'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        tuesday: json.containsKey('Tuesday')
+            ? (json['Tuesday'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        wednesday: json.containsKey('Wednesday')
+            ? (json['Wednesday'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        thursday: json.containsKey('Thursday')
+            ? (json['Thursday'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        friday: json.containsKey('Friday')
+            ? (json['Friday'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        saturday: json.containsKey('Saturday')
+            ? (json['Saturday'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        sunday: json.containsKey('Sunday')
+            ? (json['Sunday'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

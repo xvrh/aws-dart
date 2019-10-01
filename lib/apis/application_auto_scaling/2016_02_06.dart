@@ -47,6 +47,11 @@ import 'package:meta/meta.dart';
 /// actions, see the
 /// [Application Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
 class ApplicationAutoScalingApi {
+  final _client;
+  ApplicationAutoScalingApi(client)
+      : _client =
+            client.configured('Application Auto Scaling', serializer: 'json');
+
   /// Deletes the specified scaling policy for an Application Auto Scaling
   /// scalable target.
   ///
@@ -150,7 +155,13 @@ class ApplicationAutoScalingApi {
       @required String serviceNamespace,
       @required String resourceId,
       @required String scalableDimension}) async {
-    return DeleteScalingPolicyResponse.fromJson({});
+    var response_ = await _client.send('DeleteScalingPolicy', {
+      'PolicyName': policyName,
+      'ServiceNamespace': serviceNamespace,
+      'ResourceId': resourceId,
+      'ScalableDimension': scalableDimension,
+    });
+    return DeleteScalingPolicyResponse.fromJson(response_);
   }
 
   /// Deletes the specified scheduled action for an Application Auto Scaling
@@ -247,7 +258,13 @@ class ApplicationAutoScalingApi {
       @required String scheduledActionName,
       @required String resourceId,
       @required String scalableDimension}) async {
-    return DeleteScheduledActionResponse.fromJson({});
+    var response_ = await _client.send('DeleteScheduledAction', {
+      'ServiceNamespace': serviceNamespace,
+      'ScheduledActionName': scheduledActionName,
+      'ResourceId': resourceId,
+      'ScalableDimension': scalableDimension,
+    });
+    return DeleteScheduledActionResponse.fromJson(response_);
   }
 
   /// Deregisters an Application Auto Scaling scalable target.
@@ -343,7 +360,12 @@ class ApplicationAutoScalingApi {
       {@required String serviceNamespace,
       @required String resourceId,
       @required String scalableDimension}) async {
-    return DeregisterScalableTargetResponse.fromJson({});
+    var response_ = await _client.send('DeregisterScalableTarget', {
+      'ServiceNamespace': serviceNamespace,
+      'ResourceId': resourceId,
+      'ScalableDimension': scalableDimension,
+    });
+    return DeregisterScalableTargetResponse.fromJson(response_);
   }
 
   /// Gets information about the scalable targets in the specified namespace.
@@ -454,7 +476,14 @@ class ApplicationAutoScalingApi {
       String scalableDimension,
       int maxResults,
       String nextToken}) async {
-    return DescribeScalableTargetsResponse.fromJson({});
+    var response_ = await _client.send('DescribeScalableTargets', {
+      'ServiceNamespace': serviceNamespace,
+      if (resourceIds != null) 'ResourceIds': resourceIds,
+      if (scalableDimension != null) 'ScalableDimension': scalableDimension,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeScalableTargetsResponse.fromJson(response_);
   }
 
   /// Provides descriptive information about the scaling activities in the
@@ -566,7 +595,14 @@ class ApplicationAutoScalingApi {
       String scalableDimension,
       int maxResults,
       String nextToken}) async {
-    return DescribeScalingActivitiesResponse.fromJson({});
+    var response_ = await _client.send('DescribeScalingActivities', {
+      'ServiceNamespace': serviceNamespace,
+      if (resourceId != null) 'ResourceId': resourceId,
+      if (scalableDimension != null) 'ScalableDimension': scalableDimension,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeScalingActivitiesResponse.fromJson(response_);
   }
 
   /// Describes the Application Auto Scaling scaling policies for the specified
@@ -681,7 +717,15 @@ class ApplicationAutoScalingApi {
       String scalableDimension,
       int maxResults,
       String nextToken}) async {
-    return DescribeScalingPoliciesResponse.fromJson({});
+    var response_ = await _client.send('DescribeScalingPolicies', {
+      if (policyNames != null) 'PolicyNames': policyNames,
+      'ServiceNamespace': serviceNamespace,
+      if (resourceId != null) 'ResourceId': resourceId,
+      if (scalableDimension != null) 'ScalableDimension': scalableDimension,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeScalingPoliciesResponse.fromJson(response_);
   }
 
   /// Describes the Application Auto Scaling scheduled actions for the specified
@@ -796,7 +840,16 @@ class ApplicationAutoScalingApi {
       String scalableDimension,
       int maxResults,
       String nextToken}) async {
-    return DescribeScheduledActionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeScheduledActions', {
+      if (scheduledActionNames != null)
+        'ScheduledActionNames': scheduledActionNames,
+      'ServiceNamespace': serviceNamespace,
+      if (resourceId != null) 'ResourceId': resourceId,
+      if (scalableDimension != null) 'ScalableDimension': scalableDimension,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeScheduledActionsResponse.fromJson(response_);
   }
 
   /// Creates or updates a policy for an Application Auto Scaling scalable
@@ -947,7 +1000,19 @@ class ApplicationAutoScalingApi {
       StepScalingPolicyConfiguration stepScalingPolicyConfiguration,
       TargetTrackingScalingPolicyConfiguration
           targetTrackingScalingPolicyConfiguration}) async {
-    return PutScalingPolicyResponse.fromJson({});
+    var response_ = await _client.send('PutScalingPolicy', {
+      'PolicyName': policyName,
+      'ServiceNamespace': serviceNamespace,
+      'ResourceId': resourceId,
+      'ScalableDimension': scalableDimension,
+      if (policyType != null) 'PolicyType': policyType,
+      if (stepScalingPolicyConfiguration != null)
+        'StepScalingPolicyConfiguration': stepScalingPolicyConfiguration,
+      if (targetTrackingScalingPolicyConfiguration != null)
+        'TargetTrackingScalingPolicyConfiguration':
+            targetTrackingScalingPolicyConfiguration,
+    });
+    return PutScalingPolicyResponse.fromJson(response_);
   }
 
   /// Creates or updates a scheduled action for an Application Auto Scaling
@@ -1092,7 +1157,18 @@ class ApplicationAutoScalingApi {
       DateTime startTime,
       DateTime endTime,
       ScalableTargetAction scalableTargetAction}) async {
-    return PutScheduledActionResponse.fromJson({});
+    var response_ = await _client.send('PutScheduledAction', {
+      'ServiceNamespace': serviceNamespace,
+      if (schedule != null) 'Schedule': schedule,
+      'ScheduledActionName': scheduledActionName,
+      'ResourceId': resourceId,
+      'ScalableDimension': scalableDimension,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (scalableTargetAction != null)
+        'ScalableTargetAction': scalableTargetAction,
+    });
+    return PutScheduledActionResponse.fromJson(response_);
   }
 
   /// Registers or updates a scalable target. A scalable target is a resource
@@ -1245,7 +1321,16 @@ class ApplicationAutoScalingApi {
       int maxCapacity,
       String roleArn,
       SuspendedState suspendedState}) async {
-    return RegisterScalableTargetResponse.fromJson({});
+    var response_ = await _client.send('RegisterScalableTarget', {
+      'ServiceNamespace': serviceNamespace,
+      'ResourceId': resourceId,
+      'ScalableDimension': scalableDimension,
+      if (minCapacity != null) 'MinCapacity': minCapacity,
+      if (maxCapacity != null) 'MaxCapacity': maxCapacity,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (suspendedState != null) 'SuspendedState': suspendedState,
+    });
+    return RegisterScalableTargetResponse.fromJson(response_);
   }
 }
 
@@ -1261,7 +1346,10 @@ class Alarm {
     @required this.alarmName,
     @required this.alarmArn,
   });
-  static Alarm fromJson(Map<String, dynamic> json) => Alarm();
+  static Alarm fromJson(Map<String, dynamic> json) => Alarm(
+        alarmName: json['AlarmName'] as String,
+        alarmArn: json['AlarmARN'] as String,
+      );
 }
 
 /// Represents a CloudWatch metric of your choosing for a target tracking
@@ -1310,7 +1398,18 @@ class CustomizedMetricSpecification {
     this.unit,
   });
   static CustomizedMetricSpecification fromJson(Map<String, dynamic> json) =>
-      CustomizedMetricSpecification();
+      CustomizedMetricSpecification(
+        metricName: json['MetricName'] as String,
+        namespace: json['Namespace'] as String,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => MetricDimension.fromJson(e))
+                .toList()
+            : null,
+        statistic: json['Statistic'] as String,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteScalingPolicyResponse {
@@ -1344,7 +1443,15 @@ class DescribeScalableTargetsResponse {
     this.nextToken,
   });
   static DescribeScalableTargetsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeScalableTargetsResponse();
+      DescribeScalableTargetsResponse(
+        scalableTargets: json.containsKey('ScalableTargets')
+            ? (json['ScalableTargets'] as List)
+                .map((e) => ScalableTarget.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeScalingActivitiesResponse {
@@ -1361,7 +1468,15 @@ class DescribeScalingActivitiesResponse {
   });
   static DescribeScalingActivitiesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeScalingActivitiesResponse();
+      DescribeScalingActivitiesResponse(
+        scalingActivities: json.containsKey('ScalingActivities')
+            ? (json['ScalingActivities'] as List)
+                .map((e) => ScalingActivity.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeScalingPoliciesResponse {
@@ -1377,7 +1492,15 @@ class DescribeScalingPoliciesResponse {
     this.nextToken,
   });
   static DescribeScalingPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeScalingPoliciesResponse();
+      DescribeScalingPoliciesResponse(
+        scalingPolicies: json.containsKey('ScalingPolicies')
+            ? (json['ScalingPolicies'] as List)
+                .map((e) => ScalingPolicy.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeScheduledActionsResponse {
@@ -1393,7 +1516,15 @@ class DescribeScheduledActionsResponse {
     this.nextToken,
   });
   static DescribeScheduledActionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeScheduledActionsResponse();
+      DescribeScheduledActionsResponse(
+        scheduledActions: json.containsKey('ScheduledActions')
+            ? (json['ScheduledActions'] as List)
+                .map((e) => ScheduledAction.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes the dimension names and values associated with a metric.
@@ -1408,8 +1539,11 @@ class MetricDimension {
     @required this.name,
     @required this.value,
   });
-  static MetricDimension fromJson(Map<String, dynamic> json) =>
-      MetricDimension();
+  static MetricDimension fromJson(Map<String, dynamic> json) => MetricDimension(
+        name: json['Name'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a predefined metric for a target tracking scaling policy to use
@@ -1439,7 +1573,13 @@ class PredefinedMetricSpecification {
     this.resourceLabel,
   });
   static PredefinedMetricSpecification fromJson(Map<String, dynamic> json) =>
-      PredefinedMetricSpecification();
+      PredefinedMetricSpecification(
+        predefinedMetricType: json['PredefinedMetricType'] as String,
+        resourceLabel: json.containsKey('ResourceLabel')
+            ? json['ResourceLabel'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutScalingPolicyResponse {
@@ -1454,7 +1594,12 @@ class PutScalingPolicyResponse {
     this.alarms,
   });
   static PutScalingPolicyResponse fromJson(Map<String, dynamic> json) =>
-      PutScalingPolicyResponse();
+      PutScalingPolicyResponse(
+        policyArn: json['PolicyARN'] as String,
+        alarms: json.containsKey('Alarms')
+            ? (json['Alarms'] as List).map((e) => Alarm.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class PutScheduledActionResponse {
@@ -1580,7 +1725,18 @@ class ScalableTarget {
     @required this.creationTime,
     this.suspendedState,
   });
-  static ScalableTarget fromJson(Map<String, dynamic> json) => ScalableTarget();
+  static ScalableTarget fromJson(Map<String, dynamic> json) => ScalableTarget(
+        serviceNamespace: json['ServiceNamespace'] as String,
+        resourceId: json['ResourceId'] as String,
+        scalableDimension: json['ScalableDimension'] as String,
+        minCapacity: json['MinCapacity'] as int,
+        maxCapacity: json['MaxCapacity'] as int,
+        roleArn: json['RoleARN'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        suspendedState: json.containsKey('SuspendedState')
+            ? SuspendedState.fromJson(json['SuspendedState'])
+            : null,
+      );
 }
 
 /// Represents the minimum and maximum capacity for a scheduled action.
@@ -1596,7 +1752,13 @@ class ScalableTargetAction {
     this.maxCapacity,
   });
   static ScalableTargetAction fromJson(Map<String, dynamic> json) =>
-      ScalableTargetAction();
+      ScalableTargetAction(
+        minCapacity:
+            json.containsKey('MinCapacity') ? json['MinCapacity'] as int : null,
+        maxCapacity:
+            json.containsKey('MaxCapacity') ? json['MaxCapacity'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a scaling activity.
@@ -1723,8 +1885,23 @@ class ScalingActivity {
     this.statusMessage,
     this.details,
   });
-  static ScalingActivity fromJson(Map<String, dynamic> json) =>
-      ScalingActivity();
+  static ScalingActivity fromJson(Map<String, dynamic> json) => ScalingActivity(
+        activityId: json['ActivityId'] as String,
+        serviceNamespace: json['ServiceNamespace'] as String,
+        resourceId: json['ResourceId'] as String,
+        scalableDimension: json['ScalableDimension'] as String,
+        description: json['Description'] as String,
+        cause: json['Cause'] as String,
+        startTime: DateTime.parse(json['StartTime']),
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        statusCode: json['StatusCode'] as String,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        details: json.containsKey('Details') ? json['Details'] as String : null,
+      );
 }
 
 /// Represents a scaling policy to use with Application Auto Scaling.
@@ -1847,7 +2024,28 @@ class ScalingPolicy {
     this.alarms,
     @required this.creationTime,
   });
-  static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy();
+  static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy(
+        policyArn: json['PolicyARN'] as String,
+        policyName: json['PolicyName'] as String,
+        serviceNamespace: json['ServiceNamespace'] as String,
+        resourceId: json['ResourceId'] as String,
+        scalableDimension: json['ScalableDimension'] as String,
+        policyType: json['PolicyType'] as String,
+        stepScalingPolicyConfiguration:
+            json.containsKey('StepScalingPolicyConfiguration')
+                ? StepScalingPolicyConfiguration.fromJson(
+                    json['StepScalingPolicyConfiguration'])
+                : null,
+        targetTrackingScalingPolicyConfiguration:
+            json.containsKey('TargetTrackingScalingPolicyConfiguration')
+                ? TargetTrackingScalingPolicyConfiguration.fromJson(
+                    json['TargetTrackingScalingPolicyConfiguration'])
+                : null,
+        alarms: json.containsKey('Alarms')
+            ? (json['Alarms'] as List).map((e) => Alarm.fromJson(e)).toList()
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+      );
 }
 
 /// Represents a scheduled action.
@@ -1990,8 +2188,26 @@ class ScheduledAction {
     this.scalableTargetAction,
     @required this.creationTime,
   });
-  static ScheduledAction fromJson(Map<String, dynamic> json) =>
-      ScheduledAction();
+  static ScheduledAction fromJson(Map<String, dynamic> json) => ScheduledAction(
+        scheduledActionName: json['ScheduledActionName'] as String,
+        scheduledActionArn: json['ScheduledActionARN'] as String,
+        serviceNamespace: json['ServiceNamespace'] as String,
+        schedule: json['Schedule'] as String,
+        resourceId: json['ResourceId'] as String,
+        scalableDimension: json.containsKey('ScalableDimension')
+            ? json['ScalableDimension'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        scalableTargetAction: json.containsKey('ScalableTargetAction')
+            ? ScalableTargetAction.fromJson(json['ScalableTargetAction'])
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+      );
 }
 
 /// Represents a step adjustment for a StepScalingPolicyConfiguration. Describes
@@ -2051,7 +2267,16 @@ class StepAdjustment {
     this.metricIntervalUpperBound,
     @required this.scalingAdjustment,
   });
-  static StepAdjustment fromJson(Map<String, dynamic> json) => StepAdjustment();
+  static StepAdjustment fromJson(Map<String, dynamic> json) => StepAdjustment(
+        metricIntervalLowerBound: json.containsKey('MetricIntervalLowerBound')
+            ? json['MetricIntervalLowerBound'] as double
+            : null,
+        metricIntervalUpperBound: json.containsKey('MetricIntervalUpperBound')
+            ? json['MetricIntervalUpperBound'] as double
+            : null,
+        scalingAdjustment: json['ScalingAdjustment'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a step scaling policy configuration to use with Application Auto
@@ -2115,7 +2340,24 @@ class StepScalingPolicyConfiguration {
     this.metricAggregationType,
   });
   static StepScalingPolicyConfiguration fromJson(Map<String, dynamic> json) =>
-      StepScalingPolicyConfiguration();
+      StepScalingPolicyConfiguration(
+        adjustmentType: json.containsKey('AdjustmentType')
+            ? json['AdjustmentType'] as String
+            : null,
+        stepAdjustments: json.containsKey('StepAdjustments')
+            ? (json['StepAdjustments'] as List)
+                .map((e) => StepAdjustment.fromJson(e))
+                .toList()
+            : null,
+        minAdjustmentMagnitude: json.containsKey('MinAdjustmentMagnitude')
+            ? json['MinAdjustmentMagnitude'] as int
+            : null,
+        cooldown: json.containsKey('Cooldown') ? json['Cooldown'] as int : null,
+        metricAggregationType: json.containsKey('MetricAggregationType')
+            ? json['MetricAggregationType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies whether the scaling activities for a scalable target are in a
@@ -2143,7 +2385,19 @@ class SuspendedState {
     this.dynamicScalingOutSuspended,
     this.scheduledScalingSuspended,
   });
-  static SuspendedState fromJson(Map<String, dynamic> json) => SuspendedState();
+  static SuspendedState fromJson(Map<String, dynamic> json) => SuspendedState(
+        dynamicScalingInSuspended: json.containsKey('DynamicScalingInSuspended')
+            ? json['DynamicScalingInSuspended'] as bool
+            : null,
+        dynamicScalingOutSuspended:
+            json.containsKey('DynamicScalingOutSuspended')
+                ? json['DynamicScalingOutSuspended'] as bool
+                : null,
+        scheduledScalingSuspended: json.containsKey('ScheduledScalingSuspended')
+            ? json['ScheduledScalingSuspended'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a target tracking scaling policy configuration to use with
@@ -2197,5 +2451,27 @@ class TargetTrackingScalingPolicyConfiguration {
   });
   static TargetTrackingScalingPolicyConfiguration fromJson(
           Map<String, dynamic> json) =>
-      TargetTrackingScalingPolicyConfiguration();
+      TargetTrackingScalingPolicyConfiguration(
+        targetValue: json['TargetValue'] as double,
+        predefinedMetricSpecification:
+            json.containsKey('PredefinedMetricSpecification')
+                ? PredefinedMetricSpecification.fromJson(
+                    json['PredefinedMetricSpecification'])
+                : null,
+        customizedMetricSpecification:
+            json.containsKey('CustomizedMetricSpecification')
+                ? CustomizedMetricSpecification.fromJson(
+                    json['CustomizedMetricSpecification'])
+                : null,
+        scaleOutCooldown: json.containsKey('ScaleOutCooldown')
+            ? json['ScaleOutCooldown'] as int
+            : null,
+        scaleInCooldown: json.containsKey('ScaleInCooldown')
+            ? json['ScaleInCooldown'] as int
+            : null,
+        disableScaleIn: json.containsKey('DisableScaleIn')
+            ? json['DisableScaleIn'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

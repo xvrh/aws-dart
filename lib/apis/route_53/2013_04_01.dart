@@ -3,6 +3,10 @@ import 'package:meta/meta.dart';
 /// Amazon Route 53 is a highly available and scalable Domain Name System (DNS)
 /// web service.
 class Route53Api {
+  final _client;
+  Route53Api(client)
+      : _client = client.configured('Route 53', serializer: 'rest-xml');
+
   /// Associates an Amazon VPC with a private hosted zone.
   ///
   ///  To perform the association, the VPC and the private hosted zone must
@@ -29,7 +33,12 @@ class Route53Api {
       {@required String hostedZoneId,
       @required Vpc vpc,
       String comment}) async {
-    return AssociateVpcWithHostedZoneResponse.fromJson({});
+    var response_ = await _client.send('AssociateVPCWithHostedZone', {
+      'HostedZoneId': hostedZoneId,
+      'VPC': vpc,
+      if (comment != null) 'Comment': comment,
+    });
+    return AssociateVpcWithHostedZoneResponse.fromJson(response_);
   }
 
   /// Creates, changes, or deletes a resource record set, which contains
@@ -128,7 +137,11 @@ class Route53Api {
   Future<ChangeResourceRecordSetsResponse> changeResourceRecordSets(
       {@required String hostedZoneId,
       @required ChangeBatch changeBatch}) async {
-    return ChangeResourceRecordSetsResponse.fromJson({});
+    var response_ = await _client.send('ChangeResourceRecordSets', {
+      'HostedZoneId': hostedZoneId,
+      'ChangeBatch': changeBatch,
+    });
+    return ChangeResourceRecordSetsResponse.fromJson(response_);
   }
 
   /// Adds, edits, or deletes tags for a health check or a hosted zone.
@@ -160,7 +173,13 @@ class Route53Api {
       @required String resourceId,
       List<Tag> addTags,
       List<String> removeTagKeys}) async {
-    return ChangeTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ChangeTagsForResource', {
+      'ResourceType': resourceType,
+      'ResourceId': resourceId,
+      if (addTags != null) 'AddTags': addTags,
+      if (removeTagKeys != null) 'RemoveTagKeys': removeTagKeys,
+    });
+    return ChangeTagsForResourceResponse.fromJson(response_);
   }
 
   /// Creates a new health check.
@@ -226,7 +245,11 @@ class Route53Api {
   Future<CreateHealthCheckResponse> createHealthCheck(
       {@required String callerReference,
       @required HealthCheckConfig healthCheckConfig}) async {
-    return CreateHealthCheckResponse.fromJson({});
+    var response_ = await _client.send('CreateHealthCheck', {
+      'CallerReference': callerReference,
+      'HealthCheckConfig': healthCheckConfig,
+    });
+    return CreateHealthCheckResponse.fromJson(response_);
   }
 
   /// Creates a new public or private hosted zone. You create records in a
@@ -321,7 +344,14 @@ class Route53Api {
       @required String callerReference,
       HostedZoneConfig hostedZoneConfig,
       String delegationSetId}) async {
-    return CreateHostedZoneResponse.fromJson({});
+    var response_ = await _client.send('CreateHostedZone', {
+      'Name': name,
+      if (vpc != null) 'VPC': vpc,
+      'CallerReference': callerReference,
+      if (hostedZoneConfig != null) 'HostedZoneConfig': hostedZoneConfig,
+      if (delegationSetId != null) 'DelegationSetId': delegationSetId,
+    });
+    return CreateHostedZoneResponse.fromJson(response_);
   }
 
   /// Creates a configuration for DNS query logging. After you create a query
@@ -458,7 +488,11 @@ class Route53Api {
   Future<CreateQueryLoggingConfigResponse> createQueryLoggingConfig(
       {@required String hostedZoneId,
       @required String cloudWatchLogsLogGroupArn}) async {
-    return CreateQueryLoggingConfigResponse.fromJson({});
+    var response_ = await _client.send('CreateQueryLoggingConfig', {
+      'HostedZoneId': hostedZoneId,
+      'CloudWatchLogsLogGroupArn': cloudWatchLogsLogGroupArn,
+    });
+    return CreateQueryLoggingConfigResponse.fromJson(response_);
   }
 
   /// Creates a delegation set (a group of four name servers) that can be reused
@@ -522,7 +556,11 @@ class Route53Api {
   Future<CreateReusableDelegationSetResponse> createReusableDelegationSet(
       String callerReference,
       {String hostedZoneId}) async {
-    return CreateReusableDelegationSetResponse.fromJson({});
+    var response_ = await _client.send('CreateReusableDelegationSet', {
+      'CallerReference': callerReference,
+      if (hostedZoneId != null) 'HostedZoneId': hostedZoneId,
+    });
+    return CreateReusableDelegationSetResponse.fromJson(response_);
   }
 
   /// Creates a traffic policy, which you use to create multiple DNS resource
@@ -541,7 +579,12 @@ class Route53Api {
       {@required String name,
       @required String document,
       String comment}) async {
-    return CreateTrafficPolicyResponse.fromJson({});
+    var response_ = await _client.send('CreateTrafficPolicy', {
+      'Name': name,
+      'Document': document,
+      if (comment != null) 'Comment': comment,
+    });
+    return CreateTrafficPolicyResponse.fromJson(response_);
   }
 
   /// Creates resource record sets in a specified hosted zone based on the
@@ -575,7 +618,14 @@ class Route53Api {
       @required BigInt ttl,
       @required String trafficPolicyId,
       @required int trafficPolicyVersion}) async {
-    return CreateTrafficPolicyInstanceResponse.fromJson({});
+    var response_ = await _client.send('CreateTrafficPolicyInstance', {
+      'HostedZoneId': hostedZoneId,
+      'Name': name,
+      'TTL': ttl,
+      'TrafficPolicyId': trafficPolicyId,
+      'TrafficPolicyVersion': trafficPolicyVersion,
+    });
+    return CreateTrafficPolicyInstanceResponse.fromJson(response_);
   }
 
   /// Creates a new version of an existing traffic policy. When you create a new
@@ -599,7 +649,12 @@ class Route53Api {
   /// `CreateTrafficPolicyVersion` request, if any.
   Future<CreateTrafficPolicyVersionResponse> createTrafficPolicyVersion(
       {@required String id, @required String document, String comment}) async {
-    return CreateTrafficPolicyVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateTrafficPolicyVersion', {
+      'Id': id,
+      'Document': document,
+      if (comment != null) 'Comment': comment,
+    });
+    return CreateTrafficPolicyVersionResponse.fromJson(response_);
   }
 
   /// Authorizes the AWS account that created a specified VPC to submit an
@@ -624,7 +679,11 @@ class Route53Api {
   Future<CreateVpcAssociationAuthorizationResponse>
       createVpcAssociationAuthorization(
           {@required String hostedZoneId, @required Vpc vpc}) async {
-    return CreateVpcAssociationAuthorizationResponse.fromJson({});
+    var response_ = await _client.send('CreateVPCAssociationAuthorization', {
+      'HostedZoneId': hostedZoneId,
+      'VPC': vpc,
+    });
+    return CreateVpcAssociationAuthorizationResponse.fromJson(response_);
   }
 
   /// Deletes a health check.
@@ -643,7 +702,10 @@ class Route53Api {
   /// [healthCheckId]: The ID of the health check that you want to delete.
   Future<DeleteHealthCheckResponse> deleteHealthCheck(
       String healthCheckId) async {
-    return DeleteHealthCheckResponse.fromJson({});
+    var response_ = await _client.send('DeleteHealthCheck', {
+      'HealthCheckId': healthCheckId,
+    });
+    return DeleteHealthCheckResponse.fromJson(response_);
   }
 
   /// Deletes a hosted zone.
@@ -698,7 +760,10 @@ class Route53Api {
   ///
   /// [id]: The ID of the hosted zone you want to delete.
   Future<DeleteHostedZoneResponse> deleteHostedZone(String id) async {
-    return DeleteHostedZoneResponse.fromJson({});
+    var response_ = await _client.send('DeleteHostedZone', {
+      'Id': id,
+    });
+    return DeleteHostedZoneResponse.fromJson(response_);
   }
 
   /// Deletes a configuration for DNS query logging. If you delete a
@@ -712,7 +777,10 @@ class Route53Api {
   /// [id]: The ID of the configuration that you want to delete.
   Future<DeleteQueryLoggingConfigResponse> deleteQueryLoggingConfig(
       String id) async {
-    return DeleteQueryLoggingConfigResponse.fromJson({});
+    var response_ = await _client.send('DeleteQueryLoggingConfig', {
+      'Id': id,
+    });
+    return DeleteQueryLoggingConfigResponse.fromJson(response_);
   }
 
   /// Deletes a reusable delegation set.
@@ -729,7 +797,10 @@ class Route53Api {
   /// [id]: The ID of the reusable delegation set that you want to delete.
   Future<DeleteReusableDelegationSetResponse> deleteReusableDelegationSet(
       String id) async {
-    return DeleteReusableDelegationSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteReusableDelegationSet', {
+      'Id': id,
+    });
+    return DeleteReusableDelegationSetResponse.fromJson(response_);
   }
 
   /// Deletes a traffic policy.
@@ -740,7 +811,11 @@ class Route53Api {
   /// delete.
   Future<DeleteTrafficPolicyResponse> deleteTrafficPolicy(
       {@required String id, @required int version}) async {
-    return DeleteTrafficPolicyResponse.fromJson({});
+    var response_ = await _client.send('DeleteTrafficPolicy', {
+      'Id': id,
+      'Version': version,
+    });
+    return DeleteTrafficPolicyResponse.fromJson(response_);
   }
 
   /// Deletes a traffic policy instance and all of the resource record sets that
@@ -760,7 +835,10 @@ class Route53Api {
   /// traffic policy instance.
   Future<DeleteTrafficPolicyInstanceResponse> deleteTrafficPolicyInstance(
       String id) async {
-    return DeleteTrafficPolicyInstanceResponse.fromJson({});
+    var response_ = await _client.send('DeleteTrafficPolicyInstance', {
+      'Id': id,
+    });
+    return DeleteTrafficPolicyInstanceResponse.fromJson(response_);
   }
 
   /// Removes authorization to submit an `AssociateVPCWithHostedZone` request to
@@ -787,7 +865,11 @@ class Route53Api {
   Future<DeleteVpcAssociationAuthorizationResponse>
       deleteVpcAssociationAuthorization(
           {@required String hostedZoneId, @required Vpc vpc}) async {
-    return DeleteVpcAssociationAuthorizationResponse.fromJson({});
+    var response_ = await _client.send('DeleteVPCAssociationAuthorization', {
+      'HostedZoneId': hostedZoneId,
+      'VPC': vpc,
+    });
+    return DeleteVpcAssociationAuthorizationResponse.fromJson(response_);
   }
 
   /// Disassociates a VPC from a Amazon Route 53 private hosted zone. Note the
@@ -812,7 +894,12 @@ class Route53Api {
       {@required String hostedZoneId,
       @required Vpc vpc,
       String comment}) async {
-    return DisassociateVpcFromHostedZoneResponse.fromJson({});
+    var response_ = await _client.send('DisassociateVPCFromHostedZone', {
+      'HostedZoneId': hostedZoneId,
+      'VPC': vpc,
+      if (comment != null) 'Comment': comment,
+    });
+    return DisassociateVpcFromHostedZoneResponse.fromJson(response_);
   }
 
   /// Gets the specified limit for the current account, for example, the maximum
@@ -850,7 +937,10 @@ class Route53Api {
   /// (Traffic policy instances are referred to as traffic flow policy records
   /// in the Amazon Route 53 console.)
   Future<GetAccountLimitResponse> getAccountLimit(String type) async {
-    return GetAccountLimitResponse.fromJson({});
+    var response_ = await _client.send('GetAccountLimit', {
+      'Type': type,
+    });
+    return GetAccountLimitResponse.fromJson(response_);
   }
 
   /// Returns the current status of a change batch request. The status is one of
@@ -867,7 +957,10 @@ class Route53Api {
   /// is the value that `ChangeResourceRecordSets` returned in the `Id` element
   /// when you submitted the request.
   Future<GetChangeResponse> getChange(String id) async {
-    return GetChangeResponse.fromJson({});
+    var response_ = await _client.send('GetChange', {
+      'Id': id,
+    });
+    return GetChangeResponse.fromJson(response_);
   }
 
   ///  `GetCheckerIpRanges` still works, but we recommend that you download
@@ -876,7 +969,8 @@ class Route53Api {
   /// [IP Address Ranges of Amazon Route 53 Servers](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-ip-addresses.html)
   /// in the _Amazon Route 53 Developer Guide_.
   Future<GetCheckerIpRangesResponse> getCheckerIpRanges() async {
-    return GetCheckerIpRangesResponse.fromJson({});
+    var response_ = await _client.send('GetCheckerIpRanges', {});
+    return GetCheckerIpRangesResponse.fromJson(response_);
   }
 
   /// Gets information about whether a specified geographic location is
@@ -928,7 +1022,12 @@ class Route53Api {
       {String continentCode,
       String countryCode,
       String subdivisionCode}) async {
-    return GetGeoLocationResponse.fromJson({});
+    var response_ = await _client.send('GetGeoLocation', {
+      if (continentCode != null) 'ContinentCode': continentCode,
+      if (countryCode != null) 'CountryCode': countryCode,
+      if (subdivisionCode != null) 'SubdivisionCode': subdivisionCode,
+    });
+    return GetGeoLocationResponse.fromJson(response_);
   }
 
   /// Gets information about a specified health check.
@@ -938,13 +1037,17 @@ class Route53Api {
   /// set, you use this value to specify which health check to use. The value
   /// can be up to 64 characters long.
   Future<GetHealthCheckResponse> getHealthCheck(String healthCheckId) async {
-    return GetHealthCheckResponse.fromJson({});
+    var response_ = await _client.send('GetHealthCheck', {
+      'HealthCheckId': healthCheckId,
+    });
+    return GetHealthCheckResponse.fromJson(response_);
   }
 
   /// Retrieves the number of health checks that are associated with the current
   /// AWS account.
   Future<GetHealthCheckCountResponse> getHealthCheckCount() async {
-    return GetHealthCheckCountResponse.fromJson({});
+    var response_ = await _client.send('GetHealthCheckCount', {});
+    return GetHealthCheckCountResponse.fromJson(response_);
   }
 
   /// Gets the reason that a specified health check failed most recently.
@@ -960,7 +1063,10 @@ class Route53Api {
   /// can't use `GetHealthCheckLastFailureReason` for a calculated health check.
   Future<GetHealthCheckLastFailureReasonResponse>
       getHealthCheckLastFailureReason(String healthCheckId) async {
-    return GetHealthCheckLastFailureReasonResponse.fromJson({});
+    var response_ = await _client.send('GetHealthCheckLastFailureReason', {
+      'HealthCheckId': healthCheckId,
+    });
+    return GetHealthCheckLastFailureReasonResponse.fromJson(response_);
   }
 
   /// Gets status of a specified health check.
@@ -976,7 +1082,10 @@ class Route53Api {
   /// `GetHealthCheckStatus` to get the status of a calculated health check.
   Future<GetHealthCheckStatusResponse> getHealthCheckStatus(
       String healthCheckId) async {
-    return GetHealthCheckStatusResponse.fromJson({});
+    var response_ = await _client.send('GetHealthCheckStatus', {
+      'HealthCheckId': healthCheckId,
+    });
+    return GetHealthCheckStatusResponse.fromJson(response_);
   }
 
   /// Gets information about a specified hosted zone including the four name
@@ -984,13 +1093,17 @@ class Route53Api {
   ///
   /// [id]: The ID of the hosted zone that you want to get information about.
   Future<GetHostedZoneResponse> getHostedZone(String id) async {
-    return GetHostedZoneResponse.fromJson({});
+    var response_ = await _client.send('GetHostedZone', {
+      'Id': id,
+    });
+    return GetHostedZoneResponse.fromJson(response_);
   }
 
   /// Retrieves the number of hosted zones that are associated with the current
   /// AWS account.
   Future<GetHostedZoneCountResponse> getHostedZoneCount() async {
-    return GetHostedZoneCountResponse.fromJson({});
+    var response_ = await _client.send('GetHostedZoneCount', {});
+    return GetHostedZoneCountResponse.fromJson(response_);
   }
 
   /// Gets the specified limit for a specified hosted zone, for example, the
@@ -1014,7 +1127,11 @@ class Route53Api {
   /// for.
   Future<GetHostedZoneLimitResponse> getHostedZoneLimit(
       {@required String type, @required String hostedZoneId}) async {
-    return GetHostedZoneLimitResponse.fromJson({});
+    var response_ = await _client.send('GetHostedZoneLimit', {
+      'Type': type,
+      'HostedZoneId': hostedZoneId,
+    });
+    return GetHostedZoneLimitResponse.fromJson(response_);
   }
 
   /// Gets information about a specified configuration for DNS query logging.
@@ -1027,7 +1144,10 @@ class Route53Api {
   /// [id]: The ID of the configuration for DNS query logging that you want to
   /// get information about.
   Future<GetQueryLoggingConfigResponse> getQueryLoggingConfig(String id) async {
-    return GetQueryLoggingConfigResponse.fromJson({});
+    var response_ = await _client.send('GetQueryLoggingConfig', {
+      'Id': id,
+    });
+    return GetQueryLoggingConfigResponse.fromJson(response_);
   }
 
   /// Retrieves information about a specified reusable delegation set, including
@@ -1037,7 +1157,10 @@ class Route53Api {
   /// name servers for.
   Future<GetReusableDelegationSetResponse> getReusableDelegationSet(
       String id) async {
-    return GetReusableDelegationSetResponse.fromJson({});
+    var response_ = await _client.send('GetReusableDelegationSet', {
+      'Id': id,
+    });
+    return GetReusableDelegationSetResponse.fromJson(response_);
   }
 
   /// Gets the maximum number of hosted zones that you can associate with the
@@ -1056,7 +1179,11 @@ class Route53Api {
   /// limit for.
   Future<GetReusableDelegationSetLimitResponse> getReusableDelegationSetLimit(
       {@required String type, @required String delegationSetId}) async {
-    return GetReusableDelegationSetLimitResponse.fromJson({});
+    var response_ = await _client.send('GetReusableDelegationSetLimit', {
+      'Type': type,
+      'DelegationSetId': delegationSetId,
+    });
+    return GetReusableDelegationSetLimitResponse.fromJson(response_);
   }
 
   /// Gets information about a specific traffic policy version.
@@ -1067,7 +1194,11 @@ class Route53Api {
   /// information about.
   Future<GetTrafficPolicyResponse> getTrafficPolicy(
       {@required String id, @required int version}) async {
-    return GetTrafficPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetTrafficPolicy', {
+      'Id': id,
+      'Version': version,
+    });
+    return GetTrafficPolicyResponse.fromJson(response_);
   }
 
   /// Gets information about a specified traffic policy instance.
@@ -1085,14 +1216,18 @@ class Route53Api {
   /// information about.
   Future<GetTrafficPolicyInstanceResponse> getTrafficPolicyInstance(
       String id) async {
-    return GetTrafficPolicyInstanceResponse.fromJson({});
+    var response_ = await _client.send('GetTrafficPolicyInstance', {
+      'Id': id,
+    });
+    return GetTrafficPolicyInstanceResponse.fromJson(response_);
   }
 
   /// Gets the number of traffic policy instances that are associated with the
   /// current AWS account.
   Future<GetTrafficPolicyInstanceCountResponse>
       getTrafficPolicyInstanceCount() async {
-    return GetTrafficPolicyInstanceCountResponse.fromJson({});
+    var response_ = await _client.send('GetTrafficPolicyInstanceCount', {});
+    return GetTrafficPolicyInstanceCountResponse.fromJson(response_);
   }
 
   /// Retrieves a list of supported geographic locations.
@@ -1141,7 +1276,14 @@ class Route53Api {
       String startCountryCode,
       String startSubdivisionCode,
       String maxItems}) async {
-    return ListGeoLocationsResponse.fromJson({});
+    var response_ = await _client.send('ListGeoLocations', {
+      if (startContinentCode != null) 'StartContinentCode': startContinentCode,
+      if (startCountryCode != null) 'StartCountryCode': startCountryCode,
+      if (startSubdivisionCode != null)
+        'StartSubdivisionCode': startSubdivisionCode,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListGeoLocationsResponse.fromJson(response_);
   }
 
   /// Retrieve a list of the health checks that are associated with the current
@@ -1164,7 +1306,11 @@ class Route53Api {
   /// greater than 100, Route 53 returns only the first 100 health checks.
   Future<ListHealthChecksResponse> listHealthChecks(
       {String marker, String maxItems}) async {
-    return ListHealthChecksResponse.fromJson({});
+    var response_ = await _client.send('ListHealthChecks', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListHealthChecksResponse.fromJson(response_);
   }
 
   /// Retrieves a list of the public and private hosted zones that are
@@ -1197,7 +1343,12 @@ class Route53Api {
   /// delegation set, specify the ID of that reusable delegation set.
   Future<ListHostedZonesResponse> listHostedZones(
       {String marker, String maxItems, String delegationSetId}) async {
-    return ListHostedZonesResponse.fromJson({});
+    var response_ = await _client.send('ListHostedZones', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (delegationSetId != null) 'DelegationSetId': delegationSetId,
+    });
+    return ListHostedZonesResponse.fromJson(response_);
   }
 
   /// Retrieves a list of your hosted zones in lexicographic order. The response
@@ -1279,7 +1430,12 @@ class Route53Api {
   /// first hosted zone in the next group of `maxitems` hosted zones.
   Future<ListHostedZonesByNameResponse> listHostedZonesByName(
       {String dnsName, String hostedZoneId, String maxItems}) async {
-    return ListHostedZonesByNameResponse.fromJson({});
+    var response_ = await _client.send('ListHostedZonesByName', {
+      if (dnsName != null) 'DNSName': dnsName,
+      if (hostedZoneId != null) 'HostedZoneId': hostedZoneId,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListHostedZonesByNameResponse.fromJson(response_);
   }
 
   /// Lists the configurations for DNS query logging that are associated with
@@ -1321,7 +1477,12 @@ class Route53Api {
   /// configurations.
   Future<ListQueryLoggingConfigsResponse> listQueryLoggingConfigs(
       {String hostedZoneId, String nextToken, String maxResults}) async {
-    return ListQueryLoggingConfigsResponse.fromJson({});
+    var response_ = await _client.send('ListQueryLoggingConfigs', {
+      if (hostedZoneId != null) 'HostedZoneId': hostedZoneId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListQueryLoggingConfigsResponse.fromJson(response_);
   }
 
   /// Lists the resource record sets in a specified hosted zone.
@@ -1449,7 +1610,15 @@ class Route53Api {
       String startRecordType,
       String startRecordIdentifier,
       String maxItems}) async {
-    return ListResourceRecordSetsResponse.fromJson({});
+    var response_ = await _client.send('ListResourceRecordSets', {
+      'HostedZoneId': hostedZoneId,
+      if (startRecordName != null) 'StartRecordName': startRecordName,
+      if (startRecordType != null) 'StartRecordType': startRecordType,
+      if (startRecordIdentifier != null)
+        'StartRecordIdentifier': startRecordIdentifier,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListResourceRecordSetsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of the reusable delegation sets that are associated with
@@ -1472,7 +1641,11 @@ class Route53Api {
   /// sets.
   Future<ListReusableDelegationSetsResponse> listReusableDelegationSets(
       {String marker, String maxItems}) async {
-    return ListReusableDelegationSetsResponse.fromJson({});
+    var response_ = await _client.send('ListReusableDelegationSets', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListReusableDelegationSetsResponse.fromJson(response_);
   }
 
   /// Lists tags for one health check or hosted zone.
@@ -1490,7 +1663,11 @@ class Route53Api {
   /// [resourceId]: The ID of the resource for which you want to retrieve tags.
   Future<ListTagsForResourceResponse> listTagsForResource(
       {@required String resourceType, @required String resourceId}) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceType': resourceType,
+      'ResourceId': resourceId,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Lists tags for up to 10 health checks or hosted zones.
@@ -1510,7 +1687,11 @@ class Route53Api {
   Future<ListTagsForResourcesResponse> listTagsForResources(
       {@required String resourceType,
       @required List<String> resourceIds}) async {
-    return ListTagsForResourcesResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResources', {
+      'ResourceType': resourceType,
+      'ResourceIds': resourceIds,
+    });
+    return ListTagsForResourcesResponse.fromJson(response_);
   }
 
   /// Gets information about the latest version for every traffic policy that is
@@ -1536,7 +1717,12 @@ class Route53Api {
   /// request.
   Future<ListTrafficPoliciesResponse> listTrafficPolicies(
       {String trafficPolicyIdMarker, String maxItems}) async {
-    return ListTrafficPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListTrafficPolicies', {
+      if (trafficPolicyIdMarker != null)
+        'TrafficPolicyIdMarker': trafficPolicyIdMarker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListTrafficPoliciesResponse.fromJson(response_);
   }
 
   /// Gets information about the traffic policy instances that you created by
@@ -1598,7 +1784,15 @@ class Route53Api {
       String trafficPolicyInstanceNameMarker,
       String trafficPolicyInstanceTypeMarker,
       String maxItems}) async {
-    return ListTrafficPolicyInstancesResponse.fromJson({});
+    var response_ = await _client.send('ListTrafficPolicyInstances', {
+      if (hostedZoneIdMarker != null) 'HostedZoneIdMarker': hostedZoneIdMarker,
+      if (trafficPolicyInstanceNameMarker != null)
+        'TrafficPolicyInstanceNameMarker': trafficPolicyInstanceNameMarker,
+      if (trafficPolicyInstanceTypeMarker != null)
+        'TrafficPolicyInstanceTypeMarker': trafficPolicyInstanceTypeMarker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListTrafficPolicyInstancesResponse.fromJson(response_);
   }
 
   /// Gets information about the traffic policy instances that you created in a
@@ -1651,7 +1845,16 @@ class Route53Api {
           {String trafficPolicyInstanceNameMarker,
           String trafficPolicyInstanceTypeMarker,
           String maxItems}) async {
-    return ListTrafficPolicyInstancesByHostedZoneResponse.fromJson({});
+    var response_ =
+        await _client.send('ListTrafficPolicyInstancesByHostedZone', {
+      'HostedZoneId': hostedZoneId,
+      if (trafficPolicyInstanceNameMarker != null)
+        'TrafficPolicyInstanceNameMarker': trafficPolicyInstanceNameMarker,
+      if (trafficPolicyInstanceTypeMarker != null)
+        'TrafficPolicyInstanceTypeMarker': trafficPolicyInstanceTypeMarker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListTrafficPolicyInstancesByHostedZoneResponse.fromJson(response_);
   }
 
   /// Gets information about the traffic policy instances that you created by
@@ -1728,7 +1931,17 @@ class Route53Api {
           String trafficPolicyInstanceNameMarker,
           String trafficPolicyInstanceTypeMarker,
           String maxItems}) async {
-    return ListTrafficPolicyInstancesByPolicyResponse.fromJson({});
+    var response_ = await _client.send('ListTrafficPolicyInstancesByPolicy', {
+      'TrafficPolicyId': trafficPolicyId,
+      'TrafficPolicyVersion': trafficPolicyVersion,
+      if (hostedZoneIdMarker != null) 'HostedZoneIdMarker': hostedZoneIdMarker,
+      if (trafficPolicyInstanceNameMarker != null)
+        'TrafficPolicyInstanceNameMarker': trafficPolicyInstanceNameMarker,
+      if (trafficPolicyInstanceTypeMarker != null)
+        'TrafficPolicyInstanceTypeMarker': trafficPolicyInstanceTypeMarker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListTrafficPolicyInstancesByPolicyResponse.fromJson(response_);
   }
 
   /// Gets information about all of the versions for a specified traffic policy.
@@ -1757,7 +1970,13 @@ class Route53Api {
   /// Route 53 will return if you submit another request.
   Future<ListTrafficPolicyVersionsResponse> listTrafficPolicyVersions(String id,
       {String trafficPolicyVersionMarker, String maxItems}) async {
-    return ListTrafficPolicyVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListTrafficPolicyVersions', {
+      'Id': id,
+      if (trafficPolicyVersionMarker != null)
+        'TrafficPolicyVersionMarker': trafficPolicyVersionMarker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListTrafficPolicyVersionsResponse.fromJson(response_);
   }
 
   /// Gets a list of the VPCs that were created by other accounts and that can
@@ -1782,7 +2001,12 @@ class Route53Api {
   Future<ListVpcAssociationAuthorizationsResponse>
       listVpcAssociationAuthorizations(String hostedZoneId,
           {String nextToken, String maxResults}) async {
-    return ListVpcAssociationAuthorizationsResponse.fromJson({});
+    var response_ = await _client.send('ListVPCAssociationAuthorizations', {
+      'HostedZoneId': hostedZoneId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListVpcAssociationAuthorizationsResponse.fromJson(response_);
   }
 
   /// Gets the value that Amazon Route 53 returns in response to a DNS request
@@ -1829,7 +2053,17 @@ class Route53Api {
       String resolverIP,
       String edns0ClientSubnetIP,
       String edns0ClientSubnetMask}) async {
-    return TestDnsAnswerResponse.fromJson({});
+    var response_ = await _client.send('TestDNSAnswer', {
+      'HostedZoneId': hostedZoneId,
+      'RecordName': recordName,
+      'RecordType': recordType,
+      if (resolverIP != null) 'ResolverIP': resolverIP,
+      if (edns0ClientSubnetIP != null)
+        'EDNS0ClientSubnetIP': edns0ClientSubnetIP,
+      if (edns0ClientSubnetMask != null)
+        'EDNS0ClientSubnetMask': edns0ClientSubnetMask,
+    });
+    return TestDnsAnswerResponse.fromJson(response_);
   }
 
   /// Updates an existing health check. Note that some values can't be updated.
@@ -2134,7 +2368,28 @@ class Route53Api {
       AlarmIdentifier alarmIdentifier,
       String insufficientDataHealthStatus,
       List<String> resetElements}) async {
-    return UpdateHealthCheckResponse.fromJson({});
+    var response_ = await _client.send('UpdateHealthCheck', {
+      'HealthCheckId': healthCheckId,
+      if (healthCheckVersion != null) 'HealthCheckVersion': healthCheckVersion,
+      if (ipAddress != null) 'IPAddress': ipAddress,
+      if (port != null) 'Port': port,
+      if (resourcePath != null) 'ResourcePath': resourcePath,
+      if (fullyQualifiedDomainName != null)
+        'FullyQualifiedDomainName': fullyQualifiedDomainName,
+      if (searchString != null) 'SearchString': searchString,
+      if (failureThreshold != null) 'FailureThreshold': failureThreshold,
+      if (inverted != null) 'Inverted': inverted,
+      if (disabled != null) 'Disabled': disabled,
+      if (healthThreshold != null) 'HealthThreshold': healthThreshold,
+      if (childHealthChecks != null) 'ChildHealthChecks': childHealthChecks,
+      if (enableSni != null) 'EnableSNI': enableSni,
+      if (regions != null) 'Regions': regions,
+      if (alarmIdentifier != null) 'AlarmIdentifier': alarmIdentifier,
+      if (insufficientDataHealthStatus != null)
+        'InsufficientDataHealthStatus': insufficientDataHealthStatus,
+      if (resetElements != null) 'ResetElements': resetElements,
+    });
+    return UpdateHealthCheckResponse.fromJson(response_);
   }
 
   /// Updates the comment for a specified hosted zone.
@@ -2146,7 +2401,11 @@ class Route53Api {
   /// `Comment` element, if any.
   Future<UpdateHostedZoneCommentResponse> updateHostedZoneComment(String id,
       {String comment}) async {
-    return UpdateHostedZoneCommentResponse.fromJson({});
+    var response_ = await _client.send('UpdateHostedZoneComment', {
+      'Id': id,
+      if (comment != null) 'Comment': comment,
+    });
+    return UpdateHostedZoneCommentResponse.fromJson(response_);
   }
 
   /// Updates the comment for a specified traffic policy version.
@@ -2162,7 +2421,12 @@ class Route53Api {
       {@required String id,
       @required int version,
       @required String comment}) async {
-    return UpdateTrafficPolicyCommentResponse.fromJson({});
+    var response_ = await _client.send('UpdateTrafficPolicyComment', {
+      'Id': id,
+      'Version': version,
+      'Comment': comment,
+    });
+    return UpdateTrafficPolicyCommentResponse.fromJson(response_);
   }
 
   /// Updates the resource record sets in a specified hosted zone that were
@@ -2202,7 +2466,13 @@ class Route53Api {
       @required BigInt ttl,
       @required String trafficPolicyId,
       @required int trafficPolicyVersion}) async {
-    return UpdateTrafficPolicyInstanceResponse.fromJson({});
+    var response_ = await _client.send('UpdateTrafficPolicyInstance', {
+      'Id': id,
+      'TTL': ttl,
+      'TrafficPolicyId': trafficPolicyId,
+      'TrafficPolicyVersion': trafficPolicyVersion,
+    });
+    return UpdateTrafficPolicyInstanceResponse.fromJson(response_);
   }
 }
 
@@ -2237,7 +2507,10 @@ class AccountLimit {
     @required this.type,
     @required this.value,
   });
-  static AccountLimit fromJson(Map<String, dynamic> json) => AccountLimit();
+  static AccountLimit fromJson(Map<String, dynamic> json) => AccountLimit(
+        type: json['Type'] as String,
+        value: BigInt.from(json['Value']),
+      );
 }
 
 /// A complex type that identifies the CloudWatch alarm that you want Amazon
@@ -2274,8 +2547,11 @@ class AlarmIdentifier {
     @required this.region,
     @required this.name,
   });
-  static AlarmIdentifier fromJson(Map<String, dynamic> json) =>
-      AlarmIdentifier();
+  static AlarmIdentifier fromJson(Map<String, dynamic> json) => AlarmIdentifier(
+        region: json['Region'] as String,
+        name: json['Name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  _Alias resource record sets only:_ Information about the AWS resource, such
@@ -2614,7 +2890,12 @@ class AliasTarget {
     @required this.dnsName,
     @required this.evaluateTargetHealth,
   });
-  static AliasTarget fromJson(Map<String, dynamic> json) => AliasTarget();
+  static AliasTarget fromJson(Map<String, dynamic> json) => AliasTarget(
+        hostedZoneId: json['HostedZoneId'] as String,
+        dnsName: json['DNSName'] as String,
+        evaluateTargetHealth: json['EvaluateTargetHealth'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains the response information for the
@@ -2628,7 +2909,9 @@ class AssociateVpcWithHostedZoneResponse {
   });
   static AssociateVpcWithHostedZoneResponse fromJson(
           Map<String, dynamic> json) =>
-      AssociateVpcWithHostedZoneResponse();
+      AssociateVpcWithHostedZoneResponse(
+        changeInfo: ChangeInfo.fromJson(json['ChangeInfo']),
+      );
 }
 
 /// The information for each resource record set that you want to change.
@@ -2659,6 +2942,7 @@ class Change {
     @required this.action,
     @required this.resourceRecordSet,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The information for a change request.
@@ -2674,6 +2958,7 @@ class ChangeBatch {
     this.comment,
     @required this.changes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that describes change information about changes made to your
@@ -2706,7 +2991,12 @@ class ChangeInfo {
     @required this.submittedAt,
     this.comment,
   });
-  static ChangeInfo fromJson(Map<String, dynamic> json) => ChangeInfo();
+  static ChangeInfo fromJson(Map<String, dynamic> json) => ChangeInfo(
+        id: json['Id'] as String,
+        status: json['Status'] as String,
+        submittedAt: DateTime.parse(json['SubmittedAt']),
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+      );
 }
 
 /// A complex type containing the response for the request.
@@ -2723,7 +3013,9 @@ class ChangeResourceRecordSetsResponse {
     @required this.changeInfo,
   });
   static ChangeResourceRecordSetsResponse fromJson(Map<String, dynamic> json) =>
-      ChangeResourceRecordSetsResponse();
+      ChangeResourceRecordSetsResponse(
+        changeInfo: ChangeInfo.fromJson(json['ChangeInfo']),
+      );
 }
 
 /// Empty response for the request.
@@ -2783,7 +3075,20 @@ class CloudWatchAlarmConfiguration {
     this.dimensions,
   });
   static CloudWatchAlarmConfiguration fromJson(Map<String, dynamic> json) =>
-      CloudWatchAlarmConfiguration();
+      CloudWatchAlarmConfiguration(
+        evaluationPeriods: json['EvaluationPeriods'] as int,
+        threshold: json['Threshold'] as double,
+        comparisonOperator: json['ComparisonOperator'] as String,
+        period: json['Period'] as int,
+        metricName: json['MetricName'] as String,
+        namespace: json['Namespace'] as String,
+        statistic: json['Statistic'] as String,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => Dimension.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A complex type containing the response information for the new health check.
@@ -2800,7 +3105,10 @@ class CreateHealthCheckResponse {
     @required this.location,
   });
   static CreateHealthCheckResponse fromJson(Map<String, dynamic> json) =>
-      CreateHealthCheckResponse();
+      CreateHealthCheckResponse(
+        healthCheck: HealthCheck.fromJson(json['HealthCheck']),
+        location: json['Location'] as String,
+      );
 }
 
 /// A complex type containing the response information for the hosted zone.
@@ -2830,7 +3138,13 @@ class CreateHostedZoneResponse {
     @required this.location,
   });
   static CreateHostedZoneResponse fromJson(Map<String, dynamic> json) =>
-      CreateHostedZoneResponse();
+      CreateHostedZoneResponse(
+        hostedZone: HostedZone.fromJson(json['HostedZone']),
+        changeInfo: ChangeInfo.fromJson(json['ChangeInfo']),
+        delegationSet: DelegationSet.fromJson(json['DelegationSet']),
+        vpc: json.containsKey('VPC') ? Vpc.fromJson(json['VPC']) : null,
+        location: json['Location'] as String,
+      );
 }
 
 class CreateQueryLoggingConfigResponse {
@@ -2847,7 +3161,11 @@ class CreateQueryLoggingConfigResponse {
     @required this.location,
   });
   static CreateQueryLoggingConfigResponse fromJson(Map<String, dynamic> json) =>
-      CreateQueryLoggingConfigResponse();
+      CreateQueryLoggingConfigResponse(
+        queryLoggingConfig:
+            QueryLoggingConfig.fromJson(json['QueryLoggingConfig']),
+        location: json['Location'] as String,
+      );
 }
 
 class CreateReusableDelegationSetResponse {
@@ -2863,7 +3181,10 @@ class CreateReusableDelegationSetResponse {
   });
   static CreateReusableDelegationSetResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateReusableDelegationSetResponse();
+      CreateReusableDelegationSetResponse(
+        delegationSet: DelegationSet.fromJson(json['DelegationSet']),
+        location: json['Location'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the
@@ -2881,7 +3202,11 @@ class CreateTrafficPolicyInstanceResponse {
   });
   static CreateTrafficPolicyInstanceResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateTrafficPolicyInstanceResponse();
+      CreateTrafficPolicyInstanceResponse(
+        trafficPolicyInstance:
+            TrafficPolicyInstance.fromJson(json['TrafficPolicyInstance']),
+        location: json['Location'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the
@@ -2898,7 +3223,10 @@ class CreateTrafficPolicyResponse {
     @required this.location,
   });
   static CreateTrafficPolicyResponse fromJson(Map<String, dynamic> json) =>
-      CreateTrafficPolicyResponse();
+      CreateTrafficPolicyResponse(
+        trafficPolicy: TrafficPolicy.fromJson(json['TrafficPolicy']),
+        location: json['Location'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the
@@ -2917,7 +3245,10 @@ class CreateTrafficPolicyVersionResponse {
   });
   static CreateTrafficPolicyVersionResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateTrafficPolicyVersionResponse();
+      CreateTrafficPolicyVersionResponse(
+        trafficPolicy: TrafficPolicy.fromJson(json['TrafficPolicy']),
+        location: json['Location'] as String,
+      );
 }
 
 /// A complex type that contains the response information from a
@@ -2935,7 +3266,10 @@ class CreateVpcAssociationAuthorizationResponse {
   });
   static CreateVpcAssociationAuthorizationResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateVpcAssociationAuthorizationResponse();
+      CreateVpcAssociationAuthorizationResponse(
+        hostedZoneId: json['HostedZoneId'] as String,
+        vpc: Vpc.fromJson(json['VPC']),
+      );
 }
 
 /// A complex type that lists the name servers in a delegation set, as well as
@@ -2957,7 +3291,14 @@ class DelegationSet {
     this.callerReference,
     @required this.nameServers,
   });
-  static DelegationSet fromJson(Map<String, dynamic> json) => DelegationSet();
+  static DelegationSet fromJson(Map<String, dynamic> json) => DelegationSet(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        callerReference: json.containsKey('CallerReference')
+            ? json['CallerReference'] as String
+            : null,
+        nameServers:
+            (json['NameServers'] as List).map((e) => e as String).toList(),
+      );
 }
 
 /// An empty element.
@@ -2977,7 +3318,9 @@ class DeleteHostedZoneResponse {
     @required this.changeInfo,
   });
   static DeleteHostedZoneResponse fromJson(Map<String, dynamic> json) =>
-      DeleteHostedZoneResponse();
+      DeleteHostedZoneResponse(
+        changeInfo: ChangeInfo.fromJson(json['ChangeInfo']),
+      );
 }
 
 class DeleteQueryLoggingConfigResponse {
@@ -3032,7 +3375,10 @@ class Dimension {
     @required this.name,
     @required this.value,
   });
-  static Dimension fromJson(Map<String, dynamic> json) => Dimension();
+  static Dimension fromJson(Map<String, dynamic> json) => Dimension(
+        name: json['Name'] as String,
+        value: json['Value'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the disassociate
@@ -3047,7 +3393,9 @@ class DisassociateVpcFromHostedZoneResponse {
   });
   static DisassociateVpcFromHostedZoneResponse fromJson(
           Map<String, dynamic> json) =>
-      DisassociateVpcFromHostedZoneResponse();
+      DisassociateVpcFromHostedZoneResponse(
+        changeInfo: ChangeInfo.fromJson(json['ChangeInfo']),
+      );
 }
 
 /// A complex type that contains information about a geographic location.
@@ -3072,7 +3420,18 @@ class GeoLocation {
     this.countryCode,
     this.subdivisionCode,
   });
-  static GeoLocation fromJson(Map<String, dynamic> json) => GeoLocation();
+  static GeoLocation fromJson(Map<String, dynamic> json) => GeoLocation(
+        continentCode: json.containsKey('ContinentCode')
+            ? json['ContinentCode'] as String
+            : null,
+        countryCode: json.containsKey('CountryCode')
+            ? json['CountryCode'] as String
+            : null,
+        subdivisionCode: json.containsKey('SubdivisionCode')
+            ? json['SubdivisionCode'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains the codes and full continent, country, and
@@ -3107,7 +3466,26 @@ class GeoLocationDetails {
     this.subdivisionName,
   });
   static GeoLocationDetails fromJson(Map<String, dynamic> json) =>
-      GeoLocationDetails();
+      GeoLocationDetails(
+        continentCode: json.containsKey('ContinentCode')
+            ? json['ContinentCode'] as String
+            : null,
+        continentName: json.containsKey('ContinentName')
+            ? json['ContinentName'] as String
+            : null,
+        countryCode: json.containsKey('CountryCode')
+            ? json['CountryCode'] as String
+            : null,
+        countryName: json.containsKey('CountryName')
+            ? json['CountryName'] as String
+            : null,
+        subdivisionCode: json.containsKey('SubdivisionCode')
+            ? json['SubdivisionCode'] as String
+            : null,
+        subdivisionName: json.containsKey('SubdivisionName')
+            ? json['SubdivisionName'] as String
+            : null,
+      );
 }
 
 /// A complex type that contains the requested limit.
@@ -3129,7 +3507,10 @@ class GetAccountLimitResponse {
     @required this.count,
   });
   static GetAccountLimitResponse fromJson(Map<String, dynamic> json) =>
-      GetAccountLimitResponse();
+      GetAccountLimitResponse(
+        limit: AccountLimit.fromJson(json['Limit']),
+        count: BigInt.from(json['Count']),
+      );
 }
 
 /// A complex type that contains the `ChangeInfo` element.
@@ -3141,7 +3522,9 @@ class GetChangeResponse {
     @required this.changeInfo,
   });
   static GetChangeResponse fromJson(Map<String, dynamic> json) =>
-      GetChangeResponse();
+      GetChangeResponse(
+        changeInfo: ChangeInfo.fromJson(json['ChangeInfo']),
+      );
 }
 
 /// A complex type that contains the `CheckerIpRanges` element.
@@ -3154,7 +3537,10 @@ class GetCheckerIpRangesResponse {
     @required this.checkerIpRanges,
   });
   static GetCheckerIpRangesResponse fromJson(Map<String, dynamic> json) =>
-      GetCheckerIpRangesResponse();
+      GetCheckerIpRangesResponse(
+        checkerIpRanges:
+            (json['CheckerIpRanges'] as List).map((e) => e as String).toList(),
+      );
 }
 
 /// A complex type that contains the response information for the specified
@@ -3168,7 +3554,10 @@ class GetGeoLocationResponse {
     @required this.geoLocationDetails,
   });
   static GetGeoLocationResponse fromJson(Map<String, dynamic> json) =>
-      GetGeoLocationResponse();
+      GetGeoLocationResponse(
+        geoLocationDetails:
+            GeoLocationDetails.fromJson(json['GeoLocationDetails']),
+      );
 }
 
 /// A complex type that contains the response to a `GetHealthCheckCount`
@@ -3181,7 +3570,9 @@ class GetHealthCheckCountResponse {
     @required this.healthCheckCount,
   });
   static GetHealthCheckCountResponse fromJson(Map<String, dynamic> json) =>
-      GetHealthCheckCountResponse();
+      GetHealthCheckCountResponse(
+        healthCheckCount: BigInt.from(json['HealthCheckCount']),
+      );
 }
 
 /// A complex type that contains the response to a
@@ -3196,7 +3587,11 @@ class GetHealthCheckLastFailureReasonResponse {
   });
   static GetHealthCheckLastFailureReasonResponse fromJson(
           Map<String, dynamic> json) =>
-      GetHealthCheckLastFailureReasonResponse();
+      GetHealthCheckLastFailureReasonResponse(
+        healthCheckObservations: (json['HealthCheckObservations'] as List)
+            .map((e) => HealthCheckObservation.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A complex type that contains the response to a `GetHealthCheck` request.
@@ -3209,7 +3604,9 @@ class GetHealthCheckResponse {
     @required this.healthCheck,
   });
   static GetHealthCheckResponse fromJson(Map<String, dynamic> json) =>
-      GetHealthCheckResponse();
+      GetHealthCheckResponse(
+        healthCheck: HealthCheck.fromJson(json['HealthCheck']),
+      );
 }
 
 /// A complex type that contains the response to a `GetHealthCheck` request.
@@ -3223,7 +3620,11 @@ class GetHealthCheckStatusResponse {
     @required this.healthCheckObservations,
   });
   static GetHealthCheckStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetHealthCheckStatusResponse();
+      GetHealthCheckStatusResponse(
+        healthCheckObservations: (json['HealthCheckObservations'] as List)
+            .map((e) => HealthCheckObservation.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A complex type that contains the response to a `GetHostedZoneCount` request.
@@ -3236,7 +3637,9 @@ class GetHostedZoneCountResponse {
     @required this.hostedZoneCount,
   });
   static GetHostedZoneCountResponse fromJson(Map<String, dynamic> json) =>
-      GetHostedZoneCountResponse();
+      GetHostedZoneCountResponse(
+        hostedZoneCount: BigInt.from(json['HostedZoneCount']),
+      );
 }
 
 /// A complex type that contains the requested limit.
@@ -3258,7 +3661,10 @@ class GetHostedZoneLimitResponse {
     @required this.count,
   });
   static GetHostedZoneLimitResponse fromJson(Map<String, dynamic> json) =>
-      GetHostedZoneLimitResponse();
+      GetHostedZoneLimitResponse(
+        limit: HostedZoneLimit.fromJson(json['Limit']),
+        count: BigInt.from(json['Count']),
+      );
 }
 
 /// A complex type that contain the response to a `GetHostedZone` request.
@@ -3281,7 +3687,15 @@ class GetHostedZoneResponse {
     this.vpCs,
   });
   static GetHostedZoneResponse fromJson(Map<String, dynamic> json) =>
-      GetHostedZoneResponse();
+      GetHostedZoneResponse(
+        hostedZone: HostedZone.fromJson(json['HostedZone']),
+        delegationSet: json.containsKey('DelegationSet')
+            ? DelegationSet.fromJson(json['DelegationSet'])
+            : null,
+        vpCs: json.containsKey('VPCs')
+            ? (json['VPCs'] as List).map((e) => Vpc.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetQueryLoggingConfigResponse {
@@ -3295,7 +3709,10 @@ class GetQueryLoggingConfigResponse {
     @required this.queryLoggingConfig,
   });
   static GetQueryLoggingConfigResponse fromJson(Map<String, dynamic> json) =>
-      GetQueryLoggingConfigResponse();
+      GetQueryLoggingConfigResponse(
+        queryLoggingConfig:
+            QueryLoggingConfig.fromJson(json['QueryLoggingConfig']),
+      );
 }
 
 /// A complex type that contains the requested limit.
@@ -3314,7 +3731,10 @@ class GetReusableDelegationSetLimitResponse {
   });
   static GetReusableDelegationSetLimitResponse fromJson(
           Map<String, dynamic> json) =>
-      GetReusableDelegationSetLimitResponse();
+      GetReusableDelegationSetLimitResponse(
+        limit: ReusableDelegationSetLimit.fromJson(json['Limit']),
+        count: BigInt.from(json['Count']),
+      );
 }
 
 /// A complex type that contains the response to the `GetReusableDelegationSet`
@@ -3328,7 +3748,9 @@ class GetReusableDelegationSetResponse {
     @required this.delegationSet,
   });
   static GetReusableDelegationSetResponse fromJson(Map<String, dynamic> json) =>
-      GetReusableDelegationSetResponse();
+      GetReusableDelegationSetResponse(
+        delegationSet: DelegationSet.fromJson(json['DelegationSet']),
+      );
 }
 
 /// A complex type that contains information about the resource record sets that
@@ -3343,7 +3765,9 @@ class GetTrafficPolicyInstanceCountResponse {
   });
   static GetTrafficPolicyInstanceCountResponse fromJson(
           Map<String, dynamic> json) =>
-      GetTrafficPolicyInstanceCountResponse();
+      GetTrafficPolicyInstanceCountResponse(
+        trafficPolicyInstanceCount: json['TrafficPolicyInstanceCount'] as int,
+      );
 }
 
 /// A complex type that contains information about the resource record sets that
@@ -3356,7 +3780,10 @@ class GetTrafficPolicyInstanceResponse {
     @required this.trafficPolicyInstance,
   });
   static GetTrafficPolicyInstanceResponse fromJson(Map<String, dynamic> json) =>
-      GetTrafficPolicyInstanceResponse();
+      GetTrafficPolicyInstanceResponse(
+        trafficPolicyInstance:
+            TrafficPolicyInstance.fromJson(json['TrafficPolicyInstance']),
+      );
 }
 
 /// A complex type that contains the response information for the request.
@@ -3368,7 +3795,9 @@ class GetTrafficPolicyResponse {
     @required this.trafficPolicy,
   });
   static GetTrafficPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetTrafficPolicyResponse();
+      GetTrafficPolicyResponse(
+        trafficPolicy: TrafficPolicy.fromJson(json['TrafficPolicy']),
+      );
 }
 
 /// A complex type that contains information about one health check that is
@@ -3408,7 +3837,21 @@ class HealthCheck {
     @required this.healthCheckVersion,
     this.cloudWatchAlarmConfiguration,
   });
-  static HealthCheck fromJson(Map<String, dynamic> json) => HealthCheck();
+  static HealthCheck fromJson(Map<String, dynamic> json) => HealthCheck(
+        id: json['Id'] as String,
+        callerReference: json['CallerReference'] as String,
+        linkedService: json.containsKey('LinkedService')
+            ? LinkedService.fromJson(json['LinkedService'])
+            : null,
+        healthCheckConfig:
+            HealthCheckConfig.fromJson(json['HealthCheckConfig']),
+        healthCheckVersion: BigInt.from(json['HealthCheckVersion']),
+        cloudWatchAlarmConfiguration:
+            json.containsKey('CloudWatchAlarmConfiguration')
+                ? CloudWatchAlarmConfiguration.fromJson(
+                    json['CloudWatchAlarmConfiguration'])
+                : null,
+      );
 }
 
 /// A complex type that contains information about the health check.
@@ -3752,7 +4195,55 @@ class HealthCheckConfig {
     this.insufficientDataHealthStatus,
   });
   static HealthCheckConfig fromJson(Map<String, dynamic> json) =>
-      HealthCheckConfig();
+      HealthCheckConfig(
+        ipAddress:
+            json.containsKey('IPAddress') ? json['IPAddress'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        type: json['Type'] as String,
+        resourcePath: json.containsKey('ResourcePath')
+            ? json['ResourcePath'] as String
+            : null,
+        fullyQualifiedDomainName: json.containsKey('FullyQualifiedDomainName')
+            ? json['FullyQualifiedDomainName'] as String
+            : null,
+        searchString: json.containsKey('SearchString')
+            ? json['SearchString'] as String
+            : null,
+        requestInterval: json.containsKey('RequestInterval')
+            ? json['RequestInterval'] as int
+            : null,
+        failureThreshold: json.containsKey('FailureThreshold')
+            ? json['FailureThreshold'] as int
+            : null,
+        measureLatency: json.containsKey('MeasureLatency')
+            ? json['MeasureLatency'] as bool
+            : null,
+        inverted:
+            json.containsKey('Inverted') ? json['Inverted'] as bool : null,
+        disabled:
+            json.containsKey('Disabled') ? json['Disabled'] as bool : null,
+        healthThreshold: json.containsKey('HealthThreshold')
+            ? json['HealthThreshold'] as int
+            : null,
+        childHealthChecks: json.containsKey('ChildHealthChecks')
+            ? (json['ChildHealthChecks'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        enableSni:
+            json.containsKey('EnableSNI') ? json['EnableSNI'] as bool : null,
+        regions: json.containsKey('Regions')
+            ? (json['Regions'] as List).map((e) => e as String).toList()
+            : null,
+        alarmIdentifier: json.containsKey('AlarmIdentifier')
+            ? AlarmIdentifier.fromJson(json['AlarmIdentifier'])
+            : null,
+        insufficientDataHealthStatus:
+            json.containsKey('InsufficientDataHealthStatus')
+                ? json['InsufficientDataHealthStatus'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains the last failure reason as reported by one
@@ -3776,7 +4267,14 @@ class HealthCheckObservation {
     this.statusReport,
   });
   static HealthCheckObservation fromJson(Map<String, dynamic> json) =>
-      HealthCheckObservation();
+      HealthCheckObservation(
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        ipAddress:
+            json.containsKey('IPAddress') ? json['IPAddress'] as String : null,
+        statusReport: json.containsKey('StatusReport')
+            ? StatusReport.fromJson(json['StatusReport'])
+            : null,
+      );
 }
 
 /// A complex type that contains general information about the hosted zone.
@@ -3818,7 +4316,20 @@ class HostedZone {
     this.resourceRecordSetCount,
     this.linkedService,
   });
-  static HostedZone fromJson(Map<String, dynamic> json) => HostedZone();
+  static HostedZone fromJson(Map<String, dynamic> json) => HostedZone(
+        id: json['Id'] as String,
+        name: json['Name'] as String,
+        callerReference: json['CallerReference'] as String,
+        config: json.containsKey('Config')
+            ? HostedZoneConfig.fromJson(json['Config'])
+            : null,
+        resourceRecordSetCount: json.containsKey('ResourceRecordSetCount')
+            ? BigInt.from(json['ResourceRecordSetCount'])
+            : null,
+        linkedService: json.containsKey('LinkedService')
+            ? LinkedService.fromJson(json['LinkedService'])
+            : null,
+      );
 }
 
 /// A complex type that contains an optional comment about your hosted zone. If
@@ -3836,7 +4347,13 @@ class HostedZoneConfig {
     this.privateZone,
   });
   static HostedZoneConfig fromJson(Map<String, dynamic> json) =>
-      HostedZoneConfig();
+      HostedZoneConfig(
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        privateZone: json.containsKey('PrivateZone')
+            ? json['PrivateZone'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains the type of limit that you specified in the
@@ -3858,8 +4375,10 @@ class HostedZoneLimit {
     @required this.type,
     @required this.value,
   });
-  static HostedZoneLimit fromJson(Map<String, dynamic> json) =>
-      HostedZoneLimit();
+  static HostedZoneLimit fromJson(Map<String, dynamic> json) => HostedZoneLimit(
+        type: json['Type'] as String,
+        value: BigInt.from(json['Value']),
+      );
 }
 
 /// If a health check or hosted zone was created by another service,
@@ -3882,7 +4401,14 @@ class LinkedService {
     this.servicePrincipal,
     this.description,
   });
-  static LinkedService fromJson(Map<String, dynamic> json) => LinkedService();
+  static LinkedService fromJson(Map<String, dynamic> json) => LinkedService(
+        servicePrincipal: json.containsKey('ServicePrincipal')
+            ? json['ServicePrincipal'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// A complex type containing the response information for the request.
@@ -3926,7 +4452,22 @@ class ListGeoLocationsResponse {
     @required this.maxItems,
   });
   static ListGeoLocationsResponse fromJson(Map<String, dynamic> json) =>
-      ListGeoLocationsResponse();
+      ListGeoLocationsResponse(
+        geoLocationDetailsList: (json['GeoLocationDetailsList'] as List)
+            .map((e) => GeoLocationDetails.fromJson(e))
+            .toList(),
+        isTruncated: json['IsTruncated'] as bool,
+        nextContinentCode: json.containsKey('NextContinentCode')
+            ? json['NextContinentCode'] as String
+            : null,
+        nextCountryCode: json.containsKey('NextCountryCode')
+            ? json['NextCountryCode'] as String
+            : null,
+        nextSubdivisionCode: json.containsKey('NextSubdivisionCode')
+            ? json['NextSubdivisionCode'] as String
+            : null,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 /// A complex type that contains the response to a `ListHealthChecks` request.
@@ -3964,7 +4505,17 @@ class ListHealthChecksResponse {
     @required this.maxItems,
   });
   static ListHealthChecksResponse fromJson(Map<String, dynamic> json) =>
-      ListHealthChecksResponse();
+      ListHealthChecksResponse(
+        healthChecks: (json['HealthChecks'] as List)
+            .map((e) => HealthCheck.fromJson(e))
+            .toList(),
+        marker: json['Marker'] as String,
+        isTruncated: json['IsTruncated'] as bool,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the request.
@@ -4020,7 +4571,23 @@ class ListHostedZonesByNameResponse {
     @required this.maxItems,
   });
   static ListHostedZonesByNameResponse fromJson(Map<String, dynamic> json) =>
-      ListHostedZonesByNameResponse();
+      ListHostedZonesByNameResponse(
+        hostedZones: (json['HostedZones'] as List)
+            .map((e) => HostedZone.fromJson(e))
+            .toList(),
+        dnsName: json.containsKey('DNSName') ? json['DNSName'] as String : null,
+        hostedZoneId: json.containsKey('HostedZoneId')
+            ? json['HostedZoneId'] as String
+            : null,
+        isTruncated: json['IsTruncated'] as bool,
+        nextDnsName: json.containsKey('NextDNSName')
+            ? json['NextDNSName'] as String
+            : null,
+        nextHostedZoneId: json.containsKey('NextHostedZoneId')
+            ? json['NextHostedZoneId'] as String
+            : null,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 class ListHostedZonesResponse {
@@ -4058,7 +4625,17 @@ class ListHostedZonesResponse {
     @required this.maxItems,
   });
   static ListHostedZonesResponse fromJson(Map<String, dynamic> json) =>
-      ListHostedZonesResponse();
+      ListHostedZonesResponse(
+        hostedZones: (json['HostedZones'] as List)
+            .map((e) => HostedZone.fromJson(e))
+            .toList(),
+        marker: json['Marker'] as String,
+        isTruncated: json['IsTruncated'] as bool,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 class ListQueryLoggingConfigsResponse {
@@ -4084,7 +4661,13 @@ class ListQueryLoggingConfigsResponse {
     this.nextToken,
   });
   static ListQueryLoggingConfigsResponse fromJson(Map<String, dynamic> json) =>
-      ListQueryLoggingConfigsResponse();
+      ListQueryLoggingConfigsResponse(
+        queryLoggingConfigs: (json['QueryLoggingConfigs'] as List)
+            .map((e) => QueryLoggingConfig.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A complex type that contains list information for the resource record set.
@@ -4129,7 +4712,22 @@ class ListResourceRecordSetsResponse {
     @required this.maxItems,
   });
   static ListResourceRecordSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListResourceRecordSetsResponse();
+      ListResourceRecordSetsResponse(
+        resourceRecordSets: (json['ResourceRecordSets'] as List)
+            .map((e) => ResourceRecordSet.fromJson(e))
+            .toList(),
+        isTruncated: json['IsTruncated'] as bool,
+        nextRecordName: json.containsKey('NextRecordName')
+            ? json['NextRecordName'] as String
+            : null,
+        nextRecordType: json.containsKey('NextRecordType')
+            ? json['NextRecordType'] as String
+            : null,
+        nextRecordIdentifier: json.containsKey('NextRecordIdentifier')
+            ? json['NextRecordIdentifier'] as String
+            : null,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 /// A complex type that contains information about the reusable delegation sets
@@ -4167,7 +4765,17 @@ class ListReusableDelegationSetsResponse {
   });
   static ListReusableDelegationSetsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListReusableDelegationSetsResponse();
+      ListReusableDelegationSetsResponse(
+        delegationSets: (json['DelegationSets'] as List)
+            .map((e) => DelegationSet.fromJson(e))
+            .toList(),
+        marker: json['Marker'] as String,
+        isTruncated: json['IsTruncated'] as bool,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 /// A complex type that contains information about the health checks or hosted
@@ -4180,7 +4788,9 @@ class ListTagsForResourceResponse {
     @required this.resourceTagSet,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        resourceTagSet: ResourceTagSet.fromJson(json['ResourceTagSet']),
+      );
 }
 
 /// A complex type containing tags for the specified resources.
@@ -4193,7 +4803,11 @@ class ListTagsForResourcesResponse {
     @required this.resourceTagSets,
   });
   static ListTagsForResourcesResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourcesResponse();
+      ListTagsForResourcesResponse(
+        resourceTagSets: (json['ResourceTagSets'] as List)
+            .map((e) => ResourceTagSet.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A complex type that contains the response information for the request.
@@ -4225,7 +4839,14 @@ class ListTrafficPoliciesResponse {
     @required this.maxItems,
   });
   static ListTrafficPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListTrafficPoliciesResponse();
+      ListTrafficPoliciesResponse(
+        trafficPolicySummaries: (json['TrafficPolicySummaries'] as List)
+            .map((e) => TrafficPolicySummary.fromJson(e))
+            .toList(),
+        isTruncated: json['IsTruncated'] as bool,
+        trafficPolicyIdMarker: json['TrafficPolicyIdMarker'] as String,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the request.
@@ -4266,7 +4887,21 @@ class ListTrafficPolicyInstancesByHostedZoneResponse {
   });
   static ListTrafficPolicyInstancesByHostedZoneResponse fromJson(
           Map<String, dynamic> json) =>
-      ListTrafficPolicyInstancesByHostedZoneResponse();
+      ListTrafficPolicyInstancesByHostedZoneResponse(
+        trafficPolicyInstances: (json['TrafficPolicyInstances'] as List)
+            .map((e) => TrafficPolicyInstance.fromJson(e))
+            .toList(),
+        trafficPolicyInstanceNameMarker:
+            json.containsKey('TrafficPolicyInstanceNameMarker')
+                ? json['TrafficPolicyInstanceNameMarker'] as String
+                : null,
+        trafficPolicyInstanceTypeMarker:
+            json.containsKey('TrafficPolicyInstanceTypeMarker')
+                ? json['TrafficPolicyInstanceTypeMarker'] as String
+                : null,
+        isTruncated: json['IsTruncated'] as bool,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the request.
@@ -4313,7 +4948,24 @@ class ListTrafficPolicyInstancesByPolicyResponse {
   });
   static ListTrafficPolicyInstancesByPolicyResponse fromJson(
           Map<String, dynamic> json) =>
-      ListTrafficPolicyInstancesByPolicyResponse();
+      ListTrafficPolicyInstancesByPolicyResponse(
+        trafficPolicyInstances: (json['TrafficPolicyInstances'] as List)
+            .map((e) => TrafficPolicyInstance.fromJson(e))
+            .toList(),
+        hostedZoneIdMarker: json.containsKey('HostedZoneIdMarker')
+            ? json['HostedZoneIdMarker'] as String
+            : null,
+        trafficPolicyInstanceNameMarker:
+            json.containsKey('TrafficPolicyInstanceNameMarker')
+                ? json['TrafficPolicyInstanceNameMarker'] as String
+                : null,
+        trafficPolicyInstanceTypeMarker:
+            json.containsKey('TrafficPolicyInstanceTypeMarker')
+                ? json['TrafficPolicyInstanceTypeMarker'] as String
+                : null,
+        isTruncated: json['IsTruncated'] as bool,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the request.
@@ -4359,7 +5011,24 @@ class ListTrafficPolicyInstancesResponse {
   });
   static ListTrafficPolicyInstancesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListTrafficPolicyInstancesResponse();
+      ListTrafficPolicyInstancesResponse(
+        trafficPolicyInstances: (json['TrafficPolicyInstances'] as List)
+            .map((e) => TrafficPolicyInstance.fromJson(e))
+            .toList(),
+        hostedZoneIdMarker: json.containsKey('HostedZoneIdMarker')
+            ? json['HostedZoneIdMarker'] as String
+            : null,
+        trafficPolicyInstanceNameMarker:
+            json.containsKey('TrafficPolicyInstanceNameMarker')
+                ? json['TrafficPolicyInstanceNameMarker'] as String
+                : null,
+        trafficPolicyInstanceTypeMarker:
+            json.containsKey('TrafficPolicyInstanceTypeMarker')
+                ? json['TrafficPolicyInstanceTypeMarker'] as String
+                : null,
+        isTruncated: json['IsTruncated'] as bool,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the request.
@@ -4395,7 +5064,15 @@ class ListTrafficPolicyVersionsResponse {
   });
   static ListTrafficPolicyVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListTrafficPolicyVersionsResponse();
+      ListTrafficPolicyVersionsResponse(
+        trafficPolicies: (json['TrafficPolicies'] as List)
+            .map((e) => TrafficPolicy.fromJson(e))
+            .toList(),
+        isTruncated: json['IsTruncated'] as bool,
+        trafficPolicyVersionMarker:
+            json['TrafficPolicyVersionMarker'] as String,
+        maxItems: json['MaxItems'] as String,
+      );
 }
 
 /// A complex type that contains the response information for the request.
@@ -4421,7 +5098,12 @@ class ListVpcAssociationAuthorizationsResponse {
   });
   static ListVpcAssociationAuthorizationsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListVpcAssociationAuthorizationsResponse();
+      ListVpcAssociationAuthorizationsResponse(
+        hostedZoneId: json['HostedZoneId'] as String,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        vpCs: (json['VPCs'] as List).map((e) => Vpc.fromJson(e)).toList(),
+      );
 }
 
 /// A complex type that contains information about a configuration for DNS query
@@ -4443,7 +5125,11 @@ class QueryLoggingConfig {
     @required this.cloudWatchLogsLogGroupArn,
   });
   static QueryLoggingConfig fromJson(Map<String, dynamic> json) =>
-      QueryLoggingConfig();
+      QueryLoggingConfig(
+        id: json['Id'] as String,
+        hostedZoneId: json['HostedZoneId'] as String,
+        cloudWatchLogsLogGroupArn: json['CloudWatchLogsLogGroupArn'] as String,
+      );
 }
 
 /// Information specific to the resource record.
@@ -4470,7 +5156,10 @@ class ResourceRecord {
   ResourceRecord({
     @required this.value,
   });
-  static ResourceRecord fromJson(Map<String, dynamic> json) => ResourceRecord();
+  static ResourceRecord fromJson(Map<String, dynamic> json) => ResourceRecord(
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the resource record set to create or delete.
@@ -4975,7 +5664,39 @@ class ResourceRecordSet {
     this.trafficPolicyInstanceId,
   });
   static ResourceRecordSet fromJson(Map<String, dynamic> json) =>
-      ResourceRecordSet();
+      ResourceRecordSet(
+        name: json['Name'] as String,
+        type: json['Type'] as String,
+        setIdentifier: json.containsKey('SetIdentifier')
+            ? json['SetIdentifier'] as String
+            : null,
+        weight: json.containsKey('Weight') ? BigInt.from(json['Weight']) : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        geoLocation: json.containsKey('GeoLocation')
+            ? GeoLocation.fromJson(json['GeoLocation'])
+            : null,
+        failover:
+            json.containsKey('Failover') ? json['Failover'] as String : null,
+        multiValueAnswer: json.containsKey('MultiValueAnswer')
+            ? json['MultiValueAnswer'] as bool
+            : null,
+        ttl: json.containsKey('TTL') ? BigInt.from(json['TTL']) : null,
+        resourceRecords: json.containsKey('ResourceRecords')
+            ? (json['ResourceRecords'] as List)
+                .map((e) => ResourceRecord.fromJson(e))
+                .toList()
+            : null,
+        aliasTarget: json.containsKey('AliasTarget')
+            ? AliasTarget.fromJson(json['AliasTarget'])
+            : null,
+        healthCheckId: json.containsKey('HealthCheckId')
+            ? json['HealthCheckId'] as String
+            : null,
+        trafficPolicyInstanceId: json.containsKey('TrafficPolicyInstanceId')
+            ? json['TrafficPolicyInstanceId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type containing a resource and its associated tags.
@@ -4998,7 +5719,17 @@ class ResourceTagSet {
     this.resourceId,
     this.tags,
   });
-  static ResourceTagSet fromJson(Map<String, dynamic> json) => ResourceTagSet();
+  static ResourceTagSet fromJson(Map<String, dynamic> json) => ResourceTagSet(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A complex type that contains the type of limit that you specified in the
@@ -5017,7 +5748,10 @@ class ReusableDelegationSetLimit {
     @required this.value,
   });
   static ReusableDelegationSetLimit fromJson(Map<String, dynamic> json) =>
-      ReusableDelegationSetLimit();
+      ReusableDelegationSetLimit(
+        type: json['Type'] as String,
+        value: BigInt.from(json['Value']),
+      );
 }
 
 /// A complex type that contains the status that one Amazon Route 53 health
@@ -5037,7 +5771,12 @@ class StatusReport {
     this.status,
     this.checkedTime,
   });
-  static StatusReport fromJson(Map<String, dynamic> json) => StatusReport();
+  static StatusReport fromJson(Map<String, dynamic> json) => StatusReport(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        checkedTime: json.containsKey('CheckedTime')
+            ? DateTime.parse(json['CheckedTime'])
+            : null,
+      );
 }
 
 /// A complex type that contains information about a tag that you want to add or
@@ -5072,7 +5811,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains the response to a `TestDNSAnswer` request.
@@ -5111,7 +5854,15 @@ class TestDnsAnswerResponse {
     @required this.protocol,
   });
   static TestDnsAnswerResponse fromJson(Map<String, dynamic> json) =>
-      TestDnsAnswerResponse();
+      TestDnsAnswerResponse(
+        nameserver: json['Nameserver'] as String,
+        recordName: json['RecordName'] as String,
+        recordType: json['RecordType'] as String,
+        recordData:
+            (json['RecordData'] as List).map((e) => e as String).toList(),
+        responseCode: json['ResponseCode'] as String,
+        protocol: json['Protocol'] as String,
+      );
 }
 
 /// A complex type that contains settings for a traffic policy.
@@ -5148,7 +5899,14 @@ class TrafficPolicy {
     @required this.document,
     this.comment,
   });
-  static TrafficPolicy fromJson(Map<String, dynamic> json) => TrafficPolicy();
+  static TrafficPolicy fromJson(Map<String, dynamic> json) => TrafficPolicy(
+        id: json['Id'] as String,
+        version: json['Version'] as int,
+        name: json['Name'] as String,
+        type: json['Type'] as String,
+        document: json['Document'] as String,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+      );
 }
 
 /// A complex type that contains settings for the new traffic policy instance.
@@ -5217,7 +5975,17 @@ class TrafficPolicyInstance {
     @required this.trafficPolicyType,
   });
   static TrafficPolicyInstance fromJson(Map<String, dynamic> json) =>
-      TrafficPolicyInstance();
+      TrafficPolicyInstance(
+        id: json['Id'] as String,
+        hostedZoneId: json['HostedZoneId'] as String,
+        name: json['Name'] as String,
+        ttl: BigInt.from(json['TTL']),
+        state: json['State'] as String,
+        message: json['Message'] as String,
+        trafficPolicyId: json['TrafficPolicyId'] as String,
+        trafficPolicyVersion: json['TrafficPolicyVersion'] as int,
+        trafficPolicyType: json['TrafficPolicyType'] as String,
+      );
 }
 
 /// A complex type that contains information about the latest version of one
@@ -5249,7 +6017,13 @@ class TrafficPolicySummary {
     @required this.trafficPolicyCount,
   });
   static TrafficPolicySummary fromJson(Map<String, dynamic> json) =>
-      TrafficPolicySummary();
+      TrafficPolicySummary(
+        id: json['Id'] as String,
+        name: json['Name'] as String,
+        type: json['Type'] as String,
+        latestVersion: json['LatestVersion'] as int,
+        trafficPolicyCount: json['TrafficPolicyCount'] as int,
+      );
 }
 
 /// A complex type that contains the response to the `UpdateHealthCheck`
@@ -5263,7 +6037,9 @@ class UpdateHealthCheckResponse {
     @required this.healthCheck,
   });
   static UpdateHealthCheckResponse fromJson(Map<String, dynamic> json) =>
-      UpdateHealthCheckResponse();
+      UpdateHealthCheckResponse(
+        healthCheck: HealthCheck.fromJson(json['HealthCheck']),
+      );
 }
 
 /// A complex type that contains the response to the `UpdateHostedZoneComment`
@@ -5277,7 +6053,9 @@ class UpdateHostedZoneCommentResponse {
     @required this.hostedZone,
   });
   static UpdateHostedZoneCommentResponse fromJson(Map<String, dynamic> json) =>
-      UpdateHostedZoneCommentResponse();
+      UpdateHostedZoneCommentResponse(
+        hostedZone: HostedZone.fromJson(json['HostedZone']),
+      );
 }
 
 /// A complex type that contains the response information for the traffic
@@ -5291,7 +6069,9 @@ class UpdateTrafficPolicyCommentResponse {
   });
   static UpdateTrafficPolicyCommentResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateTrafficPolicyCommentResponse();
+      UpdateTrafficPolicyCommentResponse(
+        trafficPolicy: TrafficPolicy.fromJson(json['TrafficPolicy']),
+      );
 }
 
 /// A complex type that contains information about the resource record sets that
@@ -5306,7 +6086,10 @@ class UpdateTrafficPolicyInstanceResponse {
   });
   static UpdateTrafficPolicyInstanceResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateTrafficPolicyInstanceResponse();
+      UpdateTrafficPolicyInstanceResponse(
+        trafficPolicyInstance:
+            TrafficPolicyInstance.fromJson(json['TrafficPolicyInstance']),
+      );
 }
 
 /// (Private hosted zones only) A complex type that contains information about
@@ -5321,5 +6104,10 @@ class Vpc {
     this.vpcRegion,
     this.vpcId,
   });
-  static Vpc fromJson(Map<String, dynamic> json) => Vpc();
+  static Vpc fromJson(Map<String, dynamic> json) => Vpc(
+        vpcRegion:
+            json.containsKey('VPCRegion') ? json['VPCRegion'] as String : null,
+        vpcId: json.containsKey('VPCId') ? json['VPCId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

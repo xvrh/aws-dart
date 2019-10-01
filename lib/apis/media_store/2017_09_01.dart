@@ -3,6 +3,10 @@ import 'package:meta/meta.dart';
 /// An AWS Elemental MediaStore container is a namespace that holds folders and
 /// objects. You use a container endpoint to create, read, and delete objects.
 class MediaStoreApi {
+  final _client;
+  MediaStoreApi(client)
+      : _client = client.configured('MediaStore', serializer: 'json');
+
   /// Creates a storage container to hold objects. A container is similar to a
   /// bucket in the Amazon S3 service.
   ///
@@ -21,7 +25,11 @@ class MediaStoreApi {
   /// [Tagging Resources in MediaStore](https://aws.amazon.com/documentation/mediastore/tagging).
   Future<CreateContainerOutput> createContainer(String containerName,
       {List<Tag> tags}) async {
-    return CreateContainerOutput.fromJson({});
+    var response_ = await _client.send('CreateContainer', {
+      'ContainerName': containerName,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateContainerOutput.fromJson(response_);
   }
 
   /// Deletes the specified container. Before you make a `DeleteContainer`
@@ -30,7 +38,10 @@ class MediaStoreApi {
   ///
   /// [containerName]: The name of the container to delete.
   Future<DeleteContainerOutput> deleteContainer(String containerName) async {
-    return DeleteContainerOutput.fromJson({});
+    var response_ = await _client.send('DeleteContainer', {
+      'ContainerName': containerName,
+    });
+    return DeleteContainerOutput.fromJson(response_);
   }
 
   /// Deletes the access policy that is associated with the specified container.
@@ -38,7 +49,10 @@ class MediaStoreApi {
   /// [containerName]: The name of the container that holds the policy.
   Future<DeleteContainerPolicyOutput> deleteContainerPolicy(
       String containerName) async {
-    return DeleteContainerPolicyOutput.fromJson({});
+    var response_ = await _client.send('DeleteContainerPolicy', {
+      'ContainerName': containerName,
+    });
+    return DeleteContainerPolicyOutput.fromJson(response_);
   }
 
   /// Deletes the cross-origin resource sharing (CORS) configuration information
@@ -50,7 +64,10 @@ class MediaStoreApi {
   ///
   /// [containerName]: The name of the container to remove the policy from.
   Future<DeleteCorsPolicyOutput> deleteCorsPolicy(String containerName) async {
-    return DeleteCorsPolicyOutput.fromJson({});
+    var response_ = await _client.send('DeleteCorsPolicy', {
+      'ContainerName': containerName,
+    });
+    return DeleteCorsPolicyOutput.fromJson(response_);
   }
 
   /// Removes an object lifecycle policy from a container. It takes up to 20
@@ -60,7 +77,10 @@ class MediaStoreApi {
   /// policy.
   Future<DeleteLifecyclePolicyOutput> deleteLifecyclePolicy(
       String containerName) async {
-    return DeleteLifecyclePolicyOutput.fromJson({});
+    var response_ = await _client.send('DeleteLifecyclePolicy', {
+      'ContainerName': containerName,
+    });
+    return DeleteLifecyclePolicyOutput.fromJson(response_);
   }
 
   /// Retrieves the properties of the requested container. This request is
@@ -74,7 +94,10 @@ class MediaStoreApi {
   /// [containerName]: The name of the container to query.
   Future<DescribeContainerOutput> describeContainer(
       {String containerName}) async {
-    return DescribeContainerOutput.fromJson({});
+    var response_ = await _client.send('DescribeContainer', {
+      if (containerName != null) 'ContainerName': containerName,
+    });
+    return DescribeContainerOutput.fromJson(response_);
   }
 
   /// Retrieves the access policy for the specified container. For information
@@ -84,7 +107,10 @@ class MediaStoreApi {
   /// [containerName]: The name of the container.
   Future<GetContainerPolicyOutput> getContainerPolicy(
       String containerName) async {
-    return GetContainerPolicyOutput.fromJson({});
+    var response_ = await _client.send('GetContainerPolicy', {
+      'ContainerName': containerName,
+    });
+    return GetContainerPolicyOutput.fromJson(response_);
   }
 
   /// Returns the cross-origin resource sharing (CORS) configuration information
@@ -96,7 +122,10 @@ class MediaStoreApi {
   ///
   /// [containerName]: The name of the container that the policy is assigned to.
   Future<GetCorsPolicyOutput> getCorsPolicy(String containerName) async {
-    return GetCorsPolicyOutput.fromJson({});
+    var response_ = await _client.send('GetCorsPolicy', {
+      'ContainerName': containerName,
+    });
+    return GetCorsPolicyOutput.fromJson(response_);
   }
 
   /// Retrieves the object lifecycle policy that is assigned to a container.
@@ -105,7 +134,10 @@ class MediaStoreApi {
   /// policy is assigned to.
   Future<GetLifecyclePolicyOutput> getLifecyclePolicy(
       String containerName) async {
-    return GetLifecyclePolicyOutput.fromJson({});
+    var response_ = await _client.send('GetLifecyclePolicy', {
+      'ContainerName': containerName,
+    });
+    return GetLifecyclePolicyOutput.fromJson(response_);
   }
 
   /// Lists the properties of all containers in AWS Elemental MediaStore.
@@ -129,14 +161,21 @@ class MediaStoreApi {
   /// from 1 to 255 characters.
   Future<ListContainersOutput> listContainers(
       {String nextToken, int maxResults}) async {
-    return ListContainersOutput.fromJson({});
+    var response_ = await _client.send('ListContainers', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListContainersOutput.fromJson(response_);
   }
 
   /// Returns a list of the tags assigned to the specified container.
   ///
   /// [resource]: The Amazon Resource Name (ARN) for the container.
   Future<ListTagsForResourceOutput> listTagsForResource(String resource) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'Resource': resource,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   /// Creates an access policy for the specified container to restrict the users
@@ -157,7 +196,11 @@ class MediaStoreApi {
   /// *   One `Statement` tag that contains the standard tags for the policy.
   Future<PutContainerPolicyOutput> putContainerPolicy(
       {@required String containerName, @required String policy}) async {
-    return PutContainerPolicyOutput.fromJson({});
+    var response_ = await _client.send('PutContainerPolicy', {
+      'ContainerName': containerName,
+      'Policy': policy,
+    });
+    return PutContainerPolicyOutput.fromJson(response_);
   }
 
   /// Sets the cross-origin resource sharing (CORS) configuration on a container
@@ -183,7 +226,11 @@ class MediaStoreApi {
   Future<PutCorsPolicyOutput> putCorsPolicy(
       {@required String containerName,
       @required List<CorsRule> corsPolicy}) async {
-    return PutCorsPolicyOutput.fromJson({});
+    var response_ = await _client.send('PutCorsPolicy', {
+      'ContainerName': containerName,
+      'CorsPolicy': corsPolicy,
+    });
+    return PutCorsPolicyOutput.fromJson(response_);
   }
 
   /// Writes an object lifecycle policy to a container. If the container already
@@ -201,7 +248,11 @@ class MediaStoreApi {
   Future<PutLifecyclePolicyOutput> putLifecyclePolicy(
       {@required String containerName,
       @required String lifecyclePolicy}) async {
-    return PutLifecyclePolicyOutput.fromJson({});
+    var response_ = await _client.send('PutLifecyclePolicy', {
+      'ContainerName': containerName,
+      'LifecyclePolicy': lifecyclePolicy,
+    });
+    return PutLifecyclePolicyOutput.fromJson(response_);
   }
 
   /// Starts access logging on the specified container. When you enable access
@@ -212,7 +263,10 @@ class MediaStoreApi {
   /// logging on.
   Future<StartAccessLoggingOutput> startAccessLogging(
       String containerName) async {
-    return StartAccessLoggingOutput.fromJson({});
+    var response_ = await _client.send('StartAccessLogging', {
+      'ContainerName': containerName,
+    });
+    return StartAccessLoggingOutput.fromJson(response_);
   }
 
   /// Stops access logging on the specified container. When you stop access
@@ -223,7 +277,10 @@ class MediaStoreApi {
   /// logging on.
   Future<StopAccessLoggingOutput> stopAccessLogging(
       String containerName) async {
-    return StopAccessLoggingOutput.fromJson({});
+    var response_ = await _client.send('StopAccessLogging', {
+      'ContainerName': containerName,
+    });
+    return StopAccessLoggingOutput.fromJson(response_);
   }
 
   /// Adds tags to the specified AWS Elemental MediaStore container. Tags are
@@ -245,7 +302,11 @@ class MediaStoreApi {
   /// three tags: customer:CompanyA, priority:Medium, and type:Contract.
   Future<TagResourceOutput> tagResource(
       {@required String resource, @required List<Tag> tags}) async {
-    return TagResourceOutput.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'Resource': resource,
+      'Tags': tags,
+    });
+    return TagResourceOutput.fromJson(response_);
   }
 
   /// Removes tags from the specified container. You can specify one or more
@@ -260,7 +321,11 @@ class MediaStoreApi {
   /// remove (priority).
   Future<UntagResourceOutput> untagResource(
       {@required String resource, @required List<String> tagKeys}) async {
-    return UntagResourceOutput.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'Resource': resource,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceOutput.fromJson(response_);
   }
 }
 
@@ -310,7 +375,19 @@ class Container {
     this.status,
     this.accessLoggingEnabled,
   });
-  static Container fromJson(Map<String, dynamic> json) => Container();
+  static Container fromJson(Map<String, dynamic> json) => Container(
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        accessLoggingEnabled: json.containsKey('AccessLoggingEnabled')
+            ? json['AccessLoggingEnabled'] as bool
+            : null,
+      );
 }
 
 /// A rule for a CORS policy. You can add up to 100 rules to a CORS policy. If
@@ -362,7 +439,22 @@ class CorsRule {
     this.maxAgeSeconds,
     this.exposeHeaders,
   });
-  static CorsRule fromJson(Map<String, dynamic> json) => CorsRule();
+  static CorsRule fromJson(Map<String, dynamic> json) => CorsRule(
+        allowedOrigins:
+            (json['AllowedOrigins'] as List).map((e) => e as String).toList(),
+        allowedMethods: json.containsKey('AllowedMethods')
+            ? (json['AllowedMethods'] as List).map((e) => e as String).toList()
+            : null,
+        allowedHeaders:
+            (json['AllowedHeaders'] as List).map((e) => e as String).toList(),
+        maxAgeSeconds: json.containsKey('MaxAgeSeconds')
+            ? json['MaxAgeSeconds'] as int
+            : null,
+        exposeHeaders: json.containsKey('ExposeHeaders')
+            ? (json['ExposeHeaders'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateContainerOutput {
@@ -389,7 +481,9 @@ class CreateContainerOutput {
     @required this.container,
   });
   static CreateContainerOutput fromJson(Map<String, dynamic> json) =>
-      CreateContainerOutput();
+      CreateContainerOutput(
+        container: Container.fromJson(json['Container']),
+      );
 }
 
 class DeleteContainerOutput {
@@ -424,7 +518,11 @@ class DescribeContainerOutput {
     this.container,
   });
   static DescribeContainerOutput fromJson(Map<String, dynamic> json) =>
-      DescribeContainerOutput();
+      DescribeContainerOutput(
+        container: json.containsKey('Container')
+            ? Container.fromJson(json['Container'])
+            : null,
+      );
 }
 
 class GetContainerPolicyOutput {
@@ -435,7 +533,9 @@ class GetContainerPolicyOutput {
     @required this.policy,
   });
   static GetContainerPolicyOutput fromJson(Map<String, dynamic> json) =>
-      GetContainerPolicyOutput();
+      GetContainerPolicyOutput(
+        policy: json['Policy'] as String,
+      );
 }
 
 class GetCorsPolicyOutput {
@@ -446,7 +546,11 @@ class GetCorsPolicyOutput {
     @required this.corsPolicy,
   });
   static GetCorsPolicyOutput fromJson(Map<String, dynamic> json) =>
-      GetCorsPolicyOutput();
+      GetCorsPolicyOutput(
+        corsPolicy: (json['CorsPolicy'] as List)
+            .map((e) => CorsRule.fromJson(e))
+            .toList(),
+      );
 }
 
 class GetLifecyclePolicyOutput {
@@ -457,7 +561,9 @@ class GetLifecyclePolicyOutput {
     @required this.lifecyclePolicy,
   });
   static GetLifecyclePolicyOutput fromJson(Map<String, dynamic> json) =>
-      GetLifecyclePolicyOutput();
+      GetLifecyclePolicyOutput(
+        lifecyclePolicy: json['LifecyclePolicy'] as String,
+      );
 }
 
 class ListContainersOutput {
@@ -474,7 +580,13 @@ class ListContainersOutput {
     this.nextToken,
   });
   static ListContainersOutput fromJson(Map<String, dynamic> json) =>
-      ListContainersOutput();
+      ListContainersOutput(
+        containers: (json['Containers'] as List)
+            .map((e) => Container.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceOutput {
@@ -485,7 +597,11 @@ class ListTagsForResourceOutput {
     this.tags,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class PutContainerPolicyOutput {
@@ -540,7 +656,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceOutput {

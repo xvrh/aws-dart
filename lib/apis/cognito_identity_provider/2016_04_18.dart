@@ -10,6 +10,11 @@ import 'dart:typed_data';
 ///
 /// For more information, see the Amazon Cognito Documentation.
 class CognitoIdentityProviderApi {
+  final _client;
+  CognitoIdentityProviderApi(client)
+      : _client =
+            client.configured('Cognito Identity Provider', serializer: 'json');
+
   /// Adds additional user attributes to the user pool schema.
   ///
   /// [userPoolId]: The user pool ID for the user pool where you want to add
@@ -20,7 +25,11 @@ class CognitoIdentityProviderApi {
   Future<AddCustomAttributesResponse> addCustomAttributes(
       {@required String userPoolId,
       @required List<SchemaAttributeType> customAttributes}) async {
-    return AddCustomAttributesResponse.fromJson({});
+    var response_ = await _client.send('AddCustomAttributes', {
+      'UserPoolId': userPoolId,
+      'CustomAttributes': customAttributes,
+    });
+    return AddCustomAttributesResponse.fromJson(response_);
   }
 
   /// Adds the specified user to the specified group.
@@ -35,7 +44,13 @@ class CognitoIdentityProviderApi {
   Future<void> adminAddUserToGroup(
       {@required String userPoolId,
       @required String username,
-      @required String groupName}) async {}
+      @required String groupName}) async {
+    await _client.send('AdminAddUserToGroup', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'GroupName': groupName,
+    });
+  }
 
   /// Confirms user registration as an admin without using a confirmation code.
   /// Works on any user.
@@ -48,7 +63,11 @@ class CognitoIdentityProviderApi {
   /// [username]: The user name for which you want to confirm user registration.
   Future<AdminConfirmSignUpResponse> adminConfirmSignUp(
       {@required String userPoolId, @required String username}) async {
-    return AdminConfirmSignUpResponse.fromJson({});
+    var response_ = await _client.send('AdminConfirmSignUp', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+    });
+    return AdminConfirmSignUpResponse.fromJson(response_);
   }
 
   /// Creates a new user in the specified user pool.
@@ -165,7 +184,18 @@ class CognitoIdentityProviderApi {
       bool forceAliasCreation,
       String messageAction,
       List<String> desiredDeliveryMediums}) async {
-    return AdminCreateUserResponse.fromJson({});
+    var response_ = await _client.send('AdminCreateUser', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      if (userAttributes != null) 'UserAttributes': userAttributes,
+      if (validationData != null) 'ValidationData': validationData,
+      if (temporaryPassword != null) 'TemporaryPassword': temporaryPassword,
+      if (forceAliasCreation != null) 'ForceAliasCreation': forceAliasCreation,
+      if (messageAction != null) 'MessageAction': messageAction,
+      if (desiredDeliveryMediums != null)
+        'DesiredDeliveryMediums': desiredDeliveryMediums,
+    });
+    return AdminCreateUserResponse.fromJson(response_);
   }
 
   /// Deletes a user as an administrator. Works on any user.
@@ -177,7 +207,12 @@ class CognitoIdentityProviderApi {
   ///
   /// [username]: The user name of the user you wish to delete.
   Future<void> adminDeleteUser(
-      {@required String userPoolId, @required String username}) async {}
+      {@required String userPoolId, @required String username}) async {
+    await _client.send('AdminDeleteUser', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+    });
+  }
 
   /// Deletes the user attributes in a user pool as an administrator. Works on
   /// any user.
@@ -199,7 +234,12 @@ class CognitoIdentityProviderApi {
       {@required String userPoolId,
       @required String username,
       @required List<String> userAttributeNames}) async {
-    return AdminDeleteUserAttributesResponse.fromJson({});
+    var response_ = await _client.send('AdminDeleteUserAttributes', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'UserAttributeNames': userAttributeNames,
+    });
+    return AdminDeleteUserAttributesResponse.fromJson(response_);
   }
 
   /// Disables the user from signing in with the specified external (SAML or
@@ -241,7 +281,11 @@ class CognitoIdentityProviderApi {
   Future<AdminDisableProviderForUserResponse> adminDisableProviderForUser(
       {@required String userPoolId,
       @required ProviderUserIdentifierType user}) async {
-    return AdminDisableProviderForUserResponse.fromJson({});
+    var response_ = await _client.send('AdminDisableProviderForUser', {
+      'UserPoolId': userPoolId,
+      'User': user,
+    });
+    return AdminDisableProviderForUserResponse.fromJson(response_);
   }
 
   /// Disables the specified user as an administrator. Works on any user.
@@ -254,7 +298,11 @@ class CognitoIdentityProviderApi {
   /// [username]: The user name of the user you wish to disable.
   Future<AdminDisableUserResponse> adminDisableUser(
       {@required String userPoolId, @required String username}) async {
-    return AdminDisableUserResponse.fromJson({});
+    var response_ = await _client.send('AdminDisableUser', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+    });
+    return AdminDisableUserResponse.fromJson(response_);
   }
 
   /// Enables the specified user as an administrator. Works on any user.
@@ -267,7 +315,11 @@ class CognitoIdentityProviderApi {
   /// [username]: The user name of the user you wish to enable.
   Future<AdminEnableUserResponse> adminEnableUser(
       {@required String userPoolId, @required String username}) async {
-    return AdminEnableUserResponse.fromJson({});
+    var response_ = await _client.send('AdminEnableUser', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+    });
+    return AdminEnableUserResponse.fromJson(response_);
   }
 
   /// Forgets the device, as an administrator.
@@ -282,7 +334,13 @@ class CognitoIdentityProviderApi {
   Future<void> adminForgetDevice(
       {@required String userPoolId,
       @required String username,
-      @required String deviceKey}) async {}
+      @required String deviceKey}) async {
+    await _client.send('AdminForgetDevice', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'DeviceKey': deviceKey,
+    });
+  }
 
   /// Gets the device, as an administrator.
   ///
@@ -297,7 +355,12 @@ class CognitoIdentityProviderApi {
       {@required String deviceKey,
       @required String userPoolId,
       @required String username}) async {
-    return AdminGetDeviceResponse.fromJson({});
+    var response_ = await _client.send('AdminGetDevice', {
+      'DeviceKey': deviceKey,
+      'UserPoolId': userPoolId,
+      'Username': username,
+    });
+    return AdminGetDeviceResponse.fromJson(response_);
   }
 
   /// Gets the specified user by user name in a user pool as an administrator.
@@ -311,7 +374,11 @@ class CognitoIdentityProviderApi {
   /// [username]: The user name of the user you wish to retrieve.
   Future<AdminGetUserResponse> adminGetUser(
       {@required String userPoolId, @required String username}) async {
-    return AdminGetUserResponse.fromJson({});
+    var response_ = await _client.send('AdminGetUser', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+    });
+    return AdminGetUserResponse.fromJson(response_);
   }
 
   /// Initiates the authentication flow, as an administrator.
@@ -392,7 +459,16 @@ class CognitoIdentityProviderApi {
       Map<String, String> clientMetadata,
       AnalyticsMetadataType analyticsMetadata,
       ContextDataType contextData}) async {
-    return AdminInitiateAuthResponse.fromJson({});
+    var response_ = await _client.send('AdminInitiateAuth', {
+      'UserPoolId': userPoolId,
+      'ClientId': clientId,
+      'AuthFlow': authFlow,
+      if (authParameters != null) 'AuthParameters': authParameters,
+      if (clientMetadata != null) 'ClientMetadata': clientMetadata,
+      if (analyticsMetadata != null) 'AnalyticsMetadata': analyticsMetadata,
+      if (contextData != null) 'ContextData': contextData,
+    });
+    return AdminInitiateAuthResponse.fromJson(response_);
   }
 
   /// Links an existing user account in a user pool (`DestinationUser`) to an
@@ -461,7 +537,12 @@ class CognitoIdentityProviderApi {
       {@required String userPoolId,
       @required ProviderUserIdentifierType destinationUser,
       @required ProviderUserIdentifierType sourceUser}) async {
-    return AdminLinkProviderForUserResponse.fromJson({});
+    var response_ = await _client.send('AdminLinkProviderForUser', {
+      'UserPoolId': userPoolId,
+      'DestinationUser': destinationUser,
+      'SourceUser': sourceUser,
+    });
+    return AdminLinkProviderForUserResponse.fromJson(response_);
   }
 
   /// Lists devices, as an administrator.
@@ -480,7 +561,13 @@ class CognitoIdentityProviderApi {
       @required String username,
       int limit,
       String paginationToken}) async {
-    return AdminListDevicesResponse.fromJson({});
+    var response_ = await _client.send('AdminListDevices', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      if (limit != null) 'Limit': limit,
+      if (paginationToken != null) 'PaginationToken': paginationToken,
+    });
+    return AdminListDevicesResponse.fromJson(response_);
   }
 
   /// Lists the groups that the user belongs to.
@@ -501,7 +588,13 @@ class CognitoIdentityProviderApi {
       @required String userPoolId,
       int limit,
       String nextToken}) async {
-    return AdminListGroupsForUserResponse.fromJson({});
+    var response_ = await _client.send('AdminListGroupsForUser', {
+      'Username': username,
+      'UserPoolId': userPoolId,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return AdminListGroupsForUserResponse.fromJson(response_);
   }
 
   /// Lists a history of user activity and any risks detected as part of Amazon
@@ -519,7 +612,13 @@ class CognitoIdentityProviderApi {
       @required String username,
       int maxResults,
       String nextToken}) async {
-    return AdminListUserAuthEventsResponse.fromJson({});
+    var response_ = await _client.send('AdminListUserAuthEvents', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return AdminListUserAuthEventsResponse.fromJson(response_);
   }
 
   /// Removes the specified user from the specified group.
@@ -534,7 +633,13 @@ class CognitoIdentityProviderApi {
   Future<void> adminRemoveUserFromGroup(
       {@required String userPoolId,
       @required String username,
-      @required String groupName}) async {}
+      @required String groupName}) async {
+    await _client.send('AdminRemoveUserFromGroup', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'GroupName': groupName,
+    });
+  }
 
   /// Resets the specified user's password in a user pool as an administrator.
   /// Works on any user.
@@ -557,7 +662,11 @@ class CognitoIdentityProviderApi {
   /// [username]: The user name of the user whose password you wish to reset.
   Future<AdminResetUserPasswordResponse> adminResetUserPassword(
       {@required String userPoolId, @required String username}) async {
-    return AdminResetUserPasswordResponse.fromJson({});
+    var response_ = await _client.send('AdminResetUserPassword', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+    });
+    return AdminResetUserPasswordResponse.fromJson(response_);
   }
 
   /// Responds to an authentication challenge, as an administrator.
@@ -615,7 +724,16 @@ class CognitoIdentityProviderApi {
       String session,
       AnalyticsMetadataType analyticsMetadata,
       ContextDataType contextData}) async {
-    return AdminRespondToAuthChallengeResponse.fromJson({});
+    var response_ = await _client.send('AdminRespondToAuthChallenge', {
+      'UserPoolId': userPoolId,
+      'ClientId': clientId,
+      'ChallengeName': challengeName,
+      if (challengeResponses != null) 'ChallengeResponses': challengeResponses,
+      if (session != null) 'Session': session,
+      if (analyticsMetadata != null) 'AnalyticsMetadata': analyticsMetadata,
+      if (contextData != null) 'ContextData': contextData,
+    });
+    return AdminRespondToAuthChallengeResponse.fromJson(response_);
   }
 
   /// Sets the user's multi-factor authentication (MFA) preference.
@@ -633,7 +751,14 @@ class CognitoIdentityProviderApi {
       SoftwareTokenMfaSettingsType softwareTokenMfaSettings,
       @required String username,
       @required String userPoolId}) async {
-    return AdminSetUserMfaPreferenceResponse.fromJson({});
+    var response_ = await _client.send('AdminSetUserMFAPreference', {
+      if (smsMfaSettings != null) 'SMSMfaSettings': smsMfaSettings,
+      if (softwareTokenMfaSettings != null)
+        'SoftwareTokenMfaSettings': softwareTokenMfaSettings,
+      'Username': username,
+      'UserPoolId': userPoolId,
+    });
+    return AdminSetUserMfaPreferenceResponse.fromJson(response_);
   }
 
   Future<AdminSetUserPasswordResponse> adminSetUserPassword(
@@ -641,7 +766,13 @@ class CognitoIdentityProviderApi {
       @required String username,
       @required String password,
       bool permanent}) async {
-    return AdminSetUserPasswordResponse.fromJson({});
+    var response_ = await _client.send('AdminSetUserPassword', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'Password': password,
+      if (permanent != null) 'Permanent': permanent,
+    });
+    return AdminSetUserPasswordResponse.fromJson(response_);
   }
 
   /// Sets all the user settings for a specified user name. Works on any user.
@@ -659,7 +790,12 @@ class CognitoIdentityProviderApi {
       {@required String userPoolId,
       @required String username,
       @required List<MfaOptionType> mfaOptions}) async {
-    return AdminSetUserSettingsResponse.fromJson({});
+    var response_ = await _client.send('AdminSetUserSettings', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'MFAOptions': mfaOptions,
+    });
+    return AdminSetUserSettingsResponse.fromJson(response_);
   }
 
   /// Provides feedback for an authentication event as to whether it was from a
@@ -678,7 +814,13 @@ class CognitoIdentityProviderApi {
       @required String username,
       @required String eventId,
       @required String feedbackValue}) async {
-    return AdminUpdateAuthEventFeedbackResponse.fromJson({});
+    var response_ = await _client.send('AdminUpdateAuthEventFeedback', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'EventId': eventId,
+      'FeedbackValue': feedbackValue,
+    });
+    return AdminUpdateAuthEventFeedbackResponse.fromJson(response_);
   }
 
   /// Updates the device status as an administrator.
@@ -698,7 +840,14 @@ class CognitoIdentityProviderApi {
       @required String username,
       @required String deviceKey,
       String deviceRememberedStatus}) async {
-    return AdminUpdateDeviceStatusResponse.fromJson({});
+    var response_ = await _client.send('AdminUpdateDeviceStatus', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'DeviceKey': deviceKey,
+      if (deviceRememberedStatus != null)
+        'DeviceRememberedStatus': deviceRememberedStatus,
+    });
+    return AdminUpdateDeviceStatusResponse.fromJson(response_);
   }
 
   /// Updates the specified user's attributes, including developer attributes,
@@ -727,7 +876,12 @@ class CognitoIdentityProviderApi {
       {@required String userPoolId,
       @required String username,
       @required List<AttributeType> userAttributes}) async {
-    return AdminUpdateUserAttributesResponse.fromJson({});
+    var response_ = await _client.send('AdminUpdateUserAttributes', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'UserAttributes': userAttributes,
+    });
+    return AdminUpdateUserAttributesResponse.fromJson(response_);
   }
 
   /// Signs out users from all devices, as an administrator.
@@ -739,7 +893,11 @@ class CognitoIdentityProviderApi {
   /// [username]: The user name.
   Future<AdminUserGlobalSignOutResponse> adminUserGlobalSignOut(
       {@required String userPoolId, @required String username}) async {
-    return AdminUserGlobalSignOutResponse.fromJson({});
+    var response_ = await _client.send('AdminUserGlobalSignOut', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+    });
+    return AdminUserGlobalSignOutResponse.fromJson(response_);
   }
 
   /// Returns a unique generated shared secret key code for the user account.
@@ -752,7 +910,11 @@ class CognitoIdentityProviderApi {
   /// user as part of the MFA setup process.
   Future<AssociateSoftwareTokenResponse> associateSoftwareToken(
       {String accessToken, String session}) async {
-    return AssociateSoftwareTokenResponse.fromJson({});
+    var response_ = await _client.send('AssociateSoftwareToken', {
+      if (accessToken != null) 'AccessToken': accessToken,
+      if (session != null) 'Session': session,
+    });
+    return AssociateSoftwareTokenResponse.fromJson(response_);
   }
 
   /// Changes the password for a specified user in a user pool.
@@ -766,7 +928,12 @@ class CognitoIdentityProviderApi {
       {@required String previousPassword,
       @required String proposedPassword,
       @required String accessToken}) async {
-    return ChangePasswordResponse.fromJson({});
+    var response_ = await _client.send('ChangePassword', {
+      'PreviousPassword': previousPassword,
+      'ProposedPassword': proposedPassword,
+      'AccessToken': accessToken,
+    });
+    return ChangePasswordResponse.fromJson(response_);
   }
 
   /// Confirms tracking of the device. This API call is the call that begins
@@ -785,7 +952,14 @@ class CognitoIdentityProviderApi {
       @required String deviceKey,
       DeviceSecretVerifierConfigType deviceSecretVerifierConfig,
       String deviceName}) async {
-    return ConfirmDeviceResponse.fromJson({});
+    var response_ = await _client.send('ConfirmDevice', {
+      'AccessToken': accessToken,
+      'DeviceKey': deviceKey,
+      if (deviceSecretVerifierConfig != null)
+        'DeviceSecretVerifierConfig': deviceSecretVerifierConfig,
+      if (deviceName != null) 'DeviceName': deviceName,
+    });
+    return ConfirmDeviceResponse.fromJson(response_);
   }
 
   /// Allows a user to enter a confirmation code to reset a forgotten password.
@@ -819,7 +993,16 @@ class CognitoIdentityProviderApi {
       @required String password,
       AnalyticsMetadataType analyticsMetadata,
       UserContextDataType userContextData}) async {
-    return ConfirmForgotPasswordResponse.fromJson({});
+    var response_ = await _client.send('ConfirmForgotPassword', {
+      'ClientId': clientId,
+      if (secretHash != null) 'SecretHash': secretHash,
+      'Username': username,
+      'ConfirmationCode': confirmationCode,
+      'Password': password,
+      if (analyticsMetadata != null) 'AnalyticsMetadata': analyticsMetadata,
+      if (userContextData != null) 'UserContextData': userContextData,
+    });
+    return ConfirmForgotPasswordResponse.fromJson(response_);
   }
 
   /// Confirms registration of a user and handles the existing alias from a
@@ -859,7 +1042,16 @@ class CognitoIdentityProviderApi {
       bool forceAliasCreation,
       AnalyticsMetadataType analyticsMetadata,
       UserContextDataType userContextData}) async {
-    return ConfirmSignUpResponse.fromJson({});
+    var response_ = await _client.send('ConfirmSignUp', {
+      'ClientId': clientId,
+      if (secretHash != null) 'SecretHash': secretHash,
+      'Username': username,
+      'ConfirmationCode': confirmationCode,
+      if (forceAliasCreation != null) 'ForceAliasCreation': forceAliasCreation,
+      if (analyticsMetadata != null) 'AnalyticsMetadata': analyticsMetadata,
+      if (userContextData != null) 'UserContextData': userContextData,
+    });
+    return ConfirmSignUpResponse.fromJson(response_);
   }
 
   /// Creates a new group in the specified user pool.
@@ -896,7 +1088,14 @@ class CognitoIdentityProviderApi {
       String description,
       String roleArn,
       int precedence}) async {
-    return CreateGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateGroup', {
+      'GroupName': groupName,
+      'UserPoolId': userPoolId,
+      if (description != null) 'Description': description,
+      if (roleArn != null) 'RoleArn': roleArn,
+      if (precedence != null) 'Precedence': precedence,
+    });
+    return CreateGroupResponse.fromJson(response_);
   }
 
   /// Creates an identity provider for a user pool.
@@ -921,7 +1120,15 @@ class CognitoIdentityProviderApi {
       @required Map<String, String> providerDetails,
       Map<String, String> attributeMapping,
       List<String> idpIdentifiers}) async {
-    return CreateIdentityProviderResponse.fromJson({});
+    var response_ = await _client.send('CreateIdentityProvider', {
+      'UserPoolId': userPoolId,
+      'ProviderName': providerName,
+      'ProviderType': providerType,
+      'ProviderDetails': providerDetails,
+      if (attributeMapping != null) 'AttributeMapping': attributeMapping,
+      if (idpIdentifiers != null) 'IdpIdentifiers': idpIdentifiers,
+    });
+    return CreateIdentityProviderResponse.fromJson(response_);
   }
 
   /// Creates a new OAuth2.0 resource server and defines custom scopes in it.
@@ -941,7 +1148,13 @@ class CognitoIdentityProviderApi {
       @required String identifier,
       @required String name,
       List<ResourceServerScopeType> scopes}) async {
-    return CreateResourceServerResponse.fromJson({});
+    var response_ = await _client.send('CreateResourceServer', {
+      'UserPoolId': userPoolId,
+      'Identifier': identifier,
+      'Name': name,
+      if (scopes != null) 'Scopes': scopes,
+    });
+    return CreateResourceServerResponse.fromJson(response_);
   }
 
   /// Creates the user import job.
@@ -957,7 +1170,12 @@ class CognitoIdentityProviderApi {
       {@required String jobName,
       @required String userPoolId,
       @required String cloudWatchLogsRoleArn}) async {
-    return CreateUserImportJobResponse.fromJson({});
+    var response_ = await _client.send('CreateUserImportJob', {
+      'JobName': jobName,
+      'UserPoolId': userPoolId,
+      'CloudWatchLogsRoleArn': cloudWatchLogsRoleArn,
+    });
+    return CreateUserImportJobResponse.fromJson(response_);
   }
 
   /// Creates a new Amazon Cognito user pool and sets the password policy for
@@ -1048,7 +1266,36 @@ class CognitoIdentityProviderApi {
       AdminCreateUserConfigType adminCreateUserConfig,
       List<SchemaAttributeType> schema,
       UserPoolAddOnsType userPoolAddOns}) async {
-    return CreateUserPoolResponse.fromJson({});
+    var response_ = await _client.send('CreateUserPool', {
+      'PoolName': poolName,
+      if (policies != null) 'Policies': policies,
+      if (lambdaConfig != null) 'LambdaConfig': lambdaConfig,
+      if (autoVerifiedAttributes != null)
+        'AutoVerifiedAttributes': autoVerifiedAttributes,
+      if (aliasAttributes != null) 'AliasAttributes': aliasAttributes,
+      if (usernameAttributes != null) 'UsernameAttributes': usernameAttributes,
+      if (smsVerificationMessage != null)
+        'SmsVerificationMessage': smsVerificationMessage,
+      if (emailVerificationMessage != null)
+        'EmailVerificationMessage': emailVerificationMessage,
+      if (emailVerificationSubject != null)
+        'EmailVerificationSubject': emailVerificationSubject,
+      if (verificationMessageTemplate != null)
+        'VerificationMessageTemplate': verificationMessageTemplate,
+      if (smsAuthenticationMessage != null)
+        'SmsAuthenticationMessage': smsAuthenticationMessage,
+      if (mfaConfiguration != null) 'MfaConfiguration': mfaConfiguration,
+      if (deviceConfiguration != null)
+        'DeviceConfiguration': deviceConfiguration,
+      if (emailConfiguration != null) 'EmailConfiguration': emailConfiguration,
+      if (smsConfiguration != null) 'SmsConfiguration': smsConfiguration,
+      if (userPoolTags != null) 'UserPoolTags': userPoolTags,
+      if (adminCreateUserConfig != null)
+        'AdminCreateUserConfig': adminCreateUserConfig,
+      if (schema != null) 'Schema': schema,
+      if (userPoolAddOns != null) 'UserPoolAddOns': userPoolAddOns,
+    });
+    return CreateUserPoolResponse.fromJson(response_);
   }
 
   /// Creates the user pool client.
@@ -1157,7 +1404,28 @@ class CognitoIdentityProviderApi {
       List<String> allowedoAuthScopes,
       bool allowedoAuthFlowsUserPoolClient,
       AnalyticsConfigurationType analyticsConfiguration}) async {
-    return CreateUserPoolClientResponse.fromJson({});
+    var response_ = await _client.send('CreateUserPoolClient', {
+      'UserPoolId': userPoolId,
+      'ClientName': clientName,
+      if (generateSecret != null) 'GenerateSecret': generateSecret,
+      if (refreshTokenValidity != null)
+        'RefreshTokenValidity': refreshTokenValidity,
+      if (readAttributes != null) 'ReadAttributes': readAttributes,
+      if (writeAttributes != null) 'WriteAttributes': writeAttributes,
+      if (explicitAuthFlows != null) 'ExplicitAuthFlows': explicitAuthFlows,
+      if (supportedIdentityProviders != null)
+        'SupportedIdentityProviders': supportedIdentityProviders,
+      if (callbackURLs != null) 'CallbackURLs': callbackURLs,
+      if (logoutURLs != null) 'LogoutURLs': logoutURLs,
+      if (defaultRedirectUri != null) 'DefaultRedirectURI': defaultRedirectUri,
+      if (allowedoAuthFlows != null) 'AllowedOAuthFlows': allowedoAuthFlows,
+      if (allowedoAuthScopes != null) 'AllowedOAuthScopes': allowedoAuthScopes,
+      if (allowedoAuthFlowsUserPoolClient != null)
+        'AllowedOAuthFlowsUserPoolClient': allowedoAuthFlowsUserPoolClient,
+      if (analyticsConfiguration != null)
+        'AnalyticsConfiguration': analyticsConfiguration,
+    });
+    return CreateUserPoolClientResponse.fromJson(response_);
   }
 
   /// Creates a new domain for a user pool.
@@ -1179,7 +1447,12 @@ class CognitoIdentityProviderApi {
       {@required String domain,
       @required String userPoolId,
       CustomDomainConfigType customDomainConfig}) async {
-    return CreateUserPoolDomainResponse.fromJson({});
+    var response_ = await _client.send('CreateUserPoolDomain', {
+      'Domain': domain,
+      'UserPoolId': userPoolId,
+      if (customDomainConfig != null) 'CustomDomainConfig': customDomainConfig,
+    });
+    return CreateUserPoolDomainResponse.fromJson(response_);
   }
 
   /// Deletes a group. Currently only groups with no members can be deleted.
@@ -1190,7 +1463,12 @@ class CognitoIdentityProviderApi {
   ///
   /// [userPoolId]: The user pool ID for the user pool.
   Future<void> deleteGroup(
-      {@required String groupName, @required String userPoolId}) async {}
+      {@required String groupName, @required String userPoolId}) async {
+    await _client.send('DeleteGroup', {
+      'GroupName': groupName,
+      'UserPoolId': userPoolId,
+    });
+  }
 
   /// Deletes an identity provider for a user pool.
   ///
@@ -1198,7 +1476,12 @@ class CognitoIdentityProviderApi {
   ///
   /// [providerName]: The identity provider name.
   Future<void> deleteIdentityProvider(
-      {@required String userPoolId, @required String providerName}) async {}
+      {@required String userPoolId, @required String providerName}) async {
+    await _client.send('DeleteIdentityProvider', {
+      'UserPoolId': userPoolId,
+      'ProviderName': providerName,
+    });
+  }
 
   /// Deletes a resource server.
   ///
@@ -1207,12 +1490,21 @@ class CognitoIdentityProviderApi {
   ///
   /// [identifier]: The identifier for the resource server.
   Future<void> deleteResourceServer(
-      {@required String userPoolId, @required String identifier}) async {}
+      {@required String userPoolId, @required String identifier}) async {
+    await _client.send('DeleteResourceServer', {
+      'UserPoolId': userPoolId,
+      'Identifier': identifier,
+    });
+  }
 
   /// Allows a user to delete himself or herself.
   ///
   /// [accessToken]: The access token from a request to delete a user.
-  Future<void> deleteUser(String accessToken) async {}
+  Future<void> deleteUser(String accessToken) async {
+    await _client.send('DeleteUser', {
+      'AccessToken': accessToken,
+    });
+  }
 
   /// Deletes the attributes for a user.
   ///
@@ -1227,13 +1519,21 @@ class CognitoIdentityProviderApi {
   Future<DeleteUserAttributesResponse> deleteUserAttributes(
       {@required List<String> userAttributeNames,
       @required String accessToken}) async {
-    return DeleteUserAttributesResponse.fromJson({});
+    var response_ = await _client.send('DeleteUserAttributes', {
+      'UserAttributeNames': userAttributeNames,
+      'AccessToken': accessToken,
+    });
+    return DeleteUserAttributesResponse.fromJson(response_);
   }
 
   /// Deletes the specified Amazon Cognito user pool.
   ///
   /// [userPoolId]: The user pool ID for the user pool you want to delete.
-  Future<void> deleteUserPool(String userPoolId) async {}
+  Future<void> deleteUserPool(String userPoolId) async {
+    await _client.send('DeleteUserPool', {
+      'UserPoolId': userPoolId,
+    });
+  }
 
   /// Allows the developer to delete the user pool client.
   ///
@@ -1242,7 +1542,12 @@ class CognitoIdentityProviderApi {
   ///
   /// [clientId]: The app client ID of the app associated with the user pool.
   Future<void> deleteUserPoolClient(
-      {@required String userPoolId, @required String clientId}) async {}
+      {@required String userPoolId, @required String clientId}) async {
+    await _client.send('DeleteUserPoolClient', {
+      'UserPoolId': userPoolId,
+      'ClientId': clientId,
+    });
+  }
 
   /// Deletes a domain for a user pool.
   ///
@@ -1251,7 +1556,11 @@ class CognitoIdentityProviderApi {
   /// [userPoolId]: The user pool ID.
   Future<DeleteUserPoolDomainResponse> deleteUserPoolDomain(
       {@required String domain, @required String userPoolId}) async {
-    return DeleteUserPoolDomainResponse.fromJson({});
+    var response_ = await _client.send('DeleteUserPoolDomain', {
+      'Domain': domain,
+      'UserPoolId': userPoolId,
+    });
+    return DeleteUserPoolDomainResponse.fromJson(response_);
   }
 
   /// Gets information about a specific identity provider.
@@ -1261,7 +1570,11 @@ class CognitoIdentityProviderApi {
   /// [providerName]: The identity provider name.
   Future<DescribeIdentityProviderResponse> describeIdentityProvider(
       {@required String userPoolId, @required String providerName}) async {
-    return DescribeIdentityProviderResponse.fromJson({});
+    var response_ = await _client.send('DescribeIdentityProvider', {
+      'UserPoolId': userPoolId,
+      'ProviderName': providerName,
+    });
+    return DescribeIdentityProviderResponse.fromJson(response_);
   }
 
   /// Describes a resource server.
@@ -1272,7 +1585,11 @@ class CognitoIdentityProviderApi {
   /// [identifier]: The identifier for the resource server
   Future<DescribeResourceServerResponse> describeResourceServer(
       {@required String userPoolId, @required String identifier}) async {
-    return DescribeResourceServerResponse.fromJson({});
+    var response_ = await _client.send('DescribeResourceServer', {
+      'UserPoolId': userPoolId,
+      'Identifier': identifier,
+    });
+    return DescribeResourceServerResponse.fromJson(response_);
   }
 
   /// Describes the risk configuration.
@@ -1283,7 +1600,11 @@ class CognitoIdentityProviderApi {
   Future<DescribeRiskConfigurationResponse> describeRiskConfiguration(
       String userPoolId,
       {String clientId}) async {
-    return DescribeRiskConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DescribeRiskConfiguration', {
+      'UserPoolId': userPoolId,
+      if (clientId != null) 'ClientId': clientId,
+    });
+    return DescribeRiskConfigurationResponse.fromJson(response_);
   }
 
   /// Describes the user import job.
@@ -1294,7 +1615,11 @@ class CognitoIdentityProviderApi {
   /// [jobId]: The job ID for the user import job.
   Future<DescribeUserImportJobResponse> describeUserImportJob(
       {@required String userPoolId, @required String jobId}) async {
-    return DescribeUserImportJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeUserImportJob', {
+      'UserPoolId': userPoolId,
+      'JobId': jobId,
+    });
+    return DescribeUserImportJobResponse.fromJson(response_);
   }
 
   /// Returns the configuration information and metadata of the specified user
@@ -1302,7 +1627,10 @@ class CognitoIdentityProviderApi {
   ///
   /// [userPoolId]: The user pool ID for the user pool you want to describe.
   Future<DescribeUserPoolResponse> describeUserPool(String userPoolId) async {
-    return DescribeUserPoolResponse.fromJson({});
+    var response_ = await _client.send('DescribeUserPool', {
+      'UserPoolId': userPoolId,
+    });
+    return DescribeUserPoolResponse.fromJson(response_);
   }
 
   /// Client method for returning the configuration information and metadata of
@@ -1313,7 +1641,11 @@ class CognitoIdentityProviderApi {
   /// [clientId]: The app client ID of the app associated with the user pool.
   Future<DescribeUserPoolClientResponse> describeUserPoolClient(
       {@required String userPoolId, @required String clientId}) async {
-    return DescribeUserPoolClientResponse.fromJson({});
+    var response_ = await _client.send('DescribeUserPoolClient', {
+      'UserPoolId': userPoolId,
+      'ClientId': clientId,
+    });
+    return DescribeUserPoolClientResponse.fromJson(response_);
   }
 
   /// Gets information about a domain.
@@ -1321,7 +1653,10 @@ class CognitoIdentityProviderApi {
   /// [domain]: The domain string.
   Future<DescribeUserPoolDomainResponse> describeUserPoolDomain(
       String domain) async {
-    return DescribeUserPoolDomainResponse.fromJson({});
+    var response_ = await _client.send('DescribeUserPoolDomain', {
+      'Domain': domain,
+    });
+    return DescribeUserPoolDomainResponse.fromJson(response_);
   }
 
   /// Forgets the specified device.
@@ -1329,7 +1664,12 @@ class CognitoIdentityProviderApi {
   /// [accessToken]: The access token for the forgotten device request.
   ///
   /// [deviceKey]: The device key.
-  Future<void> forgetDevice(String deviceKey, {String accessToken}) async {}
+  Future<void> forgetDevice(String deviceKey, {String accessToken}) async {
+    await _client.send('ForgetDevice', {
+      if (accessToken != null) 'AccessToken': accessToken,
+      'DeviceKey': deviceKey,
+    });
+  }
 
   /// Calling this API causes a message to be sent to the end user with a
   /// confirmation code that is required to change the user's password. For the
@@ -1361,7 +1701,14 @@ class CognitoIdentityProviderApi {
       UserContextDataType userContextData,
       @required String username,
       AnalyticsMetadataType analyticsMetadata}) async {
-    return ForgotPasswordResponse.fromJson({});
+    var response_ = await _client.send('ForgotPassword', {
+      'ClientId': clientId,
+      if (secretHash != null) 'SecretHash': secretHash,
+      if (userContextData != null) 'UserContextData': userContextData,
+      'Username': username,
+      if (analyticsMetadata != null) 'AnalyticsMetadata': analyticsMetadata,
+    });
+    return ForgotPasswordResponse.fromJson(response_);
   }
 
   /// Gets the header information for the .csv file to be used as input for the
@@ -1370,7 +1717,10 @@ class CognitoIdentityProviderApi {
   /// [userPoolId]: The user pool ID for the user pool that the users are to be
   /// imported into.
   Future<GetCsvHeaderResponse> getCsvHeader(String userPoolId) async {
-    return GetCsvHeaderResponse.fromJson({});
+    var response_ = await _client.send('GetCSVHeader', {
+      'UserPoolId': userPoolId,
+    });
+    return GetCsvHeaderResponse.fromJson(response_);
   }
 
   /// Gets the device.
@@ -1380,7 +1730,11 @@ class CognitoIdentityProviderApi {
   /// [accessToken]: The access token.
   Future<GetDeviceResponse> getDevice(String deviceKey,
       {String accessToken}) async {
-    return GetDeviceResponse.fromJson({});
+    var response_ = await _client.send('GetDevice', {
+      'DeviceKey': deviceKey,
+      if (accessToken != null) 'AccessToken': accessToken,
+    });
+    return GetDeviceResponse.fromJson(response_);
   }
 
   /// Gets a group.
@@ -1392,7 +1746,11 @@ class CognitoIdentityProviderApi {
   /// [userPoolId]: The user pool ID for the user pool.
   Future<GetGroupResponse> getGroup(
       {@required String groupName, @required String userPoolId}) async {
-    return GetGroupResponse.fromJson({});
+    var response_ = await _client.send('GetGroup', {
+      'GroupName': groupName,
+      'UserPoolId': userPoolId,
+    });
+    return GetGroupResponse.fromJson(response_);
   }
 
   /// Gets the specified identity provider.
@@ -1403,7 +1761,11 @@ class CognitoIdentityProviderApi {
   Future<GetIdentityProviderByIdentifierResponse>
       getIdentityProviderByIdentifier(
           {@required String userPoolId, @required String idpIdentifier}) async {
-    return GetIdentityProviderByIdentifierResponse.fromJson({});
+    var response_ = await _client.send('GetIdentityProviderByIdentifier', {
+      'UserPoolId': userPoolId,
+      'IdpIdentifier': idpIdentifier,
+    });
+    return GetIdentityProviderByIdentifierResponse.fromJson(response_);
   }
 
   /// This method takes a user pool ID, and returns the signing certificate.
@@ -1411,7 +1773,10 @@ class CognitoIdentityProviderApi {
   /// [userPoolId]: The user pool ID.
   Future<GetSigningCertificateResponse> getSigningCertificate(
       String userPoolId) async {
-    return GetSigningCertificateResponse.fromJson({});
+    var response_ = await _client.send('GetSigningCertificate', {
+      'UserPoolId': userPoolId,
+    });
+    return GetSigningCertificateResponse.fromJson(response_);
   }
 
   /// Gets the UI Customization information for a particular app client's app
@@ -1425,7 +1790,11 @@ class CognitoIdentityProviderApi {
   /// [clientId]: The client ID for the client app.
   Future<GetUICustomizationResponse> getUICustomization(String userPoolId,
       {String clientId}) async {
-    return GetUICustomizationResponse.fromJson({});
+    var response_ = await _client.send('GetUICustomization', {
+      'UserPoolId': userPoolId,
+      if (clientId != null) 'ClientId': clientId,
+    });
+    return GetUICustomizationResponse.fromJson(response_);
   }
 
   /// Gets the user attributes and metadata for a user.
@@ -1433,7 +1802,10 @@ class CognitoIdentityProviderApi {
   /// [accessToken]: The access token returned by the server response to get
   /// information about the user.
   Future<GetUserResponse> getUser(String accessToken) async {
-    return GetUserResponse.fromJson({});
+    var response_ = await _client.send('GetUser', {
+      'AccessToken': accessToken,
+    });
+    return GetUserResponse.fromJson(response_);
   }
 
   /// Gets the user attribute verification code for the specified attribute
@@ -1448,7 +1820,11 @@ class CognitoIdentityProviderApi {
       getUserAttributeVerificationCode(
           {@required String accessToken,
           @required String attributeName}) async {
-    return GetUserAttributeVerificationCodeResponse.fromJson({});
+    var response_ = await _client.send('GetUserAttributeVerificationCode', {
+      'AccessToken': accessToken,
+      'AttributeName': attributeName,
+    });
+    return GetUserAttributeVerificationCodeResponse.fromJson(response_);
   }
 
   /// Gets the user pool multi-factor authentication (MFA) configuration.
@@ -1456,14 +1832,20 @@ class CognitoIdentityProviderApi {
   /// [userPoolId]: The user pool ID.
   Future<GetUserPoolMfaConfigResponse> getUserPoolMfaConfig(
       String userPoolId) async {
-    return GetUserPoolMfaConfigResponse.fromJson({});
+    var response_ = await _client.send('GetUserPoolMfaConfig', {
+      'UserPoolId': userPoolId,
+    });
+    return GetUserPoolMfaConfigResponse.fromJson(response_);
   }
 
   /// Signs out users from all devices.
   ///
   /// [accessToken]: The access token.
   Future<GlobalSignOutResponse> globalSignOut(String accessToken) async {
-    return GlobalSignOutResponse.fromJson({});
+    var response_ = await _client.send('GlobalSignOut', {
+      'AccessToken': accessToken,
+    });
+    return GlobalSignOutResponse.fromJson(response_);
   }
 
   /// Initiates the authentication flow.
@@ -1534,7 +1916,15 @@ class CognitoIdentityProviderApi {
       @required String clientId,
       AnalyticsMetadataType analyticsMetadata,
       UserContextDataType userContextData}) async {
-    return InitiateAuthResponse.fromJson({});
+    var response_ = await _client.send('InitiateAuth', {
+      'AuthFlow': authFlow,
+      if (authParameters != null) 'AuthParameters': authParameters,
+      if (clientMetadata != null) 'ClientMetadata': clientMetadata,
+      'ClientId': clientId,
+      if (analyticsMetadata != null) 'AnalyticsMetadata': analyticsMetadata,
+      if (userContextData != null) 'UserContextData': userContextData,
+    });
+    return InitiateAuthResponse.fromJson(response_);
   }
 
   /// Lists the devices.
@@ -1546,7 +1936,12 @@ class CognitoIdentityProviderApi {
   /// [paginationToken]: The pagination token for the list request.
   Future<ListDevicesResponse> listDevices(String accessToken,
       {int limit, String paginationToken}) async {
-    return ListDevicesResponse.fromJson({});
+    var response_ = await _client.send('ListDevices', {
+      'AccessToken': accessToken,
+      if (limit != null) 'Limit': limit,
+      if (paginationToken != null) 'PaginationToken': paginationToken,
+    });
+    return ListDevicesResponse.fromJson(response_);
   }
 
   /// Lists the groups associated with a user pool.
@@ -1562,7 +1957,12 @@ class CognitoIdentityProviderApi {
   /// list.
   Future<ListGroupsResponse> listGroups(String userPoolId,
       {int limit, String nextToken}) async {
-    return ListGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListGroups', {
+      'UserPoolId': userPoolId,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListGroupsResponse.fromJson(response_);
   }
 
   /// Lists information about all identity providers for a user pool.
@@ -1574,7 +1974,12 @@ class CognitoIdentityProviderApi {
   /// [nextToken]: A pagination token.
   Future<ListIdentityProvidersResponse> listIdentityProviders(String userPoolId,
       {int maxResults, String nextToken}) async {
-    return ListIdentityProvidersResponse.fromJson({});
+    var response_ = await _client.send('ListIdentityProviders', {
+      'UserPoolId': userPoolId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListIdentityProvidersResponse.fromJson(response_);
   }
 
   /// Lists the resource servers for a user pool.
@@ -1586,7 +1991,12 @@ class CognitoIdentityProviderApi {
   /// [nextToken]: A pagination token.
   Future<ListResourceServersResponse> listResourceServers(String userPoolId,
       {int maxResults, String nextToken}) async {
-    return ListResourceServersResponse.fromJson({});
+    var response_ = await _client.send('ListResourceServers', {
+      'UserPoolId': userPoolId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListResourceServersResponse.fromJson(response_);
   }
 
   /// Lists the tags that are assigned to an Amazon Cognito user pool.
@@ -1601,7 +2011,10 @@ class CognitoIdentityProviderApi {
   /// tags are assigned to.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Lists the user import jobs.
@@ -1619,7 +2032,12 @@ class CognitoIdentityProviderApi {
       {@required String userPoolId,
       @required int maxResults,
       String paginationToken}) async {
-    return ListUserImportJobsResponse.fromJson({});
+    var response_ = await _client.send('ListUserImportJobs', {
+      'UserPoolId': userPoolId,
+      'MaxResults': maxResults,
+      if (paginationToken != null) 'PaginationToken': paginationToken,
+    });
+    return ListUserImportJobsResponse.fromJson(response_);
   }
 
   /// Lists the clients that have been created for the specified user pool.
@@ -1635,7 +2053,12 @@ class CognitoIdentityProviderApi {
   /// list.
   Future<ListUserPoolClientsResponse> listUserPoolClients(String userPoolId,
       {int maxResults, String nextToken}) async {
-    return ListUserPoolClientsResponse.fromJson({});
+    var response_ = await _client.send('ListUserPoolClients', {
+      'UserPoolId': userPoolId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListUserPoolClientsResponse.fromJson(response_);
   }
 
   /// Lists the user pools associated with an AWS account.
@@ -1648,7 +2071,11 @@ class CognitoIdentityProviderApi {
   /// when listing the user pools.
   Future<ListUserPoolsResponse> listUserPools(int maxResults,
       {String nextToken}) async {
-    return ListUserPoolsResponse.fromJson({});
+    var response_ = await _client.send('ListUserPools', {
+      if (nextToken != null) 'NextToken': nextToken,
+      'MaxResults': maxResults,
+    });
+    return ListUserPoolsResponse.fromJson(response_);
   }
 
   /// Lists the users in the Amazon Cognito user pool.
@@ -1721,7 +2148,14 @@ class CognitoIdentityProviderApi {
       int limit,
       String paginationToken,
       String filter}) async {
-    return ListUsersResponse.fromJson({});
+    var response_ = await _client.send('ListUsers', {
+      'UserPoolId': userPoolId,
+      if (attributesToGet != null) 'AttributesToGet': attributesToGet,
+      if (limit != null) 'Limit': limit,
+      if (paginationToken != null) 'PaginationToken': paginationToken,
+      if (filter != null) 'Filter': filter,
+    });
+    return ListUsersResponse.fromJson(response_);
   }
 
   /// Lists the users in the specified group.
@@ -1742,7 +2176,13 @@ class CognitoIdentityProviderApi {
       @required String groupName,
       int limit,
       String nextToken}) async {
-    return ListUsersInGroupResponse.fromJson({});
+    var response_ = await _client.send('ListUsersInGroup', {
+      'UserPoolId': userPoolId,
+      'GroupName': groupName,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListUsersInGroupResponse.fromJson(response_);
   }
 
   /// Resends the confirmation (for confirmation of registration) to a specific
@@ -1769,7 +2209,14 @@ class CognitoIdentityProviderApi {
       UserContextDataType userContextData,
       @required String username,
       AnalyticsMetadataType analyticsMetadata}) async {
-    return ResendConfirmationCodeResponse.fromJson({});
+    var response_ = await _client.send('ResendConfirmationCode', {
+      'ClientId': clientId,
+      if (secretHash != null) 'SecretHash': secretHash,
+      if (userContextData != null) 'UserContextData': userContextData,
+      'Username': username,
+      if (analyticsMetadata != null) 'AnalyticsMetadata': analyticsMetadata,
+    });
+    return ResendConfirmationCodeResponse.fromJson(response_);
   }
 
   /// Responds to the authentication challenge.
@@ -1814,7 +2261,15 @@ class CognitoIdentityProviderApi {
       Map<String, String> challengeResponses,
       AnalyticsMetadataType analyticsMetadata,
       UserContextDataType userContextData}) async {
-    return RespondToAuthChallengeResponse.fromJson({});
+    var response_ = await _client.send('RespondToAuthChallenge', {
+      'ClientId': clientId,
+      'ChallengeName': challengeName,
+      if (session != null) 'Session': session,
+      if (challengeResponses != null) 'ChallengeResponses': challengeResponses,
+      if (analyticsMetadata != null) 'AnalyticsMetadata': analyticsMetadata,
+      if (userContextData != null) 'UserContextData': userContextData,
+    });
+    return RespondToAuthChallengeResponse.fromJson(response_);
   }
 
   /// Configures actions on detected risks. To delete the risk configuration for
@@ -1850,7 +2305,18 @@ class CognitoIdentityProviderApi {
           compromisedCredentialsRiskConfiguration,
       AccountTakeoverRiskConfigurationType accountTakeoverRiskConfiguration,
       RiskExceptionConfigurationType riskExceptionConfiguration}) async {
-    return SetRiskConfigurationResponse.fromJson({});
+    var response_ = await _client.send('SetRiskConfiguration', {
+      'UserPoolId': userPoolId,
+      if (clientId != null) 'ClientId': clientId,
+      if (compromisedCredentialsRiskConfiguration != null)
+        'CompromisedCredentialsRiskConfiguration':
+            compromisedCredentialsRiskConfiguration,
+      if (accountTakeoverRiskConfiguration != null)
+        'AccountTakeoverRiskConfiguration': accountTakeoverRiskConfiguration,
+      if (riskExceptionConfiguration != null)
+        'RiskExceptionConfiguration': riskExceptionConfiguration,
+    });
+    return SetRiskConfigurationResponse.fromJson(response_);
   }
 
   /// Sets the UI customization information for a user pool's built-in app UI.
@@ -1877,7 +2343,13 @@ class CognitoIdentityProviderApi {
   /// [imageFile]: The uploaded logo image for the UI customization.
   Future<SetUICustomizationResponse> setUICustomization(String userPoolId,
       {String clientId, String css, Uint8List imageFile}) async {
-    return SetUICustomizationResponse.fromJson({});
+    var response_ = await _client.send('SetUICustomization', {
+      'UserPoolId': userPoolId,
+      if (clientId != null) 'ClientId': clientId,
+      if (css != null) 'CSS': css,
+      if (imageFile != null) 'ImageFile': imageFile,
+    });
+    return SetUICustomizationResponse.fromJson(response_);
   }
 
   /// Set the user's multi-factor authentication (MFA) method preference.
@@ -1892,7 +2364,13 @@ class CognitoIdentityProviderApi {
   Future<SetUserMfaPreferenceResponse> setUserMfaPreference(String accessToken,
       {SmsMfaSettingsType smsMfaSettings,
       SoftwareTokenMfaSettingsType softwareTokenMfaSettings}) async {
-    return SetUserMfaPreferenceResponse.fromJson({});
+    var response_ = await _client.send('SetUserMFAPreference', {
+      if (smsMfaSettings != null) 'SMSMfaSettings': smsMfaSettings,
+      if (softwareTokenMfaSettings != null)
+        'SoftwareTokenMfaSettings': softwareTokenMfaSettings,
+      'AccessToken': accessToken,
+    });
+    return SetUserMfaPreferenceResponse.fromJson(response_);
   }
 
   /// Set the user pool MFA configuration.
@@ -1908,7 +2386,15 @@ class CognitoIdentityProviderApi {
       {SmsMfaConfigType smsMfaConfiguration,
       SoftwareTokenMfaConfigType softwareTokenMfaConfiguration,
       String mfaConfiguration}) async {
-    return SetUserPoolMfaConfigResponse.fromJson({});
+    var response_ = await _client.send('SetUserPoolMfaConfig', {
+      'UserPoolId': userPoolId,
+      if (smsMfaConfiguration != null)
+        'SmsMfaConfiguration': smsMfaConfiguration,
+      if (softwareTokenMfaConfiguration != null)
+        'SoftwareTokenMfaConfiguration': softwareTokenMfaConfiguration,
+      if (mfaConfiguration != null) 'MfaConfiguration': mfaConfiguration,
+    });
+    return SetUserPoolMfaConfigResponse.fromJson(response_);
   }
 
   /// Sets the user settings like multi-factor authentication (MFA). If MFA is
@@ -1921,7 +2407,11 @@ class CognitoIdentityProviderApi {
   Future<SetUserSettingsResponse> setUserSettings(
       {@required String accessToken,
       @required List<MfaOptionType> mfaOptions}) async {
-    return SetUserSettingsResponse.fromJson({});
+    var response_ = await _client.send('SetUserSettings', {
+      'AccessToken': accessToken,
+      'MFAOptions': mfaOptions,
+    });
+    return SetUserSettingsResponse.fromJson(response_);
   }
 
   /// Registers the user in the specified user pool and creates a user name,
@@ -1960,7 +2450,17 @@ class CognitoIdentityProviderApi {
       List<AttributeType> validationData,
       AnalyticsMetadataType analyticsMetadata,
       UserContextDataType userContextData}) async {
-    return SignUpResponse.fromJson({});
+    var response_ = await _client.send('SignUp', {
+      'ClientId': clientId,
+      if (secretHash != null) 'SecretHash': secretHash,
+      'Username': username,
+      'Password': password,
+      if (userAttributes != null) 'UserAttributes': userAttributes,
+      if (validationData != null) 'ValidationData': validationData,
+      if (analyticsMetadata != null) 'AnalyticsMetadata': analyticsMetadata,
+      if (userContextData != null) 'UserContextData': userContextData,
+    });
+    return SignUpResponse.fromJson(response_);
   }
 
   /// Starts the user import.
@@ -1971,7 +2471,11 @@ class CognitoIdentityProviderApi {
   /// [jobId]: The job ID for the user import job.
   Future<StartUserImportJobResponse> startUserImportJob(
       {@required String userPoolId, @required String jobId}) async {
-    return StartUserImportJobResponse.fromJson({});
+    var response_ = await _client.send('StartUserImportJob', {
+      'UserPoolId': userPoolId,
+      'JobId': jobId,
+    });
+    return StartUserImportJobResponse.fromJson(response_);
   }
 
   /// Stops the user import job.
@@ -1982,7 +2486,11 @@ class CognitoIdentityProviderApi {
   /// [jobId]: The job ID for the user import job.
   Future<StopUserImportJobResponse> stopUserImportJob(
       {@required String userPoolId, @required String jobId}) async {
-    return StopUserImportJobResponse.fromJson({});
+    var response_ = await _client.send('StopUserImportJob', {
+      'UserPoolId': userPoolId,
+      'JobId': jobId,
+    });
+    return StopUserImportJobResponse.fromJson(response_);
   }
 
   /// Assigns a set of tags to an Amazon Cognito user pool. A tag is a label
@@ -2010,7 +2518,11 @@ class CognitoIdentityProviderApi {
   /// [tags]: The tags to assign to the user pool.
   Future<TagResourceResponse> tagResource(String resourceArn,
       {Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      if (tags != null) 'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes the specified tags from an Amazon Cognito user pool. You can use
@@ -2022,7 +2534,11 @@ class CognitoIdentityProviderApi {
   /// [tagKeys]: The keys of the tags to remove from the user pool.
   Future<UntagResourceResponse> untagResource(String resourceArn,
       {List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Provides the feedback for an authentication event whether it was from a
@@ -2044,7 +2560,14 @@ class CognitoIdentityProviderApi {
       @required String eventId,
       @required String feedbackToken,
       @required String feedbackValue}) async {
-    return UpdateAuthEventFeedbackResponse.fromJson({});
+    var response_ = await _client.send('UpdateAuthEventFeedback', {
+      'UserPoolId': userPoolId,
+      'Username': username,
+      'EventId': eventId,
+      'FeedbackToken': feedbackToken,
+      'FeedbackValue': feedbackValue,
+    });
+    return UpdateAuthEventFeedbackResponse.fromJson(response_);
   }
 
   /// Updates the device status.
@@ -2058,7 +2581,13 @@ class CognitoIdentityProviderApi {
       {@required String accessToken,
       @required String deviceKey,
       String deviceRememberedStatus}) async {
-    return UpdateDeviceStatusResponse.fromJson({});
+    var response_ = await _client.send('UpdateDeviceStatus', {
+      'AccessToken': accessToken,
+      'DeviceKey': deviceKey,
+      if (deviceRememberedStatus != null)
+        'DeviceRememberedStatus': deviceRememberedStatus,
+    });
+    return UpdateDeviceStatusResponse.fromJson(response_);
   }
 
   /// Updates the specified group with the specified attributes.
@@ -2082,7 +2611,14 @@ class CognitoIdentityProviderApi {
       String description,
       String roleArn,
       int precedence}) async {
-    return UpdateGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateGroup', {
+      'GroupName': groupName,
+      'UserPoolId': userPoolId,
+      if (description != null) 'Description': description,
+      if (roleArn != null) 'RoleArn': roleArn,
+      if (precedence != null) 'Precedence': precedence,
+    });
+    return UpdateGroupResponse.fromJson(response_);
   }
 
   /// Updates identity provider information for a user pool.
@@ -2103,7 +2639,14 @@ class CognitoIdentityProviderApi {
       Map<String, String> providerDetails,
       Map<String, String> attributeMapping,
       List<String> idpIdentifiers}) async {
-    return UpdateIdentityProviderResponse.fromJson({});
+    var response_ = await _client.send('UpdateIdentityProvider', {
+      'UserPoolId': userPoolId,
+      'ProviderName': providerName,
+      if (providerDetails != null) 'ProviderDetails': providerDetails,
+      if (attributeMapping != null) 'AttributeMapping': attributeMapping,
+      if (idpIdentifiers != null) 'IdpIdentifiers': idpIdentifiers,
+    });
+    return UpdateIdentityProviderResponse.fromJson(response_);
   }
 
   /// Updates the name and scopes of resource server. All other fields are
@@ -2121,7 +2664,13 @@ class CognitoIdentityProviderApi {
       @required String identifier,
       @required String name,
       List<ResourceServerScopeType> scopes}) async {
-    return UpdateResourceServerResponse.fromJson({});
+    var response_ = await _client.send('UpdateResourceServer', {
+      'UserPoolId': userPoolId,
+      'Identifier': identifier,
+      'Name': name,
+      if (scopes != null) 'Scopes': scopes,
+    });
+    return UpdateResourceServerResponse.fromJson(response_);
   }
 
   /// Allows a user to update a specific attribute (one at a time).
@@ -2136,7 +2685,11 @@ class CognitoIdentityProviderApi {
   Future<UpdateUserAttributesResponse> updateUserAttributes(
       {@required List<AttributeType> userAttributes,
       @required String accessToken}) async {
-    return UpdateUserAttributesResponse.fromJson({});
+    var response_ = await _client.send('UpdateUserAttributes', {
+      'UserAttributes': userAttributes,
+      'AccessToken': accessToken,
+    });
+    return UpdateUserAttributesResponse.fromJson(response_);
   }
 
   /// Updates the specified user pool with the specified attributes. If you
@@ -2208,7 +2761,33 @@ class CognitoIdentityProviderApi {
       Map<String, String> userPoolTags,
       AdminCreateUserConfigType adminCreateUserConfig,
       UserPoolAddOnsType userPoolAddOns}) async {
-    return UpdateUserPoolResponse.fromJson({});
+    var response_ = await _client.send('UpdateUserPool', {
+      'UserPoolId': userPoolId,
+      if (policies != null) 'Policies': policies,
+      if (lambdaConfig != null) 'LambdaConfig': lambdaConfig,
+      if (autoVerifiedAttributes != null)
+        'AutoVerifiedAttributes': autoVerifiedAttributes,
+      if (smsVerificationMessage != null)
+        'SmsVerificationMessage': smsVerificationMessage,
+      if (emailVerificationMessage != null)
+        'EmailVerificationMessage': emailVerificationMessage,
+      if (emailVerificationSubject != null)
+        'EmailVerificationSubject': emailVerificationSubject,
+      if (verificationMessageTemplate != null)
+        'VerificationMessageTemplate': verificationMessageTemplate,
+      if (smsAuthenticationMessage != null)
+        'SmsAuthenticationMessage': smsAuthenticationMessage,
+      if (mfaConfiguration != null) 'MfaConfiguration': mfaConfiguration,
+      if (deviceConfiguration != null)
+        'DeviceConfiguration': deviceConfiguration,
+      if (emailConfiguration != null) 'EmailConfiguration': emailConfiguration,
+      if (smsConfiguration != null) 'SmsConfiguration': smsConfiguration,
+      if (userPoolTags != null) 'UserPoolTags': userPoolTags,
+      if (adminCreateUserConfig != null)
+        'AdminCreateUserConfig': adminCreateUserConfig,
+      if (userPoolAddOns != null) 'UserPoolAddOns': userPoolAddOns,
+    });
+    return UpdateUserPoolResponse.fromJson(response_);
   }
 
   /// Updates the specified user pool app client with the specified attributes.
@@ -2305,7 +2884,28 @@ class CognitoIdentityProviderApi {
       List<String> allowedoAuthScopes,
       bool allowedoAuthFlowsUserPoolClient,
       AnalyticsConfigurationType analyticsConfiguration}) async {
-    return UpdateUserPoolClientResponse.fromJson({});
+    var response_ = await _client.send('UpdateUserPoolClient', {
+      'UserPoolId': userPoolId,
+      'ClientId': clientId,
+      if (clientName != null) 'ClientName': clientName,
+      if (refreshTokenValidity != null)
+        'RefreshTokenValidity': refreshTokenValidity,
+      if (readAttributes != null) 'ReadAttributes': readAttributes,
+      if (writeAttributes != null) 'WriteAttributes': writeAttributes,
+      if (explicitAuthFlows != null) 'ExplicitAuthFlows': explicitAuthFlows,
+      if (supportedIdentityProviders != null)
+        'SupportedIdentityProviders': supportedIdentityProviders,
+      if (callbackURLs != null) 'CallbackURLs': callbackURLs,
+      if (logoutURLs != null) 'LogoutURLs': logoutURLs,
+      if (defaultRedirectUri != null) 'DefaultRedirectURI': defaultRedirectUri,
+      if (allowedoAuthFlows != null) 'AllowedOAuthFlows': allowedoAuthFlows,
+      if (allowedoAuthScopes != null) 'AllowedOAuthScopes': allowedoAuthScopes,
+      if (allowedoAuthFlowsUserPoolClient != null)
+        'AllowedOAuthFlowsUserPoolClient': allowedoAuthFlowsUserPoolClient,
+      if (analyticsConfiguration != null)
+        'AnalyticsConfiguration': analyticsConfiguration,
+    });
+    return UpdateUserPoolClientResponse.fromJson(response_);
   }
 
   /// Updates the Secure Sockets Layer (SSL) certificate for the custom domain
@@ -2356,7 +2956,12 @@ class CognitoIdentityProviderApi {
       {@required String domain,
       @required String userPoolId,
       @required CustomDomainConfigType customDomainConfig}) async {
-    return UpdateUserPoolDomainResponse.fromJson({});
+    var response_ = await _client.send('UpdateUserPoolDomain', {
+      'Domain': domain,
+      'UserPoolId': userPoolId,
+      'CustomDomainConfig': customDomainConfig,
+    });
+    return UpdateUserPoolDomainResponse.fromJson(response_);
   }
 
   /// Use this API to register a user's entered TOTP code and mark the user's
@@ -2374,7 +2979,13 @@ class CognitoIdentityProviderApi {
   /// [friendlyDeviceName]: The friendly device name.
   Future<VerifySoftwareTokenResponse> verifySoftwareToken(String userCode,
       {String accessToken, String session, String friendlyDeviceName}) async {
-    return VerifySoftwareTokenResponse.fromJson({});
+    var response_ = await _client.send('VerifySoftwareToken', {
+      if (accessToken != null) 'AccessToken': accessToken,
+      if (session != null) 'Session': session,
+      'UserCode': userCode,
+      if (friendlyDeviceName != null) 'FriendlyDeviceName': friendlyDeviceName,
+    });
+    return VerifySoftwareTokenResponse.fromJson(response_);
   }
 
   /// Verifies the specified user attributes in the user pool.
@@ -2390,7 +3001,12 @@ class CognitoIdentityProviderApi {
       {@required String accessToken,
       @required String attributeName,
       @required String code}) async {
-    return VerifyUserAttributeResponse.fromJson({});
+    var response_ = await _client.send('VerifyUserAttribute', {
+      'AccessToken': accessToken,
+      'AttributeName': attributeName,
+      'Code': code,
+    });
+    return VerifyUserAttributeResponse.fromJson(response_);
   }
 }
 
@@ -2417,7 +3033,11 @@ class AccountTakeoverActionType {
     @required this.eventAction,
   });
   static AccountTakeoverActionType fromJson(Map<String, dynamic> json) =>
-      AccountTakeoverActionType();
+      AccountTakeoverActionType(
+        notify: json['Notify'] as bool,
+        eventAction: json['EventAction'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Account takeover actions type.
@@ -2437,7 +3057,18 @@ class AccountTakeoverActionsType {
     this.highAction,
   });
   static AccountTakeoverActionsType fromJson(Map<String, dynamic> json) =>
-      AccountTakeoverActionsType();
+      AccountTakeoverActionsType(
+        lowAction: json.containsKey('LowAction')
+            ? AccountTakeoverActionType.fromJson(json['LowAction'])
+            : null,
+        mediumAction: json.containsKey('MediumAction')
+            ? AccountTakeoverActionType.fromJson(json['MediumAction'])
+            : null,
+        highAction: json.containsKey('HighAction')
+            ? AccountTakeoverActionType.fromJson(json['HighAction'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration for mitigation actions and notification for different levels
@@ -2455,7 +3086,13 @@ class AccountTakeoverRiskConfigurationType {
   });
   static AccountTakeoverRiskConfigurationType fromJson(
           Map<String, dynamic> json) =>
-      AccountTakeoverRiskConfigurationType();
+      AccountTakeoverRiskConfigurationType(
+        notifyConfiguration: json.containsKey('NotifyConfiguration')
+            ? NotifyConfigurationType.fromJson(json['NotifyConfiguration'])
+            : null,
+        actions: AccountTakeoverActionsType.fromJson(json['Actions']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the response from the server for the request to add custom
@@ -2504,7 +3141,18 @@ class AdminCreateUserConfigType {
     this.inviteMessageTemplate,
   });
   static AdminCreateUserConfigType fromJson(Map<String, dynamic> json) =>
-      AdminCreateUserConfigType();
+      AdminCreateUserConfigType(
+        allowAdminCreateUserOnly: json.containsKey('AllowAdminCreateUserOnly')
+            ? json['AllowAdminCreateUserOnly'] as bool
+            : null,
+        unusedAccountValidityDays: json.containsKey('UnusedAccountValidityDays')
+            ? json['UnusedAccountValidityDays'] as int
+            : null,
+        inviteMessageTemplate: json.containsKey('InviteMessageTemplate')
+            ? MessageTemplateType.fromJson(json['InviteMessageTemplate'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the response from the server to the request to create the user.
@@ -2516,7 +3164,9 @@ class AdminCreateUserResponse {
     this.user,
   });
   static AdminCreateUserResponse fromJson(Map<String, dynamic> json) =>
-      AdminCreateUserResponse();
+      AdminCreateUserResponse(
+        user: json.containsKey('User') ? UserType.fromJson(json['User']) : null,
+      );
 }
 
 /// Represents the response received from the server for a request to delete
@@ -2560,7 +3210,9 @@ class AdminGetDeviceResponse {
     @required this.device,
   });
   static AdminGetDeviceResponse fromJson(Map<String, dynamic> json) =>
-      AdminGetDeviceResponse();
+      AdminGetDeviceResponse(
+        device: DeviceType.fromJson(json['Device']),
+      );
 }
 
 /// Represents the response from the server from the request to get the
@@ -2622,7 +3274,37 @@ class AdminGetUserResponse {
     this.userMfaSettingList,
   });
   static AdminGetUserResponse fromJson(Map<String, dynamic> json) =>
-      AdminGetUserResponse();
+      AdminGetUserResponse(
+        username: json['Username'] as String,
+        userAttributes: json.containsKey('UserAttributes')
+            ? (json['UserAttributes'] as List)
+                .map((e) => AttributeType.fromJson(e))
+                .toList()
+            : null,
+        userCreateDate: json.containsKey('UserCreateDate')
+            ? DateTime.parse(json['UserCreateDate'])
+            : null,
+        userLastModifiedDate: json.containsKey('UserLastModifiedDate')
+            ? DateTime.parse(json['UserLastModifiedDate'])
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        userStatus: json.containsKey('UserStatus')
+            ? json['UserStatus'] as String
+            : null,
+        mfaOptions: json.containsKey('MFAOptions')
+            ? (json['MFAOptions'] as List)
+                .map((e) => MfaOptionType.fromJson(e))
+                .toList()
+            : null,
+        preferredMfaSetting: json.containsKey('PreferredMfaSetting')
+            ? json['PreferredMfaSetting'] as String
+            : null,
+        userMfaSettingList: json.containsKey('UserMFASettingList')
+            ? (json['UserMFASettingList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Initiates the authentication response, as an administrator.
@@ -2700,7 +3382,19 @@ class AdminInitiateAuthResponse {
     this.authenticationResult,
   });
   static AdminInitiateAuthResponse fromJson(Map<String, dynamic> json) =>
-      AdminInitiateAuthResponse();
+      AdminInitiateAuthResponse(
+        challengeName: json.containsKey('ChallengeName')
+            ? json['ChallengeName'] as String
+            : null,
+        session: json.containsKey('Session') ? json['Session'] as String : null,
+        challengeParameters: json.containsKey('ChallengeParameters')
+            ? (json['ChallengeParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        authenticationResult: json.containsKey('AuthenticationResult')
+            ? AuthenticationResultType.fromJson(json['AuthenticationResult'])
+            : null,
+      );
 }
 
 class AdminLinkProviderForUserResponse {
@@ -2722,7 +3416,16 @@ class AdminListDevicesResponse {
     this.paginationToken,
   });
   static AdminListDevicesResponse fromJson(Map<String, dynamic> json) =>
-      AdminListDevicesResponse();
+      AdminListDevicesResponse(
+        devices: json.containsKey('Devices')
+            ? (json['Devices'] as List)
+                .map((e) => DeviceType.fromJson(e))
+                .toList()
+            : null,
+        paginationToken: json.containsKey('PaginationToken')
+            ? json['PaginationToken'] as String
+            : null,
+      );
 }
 
 class AdminListGroupsForUserResponse {
@@ -2738,7 +3441,15 @@ class AdminListGroupsForUserResponse {
     this.nextToken,
   });
   static AdminListGroupsForUserResponse fromJson(Map<String, dynamic> json) =>
-      AdminListGroupsForUserResponse();
+      AdminListGroupsForUserResponse(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupType.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class AdminListUserAuthEventsResponse {
@@ -2754,7 +3465,15 @@ class AdminListUserAuthEventsResponse {
     this.nextToken,
   });
   static AdminListUserAuthEventsResponse fromJson(Map<String, dynamic> json) =>
-      AdminListUserAuthEventsResponse();
+      AdminListUserAuthEventsResponse(
+        authEvents: json.containsKey('AuthEvents')
+            ? (json['AuthEvents'] as List)
+                .map((e) => AuthEventType.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the response from the server to reset a user password as an
@@ -2792,7 +3511,19 @@ class AdminRespondToAuthChallengeResponse {
   });
   static AdminRespondToAuthChallengeResponse fromJson(
           Map<String, dynamic> json) =>
-      AdminRespondToAuthChallengeResponse();
+      AdminRespondToAuthChallengeResponse(
+        challengeName: json.containsKey('ChallengeName')
+            ? json['ChallengeName'] as String
+            : null,
+        session: json.containsKey('Session') ? json['Session'] as String : null,
+        challengeParameters: json.containsKey('ChallengeParameters')
+            ? (json['ChallengeParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        authenticationResult: json.containsKey('AuthenticationResult')
+            ? AuthenticationResultType.fromJson(json['AuthenticationResult'])
+            : null,
+      );
 }
 
 class AdminSetUserMfaPreferenceResponse {
@@ -2871,7 +3602,15 @@ class AnalyticsConfigurationType {
     this.userDataShared,
   });
   static AnalyticsConfigurationType fromJson(Map<String, dynamic> json) =>
-      AnalyticsConfigurationType();
+      AnalyticsConfigurationType(
+        applicationId: json['ApplicationId'] as String,
+        roleArn: json['RoleArn'] as String,
+        externalId: json['ExternalId'] as String,
+        userDataShared: json.containsKey('UserDataShared')
+            ? json['UserDataShared'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An Amazon Pinpoint analytics endpoint.
@@ -2885,6 +3624,7 @@ class AnalyticsMetadataType {
   AnalyticsMetadataType({
     this.analyticsEndpointId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class AssociateSoftwareTokenResponse {
@@ -2902,7 +3642,12 @@ class AssociateSoftwareTokenResponse {
     this.session,
   });
   static AssociateSoftwareTokenResponse fromJson(Map<String, dynamic> json) =>
-      AssociateSoftwareTokenResponse();
+      AssociateSoftwareTokenResponse(
+        secretCode: json.containsKey('SecretCode')
+            ? json['SecretCode'] as String
+            : null,
+        session: json.containsKey('Session') ? json['Session'] as String : null,
+      );
 }
 
 /// Specifies whether the attribute is standard or custom.
@@ -2917,7 +3662,11 @@ class AttributeType {
     @required this.name,
     this.value,
   });
-  static AttributeType fromJson(Map<String, dynamic> json) => AttributeType();
+  static AttributeType fromJson(Map<String, dynamic> json) => AttributeType(
+        name: json['Name'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The authentication event type.
@@ -2959,7 +3708,31 @@ class AuthEventType {
     this.eventContextData,
     this.eventFeedback,
   });
-  static AuthEventType fromJson(Map<String, dynamic> json) => AuthEventType();
+  static AuthEventType fromJson(Map<String, dynamic> json) => AuthEventType(
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+        eventType:
+            json.containsKey('EventType') ? json['EventType'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        eventResponse: json.containsKey('EventResponse')
+            ? json['EventResponse'] as String
+            : null,
+        eventRisk: json.containsKey('EventRisk')
+            ? EventRiskType.fromJson(json['EventRisk'])
+            : null,
+        challengeResponses: json.containsKey('ChallengeResponses')
+            ? (json['ChallengeResponses'] as List)
+                .map((e) => ChallengeResponseType.fromJson(e))
+                .toList()
+            : null,
+        eventContextData: json.containsKey('EventContextData')
+            ? EventContextDataType.fromJson(json['EventContextData'])
+            : null,
+        eventFeedback: json.containsKey('EventFeedback')
+            ? EventFeedbackType.fromJson(json['EventFeedback'])
+            : null,
+      );
 }
 
 /// The authentication result.
@@ -2991,7 +3764,22 @@ class AuthenticationResultType {
     this.newDeviceMetadata,
   });
   static AuthenticationResultType fromJson(Map<String, dynamic> json) =>
-      AuthenticationResultType();
+      AuthenticationResultType(
+        accessToken: json.containsKey('AccessToken')
+            ? json['AccessToken'] as String
+            : null,
+        expiresIn:
+            json.containsKey('ExpiresIn') ? json['ExpiresIn'] as int : null,
+        tokenType:
+            json.containsKey('TokenType') ? json['TokenType'] as String : null,
+        refreshToken: json.containsKey('RefreshToken')
+            ? json['RefreshToken'] as String
+            : null,
+        idToken: json.containsKey('IdToken') ? json['IdToken'] as String : null,
+        newDeviceMetadata: json.containsKey('NewDeviceMetadata')
+            ? NewDeviceMetadataType.fromJson(json['NewDeviceMetadata'])
+            : null,
+      );
 }
 
 /// The challenge response type.
@@ -3007,7 +3795,14 @@ class ChallengeResponseType {
     this.challengeResponse,
   });
   static ChallengeResponseType fromJson(Map<String, dynamic> json) =>
-      ChallengeResponseType();
+      ChallengeResponseType(
+        challengeName: json.containsKey('ChallengeName')
+            ? json['ChallengeName'] as String
+            : null,
+        challengeResponse: json.containsKey('ChallengeResponse')
+            ? json['ChallengeResponse'] as String
+            : null,
+      );
 }
 
 /// The response from the server to the change password request.
@@ -3034,7 +3829,17 @@ class CodeDeliveryDetailsType {
     this.attributeName,
   });
   static CodeDeliveryDetailsType fromJson(Map<String, dynamic> json) =>
-      CodeDeliveryDetailsType();
+      CodeDeliveryDetailsType(
+        destination: json.containsKey('Destination')
+            ? json['Destination'] as String
+            : null,
+        deliveryMedium: json.containsKey('DeliveryMedium')
+            ? json['DeliveryMedium'] as String
+            : null,
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+      );
 }
 
 /// The compromised credentials actions type
@@ -3047,7 +3852,10 @@ class CompromisedCredentialsActionsType {
   });
   static CompromisedCredentialsActionsType fromJson(
           Map<String, dynamic> json) =>
-      CompromisedCredentialsActionsType();
+      CompromisedCredentialsActionsType(
+        eventAction: json['EventAction'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The compromised credentials risk configuration type.
@@ -3065,7 +3873,13 @@ class CompromisedCredentialsRiskConfigurationType {
   });
   static CompromisedCredentialsRiskConfigurationType fromJson(
           Map<String, dynamic> json) =>
-      CompromisedCredentialsRiskConfigurationType();
+      CompromisedCredentialsRiskConfigurationType(
+        eventFilter: json.containsKey('EventFilter')
+            ? (json['EventFilter'] as List).map((e) => e as String).toList()
+            : null,
+        actions: CompromisedCredentialsActionsType.fromJson(json['Actions']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Confirms the device response.
@@ -3078,7 +3892,11 @@ class ConfirmDeviceResponse {
     this.userConfirmationNecessary,
   });
   static ConfirmDeviceResponse fromJson(Map<String, dynamic> json) =>
-      ConfirmDeviceResponse();
+      ConfirmDeviceResponse(
+        userConfirmationNecessary: json.containsKey('UserConfirmationNecessary')
+            ? json['UserConfirmationNecessary'] as bool
+            : null,
+      );
 }
 
 /// The response from the server that results from a user's request to retrieve
@@ -3122,6 +3940,7 @@ class ContextDataType {
     @required this.httpHeaders,
     this.encodedData,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateGroupResponse {
@@ -3132,7 +3951,11 @@ class CreateGroupResponse {
     this.group,
   });
   static CreateGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateGroupResponse();
+      CreateGroupResponse(
+        group: json.containsKey('Group')
+            ? GroupType.fromJson(json['Group'])
+            : null,
+      );
 }
 
 class CreateIdentityProviderResponse {
@@ -3143,7 +3966,10 @@ class CreateIdentityProviderResponse {
     @required this.identityProvider,
   });
   static CreateIdentityProviderResponse fromJson(Map<String, dynamic> json) =>
-      CreateIdentityProviderResponse();
+      CreateIdentityProviderResponse(
+        identityProvider:
+            IdentityProviderType.fromJson(json['IdentityProvider']),
+      );
 }
 
 class CreateResourceServerResponse {
@@ -3154,7 +3980,9 @@ class CreateResourceServerResponse {
     @required this.resourceServer,
   });
   static CreateResourceServerResponse fromJson(Map<String, dynamic> json) =>
-      CreateResourceServerResponse();
+      CreateResourceServerResponse(
+        resourceServer: ResourceServerType.fromJson(json['ResourceServer']),
+      );
 }
 
 /// Represents the response from the server to the request to create the user
@@ -3167,7 +3995,11 @@ class CreateUserImportJobResponse {
     this.userImportJob,
   });
   static CreateUserImportJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserImportJobResponse();
+      CreateUserImportJobResponse(
+        userImportJob: json.containsKey('UserImportJob')
+            ? UserImportJobType.fromJson(json['UserImportJob'])
+            : null,
+      );
 }
 
 /// Represents the response from the server to create a user pool client.
@@ -3179,7 +4011,11 @@ class CreateUserPoolClientResponse {
     this.userPoolClient,
   });
   static CreateUserPoolClientResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserPoolClientResponse();
+      CreateUserPoolClientResponse(
+        userPoolClient: json.containsKey('UserPoolClient')
+            ? UserPoolClientType.fromJson(json['UserPoolClient'])
+            : null,
+      );
 }
 
 class CreateUserPoolDomainResponse {
@@ -3191,7 +4027,11 @@ class CreateUserPoolDomainResponse {
     this.cloudFrontDomain,
   });
   static CreateUserPoolDomainResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserPoolDomainResponse();
+      CreateUserPoolDomainResponse(
+        cloudFrontDomain: json.containsKey('CloudFrontDomain')
+            ? json['CloudFrontDomain'] as String
+            : null,
+      );
 }
 
 /// Represents the response from the server for the request to create a user
@@ -3204,7 +4044,11 @@ class CreateUserPoolResponse {
     this.userPool,
   });
   static CreateUserPoolResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserPoolResponse();
+      CreateUserPoolResponse(
+        userPool: json.containsKey('UserPool')
+            ? UserPoolType.fromJson(json['UserPool'])
+            : null,
+      );
 }
 
 /// The configuration for a custom domain that hosts the sign-up and sign-in
@@ -3219,7 +4063,10 @@ class CustomDomainConfigType {
     @required this.certificateArn,
   });
   static CustomDomainConfigType fromJson(Map<String, dynamic> json) =>
-      CustomDomainConfigType();
+      CustomDomainConfigType(
+        certificateArn: json['CertificateArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the response from the server to delete user attributes.
@@ -3243,7 +4090,10 @@ class DescribeIdentityProviderResponse {
     @required this.identityProvider,
   });
   static DescribeIdentityProviderResponse fromJson(Map<String, dynamic> json) =>
-      DescribeIdentityProviderResponse();
+      DescribeIdentityProviderResponse(
+        identityProvider:
+            IdentityProviderType.fromJson(json['IdentityProvider']),
+      );
 }
 
 class DescribeResourceServerResponse {
@@ -3254,7 +4104,9 @@ class DescribeResourceServerResponse {
     @required this.resourceServer,
   });
   static DescribeResourceServerResponse fromJson(Map<String, dynamic> json) =>
-      DescribeResourceServerResponse();
+      DescribeResourceServerResponse(
+        resourceServer: ResourceServerType.fromJson(json['ResourceServer']),
+      );
 }
 
 class DescribeRiskConfigurationResponse {
@@ -3266,7 +4118,10 @@ class DescribeRiskConfigurationResponse {
   });
   static DescribeRiskConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeRiskConfigurationResponse();
+      DescribeRiskConfigurationResponse(
+        riskConfiguration:
+            RiskConfigurationType.fromJson(json['RiskConfiguration']),
+      );
 }
 
 /// Represents the response from the server to the request to describe the user
@@ -3279,7 +4134,11 @@ class DescribeUserImportJobResponse {
     this.userImportJob,
   });
   static DescribeUserImportJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUserImportJobResponse();
+      DescribeUserImportJobResponse(
+        userImportJob: json.containsKey('UserImportJob')
+            ? UserImportJobType.fromJson(json['UserImportJob'])
+            : null,
+      );
 }
 
 /// Represents the response from the server from a request to describe the user
@@ -3293,7 +4152,11 @@ class DescribeUserPoolClientResponse {
     this.userPoolClient,
   });
   static DescribeUserPoolClientResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUserPoolClientResponse();
+      DescribeUserPoolClientResponse(
+        userPoolClient: json.containsKey('UserPoolClient')
+            ? UserPoolClientType.fromJson(json['UserPoolClient'])
+            : null,
+      );
 }
 
 class DescribeUserPoolDomainResponse {
@@ -3304,7 +4167,11 @@ class DescribeUserPoolDomainResponse {
     this.domainDescription,
   });
   static DescribeUserPoolDomainResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUserPoolDomainResponse();
+      DescribeUserPoolDomainResponse(
+        domainDescription: json.containsKey('DomainDescription')
+            ? DomainDescriptionType.fromJson(json['DomainDescription'])
+            : null,
+      );
 }
 
 /// Represents the response to describe the user pool.
@@ -3316,7 +4183,11 @@ class DescribeUserPoolResponse {
     this.userPool,
   });
   static DescribeUserPoolResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUserPoolResponse();
+      DescribeUserPoolResponse(
+        userPool: json.containsKey('UserPool')
+            ? UserPoolType.fromJson(json['UserPool'])
+            : null,
+      );
 }
 
 /// The configuration for the user pool's device tracking.
@@ -3333,7 +4204,17 @@ class DeviceConfigurationType {
     this.deviceOnlyRememberedOnUserPrompt,
   });
   static DeviceConfigurationType fromJson(Map<String, dynamic> json) =>
-      DeviceConfigurationType();
+      DeviceConfigurationType(
+        challengeRequiredOnNewDevice:
+            json.containsKey('ChallengeRequiredOnNewDevice')
+                ? json['ChallengeRequiredOnNewDevice'] as bool
+                : null,
+        deviceOnlyRememberedOnUserPrompt:
+            json.containsKey('DeviceOnlyRememberedOnUserPrompt')
+                ? json['DeviceOnlyRememberedOnUserPrompt'] as bool
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The device verifier against which it will be authenticated.
@@ -3348,6 +4229,7 @@ class DeviceSecretVerifierConfigType {
     this.passwordVerifier,
     this.salt,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The device type.
@@ -3374,7 +4256,25 @@ class DeviceType {
     this.deviceLastModifiedDate,
     this.deviceLastAuthenticatedDate,
   });
-  static DeviceType fromJson(Map<String, dynamic> json) => DeviceType();
+  static DeviceType fromJson(Map<String, dynamic> json) => DeviceType(
+        deviceKey:
+            json.containsKey('DeviceKey') ? json['DeviceKey'] as String : null,
+        deviceAttributes: json.containsKey('DeviceAttributes')
+            ? (json['DeviceAttributes'] as List)
+                .map((e) => AttributeType.fromJson(e))
+                .toList()
+            : null,
+        deviceCreateDate: json.containsKey('DeviceCreateDate')
+            ? DateTime.parse(json['DeviceCreateDate'])
+            : null,
+        deviceLastModifiedDate: json.containsKey('DeviceLastModifiedDate')
+            ? DateTime.parse(json['DeviceLastModifiedDate'])
+            : null,
+        deviceLastAuthenticatedDate:
+            json.containsKey('DeviceLastAuthenticatedDate')
+                ? DateTime.parse(json['DeviceLastAuthenticatedDate'])
+                : null,
+      );
 }
 
 /// A container for information about a domain.
@@ -3415,7 +4315,25 @@ class DomainDescriptionType {
     this.customDomainConfig,
   });
   static DomainDescriptionType fromJson(Map<String, dynamic> json) =>
-      DomainDescriptionType();
+      DomainDescriptionType(
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        awsAccountId: json.containsKey('AWSAccountId')
+            ? json['AWSAccountId'] as String
+            : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        s3Bucket:
+            json.containsKey('S3Bucket') ? json['S3Bucket'] as String : null,
+        cloudFrontDistribution: json.containsKey('CloudFrontDistribution')
+            ? json['CloudFrontDistribution'] as String
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        customDomainConfig: json.containsKey('CustomDomainConfig')
+            ? CustomDomainConfigType.fromJson(json['CustomDomainConfig'])
+            : null,
+      );
 }
 
 /// The email configuration type.
@@ -3484,7 +4402,17 @@ class EmailConfigurationType {
     this.emailSendingAccount,
   });
   static EmailConfigurationType fromJson(Map<String, dynamic> json) =>
-      EmailConfigurationType();
+      EmailConfigurationType(
+        sourceArn:
+            json.containsKey('SourceArn') ? json['SourceArn'] as String : null,
+        replyToEmailAddress: json.containsKey('ReplyToEmailAddress')
+            ? json['ReplyToEmailAddress'] as String
+            : null,
+        emailSendingAccount: json.containsKey('EmailSendingAccount')
+            ? json['EmailSendingAccount'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the user context data captured at the time of an event request.
@@ -3512,7 +4440,17 @@ class EventContextDataType {
     this.country,
   });
   static EventContextDataType fromJson(Map<String, dynamic> json) =>
-      EventContextDataType();
+      EventContextDataType(
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        deviceName: json.containsKey('DeviceName')
+            ? json['DeviceName'] as String
+            : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+        city: json.containsKey('City') ? json['City'] as String : null,
+        country: json.containsKey('Country') ? json['Country'] as String : null,
+      );
 }
 
 /// Specifies the event feedback type.
@@ -3532,7 +4470,13 @@ class EventFeedbackType {
     this.feedbackDate,
   });
   static EventFeedbackType fromJson(Map<String, dynamic> json) =>
-      EventFeedbackType();
+      EventFeedbackType(
+        feedbackValue: json['FeedbackValue'] as String,
+        provider: json['Provider'] as String,
+        feedbackDate: json.containsKey('FeedbackDate')
+            ? DateTime.parse(json['FeedbackDate'])
+            : null,
+      );
 }
 
 /// The event risk type.
@@ -3547,7 +4491,13 @@ class EventRiskType {
     this.riskDecision,
     this.riskLevel,
   });
-  static EventRiskType fromJson(Map<String, dynamic> json) => EventRiskType();
+  static EventRiskType fromJson(Map<String, dynamic> json) => EventRiskType(
+        riskDecision: json.containsKey('RiskDecision')
+            ? json['RiskDecision'] as String
+            : null,
+        riskLevel:
+            json.containsKey('RiskLevel') ? json['RiskLevel'] as String : null,
+      );
 }
 
 /// Respresents the response from the server regarding the request to reset a
@@ -3561,7 +4511,11 @@ class ForgotPasswordResponse {
     this.codeDeliveryDetails,
   });
   static ForgotPasswordResponse fromJson(Map<String, dynamic> json) =>
-      ForgotPasswordResponse();
+      ForgotPasswordResponse(
+        codeDeliveryDetails: json.containsKey('CodeDeliveryDetails')
+            ? CodeDeliveryDetailsType.fromJson(json['CodeDeliveryDetails'])
+            : null,
+      );
 }
 
 /// Represents the response from the server to the request to get the header
@@ -3578,7 +4532,14 @@ class GetCsvHeaderResponse {
     this.csvHeader,
   });
   static GetCsvHeaderResponse fromJson(Map<String, dynamic> json) =>
-      GetCsvHeaderResponse();
+      GetCsvHeaderResponse(
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        csvHeader: json.containsKey('CSVHeader')
+            ? (json['CSVHeader'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Gets the device response.
@@ -3590,7 +4551,9 @@ class GetDeviceResponse {
     @required this.device,
   });
   static GetDeviceResponse fromJson(Map<String, dynamic> json) =>
-      GetDeviceResponse();
+      GetDeviceResponse(
+        device: DeviceType.fromJson(json['Device']),
+      );
 }
 
 class GetGroupResponse {
@@ -3601,7 +4564,11 @@ class GetGroupResponse {
     this.group,
   });
   static GetGroupResponse fromJson(Map<String, dynamic> json) =>
-      GetGroupResponse();
+      GetGroupResponse(
+        group: json.containsKey('Group')
+            ? GroupType.fromJson(json['Group'])
+            : null,
+      );
 }
 
 class GetIdentityProviderByIdentifierResponse {
@@ -3613,7 +4580,10 @@ class GetIdentityProviderByIdentifierResponse {
   });
   static GetIdentityProviderByIdentifierResponse fromJson(
           Map<String, dynamic> json) =>
-      GetIdentityProviderByIdentifierResponse();
+      GetIdentityProviderByIdentifierResponse(
+        identityProvider:
+            IdentityProviderType.fromJson(json['IdentityProvider']),
+      );
 }
 
 /// Response from Cognito for a signing certificate request.
@@ -3625,7 +4595,11 @@ class GetSigningCertificateResponse {
     this.certificate,
   });
   static GetSigningCertificateResponse fromJson(Map<String, dynamic> json) =>
-      GetSigningCertificateResponse();
+      GetSigningCertificateResponse(
+        certificate: json.containsKey('Certificate')
+            ? json['Certificate'] as String
+            : null,
+      );
 }
 
 class GetUICustomizationResponse {
@@ -3636,7 +4610,9 @@ class GetUICustomizationResponse {
     @required this.uiCustomization,
   });
   static GetUICustomizationResponse fromJson(Map<String, dynamic> json) =>
-      GetUICustomizationResponse();
+      GetUICustomizationResponse(
+        uiCustomization: UICustomizationType.fromJson(json['UICustomization']),
+      );
 }
 
 /// The verification code response returned by the server response to get the
@@ -3651,7 +4627,11 @@ class GetUserAttributeVerificationCodeResponse {
   });
   static GetUserAttributeVerificationCodeResponse fromJson(
           Map<String, dynamic> json) =>
-      GetUserAttributeVerificationCodeResponse();
+      GetUserAttributeVerificationCodeResponse(
+        codeDeliveryDetails: json.containsKey('CodeDeliveryDetails')
+            ? CodeDeliveryDetailsType.fromJson(json['CodeDeliveryDetails'])
+            : null,
+      );
 }
 
 class GetUserPoolMfaConfigResponse {
@@ -3670,7 +4650,19 @@ class GetUserPoolMfaConfigResponse {
     this.mfaConfiguration,
   });
   static GetUserPoolMfaConfigResponse fromJson(Map<String, dynamic> json) =>
-      GetUserPoolMfaConfigResponse();
+      GetUserPoolMfaConfigResponse(
+        smsMfaConfiguration: json.containsKey('SmsMfaConfiguration')
+            ? SmsMfaConfigType.fromJson(json['SmsMfaConfiguration'])
+            : null,
+        softwareTokenMfaConfiguration:
+            json.containsKey('SoftwareTokenMfaConfiguration')
+                ? SoftwareTokenMfaConfigType.fromJson(
+                    json['SoftwareTokenMfaConfiguration'])
+                : null,
+        mfaConfiguration: json.containsKey('MfaConfiguration')
+            ? json['MfaConfiguration'] as String
+            : null,
+      );
 }
 
 /// Represents the response from the server from the request to get information
@@ -3701,8 +4693,25 @@ class GetUserResponse {
     this.preferredMfaSetting,
     this.userMfaSettingList,
   });
-  static GetUserResponse fromJson(Map<String, dynamic> json) =>
-      GetUserResponse();
+  static GetUserResponse fromJson(Map<String, dynamic> json) => GetUserResponse(
+        username: json['Username'] as String,
+        userAttributes: (json['UserAttributes'] as List)
+            .map((e) => AttributeType.fromJson(e))
+            .toList(),
+        mfaOptions: json.containsKey('MFAOptions')
+            ? (json['MFAOptions'] as List)
+                .map((e) => MfaOptionType.fromJson(e))
+                .toList()
+            : null,
+        preferredMfaSetting: json.containsKey('PreferredMfaSetting')
+            ? json['PreferredMfaSetting'] as String
+            : null,
+        userMfaSettingList: json.containsKey('UserMFASettingList')
+            ? (json['UserMFASettingList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// The response to the request to sign out all devices.
@@ -3759,7 +4768,25 @@ class GroupType {
     this.lastModifiedDate,
     this.creationDate,
   });
-  static GroupType fromJson(Map<String, dynamic> json) => GroupType();
+  static GroupType fromJson(Map<String, dynamic> json) => GroupType(
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        precedence:
+            json.containsKey('Precedence') ? json['Precedence'] as int : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 /// The HTTP header.
@@ -3774,6 +4801,7 @@ class HttpHeader {
     this.headerName,
     this.headerValue,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for information about an identity provider.
@@ -3814,7 +4842,34 @@ class IdentityProviderType {
     this.creationDate,
   });
   static IdentityProviderType fromJson(Map<String, dynamic> json) =>
-      IdentityProviderType();
+      IdentityProviderType(
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        providerName: json.containsKey('ProviderName')
+            ? json['ProviderName'] as String
+            : null,
+        providerType: json.containsKey('ProviderType')
+            ? json['ProviderType'] as String
+            : null,
+        providerDetails: json.containsKey('ProviderDetails')
+            ? (json['ProviderDetails'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        attributeMapping: json.containsKey('AttributeMapping')
+            ? (json['AttributeMapping'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        idpIdentifiers: json.containsKey('IdpIdentifiers')
+            ? (json['IdpIdentifiers'] as List).map((e) => e as String).toList()
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 /// Initiates the authentication response.
@@ -3877,7 +4932,19 @@ class InitiateAuthResponse {
     this.authenticationResult,
   });
   static InitiateAuthResponse fromJson(Map<String, dynamic> json) =>
-      InitiateAuthResponse();
+      InitiateAuthResponse(
+        challengeName: json.containsKey('ChallengeName')
+            ? json['ChallengeName'] as String
+            : null,
+        session: json.containsKey('Session') ? json['Session'] as String : null,
+        challengeParameters: json.containsKey('ChallengeParameters')
+            ? (json['ChallengeParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        authenticationResult: json.containsKey('AuthenticationResult')
+            ? AuthenticationResultType.fromJson(json['AuthenticationResult'])
+            : null,
+      );
 }
 
 /// Specifies the configuration for AWS Lambda triggers.
@@ -3925,7 +4992,39 @@ class LambdaConfigType {
     this.userMigration,
   });
   static LambdaConfigType fromJson(Map<String, dynamic> json) =>
-      LambdaConfigType();
+      LambdaConfigType(
+        preSignUp:
+            json.containsKey('PreSignUp') ? json['PreSignUp'] as String : null,
+        customMessage: json.containsKey('CustomMessage')
+            ? json['CustomMessage'] as String
+            : null,
+        postConfirmation: json.containsKey('PostConfirmation')
+            ? json['PostConfirmation'] as String
+            : null,
+        preAuthentication: json.containsKey('PreAuthentication')
+            ? json['PreAuthentication'] as String
+            : null,
+        postAuthentication: json.containsKey('PostAuthentication')
+            ? json['PostAuthentication'] as String
+            : null,
+        defineAuthChallenge: json.containsKey('DefineAuthChallenge')
+            ? json['DefineAuthChallenge'] as String
+            : null,
+        createAuthChallenge: json.containsKey('CreateAuthChallenge')
+            ? json['CreateAuthChallenge'] as String
+            : null,
+        verifyAuthChallengeResponse:
+            json.containsKey('VerifyAuthChallengeResponse')
+                ? json['VerifyAuthChallengeResponse'] as String
+                : null,
+        preTokenGeneration: json.containsKey('PreTokenGeneration')
+            ? json['PreTokenGeneration'] as String
+            : null,
+        userMigration: json.containsKey('UserMigration')
+            ? json['UserMigration'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the response to list devices.
@@ -3941,7 +5040,16 @@ class ListDevicesResponse {
     this.paginationToken,
   });
   static ListDevicesResponse fromJson(Map<String, dynamic> json) =>
-      ListDevicesResponse();
+      ListDevicesResponse(
+        devices: json.containsKey('Devices')
+            ? (json['Devices'] as List)
+                .map((e) => DeviceType.fromJson(e))
+                .toList()
+            : null,
+        paginationToken: json.containsKey('PaginationToken')
+            ? json['PaginationToken'] as String
+            : null,
+      );
 }
 
 class ListGroupsResponse {
@@ -3957,7 +5065,15 @@ class ListGroupsResponse {
     this.nextToken,
   });
   static ListGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupsResponse();
+      ListGroupsResponse(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupType.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListIdentityProvidersResponse {
@@ -3972,7 +5088,13 @@ class ListIdentityProvidersResponse {
     this.nextToken,
   });
   static ListIdentityProvidersResponse fromJson(Map<String, dynamic> json) =>
-      ListIdentityProvidersResponse();
+      ListIdentityProvidersResponse(
+        providers: (json['Providers'] as List)
+            .map((e) => ProviderDescription.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListResourceServersResponse {
@@ -3987,7 +5109,13 @@ class ListResourceServersResponse {
     this.nextToken,
   });
   static ListResourceServersResponse fromJson(Map<String, dynamic> json) =>
-      ListResourceServersResponse();
+      ListResourceServersResponse(
+        resourceServers: (json['ResourceServers'] as List)
+            .map((e) => ResourceServerType.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -3998,7 +5126,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents the response from the server to the request to list the user
@@ -4016,7 +5149,16 @@ class ListUserImportJobsResponse {
     this.paginationToken,
   });
   static ListUserImportJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListUserImportJobsResponse();
+      ListUserImportJobsResponse(
+        userImportJobs: json.containsKey('UserImportJobs')
+            ? (json['UserImportJobs'] as List)
+                .map((e) => UserImportJobType.fromJson(e))
+                .toList()
+            : null,
+        paginationToken: json.containsKey('PaginationToken')
+            ? json['PaginationToken'] as String
+            : null,
+      );
 }
 
 /// Represents the response from the server that lists user pool clients.
@@ -4033,7 +5175,15 @@ class ListUserPoolClientsResponse {
     this.nextToken,
   });
   static ListUserPoolClientsResponse fromJson(Map<String, dynamic> json) =>
-      ListUserPoolClientsResponse();
+      ListUserPoolClientsResponse(
+        userPoolClients: json.containsKey('UserPoolClients')
+            ? (json['UserPoolClients'] as List)
+                .map((e) => UserPoolClientDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the response to list user pools.
@@ -4050,7 +5200,15 @@ class ListUserPoolsResponse {
     this.nextToken,
   });
   static ListUserPoolsResponse fromJson(Map<String, dynamic> json) =>
-      ListUserPoolsResponse();
+      ListUserPoolsResponse(
+        userPools: json.containsKey('UserPools')
+            ? (json['UserPools'] as List)
+                .map((e) => UserPoolDescriptionType.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListUsersInGroupResponse {
@@ -4066,7 +5224,13 @@ class ListUsersInGroupResponse {
     this.nextToken,
   });
   static ListUsersInGroupResponse fromJson(Map<String, dynamic> json) =>
-      ListUsersInGroupResponse();
+      ListUsersInGroupResponse(
+        users: json.containsKey('Users')
+            ? (json['Users'] as List).map((e) => UserType.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The response from the request to list users.
@@ -4083,7 +5247,14 @@ class ListUsersResponse {
     this.paginationToken,
   });
   static ListUsersResponse fromJson(Map<String, dynamic> json) =>
-      ListUsersResponse();
+      ListUsersResponse(
+        users: json.containsKey('Users')
+            ? (json['Users'] as List).map((e) => UserType.fromJson(e)).toList()
+            : null,
+        paginationToken: json.containsKey('PaginationToken')
+            ? json['PaginationToken'] as String
+            : null,
+      );
 }
 
 /// Specifies the different settings for multi-factor authentication (MFA).
@@ -4098,7 +5269,15 @@ class MfaOptionType {
     this.deliveryMedium,
     this.attributeName,
   });
-  static MfaOptionType fromJson(Map<String, dynamic> json) => MfaOptionType();
+  static MfaOptionType fromJson(Map<String, dynamic> json) => MfaOptionType(
+        deliveryMedium: json.containsKey('DeliveryMedium')
+            ? json['DeliveryMedium'] as String
+            : null,
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The message template structure.
@@ -4118,7 +5297,18 @@ class MessageTemplateType {
     this.emailSubject,
   });
   static MessageTemplateType fromJson(Map<String, dynamic> json) =>
-      MessageTemplateType();
+      MessageTemplateType(
+        smsMessage: json.containsKey('SMSMessage')
+            ? json['SMSMessage'] as String
+            : null,
+        emailMessage: json.containsKey('EmailMessage')
+            ? json['EmailMessage'] as String
+            : null,
+        emailSubject: json.containsKey('EmailSubject')
+            ? json['EmailSubject'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The new device metadata type.
@@ -4134,7 +5324,13 @@ class NewDeviceMetadataType {
     this.deviceGroupKey,
   });
   static NewDeviceMetadataType fromJson(Map<String, dynamic> json) =>
-      NewDeviceMetadataType();
+      NewDeviceMetadataType(
+        deviceKey:
+            json.containsKey('DeviceKey') ? json['DeviceKey'] as String : null,
+        deviceGroupKey: json.containsKey('DeviceGroupKey')
+            ? json['DeviceGroupKey'] as String
+            : null,
+      );
 }
 
 /// The notify configuration type.
@@ -4171,7 +5367,21 @@ class NotifyConfigurationType {
     this.mfaEmail,
   });
   static NotifyConfigurationType fromJson(Map<String, dynamic> json) =>
-      NotifyConfigurationType();
+      NotifyConfigurationType(
+        from: json.containsKey('From') ? json['From'] as String : null,
+        replyTo: json.containsKey('ReplyTo') ? json['ReplyTo'] as String : null,
+        sourceArn: json['SourceArn'] as String,
+        blockEmail: json.containsKey('BlockEmail')
+            ? NotifyEmailType.fromJson(json['BlockEmail'])
+            : null,
+        noActionEmail: json.containsKey('NoActionEmail')
+            ? NotifyEmailType.fromJson(json['NoActionEmail'])
+            : null,
+        mfaEmail: json.containsKey('MfaEmail')
+            ? NotifyEmailType.fromJson(json['MfaEmail'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The notify email type.
@@ -4190,8 +5400,14 @@ class NotifyEmailType {
     this.htmlBody,
     this.textBody,
   });
-  static NotifyEmailType fromJson(Map<String, dynamic> json) =>
-      NotifyEmailType();
+  static NotifyEmailType fromJson(Map<String, dynamic> json) => NotifyEmailType(
+        subject: json['Subject'] as String,
+        htmlBody:
+            json.containsKey('HtmlBody') ? json['HtmlBody'] as String : null,
+        textBody:
+            json.containsKey('TextBody') ? json['TextBody'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The minimum and maximum value of an attribute that is of the number data
@@ -4208,7 +5424,13 @@ class NumberAttributeConstraintsType {
     this.maxValue,
   });
   static NumberAttributeConstraintsType fromJson(Map<String, dynamic> json) =>
-      NumberAttributeConstraintsType();
+      NumberAttributeConstraintsType(
+        minValue:
+            json.containsKey('MinValue') ? json['MinValue'] as String : null,
+        maxValue:
+            json.containsKey('MaxValue') ? json['MaxValue'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The password policy type.
@@ -4244,7 +5466,28 @@ class PasswordPolicyType {
     this.temporaryPasswordValidityDays,
   });
   static PasswordPolicyType fromJson(Map<String, dynamic> json) =>
-      PasswordPolicyType();
+      PasswordPolicyType(
+        minimumLength: json.containsKey('MinimumLength')
+            ? json['MinimumLength'] as int
+            : null,
+        requireUppercase: json.containsKey('RequireUppercase')
+            ? json['RequireUppercase'] as bool
+            : null,
+        requireLowercase: json.containsKey('RequireLowercase')
+            ? json['RequireLowercase'] as bool
+            : null,
+        requireNumbers: json.containsKey('RequireNumbers')
+            ? json['RequireNumbers'] as bool
+            : null,
+        requireSymbols: json.containsKey('RequireSymbols')
+            ? json['RequireSymbols'] as bool
+            : null,
+        temporaryPasswordValidityDays:
+            json.containsKey('TemporaryPasswordValidityDays')
+                ? json['TemporaryPasswordValidityDays'] as int
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for identity provider details.
@@ -4268,7 +5511,20 @@ class ProviderDescription {
     this.creationDate,
   });
   static ProviderDescription fromJson(Map<String, dynamic> json) =>
-      ProviderDescription();
+      ProviderDescription(
+        providerName: json.containsKey('ProviderName')
+            ? json['ProviderName'] as String
+            : null,
+        providerType: json.containsKey('ProviderType')
+            ? json['ProviderType'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 /// A container for information about an identity provider for a user pool.
@@ -4289,6 +5545,7 @@ class ProviderUserIdentifierType {
     this.providerAttributeName,
     this.providerAttributeValue,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The response from the server when the Amazon Cognito Your User Pools service
@@ -4302,7 +5559,11 @@ class ResendConfirmationCodeResponse {
     this.codeDeliveryDetails,
   });
   static ResendConfirmationCodeResponse fromJson(Map<String, dynamic> json) =>
-      ResendConfirmationCodeResponse();
+      ResendConfirmationCodeResponse(
+        codeDeliveryDetails: json.containsKey('CodeDeliveryDetails')
+            ? CodeDeliveryDetailsType.fromJson(json['CodeDeliveryDetails'])
+            : null,
+      );
 }
 
 /// A resource server scope.
@@ -4318,7 +5579,11 @@ class ResourceServerScopeType {
     @required this.scopeDescription,
   });
   static ResourceServerScopeType fromJson(Map<String, dynamic> json) =>
-      ResourceServerScopeType();
+      ResourceServerScopeType(
+        scopeName: json['ScopeName'] as String,
+        scopeDescription: json['ScopeDescription'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for information about a resource server for a user pool.
@@ -4342,7 +5607,20 @@ class ResourceServerType {
     this.scopes,
   });
   static ResourceServerType fromJson(Map<String, dynamic> json) =>
-      ResourceServerType();
+      ResourceServerType(
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        identifier: json.containsKey('Identifier')
+            ? json['Identifier'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        scopes: json.containsKey('Scopes')
+            ? (json['Scopes'] as List)
+                .map((e) => ResourceServerScopeType.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The response to respond to the authentication challenge.
@@ -4371,7 +5649,19 @@ class RespondToAuthChallengeResponse {
     this.authenticationResult,
   });
   static RespondToAuthChallengeResponse fromJson(Map<String, dynamic> json) =>
-      RespondToAuthChallengeResponse();
+      RespondToAuthChallengeResponse(
+        challengeName: json.containsKey('ChallengeName')
+            ? json['ChallengeName'] as String
+            : null,
+        session: json.containsKey('Session') ? json['Session'] as String : null,
+        challengeParameters: json.containsKey('ChallengeParameters')
+            ? (json['ChallengeParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        authenticationResult: json.containsKey('AuthenticationResult')
+            ? AuthenticationResultType.fromJson(json['AuthenticationResult'])
+            : null,
+      );
 }
 
 /// The risk configuration type.
@@ -4407,7 +5697,31 @@ class RiskConfigurationType {
     this.lastModifiedDate,
   });
   static RiskConfigurationType fromJson(Map<String, dynamic> json) =>
-      RiskConfigurationType();
+      RiskConfigurationType(
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        clientId:
+            json.containsKey('ClientId') ? json['ClientId'] as String : null,
+        compromisedCredentialsRiskConfiguration:
+            json.containsKey('CompromisedCredentialsRiskConfiguration')
+                ? CompromisedCredentialsRiskConfigurationType.fromJson(
+                    json['CompromisedCredentialsRiskConfiguration'])
+                : null,
+        accountTakeoverRiskConfiguration:
+            json.containsKey('AccountTakeoverRiskConfiguration')
+                ? AccountTakeoverRiskConfigurationType.fromJson(
+                    json['AccountTakeoverRiskConfiguration'])
+                : null,
+        riskExceptionConfiguration:
+            json.containsKey('RiskExceptionConfiguration')
+                ? RiskExceptionConfigurationType.fromJson(
+                    json['RiskExceptionConfiguration'])
+                : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+      );
 }
 
 /// The type of the configuration to override the risk decision.
@@ -4426,7 +5740,19 @@ class RiskExceptionConfigurationType {
     this.skippedIPRangeList,
   });
   static RiskExceptionConfigurationType fromJson(Map<String, dynamic> json) =>
-      RiskExceptionConfigurationType();
+      RiskExceptionConfigurationType(
+        blockedIPRangeList: json.containsKey('BlockedIPRangeList')
+            ? (json['BlockedIPRangeList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        skippedIPRangeList: json.containsKey('SkippedIPRangeList')
+            ? (json['SkippedIPRangeList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The SMS multi-factor authentication (MFA) settings type.
@@ -4441,6 +5767,7 @@ class SmsMfaSettingsType {
     this.enabled,
     this.preferredMfa,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the schema attribute.
@@ -4485,7 +5812,29 @@ class SchemaAttributeType {
     this.stringAttributeConstraints,
   });
   static SchemaAttributeType fromJson(Map<String, dynamic> json) =>
-      SchemaAttributeType();
+      SchemaAttributeType(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        attributeDataType: json.containsKey('AttributeDataType')
+            ? json['AttributeDataType'] as String
+            : null,
+        developerOnlyAttribute: json.containsKey('DeveloperOnlyAttribute')
+            ? json['DeveloperOnlyAttribute'] as bool
+            : null,
+        mutable: json.containsKey('Mutable') ? json['Mutable'] as bool : null,
+        isRequired:
+            json.containsKey('Required') ? json['Required'] as bool : null,
+        numberAttributeConstraints:
+            json.containsKey('NumberAttributeConstraints')
+                ? NumberAttributeConstraintsType.fromJson(
+                    json['NumberAttributeConstraints'])
+                : null,
+        stringAttributeConstraints:
+            json.containsKey('StringAttributeConstraints')
+                ? StringAttributeConstraintsType.fromJson(
+                    json['StringAttributeConstraints'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SetRiskConfigurationResponse {
@@ -4496,7 +5845,10 @@ class SetRiskConfigurationResponse {
     @required this.riskConfiguration,
   });
   static SetRiskConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      SetRiskConfigurationResponse();
+      SetRiskConfigurationResponse(
+        riskConfiguration:
+            RiskConfigurationType.fromJson(json['RiskConfiguration']),
+      );
 }
 
 class SetUICustomizationResponse {
@@ -4507,7 +5859,9 @@ class SetUICustomizationResponse {
     @required this.uiCustomization,
   });
   static SetUICustomizationResponse fromJson(Map<String, dynamic> json) =>
-      SetUICustomizationResponse();
+      SetUICustomizationResponse(
+        uiCustomization: UICustomizationType.fromJson(json['UICustomization']),
+      );
 }
 
 class SetUserMfaPreferenceResponse {
@@ -4532,7 +5886,19 @@ class SetUserPoolMfaConfigResponse {
     this.mfaConfiguration,
   });
   static SetUserPoolMfaConfigResponse fromJson(Map<String, dynamic> json) =>
-      SetUserPoolMfaConfigResponse();
+      SetUserPoolMfaConfigResponse(
+        smsMfaConfiguration: json.containsKey('SmsMfaConfiguration')
+            ? SmsMfaConfigType.fromJson(json['SmsMfaConfiguration'])
+            : null,
+        softwareTokenMfaConfiguration:
+            json.containsKey('SoftwareTokenMfaConfiguration')
+                ? SoftwareTokenMfaConfigType.fromJson(
+                    json['SoftwareTokenMfaConfiguration'])
+                : null,
+        mfaConfiguration: json.containsKey('MfaConfiguration')
+            ? json['MfaConfiguration'] as String
+            : null,
+      );
 }
 
 /// The response from the server for a set user settings request.
@@ -4560,7 +5926,13 @@ class SignUpResponse {
     this.codeDeliveryDetails,
     @required this.userSub,
   });
-  static SignUpResponse fromJson(Map<String, dynamic> json) => SignUpResponse();
+  static SignUpResponse fromJson(Map<String, dynamic> json) => SignUpResponse(
+        userConfirmed: json['UserConfirmed'] as bool,
+        codeDeliveryDetails: json.containsKey('CodeDeliveryDetails')
+            ? CodeDeliveryDetailsType.fromJson(json['CodeDeliveryDetails'])
+            : null,
+        userSub: json['UserSub'] as String,
+      );
 }
 
 /// The SMS configuration type.
@@ -4577,7 +5949,13 @@ class SmsConfigurationType {
     this.externalId,
   });
   static SmsConfigurationType fromJson(Map<String, dynamic> json) =>
-      SmsConfigurationType();
+      SmsConfigurationType(
+        snsCallerArn: json['SnsCallerArn'] as String,
+        externalId: json.containsKey('ExternalId')
+            ? json['ExternalId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The SMS text message multi-factor authentication (MFA) configuration type.
@@ -4593,7 +5971,15 @@ class SmsMfaConfigType {
     this.smsConfiguration,
   });
   static SmsMfaConfigType fromJson(Map<String, dynamic> json) =>
-      SmsMfaConfigType();
+      SmsMfaConfigType(
+        smsAuthenticationMessage: json.containsKey('SmsAuthenticationMessage')
+            ? json['SmsAuthenticationMessage'] as String
+            : null,
+        smsConfiguration: json.containsKey('SmsConfiguration')
+            ? SmsConfigurationType.fromJson(json['SmsConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The type used for enabling software token MFA at the user pool level.
@@ -4605,7 +5991,10 @@ class SoftwareTokenMfaConfigType {
     this.enabled,
   });
   static SoftwareTokenMfaConfigType fromJson(Map<String, dynamic> json) =>
-      SoftwareTokenMfaConfigType();
+      SoftwareTokenMfaConfigType(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The type used for enabling software token MFA at the user level.
@@ -4620,6 +6009,7 @@ class SoftwareTokenMfaSettingsType {
     this.enabled,
     this.preferredMfa,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the response from the server to the request to start the user
@@ -4632,7 +6022,11 @@ class StartUserImportJobResponse {
     this.userImportJob,
   });
   static StartUserImportJobResponse fromJson(Map<String, dynamic> json) =>
-      StartUserImportJobResponse();
+      StartUserImportJobResponse(
+        userImportJob: json.containsKey('UserImportJob')
+            ? UserImportJobType.fromJson(json['UserImportJob'])
+            : null,
+      );
 }
 
 /// Represents the response from the server to the request to stop the user
@@ -4645,7 +6039,11 @@ class StopUserImportJobResponse {
     this.userImportJob,
   });
   static StopUserImportJobResponse fromJson(Map<String, dynamic> json) =>
-      StopUserImportJobResponse();
+      StopUserImportJobResponse(
+        userImportJob: json.containsKey('UserImportJob')
+            ? UserImportJobType.fromJson(json['UserImportJob'])
+            : null,
+      );
 }
 
 /// The constraints associated with a string attribute.
@@ -4661,7 +6059,13 @@ class StringAttributeConstraintsType {
     this.maxLength,
   });
   static StringAttributeConstraintsType fromJson(Map<String, dynamic> json) =>
-      StringAttributeConstraintsType();
+      StringAttributeConstraintsType(
+        minLength:
+            json.containsKey('MinLength') ? json['MinLength'] as String : null,
+        maxLength:
+            json.containsKey('MaxLength') ? json['MaxLength'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -4704,7 +6108,25 @@ class UICustomizationType {
     this.creationDate,
   });
   static UICustomizationType fromJson(Map<String, dynamic> json) =>
-      UICustomizationType();
+      UICustomizationType(
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        clientId:
+            json.containsKey('ClientId') ? json['ClientId'] as String : null,
+        imageUrl:
+            json.containsKey('ImageUrl') ? json['ImageUrl'] as String : null,
+        css: json.containsKey('CSS') ? json['CSS'] as String : null,
+        cssVersion: json.containsKey('CSSVersion')
+            ? json['CSSVersion'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 class UntagResourceResponse {
@@ -4734,7 +6156,11 @@ class UpdateGroupResponse {
     this.group,
   });
   static UpdateGroupResponse fromJson(Map<String, dynamic> json) =>
-      UpdateGroupResponse();
+      UpdateGroupResponse(
+        group: json.containsKey('Group')
+            ? GroupType.fromJson(json['Group'])
+            : null,
+      );
 }
 
 class UpdateIdentityProviderResponse {
@@ -4745,7 +6171,10 @@ class UpdateIdentityProviderResponse {
     @required this.identityProvider,
   });
   static UpdateIdentityProviderResponse fromJson(Map<String, dynamic> json) =>
-      UpdateIdentityProviderResponse();
+      UpdateIdentityProviderResponse(
+        identityProvider:
+            IdentityProviderType.fromJson(json['IdentityProvider']),
+      );
 }
 
 class UpdateResourceServerResponse {
@@ -4756,7 +6185,9 @@ class UpdateResourceServerResponse {
     @required this.resourceServer,
   });
   static UpdateResourceServerResponse fromJson(Map<String, dynamic> json) =>
-      UpdateResourceServerResponse();
+      UpdateResourceServerResponse(
+        resourceServer: ResourceServerType.fromJson(json['ResourceServer']),
+      );
 }
 
 /// Represents the response from the server for the request to update user
@@ -4770,7 +6201,13 @@ class UpdateUserAttributesResponse {
     this.codeDeliveryDetailsList,
   });
   static UpdateUserAttributesResponse fromJson(Map<String, dynamic> json) =>
-      UpdateUserAttributesResponse();
+      UpdateUserAttributesResponse(
+        codeDeliveryDetailsList: json.containsKey('CodeDeliveryDetailsList')
+            ? (json['CodeDeliveryDetailsList'] as List)
+                .map((e) => CodeDeliveryDetailsType.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the response from the server to the request to update the user
@@ -4784,7 +6221,11 @@ class UpdateUserPoolClientResponse {
     this.userPoolClient,
   });
   static UpdateUserPoolClientResponse fromJson(Map<String, dynamic> json) =>
-      UpdateUserPoolClientResponse();
+      UpdateUserPoolClientResponse(
+        userPoolClient: json.containsKey('UserPoolClient')
+            ? UserPoolClientType.fromJson(json['UserPoolClient'])
+            : null,
+      );
 }
 
 /// The UpdateUserPoolDomain response output.
@@ -4797,7 +6238,11 @@ class UpdateUserPoolDomainResponse {
     this.cloudFrontDomain,
   });
   static UpdateUserPoolDomainResponse fromJson(Map<String, dynamic> json) =>
-      UpdateUserPoolDomainResponse();
+      UpdateUserPoolDomainResponse(
+        cloudFrontDomain: json.containsKey('CloudFrontDomain')
+            ? json['CloudFrontDomain'] as String
+            : null,
+      );
 }
 
 /// Represents the response from the server when you make a request to update
@@ -4820,6 +6265,7 @@ class UserContextDataType {
   UserContextDataType({
     this.encodedData,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The user import job type.
@@ -4902,7 +6348,41 @@ class UserImportJobType {
     this.completionMessage,
   });
   static UserImportJobType fromJson(Map<String, dynamic> json) =>
-      UserImportJobType();
+      UserImportJobType(
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        preSignedUrl: json.containsKey('PreSignedUrl')
+            ? json['PreSignedUrl'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        startDate: json.containsKey('StartDate')
+            ? DateTime.parse(json['StartDate'])
+            : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? DateTime.parse(json['CompletionDate'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        cloudWatchLogsRoleArn: json.containsKey('CloudWatchLogsRoleArn')
+            ? json['CloudWatchLogsRoleArn'] as String
+            : null,
+        importedUsers: json.containsKey('ImportedUsers')
+            ? BigInt.from(json['ImportedUsers'])
+            : null,
+        skippedUsers: json.containsKey('SkippedUsers')
+            ? BigInt.from(json['SkippedUsers'])
+            : null,
+        failedUsers: json.containsKey('FailedUsers')
+            ? BigInt.from(json['FailedUsers'])
+            : null,
+        completionMessage: json.containsKey('CompletionMessage')
+            ? json['CompletionMessage'] as String
+            : null,
+      );
 }
 
 /// The user pool add-ons type.
@@ -4914,7 +6394,10 @@ class UserPoolAddOnsType {
     @required this.advancedSecurityMode,
   });
   static UserPoolAddOnsType fromJson(Map<String, dynamic> json) =>
-      UserPoolAddOnsType();
+      UserPoolAddOnsType(
+        advancedSecurityMode: json['AdvancedSecurityMode'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The description of the user pool client.
@@ -4935,7 +6418,16 @@ class UserPoolClientDescription {
     this.clientName,
   });
   static UserPoolClientDescription fromJson(Map<String, dynamic> json) =>
-      UserPoolClientDescription();
+      UserPoolClientDescription(
+        clientId:
+            json.containsKey('ClientId') ? json['ClientId'] as String : null,
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        clientName: json.containsKey('ClientName')
+            ? json['ClientName'] as String
+            : null,
+      );
 }
 
 /// Contains information about a user pool client.
@@ -5058,7 +6550,72 @@ class UserPoolClientType {
     this.analyticsConfiguration,
   });
   static UserPoolClientType fromJson(Map<String, dynamic> json) =>
-      UserPoolClientType();
+      UserPoolClientType(
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        clientName: json.containsKey('ClientName')
+            ? json['ClientName'] as String
+            : null,
+        clientId:
+            json.containsKey('ClientId') ? json['ClientId'] as String : null,
+        clientSecret: json.containsKey('ClientSecret')
+            ? json['ClientSecret'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        refreshTokenValidity: json.containsKey('RefreshTokenValidity')
+            ? json['RefreshTokenValidity'] as int
+            : null,
+        readAttributes: json.containsKey('ReadAttributes')
+            ? (json['ReadAttributes'] as List).map((e) => e as String).toList()
+            : null,
+        writeAttributes: json.containsKey('WriteAttributes')
+            ? (json['WriteAttributes'] as List).map((e) => e as String).toList()
+            : null,
+        explicitAuthFlows: json.containsKey('ExplicitAuthFlows')
+            ? (json['ExplicitAuthFlows'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        supportedIdentityProviders:
+            json.containsKey('SupportedIdentityProviders')
+                ? (json['SupportedIdentityProviders'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        callbackURLs: json.containsKey('CallbackURLs')
+            ? (json['CallbackURLs'] as List).map((e) => e as String).toList()
+            : null,
+        logoutURLs: json.containsKey('LogoutURLs')
+            ? (json['LogoutURLs'] as List).map((e) => e as String).toList()
+            : null,
+        defaultRedirectUri: json.containsKey('DefaultRedirectURI')
+            ? json['DefaultRedirectURI'] as String
+            : null,
+        allowedoAuthFlows: json.containsKey('AllowedOAuthFlows')
+            ? (json['AllowedOAuthFlows'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        allowedoAuthScopes: json.containsKey('AllowedOAuthScopes')
+            ? (json['AllowedOAuthScopes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        allowedoAuthFlowsUserPoolClient:
+            json.containsKey('AllowedOAuthFlowsUserPoolClient')
+                ? json['AllowedOAuthFlowsUserPoolClient'] as bool
+                : null,
+        analyticsConfiguration: json.containsKey('AnalyticsConfiguration')
+            ? AnalyticsConfigurationType.fromJson(
+                json['AnalyticsConfiguration'])
+            : null,
+      );
 }
 
 /// A user pool description.
@@ -5090,7 +6647,20 @@ class UserPoolDescriptionType {
     this.creationDate,
   });
   static UserPoolDescriptionType fromJson(Map<String, dynamic> json) =>
-      UserPoolDescriptionType();
+      UserPoolDescriptionType(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        lambdaConfig: json.containsKey('LambdaConfig')
+            ? LambdaConfigType.fromJson(json['LambdaConfig'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 /// The policy associated with a user pool.
@@ -5102,7 +6672,12 @@ class UserPoolPolicyType {
     this.passwordPolicy,
   });
   static UserPoolPolicyType fromJson(Map<String, dynamic> json) =>
-      UserPoolPolicyType();
+      UserPoolPolicyType(
+        passwordPolicy: json.containsKey('PasswordPolicy')
+            ? PasswordPolicyType.fromJson(json['PasswordPolicy'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for information about the user pool.
@@ -5244,7 +6819,94 @@ class UserPoolType {
     this.userPoolAddOns,
     this.arn,
   });
-  static UserPoolType fromJson(Map<String, dynamic> json) => UserPoolType();
+  static UserPoolType fromJson(Map<String, dynamic> json) => UserPoolType(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        policies: json.containsKey('Policies')
+            ? UserPoolPolicyType.fromJson(json['Policies'])
+            : null,
+        lambdaConfig: json.containsKey('LambdaConfig')
+            ? LambdaConfigType.fromJson(json['LambdaConfig'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? DateTime.parse(json['LastModifiedDate'])
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        schemaAttributes: json.containsKey('SchemaAttributes')
+            ? (json['SchemaAttributes'] as List)
+                .map((e) => SchemaAttributeType.fromJson(e))
+                .toList()
+            : null,
+        autoVerifiedAttributes: json.containsKey('AutoVerifiedAttributes')
+            ? (json['AutoVerifiedAttributes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        aliasAttributes: json.containsKey('AliasAttributes')
+            ? (json['AliasAttributes'] as List).map((e) => e as String).toList()
+            : null,
+        usernameAttributes: json.containsKey('UsernameAttributes')
+            ? (json['UsernameAttributes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        smsVerificationMessage: json.containsKey('SmsVerificationMessage')
+            ? json['SmsVerificationMessage'] as String
+            : null,
+        emailVerificationMessage: json.containsKey('EmailVerificationMessage')
+            ? json['EmailVerificationMessage'] as String
+            : null,
+        emailVerificationSubject: json.containsKey('EmailVerificationSubject')
+            ? json['EmailVerificationSubject'] as String
+            : null,
+        verificationMessageTemplate:
+            json.containsKey('VerificationMessageTemplate')
+                ? VerificationMessageTemplateType.fromJson(
+                    json['VerificationMessageTemplate'])
+                : null,
+        smsAuthenticationMessage: json.containsKey('SmsAuthenticationMessage')
+            ? json['SmsAuthenticationMessage'] as String
+            : null,
+        mfaConfiguration: json.containsKey('MfaConfiguration')
+            ? json['MfaConfiguration'] as String
+            : null,
+        deviceConfiguration: json.containsKey('DeviceConfiguration')
+            ? DeviceConfigurationType.fromJson(json['DeviceConfiguration'])
+            : null,
+        estimatedNumberOfUsers: json.containsKey('EstimatedNumberOfUsers')
+            ? json['EstimatedNumberOfUsers'] as int
+            : null,
+        emailConfiguration: json.containsKey('EmailConfiguration')
+            ? EmailConfigurationType.fromJson(json['EmailConfiguration'])
+            : null,
+        smsConfiguration: json.containsKey('SmsConfiguration')
+            ? SmsConfigurationType.fromJson(json['SmsConfiguration'])
+            : null,
+        userPoolTags: json.containsKey('UserPoolTags')
+            ? (json['UserPoolTags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        smsConfigurationFailure: json.containsKey('SmsConfigurationFailure')
+            ? json['SmsConfigurationFailure'] as String
+            : null,
+        emailConfigurationFailure: json.containsKey('EmailConfigurationFailure')
+            ? json['EmailConfigurationFailure'] as String
+            : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        customDomain: json.containsKey('CustomDomain')
+            ? json['CustomDomain'] as String
+            : null,
+        adminCreateUserConfig: json.containsKey('AdminCreateUserConfig')
+            ? AdminCreateUserConfigType.fromJson(json['AdminCreateUserConfig'])
+            : null,
+        userPoolAddOns: json.containsKey('UserPoolAddOns')
+            ? UserPoolAddOnsType.fromJson(json['UserPoolAddOns'])
+            : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+      );
 }
 
 /// The user type.
@@ -5296,7 +6958,30 @@ class UserType {
     this.userStatus,
     this.mfaOptions,
   });
-  static UserType fromJson(Map<String, dynamic> json) => UserType();
+  static UserType fromJson(Map<String, dynamic> json) => UserType(
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List)
+                .map((e) => AttributeType.fromJson(e))
+                .toList()
+            : null,
+        userCreateDate: json.containsKey('UserCreateDate')
+            ? DateTime.parse(json['UserCreateDate'])
+            : null,
+        userLastModifiedDate: json.containsKey('UserLastModifiedDate')
+            ? DateTime.parse(json['UserLastModifiedDate'])
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        userStatus: json.containsKey('UserStatus')
+            ? json['UserStatus'] as String
+            : null,
+        mfaOptions: json.containsKey('MFAOptions')
+            ? (json['MFAOptions'] as List)
+                .map((e) => MfaOptionType.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The template for verification messages.
@@ -5329,7 +7014,27 @@ class VerificationMessageTemplateType {
     this.defaultEmailOption,
   });
   static VerificationMessageTemplateType fromJson(Map<String, dynamic> json) =>
-      VerificationMessageTemplateType();
+      VerificationMessageTemplateType(
+        smsMessage: json.containsKey('SmsMessage')
+            ? json['SmsMessage'] as String
+            : null,
+        emailMessage: json.containsKey('EmailMessage')
+            ? json['EmailMessage'] as String
+            : null,
+        emailSubject: json.containsKey('EmailSubject')
+            ? json['EmailSubject'] as String
+            : null,
+        emailMessageByLink: json.containsKey('EmailMessageByLink')
+            ? json['EmailMessageByLink'] as String
+            : null,
+        emailSubjectByLink: json.containsKey('EmailSubjectByLink')
+            ? json['EmailSubjectByLink'] as String
+            : null,
+        defaultEmailOption: json.containsKey('DefaultEmailOption')
+            ? json['DefaultEmailOption'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class VerifySoftwareTokenResponse {
@@ -5345,7 +7050,10 @@ class VerifySoftwareTokenResponse {
     this.session,
   });
   static VerifySoftwareTokenResponse fromJson(Map<String, dynamic> json) =>
-      VerifySoftwareTokenResponse();
+      VerifySoftwareTokenResponse(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        session: json.containsKey('Session') ? json['Session'] as String : null,
+      );
 }
 
 /// A container representing the response from the server from the request to

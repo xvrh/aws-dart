@@ -34,6 +34,10 @@ import 'dart:typed_data';
 /// vault, uploading archives, creating jobs to download archives, retrieving
 /// the job output, and deleting archives.
 class GlacierApi {
+  final _client;
+  GlacierApi(client)
+      : _client = client.configured('Glacier', serializer: 'rest-json');
+
   /// This operation aborts a multipart upload identified by the upload ID.
   ///
   /// After the Abort Multipart Upload request succeeds, you cannot upload any
@@ -70,7 +74,13 @@ class GlacierApi {
   Future<void> abortMultipartUpload(
       {@required String accountId,
       @required String vaultName,
-      @required String uploadId}) async {}
+      @required String uploadId}) async {
+    await _client.send('AbortMultipartUpload', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      'uploadId': uploadId,
+    });
+  }
 
   /// This operation aborts the vault locking process if the vault lock is not
   /// in the `Locked` state. If the vault lock is in the `Locked` state when
@@ -99,7 +109,12 @@ class GlacierApi {
   ///
   /// [vaultName]: The name of the vault.
   Future<void> abortVaultLock(
-      {@required String accountId, @required String vaultName}) async {}
+      {@required String accountId, @required String vaultName}) async {
+    await _client.send('AbortVaultLock', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+  }
 
   /// This operation adds the specified tags to a vault. Each tag is composed of
   /// a key and a value. Each vault can have up to 10 tags. If your request
@@ -123,7 +138,13 @@ class GlacierApi {
   Future<void> addTagsToVault(
       {@required String accountId,
       @required String vaultName,
-      Map<String, String> tags}) async {}
+      Map<String, String> tags}) async {
+    await _client.send('AddTagsToVault', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      if (tags != null) 'Tags': tags,
+    });
+  }
 
   /// You call this operation to inform Amazon S3 Glacier (Glacier) that all the
   /// archive parts have been uploaded and that Glacier can now assemble the
@@ -198,7 +219,14 @@ class GlacierApi {
       @required String uploadId,
       String archiveSize,
       String checksum}) async {
-    return ArchiveCreationOutput.fromJson({});
+    var response_ = await _client.send('CompleteMultipartUpload', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      'uploadId': uploadId,
+      if (archiveSize != null) 'archiveSize': archiveSize,
+      if (checksum != null) 'checksum': checksum,
+    });
+    return ArchiveCreationOutput.fromJson(response_);
   }
 
   /// This operation completes the vault locking process by transitioning the
@@ -233,7 +261,13 @@ class GlacierApi {
   Future<void> completeVaultLock(
       {@required String accountId,
       @required String vaultName,
-      @required String lockId}) async {}
+      @required String lockId}) async {
+    await _client.send('CompleteVaultLock', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      'lockId': lockId,
+    });
+  }
 
   /// This operation creates a new vault with the specified name. The name of
   /// the vault must be unique within a region for an AWS account. You can
@@ -272,7 +306,11 @@ class GlacierApi {
   /// [vaultName]: The name of the vault.
   Future<CreateVaultOutput> createVault(
       {@required String accountId, @required String vaultName}) async {
-    return CreateVaultOutput.fromJson({});
+    var response_ = await _client.send('CreateVault', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+    return CreateVaultOutput.fromJson(response_);
   }
 
   /// This operation deletes an archive from a vault. Subsequent requests to
@@ -317,7 +355,13 @@ class GlacierApi {
   Future<void> deleteArchive(
       {@required String accountId,
       @required String vaultName,
-      @required String archiveId}) async {}
+      @required String archiveId}) async {
+    await _client.send('DeleteArchive', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      'archiveId': archiveId,
+    });
+  }
 
   /// This operation deletes a vault. Amazon S3 Glacier will delete a vault only
   /// if there are no archives in the vault as of the last inventory and there
@@ -353,7 +397,12 @@ class GlacierApi {
   ///
   /// [vaultName]: The name of the vault.
   Future<void> deleteVault(
-      {@required String accountId, @required String vaultName}) async {}
+      {@required String accountId, @required String vaultName}) async {
+    await _client.send('DeleteVault', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+  }
 
   /// This operation deletes the access policy associated with the specified
   /// vault. The operation is eventually consistent; that is, it might take some
@@ -375,7 +424,12 @@ class GlacierApi {
   ///
   /// [vaultName]: The name of the vault.
   Future<void> deleteVaultAccessPolicy(
-      {@required String accountId, @required String vaultName}) async {}
+      {@required String accountId, @required String vaultName}) async {
+    await _client.send('DeleteVaultAccessPolicy', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+  }
 
   /// This operation deletes the notification configuration set for a vault. The
   /// operation is eventually consistent; that is, it might take some time for
@@ -404,7 +458,12 @@ class GlacierApi {
   ///
   /// [vaultName]: The name of the vault.
   Future<void> deleteVaultNotifications(
-      {@required String accountId, @required String vaultName}) async {}
+      {@required String accountId, @required String vaultName}) async {
+    await _client.send('DeleteVaultNotifications', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+  }
 
   /// This operation returns information about a job you previously initiated,
   /// including the job initiation date, the user who initiated the job, the job
@@ -445,7 +504,12 @@ class GlacierApi {
       {@required String accountId,
       @required String vaultName,
       @required String jobId}) async {
-    return GlacierJobDescription.fromJson({});
+    var response_ = await _client.send('DescribeJob', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      'jobId': jobId,
+    });
+    return GlacierJobDescription.fromJson(response_);
   }
 
   /// This operation returns information about a vault, including the vault's
@@ -481,7 +545,11 @@ class GlacierApi {
   /// [vaultName]: The name of the vault.
   Future<DescribeVaultOutput> describeVault(
       {@required String accountId, @required String vaultName}) async {
-    return DescribeVaultOutput.fromJson({});
+    var response_ = await _client.send('DescribeVault', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+    return DescribeVaultOutput.fromJson(response_);
   }
 
   /// This operation returns the current data retrieval policy for the account
@@ -497,7 +565,10 @@ class GlacierApi {
   /// your account ID, do not include any hyphens ('-') in the ID.
   Future<GetDataRetrievalPolicyOutput> getDataRetrievalPolicy(
       String accountId) async {
-    return GetDataRetrievalPolicyOutput.fromJson({});
+    var response_ = await _client.send('GetDataRetrievalPolicy', {
+      'accountId': accountId,
+    });
+    return GetDataRetrievalPolicyOutput.fromJson(response_);
   }
 
   /// This operation downloads the output of the job you initiated using
@@ -593,7 +664,13 @@ class GlacierApi {
       @required String vaultName,
       @required String jobId,
       String range}) async {
-    return GetJobOutputOutput.fromJson({});
+    var response_ = await _client.send('GetJobOutput', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      'jobId': jobId,
+      if (range != null) 'range': range,
+    });
+    return GetJobOutputOutput.fromJson(response_);
   }
 
   /// This operation retrieves the `access-policy` subresource set on the vault;
@@ -614,7 +691,11 @@ class GlacierApi {
   /// [vaultName]: The name of the vault.
   Future<GetVaultAccessPolicyOutput> getVaultAccessPolicy(
       {@required String accountId, @required String vaultName}) async {
-    return GetVaultAccessPolicyOutput.fromJson({});
+    var response_ = await _client.send('GetVaultAccessPolicy', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+    return GetVaultAccessPolicyOutput.fromJson(response_);
   }
 
   /// This operation retrieves the following attributes from the `lock-policy`
@@ -650,7 +731,11 @@ class GlacierApi {
   /// [vaultName]: The name of the vault.
   Future<GetVaultLockOutput> getVaultLock(
       {@required String accountId, @required String vaultName}) async {
-    return GetVaultLockOutput.fromJson({});
+    var response_ = await _client.send('GetVaultLock', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+    return GetVaultLockOutput.fromJson(response_);
   }
 
   /// This operation retrieves the `notification-configuration` subresource of
@@ -684,7 +769,11 @@ class GlacierApi {
   /// [vaultName]: The name of the vault.
   Future<GetVaultNotificationsOutput> getVaultNotifications(
       {@required String accountId, @required String vaultName}) async {
-    return GetVaultNotificationsOutput.fromJson({});
+    var response_ = await _client.send('GetVaultNotifications', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+    return GetVaultNotificationsOutput.fromJson(response_);
   }
 
   /// This operation initiates a job of the specified type, which can be a
@@ -707,7 +796,12 @@ class GlacierApi {
       {@required String accountId,
       @required String vaultName,
       JobParameters jobParameters}) async {
-    return InitiateJobOutput.fromJson({});
+    var response_ = await _client.send('InitiateJob', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      if (jobParameters != null) 'jobParameters': jobParameters,
+    });
+    return InitiateJobOutput.fromJson(response_);
   }
 
   /// This operation initiates a multipart upload. Amazon S3 Glacier creates a
@@ -772,7 +866,13 @@ class GlacierApi {
       @required String vaultName,
       String archiveDescription,
       String partSize}) async {
-    return InitiateMultipartUploadOutput.fromJson({});
+    var response_ = await _client.send('InitiateMultipartUpload', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      if (archiveDescription != null) 'archiveDescription': archiveDescription,
+      if (partSize != null) 'partSize': partSize,
+    });
+    return InitiateMultipartUploadOutput.fromJson(response_);
   }
 
   /// This operation initiates the vault locking process by doing the following:
@@ -824,7 +924,12 @@ class GlacierApi {
       {@required String accountId,
       @required String vaultName,
       VaultLockPolicy policy}) async {
-    return InitiateVaultLockOutput.fromJson({});
+    var response_ = await _client.send('InitiateVaultLock', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      if (policy != null) 'policy': policy,
+    });
+    return InitiateVaultLockOutput.fromJson(response_);
   }
 
   /// This operation lists jobs for a vault, including jobs that are in-progress
@@ -896,7 +1001,15 @@ class GlacierApi {
       String marker,
       String statuscode,
       String completed}) async {
-    return ListJobsOutput.fromJson({});
+    var response_ = await _client.send('ListJobs', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      if (limit != null) 'limit': limit,
+      if (marker != null) 'marker': marker,
+      if (statuscode != null) 'statuscode': statuscode,
+      if (completed != null) 'completed': completed,
+    });
+    return ListJobsOutput.fromJson(response_);
   }
 
   /// This operation lists in-progress multipart uploads for the specified
@@ -955,7 +1068,13 @@ class GlacierApi {
       @required String vaultName,
       String marker,
       String limit}) async {
-    return ListMultipartUploadsOutput.fromJson({});
+    var response_ = await _client.send('ListMultipartUploads', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      if (marker != null) 'marker': marker,
+      if (limit != null) 'limit': limit,
+    });
+    return ListMultipartUploadsOutput.fromJson(response_);
   }
 
   /// This operation lists the parts of an archive that have been uploaded in a
@@ -1012,7 +1131,14 @@ class GlacierApi {
       @required String uploadId,
       String marker,
       String limit}) async {
-    return ListPartsOutput.fromJson({});
+    var response_ = await _client.send('ListParts', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      'uploadId': uploadId,
+      if (marker != null) 'marker': marker,
+      if (limit != null) 'limit': limit,
+    });
+    return ListPartsOutput.fromJson(response_);
   }
 
   /// This operation lists the provisioned capacity units for the specified AWS
@@ -1025,7 +1151,10 @@ class GlacierApi {
   /// include any hyphens ('-') in the ID.
   Future<ListProvisionedCapacityOutput> listProvisionedCapacity(
       String accountId) async {
-    return ListProvisionedCapacityOutput.fromJson({});
+    var response_ = await _client.send('ListProvisionedCapacity', {
+      'accountId': accountId,
+    });
+    return ListProvisionedCapacityOutput.fromJson(response_);
   }
 
   /// This operation lists all the tags attached to a vault. The operation
@@ -1043,7 +1172,11 @@ class GlacierApi {
   /// [vaultName]: The name of the vault.
   Future<ListTagsForVaultOutput> listTagsForVault(
       {@required String accountId, @required String vaultName}) async {
-    return ListTagsForVaultOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForVault', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+    });
+    return ListTagsForVaultOutput.fromJson(response_);
   }
 
   /// This operation lists all vaults owned by the calling user's account. The
@@ -1085,7 +1218,12 @@ class GlacierApi {
   /// but the number of returned vaults never exceeds the limit.
   Future<ListVaultsOutput> listVaults(String accountId,
       {String marker, String limit}) async {
-    return ListVaultsOutput.fromJson({});
+    var response_ = await _client.send('ListVaults', {
+      'accountId': accountId,
+      if (marker != null) 'marker': marker,
+      if (limit != null) 'limit': limit,
+    });
+    return ListVaultsOutput.fromJson(response_);
   }
 
   /// This operation purchases a provisioned capacity unit for an AWS account.
@@ -1097,7 +1235,10 @@ class GlacierApi {
   /// include any hyphens ('-') in the ID.
   Future<PurchaseProvisionedCapacityOutput> purchaseProvisionedCapacity(
       String accountId) async {
-    return PurchaseProvisionedCapacityOutput.fromJson({});
+    var response_ = await _client.send('PurchaseProvisionedCapacity', {
+      'accountId': accountId,
+    });
+    return PurchaseProvisionedCapacityOutput.fromJson(response_);
   }
 
   /// This operation removes one or more tags from the set of tags attached to a
@@ -1120,7 +1261,13 @@ class GlacierApi {
   Future<void> removeTagsFromVault(
       {@required String accountId,
       @required String vaultName,
-      List<String> tagKeys}) async {}
+      List<String> tagKeys}) async {
+    await _client.send('RemoveTagsFromVault', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+    });
+  }
 
   /// This operation sets and then enacts a data retrieval policy in the region
   /// specified in the PUT request. You can set one policy per region for an AWS
@@ -1141,7 +1288,12 @@ class GlacierApi {
   ///
   /// [policy]: The data retrieval policy in JSON format.
   Future<void> setDataRetrievalPolicy(String accountId,
-      {DataRetrievalPolicy policy}) async {}
+      {DataRetrievalPolicy policy}) async {
+    await _client.send('SetDataRetrievalPolicy', {
+      'accountId': accountId,
+      if (policy != null) 'Policy': policy,
+    });
+  }
 
   /// This operation configures an access policy for a vault and will overwrite
   /// an existing policy. To configure a vault access policy, send a PUT request
@@ -1164,7 +1316,13 @@ class GlacierApi {
   Future<void> setVaultAccessPolicy(
       {@required String accountId,
       @required String vaultName,
-      VaultAccessPolicy policy}) async {}
+      VaultAccessPolicy policy}) async {
+    await _client.send('SetVaultAccessPolicy', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      if (policy != null) 'policy': policy,
+    });
+  }
 
   /// This operation configures notifications that will be sent when specific
   /// events happen to a vault. By default, you don't get any notifications.
@@ -1217,7 +1375,14 @@ class GlacierApi {
   Future<void> setVaultNotifications(
       {@required String accountId,
       @required String vaultName,
-      VaultNotificationConfig vaultNotificationConfig}) async {}
+      VaultNotificationConfig vaultNotificationConfig}) async {
+    await _client.send('SetVaultNotifications', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      if (vaultNotificationConfig != null)
+        'vaultNotificationConfig': vaultNotificationConfig,
+    });
+  }
 
   /// This operation adds an archive to a vault. This is a synchronous
   /// operation, and for a successful upload, your data is durably persisted.
@@ -1281,7 +1446,14 @@ class GlacierApi {
       String archiveDescription,
       String checksum,
       Uint8List body}) async {
-    return ArchiveCreationOutput.fromJson({});
+    var response_ = await _client.send('UploadArchive', {
+      'vaultName': vaultName,
+      'accountId': accountId,
+      if (archiveDescription != null) 'archiveDescription': archiveDescription,
+      if (checksum != null) 'checksum': checksum,
+      if (body != null) 'body': body,
+    });
+    return ArchiveCreationOutput.fromJson(response_);
   }
 
   /// This operation uploads a part of an archive. You can upload archive parts
@@ -1358,7 +1530,15 @@ class GlacierApi {
       String checksum,
       String range,
       Uint8List body}) async {
-    return UploadMultipartPartOutput.fromJson({});
+    var response_ = await _client.send('UploadMultipartPart', {
+      'accountId': accountId,
+      'vaultName': vaultName,
+      'uploadId': uploadId,
+      if (checksum != null) 'checksum': checksum,
+      if (range != null) 'range': range,
+      if (body != null) 'body': body,
+    });
+    return UploadMultipartPartOutput.fromJson(response_);
   }
 }
 
@@ -1385,7 +1565,14 @@ class ArchiveCreationOutput {
     this.archiveId,
   });
   static ArchiveCreationOutput fromJson(Map<String, dynamic> json) =>
-      ArchiveCreationOutput();
+      ArchiveCreationOutput(
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+        archiveId:
+            json.containsKey('archiveId') ? json['archiveId'] as String : null,
+      );
 }
 
 /// Contains information about the comma-separated value (CSV) file to select
@@ -1422,7 +1609,26 @@ class CsvInput {
     this.fieldDelimiter,
     this.quoteCharacter,
   });
-  static CsvInput fromJson(Map<String, dynamic> json) => CsvInput();
+  static CsvInput fromJson(Map<String, dynamic> json) => CsvInput(
+        fileHeaderInfo: json.containsKey('FileHeaderInfo')
+            ? json['FileHeaderInfo'] as String
+            : null,
+        comments:
+            json.containsKey('Comments') ? json['Comments'] as String : null,
+        quoteEscapeCharacter: json.containsKey('QuoteEscapeCharacter')
+            ? json['QuoteEscapeCharacter'] as String
+            : null,
+        recordDelimiter: json.containsKey('RecordDelimiter')
+            ? json['RecordDelimiter'] as String
+            : null,
+        fieldDelimiter: json.containsKey('FieldDelimiter')
+            ? json['FieldDelimiter'] as String
+            : null,
+        quoteCharacter: json.containsKey('QuoteCharacter')
+            ? json['QuoteCharacter'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the comma-separated value (CSV) file that the job
@@ -1454,7 +1660,24 @@ class CsvOutput {
     this.fieldDelimiter,
     this.quoteCharacter,
   });
-  static CsvOutput fromJson(Map<String, dynamic> json) => CsvOutput();
+  static CsvOutput fromJson(Map<String, dynamic> json) => CsvOutput(
+        quoteFields: json.containsKey('QuoteFields')
+            ? json['QuoteFields'] as String
+            : null,
+        quoteEscapeCharacter: json.containsKey('QuoteEscapeCharacter')
+            ? json['QuoteEscapeCharacter'] as String
+            : null,
+        recordDelimiter: json.containsKey('RecordDelimiter')
+            ? json['RecordDelimiter'] as String
+            : null,
+        fieldDelimiter: json.containsKey('FieldDelimiter')
+            ? json['FieldDelimiter'] as String
+            : null,
+        quoteCharacter: json.containsKey('QuoteCharacter')
+            ? json['QuoteCharacter'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -1466,7 +1689,10 @@ class CreateVaultOutput {
     this.location,
   });
   static CreateVaultOutput fromJson(Map<String, dynamic> json) =>
-      CreateVaultOutput();
+      CreateVaultOutput(
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+      );
 }
 
 /// Data retrieval policy.
@@ -1480,7 +1706,14 @@ class DataRetrievalPolicy {
     this.rules,
   });
   static DataRetrievalPolicy fromJson(Map<String, dynamic> json) =>
-      DataRetrievalPolicy();
+      DataRetrievalPolicy(
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List)
+                .map((e) => DataRetrievalRule.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Data retrieval policy rule.
@@ -1502,7 +1735,14 @@ class DataRetrievalRule {
     this.bytesPerHour,
   });
   static DataRetrievalRule fromJson(Map<String, dynamic> json) =>
-      DataRetrievalRule();
+      DataRetrievalRule(
+        strategy:
+            json.containsKey('Strategy') ? json['Strategy'] as String : null,
+        bytesPerHour: json.containsKey('BytesPerHour')
+            ? BigInt.from(json['BytesPerHour'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -1542,7 +1782,24 @@ class DescribeVaultOutput {
     this.sizeInBytes,
   });
   static DescribeVaultOutput fromJson(Map<String, dynamic> json) =>
-      DescribeVaultOutput();
+      DescribeVaultOutput(
+        vaultArn:
+            json.containsKey('VaultARN') ? json['VaultARN'] as String : null,
+        vaultName:
+            json.containsKey('VaultName') ? json['VaultName'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        lastInventoryDate: json.containsKey('LastInventoryDate')
+            ? json['LastInventoryDate'] as String
+            : null,
+        numberOfArchives: json.containsKey('NumberOfArchives')
+            ? BigInt.from(json['NumberOfArchives'])
+            : null,
+        sizeInBytes: json.containsKey('SizeInBytes')
+            ? BigInt.from(json['SizeInBytes'])
+            : null,
+      );
 }
 
 /// Contains information about the encryption used to store the job results in
@@ -1566,7 +1823,17 @@ class Encryption {
     this.kmsKeyId,
     this.kmsContext,
   });
-  static Encryption fromJson(Map<String, dynamic> json) => Encryption();
+  static Encryption fromJson(Map<String, dynamic> json) => Encryption(
+        encryptionType: json.containsKey('EncryptionType')
+            ? json['EncryptionType'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KMSKeyId') ? json['KMSKeyId'] as String : null,
+        kmsContext: json.containsKey('KMSContext')
+            ? json['KMSContext'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the Amazon S3 Glacier response to the `GetDataRetrievalPolicy`
@@ -1579,7 +1846,11 @@ class GetDataRetrievalPolicyOutput {
     this.policy,
   });
   static GetDataRetrievalPolicyOutput fromJson(Map<String, dynamic> json) =>
-      GetDataRetrievalPolicyOutput();
+      GetDataRetrievalPolicyOutput(
+        policy: json.containsKey('Policy')
+            ? DataRetrievalPolicy.fromJson(json['Policy'])
+            : null,
+      );
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -1640,7 +1911,24 @@ class GetJobOutputOutput {
     this.archiveDescription,
   });
   static GetJobOutputOutput fromJson(Map<String, dynamic> json) =>
-      GetJobOutputOutput();
+      GetJobOutputOutput(
+        body: json.containsKey('body') ? Uint8List(json['body']) : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+        status: json.containsKey('status') ? json['status'] as int : null,
+        contentRange: json.containsKey('contentRange')
+            ? json['contentRange'] as String
+            : null,
+        acceptRanges: json.containsKey('acceptRanges')
+            ? json['acceptRanges'] as String
+            : null,
+        contentType: json.containsKey('contentType')
+            ? json['contentType'] as String
+            : null,
+        archiveDescription: json.containsKey('archiveDescription')
+            ? json['archiveDescription'] as String
+            : null,
+      );
 }
 
 /// Output for GetVaultAccessPolicy.
@@ -1652,7 +1940,11 @@ class GetVaultAccessPolicyOutput {
     this.policy,
   });
   static GetVaultAccessPolicyOutput fromJson(Map<String, dynamic> json) =>
-      GetVaultAccessPolicyOutput();
+      GetVaultAccessPolicyOutput(
+        policy: json.containsKey('policy')
+            ? VaultAccessPolicy.fromJson(json['policy'])
+            : null,
+      );
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -1679,7 +1971,16 @@ class GetVaultLockOutput {
     this.creationDate,
   });
   static GetVaultLockOutput fromJson(Map<String, dynamic> json) =>
-      GetVaultLockOutput();
+      GetVaultLockOutput(
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        expirationDate: json.containsKey('ExpirationDate')
+            ? json['ExpirationDate'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+      );
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -1691,7 +1992,11 @@ class GetVaultNotificationsOutput {
     this.vaultNotificationConfig,
   });
   static GetVaultNotificationsOutput fromJson(Map<String, dynamic> json) =>
-      GetVaultNotificationsOutput();
+      GetVaultNotificationsOutput(
+        vaultNotificationConfig: json.containsKey('vaultNotificationConfig')
+            ? VaultNotificationConfig.fromJson(json['vaultNotificationConfig'])
+            : null,
+      );
 }
 
 /// Contains the description of an Amazon S3 Glacier job.
@@ -1824,7 +2129,63 @@ class GlacierJobDescription {
     this.outputLocation,
   });
   static GlacierJobDescription fromJson(Map<String, dynamic> json) =>
-      GlacierJobDescription();
+      GlacierJobDescription(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobDescription: json.containsKey('JobDescription')
+            ? json['JobDescription'] as String
+            : null,
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        archiveId:
+            json.containsKey('ArchiveId') ? json['ArchiveId'] as String : null,
+        vaultArn:
+            json.containsKey('VaultARN') ? json['VaultARN'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        completed:
+            json.containsKey('Completed') ? json['Completed'] as bool : null,
+        statusCode: json.containsKey('StatusCode')
+            ? json['StatusCode'] as String
+            : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        archiveSizeInBytes: json.containsKey('ArchiveSizeInBytes')
+            ? BigInt.from(json['ArchiveSizeInBytes'])
+            : null,
+        inventorySizeInBytes: json.containsKey('InventorySizeInBytes')
+            ? BigInt.from(json['InventorySizeInBytes'])
+            : null,
+        snsTopic:
+            json.containsKey('SNSTopic') ? json['SNSTopic'] as String : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? json['CompletionDate'] as String
+            : null,
+        sha256TreeHash: json.containsKey('SHA256TreeHash')
+            ? json['SHA256TreeHash'] as String
+            : null,
+        archiveSha256TreeHash: json.containsKey('ArchiveSHA256TreeHash')
+            ? json['ArchiveSHA256TreeHash'] as String
+            : null,
+        retrievalByteRange: json.containsKey('RetrievalByteRange')
+            ? json['RetrievalByteRange'] as String
+            : null,
+        tier: json.containsKey('Tier') ? json['Tier'] as String : null,
+        inventoryRetrievalParameters:
+            json.containsKey('InventoryRetrievalParameters')
+                ? InventoryRetrievalJobDescription.fromJson(
+                    json['InventoryRetrievalParameters'])
+                : null,
+        jobOutputPath: json.containsKey('JobOutputPath')
+            ? json['JobOutputPath'] as String
+            : null,
+        selectParameters: json.containsKey('SelectParameters')
+            ? SelectParameters.fromJson(json['SelectParameters'])
+            : null,
+        outputLocation: json.containsKey('OutputLocation')
+            ? OutputLocation.fromJson(json['OutputLocation'])
+            : null,
+      );
 }
 
 /// Contains information about a grant.
@@ -1839,7 +2200,15 @@ class Grant {
     this.grantee,
     this.permission,
   });
-  static Grant fromJson(Map<String, dynamic> json) => Grant();
+  static Grant fromJson(Map<String, dynamic> json) => Grant(
+        grantee: json.containsKey('Grantee')
+            ? Grantee.fromJson(json['Grantee'])
+            : null,
+        permission: json.containsKey('Permission')
+            ? json['Permission'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the grantee.
@@ -1866,7 +2235,18 @@ class Grantee {
     this.id,
     this.emailAddress,
   });
-  static Grantee fromJson(Map<String, dynamic> json) => Grantee();
+  static Grantee fromJson(Map<String, dynamic> json) => Grantee(
+        type: json['Type'] as String,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        uri: json.containsKey('URI') ? json['URI'] as String : null,
+        id: json.containsKey('ID') ? json['ID'] as String : null,
+        emailAddress: json.containsKey('EmailAddress')
+            ? json['EmailAddress'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -1886,7 +2266,14 @@ class InitiateJobOutput {
     this.jobOutputPath,
   });
   static InitiateJobOutput fromJson(Map<String, dynamic> json) =>
-      InitiateJobOutput();
+      InitiateJobOutput(
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        jobId: json.containsKey('jobId') ? json['jobId'] as String : null,
+        jobOutputPath: json.containsKey('jobOutputPath')
+            ? json['jobOutputPath'] as String
+            : null,
+      );
 }
 
 /// The Amazon S3 Glacier response to your request.
@@ -1904,7 +2291,12 @@ class InitiateMultipartUploadOutput {
     this.uploadId,
   });
   static InitiateMultipartUploadOutput fromJson(Map<String, dynamic> json) =>
-      InitiateMultipartUploadOutput();
+      InitiateMultipartUploadOutput(
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        uploadId:
+            json.containsKey('uploadId') ? json['uploadId'] as String : null,
+      );
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -1916,7 +2308,9 @@ class InitiateVaultLockOutput {
     this.lockId,
   });
   static InitiateVaultLockOutput fromJson(Map<String, dynamic> json) =>
-      InitiateVaultLockOutput();
+      InitiateVaultLockOutput(
+        lockId: json.containsKey('lockId') ? json['lockId'] as String : null,
+      );
 }
 
 /// Describes how the archive is serialized.
@@ -1928,7 +2322,10 @@ class InputSerialization {
     this.csv,
   });
   static InputSerialization fromJson(Map<String, dynamic> json) =>
-      InputSerialization();
+      InputSerialization(
+        csv: json.containsKey('csv') ? CsvInput.fromJson(json['csv']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the options for a range inventory retrieval job.
@@ -1969,7 +2366,14 @@ class InventoryRetrievalJobDescription {
     this.marker,
   });
   static InventoryRetrievalJobDescription fromJson(Map<String, dynamic> json) =>
-      InventoryRetrievalJobDescription();
+      InventoryRetrievalJobDescription(
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        startDate:
+            json.containsKey('StartDate') ? json['StartDate'] as String : null,
+        endDate: json.containsKey('EndDate') ? json['EndDate'] as String : null,
+        limit: json.containsKey('Limit') ? json['Limit'] as String : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Provides options for specifying a range inventory retrieval job.
@@ -2000,6 +2404,7 @@ class InventoryRetrievalJobInput {
     this.limit,
     this.marker,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides options for defining a job.
@@ -2072,6 +2477,7 @@ class JobParameters {
     this.selectParameters,
     this.outputLocation,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -2091,7 +2497,14 @@ class ListJobsOutput {
     this.jobList,
     this.marker,
   });
-  static ListJobsOutput fromJson(Map<String, dynamic> json) => ListJobsOutput();
+  static ListJobsOutput fromJson(Map<String, dynamic> json) => ListJobsOutput(
+        jobList: json.containsKey('JobList')
+            ? (json['JobList'] as List)
+                .map((e) => GlacierJobDescription.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -2110,7 +2523,14 @@ class ListMultipartUploadsOutput {
     this.marker,
   });
   static ListMultipartUploadsOutput fromJson(Map<String, dynamic> json) =>
-      ListMultipartUploadsOutput();
+      ListMultipartUploadsOutput(
+        uploadsList: json.containsKey('UploadsList')
+            ? (json['UploadsList'] as List)
+                .map((e) => UploadListElement.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -2151,8 +2571,28 @@ class ListPartsOutput {
     this.parts,
     this.marker,
   });
-  static ListPartsOutput fromJson(Map<String, dynamic> json) =>
-      ListPartsOutput();
+  static ListPartsOutput fromJson(Map<String, dynamic> json) => ListPartsOutput(
+        multipartUploadId: json.containsKey('MultipartUploadId')
+            ? json['MultipartUploadId'] as String
+            : null,
+        vaultArn:
+            json.containsKey('VaultARN') ? json['VaultARN'] as String : null,
+        archiveDescription: json.containsKey('ArchiveDescription')
+            ? json['ArchiveDescription'] as String
+            : null,
+        partSizeInBytes: json.containsKey('PartSizeInBytes')
+            ? BigInt.from(json['PartSizeInBytes'])
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        parts: json.containsKey('Parts')
+            ? (json['Parts'] as List)
+                .map((e) => PartListElement.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class ListProvisionedCapacityOutput {
@@ -2163,7 +2603,13 @@ class ListProvisionedCapacityOutput {
     this.provisionedCapacityList,
   });
   static ListProvisionedCapacityOutput fromJson(Map<String, dynamic> json) =>
-      ListProvisionedCapacityOutput();
+      ListProvisionedCapacityOutput(
+        provisionedCapacityList: json.containsKey('ProvisionedCapacityList')
+            ? (json['ProvisionedCapacityList'] as List)
+                .map((e) => ProvisionedCapacityDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -2175,7 +2621,12 @@ class ListTagsForVaultOutput {
     this.tags,
   });
   static ListTagsForVaultOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForVaultOutput();
+      ListTagsForVaultOutput(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -2192,7 +2643,14 @@ class ListVaultsOutput {
     this.marker,
   });
   static ListVaultsOutput fromJson(Map<String, dynamic> json) =>
-      ListVaultsOutput();
+      ListVaultsOutput(
+        vaultList: json.containsKey('VaultList')
+            ? (json['VaultList'] as List)
+                .map((e) => DescribeVaultOutput.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains information about the location where the select job results are
@@ -2204,7 +2662,10 @@ class OutputLocation {
   OutputLocation({
     this.s3,
   });
-  static OutputLocation fromJson(Map<String, dynamic> json) => OutputLocation();
+  static OutputLocation fromJson(Map<String, dynamic> json) => OutputLocation(
+        s3: json.containsKey('S3') ? S3Location.fromJson(json['S3']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes how the select output is serialized.
@@ -2216,7 +2677,10 @@ class OutputSerialization {
     this.csv,
   });
   static OutputSerialization fromJson(Map<String, dynamic> json) =>
-      OutputSerialization();
+      OutputSerialization(
+        csv: json.containsKey('csv') ? CsvOutput.fromJson(json['csv']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of the part sizes of the multipart upload.
@@ -2232,8 +2696,14 @@ class PartListElement {
     this.rangeInBytes,
     this.sha256TreeHash,
   });
-  static PartListElement fromJson(Map<String, dynamic> json) =>
-      PartListElement();
+  static PartListElement fromJson(Map<String, dynamic> json) => PartListElement(
+        rangeInBytes: json.containsKey('RangeInBytes')
+            ? json['RangeInBytes'] as String
+            : null,
+        sha256TreeHash: json.containsKey('SHA256TreeHash')
+            ? json['SHA256TreeHash'] as String
+            : null,
+      );
 }
 
 /// The definition for a provisioned capacity unit.
@@ -2255,7 +2725,16 @@ class ProvisionedCapacityDescription {
     this.expirationDate,
   });
   static ProvisionedCapacityDescription fromJson(Map<String, dynamic> json) =>
-      ProvisionedCapacityDescription();
+      ProvisionedCapacityDescription(
+        capacityId: json.containsKey('CapacityId')
+            ? json['CapacityId'] as String
+            : null,
+        startDate:
+            json.containsKey('StartDate') ? json['StartDate'] as String : null,
+        expirationDate: json.containsKey('ExpirationDate')
+            ? json['ExpirationDate'] as String
+            : null,
+      );
 }
 
 class PurchaseProvisionedCapacityOutput {
@@ -2267,7 +2746,11 @@ class PurchaseProvisionedCapacityOutput {
   });
   static PurchaseProvisionedCapacityOutput fromJson(
           Map<String, dynamic> json) =>
-      PurchaseProvisionedCapacityOutput();
+      PurchaseProvisionedCapacityOutput(
+        capacityId: json.containsKey('capacityId')
+            ? json['capacityId'] as String
+            : null,
+      );
 }
 
 /// Contains information about the location in Amazon S3 where the select job
@@ -2308,7 +2791,34 @@ class S3Location {
     this.userMetadata,
     this.storageClass,
   });
-  static S3Location fromJson(Map<String, dynamic> json) => S3Location();
+  static S3Location fromJson(Map<String, dynamic> json) => S3Location(
+        bucketName: json.containsKey('BucketName')
+            ? json['BucketName'] as String
+            : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        encryption: json.containsKey('Encryption')
+            ? Encryption.fromJson(json['Encryption'])
+            : null,
+        cannedAcl:
+            json.containsKey('CannedACL') ? json['CannedACL'] as String : null,
+        accessControlList: json.containsKey('AccessControlList')
+            ? (json['AccessControlList'] as List)
+                .map((e) => Grant.fromJson(e))
+                .toList()
+            : null,
+        tagging: json.containsKey('Tagging')
+            ? (json['Tagging'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        userMetadata: json.containsKey('UserMetadata')
+            ? (json['UserMetadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the parameters used for a select.
@@ -2332,7 +2842,21 @@ class SelectParameters {
     this.outputSerialization,
   });
   static SelectParameters fromJson(Map<String, dynamic> json) =>
-      SelectParameters();
+      SelectParameters(
+        inputSerialization: json.containsKey('InputSerialization')
+            ? InputSerialization.fromJson(json['InputSerialization'])
+            : null,
+        expressionType: json.containsKey('ExpressionType')
+            ? json['ExpressionType'] as String
+            : null,
+        expression: json.containsKey('Expression')
+            ? json['Expression'] as String
+            : null,
+        outputSerialization: json.containsKey('OutputSerialization')
+            ? OutputSerialization.fromJson(json['OutputSerialization'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of in-progress multipart uploads for a vault.
@@ -2363,7 +2887,22 @@ class UploadListElement {
     this.creationDate,
   });
   static UploadListElement fromJson(Map<String, dynamic> json) =>
-      UploadListElement();
+      UploadListElement(
+        multipartUploadId: json.containsKey('MultipartUploadId')
+            ? json['MultipartUploadId'] as String
+            : null,
+        vaultArn:
+            json.containsKey('VaultARN') ? json['VaultARN'] as String : null,
+        archiveDescription: json.containsKey('ArchiveDescription')
+            ? json['ArchiveDescription'] as String
+            : null,
+        partSizeInBytes: json.containsKey('PartSizeInBytes')
+            ? BigInt.from(json['PartSizeInBytes'])
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+      );
 }
 
 /// Contains the Amazon S3 Glacier response to your request.
@@ -2376,7 +2915,10 @@ class UploadMultipartPartOutput {
     this.checksum,
   });
   static UploadMultipartPartOutput fromJson(Map<String, dynamic> json) =>
-      UploadMultipartPartOutput();
+      UploadMultipartPartOutput(
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+      );
 }
 
 /// Contains the vault access policy.
@@ -2388,7 +2930,10 @@ class VaultAccessPolicy {
     this.policy,
   });
   static VaultAccessPolicy fromJson(Map<String, dynamic> json) =>
-      VaultAccessPolicy();
+      VaultAccessPolicy(
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the vault lock policy.
@@ -2399,6 +2944,7 @@ class VaultLockPolicy {
   VaultLockPolicy({
     this.policy,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a vault's notification configuration.
@@ -2416,5 +2962,12 @@ class VaultNotificationConfig {
     this.events,
   });
   static VaultNotificationConfig fromJson(Map<String, dynamic> json) =>
-      VaultNotificationConfig();
+      VaultNotificationConfig(
+        snsTopic:
+            json.containsKey('SNSTopic') ? json['SNSTopic'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

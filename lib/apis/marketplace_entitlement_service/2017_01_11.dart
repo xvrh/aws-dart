@@ -15,6 +15,11 @@ import 'package:meta/meta.dart';
 ///
 /// *    _GetEntitlements_- Gets the entitlements for a Marketplace product.
 class MarketplaceEntitlementServiceApi {
+  final _client;
+  MarketplaceEntitlementServiceApi(client)
+      : _client = client.configured('Marketplace Entitlement Service',
+            serializer: 'json');
+
   /// GetEntitlements retrieves entitlement values for a given product. The
   /// results can be filtered based on customer identifier or product
   /// dimensions.
@@ -38,7 +43,13 @@ class MarketplaceEntitlementServiceApi {
       {Map<String, List<String>> filter,
       String nextToken,
       int maxResults}) async {
-    return GetEntitlementsResult.fromJson({});
+    var response_ = await _client.send('GetEntitlements', {
+      'ProductCode': productCode,
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetEntitlementsResult.fromJson(response_);
   }
 }
 
@@ -78,7 +89,22 @@ class Entitlement {
     this.value,
     this.expirationDate,
   });
-  static Entitlement fromJson(Map<String, dynamic> json) => Entitlement();
+  static Entitlement fromJson(Map<String, dynamic> json) => Entitlement(
+        productCode: json.containsKey('ProductCode')
+            ? json['ProductCode'] as String
+            : null,
+        dimension:
+            json.containsKey('Dimension') ? json['Dimension'] as String : null,
+        customerIdentifier: json.containsKey('CustomerIdentifier')
+            ? json['CustomerIdentifier'] as String
+            : null,
+        value: json.containsKey('Value')
+            ? EntitlementValue.fromJson(json['Value'])
+            : null,
+        expirationDate: json.containsKey('ExpirationDate')
+            ? DateTime.parse(json['ExpirationDate'])
+            : null,
+      );
 }
 
 /// The EntitlementValue represents the amount of capacity that the customer is
@@ -107,7 +133,20 @@ class EntitlementValue {
     this.stringValue,
   });
   static EntitlementValue fromJson(Map<String, dynamic> json) =>
-      EntitlementValue();
+      EntitlementValue(
+        integerValue: json.containsKey('IntegerValue')
+            ? json['IntegerValue'] as int
+            : null,
+        doubleValue: json.containsKey('DoubleValue')
+            ? json['DoubleValue'] as double
+            : null,
+        booleanValue: json.containsKey('BooleanValue')
+            ? json['BooleanValue'] as bool
+            : null,
+        stringValue: json.containsKey('StringValue')
+            ? json['StringValue'] as String
+            : null,
+      );
 }
 
 /// The GetEntitlementsRequest contains results from the GetEntitlements
@@ -128,5 +167,13 @@ class GetEntitlementsResult {
     this.nextToken,
   });
   static GetEntitlementsResult fromJson(Map<String, dynamic> json) =>
-      GetEntitlementsResult();
+      GetEntitlementsResult(
+        entitlements: json.containsKey('Entitlements')
+            ? (json['Entitlements'] as List)
+                .map((e) => Entitlement.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }

@@ -139,6 +139,10 @@ import 'package:meta/meta.dart';
 ///
 /// *    PutThirdPartyJobSuccessResult, which provides details of a job success.
 class CodePipelineApi {
+  final _client;
+  CodePipelineApi(client)
+      : _client = client.configured('CodePipeline', serializer: 'json');
+
   /// Returns information about a specified job and whether that job has been
   /// received by the job worker. Only used for custom actions.
   ///
@@ -151,7 +155,11 @@ class CodePipelineApi {
   /// job.
   Future<AcknowledgeJobOutput> acknowledgeJob(
       {@required String jobId, @required String nonce}) async {
-    return AcknowledgeJobOutput.fromJson({});
+    var response_ = await _client.send('AcknowledgeJob', {
+      'jobId': jobId,
+      'nonce': nonce,
+    });
+    return AcknowledgeJobOutput.fromJson(response_);
   }
 
   /// Confirms a job worker has received the specified job. Only used for
@@ -170,7 +178,12 @@ class CodePipelineApi {
       {@required String jobId,
       @required String nonce,
       @required String clientToken}) async {
-    return AcknowledgeThirdPartyJobOutput.fromJson({});
+    var response_ = await _client.send('AcknowledgeThirdPartyJob', {
+      'jobId': jobId,
+      'nonce': nonce,
+      'clientToken': clientToken,
+    });
+    return AcknowledgeThirdPartyJobOutput.fromJson(response_);
   }
 
   /// Creates a new custom action that can be used in all pipelines associated
@@ -218,7 +231,18 @@ class CodePipelineApi {
       @required ArtifactDetails inputArtifactDetails,
       @required ArtifactDetails outputArtifactDetails,
       List<Tag> tags}) async {
-    return CreateCustomActionTypeOutput.fromJson({});
+    var response_ = await _client.send('CreateCustomActionType', {
+      'category': category,
+      'provider': provider,
+      'version': version,
+      if (settings != null) 'settings': settings,
+      if (configurationProperties != null)
+        'configurationProperties': configurationProperties,
+      'inputArtifactDetails': inputArtifactDetails,
+      'outputArtifactDetails': outputArtifactDetails,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateCustomActionTypeOutput.fromJson(response_);
   }
 
   /// Creates a pipeline.
@@ -235,7 +259,11 @@ class CodePipelineApi {
   /// [tags]: The tags for the pipeline.
   Future<CreatePipelineOutput> createPipeline(PipelineDeclaration pipeline,
       {List<Tag> tags}) async {
-    return CreatePipelineOutput.fromJson({});
+    var response_ = await _client.send('CreatePipeline', {
+      'pipeline': pipeline,
+      if (tags != null) 'tags': tags,
+    });
+    return CreatePipelineOutput.fromJson(response_);
   }
 
   /// Marks a custom action as deleted. `PollForJobs` for the custom action will
@@ -260,12 +288,22 @@ class CodePipelineApi {
   Future<void> deleteCustomActionType(
       {@required String category,
       @required String provider,
-      @required String version}) async {}
+      @required String version}) async {
+    await _client.send('DeleteCustomActionType', {
+      'category': category,
+      'provider': provider,
+      'version': version,
+    });
+  }
 
   /// Deletes the specified pipeline.
   ///
   /// [name]: The name of the pipeline to be deleted.
-  Future<void> deletePipeline(String name) async {}
+  Future<void> deletePipeline(String name) async {
+    await _client.send('DeletePipeline', {
+      'name': name,
+    });
+  }
 
   /// Deletes a previously created webhook by name. Deleting the webhook stops
   /// AWS CodePipeline from starting a pipeline every time an external event
@@ -275,7 +313,10 @@ class CodePipelineApi {
   ///
   /// [name]: The name of the webhook you want to delete.
   Future<DeleteWebhookOutput> deleteWebhook(String name) async {
-    return DeleteWebhookOutput.fromJson({});
+    var response_ = await _client.send('DeleteWebhook', {
+      'name': name,
+    });
+    return DeleteWebhookOutput.fromJson(response_);
   }
 
   /// Removes the connection between the webhook that was created by
@@ -285,7 +326,10 @@ class CodePipelineApi {
   /// [webhookName]: The name of the webhook you want to deregister.
   Future<DeregisterWebhookWithThirdPartyOutput> deregisterWebhookWithThirdParty(
       {String webhookName}) async {
-    return DeregisterWebhookWithThirdPartyOutput.fromJson({});
+    var response_ = await _client.send('DeregisterWebhookWithThirdParty', {
+      if (webhookName != null) 'webhookName': webhookName,
+    });
+    return DeregisterWebhookWithThirdPartyOutput.fromJson(response_);
   }
 
   /// Prevents artifacts in a pipeline from transitioning to the next stage in
@@ -309,7 +353,14 @@ class CodePipelineApi {
       {@required String pipelineName,
       @required String stageName,
       @required String transitionType,
-      @required String reason}) async {}
+      @required String reason}) async {
+    await _client.send('DisableStageTransition', {
+      'pipelineName': pipelineName,
+      'stageName': stageName,
+      'transitionType': transitionType,
+      'reason': reason,
+    });
+  }
 
   /// Enables artifacts in a pipeline to transition to a stage in a pipeline.
   ///
@@ -327,7 +378,13 @@ class CodePipelineApi {
   Future<void> enableStageTransition(
       {@required String pipelineName,
       @required String stageName,
-      @required String transitionType}) async {}
+      @required String transitionType}) async {
+    await _client.send('EnableStageTransition', {
+      'pipelineName': pipelineName,
+      'stageName': stageName,
+      'transitionType': transitionType,
+    });
+  }
 
   /// Returns information about a job. Only used for custom actions.
   ///
@@ -341,7 +398,10 @@ class CodePipelineApi {
   ///
   /// [jobId]: The unique system-generated ID for the job.
   Future<GetJobDetailsOutput> getJobDetails(String jobId) async {
-    return GetJobDetailsOutput.fromJson({});
+    var response_ = await _client.send('GetJobDetails', {
+      'jobId': jobId,
+    });
+    return GetJobDetailsOutput.fromJson(response_);
   }
 
   /// Returns the metadata, structure, stages, and actions of a pipeline. Can be
@@ -356,7 +416,11 @@ class CodePipelineApi {
   /// [version]: The version number of the pipeline. If you do not specify a
   /// version, defaults to the most current version.
   Future<GetPipelineOutput> getPipeline(String name, {int version}) async {
-    return GetPipelineOutput.fromJson({});
+    var response_ = await _client.send('GetPipeline', {
+      'name': name,
+      if (version != null) 'version': version,
+    });
+    return GetPipelineOutput.fromJson(response_);
   }
 
   /// Returns information about an execution of a pipeline, including details
@@ -371,7 +435,11 @@ class CodePipelineApi {
   Future<GetPipelineExecutionOutput> getPipelineExecution(
       {@required String pipelineName,
       @required String pipelineExecutionId}) async {
-    return GetPipelineExecutionOutput.fromJson({});
+    var response_ = await _client.send('GetPipelineExecution', {
+      'pipelineName': pipelineName,
+      'pipelineExecutionId': pipelineExecutionId,
+    });
+    return GetPipelineExecutionOutput.fromJson(response_);
   }
 
   /// Returns information about the state of a pipeline, including the stages
@@ -384,7 +452,10 @@ class CodePipelineApi {
   ///
   /// [name]: The name of the pipeline about which you want to get information.
   Future<GetPipelineStateOutput> getPipelineState(String name) async {
-    return GetPipelineStateOutput.fromJson({});
+    var response_ = await _client.send('GetPipelineState', {
+      'name': name,
+    });
+    return GetPipelineStateOutput.fromJson(response_);
   }
 
   /// Requests the details of a job for a third party action. Only used for
@@ -405,7 +476,11 @@ class CodePipelineApi {
   /// and its details.
   Future<GetThirdPartyJobDetailsOutput> getThirdPartyJobDetails(
       {@required String jobId, @required String clientToken}) async {
-    return GetThirdPartyJobDetailsOutput.fromJson({});
+    var response_ = await _client.send('GetThirdPartyJobDetails', {
+      'jobId': jobId,
+      'clientToken': clientToken,
+    });
+    return GetThirdPartyJobDetailsOutput.fromJson(response_);
   }
 
   /// Lists the action executions that have occurred in a pipeline.
@@ -430,7 +505,13 @@ class CodePipelineApi {
   /// action executions in the list.
   Future<ListActionExecutionsOutput> listActionExecutions(String pipelineName,
       {ActionExecutionFilter filter, int maxResults, String nextToken}) async {
-    return ListActionExecutionsOutput.fromJson({});
+    var response_ = await _client.send('ListActionExecutions', {
+      'pipelineName': pipelineName,
+      if (filter != null) 'filter': filter,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListActionExecutionsOutput.fromJson(response_);
   }
 
   /// Gets a summary of all AWS CodePipeline action types associated with your
@@ -444,7 +525,11 @@ class CodePipelineApi {
   /// the list.
   Future<ListActionTypesOutput> listActionTypes(
       {String actionOwnerFilter, String nextToken}) async {
-    return ListActionTypesOutput.fromJson({});
+    var response_ = await _client.send('ListActionTypes', {
+      if (actionOwnerFilter != null) 'actionOwnerFilter': actionOwnerFilter,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListActionTypesOutput.fromJson(response_);
   }
 
   /// Gets a summary of the most recent executions for a pipeline.
@@ -464,7 +549,12 @@ class CodePipelineApi {
       String pipelineName,
       {int maxResults,
       String nextToken}) async {
-    return ListPipelineExecutionsOutput.fromJson({});
+    var response_ = await _client.send('ListPipelineExecutions', {
+      'pipelineName': pipelineName,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListPipelineExecutionsOutput.fromJson(response_);
   }
 
   /// Gets a summary of all of the pipelines associated with your account.
@@ -473,7 +563,10 @@ class CodePipelineApi {
   /// pipelines call, which can be used to return the next set of pipelines in
   /// the list.
   Future<ListPipelinesOutput> listPipelines({String nextToken}) async {
-    return ListPipelinesOutput.fromJson({});
+    var response_ = await _client.send('ListPipelines', {
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListPipelinesOutput.fromJson(response_);
   }
 
   /// Gets the set of key/value pairs (metadata) that are used to manage the
@@ -490,7 +583,12 @@ class CodePipelineApi {
   /// [maxResults]: The maximum number of results to return in a single call.
   Future<ListTagsForResourceOutput> listTagsForResource(String resourceArn,
       {String nextToken, int maxResults}) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   /// Gets a listing of all the webhooks in this region for this account. The
@@ -505,7 +603,11 @@ class CodePipelineApi {
   /// nextToken value.
   Future<ListWebhooksOutput> listWebhooks(
       {String nextToken, int maxResults}) async {
-    return ListWebhooksOutput.fromJson({});
+    var response_ = await _client.send('ListWebhooks', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListWebhooksOutput.fromJson(response_);
   }
 
   /// Returns information about any jobs for AWS CodePipeline to act upon.
@@ -533,7 +635,12 @@ class CodePipelineApi {
   /// value will be returned.
   Future<PollForJobsOutput> pollForJobs(ActionTypeId actionTypeId,
       {int maxBatchSize, Map<String, String> queryParam}) async {
-    return PollForJobsOutput.fromJson({});
+    var response_ = await _client.send('PollForJobs', {
+      'actionTypeId': actionTypeId,
+      if (maxBatchSize != null) 'maxBatchSize': maxBatchSize,
+      if (queryParam != null) 'queryParam': queryParam,
+    });
+    return PollForJobsOutput.fromJson(response_);
   }
 
   /// Determines whether there are any third party jobs for a job worker to act
@@ -553,7 +660,11 @@ class CodePipelineApi {
   Future<PollForThirdPartyJobsOutput> pollForThirdPartyJobs(
       ActionTypeId actionTypeId,
       {int maxBatchSize}) async {
-    return PollForThirdPartyJobsOutput.fromJson({});
+    var response_ = await _client.send('PollForThirdPartyJobs', {
+      'actionTypeId': actionTypeId,
+      if (maxBatchSize != null) 'maxBatchSize': maxBatchSize,
+    });
+    return PollForThirdPartyJobsOutput.fromJson(response_);
   }
 
   /// Provides information to AWS CodePipeline about new revisions to a source.
@@ -573,7 +684,13 @@ class CodePipelineApi {
       @required String stageName,
       @required String actionName,
       @required ActionRevision actionRevision}) async {
-    return PutActionRevisionOutput.fromJson({});
+    var response_ = await _client.send('PutActionRevision', {
+      'pipelineName': pipelineName,
+      'stageName': stageName,
+      'actionName': actionName,
+      'actionRevision': actionRevision,
+    });
+    return PutActionRevisionOutput.fromJson(response_);
   }
 
   /// Provides the response to a manual approval request to AWS CodePipeline.
@@ -597,7 +714,14 @@ class CodePipelineApi {
       @required String actionName,
       @required ApprovalResult result,
       @required String token}) async {
-    return PutApprovalResultOutput.fromJson({});
+    var response_ = await _client.send('PutApprovalResult', {
+      'pipelineName': pipelineName,
+      'stageName': stageName,
+      'actionName': actionName,
+      'result': result,
+      'token': token,
+    });
+    return PutApprovalResultOutput.fromJson(response_);
   }
 
   /// Represents the failure of a job as returned to the pipeline by a job
@@ -608,8 +732,12 @@ class CodePipelineApi {
   ///
   /// [failureDetails]: The details about the failure of a job.
   Future<void> putJobFailureResult(
-      {@required String jobId,
-      @required FailureDetails failureDetails}) async {}
+      {@required String jobId, @required FailureDetails failureDetails}) async {
+    await _client.send('PutJobFailureResult', {
+      'jobId': jobId,
+      'failureDetails': failureDetails,
+    });
+  }
 
   /// Represents the success of a job as returned to the pipeline by a job
   /// worker. Only used for custom actions.
@@ -632,7 +760,14 @@ class CodePipelineApi {
   Future<void> putJobSuccessResult(String jobId,
       {CurrentRevision currentRevision,
       String continuationToken,
-      ExecutionDetails executionDetails}) async {}
+      ExecutionDetails executionDetails}) async {
+    await _client.send('PutJobSuccessResult', {
+      'jobId': jobId,
+      if (currentRevision != null) 'currentRevision': currentRevision,
+      if (continuationToken != null) 'continuationToken': continuationToken,
+      if (executionDetails != null) 'executionDetails': executionDetails,
+    });
+  }
 
   /// Represents the failure of a third party job as returned to the pipeline by
   /// a job worker. Only used for partner actions.
@@ -648,7 +783,13 @@ class CodePipelineApi {
   Future<void> putThirdPartyJobFailureResult(
       {@required String jobId,
       @required String clientToken,
-      @required FailureDetails failureDetails}) async {}
+      @required FailureDetails failureDetails}) async {
+    await _client.send('PutThirdPartyJobFailureResult', {
+      'jobId': jobId,
+      'clientToken': clientToken,
+      'failureDetails': failureDetails,
+    });
+  }
 
   /// Represents the success of a third party job as returned to the pipeline by
   /// a job worker. Only used for partner actions.
@@ -676,7 +817,15 @@ class CodePipelineApi {
       @required String clientToken,
       CurrentRevision currentRevision,
       String continuationToken,
-      ExecutionDetails executionDetails}) async {}
+      ExecutionDetails executionDetails}) async {
+    await _client.send('PutThirdPartyJobSuccessResult', {
+      'jobId': jobId,
+      'clientToken': clientToken,
+      if (currentRevision != null) 'currentRevision': currentRevision,
+      if (continuationToken != null) 'continuationToken': continuationToken,
+      if (executionDetails != null) 'executionDetails': executionDetails,
+    });
+  }
 
   /// Defines a webhook and returns a unique webhook URL generated by
   /// CodePipeline. This URL can be supplied to third party source hosting
@@ -697,7 +846,11 @@ class CodePipelineApi {
   /// [tags]: The tags for the webhook.
   Future<PutWebhookOutput> putWebhook(WebhookDefinition webhook,
       {List<Tag> tags}) async {
-    return PutWebhookOutput.fromJson({});
+    var response_ = await _client.send('PutWebhook', {
+      'webhook': webhook,
+      if (tags != null) 'tags': tags,
+    });
+    return PutWebhookOutput.fromJson(response_);
   }
 
   /// Configures a connection between the webhook that was created and the
@@ -707,7 +860,10 @@ class CodePipelineApi {
   /// register with a supported third party.
   Future<RegisterWebhookWithThirdPartyOutput> registerWebhookWithThirdParty(
       {String webhookName}) async {
-    return RegisterWebhookWithThirdPartyOutput.fromJson({});
+    var response_ = await _client.send('RegisterWebhookWithThirdParty', {
+      if (webhookName != null) 'webhookName': webhookName,
+    });
+    return RegisterWebhookWithThirdPartyOutput.fromJson(response_);
   }
 
   /// Resumes the pipeline execution by retrying the last failed actions in a
@@ -728,7 +884,13 @@ class CodePipelineApi {
       @required String stageName,
       @required String pipelineExecutionId,
       @required String retryMode}) async {
-    return RetryStageExecutionOutput.fromJson({});
+    var response_ = await _client.send('RetryStageExecution', {
+      'pipelineName': pipelineName,
+      'stageName': stageName,
+      'pipelineExecutionId': pipelineExecutionId,
+      'retryMode': retryMode,
+    });
+    return RetryStageExecutionOutput.fromJson(response_);
   }
 
   /// Starts the specified pipeline. Specifically, it begins processing the
@@ -740,7 +902,11 @@ class CodePipelineApi {
   /// unique execution request.
   Future<StartPipelineExecutionOutput> startPipelineExecution(String name,
       {String clientRequestToken}) async {
-    return StartPipelineExecutionOutput.fromJson({});
+    var response_ = await _client.send('StartPipelineExecution', {
+      'name': name,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+    });
+    return StartPipelineExecutionOutput.fromJson(response_);
   }
 
   /// Adds to or modifies the tags of the given resource. Tags are metadata that
@@ -752,7 +918,11 @@ class CodePipelineApi {
   /// [tags]: The tags you want to modify or add to the resource.
   Future<TagResourceOutput> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceOutput.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceOutput.fromJson(response_);
   }
 
   /// Removes tags from an AWS resource.
@@ -763,7 +933,11 @@ class CodePipelineApi {
   /// [tagKeys]: The list of keys for the tags to be removed from the resource.
   Future<UntagResourceOutput> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceOutput.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceOutput.fromJson(response_);
   }
 
   /// Updates a specified pipeline with edits or changes to its structure. Use a
@@ -774,7 +948,10 @@ class CodePipelineApi {
   /// [pipeline]: The name of the pipeline to be updated.
   Future<UpdatePipelineOutput> updatePipeline(
       PipelineDeclaration pipeline) async {
-    return UpdatePipelineOutput.fromJson({});
+    var response_ = await _client.send('UpdatePipeline', {
+      'pipeline': pipeline,
+    });
+    return UpdatePipelineOutput.fromJson(response_);
   }
 }
 
@@ -798,7 +975,11 @@ class AwsSessionCredentials {
     @required this.sessionToken,
   });
   static AwsSessionCredentials fromJson(Map<String, dynamic> json) =>
-      AwsSessionCredentials();
+      AwsSessionCredentials(
+        accessKeyId: json['accessKeyId'] as String,
+        secretAccessKey: json['secretAccessKey'] as String,
+        sessionToken: json['sessionToken'] as String,
+      );
 }
 
 /// Represents the output of an AcknowledgeJob action.
@@ -810,7 +991,9 @@ class AcknowledgeJobOutput {
     this.status,
   });
   static AcknowledgeJobOutput fromJson(Map<String, dynamic> json) =>
-      AcknowledgeJobOutput();
+      AcknowledgeJobOutput(
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// Represents the output of an AcknowledgeThirdPartyJob action.
@@ -822,7 +1005,9 @@ class AcknowledgeThirdPartyJobOutput {
     this.status,
   });
   static AcknowledgeThirdPartyJobOutput fromJson(Map<String, dynamic> json) =>
-      AcknowledgeThirdPartyJobOutput();
+      AcknowledgeThirdPartyJobOutput(
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// Represents information about an action configuration.
@@ -834,7 +1019,12 @@ class ActionConfiguration {
     this.configuration,
   });
   static ActionConfiguration fromJson(Map<String, dynamic> json) =>
-      ActionConfiguration();
+      ActionConfiguration(
+        configuration: json.containsKey('configuration')
+            ? (json['configuration'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents information about an action configuration property.
@@ -885,7 +1075,19 @@ class ActionConfigurationProperty {
     this.type,
   });
   static ActionConfigurationProperty fromJson(Map<String, dynamic> json) =>
-      ActionConfigurationProperty();
+      ActionConfigurationProperty(
+        name: json['name'] as String,
+        isRequired: json['required'] as bool,
+        key: json['key'] as bool,
+        secret: json['secret'] as bool,
+        queryable:
+            json.containsKey('queryable') ? json['queryable'] as bool : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the context of an action within the stage of a pipeline to a job
@@ -901,7 +1103,12 @@ class ActionContext {
     this.name,
     this.actionExecutionId,
   });
-  static ActionContext fromJson(Map<String, dynamic> json) => ActionContext();
+  static ActionContext fromJson(Map<String, dynamic> json) => ActionContext(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        actionExecutionId: json.containsKey('actionExecutionId')
+            ? json['actionExecutionId'] as String
+            : null,
+      );
 }
 
 /// Represents information about an action declaration.
@@ -960,7 +1167,28 @@ class ActionDeclaration {
     this.region,
   });
   static ActionDeclaration fromJson(Map<String, dynamic> json) =>
-      ActionDeclaration();
+      ActionDeclaration(
+        name: json['name'] as String,
+        actionTypeId: ActionTypeId.fromJson(json['actionTypeId']),
+        runOrder: json.containsKey('runOrder') ? json['runOrder'] as int : null,
+        configuration: json.containsKey('configuration')
+            ? (json['configuration'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        outputArtifacts: json.containsKey('outputArtifacts')
+            ? (json['outputArtifacts'] as List)
+                .map((e) => OutputArtifact.fromJson(e))
+                .toList()
+            : null,
+        inputArtifacts: json.containsKey('inputArtifacts')
+            ? (json['inputArtifacts'] as List)
+                .map((e) => InputArtifact.fromJson(e))
+                .toList()
+            : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about the run of an action.
@@ -1008,8 +1236,29 @@ class ActionExecution {
     this.percentComplete,
     this.errorDetails,
   });
-  static ActionExecution fromJson(Map<String, dynamic> json) =>
-      ActionExecution();
+  static ActionExecution fromJson(Map<String, dynamic> json) => ActionExecution(
+        status: json.containsKey('status') ? json['status'] as String : null,
+        summary: json.containsKey('summary') ? json['summary'] as String : null,
+        lastStatusChange: json.containsKey('lastStatusChange')
+            ? DateTime.parse(json['lastStatusChange'])
+            : null,
+        token: json.containsKey('token') ? json['token'] as String : null,
+        lastUpdatedBy: json.containsKey('lastUpdatedBy')
+            ? json['lastUpdatedBy'] as String
+            : null,
+        externalExecutionId: json.containsKey('externalExecutionId')
+            ? json['externalExecutionId'] as String
+            : null,
+        externalExecutionUrl: json.containsKey('externalExecutionUrl')
+            ? json['externalExecutionUrl'] as String
+            : null,
+        percentComplete: json.containsKey('percentComplete')
+            ? json['percentComplete'] as int
+            : null,
+        errorDetails: json.containsKey('errorDetails')
+            ? ErrorDetails.fromJson(json['errorDetails'])
+            : null,
+      );
 }
 
 /// Returns information about an execution of an action, including the action
@@ -1061,7 +1310,35 @@ class ActionExecutionDetail {
     this.output,
   });
   static ActionExecutionDetail fromJson(Map<String, dynamic> json) =>
-      ActionExecutionDetail();
+      ActionExecutionDetail(
+        pipelineExecutionId: json.containsKey('pipelineExecutionId')
+            ? json['pipelineExecutionId'] as String
+            : null,
+        actionExecutionId: json.containsKey('actionExecutionId')
+            ? json['actionExecutionId'] as String
+            : null,
+        pipelineVersion: json.containsKey('pipelineVersion')
+            ? json['pipelineVersion'] as int
+            : null,
+        stageName:
+            json.containsKey('stageName') ? json['stageName'] as String : null,
+        actionName: json.containsKey('actionName')
+            ? json['actionName'] as String
+            : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        input: json.containsKey('input')
+            ? ActionExecutionInput.fromJson(json['input'])
+            : null,
+        output: json.containsKey('output')
+            ? ActionExecutionOutput.fromJson(json['output'])
+            : null,
+      );
 }
 
 /// Filter values for the action execution.
@@ -1072,6 +1349,7 @@ class ActionExecutionFilter {
   ActionExecutionFilter({
     this.pipelineExecutionId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Input information used for an action execution.
@@ -1100,7 +1378,22 @@ class ActionExecutionInput {
     this.inputArtifacts,
   });
   static ActionExecutionInput fromJson(Map<String, dynamic> json) =>
-      ActionExecutionInput();
+      ActionExecutionInput(
+        actionTypeId: json.containsKey('actionTypeId')
+            ? ActionTypeId.fromJson(json['actionTypeId'])
+            : null,
+        configuration: json.containsKey('configuration')
+            ? (json['configuration'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        inputArtifacts: json.containsKey('inputArtifacts')
+            ? (json['inputArtifacts'] as List)
+                .map((e) => ArtifactDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Output details listed for an action execution, such as the action execution
@@ -1119,7 +1412,16 @@ class ActionExecutionOutput {
     this.executionResult,
   });
   static ActionExecutionOutput fromJson(Map<String, dynamic> json) =>
-      ActionExecutionOutput();
+      ActionExecutionOutput(
+        outputArtifacts: json.containsKey('outputArtifacts')
+            ? (json['outputArtifacts'] as List)
+                .map((e) => ArtifactDetail.fromJson(e))
+                .toList()
+            : null,
+        executionResult: json.containsKey('executionResult')
+            ? ActionExecutionResult.fromJson(json['executionResult'])
+            : null,
+      );
 }
 
 /// Execution result information, such as the external execution ID.
@@ -1141,7 +1443,17 @@ class ActionExecutionResult {
     this.externalExecutionUrl,
   });
   static ActionExecutionResult fromJson(Map<String, dynamic> json) =>
-      ActionExecutionResult();
+      ActionExecutionResult(
+        externalExecutionId: json.containsKey('externalExecutionId')
+            ? json['externalExecutionId'] as String
+            : null,
+        externalExecutionSummary: json.containsKey('externalExecutionSummary')
+            ? json['externalExecutionSummary'] as String
+            : null,
+        externalExecutionUrl: json.containsKey('externalExecutionUrl')
+            ? json['externalExecutionUrl'] as String
+            : null,
+      );
 }
 
 /// Represents information about the version (or revision) of an action.
@@ -1163,7 +1475,12 @@ class ActionRevision {
     @required this.revisionChangeId,
     @required this.created,
   });
-  static ActionRevision fromJson(Map<String, dynamic> json) => ActionRevision();
+  static ActionRevision fromJson(Map<String, dynamic> json) => ActionRevision(
+        revisionId: json['revisionId'] as String,
+        revisionChangeId: json['revisionChangeId'] as String,
+        created: DateTime.parse(json['created']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about the state of an action.
@@ -1192,7 +1509,22 @@ class ActionState {
     this.entityUrl,
     this.revisionUrl,
   });
-  static ActionState fromJson(Map<String, dynamic> json) => ActionState();
+  static ActionState fromJson(Map<String, dynamic> json) => ActionState(
+        actionName: json.containsKey('actionName')
+            ? json['actionName'] as String
+            : null,
+        currentRevision: json.containsKey('currentRevision')
+            ? ActionRevision.fromJson(json['currentRevision'])
+            : null,
+        latestExecution: json.containsKey('latestExecution')
+            ? ActionExecution.fromJson(json['latestExecution'])
+            : null,
+        entityUrl:
+            json.containsKey('entityUrl') ? json['entityUrl'] as String : null,
+        revisionUrl: json.containsKey('revisionUrl')
+            ? json['revisionUrl'] as String
+            : null,
+      );
 }
 
 /// Returns information about the details of an action type.
@@ -1219,7 +1551,22 @@ class ActionType {
     @required this.inputArtifactDetails,
     @required this.outputArtifactDetails,
   });
-  static ActionType fromJson(Map<String, dynamic> json) => ActionType();
+  static ActionType fromJson(Map<String, dynamic> json) => ActionType(
+        id: ActionTypeId.fromJson(json['id']),
+        settings: json.containsKey('settings')
+            ? ActionTypeSettings.fromJson(json['settings'])
+            : null,
+        actionConfigurationProperties:
+            json.containsKey('actionConfigurationProperties')
+                ? (json['actionConfigurationProperties'] as List)
+                    .map((e) => ActionConfigurationProperty.fromJson(e))
+                    .toList()
+                : null,
+        inputArtifactDetails:
+            ArtifactDetails.fromJson(json['inputArtifactDetails']),
+        outputArtifactDetails:
+            ArtifactDetails.fromJson(json['outputArtifactDetails']),
+      );
 }
 
 /// Represents information about an action type.
@@ -1249,7 +1596,13 @@ class ActionTypeId {
     @required this.provider,
     @required this.version,
   });
-  static ActionTypeId fromJson(Map<String, dynamic> json) => ActionTypeId();
+  static ActionTypeId fromJson(Map<String, dynamic> json) => ActionTypeId(
+        category: json['category'] as String,
+        owner: json['owner'] as String,
+        provider: json['provider'] as String,
+        version: json['version'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Returns information about the settings for an action type.
@@ -1283,7 +1636,22 @@ class ActionTypeSettings {
     this.revisionUrlTemplate,
   });
   static ActionTypeSettings fromJson(Map<String, dynamic> json) =>
-      ActionTypeSettings();
+      ActionTypeSettings(
+        thirdPartyConfigurationUrl:
+            json.containsKey('thirdPartyConfigurationUrl')
+                ? json['thirdPartyConfigurationUrl'] as String
+                : null,
+        entityUrlTemplate: json.containsKey('entityUrlTemplate')
+            ? json['entityUrlTemplate'] as String
+            : null,
+        executionUrlTemplate: json.containsKey('executionUrlTemplate')
+            ? json['executionUrlTemplate'] as String
+            : null,
+        revisionUrlTemplate: json.containsKey('revisionUrlTemplate')
+            ? json['revisionUrlTemplate'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about the result of an approval request.
@@ -1299,6 +1667,7 @@ class ApprovalResult {
     @required this.summary,
     @required this.status,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about an artifact that will be worked upon by actions
@@ -1319,7 +1688,14 @@ class Artifact {
     this.revision,
     this.location,
   });
-  static Artifact fromJson(Map<String, dynamic> json) => Artifact();
+  static Artifact fromJson(Map<String, dynamic> json) => Artifact(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        revision:
+            json.containsKey('revision') ? json['revision'] as String : null,
+        location: json.containsKey('location')
+            ? ArtifactLocation.fromJson(json['location'])
+            : null,
+      );
 }
 
 /// Artifact details for the action execution, such as the artifact location.
@@ -1334,7 +1710,12 @@ class ArtifactDetail {
     this.name,
     this.s3Location,
   });
-  static ArtifactDetail fromJson(Map<String, dynamic> json) => ArtifactDetail();
+  static ArtifactDetail fromJson(Map<String, dynamic> json) => ArtifactDetail(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        s3Location: json.containsKey('s3location')
+            ? S3Location.fromJson(json['s3location'])
+            : null,
+      );
 }
 
 /// Returns information about the details of an artifact.
@@ -1349,8 +1730,11 @@ class ArtifactDetails {
     @required this.minimumCount,
     @required this.maximumCount,
   });
-  static ArtifactDetails fromJson(Map<String, dynamic> json) =>
-      ArtifactDetails();
+  static ArtifactDetails fromJson(Map<String, dynamic> json) => ArtifactDetails(
+        minimumCount: json['minimumCount'] as int,
+        maximumCount: json['maximumCount'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about the location of an artifact.
@@ -1366,7 +1750,12 @@ class ArtifactLocation {
     this.s3Location,
   });
   static ArtifactLocation fromJson(Map<String, dynamic> json) =>
-      ArtifactLocation();
+      ArtifactLocation(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        s3Location: json.containsKey('s3Location')
+            ? S3ArtifactLocation.fromJson(json['s3Location'])
+            : null,
+      );
 }
 
 /// Represents revision details of an artifact.
@@ -1407,7 +1796,24 @@ class ArtifactRevision {
     this.revisionUrl,
   });
   static ArtifactRevision fromJson(Map<String, dynamic> json) =>
-      ArtifactRevision();
+      ArtifactRevision(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+        revisionChangeIdentifier: json.containsKey('revisionChangeIdentifier')
+            ? json['revisionChangeIdentifier'] as String
+            : null,
+        revisionSummary: json.containsKey('revisionSummary')
+            ? json['revisionSummary'] as String
+            : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        revisionUrl: json.containsKey('revisionUrl')
+            ? json['revisionUrl'] as String
+            : null,
+      );
 }
 
 /// The Amazon S3 bucket where artifacts are stored for the pipeline.
@@ -1438,7 +1844,14 @@ class ArtifactStore {
     @required this.location,
     this.encryptionKey,
   });
-  static ArtifactStore fromJson(Map<String, dynamic> json) => ArtifactStore();
+  static ArtifactStore fromJson(Map<String, dynamic> json) => ArtifactStore(
+        type: json['type'] as String,
+        location: json['location'] as String,
+        encryptionKey: json.containsKey('encryptionKey')
+            ? EncryptionKey.fromJson(json['encryptionKey'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Reserved for future use.
@@ -1454,7 +1867,11 @@ class BlockerDeclaration {
     @required this.type,
   });
   static BlockerDeclaration fromJson(Map<String, dynamic> json) =>
-      BlockerDeclaration();
+      BlockerDeclaration(
+        name: json['name'] as String,
+        type: json['type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a `CreateCustomActionType` operation.
@@ -1470,7 +1887,12 @@ class CreateCustomActionTypeOutput {
     this.tags,
   });
   static CreateCustomActionTypeOutput fromJson(Map<String, dynamic> json) =>
-      CreateCustomActionTypeOutput();
+      CreateCustomActionTypeOutput(
+        actionType: ActionType.fromJson(json['actionType']),
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Represents the output of a `CreatePipeline` action.
@@ -1487,7 +1909,14 @@ class CreatePipelineOutput {
     this.tags,
   });
   static CreatePipelineOutput fromJson(Map<String, dynamic> json) =>
-      CreatePipelineOutput();
+      CreatePipelineOutput(
+        pipeline: json.containsKey('pipeline')
+            ? PipelineDeclaration.fromJson(json['pipeline'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Represents information about a current revision.
@@ -1511,6 +1940,7 @@ class CurrentRevision {
     this.created,
     this.revisionSummary,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteWebhookOutput {
@@ -1548,7 +1978,11 @@ class EncryptionKey {
     @required this.id,
     @required this.type,
   });
-  static EncryptionKey fromJson(Map<String, dynamic> json) => EncryptionKey();
+  static EncryptionKey fromJson(Map<String, dynamic> json) => EncryptionKey(
+        id: json['id'] as String,
+        type: json['type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about an error in AWS CodePipeline.
@@ -1563,7 +1997,10 @@ class ErrorDetails {
     this.code,
     this.message,
   });
-  static ErrorDetails fromJson(Map<String, dynamic> json) => ErrorDetails();
+  static ErrorDetails fromJson(Map<String, dynamic> json) => ErrorDetails(
+        code: json.containsKey('code') ? json['code'] as String : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 /// The details of the actions taken and results produced on an artifact as it
@@ -1585,6 +2022,7 @@ class ExecutionDetails {
     this.externalExecutionId,
     this.percentComplete,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The interaction or event that started a pipeline execution.
@@ -1603,7 +2041,14 @@ class ExecutionTrigger {
     this.triggerDetail,
   });
   static ExecutionTrigger fromJson(Map<String, dynamic> json) =>
-      ExecutionTrigger();
+      ExecutionTrigger(
+        triggerType: json.containsKey('triggerType')
+            ? json['triggerType'] as String
+            : null,
+        triggerDetail: json.containsKey('triggerDetail')
+            ? json['triggerDetail'] as String
+            : null,
+      );
 }
 
 /// Represents information about failure details.
@@ -1622,6 +2067,7 @@ class FailureDetails {
     @required this.message,
     this.externalExecutionId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a `GetJobDetails` action.
@@ -1638,7 +2084,11 @@ class GetJobDetailsOutput {
     this.jobDetails,
   });
   static GetJobDetailsOutput fromJson(Map<String, dynamic> json) =>
-      GetJobDetailsOutput();
+      GetJobDetailsOutput(
+        jobDetails: json.containsKey('jobDetails')
+            ? JobDetails.fromJson(json['jobDetails'])
+            : null,
+      );
 }
 
 /// Represents the output of a `GetPipelineExecution` action.
@@ -1650,7 +2100,11 @@ class GetPipelineExecutionOutput {
     this.pipelineExecution,
   });
   static GetPipelineExecutionOutput fromJson(Map<String, dynamic> json) =>
-      GetPipelineExecutionOutput();
+      GetPipelineExecutionOutput(
+        pipelineExecution: json.containsKey('pipelineExecution')
+            ? PipelineExecution.fromJson(json['pipelineExecution'])
+            : null,
+      );
 }
 
 /// Represents the output of a `GetPipeline` action.
@@ -1668,7 +2122,14 @@ class GetPipelineOutput {
     this.metadata,
   });
   static GetPipelineOutput fromJson(Map<String, dynamic> json) =>
-      GetPipelineOutput();
+      GetPipelineOutput(
+        pipeline: json.containsKey('pipeline')
+            ? PipelineDeclaration.fromJson(json['pipeline'])
+            : null,
+        metadata: json.containsKey('metadata')
+            ? PipelineMetadata.fromJson(json['metadata'])
+            : null,
+      );
 }
 
 /// Represents the output of a `GetPipelineState` action.
@@ -1702,7 +2163,25 @@ class GetPipelineStateOutput {
     this.updated,
   });
   static GetPipelineStateOutput fromJson(Map<String, dynamic> json) =>
-      GetPipelineStateOutput();
+      GetPipelineStateOutput(
+        pipelineName: json.containsKey('pipelineName')
+            ? json['pipelineName'] as String
+            : null,
+        pipelineVersion: json.containsKey('pipelineVersion')
+            ? json['pipelineVersion'] as int
+            : null,
+        stageStates: json.containsKey('stageStates')
+            ? (json['stageStates'] as List)
+                .map((e) => StageState.fromJson(e))
+                .toList()
+            : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        updated: json.containsKey('updated')
+            ? DateTime.parse(json['updated'])
+            : null,
+      );
 }
 
 /// Represents the output of a `GetThirdPartyJobDetails` action.
@@ -1715,7 +2194,11 @@ class GetThirdPartyJobDetailsOutput {
     this.jobDetails,
   });
   static GetThirdPartyJobDetailsOutput fromJson(Map<String, dynamic> json) =>
-      GetThirdPartyJobDetailsOutput();
+      GetThirdPartyJobDetailsOutput(
+        jobDetails: json.containsKey('jobDetails')
+            ? ThirdPartyJobDetails.fromJson(json['jobDetails'])
+            : null,
+      );
 }
 
 /// Represents information about an artifact to be worked on, such as a test or
@@ -1733,7 +2216,10 @@ class InputArtifact {
   InputArtifact({
     @required this.name,
   });
-  static InputArtifact fromJson(Map<String, dynamic> json) => InputArtifact();
+  static InputArtifact fromJson(Map<String, dynamic> json) => InputArtifact(
+        name: json['name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about a job.
@@ -1758,7 +2244,13 @@ class Job {
     this.nonce,
     this.accountId,
   });
-  static Job fromJson(Map<String, dynamic> json) => Job();
+  static Job fromJson(Map<String, dynamic> json) => Job(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        data: json.containsKey('data') ? JobData.fromJson(json['data']) : null,
+        nonce: json.containsKey('nonce') ? json['nonce'] as String : null,
+        accountId:
+            json.containsKey('accountId') ? json['accountId'] as String : null,
+      );
 }
 
 /// Represents additional information about a job required for a job worker to
@@ -1807,7 +2299,36 @@ class JobData {
     this.continuationToken,
     this.encryptionKey,
   });
-  static JobData fromJson(Map<String, dynamic> json) => JobData();
+  static JobData fromJson(Map<String, dynamic> json) => JobData(
+        actionTypeId: json.containsKey('actionTypeId')
+            ? ActionTypeId.fromJson(json['actionTypeId'])
+            : null,
+        actionConfiguration: json.containsKey('actionConfiguration')
+            ? ActionConfiguration.fromJson(json['actionConfiguration'])
+            : null,
+        pipelineContext: json.containsKey('pipelineContext')
+            ? PipelineContext.fromJson(json['pipelineContext'])
+            : null,
+        inputArtifacts: json.containsKey('inputArtifacts')
+            ? (json['inputArtifacts'] as List)
+                .map((e) => Artifact.fromJson(e))
+                .toList()
+            : null,
+        outputArtifacts: json.containsKey('outputArtifacts')
+            ? (json['outputArtifacts'] as List)
+                .map((e) => Artifact.fromJson(e))
+                .toList()
+            : null,
+        artifactCredentials: json.containsKey('artifactCredentials')
+            ? AwsSessionCredentials.fromJson(json['artifactCredentials'])
+            : null,
+        continuationToken: json.containsKey('continuationToken')
+            ? json['continuationToken'] as String
+            : null,
+        encryptionKey: json.containsKey('encryptionKey')
+            ? EncryptionKey.fromJson(json['encryptionKey'])
+            : null,
+      );
 }
 
 /// Represents information about the details of a job.
@@ -1827,7 +2348,12 @@ class JobDetails {
     this.data,
     this.accountId,
   });
-  static JobDetails fromJson(Map<String, dynamic> json) => JobDetails();
+  static JobDetails fromJson(Map<String, dynamic> json) => JobDetails(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        data: json.containsKey('data') ? JobData.fromJson(json['data']) : null,
+        accountId:
+            json.containsKey('accountId') ? json['accountId'] as String : null,
+      );
 }
 
 class ListActionExecutionsOutput {
@@ -1845,7 +2371,15 @@ class ListActionExecutionsOutput {
     this.nextToken,
   });
   static ListActionExecutionsOutput fromJson(Map<String, dynamic> json) =>
-      ListActionExecutionsOutput();
+      ListActionExecutionsOutput(
+        actionExecutionDetails: json.containsKey('actionExecutionDetails')
+            ? (json['actionExecutionDetails'] as List)
+                .map((e) => ActionExecutionDetail.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a `ListActionTypes` action.
@@ -1863,7 +2397,13 @@ class ListActionTypesOutput {
     this.nextToken,
   });
   static ListActionTypesOutput fromJson(Map<String, dynamic> json) =>
-      ListActionTypesOutput();
+      ListActionTypesOutput(
+        actionTypes: (json['actionTypes'] as List)
+            .map((e) => ActionType.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a `ListPipelineExecutions` action.
@@ -1881,7 +2421,16 @@ class ListPipelineExecutionsOutput {
     this.nextToken,
   });
   static ListPipelineExecutionsOutput fromJson(Map<String, dynamic> json) =>
-      ListPipelineExecutionsOutput();
+      ListPipelineExecutionsOutput(
+        pipelineExecutionSummaries:
+            json.containsKey('pipelineExecutionSummaries')
+                ? (json['pipelineExecutionSummaries'] as List)
+                    .map((e) => PipelineExecutionSummary.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a `ListPipelines` action.
@@ -1899,7 +2448,15 @@ class ListPipelinesOutput {
     this.nextToken,
   });
   static ListPipelinesOutput fromJson(Map<String, dynamic> json) =>
-      ListPipelinesOutput();
+      ListPipelinesOutput(
+        pipelines: json.containsKey('pipelines')
+            ? (json['pipelines'] as List)
+                .map((e) => PipelineSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceOutput {
@@ -1917,7 +2474,13 @@ class ListTagsForResourceOutput {
     this.nextToken,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// The detail returned for each webhook after listing webhooks, such as the
@@ -1959,8 +2522,22 @@ class ListWebhookItem {
     this.arn,
     this.tags,
   });
-  static ListWebhookItem fromJson(Map<String, dynamic> json) =>
-      ListWebhookItem();
+  static ListWebhookItem fromJson(Map<String, dynamic> json) => ListWebhookItem(
+        definition: WebhookDefinition.fromJson(json['definition']),
+        url: json['url'] as String,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        lastTriggered: json.containsKey('lastTriggered')
+            ? DateTime.parse(json['lastTriggered'])
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListWebhooksOutput {
@@ -1978,7 +2555,15 @@ class ListWebhooksOutput {
     this.nextToken,
   });
   static ListWebhooksOutput fromJson(Map<String, dynamic> json) =>
-      ListWebhooksOutput();
+      ListWebhooksOutput(
+        webhooks: json.containsKey('webhooks')
+            ? (json['webhooks'] as List)
+                .map((e) => ListWebhookItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents information about the output of an action.
@@ -1997,7 +2582,10 @@ class OutputArtifact {
   OutputArtifact({
     @required this.name,
   });
-  static OutputArtifact fromJson(Map<String, dynamic> json) => OutputArtifact();
+  static OutputArtifact fromJson(Map<String, dynamic> json) => OutputArtifact(
+        name: json['name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about a pipeline to a job worker.
@@ -2032,8 +2620,23 @@ class PipelineContext {
     this.pipelineArn,
     this.pipelineExecutionId,
   });
-  static PipelineContext fromJson(Map<String, dynamic> json) =>
-      PipelineContext();
+  static PipelineContext fromJson(Map<String, dynamic> json) => PipelineContext(
+        pipelineName: json.containsKey('pipelineName')
+            ? json['pipelineName'] as String
+            : null,
+        stage: json.containsKey('stage')
+            ? StageContext.fromJson(json['stage'])
+            : null,
+        action: json.containsKey('action')
+            ? ActionContext.fromJson(json['action'])
+            : null,
+        pipelineArn: json.containsKey('pipelineArn')
+            ? json['pipelineArn'] as String
+            : null,
+        pipelineExecutionId: json.containsKey('pipelineExecutionId')
+            ? json['pipelineExecutionId'] as String
+            : null,
+      );
 }
 
 /// Represents the structure of actions and stages to be performed in the
@@ -2085,7 +2688,22 @@ class PipelineDeclaration {
     this.version,
   });
   static PipelineDeclaration fromJson(Map<String, dynamic> json) =>
-      PipelineDeclaration();
+      PipelineDeclaration(
+        name: json['name'] as String,
+        roleArn: json['roleArn'] as String,
+        artifactStore: json.containsKey('artifactStore')
+            ? ArtifactStore.fromJson(json['artifactStore'])
+            : null,
+        artifactStores: json.containsKey('artifactStores')
+            ? (json['artifactStores'] as Map)
+                .map((k, v) => MapEntry(k as String, ArtifactStore.fromJson(v)))
+            : null,
+        stages: (json['stages'] as List)
+            .map((e) => StageDeclaration.fromJson(e))
+            .toList(),
+        version: json.containsKey('version') ? json['version'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about an execution of a pipeline.
@@ -2123,7 +2741,23 @@ class PipelineExecution {
     this.artifactRevisions,
   });
   static PipelineExecution fromJson(Map<String, dynamic> json) =>
-      PipelineExecution();
+      PipelineExecution(
+        pipelineName: json.containsKey('pipelineName')
+            ? json['pipelineName'] as String
+            : null,
+        pipelineVersion: json.containsKey('pipelineVersion')
+            ? json['pipelineVersion'] as int
+            : null,
+        pipelineExecutionId: json.containsKey('pipelineExecutionId')
+            ? json['pipelineExecutionId'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        artifactRevisions: json.containsKey('artifactRevisions')
+            ? (json['artifactRevisions'] as List)
+                .map((e) => ArtifactRevision.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Summary information about a pipeline execution.
@@ -2168,7 +2802,26 @@ class PipelineExecutionSummary {
     this.trigger,
   });
   static PipelineExecutionSummary fromJson(Map<String, dynamic> json) =>
-      PipelineExecutionSummary();
+      PipelineExecutionSummary(
+        pipelineExecutionId: json.containsKey('pipelineExecutionId')
+            ? json['pipelineExecutionId'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+        sourceRevisions: json.containsKey('sourceRevisions')
+            ? (json['sourceRevisions'] as List)
+                .map((e) => SourceRevision.fromJson(e))
+                .toList()
+            : null,
+        trigger: json.containsKey('trigger')
+            ? ExecutionTrigger.fromJson(json['trigger'])
+            : null,
+      );
 }
 
 /// Information about a pipeline.
@@ -2188,7 +2841,17 @@ class PipelineMetadata {
     this.updated,
   });
   static PipelineMetadata fromJson(Map<String, dynamic> json) =>
-      PipelineMetadata();
+      PipelineMetadata(
+        pipelineArn: json.containsKey('pipelineArn')
+            ? json['pipelineArn'] as String
+            : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        updated: json.containsKey('updated')
+            ? DateTime.parse(json['updated'])
+            : null,
+      );
 }
 
 /// Returns a summary of a pipeline.
@@ -2211,8 +2874,16 @@ class PipelineSummary {
     this.created,
     this.updated,
   });
-  static PipelineSummary fromJson(Map<String, dynamic> json) =>
-      PipelineSummary();
+  static PipelineSummary fromJson(Map<String, dynamic> json) => PipelineSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as int : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        updated: json.containsKey('updated')
+            ? DateTime.parse(json['updated'])
+            : null,
+      );
 }
 
 /// Represents the output of a `PollForJobs` action.
@@ -2224,7 +2895,11 @@ class PollForJobsOutput {
     this.jobs,
   });
   static PollForJobsOutput fromJson(Map<String, dynamic> json) =>
-      PollForJobsOutput();
+      PollForJobsOutput(
+        jobs: json.containsKey('jobs')
+            ? (json['jobs'] as List).map((e) => Job.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Represents the output of a `PollForThirdPartyJobs` action.
@@ -2236,7 +2911,13 @@ class PollForThirdPartyJobsOutput {
     this.jobs,
   });
   static PollForThirdPartyJobsOutput fromJson(Map<String, dynamic> json) =>
-      PollForThirdPartyJobsOutput();
+      PollForThirdPartyJobsOutput(
+        jobs: json.containsKey('jobs')
+            ? (json['jobs'] as List)
+                .map((e) => ThirdPartyJob.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a `PutActionRevision` action.
@@ -2253,7 +2934,14 @@ class PutActionRevisionOutput {
     this.pipelineExecutionId,
   });
   static PutActionRevisionOutput fromJson(Map<String, dynamic> json) =>
-      PutActionRevisionOutput();
+      PutActionRevisionOutput(
+        newRevision: json.containsKey('newRevision')
+            ? json['newRevision'] as bool
+            : null,
+        pipelineExecutionId: json.containsKey('pipelineExecutionId')
+            ? json['pipelineExecutionId'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a `PutApprovalResult` action.
@@ -2265,7 +2953,11 @@ class PutApprovalResultOutput {
     this.approvedAt,
   });
   static PutApprovalResultOutput fromJson(Map<String, dynamic> json) =>
-      PutApprovalResultOutput();
+      PutApprovalResultOutput(
+        approvedAt: json.containsKey('approvedAt')
+            ? DateTime.parse(json['approvedAt'])
+            : null,
+      );
 }
 
 class PutWebhookOutput {
@@ -2277,7 +2969,11 @@ class PutWebhookOutput {
     this.webhook,
   });
   static PutWebhookOutput fromJson(Map<String, dynamic> json) =>
-      PutWebhookOutput();
+      PutWebhookOutput(
+        webhook: json.containsKey('webhook')
+            ? ListWebhookItem.fromJson(json['webhook'])
+            : null,
+      );
 }
 
 class RegisterWebhookWithThirdPartyOutput {
@@ -2296,7 +2992,11 @@ class RetryStageExecutionOutput {
     this.pipelineExecutionId,
   });
   static RetryStageExecutionOutput fromJson(Map<String, dynamic> json) =>
-      RetryStageExecutionOutput();
+      RetryStageExecutionOutput(
+        pipelineExecutionId: json.containsKey('pipelineExecutionId')
+            ? json['pipelineExecutionId'] as String
+            : null,
+      );
 }
 
 /// The location of the Amazon S3 bucket that contains a revision.
@@ -2313,7 +3013,10 @@ class S3ArtifactLocation {
     @required this.objectKey,
   });
   static S3ArtifactLocation fromJson(Map<String, dynamic> json) =>
-      S3ArtifactLocation();
+      S3ArtifactLocation(
+        bucketName: json['bucketName'] as String,
+        objectKey: json['objectKey'] as String,
+      );
 }
 
 /// The Amazon S3 artifact location for an action's artifacts.
@@ -2328,7 +3031,10 @@ class S3Location {
     this.bucket,
     this.key,
   });
-  static S3Location fromJson(Map<String, dynamic> json) => S3Location();
+  static S3Location fromJson(Map<String, dynamic> json) => S3Location(
+        bucket: json.containsKey('bucket') ? json['bucket'] as String : null,
+        key: json.containsKey('key') ? json['key'] as String : null,
+      );
 }
 
 /// Information about the version (or revision) of a source artifact that
@@ -2359,7 +3065,18 @@ class SourceRevision {
     this.revisionSummary,
     this.revisionUrl,
   });
-  static SourceRevision fromJson(Map<String, dynamic> json) => SourceRevision();
+  static SourceRevision fromJson(Map<String, dynamic> json) => SourceRevision(
+        actionName: json['actionName'] as String,
+        revisionId: json.containsKey('revisionId')
+            ? json['revisionId'] as String
+            : null,
+        revisionSummary: json.containsKey('revisionSummary')
+            ? json['revisionSummary'] as String
+            : null,
+        revisionUrl: json.containsKey('revisionUrl')
+            ? json['revisionUrl'] as String
+            : null,
+      );
 }
 
 /// Represents information about a stage to a job worker.
@@ -2370,7 +3087,9 @@ class StageContext {
   StageContext({
     this.name,
   });
-  static StageContext fromJson(Map<String, dynamic> json) => StageContext();
+  static StageContext fromJson(Map<String, dynamic> json) => StageContext(
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
 }
 
 /// Represents information about a stage and its definition.
@@ -2390,7 +3109,18 @@ class StageDeclaration {
     @required this.actions,
   });
   static StageDeclaration fromJson(Map<String, dynamic> json) =>
-      StageDeclaration();
+      StageDeclaration(
+        name: json['name'] as String,
+        blockers: json.containsKey('blockers')
+            ? (json['blockers'] as List)
+                .map((e) => BlockerDeclaration.fromJson(e))
+                .toList()
+            : null,
+        actions: (json['actions'] as List)
+            .map((e) => ActionDeclaration.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about the run of a stage.
@@ -2406,7 +3136,10 @@ class StageExecution {
     @required this.pipelineExecutionId,
     @required this.status,
   });
-  static StageExecution fromJson(Map<String, dynamic> json) => StageExecution();
+  static StageExecution fromJson(Map<String, dynamic> json) => StageExecution(
+        pipelineExecutionId: json['pipelineExecutionId'] as String,
+        status: json['status'] as String,
+      );
 }
 
 /// Represents information about the state of the stage.
@@ -2430,7 +3163,21 @@ class StageState {
     this.actionStates,
     this.latestExecution,
   });
-  static StageState fromJson(Map<String, dynamic> json) => StageState();
+  static StageState fromJson(Map<String, dynamic> json) => StageState(
+        stageName:
+            json.containsKey('stageName') ? json['stageName'] as String : null,
+        inboundTransitionState: json.containsKey('inboundTransitionState')
+            ? TransitionState.fromJson(json['inboundTransitionState'])
+            : null,
+        actionStates: json.containsKey('actionStates')
+            ? (json['actionStates'] as List)
+                .map((e) => ActionState.fromJson(e))
+                .toList()
+            : null,
+        latestExecution: json.containsKey('latestExecution')
+            ? StageExecution.fromJson(json['latestExecution'])
+            : null,
+      );
 }
 
 /// Represents the output of a `StartPipelineExecution` action.
@@ -2442,7 +3189,11 @@ class StartPipelineExecutionOutput {
     this.pipelineExecutionId,
   });
   static StartPipelineExecutionOutput fromJson(Map<String, dynamic> json) =>
-      StartPipelineExecutionOutput();
+      StartPipelineExecutionOutput(
+        pipelineExecutionId: json.containsKey('pipelineExecutionId')
+            ? json['pipelineExecutionId'] as String
+            : null,
+      );
 }
 
 /// A tag is a key/value pair that is used to manage the resource.
@@ -2457,7 +3208,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['key'] as String,
+        value: json['value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceOutput {
@@ -2481,7 +3236,11 @@ class ThirdPartyJob {
     this.clientId,
     this.jobId,
   });
-  static ThirdPartyJob fromJson(Map<String, dynamic> json) => ThirdPartyJob();
+  static ThirdPartyJob fromJson(Map<String, dynamic> json) => ThirdPartyJob(
+        clientId:
+            json.containsKey('clientId') ? json['clientId'] as String : null,
+        jobId: json.containsKey('jobId') ? json['jobId'] as String : null,
+      );
 }
 
 /// Represents information about the job data for a partner action.
@@ -2538,7 +3297,36 @@ class ThirdPartyJobData {
     this.encryptionKey,
   });
   static ThirdPartyJobData fromJson(Map<String, dynamic> json) =>
-      ThirdPartyJobData();
+      ThirdPartyJobData(
+        actionTypeId: json.containsKey('actionTypeId')
+            ? ActionTypeId.fromJson(json['actionTypeId'])
+            : null,
+        actionConfiguration: json.containsKey('actionConfiguration')
+            ? ActionConfiguration.fromJson(json['actionConfiguration'])
+            : null,
+        pipelineContext: json.containsKey('pipelineContext')
+            ? PipelineContext.fromJson(json['pipelineContext'])
+            : null,
+        inputArtifacts: json.containsKey('inputArtifacts')
+            ? (json['inputArtifacts'] as List)
+                .map((e) => Artifact.fromJson(e))
+                .toList()
+            : null,
+        outputArtifacts: json.containsKey('outputArtifacts')
+            ? (json['outputArtifacts'] as List)
+                .map((e) => Artifact.fromJson(e))
+                .toList()
+            : null,
+        artifactCredentials: json.containsKey('artifactCredentials')
+            ? AwsSessionCredentials.fromJson(json['artifactCredentials'])
+            : null,
+        continuationToken: json.containsKey('continuationToken')
+            ? json['continuationToken'] as String
+            : null,
+        encryptionKey: json.containsKey('encryptionKey')
+            ? EncryptionKey.fromJson(json['encryptionKey'])
+            : null,
+      );
 }
 
 /// The details of a job sent in response to a `GetThirdPartyJobDetails`
@@ -2561,7 +3349,13 @@ class ThirdPartyJobDetails {
     this.nonce,
   });
   static ThirdPartyJobDetails fromJson(Map<String, dynamic> json) =>
-      ThirdPartyJobDetails();
+      ThirdPartyJobDetails(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        data: json.containsKey('data')
+            ? ThirdPartyJobData.fromJson(json['data'])
+            : null,
+        nonce: json.containsKey('nonce') ? json['nonce'] as String : null,
+      );
 }
 
 /// Represents information about the state of transitions between one stage and
@@ -2587,8 +3381,18 @@ class TransitionState {
     this.lastChangedAt,
     this.disabledReason,
   });
-  static TransitionState fromJson(Map<String, dynamic> json) =>
-      TransitionState();
+  static TransitionState fromJson(Map<String, dynamic> json) => TransitionState(
+        enabled: json.containsKey('enabled') ? json['enabled'] as bool : null,
+        lastChangedBy: json.containsKey('lastChangedBy')
+            ? json['lastChangedBy'] as String
+            : null,
+        lastChangedAt: json.containsKey('lastChangedAt')
+            ? DateTime.parse(json['lastChangedAt'])
+            : null,
+        disabledReason: json.containsKey('disabledReason')
+            ? json['disabledReason'] as String
+            : null,
+      );
 }
 
 class UntagResourceOutput {
@@ -2606,7 +3410,11 @@ class UpdatePipelineOutput {
     this.pipeline,
   });
   static UpdatePipelineOutput fromJson(Map<String, dynamic> json) =>
-      UpdatePipelineOutput();
+      UpdatePipelineOutput(
+        pipeline: json.containsKey('pipeline')
+            ? PipelineDeclaration.fromJson(json['pipeline'])
+            : null,
+      );
 }
 
 /// The authentication applied to incoming webhook trigger requests.
@@ -2625,7 +3433,15 @@ class WebhookAuthConfiguration {
     this.secretToken,
   });
   static WebhookAuthConfiguration fromJson(Map<String, dynamic> json) =>
-      WebhookAuthConfiguration();
+      WebhookAuthConfiguration(
+        allowedIPRange: json.containsKey('AllowedIPRange')
+            ? json['AllowedIPRange'] as String
+            : null,
+        secretToken: json.containsKey('SecretToken')
+            ? json['SecretToken'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents information about a webhook and its definition.
@@ -2675,7 +3491,18 @@ class WebhookDefinition {
     @required this.authenticationConfiguration,
   });
   static WebhookDefinition fromJson(Map<String, dynamic> json) =>
-      WebhookDefinition();
+      WebhookDefinition(
+        name: json['name'] as String,
+        targetPipeline: json['targetPipeline'] as String,
+        targetAction: json['targetAction'] as String,
+        filters: (json['filters'] as List)
+            .map((e) => WebhookFilterRule.fromJson(e))
+            .toList(),
+        authentication: json['authentication'] as String,
+        authenticationConfiguration: WebhookAuthConfiguration.fromJson(
+            json['authenticationConfiguration']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The event criteria that specify when a webhook notification is sent to your
@@ -2706,5 +3533,11 @@ class WebhookFilterRule {
     this.matchEquals,
   });
   static WebhookFilterRule fromJson(Map<String, dynamic> json) =>
-      WebhookFilterRule();
+      WebhookFilterRule(
+        jsonPath: json['jsonPath'] as String,
+        matchEquals: json.containsKey('matchEquals')
+            ? json['matchEquals'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

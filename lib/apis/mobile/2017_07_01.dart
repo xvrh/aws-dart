@@ -6,6 +6,10 @@ import 'dart:typed_data';
 /// developer desktop projects with the necessary SDKs, constants, tools and
 /// samples to make use of those resources.
 class MobileApi {
+  final _client;
+  MobileApi(client)
+      : _client = client.configured('Mobile', serializer: 'rest-json');
+
   ///  Creates an AWS Mobile Hub project.
   ///
   /// [name]:  Name of the project.
@@ -24,21 +28,33 @@ class MobileApi {
       String region,
       Uint8List contents,
       String snapshotId}) async {
-    return CreateProjectResult.fromJson({});
+    var response_ = await _client.send('CreateProject', {
+      if (name != null) 'name': name,
+      if (region != null) 'region': region,
+      if (contents != null) 'contents': contents,
+      if (snapshotId != null) 'snapshotId': snapshotId,
+    });
+    return CreateProjectResult.fromJson(response_);
   }
 
   ///  Delets a project in AWS Mobile Hub.
   ///
   /// [projectId]:  Unique project identifier.
   Future<DeleteProjectResult> deleteProject(String projectId) async {
-    return DeleteProjectResult.fromJson({});
+    var response_ = await _client.send('DeleteProject', {
+      'projectId': projectId,
+    });
+    return DeleteProjectResult.fromJson(response_);
   }
 
   ///  Get the bundle details for the requested bundle id.
   ///
   /// [bundleId]:  Unique bundle identifier.
   Future<DescribeBundleResult> describeBundle(String bundleId) async {
-    return DescribeBundleResult.fromJson({});
+    var response_ = await _client.send('DescribeBundle', {
+      'bundleId': bundleId,
+    });
+    return DescribeBundleResult.fromJson(response_);
   }
 
   ///  Gets details about a project in AWS Mobile Hub.
@@ -50,7 +66,11 @@ class MobileApi {
   /// stacks in the AWS Mobile Hub project.
   Future<DescribeProjectResult> describeProject(String projectId,
       {bool syncFromResources}) async {
-    return DescribeProjectResult.fromJson({});
+    var response_ = await _client.send('DescribeProject', {
+      'projectId': projectId,
+      if (syncFromResources != null) 'syncFromResources': syncFromResources,
+    });
+    return DescribeProjectResult.fromJson(response_);
   }
 
   ///  Generates customized software development kit (SDK) and or tool packages
@@ -64,7 +84,12 @@ class MobileApi {
   /// [platform]:  Developer desktop or target application platform.
   Future<ExportBundleResult> exportBundle(String bundleId,
       {String projectId, String platform}) async {
-    return ExportBundleResult.fromJson({});
+    var response_ = await _client.send('ExportBundle', {
+      'bundleId': bundleId,
+      if (projectId != null) 'projectId': projectId,
+      if (platform != null) 'platform': platform,
+    });
+    return ExportBundleResult.fromJson(response_);
   }
 
   ///  Exports project configuration to a snapshot which can be downloaded and
@@ -74,7 +99,10 @@ class MobileApi {
   ///
   /// [projectId]:  Unique project identifier.
   Future<ExportProjectResult> exportProject(String projectId) async {
-    return ExportProjectResult.fromJson({});
+    var response_ = await _client.send('ExportProject', {
+      'projectId': projectId,
+    });
+    return ExportProjectResult.fromJson(response_);
   }
 
   ///  List all available bundles.
@@ -86,7 +114,11 @@ class MobileApi {
   /// value in here in another request to list more bundles.
   Future<ListBundlesResult> listBundles(
       {int maxResults, String nextToken}) async {
-    return ListBundlesResult.fromJson({});
+    var response_ = await _client.send('ListBundles', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListBundlesResult.fromJson(response_);
   }
 
   ///  Lists projects in AWS Mobile Hub.
@@ -98,7 +130,11 @@ class MobileApi {
   /// value in here in another request to list more projects.
   Future<ListProjectsResult> listProjects(
       {int maxResults, String nextToken}) async {
-    return ListProjectsResult.fromJson({});
+    var response_ = await _client.send('ListProjects', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListProjectsResult.fromJson(response_);
   }
 
   ///  Update an existing project.
@@ -110,7 +146,11 @@ class MobileApi {
   /// [projectId]:  Unique project identifier.
   Future<UpdateProjectResult> updateProject(String projectId,
       {Uint8List contents}) async {
-    return UpdateProjectResult.fromJson({});
+    var response_ = await _client.send('UpdateProject', {
+      if (contents != null) 'contents': contents,
+      'projectId': projectId,
+    });
+    return UpdateProjectResult.fromJson(response_);
   }
 }
 
@@ -136,7 +176,21 @@ class BundleDetails {
     this.iconUrl,
     this.availablePlatforms,
   });
-  static BundleDetails fromJson(Map<String, dynamic> json) => BundleDetails();
+  static BundleDetails fromJson(Map<String, dynamic> json) => BundleDetails(
+        bundleId:
+            json.containsKey('bundleId') ? json['bundleId'] as String : null,
+        title: json.containsKey('title') ? json['title'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        iconUrl: json.containsKey('iconUrl') ? json['iconUrl'] as String : null,
+        availablePlatforms: json.containsKey('availablePlatforms')
+            ? (json['availablePlatforms'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 ///  Result structure used in response to a request to create a project.
@@ -148,7 +202,11 @@ class CreateProjectResult {
     this.details,
   });
   static CreateProjectResult fromJson(Map<String, dynamic> json) =>
-      CreateProjectResult();
+      CreateProjectResult(
+        details: json.containsKey('details')
+            ? ProjectDetails.fromJson(json['details'])
+            : null,
+      );
 }
 
 ///  Result structure used in response to request to delete a project.
@@ -165,7 +223,18 @@ class DeleteProjectResult {
     this.orphanedResources,
   });
   static DeleteProjectResult fromJson(Map<String, dynamic> json) =>
-      DeleteProjectResult();
+      DeleteProjectResult(
+        deletedResources: json.containsKey('deletedResources')
+            ? (json['deletedResources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+        orphanedResources: json.containsKey('orphanedResources')
+            ? (json['orphanedResources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Result structure contains the details of the bundle.
@@ -177,7 +246,11 @@ class DescribeBundleResult {
     this.details,
   });
   static DescribeBundleResult fromJson(Map<String, dynamic> json) =>
-      DescribeBundleResult();
+      DescribeBundleResult(
+        details: json.containsKey('details')
+            ? BundleDetails.fromJson(json['details'])
+            : null,
+      );
 }
 
 ///  Result structure used for requests of project details.
@@ -188,7 +261,11 @@ class DescribeProjectResult {
     this.details,
   });
   static DescribeProjectResult fromJson(Map<String, dynamic> json) =>
-      DescribeProjectResult();
+      DescribeProjectResult(
+        details: json.containsKey('details')
+            ? ProjectDetails.fromJson(json['details'])
+            : null,
+      );
 }
 
 ///  Result structure which contains link to download custom-generated SDK and
@@ -204,7 +281,11 @@ class ExportBundleResult {
     this.downloadUrl,
   });
   static ExportBundleResult fromJson(Map<String, dynamic> json) =>
-      ExportBundleResult();
+      ExportBundleResult(
+        downloadUrl: json.containsKey('downloadUrl')
+            ? json['downloadUrl'] as String
+            : null,
+      );
 }
 
 ///  Result structure used for requests to export project configuration details.
@@ -231,7 +312,16 @@ class ExportProjectResult {
     this.snapshotId,
   });
   static ExportProjectResult fromJson(Map<String, dynamic> json) =>
-      ExportProjectResult();
+      ExportProjectResult(
+        downloadUrl: json.containsKey('downloadUrl')
+            ? json['downloadUrl'] as String
+            : null,
+        shareUrl:
+            json.containsKey('shareUrl') ? json['shareUrl'] as String : null,
+        snapshotId: json.containsKey('snapshotId')
+            ? json['snapshotId'] as String
+            : null,
+      );
 }
 
 ///  Result structure contains a list of all available bundles with details.
@@ -248,7 +338,15 @@ class ListBundlesResult {
     this.nextToken,
   });
   static ListBundlesResult fromJson(Map<String, dynamic> json) =>
-      ListBundlesResult();
+      ListBundlesResult(
+        bundleList: json.containsKey('bundleList')
+            ? (json['bundleList'] as List)
+                .map((e) => BundleDetails.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 ///  Result structure used for requests to list projects in AWS Mobile Hub.
@@ -262,7 +360,15 @@ class ListProjectsResult {
     this.nextToken,
   });
   static ListProjectsResult fromJson(Map<String, dynamic> json) =>
-      ListProjectsResult();
+      ListProjectsResult(
+        projects: json.containsKey('projects')
+            ? (json['projects'] as List)
+                .map((e) => ProjectSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 ///  Detailed information about an AWS Mobile Hub project.
@@ -296,7 +402,27 @@ class ProjectDetails {
     this.consoleUrl,
     this.resources,
   });
-  static ProjectDetails fromJson(Map<String, dynamic> json) => ProjectDetails();
+  static ProjectDetails fromJson(Map<String, dynamic> json) => ProjectDetails(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        projectId:
+            json.containsKey('projectId') ? json['projectId'] as String : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        consoleUrl: json.containsKey('consoleUrl')
+            ? json['consoleUrl'] as String
+            : null,
+        resources: json.containsKey('resources')
+            ? (json['resources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Summary information about an AWS Mobile Hub project.
@@ -311,7 +437,11 @@ class ProjectSummary {
     this.name,
     this.projectId,
   });
-  static ProjectSummary fromJson(Map<String, dynamic> json) => ProjectSummary();
+  static ProjectSummary fromJson(Map<String, dynamic> json) => ProjectSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        projectId:
+            json.containsKey('projectId') ? json['projectId'] as String : null,
+      );
 }
 
 ///  Information about an instance of an AWS resource associated with a project.
@@ -333,7 +463,16 @@ class Resource {
     this.feature,
     this.attributes,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        feature: json.containsKey('feature') ? json['feature'] as String : null,
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 ///  Result structure used for requests to updated project configuration.
@@ -345,5 +484,9 @@ class UpdateProjectResult {
     this.details,
   });
   static UpdateProjectResult fromJson(Map<String, dynamic> json) =>
-      UpdateProjectResult();
+      UpdateProjectResult(
+        details: json.containsKey('details')
+            ? ProjectDetails.fromJson(json['details'])
+            : null,
+      );
 }

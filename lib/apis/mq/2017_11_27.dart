@@ -5,6 +5,9 @@ import 'package:meta/meta.dart';
 /// allows software applications and components to communicate using various
 /// programming languages, operating systems, and formal messaging protocols.
 class MqApi {
+  final _client;
+  MqApi(client) : _client = client.configured('mq', serializer: 'rest-json');
+
   /// Creates a broker. Note: This API is asynchronous.
   ///
   /// [autoMinorVersionUpgrade]: Required. Enables automatic upgrades to new
@@ -77,7 +80,27 @@ class MqApi {
       List<String> subnetIds,
       Map<String, String> tags,
       List<User> users}) async {
-    return CreateBrokerResponse.fromJson({});
+    var response_ = await _client.send('CreateBroker', {
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (brokerName != null) 'BrokerName': brokerName,
+      if (configuration != null) 'Configuration': configuration,
+      if (creatorRequestId != null) 'CreatorRequestId': creatorRequestId,
+      if (deploymentMode != null) 'DeploymentMode': deploymentMode,
+      if (encryptionOptions != null) 'EncryptionOptions': encryptionOptions,
+      if (engineType != null) 'EngineType': engineType,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (hostInstanceType != null) 'HostInstanceType': hostInstanceType,
+      if (logs != null) 'Logs': logs,
+      if (maintenanceWindowStartTime != null)
+        'MaintenanceWindowStartTime': maintenanceWindowStartTime,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (securityGroups != null) 'SecurityGroups': securityGroups,
+      if (subnetIds != null) 'SubnetIds': subnetIds,
+      if (tags != null) 'Tags': tags,
+      if (users != null) 'Users': users,
+    });
+    return CreateBrokerResponse.fromJson(response_);
   }
 
   /// Creates a new configuration for the specified configuration name. Amazon
@@ -100,7 +123,13 @@ class MqApi {
       String engineVersion,
       String name,
       Map<String, String> tags}) async {
-    return CreateConfigurationResponse.fromJson({});
+    var response_ = await _client.send('CreateConfiguration', {
+      if (engineType != null) 'EngineType': engineType,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (name != null) 'Name': name,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateConfigurationResponse.fromJson(response_);
   }
 
   /// Add a tag to a resource.
@@ -109,7 +138,12 @@ class MqApi {
   ///
   /// [tags]: The key-value pair for the resource tag.
   Future<void> createTags(String resourceArn,
-      {Map<String, String> tags}) async {}
+      {Map<String, String> tags}) async {
+    await _client.send('CreateTags', {
+      'ResourceArn': resourceArn,
+      if (tags != null) 'Tags': tags,
+    });
+  }
 
   /// Creates an ActiveMQ user.
   ///
@@ -136,7 +170,14 @@ class MqApi {
       List<String> groups,
       String password,
       @required String username}) async {
-    return CreateUserResponse.fromJson({});
+    var response_ = await _client.send('CreateUser', {
+      'BrokerId': brokerId,
+      if (consoleAccess != null) 'ConsoleAccess': consoleAccess,
+      if (groups != null) 'Groups': groups,
+      if (password != null) 'Password': password,
+      'Username': username,
+    });
+    return CreateUserResponse.fromJson(response_);
   }
 
   /// Deletes a broker. Note: This API is asynchronous.
@@ -146,7 +187,10 @@ class MqApi {
   /// and underscores, and must not contain whitespaces, brackets, wildcard
   /// characters, or special characters.
   Future<DeleteBrokerResponse> deleteBroker(String brokerId) async {
-    return DeleteBrokerResponse.fromJson({});
+    var response_ = await _client.send('DeleteBroker', {
+      'BrokerId': brokerId,
+    });
+    return DeleteBrokerResponse.fromJson(response_);
   }
 
   /// Removes a tag from a resource.
@@ -155,7 +199,12 @@ class MqApi {
   ///
   /// [tagKeys]: An array of tag keys to delete
   Future<void> deleteTags(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('DeleteTags', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Deletes an ActiveMQ user.
   ///
@@ -166,7 +215,11 @@ class MqApi {
   /// ~). This value must be 2-100 characters long.
   Future<DeleteUserResponse> deleteUser(
       {@required String brokerId, @required String username}) async {
-    return DeleteUserResponse.fromJson({});
+    var response_ = await _client.send('DeleteUser', {
+      'BrokerId': brokerId,
+      'Username': username,
+    });
+    return DeleteUserResponse.fromJson(response_);
   }
 
   /// Returns information about the specified broker.
@@ -176,7 +229,10 @@ class MqApi {
   /// and underscores, and must not contain whitespaces, brackets, wildcard
   /// characters, or special characters.
   Future<DescribeBrokerResponse> describeBroker(String brokerId) async {
-    return DescribeBrokerResponse.fromJson({});
+    var response_ = await _client.send('DescribeBroker', {
+      'BrokerId': brokerId,
+    });
+    return DescribeBrokerResponse.fromJson(response_);
   }
 
   /// Describe available engine types and versions.
@@ -190,7 +246,12 @@ class MqApi {
   /// should return. To request the first page, leave nextToken empty.
   Future<DescribeBrokerEngineTypesResponse> describeBrokerEngineTypes(
       {String engineType, int maxResults, String nextToken}) async {
-    return DescribeBrokerEngineTypesResponse.fromJson({});
+    var response_ = await _client.send('DescribeBrokerEngineTypes', {
+      if (engineType != null) 'EngineType': engineType,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeBrokerEngineTypesResponse.fromJson(response_);
   }
 
   /// Describe available broker instance options.
@@ -210,7 +271,13 @@ class MqApi {
       String hostInstanceType,
       int maxResults,
       String nextToken}) async {
-    return DescribeBrokerInstanceOptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeBrokerInstanceOptions', {
+      if (engineType != null) 'EngineType': engineType,
+      if (hostInstanceType != null) 'HostInstanceType': hostInstanceType,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeBrokerInstanceOptionsResponse.fromJson(response_);
   }
 
   /// Returns information about the specified configuration.
@@ -219,7 +286,10 @@ class MqApi {
   /// configuration.
   Future<DescribeConfigurationResponse> describeConfiguration(
       String configurationId) async {
-    return DescribeConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfiguration', {
+      'ConfigurationId': configurationId,
+    });
+    return DescribeConfigurationResponse.fromJson(response_);
   }
 
   /// Returns the specified configuration revision for the specified
@@ -232,7 +302,11 @@ class MqApi {
   Future<DescribeConfigurationRevisionResponse> describeConfigurationRevision(
       {@required String configurationId,
       @required String configurationRevision}) async {
-    return DescribeConfigurationRevisionResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfigurationRevision', {
+      'ConfigurationId': configurationId,
+      'ConfigurationRevision': configurationRevision,
+    });
+    return DescribeConfigurationRevisionResponse.fromJson(response_);
   }
 
   /// Returns information about an ActiveMQ user.
@@ -244,7 +318,11 @@ class MqApi {
   /// ~). This value must be 2-100 characters long.
   Future<DescribeUserResponse> describeUser(
       {@required String brokerId, @required String username}) async {
-    return DescribeUserResponse.fromJson({});
+    var response_ = await _client.send('DescribeUser', {
+      'BrokerId': brokerId,
+      'Username': username,
+    });
+    return DescribeUserResponse.fromJson(response_);
   }
 
   /// Returns a list of all brokers.
@@ -256,7 +334,11 @@ class MqApi {
   /// should return. To request the first page, leave nextToken empty.
   Future<ListBrokersResponse> listBrokers(
       {int maxResults, String nextToken}) async {
-    return ListBrokersResponse.fromJson({});
+    var response_ = await _client.send('ListBrokers', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListBrokersResponse.fromJson(response_);
   }
 
   /// Returns a list of all revisions for the specified configuration.
@@ -274,7 +356,12 @@ class MqApi {
       String configurationId,
       {int maxResults,
       String nextToken}) async {
-    return ListConfigurationRevisionsResponse.fromJson({});
+    var response_ = await _client.send('ListConfigurationRevisions', {
+      'ConfigurationId': configurationId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListConfigurationRevisionsResponse.fromJson(response_);
   }
 
   /// Returns a list of all configurations.
@@ -287,14 +374,21 @@ class MqApi {
   /// should return. To request the first page, leave nextToken empty.
   Future<ListConfigurationsResponse> listConfigurations(
       {int maxResults, String nextToken}) async {
-    return ListConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('ListConfigurations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListConfigurationsResponse.fromJson(response_);
   }
 
   /// Lists tags for a resource.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource tag.
   Future<ListTagsResponse> listTags(String resourceArn) async {
-    return ListTagsResponse.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsResponse.fromJson(response_);
   }
 
   /// Returns a list of all ActiveMQ users.
@@ -308,14 +402,22 @@ class MqApi {
   /// should return. To request the first page, leave nextToken empty.
   Future<ListUsersResponse> listUsers(String brokerId,
       {int maxResults, String nextToken}) async {
-    return ListUsersResponse.fromJson({});
+    var response_ = await _client.send('ListUsers', {
+      'BrokerId': brokerId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListUsersResponse.fromJson(response_);
   }
 
   /// Reboots a broker. Note: This API is asynchronous.
   ///
   /// [brokerId]: The unique ID that Amazon MQ generates for the broker.
   Future<RebootBrokerResponse> rebootBroker(String brokerId) async {
-    return RebootBrokerResponse.fromJson({});
+    var response_ = await _client.send('RebootBroker', {
+      'BrokerId': brokerId,
+    });
+    return RebootBrokerResponse.fromJson(response_);
   }
 
   /// Adds a pending configuration change to a broker.
@@ -346,7 +448,16 @@ class MqApi {
       String engineVersion,
       Logs logs,
       List<String> securityGroups}) async {
-    return UpdateBrokerResponse.fromJson({});
+    var response_ = await _client.send('UpdateBroker', {
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      'BrokerId': brokerId,
+      if (configuration != null) 'Configuration': configuration,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (logs != null) 'Logs': logs,
+      if (securityGroups != null) 'SecurityGroups': securityGroups,
+    });
+    return UpdateBrokerResponse.fromJson(response_);
   }
 
   /// Updates the specified configuration.
@@ -361,7 +472,12 @@ class MqApi {
       String configurationId,
       {String data,
       String description}) async {
-    return UpdateConfigurationResponse.fromJson({});
+    var response_ = await _client.send('UpdateConfiguration', {
+      'ConfigurationId': configurationId,
+      if (data != null) 'Data': data,
+      if (description != null) 'Description': description,
+    });
+    return UpdateConfigurationResponse.fromJson(response_);
   }
 
   /// Updates the information for an ActiveMQ user.
@@ -389,7 +505,14 @@ class MqApi {
       List<String> groups,
       String password,
       @required String username}) async {
-    return UpdateUserResponse.fromJson({});
+    var response_ = await _client.send('UpdateUser', {
+      'BrokerId': brokerId,
+      if (consoleAccess != null) 'ConsoleAccess': consoleAccess,
+      if (groups != null) 'Groups': groups,
+      if (password != null) 'Password': password,
+      'Username': username,
+    });
+    return UpdateUserResponse.fromJson(response_);
   }
 }
 
@@ -402,7 +525,9 @@ class AvailabilityZone {
     this.name,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Types of broker engines.
@@ -418,7 +543,16 @@ class BrokerEngineType {
     this.engineVersions,
   });
   static BrokerEngineType fromJson(Map<String, dynamic> json) =>
-      BrokerEngineType();
+      BrokerEngineType(
+        engineType: json.containsKey('EngineType')
+            ? json['EngineType'] as String
+            : null,
+        engineVersions: json.containsKey('EngineVersions')
+            ? (json['EngineVersions'] as List)
+                .map((e) => EngineVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returns information about all brokers.
@@ -438,7 +572,16 @@ class BrokerInstance {
     this.endpoints,
     this.ipAddress,
   });
-  static BrokerInstance fromJson(Map<String, dynamic> json) => BrokerInstance();
+  static BrokerInstance fromJson(Map<String, dynamic> json) => BrokerInstance(
+        consoleUrl: json.containsKey('ConsoleURL')
+            ? json['ConsoleURL'] as String
+            : null,
+        endpoints: json.containsKey('Endpoints')
+            ? (json['Endpoints'] as List).map((e) => e as String).toList()
+            : null,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+      );
 }
 
 /// Option for host instance type.
@@ -462,7 +605,24 @@ class BrokerInstanceOption {
     this.supportedEngineVersions,
   });
   static BrokerInstanceOption fromJson(Map<String, dynamic> json) =>
-      BrokerInstanceOption();
+      BrokerInstanceOption(
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => AvailabilityZone.fromJson(e))
+                .toList()
+            : null,
+        engineType: json.containsKey('EngineType')
+            ? json['EngineType'] as String
+            : null,
+        hostInstanceType: json.containsKey('HostInstanceType')
+            ? json['HostInstanceType'] as String
+            : null,
+        supportedEngineVersions: json.containsKey('SupportedEngineVersions')
+            ? (json['SupportedEngineVersions'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// The Amazon Resource Name (ARN) of the broker.
@@ -500,7 +660,27 @@ class BrokerSummary {
     this.deploymentMode,
     this.hostInstanceType,
   });
-  static BrokerSummary fromJson(Map<String, dynamic> json) => BrokerSummary();
+  static BrokerSummary fromJson(Map<String, dynamic> json) => BrokerSummary(
+        brokerArn:
+            json.containsKey('BrokerArn') ? json['BrokerArn'] as String : null,
+        brokerId:
+            json.containsKey('BrokerId') ? json['BrokerId'] as String : null,
+        brokerName: json.containsKey('BrokerName')
+            ? json['BrokerName'] as String
+            : null,
+        brokerState: json.containsKey('BrokerState')
+            ? json['BrokerState'] as String
+            : null,
+        created: json.containsKey('Created')
+            ? DateTime.parse(json['Created'])
+            : null,
+        deploymentMode: json.containsKey('DeploymentMode')
+            ? json['DeploymentMode'] as String
+            : null,
+        hostInstanceType: json.containsKey('HostInstanceType')
+            ? json['HostInstanceType'] as String
+            : null,
+      );
 }
 
 /// Returns information about all configurations.
@@ -548,7 +728,30 @@ class Configuration {
     this.name,
     this.tags,
   });
-  static Configuration fromJson(Map<String, dynamic> json) => Configuration();
+  static Configuration fromJson(Map<String, dynamic> json) => Configuration(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        created: json.containsKey('Created')
+            ? DateTime.parse(json['Created'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        engineType: json.containsKey('EngineType')
+            ? json['EngineType'] as String
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        latestRevision: json.containsKey('LatestRevision')
+            ? ConfigurationRevision.fromJson(json['LatestRevision'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A list of information about the configuration.
@@ -563,8 +766,11 @@ class ConfigurationId {
     this.id,
     this.revision,
   });
-  static ConfigurationId fromJson(Map<String, dynamic> json) =>
-      ConfigurationId();
+  static ConfigurationId fromJson(Map<String, dynamic> json) => ConfigurationId(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        revision: json.containsKey('Revision') ? json['Revision'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Returns information about the specified configuration revision.
@@ -584,7 +790,15 @@ class ConfigurationRevision {
     this.revision,
   });
   static ConfigurationRevision fromJson(Map<String, dynamic> json) =>
-      ConfigurationRevision();
+      ConfigurationRevision(
+        created: json.containsKey('Created')
+            ? DateTime.parse(json['Created'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        revision: json.containsKey('Revision') ? json['Revision'] as int : null,
+      );
 }
 
 /// Broker configuration information
@@ -603,7 +817,19 @@ class Configurations {
     this.history,
     this.pending,
   });
-  static Configurations fromJson(Map<String, dynamic> json) => Configurations();
+  static Configurations fromJson(Map<String, dynamic> json) => Configurations(
+        current: json.containsKey('Current')
+            ? ConfigurationId.fromJson(json['Current'])
+            : null,
+        history: json.containsKey('History')
+            ? (json['History'] as List)
+                .map((e) => ConfigurationId.fromJson(e))
+                .toList()
+            : null,
+        pending: json.containsKey('Pending')
+            ? ConfigurationId.fromJson(json['Pending'])
+            : null,
+      );
 }
 
 class CreateBrokerResponse {
@@ -618,7 +844,12 @@ class CreateBrokerResponse {
     this.brokerId,
   });
   static CreateBrokerResponse fromJson(Map<String, dynamic> json) =>
-      CreateBrokerResponse();
+      CreateBrokerResponse(
+        brokerArn:
+            json.containsKey('BrokerArn') ? json['BrokerArn'] as String : null,
+        brokerId:
+            json.containsKey('BrokerId') ? json['BrokerId'] as String : null,
+      );
 }
 
 class CreateConfigurationResponse {
@@ -647,7 +878,17 @@ class CreateConfigurationResponse {
     this.name,
   });
   static CreateConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      CreateConfigurationResponse();
+      CreateConfigurationResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        created: json.containsKey('Created')
+            ? DateTime.parse(json['Created'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        latestRevision: json.containsKey('LatestRevision')
+            ? ConfigurationRevision.fromJson(json['LatestRevision'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateUserResponse {
@@ -664,7 +905,10 @@ class DeleteBrokerResponse {
     this.brokerId,
   });
   static DeleteBrokerResponse fromJson(Map<String, dynamic> json) =>
-      DeleteBrokerResponse();
+      DeleteBrokerResponse(
+        brokerId:
+            json.containsKey('BrokerId') ? json['BrokerId'] as String : null,
+      );
 }
 
 class DeleteUserResponse {
@@ -692,7 +936,17 @@ class DescribeBrokerEngineTypesResponse {
   });
   static DescribeBrokerEngineTypesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeBrokerEngineTypesResponse();
+      DescribeBrokerEngineTypesResponse(
+        brokerEngineTypes: json.containsKey('BrokerEngineTypes')
+            ? (json['BrokerEngineTypes'] as List)
+                .map((e) => BrokerEngineType.fromJson(e))
+                .toList()
+            : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeBrokerInstanceOptionsResponse {
@@ -714,7 +968,17 @@ class DescribeBrokerInstanceOptionsResponse {
   });
   static DescribeBrokerInstanceOptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeBrokerInstanceOptionsResponse();
+      DescribeBrokerInstanceOptionsResponse(
+        brokerInstanceOptions: json.containsKey('BrokerInstanceOptions')
+            ? (json['BrokerInstanceOptions'] as List)
+                .map((e) => BrokerInstanceOption.fromJson(e))
+                .toList()
+            : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeBrokerResponse {
@@ -825,7 +1089,80 @@ class DescribeBrokerResponse {
     this.users,
   });
   static DescribeBrokerResponse fromJson(Map<String, dynamic> json) =>
-      DescribeBrokerResponse();
+      DescribeBrokerResponse(
+        autoMinorVersionUpgrade: json.containsKey('AutoMinorVersionUpgrade')
+            ? json['AutoMinorVersionUpgrade'] as bool
+            : null,
+        brokerArn:
+            json.containsKey('BrokerArn') ? json['BrokerArn'] as String : null,
+        brokerId:
+            json.containsKey('BrokerId') ? json['BrokerId'] as String : null,
+        brokerInstances: json.containsKey('BrokerInstances')
+            ? (json['BrokerInstances'] as List)
+                .map((e) => BrokerInstance.fromJson(e))
+                .toList()
+            : null,
+        brokerName: json.containsKey('BrokerName')
+            ? json['BrokerName'] as String
+            : null,
+        brokerState: json.containsKey('BrokerState')
+            ? json['BrokerState'] as String
+            : null,
+        configurations: json.containsKey('Configurations')
+            ? Configurations.fromJson(json['Configurations'])
+            : null,
+        created: json.containsKey('Created')
+            ? DateTime.parse(json['Created'])
+            : null,
+        deploymentMode: json.containsKey('DeploymentMode')
+            ? json['DeploymentMode'] as String
+            : null,
+        encryptionOptions: json.containsKey('EncryptionOptions')
+            ? EncryptionOptions.fromJson(json['EncryptionOptions'])
+            : null,
+        engineType: json.containsKey('EngineType')
+            ? json['EngineType'] as String
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        hostInstanceType: json.containsKey('HostInstanceType')
+            ? json['HostInstanceType'] as String
+            : null,
+        logs: json.containsKey('Logs')
+            ? LogsSummary.fromJson(json['Logs'])
+            : null,
+        maintenanceWindowStartTime:
+            json.containsKey('MaintenanceWindowStartTime')
+                ? WeeklyStartTime.fromJson(json['MaintenanceWindowStartTime'])
+                : null,
+        pendingEngineVersion: json.containsKey('PendingEngineVersion')
+            ? json['PendingEngineVersion'] as String
+            : null,
+        pendingSecurityGroups: json.containsKey('PendingSecurityGroups')
+            ? (json['PendingSecurityGroups'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        publiclyAccessible: json.containsKey('PubliclyAccessible')
+            ? json['PubliclyAccessible'] as bool
+            : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        users: json.containsKey('Users')
+            ? (json['Users'] as List)
+                .map((e) => UserSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeConfigurationResponse {
@@ -873,7 +1210,30 @@ class DescribeConfigurationResponse {
     this.tags,
   });
   static DescribeConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeConfigurationResponse();
+      DescribeConfigurationResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        created: json.containsKey('Created')
+            ? DateTime.parse(json['Created'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        engineType: json.containsKey('EngineType')
+            ? json['EngineType'] as String
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        latestRevision: json.containsKey('LatestRevision')
+            ? ConfigurationRevision.fromJson(json['LatestRevision'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DescribeConfigurationRevisionResponse {
@@ -897,7 +1257,18 @@ class DescribeConfigurationRevisionResponse {
   });
   static DescribeConfigurationRevisionResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeConfigurationRevisionResponse();
+      DescribeConfigurationRevisionResponse(
+        configurationId: json.containsKey('ConfigurationId')
+            ? json['ConfigurationId'] as String
+            : null,
+        created: json.containsKey('Created')
+            ? DateTime.parse(json['Created'])
+            : null,
+        data: json.containsKey('Data') ? json['Data'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class DescribeUserResponse {
@@ -929,7 +1300,21 @@ class DescribeUserResponse {
     this.username,
   });
   static DescribeUserResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUserResponse();
+      DescribeUserResponse(
+        brokerId:
+            json.containsKey('BrokerId') ? json['BrokerId'] as String : null,
+        consoleAccess: json.containsKey('ConsoleAccess')
+            ? json['ConsoleAccess'] as bool
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List).map((e) => e as String).toList()
+            : null,
+        pending: json.containsKey('Pending')
+            ? UserPendingChanges.fromJson(json['Pending'])
+            : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+      );
 }
 
 /// Encryption options for the broker.
@@ -948,7 +1333,12 @@ class EncryptionOptions {
     @required this.useAwsOwnedKey,
   });
   static EncryptionOptions fromJson(Map<String, dynamic> json) =>
-      EncryptionOptions();
+      EncryptionOptions(
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        useAwsOwnedKey: json['UseAwsOwnedKey'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Id of the engine version.
@@ -959,7 +1349,9 @@ class EngineVersion {
   EngineVersion({
     this.name,
   });
-  static EngineVersion fromJson(Map<String, dynamic> json) => EngineVersion();
+  static EngineVersion fromJson(Map<String, dynamic> json) => EngineVersion(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class ListBrokersResponse {
@@ -975,7 +1367,15 @@ class ListBrokersResponse {
     this.nextToken,
   });
   static ListBrokersResponse fromJson(Map<String, dynamic> json) =>
-      ListBrokersResponse();
+      ListBrokersResponse(
+        brokerSummaries: json.containsKey('BrokerSummaries')
+            ? (json['BrokerSummaries'] as List)
+                .map((e) => BrokerSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListConfigurationRevisionsResponse {
@@ -1001,7 +1401,20 @@ class ListConfigurationRevisionsResponse {
   });
   static ListConfigurationRevisionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListConfigurationRevisionsResponse();
+      ListConfigurationRevisionsResponse(
+        configurationId: json.containsKey('ConfigurationId')
+            ? json['ConfigurationId'] as String
+            : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        revisions: json.containsKey('Revisions')
+            ? (json['Revisions'] as List)
+                .map((e) => ConfigurationRevision.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListConfigurationsResponse {
@@ -1022,7 +1435,17 @@ class ListConfigurationsResponse {
     this.nextToken,
   });
   static ListConfigurationsResponse fromJson(Map<String, dynamic> json) =>
-      ListConfigurationsResponse();
+      ListConfigurationsResponse(
+        configurations: json.containsKey('Configurations')
+            ? (json['Configurations'] as List)
+                .map((e) => Configuration.fromJson(e))
+                .toList()
+            : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsResponse {
@@ -1033,7 +1456,12 @@ class ListTagsResponse {
     this.tags,
   });
   static ListTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsResponse();
+      ListTagsResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class ListUsersResponse {
@@ -1058,7 +1486,19 @@ class ListUsersResponse {
     this.users,
   });
   static ListUsersResponse fromJson(Map<String, dynamic> json) =>
-      ListUsersResponse();
+      ListUsersResponse(
+        brokerId:
+            json.containsKey('BrokerId') ? json['BrokerId'] as String : null,
+        maxResults:
+            json.containsKey('MaxResults') ? json['MaxResults'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        users: json.containsKey('Users')
+            ? (json['Users'] as List)
+                .map((e) => UserSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The list of information about logs to be enabled for the specified broker.
@@ -1074,7 +1514,11 @@ class Logs {
     this.audit,
     this.general,
   });
-  static Logs fromJson(Map<String, dynamic> json) => Logs();
+  static Logs fromJson(Map<String, dynamic> json) => Logs(
+        audit: json.containsKey('Audit') ? json['Audit'] as bool : null,
+        general: json.containsKey('General') ? json['General'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The list of information about logs currently enabled and pending to be
@@ -1104,7 +1548,19 @@ class LogsSummary {
     this.generalLogGroup,
     this.pending,
   });
-  static LogsSummary fromJson(Map<String, dynamic> json) => LogsSummary();
+  static LogsSummary fromJson(Map<String, dynamic> json) => LogsSummary(
+        audit: json.containsKey('Audit') ? json['Audit'] as bool : null,
+        auditLogGroup: json.containsKey('AuditLogGroup')
+            ? json['AuditLogGroup'] as String
+            : null,
+        general: json.containsKey('General') ? json['General'] as bool : null,
+        generalLogGroup: json.containsKey('GeneralLogGroup')
+            ? json['GeneralLogGroup'] as String
+            : null,
+        pending: json.containsKey('Pending')
+            ? PendingLogs.fromJson(json['Pending'])
+            : null,
+      );
 }
 
 /// The list of information about logs to be enabled for the specified broker.
@@ -1120,7 +1576,10 @@ class PendingLogs {
     this.audit,
     this.general,
   });
-  static PendingLogs fromJson(Map<String, dynamic> json) => PendingLogs();
+  static PendingLogs fromJson(Map<String, dynamic> json) => PendingLogs(
+        audit: json.containsKey('Audit') ? json['Audit'] as bool : null,
+        general: json.containsKey('General') ? json['General'] as bool : null,
+      );
 }
 
 class RebootBrokerResponse {
@@ -1148,7 +1607,15 @@ class SanitizationWarning {
     this.reason,
   });
   static SanitizationWarning fromJson(Map<String, dynamic> json) =>
-      SanitizationWarning();
+      SanitizationWarning(
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+        elementName: json.containsKey('ElementName')
+            ? json['ElementName'] as String
+            : null,
+        reason: json.containsKey('Reason') ? json['Reason'] as String : null,
+      );
 }
 
 class UpdateBrokerResponse {
@@ -1182,7 +1649,23 @@ class UpdateBrokerResponse {
     this.securityGroups,
   });
   static UpdateBrokerResponse fromJson(Map<String, dynamic> json) =>
-      UpdateBrokerResponse();
+      UpdateBrokerResponse(
+        autoMinorVersionUpgrade: json.containsKey('AutoMinorVersionUpgrade')
+            ? json['AutoMinorVersionUpgrade'] as bool
+            : null,
+        brokerId:
+            json.containsKey('BrokerId') ? json['BrokerId'] as String : null,
+        configuration: json.containsKey('Configuration')
+            ? ConfigurationId.fromJson(json['Configuration'])
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        logs: json.containsKey('Logs') ? Logs.fromJson(json['Logs']) : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class UpdateConfigurationResponse {
@@ -1216,7 +1699,22 @@ class UpdateConfigurationResponse {
     this.warnings,
   });
   static UpdateConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      UpdateConfigurationResponse();
+      UpdateConfigurationResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        created: json.containsKey('Created')
+            ? DateTime.parse(json['Created'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        latestRevision: json.containsKey('LatestRevision')
+            ? ConfigurationRevision.fromJson(json['LatestRevision'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List)
+                .map((e) => SanitizationWarning.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateUserResponse {
@@ -1252,6 +1750,7 @@ class User {
     this.password,
     this.username,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Returns information about the status of the changes pending for the ActiveMQ
@@ -1275,7 +1774,17 @@ class UserPendingChanges {
     this.pendingChange,
   });
   static UserPendingChanges fromJson(Map<String, dynamic> json) =>
-      UserPendingChanges();
+      UserPendingChanges(
+        consoleAccess: json.containsKey('ConsoleAccess')
+            ? json['ConsoleAccess'] as bool
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List).map((e) => e as String).toList()
+            : null,
+        pendingChange: json.containsKey('PendingChange')
+            ? json['PendingChange'] as String
+            : null,
+      );
 }
 
 /// Returns a list of all ActiveMQ users.
@@ -1292,7 +1801,13 @@ class UserSummary {
     this.pendingChange,
     this.username,
   });
-  static UserSummary fromJson(Map<String, dynamic> json) => UserSummary();
+  static UserSummary fromJson(Map<String, dynamic> json) => UserSummary(
+        pendingChange: json.containsKey('PendingChange')
+            ? json['PendingChange'] as String
+            : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+      );
 }
 
 /// The scheduled time period relative to UTC during which Amazon MQ begins to
@@ -1313,6 +1828,13 @@ class WeeklyStartTime {
     this.timeOfDay,
     this.timeZone,
   });
-  static WeeklyStartTime fromJson(Map<String, dynamic> json) =>
-      WeeklyStartTime();
+  static WeeklyStartTime fromJson(Map<String, dynamic> json) => WeeklyStartTime(
+        dayOfWeek:
+            json.containsKey('DayOfWeek') ? json['DayOfWeek'] as String : null,
+        timeOfDay:
+            json.containsKey('TimeOfDay') ? json['TimeOfDay'] as String : null,
+        timeZone:
+            json.containsKey('TimeZone') ? json['TimeZone'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

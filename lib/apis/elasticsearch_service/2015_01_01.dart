@@ -10,6 +10,11 @@ import 'package:meta/meta.dart';
 /// current list of supported regions and endpoints, see
 /// [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticsearch-service-regions).
 class ElasticsearchServiceApi {
+  final _client;
+  ElasticsearchServiceApi(client)
+      : _client =
+            client.configured('Elasticsearch Service', serializer: 'rest-json');
+
   /// Attaches tags to an existing Elasticsearch domain. Tags are a set of
   /// case-sensitive key value pairs. An Elasticsearch domain may have up to 10
   /// tags. See
@@ -20,7 +25,12 @@ class ElasticsearchServiceApi {
   /// [tagList]:  List of `Tag` that need to be added for the Elasticsearch
   /// domain.
   Future<void> addTags(
-      {@required String arn, @required List<Tag> tagList}) async {}
+      {@required String arn, @required List<Tag> tagList}) async {
+    await _client.send('AddTags', {
+      'ARN': arn,
+      'TagList': tagList,
+    });
+  }
 
   /// Cancels a scheduled service software update for an Amazon ES domain. You
   /// can only perform this operation before the `AutomatedUpdateDate` and when
@@ -30,7 +40,11 @@ class ElasticsearchServiceApi {
   /// service software update on.
   Future<CancelElasticsearchServiceSoftwareUpdateResponse>
       cancelElasticsearchServiceSoftwareUpdate(String domainName) async {
-    return CancelElasticsearchServiceSoftwareUpdateResponse.fromJson({});
+    var response_ =
+        await _client.send('CancelElasticsearchServiceSoftwareUpdate', {
+      'DomainName': domainName,
+    });
+    return CancelElasticsearchServiceSoftwareUpdateResponse.fromJson(response_);
   }
 
   /// Creates a new Elasticsearch domain. For more information, see
@@ -93,7 +107,26 @@ class ElasticsearchServiceApi {
       NodeToNodeEncryptionOptions nodeToNodeEncryptionOptions,
       Map<String, String> advancedOptions,
       Map<String, LogPublishingOption> logPublishingOptions}) async {
-    return CreateElasticsearchDomainResponse.fromJson({});
+    var response_ = await _client.send('CreateElasticsearchDomain', {
+      'DomainName': domainName,
+      if (elasticsearchVersion != null)
+        'ElasticsearchVersion': elasticsearchVersion,
+      if (elasticsearchClusterConfig != null)
+        'ElasticsearchClusterConfig': elasticsearchClusterConfig,
+      if (ebsOptions != null) 'EBSOptions': ebsOptions,
+      if (accessPolicies != null) 'AccessPolicies': accessPolicies,
+      if (snapshotOptions != null) 'SnapshotOptions': snapshotOptions,
+      if (vpcOptions != null) 'VPCOptions': vpcOptions,
+      if (cognitoOptions != null) 'CognitoOptions': cognitoOptions,
+      if (encryptionAtRestOptions != null)
+        'EncryptionAtRestOptions': encryptionAtRestOptions,
+      if (nodeToNodeEncryptionOptions != null)
+        'NodeToNodeEncryptionOptions': nodeToNodeEncryptionOptions,
+      if (advancedOptions != null) 'AdvancedOptions': advancedOptions,
+      if (logPublishingOptions != null)
+        'LogPublishingOptions': logPublishingOptions,
+    });
+    return CreateElasticsearchDomainResponse.fromJson(response_);
   }
 
   /// Permanently deletes the specified Elasticsearch domain and all of its
@@ -103,7 +136,10 @@ class ElasticsearchServiceApi {
   /// permanently delete.
   Future<DeleteElasticsearchDomainResponse> deleteElasticsearchDomain(
       String domainName) async {
-    return DeleteElasticsearchDomainResponse.fromJson({});
+    var response_ = await _client.send('DeleteElasticsearchDomain', {
+      'DomainName': domainName,
+    });
+    return DeleteElasticsearchDomainResponse.fromJson(response_);
   }
 
   /// Deletes the service-linked role that Elasticsearch Service uses to manage
@@ -112,7 +148,9 @@ class ElasticsearchServiceApi {
   /// before deleting the role. See
   /// [Deleting Elasticsearch Service Role](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-enabling-slr)
   /// in _VPC Endpoints for Amazon Elasticsearch Service Domains_.
-  Future<void> deleteElasticsearchServiceRole() async {}
+  Future<void> deleteElasticsearchServiceRole() async {
+    await _client.send('DeleteElasticsearchServiceRole', {});
+  }
 
   /// Returns domain configuration information about the specified Elasticsearch
   /// domain, including the domain ID, domain endpoint, and domain ARN.
@@ -121,7 +159,10 @@ class ElasticsearchServiceApi {
   /// information.
   Future<DescribeElasticsearchDomainResponse> describeElasticsearchDomain(
       String domainName) async {
-    return DescribeElasticsearchDomainResponse.fromJson({});
+    var response_ = await _client.send('DescribeElasticsearchDomain', {
+      'DomainName': domainName,
+    });
+    return DescribeElasticsearchDomainResponse.fromJson(response_);
   }
 
   /// Provides cluster configuration information about the specified
@@ -132,7 +173,10 @@ class ElasticsearchServiceApi {
   /// about.
   Future<DescribeElasticsearchDomainConfigResponse>
       describeElasticsearchDomainConfig(String domainName) async {
-    return DescribeElasticsearchDomainConfigResponse.fromJson({});
+    var response_ = await _client.send('DescribeElasticsearchDomainConfig', {
+      'DomainName': domainName,
+    });
+    return DescribeElasticsearchDomainConfigResponse.fromJson(response_);
   }
 
   /// Returns domain configuration information about the specified Elasticsearch
@@ -141,7 +185,10 @@ class ElasticsearchServiceApi {
   /// [domainNames]: The Elasticsearch domains for which you want information.
   Future<DescribeElasticsearchDomainsResponse> describeElasticsearchDomains(
       List<String> domainNames) async {
-    return DescribeElasticsearchDomainsResponse.fromJson({});
+    var response_ = await _client.send('DescribeElasticsearchDomains', {
+      'DomainNames': domainNames,
+    });
+    return DescribeElasticsearchDomainsResponse.fromJson(response_);
   }
 
   ///  Describe Elasticsearch Limits for a given InstanceType and
@@ -162,7 +209,13 @@ class ElasticsearchServiceApi {
           {String domainName,
           @required String instanceType,
           @required String elasticsearchVersion}) async {
-    return DescribeElasticsearchInstanceTypeLimitsResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeElasticsearchInstanceTypeLimits', {
+      if (domainName != null) 'DomainName': domainName,
+      'InstanceType': instanceType,
+      'ElasticsearchVersion': elasticsearchVersion,
+    });
+    return DescribeElasticsearchInstanceTypeLimitsResponse.fromJson(response_);
   }
 
   /// Lists available reserved Elasticsearch instance offerings.
@@ -181,7 +234,16 @@ class ElasticsearchServiceApi {
           {String reservedElasticsearchInstanceOfferingId,
           int maxResults,
           String nextToken}) async {
-    return DescribeReservedElasticsearchInstanceOfferingsResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeReservedElasticsearchInstanceOfferings', {
+      if (reservedElasticsearchInstanceOfferingId != null)
+        'ReservedElasticsearchInstanceOfferingId':
+            reservedElasticsearchInstanceOfferingId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeReservedElasticsearchInstanceOfferingsResponse.fromJson(
+        response_);
   }
 
   /// Returns information about reserved Elasticsearch instances for this
@@ -201,7 +263,14 @@ class ElasticsearchServiceApi {
           {String reservedElasticsearchInstanceId,
           int maxResults,
           String nextToken}) async {
-    return DescribeReservedElasticsearchInstancesResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeReservedElasticsearchInstances', {
+      if (reservedElasticsearchInstanceId != null)
+        'ReservedElasticsearchInstanceId': reservedElasticsearchInstanceId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeReservedElasticsearchInstancesResponse.fromJson(response_);
   }
 
   ///  Returns a list of upgrade compatible Elastisearch versions. You can
@@ -209,26 +278,38 @@ class ElasticsearchServiceApi {
   /// Elasticsearch versions for that specific domain.
   Future<GetCompatibleElasticsearchVersionsResponse>
       getCompatibleElasticsearchVersions({String domainName}) async {
-    return GetCompatibleElasticsearchVersionsResponse.fromJson({});
+    var response_ = await _client.send('GetCompatibleElasticsearchVersions', {
+      if (domainName != null) 'DomainName': domainName,
+    });
+    return GetCompatibleElasticsearchVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves the complete history of the last 10 upgrades that were performed
   /// on the domain.
   Future<GetUpgradeHistoryResponse> getUpgradeHistory(String domainName,
       {int maxResults, String nextToken}) async {
-    return GetUpgradeHistoryResponse.fromJson({});
+    var response_ = await _client.send('GetUpgradeHistory', {
+      'DomainName': domainName,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetUpgradeHistoryResponse.fromJson(response_);
   }
 
   /// Retrieves the latest status of the last upgrade or upgrade eligibility
   /// check that was performed on the domain.
   Future<GetUpgradeStatusResponse> getUpgradeStatus(String domainName) async {
-    return GetUpgradeStatusResponse.fromJson({});
+    var response_ = await _client.send('GetUpgradeStatus', {
+      'DomainName': domainName,
+    });
+    return GetUpgradeStatusResponse.fromJson(response_);
   }
 
   /// Returns the name of all Elasticsearch domains owned by the current user's
   /// account.
   Future<ListDomainNamesResponse> listDomainNames() async {
-    return ListDomainNamesResponse.fromJson({});
+    var response_ = await _client.send('ListDomainNames', {});
+    return ListDomainNamesResponse.fromJson(response_);
   }
 
   /// List all Elasticsearch instance types that are supported for given
@@ -251,7 +332,13 @@ class ElasticsearchServiceApi {
       {String domainName,
       int maxResults,
       String nextToken}) async {
-    return ListElasticsearchInstanceTypesResponse.fromJson({});
+    var response_ = await _client.send('ListElasticsearchInstanceTypes', {
+      'ElasticsearchVersion': elasticsearchVersion,
+      if (domainName != null) 'DomainName': domainName,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListElasticsearchInstanceTypesResponse.fromJson(response_);
   }
 
   /// List all supported Elasticsearch versions
@@ -260,7 +347,11 @@ class ElasticsearchServiceApi {
   /// Value provided must be greater than 10 else it wont be honored.
   Future<ListElasticsearchVersionsResponse> listElasticsearchVersions(
       {int maxResults, String nextToken}) async {
-    return ListElasticsearchVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListElasticsearchVersions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListElasticsearchVersionsResponse.fromJson(response_);
   }
 
   /// Returns all tags for the given Elasticsearch domain.
@@ -268,7 +359,10 @@ class ElasticsearchServiceApi {
   /// [arn]:  Specify the `ARN` for the Elasticsearch domain to which the tags
   /// are attached that you want to view.
   Future<ListTagsResponse> listTags(String arn) async {
-    return ListTagsResponse.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'ARN': arn,
+    });
+    return ListTagsResponse.fromJson(response_);
   }
 
   /// Allows you to purchase reserved Elasticsearch instances.
@@ -285,7 +379,15 @@ class ElasticsearchServiceApi {
           {@required String reservedElasticsearchInstanceOfferingId,
           @required String reservationName,
           int instanceCount}) async {
-    return PurchaseReservedElasticsearchInstanceOfferingResponse.fromJson({});
+    var response_ =
+        await _client.send('PurchaseReservedElasticsearchInstanceOffering', {
+      'ReservedElasticsearchInstanceOfferingId':
+          reservedElasticsearchInstanceOfferingId,
+      'ReservationName': reservationName,
+      if (instanceCount != null) 'InstanceCount': instanceCount,
+    });
+    return PurchaseReservedElasticsearchInstanceOfferingResponse.fromJson(
+        response_);
   }
 
   /// Removes the specified set of tags from the specified Elasticsearch domain.
@@ -296,7 +398,12 @@ class ElasticsearchServiceApi {
   /// [tagKeys]: Specifies the `TagKey` list which you want to remove from the
   /// Elasticsearch domain.
   Future<void> removeTags(
-      {@required String arn, @required List<String> tagKeys}) async {}
+      {@required String arn, @required List<String> tagKeys}) async {
+    await _client.send('RemoveTags', {
+      'ARN': arn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Schedules a service software update for an Amazon ES domain.
   ///
@@ -304,7 +411,11 @@ class ElasticsearchServiceApi {
   /// service software.
   Future<StartElasticsearchServiceSoftwareUpdateResponse>
       startElasticsearchServiceSoftwareUpdate(String domainName) async {
-    return StartElasticsearchServiceSoftwareUpdateResponse.fromJson({});
+    var response_ =
+        await _client.send('StartElasticsearchServiceSoftwareUpdate', {
+      'DomainName': domainName,
+    });
+    return StartElasticsearchServiceSoftwareUpdateResponse.fromJson(response_);
   }
 
   /// Modifies the cluster configuration of the specified Elasticsearch domain,
@@ -350,7 +461,20 @@ class ElasticsearchServiceApi {
           Map<String, String> advancedOptions,
           String accessPolicies,
           Map<String, LogPublishingOption> logPublishingOptions}) async {
-    return UpdateElasticsearchDomainConfigResponse.fromJson({});
+    var response_ = await _client.send('UpdateElasticsearchDomainConfig', {
+      'DomainName': domainName,
+      if (elasticsearchClusterConfig != null)
+        'ElasticsearchClusterConfig': elasticsearchClusterConfig,
+      if (ebsOptions != null) 'EBSOptions': ebsOptions,
+      if (snapshotOptions != null) 'SnapshotOptions': snapshotOptions,
+      if (vpcOptions != null) 'VPCOptions': vpcOptions,
+      if (cognitoOptions != null) 'CognitoOptions': cognitoOptions,
+      if (advancedOptions != null) 'AdvancedOptions': advancedOptions,
+      if (accessPolicies != null) 'AccessPolicies': accessPolicies,
+      if (logPublishingOptions != null)
+        'LogPublishingOptions': logPublishingOptions,
+    });
+    return UpdateElasticsearchDomainConfigResponse.fromJson(response_);
   }
 
   /// Allows you to either upgrade your domain or perform an Upgrade eligibility
@@ -366,7 +490,12 @@ class ElasticsearchServiceApi {
       {@required String domainName,
       @required String targetVersion,
       bool performCheckOnly}) async {
-    return UpgradeElasticsearchDomainResponse.fromJson({});
+    var response_ = await _client.send('UpgradeElasticsearchDomain', {
+      'DomainName': domainName,
+      'TargetVersion': targetVersion,
+      if (performCheckOnly != null) 'PerformCheckOnly': performCheckOnly,
+    });
+    return UpgradeElasticsearchDomainResponse.fromJson(response_);
   }
 }
 
@@ -388,7 +517,10 @@ class AccessPoliciesStatus {
     @required this.status,
   });
   static AccessPoliciesStatus fromJson(Map<String, dynamic> json) =>
-      AccessPoliciesStatus();
+      AccessPoliciesStatus(
+        options: json['Options'] as String,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 ///  List of limits that are specific to a given InstanceType and for each of
@@ -414,8 +546,13 @@ class AdditionalLimit {
     this.limitName,
     this.limitValues,
   });
-  static AdditionalLimit fromJson(Map<String, dynamic> json) =>
-      AdditionalLimit();
+  static AdditionalLimit fromJson(Map<String, dynamic> json) => AdditionalLimit(
+        limitName:
+            json.containsKey('LimitName') ? json['LimitName'] as String : null,
+        limitValues: json.containsKey('LimitValues')
+            ? (json['LimitValues'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 ///  Status of the advanced options for the specified Elasticsearch domain.
@@ -445,7 +582,11 @@ class AdvancedOptionsStatus {
     @required this.status,
   });
   static AdvancedOptionsStatus fromJson(Map<String, dynamic> json) =>
-      AdvancedOptionsStatus();
+      AdvancedOptionsStatus(
+        options: (json['Options'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The result of a `CancelElasticsearchServiceSoftwareUpdate` operation.
@@ -459,7 +600,11 @@ class CancelElasticsearchServiceSoftwareUpdateResponse {
   });
   static CancelElasticsearchServiceSoftwareUpdateResponse fromJson(
           Map<String, dynamic> json) =>
-      CancelElasticsearchServiceSoftwareUpdateResponse();
+      CancelElasticsearchServiceSoftwareUpdateResponse(
+        serviceSoftwareOptions: json.containsKey('ServiceSoftwareOptions')
+            ? ServiceSoftwareOptions.fromJson(json['ServiceSoftwareOptions'])
+            : null,
+      );
 }
 
 /// Options to specify the Cognito user and identity pools for Kibana
@@ -485,7 +630,17 @@ class CognitoOptions {
     this.identityPoolId,
     this.roleArn,
   });
-  static CognitoOptions fromJson(Map<String, dynamic> json) => CognitoOptions();
+  static CognitoOptions fromJson(Map<String, dynamic> json) => CognitoOptions(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        userPoolId: json.containsKey('UserPoolId')
+            ? json['UserPoolId'] as String
+            : null,
+        identityPoolId: json.containsKey('IdentityPoolId')
+            ? json['IdentityPoolId'] as String
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Status of the Cognito options for the specified Elasticsearch domain.
@@ -502,7 +657,10 @@ class CognitoOptionsStatus {
     @required this.status,
   });
   static CognitoOptionsStatus fromJson(Map<String, dynamic> json) =>
-      CognitoOptionsStatus();
+      CognitoOptionsStatus(
+        options: CognitoOptions.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 ///  A map from an  `ElasticsearchVersion`  to a list of compatible
@@ -518,7 +676,14 @@ class CompatibleVersionsMap {
     this.targetVersions,
   });
   static CompatibleVersionsMap fromJson(Map<String, dynamic> json) =>
-      CompatibleVersionsMap();
+      CompatibleVersionsMap(
+        sourceVersion: json.containsKey('SourceVersion')
+            ? json['SourceVersion'] as String
+            : null,
+        targetVersions: json.containsKey('TargetVersions')
+            ? (json['TargetVersions'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// The result of a `CreateElasticsearchDomain` operation. Contains the status
@@ -532,7 +697,11 @@ class CreateElasticsearchDomainResponse {
   });
   static CreateElasticsearchDomainResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateElasticsearchDomainResponse();
+      CreateElasticsearchDomainResponse(
+        domainStatus: json.containsKey('DomainStatus')
+            ? ElasticsearchDomainStatus.fromJson(json['DomainStatus'])
+            : null,
+      );
 }
 
 /// The result of a `DeleteElasticsearchDomain` request. Contains the status of
@@ -547,7 +716,11 @@ class DeleteElasticsearchDomainResponse {
   });
   static DeleteElasticsearchDomainResponse fromJson(
           Map<String, dynamic> json) =>
-      DeleteElasticsearchDomainResponse();
+      DeleteElasticsearchDomainResponse(
+        domainStatus: json.containsKey('DomainStatus')
+            ? ElasticsearchDomainStatus.fromJson(json['DomainStatus'])
+            : null,
+      );
 }
 
 /// The result of a `DescribeElasticsearchDomainConfig` request. Contains the
@@ -562,7 +735,9 @@ class DescribeElasticsearchDomainConfigResponse {
   });
   static DescribeElasticsearchDomainConfigResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeElasticsearchDomainConfigResponse();
+      DescribeElasticsearchDomainConfigResponse(
+        domainConfig: ElasticsearchDomainConfig.fromJson(json['DomainConfig']),
+      );
 }
 
 /// The result of a `DescribeElasticsearchDomain` request. Contains the status
@@ -576,7 +751,9 @@ class DescribeElasticsearchDomainResponse {
   });
   static DescribeElasticsearchDomainResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeElasticsearchDomainResponse();
+      DescribeElasticsearchDomainResponse(
+        domainStatus: ElasticsearchDomainStatus.fromJson(json['DomainStatus']),
+      );
 }
 
 /// The result of a `DescribeElasticsearchDomains` request. Contains the status
@@ -591,7 +768,11 @@ class DescribeElasticsearchDomainsResponse {
   });
   static DescribeElasticsearchDomainsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeElasticsearchDomainsResponse();
+      DescribeElasticsearchDomainsResponse(
+        domainStatusList: (json['DomainStatusList'] as List)
+            .map((e) => ElasticsearchDomainStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 ///  Container for the parameters received from
@@ -604,7 +785,12 @@ class DescribeElasticsearchInstanceTypeLimitsResponse {
   });
   static DescribeElasticsearchInstanceTypeLimitsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeElasticsearchInstanceTypeLimitsResponse();
+      DescribeElasticsearchInstanceTypeLimitsResponse(
+        limitsByRole: json.containsKey('LimitsByRole')
+            ? (json['LimitsByRole'] as Map)
+                .map((k, v) => MapEntry(k as String, Limits.fromJson(v)))
+            : null,
+      );
 }
 
 /// Container for results from `DescribeReservedElasticsearchInstanceOfferings`
@@ -622,7 +808,16 @@ class DescribeReservedElasticsearchInstanceOfferingsResponse {
   });
   static DescribeReservedElasticsearchInstanceOfferingsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeReservedElasticsearchInstanceOfferingsResponse();
+      DescribeReservedElasticsearchInstanceOfferingsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        reservedElasticsearchInstanceOfferings: json
+                .containsKey('ReservedElasticsearchInstanceOfferings')
+            ? (json['ReservedElasticsearchInstanceOfferings'] as List)
+                .map((e) => ReservedElasticsearchInstanceOffering.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Container for results from `DescribeReservedElasticsearchInstances`
@@ -639,7 +834,16 @@ class DescribeReservedElasticsearchInstancesResponse {
   });
   static DescribeReservedElasticsearchInstancesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeReservedElasticsearchInstancesResponse();
+      DescribeReservedElasticsearchInstancesResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        reservedElasticsearchInstances:
+            json.containsKey('ReservedElasticsearchInstances')
+                ? (json['ReservedElasticsearchInstances'] as List)
+                    .map((e) => ReservedElasticsearchInstance.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class DomainInfo {
@@ -649,7 +853,11 @@ class DomainInfo {
   DomainInfo({
     this.domainName,
   });
-  static DomainInfo fromJson(Map<String, dynamic> json) => DomainInfo();
+  static DomainInfo fromJson(Map<String, dynamic> json) => DomainInfo(
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+      );
 }
 
 /// Options to enable, disable, and specify the properties of EBS storage
@@ -674,7 +882,17 @@ class EbsOptions {
     this.volumeSize,
     this.iops,
   });
-  static EbsOptions fromJson(Map<String, dynamic> json) => EbsOptions();
+  static EbsOptions fromJson(Map<String, dynamic> json) => EbsOptions(
+        ebsEnabled:
+            json.containsKey('EBSEnabled') ? json['EBSEnabled'] as bool : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        volumeSize:
+            json.containsKey('VolumeSize') ? json['VolumeSize'] as int : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Status of the EBS options for the specified Elasticsearch domain.
@@ -691,7 +909,10 @@ class EbsOptionsStatus {
     @required this.status,
   });
   static EbsOptionsStatus fromJson(Map<String, dynamic> json) =>
-      EbsOptionsStatus();
+      EbsOptionsStatus(
+        options: EbsOptions.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// Specifies the configuration for the domain cluster, such as the type and
@@ -735,7 +956,30 @@ class ElasticsearchClusterConfig {
     this.dedicatedMasterCount,
   });
   static ElasticsearchClusterConfig fromJson(Map<String, dynamic> json) =>
-      ElasticsearchClusterConfig();
+      ElasticsearchClusterConfig(
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        instanceCount: json.containsKey('InstanceCount')
+            ? json['InstanceCount'] as int
+            : null,
+        dedicatedMasterEnabled: json.containsKey('DedicatedMasterEnabled')
+            ? json['DedicatedMasterEnabled'] as bool
+            : null,
+        zoneAwarenessEnabled: json.containsKey('ZoneAwarenessEnabled')
+            ? json['ZoneAwarenessEnabled'] as bool
+            : null,
+        zoneAwarenessConfig: json.containsKey('ZoneAwarenessConfig')
+            ? ZoneAwarenessConfig.fromJson(json['ZoneAwarenessConfig'])
+            : null,
+        dedicatedMasterType: json.containsKey('DedicatedMasterType')
+            ? json['DedicatedMasterType'] as String
+            : null,
+        dedicatedMasterCount: json.containsKey('DedicatedMasterCount')
+            ? json['DedicatedMasterCount'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Specifies the configuration status for the specified Elasticsearch domain.
@@ -753,7 +997,10 @@ class ElasticsearchClusterConfigStatus {
     @required this.status,
   });
   static ElasticsearchClusterConfigStatus fromJson(Map<String, dynamic> json) =>
-      ElasticsearchClusterConfigStatus();
+      ElasticsearchClusterConfigStatus(
+        options: ElasticsearchClusterConfig.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The configuration of an Elasticsearch domain.
@@ -809,7 +1056,46 @@ class ElasticsearchDomainConfig {
     this.logPublishingOptions,
   });
   static ElasticsearchDomainConfig fromJson(Map<String, dynamic> json) =>
-      ElasticsearchDomainConfig();
+      ElasticsearchDomainConfig(
+        elasticsearchVersion: json.containsKey('ElasticsearchVersion')
+            ? ElasticsearchVersionStatus.fromJson(json['ElasticsearchVersion'])
+            : null,
+        elasticsearchClusterConfig:
+            json.containsKey('ElasticsearchClusterConfig')
+                ? ElasticsearchClusterConfigStatus.fromJson(
+                    json['ElasticsearchClusterConfig'])
+                : null,
+        ebsOptions: json.containsKey('EBSOptions')
+            ? EbsOptionsStatus.fromJson(json['EBSOptions'])
+            : null,
+        accessPolicies: json.containsKey('AccessPolicies')
+            ? AccessPoliciesStatus.fromJson(json['AccessPolicies'])
+            : null,
+        snapshotOptions: json.containsKey('SnapshotOptions')
+            ? SnapshotOptionsStatus.fromJson(json['SnapshotOptions'])
+            : null,
+        vpcOptions: json.containsKey('VPCOptions')
+            ? VpcDerivedInfoStatus.fromJson(json['VPCOptions'])
+            : null,
+        cognitoOptions: json.containsKey('CognitoOptions')
+            ? CognitoOptionsStatus.fromJson(json['CognitoOptions'])
+            : null,
+        encryptionAtRestOptions: json.containsKey('EncryptionAtRestOptions')
+            ? EncryptionAtRestOptionsStatus.fromJson(
+                json['EncryptionAtRestOptions'])
+            : null,
+        nodeToNodeEncryptionOptions:
+            json.containsKey('NodeToNodeEncryptionOptions')
+                ? NodeToNodeEncryptionOptionsStatus.fromJson(
+                    json['NodeToNodeEncryptionOptions'])
+                : null,
+        advancedOptions: json.containsKey('AdvancedOptions')
+            ? AdvancedOptionsStatus.fromJson(json['AdvancedOptions'])
+            : null,
+        logPublishingOptions: json.containsKey('LogPublishingOptions')
+            ? LogPublishingOptionsStatus.fromJson(json['LogPublishingOptions'])
+            : null,
+      );
 }
 
 /// The current status of an Elasticsearch domain.
@@ -920,7 +1206,63 @@ class ElasticsearchDomainStatus {
     this.serviceSoftwareOptions,
   });
   static ElasticsearchDomainStatus fromJson(Map<String, dynamic> json) =>
-      ElasticsearchDomainStatus();
+      ElasticsearchDomainStatus(
+        domainId: json['DomainId'] as String,
+        domainName: json['DomainName'] as String,
+        arn: json['ARN'] as String,
+        created: json.containsKey('Created') ? json['Created'] as bool : null,
+        deleted: json.containsKey('Deleted') ? json['Deleted'] as bool : null,
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+        endpoints: json.containsKey('Endpoints')
+            ? (json['Endpoints'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        processing:
+            json.containsKey('Processing') ? json['Processing'] as bool : null,
+        upgradeProcessing: json.containsKey('UpgradeProcessing')
+            ? json['UpgradeProcessing'] as bool
+            : null,
+        elasticsearchVersion: json.containsKey('ElasticsearchVersion')
+            ? json['ElasticsearchVersion'] as String
+            : null,
+        elasticsearchClusterConfig: ElasticsearchClusterConfig.fromJson(
+            json['ElasticsearchClusterConfig']),
+        ebsOptions: json.containsKey('EBSOptions')
+            ? EbsOptions.fromJson(json['EBSOptions'])
+            : null,
+        accessPolicies: json.containsKey('AccessPolicies')
+            ? json['AccessPolicies'] as String
+            : null,
+        snapshotOptions: json.containsKey('SnapshotOptions')
+            ? SnapshotOptions.fromJson(json['SnapshotOptions'])
+            : null,
+        vpcOptions: json.containsKey('VPCOptions')
+            ? VpcDerivedInfo.fromJson(json['VPCOptions'])
+            : null,
+        cognitoOptions: json.containsKey('CognitoOptions')
+            ? CognitoOptions.fromJson(json['CognitoOptions'])
+            : null,
+        encryptionAtRestOptions: json.containsKey('EncryptionAtRestOptions')
+            ? EncryptionAtRestOptions.fromJson(json['EncryptionAtRestOptions'])
+            : null,
+        nodeToNodeEncryptionOptions:
+            json.containsKey('NodeToNodeEncryptionOptions')
+                ? NodeToNodeEncryptionOptions.fromJson(
+                    json['NodeToNodeEncryptionOptions'])
+                : null,
+        advancedOptions: json.containsKey('AdvancedOptions')
+            ? (json['AdvancedOptions'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        logPublishingOptions: json.containsKey('LogPublishingOptions')
+            ? (json['LogPublishingOptions'] as Map).map((k, v) =>
+                MapEntry(k as String, LogPublishingOption.fromJson(v)))
+            : null,
+        serviceSoftwareOptions: json.containsKey('ServiceSoftwareOptions')
+            ? ServiceSoftwareOptions.fromJson(json['ServiceSoftwareOptions'])
+            : null,
+      );
 }
 
 ///  Status of the Elasticsearch version options for the specified Elasticsearch
@@ -939,7 +1281,10 @@ class ElasticsearchVersionStatus {
     @required this.status,
   });
   static ElasticsearchVersionStatus fromJson(Map<String, dynamic> json) =>
-      ElasticsearchVersionStatus();
+      ElasticsearchVersionStatus(
+        options: json['Options'] as String,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// Specifies the Encryption At Rest Options.
@@ -955,7 +1300,12 @@ class EncryptionAtRestOptions {
     this.kmsKeyId,
   });
   static EncryptionAtRestOptions fromJson(Map<String, dynamic> json) =>
-      EncryptionAtRestOptions();
+      EncryptionAtRestOptions(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Status of the Encryption At Rest options for the specified Elasticsearch
@@ -974,7 +1324,10 @@ class EncryptionAtRestOptionsStatus {
     @required this.status,
   });
   static EncryptionAtRestOptionsStatus fromJson(Map<String, dynamic> json) =>
-      EncryptionAtRestOptionsStatus();
+      EncryptionAtRestOptionsStatus(
+        options: EncryptionAtRestOptions.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 ///  Container for response returned by  `GetCompatibleElasticsearchVersions`
@@ -989,7 +1342,14 @@ class GetCompatibleElasticsearchVersionsResponse {
   });
   static GetCompatibleElasticsearchVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetCompatibleElasticsearchVersionsResponse();
+      GetCompatibleElasticsearchVersionsResponse(
+        compatibleElasticsearchVersions:
+            json.containsKey('CompatibleElasticsearchVersions')
+                ? (json['CompatibleElasticsearchVersions'] as List)
+                    .map((e) => CompatibleVersionsMap.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 ///  Container for response returned by  `GetUpgradeHistory`  operation.
@@ -1008,7 +1368,15 @@ class GetUpgradeHistoryResponse {
     this.nextToken,
   });
   static GetUpgradeHistoryResponse fromJson(Map<String, dynamic> json) =>
-      GetUpgradeHistoryResponse();
+      GetUpgradeHistoryResponse(
+        upgradeHistories: json.containsKey('UpgradeHistories')
+            ? (json['UpgradeHistories'] as List)
+                .map((e) => UpgradeHistory.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 ///  Container for response returned by  `GetUpgradeStatus`  operation.
@@ -1040,7 +1408,17 @@ class GetUpgradeStatusResponse {
     this.upgradeName,
   });
   static GetUpgradeStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetUpgradeStatusResponse();
+      GetUpgradeStatusResponse(
+        upgradeStep: json.containsKey('UpgradeStep')
+            ? json['UpgradeStep'] as String
+            : null,
+        stepStatus: json.containsKey('StepStatus')
+            ? json['StepStatus'] as String
+            : null,
+        upgradeName: json.containsKey('UpgradeName')
+            ? json['UpgradeName'] as String
+            : null,
+      );
 }
 
 ///  InstanceCountLimits represents the limits on number of instances that be
@@ -1055,7 +1433,14 @@ class InstanceCountLimits {
     this.maximumInstanceCount,
   });
   static InstanceCountLimits fromJson(Map<String, dynamic> json) =>
-      InstanceCountLimits();
+      InstanceCountLimits(
+        minimumInstanceCount: json.containsKey('MinimumInstanceCount')
+            ? json['MinimumInstanceCount'] as int
+            : null,
+        maximumInstanceCount: json.containsKey('MaximumInstanceCount')
+            ? json['MaximumInstanceCount'] as int
+            : null,
+      );
 }
 
 /// InstanceLimits represents the list of instance related attributes that are
@@ -1066,7 +1451,11 @@ class InstanceLimits {
   InstanceLimits({
     this.instanceCountLimits,
   });
-  static InstanceLimits fromJson(Map<String, dynamic> json) => InstanceLimits();
+  static InstanceLimits fromJson(Map<String, dynamic> json) => InstanceLimits(
+        instanceCountLimits: json.containsKey('InstanceCountLimits')
+            ? InstanceCountLimits.fromJson(json['InstanceCountLimits'])
+            : null,
+      );
 }
 
 ///  Limits for given InstanceType and for each of it's role.
@@ -1088,7 +1477,21 @@ class Limits {
     this.instanceLimits,
     this.additionalLimits,
   });
-  static Limits fromJson(Map<String, dynamic> json) => Limits();
+  static Limits fromJson(Map<String, dynamic> json) => Limits(
+        storageTypes: json.containsKey('StorageTypes')
+            ? (json['StorageTypes'] as List)
+                .map((e) => StorageType.fromJson(e))
+                .toList()
+            : null,
+        instanceLimits: json.containsKey('InstanceLimits')
+            ? InstanceLimits.fromJson(json['InstanceLimits'])
+            : null,
+        additionalLimits: json.containsKey('AdditionalLimits')
+            ? (json['AdditionalLimits'] as List)
+                .map((e) => AdditionalLimit.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The result of a `ListDomainNames` operation. Contains the names of all
@@ -1101,7 +1504,13 @@ class ListDomainNamesResponse {
     this.domainNames,
   });
   static ListDomainNamesResponse fromJson(Map<String, dynamic> json) =>
-      ListDomainNamesResponse();
+      ListDomainNamesResponse(
+        domainNames: json.containsKey('DomainNames')
+            ? (json['DomainNames'] as List)
+                .map((e) => DomainInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Container for the parameters returned by  `ListElasticsearchInstanceTypes`
@@ -1122,7 +1531,16 @@ class ListElasticsearchInstanceTypesResponse {
   });
   static ListElasticsearchInstanceTypesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListElasticsearchInstanceTypesResponse();
+      ListElasticsearchInstanceTypesResponse(
+        elasticsearchInstanceTypes:
+            json.containsKey('ElasticsearchInstanceTypes')
+                ? (json['ElasticsearchInstanceTypes'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 ///  Container for the parameters for response received from
@@ -1138,7 +1556,15 @@ class ListElasticsearchVersionsResponse {
   });
   static ListElasticsearchVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListElasticsearchVersionsResponse();
+      ListElasticsearchVersionsResponse(
+        elasticsearchVersions: json.containsKey('ElasticsearchVersions')
+            ? (json['ElasticsearchVersions'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The result of a `ListTags` operation. Contains tags for all requested
@@ -1151,7 +1577,11 @@ class ListTagsResponse {
     this.tagList,
   });
   static ListTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsResponse();
+      ListTagsResponse(
+        tagList: json.containsKey('TagList')
+            ? (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Log Publishing option that is set for given domain.
@@ -1171,7 +1601,13 @@ class LogPublishingOption {
     this.enabled,
   });
   static LogPublishingOption fromJson(Map<String, dynamic> json) =>
-      LogPublishingOption();
+      LogPublishingOption(
+        cloudWatchLogsLogGroupArn: json.containsKey('CloudWatchLogsLogGroupArn')
+            ? json['CloudWatchLogsLogGroupArn'] as String
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configured log publishing options for the domain and their current
@@ -1189,7 +1625,15 @@ class LogPublishingOptionsStatus {
     this.status,
   });
   static LogPublishingOptionsStatus fromJson(Map<String, dynamic> json) =>
-      LogPublishingOptionsStatus();
+      LogPublishingOptionsStatus(
+        options: json.containsKey('Options')
+            ? (json['Options'] as Map).map((k, v) =>
+                MapEntry(k as String, LogPublishingOption.fromJson(v)))
+            : null,
+        status: json.containsKey('Status')
+            ? OptionStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 /// Specifies the node-to-node encryption options.
@@ -1201,7 +1645,10 @@ class NodeToNodeEncryptionOptions {
     this.enabled,
   });
   static NodeToNodeEncryptionOptions fromJson(Map<String, dynamic> json) =>
-      NodeToNodeEncryptionOptions();
+      NodeToNodeEncryptionOptions(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Status of the node-to-node encryption options for the specified
@@ -1221,7 +1668,10 @@ class NodeToNodeEncryptionOptionsStatus {
   });
   static NodeToNodeEncryptionOptionsStatus fromJson(
           Map<String, dynamic> json) =>
-      NodeToNodeEncryptionOptionsStatus();
+      NodeToNodeEncryptionOptionsStatus(
+        options: NodeToNodeEncryptionOptions.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// Provides the current status of the entity.
@@ -1248,7 +1698,17 @@ class OptionStatus {
     @required this.state,
     this.pendingDeletion,
   });
-  static OptionStatus fromJson(Map<String, dynamic> json) => OptionStatus();
+  static OptionStatus fromJson(Map<String, dynamic> json) => OptionStatus(
+        creationDate: DateTime.parse(json['CreationDate']),
+        updateDate: DateTime.parse(json['UpdateDate']),
+        updateVersion: json.containsKey('UpdateVersion')
+            ? json['UpdateVersion'] as int
+            : null,
+        state: json['State'] as String,
+        pendingDeletion: json.containsKey('PendingDeletion')
+            ? json['PendingDeletion'] as bool
+            : null,
+      );
 }
 
 /// Represents the output of a `PurchaseReservedElasticsearchInstanceOffering`
@@ -1266,7 +1726,15 @@ class PurchaseReservedElasticsearchInstanceOfferingResponse {
   });
   static PurchaseReservedElasticsearchInstanceOfferingResponse fromJson(
           Map<String, dynamic> json) =>
-      PurchaseReservedElasticsearchInstanceOfferingResponse();
+      PurchaseReservedElasticsearchInstanceOfferingResponse(
+        reservedElasticsearchInstanceId:
+            json.containsKey('ReservedElasticsearchInstanceId')
+                ? json['ReservedElasticsearchInstanceId'] as String
+                : null,
+        reservationName: json.containsKey('ReservationName')
+            ? json['ReservationName'] as String
+            : null,
+      );
 }
 
 /// Contains the specific price and frequency of a recurring charges for a
@@ -1283,8 +1751,14 @@ class RecurringCharge {
     this.recurringChargeAmount,
     this.recurringChargeFrequency,
   });
-  static RecurringCharge fromJson(Map<String, dynamic> json) =>
-      RecurringCharge();
+  static RecurringCharge fromJson(Map<String, dynamic> json) => RecurringCharge(
+        recurringChargeAmount: json.containsKey('RecurringChargeAmount')
+            ? json['RecurringChargeAmount'] as double
+            : null,
+        recurringChargeFrequency: json.containsKey('RecurringChargeFrequency')
+            ? json['RecurringChargeFrequency'] as String
+            : null,
+      );
 }
 
 /// Details of a reserved Elasticsearch instance.
@@ -1349,7 +1823,48 @@ class ReservedElasticsearchInstance {
     this.recurringCharges,
   });
   static ReservedElasticsearchInstance fromJson(Map<String, dynamic> json) =>
-      ReservedElasticsearchInstance();
+      ReservedElasticsearchInstance(
+        reservationName: json.containsKey('ReservationName')
+            ? json['ReservationName'] as String
+            : null,
+        reservedElasticsearchInstanceId:
+            json.containsKey('ReservedElasticsearchInstanceId')
+                ? json['ReservedElasticsearchInstanceId'] as String
+                : null,
+        reservedElasticsearchInstanceOfferingId:
+            json.containsKey('ReservedElasticsearchInstanceOfferingId')
+                ? json['ReservedElasticsearchInstanceOfferingId'] as String
+                : null,
+        elasticsearchInstanceType: json.containsKey('ElasticsearchInstanceType')
+            ? json['ElasticsearchInstanceType'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        elasticsearchInstanceCount:
+            json.containsKey('ElasticsearchInstanceCount')
+                ? json['ElasticsearchInstanceCount'] as int
+                : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        paymentOption: json.containsKey('PaymentOption')
+            ? json['PaymentOption'] as String
+            : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Details of a reserved Elasticsearch instance offering.
@@ -1394,7 +1909,33 @@ class ReservedElasticsearchInstanceOffering {
   });
   static ReservedElasticsearchInstanceOffering fromJson(
           Map<String, dynamic> json) =>
-      ReservedElasticsearchInstanceOffering();
+      ReservedElasticsearchInstanceOffering(
+        reservedElasticsearchInstanceOfferingId:
+            json.containsKey('ReservedElasticsearchInstanceOfferingId')
+                ? json['ReservedElasticsearchInstanceOfferingId'] as String
+                : null,
+        elasticsearchInstanceType: json.containsKey('ElasticsearchInstanceType')
+            ? json['ElasticsearchInstanceType'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        paymentOption: json.containsKey('PaymentOption')
+            ? json['PaymentOption'] as String
+            : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The current options of an Elasticsearch domain service software options.
@@ -1436,7 +1977,29 @@ class ServiceSoftwareOptions {
     this.automatedUpdateDate,
   });
   static ServiceSoftwareOptions fromJson(Map<String, dynamic> json) =>
-      ServiceSoftwareOptions();
+      ServiceSoftwareOptions(
+        currentVersion: json.containsKey('CurrentVersion')
+            ? json['CurrentVersion'] as String
+            : null,
+        newVersion: json.containsKey('NewVersion')
+            ? json['NewVersion'] as String
+            : null,
+        updateAvailable: json.containsKey('UpdateAvailable')
+            ? json['UpdateAvailable'] as bool
+            : null,
+        cancellable: json.containsKey('Cancellable')
+            ? json['Cancellable'] as bool
+            : null,
+        updateStatus: json.containsKey('UpdateStatus')
+            ? json['UpdateStatus'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        automatedUpdateDate: json.containsKey('AutomatedUpdateDate')
+            ? DateTime.parse(json['AutomatedUpdateDate'])
+            : null,
+      );
 }
 
 /// Specifies the time, in UTC format, when the service takes a daily automated
@@ -1450,8 +2013,13 @@ class SnapshotOptions {
   SnapshotOptions({
     this.automatedSnapshotStartHour,
   });
-  static SnapshotOptions fromJson(Map<String, dynamic> json) =>
-      SnapshotOptions();
+  static SnapshotOptions fromJson(Map<String, dynamic> json) => SnapshotOptions(
+        automatedSnapshotStartHour:
+            json.containsKey('AutomatedSnapshotStartHour')
+                ? json['AutomatedSnapshotStartHour'] as int
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Status of a daily automated snapshot.
@@ -1468,7 +2036,10 @@ class SnapshotOptionsStatus {
     @required this.status,
   });
   static SnapshotOptionsStatus fromJson(Map<String, dynamic> json) =>
-      SnapshotOptionsStatus();
+      SnapshotOptionsStatus(
+        options: SnapshotOptions.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The result of a `StartElasticsearchServiceSoftwareUpdate` operation.
@@ -1482,7 +2053,11 @@ class StartElasticsearchServiceSoftwareUpdateResponse {
   });
   static StartElasticsearchServiceSoftwareUpdateResponse fromJson(
           Map<String, dynamic> json) =>
-      StartElasticsearchServiceSoftwareUpdateResponse();
+      StartElasticsearchServiceSoftwareUpdateResponse(
+        serviceSoftwareOptions: json.containsKey('ServiceSoftwareOptions')
+            ? ServiceSoftwareOptions.fromJson(json['ServiceSoftwareOptions'])
+            : null,
+      );
 }
 
 /// StorageTypes represents the list of storage related types and their
@@ -1500,7 +2075,19 @@ class StorageType {
     this.storageSubTypeName,
     this.storageTypeLimits,
   });
-  static StorageType fromJson(Map<String, dynamic> json) => StorageType();
+  static StorageType fromJson(Map<String, dynamic> json) => StorageType(
+        storageTypeName: json.containsKey('StorageTypeName')
+            ? json['StorageTypeName'] as String
+            : null,
+        storageSubTypeName: json.containsKey('StorageSubTypeName')
+            ? json['StorageSubTypeName'] as String
+            : null,
+        storageTypeLimits: json.containsKey('StorageTypeLimits')
+            ? (json['StorageTypeLimits'] as List)
+                .map((e) => StorageTypeLimit.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Limits that are applicable for given storage type.
@@ -1527,7 +2114,13 @@ class StorageTypeLimit {
     this.limitValues,
   });
   static StorageTypeLimit fromJson(Map<String, dynamic> json) =>
-      StorageTypeLimit();
+      StorageTypeLimit(
+        limitName:
+            json.containsKey('LimitName') ? json['LimitName'] as String : null,
+        limitValues: json.containsKey('LimitValues')
+            ? (json['LimitValues'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Specifies a key value pair for a resource tag.
@@ -1546,7 +2139,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The result of an `UpdateElasticsearchDomain` request. Contains the status of
@@ -1560,7 +2157,9 @@ class UpdateElasticsearchDomainConfigResponse {
   });
   static UpdateElasticsearchDomainConfigResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateElasticsearchDomainConfigResponse();
+      UpdateElasticsearchDomainConfigResponse(
+        domainConfig: ElasticsearchDomainConfig.fromJson(json['DomainConfig']),
+      );
 }
 
 ///  Container for response returned by  `UpgradeElasticsearchDomain`
@@ -1582,7 +2181,17 @@ class UpgradeElasticsearchDomainResponse {
   });
   static UpgradeElasticsearchDomainResponse fromJson(
           Map<String, dynamic> json) =>
-      UpgradeElasticsearchDomainResponse();
+      UpgradeElasticsearchDomainResponse(
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        targetVersion: json.containsKey('TargetVersion')
+            ? json['TargetVersion'] as String
+            : null,
+        performCheckOnly: json.containsKey('PerformCheckOnly')
+            ? json['PerformCheckOnly'] as bool
+            : null,
+      );
 }
 
 /// History of the last 10 Upgrades and Upgrade Eligibility Checks.
@@ -1613,7 +2222,22 @@ class UpgradeHistory {
     this.upgradeStatus,
     this.stepsList,
   });
-  static UpgradeHistory fromJson(Map<String, dynamic> json) => UpgradeHistory();
+  static UpgradeHistory fromJson(Map<String, dynamic> json) => UpgradeHistory(
+        upgradeName: json.containsKey('UpgradeName')
+            ? json['UpgradeName'] as String
+            : null,
+        startTimestamp: json.containsKey('StartTimestamp')
+            ? DateTime.parse(json['StartTimestamp'])
+            : null,
+        upgradeStatus: json.containsKey('UpgradeStatus')
+            ? json['UpgradeStatus'] as String
+            : null,
+        stepsList: json.containsKey('StepsList')
+            ? (json['StepsList'] as List)
+                .map((e) => UpgradeStepItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents a single step of the Upgrade or Upgrade Eligibility Check
@@ -1650,8 +2274,20 @@ class UpgradeStepItem {
     this.issues,
     this.progressPercent,
   });
-  static UpgradeStepItem fromJson(Map<String, dynamic> json) =>
-      UpgradeStepItem();
+  static UpgradeStepItem fromJson(Map<String, dynamic> json) => UpgradeStepItem(
+        upgradeStep: json.containsKey('UpgradeStep')
+            ? json['UpgradeStep'] as String
+            : null,
+        upgradeStepStatus: json.containsKey('UpgradeStepStatus')
+            ? json['UpgradeStepStatus'] as String
+            : null,
+        issues: json.containsKey('Issues')
+            ? (json['Issues'] as List).map((e) => e as String).toList()
+            : null,
+        progressPercent: json.containsKey('ProgressPercent')
+            ? json['ProgressPercent'] as double
+            : null,
+      );
 }
 
 /// Options to specify the subnets and security groups for VPC endpoint. For
@@ -1678,7 +2314,22 @@ class VpcDerivedInfo {
     this.availabilityZones,
     this.securityGroupIds,
   });
-  static VpcDerivedInfo fromJson(Map<String, dynamic> json) => VpcDerivedInfo();
+  static VpcDerivedInfo fromJson(Map<String, dynamic> json) => VpcDerivedInfo(
+        vpcId: json.containsKey('VPCId') ? json['VPCId'] as String : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 ///  Status of the VPC options for the specified Elasticsearch domain.
@@ -1695,7 +2346,10 @@ class VpcDerivedInfoStatus {
     @required this.status,
   });
   static VpcDerivedInfoStatus fromJson(Map<String, dynamic> json) =>
-      VpcDerivedInfoStatus();
+      VpcDerivedInfoStatus(
+        options: VpcDerivedInfo.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// Options to specify the subnets and security groups for VPC endpoint. For
@@ -1712,6 +2366,7 @@ class VpcOptions {
     this.subnetIds,
     this.securityGroupIds,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the zone awareness configuration for the domain cluster, such as
@@ -1726,5 +2381,10 @@ class ZoneAwarenessConfig {
     this.availabilityZoneCount,
   });
   static ZoneAwarenessConfig fromJson(Map<String, dynamic> json) =>
-      ZoneAwarenessConfig();
+      ZoneAwarenessConfig(
+        availabilityZoneCount: json.containsKey('AvailabilityZoneCount')
+            ? json['AvailabilityZoneCount'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

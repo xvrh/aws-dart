@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 /// AWS Elemental MediaPackage
 class MediaPackageApi {
+  final _client;
+  MediaPackageApi(client)
+      : _client = client.configured('MediaPackage', serializer: 'rest-json');
+
   /// Creates a new Channel.
   ///
   /// [description]: A short text description of the Channel.
@@ -10,7 +14,12 @@ class MediaPackageApi {
   /// it cannot be changed after a Channel is created.
   Future<CreateChannelResponse> createChannel(String id,
       {String description, Map<String, String> tags}) async {
-    return CreateChannelResponse.fromJson({});
+    var response_ = await _client.send('CreateChannel', {
+      if (description != null) 'Description': description,
+      'Id': id,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateChannelResponse.fromJson(response_);
   }
 
   /// Creates a new OriginEndpoint record.
@@ -50,28 +59,52 @@ class MediaPackageApi {
       Map<String, String> tags,
       int timeDelaySeconds,
       List<String> whitelist}) async {
-    return CreateOriginEndpointResponse.fromJson({});
+    var response_ = await _client.send('CreateOriginEndpoint', {
+      'ChannelId': channelId,
+      if (cmafPackage != null) 'CmafPackage': cmafPackage,
+      if (dashPackage != null) 'DashPackage': dashPackage,
+      if (description != null) 'Description': description,
+      if (hlsPackage != null) 'HlsPackage': hlsPackage,
+      'Id': id,
+      if (manifestName != null) 'ManifestName': manifestName,
+      if (mssPackage != null) 'MssPackage': mssPackage,
+      if (startoverWindowSeconds != null)
+        'StartoverWindowSeconds': startoverWindowSeconds,
+      if (tags != null) 'Tags': tags,
+      if (timeDelaySeconds != null) 'TimeDelaySeconds': timeDelaySeconds,
+      if (whitelist != null) 'Whitelist': whitelist,
+    });
+    return CreateOriginEndpointResponse.fromJson(response_);
   }
 
   /// Deletes an existing Channel.
   ///
   /// [id]: The ID of the Channel to delete.
   Future<DeleteChannelResponse> deleteChannel(String id) async {
-    return DeleteChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteChannel', {
+      'Id': id,
+    });
+    return DeleteChannelResponse.fromJson(response_);
   }
 
   /// Deletes an existing OriginEndpoint.
   ///
   /// [id]: The ID of the OriginEndpoint to delete.
   Future<DeleteOriginEndpointResponse> deleteOriginEndpoint(String id) async {
-    return DeleteOriginEndpointResponse.fromJson({});
+    var response_ = await _client.send('DeleteOriginEndpoint', {
+      'Id': id,
+    });
+    return DeleteOriginEndpointResponse.fromJson(response_);
   }
 
   /// Gets details about a Channel.
   ///
   /// [id]: The ID of a Channel.
   Future<DescribeChannelResponse> describeChannel(String id) async {
-    return DescribeChannelResponse.fromJson({});
+    var response_ = await _client.send('DescribeChannel', {
+      'Id': id,
+    });
+    return DescribeChannelResponse.fromJson(response_);
   }
 
   /// Gets details about an existing OriginEndpoint.
@@ -79,7 +112,10 @@ class MediaPackageApi {
   /// [id]: The ID of the OriginEndpoint.
   Future<DescribeOriginEndpointResponse> describeOriginEndpoint(
       String id) async {
-    return DescribeOriginEndpointResponse.fromJson({});
+    var response_ = await _client.send('DescribeOriginEndpoint', {
+      'Id': id,
+    });
+    return DescribeOriginEndpointResponse.fromJson(response_);
   }
 
   /// Returns a collection of Channels.
@@ -90,7 +126,11 @@ class MediaPackageApi {
   /// request.
   Future<ListChannelsResponse> listChannels(
       {int maxResults, String nextToken}) async {
-    return ListChannelsResponse.fromJson({});
+    var response_ = await _client.send('ListChannels', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListChannelsResponse.fromJson(response_);
   }
 
   /// Returns a collection of OriginEndpoint records.
@@ -104,12 +144,20 @@ class MediaPackageApi {
   /// request.
   Future<ListOriginEndpointsResponse> listOriginEndpoints(
       {String channelId, int maxResults, String nextToken}) async {
-    return ListOriginEndpointsResponse.fromJson({});
+    var response_ = await _client.send('ListOriginEndpoints', {
+      if (channelId != null) 'ChannelId': channelId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListOriginEndpointsResponse.fromJson(response_);
   }
 
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Changes the Channel's first IngestEndpoint's username and password.
@@ -119,7 +167,10 @@ class MediaPackageApi {
   /// [id]: The ID of the channel to update.
   Future<RotateChannelCredentialsResponse> rotateChannelCredentials(
       String id) async {
-    return RotateChannelCredentialsResponse.fromJson({});
+    var response_ = await _client.send('RotateChannelCredentials', {
+      'Id': id,
+    });
+    return RotateChannelCredentialsResponse.fromJson(response_);
   }
 
   /// Rotate the IngestEndpoint's username and password, as specified by the
@@ -132,17 +183,31 @@ class MediaPackageApi {
   Future<RotateIngestEndpointCredentialsResponse>
       rotateIngestEndpointCredentials(
           {@required String id, @required String ingestEndpointId}) async {
-    return RotateIngestEndpointCredentialsResponse.fromJson({});
+    var response_ = await _client.send('RotateIngestEndpointCredentials', {
+      'Id': id,
+      'IngestEndpointId': ingestEndpointId,
+    });
+    return RotateIngestEndpointCredentialsResponse.fromJson(response_);
   }
 
   Future<void> tagResource(
       {@required String resourceArn,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+  }
 
   ///
   /// [tagKeys]: The key(s) of tag to be deleted
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Updates an existing Channel.
   ///
@@ -151,7 +216,11 @@ class MediaPackageApi {
   /// [id]: The ID of the Channel to update.
   Future<UpdateChannelResponse> updateChannel(String id,
       {String description}) async {
-    return UpdateChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateChannel', {
+      if (description != null) 'Description': description,
+      'Id': id,
+    });
+    return UpdateChannelResponse.fromJson(response_);
   }
 
   /// Updates an existing OriginEndpoint.
@@ -183,7 +252,20 @@ class MediaPackageApi {
       int startoverWindowSeconds,
       int timeDelaySeconds,
       List<String> whitelist}) async {
-    return UpdateOriginEndpointResponse.fromJson({});
+    var response_ = await _client.send('UpdateOriginEndpoint', {
+      if (cmafPackage != null) 'CmafPackage': cmafPackage,
+      if (dashPackage != null) 'DashPackage': dashPackage,
+      if (description != null) 'Description': description,
+      if (hlsPackage != null) 'HlsPackage': hlsPackage,
+      'Id': id,
+      if (manifestName != null) 'ManifestName': manifestName,
+      if (mssPackage != null) 'MssPackage': mssPackage,
+      if (startoverWindowSeconds != null)
+        'StartoverWindowSeconds': startoverWindowSeconds,
+      if (timeDelaySeconds != null) 'TimeDelaySeconds': timeDelaySeconds,
+      if (whitelist != null) 'Whitelist': whitelist,
+    });
+    return UpdateOriginEndpointResponse.fromJson(response_);
   }
 }
 
@@ -209,7 +291,20 @@ class Channel {
     this.id,
     this.tags,
   });
-  static Channel fromJson(Map<String, dynamic> json) => Channel();
+  static Channel fromJson(Map<String, dynamic> json) => Channel(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsIngest: json.containsKey('HlsIngest')
+            ? HlsIngest.fromJson(json['HlsIngest'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A Common Media Application Format (CMAF) encryption configuration.
@@ -223,7 +318,14 @@ class CmafEncryption {
     this.keyRotationIntervalSeconds,
     @required this.spekeKeyProvider,
   });
-  static CmafEncryption fromJson(Map<String, dynamic> json) => CmafEncryption();
+  static CmafEncryption fromJson(Map<String, dynamic> json) => CmafEncryption(
+        keyRotationIntervalSeconds:
+            json.containsKey('KeyRotationIntervalSeconds')
+                ? json['KeyRotationIntervalSeconds'] as int
+                : null,
+        spekeKeyProvider: SpekeKeyProvider.fromJson(json['SpekeKeyProvider']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A Common Media Application Format (CMAF) packaging configuration.
@@ -250,7 +352,25 @@ class CmafPackage {
     this.segmentPrefix,
     this.streamSelection,
   });
-  static CmafPackage fromJson(Map<String, dynamic> json) => CmafPackage();
+  static CmafPackage fromJson(Map<String, dynamic> json) => CmafPackage(
+        encryption: json.containsKey('Encryption')
+            ? CmafEncryption.fromJson(json['Encryption'])
+            : null,
+        hlsManifests: json.containsKey('HlsManifests')
+            ? (json['HlsManifests'] as List)
+                .map((e) => HlsManifest.fromJson(e))
+                .toList()
+            : null,
+        segmentDurationSeconds: json.containsKey('SegmentDurationSeconds')
+            ? json['SegmentDurationSeconds'] as int
+            : null,
+        segmentPrefix: json.containsKey('SegmentPrefix')
+            ? json['SegmentPrefix'] as String
+            : null,
+        streamSelection: json.containsKey('StreamSelection')
+            ? StreamSelection.fromJson(json['StreamSelection'])
+            : null,
+      );
 }
 
 /// A Common Media Application Format (CMAF) packaging configuration.
@@ -277,6 +397,7 @@ class CmafPackageCreateOrUpdateParameters {
     this.segmentPrefix,
     this.streamSelection,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateChannelResponse {
@@ -301,7 +422,20 @@ class CreateChannelResponse {
     this.tags,
   });
   static CreateChannelResponse fromJson(Map<String, dynamic> json) =>
-      CreateChannelResponse();
+      CreateChannelResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsIngest: json.containsKey('HlsIngest')
+            ? HlsIngest.fromJson(json['HlsIngest'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateOriginEndpointResponse {
@@ -363,7 +497,44 @@ class CreateOriginEndpointResponse {
     this.whitelist,
   });
   static CreateOriginEndpointResponse fromJson(Map<String, dynamic> json) =>
-      CreateOriginEndpointResponse();
+      CreateOriginEndpointResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelId:
+            json.containsKey('ChannelId') ? json['ChannelId'] as String : null,
+        cmafPackage: json.containsKey('CmafPackage')
+            ? CmafPackage.fromJson(json['CmafPackage'])
+            : null,
+        dashPackage: json.containsKey('DashPackage')
+            ? DashPackage.fromJson(json['DashPackage'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsPackage: json.containsKey('HlsPackage')
+            ? HlsPackage.fromJson(json['HlsPackage'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        manifestName: json.containsKey('ManifestName')
+            ? json['ManifestName'] as String
+            : null,
+        mssPackage: json.containsKey('MssPackage')
+            ? MssPackage.fromJson(json['MssPackage'])
+            : null,
+        startoverWindowSeconds: json.containsKey('StartoverWindowSeconds')
+            ? json['StartoverWindowSeconds'] as int
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        timeDelaySeconds: json.containsKey('TimeDelaySeconds')
+            ? json['TimeDelaySeconds'] as int
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        whitelist: json.containsKey('Whitelist')
+            ? (json['Whitelist'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// A Dynamic Adaptive Streaming over HTTP (DASH) encryption configuration.
@@ -377,7 +548,14 @@ class DashEncryption {
     this.keyRotationIntervalSeconds,
     @required this.spekeKeyProvider,
   });
-  static DashEncryption fromJson(Map<String, dynamic> json) => DashEncryption();
+  static DashEncryption fromJson(Map<String, dynamic> json) => DashEncryption(
+        keyRotationIntervalSeconds:
+            json.containsKey('KeyRotationIntervalSeconds')
+                ? json['KeyRotationIntervalSeconds'] as int
+                : null,
+        spekeKeyProvider: SpekeKeyProvider.fromJson(json['SpekeKeyProvider']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.
@@ -450,7 +628,47 @@ class DashPackage {
     this.streamSelection,
     this.suggestedPresentationDelaySeconds,
   });
-  static DashPackage fromJson(Map<String, dynamic> json) => DashPackage();
+  static DashPackage fromJson(Map<String, dynamic> json) => DashPackage(
+        adTriggers: json.containsKey('AdTriggers')
+            ? (json['AdTriggers'] as List).map((e) => e as String).toList()
+            : null,
+        adsOnDeliveryRestrictions: json.containsKey('AdsOnDeliveryRestrictions')
+            ? json['AdsOnDeliveryRestrictions'] as String
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? DashEncryption.fromJson(json['Encryption'])
+            : null,
+        manifestLayout: json.containsKey('ManifestLayout')
+            ? json['ManifestLayout'] as String
+            : null,
+        manifestWindowSeconds: json.containsKey('ManifestWindowSeconds')
+            ? json['ManifestWindowSeconds'] as int
+            : null,
+        minBufferTimeSeconds: json.containsKey('MinBufferTimeSeconds')
+            ? json['MinBufferTimeSeconds'] as int
+            : null,
+        minUpdatePeriodSeconds: json.containsKey('MinUpdatePeriodSeconds')
+            ? json['MinUpdatePeriodSeconds'] as int
+            : null,
+        periodTriggers: json.containsKey('PeriodTriggers')
+            ? (json['PeriodTriggers'] as List).map((e) => e as String).toList()
+            : null,
+        profile: json.containsKey('Profile') ? json['Profile'] as String : null,
+        segmentDurationSeconds: json.containsKey('SegmentDurationSeconds')
+            ? json['SegmentDurationSeconds'] as int
+            : null,
+        segmentTemplateFormat: json.containsKey('SegmentTemplateFormat')
+            ? json['SegmentTemplateFormat'] as String
+            : null,
+        streamSelection: json.containsKey('StreamSelection')
+            ? StreamSelection.fromJson(json['StreamSelection'])
+            : null,
+        suggestedPresentationDelaySeconds:
+            json.containsKey('SuggestedPresentationDelaySeconds')
+                ? json['SuggestedPresentationDelaySeconds'] as int
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteChannelResponse {
@@ -487,7 +705,20 @@ class DescribeChannelResponse {
     this.tags,
   });
   static DescribeChannelResponse fromJson(Map<String, dynamic> json) =>
-      DescribeChannelResponse();
+      DescribeChannelResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsIngest: json.containsKey('HlsIngest')
+            ? HlsIngest.fromJson(json['HlsIngest'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DescribeOriginEndpointResponse {
@@ -549,7 +780,44 @@ class DescribeOriginEndpointResponse {
     this.whitelist,
   });
   static DescribeOriginEndpointResponse fromJson(Map<String, dynamic> json) =>
-      DescribeOriginEndpointResponse();
+      DescribeOriginEndpointResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelId:
+            json.containsKey('ChannelId') ? json['ChannelId'] as String : null,
+        cmafPackage: json.containsKey('CmafPackage')
+            ? CmafPackage.fromJson(json['CmafPackage'])
+            : null,
+        dashPackage: json.containsKey('DashPackage')
+            ? DashPackage.fromJson(json['DashPackage'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsPackage: json.containsKey('HlsPackage')
+            ? HlsPackage.fromJson(json['HlsPackage'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        manifestName: json.containsKey('ManifestName')
+            ? json['ManifestName'] as String
+            : null,
+        mssPackage: json.containsKey('MssPackage')
+            ? MssPackage.fromJson(json['MssPackage'])
+            : null,
+        startoverWindowSeconds: json.containsKey('StartoverWindowSeconds')
+            ? json['StartoverWindowSeconds'] as int
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        timeDelaySeconds: json.containsKey('TimeDelaySeconds')
+            ? json['TimeDelaySeconds'] as int
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        whitelist: json.containsKey('Whitelist')
+            ? (json['Whitelist'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// An HTTP Live Streaming (HLS) encryption configuration.
@@ -576,7 +844,24 @@ class HlsEncryption {
     this.repeatExtxKey,
     @required this.spekeKeyProvider,
   });
-  static HlsEncryption fromJson(Map<String, dynamic> json) => HlsEncryption();
+  static HlsEncryption fromJson(Map<String, dynamic> json) => HlsEncryption(
+        constantInitializationVector:
+            json.containsKey('ConstantInitializationVector')
+                ? json['ConstantInitializationVector'] as String
+                : null,
+        encryptionMethod: json.containsKey('EncryptionMethod')
+            ? json['EncryptionMethod'] as String
+            : null,
+        keyRotationIntervalSeconds:
+            json.containsKey('KeyRotationIntervalSeconds')
+                ? json['KeyRotationIntervalSeconds'] as int
+                : null,
+        repeatExtxKey: json.containsKey('RepeatExtXKey')
+            ? json['RepeatExtXKey'] as bool
+            : null,
+        spekeKeyProvider: SpekeKeyProvider.fromJson(json['SpekeKeyProvider']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An HTTP Live Streaming (HLS) ingest resource configuration.
@@ -587,7 +872,13 @@ class HlsIngest {
   HlsIngest({
     this.ingestEndpoints,
   });
-  static HlsIngest fromJson(Map<String, dynamic> json) => HlsIngest();
+  static HlsIngest fromJson(Map<String, dynamic> json) => HlsIngest(
+        ingestEndpoints: json.containsKey('IngestEndpoints')
+            ? (json['IngestEndpoints'] as List)
+                .map((e) => IngestEndpoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A HTTP Live Streaming (HLS) manifest configuration.
@@ -642,7 +933,28 @@ class HlsManifest {
     this.programDateTimeIntervalSeconds,
     this.url,
   });
-  static HlsManifest fromJson(Map<String, dynamic> json) => HlsManifest();
+  static HlsManifest fromJson(Map<String, dynamic> json) => HlsManifest(
+        adMarkers:
+            json.containsKey('AdMarkers') ? json['AdMarkers'] as String : null,
+        id: json['Id'] as String,
+        includeIframeOnlyStream: json.containsKey('IncludeIframeOnlyStream')
+            ? json['IncludeIframeOnlyStream'] as bool
+            : null,
+        manifestName: json.containsKey('ManifestName')
+            ? json['ManifestName'] as String
+            : null,
+        playlistType: json.containsKey('PlaylistType')
+            ? json['PlaylistType'] as String
+            : null,
+        playlistWindowSeconds: json.containsKey('PlaylistWindowSeconds')
+            ? json['PlaylistWindowSeconds'] as int
+            : null,
+        programDateTimeIntervalSeconds:
+            json.containsKey('ProgramDateTimeIntervalSeconds')
+                ? json['ProgramDateTimeIntervalSeconds'] as int
+                : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
 }
 
 /// A HTTP Live Streaming (HLS) manifest configuration.
@@ -699,6 +1011,7 @@ class HlsManifestCreateOrUpdateParameters {
     this.playlistWindowSeconds,
     this.programDateTimeIntervalSeconds,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An HTTP Live Streaming (HLS) packaging configuration.
@@ -761,7 +1074,42 @@ class HlsPackage {
     this.streamSelection,
     this.useAudioRenditionGroup,
   });
-  static HlsPackage fromJson(Map<String, dynamic> json) => HlsPackage();
+  static HlsPackage fromJson(Map<String, dynamic> json) => HlsPackage(
+        adMarkers:
+            json.containsKey('AdMarkers') ? json['AdMarkers'] as String : null,
+        adTriggers: json.containsKey('AdTriggers')
+            ? (json['AdTriggers'] as List).map((e) => e as String).toList()
+            : null,
+        adsOnDeliveryRestrictions: json.containsKey('AdsOnDeliveryRestrictions')
+            ? json['AdsOnDeliveryRestrictions'] as String
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? HlsEncryption.fromJson(json['Encryption'])
+            : null,
+        includeIframeOnlyStream: json.containsKey('IncludeIframeOnlyStream')
+            ? json['IncludeIframeOnlyStream'] as bool
+            : null,
+        playlistType: json.containsKey('PlaylistType')
+            ? json['PlaylistType'] as String
+            : null,
+        playlistWindowSeconds: json.containsKey('PlaylistWindowSeconds')
+            ? json['PlaylistWindowSeconds'] as int
+            : null,
+        programDateTimeIntervalSeconds:
+            json.containsKey('ProgramDateTimeIntervalSeconds')
+                ? json['ProgramDateTimeIntervalSeconds'] as int
+                : null,
+        segmentDurationSeconds: json.containsKey('SegmentDurationSeconds')
+            ? json['SegmentDurationSeconds'] as int
+            : null,
+        streamSelection: json.containsKey('StreamSelection')
+            ? StreamSelection.fromJson(json['StreamSelection'])
+            : null,
+        useAudioRenditionGroup: json.containsKey('UseAudioRenditionGroup')
+            ? json['UseAudioRenditionGroup'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An endpoint for ingesting source content for a Channel.
@@ -784,7 +1132,14 @@ class IngestEndpoint {
     this.url,
     this.username,
   });
-  static IngestEndpoint fromJson(Map<String, dynamic> json) => IngestEndpoint();
+  static IngestEndpoint fromJson(Map<String, dynamic> json) => IngestEndpoint(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        password:
+            json.containsKey('Password') ? json['Password'] as String : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+      );
 }
 
 class ListChannelsResponse {
@@ -800,7 +1155,15 @@ class ListChannelsResponse {
     this.nextToken,
   });
   static ListChannelsResponse fromJson(Map<String, dynamic> json) =>
-      ListChannelsResponse();
+      ListChannelsResponse(
+        channels: json.containsKey('Channels')
+            ? (json['Channels'] as List)
+                .map((e) => Channel.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListOriginEndpointsResponse {
@@ -816,7 +1179,15 @@ class ListOriginEndpointsResponse {
     this.originEndpoints,
   });
   static ListOriginEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      ListOriginEndpointsResponse();
+      ListOriginEndpointsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        originEndpoints: json.containsKey('OriginEndpoints')
+            ? (json['OriginEndpoints'] as List)
+                .map((e) => OriginEndpoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -826,7 +1197,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A Microsoft Smooth Streaming (MSS) encryption configuration.
@@ -836,7 +1212,10 @@ class MssEncryption {
   MssEncryption({
     @required this.spekeKeyProvider,
   });
-  static MssEncryption fromJson(Map<String, dynamic> json) => MssEncryption();
+  static MssEncryption fromJson(Map<String, dynamic> json) => MssEncryption(
+        spekeKeyProvider: SpekeKeyProvider.fromJson(json['SpekeKeyProvider']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A Microsoft Smooth Streaming (MSS) packaging configuration.
@@ -857,7 +1236,21 @@ class MssPackage {
     this.segmentDurationSeconds,
     this.streamSelection,
   });
-  static MssPackage fromJson(Map<String, dynamic> json) => MssPackage();
+  static MssPackage fromJson(Map<String, dynamic> json) => MssPackage(
+        encryption: json.containsKey('Encryption')
+            ? MssEncryption.fromJson(json['Encryption'])
+            : null,
+        manifestWindowSeconds: json.containsKey('ManifestWindowSeconds')
+            ? json['ManifestWindowSeconds'] as int
+            : null,
+        segmentDurationSeconds: json.containsKey('SegmentDurationSeconds')
+            ? json['SegmentDurationSeconds'] as int
+            : null,
+        streamSelection: json.containsKey('StreamSelection')
+            ? StreamSelection.fromJson(json['StreamSelection'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An OriginEndpoint resource configuration.
@@ -919,7 +1312,44 @@ class OriginEndpoint {
     this.url,
     this.whitelist,
   });
-  static OriginEndpoint fromJson(Map<String, dynamic> json) => OriginEndpoint();
+  static OriginEndpoint fromJson(Map<String, dynamic> json) => OriginEndpoint(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelId:
+            json.containsKey('ChannelId') ? json['ChannelId'] as String : null,
+        cmafPackage: json.containsKey('CmafPackage')
+            ? CmafPackage.fromJson(json['CmafPackage'])
+            : null,
+        dashPackage: json.containsKey('DashPackage')
+            ? DashPackage.fromJson(json['DashPackage'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsPackage: json.containsKey('HlsPackage')
+            ? HlsPackage.fromJson(json['HlsPackage'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        manifestName: json.containsKey('ManifestName')
+            ? json['ManifestName'] as String
+            : null,
+        mssPackage: json.containsKey('MssPackage')
+            ? MssPackage.fromJson(json['MssPackage'])
+            : null,
+        startoverWindowSeconds: json.containsKey('StartoverWindowSeconds')
+            ? json['StartoverWindowSeconds'] as int
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        timeDelaySeconds: json.containsKey('TimeDelaySeconds')
+            ? json['TimeDelaySeconds'] as int
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        whitelist: json.containsKey('Whitelist')
+            ? (json['Whitelist'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class RotateChannelCredentialsResponse {
@@ -944,7 +1374,20 @@ class RotateChannelCredentialsResponse {
     this.tags,
   });
   static RotateChannelCredentialsResponse fromJson(Map<String, dynamic> json) =>
-      RotateChannelCredentialsResponse();
+      RotateChannelCredentialsResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsIngest: json.containsKey('HlsIngest')
+            ? HlsIngest.fromJson(json['HlsIngest'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class RotateIngestEndpointCredentialsResponse {
@@ -970,7 +1413,20 @@ class RotateIngestEndpointCredentialsResponse {
   });
   static RotateIngestEndpointCredentialsResponse fromJson(
           Map<String, dynamic> json) =>
-      RotateIngestEndpointCredentialsResponse();
+      RotateIngestEndpointCredentialsResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsIngest: json.containsKey('HlsIngest')
+            ? HlsIngest.fromJson(json['HlsIngest'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A configuration for accessing an external Secure Packager and Encoder Key
@@ -1002,7 +1458,16 @@ class SpekeKeyProvider {
     @required this.url,
   });
   static SpekeKeyProvider fromJson(Map<String, dynamic> json) =>
-      SpekeKeyProvider();
+      SpekeKeyProvider(
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        resourceId: json['ResourceId'] as String,
+        roleArn: json['RoleArn'] as String,
+        systemIds: (json['SystemIds'] as List).map((e) => e as String).toList(),
+        url: json['Url'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A StreamSelection configuration.
@@ -1021,8 +1486,18 @@ class StreamSelection {
     this.minVideoBitsPerSecond,
     this.streamOrder,
   });
-  static StreamSelection fromJson(Map<String, dynamic> json) =>
-      StreamSelection();
+  static StreamSelection fromJson(Map<String, dynamic> json) => StreamSelection(
+        maxVideoBitsPerSecond: json.containsKey('MaxVideoBitsPerSecond')
+            ? json['MaxVideoBitsPerSecond'] as int
+            : null,
+        minVideoBitsPerSecond: json.containsKey('MinVideoBitsPerSecond')
+            ? json['MinVideoBitsPerSecond'] as int
+            : null,
+        streamOrder: json.containsKey('StreamOrder')
+            ? json['StreamOrder'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateChannelResponse {
@@ -1047,7 +1522,20 @@ class UpdateChannelResponse {
     this.tags,
   });
   static UpdateChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateChannelResponse();
+      UpdateChannelResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsIngest: json.containsKey('HlsIngest')
+            ? HlsIngest.fromJson(json['HlsIngest'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class UpdateOriginEndpointResponse {
@@ -1109,5 +1597,42 @@ class UpdateOriginEndpointResponse {
     this.whitelist,
   });
   static UpdateOriginEndpointResponse fromJson(Map<String, dynamic> json) =>
-      UpdateOriginEndpointResponse();
+      UpdateOriginEndpointResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelId:
+            json.containsKey('ChannelId') ? json['ChannelId'] as String : null,
+        cmafPackage: json.containsKey('CmafPackage')
+            ? CmafPackage.fromJson(json['CmafPackage'])
+            : null,
+        dashPackage: json.containsKey('DashPackage')
+            ? DashPackage.fromJson(json['DashPackage'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hlsPackage: json.containsKey('HlsPackage')
+            ? HlsPackage.fromJson(json['HlsPackage'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        manifestName: json.containsKey('ManifestName')
+            ? json['ManifestName'] as String
+            : null,
+        mssPackage: json.containsKey('MssPackage')
+            ? MssPackage.fromJson(json['MssPackage'])
+            : null,
+        startoverWindowSeconds: json.containsKey('StartoverWindowSeconds')
+            ? json['StartoverWindowSeconds'] as int
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        timeDelaySeconds: json.containsKey('TimeDelaySeconds')
+            ? json['TimeDelaySeconds'] as int
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        whitelist: json.containsKey('Whitelist')
+            ? (json['Whitelist'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }

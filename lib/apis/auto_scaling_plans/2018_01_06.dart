@@ -16,6 +16,10 @@ import 'package:meta/meta.dart';
 /// the
 /// [AWS Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/plans/userguide/what-is-aws-auto-scaling.html).
 class AutoScalingPlansApi {
+  final _client;
+  AutoScalingPlansApi(client)
+      : _client = client.configured('Auto Scaling Plans', serializer: 'json');
+
   /// Creates a scaling plan.
   ///
   /// [scalingPlanName]: The name of the scaling plan. Names cannot contain
@@ -29,7 +33,12 @@ class AutoScalingPlansApi {
       {@required String scalingPlanName,
       @required ApplicationSource applicationSource,
       @required List<ScalingInstruction> scalingInstructions}) async {
-    return CreateScalingPlanResponse.fromJson({});
+    var response_ = await _client.send('CreateScalingPlan', {
+      'ScalingPlanName': scalingPlanName,
+      'ApplicationSource': applicationSource,
+      'ScalingInstructions': scalingInstructions,
+    });
+    return CreateScalingPlanResponse.fromJson(response_);
   }
 
   /// Deletes the specified scaling plan.
@@ -46,7 +55,11 @@ class AutoScalingPlansApi {
   Future<DeleteScalingPlanResponse> deleteScalingPlan(
       {@required String scalingPlanName,
       @required BigInt scalingPlanVersion}) async {
-    return DeleteScalingPlanResponse.fromJson({});
+    var response_ = await _client.send('DeleteScalingPlan', {
+      'ScalingPlanName': scalingPlanName,
+      'ScalingPlanVersion': scalingPlanVersion,
+    });
+    return DeleteScalingPlanResponse.fromJson(response_);
   }
 
   /// Describes the scalable resources in the specified scaling plan.
@@ -64,7 +77,13 @@ class AutoScalingPlansApi {
       @required BigInt scalingPlanVersion,
       int maxResults,
       String nextToken}) async {
-    return DescribeScalingPlanResourcesResponse.fromJson({});
+    var response_ = await _client.send('DescribeScalingPlanResources', {
+      'ScalingPlanName': scalingPlanName,
+      'ScalingPlanVersion': scalingPlanVersion,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeScalingPlanResourcesResponse.fromJson(response_);
   }
 
   /// Describes one or more of your scaling plans.
@@ -88,7 +107,14 @@ class AutoScalingPlansApi {
       List<ApplicationSource> applicationSources,
       int maxResults,
       String nextToken}) async {
-    return DescribeScalingPlansResponse.fromJson({});
+    var response_ = await _client.send('DescribeScalingPlans', {
+      if (scalingPlanNames != null) 'ScalingPlanNames': scalingPlanNames,
+      if (scalingPlanVersion != null) 'ScalingPlanVersion': scalingPlanVersion,
+      if (applicationSources != null) 'ApplicationSources': applicationSources,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeScalingPlansResponse.fromJson(response_);
   }
 
   /// Retrieves the forecast data for a scalable resource.
@@ -165,7 +191,17 @@ class AutoScalingPlansApi {
           @required String forecastDataType,
           @required DateTime startTime,
           @required DateTime endTime}) async {
-    return GetScalingPlanResourceForecastDataResponse.fromJson({});
+    var response_ = await _client.send('GetScalingPlanResourceForecastData', {
+      'ScalingPlanName': scalingPlanName,
+      'ScalingPlanVersion': scalingPlanVersion,
+      'ServiceNamespace': serviceNamespace,
+      'ResourceId': resourceId,
+      'ScalableDimension': scalableDimension,
+      'ForecastDataType': forecastDataType,
+      'StartTime': startTime,
+      'EndTime': endTime,
+    });
+    return GetScalingPlanResourceForecastDataResponse.fromJson(response_);
   }
 
   /// Updates the specified scaling plan.
@@ -185,7 +221,14 @@ class AutoScalingPlansApi {
       @required BigInt scalingPlanVersion,
       ApplicationSource applicationSource,
       List<ScalingInstruction> scalingInstructions}) async {
-    return UpdateScalingPlanResponse.fromJson({});
+    var response_ = await _client.send('UpdateScalingPlan', {
+      'ScalingPlanName': scalingPlanName,
+      'ScalingPlanVersion': scalingPlanVersion,
+      if (applicationSource != null) 'ApplicationSource': applicationSource,
+      if (scalingInstructions != null)
+        'ScalingInstructions': scalingInstructions,
+    });
+    return UpdateScalingPlanResponse.fromJson(response_);
   }
 }
 
@@ -202,7 +245,17 @@ class ApplicationSource {
     this.tagFilters,
   });
   static ApplicationSource fromJson(Map<String, dynamic> json) =>
-      ApplicationSource();
+      ApplicationSource(
+        cloudFormationStackArn: json.containsKey('CloudFormationStackARN')
+            ? json['CloudFormationStackARN'] as String
+            : null,
+        tagFilters: json.containsKey('TagFilters')
+            ? (json['TagFilters'] as List)
+                .map((e) => TagFilter.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateScalingPlanResponse {
@@ -215,7 +268,9 @@ class CreateScalingPlanResponse {
     @required this.scalingPlanVersion,
   });
   static CreateScalingPlanResponse fromJson(Map<String, dynamic> json) =>
-      CreateScalingPlanResponse();
+      CreateScalingPlanResponse(
+        scalingPlanVersion: BigInt.from(json['ScalingPlanVersion']),
+      );
 }
 
 /// Represents a CloudWatch metric of your choosing that can be used for
@@ -269,7 +324,18 @@ class CustomizedLoadMetricSpecification {
   });
   static CustomizedLoadMetricSpecification fromJson(
           Map<String, dynamic> json) =>
-      CustomizedLoadMetricSpecification();
+      CustomizedLoadMetricSpecification(
+        metricName: json['MetricName'] as String,
+        namespace: json['Namespace'] as String,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => MetricDimension.fromJson(e))
+                .toList()
+            : null,
+        statistic: json['Statistic'] as String,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a CloudWatch metric of your choosing that can be used for dynamic
@@ -320,7 +386,18 @@ class CustomizedScalingMetricSpecification {
   });
   static CustomizedScalingMetricSpecification fromJson(
           Map<String, dynamic> json) =>
-      CustomizedScalingMetricSpecification();
+      CustomizedScalingMetricSpecification(
+        metricName: json['MetricName'] as String,
+        namespace: json['Namespace'] as String,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => MetricDimension.fromJson(e))
+                .toList()
+            : null,
+        statistic: json['Statistic'] as String,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a single value in the forecast data used for predictive scaling.
@@ -335,7 +412,12 @@ class Datapoint {
     this.timestamp,
     this.value,
   });
-  static Datapoint fromJson(Map<String, dynamic> json) => Datapoint();
+  static Datapoint fromJson(Map<String, dynamic> json) => Datapoint(
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+        value: json.containsKey('Value') ? json['Value'] as double : null,
+      );
 }
 
 class DeleteScalingPlanResponse {
@@ -358,7 +440,15 @@ class DescribeScalingPlanResourcesResponse {
   });
   static DescribeScalingPlanResourcesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeScalingPlanResourcesResponse();
+      DescribeScalingPlanResourcesResponse(
+        scalingPlanResources: json.containsKey('ScalingPlanResources')
+            ? (json['ScalingPlanResources'] as List)
+                .map((e) => ScalingPlanResource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeScalingPlansResponse {
@@ -374,7 +464,15 @@ class DescribeScalingPlansResponse {
     this.nextToken,
   });
   static DescribeScalingPlansResponse fromJson(Map<String, dynamic> json) =>
-      DescribeScalingPlansResponse();
+      DescribeScalingPlansResponse(
+        scalingPlans: json.containsKey('ScalingPlans')
+            ? (json['ScalingPlans'] as List)
+                .map((e) => ScalingPlan.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetScalingPlanResourceForecastDataResponse {
@@ -386,7 +484,11 @@ class GetScalingPlanResourceForecastDataResponse {
   });
   static GetScalingPlanResourceForecastDataResponse fromJson(
           Map<String, dynamic> json) =>
-      GetScalingPlanResourceForecastDataResponse();
+      GetScalingPlanResourceForecastDataResponse(
+        datapoints: (json['Datapoints'] as List)
+            .map((e) => Datapoint.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Represents a dimension for a customized metric.
@@ -401,8 +503,11 @@ class MetricDimension {
     @required this.name,
     @required this.value,
   });
-  static MetricDimension fromJson(Map<String, dynamic> json) =>
-      MetricDimension();
+  static MetricDimension fromJson(Map<String, dynamic> json) => MetricDimension(
+        name: json['Name'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a predefined metric that can be used for predictive scaling.
@@ -432,7 +537,13 @@ class PredefinedLoadMetricSpecification {
   });
   static PredefinedLoadMetricSpecification fromJson(
           Map<String, dynamic> json) =>
-      PredefinedLoadMetricSpecification();
+      PredefinedLoadMetricSpecification(
+        predefinedLoadMetricType: json['PredefinedLoadMetricType'] as String,
+        resourceLabel: json.containsKey('ResourceLabel')
+            ? json['ResourceLabel'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a predefined metric that can be used for dynamic scaling as part
@@ -464,7 +575,14 @@ class PredefinedScalingMetricSpecification {
   });
   static PredefinedScalingMetricSpecification fromJson(
           Map<String, dynamic> json) =>
-      PredefinedScalingMetricSpecification();
+      PredefinedScalingMetricSpecification(
+        predefinedScalingMetricType:
+            json['PredefinedScalingMetricType'] as String,
+        resourceLabel: json.containsKey('ResourceLabel')
+            ? json['ResourceLabel'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a scaling instruction for a scalable resource.
@@ -677,7 +795,49 @@ class ScalingInstruction {
     this.disableDynamicScaling,
   });
   static ScalingInstruction fromJson(Map<String, dynamic> json) =>
-      ScalingInstruction();
+      ScalingInstruction(
+        serviceNamespace: json['ServiceNamespace'] as String,
+        resourceId: json['ResourceId'] as String,
+        scalableDimension: json['ScalableDimension'] as String,
+        minCapacity: json['MinCapacity'] as int,
+        maxCapacity: json['MaxCapacity'] as int,
+        targetTrackingConfigurations:
+            (json['TargetTrackingConfigurations'] as List)
+                .map((e) => TargetTrackingConfiguration.fromJson(e))
+                .toList(),
+        predefinedLoadMetricSpecification:
+            json.containsKey('PredefinedLoadMetricSpecification')
+                ? PredefinedLoadMetricSpecification.fromJson(
+                    json['PredefinedLoadMetricSpecification'])
+                : null,
+        customizedLoadMetricSpecification:
+            json.containsKey('CustomizedLoadMetricSpecification')
+                ? CustomizedLoadMetricSpecification.fromJson(
+                    json['CustomizedLoadMetricSpecification'])
+                : null,
+        scheduledActionBufferTime: json.containsKey('ScheduledActionBufferTime')
+            ? json['ScheduledActionBufferTime'] as int
+            : null,
+        predictiveScalingMaxCapacityBehavior:
+            json.containsKey('PredictiveScalingMaxCapacityBehavior')
+                ? json['PredictiveScalingMaxCapacityBehavior'] as String
+                : null,
+        predictiveScalingMaxCapacityBuffer:
+            json.containsKey('PredictiveScalingMaxCapacityBuffer')
+                ? json['PredictiveScalingMaxCapacityBuffer'] as int
+                : null,
+        predictiveScalingMode: json.containsKey('PredictiveScalingMode')
+            ? json['PredictiveScalingMode'] as String
+            : null,
+        scalingPolicyUpdateBehavior:
+            json.containsKey('ScalingPolicyUpdateBehavior')
+                ? json['ScalingPolicyUpdateBehavior'] as String
+                : null,
+        disableDynamicScaling: json.containsKey('DisableDynamicScaling')
+            ? json['DisableDynamicScaling'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a scaling plan.
@@ -733,7 +893,25 @@ class ScalingPlan {
     this.statusStartTime,
     this.creationTime,
   });
-  static ScalingPlan fromJson(Map<String, dynamic> json) => ScalingPlan();
+  static ScalingPlan fromJson(Map<String, dynamic> json) => ScalingPlan(
+        scalingPlanName: json['ScalingPlanName'] as String,
+        scalingPlanVersion: BigInt.from(json['ScalingPlanVersion']),
+        applicationSource:
+            ApplicationSource.fromJson(json['ApplicationSource']),
+        scalingInstructions: (json['ScalingInstructions'] as List)
+            .map((e) => ScalingInstruction.fromJson(e))
+            .toList(),
+        statusCode: json['StatusCode'] as String,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        statusStartTime: json.containsKey('StatusStartTime')
+            ? DateTime.parse(json['StatusStartTime'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// Represents a scalable resource.
@@ -832,7 +1010,22 @@ class ScalingPlanResource {
     this.scalingStatusMessage,
   });
   static ScalingPlanResource fromJson(Map<String, dynamic> json) =>
-      ScalingPlanResource();
+      ScalingPlanResource(
+        scalingPlanName: json['ScalingPlanName'] as String,
+        scalingPlanVersion: BigInt.from(json['ScalingPlanVersion']),
+        serviceNamespace: json['ServiceNamespace'] as String,
+        resourceId: json['ResourceId'] as String,
+        scalableDimension: json['ScalableDimension'] as String,
+        scalingPolicies: json.containsKey('ScalingPolicies')
+            ? (json['ScalingPolicies'] as List)
+                .map((e) => ScalingPolicy.fromJson(e))
+                .toList()
+            : null,
+        scalingStatusCode: json['ScalingStatusCode'] as String,
+        scalingStatusMessage: json.containsKey('ScalingStatusMessage')
+            ? json['ScalingStatusMessage'] as String
+            : null,
+      );
 }
 
 /// Represents a scaling policy.
@@ -852,7 +1045,15 @@ class ScalingPolicy {
     @required this.policyType,
     this.targetTrackingConfiguration,
   });
-  static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy();
+  static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy(
+        policyName: json['PolicyName'] as String,
+        policyType: json['PolicyType'] as String,
+        targetTrackingConfiguration:
+            json.containsKey('TargetTrackingConfiguration')
+                ? TargetTrackingConfiguration.fromJson(
+                    json['TargetTrackingConfiguration'])
+                : null,
+      );
 }
 
 /// Represents a tag.
@@ -867,7 +1068,13 @@ class TagFilter {
     this.key,
     this.values,
   });
-  static TagFilter fromJson(Map<String, dynamic> json) => TagFilter();
+  static TagFilter fromJson(Map<String, dynamic> json) => TagFilter(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a target tracking configuration to use with AWS Auto Scaling. Used
@@ -932,7 +1139,32 @@ class TargetTrackingConfiguration {
     this.estimatedInstanceWarmup,
   });
   static TargetTrackingConfiguration fromJson(Map<String, dynamic> json) =>
-      TargetTrackingConfiguration();
+      TargetTrackingConfiguration(
+        predefinedScalingMetricSpecification:
+            json.containsKey('PredefinedScalingMetricSpecification')
+                ? PredefinedScalingMetricSpecification.fromJson(
+                    json['PredefinedScalingMetricSpecification'])
+                : null,
+        customizedScalingMetricSpecification:
+            json.containsKey('CustomizedScalingMetricSpecification')
+                ? CustomizedScalingMetricSpecification.fromJson(
+                    json['CustomizedScalingMetricSpecification'])
+                : null,
+        targetValue: json['TargetValue'] as double,
+        disableScaleIn: json.containsKey('DisableScaleIn')
+            ? json['DisableScaleIn'] as bool
+            : null,
+        scaleOutCooldown: json.containsKey('ScaleOutCooldown')
+            ? json['ScaleOutCooldown'] as int
+            : null,
+        scaleInCooldown: json.containsKey('ScaleInCooldown')
+            ? json['ScaleInCooldown'] as int
+            : null,
+        estimatedInstanceWarmup: json.containsKey('EstimatedInstanceWarmup')
+            ? json['EstimatedInstanceWarmup'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateScalingPlanResponse {

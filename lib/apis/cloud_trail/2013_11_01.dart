@@ -26,6 +26,10 @@ import 'dart:typed_data';
 /// for information about the data that is included with each AWS API call
 /// listed in the log files.
 class CloudTrailApi {
+  final _client;
+  CloudTrailApi(client)
+      : _client = client.configured('CloudTrail', serializer: 'json');
+
   /// Adds one or more tags to a trail, up to a limit of 50. Tags must be unique
   /// per trail. Overwrites an existing tag's value when a new value is
   /// specified for an existing tag key. If you specify a key without a value,
@@ -41,7 +45,11 @@ class CloudTrailApi {
   /// [tagsList]: Contains a list of CloudTrail tags, up to a limit of 50
   Future<AddTagsResponse> addTags(String resourceId,
       {List<Tag> tagsList}) async {
-    return AddTagsResponse.fromJson({});
+    var response_ = await _client.send('AddTags', {
+      'ResourceId': resourceId,
+      if (tagsList != null) 'TagsList': tagsList,
+    });
+    return AddTagsResponse.fromJson(response_);
   }
 
   /// Creates a trail that specifies the settings for delivery of log data to an
@@ -137,7 +145,25 @@ class CloudTrailApi {
       String cloudWatchLogsRoleArn,
       String kmsKeyId,
       bool isOrganizationTrail}) async {
-    return CreateTrailResponse.fromJson({});
+    var response_ = await _client.send('CreateTrail', {
+      'Name': name,
+      'S3BucketName': s3BucketName,
+      if (s3KeyPrefix != null) 'S3KeyPrefix': s3KeyPrefix,
+      if (snsTopicName != null) 'SnsTopicName': snsTopicName,
+      if (includeGlobalServiceEvents != null)
+        'IncludeGlobalServiceEvents': includeGlobalServiceEvents,
+      if (isMultiRegionTrail != null) 'IsMultiRegionTrail': isMultiRegionTrail,
+      if (enableLogFileValidation != null)
+        'EnableLogFileValidation': enableLogFileValidation,
+      if (cloudWatchLogsLogGroupArn != null)
+        'CloudWatchLogsLogGroupArn': cloudWatchLogsLogGroupArn,
+      if (cloudWatchLogsRoleArn != null)
+        'CloudWatchLogsRoleArn': cloudWatchLogsRoleArn,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (isOrganizationTrail != null)
+        'IsOrganizationTrail': isOrganizationTrail,
+    });
+    return CreateTrailResponse.fromJson(response_);
   }
 
   /// Deletes a trail. This operation must be called from the region in which
@@ -149,7 +175,10 @@ class CloudTrailApi {
   /// deleted. The format of a trail ARN is:
   /// `arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail`
   Future<DeleteTrailResponse> deleteTrail(String name) async {
-    return DeleteTrailResponse.fromJson({});
+    var response_ = await _client.send('DeleteTrail', {
+      'Name': name,
+    });
+    return DeleteTrailResponse.fromJson(response_);
   }
 
   /// Retrieves settings for the trail associated with the current region for
@@ -186,7 +215,12 @@ class CloudTrailApi {
   /// region replication trails will not be returned. The default is true.
   Future<DescribeTrailsResponse> describeTrails(
       {List<String> trailNameList, bool includeShadowTrails}) async {
-    return DescribeTrailsResponse.fromJson({});
+    var response_ = await _client.send('DescribeTrails', {
+      if (trailNameList != null) 'trailNameList': trailNameList,
+      if (includeShadowTrails != null)
+        'includeShadowTrails': includeShadowTrails,
+    });
+    return DescribeTrailsResponse.fromJson(response_);
   }
 
   /// Describes the settings for the event selectors that you configured for
@@ -226,7 +260,10 @@ class CloudTrailApi {
   ///
   ///  `arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail`
   Future<GetEventSelectorsResponse> getEventSelectors(String trailName) async {
-    return GetEventSelectorsResponse.fromJson({});
+    var response_ = await _client.send('GetEventSelectors', {
+      'TrailName': trailName,
+    });
+    return GetEventSelectorsResponse.fromJson(response_);
   }
 
   /// Returns a JSON-formatted list of information about the specified trail.
@@ -242,7 +279,10 @@ class CloudTrailApi {
   ///
   ///  `arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail`
   Future<GetTrailStatusResponse> getTrailStatus(String name) async {
-    return GetTrailStatusResponse.fromJson({});
+    var response_ = await _client.send('GetTrailStatus', {
+      'Name': name,
+    });
+    return GetTrailStatusResponse.fromJson(response_);
   }
 
   /// Returns all public keys whose private keys were used to sign the digest
@@ -267,7 +307,12 @@ class CloudTrailApi {
   /// [nextToken]: Reserved for future use.
   Future<ListPublicKeysResponse> listPublicKeys(
       {DateTime startTime, DateTime endTime, String nextToken}) async {
-    return ListPublicKeysResponse.fromJson({});
+    var response_ = await _client.send('ListPublicKeys', {
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListPublicKeysResponse.fromJson(response_);
   }
 
   /// Lists the tags for the trail in the current region.
@@ -280,7 +325,11 @@ class CloudTrailApi {
   /// [nextToken]: Reserved for future use.
   Future<ListTagsResponse> listTags(List<String> resourceIdList,
       {String nextToken}) async {
-    return ListTagsResponse.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'ResourceIdList': resourceIdList,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsResponse.fromJson(response_);
   }
 
   /// Looks up
@@ -340,7 +389,14 @@ class CloudTrailApi {
       DateTime endTime,
       int maxResults,
       String nextToken}) async {
-    return LookupEventsResponse.fromJson({});
+    var response_ = await _client.send('LookupEvents', {
+      if (lookupAttributes != null) 'LookupAttributes': lookupAttributes,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return LookupEventsResponse.fromJson(response_);
   }
 
   /// Configures an event selector for your trail. Use event selectors to
@@ -407,7 +463,11 @@ class CloudTrailApi {
   Future<PutEventSelectorsResponse> putEventSelectors(
       {@required String trailName,
       @required List<EventSelector> eventSelectors}) async {
-    return PutEventSelectorsResponse.fromJson({});
+    var response_ = await _client.send('PutEventSelectors', {
+      'TrailName': trailName,
+      'EventSelectors': eventSelectors,
+    });
+    return PutEventSelectorsResponse.fromJson(response_);
   }
 
   /// Removes the specified tags from a trail.
@@ -420,7 +480,11 @@ class CloudTrailApi {
   /// [tagsList]: Specifies a list of tags to be removed.
   Future<RemoveTagsResponse> removeTags(String resourceId,
       {List<Tag> tagsList}) async {
-    return RemoveTagsResponse.fromJson({});
+    var response_ = await _client.send('RemoveTags', {
+      'ResourceId': resourceId,
+      if (tagsList != null) 'TagsList': tagsList,
+    });
+    return RemoveTagsResponse.fromJson(response_);
   }
 
   /// Starts the recording of AWS API calls and log file delivery for a trail.
@@ -434,7 +498,10 @@ class CloudTrailApi {
   ///
   ///  `arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail`
   Future<StartLoggingResponse> startLogging(String name) async {
-    return StartLoggingResponse.fromJson({});
+    var response_ = await _client.send('StartLogging', {
+      'Name': name,
+    });
+    return StartLoggingResponse.fromJson(response_);
   }
 
   /// Suspends the recording of AWS API calls and log file delivery for the
@@ -451,7 +518,10 @@ class CloudTrailApi {
   ///
   ///  `arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail`
   Future<StopLoggingResponse> stopLogging(String name) async {
-    return StopLoggingResponse.fromJson({});
+    var response_ = await _client.send('StopLogging', {
+      'Name': name,
+    });
+    return StopLoggingResponse.fromJson(response_);
   }
 
   /// Updates the settings that specify delivery of log files. Changes to a
@@ -563,7 +633,25 @@ class CloudTrailApi {
       String cloudWatchLogsRoleArn,
       String kmsKeyId,
       bool isOrganizationTrail}) async {
-    return UpdateTrailResponse.fromJson({});
+    var response_ = await _client.send('UpdateTrail', {
+      'Name': name,
+      if (s3BucketName != null) 'S3BucketName': s3BucketName,
+      if (s3KeyPrefix != null) 'S3KeyPrefix': s3KeyPrefix,
+      if (snsTopicName != null) 'SnsTopicName': snsTopicName,
+      if (includeGlobalServiceEvents != null)
+        'IncludeGlobalServiceEvents': includeGlobalServiceEvents,
+      if (isMultiRegionTrail != null) 'IsMultiRegionTrail': isMultiRegionTrail,
+      if (enableLogFileValidation != null)
+        'EnableLogFileValidation': enableLogFileValidation,
+      if (cloudWatchLogsLogGroupArn != null)
+        'CloudWatchLogsLogGroupArn': cloudWatchLogsLogGroupArn,
+      if (cloudWatchLogsRoleArn != null)
+        'CloudWatchLogsRoleArn': cloudWatchLogsRoleArn,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (isOrganizationTrail != null)
+        'IsOrganizationTrail': isOrganizationTrail,
+    });
+    return UpdateTrailResponse.fromJson(response_);
   }
 }
 
@@ -649,7 +737,44 @@ class CreateTrailResponse {
     this.isOrganizationTrail,
   });
   static CreateTrailResponse fromJson(Map<String, dynamic> json) =>
-      CreateTrailResponse();
+      CreateTrailResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+        s3KeyPrefix: json.containsKey('S3KeyPrefix')
+            ? json['S3KeyPrefix'] as String
+            : null,
+        snsTopicName: json.containsKey('SnsTopicName')
+            ? json['SnsTopicName'] as String
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicARN')
+            ? json['SnsTopicARN'] as String
+            : null,
+        includeGlobalServiceEvents:
+            json.containsKey('IncludeGlobalServiceEvents')
+                ? json['IncludeGlobalServiceEvents'] as bool
+                : null,
+        isMultiRegionTrail: json.containsKey('IsMultiRegionTrail')
+            ? json['IsMultiRegionTrail'] as bool
+            : null,
+        trailArn:
+            json.containsKey('TrailARN') ? json['TrailARN'] as String : null,
+        logFileValidationEnabled: json.containsKey('LogFileValidationEnabled')
+            ? json['LogFileValidationEnabled'] as bool
+            : null,
+        cloudWatchLogsLogGroupArn: json.containsKey('CloudWatchLogsLogGroupArn')
+            ? json['CloudWatchLogsLogGroupArn'] as String
+            : null,
+        cloudWatchLogsRoleArn: json.containsKey('CloudWatchLogsRoleArn')
+            ? json['CloudWatchLogsRoleArn'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        isOrganizationTrail: json.containsKey('IsOrganizationTrail')
+            ? json['IsOrganizationTrail'] as bool
+            : null,
+      );
 }
 
 /// The Amazon S3 buckets or AWS Lambda functions that you specify in your event
@@ -748,7 +873,13 @@ class DataResource {
     this.type,
     this.values,
   });
-  static DataResource fromJson(Map<String, dynamic> json) => DataResource();
+  static DataResource fromJson(Map<String, dynamic> json) => DataResource(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Returns the objects or data listed below if successful. Otherwise, returns
@@ -769,7 +900,11 @@ class DescribeTrailsResponse {
     this.trailList,
   });
   static DescribeTrailsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTrailsResponse();
+      DescribeTrailsResponse(
+        trailList: json.containsKey('trailList')
+            ? (json['trailList'] as List).map((e) => Trail.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains information about an event that was returned by a lookup request.
@@ -816,7 +951,32 @@ class Event {
     this.resources,
     this.cloudTrailEvent,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+        eventName:
+            json.containsKey('EventName') ? json['EventName'] as String : null,
+        readOnly:
+            json.containsKey('ReadOnly') ? json['ReadOnly'] as String : null,
+        accessKeyId: json.containsKey('AccessKeyId')
+            ? json['AccessKeyId'] as String
+            : null,
+        eventTime: json.containsKey('EventTime')
+            ? DateTime.parse(json['EventTime'])
+            : null,
+        eventSource: json.containsKey('EventSource')
+            ? json['EventSource'] as String
+            : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        resources: json.containsKey('Resources')
+            ? (json['Resources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+        cloudTrailEvent: json.containsKey('CloudTrailEvent')
+            ? json['CloudTrailEvent'] as String
+            : null,
+      );
 }
 
 /// Use event selectors to further specify the management and data event
@@ -864,7 +1024,20 @@ class EventSelector {
     this.includeManagementEvents,
     this.dataResources,
   });
-  static EventSelector fromJson(Map<String, dynamic> json) => EventSelector();
+  static EventSelector fromJson(Map<String, dynamic> json) => EventSelector(
+        readWriteType: json.containsKey('ReadWriteType')
+            ? json['ReadWriteType'] as String
+            : null,
+        includeManagementEvents: json.containsKey('IncludeManagementEvents')
+            ? json['IncludeManagementEvents'] as bool
+            : null,
+        dataResources: json.containsKey('DataResources')
+            ? (json['DataResources'] as List)
+                .map((e) => DataResource.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetEventSelectorsResponse {
@@ -879,7 +1052,15 @@ class GetEventSelectorsResponse {
     this.eventSelectors,
   });
   static GetEventSelectorsResponse fromJson(Map<String, dynamic> json) =>
-      GetEventSelectorsResponse();
+      GetEventSelectorsResponse(
+        trailArn:
+            json.containsKey('TrailARN') ? json['TrailARN'] as String : null,
+        eventSelectors: json.containsKey('EventSelectors')
+            ? (json['EventSelectors'] as List)
+                .map((e) => EventSelector.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returns the objects or data listed below if successful. Otherwise, returns
@@ -989,7 +1170,63 @@ class GetTrailStatusResponse {
     this.timeLoggingStopped,
   });
   static GetTrailStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetTrailStatusResponse();
+      GetTrailStatusResponse(
+        isLogging:
+            json.containsKey('IsLogging') ? json['IsLogging'] as bool : null,
+        latestDeliveryError: json.containsKey('LatestDeliveryError')
+            ? json['LatestDeliveryError'] as String
+            : null,
+        latestNotificationError: json.containsKey('LatestNotificationError')
+            ? json['LatestNotificationError'] as String
+            : null,
+        latestDeliveryTime: json.containsKey('LatestDeliveryTime')
+            ? DateTime.parse(json['LatestDeliveryTime'])
+            : null,
+        latestNotificationTime: json.containsKey('LatestNotificationTime')
+            ? DateTime.parse(json['LatestNotificationTime'])
+            : null,
+        startLoggingTime: json.containsKey('StartLoggingTime')
+            ? DateTime.parse(json['StartLoggingTime'])
+            : null,
+        stopLoggingTime: json.containsKey('StopLoggingTime')
+            ? DateTime.parse(json['StopLoggingTime'])
+            : null,
+        latestCloudWatchLogsDeliveryError:
+            json.containsKey('LatestCloudWatchLogsDeliveryError')
+                ? json['LatestCloudWatchLogsDeliveryError'] as String
+                : null,
+        latestCloudWatchLogsDeliveryTime:
+            json.containsKey('LatestCloudWatchLogsDeliveryTime')
+                ? DateTime.parse(json['LatestCloudWatchLogsDeliveryTime'])
+                : null,
+        latestDigestDeliveryTime: json.containsKey('LatestDigestDeliveryTime')
+            ? DateTime.parse(json['LatestDigestDeliveryTime'])
+            : null,
+        latestDigestDeliveryError: json.containsKey('LatestDigestDeliveryError')
+            ? json['LatestDigestDeliveryError'] as String
+            : null,
+        latestDeliveryAttemptTime: json.containsKey('LatestDeliveryAttemptTime')
+            ? json['LatestDeliveryAttemptTime'] as String
+            : null,
+        latestNotificationAttemptTime:
+            json.containsKey('LatestNotificationAttemptTime')
+                ? json['LatestNotificationAttemptTime'] as String
+                : null,
+        latestNotificationAttemptSucceeded:
+            json.containsKey('LatestNotificationAttemptSucceeded')
+                ? json['LatestNotificationAttemptSucceeded'] as String
+                : null,
+        latestDeliveryAttemptSucceeded:
+            json.containsKey('LatestDeliveryAttemptSucceeded')
+                ? json['LatestDeliveryAttemptSucceeded'] as String
+                : null,
+        timeLoggingStarted: json.containsKey('TimeLoggingStarted')
+            ? json['TimeLoggingStarted'] as String
+            : null,
+        timeLoggingStopped: json.containsKey('TimeLoggingStopped')
+            ? json['TimeLoggingStopped'] as String
+            : null,
+      );
 }
 
 /// Returns the objects or data listed below if successful. Otherwise, returns
@@ -1010,7 +1247,15 @@ class ListPublicKeysResponse {
     this.nextToken,
   });
   static ListPublicKeysResponse fromJson(Map<String, dynamic> json) =>
-      ListPublicKeysResponse();
+      ListPublicKeysResponse(
+        publicKeyList: json.containsKey('PublicKeyList')
+            ? (json['PublicKeyList'] as List)
+                .map((e) => PublicKey.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Returns the objects or data listed below if successful. Otherwise, returns
@@ -1027,7 +1272,15 @@ class ListTagsResponse {
     this.nextToken,
   });
   static ListTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsResponse();
+      ListTagsResponse(
+        resourceTagList: json.containsKey('ResourceTagList')
+            ? (json['ResourceTagList'] as List)
+                .map((e) => ResourceTag.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Specifies an attribute and value that filter the events returned.
@@ -1042,6 +1295,7 @@ class LookupAttribute {
     @required this.attributeKey,
     @required this.attributeValue,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains a response to a LookupEvents action.
@@ -1064,7 +1318,13 @@ class LookupEventsResponse {
     this.nextToken,
   });
   static LookupEventsResponse fromJson(Map<String, dynamic> json) =>
-      LookupEventsResponse();
+      LookupEventsResponse(
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains information about a returned public key.
@@ -1087,7 +1347,18 @@ class PublicKey {
     this.validityEndTime,
     this.fingerprint,
   });
-  static PublicKey fromJson(Map<String, dynamic> json) => PublicKey();
+  static PublicKey fromJson(Map<String, dynamic> json) => PublicKey(
+        value: json.containsKey('Value') ? Uint8List(json['Value']) : null,
+        validityStartTime: json.containsKey('ValidityStartTime')
+            ? DateTime.parse(json['ValidityStartTime'])
+            : null,
+        validityEndTime: json.containsKey('ValidityEndTime')
+            ? DateTime.parse(json['ValidityEndTime'])
+            : null,
+        fingerprint: json.containsKey('Fingerprint')
+            ? json['Fingerprint'] as String
+            : null,
+      );
 }
 
 class PutEventSelectorsResponse {
@@ -1105,7 +1376,15 @@ class PutEventSelectorsResponse {
     this.eventSelectors,
   });
   static PutEventSelectorsResponse fromJson(Map<String, dynamic> json) =>
-      PutEventSelectorsResponse();
+      PutEventSelectorsResponse(
+        trailArn:
+            json.containsKey('TrailARN') ? json['TrailARN'] as String : null,
+        eventSelectors: json.containsKey('EventSelectors')
+            ? (json['EventSelectors'] as List)
+                .map((e) => EventSelector.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returns the objects or data listed below if successful. Otherwise, returns
@@ -1136,7 +1415,14 @@ class Resource {
     this.resourceType,
     this.resourceName,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceName: json.containsKey('ResourceName')
+            ? json['ResourceName'] as String
+            : null,
+      );
 }
 
 /// A resource tag.
@@ -1151,7 +1437,14 @@ class ResourceTag {
     this.resourceId,
     this.tagsList,
   });
-  static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag();
+  static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        tagsList: json.containsKey('TagsList')
+            ? (json['TagsList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Returns the objects or data listed below if successful. Otherwise, returns
@@ -1186,7 +1479,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The settings for a trail.
@@ -1272,7 +1569,50 @@ class Trail {
     this.hasCustomEventSelectors,
     this.isOrganizationTrail,
   });
-  static Trail fromJson(Map<String, dynamic> json) => Trail();
+  static Trail fromJson(Map<String, dynamic> json) => Trail(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+        s3KeyPrefix: json.containsKey('S3KeyPrefix')
+            ? json['S3KeyPrefix'] as String
+            : null,
+        snsTopicName: json.containsKey('SnsTopicName')
+            ? json['SnsTopicName'] as String
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicARN')
+            ? json['SnsTopicARN'] as String
+            : null,
+        includeGlobalServiceEvents:
+            json.containsKey('IncludeGlobalServiceEvents')
+                ? json['IncludeGlobalServiceEvents'] as bool
+                : null,
+        isMultiRegionTrail: json.containsKey('IsMultiRegionTrail')
+            ? json['IsMultiRegionTrail'] as bool
+            : null,
+        homeRegion: json.containsKey('HomeRegion')
+            ? json['HomeRegion'] as String
+            : null,
+        trailArn:
+            json.containsKey('TrailARN') ? json['TrailARN'] as String : null,
+        logFileValidationEnabled: json.containsKey('LogFileValidationEnabled')
+            ? json['LogFileValidationEnabled'] as bool
+            : null,
+        cloudWatchLogsLogGroupArn: json.containsKey('CloudWatchLogsLogGroupArn')
+            ? json['CloudWatchLogsLogGroupArn'] as String
+            : null,
+        cloudWatchLogsRoleArn: json.containsKey('CloudWatchLogsRoleArn')
+            ? json['CloudWatchLogsRoleArn'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        hasCustomEventSelectors: json.containsKey('HasCustomEventSelectors')
+            ? json['HasCustomEventSelectors'] as bool
+            : null,
+        isOrganizationTrail: json.containsKey('IsOrganizationTrail')
+            ? json['IsOrganizationTrail'] as bool
+            : null,
+      );
 }
 
 /// Returns the objects or data listed below if successful. Otherwise, returns
@@ -1349,5 +1689,42 @@ class UpdateTrailResponse {
     this.isOrganizationTrail,
   });
   static UpdateTrailResponse fromJson(Map<String, dynamic> json) =>
-      UpdateTrailResponse();
+      UpdateTrailResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+        s3KeyPrefix: json.containsKey('S3KeyPrefix')
+            ? json['S3KeyPrefix'] as String
+            : null,
+        snsTopicName: json.containsKey('SnsTopicName')
+            ? json['SnsTopicName'] as String
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicARN')
+            ? json['SnsTopicARN'] as String
+            : null,
+        includeGlobalServiceEvents:
+            json.containsKey('IncludeGlobalServiceEvents')
+                ? json['IncludeGlobalServiceEvents'] as bool
+                : null,
+        isMultiRegionTrail: json.containsKey('IsMultiRegionTrail')
+            ? json['IsMultiRegionTrail'] as bool
+            : null,
+        trailArn:
+            json.containsKey('TrailARN') ? json['TrailARN'] as String : null,
+        logFileValidationEnabled: json.containsKey('LogFileValidationEnabled')
+            ? json['LogFileValidationEnabled'] as bool
+            : null,
+        cloudWatchLogsLogGroupArn: json.containsKey('CloudWatchLogsLogGroupArn')
+            ? json['CloudWatchLogsLogGroupArn'] as String
+            : null,
+        cloudWatchLogsRoleArn: json.containsKey('CloudWatchLogsRoleArn')
+            ? json['CloudWatchLogsRoleArn'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        isOrganizationTrail: json.containsKey('IsOrganizationTrail')
+            ? json['IsOrganizationTrail'] as bool
+            : null,
+      );
 }

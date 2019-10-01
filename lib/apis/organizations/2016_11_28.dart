@@ -120,6 +120,10 @@ import 'package:meta/meta.dart';
 /// including how to turn it on and find your log files, see the
 /// [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
 class OrganizationsApi {
+  final _client;
+  OrganizationsApi(client)
+      : _client = client.configured('Organizations', serializer: 'json');
+
   /// Sends a response to the originator of a handshake agreeing to the action
   /// proposed by the handshake request.
   ///
@@ -159,7 +163,10 @@ class OrganizationsApi {
   /// string requires "h-" followed by from 8 to 32 lower-case letters or
   /// digits.
   Future<AcceptHandshakeResponse> acceptHandshake(String handshakeId) async {
-    return AcceptHandshakeResponse.fromJson({});
+    var response_ = await _client.send('AcceptHandshake', {
+      'HandshakeId': handshakeId,
+    });
+    return AcceptHandshakeResponse.fromJson(response_);
   }
 
   /// Attaches a policy to a root, an organizational unit (OU), or an individual
@@ -233,7 +240,12 @@ class OrganizationsApi {
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
   Future<void> attachPolicy(
-      {@required String policyId, @required String targetId}) async {}
+      {@required String policyId, @required String targetId}) async {
+    await _client.send('AttachPolicy', {
+      'PolicyId': policyId,
+      'TargetId': targetId,
+    });
+  }
 
   /// Cancels a handshake. Canceling a handshake sets the handshake state to
   /// `CANCELED`.
@@ -254,7 +266,10 @@ class OrganizationsApi {
   /// string requires "h-" followed by from 8 to 32 lower-case letters or
   /// digits.
   Future<CancelHandshakeResponse> cancelHandshake(String handshakeId) async {
-    return CancelHandshakeResponse.fromJson({});
+    var response_ = await _client.send('CancelHandshake', {
+      'HandshakeId': handshakeId,
+    });
+    return CancelHandshakeResponse.fromJson(response_);
   }
 
   /// Creates an AWS account that is automatically a member of the organization
@@ -375,7 +390,14 @@ class OrganizationsApi {
       @required String accountName,
       String roleName,
       String iamUserAccessToBilling}) async {
-    return CreateAccountResponse.fromJson({});
+    var response_ = await _client.send('CreateAccount', {
+      'Email': email,
+      'AccountName': accountName,
+      if (roleName != null) 'RoleName': roleName,
+      if (iamUserAccessToBilling != null)
+        'IamUserAccessToBilling': iamUserAccessToBilling,
+    });
+    return CreateAccountResponse.fromJson(response_);
   }
 
   /// This action is available if all of the following are true:
@@ -542,7 +564,14 @@ class OrganizationsApi {
       @required String accountName,
       String roleName,
       String iamUserAccessToBilling}) async {
-    return CreateGovCloudAccountResponse.fromJson({});
+    var response_ = await _client.send('CreateGovCloudAccount', {
+      'Email': email,
+      'AccountName': accountName,
+      if (roleName != null) 'RoleName': roleName,
+      if (iamUserAccessToBilling != null)
+        'IamUserAccessToBilling': iamUserAccessToBilling,
+    });
+    return CreateGovCloudAccountResponse.fromJson(response_);
   }
 
   /// Creates an AWS organization. The account whose user is calling the
@@ -580,7 +609,10 @@ class OrganizationsApi {
   /// in the _AWS Organizations User Guide._
   Future<CreateOrganizationResponse> createOrganization(
       {String featureSet}) async {
-    return CreateOrganizationResponse.fromJson({});
+    var response_ = await _client.send('CreateOrganization', {
+      if (featureSet != null) 'FeatureSet': featureSet,
+    });
+    return CreateOrganizationResponse.fromJson(response_);
   }
 
   /// Creates an organizational unit (OU) within a root or parent OU. An OU is a
@@ -612,7 +644,11 @@ class OrganizationsApi {
   /// [name]: The friendly name to assign to the new OU.
   Future<CreateOrganizationalUnitResponse> createOrganizationalUnit(
       {@required String parentId, @required String name}) async {
-    return CreateOrganizationalUnitResponse.fromJson({});
+    var response_ = await _client.send('CreateOrganizationalUnit', {
+      'ParentId': parentId,
+      'Name': name,
+    });
+    return CreateOrganizationalUnitResponse.fromJson(response_);
   }
 
   /// Creates a policy of a specified type that you can attach to a root, an
@@ -651,7 +687,13 @@ class OrganizationsApi {
       @required String description,
       @required String name,
       @required String type}) async {
-    return CreatePolicyResponse.fromJson({});
+    var response_ = await _client.send('CreatePolicy', {
+      'Content': content,
+      'Description': description,
+      'Name': name,
+      'Type': type,
+    });
+    return CreatePolicyResponse.fromJson(response_);
   }
 
   /// Declines a handshake request. This sets the handshake state to `DECLINED`
@@ -673,13 +715,18 @@ class OrganizationsApi {
   /// string requires "h-" followed by from 8 to 32 lower-case letters or
   /// digits.
   Future<DeclineHandshakeResponse> declineHandshake(String handshakeId) async {
-    return DeclineHandshakeResponse.fromJson({});
+    var response_ = await _client.send('DeclineHandshake', {
+      'HandshakeId': handshakeId,
+    });
+    return DeclineHandshakeResponse.fromJson(response_);
   }
 
   /// Deletes the organization. You can delete an organization only by using
   /// credentials from the master account. The organization must be empty of
   /// member accounts.
-  Future<void> deleteOrganization() async {}
+  Future<void> deleteOrganization() async {
+    await _client.send('DeleteOrganization', {});
+  }
 
   /// Deletes an organizational unit (OU) from a root or another OU. You must
   /// first remove all accounts and child OUs from the OU that you want to
@@ -695,7 +742,11 @@ class OrganizationsApi {
   /// unit ID string requires "ou-" followed by from 4 to 32 lower-case letters
   /// or digits (the ID of the root that contains the OU) followed by a second
   /// "-" dash and from 8 to 32 additional lower-case letters or digits.
-  Future<void> deleteOrganizationalUnit(String organizationalUnitId) async {}
+  Future<void> deleteOrganizationalUnit(String organizationalUnitId) async {
+    await _client.send('DeleteOrganizationalUnit', {
+      'OrganizationalUnitId': organizationalUnitId,
+    });
+  }
 
   /// Deletes the specified policy from your organization. Before you perform
   /// this operation, you must first detach the policy from all organizational
@@ -710,7 +761,11 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a policy ID
   /// string requires "p-" followed by from 8 to 128 lower-case letters or
   /// digits.
-  Future<void> deletePolicy(String policyId) async {}
+  Future<void> deletePolicy(String policyId) async {
+    await _client.send('DeletePolicy', {
+      'PolicyId': policyId,
+    });
+  }
 
   /// Retrieves AWS Organizations-related information about the specified
   /// account.
@@ -724,7 +779,10 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for an account ID
   /// string requires exactly 12 digits.
   Future<DescribeAccountResponse> describeAccount(String accountId) async {
-    return DescribeAccountResponse.fromJson({});
+    var response_ = await _client.send('DescribeAccount', {
+      'AccountId': accountId,
+    });
+    return DescribeAccountResponse.fromJson(response_);
   }
 
   /// Retrieves the current status of an asynchronous request to create an
@@ -741,7 +799,10 @@ class OrganizationsApi {
   /// letters or digits.
   Future<DescribeCreateAccountStatusResponse> describeCreateAccountStatus(
       String createAccountRequestId) async {
-    return DescribeCreateAccountStatusResponse.fromJson({});
+    var response_ = await _client.send('DescribeCreateAccountStatus', {
+      'CreateAccountRequestId': createAccountRequestId,
+    });
+    return DescribeCreateAccountStatusResponse.fromJson(response_);
   }
 
   /// Retrieves information about a previously requested handshake. The
@@ -764,7 +825,10 @@ class OrganizationsApi {
   /// digits.
   Future<DescribeHandshakeResponse> describeHandshake(
       String handshakeId) async {
-    return DescribeHandshakeResponse.fromJson({});
+    var response_ = await _client.send('DescribeHandshake', {
+      'HandshakeId': handshakeId,
+    });
+    return DescribeHandshakeResponse.fromJson(response_);
   }
 
   /// Retrieves information about the organization that the user's account
@@ -778,7 +842,8 @@ class OrganizationsApi {
   /// disable it separately at the root level with DisablePolicyType. Use
   /// ListRoots to see the status of policy types for a specified root.
   Future<DescribeOrganizationResponse> describeOrganization() async {
-    return DescribeOrganizationResponse.fromJson({});
+    var response_ = await _client.send('DescribeOrganization', {});
+    return DescribeOrganizationResponse.fromJson(response_);
   }
 
   /// Retrieves information about an organizational unit (OU).
@@ -795,7 +860,10 @@ class OrganizationsApi {
   /// "-" dash and from 8 to 32 additional lower-case letters or digits.
   Future<DescribeOrganizationalUnitResponse> describeOrganizationalUnit(
       String organizationalUnitId) async {
-    return DescribeOrganizationalUnitResponse.fromJson({});
+    var response_ = await _client.send('DescribeOrganizationalUnit', {
+      'OrganizationalUnitId': organizationalUnitId,
+    });
+    return DescribeOrganizationalUnitResponse.fromJson(response_);
   }
 
   /// Retrieves information about a policy.
@@ -810,7 +878,10 @@ class OrganizationsApi {
   /// string requires "p-" followed by from 8 to 128 lower-case letters or
   /// digits.
   Future<DescribePolicyResponse> describePolicy(String policyId) async {
-    return DescribePolicyResponse.fromJson({});
+    var response_ = await _client.send('DescribePolicy', {
+      'PolicyId': policyId,
+    });
+    return DescribePolicyResponse.fromJson(response_);
   }
 
   /// Detaches a policy from a target root, organizational unit (OU), or
@@ -858,7 +929,12 @@ class OrganizationsApi {
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
   Future<void> detachPolicy(
-      {@required String policyId, @required String targetId}) async {}
+      {@required String policyId, @required String targetId}) async {
+    await _client.send('DetachPolicy', {
+      'PolicyId': policyId,
+      'TargetId': targetId,
+    });
+  }
 
   /// Disables the integration of an AWS service (the service that is specified
   /// by `ServicePrincipal`) with AWS Organizations. When you disable
@@ -896,7 +972,11 @@ class OrganizationsApi {
   /// which you want to disable integration with your organization. This is
   /// typically in the form of a URL, such as
   /// `_service-abbreviation_.amazonaws.com`.
-  Future<void> disableAwsServiceAccess(String servicePrincipal) async {}
+  Future<void> disableAwsServiceAccess(String servicePrincipal) async {
+    await _client.send('DisableAWSServiceAccess', {
+      'ServicePrincipal': servicePrincipal,
+    });
+  }
 
   /// Disables an organizational control policy type in a root. A policy of a
   /// certain type can be attached to entities in a root only if that type is
@@ -927,7 +1007,11 @@ class OrganizationsApi {
   /// [policyType]: The policy type that you want to disable in this root.
   Future<DisablePolicyTypeResponse> disablePolicyType(
       {@required String rootId, @required String policyType}) async {
-    return DisablePolicyTypeResponse.fromJson({});
+    var response_ = await _client.send('DisablePolicyType', {
+      'RootId': rootId,
+      'PolicyType': policyType,
+    });
+    return DisablePolicyTypeResponse.fromJson(response_);
   }
 
   /// Enables the integration of an AWS service (the service that is specified
@@ -958,7 +1042,11 @@ class OrganizationsApi {
   /// which you want to enable integration with your organization. This is
   /// typically in the form of a URL, such as
   /// `_service-abbreviation_.amazonaws.com`.
-  Future<void> enableAwsServiceAccess(String servicePrincipal) async {}
+  Future<void> enableAwsServiceAccess(String servicePrincipal) async {
+    await _client.send('EnableAWSServiceAccess', {
+      'ServicePrincipal': servicePrincipal,
+    });
+  }
 
   /// Enables all features in an organization. This enables the use of
   /// organization policies that can restrict the services and actions that can
@@ -994,7 +1082,8 @@ class OrganizationsApi {
   ///
   /// This operation can be called only from the organization's master account.
   Future<EnableAllFeaturesResponse> enableAllFeatures() async {
-    return EnableAllFeaturesResponse.fromJson({});
+    var response_ = await _client.send('EnableAllFeatures', {});
+    return EnableAllFeaturesResponse.fromJson(response_);
   }
 
   /// Enables a policy type in a root. After you enable a policy type in a root,
@@ -1021,7 +1110,11 @@ class OrganizationsApi {
   /// [policyType]: The policy type that you want to enable.
   Future<EnablePolicyTypeResponse> enablePolicyType(
       {@required String rootId, @required String policyType}) async {
-    return EnablePolicyTypeResponse.fromJson({});
+    var response_ = await _client.send('EnablePolicyType', {
+      'RootId': rootId,
+      'PolicyType': policyType,
+    });
+    return EnablePolicyTypeResponse.fromJson(response_);
   }
 
   /// Sends an invitation to another account to join your organization as a
@@ -1067,7 +1160,11 @@ class OrganizationsApi {
   Future<InviteAccountToOrganizationResponse> inviteAccountToOrganization(
       HandshakeParty target,
       {String notes}) async {
-    return InviteAccountToOrganizationResponse.fromJson({});
+    var response_ = await _client.send('InviteAccountToOrganization', {
+      'Target': target,
+      if (notes != null) 'Notes': notes,
+    });
+    return InviteAccountToOrganizationResponse.fromJson(response_);
   }
 
   /// Removes a member account from its parent organization. This version of the
@@ -1103,7 +1200,9 @@ class OrganizationsApi {
   /// billing in your account. For more information, see
   /// [Activating Access to the Billing and Cost Management Console](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate)
   /// in the _AWS Billing and Cost Management User Guide._
-  Future<void> leaveOrganization() async {}
+  Future<void> leaveOrganization() async {
+    await _client.send('LeaveOrganization', {});
+  }
 
   /// Returns a list of the AWS services that you enabled to integrate with your
   /// organization. After a service on this list creates the resources that it
@@ -1136,7 +1235,11 @@ class OrganizationsApi {
   Future<ListAwsServiceAccessForOrganizationResponse>
       listAwsServiceAccessForOrganization(
           {String nextToken, int maxResults}) async {
-    return ListAwsServiceAccessForOrganizationResponse.fromJson({});
+    var response_ = await _client.send('ListAWSServiceAccessForOrganization', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListAwsServiceAccessForOrganizationResponse.fromJson(response_);
   }
 
   /// Lists all the accounts in the organization. To request only the accounts
@@ -1168,7 +1271,11 @@ class OrganizationsApi {
   /// all of the results.
   Future<ListAccountsResponse> listAccounts(
       {String nextToken, int maxResults}) async {
-    return ListAccountsResponse.fromJson({});
+    var response_ = await _client.send('ListAccounts', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListAccountsResponse.fromJson(response_);
   }
 
   /// Lists the accounts in an organization that are contained by the specified
@@ -1206,7 +1313,12 @@ class OrganizationsApi {
   /// all of the results.
   Future<ListAccountsForParentResponse> listAccountsForParent(String parentId,
       {String nextToken, int maxResults}) async {
-    return ListAccountsForParentResponse.fromJson({});
+    var response_ = await _client.send('ListAccountsForParent', {
+      'ParentId': parentId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListAccountsForParentResponse.fromJson(response_);
   }
 
   /// Lists all of the organizational units (OUs) or accounts that are contained
@@ -1257,7 +1369,13 @@ class OrganizationsApi {
       @required String childType,
       String nextToken,
       int maxResults}) async {
-    return ListChildrenResponse.fromJson({});
+    var response_ = await _client.send('ListChildren', {
+      'ParentId': parentId,
+      'ChildType': childType,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListChildrenResponse.fromJson(response_);
   }
 
   /// Lists the account creation requests that match the specified status that
@@ -1292,7 +1410,12 @@ class OrganizationsApi {
   /// all of the results.
   Future<ListCreateAccountStatusResponse> listCreateAccountStatus(
       {List<String> states, String nextToken, int maxResults}) async {
-    return ListCreateAccountStatusResponse.fromJson({});
+    var response_ = await _client.send('ListCreateAccountStatus', {
+      if (states != null) 'States': states,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListCreateAccountStatusResponse.fromJson(response_);
   }
 
   /// Lists the current handshakes that are associated with the account of the
@@ -1335,7 +1458,12 @@ class OrganizationsApi {
   /// all of the results.
   Future<ListHandshakesForAccountResponse> listHandshakesForAccount(
       {HandshakeFilter filter, String nextToken, int maxResults}) async {
-    return ListHandshakesForAccountResponse.fromJson({});
+    var response_ = await _client.send('ListHandshakesForAccount', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListHandshakesForAccountResponse.fromJson(response_);
   }
 
   /// Lists the handshakes that are associated with the organization that the
@@ -1380,7 +1508,12 @@ class OrganizationsApi {
   /// all of the results.
   Future<ListHandshakesForOrganizationResponse> listHandshakesForOrganization(
       {HandshakeFilter filter, String nextToken, int maxResults}) async {
-    return ListHandshakesForOrganizationResponse.fromJson({});
+    var response_ = await _client.send('ListHandshakesForOrganization', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListHandshakesForOrganizationResponse.fromJson(response_);
   }
 
   /// Lists the organizational units (OUs) in a parent organizational unit or
@@ -1426,7 +1559,12 @@ class OrganizationsApi {
   Future<ListOrganizationalUnitsForParentResponse>
       listOrganizationalUnitsForParent(String parentId,
           {String nextToken, int maxResults}) async {
-    return ListOrganizationalUnitsForParentResponse.fromJson({});
+    var response_ = await _client.send('ListOrganizationalUnitsForParent', {
+      'ParentId': parentId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListOrganizationalUnitsForParentResponse.fromJson(response_);
   }
 
   /// Lists the root or organizational units (OUs) that serve as the immediate
@@ -1476,7 +1614,12 @@ class OrganizationsApi {
   /// all of the results.
   Future<ListParentsResponse> listParents(String childId,
       {String nextToken, int maxResults}) async {
-    return ListParentsResponse.fromJson({});
+    var response_ = await _client.send('ListParents', {
+      'ChildId': childId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListParentsResponse.fromJson(response_);
   }
 
   /// Retrieves the list of all policies in an organization of a specified type.
@@ -1509,7 +1652,12 @@ class OrganizationsApi {
   /// all of the results.
   Future<ListPoliciesResponse> listPolicies(String filter,
       {String nextToken, int maxResults}) async {
-    return ListPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListPolicies', {
+      'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListPoliciesResponse.fromJson(response_);
   }
 
   /// Lists the policies that are directly attached to the specified target
@@ -1563,7 +1711,13 @@ class OrganizationsApi {
       @required String filter,
       String nextToken,
       int maxResults}) async {
-    return ListPoliciesForTargetResponse.fromJson({});
+    var response_ = await _client.send('ListPoliciesForTarget', {
+      'TargetId': targetId,
+      'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListPoliciesForTargetResponse.fromJson(response_);
   }
 
   /// Lists the roots that are defined in the current organization.
@@ -1602,7 +1756,11 @@ class OrganizationsApi {
   /// all of the results.
   Future<ListRootsResponse> listRoots(
       {String nextToken, int maxResults}) async {
-    return ListRootsResponse.fromJson({});
+    var response_ = await _client.send('ListRoots', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListRootsResponse.fromJson(response_);
   }
 
   /// Lists tags for the specified resource.
@@ -1617,7 +1775,11 @@ class OrganizationsApi {
   /// where the output should continue from.
   Future<ListTagsForResourceResponse> listTagsForResource(String resourceId,
       {String nextToken}) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceId': resourceId,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Lists all the roots, organizational units (OUs), and accounts that the
@@ -1655,7 +1817,12 @@ class OrganizationsApi {
   /// all of the results.
   Future<ListTargetsForPolicyResponse> listTargetsForPolicy(String policyId,
       {String nextToken, int maxResults}) async {
-    return ListTargetsForPolicyResponse.fromJson({});
+    var response_ = await _client.send('ListTargetsForPolicy', {
+      'PolicyId': policyId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTargetsForPolicyResponse.fromJson(response_);
   }
 
   /// Moves an account from its current source parent root or organizational
@@ -1699,7 +1866,13 @@ class OrganizationsApi {
   Future<void> moveAccount(
       {@required String accountId,
       @required String sourceParentId,
-      @required String destinationParentId}) async {}
+      @required String destinationParentId}) async {
+    await _client.send('MoveAccount', {
+      'AccountId': accountId,
+      'SourceParentId': sourceParentId,
+      'DestinationParentId': destinationParentId,
+    });
+  }
 
   /// Removes the specified account from the organization.
   ///
@@ -1734,7 +1907,11 @@ class OrganizationsApi {
   ///
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for an account ID
   /// string requires exactly 12 digits.
-  Future<void> removeAccountFromOrganization(String accountId) async {}
+  Future<void> removeAccountFromOrganization(String accountId) async {
+    await _client.send('RemoveAccountFromOrganization', {
+      'AccountId': accountId,
+    });
+  }
 
   /// Adds one or more tags to the specified resource.
   ///
@@ -1746,7 +1923,12 @@ class OrganizationsApi {
   /// is required. You can set the value of a tag to an empty string, but you
   /// can't set the value of a tag to null.
   Future<void> tagResource(
-      {@required String resourceId, @required List<Tag> tags}) async {}
+      {@required String resourceId, @required List<Tag> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceId': resourceId,
+      'Tags': tags,
+    });
+  }
 
   /// Removes a tag from the specified resource.
   ///
@@ -1756,7 +1938,12 @@ class OrganizationsApi {
   ///
   /// [tagKeys]: The tag to remove from the specified resource.
   Future<void> untagResource(
-      {@required String resourceId, @required List<String> tagKeys}) async {}
+      {@required String resourceId, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceId': resourceId,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Renames the specified organizational unit (OU). The ID and ARN don't
   /// change. The child OUs and accounts remain in place, and any attached
@@ -1781,7 +1968,11 @@ class OrganizationsApi {
   Future<UpdateOrganizationalUnitResponse> updateOrganizationalUnit(
       String organizationalUnitId,
       {String name}) async {
-    return UpdateOrganizationalUnitResponse.fromJson({});
+    var response_ = await _client.send('UpdateOrganizationalUnit', {
+      'OrganizationalUnitId': organizationalUnitId,
+      if (name != null) 'Name': name,
+    });
+    return UpdateOrganizationalUnitResponse.fromJson(response_);
   }
 
   /// Updates an existing policy with a new name, description, or content. If
@@ -1812,7 +2003,13 @@ class OrganizationsApi {
   /// in the _AWS Organizations User Guide._
   Future<UpdatePolicyResponse> updatePolicy(String policyId,
       {String name, String description, String content}) async {
-    return UpdatePolicyResponse.fromJson({});
+    var response_ = await _client.send('UpdatePolicy', {
+      'PolicyId': policyId,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (content != null) 'Content': content,
+    });
+    return UpdatePolicyResponse.fromJson(response_);
   }
 }
 
@@ -1824,7 +2021,11 @@ class AcceptHandshakeResponse {
     this.handshake,
   });
   static AcceptHandshakeResponse fromJson(Map<String, dynamic> json) =>
-      AcceptHandshakeResponse();
+      AcceptHandshakeResponse(
+        handshake: json.containsKey('Handshake')
+            ? Handshake.fromJson(json['Handshake'])
+            : null,
+      );
 }
 
 /// Contains information about an AWS account that is a member of an
@@ -1874,7 +2075,19 @@ class Account {
     this.joinedMethod,
     this.joinedTimestamp,
   });
-  static Account fromJson(Map<String, dynamic> json) => Account();
+  static Account fromJson(Map<String, dynamic> json) => Account(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        joinedMethod: json.containsKey('JoinedMethod')
+            ? json['JoinedMethod'] as String
+            : null,
+        joinedTimestamp: json.containsKey('JoinedTimestamp')
+            ? DateTime.parse(json['JoinedTimestamp'])
+            : null,
+      );
 }
 
 class CancelHandshakeResponse {
@@ -1885,7 +2098,11 @@ class CancelHandshakeResponse {
     this.handshake,
   });
   static CancelHandshakeResponse fromJson(Map<String, dynamic> json) =>
-      CancelHandshakeResponse();
+      CancelHandshakeResponse(
+        handshake: json.containsKey('Handshake')
+            ? Handshake.fromJson(json['Handshake'])
+            : null,
+      );
 }
 
 /// Contains a list of child entities, either OUs or accounts.
@@ -1910,7 +2127,10 @@ class Child {
     this.id,
     this.type,
   });
-  static Child fromJson(Map<String, dynamic> json) => Child();
+  static Child fromJson(Map<String, dynamic> json) => Child(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 class CreateAccountResponse {
@@ -1929,7 +2149,11 @@ class CreateAccountResponse {
     this.createAccountStatus,
   });
   static CreateAccountResponse fromJson(Map<String, dynamic> json) =>
-      CreateAccountResponse();
+      CreateAccountResponse(
+        createAccountStatus: json.containsKey('CreateAccountStatus')
+            ? CreateAccountStatus.fromJson(json['CreateAccountStatus'])
+            : null,
+      );
 }
 
 /// Contains the status about a CreateAccount or CreateGovCloudAccount request
@@ -1997,7 +2221,27 @@ class CreateAccountStatus {
     this.failureReason,
   });
   static CreateAccountStatus fromJson(Map<String, dynamic> json) =>
-      CreateAccountStatus();
+      CreateAccountStatus(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        accountName: json.containsKey('AccountName')
+            ? json['AccountName'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        requestedTimestamp: json.containsKey('RequestedTimestamp')
+            ? DateTime.parse(json['RequestedTimestamp'])
+            : null,
+        completedTimestamp: json.containsKey('CompletedTimestamp')
+            ? DateTime.parse(json['CompletedTimestamp'])
+            : null,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        govCloudAccountId: json.containsKey('GovCloudAccountId')
+            ? json['GovCloudAccountId'] as String
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+      );
 }
 
 class CreateGovCloudAccountResponse {
@@ -2007,7 +2251,11 @@ class CreateGovCloudAccountResponse {
     this.createAccountStatus,
   });
   static CreateGovCloudAccountResponse fromJson(Map<String, dynamic> json) =>
-      CreateGovCloudAccountResponse();
+      CreateGovCloudAccountResponse(
+        createAccountStatus: json.containsKey('CreateAccountStatus')
+            ? CreateAccountStatus.fromJson(json['CreateAccountStatus'])
+            : null,
+      );
 }
 
 class CreateOrganizationResponse {
@@ -2018,7 +2266,11 @@ class CreateOrganizationResponse {
     this.organization,
   });
   static CreateOrganizationResponse fromJson(Map<String, dynamic> json) =>
-      CreateOrganizationResponse();
+      CreateOrganizationResponse(
+        organization: json.containsKey('Organization')
+            ? Organization.fromJson(json['Organization'])
+            : null,
+      );
 }
 
 class CreateOrganizationalUnitResponse {
@@ -2029,7 +2281,11 @@ class CreateOrganizationalUnitResponse {
     this.organizationalUnit,
   });
   static CreateOrganizationalUnitResponse fromJson(Map<String, dynamic> json) =>
-      CreateOrganizationalUnitResponse();
+      CreateOrganizationalUnitResponse(
+        organizationalUnit: json.containsKey('OrganizationalUnit')
+            ? OrganizationalUnit.fromJson(json['OrganizationalUnit'])
+            : null,
+      );
 }
 
 class CreatePolicyResponse {
@@ -2040,7 +2296,10 @@ class CreatePolicyResponse {
     this.policy,
   });
   static CreatePolicyResponse fromJson(Map<String, dynamic> json) =>
-      CreatePolicyResponse();
+      CreatePolicyResponse(
+        policy:
+            json.containsKey('Policy') ? Policy.fromJson(json['Policy']) : null,
+      );
 }
 
 class DeclineHandshakeResponse {
@@ -2052,7 +2311,11 @@ class DeclineHandshakeResponse {
     this.handshake,
   });
   static DeclineHandshakeResponse fromJson(Map<String, dynamic> json) =>
-      DeclineHandshakeResponse();
+      DeclineHandshakeResponse(
+        handshake: json.containsKey('Handshake')
+            ? Handshake.fromJson(json['Handshake'])
+            : null,
+      );
 }
 
 class DescribeAccountResponse {
@@ -2063,7 +2326,11 @@ class DescribeAccountResponse {
     this.account,
   });
   static DescribeAccountResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAccountResponse();
+      DescribeAccountResponse(
+        account: json.containsKey('Account')
+            ? Account.fromJson(json['Account'])
+            : null,
+      );
 }
 
 class DescribeCreateAccountStatusResponse {
@@ -2076,7 +2343,11 @@ class DescribeCreateAccountStatusResponse {
   });
   static DescribeCreateAccountStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeCreateAccountStatusResponse();
+      DescribeCreateAccountStatusResponse(
+        createAccountStatus: json.containsKey('CreateAccountStatus')
+            ? CreateAccountStatus.fromJson(json['CreateAccountStatus'])
+            : null,
+      );
 }
 
 class DescribeHandshakeResponse {
@@ -2087,7 +2358,11 @@ class DescribeHandshakeResponse {
     this.handshake,
   });
   static DescribeHandshakeResponse fromJson(Map<String, dynamic> json) =>
-      DescribeHandshakeResponse();
+      DescribeHandshakeResponse(
+        handshake: json.containsKey('Handshake')
+            ? Handshake.fromJson(json['Handshake'])
+            : null,
+      );
 }
 
 class DescribeOrganizationResponse {
@@ -2098,7 +2373,11 @@ class DescribeOrganizationResponse {
     this.organization,
   });
   static DescribeOrganizationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeOrganizationResponse();
+      DescribeOrganizationResponse(
+        organization: json.containsKey('Organization')
+            ? Organization.fromJson(json['Organization'])
+            : null,
+      );
 }
 
 class DescribeOrganizationalUnitResponse {
@@ -2110,7 +2389,11 @@ class DescribeOrganizationalUnitResponse {
   });
   static DescribeOrganizationalUnitResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeOrganizationalUnitResponse();
+      DescribeOrganizationalUnitResponse(
+        organizationalUnit: json.containsKey('OrganizationalUnit')
+            ? OrganizationalUnit.fromJson(json['OrganizationalUnit'])
+            : null,
+      );
 }
 
 class DescribePolicyResponse {
@@ -2121,7 +2404,10 @@ class DescribePolicyResponse {
     this.policy,
   });
   static DescribePolicyResponse fromJson(Map<String, dynamic> json) =>
-      DescribePolicyResponse();
+      DescribePolicyResponse(
+        policy:
+            json.containsKey('Policy') ? Policy.fromJson(json['Policy']) : null,
+      );
 }
 
 class DisablePolicyTypeResponse {
@@ -2133,7 +2419,9 @@ class DisablePolicyTypeResponse {
     this.root,
   });
   static DisablePolicyTypeResponse fromJson(Map<String, dynamic> json) =>
-      DisablePolicyTypeResponse();
+      DisablePolicyTypeResponse(
+        root: json.containsKey('Root') ? Root.fromJson(json['Root']) : null,
+      );
 }
 
 class EnableAllFeaturesResponse {
@@ -2145,7 +2433,11 @@ class EnableAllFeaturesResponse {
     this.handshake,
   });
   static EnableAllFeaturesResponse fromJson(Map<String, dynamic> json) =>
-      EnableAllFeaturesResponse();
+      EnableAllFeaturesResponse(
+        handshake: json.containsKey('Handshake')
+            ? Handshake.fromJson(json['Handshake'])
+            : null,
+      );
 }
 
 class EnablePolicyTypeResponse {
@@ -2157,7 +2449,9 @@ class EnablePolicyTypeResponse {
     this.root,
   });
   static EnablePolicyTypeResponse fromJson(Map<String, dynamic> json) =>
-      EnablePolicyTypeResponse();
+      EnablePolicyTypeResponse(
+        root: json.containsKey('Root') ? Root.fromJson(json['Root']) : null,
+      );
 }
 
 /// A structure that contains details of a service principal that is enabled to
@@ -2176,7 +2470,14 @@ class EnabledServicePrincipal {
     this.dateEnabled,
   });
   static EnabledServicePrincipal fromJson(Map<String, dynamic> json) =>
-      EnabledServicePrincipal();
+      EnabledServicePrincipal(
+        servicePrincipal: json.containsKey('ServicePrincipal')
+            ? json['ServicePrincipal'] as String
+            : null,
+        dateEnabled: json.containsKey('DateEnabled')
+            ? DateTime.parse(json['DateEnabled'])
+            : null,
+      );
 }
 
 /// Contains information that must be exchanged to securely establish a
@@ -2276,7 +2577,28 @@ class Handshake {
     this.action,
     this.resources,
   });
-  static Handshake fromJson(Map<String, dynamic> json) => Handshake();
+  static Handshake fromJson(Map<String, dynamic> json) => Handshake(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        parties: json.containsKey('Parties')
+            ? (json['Parties'] as List)
+                .map((e) => HandshakeParty.fromJson(e))
+                .toList()
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        requestedTimestamp: json.containsKey('RequestedTimestamp')
+            ? DateTime.parse(json['RequestedTimestamp'])
+            : null,
+        expirationTimestamp: json.containsKey('ExpirationTimestamp')
+            ? DateTime.parse(json['ExpirationTimestamp'])
+            : null,
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        resources: json.containsKey('Resources')
+            ? (json['Resources'] as List)
+                .map((e) => HandshakeResource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Specifies the criteria that are used to select the handshakes for the
@@ -2301,6 +2623,7 @@ class HandshakeFilter {
     this.actionType,
     this.parentHandshakeId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Identifies a participant in a handshake.
@@ -2319,7 +2642,11 @@ class HandshakeParty {
     @required this.id,
     @required this.type,
   });
-  static HandshakeParty fromJson(Map<String, dynamic> json) => HandshakeParty();
+  static HandshakeParty fromJson(Map<String, dynamic> json) => HandshakeParty(
+        id: json['Id'] as String,
+        type: json['Type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains additional data that is needed to process a handshake.
@@ -2358,7 +2685,15 @@ class HandshakeResource {
     this.resources,
   });
   static HandshakeResource fromJson(Map<String, dynamic> json) =>
-      HandshakeResource();
+      HandshakeResource(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        resources: json.containsKey('Resources')
+            ? (json['Resources'] as List)
+                .map((e) => HandshakeResource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class InviteAccountToOrganizationResponse {
@@ -2371,7 +2706,11 @@ class InviteAccountToOrganizationResponse {
   });
   static InviteAccountToOrganizationResponse fromJson(
           Map<String, dynamic> json) =>
-      InviteAccountToOrganizationResponse();
+      InviteAccountToOrganizationResponse(
+        handshake: json.containsKey('Handshake')
+            ? Handshake.fromJson(json['Handshake'])
+            : null,
+      );
 }
 
 class ListAwsServiceAccessForOrganizationResponse {
@@ -2394,7 +2733,15 @@ class ListAwsServiceAccessForOrganizationResponse {
   });
   static ListAwsServiceAccessForOrganizationResponse fromJson(
           Map<String, dynamic> json) =>
-      ListAwsServiceAccessForOrganizationResponse();
+      ListAwsServiceAccessForOrganizationResponse(
+        enabledServicePrincipals: json.containsKey('EnabledServicePrincipals')
+            ? (json['EnabledServicePrincipals'] as List)
+                .map((e) => EnabledServicePrincipal.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListAccountsForParentResponse {
@@ -2413,7 +2760,15 @@ class ListAccountsForParentResponse {
     this.nextToken,
   });
   static ListAccountsForParentResponse fromJson(Map<String, dynamic> json) =>
-      ListAccountsForParentResponse();
+      ListAccountsForParentResponse(
+        accounts: json.containsKey('Accounts')
+            ? (json['Accounts'] as List)
+                .map((e) => Account.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListAccountsResponse {
@@ -2432,7 +2787,15 @@ class ListAccountsResponse {
     this.nextToken,
   });
   static ListAccountsResponse fromJson(Map<String, dynamic> json) =>
-      ListAccountsResponse();
+      ListAccountsResponse(
+        accounts: json.containsKey('Accounts')
+            ? (json['Accounts'] as List)
+                .map((e) => Account.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListChildrenResponse {
@@ -2451,7 +2814,13 @@ class ListChildrenResponse {
     this.nextToken,
   });
   static ListChildrenResponse fromJson(Map<String, dynamic> json) =>
-      ListChildrenResponse();
+      ListChildrenResponse(
+        children: json.containsKey('Children')
+            ? (json['Children'] as List).map((e) => Child.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListCreateAccountStatusResponse {
@@ -2472,7 +2841,15 @@ class ListCreateAccountStatusResponse {
     this.nextToken,
   });
   static ListCreateAccountStatusResponse fromJson(Map<String, dynamic> json) =>
-      ListCreateAccountStatusResponse();
+      ListCreateAccountStatusResponse(
+        createAccountStatuses: json.containsKey('CreateAccountStatuses')
+            ? (json['CreateAccountStatuses'] as List)
+                .map((e) => CreateAccountStatus.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListHandshakesForAccountResponse {
@@ -2492,7 +2869,15 @@ class ListHandshakesForAccountResponse {
     this.nextToken,
   });
   static ListHandshakesForAccountResponse fromJson(Map<String, dynamic> json) =>
-      ListHandshakesForAccountResponse();
+      ListHandshakesForAccountResponse(
+        handshakes: json.containsKey('Handshakes')
+            ? (json['Handshakes'] as List)
+                .map((e) => Handshake.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListHandshakesForOrganizationResponse {
@@ -2513,7 +2898,15 @@ class ListHandshakesForOrganizationResponse {
   });
   static ListHandshakesForOrganizationResponse fromJson(
           Map<String, dynamic> json) =>
-      ListHandshakesForOrganizationResponse();
+      ListHandshakesForOrganizationResponse(
+        handshakes: json.containsKey('Handshakes')
+            ? (json['Handshakes'] as List)
+                .map((e) => Handshake.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListOrganizationalUnitsForParentResponse {
@@ -2533,7 +2926,15 @@ class ListOrganizationalUnitsForParentResponse {
   });
   static ListOrganizationalUnitsForParentResponse fromJson(
           Map<String, dynamic> json) =>
-      ListOrganizationalUnitsForParentResponse();
+      ListOrganizationalUnitsForParentResponse(
+        organizationalUnits: json.containsKey('OrganizationalUnits')
+            ? (json['OrganizationalUnits'] as List)
+                .map((e) => OrganizationalUnit.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListParentsResponse {
@@ -2552,7 +2953,13 @@ class ListParentsResponse {
     this.nextToken,
   });
   static ListParentsResponse fromJson(Map<String, dynamic> json) =>
-      ListParentsResponse();
+      ListParentsResponse(
+        parents: json.containsKey('Parents')
+            ? (json['Parents'] as List).map((e) => Parent.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPoliciesForTargetResponse {
@@ -2571,7 +2978,15 @@ class ListPoliciesForTargetResponse {
     this.nextToken,
   });
   static ListPoliciesForTargetResponse fromJson(Map<String, dynamic> json) =>
-      ListPoliciesForTargetResponse();
+      ListPoliciesForTargetResponse(
+        policies: json.containsKey('Policies')
+            ? (json['Policies'] as List)
+                .map((e) => PolicySummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPoliciesResponse {
@@ -2592,7 +3007,15 @@ class ListPoliciesResponse {
     this.nextToken,
   });
   static ListPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListPoliciesResponse();
+      ListPoliciesResponse(
+        policies: json.containsKey('Policies')
+            ? (json['Policies'] as List)
+                .map((e) => PolicySummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListRootsResponse {
@@ -2611,7 +3034,13 @@ class ListRootsResponse {
     this.nextToken,
   });
   static ListRootsResponse fromJson(Map<String, dynamic> json) =>
-      ListRootsResponse();
+      ListRootsResponse(
+        roots: json.containsKey('Roots')
+            ? (json['Roots'] as List).map((e) => Root.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -2630,7 +3059,13 @@ class ListTagsForResourceResponse {
     this.nextToken,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTargetsForPolicyResponse {
@@ -2650,7 +3085,15 @@ class ListTargetsForPolicyResponse {
     this.nextToken,
   });
   static ListTargetsForPolicyResponse fromJson(Map<String, dynamic> json) =>
-      ListTargetsForPolicyResponse();
+      ListTargetsForPolicyResponse(
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List)
+                .map((e) => PolicyTargetSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains details about an organization. An organization is a collection of
@@ -2720,7 +3163,27 @@ class Organization {
     this.masterAccountEmail,
     this.availablePolicyTypes,
   });
-  static Organization fromJson(Map<String, dynamic> json) => Organization();
+  static Organization fromJson(Map<String, dynamic> json) => Organization(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        featureSet: json.containsKey('FeatureSet')
+            ? json['FeatureSet'] as String
+            : null,
+        masterAccountArn: json.containsKey('MasterAccountArn')
+            ? json['MasterAccountArn'] as String
+            : null,
+        masterAccountId: json.containsKey('MasterAccountId')
+            ? json['MasterAccountId'] as String
+            : null,
+        masterAccountEmail: json.containsKey('MasterAccountEmail')
+            ? json['MasterAccountEmail'] as String
+            : null,
+        availablePolicyTypes: json.containsKey('AvailablePolicyTypes')
+            ? (json['AvailablePolicyTypes'] as List)
+                .map((e) => PolicyTypeSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains details about an organizational unit (OU). An OU is a container of
@@ -2755,7 +3218,11 @@ class OrganizationalUnit {
     this.name,
   });
   static OrganizationalUnit fromJson(Map<String, dynamic> json) =>
-      OrganizationalUnit();
+      OrganizationalUnit(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Contains information about either a root or an organizational unit (OU) that
@@ -2782,7 +3249,10 @@ class Parent {
     this.id,
     this.type,
   });
-  static Parent fromJson(Map<String, dynamic> json) => Parent();
+  static Parent fromJson(Map<String, dynamic> json) => Parent(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Contains rules to be applied to the affected accounts. Policies can be
@@ -2799,7 +3269,12 @@ class Policy {
     this.policySummary,
     this.content,
   });
-  static Policy fromJson(Map<String, dynamic> json) => Policy();
+  static Policy fromJson(Map<String, dynamic> json) => Policy(
+        policySummary: json.containsKey('PolicySummary')
+            ? PolicySummary.fromJson(json['PolicySummary'])
+            : null,
+        content: json.containsKey('Content') ? json['Content'] as String : null,
+      );
 }
 
 /// Contains information about a policy, but does not include the content. To
@@ -2845,7 +3320,17 @@ class PolicySummary {
     this.type,
     this.awsManaged,
   });
-  static PolicySummary fromJson(Map<String, dynamic> json) => PolicySummary();
+  static PolicySummary fromJson(Map<String, dynamic> json) => PolicySummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        awsManaged:
+            json.containsKey('AwsManaged') ? json['AwsManaged'] as bool : null,
+      );
 }
 
 /// Contains information about a root, OU, or account that a policy is attached
@@ -2891,7 +3376,13 @@ class PolicyTargetSummary {
     this.type,
   });
   static PolicyTargetSummary fromJson(Map<String, dynamic> json) =>
-      PolicyTargetSummary();
+      PolicyTargetSummary(
+        targetId:
+            json.containsKey('TargetId') ? json['TargetId'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Contains information about a policy type and its status in the associated
@@ -2911,7 +3402,10 @@ class PolicyTypeSummary {
     this.status,
   });
   static PolicyTypeSummary fromJson(Map<String, dynamic> json) =>
-      PolicyTypeSummary();
+      PolicyTypeSummary(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Contains details about a root. A root is a top-level parent node in the
@@ -2957,7 +3451,16 @@ class Root {
     this.name,
     this.policyTypes,
   });
-  static Root fromJson(Map<String, dynamic> json) => Root();
+  static Root fromJson(Map<String, dynamic> json) => Root(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        policyTypes: json.containsKey('PolicyTypes')
+            ? (json['PolicyTypes'] as List)
+                .map((e) => PolicyTypeSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A custom key-value pair associated with a resource such as an account within
@@ -2975,7 +3478,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateOrganizationalUnitResponse {
@@ -2987,7 +3494,11 @@ class UpdateOrganizationalUnitResponse {
     this.organizationalUnit,
   });
   static UpdateOrganizationalUnitResponse fromJson(Map<String, dynamic> json) =>
-      UpdateOrganizationalUnitResponse();
+      UpdateOrganizationalUnitResponse(
+        organizationalUnit: json.containsKey('OrganizationalUnit')
+            ? OrganizationalUnit.fromJson(json['OrganizationalUnit'])
+            : null,
+      );
 }
 
 class UpdatePolicyResponse {
@@ -2999,5 +3510,8 @@ class UpdatePolicyResponse {
     this.policy,
   });
   static UpdatePolicyResponse fromJson(Map<String, dynamic> json) =>
-      UpdatePolicyResponse();
+      UpdatePolicyResponse(
+        policy:
+            json.containsKey('Policy') ? Policy.fromJson(json['Policy']) : null,
+      );
 }

@@ -5,6 +5,9 @@ import 'package:meta/meta.dart';
 /// AWS products to do tasks such as web indexing, data mining, log file
 /// analysis, machine learning, scientific simulation, and data warehousing.
 class EmrApi {
+  final _client;
+  EmrApi(client) : _client = client.configured('EMR', serializer: 'json');
+
   /// Adds an instance fleet to a running cluster.
   ///
   ///
@@ -18,7 +21,11 @@ class EmrApi {
   Future<AddInstanceFleetOutput> addInstanceFleet(
       {@required String clusterId,
       @required InstanceFleetConfig instanceFleet}) async {
-    return AddInstanceFleetOutput.fromJson({});
+    var response_ = await _client.send('AddInstanceFleet', {
+      'ClusterId': clusterId,
+      'InstanceFleet': instanceFleet,
+    });
+    return AddInstanceFleetOutput.fromJson(response_);
   }
 
   /// Adds one or more instance groups to a running cluster.
@@ -29,7 +36,11 @@ class EmrApi {
   Future<AddInstanceGroupsOutput> addInstanceGroups(
       {@required List<InstanceGroupConfig> instanceGroups,
       @required String jobFlowId}) async {
-    return AddInstanceGroupsOutput.fromJson({});
+    var response_ = await _client.send('AddInstanceGroups', {
+      'InstanceGroups': instanceGroups,
+      'JobFlowId': jobFlowId,
+    });
+    return AddInstanceGroupsOutput.fromJson(response_);
   }
 
   /// AddJobFlowSteps adds new steps to a running cluster. A maximum of 256
@@ -65,7 +76,11 @@ class EmrApi {
   /// [steps]:  A list of StepConfig to be executed by the job flow.
   Future<AddJobFlowStepsOutput> addJobFlowSteps(
       {@required String jobFlowId, @required List<StepConfig> steps}) async {
-    return AddJobFlowStepsOutput.fromJson({});
+    var response_ = await _client.send('AddJobFlowSteps', {
+      'JobFlowId': jobFlowId,
+      'Steps': steps,
+    });
+    return AddJobFlowStepsOutput.fromJson(response_);
   }
 
   /// Adds tags to an Amazon EMR resource. Tags make it easier to associate
@@ -82,7 +97,11 @@ class EmrApi {
   /// value string with a maximum of 256 characters.
   Future<AddTagsOutput> addTags(
       {@required String resourceId, @required List<Tag> tags}) async {
-    return AddTagsOutput.fromJson({});
+    var response_ = await _client.send('AddTags', {
+      'ResourceId': resourceId,
+      'Tags': tags,
+    });
+    return AddTagsOutput.fromJson(response_);
   }
 
   /// Cancels a pending step or steps in a running cluster. Available only in
@@ -99,7 +118,11 @@ class EmrApi {
   /// their states for the specified cluster.
   Future<CancelStepsOutput> cancelSteps(
       {String clusterId, List<String> stepIds}) async {
-    return CancelStepsOutput.fromJson({});
+    var response_ = await _client.send('CancelSteps', {
+      if (clusterId != null) 'ClusterId': clusterId,
+      if (stepIds != null) 'StepIds': stepIds,
+    });
+    return CancelStepsOutput.fromJson(response_);
   }
 
   /// Creates a security configuration, which is stored in the service and can
@@ -113,7 +136,11 @@ class EmrApi {
   /// in the _Amazon EMR Management Guide_.
   Future<CreateSecurityConfigurationOutput> createSecurityConfiguration(
       {@required String name, @required String securityConfiguration}) async {
-    return CreateSecurityConfigurationOutput.fromJson({});
+    var response_ = await _client.send('CreateSecurityConfiguration', {
+      'Name': name,
+      'SecurityConfiguration': securityConfiguration,
+    });
+    return CreateSecurityConfigurationOutput.fromJson(response_);
   }
 
   /// Deletes a security configuration.
@@ -121,7 +148,10 @@ class EmrApi {
   /// [name]: The name of the security configuration.
   Future<DeleteSecurityConfigurationOutput> deleteSecurityConfiguration(
       String name) async {
-    return DeleteSecurityConfigurationOutput.fromJson({});
+    var response_ = await _client.send('DeleteSecurityConfiguration', {
+      'Name': name,
+    });
+    return DeleteSecurityConfigurationOutput.fromJson(response_);
   }
 
   /// Provides cluster-level details including status, hardware and software
@@ -129,7 +159,10 @@ class EmrApi {
   ///
   /// [clusterId]: The identifier of the cluster to describe.
   Future<DescribeClusterOutput> describeCluster(String clusterId) async {
-    return DescribeClusterOutput.fromJson({});
+    var response_ = await _client.send('DescribeCluster', {
+      'ClusterId': clusterId,
+    });
+    return DescribeClusterOutput.fromJson(response_);
   }
 
   /// This API is deprecated and will eventually be removed. We recommend you
@@ -168,7 +201,13 @@ class EmrApi {
       DateTime createdBefore,
       List<String> jobFlowIds,
       List<String> jobFlowStates}) async {
-    return DescribeJobFlowsOutput.fromJson({});
+    var response_ = await _client.send('DescribeJobFlows', {
+      if (createdAfter != null) 'CreatedAfter': createdAfter,
+      if (createdBefore != null) 'CreatedBefore': createdBefore,
+      if (jobFlowIds != null) 'JobFlowIds': jobFlowIds,
+      if (jobFlowStates != null) 'JobFlowStates': jobFlowStates,
+    });
+    return DescribeJobFlowsOutput.fromJson(response_);
   }
 
   /// Provides the details of a security configuration by returning the
@@ -177,7 +216,10 @@ class EmrApi {
   /// [name]: The name of the security configuration.
   Future<DescribeSecurityConfigurationOutput> describeSecurityConfiguration(
       String name) async {
-    return DescribeSecurityConfigurationOutput.fromJson({});
+    var response_ = await _client.send('DescribeSecurityConfiguration', {
+      'Name': name,
+    });
+    return DescribeSecurityConfigurationOutput.fromJson(response_);
   }
 
   /// Provides more detail about the cluster step.
@@ -187,7 +229,11 @@ class EmrApi {
   /// [stepId]: The identifier of the step to describe.
   Future<DescribeStepOutput> describeStep(
       {@required String clusterId, @required String stepId}) async {
-    return DescribeStepOutput.fromJson({});
+    var response_ = await _client.send('DescribeStep', {
+      'ClusterId': clusterId,
+      'StepId': stepId,
+    });
+    return DescribeStepOutput.fromJson(response_);
   }
 
   /// Returns the Amazon EMR block public access configuration for your AWS
@@ -196,7 +242,8 @@ class EmrApi {
   /// in the _Amazon EMR Management Guide_.
   Future<GetBlockPublicAccessConfigurationOutput>
       getBlockPublicAccessConfiguration() async {
-    return GetBlockPublicAccessConfigurationOutput.fromJson({});
+    var response_ = await _client.send('GetBlockPublicAccessConfiguration', {});
+    return GetBlockPublicAccessConfigurationOutput.fromJson(response_);
   }
 
   /// Provides information about the bootstrap actions associated with a
@@ -208,7 +255,11 @@ class EmrApi {
   /// retrieve.
   Future<ListBootstrapActionsOutput> listBootstrapActions(String clusterId,
       {String marker}) async {
-    return ListBootstrapActionsOutput.fromJson({});
+    var response_ = await _client.send('ListBootstrapActions', {
+      'ClusterId': clusterId,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListBootstrapActionsOutput.fromJson(response_);
   }
 
   /// Provides the status of all clusters visible to this AWS account. Allows
@@ -232,7 +283,13 @@ class EmrApi {
       DateTime createdBefore,
       List<String> clusterStates,
       String marker}) async {
-    return ListClustersOutput.fromJson({});
+    var response_ = await _client.send('ListClusters', {
+      if (createdAfter != null) 'CreatedAfter': createdAfter,
+      if (createdBefore != null) 'CreatedBefore': createdBefore,
+      if (clusterStates != null) 'ClusterStates': clusterStates,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListClustersOutput.fromJson(response_);
   }
 
   /// Lists all available details about the instance fleets in a cluster.
@@ -248,7 +305,11 @@ class EmrApi {
   /// retrieve.
   Future<ListInstanceFleetsOutput> listInstanceFleets(String clusterId,
       {String marker}) async {
-    return ListInstanceFleetsOutput.fromJson({});
+    var response_ = await _client.send('ListInstanceFleets', {
+      'ClusterId': clusterId,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListInstanceFleetsOutput.fromJson(response_);
   }
 
   /// Provides all available details about the instance groups in a cluster.
@@ -260,7 +321,11 @@ class EmrApi {
   /// retrieve.
   Future<ListInstanceGroupsOutput> listInstanceGroups(String clusterId,
       {String marker}) async {
-    return ListInstanceGroupsOutput.fromJson({});
+    var response_ = await _client.send('ListInstanceGroups', {
+      'ClusterId': clusterId,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListInstanceGroupsOutput.fromJson(response_);
   }
 
   /// Provides information for all active EC2 instances and EC2 instances
@@ -294,7 +359,16 @@ class EmrApi {
       String instanceFleetType,
       List<String> instanceStates,
       String marker}) async {
-    return ListInstancesOutput.fromJson({});
+    var response_ = await _client.send('ListInstances', {
+      'ClusterId': clusterId,
+      if (instanceGroupId != null) 'InstanceGroupId': instanceGroupId,
+      if (instanceGroupTypes != null) 'InstanceGroupTypes': instanceGroupTypes,
+      if (instanceFleetId != null) 'InstanceFleetId': instanceFleetId,
+      if (instanceFleetType != null) 'InstanceFleetType': instanceFleetType,
+      if (instanceStates != null) 'InstanceStates': instanceStates,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListInstancesOutput.fromJson(response_);
   }
 
   /// Lists all the security configurations visible to this account, providing
@@ -306,7 +380,10 @@ class EmrApi {
   /// retrieve.
   Future<ListSecurityConfigurationsOutput> listSecurityConfigurations(
       {String marker}) async {
-    return ListSecurityConfigurationsOutput.fromJson({});
+    var response_ = await _client.send('ListSecurityConfigurations', {
+      if (marker != null) 'Marker': marker,
+    });
+    return ListSecurityConfigurationsOutput.fromJson(response_);
   }
 
   /// Provides a list of steps for the cluster in reverse order unless you
@@ -323,7 +400,13 @@ class EmrApi {
   /// retrieve.
   Future<ListStepsOutput> listSteps(String clusterId,
       {List<String> stepStates, List<String> stepIds, String marker}) async {
-    return ListStepsOutput.fromJson({});
+    var response_ = await _client.send('ListSteps', {
+      'ClusterId': clusterId,
+      if (stepStates != null) 'StepStates': stepStates,
+      if (stepIds != null) 'StepIds': stepIds,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListStepsOutput.fromJson(response_);
   }
 
   /// Modifies the target On-Demand and target Spot capacities for the instance
@@ -340,7 +423,12 @@ class EmrApi {
   /// [instanceFleet]: The unique identifier of the instance fleet.
   Future<void> modifyInstanceFleet(
       {@required String clusterId,
-      @required InstanceFleetModifyConfig instanceFleet}) async {}
+      @required InstanceFleetModifyConfig instanceFleet}) async {
+    await _client.send('ModifyInstanceFleet', {
+      'ClusterId': clusterId,
+      'InstanceFleet': instanceFleet,
+    });
+  }
 
   /// ModifyInstanceGroups modifies the number of nodes and configuration
   /// settings of an instance group. The input parameters include the new target
@@ -352,7 +440,12 @@ class EmrApi {
   /// [instanceGroups]: Instance groups to change.
   Future<void> modifyInstanceGroups(
       {String clusterId,
-      List<InstanceGroupModifyConfig> instanceGroups}) async {}
+      List<InstanceGroupModifyConfig> instanceGroups}) async {
+    await _client.send('ModifyInstanceGroups', {
+      if (clusterId != null) 'ClusterId': clusterId,
+      if (instanceGroups != null) 'InstanceGroups': instanceGroups,
+    });
+  }
 
   /// Creates or updates an automatic scaling policy for a core instance group
   /// or task instance group in an Amazon EMR cluster. The automatic scaling
@@ -371,7 +464,12 @@ class EmrApi {
       {@required String clusterId,
       @required String instanceGroupId,
       @required AutoScalingPolicy autoScalingPolicy}) async {
-    return PutAutoScalingPolicyOutput.fromJson({});
+    var response_ = await _client.send('PutAutoScalingPolicy', {
+      'ClusterId': clusterId,
+      'InstanceGroupId': instanceGroupId,
+      'AutoScalingPolicy': autoScalingPolicy,
+    });
+    return PutAutoScalingPolicyOutput.fromJson(response_);
   }
 
   /// Creates or updates an Amazon EMR block public access configuration for
@@ -392,7 +490,10 @@ class EmrApi {
   Future<PutBlockPublicAccessConfigurationOutput>
       putBlockPublicAccessConfiguration(
           BlockPublicAccessConfiguration blockPublicAccessConfiguration) async {
-    return PutBlockPublicAccessConfigurationOutput.fromJson({});
+    var response_ = await _client.send('PutBlockPublicAccessConfiguration', {
+      'BlockPublicAccessConfiguration': blockPublicAccessConfiguration,
+    });
+    return PutBlockPublicAccessConfigurationOutput.fromJson(response_);
   }
 
   /// Removes an automatic scaling policy from a specified instance group within
@@ -405,7 +506,11 @@ class EmrApi {
   /// scaling policy is applied.
   Future<RemoveAutoScalingPolicyOutput> removeAutoScalingPolicy(
       {@required String clusterId, @required String instanceGroupId}) async {
-    return RemoveAutoScalingPolicyOutput.fromJson({});
+    var response_ = await _client.send('RemoveAutoScalingPolicy', {
+      'ClusterId': clusterId,
+      'InstanceGroupId': instanceGroupId,
+    });
+    return RemoveAutoScalingPolicyOutput.fromJson(response_);
   }
 
   /// Removes tags from an Amazon EMR resource. Tags make it easier to associate
@@ -422,7 +527,11 @@ class EmrApi {
   /// [tagKeys]: A list of tag keys to remove from a resource.
   Future<RemoveTagsOutput> removeTags(
       {@required String resourceId, @required List<String> tagKeys}) async {
-    return RemoveTagsOutput.fromJson({});
+    var response_ = await _client.send('RemoveTags', {
+      'ResourceId': resourceId,
+      'TagKeys': tagKeys,
+    });
+    return RemoveTagsOutput.fromJson(response_);
   }
 
   /// RunJobFlow creates and starts running a new cluster (job flow). The
@@ -635,7 +744,34 @@ class EmrApi {
       int ebsRootVolumeSize,
       String repoUpgradeOnBoot,
       KerberosAttributes kerberosAttributes}) async {
-    return RunJobFlowOutput.fromJson({});
+    var response_ = await _client.send('RunJobFlow', {
+      'Name': name,
+      if (logUri != null) 'LogUri': logUri,
+      if (additionalInfo != null) 'AdditionalInfo': additionalInfo,
+      if (amiVersion != null) 'AmiVersion': amiVersion,
+      if (releaseLabel != null) 'ReleaseLabel': releaseLabel,
+      'Instances': instances,
+      if (steps != null) 'Steps': steps,
+      if (bootstrapActions != null) 'BootstrapActions': bootstrapActions,
+      if (supportedProducts != null) 'SupportedProducts': supportedProducts,
+      if (newSupportedProducts != null)
+        'NewSupportedProducts': newSupportedProducts,
+      if (applications != null) 'Applications': applications,
+      if (configurations != null) 'Configurations': configurations,
+      if (visibleToAllUsers != null) 'VisibleToAllUsers': visibleToAllUsers,
+      if (jobFlowRole != null) 'JobFlowRole': jobFlowRole,
+      if (serviceRole != null) 'ServiceRole': serviceRole,
+      if (tags != null) 'Tags': tags,
+      if (securityConfiguration != null)
+        'SecurityConfiguration': securityConfiguration,
+      if (autoScalingRole != null) 'AutoScalingRole': autoScalingRole,
+      if (scaleDownBehavior != null) 'ScaleDownBehavior': scaleDownBehavior,
+      if (customAmiId != null) 'CustomAmiId': customAmiId,
+      if (ebsRootVolumeSize != null) 'EbsRootVolumeSize': ebsRootVolumeSize,
+      if (repoUpgradeOnBoot != null) 'RepoUpgradeOnBoot': repoUpgradeOnBoot,
+      if (kerberosAttributes != null) 'KerberosAttributes': kerberosAttributes,
+    });
+    return RunJobFlowOutput.fromJson(response_);
   }
 
   /// SetTerminationProtection locks a cluster (job flow) so the EC2 instances
@@ -668,7 +804,12 @@ class EmrApi {
   /// down due to API calls, user intervention, or job-flow error.
   Future<void> setTerminationProtection(
       {@required List<String> jobFlowIds,
-      @required bool terminationProtected}) async {}
+      @required bool terminationProtected}) async {
+    await _client.send('SetTerminationProtection', {
+      'JobFlowIds': jobFlowIds,
+      'TerminationProtected': terminationProtected,
+    });
+  }
 
   ///  _This member will be deprecated._
   ///
@@ -691,7 +832,12 @@ class EmrApi {
   /// user that created a cluster can view and manage it.
   Future<void> setVisibleToAllUsers(
       {@required List<String> jobFlowIds,
-      @required bool visibleToAllUsers}) async {}
+      @required bool visibleToAllUsers}) async {
+    await _client.send('SetVisibleToAllUsers', {
+      'JobFlowIds': jobFlowIds,
+      'VisibleToAllUsers': visibleToAllUsers,
+    });
+  }
 
   /// TerminateJobFlows shuts a list of clusters (job flows) down. When a job
   /// flow is shut down, any step not yet completed is canceled and the EC2
@@ -705,7 +851,11 @@ class EmrApi {
   /// terminate and release allocated resources, such as Amazon EC2 instances.
   ///
   /// [jobFlowIds]: A list of job flows to be shutdown.
-  Future<void> terminateJobFlows(List<String> jobFlowIds) async {}
+  Future<void> terminateJobFlows(List<String> jobFlowIds) async {
+    await _client.send('TerminateJobFlows', {
+      'JobFlowIds': jobFlowIds,
+    });
+  }
 }
 
 class AddInstanceFleetOutput {
@@ -720,7 +870,13 @@ class AddInstanceFleetOutput {
     this.instanceFleetId,
   });
   static AddInstanceFleetOutput fromJson(Map<String, dynamic> json) =>
-      AddInstanceFleetOutput();
+      AddInstanceFleetOutput(
+        clusterId:
+            json.containsKey('ClusterId') ? json['ClusterId'] as String : null,
+        instanceFleetId: json.containsKey('InstanceFleetId')
+            ? json['InstanceFleetId'] as String
+            : null,
+      );
 }
 
 /// Output from an AddInstanceGroups call.
@@ -736,7 +892,15 @@ class AddInstanceGroupsOutput {
     this.instanceGroupIds,
   });
   static AddInstanceGroupsOutput fromJson(Map<String, dynamic> json) =>
-      AddInstanceGroupsOutput();
+      AddInstanceGroupsOutput(
+        jobFlowId:
+            json.containsKey('JobFlowId') ? json['JobFlowId'] as String : null,
+        instanceGroupIds: json.containsKey('InstanceGroupIds')
+            ? (json['InstanceGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 ///  The output for the AddJobFlowSteps operation.
@@ -748,7 +912,11 @@ class AddJobFlowStepsOutput {
     this.stepIds,
   });
   static AddJobFlowStepsOutput fromJson(Map<String, dynamic> json) =>
-      AddJobFlowStepsOutput();
+      AddJobFlowStepsOutput(
+        stepIds: json.containsKey('StepIds')
+            ? (json['StepIds'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// This output indicates the result of adding tags to a resource.
@@ -790,7 +958,18 @@ class Application {
     this.args,
     this.additionalInfo,
   });
-  static Application fromJson(Map<String, dynamic> json) => Application();
+  static Application fromJson(Map<String, dynamic> json) => Application(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        args: json.containsKey('Args')
+            ? (json['Args'] as List).map((e) => e as String).toList()
+            : null,
+        additionalInfo: json.containsKey('AdditionalInfo')
+            ? (json['AdditionalInfo'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An automatic scaling policy for a core instance group or task instance group
@@ -811,6 +990,7 @@ class AutoScalingPolicy {
     @required this.constraints,
     @required this.rules,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An automatic scaling policy for a core instance group or task instance group
@@ -836,7 +1016,19 @@ class AutoScalingPolicyDescription {
     this.rules,
   });
   static AutoScalingPolicyDescription fromJson(Map<String, dynamic> json) =>
-      AutoScalingPolicyDescription();
+      AutoScalingPolicyDescription(
+        status: json.containsKey('Status')
+            ? AutoScalingPolicyStatus.fromJson(json['Status'])
+            : null,
+        constraints: json.containsKey('Constraints')
+            ? ScalingConstraints.fromJson(json['Constraints'])
+            : null,
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List)
+                .map((e) => ScalingRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The reason for an AutoScalingPolicyStatus change.
@@ -857,7 +1049,10 @@ class AutoScalingPolicyStateChangeReason {
   });
   static AutoScalingPolicyStateChangeReason fromJson(
           Map<String, dynamic> json) =>
-      AutoScalingPolicyStateChangeReason();
+      AutoScalingPolicyStateChangeReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The status of an automatic scaling policy.
@@ -873,7 +1068,13 @@ class AutoScalingPolicyStatus {
     this.stateChangeReason,
   });
   static AutoScalingPolicyStatus fromJson(Map<String, dynamic> json) =>
-      AutoScalingPolicyStatus();
+      AutoScalingPolicyStatus(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateChangeReason: json.containsKey('StateChangeReason')
+            ? AutoScalingPolicyStateChangeReason.fromJson(
+                json['StateChangeReason'])
+            : null,
+      );
 }
 
 /// A configuration for Amazon EMR block public access. When
@@ -905,7 +1106,17 @@ class BlockPublicAccessConfiguration {
     this.permittedPublicSecurityGroupRuleRanges,
   });
   static BlockPublicAccessConfiguration fromJson(Map<String, dynamic> json) =>
-      BlockPublicAccessConfiguration();
+      BlockPublicAccessConfiguration(
+        blockPublicSecurityGroupRules:
+            json['BlockPublicSecurityGroupRules'] as bool,
+        permittedPublicSecurityGroupRuleRanges:
+            json.containsKey('PermittedPublicSecurityGroupRuleRanges')
+                ? (json['PermittedPublicSecurityGroupRuleRanges'] as List)
+                    .map((e) => PortRange.fromJson(e))
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Properties that describe the AWS principal that created the
@@ -926,7 +1137,10 @@ class BlockPublicAccessConfigurationMetadata {
   });
   static BlockPublicAccessConfigurationMetadata fromJson(
           Map<String, dynamic> json) =>
-      BlockPublicAccessConfigurationMetadata();
+      BlockPublicAccessConfigurationMetadata(
+        creationDateTime: DateTime.parse(json['CreationDateTime']),
+        createdByArn: json['CreatedByArn'] as String,
+      );
 }
 
 /// Configuration of a bootstrap action.
@@ -942,7 +1156,12 @@ class BootstrapActionConfig {
     @required this.scriptBootstrapAction,
   });
   static BootstrapActionConfig fromJson(Map<String, dynamic> json) =>
-      BootstrapActionConfig();
+      BootstrapActionConfig(
+        name: json['Name'] as String,
+        scriptBootstrapAction:
+            ScriptBootstrapActionConfig.fromJson(json['ScriptBootstrapAction']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Reports the configuration of a bootstrap action in a cluster (job flow).
@@ -954,7 +1173,11 @@ class BootstrapActionDetail {
     this.bootstrapActionConfig,
   });
   static BootstrapActionDetail fromJson(Map<String, dynamic> json) =>
-      BootstrapActionDetail();
+      BootstrapActionDetail(
+        bootstrapActionConfig: json.containsKey('BootstrapActionConfig')
+            ? BootstrapActionConfig.fromJson(json['BootstrapActionConfig'])
+            : null,
+      );
 }
 
 /// Specification of the status of a CancelSteps request. Available only in
@@ -974,8 +1197,11 @@ class CancelStepsInfo {
     this.status,
     this.reason,
   });
-  static CancelStepsInfo fromJson(Map<String, dynamic> json) =>
-      CancelStepsInfo();
+  static CancelStepsInfo fromJson(Map<String, dynamic> json) => CancelStepsInfo(
+        stepId: json.containsKey('StepId') ? json['StepId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        reason: json.containsKey('Reason') ? json['Reason'] as String : null,
+      );
 }
 
 ///  The output for the CancelSteps operation.
@@ -988,7 +1214,13 @@ class CancelStepsOutput {
     this.cancelStepsInfoList,
   });
   static CancelStepsOutput fromJson(Map<String, dynamic> json) =>
-      CancelStepsOutput();
+      CancelStepsOutput(
+        cancelStepsInfoList: json.containsKey('CancelStepsInfoList')
+            ? (json['CancelStepsInfoList'] as List)
+                .map((e) => CancelStepsInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The definition of a CloudWatch metric alarm, which determines when an
@@ -1044,7 +1276,26 @@ class CloudWatchAlarmDefinition {
     this.dimensions,
   });
   static CloudWatchAlarmDefinition fromJson(Map<String, dynamic> json) =>
-      CloudWatchAlarmDefinition();
+      CloudWatchAlarmDefinition(
+        comparisonOperator: json['ComparisonOperator'] as String,
+        evaluationPeriods: json.containsKey('EvaluationPeriods')
+            ? json['EvaluationPeriods'] as int
+            : null,
+        metricName: json['MetricName'] as String,
+        namespace:
+            json.containsKey('Namespace') ? json['Namespace'] as String : null,
+        period: json['Period'] as int,
+        statistic:
+            json.containsKey('Statistic') ? json['Statistic'] as String : null,
+        threshold: json['Threshold'] as double,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => MetricDimension.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The detailed description of the cluster.
@@ -1206,7 +1457,81 @@ class Cluster {
     this.repoUpgradeOnBoot,
     this.kerberosAttributes,
   });
-  static Cluster fromJson(Map<String, dynamic> json) => Cluster();
+  static Cluster fromJson(Map<String, dynamic> json) => Cluster(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status')
+            ? ClusterStatus.fromJson(json['Status'])
+            : null,
+        ec2InstanceAttributes: json.containsKey('Ec2InstanceAttributes')
+            ? Ec2InstanceAttributes.fromJson(json['Ec2InstanceAttributes'])
+            : null,
+        instanceCollectionType: json.containsKey('InstanceCollectionType')
+            ? json['InstanceCollectionType'] as String
+            : null,
+        logUri: json.containsKey('LogUri') ? json['LogUri'] as String : null,
+        requestedAmiVersion: json.containsKey('RequestedAmiVersion')
+            ? json['RequestedAmiVersion'] as String
+            : null,
+        runningAmiVersion: json.containsKey('RunningAmiVersion')
+            ? json['RunningAmiVersion'] as String
+            : null,
+        releaseLabel: json.containsKey('ReleaseLabel')
+            ? json['ReleaseLabel'] as String
+            : null,
+        autoTerminate: json.containsKey('AutoTerminate')
+            ? json['AutoTerminate'] as bool
+            : null,
+        terminationProtected: json.containsKey('TerminationProtected')
+            ? json['TerminationProtected'] as bool
+            : null,
+        visibleToAllUsers: json.containsKey('VisibleToAllUsers')
+            ? json['VisibleToAllUsers'] as bool
+            : null,
+        applications: json.containsKey('Applications')
+            ? (json['Applications'] as List)
+                .map((e) => Application.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        serviceRole: json.containsKey('ServiceRole')
+            ? json['ServiceRole'] as String
+            : null,
+        normalizedInstanceHours: json.containsKey('NormalizedInstanceHours')
+            ? json['NormalizedInstanceHours'] as int
+            : null,
+        masterPublicDnsName: json.containsKey('MasterPublicDnsName')
+            ? json['MasterPublicDnsName'] as String
+            : null,
+        configurations: json.containsKey('Configurations')
+            ? (json['Configurations'] as List)
+                .map((e) => Configuration.fromJson(e))
+                .toList()
+            : null,
+        securityConfiguration: json.containsKey('SecurityConfiguration')
+            ? json['SecurityConfiguration'] as String
+            : null,
+        autoScalingRole: json.containsKey('AutoScalingRole')
+            ? json['AutoScalingRole'] as String
+            : null,
+        scaleDownBehavior: json.containsKey('ScaleDownBehavior')
+            ? json['ScaleDownBehavior'] as String
+            : null,
+        customAmiId: json.containsKey('CustomAmiId')
+            ? json['CustomAmiId'] as String
+            : null,
+        ebsRootVolumeSize: json.containsKey('EbsRootVolumeSize')
+            ? json['EbsRootVolumeSize'] as int
+            : null,
+        repoUpgradeOnBoot: json.containsKey('RepoUpgradeOnBoot')
+            ? json['RepoUpgradeOnBoot'] as String
+            : null,
+        kerberosAttributes: json.containsKey('KerberosAttributes')
+            ? KerberosAttributes.fromJson(json['KerberosAttributes'])
+            : null,
+      );
 }
 
 /// The reason that the cluster changed to its current state.
@@ -1222,7 +1547,10 @@ class ClusterStateChangeReason {
     this.message,
   });
   static ClusterStateChangeReason fromJson(Map<String, dynamic> json) =>
-      ClusterStateChangeReason();
+      ClusterStateChangeReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The detailed status of the cluster.
@@ -1242,7 +1570,15 @@ class ClusterStatus {
     this.stateChangeReason,
     this.timeline,
   });
-  static ClusterStatus fromJson(Map<String, dynamic> json) => ClusterStatus();
+  static ClusterStatus fromJson(Map<String, dynamic> json) => ClusterStatus(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateChangeReason: json.containsKey('StateChangeReason')
+            ? ClusterStateChangeReason.fromJson(json['StateChangeReason'])
+            : null,
+        timeline: json.containsKey('Timeline')
+            ? ClusterTimeline.fromJson(json['Timeline'])
+            : null,
+      );
 }
 
 /// The summary description of the cluster.
@@ -1270,7 +1606,16 @@ class ClusterSummary {
     this.status,
     this.normalizedInstanceHours,
   });
-  static ClusterSummary fromJson(Map<String, dynamic> json) => ClusterSummary();
+  static ClusterSummary fromJson(Map<String, dynamic> json) => ClusterSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status')
+            ? ClusterStatus.fromJson(json['Status'])
+            : null,
+        normalizedInstanceHours: json.containsKey('NormalizedInstanceHours')
+            ? json['NormalizedInstanceHours'] as int
+            : null,
+      );
 }
 
 /// Represents the timeline of the cluster's lifecycle.
@@ -1289,8 +1634,17 @@ class ClusterTimeline {
     this.readyDateTime,
     this.endDateTime,
   });
-  static ClusterTimeline fromJson(Map<String, dynamic> json) =>
-      ClusterTimeline();
+  static ClusterTimeline fromJson(Map<String, dynamic> json) => ClusterTimeline(
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        readyDateTime: json.containsKey('ReadyDateTime')
+            ? DateTime.parse(json['ReadyDateTime'])
+            : null,
+        endDateTime: json.containsKey('EndDateTime')
+            ? DateTime.parse(json['EndDateTime'])
+            : null,
+      );
 }
 
 /// An entity describing an executable that runs on a cluster.
@@ -1309,7 +1663,15 @@ class Command {
     this.scriptPath,
     this.args,
   });
-  static Command fromJson(Map<String, dynamic> json) => Command();
+  static Command fromJson(Map<String, dynamic> json) => Command(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        scriptPath: json.containsKey('ScriptPath')
+            ? json['ScriptPath'] as String
+            : null,
+        args: json.containsKey('Args')
+            ? (json['Args'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Amazon EMR releases 4.x or later.
@@ -1337,7 +1699,21 @@ class Configuration {
     this.configurations,
     this.properties,
   });
-  static Configuration fromJson(Map<String, dynamic> json) => Configuration();
+  static Configuration fromJson(Map<String, dynamic> json) => Configuration(
+        classification: json.containsKey('Classification')
+            ? json['Classification'] as String
+            : null,
+        configurations: json.containsKey('Configurations')
+            ? (json['Configurations'] as List)
+                .map((e) => Configuration.fromJson(e))
+                .toList()
+            : null,
+        properties: json.containsKey('Properties')
+            ? (json['Properties'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateSecurityConfigurationOutput {
@@ -1353,7 +1729,10 @@ class CreateSecurityConfigurationOutput {
   });
   static CreateSecurityConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      CreateSecurityConfigurationOutput();
+      CreateSecurityConfigurationOutput(
+        name: json['Name'] as String,
+        creationDateTime: DateTime.parse(json['CreationDateTime']),
+      );
 }
 
 class DeleteSecurityConfigurationOutput {
@@ -1372,7 +1751,11 @@ class DescribeClusterOutput {
     this.cluster,
   });
   static DescribeClusterOutput fromJson(Map<String, dynamic> json) =>
-      DescribeClusterOutput();
+      DescribeClusterOutput(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 ///  The output for the DescribeJobFlows operation.
@@ -1384,7 +1767,13 @@ class DescribeJobFlowsOutput {
     this.jobFlows,
   });
   static DescribeJobFlowsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeJobFlowsOutput();
+      DescribeJobFlowsOutput(
+        jobFlows: json.containsKey('JobFlows')
+            ? (json['JobFlows'] as List)
+                .map((e) => JobFlowDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeSecurityConfigurationOutput {
@@ -1404,7 +1793,15 @@ class DescribeSecurityConfigurationOutput {
   });
   static DescribeSecurityConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeSecurityConfigurationOutput();
+      DescribeSecurityConfigurationOutput(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        securityConfiguration: json.containsKey('SecurityConfiguration')
+            ? json['SecurityConfiguration'] as String
+            : null,
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+      );
 }
 
 /// This output contains the description of the cluster step.
@@ -1416,7 +1813,9 @@ class DescribeStepOutput {
     this.step,
   });
   static DescribeStepOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStepOutput();
+      DescribeStepOutput(
+        step: json.containsKey('Step') ? Step.fromJson(json['Step']) : null,
+      );
 }
 
 /// Configuration of requested EBS block device associated with the instance
@@ -1434,7 +1833,12 @@ class EbsBlockDevice {
     this.volumeSpecification,
     this.device,
   });
-  static EbsBlockDevice fromJson(Map<String, dynamic> json) => EbsBlockDevice();
+  static EbsBlockDevice fromJson(Map<String, dynamic> json) => EbsBlockDevice(
+        volumeSpecification: json.containsKey('VolumeSpecification')
+            ? VolumeSpecification.fromJson(json['VolumeSpecification'])
+            : null,
+        device: json.containsKey('Device') ? json['Device'] as String : null,
+      );
 }
 
 /// Configuration of requested EBS block device associated with the instance
@@ -1453,6 +1857,7 @@ class EbsBlockDeviceConfig {
     @required this.volumeSpecification,
     this.volumesPerInstance,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Amazon EBS configuration of a cluster instance.
@@ -1468,6 +1873,7 @@ class EbsConfiguration {
     this.ebsBlockDeviceConfigs,
     this.ebsOptimized,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// EBS block device that's attached to an EC2 instance.
@@ -1482,7 +1888,11 @@ class EbsVolume {
     this.device,
     this.volumeId,
   });
-  static EbsVolume fromJson(Map<String, dynamic> json) => EbsVolume();
+  static EbsVolume fromJson(Map<String, dynamic> json) => EbsVolume(
+        device: json.containsKey('Device') ? json['Device'] as String : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+      );
 }
 
 /// Provides information about the EC2 instances in a cluster grouped by
@@ -1559,7 +1969,55 @@ class Ec2InstanceAttributes {
     this.additionalSlaveSecurityGroups,
   });
   static Ec2InstanceAttributes fromJson(Map<String, dynamic> json) =>
-      Ec2InstanceAttributes();
+      Ec2InstanceAttributes(
+        ec2KeyName: json.containsKey('Ec2KeyName')
+            ? json['Ec2KeyName'] as String
+            : null,
+        ec2SubnetId: json.containsKey('Ec2SubnetId')
+            ? json['Ec2SubnetId'] as String
+            : null,
+        requestedEc2SubnetIds: json.containsKey('RequestedEc2SubnetIds')
+            ? (json['RequestedEc2SubnetIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        ec2AvailabilityZone: json.containsKey('Ec2AvailabilityZone')
+            ? json['Ec2AvailabilityZone'] as String
+            : null,
+        requestedEc2AvailabilityZones:
+            json.containsKey('RequestedEc2AvailabilityZones')
+                ? (json['RequestedEc2AvailabilityZones'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        iamInstanceProfile: json.containsKey('IamInstanceProfile')
+            ? json['IamInstanceProfile'] as String
+            : null,
+        emrManagedMasterSecurityGroup:
+            json.containsKey('EmrManagedMasterSecurityGroup')
+                ? json['EmrManagedMasterSecurityGroup'] as String
+                : null,
+        emrManagedSlaveSecurityGroup:
+            json.containsKey('EmrManagedSlaveSecurityGroup')
+                ? json['EmrManagedSlaveSecurityGroup'] as String
+                : null,
+        serviceAccessSecurityGroup:
+            json.containsKey('ServiceAccessSecurityGroup')
+                ? json['ServiceAccessSecurityGroup'] as String
+                : null,
+        additionalMasterSecurityGroups:
+            json.containsKey('AdditionalMasterSecurityGroups')
+                ? (json['AdditionalMasterSecurityGroups'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        additionalSlaveSecurityGroups:
+            json.containsKey('AdditionalSlaveSecurityGroups')
+                ? (json['AdditionalSlaveSecurityGroups'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+      );
 }
 
 /// The details of the step failure. The service attempts to detect the root
@@ -1584,7 +2042,11 @@ class FailureDetails {
     this.message,
     this.logFile,
   });
-  static FailureDetails fromJson(Map<String, dynamic> json) => FailureDetails();
+  static FailureDetails fromJson(Map<String, dynamic> json) => FailureDetails(
+        reason: json.containsKey('Reason') ? json['Reason'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        logFile: json.containsKey('LogFile') ? json['LogFile'] as String : null,
+      );
 }
 
 class GetBlockPublicAccessConfigurationOutput {
@@ -1614,7 +2076,13 @@ class GetBlockPublicAccessConfigurationOutput {
   });
   static GetBlockPublicAccessConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      GetBlockPublicAccessConfigurationOutput();
+      GetBlockPublicAccessConfigurationOutput(
+        blockPublicAccessConfiguration: BlockPublicAccessConfiguration.fromJson(
+            json['BlockPublicAccessConfiguration']),
+        blockPublicAccessConfigurationMetadata:
+            BlockPublicAccessConfigurationMetadata.fromJson(
+                json['BlockPublicAccessConfigurationMetadata']),
+      );
 }
 
 /// A job flow step consisting of a JAR file whose main function will be
@@ -1643,7 +2111,20 @@ class HadoopJarStepConfig {
     this.args,
   });
   static HadoopJarStepConfig fromJson(Map<String, dynamic> json) =>
-      HadoopJarStepConfig();
+      HadoopJarStepConfig(
+        properties: json.containsKey('Properties')
+            ? (json['Properties'] as List)
+                .map((e) => KeyValue.fromJson(e))
+                .toList()
+            : null,
+        jar: json['Jar'] as String,
+        mainClass:
+            json.containsKey('MainClass') ? json['MainClass'] as String : null,
+        args: json.containsKey('Args')
+            ? (json['Args'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A cluster step consisting of a JAR file whose main function will be
@@ -1672,7 +2153,18 @@ class HadoopStepConfig {
     this.args,
   });
   static HadoopStepConfig fromJson(Map<String, dynamic> json) =>
-      HadoopStepConfig();
+      HadoopStepConfig(
+        jar: json.containsKey('Jar') ? json['Jar'] as String : null,
+        properties: json.containsKey('Properties')
+            ? (json['Properties'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        mainClass:
+            json.containsKey('MainClass') ? json['MainClass'] as String : null,
+        args: json.containsKey('Args')
+            ? (json['Args'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Represents an EC2 instance provisioned as part of cluster.
@@ -1728,7 +2220,42 @@ class Instance {
     this.instanceType,
     this.ebsVolumes,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        ec2InstanceId: json.containsKey('Ec2InstanceId')
+            ? json['Ec2InstanceId'] as String
+            : null,
+        publicDnsName: json.containsKey('PublicDnsName')
+            ? json['PublicDnsName'] as String
+            : null,
+        publicIpAddress: json.containsKey('PublicIpAddress')
+            ? json['PublicIpAddress'] as String
+            : null,
+        privateDnsName: json.containsKey('PrivateDnsName')
+            ? json['PrivateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('PrivateIpAddress')
+            ? json['PrivateIpAddress'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? InstanceStatus.fromJson(json['Status'])
+            : null,
+        instanceGroupId: json.containsKey('InstanceGroupId')
+            ? json['InstanceGroupId'] as String
+            : null,
+        instanceFleetId: json.containsKey('InstanceFleetId')
+            ? json['InstanceFleetId'] as String
+            : null,
+        market: json.containsKey('Market') ? json['Market'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        ebsVolumes: json.containsKey('EbsVolumes')
+            ? (json['EbsVolumes'] as List)
+                .map((e) => EbsVolume.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes an instance fleet, which is a group of EC2 instances that host a
@@ -1830,7 +2357,39 @@ class InstanceFleet {
     this.instanceTypeSpecifications,
     this.launchSpecifications,
   });
-  static InstanceFleet fromJson(Map<String, dynamic> json) => InstanceFleet();
+  static InstanceFleet fromJson(Map<String, dynamic> json) => InstanceFleet(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status')
+            ? InstanceFleetStatus.fromJson(json['Status'])
+            : null,
+        instanceFleetType: json.containsKey('InstanceFleetType')
+            ? json['InstanceFleetType'] as String
+            : null,
+        targetOnDemandCapacity: json.containsKey('TargetOnDemandCapacity')
+            ? json['TargetOnDemandCapacity'] as int
+            : null,
+        targetSpotCapacity: json.containsKey('TargetSpotCapacity')
+            ? json['TargetSpotCapacity'] as int
+            : null,
+        provisionedOnDemandCapacity:
+            json.containsKey('ProvisionedOnDemandCapacity')
+                ? json['ProvisionedOnDemandCapacity'] as int
+                : null,
+        provisionedSpotCapacity: json.containsKey('ProvisionedSpotCapacity')
+            ? json['ProvisionedSpotCapacity'] as int
+            : null,
+        instanceTypeSpecifications:
+            json.containsKey('InstanceTypeSpecifications')
+                ? (json['InstanceTypeSpecifications'] as List)
+                    .map((e) => InstanceTypeSpecification.fromJson(e))
+                    .toList()
+                : null,
+        launchSpecifications: json.containsKey('LaunchSpecifications')
+            ? InstanceFleetProvisioningSpecifications.fromJson(
+                json['LaunchSpecifications'])
+            : null,
+      );
 }
 
 /// The configuration that defines an instance fleet.
@@ -1904,6 +2463,7 @@ class InstanceFleetConfig {
     this.instanceTypeConfigs,
     this.launchSpecifications,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration parameters for an instance fleet modification request.
@@ -1929,6 +2489,7 @@ class InstanceFleetModifyConfig {
     this.targetOnDemandCapacity,
     this.targetSpotCapacity,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The launch specification for Spot instances in the fleet, which determines
@@ -1948,7 +2509,11 @@ class InstanceFleetProvisioningSpecifications {
   });
   static InstanceFleetProvisioningSpecifications fromJson(
           Map<String, dynamic> json) =>
-      InstanceFleetProvisioningSpecifications();
+      InstanceFleetProvisioningSpecifications(
+        spotSpecification:
+            SpotProvisioningSpecification.fromJson(json['SpotSpecification']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides status change reason details for the instance fleet.
@@ -1969,7 +2534,10 @@ class InstanceFleetStateChangeReason {
     this.message,
   });
   static InstanceFleetStateChangeReason fromJson(Map<String, dynamic> json) =>
-      InstanceFleetStateChangeReason();
+      InstanceFleetStateChangeReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The status of the instance fleet.
@@ -2017,7 +2585,15 @@ class InstanceFleetStatus {
     this.timeline,
   });
   static InstanceFleetStatus fromJson(Map<String, dynamic> json) =>
-      InstanceFleetStatus();
+      InstanceFleetStatus(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateChangeReason: json.containsKey('StateChangeReason')
+            ? InstanceFleetStateChangeReason.fromJson(json['StateChangeReason'])
+            : null,
+        timeline: json.containsKey('Timeline')
+            ? InstanceFleetTimeline.fromJson(json['Timeline'])
+            : null,
+      );
 }
 
 /// Provides historical timestamps for the instance fleet, including the time of
@@ -2043,7 +2619,17 @@ class InstanceFleetTimeline {
     this.endDateTime,
   });
   static InstanceFleetTimeline fromJson(Map<String, dynamic> json) =>
-      InstanceFleetTimeline();
+      InstanceFleetTimeline(
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        readyDateTime: json.containsKey('ReadyDateTime')
+            ? DateTime.parse(json['ReadyDateTime'])
+            : null,
+        endDateTime: json.containsKey('EndDateTime')
+            ? DateTime.parse(json['EndDateTime'])
+            : null,
+      );
 }
 
 /// This entity represents an instance group, which is a group of instances that
@@ -2137,7 +2723,60 @@ class InstanceGroup {
     this.shrinkPolicy,
     this.autoScalingPolicy,
   });
-  static InstanceGroup fromJson(Map<String, dynamic> json) => InstanceGroup();
+  static InstanceGroup fromJson(Map<String, dynamic> json) => InstanceGroup(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        market: json.containsKey('Market') ? json['Market'] as String : null,
+        instanceGroupType: json.containsKey('InstanceGroupType')
+            ? json['InstanceGroupType'] as String
+            : null,
+        bidPrice:
+            json.containsKey('BidPrice') ? json['BidPrice'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        requestedInstanceCount: json.containsKey('RequestedInstanceCount')
+            ? json['RequestedInstanceCount'] as int
+            : null,
+        runningInstanceCount: json.containsKey('RunningInstanceCount')
+            ? json['RunningInstanceCount'] as int
+            : null,
+        status: json.containsKey('Status')
+            ? InstanceGroupStatus.fromJson(json['Status'])
+            : null,
+        configurations: json.containsKey('Configurations')
+            ? (json['Configurations'] as List)
+                .map((e) => Configuration.fromJson(e))
+                .toList()
+            : null,
+        configurationsVersion: json.containsKey('ConfigurationsVersion')
+            ? BigInt.from(json['ConfigurationsVersion'])
+            : null,
+        lastSuccessfullyAppliedConfigurations:
+            json.containsKey('LastSuccessfullyAppliedConfigurations')
+                ? (json['LastSuccessfullyAppliedConfigurations'] as List)
+                    .map((e) => Configuration.fromJson(e))
+                    .toList()
+                : null,
+        lastSuccessfullyAppliedConfigurationsVersion: json
+                .containsKey('LastSuccessfullyAppliedConfigurationsVersion')
+            ? BigInt.from(json['LastSuccessfullyAppliedConfigurationsVersion'])
+            : null,
+        ebsBlockDevices: json.containsKey('EbsBlockDevices')
+            ? (json['EbsBlockDevices'] as List)
+                .map((e) => EbsBlockDevice.fromJson(e))
+                .toList()
+            : null,
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? json['EbsOptimized'] as bool
+            : null,
+        shrinkPolicy: json.containsKey('ShrinkPolicy')
+            ? ShrinkPolicy.fromJson(json['ShrinkPolicy'])
+            : null,
+        autoScalingPolicy: json.containsKey('AutoScalingPolicy')
+            ? AutoScalingPolicyDescription.fromJson(json['AutoScalingPolicy'])
+            : null,
+      );
 }
 
 /// Configuration defining a new instance group.
@@ -2193,6 +2832,7 @@ class InstanceGroupConfig {
     this.ebsConfiguration,
     this.autoScalingPolicy,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Detailed information about an instance group.
@@ -2262,7 +2902,33 @@ class InstanceGroupDetail {
     this.endDateTime,
   });
   static InstanceGroupDetail fromJson(Map<String, dynamic> json) =>
-      InstanceGroupDetail();
+      InstanceGroupDetail(
+        instanceGroupId: json.containsKey('InstanceGroupId')
+            ? json['InstanceGroupId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        market: json['Market'] as String,
+        instanceRole: json['InstanceRole'] as String,
+        bidPrice:
+            json.containsKey('BidPrice') ? json['BidPrice'] as String : null,
+        instanceType: json['InstanceType'] as String,
+        instanceRequestCount: json['InstanceRequestCount'] as int,
+        instanceRunningCount: json['InstanceRunningCount'] as int,
+        state: json['State'] as String,
+        lastStateChangeReason: json.containsKey('LastStateChangeReason')
+            ? json['LastStateChangeReason'] as String
+            : null,
+        creationDateTime: DateTime.parse(json['CreationDateTime']),
+        startDateTime: json.containsKey('StartDateTime')
+            ? DateTime.parse(json['StartDateTime'])
+            : null,
+        readyDateTime: json.containsKey('ReadyDateTime')
+            ? DateTime.parse(json['ReadyDateTime'])
+            : null,
+        endDateTime: json.containsKey('EndDateTime')
+            ? DateTime.parse(json['EndDateTime'])
+            : null,
+      );
 }
 
 /// Modify the size or configurations of an instance group.
@@ -2290,6 +2956,7 @@ class InstanceGroupModifyConfig {
     this.shrinkPolicy,
     this.configurations,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The status change reason details for the instance group.
@@ -2305,7 +2972,10 @@ class InstanceGroupStateChangeReason {
     this.message,
   });
   static InstanceGroupStateChangeReason fromJson(Map<String, dynamic> json) =>
-      InstanceGroupStateChangeReason();
+      InstanceGroupStateChangeReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The details of the instance group status.
@@ -2325,7 +2995,15 @@ class InstanceGroupStatus {
     this.timeline,
   });
   static InstanceGroupStatus fromJson(Map<String, dynamic> json) =>
-      InstanceGroupStatus();
+      InstanceGroupStatus(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateChangeReason: json.containsKey('StateChangeReason')
+            ? InstanceGroupStateChangeReason.fromJson(json['StateChangeReason'])
+            : null,
+        timeline: json.containsKey('Timeline')
+            ? InstanceGroupTimeline.fromJson(json['Timeline'])
+            : null,
+      );
 }
 
 /// The timeline of the instance group lifecycle.
@@ -2345,7 +3023,17 @@ class InstanceGroupTimeline {
     this.endDateTime,
   });
   static InstanceGroupTimeline fromJson(Map<String, dynamic> json) =>
-      InstanceGroupTimeline();
+      InstanceGroupTimeline(
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        readyDateTime: json.containsKey('ReadyDateTime')
+            ? DateTime.parse(json['ReadyDateTime'])
+            : null,
+        endDateTime: json.containsKey('EndDateTime')
+            ? DateTime.parse(json['EndDateTime'])
+            : null,
+      );
 }
 
 /// Custom policy for requesting termination protection or termination of
@@ -2369,7 +3057,23 @@ class InstanceResizePolicy {
     this.instanceTerminationTimeout,
   });
   static InstanceResizePolicy fromJson(Map<String, dynamic> json) =>
-      InstanceResizePolicy();
+      InstanceResizePolicy(
+        instancesToTerminate: json.containsKey('InstancesToTerminate')
+            ? (json['InstancesToTerminate'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        instancesToProtect: json.containsKey('InstancesToProtect')
+            ? (json['InstancesToProtect'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        instanceTerminationTimeout:
+            json.containsKey('InstanceTerminationTimeout')
+                ? json['InstanceTerminationTimeout'] as int
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The details of the status change reason for the instance.
@@ -2385,7 +3089,10 @@ class InstanceStateChangeReason {
     this.message,
   });
   static InstanceStateChangeReason fromJson(Map<String, dynamic> json) =>
-      InstanceStateChangeReason();
+      InstanceStateChangeReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The instance status details.
@@ -2404,7 +3111,15 @@ class InstanceStatus {
     this.stateChangeReason,
     this.timeline,
   });
-  static InstanceStatus fromJson(Map<String, dynamic> json) => InstanceStatus();
+  static InstanceStatus fromJson(Map<String, dynamic> json) => InstanceStatus(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateChangeReason: json.containsKey('StateChangeReason')
+            ? InstanceStateChangeReason.fromJson(json['StateChangeReason'])
+            : null,
+        timeline: json.containsKey('Timeline')
+            ? InstanceTimeline.fromJson(json['Timeline'])
+            : null,
+      );
 }
 
 /// The timeline of the instance lifecycle.
@@ -2424,7 +3139,17 @@ class InstanceTimeline {
     this.endDateTime,
   });
   static InstanceTimeline fromJson(Map<String, dynamic> json) =>
-      InstanceTimeline();
+      InstanceTimeline(
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        readyDateTime: json.containsKey('ReadyDateTime')
+            ? DateTime.parse(json['ReadyDateTime'])
+            : null,
+        endDateTime: json.containsKey('EndDateTime')
+            ? DateTime.parse(json['EndDateTime'])
+            : null,
+      );
 }
 
 /// An instance type configuration for each instance type in an instance fleet,
@@ -2476,6 +3201,7 @@ class InstanceTypeConfig {
     this.ebsConfiguration,
     this.configurations,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration specification for each instance type in an instance fleet.
@@ -2525,7 +3251,33 @@ class InstanceTypeSpecification {
     this.ebsOptimized,
   });
   static InstanceTypeSpecification fromJson(Map<String, dynamic> json) =>
-      InstanceTypeSpecification();
+      InstanceTypeSpecification(
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        weightedCapacity: json.containsKey('WeightedCapacity')
+            ? json['WeightedCapacity'] as int
+            : null,
+        bidPrice:
+            json.containsKey('BidPrice') ? json['BidPrice'] as String : null,
+        bidPriceAsPercentageOfOnDemandPrice:
+            json.containsKey('BidPriceAsPercentageOfOnDemandPrice')
+                ? json['BidPriceAsPercentageOfOnDemandPrice'] as double
+                : null,
+        configurations: json.containsKey('Configurations')
+            ? (json['Configurations'] as List)
+                .map((e) => Configuration.fromJson(e))
+                .toList()
+            : null,
+        ebsBlockDevices: json.containsKey('EbsBlockDevices')
+            ? (json['EbsBlockDevices'] as List)
+                .map((e) => EbsBlockDevice.fromJson(e))
+                .toList()
+            : null,
+        ebsOptimized: json.containsKey('EbsOptimized')
+            ? json['EbsOptimized'] as bool
+            : null,
+      );
 }
 
 /// A description of a cluster (job flow).
@@ -2617,7 +3369,47 @@ class JobFlowDetail {
     this.autoScalingRole,
     this.scaleDownBehavior,
   });
-  static JobFlowDetail fromJson(Map<String, dynamic> json) => JobFlowDetail();
+  static JobFlowDetail fromJson(Map<String, dynamic> json) => JobFlowDetail(
+        jobFlowId: json['JobFlowId'] as String,
+        name: json['Name'] as String,
+        logUri: json.containsKey('LogUri') ? json['LogUri'] as String : null,
+        amiVersion: json.containsKey('AmiVersion')
+            ? json['AmiVersion'] as String
+            : null,
+        executionStatusDetail: JobFlowExecutionStatusDetail.fromJson(
+            json['ExecutionStatusDetail']),
+        instances: JobFlowInstancesDetail.fromJson(json['Instances']),
+        steps: json.containsKey('Steps')
+            ? (json['Steps'] as List)
+                .map((e) => StepDetail.fromJson(e))
+                .toList()
+            : null,
+        bootstrapActions: json.containsKey('BootstrapActions')
+            ? (json['BootstrapActions'] as List)
+                .map((e) => BootstrapActionDetail.fromJson(e))
+                .toList()
+            : null,
+        supportedProducts: json.containsKey('SupportedProducts')
+            ? (json['SupportedProducts'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        visibleToAllUsers: json.containsKey('VisibleToAllUsers')
+            ? json['VisibleToAllUsers'] as bool
+            : null,
+        jobFlowRole: json.containsKey('JobFlowRole')
+            ? json['JobFlowRole'] as String
+            : null,
+        serviceRole: json.containsKey('ServiceRole')
+            ? json['ServiceRole'] as String
+            : null,
+        autoScalingRole: json.containsKey('AutoScalingRole')
+            ? json['AutoScalingRole'] as String
+            : null,
+        scaleDownBehavior: json.containsKey('ScaleDownBehavior')
+            ? json['ScaleDownBehavior'] as String
+            : null,
+      );
 }
 
 /// Describes the status of the cluster (job flow).
@@ -2650,7 +3442,22 @@ class JobFlowExecutionStatusDetail {
     this.lastStateChangeReason,
   });
   static JobFlowExecutionStatusDetail fromJson(Map<String, dynamic> json) =>
-      JobFlowExecutionStatusDetail();
+      JobFlowExecutionStatusDetail(
+        state: json['State'] as String,
+        creationDateTime: DateTime.parse(json['CreationDateTime']),
+        startDateTime: json.containsKey('StartDateTime')
+            ? DateTime.parse(json['StartDateTime'])
+            : null,
+        readyDateTime: json.containsKey('ReadyDateTime')
+            ? DateTime.parse(json['ReadyDateTime'])
+            : null,
+        endDateTime: json.containsKey('EndDateTime')
+            ? DateTime.parse(json['EndDateTime'])
+            : null,
+        lastStateChangeReason: json.containsKey('LastStateChangeReason')
+            ? json['LastStateChangeReason'] as String
+            : null,
+      );
 }
 
 /// A description of the Amazon EC2 instance on which the cluster (job flow)
@@ -2757,6 +3564,7 @@ class JobFlowInstancesConfig {
     this.additionalMasterSecurityGroups,
     this.additionalSlaveSecurityGroups,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specify the type of Amazon EC2 instances that the cluster (job flow) runs
@@ -2832,7 +3640,44 @@ class JobFlowInstancesDetail {
     this.hadoopVersion,
   });
   static JobFlowInstancesDetail fromJson(Map<String, dynamic> json) =>
-      JobFlowInstancesDetail();
+      JobFlowInstancesDetail(
+        masterInstanceType: json['MasterInstanceType'] as String,
+        masterPublicDnsName: json.containsKey('MasterPublicDnsName')
+            ? json['MasterPublicDnsName'] as String
+            : null,
+        masterInstanceId: json.containsKey('MasterInstanceId')
+            ? json['MasterInstanceId'] as String
+            : null,
+        slaveInstanceType: json['SlaveInstanceType'] as String,
+        instanceCount: json['InstanceCount'] as int,
+        instanceGroups: json.containsKey('InstanceGroups')
+            ? (json['InstanceGroups'] as List)
+                .map((e) => InstanceGroupDetail.fromJson(e))
+                .toList()
+            : null,
+        normalizedInstanceHours: json.containsKey('NormalizedInstanceHours')
+            ? json['NormalizedInstanceHours'] as int
+            : null,
+        ec2KeyName: json.containsKey('Ec2KeyName')
+            ? json['Ec2KeyName'] as String
+            : null,
+        ec2SubnetId: json.containsKey('Ec2SubnetId')
+            ? json['Ec2SubnetId'] as String
+            : null,
+        placement: json.containsKey('Placement')
+            ? PlacementType.fromJson(json['Placement'])
+            : null,
+        keepJobFlowAliveWhenNoSteps:
+            json.containsKey('KeepJobFlowAliveWhenNoSteps')
+                ? json['KeepJobFlowAliveWhenNoSteps'] as bool
+                : null,
+        terminationProtected: json.containsKey('TerminationProtected')
+            ? json['TerminationProtected'] as bool
+            : null,
+        hadoopVersion: json.containsKey('HadoopVersion')
+            ? json['HadoopVersion'] as String
+            : null,
+      );
 }
 
 /// Attributes for Kerberos configuration when Kerberos authentication is
@@ -2870,7 +3715,21 @@ class KerberosAttributes {
     this.adDomainJoinPassword,
   });
   static KerberosAttributes fromJson(Map<String, dynamic> json) =>
-      KerberosAttributes();
+      KerberosAttributes(
+        realm: json['Realm'] as String,
+        kdcAdminPassword: json['KdcAdminPassword'] as String,
+        crossRealmTrustPrincipalPassword:
+            json.containsKey('CrossRealmTrustPrincipalPassword')
+                ? json['CrossRealmTrustPrincipalPassword'] as String
+                : null,
+        adDomainJoinUser: json.containsKey('ADDomainJoinUser')
+            ? json['ADDomainJoinUser'] as String
+            : null,
+        adDomainJoinPassword: json.containsKey('ADDomainJoinPassword')
+            ? json['ADDomainJoinPassword'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A key value pair.
@@ -2885,7 +3744,11 @@ class KeyValue {
     this.key,
     this.value,
   });
-  static KeyValue fromJson(Map<String, dynamic> json) => KeyValue();
+  static KeyValue fromJson(Map<String, dynamic> json) => KeyValue(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This output contains the bootstrap actions detail.
@@ -2901,7 +3764,14 @@ class ListBootstrapActionsOutput {
     this.marker,
   });
   static ListBootstrapActionsOutput fromJson(Map<String, dynamic> json) =>
-      ListBootstrapActionsOutput();
+      ListBootstrapActionsOutput(
+        bootstrapActions: json.containsKey('BootstrapActions')
+            ? (json['BootstrapActions'] as List)
+                .map((e) => Command.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// This contains a ClusterSummaryList with the cluster details; for example,
@@ -2918,7 +3788,14 @@ class ListClustersOutput {
     this.marker,
   });
   static ListClustersOutput fromJson(Map<String, dynamic> json) =>
-      ListClustersOutput();
+      ListClustersOutput(
+        clusters: json.containsKey('Clusters')
+            ? (json['Clusters'] as List)
+                .map((e) => ClusterSummary.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class ListInstanceFleetsOutput {
@@ -2933,7 +3810,14 @@ class ListInstanceFleetsOutput {
     this.marker,
   });
   static ListInstanceFleetsOutput fromJson(Map<String, dynamic> json) =>
-      ListInstanceFleetsOutput();
+      ListInstanceFleetsOutput(
+        instanceFleets: json.containsKey('InstanceFleets')
+            ? (json['InstanceFleets'] as List)
+                .map((e) => InstanceFleet.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// This input determines which instance groups to retrieve.
@@ -2949,7 +3833,14 @@ class ListInstanceGroupsOutput {
     this.marker,
   });
   static ListInstanceGroupsOutput fromJson(Map<String, dynamic> json) =>
-      ListInstanceGroupsOutput();
+      ListInstanceGroupsOutput(
+        instanceGroups: json.containsKey('InstanceGroups')
+            ? (json['InstanceGroups'] as List)
+                .map((e) => InstanceGroup.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// This output contains the list of instances.
@@ -2965,7 +3856,14 @@ class ListInstancesOutput {
     this.marker,
   });
   static ListInstancesOutput fromJson(Map<String, dynamic> json) =>
-      ListInstancesOutput();
+      ListInstancesOutput(
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class ListSecurityConfigurationsOutput {
@@ -2982,7 +3880,14 @@ class ListSecurityConfigurationsOutput {
     this.marker,
   });
   static ListSecurityConfigurationsOutput fromJson(Map<String, dynamic> json) =>
-      ListSecurityConfigurationsOutput();
+      ListSecurityConfigurationsOutput(
+        securityConfigurations: json.containsKey('SecurityConfigurations')
+            ? (json['SecurityConfigurations'] as List)
+                .map((e) => SecurityConfigurationSummary.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// This output contains the list of steps returned in reverse order. This means
@@ -2998,8 +3903,14 @@ class ListStepsOutput {
     this.steps,
     this.marker,
   });
-  static ListStepsOutput fromJson(Map<String, dynamic> json) =>
-      ListStepsOutput();
+  static ListStepsOutput fromJson(Map<String, dynamic> json) => ListStepsOutput(
+        steps: json.containsKey('Steps')
+            ? (json['Steps'] as List)
+                .map((e) => StepSummary.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// A CloudWatch dimension, which is specified using a `Key` (known as a `Name`
@@ -3018,8 +3929,11 @@ class MetricDimension {
     this.key,
     this.value,
   });
-  static MetricDimension fromJson(Map<String, dynamic> json) =>
-      MetricDimension();
+  static MetricDimension fromJson(Map<String, dynamic> json) => MetricDimension(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Amazon EC2 Availability Zone configuration of the cluster (job flow).
@@ -3044,7 +3958,17 @@ class PlacementType {
     this.availabilityZone,
     this.availabilityZones,
   });
-  static PlacementType fromJson(Map<String, dynamic> json) => PlacementType();
+  static PlacementType fromJson(Map<String, dynamic> json) => PlacementType(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of port ranges that are permitted to allow inbound traffic from all
@@ -3061,7 +3985,11 @@ class PortRange {
     @required this.minRange,
     this.maxRange,
   });
-  static PortRange fromJson(Map<String, dynamic> json) => PortRange();
+  static PortRange fromJson(Map<String, dynamic> json) => PortRange(
+        minRange: json['MinRange'] as int,
+        maxRange: json.containsKey('MaxRange') ? json['MaxRange'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutAutoScalingPolicyOutput {
@@ -3082,7 +4010,16 @@ class PutAutoScalingPolicyOutput {
     this.autoScalingPolicy,
   });
   static PutAutoScalingPolicyOutput fromJson(Map<String, dynamic> json) =>
-      PutAutoScalingPolicyOutput();
+      PutAutoScalingPolicyOutput(
+        clusterId:
+            json.containsKey('ClusterId') ? json['ClusterId'] as String : null,
+        instanceGroupId: json.containsKey('InstanceGroupId')
+            ? json['InstanceGroupId'] as String
+            : null,
+        autoScalingPolicy: json.containsKey('AutoScalingPolicy')
+            ? AutoScalingPolicyDescription.fromJson(json['AutoScalingPolicy'])
+            : null,
+      );
 }
 
 class PutBlockPublicAccessConfigurationOutput {
@@ -3114,7 +4051,10 @@ class RunJobFlowOutput {
     this.jobFlowId,
   });
   static RunJobFlowOutput fromJson(Map<String, dynamic> json) =>
-      RunJobFlowOutput();
+      RunJobFlowOutput(
+        jobFlowId:
+            json.containsKey('JobFlowId') ? json['JobFlowId'] as String : null,
+      );
 }
 
 /// The type of adjustment the automatic scaling activity makes when triggered,
@@ -3132,7 +4072,13 @@ class ScalingAction {
     this.market,
     @required this.simpleScalingPolicyConfiguration,
   });
-  static ScalingAction fromJson(Map<String, dynamic> json) => ScalingAction();
+  static ScalingAction fromJson(Map<String, dynamic> json) => ScalingAction(
+        market: json.containsKey('Market') ? json['Market'] as String : null,
+        simpleScalingPolicyConfiguration:
+            SimpleScalingPolicyConfiguration.fromJson(
+                json['SimpleScalingPolicyConfiguration']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The upper and lower EC2 instance limits for an automatic scaling policy.
@@ -3154,7 +4100,11 @@ class ScalingConstraints {
     @required this.maxCapacity,
   });
   static ScalingConstraints fromJson(Map<String, dynamic> json) =>
-      ScalingConstraints();
+      ScalingConstraints(
+        minCapacity: json['MinCapacity'] as int,
+        maxCapacity: json['MaxCapacity'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A scale-in or scale-out rule that defines scaling activity, including the
@@ -3182,7 +4132,15 @@ class ScalingRule {
     @required this.action,
     @required this.trigger,
   });
-  static ScalingRule fromJson(Map<String, dynamic> json) => ScalingRule();
+  static ScalingRule fromJson(Map<String, dynamic> json) => ScalingRule(
+        name: json['Name'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        action: ScalingAction.fromJson(json['Action']),
+        trigger: ScalingTrigger.fromJson(json['Trigger']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The conditions that trigger an automatic scaling activity.
@@ -3195,7 +4153,11 @@ class ScalingTrigger {
   ScalingTrigger({
     @required this.cloudWatchAlarmDefinition,
   });
-  static ScalingTrigger fromJson(Map<String, dynamic> json) => ScalingTrigger();
+  static ScalingTrigger fromJson(Map<String, dynamic> json) => ScalingTrigger(
+        cloudWatchAlarmDefinition: CloudWatchAlarmDefinition.fromJson(
+            json['CloudWatchAlarmDefinition']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration of the script to run during a bootstrap action.
@@ -3212,7 +4174,13 @@ class ScriptBootstrapActionConfig {
     this.args,
   });
   static ScriptBootstrapActionConfig fromJson(Map<String, dynamic> json) =>
-      ScriptBootstrapActionConfig();
+      ScriptBootstrapActionConfig(
+        path: json['Path'] as String,
+        args: json.containsKey('Args')
+            ? (json['Args'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The creation date and time, and name, of a security configuration.
@@ -3228,7 +4196,12 @@ class SecurityConfigurationSummary {
     this.creationDateTime,
   });
   static SecurityConfigurationSummary fromJson(Map<String, dynamic> json) =>
-      SecurityConfigurationSummary();
+      SecurityConfigurationSummary(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+      );
 }
 
 /// Policy for customizing shrink operations. Allows configuration of
@@ -3246,7 +4219,15 @@ class ShrinkPolicy {
     this.decommissionTimeout,
     this.instanceResizePolicy,
   });
-  static ShrinkPolicy fromJson(Map<String, dynamic> json) => ShrinkPolicy();
+  static ShrinkPolicy fromJson(Map<String, dynamic> json) => ShrinkPolicy(
+        decommissionTimeout: json.containsKey('DecommissionTimeout')
+            ? json['DecommissionTimeout'] as int
+            : null,
+        instanceResizePolicy: json.containsKey('InstanceResizePolicy')
+            ? InstanceResizePolicy.fromJson(json['InstanceResizePolicy'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An automatic scaling configuration, which describes how the policy adds or
@@ -3288,7 +4269,14 @@ class SimpleScalingPolicyConfiguration {
     this.coolDown,
   });
   static SimpleScalingPolicyConfiguration fromJson(Map<String, dynamic> json) =>
-      SimpleScalingPolicyConfiguration();
+      SimpleScalingPolicyConfiguration(
+        adjustmentType: json.containsKey('AdjustmentType')
+            ? json['AdjustmentType'] as String
+            : null,
+        scalingAdjustment: json['ScalingAdjustment'] as int,
+        coolDown: json.containsKey('CoolDown') ? json['CoolDown'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The launch specification for Spot instances in the instance fleet, which
@@ -3330,7 +4318,14 @@ class SpotProvisioningSpecification {
     this.blockDurationMinutes,
   });
   static SpotProvisioningSpecification fromJson(Map<String, dynamic> json) =>
-      SpotProvisioningSpecification();
+      SpotProvisioningSpecification(
+        timeoutDurationMinutes: json['TimeoutDurationMinutes'] as int,
+        timeoutAction: json['TimeoutAction'] as String,
+        blockDurationMinutes: json.containsKey('BlockDurationMinutes')
+            ? json['BlockDurationMinutes'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This represents a step in a cluster.
@@ -3360,7 +4355,19 @@ class Step {
     this.actionOnFailure,
     this.status,
   });
-  static Step fromJson(Map<String, dynamic> json) => Step();
+  static Step fromJson(Map<String, dynamic> json) => Step(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        config: json.containsKey('Config')
+            ? HadoopStepConfig.fromJson(json['Config'])
+            : null,
+        actionOnFailure: json.containsKey('ActionOnFailure')
+            ? json['ActionOnFailure'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? StepStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 /// Specification of a cluster (job flow) step.
@@ -3382,7 +4389,14 @@ class StepConfig {
     this.actionOnFailure,
     @required this.hadoopJarStep,
   });
-  static StepConfig fromJson(Map<String, dynamic> json) => StepConfig();
+  static StepConfig fromJson(Map<String, dynamic> json) => StepConfig(
+        name: json['Name'] as String,
+        actionOnFailure: json.containsKey('ActionOnFailure')
+            ? json['ActionOnFailure'] as String
+            : null,
+        hadoopJarStep: HadoopJarStepConfig.fromJson(json['HadoopJarStep']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Combines the execution state and configuration of a step.
@@ -3397,7 +4411,11 @@ class StepDetail {
     @required this.stepConfig,
     @required this.executionStatusDetail,
   });
-  static StepDetail fromJson(Map<String, dynamic> json) => StepDetail();
+  static StepDetail fromJson(Map<String, dynamic> json) => StepDetail(
+        stepConfig: StepConfig.fromJson(json['StepConfig']),
+        executionStatusDetail:
+            StepExecutionStatusDetail.fromJson(json['ExecutionStatusDetail']),
+      );
 }
 
 /// The execution state of a step.
@@ -3425,7 +4443,19 @@ class StepExecutionStatusDetail {
     this.lastStateChangeReason,
   });
   static StepExecutionStatusDetail fromJson(Map<String, dynamic> json) =>
-      StepExecutionStatusDetail();
+      StepExecutionStatusDetail(
+        state: json['State'] as String,
+        creationDateTime: DateTime.parse(json['CreationDateTime']),
+        startDateTime: json.containsKey('StartDateTime')
+            ? DateTime.parse(json['StartDateTime'])
+            : null,
+        endDateTime: json.containsKey('EndDateTime')
+            ? DateTime.parse(json['EndDateTime'])
+            : null,
+        lastStateChangeReason: json.containsKey('LastStateChangeReason')
+            ? json['LastStateChangeReason'] as String
+            : null,
+      );
 }
 
 /// The details of the step state change reason.
@@ -3442,7 +4472,10 @@ class StepStateChangeReason {
     this.message,
   });
   static StepStateChangeReason fromJson(Map<String, dynamic> json) =>
-      StepStateChangeReason();
+      StepStateChangeReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The execution status details of the cluster step.
@@ -3466,7 +4499,18 @@ class StepStatus {
     this.failureDetails,
     this.timeline,
   });
-  static StepStatus fromJson(Map<String, dynamic> json) => StepStatus();
+  static StepStatus fromJson(Map<String, dynamic> json) => StepStatus(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateChangeReason: json.containsKey('StateChangeReason')
+            ? StepStateChangeReason.fromJson(json['StateChangeReason'])
+            : null,
+        failureDetails: json.containsKey('FailureDetails')
+            ? FailureDetails.fromJson(json['FailureDetails'])
+            : null,
+        timeline: json.containsKey('Timeline')
+            ? StepTimeline.fromJson(json['Timeline'])
+            : null,
+      );
 }
 
 /// The summary of the cluster step.
@@ -3496,7 +4540,19 @@ class StepSummary {
     this.actionOnFailure,
     this.status,
   });
-  static StepSummary fromJson(Map<String, dynamic> json) => StepSummary();
+  static StepSummary fromJson(Map<String, dynamic> json) => StepSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        config: json.containsKey('Config')
+            ? HadoopStepConfig.fromJson(json['Config'])
+            : null,
+        actionOnFailure: json.containsKey('ActionOnFailure')
+            ? json['ActionOnFailure'] as String
+            : null,
+        status: json.containsKey('Status')
+            ? StepStatus.fromJson(json['Status'])
+            : null,
+      );
 }
 
 /// The timeline of the cluster step lifecycle.
@@ -3515,7 +4571,17 @@ class StepTimeline {
     this.startDateTime,
     this.endDateTime,
   });
-  static StepTimeline fromJson(Map<String, dynamic> json) => StepTimeline();
+  static StepTimeline fromJson(Map<String, dynamic> json) => StepTimeline(
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        startDateTime: json.containsKey('StartDateTime')
+            ? DateTime.parse(json['StartDateTime'])
+            : null,
+        endDateTime: json.containsKey('EndDateTime')
+            ? DateTime.parse(json['EndDateTime'])
+            : null,
+      );
 }
 
 /// The list of supported product configurations which allow user-supplied
@@ -3532,6 +4598,7 @@ class SupportedProductConfig {
     this.name,
     this.args,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A key/value pair containing user-defined metadata that you can associate
@@ -3555,7 +4622,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// EBS volume specifications such as volume type, IOPS, and size (GiB) that
@@ -3578,5 +4649,10 @@ class VolumeSpecification {
     @required this.sizeInGB,
   });
   static VolumeSpecification fromJson(Map<String, dynamic> json) =>
-      VolumeSpecification();
+      VolumeSpecification(
+        volumeType: json['VolumeType'] as String,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        sizeInGB: json['SizeInGB'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

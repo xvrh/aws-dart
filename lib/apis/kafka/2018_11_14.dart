@@ -3,6 +3,10 @@ import 'dart:typed_data';
 
 /// The operations for managing an Amazon MSK cluster.
 class KafkaApi {
+  final _client;
+  KafkaApi(client)
+      : _client = client.configured('Kafka', serializer: 'rest-json');
+
   /// Creates a new MSK cluster.
   ///
   /// [brokerNodeGroupInfo]: Information about the broker nodes in the cluster.
@@ -36,7 +40,19 @@ class KafkaApi {
       @required String kafkaVersion,
       @required int numberOfBrokerNodes,
       Map<String, String> tags}) async {
-    return CreateClusterResponse.fromJson({});
+    var response_ = await _client.send('CreateCluster', {
+      'BrokerNodeGroupInfo': brokerNodeGroupInfo,
+      if (clientAuthentication != null)
+        'ClientAuthentication': clientAuthentication,
+      'ClusterName': clusterName,
+      if (configurationInfo != null) 'ConfigurationInfo': configurationInfo,
+      if (encryptionInfo != null) 'EncryptionInfo': encryptionInfo,
+      if (enhancedMonitoring != null) 'EnhancedMonitoring': enhancedMonitoring,
+      'KafkaVersion': kafkaVersion,
+      'NumberOfBrokerNodes': numberOfBrokerNodes,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateClusterResponse.fromJson(response_);
   }
 
   /// Creates a new MSK configuration.
@@ -57,7 +73,13 @@ class KafkaApi {
       @required List<String> kafkaVersions,
       @required String name,
       @required Uint8List serverProperties}) async {
-    return CreateConfigurationResponse.fromJson({});
+    var response_ = await _client.send('CreateConfiguration', {
+      if (description != null) 'Description': description,
+      'KafkaVersions': kafkaVersions,
+      'Name': name,
+      'ServerProperties': serverProperties,
+    });
+    return CreateConfigurationResponse.fromJson(response_);
   }
 
   /// Deletes the MSK cluster specified by the Amazon Resource Name (ARN) in the
@@ -69,7 +91,11 @@ class KafkaApi {
   /// [currentVersion]: The current version of the MSK cluster.
   Future<DeleteClusterResponse> deleteCluster(String clusterArn,
       {String currentVersion}) async {
-    return DeleteClusterResponse.fromJson({});
+    var response_ = await _client.send('DeleteCluster', {
+      'ClusterArn': clusterArn,
+      if (currentVersion != null) 'CurrentVersion': currentVersion,
+    });
+    return DeleteClusterResponse.fromJson(response_);
   }
 
   /// Returns a description of the MSK cluster whose Amazon Resource Name (ARN)
@@ -78,7 +104,10 @@ class KafkaApi {
   /// [clusterArn]: The Amazon Resource Name (ARN) that uniquely identifies the
   /// cluster.
   Future<DescribeClusterResponse> describeCluster(String clusterArn) async {
-    return DescribeClusterResponse.fromJson({});
+    var response_ = await _client.send('DescribeCluster', {
+      'ClusterArn': clusterArn,
+    });
+    return DescribeClusterResponse.fromJson(response_);
   }
 
   /// Returns a description of the cluster operation specified by the ARN.
@@ -87,7 +116,10 @@ class KafkaApi {
   /// identifies the MSK cluster operation.
   Future<DescribeClusterOperationResponse> describeClusterOperation(
       String clusterOperationArn) async {
-    return DescribeClusterOperationResponse.fromJson({});
+    var response_ = await _client.send('DescribeClusterOperation', {
+      'ClusterOperationArn': clusterOperationArn,
+    });
+    return DescribeClusterOperationResponse.fromJson(response_);
   }
 
   /// Returns a description of this MSK configuration.
@@ -96,7 +128,10 @@ class KafkaApi {
   /// configuration and all of its revisions.
   Future<DescribeConfigurationResponse> describeConfiguration(
       String arn) async {
-    return DescribeConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfiguration', {
+      'Arn': arn,
+    });
+    return DescribeConfigurationResponse.fromJson(response_);
   }
 
   /// Returns a description of this revision of the configuration.
@@ -108,7 +143,11 @@ class KafkaApi {
   /// configuration.
   Future<DescribeConfigurationRevisionResponse> describeConfigurationRevision(
       {@required String arn, @required BigInt revision}) async {
-    return DescribeConfigurationRevisionResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfigurationRevision', {
+      'Arn': arn,
+      'Revision': revision,
+    });
+    return DescribeConfigurationRevisionResponse.fromJson(response_);
   }
 
   /// A list of brokers that a client application can use to bootstrap.
@@ -117,7 +156,10 @@ class KafkaApi {
   /// cluster.
   Future<GetBootstrapBrokersResponse> getBootstrapBrokers(
       String clusterArn) async {
-    return GetBootstrapBrokersResponse.fromJson({});
+    var response_ = await _client.send('GetBootstrapBrokers', {
+      'ClusterArn': clusterArn,
+    });
+    return GetBootstrapBrokersResponse.fromJson(response_);
   }
 
   /// Returns a list of all the operations that have been performed on the
@@ -134,7 +176,12 @@ class KafkaApi {
   /// the next batch, provide this token in your next request.
   Future<ListClusterOperationsResponse> listClusterOperations(String clusterArn,
       {int maxResults, String nextToken}) async {
-    return ListClusterOperationsResponse.fromJson({});
+    var response_ = await _client.send('ListClusterOperations', {
+      'ClusterArn': clusterArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListClusterOperationsResponse.fromJson(response_);
   }
 
   /// Returns a list of all the MSK clusters in the current Region.
@@ -151,7 +198,12 @@ class KafkaApi {
   /// the next batch, provide this token in your next request.
   Future<ListClustersResponse> listClusters(
       {String clusterNameFilter, int maxResults, String nextToken}) async {
-    return ListClustersResponse.fromJson({});
+    var response_ = await _client.send('ListClusters', {
+      if (clusterNameFilter != null) 'ClusterNameFilter': clusterNameFilter,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListClustersResponse.fromJson(response_);
   }
 
   /// Returns a list of all the MSK configurations in this Region.
@@ -169,7 +221,12 @@ class KafkaApi {
       String arn,
       {int maxResults,
       String nextToken}) async {
-    return ListConfigurationRevisionsResponse.fromJson({});
+    var response_ = await _client.send('ListConfigurationRevisions', {
+      'Arn': arn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListConfigurationRevisionsResponse.fromJson(response_);
   }
 
   /// Returns a list of all the MSK configurations in this Region.
@@ -182,7 +239,11 @@ class KafkaApi {
   /// the next batch, provide this token in your next request.
   Future<ListConfigurationsResponse> listConfigurations(
       {int maxResults, String nextToken}) async {
-    return ListConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('ListConfigurations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListConfigurationsResponse.fromJson(response_);
   }
 
   /// Returns a list of the broker nodes in the cluster.
@@ -198,7 +259,12 @@ class KafkaApi {
   /// the next batch, provide this token in your next request.
   Future<ListNodesResponse> listNodes(String clusterArn,
       {int maxResults, String nextToken}) async {
-    return ListNodesResponse.fromJson({});
+    var response_ = await _client.send('ListNodes', {
+      'ClusterArn': clusterArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListNodesResponse.fromJson(response_);
   }
 
   /// Returns a list of the tags associated with the specified resource.
@@ -207,7 +273,10 @@ class KafkaApi {
   /// resource that's associated with the tags.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Adds tags to the specified MSK resource.
@@ -218,7 +287,12 @@ class KafkaApi {
   /// [tags]: The key-value pair for the resource tag.
   Future<void> tagResource(
       {@required String resourceArn,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+  }
 
   /// Removes the tags associated with the keys that are provided in the query.
   ///
@@ -240,7 +314,12 @@ class KafkaApi {
   /// *   Tag keys must consist of the following characters: Unicode letters,
   /// digits, white space, and the following special characters: _ . / = + - @.
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Updates the EBS storage associated with MSK brokers.
   ///
@@ -256,7 +335,12 @@ class KafkaApi {
       {@required String clusterArn,
       @required String currentVersion,
       @required List<BrokerEbsVolumeInfo> targetBrokerEbsVolumeInfo}) async {
-    return UpdateBrokerStorageResponse.fromJson({});
+    var response_ = await _client.send('UpdateBrokerStorage', {
+      'ClusterArn': clusterArn,
+      'CurrentVersion': currentVersion,
+      'TargetBrokerEBSVolumeInfo': targetBrokerEbsVolumeInfo,
+    });
+    return UpdateBrokerStorageResponse.fromJson(response_);
   }
 
   /// Updates the cluster with the configuration that is specified in the
@@ -273,7 +357,12 @@ class KafkaApi {
       {@required String clusterArn,
       @required ConfigurationInfo configurationInfo,
       @required String currentVersion}) async {
-    return UpdateClusterConfigurationResponse.fromJson({});
+    var response_ = await _client.send('UpdateClusterConfiguration', {
+      'ClusterArn': clusterArn,
+      'ConfigurationInfo': configurationInfo,
+      'CurrentVersion': currentVersion,
+    });
+    return UpdateClusterConfigurationResponse.fromJson(response_);
   }
 }
 
@@ -292,7 +381,11 @@ class BrokerEbsVolumeInfo {
     @required this.volumeSizeGB,
   });
   static BrokerEbsVolumeInfo fromJson(Map<String, dynamic> json) =>
-      BrokerEbsVolumeInfo();
+      BrokerEbsVolumeInfo(
+        kafkaBrokerNodeId: json['KafkaBrokerNodeId'] as String,
+        volumeSizeGB: json['VolumeSizeGB'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the setup to be used for Kafka broker nodes in the cluster.
@@ -329,7 +422,21 @@ class BrokerNodeGroupInfo {
     this.storageInfo,
   });
   static BrokerNodeGroupInfo fromJson(Map<String, dynamic> json) =>
-      BrokerNodeGroupInfo();
+      BrokerNodeGroupInfo(
+        brokerAZDistribution: json.containsKey('BrokerAZDistribution')
+            ? json['BrokerAZDistribution'] as String
+            : null,
+        clientSubnets:
+            (json['ClientSubnets'] as List).map((e) => e as String).toList(),
+        instanceType: json['InstanceType'] as String,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        storageInfo: json.containsKey('StorageInfo')
+            ? StorageInfo.fromJson(json['StorageInfo'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// BrokerNodeInfo
@@ -361,7 +468,25 @@ class BrokerNodeInfo {
     this.currentBrokerSoftwareInfo,
     this.endpoints,
   });
-  static BrokerNodeInfo fromJson(Map<String, dynamic> json) => BrokerNodeInfo();
+  static BrokerNodeInfo fromJson(Map<String, dynamic> json) => BrokerNodeInfo(
+        attachedEniId: json.containsKey('AttachedENIId')
+            ? json['AttachedENIId'] as String
+            : null,
+        brokerId:
+            json.containsKey('BrokerId') ? json['BrokerId'] as double : null,
+        clientSubnet: json.containsKey('ClientSubnet')
+            ? json['ClientSubnet'] as String
+            : null,
+        clientVpcIpAddress: json.containsKey('ClientVpcIpAddress')
+            ? json['ClientVpcIpAddress'] as String
+            : null,
+        currentBrokerSoftwareInfo: json.containsKey('CurrentBrokerSoftwareInfo')
+            ? BrokerSoftwareInfo.fromJson(json['CurrentBrokerSoftwareInfo'])
+            : null,
+        endpoints: json.containsKey('Endpoints')
+            ? (json['Endpoints'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Information about the current software installed on the cluster.
@@ -383,7 +508,17 @@ class BrokerSoftwareInfo {
     this.kafkaVersion,
   });
   static BrokerSoftwareInfo fromJson(Map<String, dynamic> json) =>
-      BrokerSoftwareInfo();
+      BrokerSoftwareInfo(
+        configurationArn: json.containsKey('ConfigurationArn')
+            ? json['ConfigurationArn'] as String
+            : null,
+        configurationRevision: json.containsKey('ConfigurationRevision')
+            ? BigInt.from(json['ConfigurationRevision'])
+            : null,
+        kafkaVersion: json.containsKey('KafkaVersion')
+            ? json['KafkaVersion'] as String
+            : null,
+      );
 }
 
 /// Includes all client authentication information.
@@ -395,7 +530,10 @@ class ClientAuthentication {
     this.tls,
   });
   static ClientAuthentication fromJson(Map<String, dynamic> json) =>
-      ClientAuthentication();
+      ClientAuthentication(
+        tls: json.containsKey('Tls') ? Tls.fromJson(json['Tls']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Returns information about a cluster.
@@ -464,7 +602,49 @@ class ClusterInfo {
     this.tags,
     this.zookeeperConnectString,
   });
-  static ClusterInfo fromJson(Map<String, dynamic> json) => ClusterInfo();
+  static ClusterInfo fromJson(Map<String, dynamic> json) => ClusterInfo(
+        activeOperationArn: json.containsKey('ActiveOperationArn')
+            ? json['ActiveOperationArn'] as String
+            : null,
+        brokerNodeGroupInfo: json.containsKey('BrokerNodeGroupInfo')
+            ? BrokerNodeGroupInfo.fromJson(json['BrokerNodeGroupInfo'])
+            : null,
+        clientAuthentication: json.containsKey('ClientAuthentication')
+            ? ClientAuthentication.fromJson(json['ClientAuthentication'])
+            : null,
+        clusterArn: json.containsKey('ClusterArn')
+            ? json['ClusterArn'] as String
+            : null,
+        clusterName: json.containsKey('ClusterName')
+            ? json['ClusterName'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        currentBrokerSoftwareInfo: json.containsKey('CurrentBrokerSoftwareInfo')
+            ? BrokerSoftwareInfo.fromJson(json['CurrentBrokerSoftwareInfo'])
+            : null,
+        currentVersion: json.containsKey('CurrentVersion')
+            ? json['CurrentVersion'] as String
+            : null,
+        encryptionInfo: json.containsKey('EncryptionInfo')
+            ? EncryptionInfo.fromJson(json['EncryptionInfo'])
+            : null,
+        enhancedMonitoring: json.containsKey('EnhancedMonitoring')
+            ? json['EnhancedMonitoring'] as String
+            : null,
+        numberOfBrokerNodes: json.containsKey('NumberOfBrokerNodes')
+            ? json['NumberOfBrokerNodes'] as int
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        zookeeperConnectString: json.containsKey('ZookeeperConnectString')
+            ? json['ZookeeperConnectString'] as String
+            : null,
+      );
 }
 
 /// Returns information about a cluster operation.
@@ -512,7 +692,38 @@ class ClusterOperationInfo {
     this.targetClusterInfo,
   });
   static ClusterOperationInfo fromJson(Map<String, dynamic> json) =>
-      ClusterOperationInfo();
+      ClusterOperationInfo(
+        clientRequestId: json.containsKey('ClientRequestId')
+            ? json['ClientRequestId'] as String
+            : null,
+        clusterArn: json.containsKey('ClusterArn')
+            ? json['ClusterArn'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        errorInfo: json.containsKey('ErrorInfo')
+            ? ErrorInfo.fromJson(json['ErrorInfo'])
+            : null,
+        operationArn: json.containsKey('OperationArn')
+            ? json['OperationArn'] as String
+            : null,
+        operationState: json.containsKey('OperationState')
+            ? json['OperationState'] as String
+            : null,
+        operationType: json.containsKey('OperationType')
+            ? json['OperationType'] as String
+            : null,
+        sourceClusterInfo: json.containsKey('SourceClusterInfo')
+            ? MutableClusterInfo.fromJson(json['SourceClusterInfo'])
+            : null,
+        targetClusterInfo: json.containsKey('TargetClusterInfo')
+            ? MutableClusterInfo.fromJson(json['TargetClusterInfo'])
+            : null,
+      );
 }
 
 /// Represents an MSK Configuration.
@@ -545,7 +756,15 @@ class Configuration {
     @required this.latestRevision,
     @required this.name,
   });
-  static Configuration fromJson(Map<String, dynamic> json) => Configuration();
+  static Configuration fromJson(Map<String, dynamic> json) => Configuration(
+        arn: json['Arn'] as String,
+        creationTime: DateTime.parse(json['CreationTime']),
+        description: json['Description'] as String,
+        kafkaVersions:
+            (json['KafkaVersions'] as List).map((e) => e as String).toList(),
+        latestRevision: ConfigurationRevision.fromJson(json['LatestRevision']),
+        name: json['Name'] as String,
+      );
 }
 
 /// Specifies the configuration to use for the brokers.
@@ -561,7 +780,11 @@ class ConfigurationInfo {
     @required this.revision,
   });
   static ConfigurationInfo fromJson(Map<String, dynamic> json) =>
-      ConfigurationInfo();
+      ConfigurationInfo(
+        arn: json['Arn'] as String,
+        revision: BigInt.from(json['Revision']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a configuration revision.
@@ -581,7 +804,13 @@ class ConfigurationRevision {
     @required this.revision,
   });
   static ConfigurationRevision fromJson(Map<String, dynamic> json) =>
-      ConfigurationRevision();
+      ConfigurationRevision(
+        creationTime: DateTime.parse(json['CreationTime']),
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        revision: BigInt.from(json['Revision']),
+      );
 }
 
 class CreateClusterResponse {
@@ -601,7 +830,15 @@ class CreateClusterResponse {
     this.state,
   });
   static CreateClusterResponse fromJson(Map<String, dynamic> json) =>
-      CreateClusterResponse();
+      CreateClusterResponse(
+        clusterArn: json.containsKey('ClusterArn')
+            ? json['ClusterArn'] as String
+            : null,
+        clusterName: json.containsKey('ClusterName')
+            ? json['ClusterName'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 class CreateConfigurationResponse {
@@ -624,7 +861,16 @@ class CreateConfigurationResponse {
     this.name,
   });
   static CreateConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      CreateConfigurationResponse();
+      CreateConfigurationResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        latestRevision: json.containsKey('LatestRevision')
+            ? ConfigurationRevision.fromJson(json['LatestRevision'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class DeleteClusterResponse {
@@ -640,7 +886,12 @@ class DeleteClusterResponse {
     this.state,
   });
   static DeleteClusterResponse fromJson(Map<String, dynamic> json) =>
-      DeleteClusterResponse();
+      DeleteClusterResponse(
+        clusterArn: json.containsKey('ClusterArn')
+            ? json['ClusterArn'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 class DescribeClusterOperationResponse {
@@ -651,7 +902,11 @@ class DescribeClusterOperationResponse {
     this.clusterOperationInfo,
   });
   static DescribeClusterOperationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeClusterOperationResponse();
+      DescribeClusterOperationResponse(
+        clusterOperationInfo: json.containsKey('ClusterOperationInfo')
+            ? ClusterOperationInfo.fromJson(json['ClusterOperationInfo'])
+            : null,
+      );
 }
 
 class DescribeClusterResponse {
@@ -662,7 +917,11 @@ class DescribeClusterResponse {
     this.clusterInfo,
   });
   static DescribeClusterResponse fromJson(Map<String, dynamic> json) =>
-      DescribeClusterResponse();
+      DescribeClusterResponse(
+        clusterInfo: json.containsKey('ClusterInfo')
+            ? ClusterInfo.fromJson(json['ClusterInfo'])
+            : null,
+      );
 }
 
 class DescribeConfigurationResponse {
@@ -694,7 +953,22 @@ class DescribeConfigurationResponse {
     this.name,
   });
   static DescribeConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeConfigurationResponse();
+      DescribeConfigurationResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        kafkaVersions: json.containsKey('KafkaVersions')
+            ? (json['KafkaVersions'] as List).map((e) => e as String).toList()
+            : null,
+        latestRevision: json.containsKey('LatestRevision')
+            ? ConfigurationRevision.fromJson(json['LatestRevision'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class DescribeConfigurationRevisionResponse {
@@ -725,7 +999,20 @@ class DescribeConfigurationRevisionResponse {
   });
   static DescribeConfigurationRevisionResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeConfigurationRevisionResponse();
+      DescribeConfigurationRevisionResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        revision:
+            json.containsKey('Revision') ? BigInt.from(json['Revision']) : null,
+        serverProperties: json.containsKey('ServerProperties')
+            ? Uint8List(json['ServerProperties'])
+            : null,
+      );
 }
 
 /// Contains information about the EBS storage volumes attached to Kafka broker
@@ -737,7 +1024,11 @@ class EbsStorageInfo {
   EbsStorageInfo({
     this.volumeSize,
   });
-  static EbsStorageInfo fromJson(Map<String, dynamic> json) => EbsStorageInfo();
+  static EbsStorageInfo fromJson(Map<String, dynamic> json) => EbsStorageInfo(
+        volumeSize:
+            json.containsKey('VolumeSize') ? json['VolumeSize'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The data-volume encryption details.
@@ -750,7 +1041,10 @@ class EncryptionAtRest {
     @required this.dataVolumeKmsKeyId,
   });
   static EncryptionAtRest fromJson(Map<String, dynamic> json) =>
-      EncryptionAtRest();
+      EncryptionAtRest(
+        dataVolumeKmsKeyId: json['DataVolumeKMSKeyId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The settings for encrypting data in transit.
@@ -781,7 +1075,14 @@ class EncryptionInTransit {
     this.inCluster,
   });
   static EncryptionInTransit fromJson(Map<String, dynamic> json) =>
-      EncryptionInTransit();
+      EncryptionInTransit(
+        clientBroker: json.containsKey('ClientBroker')
+            ? json['ClientBroker'] as String
+            : null,
+        inCluster:
+            json.containsKey('InCluster') ? json['InCluster'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Includes encryption-related information, such as the AWS KMS key used for
@@ -798,7 +1099,15 @@ class EncryptionInfo {
     this.encryptionAtRest,
     this.encryptionInTransit,
   });
-  static EncryptionInfo fromJson(Map<String, dynamic> json) => EncryptionInfo();
+  static EncryptionInfo fromJson(Map<String, dynamic> json) => EncryptionInfo(
+        encryptionAtRest: json.containsKey('EncryptionAtRest')
+            ? EncryptionAtRest.fromJson(json['EncryptionAtRest'])
+            : null,
+        encryptionInTransit: json.containsKey('EncryptionInTransit')
+            ? EncryptionInTransit.fromJson(json['EncryptionInTransit'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Returns information about an error state of the cluster.
@@ -813,7 +1122,13 @@ class ErrorInfo {
     this.errorCode,
     this.errorString,
   });
-  static ErrorInfo fromJson(Map<String, dynamic> json) => ErrorInfo();
+  static ErrorInfo fromJson(Map<String, dynamic> json) => ErrorInfo(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorString: json.containsKey('ErrorString')
+            ? json['ErrorString'] as String
+            : null,
+      );
 }
 
 class GetBootstrapBrokersResponse {
@@ -828,7 +1143,14 @@ class GetBootstrapBrokersResponse {
     this.bootstrapBrokerStringTls,
   });
   static GetBootstrapBrokersResponse fromJson(Map<String, dynamic> json) =>
-      GetBootstrapBrokersResponse();
+      GetBootstrapBrokersResponse(
+        bootstrapBrokerString: json.containsKey('BootstrapBrokerString')
+            ? json['BootstrapBrokerString'] as String
+            : null,
+        bootstrapBrokerStringTls: json.containsKey('BootstrapBrokerStringTls')
+            ? json['BootstrapBrokerStringTls'] as String
+            : null,
+      );
 }
 
 class ListClusterOperationsResponse {
@@ -845,7 +1167,15 @@ class ListClusterOperationsResponse {
     this.nextToken,
   });
   static ListClusterOperationsResponse fromJson(Map<String, dynamic> json) =>
-      ListClusterOperationsResponse();
+      ListClusterOperationsResponse(
+        clusterOperationInfoList: json.containsKey('ClusterOperationInfoList')
+            ? (json['ClusterOperationInfoList'] as List)
+                .map((e) => ClusterOperationInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListClustersResponse {
@@ -862,7 +1192,15 @@ class ListClustersResponse {
     this.nextToken,
   });
   static ListClustersResponse fromJson(Map<String, dynamic> json) =>
-      ListClustersResponse();
+      ListClustersResponse(
+        clusterInfoList: json.containsKey('ClusterInfoList')
+            ? (json['ClusterInfoList'] as List)
+                .map((e) => ClusterInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListConfigurationRevisionsResponse {
@@ -878,7 +1216,15 @@ class ListConfigurationRevisionsResponse {
   });
   static ListConfigurationRevisionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListConfigurationRevisionsResponse();
+      ListConfigurationRevisionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        revisions: json.containsKey('Revisions')
+            ? (json['Revisions'] as List)
+                .map((e) => ConfigurationRevision.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListConfigurationsResponse {
@@ -895,7 +1241,15 @@ class ListConfigurationsResponse {
     this.nextToken,
   });
   static ListConfigurationsResponse fromJson(Map<String, dynamic> json) =>
-      ListConfigurationsResponse();
+      ListConfigurationsResponse(
+        configurations: json.containsKey('Configurations')
+            ? (json['Configurations'] as List)
+                .map((e) => Configuration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListNodesResponse {
@@ -912,7 +1266,15 @@ class ListNodesResponse {
     this.nodeInfoList,
   });
   static ListNodesResponse fromJson(Map<String, dynamic> json) =>
-      ListNodesResponse();
+      ListNodesResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        nodeInfoList: json.containsKey('NodeInfoList')
+            ? (json['NodeInfoList'] as List)
+                .map((e) => NodeInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -923,7 +1285,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Information about cluster attributes that can be updated via update APIs.
@@ -943,7 +1310,19 @@ class MutableClusterInfo {
     this.numberOfBrokerNodes,
   });
   static MutableClusterInfo fromJson(Map<String, dynamic> json) =>
-      MutableClusterInfo();
+      MutableClusterInfo(
+        brokerEbsVolumeInfo: json.containsKey('BrokerEBSVolumeInfo')
+            ? (json['BrokerEBSVolumeInfo'] as List)
+                .map((e) => BrokerEbsVolumeInfo.fromJson(e))
+                .toList()
+            : null,
+        configurationInfo: json.containsKey('ConfigurationInfo')
+            ? ConfigurationInfo.fromJson(json['ConfigurationInfo'])
+            : null,
+        numberOfBrokerNodes: json.containsKey('NumberOfBrokerNodes')
+            ? json['NumberOfBrokerNodes'] as int
+            : null,
+      );
 }
 
 /// The node information object.
@@ -974,7 +1353,23 @@ class NodeInfo {
     this.nodeType,
     this.zookeeperNodeInfo,
   });
-  static NodeInfo fromJson(Map<String, dynamic> json) => NodeInfo();
+  static NodeInfo fromJson(Map<String, dynamic> json) => NodeInfo(
+        addedToClusterTime: json.containsKey('AddedToClusterTime')
+            ? json['AddedToClusterTime'] as String
+            : null,
+        brokerNodeInfo: json.containsKey('BrokerNodeInfo')
+            ? BrokerNodeInfo.fromJson(json['BrokerNodeInfo'])
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        nodeArn: json.containsKey('NodeARN') ? json['NodeARN'] as String : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        zookeeperNodeInfo: json.containsKey('ZookeeperNodeInfo')
+            ? ZookeeperNodeInfo.fromJson(json['ZookeeperNodeInfo'])
+            : null,
+      );
 }
 
 /// Contains information about storage volumes attached to MSK broker nodes.
@@ -985,7 +1380,12 @@ class StorageInfo {
   StorageInfo({
     this.ebsStorageInfo,
   });
-  static StorageInfo fromJson(Map<String, dynamic> json) => StorageInfo();
+  static StorageInfo fromJson(Map<String, dynamic> json) => StorageInfo(
+        ebsStorageInfo: json.containsKey('EbsStorageInfo')
+            ? EbsStorageInfo.fromJson(json['EbsStorageInfo'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details for client authentication using TLS.
@@ -996,7 +1396,15 @@ class Tls {
   Tls({
     this.certificateAuthorityArnList,
   });
-  static Tls fromJson(Map<String, dynamic> json) => Tls();
+  static Tls fromJson(Map<String, dynamic> json) => Tls(
+        certificateAuthorityArnList:
+            json.containsKey('CertificateAuthorityArnList')
+                ? (json['CertificateAuthorityArnList'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateBrokerStorageResponse {
@@ -1011,7 +1419,14 @@ class UpdateBrokerStorageResponse {
     this.clusterOperationArn,
   });
   static UpdateBrokerStorageResponse fromJson(Map<String, dynamic> json) =>
-      UpdateBrokerStorageResponse();
+      UpdateBrokerStorageResponse(
+        clusterArn: json.containsKey('ClusterArn')
+            ? json['ClusterArn'] as String
+            : null,
+        clusterOperationArn: json.containsKey('ClusterOperationArn')
+            ? json['ClusterOperationArn'] as String
+            : null,
+      );
 }
 
 class UpdateClusterConfigurationResponse {
@@ -1027,7 +1442,14 @@ class UpdateClusterConfigurationResponse {
   });
   static UpdateClusterConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateClusterConfigurationResponse();
+      UpdateClusterConfigurationResponse(
+        clusterArn: json.containsKey('ClusterArn')
+            ? json['ClusterArn'] as String
+            : null,
+        clusterOperationArn: json.containsKey('ClusterOperationArn')
+            ? json['ClusterOperationArn'] as String
+            : null,
+      );
 }
 
 /// Zookeeper node information.
@@ -1055,5 +1477,21 @@ class ZookeeperNodeInfo {
     this.zookeeperVersion,
   });
   static ZookeeperNodeInfo fromJson(Map<String, dynamic> json) =>
-      ZookeeperNodeInfo();
+      ZookeeperNodeInfo(
+        attachedEniId: json.containsKey('AttachedENIId')
+            ? json['AttachedENIId'] as String
+            : null,
+        clientVpcIpAddress: json.containsKey('ClientVpcIpAddress')
+            ? json['ClientVpcIpAddress'] as String
+            : null,
+        endpoints: json.containsKey('Endpoints')
+            ? (json['Endpoints'] as List).map((e) => e as String).toList()
+            : null,
+        zookeeperId: json.containsKey('ZookeeperId')
+            ? json['ZookeeperId'] as double
+            : null,
+        zookeeperVersion: json.containsKey('ZookeeperVersion')
+            ? json['ZookeeperVersion'] as String
+            : null,
+      );
 }

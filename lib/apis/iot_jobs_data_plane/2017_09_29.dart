@@ -17,6 +17,11 @@ import 'package:meta/meta.dart';
 /// IoT. The Jobs service provides commands to track the progress of a job on a
 /// specific target and for all the targets of the job
 class IotJobsDataPlaneApi {
+  final _client;
+  IotJobsDataPlaneApi(client)
+      : _client =
+            client.configured('IoT Jobs Data Plane', serializer: 'rest-json');
+
   /// Gets details of a job execution.
   ///
   /// [jobId]: The unique identifier assigned to this job when it was created.
@@ -35,7 +40,13 @@ class IotJobsDataPlaneApi {
       @required String thingName,
       bool includeJobDocument,
       BigInt executionNumber}) async {
-    return DescribeJobExecutionResponse.fromJson({});
+    var response_ = await _client.send('DescribeJobExecution', {
+      'jobId': jobId,
+      'thingName': thingName,
+      if (includeJobDocument != null) 'includeJobDocument': includeJobDocument,
+      if (executionNumber != null) 'executionNumber': executionNumber,
+    });
+    return DescribeJobExecutionResponse.fromJson(response_);
   }
 
   /// Gets the list of all jobs for a thing that are not in a terminal status.
@@ -43,7 +54,10 @@ class IotJobsDataPlaneApi {
   /// [thingName]: The name of the thing that is executing the job.
   Future<GetPendingJobExecutionsResponse> getPendingJobExecutions(
       String thingName) async {
-    return GetPendingJobExecutionsResponse.fromJson({});
+    var response_ = await _client.send('GetPendingJobExecutions', {
+      'thingName': thingName,
+    });
+    return GetPendingJobExecutionsResponse.fromJson(response_);
   }
 
   /// Gets and starts the next pending (status IN_PROGRESS or QUEUED) job
@@ -67,7 +81,13 @@ class IotJobsDataPlaneApi {
       String thingName,
       {Map<String, String> statusDetails,
       BigInt stepTimeoutInMinutes}) async {
-    return StartNextPendingJobExecutionResponse.fromJson({});
+    var response_ = await _client.send('StartNextPendingJobExecution', {
+      'thingName': thingName,
+      if (statusDetails != null) 'statusDetails': statusDetails,
+      if (stepTimeoutInMinutes != null)
+        'stepTimeoutInMinutes': stepTimeoutInMinutes,
+    });
+    return StartNextPendingJobExecutionResponse.fromJson(response_);
   }
 
   /// Updates the status of a job execution.
@@ -120,7 +140,20 @@ class IotJobsDataPlaneApi {
       bool includeJobExecutionState,
       bool includeJobDocument,
       BigInt executionNumber}) async {
-    return UpdateJobExecutionResponse.fromJson({});
+    var response_ = await _client.send('UpdateJobExecution', {
+      'jobId': jobId,
+      'thingName': thingName,
+      'status': status,
+      if (statusDetails != null) 'statusDetails': statusDetails,
+      if (stepTimeoutInMinutes != null)
+        'stepTimeoutInMinutes': stepTimeoutInMinutes,
+      if (expectedVersion != null) 'expectedVersion': expectedVersion,
+      if (includeJobExecutionState != null)
+        'includeJobExecutionState': includeJobExecutionState,
+      if (includeJobDocument != null) 'includeJobDocument': includeJobDocument,
+      if (executionNumber != null) 'executionNumber': executionNumber,
+    });
+    return UpdateJobExecutionResponse.fromJson(response_);
   }
 }
 
@@ -132,7 +165,11 @@ class DescribeJobExecutionResponse {
     this.execution,
   });
   static DescribeJobExecutionResponse fromJson(Map<String, dynamic> json) =>
-      DescribeJobExecutionResponse();
+      DescribeJobExecutionResponse(
+        execution: json.containsKey('execution')
+            ? JobExecution.fromJson(json['execution'])
+            : null,
+      );
 }
 
 class GetPendingJobExecutionsResponse {
@@ -147,7 +184,18 @@ class GetPendingJobExecutionsResponse {
     this.queuedJobs,
   });
   static GetPendingJobExecutionsResponse fromJson(Map<String, dynamic> json) =>
-      GetPendingJobExecutionsResponse();
+      GetPendingJobExecutionsResponse(
+        inProgressJobs: json.containsKey('inProgressJobs')
+            ? (json['inProgressJobs'] as List)
+                .map((e) => JobExecutionSummary.fromJson(e))
+                .toList()
+            : null,
+        queuedJobs: json.containsKey('queuedJobs')
+            ? (json['queuedJobs'] as List)
+                .map((e) => JobExecutionSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains data about a job execution.
@@ -207,7 +255,37 @@ class JobExecution {
     this.executionNumber,
     this.jobDocument,
   });
-  static JobExecution fromJson(Map<String, dynamic> json) => JobExecution();
+  static JobExecution fromJson(Map<String, dynamic> json) => JobExecution(
+        jobId: json.containsKey('jobId') ? json['jobId'] as String : null,
+        thingName:
+            json.containsKey('thingName') ? json['thingName'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusDetails: json.containsKey('statusDetails')
+            ? (json['statusDetails'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        queuedAt:
+            json.containsKey('queuedAt') ? BigInt.from(json['queuedAt']) : null,
+        startedAt: json.containsKey('startedAt')
+            ? BigInt.from(json['startedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? BigInt.from(json['lastUpdatedAt'])
+            : null,
+        approximateSecondsBeforeTimedOut:
+            json.containsKey('approximateSecondsBeforeTimedOut')
+                ? BigInt.from(json['approximateSecondsBeforeTimedOut'])
+                : null,
+        versionNumber: json.containsKey('versionNumber')
+            ? BigInt.from(json['versionNumber'])
+            : null,
+        executionNumber: json.containsKey('executionNumber')
+            ? BigInt.from(json['executionNumber'])
+            : null,
+        jobDocument: json.containsKey('jobDocument')
+            ? json['jobDocument'] as String
+            : null,
+      );
 }
 
 /// Contains data about the state of a job execution.
@@ -230,7 +308,16 @@ class JobExecutionState {
     this.versionNumber,
   });
   static JobExecutionState fromJson(Map<String, dynamic> json) =>
-      JobExecutionState();
+      JobExecutionState(
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusDetails: json.containsKey('statusDetails')
+            ? (json['statusDetails'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        versionNumber: json.containsKey('versionNumber')
+            ? BigInt.from(json['versionNumber'])
+            : null,
+      );
 }
 
 /// Contains a subset of information about a job execution.
@@ -266,7 +353,23 @@ class JobExecutionSummary {
     this.executionNumber,
   });
   static JobExecutionSummary fromJson(Map<String, dynamic> json) =>
-      JobExecutionSummary();
+      JobExecutionSummary(
+        jobId: json.containsKey('jobId') ? json['jobId'] as String : null,
+        queuedAt:
+            json.containsKey('queuedAt') ? BigInt.from(json['queuedAt']) : null,
+        startedAt: json.containsKey('startedAt')
+            ? BigInt.from(json['startedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? BigInt.from(json['lastUpdatedAt'])
+            : null,
+        versionNumber: json.containsKey('versionNumber')
+            ? BigInt.from(json['versionNumber'])
+            : null,
+        executionNumber: json.containsKey('executionNumber')
+            ? BigInt.from(json['executionNumber'])
+            : null,
+      );
 }
 
 class StartNextPendingJobExecutionResponse {
@@ -278,7 +381,11 @@ class StartNextPendingJobExecutionResponse {
   });
   static StartNextPendingJobExecutionResponse fromJson(
           Map<String, dynamic> json) =>
-      StartNextPendingJobExecutionResponse();
+      StartNextPendingJobExecutionResponse(
+        execution: json.containsKey('execution')
+            ? JobExecution.fromJson(json['execution'])
+            : null,
+      );
 }
 
 class UpdateJobExecutionResponse {
@@ -293,5 +400,12 @@ class UpdateJobExecutionResponse {
     this.jobDocument,
   });
   static UpdateJobExecutionResponse fromJson(Map<String, dynamic> json) =>
-      UpdateJobExecutionResponse();
+      UpdateJobExecutionResponse(
+        executionState: json.containsKey('executionState')
+            ? JobExecutionState.fromJson(json['executionState'])
+            : null,
+        jobDocument: json.containsKey('jobDocument')
+            ? json['jobDocument'] as String
+            : null,
+      );
 }

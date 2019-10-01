@@ -3,6 +3,10 @@ import 'package:meta/meta.dart';
 ///  Amplify is a fully managed continuous deployment and hosting service for
 /// modern web apps.
 class AmplifyApi {
+  final _client;
+  AmplifyApi(client)
+      : _client = client.configured('Amplify', serializer: 'rest-json');
+
   ///  Creates a new Amplify App.
   ///
   /// [name]:  Name for the Amplify App
@@ -65,7 +69,32 @@ class AmplifyApi {
       bool enableAutoBranchCreation,
       List<String> autoBranchCreationPatterns,
       AutoBranchCreationConfig autoBranchCreationConfig}) async {
-    return CreateAppResult.fromJson({});
+    var response_ = await _client.send('CreateApp', {
+      'name': name,
+      if (description != null) 'description': description,
+      if (repository != null) 'repository': repository,
+      if (platform != null) 'platform': platform,
+      if (iamServiceRoleArn != null) 'iamServiceRoleArn': iamServiceRoleArn,
+      if (oauthToken != null) 'oauthToken': oauthToken,
+      if (accessToken != null) 'accessToken': accessToken,
+      if (environmentVariables != null)
+        'environmentVariables': environmentVariables,
+      if (enableBranchAutoBuild != null)
+        'enableBranchAutoBuild': enableBranchAutoBuild,
+      if (enableBasicAuth != null) 'enableBasicAuth': enableBasicAuth,
+      if (basicAuthCredentials != null)
+        'basicAuthCredentials': basicAuthCredentials,
+      if (customRules != null) 'customRules': customRules,
+      if (tags != null) 'tags': tags,
+      if (buildSpec != null) 'buildSpec': buildSpec,
+      if (enableAutoBranchCreation != null)
+        'enableAutoBranchCreation': enableAutoBranchCreation,
+      if (autoBranchCreationPatterns != null)
+        'autoBranchCreationPatterns': autoBranchCreationPatterns,
+      if (autoBranchCreationConfig != null)
+        'autoBranchCreationConfig': autoBranchCreationConfig,
+    });
+    return CreateAppResult.fromJson(response_);
   }
 
   ///  Creates a new Branch for an Amplify App.
@@ -113,7 +142,25 @@ class AmplifyApi {
       String buildSpec,
       String ttl,
       String displayName}) async {
-    return CreateBranchResult.fromJson({});
+    var response_ = await _client.send('CreateBranch', {
+      'appId': appId,
+      'branchName': branchName,
+      if (description != null) 'description': description,
+      if (stage != null) 'stage': stage,
+      if (framework != null) 'framework': framework,
+      if (enableNotification != null) 'enableNotification': enableNotification,
+      if (enableAutoBuild != null) 'enableAutoBuild': enableAutoBuild,
+      if (environmentVariables != null)
+        'environmentVariables': environmentVariables,
+      if (basicAuthCredentials != null)
+        'basicAuthCredentials': basicAuthCredentials,
+      if (enableBasicAuth != null) 'enableBasicAuth': enableBasicAuth,
+      if (tags != null) 'tags': tags,
+      if (buildSpec != null) 'buildSpec': buildSpec,
+      if (ttl != null) 'ttl': ttl,
+      if (displayName != null) 'displayName': displayName,
+    });
+    return CreateBranchResult.fromJson(response_);
   }
 
   ///  Create a deployment for manual deploy apps. (Apps are not connected to
@@ -131,7 +178,12 @@ class AmplifyApi {
       {@required String appId,
       @required String branchName,
       Map<String, String> fileMap}) async {
-    return CreateDeploymentResult.fromJson({});
+    var response_ = await _client.send('CreateDeployment', {
+      'appId': appId,
+      'branchName': branchName,
+      if (fileMap != null) 'fileMap': fileMap,
+    });
+    return CreateDeploymentResult.fromJson(response_);
   }
 
   ///  Create a new DomainAssociation on an App
@@ -149,7 +201,14 @@ class AmplifyApi {
       @required String domainName,
       bool enableAutoSubDomain,
       @required List<SubDomainSetting> subDomainSettings}) async {
-    return CreateDomainAssociationResult.fromJson({});
+    var response_ = await _client.send('CreateDomainAssociation', {
+      'appId': appId,
+      'domainName': domainName,
+      if (enableAutoSubDomain != null)
+        'enableAutoSubDomain': enableAutoSubDomain,
+      'subDomainSettings': subDomainSettings,
+    });
+    return CreateDomainAssociationResult.fromJson(response_);
   }
 
   ///  Create a new webhook on an App.
@@ -163,14 +222,22 @@ class AmplifyApi {
       {@required String appId,
       @required String branchName,
       String description}) async {
-    return CreateWebhookResult.fromJson({});
+    var response_ = await _client.send('CreateWebhook', {
+      'appId': appId,
+      'branchName': branchName,
+      if (description != null) 'description': description,
+    });
+    return CreateWebhookResult.fromJson(response_);
   }
 
   ///  Delete an existing Amplify App by appId.
   ///
   /// [appId]:  Unique Id for an Amplify App.
   Future<DeleteAppResult> deleteApp(String appId) async {
-    return DeleteAppResult.fromJson({});
+    var response_ = await _client.send('DeleteApp', {
+      'appId': appId,
+    });
+    return DeleteAppResult.fromJson(response_);
   }
 
   ///  Deletes a branch for an Amplify App.
@@ -180,7 +247,11 @@ class AmplifyApi {
   /// [branchName]:  Name for the branch.
   Future<DeleteBranchResult> deleteBranch(
       {@required String appId, @required String branchName}) async {
-    return DeleteBranchResult.fromJson({});
+    var response_ = await _client.send('DeleteBranch', {
+      'appId': appId,
+      'branchName': branchName,
+    });
+    return DeleteBranchResult.fromJson(response_);
   }
 
   ///  Deletes a DomainAssociation.
@@ -190,7 +261,11 @@ class AmplifyApi {
   /// [domainName]:  Name of the domain.
   Future<DeleteDomainAssociationResult> deleteDomainAssociation(
       {@required String appId, @required String domainName}) async {
-    return DeleteDomainAssociationResult.fromJson({});
+    var response_ = await _client.send('DeleteDomainAssociation', {
+      'appId': appId,
+      'domainName': domainName,
+    });
+    return DeleteDomainAssociationResult.fromJson(response_);
   }
 
   ///  Delete a job, for an Amplify branch, part of Amplify App.
@@ -204,21 +279,32 @@ class AmplifyApi {
       {@required String appId,
       @required String branchName,
       @required String jobId}) async {
-    return DeleteJobResult.fromJson({});
+    var response_ = await _client.send('DeleteJob', {
+      'appId': appId,
+      'branchName': branchName,
+      'jobId': jobId,
+    });
+    return DeleteJobResult.fromJson(response_);
   }
 
   ///  Deletes a webhook.
   ///
   /// [webhookId]:  Unique Id for a webhook.
   Future<DeleteWebhookResult> deleteWebhook(String webhookId) async {
-    return DeleteWebhookResult.fromJson({});
+    var response_ = await _client.send('DeleteWebhook', {
+      'webhookId': webhookId,
+    });
+    return DeleteWebhookResult.fromJson(response_);
   }
 
   ///  Retrieves an existing Amplify App by appId.
   ///
   /// [appId]:  Unique Id for an Amplify App.
   Future<GetAppResult> getApp(String appId) async {
-    return GetAppResult.fromJson({});
+    var response_ = await _client.send('GetApp', {
+      'appId': appId,
+    });
+    return GetAppResult.fromJson(response_);
   }
 
   ///  Retrieves a branch for an Amplify App.
@@ -228,7 +314,11 @@ class AmplifyApi {
   /// [branchName]:  Name for the branch.
   Future<GetBranchResult> getBranch(
       {@required String appId, @required String branchName}) async {
-    return GetBranchResult.fromJson({});
+    var response_ = await _client.send('GetBranch', {
+      'appId': appId,
+      'branchName': branchName,
+    });
+    return GetBranchResult.fromJson(response_);
   }
 
   ///  Retrieves domain info that corresponds to an appId and domainName.
@@ -238,7 +328,11 @@ class AmplifyApi {
   /// [domainName]:  Name of the domain.
   Future<GetDomainAssociationResult> getDomainAssociation(
       {@required String appId, @required String domainName}) async {
-    return GetDomainAssociationResult.fromJson({});
+    var response_ = await _client.send('GetDomainAssociation', {
+      'appId': appId,
+      'domainName': domainName,
+    });
+    return GetDomainAssociationResult.fromJson(response_);
   }
 
   ///  Get a job for a branch, part of an Amplify App.
@@ -252,14 +346,22 @@ class AmplifyApi {
       {@required String appId,
       @required String branchName,
       @required String jobId}) async {
-    return GetJobResult.fromJson({});
+    var response_ = await _client.send('GetJob', {
+      'appId': appId,
+      'branchName': branchName,
+      'jobId': jobId,
+    });
+    return GetJobResult.fromJson(response_);
   }
 
   ///  Retrieves webhook info that corresponds to a webhookId.
   ///
   /// [webhookId]:  Unique Id for a webhook.
   Future<GetWebhookResult> getWebhook(String webhookId) async {
-    return GetWebhookResult.fromJson({});
+    var response_ = await _client.send('GetWebhook', {
+      'webhookId': webhookId,
+    });
+    return GetWebhookResult.fromJson(response_);
   }
 
   ///  Lists existing Amplify Apps.
@@ -269,7 +371,11 @@ class AmplifyApi {
   ///
   /// [maxResults]:  Maximum number of records to list in a single response.
   Future<ListAppsResult> listApps({String nextToken, int maxResults}) async {
-    return ListAppsResult.fromJson({});
+    var response_ = await _client.send('ListApps', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListAppsResult.fromJson(response_);
   }
 
   ///  Lists branches for an Amplify App.
@@ -283,7 +389,12 @@ class AmplifyApi {
   /// [maxResults]:  Maximum number of records to list in a single response.
   Future<ListBranchesResult> listBranches(String appId,
       {String nextToken, int maxResults}) async {
-    return ListBranchesResult.fromJson({});
+    var response_ = await _client.send('ListBranches', {
+      'appId': appId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListBranchesResult.fromJson(response_);
   }
 
   ///  List domains with an app
@@ -297,7 +408,12 @@ class AmplifyApi {
   /// [maxResults]:  Maximum number of records to list in a single response.
   Future<ListDomainAssociationsResult> listDomainAssociations(String appId,
       {String nextToken, int maxResults}) async {
-    return ListDomainAssociationsResult.fromJson({});
+    var response_ = await _client.send('ListDomainAssociations', {
+      'appId': appId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDomainAssociationsResult.fromJson(response_);
   }
 
   ///  List Jobs for a branch, part of an Amplify App.
@@ -316,7 +432,13 @@ class AmplifyApi {
       @required String branchName,
       String nextToken,
       int maxResults}) async {
-    return ListJobsResult.fromJson({});
+    var response_ = await _client.send('ListJobs', {
+      'appId': appId,
+      'branchName': branchName,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListJobsResult.fromJson(response_);
   }
 
   ///  List tags for resource.
@@ -324,7 +446,10 @@ class AmplifyApi {
   /// [resourceArn]:  Resource arn used to list tags.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   ///  List webhooks with an app.
@@ -338,7 +463,12 @@ class AmplifyApi {
   /// [maxResults]:  Maximum number of records to list in a single response.
   Future<ListWebhooksResult> listWebhooks(String appId,
       {String nextToken, int maxResults}) async {
-    return ListWebhooksResult.fromJson({});
+    var response_ = await _client.send('ListWebhooks', {
+      'appId': appId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListWebhooksResult.fromJson(response_);
   }
 
   ///  Start a deployment for manual deploy apps. (Apps are not connected to
@@ -359,7 +489,13 @@ class AmplifyApi {
       @required String branchName,
       String jobId,
       String sourceUrl}) async {
-    return StartDeploymentResult.fromJson({});
+    var response_ = await _client.send('StartDeployment', {
+      'appId': appId,
+      'branchName': branchName,
+      if (jobId != null) 'jobId': jobId,
+      if (sourceUrl != null) 'sourceUrl': sourceUrl,
+    });
+    return StartDeploymentResult.fromJson(response_);
   }
 
   ///  Starts a new job for a branch, part of an Amplify App.
@@ -392,7 +528,17 @@ class AmplifyApi {
       String commitId,
       String commitMessage,
       DateTime commitTime}) async {
-    return StartJobResult.fromJson({});
+    var response_ = await _client.send('StartJob', {
+      'appId': appId,
+      'branchName': branchName,
+      if (jobId != null) 'jobId': jobId,
+      'jobType': jobType,
+      if (jobReason != null) 'jobReason': jobReason,
+      if (commitId != null) 'commitId': commitId,
+      if (commitMessage != null) 'commitMessage': commitMessage,
+      if (commitTime != null) 'commitTime': commitTime,
+    });
+    return StartJobResult.fromJson(response_);
   }
 
   ///  Stop a job that is in progress, for an Amplify branch, part of Amplify
@@ -407,7 +553,12 @@ class AmplifyApi {
       {@required String appId,
       @required String branchName,
       @required String jobId}) async {
-    return StopJobResult.fromJson({});
+    var response_ = await _client.send('StopJob', {
+      'appId': appId,
+      'branchName': branchName,
+      'jobId': jobId,
+    });
+    return StopJobResult.fromJson(response_);
   }
 
   ///  Tag resource with tag key and value.
@@ -418,7 +569,11 @@ class AmplifyApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   ///  Untag resource with resourceArn.
@@ -428,7 +583,11 @@ class AmplifyApi {
   /// [tagKeys]:  Tag keys used to untag resource.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   ///  Updates an existing Amplify App.
@@ -478,7 +637,29 @@ class AmplifyApi {
       bool enableAutoBranchCreation,
       List<String> autoBranchCreationPatterns,
       AutoBranchCreationConfig autoBranchCreationConfig}) async {
-    return UpdateAppResult.fromJson({});
+    var response_ = await _client.send('UpdateApp', {
+      'appId': appId,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (platform != null) 'platform': platform,
+      if (iamServiceRoleArn != null) 'iamServiceRoleArn': iamServiceRoleArn,
+      if (environmentVariables != null)
+        'environmentVariables': environmentVariables,
+      if (enableBranchAutoBuild != null)
+        'enableBranchAutoBuild': enableBranchAutoBuild,
+      if (enableBasicAuth != null) 'enableBasicAuth': enableBasicAuth,
+      if (basicAuthCredentials != null)
+        'basicAuthCredentials': basicAuthCredentials,
+      if (customRules != null) 'customRules': customRules,
+      if (buildSpec != null) 'buildSpec': buildSpec,
+      if (enableAutoBranchCreation != null)
+        'enableAutoBranchCreation': enableAutoBranchCreation,
+      if (autoBranchCreationPatterns != null)
+        'autoBranchCreationPatterns': autoBranchCreationPatterns,
+      if (autoBranchCreationConfig != null)
+        'autoBranchCreationConfig': autoBranchCreationConfig,
+    });
+    return UpdateAppResult.fromJson(response_);
   }
 
   ///  Updates a branch for an Amplify App.
@@ -523,7 +704,24 @@ class AmplifyApi {
       String buildSpec,
       String ttl,
       String displayName}) async {
-    return UpdateBranchResult.fromJson({});
+    var response_ = await _client.send('UpdateBranch', {
+      'appId': appId,
+      'branchName': branchName,
+      if (description != null) 'description': description,
+      if (framework != null) 'framework': framework,
+      if (stage != null) 'stage': stage,
+      if (enableNotification != null) 'enableNotification': enableNotification,
+      if (enableAutoBuild != null) 'enableAutoBuild': enableAutoBuild,
+      if (environmentVariables != null)
+        'environmentVariables': environmentVariables,
+      if (basicAuthCredentials != null)
+        'basicAuthCredentials': basicAuthCredentials,
+      if (enableBasicAuth != null) 'enableBasicAuth': enableBasicAuth,
+      if (buildSpec != null) 'buildSpec': buildSpec,
+      if (ttl != null) 'ttl': ttl,
+      if (displayName != null) 'displayName': displayName,
+    });
+    return UpdateBranchResult.fromJson(response_);
   }
 
   ///  Create a new DomainAssociation on an App
@@ -541,7 +739,14 @@ class AmplifyApi {
       @required String domainName,
       bool enableAutoSubDomain,
       @required List<SubDomainSetting> subDomainSettings}) async {
-    return UpdateDomainAssociationResult.fromJson({});
+    var response_ = await _client.send('UpdateDomainAssociation', {
+      'appId': appId,
+      'domainName': domainName,
+      if (enableAutoSubDomain != null)
+        'enableAutoSubDomain': enableAutoSubDomain,
+      'subDomainSettings': subDomainSettings,
+    });
+    return UpdateDomainAssociationResult.fromJson(response_);
   }
 
   ///  Update a webhook.
@@ -553,7 +758,12 @@ class AmplifyApi {
   /// [description]:  Description for a webhook.
   Future<UpdateWebhookResult> updateWebhook(String webhookId,
       {String branchName, String description}) async {
-    return UpdateWebhookResult.fromJson({});
+    var response_ = await _client.send('UpdateWebhook', {
+      'webhookId': webhookId,
+      if (branchName != null) 'branchName': branchName,
+      if (description != null) 'description': description,
+    });
+    return UpdateWebhookResult.fromJson(response_);
   }
 }
 
@@ -646,7 +856,54 @@ class App {
     this.autoBranchCreationPatterns,
     this.autoBranchCreationConfig,
   });
-  static App fromJson(Map<String, dynamic> json) => App();
+  static App fromJson(Map<String, dynamic> json) => App(
+        appId: json['appId'] as String,
+        appArn: json['appArn'] as String,
+        name: json['name'] as String,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        description: json['description'] as String,
+        repository: json['repository'] as String,
+        platform: json['platform'] as String,
+        createTime: DateTime.parse(json['createTime']),
+        updateTime: DateTime.parse(json['updateTime']),
+        iamServiceRoleArn: json.containsKey('iamServiceRoleArn')
+            ? json['iamServiceRoleArn'] as String
+            : null,
+        environmentVariables: (json['environmentVariables'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+        defaultDomain: json['defaultDomain'] as String,
+        enableBranchAutoBuild: json['enableBranchAutoBuild'] as bool,
+        enableBasicAuth: json['enableBasicAuth'] as bool,
+        basicAuthCredentials: json.containsKey('basicAuthCredentials')
+            ? json['basicAuthCredentials'] as String
+            : null,
+        customRules: json.containsKey('customRules')
+            ? (json['customRules'] as List)
+                .map((e) => CustomRule.fromJson(e))
+                .toList()
+            : null,
+        productionBranch: json.containsKey('productionBranch')
+            ? ProductionBranch.fromJson(json['productionBranch'])
+            : null,
+        buildSpec:
+            json.containsKey('buildSpec') ? json['buildSpec'] as String : null,
+        enableAutoBranchCreation: json.containsKey('enableAutoBranchCreation')
+            ? json['enableAutoBranchCreation'] as bool
+            : null,
+        autoBranchCreationPatterns:
+            json.containsKey('autoBranchCreationPatterns')
+                ? (json['autoBranchCreationPatterns'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        autoBranchCreationConfig: json.containsKey('autoBranchCreationConfig')
+            ? AutoBranchCreationConfig.fromJson(
+                json['autoBranchCreationConfig'])
+            : null,
+      );
 }
 
 ///  Structure with auto branch creation config.
@@ -682,7 +939,27 @@ class AutoBranchCreationConfig {
     this.buildSpec,
   });
   static AutoBranchCreationConfig fromJson(Map<String, dynamic> json) =>
-      AutoBranchCreationConfig();
+      AutoBranchCreationConfig(
+        stage: json.containsKey('stage') ? json['stage'] as String : null,
+        framework:
+            json.containsKey('framework') ? json['framework'] as String : null,
+        enableAutoBuild: json.containsKey('enableAutoBuild')
+            ? json['enableAutoBuild'] as bool
+            : null,
+        environmentVariables: json.containsKey('environmentVariables')
+            ? (json['environmentVariables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        basicAuthCredentials: json.containsKey('basicAuthCredentials')
+            ? json['basicAuthCredentials'] as String
+            : null,
+        enableBasicAuth: json.containsKey('enableBasicAuth')
+            ? json['enableBasicAuth'] as bool
+            : null,
+        buildSpec:
+            json.containsKey('buildSpec') ? json['buildSpec'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Branch for an Amplify App, which maps to a 3rd party repository branch.
@@ -773,7 +1050,43 @@ class Branch {
     @required this.ttl,
     this.associatedResources,
   });
-  static Branch fromJson(Map<String, dynamic> json) => Branch();
+  static Branch fromJson(Map<String, dynamic> json) => Branch(
+        branchArn: json['branchArn'] as String,
+        branchName: json['branchName'] as String,
+        description: json['description'] as String,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        stage: json['stage'] as String,
+        displayName: json['displayName'] as String,
+        enableNotification: json['enableNotification'] as bool,
+        createTime: DateTime.parse(json['createTime']),
+        updateTime: DateTime.parse(json['updateTime']),
+        environmentVariables: (json['environmentVariables'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+        enableAutoBuild: json['enableAutoBuild'] as bool,
+        customDomains:
+            (json['customDomains'] as List).map((e) => e as String).toList(),
+        framework: json['framework'] as String,
+        activeJobId: json['activeJobId'] as String,
+        totalNumberOfJobs: json['totalNumberOfJobs'] as String,
+        enableBasicAuth: json['enableBasicAuth'] as bool,
+        thumbnailUrl: json.containsKey('thumbnailUrl')
+            ? json['thumbnailUrl'] as String
+            : null,
+        basicAuthCredentials: json.containsKey('basicAuthCredentials')
+            ? json['basicAuthCredentials'] as String
+            : null,
+        buildSpec:
+            json.containsKey('buildSpec') ? json['buildSpec'] as String : null,
+        ttl: json['ttl'] as String,
+        associatedResources: json.containsKey('associatedResources')
+            ? (json['associatedResources'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class CreateAppResult {
@@ -782,8 +1095,9 @@ class CreateAppResult {
   CreateAppResult({
     @required this.app,
   });
-  static CreateAppResult fromJson(Map<String, dynamic> json) =>
-      CreateAppResult();
+  static CreateAppResult fromJson(Map<String, dynamic> json) => CreateAppResult(
+        app: App.fromJson(json['app']),
+      );
 }
 
 ///  Result structure for create branch request.
@@ -795,7 +1109,9 @@ class CreateBranchResult {
     @required this.branch,
   });
   static CreateBranchResult fromJson(Map<String, dynamic> json) =>
-      CreateBranchResult();
+      CreateBranchResult(
+        branch: Branch.fromJson(json['branch']),
+      );
 }
 
 ///  Result structure for create a new deployment.
@@ -817,7 +1133,12 @@ class CreateDeploymentResult {
     @required this.zipUploadUrl,
   });
   static CreateDeploymentResult fromJson(Map<String, dynamic> json) =>
-      CreateDeploymentResult();
+      CreateDeploymentResult(
+        jobId: json.containsKey('jobId') ? json['jobId'] as String : null,
+        fileUploadUrls: (json['fileUploadUrls'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+        zipUploadUrl: json['zipUploadUrl'] as String,
+      );
 }
 
 ///  Result structure for the create Domain Association request.
@@ -829,7 +1150,10 @@ class CreateDomainAssociationResult {
     @required this.domainAssociation,
   });
   static CreateDomainAssociationResult fromJson(Map<String, dynamic> json) =>
-      CreateDomainAssociationResult();
+      CreateDomainAssociationResult(
+        domainAssociation:
+            DomainAssociation.fromJson(json['domainAssociation']),
+      );
 }
 
 ///  Result structure for the create webhook request.
@@ -841,7 +1165,9 @@ class CreateWebhookResult {
     @required this.webhook,
   });
   static CreateWebhookResult fromJson(Map<String, dynamic> json) =>
-      CreateWebhookResult();
+      CreateWebhookResult(
+        webhook: Webhook.fromJson(json['webhook']),
+      );
 }
 
 ///  Custom rewrite / redirect rule.
@@ -864,7 +1190,14 @@ class CustomRule {
     this.status,
     this.condition,
   });
-  static CustomRule fromJson(Map<String, dynamic> json) => CustomRule();
+  static CustomRule fromJson(Map<String, dynamic> json) => CustomRule(
+        source: json['source'] as String,
+        target: json['target'] as String,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        condition:
+            json.containsKey('condition') ? json['condition'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Result structure for an Amplify App delete request.
@@ -874,8 +1207,9 @@ class DeleteAppResult {
   DeleteAppResult({
     @required this.app,
   });
-  static DeleteAppResult fromJson(Map<String, dynamic> json) =>
-      DeleteAppResult();
+  static DeleteAppResult fromJson(Map<String, dynamic> json) => DeleteAppResult(
+        app: App.fromJson(json['app']),
+      );
 }
 
 ///  Result structure for delete branch request.
@@ -887,7 +1221,9 @@ class DeleteBranchResult {
     @required this.branch,
   });
   static DeleteBranchResult fromJson(Map<String, dynamic> json) =>
-      DeleteBranchResult();
+      DeleteBranchResult(
+        branch: Branch.fromJson(json['branch']),
+      );
 }
 
 class DeleteDomainAssociationResult {
@@ -897,7 +1233,10 @@ class DeleteDomainAssociationResult {
     @required this.domainAssociation,
   });
   static DeleteDomainAssociationResult fromJson(Map<String, dynamic> json) =>
-      DeleteDomainAssociationResult();
+      DeleteDomainAssociationResult(
+        domainAssociation:
+            DomainAssociation.fromJson(json['domainAssociation']),
+      );
 }
 
 ///  Result structure for the delete job request.
@@ -907,8 +1246,9 @@ class DeleteJobResult {
   DeleteJobResult({
     @required this.jobSummary,
   });
-  static DeleteJobResult fromJson(Map<String, dynamic> json) =>
-      DeleteJobResult();
+  static DeleteJobResult fromJson(Map<String, dynamic> json) => DeleteJobResult(
+        jobSummary: JobSummary.fromJson(json['jobSummary']),
+      );
 }
 
 ///  Result structure for the delete webhook request.
@@ -920,7 +1260,9 @@ class DeleteWebhookResult {
     @required this.webhook,
   });
   static DeleteWebhookResult fromJson(Map<String, dynamic> json) =>
-      DeleteWebhookResult();
+      DeleteWebhookResult(
+        webhook: Webhook.fromJson(json['webhook']),
+      );
 }
 
 ///  Structure for Domain Association, which associates a custom domain with an
@@ -957,7 +1299,20 @@ class DomainAssociation {
     @required this.subDomains,
   });
   static DomainAssociation fromJson(Map<String, dynamic> json) =>
-      DomainAssociation();
+      DomainAssociation(
+        domainAssociationArn: json['domainAssociationArn'] as String,
+        domainName: json['domainName'] as String,
+        enableAutoSubDomain: json['enableAutoSubDomain'] as bool,
+        domainStatus: json['domainStatus'] as String,
+        statusReason: json['statusReason'] as String,
+        certificateVerificationDnsRecord:
+            json.containsKey('certificateVerificationDNSRecord')
+                ? json['certificateVerificationDNSRecord'] as String
+                : null,
+        subDomains: (json['subDomains'] as List)
+            .map((e) => SubDomain.fromJson(e))
+            .toList(),
+      );
 }
 
 class GetAppResult {
@@ -966,7 +1321,9 @@ class GetAppResult {
   GetAppResult({
     @required this.app,
   });
-  static GetAppResult fromJson(Map<String, dynamic> json) => GetAppResult();
+  static GetAppResult fromJson(Map<String, dynamic> json) => GetAppResult(
+        app: App.fromJson(json['app']),
+      );
 }
 
 class GetBranchResult {
@@ -975,8 +1332,9 @@ class GetBranchResult {
   GetBranchResult({
     @required this.branch,
   });
-  static GetBranchResult fromJson(Map<String, dynamic> json) =>
-      GetBranchResult();
+  static GetBranchResult fromJson(Map<String, dynamic> json) => GetBranchResult(
+        branch: Branch.fromJson(json['branch']),
+      );
 }
 
 ///  Result structure for the get Domain Association request.
@@ -988,7 +1346,10 @@ class GetDomainAssociationResult {
     @required this.domainAssociation,
   });
   static GetDomainAssociationResult fromJson(Map<String, dynamic> json) =>
-      GetDomainAssociationResult();
+      GetDomainAssociationResult(
+        domainAssociation:
+            DomainAssociation.fromJson(json['domainAssociation']),
+      );
 }
 
 class GetJobResult {
@@ -997,7 +1358,9 @@ class GetJobResult {
   GetJobResult({
     @required this.job,
   });
-  static GetJobResult fromJson(Map<String, dynamic> json) => GetJobResult();
+  static GetJobResult fromJson(Map<String, dynamic> json) => GetJobResult(
+        job: Job.fromJson(json['job']),
+      );
 }
 
 ///  Result structure for the get webhook request.
@@ -1009,7 +1372,9 @@ class GetWebhookResult {
     @required this.webhook,
   });
   static GetWebhookResult fromJson(Map<String, dynamic> json) =>
-      GetWebhookResult();
+      GetWebhookResult(
+        webhook: Webhook.fromJson(json['webhook']),
+      );
 }
 
 ///  Structure for an execution job for an Amplify App.
@@ -1024,7 +1389,10 @@ class Job {
     @required this.summary,
     @required this.steps,
   });
-  static Job fromJson(Map<String, dynamic> json) => Job();
+  static Job fromJson(Map<String, dynamic> json) => Job(
+        summary: JobSummary.fromJson(json['summary']),
+        steps: (json['steps'] as List).map((e) => Step.fromJson(e)).toList(),
+      );
 }
 
 ///  Structure for the summary of a Job.
@@ -1069,7 +1437,19 @@ class JobSummary {
     this.endTime,
     @required this.jobType,
   });
-  static JobSummary fromJson(Map<String, dynamic> json) => JobSummary();
+  static JobSummary fromJson(Map<String, dynamic> json) => JobSummary(
+        jobArn: json['jobArn'] as String,
+        jobId: json['jobId'] as String,
+        commitId: json['commitId'] as String,
+        commitMessage: json['commitMessage'] as String,
+        commitTime: DateTime.parse(json['commitTime']),
+        startTime: DateTime.parse(json['startTime']),
+        status: json['status'] as String,
+        endTime: json.containsKey('endTime')
+            ? DateTime.parse(json['endTime'])
+            : null,
+        jobType: json['jobType'] as String,
+      );
 }
 
 ///  Result structure for an Amplify App list request.
@@ -1086,7 +1466,11 @@ class ListAppsResult {
     @required this.apps,
     this.nextToken,
   });
-  static ListAppsResult fromJson(Map<String, dynamic> json) => ListAppsResult();
+  static ListAppsResult fromJson(Map<String, dynamic> json) => ListAppsResult(
+        apps: (json['apps'] as List).map((e) => App.fromJson(e)).toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 ///  Result structure for list branches request.
@@ -1103,7 +1487,12 @@ class ListBranchesResult {
     this.nextToken,
   });
   static ListBranchesResult fromJson(Map<String, dynamic> json) =>
-      ListBranchesResult();
+      ListBranchesResult(
+        branches:
+            (json['branches'] as List).map((e) => Branch.fromJson(e)).toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 ///  Result structure for the list Domain Association request.
@@ -1120,7 +1509,13 @@ class ListDomainAssociationsResult {
     this.nextToken,
   });
   static ListDomainAssociationsResult fromJson(Map<String, dynamic> json) =>
-      ListDomainAssociationsResult();
+      ListDomainAssociationsResult(
+        domainAssociations: (json['domainAssociations'] as List)
+            .map((e) => DomainAssociation.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 ///  Maximum number of records to list in a single response.
@@ -1136,7 +1531,13 @@ class ListJobsResult {
     @required this.jobSummaries,
     this.nextToken,
   });
-  static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult();
+  static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult(
+        jobSummaries: (json['jobSummaries'] as List)
+            .map((e) => JobSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 ///  Response for list tags.
@@ -1148,7 +1549,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 ///  Result structure for the list webhooks request.
@@ -1165,7 +1571,12 @@ class ListWebhooksResult {
     this.nextToken,
   });
   static ListWebhooksResult fromJson(Map<String, dynamic> json) =>
-      ListWebhooksResult();
+      ListWebhooksResult(
+        webhooks:
+            (json['webhooks'] as List).map((e) => Webhook.fromJson(e)).toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 ///  Structure with Production Branch information.
@@ -1189,7 +1600,18 @@ class ProductionBranch {
     this.branchName,
   });
   static ProductionBranch fromJson(Map<String, dynamic> json) =>
-      ProductionBranch();
+      ProductionBranch(
+        lastDeployTime: json.containsKey('lastDeployTime')
+            ? DateTime.parse(json['lastDeployTime'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        thumbnailUrl: json.containsKey('thumbnailUrl')
+            ? json['thumbnailUrl'] as String
+            : null,
+        branchName: json.containsKey('branchName')
+            ? json['branchName'] as String
+            : null,
+      );
 }
 
 ///  Result structure for start a deployment.
@@ -1201,7 +1623,9 @@ class StartDeploymentResult {
     @required this.jobSummary,
   });
   static StartDeploymentResult fromJson(Map<String, dynamic> json) =>
-      StartDeploymentResult();
+      StartDeploymentResult(
+        jobSummary: JobSummary.fromJson(json['jobSummary']),
+      );
 }
 
 ///  Result structure for run job request.
@@ -1212,7 +1636,9 @@ class StartJobResult {
   StartJobResult({
     @required this.jobSummary,
   });
-  static StartJobResult fromJson(Map<String, dynamic> json) => StartJobResult();
+  static StartJobResult fromJson(Map<String, dynamic> json) => StartJobResult(
+        jobSummary: JobSummary.fromJson(json['jobSummary']),
+      );
 }
 
 ///  Structure for an execution step for an execution job, for an Amplify App.
@@ -1255,7 +1681,24 @@ class Step {
     this.statusReason,
     this.context,
   });
-  static Step fromJson(Map<String, dynamic> json) => Step();
+  static Step fromJson(Map<String, dynamic> json) => Step(
+        stepName: json['stepName'] as String,
+        startTime: DateTime.parse(json['startTime']),
+        status: json['status'] as String,
+        endTime: DateTime.parse(json['endTime']),
+        logUrl: json.containsKey('logUrl') ? json['logUrl'] as String : null,
+        artifactsUrl: json.containsKey('artifactsUrl')
+            ? json['artifactsUrl'] as String
+            : null,
+        screenshots: json.containsKey('screenshots')
+            ? (json['screenshots'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        statusReason: json.containsKey('statusReason')
+            ? json['statusReason'] as String
+            : null,
+        context: json.containsKey('context') ? json['context'] as String : null,
+      );
 }
 
 ///  Result structure for the stop job request.
@@ -1266,7 +1709,9 @@ class StopJobResult {
   StopJobResult({
     @required this.jobSummary,
   });
-  static StopJobResult fromJson(Map<String, dynamic> json) => StopJobResult();
+  static StopJobResult fromJson(Map<String, dynamic> json) => StopJobResult(
+        jobSummary: JobSummary.fromJson(json['jobSummary']),
+      );
 }
 
 ///  Subdomain for the Domain Association.
@@ -1285,7 +1730,11 @@ class SubDomain {
     @required this.verified,
     @required this.dnsRecord,
   });
-  static SubDomain fromJson(Map<String, dynamic> json) => SubDomain();
+  static SubDomain fromJson(Map<String, dynamic> json) => SubDomain(
+        subDomainSetting: SubDomainSetting.fromJson(json['subDomainSetting']),
+        verified: json['verified'] as bool,
+        dnsRecord: json['dnsRecord'] as String,
+      );
 }
 
 ///  Setting for the Subdomain.
@@ -1301,7 +1750,11 @@ class SubDomainSetting {
     @required this.branchName,
   });
   static SubDomainSetting fromJson(Map<String, dynamic> json) =>
-      SubDomainSetting();
+      SubDomainSetting(
+        prefix: json['prefix'] as String,
+        branchName: json['branchName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Response for tag resource.
@@ -1326,8 +1779,9 @@ class UpdateAppResult {
   UpdateAppResult({
     @required this.app,
   });
-  static UpdateAppResult fromJson(Map<String, dynamic> json) =>
-      UpdateAppResult();
+  static UpdateAppResult fromJson(Map<String, dynamic> json) => UpdateAppResult(
+        app: App.fromJson(json['app']),
+      );
 }
 
 ///  Result structure for update branch request.
@@ -1339,7 +1793,9 @@ class UpdateBranchResult {
     @required this.branch,
   });
   static UpdateBranchResult fromJson(Map<String, dynamic> json) =>
-      UpdateBranchResult();
+      UpdateBranchResult(
+        branch: Branch.fromJson(json['branch']),
+      );
 }
 
 ///  Result structure for the update Domain Association request.
@@ -1351,7 +1807,10 @@ class UpdateDomainAssociationResult {
     @required this.domainAssociation,
   });
   static UpdateDomainAssociationResult fromJson(Map<String, dynamic> json) =>
-      UpdateDomainAssociationResult();
+      UpdateDomainAssociationResult(
+        domainAssociation:
+            DomainAssociation.fromJson(json['domainAssociation']),
+      );
 }
 
 ///  Result structure for the update webhook request.
@@ -1363,7 +1822,9 @@ class UpdateWebhookResult {
     @required this.webhook,
   });
   static UpdateWebhookResult fromJson(Map<String, dynamic> json) =>
-      UpdateWebhookResult();
+      UpdateWebhookResult(
+        webhook: Webhook.fromJson(json['webhook']),
+      );
 }
 
 ///  Structure for webhook, which associates a webhook with an Amplify App.
@@ -1398,5 +1859,13 @@ class Webhook {
     @required this.createTime,
     @required this.updateTime,
   });
-  static Webhook fromJson(Map<String, dynamic> json) => Webhook();
+  static Webhook fromJson(Map<String, dynamic> json) => Webhook(
+        webhookArn: json['webhookArn'] as String,
+        webhookId: json['webhookId'] as String,
+        webhookUrl: json['webhookUrl'] as String,
+        branchName: json['branchName'] as String,
+        description: json['description'] as String,
+        createTime: DateTime.parse(json['createTime']),
+        updateTime: DateTime.parse(json['updateTime']),
+      );
 }

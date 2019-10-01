@@ -22,6 +22,10 @@ import 'dart:typed_data';
 /// across multiple Availability Zones in an AWS region, providing built-in high
 /// availability and data durability.
 class DynamoDBApi {
+  final _client;
+  DynamoDBApi(client)
+      : _client = client.configured('DynamoDB', serializer: 'json');
+
   /// The `BatchGetItem` operation returns the attributes of one or more items
   /// from one or more tables. You identify requested items by primary key.
   ///
@@ -157,7 +161,12 @@ class DynamoDBApi {
   Future<BatchGetItemOutput> batchGetItem(
       Map<String, KeysAndAttributes> requestItems,
       {String returnConsumedCapacity}) async {
-    return BatchGetItemOutput.fromJson({});
+    var response_ = await _client.send('BatchGetItem', {
+      'RequestItems': requestItems,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+    });
+    return BatchGetItemOutput.fromJson(response_);
   }
 
   /// The `BatchWriteItem` operation puts or deletes multiple items in one or
@@ -275,7 +284,14 @@ class DynamoDBApi {
       Map<String, List<WriteRequest>> requestItems,
       {String returnConsumedCapacity,
       String returnItemCollectionMetrics}) async {
-    return BatchWriteItemOutput.fromJson({});
+    var response_ = await _client.send('BatchWriteItem', {
+      'RequestItems': requestItems,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+      if (returnItemCollectionMetrics != null)
+        'ReturnItemCollectionMetrics': returnItemCollectionMetrics,
+    });
+    return BatchWriteItemOutput.fromJson(response_);
   }
 
   /// Creates a backup for an existing table.
@@ -316,7 +332,11 @@ class DynamoDBApi {
   /// [backupName]: Specified name for the backup.
   Future<CreateBackupOutput> createBackup(
       {@required String tableName, @required String backupName}) async {
-    return CreateBackupOutput.fromJson({});
+    var response_ = await _client.send('CreateBackup', {
+      'TableName': tableName,
+      'BackupName': backupName,
+    });
+    return CreateBackupOutput.fromJson(response_);
   }
 
   /// Creates a global table from an existing table. A global table creates a
@@ -362,7 +382,11 @@ class DynamoDBApi {
   Future<CreateGlobalTableOutput> createGlobalTable(
       {@required String globalTableName,
       @required List<Replica> replicationGroup}) async {
-    return CreateGlobalTableOutput.fromJson({});
+    var response_ = await _client.send('CreateGlobalTable', {
+      'GlobalTableName': globalTableName,
+      'ReplicationGroup': replicationGroup,
+    });
+    return CreateGlobalTableOutput.fromJson(response_);
   }
 
   /// The `CreateTable` operation adds a new table to your account. In an AWS
@@ -564,7 +588,23 @@ class DynamoDBApi {
       StreamSpecification streamSpecification,
       SseSpecification sseSpecification,
       List<Tag> tags}) async {
-    return CreateTableOutput.fromJson({});
+    var response_ = await _client.send('CreateTable', {
+      'AttributeDefinitions': attributeDefinitions,
+      'TableName': tableName,
+      'KeySchema': keySchema,
+      if (localSecondaryIndexes != null)
+        'LocalSecondaryIndexes': localSecondaryIndexes,
+      if (globalSecondaryIndexes != null)
+        'GlobalSecondaryIndexes': globalSecondaryIndexes,
+      if (billingMode != null) 'BillingMode': billingMode,
+      if (provisionedThroughput != null)
+        'ProvisionedThroughput': provisionedThroughput,
+      if (streamSpecification != null)
+        'StreamSpecification': streamSpecification,
+      if (sseSpecification != null) 'SSESpecification': sseSpecification,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateTableOutput.fromJson(response_);
   }
 
   /// Deletes an existing backup of a table.
@@ -573,7 +613,10 @@ class DynamoDBApi {
   ///
   /// [backupArn]: The ARN associated with the backup.
   Future<DeleteBackupOutput> deleteBackup(String backupArn) async {
-    return DeleteBackupOutput.fromJson({});
+    var response_ = await _client.send('DeleteBackup', {
+      'BackupArn': backupArn,
+    });
+    return DeleteBackupOutput.fromJson(response_);
   }
 
   /// Deletes a single item in a table by primary key. You can perform a
@@ -727,7 +770,25 @@ class DynamoDBApi {
       String conditionExpression,
       Map<String, String> expressionAttributeNames,
       Map<String, AttributeValue> expressionAttributeValues}) async {
-    return DeleteItemOutput.fromJson({});
+    var response_ = await _client.send('DeleteItem', {
+      'TableName': tableName,
+      'Key': key,
+      if (expected != null) 'Expected': expected,
+      if (conditionalOperator != null)
+        'ConditionalOperator': conditionalOperator,
+      if (returnValues != null) 'ReturnValues': returnValues,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+      if (returnItemCollectionMetrics != null)
+        'ReturnItemCollectionMetrics': returnItemCollectionMetrics,
+      if (conditionExpression != null)
+        'ConditionExpression': conditionExpression,
+      if (expressionAttributeNames != null)
+        'ExpressionAttributeNames': expressionAttributeNames,
+      if (expressionAttributeValues != null)
+        'ExpressionAttributeValues': expressionAttributeValues,
+    });
+    return DeleteItemOutput.fromJson(response_);
   }
 
   /// The `DeleteTable` operation deletes a table and all of its items. After a
@@ -752,7 +813,10 @@ class DynamoDBApi {
   ///
   /// [tableName]: The name of the table to delete.
   Future<DeleteTableOutput> deleteTable(String tableName) async {
-    return DeleteTableOutput.fromJson({});
+    var response_ = await _client.send('DeleteTable', {
+      'TableName': tableName,
+    });
+    return DeleteTableOutput.fromJson(response_);
   }
 
   /// Describes an existing backup of a table.
@@ -761,7 +825,10 @@ class DynamoDBApi {
   ///
   /// [backupArn]: The Amazon Resource Name (ARN) associated with the backup.
   Future<DescribeBackupOutput> describeBackup(String backupArn) async {
-    return DescribeBackupOutput.fromJson({});
+    var response_ = await _client.send('DescribeBackup', {
+      'BackupArn': backupArn,
+    });
+    return DescribeBackupOutput.fromJson(response_);
   }
 
   /// Checks the status of continuous backups and point in time recovery on the
@@ -784,12 +851,16 @@ class DynamoDBApi {
   /// continuous backups and point in time recovery settings.
   Future<DescribeContinuousBackupsOutput> describeContinuousBackups(
       String tableName) async {
-    return DescribeContinuousBackupsOutput.fromJson({});
+    var response_ = await _client.send('DescribeContinuousBackups', {
+      'TableName': tableName,
+    });
+    return DescribeContinuousBackupsOutput.fromJson(response_);
   }
 
   /// Returns the regional endpoint information.
   Future<DescribeEndpointsResponse> describeEndpoints() async {
-    return DescribeEndpointsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEndpoints', {});
+    return DescribeEndpointsResponse.fromJson(response_);
   }
 
   /// Returns information about the specified global table.
@@ -797,7 +868,10 @@ class DynamoDBApi {
   /// [globalTableName]: The name of the global table.
   Future<DescribeGlobalTableOutput> describeGlobalTable(
       String globalTableName) async {
-    return DescribeGlobalTableOutput.fromJson({});
+    var response_ = await _client.send('DescribeGlobalTable', {
+      'GlobalTableName': globalTableName,
+    });
+    return DescribeGlobalTableOutput.fromJson(response_);
   }
 
   /// Describes Region-specific settings for a global table.
@@ -805,7 +879,10 @@ class DynamoDBApi {
   /// [globalTableName]: The name of the global table to describe.
   Future<DescribeGlobalTableSettingsOutput> describeGlobalTableSettings(
       String globalTableName) async {
-    return DescribeGlobalTableSettingsOutput.fromJson({});
+    var response_ = await _client.send('DescribeGlobalTableSettings', {
+      'GlobalTableName': globalTableName,
+    });
+    return DescribeGlobalTableSettingsOutput.fromJson(response_);
   }
 
   /// Returns the current provisioned-capacity limits for your AWS account in a
@@ -873,7 +950,8 @@ class DynamoDBApi {
   ///
   /// The `DescribeLimits` Request element has no content.
   Future<DescribeLimitsOutput> describeLimits() async {
-    return DescribeLimitsOutput.fromJson({});
+    var response_ = await _client.send('DescribeLimits', {});
+    return DescribeLimitsOutput.fromJson(response_);
   }
 
   /// Returns information about the table, including the current status of the
@@ -890,7 +968,10 @@ class DynamoDBApi {
   ///
   /// [tableName]: The name of the table to describe.
   Future<DescribeTableOutput> describeTable(String tableName) async {
-    return DescribeTableOutput.fromJson({});
+    var response_ = await _client.send('DescribeTable', {
+      'TableName': tableName,
+    });
+    return DescribeTableOutput.fromJson(response_);
   }
 
   /// Gives a description of the Time to Live (TTL) status on the specified
@@ -898,7 +979,10 @@ class DynamoDBApi {
   ///
   /// [tableName]: The name of the table to be described.
   Future<DescribeTimeToLiveOutput> describeTimeToLive(String tableName) async {
-    return DescribeTimeToLiveOutput.fromJson({});
+    var response_ = await _client.send('DescribeTimeToLive', {
+      'TableName': tableName,
+    });
+    return DescribeTimeToLiveOutput.fromJson(response_);
   }
 
   /// The `GetItem` operation returns a set of attributes for the item with the
@@ -991,7 +1075,19 @@ class DynamoDBApi {
       String returnConsumedCapacity,
       String projectionExpression,
       Map<String, String> expressionAttributeNames}) async {
-    return GetItemOutput.fromJson({});
+    var response_ = await _client.send('GetItem', {
+      'TableName': tableName,
+      'Key': key,
+      if (attributesToGet != null) 'AttributesToGet': attributesToGet,
+      if (consistentRead != null) 'ConsistentRead': consistentRead,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+      if (projectionExpression != null)
+        'ProjectionExpression': projectionExpression,
+      if (expressionAttributeNames != null)
+        'ExpressionAttributeNames': expressionAttributeNames,
+    });
+    return GetItemOutput.fromJson(response_);
   }
 
   /// List backups associated with an AWS account. To list backups for a given
@@ -1039,7 +1135,18 @@ class DynamoDBApi {
       DateTime timeRangeUpperBound,
       String exclusiveStartBackupArn,
       String backupType}) async {
-    return ListBackupsOutput.fromJson({});
+    var response_ = await _client.send('ListBackups', {
+      if (tableName != null) 'TableName': tableName,
+      if (limit != null) 'Limit': limit,
+      if (timeRangeLowerBound != null)
+        'TimeRangeLowerBound': timeRangeLowerBound,
+      if (timeRangeUpperBound != null)
+        'TimeRangeUpperBound': timeRangeUpperBound,
+      if (exclusiveStartBackupArn != null)
+        'ExclusiveStartBackupArn': exclusiveStartBackupArn,
+      if (backupType != null) 'BackupType': backupType,
+    });
+    return ListBackupsOutput.fromJson(response_);
   }
 
   /// Lists all global tables that have a replica in the specified Region.
@@ -1054,7 +1161,13 @@ class DynamoDBApi {
       {String exclusiveStartGlobalTableName,
       int limit,
       String regionName}) async {
-    return ListGlobalTablesOutput.fromJson({});
+    var response_ = await _client.send('ListGlobalTables', {
+      if (exclusiveStartGlobalTableName != null)
+        'ExclusiveStartGlobalTableName': exclusiveStartGlobalTableName,
+      if (limit != null) 'Limit': limit,
+      if (regionName != null) 'RegionName': regionName,
+    });
+    return ListGlobalTablesOutput.fromJson(response_);
   }
 
   /// Returns an array of table names associated with the current account and
@@ -1069,7 +1182,12 @@ class DynamoDBApi {
   /// not specified, the limit is 100.
   Future<ListTablesOutput> listTables(
       {String exclusiveStartTableName, int limit}) async {
-    return ListTablesOutput.fromJson({});
+    var response_ = await _client.send('ListTables', {
+      if (exclusiveStartTableName != null)
+        'ExclusiveStartTableName': exclusiveStartTableName,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListTablesOutput.fromJson(response_);
   }
 
   /// List all tags on an Amazon DynamoDB resource. You can call
@@ -1087,7 +1205,11 @@ class DynamoDBApi {
   /// manner, this API fetches the next page of results.
   Future<ListTagsOfResourceOutput> listTagsOfResource(String resourceArn,
       {String nextToken}) async {
-    return ListTagsOfResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsOfResource', {
+      'ResourceArn': resourceArn,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsOfResourceOutput.fromJson(response_);
   }
 
   /// Creates a new item, or replaces an old item with a new item. If an item
@@ -1295,7 +1417,25 @@ class DynamoDBApi {
       String conditionExpression,
       Map<String, String> expressionAttributeNames,
       Map<String, AttributeValue> expressionAttributeValues}) async {
-    return PutItemOutput.fromJson({});
+    var response_ = await _client.send('PutItem', {
+      'TableName': tableName,
+      'Item': item,
+      if (expected != null) 'Expected': expected,
+      if (returnValues != null) 'ReturnValues': returnValues,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+      if (returnItemCollectionMetrics != null)
+        'ReturnItemCollectionMetrics': returnItemCollectionMetrics,
+      if (conditionalOperator != null)
+        'ConditionalOperator': conditionalOperator,
+      if (conditionExpression != null)
+        'ConditionExpression': conditionExpression,
+      if (expressionAttributeNames != null)
+        'ExpressionAttributeNames': expressionAttributeNames,
+      if (expressionAttributeValues != null)
+        'ExpressionAttributeValues': expressionAttributeValues,
+    });
+    return PutItemOutput.fromJson(response_);
   }
 
   /// The `Query` operation finds items based on primary key values. You can
@@ -1656,7 +1796,32 @@ class DynamoDBApi {
       String keyConditionExpression,
       Map<String, String> expressionAttributeNames,
       Map<String, AttributeValue> expressionAttributeValues}) async {
-    return QueryOutput.fromJson({});
+    var response_ = await _client.send('Query', {
+      'TableName': tableName,
+      if (indexName != null) 'IndexName': indexName,
+      if (select != null) 'Select': select,
+      if (attributesToGet != null) 'AttributesToGet': attributesToGet,
+      if (limit != null) 'Limit': limit,
+      if (consistentRead != null) 'ConsistentRead': consistentRead,
+      if (keyConditions != null) 'KeyConditions': keyConditions,
+      if (queryFilter != null) 'QueryFilter': queryFilter,
+      if (conditionalOperator != null)
+        'ConditionalOperator': conditionalOperator,
+      if (scanIndexForward != null) 'ScanIndexForward': scanIndexForward,
+      if (exclusiveStartKey != null) 'ExclusiveStartKey': exclusiveStartKey,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+      if (projectionExpression != null)
+        'ProjectionExpression': projectionExpression,
+      if (filterExpression != null) 'FilterExpression': filterExpression,
+      if (keyConditionExpression != null)
+        'KeyConditionExpression': keyConditionExpression,
+      if (expressionAttributeNames != null)
+        'ExpressionAttributeNames': expressionAttributeNames,
+      if (expressionAttributeValues != null)
+        'ExpressionAttributeValues': expressionAttributeValues,
+    });
+    return QueryOutput.fromJson(response_);
   }
 
   /// Creates a new table from an existing backup. Any number of users can
@@ -1686,7 +1851,11 @@ class DynamoDBApi {
   /// [backupArn]: The Amazon Resource Name (ARN) associated with the backup.
   Future<RestoreTableFromBackupOutput> restoreTableFromBackup(
       {@required String targetTableName, @required String backupArn}) async {
-    return RestoreTableFromBackupOutput.fromJson({});
+    var response_ = await _client.send('RestoreTableFromBackup', {
+      'TargetTableName': targetTableName,
+      'BackupArn': backupArn,
+    });
+    return RestoreTableFromBackupOutput.fromJson(response_);
   }
 
   /// Restores the specified table to the specified point in time within
@@ -1743,7 +1912,14 @@ class DynamoDBApi {
       @required String targetTableName,
       bool useLatestRestorableTime,
       DateTime restoreDateTime}) async {
-    return RestoreTableToPointInTimeOutput.fromJson({});
+    var response_ = await _client.send('RestoreTableToPointInTime', {
+      'SourceTableName': sourceTableName,
+      'TargetTableName': targetTableName,
+      if (useLatestRestorableTime != null)
+        'UseLatestRestorableTime': useLatestRestorableTime,
+      if (restoreDateTime != null) 'RestoreDateTime': restoreDateTime,
+    });
+    return RestoreTableToPointInTimeOutput.fromJson(response_);
   }
 
   /// The `Scan` operation returns one or more items and item attributes by
@@ -2025,7 +2201,30 @@ class DynamoDBApi {
       Map<String, String> expressionAttributeNames,
       Map<String, AttributeValue> expressionAttributeValues,
       bool consistentRead}) async {
-    return ScanOutput.fromJson({});
+    var response_ = await _client.send('Scan', {
+      'TableName': tableName,
+      if (indexName != null) 'IndexName': indexName,
+      if (attributesToGet != null) 'AttributesToGet': attributesToGet,
+      if (limit != null) 'Limit': limit,
+      if (select != null) 'Select': select,
+      if (scanFilter != null) 'ScanFilter': scanFilter,
+      if (conditionalOperator != null)
+        'ConditionalOperator': conditionalOperator,
+      if (exclusiveStartKey != null) 'ExclusiveStartKey': exclusiveStartKey,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+      if (totalSegments != null) 'TotalSegments': totalSegments,
+      if (segment != null) 'Segment': segment,
+      if (projectionExpression != null)
+        'ProjectionExpression': projectionExpression,
+      if (filterExpression != null) 'FilterExpression': filterExpression,
+      if (expressionAttributeNames != null)
+        'ExpressionAttributeNames': expressionAttributeNames,
+      if (expressionAttributeValues != null)
+        'ExpressionAttributeValues': expressionAttributeValues,
+      if (consistentRead != null) 'ConsistentRead': consistentRead,
+    });
+    return ScanOutput.fromJson(response_);
   }
 
   /// Associate a set of tags with an Amazon DynamoDB resource. You can then
@@ -2042,7 +2241,12 @@ class DynamoDBApi {
   ///
   /// [tags]: The tags to be assigned to the Amazon DynamoDB resource.
   Future<void> tagResource(
-      {@required String resourceArn, @required List<Tag> tags}) async {}
+      {@required String resourceArn, @required List<Tag> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+  }
 
   ///  `TransactGetItems` is a synchronous operation that atomically retrieves
   /// multiple items from one or more tables (but not from indexes) in a single
@@ -2086,7 +2290,12 @@ class DynamoDBApi {
   Future<TransactGetItemsOutput> transactGetItems(
       List<TransactGetItem> transactItems,
       {String returnConsumedCapacity}) async {
-    return TransactGetItemsOutput.fromJson({});
+    var response_ = await _client.send('TransactGetItems', {
+      'TransactItems': transactItems,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+    });
+    return TransactGetItemsOutput.fromJson(response_);
   }
 
   ///  `TransactWriteItems` is a synchronous write operation that groups up to
@@ -2195,7 +2404,15 @@ class DynamoDBApi {
       {String returnConsumedCapacity,
       String returnItemCollectionMetrics,
       String clientRequestToken}) async {
-    return TransactWriteItemsOutput.fromJson({});
+    var response_ = await _client.send('TransactWriteItems', {
+      'TransactItems': transactItems,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+      if (returnItemCollectionMetrics != null)
+        'ReturnItemCollectionMetrics': returnItemCollectionMetrics,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return TransactWriteItemsOutput.fromJson(response_);
   }
 
   /// Removes the association of tags from an Amazon DynamoDB resource. You can
@@ -2211,7 +2428,12 @@ class DynamoDBApi {
   /// [tagKeys]: A list of tag keys. Existing tags of the resource whose keys
   /// are members of this list will be removed from the DynamoDB resource.
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   ///  `UpdateContinuousBackups` enables or disables point in time recovery for
   /// the specified table. A successful `UpdateContinuousBackups` call returns
@@ -2237,7 +2459,11 @@ class DynamoDBApi {
       @required
           PointInTimeRecoverySpecification
               pointInTimeRecoverySpecification}) async {
-    return UpdateContinuousBackupsOutput.fromJson({});
+    var response_ = await _client.send('UpdateContinuousBackups', {
+      'TableName': tableName,
+      'PointInTimeRecoverySpecification': pointInTimeRecoverySpecification,
+    });
+    return UpdateContinuousBackupsOutput.fromJson(response_);
   }
 
   /// Adds or removes replicas in the specified global table. The global table
@@ -2268,7 +2494,11 @@ class DynamoDBApi {
   Future<UpdateGlobalTableOutput> updateGlobalTable(
       {@required String globalTableName,
       @required List<ReplicaUpdate> replicaUpdates}) async {
-    return UpdateGlobalTableOutput.fromJson({});
+    var response_ = await _client.send('UpdateGlobalTable', {
+      'GlobalTableName': globalTableName,
+      'ReplicaUpdates': replicaUpdates,
+    });
+    return UpdateGlobalTableOutput.fromJson(response_);
   }
 
   /// Updates settings for a global table.
@@ -2300,7 +2530,23 @@ class DynamoDBApi {
       List<GlobalTableGlobalSecondaryIndexSettingsUpdate>
           globalTableGlobalSecondaryIndexSettingsUpdate,
       List<ReplicaSettingsUpdate> replicaSettingsUpdate}) async {
-    return UpdateGlobalTableSettingsOutput.fromJson({});
+    var response_ = await _client.send('UpdateGlobalTableSettings', {
+      'GlobalTableName': globalTableName,
+      if (globalTableBillingMode != null)
+        'GlobalTableBillingMode': globalTableBillingMode,
+      if (globalTableProvisionedWriteCapacityUnits != null)
+        'GlobalTableProvisionedWriteCapacityUnits':
+            globalTableProvisionedWriteCapacityUnits,
+      if (globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate != null)
+        'GlobalTableProvisionedWriteCapacityAutoScalingSettingsUpdate':
+            globalTableProvisionedWriteCapacityAutoScalingSettingsUpdate,
+      if (globalTableGlobalSecondaryIndexSettingsUpdate != null)
+        'GlobalTableGlobalSecondaryIndexSettingsUpdate':
+            globalTableGlobalSecondaryIndexSettingsUpdate,
+      if (replicaSettingsUpdate != null)
+        'ReplicaSettingsUpdate': replicaSettingsUpdate,
+    });
+    return UpdateGlobalTableSettingsOutput.fromJson(response_);
   }
 
   /// Edits an existing item's attributes, or adds a new item to the table if it
@@ -2544,7 +2790,27 @@ class DynamoDBApi {
       String conditionExpression,
       Map<String, String> expressionAttributeNames,
       Map<String, AttributeValue> expressionAttributeValues}) async {
-    return UpdateItemOutput.fromJson({});
+    var response_ = await _client.send('UpdateItem', {
+      'TableName': tableName,
+      'Key': key,
+      if (attributeUpdates != null) 'AttributeUpdates': attributeUpdates,
+      if (expected != null) 'Expected': expected,
+      if (conditionalOperator != null)
+        'ConditionalOperator': conditionalOperator,
+      if (returnValues != null) 'ReturnValues': returnValues,
+      if (returnConsumedCapacity != null)
+        'ReturnConsumedCapacity': returnConsumedCapacity,
+      if (returnItemCollectionMetrics != null)
+        'ReturnItemCollectionMetrics': returnItemCollectionMetrics,
+      if (updateExpression != null) 'UpdateExpression': updateExpression,
+      if (conditionExpression != null)
+        'ConditionExpression': conditionExpression,
+      if (expressionAttributeNames != null)
+        'ExpressionAttributeNames': expressionAttributeNames,
+      if (expressionAttributeValues != null)
+        'ExpressionAttributeValues': expressionAttributeValues,
+    });
+    return UpdateItemOutput.fromJson(response_);
   }
 
   /// Modifies the provisioned throughput settings, global secondary indexes, or
@@ -2624,7 +2890,20 @@ class DynamoDBApi {
       List<GlobalSecondaryIndexUpdate> globalSecondaryIndexUpdates,
       StreamSpecification streamSpecification,
       SseSpecification sseSpecification}) async {
-    return UpdateTableOutput.fromJson({});
+    var response_ = await _client.send('UpdateTable', {
+      if (attributeDefinitions != null)
+        'AttributeDefinitions': attributeDefinitions,
+      'TableName': tableName,
+      if (billingMode != null) 'BillingMode': billingMode,
+      if (provisionedThroughput != null)
+        'ProvisionedThroughput': provisionedThroughput,
+      if (globalSecondaryIndexUpdates != null)
+        'GlobalSecondaryIndexUpdates': globalSecondaryIndexUpdates,
+      if (streamSpecification != null)
+        'StreamSpecification': streamSpecification,
+      if (sseSpecification != null) 'SSESpecification': sseSpecification,
+    });
+    return UpdateTableOutput.fromJson(response_);
   }
 
   /// The `UpdateTimeToLive` method enables or disables Time to Live (TTL) for
@@ -2665,7 +2944,11 @@ class DynamoDBApi {
   Future<UpdateTimeToLiveOutput> updateTimeToLive(
       {@required String tableName,
       @required TimeToLiveSpecification timeToLiveSpecification}) async {
-    return UpdateTimeToLiveOutput.fromJson({});
+    var response_ = await _client.send('UpdateTimeToLive', {
+      'TableName': tableName,
+      'TimeToLiveSpecification': timeToLiveSpecification,
+    });
+    return UpdateTimeToLiveOutput.fromJson(response_);
   }
 }
 
@@ -2689,7 +2972,11 @@ class AttributeDefinition {
     @required this.attributeType,
   });
   static AttributeDefinition fromJson(Map<String, dynamic> json) =>
-      AttributeDefinition();
+      AttributeDefinition(
+        attributeName: json['AttributeName'] as String,
+        attributeType: json['AttributeType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the data for an attribute.
@@ -2771,7 +3058,32 @@ class AttributeValue {
     this.null$,
     this.bool$,
   });
-  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
+  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue(
+        s: json.containsKey('S') ? json['S'] as String : null,
+        n: json.containsKey('N') ? json['N'] as String : null,
+        b: json.containsKey('B') ? Uint8List(json['B']) : null,
+        ss: json.containsKey('SS')
+            ? (json['SS'] as List).map((e) => e as String).toList()
+            : null,
+        ns: json.containsKey('NS')
+            ? (json['NS'] as List).map((e) => e as String).toList()
+            : null,
+        bs: json.containsKey('BS')
+            ? (json['BS'] as List).map((e) => Uint8List(e)).toList()
+            : null,
+        m: json.containsKey('M')
+            ? (json['M'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        l: json.containsKey('L')
+            ? (json['L'] as List)
+                .map((e) => AttributeValue.fromJson(e))
+                .toList()
+            : null,
+        null$: json.containsKey('NULL') ? json['NULL'] as bool : null,
+        bool$: json.containsKey('BOOL') ? json['BOOL'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// For the `UpdateItem` operation, represents the attributes to be modified,
@@ -2869,6 +3181,7 @@ class AttributeValueUpdate {
     this.value,
     this.action,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the properties of the scaling policy.
@@ -2885,7 +3198,16 @@ class AutoScalingPolicyDescription {
     this.targetTrackingScalingPolicyConfiguration,
   });
   static AutoScalingPolicyDescription fromJson(Map<String, dynamic> json) =>
-      AutoScalingPolicyDescription();
+      AutoScalingPolicyDescription(
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        targetTrackingScalingPolicyConfiguration:
+            json.containsKey('TargetTrackingScalingPolicyConfiguration')
+                ? AutoScalingTargetTrackingScalingPolicyConfigurationDescription
+                    .fromJson(json['TargetTrackingScalingPolicyConfiguration'])
+                : null,
+      );
 }
 
 /// Represents the autoscaling policy to be modified.
@@ -2901,6 +3223,7 @@ class AutoScalingPolicyUpdate {
     this.policyName,
     @required this.targetTrackingScalingPolicyConfiguration,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the autoscaling settings for a global table or global secondary
@@ -2931,7 +3254,25 @@ class AutoScalingSettingsDescription {
     this.scalingPolicies,
   });
   static AutoScalingSettingsDescription fromJson(Map<String, dynamic> json) =>
-      AutoScalingSettingsDescription();
+      AutoScalingSettingsDescription(
+        minimumUnits: json.containsKey('MinimumUnits')
+            ? BigInt.from(json['MinimumUnits'])
+            : null,
+        maximumUnits: json.containsKey('MaximumUnits')
+            ? BigInt.from(json['MaximumUnits'])
+            : null,
+        autoScalingDisabled: json.containsKey('AutoScalingDisabled')
+            ? json['AutoScalingDisabled'] as bool
+            : null,
+        autoScalingRoleArn: json.containsKey('AutoScalingRoleArn')
+            ? json['AutoScalingRoleArn'] as String
+            : null,
+        scalingPolicies: json.containsKey('ScalingPolicies')
+            ? (json['ScalingPolicies'] as List)
+                .map((e) => AutoScalingPolicyDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the autoscaling settings to be modified for a global table or
@@ -2962,6 +3303,7 @@ class AutoScalingSettingsUpdate {
     this.autoScalingRoleArn,
     this.scalingPolicyUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the properties of a target tracking scaling policy.
@@ -3002,7 +3344,18 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationDescription {
   });
   static AutoScalingTargetTrackingScalingPolicyConfigurationDescription
       fromJson(Map<String, dynamic> json) =>
-          AutoScalingTargetTrackingScalingPolicyConfigurationDescription();
+          AutoScalingTargetTrackingScalingPolicyConfigurationDescription(
+            disableScaleIn: json.containsKey('DisableScaleIn')
+                ? json['DisableScaleIn'] as bool
+                : null,
+            scaleInCooldown: json.containsKey('ScaleInCooldown')
+                ? json['ScaleInCooldown'] as int
+                : null,
+            scaleOutCooldown: json.containsKey('ScaleOutCooldown')
+                ? json['ScaleOutCooldown'] as int
+                : null,
+            targetValue: json['TargetValue'] as double,
+          );
 }
 
 /// Represents the settings of a target tracking scaling policy that will be
@@ -3042,6 +3395,7 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationUpdate {
     this.scaleOutCooldown,
     @required this.targetValue,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the description of the backup created for the table.
@@ -3062,7 +3416,18 @@ class BackupDescription {
     this.sourceTableFeatureDetails,
   });
   static BackupDescription fromJson(Map<String, dynamic> json) =>
-      BackupDescription();
+      BackupDescription(
+        backupDetails: json.containsKey('BackupDetails')
+            ? BackupDetails.fromJson(json['BackupDetails'])
+            : null,
+        sourceTableDetails: json.containsKey('SourceTableDetails')
+            ? SourceTableDetails.fromJson(json['SourceTableDetails'])
+            : null,
+        sourceTableFeatureDetails: json.containsKey('SourceTableFeatureDetails')
+            ? SourceTableFeatureDetails.fromJson(
+                json['SourceTableFeatureDetails'])
+            : null,
+      );
 }
 
 /// Contains the details of the backup created for the table.
@@ -3111,7 +3476,19 @@ class BackupDetails {
     @required this.backupCreationDateTime,
     this.backupExpiryDateTime,
   });
-  static BackupDetails fromJson(Map<String, dynamic> json) => BackupDetails();
+  static BackupDetails fromJson(Map<String, dynamic> json) => BackupDetails(
+        backupArn: json['BackupArn'] as String,
+        backupName: json['BackupName'] as String,
+        backupSizeBytes: json.containsKey('BackupSizeBytes')
+            ? BigInt.from(json['BackupSizeBytes'])
+            : null,
+        backupStatus: json['BackupStatus'] as String,
+        backupType: json['BackupType'] as String,
+        backupCreationDateTime: DateTime.parse(json['BackupCreationDateTime']),
+        backupExpiryDateTime: json.containsKey('BackupExpiryDateTime')
+            ? DateTime.parse(json['BackupExpiryDateTime'])
+            : null,
+      );
 }
 
 /// Contains details for the backup.
@@ -3171,7 +3548,33 @@ class BackupSummary {
     this.backupType,
     this.backupSizeBytes,
   });
-  static BackupSummary fromJson(Map<String, dynamic> json) => BackupSummary();
+  static BackupSummary fromJson(Map<String, dynamic> json) => BackupSummary(
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        tableId: json.containsKey('TableId') ? json['TableId'] as String : null,
+        tableArn:
+            json.containsKey('TableArn') ? json['TableArn'] as String : null,
+        backupArn:
+            json.containsKey('BackupArn') ? json['BackupArn'] as String : null,
+        backupName: json.containsKey('BackupName')
+            ? json['BackupName'] as String
+            : null,
+        backupCreationDateTime: json.containsKey('BackupCreationDateTime')
+            ? DateTime.parse(json['BackupCreationDateTime'])
+            : null,
+        backupExpiryDateTime: json.containsKey('BackupExpiryDateTime')
+            ? DateTime.parse(json['BackupExpiryDateTime'])
+            : null,
+        backupStatus: json.containsKey('BackupStatus')
+            ? json['BackupStatus'] as String
+            : null,
+        backupType: json.containsKey('BackupType')
+            ? json['BackupType'] as String
+            : null,
+        backupSizeBytes: json.containsKey('BackupSizeBytes')
+            ? BigInt.from(json['BackupSizeBytes'])
+            : null,
+      );
 }
 
 /// Represents the output of a `BatchGetItem` operation.
@@ -3220,7 +3623,25 @@ class BatchGetItemOutput {
     this.consumedCapacity,
   });
   static BatchGetItemOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetItemOutput();
+      BatchGetItemOutput(
+        responses: json.containsKey('Responses')
+            ? (json['Responses'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as List)
+                    .map((e) => (e as Map).map((k, v) =>
+                        MapEntry(k as String, AttributeValue.fromJson(v))))
+                    .toList()))
+            : null,
+        unprocessedKeys: json.containsKey('UnprocessedKeys')
+            ? (json['UnprocessedKeys'] as Map).map(
+                (k, v) => MapEntry(k as String, KeysAndAttributes.fromJson(v)))
+            : null,
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? (json['ConsumedCapacity'] as List)
+                .map((e) => ConsumedCapacity.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a `BatchWriteItem` operation.
@@ -3297,7 +3718,25 @@ class BatchWriteItemOutput {
     this.consumedCapacity,
   });
   static BatchWriteItemOutput fromJson(Map<String, dynamic> json) =>
-      BatchWriteItemOutput();
+      BatchWriteItemOutput(
+        unprocessedItems: json.containsKey('UnprocessedItems')
+            ? (json['UnprocessedItems'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as List).map((e) => WriteRequest.fromJson(e)).toList()))
+            : null,
+        itemCollectionMetrics: json.containsKey('ItemCollectionMetrics')
+            ? (json['ItemCollectionMetrics'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as List)
+                    .map((e) => ItemCollectionMetrics.fromJson(e))
+                    .toList()))
+            : null,
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? (json['ConsumedCapacity'] as List)
+                .map((e) => ConsumedCapacity.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the details for the read/write capacity mode.
@@ -3322,7 +3761,15 @@ class BillingModeSummary {
     this.lastUpdateToPayPerRequestDateTime,
   });
   static BillingModeSummary fromJson(Map<String, dynamic> json) =>
-      BillingModeSummary();
+      BillingModeSummary(
+        billingMode: json.containsKey('BillingMode')
+            ? json['BillingMode'] as String
+            : null,
+        lastUpdateToPayPerRequestDateTime:
+            json.containsKey('LastUpdateToPayPerRequestDateTime')
+                ? DateTime.parse(json['LastUpdateToPayPerRequestDateTime'])
+                : null,
+      );
 }
 
 /// Represents the amount of provisioned throughput capacity consumed on a table
@@ -3342,7 +3789,17 @@ class Capacity {
     this.writeCapacityUnits,
     this.capacityUnits,
   });
-  static Capacity fromJson(Map<String, dynamic> json) => Capacity();
+  static Capacity fromJson(Map<String, dynamic> json) => Capacity(
+        readCapacityUnits: json.containsKey('ReadCapacityUnits')
+            ? json['ReadCapacityUnits'] as double
+            : null,
+        writeCapacityUnits: json.containsKey('WriteCapacityUnits')
+            ? json['WriteCapacityUnits'] as double
+            : null,
+        capacityUnits: json.containsKey('CapacityUnits')
+            ? json['CapacityUnits'] as double
+            : null,
+      );
 }
 
 /// Represents the selection criteria for a `Query` or `Scan` operation:
@@ -3520,6 +3977,7 @@ class Condition {
     this.attributeValueList,
     @required this.comparisonOperator,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a request to perform a check that an item exists or to check the
@@ -3556,6 +4014,7 @@ class ConditionCheck {
     this.expressionAttributeValues,
     this.returnValuesOnConditionCheckFailure,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The capacity units consumed by an operation. The data returned includes the
@@ -3598,7 +4057,29 @@ class ConsumedCapacity {
     this.globalSecondaryIndexes,
   });
   static ConsumedCapacity fromJson(Map<String, dynamic> json) =>
-      ConsumedCapacity();
+      ConsumedCapacity(
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        capacityUnits: json.containsKey('CapacityUnits')
+            ? json['CapacityUnits'] as double
+            : null,
+        readCapacityUnits: json.containsKey('ReadCapacityUnits')
+            ? json['ReadCapacityUnits'] as double
+            : null,
+        writeCapacityUnits: json.containsKey('WriteCapacityUnits')
+            ? json['WriteCapacityUnits'] as double
+            : null,
+        table:
+            json.containsKey('Table') ? Capacity.fromJson(json['Table']) : null,
+        localSecondaryIndexes: json.containsKey('LocalSecondaryIndexes')
+            ? (json['LocalSecondaryIndexes'] as Map)
+                .map((k, v) => MapEntry(k as String, Capacity.fromJson(v)))
+            : null,
+        globalSecondaryIndexes: json.containsKey('GlobalSecondaryIndexes')
+            ? (json['GlobalSecondaryIndexes'] as Map)
+                .map((k, v) => MapEntry(k as String, Capacity.fromJson(v)))
+            : null,
+      );
 }
 
 /// Represents the continuous backups and point in time recovery settings on the
@@ -3617,7 +4098,14 @@ class ContinuousBackupsDescription {
     this.pointInTimeRecoveryDescription,
   });
   static ContinuousBackupsDescription fromJson(Map<String, dynamic> json) =>
-      ContinuousBackupsDescription();
+      ContinuousBackupsDescription(
+        continuousBackupsStatus: json['ContinuousBackupsStatus'] as String,
+        pointInTimeRecoveryDescription:
+            json.containsKey('PointInTimeRecoveryDescription')
+                ? PointInTimeRecoveryDescription.fromJson(
+                    json['PointInTimeRecoveryDescription'])
+                : null,
+      );
 }
 
 class CreateBackupOutput {
@@ -3628,7 +4116,11 @@ class CreateBackupOutput {
     this.backupDetails,
   });
   static CreateBackupOutput fromJson(Map<String, dynamic> json) =>
-      CreateBackupOutput();
+      CreateBackupOutput(
+        backupDetails: json.containsKey('BackupDetails')
+            ? BackupDetails.fromJson(json['BackupDetails'])
+            : null,
+      );
 }
 
 /// Represents a new global secondary index to be added to an existing table.
@@ -3658,6 +4150,7 @@ class CreateGlobalSecondaryIndexAction {
     @required this.projection,
     this.provisionedThroughput,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateGlobalTableOutput {
@@ -3668,7 +4161,11 @@ class CreateGlobalTableOutput {
     this.globalTableDescription,
   });
   static CreateGlobalTableOutput fromJson(Map<String, dynamic> json) =>
-      CreateGlobalTableOutput();
+      CreateGlobalTableOutput(
+        globalTableDescription: json.containsKey('GlobalTableDescription')
+            ? GlobalTableDescription.fromJson(json['GlobalTableDescription'])
+            : null,
+      );
 }
 
 /// Represents a replica to be added.
@@ -3679,6 +4176,7 @@ class CreateReplicaAction {
   CreateReplicaAction({
     @required this.regionName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a `CreateTable` operation.
@@ -3690,7 +4188,11 @@ class CreateTableOutput {
     this.tableDescription,
   });
   static CreateTableOutput fromJson(Map<String, dynamic> json) =>
-      CreateTableOutput();
+      CreateTableOutput(
+        tableDescription: json.containsKey('TableDescription')
+            ? TableDescription.fromJson(json['TableDescription'])
+            : null,
+      );
 }
 
 /// Represents a request to perform a `DeleteItem` operation.
@@ -3725,6 +4227,7 @@ class Delete {
     this.expressionAttributeValues,
     this.returnValuesOnConditionCheckFailure,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteBackupOutput {
@@ -3735,7 +4238,11 @@ class DeleteBackupOutput {
     this.backupDescription,
   });
   static DeleteBackupOutput fromJson(Map<String, dynamic> json) =>
-      DeleteBackupOutput();
+      DeleteBackupOutput(
+        backupDescription: json.containsKey('BackupDescription')
+            ? BackupDescription.fromJson(json['BackupDescription'])
+            : null,
+      );
 }
 
 /// Represents a global secondary index to be deleted from an existing table.
@@ -3746,6 +4253,7 @@ class DeleteGlobalSecondaryIndexAction {
   DeleteGlobalSecondaryIndexAction({
     @required this.indexName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a `DeleteItem` operation.
@@ -3793,7 +4301,18 @@ class DeleteItemOutput {
     this.itemCollectionMetrics,
   });
   static DeleteItemOutput fromJson(Map<String, dynamic> json) =>
-      DeleteItemOutput();
+      DeleteItemOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? ConsumedCapacity.fromJson(json['ConsumedCapacity'])
+            : null,
+        itemCollectionMetrics: json.containsKey('ItemCollectionMetrics')
+            ? ItemCollectionMetrics.fromJson(json['ItemCollectionMetrics'])
+            : null,
+      );
 }
 
 /// Represents a replica to be removed.
@@ -3804,6 +4323,7 @@ class DeleteReplicaAction {
   DeleteReplicaAction({
     @required this.regionName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a request to perform a `DeleteItem` operation on an item.
@@ -3817,7 +4337,11 @@ class DeleteRequest {
   DeleteRequest({
     @required this.key,
   });
-  static DeleteRequest fromJson(Map<String, dynamic> json) => DeleteRequest();
+  static DeleteRequest fromJson(Map<String, dynamic> json) => DeleteRequest(
+        key: (json['Key'] as Map)
+            .map((k, v) => MapEntry(k as String, AttributeValue.fromJson(v))),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a `DeleteTable` operation.
@@ -3829,7 +4353,11 @@ class DeleteTableOutput {
     this.tableDescription,
   });
   static DeleteTableOutput fromJson(Map<String, dynamic> json) =>
-      DeleteTableOutput();
+      DeleteTableOutput(
+        tableDescription: json.containsKey('TableDescription')
+            ? TableDescription.fromJson(json['TableDescription'])
+            : null,
+      );
 }
 
 class DescribeBackupOutput {
@@ -3840,7 +4368,11 @@ class DescribeBackupOutput {
     this.backupDescription,
   });
   static DescribeBackupOutput fromJson(Map<String, dynamic> json) =>
-      DescribeBackupOutput();
+      DescribeBackupOutput(
+        backupDescription: json.containsKey('BackupDescription')
+            ? BackupDescription.fromJson(json['BackupDescription'])
+            : null,
+      );
 }
 
 class DescribeContinuousBackupsOutput {
@@ -3852,7 +4384,13 @@ class DescribeContinuousBackupsOutput {
     this.continuousBackupsDescription,
   });
   static DescribeContinuousBackupsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeContinuousBackupsOutput();
+      DescribeContinuousBackupsOutput(
+        continuousBackupsDescription:
+            json.containsKey('ContinuousBackupsDescription')
+                ? ContinuousBackupsDescription.fromJson(
+                    json['ContinuousBackupsDescription'])
+                : null,
+      );
 }
 
 class DescribeEndpointsResponse {
@@ -3863,7 +4401,11 @@ class DescribeEndpointsResponse {
     @required this.endpoints,
   });
   static DescribeEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEndpointsResponse();
+      DescribeEndpointsResponse(
+        endpoints: (json['Endpoints'] as List)
+            .map((e) => Endpoint.fromJson(e))
+            .toList(),
+      );
 }
 
 class DescribeGlobalTableOutput {
@@ -3874,7 +4416,11 @@ class DescribeGlobalTableOutput {
     this.globalTableDescription,
   });
   static DescribeGlobalTableOutput fromJson(Map<String, dynamic> json) =>
-      DescribeGlobalTableOutput();
+      DescribeGlobalTableOutput(
+        globalTableDescription: json.containsKey('GlobalTableDescription')
+            ? GlobalTableDescription.fromJson(json['GlobalTableDescription'])
+            : null,
+      );
 }
 
 class DescribeGlobalTableSettingsOutput {
@@ -3890,7 +4436,16 @@ class DescribeGlobalTableSettingsOutput {
   });
   static DescribeGlobalTableSettingsOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeGlobalTableSettingsOutput();
+      DescribeGlobalTableSettingsOutput(
+        globalTableName: json.containsKey('GlobalTableName')
+            ? json['GlobalTableName'] as String
+            : null,
+        replicaSettings: json.containsKey('ReplicaSettings')
+            ? (json['ReplicaSettings'] as List)
+                .map((e) => ReplicaSettingsDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a `DescribeLimits` operation.
@@ -3920,7 +4475,23 @@ class DescribeLimitsOutput {
     this.tableMaxWriteCapacityUnits,
   });
   static DescribeLimitsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeLimitsOutput();
+      DescribeLimitsOutput(
+        accountMaxReadCapacityUnits:
+            json.containsKey('AccountMaxReadCapacityUnits')
+                ? BigInt.from(json['AccountMaxReadCapacityUnits'])
+                : null,
+        accountMaxWriteCapacityUnits:
+            json.containsKey('AccountMaxWriteCapacityUnits')
+                ? BigInt.from(json['AccountMaxWriteCapacityUnits'])
+                : null,
+        tableMaxReadCapacityUnits: json.containsKey('TableMaxReadCapacityUnits')
+            ? BigInt.from(json['TableMaxReadCapacityUnits'])
+            : null,
+        tableMaxWriteCapacityUnits:
+            json.containsKey('TableMaxWriteCapacityUnits')
+                ? BigInt.from(json['TableMaxWriteCapacityUnits'])
+                : null,
+      );
 }
 
 /// Represents the output of a `DescribeTable` operation.
@@ -3932,7 +4503,11 @@ class DescribeTableOutput {
     this.table,
   });
   static DescribeTableOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTableOutput();
+      DescribeTableOutput(
+        table: json.containsKey('Table')
+            ? TableDescription.fromJson(json['Table'])
+            : null,
+      );
 }
 
 class DescribeTimeToLiveOutput {
@@ -3942,7 +4517,11 @@ class DescribeTimeToLiveOutput {
     this.timeToLiveDescription,
   });
   static DescribeTimeToLiveOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTimeToLiveOutput();
+      DescribeTimeToLiveOutput(
+        timeToLiveDescription: json.containsKey('TimeToLiveDescription')
+            ? TimeToLiveDescription.fromJson(json['TimeToLiveDescription'])
+            : null,
+      );
 }
 
 /// An endpoint information details.
@@ -3957,7 +4536,10 @@ class Endpoint {
     @required this.address,
     @required this.cachePeriodInMinutes,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        address: json['Address'] as String,
+        cachePeriodInMinutes: BigInt.from(json['CachePeriodInMinutes']),
+      );
 }
 
 /// Represents a condition to be compared with an attribute value. This
@@ -4184,6 +4766,7 @@ class ExpectedAttributeValue {
     this.comparisonOperator,
     this.attributeValueList,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies an item and related attribute values to retrieve in a
@@ -4213,6 +4796,7 @@ class Get {
     this.projectionExpression,
     this.expressionAttributeNames,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a `GetItem` operation.
@@ -4234,7 +4818,15 @@ class GetItemOutput {
     this.item,
     this.consumedCapacity,
   });
-  static GetItemOutput fromJson(Map<String, dynamic> json) => GetItemOutput();
+  static GetItemOutput fromJson(Map<String, dynamic> json) => GetItemOutput(
+        item: json.containsKey('Item')
+            ? (json['Item'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? ConsumedCapacity.fromJson(json['ConsumedCapacity'])
+            : null,
+      );
 }
 
 /// Represents the properties of a global secondary index.
@@ -4283,6 +4875,7 @@ class GlobalSecondaryIndex {
     @required this.projection,
     this.provisionedThroughput,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the properties of a global secondary index.
@@ -4373,7 +4966,36 @@ class GlobalSecondaryIndexDescription {
     this.indexArn,
   });
   static GlobalSecondaryIndexDescription fromJson(Map<String, dynamic> json) =>
-      GlobalSecondaryIndexDescription();
+      GlobalSecondaryIndexDescription(
+        indexName:
+            json.containsKey('IndexName') ? json['IndexName'] as String : null,
+        keySchema: json.containsKey('KeySchema')
+            ? (json['KeySchema'] as List)
+                .map((e) => KeySchemaElement.fromJson(e))
+                .toList()
+            : null,
+        projection: json.containsKey('Projection')
+            ? Projection.fromJson(json['Projection'])
+            : null,
+        indexStatus: json.containsKey('IndexStatus')
+            ? json['IndexStatus'] as String
+            : null,
+        backfilling: json.containsKey('Backfilling')
+            ? json['Backfilling'] as bool
+            : null,
+        provisionedThroughput: json.containsKey('ProvisionedThroughput')
+            ? ProvisionedThroughputDescription.fromJson(
+                json['ProvisionedThroughput'])
+            : null,
+        indexSizeBytes: json.containsKey('IndexSizeBytes')
+            ? BigInt.from(json['IndexSizeBytes'])
+            : null,
+        itemCount: json.containsKey('ItemCount')
+            ? BigInt.from(json['ItemCount'])
+            : null,
+        indexArn:
+            json.containsKey('IndexArn') ? json['IndexArn'] as String : null,
+      );
 }
 
 /// Represents the properties of a global secondary index for the table when the
@@ -4419,7 +5041,21 @@ class GlobalSecondaryIndexInfo {
     this.provisionedThroughput,
   });
   static GlobalSecondaryIndexInfo fromJson(Map<String, dynamic> json) =>
-      GlobalSecondaryIndexInfo();
+      GlobalSecondaryIndexInfo(
+        indexName:
+            json.containsKey('IndexName') ? json['IndexName'] as String : null,
+        keySchema: json.containsKey('KeySchema')
+            ? (json['KeySchema'] as List)
+                .map((e) => KeySchemaElement.fromJson(e))
+                .toList()
+            : null,
+        projection: json.containsKey('Projection')
+            ? Projection.fromJson(json['Projection'])
+            : null,
+        provisionedThroughput: json.containsKey('ProvisionedThroughput')
+            ? ProvisionedThroughput.fromJson(json['ProvisionedThroughput'])
+            : null,
+      );
 }
 
 /// Represents one of the following:
@@ -4457,6 +5093,7 @@ class GlobalSecondaryIndexUpdate {
     this.create,
     this.delete,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the properties of a global table.
@@ -4471,7 +5108,16 @@ class GlobalTable {
     this.globalTableName,
     this.replicationGroup,
   });
-  static GlobalTable fromJson(Map<String, dynamic> json) => GlobalTable();
+  static GlobalTable fromJson(Map<String, dynamic> json) => GlobalTable(
+        globalTableName: json.containsKey('GlobalTableName')
+            ? json['GlobalTableName'] as String
+            : null,
+        replicationGroup: json.containsKey('ReplicationGroup')
+            ? (json['ReplicationGroup'] as List)
+                .map((e) => Replica.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains details about the global table.
@@ -4507,7 +5153,25 @@ class GlobalTableDescription {
     this.globalTableName,
   });
   static GlobalTableDescription fromJson(Map<String, dynamic> json) =>
-      GlobalTableDescription();
+      GlobalTableDescription(
+        replicationGroup: json.containsKey('ReplicationGroup')
+            ? (json['ReplicationGroup'] as List)
+                .map((e) => ReplicaDescription.fromJson(e))
+                .toList()
+            : null,
+        globalTableArn: json.containsKey('GlobalTableArn')
+            ? json['GlobalTableArn'] as String
+            : null,
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        globalTableStatus: json.containsKey('GlobalTableStatus')
+            ? json['GlobalTableStatus'] as String
+            : null,
+        globalTableName: json.containsKey('GlobalTableName')
+            ? json['GlobalTableName'] as String
+            : null,
+      );
 }
 
 /// Represents the settings of a global secondary index for a global table that
@@ -4531,6 +5195,7 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdate {
     this.provisionedWriteCapacityUnits,
     this.provisionedWriteCapacityAutoScalingSettingsUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about item collections, if any, that were affected by the
@@ -4558,7 +5223,17 @@ class ItemCollectionMetrics {
     this.sizeEstimateRangeGB,
   });
   static ItemCollectionMetrics fromJson(Map<String, dynamic> json) =>
-      ItemCollectionMetrics();
+      ItemCollectionMetrics(
+        itemCollectionKey: json.containsKey('ItemCollectionKey')
+            ? (json['ItemCollectionKey'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        sizeEstimateRangeGB: json.containsKey('SizeEstimateRangeGB')
+            ? (json['SizeEstimateRangeGB'] as List)
+                .map((e) => e as double)
+                .toList()
+            : null,
+      );
 }
 
 /// Details for the requested item.
@@ -4569,7 +5244,12 @@ class ItemResponse {
   ItemResponse({
     this.item,
   });
-  static ItemResponse fromJson(Map<String, dynamic> json) => ItemResponse();
+  static ItemResponse fromJson(Map<String, dynamic> json) => ItemResponse(
+        item: json.containsKey('Item')
+            ? (json['Item'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+      );
 }
 
 /// Represents _a single element_ of a key schema. A key schema specifies the
@@ -4614,7 +5294,11 @@ class KeySchemaElement {
     @required this.keyType,
   });
   static KeySchemaElement fromJson(Map<String, dynamic> json) =>
-      KeySchemaElement();
+      KeySchemaElement(
+        attributeName: json['AttributeName'] as String,
+        keyType: json['KeyType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a set of primary keys and, for each key, the attributes to
@@ -4703,7 +5387,26 @@ class KeysAndAttributes {
     this.expressionAttributeNames,
   });
   static KeysAndAttributes fromJson(Map<String, dynamic> json) =>
-      KeysAndAttributes();
+      KeysAndAttributes(
+        keys: (json['Keys'] as List)
+            .map((e) => (e as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v))))
+            .toList(),
+        attributesToGet: json.containsKey('AttributesToGet')
+            ? (json['AttributesToGet'] as List).map((e) => e as String).toList()
+            : null,
+        consistentRead: json.containsKey('ConsistentRead')
+            ? json['ConsistentRead'] as bool
+            : null,
+        projectionExpression: json.containsKey('ProjectionExpression')
+            ? json['ProjectionExpression'] as String
+            : null,
+        expressionAttributeNames: json.containsKey('ExpressionAttributeNames')
+            ? (json['ExpressionAttributeNames'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListBackupsOutput {
@@ -4729,7 +5432,16 @@ class ListBackupsOutput {
     this.lastEvaluatedBackupArn,
   });
   static ListBackupsOutput fromJson(Map<String, dynamic> json) =>
-      ListBackupsOutput();
+      ListBackupsOutput(
+        backupSummaries: json.containsKey('BackupSummaries')
+            ? (json['BackupSummaries'] as List)
+                .map((e) => BackupSummary.fromJson(e))
+                .toList()
+            : null,
+        lastEvaluatedBackupArn: json.containsKey('LastEvaluatedBackupArn')
+            ? json['LastEvaluatedBackupArn'] as String
+            : null,
+      );
 }
 
 class ListGlobalTablesOutput {
@@ -4744,7 +5456,17 @@ class ListGlobalTablesOutput {
     this.lastEvaluatedGlobalTableName,
   });
   static ListGlobalTablesOutput fromJson(Map<String, dynamic> json) =>
-      ListGlobalTablesOutput();
+      ListGlobalTablesOutput(
+        globalTables: json.containsKey('GlobalTables')
+            ? (json['GlobalTables'] as List)
+                .map((e) => GlobalTable.fromJson(e))
+                .toList()
+            : null,
+        lastEvaluatedGlobalTableName:
+            json.containsKey('LastEvaluatedGlobalTableName')
+                ? json['LastEvaluatedGlobalTableName'] as String
+                : null,
+      );
 }
 
 /// Represents the output of a `ListTables` operation.
@@ -4770,7 +5492,14 @@ class ListTablesOutput {
     this.lastEvaluatedTableName,
   });
   static ListTablesOutput fromJson(Map<String, dynamic> json) =>
-      ListTablesOutput();
+      ListTablesOutput(
+        tableNames: json.containsKey('TableNames')
+            ? (json['TableNames'] as List).map((e) => e as String).toList()
+            : null,
+        lastEvaluatedTableName: json.containsKey('LastEvaluatedTableName')
+            ? json['LastEvaluatedTableName'] as String
+            : null,
+      );
 }
 
 class ListTagsOfResourceOutput {
@@ -4787,7 +5516,13 @@ class ListTagsOfResourceOutput {
     this.nextToken,
   });
   static ListTagsOfResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsOfResourceOutput();
+      ListTagsOfResourceOutput(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the properties of a local secondary index.
@@ -4827,6 +5562,7 @@ class LocalSecondaryIndex {
     @required this.keySchema,
     @required this.projection,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the properties of a local secondary index.
@@ -4882,7 +5618,26 @@ class LocalSecondaryIndexDescription {
     this.indexArn,
   });
   static LocalSecondaryIndexDescription fromJson(Map<String, dynamic> json) =>
-      LocalSecondaryIndexDescription();
+      LocalSecondaryIndexDescription(
+        indexName:
+            json.containsKey('IndexName') ? json['IndexName'] as String : null,
+        keySchema: json.containsKey('KeySchema')
+            ? (json['KeySchema'] as List)
+                .map((e) => KeySchemaElement.fromJson(e))
+                .toList()
+            : null,
+        projection: json.containsKey('Projection')
+            ? Projection.fromJson(json['Projection'])
+            : null,
+        indexSizeBytes: json.containsKey('IndexSizeBytes')
+            ? BigInt.from(json['IndexSizeBytes'])
+            : null,
+        itemCount: json.containsKey('ItemCount')
+            ? BigInt.from(json['ItemCount'])
+            : null,
+        indexArn:
+            json.containsKey('IndexArn') ? json['IndexArn'] as String : null,
+      );
 }
 
 /// Represents the properties of a local secondary index for the table when the
@@ -4923,7 +5678,18 @@ class LocalSecondaryIndexInfo {
     this.projection,
   });
   static LocalSecondaryIndexInfo fromJson(Map<String, dynamic> json) =>
-      LocalSecondaryIndexInfo();
+      LocalSecondaryIndexInfo(
+        indexName:
+            json.containsKey('IndexName') ? json['IndexName'] as String : null,
+        keySchema: json.containsKey('KeySchema')
+            ? (json['KeySchema'] as List)
+                .map((e) => KeySchemaElement.fromJson(e))
+                .toList()
+            : null,
+        projection: json.containsKey('Projection')
+            ? Projection.fromJson(json['Projection'])
+            : null,
+      );
 }
 
 /// The description of the point in time settings applied to the table.
@@ -4951,7 +5717,18 @@ class PointInTimeRecoveryDescription {
     this.latestRestorableDateTime,
   });
   static PointInTimeRecoveryDescription fromJson(Map<String, dynamic> json) =>
-      PointInTimeRecoveryDescription();
+      PointInTimeRecoveryDescription(
+        pointInTimeRecoveryStatus: json.containsKey('PointInTimeRecoveryStatus')
+            ? json['PointInTimeRecoveryStatus'] as String
+            : null,
+        earliestRestorableDateTime:
+            json.containsKey('EarliestRestorableDateTime')
+                ? DateTime.parse(json['EarliestRestorableDateTime'])
+                : null,
+        latestRestorableDateTime: json.containsKey('LatestRestorableDateTime')
+            ? DateTime.parse(json['LatestRestorableDateTime'])
+            : null,
+      );
 }
 
 /// Represents the settings used to enable point in time recovery.
@@ -4963,6 +5740,7 @@ class PointInTimeRecoverySpecification {
   PointInTimeRecoverySpecification({
     @required this.pointInTimeRecoveryEnabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents attributes that are copied (projected) from the table into an
@@ -4993,7 +5771,17 @@ class Projection {
     this.projectionType,
     this.nonKeyAttributes,
   });
-  static Projection fromJson(Map<String, dynamic> json) => Projection();
+  static Projection fromJson(Map<String, dynamic> json) => Projection(
+        projectionType: json.containsKey('ProjectionType')
+            ? json['ProjectionType'] as String
+            : null,
+        nonKeyAttributes: json.containsKey('NonKeyAttributes')
+            ? (json['NonKeyAttributes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the provisioned throughput settings for a specified table or
@@ -5024,7 +5812,11 @@ class ProvisionedThroughput {
     @required this.writeCapacityUnits,
   });
   static ProvisionedThroughput fromJson(Map<String, dynamic> json) =>
-      ProvisionedThroughput();
+      ProvisionedThroughput(
+        readCapacityUnits: BigInt.from(json['ReadCapacityUnits']),
+        writeCapacityUnits: BigInt.from(json['WriteCapacityUnits']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the provisioned throughput settings for the table, consisting of
@@ -5065,7 +5857,23 @@ class ProvisionedThroughputDescription {
     this.writeCapacityUnits,
   });
   static ProvisionedThroughputDescription fromJson(Map<String, dynamic> json) =>
-      ProvisionedThroughputDescription();
+      ProvisionedThroughputDescription(
+        lastIncreaseDateTime: json.containsKey('LastIncreaseDateTime')
+            ? DateTime.parse(json['LastIncreaseDateTime'])
+            : null,
+        lastDecreaseDateTime: json.containsKey('LastDecreaseDateTime')
+            ? DateTime.parse(json['LastDecreaseDateTime'])
+            : null,
+        numberOfDecreasesToday: json.containsKey('NumberOfDecreasesToday')
+            ? BigInt.from(json['NumberOfDecreasesToday'])
+            : null,
+        readCapacityUnits: json.containsKey('ReadCapacityUnits')
+            ? BigInt.from(json['ReadCapacityUnits'])
+            : null,
+        writeCapacityUnits: json.containsKey('WriteCapacityUnits')
+            ? BigInt.from(json['WriteCapacityUnits'])
+            : null,
+      );
 }
 
 /// Represents a request to perform a `PutItem` operation.
@@ -5104,6 +5912,7 @@ class Put {
     this.expressionAttributeValues,
     this.returnValuesOnConditionCheckFailure,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a `PutItem` operation.
@@ -5149,7 +5958,18 @@ class PutItemOutput {
     this.consumedCapacity,
     this.itemCollectionMetrics,
   });
-  static PutItemOutput fromJson(Map<String, dynamic> json) => PutItemOutput();
+  static PutItemOutput fromJson(Map<String, dynamic> json) => PutItemOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? ConsumedCapacity.fromJson(json['ConsumedCapacity'])
+            : null,
+        itemCollectionMetrics: json.containsKey('ItemCollectionMetrics')
+            ? ItemCollectionMetrics.fromJson(json['ItemCollectionMetrics'])
+            : null,
+      );
 }
 
 /// Represents a request to perform a `PutItem` operation on an item.
@@ -5165,7 +5985,11 @@ class PutRequest {
   PutRequest({
     @required this.item,
   });
-  static PutRequest fromJson(Map<String, dynamic> json) => PutRequest();
+  static PutRequest fromJson(Map<String, dynamic> json) => PutRequest(
+        item: (json['Item'] as Map)
+            .map((k, v) => MapEntry(k as String, AttributeValue.fromJson(v))),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a `Query` operation.
@@ -5222,7 +6046,25 @@ class QueryOutput {
     this.lastEvaluatedKey,
     this.consumedCapacity,
   });
-  static QueryOutput fromJson(Map<String, dynamic> json) => QueryOutput();
+  static QueryOutput fromJson(Map<String, dynamic> json) => QueryOutput(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => (e as Map).map((k, v) =>
+                    MapEntry(k as String, AttributeValue.fromJson(v))))
+                .toList()
+            : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        scannedCount: json.containsKey('ScannedCount')
+            ? json['ScannedCount'] as int
+            : null,
+        lastEvaluatedKey: json.containsKey('LastEvaluatedKey')
+            ? (json['LastEvaluatedKey'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? ConsumedCapacity.fromJson(json['ConsumedCapacity'])
+            : null,
+      );
 }
 
 /// Represents the properties of a replica.
@@ -5233,7 +6075,12 @@ class Replica {
   Replica({
     this.regionName,
   });
-  static Replica fromJson(Map<String, dynamic> json) => Replica();
+  static Replica fromJson(Map<String, dynamic> json) => Replica(
+        regionName: json.containsKey('RegionName')
+            ? json['RegionName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the details of the replica.
@@ -5245,7 +6092,11 @@ class ReplicaDescription {
     this.regionName,
   });
   static ReplicaDescription fromJson(Map<String, dynamic> json) =>
-      ReplicaDescription();
+      ReplicaDescription(
+        regionName: json.containsKey('RegionName')
+            ? json['RegionName'] as String
+            : null,
+      );
 }
 
 /// Represents the properties of a global secondary index.
@@ -5293,7 +6144,30 @@ class ReplicaGlobalSecondaryIndexSettingsDescription {
   });
   static ReplicaGlobalSecondaryIndexSettingsDescription fromJson(
           Map<String, dynamic> json) =>
-      ReplicaGlobalSecondaryIndexSettingsDescription();
+      ReplicaGlobalSecondaryIndexSettingsDescription(
+        indexName: json['IndexName'] as String,
+        indexStatus: json.containsKey('IndexStatus')
+            ? json['IndexStatus'] as String
+            : null,
+        provisionedReadCapacityUnits:
+            json.containsKey('ProvisionedReadCapacityUnits')
+                ? BigInt.from(json['ProvisionedReadCapacityUnits'])
+                : null,
+        provisionedReadCapacityAutoScalingSettings:
+            json.containsKey('ProvisionedReadCapacityAutoScalingSettings')
+                ? AutoScalingSettingsDescription.fromJson(
+                    json['ProvisionedReadCapacityAutoScalingSettings'])
+                : null,
+        provisionedWriteCapacityUnits:
+            json.containsKey('ProvisionedWriteCapacityUnits')
+                ? BigInt.from(json['ProvisionedWriteCapacityUnits'])
+                : null,
+        provisionedWriteCapacityAutoScalingSettings:
+            json.containsKey('ProvisionedWriteCapacityAutoScalingSettings')
+                ? AutoScalingSettingsDescription.fromJson(
+                    json['ProvisionedWriteCapacityAutoScalingSettings'])
+                : null,
+      );
 }
 
 /// Represents the settings of a global secondary index for a global table that
@@ -5317,6 +6191,7 @@ class ReplicaGlobalSecondaryIndexSettingsUpdate {
     this.provisionedReadCapacityUnits,
     this.provisionedReadCapacityAutoScalingSettingsUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the properties of a replica.
@@ -5373,7 +6248,40 @@ class ReplicaSettingsDescription {
     this.replicaGlobalSecondaryIndexSettings,
   });
   static ReplicaSettingsDescription fromJson(Map<String, dynamic> json) =>
-      ReplicaSettingsDescription();
+      ReplicaSettingsDescription(
+        regionName: json['RegionName'] as String,
+        replicaStatus: json.containsKey('ReplicaStatus')
+            ? json['ReplicaStatus'] as String
+            : null,
+        replicaBillingModeSummary: json.containsKey('ReplicaBillingModeSummary')
+            ? BillingModeSummary.fromJson(json['ReplicaBillingModeSummary'])
+            : null,
+        replicaProvisionedReadCapacityUnits:
+            json.containsKey('ReplicaProvisionedReadCapacityUnits')
+                ? BigInt.from(json['ReplicaProvisionedReadCapacityUnits'])
+                : null,
+        replicaProvisionedReadCapacityAutoScalingSettings: json.containsKey(
+                'ReplicaProvisionedReadCapacityAutoScalingSettings')
+            ? AutoScalingSettingsDescription.fromJson(
+                json['ReplicaProvisionedReadCapacityAutoScalingSettings'])
+            : null,
+        replicaProvisionedWriteCapacityUnits:
+            json.containsKey('ReplicaProvisionedWriteCapacityUnits')
+                ? BigInt.from(json['ReplicaProvisionedWriteCapacityUnits'])
+                : null,
+        replicaProvisionedWriteCapacityAutoScalingSettings: json.containsKey(
+                'ReplicaProvisionedWriteCapacityAutoScalingSettings')
+            ? AutoScalingSettingsDescription.fromJson(
+                json['ReplicaProvisionedWriteCapacityAutoScalingSettings'])
+            : null,
+        replicaGlobalSecondaryIndexSettings: json
+                .containsKey('ReplicaGlobalSecondaryIndexSettings')
+            ? (json['ReplicaGlobalSecondaryIndexSettings'] as List)
+                .map((e) =>
+                    ReplicaGlobalSecondaryIndexSettingsDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the settings for a global table in a region that will be
@@ -5404,6 +6312,7 @@ class ReplicaSettingsUpdate {
     this.replicaProvisionedReadCapacityAutoScalingSettingsUpdate,
     this.replicaGlobalSecondaryIndexSettingsUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents one of the following:
@@ -5425,6 +6334,7 @@ class ReplicaUpdate {
     this.create,
     this.delete,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains details for the restore.
@@ -5447,7 +6357,16 @@ class RestoreSummary {
     @required this.restoreDateTime,
     @required this.restoreInProgress,
   });
-  static RestoreSummary fromJson(Map<String, dynamic> json) => RestoreSummary();
+  static RestoreSummary fromJson(Map<String, dynamic> json) => RestoreSummary(
+        sourceBackupArn: json.containsKey('SourceBackupArn')
+            ? json['SourceBackupArn'] as String
+            : null,
+        sourceTableArn: json.containsKey('SourceTableArn')
+            ? json['SourceTableArn'] as String
+            : null,
+        restoreDateTime: DateTime.parse(json['RestoreDateTime']),
+        restoreInProgress: json['RestoreInProgress'] as bool,
+      );
 }
 
 class RestoreTableFromBackupOutput {
@@ -5458,7 +6377,11 @@ class RestoreTableFromBackupOutput {
     this.tableDescription,
   });
   static RestoreTableFromBackupOutput fromJson(Map<String, dynamic> json) =>
-      RestoreTableFromBackupOutput();
+      RestoreTableFromBackupOutput(
+        tableDescription: json.containsKey('TableDescription')
+            ? TableDescription.fromJson(json['TableDescription'])
+            : null,
+      );
 }
 
 class RestoreTableToPointInTimeOutput {
@@ -5469,7 +6392,11 @@ class RestoreTableToPointInTimeOutput {
     this.tableDescription,
   });
   static RestoreTableToPointInTimeOutput fromJson(Map<String, dynamic> json) =>
-      RestoreTableToPointInTimeOutput();
+      RestoreTableToPointInTimeOutput(
+        tableDescription: json.containsKey('TableDescription')
+            ? TableDescription.fromJson(json['TableDescription'])
+            : null,
+      );
 }
 
 /// The description of the server-side encryption status on the specified table.
@@ -5497,7 +6424,13 @@ class SseDescription {
     this.sseType,
     this.kmsMasterKeyArn,
   });
-  static SseDescription fromJson(Map<String, dynamic> json) => SseDescription();
+  static SseDescription fromJson(Map<String, dynamic> json) => SseDescription(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        sseType: json.containsKey('SSEType') ? json['SSEType'] as String : null,
+        kmsMasterKeyArn: json.containsKey('KMSMasterKeyArn')
+            ? json['KMSMasterKeyArn'] as String
+            : null,
+      );
 }
 
 /// Represents the settings used to enable server-side encryption.
@@ -5528,6 +6461,7 @@ class SseSpecification {
     this.sseType,
     this.kmsMasterKeyId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a `Scan` operation.
@@ -5584,7 +6518,25 @@ class ScanOutput {
     this.lastEvaluatedKey,
     this.consumedCapacity,
   });
-  static ScanOutput fromJson(Map<String, dynamic> json) => ScanOutput();
+  static ScanOutput fromJson(Map<String, dynamic> json) => ScanOutput(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => (e as Map).map((k, v) =>
+                    MapEntry(k as String, AttributeValue.fromJson(v))))
+                .toList()
+            : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        scannedCount: json.containsKey('ScannedCount')
+            ? json['ScannedCount'] as int
+            : null,
+        lastEvaluatedKey: json.containsKey('LastEvaluatedKey')
+            ? (json['LastEvaluatedKey'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? ConsumedCapacity.fromJson(json['ConsumedCapacity'])
+            : null,
+      );
 }
 
 /// Contains the details of the table when the backup was created.
@@ -5636,7 +6588,27 @@ class SourceTableDetails {
     this.billingMode,
   });
   static SourceTableDetails fromJson(Map<String, dynamic> json) =>
-      SourceTableDetails();
+      SourceTableDetails(
+        tableName: json['TableName'] as String,
+        tableId: json['TableId'] as String,
+        tableArn:
+            json.containsKey('TableArn') ? json['TableArn'] as String : null,
+        tableSizeBytes: json.containsKey('TableSizeBytes')
+            ? BigInt.from(json['TableSizeBytes'])
+            : null,
+        keySchema: (json['KeySchema'] as List)
+            .map((e) => KeySchemaElement.fromJson(e))
+            .toList(),
+        tableCreationDateTime: DateTime.parse(json['TableCreationDateTime']),
+        provisionedThroughput:
+            ProvisionedThroughput.fromJson(json['ProvisionedThroughput']),
+        itemCount: json.containsKey('ItemCount')
+            ? BigInt.from(json['ItemCount'])
+            : null,
+        billingMode: json.containsKey('BillingMode')
+            ? json['BillingMode'] as String
+            : null,
+      );
 }
 
 /// Contains the details of the features enabled on the table when the backup
@@ -5670,7 +6642,27 @@ class SourceTableFeatureDetails {
     this.sseDescription,
   });
   static SourceTableFeatureDetails fromJson(Map<String, dynamic> json) =>
-      SourceTableFeatureDetails();
+      SourceTableFeatureDetails(
+        localSecondaryIndexes: json.containsKey('LocalSecondaryIndexes')
+            ? (json['LocalSecondaryIndexes'] as List)
+                .map((e) => LocalSecondaryIndexInfo.fromJson(e))
+                .toList()
+            : null,
+        globalSecondaryIndexes: json.containsKey('GlobalSecondaryIndexes')
+            ? (json['GlobalSecondaryIndexes'] as List)
+                .map((e) => GlobalSecondaryIndexInfo.fromJson(e))
+                .toList()
+            : null,
+        streamDescription: json.containsKey('StreamDescription')
+            ? StreamSpecification.fromJson(json['StreamDescription'])
+            : null,
+        timeToLiveDescription: json.containsKey('TimeToLiveDescription')
+            ? TimeToLiveDescription.fromJson(json['TimeToLiveDescription'])
+            : null,
+        sseDescription: json.containsKey('SSEDescription')
+            ? SseDescription.fromJson(json['SSEDescription'])
+            : null,
+      );
 }
 
 /// Represents the DynamoDB Streams configuration for a table in DynamoDB.
@@ -5701,7 +6693,15 @@ class StreamSpecification {
     this.streamViewType,
   });
   static StreamSpecification fromJson(Map<String, dynamic> json) =>
-      StreamSpecification();
+      StreamSpecification(
+        streamEnabled: json.containsKey('StreamEnabled')
+            ? json['StreamEnabled'] as bool
+            : null,
+        streamViewType: json.containsKey('StreamViewType')
+            ? json['StreamViewType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the properties of a table.
@@ -5953,7 +6953,67 @@ class TableDescription {
     this.sseDescription,
   });
   static TableDescription fromJson(Map<String, dynamic> json) =>
-      TableDescription();
+      TableDescription(
+        attributeDefinitions: json.containsKey('AttributeDefinitions')
+            ? (json['AttributeDefinitions'] as List)
+                .map((e) => AttributeDefinition.fromJson(e))
+                .toList()
+            : null,
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        keySchema: json.containsKey('KeySchema')
+            ? (json['KeySchema'] as List)
+                .map((e) => KeySchemaElement.fromJson(e))
+                .toList()
+            : null,
+        tableStatus: json.containsKey('TableStatus')
+            ? json['TableStatus'] as String
+            : null,
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        provisionedThroughput: json.containsKey('ProvisionedThroughput')
+            ? ProvisionedThroughputDescription.fromJson(
+                json['ProvisionedThroughput'])
+            : null,
+        tableSizeBytes: json.containsKey('TableSizeBytes')
+            ? BigInt.from(json['TableSizeBytes'])
+            : null,
+        itemCount: json.containsKey('ItemCount')
+            ? BigInt.from(json['ItemCount'])
+            : null,
+        tableArn:
+            json.containsKey('TableArn') ? json['TableArn'] as String : null,
+        tableId: json.containsKey('TableId') ? json['TableId'] as String : null,
+        billingModeSummary: json.containsKey('BillingModeSummary')
+            ? BillingModeSummary.fromJson(json['BillingModeSummary'])
+            : null,
+        localSecondaryIndexes: json.containsKey('LocalSecondaryIndexes')
+            ? (json['LocalSecondaryIndexes'] as List)
+                .map((e) => LocalSecondaryIndexDescription.fromJson(e))
+                .toList()
+            : null,
+        globalSecondaryIndexes: json.containsKey('GlobalSecondaryIndexes')
+            ? (json['GlobalSecondaryIndexes'] as List)
+                .map((e) => GlobalSecondaryIndexDescription.fromJson(e))
+                .toList()
+            : null,
+        streamSpecification: json.containsKey('StreamSpecification')
+            ? StreamSpecification.fromJson(json['StreamSpecification'])
+            : null,
+        latestStreamLabel: json.containsKey('LatestStreamLabel')
+            ? json['LatestStreamLabel'] as String
+            : null,
+        latestStreamArn: json.containsKey('LatestStreamArn')
+            ? json['LatestStreamArn'] as String
+            : null,
+        restoreSummary: json.containsKey('RestoreSummary')
+            ? RestoreSummary.fromJson(json['RestoreSummary'])
+            : null,
+        sseDescription: json.containsKey('SSEDescription')
+            ? SseDescription.fromJson(json['SSEDescription'])
+            : null,
+      );
 }
 
 /// Describes a tag. A tag is a key-value pair. You can add up to 50 tags to a
@@ -5980,7 +7040,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The description of the Time to Live (TTL) status on the specified table.
@@ -5996,7 +7060,14 @@ class TimeToLiveDescription {
     this.attributeName,
   });
   static TimeToLiveDescription fromJson(Map<String, dynamic> json) =>
-      TimeToLiveDescription();
+      TimeToLiveDescription(
+        timeToLiveStatus: json.containsKey('TimeToLiveStatus')
+            ? json['TimeToLiveStatus'] as String
+            : null,
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+      );
 }
 
 /// Represents the settings used to enable or disable Time to Live (TTL) for the
@@ -6015,7 +7086,11 @@ class TimeToLiveSpecification {
     @required this.attributeName,
   });
   static TimeToLiveSpecification fromJson(Map<String, dynamic> json) =>
-      TimeToLiveSpecification();
+      TimeToLiveSpecification(
+        enabled: json['Enabled'] as bool,
+        attributeName: json['AttributeName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies an item to be retrieved as part of the transaction.
@@ -6028,6 +7103,7 @@ class TransactGetItem {
   TransactGetItem({
     @required this.get,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TransactGetItemsOutput {
@@ -6053,7 +7129,18 @@ class TransactGetItemsOutput {
     this.responses,
   });
   static TransactGetItemsOutput fromJson(Map<String, dynamic> json) =>
-      TransactGetItemsOutput();
+      TransactGetItemsOutput(
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? (json['ConsumedCapacity'] as List)
+                .map((e) => ConsumedCapacity.fromJson(e))
+                .toList()
+            : null,
+        responses: json.containsKey('Responses')
+            ? (json['Responses'] as List)
+                .map((e) => ItemResponse.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A list of requests that can perform update, put, delete, or check operations
@@ -6077,6 +7164,7 @@ class TransactWriteItem {
     this.delete,
     this.update,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TransactWriteItemsOutput {
@@ -6095,7 +7183,20 @@ class TransactWriteItemsOutput {
     this.itemCollectionMetrics,
   });
   static TransactWriteItemsOutput fromJson(Map<String, dynamic> json) =>
-      TransactWriteItemsOutput();
+      TransactWriteItemsOutput(
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? (json['ConsumedCapacity'] as List)
+                .map((e) => ConsumedCapacity.fromJson(e))
+                .toList()
+            : null,
+        itemCollectionMetrics: json.containsKey('ItemCollectionMetrics')
+            ? (json['ItemCollectionMetrics'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as List)
+                    .map((e) => ItemCollectionMetrics.fromJson(e))
+                    .toList()))
+            : null,
+      );
 }
 
 /// Represents a request to perform an `UpdateItem` operation.
@@ -6135,6 +7236,7 @@ class Update {
     this.expressionAttributeValues,
     this.returnValuesOnConditionCheckFailure,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateContinuousBackupsOutput {
@@ -6146,7 +7248,13 @@ class UpdateContinuousBackupsOutput {
     this.continuousBackupsDescription,
   });
   static UpdateContinuousBackupsOutput fromJson(Map<String, dynamic> json) =>
-      UpdateContinuousBackupsOutput();
+      UpdateContinuousBackupsOutput(
+        continuousBackupsDescription:
+            json.containsKey('ContinuousBackupsDescription')
+                ? ContinuousBackupsDescription.fromJson(
+                    json['ContinuousBackupsDescription'])
+                : null,
+      );
 }
 
 /// Represents the new provisioned throughput settings to be applied to a global
@@ -6167,6 +7275,7 @@ class UpdateGlobalSecondaryIndexAction {
     @required this.indexName,
     @required this.provisionedThroughput,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateGlobalTableOutput {
@@ -6177,7 +7286,11 @@ class UpdateGlobalTableOutput {
     this.globalTableDescription,
   });
   static UpdateGlobalTableOutput fromJson(Map<String, dynamic> json) =>
-      UpdateGlobalTableOutput();
+      UpdateGlobalTableOutput(
+        globalTableDescription: json.containsKey('GlobalTableDescription')
+            ? GlobalTableDescription.fromJson(json['GlobalTableDescription'])
+            : null,
+      );
 }
 
 class UpdateGlobalTableSettingsOutput {
@@ -6192,7 +7305,16 @@ class UpdateGlobalTableSettingsOutput {
     this.replicaSettings,
   });
   static UpdateGlobalTableSettingsOutput fromJson(Map<String, dynamic> json) =>
-      UpdateGlobalTableSettingsOutput();
+      UpdateGlobalTableSettingsOutput(
+        globalTableName: json.containsKey('GlobalTableName')
+            ? json['GlobalTableName'] as String
+            : null,
+        replicaSettings: json.containsKey('ReplicaSettings')
+            ? (json['ReplicaSettings'] as List)
+                .map((e) => ReplicaSettingsDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of an `UpdateItem` operation.
@@ -6242,7 +7364,18 @@ class UpdateItemOutput {
     this.itemCollectionMetrics,
   });
   static UpdateItemOutput fromJson(Map<String, dynamic> json) =>
-      UpdateItemOutput();
+      UpdateItemOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacity: json.containsKey('ConsumedCapacity')
+            ? ConsumedCapacity.fromJson(json['ConsumedCapacity'])
+            : null,
+        itemCollectionMetrics: json.containsKey('ItemCollectionMetrics')
+            ? ItemCollectionMetrics.fromJson(json['ItemCollectionMetrics'])
+            : null,
+      );
 }
 
 /// Represents the output of an `UpdateTable` operation.
@@ -6254,7 +7387,11 @@ class UpdateTableOutput {
     this.tableDescription,
   });
   static UpdateTableOutput fromJson(Map<String, dynamic> json) =>
-      UpdateTableOutput();
+      UpdateTableOutput(
+        tableDescription: json.containsKey('TableDescription')
+            ? TableDescription.fromJson(json['TableDescription'])
+            : null,
+      );
 }
 
 class UpdateTimeToLiveOutput {
@@ -6265,7 +7402,11 @@ class UpdateTimeToLiveOutput {
     this.timeToLiveSpecification,
   });
   static UpdateTimeToLiveOutput fromJson(Map<String, dynamic> json) =>
-      UpdateTimeToLiveOutput();
+      UpdateTimeToLiveOutput(
+        timeToLiveSpecification: json.containsKey('TimeToLiveSpecification')
+            ? TimeToLiveSpecification.fromJson(json['TimeToLiveSpecification'])
+            : null,
+      );
 }
 
 /// Represents an operation to perform - either `DeleteItem` or `PutItem`. You
@@ -6283,5 +7424,13 @@ class WriteRequest {
     this.putRequest,
     this.deleteRequest,
   });
-  static WriteRequest fromJson(Map<String, dynamic> json) => WriteRequest();
+  static WriteRequest fromJson(Map<String, dynamic> json) => WriteRequest(
+        putRequest: json.containsKey('PutRequest')
+            ? PutRequest.fromJson(json['PutRequest'])
+            : null,
+        deleteRequest: json.containsKey('DeleteRequest')
+            ? DeleteRequest.fromJson(json['DeleteRequest'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

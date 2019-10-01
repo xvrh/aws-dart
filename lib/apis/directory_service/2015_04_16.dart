@@ -20,6 +20,10 @@ import 'package:meta/meta.dart';
 /// SDKs, including how to download and install them, see
 /// [Tools for Amazon Web Services](http://aws.amazon.com/tools/).
 class DirectoryServiceApi {
+  final _client;
+  DirectoryServiceApi(client)
+      : _client = client.configured('Directory Service', serializer: 'json');
+
   /// Accepts a directory sharing request that was sent from the directory owner
   /// account.
   ///
@@ -28,7 +32,10 @@ class DirectoryServiceApi {
   /// account.
   Future<AcceptSharedDirectoryResult> acceptSharedDirectory(
       String sharedDirectoryId) async {
-    return AcceptSharedDirectoryResult.fromJson({});
+    var response_ = await _client.send('AcceptSharedDirectory', {
+      'SharedDirectoryId': sharedDirectoryId,
+    });
+    return AcceptSharedDirectoryResult.fromJson(response_);
   }
 
   /// If the DNS server for your on-premises domain uses a publicly addressable
@@ -105,7 +112,14 @@ class DirectoryServiceApi {
       {@required String directoryId,
       @required List<IpRoute> ipRoutes,
       bool updateSecurityGroupForDirectoryControllers}) async {
-    return AddIpRoutesResult.fromJson({});
+    var response_ = await _client.send('AddIpRoutes', {
+      'DirectoryId': directoryId,
+      'IpRoutes': ipRoutes,
+      if (updateSecurityGroupForDirectoryControllers != null)
+        'UpdateSecurityGroupForDirectoryControllers':
+            updateSecurityGroupForDirectoryControllers,
+    });
+    return AddIpRoutesResult.fromJson(response_);
   }
 
   /// Adds or overwrites one or more tags for the specified directory. Each
@@ -117,7 +131,11 @@ class DirectoryServiceApi {
   /// [tags]: The tags to be assigned to the directory.
   Future<AddTagsToResourceResult> addTagsToResource(
       {@required String resourceId, @required List<Tag> tags}) async {
-    return AddTagsToResourceResult.fromJson({});
+    var response_ = await _client.send('AddTagsToResource', {
+      'ResourceId': resourceId,
+      'Tags': tags,
+    });
+    return AddTagsToResourceResult.fromJson(response_);
   }
 
   /// Cancels an in-progress schema extension to a Microsoft AD directory. Once
@@ -134,7 +152,11 @@ class DirectoryServiceApi {
   Future<CancelSchemaExtensionResult> cancelSchemaExtension(
       {@required String directoryId,
       @required String schemaExtensionId}) async {
-    return CancelSchemaExtensionResult.fromJson({});
+    var response_ = await _client.send('CancelSchemaExtension', {
+      'DirectoryId': directoryId,
+      'SchemaExtensionId': schemaExtensionId,
+    });
+    return CancelSchemaExtensionResult.fromJson(response_);
   }
 
   /// Creates an AD Connector to connect to an on-premises directory.
@@ -169,7 +191,16 @@ class DirectoryServiceApi {
       @required String size,
       @required DirectoryConnectSettings connectSettings,
       List<Tag> tags}) async {
-    return ConnectDirectoryResult.fromJson({});
+    var response_ = await _client.send('ConnectDirectory', {
+      'Name': name,
+      if (shortName != null) 'ShortName': shortName,
+      'Password': password,
+      if (description != null) 'Description': description,
+      'Size': size,
+      'ConnectSettings': connectSettings,
+      if (tags != null) 'Tags': tags,
+    });
+    return ConnectDirectoryResult.fromJson(response_);
   }
 
   /// Creates an alias for a directory and assigns the alias to the directory.
@@ -190,7 +221,11 @@ class DirectoryServiceApi {
   /// an `EntityAlreadyExistsException` error if the alias already exists.
   Future<CreateAliasResult> createAlias(
       {@required String directoryId, @required String alias}) async {
-    return CreateAliasResult.fromJson({});
+    var response_ = await _client.send('CreateAlias', {
+      'DirectoryId': directoryId,
+      'Alias': alias,
+    });
+    return CreateAliasResult.fromJson(response_);
   }
 
   /// Creates a computer account in the specified directory, and joins the
@@ -216,7 +251,16 @@ class DirectoryServiceApi {
       @required String password,
       String organizationalUnitDistinguishedName,
       List<Attribute> computerAttributes}) async {
-    return CreateComputerResult.fromJson({});
+    var response_ = await _client.send('CreateComputer', {
+      'DirectoryId': directoryId,
+      'ComputerName': computerName,
+      'Password': password,
+      if (organizationalUnitDistinguishedName != null)
+        'OrganizationalUnitDistinguishedName':
+            organizationalUnitDistinguishedName,
+      if (computerAttributes != null) 'ComputerAttributes': computerAttributes,
+    });
+    return CreateComputerResult.fromJson(response_);
   }
 
   /// Creates a conditional forwarder associated with your AWS directory.
@@ -236,7 +280,12 @@ class DirectoryServiceApi {
       {@required String directoryId,
       @required String remoteDomainName,
       @required List<String> dnsIpAddrs}) async {
-    return CreateConditionalForwarderResult.fromJson({});
+    var response_ = await _client.send('CreateConditionalForwarder', {
+      'DirectoryId': directoryId,
+      'RemoteDomainName': remoteDomainName,
+      'DnsIpAddrs': dnsIpAddrs,
+    });
+    return CreateConditionalForwarderResult.fromJson(response_);
   }
 
   /// Creates a Simple AD directory.
@@ -272,7 +321,16 @@ class DirectoryServiceApi {
       @required String size,
       DirectoryVpcSettings vpcSettings,
       List<Tag> tags}) async {
-    return CreateDirectoryResult.fromJson({});
+    var response_ = await _client.send('CreateDirectory', {
+      'Name': name,
+      if (shortName != null) 'ShortName': shortName,
+      'Password': password,
+      if (description != null) 'Description': description,
+      'Size': size,
+      if (vpcSettings != null) 'VpcSettings': vpcSettings,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDirectoryResult.fromJson(response_);
   }
 
   /// Creates a subscription to forward real time Directory Service domain
@@ -287,7 +345,11 @@ class DirectoryServiceApi {
   /// domain controller logs are forwarded.
   Future<CreateLogSubscriptionResult> createLogSubscription(
       {@required String directoryId, @required String logGroupName}) async {
-    return CreateLogSubscriptionResult.fromJson({});
+    var response_ = await _client.send('CreateLogSubscription', {
+      'DirectoryId': directoryId,
+      'LogGroupName': logGroupName,
+    });
+    return CreateLogSubscriptionResult.fromJson(response_);
   }
 
   /// Creates an AWS Managed Microsoft AD directory.
@@ -329,7 +391,16 @@ class DirectoryServiceApi {
       @required DirectoryVpcSettings vpcSettings,
       String edition,
       List<Tag> tags}) async {
-    return CreateMicrosoftADResult.fromJson({});
+    var response_ = await _client.send('CreateMicrosoftAD', {
+      'Name': name,
+      if (shortName != null) 'ShortName': shortName,
+      'Password': password,
+      if (description != null) 'Description': description,
+      'VpcSettings': vpcSettings,
+      if (edition != null) 'Edition': edition,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateMicrosoftADResult.fromJson(response_);
   }
 
   /// Creates a snapshot of a Simple AD or Microsoft AD directory in the AWS
@@ -345,7 +416,11 @@ class DirectoryServiceApi {
   /// [name]: The descriptive name to apply to the snapshot.
   Future<CreateSnapshotResult> createSnapshot(String directoryId,
       {String name}) async {
-    return CreateSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateSnapshot', {
+      'DirectoryId': directoryId,
+      if (name != null) 'Name': name,
+    });
+    return CreateSnapshotResult.fromJson(response_);
   }
 
   /// AWS Directory Service for Microsoft Active Directory allows you to
@@ -385,7 +460,17 @@ class DirectoryServiceApi {
       String trustType,
       List<String> conditionalForwarderIpAddrs,
       String selectiveAuth}) async {
-    return CreateTrustResult.fromJson({});
+    var response_ = await _client.send('CreateTrust', {
+      'DirectoryId': directoryId,
+      'RemoteDomainName': remoteDomainName,
+      'TrustPassword': trustPassword,
+      'TrustDirection': trustDirection,
+      if (trustType != null) 'TrustType': trustType,
+      if (conditionalForwarderIpAddrs != null)
+        'ConditionalForwarderIpAddrs': conditionalForwarderIpAddrs,
+      if (selectiveAuth != null) 'SelectiveAuth': selectiveAuth,
+    });
+    return CreateTrustResult.fromJson(response_);
   }
 
   /// Deletes a conditional forwarder that has been set up for your AWS
@@ -398,7 +483,11 @@ class DirectoryServiceApi {
   /// domain with which you are deleting the conditional forwarder.
   Future<DeleteConditionalForwarderResult> deleteConditionalForwarder(
       {@required String directoryId, @required String remoteDomainName}) async {
-    return DeleteConditionalForwarderResult.fromJson({});
+    var response_ = await _client.send('DeleteConditionalForwarder', {
+      'DirectoryId': directoryId,
+      'RemoteDomainName': remoteDomainName,
+    });
+    return DeleteConditionalForwarderResult.fromJson(response_);
   }
 
   /// Deletes an AWS Directory Service directory.
@@ -411,7 +500,10 @@ class DirectoryServiceApi {
   ///
   /// [directoryId]: The identifier of the directory to delete.
   Future<DeleteDirectoryResult> deleteDirectory(String directoryId) async {
-    return DeleteDirectoryResult.fromJson({});
+    var response_ = await _client.send('DeleteDirectory', {
+      'DirectoryId': directoryId,
+    });
+    return DeleteDirectoryResult.fromJson(response_);
   }
 
   /// Deletes the specified log subscription.
@@ -420,14 +512,20 @@ class DirectoryServiceApi {
   /// want to delete.
   Future<DeleteLogSubscriptionResult> deleteLogSubscription(
       String directoryId) async {
-    return DeleteLogSubscriptionResult.fromJson({});
+    var response_ = await _client.send('DeleteLogSubscription', {
+      'DirectoryId': directoryId,
+    });
+    return DeleteLogSubscriptionResult.fromJson(response_);
   }
 
   /// Deletes a directory snapshot.
   ///
   /// [snapshotId]: The identifier of the directory snapshot to be deleted.
   Future<DeleteSnapshotResult> deleteSnapshot(String snapshotId) async {
-    return DeleteSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteSnapshot', {
+      'SnapshotId': snapshotId,
+    });
+    return DeleteSnapshotResult.fromJson(response_);
   }
 
   /// Deletes an existing trust relationship between your AWS Managed Microsoft
@@ -439,7 +537,13 @@ class DirectoryServiceApi {
   /// part of a DeleteTrustRequest.
   Future<DeleteTrustResult> deleteTrust(String trustId,
       {bool deleteAssociatedConditionalForwarder}) async {
-    return DeleteTrustResult.fromJson({});
+    var response_ = await _client.send('DeleteTrust', {
+      'TrustId': trustId,
+      if (deleteAssociatedConditionalForwarder != null)
+        'DeleteAssociatedConditionalForwarder':
+            deleteAssociatedConditionalForwarder,
+    });
+    return DeleteTrustResult.fromJson(response_);
   }
 
   /// Removes the specified directory as a publisher to the specified SNS topic.
@@ -451,7 +555,11 @@ class DirectoryServiceApi {
   /// as a publisher.
   Future<DeregisterEventTopicResult> deregisterEventTopic(
       {@required String directoryId, @required String topicName}) async {
-    return DeregisterEventTopicResult.fromJson({});
+    var response_ = await _client.send('DeregisterEventTopic', {
+      'DirectoryId': directoryId,
+      'TopicName': topicName,
+    });
+    return DeregisterEventTopicResult.fromJson(response_);
   }
 
   /// Obtains information about the conditional forwarders for this account.
@@ -468,7 +576,11 @@ class DirectoryServiceApi {
   Future<DescribeConditionalForwardersResult> describeConditionalForwarders(
       String directoryId,
       {List<String> remoteDomainNames}) async {
-    return DescribeConditionalForwardersResult.fromJson({});
+    var response_ = await _client.send('DescribeConditionalForwarders', {
+      'DirectoryId': directoryId,
+      if (remoteDomainNames != null) 'RemoteDomainNames': remoteDomainNames,
+    });
+    return DescribeConditionalForwardersResult.fromJson(response_);
   }
 
   /// Obtains information about the directories that belong to this account.
@@ -499,7 +611,12 @@ class DirectoryServiceApi {
   /// maximum number of items is specified by the limitations of the operation.
   Future<DescribeDirectoriesResult> describeDirectories(
       {List<String> directoryIds, String nextToken, int limit}) async {
-    return DescribeDirectoriesResult.fromJson({});
+    var response_ = await _client.send('DescribeDirectories', {
+      if (directoryIds != null) 'DirectoryIds': directoryIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeDirectoriesResult.fromJson(response_);
   }
 
   /// Provides information about any domain controllers in your directory.
@@ -520,7 +637,14 @@ class DirectoryServiceApi {
       {List<String> domainControllerIds,
       String nextToken,
       int limit}) async {
-    return DescribeDomainControllersResult.fromJson({});
+    var response_ = await _client.send('DescribeDomainControllers', {
+      'DirectoryId': directoryId,
+      if (domainControllerIds != null)
+        'DomainControllerIds': domainControllerIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeDomainControllersResult.fromJson(response_);
   }
 
   /// Obtains information about which SNS topics receive status messages from
@@ -540,7 +664,11 @@ class DirectoryServiceApi {
   /// An empty list results in an `InvalidParameterException` being thrown.
   Future<DescribeEventTopicsResult> describeEventTopics(
       {String directoryId, List<String> topicNames}) async {
-    return DescribeEventTopicsResult.fromJson({});
+    var response_ = await _client.send('DescribeEventTopics', {
+      if (directoryId != null) 'DirectoryId': directoryId,
+      if (topicNames != null) 'TopicNames': topicNames,
+    });
+    return DescribeEventTopicsResult.fromJson(response_);
   }
 
   /// Returns the shared directories in your account.
@@ -562,7 +690,13 @@ class DirectoryServiceApi {
       {List<String> sharedDirectoryIds,
       String nextToken,
       int limit}) async {
-    return DescribeSharedDirectoriesResult.fromJson({});
+    var response_ = await _client.send('DescribeSharedDirectories', {
+      'OwnerDirectoryId': ownerDirectoryId,
+      if (sharedDirectoryIds != null) 'SharedDirectoryIds': sharedDirectoryIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeSharedDirectoriesResult.fromJson(response_);
   }
 
   /// Obtains information about the directory snapshots that belong to this
@@ -592,7 +726,13 @@ class DirectoryServiceApi {
       List<String> snapshotIds,
       String nextToken,
       int limit}) async {
-    return DescribeSnapshotsResult.fromJson({});
+    var response_ = await _client.send('DescribeSnapshots', {
+      if (directoryId != null) 'DirectoryId': directoryId,
+      if (snapshotIds != null) 'SnapshotIds': snapshotIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeSnapshotsResult.fromJson(response_);
   }
 
   /// Obtains information about the trust relationships for this account.
@@ -618,7 +758,13 @@ class DirectoryServiceApi {
       List<String> trustIds,
       String nextToken,
       int limit}) async {
-    return DescribeTrustsResult.fromJson({});
+    var response_ = await _client.send('DescribeTrusts', {
+      if (directoryId != null) 'DirectoryId': directoryId,
+      if (trustIds != null) 'TrustIds': trustIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeTrustsResult.fromJson(response_);
   }
 
   /// Disables multi-factor authentication (MFA) with the Remote Authentication
@@ -627,7 +773,10 @@ class DirectoryServiceApi {
   ///
   /// [directoryId]: The identifier of the directory for which to disable MFA.
   Future<DisableRadiusResult> disableRadius(String directoryId) async {
-    return DisableRadiusResult.fromJson({});
+    var response_ = await _client.send('DisableRadius', {
+      'DirectoryId': directoryId,
+    });
+    return DisableRadiusResult.fromJson(response_);
   }
 
   /// Disables single-sign on for a directory.
@@ -650,7 +799,12 @@ class DirectoryServiceApi {
   /// information, see the _UserName_ parameter.
   Future<DisableSsoResult> disableSso(String directoryId,
       {String userName, String password}) async {
-    return DisableSsoResult.fromJson({});
+    var response_ = await _client.send('DisableSso', {
+      'DirectoryId': directoryId,
+      if (userName != null) 'UserName': userName,
+      if (password != null) 'Password': password,
+    });
+    return DisableSsoResult.fromJson(response_);
   }
 
   /// Enables multi-factor authentication (MFA) with the Remote Authentication
@@ -664,7 +818,11 @@ class DirectoryServiceApi {
   Future<EnableRadiusResult> enableRadius(
       {@required String directoryId,
       @required RadiusSettings radiusSettings}) async {
-    return EnableRadiusResult.fromJson({});
+    var response_ = await _client.send('EnableRadius', {
+      'DirectoryId': directoryId,
+      'RadiusSettings': radiusSettings,
+    });
+    return EnableRadiusResult.fromJson(response_);
   }
 
   /// Enables single sign-on for a directory.
@@ -687,12 +845,18 @@ class DirectoryServiceApi {
   /// information, see the _UserName_ parameter.
   Future<EnableSsoResult> enableSso(String directoryId,
       {String userName, String password}) async {
-    return EnableSsoResult.fromJson({});
+    var response_ = await _client.send('EnableSso', {
+      'DirectoryId': directoryId,
+      if (userName != null) 'UserName': userName,
+      if (password != null) 'Password': password,
+    });
+    return EnableSsoResult.fromJson(response_);
   }
 
   /// Obtains directory limit information for the current region.
   Future<GetDirectoryLimitsResult> getDirectoryLimits() async {
-    return GetDirectoryLimitsResult.fromJson({});
+    var response_ = await _client.send('GetDirectoryLimits', {});
+    return GetDirectoryLimitsResult.fromJson(response_);
   }
 
   /// Obtains the manual snapshot limits for a directory.
@@ -700,7 +864,10 @@ class DirectoryServiceApi {
   /// [directoryId]: Contains the identifier of the directory to obtain the
   /// limits for.
   Future<GetSnapshotLimitsResult> getSnapshotLimits(String directoryId) async {
-    return GetSnapshotLimitsResult.fromJson({});
+    var response_ = await _client.send('GetSnapshotLimits', {
+      'DirectoryId': directoryId,
+    });
+    return GetSnapshotLimitsResult.fromJson(response_);
   }
 
   /// Lists the address blocks that you have added to a directory.
@@ -715,7 +882,12 @@ class DirectoryServiceApi {
   /// maximum number of items is specified by the limitations of the operation.
   Future<ListIpRoutesResult> listIpRoutes(String directoryId,
       {String nextToken, int limit}) async {
-    return ListIpRoutesResult.fromJson({});
+    var response_ = await _client.send('ListIpRoutes', {
+      'DirectoryId': directoryId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListIpRoutesResult.fromJson(response_);
   }
 
   /// Lists the active log subscriptions for the AWS account.
@@ -731,7 +903,12 @@ class DirectoryServiceApi {
   /// [limit]: The maximum number of items returned.
   Future<ListLogSubscriptionsResult> listLogSubscriptions(
       {String directoryId, String nextToken, int limit}) async {
-    return ListLogSubscriptionsResult.fromJson({});
+    var response_ = await _client.send('ListLogSubscriptions', {
+      if (directoryId != null) 'DirectoryId': directoryId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListLogSubscriptionsResult.fromJson(response_);
   }
 
   /// Lists all schema extensions applied to a Microsoft AD Directory.
@@ -745,7 +922,12 @@ class DirectoryServiceApi {
   /// [limit]: The maximum number of items to return.
   Future<ListSchemaExtensionsResult> listSchemaExtensions(String directoryId,
       {String nextToken, int limit}) async {
-    return ListSchemaExtensionsResult.fromJson({});
+    var response_ = await _client.send('ListSchemaExtensions', {
+      'DirectoryId': directoryId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListSchemaExtensionsResult.fromJson(response_);
   }
 
   /// Lists all tags on a directory.
@@ -758,7 +940,12 @@ class DirectoryServiceApi {
   /// [limit]: Reserved for future use.
   Future<ListTagsForResourceResult> listTagsForResource(String resourceId,
       {String nextToken, int limit}) async {
-    return ListTagsForResourceResult.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceId': resourceId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListTagsForResourceResult.fromJson(response_);
   }
 
   /// Associates a directory with an SNS topic. This establishes the directory
@@ -776,7 +963,11 @@ class DirectoryServiceApi {
   /// Directory ID.
   Future<RegisterEventTopicResult> registerEventTopic(
       {@required String directoryId, @required String topicName}) async {
-    return RegisterEventTopicResult.fromJson({});
+    var response_ = await _client.send('RegisterEventTopic', {
+      'DirectoryId': directoryId,
+      'TopicName': topicName,
+    });
+    return RegisterEventTopicResult.fromJson(response_);
   }
 
   /// Rejects a directory sharing request that was sent from the directory owner
@@ -787,7 +978,10 @@ class DirectoryServiceApi {
   /// account.
   Future<RejectSharedDirectoryResult> rejectSharedDirectory(
       String sharedDirectoryId) async {
-    return RejectSharedDirectoryResult.fromJson({});
+    var response_ = await _client.send('RejectSharedDirectory', {
+      'SharedDirectoryId': sharedDirectoryId,
+    });
+    return RejectSharedDirectoryResult.fromJson(response_);
   }
 
   /// Removes IP address blocks from a directory.
@@ -798,7 +992,11 @@ class DirectoryServiceApi {
   /// [cidrIps]: IP address blocks that you want to remove.
   Future<RemoveIpRoutesResult> removeIpRoutes(
       {@required String directoryId, @required List<String> cidrIps}) async {
-    return RemoveIpRoutesResult.fromJson({});
+    var response_ = await _client.send('RemoveIpRoutes', {
+      'DirectoryId': directoryId,
+      'CidrIps': cidrIps,
+    });
+    return RemoveIpRoutesResult.fromJson(response_);
   }
 
   /// Removes tags from a directory.
@@ -809,7 +1007,11 @@ class DirectoryServiceApi {
   /// [tagKeys]: The tag key (name) of the tag to be removed.
   Future<RemoveTagsFromResourceResult> removeTagsFromResource(
       {@required String resourceId, @required List<String> tagKeys}) async {
-    return RemoveTagsFromResourceResult.fromJson({});
+    var response_ = await _client.send('RemoveTagsFromResource', {
+      'ResourceId': resourceId,
+      'TagKeys': tagKeys,
+    });
+    return RemoveTagsFromResourceResult.fromJson(response_);
   }
 
   /// Resets the password for any user in your AWS Managed Microsoft AD or
@@ -825,7 +1027,12 @@ class DirectoryServiceApi {
       {@required String directoryId,
       @required String userName,
       @required String newPassword}) async {
-    return ResetUserPasswordResult.fromJson({});
+    var response_ = await _client.send('ResetUserPassword', {
+      'DirectoryId': directoryId,
+      'UserName': userName,
+      'NewPassword': newPassword,
+    });
+    return ResetUserPasswordResult.fromJson(response_);
   }
 
   /// Restores a directory using an existing directory snapshot.
@@ -842,7 +1049,10 @@ class DirectoryServiceApi {
   /// [snapshotId]: The identifier of the snapshot to restore from.
   Future<RestoreFromSnapshotResult> restoreFromSnapshot(
       String snapshotId) async {
-    return RestoreFromSnapshotResult.fromJson({});
+    var response_ = await _client.send('RestoreFromSnapshot', {
+      'SnapshotId': snapshotId,
+    });
+    return RestoreFromSnapshotResult.fromJson(response_);
   }
 
   /// Shares a specified directory (`DirectoryId`) in your AWS account
@@ -885,7 +1095,13 @@ class DirectoryServiceApi {
       String shareNotes,
       @required ShareTarget shareTarget,
       @required String shareMethod}) async {
-    return ShareDirectoryResult.fromJson({});
+    var response_ = await _client.send('ShareDirectory', {
+      'DirectoryId': directoryId,
+      if (shareNotes != null) 'ShareNotes': shareNotes,
+      'ShareTarget': shareTarget,
+      'ShareMethod': shareMethod,
+    });
+    return ShareDirectoryResult.fromJson(response_);
   }
 
   /// Applies a schema extension to a Microsoft AD directory.
@@ -907,7 +1123,14 @@ class DirectoryServiceApi {
       @required bool createSnapshotBeforeSchemaExtension,
       @required String ldifContent,
       @required String description}) async {
-    return StartSchemaExtensionResult.fromJson({});
+    var response_ = await _client.send('StartSchemaExtension', {
+      'DirectoryId': directoryId,
+      'CreateSnapshotBeforeSchemaExtension':
+          createSnapshotBeforeSchemaExtension,
+      'LdifContent': ldifContent,
+      'Description': description,
+    });
+    return StartSchemaExtensionResult.fromJson(response_);
   }
 
   /// Stops the directory sharing between the directory owner and consumer
@@ -921,7 +1144,11 @@ class DirectoryServiceApi {
   Future<UnshareDirectoryResult> unshareDirectory(
       {@required String directoryId,
       @required UnshareTarget unshareTarget}) async {
-    return UnshareDirectoryResult.fromJson({});
+    var response_ = await _client.send('UnshareDirectory', {
+      'DirectoryId': directoryId,
+      'UnshareTarget': unshareTarget,
+    });
+    return UnshareDirectoryResult.fromJson(response_);
   }
 
   /// Updates a conditional forwarder that has been set up for your AWS
@@ -939,7 +1166,12 @@ class DirectoryServiceApi {
       {@required String directoryId,
       @required String remoteDomainName,
       @required List<String> dnsIpAddrs}) async {
-    return UpdateConditionalForwarderResult.fromJson({});
+    var response_ = await _client.send('UpdateConditionalForwarder', {
+      'DirectoryId': directoryId,
+      'RemoteDomainName': remoteDomainName,
+      'DnsIpAddrs': dnsIpAddrs,
+    });
+    return UpdateConditionalForwarderResult.fromJson(response_);
   }
 
   /// Adds or removes domain controllers to or from the directory. Based on the
@@ -956,7 +1188,11 @@ class DirectoryServiceApi {
   /// directory.
   Future<UpdateNumberOfDomainControllersResult> updateNumberOfDomainControllers(
       {@required String directoryId, @required int desiredNumber}) async {
-    return UpdateNumberOfDomainControllersResult.fromJson({});
+    var response_ = await _client.send('UpdateNumberOfDomainControllers', {
+      'DirectoryId': directoryId,
+      'DesiredNumber': desiredNumber,
+    });
+    return UpdateNumberOfDomainControllersResult.fromJson(response_);
   }
 
   /// Updates the Remote Authentication Dial In User Service (RADIUS) server
@@ -970,7 +1206,11 @@ class DirectoryServiceApi {
   Future<UpdateRadiusResult> updateRadius(
       {@required String directoryId,
       @required RadiusSettings radiusSettings}) async {
-    return UpdateRadiusResult.fromJson({});
+    var response_ = await _client.send('UpdateRadius', {
+      'DirectoryId': directoryId,
+      'RadiusSettings': radiusSettings,
+    });
+    return UpdateRadiusResult.fromJson(response_);
   }
 
   /// Updates the trust that has been set up between your AWS Managed Microsoft
@@ -981,7 +1221,11 @@ class DirectoryServiceApi {
   /// [selectiveAuth]: Updates selective authentication for the trust.
   Future<UpdateTrustResult> updateTrust(String trustId,
       {String selectiveAuth}) async {
-    return UpdateTrustResult.fromJson({});
+    var response_ = await _client.send('UpdateTrust', {
+      'TrustId': trustId,
+      if (selectiveAuth != null) 'SelectiveAuth': selectiveAuth,
+    });
+    return UpdateTrustResult.fromJson(response_);
   }
 
   /// AWS Directory Service for Microsoft Active Directory allows you to
@@ -992,7 +1236,10 @@ class DirectoryServiceApi {
   ///
   /// [trustId]: The unique Trust ID of the trust relationship to verify.
   Future<VerifyTrustResult> verifyTrust(String trustId) async {
-    return VerifyTrustResult.fromJson({});
+    var response_ = await _client.send('VerifyTrust', {
+      'TrustId': trustId,
+    });
+    return VerifyTrustResult.fromJson(response_);
   }
 }
 
@@ -1004,7 +1251,11 @@ class AcceptSharedDirectoryResult {
     this.sharedDirectory,
   });
   static AcceptSharedDirectoryResult fromJson(Map<String, dynamic> json) =>
-      AcceptSharedDirectoryResult();
+      AcceptSharedDirectoryResult(
+        sharedDirectory: json.containsKey('SharedDirectory')
+            ? SharedDirectory.fromJson(json['SharedDirectory'])
+            : null,
+      );
 }
 
 class AddIpRoutesResult {
@@ -1031,7 +1282,11 @@ class Attribute {
     this.name,
     this.value,
   });
-  static Attribute fromJson(Map<String, dynamic> json) => Attribute();
+  static Attribute fromJson(Map<String, dynamic> json) => Attribute(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CancelSchemaExtensionResult {
@@ -1057,7 +1312,19 @@ class Computer {
     this.computerName,
     this.computerAttributes,
   });
-  static Computer fromJson(Map<String, dynamic> json) => Computer();
+  static Computer fromJson(Map<String, dynamic> json) => Computer(
+        computerId: json.containsKey('ComputerId')
+            ? json['ComputerId'] as String
+            : null,
+        computerName: json.containsKey('ComputerName')
+            ? json['ComputerName'] as String
+            : null,
+        computerAttributes: json.containsKey('ComputerAttributes')
+            ? (json['ComputerAttributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Points to a remote domain with which you are setting up a trust
@@ -1084,7 +1351,17 @@ class ConditionalForwarder {
     this.replicationScope,
   });
   static ConditionalForwarder fromJson(Map<String, dynamic> json) =>
-      ConditionalForwarder();
+      ConditionalForwarder(
+        remoteDomainName: json.containsKey('RemoteDomainName')
+            ? json['RemoteDomainName'] as String
+            : null,
+        dnsIpAddrs: json.containsKey('DnsIpAddrs')
+            ? (json['DnsIpAddrs'] as List).map((e) => e as String).toList()
+            : null,
+        replicationScope: json.containsKey('ReplicationScope')
+            ? json['ReplicationScope'] as String
+            : null,
+      );
 }
 
 /// Contains the results of the ConnectDirectory operation.
@@ -1096,7 +1373,11 @@ class ConnectDirectoryResult {
     this.directoryId,
   });
   static ConnectDirectoryResult fromJson(Map<String, dynamic> json) =>
-      ConnectDirectoryResult();
+      ConnectDirectoryResult(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+      );
 }
 
 /// Contains the results of the CreateAlias operation.
@@ -1112,7 +1393,12 @@ class CreateAliasResult {
     this.alias,
   });
   static CreateAliasResult fromJson(Map<String, dynamic> json) =>
-      CreateAliasResult();
+      CreateAliasResult(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        alias: json.containsKey('Alias') ? json['Alias'] as String : null,
+      );
 }
 
 /// Contains the results for the CreateComputer operation.
@@ -1124,7 +1410,11 @@ class CreateComputerResult {
     this.computer,
   });
   static CreateComputerResult fromJson(Map<String, dynamic> json) =>
-      CreateComputerResult();
+      CreateComputerResult(
+        computer: json.containsKey('Computer')
+            ? Computer.fromJson(json['Computer'])
+            : null,
+      );
 }
 
 /// The result of a CreateConditinalForwarder request.
@@ -1143,7 +1433,11 @@ class CreateDirectoryResult {
     this.directoryId,
   });
   static CreateDirectoryResult fromJson(Map<String, dynamic> json) =>
-      CreateDirectoryResult();
+      CreateDirectoryResult(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+      );
 }
 
 class CreateLogSubscriptionResult {
@@ -1161,7 +1455,11 @@ class CreateMicrosoftADResult {
     this.directoryId,
   });
   static CreateMicrosoftADResult fromJson(Map<String, dynamic> json) =>
-      CreateMicrosoftADResult();
+      CreateMicrosoftADResult(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+      );
 }
 
 /// Contains the results of the CreateSnapshot operation.
@@ -1173,7 +1471,11 @@ class CreateSnapshotResult {
     this.snapshotId,
   });
   static CreateSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateSnapshotResult();
+      CreateSnapshotResult(
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+      );
 }
 
 /// The result of a CreateTrust request.
@@ -1185,7 +1487,9 @@ class CreateTrustResult {
     this.trustId,
   });
   static CreateTrustResult fromJson(Map<String, dynamic> json) =>
-      CreateTrustResult();
+      CreateTrustResult(
+        trustId: json.containsKey('TrustId') ? json['TrustId'] as String : null,
+      );
 }
 
 /// The result of a DeleteConditionalForwarder request.
@@ -1204,7 +1508,11 @@ class DeleteDirectoryResult {
     this.directoryId,
   });
   static DeleteDirectoryResult fromJson(Map<String, dynamic> json) =>
-      DeleteDirectoryResult();
+      DeleteDirectoryResult(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+      );
 }
 
 class DeleteLogSubscriptionResult {
@@ -1222,7 +1530,11 @@ class DeleteSnapshotResult {
     this.snapshotId,
   });
   static DeleteSnapshotResult fromJson(Map<String, dynamic> json) =>
-      DeleteSnapshotResult();
+      DeleteSnapshotResult(
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+      );
 }
 
 /// The result of a DeleteTrust request.
@@ -1234,7 +1546,9 @@ class DeleteTrustResult {
     this.trustId,
   });
   static DeleteTrustResult fromJson(Map<String, dynamic> json) =>
-      DeleteTrustResult();
+      DeleteTrustResult(
+        trustId: json.containsKey('TrustId') ? json['TrustId'] as String : null,
+      );
 }
 
 /// The result of a DeregisterEventTopic request.
@@ -1254,7 +1568,13 @@ class DescribeConditionalForwardersResult {
   });
   static DescribeConditionalForwardersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeConditionalForwardersResult();
+      DescribeConditionalForwardersResult(
+        conditionalForwarders: json.containsKey('ConditionalForwarders')
+            ? (json['ConditionalForwarders'] as List)
+                .map((e) => ConditionalForwarder.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the results of the DescribeDirectories operation.
@@ -1277,7 +1597,15 @@ class DescribeDirectoriesResult {
     this.nextToken,
   });
   static DescribeDirectoriesResult fromJson(Map<String, dynamic> json) =>
-      DescribeDirectoriesResult();
+      DescribeDirectoriesResult(
+        directoryDescriptions: json.containsKey('DirectoryDescriptions')
+            ? (json['DirectoryDescriptions'] as List)
+                .map((e) => DirectoryDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeDomainControllersResult {
@@ -1294,7 +1622,15 @@ class DescribeDomainControllersResult {
     this.nextToken,
   });
   static DescribeDomainControllersResult fromJson(Map<String, dynamic> json) =>
-      DescribeDomainControllersResult();
+      DescribeDomainControllersResult(
+        domainControllers: json.containsKey('DomainControllers')
+            ? (json['DomainControllers'] as List)
+                .map((e) => DomainController.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The result of a DescribeEventTopic request.
@@ -1307,7 +1643,13 @@ class DescribeEventTopicsResult {
     this.eventTopics,
   });
   static DescribeEventTopicsResult fromJson(Map<String, dynamic> json) =>
-      DescribeEventTopicsResult();
+      DescribeEventTopicsResult(
+        eventTopics: json.containsKey('EventTopics')
+            ? (json['EventTopics'] as List)
+                .map((e) => EventTopic.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeSharedDirectoriesResult {
@@ -1324,7 +1666,15 @@ class DescribeSharedDirectoriesResult {
     this.nextToken,
   });
   static DescribeSharedDirectoriesResult fromJson(Map<String, dynamic> json) =>
-      DescribeSharedDirectoriesResult();
+      DescribeSharedDirectoriesResult(
+        sharedDirectories: json.containsKey('SharedDirectories')
+            ? (json['SharedDirectories'] as List)
+                .map((e) => SharedDirectory.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the results of the DescribeSnapshots operation.
@@ -1346,7 +1696,15 @@ class DescribeSnapshotsResult {
     this.nextToken,
   });
   static DescribeSnapshotsResult fromJson(Map<String, dynamic> json) =>
-      DescribeSnapshotsResult();
+      DescribeSnapshotsResult(
+        snapshots: json.containsKey('Snapshots')
+            ? (json['Snapshots'] as List)
+                .map((e) => Snapshot.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The result of a DescribeTrust request.
@@ -1369,7 +1727,13 @@ class DescribeTrustsResult {
     this.nextToken,
   });
   static DescribeTrustsResult fromJson(Map<String, dynamic> json) =>
-      DescribeTrustsResult();
+      DescribeTrustsResult(
+        trusts: json.containsKey('Trusts')
+            ? (json['Trusts'] as List).map((e) => Trust.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains information for the ConnectDirectory operation when an AD Connector
@@ -1403,6 +1767,7 @@ class DirectoryConnectSettings {
     @required this.customerDnsIps,
     @required this.customerUserName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about an AD Connector directory.
@@ -1435,7 +1800,26 @@ class DirectoryConnectSettingsDescription {
   });
   static DirectoryConnectSettingsDescription fromJson(
           Map<String, dynamic> json) =>
-      DirectoryConnectSettingsDescription();
+      DirectoryConnectSettingsDescription(
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        customerUserName: json.containsKey('CustomerUserName')
+            ? json['CustomerUserName'] as String
+            : null,
+        securityGroupId: json.containsKey('SecurityGroupId')
+            ? json['SecurityGroupId'] as String
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        connectIps: json.containsKey('ConnectIps')
+            ? (json['ConnectIps'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Contains information about an AWS Directory Service directory.
@@ -1560,7 +1944,68 @@ class DirectoryDescription {
     this.ownerDirectoryDescription,
   });
   static DirectoryDescription fromJson(Map<String, dynamic> json) =>
-      DirectoryDescription();
+      DirectoryDescription(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        shortName:
+            json.containsKey('ShortName') ? json['ShortName'] as String : null,
+        size: json.containsKey('Size') ? json['Size'] as String : null,
+        edition: json.containsKey('Edition') ? json['Edition'] as String : null,
+        alias: json.containsKey('Alias') ? json['Alias'] as String : null,
+        accessUrl:
+            json.containsKey('AccessUrl') ? json['AccessUrl'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        dnsIpAddrs: json.containsKey('DnsIpAddrs')
+            ? (json['DnsIpAddrs'] as List).map((e) => e as String).toList()
+            : null,
+        stage: json.containsKey('Stage') ? json['Stage'] as String : null,
+        shareStatus: json.containsKey('ShareStatus')
+            ? json['ShareStatus'] as String
+            : null,
+        shareMethod: json.containsKey('ShareMethod')
+            ? json['ShareMethod'] as String
+            : null,
+        shareNotes: json.containsKey('ShareNotes')
+            ? json['ShareNotes'] as String
+            : null,
+        launchTime: json.containsKey('LaunchTime')
+            ? DateTime.parse(json['LaunchTime'])
+            : null,
+        stageLastUpdatedDateTime: json.containsKey('StageLastUpdatedDateTime')
+            ? DateTime.parse(json['StageLastUpdatedDateTime'])
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        vpcSettings: json.containsKey('VpcSettings')
+            ? DirectoryVpcSettingsDescription.fromJson(json['VpcSettings'])
+            : null,
+        connectSettings: json.containsKey('ConnectSettings')
+            ? DirectoryConnectSettingsDescription.fromJson(
+                json['ConnectSettings'])
+            : null,
+        radiusSettings: json.containsKey('RadiusSettings')
+            ? RadiusSettings.fromJson(json['RadiusSettings'])
+            : null,
+        radiusStatus: json.containsKey('RadiusStatus')
+            ? json['RadiusStatus'] as String
+            : null,
+        stageReason: json.containsKey('StageReason')
+            ? json['StageReason'] as String
+            : null,
+        ssoEnabled:
+            json.containsKey('SsoEnabled') ? json['SsoEnabled'] as bool : null,
+        desiredNumberOfDomainControllers:
+            json.containsKey('DesiredNumberOfDomainControllers')
+                ? json['DesiredNumberOfDomainControllers'] as int
+                : null,
+        ownerDirectoryDescription: json.containsKey('OwnerDirectoryDescription')
+            ? OwnerDirectoryDescription.fromJson(
+                json['OwnerDirectoryDescription'])
+            : null,
+      );
 }
 
 /// Contains directory limit information for a region.
@@ -1605,8 +2050,41 @@ class DirectoryLimits {
     this.connectedDirectoriesCurrentCount,
     this.connectedDirectoriesLimitReached,
   });
-  static DirectoryLimits fromJson(Map<String, dynamic> json) =>
-      DirectoryLimits();
+  static DirectoryLimits fromJson(Map<String, dynamic> json) => DirectoryLimits(
+        cloudOnlyDirectoriesLimit: json.containsKey('CloudOnlyDirectoriesLimit')
+            ? json['CloudOnlyDirectoriesLimit'] as int
+            : null,
+        cloudOnlyDirectoriesCurrentCount:
+            json.containsKey('CloudOnlyDirectoriesCurrentCount')
+                ? json['CloudOnlyDirectoriesCurrentCount'] as int
+                : null,
+        cloudOnlyDirectoriesLimitReached:
+            json.containsKey('CloudOnlyDirectoriesLimitReached')
+                ? json['CloudOnlyDirectoriesLimitReached'] as bool
+                : null,
+        cloudOnlyMicrosoftADLimit: json.containsKey('CloudOnlyMicrosoftADLimit')
+            ? json['CloudOnlyMicrosoftADLimit'] as int
+            : null,
+        cloudOnlyMicrosoftADCurrentCount:
+            json.containsKey('CloudOnlyMicrosoftADCurrentCount')
+                ? json['CloudOnlyMicrosoftADCurrentCount'] as int
+                : null,
+        cloudOnlyMicrosoftADLimitReached:
+            json.containsKey('CloudOnlyMicrosoftADLimitReached')
+                ? json['CloudOnlyMicrosoftADLimitReached'] as bool
+                : null,
+        connectedDirectoriesLimit: json.containsKey('ConnectedDirectoriesLimit')
+            ? json['ConnectedDirectoriesLimit'] as int
+            : null,
+        connectedDirectoriesCurrentCount:
+            json.containsKey('ConnectedDirectoriesCurrentCount')
+                ? json['ConnectedDirectoriesCurrentCount'] as int
+                : null,
+        connectedDirectoriesLimitReached:
+            json.containsKey('ConnectedDirectoriesLimitReached')
+                ? json['ConnectedDirectoriesLimitReached'] as bool
+                : null,
+      );
 }
 
 /// Contains VPC information for the CreateDirectory or CreateMicrosoftAD
@@ -1624,6 +2102,7 @@ class DirectoryVpcSettings {
     @required this.vpcId,
     @required this.subnetIds,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the directory.
@@ -1647,7 +2126,20 @@ class DirectoryVpcSettingsDescription {
     this.availabilityZones,
   });
   static DirectoryVpcSettingsDescription fromJson(Map<String, dynamic> json) =>
-      DirectoryVpcSettingsDescription();
+      DirectoryVpcSettingsDescription(
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        securityGroupId: json.containsKey('SecurityGroupId')
+            ? json['SecurityGroupId'] as String
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the results of the DisableRadius operation.
@@ -1709,7 +2201,32 @@ class DomainController {
     this.statusLastUpdatedDateTime,
   });
   static DomainController fromJson(Map<String, dynamic> json) =>
-      DomainController();
+      DomainController(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        domainControllerId: json.containsKey('DomainControllerId')
+            ? json['DomainControllerId'] as String
+            : null,
+        dnsIpAddr:
+            json.containsKey('DnsIpAddr') ? json['DnsIpAddr'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+        launchTime: json.containsKey('LaunchTime')
+            ? DateTime.parse(json['LaunchTime'])
+            : null,
+        statusLastUpdatedDateTime: json.containsKey('StatusLastUpdatedDateTime')
+            ? DateTime.parse(json['StatusLastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Contains the results of the EnableRadius operation.
@@ -1754,7 +2271,19 @@ class EventTopic {
     this.createdDateTime,
     this.status,
   });
-  static EventTopic fromJson(Map<String, dynamic> json) => EventTopic();
+  static EventTopic fromJson(Map<String, dynamic> json) => EventTopic(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        topicName:
+            json.containsKey('TopicName') ? json['TopicName'] as String : null,
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+        createdDateTime: json.containsKey('CreatedDateTime')
+            ? DateTime.parse(json['CreatedDateTime'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Contains the results of the GetDirectoryLimits operation.
@@ -1767,7 +2296,11 @@ class GetDirectoryLimitsResult {
     this.directoryLimits,
   });
   static GetDirectoryLimitsResult fromJson(Map<String, dynamic> json) =>
-      GetDirectoryLimitsResult();
+      GetDirectoryLimitsResult(
+        directoryLimits: json.containsKey('DirectoryLimits')
+            ? DirectoryLimits.fromJson(json['DirectoryLimits'])
+            : null,
+      );
 }
 
 /// Contains the results of the GetSnapshotLimits operation.
@@ -1780,7 +2313,11 @@ class GetSnapshotLimitsResult {
     this.snapshotLimits,
   });
   static GetSnapshotLimitsResult fromJson(Map<String, dynamic> json) =>
-      GetSnapshotLimitsResult();
+      GetSnapshotLimitsResult(
+        snapshotLimits: json.containsKey('SnapshotLimits')
+            ? SnapshotLimits.fromJson(json['SnapshotLimits'])
+            : null,
+      );
 }
 
 /// IP address block. This is often the address block of the DNS server used for
@@ -1799,6 +2336,7 @@ class IpRoute {
     this.cidrIp,
     this.description,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about one or more IP address blocks.
@@ -1829,7 +2367,24 @@ class IpRouteInfo {
     this.ipRouteStatusReason,
     this.description,
   });
-  static IpRouteInfo fromJson(Map<String, dynamic> json) => IpRouteInfo();
+  static IpRouteInfo fromJson(Map<String, dynamic> json) => IpRouteInfo(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        cidrIp: json.containsKey('CidrIp') ? json['CidrIp'] as String : null,
+        ipRouteStatusMsg: json.containsKey('IpRouteStatusMsg')
+            ? json['IpRouteStatusMsg'] as String
+            : null,
+        addedDateTime: json.containsKey('AddedDateTime')
+            ? DateTime.parse(json['AddedDateTime'])
+            : null,
+        ipRouteStatusReason: json.containsKey('IpRouteStatusReason')
+            ? json['IpRouteStatusReason'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class ListIpRoutesResult {
@@ -1846,7 +2401,15 @@ class ListIpRoutesResult {
     this.nextToken,
   });
   static ListIpRoutesResult fromJson(Map<String, dynamic> json) =>
-      ListIpRoutesResult();
+      ListIpRoutesResult(
+        ipRoutesInfo: json.containsKey('IpRoutesInfo')
+            ? (json['IpRoutesInfo'] as List)
+                .map((e) => IpRouteInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListLogSubscriptionsResult {
@@ -1861,7 +2424,15 @@ class ListLogSubscriptionsResult {
     this.nextToken,
   });
   static ListLogSubscriptionsResult fromJson(Map<String, dynamic> json) =>
-      ListLogSubscriptionsResult();
+      ListLogSubscriptionsResult(
+        logSubscriptions: json.containsKey('LogSubscriptions')
+            ? (json['LogSubscriptions'] as List)
+                .map((e) => LogSubscription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListSchemaExtensionsResult {
@@ -1878,7 +2449,15 @@ class ListSchemaExtensionsResult {
     this.nextToken,
   });
   static ListSchemaExtensionsResult fromJson(Map<String, dynamic> json) =>
-      ListSchemaExtensionsResult();
+      ListSchemaExtensionsResult(
+        schemaExtensionsInfo: json.containsKey('SchemaExtensionsInfo')
+            ? (json['SchemaExtensionsInfo'] as List)
+                .map((e) => SchemaExtensionInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResult {
@@ -1893,7 +2472,13 @@ class ListTagsForResourceResult {
     this.nextToken,
   });
   static ListTagsForResourceResult fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResult();
+      ListTagsForResourceResult(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents a log subscription, which tracks real-time data from a chosen log
@@ -1914,8 +2499,18 @@ class LogSubscription {
     this.logGroupName,
     this.subscriptionCreatedDateTime,
   });
-  static LogSubscription fromJson(Map<String, dynamic> json) =>
-      LogSubscription();
+  static LogSubscription fromJson(Map<String, dynamic> json) => LogSubscription(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        logGroupName: json.containsKey('LogGroupName')
+            ? json['LogGroupName'] as String
+            : null,
+        subscriptionCreatedDateTime:
+            json.containsKey('SubscriptionCreatedDateTime')
+                ? DateTime.parse(json['SubscriptionCreatedDateTime'])
+                : null,
+      );
 }
 
 /// Describes the directory owner account details that have been shared to the
@@ -1949,7 +2544,25 @@ class OwnerDirectoryDescription {
     this.radiusStatus,
   });
   static OwnerDirectoryDescription fromJson(Map<String, dynamic> json) =>
-      OwnerDirectoryDescription();
+      OwnerDirectoryDescription(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        dnsIpAddrs: json.containsKey('DnsIpAddrs')
+            ? (json['DnsIpAddrs'] as List).map((e) => e as String).toList()
+            : null,
+        vpcSettings: json.containsKey('VpcSettings')
+            ? DirectoryVpcSettingsDescription.fromJson(json['VpcSettings'])
+            : null,
+        radiusSettings: json.containsKey('RadiusSettings')
+            ? RadiusSettings.fromJson(json['RadiusSettings'])
+            : null,
+        radiusStatus: json.containsKey('RadiusStatus')
+            ? json['RadiusStatus'] as String
+            : null,
+      );
 }
 
 /// Contains information about a Remote Authentication Dial In User Service
@@ -1993,7 +2606,32 @@ class RadiusSettings {
     this.displayLabel,
     this.useSameUsername,
   });
-  static RadiusSettings fromJson(Map<String, dynamic> json) => RadiusSettings();
+  static RadiusSettings fromJson(Map<String, dynamic> json) => RadiusSettings(
+        radiusServers: json.containsKey('RadiusServers')
+            ? (json['RadiusServers'] as List).map((e) => e as String).toList()
+            : null,
+        radiusPort:
+            json.containsKey('RadiusPort') ? json['RadiusPort'] as int : null,
+        radiusTimeout: json.containsKey('RadiusTimeout')
+            ? json['RadiusTimeout'] as int
+            : null,
+        radiusRetries: json.containsKey('RadiusRetries')
+            ? json['RadiusRetries'] as int
+            : null,
+        sharedSecret: json.containsKey('SharedSecret')
+            ? json['SharedSecret'] as String
+            : null,
+        authenticationProtocol: json.containsKey('AuthenticationProtocol')
+            ? json['AuthenticationProtocol'] as String
+            : null,
+        displayLabel: json.containsKey('DisplayLabel')
+            ? json['DisplayLabel'] as String
+            : null,
+        useSameUsername: json.containsKey('UseSameUsername')
+            ? json['UseSameUsername'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The result of a RegisterEventTopic request.
@@ -2011,7 +2649,11 @@ class RejectSharedDirectoryResult {
     this.sharedDirectoryId,
   });
   static RejectSharedDirectoryResult fromJson(Map<String, dynamic> json) =>
-      RejectSharedDirectoryResult();
+      RejectSharedDirectoryResult(
+        sharedDirectoryId: json.containsKey('SharedDirectoryId')
+            ? json['SharedDirectoryId'] as String
+            : null,
+      );
 }
 
 class RemoveIpRoutesResult {
@@ -2073,7 +2715,30 @@ class SchemaExtensionInfo {
     this.endDateTime,
   });
   static SchemaExtensionInfo fromJson(Map<String, dynamic> json) =>
-      SchemaExtensionInfo();
+      SchemaExtensionInfo(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        schemaExtensionId: json.containsKey('SchemaExtensionId')
+            ? json['SchemaExtensionId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        schemaExtensionStatus: json.containsKey('SchemaExtensionStatus')
+            ? json['SchemaExtensionStatus'] as String
+            : null,
+        schemaExtensionStatusReason:
+            json.containsKey('SchemaExtensionStatusReason')
+                ? json['SchemaExtensionStatusReason'] as String
+                : null,
+        startDateTime: json.containsKey('StartDateTime')
+            ? DateTime.parse(json['StartDateTime'])
+            : null,
+        endDateTime: json.containsKey('EndDateTime')
+            ? DateTime.parse(json['EndDateTime'])
+            : null,
+      );
 }
 
 class ShareDirectoryResult {
@@ -2085,7 +2750,11 @@ class ShareDirectoryResult {
     this.sharedDirectoryId,
   });
   static ShareDirectoryResult fromJson(Map<String, dynamic> json) =>
-      ShareDirectoryResult();
+      ShareDirectoryResult(
+        sharedDirectoryId: json.containsKey('SharedDirectoryId')
+            ? json['SharedDirectoryId'] as String
+            : null,
+      );
 }
 
 /// Identifier that contains details about the directory consumer account.
@@ -2100,6 +2769,7 @@ class ShareTarget {
     @required this.id,
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about the shared directory in the directory owner account for which
@@ -2152,8 +2822,35 @@ class SharedDirectory {
     this.createdDateTime,
     this.lastUpdatedDateTime,
   });
-  static SharedDirectory fromJson(Map<String, dynamic> json) =>
-      SharedDirectory();
+  static SharedDirectory fromJson(Map<String, dynamic> json) => SharedDirectory(
+        ownerAccountId: json.containsKey('OwnerAccountId')
+            ? json['OwnerAccountId'] as String
+            : null,
+        ownerDirectoryId: json.containsKey('OwnerDirectoryId')
+            ? json['OwnerDirectoryId'] as String
+            : null,
+        shareMethod: json.containsKey('ShareMethod')
+            ? json['ShareMethod'] as String
+            : null,
+        sharedAccountId: json.containsKey('SharedAccountId')
+            ? json['SharedAccountId'] as String
+            : null,
+        sharedDirectoryId: json.containsKey('SharedDirectoryId')
+            ? json['SharedDirectoryId'] as String
+            : null,
+        shareStatus: json.containsKey('ShareStatus')
+            ? json['ShareStatus'] as String
+            : null,
+        shareNotes: json.containsKey('ShareNotes')
+            ? json['ShareNotes'] as String
+            : null,
+        createdDateTime: json.containsKey('CreatedDateTime')
+            ? DateTime.parse(json['CreatedDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('LastUpdatedDateTime')
+            ? DateTime.parse(json['LastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Describes a directory snapshot.
@@ -2184,7 +2881,20 @@ class Snapshot {
     this.status,
     this.startTime,
   });
-  static Snapshot fromJson(Map<String, dynamic> json) => Snapshot();
+  static Snapshot fromJson(Map<String, dynamic> json) => Snapshot(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+      );
 }
 
 /// Contains manual snapshot limit information for a directory.
@@ -2203,7 +2913,19 @@ class SnapshotLimits {
     this.manualSnapshotsCurrentCount,
     this.manualSnapshotsLimitReached,
   });
-  static SnapshotLimits fromJson(Map<String, dynamic> json) => SnapshotLimits();
+  static SnapshotLimits fromJson(Map<String, dynamic> json) => SnapshotLimits(
+        manualSnapshotsLimit: json.containsKey('ManualSnapshotsLimit')
+            ? json['ManualSnapshotsLimit'] as int
+            : null,
+        manualSnapshotsCurrentCount:
+            json.containsKey('ManualSnapshotsCurrentCount')
+                ? json['ManualSnapshotsCurrentCount'] as int
+                : null,
+        manualSnapshotsLimitReached:
+            json.containsKey('ManualSnapshotsLimitReached')
+                ? json['ManualSnapshotsLimitReached'] as bool
+                : null,
+      );
 }
 
 class StartSchemaExtensionResult {
@@ -2214,7 +2936,11 @@ class StartSchemaExtensionResult {
     this.schemaExtensionId,
   });
   static StartSchemaExtensionResult fromJson(Map<String, dynamic> json) =>
-      StartSchemaExtensionResult();
+      StartSchemaExtensionResult(
+        schemaExtensionId: json.containsKey('SchemaExtensionId')
+            ? json['SchemaExtensionId'] as String
+            : null,
+      );
 }
 
 /// Metadata assigned to a directory consisting of a key-value pair.
@@ -2235,7 +2961,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a trust relationship between an AWS Managed Microsoft AD directory
@@ -2288,7 +3018,38 @@ class Trust {
     this.trustStateReason,
     this.selectiveAuth,
   });
-  static Trust fromJson(Map<String, dynamic> json) => Trust();
+  static Trust fromJson(Map<String, dynamic> json) => Trust(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        trustId: json.containsKey('TrustId') ? json['TrustId'] as String : null,
+        remoteDomainName: json.containsKey('RemoteDomainName')
+            ? json['RemoteDomainName'] as String
+            : null,
+        trustType:
+            json.containsKey('TrustType') ? json['TrustType'] as String : null,
+        trustDirection: json.containsKey('TrustDirection')
+            ? json['TrustDirection'] as String
+            : null,
+        trustState: json.containsKey('TrustState')
+            ? json['TrustState'] as String
+            : null,
+        createdDateTime: json.containsKey('CreatedDateTime')
+            ? DateTime.parse(json['CreatedDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('LastUpdatedDateTime')
+            ? DateTime.parse(json['LastUpdatedDateTime'])
+            : null,
+        stateLastUpdatedDateTime: json.containsKey('StateLastUpdatedDateTime')
+            ? DateTime.parse(json['StateLastUpdatedDateTime'])
+            : null,
+        trustStateReason: json.containsKey('TrustStateReason')
+            ? json['TrustStateReason'] as String
+            : null,
+        selectiveAuth: json.containsKey('SelectiveAuth')
+            ? json['SelectiveAuth'] as String
+            : null,
+      );
 }
 
 class UnshareDirectoryResult {
@@ -2300,7 +3061,11 @@ class UnshareDirectoryResult {
     this.sharedDirectoryId,
   });
   static UnshareDirectoryResult fromJson(Map<String, dynamic> json) =>
-      UnshareDirectoryResult();
+      UnshareDirectoryResult(
+        sharedDirectoryId: json.containsKey('SharedDirectoryId')
+            ? json['SharedDirectoryId'] as String
+            : null,
+      );
 }
 
 /// Identifier that contains details about the directory consumer account with
@@ -2316,6 +3081,7 @@ class UnshareTarget {
     @required this.id,
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The result of an UpdateConditionalForwarder request.
@@ -2350,7 +3116,11 @@ class UpdateTrustResult {
     this.trustId,
   });
   static UpdateTrustResult fromJson(Map<String, dynamic> json) =>
-      UpdateTrustResult();
+      UpdateTrustResult(
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        trustId: json.containsKey('TrustId') ? json['TrustId'] as String : null,
+      );
 }
 
 /// Result of a VerifyTrust request.
@@ -2362,5 +3132,7 @@ class VerifyTrustResult {
     this.trustId,
   });
   static VerifyTrustResult fromJson(Map<String, dynamic> json) =>
-      VerifyTrustResult();
+      VerifyTrustResult(
+        trustId: json.containsKey('TrustId') ? json['TrustId'] as String : null,
+      );
 }

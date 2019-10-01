@@ -13,11 +13,18 @@ import 'package:meta/meta.dart';
 /// and endpoints, see
 /// [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region).
 class CloudSearchApi {
+  final _client;
+  CloudSearchApi(client)
+      : _client = client.configured('CloudSearch', serializer: 'query');
+
   /// Indexes the search suggestions. For more information, see
   /// [Configuring Suggesters](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html#configuring-suggesters)
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<BuildSuggestersResponse> buildSuggesters(String domainName) async {
-    return BuildSuggestersResponse.fromJson({});
+    var response_ = await _client.send('BuildSuggesters', {
+      'DomainName': domainName,
+    });
+    return BuildSuggestersResponse.fromJson(response_);
   }
 
   /// Creates a new search domain. For more information, see
@@ -29,7 +36,10 @@ class CloudSearchApi {
   /// with a letter or number and be at least 3 and no more than 28 characters
   /// long.
   Future<CreateDomainResponse> createDomain(String domainName) async {
-    return CreateDomainResponse.fromJson({});
+    var response_ = await _client.send('CreateDomain', {
+      'DomainName': domainName,
+    });
+    return CreateDomainResponse.fromJson(response_);
   }
 
   /// Configures an analysis scheme that can be applied to a `text` or
@@ -40,7 +50,11 @@ class CloudSearchApi {
   Future<DefineAnalysisSchemeResponse> defineAnalysisScheme(
       {@required String domainName,
       @required AnalysisScheme analysisScheme}) async {
-    return DefineAnalysisSchemeResponse.fromJson({});
+    var response_ = await _client.send('DefineAnalysisScheme', {
+      'DomainName': domainName,
+      'AnalysisScheme': analysisScheme,
+    });
+    return DefineAnalysisSchemeResponse.fromJson(response_);
   }
 
   /// Configures an `Expression` for the search domain. Used to create new
@@ -50,7 +64,11 @@ class CloudSearchApi {
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<DefineExpressionResponse> defineExpression(
       {@required String domainName, @required Expression expression}) async {
-    return DefineExpressionResponse.fromJson({});
+    var response_ = await _client.send('DefineExpression', {
+      'DomainName': domainName,
+      'Expression': expression,
+    });
+    return DefineExpressionResponse.fromJson(response_);
   }
 
   /// Configures an `IndexField` for the search domain. Used to create new
@@ -66,7 +84,11 @@ class CloudSearchApi {
   /// [indexField]: The index field and field options you want to configure.
   Future<DefineIndexFieldResponse> defineIndexField(
       {@required String domainName, @required IndexField indexField}) async {
-    return DefineIndexFieldResponse.fromJson({});
+    var response_ = await _client.send('DefineIndexField', {
+      'DomainName': domainName,
+      'IndexField': indexField,
+    });
+    return DefineIndexFieldResponse.fromJson(response_);
   }
 
   /// Configures a suggester for a domain. A suggester enables you to display
@@ -78,7 +100,11 @@ class CloudSearchApi {
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<DefineSuggesterResponse> defineSuggester(
       {@required String domainName, @required Suggester suggester}) async {
-    return DefineSuggesterResponse.fromJson({});
+    var response_ = await _client.send('DefineSuggester', {
+      'DomainName': domainName,
+      'Suggester': suggester,
+    });
+    return DefineSuggesterResponse.fromJson(response_);
   }
 
   /// Deletes an analysis scheme. For more information, see
@@ -89,7 +115,11 @@ class CloudSearchApi {
   Future<DeleteAnalysisSchemeResponse> deleteAnalysisScheme(
       {@required String domainName,
       @required String analysisSchemeName}) async {
-    return DeleteAnalysisSchemeResponse.fromJson({});
+    var response_ = await _client.send('DeleteAnalysisScheme', {
+      'DomainName': domainName,
+      'AnalysisSchemeName': analysisSchemeName,
+    });
+    return DeleteAnalysisSchemeResponse.fromJson(response_);
   }
 
   /// Permanently deletes a search domain and all of its data. Once a domain has
@@ -99,7 +129,10 @@ class CloudSearchApi {
   ///
   /// [domainName]: The name of the domain you want to permanently delete.
   Future<DeleteDomainResponse> deleteDomain(String domainName) async {
-    return DeleteDomainResponse.fromJson({});
+    var response_ = await _client.send('DeleteDomain', {
+      'DomainName': domainName,
+    });
+    return DeleteDomainResponse.fromJson(response_);
   }
 
   /// Removes an `Expression` from the search domain. For more information, see
@@ -109,7 +142,11 @@ class CloudSearchApi {
   /// [expressionName]: The name of the `Expression` to delete.
   Future<DeleteExpressionResponse> deleteExpression(
       {@required String domainName, @required String expressionName}) async {
-    return DeleteExpressionResponse.fromJson({});
+    var response_ = await _client.send('DeleteExpression', {
+      'DomainName': domainName,
+      'ExpressionName': expressionName,
+    });
+    return DeleteExpressionResponse.fromJson(response_);
   }
 
   /// Removes an `IndexField` from the search domain. For more information, see
@@ -120,7 +157,11 @@ class CloudSearchApi {
   /// domain's indexing options.
   Future<DeleteIndexFieldResponse> deleteIndexField(
       {@required String domainName, @required String indexFieldName}) async {
-    return DeleteIndexFieldResponse.fromJson({});
+    var response_ = await _client.send('DeleteIndexField', {
+      'DomainName': domainName,
+      'IndexFieldName': indexFieldName,
+    });
+    return DeleteIndexFieldResponse.fromJson(response_);
   }
 
   /// Deletes a suggester. For more information, see
@@ -130,7 +171,11 @@ class CloudSearchApi {
   /// [suggesterName]: Specifies the name of the suggester you want to delete.
   Future<DeleteSuggesterResponse> deleteSuggester(
       {@required String domainName, @required String suggesterName}) async {
-    return DeleteSuggesterResponse.fromJson({});
+    var response_ = await _client.send('DeleteSuggester', {
+      'DomainName': domainName,
+      'SuggesterName': suggesterName,
+    });
+    return DeleteSuggesterResponse.fromJson(response_);
   }
 
   /// Gets the analysis schemes configured for a domain. An analysis scheme
@@ -152,7 +197,13 @@ class CloudSearchApi {
       String domainName,
       {List<String> analysisSchemeNames,
       bool deployed}) async {
-    return DescribeAnalysisSchemesResponse.fromJson({});
+    var response_ = await _client.send('DescribeAnalysisSchemes', {
+      'DomainName': domainName,
+      if (analysisSchemeNames != null)
+        'AnalysisSchemeNames': analysisSchemeNames,
+      if (deployed != null) 'Deployed': deployed,
+    });
+    return DescribeAnalysisSchemesResponse.fromJson(response_);
   }
 
   /// Gets the availability options configured for a domain. By default, shows
@@ -169,7 +220,11 @@ class CloudSearchApi {
   Future<DescribeAvailabilityOptionsResponse> describeAvailabilityOptions(
       String domainName,
       {bool deployed}) async {
-    return DescribeAvailabilityOptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeAvailabilityOptions', {
+      'DomainName': domainName,
+      if (deployed != null) 'Deployed': deployed,
+    });
+    return DescribeAvailabilityOptionsResponse.fromJson(response_);
   }
 
   /// Gets information about the search domains owned by this account. Can be
@@ -184,7 +239,10 @@ class CloudSearchApi {
   /// response.
   Future<DescribeDomainsResponse> describeDomains(
       {List<String> domainNames}) async {
-    return DescribeDomainsResponse.fromJson({});
+    var response_ = await _client.send('DescribeDomains', {
+      if (domainNames != null) 'DomainNames': domainNames,
+    });
+    return DescribeDomainsResponse.fromJson(response_);
   }
 
   /// Gets the expressions configured for the search domain. Can be limited to
@@ -204,7 +262,12 @@ class CloudSearchApi {
   /// include any pending changes (`false`). Defaults to `false`.
   Future<DescribeExpressionsResponse> describeExpressions(String domainName,
       {List<String> expressionNames, bool deployed}) async {
-    return DescribeExpressionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeExpressions', {
+      'DomainName': domainName,
+      if (expressionNames != null) 'ExpressionNames': expressionNames,
+      if (deployed != null) 'Deployed': deployed,
+    });
+    return DescribeExpressionsResponse.fromJson(response_);
   }
 
   /// Gets information about the index fields configured for the search domain.
@@ -224,7 +287,12 @@ class CloudSearchApi {
   /// include any pending changes (`false`). Defaults to `false`.
   Future<DescribeIndexFieldsResponse> describeIndexFields(String domainName,
       {List<String> fieldNames, bool deployed}) async {
-    return DescribeIndexFieldsResponse.fromJson({});
+    var response_ = await _client.send('DescribeIndexFields', {
+      'DomainName': domainName,
+      if (fieldNames != null) 'FieldNames': fieldNames,
+      if (deployed != null) 'Deployed': deployed,
+    });
+    return DescribeIndexFieldsResponse.fromJson(response_);
   }
 
   /// Gets the scaling parameters configured for a domain. A domain's scaling
@@ -234,7 +302,10 @@ class CloudSearchApi {
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<DescribeScalingParametersResponse> describeScalingParameters(
       String domainName) async {
-    return DescribeScalingParametersResponse.fromJson({});
+    var response_ = await _client.send('DescribeScalingParameters', {
+      'DomainName': domainName,
+    });
+    return DescribeScalingParametersResponse.fromJson(response_);
   }
 
   /// Gets information about the access policies that control access to the
@@ -252,7 +323,11 @@ class CloudSearchApi {
   Future<DescribeServiceAccessPoliciesResponse> describeServiceAccessPolicies(
       String domainName,
       {bool deployed}) async {
-    return DescribeServiceAccessPoliciesResponse.fromJson({});
+    var response_ = await _client.send('DescribeServiceAccessPolicies', {
+      'DomainName': domainName,
+      if (deployed != null) 'Deployed': deployed,
+    });
+    return DescribeServiceAccessPoliciesResponse.fromJson(response_);
   }
 
   /// Gets the suggesters configured for a domain. A suggester enables you to
@@ -272,19 +347,28 @@ class CloudSearchApi {
   /// include any pending changes (`false`). Defaults to `false`.
   Future<DescribeSuggestersResponse> describeSuggesters(String domainName,
       {List<String> suggesterNames, bool deployed}) async {
-    return DescribeSuggestersResponse.fromJson({});
+    var response_ = await _client.send('DescribeSuggesters', {
+      'DomainName': domainName,
+      if (suggesterNames != null) 'SuggesterNames': suggesterNames,
+      if (deployed != null) 'Deployed': deployed,
+    });
+    return DescribeSuggestersResponse.fromJson(response_);
   }
 
   /// Tells the search domain to start indexing its documents using the latest
   /// indexing options. This operation must be invoked to activate options whose
   /// OptionStatus is `RequiresIndexDocuments`.
   Future<IndexDocumentsResponse> indexDocuments(String domainName) async {
-    return IndexDocumentsResponse.fromJson({});
+    var response_ = await _client.send('IndexDocuments', {
+      'DomainName': domainName,
+    });
+    return IndexDocumentsResponse.fromJson(response_);
   }
 
   /// Lists all search domains owned by an account.
   Future<ListDomainNamesResponse> listDomainNames() async {
-    return ListDomainNamesResponse.fromJson({});
+    var response_ = await _client.send('ListDomainNames', {});
+    return ListDomainNamesResponse.fromJson(response_);
   }
 
   /// Configures the availability options for a domain. Enabling the Multi-AZ
@@ -301,7 +385,11 @@ class CloudSearchApi {
   /// by setting the Multi-AZ option to `false`.
   Future<UpdateAvailabilityOptionsResponse> updateAvailabilityOptions(
       {@required String domainName, @required bool multiAZ}) async {
-    return UpdateAvailabilityOptionsResponse.fromJson({});
+    var response_ = await _client.send('UpdateAvailabilityOptions', {
+      'DomainName': domainName,
+      'MultiAZ': multiAZ,
+    });
+    return UpdateAvailabilityOptionsResponse.fromJson(response_);
   }
 
   /// Configures scaling parameters for a domain. A domain's scaling parameters
@@ -315,7 +403,11 @@ class CloudSearchApi {
   Future<UpdateScalingParametersResponse> updateScalingParameters(
       {@required String domainName,
       @required ScalingParameters scalingParameters}) async {
-    return UpdateScalingParametersResponse.fromJson({});
+    var response_ = await _client.send('UpdateScalingParameters', {
+      'DomainName': domainName,
+      'ScalingParameters': scalingParameters,
+    });
+    return UpdateScalingParametersResponse.fromJson(response_);
   }
 
   /// Configures the access rules that control access to the domain's document
@@ -326,7 +418,11 @@ class CloudSearchApi {
   /// replace any existing rules.
   Future<UpdateServiceAccessPoliciesResponse> updateServiceAccessPolicies(
       {@required String domainName, @required String accessPolicies}) async {
-    return UpdateServiceAccessPoliciesResponse.fromJson({});
+    var response_ = await _client.send('UpdateServiceAccessPolicies', {
+      'DomainName': domainName,
+      'AccessPolicies': accessPolicies,
+    });
+    return UpdateServiceAccessPoliciesResponse.fromJson(response_);
   }
 }
 
@@ -342,7 +438,10 @@ class AccessPoliciesStatus {
     @required this.status,
   });
   static AccessPoliciesStatus fromJson(Map<String, dynamic> json) =>
-      AccessPoliciesStatus();
+      AccessPoliciesStatus(
+        options: json['Options'] as String,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// Synonyms, stopwords, and stemming options for an analysis scheme. Includes
@@ -394,8 +493,23 @@ class AnalysisOptions {
     this.japaneseTokenizationDictionary,
     this.algorithmicStemming,
   });
-  static AnalysisOptions fromJson(Map<String, dynamic> json) =>
-      AnalysisOptions();
+  static AnalysisOptions fromJson(Map<String, dynamic> json) => AnalysisOptions(
+        synonyms:
+            json.containsKey('Synonyms') ? json['Synonyms'] as String : null,
+        stopwords:
+            json.containsKey('Stopwords') ? json['Stopwords'] as String : null,
+        stemmingDictionary: json.containsKey('StemmingDictionary')
+            ? json['StemmingDictionary'] as String
+            : null,
+        japaneseTokenizationDictionary:
+            json.containsKey('JapaneseTokenizationDictionary')
+                ? json['JapaneseTokenizationDictionary'] as String
+                : null,
+        algorithmicStemming: json.containsKey('AlgorithmicStemming')
+            ? json['AlgorithmicStemming'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration information for an analysis scheme. Each analysis scheme has a
@@ -415,7 +529,14 @@ class AnalysisScheme {
     @required this.analysisSchemeLanguage,
     this.analysisOptions,
   });
-  static AnalysisScheme fromJson(Map<String, dynamic> json) => AnalysisScheme();
+  static AnalysisScheme fromJson(Map<String, dynamic> json) => AnalysisScheme(
+        analysisSchemeName: json['AnalysisSchemeName'] as String,
+        analysisSchemeLanguage: json['AnalysisSchemeLanguage'] as String,
+        analysisOptions: json.containsKey('AnalysisOptions')
+            ? AnalysisOptions.fromJson(json['AnalysisOptions'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The status and configuration of an `AnalysisScheme`.
@@ -429,7 +550,10 @@ class AnalysisSchemeStatus {
     @required this.status,
   });
   static AnalysisSchemeStatus fromJson(Map<String, dynamic> json) =>
-      AnalysisSchemeStatus();
+      AnalysisSchemeStatus(
+        options: AnalysisScheme.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The status and configuration of the domain's availability options.
@@ -444,7 +568,10 @@ class AvailabilityOptionsStatus {
     @required this.status,
   });
   static AvailabilityOptionsStatus fromJson(Map<String, dynamic> json) =>
-      AvailabilityOptionsStatus();
+      AvailabilityOptionsStatus(
+        options: json['Options'] as bool,
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The result of a `BuildSuggester` request. Contains a list of the fields used
@@ -456,7 +583,11 @@ class BuildSuggestersResponse {
     this.fieldNames,
   });
   static BuildSuggestersResponse fromJson(Map<String, dynamic> json) =>
-      BuildSuggestersResponse();
+      BuildSuggestersResponse(
+        fieldNames: json.containsKey('FieldNames')
+            ? (json['FieldNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// The result of a `CreateDomainRequest`. Contains the status of a newly
@@ -468,7 +599,11 @@ class CreateDomainResponse {
     this.domainStatus,
   });
   static CreateDomainResponse fromJson(Map<String, dynamic> json) =>
-      CreateDomainResponse();
+      CreateDomainResponse(
+        domainStatus: json.containsKey('DomainStatus')
+            ? DomainStatus.fromJson(json['DomainStatus'])
+            : null,
+      );
 }
 
 /// Options for a field that contains an array of dates. Present if
@@ -498,7 +633,24 @@ class DateArrayOptions {
     this.returnEnabled,
   });
   static DateArrayOptions fromJson(Map<String, dynamic> json) =>
-      DateArrayOptions();
+      DateArrayOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        sourceFields: json.containsKey('SourceFields')
+            ? json['SourceFields'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Options for a date field. Dates and times are specified in UTC (Coordinated
@@ -531,7 +683,27 @@ class DateOptions {
     this.returnEnabled,
     this.sortEnabled,
   });
-  static DateOptions fromJson(Map<String, dynamic> json) => DateOptions();
+  static DateOptions fromJson(Map<String, dynamic> json) => DateOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        sourceField: json.containsKey('SourceField')
+            ? json['SourceField'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+        sortEnabled: json.containsKey('SortEnabled')
+            ? json['SortEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The result of a `DefineAnalysisScheme` request. Contains the status of the
@@ -543,7 +715,9 @@ class DefineAnalysisSchemeResponse {
     @required this.analysisScheme,
   });
   static DefineAnalysisSchemeResponse fromJson(Map<String, dynamic> json) =>
-      DefineAnalysisSchemeResponse();
+      DefineAnalysisSchemeResponse(
+        analysisScheme: AnalysisSchemeStatus.fromJson(json['AnalysisScheme']),
+      );
 }
 
 /// The result of a `DefineExpression` request. Contains the status of the
@@ -555,7 +729,9 @@ class DefineExpressionResponse {
     @required this.expression,
   });
   static DefineExpressionResponse fromJson(Map<String, dynamic> json) =>
-      DefineExpressionResponse();
+      DefineExpressionResponse(
+        expression: ExpressionStatus.fromJson(json['Expression']),
+      );
 }
 
 /// The result of a `DefineIndexField` request. Contains the status of the
@@ -567,7 +743,9 @@ class DefineIndexFieldResponse {
     @required this.indexField,
   });
   static DefineIndexFieldResponse fromJson(Map<String, dynamic> json) =>
-      DefineIndexFieldResponse();
+      DefineIndexFieldResponse(
+        indexField: IndexFieldStatus.fromJson(json['IndexField']),
+      );
 }
 
 /// The result of a `DefineSuggester` request. Contains the status of the
@@ -579,7 +757,9 @@ class DefineSuggesterResponse {
     @required this.suggester,
   });
   static DefineSuggesterResponse fromJson(Map<String, dynamic> json) =>
-      DefineSuggesterResponse();
+      DefineSuggesterResponse(
+        suggester: SuggesterStatus.fromJson(json['Suggester']),
+      );
 }
 
 /// The result of a `DeleteAnalysisScheme` request. Contains the status of the
@@ -592,7 +772,9 @@ class DeleteAnalysisSchemeResponse {
     @required this.analysisScheme,
   });
   static DeleteAnalysisSchemeResponse fromJson(Map<String, dynamic> json) =>
-      DeleteAnalysisSchemeResponse();
+      DeleteAnalysisSchemeResponse(
+        analysisScheme: AnalysisSchemeStatus.fromJson(json['AnalysisScheme']),
+      );
 }
 
 /// The result of a `DeleteDomain` request. Contains the status of a newly
@@ -605,7 +787,11 @@ class DeleteDomainResponse {
     this.domainStatus,
   });
   static DeleteDomainResponse fromJson(Map<String, dynamic> json) =>
-      DeleteDomainResponse();
+      DeleteDomainResponse(
+        domainStatus: json.containsKey('DomainStatus')
+            ? DomainStatus.fromJson(json['DomainStatus'])
+            : null,
+      );
 }
 
 /// The result of a `DeleteExpression` request. Specifies the expression being
@@ -618,7 +804,9 @@ class DeleteExpressionResponse {
     @required this.expression,
   });
   static DeleteExpressionResponse fromJson(Map<String, dynamic> json) =>
-      DeleteExpressionResponse();
+      DeleteExpressionResponse(
+        expression: ExpressionStatus.fromJson(json['Expression']),
+      );
 }
 
 /// The result of a `DeleteIndexField` request.
@@ -630,7 +818,9 @@ class DeleteIndexFieldResponse {
     @required this.indexField,
   });
   static DeleteIndexFieldResponse fromJson(Map<String, dynamic> json) =>
-      DeleteIndexFieldResponse();
+      DeleteIndexFieldResponse(
+        indexField: IndexFieldStatus.fromJson(json['IndexField']),
+      );
 }
 
 /// The result of a `DeleteSuggester` request. Contains the status of the
@@ -643,7 +833,9 @@ class DeleteSuggesterResponse {
     @required this.suggester,
   });
   static DeleteSuggesterResponse fromJson(Map<String, dynamic> json) =>
-      DeleteSuggesterResponse();
+      DeleteSuggesterResponse(
+        suggester: SuggesterStatus.fromJson(json['Suggester']),
+      );
 }
 
 /// The result of a `DescribeAnalysisSchemes` request. Contains the analysis
@@ -656,7 +848,11 @@ class DescribeAnalysisSchemesResponse {
     @required this.analysisSchemes,
   });
   static DescribeAnalysisSchemesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAnalysisSchemesResponse();
+      DescribeAnalysisSchemesResponse(
+        analysisSchemes: (json['AnalysisSchemes'] as List)
+            .map((e) => AnalysisSchemeStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The result of a `DescribeAvailabilityOptions` request. Indicates whether or
@@ -671,7 +867,11 @@ class DescribeAvailabilityOptionsResponse {
   });
   static DescribeAvailabilityOptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAvailabilityOptionsResponse();
+      DescribeAvailabilityOptionsResponse(
+        availabilityOptions: json.containsKey('AvailabilityOptions')
+            ? AvailabilityOptionsStatus.fromJson(json['AvailabilityOptions'])
+            : null,
+      );
 }
 
 /// The result of a `DescribeDomains` request. Contains the status of the
@@ -683,7 +883,11 @@ class DescribeDomainsResponse {
     @required this.domainStatusList,
   });
   static DescribeDomainsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDomainsResponse();
+      DescribeDomainsResponse(
+        domainStatusList: (json['DomainStatusList'] as List)
+            .map((e) => DomainStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The result of a `DescribeExpressions` request. Contains the expressions
@@ -696,7 +900,11 @@ class DescribeExpressionsResponse {
     @required this.expressions,
   });
   static DescribeExpressionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeExpressionsResponse();
+      DescribeExpressionsResponse(
+        expressions: (json['Expressions'] as List)
+            .map((e) => ExpressionStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The result of a `DescribeIndexFields` request. Contains the index fields
@@ -709,7 +917,11 @@ class DescribeIndexFieldsResponse {
     @required this.indexFields,
   });
   static DescribeIndexFieldsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeIndexFieldsResponse();
+      DescribeIndexFieldsResponse(
+        indexFields: (json['IndexFields'] as List)
+            .map((e) => IndexFieldStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The result of a `DescribeScalingParameters` request. Contains the scaling
@@ -722,7 +934,10 @@ class DescribeScalingParametersResponse {
   });
   static DescribeScalingParametersResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeScalingParametersResponse();
+      DescribeScalingParametersResponse(
+        scalingParameters:
+            ScalingParametersStatus.fromJson(json['ScalingParameters']),
+      );
 }
 
 /// The result of a `DescribeServiceAccessPolicies` request.
@@ -735,7 +950,9 @@ class DescribeServiceAccessPoliciesResponse {
   });
   static DescribeServiceAccessPoliciesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeServiceAccessPoliciesResponse();
+      DescribeServiceAccessPoliciesResponse(
+        accessPolicies: AccessPoliciesStatus.fromJson(json['AccessPolicies']),
+      );
 }
 
 /// The result of a `DescribeSuggesters` request.
@@ -747,7 +964,11 @@ class DescribeSuggestersResponse {
     @required this.suggesters,
   });
   static DescribeSuggestersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSuggestersResponse();
+      DescribeSuggestersResponse(
+        suggesters: (json['Suggesters'] as List)
+            .map((e) => SuggesterStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Options for a search suggester.
@@ -778,7 +999,16 @@ class DocumentSuggesterOptions {
     this.sortExpression,
   });
   static DocumentSuggesterOptions fromJson(Map<String, dynamic> json) =>
-      DocumentSuggesterOptions();
+      DocumentSuggesterOptions(
+        sourceField: json['SourceField'] as String,
+        fuzzyMatching: json.containsKey('FuzzyMatching')
+            ? json['FuzzyMatching'] as String
+            : null,
+        sortExpression: json.containsKey('SortExpression')
+            ? json['SortExpression'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The current status of the search domain.
@@ -843,7 +1073,33 @@ class DomainStatus {
     this.searchInstanceCount,
     this.limits,
   });
-  static DomainStatus fromJson(Map<String, dynamic> json) => DomainStatus();
+  static DomainStatus fromJson(Map<String, dynamic> json) => DomainStatus(
+        domainId: json['DomainId'] as String,
+        domainName: json['DomainName'] as String,
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        created: json.containsKey('Created') ? json['Created'] as bool : null,
+        deleted: json.containsKey('Deleted') ? json['Deleted'] as bool : null,
+        docService: json.containsKey('DocService')
+            ? ServiceEndpoint.fromJson(json['DocService'])
+            : null,
+        searchService: json.containsKey('SearchService')
+            ? ServiceEndpoint.fromJson(json['SearchService'])
+            : null,
+        requiresIndexDocuments: json['RequiresIndexDocuments'] as bool,
+        processing:
+            json.containsKey('Processing') ? json['Processing'] as bool : null,
+        searchInstanceType: json.containsKey('SearchInstanceType')
+            ? json['SearchInstanceType'] as String
+            : null,
+        searchPartitionCount: json.containsKey('SearchPartitionCount')
+            ? json['SearchPartitionCount'] as int
+            : null,
+        searchInstanceCount: json.containsKey('SearchInstanceCount')
+            ? json['SearchInstanceCount'] as int
+            : null,
+        limits:
+            json.containsKey('Limits') ? Limits.fromJson(json['Limits']) : null,
+      );
 }
 
 /// Options for a field that contains an array of double-precision 64-bit
@@ -873,7 +1129,24 @@ class DoubleArrayOptions {
     this.returnEnabled,
   });
   static DoubleArrayOptions fromJson(Map<String, dynamic> json) =>
-      DoubleArrayOptions();
+      DoubleArrayOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as double
+            : null,
+        sourceFields: json.containsKey('SourceFields')
+            ? json['SourceFields'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Options for a double-precision 64-bit floating point field. Present if
@@ -908,7 +1181,27 @@ class DoubleOptions {
     this.returnEnabled,
     this.sortEnabled,
   });
-  static DoubleOptions fromJson(Map<String, dynamic> json) => DoubleOptions();
+  static DoubleOptions fromJson(Map<String, dynamic> json) => DoubleOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as double
+            : null,
+        sourceField: json.containsKey('SourceField')
+            ? json['SourceField'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+        sortEnabled: json.containsKey('SortEnabled')
+            ? json['SortEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A named expression that can be evaluated at search time. Can be used to sort
@@ -923,7 +1216,11 @@ class Expression {
     @required this.expressionName,
     @required this.expressionValue,
   });
-  static Expression fromJson(Map<String, dynamic> json) => Expression();
+  static Expression fromJson(Map<String, dynamic> json) => Expression(
+        expressionName: json['ExpressionName'] as String,
+        expressionValue: json['ExpressionValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The value of an `Expression` and its current status.
@@ -939,7 +1236,10 @@ class ExpressionStatus {
     @required this.status,
   });
   static ExpressionStatus fromJson(Map<String, dynamic> json) =>
-      ExpressionStatus();
+      ExpressionStatus(
+        options: Expression.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The result of an `IndexDocuments` request. Contains the status of the
@@ -952,7 +1252,11 @@ class IndexDocumentsResponse {
     this.fieldNames,
   });
   static IndexDocumentsResponse fromJson(Map<String, dynamic> json) =>
-      IndexDocumentsResponse();
+      IndexDocumentsResponse(
+        fieldNames: json.containsKey('FieldNames')
+            ? (json['FieldNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Configuration information for a field in the index, including its name,
@@ -1013,7 +1317,44 @@ class IndexField {
     this.textArrayOptions,
     this.dateArrayOptions,
   });
-  static IndexField fromJson(Map<String, dynamic> json) => IndexField();
+  static IndexField fromJson(Map<String, dynamic> json) => IndexField(
+        indexFieldName: json['IndexFieldName'] as String,
+        indexFieldType: json['IndexFieldType'] as String,
+        intOptions: json.containsKey('IntOptions')
+            ? IntOptions.fromJson(json['IntOptions'])
+            : null,
+        doubleOptions: json.containsKey('DoubleOptions')
+            ? DoubleOptions.fromJson(json['DoubleOptions'])
+            : null,
+        literalOptions: json.containsKey('LiteralOptions')
+            ? LiteralOptions.fromJson(json['LiteralOptions'])
+            : null,
+        textOptions: json.containsKey('TextOptions')
+            ? TextOptions.fromJson(json['TextOptions'])
+            : null,
+        dateOptions: json.containsKey('DateOptions')
+            ? DateOptions.fromJson(json['DateOptions'])
+            : null,
+        latLonOptions: json.containsKey('LatLonOptions')
+            ? LatLonOptions.fromJson(json['LatLonOptions'])
+            : null,
+        intArrayOptions: json.containsKey('IntArrayOptions')
+            ? IntArrayOptions.fromJson(json['IntArrayOptions'])
+            : null,
+        doubleArrayOptions: json.containsKey('DoubleArrayOptions')
+            ? DoubleArrayOptions.fromJson(json['DoubleArrayOptions'])
+            : null,
+        literalArrayOptions: json.containsKey('LiteralArrayOptions')
+            ? LiteralArrayOptions.fromJson(json['LiteralArrayOptions'])
+            : null,
+        textArrayOptions: json.containsKey('TextArrayOptions')
+            ? TextArrayOptions.fromJson(json['TextArrayOptions'])
+            : null,
+        dateArrayOptions: json.containsKey('DateArrayOptions')
+            ? DateArrayOptions.fromJson(json['DateArrayOptions'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The value of an `IndexField` and its current status.
@@ -1027,7 +1368,10 @@ class IndexFieldStatus {
     @required this.status,
   });
   static IndexFieldStatus fromJson(Map<String, dynamic> json) =>
-      IndexFieldStatus();
+      IndexFieldStatus(
+        options: IndexField.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// Options for a field that contains an array of 64-bit signed integers.
@@ -1056,8 +1400,24 @@ class IntArrayOptions {
     this.searchEnabled,
     this.returnEnabled,
   });
-  static IntArrayOptions fromJson(Map<String, dynamic> json) =>
-      IntArrayOptions();
+  static IntArrayOptions fromJson(Map<String, dynamic> json) => IntArrayOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? BigInt.from(json['DefaultValue'])
+            : null,
+        sourceFields: json.containsKey('SourceFields')
+            ? json['SourceFields'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Options for a 64-bit signed integer field. Present if `IndexFieldType`
@@ -1091,7 +1451,27 @@ class IntOptions {
     this.returnEnabled,
     this.sortEnabled,
   });
-  static IntOptions fromJson(Map<String, dynamic> json) => IntOptions();
+  static IntOptions fromJson(Map<String, dynamic> json) => IntOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? BigInt.from(json['DefaultValue'])
+            : null,
+        sourceField: json.containsKey('SourceField')
+            ? json['SourceField'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+        sortEnabled: json.containsKey('SortEnabled')
+            ? json['SortEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Options for a latlon field. A latlon field contains a location stored as a
@@ -1123,7 +1503,27 @@ class LatLonOptions {
     this.returnEnabled,
     this.sortEnabled,
   });
-  static LatLonOptions fromJson(Map<String, dynamic> json) => LatLonOptions();
+  static LatLonOptions fromJson(Map<String, dynamic> json) => LatLonOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        sourceField: json.containsKey('SourceField')
+            ? json['SourceField'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+        sortEnabled: json.containsKey('SortEnabled')
+            ? json['SortEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Limits {
@@ -1135,7 +1535,10 @@ class Limits {
     @required this.maximumReplicationCount,
     @required this.maximumPartitionCount,
   });
-  static Limits fromJson(Map<String, dynamic> json) => Limits();
+  static Limits fromJson(Map<String, dynamic> json) => Limits(
+        maximumReplicationCount: json['MaximumReplicationCount'] as int,
+        maximumPartitionCount: json['MaximumPartitionCount'] as int,
+      );
 }
 
 /// The result of a `ListDomainNames` request. Contains a list of the domains
@@ -1148,7 +1551,12 @@ class ListDomainNamesResponse {
     this.domainNames,
   });
   static ListDomainNamesResponse fromJson(Map<String, dynamic> json) =>
-      ListDomainNamesResponse();
+      ListDomainNamesResponse(
+        domainNames: json.containsKey('DomainNames')
+            ? (json['DomainNames'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Options for a field that contains an array of literal strings. Present if
@@ -1178,7 +1586,24 @@ class LiteralArrayOptions {
     this.returnEnabled,
   });
   static LiteralArrayOptions fromJson(Map<String, dynamic> json) =>
-      LiteralArrayOptions();
+      LiteralArrayOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        sourceFields: json.containsKey('SourceFields')
+            ? json['SourceFields'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Options for literal field. Present if `IndexFieldType` specifies the field
@@ -1209,7 +1634,27 @@ class LiteralOptions {
     this.returnEnabled,
     this.sortEnabled,
   });
-  static LiteralOptions fromJson(Map<String, dynamic> json) => LiteralOptions();
+  static LiteralOptions fromJson(Map<String, dynamic> json) => LiteralOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        sourceField: json.containsKey('SourceField')
+            ? json['SourceField'] as String
+            : null,
+        facetEnabled: json.containsKey('FacetEnabled')
+            ? json['FacetEnabled'] as bool
+            : null,
+        searchEnabled: json.containsKey('SearchEnabled')
+            ? json['SearchEnabled'] as bool
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+        sortEnabled: json.containsKey('SortEnabled')
+            ? json['SortEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The status of domain configuration option.
@@ -1245,7 +1690,17 @@ class OptionStatus {
     @required this.state,
     this.pendingDeletion,
   });
-  static OptionStatus fromJson(Map<String, dynamic> json) => OptionStatus();
+  static OptionStatus fromJson(Map<String, dynamic> json) => OptionStatus(
+        creationDate: DateTime.parse(json['CreationDate']),
+        updateDate: DateTime.parse(json['UpdateDate']),
+        updateVersion: json.containsKey('UpdateVersion')
+            ? json['UpdateVersion'] as int
+            : null,
+        state: json['State'] as String,
+        pendingDeletion: json.containsKey('PendingDeletion')
+            ? json['PendingDeletion'] as bool
+            : null,
+      );
 }
 
 /// The desired instance type and desired number of replicas of each index
@@ -1268,7 +1723,18 @@ class ScalingParameters {
     this.desiredPartitionCount,
   });
   static ScalingParameters fromJson(Map<String, dynamic> json) =>
-      ScalingParameters();
+      ScalingParameters(
+        desiredInstanceType: json.containsKey('DesiredInstanceType')
+            ? json['DesiredInstanceType'] as String
+            : null,
+        desiredReplicationCount: json.containsKey('DesiredReplicationCount')
+            ? json['DesiredReplicationCount'] as int
+            : null,
+        desiredPartitionCount: json.containsKey('DesiredPartitionCount')
+            ? json['DesiredPartitionCount'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The status and configuration of a search domain's scaling parameters.
@@ -1282,7 +1748,10 @@ class ScalingParametersStatus {
     @required this.status,
   });
   static ScalingParametersStatus fromJson(Map<String, dynamic> json) =>
-      ScalingParametersStatus();
+      ScalingParametersStatus(
+        options: ScalingParameters.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// The endpoint to which service requests can be submitted.
@@ -1292,8 +1761,10 @@ class ServiceEndpoint {
   ServiceEndpoint({
     this.endpoint,
   });
-  static ServiceEndpoint fromJson(Map<String, dynamic> json) =>
-      ServiceEndpoint();
+  static ServiceEndpoint fromJson(Map<String, dynamic> json) => ServiceEndpoint(
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+      );
 }
 
 /// Configuration information for a search suggester. Each suggester has a
@@ -1309,7 +1780,12 @@ class Suggester {
     @required this.suggesterName,
     @required this.documentSuggesterOptions,
   });
-  static Suggester fromJson(Map<String, dynamic> json) => Suggester();
+  static Suggester fromJson(Map<String, dynamic> json) => Suggester(
+        suggesterName: json['SuggesterName'] as String,
+        documentSuggesterOptions:
+            DocumentSuggesterOptions.fromJson(json['DocumentSuggesterOptions']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The value of a `Suggester` and its current status.
@@ -1322,8 +1798,10 @@ class SuggesterStatus {
     @required this.options,
     @required this.status,
   });
-  static SuggesterStatus fromJson(Map<String, dynamic> json) =>
-      SuggesterStatus();
+  static SuggesterStatus fromJson(Map<String, dynamic> json) => SuggesterStatus(
+        options: Suggester.fromJson(json['Options']),
+        status: OptionStatus.fromJson(json['Status']),
+      );
 }
 
 /// Options for a field that contains an array of text strings. Present if
@@ -1353,7 +1831,24 @@ class TextArrayOptions {
     this.analysisScheme,
   });
   static TextArrayOptions fromJson(Map<String, dynamic> json) =>
-      TextArrayOptions();
+      TextArrayOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        sourceFields: json.containsKey('SourceFields')
+            ? json['SourceFields'] as String
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+        highlightEnabled: json.containsKey('HighlightEnabled')
+            ? json['HighlightEnabled'] as bool
+            : null,
+        analysisScheme: json.containsKey('AnalysisScheme')
+            ? json['AnalysisScheme'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Options for text field. Present if `IndexFieldType` specifies the field is
@@ -1385,7 +1880,27 @@ class TextOptions {
     this.highlightEnabled,
     this.analysisScheme,
   });
-  static TextOptions fromJson(Map<String, dynamic> json) => TextOptions();
+  static TextOptions fromJson(Map<String, dynamic> json) => TextOptions(
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        sourceField: json.containsKey('SourceField')
+            ? json['SourceField'] as String
+            : null,
+        returnEnabled: json.containsKey('ReturnEnabled')
+            ? json['ReturnEnabled'] as bool
+            : null,
+        sortEnabled: json.containsKey('SortEnabled')
+            ? json['SortEnabled'] as bool
+            : null,
+        highlightEnabled: json.containsKey('HighlightEnabled')
+            ? json['HighlightEnabled'] as bool
+            : null,
+        analysisScheme: json.containsKey('AnalysisScheme')
+            ? json['AnalysisScheme'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The result of a `UpdateAvailabilityOptions` request. Contains the status of
@@ -1400,7 +1915,11 @@ class UpdateAvailabilityOptionsResponse {
   });
   static UpdateAvailabilityOptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateAvailabilityOptionsResponse();
+      UpdateAvailabilityOptionsResponse(
+        availabilityOptions: json.containsKey('AvailabilityOptions')
+            ? AvailabilityOptionsStatus.fromJson(json['AvailabilityOptions'])
+            : null,
+      );
 }
 
 /// The result of a `UpdateScalingParameters` request. Contains the status of
@@ -1412,7 +1931,10 @@ class UpdateScalingParametersResponse {
     @required this.scalingParameters,
   });
   static UpdateScalingParametersResponse fromJson(Map<String, dynamic> json) =>
-      UpdateScalingParametersResponse();
+      UpdateScalingParametersResponse(
+        scalingParameters:
+            ScalingParametersStatus.fromJson(json['ScalingParameters']),
+      );
 }
 
 /// The result of an `UpdateServiceAccessPolicies` request. Contains the new
@@ -1426,5 +1948,7 @@ class UpdateServiceAccessPoliciesResponse {
   });
   static UpdateServiceAccessPoliciesResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateServiceAccessPoliciesResponse();
+      UpdateServiceAccessPoliciesResponse(
+        accessPolicies: AccessPoliciesStatus.fromJson(json['AccessPolicies']),
+      );
 }

@@ -11,6 +11,10 @@ import 'dart:typed_data';
 /// Ningxia Regions. AWS resources in the China Regions can only be accessed
 /// through locations associated with those Regions.
 class DirectConnectApi {
+  final _client;
+  DirectConnectApi(client)
+      : _client = client.configured('Direct Connect', serializer: 'json');
+
   /// Accepts a proposal request to attach a virtual private gateway or transit
   /// gateway to a Direct Connect gateway.
   ///
@@ -34,7 +38,17 @@ class DirectConnectApi {
           @required String associatedGatewayOwnerAccount,
           List<RouteFilterPrefix>
               overrideAllowedPrefixesToDirectConnectGateway}) async {
-    return AcceptDirectConnectGatewayAssociationProposalResult.fromJson({});
+    var response_ =
+        await _client.send('AcceptDirectConnectGatewayAssociationProposal', {
+      'directConnectGatewayId': directConnectGatewayId,
+      'proposalId': proposalId,
+      'associatedGatewayOwnerAccount': associatedGatewayOwnerAccount,
+      if (overrideAllowedPrefixesToDirectConnectGateway != null)
+        'overrideAllowedPrefixesToDirectConnectGateway':
+            overrideAllowedPrefixesToDirectConnectGateway,
+    });
+    return AcceptDirectConnectGatewayAssociationProposalResult.fromJson(
+        response_);
   }
 
   /// Deprecated. Use AllocateHostedConnection instead.
@@ -69,7 +83,14 @@ class DirectConnectApi {
       @required String ownerAccount,
       @required String interconnectId,
       @required int vlan}) async {
-    return Connection.fromJson({});
+    var response_ = await _client.send('AllocateConnectionOnInterconnect', {
+      'bandwidth': bandwidth,
+      'connectionName': connectionName,
+      'ownerAccount': ownerAccount,
+      'interconnectId': interconnectId,
+      'vlan': vlan,
+    });
+    return Connection.fromJson(response_);
   }
 
   /// Creates a hosted connection on the specified interconnect or a link
@@ -108,7 +129,15 @@ class DirectConnectApi {
       @required String connectionName,
       @required int vlan,
       List<Tag> tags}) async {
-    return Connection.fromJson({});
+    var response_ = await _client.send('AllocateHostedConnection', {
+      'connectionId': connectionId,
+      'ownerAccount': ownerAccount,
+      'bandwidth': bandwidth,
+      'connectionName': connectionName,
+      'vlan': vlan,
+      if (tags != null) 'tags': tags,
+    });
+    return Connection.fromJson(response_);
   }
 
   /// Provisions a private virtual interface to be owned by the specified AWS
@@ -135,7 +164,13 @@ class DirectConnectApi {
       @required
           NewPrivateVirtualInterfaceAllocation
               newPrivateVirtualInterfaceAllocation}) async {
-    return VirtualInterface.fromJson({});
+    var response_ = await _client.send('AllocatePrivateVirtualInterface', {
+      'connectionId': connectionId,
+      'ownerAccount': ownerAccount,
+      'newPrivateVirtualInterfaceAllocation':
+          newPrivateVirtualInterfaceAllocation,
+    });
+    return VirtualInterface.fromJson(response_);
   }
 
   /// Provisions a public virtual interface to be owned by the specified AWS
@@ -169,7 +204,13 @@ class DirectConnectApi {
       @required
           NewPublicVirtualInterfaceAllocation
               newPublicVirtualInterfaceAllocation}) async {
-    return VirtualInterface.fromJson({});
+    var response_ = await _client.send('AllocatePublicVirtualInterface', {
+      'connectionId': connectionId,
+      'ownerAccount': ownerAccount,
+      'newPublicVirtualInterfaceAllocation':
+          newPublicVirtualInterfaceAllocation,
+    });
+    return VirtualInterface.fromJson(response_);
   }
 
   /// Provisions a transit virtual interface to be owned by the specified AWS
@@ -200,7 +241,13 @@ class DirectConnectApi {
       @required
           NewTransitVirtualInterfaceAllocation
               newTransitVirtualInterfaceAllocation}) async {
-    return AllocateTransitVirtualInterfaceResult.fromJson({});
+    var response_ = await _client.send('AllocateTransitVirtualInterface', {
+      'connectionId': connectionId,
+      'ownerAccount': ownerAccount,
+      'newTransitVirtualInterfaceAllocation':
+          newTransitVirtualInterfaceAllocation,
+    });
+    return AllocateTransitVirtualInterfaceResult.fromJson(response_);
   }
 
   /// Associates an existing connection with a link aggregation group (LAG). The
@@ -227,7 +274,11 @@ class DirectConnectApi {
   /// [lagId]: The ID of the LAG with which to associate the connection.
   Future<Connection> associateConnectionWithLag(
       {@required String connectionId, @required String lagId}) async {
-    return Connection.fromJson({});
+    var response_ = await _client.send('AssociateConnectionWithLag', {
+      'connectionId': connectionId,
+      'lagId': lagId,
+    });
+    return Connection.fromJson(response_);
   }
 
   /// Associates a hosted connection and its virtual interfaces with a link
@@ -246,7 +297,11 @@ class DirectConnectApi {
   Future<Connection> associateHostedConnection(
       {@required String connectionId,
       @required String parentConnectionId}) async {
-    return Connection.fromJson({});
+    var response_ = await _client.send('AssociateHostedConnection', {
+      'connectionId': connectionId,
+      'parentConnectionId': parentConnectionId,
+    });
+    return Connection.fromJson(response_);
   }
 
   /// Associates a virtual interface with a specified link aggregation group
@@ -270,7 +325,11 @@ class DirectConnectApi {
   Future<VirtualInterface> associateVirtualInterface(
       {@required String virtualInterfaceId,
       @required String connectionId}) async {
-    return VirtualInterface.fromJson({});
+    var response_ = await _client.send('AssociateVirtualInterface', {
+      'virtualInterfaceId': virtualInterfaceId,
+      'connectionId': connectionId,
+    });
+    return VirtualInterface.fromJson(response_);
   }
 
   /// Confirms the creation of the specified hosted connection on an
@@ -283,7 +342,10 @@ class DirectConnectApi {
   /// [connectionId]: The ID of the hosted connection.
   Future<ConfirmConnectionResponse> confirmConnection(
       String connectionId) async {
-    return ConfirmConnectionResponse.fromJson({});
+    var response_ = await _client.send('ConfirmConnection', {
+      'connectionId': connectionId,
+    });
+    return ConfirmConnectionResponse.fromJson(response_);
   }
 
   /// Accepts ownership of a private virtual interface created by another AWS
@@ -302,7 +364,13 @@ class DirectConnectApi {
       String virtualInterfaceId,
       {String virtualGatewayId,
       String directConnectGatewayId}) async {
-    return ConfirmPrivateVirtualInterfaceResponse.fromJson({});
+    var response_ = await _client.send('ConfirmPrivateVirtualInterface', {
+      'virtualInterfaceId': virtualInterfaceId,
+      if (virtualGatewayId != null) 'virtualGatewayId': virtualGatewayId,
+      if (directConnectGatewayId != null)
+        'directConnectGatewayId': directConnectGatewayId,
+    });
+    return ConfirmPrivateVirtualInterfaceResponse.fromJson(response_);
   }
 
   /// Accepts ownership of a public virtual interface created by another AWS
@@ -314,7 +382,10 @@ class DirectConnectApi {
   /// [virtualInterfaceId]: The ID of the virtual interface.
   Future<ConfirmPublicVirtualInterfaceResponse> confirmPublicVirtualInterface(
       String virtualInterfaceId) async {
-    return ConfirmPublicVirtualInterfaceResponse.fromJson({});
+    var response_ = await _client.send('ConfirmPublicVirtualInterface', {
+      'virtualInterfaceId': virtualInterfaceId,
+    });
+    return ConfirmPublicVirtualInterfaceResponse.fromJson(response_);
   }
 
   /// Accepts ownership of a transit virtual interface created by another AWS
@@ -330,7 +401,11 @@ class DirectConnectApi {
   Future<ConfirmTransitVirtualInterfaceResponse> confirmTransitVirtualInterface(
       {@required String virtualInterfaceId,
       @required String directConnectGatewayId}) async {
-    return ConfirmTransitVirtualInterfaceResponse.fromJson({});
+    var response_ = await _client.send('ConfirmTransitVirtualInterface', {
+      'virtualInterfaceId': virtualInterfaceId,
+      'directConnectGatewayId': directConnectGatewayId,
+    });
+    return ConfirmTransitVirtualInterfaceResponse.fromJson(response_);
   }
 
   /// Creates a BGP peer on the specified virtual interface.
@@ -355,7 +430,11 @@ class DirectConnectApi {
   /// [newBgpPeer]: Information about the BGP peer.
   Future<CreateBgpPeerResponse> createBgpPeer(
       {String virtualInterfaceId, NewBgpPeer newBgpPeer}) async {
-    return CreateBgpPeerResponse.fromJson({});
+    var response_ = await _client.send('CreateBGPPeer', {
+      if (virtualInterfaceId != null) 'virtualInterfaceId': virtualInterfaceId,
+      if (newBgpPeer != null) 'newBGPPeer': newBgpPeer,
+    });
+    return CreateBgpPeerResponse.fromJson(response_);
   }
 
   /// Creates a connection between a customer network and a specific AWS Direct
@@ -388,7 +467,14 @@ class DirectConnectApi {
       @required String connectionName,
       String lagId,
       List<Tag> tags}) async {
-    return Connection.fromJson({});
+    var response_ = await _client.send('CreateConnection', {
+      'location': location,
+      'bandwidth': bandwidth,
+      'connectionName': connectionName,
+      if (lagId != null) 'lagId': lagId,
+      if (tags != null) 'tags': tags,
+    });
+    return Connection.fromJson(response_);
   }
 
   /// Creates a Direct Connect gateway, which is an intermediate object that
@@ -409,7 +495,11 @@ class DirectConnectApi {
   Future<CreateDirectConnectGatewayResult> createDirectConnectGateway(
       String directConnectGatewayName,
       {BigInt amazonSideAsn}) async {
-    return CreateDirectConnectGatewayResult.fromJson({});
+    var response_ = await _client.send('CreateDirectConnectGateway', {
+      'directConnectGatewayName': directConnectGatewayName,
+      if (amazonSideAsn != null) 'amazonSideAsn': amazonSideAsn,
+    });
+    return CreateDirectConnectGatewayResult.fromJson(response_);
   }
 
   /// Creates an association between a Direct Connect gateway and a virtual
@@ -433,7 +523,16 @@ class DirectConnectApi {
           {String gatewayId,
           List<RouteFilterPrefix> addAllowedPrefixesToDirectConnectGateway,
           String virtualGatewayId}) async {
-    return CreateDirectConnectGatewayAssociationResult.fromJson({});
+    var response_ =
+        await _client.send('CreateDirectConnectGatewayAssociation', {
+      'directConnectGatewayId': directConnectGatewayId,
+      if (gatewayId != null) 'gatewayId': gatewayId,
+      if (addAllowedPrefixesToDirectConnectGateway != null)
+        'addAllowedPrefixesToDirectConnectGateway':
+            addAllowedPrefixesToDirectConnectGateway,
+      if (virtualGatewayId != null) 'virtualGatewayId': virtualGatewayId,
+    });
+    return CreateDirectConnectGatewayAssociationResult.fromJson(response_);
   }
 
   /// Creates a proposal to associate the specified virtual private gateway or
@@ -464,7 +563,20 @@ class DirectConnectApi {
           List<RouteFilterPrefix> addAllowedPrefixesToDirectConnectGateway,
           List<RouteFilterPrefix>
               removeAllowedPrefixesToDirectConnectGateway}) async {
-    return CreateDirectConnectGatewayAssociationProposalResult.fromJson({});
+    var response_ =
+        await _client.send('CreateDirectConnectGatewayAssociationProposal', {
+      'directConnectGatewayId': directConnectGatewayId,
+      'directConnectGatewayOwnerAccount': directConnectGatewayOwnerAccount,
+      'gatewayId': gatewayId,
+      if (addAllowedPrefixesToDirectConnectGateway != null)
+        'addAllowedPrefixesToDirectConnectGateway':
+            addAllowedPrefixesToDirectConnectGateway,
+      if (removeAllowedPrefixesToDirectConnectGateway != null)
+        'removeAllowedPrefixesToDirectConnectGateway':
+            removeAllowedPrefixesToDirectConnectGateway,
+    });
+    return CreateDirectConnectGatewayAssociationProposalResult.fromJson(
+        response_);
   }
 
   /// Creates an interconnect between an AWS Direct Connect Partner's network
@@ -510,7 +622,14 @@ class DirectConnectApi {
       @required String location,
       String lagId,
       List<Tag> tags}) async {
-    return Interconnect.fromJson({});
+    var response_ = await _client.send('CreateInterconnect', {
+      'interconnectName': interconnectName,
+      'bandwidth': bandwidth,
+      'location': location,
+      if (lagId != null) 'lagId': lagId,
+      if (tags != null) 'tags': tags,
+    });
+    return Interconnect.fromJson(response_);
   }
 
   /// Creates a link aggregation group (LAG) with the specified number of
@@ -568,7 +687,17 @@ class DirectConnectApi {
       String connectionId,
       List<Tag> tags,
       List<Tag> childConnectionTags}) async {
-    return Lag.fromJson({});
+    var response_ = await _client.send('CreateLag', {
+      'numberOfConnections': numberOfConnections,
+      'location': location,
+      'connectionsBandwidth': connectionsBandwidth,
+      'lagName': lagName,
+      if (connectionId != null) 'connectionId': connectionId,
+      if (tags != null) 'tags': tags,
+      if (childConnectionTags != null)
+        'childConnectionTags': childConnectionTags,
+    });
+    return Lag.fromJson(response_);
   }
 
   /// Creates a private virtual interface. A virtual interface is the VLAN that
@@ -586,7 +715,11 @@ class DirectConnectApi {
   Future<VirtualInterface> createPrivateVirtualInterface(
       {@required String connectionId,
       @required NewPrivateVirtualInterface newPrivateVirtualInterface}) async {
-    return VirtualInterface.fromJson({});
+    var response_ = await _client.send('CreatePrivateVirtualInterface', {
+      'connectionId': connectionId,
+      'newPrivateVirtualInterface': newPrivateVirtualInterface,
+    });
+    return VirtualInterface.fromJson(response_);
   }
 
   /// Creates a public virtual interface. A virtual interface is the VLAN that
@@ -604,7 +737,11 @@ class DirectConnectApi {
   Future<VirtualInterface> createPublicVirtualInterface(
       {@required String connectionId,
       @required NewPublicVirtualInterface newPublicVirtualInterface}) async {
-    return VirtualInterface.fromJson({});
+    var response_ = await _client.send('CreatePublicVirtualInterface', {
+      'connectionId': connectionId,
+      'newPublicVirtualInterface': newPublicVirtualInterface,
+    });
+    return VirtualInterface.fromJson(response_);
   }
 
   /// Creates a transit virtual interface. A transit virtual interface should be
@@ -627,7 +764,11 @@ class DirectConnectApi {
   Future<CreateTransitVirtualInterfaceResult> createTransitVirtualInterface(
       {@required String connectionId,
       @required NewTransitVirtualInterface newTransitVirtualInterface}) async {
-    return CreateTransitVirtualInterfaceResult.fromJson({});
+    var response_ = await _client.send('CreateTransitVirtualInterface', {
+      'connectionId': connectionId,
+      'newTransitVirtualInterface': newTransitVirtualInterface,
+    });
+    return CreateTransitVirtualInterfaceResult.fromJson(response_);
   }
 
   /// Deletes the specified BGP peer on the specified virtual interface with the
@@ -648,7 +789,13 @@ class DirectConnectApi {
       int asn,
       String customerAddress,
       String bgpPeerId}) async {
-    return DeleteBgpPeerResponse.fromJson({});
+    var response_ = await _client.send('DeleteBGPPeer', {
+      if (virtualInterfaceId != null) 'virtualInterfaceId': virtualInterfaceId,
+      if (asn != null) 'asn': asn,
+      if (customerAddress != null) 'customerAddress': customerAddress,
+      if (bgpPeerId != null) 'bgpPeerId': bgpPeerId,
+    });
+    return DeleteBgpPeerResponse.fromJson(response_);
   }
 
   /// Deletes the specified connection.
@@ -660,7 +807,10 @@ class DirectConnectApi {
   ///
   /// [connectionId]: The ID of the connection.
   Future<Connection> deleteConnection(String connectionId) async {
-    return Connection.fromJson({});
+    var response_ = await _client.send('DeleteConnection', {
+      'connectionId': connectionId,
+    });
+    return Connection.fromJson(response_);
   }
 
   /// Deletes the specified Direct Connect gateway. You must first delete all
@@ -671,7 +821,10 @@ class DirectConnectApi {
   /// [directConnectGatewayId]: The ID of the Direct Connect gateway.
   Future<DeleteDirectConnectGatewayResult> deleteDirectConnectGateway(
       String directConnectGatewayId) async {
-    return DeleteDirectConnectGatewayResult.fromJson({});
+    var response_ = await _client.send('DeleteDirectConnectGateway', {
+      'directConnectGatewayId': directConnectGatewayId,
+    });
+    return DeleteDirectConnectGatewayResult.fromJson(response_);
   }
 
   /// Deletes the association between the specified Direct Connect gateway and
@@ -687,7 +840,14 @@ class DirectConnectApi {
           {String associationId,
           String directConnectGatewayId,
           String virtualGatewayId}) async {
-    return DeleteDirectConnectGatewayAssociationResult.fromJson({});
+    var response_ =
+        await _client.send('DeleteDirectConnectGatewayAssociation', {
+      if (associationId != null) 'associationId': associationId,
+      if (directConnectGatewayId != null)
+        'directConnectGatewayId': directConnectGatewayId,
+      if (virtualGatewayId != null) 'virtualGatewayId': virtualGatewayId,
+    });
+    return DeleteDirectConnectGatewayAssociationResult.fromJson(response_);
   }
 
   /// Deletes the association proposal request between the specified Direct
@@ -696,7 +856,12 @@ class DirectConnectApi {
   /// [proposalId]: The ID of the proposal.
   Future<DeleteDirectConnectGatewayAssociationProposalResult>
       deleteDirectConnectGatewayAssociationProposal(String proposalId) async {
-    return DeleteDirectConnectGatewayAssociationProposalResult.fromJson({});
+    var response_ =
+        await _client.send('DeleteDirectConnectGatewayAssociationProposal', {
+      'proposalId': proposalId,
+    });
+    return DeleteDirectConnectGatewayAssociationProposalResult.fromJson(
+        response_);
   }
 
   /// Deletes the specified interconnect.
@@ -708,7 +873,10 @@ class DirectConnectApi {
   /// [interconnectId]: The ID of the interconnect.
   Future<DeleteInterconnectResponse> deleteInterconnect(
       String interconnectId) async {
-    return DeleteInterconnectResponse.fromJson({});
+    var response_ = await _client.send('DeleteInterconnect', {
+      'interconnectId': interconnectId,
+    });
+    return DeleteInterconnectResponse.fromJson(response_);
   }
 
   /// Deletes the specified link aggregation group (LAG). You cannot delete a
@@ -716,7 +884,10 @@ class DirectConnectApi {
   ///
   /// [lagId]: The ID of the LAG.
   Future<Lag> deleteLag(String lagId) async {
-    return Lag.fromJson({});
+    var response_ = await _client.send('DeleteLag', {
+      'lagId': lagId,
+    });
+    return Lag.fromJson(response_);
   }
 
   /// Deletes a virtual interface.
@@ -724,7 +895,10 @@ class DirectConnectApi {
   /// [virtualInterfaceId]: The ID of the virtual interface.
   Future<DeleteVirtualInterfaceResponse> deleteVirtualInterface(
       String virtualInterfaceId) async {
-    return DeleteVirtualInterfaceResponse.fromJson({});
+    var response_ = await _client.send('DeleteVirtualInterface', {
+      'virtualInterfaceId': virtualInterfaceId,
+    });
+    return DeleteVirtualInterfaceResponse.fromJson(response_);
   }
 
   /// Deprecated. Use DescribeLoa instead.
@@ -751,14 +925,22 @@ class DirectConnectApi {
       String connectionId,
       {String providerName,
       String loaContentType}) async {
-    return DescribeConnectionLoaResponse.fromJson({});
+    var response_ = await _client.send('DescribeConnectionLoa', {
+      'connectionId': connectionId,
+      if (providerName != null) 'providerName': providerName,
+      if (loaContentType != null) 'loaContentType': loaContentType,
+    });
+    return DescribeConnectionLoaResponse.fromJson(response_);
   }
 
   /// Displays the specified connection or all connections in this Region.
   ///
   /// [connectionId]: The ID of the connection.
   Future<Connections> describeConnections({String connectionId}) async {
-    return Connections.fromJson({});
+    var response_ = await _client.send('DescribeConnections', {
+      if (connectionId != null) 'connectionId': connectionId,
+    });
+    return Connections.fromJson(response_);
   }
 
   /// Deprecated. Use DescribeHostedConnections instead.
@@ -773,7 +955,10 @@ class DirectConnectApi {
   /// [interconnectId]: The ID of the interconnect.
   Future<Connections> describeConnectionsOnInterconnect(
       String interconnectId) async {
-    return Connections.fromJson({});
+    var response_ = await _client.send('DescribeConnectionsOnInterconnect', {
+      'interconnectId': interconnectId,
+    });
+    return Connections.fromJson(response_);
   }
 
   /// Describes one or more association proposals for connection between a
@@ -800,7 +985,18 @@ class DirectConnectApi {
           String associatedGatewayId,
           int maxResults,
           String nextToken}) async {
-    return DescribeDirectConnectGatewayAssociationProposalsResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeDirectConnectGatewayAssociationProposals', {
+      if (directConnectGatewayId != null)
+        'directConnectGatewayId': directConnectGatewayId,
+      if (proposalId != null) 'proposalId': proposalId,
+      if (associatedGatewayId != null)
+        'associatedGatewayId': associatedGatewayId,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeDirectConnectGatewayAssociationProposalsResult.fromJson(
+        response_);
   }
 
   /// Lists the associations between your Direct Connect gateways and virtual
@@ -837,7 +1033,18 @@ class DirectConnectApi {
           int maxResults,
           String nextToken,
           String virtualGatewayId}) async {
-    return DescribeDirectConnectGatewayAssociationsResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeDirectConnectGatewayAssociations', {
+      if (associationId != null) 'associationId': associationId,
+      if (associatedGatewayId != null)
+        'associatedGatewayId': associatedGatewayId,
+      if (directConnectGatewayId != null)
+        'directConnectGatewayId': directConnectGatewayId,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (virtualGatewayId != null) 'virtualGatewayId': virtualGatewayId,
+    });
+    return DescribeDirectConnectGatewayAssociationsResult.fromJson(response_);
   }
 
   /// Lists the attachments between your Direct Connect gateways and virtual
@@ -868,7 +1075,15 @@ class DirectConnectApi {
           String virtualInterfaceId,
           int maxResults,
           String nextToken}) async {
-    return DescribeDirectConnectGatewayAttachmentsResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeDirectConnectGatewayAttachments', {
+      if (directConnectGatewayId != null)
+        'directConnectGatewayId': directConnectGatewayId,
+      if (virtualInterfaceId != null) 'virtualInterfaceId': virtualInterfaceId,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeDirectConnectGatewayAttachmentsResult.fromJson(response_);
   }
 
   /// Lists all your Direct Connect gateways or only the specified Direct
@@ -887,7 +1102,13 @@ class DirectConnectApi {
   /// page.
   Future<DescribeDirectConnectGatewaysResult> describeDirectConnectGateways(
       {String directConnectGatewayId, int maxResults, String nextToken}) async {
-    return DescribeDirectConnectGatewaysResult.fromJson({});
+    var response_ = await _client.send('DescribeDirectConnectGateways', {
+      if (directConnectGatewayId != null)
+        'directConnectGatewayId': directConnectGatewayId,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeDirectConnectGatewaysResult.fromJson(response_);
   }
 
   /// Lists the hosted connections that have been provisioned on the specified
@@ -899,7 +1120,10 @@ class DirectConnectApi {
   ///
   /// [connectionId]: The ID of the interconnect or LAG.
   Future<Connections> describeHostedConnections(String connectionId) async {
-    return Connections.fromJson({});
+    var response_ = await _client.send('DescribeHostedConnections', {
+      'connectionId': connectionId,
+    });
+    return Connections.fromJson(response_);
   }
 
   /// Deprecated. Use DescribeLoa instead.
@@ -925,7 +1149,12 @@ class DirectConnectApi {
       String interconnectId,
       {String providerName,
       String loaContentType}) async {
-    return DescribeInterconnectLoaResponse.fromJson({});
+    var response_ = await _client.send('DescribeInterconnectLoa', {
+      'interconnectId': interconnectId,
+      if (providerName != null) 'providerName': providerName,
+      if (loaContentType != null) 'loaContentType': loaContentType,
+    });
+    return DescribeInterconnectLoaResponse.fromJson(response_);
   }
 
   /// Lists the interconnects owned by the AWS account or only the specified
@@ -933,14 +1162,20 @@ class DirectConnectApi {
   ///
   /// [interconnectId]: The ID of the interconnect.
   Future<Interconnects> describeInterconnects({String interconnectId}) async {
-    return Interconnects.fromJson({});
+    var response_ = await _client.send('DescribeInterconnects', {
+      if (interconnectId != null) 'interconnectId': interconnectId,
+    });
+    return Interconnects.fromJson(response_);
   }
 
   /// Describes all your link aggregation groups (LAG) or the specified LAG.
   ///
   /// [lagId]: The ID of the LAG.
   Future<Lags> describeLags({String lagId}) async {
-    return Lags.fromJson({});
+    var response_ = await _client.send('DescribeLags', {
+      if (lagId != null) 'lagId': lagId,
+    });
+    return Lags.fromJson(response_);
   }
 
   /// Gets the LOA-CFA for a connection, interconnect, or link aggregation group
@@ -963,14 +1198,20 @@ class DirectConnectApi {
   /// only supported value is application/pdf.
   Future<Loa> describeLoa(String connectionId,
       {String providerName, String loaContentType}) async {
-    return Loa.fromJson({});
+    var response_ = await _client.send('DescribeLoa', {
+      'connectionId': connectionId,
+      if (providerName != null) 'providerName': providerName,
+      if (loaContentType != null) 'loaContentType': loaContentType,
+    });
+    return Loa.fromJson(response_);
   }
 
   /// Lists the AWS Direct Connect locations in the current AWS Region. These
   /// are the locations that can be selected when calling CreateConnection or
   /// CreateInterconnect.
   Future<Locations> describeLocations() async {
-    return Locations.fromJson({});
+    var response_ = await _client.send('DescribeLocations', {});
+    return Locations.fromJson(response_);
   }
 
   /// Describes the tags associated with the specified AWS Direct Connect
@@ -978,7 +1219,10 @@ class DirectConnectApi {
   ///
   /// [resourceArns]: The Amazon Resource Names (ARNs) of the resources.
   Future<DescribeTagsResponse> describeTags(List<String> resourceArns) async {
-    return DescribeTagsResponse.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      'resourceArns': resourceArns,
+    });
+    return DescribeTagsResponse.fromJson(response_);
   }
 
   /// Lists the virtual private gateways owned by the AWS account.
@@ -986,7 +1230,8 @@ class DirectConnectApi {
   /// You can create one or more AWS Direct Connect private virtual interfaces
   /// linked to a virtual private gateway.
   Future<VirtualGateways> describeVirtualGateways() async {
-    return VirtualGateways.fromJson({});
+    var response_ = await _client.send('DescribeVirtualGateways', {});
+    return VirtualGateways.fromJson(response_);
   }
 
   /// Displays all virtual interfaces for an AWS account. Virtual interfaces
@@ -1003,7 +1248,11 @@ class DirectConnectApi {
   /// [virtualInterfaceId]: The ID of the virtual interface.
   Future<VirtualInterfaces> describeVirtualInterfaces(
       {String connectionId, String virtualInterfaceId}) async {
-    return VirtualInterfaces.fromJson({});
+    var response_ = await _client.send('DescribeVirtualInterfaces', {
+      if (connectionId != null) 'connectionId': connectionId,
+      if (virtualInterfaceId != null) 'virtualInterfaceId': virtualInterfaceId,
+    });
+    return VirtualInterfaces.fromJson(response_);
   }
 
   /// Disassociates a connection from a link aggregation group (LAG). The
@@ -1025,7 +1274,11 @@ class DirectConnectApi {
   /// [lagId]: The ID of the LAG.
   Future<Connection> disassociateConnectionFromLag(
       {@required String connectionId, @required String lagId}) async {
-    return Connection.fromJson({});
+    var response_ = await _client.send('DisassociateConnectionFromLag', {
+      'connectionId': connectionId,
+      'lagId': lagId,
+    });
+    return Connection.fromJson(response_);
   }
 
   /// Adds the specified tags to the specified AWS Direct Connect resource. Each
@@ -1040,7 +1293,11 @@ class DirectConnectApi {
   /// [tags]: The tags to assign.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes one or more tags from the specified AWS Direct Connect resource.
@@ -1050,7 +1307,11 @@ class DirectConnectApi {
   /// [tagKeys]: The tag keys of the tags to remove.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates the specified attributes of the Direct Connect gateway
@@ -1071,7 +1332,17 @@ class DirectConnectApi {
           List<RouteFilterPrefix> addAllowedPrefixesToDirectConnectGateway,
           List<RouteFilterPrefix>
               removeAllowedPrefixesToDirectConnectGateway}) async {
-    return UpdateDirectConnectGatewayAssociationResult.fromJson({});
+    var response_ =
+        await _client.send('UpdateDirectConnectGatewayAssociation', {
+      if (associationId != null) 'associationId': associationId,
+      if (addAllowedPrefixesToDirectConnectGateway != null)
+        'addAllowedPrefixesToDirectConnectGateway':
+            addAllowedPrefixesToDirectConnectGateway,
+      if (removeAllowedPrefixesToDirectConnectGateway != null)
+        'removeAllowedPrefixesToDirectConnectGateway':
+            removeAllowedPrefixesToDirectConnectGateway,
+    });
+    return UpdateDirectConnectGatewayAssociationResult.fromJson(response_);
   }
 
   /// Updates the attributes of the specified link aggregation group (LAG).
@@ -1099,7 +1370,12 @@ class DirectConnectApi {
   /// operational for the LAG itself to be operational.
   Future<Lag> updateLag(String lagId,
       {String lagName, int minimumLinks}) async {
-    return Lag.fromJson({});
+    var response_ = await _client.send('UpdateLag', {
+      'lagId': lagId,
+      if (lagName != null) 'lagName': lagName,
+      if (minimumLinks != null) 'minimumLinks': minimumLinks,
+    });
+    return Lag.fromJson(response_);
   }
 
   /// Updates the specified attributes of the specified virtual private
@@ -1120,7 +1396,11 @@ class DirectConnectApi {
   Future<VirtualInterface> updateVirtualInterfaceAttributes(
       String virtualInterfaceId,
       {int mtu}) async {
-    return VirtualInterface.fromJson({});
+    var response_ = await _client.send('UpdateVirtualInterfaceAttributes', {
+      'virtualInterfaceId': virtualInterfaceId,
+      if (mtu != null) 'mtu': mtu,
+    });
+    return VirtualInterface.fromJson(response_);
   }
 }
 
@@ -1132,7 +1412,13 @@ class AcceptDirectConnectGatewayAssociationProposalResult {
   });
   static AcceptDirectConnectGatewayAssociationProposalResult fromJson(
           Map<String, dynamic> json) =>
-      AcceptDirectConnectGatewayAssociationProposalResult();
+      AcceptDirectConnectGatewayAssociationProposalResult(
+        directConnectGatewayAssociation:
+            json.containsKey('directConnectGatewayAssociation')
+                ? DirectConnectGatewayAssociation.fromJson(
+                    json['directConnectGatewayAssociation'])
+                : null,
+      );
 }
 
 class AllocateTransitVirtualInterfaceResult {
@@ -1143,7 +1429,11 @@ class AllocateTransitVirtualInterfaceResult {
   });
   static AllocateTransitVirtualInterfaceResult fromJson(
           Map<String, dynamic> json) =>
-      AllocateTransitVirtualInterfaceResult();
+      AllocateTransitVirtualInterfaceResult(
+        virtualInterface: json.containsKey('virtualInterface')
+            ? VirtualInterface.fromJson(json['virtualInterface'])
+            : null,
+      );
 }
 
 /// Information about the associated gateway.
@@ -1168,7 +1458,14 @@ class AssociatedGateway {
     this.region,
   });
   static AssociatedGateway fromJson(Map<String, dynamic> json) =>
-      AssociatedGateway();
+      AssociatedGateway(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        ownerAccount: json.containsKey('ownerAccount')
+            ? json['ownerAccount'] as String
+            : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+      );
 }
 
 /// Information about a BGP peer.
@@ -1234,7 +1531,29 @@ class BgpPeer {
     this.bgpStatus,
     this.awsDeviceV2,
   });
-  static BgpPeer fromJson(Map<String, dynamic> json) => BgpPeer();
+  static BgpPeer fromJson(Map<String, dynamic> json) => BgpPeer(
+        bgpPeerId:
+            json.containsKey('bgpPeerId') ? json['bgpPeerId'] as String : null,
+        asn: json.containsKey('asn') ? json['asn'] as int : null,
+        authKey: json.containsKey('authKey') ? json['authKey'] as String : null,
+        addressFamily: json.containsKey('addressFamily')
+            ? json['addressFamily'] as String
+            : null,
+        amazonAddress: json.containsKey('amazonAddress')
+            ? json['amazonAddress'] as String
+            : null,
+        customerAddress: json.containsKey('customerAddress')
+            ? json['customerAddress'] as String
+            : null,
+        bgpPeerState: json.containsKey('bgpPeerState')
+            ? json['bgpPeerState'] as String
+            : null,
+        bgpStatus:
+            json.containsKey('bgpStatus') ? json['bgpStatus'] as String : null,
+        awsDeviceV2: json.containsKey('awsDeviceV2')
+            ? json['awsDeviceV2'] as String
+            : null,
+      );
 }
 
 class ConfirmConnectionResponse {
@@ -1269,7 +1588,11 @@ class ConfirmConnectionResponse {
     this.connectionState,
   });
   static ConfirmConnectionResponse fromJson(Map<String, dynamic> json) =>
-      ConfirmConnectionResponse();
+      ConfirmConnectionResponse(
+        connectionState: json.containsKey('connectionState')
+            ? json['connectionState'] as String
+            : null,
+      );
 }
 
 class ConfirmPrivateVirtualInterfaceResponse {
@@ -1310,7 +1633,11 @@ class ConfirmPrivateVirtualInterfaceResponse {
   });
   static ConfirmPrivateVirtualInterfaceResponse fromJson(
           Map<String, dynamic> json) =>
-      ConfirmPrivateVirtualInterfaceResponse();
+      ConfirmPrivateVirtualInterfaceResponse(
+        virtualInterfaceState: json.containsKey('virtualInterfaceState')
+            ? json['virtualInterfaceState'] as String
+            : null,
+      );
 }
 
 class ConfirmPublicVirtualInterfaceResponse {
@@ -1351,7 +1678,11 @@ class ConfirmPublicVirtualInterfaceResponse {
   });
   static ConfirmPublicVirtualInterfaceResponse fromJson(
           Map<String, dynamic> json) =>
-      ConfirmPublicVirtualInterfaceResponse();
+      ConfirmPublicVirtualInterfaceResponse(
+        virtualInterfaceState: json.containsKey('virtualInterfaceState')
+            ? json['virtualInterfaceState'] as String
+            : null,
+      );
 }
 
 class ConfirmTransitVirtualInterfaceResponse {
@@ -1392,7 +1723,11 @@ class ConfirmTransitVirtualInterfaceResponse {
   });
   static ConfirmTransitVirtualInterfaceResponse fromJson(
           Map<String, dynamic> json) =>
-      ConfirmTransitVirtualInterfaceResponse();
+      ConfirmTransitVirtualInterfaceResponse(
+        virtualInterfaceState: json.containsKey('virtualInterfaceState')
+            ? json['virtualInterfaceState'] as String
+            : null,
+      );
 }
 
 /// Information about an AWS Direct Connect connection.
@@ -1489,7 +1824,47 @@ class Connection {
     this.hasLogicalRedundancy,
     this.tags,
   });
-  static Connection fromJson(Map<String, dynamic> json) => Connection();
+  static Connection fromJson(Map<String, dynamic> json) => Connection(
+        ownerAccount: json.containsKey('ownerAccount')
+            ? json['ownerAccount'] as String
+            : null,
+        connectionId: json.containsKey('connectionId')
+            ? json['connectionId'] as String
+            : null,
+        connectionName: json.containsKey('connectionName')
+            ? json['connectionName'] as String
+            : null,
+        connectionState: json.containsKey('connectionState')
+            ? json['connectionState'] as String
+            : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        bandwidth:
+            json.containsKey('bandwidth') ? json['bandwidth'] as String : null,
+        vlan: json.containsKey('vlan') ? json['vlan'] as int : null,
+        partnerName: json.containsKey('partnerName')
+            ? json['partnerName'] as String
+            : null,
+        loaIssueTime: json.containsKey('loaIssueTime')
+            ? DateTime.parse(json['loaIssueTime'])
+            : null,
+        lagId: json.containsKey('lagId') ? json['lagId'] as String : null,
+        awsDevice:
+            json.containsKey('awsDevice') ? json['awsDevice'] as String : null,
+        jumboFrameCapable: json.containsKey('jumboFrameCapable')
+            ? json['jumboFrameCapable'] as bool
+            : null,
+        awsDeviceV2: json.containsKey('awsDeviceV2')
+            ? json['awsDeviceV2'] as String
+            : null,
+        hasLogicalRedundancy: json.containsKey('hasLogicalRedundancy')
+            ? json['hasLogicalRedundancy'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class Connections {
@@ -1499,7 +1874,13 @@ class Connections {
   Connections({
     this.connections,
   });
-  static Connections fromJson(Map<String, dynamic> json) => Connections();
+  static Connections fromJson(Map<String, dynamic> json) => Connections(
+        connections: json.containsKey('connections')
+            ? (json['connections'] as List)
+                .map((e) => Connection.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateBgpPeerResponse {
@@ -1510,7 +1891,11 @@ class CreateBgpPeerResponse {
     this.virtualInterface,
   });
   static CreateBgpPeerResponse fromJson(Map<String, dynamic> json) =>
-      CreateBgpPeerResponse();
+      CreateBgpPeerResponse(
+        virtualInterface: json.containsKey('virtualInterface')
+            ? VirtualInterface.fromJson(json['virtualInterface'])
+            : null,
+      );
 }
 
 class CreateDirectConnectGatewayAssociationProposalResult {
@@ -1523,7 +1908,13 @@ class CreateDirectConnectGatewayAssociationProposalResult {
   });
   static CreateDirectConnectGatewayAssociationProposalResult fromJson(
           Map<String, dynamic> json) =>
-      CreateDirectConnectGatewayAssociationProposalResult();
+      CreateDirectConnectGatewayAssociationProposalResult(
+        directConnectGatewayAssociationProposal:
+            json.containsKey('directConnectGatewayAssociationProposal')
+                ? DirectConnectGatewayAssociationProposal.fromJson(
+                    json['directConnectGatewayAssociationProposal'])
+                : null,
+      );
 }
 
 class CreateDirectConnectGatewayAssociationResult {
@@ -1535,7 +1926,13 @@ class CreateDirectConnectGatewayAssociationResult {
   });
   static CreateDirectConnectGatewayAssociationResult fromJson(
           Map<String, dynamic> json) =>
-      CreateDirectConnectGatewayAssociationResult();
+      CreateDirectConnectGatewayAssociationResult(
+        directConnectGatewayAssociation:
+            json.containsKey('directConnectGatewayAssociation')
+                ? DirectConnectGatewayAssociation.fromJson(
+                    json['directConnectGatewayAssociation'])
+                : null,
+      );
 }
 
 class CreateDirectConnectGatewayResult {
@@ -1546,7 +1943,11 @@ class CreateDirectConnectGatewayResult {
     this.directConnectGateway,
   });
   static CreateDirectConnectGatewayResult fromJson(Map<String, dynamic> json) =>
-      CreateDirectConnectGatewayResult();
+      CreateDirectConnectGatewayResult(
+        directConnectGateway: json.containsKey('directConnectGateway')
+            ? DirectConnectGateway.fromJson(json['directConnectGateway'])
+            : null,
+      );
 }
 
 class CreateTransitVirtualInterfaceResult {
@@ -1557,7 +1958,11 @@ class CreateTransitVirtualInterfaceResult {
   });
   static CreateTransitVirtualInterfaceResult fromJson(
           Map<String, dynamic> json) =>
-      CreateTransitVirtualInterfaceResult();
+      CreateTransitVirtualInterfaceResult(
+        virtualInterface: json.containsKey('virtualInterface')
+            ? VirtualInterface.fromJson(json['virtualInterface'])
+            : null,
+      );
 }
 
 class DeleteBgpPeerResponse {
@@ -1568,7 +1973,11 @@ class DeleteBgpPeerResponse {
     this.virtualInterface,
   });
   static DeleteBgpPeerResponse fromJson(Map<String, dynamic> json) =>
-      DeleteBgpPeerResponse();
+      DeleteBgpPeerResponse(
+        virtualInterface: json.containsKey('virtualInterface')
+            ? VirtualInterface.fromJson(json['virtualInterface'])
+            : null,
+      );
 }
 
 class DeleteDirectConnectGatewayAssociationProposalResult {
@@ -1581,7 +1990,13 @@ class DeleteDirectConnectGatewayAssociationProposalResult {
   });
   static DeleteDirectConnectGatewayAssociationProposalResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteDirectConnectGatewayAssociationProposalResult();
+      DeleteDirectConnectGatewayAssociationProposalResult(
+        directConnectGatewayAssociationProposal:
+            json.containsKey('directConnectGatewayAssociationProposal')
+                ? DirectConnectGatewayAssociationProposal.fromJson(
+                    json['directConnectGatewayAssociationProposal'])
+                : null,
+      );
 }
 
 class DeleteDirectConnectGatewayAssociationResult {
@@ -1593,7 +2008,13 @@ class DeleteDirectConnectGatewayAssociationResult {
   });
   static DeleteDirectConnectGatewayAssociationResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteDirectConnectGatewayAssociationResult();
+      DeleteDirectConnectGatewayAssociationResult(
+        directConnectGatewayAssociation:
+            json.containsKey('directConnectGatewayAssociation')
+                ? DirectConnectGatewayAssociation.fromJson(
+                    json['directConnectGatewayAssociation'])
+                : null,
+      );
 }
 
 class DeleteDirectConnectGatewayResult {
@@ -1604,7 +2025,11 @@ class DeleteDirectConnectGatewayResult {
     this.directConnectGateway,
   });
   static DeleteDirectConnectGatewayResult fromJson(Map<String, dynamic> json) =>
-      DeleteDirectConnectGatewayResult();
+      DeleteDirectConnectGatewayResult(
+        directConnectGateway: json.containsKey('directConnectGateway')
+            ? DirectConnectGateway.fromJson(json['directConnectGateway'])
+            : null,
+      );
 }
 
 class DeleteInterconnectResponse {
@@ -1632,7 +2057,11 @@ class DeleteInterconnectResponse {
     this.interconnectState,
   });
   static DeleteInterconnectResponse fromJson(Map<String, dynamic> json) =>
-      DeleteInterconnectResponse();
+      DeleteInterconnectResponse(
+        interconnectState: json.containsKey('interconnectState')
+            ? json['interconnectState'] as String
+            : null,
+      );
 }
 
 class DeleteVirtualInterfaceResponse {
@@ -1672,7 +2101,11 @@ class DeleteVirtualInterfaceResponse {
     this.virtualInterfaceState,
   });
   static DeleteVirtualInterfaceResponse fromJson(Map<String, dynamic> json) =>
-      DeleteVirtualInterfaceResponse();
+      DeleteVirtualInterfaceResponse(
+        virtualInterfaceState: json.containsKey('virtualInterfaceState')
+            ? json['virtualInterfaceState'] as String
+            : null,
+      );
 }
 
 class DescribeConnectionLoaResponse {
@@ -1683,7 +2116,9 @@ class DescribeConnectionLoaResponse {
     this.loa,
   });
   static DescribeConnectionLoaResponse fromJson(Map<String, dynamic> json) =>
-      DescribeConnectionLoaResponse();
+      DescribeConnectionLoaResponse(
+        loa: json.containsKey('loa') ? Loa.fromJson(json['loa']) : null,
+      );
 }
 
 class DescribeDirectConnectGatewayAssociationProposalsResult {
@@ -1701,7 +2136,16 @@ class DescribeDirectConnectGatewayAssociationProposalsResult {
   });
   static DescribeDirectConnectGatewayAssociationProposalsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeDirectConnectGatewayAssociationProposalsResult();
+      DescribeDirectConnectGatewayAssociationProposalsResult(
+        directConnectGatewayAssociationProposals: json
+                .containsKey('directConnectGatewayAssociationProposals')
+            ? (json['directConnectGatewayAssociationProposals'] as List)
+                .map((e) => DirectConnectGatewayAssociationProposal.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeDirectConnectGatewayAssociationsResult {
@@ -1717,7 +2161,16 @@ class DescribeDirectConnectGatewayAssociationsResult {
   });
   static DescribeDirectConnectGatewayAssociationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeDirectConnectGatewayAssociationsResult();
+      DescribeDirectConnectGatewayAssociationsResult(
+        directConnectGatewayAssociations:
+            json.containsKey('directConnectGatewayAssociations')
+                ? (json['directConnectGatewayAssociations'] as List)
+                    .map((e) => DirectConnectGatewayAssociation.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeDirectConnectGatewayAttachmentsResult {
@@ -1733,7 +2186,16 @@ class DescribeDirectConnectGatewayAttachmentsResult {
   });
   static DescribeDirectConnectGatewayAttachmentsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeDirectConnectGatewayAttachmentsResult();
+      DescribeDirectConnectGatewayAttachmentsResult(
+        directConnectGatewayAttachments:
+            json.containsKey('directConnectGatewayAttachments')
+                ? (json['directConnectGatewayAttachments'] as List)
+                    .map((e) => DirectConnectGatewayAttachment.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeDirectConnectGatewaysResult {
@@ -1749,7 +2211,15 @@ class DescribeDirectConnectGatewaysResult {
   });
   static DescribeDirectConnectGatewaysResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeDirectConnectGatewaysResult();
+      DescribeDirectConnectGatewaysResult(
+        directConnectGateways: json.containsKey('directConnectGateways')
+            ? (json['directConnectGateways'] as List)
+                .map((e) => DirectConnectGateway.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeInterconnectLoaResponse {
@@ -1760,7 +2230,9 @@ class DescribeInterconnectLoaResponse {
     this.loa,
   });
   static DescribeInterconnectLoaResponse fromJson(Map<String, dynamic> json) =>
-      DescribeInterconnectLoaResponse();
+      DescribeInterconnectLoaResponse(
+        loa: json.containsKey('loa') ? Loa.fromJson(json['loa']) : null,
+      );
 }
 
 class DescribeTagsResponse {
@@ -1771,7 +2243,13 @@ class DescribeTagsResponse {
     this.resourceTags,
   });
   static DescribeTagsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTagsResponse();
+      DescribeTagsResponse(
+        resourceTags: json.containsKey('resourceTags')
+            ? (json['resourceTags'] as List)
+                .map((e) => ResourceTag.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a Direct Connect gateway, which enables you to connect
@@ -1816,7 +2294,26 @@ class DirectConnectGateway {
     this.stateChangeError,
   });
   static DirectConnectGateway fromJson(Map<String, dynamic> json) =>
-      DirectConnectGateway();
+      DirectConnectGateway(
+        directConnectGatewayId: json.containsKey('directConnectGatewayId')
+            ? json['directConnectGatewayId'] as String
+            : null,
+        directConnectGatewayName: json.containsKey('directConnectGatewayName')
+            ? json['directConnectGatewayName'] as String
+            : null,
+        amazonSideAsn: json.containsKey('amazonSideAsn')
+            ? BigInt.from(json['amazonSideAsn'])
+            : null,
+        ownerAccount: json.containsKey('ownerAccount')
+            ? json['ownerAccount'] as String
+            : null,
+        directConnectGatewayState: json.containsKey('directConnectGatewayState')
+            ? json['directConnectGatewayState'] as String
+            : null,
+        stateChangeError: json.containsKey('stateChangeError')
+            ? json['stateChangeError'] as String
+            : null,
+      );
 }
 
 /// Information about an association between a Direct Connect gateway and a
@@ -1880,7 +2377,43 @@ class DirectConnectGatewayAssociation {
     this.virtualGatewayOwnerAccount,
   });
   static DirectConnectGatewayAssociation fromJson(Map<String, dynamic> json) =>
-      DirectConnectGatewayAssociation();
+      DirectConnectGatewayAssociation(
+        directConnectGatewayId: json.containsKey('directConnectGatewayId')
+            ? json['directConnectGatewayId'] as String
+            : null,
+        directConnectGatewayOwnerAccount:
+            json.containsKey('directConnectGatewayOwnerAccount')
+                ? json['directConnectGatewayOwnerAccount'] as String
+                : null,
+        associationState: json.containsKey('associationState')
+            ? json['associationState'] as String
+            : null,
+        stateChangeError: json.containsKey('stateChangeError')
+            ? json['stateChangeError'] as String
+            : null,
+        associatedGateway: json.containsKey('associatedGateway')
+            ? AssociatedGateway.fromJson(json['associatedGateway'])
+            : null,
+        associationId: json.containsKey('associationId')
+            ? json['associationId'] as String
+            : null,
+        allowedPrefixesToDirectConnectGateway:
+            json.containsKey('allowedPrefixesToDirectConnectGateway')
+                ? (json['allowedPrefixesToDirectConnectGateway'] as List)
+                    .map((e) => RouteFilterPrefix.fromJson(e))
+                    .toList()
+                : null,
+        virtualGatewayId: json.containsKey('virtualGatewayId')
+            ? json['virtualGatewayId'] as String
+            : null,
+        virtualGatewayRegion: json.containsKey('virtualGatewayRegion')
+            ? json['virtualGatewayRegion'] as String
+            : null,
+        virtualGatewayOwnerAccount:
+            json.containsKey('virtualGatewayOwnerAccount')
+                ? json['virtualGatewayOwnerAccount'] as String
+                : null,
+      );
 }
 
 /// Information about the proposal request to attach a virtual private gateway
@@ -1928,7 +2461,36 @@ class DirectConnectGatewayAssociationProposal {
   });
   static DirectConnectGatewayAssociationProposal fromJson(
           Map<String, dynamic> json) =>
-      DirectConnectGatewayAssociationProposal();
+      DirectConnectGatewayAssociationProposal(
+        proposalId: json.containsKey('proposalId')
+            ? json['proposalId'] as String
+            : null,
+        directConnectGatewayId: json.containsKey('directConnectGatewayId')
+            ? json['directConnectGatewayId'] as String
+            : null,
+        directConnectGatewayOwnerAccount:
+            json.containsKey('directConnectGatewayOwnerAccount')
+                ? json['directConnectGatewayOwnerAccount'] as String
+                : null,
+        proposalState: json.containsKey('proposalState')
+            ? json['proposalState'] as String
+            : null,
+        associatedGateway: json.containsKey('associatedGateway')
+            ? AssociatedGateway.fromJson(json['associatedGateway'])
+            : null,
+        existingAllowedPrefixesToDirectConnectGateway: json
+                .containsKey('existingAllowedPrefixesToDirectConnectGateway')
+            ? (json['existingAllowedPrefixesToDirectConnectGateway'] as List)
+                .map((e) => RouteFilterPrefix.fromJson(e))
+                .toList()
+            : null,
+        requestedAllowedPrefixesToDirectConnectGateway: json
+                .containsKey('requestedAllowedPrefixesToDirectConnectGateway')
+            ? (json['requestedAllowedPrefixesToDirectConnectGateway'] as List)
+                .map((e) => RouteFilterPrefix.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about an attachment between a Direct Connect gateway and a
@@ -1977,7 +2539,30 @@ class DirectConnectGatewayAttachment {
     this.stateChangeError,
   });
   static DirectConnectGatewayAttachment fromJson(Map<String, dynamic> json) =>
-      DirectConnectGatewayAttachment();
+      DirectConnectGatewayAttachment(
+        directConnectGatewayId: json.containsKey('directConnectGatewayId')
+            ? json['directConnectGatewayId'] as String
+            : null,
+        virtualInterfaceId: json.containsKey('virtualInterfaceId')
+            ? json['virtualInterfaceId'] as String
+            : null,
+        virtualInterfaceRegion: json.containsKey('virtualInterfaceRegion')
+            ? json['virtualInterfaceRegion'] as String
+            : null,
+        virtualInterfaceOwnerAccount:
+            json.containsKey('virtualInterfaceOwnerAccount')
+                ? json['virtualInterfaceOwnerAccount'] as String
+                : null,
+        attachmentState: json.containsKey('attachmentState')
+            ? json['attachmentState'] as String
+            : null,
+        attachmentType: json.containsKey('attachmentType')
+            ? json['attachmentType'] as String
+            : null,
+        stateChangeError: json.containsKey('stateChangeError')
+            ? json['stateChangeError'] as String
+            : null,
+      );
 }
 
 /// Information about an interconnect.
@@ -2054,7 +2639,40 @@ class Interconnect {
     this.hasLogicalRedundancy,
     this.tags,
   });
-  static Interconnect fromJson(Map<String, dynamic> json) => Interconnect();
+  static Interconnect fromJson(Map<String, dynamic> json) => Interconnect(
+        interconnectId: json.containsKey('interconnectId')
+            ? json['interconnectId'] as String
+            : null,
+        interconnectName: json.containsKey('interconnectName')
+            ? json['interconnectName'] as String
+            : null,
+        interconnectState: json.containsKey('interconnectState')
+            ? json['interconnectState'] as String
+            : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        bandwidth:
+            json.containsKey('bandwidth') ? json['bandwidth'] as String : null,
+        loaIssueTime: json.containsKey('loaIssueTime')
+            ? DateTime.parse(json['loaIssueTime'])
+            : null,
+        lagId: json.containsKey('lagId') ? json['lagId'] as String : null,
+        awsDevice:
+            json.containsKey('awsDevice') ? json['awsDevice'] as String : null,
+        jumboFrameCapable: json.containsKey('jumboFrameCapable')
+            ? json['jumboFrameCapable'] as bool
+            : null,
+        awsDeviceV2: json.containsKey('awsDeviceV2')
+            ? json['awsDeviceV2'] as String
+            : null,
+        hasLogicalRedundancy: json.containsKey('hasLogicalRedundancy')
+            ? json['hasLogicalRedundancy'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class Interconnects {
@@ -2064,7 +2682,13 @@ class Interconnects {
   Interconnects({
     this.interconnects,
   });
-  static Interconnects fromJson(Map<String, dynamic> json) => Interconnects();
+  static Interconnects fromJson(Map<String, dynamic> json) => Interconnects(
+        interconnects: json.containsKey('interconnects')
+            ? (json['interconnects'] as List)
+                .map((e) => Interconnect.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a link aggregation group (LAG).
@@ -2155,7 +2779,49 @@ class Lag {
     this.hasLogicalRedundancy,
     this.tags,
   });
-  static Lag fromJson(Map<String, dynamic> json) => Lag();
+  static Lag fromJson(Map<String, dynamic> json) => Lag(
+        connectionsBandwidth: json.containsKey('connectionsBandwidth')
+            ? json['connectionsBandwidth'] as String
+            : null,
+        numberOfConnections: json.containsKey('numberOfConnections')
+            ? json['numberOfConnections'] as int
+            : null,
+        lagId: json.containsKey('lagId') ? json['lagId'] as String : null,
+        ownerAccount: json.containsKey('ownerAccount')
+            ? json['ownerAccount'] as String
+            : null,
+        lagName: json.containsKey('lagName') ? json['lagName'] as String : null,
+        lagState:
+            json.containsKey('lagState') ? json['lagState'] as String : null,
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        minimumLinks: json.containsKey('minimumLinks')
+            ? json['minimumLinks'] as int
+            : null,
+        awsDevice:
+            json.containsKey('awsDevice') ? json['awsDevice'] as String : null,
+        awsDeviceV2: json.containsKey('awsDeviceV2')
+            ? json['awsDeviceV2'] as String
+            : null,
+        connections: json.containsKey('connections')
+            ? (json['connections'] as List)
+                .map((e) => Connection.fromJson(e))
+                .toList()
+            : null,
+        allowsHostedConnections: json.containsKey('allowsHostedConnections')
+            ? json['allowsHostedConnections'] as bool
+            : null,
+        jumboFrameCapable: json.containsKey('jumboFrameCapable')
+            ? json['jumboFrameCapable'] as bool
+            : null,
+        hasLogicalRedundancy: json.containsKey('hasLogicalRedundancy')
+            ? json['hasLogicalRedundancy'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class Lags {
@@ -2165,7 +2831,11 @@ class Lags {
   Lags({
     this.lags,
   });
-  static Lags fromJson(Map<String, dynamic> json) => Lags();
+  static Lags fromJson(Map<String, dynamic> json) => Lags(
+        lags: json.containsKey('lags')
+            ? (json['lags'] as List).map((e) => Lag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Information about a Letter of Authorization - Connecting Facility Assignment
@@ -2182,7 +2852,14 @@ class Loa {
     this.loaContent,
     this.loaContentType,
   });
-  static Loa fromJson(Map<String, dynamic> json) => Loa();
+  static Loa fromJson(Map<String, dynamic> json) => Loa(
+        loaContent: json.containsKey('loaContent')
+            ? Uint8List(json['loaContent'])
+            : null,
+        loaContentType: json.containsKey('loaContentType')
+            ? json['loaContentType'] as String
+            : null,
+      );
 }
 
 /// Information about an AWS Direct Connect location.
@@ -2206,7 +2883,20 @@ class Location {
     this.region,
     this.availablePortSpeeds,
   });
-  static Location fromJson(Map<String, dynamic> json) => Location();
+  static Location fromJson(Map<String, dynamic> json) => Location(
+        locationCode: json.containsKey('locationCode')
+            ? json['locationCode'] as String
+            : null,
+        locationName: json.containsKey('locationName')
+            ? json['locationName'] as String
+            : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        availablePortSpeeds: json.containsKey('availablePortSpeeds')
+            ? (json['availablePortSpeeds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class Locations {
@@ -2216,7 +2906,13 @@ class Locations {
   Locations({
     this.locations,
   });
-  static Locations fromJson(Map<String, dynamic> json) => Locations();
+  static Locations fromJson(Map<String, dynamic> json) => Locations(
+        locations: json.containsKey('locations')
+            ? (json['locations'] as List)
+                .map((e) => Location.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a new BGP peer.
@@ -2245,6 +2941,7 @@ class NewBgpPeer {
     this.amazonAddress,
     this.customerAddress,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a private virtual interface.
@@ -2298,6 +2995,7 @@ class NewPrivateVirtualInterface {
     this.directConnectGatewayId,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a private virtual interface to be provisioned on a
@@ -2345,6 +3043,7 @@ class NewPrivateVirtualInterfaceAllocation {
     this.customerAddress,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a public virtual interface.
@@ -2390,6 +3089,7 @@ class NewPublicVirtualInterface {
     this.routeFilterPrefixes,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a public virtual interface to be provisioned on a
@@ -2437,6 +3137,7 @@ class NewPublicVirtualInterfaceAllocation {
     this.routeFilterPrefixes,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the transit virtual interface.
@@ -2485,6 +3186,7 @@ class NewTransitVirtualInterface {
     this.directConnectGatewayId,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a transit virtual interface.
@@ -2529,6 +3231,7 @@ class NewTransitVirtualInterfaceAllocation {
     this.addressFamily,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a tag associated with an AWS Direct Connect resource.
@@ -2543,7 +3246,14 @@ class ResourceTag {
     this.resourceArn,
     this.tags,
   });
-  static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag();
+  static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag(
+        resourceArn: json.containsKey('resourceArn')
+            ? json['resourceArn'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Information about a route filter prefix that a customer can advertise
@@ -2557,7 +3267,10 @@ class RouteFilterPrefix {
     this.cidr,
   });
   static RouteFilterPrefix fromJson(Map<String, dynamic> json) =>
-      RouteFilterPrefix();
+      RouteFilterPrefix(
+        cidr: json.containsKey('cidr') ? json['cidr'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a tag.
@@ -2572,7 +3285,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['key'] as String,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -2595,7 +3312,13 @@ class UpdateDirectConnectGatewayAssociationResult {
   });
   static UpdateDirectConnectGatewayAssociationResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateDirectConnectGatewayAssociationResult();
+      UpdateDirectConnectGatewayAssociationResult(
+        directConnectGatewayAssociation:
+            json.containsKey('directConnectGatewayAssociation')
+                ? DirectConnectGatewayAssociation.fromJson(
+                    json['directConnectGatewayAssociation'])
+                : null,
+      );
 }
 
 /// Information about a virtual private gateway for a private virtual interface.
@@ -2620,7 +3343,14 @@ class VirtualGateway {
     this.virtualGatewayId,
     this.virtualGatewayState,
   });
-  static VirtualGateway fromJson(Map<String, dynamic> json) => VirtualGateway();
+  static VirtualGateway fromJson(Map<String, dynamic> json) => VirtualGateway(
+        virtualGatewayId: json.containsKey('virtualGatewayId')
+            ? json['virtualGatewayId'] as String
+            : null,
+        virtualGatewayState: json.containsKey('virtualGatewayState')
+            ? json['virtualGatewayState'] as String
+            : null,
+      );
 }
 
 class VirtualGateways {
@@ -2630,8 +3360,13 @@ class VirtualGateways {
   VirtualGateways({
     this.virtualGateways,
   });
-  static VirtualGateways fromJson(Map<String, dynamic> json) =>
-      VirtualGateways();
+  static VirtualGateways fromJson(Map<String, dynamic> json) => VirtualGateways(
+        virtualGateways: json.containsKey('virtualGateways')
+            ? (json['virtualGateways'] as List)
+                .map((e) => VirtualGateway.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a virtual interface.
@@ -2770,7 +3505,73 @@ class VirtualInterface {
     this.tags,
   });
   static VirtualInterface fromJson(Map<String, dynamic> json) =>
-      VirtualInterface();
+      VirtualInterface(
+        ownerAccount: json.containsKey('ownerAccount')
+            ? json['ownerAccount'] as String
+            : null,
+        virtualInterfaceId: json.containsKey('virtualInterfaceId')
+            ? json['virtualInterfaceId'] as String
+            : null,
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        connectionId: json.containsKey('connectionId')
+            ? json['connectionId'] as String
+            : null,
+        virtualInterfaceType: json.containsKey('virtualInterfaceType')
+            ? json['virtualInterfaceType'] as String
+            : null,
+        virtualInterfaceName: json.containsKey('virtualInterfaceName')
+            ? json['virtualInterfaceName'] as String
+            : null,
+        vlan: json.containsKey('vlan') ? json['vlan'] as int : null,
+        asn: json.containsKey('asn') ? json['asn'] as int : null,
+        amazonSideAsn: json.containsKey('amazonSideAsn')
+            ? BigInt.from(json['amazonSideAsn'])
+            : null,
+        authKey: json.containsKey('authKey') ? json['authKey'] as String : null,
+        amazonAddress: json.containsKey('amazonAddress')
+            ? json['amazonAddress'] as String
+            : null,
+        customerAddress: json.containsKey('customerAddress')
+            ? json['customerAddress'] as String
+            : null,
+        addressFamily: json.containsKey('addressFamily')
+            ? json['addressFamily'] as String
+            : null,
+        virtualInterfaceState: json.containsKey('virtualInterfaceState')
+            ? json['virtualInterfaceState'] as String
+            : null,
+        customerRouterConfig: json.containsKey('customerRouterConfig')
+            ? json['customerRouterConfig'] as String
+            : null,
+        mtu: json.containsKey('mtu') ? json['mtu'] as int : null,
+        jumboFrameCapable: json.containsKey('jumboFrameCapable')
+            ? json['jumboFrameCapable'] as bool
+            : null,
+        virtualGatewayId: json.containsKey('virtualGatewayId')
+            ? json['virtualGatewayId'] as String
+            : null,
+        directConnectGatewayId: json.containsKey('directConnectGatewayId')
+            ? json['directConnectGatewayId'] as String
+            : null,
+        routeFilterPrefixes: json.containsKey('routeFilterPrefixes')
+            ? (json['routeFilterPrefixes'] as List)
+                .map((e) => RouteFilterPrefix.fromJson(e))
+                .toList()
+            : null,
+        bgpPeers: json.containsKey('bgpPeers')
+            ? (json['bgpPeers'] as List)
+                .map((e) => BgpPeer.fromJson(e))
+                .toList()
+            : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        awsDeviceV2: json.containsKey('awsDeviceV2')
+            ? json['awsDeviceV2'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class VirtualInterfaces {
@@ -2781,5 +3582,11 @@ class VirtualInterfaces {
     this.virtualInterfaces,
   });
   static VirtualInterfaces fromJson(Map<String, dynamic> json) =>
-      VirtualInterfaces();
+      VirtualInterfaces(
+        virtualInterfaces: json.containsKey('virtualInterfaces')
+            ? (json['virtualInterfaces'] as List)
+                .map((e) => VirtualInterface.fromJson(e))
+                .toList()
+            : null,
+      );
 }

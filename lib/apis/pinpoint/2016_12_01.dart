@@ -3,10 +3,17 @@ import 'dart:typed_data';
 
 /// Doc Engage API - Amazon Pinpoint API
 class PinpointApi {
+  final _client;
+  PinpointApi(client)
+      : _client = client.configured('Pinpoint', serializer: 'rest-json');
+
   /// Creates an application.
   Future<CreateAppResponse> createApp(
       CreateApplicationRequest createApplicationRequest) async {
-    return CreateAppResponse.fromJson({});
+    var response_ = await _client.send('CreateApp', {
+      'CreateApplicationRequest': createApplicationRequest,
+    });
+    return CreateAppResponse.fromJson(response_);
   }
 
   /// Creates a new campaign for an application or updates the settings of an
@@ -18,7 +25,11 @@ class PinpointApi {
   Future<CreateCampaignResponse> createCampaign(
       {@required String applicationId,
       @required WriteCampaignRequest writeCampaignRequest}) async {
-    return CreateCampaignResponse.fromJson({});
+    var response_ = await _client.send('CreateCampaign', {
+      'ApplicationId': applicationId,
+      'WriteCampaignRequest': writeCampaignRequest,
+    });
+    return CreateCampaignResponse.fromJson(response_);
   }
 
   /// Creates a new export job for an application.
@@ -29,7 +40,11 @@ class PinpointApi {
   Future<CreateExportJobResponse> createExportJob(
       {@required String applicationId,
       @required ExportJobRequest exportJobRequest}) async {
-    return CreateExportJobResponse.fromJson({});
+    var response_ = await _client.send('CreateExportJob', {
+      'ApplicationId': applicationId,
+      'ExportJobRequest': exportJobRequest,
+    });
+    return CreateExportJobResponse.fromJson(response_);
   }
 
   /// Creates a new import job for an application.
@@ -40,7 +55,11 @@ class PinpointApi {
   Future<CreateImportJobResponse> createImportJob(
       {@required String applicationId,
       @required ImportJobRequest importJobRequest}) async {
-    return CreateImportJobResponse.fromJson({});
+    var response_ = await _client.send('CreateImportJob', {
+      'ApplicationId': applicationId,
+      'ImportJobRequest': importJobRequest,
+    });
+    return CreateImportJobResponse.fromJson(response_);
   }
 
   /// Creates a new segment for an application or updates the configuration,
@@ -53,7 +72,11 @@ class PinpointApi {
   Future<CreateSegmentResponse> createSegment(
       {@required String applicationId,
       @required WriteSegmentRequest writeSegmentRequest}) async {
-    return CreateSegmentResponse.fromJson({});
+    var response_ = await _client.send('CreateSegment', {
+      'ApplicationId': applicationId,
+      'WriteSegmentRequest': writeSegmentRequest,
+    });
+    return CreateSegmentResponse.fromJson(response_);
   }
 
   /// Disables the ADM channel for an application and deletes any existing
@@ -64,7 +87,10 @@ class PinpointApi {
   /// console.
   Future<DeleteAdmChannelResponse> deleteAdmChannel(
       String applicationId) async {
-    return DeleteAdmChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteAdmChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteAdmChannelResponse.fromJson(response_);
   }
 
   /// Disables the APNs channel for an application and deletes any existing
@@ -75,7 +101,10 @@ class PinpointApi {
   /// console.
   Future<DeleteApnsChannelResponse> deleteApnsChannel(
       String applicationId) async {
-    return DeleteApnsChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteApnsChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteApnsChannelResponse.fromJson(response_);
   }
 
   /// Disables the APNs sandbox channel for an application and deletes any
@@ -86,7 +115,10 @@ class PinpointApi {
   /// console.
   Future<DeleteApnsSandboxChannelResponse> deleteApnsSandboxChannel(
       String applicationId) async {
-    return DeleteApnsSandboxChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteApnsSandboxChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteApnsSandboxChannelResponse.fromJson(response_);
   }
 
   /// Disables the APNs VoIP channel for an application and deletes any existing
@@ -97,7 +129,10 @@ class PinpointApi {
   /// console.
   Future<DeleteApnsVoipChannelResponse> deleteApnsVoipChannel(
       String applicationId) async {
-    return DeleteApnsVoipChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteApnsVoipChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteApnsVoipChannelResponse.fromJson(response_);
   }
 
   /// Disables the APNs VoIP sandbox channel for an application and deletes any
@@ -108,7 +143,10 @@ class PinpointApi {
   /// console.
   Future<DeleteApnsVoipSandboxChannelResponse> deleteApnsVoipSandboxChannel(
       String applicationId) async {
-    return DeleteApnsVoipSandboxChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteApnsVoipSandboxChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteApnsVoipSandboxChannelResponse.fromJson(response_);
   }
 
   /// Deletes an application.
@@ -117,7 +155,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<DeleteAppResponse> deleteApp(String applicationId) async {
-    return DeleteAppResponse.fromJson({});
+    var response_ = await _client.send('DeleteApp', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteAppResponse.fromJson(response_);
   }
 
   /// Disables the Baidu channel for an application and deletes any existing
@@ -128,7 +169,10 @@ class PinpointApi {
   /// console.
   Future<DeleteBaiduChannelResponse> deleteBaiduChannel(
       String applicationId) async {
-    return DeleteBaiduChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteBaiduChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteBaiduChannelResponse.fromJson(response_);
   }
 
   /// Deletes a campaign from an application.
@@ -140,7 +184,11 @@ class PinpointApi {
   /// [campaignId]: The unique identifier for the campaign.
   Future<DeleteCampaignResponse> deleteCampaign(
       {@required String applicationId, @required String campaignId}) async {
-    return DeleteCampaignResponse.fromJson({});
+    var response_ = await _client.send('DeleteCampaign', {
+      'ApplicationId': applicationId,
+      'CampaignId': campaignId,
+    });
+    return DeleteCampaignResponse.fromJson(response_);
   }
 
   /// Disables the email channel for an application and deletes any existing
@@ -151,7 +199,10 @@ class PinpointApi {
   /// console.
   Future<DeleteEmailChannelResponse> deleteEmailChannel(
       String applicationId) async {
-    return DeleteEmailChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteEmailChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteEmailChannelResponse.fromJson(response_);
   }
 
   /// Deletes an endpoint from an application.
@@ -163,7 +214,11 @@ class PinpointApi {
   /// [endpointId]: The unique identifier for the endpoint.
   Future<DeleteEndpointResponse> deleteEndpoint(
       {@required String applicationId, @required String endpointId}) async {
-    return DeleteEndpointResponse.fromJson({});
+    var response_ = await _client.send('DeleteEndpoint', {
+      'ApplicationId': applicationId,
+      'EndpointId': endpointId,
+    });
+    return DeleteEndpointResponse.fromJson(response_);
   }
 
   /// Deletes the event stream for an application.
@@ -173,7 +228,10 @@ class PinpointApi {
   /// console.
   Future<DeleteEventStreamResponse> deleteEventStream(
       String applicationId) async {
-    return DeleteEventStreamResponse.fromJson({});
+    var response_ = await _client.send('DeleteEventStream', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteEventStreamResponse.fromJson(response_);
   }
 
   /// Disables the GCM channel for an application and deletes any existing
@@ -184,7 +242,10 @@ class PinpointApi {
   /// console.
   Future<DeleteGcmChannelResponse> deleteGcmChannel(
       String applicationId) async {
-    return DeleteGcmChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteGcmChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteGcmChannelResponse.fromJson(response_);
   }
 
   /// Deletes a segment from an application.
@@ -196,7 +257,11 @@ class PinpointApi {
   /// [segmentId]: The unique identifier for the segment.
   Future<DeleteSegmentResponse> deleteSegment(
       {@required String applicationId, @required String segmentId}) async {
-    return DeleteSegmentResponse.fromJson({});
+    var response_ = await _client.send('DeleteSegment', {
+      'ApplicationId': applicationId,
+      'SegmentId': segmentId,
+    });
+    return DeleteSegmentResponse.fromJson(response_);
   }
 
   /// Disables the SMS channel for an application and deletes any existing
@@ -207,7 +272,10 @@ class PinpointApi {
   /// console.
   Future<DeleteSmsChannelResponse> deleteSmsChannel(
       String applicationId) async {
-    return DeleteSmsChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteSmsChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteSmsChannelResponse.fromJson(response_);
   }
 
   /// Deletes all the endpoints that are associated with a specific user ID.
@@ -219,7 +287,11 @@ class PinpointApi {
   /// [userId]: The unique identifier for the user.
   Future<DeleteUserEndpointsResponse> deleteUserEndpoints(
       {@required String applicationId, @required String userId}) async {
-    return DeleteUserEndpointsResponse.fromJson({});
+    var response_ = await _client.send('DeleteUserEndpoints', {
+      'ApplicationId': applicationId,
+      'UserId': userId,
+    });
+    return DeleteUserEndpointsResponse.fromJson(response_);
   }
 
   /// Disables the voice channel for an application and deletes any existing
@@ -230,7 +302,10 @@ class PinpointApi {
   /// console.
   Future<DeleteVoiceChannelResponse> deleteVoiceChannel(
       String applicationId) async {
-    return DeleteVoiceChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteVoiceChannel', {
+      'ApplicationId': applicationId,
+    });
+    return DeleteVoiceChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the ADM channel for
@@ -240,7 +315,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetAdmChannelResponse> getAdmChannel(String applicationId) async {
-    return GetAdmChannelResponse.fromJson({});
+    var response_ = await _client.send('GetAdmChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetAdmChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the APNs channel
@@ -250,7 +328,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetApnsChannelResponse> getApnsChannel(String applicationId) async {
-    return GetApnsChannelResponse.fromJson({});
+    var response_ = await _client.send('GetApnsChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetApnsChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the APNs sandbox
@@ -261,7 +342,10 @@ class PinpointApi {
   /// console.
   Future<GetApnsSandboxChannelResponse> getApnsSandboxChannel(
       String applicationId) async {
-    return GetApnsSandboxChannelResponse.fromJson({});
+    var response_ = await _client.send('GetApnsSandboxChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetApnsSandboxChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the APNs VoIP
@@ -272,7 +356,10 @@ class PinpointApi {
   /// console.
   Future<GetApnsVoipChannelResponse> getApnsVoipChannel(
       String applicationId) async {
-    return GetApnsVoipChannelResponse.fromJson({});
+    var response_ = await _client.send('GetApnsVoipChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetApnsVoipChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the APNs VoIP
@@ -283,7 +370,10 @@ class PinpointApi {
   /// console.
   Future<GetApnsVoipSandboxChannelResponse> getApnsVoipSandboxChannel(
       String applicationId) async {
-    return GetApnsVoipSandboxChannelResponse.fromJson({});
+    var response_ = await _client.send('GetApnsVoipSandboxChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetApnsVoipSandboxChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about an application.
@@ -292,7 +382,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetAppResponse> getApp(String applicationId) async {
-    return GetAppResponse.fromJson({});
+    var response_ = await _client.send('GetApp', {
+      'ApplicationId': applicationId,
+    });
+    return GetAppResponse.fromJson(response_);
   }
 
   /// Retrieves (queries) pre-aggregated data for a standard metric that applies
@@ -335,7 +428,15 @@ class PinpointApi {
       String nextToken,
       String pageSize,
       DateTime startTime}) async {
-    return GetApplicationDateRangeKpiResponse.fromJson({});
+    var response_ = await _client.send('GetApplicationDateRangeKpi', {
+      'ApplicationId': applicationId,
+      if (endTime != null) 'EndTime': endTime,
+      'KpiName': kpiName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (startTime != null) 'StartTime': startTime,
+    });
+    return GetApplicationDateRangeKpiResponse.fromJson(response_);
   }
 
   /// Retrieves information about the settings for an application.
@@ -345,7 +446,10 @@ class PinpointApi {
   /// console.
   Future<GetApplicationSettingsResponse> getApplicationSettings(
       String applicationId) async {
-    return GetApplicationSettingsResponse.fromJson({});
+    var response_ = await _client.send('GetApplicationSettings', {
+      'ApplicationId': applicationId,
+    });
+    return GetApplicationSettingsResponse.fromJson(response_);
   }
 
   /// Retrieves information about all of your applications.
@@ -357,7 +461,11 @@ class PinpointApi {
   /// [token]: The NextToken string that specifies which page of results to
   /// return in a paginated response.
   Future<GetAppsResponse> getApps({String pageSize, String token}) async {
-    return GetAppsResponse.fromJson({});
+    var response_ = await _client.send('GetApps', {
+      if (pageSize != null) 'PageSize': pageSize,
+      if (token != null) 'Token': token,
+    });
+    return GetAppsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the Baidu Cloud
@@ -367,7 +475,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetBaiduChannelResponse> getBaiduChannel(String applicationId) async {
-    return GetBaiduChannelResponse.fromJson({});
+    var response_ = await _client.send('GetBaiduChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetBaiduChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status, configuration, and other settings
@@ -380,7 +491,11 @@ class PinpointApi {
   /// [campaignId]: The unique identifier for the campaign.
   Future<GetCampaignResponse> getCampaign(
       {@required String applicationId, @required String campaignId}) async {
-    return GetCampaignResponse.fromJson({});
+    var response_ = await _client.send('GetCampaign', {
+      'ApplicationId': applicationId,
+      'CampaignId': campaignId,
+    });
+    return GetCampaignResponse.fromJson(response_);
   }
 
   /// Retrieves information about the activity performed by a campaign.
@@ -402,7 +517,13 @@ class PinpointApi {
       @required String campaignId,
       String pageSize,
       String token}) async {
-    return GetCampaignActivitiesResponse.fromJson({});
+    var response_ = await _client.send('GetCampaignActivities', {
+      'ApplicationId': applicationId,
+      'CampaignId': campaignId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (token != null) 'Token': token,
+    });
+    return GetCampaignActivitiesResponse.fromJson(response_);
   }
 
   /// Retrieves (queries) pre-aggregated data for a standard metric that applies
@@ -448,7 +569,16 @@ class PinpointApi {
       String nextToken,
       String pageSize,
       DateTime startTime}) async {
-    return GetCampaignDateRangeKpiResponse.fromJson({});
+    var response_ = await _client.send('GetCampaignDateRangeKpi', {
+      'ApplicationId': applicationId,
+      'CampaignId': campaignId,
+      if (endTime != null) 'EndTime': endTime,
+      'KpiName': kpiName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (startTime != null) 'StartTime': startTime,
+    });
+    return GetCampaignDateRangeKpiResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status, configuration, and other settings
@@ -466,7 +596,12 @@ class PinpointApi {
       {@required String applicationId,
       @required String campaignId,
       @required String version}) async {
-    return GetCampaignVersionResponse.fromJson({});
+    var response_ = await _client.send('GetCampaignVersion', {
+      'ApplicationId': applicationId,
+      'CampaignId': campaignId,
+      'Version': version,
+    });
+    return GetCampaignVersionResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status, configuration, and other settings
@@ -489,7 +624,13 @@ class PinpointApi {
       @required String campaignId,
       String pageSize,
       String token}) async {
-    return GetCampaignVersionsResponse.fromJson({});
+    var response_ = await _client.send('GetCampaignVersions', {
+      'ApplicationId': applicationId,
+      'CampaignId': campaignId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (token != null) 'Token': token,
+    });
+    return GetCampaignVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status, configuration, and other settings
@@ -507,7 +648,12 @@ class PinpointApi {
   /// return in a paginated response.
   Future<GetCampaignsResponse> getCampaigns(String applicationId,
       {String pageSize, String token}) async {
-    return GetCampaignsResponse.fromJson({});
+    var response_ = await _client.send('GetCampaigns', {
+      'ApplicationId': applicationId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (token != null) 'Token': token,
+    });
+    return GetCampaignsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the history and status of each channel for an
@@ -517,7 +663,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetChannelsResponse> getChannels(String applicationId) async {
-    return GetChannelsResponse.fromJson({});
+    var response_ = await _client.send('GetChannels', {
+      'ApplicationId': applicationId,
+    });
+    return GetChannelsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the email channel
@@ -527,7 +676,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetEmailChannelResponse> getEmailChannel(String applicationId) async {
-    return GetEmailChannelResponse.fromJson({});
+    var response_ = await _client.send('GetEmailChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetEmailChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about the settings and attributes of a specific
@@ -540,7 +692,11 @@ class PinpointApi {
   /// [endpointId]: The unique identifier for the endpoint.
   Future<GetEndpointResponse> getEndpoint(
       {@required String applicationId, @required String endpointId}) async {
-    return GetEndpointResponse.fromJson({});
+    var response_ = await _client.send('GetEndpoint', {
+      'ApplicationId': applicationId,
+      'EndpointId': endpointId,
+    });
+    return GetEndpointResponse.fromJson(response_);
   }
 
   /// Retrieves information about the event stream settings for an application.
@@ -549,7 +705,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetEventStreamResponse> getEventStream(String applicationId) async {
-    return GetEventStreamResponse.fromJson({});
+    var response_ = await _client.send('GetEventStream', {
+      'ApplicationId': applicationId,
+    });
+    return GetEventStreamResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of a specific export
@@ -562,7 +721,11 @@ class PinpointApi {
   /// [jobId]: The unique identifier for the job.
   Future<GetExportJobResponse> getExportJob(
       {@required String applicationId, @required String jobId}) async {
-    return GetExportJobResponse.fromJson({});
+    var response_ = await _client.send('GetExportJob', {
+      'ApplicationId': applicationId,
+      'JobId': jobId,
+    });
+    return GetExportJobResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of all the export jobs
@@ -580,7 +743,12 @@ class PinpointApi {
   /// return in a paginated response.
   Future<GetExportJobsResponse> getExportJobs(String applicationId,
       {String pageSize, String token}) async {
-    return GetExportJobsResponse.fromJson({});
+    var response_ = await _client.send('GetExportJobs', {
+      'ApplicationId': applicationId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (token != null) 'Token': token,
+    });
+    return GetExportJobsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the GCM channel for
@@ -590,7 +758,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetGcmChannelResponse> getGcmChannel(String applicationId) async {
-    return GetGcmChannelResponse.fromJson({});
+    var response_ = await _client.send('GetGcmChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetGcmChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of a specific import
@@ -603,7 +774,11 @@ class PinpointApi {
   /// [jobId]: The unique identifier for the job.
   Future<GetImportJobResponse> getImportJob(
       {@required String applicationId, @required String jobId}) async {
-    return GetImportJobResponse.fromJson({});
+    var response_ = await _client.send('GetImportJob', {
+      'ApplicationId': applicationId,
+      'JobId': jobId,
+    });
+    return GetImportJobResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of all the import jobs
@@ -621,7 +796,12 @@ class PinpointApi {
   /// return in a paginated response.
   Future<GetImportJobsResponse> getImportJobs(String applicationId,
       {String pageSize, String token}) async {
-    return GetImportJobsResponse.fromJson({});
+    var response_ = await _client.send('GetImportJobs', {
+      'ApplicationId': applicationId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (token != null) 'Token': token,
+    });
+    return GetImportJobsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the configuration, dimension, and other
@@ -634,7 +814,11 @@ class PinpointApi {
   /// [segmentId]: The unique identifier for the segment.
   Future<GetSegmentResponse> getSegment(
       {@required String applicationId, @required String segmentId}) async {
-    return GetSegmentResponse.fromJson({});
+    var response_ = await _client.send('GetSegment', {
+      'ApplicationId': applicationId,
+      'SegmentId': segmentId,
+    });
+    return GetSegmentResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the export jobs for
@@ -657,7 +841,13 @@ class PinpointApi {
       String pageSize,
       @required String segmentId,
       String token}) async {
-    return GetSegmentExportJobsResponse.fromJson({});
+    var response_ = await _client.send('GetSegmentExportJobs', {
+      'ApplicationId': applicationId,
+      if (pageSize != null) 'PageSize': pageSize,
+      'SegmentId': segmentId,
+      if (token != null) 'Token': token,
+    });
+    return GetSegmentExportJobsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the import jobs for
@@ -680,7 +870,13 @@ class PinpointApi {
       String pageSize,
       @required String segmentId,
       String token}) async {
-    return GetSegmentImportJobsResponse.fromJson({});
+    var response_ = await _client.send('GetSegmentImportJobs', {
+      'ApplicationId': applicationId,
+      if (pageSize != null) 'PageSize': pageSize,
+      'SegmentId': segmentId,
+      if (token != null) 'Token': token,
+    });
+    return GetSegmentImportJobsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the configuration, dimension, and other
@@ -699,7 +895,12 @@ class PinpointApi {
       {@required String applicationId,
       @required String segmentId,
       @required String version}) async {
-    return GetSegmentVersionResponse.fromJson({});
+    var response_ = await _client.send('GetSegmentVersion', {
+      'ApplicationId': applicationId,
+      'SegmentId': segmentId,
+      'Version': version,
+    });
+    return GetSegmentVersionResponse.fromJson(response_);
   }
 
   /// Retrieves information about the configuration, dimension, and other
@@ -723,7 +924,13 @@ class PinpointApi {
       String pageSize,
       @required String segmentId,
       String token}) async {
-    return GetSegmentVersionsResponse.fromJson({});
+    var response_ = await _client.send('GetSegmentVersions', {
+      'ApplicationId': applicationId,
+      if (pageSize != null) 'PageSize': pageSize,
+      'SegmentId': segmentId,
+      if (token != null) 'Token': token,
+    });
+    return GetSegmentVersionsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the configuration, dimension, and other
@@ -741,7 +948,12 @@ class PinpointApi {
   /// return in a paginated response.
   Future<GetSegmentsResponse> getSegments(String applicationId,
       {String pageSize, String token}) async {
-    return GetSegmentsResponse.fromJson({});
+    var response_ = await _client.send('GetSegments', {
+      'ApplicationId': applicationId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (token != null) 'Token': token,
+    });
+    return GetSegmentsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the SMS channel for
@@ -751,7 +963,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetSmsChannelResponse> getSmsChannel(String applicationId) async {
-    return GetSmsChannelResponse.fromJson({});
+    var response_ = await _client.send('GetSmsChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetSmsChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about all the endpoints that are associated with a
@@ -764,7 +979,11 @@ class PinpointApi {
   /// [userId]: The unique identifier for the user.
   Future<GetUserEndpointsResponse> getUserEndpoints(
       {@required String applicationId, @required String userId}) async {
-    return GetUserEndpointsResponse.fromJson({});
+    var response_ = await _client.send('GetUserEndpoints', {
+      'ApplicationId': applicationId,
+      'UserId': userId,
+    });
+    return GetUserEndpointsResponse.fromJson(response_);
   }
 
   /// Retrieves information about the status and settings of the voice channel
@@ -774,7 +993,10 @@ class PinpointApi {
   /// identifier is displayed as the **Project ID** on the Amazon Pinpoint
   /// console.
   Future<GetVoiceChannelResponse> getVoiceChannel(String applicationId) async {
-    return GetVoiceChannelResponse.fromJson({});
+    var response_ = await _client.send('GetVoiceChannel', {
+      'ApplicationId': applicationId,
+    });
+    return GetVoiceChannelResponse.fromJson(response_);
   }
 
   /// Retrieves all the tags (keys and values) that are associated with an
@@ -784,13 +1006,19 @@ class PinpointApi {
   /// campaign, or segment.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Retrieves information about a phone number.
   Future<PhoneNumberValidateResponse> phoneNumberValidate(
       NumberValidateRequest numberValidateRequest) async {
-    return PhoneNumberValidateResponse.fromJson({});
+    var response_ = await _client.send('PhoneNumberValidate', {
+      'NumberValidateRequest': numberValidateRequest,
+    });
+    return PhoneNumberValidateResponse.fromJson(response_);
   }
 
   /// Creates a new event stream for an application or updates the settings of
@@ -802,7 +1030,11 @@ class PinpointApi {
   Future<PutEventStreamResponse> putEventStream(
       {@required String applicationId,
       @required WriteEventStream writeEventStream}) async {
-    return PutEventStreamResponse.fromJson({});
+    var response_ = await _client.send('PutEventStream', {
+      'ApplicationId': applicationId,
+      'WriteEventStream': writeEventStream,
+    });
+    return PutEventStreamResponse.fromJson(response_);
   }
 
   /// Creates a new event to record for endpoints, or creates or updates
@@ -814,7 +1046,11 @@ class PinpointApi {
   Future<PutEventsResponse> putEvents(
       {@required String applicationId,
       @required EventsRequest eventsRequest}) async {
-    return PutEventsResponse.fromJson({});
+    var response_ = await _client.send('PutEvents', {
+      'ApplicationId': applicationId,
+      'EventsRequest': eventsRequest,
+    });
+    return PutEventsResponse.fromJson(response_);
   }
 
   /// Removes one or more attributes, of the same attribute type, from all the
@@ -841,7 +1077,12 @@ class PinpointApi {
       {@required String applicationId,
       @required String attributeType,
       @required UpdateAttributesRequest updateAttributesRequest}) async {
-    return RemoveAttributesResponse.fromJson({});
+    var response_ = await _client.send('RemoveAttributes', {
+      'ApplicationId': applicationId,
+      'AttributeType': attributeType,
+      'UpdateAttributesRequest': updateAttributesRequest,
+    });
+    return RemoveAttributesResponse.fromJson(response_);
   }
 
   /// Creates and sends a direct message.
@@ -852,7 +1093,11 @@ class PinpointApi {
   Future<SendMessagesResponse> sendMessages(
       {@required String applicationId,
       @required MessageRequest messageRequest}) async {
-    return SendMessagesResponse.fromJson({});
+    var response_ = await _client.send('SendMessages', {
+      'ApplicationId': applicationId,
+      'MessageRequest': messageRequest,
+    });
+    return SendMessagesResponse.fromJson(response_);
   }
 
   /// Creates and sends a message to a list of users.
@@ -863,7 +1108,11 @@ class PinpointApi {
   Future<SendUsersMessagesResponse> sendUsersMessages(
       {@required String applicationId,
       @required SendUsersMessageRequest sendUsersMessageRequest}) async {
-    return SendUsersMessagesResponse.fromJson({});
+    var response_ = await _client.send('SendUsersMessages', {
+      'ApplicationId': applicationId,
+      'SendUsersMessageRequest': sendUsersMessageRequest,
+    });
+    return SendUsersMessagesResponse.fromJson(response_);
   }
 
   /// Adds one or more tags (keys and values) to an application, campaign, or
@@ -872,7 +1121,12 @@ class PinpointApi {
   /// [resourceArn]: The Amazon Resource Name (ARN) of the application,
   /// campaign, or segment.
   Future<void> tagResource(
-      {@required String resourceArn, @required TagsModel tagsModel}) async {}
+      {@required String resourceArn, @required TagsModel tagsModel}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'TagsModel': tagsModel,
+    });
+  }
 
   /// Removes one or more tags (keys and values) from an application, campaign,
   /// or segment.
@@ -884,7 +1138,12 @@ class PinpointApi {
   /// segment. To remove multiple tags, append the tagKeys parameter and
   /// argument for each additional tag to remove, separated by an ampersand (&).
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Updates the ADM channel settings for an application.
   ///
@@ -894,7 +1153,11 @@ class PinpointApi {
   Future<UpdateAdmChannelResponse> updateAdmChannel(
       {@required AdmChannelRequest admChannelRequest,
       @required String applicationId}) async {
-    return UpdateAdmChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateAdmChannel', {
+      'ADMChannelRequest': admChannelRequest,
+      'ApplicationId': applicationId,
+    });
+    return UpdateAdmChannelResponse.fromJson(response_);
   }
 
   /// Updates the APNs channel settings for an application.
@@ -905,7 +1168,11 @@ class PinpointApi {
   Future<UpdateApnsChannelResponse> updateApnsChannel(
       {@required ApnsChannelRequest apnsChannelRequest,
       @required String applicationId}) async {
-    return UpdateApnsChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateApnsChannel', {
+      'APNSChannelRequest': apnsChannelRequest,
+      'ApplicationId': applicationId,
+    });
+    return UpdateApnsChannelResponse.fromJson(response_);
   }
 
   /// Updates the APNs sandbox channel settings for an application.
@@ -916,7 +1183,11 @@ class PinpointApi {
   Future<UpdateApnsSandboxChannelResponse> updateApnsSandboxChannel(
       {@required ApnsSandboxChannelRequest apnsSandboxChannelRequest,
       @required String applicationId}) async {
-    return UpdateApnsSandboxChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateApnsSandboxChannel', {
+      'APNSSandboxChannelRequest': apnsSandboxChannelRequest,
+      'ApplicationId': applicationId,
+    });
+    return UpdateApnsSandboxChannelResponse.fromJson(response_);
   }
 
   /// Updates the APNs VoIP channel settings for an application.
@@ -927,7 +1198,11 @@ class PinpointApi {
   Future<UpdateApnsVoipChannelResponse> updateApnsVoipChannel(
       {@required ApnsVoipChannelRequest apnsVoipChannelRequest,
       @required String applicationId}) async {
-    return UpdateApnsVoipChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateApnsVoipChannel', {
+      'APNSVoipChannelRequest': apnsVoipChannelRequest,
+      'ApplicationId': applicationId,
+    });
+    return UpdateApnsVoipChannelResponse.fromJson(response_);
   }
 
   /// Updates the settings for the APNs VoIP sandbox channel for an application.
@@ -938,7 +1213,11 @@ class PinpointApi {
   Future<UpdateApnsVoipSandboxChannelResponse> updateApnsVoipSandboxChannel(
       {@required ApnsVoipSandboxChannelRequest apnsVoipSandboxChannelRequest,
       @required String applicationId}) async {
-    return UpdateApnsVoipSandboxChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateApnsVoipSandboxChannel', {
+      'APNSVoipSandboxChannelRequest': apnsVoipSandboxChannelRequest,
+      'ApplicationId': applicationId,
+    });
+    return UpdateApnsVoipSandboxChannelResponse.fromJson(response_);
   }
 
   /// Updates the settings for an application.
@@ -952,7 +1231,11 @@ class PinpointApi {
       @required
           WriteApplicationSettingsRequest
               writeApplicationSettingsRequest}) async {
-    return UpdateApplicationSettingsResponse.fromJson({});
+    var response_ = await _client.send('UpdateApplicationSettings', {
+      'ApplicationId': applicationId,
+      'WriteApplicationSettingsRequest': writeApplicationSettingsRequest,
+    });
+    return UpdateApplicationSettingsResponse.fromJson(response_);
   }
 
   /// Updates the settings of the Baidu channel for an application.
@@ -963,7 +1246,11 @@ class PinpointApi {
   Future<UpdateBaiduChannelResponse> updateBaiduChannel(
       {@required String applicationId,
       @required BaiduChannelRequest baiduChannelRequest}) async {
-    return UpdateBaiduChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateBaiduChannel', {
+      'ApplicationId': applicationId,
+      'BaiduChannelRequest': baiduChannelRequest,
+    });
+    return UpdateBaiduChannelResponse.fromJson(response_);
   }
 
   /// Updates the settings for a campaign.
@@ -977,7 +1264,12 @@ class PinpointApi {
       {@required String applicationId,
       @required String campaignId,
       @required WriteCampaignRequest writeCampaignRequest}) async {
-    return UpdateCampaignResponse.fromJson({});
+    var response_ = await _client.send('UpdateCampaign', {
+      'ApplicationId': applicationId,
+      'CampaignId': campaignId,
+      'WriteCampaignRequest': writeCampaignRequest,
+    });
+    return UpdateCampaignResponse.fromJson(response_);
   }
 
   /// Updates the status and settings of the email channel for an application.
@@ -988,7 +1280,11 @@ class PinpointApi {
   Future<UpdateEmailChannelResponse> updateEmailChannel(
       {@required String applicationId,
       @required EmailChannelRequest emailChannelRequest}) async {
-    return UpdateEmailChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateEmailChannel', {
+      'ApplicationId': applicationId,
+      'EmailChannelRequest': emailChannelRequest,
+    });
+    return UpdateEmailChannelResponse.fromJson(response_);
   }
 
   /// Creates a new endpoint for an application or updates the settings and
@@ -1005,7 +1301,12 @@ class PinpointApi {
       {@required String applicationId,
       @required String endpointId,
       @required EndpointRequest endpointRequest}) async {
-    return UpdateEndpointResponse.fromJson({});
+    var response_ = await _client.send('UpdateEndpoint', {
+      'ApplicationId': applicationId,
+      'EndpointId': endpointId,
+      'EndpointRequest': endpointRequest,
+    });
+    return UpdateEndpointResponse.fromJson(response_);
   }
 
   /// Creates a new batch of endpoints for an application or updates the
@@ -1020,7 +1321,11 @@ class PinpointApi {
   Future<UpdateEndpointsBatchResponse> updateEndpointsBatch(
       {@required String applicationId,
       @required EndpointBatchRequest endpointBatchRequest}) async {
-    return UpdateEndpointsBatchResponse.fromJson({});
+    var response_ = await _client.send('UpdateEndpointsBatch', {
+      'ApplicationId': applicationId,
+      'EndpointBatchRequest': endpointBatchRequest,
+    });
+    return UpdateEndpointsBatchResponse.fromJson(response_);
   }
 
   /// Updates the status and settings of the GCM channel for an application.
@@ -1031,7 +1336,11 @@ class PinpointApi {
   Future<UpdateGcmChannelResponse> updateGcmChannel(
       {@required String applicationId,
       @required GcmChannelRequest gcmChannelRequest}) async {
-    return UpdateGcmChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateGcmChannel', {
+      'ApplicationId': applicationId,
+      'GCMChannelRequest': gcmChannelRequest,
+    });
+    return UpdateGcmChannelResponse.fromJson(response_);
   }
 
   /// Creates a new segment for an application or updates the configuration,
@@ -1047,7 +1356,12 @@ class PinpointApi {
       {@required String applicationId,
       @required String segmentId,
       @required WriteSegmentRequest writeSegmentRequest}) async {
-    return UpdateSegmentResponse.fromJson({});
+    var response_ = await _client.send('UpdateSegment', {
+      'ApplicationId': applicationId,
+      'SegmentId': segmentId,
+      'WriteSegmentRequest': writeSegmentRequest,
+    });
+    return UpdateSegmentResponse.fromJson(response_);
   }
 
   /// Updates the status and settings of the SMS channel for an application.
@@ -1058,7 +1372,11 @@ class PinpointApi {
   Future<UpdateSmsChannelResponse> updateSmsChannel(
       {@required String applicationId,
       @required SmsChannelRequest smsChannelRequest}) async {
-    return UpdateSmsChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateSmsChannel', {
+      'ApplicationId': applicationId,
+      'SMSChannelRequest': smsChannelRequest,
+    });
+    return UpdateSmsChannelResponse.fromJson(response_);
   }
 
   /// Updates the status and settings of the voice channel for an application.
@@ -1069,7 +1387,11 @@ class PinpointApi {
   Future<UpdateVoiceChannelResponse> updateVoiceChannel(
       {@required String applicationId,
       @required VoiceChannelRequest voiceChannelRequest}) async {
-    return UpdateVoiceChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateVoiceChannel', {
+      'ApplicationId': applicationId,
+      'VoiceChannelRequest': voiceChannelRequest,
+    });
+    return UpdateVoiceChannelResponse.fromJson(response_);
   }
 }
 
@@ -1091,6 +1413,7 @@ class AdmChannelRequest {
     @required this.clientSecret,
     this.enabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the ADM (Amazon Device
@@ -1141,7 +1464,29 @@ class AdmChannelResponse {
     this.version,
   });
   static AdmChannelResponse fromJson(Map<String, dynamic> json) =>
-      AdmChannelResponse();
+      AdmChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        platform: json['Platform'] as String,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the settings for a one-time message that's sent directly to an
@@ -1243,6 +1588,7 @@ class AdmMessage {
     this.title,
     this.url,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the status and settings of the APNs (Apple Push Notification
@@ -1288,6 +1634,7 @@ class ApnsChannelRequest {
     this.tokenKey,
     this.tokenKeyId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the APNs (Apple Push
@@ -1350,7 +1697,36 @@ class ApnsChannelResponse {
     this.version,
   });
   static ApnsChannelResponse fromJson(Map<String, dynamic> json) =>
-      ApnsChannelResponse();
+      ApnsChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        defaultAuthenticationMethod:
+            json.containsKey('DefaultAuthenticationMethod')
+                ? json['DefaultAuthenticationMethod'] as String
+                : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        hasTokenKey: json.containsKey('HasTokenKey')
+            ? json['HasTokenKey'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        platform: json['Platform'] as String,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the settings for a one-time message that's sent directly to an
@@ -1485,6 +1861,7 @@ class ApnsMessage {
     this.title,
     this.url,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the status and settings of the APNs (Apple Push Notification
@@ -1532,6 +1909,7 @@ class ApnsSandboxChannelRequest {
     this.tokenKey,
     this.tokenKeyId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the APNs (Apple Push
@@ -1595,7 +1973,36 @@ class ApnsSandboxChannelResponse {
     this.version,
   });
   static ApnsSandboxChannelResponse fromJson(Map<String, dynamic> json) =>
-      ApnsSandboxChannelResponse();
+      ApnsSandboxChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        defaultAuthenticationMethod:
+            json.containsKey('DefaultAuthenticationMethod')
+                ? json['DefaultAuthenticationMethod'] as String
+                : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        hasTokenKey: json.containsKey('HasTokenKey')
+            ? json['HasTokenKey'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        platform: json['Platform'] as String,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the status and settings of the APNs (Apple Push Notification
@@ -1641,6 +2048,7 @@ class ApnsVoipChannelRequest {
     this.tokenKey,
     this.tokenKeyId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the APNs (Apple Push
@@ -1703,7 +2111,36 @@ class ApnsVoipChannelResponse {
     this.version,
   });
   static ApnsVoipChannelResponse fromJson(Map<String, dynamic> json) =>
-      ApnsVoipChannelResponse();
+      ApnsVoipChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        defaultAuthenticationMethod:
+            json.containsKey('DefaultAuthenticationMethod')
+                ? json['DefaultAuthenticationMethod'] as String
+                : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        hasTokenKey: json.containsKey('HasTokenKey')
+            ? json['HasTokenKey'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        platform: json['Platform'] as String,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the status and settings of the APNs (Apple Push Notification
@@ -1753,6 +2190,7 @@ class ApnsVoipSandboxChannelRequest {
     this.tokenKey,
     this.tokenKeyId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the APNs (Apple Push
@@ -1817,7 +2255,36 @@ class ApnsVoipSandboxChannelResponse {
     this.version,
   });
   static ApnsVoipSandboxChannelResponse fromJson(Map<String, dynamic> json) =>
-      ApnsVoipSandboxChannelResponse();
+      ApnsVoipSandboxChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        defaultAuthenticationMethod:
+            json.containsKey('DefaultAuthenticationMethod')
+                ? json['DefaultAuthenticationMethod'] as String
+                : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        hasTokenKey: json.containsKey('HasTokenKey')
+            ? json['HasTokenKey'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        platform: json['Platform'] as String,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Provides information about the activities that were performed by a campaign.
@@ -1836,7 +2303,13 @@ class ActivitiesResponse {
     this.nextToken,
   });
   static ActivitiesResponse fromJson(Map<String, dynamic> json) =>
-      ActivitiesResponse();
+      ActivitiesResponse(
+        item: (json['Item'] as List)
+            .map((e) => ActivityResponse.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Provides information about an activity that was performed by a campaign.
@@ -1904,7 +2377,33 @@ class ActivityResponse {
     this.treatmentId,
   });
   static ActivityResponse fromJson(Map<String, dynamic> json) =>
-      ActivityResponse();
+      ActivityResponse(
+        applicationId: json['ApplicationId'] as String,
+        campaignId: json['CampaignId'] as String,
+        end: json.containsKey('End') ? json['End'] as String : null,
+        id: json['Id'] as String,
+        result: json.containsKey('Result') ? json['Result'] as String : null,
+        scheduledStart: json.containsKey('ScheduledStart')
+            ? json['ScheduledStart'] as String
+            : null,
+        start: json.containsKey('Start') ? json['Start'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        successfulEndpointCount: json.containsKey('SuccessfulEndpointCount')
+            ? json['SuccessfulEndpointCount'] as int
+            : null,
+        timezonesCompletedCount: json.containsKey('TimezonesCompletedCount')
+            ? json['TimezonesCompletedCount'] as int
+            : null,
+        timezonesTotalCount: json.containsKey('TimezonesTotalCount')
+            ? json['TimezonesTotalCount'] as int
+            : null,
+        totalEndpointCount: json.containsKey('TotalEndpointCount')
+            ? json['TotalEndpointCount'] as int
+            : null,
+        treatmentId: json.containsKey('TreatmentId')
+            ? json['TreatmentId'] as String
+            : null,
+      );
 }
 
 /// Specifies address-based configuration settings for a message that's sent
@@ -1945,6 +2444,7 @@ class AddressConfiguration {
     this.substitutions,
     this.titleOverride,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the results of a query that retrieved the data for a standard
@@ -1988,7 +2488,15 @@ class ApplicationDateRangeKpiResponse {
     @required this.startTime,
   });
   static ApplicationDateRangeKpiResponse fromJson(Map<String, dynamic> json) =>
-      ApplicationDateRangeKpiResponse();
+      ApplicationDateRangeKpiResponse(
+        applicationId: json['ApplicationId'] as String,
+        endTime: DateTime.parse(json['EndTime']),
+        kpiName: json['KpiName'] as String,
+        kpiResult: BaseKpiResult.fromJson(json['KpiResult']),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        startTime: DateTime.parse(json['StartTime']),
+      );
 }
 
 /// Provides information about an application.
@@ -2016,7 +2524,15 @@ class ApplicationResponse {
     this.tags,
   });
   static ApplicationResponse fromJson(Map<String, dynamic> json) =>
-      ApplicationResponse();
+      ApplicationResponse(
+        arn: json['Arn'] as String,
+        id: json['Id'] as String,
+        name: json['Name'] as String,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Provides information about an application, including the default settings
@@ -2065,7 +2581,21 @@ class ApplicationSettingsResource {
     this.quietTime,
   });
   static ApplicationSettingsResource fromJson(Map<String, dynamic> json) =>
-      ApplicationSettingsResource();
+      ApplicationSettingsResource(
+        applicationId: json['ApplicationId'] as String,
+        campaignHook: json.containsKey('CampaignHook')
+            ? CampaignHook.fromJson(json['CampaignHook'])
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        limits: json.containsKey('Limits')
+            ? CampaignLimits.fromJson(json['Limits'])
+            : null,
+        quietTime: json.containsKey('QuietTime')
+            ? QuietTime.fromJson(json['QuietTime'])
+            : null,
+      );
 }
 
 /// Provides information about all of your applications.
@@ -2083,7 +2613,15 @@ class ApplicationsResponse {
     this.nextToken,
   });
   static ApplicationsResponse fromJson(Map<String, dynamic> json) =>
-      ApplicationsResponse();
+      ApplicationsResponse(
+        item: json.containsKey('Item')
+            ? (json['Item'] as List)
+                .map((e) => ApplicationResponse.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Specifies attribute-based criteria for including or excluding endpoints from
@@ -2105,7 +2643,13 @@ class AttributeDimension {
     @required this.values,
   });
   static AttributeDimension fromJson(Map<String, dynamic> json) =>
-      AttributeDimension();
+      AttributeDimension(
+        attributeType: json.containsKey('AttributeType')
+            ? json['AttributeType'] as String
+            : null,
+        values: (json['Values'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the type and the names of attributes that were
@@ -2135,7 +2679,13 @@ class AttributesResource {
     this.attributes,
   });
   static AttributesResource fromJson(Map<String, dynamic> json) =>
-      AttributesResource();
+      AttributesResource(
+        applicationId: json['ApplicationId'] as String,
+        attributeType: json['AttributeType'] as String,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Specifies the status and settings of the Baidu (Baidu Cloud Push) channel
@@ -2157,6 +2707,7 @@ class BaiduChannelRequest {
     this.enabled,
     @required this.secretKey,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the Baidu (Baidu Cloud
@@ -2213,7 +2764,30 @@ class BaiduChannelResponse {
     this.version,
   });
   static BaiduChannelResponse fromJson(Map<String, dynamic> json) =>
-      BaiduChannelResponse();
+      BaiduChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        credential: json['Credential'] as String,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        platform: json['Platform'] as String,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the settings for a one-time message that's sent directly to an
@@ -2304,6 +2878,7 @@ class BaiduMessage {
     this.title,
     this.url,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the results of a query that retrieved the data for a standard
@@ -2316,7 +2891,9 @@ class BaseKpiResult {
   BaseKpiResult({
     @required this.rows,
   });
-  static BaseKpiResult fromJson(Map<String, dynamic> json) => BaseKpiResult();
+  static BaseKpiResult fromJson(Map<String, dynamic> json) => BaseKpiResult(
+        rows: (json['Rows'] as List).map((e) => ResultRow.fromJson(e)).toList(),
+      );
 }
 
 /// Provides the results of a query that retrieved the data for a standard
@@ -2365,7 +2942,16 @@ class CampaignDateRangeKpiResponse {
     @required this.startTime,
   });
   static CampaignDateRangeKpiResponse fromJson(Map<String, dynamic> json) =>
-      CampaignDateRangeKpiResponse();
+      CampaignDateRangeKpiResponse(
+        applicationId: json['ApplicationId'] as String,
+        campaignId: json['CampaignId'] as String,
+        endTime: DateTime.parse(json['EndTime']),
+        kpiName: json['KpiName'] as String,
+        kpiResult: BaseKpiResult.fromJson(json['KpiResult']),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        startTime: DateTime.parse(json['StartTime']),
+      );
 }
 
 /// Specifies the content and "From" address for an email message that's sent to
@@ -2393,7 +2979,16 @@ class CampaignEmailMessage {
     @required this.title,
   });
   static CampaignEmailMessage fromJson(Map<String, dynamic> json) =>
-      CampaignEmailMessage();
+      CampaignEmailMessage(
+        body: json.containsKey('Body') ? json['Body'] as String : null,
+        fromAddress: json.containsKey('FromAddress')
+            ? json['FromAddress'] as String
+            : null,
+        htmlBody:
+            json.containsKey('HtmlBody') ? json['HtmlBody'] as String : null,
+        title: json['Title'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the settings for events that cause a campaign to be sent.
@@ -2411,7 +3006,11 @@ class CampaignEventFilter {
     @required this.filterType,
   });
   static CampaignEventFilter fromJson(Map<String, dynamic> json) =>
-      CampaignEventFilter();
+      CampaignEventFilter(
+        dimensions: EventDimensions.fromJson(json['Dimensions']),
+        filterType: json['FilterType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the AWS Lambda function to use as a code hook for a campaign.
@@ -2432,7 +3031,14 @@ class CampaignHook {
     this.mode,
     this.webUrl,
   });
-  static CampaignHook fromJson(Map<String, dynamic> json) => CampaignHook();
+  static CampaignHook fromJson(Map<String, dynamic> json) => CampaignHook(
+        lambdaFunctionName: json.containsKey('LambdaFunctionName')
+            ? json['LambdaFunctionName'] as String
+            : null,
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+        webUrl: json.containsKey('WebUrl') ? json['WebUrl'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies limits on the messages that a campaign can send.
@@ -2460,7 +3066,17 @@ class CampaignLimits {
     this.messagesPerSecond,
     this.total,
   });
-  static CampaignLimits fromJson(Map<String, dynamic> json) => CampaignLimits();
+  static CampaignLimits fromJson(Map<String, dynamic> json) => CampaignLimits(
+        daily: json.containsKey('Daily') ? json['Daily'] as int : null,
+        maximumDuration: json.containsKey('MaximumDuration')
+            ? json['MaximumDuration'] as int
+            : null,
+        messagesPerSecond: json.containsKey('MessagesPerSecond')
+            ? json['MessagesPerSecond'] as int
+            : null,
+        total: json.containsKey('Total') ? json['Total'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status, configuration, and other settings for
@@ -2567,7 +3183,58 @@ class CampaignResponse {
     this.version,
   });
   static CampaignResponse fromJson(Map<String, dynamic> json) =>
-      CampaignResponse();
+      CampaignResponse(
+        additionalTreatments: json.containsKey('AdditionalTreatments')
+            ? (json['AdditionalTreatments'] as List)
+                .map((e) => TreatmentResource.fromJson(e))
+                .toList()
+            : null,
+        applicationId: json['ApplicationId'] as String,
+        arn: json['Arn'] as String,
+        creationDate: json['CreationDate'] as String,
+        defaultState: json.containsKey('DefaultState')
+            ? CampaignState.fromJson(json['DefaultState'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        holdoutPercent: json.containsKey('HoldoutPercent')
+            ? json['HoldoutPercent'] as int
+            : null,
+        hook: json.containsKey('Hook')
+            ? CampaignHook.fromJson(json['Hook'])
+            : null,
+        id: json['Id'] as String,
+        isPaused:
+            json.containsKey('IsPaused') ? json['IsPaused'] as bool : null,
+        lastModifiedDate: json['LastModifiedDate'] as String,
+        limits: json.containsKey('Limits')
+            ? CampaignLimits.fromJson(json['Limits'])
+            : null,
+        messageConfiguration: json.containsKey('MessageConfiguration')
+            ? MessageConfiguration.fromJson(json['MessageConfiguration'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        schedule: json.containsKey('Schedule')
+            ? Schedule.fromJson(json['Schedule'])
+            : null,
+        segmentId: json['SegmentId'] as String,
+        segmentVersion: json['SegmentVersion'] as int,
+        state: json.containsKey('State')
+            ? CampaignState.fromJson(json['State'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        treatmentDescription: json.containsKey('TreatmentDescription')
+            ? json['TreatmentDescription'] as String
+            : null,
+        treatmentName: json.containsKey('TreatmentName')
+            ? json['TreatmentName'] as String
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the content and settings for an SMS message that's sent to
@@ -2592,7 +3259,15 @@ class CampaignSmsMessage {
     this.senderId,
   });
   static CampaignSmsMessage fromJson(Map<String, dynamic> json) =>
-      CampaignSmsMessage();
+      CampaignSmsMessage(
+        body: json.containsKey('Body') ? json['Body'] as String : null,
+        messageType: json.containsKey('MessageType')
+            ? json['MessageType'] as String
+            : null,
+        senderId:
+            json.containsKey('SenderId') ? json['SenderId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status of a campaign.
@@ -2606,7 +3281,11 @@ class CampaignState {
   CampaignState({
     this.campaignStatus,
   });
-  static CampaignState fromJson(Map<String, dynamic> json) => CampaignState();
+  static CampaignState fromJson(Map<String, dynamic> json) => CampaignState(
+        campaignStatus: json.containsKey('CampaignStatus')
+            ? json['CampaignStatus'] as String
+            : null,
+      );
 }
 
 /// Provides information about the configuration and other settings for all the
@@ -2626,7 +3305,13 @@ class CampaignsResponse {
     this.nextToken,
   });
   static CampaignsResponse fromJson(Map<String, dynamic> json) =>
-      CampaignsResponse();
+      CampaignsResponse(
+        item: (json['Item'] as List)
+            .map((e) => CampaignResponse.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Provides information about the general settings and status of a channel for
@@ -2671,8 +3356,28 @@ class ChannelResponse {
     this.lastModifiedDate,
     this.version,
   });
-  static ChannelResponse fromJson(Map<String, dynamic> json) =>
-      ChannelResponse();
+  static ChannelResponse fromJson(Map<String, dynamic> json) => ChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Provides information about the general settings and status of all channels
@@ -2687,7 +3392,10 @@ class ChannelsResponse {
     @required this.channels,
   });
   static ChannelsResponse fromJson(Map<String, dynamic> json) =>
-      ChannelsResponse();
+      ChannelsResponse(
+        channels: (json['Channels'] as Map)
+            .map((k, v) => MapEntry(k as String, ChannelResponse.fromJson(v))),
+      );
 }
 
 class CreateAppResponse {
@@ -2697,7 +3405,10 @@ class CreateAppResponse {
     @required this.applicationResponse,
   });
   static CreateAppResponse fromJson(Map<String, dynamic> json) =>
-      CreateAppResponse();
+      CreateAppResponse(
+        applicationResponse:
+            ApplicationResponse.fromJson(json['ApplicationResponse']),
+      );
 }
 
 /// Specifies the display name of an application and the tags to associate with
@@ -2716,6 +3427,7 @@ class CreateApplicationRequest {
     @required this.name,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateCampaignResponse {
@@ -2725,7 +3437,9 @@ class CreateCampaignResponse {
     @required this.campaignResponse,
   });
   static CreateCampaignResponse fromJson(Map<String, dynamic> json) =>
-      CreateCampaignResponse();
+      CreateCampaignResponse(
+        campaignResponse: CampaignResponse.fromJson(json['CampaignResponse']),
+      );
 }
 
 class CreateExportJobResponse {
@@ -2735,7 +3449,10 @@ class CreateExportJobResponse {
     @required this.exportJobResponse,
   });
   static CreateExportJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateExportJobResponse();
+      CreateExportJobResponse(
+        exportJobResponse:
+            ExportJobResponse.fromJson(json['ExportJobResponse']),
+      );
 }
 
 class CreateImportJobResponse {
@@ -2745,7 +3462,10 @@ class CreateImportJobResponse {
     @required this.importJobResponse,
   });
   static CreateImportJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateImportJobResponse();
+      CreateImportJobResponse(
+        importJobResponse:
+            ImportJobResponse.fromJson(json['ImportJobResponse']),
+      );
 }
 
 class CreateSegmentResponse {
@@ -2755,7 +3475,9 @@ class CreateSegmentResponse {
     @required this.segmentResponse,
   });
   static CreateSegmentResponse fromJson(Map<String, dynamic> json) =>
-      CreateSegmentResponse();
+      CreateSegmentResponse(
+        segmentResponse: SegmentResponse.fromJson(json['SegmentResponse']),
+      );
 }
 
 /// Specifies the default message to use for all channels.
@@ -2772,6 +3494,7 @@ class DefaultMessage {
     this.body,
     this.substitutions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the default settings and content for a push notification that's
@@ -2827,6 +3550,7 @@ class DefaultPushNotificationMessage {
     this.title,
     this.url,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteAdmChannelResponse {
@@ -2836,7 +3560,10 @@ class DeleteAdmChannelResponse {
     @required this.admChannelResponse,
   });
   static DeleteAdmChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteAdmChannelResponse();
+      DeleteAdmChannelResponse(
+        admChannelResponse:
+            AdmChannelResponse.fromJson(json['ADMChannelResponse']),
+      );
 }
 
 class DeleteApnsChannelResponse {
@@ -2846,7 +3573,10 @@ class DeleteApnsChannelResponse {
     @required this.apnsChannelResponse,
   });
   static DeleteApnsChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteApnsChannelResponse();
+      DeleteApnsChannelResponse(
+        apnsChannelResponse:
+            ApnsChannelResponse.fromJson(json['APNSChannelResponse']),
+      );
 }
 
 class DeleteApnsSandboxChannelResponse {
@@ -2856,7 +3586,10 @@ class DeleteApnsSandboxChannelResponse {
     @required this.apnsSandboxChannelResponse,
   });
   static DeleteApnsSandboxChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteApnsSandboxChannelResponse();
+      DeleteApnsSandboxChannelResponse(
+        apnsSandboxChannelResponse: ApnsSandboxChannelResponse.fromJson(
+            json['APNSSandboxChannelResponse']),
+      );
 }
 
 class DeleteApnsVoipChannelResponse {
@@ -2866,7 +3599,10 @@ class DeleteApnsVoipChannelResponse {
     @required this.apnsVoipChannelResponse,
   });
   static DeleteApnsVoipChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteApnsVoipChannelResponse();
+      DeleteApnsVoipChannelResponse(
+        apnsVoipChannelResponse:
+            ApnsVoipChannelResponse.fromJson(json['APNSVoipChannelResponse']),
+      );
 }
 
 class DeleteApnsVoipSandboxChannelResponse {
@@ -2877,7 +3613,10 @@ class DeleteApnsVoipSandboxChannelResponse {
   });
   static DeleteApnsVoipSandboxChannelResponse fromJson(
           Map<String, dynamic> json) =>
-      DeleteApnsVoipSandboxChannelResponse();
+      DeleteApnsVoipSandboxChannelResponse(
+        apnsVoipSandboxChannelResponse: ApnsVoipSandboxChannelResponse.fromJson(
+            json['APNSVoipSandboxChannelResponse']),
+      );
 }
 
 class DeleteAppResponse {
@@ -2887,7 +3626,10 @@ class DeleteAppResponse {
     @required this.applicationResponse,
   });
   static DeleteAppResponse fromJson(Map<String, dynamic> json) =>
-      DeleteAppResponse();
+      DeleteAppResponse(
+        applicationResponse:
+            ApplicationResponse.fromJson(json['ApplicationResponse']),
+      );
 }
 
 class DeleteBaiduChannelResponse {
@@ -2897,7 +3639,10 @@ class DeleteBaiduChannelResponse {
     @required this.baiduChannelResponse,
   });
   static DeleteBaiduChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteBaiduChannelResponse();
+      DeleteBaiduChannelResponse(
+        baiduChannelResponse:
+            BaiduChannelResponse.fromJson(json['BaiduChannelResponse']),
+      );
 }
 
 class DeleteCampaignResponse {
@@ -2907,7 +3652,9 @@ class DeleteCampaignResponse {
     @required this.campaignResponse,
   });
   static DeleteCampaignResponse fromJson(Map<String, dynamic> json) =>
-      DeleteCampaignResponse();
+      DeleteCampaignResponse(
+        campaignResponse: CampaignResponse.fromJson(json['CampaignResponse']),
+      );
 }
 
 class DeleteEmailChannelResponse {
@@ -2917,7 +3664,10 @@ class DeleteEmailChannelResponse {
     @required this.emailChannelResponse,
   });
   static DeleteEmailChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteEmailChannelResponse();
+      DeleteEmailChannelResponse(
+        emailChannelResponse:
+            EmailChannelResponse.fromJson(json['EmailChannelResponse']),
+      );
 }
 
 class DeleteEndpointResponse {
@@ -2927,7 +3677,9 @@ class DeleteEndpointResponse {
     @required this.endpointResponse,
   });
   static DeleteEndpointResponse fromJson(Map<String, dynamic> json) =>
-      DeleteEndpointResponse();
+      DeleteEndpointResponse(
+        endpointResponse: EndpointResponse.fromJson(json['EndpointResponse']),
+      );
 }
 
 class DeleteEventStreamResponse {
@@ -2937,7 +3689,9 @@ class DeleteEventStreamResponse {
     @required this.eventStream,
   });
   static DeleteEventStreamResponse fromJson(Map<String, dynamic> json) =>
-      DeleteEventStreamResponse();
+      DeleteEventStreamResponse(
+        eventStream: EventStream.fromJson(json['EventStream']),
+      );
 }
 
 class DeleteGcmChannelResponse {
@@ -2947,7 +3701,10 @@ class DeleteGcmChannelResponse {
     @required this.gcmChannelResponse,
   });
   static DeleteGcmChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteGcmChannelResponse();
+      DeleteGcmChannelResponse(
+        gcmChannelResponse:
+            GcmChannelResponse.fromJson(json['GCMChannelResponse']),
+      );
 }
 
 class DeleteSegmentResponse {
@@ -2957,7 +3714,9 @@ class DeleteSegmentResponse {
     @required this.segmentResponse,
   });
   static DeleteSegmentResponse fromJson(Map<String, dynamic> json) =>
-      DeleteSegmentResponse();
+      DeleteSegmentResponse(
+        segmentResponse: SegmentResponse.fromJson(json['SegmentResponse']),
+      );
 }
 
 class DeleteSmsChannelResponse {
@@ -2967,7 +3726,10 @@ class DeleteSmsChannelResponse {
     @required this.smsChannelResponse,
   });
   static DeleteSmsChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteSmsChannelResponse();
+      DeleteSmsChannelResponse(
+        smsChannelResponse:
+            SmsChannelResponse.fromJson(json['SMSChannelResponse']),
+      );
 }
 
 class DeleteUserEndpointsResponse {
@@ -2977,7 +3739,10 @@ class DeleteUserEndpointsResponse {
     @required this.endpointsResponse,
   });
   static DeleteUserEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      DeleteUserEndpointsResponse();
+      DeleteUserEndpointsResponse(
+        endpointsResponse:
+            EndpointsResponse.fromJson(json['EndpointsResponse']),
+      );
 }
 
 class DeleteVoiceChannelResponse {
@@ -2987,7 +3752,10 @@ class DeleteVoiceChannelResponse {
     @required this.voiceChannelResponse,
   });
   static DeleteVoiceChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteVoiceChannelResponse();
+      DeleteVoiceChannelResponse(
+        voiceChannelResponse:
+            VoiceChannelResponse.fromJson(json['VoiceChannelResponse']),
+      );
 }
 
 /// Specifies the settings and content for the default message and any default
@@ -3043,6 +3811,7 @@ class DirectMessageConfiguration {
     this.smsMessage,
     this.voiceMessage,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the status and settings of the email channel for an application.
@@ -3076,6 +3845,7 @@ class EmailChannelRequest {
     @required this.identity,
     this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the email channel for
@@ -3154,7 +3924,41 @@ class EmailChannelResponse {
     this.version,
   });
   static EmailChannelResponse fromJson(Map<String, dynamic> json) =>
-      EmailChannelResponse();
+      EmailChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        configurationSet: json.containsKey('ConfigurationSet')
+            ? json['ConfigurationSet'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        fromAddress: json.containsKey('FromAddress')
+            ? json['FromAddress'] as String
+            : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        identity:
+            json.containsKey('Identity') ? json['Identity'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        messagesPerSecond: json.containsKey('MessagesPerSecond')
+            ? json['MessagesPerSecond'] as int
+            : null,
+        platform: json['Platform'] as String,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the default settings and content for a one-time email message
@@ -3194,6 +3998,7 @@ class EmailMessage {
     this.simpleEmail,
     this.substitutions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies an endpoint to create or update and the settings and attributes to
@@ -3273,6 +4078,7 @@ class EndpointBatchItem {
     this.requestId,
     this.user,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a batch of endpoints to create or update and the settings and
@@ -3286,6 +4092,7 @@ class EndpointBatchRequest {
   EndpointBatchRequest({
     @required this.item,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies demographic information about an endpoint, such as the applicable
@@ -3329,7 +4136,25 @@ class EndpointDemographic {
     this.timezone,
   });
   static EndpointDemographic fromJson(Map<String, dynamic> json) =>
-      EndpointDemographic();
+      EndpointDemographic(
+        appVersion: json.containsKey('AppVersion')
+            ? json['AppVersion'] as String
+            : null,
+        locale: json.containsKey('Locale') ? json['Locale'] as String : null,
+        make: json.containsKey('Make') ? json['Make'] as String : null,
+        model: json.containsKey('Model') ? json['Model'] as String : null,
+        modelVersion: json.containsKey('ModelVersion')
+            ? json['ModelVersion'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        platformVersion: json.containsKey('PlatformVersion')
+            ? json['PlatformVersion'] as String
+            : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the status code and message that result from processing data for an
@@ -3348,7 +4173,11 @@ class EndpointItemResponse {
     this.statusCode,
   });
   static EndpointItemResponse fromJson(Map<String, dynamic> json) =>
-      EndpointItemResponse();
+      EndpointItemResponse(
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        statusCode:
+            json.containsKey('StatusCode') ? json['StatusCode'] as int : null,
+      );
 }
 
 /// Specifies geographic information about an endpoint.
@@ -3385,7 +4214,19 @@ class EndpointLocation {
     this.region,
   });
   static EndpointLocation fromJson(Map<String, dynamic> json) =>
-      EndpointLocation();
+      EndpointLocation(
+        city: json.containsKey('City') ? json['City'] as String : null,
+        country: json.containsKey('Country') ? json['Country'] as String : null,
+        latitude:
+            json.containsKey('Latitude') ? json['Latitude'] as double : null,
+        longitude:
+            json.containsKey('Longitude') ? json['Longitude'] as double : null,
+        postalCode: json.containsKey('PostalCode')
+            ? json['PostalCode'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the delivery status and results of sending a
@@ -3441,7 +4282,19 @@ class EndpointMessageResult {
     this.updatedToken,
   });
   static EndpointMessageResult fromJson(Map<String, dynamic> json) =>
-      EndpointMessageResult();
+      EndpointMessageResult(
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        deliveryStatus: json['DeliveryStatus'] as String,
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+        statusCode: json['StatusCode'] as int,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        updatedToken: json.containsKey('UpdatedToken')
+            ? json['UpdatedToken'] as String
+            : null,
+      );
 }
 
 /// Specifies the channel type and other settings for an endpoint.
@@ -3515,6 +4368,7 @@ class EndpointRequest {
     this.requestId,
     this.user,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the channel type and other settings for an
@@ -3608,7 +4462,47 @@ class EndpointResponse {
     this.user,
   });
   static EndpointResponse fromJson(Map<String, dynamic> json) =>
-      EndpointResponse();
+      EndpointResponse(
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        channelType: json.containsKey('ChannelType')
+            ? json['ChannelType'] as String
+            : null,
+        cohortId:
+            json.containsKey('CohortId') ? json['CohortId'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        demographic: json.containsKey('Demographic')
+            ? EndpointDemographic.fromJson(json['Demographic'])
+            : null,
+        effectiveDate: json.containsKey('EffectiveDate')
+            ? json['EffectiveDate'] as String
+            : null,
+        endpointStatus: json.containsKey('EndpointStatus')
+            ? json['EndpointStatus'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        location: json.containsKey('Location')
+            ? EndpointLocation.fromJson(json['Location'])
+            : null,
+        metrics: json.containsKey('Metrics')
+            ? (json['Metrics'] as Map)
+                .map((k, v) => MapEntry(k as String, v as double))
+            : null,
+        optOut: json.containsKey('OptOut') ? json['OptOut'] as String : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        user: json.containsKey('User')
+            ? EndpointUser.fromJson(json['User'])
+            : null,
+      );
 }
 
 /// Specifies the content, including message variables and attributes, to use in
@@ -3644,6 +4538,7 @@ class EndpointSendConfiguration {
     this.substitutions,
     this.titleOverride,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies data for one or more attributes that describe the user who's
@@ -3668,7 +4563,14 @@ class EndpointUser {
     this.userAttributes,
     this.userId,
   });
-  static EndpointUser fromJson(Map<String, dynamic> json) => EndpointUser();
+  static EndpointUser fromJson(Map<String, dynamic> json) => EndpointUser(
+        userAttributes: json.containsKey('UserAttributes')
+            ? (json['UserAttributes'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about all the endpoints that are associated with a user
@@ -3682,7 +4584,11 @@ class EndpointsResponse {
     @required this.item,
   });
   static EndpointsResponse fromJson(Map<String, dynamic> json) =>
-      EndpointsResponse();
+      EndpointsResponse(
+        item: (json['Item'] as List)
+            .map((e) => EndpointResponse.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Specifies information about an event that reports data to Amazon Pinpoint.
@@ -3729,6 +4635,7 @@ class Event {
     this.session,
     @required this.timestamp,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the dimensions for an event filter that determines when a campaign
@@ -3754,8 +4661,20 @@ class EventDimensions {
     this.eventType,
     this.metrics,
   });
-  static EventDimensions fromJson(Map<String, dynamic> json) =>
-      EventDimensions();
+  static EventDimensions fromJson(Map<String, dynamic> json) => EventDimensions(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeDimension.fromJson(v)))
+            : null,
+        eventType: json.containsKey('EventType')
+            ? SetDimension.fromJson(json['EventType'])
+            : null,
+        metrics: json.containsKey('Metrics')
+            ? (json['Metrics'] as Map).map(
+                (k, v) => MapEntry(k as String, MetricDimension.fromJson(v)))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the status code and message that result from processing an event.
@@ -3774,7 +4693,11 @@ class EventItemResponse {
     this.statusCode,
   });
   static EventItemResponse fromJson(Map<String, dynamic> json) =>
-      EventItemResponse();
+      EventItemResponse(
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        statusCode:
+            json.containsKey('StatusCode') ? json['StatusCode'] as int : null,
+      );
 }
 
 /// Specifies settings for publishing event data to an Amazon Kinesis data
@@ -3818,7 +4741,20 @@ class EventStream {
     this.lastUpdatedBy,
     @required this.roleArn,
   });
-  static EventStream fromJson(Map<String, dynamic> json) => EventStream();
+  static EventStream fromJson(Map<String, dynamic> json) => EventStream(
+        applicationId: json['ApplicationId'] as String,
+        destinationStreamArn: json['DestinationStreamArn'] as String,
+        externalId: json.containsKey('ExternalId')
+            ? json['ExternalId'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        lastUpdatedBy: json.containsKey('LastUpdatedBy')
+            ? json['LastUpdatedBy'] as String
+            : null,
+        roleArn: json['RoleArn'] as String,
+      );
 }
 
 /// Specifies a batch of endpoints and events to process.
@@ -3833,6 +4769,7 @@ class EventsBatch {
     @required this.endpoint,
     @required this.events,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a batch of events to process.
@@ -3844,6 +4781,7 @@ class EventsRequest {
   EventsRequest({
     @required this.batchItem,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about endpoints and the events that they're associated
@@ -3859,7 +4797,12 @@ class EventsResponse {
   EventsResponse({
     this.results,
   });
-  static EventsResponse fromJson(Map<String, dynamic> json) => EventsResponse();
+  static EventsResponse fromJson(Map<String, dynamic> json) => EventsResponse(
+        results: json.containsKey('Results')
+            ? (json['Results'] as Map)
+                .map((k, v) => MapEntry(k as String, ItemResponse.fromJson(v)))
+            : null,
+      );
 }
 
 /// Specifies the settings for a job that exports endpoint definitions to an
@@ -3891,6 +4834,7 @@ class ExportJobRequest {
     this.segmentId,
     this.segmentVersion,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the resource settings for a job that exports
@@ -3925,7 +4869,15 @@ class ExportJobResource {
     this.segmentVersion,
   });
   static ExportJobResource fromJson(Map<String, dynamic> json) =>
-      ExportJobResource();
+      ExportJobResource(
+        roleArn: json['RoleArn'] as String,
+        s3UrlPrefix: json['S3UrlPrefix'] as String,
+        segmentId:
+            json.containsKey('SegmentId') ? json['SegmentId'] as String : null,
+        segmentVersion: json.containsKey('SegmentVersion')
+            ? json['SegmentVersion'] as int
+            : null,
+      );
 }
 
 /// Provides information about the status and settings of a job that exports
@@ -3998,7 +4950,34 @@ class ExportJobResponse {
     @required this.type,
   });
   static ExportJobResponse fromJson(Map<String, dynamic> json) =>
-      ExportJobResponse();
+      ExportJobResponse(
+        applicationId: json['ApplicationId'] as String,
+        completedPieces: json.containsKey('CompletedPieces')
+            ? json['CompletedPieces'] as int
+            : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? json['CompletionDate'] as String
+            : null,
+        creationDate: json['CreationDate'] as String,
+        definition: ExportJobResource.fromJson(json['Definition']),
+        failedPieces: json.containsKey('FailedPieces')
+            ? json['FailedPieces'] as int
+            : null,
+        failures: json.containsKey('Failures')
+            ? (json['Failures'] as List).map((e) => e as String).toList()
+            : null,
+        id: json['Id'] as String,
+        jobStatus: json['JobStatus'] as String,
+        totalFailures: json.containsKey('TotalFailures')
+            ? json['TotalFailures'] as int
+            : null,
+        totalPieces:
+            json.containsKey('TotalPieces') ? json['TotalPieces'] as int : null,
+        totalProcessed: json.containsKey('TotalProcessed')
+            ? json['TotalProcessed'] as int
+            : null,
+        type: json['Type'] as String,
+      );
 }
 
 /// Provides information about all the export jobs that are associated with an
@@ -4020,7 +4999,13 @@ class ExportJobsResponse {
     this.nextToken,
   });
   static ExportJobsResponse fromJson(Map<String, dynamic> json) =>
-      ExportJobsResponse();
+      ExportJobsResponse(
+        item: (json['Item'] as List)
+            .map((e) => ExportJobResponse.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Specifies the status and settings of the GCM channel for an application.
@@ -4039,6 +5024,7 @@ class GcmChannelRequest {
     @required this.apiKey,
     this.enabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the GCM channel for an
@@ -4096,7 +5082,30 @@ class GcmChannelResponse {
     this.version,
   });
   static GcmChannelResponse fromJson(Map<String, dynamic> json) =>
-      GcmChannelResponse();
+      GcmChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        credential: json['Credential'] as String,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        platform: json['Platform'] as String,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the settings for a one-time message that's sent directly to an
@@ -4227,6 +5236,7 @@ class GcmMessage {
     this.title,
     this.url,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the GPS coordinates of a location.
@@ -4241,7 +5251,11 @@ class GpsCoordinates {
     @required this.latitude,
     @required this.longitude,
   });
-  static GpsCoordinates fromJson(Map<String, dynamic> json) => GpsCoordinates();
+  static GpsCoordinates fromJson(Map<String, dynamic> json) => GpsCoordinates(
+        latitude: json['Latitude'] as double,
+        longitude: json['Longitude'] as double,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies GPS-based criteria for including or excluding endpoints from a
@@ -4258,7 +5272,13 @@ class GpsPointDimension {
     this.rangeInKilometers,
   });
   static GpsPointDimension fromJson(Map<String, dynamic> json) =>
-      GpsPointDimension();
+      GpsPointDimension(
+        coordinates: GpsCoordinates.fromJson(json['Coordinates']),
+        rangeInKilometers: json.containsKey('RangeInKilometers')
+            ? json['RangeInKilometers'] as double
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetAdmChannelResponse {
@@ -4268,7 +5288,10 @@ class GetAdmChannelResponse {
     @required this.admChannelResponse,
   });
   static GetAdmChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetAdmChannelResponse();
+      GetAdmChannelResponse(
+        admChannelResponse:
+            AdmChannelResponse.fromJson(json['ADMChannelResponse']),
+      );
 }
 
 class GetApnsChannelResponse {
@@ -4278,7 +5301,10 @@ class GetApnsChannelResponse {
     @required this.apnsChannelResponse,
   });
   static GetApnsChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetApnsChannelResponse();
+      GetApnsChannelResponse(
+        apnsChannelResponse:
+            ApnsChannelResponse.fromJson(json['APNSChannelResponse']),
+      );
 }
 
 class GetApnsSandboxChannelResponse {
@@ -4288,7 +5314,10 @@ class GetApnsSandboxChannelResponse {
     @required this.apnsSandboxChannelResponse,
   });
   static GetApnsSandboxChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetApnsSandboxChannelResponse();
+      GetApnsSandboxChannelResponse(
+        apnsSandboxChannelResponse: ApnsSandboxChannelResponse.fromJson(
+            json['APNSSandboxChannelResponse']),
+      );
 }
 
 class GetApnsVoipChannelResponse {
@@ -4298,7 +5327,10 @@ class GetApnsVoipChannelResponse {
     @required this.apnsVoipChannelResponse,
   });
   static GetApnsVoipChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetApnsVoipChannelResponse();
+      GetApnsVoipChannelResponse(
+        apnsVoipChannelResponse:
+            ApnsVoipChannelResponse.fromJson(json['APNSVoipChannelResponse']),
+      );
 }
 
 class GetApnsVoipSandboxChannelResponse {
@@ -4309,7 +5341,10 @@ class GetApnsVoipSandboxChannelResponse {
   });
   static GetApnsVoipSandboxChannelResponse fromJson(
           Map<String, dynamic> json) =>
-      GetApnsVoipSandboxChannelResponse();
+      GetApnsVoipSandboxChannelResponse(
+        apnsVoipSandboxChannelResponse: ApnsVoipSandboxChannelResponse.fromJson(
+            json['APNSVoipSandboxChannelResponse']),
+      );
 }
 
 class GetAppResponse {
@@ -4318,7 +5353,10 @@ class GetAppResponse {
   GetAppResponse({
     @required this.applicationResponse,
   });
-  static GetAppResponse fromJson(Map<String, dynamic> json) => GetAppResponse();
+  static GetAppResponse fromJson(Map<String, dynamic> json) => GetAppResponse(
+        applicationResponse:
+            ApplicationResponse.fromJson(json['ApplicationResponse']),
+      );
 }
 
 class GetApplicationDateRangeKpiResponse {
@@ -4329,7 +5367,11 @@ class GetApplicationDateRangeKpiResponse {
   });
   static GetApplicationDateRangeKpiResponse fromJson(
           Map<String, dynamic> json) =>
-      GetApplicationDateRangeKpiResponse();
+      GetApplicationDateRangeKpiResponse(
+        applicationDateRangeKpiResponse:
+            ApplicationDateRangeKpiResponse.fromJson(
+                json['ApplicationDateRangeKpiResponse']),
+      );
 }
 
 class GetApplicationSettingsResponse {
@@ -4339,7 +5381,10 @@ class GetApplicationSettingsResponse {
     @required this.applicationSettingsResource,
   });
   static GetApplicationSettingsResponse fromJson(Map<String, dynamic> json) =>
-      GetApplicationSettingsResponse();
+      GetApplicationSettingsResponse(
+        applicationSettingsResource: ApplicationSettingsResource.fromJson(
+            json['ApplicationSettingsResource']),
+      );
 }
 
 class GetAppsResponse {
@@ -4348,8 +5393,10 @@ class GetAppsResponse {
   GetAppsResponse({
     @required this.applicationsResponse,
   });
-  static GetAppsResponse fromJson(Map<String, dynamic> json) =>
-      GetAppsResponse();
+  static GetAppsResponse fromJson(Map<String, dynamic> json) => GetAppsResponse(
+        applicationsResponse:
+            ApplicationsResponse.fromJson(json['ApplicationsResponse']),
+      );
 }
 
 class GetBaiduChannelResponse {
@@ -4359,7 +5406,10 @@ class GetBaiduChannelResponse {
     @required this.baiduChannelResponse,
   });
   static GetBaiduChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetBaiduChannelResponse();
+      GetBaiduChannelResponse(
+        baiduChannelResponse:
+            BaiduChannelResponse.fromJson(json['BaiduChannelResponse']),
+      );
 }
 
 class GetCampaignActivitiesResponse {
@@ -4369,7 +5419,10 @@ class GetCampaignActivitiesResponse {
     @required this.activitiesResponse,
   });
   static GetCampaignActivitiesResponse fromJson(Map<String, dynamic> json) =>
-      GetCampaignActivitiesResponse();
+      GetCampaignActivitiesResponse(
+        activitiesResponse:
+            ActivitiesResponse.fromJson(json['ActivitiesResponse']),
+      );
 }
 
 class GetCampaignDateRangeKpiResponse {
@@ -4379,7 +5432,10 @@ class GetCampaignDateRangeKpiResponse {
     @required this.campaignDateRangeKpiResponse,
   });
   static GetCampaignDateRangeKpiResponse fromJson(Map<String, dynamic> json) =>
-      GetCampaignDateRangeKpiResponse();
+      GetCampaignDateRangeKpiResponse(
+        campaignDateRangeKpiResponse: CampaignDateRangeKpiResponse.fromJson(
+            json['CampaignDateRangeKpiResponse']),
+      );
 }
 
 class GetCampaignResponse {
@@ -4389,7 +5445,9 @@ class GetCampaignResponse {
     @required this.campaignResponse,
   });
   static GetCampaignResponse fromJson(Map<String, dynamic> json) =>
-      GetCampaignResponse();
+      GetCampaignResponse(
+        campaignResponse: CampaignResponse.fromJson(json['CampaignResponse']),
+      );
 }
 
 class GetCampaignVersionResponse {
@@ -4399,7 +5457,9 @@ class GetCampaignVersionResponse {
     @required this.campaignResponse,
   });
   static GetCampaignVersionResponse fromJson(Map<String, dynamic> json) =>
-      GetCampaignVersionResponse();
+      GetCampaignVersionResponse(
+        campaignResponse: CampaignResponse.fromJson(json['CampaignResponse']),
+      );
 }
 
 class GetCampaignVersionsResponse {
@@ -4409,7 +5469,10 @@ class GetCampaignVersionsResponse {
     @required this.campaignsResponse,
   });
   static GetCampaignVersionsResponse fromJson(Map<String, dynamic> json) =>
-      GetCampaignVersionsResponse();
+      GetCampaignVersionsResponse(
+        campaignsResponse:
+            CampaignsResponse.fromJson(json['CampaignsResponse']),
+      );
 }
 
 class GetCampaignsResponse {
@@ -4419,7 +5482,10 @@ class GetCampaignsResponse {
     @required this.campaignsResponse,
   });
   static GetCampaignsResponse fromJson(Map<String, dynamic> json) =>
-      GetCampaignsResponse();
+      GetCampaignsResponse(
+        campaignsResponse:
+            CampaignsResponse.fromJson(json['CampaignsResponse']),
+      );
 }
 
 class GetChannelsResponse {
@@ -4429,7 +5495,9 @@ class GetChannelsResponse {
     @required this.channelsResponse,
   });
   static GetChannelsResponse fromJson(Map<String, dynamic> json) =>
-      GetChannelsResponse();
+      GetChannelsResponse(
+        channelsResponse: ChannelsResponse.fromJson(json['ChannelsResponse']),
+      );
 }
 
 class GetEmailChannelResponse {
@@ -4439,7 +5507,10 @@ class GetEmailChannelResponse {
     @required this.emailChannelResponse,
   });
   static GetEmailChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetEmailChannelResponse();
+      GetEmailChannelResponse(
+        emailChannelResponse:
+            EmailChannelResponse.fromJson(json['EmailChannelResponse']),
+      );
 }
 
 class GetEndpointResponse {
@@ -4449,7 +5520,9 @@ class GetEndpointResponse {
     @required this.endpointResponse,
   });
   static GetEndpointResponse fromJson(Map<String, dynamic> json) =>
-      GetEndpointResponse();
+      GetEndpointResponse(
+        endpointResponse: EndpointResponse.fromJson(json['EndpointResponse']),
+      );
 }
 
 class GetEventStreamResponse {
@@ -4459,7 +5532,9 @@ class GetEventStreamResponse {
     @required this.eventStream,
   });
   static GetEventStreamResponse fromJson(Map<String, dynamic> json) =>
-      GetEventStreamResponse();
+      GetEventStreamResponse(
+        eventStream: EventStream.fromJson(json['EventStream']),
+      );
 }
 
 class GetExportJobResponse {
@@ -4469,7 +5544,10 @@ class GetExportJobResponse {
     @required this.exportJobResponse,
   });
   static GetExportJobResponse fromJson(Map<String, dynamic> json) =>
-      GetExportJobResponse();
+      GetExportJobResponse(
+        exportJobResponse:
+            ExportJobResponse.fromJson(json['ExportJobResponse']),
+      );
 }
 
 class GetExportJobsResponse {
@@ -4479,7 +5557,10 @@ class GetExportJobsResponse {
     @required this.exportJobsResponse,
   });
   static GetExportJobsResponse fromJson(Map<String, dynamic> json) =>
-      GetExportJobsResponse();
+      GetExportJobsResponse(
+        exportJobsResponse:
+            ExportJobsResponse.fromJson(json['ExportJobsResponse']),
+      );
 }
 
 class GetGcmChannelResponse {
@@ -4489,7 +5570,10 @@ class GetGcmChannelResponse {
     @required this.gcmChannelResponse,
   });
   static GetGcmChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetGcmChannelResponse();
+      GetGcmChannelResponse(
+        gcmChannelResponse:
+            GcmChannelResponse.fromJson(json['GCMChannelResponse']),
+      );
 }
 
 class GetImportJobResponse {
@@ -4499,7 +5583,10 @@ class GetImportJobResponse {
     @required this.importJobResponse,
   });
   static GetImportJobResponse fromJson(Map<String, dynamic> json) =>
-      GetImportJobResponse();
+      GetImportJobResponse(
+        importJobResponse:
+            ImportJobResponse.fromJson(json['ImportJobResponse']),
+      );
 }
 
 class GetImportJobsResponse {
@@ -4509,7 +5596,10 @@ class GetImportJobsResponse {
     @required this.importJobsResponse,
   });
   static GetImportJobsResponse fromJson(Map<String, dynamic> json) =>
-      GetImportJobsResponse();
+      GetImportJobsResponse(
+        importJobsResponse:
+            ImportJobsResponse.fromJson(json['ImportJobsResponse']),
+      );
 }
 
 class GetSegmentExportJobsResponse {
@@ -4519,7 +5609,10 @@ class GetSegmentExportJobsResponse {
     @required this.exportJobsResponse,
   });
   static GetSegmentExportJobsResponse fromJson(Map<String, dynamic> json) =>
-      GetSegmentExportJobsResponse();
+      GetSegmentExportJobsResponse(
+        exportJobsResponse:
+            ExportJobsResponse.fromJson(json['ExportJobsResponse']),
+      );
 }
 
 class GetSegmentImportJobsResponse {
@@ -4529,7 +5622,10 @@ class GetSegmentImportJobsResponse {
     @required this.importJobsResponse,
   });
   static GetSegmentImportJobsResponse fromJson(Map<String, dynamic> json) =>
-      GetSegmentImportJobsResponse();
+      GetSegmentImportJobsResponse(
+        importJobsResponse:
+            ImportJobsResponse.fromJson(json['ImportJobsResponse']),
+      );
 }
 
 class GetSegmentResponse {
@@ -4539,7 +5635,9 @@ class GetSegmentResponse {
     @required this.segmentResponse,
   });
   static GetSegmentResponse fromJson(Map<String, dynamic> json) =>
-      GetSegmentResponse();
+      GetSegmentResponse(
+        segmentResponse: SegmentResponse.fromJson(json['SegmentResponse']),
+      );
 }
 
 class GetSegmentVersionResponse {
@@ -4549,7 +5647,9 @@ class GetSegmentVersionResponse {
     @required this.segmentResponse,
   });
   static GetSegmentVersionResponse fromJson(Map<String, dynamic> json) =>
-      GetSegmentVersionResponse();
+      GetSegmentVersionResponse(
+        segmentResponse: SegmentResponse.fromJson(json['SegmentResponse']),
+      );
 }
 
 class GetSegmentVersionsResponse {
@@ -4559,7 +5659,9 @@ class GetSegmentVersionsResponse {
     @required this.segmentsResponse,
   });
   static GetSegmentVersionsResponse fromJson(Map<String, dynamic> json) =>
-      GetSegmentVersionsResponse();
+      GetSegmentVersionsResponse(
+        segmentsResponse: SegmentsResponse.fromJson(json['SegmentsResponse']),
+      );
 }
 
 class GetSegmentsResponse {
@@ -4569,7 +5671,9 @@ class GetSegmentsResponse {
     @required this.segmentsResponse,
   });
   static GetSegmentsResponse fromJson(Map<String, dynamic> json) =>
-      GetSegmentsResponse();
+      GetSegmentsResponse(
+        segmentsResponse: SegmentsResponse.fromJson(json['SegmentsResponse']),
+      );
 }
 
 class GetSmsChannelResponse {
@@ -4579,7 +5683,10 @@ class GetSmsChannelResponse {
     @required this.smsChannelResponse,
   });
   static GetSmsChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetSmsChannelResponse();
+      GetSmsChannelResponse(
+        smsChannelResponse:
+            SmsChannelResponse.fromJson(json['SMSChannelResponse']),
+      );
 }
 
 class GetUserEndpointsResponse {
@@ -4589,7 +5696,10 @@ class GetUserEndpointsResponse {
     @required this.endpointsResponse,
   });
   static GetUserEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      GetUserEndpointsResponse();
+      GetUserEndpointsResponse(
+        endpointsResponse:
+            EndpointsResponse.fromJson(json['EndpointsResponse']),
+      );
 }
 
 class GetVoiceChannelResponse {
@@ -4599,7 +5709,10 @@ class GetVoiceChannelResponse {
     @required this.voiceChannelResponse,
   });
   static GetVoiceChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetVoiceChannelResponse();
+      GetVoiceChannelResponse(
+        voiceChannelResponse:
+            VoiceChannelResponse.fromJson(json['VoiceChannelResponse']),
+      );
 }
 
 /// Specifies the settings for a job that imports endpoint definitions from an
@@ -4661,6 +5774,7 @@ class ImportJobRequest {
     this.segmentId,
     this.segmentName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the resource settings for a job that imports
@@ -4727,7 +5841,25 @@ class ImportJobResource {
     this.segmentName,
   });
   static ImportJobResource fromJson(Map<String, dynamic> json) =>
-      ImportJobResource();
+      ImportJobResource(
+        defineSegment: json.containsKey('DefineSegment')
+            ? json['DefineSegment'] as bool
+            : null,
+        externalId: json.containsKey('ExternalId')
+            ? json['ExternalId'] as String
+            : null,
+        format: json['Format'] as String,
+        registerEndpoints: json.containsKey('RegisterEndpoints')
+            ? json['RegisterEndpoints'] as bool
+            : null,
+        roleArn: json['RoleArn'] as String,
+        s3Url: json['S3Url'] as String,
+        segmentId:
+            json.containsKey('SegmentId') ? json['SegmentId'] as String : null,
+        segmentName: json.containsKey('SegmentName')
+            ? json['SegmentName'] as String
+            : null,
+      );
 }
 
 /// Provides information about the status and settings of a job that imports
@@ -4800,7 +5932,34 @@ class ImportJobResponse {
     @required this.type,
   });
   static ImportJobResponse fromJson(Map<String, dynamic> json) =>
-      ImportJobResponse();
+      ImportJobResponse(
+        applicationId: json['ApplicationId'] as String,
+        completedPieces: json.containsKey('CompletedPieces')
+            ? json['CompletedPieces'] as int
+            : null,
+        completionDate: json.containsKey('CompletionDate')
+            ? json['CompletionDate'] as String
+            : null,
+        creationDate: json['CreationDate'] as String,
+        definition: ImportJobResource.fromJson(json['Definition']),
+        failedPieces: json.containsKey('FailedPieces')
+            ? json['FailedPieces'] as int
+            : null,
+        failures: json.containsKey('Failures')
+            ? (json['Failures'] as List).map((e) => e as String).toList()
+            : null,
+        id: json['Id'] as String,
+        jobStatus: json['JobStatus'] as String,
+        totalFailures: json.containsKey('TotalFailures')
+            ? json['TotalFailures'] as int
+            : null,
+        totalPieces:
+            json.containsKey('TotalPieces') ? json['TotalPieces'] as int : null,
+        totalProcessed: json.containsKey('TotalProcessed')
+            ? json['TotalProcessed'] as int
+            : null,
+        type: json['Type'] as String,
+      );
 }
 
 /// Provides information about the status and settings of all the import jobs
@@ -4822,7 +5981,13 @@ class ImportJobsResponse {
     this.nextToken,
   });
   static ImportJobsResponse fromJson(Map<String, dynamic> json) =>
-      ImportJobsResponse();
+      ImportJobsResponse(
+        item: (json['Item'] as List)
+            .map((e) => ImportJobResponse.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Provides information about the results of a request to create or update an
@@ -4840,7 +6005,15 @@ class ItemResponse {
     this.endpointItemResponse,
     this.eventsItemResponse,
   });
-  static ItemResponse fromJson(Map<String, dynamic> json) => ItemResponse();
+  static ItemResponse fromJson(Map<String, dynamic> json) => ItemResponse(
+        endpointItemResponse: json.containsKey('EndpointItemResponse')
+            ? EndpointItemResponse.fromJson(json['EndpointItemResponse'])
+            : null,
+        eventsItemResponse: json.containsKey('EventsItemResponse')
+            ? (json['EventsItemResponse'] as Map).map(
+                (k, v) => MapEntry(k as String, EventItemResponse.fromJson(v)))
+            : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -4850,7 +6023,9 @@ class ListTagsForResourceResponse {
     @required this.tagsModel,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tagsModel: TagsModel.fromJson(json['TagsModel']),
+      );
 }
 
 /// Specifies the content and settings for a push notification that's sent to
@@ -4934,7 +6109,32 @@ class Message {
     this.title,
     this.url,
   });
-  static Message fromJson(Map<String, dynamic> json) => Message();
+  static Message fromJson(Map<String, dynamic> json) => Message(
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        body: json.containsKey('Body') ? json['Body'] as String : null,
+        imageIconUrl: json.containsKey('ImageIconUrl')
+            ? json['ImageIconUrl'] as String
+            : null,
+        imageSmallIconUrl: json.containsKey('ImageSmallIconUrl')
+            ? json['ImageSmallIconUrl'] as String
+            : null,
+        imageUrl:
+            json.containsKey('ImageUrl') ? json['ImageUrl'] as String : null,
+        jsonBody:
+            json.containsKey('JsonBody') ? json['JsonBody'] as String : null,
+        mediaUrl:
+            json.containsKey('MediaUrl') ? json['MediaUrl'] as String : null,
+        rawContent: json.containsKey('RawContent')
+            ? json['RawContent'] as String
+            : null,
+        silentPush:
+            json.containsKey('SilentPush') ? json['SilentPush'] as bool : null,
+        timeToLive:
+            json.containsKey('TimeToLive') ? json['TimeToLive'] as int : null,
+        title: json.containsKey('Title') ? json['Title'] as String : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about an API request or response.
@@ -4949,7 +6149,11 @@ class MessageBody {
     this.message,
     this.requestID,
   });
-  static MessageBody fromJson(Map<String, dynamic> json) => MessageBody();
+  static MessageBody fromJson(Map<String, dynamic> json) => MessageBody(
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        requestID:
+            json.containsKey('RequestID') ? json['RequestID'] as String : null,
+      );
 }
 
 /// Specifies the message configuration settings for a campaign.
@@ -4992,7 +6196,30 @@ class MessageConfiguration {
     this.smsMessage,
   });
   static MessageConfiguration fromJson(Map<String, dynamic> json) =>
-      MessageConfiguration();
+      MessageConfiguration(
+        admMessage: json.containsKey('ADMMessage')
+            ? Message.fromJson(json['ADMMessage'])
+            : null,
+        apnsMessage: json.containsKey('APNSMessage')
+            ? Message.fromJson(json['APNSMessage'])
+            : null,
+        baiduMessage: json.containsKey('BaiduMessage')
+            ? Message.fromJson(json['BaiduMessage'])
+            : null,
+        defaultMessage: json.containsKey('DefaultMessage')
+            ? Message.fromJson(json['DefaultMessage'])
+            : null,
+        emailMessage: json.containsKey('EmailMessage')
+            ? CampaignEmailMessage.fromJson(json['EmailMessage'])
+            : null,
+        gcmMessage: json.containsKey('GCMMessage')
+            ? Message.fromJson(json['GCMMessage'])
+            : null,
+        smsMessage: json.containsKey('SMSMessage')
+            ? CampaignSmsMessage.fromJson(json['SMSMessage'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the objects that define configuration and other settings for a
@@ -5032,6 +6259,7 @@ class MessageRequest {
     @required this.messageConfiguration,
     this.traceId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the results of a request to send a message to an
@@ -5061,8 +6289,19 @@ class MessageResponse {
     this.requestId,
     this.result,
   });
-  static MessageResponse fromJson(Map<String, dynamic> json) =>
-      MessageResponse();
+  static MessageResponse fromJson(Map<String, dynamic> json) => MessageResponse(
+        applicationId: json['ApplicationId'] as String,
+        endpointResult: json.containsKey('EndpointResult')
+            ? (json['EndpointResult'] as Map).map((k, v) =>
+                MapEntry(k as String, EndpointMessageResult.fromJson(v)))
+            : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        result: json.containsKey('Result')
+            ? (json['Result'] as Map)
+                .map((k, v) => MapEntry(k as String, MessageResult.fromJson(v)))
+            : null,
+      );
 }
 
 /// Provides information about the results of sending a message directly to an
@@ -5115,7 +6354,18 @@ class MessageResult {
     this.statusMessage,
     this.updatedToken,
   });
-  static MessageResult fromJson(Map<String, dynamic> json) => MessageResult();
+  static MessageResult fromJson(Map<String, dynamic> json) => MessageResult(
+        deliveryStatus: json['DeliveryStatus'] as String,
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+        statusCode: json['StatusCode'] as int,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        updatedToken: json.containsKey('UpdatedToken')
+            ? json['UpdatedToken'] as String
+            : null,
+      );
 }
 
 /// Specifies metric-based criteria for including or excluding endpoints from a
@@ -5134,8 +6384,11 @@ class MetricDimension {
     @required this.comparisonOperator,
     @required this.value,
   });
-  static MetricDimension fromJson(Map<String, dynamic> json) =>
-      MetricDimension();
+  static MetricDimension fromJson(Map<String, dynamic> json) => MetricDimension(
+        comparisonOperator: json['ComparisonOperator'] as String,
+        value: json['Value'] as double,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a phone number to validate and retrieve information about.
@@ -5153,6 +6406,7 @@ class NumberValidateRequest {
     this.isoCountryCode,
     this.phoneNumber,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a phone number.
@@ -5229,7 +6483,39 @@ class NumberValidateResponse {
     this.zipCode,
   });
   static NumberValidateResponse fromJson(Map<String, dynamic> json) =>
-      NumberValidateResponse();
+      NumberValidateResponse(
+        carrier: json.containsKey('Carrier') ? json['Carrier'] as String : null,
+        city: json.containsKey('City') ? json['City'] as String : null,
+        cleansedPhoneNumberE164: json.containsKey('CleansedPhoneNumberE164')
+            ? json['CleansedPhoneNumberE164'] as String
+            : null,
+        cleansedPhoneNumberNational:
+            json.containsKey('CleansedPhoneNumberNational')
+                ? json['CleansedPhoneNumberNational'] as String
+                : null,
+        country: json.containsKey('Country') ? json['Country'] as String : null,
+        countryCodeIso2: json.containsKey('CountryCodeIso2')
+            ? json['CountryCodeIso2'] as String
+            : null,
+        countryCodeNumeric: json.containsKey('CountryCodeNumeric')
+            ? json['CountryCodeNumeric'] as String
+            : null,
+        county: json.containsKey('County') ? json['County'] as String : null,
+        originalCountryCodeIso2: json.containsKey('OriginalCountryCodeIso2')
+            ? json['OriginalCountryCodeIso2'] as String
+            : null,
+        originalPhoneNumber: json.containsKey('OriginalPhoneNumber')
+            ? json['OriginalPhoneNumber'] as String
+            : null,
+        phoneType:
+            json.containsKey('PhoneType') ? json['PhoneType'] as String : null,
+        phoneTypeCode: json.containsKey('PhoneTypeCode')
+            ? json['PhoneTypeCode'] as int
+            : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+        zipCode: json.containsKey('ZipCode') ? json['ZipCode'] as String : null,
+      );
 }
 
 class PhoneNumberValidateResponse {
@@ -5239,7 +6525,10 @@ class PhoneNumberValidateResponse {
     @required this.numberValidateResponse,
   });
   static PhoneNumberValidateResponse fromJson(Map<String, dynamic> json) =>
-      PhoneNumberValidateResponse();
+      PhoneNumberValidateResponse(
+        numberValidateResponse:
+            NumberValidateResponse.fromJson(json['NumberValidateResponse']),
+      );
 }
 
 /// Specifies the properties and attributes of an endpoint that's associated
@@ -5304,6 +6593,7 @@ class PublicEndpoint {
     this.requestId,
     this.user,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutEventStreamResponse {
@@ -5313,7 +6603,9 @@ class PutEventStreamResponse {
     @required this.eventStream,
   });
   static PutEventStreamResponse fromJson(Map<String, dynamic> json) =>
-      PutEventStreamResponse();
+      PutEventStreamResponse(
+        eventStream: EventStream.fromJson(json['EventStream']),
+      );
 }
 
 class PutEventsResponse {
@@ -5323,7 +6615,9 @@ class PutEventsResponse {
     @required this.eventsResponse,
   });
   static PutEventsResponse fromJson(Map<String, dynamic> json) =>
-      PutEventsResponse();
+      PutEventsResponse(
+        eventsResponse: EventsResponse.fromJson(json['EventsResponse']),
+      );
 }
 
 /// Specifies the start and end times that define a time range when messages
@@ -5345,7 +6639,11 @@ class QuietTime {
     this.end,
     this.start,
   });
-  static QuietTime fromJson(Map<String, dynamic> json) => QuietTime();
+  static QuietTime fromJson(Map<String, dynamic> json) => QuietTime(
+        end: json.containsKey('End') ? json['End'] as String : null,
+        start: json.containsKey('Start') ? json['Start'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the contents of an email message, represented as a raw MIME
@@ -5358,6 +6656,7 @@ class RawEmail {
   RawEmail({
     this.data,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies criteria for including or excluding endpoints from a segment based
@@ -5378,7 +6677,11 @@ class RecencyDimension {
     @required this.recencyType,
   });
   static RecencyDimension fromJson(Map<String, dynamic> json) =>
-      RecencyDimension();
+      RecencyDimension(
+        duration: json['Duration'] as String,
+        recencyType: json['RecencyType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RemoveAttributesResponse {
@@ -5388,7 +6691,10 @@ class RemoveAttributesResponse {
     @required this.attributesResource,
   });
   static RemoveAttributesResponse fromJson(Map<String, dynamic> json) =>
-      RemoveAttributesResponse();
+      RemoveAttributesResponse(
+        attributesResource:
+            AttributesResource.fromJson(json['AttributesResource']),
+      );
 }
 
 /// Provides the results of a query that retrieved the data for a standard
@@ -5407,7 +6713,14 @@ class ResultRow {
     @required this.groupedBys,
     @required this.values,
   });
-  static ResultRow fromJson(Map<String, dynamic> json) => ResultRow();
+  static ResultRow fromJson(Map<String, dynamic> json) => ResultRow(
+        groupedBys: (json['GroupedBys'] as List)
+            .map((e) => ResultRowValue.fromJson(e))
+            .toList(),
+        values: (json['Values'] as List)
+            .map((e) => ResultRowValue.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Provides a single value and metadata about that value as part of an array of
@@ -5432,7 +6745,11 @@ class ResultRowValue {
     @required this.type,
     @required this.value,
   });
-  static ResultRowValue fromJson(Map<String, dynamic> json) => ResultRowValue();
+  static ResultRowValue fromJson(Map<String, dynamic> json) => ResultRowValue(
+        key: json['Key'] as String,
+        type: json['Type'] as String,
+        value: json['Value'] as String,
+      );
 }
 
 /// Specifies the status and settings of the SMS channel for an application.
@@ -5453,6 +6770,7 @@ class SmsChannelRequest {
     this.senderId,
     this.shortCode,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the SMS channel for an
@@ -5524,7 +6842,41 @@ class SmsChannelResponse {
     this.version,
   });
   static SmsChannelResponse fromJson(Map<String, dynamic> json) =>
-      SmsChannelResponse();
+      SmsChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        platform: json['Platform'] as String,
+        promotionalMessagesPerSecond:
+            json.containsKey('PromotionalMessagesPerSecond')
+                ? json['PromotionalMessagesPerSecond'] as int
+                : null,
+        senderId:
+            json.containsKey('SenderId') ? json['SenderId'] as String : null,
+        shortCode:
+            json.containsKey('ShortCode') ? json['ShortCode'] as String : null,
+        transactionalMessagesPerSecond:
+            json.containsKey('TransactionalMessagesPerSecond')
+                ? json['TransactionalMessagesPerSecond'] as int
+                : null,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the default settings for a one-time SMS message that's sent
@@ -5565,6 +6917,7 @@ class SmsMessage {
     this.senderId,
     this.substitutions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the schedule settings for a campaign.
@@ -5623,7 +6976,24 @@ class Schedule {
     @required this.startTime,
     this.timezone,
   });
-  static Schedule fromJson(Map<String, dynamic> json) => Schedule();
+  static Schedule fromJson(Map<String, dynamic> json) => Schedule(
+        endTime: json.containsKey('EndTime') ? json['EndTime'] as String : null,
+        eventFilter: json.containsKey('EventFilter')
+            ? CampaignEventFilter.fromJson(json['EventFilter'])
+            : null,
+        frequency:
+            json.containsKey('Frequency') ? json['Frequency'] as String : null,
+        isLocalTime: json.containsKey('IsLocalTime')
+            ? json['IsLocalTime'] as bool
+            : null,
+        quietTime: json.containsKey('QuietTime')
+            ? QuietTime.fromJson(json['QuietTime'])
+            : null,
+        startTime: json['StartTime'] as String,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies dimension settings for including or excluding endpoints from a
@@ -5637,7 +7007,12 @@ class SegmentBehaviors {
     this.recency,
   });
   static SegmentBehaviors fromJson(Map<String, dynamic> json) =>
-      SegmentBehaviors();
+      SegmentBehaviors(
+        recency: json.containsKey('Recency')
+            ? RecencyDimension.fromJson(json['Recency'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies demographic-based dimension settings for including or excluding
@@ -5671,7 +7046,27 @@ class SegmentDemographics {
     this.platform,
   });
   static SegmentDemographics fromJson(Map<String, dynamic> json) =>
-      SegmentDemographics();
+      SegmentDemographics(
+        appVersion: json.containsKey('AppVersion')
+            ? SetDimension.fromJson(json['AppVersion'])
+            : null,
+        channel: json.containsKey('Channel')
+            ? SetDimension.fromJson(json['Channel'])
+            : null,
+        deviceType: json.containsKey('DeviceType')
+            ? SetDimension.fromJson(json['DeviceType'])
+            : null,
+        make: json.containsKey('Make')
+            ? SetDimension.fromJson(json['Make'])
+            : null,
+        model: json.containsKey('Model')
+            ? SetDimension.fromJson(json['Model'])
+            : null,
+        platform: json.containsKey('Platform')
+            ? SetDimension.fromJson(json['Platform'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the dimension settings for a segment.
@@ -5705,7 +7100,30 @@ class SegmentDimensions {
     this.userAttributes,
   });
   static SegmentDimensions fromJson(Map<String, dynamic> json) =>
-      SegmentDimensions();
+      SegmentDimensions(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeDimension.fromJson(v)))
+            : null,
+        behavior: json.containsKey('Behavior')
+            ? SegmentBehaviors.fromJson(json['Behavior'])
+            : null,
+        demographic: json.containsKey('Demographic')
+            ? SegmentDemographics.fromJson(json['Demographic'])
+            : null,
+        location: json.containsKey('Location')
+            ? SegmentLocation.fromJson(json['Location'])
+            : null,
+        metrics: json.containsKey('Metrics')
+            ? (json['Metrics'] as Map).map(
+                (k, v) => MapEntry(k as String, MetricDimension.fromJson(v)))
+            : null,
+        userAttributes: json.containsKey('UserAttributes')
+            ? (json['UserAttributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeDimension.fromJson(v)))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the base segments and dimensions for a segment, and the
@@ -5741,7 +7159,23 @@ class SegmentGroup {
     this.sourceType,
     this.type,
   });
-  static SegmentGroup fromJson(Map<String, dynamic> json) => SegmentGroup();
+  static SegmentGroup fromJson(Map<String, dynamic> json) => SegmentGroup(
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => SegmentDimensions.fromJson(e))
+                .toList()
+            : null,
+        sourceSegments: json.containsKey('SourceSegments')
+            ? (json['SourceSegments'] as List)
+                .map((e) => SegmentReference.fromJson(e))
+                .toList()
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the settings that define the relationships between segment groups
@@ -5762,7 +7196,15 @@ class SegmentGroupList {
     this.include,
   });
   static SegmentGroupList fromJson(Map<String, dynamic> json) =>
-      SegmentGroupList();
+      SegmentGroupList(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => SegmentGroup.fromJson(e))
+                .toList()
+            : null,
+        include: json.containsKey('Include') ? json['Include'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the import job that created a segment. An import
@@ -5806,7 +7248,17 @@ class SegmentImportResource {
     @required this.size,
   });
   static SegmentImportResource fromJson(Map<String, dynamic> json) =>
-      SegmentImportResource();
+      SegmentImportResource(
+        channelCounts: json.containsKey('ChannelCounts')
+            ? (json['ChannelCounts'] as Map)
+                .map((k, v) => MapEntry(k as String, v as int))
+            : null,
+        externalId: json['ExternalId'] as String,
+        format: json['Format'] as String,
+        roleArn: json['RoleArn'] as String,
+        s3Url: json['S3Url'] as String,
+        size: json['Size'] as int,
+      );
 }
 
 /// Specifies geographical dimension settings for a segment.
@@ -5821,8 +7273,15 @@ class SegmentLocation {
     this.country,
     this.gpsPoint,
   });
-  static SegmentLocation fromJson(Map<String, dynamic> json) =>
-      SegmentLocation();
+  static SegmentLocation fromJson(Map<String, dynamic> json) => SegmentLocation(
+        country: json.containsKey('Country')
+            ? SetDimension.fromJson(json['Country'])
+            : null,
+        gpsPoint: json.containsKey('GPSPoint')
+            ? GpsPointDimension.fromJson(json['GPSPoint'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the segment identifier and version of a segment.
@@ -5838,7 +7297,11 @@ class SegmentReference {
     this.version,
   });
   static SegmentReference fromJson(Map<String, dynamic> json) =>
-      SegmentReference();
+      SegmentReference(
+        id: json['Id'] as String,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the configuration, dimension, and other settings
@@ -5908,8 +7371,31 @@ class SegmentResponse {
     this.tags,
     this.version,
   });
-  static SegmentResponse fromJson(Map<String, dynamic> json) =>
-      SegmentResponse();
+  static SegmentResponse fromJson(Map<String, dynamic> json) => SegmentResponse(
+        applicationId: json['ApplicationId'] as String,
+        arn: json['Arn'] as String,
+        creationDate: json['CreationDate'] as String,
+        dimensions: json.containsKey('Dimensions')
+            ? SegmentDimensions.fromJson(json['Dimensions'])
+            : null,
+        id: json['Id'] as String,
+        importDefinition: json.containsKey('ImportDefinition')
+            ? SegmentImportResource.fromJson(json['ImportDefinition'])
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        segmentGroups: json.containsKey('SegmentGroups')
+            ? SegmentGroupList.fromJson(json['SegmentGroups'])
+            : null,
+        segmentType: json['SegmentType'] as String,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Provides information about all the segments that are associated with an
@@ -5930,7 +7416,13 @@ class SegmentsResponse {
     this.nextToken,
   });
   static SegmentsResponse fromJson(Map<String, dynamic> json) =>
-      SegmentsResponse();
+      SegmentsResponse(
+        item: (json['Item'] as List)
+            .map((e) => SegmentResponse.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class SendMessagesResponse {
@@ -5940,7 +7432,9 @@ class SendMessagesResponse {
     @required this.messageResponse,
   });
   static SendMessagesResponse fromJson(Map<String, dynamic> json) =>
-      SendMessagesResponse();
+      SendMessagesResponse(
+        messageResponse: MessageResponse.fromJson(json['MessageResponse']),
+      );
 }
 
 /// Specifies the configuration and other settings for a message to send to all
@@ -5972,6 +7466,7 @@ class SendUsersMessageRequest {
     this.traceId,
     @required this.users,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about which users and endpoints a message was sent to.
@@ -5995,7 +7490,17 @@ class SendUsersMessageResponse {
     this.result,
   });
   static SendUsersMessageResponse fromJson(Map<String, dynamic> json) =>
-      SendUsersMessageResponse();
+      SendUsersMessageResponse(
+        applicationId: json['ApplicationId'] as String,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        result: json.containsKey('Result')
+            ? (json['Result'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as Map).map((k, v) =>
+                    MapEntry(k as String, EndpointMessageResult.fromJson(v)))))
+            : null,
+      );
 }
 
 class SendUsersMessagesResponse {
@@ -6005,7 +7510,10 @@ class SendUsersMessagesResponse {
     @required this.sendUsersMessageResponse,
   });
   static SendUsersMessagesResponse fromJson(Map<String, dynamic> json) =>
-      SendUsersMessagesResponse();
+      SendUsersMessagesResponse(
+        sendUsersMessageResponse:
+            SendUsersMessageResponse.fromJson(json['SendUsersMessageResponse']),
+      );
 }
 
 /// Provides information about a session.
@@ -6028,6 +7536,7 @@ class Session {
     @required this.startTimestamp,
     this.stopTimestamp,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the dimension type and values for a segment dimension.
@@ -6047,7 +7556,13 @@ class SetDimension {
     this.dimensionType,
     @required this.values,
   });
-  static SetDimension fromJson(Map<String, dynamic> json) => SetDimension();
+  static SetDimension fromJson(Map<String, dynamic> json) => SetDimension(
+        dimensionType: json.containsKey('DimensionType')
+            ? json['DimensionType'] as String
+            : null,
+        values: (json['Values'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the content of an email message, composed of a subject, a text
@@ -6071,6 +7586,7 @@ class SimpleEmail {
     this.subject,
     this.textPart,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the subject or body of an email message, represented as textual
@@ -6086,6 +7602,7 @@ class SimpleEmailPart {
     this.charset,
     this.data,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the tags (keys and values) for an application, campaign, or
@@ -6103,7 +7620,11 @@ class TagsModel {
   TagsModel({
     @required this.tags,
   });
-  static TagsModel fromJson(Map<String, dynamic> json) => TagsModel();
+  static TagsModel fromJson(Map<String, dynamic> json) => TagsModel(
+        tags: (json['tags'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the settings for a campaign treatment. A treatment is a variation
@@ -6142,7 +7663,25 @@ class TreatmentResource {
     this.treatmentName,
   });
   static TreatmentResource fromJson(Map<String, dynamic> json) =>
-      TreatmentResource();
+      TreatmentResource(
+        id: json['Id'] as String,
+        messageConfiguration: json.containsKey('MessageConfiguration')
+            ? MessageConfiguration.fromJson(json['MessageConfiguration'])
+            : null,
+        schedule: json.containsKey('Schedule')
+            ? Schedule.fromJson(json['Schedule'])
+            : null,
+        sizePercent: json['SizePercent'] as int,
+        state: json.containsKey('State')
+            ? CampaignState.fromJson(json['State'])
+            : null,
+        treatmentDescription: json.containsKey('TreatmentDescription')
+            ? json['TreatmentDescription'] as String
+            : null,
+        treatmentName: json.containsKey('TreatmentName')
+            ? json['TreatmentName'] as String
+            : null,
+      );
 }
 
 class UpdateAdmChannelResponse {
@@ -6152,7 +7691,10 @@ class UpdateAdmChannelResponse {
     @required this.admChannelResponse,
   });
   static UpdateAdmChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateAdmChannelResponse();
+      UpdateAdmChannelResponse(
+        admChannelResponse:
+            AdmChannelResponse.fromJson(json['ADMChannelResponse']),
+      );
 }
 
 class UpdateApnsChannelResponse {
@@ -6162,7 +7704,10 @@ class UpdateApnsChannelResponse {
     @required this.apnsChannelResponse,
   });
   static UpdateApnsChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateApnsChannelResponse();
+      UpdateApnsChannelResponse(
+        apnsChannelResponse:
+            ApnsChannelResponse.fromJson(json['APNSChannelResponse']),
+      );
 }
 
 class UpdateApnsSandboxChannelResponse {
@@ -6172,7 +7717,10 @@ class UpdateApnsSandboxChannelResponse {
     @required this.apnsSandboxChannelResponse,
   });
   static UpdateApnsSandboxChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateApnsSandboxChannelResponse();
+      UpdateApnsSandboxChannelResponse(
+        apnsSandboxChannelResponse: ApnsSandboxChannelResponse.fromJson(
+            json['APNSSandboxChannelResponse']),
+      );
 }
 
 class UpdateApnsVoipChannelResponse {
@@ -6182,7 +7730,10 @@ class UpdateApnsVoipChannelResponse {
     @required this.apnsVoipChannelResponse,
   });
   static UpdateApnsVoipChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateApnsVoipChannelResponse();
+      UpdateApnsVoipChannelResponse(
+        apnsVoipChannelResponse:
+            ApnsVoipChannelResponse.fromJson(json['APNSVoipChannelResponse']),
+      );
 }
 
 class UpdateApnsVoipSandboxChannelResponse {
@@ -6193,7 +7744,10 @@ class UpdateApnsVoipSandboxChannelResponse {
   });
   static UpdateApnsVoipSandboxChannelResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateApnsVoipSandboxChannelResponse();
+      UpdateApnsVoipSandboxChannelResponse(
+        apnsVoipSandboxChannelResponse: ApnsVoipSandboxChannelResponse.fromJson(
+            json['APNSVoipSandboxChannelResponse']),
+      );
 }
 
 class UpdateApplicationSettingsResponse {
@@ -6204,7 +7758,10 @@ class UpdateApplicationSettingsResponse {
   });
   static UpdateApplicationSettingsResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateApplicationSettingsResponse();
+      UpdateApplicationSettingsResponse(
+        applicationSettingsResource: ApplicationSettingsResource.fromJson(
+            json['ApplicationSettingsResource']),
+      );
 }
 
 /// Specifies one or more attributes to remove from all the endpoints that are
@@ -6219,6 +7776,7 @@ class UpdateAttributesRequest {
   UpdateAttributesRequest({
     this.blacklist,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateBaiduChannelResponse {
@@ -6228,7 +7786,10 @@ class UpdateBaiduChannelResponse {
     @required this.baiduChannelResponse,
   });
   static UpdateBaiduChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateBaiduChannelResponse();
+      UpdateBaiduChannelResponse(
+        baiduChannelResponse:
+            BaiduChannelResponse.fromJson(json['BaiduChannelResponse']),
+      );
 }
 
 class UpdateCampaignResponse {
@@ -6238,7 +7799,9 @@ class UpdateCampaignResponse {
     @required this.campaignResponse,
   });
   static UpdateCampaignResponse fromJson(Map<String, dynamic> json) =>
-      UpdateCampaignResponse();
+      UpdateCampaignResponse(
+        campaignResponse: CampaignResponse.fromJson(json['CampaignResponse']),
+      );
 }
 
 class UpdateEmailChannelResponse {
@@ -6248,7 +7811,10 @@ class UpdateEmailChannelResponse {
     @required this.emailChannelResponse,
   });
   static UpdateEmailChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateEmailChannelResponse();
+      UpdateEmailChannelResponse(
+        emailChannelResponse:
+            EmailChannelResponse.fromJson(json['EmailChannelResponse']),
+      );
 }
 
 class UpdateEndpointResponse {
@@ -6258,7 +7824,9 @@ class UpdateEndpointResponse {
     @required this.messageBody,
   });
   static UpdateEndpointResponse fromJson(Map<String, dynamic> json) =>
-      UpdateEndpointResponse();
+      UpdateEndpointResponse(
+        messageBody: MessageBody.fromJson(json['MessageBody']),
+      );
 }
 
 class UpdateEndpointsBatchResponse {
@@ -6268,7 +7836,9 @@ class UpdateEndpointsBatchResponse {
     @required this.messageBody,
   });
   static UpdateEndpointsBatchResponse fromJson(Map<String, dynamic> json) =>
-      UpdateEndpointsBatchResponse();
+      UpdateEndpointsBatchResponse(
+        messageBody: MessageBody.fromJson(json['MessageBody']),
+      );
 }
 
 class UpdateGcmChannelResponse {
@@ -6278,7 +7848,10 @@ class UpdateGcmChannelResponse {
     @required this.gcmChannelResponse,
   });
   static UpdateGcmChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateGcmChannelResponse();
+      UpdateGcmChannelResponse(
+        gcmChannelResponse:
+            GcmChannelResponse.fromJson(json['GCMChannelResponse']),
+      );
 }
 
 class UpdateSegmentResponse {
@@ -6288,7 +7861,9 @@ class UpdateSegmentResponse {
     @required this.segmentResponse,
   });
   static UpdateSegmentResponse fromJson(Map<String, dynamic> json) =>
-      UpdateSegmentResponse();
+      UpdateSegmentResponse(
+        segmentResponse: SegmentResponse.fromJson(json['SegmentResponse']),
+      );
 }
 
 class UpdateSmsChannelResponse {
@@ -6298,7 +7873,10 @@ class UpdateSmsChannelResponse {
     @required this.smsChannelResponse,
   });
   static UpdateSmsChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateSmsChannelResponse();
+      UpdateSmsChannelResponse(
+        smsChannelResponse:
+            SmsChannelResponse.fromJson(json['SMSChannelResponse']),
+      );
 }
 
 class UpdateVoiceChannelResponse {
@@ -6308,7 +7886,10 @@ class UpdateVoiceChannelResponse {
     @required this.voiceChannelResponse,
   });
   static UpdateVoiceChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateVoiceChannelResponse();
+      UpdateVoiceChannelResponse(
+        voiceChannelResponse:
+            VoiceChannelResponse.fromJson(json['VoiceChannelResponse']),
+      );
 }
 
 /// Specifies the status and settings of the voice channel for an application.
@@ -6319,6 +7900,7 @@ class VoiceChannelRequest {
   VoiceChannelRequest({
     this.enabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about the status and settings of the voice channel for
@@ -6371,7 +7953,29 @@ class VoiceChannelResponse {
     this.version,
   });
   static VoiceChannelResponse fromJson(Map<String, dynamic> json) =>
-      VoiceChannelResponse();
+      VoiceChannelResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? json['CreationDate'] as String
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        hasCredential: json.containsKey('HasCredential')
+            ? json['HasCredential'] as bool
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        isArchived:
+            json.containsKey('IsArchived') ? json['IsArchived'] as bool : null,
+        lastModifiedBy: json.containsKey('LastModifiedBy')
+            ? json['LastModifiedBy'] as String
+            : null,
+        lastModifiedDate: json.containsKey('LastModifiedDate')
+            ? json['LastModifiedDate'] as String
+            : null,
+        platform: json['Platform'] as String,
+        version: json.containsKey('Version') ? json['Version'] as int : null,
+      );
 }
 
 /// Specifies the settings for a one-time voice message that's sent directly to
@@ -6405,6 +8009,7 @@ class VoiceMessage {
     this.substitutions,
     this.voiceId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the default settings for an application.
@@ -6453,6 +8058,7 @@ class WriteApplicationSettingsRequest {
     this.limits,
     this.quietTime,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the configuration and other settings for a campaign.
@@ -6522,6 +8128,7 @@ class WriteCampaignRequest {
     this.treatmentDescription,
     this.treatmentName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the Amazon Resource Name (ARN) of an event stream to publish
@@ -6547,6 +8154,7 @@ class WriteEventStream {
     @required this.destinationStreamArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the configuration, dimension, and other settings for a segment. A
@@ -6576,6 +8184,7 @@ class WriteSegmentRequest {
     this.segmentGroups,
     this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the settings for a campaign treatment. A treatment is a variation
@@ -6605,4 +8214,5 @@ class WriteTreatmentResource {
     this.treatmentDescription,
     this.treatmentName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

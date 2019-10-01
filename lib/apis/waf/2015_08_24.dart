@@ -10,6 +10,9 @@ import 'dart:typed_data';
 /// an overview of how to use the AWS WAF API, see the
 /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
 class WafApi {
+  final _client;
+  WafApi(client) : _client = client.configured('WAF', serializer: 'json');
+
   /// Creates a `ByteMatchSet`. You then use UpdateByteMatchSet to identify the
   /// part of a web request that you want AWS WAF to inspect, such as the values
   /// of the `User-Agent` header or the query string. For example, you can
@@ -43,7 +46,11 @@ class WafApi {
   /// GetChangeToken.
   Future<CreateByteMatchSetResponse> createByteMatchSet(
       {@required String name, @required String changeToken}) async {
-    return CreateByteMatchSetResponse.fromJson({});
+    var response_ = await _client.send('CreateByteMatchSet', {
+      'Name': name,
+      'ChangeToken': changeToken,
+    });
+    return CreateByteMatchSetResponse.fromJson(response_);
   }
 
   /// Creates an GeoMatchSet, which you use to specify which web requests you
@@ -78,7 +85,11 @@ class WafApi {
   /// GetChangeToken.
   Future<CreateGeoMatchSetResponse> createGeoMatchSet(
       {@required String name, @required String changeToken}) async {
-    return CreateGeoMatchSetResponse.fromJson({});
+    var response_ = await _client.send('CreateGeoMatchSet', {
+      'Name': name,
+      'ChangeToken': changeToken,
+    });
+    return CreateGeoMatchSetResponse.fromJson(response_);
   }
 
   /// Creates an IPSet, which you use to specify which web requests that you
@@ -114,7 +125,11 @@ class WafApi {
   /// GetChangeToken.
   Future<CreateIPSetResponse> createIPSet(
       {@required String name, @required String changeToken}) async {
-    return CreateIPSetResponse.fromJson({});
+    var response_ = await _client.send('CreateIPSet', {
+      'Name': name,
+      'ChangeToken': changeToken,
+    });
+    return CreateIPSetResponse.fromJson(response_);
   }
 
   /// Creates a RateBasedRule. The `RateBasedRule` contains a `RateLimit`, which
@@ -219,7 +234,15 @@ class WafApi {
       @required BigInt rateLimit,
       @required String changeToken,
       List<Tag> tags}) async {
-    return CreateRateBasedRuleResponse.fromJson({});
+    var response_ = await _client.send('CreateRateBasedRule', {
+      'Name': name,
+      'MetricName': metricName,
+      'RateKey': rateKey,
+      'RateLimit': rateLimit,
+      'ChangeToken': changeToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateRateBasedRuleResponse.fromJson(response_);
   }
 
   /// Creates a RegexMatchSet. You then use UpdateRegexMatchSet to identify the
@@ -257,7 +280,11 @@ class WafApi {
   /// GetChangeToken.
   Future<CreateRegexMatchSetResponse> createRegexMatchSet(
       {@required String name, @required String changeToken}) async {
-    return CreateRegexMatchSetResponse.fromJson({});
+    var response_ = await _client.send('CreateRegexMatchSet', {
+      'Name': name,
+      'ChangeToken': changeToken,
+    });
+    return CreateRegexMatchSetResponse.fromJson(response_);
   }
 
   /// Creates a `RegexPatternSet`. You then use UpdateRegexPatternSet to specify
@@ -290,7 +317,11 @@ class WafApi {
   /// GetChangeToken.
   Future<CreateRegexPatternSetResponse> createRegexPatternSet(
       {@required String name, @required String changeToken}) async {
-    return CreateRegexPatternSetResponse.fromJson({});
+    var response_ = await _client.send('CreateRegexPatternSet', {
+      'Name': name,
+      'ChangeToken': changeToken,
+    });
+    return CreateRegexPatternSetResponse.fromJson(response_);
   }
 
   /// Creates a `Rule`, which contains the `IPSet` objects, `ByteMatchSet`
@@ -351,7 +382,13 @@ class WafApi {
       @required String metricName,
       @required String changeToken,
       List<Tag> tags}) async {
-    return CreateRuleResponse.fromJson({});
+    var response_ = await _client.send('CreateRule', {
+      'Name': name,
+      'MetricName': metricName,
+      'ChangeToken': changeToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateRuleResponse.fromJson(response_);
   }
 
   /// Creates a `RuleGroup`. A rule group is a collection of predefined rules
@@ -389,7 +426,13 @@ class WafApi {
       @required String metricName,
       @required String changeToken,
       List<Tag> tags}) async {
-    return CreateRuleGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateRuleGroup', {
+      'Name': name,
+      'MetricName': metricName,
+      'ChangeToken': changeToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateRuleGroupResponse.fromJson(response_);
   }
 
   /// Creates a `SizeConstraintSet`. You then use UpdateSizeConstraintSet to
@@ -426,7 +469,11 @@ class WafApi {
   /// GetChangeToken.
   Future<CreateSizeConstraintSetResponse> createSizeConstraintSet(
       {@required String name, @required String changeToken}) async {
-    return CreateSizeConstraintSetResponse.fromJson({});
+    var response_ = await _client.send('CreateSizeConstraintSet', {
+      'Name': name,
+      'ChangeToken': changeToken,
+    });
+    return CreateSizeConstraintSetResponse.fromJson(response_);
   }
 
   /// Creates a SqlInjectionMatchSet, which you use to allow, block, or count
@@ -462,7 +509,11 @@ class WafApi {
   /// GetChangeToken.
   Future<CreateSqlInjectionMatchSetResponse> createSqlInjectionMatchSet(
       {@required String name, @required String changeToken}) async {
-    return CreateSqlInjectionMatchSetResponse.fromJson({});
+    var response_ = await _client.send('CreateSqlInjectionMatchSet', {
+      'Name': name,
+      'ChangeToken': changeToken,
+    });
+    return CreateSqlInjectionMatchSetResponse.fromJson(response_);
   }
 
   /// Creates a `WebACL`, which contains the `Rules` that identify the
@@ -522,7 +573,14 @@ class WafApi {
       @required WafAction defaultAction,
       @required String changeToken,
       List<Tag> tags}) async {
-    return CreateWebAclResponse.fromJson({});
+    var response_ = await _client.send('CreateWebACL', {
+      'Name': name,
+      'MetricName': metricName,
+      'DefaultAction': defaultAction,
+      'ChangeToken': changeToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateWebAclResponse.fromJson(response_);
   }
 
   /// Creates an XssMatchSet, which you use to allow, block, or count requests
@@ -556,7 +614,11 @@ class WafApi {
   /// GetChangeToken.
   Future<CreateXssMatchSetResponse> createXssMatchSet(
       {@required String name, @required String changeToken}) async {
-    return CreateXssMatchSetResponse.fromJson({});
+    var response_ = await _client.send('CreateXssMatchSet', {
+      'Name': name,
+      'ChangeToken': changeToken,
+    });
+    return CreateXssMatchSetResponse.fromJson(response_);
   }
 
   /// Permanently deletes a ByteMatchSet. You can't delete a `ByteMatchSet` if
@@ -583,7 +645,11 @@ class WafApi {
   /// GetChangeToken.
   Future<DeleteByteMatchSetResponse> deleteByteMatchSet(
       {@required String byteMatchSetId, @required String changeToken}) async {
-    return DeleteByteMatchSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteByteMatchSet', {
+      'ByteMatchSetId': byteMatchSetId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteByteMatchSetResponse.fromJson(response_);
   }
 
   /// Permanently deletes a GeoMatchSet. You can't delete a `GeoMatchSet` if
@@ -610,7 +676,11 @@ class WafApi {
   /// GetChangeToken.
   Future<DeleteGeoMatchSetResponse> deleteGeoMatchSet(
       {@required String geoMatchSetId, @required String changeToken}) async {
-    return DeleteGeoMatchSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteGeoMatchSet', {
+      'GeoMatchSetId': geoMatchSetId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteGeoMatchSetResponse.fromJson(response_);
   }
 
   /// Permanently deletes an IPSet. You can't delete an `IPSet` if it's still
@@ -636,7 +706,11 @@ class WafApi {
   /// GetChangeToken.
   Future<DeleteIPSetResponse> deleteIPSet(
       {@required String ipSetId, @required String changeToken}) async {
-    return DeleteIPSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteIPSet', {
+      'IPSetId': ipSetId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteIPSetResponse.fromJson(response_);
   }
 
   /// Permanently deletes the LoggingConfiguration from the specified web ACL.
@@ -645,7 +719,10 @@ class WafApi {
   /// you want to delete the LoggingConfiguration.
   Future<DeleteLoggingConfigurationResponse> deleteLoggingConfiguration(
       String resourceArn) async {
-    return DeleteLoggingConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DeleteLoggingConfiguration', {
+      'ResourceArn': resourceArn,
+    });
+    return DeleteLoggingConfigurationResponse.fromJson(response_);
   }
 
   /// Permanently deletes an IAM policy from the specified RuleGroup.
@@ -658,7 +735,10 @@ class WafApi {
   /// The user making the request must be the owner of the RuleGroup.
   Future<DeletePermissionPolicyResponse> deletePermissionPolicy(
       String resourceArn) async {
-    return DeletePermissionPolicyResponse.fromJson({});
+    var response_ = await _client.send('DeletePermissionPolicy', {
+      'ResourceArn': resourceArn,
+    });
+    return DeletePermissionPolicyResponse.fromJson(response_);
   }
 
   /// Permanently deletes a RateBasedRule. You can't delete a rule if it's still
@@ -685,7 +765,11 @@ class WafApi {
   /// GetChangeToken.
   Future<DeleteRateBasedRuleResponse> deleteRateBasedRule(
       {@required String ruleId, @required String changeToken}) async {
-    return DeleteRateBasedRuleResponse.fromJson({});
+    var response_ = await _client.send('DeleteRateBasedRule', {
+      'RuleId': ruleId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteRateBasedRuleResponse.fromJson(response_);
   }
 
   /// Permanently deletes a RegexMatchSet. You can't delete a `RegexMatchSet` if
@@ -713,7 +797,11 @@ class WafApi {
   /// GetChangeToken.
   Future<DeleteRegexMatchSetResponse> deleteRegexMatchSet(
       {@required String regexMatchSetId, @required String changeToken}) async {
-    return DeleteRegexMatchSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteRegexMatchSet', {
+      'RegexMatchSetId': regexMatchSetId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteRegexMatchSetResponse.fromJson(response_);
   }
 
   /// Permanently deletes a RegexPatternSet. You can't delete a
@@ -729,7 +817,11 @@ class WafApi {
   Future<DeleteRegexPatternSetResponse> deleteRegexPatternSet(
       {@required String regexPatternSetId,
       @required String changeToken}) async {
-    return DeleteRegexPatternSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteRegexPatternSet', {
+      'RegexPatternSetId': regexPatternSetId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteRegexPatternSetResponse.fromJson(response_);
   }
 
   /// Permanently deletes a Rule. You can't delete a `Rule` if it's still used
@@ -755,7 +847,11 @@ class WafApi {
   /// GetChangeToken.
   Future<DeleteRuleResponse> deleteRule(
       {@required String ruleId, @required String changeToken}) async {
-    return DeleteRuleResponse.fromJson({});
+    var response_ = await _client.send('DeleteRule', {
+      'RuleId': ruleId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteRuleResponse.fromJson(response_);
   }
 
   /// Permanently deletes a RuleGroup. You can't delete a `RuleGroup` if it's
@@ -782,7 +878,11 @@ class WafApi {
   /// GetChangeToken.
   Future<DeleteRuleGroupResponse> deleteRuleGroup(
       {@required String ruleGroupId, @required String changeToken}) async {
-    return DeleteRuleGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteRuleGroup', {
+      'RuleGroupId': ruleGroupId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteRuleGroupResponse.fromJson(response_);
   }
 
   /// Permanently deletes a SizeConstraintSet. You can't delete a
@@ -811,7 +911,11 @@ class WafApi {
   Future<DeleteSizeConstraintSetResponse> deleteSizeConstraintSet(
       {@required String sizeConstraintSetId,
       @required String changeToken}) async {
-    return DeleteSizeConstraintSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteSizeConstraintSet', {
+      'SizeConstraintSetId': sizeConstraintSetId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteSizeConstraintSetResponse.fromJson(response_);
   }
 
   /// Permanently deletes a SqlInjectionMatchSet. You can't delete a
@@ -841,7 +945,11 @@ class WafApi {
   Future<DeleteSqlInjectionMatchSetResponse> deleteSqlInjectionMatchSet(
       {@required String sqlInjectionMatchSetId,
       @required String changeToken}) async {
-    return DeleteSqlInjectionMatchSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteSqlInjectionMatchSet', {
+      'SqlInjectionMatchSetId': sqlInjectionMatchSetId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteSqlInjectionMatchSetResponse.fromJson(response_);
   }
 
   /// Permanently deletes a WebACL. You can't delete a `WebACL` if it still
@@ -864,7 +972,11 @@ class WafApi {
   /// GetChangeToken.
   Future<DeleteWebAclResponse> deleteWebAcl(
       {@required String webAclId, @required String changeToken}) async {
-    return DeleteWebAclResponse.fromJson({});
+    var response_ = await _client.send('DeleteWebACL', {
+      'WebACLId': webAclId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteWebAclResponse.fromJson(response_);
   }
 
   /// Permanently deletes an XssMatchSet. You can't delete an `XssMatchSet` if
@@ -892,7 +1004,11 @@ class WafApi {
   /// GetChangeToken.
   Future<DeleteXssMatchSetResponse> deleteXssMatchSet(
       {@required String xssMatchSetId, @required String changeToken}) async {
-    return DeleteXssMatchSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteXssMatchSet', {
+      'XssMatchSetId': xssMatchSetId,
+      'ChangeToken': changeToken,
+    });
+    return DeleteXssMatchSetResponse.fromJson(response_);
   }
 
   /// Returns the ByteMatchSet specified by `ByteMatchSetId`.
@@ -901,7 +1017,10 @@ class WafApi {
   /// to get. `ByteMatchSetId` is returned by CreateByteMatchSet and by
   /// ListByteMatchSets.
   Future<GetByteMatchSetResponse> getByteMatchSet(String byteMatchSetId) async {
-    return GetByteMatchSetResponse.fromJson({});
+    var response_ = await _client.send('GetByteMatchSet', {
+      'ByteMatchSetId': byteMatchSetId,
+    });
+    return GetByteMatchSetResponse.fromJson(response_);
   }
 
   /// When you want to create, update, or delete AWS WAF objects, get a change
@@ -920,7 +1039,8 @@ class WafApi {
   /// WAF is propagating the change to all AWS WAF servers. Use
   /// `GetChangeTokenStatus` to determine the status of your change token.
   Future<GetChangeTokenResponse> getChangeToken() async {
-    return GetChangeTokenResponse.fromJson({});
+    var response_ = await _client.send('GetChangeToken', {});
+    return GetChangeTokenResponse.fromJson(response_);
   }
 
   /// Returns the status of a `ChangeToken` that you got by calling
@@ -939,7 +1059,10 @@ class WafApi {
   /// change token was previously returned in the `GetChangeToken` response.
   Future<GetChangeTokenStatusResponse> getChangeTokenStatus(
       String changeToken) async {
-    return GetChangeTokenStatusResponse.fromJson({});
+    var response_ = await _client.send('GetChangeTokenStatus', {
+      'ChangeToken': changeToken,
+    });
+    return GetChangeTokenStatusResponse.fromJson(response_);
   }
 
   /// Returns the GeoMatchSet that is specified by `GeoMatchSetId`.
@@ -948,7 +1071,10 @@ class WafApi {
   /// get. `GeoMatchSetId` is returned by CreateGeoMatchSet and by
   /// ListGeoMatchSets.
   Future<GetGeoMatchSetResponse> getGeoMatchSet(String geoMatchSetId) async {
-    return GetGeoMatchSetResponse.fromJson({});
+    var response_ = await _client.send('GetGeoMatchSet', {
+      'GeoMatchSetId': geoMatchSetId,
+    });
+    return GetGeoMatchSetResponse.fromJson(response_);
   }
 
   /// Returns the IPSet that is specified by `IPSetId`.
@@ -956,7 +1082,10 @@ class WafApi {
   /// [ipSetId]: The `IPSetId` of the IPSet that you want to get. `IPSetId` is
   /// returned by CreateIPSet and by ListIPSets.
   Future<GetIPSetResponse> getIPSet(String ipSetId) async {
-    return GetIPSetResponse.fromJson({});
+    var response_ = await _client.send('GetIPSet', {
+      'IPSetId': ipSetId,
+    });
+    return GetIPSetResponse.fromJson(response_);
   }
 
   /// Returns the LoggingConfiguration for the specified web ACL.
@@ -965,7 +1094,10 @@ class WafApi {
   /// want to get the LoggingConfiguration.
   Future<GetLoggingConfigurationResponse> getLoggingConfiguration(
       String resourceArn) async {
-    return GetLoggingConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetLoggingConfiguration', {
+      'ResourceArn': resourceArn,
+    });
+    return GetLoggingConfigurationResponse.fromJson(response_);
   }
 
   /// Returns the IAM policy attached to the RuleGroup.
@@ -974,7 +1106,10 @@ class WafApi {
   /// you want to get the policy.
   Future<GetPermissionPolicyResponse> getPermissionPolicy(
       String resourceArn) async {
-    return GetPermissionPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetPermissionPolicy', {
+      'ResourceArn': resourceArn,
+    });
+    return GetPermissionPolicyResponse.fromJson(response_);
   }
 
   /// Returns the RateBasedRule that is specified by the `RuleId` that you
@@ -983,7 +1118,10 @@ class WafApi {
   /// [ruleId]: The `RuleId` of the RateBasedRule that you want to get. `RuleId`
   /// is returned by CreateRateBasedRule and by ListRateBasedRules.
   Future<GetRateBasedRuleResponse> getRateBasedRule(String ruleId) async {
-    return GetRateBasedRuleResponse.fromJson({});
+    var response_ = await _client.send('GetRateBasedRule', {
+      'RuleId': ruleId,
+    });
+    return GetRateBasedRuleResponse.fromJson(response_);
   }
 
   /// Returns an array of IP addresses currently being blocked by the
@@ -1001,7 +1139,11 @@ class WafApi {
   Future<GetRateBasedRuleManagedKeysResponse> getRateBasedRuleManagedKeys(
       String ruleId,
       {String nextMarker}) async {
-    return GetRateBasedRuleManagedKeysResponse.fromJson({});
+    var response_ = await _client.send('GetRateBasedRuleManagedKeys', {
+      'RuleId': ruleId,
+      if (nextMarker != null) 'NextMarker': nextMarker,
+    });
+    return GetRateBasedRuleManagedKeysResponse.fromJson(response_);
   }
 
   /// Returns the RegexMatchSet specified by `RegexMatchSetId`.
@@ -1011,7 +1153,10 @@ class WafApi {
   /// ListRegexMatchSets.
   Future<GetRegexMatchSetResponse> getRegexMatchSet(
       String regexMatchSetId) async {
-    return GetRegexMatchSetResponse.fromJson({});
+    var response_ = await _client.send('GetRegexMatchSet', {
+      'RegexMatchSetId': regexMatchSetId,
+    });
+    return GetRegexMatchSetResponse.fromJson(response_);
   }
 
   /// Returns the RegexPatternSet specified by `RegexPatternSetId`.
@@ -1021,7 +1166,10 @@ class WafApi {
   /// and by ListRegexPatternSets.
   Future<GetRegexPatternSetResponse> getRegexPatternSet(
       String regexPatternSetId) async {
-    return GetRegexPatternSetResponse.fromJson({});
+    var response_ = await _client.send('GetRegexPatternSet', {
+      'RegexPatternSetId': regexPatternSetId,
+    });
+    return GetRegexPatternSetResponse.fromJson(response_);
   }
 
   /// Returns the Rule that is specified by the `RuleId` that you included in
@@ -1030,7 +1178,10 @@ class WafApi {
   /// [ruleId]: The `RuleId` of the Rule that you want to get. `RuleId` is
   /// returned by CreateRule and by ListRules.
   Future<GetRuleResponse> getRule(String ruleId) async {
-    return GetRuleResponse.fromJson({});
+    var response_ = await _client.send('GetRule', {
+      'RuleId': ruleId,
+    });
+    return GetRuleResponse.fromJson(response_);
   }
 
   /// Returns the RuleGroup that is specified by the `RuleGroupId` that you
@@ -1041,7 +1192,10 @@ class WafApi {
   /// [ruleGroupId]: The `RuleGroupId` of the RuleGroup that you want to get.
   /// `RuleGroupId` is returned by CreateRuleGroup and by ListRuleGroups.
   Future<GetRuleGroupResponse> getRuleGroup(String ruleGroupId) async {
-    return GetRuleGroupResponse.fromJson({});
+    var response_ = await _client.send('GetRuleGroup', {
+      'RuleGroupId': ruleGroupId,
+    });
+    return GetRuleGroupResponse.fromJson(response_);
   }
 
   /// Gets detailed information about a specified number of requests--a
@@ -1084,7 +1238,13 @@ class WafApi {
       @required String ruleId,
       @required TimeWindow timeWindow,
       @required BigInt maxItems}) async {
-    return GetSampledRequestsResponse.fromJson({});
+    var response_ = await _client.send('GetSampledRequests', {
+      'WebAclId': webAclId,
+      'RuleId': ruleId,
+      'TimeWindow': timeWindow,
+      'MaxItems': maxItems,
+    });
+    return GetSampledRequestsResponse.fromJson(response_);
   }
 
   /// Returns the SizeConstraintSet specified by `SizeConstraintSetId`.
@@ -1094,7 +1254,10 @@ class WafApi {
   /// CreateSizeConstraintSet and by ListSizeConstraintSets.
   Future<GetSizeConstraintSetResponse> getSizeConstraintSet(
       String sizeConstraintSetId) async {
-    return GetSizeConstraintSetResponse.fromJson({});
+    var response_ = await _client.send('GetSizeConstraintSet', {
+      'SizeConstraintSetId': sizeConstraintSetId,
+    });
+    return GetSizeConstraintSetResponse.fromJson(response_);
   }
 
   /// Returns the SqlInjectionMatchSet that is specified by
@@ -1105,7 +1268,10 @@ class WafApi {
   /// returned by CreateSqlInjectionMatchSet and by ListSqlInjectionMatchSets.
   Future<GetSqlInjectionMatchSetResponse> getSqlInjectionMatchSet(
       String sqlInjectionMatchSetId) async {
-    return GetSqlInjectionMatchSetResponse.fromJson({});
+    var response_ = await _client.send('GetSqlInjectionMatchSet', {
+      'SqlInjectionMatchSetId': sqlInjectionMatchSetId,
+    });
+    return GetSqlInjectionMatchSetResponse.fromJson(response_);
   }
 
   /// Returns the WebACL that is specified by `WebACLId`.
@@ -1113,7 +1279,10 @@ class WafApi {
   /// [webAclId]: The `WebACLId` of the WebACL that you want to get. `WebACLId`
   /// is returned by CreateWebACL and by ListWebACLs.
   Future<GetWebAclResponse> getWebAcl(String webAclId) async {
-    return GetWebAclResponse.fromJson({});
+    var response_ = await _client.send('GetWebACL', {
+      'WebACLId': webAclId,
+    });
+    return GetWebAclResponse.fromJson(response_);
   }
 
   /// Returns the XssMatchSet that is specified by `XssMatchSetId`.
@@ -1122,7 +1291,10 @@ class WafApi {
   /// get. `XssMatchSetId` is returned by CreateXssMatchSet and by
   /// ListXssMatchSets.
   Future<GetXssMatchSetResponse> getXssMatchSet(String xssMatchSetId) async {
-    return GetXssMatchSetResponse.fromJson({});
+    var response_ = await _client.send('GetXssMatchSet', {
+      'XssMatchSetId': xssMatchSetId,
+    });
+    return GetXssMatchSetResponse.fromJson(response_);
   }
 
   /// Returns an array of ActivatedRule objects.
@@ -1144,7 +1316,12 @@ class WafApi {
   /// that you can use to get another batch of `ActivatedRules`.
   Future<ListActivatedRulesInRuleGroupResponse> listActivatedRulesInRuleGroup(
       {String ruleGroupId, String nextMarker, int limit}) async {
-    return ListActivatedRulesInRuleGroupResponse.fromJson({});
+    var response_ = await _client.send('ListActivatedRulesInRuleGroup', {
+      if (ruleGroupId != null) 'RuleGroupId': ruleGroupId,
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListActivatedRulesInRuleGroupResponse.fromJson(response_);
   }
 
   /// Returns an array of ByteMatchSetSummary objects.
@@ -1163,7 +1340,11 @@ class WafApi {
   /// objects.
   Future<ListByteMatchSetsResponse> listByteMatchSets(
       {String nextMarker, int limit}) async {
-    return ListByteMatchSetsResponse.fromJson({});
+    var response_ = await _client.send('ListByteMatchSets', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListByteMatchSetsResponse.fromJson(response_);
   }
 
   /// Returns an array of GeoMatchSetSummary objects in the response.
@@ -1182,7 +1363,11 @@ class WafApi {
   /// objects.
   Future<ListGeoMatchSetsResponse> listGeoMatchSets(
       {String nextMarker, int limit}) async {
-    return ListGeoMatchSetsResponse.fromJson({});
+    var response_ = await _client.send('ListGeoMatchSets', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListGeoMatchSetsResponse.fromJson(response_);
   }
 
   /// Returns an array of IPSetSummary objects in the response.
@@ -1199,7 +1384,11 @@ class WafApi {
   /// you specify for `Limit`, the response includes a `NextMarker` value that
   /// you can use to get another batch of `IPSet` objects.
   Future<ListIPSetsResponse> listIPSets({String nextMarker, int limit}) async {
-    return ListIPSetsResponse.fromJson({});
+    var response_ = await _client.send('ListIPSets', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListIPSetsResponse.fromJson(response_);
   }
 
   /// Returns an array of LoggingConfiguration objects.
@@ -1219,7 +1408,11 @@ class WafApi {
   /// `LoggingConfigurations`.
   Future<ListLoggingConfigurationsResponse> listLoggingConfigurations(
       {String nextMarker, int limit}) async {
-    return ListLoggingConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('ListLoggingConfigurations', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListLoggingConfigurationsResponse.fromJson(response_);
   }
 
   /// Returns an array of RuleSummary objects.
@@ -1237,7 +1430,11 @@ class WafApi {
   /// can use to get another batch of `Rules`.
   Future<ListRateBasedRulesResponse> listRateBasedRules(
       {String nextMarker, int limit}) async {
-    return ListRateBasedRulesResponse.fromJson({});
+    var response_ = await _client.send('ListRateBasedRules', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListRateBasedRulesResponse.fromJson(response_);
   }
 
   /// Returns an array of RegexMatchSetSummary objects.
@@ -1256,7 +1453,11 @@ class WafApi {
   /// `RegexMatchSet` objects.
   Future<ListRegexMatchSetsResponse> listRegexMatchSets(
       {String nextMarker, int limit}) async {
-    return ListRegexMatchSetsResponse.fromJson({});
+    var response_ = await _client.send('ListRegexMatchSets', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListRegexMatchSetsResponse.fromJson(response_);
   }
 
   /// Returns an array of RegexPatternSetSummary objects.
@@ -1276,7 +1477,11 @@ class WafApi {
   /// `RegexPatternSet` objects.
   Future<ListRegexPatternSetsResponse> listRegexPatternSets(
       {String nextMarker, int limit}) async {
-    return ListRegexPatternSetsResponse.fromJson({});
+    var response_ = await _client.send('ListRegexPatternSets', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListRegexPatternSetsResponse.fromJson(response_);
   }
 
   /// Returns an array of RuleGroup objects.
@@ -1294,7 +1499,11 @@ class WafApi {
   /// that you can use to get another batch of `RuleGroups`.
   Future<ListRuleGroupsResponse> listRuleGroups(
       {String nextMarker, int limit}) async {
-    return ListRuleGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListRuleGroups', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListRuleGroupsResponse.fromJson(response_);
   }
 
   /// Returns an array of RuleSummary objects.
@@ -1311,7 +1520,11 @@ class WafApi {
   /// specify for `Limit`, the response includes a `NextMarker` value that you
   /// can use to get another batch of `Rules`.
   Future<ListRulesResponse> listRules({String nextMarker, int limit}) async {
-    return ListRulesResponse.fromJson({});
+    var response_ = await _client.send('ListRules', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListRulesResponse.fromJson(response_);
   }
 
   /// Returns an array of SizeConstraintSetSummary objects.
@@ -1331,7 +1544,11 @@ class WafApi {
   /// `SizeConstraintSet` objects.
   Future<ListSizeConstraintSetsResponse> listSizeConstraintSets(
       {String nextMarker, int limit}) async {
-    return ListSizeConstraintSetsResponse.fromJson({});
+    var response_ = await _client.send('ListSizeConstraintSets', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListSizeConstraintSetsResponse.fromJson(response_);
   }
 
   /// Returns an array of SqlInjectionMatchSet objects.
@@ -1351,7 +1568,11 @@ class WafApi {
   /// batch of `Rules`.
   Future<ListSqlInjectionMatchSetsResponse> listSqlInjectionMatchSets(
       {String nextMarker, int limit}) async {
-    return ListSqlInjectionMatchSetsResponse.fromJson({});
+    var response_ = await _client.send('ListSqlInjectionMatchSets', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListSqlInjectionMatchSetsResponse.fromJson(response_);
   }
 
   /// Returns an array of RuleGroup objects that you are subscribed to.
@@ -1370,12 +1591,21 @@ class WafApi {
   /// you can use to get another batch of objects.
   Future<ListSubscribedRuleGroupsResponse> listSubscribedRuleGroups(
       {String nextMarker, int limit}) async {
-    return ListSubscribedRuleGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListSubscribedRuleGroups', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListSubscribedRuleGroupsResponse.fromJson(response_);
   }
 
   Future<ListTagsForResourceResponse> listTagsForResource(String resourceArn,
       {String nextMarker, int limit}) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+      'ResourceARN': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Returns an array of WebACLSummary objects in the response.
@@ -1394,7 +1624,11 @@ class WafApi {
   /// that you can use to get another batch of `WebACL` objects.
   Future<ListWebACLsResponse> listWebACLs(
       {String nextMarker, int limit}) async {
-    return ListWebACLsResponse.fromJson({});
+    var response_ = await _client.send('ListWebACLs', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListWebACLsResponse.fromJson(response_);
   }
 
   /// Returns an array of XssMatchSet objects.
@@ -1412,7 +1646,11 @@ class WafApi {
   /// value that you can use to get another batch of `Rules`.
   Future<ListXssMatchSetsResponse> listXssMatchSets(
       {String nextMarker, int limit}) async {
-    return ListXssMatchSetsResponse.fromJson({});
+    var response_ = await _client.send('ListXssMatchSets', {
+      if (nextMarker != null) 'NextMarker': nextMarker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListXssMatchSetsResponse.fromJson(response_);
   }
 
   /// Associates a LoggingConfiguration with a specified web ACL.
@@ -1444,7 +1682,10 @@ class WafApi {
   /// Resource Name (ARN) of the web ACL to monitor.
   Future<PutLoggingConfigurationResponse> putLoggingConfiguration(
       LoggingConfiguration loggingConfiguration) async {
-    return PutLoggingConfigurationResponse.fromJson({});
+    var response_ = await _client.send('PutLoggingConfiguration', {
+      'LoggingConfiguration': loggingConfiguration,
+    });
+    return PutLoggingConfigurationResponse.fromJson(response_);
   }
 
   /// Attaches a IAM policy to the specified resource. The only supported use
@@ -1486,17 +1727,29 @@ class WafApi {
   /// [policy]: The policy to attach to the specified RuleGroup.
   Future<PutPermissionPolicyResponse> putPermissionPolicy(
       {@required String resourceArn, @required String policy}) async {
-    return PutPermissionPolicyResponse.fromJson({});
+    var response_ = await _client.send('PutPermissionPolicy', {
+      'ResourceArn': resourceArn,
+      'Policy': policy,
+    });
+    return PutPermissionPolicyResponse.fromJson(response_);
   }
 
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceARN': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceARN': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Inserts or deletes ByteMatchTuple objects (filters) in a ByteMatchSet. For
@@ -1561,7 +1814,12 @@ class WafApi {
       {@required String byteMatchSetId,
       @required String changeToken,
       @required List<ByteMatchSetUpdate> updates}) async {
-    return UpdateByteMatchSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateByteMatchSet', {
+      'ByteMatchSetId': byteMatchSetId,
+      'ChangeToken': changeToken,
+      'Updates': updates,
+    });
+    return UpdateByteMatchSetResponse.fromJson(response_);
   }
 
   /// Inserts or deletes GeoMatchConstraint objects in an `GeoMatchSet`. For
@@ -1619,7 +1877,12 @@ class WafApi {
       {@required String geoMatchSetId,
       @required String changeToken,
       @required List<GeoMatchSetUpdate> updates}) async {
-    return UpdateGeoMatchSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateGeoMatchSet', {
+      'GeoMatchSetId': geoMatchSetId,
+      'ChangeToken': changeToken,
+      'Updates': updates,
+    });
+    return UpdateGeoMatchSetResponse.fromJson(response_);
   }
 
   /// Inserts or deletes IPSetDescriptor objects in an `IPSet`. For each
@@ -1700,7 +1963,12 @@ class WafApi {
       {@required String ipSetId,
       @required String changeToken,
       @required List<IPSetUpdate> updates}) async {
-    return UpdateIPSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateIPSet', {
+      'IPSetId': ipSetId,
+      'ChangeToken': changeToken,
+      'Updates': updates,
+    });
+    return UpdateIPSetResponse.fromJson(response_);
   }
 
   /// Inserts or deletes Predicate objects in a rule and updates the `RateLimit`
@@ -1765,7 +2033,13 @@ class WafApi {
       @required String changeToken,
       @required List<RuleUpdate> updates,
       @required BigInt rateLimit}) async {
-    return UpdateRateBasedRuleResponse.fromJson({});
+    var response_ = await _client.send('UpdateRateBasedRule', {
+      'RuleId': ruleId,
+      'ChangeToken': changeToken,
+      'Updates': updates,
+      'RateLimit': rateLimit,
+    });
+    return UpdateRateBasedRuleResponse.fromJson(response_);
   }
 
   /// Inserts or deletes RegexMatchTuple objects (filters) in a RegexMatchSet.
@@ -1821,7 +2095,12 @@ class WafApi {
       {@required String regexMatchSetId,
       @required List<RegexMatchSetUpdate> updates,
       @required String changeToken}) async {
-    return UpdateRegexMatchSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateRegexMatchSet', {
+      'RegexMatchSetId': regexMatchSetId,
+      'Updates': updates,
+      'ChangeToken': changeToken,
+    });
+    return UpdateRegexMatchSetResponse.fromJson(response_);
   }
 
   /// Inserts or deletes `RegexPatternString` objects in a RegexPatternSet. For
@@ -1874,7 +2153,12 @@ class WafApi {
       {@required String regexPatternSetId,
       @required List<RegexPatternSetUpdate> updates,
       @required String changeToken}) async {
-    return UpdateRegexPatternSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateRegexPatternSet', {
+      'RegexPatternSetId': regexPatternSetId,
+      'Updates': updates,
+      'ChangeToken': changeToken,
+    });
+    return UpdateRegexPatternSetResponse.fromJson(response_);
   }
 
   /// Inserts or deletes Predicate objects in a `Rule`. Each `Predicate` object
@@ -1937,7 +2221,12 @@ class WafApi {
       {@required String ruleId,
       @required String changeToken,
       @required List<RuleUpdate> updates}) async {
-    return UpdateRuleResponse.fromJson({});
+    var response_ = await _client.send('UpdateRule', {
+      'RuleId': ruleId,
+      'ChangeToken': changeToken,
+      'Updates': updates,
+    });
+    return UpdateRuleResponse.fromJson(response_);
   }
 
   /// Inserts or deletes ActivatedRule objects in a `RuleGroup`.
@@ -1986,7 +2275,12 @@ class WafApi {
       {@required String ruleGroupId,
       @required List<RuleGroupUpdate> updates,
       @required String changeToken}) async {
-    return UpdateRuleGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateRuleGroup', {
+      'RuleGroupId': ruleGroupId,
+      'Updates': updates,
+      'ChangeToken': changeToken,
+    });
+    return UpdateRuleGroupResponse.fromJson(response_);
   }
 
   /// Inserts or deletes SizeConstraint objects (filters) in a
@@ -2059,7 +2353,12 @@ class WafApi {
       {@required String sizeConstraintSetId,
       @required String changeToken,
       @required List<SizeConstraintSetUpdate> updates}) async {
-    return UpdateSizeConstraintSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateSizeConstraintSet', {
+      'SizeConstraintSetId': sizeConstraintSetId,
+      'ChangeToken': changeToken,
+      'Updates': updates,
+    });
+    return UpdateSizeConstraintSetResponse.fromJson(response_);
   }
 
   /// Inserts or deletes SqlInjectionMatchTuple objects (filters) in a
@@ -2127,7 +2426,12 @@ class WafApi {
       {@required String sqlInjectionMatchSetId,
       @required String changeToken,
       @required List<SqlInjectionMatchSetUpdate> updates}) async {
-    return UpdateSqlInjectionMatchSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateSqlInjectionMatchSet', {
+      'SqlInjectionMatchSetId': sqlInjectionMatchSetId,
+      'ChangeToken': changeToken,
+      'Updates': updates,
+    });
+    return UpdateSqlInjectionMatchSetResponse.fromJson(response_);
   }
 
   /// Inserts or deletes ActivatedRule objects in a `WebACL`. Each `Rule`
@@ -2222,7 +2526,13 @@ class WafApi {
       @required String changeToken,
       List<WebAclUpdate> updates,
       WafAction defaultAction}) async {
-    return UpdateWebAclResponse.fromJson({});
+    var response_ = await _client.send('UpdateWebACL', {
+      'WebACLId': webAclId,
+      'ChangeToken': changeToken,
+      if (updates != null) 'Updates': updates,
+      if (defaultAction != null) 'DefaultAction': defaultAction,
+    });
+    return UpdateWebAclResponse.fromJson(response_);
   }
 
   /// Inserts or deletes XssMatchTuple objects (filters) in an XssMatchSet. For
@@ -2285,7 +2595,12 @@ class WafApi {
       {@required String xssMatchSetId,
       @required String changeToken,
       @required List<XssMatchSetUpdate> updates}) async {
-    return UpdateXssMatchSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateXssMatchSet', {
+      'XssMatchSetId': xssMatchSetId,
+      'ChangeToken': changeToken,
+      'Updates': updates,
+    });
+    return UpdateXssMatchSetResponse.fromJson(response_);
   }
 }
 
@@ -2400,7 +2715,23 @@ class ActivatedRule {
     this.type,
     this.excludedRules,
   });
-  static ActivatedRule fromJson(Map<String, dynamic> json) => ActivatedRule();
+  static ActivatedRule fromJson(Map<String, dynamic> json) => ActivatedRule(
+        priority: json['Priority'] as int,
+        ruleId: json['RuleId'] as String,
+        action: json.containsKey('Action')
+            ? WafAction.fromJson(json['Action'])
+            : null,
+        overrideAction: json.containsKey('OverrideAction')
+            ? WafOverrideAction.fromJson(json['OverrideAction'])
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        excludedRules: json.containsKey('ExcludedRules')
+            ? (json['ExcludedRules'] as List)
+                .map((e) => ExcludedRule.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// In a GetByteMatchSet request, `ByteMatchSet` is a complex type that contains
@@ -2437,7 +2768,13 @@ class ByteMatchSet {
     this.name,
     @required this.byteMatchTuples,
   });
-  static ByteMatchSet fromJson(Map<String, dynamic> json) => ByteMatchSet();
+  static ByteMatchSet fromJson(Map<String, dynamic> json) => ByteMatchSet(
+        byteMatchSetId: json['ByteMatchSetId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        byteMatchTuples: (json['ByteMatchTuples'] as List)
+            .map((e) => ByteMatchTuple.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Returned by ListByteMatchSets. Each `ByteMatchSetSummary` object includes
@@ -2460,7 +2797,10 @@ class ByteMatchSetSummary {
     @required this.name,
   });
   static ByteMatchSetSummary fromJson(Map<String, dynamic> json) =>
-      ByteMatchSetSummary();
+      ByteMatchSetSummary(
+        byteMatchSetId: json['ByteMatchSetId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// In an UpdateByteMatchSet request, `ByteMatchSetUpdate` specifies whether to
@@ -2481,6 +2821,7 @@ class ByteMatchSetUpdate {
     @required this.action,
     @required this.byteMatchTuple,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The bytes (typically a string that corresponds with ASCII characters) that
@@ -2682,7 +3023,13 @@ class ByteMatchTuple {
     @required this.textTransformation,
     @required this.positionalConstraint,
   });
-  static ByteMatchTuple fromJson(Map<String, dynamic> json) => ByteMatchTuple();
+  static ByteMatchTuple fromJson(Map<String, dynamic> json) => ByteMatchTuple(
+        fieldToMatch: FieldToMatch.fromJson(json['FieldToMatch']),
+        targetString: Uint8List(json['TargetString']),
+        textTransformation: json['TextTransformation'] as String,
+        positionalConstraint: json['PositionalConstraint'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateByteMatchSetResponse {
@@ -2699,7 +3046,14 @@ class CreateByteMatchSetResponse {
     this.changeToken,
   });
   static CreateByteMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateByteMatchSetResponse();
+      CreateByteMatchSetResponse(
+        byteMatchSet: json.containsKey('ByteMatchSet')
+            ? ByteMatchSet.fromJson(json['ByteMatchSet'])
+            : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class CreateGeoMatchSetResponse {
@@ -2717,7 +3071,14 @@ class CreateGeoMatchSetResponse {
     this.changeToken,
   });
   static CreateGeoMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateGeoMatchSetResponse();
+      CreateGeoMatchSetResponse(
+        geoMatchSet: json.containsKey('GeoMatchSet')
+            ? GeoMatchSet.fromJson(json['GeoMatchSet'])
+            : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class CreateIPSetResponse {
@@ -2734,7 +3095,12 @@ class CreateIPSetResponse {
     this.changeToken,
   });
   static CreateIPSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateIPSetResponse();
+      CreateIPSetResponse(
+        ipSet: json.containsKey('IPSet') ? IPSet.fromJson(json['IPSet']) : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class CreateRateBasedRuleResponse {
@@ -2751,7 +3117,14 @@ class CreateRateBasedRuleResponse {
     this.changeToken,
   });
   static CreateRateBasedRuleResponse fromJson(Map<String, dynamic> json) =>
-      CreateRateBasedRuleResponse();
+      CreateRateBasedRuleResponse(
+        rule: json.containsKey('Rule')
+            ? RateBasedRule.fromJson(json['Rule'])
+            : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class CreateRegexMatchSetResponse {
@@ -2768,7 +3141,14 @@ class CreateRegexMatchSetResponse {
     this.changeToken,
   });
   static CreateRegexMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateRegexMatchSetResponse();
+      CreateRegexMatchSetResponse(
+        regexMatchSet: json.containsKey('RegexMatchSet')
+            ? RegexMatchSet.fromJson(json['RegexMatchSet'])
+            : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class CreateRegexPatternSetResponse {
@@ -2785,7 +3165,14 @@ class CreateRegexPatternSetResponse {
     this.changeToken,
   });
   static CreateRegexPatternSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateRegexPatternSetResponse();
+      CreateRegexPatternSetResponse(
+        regexPatternSet: json.containsKey('RegexPatternSet')
+            ? RegexPatternSet.fromJson(json['RegexPatternSet'])
+            : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class CreateRuleGroupResponse {
@@ -2802,7 +3189,14 @@ class CreateRuleGroupResponse {
     this.changeToken,
   });
   static CreateRuleGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateRuleGroupResponse();
+      CreateRuleGroupResponse(
+        ruleGroup: json.containsKey('RuleGroup')
+            ? RuleGroup.fromJson(json['RuleGroup'])
+            : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class CreateRuleResponse {
@@ -2819,7 +3213,12 @@ class CreateRuleResponse {
     this.changeToken,
   });
   static CreateRuleResponse fromJson(Map<String, dynamic> json) =>
-      CreateRuleResponse();
+      CreateRuleResponse(
+        rule: json.containsKey('Rule') ? Rule.fromJson(json['Rule']) : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class CreateSizeConstraintSetResponse {
@@ -2836,7 +3235,14 @@ class CreateSizeConstraintSetResponse {
     this.changeToken,
   });
   static CreateSizeConstraintSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateSizeConstraintSetResponse();
+      CreateSizeConstraintSetResponse(
+        sizeConstraintSet: json.containsKey('SizeConstraintSet')
+            ? SizeConstraintSet.fromJson(json['SizeConstraintSet'])
+            : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 /// The response to a `CreateSqlInjectionMatchSet` request.
@@ -2855,7 +3261,14 @@ class CreateSqlInjectionMatchSetResponse {
   });
   static CreateSqlInjectionMatchSetResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateSqlInjectionMatchSetResponse();
+      CreateSqlInjectionMatchSetResponse(
+        sqlInjectionMatchSet: json.containsKey('SqlInjectionMatchSet')
+            ? SqlInjectionMatchSet.fromJson(json['SqlInjectionMatchSet'])
+            : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class CreateWebAclResponse {
@@ -2872,7 +3285,13 @@ class CreateWebAclResponse {
     this.changeToken,
   });
   static CreateWebAclResponse fromJson(Map<String, dynamic> json) =>
-      CreateWebAclResponse();
+      CreateWebAclResponse(
+        webAcl:
+            json.containsKey('WebACL') ? WebAcl.fromJson(json['WebACL']) : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 /// The response to a `CreateXssMatchSet` request.
@@ -2890,7 +3309,14 @@ class CreateXssMatchSetResponse {
     this.changeToken,
   });
   static CreateXssMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateXssMatchSetResponse();
+      CreateXssMatchSetResponse(
+        xssMatchSet: json.containsKey('XssMatchSet')
+            ? XssMatchSet.fromJson(json['XssMatchSet'])
+            : null,
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteByteMatchSetResponse {
@@ -2903,7 +3329,11 @@ class DeleteByteMatchSetResponse {
     this.changeToken,
   });
   static DeleteByteMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteByteMatchSetResponse();
+      DeleteByteMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteGeoMatchSetResponse {
@@ -2916,7 +3346,11 @@ class DeleteGeoMatchSetResponse {
     this.changeToken,
   });
   static DeleteGeoMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteGeoMatchSetResponse();
+      DeleteGeoMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteIPSetResponse {
@@ -2929,7 +3363,11 @@ class DeleteIPSetResponse {
     this.changeToken,
   });
   static DeleteIPSetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteIPSetResponse();
+      DeleteIPSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteLoggingConfigurationResponse {
@@ -2955,7 +3393,11 @@ class DeleteRateBasedRuleResponse {
     this.changeToken,
   });
   static DeleteRateBasedRuleResponse fromJson(Map<String, dynamic> json) =>
-      DeleteRateBasedRuleResponse();
+      DeleteRateBasedRuleResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteRegexMatchSetResponse {
@@ -2968,7 +3410,11 @@ class DeleteRegexMatchSetResponse {
     this.changeToken,
   });
   static DeleteRegexMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteRegexMatchSetResponse();
+      DeleteRegexMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteRegexPatternSetResponse {
@@ -2981,7 +3427,11 @@ class DeleteRegexPatternSetResponse {
     this.changeToken,
   });
   static DeleteRegexPatternSetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteRegexPatternSetResponse();
+      DeleteRegexPatternSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteRuleGroupResponse {
@@ -2994,7 +3444,11 @@ class DeleteRuleGroupResponse {
     this.changeToken,
   });
   static DeleteRuleGroupResponse fromJson(Map<String, dynamic> json) =>
-      DeleteRuleGroupResponse();
+      DeleteRuleGroupResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteRuleResponse {
@@ -3007,7 +3461,11 @@ class DeleteRuleResponse {
     this.changeToken,
   });
   static DeleteRuleResponse fromJson(Map<String, dynamic> json) =>
-      DeleteRuleResponse();
+      DeleteRuleResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteSizeConstraintSetResponse {
@@ -3020,7 +3478,11 @@ class DeleteSizeConstraintSetResponse {
     this.changeToken,
   });
   static DeleteSizeConstraintSetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteSizeConstraintSetResponse();
+      DeleteSizeConstraintSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 /// The response to a request to delete a SqlInjectionMatchSet from AWS WAF.
@@ -3035,7 +3497,11 @@ class DeleteSqlInjectionMatchSetResponse {
   });
   static DeleteSqlInjectionMatchSetResponse fromJson(
           Map<String, dynamic> json) =>
-      DeleteSqlInjectionMatchSetResponse();
+      DeleteSqlInjectionMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class DeleteWebAclResponse {
@@ -3048,7 +3514,11 @@ class DeleteWebAclResponse {
     this.changeToken,
   });
   static DeleteWebAclResponse fromJson(Map<String, dynamic> json) =>
-      DeleteWebAclResponse();
+      DeleteWebAclResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 /// The response to a request to delete an XssMatchSet from AWS WAF.
@@ -3062,7 +3532,11 @@ class DeleteXssMatchSetResponse {
     this.changeToken,
   });
   static DeleteXssMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteXssMatchSetResponse();
+      DeleteXssMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 /// The rule to exclude from a rule group. This is applicable only when the
@@ -3075,7 +3549,10 @@ class ExcludedRule {
   ExcludedRule({
     @required this.ruleId,
   });
-  static ExcludedRule fromJson(Map<String, dynamic> json) => ExcludedRule();
+  static ExcludedRule fromJson(Map<String, dynamic> json) => ExcludedRule(
+        ruleId: json['RuleId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies where in a web request to look for `TargetString`.
@@ -3132,7 +3609,11 @@ class FieldToMatch {
     @required this.type,
     this.data,
   });
-  static FieldToMatch fromJson(Map<String, dynamic> json) => FieldToMatch();
+  static FieldToMatch fromJson(Map<String, dynamic> json) => FieldToMatch(
+        type: json['Type'] as String,
+        data: json.containsKey('Data') ? json['Data'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The country from which web requests originate that you want AWS WAF to
@@ -3150,7 +3631,11 @@ class GeoMatchConstraint {
     @required this.value,
   });
   static GeoMatchConstraint fromJson(Map<String, dynamic> json) =>
-      GeoMatchConstraint();
+      GeoMatchConstraint(
+        type: json['Type'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains one or more countries that AWS WAF will search for.
@@ -3177,7 +3662,13 @@ class GeoMatchSet {
     this.name,
     @required this.geoMatchConstraints,
   });
-  static GeoMatchSet fromJson(Map<String, dynamic> json) => GeoMatchSet();
+  static GeoMatchSet fromJson(Map<String, dynamic> json) => GeoMatchSet(
+        geoMatchSetId: json['GeoMatchSetId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        geoMatchConstraints: (json['GeoMatchConstraints'] as List)
+            .map((e) => GeoMatchConstraint.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Contains the identifier and the name of the `GeoMatchSet`.
@@ -3195,7 +3686,10 @@ class GeoMatchSetSummary {
     @required this.name,
   });
   static GeoMatchSetSummary fromJson(Map<String, dynamic> json) =>
-      GeoMatchSetSummary();
+      GeoMatchSetSummary(
+        geoMatchSetId: json['GeoMatchSetId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// Specifies the type of update to perform to an GeoMatchSet with
@@ -3212,6 +3706,7 @@ class GeoMatchSetUpdate {
     @required this.action,
     @required this.geoMatchConstraint,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetByteMatchSetResponse {
@@ -3232,7 +3727,11 @@ class GetByteMatchSetResponse {
     this.byteMatchSet,
   });
   static GetByteMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      GetByteMatchSetResponse();
+      GetByteMatchSetResponse(
+        byteMatchSet: json.containsKey('ByteMatchSet')
+            ? ByteMatchSet.fromJson(json['ByteMatchSet'])
+            : null,
+      );
 }
 
 class GetChangeTokenResponse {
@@ -3244,7 +3743,11 @@ class GetChangeTokenResponse {
     this.changeToken,
   });
   static GetChangeTokenResponse fromJson(Map<String, dynamic> json) =>
-      GetChangeTokenResponse();
+      GetChangeTokenResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class GetChangeTokenStatusResponse {
@@ -3255,7 +3758,11 @@ class GetChangeTokenStatusResponse {
     this.changeTokenStatus,
   });
   static GetChangeTokenStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetChangeTokenStatusResponse();
+      GetChangeTokenStatusResponse(
+        changeTokenStatus: json.containsKey('ChangeTokenStatus')
+            ? json['ChangeTokenStatus'] as String
+            : null,
+      );
 }
 
 class GetGeoMatchSetResponse {
@@ -3269,7 +3776,11 @@ class GetGeoMatchSetResponse {
     this.geoMatchSet,
   });
   static GetGeoMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      GetGeoMatchSetResponse();
+      GetGeoMatchSetResponse(
+        geoMatchSet: json.containsKey('GeoMatchSet')
+            ? GeoMatchSet.fromJson(json['GeoMatchSet'])
+            : null,
+      );
 }
 
 class GetIPSetResponse {
@@ -3286,7 +3797,9 @@ class GetIPSetResponse {
     this.ipSet,
   });
   static GetIPSetResponse fromJson(Map<String, dynamic> json) =>
-      GetIPSetResponse();
+      GetIPSetResponse(
+        ipSet: json.containsKey('IPSet') ? IPSet.fromJson(json['IPSet']) : null,
+      );
 }
 
 class GetLoggingConfigurationResponse {
@@ -3297,7 +3810,11 @@ class GetLoggingConfigurationResponse {
     this.loggingConfiguration,
   });
   static GetLoggingConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      GetLoggingConfigurationResponse();
+      GetLoggingConfigurationResponse(
+        loggingConfiguration: json.containsKey('LoggingConfiguration')
+            ? LoggingConfiguration.fromJson(json['LoggingConfiguration'])
+            : null,
+      );
 }
 
 class GetPermissionPolicyResponse {
@@ -3308,7 +3825,9 @@ class GetPermissionPolicyResponse {
     this.policy,
   });
   static GetPermissionPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetPermissionPolicyResponse();
+      GetPermissionPolicyResponse(
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+      );
 }
 
 class GetRateBasedRuleManagedKeysResponse {
@@ -3325,7 +3844,14 @@ class GetRateBasedRuleManagedKeysResponse {
   });
   static GetRateBasedRuleManagedKeysResponse fromJson(
           Map<String, dynamic> json) =>
-      GetRateBasedRuleManagedKeysResponse();
+      GetRateBasedRuleManagedKeysResponse(
+        managedKeys: json.containsKey('ManagedKeys')
+            ? (json['ManagedKeys'] as List).map((e) => e as String).toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class GetRateBasedRuleResponse {
@@ -3337,7 +3863,11 @@ class GetRateBasedRuleResponse {
     this.rule,
   });
   static GetRateBasedRuleResponse fromJson(Map<String, dynamic> json) =>
-      GetRateBasedRuleResponse();
+      GetRateBasedRuleResponse(
+        rule: json.containsKey('Rule')
+            ? RateBasedRule.fromJson(json['Rule'])
+            : null,
+      );
 }
 
 class GetRegexMatchSetResponse {
@@ -3349,7 +3879,11 @@ class GetRegexMatchSetResponse {
     this.regexMatchSet,
   });
   static GetRegexMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      GetRegexMatchSetResponse();
+      GetRegexMatchSetResponse(
+        regexMatchSet: json.containsKey('RegexMatchSet')
+            ? RegexMatchSet.fromJson(json['RegexMatchSet'])
+            : null,
+      );
 }
 
 class GetRegexPatternSetResponse {
@@ -3362,7 +3896,11 @@ class GetRegexPatternSetResponse {
     this.regexPatternSet,
   });
   static GetRegexPatternSetResponse fromJson(Map<String, dynamic> json) =>
-      GetRegexPatternSetResponse();
+      GetRegexPatternSetResponse(
+        regexPatternSet: json.containsKey('RegexPatternSet')
+            ? RegexPatternSet.fromJson(json['RegexPatternSet'])
+            : null,
+      );
 }
 
 class GetRuleGroupResponse {
@@ -3374,7 +3912,11 @@ class GetRuleGroupResponse {
     this.ruleGroup,
   });
   static GetRuleGroupResponse fromJson(Map<String, dynamic> json) =>
-      GetRuleGroupResponse();
+      GetRuleGroupResponse(
+        ruleGroup: json.containsKey('RuleGroup')
+            ? RuleGroup.fromJson(json['RuleGroup'])
+            : null,
+      );
 }
 
 class GetRuleResponse {
@@ -3391,8 +3933,9 @@ class GetRuleResponse {
   GetRuleResponse({
     this.rule,
   });
-  static GetRuleResponse fromJson(Map<String, dynamic> json) =>
-      GetRuleResponse();
+  static GetRuleResponse fromJson(Map<String, dynamic> json) => GetRuleResponse(
+        rule: json.containsKey('Rule') ? Rule.fromJson(json['Rule']) : null,
+      );
 }
 
 class GetSampledRequestsResponse {
@@ -3419,7 +3962,19 @@ class GetSampledRequestsResponse {
     this.timeWindow,
   });
   static GetSampledRequestsResponse fromJson(Map<String, dynamic> json) =>
-      GetSampledRequestsResponse();
+      GetSampledRequestsResponse(
+        sampledRequests: json.containsKey('SampledRequests')
+            ? (json['SampledRequests'] as List)
+                .map((e) => SampledHttpRequest.fromJson(e))
+                .toList()
+            : null,
+        populationSize: json.containsKey('PopulationSize')
+            ? BigInt.from(json['PopulationSize'])
+            : null,
+        timeWindow: json.containsKey('TimeWindow')
+            ? TimeWindow.fromJson(json['TimeWindow'])
+            : null,
+      );
 }
 
 class GetSizeConstraintSetResponse {
@@ -3441,7 +3996,11 @@ class GetSizeConstraintSetResponse {
     this.sizeConstraintSet,
   });
   static GetSizeConstraintSetResponse fromJson(Map<String, dynamic> json) =>
-      GetSizeConstraintSetResponse();
+      GetSizeConstraintSetResponse(
+        sizeConstraintSet: json.containsKey('SizeConstraintSet')
+            ? SizeConstraintSet.fromJson(json['SizeConstraintSet'])
+            : null,
+      );
 }
 
 /// The response to a GetSqlInjectionMatchSet request.
@@ -3463,7 +4022,11 @@ class GetSqlInjectionMatchSetResponse {
     this.sqlInjectionMatchSet,
   });
   static GetSqlInjectionMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      GetSqlInjectionMatchSetResponse();
+      GetSqlInjectionMatchSetResponse(
+        sqlInjectionMatchSet: json.containsKey('SqlInjectionMatchSet')
+            ? SqlInjectionMatchSet.fromJson(json['SqlInjectionMatchSet'])
+            : null,
+      );
 }
 
 class GetWebAclResponse {
@@ -3485,7 +4048,10 @@ class GetWebAclResponse {
     this.webAcl,
   });
   static GetWebAclResponse fromJson(Map<String, dynamic> json) =>
-      GetWebAclResponse();
+      GetWebAclResponse(
+        webAcl:
+            json.containsKey('WebACL') ? WebAcl.fromJson(json['WebACL']) : null,
+      );
 }
 
 /// The response to a GetXssMatchSet request.
@@ -3506,7 +4072,11 @@ class GetXssMatchSetResponse {
     this.xssMatchSet,
   });
   static GetXssMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      GetXssMatchSetResponse();
+      GetXssMatchSetResponse(
+        xssMatchSet: json.containsKey('XssMatchSet')
+            ? XssMatchSet.fromJson(json['XssMatchSet'])
+            : null,
+      );
 }
 
 /// The response from a GetSampledRequests request includes an `HTTPHeader`
@@ -3524,7 +4094,10 @@ class HttpHeader {
     this.name,
     this.value,
   });
-  static HttpHeader fromJson(Map<String, dynamic> json) => HttpHeader();
+  static HttpHeader fromJson(Map<String, dynamic> json) => HttpHeader(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// The response from a GetSampledRequests request includes an `HTTPRequest`
@@ -3573,7 +4146,21 @@ class HttpRequest {
     this.httpVersion,
     this.headers,
   });
-  static HttpRequest fromJson(Map<String, dynamic> json) => HttpRequest();
+  static HttpRequest fromJson(Map<String, dynamic> json) => HttpRequest(
+        clientIP:
+            json.containsKey('ClientIP') ? json['ClientIP'] as String : null,
+        country: json.containsKey('Country') ? json['Country'] as String : null,
+        uri: json.containsKey('URI') ? json['URI'] as String : null,
+        method: json.containsKey('Method') ? json['Method'] as String : null,
+        httpVersion: json.containsKey('HTTPVersion')
+            ? json['HTTPVersion'] as String
+            : null,
+        headers: json.containsKey('Headers')
+            ? (json['Headers'] as List)
+                .map((e) => HttpHeader.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains one or more IP addresses or blocks of IP addresses specified in
@@ -3612,7 +4199,13 @@ class IPSet {
     this.name,
     @required this.ipSetDescriptors,
   });
-  static IPSet fromJson(Map<String, dynamic> json) => IPSet();
+  static IPSet fromJson(Map<String, dynamic> json) => IPSet(
+        ipSetId: json['IPSetId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        ipSetDescriptors: (json['IPSetDescriptors'] as List)
+            .map((e) => IPSetDescriptor.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Specifies the IP address type (`IPV4` or `IPV6`) and the IP address range
@@ -3650,8 +4243,11 @@ class IPSetDescriptor {
     @required this.type,
     @required this.value,
   });
-  static IPSetDescriptor fromJson(Map<String, dynamic> json) =>
-      IPSetDescriptor();
+  static IPSetDescriptor fromJson(Map<String, dynamic> json) => IPSetDescriptor(
+        type: json['Type'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the identifier and the name of the `IPSet`.
@@ -3668,7 +4264,10 @@ class IPSetSummary {
     @required this.ipSetId,
     @required this.name,
   });
-  static IPSetSummary fromJson(Map<String, dynamic> json) => IPSetSummary();
+  static IPSetSummary fromJson(Map<String, dynamic> json) => IPSetSummary(
+        ipSetId: json['IPSetId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// Specifies the type of update to perform to an IPSet with UpdateIPSet.
@@ -3684,6 +4283,7 @@ class IPSetUpdate {
     @required this.action,
     @required this.ipSetDescriptor,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListActivatedRulesInRuleGroupResponse {
@@ -3703,7 +4303,16 @@ class ListActivatedRulesInRuleGroupResponse {
   });
   static ListActivatedRulesInRuleGroupResponse fromJson(
           Map<String, dynamic> json) =>
-      ListActivatedRulesInRuleGroupResponse();
+      ListActivatedRulesInRuleGroupResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        activatedRules: json.containsKey('ActivatedRules')
+            ? (json['ActivatedRules'] as List)
+                .map((e) => ActivatedRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListByteMatchSetsResponse {
@@ -3722,7 +4331,16 @@ class ListByteMatchSetsResponse {
     this.byteMatchSets,
   });
   static ListByteMatchSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListByteMatchSetsResponse();
+      ListByteMatchSetsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        byteMatchSets: json.containsKey('ByteMatchSets')
+            ? (json['ByteMatchSets'] as List)
+                .map((e) => ByteMatchSetSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListGeoMatchSetsResponse {
@@ -3741,7 +4359,16 @@ class ListGeoMatchSetsResponse {
     this.geoMatchSets,
   });
   static ListGeoMatchSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListGeoMatchSetsResponse();
+      ListGeoMatchSetsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        geoMatchSets: json.containsKey('GeoMatchSets')
+            ? (json['GeoMatchSets'] as List)
+                .map((e) => GeoMatchSetSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListIPSetsResponse {
@@ -3760,7 +4387,16 @@ class ListIPSetsResponse {
     this.ipSets,
   });
   static ListIPSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListIPSetsResponse();
+      ListIPSetsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        ipSets: json.containsKey('IPSets')
+            ? (json['IPSets'] as List)
+                .map((e) => IPSetSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListLoggingConfigurationsResponse {
@@ -3780,7 +4416,16 @@ class ListLoggingConfigurationsResponse {
   });
   static ListLoggingConfigurationsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListLoggingConfigurationsResponse();
+      ListLoggingConfigurationsResponse(
+        loggingConfigurations: json.containsKey('LoggingConfigurations')
+            ? (json['LoggingConfigurations'] as List)
+                .map((e) => LoggingConfiguration.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class ListRateBasedRulesResponse {
@@ -3799,7 +4444,16 @@ class ListRateBasedRulesResponse {
     this.rules,
   });
   static ListRateBasedRulesResponse fromJson(Map<String, dynamic> json) =>
-      ListRateBasedRulesResponse();
+      ListRateBasedRulesResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List)
+                .map((e) => RuleSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListRegexMatchSetsResponse {
@@ -3818,7 +4472,16 @@ class ListRegexMatchSetsResponse {
     this.regexMatchSets,
   });
   static ListRegexMatchSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListRegexMatchSetsResponse();
+      ListRegexMatchSetsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        regexMatchSets: json.containsKey('RegexMatchSets')
+            ? (json['RegexMatchSets'] as List)
+                .map((e) => RegexMatchSetSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListRegexPatternSetsResponse {
@@ -3837,7 +4500,16 @@ class ListRegexPatternSetsResponse {
     this.regexPatternSets,
   });
   static ListRegexPatternSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListRegexPatternSetsResponse();
+      ListRegexPatternSetsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        regexPatternSets: json.containsKey('RegexPatternSets')
+            ? (json['RegexPatternSets'] as List)
+                .map((e) => RegexPatternSetSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListRuleGroupsResponse {
@@ -3856,7 +4528,16 @@ class ListRuleGroupsResponse {
     this.ruleGroups,
   });
   static ListRuleGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListRuleGroupsResponse();
+      ListRuleGroupsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        ruleGroups: json.containsKey('RuleGroups')
+            ? (json['RuleGroups'] as List)
+                .map((e) => RuleGroupSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListRulesResponse {
@@ -3874,7 +4555,16 @@ class ListRulesResponse {
     this.rules,
   });
   static ListRulesResponse fromJson(Map<String, dynamic> json) =>
-      ListRulesResponse();
+      ListRulesResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List)
+                .map((e) => RuleSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListSizeConstraintSetsResponse {
@@ -3893,7 +4583,16 @@ class ListSizeConstraintSetsResponse {
     this.sizeConstraintSets,
   });
   static ListSizeConstraintSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListSizeConstraintSetsResponse();
+      ListSizeConstraintSetsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        sizeConstraintSets: json.containsKey('SizeConstraintSets')
+            ? (json['SizeConstraintSets'] as List)
+                .map((e) => SizeConstraintSetSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The response to a ListSqlInjectionMatchSets request.
@@ -3914,7 +4613,16 @@ class ListSqlInjectionMatchSetsResponse {
   });
   static ListSqlInjectionMatchSetsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListSqlInjectionMatchSetsResponse();
+      ListSqlInjectionMatchSetsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        sqlInjectionMatchSets: json.containsKey('SqlInjectionMatchSets')
+            ? (json['SqlInjectionMatchSets'] as List)
+                .map((e) => SqlInjectionMatchSetSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListSubscribedRuleGroupsResponse {
@@ -3933,7 +4641,16 @@ class ListSubscribedRuleGroupsResponse {
     this.ruleGroups,
   });
   static ListSubscribedRuleGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListSubscribedRuleGroupsResponse();
+      ListSubscribedRuleGroupsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        ruleGroups: json.containsKey('RuleGroups')
+            ? (json['RuleGroups'] as List)
+                .map((e) => SubscribedRuleGroupSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -3946,7 +4663,14 @@ class ListTagsForResourceResponse {
     this.tagInfoForResource,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        tagInfoForResource: json.containsKey('TagInfoForResource')
+            ? TagInfoForResource.fromJson(json['TagInfoForResource'])
+            : null,
+      );
 }
 
 class ListWebACLsResponse {
@@ -3965,7 +4689,16 @@ class ListWebACLsResponse {
     this.webACLs,
   });
   static ListWebACLsResponse fromJson(Map<String, dynamic> json) =>
-      ListWebACLsResponse();
+      ListWebACLsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        webACLs: json.containsKey('WebACLs')
+            ? (json['WebACLs'] as List)
+                .map((e) => WebAclSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The response to a ListXssMatchSets request.
@@ -3985,7 +4718,16 @@ class ListXssMatchSetsResponse {
     this.xssMatchSets,
   });
   static ListXssMatchSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListXssMatchSetsResponse();
+      ListXssMatchSetsResponse(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        xssMatchSets: json.containsKey('XssMatchSets')
+            ? (json['XssMatchSets'] as List)
+                .map((e) => XssMatchSetSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The Amazon Kinesis Data Firehose, `RedactedFields` information, and the web
@@ -4009,7 +4751,18 @@ class LoggingConfiguration {
     this.redactedFields,
   });
   static LoggingConfiguration fromJson(Map<String, dynamic> json) =>
-      LoggingConfiguration();
+      LoggingConfiguration(
+        resourceArn: json['ResourceArn'] as String,
+        logDestinationConfigs: (json['LogDestinationConfigs'] as List)
+            .map((e) => e as String)
+            .toList(),
+        redactedFields: json.containsKey('RedactedFields')
+            ? (json['RedactedFields'] as List)
+                .map((e) => FieldToMatch.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the ByteMatchSet, IPSet, SqlInjectionMatchSet, XssMatchSet,
@@ -4046,7 +4799,12 @@ class Predicate {
     @required this.type,
     @required this.dataId,
   });
-  static Predicate fromJson(Map<String, dynamic> json) => Predicate();
+  static Predicate fromJson(Map<String, dynamic> json) => Predicate(
+        negated: json['Negated'] as bool,
+        type: json['Type'] as String,
+        dataId: json['DataId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutLoggingConfigurationResponse {
@@ -4057,7 +4815,11 @@ class PutLoggingConfigurationResponse {
     this.loggingConfiguration,
   });
   static PutLoggingConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      PutLoggingConfigurationResponse();
+      PutLoggingConfigurationResponse(
+        loggingConfiguration: json.containsKey('LoggingConfiguration')
+            ? LoggingConfiguration.fromJson(json['LoggingConfiguration'])
+            : null,
+      );
 }
 
 class PutPermissionPolicyResponse {
@@ -4129,7 +4891,18 @@ class RateBasedRule {
     @required this.rateKey,
     @required this.rateLimit,
   });
-  static RateBasedRule fromJson(Map<String, dynamic> json) => RateBasedRule();
+  static RateBasedRule fromJson(Map<String, dynamic> json) => RateBasedRule(
+        ruleId: json['RuleId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        matchPredicates: (json['MatchPredicates'] as List)
+            .map((e) => Predicate.fromJson(e))
+            .toList(),
+        rateKey: json['RateKey'] as String,
+        rateLimit: BigInt.from(json['RateLimit']),
+      );
 }
 
 /// In a GetRegexMatchSet request, `RegexMatchSet` is a complex type that
@@ -4174,7 +4947,17 @@ class RegexMatchSet {
     this.name,
     this.regexMatchTuples,
   });
-  static RegexMatchSet fromJson(Map<String, dynamic> json) => RegexMatchSet();
+  static RegexMatchSet fromJson(Map<String, dynamic> json) => RegexMatchSet(
+        regexMatchSetId: json.containsKey('RegexMatchSetId')
+            ? json['RegexMatchSetId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        regexMatchTuples: json.containsKey('RegexMatchTuples')
+            ? (json['RegexMatchTuples'] as List)
+                .map((e) => RegexMatchTuple.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returned by ListRegexMatchSets. Each `RegexMatchSetSummary` object includes
@@ -4198,7 +4981,10 @@ class RegexMatchSetSummary {
     @required this.name,
   });
   static RegexMatchSetSummary fromJson(Map<String, dynamic> json) =>
-      RegexMatchSetSummary();
+      RegexMatchSetSummary(
+        regexMatchSetId: json['RegexMatchSetId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// In an UpdateRegexMatchSet request, `RegexMatchSetUpdate` specifies whether
@@ -4219,6 +5005,7 @@ class RegexMatchSetUpdate {
     @required this.action,
     @required this.regexMatchTuple,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The regular expression pattern that you want AWS WAF to search for in web
@@ -4330,8 +5117,12 @@ class RegexMatchTuple {
     @required this.textTransformation,
     @required this.regexPatternSetId,
   });
-  static RegexMatchTuple fromJson(Map<String, dynamic> json) =>
-      RegexMatchTuple();
+  static RegexMatchTuple fromJson(Map<String, dynamic> json) => RegexMatchTuple(
+        fieldToMatch: FieldToMatch.fromJson(json['FieldToMatch']),
+        textTransformation: json['TextTransformation'] as String,
+        regexPatternSetId: json['RegexPatternSetId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The `RegexPatternSet` specifies the regular expression (regex) pattern that
@@ -4360,8 +5151,13 @@ class RegexPatternSet {
     this.name,
     @required this.regexPatternStrings,
   });
-  static RegexPatternSet fromJson(Map<String, dynamic> json) =>
-      RegexPatternSet();
+  static RegexPatternSet fromJson(Map<String, dynamic> json) => RegexPatternSet(
+        regexPatternSetId: json['RegexPatternSetId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        regexPatternStrings: (json['RegexPatternStrings'] as List)
+            .map((e) => e as String)
+            .toList(),
+      );
 }
 
 /// Returned by ListRegexPatternSets. Each `RegexPatternSetSummary` object
@@ -4385,7 +5181,10 @@ class RegexPatternSetSummary {
     @required this.name,
   });
   static RegexPatternSetSummary fromJson(Map<String, dynamic> json) =>
-      RegexPatternSetSummary();
+      RegexPatternSetSummary(
+        regexPatternSetId: json['RegexPatternSetId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// In an UpdateRegexPatternSet request, `RegexPatternSetUpdate` specifies
@@ -4403,6 +5202,7 @@ class RegexPatternSetUpdate {
     @required this.action,
     @required this.regexPatternString,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A combination of ByteMatchSet, IPSet, and/or SqlInjectionMatchSet objects
@@ -4450,7 +5250,16 @@ class Rule {
     this.metricName,
     @required this.predicates,
   });
-  static Rule fromJson(Map<String, dynamic> json) => Rule();
+  static Rule fromJson(Map<String, dynamic> json) => Rule(
+        ruleId: json['RuleId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        predicates: (json['Predicates'] as List)
+            .map((e) => Predicate.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A collection of predefined rules that you can add to a web ACL.
@@ -4489,7 +5298,13 @@ class RuleGroup {
     this.name,
     this.metricName,
   });
-  static RuleGroup fromJson(Map<String, dynamic> json) => RuleGroup();
+  static RuleGroup fromJson(Map<String, dynamic> json) => RuleGroup(
+        ruleGroupId: json['RuleGroupId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+      );
 }
 
 /// Contains the identifier and the friendly name or description of the
@@ -4513,7 +5328,10 @@ class RuleGroupSummary {
     @required this.name,
   });
   static RuleGroupSummary fromJson(Map<String, dynamic> json) =>
-      RuleGroupSummary();
+      RuleGroupSummary(
+        ruleGroupId: json['RuleGroupId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// Specifies an `ActivatedRule` and indicates whether you want to add it to a
@@ -4533,6 +5351,7 @@ class RuleGroupUpdate {
     @required this.action,
     @required this.activatedRule,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the identifier and the friendly name or description of the `Rule`.
@@ -4553,7 +5372,10 @@ class RuleSummary {
     @required this.ruleId,
     @required this.name,
   });
-  static RuleSummary fromJson(Map<String, dynamic> json) => RuleSummary();
+  static RuleSummary fromJson(Map<String, dynamic> json) => RuleSummary(
+        ruleId: json['RuleId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// Specifies a `Predicate` (such as an `IPSet`) and indicates whether you want
@@ -4571,6 +5393,7 @@ class RuleUpdate {
     @required this.action,
     @required this.predicate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The response from a GetSampledRequests request includes a
@@ -4609,7 +5432,17 @@ class SampledHttpRequest {
     this.ruleWithinRuleGroup,
   });
   static SampledHttpRequest fromJson(Map<String, dynamic> json) =>
-      SampledHttpRequest();
+      SampledHttpRequest(
+        request: HttpRequest.fromJson(json['Request']),
+        weight: BigInt.from(json['Weight']),
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        ruleWithinRuleGroup: json.containsKey('RuleWithinRuleGroup')
+            ? json['RuleWithinRuleGroup'] as String
+            : null,
+      );
 }
 
 /// Specifies a constraint on the size of a part of the web request. AWS WAF
@@ -4745,7 +5578,13 @@ class SizeConstraint {
     @required this.comparisonOperator,
     @required this.size,
   });
-  static SizeConstraint fromJson(Map<String, dynamic> json) => SizeConstraint();
+  static SizeConstraint fromJson(Map<String, dynamic> json) => SizeConstraint(
+        fieldToMatch: FieldToMatch.fromJson(json['FieldToMatch']),
+        textTransformation: json['TextTransformation'] as String,
+        comparisonOperator: json['ComparisonOperator'] as String,
+        size: BigInt.from(json['Size']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains `SizeConstraint` objects, which specify the
@@ -4776,7 +5615,13 @@ class SizeConstraintSet {
     @required this.sizeConstraints,
   });
   static SizeConstraintSet fromJson(Map<String, dynamic> json) =>
-      SizeConstraintSet();
+      SizeConstraintSet(
+        sizeConstraintSetId: json['SizeConstraintSetId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        sizeConstraints: (json['SizeConstraints'] as List)
+            .map((e) => SizeConstraint.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The `Id` and `Name` of a `SizeConstraintSet`.
@@ -4800,7 +5645,10 @@ class SizeConstraintSetSummary {
     @required this.name,
   });
   static SizeConstraintSetSummary fromJson(Map<String, dynamic> json) =>
-      SizeConstraintSetSummary();
+      SizeConstraintSetSummary(
+        sizeConstraintSetId: json['SizeConstraintSetId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// Specifies the part of a web request that you want to inspect the size of and
@@ -4823,6 +5671,7 @@ class SizeConstraintSetUpdate {
     @required this.action,
     @required this.sizeConstraint,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains `SqlInjectionMatchTuple` objects, which specify
@@ -4857,7 +5706,13 @@ class SqlInjectionMatchSet {
     @required this.sqlInjectionMatchTuples,
   });
   static SqlInjectionMatchSet fromJson(Map<String, dynamic> json) =>
-      SqlInjectionMatchSet();
+      SqlInjectionMatchSet(
+        sqlInjectionMatchSetId: json['SqlInjectionMatchSetId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        sqlInjectionMatchTuples: (json['SqlInjectionMatchTuples'] as List)
+            .map((e) => SqlInjectionMatchTuple.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The `Id` and `Name` of a `SqlInjectionMatchSet`.
@@ -4881,7 +5736,10 @@ class SqlInjectionMatchSetSummary {
     @required this.name,
   });
   static SqlInjectionMatchSetSummary fromJson(Map<String, dynamic> json) =>
-      SqlInjectionMatchSetSummary();
+      SqlInjectionMatchSetSummary(
+        sqlInjectionMatchSetId: json['SqlInjectionMatchSetId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// Specifies the part of a web request that you want to inspect for snippets of
@@ -4902,6 +5760,7 @@ class SqlInjectionMatchSetUpdate {
     @required this.action,
     @required this.sqlInjectionMatchTuple,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the part of a web request that you want AWS WAF to inspect for
@@ -4994,7 +5853,11 @@ class SqlInjectionMatchTuple {
     @required this.textTransformation,
   });
   static SqlInjectionMatchTuple fromJson(Map<String, dynamic> json) =>
-      SqlInjectionMatchTuple();
+      SqlInjectionMatchTuple(
+        fieldToMatch: FieldToMatch.fromJson(json['FieldToMatch']),
+        textTransformation: json['TextTransformation'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A summary of the rule groups you are subscribed to.
@@ -5019,7 +5882,11 @@ class SubscribedRuleGroupSummary {
     @required this.metricName,
   });
   static SubscribedRuleGroupSummary fromJson(Map<String, dynamic> json) =>
-      SubscribedRuleGroupSummary();
+      SubscribedRuleGroupSummary(
+        ruleGroupId: json['RuleGroupId'] as String,
+        name: json['Name'] as String,
+        metricName: json['MetricName'] as String,
+      );
 }
 
 class Tag {
@@ -5031,7 +5898,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagInfoForResource {
@@ -5044,7 +5915,14 @@ class TagInfoForResource {
     this.tagList,
   });
   static TagInfoForResource fromJson(Map<String, dynamic> json) =>
-      TagInfoForResource();
+      TagInfoForResource(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        tagList: json.containsKey('TagList')
+            ? (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class TagResourceResponse {
@@ -5081,7 +5959,11 @@ class TimeWindow {
     @required this.startTime,
     @required this.endTime,
   });
-  static TimeWindow fromJson(Map<String, dynamic> json) => TimeWindow();
+  static TimeWindow fromJson(Map<String, dynamic> json) => TimeWindow(
+        startTime: DateTime.parse(json['StartTime']),
+        endTime: DateTime.parse(json['EndTime']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -5100,7 +5982,11 @@ class UpdateByteMatchSetResponse {
     this.changeToken,
   });
   static UpdateByteMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      UpdateByteMatchSetResponse();
+      UpdateByteMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class UpdateGeoMatchSetResponse {
@@ -5113,7 +5999,11 @@ class UpdateGeoMatchSetResponse {
     this.changeToken,
   });
   static UpdateGeoMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      UpdateGeoMatchSetResponse();
+      UpdateGeoMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class UpdateIPSetResponse {
@@ -5126,7 +6016,11 @@ class UpdateIPSetResponse {
     this.changeToken,
   });
   static UpdateIPSetResponse fromJson(Map<String, dynamic> json) =>
-      UpdateIPSetResponse();
+      UpdateIPSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class UpdateRateBasedRuleResponse {
@@ -5139,7 +6033,11 @@ class UpdateRateBasedRuleResponse {
     this.changeToken,
   });
   static UpdateRateBasedRuleResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRateBasedRuleResponse();
+      UpdateRateBasedRuleResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class UpdateRegexMatchSetResponse {
@@ -5152,7 +6050,11 @@ class UpdateRegexMatchSetResponse {
     this.changeToken,
   });
   static UpdateRegexMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRegexMatchSetResponse();
+      UpdateRegexMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class UpdateRegexPatternSetResponse {
@@ -5165,7 +6067,11 @@ class UpdateRegexPatternSetResponse {
     this.changeToken,
   });
   static UpdateRegexPatternSetResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRegexPatternSetResponse();
+      UpdateRegexPatternSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class UpdateRuleGroupResponse {
@@ -5178,7 +6084,11 @@ class UpdateRuleGroupResponse {
     this.changeToken,
   });
   static UpdateRuleGroupResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRuleGroupResponse();
+      UpdateRuleGroupResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class UpdateRuleResponse {
@@ -5191,7 +6101,11 @@ class UpdateRuleResponse {
     this.changeToken,
   });
   static UpdateRuleResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRuleResponse();
+      UpdateRuleResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class UpdateSizeConstraintSetResponse {
@@ -5204,7 +6118,11 @@ class UpdateSizeConstraintSetResponse {
     this.changeToken,
   });
   static UpdateSizeConstraintSetResponse fromJson(Map<String, dynamic> json) =>
-      UpdateSizeConstraintSetResponse();
+      UpdateSizeConstraintSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 /// The response to an UpdateSqlInjectionMatchSets request.
@@ -5219,7 +6137,11 @@ class UpdateSqlInjectionMatchSetResponse {
   });
   static UpdateSqlInjectionMatchSetResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateSqlInjectionMatchSetResponse();
+      UpdateSqlInjectionMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 class UpdateWebAclResponse {
@@ -5232,7 +6154,11 @@ class UpdateWebAclResponse {
     this.changeToken,
   });
   static UpdateWebAclResponse fromJson(Map<String, dynamic> json) =>
-      UpdateWebAclResponse();
+      UpdateWebAclResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 /// The response to an UpdateXssMatchSets request.
@@ -5246,7 +6172,11 @@ class UpdateXssMatchSetResponse {
     this.changeToken,
   });
   static UpdateXssMatchSetResponse fromJson(Map<String, dynamic> json) =>
-      UpdateXssMatchSetResponse();
+      UpdateXssMatchSetResponse(
+        changeToken: json.containsKey('ChangeToken')
+            ? json['ChangeToken'] as String
+            : null,
+      );
 }
 
 /// For the action that is associated with a rule in a `WebACL`, specifies the
@@ -5271,7 +6201,10 @@ class WafAction {
   WafAction({
     @required this.type,
   });
-  static WafAction fromJson(Map<String, dynamic> json) => WafAction();
+  static WafAction fromJson(Map<String, dynamic> json) => WafAction(
+        type: json['Type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The action to take if any rule within the `RuleGroup` matches a request.
@@ -5284,7 +6217,10 @@ class WafOverrideAction {
     @required this.type,
   });
   static WafOverrideAction fromJson(Map<String, dynamic> json) =>
-      WafOverrideAction();
+      WafOverrideAction(
+        type: json['Type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the `Rules` that identify the requests that you want to allow,
@@ -5334,7 +6270,19 @@ class WebAcl {
     @required this.rules,
     this.webAclArn,
   });
-  static WebAcl fromJson(Map<String, dynamic> json) => WebAcl();
+  static WebAcl fromJson(Map<String, dynamic> json) => WebAcl(
+        webAclId: json['WebACLId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        defaultAction: WafAction.fromJson(json['DefaultAction']),
+        rules: (json['Rules'] as List)
+            .map((e) => ActivatedRule.fromJson(e))
+            .toList(),
+        webAclArn:
+            json.containsKey('WebACLArn') ? json['WebACLArn'] as String : null,
+      );
 }
 
 /// Contains the identifier and the name or description of the WebACL.
@@ -5354,7 +6302,10 @@ class WebAclSummary {
     @required this.webAclId,
     @required this.name,
   });
-  static WebAclSummary fromJson(Map<String, dynamic> json) => WebAclSummary();
+  static WebAclSummary fromJson(Map<String, dynamic> json) => WebAclSummary(
+        webAclId: json['WebACLId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// Specifies whether to insert a `Rule` into or delete a `Rule` from a
@@ -5374,6 +6325,7 @@ class WebAclUpdate {
     @required this.action,
     @required this.activatedRule,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains `XssMatchTuple` objects, which specify the
@@ -5404,7 +6356,13 @@ class XssMatchSet {
     this.name,
     @required this.xssMatchTuples,
   });
-  static XssMatchSet fromJson(Map<String, dynamic> json) => XssMatchSet();
+  static XssMatchSet fromJson(Map<String, dynamic> json) => XssMatchSet(
+        xssMatchSetId: json['XssMatchSetId'] as String,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        xssMatchTuples: (json['XssMatchTuples'] as List)
+            .map((e) => XssMatchTuple.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The `Id` and `Name` of an `XssMatchSet`.
@@ -5426,7 +6384,10 @@ class XssMatchSetSummary {
     @required this.name,
   });
   static XssMatchSetSummary fromJson(Map<String, dynamic> json) =>
-      XssMatchSetSummary();
+      XssMatchSetSummary(
+        xssMatchSetId: json['XssMatchSetId'] as String,
+        name: json['Name'] as String,
+      );
 }
 
 /// Specifies the part of a web request that you want to inspect for cross-site
@@ -5446,6 +6407,7 @@ class XssMatchSetUpdate {
     @required this.action,
     @required this.xssMatchTuple,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the part of a web request that you want AWS WAF to inspect for
@@ -5536,5 +6498,9 @@ class XssMatchTuple {
     @required this.fieldToMatch,
     @required this.textTransformation,
   });
-  static XssMatchTuple fromJson(Map<String, dynamic> json) => XssMatchTuple();
+  static XssMatchTuple fromJson(Map<String, dynamic> json) => XssMatchTuple(
+        fieldToMatch: FieldToMatch.fromJson(json['FieldToMatch']),
+        textTransformation: json['TextTransformation'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

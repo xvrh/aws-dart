@@ -24,6 +24,10 @@ import 'package:meta/meta.dart';
 /// the product's technical documentation at
 /// [docs.aws.amazon.com](https://docs.aws.amazon.com/).
 class CloudFormationApi {
+  final _client;
+  CloudFormationApi(client)
+      : _client = client.configured('CloudFormation', serializer: 'query');
+
   /// Cancels an update on the specified stack. If the call completes
   /// successfully, the stack rolls back the update and reverts to the previous
   /// stack configuration.
@@ -41,7 +45,12 @@ class CloudFormationApi {
   /// stack with the same name. You might retry `CancelUpdateStack` requests to
   /// ensure that AWS CloudFormation successfully received them.
   Future<void> cancelUpdateStack(String stackName,
-      {String clientRequestToken}) async {}
+      {String clientRequestToken}) async {
+    await _client.send('CancelUpdateStack', {
+      'StackName': stackName,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+  }
 
   /// For a specified stack that is in the `UPDATE_ROLLBACK_FAILED` state,
   /// continues rolling it back to the `UPDATE_ROLLBACK_COMPLETE` state.
@@ -131,7 +140,13 @@ class CloudFormationApi {
       {String roleArn,
       List<String> resourcesToSkip,
       String clientRequestToken}) async {
-    return ContinueUpdateRollbackOutput.fromJson({});
+    var response_ = await _client.send('ContinueUpdateRollback', {
+      'StackName': stackName,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (resourcesToSkip != null) 'ResourcesToSkip': resourcesToSkip,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return ContinueUpdateRollbackOutput.fromJson(response_);
   }
 
   /// Creates a list of changes that will be applied to a stack so that you can
@@ -344,7 +359,26 @@ class CloudFormationApi {
       String clientToken,
       String description,
       String changeSetType}) async {
-    return CreateChangeSetOutput.fromJson({});
+    var response_ = await _client.send('CreateChangeSet', {
+      'StackName': stackName,
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateURL': templateUrl,
+      if (usePreviousTemplate != null)
+        'UsePreviousTemplate': usePreviousTemplate,
+      if (parameters != null) 'Parameters': parameters,
+      if (capabilities != null) 'Capabilities': capabilities,
+      if (resourceTypes != null) 'ResourceTypes': resourceTypes,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (rollbackConfiguration != null)
+        'RollbackConfiguration': rollbackConfiguration,
+      if (notificationARNs != null) 'NotificationARNs': notificationARNs,
+      if (tags != null) 'Tags': tags,
+      'ChangeSetName': changeSetName,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (description != null) 'Description': description,
+      if (changeSetType != null) 'ChangeSetType': changeSetType,
+    });
+    return CreateChangeSetOutput.fromJson(response_);
   }
 
   /// Creates a stack as specified in the template. After the call completes
@@ -584,7 +618,28 @@ class CloudFormationApi {
       List<Tag> tags,
       String clientRequestToken,
       bool enableTerminationProtection}) async {
-    return CreateStackOutput.fromJson({});
+    var response_ = await _client.send('CreateStack', {
+      'StackName': stackName,
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateURL': templateUrl,
+      if (parameters != null) 'Parameters': parameters,
+      if (disableRollback != null) 'DisableRollback': disableRollback,
+      if (rollbackConfiguration != null)
+        'RollbackConfiguration': rollbackConfiguration,
+      if (timeoutInMinutes != null) 'TimeoutInMinutes': timeoutInMinutes,
+      if (notificationARNs != null) 'NotificationARNs': notificationARNs,
+      if (capabilities != null) 'Capabilities': capabilities,
+      if (resourceTypes != null) 'ResourceTypes': resourceTypes,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (onFailure != null) 'OnFailure': onFailure,
+      if (stackPolicyBody != null) 'StackPolicyBody': stackPolicyBody,
+      if (stackPolicyUrl != null) 'StackPolicyURL': stackPolicyUrl,
+      if (tags != null) 'Tags': tags,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (enableTerminationProtection != null)
+        'EnableTerminationProtection': enableTerminationProtection,
+    });
+    return CreateStackOutput.fromJson(response_);
   }
 
   /// Creates stack instances for the specified accounts, within the specified
@@ -657,7 +712,16 @@ class CloudFormationApi {
       List<Parameter> parameterOverrides,
       StackSetOperationPreferences operationPreferences,
       String operationId}) async {
-    return CreateStackInstancesOutput.fromJson({});
+    var response_ = await _client.send('CreateStackInstances', {
+      'StackSetName': stackSetName,
+      'Accounts': accounts,
+      'Regions': regions,
+      if (parameterOverrides != null) 'ParameterOverrides': parameterOverrides,
+      if (operationPreferences != null)
+        'OperationPreferences': operationPreferences,
+      if (operationId != null) 'OperationId': operationId,
+    });
+    return CreateStackInstancesOutput.fromJson(response_);
   }
 
   /// Creates a stack set.
@@ -808,7 +872,20 @@ class CloudFormationApi {
       String administrationRoleArn,
       String executionRoleName,
       String clientRequestToken}) async {
-    return CreateStackSetOutput.fromJson({});
+    var response_ = await _client.send('CreateStackSet', {
+      'StackSetName': stackSetName,
+      if (description != null) 'Description': description,
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateURL': templateUrl,
+      if (parameters != null) 'Parameters': parameters,
+      if (capabilities != null) 'Capabilities': capabilities,
+      if (tags != null) 'Tags': tags,
+      if (administrationRoleArn != null)
+        'AdministrationRoleARN': administrationRoleArn,
+      if (executionRoleName != null) 'ExecutionRoleName': executionRoleName,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return CreateStackSetOutput.fromJson(response_);
   }
 
   /// Deletes the specified change set. Deleting change sets ensures that no one
@@ -824,7 +901,11 @@ class CloudFormationApi {
   /// the stack name or ID (ARN) that is associated with it.
   Future<DeleteChangeSetOutput> deleteChangeSet(String changeSetName,
       {String stackName}) async {
-    return DeleteChangeSetOutput.fromJson({});
+    var response_ = await _client.send('DeleteChangeSet', {
+      'ChangeSetName': changeSetName,
+      if (stackName != null) 'StackName': stackName,
+    });
+    return DeleteChangeSetOutput.fromJson(response_);
   }
 
   /// Deletes a specified stack. Once the call completes successfully, stack
@@ -874,7 +955,14 @@ class CloudFormationApi {
   Future<void> deleteStack(String stackName,
       {List<String> retainResources,
       String roleArn,
-      String clientRequestToken}) async {}
+      String clientRequestToken}) async {
+    await _client.send('DeleteStack', {
+      'StackName': stackName,
+      if (retainResources != null) 'RetainResources': retainResources,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+  }
 
   /// Deletes stack instances for the specified accounts, in the specified
   /// regions.
@@ -915,7 +1003,16 @@ class CloudFormationApi {
       StackSetOperationPreferences operationPreferences,
       @required bool retainStacks,
       String operationId}) async {
-    return DeleteStackInstancesOutput.fromJson({});
+    var response_ = await _client.send('DeleteStackInstances', {
+      'StackSetName': stackSetName,
+      'Accounts': accounts,
+      'Regions': regions,
+      if (operationPreferences != null)
+        'OperationPreferences': operationPreferences,
+      'RetainStacks': retainStacks,
+      if (operationId != null) 'OperationId': operationId,
+    });
+    return DeleteStackInstancesOutput.fromJson(response_);
   }
 
   /// Deletes a stack set. Before you can delete a stack set, all of its member
@@ -925,7 +1022,10 @@ class CloudFormationApi {
   /// [stackSetName]: The name or unique ID of the stack set that you're
   /// deleting. You can obtain this value by running ListStackSets.
   Future<DeleteStackSetOutput> deleteStackSet(String stackSetName) async {
-    return DeleteStackSetOutput.fromJson({});
+    var response_ = await _client.send('DeleteStackSet', {
+      'StackSetName': stackSetName,
+    });
+    return DeleteStackSetOutput.fromJson(response_);
   }
 
   /// Retrieves your account's AWS CloudFormation limits, such as the maximum
@@ -938,7 +1038,10 @@ class CloudFormationApi {
   /// want to retrieve.
   Future<DescribeAccountLimitsOutput> describeAccountLimits(
       {String nextToken}) async {
-    return DescribeAccountLimitsOutput.fromJson({});
+    var response_ = await _client.send('DescribeAccountLimits', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAccountLimitsOutput.fromJson(response_);
   }
 
   /// Returns the inputs for the change set and a list of changes that AWS
@@ -957,7 +1060,12 @@ class CloudFormationApi {
   /// that identifies the next page of information that you want to retrieve.
   Future<DescribeChangeSetOutput> describeChangeSet(String changeSetName,
       {String stackName, String nextToken}) async {
-    return DescribeChangeSetOutput.fromJson({});
+    var response_ = await _client.send('DescribeChangeSet', {
+      'ChangeSetName': changeSetName,
+      if (stackName != null) 'StackName': stackName,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeChangeSetOutput.fromJson(response_);
   }
 
   /// Returns information about a stack drift detection operation. A stack drift
@@ -983,7 +1091,10 @@ class CloudFormationApi {
   /// CloudFormation retains for any given stack, and for how long, may vary.
   Future<DescribeStackDriftDetectionStatusOutput>
       describeStackDriftDetectionStatus(String stackDriftDetectionId) async {
-    return DescribeStackDriftDetectionStatusOutput.fromJson({});
+    var response_ = await _client.send('DescribeStackDriftDetectionStatus', {
+      'StackDriftDetectionId': stackDriftDetectionId,
+    });
+    return DescribeStackDriftDetectionStatusOutput.fromJson(response_);
   }
 
   /// Returns all stack related events for a specified stack in reverse
@@ -1012,7 +1123,11 @@ class CloudFormationApi {
   /// want to retrieve.
   Future<DescribeStackEventsOutput> describeStackEvents(
       {String stackName, String nextToken}) async {
-    return DescribeStackEventsOutput.fromJson({});
+    var response_ = await _client.send('DescribeStackEvents', {
+      if (stackName != null) 'StackName': stackName,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeStackEventsOutput.fromJson(response_);
   }
 
   /// Returns the stack instance that's associated with the specified stack set,
@@ -1033,7 +1148,12 @@ class CloudFormationApi {
       {@required String stackSetName,
       @required String stackInstanceAccount,
       @required String stackInstanceRegion}) async {
-    return DescribeStackInstanceOutput.fromJson({});
+    var response_ = await _client.send('DescribeStackInstance', {
+      'StackSetName': stackSetName,
+      'StackInstanceAccount': stackInstanceAccount,
+      'StackInstanceRegion': stackInstanceRegion,
+    });
+    return DescribeStackInstanceOutput.fromJson(response_);
   }
 
   /// Returns a description of the specified resource in the specified stack.
@@ -1058,7 +1178,11 @@ class CloudFormationApi {
   /// Default: There is no default value.
   Future<DescribeStackResourceOutput> describeStackResource(
       {@required String stackName, @required String logicalResourceId}) async {
-    return DescribeStackResourceOutput.fromJson({});
+    var response_ = await _client.send('DescribeStackResource', {
+      'StackName': stackName,
+      'LogicalResourceId': logicalResourceId,
+    });
+    return DescribeStackResourceOutput.fromJson(response_);
   }
 
   /// Returns drift information for the resources that have been checked for
@@ -1106,7 +1230,14 @@ class CloudFormationApi {
       {List<String> stackResourceDriftStatusFilters,
       String nextToken,
       int maxResults}) async {
-    return DescribeStackResourceDriftsOutput.fromJson({});
+    var response_ = await _client.send('DescribeStackResourceDrifts', {
+      'StackName': stackName,
+      if (stackResourceDriftStatusFilters != null)
+        'StackResourceDriftStatusFilters': stackResourceDriftStatusFilters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeStackResourceDriftsOutput.fromJson(response_);
   }
 
   /// Returns AWS resource descriptions for running and deleted stacks. If
@@ -1167,7 +1298,12 @@ class CloudFormationApi {
       {String stackName,
       String logicalResourceId,
       String physicalResourceId}) async {
-    return DescribeStackResourcesOutput.fromJson({});
+    var response_ = await _client.send('DescribeStackResources', {
+      if (stackName != null) 'StackName': stackName,
+      if (logicalResourceId != null) 'LogicalResourceId': logicalResourceId,
+      if (physicalResourceId != null) 'PhysicalResourceId': physicalResourceId,
+    });
+    return DescribeStackResourcesOutput.fromJson(response_);
   }
 
   /// Returns the description of the specified stack set.
@@ -1175,7 +1311,10 @@ class CloudFormationApi {
   /// [stackSetName]: The name or unique ID of the stack set whose description
   /// you want.
   Future<DescribeStackSetOutput> describeStackSet(String stackSetName) async {
-    return DescribeStackSetOutput.fromJson({});
+    var response_ = await _client.send('DescribeStackSet', {
+      'StackSetName': stackSetName,
+    });
+    return DescribeStackSetOutput.fromJson(response_);
   }
 
   /// Returns the description of the specified stack set operation.
@@ -1186,7 +1325,11 @@ class CloudFormationApi {
   /// [operationId]: The unique ID of the stack set operation.
   Future<DescribeStackSetOperationOutput> describeStackSetOperation(
       {@required String stackSetName, @required String operationId}) async {
-    return DescribeStackSetOperationOutput.fromJson({});
+    var response_ = await _client.send('DescribeStackSetOperation', {
+      'StackSetName': stackSetName,
+      'OperationId': operationId,
+    });
+    return DescribeStackSetOperationOutput.fromJson(response_);
   }
 
   /// Returns the description for the specified stack; if no stack name was
@@ -1212,7 +1355,11 @@ class CloudFormationApi {
   /// want to retrieve.
   Future<DescribeStacksOutput> describeStacks(
       {String stackName, String nextToken}) async {
-    return DescribeStacksOutput.fromJson({});
+    var response_ = await _client.send('DescribeStacks', {
+      if (stackName != null) 'StackName': stackName,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeStacksOutput.fromJson(response_);
   }
 
   /// Detects whether a stack's actual configuration differs, or has _drifted_,
@@ -1250,7 +1397,11 @@ class CloudFormationApi {
   /// as filters.
   Future<DetectStackDriftOutput> detectStackDrift(String stackName,
       {List<String> logicalResourceIds}) async {
-    return DetectStackDriftOutput.fromJson({});
+    var response_ = await _client.send('DetectStackDrift', {
+      'StackName': stackName,
+      if (logicalResourceIds != null) 'LogicalResourceIds': logicalResourceIds,
+    });
+    return DetectStackDriftOutput.fromJson(response_);
   }
 
   /// Returns information about whether a resource's actual configuration
@@ -1276,7 +1427,11 @@ class CloudFormationApi {
   /// drift information.
   Future<DetectStackResourceDriftOutput> detectStackResourceDrift(
       {@required String stackName, @required String logicalResourceId}) async {
-    return DetectStackResourceDriftOutput.fromJson({});
+    var response_ = await _client.send('DetectStackResourceDrift', {
+      'StackName': stackName,
+      'LogicalResourceId': logicalResourceId,
+    });
+    return DetectStackResourceDriftOutput.fromJson(response_);
   }
 
   /// Returns the estimated monthly cost of a template. The return value is an
@@ -1307,7 +1462,12 @@ class CloudFormationApi {
       {String templateBody,
       String templateUrl,
       List<Parameter> parameters}) async {
-    return EstimateTemplateCostOutput.fromJson({});
+    var response_ = await _client.send('EstimateTemplateCost', {
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateURL': templateUrl,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return EstimateTemplateCostOutput.fromJson(response_);
   }
 
   /// Updates a stack using the input information that was provided when the
@@ -1337,7 +1497,12 @@ class CloudFormationApi {
   /// requests to ensure that AWS CloudFormation successfully received them.
   Future<ExecuteChangeSetOutput> executeChangeSet(String changeSetName,
       {String stackName, String clientRequestToken}) async {
-    return ExecuteChangeSetOutput.fromJson({});
+    var response_ = await _client.send('ExecuteChangeSet', {
+      'ChangeSetName': changeSetName,
+      if (stackName != null) 'StackName': stackName,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return ExecuteChangeSetOutput.fromJson(response_);
   }
 
   /// Returns the stack policy for a specified stack. If a stack doesn't have a
@@ -1346,7 +1511,10 @@ class CloudFormationApi {
   /// [stackName]: The name or unique stack ID that is associated with the stack
   /// whose policy you want to get.
   Future<GetStackPolicyOutput> getStackPolicy(String stackName) async {
-    return GetStackPolicyOutput.fromJson({});
+    var response_ = await _client.send('GetStackPolicy', {
+      'StackName': stackName,
+    });
+    return GetStackPolicyOutput.fromJson(response_);
   }
 
   /// Returns the template body for a specified stack. You can get the template
@@ -1382,7 +1550,12 @@ class CloudFormationApi {
   /// `Original`.
   Future<GetTemplateOutput> getTemplate(
       {String stackName, String changeSetName, String templateStage}) async {
-    return GetTemplateOutput.fromJson({});
+    var response_ = await _client.send('GetTemplate', {
+      if (stackName != null) 'StackName': stackName,
+      if (changeSetName != null) 'ChangeSetName': changeSetName,
+      if (templateStage != null) 'TemplateStage': templateStage,
+    });
+    return GetTemplateOutput.fromJson(response_);
   }
 
   /// Returns information about a new or existing template. The
@@ -1434,7 +1607,13 @@ class CloudFormationApi {
       String templateUrl,
       String stackName,
       String stackSetName}) async {
-    return GetTemplateSummaryOutput.fromJson({});
+    var response_ = await _client.send('GetTemplateSummary', {
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateURL': templateUrl,
+      if (stackName != null) 'StackName': stackName,
+      if (stackSetName != null) 'StackSetName': stackSetName,
+    });
+    return GetTemplateSummaryOutput.fromJson(response_);
   }
 
   /// Returns the ID and status of each active change set for a stack. For
@@ -1448,7 +1627,11 @@ class CloudFormationApi {
   /// that identifies the next page of change sets that you want to retrieve.
   Future<ListChangeSetsOutput> listChangeSets(String stackName,
       {String nextToken}) async {
-    return ListChangeSetsOutput.fromJson({});
+    var response_ = await _client.send('ListChangeSets', {
+      'StackName': stackName,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListChangeSetsOutput.fromJson(response_);
   }
 
   /// Lists all exported output values in the account and region in which you
@@ -1464,7 +1647,10 @@ class CloudFormationApi {
   /// identifies the next page of exported output values that you asked to
   /// retrieve.
   Future<ListExportsOutput> listExports({String nextToken}) async {
-    return ListExportsOutput.fromJson({});
+    var response_ = await _client.send('ListExports', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListExportsOutput.fromJson(response_);
   }
 
   /// Lists all stacks that are importing an exported output value. To modify or
@@ -1484,7 +1670,11 @@ class CloudFormationApi {
   /// exported output value.
   Future<ListImportsOutput> listImports(String exportName,
       {String nextToken}) async {
-    return ListImportsOutput.fromJson({});
+    var response_ = await _client.send('ListImports', {
+      'ExportName': exportName,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListImportsOutput.fromJson(response_);
   }
 
   /// Returns summary information about stack instances that are associated with
@@ -1516,7 +1706,16 @@ class CloudFormationApi {
       int maxResults,
       String stackInstanceAccount,
       String stackInstanceRegion}) async {
-    return ListStackInstancesOutput.fromJson({});
+    var response_ = await _client.send('ListStackInstances', {
+      'StackSetName': stackSetName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (stackInstanceAccount != null)
+        'StackInstanceAccount': stackInstanceAccount,
+      if (stackInstanceRegion != null)
+        'StackInstanceRegion': stackInstanceRegion,
+    });
+    return ListStackInstancesOutput.fromJson(response_);
   }
 
   /// Returns descriptions of all resources of the specified stack.
@@ -1539,7 +1738,11 @@ class CloudFormationApi {
   /// that you want to retrieve.
   Future<ListStackResourcesOutput> listStackResources(String stackName,
       {String nextToken}) async {
-    return ListStackResourcesOutput.fromJson({});
+    var response_ = await _client.send('ListStackResources', {
+      'StackName': stackName,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListStackResourcesOutput.fromJson(response_);
   }
 
   /// Returns summary information about the results of a stack set operation.
@@ -1565,7 +1768,13 @@ class CloudFormationApi {
       @required String operationId,
       String nextToken,
       int maxResults}) async {
-    return ListStackSetOperationResultsOutput.fromJson({});
+    var response_ = await _client.send('ListStackSetOperationResults', {
+      'StackSetName': stackSetName,
+      'OperationId': operationId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListStackSetOperationResultsOutput.fromJson(response_);
   }
 
   /// Returns summary information about operations performed on a stack set.
@@ -1588,7 +1797,12 @@ class CloudFormationApi {
       String stackSetName,
       {String nextToken,
       int maxResults}) async {
-    return ListStackSetOperationsOutput.fromJson({});
+    var response_ = await _client.send('ListStackSetOperations', {
+      'StackSetName': stackSetName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListStackSetOperationsOutput.fromJson(response_);
   }
 
   /// Returns summary information about stack sets that are associated with the
@@ -1610,7 +1824,12 @@ class CloudFormationApi {
   /// information about.
   Future<ListStackSetsOutput> listStackSets(
       {String nextToken, int maxResults, String status}) async {
-    return ListStackSetsOutput.fromJson({});
+    var response_ = await _client.send('ListStackSets', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (status != null) 'Status': status,
+    });
+    return ListStackSetsOutput.fromJson(response_);
   }
 
   /// Returns the summary information for stacks whose status matches the
@@ -1628,7 +1847,11 @@ class CloudFormationApi {
   /// of the Stack data type.
   Future<ListStacksOutput> listStacks(
       {String nextToken, List<String> stackStatusFilter}) async {
-    return ListStacksOutput.fromJson({});
+    var response_ = await _client.send('ListStacks', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (stackStatusFilter != null) 'StackStatusFilter': stackStatusFilter,
+    });
+    return ListStacksOutput.fromJson(response_);
   }
 
   /// Sets a stack policy for a specified stack.
@@ -1647,7 +1870,13 @@ class CloudFormationApi {
   /// the same region as the stack. You can specify either the `StackPolicyBody`
   /// or the `StackPolicyURL` parameter, but not both.
   Future<void> setStackPolicy(String stackName,
-      {String stackPolicyBody, String stackPolicyUrl}) async {}
+      {String stackPolicyBody, String stackPolicyUrl}) async {
+    await _client.send('SetStackPolicy', {
+      'StackName': stackName,
+      if (stackPolicyBody != null) 'StackPolicyBody': stackPolicyBody,
+      if (stackPolicyUrl != null) 'StackPolicyURL': stackPolicyUrl,
+    });
+  }
 
   /// Sends a signal to the specified resource with a success or failure status.
   /// You can use the SignalResource API in conjunction with a creation policy
@@ -1677,7 +1906,14 @@ class CloudFormationApi {
       {@required String stackName,
       @required String logicalResourceId,
       @required String uniqueId,
-      @required String status}) async {}
+      @required String status}) async {
+    await _client.send('SignalResource', {
+      'StackName': stackName,
+      'LogicalResourceId': logicalResourceId,
+      'UniqueId': uniqueId,
+      'Status': status,
+    });
+  }
 
   /// Stops an in-progress operation on a stack set and its associated stack
   /// instances.
@@ -1688,7 +1924,11 @@ class CloudFormationApi {
   /// [operationId]: The ID of the stack operation.
   Future<StopStackSetOperationOutput> stopStackSetOperation(
       {@required String stackSetName, @required String operationId}) async {
-    return StopStackSetOperationOutput.fromJson({});
+    var response_ = await _client.send('StopStackSetOperation', {
+      'StackSetName': stackSetName,
+      'OperationId': operationId,
+    });
+    return StopStackSetOperationOutput.fromJson(response_);
   }
 
   /// Updates a stack as specified in the template. After the call completes
@@ -1929,7 +2169,29 @@ class CloudFormationApi {
       List<String> notificationARNs,
       List<Tag> tags,
       String clientRequestToken}) async {
-    return UpdateStackOutput.fromJson({});
+    var response_ = await _client.send('UpdateStack', {
+      'StackName': stackName,
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateURL': templateUrl,
+      if (usePreviousTemplate != null)
+        'UsePreviousTemplate': usePreviousTemplate,
+      if (stackPolicyDuringUpdateBody != null)
+        'StackPolicyDuringUpdateBody': stackPolicyDuringUpdateBody,
+      if (stackPolicyDuringUpdateUrl != null)
+        'StackPolicyDuringUpdateURL': stackPolicyDuringUpdateUrl,
+      if (parameters != null) 'Parameters': parameters,
+      if (capabilities != null) 'Capabilities': capabilities,
+      if (resourceTypes != null) 'ResourceTypes': resourceTypes,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (rollbackConfiguration != null)
+        'RollbackConfiguration': rollbackConfiguration,
+      if (stackPolicyBody != null) 'StackPolicyBody': stackPolicyBody,
+      if (stackPolicyUrl != null) 'StackPolicyURL': stackPolicyUrl,
+      if (notificationARNs != null) 'NotificationARNs': notificationARNs,
+      if (tags != null) 'Tags': tags,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return UpdateStackOutput.fromJson(response_);
   }
 
   /// Updates the parameter values for stack instances for the specified
@@ -2026,7 +2288,16 @@ class CloudFormationApi {
       List<Parameter> parameterOverrides,
       StackSetOperationPreferences operationPreferences,
       String operationId}) async {
-    return UpdateStackInstancesOutput.fromJson({});
+    var response_ = await _client.send('UpdateStackInstances', {
+      'StackSetName': stackSetName,
+      'Accounts': accounts,
+      'Regions': regions,
+      if (parameterOverrides != null) 'ParameterOverrides': parameterOverrides,
+      if (operationPreferences != null)
+        'OperationPreferences': operationPreferences,
+      if (operationId != null) 'OperationId': operationId,
+    });
+    return UpdateStackInstancesOutput.fromJson(response_);
   }
 
   /// Updates the stack set, and associated stack instances in the specified
@@ -2259,7 +2530,26 @@ class CloudFormationApi {
       String operationId,
       List<String> accounts,
       List<String> regions}) async {
-    return UpdateStackSetOutput.fromJson({});
+    var response_ = await _client.send('UpdateStackSet', {
+      'StackSetName': stackSetName,
+      if (description != null) 'Description': description,
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateURL': templateUrl,
+      if (usePreviousTemplate != null)
+        'UsePreviousTemplate': usePreviousTemplate,
+      if (parameters != null) 'Parameters': parameters,
+      if (capabilities != null) 'Capabilities': capabilities,
+      if (tags != null) 'Tags': tags,
+      if (operationPreferences != null)
+        'OperationPreferences': operationPreferences,
+      if (administrationRoleArn != null)
+        'AdministrationRoleARN': administrationRoleArn,
+      if (executionRoleName != null) 'ExecutionRoleName': executionRoleName,
+      if (operationId != null) 'OperationId': operationId,
+      if (accounts != null) 'Accounts': accounts,
+      if (regions != null) 'Regions': regions,
+    });
+    return UpdateStackSetOutput.fromJson(response_);
   }
 
   /// Updates termination protection for the specified stack. If a user attempts
@@ -2281,7 +2571,11 @@ class CloudFormationApi {
   Future<UpdateTerminationProtectionOutput> updateTerminationProtection(
       {@required bool enableTerminationProtection,
       @required String stackName}) async {
-    return UpdateTerminationProtectionOutput.fromJson({});
+    var response_ = await _client.send('UpdateTerminationProtection', {
+      'EnableTerminationProtection': enableTerminationProtection,
+      'StackName': stackName,
+    });
+    return UpdateTerminationProtectionOutput.fromJson(response_);
   }
 
   /// Validates a specified template. AWS CloudFormation first checks if the
@@ -2308,7 +2602,11 @@ class CloudFormationApi {
   /// passed, only `TemplateBody` is used.
   Future<ValidateTemplateOutput> validateTemplate(
       {String templateBody, String templateUrl}) async {
-    return ValidateTemplateOutput.fromJson({});
+    var response_ = await _client.send('ValidateTemplate', {
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateURL': templateUrl,
+    });
+    return ValidateTemplateOutput.fromJson(response_);
   }
 }
 
@@ -2367,7 +2665,12 @@ class AccountGateResult {
     this.statusReason,
   });
   static AccountGateResult fromJson(Map<String, dynamic> json) =>
-      AccountGateResult();
+      AccountGateResult(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+      );
 }
 
 /// The AccountLimit data type. For more information about account limits, see
@@ -2384,7 +2687,10 @@ class AccountLimit {
     this.name,
     this.value,
   });
-  static AccountLimit fromJson(Map<String, dynamic> json) => AccountLimit();
+  static AccountLimit fromJson(Map<String, dynamic> json) => AccountLimit(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as int : null,
+      );
 }
 
 /// The `Change` structure describes the changes AWS CloudFormation will perform
@@ -2402,7 +2708,12 @@ class Change {
     this.type,
     this.resourceChange,
   });
-  static Change fromJson(Map<String, dynamic> json) => Change();
+  static Change fromJson(Map<String, dynamic> json) => Change(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        resourceChange: json.containsKey('ResourceChange')
+            ? ResourceChange.fromJson(json['ResourceChange'])
+            : null,
+      );
 }
 
 /// The `ChangeSetSummary` structure describes a change set, its status, and the
@@ -2453,7 +2764,30 @@ class ChangeSetSummary {
     this.description,
   });
   static ChangeSetSummary fromJson(Map<String, dynamic> json) =>
-      ChangeSetSummary();
+      ChangeSetSummary(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        stackName:
+            json.containsKey('StackName') ? json['StackName'] as String : null,
+        changeSetId: json.containsKey('ChangeSetId')
+            ? json['ChangeSetId'] as String
+            : null,
+        changeSetName: json.containsKey('ChangeSetName')
+            ? json['ChangeSetName'] as String
+            : null,
+        executionStatus: json.containsKey('ExecutionStatus')
+            ? json['ExecutionStatus'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// The output for a ContinueUpdateRollback action.
@@ -2476,7 +2810,10 @@ class CreateChangeSetOutput {
     this.stackId,
   });
   static CreateChangeSetOutput fromJson(Map<String, dynamic> json) =>
-      CreateChangeSetOutput();
+      CreateChangeSetOutput(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+      );
 }
 
 class CreateStackInstancesOutput {
@@ -2487,7 +2824,11 @@ class CreateStackInstancesOutput {
     this.operationId,
   });
   static CreateStackInstancesOutput fromJson(Map<String, dynamic> json) =>
-      CreateStackInstancesOutput();
+      CreateStackInstancesOutput(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 /// The output for a CreateStack action.
@@ -2499,7 +2840,9 @@ class CreateStackOutput {
     this.stackId,
   });
   static CreateStackOutput fromJson(Map<String, dynamic> json) =>
-      CreateStackOutput();
+      CreateStackOutput(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+      );
 }
 
 class CreateStackSetOutput {
@@ -2510,7 +2853,11 @@ class CreateStackSetOutput {
     this.stackSetId,
   });
   static CreateStackSetOutput fromJson(Map<String, dynamic> json) =>
-      CreateStackSetOutput();
+      CreateStackSetOutput(
+        stackSetId: json.containsKey('StackSetId')
+            ? json['StackSetId'] as String
+            : null,
+      );
 }
 
 /// The output for the DeleteChangeSet action.
@@ -2528,7 +2875,11 @@ class DeleteStackInstancesOutput {
     this.operationId,
   });
   static DeleteStackInstancesOutput fromJson(Map<String, dynamic> json) =>
-      DeleteStackInstancesOutput();
+      DeleteStackInstancesOutput(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 class DeleteStackSetOutput {
@@ -2552,7 +2903,15 @@ class DescribeAccountLimitsOutput {
     this.nextToken,
   });
   static DescribeAccountLimitsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAccountLimitsOutput();
+      DescribeAccountLimitsOutput(
+        accountLimits: json.containsKey('AccountLimits')
+            ? (json['AccountLimits'] as List)
+                .map((e) => AccountLimit.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The output for the DescribeChangeSet action.
@@ -2640,7 +2999,54 @@ class DescribeChangeSetOutput {
     this.nextToken,
   });
   static DescribeChangeSetOutput fromJson(Map<String, dynamic> json) =>
-      DescribeChangeSetOutput();
+      DescribeChangeSetOutput(
+        changeSetName: json.containsKey('ChangeSetName')
+            ? json['ChangeSetName'] as String
+            : null,
+        changeSetId: json.containsKey('ChangeSetId')
+            ? json['ChangeSetId'] as String
+            : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        stackName:
+            json.containsKey('StackName') ? json['StackName'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        executionStatus: json.containsKey('ExecutionStatus')
+            ? json['ExecutionStatus'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+        notificationARNs: json.containsKey('NotificationARNs')
+            ? (json['NotificationARNs'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        rollbackConfiguration: json.containsKey('RollbackConfiguration')
+            ? RollbackConfiguration.fromJson(json['RollbackConfiguration'])
+            : null,
+        capabilities: json.containsKey('Capabilities')
+            ? (json['Capabilities'] as List).map((e) => e as String).toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        changes: json.containsKey('Changes')
+            ? (json['Changes'] as List).map((e) => Change.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeStackDriftDetectionStatusOutput {
@@ -2712,7 +3118,21 @@ class DescribeStackDriftDetectionStatusOutput {
   });
   static DescribeStackDriftDetectionStatusOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeStackDriftDetectionStatusOutput();
+      DescribeStackDriftDetectionStatusOutput(
+        stackId: json['StackId'] as String,
+        stackDriftDetectionId: json['StackDriftDetectionId'] as String,
+        stackDriftStatus: json.containsKey('StackDriftStatus')
+            ? json['StackDriftStatus'] as String
+            : null,
+        detectionStatus: json['DetectionStatus'] as String,
+        detectionStatusReason: json.containsKey('DetectionStatusReason')
+            ? json['DetectionStatusReason'] as String
+            : null,
+        driftedStackResourceCount: json.containsKey('DriftedStackResourceCount')
+            ? json['DriftedStackResourceCount'] as int
+            : null,
+        timestamp: DateTime.parse(json['Timestamp']),
+      );
 }
 
 /// The output for a DescribeStackEvents action.
@@ -2729,7 +3149,15 @@ class DescribeStackEventsOutput {
     this.nextToken,
   });
   static DescribeStackEventsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStackEventsOutput();
+      DescribeStackEventsOutput(
+        stackEvents: json.containsKey('StackEvents')
+            ? (json['StackEvents'] as List)
+                .map((e) => StackEvent.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeStackInstanceOutput {
@@ -2740,7 +3168,11 @@ class DescribeStackInstanceOutput {
     this.stackInstance,
   });
   static DescribeStackInstanceOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStackInstanceOutput();
+      DescribeStackInstanceOutput(
+        stackInstance: json.containsKey('StackInstance')
+            ? StackInstance.fromJson(json['StackInstance'])
+            : null,
+      );
 }
 
 class DescribeStackResourceDriftsOutput {
@@ -2769,7 +3201,13 @@ class DescribeStackResourceDriftsOutput {
   });
   static DescribeStackResourceDriftsOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeStackResourceDriftsOutput();
+      DescribeStackResourceDriftsOutput(
+        stackResourceDrifts: (json['StackResourceDrifts'] as List)
+            .map((e) => StackResourceDrift.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The output for a DescribeStackResource action.
@@ -2782,7 +3220,11 @@ class DescribeStackResourceOutput {
     this.stackResourceDetail,
   });
   static DescribeStackResourceOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStackResourceOutput();
+      DescribeStackResourceOutput(
+        stackResourceDetail: json.containsKey('StackResourceDetail')
+            ? StackResourceDetail.fromJson(json['StackResourceDetail'])
+            : null,
+      );
 }
 
 /// The output for a DescribeStackResources action.
@@ -2794,7 +3236,13 @@ class DescribeStackResourcesOutput {
     this.stackResources,
   });
   static DescribeStackResourcesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStackResourcesOutput();
+      DescribeStackResourcesOutput(
+        stackResources: json.containsKey('StackResources')
+            ? (json['StackResources'] as List)
+                .map((e) => StackResource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeStackSetOperationOutput {
@@ -2805,7 +3253,11 @@ class DescribeStackSetOperationOutput {
     this.stackSetOperation,
   });
   static DescribeStackSetOperationOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStackSetOperationOutput();
+      DescribeStackSetOperationOutput(
+        stackSetOperation: json.containsKey('StackSetOperation')
+            ? StackSetOperation.fromJson(json['StackSetOperation'])
+            : null,
+      );
 }
 
 class DescribeStackSetOutput {
@@ -2816,7 +3268,11 @@ class DescribeStackSetOutput {
     this.stackSet,
   });
   static DescribeStackSetOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStackSetOutput();
+      DescribeStackSetOutput(
+        stackSet: json.containsKey('StackSet')
+            ? StackSet.fromJson(json['StackSet'])
+            : null,
+      );
 }
 
 /// The output for a DescribeStacks action.
@@ -2833,7 +3289,13 @@ class DescribeStacksOutput {
     this.nextToken,
   });
   static DescribeStacksOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStacksOutput();
+      DescribeStacksOutput(
+        stacks: json.containsKey('Stacks')
+            ? (json['Stacks'] as List).map((e) => Stack.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DetectStackDriftOutput {
@@ -2848,7 +3310,9 @@ class DetectStackDriftOutput {
     @required this.stackDriftDetectionId,
   });
   static DetectStackDriftOutput fromJson(Map<String, dynamic> json) =>
-      DetectStackDriftOutput();
+      DetectStackDriftOutput(
+        stackDriftDetectionId: json['StackDriftDetectionId'] as String,
+      );
 }
 
 class DetectStackResourceDriftOutput {
@@ -2861,7 +3325,10 @@ class DetectStackResourceDriftOutput {
     @required this.stackResourceDrift,
   });
   static DetectStackResourceDriftOutput fromJson(Map<String, dynamic> json) =>
-      DetectStackResourceDriftOutput();
+      DetectStackResourceDriftOutput(
+        stackResourceDrift:
+            StackResourceDrift.fromJson(json['StackResourceDrift']),
+      );
 }
 
 /// The output for a EstimateTemplateCost action.
@@ -2874,7 +3341,9 @@ class EstimateTemplateCostOutput {
     this.url,
   });
   static EstimateTemplateCostOutput fromJson(Map<String, dynamic> json) =>
-      EstimateTemplateCostOutput();
+      EstimateTemplateCostOutput(
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
 }
 
 /// The output for the ExecuteChangeSet action.
@@ -2904,7 +3373,13 @@ class Export {
     this.name,
     this.value,
   });
-  static Export fromJson(Map<String, dynamic> json) => Export();
+  static Export fromJson(Map<String, dynamic> json) => Export(
+        exportingStackId: json.containsKey('ExportingStackId')
+            ? json['ExportingStackId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// The output for the GetStackPolicy action.
@@ -2918,7 +3393,11 @@ class GetStackPolicyOutput {
     this.stackPolicyBody,
   });
   static GetStackPolicyOutput fromJson(Map<String, dynamic> json) =>
-      GetStackPolicyOutput();
+      GetStackPolicyOutput(
+        stackPolicyBody: json.containsKey('StackPolicyBody')
+            ? json['StackPolicyBody'] as String
+            : null,
+      );
 }
 
 /// The output for GetTemplate action.
@@ -2943,7 +3422,14 @@ class GetTemplateOutput {
     this.stagesAvailable,
   });
   static GetTemplateOutput fromJson(Map<String, dynamic> json) =>
-      GetTemplateOutput();
+      GetTemplateOutput(
+        templateBody: json.containsKey('TemplateBody')
+            ? json['TemplateBody'] as String
+            : null,
+        stagesAvailable: json.containsKey('StagesAvailable')
+            ? (json['StagesAvailable'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// The output for the GetTemplateSummary action.
@@ -2995,7 +3481,33 @@ class GetTemplateSummaryOutput {
     this.declaredTransforms,
   });
   static GetTemplateSummaryOutput fromJson(Map<String, dynamic> json) =>
-      GetTemplateSummaryOutput();
+      GetTemplateSummaryOutput(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => ParameterDeclaration.fromJson(e))
+                .toList()
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        capabilities: json.containsKey('Capabilities')
+            ? (json['Capabilities'] as List).map((e) => e as String).toList()
+            : null,
+        capabilitiesReason: json.containsKey('CapabilitiesReason')
+            ? json['CapabilitiesReason'] as String
+            : null,
+        resourceTypes: json.containsKey('ResourceTypes')
+            ? (json['ResourceTypes'] as List).map((e) => e as String).toList()
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        metadata:
+            json.containsKey('Metadata') ? json['Metadata'] as String : null,
+        declaredTransforms: json.containsKey('DeclaredTransforms')
+            ? (json['DeclaredTransforms'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// The output for the ListChangeSets action.
@@ -3013,7 +3525,15 @@ class ListChangeSetsOutput {
     this.nextToken,
   });
   static ListChangeSetsOutput fromJson(Map<String, dynamic> json) =>
-      ListChangeSetsOutput();
+      ListChangeSetsOutput(
+        summaries: json.containsKey('Summaries')
+            ? (json['Summaries'] as List)
+                .map((e) => ChangeSetSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListExportsOutput {
@@ -3030,7 +3550,13 @@ class ListExportsOutput {
     this.nextToken,
   });
   static ListExportsOutput fromJson(Map<String, dynamic> json) =>
-      ListExportsOutput();
+      ListExportsOutput(
+        exports: json.containsKey('Exports')
+            ? (json['Exports'] as List).map((e) => Export.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListImportsOutput {
@@ -3047,7 +3573,13 @@ class ListImportsOutput {
     this.nextToken,
   });
   static ListImportsOutput fromJson(Map<String, dynamic> json) =>
-      ListImportsOutput();
+      ListImportsOutput(
+        imports: json.containsKey('Imports')
+            ? (json['Imports'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListStackInstancesOutput {
@@ -3067,7 +3599,15 @@ class ListStackInstancesOutput {
     this.nextToken,
   });
   static ListStackInstancesOutput fromJson(Map<String, dynamic> json) =>
-      ListStackInstancesOutput();
+      ListStackInstancesOutput(
+        summaries: json.containsKey('Summaries')
+            ? (json['Summaries'] as List)
+                .map((e) => StackInstanceSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The output for a ListStackResources action.
@@ -3084,7 +3624,15 @@ class ListStackResourcesOutput {
     this.nextToken,
   });
   static ListStackResourcesOutput fromJson(Map<String, dynamic> json) =>
-      ListStackResourcesOutput();
+      ListStackResourcesOutput(
+        stackResourceSummaries: json.containsKey('StackResourceSummaries')
+            ? (json['StackResourceSummaries'] as List)
+                .map((e) => StackResourceSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListStackSetOperationResultsOutput {
@@ -3105,7 +3653,15 @@ class ListStackSetOperationResultsOutput {
   });
   static ListStackSetOperationResultsOutput fromJson(
           Map<String, dynamic> json) =>
-      ListStackSetOperationResultsOutput();
+      ListStackSetOperationResultsOutput(
+        summaries: json.containsKey('Summaries')
+            ? (json['Summaries'] as List)
+                .map((e) => StackSetOperationResultSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListStackSetOperationsOutput {
@@ -3124,7 +3680,15 @@ class ListStackSetOperationsOutput {
     this.nextToken,
   });
   static ListStackSetOperationsOutput fromJson(Map<String, dynamic> json) =>
-      ListStackSetOperationsOutput();
+      ListStackSetOperationsOutput(
+        summaries: json.containsKey('Summaries')
+            ? (json['Summaries'] as List)
+                .map((e) => StackSetOperationSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListStackSetsOutput {
@@ -3144,7 +3708,15 @@ class ListStackSetsOutput {
     this.nextToken,
   });
   static ListStackSetsOutput fromJson(Map<String, dynamic> json) =>
-      ListStackSetsOutput();
+      ListStackSetsOutput(
+        summaries: json.containsKey('Summaries')
+            ? (json['Summaries'] as List)
+                .map((e) => StackSetSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The output for ListStacks action.
@@ -3162,7 +3734,15 @@ class ListStacksOutput {
     this.nextToken,
   });
   static ListStacksOutput fromJson(Map<String, dynamic> json) =>
-      ListStacksOutput();
+      ListStacksOutput(
+        stackSummaries: json.containsKey('StackSummaries')
+            ? (json['StackSummaries'] as List)
+                .map((e) => StackSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The Output data type.
@@ -3185,7 +3765,19 @@ class Output {
     this.description,
     this.exportName,
   });
-  static Output fromJson(Map<String, dynamic> json) => Output();
+  static Output fromJson(Map<String, dynamic> json) => Output(
+        outputKey:
+            json.containsKey('OutputKey') ? json['OutputKey'] as String : null,
+        outputValue: json.containsKey('OutputValue')
+            ? json['OutputValue'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        exportName: json.containsKey('ExportName')
+            ? json['ExportName'] as String
+            : null,
+      );
 }
 
 /// The Parameter data type.
@@ -3215,7 +3807,21 @@ class Parameter {
     this.usePreviousValue,
     this.resolvedValue,
   });
-  static Parameter fromJson(Map<String, dynamic> json) => Parameter();
+  static Parameter fromJson(Map<String, dynamic> json) => Parameter(
+        parameterKey: json.containsKey('ParameterKey')
+            ? json['ParameterKey'] as String
+            : null,
+        parameterValue: json.containsKey('ParameterValue')
+            ? json['ParameterValue'] as String
+            : null,
+        usePreviousValue: json.containsKey('UsePreviousValue')
+            ? json['UsePreviousValue'] as bool
+            : null,
+        resolvedValue: json.containsKey('ResolvedValue')
+            ? json['ResolvedValue'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A set of criteria that AWS CloudFormation uses to validate parameter values.
@@ -3229,7 +3835,11 @@ class ParameterConstraints {
     this.allowedValues,
   });
   static ParameterConstraints fromJson(Map<String, dynamic> json) =>
-      ParameterConstraints();
+      ParameterConstraints(
+        allowedValues: json.containsKey('AllowedValues')
+            ? (json['AllowedValues'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// The ParameterDeclaration data type.
@@ -3262,7 +3872,24 @@ class ParameterDeclaration {
     this.parameterConstraints,
   });
   static ParameterDeclaration fromJson(Map<String, dynamic> json) =>
-      ParameterDeclaration();
+      ParameterDeclaration(
+        parameterKey: json.containsKey('ParameterKey')
+            ? json['ParameterKey'] as String
+            : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        parameterType: json.containsKey('ParameterType')
+            ? json['ParameterType'] as String
+            : null,
+        noEcho: json.containsKey('NoEcho') ? json['NoEcho'] as bool : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        parameterConstraints: json.containsKey('ParameterConstraints')
+            ? ParameterConstraints.fromJson(json['ParameterConstraints'])
+            : null,
+      );
 }
 
 /// Context information that enables AWS CloudFormation to uniquely identify a
@@ -3283,7 +3910,10 @@ class PhysicalResourceIdContextKeyValuePair {
   });
   static PhysicalResourceIdContextKeyValuePair fromJson(
           Map<String, dynamic> json) =>
-      PhysicalResourceIdContextKeyValuePair();
+      PhysicalResourceIdContextKeyValuePair(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
 }
 
 /// Information about a resource property whose actual value differs from its
@@ -3322,7 +3952,12 @@ class PropertyDifference {
     @required this.differenceType,
   });
   static PropertyDifference fromJson(Map<String, dynamic> json) =>
-      PropertyDifference();
+      PropertyDifference(
+        propertyPath: json['PropertyPath'] as String,
+        expectedValue: json['ExpectedValue'] as String,
+        actualValue: json['ActualValue'] as String,
+        differenceType: json['DifferenceType'] as String,
+      );
 }
 
 /// The `ResourceChange` structure describes the resource and the action that
@@ -3376,7 +4011,29 @@ class ResourceChange {
     this.scope,
     this.details,
   });
-  static ResourceChange fromJson(Map<String, dynamic> json) => ResourceChange();
+  static ResourceChange fromJson(Map<String, dynamic> json) => ResourceChange(
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        logicalResourceId: json.containsKey('LogicalResourceId')
+            ? json['LogicalResourceId'] as String
+            : null,
+        physicalResourceId: json.containsKey('PhysicalResourceId')
+            ? json['PhysicalResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        replacement: json.containsKey('Replacement')
+            ? json['Replacement'] as String
+            : null,
+        scope: json.containsKey('Scope')
+            ? (json['Scope'] as List).map((e) => e as String).toList()
+            : null,
+        details: json.containsKey('Details')
+            ? (json['Details'] as List)
+                .map((e) => ResourceChangeDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// For a resource with `Modify` as the action, the `ResourceChange` structure
@@ -3446,7 +4103,20 @@ class ResourceChangeDetail {
     this.causingEntity,
   });
   static ResourceChangeDetail fromJson(Map<String, dynamic> json) =>
-      ResourceChangeDetail();
+      ResourceChangeDetail(
+        target: json.containsKey('Target')
+            ? ResourceTargetDefinition.fromJson(json['Target'])
+            : null,
+        evaluation: json.containsKey('Evaluation')
+            ? json['Evaluation'] as String
+            : null,
+        changeSource: json.containsKey('ChangeSource')
+            ? json['ChangeSource'] as String
+            : null,
+        causingEntity: json.containsKey('CausingEntity')
+            ? json['CausingEntity'] as String
+            : null,
+      );
 }
 
 /// The field that AWS CloudFormation will change, such as the name of a
@@ -3474,7 +4144,14 @@ class ResourceTargetDefinition {
     this.requiresRecreation,
   });
   static ResourceTargetDefinition fromJson(Map<String, dynamic> json) =>
-      ResourceTargetDefinition();
+      ResourceTargetDefinition(
+        attribute:
+            json.containsKey('Attribute') ? json['Attribute'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        requiresRecreation: json.containsKey('RequiresRecreation')
+            ? json['RequiresRecreation'] as String
+            : null,
+      );
 }
 
 /// Structure containing the rollback triggers for AWS CloudFormation to monitor
@@ -3537,7 +4214,17 @@ class RollbackConfiguration {
     this.monitoringTimeInMinutes,
   });
   static RollbackConfiguration fromJson(Map<String, dynamic> json) =>
-      RollbackConfiguration();
+      RollbackConfiguration(
+        rollbackTriggers: json.containsKey('RollbackTriggers')
+            ? (json['RollbackTriggers'] as List)
+                .map((e) => RollbackTrigger.fromJson(e))
+                .toList()
+            : null,
+        monitoringTimeInMinutes: json.containsKey('MonitoringTimeInMinutes')
+            ? json['MonitoringTimeInMinutes'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A rollback trigger AWS CloudFormation monitors during creation and updating
@@ -3560,8 +4247,11 @@ class RollbackTrigger {
     @required this.arn,
     @required this.type,
   });
-  static RollbackTrigger fromJson(Map<String, dynamic> json) =>
-      RollbackTrigger();
+  static RollbackTrigger fromJson(Map<String, dynamic> json) => RollbackTrigger(
+        arn: json['Arn'] as String,
+        type: json['Type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Stack data type.
@@ -3689,7 +4379,66 @@ class Stack {
     this.rootId,
     this.driftInformation,
   });
-  static Stack fromJson(Map<String, dynamic> json) => Stack();
+  static Stack fromJson(Map<String, dynamic> json) => Stack(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        stackName: json['StackName'] as String,
+        changeSetId: json.containsKey('ChangeSetId')
+            ? json['ChangeSetId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        deletionTime: json.containsKey('DeletionTime')
+            ? DateTime.parse(json['DeletionTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+        rollbackConfiguration: json.containsKey('RollbackConfiguration')
+            ? RollbackConfiguration.fromJson(json['RollbackConfiguration'])
+            : null,
+        stackStatus: json['StackStatus'] as String,
+        stackStatusReason: json.containsKey('StackStatusReason')
+            ? json['StackStatusReason'] as String
+            : null,
+        disableRollback: json.containsKey('DisableRollback')
+            ? json['DisableRollback'] as bool
+            : null,
+        notificationARNs: json.containsKey('NotificationARNs')
+            ? (json['NotificationARNs'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        timeoutInMinutes: json.containsKey('TimeoutInMinutes')
+            ? json['TimeoutInMinutes'] as int
+            : null,
+        capabilities: json.containsKey('Capabilities')
+            ? (json['Capabilities'] as List).map((e) => e as String).toList()
+            : null,
+        outputs: json.containsKey('Outputs')
+            ? (json['Outputs'] as List).map((e) => Output.fromJson(e)).toList()
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        enableTerminationProtection:
+            json.containsKey('EnableTerminationProtection')
+                ? json['EnableTerminationProtection'] as bool
+                : null,
+        parentId:
+            json.containsKey('ParentId') ? json['ParentId'] as String : null,
+        rootId: json.containsKey('RootId') ? json['RootId'] as String : null,
+        driftInformation: json.containsKey('DriftInformation')
+            ? StackDriftInformation.fromJson(json['DriftInformation'])
+            : null,
+      );
 }
 
 /// Contains information about whether the stack's actual configuration differs,
@@ -3722,7 +4471,12 @@ class StackDriftInformation {
     this.lastCheckTimestamp,
   });
   static StackDriftInformation fromJson(Map<String, dynamic> json) =>
-      StackDriftInformation();
+      StackDriftInformation(
+        stackDriftStatus: json['StackDriftStatus'] as String,
+        lastCheckTimestamp: json.containsKey('LastCheckTimestamp')
+            ? DateTime.parse(json['LastCheckTimestamp'])
+            : null,
+      );
 }
 
 /// Contains information about whether the stack's actual configuration differs,
@@ -3755,7 +4509,12 @@ class StackDriftInformationSummary {
     this.lastCheckTimestamp,
   });
   static StackDriftInformationSummary fromJson(Map<String, dynamic> json) =>
-      StackDriftInformationSummary();
+      StackDriftInformationSummary(
+        stackDriftStatus: json['StackDriftStatus'] as String,
+        lastCheckTimestamp: json.containsKey('LastCheckTimestamp')
+            ? DateTime.parse(json['LastCheckTimestamp'])
+            : null,
+      );
 }
 
 /// The StackEvent data type.
@@ -3823,7 +4582,33 @@ class StackEvent {
     this.resourceProperties,
     this.clientRequestToken,
   });
-  static StackEvent fromJson(Map<String, dynamic> json) => StackEvent();
+  static StackEvent fromJson(Map<String, dynamic> json) => StackEvent(
+        stackId: json['StackId'] as String,
+        eventId: json['EventId'] as String,
+        stackName: json['StackName'] as String,
+        logicalResourceId: json.containsKey('LogicalResourceId')
+            ? json['LogicalResourceId'] as String
+            : null,
+        physicalResourceId: json.containsKey('PhysicalResourceId')
+            ? json['PhysicalResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        timestamp: DateTime.parse(json['Timestamp']),
+        resourceStatus: json.containsKey('ResourceStatus')
+            ? json['ResourceStatus'] as String
+            : null,
+        resourceStatusReason: json.containsKey('ResourceStatusReason')
+            ? json['ResourceStatusReason'] as String
+            : null,
+        resourceProperties: json.containsKey('ResourceProperties')
+            ? json['ResourceProperties'] as String
+            : null,
+        clientRequestToken: json.containsKey('ClientRequestToken')
+            ? json['ClientRequestToken'] as String
+            : null,
+      );
 }
 
 /// An AWS CloudFormation stack, in a specific account and region, that's part
@@ -3887,7 +4672,23 @@ class StackInstance {
     this.status,
     this.statusReason,
   });
-  static StackInstance fromJson(Map<String, dynamic> json) => StackInstance();
+  static StackInstance fromJson(Map<String, dynamic> json) => StackInstance(
+        stackSetId: json.containsKey('StackSetId')
+            ? json['StackSetId'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        account: json.containsKey('Account') ? json['Account'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        parameterOverrides: json.containsKey('ParameterOverrides')
+            ? (json['ParameterOverrides'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+      );
 }
 
 /// The structure that contains summary information about a stack instance.
@@ -3941,7 +4742,18 @@ class StackInstanceSummary {
     this.statusReason,
   });
   static StackInstanceSummary fromJson(Map<String, dynamic> json) =>
-      StackInstanceSummary();
+      StackInstanceSummary(
+        stackSetId: json.containsKey('StackSetId')
+            ? json['StackSetId'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        account: json.containsKey('Account') ? json['Account'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+      );
 }
 
 /// The StackResource data type.
@@ -3995,7 +4807,27 @@ class StackResource {
     this.description,
     this.driftInformation,
   });
-  static StackResource fromJson(Map<String, dynamic> json) => StackResource();
+  static StackResource fromJson(Map<String, dynamic> json) => StackResource(
+        stackName:
+            json.containsKey('StackName') ? json['StackName'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        logicalResourceId: json['LogicalResourceId'] as String,
+        physicalResourceId: json.containsKey('PhysicalResourceId')
+            ? json['PhysicalResourceId'] as String
+            : null,
+        resourceType: json['ResourceType'] as String,
+        timestamp: DateTime.parse(json['Timestamp']),
+        resourceStatus: json['ResourceStatus'] as String,
+        resourceStatusReason: json.containsKey('ResourceStatusReason')
+            ? json['ResourceStatusReason'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        driftInformation: json.containsKey('DriftInformation')
+            ? StackResourceDriftInformation.fromJson(json['DriftInformation'])
+            : null,
+      );
 }
 
 /// Contains detailed information about the specified stack resource.
@@ -4057,7 +4889,29 @@ class StackResourceDetail {
     this.driftInformation,
   });
   static StackResourceDetail fromJson(Map<String, dynamic> json) =>
-      StackResourceDetail();
+      StackResourceDetail(
+        stackName:
+            json.containsKey('StackName') ? json['StackName'] as String : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        logicalResourceId: json['LogicalResourceId'] as String,
+        physicalResourceId: json.containsKey('PhysicalResourceId')
+            ? json['PhysicalResourceId'] as String
+            : null,
+        resourceType: json['ResourceType'] as String,
+        lastUpdatedTimestamp: DateTime.parse(json['LastUpdatedTimestamp']),
+        resourceStatus: json['ResourceStatus'] as String,
+        resourceStatusReason: json.containsKey('ResourceStatusReason')
+            ? json['ResourceStatusReason'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        metadata:
+            json.containsKey('Metadata') ? json['Metadata'] as String : null,
+        driftInformation: json.containsKey('DriftInformation')
+            ? StackResourceDriftInformation.fromJson(json['DriftInformation'])
+            : null,
+      );
 }
 
 /// Contains the drift information for a resource that has been checked for
@@ -4149,7 +5003,32 @@ class StackResourceDrift {
     @required this.timestamp,
   });
   static StackResourceDrift fromJson(Map<String, dynamic> json) =>
-      StackResourceDrift();
+      StackResourceDrift(
+        stackId: json['StackId'] as String,
+        logicalResourceId: json['LogicalResourceId'] as String,
+        physicalResourceId: json.containsKey('PhysicalResourceId')
+            ? json['PhysicalResourceId'] as String
+            : null,
+        physicalResourceIdContext: json.containsKey('PhysicalResourceIdContext')
+            ? (json['PhysicalResourceIdContext'] as List)
+                .map((e) => PhysicalResourceIdContextKeyValuePair.fromJson(e))
+                .toList()
+            : null,
+        resourceType: json['ResourceType'] as String,
+        expectedProperties: json.containsKey('ExpectedProperties')
+            ? json['ExpectedProperties'] as String
+            : null,
+        actualProperties: json.containsKey('ActualProperties')
+            ? json['ActualProperties'] as String
+            : null,
+        propertyDifferences: json.containsKey('PropertyDifferences')
+            ? (json['PropertyDifferences'] as List)
+                .map((e) => PropertyDifference.fromJson(e))
+                .toList()
+            : null,
+        stackResourceDriftStatus: json['StackResourceDriftStatus'] as String,
+        timestamp: DateTime.parse(json['Timestamp']),
+      );
 }
 
 /// Contains information about whether the resource's actual configuration
@@ -4183,7 +5062,12 @@ class StackResourceDriftInformation {
     this.lastCheckTimestamp,
   });
   static StackResourceDriftInformation fromJson(Map<String, dynamic> json) =>
-      StackResourceDriftInformation();
+      StackResourceDriftInformation(
+        stackResourceDriftStatus: json['StackResourceDriftStatus'] as String,
+        lastCheckTimestamp: json.containsKey('LastCheckTimestamp')
+            ? DateTime.parse(json['LastCheckTimestamp'])
+            : null,
+      );
 }
 
 /// Summarizes information about whether the resource's actual configuration
@@ -4224,7 +5108,12 @@ class StackResourceDriftInformationSummary {
   });
   static StackResourceDriftInformationSummary fromJson(
           Map<String, dynamic> json) =>
-      StackResourceDriftInformationSummary();
+      StackResourceDriftInformationSummary(
+        stackResourceDriftStatus: json['StackResourceDriftStatus'] as String,
+        lastCheckTimestamp: json.containsKey('LastCheckTimestamp')
+            ? DateTime.parse(json['LastCheckTimestamp'])
+            : null,
+      );
 }
 
 /// Contains high-level information about the specified stack resource.
@@ -4267,7 +5156,22 @@ class StackResourceSummary {
     this.driftInformation,
   });
   static StackResourceSummary fromJson(Map<String, dynamic> json) =>
-      StackResourceSummary();
+      StackResourceSummary(
+        logicalResourceId: json['LogicalResourceId'] as String,
+        physicalResourceId: json.containsKey('PhysicalResourceId')
+            ? json['PhysicalResourceId'] as String
+            : null,
+        resourceType: json['ResourceType'] as String,
+        lastUpdatedTimestamp: DateTime.parse(json['LastUpdatedTimestamp']),
+        resourceStatus: json['ResourceStatus'] as String,
+        resourceStatusReason: json.containsKey('ResourceStatusReason')
+            ? json['ResourceStatusReason'] as String
+            : null,
+        driftInformation: json.containsKey('DriftInformation')
+            ? StackResourceDriftInformationSummary.fromJson(
+                json['DriftInformation'])
+            : null,
+      );
 }
 
 /// A structure that contains information about a stack set. A stack set enables
@@ -4339,7 +5243,41 @@ class StackSet {
     this.administrationRoleArn,
     this.executionRoleName,
   });
-  static StackSet fromJson(Map<String, dynamic> json) => StackSet();
+  static StackSet fromJson(Map<String, dynamic> json) => StackSet(
+        stackSetName: json.containsKey('StackSetName')
+            ? json['StackSetName'] as String
+            : null,
+        stackSetId: json.containsKey('StackSetId')
+            ? json['StackSetId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        templateBody: json.containsKey('TemplateBody')
+            ? json['TemplateBody'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        capabilities: json.containsKey('Capabilities')
+            ? (json['Capabilities'] as List).map((e) => e as String).toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        stackSetArn: json.containsKey('StackSetARN')
+            ? json['StackSetARN'] as String
+            : null,
+        administrationRoleArn: json.containsKey('AdministrationRoleARN')
+            ? json['AdministrationRoleARN'] as String
+            : null,
+        executionRoleName: json.containsKey('ExecutionRoleName')
+            ? json['ExecutionRoleName'] as String
+            : null,
+      );
 }
 
 /// The structure that contains information about a stack set operation.
@@ -4430,7 +5368,35 @@ class StackSetOperation {
     this.endTimestamp,
   });
   static StackSetOperation fromJson(Map<String, dynamic> json) =>
-      StackSetOperation();
+      StackSetOperation(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+        stackSetId: json.containsKey('StackSetId')
+            ? json['StackSetId'] as String
+            : null,
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        operationPreferences: json.containsKey('OperationPreferences')
+            ? StackSetOperationPreferences.fromJson(
+                json['OperationPreferences'])
+            : null,
+        retainStacks: json.containsKey('RetainStacks')
+            ? json['RetainStacks'] as bool
+            : null,
+        administrationRoleArn: json.containsKey('AdministrationRoleARN')
+            ? json['AdministrationRoleARN'] as String
+            : null,
+        executionRoleName: json.containsKey('ExecutionRoleName')
+            ? json['ExecutionRoleName'] as String
+            : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? DateTime.parse(json['CreationTimestamp'])
+            : null,
+        endTimestamp: json.containsKey('EndTimestamp')
+            ? DateTime.parse(json['EndTimestamp'])
+            : null,
+      );
 }
 
 /// The user-specified preferences for how AWS CloudFormation performs a stack
@@ -4501,7 +5467,25 @@ class StackSetOperationPreferences {
     this.maxConcurrentPercentage,
   });
   static StackSetOperationPreferences fromJson(Map<String, dynamic> json) =>
-      StackSetOperationPreferences();
+      StackSetOperationPreferences(
+        regionOrder: json.containsKey('RegionOrder')
+            ? (json['RegionOrder'] as List).map((e) => e as String).toList()
+            : null,
+        failureToleranceCount: json.containsKey('FailureToleranceCount')
+            ? json['FailureToleranceCount'] as int
+            : null,
+        failureTolerancePercentage:
+            json.containsKey('FailureTolerancePercentage')
+                ? json['FailureTolerancePercentage'] as int
+                : null,
+        maxConcurrentCount: json.containsKey('MaxConcurrentCount')
+            ? json['MaxConcurrentCount'] as int
+            : null,
+        maxConcurrentPercentage: json.containsKey('MaxConcurrentPercentage')
+            ? json['MaxConcurrentPercentage'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The structure that contains information about a specified operation's
@@ -4552,7 +5536,17 @@ class StackSetOperationResultSummary {
     this.accountGateResult,
   });
   static StackSetOperationResultSummary fromJson(Map<String, dynamic> json) =>
-      StackSetOperationResultSummary();
+      StackSetOperationResultSummary(
+        account: json.containsKey('Account') ? json['Account'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+        accountGateResult: json.containsKey('AccountGateResult')
+            ? AccountGateResult.fromJson(json['AccountGateResult'])
+            : null,
+      );
 }
 
 /// The structures that contain summary information about the specified
@@ -4610,7 +5604,19 @@ class StackSetOperationSummary {
     this.endTimestamp,
   });
   static StackSetOperationSummary fromJson(Map<String, dynamic> json) =>
-      StackSetOperationSummary();
+      StackSetOperationSummary(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? DateTime.parse(json['CreationTimestamp'])
+            : null,
+        endTimestamp: json.containsKey('EndTimestamp')
+            ? DateTime.parse(json['EndTimestamp'])
+            : null,
+      );
 }
 
 /// The structures that contain summary information about the specified stack
@@ -4635,8 +5641,18 @@ class StackSetSummary {
     this.description,
     this.status,
   });
-  static StackSetSummary fromJson(Map<String, dynamic> json) =>
-      StackSetSummary();
+  static StackSetSummary fromJson(Map<String, dynamic> json) => StackSetSummary(
+        stackSetName: json.containsKey('StackSetName')
+            ? json['StackSetName'] as String
+            : null,
+        stackSetId: json.containsKey('StackSetId')
+            ? json['StackSetId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// The StackSummary Data Type
@@ -4704,7 +5720,30 @@ class StackSummary {
     this.rootId,
     this.driftInformation,
   });
-  static StackSummary fromJson(Map<String, dynamic> json) => StackSummary();
+  static StackSummary fromJson(Map<String, dynamic> json) => StackSummary(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+        stackName: json['StackName'] as String,
+        templateDescription: json.containsKey('TemplateDescription')
+            ? json['TemplateDescription'] as String
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+        deletionTime: json.containsKey('DeletionTime')
+            ? DateTime.parse(json['DeletionTime'])
+            : null,
+        stackStatus: json['StackStatus'] as String,
+        stackStatusReason: json.containsKey('StackStatusReason')
+            ? json['StackStatusReason'] as String
+            : null,
+        parentId:
+            json.containsKey('ParentId') ? json['ParentId'] as String : null,
+        rootId: json.containsKey('RootId') ? json['RootId'] as String : null,
+        driftInformation: json.containsKey('DriftInformation')
+            ? StackDriftInformationSummary.fromJson(json['DriftInformation'])
+            : null,
+      );
 }
 
 class StopStackSetOperationOutput {
@@ -4729,7 +5768,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The TemplateParameter data type.
@@ -4754,7 +5797,18 @@ class TemplateParameter {
     this.description,
   });
   static TemplateParameter fromJson(Map<String, dynamic> json) =>
-      TemplateParameter();
+      TemplateParameter(
+        parameterKey: json.containsKey('ParameterKey')
+            ? json['ParameterKey'] as String
+            : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        noEcho: json.containsKey('NoEcho') ? json['NoEcho'] as bool : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class UpdateStackInstancesOutput {
@@ -4765,7 +5819,11 @@ class UpdateStackInstancesOutput {
     this.operationId,
   });
   static UpdateStackInstancesOutput fromJson(Map<String, dynamic> json) =>
-      UpdateStackInstancesOutput();
+      UpdateStackInstancesOutput(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 /// The output for an UpdateStack action.
@@ -4777,7 +5835,9 @@ class UpdateStackOutput {
     this.stackId,
   });
   static UpdateStackOutput fromJson(Map<String, dynamic> json) =>
-      UpdateStackOutput();
+      UpdateStackOutput(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+      );
 }
 
 class UpdateStackSetOutput {
@@ -4788,7 +5848,11 @@ class UpdateStackSetOutput {
     this.operationId,
   });
   static UpdateStackSetOutput fromJson(Map<String, dynamic> json) =>
-      UpdateStackSetOutput();
+      UpdateStackSetOutput(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 class UpdateTerminationProtectionOutput {
@@ -4800,7 +5864,9 @@ class UpdateTerminationProtectionOutput {
   });
   static UpdateTerminationProtectionOutput fromJson(
           Map<String, dynamic> json) =>
-      UpdateTerminationProtectionOutput();
+      UpdateTerminationProtectionOutput(
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+      );
 }
 
 /// The output for ValidateTemplate action.
@@ -4836,5 +5902,25 @@ class ValidateTemplateOutput {
     this.declaredTransforms,
   });
   static ValidateTemplateOutput fromJson(Map<String, dynamic> json) =>
-      ValidateTemplateOutput();
+      ValidateTemplateOutput(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => TemplateParameter.fromJson(e))
+                .toList()
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        capabilities: json.containsKey('Capabilities')
+            ? (json['Capabilities'] as List).map((e) => e as String).toList()
+            : null,
+        capabilitiesReason: json.containsKey('CapabilitiesReason')
+            ? json['CapabilitiesReason'] as String
+            : null,
+        declaredTransforms: json.containsKey('DeclaredTransforms')
+            ? (json['DeclaredTransforms'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }

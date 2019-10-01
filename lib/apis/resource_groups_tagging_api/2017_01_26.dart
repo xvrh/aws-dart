@@ -219,6 +219,11 @@ import 'package:meta/meta.dart';
 ///
 /// *   Amazon WorkSpaces
 class ResourceGroupsTaggingApiApi {
+  final _client;
+  ResourceGroupsTaggingApiApi(client)
+      : _client = client.configured('Resource Groups Tagging API',
+            serializer: 'json');
+
   /// Returns all the tagged or previously tagged resources that are located in
   /// the specified region for the AWS account. You can optionally specify
   /// _filters_ (tags and resource types) in your request, depending on what
@@ -328,7 +333,15 @@ class ResourceGroupsTaggingApiApi {
       int resourcesPerPage,
       int tagsPerPage,
       List<String> resourceTypeFilters}) async {
-    return GetResourcesOutput.fromJson({});
+    var response_ = await _client.send('GetResources', {
+      if (paginationToken != null) 'PaginationToken': paginationToken,
+      if (tagFilters != null) 'TagFilters': tagFilters,
+      if (resourcesPerPage != null) 'ResourcesPerPage': resourcesPerPage,
+      if (tagsPerPage != null) 'TagsPerPage': tagsPerPage,
+      if (resourceTypeFilters != null)
+        'ResourceTypeFilters': resourceTypeFilters,
+    });
+    return GetResourcesOutput.fromJson(response_);
   }
 
   /// Returns all tag keys in the specified region for the AWS account.
@@ -338,7 +351,10 @@ class ResourceGroupsTaggingApiApi {
   /// response includes a PaginationToken, use that string for this value to
   /// request an additional page of data.
   Future<GetTagKeysOutput> getTagKeys({String paginationToken}) async {
-    return GetTagKeysOutput.fromJson({});
+    var response_ = await _client.send('GetTagKeys', {
+      if (paginationToken != null) 'PaginationToken': paginationToken,
+    });
+    return GetTagKeysOutput.fromJson(response_);
   }
 
   /// Returns all tag values for the specified key in the specified region for
@@ -353,7 +369,11 @@ class ResourceGroupsTaggingApiApi {
   /// specified region for the AWS account.
   Future<GetTagValuesOutput> getTagValues(String key,
       {String paginationToken}) async {
-    return GetTagValuesOutput.fromJson({});
+    var response_ = await _client.send('GetTagValues', {
+      if (paginationToken != null) 'PaginationToken': paginationToken,
+      'Key': key,
+    });
+    return GetTagValuesOutput.fromJson(response_);
   }
 
   /// Applies one or more tags to the specified resources. Note the following:
@@ -388,7 +408,11 @@ class ResourceGroupsTaggingApiApi {
   Future<TagResourcesOutput> tagResources(
       {@required List<String> resourceArnList,
       @required Map<String, String> tags}) async {
-    return TagResourcesOutput.fromJson({});
+    var response_ = await _client.send('TagResources', {
+      'ResourceARNList': resourceArnList,
+      'Tags': tags,
+    });
+    return TagResourcesOutput.fromJson(response_);
   }
 
   /// Removes the specified tags from the specified resources. When you specify
@@ -417,7 +441,11 @@ class ResourceGroupsTaggingApiApi {
   Future<UntagResourcesOutput> untagResources(
       {@required List<String> resourceArnList,
       @required List<String> tagKeys}) async {
-    return UntagResourcesOutput.fromJson({});
+    var response_ = await _client.send('UntagResources', {
+      'ResourceARNList': resourceArnList,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourcesOutput.fromJson(response_);
   }
 }
 
@@ -440,7 +468,15 @@ class FailureInfo {
     this.errorCode,
     this.errorMessage,
   });
-  static FailureInfo fromJson(Map<String, dynamic> json) => FailureInfo();
+  static FailureInfo fromJson(Map<String, dynamic> json) => FailureInfo(
+        statusCode:
+            json.containsKey('StatusCode') ? json['StatusCode'] as int : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class GetResourcesOutput {
@@ -458,7 +494,16 @@ class GetResourcesOutput {
     this.resourceTagMappingList,
   });
   static GetResourcesOutput fromJson(Map<String, dynamic> json) =>
-      GetResourcesOutput();
+      GetResourcesOutput(
+        paginationToken: json.containsKey('PaginationToken')
+            ? json['PaginationToken'] as String
+            : null,
+        resourceTagMappingList: json.containsKey('ResourceTagMappingList')
+            ? (json['ResourceTagMappingList'] as List)
+                .map((e) => ResourceTagMapping.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetTagKeysOutput {
@@ -475,7 +520,14 @@ class GetTagKeysOutput {
     this.tagKeys,
   });
   static GetTagKeysOutput fromJson(Map<String, dynamic> json) =>
-      GetTagKeysOutput();
+      GetTagKeysOutput(
+        paginationToken: json.containsKey('PaginationToken')
+            ? json['PaginationToken'] as String
+            : null,
+        tagKeys: json.containsKey('TagKeys')
+            ? (json['TagKeys'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class GetTagValuesOutput {
@@ -492,7 +544,14 @@ class GetTagValuesOutput {
     this.tagValues,
   });
   static GetTagValuesOutput fromJson(Map<String, dynamic> json) =>
-      GetTagValuesOutput();
+      GetTagValuesOutput(
+        paginationToken: json.containsKey('PaginationToken')
+            ? json['PaginationToken'] as String
+            : null,
+        tagValues: json.containsKey('TagValues')
+            ? (json['TagValues'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// A list of resource ARNs and the tags (keys and values) that are associated
@@ -509,7 +568,14 @@ class ResourceTagMapping {
     this.tags,
   });
   static ResourceTagMapping fromJson(Map<String, dynamic> json) =>
-      ResourceTagMapping();
+      ResourceTagMapping(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The metadata that you apply to AWS resources to help you categorize and
@@ -530,7 +596,10 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
 }
 
 /// A list of tags (keys and values) that are used to specify the associated
@@ -548,6 +617,7 @@ class TagFilter {
     this.key,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourcesOutput {
@@ -559,7 +629,12 @@ class TagResourcesOutput {
     this.failedResourcesMap,
   });
   static TagResourcesOutput fromJson(Map<String, dynamic> json) =>
-      TagResourcesOutput();
+      TagResourcesOutput(
+        failedResourcesMap: json.containsKey('FailedResourcesMap')
+            ? (json['FailedResourcesMap'] as Map)
+                .map((k, v) => MapEntry(k as String, FailureInfo.fromJson(v)))
+            : null,
+      );
 }
 
 class UntagResourcesOutput {
@@ -571,5 +646,10 @@ class UntagResourcesOutput {
     this.failedResourcesMap,
   });
   static UntagResourcesOutput fromJson(Map<String, dynamic> json) =>
-      UntagResourcesOutput();
+      UntagResourcesOutput(
+        failedResourcesMap: json.containsKey('FailedResourcesMap')
+            ? (json['FailedResourcesMap'] as Map)
+                .map((k, v) => MapEntry(k as String, FailureInfo.fromJson(v)))
+            : null,
+      );
 }

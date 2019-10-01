@@ -3,6 +3,10 @@ import 'package:meta/meta.dart';
 /// AWS X-Ray provides APIs for managing debug traces and retrieving service
 /// maps and other data created by processing those traces.
 class XRayApi {
+  final _client;
+  XRayApi(client)
+      : _client = client.configured('XRay', serializer: 'rest-json');
+
   /// Retrieves a list of traces specified by ID. Each trace is a collection of
   /// segment documents that originates from a single request. Use
   /// `GetTraceSummaries` to get a list of trace IDs.
@@ -13,7 +17,11 @@ class XRayApi {
   /// [nextToken]: Pagination token. Not used.
   Future<BatchGetTracesResult> batchGetTraces(List<String> traceIds,
       {String nextToken}) async {
-    return BatchGetTracesResult.fromJson({});
+    var response_ = await _client.send('BatchGetTraces', {
+      'TraceIds': traceIds,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return BatchGetTracesResult.fromJson(response_);
   }
 
   /// Creates a group resource with a name and a filter expression.
@@ -25,7 +33,11 @@ class XRayApi {
   /// group traces.
   Future<CreateGroupResult> createGroup(String groupName,
       {String filterExpression}) async {
-    return CreateGroupResult.fromJson({});
+    var response_ = await _client.send('CreateGroup', {
+      'GroupName': groupName,
+      if (filterExpression != null) 'FilterExpression': filterExpression,
+    });
+    return CreateGroupResult.fromJson(response_);
   }
 
   /// Creates a rule to control sampling behavior for instrumented applications.
@@ -39,7 +51,10 @@ class XRayApi {
   /// [samplingRule]: The rule definition.
   Future<CreateSamplingRuleResult> createSamplingRule(
       SamplingRule samplingRule) async {
-    return CreateSamplingRuleResult.fromJson({});
+    var response_ = await _client.send('CreateSamplingRule', {
+      'SamplingRule': samplingRule,
+    });
+    return CreateSamplingRuleResult.fromJson(response_);
   }
 
   /// Deletes a group resource.
@@ -49,7 +64,11 @@ class XRayApi {
   /// [groupArn]: The ARN of the group that was generated on creation.
   Future<DeleteGroupResult> deleteGroup(
       {String groupName, String groupArn}) async {
-    return DeleteGroupResult.fromJson({});
+    var response_ = await _client.send('DeleteGroup', {
+      if (groupName != null) 'GroupName': groupName,
+      if (groupArn != null) 'GroupARN': groupArn,
+    });
+    return DeleteGroupResult.fromJson(response_);
   }
 
   /// Deletes a sampling rule.
@@ -61,12 +80,17 @@ class XRayApi {
   /// ARN, but not both.
   Future<DeleteSamplingRuleResult> deleteSamplingRule(
       {String ruleName, String ruleArn}) async {
-    return DeleteSamplingRuleResult.fromJson({});
+    var response_ = await _client.send('DeleteSamplingRule', {
+      if (ruleName != null) 'RuleName': ruleName,
+      if (ruleArn != null) 'RuleARN': ruleArn,
+    });
+    return DeleteSamplingRuleResult.fromJson(response_);
   }
 
   /// Retrieves the current encryption configuration for X-Ray data.
   Future<GetEncryptionConfigResult> getEncryptionConfig() async {
-    return GetEncryptionConfigResult.fromJson({});
+    var response_ = await _client.send('GetEncryptionConfig', {});
+    return GetEncryptionConfigResult.fromJson(response_);
   }
 
   /// Retrieves group resource details.
@@ -75,21 +99,31 @@ class XRayApi {
   ///
   /// [groupArn]: The ARN of the group that was generated on creation.
   Future<GetGroupResult> getGroup({String groupName, String groupArn}) async {
-    return GetGroupResult.fromJson({});
+    var response_ = await _client.send('GetGroup', {
+      if (groupName != null) 'GroupName': groupName,
+      if (groupArn != null) 'GroupARN': groupArn,
+    });
+    return GetGroupResult.fromJson(response_);
   }
 
   /// Retrieves all active group details.
   ///
   /// [nextToken]: Pagination token. Not used.
   Future<GetGroupsResult> getGroups({String nextToken}) async {
-    return GetGroupsResult.fromJson({});
+    var response_ = await _client.send('GetGroups', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetGroupsResult.fromJson(response_);
   }
 
   /// Retrieves all sampling rules.
   ///
   /// [nextToken]: Pagination token. Not used.
   Future<GetSamplingRulesResult> getSamplingRules({String nextToken}) async {
-    return GetSamplingRulesResult.fromJson({});
+    var response_ = await _client.send('GetSamplingRules', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetSamplingRulesResult.fromJson(response_);
   }
 
   /// Retrieves information about recent sampling results for all sampling
@@ -98,7 +132,10 @@ class XRayApi {
   /// [nextToken]: Pagination token. Not used.
   Future<GetSamplingStatisticSummariesResult> getSamplingStatisticSummaries(
       {String nextToken}) async {
-    return GetSamplingStatisticSummariesResult.fromJson({});
+    var response_ = await _client.send('GetSamplingStatisticSummaries', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetSamplingStatisticSummariesResult.fromJson(response_);
   }
 
   /// Requests a sampling quota for rules that the service is using to sample
@@ -108,7 +145,10 @@ class XRayApi {
   /// using to sample requests.
   Future<GetSamplingTargetsResult> getSamplingTargets(
       List<SamplingStatisticsDocument> samplingStatisticsDocuments) async {
-    return GetSamplingTargetsResult.fromJson({});
+    var response_ = await _client.send('GetSamplingTargets', {
+      'SamplingStatisticsDocuments': samplingStatisticsDocuments,
+    });
+    return GetSamplingTargetsResult.fromJson(response_);
   }
 
   /// Retrieves a document that describes services that process incoming
@@ -133,7 +173,14 @@ class XRayApi {
       String groupName,
       String groupArn,
       String nextToken}) async {
-    return GetServiceGraphResult.fromJson({});
+    var response_ = await _client.send('GetServiceGraph', {
+      'StartTime': startTime,
+      'EndTime': endTime,
+      if (groupName != null) 'GroupName': groupName,
+      if (groupArn != null) 'GroupARN': groupArn,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetServiceGraphResult.fromJson(response_);
   }
 
   /// Get an aggregation of service statistics defined by a specific time range.
@@ -164,7 +211,17 @@ class XRayApi {
       String entitySelectorExpression,
       int period,
       String nextToken}) async {
-    return GetTimeSeriesServiceStatisticsResult.fromJson({});
+    var response_ = await _client.send('GetTimeSeriesServiceStatistics', {
+      'StartTime': startTime,
+      'EndTime': endTime,
+      if (groupName != null) 'GroupName': groupName,
+      if (groupArn != null) 'GroupARN': groupArn,
+      if (entitySelectorExpression != null)
+        'EntitySelectorExpression': entitySelectorExpression,
+      if (period != null) 'Period': period,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetTimeSeriesServiceStatisticsResult.fromJson(response_);
   }
 
   /// Retrieves a service graph for one or more specific trace IDs.
@@ -174,7 +231,11 @@ class XRayApi {
   /// [nextToken]: Pagination token. Not used.
   Future<GetTraceGraphResult> getTraceGraph(List<String> traceIds,
       {String nextToken}) async {
-    return GetTraceGraphResult.fromJson({});
+    var response_ = await _client.send('GetTraceGraph', {
+      'TraceIds': traceIds,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetTraceGraphResult.fromJson(response_);
   }
 
   /// Retrieves IDs and metadata for traces available for a specified time frame
@@ -224,7 +285,16 @@ class XRayApi {
       SamplingStrategy samplingStrategy,
       String filterExpression,
       String nextToken}) async {
-    return GetTraceSummariesResult.fromJson({});
+    var response_ = await _client.send('GetTraceSummaries', {
+      'StartTime': startTime,
+      'EndTime': endTime,
+      if (timeRangeType != null) 'TimeRangeType': timeRangeType,
+      if (sampling != null) 'Sampling': sampling,
+      if (samplingStrategy != null) 'SamplingStrategy': samplingStrategy,
+      if (filterExpression != null) 'FilterExpression': filterExpression,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetTraceSummariesResult.fromJson(response_);
   }
 
   /// Updates the encryption configuration for X-Ray data.
@@ -249,7 +319,11 @@ class XRayApi {
   /// encryption. Set to `NONE` for default encryption.
   Future<PutEncryptionConfigResult> putEncryptionConfig(String type,
       {String keyId}) async {
-    return PutEncryptionConfigResult.fromJson({});
+    var response_ = await _client.send('PutEncryptionConfig', {
+      if (keyId != null) 'KeyId': keyId,
+      'Type': type,
+    });
+    return PutEncryptionConfigResult.fromJson(response_);
   }
 
   /// Used by the AWS X-Ray daemon to upload telemetry.
@@ -266,7 +340,13 @@ class XRayApi {
       {String ec2InstanceId,
       String hostname,
       String resourceArn}) async {
-    return PutTelemetryRecordsResult.fromJson({});
+    var response_ = await _client.send('PutTelemetryRecords', {
+      'TelemetryRecords': telemetryRecords,
+      if (ec2InstanceId != null) 'EC2InstanceId': ec2InstanceId,
+      if (hostname != null) 'Hostname': hostname,
+      if (resourceArn != null) 'ResourceARN': resourceArn,
+    });
+    return PutTelemetryRecordsResult.fromJson(response_);
   }
 
   /// Uploads segment documents to AWS X-Ray. The X-Ray SDK generates segment
@@ -323,7 +403,10 @@ class XRayApi {
   /// or more segments or subsegments.
   Future<PutTraceSegmentsResult> putTraceSegments(
       List<String> traceSegmentDocuments) async {
-    return PutTraceSegmentsResult.fromJson({});
+    var response_ = await _client.send('PutTraceSegments', {
+      'TraceSegmentDocuments': traceSegmentDocuments,
+    });
+    return PutTraceSegmentsResult.fromJson(response_);
   }
 
   /// Updates a group resource.
@@ -336,7 +419,12 @@ class XRayApi {
   /// which to group traces.
   Future<UpdateGroupResult> updateGroup(
       {String groupName, String groupArn, String filterExpression}) async {
-    return UpdateGroupResult.fromJson({});
+    var response_ = await _client.send('UpdateGroup', {
+      if (groupName != null) 'GroupName': groupName,
+      if (groupArn != null) 'GroupARN': groupArn,
+      if (filterExpression != null) 'FilterExpression': filterExpression,
+    });
+    return UpdateGroupResult.fromJson(response_);
   }
 
   /// Modifies a sampling rule's configuration.
@@ -344,7 +432,10 @@ class XRayApi {
   /// [samplingRuleUpdate]: The rule and fields to change.
   Future<UpdateSamplingRuleResult> updateSamplingRule(
       SamplingRuleUpdate samplingRuleUpdate) async {
-    return UpdateSamplingRuleResult.fromJson({});
+    var response_ = await _client.send('UpdateSamplingRule', {
+      'SamplingRuleUpdate': samplingRuleUpdate,
+    });
+    return UpdateSamplingRuleResult.fromJson(response_);
   }
 }
 
@@ -364,7 +455,13 @@ class Alias {
     this.names,
     this.type,
   });
-  static Alias fromJson(Map<String, dynamic> json) => Alias();
+  static Alias fromJson(Map<String, dynamic> json) => Alias(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        names: json.containsKey('Names')
+            ? (json['Names'] as List).map((e) => e as String).toList()
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Value of a segment annotation. Has one of three value types: Number, Boolean
@@ -384,8 +481,17 @@ class AnnotationValue {
     this.booleanValue,
     this.stringValue,
   });
-  static AnnotationValue fromJson(Map<String, dynamic> json) =>
-      AnnotationValue();
+  static AnnotationValue fromJson(Map<String, dynamic> json) => AnnotationValue(
+        numberValue: json.containsKey('NumberValue')
+            ? json['NumberValue'] as double
+            : null,
+        booleanValue: json.containsKey('BooleanValue')
+            ? json['BooleanValue'] as bool
+            : null,
+        stringValue: json.containsKey('StringValue')
+            ? json['StringValue'] as String
+            : null,
+      );
 }
 
 /// A list of availability zones corresponding to the segments in a trace.
@@ -397,7 +503,9 @@ class AvailabilityZoneDetail {
     this.name,
   });
   static AvailabilityZoneDetail fromJson(Map<String, dynamic> json) =>
-      AvailabilityZoneDetail();
+      AvailabilityZoneDetail(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class BackendConnectionErrors {
@@ -421,6 +529,7 @@ class BackendConnectionErrors {
     this.unknownHostCount,
     this.otherCount,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class BatchGetTracesResult {
@@ -439,7 +548,18 @@ class BatchGetTracesResult {
     this.nextToken,
   });
   static BatchGetTracesResult fromJson(Map<String, dynamic> json) =>
-      BatchGetTracesResult();
+      BatchGetTracesResult(
+        traces: json.containsKey('Traces')
+            ? (json['Traces'] as List).map((e) => Trace.fromJson(e)).toList()
+            : null,
+        unprocessedTraceIds: json.containsKey('UnprocessedTraceIds')
+            ? (json['UnprocessedTraceIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class CreateGroupResult {
@@ -452,7 +572,9 @@ class CreateGroupResult {
     this.group,
   });
   static CreateGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateGroupResult();
+      CreateGroupResult(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+      );
 }
 
 class CreateSamplingRuleResult {
@@ -463,7 +585,11 @@ class CreateSamplingRuleResult {
     this.samplingRuleRecord,
   });
   static CreateSamplingRuleResult fromJson(Map<String, dynamic> json) =>
-      CreateSamplingRuleResult();
+      CreateSamplingRuleResult(
+        samplingRuleRecord: json.containsKey('SamplingRuleRecord')
+            ? SamplingRuleRecord.fromJson(json['SamplingRuleRecord'])
+            : null,
+      );
 }
 
 class DeleteGroupResult {
@@ -480,7 +606,11 @@ class DeleteSamplingRuleResult {
     this.samplingRuleRecord,
   });
   static DeleteSamplingRuleResult fromJson(Map<String, dynamic> json) =>
-      DeleteSamplingRuleResult();
+      DeleteSamplingRuleResult(
+        samplingRuleRecord: json.containsKey('SamplingRuleRecord')
+            ? SamplingRuleRecord.fromJson(json['SamplingRuleRecord'])
+            : null,
+      );
 }
 
 /// Information about a connection between two services.
@@ -511,7 +641,27 @@ class Edge {
     this.responseTimeHistogram,
     this.aliases,
   });
-  static Edge fromJson(Map<String, dynamic> json) => Edge();
+  static Edge fromJson(Map<String, dynamic> json) => Edge(
+        referenceId:
+            json.containsKey('ReferenceId') ? json['ReferenceId'] as int : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        summaryStatistics: json.containsKey('SummaryStatistics')
+            ? EdgeStatistics.fromJson(json['SummaryStatistics'])
+            : null,
+        responseTimeHistogram: json.containsKey('ResponseTimeHistogram')
+            ? (json['ResponseTimeHistogram'] as List)
+                .map((e) => HistogramEntry.fromJson(e))
+                .toList()
+            : null,
+        aliases: json.containsKey('Aliases')
+            ? (json['Aliases'] as List).map((e) => Alias.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Response statistics for an edge.
@@ -540,7 +690,22 @@ class EdgeStatistics {
     this.totalCount,
     this.totalResponseTime,
   });
-  static EdgeStatistics fromJson(Map<String, dynamic> json) => EdgeStatistics();
+  static EdgeStatistics fromJson(Map<String, dynamic> json) => EdgeStatistics(
+        okCount:
+            json.containsKey('OkCount') ? BigInt.from(json['OkCount']) : null,
+        errorStatistics: json.containsKey('ErrorStatistics')
+            ? ErrorStatistics.fromJson(json['ErrorStatistics'])
+            : null,
+        faultStatistics: json.containsKey('FaultStatistics')
+            ? FaultStatistics.fromJson(json['FaultStatistics'])
+            : null,
+        totalCount: json.containsKey('TotalCount')
+            ? BigInt.from(json['TotalCount'])
+            : null,
+        totalResponseTime: json.containsKey('TotalResponseTime')
+            ? json['TotalResponseTime'] as double
+            : null,
+      );
 }
 
 /// A configuration document that specifies encryption configuration settings.
@@ -563,7 +728,11 @@ class EncryptionConfig {
     this.type,
   });
   static EncryptionConfig fromJson(Map<String, dynamic> json) =>
-      EncryptionConfig();
+      EncryptionConfig(
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// The root cause of a trace summary error.
@@ -575,7 +744,13 @@ class ErrorRootCause {
   ErrorRootCause({
     this.services,
   });
-  static ErrorRootCause fromJson(Map<String, dynamic> json) => ErrorRootCause();
+  static ErrorRootCause fromJson(Map<String, dynamic> json) => ErrorRootCause(
+        services: json.containsKey('Services')
+            ? (json['Services'] as List)
+                .map((e) => ErrorRootCauseService.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A collection of segments and corresponding subsegments associated to a trace
@@ -596,7 +771,15 @@ class ErrorRootCauseEntity {
     this.remote,
   });
   static ErrorRootCauseEntity fromJson(Map<String, dynamic> json) =>
-      ErrorRootCauseEntity();
+      ErrorRootCauseEntity(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        exceptions: json.containsKey('Exceptions')
+            ? (json['Exceptions'] as List)
+                .map((e) => RootCauseException.fromJson(e))
+                .toList()
+            : null,
+        remote: json.containsKey('Remote') ? json['Remote'] as bool : null,
+      );
 }
 
 /// A collection of fields identifying the services in a trace summary error.
@@ -628,7 +811,22 @@ class ErrorRootCauseService {
     this.inferred,
   });
   static ErrorRootCauseService fromJson(Map<String, dynamic> json) =>
-      ErrorRootCauseService();
+      ErrorRootCauseService(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        names: json.containsKey('Names')
+            ? (json['Names'] as List).map((e) => e as String).toList()
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        entityPath: json.containsKey('EntityPath')
+            ? (json['EntityPath'] as List)
+                .map((e) => ErrorRootCauseEntity.fromJson(e))
+                .toList()
+            : null,
+        inferred:
+            json.containsKey('Inferred') ? json['Inferred'] as bool : null,
+      );
 }
 
 /// Information about requests that failed with a 4xx Client Error status code.
@@ -649,8 +847,17 @@ class ErrorStatistics {
     this.otherCount,
     this.totalCount,
   });
-  static ErrorStatistics fromJson(Map<String, dynamic> json) =>
-      ErrorStatistics();
+  static ErrorStatistics fromJson(Map<String, dynamic> json) => ErrorStatistics(
+        throttleCount: json.containsKey('ThrottleCount')
+            ? BigInt.from(json['ThrottleCount'])
+            : null,
+        otherCount: json.containsKey('OtherCount')
+            ? BigInt.from(json['OtherCount'])
+            : null,
+        totalCount: json.containsKey('TotalCount')
+            ? BigInt.from(json['TotalCount'])
+            : null,
+      );
 }
 
 /// The root cause information for a trace summary fault.
@@ -662,7 +869,13 @@ class FaultRootCause {
   FaultRootCause({
     this.services,
   });
-  static FaultRootCause fromJson(Map<String, dynamic> json) => FaultRootCause();
+  static FaultRootCause fromJson(Map<String, dynamic> json) => FaultRootCause(
+        services: json.containsKey('Services')
+            ? (json['Services'] as List)
+                .map((e) => FaultRootCauseService.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A collection of segments and corresponding subsegments associated to a trace
@@ -683,7 +896,15 @@ class FaultRootCauseEntity {
     this.remote,
   });
   static FaultRootCauseEntity fromJson(Map<String, dynamic> json) =>
-      FaultRootCauseEntity();
+      FaultRootCauseEntity(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        exceptions: json.containsKey('Exceptions')
+            ? (json['Exceptions'] as List)
+                .map((e) => RootCauseException.fromJson(e))
+                .toList()
+            : null,
+        remote: json.containsKey('Remote') ? json['Remote'] as bool : null,
+      );
 }
 
 /// A collection of fields identifying the services in a trace summary fault.
@@ -715,7 +936,22 @@ class FaultRootCauseService {
     this.inferred,
   });
   static FaultRootCauseService fromJson(Map<String, dynamic> json) =>
-      FaultRootCauseService();
+      FaultRootCauseService(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        names: json.containsKey('Names')
+            ? (json['Names'] as List).map((e) => e as String).toList()
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        entityPath: json.containsKey('EntityPath')
+            ? (json['EntityPath'] as List)
+                .map((e) => FaultRootCauseEntity.fromJson(e))
+                .toList()
+            : null,
+        inferred:
+            json.containsKey('Inferred') ? json['Inferred'] as bool : null,
+      );
 }
 
 /// Information about requests that failed with a 5xx Server Error status code.
@@ -732,8 +968,14 @@ class FaultStatistics {
     this.otherCount,
     this.totalCount,
   });
-  static FaultStatistics fromJson(Map<String, dynamic> json) =>
-      FaultStatistics();
+  static FaultStatistics fromJson(Map<String, dynamic> json) => FaultStatistics(
+        otherCount: json.containsKey('OtherCount')
+            ? BigInt.from(json['OtherCount'])
+            : null,
+        totalCount: json.containsKey('TotalCount')
+            ? BigInt.from(json['TotalCount'])
+            : null,
+      );
 }
 
 class GetEncryptionConfigResult {
@@ -744,7 +986,11 @@ class GetEncryptionConfigResult {
     this.encryptionConfig,
   });
   static GetEncryptionConfigResult fromJson(Map<String, dynamic> json) =>
-      GetEncryptionConfigResult();
+      GetEncryptionConfigResult(
+        encryptionConfig: json.containsKey('EncryptionConfig')
+            ? EncryptionConfig.fromJson(json['EncryptionConfig'])
+            : null,
+      );
 }
 
 class GetGroupResult {
@@ -755,7 +1001,9 @@ class GetGroupResult {
   GetGroupResult({
     this.group,
   });
-  static GetGroupResult fromJson(Map<String, dynamic> json) => GetGroupResult();
+  static GetGroupResult fromJson(Map<String, dynamic> json) => GetGroupResult(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+      );
 }
 
 class GetGroupsResult {
@@ -769,8 +1017,15 @@ class GetGroupsResult {
     this.groups,
     this.nextToken,
   });
-  static GetGroupsResult fromJson(Map<String, dynamic> json) =>
-      GetGroupsResult();
+  static GetGroupsResult fromJson(Map<String, dynamic> json) => GetGroupsResult(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List)
+                .map((e) => GroupSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetSamplingRulesResult {
@@ -785,7 +1040,15 @@ class GetSamplingRulesResult {
     this.nextToken,
   });
   static GetSamplingRulesResult fromJson(Map<String, dynamic> json) =>
-      GetSamplingRulesResult();
+      GetSamplingRulesResult(
+        samplingRuleRecords: json.containsKey('SamplingRuleRecords')
+            ? (json['SamplingRuleRecords'] as List)
+                .map((e) => SamplingRuleRecord.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetSamplingStatisticSummariesResult {
@@ -802,7 +1065,16 @@ class GetSamplingStatisticSummariesResult {
   });
   static GetSamplingStatisticSummariesResult fromJson(
           Map<String, dynamic> json) =>
-      GetSamplingStatisticSummariesResult();
+      GetSamplingStatisticSummariesResult(
+        samplingStatisticSummaries:
+            json.containsKey('SamplingStatisticSummaries')
+                ? (json['SamplingStatisticSummaries'] as List)
+                    .map((e) => SamplingStatisticSummary.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetSamplingTargetsResult {
@@ -823,7 +1095,21 @@ class GetSamplingTargetsResult {
     this.unprocessedStatistics,
   });
   static GetSamplingTargetsResult fromJson(Map<String, dynamic> json) =>
-      GetSamplingTargetsResult();
+      GetSamplingTargetsResult(
+        samplingTargetDocuments: json.containsKey('SamplingTargetDocuments')
+            ? (json['SamplingTargetDocuments'] as List)
+                .map((e) => SamplingTargetDocument.fromJson(e))
+                .toList()
+            : null,
+        lastRuleModification: json.containsKey('LastRuleModification')
+            ? DateTime.parse(json['LastRuleModification'])
+            : null,
+        unprocessedStatistics: json.containsKey('UnprocessedStatistics')
+            ? (json['UnprocessedStatistics'] as List)
+                .map((e) => UnprocessedStatistics.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetServiceGraphResult {
@@ -853,7 +1139,24 @@ class GetServiceGraphResult {
     this.nextToken,
   });
   static GetServiceGraphResult fromJson(Map<String, dynamic> json) =>
-      GetServiceGraphResult();
+      GetServiceGraphResult(
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        services: json.containsKey('Services')
+            ? (json['Services'] as List)
+                .map((e) => Service.fromJson(e))
+                .toList()
+            : null,
+        containsOldGroupVersions: json.containsKey('ContainsOldGroupVersions')
+            ? json['ContainsOldGroupVersions'] as bool
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetTimeSeriesServiceStatisticsResult {
@@ -875,7 +1178,19 @@ class GetTimeSeriesServiceStatisticsResult {
   });
   static GetTimeSeriesServiceStatisticsResult fromJson(
           Map<String, dynamic> json) =>
-      GetTimeSeriesServiceStatisticsResult();
+      GetTimeSeriesServiceStatisticsResult(
+        timeSeriesServiceStatistics:
+            json.containsKey('TimeSeriesServiceStatistics')
+                ? (json['TimeSeriesServiceStatistics'] as List)
+                    .map((e) => TimeSeriesServiceStatistics.fromJson(e))
+                    .toList()
+                : null,
+        containsOldGroupVersions: json.containsKey('ContainsOldGroupVersions')
+            ? json['ContainsOldGroupVersions'] as bool
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetTraceGraphResult {
@@ -890,7 +1205,15 @@ class GetTraceGraphResult {
     this.nextToken,
   });
   static GetTraceGraphResult fromJson(Map<String, dynamic> json) =>
-      GetTraceGraphResult();
+      GetTraceGraphResult(
+        services: json.containsKey('Services')
+            ? (json['Services'] as List)
+                .map((e) => Service.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetTraceSummariesResult {
@@ -917,7 +1240,21 @@ class GetTraceSummariesResult {
     this.nextToken,
   });
   static GetTraceSummariesResult fromJson(Map<String, dynamic> json) =>
-      GetTraceSummariesResult();
+      GetTraceSummariesResult(
+        traceSummaries: json.containsKey('TraceSummaries')
+            ? (json['TraceSummaries'] as List)
+                .map((e) => TraceSummary.fromJson(e))
+                .toList()
+            : null,
+        approximateTime: json.containsKey('ApproximateTime')
+            ? DateTime.parse(json['ApproximateTime'])
+            : null,
+        tracesProcessedCount: json.containsKey('TracesProcessedCount')
+            ? BigInt.from(json['TracesProcessedCount'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Details and metadata for a group.
@@ -936,7 +1273,15 @@ class Group {
     this.groupArn,
     this.filterExpression,
   });
-  static Group fromJson(Map<String, dynamic> json) => Group();
+  static Group fromJson(Map<String, dynamic> json) => Group(
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        groupArn:
+            json.containsKey('GroupARN') ? json['GroupARN'] as String : null,
+        filterExpression: json.containsKey('FilterExpression')
+            ? json['FilterExpression'] as String
+            : null,
+      );
 }
 
 /// Details for a group without metadata.
@@ -955,7 +1300,15 @@ class GroupSummary {
     this.groupArn,
     this.filterExpression,
   });
-  static GroupSummary fromJson(Map<String, dynamic> json) => GroupSummary();
+  static GroupSummary fromJson(Map<String, dynamic> json) => GroupSummary(
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        groupArn:
+            json.containsKey('GroupARN') ? json['GroupARN'] as String : null,
+        filterExpression: json.containsKey('FilterExpression')
+            ? json['FilterExpression'] as String
+            : null,
+      );
 }
 
 /// An entry in a histogram for a statistic. A histogram maps the range of
@@ -972,7 +1325,10 @@ class HistogramEntry {
     this.value,
     this.count,
   });
-  static HistogramEntry fromJson(Map<String, dynamic> json) => HistogramEntry();
+  static HistogramEntry fromJson(Map<String, dynamic> json) => HistogramEntry(
+        value: json.containsKey('Value') ? json['Value'] as double : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+      );
 }
 
 /// Information about an HTTP request.
@@ -999,7 +1355,18 @@ class Http {
     this.userAgent,
     this.clientIp,
   });
-  static Http fromJson(Map<String, dynamic> json) => Http();
+  static Http fromJson(Map<String, dynamic> json) => Http(
+        httpUrl: json.containsKey('HttpURL') ? json['HttpURL'] as String : null,
+        httpStatus:
+            json.containsKey('HttpStatus') ? json['HttpStatus'] as int : null,
+        httpMethod: json.containsKey('HttpMethod')
+            ? json['HttpMethod'] as String
+            : null,
+        userAgent:
+            json.containsKey('UserAgent') ? json['UserAgent'] as String : null,
+        clientIp:
+            json.containsKey('ClientIp') ? json['ClientIp'] as String : null,
+      );
 }
 
 /// A list of EC2 instance IDs corresponding to the segments in a trace.
@@ -1011,7 +1378,9 @@ class InstanceIdDetail {
     this.id,
   });
   static InstanceIdDetail fromJson(Map<String, dynamic> json) =>
-      InstanceIdDetail();
+      InstanceIdDetail(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+      );
 }
 
 class PutEncryptionConfigResult {
@@ -1022,7 +1391,11 @@ class PutEncryptionConfigResult {
     this.encryptionConfig,
   });
   static PutEncryptionConfigResult fromJson(Map<String, dynamic> json) =>
-      PutEncryptionConfigResult();
+      PutEncryptionConfigResult(
+        encryptionConfig: json.containsKey('EncryptionConfig')
+            ? EncryptionConfig.fromJson(json['EncryptionConfig'])
+            : null,
+      );
 }
 
 class PutTelemetryRecordsResult {
@@ -1039,7 +1412,13 @@ class PutTraceSegmentsResult {
     this.unprocessedTraceSegments,
   });
   static PutTraceSegmentsResult fromJson(Map<String, dynamic> json) =>
-      PutTraceSegmentsResult();
+      PutTraceSegmentsResult(
+        unprocessedTraceSegments: json.containsKey('UnprocessedTraceSegments')
+            ? (json['UnprocessedTraceSegments'] as List)
+                .map((e) => UnprocessedTraceSegment.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A list of resources ARNs corresponding to the segments in a trace.
@@ -1051,7 +1430,9 @@ class ResourceArnDetail {
     this.arn,
   });
   static ResourceArnDetail fromJson(Map<String, dynamic> json) =>
-      ResourceArnDetail();
+      ResourceArnDetail(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+      );
 }
 
 /// The root cause information for a response time warning.
@@ -1064,7 +1445,13 @@ class ResponseTimeRootCause {
     this.services,
   });
   static ResponseTimeRootCause fromJson(Map<String, dynamic> json) =>
-      ResponseTimeRootCause();
+      ResponseTimeRootCause(
+        services: json.containsKey('Services')
+            ? (json['Services'] as List)
+                .map((e) => ResponseTimeRootCauseService.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A collection of segments and corresponding subsegments associated to a
@@ -1085,7 +1472,12 @@ class ResponseTimeRootCauseEntity {
     this.remote,
   });
   static ResponseTimeRootCauseEntity fromJson(Map<String, dynamic> json) =>
-      ResponseTimeRootCauseEntity();
+      ResponseTimeRootCauseEntity(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        coverage:
+            json.containsKey('Coverage') ? json['Coverage'] as double : null,
+        remote: json.containsKey('Remote') ? json['Remote'] as bool : null,
+      );
 }
 
 /// A collection of fields identifying the service in a response time warning.
@@ -1117,7 +1509,22 @@ class ResponseTimeRootCauseService {
     this.inferred,
   });
   static ResponseTimeRootCauseService fromJson(Map<String, dynamic> json) =>
-      ResponseTimeRootCauseService();
+      ResponseTimeRootCauseService(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        names: json.containsKey('Names')
+            ? (json['Names'] as List).map((e) => e as String).toList()
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        entityPath: json.containsKey('EntityPath')
+            ? (json['EntityPath'] as List)
+                .map((e) => ResponseTimeRootCauseEntity.fromJson(e))
+                .toList()
+            : null,
+        inferred:
+            json.containsKey('Inferred') ? json['Inferred'] as bool : null,
+      );
 }
 
 /// The exception associated with a root cause.
@@ -1133,7 +1540,10 @@ class RootCauseException {
     this.message,
   });
   static RootCauseException fromJson(Map<String, dynamic> json) =>
-      RootCauseException();
+      RootCauseException(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// A sampling rule that services use to decide whether to instrument a request.
@@ -1200,7 +1610,26 @@ class SamplingRule {
     @required this.version,
     this.attributes,
   });
-  static SamplingRule fromJson(Map<String, dynamic> json) => SamplingRule();
+  static SamplingRule fromJson(Map<String, dynamic> json) => SamplingRule(
+        ruleName:
+            json.containsKey('RuleName') ? json['RuleName'] as String : null,
+        ruleArn: json.containsKey('RuleARN') ? json['RuleARN'] as String : null,
+        resourceArn: json['ResourceARN'] as String,
+        priority: json['Priority'] as int,
+        fixedRate: json['FixedRate'] as double,
+        reservoirSize: json['ReservoirSize'] as int,
+        serviceName: json['ServiceName'] as String,
+        serviceType: json['ServiceType'] as String,
+        host: json['Host'] as String,
+        httpMethod: json['HTTPMethod'] as String,
+        urlPath: json['URLPath'] as String,
+        version: json['Version'] as int,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A SamplingRule and its metadata.
@@ -1220,7 +1649,17 @@ class SamplingRuleRecord {
     this.modifiedAt,
   });
   static SamplingRuleRecord fromJson(Map<String, dynamic> json) =>
-      SamplingRuleRecord();
+      SamplingRuleRecord(
+        samplingRule: json.containsKey('SamplingRule')
+            ? SamplingRule.fromJson(json['SamplingRule'])
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        modifiedAt: json.containsKey('ModifiedAt')
+            ? DateTime.parse(json['ModifiedAt'])
+            : null,
+      );
 }
 
 /// A document specifying changes to a sampling rule's configuration.
@@ -1281,6 +1720,7 @@ class SamplingRuleUpdate {
     this.urlPath,
     this.attributes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Aggregated request sampling data for a sampling rule across all services for
@@ -1309,7 +1749,21 @@ class SamplingStatisticSummary {
     this.sampledCount,
   });
   static SamplingStatisticSummary fromJson(Map<String, dynamic> json) =>
-      SamplingStatisticSummary();
+      SamplingStatisticSummary(
+        ruleName:
+            json.containsKey('RuleName') ? json['RuleName'] as String : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+        requestCount: json.containsKey('RequestCount')
+            ? json['RequestCount'] as int
+            : null,
+        borrowCount:
+            json.containsKey('BorrowCount') ? json['BorrowCount'] as int : null,
+        sampledCount: json.containsKey('SampledCount')
+            ? json['SampledCount'] as int
+            : null,
+      );
 }
 
 /// Request sampling results for a single rule from a service. Results are for
@@ -1342,6 +1796,7 @@ class SamplingStatisticsDocument {
     @required this.sampledCount,
     this.borrowCount,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The name and value of a sampling rule to apply to a trace summary.
@@ -1356,6 +1811,7 @@ class SamplingStrategy {
     this.name,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Temporary changes to a sampling rule configuration. To meet the global
@@ -1388,7 +1844,19 @@ class SamplingTargetDocument {
     this.interval,
   });
   static SamplingTargetDocument fromJson(Map<String, dynamic> json) =>
-      SamplingTargetDocument();
+      SamplingTargetDocument(
+        ruleName:
+            json.containsKey('RuleName') ? json['RuleName'] as String : null,
+        fixedRate:
+            json.containsKey('FixedRate') ? json['FixedRate'] as double : null,
+        reservoirQuota: json.containsKey('ReservoirQuota')
+            ? json['ReservoirQuota'] as int
+            : null,
+        reservoirQuotaTtl: json.containsKey('ReservoirQuotaTTL')
+            ? DateTime.parse(json['ReservoirQuotaTTL'])
+            : null,
+        interval: json.containsKey('Interval') ? json['Interval'] as int : null,
+      );
 }
 
 /// A segment from a trace that has been ingested by the X-Ray service. The
@@ -1410,7 +1878,11 @@ class Segment {
     this.id,
     this.document,
   });
-  static Segment fromJson(Map<String, dynamic> json) => Segment();
+  static Segment fromJson(Map<String, dynamic> json) => Segment(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        document:
+            json.containsKey('Document') ? json['Document'] as String : null,
+      );
 }
 
 /// Information about an application that processed requests, users that made
@@ -1485,7 +1957,41 @@ class Service {
     this.durationHistogram,
     this.responseTimeHistogram,
   });
-  static Service fromJson(Map<String, dynamic> json) => Service();
+  static Service fromJson(Map<String, dynamic> json) => Service(
+        referenceId:
+            json.containsKey('ReferenceId') ? json['ReferenceId'] as int : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        names: json.containsKey('Names')
+            ? (json['Names'] as List).map((e) => e as String).toList()
+            : null,
+        root: json.containsKey('Root') ? json['Root'] as bool : null,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        edges: json.containsKey('Edges')
+            ? (json['Edges'] as List).map((e) => Edge.fromJson(e)).toList()
+            : null,
+        summaryStatistics: json.containsKey('SummaryStatistics')
+            ? ServiceStatistics.fromJson(json['SummaryStatistics'])
+            : null,
+        durationHistogram: json.containsKey('DurationHistogram')
+            ? (json['DurationHistogram'] as List)
+                .map((e) => HistogramEntry.fromJson(e))
+                .toList()
+            : null,
+        responseTimeHistogram: json.containsKey('ResponseTimeHistogram')
+            ? (json['ResponseTimeHistogram'] as List)
+                .map((e) => HistogramEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ServiceId {
@@ -1503,7 +2009,15 @@ class ServiceId {
     this.accountId,
     this.type,
   });
-  static ServiceId fromJson(Map<String, dynamic> json) => ServiceId();
+  static ServiceId fromJson(Map<String, dynamic> json) => ServiceId(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        names: json.containsKey('Names')
+            ? (json['Names'] as List).map((e) => e as String).toList()
+            : null,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Response statistics for a service.
@@ -1533,7 +2047,22 @@ class ServiceStatistics {
     this.totalResponseTime,
   });
   static ServiceStatistics fromJson(Map<String, dynamic> json) =>
-      ServiceStatistics();
+      ServiceStatistics(
+        okCount:
+            json.containsKey('OkCount') ? BigInt.from(json['OkCount']) : null,
+        errorStatistics: json.containsKey('ErrorStatistics')
+            ? ErrorStatistics.fromJson(json['ErrorStatistics'])
+            : null,
+        faultStatistics: json.containsKey('FaultStatistics')
+            ? FaultStatistics.fromJson(json['FaultStatistics'])
+            : null,
+        totalCount: json.containsKey('TotalCount')
+            ? BigInt.from(json['TotalCount'])
+            : null,
+        totalResponseTime: json.containsKey('TotalResponseTime')
+            ? json['TotalResponseTime'] as double
+            : null,
+      );
 }
 
 class TelemetryRecord {
@@ -1557,6 +2086,7 @@ class TelemetryRecord {
     this.segmentsRejectedCount,
     this.backendConnectionErrors,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of TimeSeriesStatistic structures.
@@ -1578,7 +2108,22 @@ class TimeSeriesServiceStatistics {
     this.responseTimeHistogram,
   });
   static TimeSeriesServiceStatistics fromJson(Map<String, dynamic> json) =>
-      TimeSeriesServiceStatistics();
+      TimeSeriesServiceStatistics(
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+        edgeSummaryStatistics: json.containsKey('EdgeSummaryStatistics')
+            ? EdgeStatistics.fromJson(json['EdgeSummaryStatistics'])
+            : null,
+        serviceSummaryStatistics: json.containsKey('ServiceSummaryStatistics')
+            ? ServiceStatistics.fromJson(json['ServiceSummaryStatistics'])
+            : null,
+        responseTimeHistogram: json.containsKey('ResponseTimeHistogram')
+            ? (json['ResponseTimeHistogram'] as List)
+                .map((e) => HistogramEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A collection of segment documents with matching trace IDs.
@@ -1600,7 +2145,16 @@ class Trace {
     this.duration,
     this.segments,
   });
-  static Trace fromJson(Map<String, dynamic> json) => Trace();
+  static Trace fromJson(Map<String, dynamic> json) => Trace(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        duration:
+            json.containsKey('Duration') ? json['Duration'] as double : null,
+        segments: json.containsKey('Segments')
+            ? (json['Segments'] as List)
+                .map((e) => Segment.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Metadata generated from the segment documents in a trace.
@@ -1699,7 +2253,76 @@ class TraceSummary {
     this.revision,
     this.matchedEventTime,
   });
-  static TraceSummary fromJson(Map<String, dynamic> json) => TraceSummary();
+  static TraceSummary fromJson(Map<String, dynamic> json) => TraceSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        duration:
+            json.containsKey('Duration') ? json['Duration'] as double : null,
+        responseTime: json.containsKey('ResponseTime')
+            ? json['ResponseTime'] as double
+            : null,
+        hasFault:
+            json.containsKey('HasFault') ? json['HasFault'] as bool : null,
+        hasError:
+            json.containsKey('HasError') ? json['HasError'] as bool : null,
+        hasThrottle: json.containsKey('HasThrottle')
+            ? json['HasThrottle'] as bool
+            : null,
+        isPartial:
+            json.containsKey('IsPartial') ? json['IsPartial'] as bool : null,
+        http: json.containsKey('Http') ? Http.fromJson(json['Http']) : null,
+        annotations: json.containsKey('Annotations')
+            ? (json['Annotations'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as List)
+                    .map((e) => ValueWithServiceIds.fromJson(e))
+                    .toList()))
+            : null,
+        users: json.containsKey('Users')
+            ? (json['Users'] as List).map((e) => TraceUser.fromJson(e)).toList()
+            : null,
+        serviceIds: json.containsKey('ServiceIds')
+            ? (json['ServiceIds'] as List)
+                .map((e) => ServiceId.fromJson(e))
+                .toList()
+            : null,
+        resourceARNs: json.containsKey('ResourceARNs')
+            ? (json['ResourceARNs'] as List)
+                .map((e) => ResourceArnDetail.fromJson(e))
+                .toList()
+            : null,
+        instanceIds: json.containsKey('InstanceIds')
+            ? (json['InstanceIds'] as List)
+                .map((e) => InstanceIdDetail.fromJson(e))
+                .toList()
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => AvailabilityZoneDetail.fromJson(e))
+                .toList()
+            : null,
+        entryPoint: json.containsKey('EntryPoint')
+            ? ServiceId.fromJson(json['EntryPoint'])
+            : null,
+        faultRootCauses: json.containsKey('FaultRootCauses')
+            ? (json['FaultRootCauses'] as List)
+                .map((e) => FaultRootCause.fromJson(e))
+                .toList()
+            : null,
+        errorRootCauses: json.containsKey('ErrorRootCauses')
+            ? (json['ErrorRootCauses'] as List)
+                .map((e) => ErrorRootCause.fromJson(e))
+                .toList()
+            : null,
+        responseTimeRootCauses: json.containsKey('ResponseTimeRootCauses')
+            ? (json['ResponseTimeRootCauses'] as List)
+                .map((e) => ResponseTimeRootCause.fromJson(e))
+                .toList()
+            : null,
+        revision: json.containsKey('Revision') ? json['Revision'] as int : null,
+        matchedEventTime: json.containsKey('MatchedEventTime')
+            ? DateTime.parse(json['MatchedEventTime'])
+            : null,
+      );
 }
 
 /// Information about a user recorded in segment documents.
@@ -1714,7 +2337,15 @@ class TraceUser {
     this.userName,
     this.serviceIds,
   });
-  static TraceUser fromJson(Map<String, dynamic> json) => TraceUser();
+  static TraceUser fromJson(Map<String, dynamic> json) => TraceUser(
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        serviceIds: json.containsKey('ServiceIds')
+            ? (json['ServiceIds'] as List)
+                .map((e) => ServiceId.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Sampling statistics from a call to GetSamplingTargets that X-Ray could not
@@ -1735,7 +2366,13 @@ class UnprocessedStatistics {
     this.message,
   });
   static UnprocessedStatistics fromJson(Map<String, dynamic> json) =>
-      UnprocessedStatistics();
+      UnprocessedStatistics(
+        ruleName:
+            json.containsKey('RuleName') ? json['RuleName'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Information about a segment that failed processing.
@@ -1755,7 +2392,12 @@ class UnprocessedTraceSegment {
     this.message,
   });
   static UnprocessedTraceSegment fromJson(Map<String, dynamic> json) =>
-      UnprocessedTraceSegment();
+      UnprocessedTraceSegment(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 class UpdateGroupResult {
@@ -1768,7 +2410,9 @@ class UpdateGroupResult {
     this.group,
   });
   static UpdateGroupResult fromJson(Map<String, dynamic> json) =>
-      UpdateGroupResult();
+      UpdateGroupResult(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+      );
 }
 
 class UpdateSamplingRuleResult {
@@ -1779,7 +2423,11 @@ class UpdateSamplingRuleResult {
     this.samplingRuleRecord,
   });
   static UpdateSamplingRuleResult fromJson(Map<String, dynamic> json) =>
-      UpdateSamplingRuleResult();
+      UpdateSamplingRuleResult(
+        samplingRuleRecord: json.containsKey('SamplingRuleRecord')
+            ? SamplingRuleRecord.fromJson(json['SamplingRuleRecord'])
+            : null,
+      );
 }
 
 /// Information about a segment annotation.
@@ -1795,5 +2443,14 @@ class ValueWithServiceIds {
     this.serviceIds,
   });
   static ValueWithServiceIds fromJson(Map<String, dynamic> json) =>
-      ValueWithServiceIds();
+      ValueWithServiceIds(
+        annotationValue: json.containsKey('AnnotationValue')
+            ? AnnotationValue.fromJson(json['AnnotationValue'])
+            : null,
+        serviceIds: json.containsKey('ServiceIds')
+            ? (json['ServiceIds'] as List)
+                .map((e) => ServiceId.fromJson(e))
+                .toList()
+            : null,
+      );
 }

@@ -3,6 +3,10 @@ import 'package:meta/meta.dart';
 ///  Comprehend Medical extracts structured information from unstructured
 /// clinical text. Use these actions to gain insight in your documents.
 class ComprehendMedicalApi {
+  final _client;
+  ComprehendMedicalApi(client)
+      : _client = client.configured('ComprehendMedical', serializer: 'json');
+
   ///  Inspects the clinical text for a variety of medical entities and returns
   /// specific information about them such as entity category, location, and
   /// confidence score on that information .
@@ -11,7 +15,10 @@ class ComprehendMedicalApi {
   /// examined for entities. Each string must contain fewer than 20,000 bytes of
   /// characters.
   Future<DetectEntitiesResponse> detectEntities(String text) async {
-    return DetectEntitiesResponse.fromJson({});
+    var response_ = await _client.send('DetectEntities', {
+      'Text': text,
+    });
+    return DetectEntitiesResponse.fromJson(response_);
   }
 
   ///  Inspects the clinical text for personal health information (PHI) entities
@@ -21,7 +28,10 @@ class ComprehendMedicalApi {
   /// examined for PHI entities. Each string must contain fewer than 20,000
   /// bytes of characters.
   Future<DetectPhiResponse> detectPhi(String text) async {
-    return DetectPhiResponse.fromJson({});
+    var response_ = await _client.send('DetectPHI', {
+      'Text': text,
+    });
+    return DetectPhiResponse.fromJson(response_);
   }
 }
 
@@ -70,7 +80,22 @@ class Attribute {
     this.text,
     this.traits,
   });
-  static Attribute fromJson(Map<String, dynamic> json) => Attribute();
+  static Attribute fromJson(Map<String, dynamic> json) => Attribute(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        score: json.containsKey('Score') ? json['Score'] as double : null,
+        relationshipScore: json.containsKey('RelationshipScore')
+            ? json['RelationshipScore'] as double
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as int : null,
+        beginOffset:
+            json.containsKey('BeginOffset') ? json['BeginOffset'] as int : null,
+        endOffset:
+            json.containsKey('EndOffset') ? json['EndOffset'] as int : null,
+        text: json.containsKey('Text') ? json['Text'] as String : null,
+        traits: json.containsKey('Traits')
+            ? (json['Traits'] as List).map((e) => Trait.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DetectEntitiesResponse {
@@ -95,7 +120,18 @@ class DetectEntitiesResponse {
     this.paginationToken,
   });
   static DetectEntitiesResponse fromJson(Map<String, dynamic> json) =>
-      DetectEntitiesResponse();
+      DetectEntitiesResponse(
+        entities:
+            (json['Entities'] as List).map((e) => Entity.fromJson(e)).toList(),
+        unmappedAttributes: json.containsKey('UnmappedAttributes')
+            ? (json['UnmappedAttributes'] as List)
+                .map((e) => UnmappedAttribute.fromJson(e))
+                .toList()
+            : null,
+        paginationToken: json.containsKey('PaginationToken')
+            ? json['PaginationToken'] as String
+            : null,
+      );
 }
 
 class DetectPhiResponse {
@@ -114,7 +150,13 @@ class DetectPhiResponse {
     this.paginationToken,
   });
   static DetectPhiResponse fromJson(Map<String, dynamic> json) =>
-      DetectPhiResponse();
+      DetectPhiResponse(
+        entities:
+            (json['Entities'] as List).map((e) => Entity.fromJson(e)).toList(),
+        paginationToken: json.containsKey('PaginationToken')
+            ? json['PaginationToken'] as String
+            : null,
+      );
 }
 
 ///  Provides information about an extracted medical entity.
@@ -161,7 +203,26 @@ class Entity {
     this.traits,
     this.attributes,
   });
-  static Entity fromJson(Map<String, dynamic> json) => Entity();
+  static Entity fromJson(Map<String, dynamic> json) => Entity(
+        id: json.containsKey('Id') ? json['Id'] as int : null,
+        beginOffset:
+            json.containsKey('BeginOffset') ? json['BeginOffset'] as int : null,
+        endOffset:
+            json.containsKey('EndOffset') ? json['EndOffset'] as int : null,
+        score: json.containsKey('Score') ? json['Score'] as double : null,
+        text: json.containsKey('Text') ? json['Text'] as String : null,
+        category:
+            json.containsKey('Category') ? json['Category'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        traits: json.containsKey('Traits')
+            ? (json['Traits'] as List).map((e) => Trait.fromJson(e)).toList()
+            : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Provides contextual information about the extracted entity.
@@ -177,7 +238,10 @@ class Trait {
     this.name,
     this.score,
   });
-  static Trait fromJson(Map<String, dynamic> json) => Trait();
+  static Trait fromJson(Map<String, dynamic> json) => Trait(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        score: json.containsKey('Score') ? json['Score'] as double : null,
+      );
 }
 
 ///  An attribute that we extracted, but were unable to relate to an entity.
@@ -196,5 +260,10 @@ class UnmappedAttribute {
     this.attribute,
   });
   static UnmappedAttribute fromJson(Map<String, dynamic> json) =>
-      UnmappedAttribute();
+      UnmappedAttribute(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        attribute: json.containsKey('Attribute')
+            ? Attribute.fromJson(json['Attribute'])
+            : null,
+      );
 }

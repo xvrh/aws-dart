@@ -51,6 +51,9 @@ import 'package:meta/meta.dart';
 /// *   For more information about how to use the Query API, see
 /// [Using the Query API](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Using_the_Query_API.html).
 class RdsApi {
+  final _client;
+  RdsApi(client) : _client = client.configured('RDS', serializer: 'query');
+
   /// Associates an Identity and Access Management (IAM) role from an Amazon
   /// Aurora DB cluster. For more information, see
   /// [Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html)
@@ -73,7 +76,13 @@ class RdsApi {
   Future<void> addRoleToDBCluster(
       {@required String dbClusterIdentifier,
       @required String roleArn,
-      String featureName}) async {}
+      String featureName}) async {
+    await _client.send('AddRoleToDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      'RoleArn': roleArn,
+      if (featureName != null) 'FeatureName': featureName,
+    });
+  }
 
   /// Associates an AWS Identity and Access Management (IAM) role with a DB
   /// instance.
@@ -96,7 +105,13 @@ class RdsApi {
   Future<void> addRoleToDBInstance(
       {@required String dbInstanceIdentifier,
       @required String roleArn,
-      @required String featureName}) async {}
+      @required String featureName}) async {
+    await _client.send('AddRoleToDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      'RoleArn': roleArn,
+      'FeatureName': featureName,
+    });
+  }
 
   /// Adds a source identifier to an existing RDS event notification
   /// subscription.
@@ -123,7 +138,11 @@ class RdsApi {
       addSourceIdentifierToSubscription(
           {@required String subscriptionName,
           @required String sourceIdentifier}) async {
-    return AddSourceIdentifierToSubscriptionResult.fromJson({});
+    var response_ = await _client.send('AddSourceIdentifierToSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SourceIdentifier': sourceIdentifier,
+    });
+    return AddSourceIdentifierToSubscriptionResult.fromJson(response_);
   }
 
   /// Adds metadata tags to an Amazon RDS resource. These tags can also be used
@@ -141,7 +160,12 @@ class RdsApi {
   ///
   /// [tags]: The tags to be assigned to the Amazon RDS resource.
   Future<void> addTagsToResource(
-      {@required String resourceName, @required List<Tag> tags}) async {}
+      {@required String resourceName, @required List<Tag> tags}) async {
+    await _client.send('AddTagsToResource', {
+      'ResourceName': resourceName,
+      'Tags': tags,
+    });
+  }
 
   /// Applies a pending maintenance action to a resource (for example, to a DB
   /// instance).
@@ -171,7 +195,12 @@ class RdsApi {
       {@required String resourceIdentifier,
       @required String applyAction,
       @required String optInType}) async {
-    return ApplyPendingMaintenanceActionResult.fromJson({});
+    var response_ = await _client.send('ApplyPendingMaintenanceAction', {
+      'ResourceIdentifier': resourceIdentifier,
+      'ApplyAction': applyAction,
+      'OptInType': optInType,
+    });
+    return ApplyPendingMaintenanceActionResult.fromJson(response_);
   }
 
   /// Enables ingress to a DBSecurityGroup using one of two forms of
@@ -217,7 +246,16 @@ class RdsApi {
       String ec2SecurityGroupName,
       String ec2SecurityGroupId,
       String ec2SecurityGroupOwnerId}) async {
-    return AuthorizeDBSecurityGroupIngressResult.fromJson({});
+    var response_ = await _client.send('AuthorizeDBSecurityGroupIngress', {
+      'DBSecurityGroupName': dbSecurityGroupName,
+      if (cidrip != null) 'CIDRIP': cidrip,
+      if (ec2SecurityGroupName != null)
+        'EC2SecurityGroupName': ec2SecurityGroupName,
+      if (ec2SecurityGroupId != null) 'EC2SecurityGroupId': ec2SecurityGroupId,
+      if (ec2SecurityGroupOwnerId != null)
+        'EC2SecurityGroupOwnerId': ec2SecurityGroupOwnerId,
+    });
+    return AuthorizeDBSecurityGroupIngressResult.fromJson(response_);
   }
 
   /// Backtracks a DB cluster to a specific time, without creating a new DB
@@ -276,7 +314,15 @@ class RdsApi {
       @required DateTime backtrackTo,
       bool force,
       bool useEarliestTimeOnPointInTimeUnavailable}) async {
-    return DBClusterBacktrack.fromJson({});
+    var response_ = await _client.send('BacktrackDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      'BacktrackTo': backtrackTo,
+      if (force != null) 'Force': force,
+      if (useEarliestTimeOnPointInTimeUnavailable != null)
+        'UseEarliestTimeOnPointInTimeUnavailable':
+            useEarliestTimeOnPointInTimeUnavailable,
+    });
+    return DBClusterBacktrack.fromJson(response_);
   }
 
   /// Copies the specified DB cluster parameter group.
@@ -326,7 +372,16 @@ class RdsApi {
       @required String targetDBClusterParameterGroupIdentifier,
       @required String targetDBClusterParameterGroupDescription,
       List<Tag> tags}) async {
-    return CopyDBClusterParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CopyDBClusterParameterGroup', {
+      'SourceDBClusterParameterGroupIdentifier':
+          sourceDBClusterParameterGroupIdentifier,
+      'TargetDBClusterParameterGroupIdentifier':
+          targetDBClusterParameterGroupIdentifier,
+      'TargetDBClusterParameterGroupDescription':
+          targetDBClusterParameterGroupDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return CopyDBClusterParameterGroupResult.fromJson(response_);
   }
 
   /// Copies a snapshot of a DB cluster.
@@ -514,7 +569,16 @@ class RdsApi {
       bool copyTags,
       List<Tag> tags,
       String sourceRegion}) async {
-    return CopyDBClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('CopyDBClusterSnapshot', {
+      'SourceDBClusterSnapshotIdentifier': sourceDBClusterSnapshotIdentifier,
+      'TargetDBClusterSnapshotIdentifier': targetDBClusterSnapshotIdentifier,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (preSignedUrl != null) 'PreSignedUrl': preSignedUrl,
+      if (copyTags != null) 'CopyTags': copyTags,
+      if (tags != null) 'Tags': tags,
+      if (sourceRegion != null) 'SourceRegion': sourceRegion,
+    });
+    return CopyDBClusterSnapshotResult.fromJson(response_);
   }
 
   /// Copies the specified DB parameter group.
@@ -554,7 +618,13 @@ class RdsApi {
       @required String targetDBParameterGroupIdentifier,
       @required String targetDBParameterGroupDescription,
       List<Tag> tags}) async {
-    return CopyDBParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CopyDBParameterGroup', {
+      'SourceDBParameterGroupIdentifier': sourceDBParameterGroupIdentifier,
+      'TargetDBParameterGroupIdentifier': targetDBParameterGroupIdentifier,
+      'TargetDBParameterGroupDescription': targetDBParameterGroupDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return CopyDBParameterGroupResult.fromJson(response_);
   }
 
   /// Copies the specified DB snapshot. The source DB snapshot must be in the
@@ -703,7 +773,17 @@ class RdsApi {
       String preSignedUrl,
       String optionGroupName,
       String sourceRegion}) async {
-    return CopyDBSnapshotResult.fromJson({});
+    var response_ = await _client.send('CopyDBSnapshot', {
+      'SourceDBSnapshotIdentifier': sourceDBSnapshotIdentifier,
+      'TargetDBSnapshotIdentifier': targetDBSnapshotIdentifier,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (tags != null) 'Tags': tags,
+      if (copyTags != null) 'CopyTags': copyTags,
+      if (preSignedUrl != null) 'PreSignedUrl': preSignedUrl,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (sourceRegion != null) 'SourceRegion': sourceRegion,
+    });
+    return CopyDBSnapshotResult.fromJson(response_);
   }
 
   /// Copies the specified option group.
@@ -747,7 +827,13 @@ class RdsApi {
       @required String targetOptionGroupIdentifier,
       @required String targetOptionGroupDescription,
       List<Tag> tags}) async {
-    return CopyOptionGroupResult.fromJson({});
+    var response_ = await _client.send('CopyOptionGroup', {
+      'SourceOptionGroupIdentifier': sourceOptionGroupIdentifier,
+      'TargetOptionGroupIdentifier': targetOptionGroupIdentifier,
+      'TargetOptionGroupDescription': targetOptionGroupDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return CopyOptionGroupResult.fromJson(response_);
   }
 
   /// Creates a new Amazon Aurora DB cluster.
@@ -1078,7 +1164,50 @@ class RdsApi {
       bool enableHttpEndpoint,
       bool copyTagsToSnapshot,
       String sourceRegion}) async {
-    return CreateDBClusterResult.fromJson({});
+    var response_ = await _client.send('CreateDBCluster', {
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (characterSetName != null) 'CharacterSetName': characterSetName,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (port != null) 'Port': port,
+      if (masterUsername != null) 'MasterUsername': masterUsername,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (replicationSourceIdentifier != null)
+        'ReplicationSourceIdentifier': replicationSourceIdentifier,
+      if (tags != null) 'Tags': tags,
+      if (storageEncrypted != null) 'StorageEncrypted': storageEncrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (preSignedUrl != null) 'PreSignedUrl': preSignedUrl,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (backtrackWindow != null) 'BacktrackWindow': backtrackWindow,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (engineMode != null) 'EngineMode': engineMode,
+      if (scalingConfiguration != null)
+        'ScalingConfiguration': scalingConfiguration,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (globalClusterIdentifier != null)
+        'GlobalClusterIdentifier': globalClusterIdentifier,
+      if (enableHttpEndpoint != null) 'EnableHttpEndpoint': enableHttpEndpoint,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+      if (sourceRegion != null) 'SourceRegion': sourceRegion,
+    });
+    return CreateDBClusterResult.fromJson(response_);
   }
 
   /// Creates a new custom endpoint and associates it with an Amazon Aurora DB
@@ -1110,7 +1239,14 @@ class RdsApi {
       @required String endpointType,
       List<String> staticMembers,
       List<String> excludedMembers}) async {
-    return DBClusterEndpoint.fromJson({});
+    var response_ = await _client.send('CreateDBClusterEndpoint', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      'DBClusterEndpointIdentifier': dbClusterEndpointIdentifier,
+      'EndpointType': endpointType,
+      if (staticMembers != null) 'StaticMembers': staticMembers,
+      if (excludedMembers != null) 'ExcludedMembers': excludedMembers,
+    });
+    return DBClusterEndpoint.fromJson(response_);
   }
 
   /// Creates a new DB cluster parameter group.
@@ -1181,7 +1317,13 @@ class RdsApi {
       @required String dbParameterGroupFamily,
       @required String description,
       List<Tag> tags}) async {
-    return CreateDBClusterParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBClusterParameterGroup', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      'Description': description,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBClusterParameterGroupResult.fromJson(response_);
   }
 
   /// Creates a snapshot of a DB cluster. For more information on Amazon Aurora,
@@ -1222,7 +1364,12 @@ class RdsApi {
       {@required String dbClusterSnapshotIdentifier,
       @required String dbClusterIdentifier,
       List<Tag> tags}) async {
-    return CreateDBClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateDBClusterSnapshot', {
+      'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBClusterSnapshotResult.fromJson(response_);
   }
 
   /// Creates a new DB instance.
@@ -2022,7 +2169,70 @@ class RdsApi {
       List<ProcessorFeature> processorFeatures,
       bool deletionProtection,
       int maxAllocatedStorage}) async {
-    return CreateDBInstanceResult.fromJson({});
+    var response_ = await _client.send('CreateDBInstance', {
+      if (dbName != null) 'DBName': dbName,
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (allocatedStorage != null) 'AllocatedStorage': allocatedStorage,
+      'DBInstanceClass': dbInstanceClass,
+      'Engine': engine,
+      if (masterUsername != null) 'MasterUsername': masterUsername,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (dbSecurityGroups != null) 'DBSecurityGroups': dbSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (port != null) 'Port': port,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (characterSetName != null) 'CharacterSetName': characterSetName,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (tags != null) 'Tags': tags,
+      if (dbClusterIdentifier != null)
+        'DBClusterIdentifier': dbClusterIdentifier,
+      if (storageType != null) 'StorageType': storageType,
+      if (tdeCredentialArn != null) 'TdeCredentialArn': tdeCredentialArn,
+      if (tdeCredentialPassword != null)
+        'TdeCredentialPassword': tdeCredentialPassword,
+      if (storageEncrypted != null) 'StorageEncrypted': storageEncrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (domain != null) 'Domain': domain,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+      if (monitoringInterval != null) 'MonitoringInterval': monitoringInterval,
+      if (monitoringRoleArn != null) 'MonitoringRoleArn': monitoringRoleArn,
+      if (domainIamRoleName != null) 'DomainIAMRoleName': domainIamRoleName,
+      if (promotionTier != null) 'PromotionTier': promotionTier,
+      if (timezone != null) 'Timezone': timezone,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enablePerformanceInsights != null)
+        'EnablePerformanceInsights': enablePerformanceInsights,
+      if (performanceInsightsKmsKeyId != null)
+        'PerformanceInsightsKMSKeyId': performanceInsightsKmsKeyId,
+      if (performanceInsightsRetentionPeriod != null)
+        'PerformanceInsightsRetentionPeriod':
+            performanceInsightsRetentionPeriod,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (processorFeatures != null) 'ProcessorFeatures': processorFeatures,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (maxAllocatedStorage != null)
+        'MaxAllocatedStorage': maxAllocatedStorage,
+    });
+    return CreateDBInstanceResult.fromJson(response_);
   }
 
   /// Creates a new DB instance that acts as a Read Replica for an existing
@@ -2358,7 +2568,48 @@ class RdsApi {
       bool useDefaultProcessorFeatures,
       bool deletionProtection,
       String sourceRegion}) async {
-    return CreateDBInstanceReadReplicaResult.fromJson({});
+    var response_ = await _client.send('CreateDBInstanceReadReplica', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      'SourceDBInstanceIdentifier': sourceDBInstanceIdentifier,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (port != null) 'Port': port,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (tags != null) 'Tags': tags,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (storageType != null) 'StorageType': storageType,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+      if (monitoringInterval != null) 'MonitoringInterval': monitoringInterval,
+      if (monitoringRoleArn != null) 'MonitoringRoleArn': monitoringRoleArn,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (preSignedUrl != null) 'PreSignedUrl': preSignedUrl,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enablePerformanceInsights != null)
+        'EnablePerformanceInsights': enablePerformanceInsights,
+      if (performanceInsightsKmsKeyId != null)
+        'PerformanceInsightsKMSKeyId': performanceInsightsKmsKeyId,
+      if (performanceInsightsRetentionPeriod != null)
+        'PerformanceInsightsRetentionPeriod':
+            performanceInsightsRetentionPeriod,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (processorFeatures != null) 'ProcessorFeatures': processorFeatures,
+      if (useDefaultProcessorFeatures != null)
+        'UseDefaultProcessorFeatures': useDefaultProcessorFeatures,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (sourceRegion != null) 'SourceRegion': sourceRegion,
+    });
+    return CreateDBInstanceReadReplicaResult.fromJson(response_);
   }
 
   /// Creates a new DB parameter group.
@@ -2424,7 +2675,13 @@ class RdsApi {
       @required String dbParameterGroupFamily,
       @required String description,
       List<Tag> tags}) async {
-    return CreateDBParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      'Description': description,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBParameterGroupResult.fromJson(response_);
   }
 
   /// Creates a new DB security group. DB security groups control access to a DB
@@ -2458,7 +2715,12 @@ class RdsApi {
       {@required String dbSecurityGroupName,
       @required String dbSecurityGroupDescription,
       List<Tag> tags}) async {
-    return CreateDBSecurityGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBSecurityGroup', {
+      'DBSecurityGroupName': dbSecurityGroupName,
+      'DBSecurityGroupDescription': dbSecurityGroupDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBSecurityGroupResult.fromJson(response_);
   }
 
   /// Creates a DBSnapshot. The source DBInstance must be in "available" state.
@@ -2488,7 +2750,12 @@ class RdsApi {
       {@required String dbSnapshotIdentifier,
       @required String dbInstanceIdentifier,
       List<Tag> tags}) async {
-    return CreateDBSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateDBSnapshot', {
+      'DBSnapshotIdentifier': dbSnapshotIdentifier,
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBSnapshotResult.fromJson(response_);
   }
 
   /// Creates a new DB subnet group. DB subnet groups must contain at least one
@@ -2512,7 +2779,13 @@ class RdsApi {
       @required String dbSubnetGroupDescription,
       @required List<String> subnetIds,
       List<Tag> tags}) async {
-    return CreateDBSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBSubnetGroup', {
+      'DBSubnetGroupName': dbSubnetGroupName,
+      'DBSubnetGroupDescription': dbSubnetGroupDescription,
+      'SubnetIds': subnetIds,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDBSubnetGroupResult.fromJson(response_);
   }
 
   /// Creates an RDS event notification subscription. This action requires a
@@ -2593,7 +2866,16 @@ class RdsApi {
       List<String> sourceIds,
       bool enabled,
       List<Tag> tags}) async {
-    return CreateEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('CreateEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (sourceIds != null) 'SourceIds': sourceIds,
+      if (enabled != null) 'Enabled': enabled,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateEventSubscriptionResult.fromJson(response_);
   }
 
   ///  Creates an Aurora global database spread across multiple regions. The
@@ -2640,7 +2922,18 @@ class RdsApi {
       bool deletionProtection,
       String databaseName,
       bool storageEncrypted}) async {
-    return CreateGlobalClusterResult.fromJson({});
+    var response_ = await _client.send('CreateGlobalCluster', {
+      if (globalClusterIdentifier != null)
+        'GlobalClusterIdentifier': globalClusterIdentifier,
+      if (sourceDBClusterIdentifier != null)
+        'SourceDBClusterIdentifier': sourceDBClusterIdentifier,
+      if (engine != null) 'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      if (storageEncrypted != null) 'StorageEncrypted': storageEncrypted,
+    });
+    return CreateGlobalClusterResult.fromJson(response_);
   }
 
   /// Creates a new option group. You can create up to 20 option groups.
@@ -2673,7 +2966,14 @@ class RdsApi {
       @required String majorEngineVersion,
       @required String optionGroupDescription,
       List<Tag> tags}) async {
-    return CreateOptionGroupResult.fromJson({});
+    var response_ = await _client.send('CreateOptionGroup', {
+      'OptionGroupName': optionGroupName,
+      'EngineName': engineName,
+      'MajorEngineVersion': majorEngineVersion,
+      'OptionGroupDescription': optionGroupDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateOptionGroupResult.fromJson(response_);
   }
 
   /// The DeleteDBCluster action deletes a previously provisioned DB cluster.
@@ -2724,7 +3024,13 @@ class RdsApi {
   /// *   Can't end with a hyphen or contain two consecutive hyphens
   Future<DeleteDBClusterResult> deleteDBCluster(String dbClusterIdentifier,
       {bool skipFinalSnapshot, String finalDBSnapshotIdentifier}) async {
-    return DeleteDBClusterResult.fromJson({});
+    var response_ = await _client.send('DeleteDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (skipFinalSnapshot != null) 'SkipFinalSnapshot': skipFinalSnapshot,
+      if (finalDBSnapshotIdentifier != null)
+        'FinalDBSnapshotIdentifier': finalDBSnapshotIdentifier,
+    });
+    return DeleteDBClusterResult.fromJson(response_);
   }
 
   /// Deletes a custom endpoint and removes it from an Amazon Aurora DB cluster.
@@ -2737,7 +3043,10 @@ class RdsApi {
   /// endpoint. This parameter is stored as a lowercase string.
   Future<DBClusterEndpoint> deleteDBClusterEndpoint(
       String dbClusterEndpointIdentifier) async {
-    return DBClusterEndpoint.fromJson({});
+    var response_ = await _client.send('DeleteDBClusterEndpoint', {
+      'DBClusterEndpointIdentifier': dbClusterEndpointIdentifier,
+    });
+    return DBClusterEndpoint.fromJson(response_);
   }
 
   /// Deletes a specified DB cluster parameter group. The DB cluster parameter
@@ -2761,7 +3070,11 @@ class RdsApi {
   ///
   /// *   Can't be associated with any DB clusters.
   Future<void> deleteDBClusterParameterGroup(
-      String dbClusterParameterGroupName) async {}
+      String dbClusterParameterGroupName) async {
+    await _client.send('DeleteDBClusterParameterGroup', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+    });
+  }
 
   /// Deletes a DB cluster snapshot. If the snapshot is being copied, the copy
   /// operation is terminated.
@@ -2783,7 +3096,10 @@ class RdsApi {
   /// `available` state.
   Future<DeleteDBClusterSnapshotResult> deleteDBClusterSnapshot(
       String dbClusterSnapshotIdentifier) async {
-    return DeleteDBClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteDBClusterSnapshot', {
+      'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+    });
+    return DeleteDBClusterSnapshotResult.fromJson(response_);
   }
 
   /// The DeleteDBInstance action deletes a previously provisioned DB instance.
@@ -2863,7 +3179,15 @@ class RdsApi {
       {bool skipFinalSnapshot,
       String finalDBSnapshotIdentifier,
       bool deleteAutomatedBackups}) async {
-    return DeleteDBInstanceResult.fromJson({});
+    var response_ = await _client.send('DeleteDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (skipFinalSnapshot != null) 'SkipFinalSnapshot': skipFinalSnapshot,
+      if (finalDBSnapshotIdentifier != null)
+        'FinalDBSnapshotIdentifier': finalDBSnapshotIdentifier,
+      if (deleteAutomatedBackups != null)
+        'DeleteAutomatedBackups': deleteAutomatedBackups,
+    });
+    return DeleteDBInstanceResult.fromJson(response_);
   }
 
   /// Deletes automated backups based on the source instance's `DbiResourceId`
@@ -2873,7 +3197,10 @@ class RdsApi {
   /// changed and which is unique to an AWS Region.
   Future<DeleteDBInstanceAutomatedBackupResult> deleteDBInstanceAutomatedBackup(
       String dbiResourceId) async {
-    return DeleteDBInstanceAutomatedBackupResult.fromJson({});
+    var response_ = await _client.send('DeleteDBInstanceAutomatedBackup', {
+      'DbiResourceId': dbiResourceId,
+    });
+    return DeleteDBInstanceAutomatedBackupResult.fromJson(response_);
   }
 
   /// Deletes a specified DB parameter group. The DB parameter group to be
@@ -2888,7 +3215,11 @@ class RdsApi {
   /// *   You can't delete a default DB parameter group
   ///
   /// *   Can't be associated with any DB instances
-  Future<void> deleteDBParameterGroup(String dbParameterGroupName) async {}
+  Future<void> deleteDBParameterGroup(String dbParameterGroupName) async {
+    await _client.send('DeleteDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+    });
+  }
 
   /// Deletes a DB security group.
   ///
@@ -2910,7 +3241,11 @@ class RdsApi {
   /// *   Can't end with a hyphen or contain two consecutive hyphens
   ///
   /// *   Must not be "Default"
-  Future<void> deleteDBSecurityGroup(String dbSecurityGroupName) async {}
+  Future<void> deleteDBSecurityGroup(String dbSecurityGroupName) async {
+    await _client.send('DeleteDBSecurityGroup', {
+      'DBSecurityGroupName': dbSecurityGroupName,
+    });
+  }
 
   /// Deletes a DB snapshot. If the snapshot is being copied, the copy operation
   /// is terminated.
@@ -2925,7 +3260,10 @@ class RdsApi {
   /// `available` state.
   Future<DeleteDBSnapshotResult> deleteDBSnapshot(
       String dbSnapshotIdentifier) async {
-    return DeleteDBSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteDBSnapshot', {
+      'DBSnapshotIdentifier': dbSnapshotIdentifier,
+    });
+    return DeleteDBSnapshotResult.fromJson(response_);
   }
 
   /// Deletes a DB subnet group.
@@ -2945,7 +3283,11 @@ class RdsApi {
   /// default.
   ///
   /// Example: `mySubnetgroup`
-  Future<void> deleteDBSubnetGroup(String dbSubnetGroupName) async {}
+  Future<void> deleteDBSubnetGroup(String dbSubnetGroupName) async {
+    await _client.send('DeleteDBSubnetGroup', {
+      'DBSubnetGroupName': dbSubnetGroupName,
+    });
+  }
 
   /// Deletes an RDS event notification subscription.
   ///
@@ -2953,7 +3295,10 @@ class RdsApi {
   /// you want to delete.
   Future<DeleteEventSubscriptionResult> deleteEventSubscription(
       String subscriptionName) async {
-    return DeleteEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('DeleteEventSubscription', {
+      'SubscriptionName': subscriptionName,
+    });
+    return DeleteEventSubscriptionResult.fromJson(response_);
   }
 
   ///  Deletes a global database cluster. The primary and secondary clusters
@@ -2967,7 +3312,10 @@ class RdsApi {
   /// cluster being deleted.
   Future<DeleteGlobalClusterResult> deleteGlobalCluster(
       String globalClusterIdentifier) async {
-    return DeleteGlobalClusterResult.fromJson({});
+    var response_ = await _client.send('DeleteGlobalCluster', {
+      'GlobalClusterIdentifier': globalClusterIdentifier,
+    });
+    return DeleteGlobalClusterResult.fromJson(response_);
   }
 
   /// Deletes an existing option group.
@@ -2977,7 +3325,11 @@ class RdsApi {
   ///
   ///
   /// You can't delete default option groups.
-  Future<void> deleteOptionGroup(String optionGroupName) async {}
+  Future<void> deleteOptionGroup(String optionGroupName) async {
+    await _client.send('DeleteOptionGroup', {
+      'OptionGroupName': optionGroupName,
+    });
+  }
 
   /// Lists all of the attributes for a customer account. The attributes include
   /// Amazon RDS quotas for the account, such as the number of DB instances
@@ -2986,7 +3338,8 @@ class RdsApi {
   ///
   /// This command doesn't take any parameters.
   Future<AccountAttributesMessage> describeAccountAttributes() async {
-    return AccountAttributesMessage.fromJson({});
+    var response_ = await _client.send('DescribeAccountAttributes', {});
+    return AccountAttributesMessage.fromJson(response_);
   }
 
   /// Lists the set of CA certificates provided by Amazon RDS for this AWS
@@ -3020,7 +3373,14 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return CertificateMessage.fromJson({});
+    var response_ = await _client.send('DescribeCertificates', {
+      if (certificateIdentifier != null)
+        'CertificateIdentifier': certificateIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return CertificateMessage.fromJson(response_);
   }
 
   /// Returns information about backtracks for a DB cluster.
@@ -3100,7 +3460,15 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBClusterBacktrackMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterBacktracks', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (backtrackIdentifier != null)
+        'BacktrackIdentifier': backtrackIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBClusterBacktrackMessage.fromJson(response_);
   }
 
   /// Returns information about endpoints for an Amazon Aurora DB cluster.
@@ -3147,7 +3515,16 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBClusterEndpointMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterEndpoints', {
+      if (dbClusterIdentifier != null)
+        'DBClusterIdentifier': dbClusterIdentifier,
+      if (dbClusterEndpointIdentifier != null)
+        'DBClusterEndpointIdentifier': dbClusterEndpointIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBClusterEndpointMessage.fromJson(response_);
   }
 
   ///  Returns a list of `DBClusterParameterGroup` descriptions. If a
@@ -3190,7 +3567,14 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBClusterParameterGroupsMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterParameterGroups', {
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBClusterParameterGroupsMessage.fromJson(response_);
   }
 
   /// Returns the detailed parameter list for a particular DB cluster parameter
@@ -3236,7 +3620,14 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBClusterParameterGroupDetails.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterParameters', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (source != null) 'Source': source,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBClusterParameterGroupDetails.fromJson(response_);
   }
 
   /// Returns a list of DB cluster snapshot attribute names and values for a
@@ -3262,7 +3653,10 @@ class RdsApi {
   Future<DescribeDBClusterSnapshotAttributesResult>
       describeDBClusterSnapshotAttributes(
           String dbClusterSnapshotIdentifier) async {
-    return DescribeDBClusterSnapshotAttributesResult.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterSnapshotAttributes', {
+      'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+    });
+    return DescribeDBClusterSnapshotAttributesResult.fromJson(response_);
   }
 
   /// Returns information about DB cluster snapshots. This API action supports
@@ -3378,7 +3772,19 @@ class RdsApi {
       String marker,
       bool includeShared,
       bool includePublic}) async {
-    return DBClusterSnapshotMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBClusterSnapshots', {
+      if (dbClusterIdentifier != null)
+        'DBClusterIdentifier': dbClusterIdentifier,
+      if (dbClusterSnapshotIdentifier != null)
+        'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+      if (snapshotType != null) 'SnapshotType': snapshotType,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (includeShared != null) 'IncludeShared': includeShared,
+      if (includePublic != null) 'IncludePublic': includePublic,
+    });
+    return DBClusterSnapshotMessage.fromJson(response_);
   }
 
   /// Returns information about provisioned Aurora DB clusters. This API
@@ -3430,7 +3836,15 @@ class RdsApi {
       int maxRecords,
       String marker,
       bool includeShared}) async {
-    return DBClusterMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBClusters', {
+      if (dbClusterIdentifier != null)
+        'DBClusterIdentifier': dbClusterIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (includeShared != null) 'IncludeShared': includeShared,
+    });
+    return DBClusterMessage.fromJson(response_);
   }
 
   /// Returns a list of the available DB engines.
@@ -3494,7 +3908,22 @@ class RdsApi {
       bool listSupportedCharacterSets,
       bool listSupportedTimezones,
       bool includeAll}) async {
-    return DBEngineVersionMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBEngineVersions', {
+      if (engine != null) 'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (dbParameterGroupFamily != null)
+        'DBParameterGroupFamily': dbParameterGroupFamily,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (defaultOnly != null) 'DefaultOnly': defaultOnly,
+      if (listSupportedCharacterSets != null)
+        'ListSupportedCharacterSets': listSupportedCharacterSets,
+      if (listSupportedTimezones != null)
+        'ListSupportedTimezones': listSupportedTimezones,
+      if (includeAll != null) 'IncludeAll': includeAll,
+    });
+    return DBEngineVersionMessage.fromJson(response_);
   }
 
   /// Displays backups for both current and deleted instances. For example, use
@@ -3555,7 +3984,15 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBInstanceAutomatedBackupMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBInstanceAutomatedBackups', {
+      if (dbiResourceId != null) 'DbiResourceId': dbiResourceId,
+      if (dbInstanceIdentifier != null)
+        'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBInstanceAutomatedBackupMessage.fromJson(response_);
   }
 
   /// Returns information about provisioned RDS instances. This API supports
@@ -3604,7 +4041,14 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBInstanceMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBInstances', {
+      if (dbInstanceIdentifier != null)
+        'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBInstanceMessage.fromJson(response_);
   }
 
   /// Returns a list of DB log files for the DB instance.
@@ -3643,7 +4087,16 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DescribeDBLogFilesResponse.fromJson({});
+    var response_ = await _client.send('DescribeDBLogFiles', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (filenameContains != null) 'FilenameContains': filenameContains,
+      if (fileLastWritten != null) 'FileLastWritten': fileLastWritten,
+      if (fileSize != null) 'FileSize': fileSize,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeDBLogFilesResponse.fromJson(response_);
   }
 
   ///  Returns a list of `DBParameterGroup` descriptions. If a
@@ -3678,7 +4131,14 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBParameterGroupsMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBParameterGroups', {
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBParameterGroupsMessage.fromJson(response_);
   }
 
   /// Returns the detailed parameter list for a particular DB parameter group.
@@ -3717,7 +4177,14 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBParameterGroupDetails.fromJson({});
+    var response_ = await _client.send('DescribeDBParameters', {
+      'DBParameterGroupName': dbParameterGroupName,
+      if (source != null) 'Source': source,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBParameterGroupDetails.fromJson(response_);
   }
 
   ///  Returns a list of `DBSecurityGroup` descriptions. If a
@@ -3747,7 +4214,14 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBSecurityGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBSecurityGroups', {
+      if (dbSecurityGroupName != null)
+        'DBSecurityGroupName': dbSecurityGroupName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBSecurityGroupMessage.fromJson(response_);
   }
 
   /// Returns a list of DB snapshot attribute names and values for a manual DB
@@ -3768,7 +4242,10 @@ class RdsApi {
   /// attributes for.
   Future<DescribeDBSnapshotAttributesResult> describeDBSnapshotAttributes(
       String dbSnapshotIdentifier) async {
-    return DescribeDBSnapshotAttributesResult.fromJson({});
+    var response_ = await _client.send('DescribeDBSnapshotAttributes', {
+      'DBSnapshotIdentifier': dbSnapshotIdentifier,
+    });
+    return DescribeDBSnapshotAttributesResult.fromJson(response_);
   }
 
   /// Returns information about DB snapshots. This API action supports
@@ -3886,7 +4363,20 @@ class RdsApi {
       bool includeShared,
       bool includePublic,
       String dbiResourceId}) async {
-    return DBSnapshotMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBSnapshots', {
+      if (dbInstanceIdentifier != null)
+        'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (dbSnapshotIdentifier != null)
+        'DBSnapshotIdentifier': dbSnapshotIdentifier,
+      if (snapshotType != null) 'SnapshotType': snapshotType,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (includeShared != null) 'IncludeShared': includeShared,
+      if (includePublic != null) 'IncludePublic': includePublic,
+      if (dbiResourceId != null) 'DbiResourceId': dbiResourceId,
+    });
+    return DBSnapshotMessage.fromJson(response_);
   }
 
   /// Returns a list of DBSubnetGroup descriptions. If a DBSubnetGroupName is
@@ -3919,7 +4409,13 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DBSubnetGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBSubnetGroups', {
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBSubnetGroupMessage.fromJson(response_);
   }
 
   /// Returns the default engine and system parameter information for the
@@ -3950,7 +4446,14 @@ class RdsApi {
   Future<DescribeEngineDefaultClusterParametersResult>
       describeEngineDefaultClusterParameters(String dbParameterGroupFamily,
           {List<Filter> filters, int maxRecords, String marker}) async {
-    return DescribeEngineDefaultClusterParametersResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeEngineDefaultClusterParameters', {
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEngineDefaultClusterParametersResult.fromJson(response_);
   }
 
   /// Returns the default engine and system parameter information for the
@@ -3978,7 +4481,13 @@ class RdsApi {
       {List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return DescribeEngineDefaultParametersResult.fromJson({});
+    var response_ = await _client.send('DescribeEngineDefaultParameters', {
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEngineDefaultParametersResult.fromJson(response_);
   }
 
   /// Displays a list of categories for all event source types, or, if
@@ -3995,7 +4504,11 @@ class RdsApi {
   /// [filters]: This parameter is not currently supported.
   Future<EventCategoriesMessage> describeEventCategories(
       {String sourceType, List<Filter> filters}) async {
-    return EventCategoriesMessage.fromJson({});
+    var response_ = await _client.send('DescribeEventCategories', {
+      if (sourceType != null) 'SourceType': sourceType,
+      if (filters != null) 'Filters': filters,
+    });
+    return EventCategoriesMessage.fromJson(response_);
   }
 
   /// Lists all the subscription descriptions for a customer account. The
@@ -4028,7 +4541,13 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return EventSubscriptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEventSubscriptions', {
+      if (subscriptionName != null) 'SubscriptionName': subscriptionName,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return EventSubscriptionsMessage.fromJson(response_);
   }
 
   /// Returns events related to DB instances, DB security groups, DB snapshots,
@@ -4106,7 +4625,18 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return EventsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      if (sourceIdentifier != null) 'SourceIdentifier': sourceIdentifier,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (duration != null) 'Duration': duration,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return EventsMessage.fromJson(response_);
   }
 
   ///  Returns information about Aurora global database clusters. This API
@@ -4155,7 +4685,14 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return GlobalClustersMessage.fromJson({});
+    var response_ = await _client.send('DescribeGlobalClusters', {
+      if (globalClusterIdentifier != null)
+        'GlobalClusterIdentifier': globalClusterIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return GlobalClustersMessage.fromJson(response_);
   }
 
   /// Describes all available options.
@@ -4186,7 +4723,14 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return OptionGroupOptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeOptionGroupOptions', {
+      'EngineName': engineName,
+      if (majorEngineVersion != null) 'MajorEngineVersion': majorEngineVersion,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return OptionGroupOptionsMessage.fromJson(response_);
   }
 
   /// Describes the available option groups.
@@ -4223,7 +4767,15 @@ class RdsApi {
       int maxRecords,
       String engineName,
       String majorEngineVersion}) async {
-    return OptionGroups.fromJson({});
+    var response_ = await _client.send('DescribeOptionGroups', {
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (filters != null) 'Filters': filters,
+      if (marker != null) 'Marker': marker,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (engineName != null) 'EngineName': engineName,
+      if (majorEngineVersion != null) 'MajorEngineVersion': majorEngineVersion,
+    });
+    return OptionGroups.fromJson(response_);
   }
 
   /// Returns a list of orderable DB instance options for the specified engine.
@@ -4268,7 +4820,17 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return OrderableDBInstanceOptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeOrderableDBInstanceOptions', {
+      'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (vpc != null) 'Vpc': vpc,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return OrderableDBInstanceOptionsMessage.fromJson(response_);
   }
 
   /// Returns a list of resources (for example, DB instances) that have at least
@@ -4308,7 +4870,13 @@ class RdsApi {
       List<Filter> filters,
       String marker,
       int maxRecords}) async {
-    return PendingMaintenanceActionsMessage.fromJson({});
+    var response_ = await _client.send('DescribePendingMaintenanceActions', {
+      if (resourceIdentifier != null) 'ResourceIdentifier': resourceIdentifier,
+      if (filters != null) 'Filters': filters,
+      if (marker != null) 'Marker': marker,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return PendingMaintenanceActionsMessage.fromJson(response_);
   }
 
   /// Returns information about reserved DB instances for this account, or about
@@ -4368,7 +4936,21 @@ class RdsApi {
       List<Filter> filters,
       int maxRecords,
       String marker}) async {
-    return ReservedDBInstanceMessage.fromJson({});
+    var response_ = await _client.send('DescribeReservedDBInstances', {
+      if (reservedDBInstanceId != null)
+        'ReservedDBInstanceId': reservedDBInstanceId,
+      if (reservedDBInstancesOfferingId != null)
+        'ReservedDBInstancesOfferingId': reservedDBInstancesOfferingId,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (duration != null) 'Duration': duration,
+      if (productDescription != null) 'ProductDescription': productDescription,
+      if (offeringType != null) 'OfferingType': offeringType,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ReservedDBInstanceMessage.fromJson(response_);
   }
 
   /// Lists available reserved DB instance offerings.
@@ -4429,7 +5011,19 @@ class RdsApi {
           List<Filter> filters,
           int maxRecords,
           String marker}) async {
-    return ReservedDBInstancesOfferingMessage.fromJson({});
+    var response_ = await _client.send('DescribeReservedDBInstancesOfferings', {
+      if (reservedDBInstancesOfferingId != null)
+        'ReservedDBInstancesOfferingId': reservedDBInstancesOfferingId,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (duration != null) 'Duration': duration,
+      if (productDescription != null) 'ProductDescription': productDescription,
+      if (offeringType != null) 'OfferingType': offeringType,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ReservedDBInstancesOfferingMessage.fromJson(response_);
   }
 
   /// Returns a list of the source AWS Regions where the current AWS Region can
@@ -4462,7 +5056,13 @@ class RdsApi {
       int maxRecords,
       String marker,
       List<Filter> filters}) async {
-    return SourceRegionMessage.fromJson({});
+    var response_ = await _client.send('DescribeSourceRegions', {
+      if (regionName != null) 'RegionName': regionName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (filters != null) 'Filters': filters,
+    });
+    return SourceRegionMessage.fromJson(response_);
   }
 
   /// You can call `DescribeValidDBInstanceModifications` to learn what
@@ -4473,7 +5073,10 @@ class RdsApi {
   /// instance.
   Future<DescribeValidDBInstanceModificationsResult>
       describeValidDBInstanceModifications(String dbInstanceIdentifier) async {
-    return DescribeValidDBInstanceModificationsResult.fromJson({});
+    var response_ = await _client.send('DescribeValidDBInstanceModifications', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+    });
+    return DescribeValidDBInstanceModificationsResult.fromJson(response_);
   }
 
   /// Downloads all or a portion of the specified log file, up to 1 MB in size.
@@ -4520,7 +5123,13 @@ class RdsApi {
       @required String logFileName,
       String marker,
       int numberOfLines}) async {
-    return DownloadDBLogFilePortionDetails.fromJson({});
+    var response_ = await _client.send('DownloadDBLogFilePortion', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      'LogFileName': logFileName,
+      if (marker != null) 'Marker': marker,
+      if (numberOfLines != null) 'NumberOfLines': numberOfLines,
+    });
+    return DownloadDBLogFilePortionDetails.fromJson(response_);
   }
 
   /// Forces a failover for a DB cluster.
@@ -4558,7 +5167,12 @@ class RdsApi {
   /// cluster. For example, `mydbcluster-replica1`.
   Future<FailoverDBClusterResult> failoverDBCluster(String dbClusterIdentifier,
       {String targetDBInstanceIdentifier}) async {
-    return FailoverDBClusterResult.fromJson({});
+    var response_ = await _client.send('FailoverDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (targetDBInstanceIdentifier != null)
+        'TargetDBInstanceIdentifier': targetDBInstanceIdentifier,
+    });
+    return FailoverDBClusterResult.fromJson(response_);
   }
 
   /// Lists all tags on an Amazon RDS resource.
@@ -4576,7 +5190,11 @@ class RdsApi {
   /// [filters]: This parameter is not currently supported.
   Future<TagListMessage> listTagsForResource(String resourceName,
       {List<Filter> filters}) async {
-    return TagListMessage.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceName': resourceName,
+      if (filters != null) 'Filters': filters,
+    });
+    return TagListMessage.fromJson(response_);
   }
 
   /// Set the capacity of an Aurora Serverless DB cluster to a specific value.
@@ -4638,7 +5256,14 @@ class RdsApi {
       {int capacity,
       int secondsBeforeTimeout,
       String timeoutAction}) async {
-    return DBClusterCapacityInfo.fromJson({});
+    var response_ = await _client.send('ModifyCurrentDBClusterCapacity', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (capacity != null) 'Capacity': capacity,
+      if (secondsBeforeTimeout != null)
+        'SecondsBeforeTimeout': secondsBeforeTimeout,
+      if (timeoutAction != null) 'TimeoutAction': timeoutAction,
+    });
+    return DBClusterCapacityInfo.fromJson(response_);
   }
 
   /// Modify a setting for an Amazon Aurora DB cluster. You can change one or
@@ -4875,7 +5500,41 @@ class RdsApi {
       bool deletionProtection,
       bool enableHttpEndpoint,
       bool copyTagsToSnapshot}) async {
-    return ModifyDBClusterResult.fromJson({});
+    var response_ = await _client.send('ModifyDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (newDBClusterIdentifier != null)
+        'NewDBClusterIdentifier': newDBClusterIdentifier,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (port != null) 'Port': port,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (backtrackWindow != null) 'BacktrackWindow': backtrackWindow,
+      if (cloudwatchLogsExportConfiguration != null)
+        'CloudwatchLogsExportConfiguration': cloudwatchLogsExportConfiguration,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (allowMajorVersionUpgrade != null)
+        'AllowMajorVersionUpgrade': allowMajorVersionUpgrade,
+      if (dbInstanceParameterGroupName != null)
+        'DBInstanceParameterGroupName': dbInstanceParameterGroupName,
+      if (scalingConfiguration != null)
+        'ScalingConfiguration': scalingConfiguration,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (enableHttpEndpoint != null) 'EnableHttpEndpoint': enableHttpEndpoint,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+    });
+    return ModifyDBClusterResult.fromJson(response_);
   }
 
   /// Modifies the properties of an endpoint in an Amazon Aurora DB cluster.
@@ -4901,7 +5560,13 @@ class RdsApi {
       {String endpointType,
       List<String> staticMembers,
       List<String> excludedMembers}) async {
-    return DBClusterEndpoint.fromJson({});
+    var response_ = await _client.send('ModifyDBClusterEndpoint', {
+      'DBClusterEndpointIdentifier': dbClusterEndpointIdentifier,
+      if (endpointType != null) 'EndpointType': endpointType,
+      if (staticMembers != null) 'StaticMembers': staticMembers,
+      if (excludedMembers != null) 'ExcludedMembers': excludedMembers,
+    });
+    return DBClusterEndpoint.fromJson(response_);
   }
 
   ///  Modifies the parameters of a DB cluster parameter group. To modify more
@@ -4938,7 +5603,11 @@ class RdsApi {
   Future<DBClusterParameterGroupNameMessage> modifyDBClusterParameterGroup(
       {@required String dbClusterParameterGroupName,
       @required List<Parameter> parameters}) async {
-    return DBClusterParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ModifyDBClusterParameterGroup', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      'Parameters': parameters,
+    });
+    return DBClusterParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Adds an attribute and values to, or removes an attribute and values from,
@@ -4996,7 +5665,13 @@ class RdsApi {
           @required String attributeName,
           List<String> valuesToAdd,
           List<String> valuesToRemove}) async {
-    return ModifyDBClusterSnapshotAttributeResult.fromJson({});
+    var response_ = await _client.send('ModifyDBClusterSnapshotAttribute', {
+      'DBClusterSnapshotIdentifier': dbClusterSnapshotIdentifier,
+      'AttributeName': attributeName,
+      if (valuesToAdd != null) 'ValuesToAdd': valuesToAdd,
+      if (valuesToRemove != null) 'ValuesToRemove': valuesToRemove,
+    });
+    return ModifyDBClusterSnapshotAttributeResult.fromJson(response_);
   }
 
   /// Modifies settings for a DB instance. You can change one or more database
@@ -5542,7 +6217,68 @@ class RdsApi {
       bool useDefaultProcessorFeatures,
       bool deletionProtection,
       int maxAllocatedStorage}) async {
-    return ModifyDBInstanceResult.fromJson({});
+    var response_ = await _client.send('ModifyDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (allocatedStorage != null) 'AllocatedStorage': allocatedStorage,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (dbSecurityGroups != null) 'DBSecurityGroups': dbSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (allowMajorVersionUpgrade != null)
+        'AllowMajorVersionUpgrade': allowMajorVersionUpgrade,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (newDBInstanceIdentifier != null)
+        'NewDBInstanceIdentifier': newDBInstanceIdentifier,
+      if (storageType != null) 'StorageType': storageType,
+      if (tdeCredentialArn != null) 'TdeCredentialArn': tdeCredentialArn,
+      if (tdeCredentialPassword != null)
+        'TdeCredentialPassword': tdeCredentialPassword,
+      if (caCertificateIdentifier != null)
+        'CACertificateIdentifier': caCertificateIdentifier,
+      if (domain != null) 'Domain': domain,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+      if (monitoringInterval != null) 'MonitoringInterval': monitoringInterval,
+      if (dbPortNumber != null) 'DBPortNumber': dbPortNumber,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (monitoringRoleArn != null) 'MonitoringRoleArn': monitoringRoleArn,
+      if (domainIamRoleName != null) 'DomainIAMRoleName': domainIamRoleName,
+      if (promotionTier != null) 'PromotionTier': promotionTier,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enablePerformanceInsights != null)
+        'EnablePerformanceInsights': enablePerformanceInsights,
+      if (performanceInsightsKmsKeyId != null)
+        'PerformanceInsightsKMSKeyId': performanceInsightsKmsKeyId,
+      if (performanceInsightsRetentionPeriod != null)
+        'PerformanceInsightsRetentionPeriod':
+            performanceInsightsRetentionPeriod,
+      if (cloudwatchLogsExportConfiguration != null)
+        'CloudwatchLogsExportConfiguration': cloudwatchLogsExportConfiguration,
+      if (processorFeatures != null) 'ProcessorFeatures': processorFeatures,
+      if (useDefaultProcessorFeatures != null)
+        'UseDefaultProcessorFeatures': useDefaultProcessorFeatures,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (maxAllocatedStorage != null)
+        'MaxAllocatedStorage': maxAllocatedStorage,
+    });
+    return ModifyDBInstanceResult.fromJson(response_);
   }
 
   ///  Modifies the parameters of a DB parameter group. To modify more than one
@@ -5587,7 +6323,11 @@ class RdsApi {
   Future<DBParameterGroupNameMessage> modifyDBParameterGroup(
       {@required String dbParameterGroupName,
       @required List<Parameter> parameters}) async {
-    return DBParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ModifyDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+      'Parameters': parameters,
+    });
+    return DBParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Updates a manual DB snapshot, which can be encrypted or not encrypted,
@@ -5625,7 +6365,12 @@ class RdsApi {
   /// in the _Amazon RDS User Guide._
   Future<ModifyDBSnapshotResult> modifyDBSnapshot(String dbSnapshotIdentifier,
       {String engineVersion, String optionGroupName}) async {
-    return ModifyDBSnapshotResult.fromJson({});
+    var response_ = await _client.send('ModifyDBSnapshot', {
+      'DBSnapshotIdentifier': dbSnapshotIdentifier,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+    });
+    return ModifyDBSnapshotResult.fromJson(response_);
   }
 
   /// Adds an attribute and values to, or removes an attribute and values from,
@@ -5677,7 +6422,13 @@ class RdsApi {
       @required String attributeName,
       List<String> valuesToAdd,
       List<String> valuesToRemove}) async {
-    return ModifyDBSnapshotAttributeResult.fromJson({});
+    var response_ = await _client.send('ModifyDBSnapshotAttribute', {
+      'DBSnapshotIdentifier': dbSnapshotIdentifier,
+      'AttributeName': attributeName,
+      if (valuesToAdd != null) 'ValuesToAdd': valuesToAdd,
+      if (valuesToRemove != null) 'ValuesToRemove': valuesToRemove,
+    });
+    return ModifyDBSnapshotAttributeResult.fromJson(response_);
   }
 
   /// Modifies an existing DB subnet group. DB subnet groups must contain at
@@ -5698,7 +6449,13 @@ class RdsApi {
       {@required String dbSubnetGroupName,
       String dbSubnetGroupDescription,
       @required List<String> subnetIds}) async {
-    return ModifyDBSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('ModifyDBSubnetGroup', {
+      'DBSubnetGroupName': dbSubnetGroupName,
+      if (dbSubnetGroupDescription != null)
+        'DBSubnetGroupDescription': dbSubnetGroupDescription,
+      'SubnetIds': subnetIds,
+    });
+    return ModifyDBSubnetGroupResult.fromJson(response_);
   }
 
   /// Modifies an existing RDS event notification subscription. Note that you
@@ -5740,7 +6497,14 @@ class RdsApi {
       String sourceType,
       List<String> eventCategories,
       bool enabled}) async {
-    return ModifyEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('ModifyEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      if (snsTopicArn != null) 'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (enabled != null) 'Enabled': enabled,
+    });
+    return ModifyEventSubscriptionResult.fromJson(response_);
   }
 
   ///  Modify a setting for an Amazon Aurora global cluster. You can change one
@@ -5783,7 +6547,14 @@ class RdsApi {
       {String globalClusterIdentifier,
       String newGlobalClusterIdentifier,
       bool deletionProtection}) async {
-    return ModifyGlobalClusterResult.fromJson({});
+    var response_ = await _client.send('ModifyGlobalCluster', {
+      if (globalClusterIdentifier != null)
+        'GlobalClusterIdentifier': globalClusterIdentifier,
+      if (newGlobalClusterIdentifier != null)
+        'NewGlobalClusterIdentifier': newGlobalClusterIdentifier,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+    });
+    return ModifyGlobalClusterResult.fromJson(response_);
   }
 
   /// Modifies an existing option group.
@@ -5807,7 +6578,13 @@ class RdsApi {
       {List<OptionConfiguration> optionsToInclude,
       List<String> optionsToRemove,
       bool applyImmediately}) async {
-    return ModifyOptionGroupResult.fromJson({});
+    var response_ = await _client.send('ModifyOptionGroup', {
+      'OptionGroupName': optionGroupName,
+      if (optionsToInclude != null) 'OptionsToInclude': optionsToInclude,
+      if (optionsToRemove != null) 'OptionsToRemove': optionsToRemove,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+    });
+    return ModifyOptionGroupResult.fromJson(response_);
   }
 
   /// Promotes a Read Replica DB instance to a standalone DB instance.
@@ -5869,7 +6646,14 @@ class RdsApi {
       String dbInstanceIdentifier,
       {int backupRetentionPeriod,
       String preferredBackupWindow}) async {
-    return PromoteReadReplicaResult.fromJson({});
+    var response_ = await _client.send('PromoteReadReplica', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+    });
+    return PromoteReadReplicaResult.fromJson(response_);
   }
 
   /// Promotes a Read Replica DB cluster to a standalone DB cluster.
@@ -5889,7 +6673,10 @@ class RdsApi {
   /// Example: `my-cluster-replica1`
   Future<PromoteReadReplicaDBClusterResult> promoteReadReplicaDBCluster(
       String dbClusterIdentifier) async {
-    return PromoteReadReplicaDBClusterResult.fromJson({});
+    var response_ = await _client.send('PromoteReadReplicaDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+    });
+    return PromoteReadReplicaDBClusterResult.fromJson(response_);
   }
 
   /// Purchases a reserved DB instance offering.
@@ -5912,7 +6699,14 @@ class RdsApi {
           {String reservedDBInstanceId,
           int dbInstanceCount,
           List<Tag> tags}) async {
-    return PurchaseReservedDBInstancesOfferingResult.fromJson({});
+    var response_ = await _client.send('PurchaseReservedDBInstancesOffering', {
+      'ReservedDBInstancesOfferingId': reservedDBInstancesOfferingId,
+      if (reservedDBInstanceId != null)
+        'ReservedDBInstanceId': reservedDBInstanceId,
+      if (dbInstanceCount != null) 'DBInstanceCount': dbInstanceCount,
+      if (tags != null) 'Tags': tags,
+    });
+    return PurchaseReservedDBInstancesOfferingResult.fromJson(response_);
   }
 
   /// You might need to reboot your DB instance, usually for maintenance
@@ -5942,7 +6736,11 @@ class RdsApi {
   /// configured for Multi-AZ.
   Future<RebootDBInstanceResult> rebootDBInstance(String dbInstanceIdentifier,
       {bool forceFailover}) async {
-    return RebootDBInstanceResult.fromJson({});
+    var response_ = await _client.send('RebootDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (forceFailover != null) 'ForceFailover': forceFailover,
+    });
+    return RebootDBInstanceResult.fromJson(response_);
   }
 
   ///  Detaches an Aurora secondary cluster from an Aurora global database
@@ -5961,7 +6759,13 @@ class RdsApi {
   /// cluster that was detached from the Aurora global database cluster.
   Future<RemoveFromGlobalClusterResult> removeFromGlobalCluster(
       {String globalClusterIdentifier, String dbClusterIdentifier}) async {
-    return RemoveFromGlobalClusterResult.fromJson({});
+    var response_ = await _client.send('RemoveFromGlobalCluster', {
+      if (globalClusterIdentifier != null)
+        'GlobalClusterIdentifier': globalClusterIdentifier,
+      if (dbClusterIdentifier != null)
+        'DbClusterIdentifier': dbClusterIdentifier,
+    });
+    return RemoveFromGlobalClusterResult.fromJson(response_);
   }
 
   /// Disassociates an AWS Identity and Access Management (IAM) role from an
@@ -5986,7 +6790,13 @@ class RdsApi {
   Future<void> removeRoleFromDBCluster(
       {@required String dbClusterIdentifier,
       @required String roleArn,
-      String featureName}) async {}
+      String featureName}) async {
+    await _client.send('RemoveRoleFromDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      'RoleArn': roleArn,
+      if (featureName != null) 'FeatureName': featureName,
+    });
+  }
 
   /// Disassociates an AWS Identity and Access Management (IAM) role from a DB
   /// instance.
@@ -6004,7 +6814,13 @@ class RdsApi {
   Future<void> removeRoleFromDBInstance(
       {@required String dbInstanceIdentifier,
       @required String roleArn,
-      @required String featureName}) async {}
+      @required String featureName}) async {
+    await _client.send('RemoveRoleFromDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      'RoleArn': roleArn,
+      'FeatureName': featureName,
+    });
+  }
 
   /// Removes a source identifier from an existing RDS event notification
   /// subscription.
@@ -6019,7 +6835,12 @@ class RdsApi {
       removeSourceIdentifierFromSubscription(
           {@required String subscriptionName,
           @required String sourceIdentifier}) async {
-    return RemoveSourceIdentifierFromSubscriptionResult.fromJson({});
+    var response_ =
+        await _client.send('RemoveSourceIdentifierFromSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SourceIdentifier': sourceIdentifier,
+    });
+    return RemoveSourceIdentifierFromSubscriptionResult.fromJson(response_);
   }
 
   /// Removes metadata tags from an Amazon RDS resource.
@@ -6036,7 +6857,12 @@ class RdsApi {
   ///
   /// [tagKeys]: The tag key (name) of the tag to be removed.
   Future<void> removeTagsFromResource(
-      {@required String resourceName, @required List<String> tagKeys}) async {}
+      {@required String resourceName, @required List<String> tagKeys}) async {
+    await _client.send('RemoveTagsFromResource', {
+      'ResourceName': resourceName,
+      'TagKeys': tagKeys,
+    });
+  }
 
   ///  Modifies the parameters of a DB cluster parameter group to the default
   /// value. To reset specific parameters submit a list of the following:
@@ -6073,7 +6899,12 @@ class RdsApi {
       String dbClusterParameterGroupName,
       {bool resetAllParameters,
       List<Parameter> parameters}) async {
-    return DBClusterParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ResetDBClusterParameterGroup', {
+      'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (resetAllParameters != null) 'ResetAllParameters': resetAllParameters,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return DBClusterParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Modifies the parameters of a DB parameter group to the engine/system
@@ -6124,7 +6955,12 @@ class RdsApi {
       String dbParameterGroupName,
       {bool resetAllParameters,
       List<Parameter> parameters}) async {
-    return DBParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ResetDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+      if (resetAllParameters != null) 'ResetAllParameters': resetAllParameters,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return DBParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Creates an Amazon Aurora DB cluster from data stored in an Amazon S3
@@ -6389,7 +7225,45 @@ class RdsApi {
       List<String> enableCloudwatchLogsExports,
       bool deletionProtection,
       bool copyTagsToSnapshot}) async {
-    return RestoreDBClusterFromS3Result.fromJson({});
+    var response_ = await _client.send('RestoreDBClusterFromS3', {
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (characterSetName != null) 'CharacterSetName': characterSetName,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (port != null) 'Port': port,
+      'MasterUsername': masterUsername,
+      'MasterUserPassword': masterUserPassword,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (tags != null) 'Tags': tags,
+      if (storageEncrypted != null) 'StorageEncrypted': storageEncrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      'SourceEngine': sourceEngine,
+      'SourceEngineVersion': sourceEngineVersion,
+      'S3BucketName': s3BucketName,
+      if (s3Prefix != null) 'S3Prefix': s3Prefix,
+      'S3IngestionRoleArn': s3IngestionRoleArn,
+      if (backtrackWindow != null) 'BacktrackWindow': backtrackWindow,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+    });
+    return RestoreDBClusterFromS3Result.fromJson(response_);
   }
 
   /// Creates a new DB cluster from a DB snapshot or DB cluster snapshot.
@@ -6591,7 +7465,34 @@ class RdsApi {
       String dbClusterParameterGroupName,
       bool deletionProtection,
       bool copyTagsToSnapshot}) async {
-    return RestoreDBClusterFromSnapshotResult.fromJson({});
+    var response_ = await _client.send('RestoreDBClusterFromSnapshot', {
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      'DBClusterIdentifier': dbClusterIdentifier,
+      'SnapshotIdentifier': snapshotIdentifier,
+      'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (port != null) 'Port': port,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (databaseName != null) 'DatabaseName': databaseName,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (tags != null) 'Tags': tags,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (backtrackWindow != null) 'BacktrackWindow': backtrackWindow,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (engineMode != null) 'EngineMode': engineMode,
+      if (scalingConfiguration != null)
+        'ScalingConfiguration': scalingConfiguration,
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+    });
+    return RestoreDBClusterFromSnapshotResult.fromJson(response_);
   }
 
   /// Restores a DB cluster to an arbitrary point in time. Users can restore to
@@ -6786,7 +7687,31 @@ class RdsApi {
       String dbClusterParameterGroupName,
       bool deletionProtection,
       bool copyTagsToSnapshot}) async {
-    return RestoreDBClusterToPointInTimeResult.fromJson({});
+    var response_ = await _client.send('RestoreDBClusterToPointInTime', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+      if (restoreType != null) 'RestoreType': restoreType,
+      'SourceDBClusterIdentifier': sourceDBClusterIdentifier,
+      if (restoreToTime != null) 'RestoreToTime': restoreToTime,
+      if (useLatestRestorableTime != null)
+        'UseLatestRestorableTime': useLatestRestorableTime,
+      if (port != null) 'Port': port,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (tags != null) 'Tags': tags,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (backtrackWindow != null) 'BacktrackWindow': backtrackWindow,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (dbClusterParameterGroupName != null)
+        'DBClusterParameterGroupName': dbClusterParameterGroupName,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+    });
+    return RestoreDBClusterToPointInTimeResult.fromJson(response_);
   }
 
   /// Creates a new DB instance from a DB snapshot. The target database is
@@ -7055,7 +7980,44 @@ class RdsApi {
       bool useDefaultProcessorFeatures,
       String dbParameterGroupName,
       bool deletionProtection}) async {
-    return RestoreDBInstanceFromDBSnapshotResult.fromJson({});
+    var response_ = await _client.send('RestoreDBInstanceFromDBSnapshot', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      'DBSnapshotIdentifier': dbSnapshotIdentifier,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (port != null) 'Port': port,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (dbName != null) 'DBName': dbName,
+      if (engine != null) 'Engine': engine,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (tags != null) 'Tags': tags,
+      if (storageType != null) 'StorageType': storageType,
+      if (tdeCredentialArn != null) 'TdeCredentialArn': tdeCredentialArn,
+      if (tdeCredentialPassword != null)
+        'TdeCredentialPassword': tdeCredentialPassword,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (domain != null) 'Domain': domain,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+      if (domainIamRoleName != null) 'DomainIAMRoleName': domainIamRoleName,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (processorFeatures != null) 'ProcessorFeatures': processorFeatures,
+      if (useDefaultProcessorFeatures != null)
+        'UseDefaultProcessorFeatures': useDefaultProcessorFeatures,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+    });
+    return RestoreDBInstanceFromDBSnapshotResult.fromJson(response_);
   }
 
   /// Amazon Relational Database Service (Amazon RDS) supports importing MySQL
@@ -7395,7 +8357,65 @@ class RdsApi {
       List<ProcessorFeature> processorFeatures,
       bool useDefaultProcessorFeatures,
       bool deletionProtection}) async {
-    return RestoreDBInstanceFromS3Result.fromJson({});
+    var response_ = await _client.send('RestoreDBInstanceFromS3', {
+      if (dbName != null) 'DBName': dbName,
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (allocatedStorage != null) 'AllocatedStorage': allocatedStorage,
+      'DBInstanceClass': dbInstanceClass,
+      'Engine': engine,
+      if (masterUsername != null) 'MasterUsername': masterUsername,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (dbSecurityGroups != null) 'DBSecurityGroups': dbSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (port != null) 'Port': port,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (tags != null) 'Tags': tags,
+      if (storageType != null) 'StorageType': storageType,
+      if (storageEncrypted != null) 'StorageEncrypted': storageEncrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+      if (monitoringInterval != null) 'MonitoringInterval': monitoringInterval,
+      if (monitoringRoleArn != null) 'MonitoringRoleArn': monitoringRoleArn,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      'SourceEngine': sourceEngine,
+      'SourceEngineVersion': sourceEngineVersion,
+      'S3BucketName': s3BucketName,
+      if (s3Prefix != null) 'S3Prefix': s3Prefix,
+      'S3IngestionRoleArn': s3IngestionRoleArn,
+      if (enablePerformanceInsights != null)
+        'EnablePerformanceInsights': enablePerformanceInsights,
+      if (performanceInsightsKmsKeyId != null)
+        'PerformanceInsightsKMSKeyId': performanceInsightsKmsKeyId,
+      if (performanceInsightsRetentionPeriod != null)
+        'PerformanceInsightsRetentionPeriod':
+            performanceInsightsRetentionPeriod,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (processorFeatures != null) 'ProcessorFeatures': processorFeatures,
+      if (useDefaultProcessorFeatures != null)
+        'UseDefaultProcessorFeatures': useDefaultProcessorFeatures,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+    });
+    return RestoreDBInstanceFromS3Result.fromJson(response_);
   }
 
   /// Restores a DB instance to an arbitrary point in time. You can restore to
@@ -7673,7 +8693,50 @@ class RdsApi {
       String dbParameterGroupName,
       bool deletionProtection,
       String sourceDbiResourceId}) async {
-    return RestoreDBInstanceToPointInTimeResult.fromJson({});
+    var response_ = await _client.send('RestoreDBInstanceToPointInTime', {
+      if (sourceDBInstanceIdentifier != null)
+        'SourceDBInstanceIdentifier': sourceDBInstanceIdentifier,
+      'TargetDBInstanceIdentifier': targetDBInstanceIdentifier,
+      if (restoreTime != null) 'RestoreTime': restoreTime,
+      if (useLatestRestorableTime != null)
+        'UseLatestRestorableTime': useLatestRestorableTime,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (port != null) 'Port': port,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (dbName != null) 'DBName': dbName,
+      if (engine != null) 'Engine': engine,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (copyTagsToSnapshot != null) 'CopyTagsToSnapshot': copyTagsToSnapshot,
+      if (tags != null) 'Tags': tags,
+      if (storageType != null) 'StorageType': storageType,
+      if (tdeCredentialArn != null) 'TdeCredentialArn': tdeCredentialArn,
+      if (tdeCredentialPassword != null)
+        'TdeCredentialPassword': tdeCredentialPassword,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (domain != null) 'Domain': domain,
+      if (domainIamRoleName != null) 'DomainIAMRoleName': domainIamRoleName,
+      if (enableIamDatabaseAuthentication != null)
+        'EnableIAMDatabaseAuthentication': enableIamDatabaseAuthentication,
+      if (enableCloudwatchLogsExports != null)
+        'EnableCloudwatchLogsExports': enableCloudwatchLogsExports,
+      if (processorFeatures != null) 'ProcessorFeatures': processorFeatures,
+      if (useDefaultProcessorFeatures != null)
+        'UseDefaultProcessorFeatures': useDefaultProcessorFeatures,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+      if (sourceDbiResourceId != null)
+        'SourceDbiResourceId': sourceDbiResourceId,
+    });
+    return RestoreDBInstanceToPointInTimeResult.fromJson(response_);
   }
 
   /// Revokes ingress from a DBSecurityGroup for previously authorized IP ranges
@@ -7710,7 +8773,16 @@ class RdsApi {
       String ec2SecurityGroupName,
       String ec2SecurityGroupId,
       String ec2SecurityGroupOwnerId}) async {
-    return RevokeDBSecurityGroupIngressResult.fromJson({});
+    var response_ = await _client.send('RevokeDBSecurityGroupIngress', {
+      'DBSecurityGroupName': dbSecurityGroupName,
+      if (cidrip != null) 'CIDRIP': cidrip,
+      if (ec2SecurityGroupName != null)
+        'EC2SecurityGroupName': ec2SecurityGroupName,
+      if (ec2SecurityGroupId != null) 'EC2SecurityGroupId': ec2SecurityGroupId,
+      if (ec2SecurityGroupOwnerId != null)
+        'EC2SecurityGroupOwnerId': ec2SecurityGroupOwnerId,
+    });
+    return RevokeDBSecurityGroupIngressResult.fromJson(response_);
   }
 
   /// Starts a database activity stream to monitor activity on the database. For
@@ -7738,7 +8810,13 @@ class RdsApi {
       @required String mode,
       @required String kmsKeyId,
       bool applyImmediately}) async {
-    return StartActivityStreamResponse.fromJson({});
+    var response_ = await _client.send('StartActivityStream', {
+      'ResourceArn': resourceArn,
+      'Mode': mode,
+      'KmsKeyId': kmsKeyId,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+    });
+    return StartActivityStreamResponse.fromJson(response_);
   }
 
   /// Starts an Amazon Aurora DB cluster that was stopped using the AWS console,
@@ -7756,7 +8834,10 @@ class RdsApi {
   /// cluster to be started. This parameter is stored as a lowercase string.
   Future<StartDBClusterResult> startDBCluster(
       String dbClusterIdentifier) async {
-    return StartDBClusterResult.fromJson({});
+    var response_ = await _client.send('StartDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+    });
+    return StartDBClusterResult.fromJson(response_);
   }
 
   ///  Starts an Amazon RDS DB instance that was stopped using the AWS console,
@@ -7772,7 +8853,10 @@ class RdsApi {
   /// [dbInstanceIdentifier]:  The user-supplied instance identifier.
   Future<StartDBInstanceResult> startDBInstance(
       String dbInstanceIdentifier) async {
-    return StartDBInstanceResult.fromJson({});
+    var response_ = await _client.send('StartDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+    });
+    return StartDBInstanceResult.fromJson(response_);
   }
 
   /// Stops a database activity stream that was started using the AWS console,
@@ -7792,7 +8876,11 @@ class RdsApi {
   /// the database.
   Future<StopActivityStreamResponse> stopActivityStream(String resourceArn,
       {bool applyImmediately}) async {
-    return StopActivityStreamResponse.fromJson({});
+    var response_ = await _client.send('StopActivityStream', {
+      'ResourceArn': resourceArn,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+    });
+    return StopActivityStreamResponse.fromJson(response_);
   }
 
   ///  Stops an Amazon Aurora DB cluster. When you stop a DB cluster, Aurora
@@ -7811,7 +8899,10 @@ class RdsApi {
   /// [dbClusterIdentifier]: The DB cluster identifier of the Amazon Aurora DB
   /// cluster to be stopped. This parameter is stored as a lowercase string.
   Future<StopDBClusterResult> stopDBCluster(String dbClusterIdentifier) async {
-    return StopDBClusterResult.fromJson({});
+    var response_ = await _client.send('StopDBCluster', {
+      'DBClusterIdentifier': dbClusterIdentifier,
+    });
+    return StopDBClusterResult.fromJson(response_);
   }
 
   ///  Stops an Amazon RDS DB instance. When you stop a DB instance, Amazon RDS
@@ -7832,7 +8923,12 @@ class RdsApi {
   /// Snapshot created immediately before the DB instance is stopped.
   Future<StopDBInstanceResult> stopDBInstance(String dbInstanceIdentifier,
       {String dbSnapshotIdentifier}) async {
-    return StopDBInstanceResult.fromJson({});
+    var response_ = await _client.send('StopDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (dbSnapshotIdentifier != null)
+        'DBSnapshotIdentifier': dbSnapshotIdentifier,
+    });
+    return StopDBInstanceResult.fromJson(response_);
   }
 }
 
@@ -7847,7 +8943,13 @@ class AccountAttributesMessage {
     this.accountQuotas,
   });
   static AccountAttributesMessage fromJson(Map<String, dynamic> json) =>
-      AccountAttributesMessage();
+      AccountAttributesMessage(
+        accountQuotas: json.containsKey('AccountQuotas')
+            ? (json['AccountQuotas'] as List)
+                .map((e) => AccountQuota.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a quota for an AWS account.
@@ -7943,7 +9045,13 @@ class AccountQuota {
     this.used,
     this.max,
   });
-  static AccountQuota fromJson(Map<String, dynamic> json) => AccountQuota();
+  static AccountQuota fromJson(Map<String, dynamic> json) => AccountQuota(
+        accountQuotaName: json.containsKey('AccountQuotaName')
+            ? json['AccountQuotaName'] as String
+            : null,
+        used: json.containsKey('Used') ? BigInt.from(json['Used']) : null,
+        max: json.containsKey('Max') ? BigInt.from(json['Max']) : null,
+      );
 }
 
 class AddSourceIdentifierToSubscriptionResult {
@@ -7954,7 +9062,11 @@ class AddSourceIdentifierToSubscriptionResult {
   });
   static AddSourceIdentifierToSubscriptionResult fromJson(
           Map<String, dynamic> json) =>
-      AddSourceIdentifierToSubscriptionResult();
+      AddSourceIdentifierToSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class ApplyPendingMaintenanceActionResult {
@@ -7965,7 +9077,13 @@ class ApplyPendingMaintenanceActionResult {
   });
   static ApplyPendingMaintenanceActionResult fromJson(
           Map<String, dynamic> json) =>
-      ApplyPendingMaintenanceActionResult();
+      ApplyPendingMaintenanceActionResult(
+        resourcePendingMaintenanceActions:
+            json.containsKey('ResourcePendingMaintenanceActions')
+                ? ResourcePendingMaintenanceActions.fromJson(
+                    json['ResourcePendingMaintenanceActions'])
+                : null,
+      );
 }
 
 class AuthorizeDBSecurityGroupIngressResult {
@@ -7976,7 +9094,11 @@ class AuthorizeDBSecurityGroupIngressResult {
   });
   static AuthorizeDBSecurityGroupIngressResult fromJson(
           Map<String, dynamic> json) =>
-      AuthorizeDBSecurityGroupIngressResult();
+      AuthorizeDBSecurityGroupIngressResult(
+        dbSecurityGroup: json.containsKey('DBSecurityGroup')
+            ? DBSecurityGroup.fromJson(json['DBSecurityGroup'])
+            : null,
+      );
 }
 
 /// Contains Availability Zone information.
@@ -7991,7 +9113,9 @@ class AvailabilityZone {
     this.name,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Contains the available processor feature information for the DB instance
@@ -8017,7 +9141,15 @@ class AvailableProcessorFeature {
     this.allowedValues,
   });
   static AvailableProcessorFeature fromJson(Map<String, dynamic> json) =>
-      AvailableProcessorFeature();
+      AvailableProcessorFeature(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+      );
 }
 
 /// A CA certificate for an AWS account.
@@ -8048,7 +9180,26 @@ class Certificate {
     this.validTill,
     this.certificateArn,
   });
-  static Certificate fromJson(Map<String, dynamic> json) => Certificate();
+  static Certificate fromJson(Map<String, dynamic> json) => Certificate(
+        certificateIdentifier: json.containsKey('CertificateIdentifier')
+            ? json['CertificateIdentifier'] as String
+            : null,
+        certificateType: json.containsKey('CertificateType')
+            ? json['CertificateType'] as String
+            : null,
+        thumbprint: json.containsKey('Thumbprint')
+            ? json['Thumbprint'] as String
+            : null,
+        validFrom: json.containsKey('ValidFrom')
+            ? DateTime.parse(json['ValidFrom'])
+            : null,
+        validTill: json.containsKey('ValidTill')
+            ? DateTime.parse(json['ValidTill'])
+            : null,
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+      );
 }
 
 /// Data returned by the **DescribeCertificates** action.
@@ -8067,7 +9218,14 @@ class CertificateMessage {
     this.marker,
   });
   static CertificateMessage fromJson(Map<String, dynamic> json) =>
-      CertificateMessage();
+      CertificateMessage(
+        certificates: json.containsKey('Certificates')
+            ? (json['Certificates'] as List)
+                .map((e) => Certificate.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 ///  This data type is used as a response element in the action
@@ -8083,7 +9241,14 @@ class CharacterSet {
     this.characterSetName,
     this.characterSetDescription,
   });
-  static CharacterSet fromJson(Map<String, dynamic> json) => CharacterSet();
+  static CharacterSet fromJson(Map<String, dynamic> json) => CharacterSet(
+        characterSetName: json.containsKey('CharacterSetName')
+            ? json['CharacterSetName'] as String
+            : null,
+        characterSetDescription: json.containsKey('CharacterSetDescription')
+            ? json['CharacterSetDescription'] as String
+            : null,
+      );
 }
 
 /// The configuration setting for the log types to be enabled for export to
@@ -8105,6 +9270,7 @@ class CloudwatchLogsExportConfiguration {
     this.enableLogTypes,
     this.disableLogTypes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CopyDBClusterParameterGroupResult {
@@ -8115,7 +9281,11 @@ class CopyDBClusterParameterGroupResult {
   });
   static CopyDBClusterParameterGroupResult fromJson(
           Map<String, dynamic> json) =>
-      CopyDBClusterParameterGroupResult();
+      CopyDBClusterParameterGroupResult(
+        dbClusterParameterGroup: json.containsKey('DBClusterParameterGroup')
+            ? DBClusterParameterGroup.fromJson(json['DBClusterParameterGroup'])
+            : null,
+      );
 }
 
 class CopyDBClusterSnapshotResult {
@@ -8125,7 +9295,11 @@ class CopyDBClusterSnapshotResult {
     this.dbClusterSnapshot,
   });
   static CopyDBClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CopyDBClusterSnapshotResult();
+      CopyDBClusterSnapshotResult(
+        dbClusterSnapshot: json.containsKey('DBClusterSnapshot')
+            ? DBClusterSnapshot.fromJson(json['DBClusterSnapshot'])
+            : null,
+      );
 }
 
 class CopyDBParameterGroupResult {
@@ -8135,7 +9309,11 @@ class CopyDBParameterGroupResult {
     this.dbParameterGroup,
   });
   static CopyDBParameterGroupResult fromJson(Map<String, dynamic> json) =>
-      CopyDBParameterGroupResult();
+      CopyDBParameterGroupResult(
+        dbParameterGroup: json.containsKey('DBParameterGroup')
+            ? DBParameterGroup.fromJson(json['DBParameterGroup'])
+            : null,
+      );
 }
 
 class CopyDBSnapshotResult {
@@ -8145,7 +9323,11 @@ class CopyDBSnapshotResult {
     this.dbSnapshot,
   });
   static CopyDBSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CopyDBSnapshotResult();
+      CopyDBSnapshotResult(
+        dbSnapshot: json.containsKey('DBSnapshot')
+            ? DBSnapshot.fromJson(json['DBSnapshot'])
+            : null,
+      );
 }
 
 class CopyOptionGroupResult {
@@ -8155,7 +9337,11 @@ class CopyOptionGroupResult {
     this.optionGroup,
   });
   static CopyOptionGroupResult fromJson(Map<String, dynamic> json) =>
-      CopyOptionGroupResult();
+      CopyOptionGroupResult(
+        optionGroup: json.containsKey('OptionGroup')
+            ? OptionGroup.fromJson(json['OptionGroup'])
+            : null,
+      );
 }
 
 class CreateDBClusterParameterGroupResult {
@@ -8166,7 +9352,11 @@ class CreateDBClusterParameterGroupResult {
   });
   static CreateDBClusterParameterGroupResult fromJson(
           Map<String, dynamic> json) =>
-      CreateDBClusterParameterGroupResult();
+      CreateDBClusterParameterGroupResult(
+        dbClusterParameterGroup: json.containsKey('DBClusterParameterGroup')
+            ? DBClusterParameterGroup.fromJson(json['DBClusterParameterGroup'])
+            : null,
+      );
 }
 
 class CreateDBClusterResult {
@@ -8176,7 +9366,11 @@ class CreateDBClusterResult {
     this.dbCluster,
   });
   static CreateDBClusterResult fromJson(Map<String, dynamic> json) =>
-      CreateDBClusterResult();
+      CreateDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class CreateDBClusterSnapshotResult {
@@ -8186,7 +9380,11 @@ class CreateDBClusterSnapshotResult {
     this.dbClusterSnapshot,
   });
   static CreateDBClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateDBClusterSnapshotResult();
+      CreateDBClusterSnapshotResult(
+        dbClusterSnapshot: json.containsKey('DBClusterSnapshot')
+            ? DBClusterSnapshot.fromJson(json['DBClusterSnapshot'])
+            : null,
+      );
 }
 
 class CreateDBInstanceReadReplicaResult {
@@ -8197,7 +9395,11 @@ class CreateDBInstanceReadReplicaResult {
   });
   static CreateDBInstanceReadReplicaResult fromJson(
           Map<String, dynamic> json) =>
-      CreateDBInstanceReadReplicaResult();
+      CreateDBInstanceReadReplicaResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class CreateDBInstanceResult {
@@ -8207,7 +9409,11 @@ class CreateDBInstanceResult {
     this.dbInstance,
   });
   static CreateDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      CreateDBInstanceResult();
+      CreateDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class CreateDBParameterGroupResult {
@@ -8217,7 +9423,11 @@ class CreateDBParameterGroupResult {
     this.dbParameterGroup,
   });
   static CreateDBParameterGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateDBParameterGroupResult();
+      CreateDBParameterGroupResult(
+        dbParameterGroup: json.containsKey('DBParameterGroup')
+            ? DBParameterGroup.fromJson(json['DBParameterGroup'])
+            : null,
+      );
 }
 
 class CreateDBSecurityGroupResult {
@@ -8227,7 +9437,11 @@ class CreateDBSecurityGroupResult {
     this.dbSecurityGroup,
   });
   static CreateDBSecurityGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateDBSecurityGroupResult();
+      CreateDBSecurityGroupResult(
+        dbSecurityGroup: json.containsKey('DBSecurityGroup')
+            ? DBSecurityGroup.fromJson(json['DBSecurityGroup'])
+            : null,
+      );
 }
 
 class CreateDBSnapshotResult {
@@ -8237,7 +9451,11 @@ class CreateDBSnapshotResult {
     this.dbSnapshot,
   });
   static CreateDBSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateDBSnapshotResult();
+      CreateDBSnapshotResult(
+        dbSnapshot: json.containsKey('DBSnapshot')
+            ? DBSnapshot.fromJson(json['DBSnapshot'])
+            : null,
+      );
 }
 
 class CreateDBSubnetGroupResult {
@@ -8247,7 +9465,11 @@ class CreateDBSubnetGroupResult {
     this.dbSubnetGroup,
   });
   static CreateDBSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateDBSubnetGroupResult();
+      CreateDBSubnetGroupResult(
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? DBSubnetGroup.fromJson(json['DBSubnetGroup'])
+            : null,
+      );
 }
 
 class CreateEventSubscriptionResult {
@@ -8257,7 +9479,11 @@ class CreateEventSubscriptionResult {
     this.eventSubscription,
   });
   static CreateEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      CreateEventSubscriptionResult();
+      CreateEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class CreateGlobalClusterResult {
@@ -8267,7 +9493,11 @@ class CreateGlobalClusterResult {
     this.globalCluster,
   });
   static CreateGlobalClusterResult fromJson(Map<String, dynamic> json) =>
-      CreateGlobalClusterResult();
+      CreateGlobalClusterResult(
+        globalCluster: json.containsKey('GlobalCluster')
+            ? GlobalCluster.fromJson(json['GlobalCluster'])
+            : null,
+      );
 }
 
 class CreateOptionGroupResult {
@@ -8277,7 +9507,11 @@ class CreateOptionGroupResult {
     this.optionGroup,
   });
   static CreateOptionGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateOptionGroupResult();
+      CreateOptionGroupResult(
+        optionGroup: json.containsKey('OptionGroup')
+            ? OptionGroup.fromJson(json['OptionGroup'])
+            : null,
+      );
 }
 
 /// Contains the details of an Amazon Aurora DB cluster.
@@ -8558,7 +9792,171 @@ class DBCluster {
     this.copyTagsToSnapshot,
     this.crossAccountClone,
   });
-  static DBCluster fromJson(Map<String, dynamic> json) => DBCluster();
+  static DBCluster fromJson(Map<String, dynamic> json) => DBCluster(
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        backupRetentionPeriod: json.containsKey('BackupRetentionPeriod')
+            ? json['BackupRetentionPeriod'] as int
+            : null,
+        characterSetName: json.containsKey('CharacterSetName')
+            ? json['CharacterSetName'] as String
+            : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        dbClusterIdentifier: json.containsKey('DBClusterIdentifier')
+            ? json['DBClusterIdentifier'] as String
+            : null,
+        dbClusterParameterGroup: json.containsKey('DBClusterParameterGroup')
+            ? json['DBClusterParameterGroup'] as String
+            : null,
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? json['DBSubnetGroup'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        percentProgress: json.containsKey('PercentProgress')
+            ? json['PercentProgress'] as String
+            : null,
+        earliestRestorableTime: json.containsKey('EarliestRestorableTime')
+            ? DateTime.parse(json['EarliestRestorableTime'])
+            : null,
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+        readerEndpoint: json.containsKey('ReaderEndpoint')
+            ? json['ReaderEndpoint'] as String
+            : null,
+        customEndpoints: json.containsKey('CustomEndpoints')
+            ? (json['CustomEndpoints'] as List).map((e) => e as String).toList()
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        latestRestorableTime: json.containsKey('LatestRestorableTime')
+            ? DateTime.parse(json['LatestRestorableTime'])
+            : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        dbClusterOptionGroupMemberships:
+            json.containsKey('DBClusterOptionGroupMemberships')
+                ? (json['DBClusterOptionGroupMemberships'] as List)
+                    .map((e) => DBClusterOptionGroupStatus.fromJson(e))
+                    .toList()
+                : null,
+        preferredBackupWindow: json.containsKey('PreferredBackupWindow')
+            ? json['PreferredBackupWindow'] as String
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        replicationSourceIdentifier:
+            json.containsKey('ReplicationSourceIdentifier')
+                ? json['ReplicationSourceIdentifier'] as String
+                : null,
+        readReplicaIdentifiers: json.containsKey('ReadReplicaIdentifiers')
+            ? (json['ReadReplicaIdentifiers'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        dbClusterMembers: json.containsKey('DBClusterMembers')
+            ? (json['DBClusterMembers'] as List)
+                .map((e) => DBClusterMember.fromJson(e))
+                .toList()
+            : null,
+        vpcSecurityGroups: json.containsKey('VpcSecurityGroups')
+            ? (json['VpcSecurityGroups'] as List)
+                .map((e) => VpcSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        hostedZoneId: json.containsKey('HostedZoneId')
+            ? json['HostedZoneId'] as String
+            : null,
+        storageEncrypted: json.containsKey('StorageEncrypted')
+            ? json['StorageEncrypted'] as bool
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        dbClusterResourceId: json.containsKey('DbClusterResourceId')
+            ? json['DbClusterResourceId'] as String
+            : null,
+        dbClusterArn: json.containsKey('DBClusterArn')
+            ? json['DBClusterArn'] as String
+            : null,
+        associatedRoles: json.containsKey('AssociatedRoles')
+            ? (json['AssociatedRoles'] as List)
+                .map((e) => DBClusterRole.fromJson(e))
+                .toList()
+            : null,
+        iamDatabaseAuthenticationEnabled:
+            json.containsKey('IAMDatabaseAuthenticationEnabled')
+                ? json['IAMDatabaseAuthenticationEnabled'] as bool
+                : null,
+        cloneGroupId: json.containsKey('CloneGroupId')
+            ? json['CloneGroupId'] as String
+            : null,
+        clusterCreateTime: json.containsKey('ClusterCreateTime')
+            ? DateTime.parse(json['ClusterCreateTime'])
+            : null,
+        earliestBacktrackTime: json.containsKey('EarliestBacktrackTime')
+            ? DateTime.parse(json['EarliestBacktrackTime'])
+            : null,
+        backtrackWindow: json.containsKey('BacktrackWindow')
+            ? BigInt.from(json['BacktrackWindow'])
+            : null,
+        backtrackConsumedChangeRecords:
+            json.containsKey('BacktrackConsumedChangeRecords')
+                ? BigInt.from(json['BacktrackConsumedChangeRecords'])
+                : null,
+        enabledCloudwatchLogsExports:
+            json.containsKey('EnabledCloudwatchLogsExports')
+                ? (json['EnabledCloudwatchLogsExports'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        capacity: json.containsKey('Capacity') ? json['Capacity'] as int : null,
+        engineMode: json.containsKey('EngineMode')
+            ? json['EngineMode'] as String
+            : null,
+        scalingConfigurationInfo: json.containsKey('ScalingConfigurationInfo')
+            ? ScalingConfigurationInfo.fromJson(
+                json['ScalingConfigurationInfo'])
+            : null,
+        deletionProtection: json.containsKey('DeletionProtection')
+            ? json['DeletionProtection'] as bool
+            : null,
+        httpEndpointEnabled: json.containsKey('HttpEndpointEnabled')
+            ? json['HttpEndpointEnabled'] as bool
+            : null,
+        activityStreamMode: json.containsKey('ActivityStreamMode')
+            ? json['ActivityStreamMode'] as String
+            : null,
+        activityStreamStatus: json.containsKey('ActivityStreamStatus')
+            ? json['ActivityStreamStatus'] as String
+            : null,
+        activityStreamKmsKeyId: json.containsKey('ActivityStreamKmsKeyId')
+            ? json['ActivityStreamKmsKeyId'] as String
+            : null,
+        activityStreamKinesisStreamName:
+            json.containsKey('ActivityStreamKinesisStreamName')
+                ? json['ActivityStreamKinesisStreamName'] as String
+                : null,
+        copyTagsToSnapshot: json.containsKey('CopyTagsToSnapshot')
+            ? json['CopyTagsToSnapshot'] as bool
+            : null,
+        crossAccountClone: json.containsKey('CrossAccountClone')
+            ? json['CrossAccountClone'] as bool
+            : null,
+      );
 }
 
 /// This data type is used as a response element in the
@@ -8605,7 +10003,25 @@ class DBClusterBacktrack {
     this.status,
   });
   static DBClusterBacktrack fromJson(Map<String, dynamic> json) =>
-      DBClusterBacktrack();
+      DBClusterBacktrack(
+        dbClusterIdentifier: json.containsKey('DBClusterIdentifier')
+            ? json['DBClusterIdentifier'] as String
+            : null,
+        backtrackIdentifier: json.containsKey('BacktrackIdentifier')
+            ? json['BacktrackIdentifier'] as String
+            : null,
+        backtrackTo: json.containsKey('BacktrackTo')
+            ? DateTime.parse(json['BacktrackTo'])
+            : null,
+        backtrackedFrom: json.containsKey('BacktrackedFrom')
+            ? DateTime.parse(json['BacktrackedFrom'])
+            : null,
+        backtrackRequestCreationTime:
+            json.containsKey('BacktrackRequestCreationTime')
+                ? DateTime.parse(json['BacktrackRequestCreationTime'])
+                : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Contains the result of a successful invocation of the
@@ -8623,7 +10039,14 @@ class DBClusterBacktrackMessage {
     this.dbClusterBacktracks,
   });
   static DBClusterBacktrackMessage fromJson(Map<String, dynamic> json) =>
-      DBClusterBacktrackMessage();
+      DBClusterBacktrackMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbClusterBacktracks: json.containsKey('DBClusterBacktracks')
+            ? (json['DBClusterBacktracks'] as List)
+                .map((e) => DBClusterBacktrack.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DBClusterCapacityInfo {
@@ -8653,7 +10076,23 @@ class DBClusterCapacityInfo {
     this.timeoutAction,
   });
   static DBClusterCapacityInfo fromJson(Map<String, dynamic> json) =>
-      DBClusterCapacityInfo();
+      DBClusterCapacityInfo(
+        dbClusterIdentifier: json.containsKey('DBClusterIdentifier')
+            ? json['DBClusterIdentifier'] as String
+            : null,
+        pendingCapacity: json.containsKey('PendingCapacity')
+            ? json['PendingCapacity'] as int
+            : null,
+        currentCapacity: json.containsKey('CurrentCapacity')
+            ? json['CurrentCapacity'] as int
+            : null,
+        secondsBeforeTimeout: json.containsKey('SecondsBeforeTimeout')
+            ? json['SecondsBeforeTimeout'] as int
+            : null,
+        timeoutAction: json.containsKey('TimeoutAction')
+            ? json['TimeoutAction'] as String
+            : null,
+      );
 }
 
 /// This data type represents the information you need to connect to an Amazon
@@ -8723,7 +10162,37 @@ class DBClusterEndpoint {
     this.dbClusterEndpointArn,
   });
   static DBClusterEndpoint fromJson(Map<String, dynamic> json) =>
-      DBClusterEndpoint();
+      DBClusterEndpoint(
+        dbClusterEndpointIdentifier:
+            json.containsKey('DBClusterEndpointIdentifier')
+                ? json['DBClusterEndpointIdentifier'] as String
+                : null,
+        dbClusterIdentifier: json.containsKey('DBClusterIdentifier')
+            ? json['DBClusterIdentifier'] as String
+            : null,
+        dbClusterEndpointResourceIdentifier:
+            json.containsKey('DBClusterEndpointResourceIdentifier')
+                ? json['DBClusterEndpointResourceIdentifier'] as String
+                : null,
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        endpointType: json.containsKey('EndpointType')
+            ? json['EndpointType'] as String
+            : null,
+        customEndpointType: json.containsKey('CustomEndpointType')
+            ? json['CustomEndpointType'] as String
+            : null,
+        staticMembers: json.containsKey('StaticMembers')
+            ? (json['StaticMembers'] as List).map((e) => e as String).toList()
+            : null,
+        excludedMembers: json.containsKey('ExcludedMembers')
+            ? (json['ExcludedMembers'] as List).map((e) => e as String).toList()
+            : null,
+        dbClusterEndpointArn: json.containsKey('DBClusterEndpointArn')
+            ? json['DBClusterEndpointArn'] as String
+            : null,
+      );
 }
 
 class DBClusterEndpointMessage {
@@ -8742,7 +10211,14 @@ class DBClusterEndpointMessage {
     this.dbClusterEndpoints,
   });
   static DBClusterEndpointMessage fromJson(Map<String, dynamic> json) =>
-      DBClusterEndpointMessage();
+      DBClusterEndpointMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbClusterEndpoints: json.containsKey('DBClusterEndpoints')
+            ? (json['DBClusterEndpoints'] as List)
+                .map((e) => DBClusterEndpoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains information about an instance that is part of a DB cluster.
@@ -8771,8 +10247,21 @@ class DBClusterMember {
     this.dbClusterParameterGroupStatus,
     this.promotionTier,
   });
-  static DBClusterMember fromJson(Map<String, dynamic> json) =>
-      DBClusterMember();
+  static DBClusterMember fromJson(Map<String, dynamic> json) => DBClusterMember(
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        isClusterWriter: json.containsKey('IsClusterWriter')
+            ? json['IsClusterWriter'] as bool
+            : null,
+        dbClusterParameterGroupStatus:
+            json.containsKey('DBClusterParameterGroupStatus')
+                ? json['DBClusterParameterGroupStatus'] as String
+                : null,
+        promotionTier: json.containsKey('PromotionTier')
+            ? json['PromotionTier'] as int
+            : null,
+      );
 }
 
 /// Contains the result of a successful invocation of the `DescribeDBClusters`
@@ -8790,7 +10279,14 @@ class DBClusterMessage {
     this.dbClusters,
   });
   static DBClusterMessage fromJson(Map<String, dynamic> json) =>
-      DBClusterMessage();
+      DBClusterMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbClusters: json.containsKey('DBClusters')
+            ? (json['DBClusters'] as List)
+                .map((e) => DBCluster.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains status information for a DB cluster option group.
@@ -8806,7 +10302,12 @@ class DBClusterOptionGroupStatus {
     this.status,
   });
   static DBClusterOptionGroupStatus fromJson(Map<String, dynamic> json) =>
-      DBClusterOptionGroupStatus();
+      DBClusterOptionGroupStatus(
+        dbClusterOptionGroupName: json.containsKey('DBClusterOptionGroupName')
+            ? json['DBClusterOptionGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Contains the details of an Amazon RDS DB cluster parameter group.
@@ -8835,7 +10336,22 @@ class DBClusterParameterGroup {
     this.dbClusterParameterGroupArn,
   });
   static DBClusterParameterGroup fromJson(Map<String, dynamic> json) =>
-      DBClusterParameterGroup();
+      DBClusterParameterGroup(
+        dbClusterParameterGroupName:
+            json.containsKey('DBClusterParameterGroupName')
+                ? json['DBClusterParameterGroupName'] as String
+                : null,
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        dbClusterParameterGroupArn:
+            json.containsKey('DBClusterParameterGroupArn')
+                ? json['DBClusterParameterGroupArn'] as String
+                : null,
+      );
 }
 
 /// Provides details about a DB cluster parameter group including the parameters
@@ -8855,7 +10371,14 @@ class DBClusterParameterGroupDetails {
     this.marker,
   });
   static DBClusterParameterGroupDetails fromJson(Map<String, dynamic> json) =>
-      DBClusterParameterGroupDetails();
+      DBClusterParameterGroupDetails(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DBClusterParameterGroupNameMessage {
@@ -8880,7 +10403,12 @@ class DBClusterParameterGroupNameMessage {
   });
   static DBClusterParameterGroupNameMessage fromJson(
           Map<String, dynamic> json) =>
-      DBClusterParameterGroupNameMessage();
+      DBClusterParameterGroupNameMessage(
+        dbClusterParameterGroupName:
+            json.containsKey('DBClusterParameterGroupName')
+                ? json['DBClusterParameterGroupName'] as String
+                : null,
+      );
 }
 
 class DBClusterParameterGroupsMessage {
@@ -8898,7 +10426,14 @@ class DBClusterParameterGroupsMessage {
     this.dbClusterParameterGroups,
   });
   static DBClusterParameterGroupsMessage fromJson(Map<String, dynamic> json) =>
-      DBClusterParameterGroupsMessage();
+      DBClusterParameterGroupsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbClusterParameterGroups: json.containsKey('DBClusterParameterGroups')
+            ? (json['DBClusterParameterGroups'] as List)
+                .map((e) => DBClusterParameterGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes an AWS Identity and Access Management (IAM) role that is
@@ -8931,7 +10466,13 @@ class DBClusterRole {
     this.status,
     this.featureName,
   });
-  static DBClusterRole fromJson(Map<String, dynamic> json) => DBClusterRole();
+  static DBClusterRole fromJson(Map<String, dynamic> json) => DBClusterRole(
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        featureName: json.containsKey('FeatureName')
+            ? json['FeatureName'] as String
+            : null,
+      );
 }
 
 /// Contains the details for an Amazon RDS DB cluster snapshot
@@ -9031,7 +10572,64 @@ class DBClusterSnapshot {
     this.iamDatabaseAuthenticationEnabled,
   });
   static DBClusterSnapshot fromJson(Map<String, dynamic> json) =>
-      DBClusterSnapshot();
+      DBClusterSnapshot(
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        dbClusterSnapshotIdentifier:
+            json.containsKey('DBClusterSnapshotIdentifier')
+                ? json['DBClusterSnapshotIdentifier'] as String
+                : null,
+        dbClusterIdentifier: json.containsKey('DBClusterIdentifier')
+            ? json['DBClusterIdentifier'] as String
+            : null,
+        snapshotCreateTime: json.containsKey('SnapshotCreateTime')
+            ? DateTime.parse(json['SnapshotCreateTime'])
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        clusterCreateTime: json.containsKey('ClusterCreateTime')
+            ? DateTime.parse(json['ClusterCreateTime'])
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        snapshotType: json.containsKey('SnapshotType')
+            ? json['SnapshotType'] as String
+            : null,
+        percentProgress: json.containsKey('PercentProgress')
+            ? json['PercentProgress'] as int
+            : null,
+        storageEncrypted: json.containsKey('StorageEncrypted')
+            ? json['StorageEncrypted'] as bool
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        dbClusterSnapshotArn: json.containsKey('DBClusterSnapshotArn')
+            ? json['DBClusterSnapshotArn'] as String
+            : null,
+        sourceDBClusterSnapshotArn:
+            json.containsKey('SourceDBClusterSnapshotArn')
+                ? json['SourceDBClusterSnapshotArn'] as String
+                : null,
+        iamDatabaseAuthenticationEnabled:
+            json.containsKey('IAMDatabaseAuthenticationEnabled')
+                ? json['IAMDatabaseAuthenticationEnabled'] as bool
+                : null,
+      );
 }
 
 /// Contains the name and values of a manual DB cluster snapshot attribute.
@@ -9061,7 +10659,14 @@ class DBClusterSnapshotAttribute {
     this.attributeValues,
   });
   static DBClusterSnapshotAttribute fromJson(Map<String, dynamic> json) =>
-      DBClusterSnapshotAttribute();
+      DBClusterSnapshotAttribute(
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+        attributeValues: json.containsKey('AttributeValues')
+            ? (json['AttributeValues'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Contains the results of a successful call to the
@@ -9084,7 +10689,18 @@ class DBClusterSnapshotAttributesResult {
   });
   static DBClusterSnapshotAttributesResult fromJson(
           Map<String, dynamic> json) =>
-      DBClusterSnapshotAttributesResult();
+      DBClusterSnapshotAttributesResult(
+        dbClusterSnapshotIdentifier:
+            json.containsKey('DBClusterSnapshotIdentifier')
+                ? json['DBClusterSnapshotIdentifier'] as String
+                : null,
+        dbClusterSnapshotAttributes:
+            json.containsKey('DBClusterSnapshotAttributes')
+                ? (json['DBClusterSnapshotAttributes'] as List)
+                    .map((e) => DBClusterSnapshotAttribute.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 ///  Provides a list of DB cluster snapshots for the user as the result of a
@@ -9104,7 +10720,14 @@ class DBClusterSnapshotMessage {
     this.dbClusterSnapshots,
   });
   static DBClusterSnapshotMessage fromJson(Map<String, dynamic> json) =>
-      DBClusterSnapshotMessage();
+      DBClusterSnapshotMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbClusterSnapshots: json.containsKey('DBClusterSnapshots')
+            ? (json['DBClusterSnapshots'] as List)
+                .map((e) => DBClusterSnapshot.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  This data type is used as a response element in the action
@@ -9182,8 +10805,63 @@ class DBEngineVersion {
     this.supportedFeatureNames,
     this.status,
   });
-  static DBEngineVersion fromJson(Map<String, dynamic> json) =>
-      DBEngineVersion();
+  static DBEngineVersion fromJson(Map<String, dynamic> json) => DBEngineVersion(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        dbEngineDescription: json.containsKey('DBEngineDescription')
+            ? json['DBEngineDescription'] as String
+            : null,
+        dbEngineVersionDescription:
+            json.containsKey('DBEngineVersionDescription')
+                ? json['DBEngineVersionDescription'] as String
+                : null,
+        defaultCharacterSet: json.containsKey('DefaultCharacterSet')
+            ? CharacterSet.fromJson(json['DefaultCharacterSet'])
+            : null,
+        supportedCharacterSets: json.containsKey('SupportedCharacterSets')
+            ? (json['SupportedCharacterSets'] as List)
+                .map((e) => CharacterSet.fromJson(e))
+                .toList()
+            : null,
+        validUpgradeTarget: json.containsKey('ValidUpgradeTarget')
+            ? (json['ValidUpgradeTarget'] as List)
+                .map((e) => UpgradeTarget.fromJson(e))
+                .toList()
+            : null,
+        supportedTimezones: json.containsKey('SupportedTimezones')
+            ? (json['SupportedTimezones'] as List)
+                .map((e) => Timezone.fromJson(e))
+                .toList()
+            : null,
+        exportableLogTypes: json.containsKey('ExportableLogTypes')
+            ? (json['ExportableLogTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        supportsLogExportsToCloudwatchLogs:
+            json.containsKey('SupportsLogExportsToCloudwatchLogs')
+                ? json['SupportsLogExportsToCloudwatchLogs'] as bool
+                : null,
+        supportsReadReplica: json.containsKey('SupportsReadReplica')
+            ? json['SupportsReadReplica'] as bool
+            : null,
+        supportedEngineModes: json.containsKey('SupportedEngineModes')
+            ? (json['SupportedEngineModes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        supportedFeatureNames: json.containsKey('SupportedFeatureNames')
+            ? (json['SupportedFeatureNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -9202,7 +10880,14 @@ class DBEngineVersionMessage {
     this.dbEngineVersions,
   });
   static DBEngineVersionMessage fromJson(Map<String, dynamic> json) =>
-      DBEngineVersionMessage();
+      DBEngineVersionMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbEngineVersions: json.containsKey('DBEngineVersions')
+            ? (json['DBEngineVersions'] as List)
+                .map((e) => DBEngineVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the details of an Amazon RDS DB instance.
@@ -9537,7 +11222,204 @@ class DBInstance {
     this.listenerEndpoint,
     this.maxAllocatedStorage,
   });
-  static DBInstance fromJson(Map<String, dynamic> json) => DBInstance();
+  static DBInstance fromJson(Map<String, dynamic> json) => DBInstance(
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        dbInstanceStatus: json.containsKey('DBInstanceStatus')
+            ? json['DBInstanceStatus'] as String
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        dbName: json.containsKey('DBName') ? json['DBName'] as String : null,
+        endpoint: json.containsKey('Endpoint')
+            ? Endpoint.fromJson(json['Endpoint'])
+            : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        instanceCreateTime: json.containsKey('InstanceCreateTime')
+            ? DateTime.parse(json['InstanceCreateTime'])
+            : null,
+        preferredBackupWindow: json.containsKey('PreferredBackupWindow')
+            ? json['PreferredBackupWindow'] as String
+            : null,
+        backupRetentionPeriod: json.containsKey('BackupRetentionPeriod')
+            ? json['BackupRetentionPeriod'] as int
+            : null,
+        dbSecurityGroups: json.containsKey('DBSecurityGroups')
+            ? (json['DBSecurityGroups'] as List)
+                .map((e) => DBSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        vpcSecurityGroups: json.containsKey('VpcSecurityGroups')
+            ? (json['VpcSecurityGroups'] as List)
+                .map((e) => VpcSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        dbParameterGroups: json.containsKey('DBParameterGroups')
+            ? (json['DBParameterGroups'] as List)
+                .map((e) => DBParameterGroupStatus.fromJson(e))
+                .toList()
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? DBSubnetGroup.fromJson(json['DBSubnetGroup'])
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        pendingModifiedValues: json.containsKey('PendingModifiedValues')
+            ? PendingModifiedValues.fromJson(json['PendingModifiedValues'])
+            : null,
+        latestRestorableTime: json.containsKey('LatestRestorableTime')
+            ? DateTime.parse(json['LatestRestorableTime'])
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        autoMinorVersionUpgrade: json.containsKey('AutoMinorVersionUpgrade')
+            ? json['AutoMinorVersionUpgrade'] as bool
+            : null,
+        readReplicaSourceDBInstanceIdentifier:
+            json.containsKey('ReadReplicaSourceDBInstanceIdentifier')
+                ? json['ReadReplicaSourceDBInstanceIdentifier'] as String
+                : null,
+        readReplicaDBInstanceIdentifiers:
+            json.containsKey('ReadReplicaDBInstanceIdentifiers')
+                ? (json['ReadReplicaDBInstanceIdentifiers'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        readReplicaDBClusterIdentifiers:
+            json.containsKey('ReadReplicaDBClusterIdentifiers')
+                ? (json['ReadReplicaDBClusterIdentifiers'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        optionGroupMemberships: json.containsKey('OptionGroupMemberships')
+            ? (json['OptionGroupMemberships'] as List)
+                .map((e) => OptionGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        characterSetName: json.containsKey('CharacterSetName')
+            ? json['CharacterSetName'] as String
+            : null,
+        secondaryAvailabilityZone: json.containsKey('SecondaryAvailabilityZone')
+            ? json['SecondaryAvailabilityZone'] as String
+            : null,
+        publiclyAccessible: json.containsKey('PubliclyAccessible')
+            ? json['PubliclyAccessible'] as bool
+            : null,
+        statusInfos: json.containsKey('StatusInfos')
+            ? (json['StatusInfos'] as List)
+                .map((e) => DBInstanceStatusInfo.fromJson(e))
+                .toList()
+            : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        tdeCredentialArn: json.containsKey('TdeCredentialArn')
+            ? json['TdeCredentialArn'] as String
+            : null,
+        dbInstancePort: json.containsKey('DbInstancePort')
+            ? json['DbInstancePort'] as int
+            : null,
+        dbClusterIdentifier: json.containsKey('DBClusterIdentifier')
+            ? json['DBClusterIdentifier'] as String
+            : null,
+        storageEncrypted: json.containsKey('StorageEncrypted')
+            ? json['StorageEncrypted'] as bool
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        dbiResourceId: json.containsKey('DbiResourceId')
+            ? json['DbiResourceId'] as String
+            : null,
+        caCertificateIdentifier: json.containsKey('CACertificateIdentifier')
+            ? json['CACertificateIdentifier'] as String
+            : null,
+        domainMemberships: json.containsKey('DomainMemberships')
+            ? (json['DomainMemberships'] as List)
+                .map((e) => DomainMembership.fromJson(e))
+                .toList()
+            : null,
+        copyTagsToSnapshot: json.containsKey('CopyTagsToSnapshot')
+            ? json['CopyTagsToSnapshot'] as bool
+            : null,
+        monitoringInterval: json.containsKey('MonitoringInterval')
+            ? json['MonitoringInterval'] as int
+            : null,
+        enhancedMonitoringResourceArn:
+            json.containsKey('EnhancedMonitoringResourceArn')
+                ? json['EnhancedMonitoringResourceArn'] as String
+                : null,
+        monitoringRoleArn: json.containsKey('MonitoringRoleArn')
+            ? json['MonitoringRoleArn'] as String
+            : null,
+        promotionTier: json.containsKey('PromotionTier')
+            ? json['PromotionTier'] as int
+            : null,
+        dbInstanceArn: json.containsKey('DBInstanceArn')
+            ? json['DBInstanceArn'] as String
+            : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+        iamDatabaseAuthenticationEnabled:
+            json.containsKey('IAMDatabaseAuthenticationEnabled')
+                ? json['IAMDatabaseAuthenticationEnabled'] as bool
+                : null,
+        performanceInsightsEnabled:
+            json.containsKey('PerformanceInsightsEnabled')
+                ? json['PerformanceInsightsEnabled'] as bool
+                : null,
+        performanceInsightsKmsKeyId:
+            json.containsKey('PerformanceInsightsKMSKeyId')
+                ? json['PerformanceInsightsKMSKeyId'] as String
+                : null,
+        performanceInsightsRetentionPeriod:
+            json.containsKey('PerformanceInsightsRetentionPeriod')
+                ? json['PerformanceInsightsRetentionPeriod'] as int
+                : null,
+        enabledCloudwatchLogsExports:
+            json.containsKey('EnabledCloudwatchLogsExports')
+                ? (json['EnabledCloudwatchLogsExports'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        processorFeatures: json.containsKey('ProcessorFeatures')
+            ? (json['ProcessorFeatures'] as List)
+                .map((e) => ProcessorFeature.fromJson(e))
+                .toList()
+            : null,
+        deletionProtection: json.containsKey('DeletionProtection')
+            ? json['DeletionProtection'] as bool
+            : null,
+        associatedRoles: json.containsKey('AssociatedRoles')
+            ? (json['AssociatedRoles'] as List)
+                .map((e) => DBInstanceRole.fromJson(e))
+                .toList()
+            : null,
+        listenerEndpoint: json.containsKey('ListenerEndpoint')
+            ? Endpoint.fromJson(json['ListenerEndpoint'])
+            : null,
+        maxAllocatedStorage: json.containsKey('MaxAllocatedStorage')
+            ? json['MaxAllocatedStorage'] as int
+            : null,
+      );
 }
 
 /// An automated backup of a DB instance. It it consists of system backups,
@@ -9661,7 +11543,63 @@ class DBInstanceAutomatedBackup {
     this.iamDatabaseAuthenticationEnabled,
   });
   static DBInstanceAutomatedBackup fromJson(Map<String, dynamic> json) =>
-      DBInstanceAutomatedBackup();
+      DBInstanceAutomatedBackup(
+        dbInstanceArn: json.containsKey('DBInstanceArn')
+            ? json['DBInstanceArn'] as String
+            : null,
+        dbiResourceId: json.containsKey('DbiResourceId')
+            ? json['DbiResourceId'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        restoreWindow: json.containsKey('RestoreWindow')
+            ? RestoreWindow.fromJson(json['RestoreWindow'])
+            : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        instanceCreateTime: json.containsKey('InstanceCreateTime')
+            ? DateTime.parse(json['InstanceCreateTime'])
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        optionGroupName: json.containsKey('OptionGroupName')
+            ? json['OptionGroupName'] as String
+            : null,
+        tdeCredentialArn: json.containsKey('TdeCredentialArn')
+            ? json['TdeCredentialArn'] as String
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+        iamDatabaseAuthenticationEnabled:
+            json.containsKey('IAMDatabaseAuthenticationEnabled')
+                ? json['IAMDatabaseAuthenticationEnabled'] as bool
+                : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -9680,7 +11618,15 @@ class DBInstanceAutomatedBackupMessage {
     this.dbInstanceAutomatedBackups,
   });
   static DBInstanceAutomatedBackupMessage fromJson(Map<String, dynamic> json) =>
-      DBInstanceAutomatedBackupMessage();
+      DBInstanceAutomatedBackupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbInstanceAutomatedBackups:
+            json.containsKey('DBInstanceAutomatedBackups')
+                ? (json['DBInstanceAutomatedBackups'] as List)
+                    .map((e) => DBInstanceAutomatedBackup.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the `DescribeDBInstances`
@@ -9699,7 +11645,14 @@ class DBInstanceMessage {
     this.dbInstances,
   });
   static DBInstanceMessage fromJson(Map<String, dynamic> json) =>
-      DBInstanceMessage();
+      DBInstanceMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbInstances: json.containsKey('DBInstances')
+            ? (json['DBInstances'] as List)
+                .map((e) => DBInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes an AWS Identity and Access Management (IAM) role that is
@@ -9733,7 +11686,13 @@ class DBInstanceRole {
     this.featureName,
     this.status,
   });
-  static DBInstanceRole fromJson(Map<String, dynamic> json) => DBInstanceRole();
+  static DBInstanceRole fromJson(Map<String, dynamic> json) => DBInstanceRole(
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        featureName: json.containsKey('FeatureName')
+            ? json['FeatureName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Provides a list of status information for a DB instance.
@@ -9761,7 +11720,14 @@ class DBInstanceStatusInfo {
     this.message,
   });
   static DBInstanceStatusInfo fromJson(Map<String, dynamic> json) =>
-      DBInstanceStatusInfo();
+      DBInstanceStatusInfo(
+        statusType: json.containsKey('StatusType')
+            ? json['StatusType'] as String
+            : null,
+        normal: json.containsKey('Normal') ? json['Normal'] as bool : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Contains the details of an Amazon RDS DB parameter group.
@@ -9789,7 +11755,20 @@ class DBParameterGroup {
     this.dbParameterGroupArn,
   });
   static DBParameterGroup fromJson(Map<String, dynamic> json) =>
-      DBParameterGroup();
+      DBParameterGroup(
+        dbParameterGroupName: json.containsKey('DBParameterGroupName')
+            ? json['DBParameterGroupName'] as String
+            : null,
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        dbParameterGroupArn: json.containsKey('DBParameterGroupArn')
+            ? json['DBParameterGroupArn'] as String
+            : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -9808,7 +11787,14 @@ class DBParameterGroupDetails {
     this.marker,
   });
   static DBParameterGroupDetails fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupDetails();
+      DBParameterGroupDetails(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -9821,7 +11807,11 @@ class DBParameterGroupNameMessage {
     this.dbParameterGroupName,
   });
   static DBParameterGroupNameMessage fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupNameMessage();
+      DBParameterGroupNameMessage(
+        dbParameterGroupName: json.containsKey('DBParameterGroupName')
+            ? json['DBParameterGroupName'] as String
+            : null,
+      );
 }
 
 /// The status of the DB parameter group.
@@ -9851,7 +11841,14 @@ class DBParameterGroupStatus {
     this.parameterApplyStatus,
   });
   static DBParameterGroupStatus fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupStatus();
+      DBParameterGroupStatus(
+        dbParameterGroupName: json.containsKey('DBParameterGroupName')
+            ? json['DBParameterGroupName'] as String
+            : null,
+        parameterApplyStatus: json.containsKey('ParameterApplyStatus')
+            ? json['ParameterApplyStatus'] as String
+            : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -9870,7 +11867,14 @@ class DBParameterGroupsMessage {
     this.dbParameterGroups,
   });
   static DBParameterGroupsMessage fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupsMessage();
+      DBParameterGroupsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbParameterGroups: json.containsKey('DBParameterGroups')
+            ? (json['DBParameterGroups'] as List)
+                .map((e) => DBParameterGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the details for an Amazon RDS DB security group.
@@ -9908,8 +11912,30 @@ class DBSecurityGroup {
     this.ipRanges,
     this.dbSecurityGroupArn,
   });
-  static DBSecurityGroup fromJson(Map<String, dynamic> json) =>
-      DBSecurityGroup();
+  static DBSecurityGroup fromJson(Map<String, dynamic> json) => DBSecurityGroup(
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        dbSecurityGroupName: json.containsKey('DBSecurityGroupName')
+            ? json['DBSecurityGroupName'] as String
+            : null,
+        dbSecurityGroupDescription:
+            json.containsKey('DBSecurityGroupDescription')
+                ? json['DBSecurityGroupDescription'] as String
+                : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        ec2SecurityGroups: json.containsKey('EC2SecurityGroups')
+            ? (json['EC2SecurityGroups'] as List)
+                .map((e) => Ec2SecurityGroup.fromJson(e))
+                .toList()
+            : null,
+        ipRanges: json.containsKey('IPRanges')
+            ? (json['IPRanges'] as List)
+                .map((e) => IPRange.fromJson(e))
+                .toList()
+            : null,
+        dbSecurityGroupArn: json.containsKey('DBSecurityGroupArn')
+            ? json['DBSecurityGroupArn'] as String
+            : null,
+      );
 }
 
 /// This data type is used as a response element in the following actions:
@@ -9933,7 +11959,12 @@ class DBSecurityGroupMembership {
     this.status,
   });
   static DBSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      DBSecurityGroupMembership();
+      DBSecurityGroupMembership(
+        dbSecurityGroupName: json.containsKey('DBSecurityGroupName')
+            ? json['DBSecurityGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -9952,7 +11983,14 @@ class DBSecurityGroupMessage {
     this.dbSecurityGroups,
   });
   static DBSecurityGroupMessage fromJson(Map<String, dynamic> json) =>
-      DBSecurityGroupMessage();
+      DBSecurityGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbSecurityGroups: json.containsKey('DBSecurityGroups')
+            ? (json['DBSecurityGroups'] as List)
+                .map((e) => DBSecurityGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the details of an Amazon RDS DB snapshot.
@@ -10088,7 +12126,83 @@ class DBSnapshot {
     this.processorFeatures,
     this.dbiResourceId,
   });
-  static DBSnapshot fromJson(Map<String, dynamic> json) => DBSnapshot();
+  static DBSnapshot fromJson(Map<String, dynamic> json) => DBSnapshot(
+        dbSnapshotIdentifier: json.containsKey('DBSnapshotIdentifier')
+            ? json['DBSnapshotIdentifier'] as String
+            : null,
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        snapshotCreateTime: json.containsKey('SnapshotCreateTime')
+            ? DateTime.parse(json['SnapshotCreateTime'])
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        instanceCreateTime: json.containsKey('InstanceCreateTime')
+            ? DateTime.parse(json['InstanceCreateTime'])
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        snapshotType: json.containsKey('SnapshotType')
+            ? json['SnapshotType'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        optionGroupName: json.containsKey('OptionGroupName')
+            ? json['OptionGroupName'] as String
+            : null,
+        percentProgress: json.containsKey('PercentProgress')
+            ? json['PercentProgress'] as int
+            : null,
+        sourceRegion: json.containsKey('SourceRegion')
+            ? json['SourceRegion'] as String
+            : null,
+        sourceDBSnapshotIdentifier:
+            json.containsKey('SourceDBSnapshotIdentifier')
+                ? json['SourceDBSnapshotIdentifier'] as String
+                : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        tdeCredentialArn: json.containsKey('TdeCredentialArn')
+            ? json['TdeCredentialArn'] as String
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        dbSnapshotArn: json.containsKey('DBSnapshotArn')
+            ? json['DBSnapshotArn'] as String
+            : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+        iamDatabaseAuthenticationEnabled:
+            json.containsKey('IAMDatabaseAuthenticationEnabled')
+                ? json['IAMDatabaseAuthenticationEnabled'] as bool
+                : null,
+        processorFeatures: json.containsKey('ProcessorFeatures')
+            ? (json['ProcessorFeatures'] as List)
+                .map((e) => ProcessorFeature.fromJson(e))
+                .toList()
+            : null,
+        dbiResourceId: json.containsKey('DbiResourceId')
+            ? json['DbiResourceId'] as String
+            : null,
+      );
 }
 
 /// Contains the name and values of a manual DB snapshot attribute
@@ -10118,7 +12232,14 @@ class DBSnapshotAttribute {
     this.attributeValues,
   });
   static DBSnapshotAttribute fromJson(Map<String, dynamic> json) =>
-      DBSnapshotAttribute();
+      DBSnapshotAttribute(
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+        attributeValues: json.containsKey('AttributeValues')
+            ? (json['AttributeValues'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Contains the results of a successful call to the
@@ -10139,7 +12260,16 @@ class DBSnapshotAttributesResult {
     this.dbSnapshotAttributes,
   });
   static DBSnapshotAttributesResult fromJson(Map<String, dynamic> json) =>
-      DBSnapshotAttributesResult();
+      DBSnapshotAttributesResult(
+        dbSnapshotIdentifier: json.containsKey('DBSnapshotIdentifier')
+            ? json['DBSnapshotIdentifier'] as String
+            : null,
+        dbSnapshotAttributes: json.containsKey('DBSnapshotAttributes')
+            ? (json['DBSnapshotAttributes'] as List)
+                .map((e) => DBSnapshotAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the `DescribeDBSnapshots`
@@ -10158,7 +12288,14 @@ class DBSnapshotMessage {
     this.dbSnapshots,
   });
   static DBSnapshotMessage fromJson(Map<String, dynamic> json) =>
-      DBSnapshotMessage();
+      DBSnapshotMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbSnapshots: json.containsKey('DBSnapshots')
+            ? (json['DBSnapshots'] as List)
+                .map((e) => DBSnapshot.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the details of an Amazon RDS DB subnet group.
@@ -10192,7 +12329,24 @@ class DBSubnetGroup {
     this.subnets,
     this.dbSubnetGroupArn,
   });
-  static DBSubnetGroup fromJson(Map<String, dynamic> json) => DBSubnetGroup();
+  static DBSubnetGroup fromJson(Map<String, dynamic> json) => DBSubnetGroup(
+        dbSubnetGroupName: json.containsKey('DBSubnetGroupName')
+            ? json['DBSubnetGroupName'] as String
+            : null,
+        dbSubnetGroupDescription: json.containsKey('DBSubnetGroupDescription')
+            ? json['DBSubnetGroupDescription'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetGroupStatus: json.containsKey('SubnetGroupStatus')
+            ? json['SubnetGroupStatus'] as String
+            : null,
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => Subnet.fromJson(e)).toList()
+            : null,
+        dbSubnetGroupArn: json.containsKey('DBSubnetGroupArn')
+            ? json['DBSubnetGroupArn'] as String
+            : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -10211,7 +12365,14 @@ class DBSubnetGroupMessage {
     this.dbSubnetGroups,
   });
   static DBSubnetGroupMessage fromJson(Map<String, dynamic> json) =>
-      DBSubnetGroupMessage();
+      DBSubnetGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbSubnetGroups: json.containsKey('DBSubnetGroups')
+            ? (json['DBSubnetGroups'] as List)
+                .map((e) => DBSubnetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteDBClusterResult {
@@ -10221,7 +12382,11 @@ class DeleteDBClusterResult {
     this.dbCluster,
   });
   static DeleteDBClusterResult fromJson(Map<String, dynamic> json) =>
-      DeleteDBClusterResult();
+      DeleteDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class DeleteDBClusterSnapshotResult {
@@ -10231,7 +12396,11 @@ class DeleteDBClusterSnapshotResult {
     this.dbClusterSnapshot,
   });
   static DeleteDBClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      DeleteDBClusterSnapshotResult();
+      DeleteDBClusterSnapshotResult(
+        dbClusterSnapshot: json.containsKey('DBClusterSnapshot')
+            ? DBClusterSnapshot.fromJson(json['DBClusterSnapshot'])
+            : null,
+      );
 }
 
 class DeleteDBInstanceAutomatedBackupResult {
@@ -10242,7 +12411,12 @@ class DeleteDBInstanceAutomatedBackupResult {
   });
   static DeleteDBInstanceAutomatedBackupResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteDBInstanceAutomatedBackupResult();
+      DeleteDBInstanceAutomatedBackupResult(
+        dbInstanceAutomatedBackup: json.containsKey('DBInstanceAutomatedBackup')
+            ? DBInstanceAutomatedBackup.fromJson(
+                json['DBInstanceAutomatedBackup'])
+            : null,
+      );
 }
 
 class DeleteDBInstanceResult {
@@ -10252,7 +12426,11 @@ class DeleteDBInstanceResult {
     this.dbInstance,
   });
   static DeleteDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      DeleteDBInstanceResult();
+      DeleteDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class DeleteDBSnapshotResult {
@@ -10262,7 +12440,11 @@ class DeleteDBSnapshotResult {
     this.dbSnapshot,
   });
   static DeleteDBSnapshotResult fromJson(Map<String, dynamic> json) =>
-      DeleteDBSnapshotResult();
+      DeleteDBSnapshotResult(
+        dbSnapshot: json.containsKey('DBSnapshot')
+            ? DBSnapshot.fromJson(json['DBSnapshot'])
+            : null,
+      );
 }
 
 class DeleteEventSubscriptionResult {
@@ -10272,7 +12454,11 @@ class DeleteEventSubscriptionResult {
     this.eventSubscription,
   });
   static DeleteEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      DeleteEventSubscriptionResult();
+      DeleteEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class DeleteGlobalClusterResult {
@@ -10282,7 +12468,11 @@ class DeleteGlobalClusterResult {
     this.globalCluster,
   });
   static DeleteGlobalClusterResult fromJson(Map<String, dynamic> json) =>
-      DeleteGlobalClusterResult();
+      DeleteGlobalClusterResult(
+        globalCluster: json.containsKey('GlobalCluster')
+            ? GlobalCluster.fromJson(json['GlobalCluster'])
+            : null,
+      );
 }
 
 class DescribeDBClusterSnapshotAttributesResult {
@@ -10293,7 +12483,13 @@ class DescribeDBClusterSnapshotAttributesResult {
   });
   static DescribeDBClusterSnapshotAttributesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeDBClusterSnapshotAttributesResult();
+      DescribeDBClusterSnapshotAttributesResult(
+        dbClusterSnapshotAttributesResult:
+            json.containsKey('DBClusterSnapshotAttributesResult')
+                ? DBClusterSnapshotAttributesResult.fromJson(
+                    json['DBClusterSnapshotAttributesResult'])
+                : null,
+      );
 }
 
 /// This data type is used as a response element to `DescribeDBLogFiles`.
@@ -10313,7 +12509,15 @@ class DescribeDBLogFilesDetails {
     this.size,
   });
   static DescribeDBLogFilesDetails fromJson(Map<String, dynamic> json) =>
-      DescribeDBLogFilesDetails();
+      DescribeDBLogFilesDetails(
+        logFileName: json.containsKey('LogFileName')
+            ? json['LogFileName'] as String
+            : null,
+        lastWritten: json.containsKey('LastWritten')
+            ? BigInt.from(json['LastWritten'])
+            : null,
+        size: json.containsKey('Size') ? BigInt.from(json['Size']) : null,
+      );
 }
 
 ///  The response from a call to `DescribeDBLogFiles`.
@@ -10330,7 +12534,14 @@ class DescribeDBLogFilesResponse {
     this.marker,
   });
   static DescribeDBLogFilesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDBLogFilesResponse();
+      DescribeDBLogFilesResponse(
+        describeDBLogFiles: json.containsKey('DescribeDBLogFiles')
+            ? (json['DescribeDBLogFiles'] as List)
+                .map((e) => DescribeDBLogFilesDetails.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeDBSnapshotAttributesResult {
@@ -10341,7 +12552,13 @@ class DescribeDBSnapshotAttributesResult {
   });
   static DescribeDBSnapshotAttributesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeDBSnapshotAttributesResult();
+      DescribeDBSnapshotAttributesResult(
+        dbSnapshotAttributesResult:
+            json.containsKey('DBSnapshotAttributesResult')
+                ? DBSnapshotAttributesResult.fromJson(
+                    json['DBSnapshotAttributesResult'])
+                : null,
+      );
 }
 
 class DescribeEngineDefaultClusterParametersResult {
@@ -10352,7 +12569,11 @@ class DescribeEngineDefaultClusterParametersResult {
   });
   static DescribeEngineDefaultClusterParametersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEngineDefaultClusterParametersResult();
+      DescribeEngineDefaultClusterParametersResult(
+        engineDefaults: json.containsKey('EngineDefaults')
+            ? EngineDefaults.fromJson(json['EngineDefaults'])
+            : null,
+      );
 }
 
 class DescribeEngineDefaultParametersResult {
@@ -10363,7 +12584,11 @@ class DescribeEngineDefaultParametersResult {
   });
   static DescribeEngineDefaultParametersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEngineDefaultParametersResult();
+      DescribeEngineDefaultParametersResult(
+        engineDefaults: json.containsKey('EngineDefaults')
+            ? EngineDefaults.fromJson(json['EngineDefaults'])
+            : null,
+      );
 }
 
 class DescribeValidDBInstanceModificationsResult {
@@ -10374,7 +12599,13 @@ class DescribeValidDBInstanceModificationsResult {
   });
   static DescribeValidDBInstanceModificationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeValidDBInstanceModificationsResult();
+      DescribeValidDBInstanceModificationsResult(
+        validDBInstanceModificationsMessage:
+            json.containsKey('ValidDBInstanceModificationsMessage')
+                ? ValidDBInstanceModificationsMessage.fromJson(
+                    json['ValidDBInstanceModificationsMessage'])
+                : null,
+      );
 }
 
 /// An Active Directory Domain membership record associated with the DB
@@ -10401,7 +12632,14 @@ class DomainMembership {
     this.iamRoleName,
   });
   static DomainMembership fromJson(Map<String, dynamic> json) =>
-      DomainMembership();
+      DomainMembership(
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        fqdn: json.containsKey('FQDN') ? json['FQDN'] as String : null,
+        iamRoleName: json.containsKey('IAMRoleName')
+            ? json['IAMRoleName'] as String
+            : null,
+      );
 }
 
 /// A range of double values.
@@ -10416,7 +12654,10 @@ class DoubleRange {
     this.from,
     this.to,
   });
-  static DoubleRange fromJson(Map<String, dynamic> json) => DoubleRange();
+  static DoubleRange fromJson(Map<String, dynamic> json) => DoubleRange(
+        from: json.containsKey('From') ? json['From'] as double : null,
+        to: json.containsKey('To') ? json['To'] as double : null,
+      );
 }
 
 /// This data type is used as a response element to `DownloadDBLogFilePortion`.
@@ -10437,7 +12678,15 @@ class DownloadDBLogFilePortionDetails {
     this.additionalDataPending,
   });
   static DownloadDBLogFilePortionDetails fromJson(Map<String, dynamic> json) =>
-      DownloadDBLogFilePortionDetails();
+      DownloadDBLogFilePortionDetails(
+        logFileData: json.containsKey('LogFileData')
+            ? json['LogFileData'] as String
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        additionalDataPending: json.containsKey('AdditionalDataPending')
+            ? json['AdditionalDataPending'] as bool
+            : null,
+      );
 }
 
 /// This data type is used as a response element in the following actions:
@@ -10469,7 +12718,18 @@ class Ec2SecurityGroup {
     this.ec2SecurityGroupOwnerId,
   });
   static Ec2SecurityGroup fromJson(Map<String, dynamic> json) =>
-      Ec2SecurityGroup();
+      Ec2SecurityGroup(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        ec2SecurityGroupName: json.containsKey('EC2SecurityGroupName')
+            ? json['EC2SecurityGroupName'] as String
+            : null,
+        ec2SecurityGroupId: json.containsKey('EC2SecurityGroupId')
+            ? json['EC2SecurityGroupId'] as String
+            : null,
+        ec2SecurityGroupOwnerId: json.containsKey('EC2SecurityGroupOwnerId')
+            ? json['EC2SecurityGroupOwnerId'] as String
+            : null,
+      );
 }
 
 /// This data type represents the information you need to connect to an Amazon
@@ -10501,7 +12761,13 @@ class Endpoint {
     this.port,
     this.hostedZoneId,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        hostedZoneId: json.containsKey('HostedZoneId')
+            ? json['HostedZoneId'] as String
+            : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -10524,7 +12790,17 @@ class EngineDefaults {
     this.marker,
     this.parameters,
   });
-  static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults();
+  static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults(
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  This data type is used as a response element in the `DescribeEvents`
@@ -10556,7 +12832,21 @@ class Event {
     this.date,
     this.sourceArn,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        sourceIdentifier: json.containsKey('SourceIdentifier')
+            ? json['SourceIdentifier'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+        sourceArn:
+            json.containsKey('SourceArn') ? json['SourceArn'] as String : null,
+      );
 }
 
 /// Contains the results of a successful invocation of the
@@ -10573,7 +12863,14 @@ class EventCategoriesMap {
     this.eventCategories,
   });
   static EventCategoriesMap fromJson(Map<String, dynamic> json) =>
-      EventCategoriesMap();
+      EventCategoriesMap(
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Data returned from the **DescribeEventCategories** action.
@@ -10585,7 +12882,13 @@ class EventCategoriesMessage {
     this.eventCategoriesMapList,
   });
   static EventCategoriesMessage fromJson(Map<String, dynamic> json) =>
-      EventCategoriesMessage();
+      EventCategoriesMessage(
+        eventCategoriesMapList: json.containsKey('EventCategoriesMapList')
+            ? (json['EventCategoriesMapList'] as List)
+                .map((e) => EventCategoriesMap.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the results of a successful invocation of the
@@ -10645,7 +12948,36 @@ class EventSubscription {
     this.eventSubscriptionArn,
   });
   static EventSubscription fromJson(Map<String, dynamic> json) =>
-      EventSubscription();
+      EventSubscription(
+        customerAwsId: json.containsKey('CustomerAwsId')
+            ? json['CustomerAwsId'] as String
+            : null,
+        custSubscriptionId: json.containsKey('CustSubscriptionId')
+            ? json['CustSubscriptionId'] as String
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicArn')
+            ? json['SnsTopicArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        subscriptionCreationTime: json.containsKey('SubscriptionCreationTime')
+            ? json['SubscriptionCreationTime'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        sourceIdsList: json.containsKey('SourceIdsList')
+            ? (json['SourceIdsList'] as List).map((e) => e as String).toList()
+            : null,
+        eventCategoriesList: json.containsKey('EventCategoriesList')
+            ? (json['EventCategoriesList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        eventSubscriptionArn: json.containsKey('EventSubscriptionArn')
+            ? json['EventSubscriptionArn'] as String
+            : null,
+      );
 }
 
 /// Data returned by the **DescribeEventSubscriptions** action.
@@ -10664,7 +12996,14 @@ class EventSubscriptionsMessage {
     this.eventSubscriptionsList,
   });
   static EventSubscriptionsMessage fromJson(Map<String, dynamic> json) =>
-      EventSubscriptionsMessage();
+      EventSubscriptionsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        eventSubscriptionsList: json.containsKey('EventSubscriptionsList')
+            ? (json['EventSubscriptionsList'] as List)
+                .map((e) => EventSubscription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the `DescribeEvents`
@@ -10682,7 +13021,12 @@ class EventsMessage {
     this.marker,
     this.events,
   });
-  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage();
+  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class FailoverDBClusterResult {
@@ -10692,7 +13036,11 @@ class FailoverDBClusterResult {
     this.dbCluster,
   });
   static FailoverDBClusterResult fromJson(Map<String, dynamic> json) =>
-      FailoverDBClusterResult();
+      FailoverDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 /// A filter name and value pair that is used to return a more specific list of
@@ -10724,6 +13072,7 @@ class Filter {
     @required this.name,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A data type representing an Aurora global database.
@@ -10774,7 +13123,36 @@ class GlobalCluster {
     this.deletionProtection,
     this.globalClusterMembers,
   });
-  static GlobalCluster fromJson(Map<String, dynamic> json) => GlobalCluster();
+  static GlobalCluster fromJson(Map<String, dynamic> json) => GlobalCluster(
+        globalClusterIdentifier: json.containsKey('GlobalClusterIdentifier')
+            ? json['GlobalClusterIdentifier'] as String
+            : null,
+        globalClusterResourceId: json.containsKey('GlobalClusterResourceId')
+            ? json['GlobalClusterResourceId'] as String
+            : null,
+        globalClusterArn: json.containsKey('GlobalClusterArn')
+            ? json['GlobalClusterArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        storageEncrypted: json.containsKey('StorageEncrypted')
+            ? json['StorageEncrypted'] as bool
+            : null,
+        deletionProtection: json.containsKey('DeletionProtection')
+            ? json['DeletionProtection'] as bool
+            : null,
+        globalClusterMembers: json.containsKey('GlobalClusterMembers')
+            ? (json['GlobalClusterMembers'] as List)
+                .map((e) => GlobalClusterMember.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  A data structure with information about any primary and secondary clusters
@@ -10798,7 +13176,16 @@ class GlobalClusterMember {
     this.isWriter,
   });
   static GlobalClusterMember fromJson(Map<String, dynamic> json) =>
-      GlobalClusterMember();
+      GlobalClusterMember(
+        dbClusterArn: json.containsKey('DBClusterArn')
+            ? json['DBClusterArn'] as String
+            : null,
+        readers: json.containsKey('Readers')
+            ? (json['Readers'] as List).map((e) => e as String).toList()
+            : null,
+        isWriter:
+            json.containsKey('IsWriter') ? json['IsWriter'] as bool : null,
+      );
 }
 
 class GlobalClustersMessage {
@@ -10816,7 +13203,14 @@ class GlobalClustersMessage {
     this.globalClusters,
   });
   static GlobalClustersMessage fromJson(Map<String, dynamic> json) =>
-      GlobalClustersMessage();
+      GlobalClustersMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        globalClusters: json.containsKey('GlobalClusters')
+            ? (json['GlobalClusters'] as List)
+                .map((e) => GlobalCluster.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  This data type is used as a response element in the
@@ -10833,7 +13227,10 @@ class IPRange {
     this.status,
     this.cidrip,
   });
-  static IPRange fromJson(Map<String, dynamic> json) => IPRange();
+  static IPRange fromJson(Map<String, dynamic> json) => IPRange(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        cidrip: json.containsKey('CIDRIP') ? json['CIDRIP'] as String : null,
+      );
 }
 
 /// The minimum DB engine version required for each corresponding allowed value
@@ -10851,7 +13248,14 @@ class MinimumEngineVersionPerAllowedValue {
   });
   static MinimumEngineVersionPerAllowedValue fromJson(
           Map<String, dynamic> json) =>
-      MinimumEngineVersionPerAllowedValue();
+      MinimumEngineVersionPerAllowedValue(
+        allowedValue: json.containsKey('AllowedValue')
+            ? json['AllowedValue'] as String
+            : null,
+        minimumEngineVersion: json.containsKey('MinimumEngineVersion')
+            ? json['MinimumEngineVersion'] as String
+            : null,
+      );
 }
 
 class ModifyDBClusterResult {
@@ -10861,7 +13265,11 @@ class ModifyDBClusterResult {
     this.dbCluster,
   });
   static ModifyDBClusterResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBClusterResult();
+      ModifyDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class ModifyDBClusterSnapshotAttributeResult {
@@ -10872,7 +13280,13 @@ class ModifyDBClusterSnapshotAttributeResult {
   });
   static ModifyDBClusterSnapshotAttributeResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyDBClusterSnapshotAttributeResult();
+      ModifyDBClusterSnapshotAttributeResult(
+        dbClusterSnapshotAttributesResult:
+            json.containsKey('DBClusterSnapshotAttributesResult')
+                ? DBClusterSnapshotAttributesResult.fromJson(
+                    json['DBClusterSnapshotAttributesResult'])
+                : null,
+      );
 }
 
 class ModifyDBInstanceResult {
@@ -10882,7 +13296,11 @@ class ModifyDBInstanceResult {
     this.dbInstance,
   });
   static ModifyDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBInstanceResult();
+      ModifyDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class ModifyDBSnapshotAttributeResult {
@@ -10892,7 +13310,13 @@ class ModifyDBSnapshotAttributeResult {
     this.dbSnapshotAttributesResult,
   });
   static ModifyDBSnapshotAttributeResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBSnapshotAttributeResult();
+      ModifyDBSnapshotAttributeResult(
+        dbSnapshotAttributesResult:
+            json.containsKey('DBSnapshotAttributesResult')
+                ? DBSnapshotAttributesResult.fromJson(
+                    json['DBSnapshotAttributesResult'])
+                : null,
+      );
 }
 
 class ModifyDBSnapshotResult {
@@ -10902,7 +13326,11 @@ class ModifyDBSnapshotResult {
     this.dbSnapshot,
   });
   static ModifyDBSnapshotResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBSnapshotResult();
+      ModifyDBSnapshotResult(
+        dbSnapshot: json.containsKey('DBSnapshot')
+            ? DBSnapshot.fromJson(json['DBSnapshot'])
+            : null,
+      );
 }
 
 class ModifyDBSubnetGroupResult {
@@ -10912,7 +13340,11 @@ class ModifyDBSubnetGroupResult {
     this.dbSubnetGroup,
   });
   static ModifyDBSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBSubnetGroupResult();
+      ModifyDBSubnetGroupResult(
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? DBSubnetGroup.fromJson(json['DBSubnetGroup'])
+            : null,
+      );
 }
 
 class ModifyEventSubscriptionResult {
@@ -10922,7 +13354,11 @@ class ModifyEventSubscriptionResult {
     this.eventSubscription,
   });
   static ModifyEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      ModifyEventSubscriptionResult();
+      ModifyEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class ModifyGlobalClusterResult {
@@ -10932,7 +13368,11 @@ class ModifyGlobalClusterResult {
     this.globalCluster,
   });
   static ModifyGlobalClusterResult fromJson(Map<String, dynamic> json) =>
-      ModifyGlobalClusterResult();
+      ModifyGlobalClusterResult(
+        globalCluster: json.containsKey('GlobalCluster')
+            ? GlobalCluster.fromJson(json['GlobalCluster'])
+            : null,
+      );
 }
 
 class ModifyOptionGroupResult {
@@ -10942,7 +13382,11 @@ class ModifyOptionGroupResult {
     this.optionGroup,
   });
   static ModifyOptionGroupResult fromJson(Map<String, dynamic> json) =>
-      ModifyOptionGroupResult();
+      ModifyOptionGroupResult(
+        optionGroup: json.containsKey('OptionGroup')
+            ? OptionGroup.fromJson(json['OptionGroup'])
+            : null,
+      );
 }
 
 /// Option details.
@@ -10987,7 +13431,39 @@ class Option {
     this.dbSecurityGroupMemberships,
     this.vpcSecurityGroupMemberships,
   });
-  static Option fromJson(Map<String, dynamic> json) => Option();
+  static Option fromJson(Map<String, dynamic> json) => Option(
+        optionName: json.containsKey('OptionName')
+            ? json['OptionName'] as String
+            : null,
+        optionDescription: json.containsKey('OptionDescription')
+            ? json['OptionDescription'] as String
+            : null,
+        persistent:
+            json.containsKey('Persistent') ? json['Persistent'] as bool : null,
+        permanent:
+            json.containsKey('Permanent') ? json['Permanent'] as bool : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        optionVersion: json.containsKey('OptionVersion')
+            ? json['OptionVersion'] as String
+            : null,
+        optionSettings: json.containsKey('OptionSettings')
+            ? (json['OptionSettings'] as List)
+                .map((e) => OptionSetting.fromJson(e))
+                .toList()
+            : null,
+        dbSecurityGroupMemberships:
+            json.containsKey('DBSecurityGroupMemberships')
+                ? (json['DBSecurityGroupMemberships'] as List)
+                    .map((e) => DBSecurityGroupMembership.fromJson(e))
+                    .toList()
+                : null,
+        vpcSecurityGroupMemberships:
+            json.containsKey('VpcSecurityGroupMemberships')
+                ? (json['VpcSecurityGroupMemberships'] as List)
+                    .map((e) => VpcSecurityGroupMembership.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// A list of all available options
@@ -11018,6 +13494,7 @@ class OptionConfiguration {
     this.vpcSecurityGroupMemberships,
     this.optionSettings,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class OptionGroup {
@@ -11062,7 +13539,31 @@ class OptionGroup {
     this.vpcId,
     this.optionGroupArn,
   });
-  static OptionGroup fromJson(Map<String, dynamic> json) => OptionGroup();
+  static OptionGroup fromJson(Map<String, dynamic> json) => OptionGroup(
+        optionGroupName: json.containsKey('OptionGroupName')
+            ? json['OptionGroupName'] as String
+            : null,
+        optionGroupDescription: json.containsKey('OptionGroupDescription')
+            ? json['OptionGroupDescription'] as String
+            : null,
+        engineName: json.containsKey('EngineName')
+            ? json['EngineName'] as String
+            : null,
+        majorEngineVersion: json.containsKey('MajorEngineVersion')
+            ? json['MajorEngineVersion'] as String
+            : null,
+        options: json.containsKey('Options')
+            ? (json['Options'] as List).map((e) => Option.fromJson(e)).toList()
+            : null,
+        allowsVpcAndNonVpcInstanceMemberships:
+            json.containsKey('AllowsVpcAndNonVpcInstanceMemberships')
+                ? json['AllowsVpcAndNonVpcInstanceMemberships'] as bool
+                : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        optionGroupArn: json.containsKey('OptionGroupArn')
+            ? json['OptionGroupArn'] as String
+            : null,
+      );
 }
 
 /// Provides information on the option groups the DB instance is a member of.
@@ -11081,7 +13582,12 @@ class OptionGroupMembership {
     this.status,
   });
   static OptionGroupMembership fromJson(Map<String, dynamic> json) =>
-      OptionGroupMembership();
+      OptionGroupMembership(
+        optionGroupName: json.containsKey('OptionGroupName')
+            ? json['OptionGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Available option.
@@ -11162,7 +13668,60 @@ class OptionGroupOption {
     this.optionGroupOptionVersions,
   });
   static OptionGroupOption fromJson(Map<String, dynamic> json) =>
-      OptionGroupOption();
+      OptionGroupOption(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        engineName: json.containsKey('EngineName')
+            ? json['EngineName'] as String
+            : null,
+        majorEngineVersion: json.containsKey('MajorEngineVersion')
+            ? json['MajorEngineVersion'] as String
+            : null,
+        minimumRequiredMinorEngineVersion:
+            json.containsKey('MinimumRequiredMinorEngineVersion')
+                ? json['MinimumRequiredMinorEngineVersion'] as String
+                : null,
+        portRequired: json.containsKey('PortRequired')
+            ? json['PortRequired'] as bool
+            : null,
+        defaultPort:
+            json.containsKey('DefaultPort') ? json['DefaultPort'] as int : null,
+        optionsDependedOn: json.containsKey('OptionsDependedOn')
+            ? (json['OptionsDependedOn'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        optionsConflictsWith: json.containsKey('OptionsConflictsWith')
+            ? (json['OptionsConflictsWith'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        persistent:
+            json.containsKey('Persistent') ? json['Persistent'] as bool : null,
+        permanent:
+            json.containsKey('Permanent') ? json['Permanent'] as bool : null,
+        requiresAutoMinorEngineVersionUpgrade:
+            json.containsKey('RequiresAutoMinorEngineVersionUpgrade')
+                ? json['RequiresAutoMinorEngineVersionUpgrade'] as bool
+                : null,
+        vpcOnly: json.containsKey('VpcOnly') ? json['VpcOnly'] as bool : null,
+        supportsOptionVersionDowngrade:
+            json.containsKey('SupportsOptionVersionDowngrade')
+                ? json['SupportsOptionVersionDowngrade'] as bool
+                : null,
+        optionGroupOptionSettings: json.containsKey('OptionGroupOptionSettings')
+            ? (json['OptionGroupOptionSettings'] as List)
+                .map((e) => OptionGroupOptionSetting.fromJson(e))
+                .toList()
+            : null,
+        optionGroupOptionVersions: json.containsKey('OptionGroupOptionVersions')
+            ? (json['OptionGroupOptionVersions'] as List)
+                .map((e) => OptionVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Option group option settings are used to display settings available for each
@@ -11208,7 +13767,33 @@ class OptionGroupOptionSetting {
     this.minimumEngineVersionPerAllowedValue,
   });
   static OptionGroupOptionSetting fromJson(Map<String, dynamic> json) =>
-      OptionGroupOptionSetting();
+      OptionGroupOptionSetting(
+        settingName: json.containsKey('SettingName')
+            ? json['SettingName'] as String
+            : null,
+        settingDescription: json.containsKey('SettingDescription')
+            ? json['SettingDescription'] as String
+            : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        applyType:
+            json.containsKey('ApplyType') ? json['ApplyType'] as String : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+        isModifiable: json.containsKey('IsModifiable')
+            ? json['IsModifiable'] as bool
+            : null,
+        isRequired:
+            json.containsKey('IsRequired') ? json['IsRequired'] as bool : null,
+        minimumEngineVersionPerAllowedValue:
+            json.containsKey('MinimumEngineVersionPerAllowedValue')
+                ? (json['MinimumEngineVersionPerAllowedValue'] as List)
+                    .map((e) => MinimumEngineVersionPerAllowedValue.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class OptionGroupOptionsMessage {
@@ -11224,7 +13809,14 @@ class OptionGroupOptionsMessage {
     this.marker,
   });
   static OptionGroupOptionsMessage fromJson(Map<String, dynamic> json) =>
-      OptionGroupOptionsMessage();
+      OptionGroupOptionsMessage(
+        optionGroupOptions: json.containsKey('OptionGroupOptions')
+            ? (json['OptionGroupOptions'] as List)
+                .map((e) => OptionGroupOption.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// List of option groups.
@@ -11241,7 +13833,14 @@ class OptionGroups {
     this.optionGroupsList,
     this.marker,
   });
-  static OptionGroups fromJson(Map<String, dynamic> json) => OptionGroups();
+  static OptionGroups fromJson(Map<String, dynamic> json) => OptionGroups(
+        optionGroupsList: json.containsKey('OptionGroupsList')
+            ? (json['OptionGroupsList'] as List)
+                .map((e) => OptionGroup.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Option settings are the actual settings being applied or configured for that
@@ -11288,7 +13887,30 @@ class OptionSetting {
     this.isModifiable,
     this.isCollection,
   });
-  static OptionSetting fromJson(Map<String, dynamic> json) => OptionSetting();
+  static OptionSetting fromJson(Map<String, dynamic> json) => OptionSetting(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        applyType:
+            json.containsKey('ApplyType') ? json['ApplyType'] as String : null,
+        dataType:
+            json.containsKey('DataType') ? json['DataType'] as String : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+        isModifiable: json.containsKey('IsModifiable')
+            ? json['IsModifiable'] as bool
+            : null,
+        isCollection: json.containsKey('IsCollection')
+            ? json['IsCollection'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The version for an option. Option group option versions are returned by the
@@ -11305,7 +13927,11 @@ class OptionVersion {
     this.version,
     this.isDefault,
   });
-  static OptionVersion fromJson(Map<String, dynamic> json) => OptionVersion();
+  static OptionVersion fromJson(Map<String, dynamic> json) => OptionVersion(
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        isDefault:
+            json.containsKey('IsDefault') ? json['IsDefault'] as bool : null,
+      );
 }
 
 /// Contains a list of available options for a DB instance.
@@ -11411,7 +14037,84 @@ class OrderableDBInstanceOption {
     this.supportsStorageAutoscaling,
   });
   static OrderableDBInstanceOption fromJson(Map<String, dynamic> json) =>
-      OrderableDBInstanceOption();
+      OrderableDBInstanceOption(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => AvailabilityZone.fromJson(e))
+                .toList()
+            : null,
+        multiAZCapable: json.containsKey('MultiAZCapable')
+            ? json['MultiAZCapable'] as bool
+            : null,
+        readReplicaCapable: json.containsKey('ReadReplicaCapable')
+            ? json['ReadReplicaCapable'] as bool
+            : null,
+        vpc: json.containsKey('Vpc') ? json['Vpc'] as bool : null,
+        supportsStorageEncryption: json.containsKey('SupportsStorageEncryption')
+            ? json['SupportsStorageEncryption'] as bool
+            : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        supportsIops: json.containsKey('SupportsIops')
+            ? json['SupportsIops'] as bool
+            : null,
+        supportsEnhancedMonitoring:
+            json.containsKey('SupportsEnhancedMonitoring')
+                ? json['SupportsEnhancedMonitoring'] as bool
+                : null,
+        supportsIamDatabaseAuthentication:
+            json.containsKey('SupportsIAMDatabaseAuthentication')
+                ? json['SupportsIAMDatabaseAuthentication'] as bool
+                : null,
+        supportsPerformanceInsights:
+            json.containsKey('SupportsPerformanceInsights')
+                ? json['SupportsPerformanceInsights'] as bool
+                : null,
+        minStorageSize: json.containsKey('MinStorageSize')
+            ? json['MinStorageSize'] as int
+            : null,
+        maxStorageSize: json.containsKey('MaxStorageSize')
+            ? json['MaxStorageSize'] as int
+            : null,
+        minIopsPerDbInstance: json.containsKey('MinIopsPerDbInstance')
+            ? json['MinIopsPerDbInstance'] as int
+            : null,
+        maxIopsPerDbInstance: json.containsKey('MaxIopsPerDbInstance')
+            ? json['MaxIopsPerDbInstance'] as int
+            : null,
+        minIopsPerGib: json.containsKey('MinIopsPerGib')
+            ? json['MinIopsPerGib'] as double
+            : null,
+        maxIopsPerGib: json.containsKey('MaxIopsPerGib')
+            ? json['MaxIopsPerGib'] as double
+            : null,
+        availableProcessorFeatures:
+            json.containsKey('AvailableProcessorFeatures')
+                ? (json['AvailableProcessorFeatures'] as List)
+                    .map((e) => AvailableProcessorFeature.fromJson(e))
+                    .toList()
+                : null,
+        supportedEngineModes: json.containsKey('SupportedEngineModes')
+            ? (json['SupportedEngineModes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        supportsStorageAutoscaling:
+            json.containsKey('SupportsStorageAutoscaling')
+                ? json['SupportsStorageAutoscaling'] as bool
+                : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -11433,7 +14136,15 @@ class OrderableDBInstanceOptionsMessage {
   });
   static OrderableDBInstanceOptionsMessage fromJson(
           Map<String, dynamic> json) =>
-      OrderableDBInstanceOptionsMessage();
+      OrderableDBInstanceOptionsMessage(
+        orderableDBInstanceOptions:
+            json.containsKey('OrderableDBInstanceOptions')
+                ? (json['OrderableDBInstanceOptions'] as List)
+                    .map((e) => OrderableDBInstanceOption.fromJson(e))
+                    .toList()
+                : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 ///  This data type is used as a request parameter in the
@@ -11490,7 +14201,40 @@ class Parameter {
     this.applyMethod,
     this.supportedEngineModes,
   });
-  static Parameter fromJson(Map<String, dynamic> json) => Parameter();
+  static Parameter fromJson(Map<String, dynamic> json) => Parameter(
+        parameterName: json.containsKey('ParameterName')
+            ? json['ParameterName'] as String
+            : null,
+        parameterValue: json.containsKey('ParameterValue')
+            ? json['ParameterValue'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        applyType:
+            json.containsKey('ApplyType') ? json['ApplyType'] as String : null,
+        dataType:
+            json.containsKey('DataType') ? json['DataType'] as String : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+        isModifiable: json.containsKey('IsModifiable')
+            ? json['IsModifiable'] as bool
+            : null,
+        minimumEngineVersion: json.containsKey('MinimumEngineVersion')
+            ? json['MinimumEngineVersion'] as String
+            : null,
+        applyMethod: json.containsKey('ApplyMethod')
+            ? json['ApplyMethod'] as String
+            : null,
+        supportedEngineModes: json.containsKey('SupportedEngineModes')
+            ? (json['SupportedEngineModes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of the log types whose configuration is still pending. In other
@@ -11509,7 +14253,18 @@ class PendingCloudwatchLogsExports {
     this.logTypesToDisable,
   });
   static PendingCloudwatchLogsExports fromJson(Map<String, dynamic> json) =>
-      PendingCloudwatchLogsExports();
+      PendingCloudwatchLogsExports(
+        logTypesToEnable: json.containsKey('LogTypesToEnable')
+            ? (json['LogTypesToEnable'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        logTypesToDisable: json.containsKey('LogTypesToDisable')
+            ? (json['LogTypesToDisable'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Provides information about a pending maintenance action for a resource.
@@ -11553,7 +14308,24 @@ class PendingMaintenanceAction {
     this.description,
   });
   static PendingMaintenanceAction fromJson(Map<String, dynamic> json) =>
-      PendingMaintenanceAction();
+      PendingMaintenanceAction(
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        autoAppliedAfterDate: json.containsKey('AutoAppliedAfterDate')
+            ? DateTime.parse(json['AutoAppliedAfterDate'])
+            : null,
+        forcedApplyDate: json.containsKey('ForcedApplyDate')
+            ? DateTime.parse(json['ForcedApplyDate'])
+            : null,
+        optInStatus: json.containsKey('OptInStatus')
+            ? json['OptInStatus'] as String
+            : null,
+        currentApplyDate: json.containsKey('CurrentApplyDate')
+            ? DateTime.parse(json['CurrentApplyDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Data returned from the **DescribePendingMaintenanceActions** action.
@@ -11572,7 +14344,14 @@ class PendingMaintenanceActionsMessage {
     this.marker,
   });
   static PendingMaintenanceActionsMessage fromJson(Map<String, dynamic> json) =>
-      PendingMaintenanceActionsMessage();
+      PendingMaintenanceActionsMessage(
+        pendingMaintenanceActions: json.containsKey('PendingMaintenanceActions')
+            ? (json['PendingMaintenanceActions'] as List)
+                .map((e) => ResourcePendingMaintenanceActions.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 ///  This data type is used as a response element in the `ModifyDBInstance`
@@ -11651,7 +14430,51 @@ class PendingModifiedValues {
     this.processorFeatures,
   });
   static PendingModifiedValues fromJson(Map<String, dynamic> json) =>
-      PendingModifiedValues();
+      PendingModifiedValues(
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        masterUserPassword: json.containsKey('MasterUserPassword')
+            ? json['MasterUserPassword'] as String
+            : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        backupRetentionPeriod: json.containsKey('BackupRetentionPeriod')
+            ? json['BackupRetentionPeriod'] as int
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        caCertificateIdentifier: json.containsKey('CACertificateIdentifier')
+            ? json['CACertificateIdentifier'] as String
+            : null,
+        dbSubnetGroupName: json.containsKey('DBSubnetGroupName')
+            ? json['DBSubnetGroupName'] as String
+            : null,
+        pendingCloudwatchLogsExports:
+            json.containsKey('PendingCloudwatchLogsExports')
+                ? PendingCloudwatchLogsExports.fromJson(
+                    json['PendingCloudwatchLogsExports'])
+                : null,
+        processorFeatures: json.containsKey('ProcessorFeatures')
+            ? (json['ProcessorFeatures'] as List)
+                .map((e) => ProcessorFeature.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the processor features of a DB instance class.
@@ -11704,7 +14527,11 @@ class ProcessorFeature {
     this.value,
   });
   static ProcessorFeature fromJson(Map<String, dynamic> json) =>
-      ProcessorFeature();
+      ProcessorFeature(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PromoteReadReplicaDBClusterResult {
@@ -11715,7 +14542,11 @@ class PromoteReadReplicaDBClusterResult {
   });
   static PromoteReadReplicaDBClusterResult fromJson(
           Map<String, dynamic> json) =>
-      PromoteReadReplicaDBClusterResult();
+      PromoteReadReplicaDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class PromoteReadReplicaResult {
@@ -11725,7 +14556,11 @@ class PromoteReadReplicaResult {
     this.dbInstance,
   });
   static PromoteReadReplicaResult fromJson(Map<String, dynamic> json) =>
-      PromoteReadReplicaResult();
+      PromoteReadReplicaResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class PurchaseReservedDBInstancesOfferingResult {
@@ -11736,7 +14571,11 @@ class PurchaseReservedDBInstancesOfferingResult {
   });
   static PurchaseReservedDBInstancesOfferingResult fromJson(
           Map<String, dynamic> json) =>
-      PurchaseReservedDBInstancesOfferingResult();
+      PurchaseReservedDBInstancesOfferingResult(
+        reservedDBInstance: json.containsKey('ReservedDBInstance')
+            ? ReservedDBInstance.fromJson(json['ReservedDBInstance'])
+            : null,
+      );
 }
 
 /// A range of integer values.
@@ -11758,7 +14597,11 @@ class Range {
     this.to,
     this.step,
   });
-  static Range fromJson(Map<String, dynamic> json) => Range();
+  static Range fromJson(Map<String, dynamic> json) => Range(
+        from: json.containsKey('From') ? json['From'] as int : null,
+        to: json.containsKey('To') ? json['To'] as int : null,
+        step: json.containsKey('Step') ? json['Step'] as int : null,
+      );
 }
 
 class RebootDBInstanceResult {
@@ -11768,7 +14611,11 @@ class RebootDBInstanceResult {
     this.dbInstance,
   });
   static RebootDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      RebootDBInstanceResult();
+      RebootDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 ///  This data type is used as a response element in the
@@ -11785,8 +14632,14 @@ class RecurringCharge {
     this.recurringChargeAmount,
     this.recurringChargeFrequency,
   });
-  static RecurringCharge fromJson(Map<String, dynamic> json) =>
-      RecurringCharge();
+  static RecurringCharge fromJson(Map<String, dynamic> json) => RecurringCharge(
+        recurringChargeAmount: json.containsKey('RecurringChargeAmount')
+            ? json['RecurringChargeAmount'] as double
+            : null,
+        recurringChargeFrequency: json.containsKey('RecurringChargeFrequency')
+            ? json['RecurringChargeFrequency'] as String
+            : null,
+      );
 }
 
 class RemoveFromGlobalClusterResult {
@@ -11796,7 +14649,11 @@ class RemoveFromGlobalClusterResult {
     this.globalCluster,
   });
   static RemoveFromGlobalClusterResult fromJson(Map<String, dynamic> json) =>
-      RemoveFromGlobalClusterResult();
+      RemoveFromGlobalClusterResult(
+        globalCluster: json.containsKey('GlobalCluster')
+            ? GlobalCluster.fromJson(json['GlobalCluster'])
+            : null,
+      );
 }
 
 class RemoveSourceIdentifierFromSubscriptionResult {
@@ -11807,7 +14664,11 @@ class RemoveSourceIdentifierFromSubscriptionResult {
   });
   static RemoveSourceIdentifierFromSubscriptionResult fromJson(
           Map<String, dynamic> json) =>
-      RemoveSourceIdentifierFromSubscriptionResult();
+      RemoveSourceIdentifierFromSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 ///  This data type is used as a response element in the
@@ -11877,7 +14738,50 @@ class ReservedDBInstance {
     this.reservedDBInstanceArn,
   });
   static ReservedDBInstance fromJson(Map<String, dynamic> json) =>
-      ReservedDBInstance();
+      ReservedDBInstance(
+        reservedDBInstanceId: json.containsKey('ReservedDBInstanceId')
+            ? json['ReservedDBInstanceId'] as String
+            : null,
+        reservedDBInstancesOfferingId:
+            json.containsKey('ReservedDBInstancesOfferingId')
+                ? json['ReservedDBInstancesOfferingId'] as String
+                : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        dbInstanceCount: json.containsKey('DBInstanceCount')
+            ? json['DBInstanceCount'] as int
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+        reservedDBInstanceArn: json.containsKey('ReservedDBInstanceArn')
+            ? json['ReservedDBInstanceArn'] as String
+            : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -11896,7 +14800,14 @@ class ReservedDBInstanceMessage {
     this.reservedDBInstances,
   });
   static ReservedDBInstanceMessage fromJson(Map<String, dynamic> json) =>
-      ReservedDBInstanceMessage();
+      ReservedDBInstanceMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        reservedDBInstances: json.containsKey('ReservedDBInstances')
+            ? (json['ReservedDBInstances'] as List)
+                .map((e) => ReservedDBInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  This data type is used as a response element in the
@@ -11945,7 +14856,37 @@ class ReservedDBInstancesOffering {
     this.recurringCharges,
   });
   static ReservedDBInstancesOffering fromJson(Map<String, dynamic> json) =>
-      ReservedDBInstancesOffering();
+      ReservedDBInstancesOffering(
+        reservedDBInstancesOfferingId:
+            json.containsKey('ReservedDBInstancesOfferingId')
+                ? json['ReservedDBInstancesOfferingId'] as String
+                : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Contains the result of a successful invocation of the
@@ -11965,7 +14906,15 @@ class ReservedDBInstancesOfferingMessage {
   });
   static ReservedDBInstancesOfferingMessage fromJson(
           Map<String, dynamic> json) =>
-      ReservedDBInstancesOfferingMessage();
+      ReservedDBInstancesOfferingMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        reservedDBInstancesOfferings:
+            json.containsKey('ReservedDBInstancesOfferings')
+                ? (json['ReservedDBInstancesOfferings'] as List)
+                    .map((e) => ReservedDBInstancesOffering.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Describes the pending maintenance actions for a resource.
@@ -11983,7 +14932,17 @@ class ResourcePendingMaintenanceActions {
   });
   static ResourcePendingMaintenanceActions fromJson(
           Map<String, dynamic> json) =>
-      ResourcePendingMaintenanceActions();
+      ResourcePendingMaintenanceActions(
+        resourceIdentifier: json.containsKey('ResourceIdentifier')
+            ? json['ResourceIdentifier'] as String
+            : null,
+        pendingMaintenanceActionDetails:
+            json.containsKey('PendingMaintenanceActionDetails')
+                ? (json['PendingMaintenanceActionDetails'] as List)
+                    .map((e) => PendingMaintenanceAction.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class RestoreDBClusterFromS3Result {
@@ -11993,7 +14952,11 @@ class RestoreDBClusterFromS3Result {
     this.dbCluster,
   });
   static RestoreDBClusterFromS3Result fromJson(Map<String, dynamic> json) =>
-      RestoreDBClusterFromS3Result();
+      RestoreDBClusterFromS3Result(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class RestoreDBClusterFromSnapshotResult {
@@ -12004,7 +14967,11 @@ class RestoreDBClusterFromSnapshotResult {
   });
   static RestoreDBClusterFromSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      RestoreDBClusterFromSnapshotResult();
+      RestoreDBClusterFromSnapshotResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class RestoreDBClusterToPointInTimeResult {
@@ -12015,7 +14982,11 @@ class RestoreDBClusterToPointInTimeResult {
   });
   static RestoreDBClusterToPointInTimeResult fromJson(
           Map<String, dynamic> json) =>
-      RestoreDBClusterToPointInTimeResult();
+      RestoreDBClusterToPointInTimeResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class RestoreDBInstanceFromDBSnapshotResult {
@@ -12026,7 +14997,11 @@ class RestoreDBInstanceFromDBSnapshotResult {
   });
   static RestoreDBInstanceFromDBSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      RestoreDBInstanceFromDBSnapshotResult();
+      RestoreDBInstanceFromDBSnapshotResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class RestoreDBInstanceFromS3Result {
@@ -12036,7 +15011,11 @@ class RestoreDBInstanceFromS3Result {
     this.dbInstance,
   });
   static RestoreDBInstanceFromS3Result fromJson(Map<String, dynamic> json) =>
-      RestoreDBInstanceFromS3Result();
+      RestoreDBInstanceFromS3Result(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class RestoreDBInstanceToPointInTimeResult {
@@ -12047,7 +15026,11 @@ class RestoreDBInstanceToPointInTimeResult {
   });
   static RestoreDBInstanceToPointInTimeResult fromJson(
           Map<String, dynamic> json) =>
-      RestoreDBInstanceToPointInTimeResult();
+      RestoreDBInstanceToPointInTimeResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 /// Earliest and latest time an instance can be restored to:
@@ -12062,7 +15045,14 @@ class RestoreWindow {
     this.earliestTime,
     this.latestTime,
   });
-  static RestoreWindow fromJson(Map<String, dynamic> json) => RestoreWindow();
+  static RestoreWindow fromJson(Map<String, dynamic> json) => RestoreWindow(
+        earliestTime: json.containsKey('EarliestTime')
+            ? DateTime.parse(json['EarliestTime'])
+            : null,
+        latestTime: json.containsKey('LatestTime')
+            ? DateTime.parse(json['LatestTime'])
+            : null,
+      );
 }
 
 class RevokeDBSecurityGroupIngressResult {
@@ -12073,7 +15063,11 @@ class RevokeDBSecurityGroupIngressResult {
   });
   static RevokeDBSecurityGroupIngressResult fromJson(
           Map<String, dynamic> json) =>
-      RevokeDBSecurityGroupIngressResult();
+      RevokeDBSecurityGroupIngressResult(
+        dbSecurityGroup: json.containsKey('DBSecurityGroup')
+            ? DBSecurityGroup.fromJson(json['DBSecurityGroup'])
+            : null,
+      );
 }
 
 /// Contains the scaling configuration of an Aurora Serverless DB cluster.
@@ -12140,6 +15134,7 @@ class ScalingConfiguration {
     this.secondsUntilAutoPause,
     this.timeoutAction,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Shows the scaling configuration for an Aurora DB cluster in `serverless` DB
@@ -12181,7 +15176,20 @@ class ScalingConfigurationInfo {
     this.timeoutAction,
   });
   static ScalingConfigurationInfo fromJson(Map<String, dynamic> json) =>
-      ScalingConfigurationInfo();
+      ScalingConfigurationInfo(
+        minCapacity:
+            json.containsKey('MinCapacity') ? json['MinCapacity'] as int : null,
+        maxCapacity:
+            json.containsKey('MaxCapacity') ? json['MaxCapacity'] as int : null,
+        autoPause:
+            json.containsKey('AutoPause') ? json['AutoPause'] as bool : null,
+        secondsUntilAutoPause: json.containsKey('SecondsUntilAutoPause')
+            ? json['SecondsUntilAutoPause'] as int
+            : null,
+        timeoutAction: json.containsKey('TimeoutAction')
+            ? json['TimeoutAction'] as String
+            : null,
+      );
 }
 
 /// Contains an AWS Region name as the result of a successful call to the
@@ -12201,7 +15209,14 @@ class SourceRegion {
     this.endpoint,
     this.status,
   });
-  static SourceRegion fromJson(Map<String, dynamic> json) => SourceRegion();
+  static SourceRegion fromJson(Map<String, dynamic> json) => SourceRegion(
+        regionName: json.containsKey('RegionName')
+            ? json['RegionName'] as String
+            : null,
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Contains the result of a successful invocation of the
@@ -12221,7 +15236,14 @@ class SourceRegionMessage {
     this.sourceRegions,
   });
   static SourceRegionMessage fromJson(Map<String, dynamic> json) =>
-      SourceRegionMessage();
+      SourceRegionMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        sourceRegions: json.containsKey('SourceRegions')
+            ? (json['SourceRegions'] as List)
+                .map((e) => SourceRegion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class StartActivityStreamResponse {
@@ -12251,7 +15273,18 @@ class StartActivityStreamResponse {
     this.applyImmediately,
   });
   static StartActivityStreamResponse fromJson(Map<String, dynamic> json) =>
-      StartActivityStreamResponse();
+      StartActivityStreamResponse(
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        kinesisStreamName: json.containsKey('KinesisStreamName')
+            ? json['KinesisStreamName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+        applyImmediately: json.containsKey('ApplyImmediately')
+            ? json['ApplyImmediately'] as bool
+            : null,
+      );
 }
 
 class StartDBClusterResult {
@@ -12261,7 +15294,11 @@ class StartDBClusterResult {
     this.dbCluster,
   });
   static StartDBClusterResult fromJson(Map<String, dynamic> json) =>
-      StartDBClusterResult();
+      StartDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class StartDBInstanceResult {
@@ -12271,7 +15308,11 @@ class StartDBInstanceResult {
     this.dbInstance,
   });
   static StartDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      StartDBInstanceResult();
+      StartDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class StopActivityStreamResponse {
@@ -12292,7 +15333,14 @@ class StopActivityStreamResponse {
     this.status,
   });
   static StopActivityStreamResponse fromJson(Map<String, dynamic> json) =>
-      StopActivityStreamResponse();
+      StopActivityStreamResponse(
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        kinesisStreamName: json.containsKey('KinesisStreamName')
+            ? json['KinesisStreamName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class StopDBClusterResult {
@@ -12302,7 +15350,11 @@ class StopDBClusterResult {
     this.dbCluster,
   });
   static StopDBClusterResult fromJson(Map<String, dynamic> json) =>
-      StopDBClusterResult();
+      StopDBClusterResult(
+        dbCluster: json.containsKey('DBCluster')
+            ? DBCluster.fromJson(json['DBCluster'])
+            : null,
+      );
 }
 
 class StopDBInstanceResult {
@@ -12312,7 +15364,11 @@ class StopDBInstanceResult {
     this.dbInstance,
   });
   static StopDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      StopDBInstanceResult();
+      StopDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 ///  This data type is used as a response element in the
@@ -12331,7 +15387,17 @@ class Subnet {
     this.subnetAvailabilityZone,
     this.subnetStatus,
   });
-  static Subnet fromJson(Map<String, dynamic> json) => Subnet();
+  static Subnet fromJson(Map<String, dynamic> json) => Subnet(
+        subnetIdentifier: json.containsKey('SubnetIdentifier')
+            ? json['SubnetIdentifier'] as String
+            : null,
+        subnetAvailabilityZone: json.containsKey('SubnetAvailabilityZone')
+            ? AvailabilityZone.fromJson(json['SubnetAvailabilityZone'])
+            : null,
+        subnetStatus: json.containsKey('SubnetStatus')
+            ? json['SubnetStatus'] as String
+            : null,
+      );
 }
 
 /// Metadata assigned to an Amazon RDS resource consisting of a key-value pair.
@@ -12354,7 +15420,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagListMessage {
@@ -12364,7 +15434,11 @@ class TagListMessage {
   TagListMessage({
     this.tagList,
   });
-  static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage();
+  static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage(
+        tagList: json.containsKey('TagList')
+            ? (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A time zone associated with a `DBInstance` or a `DBSnapshot`. This data type
@@ -12377,7 +15451,11 @@ class Timezone {
   Timezone({
     this.timezoneName,
   });
-  static Timezone fromJson(Map<String, dynamic> json) => Timezone();
+  static Timezone fromJson(Map<String, dynamic> json) => Timezone(
+        timezoneName: json.containsKey('TimezoneName')
+            ? json['TimezoneName'] as String
+            : null,
+      );
 }
 
 /// The version of the database engine that a DB instance can be upgraded to.
@@ -12406,7 +15484,21 @@ class UpgradeTarget {
     this.autoUpgrade,
     this.isMajorVersionUpgrade,
   });
-  static UpgradeTarget fromJson(Map<String, dynamic> json) => UpgradeTarget();
+  static UpgradeTarget fromJson(Map<String, dynamic> json) => UpgradeTarget(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        autoUpgrade: json.containsKey('AutoUpgrade')
+            ? json['AutoUpgrade'] as bool
+            : null,
+        isMajorVersionUpgrade: json.containsKey('IsMajorVersionUpgrade')
+            ? json['IsMajorVersionUpgrade'] as bool
+            : null,
+      );
 }
 
 /// Information about valid modifications that you can make to your DB instance.
@@ -12426,7 +15518,18 @@ class ValidDBInstanceModificationsMessage {
   });
   static ValidDBInstanceModificationsMessage fromJson(
           Map<String, dynamic> json) =>
-      ValidDBInstanceModificationsMessage();
+      ValidDBInstanceModificationsMessage(
+        storage: json.containsKey('Storage')
+            ? (json['Storage'] as List)
+                .map((e) => ValidStorageOptions.fromJson(e))
+                .toList()
+            : null,
+        validProcessorFeatures: json.containsKey('ValidProcessorFeatures')
+            ? (json['ValidProcessorFeatures'] as List)
+                .map((e) => AvailableProcessorFeature.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about valid modifications that you can make to your DB instance.
@@ -12459,7 +15562,30 @@ class ValidStorageOptions {
     this.supportsStorageAutoscaling,
   });
   static ValidStorageOptions fromJson(Map<String, dynamic> json) =>
-      ValidStorageOptions();
+      ValidStorageOptions(
+        storageType: json.containsKey('StorageType')
+            ? json['StorageType'] as String
+            : null,
+        storageSize: json.containsKey('StorageSize')
+            ? (json['StorageSize'] as List)
+                .map((e) => Range.fromJson(e))
+                .toList()
+            : null,
+        provisionedIops: json.containsKey('ProvisionedIops')
+            ? (json['ProvisionedIops'] as List)
+                .map((e) => Range.fromJson(e))
+                .toList()
+            : null,
+        iopsToStorageRatio: json.containsKey('IopsToStorageRatio')
+            ? (json['IopsToStorageRatio'] as List)
+                .map((e) => DoubleRange.fromJson(e))
+                .toList()
+            : null,
+        supportsStorageAutoscaling:
+            json.containsKey('SupportsStorageAutoscaling')
+                ? json['SupportsStorageAutoscaling'] as bool
+                : null,
+      );
 }
 
 /// This data type is used as a response element for queries on VPC security
@@ -12476,5 +15602,10 @@ class VpcSecurityGroupMembership {
     this.status,
   });
   static VpcSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      VpcSecurityGroupMembership();
+      VpcSecurityGroupMembership(
+        vpcSecurityGroupId: json.containsKey('VpcSecurityGroupId')
+            ? json['VpcSecurityGroupId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }

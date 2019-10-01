@@ -8,6 +8,9 @@ import 'package:meta/meta.dart';
 /// begin taking advantage of the DAX cluster and realize significant
 /// improvements in read performance.
 class DaxApi {
+  final _client;
+  DaxApi(client) : _client = client.configured('DAX', serializer: 'json');
+
   /// Creates a DAX cluster. All nodes in the cluster run the same DAX caching
   /// software.
   ///
@@ -116,7 +119,24 @@ class DaxApi {
       String parameterGroupName,
       List<Tag> tags,
       SseSpecification sseSpecification}) async {
-    return CreateClusterResponse.fromJson({});
+    var response_ = await _client.send('CreateCluster', {
+      'ClusterName': clusterName,
+      'NodeType': nodeType,
+      if (description != null) 'Description': description,
+      'ReplicationFactor': replicationFactor,
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      if (subnetGroupName != null) 'SubnetGroupName': subnetGroupName,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (notificationTopicArn != null)
+        'NotificationTopicArn': notificationTopicArn,
+      'IamRoleArn': iamRoleArn,
+      if (parameterGroupName != null) 'ParameterGroupName': parameterGroupName,
+      if (tags != null) 'Tags': tags,
+      if (sseSpecification != null) 'SSESpecification': sseSpecification,
+    });
+    return CreateClusterResponse.fromJson(response_);
   }
 
   /// Creates a new parameter group. A parameter group is a collection of
@@ -129,7 +149,11 @@ class DaxApi {
   Future<CreateParameterGroupResponse> createParameterGroup(
       String parameterGroupName,
       {String description}) async {
-    return CreateParameterGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateParameterGroup', {
+      'ParameterGroupName': parameterGroupName,
+      if (description != null) 'Description': description,
+    });
+    return CreateParameterGroupResponse.fromJson(response_);
   }
 
   /// Creates a new subnet group.
@@ -144,7 +168,12 @@ class DaxApi {
       {@required String subnetGroupName,
       String description,
       @required List<String> subnetIds}) async {
-    return CreateSubnetGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateSubnetGroup', {
+      'SubnetGroupName': subnetGroupName,
+      if (description != null) 'Description': description,
+      'SubnetIds': subnetIds,
+    });
+    return CreateSubnetGroupResponse.fromJson(response_);
   }
 
   /// Removes one or more nodes from a DAX cluster.
@@ -168,7 +197,13 @@ class DaxApi {
       @required int newReplicationFactor,
       List<String> availabilityZones,
       List<String> nodeIdsToRemove}) async {
-    return DecreaseReplicationFactorResponse.fromJson({});
+    var response_ = await _client.send('DecreaseReplicationFactor', {
+      'ClusterName': clusterName,
+      'NewReplicationFactor': newReplicationFactor,
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      if (nodeIdsToRemove != null) 'NodeIdsToRemove': nodeIdsToRemove,
+    });
+    return DecreaseReplicationFactorResponse.fromJson(response_);
   }
 
   /// Deletes a previously provisioned DAX cluster. _DeleteCluster_ deletes all
@@ -178,7 +213,10 @@ class DaxApi {
   ///
   /// [clusterName]: The name of the cluster to be deleted.
   Future<DeleteClusterResponse> deleteCluster(String clusterName) async {
-    return DeleteClusterResponse.fromJson({});
+    var response_ = await _client.send('DeleteCluster', {
+      'ClusterName': clusterName,
+    });
+    return DeleteClusterResponse.fromJson(response_);
   }
 
   /// Deletes the specified parameter group. You cannot delete a parameter group
@@ -187,7 +225,10 @@ class DaxApi {
   /// [parameterGroupName]: The name of the parameter group to delete.
   Future<DeleteParameterGroupResponse> deleteParameterGroup(
       String parameterGroupName) async {
-    return DeleteParameterGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteParameterGroup', {
+      'ParameterGroupName': parameterGroupName,
+    });
+    return DeleteParameterGroupResponse.fromJson(response_);
   }
 
   /// Deletes a subnet group.
@@ -200,7 +241,10 @@ class DaxApi {
   /// [subnetGroupName]: The name of the subnet group to delete.
   Future<DeleteSubnetGroupResponse> deleteSubnetGroup(
       String subnetGroupName) async {
-    return DeleteSubnetGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteSubnetGroup', {
+      'SubnetGroupName': subnetGroupName,
+    });
+    return DeleteSubnetGroupResponse.fromJson(response_);
   }
 
   /// Returns information about all provisioned DAX clusters if no cluster
@@ -235,7 +279,12 @@ class DaxApi {
   /// value specified by `MaxResults`.
   Future<DescribeClustersResponse> describeClusters(
       {List<String> clusterNames, int maxResults, String nextToken}) async {
-    return DescribeClustersResponse.fromJson({});
+    var response_ = await _client.send('DescribeClusters', {
+      if (clusterNames != null) 'ClusterNames': clusterNames,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeClustersResponse.fromJson(response_);
   }
 
   /// Returns the default system parameter information for the DAX caching
@@ -253,7 +302,11 @@ class DaxApi {
   /// value specified by `MaxResults`.
   Future<DescribeDefaultParametersResponse> describeDefaultParameters(
       {int maxResults, String nextToken}) async {
-    return DescribeDefaultParametersResponse.fromJson({});
+    var response_ = await _client.send('DescribeDefaultParameters', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeDefaultParametersResponse.fromJson(response_);
   }
 
   /// Returns events related to DAX clusters and parameter groups. You can
@@ -295,7 +348,16 @@ class DaxApi {
       int duration,
       int maxResults,
       String nextToken}) async {
-    return DescribeEventsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      if (sourceName != null) 'SourceName': sourceName,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (duration != null) 'Duration': duration,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeEventsResponse.fromJson(response_);
   }
 
   /// Returns a list of parameter group descriptions. If a parameter group name
@@ -317,7 +379,13 @@ class DaxApi {
       {List<String> parameterGroupNames,
       int maxResults,
       String nextToken}) async {
-    return DescribeParameterGroupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeParameterGroups', {
+      if (parameterGroupNames != null)
+        'ParameterGroupNames': parameterGroupNames,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeParameterGroupsResponse.fromJson(response_);
   }
 
   /// Returns the detailed parameter list for a particular parameter group.
@@ -342,7 +410,13 @@ class DaxApi {
       {String source,
       int maxResults,
       String nextToken}) async {
-    return DescribeParametersResponse.fromJson({});
+    var response_ = await _client.send('DescribeParameters', {
+      'ParameterGroupName': parameterGroupName,
+      if (source != null) 'Source': source,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeParametersResponse.fromJson(response_);
   }
 
   /// Returns a list of subnet group descriptions. If a subnet group name is
@@ -362,7 +436,12 @@ class DaxApi {
   /// value specified by `MaxResults`.
   Future<DescribeSubnetGroupsResponse> describeSubnetGroups(
       {List<String> subnetGroupNames, int maxResults, String nextToken}) async {
-    return DescribeSubnetGroupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeSubnetGroups', {
+      if (subnetGroupNames != null) 'SubnetGroupNames': subnetGroupNames,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeSubnetGroupsResponse.fromJson(response_);
   }
 
   /// Adds one or more nodes to a DAX cluster.
@@ -380,7 +459,12 @@ class DaxApi {
       {@required String clusterName,
       @required int newReplicationFactor,
       List<String> availabilityZones}) async {
-    return IncreaseReplicationFactorResponse.fromJson({});
+    var response_ = await _client.send('IncreaseReplicationFactor', {
+      'ClusterName': clusterName,
+      'NewReplicationFactor': newReplicationFactor,
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+    });
+    return IncreaseReplicationFactorResponse.fromJson(response_);
   }
 
   /// List all of the tags for a DAX cluster. You can call `ListTags` up to 10
@@ -393,7 +477,11 @@ class DaxApi {
   /// specified, the response includes only results beyond the token.
   Future<ListTagsResponse> listTags(String resourceName,
       {String nextToken}) async {
-    return ListTagsResponse.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'ResourceName': resourceName,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsResponse.fromJson(response_);
   }
 
   /// Reboots a single node of a DAX cluster. The reboot action takes place as
@@ -405,7 +493,11 @@ class DaxApi {
   /// [nodeId]: The system-assigned ID of the node to be rebooted.
   Future<RebootNodeResponse> rebootNode(
       {@required String clusterName, @required String nodeId}) async {
-    return RebootNodeResponse.fromJson({});
+    var response_ = await _client.send('RebootNode', {
+      'ClusterName': clusterName,
+      'NodeId': nodeId,
+    });
+    return RebootNodeResponse.fromJson(response_);
   }
 
   /// Associates a set of tags with a DAX resource. You can call `TagResource`
@@ -417,7 +509,11 @@ class DaxApi {
   /// [tags]: The tags to be assigned to the DAX resource.
   Future<TagResourceResponse> tagResource(
       {@required String resourceName, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceName': resourceName,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes the association of tags from a DAX resource. You can call
@@ -430,7 +526,11 @@ class DaxApi {
   /// keys, then the tags are removed from the cluster.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceName, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceName': resourceName,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Modifies the settings for a DAX cluster. You can use this action to change
@@ -463,7 +563,19 @@ class DaxApi {
       String notificationTopicStatus,
       String parameterGroupName,
       List<String> securityGroupIds}) async {
-    return UpdateClusterResponse.fromJson({});
+    var response_ = await _client.send('UpdateCluster', {
+      'ClusterName': clusterName,
+      if (description != null) 'Description': description,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (notificationTopicArn != null)
+        'NotificationTopicArn': notificationTopicArn,
+      if (notificationTopicStatus != null)
+        'NotificationTopicStatus': notificationTopicStatus,
+      if (parameterGroupName != null) 'ParameterGroupName': parameterGroupName,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+    });
+    return UpdateClusterResponse.fromJson(response_);
   }
 
   /// Modifies the parameters of a parameter group. You can modify up to 20
@@ -477,7 +589,11 @@ class DaxApi {
   Future<UpdateParameterGroupResponse> updateParameterGroup(
       {@required String parameterGroupName,
       @required List<ParameterNameValue> parameterNameValues}) async {
-    return UpdateParameterGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateParameterGroup', {
+      'ParameterGroupName': parameterGroupName,
+      'ParameterNameValues': parameterNameValues,
+    });
+    return UpdateParameterGroupResponse.fromJson(response_);
   }
 
   /// Modifies an existing subnet group.
@@ -489,7 +605,12 @@ class DaxApi {
   /// [subnetIds]: A list of subnet IDs in the subnet group.
   Future<UpdateSubnetGroupResponse> updateSubnetGroup(String subnetGroupName,
       {String description, List<String> subnetIds}) async {
-    return UpdateSubnetGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateSubnetGroup', {
+      'SubnetGroupName': subnetGroupName,
+      if (description != null) 'Description': description,
+      if (subnetIds != null) 'SubnetIds': subnetIds,
+    });
+    return UpdateSubnetGroupResponse.fromJson(response_);
   }
 }
 
@@ -579,7 +700,58 @@ class Cluster {
     this.parameterGroup,
     this.sseDescription,
   });
-  static Cluster fromJson(Map<String, dynamic> json) => Cluster();
+  static Cluster fromJson(Map<String, dynamic> json) => Cluster(
+        clusterName: json.containsKey('ClusterName')
+            ? json['ClusterName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        clusterArn: json.containsKey('ClusterArn')
+            ? json['ClusterArn'] as String
+            : null,
+        totalNodes:
+            json.containsKey('TotalNodes') ? json['TotalNodes'] as int : null,
+        activeNodes:
+            json.containsKey('ActiveNodes') ? json['ActiveNodes'] as int : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        clusterDiscoveryEndpoint: json.containsKey('ClusterDiscoveryEndpoint')
+            ? Endpoint.fromJson(json['ClusterDiscoveryEndpoint'])
+            : null,
+        nodeIdsToRemove: json.containsKey('NodeIdsToRemove')
+            ? (json['NodeIdsToRemove'] as List).map((e) => e as String).toList()
+            : null,
+        nodes: json.containsKey('Nodes')
+            ? (json['Nodes'] as List).map((e) => Node.fromJson(e)).toList()
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        notificationConfiguration: json.containsKey('NotificationConfiguration')
+            ? NotificationConfiguration.fromJson(
+                json['NotificationConfiguration'])
+            : null,
+        subnetGroup: json.containsKey('SubnetGroup')
+            ? json['SubnetGroup'] as String
+            : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List)
+                .map((e) => SecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        parameterGroup: json.containsKey('ParameterGroup')
+            ? ParameterGroupStatus.fromJson(json['ParameterGroup'])
+            : null,
+        sseDescription: json.containsKey('SSEDescription')
+            ? SseDescription.fromJson(json['SSEDescription'])
+            : null,
+      );
 }
 
 class CreateClusterResponse {
@@ -590,7 +762,11 @@ class CreateClusterResponse {
     this.cluster,
   });
   static CreateClusterResponse fromJson(Map<String, dynamic> json) =>
-      CreateClusterResponse();
+      CreateClusterResponse(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class CreateParameterGroupResponse {
@@ -601,7 +777,11 @@ class CreateParameterGroupResponse {
     this.parameterGroup,
   });
   static CreateParameterGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateParameterGroupResponse();
+      CreateParameterGroupResponse(
+        parameterGroup: json.containsKey('ParameterGroup')
+            ? ParameterGroup.fromJson(json['ParameterGroup'])
+            : null,
+      );
 }
 
 class CreateSubnetGroupResponse {
@@ -612,7 +792,11 @@ class CreateSubnetGroupResponse {
     this.subnetGroup,
   });
   static CreateSubnetGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateSubnetGroupResponse();
+      CreateSubnetGroupResponse(
+        subnetGroup: json.containsKey('SubnetGroup')
+            ? SubnetGroup.fromJson(json['SubnetGroup'])
+            : null,
+      );
 }
 
 class DecreaseReplicationFactorResponse {
@@ -625,7 +809,11 @@ class DecreaseReplicationFactorResponse {
   });
   static DecreaseReplicationFactorResponse fromJson(
           Map<String, dynamic> json) =>
-      DecreaseReplicationFactorResponse();
+      DecreaseReplicationFactorResponse(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class DeleteClusterResponse {
@@ -636,7 +824,11 @@ class DeleteClusterResponse {
     this.cluster,
   });
   static DeleteClusterResponse fromJson(Map<String, dynamic> json) =>
-      DeleteClusterResponse();
+      DeleteClusterResponse(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class DeleteParameterGroupResponse {
@@ -648,7 +840,11 @@ class DeleteParameterGroupResponse {
     this.deletionMessage,
   });
   static DeleteParameterGroupResponse fromJson(Map<String, dynamic> json) =>
-      DeleteParameterGroupResponse();
+      DeleteParameterGroupResponse(
+        deletionMessage: json.containsKey('DeletionMessage')
+            ? json['DeletionMessage'] as String
+            : null,
+      );
 }
 
 class DeleteSubnetGroupResponse {
@@ -660,7 +856,11 @@ class DeleteSubnetGroupResponse {
     this.deletionMessage,
   });
   static DeleteSubnetGroupResponse fromJson(Map<String, dynamic> json) =>
-      DeleteSubnetGroupResponse();
+      DeleteSubnetGroupResponse(
+        deletionMessage: json.containsKey('DeletionMessage')
+            ? json['DeletionMessage'] as String
+            : null,
+      );
 }
 
 class DescribeClustersResponse {
@@ -676,7 +876,15 @@ class DescribeClustersResponse {
     this.clusters,
   });
   static DescribeClustersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeClustersResponse();
+      DescribeClustersResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        clusters: json.containsKey('Clusters')
+            ? (json['Clusters'] as List)
+                .map((e) => Cluster.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeDefaultParametersResponse {
@@ -692,7 +900,15 @@ class DescribeDefaultParametersResponse {
   });
   static DescribeDefaultParametersResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeDefaultParametersResponse();
+      DescribeDefaultParametersResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeEventsResponse {
@@ -707,7 +923,13 @@ class DescribeEventsResponse {
     this.events,
   });
   static DescribeEventsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventsResponse();
+      DescribeEventsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DescribeParameterGroupsResponse {
@@ -723,7 +945,15 @@ class DescribeParameterGroupsResponse {
     this.parameterGroups,
   });
   static DescribeParameterGroupsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeParameterGroupsResponse();
+      DescribeParameterGroupsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        parameterGroups: json.containsKey('ParameterGroups')
+            ? (json['ParameterGroups'] as List)
+                .map((e) => ParameterGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeParametersResponse {
@@ -739,7 +969,15 @@ class DescribeParametersResponse {
     this.parameters,
   });
   static DescribeParametersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeParametersResponse();
+      DescribeParametersResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeSubnetGroupsResponse {
@@ -755,7 +993,15 @@ class DescribeSubnetGroupsResponse {
     this.subnetGroups,
   });
   static DescribeSubnetGroupsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSubnetGroupsResponse();
+      DescribeSubnetGroupsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        subnetGroups: json.containsKey('SubnetGroups')
+            ? (json['SubnetGroups'] as List)
+                .map((e) => SubnetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the information required for client programs to connect to the
@@ -772,7 +1018,10 @@ class Endpoint {
     this.address,
     this.port,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+      );
 }
 
 /// Represents a single occurrence of something interesting within the system.
@@ -799,7 +1048,16 @@ class Event {
     this.message,
     this.date,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        sourceName: json.containsKey('SourceName')
+            ? json['SourceName'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+      );
 }
 
 class IncreaseReplicationFactorResponse {
@@ -811,7 +1069,11 @@ class IncreaseReplicationFactorResponse {
   });
   static IncreaseReplicationFactorResponse fromJson(
           Map<String, dynamic> json) =>
-      IncreaseReplicationFactorResponse();
+      IncreaseReplicationFactorResponse(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class ListTagsResponse {
@@ -827,7 +1089,13 @@ class ListTagsResponse {
     this.nextToken,
   });
   static ListTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsResponse();
+      ListTagsResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents an individual node within a DAX cluster.
@@ -862,7 +1130,24 @@ class Node {
     this.nodeStatus,
     this.parameterGroupStatus,
   });
-  static Node fromJson(Map<String, dynamic> json) => Node();
+  static Node fromJson(Map<String, dynamic> json) => Node(
+        nodeId: json.containsKey('NodeId') ? json['NodeId'] as String : null,
+        endpoint: json.containsKey('Endpoint')
+            ? Endpoint.fromJson(json['Endpoint'])
+            : null,
+        nodeCreateTime: json.containsKey('NodeCreateTime')
+            ? DateTime.parse(json['NodeCreateTime'])
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        nodeStatus: json.containsKey('NodeStatus')
+            ? json['NodeStatus'] as String
+            : null,
+        parameterGroupStatus: json.containsKey('ParameterGroupStatus')
+            ? json['ParameterGroupStatus'] as String
+            : null,
+      );
 }
 
 /// Represents a parameter value that is applicable to a particular node type.
@@ -878,7 +1163,11 @@ class NodeTypeSpecificValue {
     this.value,
   });
   static NodeTypeSpecificValue fromJson(Map<String, dynamic> json) =>
-      NodeTypeSpecificValue();
+      NodeTypeSpecificValue(
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// Describes a notification topic and its status. Notification topics are used
@@ -896,7 +1185,13 @@ class NotificationConfiguration {
     this.topicStatus,
   });
   static NotificationConfiguration fromJson(Map<String, dynamic> json) =>
-      NotificationConfiguration();
+      NotificationConfiguration(
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+        topicStatus: json.containsKey('TopicStatus')
+            ? json['TopicStatus'] as String
+            : null,
+      );
 }
 
 /// Describes an individual setting that controls some aspect of DAX behavior.
@@ -947,7 +1242,37 @@ class Parameter {
     this.isModifiable,
     this.changeType,
   });
-  static Parameter fromJson(Map<String, dynamic> json) => Parameter();
+  static Parameter fromJson(Map<String, dynamic> json) => Parameter(
+        parameterName: json.containsKey('ParameterName')
+            ? json['ParameterName'] as String
+            : null,
+        parameterType: json.containsKey('ParameterType')
+            ? json['ParameterType'] as String
+            : null,
+        parameterValue: json.containsKey('ParameterValue')
+            ? json['ParameterValue'] as String
+            : null,
+        nodeTypeSpecificValues: json.containsKey('NodeTypeSpecificValues')
+            ? (json['NodeTypeSpecificValues'] as List)
+                .map((e) => NodeTypeSpecificValue.fromJson(e))
+                .toList()
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        dataType:
+            json.containsKey('DataType') ? json['DataType'] as String : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+        isModifiable: json.containsKey('IsModifiable')
+            ? json['IsModifiable'] as String
+            : null,
+        changeType: json.containsKey('ChangeType')
+            ? json['ChangeType'] as String
+            : null,
+      );
 }
 
 /// A named set of parameters that are applied to all of the nodes in a DAX
@@ -963,7 +1288,14 @@ class ParameterGroup {
     this.parameterGroupName,
     this.description,
   });
-  static ParameterGroup fromJson(Map<String, dynamic> json) => ParameterGroup();
+  static ParameterGroup fromJson(Map<String, dynamic> json) => ParameterGroup(
+        parameterGroupName: json.containsKey('ParameterGroupName')
+            ? json['ParameterGroupName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// The status of a parameter group.
@@ -983,7 +1315,17 @@ class ParameterGroupStatus {
     this.nodeIdsToReboot,
   });
   static ParameterGroupStatus fromJson(Map<String, dynamic> json) =>
-      ParameterGroupStatus();
+      ParameterGroupStatus(
+        parameterGroupName: json.containsKey('ParameterGroupName')
+            ? json['ParameterGroupName'] as String
+            : null,
+        parameterApplyStatus: json.containsKey('ParameterApplyStatus')
+            ? json['ParameterApplyStatus'] as String
+            : null,
+        nodeIdsToReboot: json.containsKey('NodeIdsToReboot')
+            ? (json['NodeIdsToReboot'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// An individual DAX parameter.
@@ -998,6 +1340,7 @@ class ParameterNameValue {
     this.parameterName,
     this.parameterValue,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RebootNodeResponse {
@@ -1008,7 +1351,11 @@ class RebootNodeResponse {
     this.cluster,
   });
   static RebootNodeResponse fromJson(Map<String, dynamic> json) =>
-      RebootNodeResponse();
+      RebootNodeResponse(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 /// The description of the server-side encryption status on the specified DAX
@@ -1028,7 +1375,9 @@ class SseDescription {
   SseDescription({
     this.status,
   });
-  static SseDescription fromJson(Map<String, dynamic> json) => SseDescription();
+  static SseDescription fromJson(Map<String, dynamic> json) => SseDescription(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Represents the settings used to enable server-side encryption.
@@ -1040,6 +1389,7 @@ class SseSpecification {
   SseSpecification({
     @required this.enabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An individual VPC security group and its status.
@@ -1055,7 +1405,12 @@ class SecurityGroupMembership {
     this.status,
   });
   static SecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      SecurityGroupMembership();
+      SecurityGroupMembership(
+        securityGroupIdentifier: json.containsKey('SecurityGroupIdentifier')
+            ? json['SecurityGroupIdentifier'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Represents the subnet associated with a DAX cluster. This parameter refers
@@ -1072,7 +1427,14 @@ class Subnet {
     this.subnetIdentifier,
     this.subnetAvailabilityZone,
   });
-  static Subnet fromJson(Map<String, dynamic> json) => Subnet();
+  static Subnet fromJson(Map<String, dynamic> json) => Subnet(
+        subnetIdentifier: json.containsKey('SubnetIdentifier')
+            ? json['SubnetIdentifier'] as String
+            : null,
+        subnetAvailabilityZone: json.containsKey('SubnetAvailabilityZone')
+            ? json['SubnetAvailabilityZone'] as String
+            : null,
+      );
 }
 
 /// Represents the output of one of the following actions:
@@ -1099,7 +1461,18 @@ class SubnetGroup {
     this.vpcId,
     this.subnets,
   });
-  static SubnetGroup fromJson(Map<String, dynamic> json) => SubnetGroup();
+  static SubnetGroup fromJson(Map<String, dynamic> json) => SubnetGroup(
+        subnetGroupName: json.containsKey('SubnetGroupName')
+            ? json['SubnetGroupName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => Subnet.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A description of a tag. Every tag is a key-value pair. You can add up to 50
@@ -1124,7 +1497,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -1135,7 +1512,11 @@ class TagResourceResponse {
     this.tags,
   });
   static TagResourceResponse fromJson(Map<String, dynamic> json) =>
-      TagResourceResponse();
+      TagResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class UntagResourceResponse {
@@ -1146,7 +1527,11 @@ class UntagResourceResponse {
     this.tags,
   });
   static UntagResourceResponse fromJson(Map<String, dynamic> json) =>
-      UntagResourceResponse();
+      UntagResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class UpdateClusterResponse {
@@ -1157,7 +1542,11 @@ class UpdateClusterResponse {
     this.cluster,
   });
   static UpdateClusterResponse fromJson(Map<String, dynamic> json) =>
-      UpdateClusterResponse();
+      UpdateClusterResponse(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class UpdateParameterGroupResponse {
@@ -1168,7 +1557,11 @@ class UpdateParameterGroupResponse {
     this.parameterGroup,
   });
   static UpdateParameterGroupResponse fromJson(Map<String, dynamic> json) =>
-      UpdateParameterGroupResponse();
+      UpdateParameterGroupResponse(
+        parameterGroup: json.containsKey('ParameterGroup')
+            ? ParameterGroup.fromJson(json['ParameterGroup'])
+            : null,
+      );
 }
 
 class UpdateSubnetGroupResponse {
@@ -1179,5 +1572,9 @@ class UpdateSubnetGroupResponse {
     this.subnetGroup,
   });
   static UpdateSubnetGroupResponse fromJson(Map<String, dynamic> json) =>
-      UpdateSubnetGroupResponse();
+      UpdateSubnetGroupResponse(
+        subnetGroup: json.containsKey('SubnetGroup')
+            ? SubnetGroup.fromJson(json['SubnetGroup'])
+            : null,
+      );
 }

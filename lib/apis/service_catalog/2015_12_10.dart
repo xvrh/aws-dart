@@ -8,6 +8,10 @@ import 'package:meta/meta.dart';
 /// familiar with the terminology discussed in
 /// [AWS Service Catalog Concepts](http://docs.aws.amazon.com/servicecatalog/latest/adminguide/what-is_concepts.html).
 class ServiceCatalogApi {
+  final _client;
+  ServiceCatalogApi(client)
+      : _client = client.configured('Service Catalog', serializer: 'json');
+
   /// Accepts an offer to share the specified portfolio.
   ///
   /// [acceptLanguage]: The language code.
@@ -36,7 +40,12 @@ class ServiceCatalogApi {
   /// "port-2qwzkwxt3y5fk" --portfolio-share-type AWS_ORGANIZATIONS`
   Future<AcceptPortfolioShareOutput> acceptPortfolioShare(String portfolioId,
       {String acceptLanguage, String portfolioShareType}) async {
-    return AcceptPortfolioShareOutput.fromJson({});
+    var response_ = await _client.send('AcceptPortfolioShare', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      if (portfolioShareType != null) 'PortfolioShareType': portfolioShareType,
+    });
+    return AcceptPortfolioShareOutput.fromJson(response_);
   }
 
   /// Associates the specified budget with the specified resource.
@@ -47,7 +56,11 @@ class ServiceCatalogApi {
   /// product-id.
   Future<AssociateBudgetWithResourceOutput> associateBudgetWithResource(
       {@required String budgetName, @required String resourceId}) async {
-    return AssociateBudgetWithResourceOutput.fromJson({});
+    var response_ = await _client.send('AssociateBudgetWithResource', {
+      'BudgetName': budgetName,
+      'ResourceId': resourceId,
+    });
+    return AssociateBudgetWithResourceOutput.fromJson(response_);
   }
 
   /// Associates the specified principal ARN with the specified portfolio.
@@ -70,7 +83,13 @@ class ServiceCatalogApi {
       @required String portfolioId,
       @required String principalArn,
       @required String principalType}) async {
-    return AssociatePrincipalWithPortfolioOutput.fromJson({});
+    var response_ = await _client.send('AssociatePrincipalWithPortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      'PrincipalARN': principalArn,
+      'PrincipalType': principalType,
+    });
+    return AssociatePrincipalWithPortfolioOutput.fromJson(response_);
   }
 
   /// Associates the specified product with the specified portfolio.
@@ -93,7 +112,13 @@ class ServiceCatalogApi {
       @required String productId,
       @required String portfolioId,
       String sourcePortfolioId}) async {
-    return AssociateProductWithPortfolioOutput.fromJson({});
+    var response_ = await _client.send('AssociateProductWithPortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+      'PortfolioId': portfolioId,
+      if (sourcePortfolioId != null) 'SourcePortfolioId': sourcePortfolioId,
+    });
+    return AssociateProductWithPortfolioOutput.fromJson(response_);
   }
 
   /// Associates a self-service action with a provisioning artifact.
@@ -119,7 +144,15 @@ class ServiceCatalogApi {
           @required String provisioningArtifactId,
           @required String serviceActionId,
           String acceptLanguage}) async {
-    return AssociateServiceActionWithProvisioningArtifactOutput.fromJson({});
+    var response_ =
+        await _client.send('AssociateServiceActionWithProvisioningArtifact', {
+      'ProductId': productId,
+      'ProvisioningArtifactId': provisioningArtifactId,
+      'ServiceActionId': serviceActionId,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
+    return AssociateServiceActionWithProvisioningArtifactOutput.fromJson(
+        response_);
   }
 
   /// Associate the specified TagOption with the specified portfolio or product.
@@ -129,7 +162,11 @@ class ServiceCatalogApi {
   /// [tagOptionId]: The TagOption identifier.
   Future<AssociateTagOptionWithResourceOutput> associateTagOptionWithResource(
       {@required String resourceId, @required String tagOptionId}) async {
-    return AssociateTagOptionWithResourceOutput.fromJson({});
+    var response_ = await _client.send('AssociateTagOptionWithResource', {
+      'ResourceId': resourceId,
+      'TagOptionId': tagOptionId,
+    });
+    return AssociateTagOptionWithResourceOutput.fromJson(response_);
   }
 
   /// Associates multiple self-service actions with provisioning artifacts.
@@ -148,8 +185,13 @@ class ServiceCatalogApi {
       batchAssociateServiceActionWithProvisioningArtifact(
           List<ServiceActionAssociation> serviceActionAssociations,
           {String acceptLanguage}) async {
+    var response_ = await _client
+        .send('BatchAssociateServiceActionWithProvisioningArtifact', {
+      'ServiceActionAssociations': serviceActionAssociations,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
     return BatchAssociateServiceActionWithProvisioningArtifactOutput.fromJson(
-        {});
+        response_);
   }
 
   /// Disassociates a batch of self-service actions from the specified
@@ -169,8 +211,13 @@ class ServiceCatalogApi {
       batchDisassociateServiceActionFromProvisioningArtifact(
           List<ServiceActionAssociation> serviceActionAssociations,
           {String acceptLanguage}) async {
+    var response_ = await _client
+        .send('BatchDisassociateServiceActionFromProvisioningArtifact', {
+      'ServiceActionAssociations': serviceActionAssociations,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
     return BatchDisassociateServiceActionFromProvisioningArtifactOutput
-        .fromJson({});
+        .fromJson(response_);
   }
 
   /// Copies the specified source product to the specified target product or a
@@ -216,7 +263,18 @@ class ServiceCatalogApi {
       List<Map<String, String>> sourceProvisioningArtifactIdentifiers,
       List<String> copyOptions,
       @required String idempotencyToken}) async {
-    return CopyProductOutput.fromJson({});
+    var response_ = await _client.send('CopyProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'SourceProductArn': sourceProductArn,
+      if (targetProductId != null) 'TargetProductId': targetProductId,
+      if (targetProductName != null) 'TargetProductName': targetProductName,
+      if (sourceProvisioningArtifactIdentifiers != null)
+        'SourceProvisioningArtifactIdentifiers':
+            sourceProvisioningArtifactIdentifiers,
+      if (copyOptions != null) 'CopyOptions': copyOptions,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return CopyProductOutput.fromJson(response_);
   }
 
   /// Creates a constraint.
@@ -309,7 +367,16 @@ class ServiceCatalogApi {
       @required String type,
       String description,
       @required String idempotencyToken}) async {
-    return CreateConstraintOutput.fromJson({});
+    var response_ = await _client.send('CreateConstraint', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      'ProductId': productId,
+      'Parameters': parameters,
+      'Type': type,
+      if (description != null) 'Description': description,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return CreateConstraintOutput.fromJson(response_);
   }
 
   /// Creates a portfolio.
@@ -340,7 +407,15 @@ class ServiceCatalogApi {
       @required String providerName,
       List<Tag> tags,
       @required String idempotencyToken}) async {
-    return CreatePortfolioOutput.fromJson({});
+    var response_ = await _client.send('CreatePortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'DisplayName': displayName,
+      if (description != null) 'Description': description,
+      'ProviderName': providerName,
+      if (tags != null) 'Tags': tags,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return CreatePortfolioOutput.fromJson(response_);
   }
 
   /// Shares the specified portfolio with the specified account or organization
@@ -369,7 +444,13 @@ class ServiceCatalogApi {
       {String acceptLanguage,
       String accountId,
       OrganizationNode organizationNode}) async {
-    return CreatePortfolioShareOutput.fromJson({});
+    var response_ = await _client.send('CreatePortfolioShare', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      if (accountId != null) 'AccountId': accountId,
+      if (organizationNode != null) 'OrganizationNode': organizationNode,
+    });
+    return CreatePortfolioShareOutput.fromJson(response_);
   }
 
   /// Creates a product.
@@ -419,7 +500,21 @@ class ServiceCatalogApi {
       List<Tag> tags,
       @required ProvisioningArtifactProperties provisioningArtifactParameters,
       @required String idempotencyToken}) async {
-    return CreateProductOutput.fromJson({});
+    var response_ = await _client.send('CreateProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Name': name,
+      'Owner': owner,
+      if (description != null) 'Description': description,
+      if (distributor != null) 'Distributor': distributor,
+      if (supportDescription != null) 'SupportDescription': supportDescription,
+      if (supportEmail != null) 'SupportEmail': supportEmail,
+      if (supportUrl != null) 'SupportUrl': supportUrl,
+      'ProductType': productType,
+      if (tags != null) 'Tags': tags,
+      'ProvisioningArtifactParameters': provisioningArtifactParameters,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return CreateProductOutput.fromJson(response_);
   }
 
   /// Creates a plan. A plan includes the list of resources to be created (when
@@ -485,7 +580,21 @@ class ServiceCatalogApi {
       List<UpdateProvisioningParameter> provisioningParameters,
       @required String idempotencyToken,
       List<Tag> tags}) async {
-    return CreateProvisionedProductPlanOutput.fromJson({});
+    var response_ = await _client.send('CreateProvisionedProductPlan', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PlanName': planName,
+      'PlanType': planType,
+      if (notificationArns != null) 'NotificationArns': notificationArns,
+      if (pathId != null) 'PathId': pathId,
+      'ProductId': productId,
+      'ProvisionedProductName': provisionedProductName,
+      'ProvisioningArtifactId': provisioningArtifactId,
+      if (provisioningParameters != null)
+        'ProvisioningParameters': provisioningParameters,
+      'IdempotencyToken': idempotencyToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateProvisionedProductPlanOutput.fromJson(response_);
   }
 
   /// Creates a provisioning artifact (also known as a version) for the
@@ -514,7 +623,13 @@ class ServiceCatalogApi {
       @required String productId,
       @required ProvisioningArtifactProperties parameters,
       @required String idempotencyToken}) async {
-    return CreateProvisioningArtifactOutput.fromJson({});
+    var response_ = await _client.send('CreateProvisioningArtifact', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+      'Parameters': parameters,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return CreateProvisioningArtifactOutput.fromJson(response_);
   }
 
   /// Creates a self-service action.
@@ -572,7 +687,15 @@ class ServiceCatalogApi {
       String description,
       String acceptLanguage,
       @required String idempotencyToken}) async {
-    return CreateServiceActionOutput.fromJson({});
+    var response_ = await _client.send('CreateServiceAction', {
+      'Name': name,
+      'DefinitionType': definitionType,
+      'Definition': definition,
+      if (description != null) 'Description': description,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return CreateServiceActionOutput.fromJson(response_);
   }
 
   /// Creates a TagOption.
@@ -582,7 +705,11 @@ class ServiceCatalogApi {
   /// [value]: The TagOption value.
   Future<CreateTagOptionOutput> createTagOption(
       {@required String key, @required String value}) async {
-    return CreateTagOptionOutput.fromJson({});
+    var response_ = await _client.send('CreateTagOption', {
+      'Key': key,
+      'Value': value,
+    });
+    return CreateTagOptionOutput.fromJson(response_);
   }
 
   /// Deletes the specified constraint.
@@ -598,7 +725,11 @@ class ServiceCatalogApi {
   /// [id]: The identifier of the constraint.
   Future<DeleteConstraintOutput> deleteConstraint(String id,
       {String acceptLanguage}) async {
-    return DeleteConstraintOutput.fromJson({});
+    var response_ = await _client.send('DeleteConstraint', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+    });
+    return DeleteConstraintOutput.fromJson(response_);
   }
 
   /// Deletes the specified portfolio.
@@ -617,7 +748,11 @@ class ServiceCatalogApi {
   /// [id]: The portfolio identifier.
   Future<DeletePortfolioOutput> deletePortfolio(String id,
       {String acceptLanguage}) async {
-    return DeletePortfolioOutput.fromJson({});
+    var response_ = await _client.send('DeletePortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+    });
+    return DeletePortfolioOutput.fromJson(response_);
   }
 
   /// Stops sharing the specified portfolio with the specified account or
@@ -642,7 +777,13 @@ class ServiceCatalogApi {
       {String acceptLanguage,
       String accountId,
       OrganizationNode organizationNode}) async {
-    return DeletePortfolioShareOutput.fromJson({});
+    var response_ = await _client.send('DeletePortfolioShare', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      if (accountId != null) 'AccountId': accountId,
+      if (organizationNode != null) 'OrganizationNode': organizationNode,
+    });
+    return DeletePortfolioShareOutput.fromJson(response_);
   }
 
   /// Deletes the specified product.
@@ -661,7 +802,11 @@ class ServiceCatalogApi {
   /// [id]: The product identifier.
   Future<DeleteProductOutput> deleteProduct(String id,
       {String acceptLanguage}) async {
-    return DeleteProductOutput.fromJson({});
+    var response_ = await _client.send('DeleteProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+    });
+    return DeleteProductOutput.fromJson(response_);
   }
 
   /// Deletes the specified plan.
@@ -683,7 +828,12 @@ class ServiceCatalogApi {
       String planId,
       {String acceptLanguage,
       bool ignoreErrors}) async {
-    return DeleteProvisionedProductPlanOutput.fromJson({});
+    var response_ = await _client.send('DeleteProvisionedProductPlan', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PlanId': planId,
+      if (ignoreErrors != null) 'IgnoreErrors': ignoreErrors,
+    });
+    return DeleteProvisionedProductPlanOutput.fromJson(response_);
   }
 
   /// Deletes the specified provisioning artifact (also known as a version) for
@@ -708,7 +858,12 @@ class ServiceCatalogApi {
       {String acceptLanguage,
       @required String productId,
       @required String provisioningArtifactId}) async {
-    return DeleteProvisioningArtifactOutput.fromJson({});
+    var response_ = await _client.send('DeleteProvisioningArtifact', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+      'ProvisioningArtifactId': provisioningArtifactId,
+    });
+    return DeleteProvisioningArtifactOutput.fromJson(response_);
   }
 
   /// Deletes a self-service action.
@@ -725,7 +880,11 @@ class ServiceCatalogApi {
   /// *    `zh` - Chinese
   Future<DeleteServiceActionOutput> deleteServiceAction(String id,
       {String acceptLanguage}) async {
-    return DeleteServiceActionOutput.fromJson({});
+    var response_ = await _client.send('DeleteServiceAction', {
+      'Id': id,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
+    return DeleteServiceActionOutput.fromJson(response_);
   }
 
   /// Deletes the specified TagOption.
@@ -735,7 +894,10 @@ class ServiceCatalogApi {
   ///
   /// [id]: The TagOption identifier.
   Future<DeleteTagOptionOutput> deleteTagOption(String id) async {
-    return DeleteTagOptionOutput.fromJson({});
+    var response_ = await _client.send('DeleteTagOption', {
+      'Id': id,
+    });
+    return DeleteTagOptionOutput.fromJson(response_);
   }
 
   /// Gets information about the specified constraint.
@@ -751,7 +913,11 @@ class ServiceCatalogApi {
   /// [id]: The identifier of the constraint.
   Future<DescribeConstraintOutput> describeConstraint(String id,
       {String acceptLanguage}) async {
-    return DescribeConstraintOutput.fromJson({});
+    var response_ = await _client.send('DescribeConstraint', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+    });
+    return DescribeConstraintOutput.fromJson(response_);
   }
 
   /// Gets the status of the specified copy product operation.
@@ -769,7 +935,11 @@ class ServiceCatalogApi {
   Future<DescribeCopyProductStatusOutput> describeCopyProductStatus(
       String copyProductToken,
       {String acceptLanguage}) async {
-    return DescribeCopyProductStatusOutput.fromJson({});
+    var response_ = await _client.send('DescribeCopyProductStatus', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'CopyProductToken': copyProductToken,
+    });
+    return DescribeCopyProductStatusOutput.fromJson(response_);
   }
 
   /// Gets information about the specified portfolio.
@@ -785,7 +955,11 @@ class ServiceCatalogApi {
   /// [id]: The portfolio identifier.
   Future<DescribePortfolioOutput> describePortfolio(String id,
       {String acceptLanguage}) async {
-    return DescribePortfolioOutput.fromJson({});
+    var response_ = await _client.send('DescribePortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+    });
+    return DescribePortfolioOutput.fromJson(response_);
   }
 
   /// Gets the status of the specified portfolio share operation. This API can
@@ -796,7 +970,10 @@ class ServiceCatalogApi {
   /// DeletePortfolioShare.
   Future<DescribePortfolioShareStatusOutput> describePortfolioShareStatus(
       String portfolioShareToken) async {
-    return DescribePortfolioShareStatusOutput.fromJson({});
+    var response_ = await _client.send('DescribePortfolioShareStatus', {
+      'PortfolioShareToken': portfolioShareToken,
+    });
+    return DescribePortfolioShareStatusOutput.fromJson(response_);
   }
 
   /// Gets information about the specified product.
@@ -812,7 +989,11 @@ class ServiceCatalogApi {
   /// [id]: The product identifier.
   Future<DescribeProductOutput> describeProduct(String id,
       {String acceptLanguage}) async {
-    return DescribeProductOutput.fromJson({});
+    var response_ = await _client.send('DescribeProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+    });
+    return DescribeProductOutput.fromJson(response_);
   }
 
   /// Gets information about the specified product. This operation is run with
@@ -829,7 +1010,11 @@ class ServiceCatalogApi {
   /// [id]: The product identifier.
   Future<DescribeProductAsAdminOutput> describeProductAsAdmin(String id,
       {String acceptLanguage}) async {
-    return DescribeProductAsAdminOutput.fromJson({});
+    var response_ = await _client.send('DescribeProductAsAdmin', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+    });
+    return DescribeProductAsAdminOutput.fromJson(response_);
   }
 
   /// Gets information about the specified product.
@@ -845,7 +1030,11 @@ class ServiceCatalogApi {
   /// [id]: The product view identifier.
   Future<DescribeProductViewOutput> describeProductView(String id,
       {String acceptLanguage}) async {
-    return DescribeProductViewOutput.fromJson({});
+    var response_ = await _client.send('DescribeProductView', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+    });
+    return DescribeProductViewOutput.fromJson(response_);
   }
 
   /// Gets information about the specified provisioned product.
@@ -861,7 +1050,11 @@ class ServiceCatalogApi {
   /// [id]: The provisioned product identifier.
   Future<DescribeProvisionedProductOutput> describeProvisionedProduct(String id,
       {String acceptLanguage}) async {
-    return DescribeProvisionedProductOutput.fromJson({});
+    var response_ = await _client.send('DescribeProvisionedProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+    });
+    return DescribeProvisionedProductOutput.fromJson(response_);
   }
 
   /// Gets information about the resource changes for the specified plan.
@@ -885,7 +1078,13 @@ class ServiceCatalogApi {
       {String acceptLanguage,
       int pageSize,
       String pageToken}) async {
-    return DescribeProvisionedProductPlanOutput.fromJson({});
+    var response_ = await _client.send('DescribeProvisionedProductPlan', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PlanId': planId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return DescribeProvisionedProductPlanOutput.fromJson(response_);
   }
 
   /// Gets information about the specified provisioning artifact (also known as
@@ -909,7 +1108,13 @@ class ServiceCatalogApi {
       @required String provisioningArtifactId,
       @required String productId,
       bool verbose}) async {
-    return DescribeProvisioningArtifactOutput.fromJson({});
+    var response_ = await _client.send('DescribeProvisioningArtifact', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProvisioningArtifactId': provisioningArtifactId,
+      'ProductId': productId,
+      if (verbose != null) 'Verbose': verbose,
+    });
+    return DescribeProvisioningArtifactOutput.fromJson(response_);
   }
 
   /// Gets information about the configuration required to provision the
@@ -943,7 +1148,13 @@ class ServiceCatalogApi {
       @required String productId,
       @required String provisioningArtifactId,
       String pathId}) async {
-    return DescribeProvisioningParametersOutput.fromJson({});
+    var response_ = await _client.send('DescribeProvisioningParameters', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+      'ProvisioningArtifactId': provisioningArtifactId,
+      if (pathId != null) 'PathId': pathId,
+    });
+    return DescribeProvisioningParametersOutput.fromJson(response_);
   }
 
   /// Gets information about the specified request operation.
@@ -977,7 +1188,13 @@ class ServiceCatalogApi {
   /// [pageSize]: The maximum number of items to return with this call.
   Future<DescribeRecordOutput> describeRecord(String id,
       {String acceptLanguage, String pageToken, int pageSize}) async {
-    return DescribeRecordOutput.fromJson({});
+    var response_ = await _client.send('DescribeRecord', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeRecordOutput.fromJson(response_);
   }
 
   /// Describes a self-service action.
@@ -993,7 +1210,11 @@ class ServiceCatalogApi {
   /// *    `zh` - Chinese
   Future<DescribeServiceActionOutput> describeServiceAction(String id,
       {String acceptLanguage}) async {
-    return DescribeServiceActionOutput.fromJson({});
+    var response_ = await _client.send('DescribeServiceAction', {
+      'Id': id,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
+    return DescribeServiceActionOutput.fromJson(response_);
   }
 
   Future<DescribeServiceActionExecutionParametersOutput>
@@ -1001,14 +1222,23 @@ class ServiceCatalogApi {
           {@required String provisionedProductId,
           @required String serviceActionId,
           String acceptLanguage}) async {
-    return DescribeServiceActionExecutionParametersOutput.fromJson({});
+    var response_ =
+        await _client.send('DescribeServiceActionExecutionParameters', {
+      'ProvisionedProductId': provisionedProductId,
+      'ServiceActionId': serviceActionId,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
+    return DescribeServiceActionExecutionParametersOutput.fromJson(response_);
   }
 
   /// Gets information about the specified TagOption.
   ///
   /// [id]: The TagOption identifier.
   Future<DescribeTagOptionOutput> describeTagOption(String id) async {
-    return DescribeTagOptionOutput.fromJson({});
+    var response_ = await _client.send('DescribeTagOption', {
+      'Id': id,
+    });
+    return DescribeTagOptionOutput.fromJson(response_);
   }
 
   /// Disable portfolio sharing through AWS Organizations feature. This feature
@@ -1019,7 +1249,8 @@ class ServiceCatalogApi {
   /// organization.
   Future<DisableAwsOrganizationsAccessOutput>
       disableAwsOrganizationsAccess() async {
-    return DisableAwsOrganizationsAccessOutput.fromJson({});
+    var response_ = await _client.send('DisableAWSOrganizationsAccess', {});
+    return DisableAwsOrganizationsAccessOutput.fromJson(response_);
   }
 
   /// Disassociates the specified budget from the specified resource.
@@ -1030,7 +1261,11 @@ class ServiceCatalogApi {
   /// Either a portfolio-id or a product-id.
   Future<DisassociateBudgetFromResourceOutput> disassociateBudgetFromResource(
       {@required String budgetName, @required String resourceId}) async {
-    return DisassociateBudgetFromResourceOutput.fromJson({});
+    var response_ = await _client.send('DisassociateBudgetFromResource', {
+      'BudgetName': budgetName,
+      'ResourceId': resourceId,
+    });
+    return DisassociateBudgetFromResourceOutput.fromJson(response_);
   }
 
   /// Disassociates a previously associated principal ARN from a specified
@@ -1052,7 +1287,12 @@ class ServiceCatalogApi {
           {String acceptLanguage,
           @required String portfolioId,
           @required String principalArn}) async {
-    return DisassociatePrincipalFromPortfolioOutput.fromJson({});
+    var response_ = await _client.send('DisassociatePrincipalFromPortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      'PrincipalARN': principalArn,
+    });
+    return DisassociatePrincipalFromPortfolioOutput.fromJson(response_);
   }
 
   /// Disassociates the specified product from the specified portfolio.
@@ -1073,7 +1313,12 @@ class ServiceCatalogApi {
           {String acceptLanguage,
           @required String productId,
           @required String portfolioId}) async {
-    return DisassociateProductFromPortfolioOutput.fromJson({});
+    var response_ = await _client.send('DisassociateProductFromPortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+      'PortfolioId': portfolioId,
+    });
+    return DisassociateProductFromPortfolioOutput.fromJson(response_);
   }
 
   /// Disassociates the specified self-service action association from the
@@ -1100,7 +1345,15 @@ class ServiceCatalogApi {
           @required String provisioningArtifactId,
           @required String serviceActionId,
           String acceptLanguage}) async {
-    return DisassociateServiceActionFromProvisioningArtifactOutput.fromJson({});
+    var response_ = await _client
+        .send('DisassociateServiceActionFromProvisioningArtifact', {
+      'ProductId': productId,
+      'ProvisioningArtifactId': provisioningArtifactId,
+      'ServiceActionId': serviceActionId,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
+    return DisassociateServiceActionFromProvisioningArtifactOutput.fromJson(
+        response_);
   }
 
   /// Disassociates the specified TagOption from the specified resource.
@@ -1111,7 +1364,11 @@ class ServiceCatalogApi {
   Future<DisassociateTagOptionFromResourceOutput>
       disassociateTagOptionFromResource(
           {@required String resourceId, @required String tagOptionId}) async {
-    return DisassociateTagOptionFromResourceOutput.fromJson({});
+    var response_ = await _client.send('DisassociateTagOptionFromResource', {
+      'ResourceId': resourceId,
+      'TagOptionId': tagOptionId,
+    });
+    return DisassociateTagOptionFromResourceOutput.fromJson(response_);
   }
 
   /// Enable portfolio sharing feature through AWS Organizations. This API will
@@ -1124,7 +1381,8 @@ class ServiceCatalogApi {
   /// can be in sync with any changes in your AWS Organizations structure.
   Future<EnableAwsOrganizationsAccessOutput>
       enableAwsOrganizationsAccess() async {
-    return EnableAwsOrganizationsAccessOutput.fromJson({});
+    var response_ = await _client.send('EnableAWSOrganizationsAccess', {});
+    return EnableAwsOrganizationsAccessOutput.fromJson(response_);
   }
 
   /// Provisions or modifies a product based on the resource changes for the
@@ -1147,7 +1405,12 @@ class ServiceCatalogApi {
       {String acceptLanguage,
       @required String planId,
       @required String idempotencyToken}) async {
-    return ExecuteProvisionedProductPlanOutput.fromJson({});
+    var response_ = await _client.send('ExecuteProvisionedProductPlan', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PlanId': planId,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return ExecuteProvisionedProductPlanOutput.fromJson(response_);
   }
 
   /// Executes a self-service action against a provisioned product.
@@ -1174,14 +1437,23 @@ class ServiceCatalogApi {
           @required String executeToken,
           String acceptLanguage,
           Map<String, List<String>> parameters}) async {
-    return ExecuteProvisionedProductServiceActionOutput.fromJson({});
+    var response_ =
+        await _client.send('ExecuteProvisionedProductServiceAction', {
+      'ProvisionedProductId': provisionedProductId,
+      'ServiceActionId': serviceActionId,
+      'ExecuteToken': executeToken,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return ExecuteProvisionedProductServiceActionOutput.fromJson(response_);
   }
 
   /// Get the Access Status for AWS Organization portfolio share feature. This
   /// API can only be called by the master account in the organization.
   Future<GetAwsOrganizationsAccessStatusOutput>
       getAwsOrganizationsAccessStatus() async {
-    return GetAwsOrganizationsAccessStatusOutput.fromJson({});
+    var response_ = await _client.send('GetAWSOrganizationsAccessStatus', {});
+    return GetAwsOrganizationsAccessStatusOutput.fromJson(response_);
   }
 
   /// Lists all portfolios for which sharing was accepted by this account.
@@ -1213,7 +1485,13 @@ class ServiceCatalogApi {
       String pageToken,
       int pageSize,
       String portfolioShareType}) async {
-    return ListAcceptedPortfolioSharesOutput.fromJson({});
+    var response_ = await _client.send('ListAcceptedPortfolioShares', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (portfolioShareType != null) 'PortfolioShareType': portfolioShareType,
+    });
+    return ListAcceptedPortfolioSharesOutput.fromJson(response_);
   }
 
   /// Lists all the budgets associated to the specified resource.
@@ -1234,7 +1512,13 @@ class ServiceCatalogApi {
   /// first set of results, use null.
   Future<ListBudgetsForResourceOutput> listBudgetsForResource(String resourceId,
       {String acceptLanguage, int pageSize, String pageToken}) async {
-    return ListBudgetsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListBudgetsForResource', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ResourceId': resourceId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListBudgetsForResourceOutput.fromJson(response_);
   }
 
   /// Lists the constraints for the specified portfolio and product.
@@ -1261,7 +1545,14 @@ class ServiceCatalogApi {
       String productId,
       int pageSize,
       String pageToken}) async {
-    return ListConstraintsForPortfolioOutput.fromJson({});
+    var response_ = await _client.send('ListConstraintsForPortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      if (productId != null) 'ProductId': productId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListConstraintsForPortfolioOutput.fromJson(response_);
   }
 
   /// Lists the paths to the specified product. A path is how the user has
@@ -1284,7 +1575,13 @@ class ServiceCatalogApi {
   /// first set of results, use null.
   Future<ListLaunchPathsOutput> listLaunchPaths(String productId,
       {String acceptLanguage, int pageSize, String pageToken}) async {
-    return ListLaunchPathsOutput.fromJson({});
+    var response_ = await _client.send('ListLaunchPaths', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListLaunchPathsOutput.fromJson(response_);
   }
 
   /// Lists the organization nodes that have access to the specified portfolio.
@@ -1322,7 +1619,14 @@ class ServiceCatalogApi {
       @required String organizationNodeType,
       String pageToken,
       int pageSize}) async {
-    return ListOrganizationPortfolioAccessOutput.fromJson({});
+    var response_ = await _client.send('ListOrganizationPortfolioAccess', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      'OrganizationNodeType': organizationNodeType,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListOrganizationPortfolioAccessOutput.fromJson(response_);
   }
 
   /// Lists the account IDs that have access to the specified portfolio.
@@ -1338,7 +1642,11 @@ class ServiceCatalogApi {
   /// [portfolioId]: The portfolio identifier.
   Future<ListPortfolioAccessOutput> listPortfolioAccess(String portfolioId,
       {String acceptLanguage}) async {
-    return ListPortfolioAccessOutput.fromJson({});
+    var response_ = await _client.send('ListPortfolioAccess', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+    });
+    return ListPortfolioAccessOutput.fromJson(response_);
   }
 
   /// Lists all portfolios in the catalog.
@@ -1357,7 +1665,12 @@ class ServiceCatalogApi {
   /// [pageSize]: The maximum number of items to return with this call.
   Future<ListPortfoliosOutput> listPortfolios(
       {String acceptLanguage, String pageToken, int pageSize}) async {
-    return ListPortfoliosOutput.fromJson({});
+    var response_ = await _client.send('ListPortfolios', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListPortfoliosOutput.fromJson(response_);
   }
 
   /// Lists all portfolios that the specified product is associated with.
@@ -1381,7 +1694,13 @@ class ServiceCatalogApi {
       {String acceptLanguage,
       String pageToken,
       int pageSize}) async {
-    return ListPortfoliosForProductOutput.fromJson({});
+    var response_ = await _client.send('ListPortfoliosForProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListPortfoliosForProductOutput.fromJson(response_);
   }
 
   /// Lists all principal ARNs associated with the specified portfolio.
@@ -1405,7 +1724,13 @@ class ServiceCatalogApi {
       {String acceptLanguage,
       int pageSize,
       String pageToken}) async {
-    return ListPrincipalsForPortfolioOutput.fromJson({});
+    var response_ = await _client.send('ListPrincipalsForPortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListPrincipalsForPortfolioOutput.fromJson(response_);
   }
 
   /// Lists the plans for the specified provisioned product or all plans to
@@ -1434,7 +1759,14 @@ class ServiceCatalogApi {
       int pageSize,
       String pageToken,
       AccessLevelFilter accessLevelFilter}) async {
-    return ListProvisionedProductPlansOutput.fromJson({});
+    var response_ = await _client.send('ListProvisionedProductPlans', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (provisionProductId != null) 'ProvisionProductId': provisionProductId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (accessLevelFilter != null) 'AccessLevelFilter': accessLevelFilter,
+    });
+    return ListProvisionedProductPlansOutput.fromJson(response_);
   }
 
   /// Lists all provisioning artifacts (also known as versions) for the
@@ -1452,7 +1784,11 @@ class ServiceCatalogApi {
   Future<ListProvisioningArtifactsOutput> listProvisioningArtifacts(
       String productId,
       {String acceptLanguage}) async {
-    return ListProvisioningArtifactsOutput.fromJson({});
+    var response_ = await _client.send('ListProvisioningArtifacts', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+    });
+    return ListProvisioningArtifactsOutput.fromJson(response_);
   }
 
   /// Lists all provisioning artifacts (also known as versions) for the
@@ -1476,7 +1812,14 @@ class ServiceCatalogApi {
   Future<ListProvisioningArtifactsForServiceActionOutput>
       listProvisioningArtifactsForServiceAction(String serviceActionId,
           {int pageSize, String pageToken, String acceptLanguage}) async {
-    return ListProvisioningArtifactsForServiceActionOutput.fromJson({});
+    var response_ =
+        await _client.send('ListProvisioningArtifactsForServiceAction', {
+      'ServiceActionId': serviceActionId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
+    return ListProvisioningArtifactsForServiceActionOutput.fromJson(response_);
   }
 
   /// Lists the specified requests or all performed requests.
@@ -1504,7 +1847,14 @@ class ServiceCatalogApi {
       ListRecordHistorySearchFilter searchFilter,
       int pageSize,
       String pageToken}) async {
-    return ListRecordHistoryOutput.fromJson({});
+    var response_ = await _client.send('ListRecordHistory', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (accessLevelFilter != null) 'AccessLevelFilter': accessLevelFilter,
+      if (searchFilter != null) 'SearchFilter': searchFilter,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListRecordHistoryOutput.fromJson(response_);
   }
 
   /// Lists the resources associated with the specified TagOption.
@@ -1526,7 +1876,13 @@ class ServiceCatalogApi {
       {String resourceType,
       int pageSize,
       String pageToken}) async {
-    return ListResourcesForTagOptionOutput.fromJson({});
+    var response_ = await _client.send('ListResourcesForTagOption', {
+      'TagOptionId': tagOptionId,
+      if (resourceType != null) 'ResourceType': resourceType,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListResourcesForTagOptionOutput.fromJson(response_);
   }
 
   /// Lists all self-service actions.
@@ -1545,7 +1901,12 @@ class ServiceCatalogApi {
   /// first set of results, use null.
   Future<ListServiceActionsOutput> listServiceActions(
       {String acceptLanguage, int pageSize, String pageToken}) async {
-    return ListServiceActionsOutput.fromJson({});
+    var response_ = await _client.send('ListServiceActions', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListServiceActionsOutput.fromJson(response_);
   }
 
   /// Returns a paginated list of self-service actions associated with the
@@ -1575,7 +1936,15 @@ class ServiceCatalogApi {
           int pageSize,
           String pageToken,
           String acceptLanguage}) async {
-    return ListServiceActionsForProvisioningArtifactOutput.fromJson({});
+    var response_ =
+        await _client.send('ListServiceActionsForProvisioningArtifact', {
+      'ProductId': productId,
+      'ProvisioningArtifactId': provisioningArtifactId,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
+    return ListServiceActionsForProvisioningArtifactOutput.fromJson(response_);
   }
 
   /// Returns summary information about stack instances that are associated with
@@ -1600,7 +1969,14 @@ class ServiceCatalogApi {
   Future<ListStackInstancesForProvisionedProductOutput>
       listStackInstancesForProvisionedProduct(String provisionedProductId,
           {String acceptLanguage, String pageToken, int pageSize}) async {
-    return ListStackInstancesForProvisionedProductOutput.fromJson({});
+    var response_ =
+        await _client.send('ListStackInstancesForProvisionedProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProvisionedProductId': provisionedProductId,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListStackInstancesForProvisionedProductOutput.fromJson(response_);
   }
 
   /// Lists the specified TagOptions or all TagOptions.
@@ -1614,7 +1990,12 @@ class ServiceCatalogApi {
   /// first set of results, use null.
   Future<ListTagOptionsOutput> listTagOptions(
       {ListTagOptionsFilters filters, int pageSize, String pageToken}) async {
-    return ListTagOptionsOutput.fromJson({});
+    var response_ = await _client.send('ListTagOptions', {
+      if (filters != null) 'Filters': filters,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListTagOptionsOutput.fromJson(response_);
   }
 
   /// Provisions the specified product.
@@ -1673,7 +2054,21 @@ class ServiceCatalogApi {
       List<Tag> tags,
       List<String> notificationArns,
       @required String provisionToken}) async {
-    return ProvisionProductOutput.fromJson({});
+    var response_ = await _client.send('ProvisionProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+      'ProvisioningArtifactId': provisioningArtifactId,
+      if (pathId != null) 'PathId': pathId,
+      'ProvisionedProductName': provisionedProductName,
+      if (provisioningParameters != null)
+        'ProvisioningParameters': provisioningParameters,
+      if (provisioningPreferences != null)
+        'ProvisioningPreferences': provisioningPreferences,
+      if (tags != null) 'Tags': tags,
+      if (notificationArns != null) 'NotificationArns': notificationArns,
+      'ProvisionToken': provisionToken,
+    });
+    return ProvisionProductOutput.fromJson(response_);
   }
 
   /// Rejects an offer to share the specified portfolio.
@@ -1704,7 +2099,12 @@ class ServiceCatalogApi {
   /// "port-2qwzkwxt3y5fk" --portfolio-share-type AWS_ORGANIZATIONS`
   Future<RejectPortfolioShareOutput> rejectPortfolioShare(String portfolioId,
       {String acceptLanguage, String portfolioShareType}) async {
-    return RejectPortfolioShareOutput.fromJson({});
+    var response_ = await _client.send('RejectPortfolioShare', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'PortfolioId': portfolioId,
+      if (portfolioShareType != null) 'PortfolioShareType': portfolioShareType,
+    });
+    return RejectPortfolioShareOutput.fromJson(response_);
   }
 
   /// Lists the provisioned products that are available (not terminated).
@@ -1731,7 +2131,13 @@ class ServiceCatalogApi {
       AccessLevelFilter accessLevelFilter,
       int pageSize,
       String pageToken}) async {
-    return ScanProvisionedProductsOutput.fromJson({});
+    var response_ = await _client.send('ScanProvisionedProducts', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (accessLevelFilter != null) 'AccessLevelFilter': accessLevelFilter,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ScanProvisionedProductsOutput.fromJson(response_);
   }
 
   /// Gets information about the products to which the caller has access.
@@ -1764,7 +2170,15 @@ class ServiceCatalogApi {
       String sortBy,
       String sortOrder,
       String pageToken}) async {
-    return SearchProductsOutput.fromJson({});
+    var response_ = await _client.send('SearchProducts', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (filters != null) 'Filters': filters,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return SearchProductsOutput.fromJson(response_);
   }
 
   /// Gets information about the products for the specified portfolio or all
@@ -1804,7 +2218,17 @@ class ServiceCatalogApi {
       String pageToken,
       int pageSize,
       String productSource}) async {
-    return SearchProductsAsAdminOutput.fromJson({});
+    var response_ = await _client.send('SearchProductsAsAdmin', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (portfolioId != null) 'PortfolioId': portfolioId,
+      if (filters != null) 'Filters': filters,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (pageToken != null) 'PageToken': pageToken,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (productSource != null) 'ProductSource': productSource,
+    });
+    return SearchProductsAsAdminOutput.fromJson(response_);
   }
 
   /// Gets information about the provisioned products that meet the specified
@@ -1848,7 +2272,16 @@ class ServiceCatalogApi {
       String sortOrder,
       int pageSize,
       String pageToken}) async {
-    return SearchProvisionedProductsOutput.fromJson({});
+    var response_ = await _client.send('SearchProvisionedProducts', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (accessLevelFilter != null) 'AccessLevelFilter': accessLevelFilter,
+      if (filters != null) 'Filters': filters,
+      if (sortBy != null) 'SortBy': sortBy,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (pageSize != null) 'PageSize': pageSize,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return SearchProvisionedProductsOutput.fromJson(response_);
   }
 
   /// Terminates the specified provisioned product.
@@ -1887,7 +2320,16 @@ class ServiceCatalogApi {
       String provisionedProductId,
       bool ignoreErrors,
       String acceptLanguage}) async {
-    return TerminateProvisionedProductOutput.fromJson({});
+    var response_ = await _client.send('TerminateProvisionedProduct', {
+      if (provisionedProductName != null)
+        'ProvisionedProductName': provisionedProductName,
+      if (provisionedProductId != null)
+        'ProvisionedProductId': provisionedProductId,
+      'TerminateToken': terminateToken,
+      if (ignoreErrors != null) 'IgnoreErrors': ignoreErrors,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
+    return TerminateProvisionedProductOutput.fromJson(response_);
   }
 
   /// Updates the specified constraint.
@@ -1956,7 +2398,13 @@ class ServiceCatalogApi {
   /// [Template Constraint Rules](http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html).
   Future<UpdateConstraintOutput> updateConstraint(String id,
       {String acceptLanguage, String description, String parameters}) async {
-    return UpdateConstraintOutput.fromJson({});
+    var response_ = await _client.send('UpdateConstraint', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+      if (description != null) 'Description': description,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return UpdateConstraintOutput.fromJson(response_);
   }
 
   /// Updates the specified portfolio.
@@ -1989,7 +2437,16 @@ class ServiceCatalogApi {
       String providerName,
       List<Tag> addTags,
       List<String> removeTags}) async {
-    return UpdatePortfolioOutput.fromJson({});
+    var response_ = await _client.send('UpdatePortfolio', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+      if (displayName != null) 'DisplayName': displayName,
+      if (description != null) 'Description': description,
+      if (providerName != null) 'ProviderName': providerName,
+      if (addTags != null) 'AddTags': addTags,
+      if (removeTags != null) 'RemoveTags': removeTags,
+    });
+    return UpdatePortfolioOutput.fromJson(response_);
   }
 
   /// Updates the specified product.
@@ -2032,7 +2489,20 @@ class ServiceCatalogApi {
       String supportUrl,
       List<Tag> addTags,
       List<String> removeTags}) async {
-    return UpdateProductOutput.fromJson({});
+    var response_ = await _client.send('UpdateProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'Id': id,
+      if (name != null) 'Name': name,
+      if (owner != null) 'Owner': owner,
+      if (description != null) 'Description': description,
+      if (distributor != null) 'Distributor': distributor,
+      if (supportDescription != null) 'SupportDescription': supportDescription,
+      if (supportEmail != null) 'SupportEmail': supportEmail,
+      if (supportUrl != null) 'SupportUrl': supportUrl,
+      if (addTags != null) 'AddTags': addTags,
+      if (removeTags != null) 'RemoveTags': removeTags,
+    });
+    return UpdateProductOutput.fromJson(response_);
   }
 
   /// Requests updates to the configuration of the specified provisioned
@@ -2088,7 +2558,24 @@ class ServiceCatalogApi {
       List<UpdateProvisioningParameter> provisioningParameters,
       UpdateProvisioningPreferences provisioningPreferences,
       List<Tag> tags}) async {
-    return UpdateProvisionedProductOutput.fromJson({});
+    var response_ = await _client.send('UpdateProvisionedProduct', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      if (provisionedProductName != null)
+        'ProvisionedProductName': provisionedProductName,
+      if (provisionedProductId != null)
+        'ProvisionedProductId': provisionedProductId,
+      if (productId != null) 'ProductId': productId,
+      if (provisioningArtifactId != null)
+        'ProvisioningArtifactId': provisioningArtifactId,
+      if (pathId != null) 'PathId': pathId,
+      if (provisioningParameters != null)
+        'ProvisioningParameters': provisioningParameters,
+      if (provisioningPreferences != null)
+        'ProvisioningPreferences': provisioningPreferences,
+      if (tags != null) 'Tags': tags,
+      'UpdateToken': updateToken,
+    });
+    return UpdateProvisionedProductOutput.fromJson(response_);
   }
 
   /// Requests updates to the properties of the specified provisioned product.
@@ -2133,7 +2620,13 @@ class ServiceCatalogApi {
           @required String provisionedProductId,
           @required Map<String, String> provisionedProductProperties,
           @required String idempotencyToken}) async {
-    return UpdateProvisionedProductPropertiesOutput.fromJson({});
+    var response_ = await _client.send('UpdateProvisionedProductProperties', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProvisionedProductId': provisionedProductId,
+      'ProvisionedProductProperties': provisionedProductProperties,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return UpdateProvisionedProductPropertiesOutput.fromJson(response_);
   }
 
   /// Updates the specified provisioning artifact (also known as a version) for
@@ -2177,7 +2670,16 @@ class ServiceCatalogApi {
       String description,
       bool active,
       String guidance}) async {
-    return UpdateProvisioningArtifactOutput.fromJson({});
+    var response_ = await _client.send('UpdateProvisioningArtifact', {
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+      'ProductId': productId,
+      'ProvisioningArtifactId': provisioningArtifactId,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (active != null) 'Active': active,
+      if (guidance != null) 'Guidance': guidance,
+    });
+    return UpdateProvisioningArtifactOutput.fromJson(response_);
   }
 
   /// Updates a self-service action.
@@ -2202,7 +2704,14 @@ class ServiceCatalogApi {
       Map<String, String> definition,
       String description,
       String acceptLanguage}) async {
-    return UpdateServiceActionOutput.fromJson({});
+    var response_ = await _client.send('UpdateServiceAction', {
+      'Id': id,
+      if (name != null) 'Name': name,
+      if (definition != null) 'Definition': definition,
+      if (description != null) 'Description': description,
+      if (acceptLanguage != null) 'AcceptLanguage': acceptLanguage,
+    });
+    return UpdateServiceActionOutput.fromJson(response_);
   }
 
   /// Updates the specified TagOption.
@@ -2214,7 +2723,12 @@ class ServiceCatalogApi {
   /// [active]: The updated active state.
   Future<UpdateTagOptionOutput> updateTagOption(String id,
       {String value, bool active}) async {
-    return UpdateTagOptionOutput.fromJson({});
+    var response_ = await _client.send('UpdateTagOption', {
+      'Id': id,
+      if (value != null) 'Value': value,
+      if (active != null) 'Active': active,
+    });
+    return UpdateTagOptionOutput.fromJson(response_);
   }
 }
 
@@ -2244,6 +2758,7 @@ class AccessLevelFilter {
     this.key,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class AssociateBudgetWithResourceOutput {
@@ -2291,7 +2806,14 @@ class BatchAssociateServiceActionWithProvisioningArtifactOutput {
   });
   static BatchAssociateServiceActionWithProvisioningArtifactOutput fromJson(
           Map<String, dynamic> json) =>
-      BatchAssociateServiceActionWithProvisioningArtifactOutput();
+      BatchAssociateServiceActionWithProvisioningArtifactOutput(
+        failedServiceActionAssociations:
+            json.containsKey('FailedServiceActionAssociations')
+                ? (json['FailedServiceActionAssociations'] as List)
+                    .map((e) => FailedServiceActionAssociation.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class BatchDisassociateServiceActionFromProvisioningArtifactOutput {
@@ -2304,7 +2826,14 @@ class BatchDisassociateServiceActionFromProvisioningArtifactOutput {
   });
   static BatchDisassociateServiceActionFromProvisioningArtifactOutput fromJson(
           Map<String, dynamic> json) =>
-      BatchDisassociateServiceActionFromProvisioningArtifactOutput();
+      BatchDisassociateServiceActionFromProvisioningArtifactOutput(
+        failedServiceActionAssociations:
+            json.containsKey('FailedServiceActionAssociations')
+                ? (json['FailedServiceActionAssociations'] as List)
+                    .map((e) => FailedServiceActionAssociation.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Information about a budget.
@@ -2315,7 +2844,11 @@ class BudgetDetail {
   BudgetDetail({
     this.budgetName,
   });
-  static BudgetDetail fromJson(Map<String, dynamic> json) => BudgetDetail();
+  static BudgetDetail fromJson(Map<String, dynamic> json) => BudgetDetail(
+        budgetName: json.containsKey('BudgetName')
+            ? json['BudgetName'] as String
+            : null,
+      );
 }
 
 /// Information about a CloudWatch dashboard.
@@ -2327,7 +2860,9 @@ class CloudWatchDashboard {
     this.name,
   });
   static CloudWatchDashboard fromJson(Map<String, dynamic> json) =>
-      CloudWatchDashboard();
+      CloudWatchDashboard(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Information about a constraint.
@@ -2359,7 +2894,16 @@ class ConstraintDetail {
     this.owner,
   });
   static ConstraintDetail fromJson(Map<String, dynamic> json) =>
-      ConstraintDetail();
+      ConstraintDetail(
+        constraintId: json.containsKey('ConstraintId')
+            ? json['ConstraintId'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        owner: json.containsKey('Owner') ? json['Owner'] as String : null,
+      );
 }
 
 /// Summary information about a constraint.
@@ -2383,7 +2927,12 @@ class ConstraintSummary {
     this.description,
   });
   static ConstraintSummary fromJson(Map<String, dynamic> json) =>
-      ConstraintSummary();
+      ConstraintSummary(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class CopyProductOutput {
@@ -2394,7 +2943,11 @@ class CopyProductOutput {
     this.copyProductToken,
   });
   static CopyProductOutput fromJson(Map<String, dynamic> json) =>
-      CopyProductOutput();
+      CopyProductOutput(
+        copyProductToken: json.containsKey('CopyProductToken')
+            ? json['CopyProductToken'] as String
+            : null,
+      );
 }
 
 class CreateConstraintOutput {
@@ -2413,7 +2966,15 @@ class CreateConstraintOutput {
     this.status,
   });
   static CreateConstraintOutput fromJson(Map<String, dynamic> json) =>
-      CreateConstraintOutput();
+      CreateConstraintOutput(
+        constraintDetail: json.containsKey('ConstraintDetail')
+            ? ConstraintDetail.fromJson(json['ConstraintDetail'])
+            : null,
+        constraintParameters: json.containsKey('ConstraintParameters')
+            ? json['ConstraintParameters'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class CreatePortfolioOutput {
@@ -2428,7 +2989,14 @@ class CreatePortfolioOutput {
     this.tags,
   });
   static CreatePortfolioOutput fromJson(Map<String, dynamic> json) =>
-      CreatePortfolioOutput();
+      CreatePortfolioOutput(
+        portfolioDetail: json.containsKey('PortfolioDetail')
+            ? PortfolioDetail.fromJson(json['PortfolioDetail'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class CreatePortfolioShareOutput {
@@ -2440,7 +3008,11 @@ class CreatePortfolioShareOutput {
     this.portfolioShareToken,
   });
   static CreatePortfolioShareOutput fromJson(Map<String, dynamic> json) =>
-      CreatePortfolioShareOutput();
+      CreatePortfolioShareOutput(
+        portfolioShareToken: json.containsKey('PortfolioShareToken')
+            ? json['PortfolioShareToken'] as String
+            : null,
+      );
 }
 
 class CreateProductOutput {
@@ -2459,7 +3031,19 @@ class CreateProductOutput {
     this.tags,
   });
   static CreateProductOutput fromJson(Map<String, dynamic> json) =>
-      CreateProductOutput();
+      CreateProductOutput(
+        productViewDetail: json.containsKey('ProductViewDetail')
+            ? ProductViewDetail.fromJson(json['ProductViewDetail'])
+            : null,
+        provisioningArtifactDetail:
+            json.containsKey('ProvisioningArtifactDetail')
+                ? ProvisioningArtifactDetail.fromJson(
+                    json['ProvisioningArtifactDetail'])
+                : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class CreateProvisionedProductPlanOutput {
@@ -2487,7 +3071,20 @@ class CreateProvisionedProductPlanOutput {
   });
   static CreateProvisionedProductPlanOutput fromJson(
           Map<String, dynamic> json) =>
-      CreateProvisionedProductPlanOutput();
+      CreateProvisionedProductPlanOutput(
+        planName:
+            json.containsKey('PlanName') ? json['PlanName'] as String : null,
+        planId: json.containsKey('PlanId') ? json['PlanId'] as String : null,
+        provisionProductId: json.containsKey('ProvisionProductId')
+            ? json['ProvisionProductId'] as String
+            : null,
+        provisionedProductName: json.containsKey('ProvisionedProductName')
+            ? json['ProvisionedProductName'] as String
+            : null,
+        provisioningArtifactId: json.containsKey('ProvisioningArtifactId')
+            ? json['ProvisioningArtifactId'] as String
+            : null,
+      );
 }
 
 class CreateProvisioningArtifactOutput {
@@ -2506,7 +3103,18 @@ class CreateProvisioningArtifactOutput {
     this.status,
   });
   static CreateProvisioningArtifactOutput fromJson(Map<String, dynamic> json) =>
-      CreateProvisioningArtifactOutput();
+      CreateProvisioningArtifactOutput(
+        provisioningArtifactDetail:
+            json.containsKey('ProvisioningArtifactDetail')
+                ? ProvisioningArtifactDetail.fromJson(
+                    json['ProvisioningArtifactDetail'])
+                : null,
+        info: json.containsKey('Info')
+            ? (json['Info'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class CreateServiceActionOutput {
@@ -2517,7 +3125,11 @@ class CreateServiceActionOutput {
     this.serviceActionDetail,
   });
   static CreateServiceActionOutput fromJson(Map<String, dynamic> json) =>
-      CreateServiceActionOutput();
+      CreateServiceActionOutput(
+        serviceActionDetail: json.containsKey('ServiceActionDetail')
+            ? ServiceActionDetail.fromJson(json['ServiceActionDetail'])
+            : null,
+      );
 }
 
 class CreateTagOptionOutput {
@@ -2528,7 +3140,11 @@ class CreateTagOptionOutput {
     this.tagOptionDetail,
   });
   static CreateTagOptionOutput fromJson(Map<String, dynamic> json) =>
-      CreateTagOptionOutput();
+      CreateTagOptionOutput(
+        tagOptionDetail: json.containsKey('TagOptionDetail')
+            ? TagOptionDetail.fromJson(json['TagOptionDetail'])
+            : null,
+      );
 }
 
 class DeleteConstraintOutput {
@@ -2552,7 +3168,11 @@ class DeletePortfolioShareOutput {
     this.portfolioShareToken,
   });
   static DeletePortfolioShareOutput fromJson(Map<String, dynamic> json) =>
-      DeletePortfolioShareOutput();
+      DeletePortfolioShareOutput(
+        portfolioShareToken: json.containsKey('PortfolioShareToken')
+            ? json['PortfolioShareToken'] as String
+            : null,
+      );
 }
 
 class DeleteProductOutput {
@@ -2602,7 +3222,15 @@ class DescribeConstraintOutput {
     this.status,
   });
   static DescribeConstraintOutput fromJson(Map<String, dynamic> json) =>
-      DescribeConstraintOutput();
+      DescribeConstraintOutput(
+        constraintDetail: json.containsKey('ConstraintDetail')
+            ? ConstraintDetail.fromJson(json['ConstraintDetail'])
+            : null,
+        constraintParameters: json.containsKey('ConstraintParameters')
+            ? json['ConstraintParameters'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class DescribeCopyProductStatusOutput {
@@ -2621,7 +3249,17 @@ class DescribeCopyProductStatusOutput {
     this.statusDetail,
   });
   static DescribeCopyProductStatusOutput fromJson(Map<String, dynamic> json) =>
-      DescribeCopyProductStatusOutput();
+      DescribeCopyProductStatusOutput(
+        copyProductStatus: json.containsKey('CopyProductStatus')
+            ? json['CopyProductStatus'] as String
+            : null,
+        targetProductId: json.containsKey('TargetProductId')
+            ? json['TargetProductId'] as String
+            : null,
+        statusDetail: json.containsKey('StatusDetail')
+            ? json['StatusDetail'] as String
+            : null,
+      );
 }
 
 class DescribePortfolioOutput {
@@ -2644,7 +3282,24 @@ class DescribePortfolioOutput {
     this.budgets,
   });
   static DescribePortfolioOutput fromJson(Map<String, dynamic> json) =>
-      DescribePortfolioOutput();
+      DescribePortfolioOutput(
+        portfolioDetail: json.containsKey('PortfolioDetail')
+            ? PortfolioDetail.fromJson(json['PortfolioDetail'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        tagOptions: json.containsKey('TagOptions')
+            ? (json['TagOptions'] as List)
+                .map((e) => TagOptionDetail.fromJson(e))
+                .toList()
+            : null,
+        budgets: json.containsKey('Budgets')
+            ? (json['Budgets'] as List)
+                .map((e) => BudgetDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribePortfolioShareStatusOutput {
@@ -2674,7 +3329,21 @@ class DescribePortfolioShareStatusOutput {
   });
   static DescribePortfolioShareStatusOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribePortfolioShareStatusOutput();
+      DescribePortfolioShareStatusOutput(
+        portfolioShareToken: json.containsKey('PortfolioShareToken')
+            ? json['PortfolioShareToken'] as String
+            : null,
+        portfolioId: json.containsKey('PortfolioId')
+            ? json['PortfolioId'] as String
+            : null,
+        organizationNodeValue: json.containsKey('OrganizationNodeValue')
+            ? json['OrganizationNodeValue'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        shareDetails: json.containsKey('ShareDetails')
+            ? ShareDetails.fromJson(json['ShareDetails'])
+            : null,
+      );
 }
 
 class DescribeProductAsAdminOutput {
@@ -2702,7 +3371,30 @@ class DescribeProductAsAdminOutput {
     this.budgets,
   });
   static DescribeProductAsAdminOutput fromJson(Map<String, dynamic> json) =>
-      DescribeProductAsAdminOutput();
+      DescribeProductAsAdminOutput(
+        productViewDetail: json.containsKey('ProductViewDetail')
+            ? ProductViewDetail.fromJson(json['ProductViewDetail'])
+            : null,
+        provisioningArtifactSummaries:
+            json.containsKey('ProvisioningArtifactSummaries')
+                ? (json['ProvisioningArtifactSummaries'] as List)
+                    .map((e) => ProvisioningArtifactSummary.fromJson(e))
+                    .toList()
+                : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        tagOptions: json.containsKey('TagOptions')
+            ? (json['TagOptions'] as List)
+                .map((e) => TagOptionDetail.fromJson(e))
+                .toList()
+            : null,
+        budgets: json.containsKey('Budgets')
+            ? (json['Budgets'] as List)
+                .map((e) => BudgetDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeProductOutput {
@@ -2721,7 +3413,21 @@ class DescribeProductOutput {
     this.budgets,
   });
   static DescribeProductOutput fromJson(Map<String, dynamic> json) =>
-      DescribeProductOutput();
+      DescribeProductOutput(
+        productViewSummary: json.containsKey('ProductViewSummary')
+            ? ProductViewSummary.fromJson(json['ProductViewSummary'])
+            : null,
+        provisioningArtifacts: json.containsKey('ProvisioningArtifacts')
+            ? (json['ProvisioningArtifacts'] as List)
+                .map((e) => ProvisioningArtifact.fromJson(e))
+                .toList()
+            : null,
+        budgets: json.containsKey('Budgets')
+            ? (json['Budgets'] as List)
+                .map((e) => BudgetDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeProductViewOutput {
@@ -2736,7 +3442,16 @@ class DescribeProductViewOutput {
     this.provisioningArtifacts,
   });
   static DescribeProductViewOutput fromJson(Map<String, dynamic> json) =>
-      DescribeProductViewOutput();
+      DescribeProductViewOutput(
+        productViewSummary: json.containsKey('ProductViewSummary')
+            ? ProductViewSummary.fromJson(json['ProductViewSummary'])
+            : null,
+        provisioningArtifacts: json.containsKey('ProvisioningArtifacts')
+            ? (json['ProvisioningArtifacts'] as List)
+                .map((e) => ProvisioningArtifact.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeProvisionedProductOutput {
@@ -2751,7 +3466,17 @@ class DescribeProvisionedProductOutput {
     this.cloudWatchDashboards,
   });
   static DescribeProvisionedProductOutput fromJson(Map<String, dynamic> json) =>
-      DescribeProvisionedProductOutput();
+      DescribeProvisionedProductOutput(
+        provisionedProductDetail: json.containsKey('ProvisionedProductDetail')
+            ? ProvisionedProductDetail.fromJson(
+                json['ProvisionedProductDetail'])
+            : null,
+        cloudWatchDashboards: json.containsKey('CloudWatchDashboards')
+            ? (json['CloudWatchDashboards'] as List)
+                .map((e) => CloudWatchDashboard.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeProvisionedProductPlanOutput {
@@ -2773,7 +3498,21 @@ class DescribeProvisionedProductPlanOutput {
   });
   static DescribeProvisionedProductPlanOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeProvisionedProductPlanOutput();
+      DescribeProvisionedProductPlanOutput(
+        provisionedProductPlanDetails:
+            json.containsKey('ProvisionedProductPlanDetails')
+                ? ProvisionedProductPlanDetails.fromJson(
+                    json['ProvisionedProductPlanDetails'])
+                : null,
+        resourceChanges: json.containsKey('ResourceChanges')
+            ? (json['ResourceChanges'] as List)
+                .map((e) => ResourceChange.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class DescribeProvisioningArtifactOutput {
@@ -2793,7 +3532,18 @@ class DescribeProvisioningArtifactOutput {
   });
   static DescribeProvisioningArtifactOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeProvisioningArtifactOutput();
+      DescribeProvisioningArtifactOutput(
+        provisioningArtifactDetail:
+            json.containsKey('ProvisioningArtifactDetail')
+                ? ProvisioningArtifactDetail.fromJson(
+                    json['ProvisioningArtifactDetail'])
+                : null,
+        info: json.containsKey('Info')
+            ? (json['Info'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class DescribeProvisioningParametersOutput {
@@ -2824,7 +3574,34 @@ class DescribeProvisioningParametersOutput {
   });
   static DescribeProvisioningParametersOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeProvisioningParametersOutput();
+      DescribeProvisioningParametersOutput(
+        provisioningArtifactParameters:
+            json.containsKey('ProvisioningArtifactParameters')
+                ? (json['ProvisioningArtifactParameters'] as List)
+                    .map((e) => ProvisioningArtifactParameter.fromJson(e))
+                    .toList()
+                : null,
+        constraintSummaries: json.containsKey('ConstraintSummaries')
+            ? (json['ConstraintSummaries'] as List)
+                .map((e) => ConstraintSummary.fromJson(e))
+                .toList()
+            : null,
+        usageInstructions: json.containsKey('UsageInstructions')
+            ? (json['UsageInstructions'] as List)
+                .map((e) => UsageInstruction.fromJson(e))
+                .toList()
+            : null,
+        tagOptions: json.containsKey('TagOptions')
+            ? (json['TagOptions'] as List)
+                .map((e) => TagOptionSummary.fromJson(e))
+                .toList()
+            : null,
+        provisioningArtifactPreferences:
+            json.containsKey('ProvisioningArtifactPreferences')
+                ? ProvisioningArtifactPreferences.fromJson(
+                    json['ProvisioningArtifactPreferences'])
+                : null,
+      );
 }
 
 class DescribeRecordOutput {
@@ -2846,7 +3623,19 @@ class DescribeRecordOutput {
     this.nextPageToken,
   });
   static DescribeRecordOutput fromJson(Map<String, dynamic> json) =>
-      DescribeRecordOutput();
+      DescribeRecordOutput(
+        recordDetail: json.containsKey('RecordDetail')
+            ? RecordDetail.fromJson(json['RecordDetail'])
+            : null,
+        recordOutputs: json.containsKey('RecordOutputs')
+            ? (json['RecordOutputs'] as List)
+                .map((e) => RecordOutput.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class DescribeServiceActionExecutionParametersOutput {
@@ -2857,7 +3646,13 @@ class DescribeServiceActionExecutionParametersOutput {
   });
   static DescribeServiceActionExecutionParametersOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeServiceActionExecutionParametersOutput();
+      DescribeServiceActionExecutionParametersOutput(
+        serviceActionParameters: json.containsKey('ServiceActionParameters')
+            ? (json['ServiceActionParameters'] as List)
+                .map((e) => ExecutionParameter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeServiceActionOutput {
@@ -2868,7 +3663,11 @@ class DescribeServiceActionOutput {
     this.serviceActionDetail,
   });
   static DescribeServiceActionOutput fromJson(Map<String, dynamic> json) =>
-      DescribeServiceActionOutput();
+      DescribeServiceActionOutput(
+        serviceActionDetail: json.containsKey('ServiceActionDetail')
+            ? ServiceActionDetail.fromJson(json['ServiceActionDetail'])
+            : null,
+      );
 }
 
 class DescribeTagOptionOutput {
@@ -2879,7 +3678,11 @@ class DescribeTagOptionOutput {
     this.tagOptionDetail,
   });
   static DescribeTagOptionOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTagOptionOutput();
+      DescribeTagOptionOutput(
+        tagOptionDetail: json.containsKey('TagOptionDetail')
+            ? TagOptionDetail.fromJson(json['TagOptionDetail'])
+            : null,
+      );
 }
 
 class DisableAwsOrganizationsAccessOutput {
@@ -2940,7 +3743,11 @@ class ExecuteProvisionedProductPlanOutput {
   });
   static ExecuteProvisionedProductPlanOutput fromJson(
           Map<String, dynamic> json) =>
-      ExecuteProvisionedProductPlanOutput();
+      ExecuteProvisionedProductPlanOutput(
+        recordDetail: json.containsKey('RecordDetail')
+            ? RecordDetail.fromJson(json['RecordDetail'])
+            : null,
+      );
 }
 
 class ExecuteProvisionedProductServiceActionOutput {
@@ -2953,7 +3760,11 @@ class ExecuteProvisionedProductServiceActionOutput {
   });
   static ExecuteProvisionedProductServiceActionOutput fromJson(
           Map<String, dynamic> json) =>
-      ExecuteProvisionedProductServiceActionOutput();
+      ExecuteProvisionedProductServiceActionOutput(
+        recordDetail: json.containsKey('RecordDetail')
+            ? RecordDetail.fromJson(json['RecordDetail'])
+            : null,
+      );
 }
 
 class ExecutionParameter {
@@ -2969,7 +3780,13 @@ class ExecutionParameter {
     this.defaultValues,
   });
   static ExecutionParameter fromJson(Map<String, dynamic> json) =>
-      ExecutionParameter();
+      ExecutionParameter(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        defaultValues: json.containsKey('DefaultValues')
+            ? (json['DefaultValues'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// An object containing information about the error, along with identifying
@@ -2999,7 +3816,21 @@ class FailedServiceActionAssociation {
     this.errorMessage,
   });
   static FailedServiceActionAssociation fromJson(Map<String, dynamic> json) =>
-      FailedServiceActionAssociation();
+      FailedServiceActionAssociation(
+        serviceActionId: json.containsKey('ServiceActionId')
+            ? json['ServiceActionId'] as String
+            : null,
+        productId:
+            json.containsKey('ProductId') ? json['ProductId'] as String : null,
+        provisioningArtifactId: json.containsKey('ProvisioningArtifactId')
+            ? json['ProvisioningArtifactId'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class GetAwsOrganizationsAccessStatusOutput {
@@ -3011,7 +3842,11 @@ class GetAwsOrganizationsAccessStatusOutput {
   });
   static GetAwsOrganizationsAccessStatusOutput fromJson(
           Map<String, dynamic> json) =>
-      GetAwsOrganizationsAccessStatusOutput();
+      GetAwsOrganizationsAccessStatusOutput(
+        accessStatus: json.containsKey('AccessStatus')
+            ? json['AccessStatus'] as String
+            : null,
+      );
 }
 
 /// Summary information about a product path for a user.
@@ -3035,7 +3870,18 @@ class LaunchPathSummary {
     this.name,
   });
   static LaunchPathSummary fromJson(Map<String, dynamic> json) =>
-      LaunchPathSummary();
+      LaunchPathSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        constraintSummaries: json.containsKey('ConstraintSummaries')
+            ? (json['ConstraintSummaries'] as List)
+                .map((e) => ConstraintSummary.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class ListAcceptedPortfolioSharesOutput {
@@ -3052,7 +3898,16 @@ class ListAcceptedPortfolioSharesOutput {
   });
   static ListAcceptedPortfolioSharesOutput fromJson(
           Map<String, dynamic> json) =>
-      ListAcceptedPortfolioSharesOutput();
+      ListAcceptedPortfolioSharesOutput(
+        portfolioDetails: json.containsKey('PortfolioDetails')
+            ? (json['PortfolioDetails'] as List)
+                .map((e) => PortfolioDetail.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListBudgetsForResourceOutput {
@@ -3068,7 +3923,16 @@ class ListBudgetsForResourceOutput {
     this.nextPageToken,
   });
   static ListBudgetsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListBudgetsForResourceOutput();
+      ListBudgetsForResourceOutput(
+        budgets: json.containsKey('Budgets')
+            ? (json['Budgets'] as List)
+                .map((e) => BudgetDetail.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListConstraintsForPortfolioOutput {
@@ -3085,7 +3949,16 @@ class ListConstraintsForPortfolioOutput {
   });
   static ListConstraintsForPortfolioOutput fromJson(
           Map<String, dynamic> json) =>
-      ListConstraintsForPortfolioOutput();
+      ListConstraintsForPortfolioOutput(
+        constraintDetails: json.containsKey('ConstraintDetails')
+            ? (json['ConstraintDetails'] as List)
+                .map((e) => ConstraintDetail.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListLaunchPathsOutput {
@@ -3101,7 +3974,16 @@ class ListLaunchPathsOutput {
     this.nextPageToken,
   });
   static ListLaunchPathsOutput fromJson(Map<String, dynamic> json) =>
-      ListLaunchPathsOutput();
+      ListLaunchPathsOutput(
+        launchPathSummaries: json.containsKey('LaunchPathSummaries')
+            ? (json['LaunchPathSummaries'] as List)
+                .map((e) => LaunchPathSummary.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListOrganizationPortfolioAccessOutput {
@@ -3118,7 +4000,16 @@ class ListOrganizationPortfolioAccessOutput {
   });
   static ListOrganizationPortfolioAccessOutput fromJson(
           Map<String, dynamic> json) =>
-      ListOrganizationPortfolioAccessOutput();
+      ListOrganizationPortfolioAccessOutput(
+        organizationNodes: json.containsKey('OrganizationNodes')
+            ? (json['OrganizationNodes'] as List)
+                .map((e) => OrganizationNode.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListPortfolioAccessOutput {
@@ -3134,7 +4025,14 @@ class ListPortfolioAccessOutput {
     this.nextPageToken,
   });
   static ListPortfolioAccessOutput fromJson(Map<String, dynamic> json) =>
-      ListPortfolioAccessOutput();
+      ListPortfolioAccessOutput(
+        accountIds: json.containsKey('AccountIds')
+            ? (json['AccountIds'] as List).map((e) => e as String).toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListPortfoliosForProductOutput {
@@ -3150,7 +4048,16 @@ class ListPortfoliosForProductOutput {
     this.nextPageToken,
   });
   static ListPortfoliosForProductOutput fromJson(Map<String, dynamic> json) =>
-      ListPortfoliosForProductOutput();
+      ListPortfoliosForProductOutput(
+        portfolioDetails: json.containsKey('PortfolioDetails')
+            ? (json['PortfolioDetails'] as List)
+                .map((e) => PortfolioDetail.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListPortfoliosOutput {
@@ -3166,7 +4073,16 @@ class ListPortfoliosOutput {
     this.nextPageToken,
   });
   static ListPortfoliosOutput fromJson(Map<String, dynamic> json) =>
-      ListPortfoliosOutput();
+      ListPortfoliosOutput(
+        portfolioDetails: json.containsKey('PortfolioDetails')
+            ? (json['PortfolioDetails'] as List)
+                .map((e) => PortfolioDetail.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListPrincipalsForPortfolioOutput {
@@ -3182,7 +4098,16 @@ class ListPrincipalsForPortfolioOutput {
     this.nextPageToken,
   });
   static ListPrincipalsForPortfolioOutput fromJson(Map<String, dynamic> json) =>
-      ListPrincipalsForPortfolioOutput();
+      ListPrincipalsForPortfolioOutput(
+        principals: json.containsKey('Principals')
+            ? (json['Principals'] as List)
+                .map((e) => Principal.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListProvisionedProductPlansOutput {
@@ -3199,7 +4124,16 @@ class ListProvisionedProductPlansOutput {
   });
   static ListProvisionedProductPlansOutput fromJson(
           Map<String, dynamic> json) =>
-      ListProvisionedProductPlansOutput();
+      ListProvisionedProductPlansOutput(
+        provisionedProductPlans: json.containsKey('ProvisionedProductPlans')
+            ? (json['ProvisionedProductPlans'] as List)
+                .map((e) => ProvisionedProductPlanSummary.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListProvisioningArtifactsForServiceActionOutput {
@@ -3217,7 +4151,16 @@ class ListProvisioningArtifactsForServiceActionOutput {
   });
   static ListProvisioningArtifactsForServiceActionOutput fromJson(
           Map<String, dynamic> json) =>
-      ListProvisioningArtifactsForServiceActionOutput();
+      ListProvisioningArtifactsForServiceActionOutput(
+        provisioningArtifactViews: json.containsKey('ProvisioningArtifactViews')
+            ? (json['ProvisioningArtifactViews'] as List)
+                .map((e) => ProvisioningArtifactView.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListProvisioningArtifactsOutput {
@@ -3233,7 +4176,17 @@ class ListProvisioningArtifactsOutput {
     this.nextPageToken,
   });
   static ListProvisioningArtifactsOutput fromJson(Map<String, dynamic> json) =>
-      ListProvisioningArtifactsOutput();
+      ListProvisioningArtifactsOutput(
+        provisioningArtifactDetails:
+            json.containsKey('ProvisioningArtifactDetails')
+                ? (json['ProvisioningArtifactDetails'] as List)
+                    .map((e) => ProvisioningArtifactDetail.fromJson(e))
+                    .toList()
+                : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListRecordHistoryOutput {
@@ -3249,7 +4202,16 @@ class ListRecordHistoryOutput {
     this.nextPageToken,
   });
   static ListRecordHistoryOutput fromJson(Map<String, dynamic> json) =>
-      ListRecordHistoryOutput();
+      ListRecordHistoryOutput(
+        recordDetails: json.containsKey('RecordDetails')
+            ? (json['RecordDetails'] as List)
+                .map((e) => RecordDetail.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 /// The search filter to use when listing history records.
@@ -3269,6 +4231,7 @@ class ListRecordHistorySearchFilter {
     this.key,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListResourcesForTagOptionOutput {
@@ -3284,7 +4247,15 @@ class ListResourcesForTagOptionOutput {
     this.pageToken,
   });
   static ListResourcesForTagOptionOutput fromJson(Map<String, dynamic> json) =>
-      ListResourcesForTagOptionOutput();
+      ListResourcesForTagOptionOutput(
+        resourceDetails: json.containsKey('ResourceDetails')
+            ? (json['ResourceDetails'] as List)
+                .map((e) => ResourceDetail.fromJson(e))
+                .toList()
+            : null,
+        pageToken:
+            json.containsKey('PageToken') ? json['PageToken'] as String : null,
+      );
 }
 
 class ListServiceActionsForProvisioningArtifactOutput {
@@ -3302,7 +4273,16 @@ class ListServiceActionsForProvisioningArtifactOutput {
   });
   static ListServiceActionsForProvisioningArtifactOutput fromJson(
           Map<String, dynamic> json) =>
-      ListServiceActionsForProvisioningArtifactOutput();
+      ListServiceActionsForProvisioningArtifactOutput(
+        serviceActionSummaries: json.containsKey('ServiceActionSummaries')
+            ? (json['ServiceActionSummaries'] as List)
+                .map((e) => ServiceActionSummary.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListServiceActionsOutput {
@@ -3319,7 +4299,16 @@ class ListServiceActionsOutput {
     this.nextPageToken,
   });
   static ListServiceActionsOutput fromJson(Map<String, dynamic> json) =>
-      ListServiceActionsOutput();
+      ListServiceActionsOutput(
+        serviceActionSummaries: json.containsKey('ServiceActionSummaries')
+            ? (json['ServiceActionSummaries'] as List)
+                .map((e) => ServiceActionSummary.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class ListStackInstancesForProvisionedProductOutput {
@@ -3336,7 +4325,16 @@ class ListStackInstancesForProvisionedProductOutput {
   });
   static ListStackInstancesForProvisionedProductOutput fromJson(
           Map<String, dynamic> json) =>
-      ListStackInstancesForProvisionedProductOutput();
+      ListStackInstancesForProvisionedProductOutput(
+        stackInstances: json.containsKey('StackInstances')
+            ? (json['StackInstances'] as List)
+                .map((e) => StackInstance.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 /// Filters to use when listing TagOptions.
@@ -3355,6 +4353,7 @@ class ListTagOptionsFilters {
     this.value,
     this.active,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListTagOptionsOutput {
@@ -3370,7 +4369,15 @@ class ListTagOptionsOutput {
     this.pageToken,
   });
   static ListTagOptionsOutput fromJson(Map<String, dynamic> json) =>
-      ListTagOptionsOutput();
+      ListTagOptionsOutput(
+        tagOptionDetails: json.containsKey('TagOptionDetails')
+            ? (json['TagOptionDetails'] as List)
+                .map((e) => TagOptionDetail.fromJson(e))
+                .toList()
+            : null,
+        pageToken:
+            json.containsKey('PageToken') ? json['PageToken'] as String : null,
+      );
 }
 
 /// Information about the organization node.
@@ -3386,7 +4393,11 @@ class OrganizationNode {
     this.value,
   });
   static OrganizationNode fromJson(Map<String, dynamic> json) =>
-      OrganizationNode();
+      OrganizationNode(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The constraints that the administrator has put on the parameter.
@@ -3398,7 +4409,11 @@ class ParameterConstraints {
     this.allowedValues,
   });
   static ParameterConstraints fromJson(Map<String, dynamic> json) =>
-      ParameterConstraints();
+      ParameterConstraints(
+        allowedValues: json.containsKey('AllowedValues')
+            ? (json['AllowedValues'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Information about a portfolio.
@@ -3429,8 +4444,22 @@ class PortfolioDetail {
     this.createdTime,
     this.providerName,
   });
-  static PortfolioDetail fromJson(Map<String, dynamic> json) =>
-      PortfolioDetail();
+  static PortfolioDetail fromJson(Map<String, dynamic> json) => PortfolioDetail(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        providerName: json.containsKey('ProviderName')
+            ? json['ProviderName'] as String
+            : null,
+      );
 }
 
 /// Information about a principal.
@@ -3445,7 +4474,14 @@ class Principal {
     this.principalArn,
     this.principalType,
   });
-  static Principal fromJson(Map<String, dynamic> json) => Principal();
+  static Principal fromJson(Map<String, dynamic> json) => Principal(
+        principalArn: json.containsKey('PrincipalARN')
+            ? json['PrincipalARN'] as String
+            : null,
+        principalType: json.containsKey('PrincipalType')
+            ? json['PrincipalType'] as String
+            : null,
+      );
 }
 
 /// A single product view aggregation value/count pair, containing metadata
@@ -3462,7 +4498,12 @@ class ProductViewAggregationValue {
     this.approximateCount,
   });
   static ProductViewAggregationValue fromJson(Map<String, dynamic> json) =>
-      ProductViewAggregationValue();
+      ProductViewAggregationValue(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        approximateCount: json.containsKey('ApproximateCount')
+            ? json['ApproximateCount'] as int
+            : null,
+      );
 }
 
 /// Information about a product view.
@@ -3493,7 +4534,18 @@ class ProductViewDetail {
     this.createdTime,
   });
   static ProductViewDetail fromJson(Map<String, dynamic> json) =>
-      ProductViewDetail();
+      ProductViewDetail(
+        productViewSummary: json.containsKey('ProductViewSummary')
+            ? ProductViewSummary.fromJson(json['ProductViewSummary'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        productArn: json.containsKey('ProductARN')
+            ? json['ProductARN'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+      );
 }
 
 /// Summary information about a product view.
@@ -3553,7 +4605,32 @@ class ProductViewSummary {
     this.supportUrl,
   });
   static ProductViewSummary fromJson(Map<String, dynamic> json) =>
-      ProductViewSummary();
+      ProductViewSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        productId:
+            json.containsKey('ProductId') ? json['ProductId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        owner: json.containsKey('Owner') ? json['Owner'] as String : null,
+        shortDescription: json.containsKey('ShortDescription')
+            ? json['ShortDescription'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        distributor: json.containsKey('Distributor')
+            ? json['Distributor'] as String
+            : null,
+        hasDefaultPath: json.containsKey('HasDefaultPath')
+            ? json['HasDefaultPath'] as bool
+            : null,
+        supportEmail: json.containsKey('SupportEmail')
+            ? json['SupportEmail'] as String
+            : null,
+        supportDescription: json.containsKey('SupportDescription')
+            ? json['SupportDescription'] as String
+            : null,
+        supportUrl: json.containsKey('SupportUrl')
+            ? json['SupportUrl'] as String
+            : null,
+      );
 }
 
 class ProvisionProductOutput {
@@ -3564,7 +4641,11 @@ class ProvisionProductOutput {
     this.recordDetail,
   });
   static ProvisionProductOutput fromJson(Map<String, dynamic> json) =>
-      ProvisionProductOutput();
+      ProvisionProductOutput(
+        recordDetail: json.containsKey('RecordDetail')
+            ? RecordDetail.fromJson(json['RecordDetail'])
+            : null,
+      );
 }
 
 /// Information about a provisioned product.
@@ -3659,7 +4740,40 @@ class ProvisionedProductAttribute {
     this.userArnSession,
   });
   static ProvisionedProductAttribute fromJson(Map<String, dynamic> json) =>
-      ProvisionedProductAttribute();
+      ProvisionedProductAttribute(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        idempotencyToken: json.containsKey('IdempotencyToken')
+            ? json['IdempotencyToken'] as String
+            : null,
+        lastRecordId: json.containsKey('LastRecordId')
+            ? json['LastRecordId'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        physicalId: json.containsKey('PhysicalId')
+            ? json['PhysicalId'] as String
+            : null,
+        productId:
+            json.containsKey('ProductId') ? json['ProductId'] as String : null,
+        provisioningArtifactId: json.containsKey('ProvisioningArtifactId')
+            ? json['ProvisioningArtifactId'] as String
+            : null,
+        userArn: json.containsKey('UserArn') ? json['UserArn'] as String : null,
+        userArnSession: json.containsKey('UserArnSession')
+            ? json['UserArnSession'] as String
+            : null,
+      );
 }
 
 /// Information about a provisioned product.
@@ -3737,7 +4851,30 @@ class ProvisionedProductDetail {
     this.provisioningArtifactId,
   });
   static ProvisionedProductDetail fromJson(Map<String, dynamic> json) =>
-      ProvisionedProductDetail();
+      ProvisionedProductDetail(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        idempotencyToken: json.containsKey('IdempotencyToken')
+            ? json['IdempotencyToken'] as String
+            : null,
+        lastRecordId: json.containsKey('LastRecordId')
+            ? json['LastRecordId'] as String
+            : null,
+        productId:
+            json.containsKey('ProductId') ? json['ProductId'] as String : null,
+        provisioningArtifactId: json.containsKey('ProvisioningArtifactId')
+            ? json['ProvisioningArtifactId'] as String
+            : null,
+      );
 }
 
 /// Information about a plan.
@@ -3809,7 +4946,48 @@ class ProvisionedProductPlanDetails {
     this.statusMessage,
   });
   static ProvisionedProductPlanDetails fromJson(Map<String, dynamic> json) =>
-      ProvisionedProductPlanDetails();
+      ProvisionedProductPlanDetails(
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        pathId: json.containsKey('PathId') ? json['PathId'] as String : null,
+        productId:
+            json.containsKey('ProductId') ? json['ProductId'] as String : null,
+        planName:
+            json.containsKey('PlanName') ? json['PlanName'] as String : null,
+        planId: json.containsKey('PlanId') ? json['PlanId'] as String : null,
+        provisionProductId: json.containsKey('ProvisionProductId')
+            ? json['ProvisionProductId'] as String
+            : null,
+        provisionProductName: json.containsKey('ProvisionProductName')
+            ? json['ProvisionProductName'] as String
+            : null,
+        planType:
+            json.containsKey('PlanType') ? json['PlanType'] as String : null,
+        provisioningArtifactId: json.containsKey('ProvisioningArtifactId')
+            ? json['ProvisioningArtifactId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        updatedTime: json.containsKey('UpdatedTime')
+            ? DateTime.parse(json['UpdatedTime'])
+            : null,
+        notificationArns: json.containsKey('NotificationArns')
+            ? (json['NotificationArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        provisioningParameters: json.containsKey('ProvisioningParameters')
+            ? (json['ProvisioningParameters'] as List)
+                .map((e) => UpdateProvisioningParameter.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// Summary information about a plan.
@@ -3841,7 +5019,22 @@ class ProvisionedProductPlanSummary {
     this.provisioningArtifactId,
   });
   static ProvisionedProductPlanSummary fromJson(Map<String, dynamic> json) =>
-      ProvisionedProductPlanSummary();
+      ProvisionedProductPlanSummary(
+        planName:
+            json.containsKey('PlanName') ? json['PlanName'] as String : null,
+        planId: json.containsKey('PlanId') ? json['PlanId'] as String : null,
+        provisionProductId: json.containsKey('ProvisionProductId')
+            ? json['ProvisionProductId'] as String
+            : null,
+        provisionProductName: json.containsKey('ProvisionProductName')
+            ? json['ProvisionProductName'] as String
+            : null,
+        planType:
+            json.containsKey('PlanType') ? json['PlanType'] as String : null,
+        provisioningArtifactId: json.containsKey('ProvisioningArtifactId')
+            ? json['ProvisioningArtifactId'] as String
+            : null,
+      );
 }
 
 /// Information about a provisioning artifact. A provisioning artifact is also
@@ -3871,7 +5064,18 @@ class ProvisioningArtifact {
     this.guidance,
   });
   static ProvisioningArtifact fromJson(Map<String, dynamic> json) =>
-      ProvisioningArtifact();
+      ProvisioningArtifact(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        guidance:
+            json.containsKey('Guidance') ? json['Guidance'] as String : null,
+      );
 }
 
 /// Information about a provisioning artifact (also known as a version) for a
@@ -3915,7 +5119,20 @@ class ProvisioningArtifactDetail {
     this.guidance,
   });
   static ProvisioningArtifactDetail fromJson(Map<String, dynamic> json) =>
-      ProvisioningArtifactDetail();
+      ProvisioningArtifactDetail(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        active: json.containsKey('Active') ? json['Active'] as bool : null,
+        guidance:
+            json.containsKey('Guidance') ? json['Guidance'] as String : null,
+      );
 }
 
 /// Information about a parameter used to provision a product.
@@ -3949,7 +5166,25 @@ class ProvisioningArtifactParameter {
     this.parameterConstraints,
   });
   static ProvisioningArtifactParameter fromJson(Map<String, dynamic> json) =>
-      ProvisioningArtifactParameter();
+      ProvisioningArtifactParameter(
+        parameterKey: json.containsKey('ParameterKey')
+            ? json['ParameterKey'] as String
+            : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        parameterType: json.containsKey('ParameterType')
+            ? json['ParameterType'] as String
+            : null,
+        isNoEcho:
+            json.containsKey('IsNoEcho') ? json['IsNoEcho'] as bool : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        parameterConstraints: json.containsKey('ParameterConstraints')
+            ? ParameterConstraints.fromJson(json['ParameterConstraints'])
+            : null,
+      );
 }
 
 /// The user-defined preferences that will be applied during product
@@ -3982,7 +5217,16 @@ class ProvisioningArtifactPreferences {
     this.stackSetRegions,
   });
   static ProvisioningArtifactPreferences fromJson(Map<String, dynamic> json) =>
-      ProvisioningArtifactPreferences();
+      ProvisioningArtifactPreferences(
+        stackSetAccounts: json.containsKey('StackSetAccounts')
+            ? (json['StackSetAccounts'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        stackSetRegions: json.containsKey('StackSetRegions')
+            ? (json['StackSetRegions'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Information about a provisioning artifact (also known as a version) for a
@@ -4023,6 +5267,7 @@ class ProvisioningArtifactProperties {
     this.type,
     this.disableTemplateValidation,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Summary information about a provisioning artifact (also known as a version)
@@ -4052,7 +5297,21 @@ class ProvisioningArtifactSummary {
     this.provisioningArtifactMetadata,
   });
   static ProvisioningArtifactSummary fromJson(Map<String, dynamic> json) =>
-      ProvisioningArtifactSummary();
+      ProvisioningArtifactSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        provisioningArtifactMetadata:
+            json.containsKey('ProvisioningArtifactMetadata')
+                ? (json['ProvisioningArtifactMetadata'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as String))
+                : null,
+      );
 }
 
 /// An object that contains summary information about a product view and a
@@ -4070,7 +5329,14 @@ class ProvisioningArtifactView {
     this.provisioningArtifact,
   });
   static ProvisioningArtifactView fromJson(Map<String, dynamic> json) =>
-      ProvisioningArtifactView();
+      ProvisioningArtifactView(
+        productViewSummary: json.containsKey('ProductViewSummary')
+            ? ProductViewSummary.fromJson(json['ProductViewSummary'])
+            : null,
+        provisioningArtifact: json.containsKey('ProvisioningArtifact')
+            ? ProvisioningArtifact.fromJson(json['ProvisioningArtifact'])
+            : null,
+      );
 }
 
 /// Information about a parameter used to provision a product.
@@ -4085,6 +5351,7 @@ class ProvisioningParameter {
     this.key,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The user-defined preferences that will be applied when updating a
@@ -4183,6 +5450,7 @@ class ProvisioningPreferences {
     this.stackSetMaxConcurrencyCount,
     this.stackSetMaxConcurrencyPercentage,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a request operation.
@@ -4262,7 +5530,45 @@ class RecordDetail {
     this.recordErrors,
     this.recordTags,
   });
-  static RecordDetail fromJson(Map<String, dynamic> json) => RecordDetail();
+  static RecordDetail fromJson(Map<String, dynamic> json) => RecordDetail(
+        recordId:
+            json.containsKey('RecordId') ? json['RecordId'] as String : null,
+        provisionedProductName: json.containsKey('ProvisionedProductName')
+            ? json['ProvisionedProductName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        updatedTime: json.containsKey('UpdatedTime')
+            ? DateTime.parse(json['UpdatedTime'])
+            : null,
+        provisionedProductType: json.containsKey('ProvisionedProductType')
+            ? json['ProvisionedProductType'] as String
+            : null,
+        recordType: json.containsKey('RecordType')
+            ? json['RecordType'] as String
+            : null,
+        provisionedProductId: json.containsKey('ProvisionedProductId')
+            ? json['ProvisionedProductId'] as String
+            : null,
+        productId:
+            json.containsKey('ProductId') ? json['ProductId'] as String : null,
+        provisioningArtifactId: json.containsKey('ProvisioningArtifactId')
+            ? json['ProvisioningArtifactId'] as String
+            : null,
+        pathId: json.containsKey('PathId') ? json['PathId'] as String : null,
+        recordErrors: json.containsKey('RecordErrors')
+            ? (json['RecordErrors'] as List)
+                .map((e) => RecordError.fromJson(e))
+                .toList()
+            : null,
+        recordTags: json.containsKey('RecordTags')
+            ? (json['RecordTags'] as List)
+                .map((e) => RecordTag.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The error code and description resulting from an operation.
@@ -4277,7 +5583,12 @@ class RecordError {
     this.code,
     this.description,
   });
-  static RecordError fromJson(Map<String, dynamic> json) => RecordError();
+  static RecordError fromJson(Map<String, dynamic> json) => RecordError(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// The output for the product created as the result of a request. For example,
@@ -4298,7 +5609,16 @@ class RecordOutput {
     this.outputValue,
     this.description,
   });
-  static RecordOutput fromJson(Map<String, dynamic> json) => RecordOutput();
+  static RecordOutput fromJson(Map<String, dynamic> json) => RecordOutput(
+        outputKey:
+            json.containsKey('OutputKey') ? json['OutputKey'] as String : null,
+        outputValue: json.containsKey('OutputValue')
+            ? json['OutputValue'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Information about a tag, which is a key-value pair.
@@ -4313,7 +5633,10 @@ class RecordTag {
     this.key,
     this.value,
   });
-  static RecordTag fromJson(Map<String, dynamic> json) => RecordTag();
+  static RecordTag fromJson(Map<String, dynamic> json) => RecordTag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 class RejectPortfolioShareOutput {
@@ -4355,7 +5678,29 @@ class ResourceChange {
     this.scope,
     this.details,
   });
-  static ResourceChange fromJson(Map<String, dynamic> json) => ResourceChange();
+  static ResourceChange fromJson(Map<String, dynamic> json) => ResourceChange(
+        action: json.containsKey('Action') ? json['Action'] as String : null,
+        logicalResourceId: json.containsKey('LogicalResourceId')
+            ? json['LogicalResourceId'] as String
+            : null,
+        physicalResourceId: json.containsKey('PhysicalResourceId')
+            ? json['PhysicalResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        replacement: json.containsKey('Replacement')
+            ? json['Replacement'] as String
+            : null,
+        scope: json.containsKey('Scope')
+            ? (json['Scope'] as List).map((e) => e as String).toList()
+            : null,
+        details: json.containsKey('Details')
+            ? (json['Details'] as List)
+                .map((e) => ResourceChangeDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a change to a resource attribute.
@@ -4377,7 +5722,17 @@ class ResourceChangeDetail {
     this.causingEntity,
   });
   static ResourceChangeDetail fromJson(Map<String, dynamic> json) =>
-      ResourceChangeDetail();
+      ResourceChangeDetail(
+        target: json.containsKey('Target')
+            ? ResourceTargetDefinition.fromJson(json['Target'])
+            : null,
+        evaluation: json.containsKey('Evaluation')
+            ? json['Evaluation'] as String
+            : null,
+        causingEntity: json.containsKey('CausingEntity')
+            ? json['CausingEntity'] as String
+            : null,
+      );
 }
 
 /// Information about a resource.
@@ -4404,7 +5759,17 @@ class ResourceDetail {
     this.description,
     this.createdTime,
   });
-  static ResourceDetail fromJson(Map<String, dynamic> json) => ResourceDetail();
+  static ResourceDetail fromJson(Map<String, dynamic> json) => ResourceDetail(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+      );
 }
 
 /// Information about a change to a resource attribute.
@@ -4426,7 +5791,14 @@ class ResourceTargetDefinition {
     this.requiresRecreation,
   });
   static ResourceTargetDefinition fromJson(Map<String, dynamic> json) =>
-      ResourceTargetDefinition();
+      ResourceTargetDefinition(
+        attribute:
+            json.containsKey('Attribute') ? json['Attribute'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        requiresRecreation: json.containsKey('RequiresRecreation')
+            ? json['RequiresRecreation'] as String
+            : null,
+      );
 }
 
 class ScanProvisionedProductsOutput {
@@ -4442,7 +5814,16 @@ class ScanProvisionedProductsOutput {
     this.nextPageToken,
   });
   static ScanProvisionedProductsOutput fromJson(Map<String, dynamic> json) =>
-      ScanProvisionedProductsOutput();
+      ScanProvisionedProductsOutput(
+        provisionedProducts: json.containsKey('ProvisionedProducts')
+            ? (json['ProvisionedProducts'] as List)
+                .map((e) => ProvisionedProductDetail.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class SearchProductsAsAdminOutput {
@@ -4458,7 +5839,16 @@ class SearchProductsAsAdminOutput {
     this.nextPageToken,
   });
   static SearchProductsAsAdminOutput fromJson(Map<String, dynamic> json) =>
-      SearchProductsAsAdminOutput();
+      SearchProductsAsAdminOutput(
+        productViewDetails: json.containsKey('ProductViewDetails')
+            ? (json['ProductViewDetails'] as List)
+                .map((e) => ProductViewDetail.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class SearchProductsOutput {
@@ -4478,7 +5868,23 @@ class SearchProductsOutput {
     this.nextPageToken,
   });
   static SearchProductsOutput fromJson(Map<String, dynamic> json) =>
-      SearchProductsOutput();
+      SearchProductsOutput(
+        productViewSummaries: json.containsKey('ProductViewSummaries')
+            ? (json['ProductViewSummaries'] as List)
+                .map((e) => ProductViewSummary.fromJson(e))
+                .toList()
+            : null,
+        productViewAggregations: json.containsKey('ProductViewAggregations')
+            ? (json['ProductViewAggregations'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as List)
+                    .map((e) => ProductViewAggregationValue.fromJson(e))
+                    .toList()))
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 class SearchProvisionedProductsOutput {
@@ -4498,7 +5904,19 @@ class SearchProvisionedProductsOutput {
     this.nextPageToken,
   });
   static SearchProvisionedProductsOutput fromJson(Map<String, dynamic> json) =>
-      SearchProvisionedProductsOutput();
+      SearchProvisionedProductsOutput(
+        provisionedProducts: json.containsKey('ProvisionedProducts')
+            ? (json['ProvisionedProducts'] as List)
+                .map((e) => ProvisionedProductAttribute.fromJson(e))
+                .toList()
+            : null,
+        totalResultsCount: json.containsKey('TotalResultsCount')
+            ? json['TotalResultsCount'] as int
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 /// A self-service action association consisting of the Action ID, the Product
@@ -4519,6 +5937,7 @@ class ServiceActionAssociation {
     @required this.productId,
     @required this.provisioningArtifactId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object containing detailed information about the self-service action.
@@ -4534,7 +5953,15 @@ class ServiceActionDetail {
     this.definition,
   });
   static ServiceActionDetail fromJson(Map<String, dynamic> json) =>
-      ServiceActionDetail();
+      ServiceActionDetail(
+        serviceActionSummary: json.containsKey('ServiceActionSummary')
+            ? ServiceActionSummary.fromJson(json['ServiceActionSummary'])
+            : null,
+        definition: json.containsKey('Definition')
+            ? (json['Definition'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Detailed information about the self-service action.
@@ -4558,7 +5985,16 @@ class ServiceActionSummary {
     this.definitionType,
   });
   static ServiceActionSummary fromJson(Map<String, dynamic> json) =>
-      ServiceActionSummary();
+      ServiceActionSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        definitionType: json.containsKey('DefinitionType')
+            ? json['DefinitionType'] as String
+            : null,
+      );
 }
 
 /// Information about the portfolio share operation.
@@ -4573,7 +6009,18 @@ class ShareDetails {
     this.successfulShares,
     this.shareErrors,
   });
-  static ShareDetails fromJson(Map<String, dynamic> json) => ShareDetails();
+  static ShareDetails fromJson(Map<String, dynamic> json) => ShareDetails(
+        successfulShares: json.containsKey('SuccessfulShares')
+            ? (json['SuccessfulShares'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        shareErrors: json.containsKey('ShareErrors')
+            ? (json['ShareErrors'] as List)
+                .map((e) => ShareError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Errors that occurred during the portfolio share operation.
@@ -4592,7 +6039,13 @@ class ShareError {
     this.message,
     this.error,
   });
-  static ShareError fromJson(Map<String, dynamic> json) => ShareError();
+  static ShareError fromJson(Map<String, dynamic> json) => ShareError(
+        accounts: json.containsKey('Accounts')
+            ? (json['Accounts'] as List).map((e) => e as String).toList()
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        error: json.containsKey('Error') ? json['Error'] as String : null,
+      );
 }
 
 /// An AWS CloudFormation stack, in a specific account and region, that's part
@@ -4632,7 +6085,13 @@ class StackInstance {
     this.region,
     this.stackInstanceStatus,
   });
-  static StackInstance fromJson(Map<String, dynamic> json) => StackInstance();
+  static StackInstance fromJson(Map<String, dynamic> json) => StackInstance(
+        account: json.containsKey('Account') ? json['Account'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        stackInstanceStatus: json.containsKey('StackInstanceStatus')
+            ? json['StackInstanceStatus'] as String
+            : null,
+      );
 }
 
 /// Information about a tag. A tag is a key-value pair. Tags are propagated to
@@ -4648,7 +6107,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a TagOption.
@@ -4671,8 +6134,12 @@ class TagOptionDetail {
     this.active,
     this.id,
   });
-  static TagOptionDetail fromJson(Map<String, dynamic> json) =>
-      TagOptionDetail();
+  static TagOptionDetail fromJson(Map<String, dynamic> json) => TagOptionDetail(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        active: json.containsKey('Active') ? json['Active'] as bool : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+      );
 }
 
 /// Summary information about a TagOption.
@@ -4688,7 +6155,12 @@ class TagOptionSummary {
     this.values,
   });
   static TagOptionSummary fromJson(Map<String, dynamic> json) =>
-      TagOptionSummary();
+      TagOptionSummary(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class TerminateProvisionedProductOutput {
@@ -4700,7 +6172,11 @@ class TerminateProvisionedProductOutput {
   });
   static TerminateProvisionedProductOutput fromJson(
           Map<String, dynamic> json) =>
-      TerminateProvisionedProductOutput();
+      TerminateProvisionedProductOutput(
+        recordDetail: json.containsKey('RecordDetail')
+            ? RecordDetail.fromJson(json['RecordDetail'])
+            : null,
+      );
 }
 
 class UpdateConstraintOutput {
@@ -4719,7 +6195,15 @@ class UpdateConstraintOutput {
     this.status,
   });
   static UpdateConstraintOutput fromJson(Map<String, dynamic> json) =>
-      UpdateConstraintOutput();
+      UpdateConstraintOutput(
+        constraintDetail: json.containsKey('ConstraintDetail')
+            ? ConstraintDetail.fromJson(json['ConstraintDetail'])
+            : null,
+        constraintParameters: json.containsKey('ConstraintParameters')
+            ? json['ConstraintParameters'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class UpdatePortfolioOutput {
@@ -4734,7 +6218,14 @@ class UpdatePortfolioOutput {
     this.tags,
   });
   static UpdatePortfolioOutput fromJson(Map<String, dynamic> json) =>
-      UpdatePortfolioOutput();
+      UpdatePortfolioOutput(
+        portfolioDetail: json.containsKey('PortfolioDetail')
+            ? PortfolioDetail.fromJson(json['PortfolioDetail'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class UpdateProductOutput {
@@ -4749,7 +6240,14 @@ class UpdateProductOutput {
     this.tags,
   });
   static UpdateProductOutput fromJson(Map<String, dynamic> json) =>
-      UpdateProductOutput();
+      UpdateProductOutput(
+        productViewDetail: json.containsKey('ProductViewDetail')
+            ? ProductViewDetail.fromJson(json['ProductViewDetail'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class UpdateProvisionedProductOutput {
@@ -4760,7 +6258,11 @@ class UpdateProvisionedProductOutput {
     this.recordDetail,
   });
   static UpdateProvisionedProductOutput fromJson(Map<String, dynamic> json) =>
-      UpdateProvisionedProductOutput();
+      UpdateProvisionedProductOutput(
+        recordDetail: json.containsKey('RecordDetail')
+            ? RecordDetail.fromJson(json['RecordDetail'])
+            : null,
+      );
 }
 
 class UpdateProvisionedProductPropertiesOutput {
@@ -4784,7 +6286,19 @@ class UpdateProvisionedProductPropertiesOutput {
   });
   static UpdateProvisionedProductPropertiesOutput fromJson(
           Map<String, dynamic> json) =>
-      UpdateProvisionedProductPropertiesOutput();
+      UpdateProvisionedProductPropertiesOutput(
+        provisionedProductId: json.containsKey('ProvisionedProductId')
+            ? json['ProvisionedProductId'] as String
+            : null,
+        provisionedProductProperties:
+            json.containsKey('ProvisionedProductProperties')
+                ? (json['ProvisionedProductProperties'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as String))
+                : null,
+        recordId:
+            json.containsKey('RecordId') ? json['RecordId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class UpdateProvisioningArtifactOutput {
@@ -4803,7 +6317,18 @@ class UpdateProvisioningArtifactOutput {
     this.status,
   });
   static UpdateProvisioningArtifactOutput fromJson(Map<String, dynamic> json) =>
-      UpdateProvisioningArtifactOutput();
+      UpdateProvisioningArtifactOutput(
+        provisioningArtifactDetail:
+            json.containsKey('ProvisioningArtifactDetail')
+                ? ProvisioningArtifactDetail.fromJson(
+                    json['ProvisioningArtifactDetail'])
+                : null,
+        info: json.containsKey('Info')
+            ? (json['Info'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// The parameter key-value pair used to update a provisioned product.
@@ -4824,7 +6349,14 @@ class UpdateProvisioningParameter {
     this.usePreviousValue,
   });
   static UpdateProvisioningParameter fromJson(Map<String, dynamic> json) =>
-      UpdateProvisioningParameter();
+      UpdateProvisioningParameter(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        usePreviousValue: json.containsKey('UsePreviousValue')
+            ? json['UsePreviousValue'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The user-defined preferences that will be applied when updating a
@@ -4948,6 +6480,7 @@ class UpdateProvisioningPreferences {
     this.stackSetMaxConcurrencyPercentage,
     this.stackSetOperationType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateServiceActionOutput {
@@ -4958,7 +6491,11 @@ class UpdateServiceActionOutput {
     this.serviceActionDetail,
   });
   static UpdateServiceActionOutput fromJson(Map<String, dynamic> json) =>
-      UpdateServiceActionOutput();
+      UpdateServiceActionOutput(
+        serviceActionDetail: json.containsKey('ServiceActionDetail')
+            ? ServiceActionDetail.fromJson(json['ServiceActionDetail'])
+            : null,
+      );
 }
 
 class UpdateTagOptionOutput {
@@ -4969,7 +6506,11 @@ class UpdateTagOptionOutput {
     this.tagOptionDetail,
   });
   static UpdateTagOptionOutput fromJson(Map<String, dynamic> json) =>
-      UpdateTagOptionOutput();
+      UpdateTagOptionOutput(
+        tagOptionDetail: json.containsKey('TagOptionDetail')
+            ? TagOptionDetail.fromJson(json['TagOptionDetail'])
+            : null,
+      );
 }
 
 /// Additional information provided by the administrator.
@@ -4985,5 +6526,8 @@ class UsageInstruction {
     this.value,
   });
   static UsageInstruction fromJson(Map<String, dynamic> json) =>
-      UsageInstruction();
+      UsageInstruction(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }

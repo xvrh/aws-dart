@@ -4,6 +4,11 @@ import 'package:meta/meta.dart';
 ///
 /// The AWS Elastic Transcoder Service.
 class ElasticTranscoderApi {
+  final _client;
+  ElasticTranscoderApi(client)
+      : _client =
+            client.configured('Elastic Transcoder', serializer: 'rest-json');
+
   /// The CancelJob operation cancels an unfinished job.
   ///
   ///
@@ -17,7 +22,10 @@ class ElasticTranscoderApi {
   /// To get a list of the jobs (including their `jobId`) that have a status of
   /// `Submitted`, use the ListJobsByStatus API action.
   Future<CancelJobResponse> cancelJob(String id) async {
-    return CancelJobResponse.fromJson({});
+    var response_ = await _client.send('CancelJob', {
+      'Id': id,
+    });
+    return CancelJobResponse.fromJson(response_);
   }
 
   /// When you create a job, Elastic Transcoder returns JSON data that includes
@@ -73,7 +81,17 @@ class ElasticTranscoderApi {
       String outputKeyPrefix,
       List<CreateJobPlaylist> playlists,
       Map<String, String> userMetadata}) async {
-    return CreateJobResponse.fromJson({});
+    var response_ = await _client.send('CreateJob', {
+      'PipelineId': pipelineId,
+      if (input != null) 'Input': input,
+      if (inputs != null) 'Inputs': inputs,
+      if (output != null) 'Output': output,
+      if (outputs != null) 'Outputs': outputs,
+      if (outputKeyPrefix != null) 'OutputKeyPrefix': outputKeyPrefix,
+      if (playlists != null) 'Playlists': playlists,
+      if (userMetadata != null) 'UserMetadata': userMetadata,
+    });
+    return CreateJobResponse.fromJson(response_);
   }
 
   /// The CreatePipeline operation creates a pipeline with settings that you
@@ -298,7 +316,17 @@ class ElasticTranscoderApi {
       Notifications notifications,
       PipelineOutputConfig contentConfig,
       PipelineOutputConfig thumbnailConfig}) async {
-    return CreatePipelineResponse.fromJson({});
+    var response_ = await _client.send('CreatePipeline', {
+      'Name': name,
+      'InputBucket': inputBucket,
+      if (outputBucket != null) 'OutputBucket': outputBucket,
+      'Role': role,
+      if (awsKmsKeyArn != null) 'AwsKmsKeyArn': awsKmsKeyArn,
+      if (notifications != null) 'Notifications': notifications,
+      if (contentConfig != null) 'ContentConfig': contentConfig,
+      if (thumbnailConfig != null) 'ThumbnailConfig': thumbnailConfig,
+    });
+    return CreatePipelineResponse.fromJson(response_);
   }
 
   /// The CreatePreset operation creates a preset with settings that you
@@ -344,7 +372,15 @@ class ElasticTranscoderApi {
       VideoParameters video,
       AudioParameters audio,
       Thumbnails thumbnails}) async {
-    return CreatePresetResponse.fromJson({});
+    var response_ = await _client.send('CreatePreset', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'Container': container,
+      if (video != null) 'Video': video,
+      if (audio != null) 'Audio': audio,
+      if (thumbnails != null) 'Thumbnails': thumbnails,
+    });
+    return CreatePresetResponse.fromJson(response_);
   }
 
   /// The DeletePipeline operation removes a pipeline.
@@ -355,7 +391,10 @@ class ElasticTranscoderApi {
   ///
   /// [id]: The identifier of the pipeline that you want to delete.
   Future<DeletePipelineResponse> deletePipeline(String id) async {
-    return DeletePipelineResponse.fromJson({});
+    var response_ = await _client.send('DeletePipeline', {
+      'Id': id,
+    });
+    return DeletePipelineResponse.fromJson(response_);
   }
 
   /// The DeletePreset operation removes a preset that you've added in an AWS
@@ -369,7 +408,10 @@ class ElasticTranscoderApi {
   /// [id]: The identifier of the preset for which you want to get detailed
   /// information.
   Future<DeletePresetResponse> deletePreset(String id) async {
-    return DeletePresetResponse.fromJson({});
+    var response_ = await _client.send('DeletePreset', {
+      'Id': id,
+    });
+    return DeletePresetResponse.fromJson(response_);
   }
 
   /// The ListJobsByPipeline operation gets a list of the jobs currently in a
@@ -391,7 +433,12 @@ class ElasticTranscoderApi {
   /// successive page of results.
   Future<ListJobsByPipelineResponse> listJobsByPipeline(String pipelineId,
       {String ascending, String pageToken}) async {
-    return ListJobsByPipelineResponse.fromJson({});
+    var response_ = await _client.send('ListJobsByPipeline', {
+      'PipelineId': pipelineId,
+      if (ascending != null) 'Ascending': ascending,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListJobsByPipelineResponse.fromJson(response_);
   }
 
   /// The ListJobsByStatus operation gets a list of jobs that have a specified
@@ -411,7 +458,12 @@ class ElasticTranscoderApi {
   /// successive page of results.
   Future<ListJobsByStatusResponse> listJobsByStatus(String status,
       {String ascending, String pageToken}) async {
-    return ListJobsByStatusResponse.fromJson({});
+    var response_ = await _client.send('ListJobsByStatus', {
+      'Status': status,
+      if (ascending != null) 'Ascending': ascending,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListJobsByStatusResponse.fromJson(response_);
   }
 
   /// The ListPipelines operation gets a list of the pipelines associated with
@@ -426,7 +478,11 @@ class ElasticTranscoderApi {
   /// successive page of results.
   Future<ListPipelinesResponse> listPipelines(
       {String ascending, String pageToken}) async {
-    return ListPipelinesResponse.fromJson({});
+    var response_ = await _client.send('ListPipelines', {
+      if (ascending != null) 'Ascending': ascending,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListPipelinesResponse.fromJson(response_);
   }
 
   /// The ListPresets operation gets a list of the default presets included with
@@ -441,7 +497,11 @@ class ElasticTranscoderApi {
   /// successive page of results.
   Future<ListPresetsResponse> listPresets(
       {String ascending, String pageToken}) async {
-    return ListPresetsResponse.fromJson({});
+    var response_ = await _client.send('ListPresets', {
+      if (ascending != null) 'Ascending': ascending,
+      if (pageToken != null) 'PageToken': pageToken,
+    });
+    return ListPresetsResponse.fromJson(response_);
   }
 
   /// The ReadJob operation returns detailed information about a job.
@@ -449,14 +509,20 @@ class ElasticTranscoderApi {
   /// [id]: The identifier of the job for which you want to get detailed
   /// information.
   Future<ReadJobResponse> readJob(String id) async {
-    return ReadJobResponse.fromJson({});
+    var response_ = await _client.send('ReadJob', {
+      'Id': id,
+    });
+    return ReadJobResponse.fromJson(response_);
   }
 
   /// The ReadPipeline operation gets detailed information about a pipeline.
   ///
   /// [id]: The identifier of the pipeline to read.
   Future<ReadPipelineResponse> readPipeline(String id) async {
-    return ReadPipelineResponse.fromJson({});
+    var response_ = await _client.send('ReadPipeline', {
+      'Id': id,
+    });
+    return ReadPipelineResponse.fromJson(response_);
   }
 
   /// The ReadPreset operation gets detailed information about a preset.
@@ -464,7 +530,10 @@ class ElasticTranscoderApi {
   /// [id]: The identifier of the preset for which you want to get detailed
   /// information.
   Future<ReadPresetResponse> readPreset(String id) async {
-    return ReadPresetResponse.fromJson({});
+    var response_ = await _client.send('ReadPreset', {
+      'Id': id,
+    });
+    return ReadPresetResponse.fromJson(response_);
   }
 
   /// The TestRole operation tests the IAM role used to create the pipeline.
@@ -493,7 +562,13 @@ class ElasticTranscoderApi {
       @required String inputBucket,
       @required String outputBucket,
       @required List<String> topics}) async {
-    return TestRoleResponse.fromJson({});
+    var response_ = await _client.send('TestRole', {
+      'Role': role,
+      'InputBucket': inputBucket,
+      'OutputBucket': outputBucket,
+      'Topics': topics,
+    });
+    return TestRoleResponse.fromJson(response_);
   }
 
   ///  Use the `UpdatePipeline` operation to update settings for a pipeline.
@@ -694,7 +769,17 @@ class ElasticTranscoderApi {
       Notifications notifications,
       PipelineOutputConfig contentConfig,
       PipelineOutputConfig thumbnailConfig}) async {
-    return UpdatePipelineResponse.fromJson({});
+    var response_ = await _client.send('UpdatePipeline', {
+      'Id': id,
+      if (name != null) 'Name': name,
+      if (inputBucket != null) 'InputBucket': inputBucket,
+      if (role != null) 'Role': role,
+      if (awsKmsKeyArn != null) 'AwsKmsKeyArn': awsKmsKeyArn,
+      if (notifications != null) 'Notifications': notifications,
+      if (contentConfig != null) 'ContentConfig': contentConfig,
+      if (thumbnailConfig != null) 'ThumbnailConfig': thumbnailConfig,
+    });
+    return UpdatePipelineResponse.fromJson(response_);
   }
 
   /// With the UpdatePipelineNotifications operation, you can update Amazon
@@ -730,7 +815,11 @@ class ElasticTranscoderApi {
   /// ARN that Amazon SNS returned when you created the topic.
   Future<UpdatePipelineNotificationsResponse> updatePipelineNotifications(
       {@required String id, @required Notifications notifications}) async {
-    return UpdatePipelineNotificationsResponse.fromJson({});
+    var response_ = await _client.send('UpdatePipelineNotifications', {
+      'Id': id,
+      'Notifications': notifications,
+    });
+    return UpdatePipelineNotificationsResponse.fromJson(response_);
   }
 
   /// The UpdatePipelineStatus operation pauses or reactivates a pipeline, so
@@ -751,7 +840,11 @@ class ElasticTranscoderApi {
   /// *    `Paused`: The pipeline is not currently processing jobs.
   Future<UpdatePipelineStatusResponse> updatePipelineStatus(
       {@required String id, @required String status}) async {
-    return UpdatePipelineStatusResponse.fromJson({});
+    var response_ = await _client.send('UpdatePipelineStatus', {
+      'Id': id,
+      'Status': status,
+    });
+    return UpdatePipelineStatusResponse.fromJson(response_);
   }
 }
 
@@ -839,7 +932,27 @@ class Artwork {
     this.albumArtFormat,
     this.encryption,
   });
-  static Artwork fromJson(Map<String, dynamic> json) => Artwork();
+  static Artwork fromJson(Map<String, dynamic> json) => Artwork(
+        inputKey:
+            json.containsKey('InputKey') ? json['InputKey'] as String : null,
+        maxWidth:
+            json.containsKey('MaxWidth') ? json['MaxWidth'] as String : null,
+        maxHeight:
+            json.containsKey('MaxHeight') ? json['MaxHeight'] as String : null,
+        sizingPolicy: json.containsKey('SizingPolicy')
+            ? json['SizingPolicy'] as String
+            : null,
+        paddingPolicy: json.containsKey('PaddingPolicy')
+            ? json['PaddingPolicy'] as String
+            : null,
+        albumArtFormat: json.containsKey('AlbumArtFormat')
+            ? json['AlbumArtFormat'] as String
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? Encryption.fromJson(json['Encryption'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Options associated with your audio codec.
@@ -908,7 +1021,15 @@ class AudioCodecOptions {
     this.signed,
   });
   static AudioCodecOptions fromJson(Map<String, dynamic> json) =>
-      AudioCodecOptions();
+      AudioCodecOptions(
+        profile: json.containsKey('Profile') ? json['Profile'] as String : null,
+        bitDepth:
+            json.containsKey('BitDepth') ? json['BitDepth'] as String : null,
+        bitOrder:
+            json.containsKey('BitOrder') ? json['BitOrder'] as String : null,
+        signed: json.containsKey('Signed') ? json['Signed'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Parameters required for transcoding audio.
@@ -1094,8 +1215,22 @@ class AudioParameters {
     this.audioPackingMode,
     this.codecOptions,
   });
-  static AudioParameters fromJson(Map<String, dynamic> json) =>
-      AudioParameters();
+  static AudioParameters fromJson(Map<String, dynamic> json) => AudioParameters(
+        codec: json.containsKey('Codec') ? json['Codec'] as String : null,
+        sampleRate: json.containsKey('SampleRate')
+            ? json['SampleRate'] as String
+            : null,
+        bitRate: json.containsKey('BitRate') ? json['BitRate'] as String : null,
+        channels:
+            json.containsKey('Channels') ? json['Channels'] as String : null,
+        audioPackingMode: json.containsKey('AudioPackingMode')
+            ? json['AudioPackingMode'] as String
+            : null,
+        codecOptions: json.containsKey('CodecOptions')
+            ? AudioCodecOptions.fromJson(json['CodecOptions'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The response body contains a JSON object. If the job is successfully
@@ -1168,7 +1303,14 @@ class CaptionFormat {
     this.pattern,
     this.encryption,
   });
-  static CaptionFormat fromJson(Map<String, dynamic> json) => CaptionFormat();
+  static CaptionFormat fromJson(Map<String, dynamic> json) => CaptionFormat(
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        pattern: json.containsKey('Pattern') ? json['Pattern'] as String : null,
+        encryption: json.containsKey('Encryption')
+            ? Encryption.fromJson(json['Encryption'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A source file for the input sidecar captions used during the transcoding
@@ -1215,7 +1357,19 @@ class CaptionSource {
     this.label,
     this.encryption,
   });
-  static CaptionSource fromJson(Map<String, dynamic> json) => CaptionSource();
+  static CaptionSource fromJson(Map<String, dynamic> json) => CaptionSource(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        language:
+            json.containsKey('Language') ? json['Language'] as String : null,
+        timeOffset: json.containsKey('TimeOffset')
+            ? json['TimeOffset'] as String
+            : null,
+        label: json.containsKey('Label') ? json['Label'] as String : null,
+        encryption: json.containsKey('Encryption')
+            ? Encryption.fromJson(json['Encryption'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The captions to be created, if any.
@@ -1255,7 +1409,22 @@ class Captions {
     this.captionSources,
     this.captionFormats,
   });
-  static Captions fromJson(Map<String, dynamic> json) => Captions();
+  static Captions fromJson(Map<String, dynamic> json) => Captions(
+        mergePolicy: json.containsKey('MergePolicy')
+            ? json['MergePolicy'] as String
+            : null,
+        captionSources: json.containsKey('CaptionSources')
+            ? (json['CaptionSources'] as List)
+                .map((e) => CaptionSource.fromJson(e))
+                .toList()
+            : null,
+        captionFormats: json.containsKey('CaptionFormats')
+            ? (json['CaptionFormats'] as List)
+                .map((e) => CaptionFormat.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for one clip in a composition. All jobs in a playlist must have the
@@ -1267,7 +1436,12 @@ class Clip {
   Clip({
     this.timeSpan,
   });
-  static Clip fromJson(Map<String, dynamic> json) => Clip();
+  static Clip fromJson(Map<String, dynamic> json) => Clip(
+        timeSpan: json.containsKey('TimeSpan')
+            ? TimeSpan.fromJson(json['TimeSpan'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The `CreateJobOutput` structure.
@@ -1435,6 +1609,7 @@ class CreateJobOutput {
     this.captions,
     this.encryption,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the master playlist.
@@ -1512,6 +1687,7 @@ class CreateJobPlaylist {
     this.hlsContentProtection,
     this.playReadyDrm,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The CreateJobResponse structure.
@@ -1524,7 +1700,9 @@ class CreateJobResponse {
     this.job,
   });
   static CreateJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateJobResponse();
+      CreateJobResponse(
+        job: json.containsKey('Job') ? Job.fromJson(json['Job']) : null,
+      );
 }
 
 /// When you create a pipeline, Elastic Transcoder returns the values that you
@@ -1547,7 +1725,16 @@ class CreatePipelineResponse {
     this.warnings,
   });
   static CreatePipelineResponse fromJson(Map<String, dynamic> json) =>
-      CreatePipelineResponse();
+      CreatePipelineResponse(
+        pipeline: json.containsKey('Pipeline')
+            ? Pipeline.fromJson(json['Pipeline'])
+            : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List)
+                .map((e) => Warning.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The `CreatePresetResponse` structure.
@@ -1567,7 +1754,11 @@ class CreatePresetResponse {
     this.warning,
   });
   static CreatePresetResponse fromJson(Map<String, dynamic> json) =>
-      CreatePresetResponse();
+      CreatePresetResponse(
+        preset:
+            json.containsKey('Preset') ? Preset.fromJson(json['Preset']) : null,
+        warning: json.containsKey('Warning') ? json['Warning'] as String : null,
+      );
 }
 
 /// The `DeletePipelineResponse` structure.
@@ -1610,7 +1801,18 @@ class DetectedProperties {
     this.durationMillis,
   });
   static DetectedProperties fromJson(Map<String, dynamic> json) =>
-      DetectedProperties();
+      DetectedProperties(
+        width: json.containsKey('Width') ? json['Width'] as int : null,
+        height: json.containsKey('Height') ? json['Height'] as int : null,
+        frameRate:
+            json.containsKey('FrameRate') ? json['FrameRate'] as String : null,
+        fileSize:
+            json.containsKey('FileSize') ? BigInt.from(json['FileSize']) : null,
+        durationMillis: json.containsKey('DurationMillis')
+            ? BigInt.from(json['DurationMillis'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The encryption settings, if any, that are used for decrypting your input
@@ -1690,7 +1892,15 @@ class Encryption {
     this.keyMd5,
     this.initializationVector,
   });
-  static Encryption fromJson(Map<String, dynamic> json) => Encryption();
+  static Encryption fromJson(Map<String, dynamic> json) => Encryption(
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        keyMd5: json.containsKey('KeyMd5') ? json['KeyMd5'] as String : null,
+        initializationVector: json.containsKey('InitializationVector')
+            ? json['InitializationVector'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The HLS content protection settings, if any, that you want Elastic
@@ -1753,7 +1963,21 @@ class HlsContentProtection {
     this.keyStoragePolicy,
   });
   static HlsContentProtection fromJson(Map<String, dynamic> json) =>
-      HlsContentProtection();
+      HlsContentProtection(
+        method: json.containsKey('Method') ? json['Method'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        keyMd5: json.containsKey('KeyMd5') ? json['KeyMd5'] as String : null,
+        initializationVector: json.containsKey('InitializationVector')
+            ? json['InitializationVector'] as String
+            : null,
+        licenseAcquisitionUrl: json.containsKey('LicenseAcquisitionUrl')
+            ? json['LicenseAcquisitionUrl'] as String
+            : null,
+        keyStoragePolicy: json.containsKey('KeyStoragePolicy')
+            ? json['KeyStoragePolicy'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The captions to be created, if any.
@@ -1788,7 +2012,17 @@ class InputCaptions {
     this.mergePolicy,
     this.captionSources,
   });
-  static InputCaptions fromJson(Map<String, dynamic> json) => InputCaptions();
+  static InputCaptions fromJson(Map<String, dynamic> json) => InputCaptions(
+        mergePolicy: json.containsKey('MergePolicy')
+            ? json['MergePolicy'] as String
+            : null,
+        captionSources: json.containsKey('CaptionSources')
+            ? (json['CaptionSources'] as List)
+                .map((e) => CaptionSource.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A section of the response body that provides information about the job that
@@ -1891,7 +2125,41 @@ class Job {
     this.userMetadata,
     this.timing,
   });
-  static Job fromJson(Map<String, dynamic> json) => Job();
+  static Job fromJson(Map<String, dynamic> json) => Job(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        pipelineId: json.containsKey('PipelineId')
+            ? json['PipelineId'] as String
+            : null,
+        input:
+            json.containsKey('Input') ? JobInput.fromJson(json['Input']) : null,
+        inputs: json.containsKey('Inputs')
+            ? (json['Inputs'] as List).map((e) => JobInput.fromJson(e)).toList()
+            : null,
+        output: json.containsKey('Output')
+            ? JobOutput.fromJson(json['Output'])
+            : null,
+        outputs: json.containsKey('Outputs')
+            ? (json['Outputs'] as List)
+                .map((e) => JobOutput.fromJson(e))
+                .toList()
+            : null,
+        outputKeyPrefix: json.containsKey('OutputKeyPrefix')
+            ? json['OutputKeyPrefix'] as String
+            : null,
+        playlists: json.containsKey('Playlists')
+            ? (json['Playlists'] as List)
+                .map((e) => Playlist.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        userMetadata: json.containsKey('UserMetadata')
+            ? (json['UserMetadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        timing:
+            json.containsKey('Timing') ? Timing.fromJson(json['Timing']) : null,
+      );
 }
 
 /// The .jpg or .png file associated with an audio file.
@@ -1921,7 +2189,15 @@ class JobAlbumArt {
     this.mergePolicy,
     this.artwork,
   });
-  static JobAlbumArt fromJson(Map<String, dynamic> json) => JobAlbumArt();
+  static JobAlbumArt fromJson(Map<String, dynamic> json) => JobAlbumArt(
+        mergePolicy: json.containsKey('MergePolicy')
+            ? json['MergePolicy'] as String
+            : null,
+        artwork: json.containsKey('Artwork')
+            ? (json['Artwork'] as List).map((e) => Artwork.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the file that you're transcoding.
@@ -2054,7 +2330,35 @@ class JobInput {
     this.inputCaptions,
     this.detectedProperties,
   });
-  static JobInput fromJson(Map<String, dynamic> json) => JobInput();
+  static JobInput fromJson(Map<String, dynamic> json) => JobInput(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        frameRate:
+            json.containsKey('FrameRate') ? json['FrameRate'] as String : null,
+        resolution: json.containsKey('Resolution')
+            ? json['Resolution'] as String
+            : null,
+        aspectRatio: json.containsKey('AspectRatio')
+            ? json['AspectRatio'] as String
+            : null,
+        interlaced: json.containsKey('Interlaced')
+            ? json['Interlaced'] as String
+            : null,
+        container:
+            json.containsKey('Container') ? json['Container'] as String : null,
+        encryption: json.containsKey('Encryption')
+            ? Encryption.fromJson(json['Encryption'])
+            : null,
+        timeSpan: json.containsKey('TimeSpan')
+            ? TimeSpan.fromJson(json['TimeSpan'])
+            : null,
+        inputCaptions: json.containsKey('InputCaptions')
+            ? InputCaptions.fromJson(json['InputCaptions'])
+            : null,
+        detectedProperties: json.containsKey('DetectedProperties')
+            ? DetectedProperties.fromJson(json['DetectedProperties'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Outputs recommended instead.
@@ -2306,7 +2610,60 @@ class JobOutput {
     this.encryption,
     this.appliedColorSpaceConversion,
   });
-  static JobOutput fromJson(Map<String, dynamic> json) => JobOutput();
+  static JobOutput fromJson(Map<String, dynamic> json) => JobOutput(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        thumbnailPattern: json.containsKey('ThumbnailPattern')
+            ? json['ThumbnailPattern'] as String
+            : null,
+        thumbnailEncryption: json.containsKey('ThumbnailEncryption')
+            ? Encryption.fromJson(json['ThumbnailEncryption'])
+            : null,
+        rotate: json.containsKey('Rotate') ? json['Rotate'] as String : null,
+        presetId:
+            json.containsKey('PresetId') ? json['PresetId'] as String : null,
+        segmentDuration: json.containsKey('SegmentDuration')
+            ? json['SegmentDuration'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetail: json.containsKey('StatusDetail')
+            ? json['StatusDetail'] as String
+            : null,
+        duration:
+            json.containsKey('Duration') ? BigInt.from(json['Duration']) : null,
+        width: json.containsKey('Width') ? json['Width'] as int : null,
+        height: json.containsKey('Height') ? json['Height'] as int : null,
+        frameRate:
+            json.containsKey('FrameRate') ? json['FrameRate'] as String : null,
+        fileSize:
+            json.containsKey('FileSize') ? BigInt.from(json['FileSize']) : null,
+        durationMillis: json.containsKey('DurationMillis')
+            ? BigInt.from(json['DurationMillis'])
+            : null,
+        watermarks: json.containsKey('Watermarks')
+            ? (json['Watermarks'] as List)
+                .map((e) => JobWatermark.fromJson(e))
+                .toList()
+            : null,
+        albumArt: json.containsKey('AlbumArt')
+            ? JobAlbumArt.fromJson(json['AlbumArt'])
+            : null,
+        composition: json.containsKey('Composition')
+            ? (json['Composition'] as List)
+                .map((e) => Clip.fromJson(e))
+                .toList()
+            : null,
+        captions: json.containsKey('Captions')
+            ? Captions.fromJson(json['Captions'])
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? Encryption.fromJson(json['Encryption'])
+            : null,
+        appliedColorSpaceConversion:
+            json.containsKey('AppliedColorSpaceConversion')
+                ? json['AppliedColorSpaceConversion'] as String
+                : null,
+      );
 }
 
 /// Watermarks can be in .png or .jpg format. If you want to display a watermark
@@ -2337,7 +2694,17 @@ class JobWatermark {
     this.inputKey,
     this.encryption,
   });
-  static JobWatermark fromJson(Map<String, dynamic> json) => JobWatermark();
+  static JobWatermark fromJson(Map<String, dynamic> json) => JobWatermark(
+        presetWatermarkId: json.containsKey('PresetWatermarkId')
+            ? json['PresetWatermarkId'] as String
+            : null,
+        inputKey:
+            json.containsKey('InputKey') ? json['InputKey'] as String : null,
+        encryption: json.containsKey('Encryption')
+            ? Encryption.fromJson(json['Encryption'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The `ListJobsByPipelineResponse` structure.
@@ -2356,7 +2723,14 @@ class ListJobsByPipelineResponse {
     this.nextPageToken,
   });
   static ListJobsByPipelineResponse fromJson(Map<String, dynamic> json) =>
-      ListJobsByPipelineResponse();
+      ListJobsByPipelineResponse(
+        jobs: json.containsKey('Jobs')
+            ? (json['Jobs'] as List).map((e) => Job.fromJson(e)).toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 ///  The `ListJobsByStatusResponse` structure.
@@ -2375,7 +2749,14 @@ class ListJobsByStatusResponse {
     this.nextPageToken,
   });
   static ListJobsByStatusResponse fromJson(Map<String, dynamic> json) =>
-      ListJobsByStatusResponse();
+      ListJobsByStatusResponse(
+        jobs: json.containsKey('Jobs')
+            ? (json['Jobs'] as List).map((e) => Job.fromJson(e)).toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 /// A list of the pipelines associated with the current AWS account.
@@ -2393,7 +2774,16 @@ class ListPipelinesResponse {
     this.nextPageToken,
   });
   static ListPipelinesResponse fromJson(Map<String, dynamic> json) =>
-      ListPipelinesResponse();
+      ListPipelinesResponse(
+        pipelines: json.containsKey('Pipelines')
+            ? (json['Pipelines'] as List)
+                .map((e) => Pipeline.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 /// The `ListPresetsResponse` structure.
@@ -2411,7 +2801,14 @@ class ListPresetsResponse {
     this.nextPageToken,
   });
   static ListPresetsResponse fromJson(Map<String, dynamic> json) =>
-      ListPresetsResponse();
+      ListPresetsResponse(
+        presets: json.containsKey('Presets')
+            ? (json['Presets'] as List).map((e) => Preset.fromJson(e)).toList()
+            : null,
+        nextPageToken: json.containsKey('NextPageToken')
+            ? json['NextPageToken'] as String
+            : null,
+      );
 }
 
 /// The Amazon Simple Notification Service (Amazon SNS) topic or topics to
@@ -2444,7 +2841,16 @@ class Notifications {
     this.warning,
     this.error,
   });
-  static Notifications fromJson(Map<String, dynamic> json) => Notifications();
+  static Notifications fromJson(Map<String, dynamic> json) => Notifications(
+        progressing: json.containsKey('Progressing')
+            ? json['Progressing'] as String
+            : null,
+        completed:
+            json.containsKey('Completed') ? json['Completed'] as String : null,
+        warning: json.containsKey('Warning') ? json['Warning'] as String : null,
+        error: json.containsKey('Error') ? json['Error'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The `Permission` structure.
@@ -2490,7 +2896,16 @@ class Permission {
     this.grantee,
     this.access,
   });
-  static Permission fromJson(Map<String, dynamic> json) => Permission();
+  static Permission fromJson(Map<String, dynamic> json) => Permission(
+        granteeType: json.containsKey('GranteeType')
+            ? json['GranteeType'] as String
+            : null,
+        grantee: json.containsKey('Grantee') ? json['Grantee'] as String : null,
+        access: json.containsKey('Access')
+            ? (json['Access'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The pipeline (queue) that is used to manage jobs.
@@ -2673,7 +3088,31 @@ class Pipeline {
     this.contentConfig,
     this.thumbnailConfig,
   });
-  static Pipeline fromJson(Map<String, dynamic> json) => Pipeline();
+  static Pipeline fromJson(Map<String, dynamic> json) => Pipeline(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        inputBucket: json.containsKey('InputBucket')
+            ? json['InputBucket'] as String
+            : null,
+        outputBucket: json.containsKey('OutputBucket')
+            ? json['OutputBucket'] as String
+            : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        awsKmsKeyArn: json.containsKey('AwsKmsKeyArn')
+            ? json['AwsKmsKeyArn'] as String
+            : null,
+        notifications: json.containsKey('Notifications')
+            ? Notifications.fromJson(json['Notifications'])
+            : null,
+        contentConfig: json.containsKey('ContentConfig')
+            ? PipelineOutputConfig.fromJson(json['ContentConfig'])
+            : null,
+        thumbnailConfig: json.containsKey('ThumbnailConfig')
+            ? PipelineOutputConfig.fromJson(json['ThumbnailConfig'])
+            : null,
+      );
 }
 
 /// The `PipelineOutputConfig` structure.
@@ -2727,7 +3166,18 @@ class PipelineOutputConfig {
     this.permissions,
   });
   static PipelineOutputConfig fromJson(Map<String, dynamic> json) =>
-      PipelineOutputConfig();
+      PipelineOutputConfig(
+        bucket: json.containsKey('Bucket') ? json['Bucket'] as String : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        permissions: json.containsKey('Permissions')
+            ? (json['Permissions'] as List)
+                .map((e) => Permission.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The PlayReady DRM settings, if any, that you want Elastic Transcoder to
@@ -2790,7 +3240,19 @@ class PlayReadyDrm {
     this.initializationVector,
     this.licenseAcquisitionUrl,
   });
-  static PlayReadyDrm fromJson(Map<String, dynamic> json) => PlayReadyDrm();
+  static PlayReadyDrm fromJson(Map<String, dynamic> json) => PlayReadyDrm(
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        keyMd5: json.containsKey('KeyMd5') ? json['KeyMd5'] as String : null,
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        initializationVector: json.containsKey('InitializationVector')
+            ? json['InitializationVector'] as String
+            : null,
+        licenseAcquisitionUrl: json.containsKey('LicenseAcquisitionUrl')
+            ? json['LicenseAcquisitionUrl'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Use Only for Fragmented MP4 or MPEG-TS Outputs. If you specify a preset for
@@ -2883,7 +3345,23 @@ class Playlist {
     this.status,
     this.statusDetail,
   });
-  static Playlist fromJson(Map<String, dynamic> json) => Playlist();
+  static Playlist fromJson(Map<String, dynamic> json) => Playlist(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        outputKeys: json.containsKey('OutputKeys')
+            ? (json['OutputKeys'] as List).map((e) => e as String).toList()
+            : null,
+        hlsContentProtection: json.containsKey('HlsContentProtection')
+            ? HlsContentProtection.fromJson(json['HlsContentProtection'])
+            : null,
+        playReadyDrm: json.containsKey('PlayReadyDrm')
+            ? PlayReadyDrm.fromJson(json['PlayReadyDrm'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetail: json.containsKey('StatusDetail')
+            ? json['StatusDetail'] as String
+            : null,
+      );
 }
 
 /// Presets are templates that contain most of the settings for transcoding
@@ -2938,7 +3416,26 @@ class Preset {
     this.thumbnails,
     this.type,
   });
-  static Preset fromJson(Map<String, dynamic> json) => Preset();
+  static Preset fromJson(Map<String, dynamic> json) => Preset(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        container:
+            json.containsKey('Container') ? json['Container'] as String : null,
+        audio: json.containsKey('Audio')
+            ? AudioParameters.fromJson(json['Audio'])
+            : null,
+        video: json.containsKey('Video')
+            ? VideoParameters.fromJson(json['Video'])
+            : null,
+        thumbnails: json.containsKey('Thumbnails')
+            ? Thumbnails.fromJson(json['Thumbnails'])
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Settings for the size, location, and opacity of graphics that you want
@@ -3126,8 +3623,31 @@ class PresetWatermark {
     this.opacity,
     this.target,
   });
-  static PresetWatermark fromJson(Map<String, dynamic> json) =>
-      PresetWatermark();
+  static PresetWatermark fromJson(Map<String, dynamic> json) => PresetWatermark(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        maxWidth:
+            json.containsKey('MaxWidth') ? json['MaxWidth'] as String : null,
+        maxHeight:
+            json.containsKey('MaxHeight') ? json['MaxHeight'] as String : null,
+        sizingPolicy: json.containsKey('SizingPolicy')
+            ? json['SizingPolicy'] as String
+            : null,
+        horizontalAlign: json.containsKey('HorizontalAlign')
+            ? json['HorizontalAlign'] as String
+            : null,
+        horizontalOffset: json.containsKey('HorizontalOffset')
+            ? json['HorizontalOffset'] as String
+            : null,
+        verticalAlign: json.containsKey('VerticalAlign')
+            ? json['VerticalAlign'] as String
+            : null,
+        verticalOffset: json.containsKey('VerticalOffset')
+            ? json['VerticalOffset'] as String
+            : null,
+        opacity: json.containsKey('Opacity') ? json['Opacity'] as String : null,
+        target: json.containsKey('Target') ? json['Target'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The `ReadJobResponse` structure.
@@ -3138,8 +3658,9 @@ class ReadJobResponse {
   ReadJobResponse({
     this.job,
   });
-  static ReadJobResponse fromJson(Map<String, dynamic> json) =>
-      ReadJobResponse();
+  static ReadJobResponse fromJson(Map<String, dynamic> json) => ReadJobResponse(
+        job: json.containsKey('Job') ? Job.fromJson(json['Job']) : null,
+      );
 }
 
 /// The `ReadPipelineResponse` structure.
@@ -3161,7 +3682,16 @@ class ReadPipelineResponse {
     this.warnings,
   });
   static ReadPipelineResponse fromJson(Map<String, dynamic> json) =>
-      ReadPipelineResponse();
+      ReadPipelineResponse(
+        pipeline: json.containsKey('Pipeline')
+            ? Pipeline.fromJson(json['Pipeline'])
+            : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List)
+                .map((e) => Warning.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The `ReadPresetResponse` structure.
@@ -3173,7 +3703,10 @@ class ReadPresetResponse {
     this.preset,
   });
   static ReadPresetResponse fromJson(Map<String, dynamic> json) =>
-      ReadPresetResponse();
+      ReadPresetResponse(
+        preset:
+            json.containsKey('Preset') ? Preset.fromJson(json['Preset']) : null,
+      );
 }
 
 /// The `TestRoleResponse` structure.
@@ -3191,7 +3724,12 @@ class TestRoleResponse {
     this.messages,
   });
   static TestRoleResponse fromJson(Map<String, dynamic> json) =>
-      TestRoleResponse();
+      TestRoleResponse(
+        success: json.containsKey('Success') ? json['Success'] as String : null,
+        messages: json.containsKey('Messages')
+            ? (json['Messages'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Thumbnails for videos.
@@ -3289,7 +3827,28 @@ class Thumbnails {
     this.sizingPolicy,
     this.paddingPolicy,
   });
-  static Thumbnails fromJson(Map<String, dynamic> json) => Thumbnails();
+  static Thumbnails fromJson(Map<String, dynamic> json) => Thumbnails(
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        interval:
+            json.containsKey('Interval') ? json['Interval'] as String : null,
+        resolution: json.containsKey('Resolution')
+            ? json['Resolution'] as String
+            : null,
+        aspectRatio: json.containsKey('AspectRatio')
+            ? json['AspectRatio'] as String
+            : null,
+        maxWidth:
+            json.containsKey('MaxWidth') ? json['MaxWidth'] as String : null,
+        maxHeight:
+            json.containsKey('MaxHeight') ? json['MaxHeight'] as String : null,
+        sizingPolicy: json.containsKey('SizingPolicy')
+            ? json['SizingPolicy'] as String
+            : null,
+        paddingPolicy: json.containsKey('PaddingPolicy')
+            ? json['PaddingPolicy'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings that determine when a clip begins and how long it lasts.
@@ -3313,7 +3872,13 @@ class TimeSpan {
     this.startTime,
     this.duration,
   });
-  static TimeSpan fromJson(Map<String, dynamic> json) => TimeSpan();
+  static TimeSpan fromJson(Map<String, dynamic> json) => TimeSpan(
+        startTime:
+            json.containsKey('StartTime') ? json['StartTime'] as String : null,
+        duration:
+            json.containsKey('Duration') ? json['Duration'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about the timing of a job.
@@ -3333,7 +3898,17 @@ class Timing {
     this.startTimeMillis,
     this.finishTimeMillis,
   });
-  static Timing fromJson(Map<String, dynamic> json) => Timing();
+  static Timing fromJson(Map<String, dynamic> json) => Timing(
+        submitTimeMillis: json.containsKey('SubmitTimeMillis')
+            ? BigInt.from(json['SubmitTimeMillis'])
+            : null,
+        startTimeMillis: json.containsKey('StartTimeMillis')
+            ? BigInt.from(json['StartTimeMillis'])
+            : null,
+        finishTimeMillis: json.containsKey('FinishTimeMillis')
+            ? BigInt.from(json['FinishTimeMillis'])
+            : null,
+      );
 }
 
 /// The `UpdatePipelineNotificationsResponse` structure.
@@ -3347,7 +3922,11 @@ class UpdatePipelineNotificationsResponse {
   });
   static UpdatePipelineNotificationsResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdatePipelineNotificationsResponse();
+      UpdatePipelineNotificationsResponse(
+        pipeline: json.containsKey('Pipeline')
+            ? Pipeline.fromJson(json['Pipeline'])
+            : null,
+      );
 }
 
 /// When you update a pipeline, Elastic Transcoder returns the values that you
@@ -3369,7 +3948,16 @@ class UpdatePipelineResponse {
     this.warnings,
   });
   static UpdatePipelineResponse fromJson(Map<String, dynamic> json) =>
-      UpdatePipelineResponse();
+      UpdatePipelineResponse(
+        pipeline: json.containsKey('Pipeline')
+            ? Pipeline.fromJson(json['Pipeline'])
+            : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List)
+                .map((e) => Warning.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// When you update status for a pipeline, Elastic Transcoder returns the values
@@ -3383,7 +3971,11 @@ class UpdatePipelineStatusResponse {
     this.pipeline,
   });
   static UpdatePipelineStatusResponse fromJson(Map<String, dynamic> json) =>
-      UpdatePipelineStatusResponse();
+      UpdatePipelineStatusResponse(
+        pipeline: json.containsKey('Pipeline')
+            ? Pipeline.fromJson(json['Pipeline'])
+            : null,
+      );
 }
 
 /// The `VideoParameters` structure.
@@ -3848,8 +4440,49 @@ class VideoParameters {
     this.paddingPolicy,
     this.watermarks,
   });
-  static VideoParameters fromJson(Map<String, dynamic> json) =>
-      VideoParameters();
+  static VideoParameters fromJson(Map<String, dynamic> json) => VideoParameters(
+        codec: json.containsKey('Codec') ? json['Codec'] as String : null,
+        codecOptions: json.containsKey('CodecOptions')
+            ? (json['CodecOptions'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        keyframesMaxDist: json.containsKey('KeyframesMaxDist')
+            ? json['KeyframesMaxDist'] as String
+            : null,
+        fixedGop:
+            json.containsKey('FixedGOP') ? json['FixedGOP'] as String : null,
+        bitRate: json.containsKey('BitRate') ? json['BitRate'] as String : null,
+        frameRate:
+            json.containsKey('FrameRate') ? json['FrameRate'] as String : null,
+        maxFrameRate: json.containsKey('MaxFrameRate')
+            ? json['MaxFrameRate'] as String
+            : null,
+        resolution: json.containsKey('Resolution')
+            ? json['Resolution'] as String
+            : null,
+        aspectRatio: json.containsKey('AspectRatio')
+            ? json['AspectRatio'] as String
+            : null,
+        maxWidth:
+            json.containsKey('MaxWidth') ? json['MaxWidth'] as String : null,
+        maxHeight:
+            json.containsKey('MaxHeight') ? json['MaxHeight'] as String : null,
+        displayAspectRatio: json.containsKey('DisplayAspectRatio')
+            ? json['DisplayAspectRatio'] as String
+            : null,
+        sizingPolicy: json.containsKey('SizingPolicy')
+            ? json['SizingPolicy'] as String
+            : null,
+        paddingPolicy: json.containsKey('PaddingPolicy')
+            ? json['PaddingPolicy'] as String
+            : null,
+        watermarks: json.containsKey('Watermarks')
+            ? (json['Watermarks'] as List)
+                .map((e) => PresetWatermark.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Elastic Transcoder returns a warning if the resources used by your pipeline
@@ -3874,5 +4507,8 @@ class Warning {
     this.code,
     this.message,
   });
-  static Warning fromJson(Map<String, dynamic> json) => Warning();
+  static Warning fromJson(Map<String, dynamic> json) => Warning(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }

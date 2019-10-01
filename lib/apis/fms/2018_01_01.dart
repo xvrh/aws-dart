@@ -8,6 +8,9 @@ import 'package:meta/meta.dart';
 /// Manager features, see the
 /// [AWS Firewall Manager Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html).
 class FmsApi {
+  final _client;
+  FmsApi(client) : _client = client.configured('FMS', serializer: 'json');
+
   /// Sets the AWS Firewall Manager administrator account. AWS Firewall Manager
   /// must be associated with the master account your AWS organization or
   /// associated with a member account that has the appropriate permissions. If
@@ -23,12 +26,18 @@ class FmsApi {
   /// Organizations master account or a member account. For more information
   /// about AWS Organizations and master accounts, see
   /// [Managing the AWS Accounts in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html).
-  Future<void> associateAdminAccount(String adminAccount) async {}
+  Future<void> associateAdminAccount(String adminAccount) async {
+    await _client.send('AssociateAdminAccount', {
+      'AdminAccount': adminAccount,
+    });
+  }
 
   /// Deletes an AWS Firewall Manager association with the IAM role and the
   /// Amazon Simple Notification Service (SNS) topic that is used to record AWS
   /// Firewall Manager SNS logs.
-  Future<void> deleteNotificationChannel() async {}
+  Future<void> deleteNotificationChannel() async {
+    await _client.send('DeleteNotificationChannel', {});
+  }
 
   /// Permanently deletes an AWS Firewall Manager policy.
   ///
@@ -53,17 +62,26 @@ class FmsApi {
   /// resources are in-scope. All others are out of scope. If you did not
   /// specify tags or accounts, all resources are in-scope.
   Future<void> deletePolicy(String policyId,
-      {bool deleteAllPolicyResources}) async {}
+      {bool deleteAllPolicyResources}) async {
+    await _client.send('DeletePolicy', {
+      'PolicyId': policyId,
+      if (deleteAllPolicyResources != null)
+        'DeleteAllPolicyResources': deleteAllPolicyResources,
+    });
+  }
 
   /// Disassociates the account that has been set as the AWS Firewall Manager
   /// administrator account. To set a different account as the administrator
   /// account, you must submit an `AssociateAdminAccount` request .
-  Future<void> disassociateAdminAccount() async {}
+  Future<void> disassociateAdminAccount() async {
+    await _client.send('DisassociateAdminAccount', {});
+  }
 
   /// Returns the AWS Organizations master account that is associated with AWS
   /// Firewall Manager as the AWS Firewall Manager administrator.
   Future<GetAdminAccountResponse> getAdminAccount() async {
-    return GetAdminAccountResponse.fromJson({});
+    var response_ = await _client.send('GetAdminAccount', {});
+    return GetAdminAccountResponse.fromJson(response_);
   }
 
   /// Returns detailed compliance information about the specified member
@@ -78,13 +96,18 @@ class FmsApi {
   /// get the details for.
   Future<GetComplianceDetailResponse> getComplianceDetail(
       {@required String policyId, @required String memberAccount}) async {
-    return GetComplianceDetailResponse.fromJson({});
+    var response_ = await _client.send('GetComplianceDetail', {
+      'PolicyId': policyId,
+      'MemberAccount': memberAccount,
+    });
+    return GetComplianceDetailResponse.fromJson(response_);
   }
 
   /// Returns information about the Amazon Simple Notification Service (SNS)
   /// topic that is used to record AWS Firewall Manager SNS logs.
   Future<GetNotificationChannelResponse> getNotificationChannel() async {
-    return GetNotificationChannelResponse.fromJson({});
+    var response_ = await _client.send('GetNotificationChannel', {});
+    return GetNotificationChannelResponse.fromJson(response_);
   }
 
   /// Returns information about the specified AWS Firewall Manager policy.
@@ -92,7 +115,10 @@ class FmsApi {
   /// [policyId]: The ID of the AWS Firewall Manager policy that you want the
   /// details for.
   Future<GetPolicyResponse> getPolicy(String policyId) async {
-    return GetPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetPolicy', {
+      'PolicyId': policyId,
+    });
+    return GetPolicyResponse.fromJson(response_);
   }
 
   /// If you created a Shield Advanced policy, returns policy-level attack
@@ -131,7 +157,15 @@ class FmsApi {
       DateTime endTime,
       String nextToken,
       int maxResults}) async {
-    return GetProtectionStatusResponse.fromJson({});
+    var response_ = await _client.send('GetProtectionStatus', {
+      'PolicyId': policyId,
+      if (memberAccountId != null) 'MemberAccountId': memberAccountId,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetProtectionStatusResponse.fromJson(response_);
   }
 
   /// Returns an array of `PolicyComplianceStatus` objects in the response. Use
@@ -156,7 +190,12 @@ class FmsApi {
   /// to get another batch of `PolicyComplianceStatus` objects.
   Future<ListComplianceStatusResponse> listComplianceStatus(String policyId,
       {String nextToken, int maxResults}) async {
-    return ListComplianceStatusResponse.fromJson({});
+    var response_ = await _client.send('ListComplianceStatus', {
+      'PolicyId': policyId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListComplianceStatusResponse.fromJson(response_);
   }
 
   /// Returns a `MemberAccounts` object that lists the member accounts in the
@@ -180,7 +219,11 @@ class FmsApi {
   /// IDs.
   Future<ListMemberAccountsResponse> listMemberAccounts(
       {String nextToken, int maxResults}) async {
-    return ListMemberAccountsResponse.fromJson({});
+    var response_ = await _client.send('ListMemberAccounts', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListMemberAccountsResponse.fromJson(response_);
   }
 
   /// Returns an array of `PolicySummary` objects in the response.
@@ -200,7 +243,11 @@ class FmsApi {
   /// batch of `PolicySummary` objects.
   Future<ListPoliciesResponse> listPolicies(
       {String nextToken, int maxResults}) async {
-    return ListPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListPolicies', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListPoliciesResponse.fromJson(response_);
   }
 
   /// Designates the IAM role and Amazon Simple Notification Service (SNS) topic
@@ -212,7 +259,12 @@ class FmsApi {
   /// [snsRoleName]: The Amazon Resource Name (ARN) of the IAM role that allows
   /// Amazon SNS to record AWS Firewall Manager activity.
   Future<void> putNotificationChannel(
-      {@required String snsTopicArn, @required String snsRoleName}) async {}
+      {@required String snsTopicArn, @required String snsRoleName}) async {
+    await _client.send('PutNotificationChannel', {
+      'SnsTopicArn': snsTopicArn,
+      'SnsRoleName': snsRoleName,
+    });
+  }
 
   /// Creates an AWS Firewall Manager policy.
   ///
@@ -231,7 +283,10 @@ class FmsApi {
   ///
   /// [policy]: The details of the AWS Firewall Manager policy to be created.
   Future<PutPolicyResponse> putPolicy(Policy policy) async {
-    return PutPolicyResponse.fromJson({});
+    var response_ = await _client.send('PutPolicy', {
+      'Policy': policy,
+    });
+    return PutPolicyResponse.fromJson(response_);
   }
 }
 
@@ -255,7 +310,17 @@ class ComplianceViolator {
     this.resourceType,
   });
   static ComplianceViolator fromJson(Map<String, dynamic> json) =>
-      ComplianceViolator();
+      ComplianceViolator(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        violationReason: json.containsKey('ViolationReason')
+            ? json['ViolationReason'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+      );
 }
 
 /// Describes the compliance status for the account. An account is considered
@@ -281,7 +346,17 @@ class EvaluationResult {
     this.evaluationLimitExceeded,
   });
   static EvaluationResult fromJson(Map<String, dynamic> json) =>
-      EvaluationResult();
+      EvaluationResult(
+        complianceStatus: json.containsKey('ComplianceStatus')
+            ? json['ComplianceStatus'] as String
+            : null,
+        violatorCount: json.containsKey('ViolatorCount')
+            ? BigInt.from(json['ViolatorCount'])
+            : null,
+        evaluationLimitExceeded: json.containsKey('EvaluationLimitExceeded')
+            ? json['EvaluationLimitExceeded'] as bool
+            : null,
+      );
 }
 
 class GetAdminAccountResponse {
@@ -297,7 +372,14 @@ class GetAdminAccountResponse {
     this.roleStatus,
   });
   static GetAdminAccountResponse fromJson(Map<String, dynamic> json) =>
-      GetAdminAccountResponse();
+      GetAdminAccountResponse(
+        adminAccount: json.containsKey('AdminAccount')
+            ? json['AdminAccount'] as String
+            : null,
+        roleStatus: json.containsKey('RoleStatus')
+            ? json['RoleStatus'] as String
+            : null,
+      );
 }
 
 class GetComplianceDetailResponse {
@@ -309,7 +391,11 @@ class GetComplianceDetailResponse {
     this.policyComplianceDetail,
   });
   static GetComplianceDetailResponse fromJson(Map<String, dynamic> json) =>
-      GetComplianceDetailResponse();
+      GetComplianceDetailResponse(
+        policyComplianceDetail: json.containsKey('PolicyComplianceDetail')
+            ? PolicyComplianceDetail.fromJson(json['PolicyComplianceDetail'])
+            : null,
+      );
 }
 
 class GetNotificationChannelResponse {
@@ -325,7 +411,14 @@ class GetNotificationChannelResponse {
     this.snsRoleName,
   });
   static GetNotificationChannelResponse fromJson(Map<String, dynamic> json) =>
-      GetNotificationChannelResponse();
+      GetNotificationChannelResponse(
+        snsTopicArn: json.containsKey('SnsTopicArn')
+            ? json['SnsTopicArn'] as String
+            : null,
+        snsRoleName: json.containsKey('SnsRoleName')
+            ? json['SnsRoleName'] as String
+            : null,
+      );
 }
 
 class GetPolicyResponse {
@@ -340,7 +433,12 @@ class GetPolicyResponse {
     this.policyArn,
   });
   static GetPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetPolicyResponse();
+      GetPolicyResponse(
+        policy:
+            json.containsKey('Policy') ? Policy.fromJson(json['Policy']) : null,
+        policyArn:
+            json.containsKey('PolicyArn') ? json['PolicyArn'] as String : null,
+      );
 }
 
 class GetProtectionStatusResponse {
@@ -387,7 +485,17 @@ class GetProtectionStatusResponse {
     this.nextToken,
   });
   static GetProtectionStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetProtectionStatusResponse();
+      GetProtectionStatusResponse(
+        adminAccountId: json.containsKey('AdminAccountId')
+            ? json['AdminAccountId'] as String
+            : null,
+        serviceType: json.containsKey('ServiceType')
+            ? json['ServiceType'] as String
+            : null,
+        data: json.containsKey('Data') ? json['Data'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListComplianceStatusResponse {
@@ -406,7 +514,16 @@ class ListComplianceStatusResponse {
     this.nextToken,
   });
   static ListComplianceStatusResponse fromJson(Map<String, dynamic> json) =>
-      ListComplianceStatusResponse();
+      ListComplianceStatusResponse(
+        policyComplianceStatusList:
+            json.containsKey('PolicyComplianceStatusList')
+                ? (json['PolicyComplianceStatusList'] as List)
+                    .map((e) => PolicyComplianceStatus.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListMemberAccountsResponse {
@@ -425,7 +542,13 @@ class ListMemberAccountsResponse {
     this.nextToken,
   });
   static ListMemberAccountsResponse fromJson(Map<String, dynamic> json) =>
-      ListMemberAccountsResponse();
+      ListMemberAccountsResponse(
+        memberAccounts: json.containsKey('MemberAccounts')
+            ? (json['MemberAccounts'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPoliciesResponse {
@@ -444,7 +567,15 @@ class ListPoliciesResponse {
     this.nextToken,
   });
   static ListPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListPoliciesResponse();
+      ListPoliciesResponse(
+        policyList: json.containsKey('PolicyList')
+            ? (json['PolicyList'] as List)
+                .map((e) => PolicySummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// An AWS Firewall Manager policy.
@@ -519,7 +650,38 @@ class Policy {
     this.includeMap,
     this.excludeMap,
   });
-  static Policy fromJson(Map<String, dynamic> json) => Policy();
+  static Policy fromJson(Map<String, dynamic> json) => Policy(
+        policyId:
+            json.containsKey('PolicyId') ? json['PolicyId'] as String : null,
+        policyName: json['PolicyName'] as String,
+        policyUpdateToken: json.containsKey('PolicyUpdateToken')
+            ? json['PolicyUpdateToken'] as String
+            : null,
+        securityServicePolicyData: SecurityServicePolicyData.fromJson(
+            json['SecurityServicePolicyData']),
+        resourceType: json['ResourceType'] as String,
+        resourceTypeList: json.containsKey('ResourceTypeList')
+            ? (json['ResourceTypeList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        resourceTags: json.containsKey('ResourceTags')
+            ? (json['ResourceTags'] as List)
+                .map((e) => ResourceTag.fromJson(e))
+                .toList()
+            : null,
+        excludeResourceTags: json['ExcludeResourceTags'] as bool,
+        remediationEnabled: json['RemediationEnabled'] as bool,
+        includeMap: json.containsKey('IncludeMap')
+            ? (json['IncludeMap'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        excludeMap: json.containsKey('ExcludeMap')
+            ? (json['ExcludeMap'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the non-compliant resources in a member account for a specific AWS
@@ -563,7 +725,31 @@ class PolicyComplianceDetail {
     this.issueInfoMap,
   });
   static PolicyComplianceDetail fromJson(Map<String, dynamic> json) =>
-      PolicyComplianceDetail();
+      PolicyComplianceDetail(
+        policyOwner: json.containsKey('PolicyOwner')
+            ? json['PolicyOwner'] as String
+            : null,
+        policyId:
+            json.containsKey('PolicyId') ? json['PolicyId'] as String : null,
+        memberAccount: json.containsKey('MemberAccount')
+            ? json['MemberAccount'] as String
+            : null,
+        violators: json.containsKey('Violators')
+            ? (json['Violators'] as List)
+                .map((e) => ComplianceViolator.fromJson(e))
+                .toList()
+            : null,
+        evaluationLimitExceeded: json.containsKey('EvaluationLimitExceeded')
+            ? json['EvaluationLimitExceeded'] as bool
+            : null,
+        expiredAt: json.containsKey('ExpiredAt')
+            ? DateTime.parse(json['ExpiredAt'])
+            : null,
+        issueInfoMap: json.containsKey('IssueInfoMap')
+            ? (json['IssueInfoMap'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Indicates whether the account is compliant with the specified policy. An
@@ -604,7 +790,31 @@ class PolicyComplianceStatus {
     this.issueInfoMap,
   });
   static PolicyComplianceStatus fromJson(Map<String, dynamic> json) =>
-      PolicyComplianceStatus();
+      PolicyComplianceStatus(
+        policyOwner: json.containsKey('PolicyOwner')
+            ? json['PolicyOwner'] as String
+            : null,
+        policyId:
+            json.containsKey('PolicyId') ? json['PolicyId'] as String : null,
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        memberAccount: json.containsKey('MemberAccount')
+            ? json['MemberAccount'] as String
+            : null,
+        evaluationResults: json.containsKey('EvaluationResults')
+            ? (json['EvaluationResults'] as List)
+                .map((e) => EvaluationResult.fromJson(e))
+                .toList()
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        issueInfoMap: json.containsKey('IssueInfoMap')
+            ? (json['IssueInfoMap'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Details of the AWS Firewall Manager policy.
@@ -641,7 +851,24 @@ class PolicySummary {
     this.securityServiceType,
     this.remediationEnabled,
   });
-  static PolicySummary fromJson(Map<String, dynamic> json) => PolicySummary();
+  static PolicySummary fromJson(Map<String, dynamic> json) => PolicySummary(
+        policyArn:
+            json.containsKey('PolicyArn') ? json['PolicyArn'] as String : null,
+        policyId:
+            json.containsKey('PolicyId') ? json['PolicyId'] as String : null,
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        securityServiceType: json.containsKey('SecurityServiceType')
+            ? json['SecurityServiceType'] as String
+            : null,
+        remediationEnabled: json.containsKey('RemediationEnabled')
+            ? json['RemediationEnabled'] as bool
+            : null,
+      );
 }
 
 class PutPolicyResponse {
@@ -656,7 +883,12 @@ class PutPolicyResponse {
     this.policyArn,
   });
   static PutPolicyResponse fromJson(Map<String, dynamic> json) =>
-      PutPolicyResponse();
+      PutPolicyResponse(
+        policy:
+            json.containsKey('Policy') ? Policy.fromJson(json['Policy']) : null,
+        policyArn:
+            json.containsKey('PolicyArn') ? json['PolicyArn'] as String : null,
+      );
 }
 
 /// The resource tags that AWS Firewall Manager uses to determine if a
@@ -679,7 +911,11 @@ class ResourceTag {
     @required this.key,
     this.value,
   });
-  static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag();
+  static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about the security service that is being used to protect the
@@ -705,5 +941,11 @@ class SecurityServicePolicyData {
     this.managedServiceData,
   });
   static SecurityServicePolicyData fromJson(Map<String, dynamic> json) =>
-      SecurityServicePolicyData();
+      SecurityServicePolicyData(
+        type: json['Type'] as String,
+        managedServiceData: json.containsKey('ManagedServiceData')
+            ? json['ManagedServiceData'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

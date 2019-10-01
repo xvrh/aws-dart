@@ -91,6 +91,9 @@ import 'package:meta/meta.dart';
 /// log files, see the
 /// [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
 class StsApi {
+  final _client;
+  StsApi(client) : _client = client.configured('STS', serializer: 'query');
+
   /// Returns a set of temporary security credentials that you can use to access
   /// AWS resources that you might not normally have access to. These temporary
   /// credentials consist of an access key ID, a secret access key, and a
@@ -340,7 +343,17 @@ class StsApi {
       String externalId,
       String serialNumber,
       String tokenCode}) async {
-    return AssumeRoleResponse.fromJson({});
+    var response_ = await _client.send('AssumeRole', {
+      'RoleArn': roleArn,
+      'RoleSessionName': roleSessionName,
+      if (policyArns != null) 'PolicyArns': policyArns,
+      if (policy != null) 'Policy': policy,
+      if (durationSeconds != null) 'DurationSeconds': durationSeconds,
+      if (externalId != null) 'ExternalId': externalId,
+      if (serialNumber != null) 'SerialNumber': serialNumber,
+      if (tokenCode != null) 'TokenCode': tokenCode,
+    });
+    return AssumeRoleResponse.fromJson(response_);
   }
 
   /// Returns a set of temporary security credentials for users who have been
@@ -534,7 +547,15 @@ class StsApi {
       List<PolicyDescriptorType> policyArns,
       String policy,
       int durationSeconds}) async {
-    return AssumeRoleWithSamlResponse.fromJson({});
+    var response_ = await _client.send('AssumeRoleWithSAML', {
+      'RoleArn': roleArn,
+      'PrincipalArn': principalArn,
+      'SAMLAssertion': samlAssertion,
+      if (policyArns != null) 'PolicyArns': policyArns,
+      if (policy != null) 'Policy': policy,
+      if (durationSeconds != null) 'DurationSeconds': durationSeconds,
+    });
+    return AssumeRoleWithSamlResponse.fromJson(response_);
   }
 
   /// Returns a set of temporary security credentials for users who have been
@@ -769,7 +790,16 @@ class StsApi {
       List<PolicyDescriptorType> policyArns,
       String policy,
       int durationSeconds}) async {
-    return AssumeRoleWithWebIdentityResponse.fromJson({});
+    var response_ = await _client.send('AssumeRoleWithWebIdentity', {
+      'RoleArn': roleArn,
+      'RoleSessionName': roleSessionName,
+      'WebIdentityToken': webIdentityToken,
+      if (providerId != null) 'ProviderId': providerId,
+      if (policyArns != null) 'PolicyArns': policyArns,
+      if (policy != null) 'Policy': policy,
+      if (durationSeconds != null) 'DurationSeconds': durationSeconds,
+    });
+    return AssumeRoleWithWebIdentityResponse.fromJson(response_);
   }
 
   /// Decodes additional information about the authorization status of a request
@@ -809,7 +839,10 @@ class StsApi {
   /// [encodedMessage]: The encoded message that was returned with the response.
   Future<DecodeAuthorizationMessageResponse> decodeAuthorizationMessage(
       String encodedMessage) async {
-    return DecodeAuthorizationMessageResponse.fromJson({});
+    var response_ = await _client.send('DecodeAuthorizationMessage', {
+      'EncodedMessage': encodedMessage,
+    });
+    return DecodeAuthorizationMessageResponse.fromJson(response_);
   }
 
   /// Returns the account identifier for the specified access key ID.
@@ -844,7 +877,10 @@ class StsApi {
   /// This parameter allows (through its regex pattern) a string of characters
   /// that can consist of any upper- or lowercased letter or digit.
   Future<GetAccessKeyInfoResponse> getAccessKeyInfo(String accessKeyId) async {
-    return GetAccessKeyInfoResponse.fromJson({});
+    var response_ = await _client.send('GetAccessKeyInfo', {
+      'AccessKeyId': accessKeyId,
+    });
+    return GetAccessKeyInfoResponse.fromJson(response_);
   }
 
   /// Returns details about the IAM user or role whose credentials are used to
@@ -859,7 +895,8 @@ class StsApi {
   /// an IAM user or role is denied access. To view an example response, see
   /// [I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa).
   Future<GetCallerIdentityResponse> getCallerIdentity() async {
-    return GetCallerIdentityResponse.fromJson({});
+    var response_ = await _client.send('GetCallerIdentity', {});
+    return GetCallerIdentityResponse.fromJson(response_);
   }
 
   /// Returns a set of temporary security credentials (consisting of an access
@@ -1029,7 +1066,13 @@ class StsApi {
       {String policy,
       List<PolicyDescriptorType> policyArns,
       int durationSeconds}) async {
-    return GetFederationTokenResponse.fromJson({});
+    var response_ = await _client.send('GetFederationToken', {
+      'Name': name,
+      if (policy != null) 'Policy': policy,
+      if (policyArns != null) 'PolicyArns': policyArns,
+      if (durationSeconds != null) 'DurationSeconds': durationSeconds,
+    });
+    return GetFederationTokenResponse.fromJson(response_);
   }
 
   /// Returns a set of temporary credentials for an AWS account or IAM user. The
@@ -1118,7 +1161,12 @@ class StsApi {
   /// sequence of six numeric digits.
   Future<GetSessionTokenResponse> getSessionToken(
       {int durationSeconds, String serialNumber, String tokenCode}) async {
-    return GetSessionTokenResponse.fromJson({});
+    var response_ = await _client.send('GetSessionToken', {
+      if (durationSeconds != null) 'DurationSeconds': durationSeconds,
+      if (serialNumber != null) 'SerialNumber': serialNumber,
+      if (tokenCode != null) 'TokenCode': tokenCode,
+    });
+    return GetSessionTokenResponse.fromJson(response_);
   }
 }
 
@@ -1154,7 +1202,17 @@ class AssumeRoleResponse {
     this.packedPolicySize,
   });
   static AssumeRoleResponse fromJson(Map<String, dynamic> json) =>
-      AssumeRoleResponse();
+      AssumeRoleResponse(
+        credentials: json.containsKey('Credentials')
+            ? Credentials.fromJson(json['Credentials'])
+            : null,
+        assumedRoleUser: json.containsKey('AssumedRoleUser')
+            ? AssumedRoleUser.fromJson(json['AssumedRoleUser'])
+            : null,
+        packedPolicySize: json.containsKey('PackedPolicySize')
+            ? json['PackedPolicySize'] as int
+            : null,
+      );
 }
 
 /// Contains the response to a successful AssumeRoleWithSAML request, including
@@ -1223,7 +1281,27 @@ class AssumeRoleWithSamlResponse {
     this.nameQualifier,
   });
   static AssumeRoleWithSamlResponse fromJson(Map<String, dynamic> json) =>
-      AssumeRoleWithSamlResponse();
+      AssumeRoleWithSamlResponse(
+        credentials: json.containsKey('Credentials')
+            ? Credentials.fromJson(json['Credentials'])
+            : null,
+        assumedRoleUser: json.containsKey('AssumedRoleUser')
+            ? AssumedRoleUser.fromJson(json['AssumedRoleUser'])
+            : null,
+        packedPolicySize: json.containsKey('PackedPolicySize')
+            ? json['PackedPolicySize'] as int
+            : null,
+        subject: json.containsKey('Subject') ? json['Subject'] as String : null,
+        subjectType: json.containsKey('SubjectType')
+            ? json['SubjectType'] as String
+            : null,
+        issuer: json.containsKey('Issuer') ? json['Issuer'] as String : null,
+        audience:
+            json.containsKey('Audience') ? json['Audience'] as String : null,
+        nameQualifier: json.containsKey('NameQualifier')
+            ? json['NameQualifier'] as String
+            : null,
+      );
 }
 
 /// Contains the response to a successful AssumeRoleWithWebIdentity request,
@@ -1282,7 +1360,25 @@ class AssumeRoleWithWebIdentityResponse {
   });
   static AssumeRoleWithWebIdentityResponse fromJson(
           Map<String, dynamic> json) =>
-      AssumeRoleWithWebIdentityResponse();
+      AssumeRoleWithWebIdentityResponse(
+        credentials: json.containsKey('Credentials')
+            ? Credentials.fromJson(json['Credentials'])
+            : null,
+        subjectFromWebIdentityToken:
+            json.containsKey('SubjectFromWebIdentityToken')
+                ? json['SubjectFromWebIdentityToken'] as String
+                : null,
+        assumedRoleUser: json.containsKey('AssumedRoleUser')
+            ? AssumedRoleUser.fromJson(json['AssumedRoleUser'])
+            : null,
+        packedPolicySize: json.containsKey('PackedPolicySize')
+            ? json['PackedPolicySize'] as int
+            : null,
+        provider:
+            json.containsKey('Provider') ? json['Provider'] as String : null,
+        audience:
+            json.containsKey('Audience') ? json['Audience'] as String : null,
+      );
 }
 
 /// The identifiers for the temporary security credentials that the operation
@@ -1304,8 +1400,10 @@ class AssumedRoleUser {
     @required this.assumedRoleId,
     @required this.arn,
   });
-  static AssumedRoleUser fromJson(Map<String, dynamic> json) =>
-      AssumedRoleUser();
+  static AssumedRoleUser fromJson(Map<String, dynamic> json) => AssumedRoleUser(
+        assumedRoleId: json['AssumedRoleId'] as String,
+        arn: json['Arn'] as String,
+      );
 }
 
 /// AWS credentials for API authentication.
@@ -1329,7 +1427,12 @@ class Credentials {
     @required this.sessionToken,
     @required this.expiration,
   });
-  static Credentials fromJson(Map<String, dynamic> json) => Credentials();
+  static Credentials fromJson(Map<String, dynamic> json) => Credentials(
+        accessKeyId: json['AccessKeyId'] as String,
+        secretAccessKey: json['SecretAccessKey'] as String,
+        sessionToken: json['SessionToken'] as String,
+        expiration: DateTime.parse(json['Expiration']),
+      );
 }
 
 /// A document that contains additional information about the authorization
@@ -1344,7 +1447,11 @@ class DecodeAuthorizationMessageResponse {
   });
   static DecodeAuthorizationMessageResponse fromJson(
           Map<String, dynamic> json) =>
-      DecodeAuthorizationMessageResponse();
+      DecodeAuthorizationMessageResponse(
+        decodedMessage: json.containsKey('DecodedMessage')
+            ? json['DecodedMessage'] as String
+            : null,
+      );
 }
 
 /// Identifiers for the federated user that is associated with the credentials.
@@ -1364,7 +1471,10 @@ class FederatedUser {
     @required this.federatedUserId,
     @required this.arn,
   });
-  static FederatedUser fromJson(Map<String, dynamic> json) => FederatedUser();
+  static FederatedUser fromJson(Map<String, dynamic> json) => FederatedUser(
+        federatedUserId: json['FederatedUserId'] as String,
+        arn: json['Arn'] as String,
+      );
 }
 
 class GetAccessKeyInfoResponse {
@@ -1375,7 +1485,9 @@ class GetAccessKeyInfoResponse {
     this.account,
   });
   static GetAccessKeyInfoResponse fromJson(Map<String, dynamic> json) =>
-      GetAccessKeyInfoResponse();
+      GetAccessKeyInfoResponse(
+        account: json.containsKey('Account') ? json['Account'] as String : null,
+      );
 }
 
 /// Contains the response to a successful GetCallerIdentity request, including
@@ -1401,7 +1513,11 @@ class GetCallerIdentityResponse {
     this.arn,
   });
   static GetCallerIdentityResponse fromJson(Map<String, dynamic> json) =>
-      GetCallerIdentityResponse();
+      GetCallerIdentityResponse(
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+        account: json.containsKey('Account') ? json['Account'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+      );
 }
 
 /// Contains the response to a successful GetFederationToken request, including
@@ -1434,7 +1550,17 @@ class GetFederationTokenResponse {
     this.packedPolicySize,
   });
   static GetFederationTokenResponse fromJson(Map<String, dynamic> json) =>
-      GetFederationTokenResponse();
+      GetFederationTokenResponse(
+        credentials: json.containsKey('Credentials')
+            ? Credentials.fromJson(json['Credentials'])
+            : null,
+        federatedUser: json.containsKey('FederatedUser')
+            ? FederatedUser.fromJson(json['FederatedUser'])
+            : null,
+        packedPolicySize: json.containsKey('PackedPolicySize')
+            ? json['PackedPolicySize'] as int
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetSessionToken request, including
@@ -1454,7 +1580,11 @@ class GetSessionTokenResponse {
     this.credentials,
   });
   static GetSessionTokenResponse fromJson(Map<String, dynamic> json) =>
-      GetSessionTokenResponse();
+      GetSessionTokenResponse(
+        credentials: json.containsKey('Credentials')
+            ? Credentials.fromJson(json['Credentials'])
+            : null,
+      );
 }
 
 /// A reference to the IAM managed policy that is passed as a session policy for
@@ -1469,4 +1599,5 @@ class PolicyDescriptorType {
   PolicyDescriptorType({
     this.arn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

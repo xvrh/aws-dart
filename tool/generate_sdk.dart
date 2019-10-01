@@ -43,23 +43,41 @@ main() {
 
     code.writeln(documentationComment(api.schema.documentation, indent: 0));
     code.writeln('class ${api.apiClassName} {');
+    code.writeln('final _client;');
+
+    code.writeln("${api.apiClassName}(client): _client = client.configured('${api.schema.metadata.serviceId}', serializer: '${api.schema.metadata.protocol}');");
+
     for (var operation in api.operations) {
       code.writeln(documentationComment(operation.operation.documentation, indent: 2));
 
       for (var parameter in operation.parameters) {
-        if (parameter.documentation != null) {
+        if (parameter.documentation != null && parameter.documentation.isNotEmpty) {
           code.writeln('  /// ');
           code.writeln(documentationComment('${parameter.documentation}', argumentName: parameter.dartName, indent: 2));
         }
       }
-      //TODO(xha): ajouter toute la documentation pour les arguments et la valeur de retour
 
       code.writeln(
           'Future<${operation.returnDartType}> ${operation.methodName}(${operation.parametersCode}) async {');
+      //TODO(xha): ajouter la validation pour chaque argument
+
+      var sendCode = "await _client.send('${operation.operation.name}', {";
+      for (var parameter in operation.parameters) {
+        if (!parameter.isRequired) {
+          sendCode += 'if (${parameter.dartName} != null)';
+        }
+        sendCode += "'${parameter.name}' : ${parameter.dartName},";
+      }
+
+      sendCode += '})';
 
       if (operation.output != null) {
+        code.writeln("var response_ = $sendCode;");
+
         Structure output = operation.output;
-        code.writeln('return ${output.className}.fromJson({});');
+        code.writeln('return ${output.className}.fromJson(response_);');
+      } else {
+        code.writeln("$sendCode;");
       }
 
       code.writeln('}');
@@ -89,7 +107,21 @@ main() {
       }
       code.writeln(');');
       if (declaration.isOutput()) {
-        code.writeln('static ${declaration.className} fromJson(Map<String, dynamic> json) => ${declaration.className}();');
+        code.writeln('static ${declaration.className} fromJson(Map<String, dynamic> json) => ${declaration.className}(');
+        for (var property in properties) {
+          code.writeln("${property.dartName}: ");
+          var fromJsonCode = property.fromJsonCode("json['${property.name}']");
+          if (!property.isRequired) {
+            code.writeln("json.containsKey('${property.name}') ? $fromJsonCode : null,");
+          } else {
+            code.writeln('$fromJsonCode,');
+          }
+        }
+        code.writeln(');');
+      }
+
+      if (declaration.isSubLevelInput()) {
+        code.writeln('Map<String, dynamic> toJson() => <String, dynamic>{};');
       }
 
       code.writeln('}');

@@ -22,6 +22,10 @@ import 'package:meta/meta.dart';
 /// *
 /// [Amazon AppStream 2.0 documentation](http://aws.amazon.com/documentation/appstream2)
 class AppStreamApi {
+  final _client;
+  AppStreamApi(client)
+      : _client = client.configured('AppStream', serializer: 'json');
+
   /// Associates the specified fleet with the specified stack.
   ///
   /// [fleetName]: The name of the fleet.
@@ -29,7 +33,11 @@ class AppStreamApi {
   /// [stackName]: The name of the stack.
   Future<AssociateFleetResult> associateFleet(
       {@required String fleetName, @required String stackName}) async {
-    return AssociateFleetResult.fromJson({});
+    var response_ = await _client.send('AssociateFleet', {
+      'FleetName': fleetName,
+      'StackName': stackName,
+    });
+    return AssociateFleetResult.fromJson(response_);
   }
 
   /// Associates the specified users with the specified stacks. Users in a user
@@ -39,7 +47,10 @@ class AppStreamApi {
   /// [userStackAssociations]: The list of UserStackAssociation objects.
   Future<BatchAssociateUserStackResult> batchAssociateUserStack(
       List<UserStackAssociation> userStackAssociations) async {
-    return BatchAssociateUserStackResult.fromJson({});
+    var response_ = await _client.send('BatchAssociateUserStack', {
+      'UserStackAssociations': userStackAssociations,
+    });
+    return BatchAssociateUserStackResult.fromJson(response_);
   }
 
   /// Disassociates the specified users from the specified stacks.
@@ -47,7 +58,10 @@ class AppStreamApi {
   /// [userStackAssociations]: The list of UserStackAssociation objects.
   Future<BatchDisassociateUserStackResult> batchDisassociateUserStack(
       List<UserStackAssociation> userStackAssociations) async {
-    return BatchDisassociateUserStackResult.fromJson({});
+    var response_ = await _client.send('BatchDisassociateUserStack', {
+      'UserStackAssociations': userStackAssociations,
+    });
+    return BatchDisassociateUserStackResult.fromJson(response_);
   }
 
   /// Copies the image within the same region or to a new region within the same
@@ -69,7 +83,14 @@ class AppStreamApi {
       @required String destinationImageName,
       @required String destinationRegion,
       String destinationImageDescription}) async {
-    return CopyImageResponse.fromJson({});
+    var response_ = await _client.send('CopyImage', {
+      'SourceImageName': sourceImageName,
+      'DestinationImageName': destinationImageName,
+      'DestinationRegion': destinationRegion,
+      if (destinationImageDescription != null)
+        'DestinationImageDescription': destinationImageDescription,
+    });
+    return CopyImageResponse.fromJson(response_);
   }
 
   /// Creates a Directory Config object in AppStream 2.0. This object includes
@@ -88,7 +109,13 @@ class AppStreamApi {
       {@required String directoryName,
       @required List<String> organizationalUnitDistinguishedNames,
       @required ServiceAccountCredentials serviceAccountCredentials}) async {
-    return CreateDirectoryConfigResult.fromJson({});
+    var response_ = await _client.send('CreateDirectoryConfig', {
+      'DirectoryName': directoryName,
+      'OrganizationalUnitDistinguishedNames':
+          organizationalUnitDistinguishedNames,
+      'ServiceAccountCredentials': serviceAccountCredentials,
+    });
+    return CreateDirectoryConfigResult.fromJson(response_);
   }
 
   /// Creates a fleet. A fleet consists of streaming instances that run a
@@ -251,7 +278,29 @@ class AppStreamApi {
       Map<String, String> tags,
       int idleDisconnectTimeoutInSeconds,
       String iamRoleArn}) async {
-    return CreateFleetResult.fromJson({});
+    var response_ = await _client.send('CreateFleet', {
+      'Name': name,
+      if (imageName != null) 'ImageName': imageName,
+      if (imageArn != null) 'ImageArn': imageArn,
+      'InstanceType': instanceType,
+      if (fleetType != null) 'FleetType': fleetType,
+      'ComputeCapacity': computeCapacity,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+      if (maxUserDurationInSeconds != null)
+        'MaxUserDurationInSeconds': maxUserDurationInSeconds,
+      if (disconnectTimeoutInSeconds != null)
+        'DisconnectTimeoutInSeconds': disconnectTimeoutInSeconds,
+      if (description != null) 'Description': description,
+      if (displayName != null) 'DisplayName': displayName,
+      if (enableDefaultInternetAccess != null)
+        'EnableDefaultInternetAccess': enableDefaultInternetAccess,
+      if (domainJoinInfo != null) 'DomainJoinInfo': domainJoinInfo,
+      if (tags != null) 'Tags': tags,
+      if (idleDisconnectTimeoutInSeconds != null)
+        'IdleDisconnectTimeoutInSeconds': idleDisconnectTimeoutInSeconds,
+      if (iamRoleArn != null) 'IamRoleArn': iamRoleArn,
+    });
+    return CreateFleetResult.fromJson(response_);
   }
 
   /// Creates an image builder. An image builder is a virtual machine that is
@@ -323,7 +372,24 @@ class AppStreamApi {
       String appstreamAgentVersion,
       Map<String, String> tags,
       List<AccessEndpoint> accessEndpoints}) async {
-    return CreateImageBuilderResult.fromJson({});
+    var response_ = await _client.send('CreateImageBuilder', {
+      'Name': name,
+      if (imageName != null) 'ImageName': imageName,
+      if (imageArn != null) 'ImageArn': imageArn,
+      'InstanceType': instanceType,
+      if (description != null) 'Description': description,
+      if (displayName != null) 'DisplayName': displayName,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+      if (iamRoleArn != null) 'IamRoleArn': iamRoleArn,
+      if (enableDefaultInternetAccess != null)
+        'EnableDefaultInternetAccess': enableDefaultInternetAccess,
+      if (domainJoinInfo != null) 'DomainJoinInfo': domainJoinInfo,
+      if (appstreamAgentVersion != null)
+        'AppstreamAgentVersion': appstreamAgentVersion,
+      if (tags != null) 'Tags': tags,
+      if (accessEndpoints != null) 'AccessEndpoints': accessEndpoints,
+    });
+    return CreateImageBuilderResult.fromJson(response_);
   }
 
   /// Creates a URL to start an image builder streaming session.
@@ -335,7 +401,11 @@ class AppStreamApi {
   Future<CreateImageBuilderStreamingUrlResult> createImageBuilderStreamingUrl(
       String name,
       {BigInt validity}) async {
-    return CreateImageBuilderStreamingUrlResult.fromJson({});
+    var response_ = await _client.send('CreateImageBuilderStreamingURL', {
+      'Name': name,
+      if (validity != null) 'Validity': validity,
+    });
+    return CreateImageBuilderStreamingUrlResult.fromJson(response_);
   }
 
   /// Creates a stack to start streaming applications to users. A stack consists
@@ -392,7 +462,20 @@ class AppStreamApi {
       ApplicationSettings applicationSettings,
       Map<String, String> tags,
       List<AccessEndpoint> accessEndpoints}) async {
-    return CreateStackResult.fromJson({});
+    var response_ = await _client.send('CreateStack', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (displayName != null) 'DisplayName': displayName,
+      if (storageConnectors != null) 'StorageConnectors': storageConnectors,
+      if (redirectUrl != null) 'RedirectURL': redirectUrl,
+      if (feedbackUrl != null) 'FeedbackURL': feedbackUrl,
+      if (userSettings != null) 'UserSettings': userSettings,
+      if (applicationSettings != null)
+        'ApplicationSettings': applicationSettings,
+      if (tags != null) 'Tags': tags,
+      if (accessEndpoints != null) 'AccessEndpoints': accessEndpoints,
+    });
+    return CreateStackResult.fromJson(response_);
   }
 
   /// Creates a temporary URL to start an AppStream 2.0 streaming session for
@@ -422,13 +505,22 @@ class AppStreamApi {
       String applicationId,
       BigInt validity,
       String sessionContext}) async {
-    return CreateStreamingUrlResult.fromJson({});
+    var response_ = await _client.send('CreateStreamingURL', {
+      'StackName': stackName,
+      'FleetName': fleetName,
+      'UserId': userId,
+      if (applicationId != null) 'ApplicationId': applicationId,
+      if (validity != null) 'Validity': validity,
+      if (sessionContext != null) 'SessionContext': sessionContext,
+    });
+    return CreateStreamingUrlResult.fromJson(response_);
   }
 
   /// Creates a usage report subscription. Usage reports are generated daily.
   Future<CreateUsageReportSubscriptionResult>
       createUsageReportSubscription() async {
-    return CreateUsageReportSubscriptionResult.fromJson({});
+    var response_ = await _client.send('CreateUsageReportSubscription', {});
+    return CreateUsageReportSubscriptionResult.fromJson(response_);
   }
 
   /// Creates a new user in the user pool.
@@ -466,7 +558,14 @@ class AppStreamApi {
       String firstName,
       String lastName,
       @required String authenticationType}) async {
-    return CreateUserResult.fromJson({});
+    var response_ = await _client.send('CreateUser', {
+      'UserName': userName,
+      if (messageAction != null) 'MessageAction': messageAction,
+      if (firstName != null) 'FirstName': firstName,
+      if (lastName != null) 'LastName': lastName,
+      'AuthenticationType': authenticationType,
+    });
+    return CreateUserResult.fromJson(response_);
   }
 
   /// Deletes the specified Directory Config object from AppStream 2.0. This
@@ -476,14 +575,20 @@ class AppStreamApi {
   /// [directoryName]: The name of the directory configuration.
   Future<DeleteDirectoryConfigResult> deleteDirectoryConfig(
       String directoryName) async {
-    return DeleteDirectoryConfigResult.fromJson({});
+    var response_ = await _client.send('DeleteDirectoryConfig', {
+      'DirectoryName': directoryName,
+    });
+    return DeleteDirectoryConfigResult.fromJson(response_);
   }
 
   /// Deletes the specified fleet.
   ///
   /// [name]: The name of the fleet.
   Future<DeleteFleetResult> deleteFleet(String name) async {
-    return DeleteFleetResult.fromJson({});
+    var response_ = await _client.send('DeleteFleet', {
+      'Name': name,
+    });
+    return DeleteFleetResult.fromJson(response_);
   }
 
   /// Deletes the specified image. You cannot delete an image when it is in use.
@@ -492,14 +597,20 @@ class AppStreamApi {
   ///
   /// [name]: The name of the image.
   Future<DeleteImageResult> deleteImage(String name) async {
-    return DeleteImageResult.fromJson({});
+    var response_ = await _client.send('DeleteImage', {
+      'Name': name,
+    });
+    return DeleteImageResult.fromJson(response_);
   }
 
   /// Deletes the specified image builder and releases the capacity.
   ///
   /// [name]: The name of the image builder.
   Future<DeleteImageBuilderResult> deleteImageBuilder(String name) async {
-    return DeleteImageBuilderResult.fromJson({});
+    var response_ = await _client.send('DeleteImageBuilder', {
+      'Name': name,
+    });
+    return DeleteImageBuilderResult.fromJson(response_);
   }
 
   /// Deletes permissions for the specified private image. After you delete
@@ -512,7 +623,11 @@ class AppStreamApi {
   /// delete image permissions.
   Future<DeleteImagePermissionsResult> deleteImagePermissions(
       {@required String name, @required String sharedAccountId}) async {
-    return DeleteImagePermissionsResult.fromJson({});
+    var response_ = await _client.send('DeleteImagePermissions', {
+      'Name': name,
+      'SharedAccountId': sharedAccountId,
+    });
+    return DeleteImagePermissionsResult.fromJson(response_);
   }
 
   /// Deletes the specified stack. After the stack is deleted, the application
@@ -522,13 +637,17 @@ class AppStreamApi {
   ///
   /// [name]: The name of the stack.
   Future<DeleteStackResult> deleteStack(String name) async {
-    return DeleteStackResult.fromJson({});
+    var response_ = await _client.send('DeleteStack', {
+      'Name': name,
+    });
+    return DeleteStackResult.fromJson(response_);
   }
 
   /// Disables usage report generation.
   Future<DeleteUsageReportSubscriptionResult>
       deleteUsageReportSubscription() async {
-    return DeleteUsageReportSubscriptionResult.fromJson({});
+    var response_ = await _client.send('DeleteUsageReportSubscription', {});
+    return DeleteUsageReportSubscriptionResult.fromJson(response_);
   }
 
   /// Deletes a user from the user pool.
@@ -543,7 +662,11 @@ class AppStreamApi {
   /// specify USERPOOL.
   Future<DeleteUserResult> deleteUser(
       {@required String userName, @required String authenticationType}) async {
-    return DeleteUserResult.fromJson({});
+    var response_ = await _client.send('DeleteUser', {
+      'UserName': userName,
+      'AuthenticationType': authenticationType,
+    });
+    return DeleteUserResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes one or more specified Directory Config
@@ -564,7 +687,12 @@ class AppStreamApi {
   /// page.
   Future<DescribeDirectoryConfigsResult> describeDirectoryConfigs(
       {List<String> directoryNames, int maxResults, String nextToken}) async {
-    return DescribeDirectoryConfigsResult.fromJson({});
+    var response_ = await _client.send('DescribeDirectoryConfigs', {
+      if (directoryNames != null) 'DirectoryNames': directoryNames,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeDirectoryConfigsResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes one or more specified fleets, if the fleet
@@ -577,7 +705,11 @@ class AppStreamApi {
   /// page.
   Future<DescribeFleetsResult> describeFleets(
       {List<String> names, String nextToken}) async {
-    return DescribeFleetsResult.fromJson({});
+    var response_ = await _client.send('DescribeFleets', {
+      if (names != null) 'Names': names,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeFleetsResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes one or more specified image builders, if
@@ -593,7 +725,12 @@ class AppStreamApi {
   /// page.
   Future<DescribeImageBuildersResult> describeImageBuilders(
       {List<String> names, int maxResults, String nextToken}) async {
-    return DescribeImageBuildersResult.fromJson({});
+    var response_ = await _client.send('DescribeImageBuilders', {
+      if (names != null) 'Names': names,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeImageBuildersResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes the permissions for shared AWS account IDs
@@ -614,7 +751,14 @@ class AppStreamApi {
       {int maxResults,
       List<String> sharedAwsAccountIds,
       String nextToken}) async {
-    return DescribeImagePermissionsResult.fromJson({});
+    var response_ = await _client.send('DescribeImagePermissions', {
+      'Name': name,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (sharedAwsAccountIds != null)
+        'SharedAwsAccountIds': sharedAwsAccountIds,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeImagePermissionsResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes one or more specified images, if the image
@@ -638,7 +782,14 @@ class AppStreamApi {
       String type,
       String nextToken,
       int maxResults}) async {
-    return DescribeImagesResult.fromJson({});
+    var response_ = await _client.send('DescribeImages', {
+      if (names != null) 'Names': names,
+      if (arns != null) 'Arns': arns,
+      if (type != null) 'Type': type,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeImagesResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes the streaming sessions for a specified
@@ -670,7 +821,15 @@ class AppStreamApi {
       String nextToken,
       int limit,
       String authenticationType}) async {
-    return DescribeSessionsResult.fromJson({});
+    var response_ = await _client.send('DescribeSessions', {
+      'StackName': stackName,
+      'FleetName': fleetName,
+      if (userId != null) 'UserId': userId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+      if (authenticationType != null) 'AuthenticationType': authenticationType,
+    });
+    return DescribeSessionsResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes one or more specified stacks, if the stack
@@ -683,7 +842,11 @@ class AppStreamApi {
   /// page.
   Future<DescribeStacksResult> describeStacks(
       {List<String> names, String nextToken}) async {
-    return DescribeStacksResult.fromJson({});
+    var response_ = await _client.send('DescribeStacks', {
+      if (names != null) 'Names': names,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeStacksResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes one or more usage report subscriptions.
@@ -696,7 +859,11 @@ class AppStreamApi {
   Future<DescribeUsageReportSubscriptionsResult>
       describeUsageReportSubscriptions(
           {int maxResults, String nextToken}) async {
-    return DescribeUsageReportSubscriptionsResult.fromJson({});
+    var response_ = await _client.send('DescribeUsageReportSubscriptions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeUsageReportSubscriptionsResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes the UserStackAssociation objects. You must
@@ -730,7 +897,14 @@ class AppStreamApi {
       String authenticationType,
       int maxResults,
       String nextToken}) async {
-    return DescribeUserStackAssociationsResult.fromJson({});
+    var response_ = await _client.send('DescribeUserStackAssociations', {
+      if (stackName != null) 'StackName': stackName,
+      if (userName != null) 'UserName': userName,
+      if (authenticationType != null) 'AuthenticationType': authenticationType,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeUserStackAssociationsResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes one or more specified users in the user
@@ -746,7 +920,12 @@ class AppStreamApi {
   /// page.
   Future<DescribeUsersResult> describeUsers(String authenticationType,
       {int maxResults, String nextToken}) async {
-    return DescribeUsersResult.fromJson({});
+    var response_ = await _client.send('DescribeUsers', {
+      'AuthenticationType': authenticationType,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeUsersResult.fromJson(response_);
   }
 
   /// Disables the specified user in the user pool. Users can't sign in to
@@ -763,7 +942,11 @@ class AppStreamApi {
   /// specify USERPOOL.
   Future<DisableUserResult> disableUser(
       {@required String userName, @required String authenticationType}) async {
-    return DisableUserResult.fromJson({});
+    var response_ = await _client.send('DisableUser', {
+      'UserName': userName,
+      'AuthenticationType': authenticationType,
+    });
+    return DisableUserResult.fromJson(response_);
   }
 
   /// Disassociates the specified fleet from the specified stack.
@@ -773,7 +956,11 @@ class AppStreamApi {
   /// [stackName]: The name of the stack.
   Future<DisassociateFleetResult> disassociateFleet(
       {@required String fleetName, @required String stackName}) async {
-    return DisassociateFleetResult.fromJson({});
+    var response_ = await _client.send('DisassociateFleet', {
+      'FleetName': fleetName,
+      'StackName': stackName,
+    });
+    return DisassociateFleetResult.fromJson(response_);
   }
 
   /// Enables a user in the user pool. After being enabled, users can sign in to
@@ -793,14 +980,21 @@ class AppStreamApi {
   /// specify USERPOOL.
   Future<EnableUserResult> enableUser(
       {@required String userName, @required String authenticationType}) async {
-    return EnableUserResult.fromJson({});
+    var response_ = await _client.send('EnableUser', {
+      'UserName': userName,
+      'AuthenticationType': authenticationType,
+    });
+    return EnableUserResult.fromJson(response_);
   }
 
   /// Immediately stops the specified streaming session.
   ///
   /// [sessionId]: The identifier of the streaming session.
   Future<ExpireSessionResult> expireSession(String sessionId) async {
-    return ExpireSessionResult.fromJson({});
+    var response_ = await _client.send('ExpireSession', {
+      'SessionId': sessionId,
+    });
+    return ExpireSessionResult.fromJson(response_);
   }
 
   /// Retrieves the name of the fleet that is associated with the specified
@@ -813,7 +1007,11 @@ class AppStreamApi {
   /// page.
   Future<ListAssociatedFleetsResult> listAssociatedFleets(String stackName,
       {String nextToken}) async {
-    return ListAssociatedFleetsResult.fromJson({});
+    var response_ = await _client.send('ListAssociatedFleets', {
+      'StackName': stackName,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAssociatedFleetsResult.fromJson(response_);
   }
 
   /// Retrieves the name of the stack with which the specified fleet is
@@ -826,7 +1024,11 @@ class AppStreamApi {
   /// page.
   Future<ListAssociatedStacksResult> listAssociatedStacks(String fleetName,
       {String nextToken}) async {
-    return ListAssociatedStacksResult.fromJson({});
+    var response_ = await _client.send('ListAssociatedStacks', {
+      'FleetName': fleetName,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAssociatedStacksResult.fromJson(response_);
   }
 
   /// Retrieves a list of all tags for the specified AppStream 2.0 resource. You
@@ -839,14 +1041,20 @@ class AppStreamApi {
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Starts the specified fleet.
   ///
   /// [name]: The name of the fleet.
   Future<StartFleetResult> startFleet(String name) async {
-    return StartFleetResult.fromJson({});
+    var response_ = await _client.send('StartFleet', {
+      'Name': name,
+    });
+    return StartFleetResult.fromJson(response_);
   }
 
   /// Starts the specified image builder.
@@ -858,21 +1066,32 @@ class AppStreamApi {
   /// specify [LATEST].
   Future<StartImageBuilderResult> startImageBuilder(String name,
       {String appstreamAgentVersion}) async {
-    return StartImageBuilderResult.fromJson({});
+    var response_ = await _client.send('StartImageBuilder', {
+      'Name': name,
+      if (appstreamAgentVersion != null)
+        'AppstreamAgentVersion': appstreamAgentVersion,
+    });
+    return StartImageBuilderResult.fromJson(response_);
   }
 
   /// Stops the specified fleet.
   ///
   /// [name]: The name of the fleet.
   Future<StopFleetResult> stopFleet(String name) async {
-    return StopFleetResult.fromJson({});
+    var response_ = await _client.send('StopFleet', {
+      'Name': name,
+    });
+    return StopFleetResult.fromJson(response_);
   }
 
   /// Stops the specified image builder.
   ///
   /// [name]: The name of the image builder.
   Future<StopImageBuilderResult> stopImageBuilder(String name) async {
-    return StopImageBuilderResult.fromJson({});
+    var response_ = await _client.send('StopImageBuilder', {
+      'Name': name,
+    });
+    return StopImageBuilderResult.fromJson(response_);
   }
 
   /// Adds or overwrites one or more tags for the specified AppStream 2.0
@@ -904,7 +1123,11 @@ class AppStreamApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Disassociates one or more specified tags from the specified AppStream 2.0
@@ -921,7 +1144,11 @@ class AppStreamApi {
   /// [tagKeys]: The tag keys for the tags to disassociate.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates the specified Directory Config object in AppStream 2.0. This
@@ -939,7 +1166,15 @@ class AppStreamApi {
       String directoryName,
       {List<String> organizationalUnitDistinguishedNames,
       ServiceAccountCredentials serviceAccountCredentials}) async {
-    return UpdateDirectoryConfigResult.fromJson({});
+    var response_ = await _client.send('UpdateDirectoryConfig', {
+      'DirectoryName': directoryName,
+      if (organizationalUnitDistinguishedNames != null)
+        'OrganizationalUnitDistinguishedNames':
+            organizationalUnitDistinguishedNames,
+      if (serviceAccountCredentials != null)
+        'ServiceAccountCredentials': serviceAccountCredentials,
+    });
+    return UpdateDirectoryConfigResult.fromJson(response_);
   }
 
   /// Updates the specified fleet.
@@ -1083,7 +1318,29 @@ class AppStreamApi {
       int idleDisconnectTimeoutInSeconds,
       List<String> attributesToDelete,
       String iamRoleArn}) async {
-    return UpdateFleetResult.fromJson({});
+    var response_ = await _client.send('UpdateFleet', {
+      if (imageName != null) 'ImageName': imageName,
+      if (imageArn != null) 'ImageArn': imageArn,
+      if (name != null) 'Name': name,
+      if (instanceType != null) 'InstanceType': instanceType,
+      if (computeCapacity != null) 'ComputeCapacity': computeCapacity,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+      if (maxUserDurationInSeconds != null)
+        'MaxUserDurationInSeconds': maxUserDurationInSeconds,
+      if (disconnectTimeoutInSeconds != null)
+        'DisconnectTimeoutInSeconds': disconnectTimeoutInSeconds,
+      if (deleteVpcConfig != null) 'DeleteVpcConfig': deleteVpcConfig,
+      if (description != null) 'Description': description,
+      if (displayName != null) 'DisplayName': displayName,
+      if (enableDefaultInternetAccess != null)
+        'EnableDefaultInternetAccess': enableDefaultInternetAccess,
+      if (domainJoinInfo != null) 'DomainJoinInfo': domainJoinInfo,
+      if (idleDisconnectTimeoutInSeconds != null)
+        'IdleDisconnectTimeoutInSeconds': idleDisconnectTimeoutInSeconds,
+      if (attributesToDelete != null) 'AttributesToDelete': attributesToDelete,
+      if (iamRoleArn != null) 'IamRoleArn': iamRoleArn,
+    });
+    return UpdateFleetResult.fromJson(response_);
   }
 
   /// Adds or updates permissions for the specified private image.
@@ -1098,7 +1355,12 @@ class AppStreamApi {
       {@required String name,
       @required String sharedAccountId,
       @required ImagePermissions imagePermissions}) async {
-    return UpdateImagePermissionsResult.fromJson({});
+    var response_ = await _client.send('UpdateImagePermissions', {
+      'Name': name,
+      'SharedAccountId': sharedAccountId,
+      'ImagePermissions': imagePermissions,
+    });
+    return UpdateImagePermissionsResult.fromJson(response_);
   }
 
   /// Updates the specified fields for the specified stack.
@@ -1145,7 +1407,22 @@ class AppStreamApi {
       List<UserSetting> userSettings,
       ApplicationSettings applicationSettings,
       List<AccessEndpoint> accessEndpoints}) async {
-    return UpdateStackResult.fromJson({});
+    var response_ = await _client.send('UpdateStack', {
+      if (displayName != null) 'DisplayName': displayName,
+      if (description != null) 'Description': description,
+      'Name': name,
+      if (storageConnectors != null) 'StorageConnectors': storageConnectors,
+      if (deleteStorageConnectors != null)
+        'DeleteStorageConnectors': deleteStorageConnectors,
+      if (redirectUrl != null) 'RedirectURL': redirectUrl,
+      if (feedbackUrl != null) 'FeedbackURL': feedbackUrl,
+      if (attributesToDelete != null) 'AttributesToDelete': attributesToDelete,
+      if (userSettings != null) 'UserSettings': userSettings,
+      if (applicationSettings != null)
+        'ApplicationSettings': applicationSettings,
+      if (accessEndpoints != null) 'AccessEndpoints': accessEndpoints,
+    });
+    return UpdateStackResult.fromJson(response_);
   }
 }
 
@@ -1166,7 +1443,11 @@ class AccessEndpoint {
     @required this.endpointType,
     this.vpceId,
   });
-  static AccessEndpoint fromJson(Map<String, dynamic> json) => AccessEndpoint();
+  static AccessEndpoint fromJson(Map<String, dynamic> json) => AccessEndpoint(
+        endpointType: json['EndpointType'] as String,
+        vpceId: json.containsKey('VpceId') ? json['VpceId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an application in the application catalog.
@@ -1202,7 +1483,24 @@ class Application {
     this.enabled,
     this.metadata,
   });
-  static Application fromJson(Map<String, dynamic> json) => Application();
+  static Application fromJson(Map<String, dynamic> json) => Application(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        iconUrl: json.containsKey('IconURL') ? json['IconURL'] as String : null,
+        launchPath: json.containsKey('LaunchPath')
+            ? json['LaunchPath'] as String
+            : null,
+        launchParameters: json.containsKey('LaunchParameters')
+            ? json['LaunchParameters'] as String
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        metadata: json.containsKey('Metadata')
+            ? (json['Metadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The persistent application settings for users of a stack.
@@ -1221,6 +1519,7 @@ class ApplicationSettings {
     @required this.enabled,
     this.settingsGroup,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the persistent application settings for users of a stack.
@@ -1245,7 +1544,15 @@ class ApplicationSettingsResponse {
     this.s3BucketName,
   });
   static ApplicationSettingsResponse fromJson(Map<String, dynamic> json) =>
-      ApplicationSettingsResponse();
+      ApplicationSettingsResponse(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        settingsGroup: json.containsKey('SettingsGroup')
+            ? json['SettingsGroup'] as String
+            : null,
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+      );
 }
 
 class AssociateFleetResult {
@@ -1262,7 +1569,13 @@ class BatchAssociateUserStackResult {
     this.errors,
   });
   static BatchAssociateUserStackResult fromJson(Map<String, dynamic> json) =>
-      BatchAssociateUserStackResult();
+      BatchAssociateUserStackResult(
+        errors: json.containsKey('errors')
+            ? (json['errors'] as List)
+                .map((e) => UserStackAssociationError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDisassociateUserStackResult {
@@ -1273,7 +1586,13 @@ class BatchDisassociateUserStackResult {
     this.errors,
   });
   static BatchDisassociateUserStackResult fromJson(Map<String, dynamic> json) =>
-      BatchDisassociateUserStackResult();
+      BatchDisassociateUserStackResult(
+        errors: json.containsKey('errors')
+            ? (json['errors'] as List)
+                .map((e) => UserStackAssociationError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the capacity for a fleet.
@@ -1284,6 +1603,7 @@ class ComputeCapacity {
   ComputeCapacity({
     @required this.desiredInstances,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the capacity status for a fleet.
@@ -1308,7 +1628,13 @@ class ComputeCapacityStatus {
     this.available,
   });
   static ComputeCapacityStatus fromJson(Map<String, dynamic> json) =>
-      ComputeCapacityStatus();
+      ComputeCapacityStatus(
+        desired: json['Desired'] as int,
+        running: json.containsKey('Running') ? json['Running'] as int : null,
+        inUse: json.containsKey('InUse') ? json['InUse'] as int : null,
+        available:
+            json.containsKey('Available') ? json['Available'] as int : null,
+      );
 }
 
 class CopyImageResponse {
@@ -1319,7 +1645,11 @@ class CopyImageResponse {
     this.destinationImageName,
   });
   static CopyImageResponse fromJson(Map<String, dynamic> json) =>
-      CopyImageResponse();
+      CopyImageResponse(
+        destinationImageName: json.containsKey('DestinationImageName')
+            ? json['DestinationImageName'] as String
+            : null,
+      );
 }
 
 class CreateDirectoryConfigResult {
@@ -1330,7 +1660,11 @@ class CreateDirectoryConfigResult {
     this.directoryConfig,
   });
   static CreateDirectoryConfigResult fromJson(Map<String, dynamic> json) =>
-      CreateDirectoryConfigResult();
+      CreateDirectoryConfigResult(
+        directoryConfig: json.containsKey('DirectoryConfig')
+            ? DirectoryConfig.fromJson(json['DirectoryConfig'])
+            : null,
+      );
 }
 
 class CreateFleetResult {
@@ -1341,7 +1675,9 @@ class CreateFleetResult {
     this.fleet,
   });
   static CreateFleetResult fromJson(Map<String, dynamic> json) =>
-      CreateFleetResult();
+      CreateFleetResult(
+        fleet: json.containsKey('Fleet') ? Fleet.fromJson(json['Fleet']) : null,
+      );
 }
 
 class CreateImageBuilderResult {
@@ -1352,7 +1688,11 @@ class CreateImageBuilderResult {
     this.imageBuilder,
   });
   static CreateImageBuilderResult fromJson(Map<String, dynamic> json) =>
-      CreateImageBuilderResult();
+      CreateImageBuilderResult(
+        imageBuilder: json.containsKey('ImageBuilder')
+            ? ImageBuilder.fromJson(json['ImageBuilder'])
+            : null,
+      );
 }
 
 class CreateImageBuilderStreamingUrlResult {
@@ -1368,7 +1708,14 @@ class CreateImageBuilderStreamingUrlResult {
   });
   static CreateImageBuilderStreamingUrlResult fromJson(
           Map<String, dynamic> json) =>
-      CreateImageBuilderStreamingUrlResult();
+      CreateImageBuilderStreamingUrlResult(
+        streamingUrl: json.containsKey('StreamingURL')
+            ? json['StreamingURL'] as String
+            : null,
+        expires: json.containsKey('Expires')
+            ? DateTime.parse(json['Expires'])
+            : null,
+      );
 }
 
 class CreateStackResult {
@@ -1379,7 +1726,9 @@ class CreateStackResult {
     this.stack,
   });
   static CreateStackResult fromJson(Map<String, dynamic> json) =>
-      CreateStackResult();
+      CreateStackResult(
+        stack: json.containsKey('Stack') ? Stack.fromJson(json['Stack']) : null,
+      );
 }
 
 class CreateStreamingUrlResult {
@@ -1394,7 +1743,14 @@ class CreateStreamingUrlResult {
     this.expires,
   });
   static CreateStreamingUrlResult fromJson(Map<String, dynamic> json) =>
-      CreateStreamingUrlResult();
+      CreateStreamingUrlResult(
+        streamingUrl: json.containsKey('StreamingURL')
+            ? json['StreamingURL'] as String
+            : null,
+        expires: json.containsKey('Expires')
+            ? DateTime.parse(json['Expires'])
+            : null,
+      );
 }
 
 class CreateUsageReportSubscriptionResult {
@@ -1418,7 +1774,13 @@ class CreateUsageReportSubscriptionResult {
   });
   static CreateUsageReportSubscriptionResult fromJson(
           Map<String, dynamic> json) =>
-      CreateUsageReportSubscriptionResult();
+      CreateUsageReportSubscriptionResult(
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+        schedule:
+            json.containsKey('Schedule') ? json['Schedule'] as String : null,
+      );
 }
 
 class CreateUserResult {
@@ -1447,7 +1809,11 @@ class DeleteImageBuilderResult {
     this.imageBuilder,
   });
   static DeleteImageBuilderResult fromJson(Map<String, dynamic> json) =>
-      DeleteImageBuilderResult();
+      DeleteImageBuilderResult(
+        imageBuilder: json.containsKey('ImageBuilder')
+            ? ImageBuilder.fromJson(json['ImageBuilder'])
+            : null,
+      );
 }
 
 class DeleteImagePermissionsResult {
@@ -1464,7 +1830,9 @@ class DeleteImageResult {
     this.image,
   });
   static DeleteImageResult fromJson(Map<String, dynamic> json) =>
-      DeleteImageResult();
+      DeleteImageResult(
+        image: json.containsKey('Image') ? Image.fromJson(json['Image']) : null,
+      );
 }
 
 class DeleteStackResult {
@@ -1501,7 +1869,15 @@ class DescribeDirectoryConfigsResult {
     this.nextToken,
   });
   static DescribeDirectoryConfigsResult fromJson(Map<String, dynamic> json) =>
-      DescribeDirectoryConfigsResult();
+      DescribeDirectoryConfigsResult(
+        directoryConfigs: json.containsKey('DirectoryConfigs')
+            ? (json['DirectoryConfigs'] as List)
+                .map((e) => DirectoryConfig.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeFleetsResult {
@@ -1517,7 +1893,13 @@ class DescribeFleetsResult {
     this.nextToken,
   });
   static DescribeFleetsResult fromJson(Map<String, dynamic> json) =>
-      DescribeFleetsResult();
+      DescribeFleetsResult(
+        fleets: json.containsKey('Fleets')
+            ? (json['Fleets'] as List).map((e) => Fleet.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeImageBuildersResult {
@@ -1533,7 +1915,15 @@ class DescribeImageBuildersResult {
     this.nextToken,
   });
   static DescribeImageBuildersResult fromJson(Map<String, dynamic> json) =>
-      DescribeImageBuildersResult();
+      DescribeImageBuildersResult(
+        imageBuilders: json.containsKey('ImageBuilders')
+            ? (json['ImageBuilders'] as List)
+                .map((e) => ImageBuilder.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeImagePermissionsResult {
@@ -1553,7 +1943,17 @@ class DescribeImagePermissionsResult {
     this.nextToken,
   });
   static DescribeImagePermissionsResult fromJson(Map<String, dynamic> json) =>
-      DescribeImagePermissionsResult();
+      DescribeImagePermissionsResult(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        sharedImagePermissionsList:
+            json.containsKey('SharedImagePermissionsList')
+                ? (json['SharedImagePermissionsList'] as List)
+                    .map((e) => SharedImagePermissions.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeImagesResult {
@@ -1569,7 +1969,13 @@ class DescribeImagesResult {
     this.nextToken,
   });
   static DescribeImagesResult fromJson(Map<String, dynamic> json) =>
-      DescribeImagesResult();
+      DescribeImagesResult(
+        images: json.containsKey('Images')
+            ? (json['Images'] as List).map((e) => Image.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeSessionsResult {
@@ -1585,7 +1991,15 @@ class DescribeSessionsResult {
     this.nextToken,
   });
   static DescribeSessionsResult fromJson(Map<String, dynamic> json) =>
-      DescribeSessionsResult();
+      DescribeSessionsResult(
+        sessions: json.containsKey('Sessions')
+            ? (json['Sessions'] as List)
+                .map((e) => Session.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeStacksResult {
@@ -1601,7 +2015,13 @@ class DescribeStacksResult {
     this.nextToken,
   });
   static DescribeStacksResult fromJson(Map<String, dynamic> json) =>
-      DescribeStacksResult();
+      DescribeStacksResult(
+        stacks: json.containsKey('Stacks')
+            ? (json['Stacks'] as List).map((e) => Stack.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeUsageReportSubscriptionsResult {
@@ -1618,7 +2038,15 @@ class DescribeUsageReportSubscriptionsResult {
   });
   static DescribeUsageReportSubscriptionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeUsageReportSubscriptionsResult();
+      DescribeUsageReportSubscriptionsResult(
+        usageReportSubscriptions: json.containsKey('UsageReportSubscriptions')
+            ? (json['UsageReportSubscriptions'] as List)
+                .map((e) => UsageReportSubscription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeUserStackAssociationsResult {
@@ -1635,7 +2063,15 @@ class DescribeUserStackAssociationsResult {
   });
   static DescribeUserStackAssociationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeUserStackAssociationsResult();
+      DescribeUserStackAssociationsResult(
+        userStackAssociations: json.containsKey('UserStackAssociations')
+            ? (json['UserStackAssociations'] as List)
+                .map((e) => UserStackAssociation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeUsersResult {
@@ -1651,7 +2087,13 @@ class DescribeUsersResult {
     this.nextToken,
   });
   static DescribeUsersResult fromJson(Map<String, dynamic> json) =>
-      DescribeUsersResult();
+      DescribeUsersResult(
+        users: json.containsKey('Users')
+            ? (json['Users'] as List).map((e) => User.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes the configuration information required to join fleets and image
@@ -1676,8 +2118,22 @@ class DirectoryConfig {
     this.serviceAccountCredentials,
     this.createdTime,
   });
-  static DirectoryConfig fromJson(Map<String, dynamic> json) =>
-      DirectoryConfig();
+  static DirectoryConfig fromJson(Map<String, dynamic> json) => DirectoryConfig(
+        directoryName: json['DirectoryName'] as String,
+        organizationalUnitDistinguishedNames:
+            json.containsKey('OrganizationalUnitDistinguishedNames')
+                ? (json['OrganizationalUnitDistinguishedNames'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        serviceAccountCredentials: json.containsKey('ServiceAccountCredentials')
+            ? ServiceAccountCredentials.fromJson(
+                json['ServiceAccountCredentials'])
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+      );
 }
 
 class DisableUserResult {
@@ -1705,7 +2161,16 @@ class DomainJoinInfo {
     this.directoryName,
     this.organizationalUnitDistinguishedName,
   });
-  static DomainJoinInfo fromJson(Map<String, dynamic> json) => DomainJoinInfo();
+  static DomainJoinInfo fromJson(Map<String, dynamic> json) => DomainJoinInfo(
+        directoryName: json.containsKey('DirectoryName')
+            ? json['DirectoryName'] as String
+            : null,
+        organizationalUnitDistinguishedName:
+            json.containsKey('OrganizationalUnitDistinguishedName')
+                ? json['OrganizationalUnitDistinguishedName'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class EnableUserResult {
@@ -1853,7 +2318,58 @@ class Fleet {
     this.idleDisconnectTimeoutInSeconds,
     this.iamRoleArn,
   });
-  static Fleet fromJson(Map<String, dynamic> json) => Fleet();
+  static Fleet fromJson(Map<String, dynamic> json) => Fleet(
+        arn: json['Arn'] as String,
+        name: json['Name'] as String,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        imageName:
+            json.containsKey('ImageName') ? json['ImageName'] as String : null,
+        imageArn:
+            json.containsKey('ImageArn') ? json['ImageArn'] as String : null,
+        instanceType: json['InstanceType'] as String,
+        fleetType:
+            json.containsKey('FleetType') ? json['FleetType'] as String : null,
+        computeCapacityStatus:
+            ComputeCapacityStatus.fromJson(json['ComputeCapacityStatus']),
+        maxUserDurationInSeconds: json.containsKey('MaxUserDurationInSeconds')
+            ? json['MaxUserDurationInSeconds'] as int
+            : null,
+        disconnectTimeoutInSeconds:
+            json.containsKey('DisconnectTimeoutInSeconds')
+                ? json['DisconnectTimeoutInSeconds'] as int
+                : null,
+        state: json['State'] as String,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        fleetErrors: json.containsKey('FleetErrors')
+            ? (json['FleetErrors'] as List)
+                .map((e) => FleetError.fromJson(e))
+                .toList()
+            : null,
+        enableDefaultInternetAccess:
+            json.containsKey('EnableDefaultInternetAccess')
+                ? json['EnableDefaultInternetAccess'] as bool
+                : null,
+        domainJoinInfo: json.containsKey('DomainJoinInfo')
+            ? DomainJoinInfo.fromJson(json['DomainJoinInfo'])
+            : null,
+        idleDisconnectTimeoutInSeconds:
+            json.containsKey('IdleDisconnectTimeoutInSeconds')
+                ? json['IdleDisconnectTimeoutInSeconds'] as int
+                : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+      );
 }
 
 /// Describes a fleet error.
@@ -1868,7 +2384,13 @@ class FleetError {
     this.errorCode,
     this.errorMessage,
   });
-  static FleetError fromJson(Map<String, dynamic> json) => FleetError();
+  static FleetError fromJson(Map<String, dynamic> json) => FleetError(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Describes an image.
@@ -1944,7 +2466,52 @@ class Image {
     this.appstreamAgentVersion,
     this.imagePermissions,
   });
-  static Image fromJson(Map<String, dynamic> json) => Image();
+  static Image fromJson(Map<String, dynamic> json) => Image(
+        name: json['Name'] as String,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        baseImageArn: json.containsKey('BaseImageArn')
+            ? json['BaseImageArn'] as String
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        visibility: json.containsKey('Visibility')
+            ? json['Visibility'] as String
+            : null,
+        imageBuilderSupported: json.containsKey('ImageBuilderSupported')
+            ? json['ImageBuilderSupported'] as bool
+            : null,
+        imageBuilderName: json.containsKey('ImageBuilderName')
+            ? json['ImageBuilderName'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        stateChangeReason: json.containsKey('StateChangeReason')
+            ? ImageStateChangeReason.fromJson(json['StateChangeReason'])
+            : null,
+        applications: json.containsKey('Applications')
+            ? (json['Applications'] as List)
+                .map((e) => Application.fromJson(e))
+                .toList()
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        publicBaseImageReleasedDate:
+            json.containsKey('PublicBaseImageReleasedDate')
+                ? DateTime.parse(json['PublicBaseImageReleasedDate'])
+                : null,
+        appstreamAgentVersion: json.containsKey('AppstreamAgentVersion')
+            ? json['AppstreamAgentVersion'] as String
+            : null,
+        imagePermissions: json.containsKey('ImagePermissions')
+            ? ImagePermissions.fromJson(json['ImagePermissions'])
+            : null,
+      );
 }
 
 /// Describes a virtual machine that is used to create an image.
@@ -2029,7 +2596,61 @@ class ImageBuilder {
     this.appstreamAgentVersion,
     this.accessEndpoints,
   });
-  static ImageBuilder fromJson(Map<String, dynamic> json) => ImageBuilder();
+  static ImageBuilder fromJson(Map<String, dynamic> json) => ImageBuilder(
+        name: json['Name'] as String,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        imageArn:
+            json.containsKey('ImageArn') ? json['ImageArn'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateChangeReason: json.containsKey('StateChangeReason')
+            ? ImageBuilderStateChangeReason.fromJson(json['StateChangeReason'])
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        enableDefaultInternetAccess:
+            json.containsKey('EnableDefaultInternetAccess')
+                ? json['EnableDefaultInternetAccess'] as bool
+                : null,
+        domainJoinInfo: json.containsKey('DomainJoinInfo')
+            ? DomainJoinInfo.fromJson(json['DomainJoinInfo'])
+            : null,
+        networkAccessConfiguration:
+            json.containsKey('NetworkAccessConfiguration')
+                ? NetworkAccessConfiguration.fromJson(
+                    json['NetworkAccessConfiguration'])
+                : null,
+        imageBuilderErrors: json.containsKey('ImageBuilderErrors')
+            ? (json['ImageBuilderErrors'] as List)
+                .map((e) => ResourceError.fromJson(e))
+                .toList()
+            : null,
+        appstreamAgentVersion: json.containsKey('AppstreamAgentVersion')
+            ? json['AppstreamAgentVersion'] as String
+            : null,
+        accessEndpoints: json.containsKey('AccessEndpoints')
+            ? (json['AccessEndpoints'] as List)
+                .map((e) => AccessEndpoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the reason why the last image builder state change occurred.
@@ -2045,7 +2666,10 @@ class ImageBuilderStateChangeReason {
     this.message,
   });
   static ImageBuilderStateChangeReason fromJson(Map<String, dynamic> json) =>
-      ImageBuilderStateChangeReason();
+      ImageBuilderStateChangeReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Describes the permissions for an image.
@@ -2061,7 +2685,14 @@ class ImagePermissions {
     this.allowImageBuilder,
   });
   static ImagePermissions fromJson(Map<String, dynamic> json) =>
-      ImagePermissions();
+      ImagePermissions(
+        allowFleet:
+            json.containsKey('allowFleet') ? json['allowFleet'] as bool : null,
+        allowImageBuilder: json.containsKey('allowImageBuilder')
+            ? json['allowImageBuilder'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the reason why the last image state change occurred.
@@ -2077,7 +2708,10 @@ class ImageStateChangeReason {
     this.message,
   });
   static ImageStateChangeReason fromJson(Map<String, dynamic> json) =>
-      ImageStateChangeReason();
+      ImageStateChangeReason(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Describes the error that is returned when a usage report can't be generated.
@@ -2096,7 +2730,13 @@ class LastReportGenerationExecutionError {
   });
   static LastReportGenerationExecutionError fromJson(
           Map<String, dynamic> json) =>
-      LastReportGenerationExecutionError();
+      LastReportGenerationExecutionError(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class ListAssociatedFleetsResult {
@@ -2112,7 +2752,13 @@ class ListAssociatedFleetsResult {
     this.nextToken,
   });
   static ListAssociatedFleetsResult fromJson(Map<String, dynamic> json) =>
-      ListAssociatedFleetsResult();
+      ListAssociatedFleetsResult(
+        names: json.containsKey('Names')
+            ? (json['Names'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListAssociatedStacksResult {
@@ -2128,7 +2774,13 @@ class ListAssociatedStacksResult {
     this.nextToken,
   });
   static ListAssociatedStacksResult fromJson(Map<String, dynamic> json) =>
-      ListAssociatedStacksResult();
+      ListAssociatedStacksResult(
+        names: json.containsKey('Names')
+            ? (json['Names'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -2139,7 +2791,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Describes the network details of the fleet or image builder instance.
@@ -2158,7 +2815,12 @@ class NetworkAccessConfiguration {
     this.eniId,
   });
   static NetworkAccessConfiguration fromJson(Map<String, dynamic> json) =>
-      NetworkAccessConfiguration();
+      NetworkAccessConfiguration(
+        eniPrivateIpAddress: json.containsKey('EniPrivateIpAddress')
+            ? json['EniPrivateIpAddress'] as String
+            : null,
+        eniId: json.containsKey('EniId') ? json['EniId'] as String : null,
+      );
 }
 
 /// Describes a resource error.
@@ -2177,7 +2839,16 @@ class ResourceError {
     this.errorMessage,
     this.errorTimestamp,
   });
-  static ResourceError fromJson(Map<String, dynamic> json) => ResourceError();
+  static ResourceError fromJson(Map<String, dynamic> json) => ResourceError(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        errorTimestamp: json.containsKey('ErrorTimestamp')
+            ? DateTime.parse(json['ErrorTimestamp'])
+            : null,
+      );
 }
 
 /// Describes the credentials for the service account used by the fleet or image
@@ -2197,7 +2868,11 @@ class ServiceAccountCredentials {
     @required this.accountPassword,
   });
   static ServiceAccountCredentials fromJson(Map<String, dynamic> json) =>
-      ServiceAccountCredentials();
+      ServiceAccountCredentials(
+        accountName: json['AccountName'] as String,
+        accountPassword: json['AccountPassword'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a streaming session.
@@ -2252,7 +2927,30 @@ class Session {
     this.authenticationType,
     this.networkAccessConfiguration,
   });
-  static Session fromJson(Map<String, dynamic> json) => Session();
+  static Session fromJson(Map<String, dynamic> json) => Session(
+        id: json['Id'] as String,
+        userId: json['UserId'] as String,
+        stackName: json['StackName'] as String,
+        fleetName: json['FleetName'] as String,
+        state: json['State'] as String,
+        connectionState: json.containsKey('ConnectionState')
+            ? json['ConnectionState'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        maxExpirationTime: json.containsKey('MaxExpirationTime')
+            ? DateTime.parse(json['MaxExpirationTime'])
+            : null,
+        authenticationType: json.containsKey('AuthenticationType')
+            ? json['AuthenticationType'] as String
+            : null,
+        networkAccessConfiguration:
+            json.containsKey('NetworkAccessConfiguration')
+                ? NetworkAccessConfiguration.fromJson(
+                    json['NetworkAccessConfiguration'])
+                : null,
+      );
 }
 
 /// Describes the permissions that are available to the specified AWS account
@@ -2269,7 +2967,10 @@ class SharedImagePermissions {
     @required this.imagePermissions,
   });
   static SharedImagePermissions fromJson(Map<String, dynamic> json) =>
-      SharedImagePermissions();
+      SharedImagePermissions(
+        sharedAccountId: json['sharedAccountId'] as String,
+        imagePermissions: ImagePermissions.fromJson(json['imagePermissions']),
+      );
 }
 
 /// Describes a stack.
@@ -2328,7 +3029,48 @@ class Stack {
     this.applicationSettings,
     this.accessEndpoints,
   });
-  static Stack fromJson(Map<String, dynamic> json) => Stack();
+  static Stack fromJson(Map<String, dynamic> json) => Stack(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json['Name'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        storageConnectors: json.containsKey('StorageConnectors')
+            ? (json['StorageConnectors'] as List)
+                .map((e) => StorageConnector.fromJson(e))
+                .toList()
+            : null,
+        redirectUrl: json.containsKey('RedirectURL')
+            ? json['RedirectURL'] as String
+            : null,
+        feedbackUrl: json.containsKey('FeedbackURL')
+            ? json['FeedbackURL'] as String
+            : null,
+        stackErrors: json.containsKey('StackErrors')
+            ? (json['StackErrors'] as List)
+                .map((e) => StackError.fromJson(e))
+                .toList()
+            : null,
+        userSettings: json.containsKey('UserSettings')
+            ? (json['UserSettings'] as List)
+                .map((e) => UserSetting.fromJson(e))
+                .toList()
+            : null,
+        applicationSettings: json.containsKey('ApplicationSettings')
+            ? ApplicationSettingsResponse.fromJson(json['ApplicationSettings'])
+            : null,
+        accessEndpoints: json.containsKey('AccessEndpoints')
+            ? (json['AccessEndpoints'] as List)
+                .map((e) => AccessEndpoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a stack error.
@@ -2343,7 +3085,13 @@ class StackError {
     this.errorCode,
     this.errorMessage,
   });
-  static StackError fromJson(Map<String, dynamic> json) => StackError();
+  static StackError fromJson(Map<String, dynamic> json) => StackError(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class StartFleetResult {
@@ -2360,7 +3108,11 @@ class StartImageBuilderResult {
     this.imageBuilder,
   });
   static StartImageBuilderResult fromJson(Map<String, dynamic> json) =>
-      StartImageBuilderResult();
+      StartImageBuilderResult(
+        imageBuilder: json.containsKey('ImageBuilder')
+            ? ImageBuilder.fromJson(json['ImageBuilder'])
+            : null,
+      );
 }
 
 class StopFleetResult {
@@ -2377,7 +3129,11 @@ class StopImageBuilderResult {
     this.imageBuilder,
   });
   static StopImageBuilderResult fromJson(Map<String, dynamic> json) =>
-      StopImageBuilderResult();
+      StopImageBuilderResult(
+        imageBuilder: json.containsKey('ImageBuilder')
+            ? ImageBuilder.fromJson(json['ImageBuilder'])
+            : null,
+      );
 }
 
 /// Describes a connector that enables persistent storage for users.
@@ -2397,7 +3153,16 @@ class StorageConnector {
     this.domains,
   });
   static StorageConnector fromJson(Map<String, dynamic> json) =>
-      StorageConnector();
+      StorageConnector(
+        connectorType: json['ConnectorType'] as String,
+        resourceIdentifier: json.containsKey('ResourceIdentifier')
+            ? json['ResourceIdentifier'] as String
+            : null,
+        domains: json.containsKey('Domains')
+            ? (json['Domains'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -2420,7 +3185,11 @@ class UpdateDirectoryConfigResult {
     this.directoryConfig,
   });
   static UpdateDirectoryConfigResult fromJson(Map<String, dynamic> json) =>
-      UpdateDirectoryConfigResult();
+      UpdateDirectoryConfigResult(
+        directoryConfig: json.containsKey('DirectoryConfig')
+            ? DirectoryConfig.fromJson(json['DirectoryConfig'])
+            : null,
+      );
 }
 
 class UpdateFleetResult {
@@ -2431,7 +3200,9 @@ class UpdateFleetResult {
     this.fleet,
   });
   static UpdateFleetResult fromJson(Map<String, dynamic> json) =>
-      UpdateFleetResult();
+      UpdateFleetResult(
+        fleet: json.containsKey('Fleet') ? Fleet.fromJson(json['Fleet']) : null,
+      );
 }
 
 class UpdateImagePermissionsResult {
@@ -2448,7 +3219,9 @@ class UpdateStackResult {
     this.stack,
   });
   static UpdateStackResult fromJson(Map<String, dynamic> json) =>
-      UpdateStackResult();
+      UpdateStackResult(
+        stack: json.containsKey('Stack') ? Stack.fromJson(json['Stack']) : null,
+      );
 }
 
 /// Describes information about the usage report subscription.
@@ -2480,7 +3253,21 @@ class UsageReportSubscription {
     this.subscriptionErrors,
   });
   static UsageReportSubscription fromJson(Map<String, dynamic> json) =>
-      UsageReportSubscription();
+      UsageReportSubscription(
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+        schedule:
+            json.containsKey('Schedule') ? json['Schedule'] as String : null,
+        lastGeneratedReportDate: json.containsKey('LastGeneratedReportDate')
+            ? DateTime.parse(json['LastGeneratedReportDate'])
+            : null,
+        subscriptionErrors: json.containsKey('SubscriptionErrors')
+            ? (json['SubscriptionErrors'] as List)
+                .map((e) => LastReportGenerationExecutionError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a user in the user pool.
@@ -2535,7 +3322,21 @@ class User {
     this.createdTime,
     @required this.authenticationType,
   });
-  static User fromJson(Map<String, dynamic> json) => User();
+  static User fromJson(Map<String, dynamic> json) => User(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        firstName:
+            json.containsKey('FirstName') ? json['FirstName'] as String : null,
+        lastName:
+            json.containsKey('LastName') ? json['LastName'] as String : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        authenticationType: json['AuthenticationType'] as String,
+      );
 }
 
 /// Describes an action and whether the action is enabled or disabled for users
@@ -2551,7 +3352,11 @@ class UserSetting {
     @required this.action,
     @required this.permission,
   });
-  static UserSetting fromJson(Map<String, dynamic> json) => UserSetting();
+  static UserSetting fromJson(Map<String, dynamic> json) => UserSetting(
+        action: json['Action'] as String,
+        permission: json['Permission'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a user in the user pool and the associated stack.
@@ -2580,7 +3385,15 @@ class UserStackAssociation {
     this.sendEmailNotification,
   });
   static UserStackAssociation fromJson(Map<String, dynamic> json) =>
-      UserStackAssociation();
+      UserStackAssociation(
+        stackName: json['StackName'] as String,
+        userName: json['UserName'] as String,
+        authenticationType: json['AuthenticationType'] as String,
+        sendEmailNotification: json.containsKey('SendEmailNotification')
+            ? json['SendEmailNotification'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the error that is returned when a user can’t be associated with or
@@ -2603,7 +3416,16 @@ class UserStackAssociationError {
     this.errorMessage,
   });
   static UserStackAssociationError fromJson(Map<String, dynamic> json) =>
-      UserStackAssociationError();
+      UserStackAssociationError(
+        userStackAssociation: json.containsKey('UserStackAssociation')
+            ? UserStackAssociation.fromJson(json['UserStackAssociation'])
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Describes VPC configuration information for fleets and image builders.
@@ -2620,5 +3442,15 @@ class VpcConfig {
     this.subnetIds,
     this.securityGroupIds,
   });
-  static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig();
+  static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig(
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

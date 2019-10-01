@@ -1,15 +1,27 @@
 import 'package:meta/meta.dart';
 
 class RdsApi {
+  final _client;
+  RdsApi(client) : _client = client.configured('RDS', serializer: 'query');
+
   Future<AddSourceIdentifierToSubscriptionResult>
       addSourceIdentifierToSubscription(
           {@required String subscriptionName,
           @required String sourceIdentifier}) async {
-    return AddSourceIdentifierToSubscriptionResult.fromJson({});
+    var response_ = await _client.send('AddSourceIdentifierToSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SourceIdentifier': sourceIdentifier,
+    });
+    return AddSourceIdentifierToSubscriptionResult.fromJson(response_);
   }
 
   Future<void> addTagsToResource(
-      {@required String resourceName, @required List<Tag> tags}) async {}
+      {@required String resourceName, @required List<Tag> tags}) async {
+    await _client.send('AddTagsToResource', {
+      'ResourceName': resourceName,
+      'Tags': tags,
+    });
+  }
 
   Future<AuthorizeDBSecurityGroupIngressResult> authorizeDBSecurityGroupIngress(
       String dbSecurityGroupName,
@@ -17,13 +29,26 @@ class RdsApi {
       String ec2SecurityGroupName,
       String ec2SecurityGroupId,
       String ec2SecurityGroupOwnerId}) async {
-    return AuthorizeDBSecurityGroupIngressResult.fromJson({});
+    var response_ = await _client.send('AuthorizeDBSecurityGroupIngress', {
+      'DBSecurityGroupName': dbSecurityGroupName,
+      if (cidrip != null) 'CIDRIP': cidrip,
+      if (ec2SecurityGroupName != null)
+        'EC2SecurityGroupName': ec2SecurityGroupName,
+      if (ec2SecurityGroupId != null) 'EC2SecurityGroupId': ec2SecurityGroupId,
+      if (ec2SecurityGroupOwnerId != null)
+        'EC2SecurityGroupOwnerId': ec2SecurityGroupOwnerId,
+    });
+    return AuthorizeDBSecurityGroupIngressResult.fromJson(response_);
   }
 
   Future<CopyDBSnapshotResult> copyDBSnapshot(
       {@required String sourceDBSnapshotIdentifier,
       @required String targetDBSnapshotIdentifier}) async {
-    return CopyDBSnapshotResult.fromJson({});
+    var response_ = await _client.send('CopyDBSnapshot', {
+      'SourceDBSnapshotIdentifier': sourceDBSnapshotIdentifier,
+      'TargetDBSnapshotIdentifier': targetDBSnapshotIdentifier,
+    });
+    return CopyDBSnapshotResult.fromJson(response_);
   }
 
   Future<CreateDBInstanceResult> createDBInstance(
@@ -51,7 +76,39 @@ class RdsApi {
       String optionGroupName,
       String characterSetName,
       bool publiclyAccessible}) async {
-    return CreateDBInstanceResult.fromJson({});
+    var response_ = await _client.send('CreateDBInstance', {
+      if (dbName != null) 'DBName': dbName,
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      'AllocatedStorage': allocatedStorage,
+      'DBInstanceClass': dbInstanceClass,
+      'Engine': engine,
+      'MasterUsername': masterUsername,
+      'MasterUserPassword': masterUserPassword,
+      if (dbSecurityGroups != null) 'DBSecurityGroups': dbSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (port != null) 'Port': port,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (characterSetName != null) 'CharacterSetName': characterSetName,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+    });
+    return CreateDBInstanceResult.fromJson(response_);
   }
 
   Future<CreateDBInstanceReadReplicaResult> createDBInstanceReadReplica(
@@ -64,33 +121,63 @@ class RdsApi {
       int iops,
       String optionGroupName,
       bool publiclyAccessible}) async {
-    return CreateDBInstanceReadReplicaResult.fromJson({});
+    var response_ = await _client.send('CreateDBInstanceReadReplica', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      'SourceDBInstanceIdentifier': sourceDBInstanceIdentifier,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (port != null) 'Port': port,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+    });
+    return CreateDBInstanceReadReplicaResult.fromJson(response_);
   }
 
   Future<CreateDBParameterGroupResult> createDBParameterGroup(
       {@required String dbParameterGroupName,
       @required String dbParameterGroupFamily,
       @required String description}) async {
-    return CreateDBParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      'Description': description,
+    });
+    return CreateDBParameterGroupResult.fromJson(response_);
   }
 
   Future<CreateDBSecurityGroupResult> createDBSecurityGroup(
       {@required String dbSecurityGroupName,
       @required String dbSecurityGroupDescription}) async {
-    return CreateDBSecurityGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBSecurityGroup', {
+      'DBSecurityGroupName': dbSecurityGroupName,
+      'DBSecurityGroupDescription': dbSecurityGroupDescription,
+    });
+    return CreateDBSecurityGroupResult.fromJson(response_);
   }
 
   Future<CreateDBSnapshotResult> createDBSnapshot(
       {@required String dbSnapshotIdentifier,
       @required String dbInstanceIdentifier}) async {
-    return CreateDBSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateDBSnapshot', {
+      'DBSnapshotIdentifier': dbSnapshotIdentifier,
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+    });
+    return CreateDBSnapshotResult.fromJson(response_);
   }
 
   Future<CreateDBSubnetGroupResult> createDBSubnetGroup(
       {@required String dbSubnetGroupName,
       @required String dbSubnetGroupDescription,
       @required List<String> subnetIds}) async {
-    return CreateDBSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('CreateDBSubnetGroup', {
+      'DBSubnetGroupName': dbSubnetGroupName,
+      'DBSubnetGroupDescription': dbSubnetGroupDescription,
+      'SubnetIds': subnetIds,
+    });
+    return CreateDBSubnetGroupResult.fromJson(response_);
   }
 
   Future<CreateEventSubscriptionResult> createEventSubscription(
@@ -100,7 +187,15 @@ class RdsApi {
       List<String> eventCategories,
       List<String> sourceIds,
       bool enabled}) async {
-    return CreateEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('CreateEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (sourceIds != null) 'SourceIds': sourceIds,
+      if (enabled != null) 'Enabled': enabled,
+    });
+    return CreateEventSubscriptionResult.fromJson(response_);
   }
 
   Future<CreateOptionGroupResult> createOptionGroup(
@@ -108,31 +203,65 @@ class RdsApi {
       @required String engineName,
       @required String majorEngineVersion,
       @required String optionGroupDescription}) async {
-    return CreateOptionGroupResult.fromJson({});
+    var response_ = await _client.send('CreateOptionGroup', {
+      'OptionGroupName': optionGroupName,
+      'EngineName': engineName,
+      'MajorEngineVersion': majorEngineVersion,
+      'OptionGroupDescription': optionGroupDescription,
+    });
+    return CreateOptionGroupResult.fromJson(response_);
   }
 
   Future<DeleteDBInstanceResult> deleteDBInstance(String dbInstanceIdentifier,
       {bool skipFinalSnapshot, String finalDBSnapshotIdentifier}) async {
-    return DeleteDBInstanceResult.fromJson({});
+    var response_ = await _client.send('DeleteDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (skipFinalSnapshot != null) 'SkipFinalSnapshot': skipFinalSnapshot,
+      if (finalDBSnapshotIdentifier != null)
+        'FinalDBSnapshotIdentifier': finalDBSnapshotIdentifier,
+    });
+    return DeleteDBInstanceResult.fromJson(response_);
   }
 
-  Future<void> deleteDBParameterGroup(String dbParameterGroupName) async {}
+  Future<void> deleteDBParameterGroup(String dbParameterGroupName) async {
+    await _client.send('DeleteDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+    });
+  }
 
-  Future<void> deleteDBSecurityGroup(String dbSecurityGroupName) async {}
+  Future<void> deleteDBSecurityGroup(String dbSecurityGroupName) async {
+    await _client.send('DeleteDBSecurityGroup', {
+      'DBSecurityGroupName': dbSecurityGroupName,
+    });
+  }
 
   Future<DeleteDBSnapshotResult> deleteDBSnapshot(
       String dbSnapshotIdentifier) async {
-    return DeleteDBSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteDBSnapshot', {
+      'DBSnapshotIdentifier': dbSnapshotIdentifier,
+    });
+    return DeleteDBSnapshotResult.fromJson(response_);
   }
 
-  Future<void> deleteDBSubnetGroup(String dbSubnetGroupName) async {}
+  Future<void> deleteDBSubnetGroup(String dbSubnetGroupName) async {
+    await _client.send('DeleteDBSubnetGroup', {
+      'DBSubnetGroupName': dbSubnetGroupName,
+    });
+  }
 
   Future<DeleteEventSubscriptionResult> deleteEventSubscription(
       String subscriptionName) async {
-    return DeleteEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('DeleteEventSubscription', {
+      'SubscriptionName': subscriptionName,
+    });
+    return DeleteEventSubscriptionResult.fromJson(response_);
   }
 
-  Future<void> deleteOptionGroup(String optionGroupName) async {}
+  Future<void> deleteOptionGroup(String optionGroupName) async {
+    await _client.send('DeleteOptionGroup', {
+      'OptionGroupName': optionGroupName,
+    });
+  }
 
   Future<DBEngineVersionMessage> describeDBEngineVersions(
       {String engine,
@@ -142,17 +271,40 @@ class RdsApi {
       String marker,
       bool defaultOnly,
       bool listSupportedCharacterSets}) async {
-    return DBEngineVersionMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBEngineVersions', {
+      if (engine != null) 'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (dbParameterGroupFamily != null)
+        'DBParameterGroupFamily': dbParameterGroupFamily,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (defaultOnly != null) 'DefaultOnly': defaultOnly,
+      if (listSupportedCharacterSets != null)
+        'ListSupportedCharacterSets': listSupportedCharacterSets,
+    });
+    return DBEngineVersionMessage.fromJson(response_);
   }
 
   Future<DBInstanceMessage> describeDBInstances(
       {String dbInstanceIdentifier, int maxRecords, String marker}) async {
-    return DBInstanceMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBInstances', {
+      if (dbInstanceIdentifier != null)
+        'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBInstanceMessage.fromJson(response_);
   }
 
   Future<DBParameterGroupsMessage> describeDBParameterGroups(
       {String dbParameterGroupName, int maxRecords, String marker}) async {
-    return DBParameterGroupsMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBParameterGroups', {
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBParameterGroupsMessage.fromJson(response_);
   }
 
   Future<DBParameterGroupDetails> describeDBParameters(
@@ -160,12 +312,24 @@ class RdsApi {
       {String source,
       int maxRecords,
       String marker}) async {
-    return DBParameterGroupDetails.fromJson({});
+    var response_ = await _client.send('DescribeDBParameters', {
+      'DBParameterGroupName': dbParameterGroupName,
+      if (source != null) 'Source': source,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBParameterGroupDetails.fromJson(response_);
   }
 
   Future<DBSecurityGroupMessage> describeDBSecurityGroups(
       {String dbSecurityGroupName, int maxRecords, String marker}) async {
-    return DBSecurityGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBSecurityGroups', {
+      if (dbSecurityGroupName != null)
+        'DBSecurityGroupName': dbSecurityGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBSecurityGroupMessage.fromJson(response_);
   }
 
   Future<DBSnapshotMessage> describeDBSnapshots(
@@ -174,29 +338,56 @@ class RdsApi {
       String snapshotType,
       int maxRecords,
       String marker}) async {
-    return DBSnapshotMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBSnapshots', {
+      if (dbInstanceIdentifier != null)
+        'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (dbSnapshotIdentifier != null)
+        'DBSnapshotIdentifier': dbSnapshotIdentifier,
+      if (snapshotType != null) 'SnapshotType': snapshotType,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBSnapshotMessage.fromJson(response_);
   }
 
   Future<DBSubnetGroupMessage> describeDBSubnetGroups(
       {String dbSubnetGroupName, int maxRecords, String marker}) async {
-    return DBSubnetGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeDBSubnetGroups', {
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DBSubnetGroupMessage.fromJson(response_);
   }
 
   Future<DescribeEngineDefaultParametersResult> describeEngineDefaultParameters(
       String dbParameterGroupFamily,
       {int maxRecords,
       String marker}) async {
-    return DescribeEngineDefaultParametersResult.fromJson({});
+    var response_ = await _client.send('DescribeEngineDefaultParameters', {
+      'DBParameterGroupFamily': dbParameterGroupFamily,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEngineDefaultParametersResult.fromJson(response_);
   }
 
   Future<EventCategoriesMessage> describeEventCategories(
       {String sourceType}) async {
-    return EventCategoriesMessage.fromJson({});
+    var response_ = await _client.send('DescribeEventCategories', {
+      if (sourceType != null) 'SourceType': sourceType,
+    });
+    return EventCategoriesMessage.fromJson(response_);
   }
 
   Future<EventSubscriptionsMessage> describeEventSubscriptions(
       {String subscriptionName, int maxRecords, String marker}) async {
-    return EventSubscriptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEventSubscriptions', {
+      if (subscriptionName != null) 'SubscriptionName': subscriptionName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return EventSubscriptionsMessage.fromJson(response_);
   }
 
   Future<EventsMessage> describeEvents(
@@ -208,7 +399,17 @@ class RdsApi {
       List<String> eventCategories,
       int maxRecords,
       String marker}) async {
-    return EventsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      if (sourceIdentifier != null) 'SourceIdentifier': sourceIdentifier,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (duration != null) 'Duration': duration,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return EventsMessage.fromJson(response_);
   }
 
   Future<OptionGroupOptionsMessage> describeOptionGroupOptions(
@@ -216,7 +417,13 @@ class RdsApi {
       {String majorEngineVersion,
       int maxRecords,
       String marker}) async {
-    return OptionGroupOptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeOptionGroupOptions', {
+      'EngineName': engineName,
+      if (majorEngineVersion != null) 'MajorEngineVersion': majorEngineVersion,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return OptionGroupOptionsMessage.fromJson(response_);
   }
 
   Future<OptionGroups> describeOptionGroups(
@@ -225,7 +432,14 @@ class RdsApi {
       int maxRecords,
       String engineName,
       String majorEngineVersion}) async {
-    return OptionGroups.fromJson({});
+    var response_ = await _client.send('DescribeOptionGroups', {
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (marker != null) 'Marker': marker,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (engineName != null) 'EngineName': engineName,
+      if (majorEngineVersion != null) 'MajorEngineVersion': majorEngineVersion,
+    });
+    return OptionGroups.fromJson(response_);
   }
 
   Future<OrderableDBInstanceOptionsMessage> describeOrderableDBInstanceOptions(
@@ -236,7 +450,16 @@ class RdsApi {
       bool vpc,
       int maxRecords,
       String marker}) async {
-    return OrderableDBInstanceOptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeOrderableDBInstanceOptions', {
+      'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (vpc != null) 'Vpc': vpc,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return OrderableDBInstanceOptionsMessage.fromJson(response_);
   }
 
   Future<ReservedDBInstanceMessage> describeReservedDBInstances(
@@ -249,7 +472,20 @@ class RdsApi {
       bool multiAZ,
       int maxRecords,
       String marker}) async {
-    return ReservedDBInstanceMessage.fromJson({});
+    var response_ = await _client.send('DescribeReservedDBInstances', {
+      if (reservedDBInstanceId != null)
+        'ReservedDBInstanceId': reservedDBInstanceId,
+      if (reservedDBInstancesOfferingId != null)
+        'ReservedDBInstancesOfferingId': reservedDBInstancesOfferingId,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (duration != null) 'Duration': duration,
+      if (productDescription != null) 'ProductDescription': productDescription,
+      if (offeringType != null) 'OfferingType': offeringType,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ReservedDBInstanceMessage.fromJson(response_);
   }
 
   Future<ReservedDBInstancesOfferingMessage>
@@ -262,11 +498,25 @@ class RdsApi {
           bool multiAZ,
           int maxRecords,
           String marker}) async {
-    return ReservedDBInstancesOfferingMessage.fromJson({});
+    var response_ = await _client.send('DescribeReservedDBInstancesOfferings', {
+      if (reservedDBInstancesOfferingId != null)
+        'ReservedDBInstancesOfferingId': reservedDBInstancesOfferingId,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (duration != null) 'Duration': duration,
+      if (productDescription != null) 'ProductDescription': productDescription,
+      if (offeringType != null) 'OfferingType': offeringType,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ReservedDBInstancesOfferingMessage.fromJson(response_);
   }
 
   Future<TagListMessage> listTagsForResource(String resourceName) async {
-    return TagListMessage.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceName': resourceName,
+    });
+    return TagListMessage.fromJson(response_);
   }
 
   Future<ModifyDBInstanceResult> modifyDBInstance(String dbInstanceIdentifier,
@@ -287,20 +537,58 @@ class RdsApi {
       int iops,
       String optionGroupName,
       String newDBInstanceIdentifier}) async {
-    return ModifyDBInstanceResult.fromJson({});
+    var response_ = await _client.send('ModifyDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (allocatedStorage != null) 'AllocatedStorage': allocatedStorage,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (dbSecurityGroups != null) 'DBSecurityGroups': dbSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (dbParameterGroupName != null)
+        'DBParameterGroupName': dbParameterGroupName,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (allowMajorVersionUpgrade != null)
+        'AllowMajorVersionUpgrade': allowMajorVersionUpgrade,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+      if (newDBInstanceIdentifier != null)
+        'NewDBInstanceIdentifier': newDBInstanceIdentifier,
+    });
+    return ModifyDBInstanceResult.fromJson(response_);
   }
 
   Future<DBParameterGroupNameMessage> modifyDBParameterGroup(
       {@required String dbParameterGroupName,
       @required List<Parameter> parameters}) async {
-    return DBParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ModifyDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+      'Parameters': parameters,
+    });
+    return DBParameterGroupNameMessage.fromJson(response_);
   }
 
   Future<ModifyDBSubnetGroupResult> modifyDBSubnetGroup(
       {@required String dbSubnetGroupName,
       String dbSubnetGroupDescription,
       @required List<String> subnetIds}) async {
-    return ModifyDBSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('ModifyDBSubnetGroup', {
+      'DBSubnetGroupName': dbSubnetGroupName,
+      if (dbSubnetGroupDescription != null)
+        'DBSubnetGroupDescription': dbSubnetGroupDescription,
+      'SubnetIds': subnetIds,
+    });
+    return ModifyDBSubnetGroupResult.fromJson(response_);
   }
 
   Future<ModifyEventSubscriptionResult> modifyEventSubscription(
@@ -309,49 +597,94 @@ class RdsApi {
       String sourceType,
       List<String> eventCategories,
       bool enabled}) async {
-    return ModifyEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('ModifyEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      if (snsTopicArn != null) 'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (enabled != null) 'Enabled': enabled,
+    });
+    return ModifyEventSubscriptionResult.fromJson(response_);
   }
 
   Future<ModifyOptionGroupResult> modifyOptionGroup(String optionGroupName,
       {List<OptionConfiguration> optionsToInclude,
       List<String> optionsToRemove,
       bool applyImmediately}) async {
-    return ModifyOptionGroupResult.fromJson({});
+    var response_ = await _client.send('ModifyOptionGroup', {
+      'OptionGroupName': optionGroupName,
+      if (optionsToInclude != null) 'OptionsToInclude': optionsToInclude,
+      if (optionsToRemove != null) 'OptionsToRemove': optionsToRemove,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+    });
+    return ModifyOptionGroupResult.fromJson(response_);
   }
 
   Future<PromoteReadReplicaResult> promoteReadReplica(
       String dbInstanceIdentifier,
       {int backupRetentionPeriod,
       String preferredBackupWindow}) async {
-    return PromoteReadReplicaResult.fromJson({});
+    var response_ = await _client.send('PromoteReadReplica', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (backupRetentionPeriod != null)
+        'BackupRetentionPeriod': backupRetentionPeriod,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+    });
+    return PromoteReadReplicaResult.fromJson(response_);
   }
 
   Future<PurchaseReservedDBInstancesOfferingResult>
       purchaseReservedDBInstancesOffering(String reservedDBInstancesOfferingId,
           {String reservedDBInstanceId, int dbInstanceCount}) async {
-    return PurchaseReservedDBInstancesOfferingResult.fromJson({});
+    var response_ = await _client.send('PurchaseReservedDBInstancesOffering', {
+      'ReservedDBInstancesOfferingId': reservedDBInstancesOfferingId,
+      if (reservedDBInstanceId != null)
+        'ReservedDBInstanceId': reservedDBInstanceId,
+      if (dbInstanceCount != null) 'DBInstanceCount': dbInstanceCount,
+    });
+    return PurchaseReservedDBInstancesOfferingResult.fromJson(response_);
   }
 
   Future<RebootDBInstanceResult> rebootDBInstance(String dbInstanceIdentifier,
       {bool forceFailover}) async {
-    return RebootDBInstanceResult.fromJson({});
+    var response_ = await _client.send('RebootDBInstance', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      if (forceFailover != null) 'ForceFailover': forceFailover,
+    });
+    return RebootDBInstanceResult.fromJson(response_);
   }
 
   Future<RemoveSourceIdentifierFromSubscriptionResult>
       removeSourceIdentifierFromSubscription(
           {@required String subscriptionName,
           @required String sourceIdentifier}) async {
-    return RemoveSourceIdentifierFromSubscriptionResult.fromJson({});
+    var response_ =
+        await _client.send('RemoveSourceIdentifierFromSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SourceIdentifier': sourceIdentifier,
+    });
+    return RemoveSourceIdentifierFromSubscriptionResult.fromJson(response_);
   }
 
   Future<void> removeTagsFromResource(
-      {@required String resourceName, @required List<String> tagKeys}) async {}
+      {@required String resourceName, @required List<String> tagKeys}) async {
+    await _client.send('RemoveTagsFromResource', {
+      'ResourceName': resourceName,
+      'TagKeys': tagKeys,
+    });
+  }
 
   Future<DBParameterGroupNameMessage> resetDBParameterGroup(
       String dbParameterGroupName,
       {bool resetAllParameters,
       List<Parameter> parameters}) async {
-    return DBParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ResetDBParameterGroup', {
+      'DBParameterGroupName': dbParameterGroupName,
+      if (resetAllParameters != null) 'ResetAllParameters': resetAllParameters,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return DBParameterGroupNameMessage.fromJson(response_);
   }
 
   Future<RestoreDBInstanceFromDBSnapshotResult> restoreDBInstanceFromDBSnapshot(
@@ -369,7 +702,24 @@ class RdsApi {
       String engine,
       int iops,
       String optionGroupName}) async {
-    return RestoreDBInstanceFromDBSnapshotResult.fromJson({});
+    var response_ = await _client.send('RestoreDBInstanceFromDBSnapshot', {
+      'DBInstanceIdentifier': dbInstanceIdentifier,
+      'DBSnapshotIdentifier': dbSnapshotIdentifier,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (port != null) 'Port': port,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (dbName != null) 'DBName': dbName,
+      if (engine != null) 'Engine': engine,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+    });
+    return RestoreDBInstanceFromDBSnapshotResult.fromJson(response_);
   }
 
   Future<RestoreDBInstanceToPointInTimeResult> restoreDBInstanceToPointInTime(
@@ -389,7 +739,27 @@ class RdsApi {
       String engine,
       int iops,
       String optionGroupName}) async {
-    return RestoreDBInstanceToPointInTimeResult.fromJson({});
+    var response_ = await _client.send('RestoreDBInstanceToPointInTime', {
+      'SourceDBInstanceIdentifier': sourceDBInstanceIdentifier,
+      'TargetDBInstanceIdentifier': targetDBInstanceIdentifier,
+      if (restoreTime != null) 'RestoreTime': restoreTime,
+      if (useLatestRestorableTime != null)
+        'UseLatestRestorableTime': useLatestRestorableTime,
+      if (dbInstanceClass != null) 'DBInstanceClass': dbInstanceClass,
+      if (port != null) 'Port': port,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (dbSubnetGroupName != null) 'DBSubnetGroupName': dbSubnetGroupName,
+      if (multiAZ != null) 'MultiAZ': multiAZ,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (licenseModel != null) 'LicenseModel': licenseModel,
+      if (dbName != null) 'DBName': dbName,
+      if (engine != null) 'Engine': engine,
+      if (iops != null) 'Iops': iops,
+      if (optionGroupName != null) 'OptionGroupName': optionGroupName,
+    });
+    return RestoreDBInstanceToPointInTimeResult.fromJson(response_);
   }
 
   Future<RevokeDBSecurityGroupIngressResult> revokeDBSecurityGroupIngress(
@@ -398,7 +768,16 @@ class RdsApi {
       String ec2SecurityGroupName,
       String ec2SecurityGroupId,
       String ec2SecurityGroupOwnerId}) async {
-    return RevokeDBSecurityGroupIngressResult.fromJson({});
+    var response_ = await _client.send('RevokeDBSecurityGroupIngress', {
+      'DBSecurityGroupName': dbSecurityGroupName,
+      if (cidrip != null) 'CIDRIP': cidrip,
+      if (ec2SecurityGroupName != null)
+        'EC2SecurityGroupName': ec2SecurityGroupName,
+      if (ec2SecurityGroupId != null) 'EC2SecurityGroupId': ec2SecurityGroupId,
+      if (ec2SecurityGroupOwnerId != null)
+        'EC2SecurityGroupOwnerId': ec2SecurityGroupOwnerId,
+    });
+    return RevokeDBSecurityGroupIngressResult.fromJson(response_);
   }
 }
 
@@ -410,7 +789,11 @@ class AddSourceIdentifierToSubscriptionResult {
   });
   static AddSourceIdentifierToSubscriptionResult fromJson(
           Map<String, dynamic> json) =>
-      AddSourceIdentifierToSubscriptionResult();
+      AddSourceIdentifierToSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class AuthorizeDBSecurityGroupIngressResult {
@@ -421,7 +804,11 @@ class AuthorizeDBSecurityGroupIngressResult {
   });
   static AuthorizeDBSecurityGroupIngressResult fromJson(
           Map<String, dynamic> json) =>
-      AuthorizeDBSecurityGroupIngressResult();
+      AuthorizeDBSecurityGroupIngressResult(
+        dbSecurityGroup: json.containsKey('DBSecurityGroup')
+            ? DBSecurityGroup.fromJson(json['DBSecurityGroup'])
+            : null,
+      );
 }
 
 class AvailabilityZone {
@@ -434,7 +821,12 @@ class AvailabilityZone {
     this.provisionedIopsCapable,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        provisionedIopsCapable: json.containsKey('ProvisionedIopsCapable')
+            ? json['ProvisionedIopsCapable'] as bool
+            : null,
+      );
 }
 
 class CharacterSet {
@@ -446,7 +838,14 @@ class CharacterSet {
     this.characterSetName,
     this.characterSetDescription,
   });
-  static CharacterSet fromJson(Map<String, dynamic> json) => CharacterSet();
+  static CharacterSet fromJson(Map<String, dynamic> json) => CharacterSet(
+        characterSetName: json.containsKey('CharacterSetName')
+            ? json['CharacterSetName'] as String
+            : null,
+        characterSetDescription: json.containsKey('CharacterSetDescription')
+            ? json['CharacterSetDescription'] as String
+            : null,
+      );
 }
 
 class CopyDBSnapshotResult {
@@ -456,7 +855,11 @@ class CopyDBSnapshotResult {
     this.dbSnapshot,
   });
   static CopyDBSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CopyDBSnapshotResult();
+      CopyDBSnapshotResult(
+        dbSnapshot: json.containsKey('DBSnapshot')
+            ? DBSnapshot.fromJson(json['DBSnapshot'])
+            : null,
+      );
 }
 
 class CreateDBInstanceReadReplicaResult {
@@ -467,7 +870,11 @@ class CreateDBInstanceReadReplicaResult {
   });
   static CreateDBInstanceReadReplicaResult fromJson(
           Map<String, dynamic> json) =>
-      CreateDBInstanceReadReplicaResult();
+      CreateDBInstanceReadReplicaResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class CreateDBInstanceResult {
@@ -477,7 +884,11 @@ class CreateDBInstanceResult {
     this.dbInstance,
   });
   static CreateDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      CreateDBInstanceResult();
+      CreateDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class CreateDBParameterGroupResult {
@@ -487,7 +898,11 @@ class CreateDBParameterGroupResult {
     this.dbParameterGroup,
   });
   static CreateDBParameterGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateDBParameterGroupResult();
+      CreateDBParameterGroupResult(
+        dbParameterGroup: json.containsKey('DBParameterGroup')
+            ? DBParameterGroup.fromJson(json['DBParameterGroup'])
+            : null,
+      );
 }
 
 class CreateDBSecurityGroupResult {
@@ -497,7 +912,11 @@ class CreateDBSecurityGroupResult {
     this.dbSecurityGroup,
   });
   static CreateDBSecurityGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateDBSecurityGroupResult();
+      CreateDBSecurityGroupResult(
+        dbSecurityGroup: json.containsKey('DBSecurityGroup')
+            ? DBSecurityGroup.fromJson(json['DBSecurityGroup'])
+            : null,
+      );
 }
 
 class CreateDBSnapshotResult {
@@ -507,7 +926,11 @@ class CreateDBSnapshotResult {
     this.dbSnapshot,
   });
   static CreateDBSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateDBSnapshotResult();
+      CreateDBSnapshotResult(
+        dbSnapshot: json.containsKey('DBSnapshot')
+            ? DBSnapshot.fromJson(json['DBSnapshot'])
+            : null,
+      );
 }
 
 class CreateDBSubnetGroupResult {
@@ -517,7 +940,11 @@ class CreateDBSubnetGroupResult {
     this.dbSubnetGroup,
   });
   static CreateDBSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateDBSubnetGroupResult();
+      CreateDBSubnetGroupResult(
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? DBSubnetGroup.fromJson(json['DBSubnetGroup'])
+            : null,
+      );
 }
 
 class CreateEventSubscriptionResult {
@@ -527,7 +954,11 @@ class CreateEventSubscriptionResult {
     this.eventSubscription,
   });
   static CreateEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      CreateEventSubscriptionResult();
+      CreateEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class CreateOptionGroupResult {
@@ -537,7 +968,11 @@ class CreateOptionGroupResult {
     this.optionGroup,
   });
   static CreateOptionGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateOptionGroupResult();
+      CreateOptionGroupResult(
+        optionGroup: json.containsKey('OptionGroup')
+            ? OptionGroup.fromJson(json['OptionGroup'])
+            : null,
+      );
 }
 
 class DBEngineVersion {
@@ -564,8 +999,30 @@ class DBEngineVersion {
     this.defaultCharacterSet,
     this.supportedCharacterSets,
   });
-  static DBEngineVersion fromJson(Map<String, dynamic> json) =>
-      DBEngineVersion();
+  static DBEngineVersion fromJson(Map<String, dynamic> json) => DBEngineVersion(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        dbEngineDescription: json.containsKey('DBEngineDescription')
+            ? json['DBEngineDescription'] as String
+            : null,
+        dbEngineVersionDescription:
+            json.containsKey('DBEngineVersionDescription')
+                ? json['DBEngineVersionDescription'] as String
+                : null,
+        defaultCharacterSet: json.containsKey('DefaultCharacterSet')
+            ? CharacterSet.fromJson(json['DefaultCharacterSet'])
+            : null,
+        supportedCharacterSets: json.containsKey('SupportedCharacterSets')
+            ? (json['SupportedCharacterSets'] as List)
+                .map((e) => CharacterSet.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DBEngineVersionMessage {
@@ -578,7 +1035,14 @@ class DBEngineVersionMessage {
     this.dbEngineVersions,
   });
   static DBEngineVersionMessage fromJson(Map<String, dynamic> json) =>
-      DBEngineVersionMessage();
+      DBEngineVersionMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbEngineVersions: json.containsKey('DBEngineVersions')
+            ? (json['DBEngineVersions'] as List)
+                .map((e) => DBEngineVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DBInstance {
@@ -674,7 +1138,101 @@ class DBInstance {
     this.secondaryAvailabilityZone,
     this.publiclyAccessible,
   });
-  static DBInstance fromJson(Map<String, dynamic> json) => DBInstance();
+  static DBInstance fromJson(Map<String, dynamic> json) => DBInstance(
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        dbInstanceStatus: json.containsKey('DBInstanceStatus')
+            ? json['DBInstanceStatus'] as String
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        dbName: json.containsKey('DBName') ? json['DBName'] as String : null,
+        endpoint: json.containsKey('Endpoint')
+            ? Endpoint.fromJson(json['Endpoint'])
+            : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        instanceCreateTime: json.containsKey('InstanceCreateTime')
+            ? DateTime.parse(json['InstanceCreateTime'])
+            : null,
+        preferredBackupWindow: json.containsKey('PreferredBackupWindow')
+            ? json['PreferredBackupWindow'] as String
+            : null,
+        backupRetentionPeriod: json.containsKey('BackupRetentionPeriod')
+            ? json['BackupRetentionPeriod'] as int
+            : null,
+        dbSecurityGroups: json.containsKey('DBSecurityGroups')
+            ? (json['DBSecurityGroups'] as List)
+                .map((e) => DBSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        vpcSecurityGroups: json.containsKey('VpcSecurityGroups')
+            ? (json['VpcSecurityGroups'] as List)
+                .map((e) => VpcSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        dbParameterGroups: json.containsKey('DBParameterGroups')
+            ? (json['DBParameterGroups'] as List)
+                .map((e) => DBParameterGroupStatus.fromJson(e))
+                .toList()
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? DBSubnetGroup.fromJson(json['DBSubnetGroup'])
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        pendingModifiedValues: json.containsKey('PendingModifiedValues')
+            ? PendingModifiedValues.fromJson(json['PendingModifiedValues'])
+            : null,
+        latestRestorableTime: json.containsKey('LatestRestorableTime')
+            ? DateTime.parse(json['LatestRestorableTime'])
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        autoMinorVersionUpgrade: json.containsKey('AutoMinorVersionUpgrade')
+            ? json['AutoMinorVersionUpgrade'] as bool
+            : null,
+        readReplicaSourceDBInstanceIdentifier:
+            json.containsKey('ReadReplicaSourceDBInstanceIdentifier')
+                ? json['ReadReplicaSourceDBInstanceIdentifier'] as String
+                : null,
+        readReplicaDBInstanceIdentifiers:
+            json.containsKey('ReadReplicaDBInstanceIdentifiers')
+                ? (json['ReadReplicaDBInstanceIdentifiers'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        optionGroupMembership: json.containsKey('OptionGroupMembership')
+            ? OptionGroupMembership.fromJson(json['OptionGroupMembership'])
+            : null,
+        characterSetName: json.containsKey('CharacterSetName')
+            ? json['CharacterSetName'] as String
+            : null,
+        secondaryAvailabilityZone: json.containsKey('SecondaryAvailabilityZone')
+            ? json['SecondaryAvailabilityZone'] as String
+            : null,
+        publiclyAccessible: json.containsKey('PubliclyAccessible')
+            ? json['PubliclyAccessible'] as bool
+            : null,
+      );
 }
 
 class DBInstanceMessage {
@@ -687,7 +1245,14 @@ class DBInstanceMessage {
     this.dbInstances,
   });
   static DBInstanceMessage fromJson(Map<String, dynamic> json) =>
-      DBInstanceMessage();
+      DBInstanceMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbInstances: json.containsKey('DBInstances')
+            ? (json['DBInstances'] as List)
+                .map((e) => DBInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DBParameterGroup {
@@ -703,7 +1268,17 @@ class DBParameterGroup {
     this.description,
   });
   static DBParameterGroup fromJson(Map<String, dynamic> json) =>
-      DBParameterGroup();
+      DBParameterGroup(
+        dbParameterGroupName: json.containsKey('DBParameterGroupName')
+            ? json['DBParameterGroupName'] as String
+            : null,
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class DBParameterGroupDetails {
@@ -716,7 +1291,14 @@ class DBParameterGroupDetails {
     this.marker,
   });
   static DBParameterGroupDetails fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupDetails();
+      DBParameterGroupDetails(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DBParameterGroupNameMessage {
@@ -726,7 +1308,11 @@ class DBParameterGroupNameMessage {
     this.dbParameterGroupName,
   });
   static DBParameterGroupNameMessage fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupNameMessage();
+      DBParameterGroupNameMessage(
+        dbParameterGroupName: json.containsKey('DBParameterGroupName')
+            ? json['DBParameterGroupName'] as String
+            : null,
+      );
 }
 
 class DBParameterGroupStatus {
@@ -739,7 +1325,14 @@ class DBParameterGroupStatus {
     this.parameterApplyStatus,
   });
   static DBParameterGroupStatus fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupStatus();
+      DBParameterGroupStatus(
+        dbParameterGroupName: json.containsKey('DBParameterGroupName')
+            ? json['DBParameterGroupName'] as String
+            : null,
+        parameterApplyStatus: json.containsKey('ParameterApplyStatus')
+            ? json['ParameterApplyStatus'] as String
+            : null,
+      );
 }
 
 class DBParameterGroupsMessage {
@@ -752,7 +1345,14 @@ class DBParameterGroupsMessage {
     this.dbParameterGroups,
   });
   static DBParameterGroupsMessage fromJson(Map<String, dynamic> json) =>
-      DBParameterGroupsMessage();
+      DBParameterGroupsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbParameterGroups: json.containsKey('DBParameterGroups')
+            ? (json['DBParameterGroups'] as List)
+                .map((e) => DBParameterGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DBSecurityGroup {
@@ -776,8 +1376,27 @@ class DBSecurityGroup {
     this.ec2SecurityGroups,
     this.ipRanges,
   });
-  static DBSecurityGroup fromJson(Map<String, dynamic> json) =>
-      DBSecurityGroup();
+  static DBSecurityGroup fromJson(Map<String, dynamic> json) => DBSecurityGroup(
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        dbSecurityGroupName: json.containsKey('DBSecurityGroupName')
+            ? json['DBSecurityGroupName'] as String
+            : null,
+        dbSecurityGroupDescription:
+            json.containsKey('DBSecurityGroupDescription')
+                ? json['DBSecurityGroupDescription'] as String
+                : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        ec2SecurityGroups: json.containsKey('EC2SecurityGroups')
+            ? (json['EC2SecurityGroups'] as List)
+                .map((e) => Ec2SecurityGroup.fromJson(e))
+                .toList()
+            : null,
+        ipRanges: json.containsKey('IPRanges')
+            ? (json['IPRanges'] as List)
+                .map((e) => IPRange.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DBSecurityGroupMembership {
@@ -790,7 +1409,12 @@ class DBSecurityGroupMembership {
     this.status,
   });
   static DBSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      DBSecurityGroupMembership();
+      DBSecurityGroupMembership(
+        dbSecurityGroupName: json.containsKey('DBSecurityGroupName')
+            ? json['DBSecurityGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class DBSecurityGroupMessage {
@@ -803,7 +1427,14 @@ class DBSecurityGroupMessage {
     this.dbSecurityGroups,
   });
   static DBSecurityGroupMessage fromJson(Map<String, dynamic> json) =>
-      DBSecurityGroupMessage();
+      DBSecurityGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbSecurityGroups: json.containsKey('DBSecurityGroups')
+            ? (json['DBSecurityGroups'] as List)
+                .map((e) => DBSecurityGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DBSnapshot {
@@ -854,7 +1485,43 @@ class DBSnapshot {
     this.snapshotType,
     this.iops,
   });
-  static DBSnapshot fromJson(Map<String, dynamic> json) => DBSnapshot();
+  static DBSnapshot fromJson(Map<String, dynamic> json) => DBSnapshot(
+        dbSnapshotIdentifier: json.containsKey('DBSnapshotIdentifier')
+            ? json['DBSnapshotIdentifier'] as String
+            : null,
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+        snapshotCreateTime: json.containsKey('SnapshotCreateTime')
+            ? DateTime.parse(json['SnapshotCreateTime'])
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        instanceCreateTime: json.containsKey('InstanceCreateTime')
+            ? DateTime.parse(json['InstanceCreateTime'])
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        snapshotType: json.containsKey('SnapshotType')
+            ? json['SnapshotType'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+      );
 }
 
 class DBSnapshotMessage {
@@ -867,7 +1534,14 @@ class DBSnapshotMessage {
     this.dbSnapshots,
   });
   static DBSnapshotMessage fromJson(Map<String, dynamic> json) =>
-      DBSnapshotMessage();
+      DBSnapshotMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbSnapshots: json.containsKey('DBSnapshots')
+            ? (json['DBSnapshots'] as List)
+                .map((e) => DBSnapshot.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DBSubnetGroup {
@@ -888,7 +1562,21 @@ class DBSubnetGroup {
     this.subnetGroupStatus,
     this.subnets,
   });
-  static DBSubnetGroup fromJson(Map<String, dynamic> json) => DBSubnetGroup();
+  static DBSubnetGroup fromJson(Map<String, dynamic> json) => DBSubnetGroup(
+        dbSubnetGroupName: json.containsKey('DBSubnetGroupName')
+            ? json['DBSubnetGroupName'] as String
+            : null,
+        dbSubnetGroupDescription: json.containsKey('DBSubnetGroupDescription')
+            ? json['DBSubnetGroupDescription'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetGroupStatus: json.containsKey('SubnetGroupStatus')
+            ? json['SubnetGroupStatus'] as String
+            : null,
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => Subnet.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DBSubnetGroupMessage {
@@ -901,7 +1589,14 @@ class DBSubnetGroupMessage {
     this.dbSubnetGroups,
   });
   static DBSubnetGroupMessage fromJson(Map<String, dynamic> json) =>
-      DBSubnetGroupMessage();
+      DBSubnetGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        dbSubnetGroups: json.containsKey('DBSubnetGroups')
+            ? (json['DBSubnetGroups'] as List)
+                .map((e) => DBSubnetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteDBInstanceResult {
@@ -911,7 +1606,11 @@ class DeleteDBInstanceResult {
     this.dbInstance,
   });
   static DeleteDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      DeleteDBInstanceResult();
+      DeleteDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class DeleteDBSnapshotResult {
@@ -921,7 +1620,11 @@ class DeleteDBSnapshotResult {
     this.dbSnapshot,
   });
   static DeleteDBSnapshotResult fromJson(Map<String, dynamic> json) =>
-      DeleteDBSnapshotResult();
+      DeleteDBSnapshotResult(
+        dbSnapshot: json.containsKey('DBSnapshot')
+            ? DBSnapshot.fromJson(json['DBSnapshot'])
+            : null,
+      );
 }
 
 class DeleteEventSubscriptionResult {
@@ -931,7 +1634,11 @@ class DeleteEventSubscriptionResult {
     this.eventSubscription,
   });
   static DeleteEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      DeleteEventSubscriptionResult();
+      DeleteEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class DescribeEngineDefaultParametersResult {
@@ -942,7 +1649,11 @@ class DescribeEngineDefaultParametersResult {
   });
   static DescribeEngineDefaultParametersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEngineDefaultParametersResult();
+      DescribeEngineDefaultParametersResult(
+        engineDefaults: json.containsKey('EngineDefaults')
+            ? EngineDefaults.fromJson(json['EngineDefaults'])
+            : null,
+      );
 }
 
 class Ec2SecurityGroup {
@@ -961,7 +1672,18 @@ class Ec2SecurityGroup {
     this.ec2SecurityGroupOwnerId,
   });
   static Ec2SecurityGroup fromJson(Map<String, dynamic> json) =>
-      Ec2SecurityGroup();
+      Ec2SecurityGroup(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        ec2SecurityGroupName: json.containsKey('EC2SecurityGroupName')
+            ? json['EC2SecurityGroupName'] as String
+            : null,
+        ec2SecurityGroupId: json.containsKey('EC2SecurityGroupId')
+            ? json['EC2SecurityGroupId'] as String
+            : null,
+        ec2SecurityGroupOwnerId: json.containsKey('EC2SecurityGroupOwnerId')
+            ? json['EC2SecurityGroupOwnerId'] as String
+            : null,
+      );
 }
 
 class Endpoint {
@@ -973,7 +1695,10 @@ class Endpoint {
     this.address,
     this.port,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+      );
 }
 
 class EngineDefaults {
@@ -988,7 +1713,17 @@ class EngineDefaults {
     this.marker,
     this.parameters,
   });
-  static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults();
+  static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults(
+        dbParameterGroupFamily: json.containsKey('DBParameterGroupFamily')
+            ? json['DBParameterGroupFamily'] as String
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class Event {
@@ -1009,7 +1744,19 @@ class Event {
     this.eventCategories,
     this.date,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        sourceIdentifier: json.containsKey('SourceIdentifier')
+            ? json['SourceIdentifier'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+      );
 }
 
 class EventCategoriesMap {
@@ -1022,7 +1769,14 @@ class EventCategoriesMap {
     this.eventCategories,
   });
   static EventCategoriesMap fromJson(Map<String, dynamic> json) =>
-      EventCategoriesMap();
+      EventCategoriesMap(
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class EventCategoriesMessage {
@@ -1032,7 +1786,13 @@ class EventCategoriesMessage {
     this.eventCategoriesMapList,
   });
   static EventCategoriesMessage fromJson(Map<String, dynamic> json) =>
-      EventCategoriesMessage();
+      EventCategoriesMessage(
+        eventCategoriesMapList: json.containsKey('EventCategoriesMapList')
+            ? (json['EventCategoriesMapList'] as List)
+                .map((e) => EventCategoriesMap.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class EventSubscription {
@@ -1069,7 +1829,34 @@ class EventSubscription {
     this.enabled,
   });
   static EventSubscription fromJson(Map<String, dynamic> json) =>
-      EventSubscription();
+      EventSubscription(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        customerAwsId: json.containsKey('CustomerAwsId')
+            ? json['CustomerAwsId'] as String
+            : null,
+        custSubscriptionId: json.containsKey('CustSubscriptionId')
+            ? json['CustSubscriptionId'] as String
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicArn')
+            ? json['SnsTopicArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        subscriptionCreationTime: json.containsKey('SubscriptionCreationTime')
+            ? json['SubscriptionCreationTime'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        sourceIdsList: json.containsKey('SourceIdsList')
+            ? (json['SourceIdsList'] as List).map((e) => e as String).toList()
+            : null,
+        eventCategoriesList: json.containsKey('EventCategoriesList')
+            ? (json['EventCategoriesList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
 }
 
 class EventSubscriptionsMessage {
@@ -1082,7 +1869,14 @@ class EventSubscriptionsMessage {
     this.eventSubscriptionsList,
   });
   static EventSubscriptionsMessage fromJson(Map<String, dynamic> json) =>
-      EventSubscriptionsMessage();
+      EventSubscriptionsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        eventSubscriptionsList: json.containsKey('EventSubscriptionsList')
+            ? (json['EventSubscriptionsList'] as List)
+                .map((e) => EventSubscription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class EventsMessage {
@@ -1094,7 +1888,12 @@ class EventsMessage {
     this.marker,
     this.events,
   });
-  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage();
+  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class IPRange {
@@ -1106,7 +1905,10 @@ class IPRange {
     this.status,
     this.cidrip,
   });
-  static IPRange fromJson(Map<String, dynamic> json) => IPRange();
+  static IPRange fromJson(Map<String, dynamic> json) => IPRange(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        cidrip: json.containsKey('CIDRIP') ? json['CIDRIP'] as String : null,
+      );
 }
 
 class ModifyDBInstanceResult {
@@ -1116,7 +1918,11 @@ class ModifyDBInstanceResult {
     this.dbInstance,
   });
   static ModifyDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBInstanceResult();
+      ModifyDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class ModifyDBSubnetGroupResult {
@@ -1126,7 +1932,11 @@ class ModifyDBSubnetGroupResult {
     this.dbSubnetGroup,
   });
   static ModifyDBSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      ModifyDBSubnetGroupResult();
+      ModifyDBSubnetGroupResult(
+        dbSubnetGroup: json.containsKey('DBSubnetGroup')
+            ? DBSubnetGroup.fromJson(json['DBSubnetGroup'])
+            : null,
+      );
 }
 
 class ModifyEventSubscriptionResult {
@@ -1136,7 +1946,11 @@ class ModifyEventSubscriptionResult {
     this.eventSubscription,
   });
   static ModifyEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      ModifyEventSubscriptionResult();
+      ModifyEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class ModifyOptionGroupResult {
@@ -1146,7 +1960,11 @@ class ModifyOptionGroupResult {
     this.optionGroup,
   });
   static ModifyOptionGroupResult fromJson(Map<String, dynamic> json) =>
-      ModifyOptionGroupResult();
+      ModifyOptionGroupResult(
+        optionGroup: json.containsKey('OptionGroup')
+            ? OptionGroup.fromJson(json['OptionGroup'])
+            : null,
+      );
 }
 
 class Option {
@@ -1167,7 +1985,27 @@ class Option {
     this.dbSecurityGroupMemberships,
     this.vpcSecurityGroupMemberships,
   });
-  static Option fromJson(Map<String, dynamic> json) => Option();
+  static Option fromJson(Map<String, dynamic> json) => Option(
+        optionName: json.containsKey('OptionName')
+            ? json['OptionName'] as String
+            : null,
+        optionDescription: json.containsKey('OptionDescription')
+            ? json['OptionDescription'] as String
+            : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        dbSecurityGroupMemberships:
+            json.containsKey('DBSecurityGroupMemberships')
+                ? (json['DBSecurityGroupMemberships'] as List)
+                    .map((e) => DBSecurityGroupMembership.fromJson(e))
+                    .toList()
+                : null,
+        vpcSecurityGroupMemberships:
+            json.containsKey('VpcSecurityGroupMemberships')
+                ? (json['VpcSecurityGroupMemberships'] as List)
+                    .map((e) => VpcSecurityGroupMembership.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class OptionConfiguration {
@@ -1185,6 +2023,7 @@ class OptionConfiguration {
     this.dbSecurityGroupMemberships,
     this.vpcSecurityGroupMemberships,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class OptionGroup {
@@ -1211,7 +2050,28 @@ class OptionGroup {
     this.allowsVpcAndNonVpcInstanceMemberships,
     this.vpcId,
   });
-  static OptionGroup fromJson(Map<String, dynamic> json) => OptionGroup();
+  static OptionGroup fromJson(Map<String, dynamic> json) => OptionGroup(
+        optionGroupName: json.containsKey('OptionGroupName')
+            ? json['OptionGroupName'] as String
+            : null,
+        optionGroupDescription: json.containsKey('OptionGroupDescription')
+            ? json['OptionGroupDescription'] as String
+            : null,
+        engineName: json.containsKey('EngineName')
+            ? json['EngineName'] as String
+            : null,
+        majorEngineVersion: json.containsKey('MajorEngineVersion')
+            ? json['MajorEngineVersion'] as String
+            : null,
+        options: json.containsKey('Options')
+            ? (json['Options'] as List).map((e) => Option.fromJson(e)).toList()
+            : null,
+        allowsVpcAndNonVpcInstanceMemberships:
+            json.containsKey('AllowsVpcAndNonVpcInstanceMemberships')
+                ? json['AllowsVpcAndNonVpcInstanceMemberships'] as bool
+                : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+      );
 }
 
 class OptionGroupMembership {
@@ -1224,7 +2084,12 @@ class OptionGroupMembership {
     this.status,
   });
   static OptionGroupMembership fromJson(Map<String, dynamic> json) =>
-      OptionGroupMembership();
+      OptionGroupMembership(
+        optionGroupName: json.containsKey('OptionGroupName')
+            ? json['OptionGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class OptionGroupOption {
@@ -1255,7 +2120,32 @@ class OptionGroupOption {
     this.optionsDependedOn,
   });
   static OptionGroupOption fromJson(Map<String, dynamic> json) =>
-      OptionGroupOption();
+      OptionGroupOption(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        engineName: json.containsKey('EngineName')
+            ? json['EngineName'] as String
+            : null,
+        majorEngineVersion: json.containsKey('MajorEngineVersion')
+            ? json['MajorEngineVersion'] as String
+            : null,
+        minimumRequiredMinorEngineVersion:
+            json.containsKey('MinimumRequiredMinorEngineVersion')
+                ? json['MinimumRequiredMinorEngineVersion'] as String
+                : null,
+        portRequired: json.containsKey('PortRequired')
+            ? json['PortRequired'] as bool
+            : null,
+        defaultPort:
+            json.containsKey('DefaultPort') ? json['DefaultPort'] as int : null,
+        optionsDependedOn: json.containsKey('OptionsDependedOn')
+            ? (json['OptionsDependedOn'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class OptionGroupOptionsMessage {
@@ -1268,7 +2158,14 @@ class OptionGroupOptionsMessage {
     this.marker,
   });
   static OptionGroupOptionsMessage fromJson(Map<String, dynamic> json) =>
-      OptionGroupOptionsMessage();
+      OptionGroupOptionsMessage(
+        optionGroupOptions: json.containsKey('OptionGroupOptions')
+            ? (json['OptionGroupOptions'] as List)
+                .map((e) => OptionGroupOption.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class OptionGroups {
@@ -1280,7 +2177,14 @@ class OptionGroups {
     this.optionGroupsList,
     this.marker,
   });
-  static OptionGroups fromJson(Map<String, dynamic> json) => OptionGroups();
+  static OptionGroups fromJson(Map<String, dynamic> json) => OptionGroups(
+        optionGroupsList: json.containsKey('OptionGroupsList')
+            ? (json['OptionGroupsList'] as List)
+                .map((e) => OptionGroup.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class OrderableDBInstanceOption {
@@ -1311,7 +2215,30 @@ class OrderableDBInstanceOption {
     this.vpc,
   });
   static OrderableDBInstanceOption fromJson(Map<String, dynamic> json) =>
-      OrderableDBInstanceOption();
+      OrderableDBInstanceOption(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        licenseModel: json.containsKey('LicenseModel')
+            ? json['LicenseModel'] as String
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => AvailabilityZone.fromJson(e))
+                .toList()
+            : null,
+        multiAZCapable: json.containsKey('MultiAZCapable')
+            ? json['MultiAZCapable'] as bool
+            : null,
+        readReplicaCapable: json.containsKey('ReadReplicaCapable')
+            ? json['ReadReplicaCapable'] as bool
+            : null,
+        vpc: json.containsKey('Vpc') ? json['Vpc'] as bool : null,
+      );
 }
 
 class OrderableDBInstanceOptionsMessage {
@@ -1325,7 +2252,15 @@ class OrderableDBInstanceOptionsMessage {
   });
   static OrderableDBInstanceOptionsMessage fromJson(
           Map<String, dynamic> json) =>
-      OrderableDBInstanceOptionsMessage();
+      OrderableDBInstanceOptionsMessage(
+        orderableDBInstanceOptions:
+            json.containsKey('OrderableDBInstanceOptions')
+                ? (json['OrderableDBInstanceOptions'] as List)
+                    .map((e) => OrderableDBInstanceOption.fromJson(e))
+                    .toList()
+                : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class Parameter {
@@ -1361,7 +2296,35 @@ class Parameter {
     this.minimumEngineVersion,
     this.applyMethod,
   });
-  static Parameter fromJson(Map<String, dynamic> json) => Parameter();
+  static Parameter fromJson(Map<String, dynamic> json) => Parameter(
+        parameterName: json.containsKey('ParameterName')
+            ? json['ParameterName'] as String
+            : null,
+        parameterValue: json.containsKey('ParameterValue')
+            ? json['ParameterValue'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        applyType:
+            json.containsKey('ApplyType') ? json['ApplyType'] as String : null,
+        dataType:
+            json.containsKey('DataType') ? json['DataType'] as String : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+        isModifiable: json.containsKey('IsModifiable')
+            ? json['IsModifiable'] as bool
+            : null,
+        minimumEngineVersion: json.containsKey('MinimumEngineVersion')
+            ? json['MinimumEngineVersion'] as String
+            : null,
+        applyMethod: json.containsKey('ApplyMethod')
+            ? json['ApplyMethod'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PendingModifiedValues {
@@ -1395,7 +2358,29 @@ class PendingModifiedValues {
     this.dbInstanceIdentifier,
   });
   static PendingModifiedValues fromJson(Map<String, dynamic> json) =>
-      PendingModifiedValues();
+      PendingModifiedValues(
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        allocatedStorage: json.containsKey('AllocatedStorage')
+            ? json['AllocatedStorage'] as int
+            : null,
+        masterUserPassword: json.containsKey('MasterUserPassword')
+            ? json['MasterUserPassword'] as String
+            : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        backupRetentionPeriod: json.containsKey('BackupRetentionPeriod')
+            ? json['BackupRetentionPeriod'] as int
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        iops: json.containsKey('Iops') ? json['Iops'] as int : null,
+        dbInstanceIdentifier: json.containsKey('DBInstanceIdentifier')
+            ? json['DBInstanceIdentifier'] as String
+            : null,
+      );
 }
 
 class PromoteReadReplicaResult {
@@ -1405,7 +2390,11 @@ class PromoteReadReplicaResult {
     this.dbInstance,
   });
   static PromoteReadReplicaResult fromJson(Map<String, dynamic> json) =>
-      PromoteReadReplicaResult();
+      PromoteReadReplicaResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class PurchaseReservedDBInstancesOfferingResult {
@@ -1416,7 +2405,11 @@ class PurchaseReservedDBInstancesOfferingResult {
   });
   static PurchaseReservedDBInstancesOfferingResult fromJson(
           Map<String, dynamic> json) =>
-      PurchaseReservedDBInstancesOfferingResult();
+      PurchaseReservedDBInstancesOfferingResult(
+        reservedDBInstance: json.containsKey('ReservedDBInstance')
+            ? ReservedDBInstance.fromJson(json['ReservedDBInstance'])
+            : null,
+      );
 }
 
 class RebootDBInstanceResult {
@@ -1426,7 +2419,11 @@ class RebootDBInstanceResult {
     this.dbInstance,
   });
   static RebootDBInstanceResult fromJson(Map<String, dynamic> json) =>
-      RebootDBInstanceResult();
+      RebootDBInstanceResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class RecurringCharge {
@@ -1438,8 +2435,14 @@ class RecurringCharge {
     this.recurringChargeAmount,
     this.recurringChargeFrequency,
   });
-  static RecurringCharge fromJson(Map<String, dynamic> json) =>
-      RecurringCharge();
+  static RecurringCharge fromJson(Map<String, dynamic> json) => RecurringCharge(
+        recurringChargeAmount: json.containsKey('RecurringChargeAmount')
+            ? json['RecurringChargeAmount'] as double
+            : null,
+        recurringChargeFrequency: json.containsKey('RecurringChargeFrequency')
+            ? json['RecurringChargeFrequency'] as String
+            : null,
+      );
 }
 
 class RemoveSourceIdentifierFromSubscriptionResult {
@@ -1450,7 +2453,11 @@ class RemoveSourceIdentifierFromSubscriptionResult {
   });
   static RemoveSourceIdentifierFromSubscriptionResult fromJson(
           Map<String, dynamic> json) =>
-      RemoveSourceIdentifierFromSubscriptionResult();
+      RemoveSourceIdentifierFromSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class ReservedDBInstance {
@@ -1499,7 +2506,47 @@ class ReservedDBInstance {
     this.recurringCharges,
   });
   static ReservedDBInstance fromJson(Map<String, dynamic> json) =>
-      ReservedDBInstance();
+      ReservedDBInstance(
+        reservedDBInstanceId: json.containsKey('ReservedDBInstanceId')
+            ? json['ReservedDBInstanceId'] as String
+            : null,
+        reservedDBInstancesOfferingId:
+            json.containsKey('ReservedDBInstancesOfferingId')
+                ? json['ReservedDBInstancesOfferingId'] as String
+                : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        dbInstanceCount: json.containsKey('DBInstanceCount')
+            ? json['DBInstanceCount'] as int
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ReservedDBInstanceMessage {
@@ -1512,7 +2559,14 @@ class ReservedDBInstanceMessage {
     this.reservedDBInstances,
   });
   static ReservedDBInstanceMessage fromJson(Map<String, dynamic> json) =>
-      ReservedDBInstanceMessage();
+      ReservedDBInstanceMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        reservedDBInstances: json.containsKey('ReservedDBInstances')
+            ? (json['ReservedDBInstances'] as List)
+                .map((e) => ReservedDBInstance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ReservedDBInstancesOffering {
@@ -1549,7 +2603,37 @@ class ReservedDBInstancesOffering {
     this.recurringCharges,
   });
   static ReservedDBInstancesOffering fromJson(Map<String, dynamic> json) =>
-      ReservedDBInstancesOffering();
+      ReservedDBInstancesOffering(
+        reservedDBInstancesOfferingId:
+            json.containsKey('ReservedDBInstancesOfferingId')
+                ? json['ReservedDBInstancesOfferingId'] as String
+                : null,
+        dbInstanceClass: json.containsKey('DBInstanceClass')
+            ? json['DBInstanceClass'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        multiAZ: json.containsKey('MultiAZ') ? json['MultiAZ'] as bool : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ReservedDBInstancesOfferingMessage {
@@ -1563,7 +2647,15 @@ class ReservedDBInstancesOfferingMessage {
   });
   static ReservedDBInstancesOfferingMessage fromJson(
           Map<String, dynamic> json) =>
-      ReservedDBInstancesOfferingMessage();
+      ReservedDBInstancesOfferingMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        reservedDBInstancesOfferings:
+            json.containsKey('ReservedDBInstancesOfferings')
+                ? (json['ReservedDBInstancesOfferings'] as List)
+                    .map((e) => ReservedDBInstancesOffering.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class RestoreDBInstanceFromDBSnapshotResult {
@@ -1574,7 +2666,11 @@ class RestoreDBInstanceFromDBSnapshotResult {
   });
   static RestoreDBInstanceFromDBSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      RestoreDBInstanceFromDBSnapshotResult();
+      RestoreDBInstanceFromDBSnapshotResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class RestoreDBInstanceToPointInTimeResult {
@@ -1585,7 +2681,11 @@ class RestoreDBInstanceToPointInTimeResult {
   });
   static RestoreDBInstanceToPointInTimeResult fromJson(
           Map<String, dynamic> json) =>
-      RestoreDBInstanceToPointInTimeResult();
+      RestoreDBInstanceToPointInTimeResult(
+        dbInstance: json.containsKey('DBInstance')
+            ? DBInstance.fromJson(json['DBInstance'])
+            : null,
+      );
 }
 
 class RevokeDBSecurityGroupIngressResult {
@@ -1596,7 +2696,11 @@ class RevokeDBSecurityGroupIngressResult {
   });
   static RevokeDBSecurityGroupIngressResult fromJson(
           Map<String, dynamic> json) =>
-      RevokeDBSecurityGroupIngressResult();
+      RevokeDBSecurityGroupIngressResult(
+        dbSecurityGroup: json.containsKey('DBSecurityGroup')
+            ? DBSecurityGroup.fromJson(json['DBSecurityGroup'])
+            : null,
+      );
 }
 
 class Subnet {
@@ -1611,7 +2715,17 @@ class Subnet {
     this.subnetAvailabilityZone,
     this.subnetStatus,
   });
-  static Subnet fromJson(Map<String, dynamic> json) => Subnet();
+  static Subnet fromJson(Map<String, dynamic> json) => Subnet(
+        subnetIdentifier: json.containsKey('SubnetIdentifier')
+            ? json['SubnetIdentifier'] as String
+            : null,
+        subnetAvailabilityZone: json.containsKey('SubnetAvailabilityZone')
+            ? AvailabilityZone.fromJson(json['SubnetAvailabilityZone'])
+            : null,
+        subnetStatus: json.containsKey('SubnetStatus')
+            ? json['SubnetStatus'] as String
+            : null,
+      );
 }
 
 class Tag {
@@ -1623,7 +2737,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagListMessage {
@@ -1632,7 +2750,11 @@ class TagListMessage {
   TagListMessage({
     this.tagList,
   });
-  static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage();
+  static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage(
+        tagList: json.containsKey('TagList')
+            ? (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class VpcSecurityGroupMembership {
@@ -1645,5 +2767,10 @@ class VpcSecurityGroupMembership {
     this.status,
   });
   static VpcSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      VpcSecurityGroupMembership();
+      VpcSecurityGroupMembership(
+        vpcSecurityGroupId: json.containsKey('VpcSecurityGroupId')
+            ? json['VpcSecurityGroupId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }

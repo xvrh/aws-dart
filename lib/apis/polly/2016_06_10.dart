@@ -9,6 +9,10 @@ import 'dart:typed_data';
 /// (SSML), along with managing pronunciations lexicons that enable you to get
 /// the best results for your application domain.
 class PollyApi {
+  final _client;
+  PollyApi(client)
+      : _client = client.configured('Polly', serializer: 'rest-json');
+
   /// Deletes the specified pronunciation lexicon stored in an AWS Region. A
   /// lexicon which has been deleted is not available for speech synthesis, nor
   /// is it possible to retrieve it using either the `GetLexicon` or
@@ -20,7 +24,10 @@ class PollyApi {
   /// [name]: The name of the lexicon to delete. Must be an existing lexicon in
   /// the region.
   Future<DeleteLexiconOutput> deleteLexicon(String name) async {
-    return DeleteLexiconOutput.fromJson({});
+    var response_ = await _client.send('DeleteLexicon', {
+      'Name': name,
+    });
+    return DeleteLexiconOutput.fromJson(response_);
   }
 
   /// Returns the list of voices that are available for use when requesting
@@ -67,7 +74,14 @@ class PollyApi {
       String languageCode,
       bool includeAdditionalLanguageCodes,
       String nextToken}) async {
-    return DescribeVoicesOutput.fromJson({});
+    var response_ = await _client.send('DescribeVoices', {
+      if (engine != null) 'Engine': engine,
+      if (languageCode != null) 'LanguageCode': languageCode,
+      if (includeAdditionalLanguageCodes != null)
+        'IncludeAdditionalLanguageCodes': includeAdditionalLanguageCodes,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeVoicesOutput.fromJson(response_);
   }
 
   /// Returns the content of the specified pronunciation lexicon stored in an
@@ -76,7 +90,10 @@ class PollyApi {
   ///
   /// [name]: Name of the lexicon.
   Future<GetLexiconOutput> getLexicon(String name) async {
-    return GetLexiconOutput.fromJson({});
+    var response_ = await _client.send('GetLexicon', {
+      'Name': name,
+    });
+    return GetLexiconOutput.fromJson(response_);
   }
 
   /// Retrieves a specific SpeechSynthesisTask object based on its TaskID. This
@@ -88,7 +105,10 @@ class PollyApi {
   /// task.
   Future<GetSpeechSynthesisTaskOutput> getSpeechSynthesisTask(
       String taskId) async {
-    return GetSpeechSynthesisTaskOutput.fromJson({});
+    var response_ = await _client.send('GetSpeechSynthesisTask', {
+      'TaskId': taskId,
+    });
+    return GetSpeechSynthesisTaskOutput.fromJson(response_);
   }
 
   /// Returns a list of pronunciation lexicons stored in an AWS Region. For more
@@ -99,7 +119,10 @@ class PollyApi {
   /// `ListLexicons` operation. If present, indicates where to continue the list
   /// of lexicons.
   Future<ListLexiconsOutput> listLexicons({String nextToken}) async {
-    return ListLexiconsOutput.fromJson({});
+    var response_ = await _client.send('ListLexicons', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListLexiconsOutput.fromJson(response_);
   }
 
   /// Returns a list of SpeechSynthesisTask objects ordered by their creation
@@ -116,7 +139,12 @@ class PollyApi {
   /// operation
   Future<ListSpeechSynthesisTasksOutput> listSpeechSynthesisTasks(
       {int maxResults, String nextToken, String status}) async {
-    return ListSpeechSynthesisTasksOutput.fromJson({});
+    var response_ = await _client.send('ListSpeechSynthesisTasks', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (status != null) 'Status': status,
+    });
+    return ListSpeechSynthesisTasksOutput.fromJson(response_);
   }
 
   /// Stores a pronunciation lexicon in an AWS Region. If a lexicon with the
@@ -135,7 +163,11 @@ class PollyApi {
   /// [content]: Content of the PLS lexicon as string data.
   Future<PutLexiconOutput> putLexicon(
       {@required String name, @required String content}) async {
-    return PutLexiconOutput.fromJson({});
+    var response_ = await _client.send('PutLexicon', {
+      'Name': name,
+      'Content': content,
+    });
+    return PutLexiconOutput.fromJson(response_);
   }
 
   /// Allows the creation of an asynchronous synthesis task, by starting a new
@@ -208,7 +240,21 @@ class PollyApi {
       @required String text,
       String textType,
       @required String voiceId}) async {
-    return StartSpeechSynthesisTaskOutput.fromJson({});
+    var response_ = await _client.send('StartSpeechSynthesisTask', {
+      if (engine != null) 'Engine': engine,
+      if (languageCode != null) 'LanguageCode': languageCode,
+      if (lexiconNames != null) 'LexiconNames': lexiconNames,
+      'OutputFormat': outputFormat,
+      'OutputS3BucketName': outputS3BucketName,
+      if (outputS3KeyPrefix != null) 'OutputS3KeyPrefix': outputS3KeyPrefix,
+      if (sampleRate != null) 'SampleRate': sampleRate,
+      if (snsTopicArn != null) 'SnsTopicArn': snsTopicArn,
+      if (speechMarkTypes != null) 'SpeechMarkTypes': speechMarkTypes,
+      'Text': text,
+      if (textType != null) 'TextType': textType,
+      'VoiceId': voiceId,
+    });
+    return StartSpeechSynthesisTaskOutput.fromJson(response_);
   }
 
   /// Synthesizes UTF-8 input, plain text or SSML, to a stream of bytes. SSML
@@ -277,7 +323,18 @@ class PollyApi {
       @required String text,
       String textType,
       @required String voiceId}) async {
-    return SynthesizeSpeechOutput.fromJson({});
+    var response_ = await _client.send('SynthesizeSpeech', {
+      if (engine != null) 'Engine': engine,
+      if (languageCode != null) 'LanguageCode': languageCode,
+      if (lexiconNames != null) 'LexiconNames': lexiconNames,
+      'OutputFormat': outputFormat,
+      if (sampleRate != null) 'SampleRate': sampleRate,
+      if (speechMarkTypes != null) 'SpeechMarkTypes': speechMarkTypes,
+      'Text': text,
+      if (textType != null) 'TextType': textType,
+      'VoiceId': voiceId,
+    });
+    return SynthesizeSpeechOutput.fromJson(response_);
   }
 }
 
@@ -300,7 +357,13 @@ class DescribeVoicesOutput {
     this.nextToken,
   });
   static DescribeVoicesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeVoicesOutput();
+      DescribeVoicesOutput(
+        voices: json.containsKey('Voices')
+            ? (json['Voices'] as List).map((e) => Voice.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetLexiconOutput {
@@ -317,7 +380,14 @@ class GetLexiconOutput {
     this.lexiconAttributes,
   });
   static GetLexiconOutput fromJson(Map<String, dynamic> json) =>
-      GetLexiconOutput();
+      GetLexiconOutput(
+        lexicon: json.containsKey('Lexicon')
+            ? Lexicon.fromJson(json['Lexicon'])
+            : null,
+        lexiconAttributes: json.containsKey('LexiconAttributes')
+            ? LexiconAttributes.fromJson(json['LexiconAttributes'])
+            : null,
+      );
 }
 
 class GetSpeechSynthesisTaskOutput {
@@ -329,7 +399,11 @@ class GetSpeechSynthesisTaskOutput {
     this.synthesisTask,
   });
   static GetSpeechSynthesisTaskOutput fromJson(Map<String, dynamic> json) =>
-      GetSpeechSynthesisTaskOutput();
+      GetSpeechSynthesisTaskOutput(
+        synthesisTask: json.containsKey('SynthesisTask')
+            ? SynthesisTask.fromJson(json['SynthesisTask'])
+            : null,
+      );
 }
 
 /// Provides lexicon name and lexicon content in string format. For more
@@ -347,7 +421,10 @@ class Lexicon {
     this.content,
     this.name,
   });
-  static Lexicon fromJson(Map<String, dynamic> json) => Lexicon();
+  static Lexicon fromJson(Map<String, dynamic> json) => Lexicon(
+        content: json.containsKey('Content') ? json['Content'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Contains metadata describing the lexicon such as the number of lexemes,
@@ -384,7 +461,23 @@ class LexiconAttributes {
     this.size,
   });
   static LexiconAttributes fromJson(Map<String, dynamic> json) =>
-      LexiconAttributes();
+      LexiconAttributes(
+        alphabet:
+            json.containsKey('Alphabet') ? json['Alphabet'] as String : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        lexiconArn: json.containsKey('LexiconArn')
+            ? json['LexiconArn'] as String
+            : null,
+        lexemesCount: json.containsKey('LexemesCount')
+            ? json['LexemesCount'] as int
+            : null,
+        size: json.containsKey('Size') ? json['Size'] as int : null,
+      );
 }
 
 /// Describes the content of the lexicon.
@@ -400,7 +493,12 @@ class LexiconDescription {
     this.attributes,
   });
   static LexiconDescription fromJson(Map<String, dynamic> json) =>
-      LexiconDescription();
+      LexiconDescription(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        attributes: json.containsKey('Attributes')
+            ? LexiconAttributes.fromJson(json['Attributes'])
+            : null,
+      );
 }
 
 class ListLexiconsOutput {
@@ -416,7 +514,15 @@ class ListLexiconsOutput {
     this.nextToken,
   });
   static ListLexiconsOutput fromJson(Map<String, dynamic> json) =>
-      ListLexiconsOutput();
+      ListLexiconsOutput(
+        lexicons: json.containsKey('Lexicons')
+            ? (json['Lexicons'] as List)
+                .map((e) => LexiconDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListSpeechSynthesisTasksOutput {
@@ -434,7 +540,15 @@ class ListSpeechSynthesisTasksOutput {
     this.synthesisTasks,
   });
   static ListSpeechSynthesisTasksOutput fromJson(Map<String, dynamic> json) =>
-      ListSpeechSynthesisTasksOutput();
+      ListSpeechSynthesisTasksOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        synthesisTasks: json.containsKey('SynthesisTasks')
+            ? (json['SynthesisTasks'] as List)
+                .map((e) => SynthesisTask.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class PutLexiconOutput {
@@ -452,7 +566,11 @@ class StartSpeechSynthesisTaskOutput {
     this.synthesisTask,
   });
   static StartSpeechSynthesisTaskOutput fromJson(Map<String, dynamic> json) =>
-      StartSpeechSynthesisTaskOutput();
+      StartSpeechSynthesisTaskOutput(
+        synthesisTask: json.containsKey('SynthesisTask')
+            ? SynthesisTask.fromJson(json['SynthesisTask'])
+            : null,
+      );
 }
 
 /// SynthesisTask object that provides information about a speech synthesis
@@ -543,7 +661,45 @@ class SynthesisTask {
     this.voiceId,
     this.languageCode,
   });
-  static SynthesisTask fromJson(Map<String, dynamic> json) => SynthesisTask();
+  static SynthesisTask fromJson(Map<String, dynamic> json) => SynthesisTask(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        taskId: json.containsKey('TaskId') ? json['TaskId'] as String : null,
+        taskStatus: json.containsKey('TaskStatus')
+            ? json['TaskStatus'] as String
+            : null,
+        taskStatusReason: json.containsKey('TaskStatusReason')
+            ? json['TaskStatusReason'] as String
+            : null,
+        outputUri:
+            json.containsKey('OutputUri') ? json['OutputUri'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        requestCharacters: json.containsKey('RequestCharacters')
+            ? json['RequestCharacters'] as int
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicArn')
+            ? json['SnsTopicArn'] as String
+            : null,
+        lexiconNames: json.containsKey('LexiconNames')
+            ? (json['LexiconNames'] as List).map((e) => e as String).toList()
+            : null,
+        outputFormat: json.containsKey('OutputFormat')
+            ? json['OutputFormat'] as String
+            : null,
+        sampleRate: json.containsKey('SampleRate')
+            ? json['SampleRate'] as String
+            : null,
+        speechMarkTypes: json.containsKey('SpeechMarkTypes')
+            ? (json['SpeechMarkTypes'] as List).map((e) => e as String).toList()
+            : null,
+        textType:
+            json.containsKey('TextType') ? json['TextType'] as String : null,
+        voiceId: json.containsKey('VoiceId') ? json['VoiceId'] as String : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+      );
 }
 
 class SynthesizeSpeechOutput {
@@ -576,7 +732,17 @@ class SynthesizeSpeechOutput {
     this.requestCharacters,
   });
   static SynthesizeSpeechOutput fromJson(Map<String, dynamic> json) =>
-      SynthesizeSpeechOutput();
+      SynthesizeSpeechOutput(
+        audioStream: json.containsKey('AudioStream')
+            ? Uint8List(json['AudioStream'])
+            : null,
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        requestCharacters: json.containsKey('RequestCharacters')
+            ? json['RequestCharacters'] as int
+            : null,
+      );
 }
 
 /// Description of the voice.
@@ -620,5 +786,25 @@ class Voice {
     this.additionalLanguageCodes,
     this.supportedEngines,
   });
-  static Voice fromJson(Map<String, dynamic> json) => Voice();
+  static Voice fromJson(Map<String, dynamic> json) => Voice(
+        gender: json.containsKey('Gender') ? json['Gender'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        languageName: json.containsKey('LanguageName')
+            ? json['LanguageName'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        additionalLanguageCodes: json.containsKey('AdditionalLanguageCodes')
+            ? (json['AdditionalLanguageCodes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        supportedEngines: json.containsKey('SupportedEngines')
+            ? (json['SupportedEngines'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }

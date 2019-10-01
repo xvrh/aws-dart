@@ -8,6 +8,10 @@ import 'package:meta/meta.dart';
 /// that submit public or private DNS queries, or HTTP requests, for the service
 /// receive an answer that contains up to eight healthy records.
 class ServiceDiscoveryApi {
+  final _client;
+  ServiceDiscoveryApi(client)
+      : _client = client.configured('ServiceDiscovery', serializer: 'json');
+
   /// Creates an HTTP namespace. Service instances that you register using an
   /// HTTP namespace can be discovered using a `DiscoverInstances` request but
   /// can't be discovered using DNS.
@@ -27,7 +31,12 @@ class ServiceDiscoveryApi {
   /// [description]: A description for the namespace.
   Future<CreateHttpNamespaceResponse> createHttpNamespace(String name,
       {String creatorRequestId, String description}) async {
-    return CreateHttpNamespaceResponse.fromJson({});
+    var response_ = await _client.send('CreateHttpNamespace', {
+      'Name': name,
+      if (creatorRequestId != null) 'CreatorRequestId': creatorRequestId,
+      if (description != null) 'Description': description,
+    });
+    return CreateHttpNamespaceResponse.fromJson(response_);
   }
 
   /// Creates a private namespace based on DNS, which will be visible only
@@ -58,7 +67,13 @@ class ServiceDiscoveryApi {
       String creatorRequestId,
       String description,
       @required String vpc}) async {
-    return CreatePrivateDnsNamespaceResponse.fromJson({});
+    var response_ = await _client.send('CreatePrivateDnsNamespace', {
+      'Name': name,
+      if (creatorRequestId != null) 'CreatorRequestId': creatorRequestId,
+      if (description != null) 'Description': description,
+      'Vpc': vpc,
+    });
+    return CreatePrivateDnsNamespaceResponse.fromJson(response_);
   }
 
   /// Creates a public namespace based on DNS, which will be visible on the
@@ -80,7 +95,12 @@ class ServiceDiscoveryApi {
   /// [description]: A description for the namespace.
   Future<CreatePublicDnsNamespaceResponse> createPublicDnsNamespace(String name,
       {String creatorRequestId, String description}) async {
-    return CreatePublicDnsNamespaceResponse.fromJson({});
+    var response_ = await _client.send('CreatePublicDnsNamespace', {
+      'Name': name,
+      if (creatorRequestId != null) 'CreatorRequestId': creatorRequestId,
+      if (description != null) 'Description': description,
+    });
+    return CreatePublicDnsNamespaceResponse.fromJson(response_);
   }
 
   /// Creates a service, which defines the configuration for the following
@@ -153,7 +173,17 @@ class ServiceDiscoveryApi {
       DnsConfig dnsConfig,
       HealthCheckConfig healthCheckConfig,
       HealthCheckCustomConfig healthCheckCustomConfig}) async {
-    return CreateServiceResponse.fromJson({});
+    var response_ = await _client.send('CreateService', {
+      'Name': name,
+      if (namespaceId != null) 'NamespaceId': namespaceId,
+      if (creatorRequestId != null) 'CreatorRequestId': creatorRequestId,
+      if (description != null) 'Description': description,
+      if (dnsConfig != null) 'DnsConfig': dnsConfig,
+      if (healthCheckConfig != null) 'HealthCheckConfig': healthCheckConfig,
+      if (healthCheckCustomConfig != null)
+        'HealthCheckCustomConfig': healthCheckCustomConfig,
+    });
+    return CreateServiceResponse.fromJson(response_);
   }
 
   /// Deletes a namespace from the current account. If the namespace still
@@ -161,7 +191,10 @@ class ServiceDiscoveryApi {
   ///
   /// [id]: The ID of the namespace that you want to delete.
   Future<DeleteNamespaceResponse> deleteNamespace(String id) async {
-    return DeleteNamespaceResponse.fromJson({});
+    var response_ = await _client.send('DeleteNamespace', {
+      'Id': id,
+    });
+    return DeleteNamespaceResponse.fromJson(response_);
   }
 
   /// Deletes a specified service. If the service still contains one or more
@@ -169,7 +202,10 @@ class ServiceDiscoveryApi {
   ///
   /// [id]: The ID of the service that you want to delete.
   Future<DeleteServiceResponse> deleteService(String id) async {
-    return DeleteServiceResponse.fromJson({});
+    var response_ = await _client.send('DeleteService', {
+      'Id': id,
+    });
+    return DeleteServiceResponse.fromJson(response_);
   }
 
   /// Deletes the Amazon Route 53 DNS records and health check, if any, that AWS
@@ -181,7 +217,11 @@ class ServiceDiscoveryApi {
   /// RegisterInstance request.
   Future<DeregisterInstanceResponse> deregisterInstance(
       {@required String serviceId, @required String instanceId}) async {
-    return DeregisterInstanceResponse.fromJson({});
+    var response_ = await _client.send('DeregisterInstance', {
+      'ServiceId': serviceId,
+      'InstanceId': instanceId,
+    });
+    return DeregisterInstanceResponse.fromJson(response_);
   }
 
   /// Discovers registered instances for a specified namespace and service.
@@ -209,7 +249,14 @@ class ServiceDiscoveryApi {
       int maxResults,
       Map<String, String> queryParameters,
       String healthStatus}) async {
-    return DiscoverInstancesResponse.fromJson({});
+    var response_ = await _client.send('DiscoverInstances', {
+      'NamespaceName': namespaceName,
+      'ServiceName': serviceName,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (queryParameters != null) 'QueryParameters': queryParameters,
+      if (healthStatus != null) 'HealthStatus': healthStatus,
+    });
+    return DiscoverInstancesResponse.fromJson(response_);
   }
 
   /// Gets information about a specified instance.
@@ -220,7 +267,11 @@ class ServiceDiscoveryApi {
   /// about.
   Future<GetInstanceResponse> getInstance(
       {@required String serviceId, @required String instanceId}) async {
-    return GetInstanceResponse.fromJson({});
+    var response_ = await _client.send('GetInstance', {
+      'ServiceId': serviceId,
+      'InstanceId': instanceId,
+    });
+    return GetInstanceResponse.fromJson(response_);
   }
 
   /// Gets the current health status (`Healthy`, `Unhealthy`, or `Unknown`) of
@@ -261,14 +312,23 @@ class ServiceDiscoveryApi {
       {List<String> instances,
       int maxResults,
       String nextToken}) async {
-    return GetInstancesHealthStatusResponse.fromJson({});
+    var response_ = await _client.send('GetInstancesHealthStatus', {
+      'ServiceId': serviceId,
+      if (instances != null) 'Instances': instances,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetInstancesHealthStatusResponse.fromJson(response_);
   }
 
   /// Gets information about a namespace.
   ///
   /// [id]: The ID of the namespace that you want to get information about.
   Future<GetNamespaceResponse> getNamespace(String id) async {
-    return GetNamespaceResponse.fromJson({});
+    var response_ = await _client.send('GetNamespace', {
+      'Id': id,
+    });
+    return GetNamespaceResponse.fromJson(response_);
   }
 
   /// Gets information about any operation that returns an operation ID in the
@@ -282,14 +342,20 @@ class ServiceDiscoveryApi {
   /// [operationId]: The ID of the operation that you want to get more
   /// information about.
   Future<GetOperationResponse> getOperation(String operationId) async {
-    return GetOperationResponse.fromJson({});
+    var response_ = await _client.send('GetOperation', {
+      'OperationId': operationId,
+    });
+    return GetOperationResponse.fromJson(response_);
   }
 
   /// Gets the settings for a specified service.
   ///
   /// [id]: The ID of the service that you want to get settings for.
   Future<GetServiceResponse> getService(String id) async {
-    return GetServiceResponse.fromJson({});
+    var response_ = await _client.send('GetService', {
+      'Id': id,
+    });
+    return GetServiceResponse.fromJson(response_);
   }
 
   /// Lists summary information about the instances that you registered by using
@@ -310,7 +376,12 @@ class ServiceDiscoveryApi {
   /// instances.
   Future<ListInstancesResponse> listInstances(String serviceId,
       {String nextToken, int maxResults}) async {
-    return ListInstancesResponse.fromJson({});
+    var response_ = await _client.send('ListInstances', {
+      'ServiceId': serviceId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListInstancesResponse.fromJson(response_);
   }
 
   /// Lists summary information about the namespaces that were created by the
@@ -342,7 +413,12 @@ class ServiceDiscoveryApi {
   /// be returned by `ListNamespaces`.
   Future<ListNamespacesResponse> listNamespaces(
       {String nextToken, int maxResults, List<NamespaceFilter> filters}) async {
-    return ListNamespacesResponse.fromJson({});
+    var response_ = await _client.send('ListNamespaces', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListNamespacesResponse.fromJson(response_);
   }
 
   /// Lists operations that match the criteria that you specify.
@@ -373,7 +449,12 @@ class ServiceDiscoveryApi {
   /// to be returned by `ListOperations`.
   Future<ListOperationsResponse> listOperations(
       {String nextToken, int maxResults, List<OperationFilter> filters}) async {
-    return ListOperationsResponse.fromJson({});
+    var response_ = await _client.send('ListOperations', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListOperationsResponse.fromJson(response_);
   }
 
   /// Lists summary information for all the services that are associated with
@@ -405,7 +486,12 @@ class ServiceDiscoveryApi {
   /// to be returned by `ListServices`.
   Future<ListServicesResponse> listServices(
       {String nextToken, int maxResults, List<ServiceFilter> filters}) async {
-    return ListServicesResponse.fromJson({});
+    var response_ = await _client.send('ListServices', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListServicesResponse.fromJson(response_);
   }
 
   /// Creates or updates one or more records and, optionally, creates a health
@@ -581,7 +667,13 @@ class ServiceDiscoveryApi {
       @required String instanceId,
       String creatorRequestId,
       @required Map<String, String> attributes}) async {
-    return RegisterInstanceResponse.fromJson({});
+    var response_ = await _client.send('RegisterInstance', {
+      'ServiceId': serviceId,
+      'InstanceId': instanceId,
+      if (creatorRequestId != null) 'CreatorRequestId': creatorRequestId,
+      'Attributes': attributes,
+    });
+    return RegisterInstanceResponse.fromJson(response_);
   }
 
   /// Submits a request to change the health status of a custom health check to
@@ -604,7 +696,13 @@ class ServiceDiscoveryApi {
   Future<void> updateInstanceCustomHealthStatus(
       {@required String serviceId,
       @required String instanceId,
-      @required String status}) async {}
+      @required String status}) async {
+    await _client.send('UpdateInstanceCustomHealthStatus', {
+      'ServiceId': serviceId,
+      'InstanceId': instanceId,
+      'Status': status,
+    });
+  }
 
   /// Submits a request to perform the following operations:
   ///
@@ -629,7 +727,11 @@ class ServiceDiscoveryApi {
   /// [service]: A complex type that contains the new settings for the service.
   Future<UpdateServiceResponse> updateService(
       {@required String id, @required ServiceChange service}) async {
-    return UpdateServiceResponse.fromJson({});
+    var response_ = await _client.send('UpdateService', {
+      'Id': id,
+      'Service': service,
+    });
+    return UpdateServiceResponse.fromJson(response_);
   }
 }
 
@@ -642,7 +744,11 @@ class CreateHttpNamespaceResponse {
     this.operationId,
   });
   static CreateHttpNamespaceResponse fromJson(Map<String, dynamic> json) =>
-      CreateHttpNamespaceResponse();
+      CreateHttpNamespaceResponse(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 class CreatePrivateDnsNamespaceResponse {
@@ -655,7 +761,11 @@ class CreatePrivateDnsNamespaceResponse {
   });
   static CreatePrivateDnsNamespaceResponse fromJson(
           Map<String, dynamic> json) =>
-      CreatePrivateDnsNamespaceResponse();
+      CreatePrivateDnsNamespaceResponse(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 class CreatePublicDnsNamespaceResponse {
@@ -667,7 +777,11 @@ class CreatePublicDnsNamespaceResponse {
     this.operationId,
   });
   static CreatePublicDnsNamespaceResponse fromJson(Map<String, dynamic> json) =>
-      CreatePublicDnsNamespaceResponse();
+      CreatePublicDnsNamespaceResponse(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 class CreateServiceResponse {
@@ -678,7 +792,11 @@ class CreateServiceResponse {
     this.service,
   });
   static CreateServiceResponse fromJson(Map<String, dynamic> json) =>
-      CreateServiceResponse();
+      CreateServiceResponse(
+        service: json.containsKey('Service')
+            ? Service.fromJson(json['Service'])
+            : null,
+      );
 }
 
 class DeleteNamespaceResponse {
@@ -690,7 +808,11 @@ class DeleteNamespaceResponse {
     this.operationId,
   });
   static DeleteNamespaceResponse fromJson(Map<String, dynamic> json) =>
-      DeleteNamespaceResponse();
+      DeleteNamespaceResponse(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 class DeleteServiceResponse {
@@ -708,7 +830,11 @@ class DeregisterInstanceResponse {
     this.operationId,
   });
   static DeregisterInstanceResponse fromJson(Map<String, dynamic> json) =>
-      DeregisterInstanceResponse();
+      DeregisterInstanceResponse(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 class DiscoverInstancesResponse {
@@ -720,7 +846,13 @@ class DiscoverInstancesResponse {
     this.instances,
   });
   static DiscoverInstancesResponse fromJson(Map<String, dynamic> json) =>
-      DiscoverInstancesResponse();
+      DiscoverInstancesResponse(
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => HttpInstanceSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A complex type that contains information about the Amazon Route 53 DNS
@@ -789,7 +921,18 @@ class DnsConfig {
     this.routingPolicy,
     @required this.dnsRecords,
   });
-  static DnsConfig fromJson(Map<String, dynamic> json) => DnsConfig();
+  static DnsConfig fromJson(Map<String, dynamic> json) => DnsConfig(
+        namespaceId: json.containsKey('NamespaceId')
+            ? json['NamespaceId'] as String
+            : null,
+        routingPolicy: json.containsKey('RoutingPolicy')
+            ? json['RoutingPolicy'] as String
+            : null,
+        dnsRecords: (json['DnsRecords'] as List)
+            .map((e) => DnsRecord.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about changes to the Route 53 DNS
@@ -802,6 +945,7 @@ class DnsConfigChange {
   DnsConfigChange({
     @required this.dnsRecords,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains the ID for the Route 53 hosted zone that AWS
@@ -814,7 +958,11 @@ class DnsProperties {
   DnsProperties({
     this.hostedZoneId,
   });
-  static DnsProperties fromJson(Map<String, dynamic> json) => DnsProperties();
+  static DnsProperties fromJson(Map<String, dynamic> json) => DnsProperties(
+        hostedZoneId: json.containsKey('HostedZoneId')
+            ? json['HostedZoneId'] as String
+            : null,
+      );
 }
 
 /// A complex type that contains information about the Route 53 DNS records that
@@ -927,7 +1075,11 @@ class DnsRecord {
     @required this.type,
     @required this.ttl,
   });
-  static DnsRecord fromJson(Map<String, dynamic> json) => DnsRecord();
+  static DnsRecord fromJson(Map<String, dynamic> json) => DnsRecord(
+        type: json['Type'] as String,
+        ttl: BigInt.from(json['TTL']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetInstanceResponse {
@@ -938,7 +1090,11 @@ class GetInstanceResponse {
     this.instance,
   });
   static GetInstanceResponse fromJson(Map<String, dynamic> json) =>
-      GetInstanceResponse();
+      GetInstanceResponse(
+        instance: json.containsKey('Instance')
+            ? Instance.fromJson(json['Instance'])
+            : null,
+      );
 }
 
 class GetInstancesHealthStatusResponse {
@@ -957,7 +1113,14 @@ class GetInstancesHealthStatusResponse {
     this.nextToken,
   });
   static GetInstancesHealthStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetInstancesHealthStatusResponse();
+      GetInstancesHealthStatusResponse(
+        status: json.containsKey('Status')
+            ? (json['Status'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetNamespaceResponse {
@@ -968,7 +1131,11 @@ class GetNamespaceResponse {
     this.namespace,
   });
   static GetNamespaceResponse fromJson(Map<String, dynamic> json) =>
-      GetNamespaceResponse();
+      GetNamespaceResponse(
+        namespace: json.containsKey('Namespace')
+            ? Namespace.fromJson(json['Namespace'])
+            : null,
+      );
 }
 
 class GetOperationResponse {
@@ -979,7 +1146,11 @@ class GetOperationResponse {
     this.operation,
   });
   static GetOperationResponse fromJson(Map<String, dynamic> json) =>
-      GetOperationResponse();
+      GetOperationResponse(
+        operation: json.containsKey('Operation')
+            ? Operation.fromJson(json['Operation'])
+            : null,
+      );
 }
 
 class GetServiceResponse {
@@ -990,7 +1161,11 @@ class GetServiceResponse {
     this.service,
   });
   static GetServiceResponse fromJson(Map<String, dynamic> json) =>
-      GetServiceResponse();
+      GetServiceResponse(
+        service: json.containsKey('Service')
+            ? Service.fromJson(json['Service'])
+            : null,
+      );
 }
 
 ///  _Public DNS namespaces only._ A complex type that contains settings for an
@@ -1110,7 +1285,16 @@ class HealthCheckConfig {
     this.failureThreshold,
   });
   static HealthCheckConfig fromJson(Map<String, dynamic> json) =>
-      HealthCheckConfig();
+      HealthCheckConfig(
+        type: json['Type'] as String,
+        resourcePath: json.containsKey('ResourcePath')
+            ? json['ResourcePath'] as String
+            : null,
+        failureThreshold: json.containsKey('FailureThreshold')
+            ? json['FailureThreshold'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about an optional custom health
@@ -1183,7 +1367,12 @@ class HealthCheckCustomConfig {
     this.failureThreshold,
   });
   static HealthCheckCustomConfig fromJson(Map<String, dynamic> json) =>
-      HealthCheckCustomConfig();
+      HealthCheckCustomConfig(
+        failureThreshold: json.containsKey('FailureThreshold')
+            ? json['FailureThreshold'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// In a response to a DiscoverInstance request, `HttpInstanceSummary` contains
@@ -1218,7 +1407,24 @@ class HttpInstanceSummary {
     this.attributes,
   });
   static HttpInstanceSummary fromJson(Map<String, dynamic> json) =>
-      HttpInstanceSummary();
+      HttpInstanceSummary(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        namespaceName: json.containsKey('NamespaceName')
+            ? json['NamespaceName'] as String
+            : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        healthStatus: json.containsKey('HealthStatus')
+            ? json['HealthStatus'] as String
+            : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A complex type that contains the name of an HTTP namespace.
@@ -1229,7 +1435,10 @@ class HttpProperties {
   HttpProperties({
     this.httpName,
   });
-  static HttpProperties fromJson(Map<String, dynamic> json) => HttpProperties();
+  static HttpProperties fromJson(Map<String, dynamic> json) => HttpProperties(
+        httpName:
+            json.containsKey('HttpName') ? json['HttpName'] as String : null,
+      );
 }
 
 /// A complex type that contains information about an instance that AWS Cloud
@@ -1356,7 +1565,16 @@ class Instance {
     this.creatorRequestId,
     this.attributes,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        id: json['Id'] as String,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A complex type that contains information about the instances that you
@@ -1398,8 +1616,13 @@ class InstanceSummary {
     this.id,
     this.attributes,
   });
-  static InstanceSummary fromJson(Map<String, dynamic> json) =>
-      InstanceSummary();
+  static InstanceSummary fromJson(Map<String, dynamic> json) => InstanceSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class ListInstancesResponse {
@@ -1418,7 +1641,15 @@ class ListInstancesResponse {
     this.nextToken,
   });
   static ListInstancesResponse fromJson(Map<String, dynamic> json) =>
-      ListInstancesResponse();
+      ListInstancesResponse(
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => InstanceSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListNamespacesResponse {
@@ -1444,7 +1675,15 @@ class ListNamespacesResponse {
     this.nextToken,
   });
   static ListNamespacesResponse fromJson(Map<String, dynamic> json) =>
-      ListNamespacesResponse();
+      ListNamespacesResponse(
+        namespaces: json.containsKey('Namespaces')
+            ? (json['Namespaces'] as List)
+                .map((e) => NamespaceSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListOperationsResponse {
@@ -1470,7 +1709,15 @@ class ListOperationsResponse {
     this.nextToken,
   });
   static ListOperationsResponse fromJson(Map<String, dynamic> json) =>
-      ListOperationsResponse();
+      ListOperationsResponse(
+        operations: json.containsKey('Operations')
+            ? (json['Operations'] as List)
+                .map((e) => OperationSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListServicesResponse {
@@ -1496,7 +1743,15 @@ class ListServicesResponse {
     this.nextToken,
   });
   static ListServicesResponse fromJson(Map<String, dynamic> json) =>
-      ListServicesResponse();
+      ListServicesResponse(
+        services: json.containsKey('Services')
+            ? (json['Services'] as List)
+                .map((e) => ServiceSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A complex type that contains information about a specified namespace.
@@ -1546,7 +1801,27 @@ class Namespace {
     this.createDate,
     this.creatorRequestId,
   });
-  static Namespace fromJson(Map<String, dynamic> json) => Namespace();
+  static Namespace fromJson(Map<String, dynamic> json) => Namespace(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        serviceCount: json.containsKey('ServiceCount')
+            ? json['ServiceCount'] as int
+            : null,
+        properties: json.containsKey('Properties')
+            ? NamespaceProperties.fromJson(json['Properties'])
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+      );
 }
 
 /// A complex type that identifies the namespaces that you want to list. You can
@@ -1580,6 +1855,7 @@ class NamespaceFilter {
     @required this.values,
     this.condition,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information that is specific to the namespace
@@ -1597,7 +1873,14 @@ class NamespaceProperties {
     this.httpProperties,
   });
   static NamespaceProperties fromJson(Map<String, dynamic> json) =>
-      NamespaceProperties();
+      NamespaceProperties(
+        dnsProperties: json.containsKey('DnsProperties')
+            ? DnsProperties.fromJson(json['DnsProperties'])
+            : null,
+        httpProperties: json.containsKey('HttpProperties')
+            ? HttpProperties.fromJson(json['HttpProperties'])
+            : null,
+      );
 }
 
 /// A complex type that contains information about a namespace.
@@ -1639,7 +1922,24 @@ class NamespaceSummary {
     this.createDate,
   });
   static NamespaceSummary fromJson(Map<String, dynamic> json) =>
-      NamespaceSummary();
+      NamespaceSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        serviceCount: json.containsKey('ServiceCount')
+            ? json['ServiceCount'] as int
+            : null,
+        properties: json.containsKey('Properties')
+            ? NamespaceProperties.fromJson(json['Properties'])
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+      );
 }
 
 /// A complex type that contains information about a specified operation.
@@ -1717,7 +2017,26 @@ class Operation {
     this.updateDate,
     this.targets,
   });
-  static Operation fromJson(Map<String, dynamic> json) => Operation();
+  static Operation fromJson(Map<String, dynamic> json) => Operation(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        updateDate: json.containsKey('UpdateDate')
+            ? DateTime.parse(json['UpdateDate'])
+            : null,
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A complex type that lets you select the operations that you want to list.
@@ -1778,6 +2097,7 @@ class OperationFilter {
     @required this.values,
     this.condition,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about an operation that matches the
@@ -1804,7 +2124,10 @@ class OperationSummary {
     this.status,
   });
   static OperationSummary fromJson(Map<String, dynamic> json) =>
-      OperationSummary();
+      OperationSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class RegisterInstanceResponse {
@@ -1816,7 +2139,11 @@ class RegisterInstanceResponse {
     this.operationId,
   });
   static RegisterInstanceResponse fromJson(Map<String, dynamic> json) =>
-      RegisterInstanceResponse();
+      RegisterInstanceResponse(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }
 
 /// A complex type that contains information about the specified service.
@@ -1889,7 +2216,35 @@ class Service {
     this.createDate,
     this.creatorRequestId,
   });
-  static Service fromJson(Map<String, dynamic> json) => Service();
+  static Service fromJson(Map<String, dynamic> json) => Service(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        namespaceId: json.containsKey('NamespaceId')
+            ? json['NamespaceId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        instanceCount: json.containsKey('InstanceCount')
+            ? json['InstanceCount'] as int
+            : null,
+        dnsConfig: json.containsKey('DnsConfig')
+            ? DnsConfig.fromJson(json['DnsConfig'])
+            : null,
+        healthCheckConfig: json.containsKey('HealthCheckConfig')
+            ? HealthCheckConfig.fromJson(json['HealthCheckConfig'])
+            : null,
+        healthCheckCustomConfig: json.containsKey('HealthCheckCustomConfig')
+            ? HealthCheckCustomConfig.fromJson(json['HealthCheckCustomConfig'])
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        creatorRequestId: json.containsKey('CreatorRequestId')
+            ? json['CreatorRequestId'] as String
+            : null,
+      );
 }
 
 /// A complex type that contains changes to an existing service.
@@ -1908,6 +2263,7 @@ class ServiceChange {
     @required this.dnsConfig,
     this.healthCheckConfig,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that lets you specify the namespaces that you want to list
@@ -1938,6 +2294,7 @@ class ServiceFilter {
     @required this.values,
     this.condition,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about a specified service.
@@ -1980,7 +2337,29 @@ class ServiceSummary {
     this.healthCheckCustomConfig,
     this.createDate,
   });
-  static ServiceSummary fromJson(Map<String, dynamic> json) => ServiceSummary();
+  static ServiceSummary fromJson(Map<String, dynamic> json) => ServiceSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        instanceCount: json.containsKey('InstanceCount')
+            ? json['InstanceCount'] as int
+            : null,
+        dnsConfig: json.containsKey('DnsConfig')
+            ? DnsConfig.fromJson(json['DnsConfig'])
+            : null,
+        healthCheckConfig: json.containsKey('HealthCheckConfig')
+            ? HealthCheckConfig.fromJson(json['HealthCheckConfig'])
+            : null,
+        healthCheckCustomConfig: json.containsKey('HealthCheckCustomConfig')
+            ? HealthCheckCustomConfig.fromJson(json['HealthCheckCustomConfig'])
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+      );
 }
 
 class UpdateServiceResponse {
@@ -1992,5 +2371,9 @@ class UpdateServiceResponse {
     this.operationId,
   });
   static UpdateServiceResponse fromJson(Map<String, dynamic> json) =>
-      UpdateServiceResponse();
+      UpdateServiceResponse(
+        operationId: json.containsKey('OperationId')
+            ? json['OperationId'] as String
+            : null,
+      );
 }

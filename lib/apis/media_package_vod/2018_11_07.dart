@@ -2,6 +2,11 @@ import 'package:meta/meta.dart';
 
 /// AWS Elemental MediaPackage VOD
 class MediaPackageVodApi {
+  final _client;
+  MediaPackageVodApi(client)
+      : _client =
+            client.configured('MediaPackage Vod', serializer: 'rest-json');
+
   /// Creates a new MediaPackage VOD Asset resource.
   ///
   /// [id]: The unique identifier for the Asset.
@@ -19,7 +24,14 @@ class MediaPackageVodApi {
       String resourceId,
       @required String sourceArn,
       @required String sourceRoleArn}) async {
-    return CreateAssetResponse.fromJson({});
+    var response_ = await _client.send('CreateAsset', {
+      'Id': id,
+      'PackagingGroupId': packagingGroupId,
+      if (resourceId != null) 'ResourceId': resourceId,
+      'SourceArn': sourceArn,
+      'SourceRoleArn': sourceRoleArn,
+    });
+    return CreateAssetResponse.fromJson(response_);
   }
 
   /// Creates a new MediaPackage VOD PackagingConfiguration resource.
@@ -34,21 +46,35 @@ class MediaPackageVodApi {
       @required String id,
       MssPackage mssPackage,
       @required String packagingGroupId}) async {
-    return CreatePackagingConfigurationResponse.fromJson({});
+    var response_ = await _client.send('CreatePackagingConfiguration', {
+      if (cmafPackage != null) 'CmafPackage': cmafPackage,
+      if (dashPackage != null) 'DashPackage': dashPackage,
+      if (hlsPackage != null) 'HlsPackage': hlsPackage,
+      'Id': id,
+      if (mssPackage != null) 'MssPackage': mssPackage,
+      'PackagingGroupId': packagingGroupId,
+    });
+    return CreatePackagingConfigurationResponse.fromJson(response_);
   }
 
   /// Creates a new MediaPackage VOD PackagingGroup resource.
   ///
   /// [id]: The ID of the PackagingGroup.
   Future<CreatePackagingGroupResponse> createPackagingGroup(String id) async {
-    return CreatePackagingGroupResponse.fromJson({});
+    var response_ = await _client.send('CreatePackagingGroup', {
+      'Id': id,
+    });
+    return CreatePackagingGroupResponse.fromJson(response_);
   }
 
   /// Deletes an existing MediaPackage VOD Asset resource.
   ///
   /// [id]: The ID of the MediaPackage VOD Asset resource to delete.
   Future<DeleteAssetResponse> deleteAsset(String id) async {
-    return DeleteAssetResponse.fromJson({});
+    var response_ = await _client.send('DeleteAsset', {
+      'Id': id,
+    });
+    return DeleteAssetResponse.fromJson(response_);
   }
 
   /// Deletes a MediaPackage VOD PackagingConfiguration resource.
@@ -57,21 +83,30 @@ class MediaPackageVodApi {
   /// delete.
   Future<DeletePackagingConfigurationResponse> deletePackagingConfiguration(
       String id) async {
-    return DeletePackagingConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DeletePackagingConfiguration', {
+      'Id': id,
+    });
+    return DeletePackagingConfigurationResponse.fromJson(response_);
   }
 
   /// Deletes a MediaPackage VOD PackagingGroup resource.
   ///
   /// [id]: The ID of the MediaPackage VOD PackagingGroup resource to delete.
   Future<DeletePackagingGroupResponse> deletePackagingGroup(String id) async {
-    return DeletePackagingGroupResponse.fromJson({});
+    var response_ = await _client.send('DeletePackagingGroup', {
+      'Id': id,
+    });
+    return DeletePackagingGroupResponse.fromJson(response_);
   }
 
   /// Returns a description of a MediaPackage VOD Asset resource.
   ///
   /// [id]: The ID of an MediaPackage VOD Asset resource.
   Future<DescribeAssetResponse> describeAsset(String id) async {
-    return DescribeAssetResponse.fromJson({});
+    var response_ = await _client.send('DescribeAsset', {
+      'Id': id,
+    });
+    return DescribeAssetResponse.fromJson(response_);
   }
 
   /// Returns a description of a MediaPackage VOD PackagingConfiguration
@@ -80,7 +115,10 @@ class MediaPackageVodApi {
   /// [id]: The ID of a MediaPackage VOD PackagingConfiguration resource.
   Future<DescribePackagingConfigurationResponse> describePackagingConfiguration(
       String id) async {
-    return DescribePackagingConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DescribePackagingConfiguration', {
+      'Id': id,
+    });
+    return DescribePackagingConfigurationResponse.fromJson(response_);
   }
 
   /// Returns a description of a MediaPackage VOD PackagingGroup resource.
@@ -88,7 +126,10 @@ class MediaPackageVodApi {
   /// [id]: The ID of a MediaPackage VOD PackagingGroup resource.
   Future<DescribePackagingGroupResponse> describePackagingGroup(
       String id) async {
-    return DescribePackagingGroupResponse.fromJson({});
+    var response_ = await _client.send('DescribePackagingGroup', {
+      'Id': id,
+    });
+    return DescribePackagingGroupResponse.fromJson(response_);
   }
 
   /// Returns a collection of MediaPackage VOD Asset resources.
@@ -102,7 +143,12 @@ class MediaPackageVodApi {
   /// PackagingGroup.
   Future<ListAssetsResponse> listAssets(
       {int maxResults, String nextToken, String packagingGroupId}) async {
-    return ListAssetsResponse.fromJson({});
+    var response_ = await _client.send('ListAssets', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (packagingGroupId != null) 'PackagingGroupId': packagingGroupId,
+    });
+    return ListAssetsResponse.fromJson(response_);
   }
 
   /// Returns a collection of MediaPackage VOD PackagingConfiguration resources.
@@ -116,7 +162,12 @@ class MediaPackageVodApi {
   /// associated with the specified PackagingGroup.
   Future<ListPackagingConfigurationsResponse> listPackagingConfigurations(
       {int maxResults, String nextToken, String packagingGroupId}) async {
-    return ListPackagingConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('ListPackagingConfigurations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (packagingGroupId != null) 'PackagingGroupId': packagingGroupId,
+    });
+    return ListPackagingConfigurationsResponse.fromJson(response_);
   }
 
   /// Returns a collection of MediaPackage VOD PackagingGroup resources.
@@ -127,7 +178,11 @@ class MediaPackageVodApi {
   /// request.
   Future<ListPackagingGroupsResponse> listPackagingGroups(
       {int maxResults, String nextToken}) async {
-    return ListPackagingGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListPackagingGroups', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListPackagingGroupsResponse.fromJson(response_);
   }
 }
 
@@ -159,7 +214,21 @@ class AssetShallow {
     this.sourceArn,
     this.sourceRoleArn,
   });
-  static AssetShallow fromJson(Map<String, dynamic> json) => AssetShallow();
+  static AssetShallow fromJson(Map<String, dynamic> json) => AssetShallow(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        packagingGroupId: json.containsKey('PackagingGroupId')
+            ? json['PackagingGroupId'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        sourceArn:
+            json.containsKey('SourceArn') ? json['SourceArn'] as String : null,
+        sourceRoleArn: json.containsKey('SourceRoleArn')
+            ? json['SourceRoleArn'] as String
+            : null,
+      );
 }
 
 /// A CMAF encryption configuration.
@@ -169,7 +238,10 @@ class CmafEncryption {
   CmafEncryption({
     @required this.spekeKeyProvider,
   });
-  static CmafEncryption fromJson(Map<String, dynamic> json) => CmafEncryption();
+  static CmafEncryption fromJson(Map<String, dynamic> json) => CmafEncryption(
+        spekeKeyProvider: SpekeKeyProvider.fromJson(json['SpekeKeyProvider']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A CMAF packaging configuration.
@@ -188,7 +260,18 @@ class CmafPackage {
     @required this.hlsManifests,
     this.segmentDurationSeconds,
   });
-  static CmafPackage fromJson(Map<String, dynamic> json) => CmafPackage();
+  static CmafPackage fromJson(Map<String, dynamic> json) => CmafPackage(
+        encryption: json.containsKey('Encryption')
+            ? CmafEncryption.fromJson(json['Encryption'])
+            : null,
+        hlsManifests: (json['HlsManifests'] as List)
+            .map((e) => HlsManifest.fromJson(e))
+            .toList(),
+        segmentDurationSeconds: json.containsKey('SegmentDurationSeconds')
+            ? json['SegmentDurationSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateAssetResponse {
@@ -223,7 +306,26 @@ class CreateAssetResponse {
     this.sourceRoleArn,
   });
   static CreateAssetResponse fromJson(Map<String, dynamic> json) =>
-      CreateAssetResponse();
+      CreateAssetResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        egressEndpoints: json.containsKey('EgressEndpoints')
+            ? (json['EgressEndpoints'] as List)
+                .map((e) => EgressEndpoint.fromJson(e))
+                .toList()
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        packagingGroupId: json.containsKey('PackagingGroupId')
+            ? json['PackagingGroupId'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        sourceArn:
+            json.containsKey('SourceArn') ? json['SourceArn'] as String : null,
+        sourceRoleArn: json.containsKey('SourceRoleArn')
+            ? json['SourceRoleArn'] as String
+            : null,
+      );
 }
 
 class CreatePackagingConfigurationResponse {
@@ -255,7 +357,25 @@ class CreatePackagingConfigurationResponse {
   });
   static CreatePackagingConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      CreatePackagingConfigurationResponse();
+      CreatePackagingConfigurationResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        cmafPackage: json.containsKey('CmafPackage')
+            ? CmafPackage.fromJson(json['CmafPackage'])
+            : null,
+        dashPackage: json.containsKey('DashPackage')
+            ? DashPackage.fromJson(json['DashPackage'])
+            : null,
+        hlsPackage: json.containsKey('HlsPackage')
+            ? HlsPackage.fromJson(json['HlsPackage'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        mssPackage: json.containsKey('MssPackage')
+            ? MssPackage.fromJson(json['MssPackage'])
+            : null,
+        packagingGroupId: json.containsKey('PackagingGroupId')
+            ? json['PackagingGroupId'] as String
+            : null,
+      );
 }
 
 class CreatePackagingGroupResponse {
@@ -270,7 +390,10 @@ class CreatePackagingGroupResponse {
     this.id,
   });
   static CreatePackagingGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreatePackagingGroupResponse();
+      CreatePackagingGroupResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+      );
 }
 
 /// A Dynamic Adaptive Streaming over HTTP (DASH) encryption configuration.
@@ -280,7 +403,10 @@ class DashEncryption {
   DashEncryption({
     @required this.spekeKeyProvider,
   });
-  static DashEncryption fromJson(Map<String, dynamic> json) => DashEncryption();
+  static DashEncryption fromJson(Map<String, dynamic> json) => DashEncryption(
+        spekeKeyProvider: SpekeKeyProvider.fromJson(json['SpekeKeyProvider']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A DASH manifest configuration.
@@ -304,7 +430,19 @@ class DashManifest {
     this.profile,
     this.streamSelection,
   });
-  static DashManifest fromJson(Map<String, dynamic> json) => DashManifest();
+  static DashManifest fromJson(Map<String, dynamic> json) => DashManifest(
+        manifestName: json.containsKey('ManifestName')
+            ? json['ManifestName'] as String
+            : null,
+        minBufferTimeSeconds: json.containsKey('MinBufferTimeSeconds')
+            ? json['MinBufferTimeSeconds'] as int
+            : null,
+        profile: json.containsKey('Profile') ? json['Profile'] as String : null,
+        streamSelection: json.containsKey('StreamSelection')
+            ? StreamSelection.fromJson(json['StreamSelection'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.
@@ -323,7 +461,18 @@ class DashPackage {
     this.encryption,
     this.segmentDurationSeconds,
   });
-  static DashPackage fromJson(Map<String, dynamic> json) => DashPackage();
+  static DashPackage fromJson(Map<String, dynamic> json) => DashPackage(
+        dashManifests: (json['DashManifests'] as List)
+            .map((e) => DashManifest.fromJson(e))
+            .toList(),
+        encryption: json.containsKey('Encryption')
+            ? DashEncryption.fromJson(json['Encryption'])
+            : null,
+        segmentDurationSeconds: json.containsKey('SegmentDurationSeconds')
+            ? json['SegmentDurationSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteAssetResponse {
@@ -377,7 +526,26 @@ class DescribeAssetResponse {
     this.sourceRoleArn,
   });
   static DescribeAssetResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAssetResponse();
+      DescribeAssetResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        egressEndpoints: json.containsKey('EgressEndpoints')
+            ? (json['EgressEndpoints'] as List)
+                .map((e) => EgressEndpoint.fromJson(e))
+                .toList()
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        packagingGroupId: json.containsKey('PackagingGroupId')
+            ? json['PackagingGroupId'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        sourceArn:
+            json.containsKey('SourceArn') ? json['SourceArn'] as String : null,
+        sourceRoleArn: json.containsKey('SourceRoleArn')
+            ? json['SourceRoleArn'] as String
+            : null,
+      );
 }
 
 class DescribePackagingConfigurationResponse {
@@ -409,7 +577,25 @@ class DescribePackagingConfigurationResponse {
   });
   static DescribePackagingConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribePackagingConfigurationResponse();
+      DescribePackagingConfigurationResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        cmafPackage: json.containsKey('CmafPackage')
+            ? CmafPackage.fromJson(json['CmafPackage'])
+            : null,
+        dashPackage: json.containsKey('DashPackage')
+            ? DashPackage.fromJson(json['DashPackage'])
+            : null,
+        hlsPackage: json.containsKey('HlsPackage')
+            ? HlsPackage.fromJson(json['HlsPackage'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        mssPackage: json.containsKey('MssPackage')
+            ? MssPackage.fromJson(json['MssPackage'])
+            : null,
+        packagingGroupId: json.containsKey('PackagingGroupId')
+            ? json['PackagingGroupId'] as String
+            : null,
+      );
 }
 
 class DescribePackagingGroupResponse {
@@ -424,7 +610,10 @@ class DescribePackagingGroupResponse {
     this.id,
   });
   static DescribePackagingGroupResponse fromJson(Map<String, dynamic> json) =>
-      DescribePackagingGroupResponse();
+      DescribePackagingGroupResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+      );
 }
 
 /// The endpoint URL used to access an Asset using one PackagingConfiguration.
@@ -439,7 +628,12 @@ class EgressEndpoint {
     this.packagingConfigurationId,
     this.url,
   });
-  static EgressEndpoint fromJson(Map<String, dynamic> json) => EgressEndpoint();
+  static EgressEndpoint fromJson(Map<String, dynamic> json) => EgressEndpoint(
+        packagingConfigurationId: json.containsKey('PackagingConfigurationId')
+            ? json['PackagingConfigurationId'] as String
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
 }
 
 /// An HTTP Live Streaming (HLS) encryption configuration.
@@ -458,7 +652,17 @@ class HlsEncryption {
     this.encryptionMethod,
     @required this.spekeKeyProvider,
   });
-  static HlsEncryption fromJson(Map<String, dynamic> json) => HlsEncryption();
+  static HlsEncryption fromJson(Map<String, dynamic> json) => HlsEncryption(
+        constantInitializationVector:
+            json.containsKey('ConstantInitializationVector')
+                ? json['ConstantInitializationVector'] as String
+                : null,
+        encryptionMethod: json.containsKey('EncryptionMethod')
+            ? json['EncryptionMethod'] as String
+            : null,
+        spekeKeyProvider: SpekeKeyProvider.fromJson(json['SpekeKeyProvider']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An HTTP Live Streaming (HLS) manifest configuration.
@@ -500,7 +704,27 @@ class HlsManifest {
     this.repeatExtxKey,
     this.streamSelection,
   });
-  static HlsManifest fromJson(Map<String, dynamic> json) => HlsManifest();
+  static HlsManifest fromJson(Map<String, dynamic> json) => HlsManifest(
+        adMarkers:
+            json.containsKey('AdMarkers') ? json['AdMarkers'] as String : null,
+        includeIframeOnlyStream: json.containsKey('IncludeIframeOnlyStream')
+            ? json['IncludeIframeOnlyStream'] as bool
+            : null,
+        manifestName: json.containsKey('ManifestName')
+            ? json['ManifestName'] as String
+            : null,
+        programDateTimeIntervalSeconds:
+            json.containsKey('ProgramDateTimeIntervalSeconds')
+                ? json['ProgramDateTimeIntervalSeconds'] as int
+                : null,
+        repeatExtxKey: json.containsKey('RepeatExtXKey')
+            ? json['RepeatExtXKey'] as bool
+            : null,
+        streamSelection: json.containsKey('StreamSelection')
+            ? StreamSelection.fromJson(json['StreamSelection'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An HTTP Live Streaming (HLS) packaging configuration.
@@ -524,7 +748,21 @@ class HlsPackage {
     this.segmentDurationSeconds,
     this.useAudioRenditionGroup,
   });
-  static HlsPackage fromJson(Map<String, dynamic> json) => HlsPackage();
+  static HlsPackage fromJson(Map<String, dynamic> json) => HlsPackage(
+        encryption: json.containsKey('Encryption')
+            ? HlsEncryption.fromJson(json['Encryption'])
+            : null,
+        hlsManifests: (json['HlsManifests'] as List)
+            .map((e) => HlsManifest.fromJson(e))
+            .toList(),
+        segmentDurationSeconds: json.containsKey('SegmentDurationSeconds')
+            ? json['SegmentDurationSeconds'] as int
+            : null,
+        useAudioRenditionGroup: json.containsKey('UseAudioRenditionGroup')
+            ? json['UseAudioRenditionGroup'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListAssetsResponse {
@@ -540,7 +778,15 @@ class ListAssetsResponse {
     this.nextToken,
   });
   static ListAssetsResponse fromJson(Map<String, dynamic> json) =>
-      ListAssetsResponse();
+      ListAssetsResponse(
+        assets: json.containsKey('Assets')
+            ? (json['Assets'] as List)
+                .map((e) => AssetShallow.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPackagingConfigurationsResponse {
@@ -557,7 +803,15 @@ class ListPackagingConfigurationsResponse {
   });
   static ListPackagingConfigurationsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListPackagingConfigurationsResponse();
+      ListPackagingConfigurationsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        packagingConfigurations: json.containsKey('PackagingConfigurations')
+            ? (json['PackagingConfigurations'] as List)
+                .map((e) => PackagingConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListPackagingGroupsResponse {
@@ -573,7 +827,15 @@ class ListPackagingGroupsResponse {
     this.packagingGroups,
   });
   static ListPackagingGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListPackagingGroupsResponse();
+      ListPackagingGroupsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        packagingGroups: json.containsKey('PackagingGroups')
+            ? (json['PackagingGroups'] as List)
+                .map((e) => PackagingGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A Microsoft Smooth Streaming (MSS) encryption configuration.
@@ -583,7 +845,10 @@ class MssEncryption {
   MssEncryption({
     @required this.spekeKeyProvider,
   });
-  static MssEncryption fromJson(Map<String, dynamic> json) => MssEncryption();
+  static MssEncryption fromJson(Map<String, dynamic> json) => MssEncryption(
+        spekeKeyProvider: SpekeKeyProvider.fromJson(json['SpekeKeyProvider']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A Microsoft Smooth Streaming (MSS) manifest configuration.
@@ -597,7 +862,15 @@ class MssManifest {
     this.manifestName,
     this.streamSelection,
   });
-  static MssManifest fromJson(Map<String, dynamic> json) => MssManifest();
+  static MssManifest fromJson(Map<String, dynamic> json) => MssManifest(
+        manifestName: json.containsKey('ManifestName')
+            ? json['ManifestName'] as String
+            : null,
+        streamSelection: json.containsKey('StreamSelection')
+            ? StreamSelection.fromJson(json['StreamSelection'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A Microsoft Smooth Streaming (MSS) PackagingConfiguration.
@@ -615,7 +888,18 @@ class MssPackage {
     @required this.mssManifests,
     this.segmentDurationSeconds,
   });
-  static MssPackage fromJson(Map<String, dynamic> json) => MssPackage();
+  static MssPackage fromJson(Map<String, dynamic> json) => MssPackage(
+        encryption: json.containsKey('Encryption')
+            ? MssEncryption.fromJson(json['Encryption'])
+            : null,
+        mssManifests: (json['MssManifests'] as List)
+            .map((e) => MssManifest.fromJson(e))
+            .toList(),
+        segmentDurationSeconds: json.containsKey('SegmentDurationSeconds')
+            ? json['SegmentDurationSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A MediaPackage VOD PackagingConfiguration resource.
@@ -647,7 +931,25 @@ class PackagingConfiguration {
     this.packagingGroupId,
   });
   static PackagingConfiguration fromJson(Map<String, dynamic> json) =>
-      PackagingConfiguration();
+      PackagingConfiguration(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        cmafPackage: json.containsKey('CmafPackage')
+            ? CmafPackage.fromJson(json['CmafPackage'])
+            : null,
+        dashPackage: json.containsKey('DashPackage')
+            ? DashPackage.fromJson(json['DashPackage'])
+            : null,
+        hlsPackage: json.containsKey('HlsPackage')
+            ? HlsPackage.fromJson(json['HlsPackage'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        mssPackage: json.containsKey('MssPackage')
+            ? MssPackage.fromJson(json['MssPackage'])
+            : null,
+        packagingGroupId: json.containsKey('PackagingGroupId')
+            ? json['PackagingGroupId'] as String
+            : null,
+      );
 }
 
 /// A MediaPackage VOD PackagingGroup resource.
@@ -662,7 +964,10 @@ class PackagingGroup {
     this.arn,
     this.id,
   });
-  static PackagingGroup fromJson(Map<String, dynamic> json) => PackagingGroup();
+  static PackagingGroup fromJson(Map<String, dynamic> json) => PackagingGroup(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+      );
 }
 
 /// A configuration for accessing an external Secure Packager and Encoder Key
@@ -684,7 +989,12 @@ class SpekeKeyProvider {
     @required this.url,
   });
   static SpekeKeyProvider fromJson(Map<String, dynamic> json) =>
-      SpekeKeyProvider();
+      SpekeKeyProvider(
+        roleArn: json['RoleArn'] as String,
+        systemIds: (json['SystemIds'] as List).map((e) => e as String).toList(),
+        url: json['Url'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A StreamSelection configuration.
@@ -703,6 +1013,16 @@ class StreamSelection {
     this.minVideoBitsPerSecond,
     this.streamOrder,
   });
-  static StreamSelection fromJson(Map<String, dynamic> json) =>
-      StreamSelection();
+  static StreamSelection fromJson(Map<String, dynamic> json) => StreamSelection(
+        maxVideoBitsPerSecond: json.containsKey('MaxVideoBitsPerSecond')
+            ? json['MaxVideoBitsPerSecond'] as int
+            : null,
+        minVideoBitsPerSecond: json.containsKey('MinVideoBitsPerSecond')
+            ? json['MinVideoBitsPerSecond'] as int
+            : null,
+        streamOrder: json.containsKey('StreamOrder')
+            ? json['StreamOrder'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

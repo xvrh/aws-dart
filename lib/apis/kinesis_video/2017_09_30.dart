@@ -1,6 +1,10 @@
 import 'package:meta/meta.dart';
 
 class KinesisVideoApi {
+  final _client;
+  KinesisVideoApi(client)
+      : _client = client.configured('Kinesis Video', serializer: 'rest-json');
+
   /// Creates a new Kinesis video stream.
   ///
   /// When you create a new stream, Kinesis Video Streams assigns it a version
@@ -65,7 +69,16 @@ class KinesisVideoApi {
       String kmsKeyId,
       int dataRetentionInHours,
       Map<String, String> tags}) async {
-    return CreateStreamOutput.fromJson({});
+    var response_ = await _client.send('CreateStream', {
+      if (deviceName != null) 'DeviceName': deviceName,
+      'StreamName': streamName,
+      if (mediaType != null) 'MediaType': mediaType,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (dataRetentionInHours != null)
+        'DataRetentionInHours': dataRetentionInHours,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateStreamOutput.fromJson(response_);
   }
 
   /// Deletes a Kinesis video stream and the data contained in the stream.
@@ -95,7 +108,11 @@ class KinesisVideoApi {
   /// stream.
   Future<DeleteStreamOutput> deleteStream(String streamArn,
       {String currentVersion}) async {
-    return DeleteStreamOutput.fromJson({});
+    var response_ = await _client.send('DeleteStream', {
+      'StreamARN': streamArn,
+      if (currentVersion != null) 'CurrentVersion': currentVersion,
+    });
+    return DeleteStreamOutput.fromJson(response_);
   }
 
   /// Returns the most current information about the specified stream. You must
@@ -106,7 +123,11 @@ class KinesisVideoApi {
   /// [streamArn]: The Amazon Resource Name (ARN) of the stream.
   Future<DescribeStreamOutput> describeStream(
       {String streamName, String streamArn}) async {
-    return DescribeStreamOutput.fromJson({});
+    var response_ = await _client.send('DescribeStream', {
+      if (streamName != null) 'StreamName': streamName,
+      if (streamArn != null) 'StreamARN': streamArn,
+    });
+    return DescribeStreamOutput.fromJson(response_);
   }
 
   /// Gets an endpoint for a specified stream for either reading or writing. Use
@@ -130,7 +151,12 @@ class KinesisVideoApi {
   /// [apiName]: The name of the API action for which to get an endpoint.
   Future<GetDataEndpointOutput> getDataEndpoint(String apiName,
       {String streamName, String streamArn}) async {
-    return GetDataEndpointOutput.fromJson({});
+    var response_ = await _client.send('GetDataEndpoint', {
+      if (streamName != null) 'StreamName': streamName,
+      if (streamArn != null) 'StreamARN': streamArn,
+      'APIName': apiName,
+    });
+    return GetDataEndpointOutput.fromJson(response_);
   }
 
   /// Returns an array of `StreamInfo` objects. Each object describes a stream.
@@ -152,7 +178,13 @@ class KinesisVideoApi {
       {int maxResults,
       String nextToken,
       StreamNameCondition streamNameCondition}) async {
-    return ListStreamsOutput.fromJson({});
+    var response_ = await _client.send('ListStreams', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (streamNameCondition != null)
+        'StreamNameCondition': streamNameCondition,
+    });
+    return ListStreamsOutput.fromJson(response_);
   }
 
   /// Returns a list of tags associated with the specified stream.
@@ -170,7 +202,12 @@ class KinesisVideoApi {
   /// [streamName]: The name of the stream that you want to list tags for.
   Future<ListTagsForStreamOutput> listTagsForStream(
       {String nextToken, String streamArn, String streamName}) async {
-    return ListTagsForStreamOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForStream', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (streamArn != null) 'StreamARN': streamArn,
+      if (streamName != null) 'StreamName': streamName,
+    });
+    return ListTagsForStreamOutput.fromJson(response_);
   }
 
   /// Adds one or more tags to a stream. A _tag_ is a key-value pair (the value
@@ -197,7 +234,12 @@ class KinesisVideoApi {
   /// a key-value pair (the value is optional).
   Future<TagStreamOutput> tagStream(Map<String, String> tags,
       {String streamArn, String streamName}) async {
-    return TagStreamOutput.fromJson({});
+    var response_ = await _client.send('TagStream', {
+      if (streamArn != null) 'StreamARN': streamArn,
+      if (streamName != null) 'StreamName': streamName,
+      'Tags': tags,
+    });
+    return TagStreamOutput.fromJson(response_);
   }
 
   /// Removes one or more tags from a stream. In the request, specify only a tag
@@ -214,7 +256,12 @@ class KinesisVideoApi {
   /// [tagKeyList]: A list of the keys of the tags that you want to remove.
   Future<UntagStreamOutput> untagStream(List<String> tagKeyList,
       {String streamArn, String streamName}) async {
-    return UntagStreamOutput.fromJson({});
+    var response_ = await _client.send('UntagStream', {
+      if (streamArn != null) 'StreamARN': streamArn,
+      if (streamName != null) 'StreamName': streamName,
+      'TagKeyList': tagKeyList,
+    });
+    return UntagStreamOutput.fromJson(response_);
   }
 
   ///  Increases or decreases the stream's data retention period by the value
@@ -263,7 +310,14 @@ class KinesisVideoApi {
       @required String currentVersion,
       @required String operation,
       @required int dataRetentionChangeInHours}) async {
-    return UpdateDataRetentionOutput.fromJson({});
+    var response_ = await _client.send('UpdateDataRetention', {
+      if (streamName != null) 'StreamName': streamName,
+      if (streamArn != null) 'StreamARN': streamArn,
+      'CurrentVersion': currentVersion,
+      'Operation': operation,
+      'DataRetentionChangeInHours': dataRetentionChangeInHours,
+    });
+    return UpdateDataRetentionOutput.fromJson(response_);
   }
 
   /// Updates stream metadata, such as the device name and media type.
@@ -309,7 +363,14 @@ class KinesisVideoApi {
       String streamArn,
       String deviceName,
       String mediaType}) async {
-    return UpdateStreamOutput.fromJson({});
+    var response_ = await _client.send('UpdateStream', {
+      if (streamName != null) 'StreamName': streamName,
+      if (streamArn != null) 'StreamARN': streamArn,
+      'CurrentVersion': currentVersion,
+      if (deviceName != null) 'DeviceName': deviceName,
+      if (mediaType != null) 'MediaType': mediaType,
+    });
+    return UpdateStreamOutput.fromJson(response_);
   }
 }
 
@@ -321,7 +382,10 @@ class CreateStreamOutput {
     this.streamArn,
   });
   static CreateStreamOutput fromJson(Map<String, dynamic> json) =>
-      CreateStreamOutput();
+      CreateStreamOutput(
+        streamArn:
+            json.containsKey('StreamARN') ? json['StreamARN'] as String : null,
+      );
 }
 
 class DeleteStreamOutput {
@@ -338,7 +402,11 @@ class DescribeStreamOutput {
     this.streamInfo,
   });
   static DescribeStreamOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStreamOutput();
+      DescribeStreamOutput(
+        streamInfo: json.containsKey('StreamInfo')
+            ? StreamInfo.fromJson(json['StreamInfo'])
+            : null,
+      );
 }
 
 class GetDataEndpointOutput {
@@ -350,7 +418,11 @@ class GetDataEndpointOutput {
     this.dataEndpoint,
   });
   static GetDataEndpointOutput fromJson(Map<String, dynamic> json) =>
-      GetDataEndpointOutput();
+      GetDataEndpointOutput(
+        dataEndpoint: json.containsKey('DataEndpoint')
+            ? json['DataEndpoint'] as String
+            : null,
+      );
 }
 
 class ListStreamsOutput {
@@ -366,7 +438,15 @@ class ListStreamsOutput {
     this.nextToken,
   });
   static ListStreamsOutput fromJson(Map<String, dynamic> json) =>
-      ListStreamsOutput();
+      ListStreamsOutput(
+        streamInfoList: json.containsKey('StreamInfoList')
+            ? (json['StreamInfoList'] as List)
+                .map((e) => StreamInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForStreamOutput {
@@ -383,7 +463,14 @@ class ListTagsForStreamOutput {
     this.tags,
   });
   static ListTagsForStreamOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForStreamOutput();
+      ListTagsForStreamOutput(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// An object describing a Kinesis video stream.
@@ -427,7 +514,28 @@ class StreamInfo {
     this.creationTime,
     this.dataRetentionInHours,
   });
-  static StreamInfo fromJson(Map<String, dynamic> json) => StreamInfo();
+  static StreamInfo fromJson(Map<String, dynamic> json) => StreamInfo(
+        deviceName: json.containsKey('DeviceName')
+            ? json['DeviceName'] as String
+            : null,
+        streamName: json.containsKey('StreamName')
+            ? json['StreamName'] as String
+            : null,
+        streamArn:
+            json.containsKey('StreamARN') ? json['StreamARN'] as String : null,
+        mediaType:
+            json.containsKey('MediaType') ? json['MediaType'] as String : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        dataRetentionInHours: json.containsKey('DataRetentionInHours')
+            ? json['DataRetentionInHours'] as int
+            : null,
+      );
 }
 
 /// Specifies the condition that streams must satisfy to be returned when you
@@ -446,6 +554,7 @@ class StreamNameCondition {
     this.comparisonOperator,
     this.comparisonValue,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagStreamOutput {

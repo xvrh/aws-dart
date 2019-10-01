@@ -4,6 +4,10 @@ import 'package:meta/meta.dart';
 ///
 /// Defines the public endpoint for the AWS Lake Formation service.
 class LakeFormationApi {
+  final _client;
+  LakeFormationApi(client)
+      : _client = client.configured('LakeFormation', serializer: 'json');
+
   /// Batch operation to grant permissions to the principal.
   ///
   /// [catalogId]: The identifier for the Data Catalog. By default, the account
@@ -16,7 +20,11 @@ class LakeFormationApi {
   Future<BatchGrantPermissionsResponse> batchGrantPermissions(
       List<BatchPermissionsRequestEntry> entries,
       {String catalogId}) async {
-    return BatchGrantPermissionsResponse.fromJson({});
+    var response_ = await _client.send('BatchGrantPermissions', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'Entries': entries,
+    });
+    return BatchGrantPermissionsResponse.fromJson(response_);
   }
 
   /// Batch operation to revoke permissions from the principal.
@@ -31,7 +39,11 @@ class LakeFormationApi {
   Future<BatchRevokePermissionsResponse> batchRevokePermissions(
       List<BatchPermissionsRequestEntry> entries,
       {String catalogId}) async {
-    return BatchRevokePermissionsResponse.fromJson({});
+    var response_ = await _client.send('BatchRevokePermissions', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'Entries': entries,
+    });
+    return BatchRevokePermissionsResponse.fromJson(response_);
   }
 
   /// Deregisters the resource as managed by the Data Catalog.
@@ -43,7 +55,10 @@ class LakeFormationApi {
   /// want to deregister.
   Future<DeregisterResourceResponse> deregisterResource(
       String resourceArn) async {
-    return DeregisterResourceResponse.fromJson({});
+    var response_ = await _client.send('DeregisterResource', {
+      'ResourceArn': resourceArn,
+    });
+    return DeregisterResourceResponse.fromJson(response_);
   }
 
   /// Retrieves the current data access role for the given resource registered
@@ -51,7 +66,10 @@ class LakeFormationApi {
   ///
   /// [resourceArn]: The resource ARN.
   Future<DescribeResourceResponse> describeResource(String resourceArn) async {
-    return DescribeResourceResponse.fromJson({});
+    var response_ = await _client.send('DescribeResource', {
+      'ResourceArn': resourceArn,
+    });
+    return DescribeResourceResponse.fromJson(response_);
   }
 
   /// The AWS Lake Formation principal.
@@ -62,7 +80,10 @@ class LakeFormationApi {
   /// manage your AWS Lake Formation environment.
   Future<GetDataLakeSettingsResponse> getDataLakeSettings(
       {String catalogId}) async {
-    return GetDataLakeSettingsResponse.fromJson({});
+    var response_ = await _client.send('GetDataLakeSettings', {
+      if (catalogId != null) 'CatalogId': catalogId,
+    });
+    return GetDataLakeSettingsResponse.fromJson(response_);
   }
 
   /// Returns the permissions for a specified table or database resource located
@@ -85,7 +106,13 @@ class LakeFormationApi {
       {String catalogId,
       String nextToken,
       int maxResults}) async {
-    return GetEffectivePermissionsForPathResponse.fromJson({});
+    var response_ = await _client.send('GetEffectivePermissionsForPath', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'ResourceArn': resourceArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetEffectivePermissionsForPathResponse.fromJson(response_);
   }
 
   /// Grants permissions to the principal to access metadata in the Data Catalog
@@ -125,7 +152,15 @@ class LakeFormationApi {
       @required Resource resource,
       @required List<String> permissions,
       List<String> permissionsWithGrantOption}) async {
-    return GrantPermissionsResponse.fromJson({});
+    var response_ = await _client.send('GrantPermissions', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'Principal': principal,
+      'Resource': resource,
+      'Permissions': permissions,
+      if (permissionsWithGrantOption != null)
+        'PermissionsWithGrantOption': permissionsWithGrantOption,
+    });
+    return GrantPermissionsResponse.fromJson(response_);
   }
 
   /// Returns a list of the principal permissions on the resource, filtered by
@@ -166,7 +201,15 @@ class LakeFormationApi {
       Resource resource,
       String nextToken,
       int maxResults}) async {
-    return ListPermissionsResponse.fromJson({});
+    var response_ = await _client.send('ListPermissions', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      if (principal != null) 'Principal': principal,
+      if (resourceType != null) 'ResourceType': resourceType,
+      if (resource != null) 'Resource': resource,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListPermissionsResponse.fromJson(response_);
   }
 
   /// Lists the resources registered to be managed by the Data Catalog.
@@ -182,7 +225,13 @@ class LakeFormationApi {
       {List<FilterCondition> filterConditionList,
       int maxResults,
       String nextToken}) async {
-    return ListResourcesResponse.fromJson({});
+    var response_ = await _client.send('ListResources', {
+      if (filterConditionList != null)
+        'FilterConditionList': filterConditionList,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListResourcesResponse.fromJson(response_);
   }
 
   /// The AWS Lake Formation principal.
@@ -196,7 +245,11 @@ class LakeFormationApi {
   Future<PutDataLakeSettingsResponse> putDataLakeSettings(
       DataLakeSettings dataLakeSettings,
       {String catalogId}) async {
-    return PutDataLakeSettingsResponse.fromJson({});
+    var response_ = await _client.send('PutDataLakeSettings', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'DataLakeSettings': dataLakeSettings,
+    });
+    return PutDataLakeSettingsResponse.fromJson(response_);
   }
 
   /// Registers the resource as managed by the Data Catalog.
@@ -219,7 +272,13 @@ class LakeFormationApi {
   /// [roleArn]: The identifier for the role.
   Future<RegisterResourceResponse> registerResource(String resourceArn,
       {bool useServiceLinkedRole, String roleArn}) async {
-    return RegisterResourceResponse.fromJson({});
+    var response_ = await _client.send('RegisterResource', {
+      'ResourceArn': resourceArn,
+      if (useServiceLinkedRole != null)
+        'UseServiceLinkedRole': useServiceLinkedRole,
+      if (roleArn != null) 'RoleArn': roleArn,
+    });
+    return RegisterResourceResponse.fromJson(response_);
   }
 
   /// Revokes permissions to the principal to access metadata in the Data
@@ -247,7 +306,15 @@ class LakeFormationApi {
       @required Resource resource,
       @required List<String> permissions,
       List<String> permissionsWithGrantOption}) async {
-    return RevokePermissionsResponse.fromJson({});
+    var response_ = await _client.send('RevokePermissions', {
+      if (catalogId != null) 'CatalogId': catalogId,
+      'Principal': principal,
+      'Resource': resource,
+      'Permissions': permissions,
+      if (permissionsWithGrantOption != null)
+        'PermissionsWithGrantOption': permissionsWithGrantOption,
+    });
+    return RevokePermissionsResponse.fromJson(response_);
   }
 
   /// Updates the data access role used for vending access to the given
@@ -259,7 +326,11 @@ class LakeFormationApi {
   /// [resourceArn]: The resource ARN.
   Future<UpdateResourceResponse> updateResource(
       {@required String roleArn, @required String resourceArn}) async {
-    return UpdateResourceResponse.fromJson({});
+    var response_ = await _client.send('UpdateResource', {
+      'RoleArn': roleArn,
+      'ResourceArn': resourceArn,
+    });
+    return UpdateResourceResponse.fromJson(response_);
   }
 }
 
@@ -271,7 +342,13 @@ class BatchGrantPermissionsResponse {
     this.failures,
   });
   static BatchGrantPermissionsResponse fromJson(Map<String, dynamic> json) =>
-      BatchGrantPermissionsResponse();
+      BatchGrantPermissionsResponse(
+        failures: json.containsKey('Failures')
+            ? (json['Failures'] as List)
+                .map((e) => BatchPermissionsFailureEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A list of failures when performing a batch grant or batch revoke operation.
@@ -287,7 +364,14 @@ class BatchPermissionsFailureEntry {
     this.error,
   });
   static BatchPermissionsFailureEntry fromJson(Map<String, dynamic> json) =>
-      BatchPermissionsFailureEntry();
+      BatchPermissionsFailureEntry(
+        requestEntry: json.containsKey('RequestEntry')
+            ? BatchPermissionsRequestEntry.fromJson(json['RequestEntry'])
+            : null,
+        error: json.containsKey('Error')
+            ? ErrorDetail.fromJson(json['Error'])
+            : null,
+      );
 }
 
 /// A permission to a resource granted by batch operation to the principal.
@@ -315,7 +399,25 @@ class BatchPermissionsRequestEntry {
     this.permissionsWithGrantOption,
   });
   static BatchPermissionsRequestEntry fromJson(Map<String, dynamic> json) =>
-      BatchPermissionsRequestEntry();
+      BatchPermissionsRequestEntry(
+        id: json['Id'] as String,
+        principal: json.containsKey('Principal')
+            ? DataLakePrincipal.fromJson(json['Principal'])
+            : null,
+        resource: json.containsKey('Resource')
+            ? Resource.fromJson(json['Resource'])
+            : null,
+        permissions: json.containsKey('Permissions')
+            ? (json['Permissions'] as List).map((e) => e as String).toList()
+            : null,
+        permissionsWithGrantOption:
+            json.containsKey('PermissionsWithGrantOption')
+                ? (json['PermissionsWithGrantOption'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class BatchRevokePermissionsResponse {
@@ -326,7 +428,13 @@ class BatchRevokePermissionsResponse {
     this.failures,
   });
   static BatchRevokePermissionsResponse fromJson(Map<String, dynamic> json) =>
-      BatchRevokePermissionsResponse();
+      BatchRevokePermissionsResponse(
+        failures: json.containsKey('Failures')
+            ? (json['Failures'] as List)
+                .map((e) => BatchPermissionsFailureEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A structure for the catalog object.
@@ -334,6 +442,7 @@ class CatalogResource {
   CatalogResource();
   static CatalogResource fromJson(Map<String, dynamic> json) =>
       CatalogResource();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A wildcard object, consisting of an optional list of excluded column names
@@ -345,7 +454,14 @@ class ColumnWildcard {
   ColumnWildcard({
     this.excludedColumnNames,
   });
-  static ColumnWildcard fromJson(Map<String, dynamic> json) => ColumnWildcard();
+  static ColumnWildcard fromJson(Map<String, dynamic> json) => ColumnWildcard(
+        excludedColumnNames: json.containsKey('ExcludedColumnNames')
+            ? (json['ExcludedColumnNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The AWS Lake Formation principal.
@@ -357,7 +473,13 @@ class DataLakePrincipal {
     this.dataLakePrincipalIdentifier,
   });
   static DataLakePrincipal fromJson(Map<String, dynamic> json) =>
-      DataLakePrincipal();
+      DataLakePrincipal(
+        dataLakePrincipalIdentifier:
+            json.containsKey('DataLakePrincipalIdentifier')
+                ? json['DataLakePrincipalIdentifier'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The AWS Lake Formation principal.
@@ -379,7 +501,26 @@ class DataLakeSettings {
     this.createTableDefaultPermissions,
   });
   static DataLakeSettings fromJson(Map<String, dynamic> json) =>
-      DataLakeSettings();
+      DataLakeSettings(
+        dataLakeAdmins: json.containsKey('DataLakeAdmins')
+            ? (json['DataLakeAdmins'] as List)
+                .map((e) => DataLakePrincipal.fromJson(e))
+                .toList()
+            : null,
+        createDatabaseDefaultPermissions:
+            json.containsKey('CreateDatabaseDefaultPermissions')
+                ? (json['CreateDatabaseDefaultPermissions'] as List)
+                    .map((e) => PrincipalPermissions.fromJson(e))
+                    .toList()
+                : null,
+        createTableDefaultPermissions:
+            json.containsKey('CreateTableDefaultPermissions')
+                ? (json['CreateTableDefaultPermissions'] as List)
+                    .map((e) => PrincipalPermissions.fromJson(e))
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A structure for a data location object where permissions are granted or
@@ -393,7 +534,10 @@ class DataLocationResource {
     @required this.resourceArn,
   });
   static DataLocationResource fromJson(Map<String, dynamic> json) =>
-      DataLocationResource();
+      DataLocationResource(
+        resourceArn: json['ResourceArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A structure for the database object.
@@ -405,7 +549,10 @@ class DatabaseResource {
     @required this.name,
   });
   static DatabaseResource fromJson(Map<String, dynamic> json) =>
-      DatabaseResource();
+      DatabaseResource(
+        name: json['Name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeregisterResourceResponse {
@@ -422,7 +569,11 @@ class DescribeResourceResponse {
     this.resourceInfo,
   });
   static DescribeResourceResponse fromJson(Map<String, dynamic> json) =>
-      DescribeResourceResponse();
+      DescribeResourceResponse(
+        resourceInfo: json.containsKey('ResourceInfo')
+            ? ResourceInfo.fromJson(json['ResourceInfo'])
+            : null,
+      );
 }
 
 /// Contains details about an error.
@@ -437,7 +588,13 @@ class ErrorDetail {
     this.errorCode,
     this.errorMessage,
   });
-  static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail();
+  static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// This structure describes the filtering of columns in a table based on a
@@ -457,6 +614,7 @@ class FilterCondition {
     this.comparisonOperator,
     this.stringValueList,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetDataLakeSettingsResponse {
@@ -467,7 +625,11 @@ class GetDataLakeSettingsResponse {
     this.dataLakeSettings,
   });
   static GetDataLakeSettingsResponse fromJson(Map<String, dynamic> json) =>
-      GetDataLakeSettingsResponse();
+      GetDataLakeSettingsResponse(
+        dataLakeSettings: json.containsKey('DataLakeSettings')
+            ? DataLakeSettings.fromJson(json['DataLakeSettings'])
+            : null,
+      );
 }
 
 class GetEffectivePermissionsForPathResponse {
@@ -484,7 +646,15 @@ class GetEffectivePermissionsForPathResponse {
   });
   static GetEffectivePermissionsForPathResponse fromJson(
           Map<String, dynamic> json) =>
-      GetEffectivePermissionsForPathResponse();
+      GetEffectivePermissionsForPathResponse(
+        permissions: json.containsKey('Permissions')
+            ? (json['Permissions'] as List)
+                .map((e) => PrincipalResourcePermissions.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GrantPermissionsResponse {
@@ -506,7 +676,16 @@ class ListPermissionsResponse {
     this.nextToken,
   });
   static ListPermissionsResponse fromJson(Map<String, dynamic> json) =>
-      ListPermissionsResponse();
+      ListPermissionsResponse(
+        principalResourcePermissions:
+            json.containsKey('PrincipalResourcePermissions')
+                ? (json['PrincipalResourcePermissions'] as List)
+                    .map((e) => PrincipalResourcePermissions.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListResourcesResponse {
@@ -522,7 +701,15 @@ class ListResourcesResponse {
     this.nextToken,
   });
   static ListResourcesResponse fromJson(Map<String, dynamic> json) =>
-      ListResourcesResponse();
+      ListResourcesResponse(
+        resourceInfoList: json.containsKey('ResourceInfoList')
+            ? (json['ResourceInfoList'] as List)
+                .map((e) => ResourceInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Permissions granted to a principal.
@@ -538,7 +725,15 @@ class PrincipalPermissions {
     this.permissions,
   });
   static PrincipalPermissions fromJson(Map<String, dynamic> json) =>
-      PrincipalPermissions();
+      PrincipalPermissions(
+        principal: json.containsKey('Principal')
+            ? DataLakePrincipal.fromJson(json['Principal'])
+            : null,
+        permissions: json.containsKey('Permissions')
+            ? (json['Permissions'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The permissions granted or revoked on a resource.
@@ -563,7 +758,23 @@ class PrincipalResourcePermissions {
     this.permissionsWithGrantOption,
   });
   static PrincipalResourcePermissions fromJson(Map<String, dynamic> json) =>
-      PrincipalResourcePermissions();
+      PrincipalResourcePermissions(
+        principal: json.containsKey('Principal')
+            ? DataLakePrincipal.fromJson(json['Principal'])
+            : null,
+        resource: json.containsKey('Resource')
+            ? Resource.fromJson(json['Resource'])
+            : null,
+        permissions: json.containsKey('Permissions')
+            ? (json['Permissions'] as List).map((e) => e as String).toList()
+            : null,
+        permissionsWithGrantOption:
+            json.containsKey('PermissionsWithGrantOption')
+                ? (json['PermissionsWithGrantOption'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+      );
 }
 
 class PutDataLakeSettingsResponse {
@@ -612,7 +823,24 @@ class Resource {
     this.tableWithColumns,
     this.dataLocation,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        catalog: json.containsKey('Catalog')
+            ? CatalogResource.fromJson(json['Catalog'])
+            : null,
+        database: json.containsKey('Database')
+            ? DatabaseResource.fromJson(json['Database'])
+            : null,
+        table: json.containsKey('Table')
+            ? TableResource.fromJson(json['Table'])
+            : null,
+        tableWithColumns: json.containsKey('TableWithColumns')
+            ? TableWithColumnsResource.fromJson(json['TableWithColumns'])
+            : null,
+        dataLocation: json.containsKey('DataLocation')
+            ? DataLocationResource.fromJson(json['DataLocation'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A structure containing information about an AWS Lake Formation resource.
@@ -631,7 +859,15 @@ class ResourceInfo {
     this.roleArn,
     this.lastModified,
   });
-  static ResourceInfo fromJson(Map<String, dynamic> json) => ResourceInfo();
+  static ResourceInfo fromJson(Map<String, dynamic> json) => ResourceInfo(
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+      );
 }
 
 class RevokePermissionsResponse {
@@ -656,7 +892,11 @@ class TableResource {
     @required this.databaseName,
     @required this.name,
   });
-  static TableResource fromJson(Map<String, dynamic> json) => TableResource();
+  static TableResource fromJson(Map<String, dynamic> json) => TableResource(
+        databaseName: json['DatabaseName'] as String,
+        name: json['Name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A structure for a table with columns object. This object is only used when
@@ -691,7 +931,19 @@ class TableWithColumnsResource {
     this.columnWildcard,
   });
   static TableWithColumnsResource fromJson(Map<String, dynamic> json) =>
-      TableWithColumnsResource();
+      TableWithColumnsResource(
+        databaseName: json.containsKey('DatabaseName')
+            ? json['DatabaseName'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        columnNames: json.containsKey('ColumnNames')
+            ? (json['ColumnNames'] as List).map((e) => e as String).toList()
+            : null,
+        columnWildcard: json.containsKey('ColumnWildcard')
+            ? ColumnWildcard.fromJson(json['ColumnWildcard'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateResourceResponse {

@@ -13,6 +13,11 @@ import 'dart:typed_data';
 /// For more information, see the
 /// [Amazon CloudSearch Developer Guide](http://docs.aws.amazon.com/cloudsearch/latest/developerguide).
 class CloudSearchDomainApi {
+  final _client;
+  CloudSearchDomainApi(client)
+      : _client =
+            client.configured('CloudSearch Domain', serializer: 'rest-json');
+
   /// Retrieves a list of documents that match the specified search criteria.
   /// How you specify the search criteria depends on which query parser you use.
   /// Amazon CloudSearch supports four query parsers:
@@ -364,7 +369,23 @@ class CloudSearchDomainApi {
       String sort,
       BigInt start,
       String stats}) async {
-    return SearchResponse.fromJson({});
+    var response_ = await _client.send('Search', {
+      if (cursor != null) 'cursor': cursor,
+      if (expr != null) 'expr': expr,
+      if (facet != null) 'facet': facet,
+      if (filterQuery != null) 'filterQuery': filterQuery,
+      if (highlight != null) 'highlight': highlight,
+      if (partial != null) 'partial': partial,
+      'query': query,
+      if (queryOptions != null) 'queryOptions': queryOptions,
+      if (queryParser != null) 'queryParser': queryParser,
+      if (return$ != null) 'return': return$,
+      if (size != null) 'size': size,
+      if (sort != null) 'sort': sort,
+      if (start != null) 'start': start,
+      if (stats != null) 'stats': stats,
+    });
+    return SearchResponse.fromJson(response_);
   }
 
   /// Retrieves autocomplete suggestions for a partial query string. You can use
@@ -394,7 +415,12 @@ class CloudSearchDomainApi {
   /// [size]: Specifies the maximum number of suggestions to return.
   Future<SuggestResponse> suggest(
       {@required String query, @required String suggester, BigInt size}) async {
-    return SuggestResponse.fromJson({});
+    var response_ = await _client.send('Suggest', {
+      'query': query,
+      'suggester': suggester,
+      if (size != null) 'size': size,
+    });
+    return SuggestResponse.fromJson(response_);
   }
 
   /// Posts a batch of documents to a search domain for indexing. A document
@@ -432,7 +458,11 @@ class CloudSearchDomainApi {
   /// *   application/xml
   Future<UploadDocumentsResponse> uploadDocuments(
       {@required Uint8List documents, @required String contentType}) async {
-    return UploadDocumentsResponse.fromJson({});
+    var response_ = await _client.send('UploadDocuments', {
+      'documents': documents,
+      'contentType': contentType,
+    });
+    return UploadDocumentsResponse.fromJson(response_);
   }
 }
 
@@ -449,7 +479,10 @@ class Bucket {
     this.value,
     this.count,
   });
-  static Bucket fromJson(Map<String, dynamic> json) => Bucket();
+  static Bucket fromJson(Map<String, dynamic> json) => Bucket(
+        value: json.containsKey('value') ? json['value'] as String : null,
+        count: json.containsKey('count') ? BigInt.from(json['count']) : null,
+      );
 }
 
 /// A container for the calculated facet values and counts.
@@ -460,7 +493,11 @@ class BucketInfo {
   BucketInfo({
     this.buckets,
   });
-  static BucketInfo fromJson(Map<String, dynamic> json) => BucketInfo();
+  static BucketInfo fromJson(Map<String, dynamic> json) => BucketInfo(
+        buckets: json.containsKey('buckets')
+            ? (json['buckets'] as List).map((e) => Bucket.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A warning returned by the document service when an issue is discovered while
@@ -473,7 +510,9 @@ class DocumentServiceWarning {
     this.message,
   });
   static DocumentServiceWarning fromJson(Map<String, dynamic> json) =>
-      DocumentServiceWarning();
+      DocumentServiceWarning(
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 /// The statistics for a field calculated in the request.
@@ -537,7 +576,19 @@ class FieldStats {
     this.mean,
     this.stddev,
   });
-  static FieldStats fromJson(Map<String, dynamic> json) => FieldStats();
+  static FieldStats fromJson(Map<String, dynamic> json) => FieldStats(
+        min: json.containsKey('min') ? json['min'] as String : null,
+        max: json.containsKey('max') ? json['max'] as String : null,
+        count: json.containsKey('count') ? BigInt.from(json['count']) : null,
+        missing:
+            json.containsKey('missing') ? BigInt.from(json['missing']) : null,
+        sum: json.containsKey('sum') ? json['sum'] as double : null,
+        sumOfSquares: json.containsKey('sumOfSquares')
+            ? json['sumOfSquares'] as double
+            : null,
+        mean: json.containsKey('mean') ? json['mean'] as String : null,
+        stddev: json.containsKey('stddev') ? json['stddev'] as double : null,
+      );
 }
 
 /// Information about a document that matches the search request.
@@ -560,7 +611,21 @@ class Hit {
     this.exprs,
     this.highlights,
   });
-  static Hit fromJson(Map<String, dynamic> json) => Hit();
+  static Hit fromJson(Map<String, dynamic> json) => Hit(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        fields: json.containsKey('fields')
+            ? (json['fields'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        exprs: json.containsKey('exprs')
+            ? (json['exprs'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        highlights: json.containsKey('highlights')
+            ? (json['highlights'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The collection of documents that match the search request.
@@ -584,7 +649,14 @@ class Hits {
     this.cursor,
     this.hit,
   });
-  static Hits fromJson(Map<String, dynamic> json) => Hits();
+  static Hits fromJson(Map<String, dynamic> json) => Hits(
+        found: json.containsKey('found') ? BigInt.from(json['found']) : null,
+        start: json.containsKey('start') ? BigInt.from(json['start']) : null,
+        cursor: json.containsKey('cursor') ? json['cursor'] as String : null,
+        hit: json.containsKey('hit')
+            ? (json['hit'] as List).map((e) => Hit.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The result of a `Search` request. Contains the documents that match the
@@ -609,7 +681,20 @@ class SearchResponse {
     this.facets,
     this.stats,
   });
-  static SearchResponse fromJson(Map<String, dynamic> json) => SearchResponse();
+  static SearchResponse fromJson(Map<String, dynamic> json) => SearchResponse(
+        status: json.containsKey('status')
+            ? SearchStatus.fromJson(json['status'])
+            : null,
+        hits: json.containsKey('hits') ? Hits.fromJson(json['hits']) : null,
+        facets: json.containsKey('facets')
+            ? (json['facets'] as Map)
+                .map((k, v) => MapEntry(k as String, BucketInfo.fromJson(v)))
+            : null,
+        stats: json.containsKey('stats')
+            ? (json['stats'] as Map)
+                .map((k, v) => MapEntry(k as String, FieldStats.fromJson(v)))
+            : null,
+      );
 }
 
 /// Contains the resource id (`rid`) and the time it took to process the request
@@ -625,7 +710,10 @@ class SearchStatus {
     this.timems,
     this.rid,
   });
-  static SearchStatus fromJson(Map<String, dynamic> json) => SearchStatus();
+  static SearchStatus fromJson(Map<String, dynamic> json) => SearchStatus(
+        timems: json.containsKey('timems') ? BigInt.from(json['timems']) : null,
+        rid: json.containsKey('rid') ? json['rid'] as String : null,
+      );
 }
 
 /// Container for the suggestion information returned in a `SuggestResponse`.
@@ -644,7 +732,15 @@ class SuggestModel {
     this.found,
     this.suggestions,
   });
-  static SuggestModel fromJson(Map<String, dynamic> json) => SuggestModel();
+  static SuggestModel fromJson(Map<String, dynamic> json) => SuggestModel(
+        query: json.containsKey('query') ? json['query'] as String : null,
+        found: json.containsKey('found') ? BigInt.from(json['found']) : null,
+        suggestions: json.containsKey('suggestions')
+            ? (json['suggestions'] as List)
+                .map((e) => SuggestionMatch.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a `Suggest` request.
@@ -660,8 +756,14 @@ class SuggestResponse {
     this.status,
     this.suggest,
   });
-  static SuggestResponse fromJson(Map<String, dynamic> json) =>
-      SuggestResponse();
+  static SuggestResponse fromJson(Map<String, dynamic> json) => SuggestResponse(
+        status: json.containsKey('status')
+            ? SuggestStatus.fromJson(json['status'])
+            : null,
+        suggest: json.containsKey('suggest')
+            ? SuggestModel.fromJson(json['suggest'])
+            : null,
+      );
 }
 
 /// Contains the resource id (`rid`) and the time it took to process the request
@@ -677,7 +779,10 @@ class SuggestStatus {
     this.timems,
     this.rid,
   });
-  static SuggestStatus fromJson(Map<String, dynamic> json) => SuggestStatus();
+  static SuggestStatus fromJson(Map<String, dynamic> json) => SuggestStatus(
+        timems: json.containsKey('timems') ? BigInt.from(json['timems']) : null,
+        rid: json.containsKey('rid') ? json['rid'] as String : null,
+      );
 }
 
 /// An autocomplete suggestion that matches the query string specified in a
@@ -698,8 +803,13 @@ class SuggestionMatch {
     this.score,
     this.id,
   });
-  static SuggestionMatch fromJson(Map<String, dynamic> json) =>
-      SuggestionMatch();
+  static SuggestionMatch fromJson(Map<String, dynamic> json) => SuggestionMatch(
+        suggestion: json.containsKey('suggestion')
+            ? json['suggestion'] as String
+            : null,
+        score: json.containsKey('score') ? BigInt.from(json['score']) : null,
+        id: json.containsKey('id') ? json['id'] as String : null,
+      );
 }
 
 /// Contains the response to an `UploadDocuments` request.
@@ -724,5 +834,15 @@ class UploadDocumentsResponse {
     this.warnings,
   });
   static UploadDocumentsResponse fromJson(Map<String, dynamic> json) =>
-      UploadDocumentsResponse();
+      UploadDocumentsResponse(
+        status: json.containsKey('status') ? json['status'] as String : null,
+        adds: json.containsKey('adds') ? BigInt.from(json['adds']) : null,
+        deletes:
+            json.containsKey('deletes') ? BigInt.from(json['deletes']) : null,
+        warnings: json.containsKey('warnings')
+            ? (json['warnings'] as List)
+                .map((e) => DocumentServiceWarning.fromJson(e))
+                .toList()
+            : null,
+      );
 }

@@ -8,6 +8,10 @@ import 'package:meta/meta.dart';
 /// documentation for a programming interface that you can use to manage Amazon
 /// QuickSight.
 class QuickSightApi {
+  final _client;
+  QuickSightApi(client)
+      : _client = client.configured('QuickSight', serializer: 'rest-json');
+
   /// Creates an Amazon QuickSight group.
   ///
   /// The permissions resource is
@@ -36,7 +40,13 @@ class QuickSightApi {
       String description,
       @required String awsAccountId,
       @required String namespace}) async {
-    return CreateGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateGroup', {
+      'GroupName': groupName,
+      if (description != null) 'Description': description,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return CreateGroupResponse.fromJson(response_);
   }
 
   /// Adds an Amazon QuickSight user to an Amazon QuickSight group.
@@ -71,7 +81,13 @@ class QuickSightApi {
       @required String groupName,
       @required String awsAccountId,
       @required String namespace}) async {
-    return CreateGroupMembershipResponse.fromJson({});
+    var response_ = await _client.send('CreateGroupMembership', {
+      'MemberName': memberName,
+      'GroupName': groupName,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return CreateGroupMembershipResponse.fromJson(response_);
   }
 
   /// Removes a user group from Amazon QuickSight.
@@ -96,7 +112,12 @@ class QuickSightApi {
       {@required String groupName,
       @required String awsAccountId,
       @required String namespace}) async {
-    return DeleteGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteGroup', {
+      'GroupName': groupName,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return DeleteGroupResponse.fromJson(response_);
   }
 
   /// Removes a user from a group so that the user is no longer a member of the
@@ -130,7 +151,13 @@ class QuickSightApi {
       @required String groupName,
       @required String awsAccountId,
       @required String namespace}) async {
-    return DeleteGroupMembershipResponse.fromJson({});
+    var response_ = await _client.send('DeleteGroupMembership', {
+      'MemberName': memberName,
+      'GroupName': groupName,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return DeleteGroupMembershipResponse.fromJson(response_);
   }
 
   /// Deletes the Amazon QuickSight user that is associated with the identity of
@@ -157,7 +184,12 @@ class QuickSightApi {
       {@required String userName,
       @required String awsAccountId,
       @required String namespace}) async {
-    return DeleteUserResponse.fromJson({});
+    var response_ = await _client.send('DeleteUser', {
+      'UserName': userName,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return DeleteUserResponse.fromJson(response_);
   }
 
   /// Deletes a user identified by its principal ID.
@@ -182,7 +214,12 @@ class QuickSightApi {
       {@required String principalId,
       @required String awsAccountId,
       @required String namespace}) async {
-    return DeleteUserByPrincipalIdResponse.fromJson({});
+    var response_ = await _client.send('DeleteUserByPrincipalId', {
+      'PrincipalId': principalId,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return DeleteUserByPrincipalIdResponse.fromJson(response_);
   }
 
   /// Returns an Amazon QuickSight group's description and Amazon Resource Name
@@ -210,7 +247,12 @@ class QuickSightApi {
       {@required String groupName,
       @required String awsAccountId,
       @required String namespace}) async {
-    return DescribeGroupResponse.fromJson({});
+    var response_ = await _client.send('DescribeGroup', {
+      'GroupName': groupName,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return DescribeGroupResponse.fromJson(response_);
   }
 
   /// Returns information about a user, given the user name.
@@ -239,7 +281,12 @@ class QuickSightApi {
       {@required String userName,
       @required String awsAccountId,
       @required String namespace}) async {
-    return DescribeUserResponse.fromJson({});
+    var response_ = await _client.send('DescribeUser', {
+      'UserName': userName,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return DescribeUserResponse.fromJson(response_);
   }
 
   /// Generates a server-side embeddable URL and authorization code. Before this
@@ -310,7 +357,17 @@ class QuickSightApi {
       bool undoRedoDisabled,
       bool resetDisabled,
       String userArn}) async {
-    return GetDashboardEmbedUrlResponse.fromJson({});
+    var response_ = await _client.send('GetDashboardEmbedUrl', {
+      'AwsAccountId': awsAccountId,
+      'DashboardId': dashboardId,
+      'IdentityType': identityType,
+      if (sessionLifetimeInMinutes != null)
+        'SessionLifetimeInMinutes': sessionLifetimeInMinutes,
+      if (undoRedoDisabled != null) 'UndoRedoDisabled': undoRedoDisabled,
+      if (resetDisabled != null) 'ResetDisabled': resetDisabled,
+      if (userArn != null) 'UserArn': userArn,
+    });
+    return GetDashboardEmbedUrlResponse.fromJson(response_);
   }
 
   /// Lists member users in a group.
@@ -344,7 +401,14 @@ class QuickSightApi {
       int maxResults,
       @required String awsAccountId,
       @required String namespace}) async {
-    return ListGroupMembershipsResponse.fromJson({});
+    var response_ = await _client.send('ListGroupMemberships', {
+      'GroupName': groupName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return ListGroupMembershipsResponse.fromJson(response_);
   }
 
   /// Lists all user groups in Amazon QuickSight.
@@ -373,7 +437,13 @@ class QuickSightApi {
       String nextToken,
       int maxResults,
       @required String namespace}) async {
-    return ListGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListGroups', {
+      'AwsAccountId': awsAccountId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      'Namespace': namespace,
+    });
+    return ListGroupsResponse.fromJson(response_);
   }
 
   /// Lists the Amazon QuickSight groups that an Amazon QuickSight user is a
@@ -407,7 +477,14 @@ class QuickSightApi {
       @required String namespace,
       String nextToken,
       int maxResults}) async {
-    return ListUserGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListUserGroups', {
+      'UserName': userName,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListUserGroupsResponse.fromJson(response_);
   }
 
   /// Returns a list of all of the Amazon QuickSight users belonging to this
@@ -439,7 +516,13 @@ class QuickSightApi {
       String nextToken,
       int maxResults,
       @required String namespace}) async {
-    return ListUsersResponse.fromJson({});
+    var response_ = await _client.send('ListUsers', {
+      'AwsAccountId': awsAccountId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      'Namespace': namespace,
+    });
+    return ListUsersResponse.fromJson(response_);
   }
 
   /// Creates an Amazon QuickSight user, whose identity is associated with the
@@ -511,7 +594,17 @@ class QuickSightApi {
       @required String awsAccountId,
       @required String namespace,
       String userName}) async {
-    return RegisterUserResponse.fromJson({});
+    var response_ = await _client.send('RegisterUser', {
+      'IdentityType': identityType,
+      'Email': email,
+      'UserRole': userRole,
+      if (iamArn != null) 'IamArn': iamArn,
+      if (sessionName != null) 'SessionName': sessionName,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+      if (userName != null) 'UserName': userName,
+    });
+    return RegisterUserResponse.fromJson(response_);
   }
 
   /// Changes a group description.
@@ -542,7 +635,13 @@ class QuickSightApi {
       String description,
       @required String awsAccountId,
       @required String namespace}) async {
-    return UpdateGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateGroup', {
+      'GroupName': groupName,
+      if (description != null) 'Description': description,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+    });
+    return UpdateGroupResponse.fromJson(response_);
   }
 
   /// Updates an Amazon QuickSight user.
@@ -587,7 +686,14 @@ class QuickSightApi {
       @required String namespace,
       @required String email,
       @required String role}) async {
-    return UpdateUserResponse.fromJson({});
+    var response_ = await _client.send('UpdateUser', {
+      'UserName': userName,
+      'AwsAccountId': awsAccountId,
+      'Namespace': namespace,
+      'Email': email,
+      'Role': role,
+    });
+    return UpdateUserResponse.fromJson(response_);
   }
 }
 
@@ -607,7 +713,14 @@ class CreateGroupMembershipResponse {
     this.status,
   });
   static CreateGroupMembershipResponse fromJson(Map<String, dynamic> json) =>
-      CreateGroupMembershipResponse();
+      CreateGroupMembershipResponse(
+        groupMember: json.containsKey('GroupMember')
+            ? GroupMember.fromJson(json['GroupMember'])
+            : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 /// The response object for this operation.
@@ -627,7 +740,12 @@ class CreateGroupResponse {
     this.status,
   });
   static CreateGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateGroupResponse();
+      CreateGroupResponse(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class DeleteGroupMembershipResponse {
@@ -642,7 +760,11 @@ class DeleteGroupMembershipResponse {
     this.status,
   });
   static DeleteGroupMembershipResponse fromJson(Map<String, dynamic> json) =>
-      DeleteGroupMembershipResponse();
+      DeleteGroupMembershipResponse(
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class DeleteGroupResponse {
@@ -657,7 +779,11 @@ class DeleteGroupResponse {
     this.status,
   });
   static DeleteGroupResponse fromJson(Map<String, dynamic> json) =>
-      DeleteGroupResponse();
+      DeleteGroupResponse(
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class DeleteUserByPrincipalIdResponse {
@@ -672,7 +798,11 @@ class DeleteUserByPrincipalIdResponse {
     this.status,
   });
   static DeleteUserByPrincipalIdResponse fromJson(Map<String, dynamic> json) =>
-      DeleteUserByPrincipalIdResponse();
+      DeleteUserByPrincipalIdResponse(
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class DeleteUserResponse {
@@ -687,7 +817,11 @@ class DeleteUserResponse {
     this.status,
   });
   static DeleteUserResponse fromJson(Map<String, dynamic> json) =>
-      DeleteUserResponse();
+      DeleteUserResponse(
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class DescribeGroupResponse {
@@ -706,7 +840,12 @@ class DescribeGroupResponse {
     this.status,
   });
   static DescribeGroupResponse fromJson(Map<String, dynamic> json) =>
-      DescribeGroupResponse();
+      DescribeGroupResponse(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class DescribeUserResponse {
@@ -725,7 +864,12 @@ class DescribeUserResponse {
     this.status,
   });
   static DescribeUserResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUserResponse();
+      DescribeUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class GetDashboardEmbedUrlResponse {
@@ -747,7 +891,13 @@ class GetDashboardEmbedUrlResponse {
     this.requestId,
   });
   static GetDashboardEmbedUrlResponse fromJson(Map<String, dynamic> json) =>
-      GetDashboardEmbedUrlResponse();
+      GetDashboardEmbedUrlResponse(
+        embedUrl:
+            json.containsKey('EmbedUrl') ? json['EmbedUrl'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+      );
 }
 
 /// A _group_ in Amazon QuickSight consists of a set of users. You can use
@@ -773,7 +923,17 @@ class Group {
     this.description,
     this.principalId,
   });
-  static Group fromJson(Map<String, dynamic> json) => Group();
+  static Group fromJson(Map<String, dynamic> json) => Group(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        principalId: json.containsKey('PrincipalId')
+            ? json['PrincipalId'] as String
+            : null,
+      );
 }
 
 /// A member of an Amazon QuickSight group. Currently, group members must be
@@ -789,7 +949,12 @@ class GroupMember {
     this.arn,
     this.memberName,
   });
-  static GroupMember fromJson(Map<String, dynamic> json) => GroupMember();
+  static GroupMember fromJson(Map<String, dynamic> json) => GroupMember(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        memberName: json.containsKey('MemberName')
+            ? json['MemberName'] as String
+            : null,
+      );
 }
 
 class ListGroupMembershipsResponse {
@@ -812,7 +977,18 @@ class ListGroupMembershipsResponse {
     this.status,
   });
   static ListGroupMembershipsResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupMembershipsResponse();
+      ListGroupMembershipsResponse(
+        groupMemberList: json.containsKey('GroupMemberList')
+            ? (json['GroupMemberList'] as List)
+                .map((e) => GroupMember.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class ListGroupsResponse {
@@ -835,7 +1011,16 @@ class ListGroupsResponse {
     this.status,
   });
   static ListGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupsResponse();
+      ListGroupsResponse(
+        groupList: json.containsKey('GroupList')
+            ? (json['GroupList'] as List).map((e) => Group.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class ListUserGroupsResponse {
@@ -858,7 +1043,16 @@ class ListUserGroupsResponse {
     this.status,
   });
   static ListUserGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListUserGroupsResponse();
+      ListUserGroupsResponse(
+        groupList: json.containsKey('GroupList')
+            ? (json['GroupList'] as List).map((e) => Group.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class ListUsersResponse {
@@ -881,7 +1075,16 @@ class ListUsersResponse {
     this.status,
   });
   static ListUsersResponse fromJson(Map<String, dynamic> json) =>
-      ListUsersResponse();
+      ListUsersResponse(
+        userList: json.containsKey('UserList')
+            ? (json['UserList'] as List).map((e) => User.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class RegisterUserResponse {
@@ -905,7 +1108,15 @@ class RegisterUserResponse {
     this.status,
   });
   static RegisterUserResponse fromJson(Map<String, dynamic> json) =>
-      RegisterUserResponse();
+      RegisterUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+        userInvitationUrl: json.containsKey('UserInvitationUrl')
+            ? json['UserInvitationUrl'] as String
+            : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class UpdateGroupResponse {
@@ -924,7 +1135,12 @@ class UpdateGroupResponse {
     this.status,
   });
   static UpdateGroupResponse fromJson(Map<String, dynamic> json) =>
-      UpdateGroupResponse();
+      UpdateGroupResponse(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 class UpdateUserResponse {
@@ -943,7 +1159,12 @@ class UpdateUserResponse {
     this.status,
   });
   static UpdateUserResponse fromJson(Map<String, dynamic> json) =>
-      UpdateUserResponse();
+      UpdateUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as int : null,
+      );
 }
 
 /// A registered user of Amazon QuickSight. Currently, an Amazon QuickSight
@@ -981,5 +1202,18 @@ class User {
     this.active,
     this.principalId,
   });
-  static User fromJson(Map<String, dynamic> json) => User();
+  static User fromJson(Map<String, dynamic> json) => User(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        identityType: json.containsKey('IdentityType')
+            ? json['IdentityType'] as String
+            : null,
+        active: json.containsKey('Active') ? json['Active'] as bool : null,
+        principalId: json.containsKey('PrincipalId')
+            ? json['PrincipalId'] as String
+            : null,
+      );
 }

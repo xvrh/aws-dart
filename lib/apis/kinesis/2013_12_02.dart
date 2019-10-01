@@ -6,6 +6,10 @@ import 'dart:typed_data';
 /// Amazon Kinesis Data Streams is a managed service that scales elastically for
 /// real-time processing of streaming big data.
 class KinesisApi {
+  final _client;
+  KinesisApi(client)
+      : _client = client.configured('Kinesis', serializer: 'json');
+
   /// Adds or updates tags for the specified Kinesis data stream. Each time you
   /// invoke this operation, you can specify up to 10 tags. If you want to add
   /// more than 10 tags to your stream, you can invoke this operation multiple
@@ -20,8 +24,12 @@ class KinesisApi {
   ///
   /// [tags]: A set of up to 10 key-value pairs to use to create the tags.
   Future<void> addTagsToStream(
-      {@required String streamName,
-      @required Map<String, String> tags}) async {}
+      {@required String streamName, @required Map<String, String> tags}) async {
+    await _client.send('AddTagsToStream', {
+      'StreamName': streamName,
+      'Tags': tags,
+    });
+  }
 
   /// Creates a Kinesis data stream. A stream captures and transports data
   /// records that are continuously emitted from different data sources or
@@ -79,7 +87,12 @@ class KinesisApi {
   ///
   /// DefaultShardLimit;
   Future<void> createStream(
-      {@required String streamName, @required int shardCount}) async {}
+      {@required String streamName, @required int shardCount}) async {
+    await _client.send('CreateStream', {
+      'StreamName': streamName,
+      'ShardCount': shardCount,
+    });
+  }
 
   /// Decreases the Kinesis data stream's retention period, which is the length
   /// of time data records are accessible after they are added to the stream.
@@ -94,8 +107,12 @@ class KinesisApi {
   /// [retentionPeriodHours]: The new retention period of the stream, in hours.
   /// Must be less than the current retention period.
   Future<void> decreaseStreamRetentionPeriod(
-      {@required String streamName,
-      @required int retentionPeriodHours}) async {}
+      {@required String streamName, @required int retentionPeriodHours}) async {
+    await _client.send('DecreaseStreamRetentionPeriod', {
+      'StreamName': streamName,
+      'RetentionPeriodHours': retentionPeriodHours,
+    });
+  }
 
   /// Deletes a Kinesis data stream and all its shards and data. You must shut
   /// down any applications that are operating on the stream before you delete
@@ -124,7 +141,13 @@ class KinesisApi {
   /// set it to `false`, and the stream has registered consumers, the call to
   /// `DeleteStream` fails with a `ResourceInUseException`.
   Future<void> deleteStream(String streamName,
-      {bool enforceConsumerDeletion}) async {}
+      {bool enforceConsumerDeletion}) async {
+    await _client.send('DeleteStream', {
+      'StreamName': streamName,
+      if (enforceConsumerDeletion != null)
+        'EnforceConsumerDeletion': enforceConsumerDeletion,
+    });
+  }
 
   /// To deregister a consumer, provide its ARN. Alternatively, you can provide
   /// the ARN of the data stream and the name you gave the consumer when you
@@ -150,7 +173,13 @@ class KinesisApi {
   /// registered with a given data stream. The description of a consumer
   /// contains its ARN.
   Future<void> deregisterStreamConsumer(
-      {String streamArn, String consumerName, String consumerArn}) async {}
+      {String streamArn, String consumerName, String consumerArn}) async {
+    await _client.send('DeregisterStreamConsumer', {
+      if (streamArn != null) 'StreamARN': streamArn,
+      if (consumerName != null) 'ConsumerName': consumerName,
+      if (consumerArn != null) 'ConsumerARN': consumerArn,
+    });
+  }
 
   /// Describes the shard limits and usage for the account.
   ///
@@ -159,7 +188,8 @@ class KinesisApi {
   ///
   /// This operation has a limit of one transaction per second per account.
   Future<DescribeLimitsOutput> describeLimits() async {
-    return DescribeLimitsOutput.fromJson({});
+    var response_ = await _client.send('DescribeLimits', {});
+    return DescribeLimitsOutput.fromJson(response_);
   }
 
   /// Describes the specified Kinesis data stream.
@@ -192,7 +222,13 @@ class KinesisApi {
   /// [exclusiveStartShardId]: The shard ID of the shard to start with.
   Future<DescribeStreamOutput> describeStream(String streamName,
       {int limit, String exclusiveStartShardId}) async {
-    return DescribeStreamOutput.fromJson({});
+    var response_ = await _client.send('DescribeStream', {
+      'StreamName': streamName,
+      if (limit != null) 'Limit': limit,
+      if (exclusiveStartShardId != null)
+        'ExclusiveStartShardId': exclusiveStartShardId,
+    });
+    return DescribeStreamOutput.fromJson(response_);
   }
 
   /// To get the description of a registered consumer, provide the ARN of the
@@ -216,7 +252,12 @@ class KinesisApi {
   /// registered the consumer.
   Future<DescribeStreamConsumerOutput> describeStreamConsumer(
       {String streamArn, String consumerName, String consumerArn}) async {
-    return DescribeStreamConsumerOutput.fromJson({});
+    var response_ = await _client.send('DescribeStreamConsumer', {
+      if (streamArn != null) 'StreamARN': streamArn,
+      if (consumerName != null) 'ConsumerName': consumerName,
+      if (consumerArn != null) 'ConsumerARN': consumerArn,
+    });
+    return DescribeStreamConsumerOutput.fromJson(response_);
   }
 
   /// Provides a summarized description of the specified Kinesis data stream
@@ -229,7 +270,10 @@ class KinesisApi {
   /// [streamName]: The name of the stream to describe.
   Future<DescribeStreamSummaryOutput> describeStreamSummary(
       String streamName) async {
-    return DescribeStreamSummaryOutput.fromJson({});
+    var response_ = await _client.send('DescribeStreamSummary', {
+      'StreamName': streamName,
+    });
+    return DescribeStreamSummaryOutput.fromJson(response_);
   }
 
   /// Disables enhanced monitoring.
@@ -265,7 +309,11 @@ class KinesisApi {
   Future<EnhancedMonitoringOutput> disableEnhancedMonitoring(
       {@required String streamName,
       @required List<String> shardLevelMetrics}) async {
-    return EnhancedMonitoringOutput.fromJson({});
+    var response_ = await _client.send('DisableEnhancedMonitoring', {
+      'StreamName': streamName,
+      'ShardLevelMetrics': shardLevelMetrics,
+    });
+    return EnhancedMonitoringOutput.fromJson(response_);
   }
 
   /// Enables enhanced Kinesis data stream monitoring for shard-level metrics.
@@ -301,7 +349,11 @@ class KinesisApi {
   Future<EnhancedMonitoringOutput> enableEnhancedMonitoring(
       {@required String streamName,
       @required List<String> shardLevelMetrics}) async {
-    return EnhancedMonitoringOutput.fromJson({});
+    var response_ = await _client.send('EnableEnhancedMonitoring', {
+      'StreamName': streamName,
+      'ShardLevelMetrics': shardLevelMetrics,
+    });
+    return EnhancedMonitoringOutput.fromJson(response_);
   }
 
   /// Gets data records from a Kinesis data stream's shard.
@@ -375,7 +427,11 @@ class KinesisApi {
   /// 10,000. If you specify a value that is greater than 10,000, GetRecords
   /// throws `InvalidArgumentException`.
   Future<GetRecordsOutput> getRecords(String shardIterator, {int limit}) async {
-    return GetRecordsOutput.fromJson({});
+    var response_ = await _client.send('GetRecords', {
+      'ShardIterator': shardIterator,
+      if (limit != null) 'Limit': limit,
+    });
+    return GetRecordsOutput.fromJson(response_);
   }
 
   /// Gets an Amazon Kinesis shard iterator. A shard iterator expires 5 minutes
@@ -464,7 +520,15 @@ class KinesisApi {
       @required String shardIteratorType,
       String startingSequenceNumber,
       DateTime timestamp}) async {
-    return GetShardIteratorOutput.fromJson({});
+    var response_ = await _client.send('GetShardIterator', {
+      'StreamName': streamName,
+      'ShardId': shardId,
+      'ShardIteratorType': shardIteratorType,
+      if (startingSequenceNumber != null)
+        'StartingSequenceNumber': startingSequenceNumber,
+      if (timestamp != null) 'Timestamp': timestamp,
+    });
+    return GetShardIteratorOutput.fromJson(response_);
   }
 
   /// Increases the Kinesis data stream's retention period, which is the length
@@ -484,8 +548,12 @@ class KinesisApi {
   /// [retentionPeriodHours]: The new retention period of the stream, in hours.
   /// Must be more than the current retention period.
   Future<void> increaseStreamRetentionPeriod(
-      {@required String streamName,
-      @required int retentionPeriodHours}) async {}
+      {@required String streamName, @required int retentionPeriodHours}) async {
+    await _client.send('IncreaseStreamRetentionPeriod', {
+      'StreamName': streamName,
+      'RetentionPeriodHours': retentionPeriodHours,
+    });
+  }
 
   /// Lists the shards in a stream and provides information about each shard.
   /// This operation has a limit of 100 transactions per second per data stream.
@@ -558,7 +626,16 @@ class KinesisApi {
       String exclusiveStartShardId,
       int maxResults,
       DateTime streamCreationTimestamp}) async {
-    return ListShardsOutput.fromJson({});
+    var response_ = await _client.send('ListShards', {
+      if (streamName != null) 'StreamName': streamName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (exclusiveStartShardId != null)
+        'ExclusiveStartShardId': exclusiveStartShardId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (streamCreationTimestamp != null)
+        'StreamCreationTimestamp': streamCreationTimestamp,
+    });
+    return ListShardsOutput.fromJson(response_);
   }
 
   /// Lists the consumers registered to receive data from a stream using
@@ -609,7 +686,14 @@ class KinesisApi {
       {String nextToken,
       int maxResults,
       DateTime streamCreationTimestamp}) async {
-    return ListStreamConsumersOutput.fromJson({});
+    var response_ = await _client.send('ListStreamConsumers', {
+      'StreamARN': streamArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (streamCreationTimestamp != null)
+        'StreamCreationTimestamp': streamCreationTimestamp,
+    });
+    return ListStreamConsumersOutput.fromJson(response_);
   }
 
   /// Lists your Kinesis data streams.
@@ -636,7 +720,12 @@ class KinesisApi {
   /// [exclusiveStartStreamName]: The name of the stream to start the list with.
   Future<ListStreamsOutput> listStreams(
       {int limit, String exclusiveStartStreamName}) async {
-    return ListStreamsOutput.fromJson({});
+    var response_ = await _client.send('ListStreams', {
+      if (limit != null) 'Limit': limit,
+      if (exclusiveStartStreamName != null)
+        'ExclusiveStartStreamName': exclusiveStartStreamName,
+    });
+    return ListStreamsOutput.fromJson(response_);
   }
 
   /// Lists the tags for the specified Kinesis data stream. This operation has a
@@ -654,7 +743,13 @@ class KinesisApi {
   /// key in the response.
   Future<ListTagsForStreamOutput> listTagsForStream(String streamName,
       {String exclusiveStartTagKey, int limit}) async {
-    return ListTagsForStreamOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForStream', {
+      'StreamName': streamName,
+      if (exclusiveStartTagKey != null)
+        'ExclusiveStartTagKey': exclusiveStartTagKey,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListTagsForStreamOutput.fromJson(response_);
   }
 
   /// Merges two adjacent shards in a Kinesis data stream and combines them into
@@ -707,7 +802,13 @@ class KinesisApi {
   Future<void> mergeShards(
       {@required String streamName,
       @required String shardToMerge,
-      @required String adjacentShardToMerge}) async {}
+      @required String adjacentShardToMerge}) async {
+    await _client.send('MergeShards', {
+      'StreamName': streamName,
+      'ShardToMerge': shardToMerge,
+      'AdjacentShardToMerge': adjacentShardToMerge,
+    });
+  }
 
   /// Writes a single data record into an Amazon Kinesis data stream. Call
   /// `PutRecord` to send data into the stream for real-time ingestion and
@@ -786,7 +887,15 @@ class KinesisApi {
       @required String partitionKey,
       String explicitHashKey,
       String sequenceNumberForOrdering}) async {
-    return PutRecordOutput.fromJson({});
+    var response_ = await _client.send('PutRecord', {
+      'StreamName': streamName,
+      'Data': data,
+      'PartitionKey': partitionKey,
+      if (explicitHashKey != null) 'ExplicitHashKey': explicitHashKey,
+      if (sequenceNumberForOrdering != null)
+        'SequenceNumberForOrdering': sequenceNumberForOrdering,
+    });
+    return PutRecordOutput.fromJson(response_);
   }
 
   /// Writes multiple data records into a Kinesis data stream in a single call
@@ -859,7 +968,11 @@ class KinesisApi {
   Future<PutRecordsOutput> putRecords(
       {@required List<PutRecordsRequestEntry> records,
       @required String streamName}) async {
-    return PutRecordsOutput.fromJson({});
+    var response_ = await _client.send('PutRecords', {
+      'Records': records,
+      'StreamName': streamName,
+    });
+    return PutRecordsOutput.fromJson(response_);
   }
 
   /// Registers a consumer with a Kinesis data stream. When you use this
@@ -881,7 +994,11 @@ class KinesisApi {
   /// streams.
   Future<RegisterStreamConsumerOutput> registerStreamConsumer(
       {@required String streamArn, @required String consumerName}) async {
-    return RegisterStreamConsumerOutput.fromJson({});
+    var response_ = await _client.send('RegisterStreamConsumer', {
+      'StreamARN': streamArn,
+      'ConsumerName': consumerName,
+    });
+    return RegisterStreamConsumerOutput.fromJson(response_);
   }
 
   /// Removes tags from the specified Kinesis data stream. Removed tags are
@@ -898,7 +1015,12 @@ class KinesisApi {
   /// [tagKeys]: A list of tag keys. Each corresponding tag is removed from the
   /// stream.
   Future<void> removeTagsFromStream(
-      {@required String streamName, @required List<String> tagKeys}) async {}
+      {@required String streamName, @required List<String> tagKeys}) async {
+    await _client.send('RemoveTagsFromStream', {
+      'StreamName': streamName,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Splits a shard into two new shards in the Kinesis data stream, to increase
   /// the stream's capacity to ingest and transport data. `SplitShard` is called
@@ -966,7 +1088,13 @@ class KinesisApi {
   Future<void> splitShard(
       {@required String streamName,
       @required String shardToSplit,
-      @required String newStartingHashKey}) async {}
+      @required String newStartingHashKey}) async {
+    await _client.send('SplitShard', {
+      'StreamName': streamName,
+      'ShardToSplit': shardToSplit,
+      'NewStartingHashKey': newStartingHashKey,
+    });
+  }
 
   /// Enables or updates server-side encryption using an AWS KMS key for a
   /// specified stream.
@@ -1014,7 +1142,13 @@ class KinesisApi {
   Future<void> startStreamEncryption(
       {@required String streamName,
       @required String encryptionType,
-      @required String keyId}) async {}
+      @required String keyId}) async {
+    await _client.send('StartStreamEncryption', {
+      'StreamName': streamName,
+      'EncryptionType': encryptionType,
+      'KeyId': keyId,
+    });
+  }
 
   /// Disables server-side encryption for a specified stream.
   ///
@@ -1060,7 +1194,13 @@ class KinesisApi {
   Future<void> stopStreamEncryption(
       {@required String streamName,
       @required String encryptionType,
-      @required String keyId}) async {}
+      @required String keyId}) async {
+    await _client.send('StopStreamEncryption', {
+      'StreamName': streamName,
+      'EncryptionType': encryptionType,
+      'KeyId': keyId,
+    });
+  }
 
   /// Updates the shard count of the specified stream to the specified number of
   /// shards.
@@ -1112,7 +1252,12 @@ class KinesisApi {
       {@required String streamName,
       @required int targetShardCount,
       @required String scalingType}) async {
-    return UpdateShardCountOutput.fromJson({});
+    var response_ = await _client.send('UpdateShardCount', {
+      'StreamName': streamName,
+      'TargetShardCount': targetShardCount,
+      'ScalingType': scalingType,
+    });
+    return UpdateShardCountOutput.fromJson(response_);
   }
 }
 
@@ -1142,7 +1287,13 @@ class Consumer {
     @required this.consumerStatus,
     @required this.consumerCreationTimestamp,
   });
-  static Consumer fromJson(Map<String, dynamic> json) => Consumer();
+  static Consumer fromJson(Map<String, dynamic> json) => Consumer(
+        consumerName: json['ConsumerName'] as String,
+        consumerArn: json['ConsumerARN'] as String,
+        consumerStatus: json['ConsumerStatus'] as String,
+        consumerCreationTimestamp:
+            DateTime.parse(json['ConsumerCreationTimestamp']),
+      );
 }
 
 /// An object that represents the details of a registered consumer.
@@ -1176,7 +1327,14 @@ class ConsumerDescription {
     @required this.streamArn,
   });
   static ConsumerDescription fromJson(Map<String, dynamic> json) =>
-      ConsumerDescription();
+      ConsumerDescription(
+        consumerName: json['ConsumerName'] as String,
+        consumerArn: json['ConsumerARN'] as String,
+        consumerStatus: json['ConsumerStatus'] as String,
+        consumerCreationTimestamp:
+            DateTime.parse(json['ConsumerCreationTimestamp']),
+        streamArn: json['StreamARN'] as String,
+      );
 }
 
 class DescribeLimitsOutput {
@@ -1191,7 +1349,10 @@ class DescribeLimitsOutput {
     @required this.openShardCount,
   });
   static DescribeLimitsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeLimitsOutput();
+      DescribeLimitsOutput(
+        shardLimit: json['ShardLimit'] as int,
+        openShardCount: json['OpenShardCount'] as int,
+      );
 }
 
 class DescribeStreamConsumerOutput {
@@ -1202,7 +1363,10 @@ class DescribeStreamConsumerOutput {
     @required this.consumerDescription,
   });
   static DescribeStreamConsumerOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStreamConsumerOutput();
+      DescribeStreamConsumerOutput(
+        consumerDescription:
+            ConsumerDescription.fromJson(json['ConsumerDescription']),
+      );
 }
 
 /// Represents the output for `DescribeStream`.
@@ -1216,7 +1380,10 @@ class DescribeStreamOutput {
     @required this.streamDescription,
   });
   static DescribeStreamOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStreamOutput();
+      DescribeStreamOutput(
+        streamDescription:
+            StreamDescription.fromJson(json['StreamDescription']),
+      );
 }
 
 class DescribeStreamSummaryOutput {
@@ -1227,7 +1394,10 @@ class DescribeStreamSummaryOutput {
     @required this.streamDescriptionSummary,
   });
   static DescribeStreamSummaryOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStreamSummaryOutput();
+      DescribeStreamSummaryOutput(
+        streamDescriptionSummary:
+            StreamDescriptionSummary.fromJson(json['StreamDescriptionSummary']),
+      );
 }
 
 /// Represents enhanced metrics types.
@@ -1262,8 +1432,13 @@ class EnhancedMetrics {
   EnhancedMetrics({
     this.shardLevelMetrics,
   });
-  static EnhancedMetrics fromJson(Map<String, dynamic> json) =>
-      EnhancedMetrics();
+  static EnhancedMetrics fromJson(Map<String, dynamic> json) => EnhancedMetrics(
+        shardLevelMetrics: json.containsKey('ShardLevelMetrics')
+            ? (json['ShardLevelMetrics'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output for EnableEnhancedMonitoring and
@@ -1286,7 +1461,21 @@ class EnhancedMonitoringOutput {
     this.desiredShardLevelMetrics,
   });
   static EnhancedMonitoringOutput fromJson(Map<String, dynamic> json) =>
-      EnhancedMonitoringOutput();
+      EnhancedMonitoringOutput(
+        streamName: json.containsKey('StreamName')
+            ? json['StreamName'] as String
+            : null,
+        currentShardLevelMetrics: json.containsKey('CurrentShardLevelMetrics')
+            ? (json['CurrentShardLevelMetrics'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        desiredShardLevelMetrics: json.containsKey('DesiredShardLevelMetrics')
+            ? (json['DesiredShardLevelMetrics'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output for GetRecords.
@@ -1311,7 +1500,16 @@ class GetRecordsOutput {
     this.millisBehindLatest,
   });
   static GetRecordsOutput fromJson(Map<String, dynamic> json) =>
-      GetRecordsOutput();
+      GetRecordsOutput(
+        records:
+            (json['Records'] as List).map((e) => Record.fromJson(e)).toList(),
+        nextShardIterator: json.containsKey('NextShardIterator')
+            ? json['NextShardIterator'] as String
+            : null,
+        millisBehindLatest: json.containsKey('MillisBehindLatest')
+            ? BigInt.from(json['MillisBehindLatest'])
+            : null,
+      );
 }
 
 /// Represents the output for `GetShardIterator`.
@@ -1325,7 +1523,11 @@ class GetShardIteratorOutput {
     this.shardIterator,
   });
   static GetShardIteratorOutput fromJson(Map<String, dynamic> json) =>
-      GetShardIteratorOutput();
+      GetShardIteratorOutput(
+        shardIterator: json.containsKey('ShardIterator')
+            ? json['ShardIterator'] as String
+            : null,
+      );
 }
 
 /// The range of possible hash key values for the shard, which is a set of
@@ -1341,7 +1543,10 @@ class HashKeyRange {
     @required this.startingHashKey,
     @required this.endingHashKey,
   });
-  static HashKeyRange fromJson(Map<String, dynamic> json) => HashKeyRange();
+  static HashKeyRange fromJson(Map<String, dynamic> json) => HashKeyRange(
+        startingHashKey: json['StartingHashKey'] as String,
+        endingHashKey: json['EndingHashKey'] as String,
+      );
 }
 
 class ListShardsOutput {
@@ -1373,7 +1578,13 @@ class ListShardsOutput {
     this.nextToken,
   });
   static ListShardsOutput fromJson(Map<String, dynamic> json) =>
-      ListShardsOutput();
+      ListShardsOutput(
+        shards: json.containsKey('Shards')
+            ? (json['Shards'] as List).map((e) => Shard.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListStreamConsumersOutput {
@@ -1402,7 +1613,15 @@ class ListStreamConsumersOutput {
     this.nextToken,
   });
   static ListStreamConsumersOutput fromJson(Map<String, dynamic> json) =>
-      ListStreamConsumersOutput();
+      ListStreamConsumersOutput(
+        consumers: json.containsKey('Consumers')
+            ? (json['Consumers'] as List)
+                .map((e) => Consumer.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the output for `ListStreams`.
@@ -1419,7 +1638,11 @@ class ListStreamsOutput {
     @required this.hasMoreStreams,
   });
   static ListStreamsOutput fromJson(Map<String, dynamic> json) =>
-      ListStreamsOutput();
+      ListStreamsOutput(
+        streamNames:
+            (json['StreamNames'] as List).map((e) => e as String).toList(),
+        hasMoreStreams: json['HasMoreStreams'] as bool,
+      );
 }
 
 /// Represents the output for `ListTagsForStream`.
@@ -1437,7 +1660,10 @@ class ListTagsForStreamOutput {
     @required this.hasMoreTags,
   });
   static ListTagsForStreamOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForStreamOutput();
+      ListTagsForStreamOutput(
+        tags: (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList(),
+        hasMoreTags: json['HasMoreTags'] as bool,
+      );
 }
 
 /// Represents the output for `PutRecord`.
@@ -1465,8 +1691,13 @@ class PutRecordOutput {
     @required this.sequenceNumber,
     this.encryptionType,
   });
-  static PutRecordOutput fromJson(Map<String, dynamic> json) =>
-      PutRecordOutput();
+  static PutRecordOutput fromJson(Map<String, dynamic> json) => PutRecordOutput(
+        shardId: json['ShardId'] as String,
+        sequenceNumber: json['SequenceNumber'] as String,
+        encryptionType: json.containsKey('EncryptionType')
+            ? json['EncryptionType'] as String
+            : null,
+      );
 }
 
 ///  `PutRecords` results.
@@ -1496,7 +1727,17 @@ class PutRecordsOutput {
     this.encryptionType,
   });
   static PutRecordsOutput fromJson(Map<String, dynamic> json) =>
-      PutRecordsOutput();
+      PutRecordsOutput(
+        failedRecordCount: json.containsKey('FailedRecordCount')
+            ? json['FailedRecordCount'] as int
+            : null,
+        records: (json['Records'] as List)
+            .map((e) => PutRecordsResultEntry.fromJson(e))
+            .toList(),
+        encryptionType: json.containsKey('EncryptionType')
+            ? json['EncryptionType'] as String
+            : null,
+      );
 }
 
 /// Represents the output for `PutRecords`.
@@ -1526,6 +1767,7 @@ class PutRecordsRequestEntry {
     this.explicitHashKey,
     @required this.partitionKey,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the result of an individual record from a `PutRecords` request. A
@@ -1556,7 +1798,17 @@ class PutRecordsResultEntry {
     this.errorMessage,
   });
   static PutRecordsResultEntry fromJson(Map<String, dynamic> json) =>
-      PutRecordsResultEntry();
+      PutRecordsResultEntry(
+        sequenceNumber: json.containsKey('SequenceNumber')
+            ? json['SequenceNumber'] as String
+            : null,
+        shardId: json.containsKey('ShardId') ? json['ShardId'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// The unit of data of the Kinesis data stream, which is composed of a sequence
@@ -1594,7 +1846,18 @@ class Record {
     @required this.partitionKey,
     this.encryptionType,
   });
-  static Record fromJson(Map<String, dynamic> json) => Record();
+  static Record fromJson(Map<String, dynamic> json) => Record(
+        sequenceNumber: json['SequenceNumber'] as String,
+        approximateArrivalTimestamp:
+            json.containsKey('ApproximateArrivalTimestamp')
+                ? DateTime.parse(json['ApproximateArrivalTimestamp'])
+                : null,
+        data: Uint8List(json['Data']),
+        partitionKey: json['PartitionKey'] as String,
+        encryptionType: json.containsKey('EncryptionType')
+            ? json['EncryptionType'] as String
+            : null,
+      );
 }
 
 class RegisterStreamConsumerOutput {
@@ -1607,7 +1870,9 @@ class RegisterStreamConsumerOutput {
     @required this.consumer,
   });
   static RegisterStreamConsumerOutput fromJson(Map<String, dynamic> json) =>
-      RegisterStreamConsumerOutput();
+      RegisterStreamConsumerOutput(
+        consumer: Consumer.fromJson(json['Consumer']),
+      );
 }
 
 /// The range of possible sequence numbers for the shard.
@@ -1624,7 +1889,12 @@ class SequenceNumberRange {
     this.endingSequenceNumber,
   });
   static SequenceNumberRange fromJson(Map<String, dynamic> json) =>
-      SequenceNumberRange();
+      SequenceNumberRange(
+        startingSequenceNumber: json['StartingSequenceNumber'] as String,
+        endingSequenceNumber: json.containsKey('EndingSequenceNumber')
+            ? json['EndingSequenceNumber'] as String
+            : null,
+      );
 }
 
 /// A uniquely identified group of data records in a Kinesis data stream.
@@ -1652,7 +1922,18 @@ class Shard {
     @required this.hashKeyRange,
     @required this.sequenceNumberRange,
   });
-  static Shard fromJson(Map<String, dynamic> json) => Shard();
+  static Shard fromJson(Map<String, dynamic> json) => Shard(
+        shardId: json['ShardId'] as String,
+        parentShardId: json.containsKey('ParentShardId')
+            ? json['ParentShardId'] as String
+            : null,
+        adjacentParentShardId: json.containsKey('AdjacentParentShardId')
+            ? json['AdjacentParentShardId'] as String
+            : null,
+        hashKeyRange: HashKeyRange.fromJson(json['HashKeyRange']),
+        sequenceNumberRange:
+            SequenceNumberRange.fromJson(json['SequenceNumberRange']),
+      );
 }
 
 /// Represents the output for DescribeStream.
@@ -1737,7 +2018,23 @@ class StreamDescription {
     this.keyId,
   });
   static StreamDescription fromJson(Map<String, dynamic> json) =>
-      StreamDescription();
+      StreamDescription(
+        streamName: json['StreamName'] as String,
+        streamArn: json['StreamARN'] as String,
+        streamStatus: json['StreamStatus'] as String,
+        shards: (json['Shards'] as List).map((e) => Shard.fromJson(e)).toList(),
+        hasMoreShards: json['HasMoreShards'] as bool,
+        retentionPeriodHours: json['RetentionPeriodHours'] as int,
+        streamCreationTimestamp:
+            DateTime.parse(json['StreamCreationTimestamp']),
+        enhancedMonitoring: (json['EnhancedMonitoring'] as List)
+            .map((e) => EnhancedMetrics.fromJson(e))
+            .toList(),
+        encryptionType: json.containsKey('EncryptionType')
+            ? json['EncryptionType'] as String
+            : null,
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+      );
 }
 
 /// Represents the output for DescribeStreamSummary
@@ -1820,7 +2117,25 @@ class StreamDescriptionSummary {
     this.consumerCount,
   });
   static StreamDescriptionSummary fromJson(Map<String, dynamic> json) =>
-      StreamDescriptionSummary();
+      StreamDescriptionSummary(
+        streamName: json['StreamName'] as String,
+        streamArn: json['StreamARN'] as String,
+        streamStatus: json['StreamStatus'] as String,
+        retentionPeriodHours: json['RetentionPeriodHours'] as int,
+        streamCreationTimestamp:
+            DateTime.parse(json['StreamCreationTimestamp']),
+        enhancedMonitoring: (json['EnhancedMonitoring'] as List)
+            .map((e) => EnhancedMetrics.fromJson(e))
+            .toList(),
+        encryptionType: json.containsKey('EncryptionType')
+            ? json['EncryptionType'] as String
+            : null,
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        openShardCount: json['OpenShardCount'] as int,
+        consumerCount: json.containsKey('ConsumerCount')
+            ? json['ConsumerCount'] as int
+            : null,
+      );
 }
 
 /// Metadata assigned to the stream, consisting of a key-value pair.
@@ -1838,7 +2153,10 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 class UpdateShardCountOutput {
@@ -1857,5 +2175,15 @@ class UpdateShardCountOutput {
     this.targetShardCount,
   });
   static UpdateShardCountOutput fromJson(Map<String, dynamic> json) =>
-      UpdateShardCountOutput();
+      UpdateShardCountOutput(
+        streamName: json.containsKey('StreamName')
+            ? json['StreamName'] as String
+            : null,
+        currentShardCount: json.containsKey('CurrentShardCount')
+            ? json['CurrentShardCount'] as int
+            : null,
+        targetShardCount: json.containsKey('TargetShardCount')
+            ? json['TargetShardCount'] as int
+            : null,
+      );
 }

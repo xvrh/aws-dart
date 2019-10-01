@@ -2,6 +2,11 @@ import 'package:meta/meta.dart';
 
 /// The AWS IoT 1-Click Projects API Reference
 class Iot1ClickProjectsApi {
+  final _client;
+  Iot1ClickProjectsApi(client)
+      : _client =
+            client.configured('IoT 1Click Projects', serializer: 'rest-json');
+
   /// Associates a physical device with a placement.
   ///
   /// [projectName]: The name of the project containing the placement in which
@@ -21,7 +26,13 @@ class Iot1ClickProjectsApi {
       @required String placementName,
       @required String deviceId,
       @required String deviceTemplateName}) async {
-    return AssociateDeviceWithPlacementResponse.fromJson({});
+    var response_ = await _client.send('AssociateDeviceWithPlacement', {
+      'projectName': projectName,
+      'placementName': placementName,
+      'deviceId': deviceId,
+      'deviceTemplateName': deviceTemplateName,
+    });
+    return AssociateDeviceWithPlacementResponse.fromJson(response_);
   }
 
   /// Creates an empty placement.
@@ -36,7 +47,12 @@ class Iot1ClickProjectsApi {
       {@required String placementName,
       @required String projectName,
       Map<String, String> attributes}) async {
-    return CreatePlacementResponse.fromJson({});
+    var response_ = await _client.send('CreatePlacement', {
+      'placementName': placementName,
+      'projectName': projectName,
+      if (attributes != null) 'attributes': attributes,
+    });
+    return CreatePlacementResponse.fromJson(response_);
   }
 
   /// Creates an empty project with a placement template. A project contains
@@ -61,7 +77,13 @@ class Iot1ClickProjectsApi {
       {String description,
       PlacementTemplate placementTemplate,
       Map<String, String> tags}) async {
-    return CreateProjectResponse.fromJson({});
+    var response_ = await _client.send('CreateProject', {
+      'projectName': projectName,
+      if (description != null) 'description': description,
+      if (placementTemplate != null) 'placementTemplate': placementTemplate,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateProjectResponse.fromJson(response_);
   }
 
   /// Deletes a placement. To delete a placement, it must not have any devices
@@ -76,7 +98,11 @@ class Iot1ClickProjectsApi {
   /// [projectName]: The project containing the empty placement to delete.
   Future<DeletePlacementResponse> deletePlacement(
       {@required String placementName, @required String projectName}) async {
-    return DeletePlacementResponse.fromJson({});
+    var response_ = await _client.send('DeletePlacement', {
+      'placementName': placementName,
+      'projectName': projectName,
+    });
+    return DeletePlacementResponse.fromJson(response_);
   }
 
   /// Deletes a project. To delete a project, it must not have any placements
@@ -88,7 +114,10 @@ class Iot1ClickProjectsApi {
   ///
   /// [projectName]: The name of the empty project to delete.
   Future<DeleteProjectResponse> deleteProject(String projectName) async {
-    return DeleteProjectResponse.fromJson({});
+    var response_ = await _client.send('DeleteProject', {
+      'projectName': projectName,
+    });
+    return DeleteProjectResponse.fromJson(response_);
   }
 
   /// Describes a placement in a project.
@@ -98,14 +127,21 @@ class Iot1ClickProjectsApi {
   /// [projectName]: The project containing the placement to be described.
   Future<DescribePlacementResponse> describePlacement(
       {@required String placementName, @required String projectName}) async {
-    return DescribePlacementResponse.fromJson({});
+    var response_ = await _client.send('DescribePlacement', {
+      'placementName': placementName,
+      'projectName': projectName,
+    });
+    return DescribePlacementResponse.fromJson(response_);
   }
 
   /// Returns an object describing a project.
   ///
   /// [projectName]: The name of the project to be described.
   Future<DescribeProjectResponse> describeProject(String projectName) async {
-    return DescribeProjectResponse.fromJson({});
+    var response_ = await _client.send('DescribeProject', {
+      'projectName': projectName,
+    });
+    return DescribeProjectResponse.fromJson(response_);
   }
 
   /// Removes a physical device from a placement.
@@ -122,7 +158,12 @@ class Iot1ClickProjectsApi {
           {@required String projectName,
           @required String placementName,
           @required String deviceTemplateName}) async {
-    return DisassociateDeviceFromPlacementResponse.fromJson({});
+    var response_ = await _client.send('DisassociateDeviceFromPlacement', {
+      'projectName': projectName,
+      'placementName': placementName,
+      'deviceTemplateName': deviceTemplateName,
+    });
+    return DisassociateDeviceFromPlacementResponse.fromJson(response_);
   }
 
   /// Returns an object enumerating the devices in a placement.
@@ -132,7 +173,11 @@ class Iot1ClickProjectsApi {
   /// [placementName]: The name of the placement to get the devices from.
   Future<GetDevicesInPlacementResponse> getDevicesInPlacement(
       {@required String projectName, @required String placementName}) async {
-    return GetDevicesInPlacementResponse.fromJson({});
+    var response_ = await _client.send('GetDevicesInPlacement', {
+      'projectName': projectName,
+      'placementName': placementName,
+    });
+    return GetDevicesInPlacementResponse.fromJson(response_);
   }
 
   /// Lists the placement(s) of a project.
@@ -145,7 +190,12 @@ class Iot1ClickProjectsApi {
   /// set, a default value of 100 is used.
   Future<ListPlacementsResponse> listPlacements(String projectName,
       {String nextToken, int maxResults}) async {
-    return ListPlacementsResponse.fromJson({});
+    var response_ = await _client.send('ListPlacements', {
+      'projectName': projectName,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListPlacementsResponse.fromJson(response_);
   }
 
   /// Lists the AWS IoT 1-Click project(s) associated with your AWS account and
@@ -157,7 +207,11 @@ class Iot1ClickProjectsApi {
   /// set, a default value of 100 is used.
   Future<ListProjectsResponse> listProjects(
       {String nextToken, int maxResults}) async {
-    return ListProjectsResponse.fromJson({});
+    var response_ = await _client.send('ListProjects', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListProjectsResponse.fromJson(response_);
   }
 
   /// Lists the tags (metadata key/value pairs) which you have assigned to the
@@ -166,7 +220,10 @@ class Iot1ClickProjectsApi {
   /// [resourceArn]: The ARN of the resource whose tags you want to list.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Creates or modifies tags for a resource. Tags are key/value pairs
@@ -183,7 +240,11 @@ class Iot1ClickProjectsApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes one or more tags (metadata key/value pairs) from a resource.
@@ -193,7 +254,11 @@ class Iot1ClickProjectsApi {
   /// [tagKeys]: The keys of those tags which you want to remove.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates a placement with the given attributes. To clear an attribute, pass
@@ -210,7 +275,12 @@ class Iot1ClickProjectsApi {
       {@required String placementName,
       @required String projectName,
       Map<String, String> attributes}) async {
-    return UpdatePlacementResponse.fromJson({});
+    var response_ = await _client.send('UpdatePlacement', {
+      'placementName': placementName,
+      'projectName': projectName,
+      if (attributes != null) 'attributes': attributes,
+    });
+    return UpdatePlacementResponse.fromJson(response_);
   }
 
   /// Updates a project associated with your AWS account and region. With the
@@ -228,7 +298,12 @@ class Iot1ClickProjectsApi {
   /// `callbackOverrides` for the device definition using this API.
   Future<UpdateProjectResponse> updateProject(String projectName,
       {String description, PlacementTemplate placementTemplate}) async {
-    return UpdateProjectResponse.fromJson({});
+    var response_ = await _client.send('UpdateProject', {
+      'projectName': projectName,
+      if (description != null) 'description': description,
+      if (placementTemplate != null) 'placementTemplate': placementTemplate,
+    });
+    return UpdateProjectResponse.fromJson(response_);
   }
 }
 
@@ -271,7 +346,9 @@ class DescribePlacementResponse {
     @required this.placement,
   });
   static DescribePlacementResponse fromJson(Map<String, dynamic> json) =>
-      DescribePlacementResponse();
+      DescribePlacementResponse(
+        placement: PlacementDescription.fromJson(json['placement']),
+      );
 }
 
 class DescribeProjectResponse {
@@ -282,7 +359,9 @@ class DescribeProjectResponse {
     @required this.project,
   });
   static DescribeProjectResponse fromJson(Map<String, dynamic> json) =>
-      DescribeProjectResponse();
+      DescribeProjectResponse(
+        project: ProjectDescription.fromJson(json['project']),
+      );
 }
 
 /// An object representing a device for a placement template (see
@@ -299,7 +378,16 @@ class DeviceTemplate {
     this.deviceType,
     this.callbackOverrides,
   });
-  static DeviceTemplate fromJson(Map<String, dynamic> json) => DeviceTemplate();
+  static DeviceTemplate fromJson(Map<String, dynamic> json) => DeviceTemplate(
+        deviceType: json.containsKey('deviceType')
+            ? json['deviceType'] as String
+            : null,
+        callbackOverrides: json.containsKey('callbackOverrides')
+            ? (json['callbackOverrides'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DisassociateDeviceFromPlacementResponse {
@@ -317,7 +405,10 @@ class GetDevicesInPlacementResponse {
     @required this.devices,
   });
   static GetDevicesInPlacementResponse fromJson(Map<String, dynamic> json) =>
-      GetDevicesInPlacementResponse();
+      GetDevicesInPlacementResponse(
+        devices: (json['devices'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+      );
 }
 
 class ListPlacementsResponse {
@@ -333,7 +424,13 @@ class ListPlacementsResponse {
     this.nextToken,
   });
   static ListPlacementsResponse fromJson(Map<String, dynamic> json) =>
-      ListPlacementsResponse();
+      ListPlacementsResponse(
+        placements: (json['placements'] as List)
+            .map((e) => PlacementSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListProjectsResponse {
@@ -349,7 +446,13 @@ class ListProjectsResponse {
     this.nextToken,
   });
   static ListProjectsResponse fromJson(Map<String, dynamic> json) =>
-      ListProjectsResponse();
+      ListProjectsResponse(
+        projects: (json['projects'] as List)
+            .map((e) => ProjectSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -361,7 +464,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// An object describing a project's placement.
@@ -392,7 +500,14 @@ class PlacementDescription {
     @required this.updatedDate,
   });
   static PlacementDescription fromJson(Map<String, dynamic> json) =>
-      PlacementDescription();
+      PlacementDescription(
+        projectName: json['projectName'] as String,
+        placementName: json['placementName'] as String,
+        attributes: (json['attributes'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+        createdDate: DateTime.parse(json['createdDate']),
+        updatedDate: DateTime.parse(json['updatedDate']),
+      );
 }
 
 /// An object providing summary information for a particular placement.
@@ -419,7 +534,12 @@ class PlacementSummary {
     @required this.updatedDate,
   });
   static PlacementSummary fromJson(Map<String, dynamic> json) =>
-      PlacementSummary();
+      PlacementSummary(
+        projectName: json['projectName'] as String,
+        placementName: json['placementName'] as String,
+        createdDate: DateTime.parse(json['createdDate']),
+        updatedDate: DateTime.parse(json['updatedDate']),
+      );
 }
 
 /// An object defining the template for a placement.
@@ -437,7 +557,17 @@ class PlacementTemplate {
     this.deviceTemplates,
   });
   static PlacementTemplate fromJson(Map<String, dynamic> json) =>
-      PlacementTemplate();
+      PlacementTemplate(
+        defaultAttributes: json.containsKey('defaultAttributes')
+            ? (json['defaultAttributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        deviceTemplates: json.containsKey('deviceTemplates')
+            ? (json['deviceTemplates'] as Map).map(
+                (k, v) => MapEntry(k as String, DeviceTemplate.fromJson(v)))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object providing detailed information for a particular project associated
@@ -477,7 +607,22 @@ class ProjectDescription {
     this.tags,
   });
   static ProjectDescription fromJson(Map<String, dynamic> json) =>
-      ProjectDescription();
+      ProjectDescription(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        projectName: json['projectName'] as String,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        createdDate: DateTime.parse(json['createdDate']),
+        updatedDate: DateTime.parse(json['updatedDate']),
+        placementTemplate: json.containsKey('placementTemplate')
+            ? PlacementTemplate.fromJson(json['placementTemplate'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// An object providing summary information for a particular project for an
@@ -508,7 +653,16 @@ class ProjectSummary {
     @required this.updatedDate,
     this.tags,
   });
-  static ProjectSummary fromJson(Map<String, dynamic> json) => ProjectSummary();
+  static ProjectSummary fromJson(Map<String, dynamic> json) => ProjectSummary(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        projectName: json['projectName'] as String,
+        createdDate: DateTime.parse(json['createdDate']),
+        updatedDate: DateTime.parse(json['updatedDate']),
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class TagResourceResponse {

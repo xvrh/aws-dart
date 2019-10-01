@@ -11,6 +11,9 @@ import 'dart:typed_data';
 /// access repositories and images. Developers can use the Docker CLI to author
 /// and manage images.
 class EcrApi {
+  final _client;
+  EcrApi(client) : _client = client.configured('ECR', serializer: 'json');
+
   /// Check the availability of multiple image layers in a specified registry
   /// and repository.
   ///
@@ -32,7 +35,12 @@ class EcrApi {
       {String registryId,
       @required String repositoryName,
       @required List<String> layerDigests}) async {
-    return BatchCheckLayerAvailabilityResponse.fromJson({});
+    var response_ = await _client.send('BatchCheckLayerAvailability', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'layerDigests': layerDigests,
+    });
+    return BatchCheckLayerAvailabilityResponse.fromJson(response_);
   }
 
   /// Deletes a list of specified images within a specified repository. Images
@@ -58,7 +66,12 @@ class EcrApi {
       {String registryId,
       @required String repositoryName,
       @required List<ImageIdentifier> imageIds}) async {
-    return BatchDeleteImageResponse.fromJson({});
+    var response_ = await _client.send('BatchDeleteImage', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'imageIds': imageIds,
+    });
+    return BatchDeleteImageResponse.fromJson(response_);
   }
 
   /// Gets detailed information for specified images within a specified
@@ -84,7 +97,13 @@ class EcrApi {
       @required String repositoryName,
       @required List<ImageIdentifier> imageIds,
       List<String> acceptedMediaTypes}) async {
-    return BatchGetImageResponse.fromJson({});
+    var response_ = await _client.send('BatchGetImage', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'imageIds': imageIds,
+      if (acceptedMediaTypes != null) 'acceptedMediaTypes': acceptedMediaTypes,
+    });
+    return BatchGetImageResponse.fromJson(response_);
   }
 
   /// Informs Amazon ECR that the image layer upload has completed for a
@@ -113,7 +132,13 @@ class EcrApi {
       @required String repositoryName,
       @required String uploadId,
       @required List<String> layerDigests}) async {
-    return CompleteLayerUploadResponse.fromJson({});
+    var response_ = await _client.send('CompleteLayerUpload', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'uploadId': uploadId,
+      'layerDigests': layerDigests,
+    });
+    return CompleteLayerUploadResponse.fromJson(response_);
   }
 
   /// Creates an image repository.
@@ -136,7 +161,12 @@ class EcrApi {
   /// will prevent them from being overwritten.
   Future<CreateRepositoryResponse> createRepository(String repositoryName,
       {List<Tag> tags, String imageTagMutability}) async {
-    return CreateRepositoryResponse.fromJson({});
+    var response_ = await _client.send('CreateRepository', {
+      'repositoryName': repositoryName,
+      if (tags != null) 'tags': tags,
+      if (imageTagMutability != null) 'imageTagMutability': imageTagMutability,
+    });
+    return CreateRepositoryResponse.fromJson(response_);
   }
 
   /// Deletes the specified lifecycle policy.
@@ -149,7 +179,11 @@ class EcrApi {
   Future<DeleteLifecyclePolicyResponse> deleteLifecyclePolicy(
       String repositoryName,
       {String registryId}) async {
-    return DeleteLifecyclePolicyResponse.fromJson({});
+    var response_ = await _client.send('DeleteLifecyclePolicy', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+    });
+    return DeleteLifecyclePolicyResponse.fromJson(response_);
   }
 
   /// Deletes an existing image repository. If a repository contains images, you
@@ -164,7 +198,12 @@ class EcrApi {
   /// [force]:  If a repository contains images, forces the deletion.
   Future<DeleteRepositoryResponse> deleteRepository(String repositoryName,
       {String registryId, bool force}) async {
-    return DeleteRepositoryResponse.fromJson({});
+    var response_ = await _client.send('DeleteRepository', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      if (force != null) 'force': force,
+    });
+    return DeleteRepositoryResponse.fromJson(response_);
   }
 
   /// Deletes the repository policy from a specified repository.
@@ -178,7 +217,11 @@ class EcrApi {
   Future<DeleteRepositoryPolicyResponse> deleteRepositoryPolicy(
       String repositoryName,
       {String registryId}) async {
-    return DeleteRepositoryPolicyResponse.fromJson({});
+    var response_ = await _client.send('DeleteRepositoryPolicy', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+    });
+    return DeleteRepositoryPolicyResponse.fromJson(response_);
   }
 
   /// Returns metadata about the images in a repository, including image size,
@@ -225,7 +268,15 @@ class EcrApi {
       String nextToken,
       int maxResults,
       DescribeImagesFilter filter}) async {
-    return DescribeImagesResponse.fromJson({});
+    var response_ = await _client.send('DescribeImages', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      if (imageIds != null) 'imageIds': imageIds,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (filter != null) 'filter': filter,
+    });
+    return DescribeImagesResponse.fromJson(response_);
   }
 
   /// Describes image repositories in a registry.
@@ -264,7 +315,13 @@ class EcrApi {
       List<String> repositoryNames,
       String nextToken,
       int maxResults}) async {
-    return DescribeRepositoriesResponse.fromJson({});
+    var response_ = await _client.send('DescribeRepositories', {
+      if (registryId != null) 'registryId': registryId,
+      if (repositoryNames != null) 'repositoryNames': repositoryNames,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return DescribeRepositoriesResponse.fromJson(response_);
   }
 
   /// Retrieves a token that is valid for a specified registry for 12 hours.
@@ -282,7 +339,10 @@ class EcrApi {
   /// registry, the default registry is assumed.
   Future<GetAuthorizationTokenResponse> getAuthorizationToken(
       {List<String> registryIds}) async {
-    return GetAuthorizationTokenResponse.fromJson({});
+    var response_ = await _client.send('GetAuthorizationToken', {
+      if (registryIds != null) 'registryIds': registryIds,
+    });
+    return GetAuthorizationTokenResponse.fromJson(response_);
   }
 
   /// Retrieves the pre-signed Amazon S3 download URL corresponding to an image
@@ -307,7 +367,12 @@ class EcrApi {
       {String registryId,
       @required String repositoryName,
       @required String layerDigest}) async {
-    return GetDownloadUrlForLayerResponse.fromJson({});
+    var response_ = await _client.send('GetDownloadUrlForLayer', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'layerDigest': layerDigest,
+    });
+    return GetDownloadUrlForLayerResponse.fromJson(response_);
   }
 
   /// Retrieves the specified lifecycle policy.
@@ -319,7 +384,11 @@ class EcrApi {
   /// [repositoryName]: The name of the repository.
   Future<GetLifecyclePolicyResponse> getLifecyclePolicy(String repositoryName,
       {String registryId}) async {
-    return GetLifecyclePolicyResponse.fromJson({});
+    var response_ = await _client.send('GetLifecyclePolicy', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+    });
+    return GetLifecyclePolicyResponse.fromJson(response_);
   }
 
   /// Retrieves the results of the specified lifecycle policy preview request.
@@ -366,7 +435,15 @@ class EcrApi {
       String nextToken,
       int maxResults,
       LifecyclePolicyPreviewFilter filter}) async {
-    return GetLifecyclePolicyPreviewResponse.fromJson({});
+    var response_ = await _client.send('GetLifecyclePolicyPreview', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      if (imageIds != null) 'imageIds': imageIds,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (filter != null) 'filter': filter,
+    });
+    return GetLifecyclePolicyPreviewResponse.fromJson(response_);
   }
 
   /// Retrieves the repository policy for a specified repository.
@@ -378,7 +455,11 @@ class EcrApi {
   /// [repositoryName]: The name of the repository with the policy to retrieve.
   Future<GetRepositoryPolicyResponse> getRepositoryPolicy(String repositoryName,
       {String registryId}) async {
-    return GetRepositoryPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetRepositoryPolicy', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+    });
+    return GetRepositoryPolicyResponse.fromJson(response_);
   }
 
   /// Notify Amazon ECR that you intend to upload an image layer.
@@ -397,7 +478,11 @@ class EcrApi {
   /// layers.
   Future<InitiateLayerUploadResponse> initiateLayerUpload(String repositoryName,
       {String registryId}) async {
-    return InitiateLayerUploadResponse.fromJson({});
+    var response_ = await _client.send('InitiateLayerUpload', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+    });
+    return InitiateLayerUploadResponse.fromJson(response_);
   }
 
   /// Lists all the image IDs for a given repository.
@@ -442,7 +527,14 @@ class EcrApi {
       String nextToken,
       int maxResults,
       ListImagesFilter filter}) async {
-    return ListImagesResponse.fromJson({});
+    var response_ = await _client.send('ListImages', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (filter != null) 'filter': filter,
+    });
+    return ListImagesResponse.fromJson(response_);
   }
 
   /// List the tags for an Amazon ECR resource.
@@ -452,7 +544,10 @@ class EcrApi {
   /// Amazon ECR repository.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Creates or updates the image manifest and tags associated with an image.
@@ -480,7 +575,13 @@ class EcrApi {
       @required String repositoryName,
       @required String imageManifest,
       String imageTag}) async {
-    return PutImageResponse.fromJson({});
+    var response_ = await _client.send('PutImage', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'imageManifest': imageManifest,
+      if (imageTag != null) 'imageTag': imageTag,
+    });
+    return PutImageResponse.fromJson(response_);
   }
 
   /// Updates the image tag mutability settings for a repository.
@@ -501,7 +602,12 @@ class EcrApi {
       {String registryId,
       @required String repositoryName,
       @required String imageTagMutability}) async {
-    return PutImageTagMutabilityResponse.fromJson({});
+    var response_ = await _client.send('PutImageTagMutability', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'imageTagMutability': imageTagMutability,
+    });
+    return PutImageTagMutabilityResponse.fromJson(response_);
   }
 
   /// Creates or updates a lifecycle policy. For information about lifecycle
@@ -520,7 +626,12 @@ class EcrApi {
       {String registryId,
       @required String repositoryName,
       @required String lifecyclePolicyText}) async {
-    return PutLifecyclePolicyResponse.fromJson({});
+    var response_ = await _client.send('PutLifecyclePolicy', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'lifecyclePolicyText': lifecyclePolicyText,
+    });
+    return PutLifecyclePolicyResponse.fromJson(response_);
   }
 
   /// Applies a repository policy on a specified repository to control access
@@ -548,7 +659,13 @@ class EcrApi {
       @required String repositoryName,
       @required String policyText,
       bool force}) async {
-    return SetRepositoryPolicyResponse.fromJson({});
+    var response_ = await _client.send('SetRepositoryPolicy', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'policyText': policyText,
+      if (force != null) 'force': force,
+    });
+    return SetRepositoryPolicyResponse.fromJson(response_);
   }
 
   /// Starts a preview of the specified lifecycle policy. This allows you to see
@@ -566,7 +683,13 @@ class EcrApi {
       String repositoryName,
       {String registryId,
       String lifecyclePolicyText}) async {
-    return StartLifecyclePolicyPreviewResponse.fromJson({});
+    var response_ = await _client.send('StartLifecyclePolicyPreview', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      if (lifecyclePolicyText != null)
+        'lifecyclePolicyText': lifecyclePolicyText,
+    });
+    return StartLifecyclePolicyPreviewResponse.fromJson(response_);
   }
 
   /// Adds specified tags to a resource with the specified ARN. Existing tags on
@@ -582,7 +705,11 @@ class EcrApi {
   /// tag values can have a maximum length of 256 characters.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Deletes specified tags from a resource.
@@ -594,7 +721,11 @@ class EcrApi {
   /// [tagKeys]: The keys of the tags to be removed.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Uploads an image layer part to Amazon ECR.
@@ -627,7 +758,15 @@ class EcrApi {
       @required BigInt partFirstByte,
       @required BigInt partLastByte,
       @required Uint8List layerPartBlob}) async {
-    return UploadLayerPartResponse.fromJson({});
+    var response_ = await _client.send('UploadLayerPart', {
+      if (registryId != null) 'registryId': registryId,
+      'repositoryName': repositoryName,
+      'uploadId': uploadId,
+      'partFirstByte': partFirstByte,
+      'partLastByte': partLastByte,
+      'layerPartBlob': layerPartBlob,
+    });
+    return UploadLayerPartResponse.fromJson(response_);
   }
 }
 
@@ -655,7 +794,17 @@ class AuthorizationData {
     this.proxyEndpoint,
   });
   static AuthorizationData fromJson(Map<String, dynamic> json) =>
-      AuthorizationData();
+      AuthorizationData(
+        authorizationToken: json.containsKey('authorizationToken')
+            ? json['authorizationToken'] as String
+            : null,
+        expiresAt: json.containsKey('expiresAt')
+            ? DateTime.parse(json['expiresAt'])
+            : null,
+        proxyEndpoint: json.containsKey('proxyEndpoint')
+            ? json['proxyEndpoint'] as String
+            : null,
+      );
 }
 
 class BatchCheckLayerAvailabilityResponse {
@@ -672,7 +821,16 @@ class BatchCheckLayerAvailabilityResponse {
   });
   static BatchCheckLayerAvailabilityResponse fromJson(
           Map<String, dynamic> json) =>
-      BatchCheckLayerAvailabilityResponse();
+      BatchCheckLayerAvailabilityResponse(
+        layers: json.containsKey('layers')
+            ? (json['layers'] as List).map((e) => Layer.fromJson(e)).toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => LayerFailure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDeleteImageResponse {
@@ -687,7 +845,18 @@ class BatchDeleteImageResponse {
     this.failures,
   });
   static BatchDeleteImageResponse fromJson(Map<String, dynamic> json) =>
-      BatchDeleteImageResponse();
+      BatchDeleteImageResponse(
+        imageIds: json.containsKey('imageIds')
+            ? (json['imageIds'] as List)
+                .map((e) => ImageIdentifier.fromJson(e))
+                .toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => ImageFailure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchGetImageResponse {
@@ -703,7 +872,16 @@ class BatchGetImageResponse {
     this.failures,
   });
   static BatchGetImageResponse fromJson(Map<String, dynamic> json) =>
-      BatchGetImageResponse();
+      BatchGetImageResponse(
+        images: json.containsKey('images')
+            ? (json['images'] as List).map((e) => Image.fromJson(e)).toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => ImageFailure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CompleteLayerUploadResponse {
@@ -726,7 +904,19 @@ class CompleteLayerUploadResponse {
     this.layerDigest,
   });
   static CompleteLayerUploadResponse fromJson(Map<String, dynamic> json) =>
-      CompleteLayerUploadResponse();
+      CompleteLayerUploadResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        uploadId:
+            json.containsKey('uploadId') ? json['uploadId'] as String : null,
+        layerDigest: json.containsKey('layerDigest')
+            ? json['layerDigest'] as String
+            : null,
+      );
 }
 
 class CreateRepositoryResponse {
@@ -737,7 +927,11 @@ class CreateRepositoryResponse {
     this.repository,
   });
   static CreateRepositoryResponse fromJson(Map<String, dynamic> json) =>
-      CreateRepositoryResponse();
+      CreateRepositoryResponse(
+        repository: json.containsKey('repository')
+            ? Repository.fromJson(json['repository'])
+            : null,
+      );
 }
 
 class DeleteLifecyclePolicyResponse {
@@ -760,7 +954,20 @@ class DeleteLifecyclePolicyResponse {
     this.lastEvaluatedAt,
   });
   static DeleteLifecyclePolicyResponse fromJson(Map<String, dynamic> json) =>
-      DeleteLifecyclePolicyResponse();
+      DeleteLifecyclePolicyResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        lifecyclePolicyText: json.containsKey('lifecyclePolicyText')
+            ? json['lifecyclePolicyText'] as String
+            : null,
+        lastEvaluatedAt: json.containsKey('lastEvaluatedAt')
+            ? DateTime.parse(json['lastEvaluatedAt'])
+            : null,
+      );
 }
 
 class DeleteRepositoryPolicyResponse {
@@ -779,7 +986,17 @@ class DeleteRepositoryPolicyResponse {
     this.policyText,
   });
   static DeleteRepositoryPolicyResponse fromJson(Map<String, dynamic> json) =>
-      DeleteRepositoryPolicyResponse();
+      DeleteRepositoryPolicyResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        policyText: json.containsKey('policyText')
+            ? json['policyText'] as String
+            : null,
+      );
 }
 
 class DeleteRepositoryResponse {
@@ -790,7 +1007,11 @@ class DeleteRepositoryResponse {
     this.repository,
   });
   static DeleteRepositoryResponse fromJson(Map<String, dynamic> json) =>
-      DeleteRepositoryResponse();
+      DeleteRepositoryResponse(
+        repository: json.containsKey('repository')
+            ? Repository.fromJson(json['repository'])
+            : null,
+      );
 }
 
 /// An object representing a filter on a DescribeImages operation.
@@ -802,6 +1023,7 @@ class DescribeImagesFilter {
   DescribeImagesFilter({
     this.tagStatus,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DescribeImagesResponse {
@@ -819,7 +1041,15 @@ class DescribeImagesResponse {
     this.nextToken,
   });
   static DescribeImagesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeImagesResponse();
+      DescribeImagesResponse(
+        imageDetails: json.containsKey('imageDetails')
+            ? (json['imageDetails'] as List)
+                .map((e) => ImageDetail.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeRepositoriesResponse {
@@ -837,7 +1067,15 @@ class DescribeRepositoriesResponse {
     this.nextToken,
   });
   static DescribeRepositoriesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeRepositoriesResponse();
+      DescribeRepositoriesResponse(
+        repositories: json.containsKey('repositories')
+            ? (json['repositories'] as List)
+                .map((e) => Repository.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetAuthorizationTokenResponse {
@@ -849,7 +1087,13 @@ class GetAuthorizationTokenResponse {
     this.authorizationData,
   });
   static GetAuthorizationTokenResponse fromJson(Map<String, dynamic> json) =>
-      GetAuthorizationTokenResponse();
+      GetAuthorizationTokenResponse(
+        authorizationData: json.containsKey('authorizationData')
+            ? (json['authorizationData'] as List)
+                .map((e) => AuthorizationData.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetDownloadUrlForLayerResponse {
@@ -864,7 +1108,14 @@ class GetDownloadUrlForLayerResponse {
     this.layerDigest,
   });
   static GetDownloadUrlForLayerResponse fromJson(Map<String, dynamic> json) =>
-      GetDownloadUrlForLayerResponse();
+      GetDownloadUrlForLayerResponse(
+        downloadUrl: json.containsKey('downloadUrl')
+            ? json['downloadUrl'] as String
+            : null,
+        layerDigest: json.containsKey('layerDigest')
+            ? json['layerDigest'] as String
+            : null,
+      );
 }
 
 class GetLifecyclePolicyPreviewResponse {
@@ -903,7 +1154,28 @@ class GetLifecyclePolicyPreviewResponse {
   });
   static GetLifecyclePolicyPreviewResponse fromJson(
           Map<String, dynamic> json) =>
-      GetLifecyclePolicyPreviewResponse();
+      GetLifecyclePolicyPreviewResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        lifecyclePolicyText: json.containsKey('lifecyclePolicyText')
+            ? json['lifecyclePolicyText'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        previewResults: json.containsKey('previewResults')
+            ? (json['previewResults'] as List)
+                .map((e) => LifecyclePolicyPreviewResult.fromJson(e))
+                .toList()
+            : null,
+        summary: json.containsKey('summary')
+            ? LifecyclePolicyPreviewSummary.fromJson(json['summary'])
+            : null,
+      );
 }
 
 class GetLifecyclePolicyResponse {
@@ -926,7 +1198,20 @@ class GetLifecyclePolicyResponse {
     this.lastEvaluatedAt,
   });
   static GetLifecyclePolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetLifecyclePolicyResponse();
+      GetLifecyclePolicyResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        lifecyclePolicyText: json.containsKey('lifecyclePolicyText')
+            ? json['lifecyclePolicyText'] as String
+            : null,
+        lastEvaluatedAt: json.containsKey('lastEvaluatedAt')
+            ? DateTime.parse(json['lastEvaluatedAt'])
+            : null,
+      );
 }
 
 class GetRepositoryPolicyResponse {
@@ -945,7 +1230,17 @@ class GetRepositoryPolicyResponse {
     this.policyText,
   });
   static GetRepositoryPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetRepositoryPolicyResponse();
+      GetRepositoryPolicyResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        policyText: json.containsKey('policyText')
+            ? json['policyText'] as String
+            : null,
+      );
 }
 
 /// An object representing an Amazon ECR image.
@@ -969,7 +1264,20 @@ class Image {
     this.imageId,
     this.imageManifest,
   });
-  static Image fromJson(Map<String, dynamic> json) => Image();
+  static Image fromJson(Map<String, dynamic> json) => Image(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        imageId: json.containsKey('imageId')
+            ? ImageIdentifier.fromJson(json['imageId'])
+            : null,
+        imageManifest: json.containsKey('imageManifest')
+            ? json['imageManifest'] as String
+            : null,
+      );
 }
 
 /// An object that describes an image returned by a DescribeImages operation.
@@ -1010,7 +1318,26 @@ class ImageDetail {
     this.imageSizeInBytes,
     this.imagePushedAt,
   });
-  static ImageDetail fromJson(Map<String, dynamic> json) => ImageDetail();
+  static ImageDetail fromJson(Map<String, dynamic> json) => ImageDetail(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        imageDigest: json.containsKey('imageDigest')
+            ? json['imageDigest'] as String
+            : null,
+        imageTags: json.containsKey('imageTags')
+            ? (json['imageTags'] as List).map((e) => e as String).toList()
+            : null,
+        imageSizeInBytes: json.containsKey('imageSizeInBytes')
+            ? BigInt.from(json['imageSizeInBytes'])
+            : null,
+        imagePushedAt: json.containsKey('imagePushedAt')
+            ? DateTime.parse(json['imagePushedAt'])
+            : null,
+      );
 }
 
 /// An object representing an Amazon ECR image failure.
@@ -1029,7 +1356,17 @@ class ImageFailure {
     this.failureCode,
     this.failureReason,
   });
-  static ImageFailure fromJson(Map<String, dynamic> json) => ImageFailure();
+  static ImageFailure fromJson(Map<String, dynamic> json) => ImageFailure(
+        imageId: json.containsKey('imageId')
+            ? ImageIdentifier.fromJson(json['imageId'])
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 /// An object with identifying information for an Amazon ECR image.
@@ -1044,8 +1381,14 @@ class ImageIdentifier {
     this.imageDigest,
     this.imageTag,
   });
-  static ImageIdentifier fromJson(Map<String, dynamic> json) =>
-      ImageIdentifier();
+  static ImageIdentifier fromJson(Map<String, dynamic> json) => ImageIdentifier(
+        imageDigest: json.containsKey('imageDigest')
+            ? json['imageDigest'] as String
+            : null,
+        imageTag:
+            json.containsKey('imageTag') ? json['imageTag'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class InitiateLayerUploadResponse {
@@ -1062,7 +1405,12 @@ class InitiateLayerUploadResponse {
     this.partSize,
   });
   static InitiateLayerUploadResponse fromJson(Map<String, dynamic> json) =>
-      InitiateLayerUploadResponse();
+      InitiateLayerUploadResponse(
+        uploadId:
+            json.containsKey('uploadId') ? json['uploadId'] as String : null,
+        partSize:
+            json.containsKey('partSize') ? BigInt.from(json['partSize']) : null,
+      );
 }
 
 /// An object representing an Amazon ECR image layer.
@@ -1087,7 +1435,19 @@ class Layer {
     this.layerSize,
     this.mediaType,
   });
-  static Layer fromJson(Map<String, dynamic> json) => Layer();
+  static Layer fromJson(Map<String, dynamic> json) => Layer(
+        layerDigest: json.containsKey('layerDigest')
+            ? json['layerDigest'] as String
+            : null,
+        layerAvailability: json.containsKey('layerAvailability')
+            ? json['layerAvailability'] as String
+            : null,
+        layerSize: json.containsKey('layerSize')
+            ? BigInt.from(json['layerSize'])
+            : null,
+        mediaType:
+            json.containsKey('mediaType') ? json['mediaType'] as String : null,
+      );
 }
 
 /// An object representing an Amazon ECR image layer failure.
@@ -1106,7 +1466,17 @@ class LayerFailure {
     this.failureCode,
     this.failureReason,
   });
-  static LayerFailure fromJson(Map<String, dynamic> json) => LayerFailure();
+  static LayerFailure fromJson(Map<String, dynamic> json) => LayerFailure(
+        layerDigest: json.containsKey('layerDigest')
+            ? json['layerDigest'] as String
+            : null,
+        failureCode: json.containsKey('failureCode')
+            ? json['failureCode'] as String
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 /// The filter for the lifecycle policy preview.
@@ -1117,6 +1487,7 @@ class LifecyclePolicyPreviewFilter {
   LifecyclePolicyPreviewFilter({
     this.tagStatus,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The result of the lifecycle policy preview.
@@ -1145,7 +1516,23 @@ class LifecyclePolicyPreviewResult {
     this.appliedRulePriority,
   });
   static LifecyclePolicyPreviewResult fromJson(Map<String, dynamic> json) =>
-      LifecyclePolicyPreviewResult();
+      LifecyclePolicyPreviewResult(
+        imageTags: json.containsKey('imageTags')
+            ? (json['imageTags'] as List).map((e) => e as String).toList()
+            : null,
+        imageDigest: json.containsKey('imageDigest')
+            ? json['imageDigest'] as String
+            : null,
+        imagePushedAt: json.containsKey('imagePushedAt')
+            ? DateTime.parse(json['imagePushedAt'])
+            : null,
+        action: json.containsKey('action')
+            ? LifecyclePolicyRuleAction.fromJson(json['action'])
+            : null,
+        appliedRulePriority: json.containsKey('appliedRulePriority')
+            ? json['appliedRulePriority'] as int
+            : null,
+      );
 }
 
 /// The summary of the lifecycle policy preview request.
@@ -1157,7 +1544,11 @@ class LifecyclePolicyPreviewSummary {
     this.expiringImageTotalCount,
   });
   static LifecyclePolicyPreviewSummary fromJson(Map<String, dynamic> json) =>
-      LifecyclePolicyPreviewSummary();
+      LifecyclePolicyPreviewSummary(
+        expiringImageTotalCount: json.containsKey('expiringImageTotalCount')
+            ? json['expiringImageTotalCount'] as int
+            : null,
+      );
 }
 
 /// The type of action to be taken.
@@ -1169,7 +1560,9 @@ class LifecyclePolicyRuleAction {
     this.type,
   });
   static LifecyclePolicyRuleAction fromJson(Map<String, dynamic> json) =>
-      LifecyclePolicyRuleAction();
+      LifecyclePolicyRuleAction(
+        type: json.containsKey('type') ? json['type'] as String : null,
+      );
 }
 
 /// An object representing a filter on a ListImages operation.
@@ -1181,6 +1574,7 @@ class ListImagesFilter {
   ListImagesFilter({
     this.tagStatus,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListImagesResponse {
@@ -1198,7 +1592,15 @@ class ListImagesResponse {
     this.nextToken,
   });
   static ListImagesResponse fromJson(Map<String, dynamic> json) =>
-      ListImagesResponse();
+      ListImagesResponse(
+        imageIds: json.containsKey('imageIds')
+            ? (json['imageIds'] as List)
+                .map((e) => ImageIdentifier.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1209,7 +1611,11 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class PutImageResponse {
@@ -1220,7 +1626,9 @@ class PutImageResponse {
     this.image,
   });
   static PutImageResponse fromJson(Map<String, dynamic> json) =>
-      PutImageResponse();
+      PutImageResponse(
+        image: json.containsKey('image') ? Image.fromJson(json['image']) : null,
+      );
 }
 
 class PutImageTagMutabilityResponse {
@@ -1239,7 +1647,17 @@ class PutImageTagMutabilityResponse {
     this.imageTagMutability,
   });
   static PutImageTagMutabilityResponse fromJson(Map<String, dynamic> json) =>
-      PutImageTagMutabilityResponse();
+      PutImageTagMutabilityResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        imageTagMutability: json.containsKey('imageTagMutability')
+            ? json['imageTagMutability'] as String
+            : null,
+      );
 }
 
 class PutLifecyclePolicyResponse {
@@ -1258,7 +1676,17 @@ class PutLifecyclePolicyResponse {
     this.lifecyclePolicyText,
   });
   static PutLifecyclePolicyResponse fromJson(Map<String, dynamic> json) =>
-      PutLifecyclePolicyResponse();
+      PutLifecyclePolicyResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        lifecyclePolicyText: json.containsKey('lifecyclePolicyText')
+            ? json['lifecyclePolicyText'] as String
+            : null,
+      );
 }
 
 /// An object representing a repository.
@@ -1296,7 +1724,26 @@ class Repository {
     this.createdAt,
     this.imageTagMutability,
   });
-  static Repository fromJson(Map<String, dynamic> json) => Repository();
+  static Repository fromJson(Map<String, dynamic> json) => Repository(
+        repositoryArn: json.containsKey('repositoryArn')
+            ? json['repositoryArn'] as String
+            : null,
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        repositoryUri: json.containsKey('repositoryUri')
+            ? json['repositoryUri'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        imageTagMutability: json.containsKey('imageTagMutability')
+            ? json['imageTagMutability'] as String
+            : null,
+      );
 }
 
 class SetRepositoryPolicyResponse {
@@ -1315,7 +1762,17 @@ class SetRepositoryPolicyResponse {
     this.policyText,
   });
   static SetRepositoryPolicyResponse fromJson(Map<String, dynamic> json) =>
-      SetRepositoryPolicyResponse();
+      SetRepositoryPolicyResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        policyText: json.containsKey('policyText')
+            ? json['policyText'] as String
+            : null,
+      );
 }
 
 class StartLifecyclePolicyPreviewResponse {
@@ -1339,7 +1796,18 @@ class StartLifecyclePolicyPreviewResponse {
   });
   static StartLifecyclePolicyPreviewResponse fromJson(
           Map<String, dynamic> json) =>
-      StartLifecyclePolicyPreviewResponse();
+      StartLifecyclePolicyPreviewResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        lifecyclePolicyText: json.containsKey('lifecyclePolicyText')
+            ? json['lifecyclePolicyText'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// The metadata that you apply to a resource to help you categorize and
@@ -1359,7 +1827,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -1394,5 +1866,17 @@ class UploadLayerPartResponse {
     this.lastByteReceived,
   });
   static UploadLayerPartResponse fromJson(Map<String, dynamic> json) =>
-      UploadLayerPartResponse();
+      UploadLayerPartResponse(
+        registryId: json.containsKey('registryId')
+            ? json['registryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        uploadId:
+            json.containsKey('uploadId') ? json['uploadId'] as String : null,
+        lastByteReceived: json.containsKey('lastByteReceived')
+            ? BigInt.from(json['lastByteReceived'])
+            : null,
+      );
 }

@@ -13,6 +13,9 @@ import 'dart:typed_data';
 /// in the
 /// [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/Welcome.html).
 class SesApi {
+  final _client;
+  SesApi(client) : _client = client.configured('SES', serializer: 'query');
+
   /// Creates a receipt rule set by cloning an existing one. All receipt rules
   /// and configurations are copied to the new receipt rule set and are
   /// completely independent of the source rule set.
@@ -35,7 +38,11 @@ class SesApi {
   Future<CloneReceiptRuleSetResponse> cloneReceiptRuleSet(
       {@required String ruleSetName,
       @required String originalRuleSetName}) async {
-    return CloneReceiptRuleSetResponse.fromJson({});
+    var response_ = await _client.send('CloneReceiptRuleSet', {
+      'RuleSetName': ruleSetName,
+      'OriginalRuleSetName': originalRuleSetName,
+    });
+    return CloneReceiptRuleSetResponse.fromJson(response_);
   }
 
   /// Creates a configuration set.
@@ -50,7 +57,10 @@ class SesApi {
   /// configuration set.
   Future<CreateConfigurationSetResponse> createConfigurationSet(
       ConfigurationSet configurationSet) async {
-    return CreateConfigurationSetResponse.fromJson({});
+    var response_ = await _client.send('CreateConfigurationSet', {
+      'ConfigurationSet': configurationSet,
+    });
+    return CreateConfigurationSetResponse.fromJson(response_);
   }
 
   /// Creates a configuration set event destination.
@@ -75,7 +85,12 @@ class SesApi {
       createConfigurationSetEventDestination(
           {@required String configurationSetName,
           @required EventDestination eventDestination}) async {
-    return CreateConfigurationSetEventDestinationResponse.fromJson({});
+    var response_ =
+        await _client.send('CreateConfigurationSetEventDestination', {
+      'ConfigurationSetName': configurationSetName,
+      'EventDestination': eventDestination,
+    });
+    return CreateConfigurationSetEventDestinationResponse.fromJson(response_);
   }
 
   /// Creates an association between a configuration set and a custom domain for
@@ -93,7 +108,12 @@ class SesApi {
       createConfigurationSetTrackingOptions(
           {@required String configurationSetName,
           @required TrackingOptions trackingOptions}) async {
-    return CreateConfigurationSetTrackingOptionsResponse.fromJson({});
+    var response_ =
+        await _client.send('CreateConfigurationSetTrackingOptions', {
+      'ConfigurationSetName': configurationSetName,
+      'TrackingOptions': trackingOptions,
+    });
+    return CreateConfigurationSetTrackingOptionsResponse.fromJson(response_);
   }
 
   /// Creates a new custom verification email template.
@@ -128,7 +148,16 @@ class SesApi {
       @required String templateSubject,
       @required String templateContent,
       @required String successRedirectionUrl,
-      @required String failureRedirectionUrl}) async {}
+      @required String failureRedirectionUrl}) async {
+    await _client.send('CreateCustomVerificationEmailTemplate', {
+      'TemplateName': templateName,
+      'FromEmailAddress': fromEmailAddress,
+      'TemplateSubject': templateSubject,
+      'TemplateContent': templateContent,
+      'SuccessRedirectionURL': successRedirectionUrl,
+      'FailureRedirectionURL': failureRedirectionUrl,
+    });
+  }
 
   /// Creates a new IP address filter.
   ///
@@ -142,7 +171,10 @@ class SesApi {
   /// block mail from it.
   Future<CreateReceiptFilterResponse> createReceiptFilter(
       ReceiptFilter filter) async {
-    return CreateReceiptFilterResponse.fromJson({});
+    var response_ = await _client.send('CreateReceiptFilter', {
+      'Filter': filter,
+    });
+    return CreateReceiptFilterResponse.fromJson(response_);
   }
 
   /// Creates a receipt rule.
@@ -165,7 +197,12 @@ class SesApi {
       {@required String ruleSetName,
       String after,
       @required ReceiptRule rule}) async {
-    return CreateReceiptRuleResponse.fromJson({});
+    var response_ = await _client.send('CreateReceiptRule', {
+      'RuleSetName': ruleSetName,
+      if (after != null) 'After': after,
+      'Rule': rule,
+    });
+    return CreateReceiptRuleResponse.fromJson(response_);
   }
 
   /// Creates an empty receipt rule set.
@@ -185,7 +222,10 @@ class SesApi {
   /// *   Contain less than 64 characters.
   Future<CreateReceiptRuleSetResponse> createReceiptRuleSet(
       String ruleSetName) async {
-    return CreateReceiptRuleSetResponse.fromJson({});
+    var response_ = await _client.send('CreateReceiptRuleSet', {
+      'RuleSetName': ruleSetName,
+    });
+    return CreateReceiptRuleSetResponse.fromJson(response_);
   }
 
   /// Creates an email template. Email templates enable you to send personalized
@@ -198,7 +238,10 @@ class SesApi {
   /// [template]: The content of the email, composed of a subject line, an HTML
   /// part, and a text-only part.
   Future<CreateTemplateResponse> createTemplate(Template template) async {
-    return CreateTemplateResponse.fromJson({});
+    var response_ = await _client.send('CreateTemplate', {
+      'Template': template,
+    });
+    return CreateTemplateResponse.fromJson(response_);
   }
 
   /// Deletes a configuration set. Configuration sets enable you to publish
@@ -211,7 +254,10 @@ class SesApi {
   /// [configurationSetName]: The name of the configuration set to delete.
   Future<DeleteConfigurationSetResponse> deleteConfigurationSet(
       String configurationSetName) async {
-    return DeleteConfigurationSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteConfigurationSet', {
+      'ConfigurationSetName': configurationSetName,
+    });
+    return DeleteConfigurationSetResponse.fromJson(response_);
   }
 
   /// Deletes a configuration set event destination. Configuration set event
@@ -230,7 +276,12 @@ class SesApi {
       deleteConfigurationSetEventDestination(
           {@required String configurationSetName,
           @required String eventDestinationName}) async {
-    return DeleteConfigurationSetEventDestinationResponse.fromJson({});
+    var response_ =
+        await _client.send('DeleteConfigurationSetEventDestination', {
+      'ConfigurationSetName': configurationSetName,
+      'EventDestinationName': eventDestinationName,
+    });
+    return DeleteConfigurationSetEventDestinationResponse.fromJson(response_);
   }
 
   /// Deletes an association between a configuration set and a custom domain for
@@ -252,7 +303,11 @@ class SesApi {
   /// want to delete the tracking options.
   Future<DeleteConfigurationSetTrackingOptionsResponse>
       deleteConfigurationSetTrackingOptions(String configurationSetName) async {
-    return DeleteConfigurationSetTrackingOptionsResponse.fromJson({});
+    var response_ =
+        await _client.send('DeleteConfigurationSetTrackingOptions', {
+      'ConfigurationSetName': configurationSetName,
+    });
+    return DeleteConfigurationSetTrackingOptionsResponse.fromJson(response_);
   }
 
   /// Deletes an existing custom verification email template.
@@ -266,7 +321,11 @@ class SesApi {
   /// [templateName]: The name of the custom verification email template that
   /// you want to delete.
   Future<void> deleteCustomVerificationEmailTemplate(
-      String templateName) async {}
+      String templateName) async {
+    await _client.send('DeleteCustomVerificationEmailTemplate', {
+      'TemplateName': templateName,
+    });
+  }
 
   /// Deletes the specified identity (an email address or a domain) from the
   /// list of verified identities.
@@ -276,7 +335,10 @@ class SesApi {
   /// [identity]: The identity to be removed from the list of identities for the
   /// AWS Account.
   Future<DeleteIdentityResponse> deleteIdentity(String identity) async {
-    return DeleteIdentityResponse.fromJson({});
+    var response_ = await _client.send('DeleteIdentity', {
+      'Identity': identity,
+    });
+    return DeleteIdentityResponse.fromJson(response_);
   }
 
   /// Deletes the specified sending authorization policy for the given identity
@@ -303,7 +365,11 @@ class SesApi {
   /// [policyName]: The name of the policy to be deleted.
   Future<DeleteIdentityPolicyResponse> deleteIdentityPolicy(
       {@required String identity, @required String policyName}) async {
-    return DeleteIdentityPolicyResponse.fromJson({});
+    var response_ = await _client.send('DeleteIdentityPolicy', {
+      'Identity': identity,
+      'PolicyName': policyName,
+    });
+    return DeleteIdentityPolicyResponse.fromJson(response_);
   }
 
   /// Deletes the specified IP address filter.
@@ -316,7 +382,10 @@ class SesApi {
   /// [filterName]: The name of the IP address filter to delete.
   Future<DeleteReceiptFilterResponse> deleteReceiptFilter(
       String filterName) async {
-    return DeleteReceiptFilterResponse.fromJson({});
+    var response_ = await _client.send('DeleteReceiptFilter', {
+      'FilterName': filterName,
+    });
+    return DeleteReceiptFilterResponse.fromJson(response_);
   }
 
   /// Deletes the specified receipt rule.
@@ -332,7 +401,11 @@ class SesApi {
   /// [ruleName]: The name of the receipt rule to delete.
   Future<DeleteReceiptRuleResponse> deleteReceiptRule(
       {@required String ruleSetName, @required String ruleName}) async {
-    return DeleteReceiptRuleResponse.fromJson({});
+    var response_ = await _client.send('DeleteReceiptRule', {
+      'RuleSetName': ruleSetName,
+      'RuleName': ruleName,
+    });
+    return DeleteReceiptRuleResponse.fromJson(response_);
   }
 
   /// Deletes the specified receipt rule set and all of the receipt rules it
@@ -348,7 +421,10 @@ class SesApi {
   /// [ruleSetName]: The name of the receipt rule set to delete.
   Future<DeleteReceiptRuleSetResponse> deleteReceiptRuleSet(
       String ruleSetName) async {
-    return DeleteReceiptRuleSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteReceiptRuleSet', {
+      'RuleSetName': ruleSetName,
+    });
+    return DeleteReceiptRuleSetResponse.fromJson(response_);
   }
 
   /// Deletes an email template.
@@ -357,7 +433,10 @@ class SesApi {
   ///
   /// [templateName]: The name of the template to be deleted.
   Future<DeleteTemplateResponse> deleteTemplate(String templateName) async {
-    return DeleteTemplateResponse.fromJson({});
+    var response_ = await _client.send('DeleteTemplate', {
+      'TemplateName': templateName,
+    });
+    return DeleteTemplateResponse.fromJson(response_);
   }
 
   /// Deprecated. Use the `DeleteIdentity` operation to delete email addresses
@@ -365,7 +444,11 @@ class SesApi {
   ///
   /// [emailAddress]: An email address to be removed from the list of verified
   /// addresses.
-  Future<void> deleteVerifiedEmailAddress(String emailAddress) async {}
+  Future<void> deleteVerifiedEmailAddress(String emailAddress) async {
+    await _client.send('DeleteVerifiedEmailAddress', {
+      'EmailAddress': emailAddress,
+    });
+  }
 
   /// Returns the metadata and receipt rules for the receipt rule set that is
   /// currently active.
@@ -376,7 +459,8 @@ class SesApi {
   /// You can execute this operation no more than once per second.
   Future<DescribeActiveReceiptRuleSetResponse>
       describeActiveReceiptRuleSet() async {
-    return DescribeActiveReceiptRuleSetResponse.fromJson({});
+    var response_ = await _client.send('DescribeActiveReceiptRuleSet', {});
+    return DescribeActiveReceiptRuleSetResponse.fromJson(response_);
   }
 
   /// Returns the details of the specified configuration set. For information
@@ -392,7 +476,12 @@ class SesApi {
   Future<DescribeConfigurationSetResponse> describeConfigurationSet(
       String configurationSetName,
       {List<String> configurationSetAttributeNames}) async {
-    return DescribeConfigurationSetResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfigurationSet', {
+      'ConfigurationSetName': configurationSetName,
+      if (configurationSetAttributeNames != null)
+        'ConfigurationSetAttributeNames': configurationSetAttributeNames,
+    });
+    return DescribeConfigurationSetResponse.fromJson(response_);
   }
 
   /// Returns the details of the specified receipt rule.
@@ -408,7 +497,11 @@ class SesApi {
   /// [ruleName]: The name of the receipt rule.
   Future<DescribeReceiptRuleResponse> describeReceiptRule(
       {@required String ruleSetName, @required String ruleName}) async {
-    return DescribeReceiptRuleResponse.fromJson({});
+    var response_ = await _client.send('DescribeReceiptRule', {
+      'RuleSetName': ruleSetName,
+      'RuleName': ruleName,
+    });
+    return DescribeReceiptRuleResponse.fromJson(response_);
   }
 
   /// Returns the details of the specified receipt rule set.
@@ -421,7 +514,10 @@ class SesApi {
   /// [ruleSetName]: The name of the receipt rule set to describe.
   Future<DescribeReceiptRuleSetResponse> describeReceiptRuleSet(
       String ruleSetName) async {
-    return DescribeReceiptRuleSetResponse.fromJson({});
+    var response_ = await _client.send('DescribeReceiptRuleSet', {
+      'RuleSetName': ruleSetName,
+    });
+    return DescribeReceiptRuleSetResponse.fromJson(response_);
   }
 
   /// Returns the email sending status of the Amazon SES account for the current
@@ -429,7 +525,8 @@ class SesApi {
   ///
   /// You can execute this operation no more than once per second.
   Future<GetAccountSendingEnabledResponse> getAccountSendingEnabled() async {
-    return GetAccountSendingEnabledResponse.fromJson({});
+    var response_ = await _client.send('GetAccountSendingEnabled', {});
+    return GetAccountSendingEnabledResponse.fromJson(response_);
   }
 
   /// Returns the custom email verification template for the template name you
@@ -445,7 +542,10 @@ class SesApi {
   /// you want to retrieve.
   Future<GetCustomVerificationEmailTemplateResponse>
       getCustomVerificationEmailTemplate(String templateName) async {
-    return GetCustomVerificationEmailTemplateResponse.fromJson({});
+    var response_ = await _client.send('GetCustomVerificationEmailTemplate', {
+      'TemplateName': templateName,
+    });
+    return GetCustomVerificationEmailTemplateResponse.fromJson(response_);
   }
 
   /// Returns the current status of Easy DKIM signing for an entity. For domain
@@ -477,7 +577,10 @@ class SesApi {
   /// domains, or both.
   Future<GetIdentityDkimAttributesResponse> getIdentityDkimAttributes(
       List<String> identities) async {
-    return GetIdentityDkimAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetIdentityDkimAttributes', {
+      'Identities': identities,
+    });
+    return GetIdentityDkimAttributesResponse.fromJson(response_);
   }
 
   /// Returns the custom MAIL FROM attributes for a list of identities (email
@@ -489,7 +592,10 @@ class SesApi {
   /// [identities]: A list of one or more identities.
   Future<GetIdentityMailFromDomainAttributesResponse>
       getIdentityMailFromDomainAttributes(List<String> identities) async {
-    return GetIdentityMailFromDomainAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetIdentityMailFromDomainAttributes', {
+      'Identities': identities,
+    });
+    return GetIdentityMailFromDomainAttributesResponse.fromJson(response_);
   }
 
   /// Given a list of verified identities (email addresses and/or domains),
@@ -507,7 +613,10 @@ class SesApi {
   /// `arn:aws:ses:us-east-1:123456789012:identity/example.com`.
   Future<GetIdentityNotificationAttributesResponse>
       getIdentityNotificationAttributes(List<String> identities) async {
-    return GetIdentityNotificationAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetIdentityNotificationAttributes', {
+      'Identities': identities,
+    });
+    return GetIdentityNotificationAttributesResponse.fromJson(response_);
   }
 
   /// Returns the requested sending authorization policies for the given
@@ -538,7 +647,11 @@ class SesApi {
   /// `ListIdentityPolicies`.
   Future<GetIdentityPoliciesResponse> getIdentityPolicies(
       {@required String identity, @required List<String> policyNames}) async {
-    return GetIdentityPoliciesResponse.fromJson({});
+    var response_ = await _client.send('GetIdentityPolicies', {
+      'Identity': identity,
+      'PolicyNames': policyNames,
+    });
+    return GetIdentityPoliciesResponse.fromJson(response_);
   }
 
   /// Given a list of identities (email addresses and/or domains), returns the
@@ -568,14 +681,18 @@ class SesApi {
   /// [identities]: A list of identities.
   Future<GetIdentityVerificationAttributesResponse>
       getIdentityVerificationAttributes(List<String> identities) async {
-    return GetIdentityVerificationAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetIdentityVerificationAttributes', {
+      'Identities': identities,
+    });
+    return GetIdentityVerificationAttributesResponse.fromJson(response_);
   }
 
   /// Provides the sending limits for the Amazon SES account.
   ///
   /// You can execute this operation no more than once per second.
   Future<GetSendQuotaResponse> getSendQuota() async {
-    return GetSendQuotaResponse.fromJson({});
+    var response_ = await _client.send('GetSendQuota', {});
+    return GetSendQuotaResponse.fromJson(response_);
   }
 
   /// Provides sending statistics for the current AWS Region. The result is a
@@ -585,7 +702,8 @@ class SesApi {
   ///
   /// You can execute this operation no more than once per second.
   Future<GetSendStatisticsResponse> getSendStatistics() async {
-    return GetSendStatisticsResponse.fromJson({});
+    var response_ = await _client.send('GetSendStatistics', {});
+    return GetSendStatisticsResponse.fromJson(response_);
   }
 
   /// Displays the template object (which includes the Subject line, HTML part
@@ -595,7 +713,10 @@ class SesApi {
   ///
   /// [templateName]: The name of the template you want to retrieve.
   Future<GetTemplateResponse> getTemplate(String templateName) async {
-    return GetTemplateResponse.fromJson({});
+    var response_ = await _client.send('GetTemplate', {
+      'TemplateName': templateName,
+    });
+    return GetTemplateResponse.fromJson(response_);
   }
 
   /// Provides a list of the configuration sets associated with your Amazon SES
@@ -618,7 +739,11 @@ class SesApi {
   /// [maxItems]: The number of configuration sets to return.
   Future<ListConfigurationSetsResponse> listConfigurationSets(
       {String nextToken, int maxItems}) async {
-    return ListConfigurationSetsResponse.fromJson({});
+    var response_ = await _client.send('ListConfigurationSets', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListConfigurationSetsResponse.fromJson(response_);
   }
 
   /// Lists the existing custom verification email templates for your account in
@@ -640,7 +765,11 @@ class SesApi {
   Future<ListCustomVerificationEmailTemplatesResponse>
       listCustomVerificationEmailTemplates(
           {String nextToken, int maxResults}) async {
-    return ListCustomVerificationEmailTemplatesResponse.fromJson({});
+    var response_ = await _client.send('ListCustomVerificationEmailTemplates', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListCustomVerificationEmailTemplatesResponse.fromJson(response_);
   }
 
   /// Returns a list containing all of the identities (email addresses and
@@ -659,7 +788,12 @@ class SesApi {
   /// 1-1000 inclusive.
   Future<ListIdentitiesResponse> listIdentities(
       {String identityType, String nextToken, int maxItems}) async {
-    return ListIdentitiesResponse.fromJson({});
+    var response_ = await _client.send('ListIdentities', {
+      if (identityType != null) 'IdentityType': identityType,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListIdentitiesResponse.fromJson(response_);
   }
 
   /// Returns a list of sending authorization policies that are attached to the
@@ -685,7 +819,10 @@ class SesApi {
   /// To successfully call this API, you must own the identity.
   Future<ListIdentityPoliciesResponse> listIdentityPolicies(
       String identity) async {
-    return ListIdentityPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListIdentityPolicies', {
+      'Identity': identity,
+    });
+    return ListIdentityPoliciesResponse.fromJson(response_);
   }
 
   /// Lists the IP address filters associated with your AWS account in the
@@ -696,7 +833,8 @@ class SesApi {
   ///
   /// You can execute this operation no more than once per second.
   Future<ListReceiptFiltersResponse> listReceiptFilters() async {
-    return ListReceiptFiltersResponse.fromJson({});
+    var response_ = await _client.send('ListReceiptFilters', {});
+    return ListReceiptFiltersResponse.fromJson(response_);
   }
 
   /// Lists the receipt rule sets that exist under your AWS account in the
@@ -714,7 +852,10 @@ class SesApi {
   /// list.
   Future<ListReceiptRuleSetsResponse> listReceiptRuleSets(
       {String nextToken}) async {
-    return ListReceiptRuleSetsResponse.fromJson({});
+    var response_ = await _client.send('ListReceiptRuleSets', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListReceiptRuleSetsResponse.fromJson(response_);
   }
 
   /// Lists the email templates present in your Amazon SES account in the
@@ -731,14 +872,19 @@ class SesApi {
   /// return up to 10 results.
   Future<ListTemplatesResponse> listTemplates(
       {String nextToken, int maxItems}) async {
-    return ListTemplatesResponse.fromJson({});
+    var response_ = await _client.send('ListTemplates', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListTemplatesResponse.fromJson(response_);
   }
 
   /// Deprecated. Use the `ListIdentities` operation to list the email addresses
   /// and domains associated with your account.
   Future<ListVerifiedEmailAddressesResponse>
       listVerifiedEmailAddresses() async {
-    return ListVerifiedEmailAddressesResponse.fromJson({});
+    var response_ = await _client.send('ListVerifiedEmailAddresses', {});
+    return ListVerifiedEmailAddressesResponse.fromJson(response_);
   }
 
   /// Adds or updates the delivery options for a configuration set.
@@ -751,7 +897,11 @@ class SesApi {
   Future<PutConfigurationSetDeliveryOptionsResponse>
       putConfigurationSetDeliveryOptions(String configurationSetName,
           {DeliveryOptions deliveryOptions}) async {
-    return PutConfigurationSetDeliveryOptionsResponse.fromJson({});
+    var response_ = await _client.send('PutConfigurationSetDeliveryOptions', {
+      'ConfigurationSetName': configurationSetName,
+      if (deliveryOptions != null) 'DeliveryOptions': deliveryOptions,
+    });
+    return PutConfigurationSetDeliveryOptionsResponse.fromJson(response_);
   }
 
   /// Adds or updates a sending authorization policy for the specified identity
@@ -789,7 +939,12 @@ class SesApi {
       {@required String identity,
       @required String policyName,
       @required String policy}) async {
-    return PutIdentityPolicyResponse.fromJson({});
+    var response_ = await _client.send('PutIdentityPolicy', {
+      'Identity': identity,
+      'PolicyName': policyName,
+      'Policy': policy,
+    });
+    return PutIdentityPolicyResponse.fromJson(response_);
   }
 
   /// Reorders the receipt rules within a receipt rule set.
@@ -809,7 +964,11 @@ class SesApi {
   /// the order that you want to put them.
   Future<ReorderReceiptRuleSetResponse> reorderReceiptRuleSet(
       {@required String ruleSetName, @required List<String> ruleNames}) async {
-    return ReorderReceiptRuleSetResponse.fromJson({});
+    var response_ = await _client.send('ReorderReceiptRuleSet', {
+      'RuleSetName': ruleSetName,
+      'RuleNames': ruleNames,
+    });
+    return ReorderReceiptRuleSetResponse.fromJson(response_);
   }
 
   /// Generates and sends a bounce message to the sender of an email you
@@ -854,7 +1013,15 @@ class SesApi {
       MessageDsn messageDsn,
       @required List<BouncedRecipientInfo> bouncedRecipientInfoList,
       String bounceSenderArn}) async {
-    return SendBounceResponse.fromJson({});
+    var response_ = await _client.send('SendBounce', {
+      'OriginalMessageId': originalMessageId,
+      'BounceSender': bounceSender,
+      if (explanation != null) 'Explanation': explanation,
+      if (messageDsn != null) 'MessageDsn': messageDsn,
+      'BouncedRecipientInfoList': bouncedRecipientInfoList,
+      if (bounceSenderArn != null) 'BounceSenderArn': bounceSenderArn,
+    });
+    return SendBounceResponse.fromJson(response_);
   }
 
   /// Composes an email message to multiple destinations. The message body is
@@ -996,7 +1163,22 @@ class SesApi {
       String templateArn,
       String defaultTemplateData,
       @required List<BulkEmailDestination> destinations}) async {
-    return SendBulkTemplatedEmailResponse.fromJson({});
+    var response_ = await _client.send('SendBulkTemplatedEmail', {
+      'Source': source,
+      if (sourceArn != null) 'SourceArn': sourceArn,
+      if (replyToAddresses != null) 'ReplyToAddresses': replyToAddresses,
+      if (returnPath != null) 'ReturnPath': returnPath,
+      if (returnPathArn != null) 'ReturnPathArn': returnPathArn,
+      if (configurationSetName != null)
+        'ConfigurationSetName': configurationSetName,
+      if (defaultTags != null) 'DefaultTags': defaultTags,
+      'Template': template,
+      if (templateArn != null) 'TemplateArn': templateArn,
+      if (defaultTemplateData != null)
+        'DefaultTemplateData': defaultTemplateData,
+      'Destinations': destinations,
+    });
+    return SendBulkTemplatedEmailResponse.fromJson(response_);
   }
 
   /// Adds an email address to the list of identities for your Amazon SES
@@ -1023,7 +1205,13 @@ class SesApi {
       {@required String emailAddress,
       @required String templateName,
       String configurationSetName}) async {
-    return SendCustomVerificationEmailResponse.fromJson({});
+    var response_ = await _client.send('SendCustomVerificationEmail', {
+      'EmailAddress': emailAddress,
+      'TemplateName': templateName,
+      if (configurationSetName != null)
+        'ConfigurationSetName': configurationSetName,
+    });
+    return SendCustomVerificationEmailResponse.fromJson(response_);
   }
 
   /// Composes an email message and immediately queues it for sending. In order
@@ -1156,7 +1344,19 @@ class SesApi {
       String returnPathArn,
       List<MessageTag> tags,
       String configurationSetName}) async {
-    return SendEmailResponse.fromJson({});
+    var response_ = await _client.send('SendEmail', {
+      'Source': source,
+      'Destination': destination,
+      'Message': message,
+      if (replyToAddresses != null) 'ReplyToAddresses': replyToAddresses,
+      if (returnPath != null) 'ReturnPath': returnPath,
+      if (sourceArn != null) 'SourceArn': sourceArn,
+      if (returnPathArn != null) 'ReturnPathArn': returnPathArn,
+      if (tags != null) 'Tags': tags,
+      if (configurationSetName != null)
+        'ConfigurationSetName': configurationSetName,
+    });
+    return SendEmailResponse.fromJson(response_);
   }
 
   /// Composes an email message and immediately queues it for sending.
@@ -1376,7 +1576,18 @@ class SesApi {
       String returnPathArn,
       List<MessageTag> tags,
       String configurationSetName}) async {
-    return SendRawEmailResponse.fromJson({});
+    var response_ = await _client.send('SendRawEmail', {
+      if (source != null) 'Source': source,
+      if (destinations != null) 'Destinations': destinations,
+      'RawMessage': rawMessage,
+      if (fromArn != null) 'FromArn': fromArn,
+      if (sourceArn != null) 'SourceArn': sourceArn,
+      if (returnPathArn != null) 'ReturnPathArn': returnPathArn,
+      if (tags != null) 'Tags': tags,
+      if (configurationSetName != null)
+        'ConfigurationSetName': configurationSetName,
+    });
+    return SendRawEmailResponse.fromJson(response_);
   }
 
   /// Composes an email message using an email template and immediately queues
@@ -1527,7 +1738,21 @@ class SesApi {
       @required String template,
       String templateArn,
       @required String templateData}) async {
-    return SendTemplatedEmailResponse.fromJson({});
+    var response_ = await _client.send('SendTemplatedEmail', {
+      'Source': source,
+      'Destination': destination,
+      if (replyToAddresses != null) 'ReplyToAddresses': replyToAddresses,
+      if (returnPath != null) 'ReturnPath': returnPath,
+      if (sourceArn != null) 'SourceArn': sourceArn,
+      if (returnPathArn != null) 'ReturnPathArn': returnPathArn,
+      if (tags != null) 'Tags': tags,
+      if (configurationSetName != null)
+        'ConfigurationSetName': configurationSetName,
+      'Template': template,
+      if (templateArn != null) 'TemplateArn': templateArn,
+      'TemplateData': templateData,
+    });
+    return SendTemplatedEmailResponse.fromJson(response_);
   }
 
   /// Sets the specified receipt rule set as the active receipt rule set.
@@ -1544,7 +1769,10 @@ class SesApi {
   /// this value to null disables all email receiving.
   Future<SetActiveReceiptRuleSetResponse> setActiveReceiptRuleSet(
       {String ruleSetName}) async {
-    return SetActiveReceiptRuleSetResponse.fromJson({});
+    var response_ = await _client.send('SetActiveReceiptRuleSet', {
+      if (ruleSetName != null) 'RuleSetName': ruleSetName,
+    });
+    return SetActiveReceiptRuleSetResponse.fromJson(response_);
   }
 
   /// Enables or disables Easy DKIM signing of email sent from an identity. If
@@ -1573,7 +1801,11 @@ class SesApi {
   /// to `true` to enable DKIM signing for this identity; `false` to disable it.
   Future<SetIdentityDkimEnabledResponse> setIdentityDkimEnabled(
       {@required String identity, @required bool dkimEnabled}) async {
-    return SetIdentityDkimEnabledResponse.fromJson({});
+    var response_ = await _client.send('SetIdentityDkimEnabled', {
+      'Identity': identity,
+      'DkimEnabled': dkimEnabled,
+    });
+    return SetIdentityDkimEnabledResponse.fromJson(response_);
   }
 
   /// Given an identity (an email address or a domain), enables or disables
@@ -1602,7 +1834,11 @@ class SesApi {
   Future<SetIdentityFeedbackForwardingEnabledResponse>
       setIdentityFeedbackForwardingEnabled(
           {@required String identity, @required bool forwardingEnabled}) async {
-    return SetIdentityFeedbackForwardingEnabledResponse.fromJson({});
+    var response_ = await _client.send('SetIdentityFeedbackForwardingEnabled', {
+      'Identity': identity,
+      'ForwardingEnabled': forwardingEnabled,
+    });
+    return SetIdentityFeedbackForwardingEnabledResponse.fromJson(response_);
   }
 
   /// Given an identity (an email address or a domain), sets whether Amazon SES
@@ -1633,7 +1869,13 @@ class SesApi {
           {@required String identity,
           @required String notificationType,
           @required bool enabled}) async {
-    return SetIdentityHeadersInNotificationsEnabledResponse.fromJson({});
+    var response_ =
+        await _client.send('SetIdentityHeadersInNotificationsEnabled', {
+      'Identity': identity,
+      'NotificationType': notificationType,
+      'Enabled': enabled,
+    });
+    return SetIdentityHeadersInNotificationsEnabledResponse.fromJson(response_);
   }
 
   /// Enables or disables the custom MAIL FROM domain setup for a verified
@@ -1674,7 +1916,13 @@ class SesApi {
       String identity,
       {String mailFromDomain,
       String behaviorOnMXFailure}) async {
-    return SetIdentityMailFromDomainResponse.fromJson({});
+    var response_ = await _client.send('SetIdentityMailFromDomain', {
+      'Identity': identity,
+      if (mailFromDomain != null) 'MailFromDomain': mailFromDomain,
+      if (behaviorOnMXFailure != null)
+        'BehaviorOnMXFailure': behaviorOnMXFailure,
+    });
+    return SetIdentityMailFromDomainResponse.fromJson(response_);
   }
 
   /// Sets an Amazon Simple Notification Service (Amazon SNS) topic to use when
@@ -1710,7 +1958,12 @@ class SesApi {
       {@required String identity,
       @required String notificationType,
       String snsTopic}) async {
-    return SetIdentityNotificationTopicResponse.fromJson({});
+    var response_ = await _client.send('SetIdentityNotificationTopic', {
+      'Identity': identity,
+      'NotificationType': notificationType,
+      if (snsTopic != null) 'SnsTopic': snsTopic,
+    });
+    return SetIdentityNotificationTopicResponse.fromJson(response_);
   }
 
   /// Sets the position of the specified receipt rule in the receipt rule set.
@@ -1731,7 +1984,12 @@ class SesApi {
       {@required String ruleSetName,
       @required String ruleName,
       String after}) async {
-    return SetReceiptRulePositionResponse.fromJson({});
+    var response_ = await _client.send('SetReceiptRulePosition', {
+      'RuleSetName': ruleSetName,
+      'RuleName': ruleName,
+      if (after != null) 'After': after,
+    });
+    return SetReceiptRulePositionResponse.fromJson(response_);
   }
 
   /// Creates a preview of the MIME content of an email when provided with a
@@ -1746,7 +2004,11 @@ class SesApi {
   /// in which the keys correspond to replacement tags in the email template.
   Future<TestRenderTemplateResponse> testRenderTemplate(
       {@required String templateName, @required String templateData}) async {
-    return TestRenderTemplateResponse.fromJson({});
+    var response_ = await _client.send('TestRenderTemplate', {
+      'TemplateName': templateName,
+      'TemplateData': templateData,
+    });
+    return TestRenderTemplateResponse.fromJson(response_);
   }
 
   /// Enables or disables email sending across your entire Amazon SES account in
@@ -1759,7 +2021,11 @@ class SesApi {
   ///
   /// [enabled]: Describes whether email sending is enabled or disabled for your
   /// Amazon SES account in the current AWS Region.
-  Future<void> updateAccountSendingEnabled({bool enabled}) async {}
+  Future<void> updateAccountSendingEnabled({bool enabled}) async {
+    await _client.send('UpdateAccountSendingEnabled', {
+      if (enabled != null) 'Enabled': enabled,
+    });
+  }
 
   /// Updates the event destination of a configuration set. Event destinations
   /// are associated with configuration sets, which enable you to publish email
@@ -1784,7 +2050,12 @@ class SesApi {
       updateConfigurationSetEventDestination(
           {@required String configurationSetName,
           @required EventDestination eventDestination}) async {
-    return UpdateConfigurationSetEventDestinationResponse.fromJson({});
+    var response_ =
+        await _client.send('UpdateConfigurationSetEventDestination', {
+      'ConfigurationSetName': configurationSetName,
+      'EventDestination': eventDestination,
+    });
+    return UpdateConfigurationSetEventDestinationResponse.fromJson(response_);
   }
 
   /// Enables or disables the publishing of reputation metrics for emails sent
@@ -1802,7 +2073,12 @@ class SesApi {
   /// metrics for the configuration set, such as bounce and complaint rates, to
   /// Amazon CloudWatch.
   Future<void> updateConfigurationSetReputationMetricsEnabled(
-      {@required String configurationSetName, @required bool enabled}) async {}
+      {@required String configurationSetName, @required bool enabled}) async {
+    await _client.send('UpdateConfigurationSetReputationMetricsEnabled', {
+      'ConfigurationSetName': configurationSetName,
+      'Enabled': enabled,
+    });
+  }
 
   /// Enables or disables email sending for messages sent using a specific
   /// configuration set in a given AWS Region. You can use this operation in
@@ -1819,7 +2095,12 @@ class SesApi {
   /// [enabled]: Describes whether email sending is enabled or disabled for the
   /// configuration set.
   Future<void> updateConfigurationSetSendingEnabled(
-      {@required String configurationSetName, @required bool enabled}) async {}
+      {@required String configurationSetName, @required bool enabled}) async {
+    await _client.send('UpdateConfigurationSetSendingEnabled', {
+      'ConfigurationSetName': configurationSetName,
+      'Enabled': enabled,
+    });
+  }
 
   /// Modifies an association between a configuration set and a custom domain
   /// for open and click event tracking.
@@ -1836,7 +2117,12 @@ class SesApi {
       updateConfigurationSetTrackingOptions(
           {@required String configurationSetName,
           @required TrackingOptions trackingOptions}) async {
-    return UpdateConfigurationSetTrackingOptionsResponse.fromJson({});
+    var response_ =
+        await _client.send('UpdateConfigurationSetTrackingOptions', {
+      'ConfigurationSetName': configurationSetName,
+      'TrackingOptions': trackingOptions,
+    });
+    return UpdateConfigurationSetTrackingOptionsResponse.fromJson(response_);
   }
 
   /// Updates an existing custom verification email template.
@@ -1871,7 +2157,18 @@ class SesApi {
       String templateSubject,
       String templateContent,
       String successRedirectionUrl,
-      String failureRedirectionUrl}) async {}
+      String failureRedirectionUrl}) async {
+    await _client.send('UpdateCustomVerificationEmailTemplate', {
+      'TemplateName': templateName,
+      if (fromEmailAddress != null) 'FromEmailAddress': fromEmailAddress,
+      if (templateSubject != null) 'TemplateSubject': templateSubject,
+      if (templateContent != null) 'TemplateContent': templateContent,
+      if (successRedirectionUrl != null)
+        'SuccessRedirectionURL': successRedirectionUrl,
+      if (failureRedirectionUrl != null)
+        'FailureRedirectionURL': failureRedirectionUrl,
+    });
+  }
 
   /// Updates a receipt rule.
   ///
@@ -1887,7 +2184,11 @@ class SesApi {
   /// information.
   Future<UpdateReceiptRuleResponse> updateReceiptRule(
       {@required String ruleSetName, @required ReceiptRule rule}) async {
-    return UpdateReceiptRuleResponse.fromJson({});
+    var response_ = await _client.send('UpdateReceiptRule', {
+      'RuleSetName': ruleSetName,
+      'Rule': rule,
+    });
+    return UpdateReceiptRuleResponse.fromJson(response_);
   }
 
   /// Updates an email template. Email templates enable you to send personalized
@@ -1897,7 +2198,10 @@ class SesApi {
   ///
   /// You can execute this operation no more than once per second.
   Future<UpdateTemplateResponse> updateTemplate(Template template) async {
-    return UpdateTemplateResponse.fromJson({});
+    var response_ = await _client.send('UpdateTemplate', {
+      'Template': template,
+    });
+    return UpdateTemplateResponse.fromJson(response_);
   }
 
   /// Returns a set of DKIM tokens for a domain identity.
@@ -1939,7 +2243,10 @@ class SesApi {
   ///
   /// [domain]: The name of the domain to be verified for Easy DKIM signing.
   Future<VerifyDomainDkimResponse> verifyDomainDkim(String domain) async {
-    return VerifyDomainDkimResponse.fromJson({});
+    var response_ = await _client.send('VerifyDomainDkim', {
+      'Domain': domain,
+    });
+    return VerifyDomainDkimResponse.fromJson(response_);
   }
 
   /// Adds a domain to the list of identities for your Amazon SES account in the
@@ -1953,14 +2260,21 @@ class SesApi {
   /// [domain]: The domain to be verified.
   Future<VerifyDomainIdentityResponse> verifyDomainIdentity(
       String domain) async {
-    return VerifyDomainIdentityResponse.fromJson({});
+    var response_ = await _client.send('VerifyDomainIdentity', {
+      'Domain': domain,
+    });
+    return VerifyDomainIdentityResponse.fromJson(response_);
   }
 
   /// Deprecated. Use the `VerifyEmailIdentity` operation to verify a new email
   /// address.
   ///
   /// [emailAddress]: The email address to be verified.
-  Future<void> verifyEmailAddress(String emailAddress) async {}
+  Future<void> verifyEmailAddress(String emailAddress) async {
+    await _client.send('VerifyEmailAddress', {
+      'EmailAddress': emailAddress,
+    });
+  }
 
   /// Adds an email address to the list of identities for your Amazon SES
   /// account in the current AWS region and attempts to verify it. As a result
@@ -1972,7 +2286,10 @@ class SesApi {
   /// [emailAddress]: The email address to be verified.
   Future<VerifyEmailIdentityResponse> verifyEmailIdentity(
       String emailAddress) async {
-    return VerifyEmailIdentityResponse.fromJson({});
+    var response_ = await _client.send('VerifyEmailIdentity', {
+      'EmailAddress': emailAddress,
+    });
+    return VerifyEmailIdentityResponse.fromJson(response_);
   }
 }
 
@@ -1995,8 +2312,11 @@ class AddHeaderAction {
     @required this.headerName,
     @required this.headerValue,
   });
-  static AddHeaderAction fromJson(Map<String, dynamic> json) =>
-      AddHeaderAction();
+  static AddHeaderAction fromJson(Map<String, dynamic> json) => AddHeaderAction(
+        headerName: json['HeaderName'] as String,
+        headerValue: json['HeaderValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the body of the message. You can specify text, HTML, or both. If
@@ -2016,6 +2336,7 @@ class Body {
     this.text,
     this.html,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When included in a receipt rule, this action rejects the received email by
@@ -2055,7 +2376,17 @@ class BounceAction {
     @required this.message,
     @required this.sender,
   });
-  static BounceAction fromJson(Map<String, dynamic> json) => BounceAction();
+  static BounceAction fromJson(Map<String, dynamic> json) => BounceAction(
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+        smtpReplyCode: json['SmtpReplyCode'] as String,
+        statusCode: json.containsKey('StatusCode')
+            ? json['StatusCode'] as String
+            : null,
+        message: json['Message'] as String,
+        sender: json['Sender'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Recipient-related information to include in the Delivery Status Notification
@@ -2089,6 +2420,7 @@ class BouncedRecipientInfo {
     this.bounceType,
     this.recipientDsnFields,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An array that contains one or more Destinations, as well as the tags and
@@ -2112,6 +2444,7 @@ class BulkEmailDestination {
     this.replacementTags,
     this.replacementTemplateData,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains the response from the `SendBulkTemplatedEmail`
@@ -2178,7 +2511,12 @@ class BulkEmailDestinationStatus {
     this.messageId,
   });
   static BulkEmailDestinationStatus fromJson(Map<String, dynamic> json) =>
-      BulkEmailDestinationStatus();
+      BulkEmailDestinationStatus(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        error: json.containsKey('Error') ? json['Error'] as String : null,
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+      );
 }
 
 /// An empty element returned on a successful request.
@@ -2204,7 +2542,12 @@ class CloudWatchDestination {
     @required this.dimensionConfigurations,
   });
   static CloudWatchDestination fromJson(Map<String, dynamic> json) =>
-      CloudWatchDestination();
+      CloudWatchDestination(
+        dimensionConfigurations: (json['DimensionConfigurations'] as List)
+            .map((e) => CloudWatchDimensionConfiguration.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the dimension configuration to use when you publish email sending
@@ -2246,7 +2589,12 @@ class CloudWatchDimensionConfiguration {
     @required this.defaultDimensionValue,
   });
   static CloudWatchDimensionConfiguration fromJson(Map<String, dynamic> json) =>
-      CloudWatchDimensionConfiguration();
+      CloudWatchDimensionConfiguration(
+        dimensionName: json['DimensionName'] as String,
+        dimensionValueSource: json['DimensionValueSource'] as String,
+        defaultDimensionValue: json['DefaultDimensionValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The name of the configuration set.
@@ -2271,7 +2619,10 @@ class ConfigurationSet {
     @required this.name,
   });
   static ConfigurationSet fromJson(Map<String, dynamic> json) =>
-      ConfigurationSet();
+      ConfigurationSet(
+        name: json['Name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents textual data, plus an optional character set specification.
@@ -2290,6 +2641,7 @@ class Content {
     @required this.data,
     this.charset,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An empty element returned on a successful request.
@@ -2369,7 +2721,23 @@ class CustomVerificationEmailTemplate {
     this.failureRedirectionUrl,
   });
   static CustomVerificationEmailTemplate fromJson(Map<String, dynamic> json) =>
-      CustomVerificationEmailTemplate();
+      CustomVerificationEmailTemplate(
+        templateName: json.containsKey('TemplateName')
+            ? json['TemplateName'] as String
+            : null,
+        fromEmailAddress: json.containsKey('FromEmailAddress')
+            ? json['FromEmailAddress'] as String
+            : null,
+        templateSubject: json.containsKey('TemplateSubject')
+            ? json['TemplateSubject'] as String
+            : null,
+        successRedirectionUrl: json.containsKey('SuccessRedirectionURL')
+            ? json['SuccessRedirectionURL'] as String
+            : null,
+        failureRedirectionUrl: json.containsKey('FailureRedirectionURL')
+            ? json['FailureRedirectionURL'] as String
+            : null,
+      );
 }
 
 /// An empty element returned on a successful request.
@@ -2449,8 +2817,11 @@ class DeliveryOptions {
   DeliveryOptions({
     this.tlsPolicy,
   });
-  static DeliveryOptions fromJson(Map<String, dynamic> json) =>
-      DeliveryOptions();
+  static DeliveryOptions fromJson(Map<String, dynamic> json) => DeliveryOptions(
+        tlsPolicy:
+            json.containsKey('TlsPolicy') ? json['TlsPolicy'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the metadata and receipt rules for the receipt rule set that is
@@ -2470,7 +2841,16 @@ class DescribeActiveReceiptRuleSetResponse {
   });
   static DescribeActiveReceiptRuleSetResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeActiveReceiptRuleSetResponse();
+      DescribeActiveReceiptRuleSetResponse(
+        metadata: json.containsKey('Metadata')
+            ? ReceiptRuleSetMetadata.fromJson(json['Metadata'])
+            : null,
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List)
+                .map((e) => ReceiptRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the details of a configuration set. Configuration sets enable you
@@ -2503,7 +2883,25 @@ class DescribeConfigurationSetResponse {
     this.reputationOptions,
   });
   static DescribeConfigurationSetResponse fromJson(Map<String, dynamic> json) =>
-      DescribeConfigurationSetResponse();
+      DescribeConfigurationSetResponse(
+        configurationSet: json.containsKey('ConfigurationSet')
+            ? ConfigurationSet.fromJson(json['ConfigurationSet'])
+            : null,
+        eventDestinations: json.containsKey('EventDestinations')
+            ? (json['EventDestinations'] as List)
+                .map((e) => EventDestination.fromJson(e))
+                .toList()
+            : null,
+        trackingOptions: json.containsKey('TrackingOptions')
+            ? TrackingOptions.fromJson(json['TrackingOptions'])
+            : null,
+        deliveryOptions: json.containsKey('DeliveryOptions')
+            ? DeliveryOptions.fromJson(json['DeliveryOptions'])
+            : null,
+        reputationOptions: json.containsKey('ReputationOptions')
+            ? ReputationOptions.fromJson(json['ReputationOptions'])
+            : null,
+      );
 }
 
 /// Represents the details of a receipt rule.
@@ -2517,7 +2915,11 @@ class DescribeReceiptRuleResponse {
     this.rule,
   });
   static DescribeReceiptRuleResponse fromJson(Map<String, dynamic> json) =>
-      DescribeReceiptRuleResponse();
+      DescribeReceiptRuleResponse(
+        rule: json.containsKey('Rule')
+            ? ReceiptRule.fromJson(json['Rule'])
+            : null,
+      );
 }
 
 /// Represents the details of the specified receipt rule set.
@@ -2534,7 +2936,16 @@ class DescribeReceiptRuleSetResponse {
     this.rules,
   });
   static DescribeReceiptRuleSetResponse fromJson(Map<String, dynamic> json) =>
-      DescribeReceiptRuleSetResponse();
+      DescribeReceiptRuleSetResponse(
+        metadata: json.containsKey('Metadata')
+            ? ReceiptRuleSetMetadata.fromJson(json['Metadata'])
+            : null,
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List)
+                .map((e) => ReceiptRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the destination of the message, consisting of To:, CC:, and BCC:
@@ -2565,6 +2976,7 @@ class Destination {
     this.ccAddresses,
     this.bccAddresses,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about the event destination that the specified email
@@ -2618,7 +3030,25 @@ class EventDestination {
     this.snsDestination,
   });
   static EventDestination fromJson(Map<String, dynamic> json) =>
-      EventDestination();
+      EventDestination(
+        name: json['Name'] as String,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        matchingEventTypes: (json['MatchingEventTypes'] as List)
+            .map((e) => e as String)
+            .toList(),
+        kinesisFirehoseDestination:
+            json.containsKey('KinesisFirehoseDestination')
+                ? KinesisFirehoseDestination.fromJson(
+                    json['KinesisFirehoseDestination'])
+                : null,
+        cloudWatchDestination: json.containsKey('CloudWatchDestination')
+            ? CloudWatchDestination.fromJson(json['CloudWatchDestination'])
+            : null,
+        snsDestination: json.containsKey('SNSDestination')
+            ? SnsDestination.fromJson(json['SNSDestination'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Additional X-headers to include in the Delivery Status Notification (DSN)
@@ -2640,6 +3070,7 @@ class ExtensionField {
     @required this.name,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a request to return the email sending status for your Amazon SES
@@ -2653,7 +3084,9 @@ class GetAccountSendingEnabledResponse {
     this.enabled,
   });
   static GetAccountSendingEnabledResponse fromJson(Map<String, dynamic> json) =>
-      GetAccountSendingEnabledResponse();
+      GetAccountSendingEnabledResponse(
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+      );
 }
 
 /// The content of the custom verification email template.
@@ -2688,7 +3121,26 @@ class GetCustomVerificationEmailTemplateResponse {
   });
   static GetCustomVerificationEmailTemplateResponse fromJson(
           Map<String, dynamic> json) =>
-      GetCustomVerificationEmailTemplateResponse();
+      GetCustomVerificationEmailTemplateResponse(
+        templateName: json.containsKey('TemplateName')
+            ? json['TemplateName'] as String
+            : null,
+        fromEmailAddress: json.containsKey('FromEmailAddress')
+            ? json['FromEmailAddress'] as String
+            : null,
+        templateSubject: json.containsKey('TemplateSubject')
+            ? json['TemplateSubject'] as String
+            : null,
+        templateContent: json.containsKey('TemplateContent')
+            ? json['TemplateContent'] as String
+            : null,
+        successRedirectionUrl: json.containsKey('SuccessRedirectionURL')
+            ? json['SuccessRedirectionURL'] as String
+            : null,
+        failureRedirectionUrl: json.containsKey('FailureRedirectionURL')
+            ? json['FailureRedirectionURL'] as String
+            : null,
+      );
 }
 
 /// Represents the status of Amazon SES Easy DKIM signing for an identity. For
@@ -2704,7 +3156,10 @@ class GetIdentityDkimAttributesResponse {
   });
   static GetIdentityDkimAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      GetIdentityDkimAttributesResponse();
+      GetIdentityDkimAttributesResponse(
+        dkimAttributes: (json['DkimAttributes'] as Map).map((k, v) =>
+            MapEntry(k as String, IdentityDkimAttributes.fromJson(v))),
+      );
 }
 
 /// Represents the custom MAIL FROM attributes for a list of identities.
@@ -2717,7 +3172,11 @@ class GetIdentityMailFromDomainAttributesResponse {
   });
   static GetIdentityMailFromDomainAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      GetIdentityMailFromDomainAttributesResponse();
+      GetIdentityMailFromDomainAttributesResponse(
+        mailFromDomainAttributes: (json['MailFromDomainAttributes'] as Map).map(
+            (k, v) => MapEntry(
+                k as String, IdentityMailFromDomainAttributes.fromJson(v))),
+      );
 }
 
 /// Represents the notification attributes for a list of identities.
@@ -2730,7 +3189,11 @@ class GetIdentityNotificationAttributesResponse {
   });
   static GetIdentityNotificationAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      GetIdentityNotificationAttributesResponse();
+      GetIdentityNotificationAttributesResponse(
+        notificationAttributes: (json['NotificationAttributes'] as Map).map((k,
+                v) =>
+            MapEntry(k as String, IdentityNotificationAttributes.fromJson(v))),
+      );
 }
 
 /// Represents the requested sending authorization policies.
@@ -2742,7 +3205,10 @@ class GetIdentityPoliciesResponse {
     @required this.policies,
   });
   static GetIdentityPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      GetIdentityPoliciesResponse();
+      GetIdentityPoliciesResponse(
+        policies: (json['Policies'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+      );
 }
 
 /// The Amazon SES verification status of a list of identities. For domain
@@ -2756,7 +3222,11 @@ class GetIdentityVerificationAttributesResponse {
   });
   static GetIdentityVerificationAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      GetIdentityVerificationAttributesResponse();
+      GetIdentityVerificationAttributesResponse(
+        verificationAttributes: (json['VerificationAttributes'] as Map).map((k,
+                v) =>
+            MapEntry(k as String, IdentityVerificationAttributes.fromJson(v))),
+      );
 }
 
 /// Represents your Amazon SES daily sending quota, maximum send rate, and the
@@ -2784,7 +3254,17 @@ class GetSendQuotaResponse {
     this.sentLast24Hours,
   });
   static GetSendQuotaResponse fromJson(Map<String, dynamic> json) =>
-      GetSendQuotaResponse();
+      GetSendQuotaResponse(
+        max24HourSend: json.containsKey('Max24HourSend')
+            ? json['Max24HourSend'] as double
+            : null,
+        maxSendRate: json.containsKey('MaxSendRate')
+            ? json['MaxSendRate'] as double
+            : null,
+        sentLast24Hours: json.containsKey('SentLast24Hours')
+            ? json['SentLast24Hours'] as double
+            : null,
+      );
 }
 
 /// Represents a list of data points. This list contains aggregated data from
@@ -2797,7 +3277,13 @@ class GetSendStatisticsResponse {
     this.sendDataPoints,
   });
   static GetSendStatisticsResponse fromJson(Map<String, dynamic> json) =>
-      GetSendStatisticsResponse();
+      GetSendStatisticsResponse(
+        sendDataPoints: json.containsKey('SendDataPoints')
+            ? (json['SendDataPoints'] as List)
+                .map((e) => SendDataPoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetTemplateResponse {
@@ -2807,7 +3293,11 @@ class GetTemplateResponse {
     this.template,
   });
   static GetTemplateResponse fromJson(Map<String, dynamic> json) =>
-      GetTemplateResponse();
+      GetTemplateResponse(
+        template: json.containsKey('Template')
+            ? Template.fromJson(json['Template'])
+            : null,
+      );
 }
 
 /// Represents the DKIM attributes of a verified email address or a domain.
@@ -2839,7 +3329,13 @@ class IdentityDkimAttributes {
     this.dkimTokens,
   });
   static IdentityDkimAttributes fromJson(Map<String, dynamic> json) =>
-      IdentityDkimAttributes();
+      IdentityDkimAttributes(
+        dkimEnabled: json['DkimEnabled'] as bool,
+        dkimVerificationStatus: json['DkimVerificationStatus'] as String,
+        dkimTokens: json.containsKey('DkimTokens')
+            ? (json['DkimTokens'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Represents the custom MAIL FROM domain attributes of a verified identity
@@ -2873,7 +3369,11 @@ class IdentityMailFromDomainAttributes {
     @required this.behaviorOnMXFailure,
   });
   static IdentityMailFromDomainAttributes fromJson(Map<String, dynamic> json) =>
-      IdentityMailFromDomainAttributes();
+      IdentityMailFromDomainAttributes(
+        mailFromDomain: json['MailFromDomain'] as String,
+        mailFromDomainStatus: json['MailFromDomainStatus'] as String,
+        behaviorOnMXFailure: json['BehaviorOnMXFailure'] as String,
+      );
 }
 
 /// Represents the notification attributes of an identity, including whether an
@@ -2931,7 +3431,24 @@ class IdentityNotificationAttributes {
     this.headersInDeliveryNotificationsEnabled,
   });
   static IdentityNotificationAttributes fromJson(Map<String, dynamic> json) =>
-      IdentityNotificationAttributes();
+      IdentityNotificationAttributes(
+        bounceTopic: json['BounceTopic'] as String,
+        complaintTopic: json['ComplaintTopic'] as String,
+        deliveryTopic: json['DeliveryTopic'] as String,
+        forwardingEnabled: json['ForwardingEnabled'] as bool,
+        headersInBounceNotificationsEnabled:
+            json.containsKey('HeadersInBounceNotificationsEnabled')
+                ? json['HeadersInBounceNotificationsEnabled'] as bool
+                : null,
+        headersInComplaintNotificationsEnabled:
+            json.containsKey('HeadersInComplaintNotificationsEnabled')
+                ? json['HeadersInComplaintNotificationsEnabled'] as bool
+                : null,
+        headersInDeliveryNotificationsEnabled:
+            json.containsKey('HeadersInDeliveryNotificationsEnabled')
+                ? json['HeadersInDeliveryNotificationsEnabled'] as bool
+                : null,
+      );
 }
 
 /// Represents the verification attributes of a single identity.
@@ -2949,7 +3466,12 @@ class IdentityVerificationAttributes {
     this.verificationToken,
   });
   static IdentityVerificationAttributes fromJson(Map<String, dynamic> json) =>
-      IdentityVerificationAttributes();
+      IdentityVerificationAttributes(
+        verificationStatus: json['VerificationStatus'] as String,
+        verificationToken: json.containsKey('VerificationToken')
+            ? json['VerificationToken'] as String
+            : null,
+      );
 }
 
 /// Contains the delivery stream ARN and the IAM role ARN associated with an
@@ -2973,7 +3495,11 @@ class KinesisFirehoseDestination {
     @required this.deliveryStreamArn,
   });
   static KinesisFirehoseDestination fromJson(Map<String, dynamic> json) =>
-      KinesisFirehoseDestination();
+      KinesisFirehoseDestination(
+        iamRoleArn: json['IAMRoleARN'] as String,
+        deliveryStreamArn: json['DeliveryStreamARN'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When included in a receipt rule, this action calls an AWS Lambda function
@@ -3022,7 +3548,15 @@ class LambdaAction {
     @required this.functionArn,
     this.invocationType,
   });
-  static LambdaAction fromJson(Map<String, dynamic> json) => LambdaAction();
+  static LambdaAction fromJson(Map<String, dynamic> json) => LambdaAction(
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+        functionArn: json['FunctionArn'] as String,
+        invocationType: json.containsKey('InvocationType')
+            ? json['InvocationType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of configuration sets associated with your AWS account. Configuration
@@ -3043,7 +3577,15 @@ class ListConfigurationSetsResponse {
     this.nextToken,
   });
   static ListConfigurationSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListConfigurationSetsResponse();
+      ListConfigurationSetsResponse(
+        configurationSets: json.containsKey('ConfigurationSets')
+            ? (json['ConfigurationSets'] as List)
+                .map((e) => ConfigurationSet.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A paginated list of custom verification email templates.
@@ -3064,7 +3606,16 @@ class ListCustomVerificationEmailTemplatesResponse {
   });
   static ListCustomVerificationEmailTemplatesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListCustomVerificationEmailTemplatesResponse();
+      ListCustomVerificationEmailTemplatesResponse(
+        customVerificationEmailTemplates:
+            json.containsKey('CustomVerificationEmailTemplates')
+                ? (json['CustomVerificationEmailTemplates'] as List)
+                    .map((e) => CustomVerificationEmailTemplate.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A list of all identities that you have attempted to verify under your AWS
@@ -3081,7 +3632,12 @@ class ListIdentitiesResponse {
     this.nextToken,
   });
   static ListIdentitiesResponse fromJson(Map<String, dynamic> json) =>
-      ListIdentitiesResponse();
+      ListIdentitiesResponse(
+        identities:
+            (json['Identities'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A list of names of sending authorization policies that apply to an identity.
@@ -3093,7 +3649,10 @@ class ListIdentityPoliciesResponse {
     @required this.policyNames,
   });
   static ListIdentityPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListIdentityPoliciesResponse();
+      ListIdentityPoliciesResponse(
+        policyNames:
+            (json['PolicyNames'] as List).map((e) => e as String).toList(),
+      );
 }
 
 /// A list of IP address filters that exist under your AWS account.
@@ -3106,7 +3665,13 @@ class ListReceiptFiltersResponse {
     this.filters,
   });
   static ListReceiptFiltersResponse fromJson(Map<String, dynamic> json) =>
-      ListReceiptFiltersResponse();
+      ListReceiptFiltersResponse(
+        filters: json.containsKey('Filters')
+            ? (json['Filters'] as List)
+                .map((e) => ReceiptFilter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A list of receipt rule sets that exist under your AWS account.
@@ -3126,7 +3691,15 @@ class ListReceiptRuleSetsResponse {
     this.nextToken,
   });
   static ListReceiptRuleSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListReceiptRuleSetsResponse();
+      ListReceiptRuleSetsResponse(
+        ruleSets: json.containsKey('RuleSets')
+            ? (json['RuleSets'] as List)
+                .map((e) => ReceiptRuleSetMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTemplatesResponse {
@@ -3144,7 +3717,15 @@ class ListTemplatesResponse {
     this.nextToken,
   });
   static ListTemplatesResponse fromJson(Map<String, dynamic> json) =>
-      ListTemplatesResponse();
+      ListTemplatesResponse(
+        templatesMetadata: json.containsKey('TemplatesMetadata')
+            ? (json['TemplatesMetadata'] as List)
+                .map((e) => TemplateMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A list of email addresses that you have verified with Amazon SES under your
@@ -3158,7 +3739,13 @@ class ListVerifiedEmailAddressesResponse {
   });
   static ListVerifiedEmailAddressesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListVerifiedEmailAddressesResponse();
+      ListVerifiedEmailAddressesResponse(
+        verifiedEmailAddresses: json.containsKey('VerifiedEmailAddresses')
+            ? (json['VerifiedEmailAddresses'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the message to be sent, composed of a subject and a body.
@@ -3174,6 +3761,7 @@ class Message {
     @required this.subject,
     @required this.body,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Message-related information to include in the Delivery Status Notification
@@ -3200,6 +3788,7 @@ class MessageDsn {
     this.arrivalDate,
     this.extensionFields,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the name and value of a tag that you can provide to `SendEmail` or
@@ -3230,6 +3819,7 @@ class MessageTag {
     @required this.name,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An HTTP 200 response if the request succeeds, or an error message if the
@@ -3275,6 +3865,7 @@ class RawMessage {
   RawMessage({
     @required this.data,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An action that Amazon SES can take when it receives an email on behalf of
@@ -3320,7 +3911,30 @@ class ReceiptAction {
     this.addHeaderAction,
     this.snsAction,
   });
-  static ReceiptAction fromJson(Map<String, dynamic> json) => ReceiptAction();
+  static ReceiptAction fromJson(Map<String, dynamic> json) => ReceiptAction(
+        s3Action: json.containsKey('S3Action')
+            ? S3Action.fromJson(json['S3Action'])
+            : null,
+        bounceAction: json.containsKey('BounceAction')
+            ? BounceAction.fromJson(json['BounceAction'])
+            : null,
+        workmailAction: json.containsKey('WorkmailAction')
+            ? WorkmailAction.fromJson(json['WorkmailAction'])
+            : null,
+        lambdaAction: json.containsKey('LambdaAction')
+            ? LambdaAction.fromJson(json['LambdaAction'])
+            : null,
+        stopAction: json.containsKey('StopAction')
+            ? StopAction.fromJson(json['StopAction'])
+            : null,
+        addHeaderAction: json.containsKey('AddHeaderAction')
+            ? AddHeaderAction.fromJson(json['AddHeaderAction'])
+            : null,
+        snsAction: json.containsKey('SNSAction')
+            ? SnsAction.fromJson(json['SNSAction'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A receipt IP address filter enables you to specify whether to accept or
@@ -3347,7 +3961,11 @@ class ReceiptFilter {
     @required this.name,
     @required this.ipFilter,
   });
-  static ReceiptFilter fromJson(Map<String, dynamic> json) => ReceiptFilter();
+  static ReceiptFilter fromJson(Map<String, dynamic> json) => ReceiptFilter(
+        name: json['Name'] as String,
+        ipFilter: ReceiptIpFilter.fromJson(json['IpFilter']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A receipt IP address filter enables you to specify whether to accept or
@@ -3371,8 +3989,11 @@ class ReceiptIpFilter {
     @required this.policy,
     @required this.cidr,
   });
-  static ReceiptIpFilter fromJson(Map<String, dynamic> json) =>
-      ReceiptIpFilter();
+  static ReceiptIpFilter fromJson(Map<String, dynamic> json) => ReceiptIpFilter(
+        policy: json['Policy'] as String,
+        cidr: json['Cidr'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Receipt rules enable you to specify which actions Amazon SES should take
@@ -3427,7 +4048,24 @@ class ReceiptRule {
     this.actions,
     this.scanEnabled,
   });
-  static ReceiptRule fromJson(Map<String, dynamic> json) => ReceiptRule();
+  static ReceiptRule fromJson(Map<String, dynamic> json) => ReceiptRule(
+        name: json['Name'] as String,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        tlsPolicy:
+            json.containsKey('TlsPolicy') ? json['TlsPolicy'] as String : null,
+        recipients: json.containsKey('Recipients')
+            ? (json['Recipients'] as List).map((e) => e as String).toList()
+            : null,
+        actions: json.containsKey('Actions')
+            ? (json['Actions'] as List)
+                .map((e) => ReceiptAction.fromJson(e))
+                .toList()
+            : null,
+        scanEnabled: json.containsKey('ScanEnabled')
+            ? json['ScanEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a receipt rule set.
@@ -3457,7 +4095,12 @@ class ReceiptRuleSetMetadata {
     this.createdTimestamp,
   });
   static ReceiptRuleSetMetadata fromJson(Map<String, dynamic> json) =>
-      ReceiptRuleSetMetadata();
+      ReceiptRuleSetMetadata(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+      );
 }
 
 /// Recipient-related information to include in the Delivery Status Notification
@@ -3515,6 +4158,7 @@ class RecipientDsnFields {
     this.lastAttemptDate,
     this.extensionFields,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An empty element returned on a successful request.
@@ -3561,7 +4205,17 @@ class ReputationOptions {
     this.lastFreshStart,
   });
   static ReputationOptions fromJson(Map<String, dynamic> json) =>
-      ReputationOptions();
+      ReputationOptions(
+        sendingEnabled: json.containsKey('SendingEnabled')
+            ? json['SendingEnabled'] as bool
+            : null,
+        reputationMetricsEnabled: json.containsKey('ReputationMetricsEnabled')
+            ? json['ReputationMetricsEnabled'] as bool
+            : null,
+        lastFreshStart: json.containsKey('LastFreshStart')
+            ? DateTime.parse(json['LastFreshStart'])
+            : null,
+      );
 }
 
 /// When included in a receipt rule, this action saves the received message to
@@ -3640,7 +4294,17 @@ class S3Action {
     this.objectKeyPrefix,
     this.kmsKeyArn,
   });
-  static S3Action fromJson(Map<String, dynamic> json) => S3Action();
+  static S3Action fromJson(Map<String, dynamic> json) => S3Action(
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+        bucketName: json['BucketName'] as String,
+        objectKeyPrefix: json.containsKey('ObjectKeyPrefix')
+            ? json['ObjectKeyPrefix'] as String
+            : null,
+        kmsKeyArn:
+            json.containsKey('KmsKeyArn') ? json['KmsKeyArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When included in a receipt rule, this action publishes a notification to
@@ -3681,7 +4345,12 @@ class SnsAction {
     @required this.topicArn,
     this.encoding,
   });
-  static SnsAction fromJson(Map<String, dynamic> json) => SnsAction();
+  static SnsAction fromJson(Map<String, dynamic> json) => SnsAction(
+        topicArn: json['TopicArn'] as String,
+        encoding:
+            json.containsKey('Encoding') ? json['Encoding'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the topic ARN associated with an Amazon Simple Notification Service
@@ -3702,7 +4371,10 @@ class SnsDestination {
   SnsDestination({
     @required this.topicArn,
   });
-  static SnsDestination fromJson(Map<String, dynamic> json) => SnsDestination();
+  static SnsDestination fromJson(Map<String, dynamic> json) => SnsDestination(
+        topicArn: json['TopicARN'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a unique message ID.
@@ -3714,7 +4386,10 @@ class SendBounceResponse {
     this.messageId,
   });
   static SendBounceResponse fromJson(Map<String, dynamic> json) =>
-      SendBounceResponse();
+      SendBounceResponse(
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+      );
 }
 
 class SendBulkTemplatedEmailResponse {
@@ -3726,7 +4401,11 @@ class SendBulkTemplatedEmailResponse {
     @required this.status,
   });
   static SendBulkTemplatedEmailResponse fromJson(Map<String, dynamic> json) =>
-      SendBulkTemplatedEmailResponse();
+      SendBulkTemplatedEmailResponse(
+        status: (json['Status'] as List)
+            .map((e) => BulkEmailDestinationStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The response received when attempting to send the custom verification email.
@@ -3740,7 +4419,10 @@ class SendCustomVerificationEmailResponse {
   });
   static SendCustomVerificationEmailResponse fromJson(
           Map<String, dynamic> json) =>
-      SendCustomVerificationEmailResponse();
+      SendCustomVerificationEmailResponse(
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+      );
 }
 
 /// Represents sending statistics data. Each `SendDataPoint` contains statistics
@@ -3768,7 +4450,21 @@ class SendDataPoint {
     this.complaints,
     this.rejects,
   });
-  static SendDataPoint fromJson(Map<String, dynamic> json) => SendDataPoint();
+  static SendDataPoint fromJson(Map<String, dynamic> json) => SendDataPoint(
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+        deliveryAttempts: json.containsKey('DeliveryAttempts')
+            ? BigInt.from(json['DeliveryAttempts'])
+            : null,
+        bounces:
+            json.containsKey('Bounces') ? BigInt.from(json['Bounces']) : null,
+        complaints: json.containsKey('Complaints')
+            ? BigInt.from(json['Complaints'])
+            : null,
+        rejects:
+            json.containsKey('Rejects') ? BigInt.from(json['Rejects']) : null,
+      );
 }
 
 /// Represents a unique message ID.
@@ -3780,7 +4476,9 @@ class SendEmailResponse {
     @required this.messageId,
   });
   static SendEmailResponse fromJson(Map<String, dynamic> json) =>
-      SendEmailResponse();
+      SendEmailResponse(
+        messageId: json['MessageId'] as String,
+      );
 }
 
 /// Represents a unique message ID.
@@ -3792,7 +4490,9 @@ class SendRawEmailResponse {
     @required this.messageId,
   });
   static SendRawEmailResponse fromJson(Map<String, dynamic> json) =>
-      SendRawEmailResponse();
+      SendRawEmailResponse(
+        messageId: json['MessageId'] as String,
+      );
 }
 
 class SendTemplatedEmailResponse {
@@ -3804,7 +4504,9 @@ class SendTemplatedEmailResponse {
     @required this.messageId,
   });
   static SendTemplatedEmailResponse fromJson(Map<String, dynamic> json) =>
-      SendTemplatedEmailResponse();
+      SendTemplatedEmailResponse(
+        messageId: json['MessageId'] as String,
+      );
 }
 
 /// An empty element returned on a successful request.
@@ -3881,7 +4583,12 @@ class StopAction {
     @required this.scope,
     this.topicArn,
   });
-  static StopAction fromJson(Map<String, dynamic> json) => StopAction();
+  static StopAction fromJson(Map<String, dynamic> json) => StopAction(
+        scope: json['Scope'] as String,
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The content of the email, composed of a subject line, an HTML part, and a
@@ -3907,7 +4614,17 @@ class Template {
     this.textPart,
     this.htmlPart,
   });
-  static Template fromJson(Map<String, dynamic> json) => Template();
+  static Template fromJson(Map<String, dynamic> json) => Template(
+        templateName: json['TemplateName'] as String,
+        subjectPart: json.containsKey('SubjectPart')
+            ? json['SubjectPart'] as String
+            : null,
+        textPart:
+            json.containsKey('TextPart') ? json['TextPart'] as String : null,
+        htmlPart:
+            json.containsKey('HtmlPart') ? json['HtmlPart'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about an email template.
@@ -3923,7 +4640,12 @@ class TemplateMetadata {
     this.createdTimestamp,
   });
   static TemplateMetadata fromJson(Map<String, dynamic> json) =>
-      TemplateMetadata();
+      TemplateMetadata(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+      );
 }
 
 class TestRenderTemplateResponse {
@@ -3936,7 +4658,11 @@ class TestRenderTemplateResponse {
     this.renderedTemplate,
   });
   static TestRenderTemplateResponse fromJson(Map<String, dynamic> json) =>
-      TestRenderTemplateResponse();
+      TestRenderTemplateResponse(
+        renderedTemplate: json.containsKey('RenderedTemplate')
+            ? json['RenderedTemplate'] as String
+            : null,
+      );
 }
 
 /// A domain that is used to redirect email recipients to an Amazon SES-operated
@@ -3954,8 +4680,12 @@ class TrackingOptions {
   TrackingOptions({
     this.customRedirectDomain,
   });
-  static TrackingOptions fromJson(Map<String, dynamic> json) =>
-      TrackingOptions();
+  static TrackingOptions fromJson(Map<String, dynamic> json) => TrackingOptions(
+        customRedirectDomain: json.containsKey('CustomRedirectDomain')
+            ? json['CustomRedirectDomain'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An empty element returned on a successful request.
@@ -4009,7 +4739,10 @@ class VerifyDomainDkimResponse {
     @required this.dkimTokens,
   });
   static VerifyDomainDkimResponse fromJson(Map<String, dynamic> json) =>
-      VerifyDomainDkimResponse();
+      VerifyDomainDkimResponse(
+        dkimTokens:
+            (json['DkimTokens'] as List).map((e) => e as String).toList(),
+      );
 }
 
 /// Returns a TXT record that you must publish to the DNS server of your domain
@@ -4030,7 +4763,9 @@ class VerifyDomainIdentityResponse {
     @required this.verificationToken,
   });
   static VerifyDomainIdentityResponse fromJson(Map<String, dynamic> json) =>
-      VerifyDomainIdentityResponse();
+      VerifyDomainIdentityResponse(
+        verificationToken: json['VerificationToken'] as String,
+      );
 }
 
 /// An empty element returned on a successful request.
@@ -4066,5 +4801,10 @@ class WorkmailAction {
     this.topicArn,
     @required this.organizationArn,
   });
-  static WorkmailAction fromJson(Map<String, dynamic> json) => WorkmailAction();
+  static WorkmailAction fromJson(Map<String, dynamic> json) => WorkmailAction(
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+        organizationArn: json['OrganizationArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

@@ -17,6 +17,10 @@ import 'package:meta/meta.dart';
 /// [Tools for Amazon Web Services](https://docs.aws.amazon.com/aws.amazon.com/tools)
 /// page.
 class ServiceQuotasApi {
+  final _client;
+  ServiceQuotasApi(client)
+      : _client = client.configured('Service Quotas', serializer: 'json');
+
   /// Associates the Service Quotas template with your organization so that when
   /// new accounts are created in your organization, the template submits
   /// increase requests for the specified service quotas. Use the Service Quotas
@@ -25,7 +29,8 @@ class ServiceQuotasApi {
   /// enable, the template.
   Future<AssociateServiceQuotaTemplateResponse>
       associateServiceQuotaTemplate() async {
-    return AssociateServiceQuotaTemplateResponse.fromJson({});
+    var response_ = await _client.send('AssociateServiceQuotaTemplate', {});
+    return AssociateServiceQuotaTemplateResponse.fromJson(response_);
   }
 
   /// Removes a service quota increase request from the Service Quotas template.
@@ -41,7 +46,14 @@ class ServiceQuotasApi {
           {@required String serviceCode,
           @required String quotaCode,
           @required String awsRegion}) async {
-    return DeleteServiceQuotaIncreaseRequestFromTemplateResponse.fromJson({});
+    var response_ =
+        await _client.send('DeleteServiceQuotaIncreaseRequestFromTemplate', {
+      'ServiceCode': serviceCode,
+      'QuotaCode': quotaCode,
+      'AwsRegion': awsRegion,
+    });
+    return DeleteServiceQuotaIncreaseRequestFromTemplateResponse.fromJson(
+        response_);
   }
 
   /// Disables the Service Quotas template. Once the template is disabled, it
@@ -57,7 +69,8 @@ class ServiceQuotasApi {
   /// DeleteServiceQuotaIncreaseRequestFromTemplate.
   Future<DisassociateServiceQuotaTemplateResponse>
       disassociateServiceQuotaTemplate() async {
-    return DisassociateServiceQuotaTemplateResponse.fromJson({});
+    var response_ = await _client.send('DisassociateServiceQuotaTemplate', {});
+    return DisassociateServiceQuotaTemplateResponse.fromJson(response_);
   }
 
   /// Retrieves the default service quotas values. The Value returned for each
@@ -68,7 +81,11 @@ class ServiceQuotasApi {
   /// [quotaCode]: Identifies the service quota you want to select.
   Future<GetAwsDefaultServiceQuotaResponse> getAwsDefaultServiceQuota(
       {@required String serviceCode, @required String quotaCode}) async {
-    return GetAwsDefaultServiceQuotaResponse.fromJson({});
+    var response_ = await _client.send('GetAWSDefaultServiceQuota', {
+      'ServiceCode': serviceCode,
+      'QuotaCode': quotaCode,
+    });
+    return GetAwsDefaultServiceQuotaResponse.fromJson(response_);
   }
 
   /// Retrieves the `ServiceQuotaTemplateAssociationStatus` value from the
@@ -76,7 +93,9 @@ class ServiceQuotasApi {
   /// associated, or enabled.
   Future<GetAssociationForServiceQuotaTemplateResponse>
       getAssociationForServiceQuotaTemplate() async {
-    return GetAssociationForServiceQuotaTemplateResponse.fromJson({});
+    var response_ =
+        await _client.send('GetAssociationForServiceQuotaTemplate', {});
+    return GetAssociationForServiceQuotaTemplateResponse.fromJson(response_);
   }
 
   /// Retrieves the details for a particular increase request.
@@ -84,7 +103,10 @@ class ServiceQuotasApi {
   /// [requestId]: Identifies the quota increase request.
   Future<GetRequestedServiceQuotaChangeResponse> getRequestedServiceQuotaChange(
       String requestId) async {
-    return GetRequestedServiceQuotaChangeResponse.fromJson({});
+    var response_ = await _client.send('GetRequestedServiceQuotaChange', {
+      'RequestId': requestId,
+    });
+    return GetRequestedServiceQuotaChangeResponse.fromJson(response_);
   }
 
   /// Returns the details for the specified service quota. This operation
@@ -97,7 +119,11 @@ class ServiceQuotasApi {
   /// [quotaCode]: Identifies the service quota you want to select.
   Future<GetServiceQuotaResponse> getServiceQuota(
       {@required String serviceCode, @required String quotaCode}) async {
-    return GetServiceQuotaResponse.fromJson({});
+    var response_ = await _client.send('GetServiceQuota', {
+      'ServiceCode': serviceCode,
+      'QuotaCode': quotaCode,
+    });
+    return GetServiceQuotaResponse.fromJson(response_);
   }
 
   /// Returns the details of the service quota increase request in your
@@ -113,7 +139,14 @@ class ServiceQuotasApi {
           {@required String serviceCode,
           @required String quotaCode,
           @required String awsRegion}) async {
-    return GetServiceQuotaIncreaseRequestFromTemplateResponse.fromJson({});
+    var response_ =
+        await _client.send('GetServiceQuotaIncreaseRequestFromTemplate', {
+      'ServiceCode': serviceCode,
+      'QuotaCode': quotaCode,
+      'AwsRegion': awsRegion,
+    });
+    return GetServiceQuotaIncreaseRequestFromTemplateResponse.fromJson(
+        response_);
   }
 
   /// Lists all default service quotas for the specified AWS service or all AWS
@@ -156,7 +189,12 @@ class ServiceQuotasApi {
       String serviceCode,
       {String nextToken,
       int maxResults}) async {
-    return ListAwsDefaultServiceQuotasResponse.fromJson({});
+    var response_ = await _client.send('ListAWSDefaultServiceQuotas', {
+      'ServiceCode': serviceCode,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListAwsDefaultServiceQuotasResponse.fromJson(response_);
   }
 
   /// Requests a list of the changes to quotas for a service.
@@ -185,7 +223,14 @@ class ServiceQuotasApi {
           String status,
           String nextToken,
           int maxResults}) async {
-    return ListRequestedServiceQuotaChangeHistoryResponse.fromJson({});
+    var response_ =
+        await _client.send('ListRequestedServiceQuotaChangeHistory', {
+      if (serviceCode != null) 'ServiceCode': serviceCode,
+      if (status != null) 'Status': status,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListRequestedServiceQuotaChangeHistoryResponse.fromJson(response_);
   }
 
   /// Requests a list of the changes to specific service quotas. This command
@@ -221,7 +266,16 @@ class ServiceQuotasApi {
           String status,
           String nextToken,
           int maxResults}) async {
-    return ListRequestedServiceQuotaChangeHistoryByQuotaResponse.fromJson({});
+    var response_ =
+        await _client.send('ListRequestedServiceQuotaChangeHistoryByQuota', {
+      'ServiceCode': serviceCode,
+      'QuotaCode': quotaCode,
+      if (status != null) 'Status': status,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListRequestedServiceQuotaChangeHistoryByQuotaResponse.fromJson(
+        response_);
   }
 
   /// Returns a list of the quota increase requests in the template.
@@ -251,7 +305,15 @@ class ServiceQuotasApi {
           String awsRegion,
           String nextToken,
           int maxResults}) async {
-    return ListServiceQuotaIncreaseRequestsInTemplateResponse.fromJson({});
+    var response_ =
+        await _client.send('ListServiceQuotaIncreaseRequestsInTemplate', {
+      if (serviceCode != null) 'ServiceCode': serviceCode,
+      if (awsRegion != null) 'AwsRegion': awsRegion,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListServiceQuotaIncreaseRequestsInTemplateResponse.fromJson(
+        response_);
   }
 
   /// Lists all service quotas for the specified AWS service. This request
@@ -285,7 +347,12 @@ class ServiceQuotasApi {
   /// you receive all of the results.
   Future<ListServiceQuotasResponse> listServiceQuotas(String serviceCode,
       {String nextToken, int maxResults}) async {
-    return ListServiceQuotasResponse.fromJson({});
+    var response_ = await _client.send('ListServiceQuotas', {
+      'ServiceCode': serviceCode,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListServiceQuotasResponse.fromJson(response_);
   }
 
   /// Lists the AWS services available in Service Quotas. Not all AWS services
@@ -308,7 +375,11 @@ class ServiceQuotasApi {
   /// you receive all of the results.
   Future<ListServicesResponse> listServices(
       {String nextToken, int maxResults}) async {
-    return ListServicesResponse.fromJson({});
+    var response_ = await _client.send('ListServices', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListServicesResponse.fromJson(response_);
   }
 
   /// Defines and adds a quota to the service quota template. To add a quota to
@@ -330,7 +401,15 @@ class ServiceQuotasApi {
           @required String serviceCode,
           @required String awsRegion,
           @required double desiredValue}) async {
-    return PutServiceQuotaIncreaseRequestIntoTemplateResponse.fromJson({});
+    var response_ =
+        await _client.send('PutServiceQuotaIncreaseRequestIntoTemplate', {
+      'QuotaCode': quotaCode,
+      'ServiceCode': serviceCode,
+      'AwsRegion': awsRegion,
+      'DesiredValue': desiredValue,
+    });
+    return PutServiceQuotaIncreaseRequestIntoTemplateResponse.fromJson(
+        response_);
   }
 
   /// Retrieves the details of a service quota increase request. The response to
@@ -347,7 +426,12 @@ class ServiceQuotasApi {
       {@required String serviceCode,
       @required String quotaCode,
       @required double desiredValue}) async {
-    return RequestServiceQuotaIncreaseResponse.fromJson({});
+    var response_ = await _client.send('RequestServiceQuotaIncrease', {
+      'ServiceCode': serviceCode,
+      'QuotaCode': quotaCode,
+      'DesiredValue': desiredValue,
+    });
+    return RequestServiceQuotaIncreaseResponse.fromJson(response_);
   }
 }
 
@@ -397,7 +481,13 @@ class ErrorReason {
     this.errorCode,
     this.errorMessage,
   });
-  static ErrorReason fromJson(Map<String, dynamic> json) => ErrorReason();
+  static ErrorReason fromJson(Map<String, dynamic> json) => ErrorReason(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class GetAwsDefaultServiceQuotaResponse {
@@ -409,7 +499,11 @@ class GetAwsDefaultServiceQuotaResponse {
   });
   static GetAwsDefaultServiceQuotaResponse fromJson(
           Map<String, dynamic> json) =>
-      GetAwsDefaultServiceQuotaResponse();
+      GetAwsDefaultServiceQuotaResponse(
+        quota: json.containsKey('Quota')
+            ? ServiceQuota.fromJson(json['Quota'])
+            : null,
+      );
 }
 
 class GetAssociationForServiceQuotaTemplateResponse {
@@ -423,7 +517,12 @@ class GetAssociationForServiceQuotaTemplateResponse {
   });
   static GetAssociationForServiceQuotaTemplateResponse fromJson(
           Map<String, dynamic> json) =>
-      GetAssociationForServiceQuotaTemplateResponse();
+      GetAssociationForServiceQuotaTemplateResponse(
+        serviceQuotaTemplateAssociationStatus:
+            json.containsKey('ServiceQuotaTemplateAssociationStatus')
+                ? json['ServiceQuotaTemplateAssociationStatus'] as String
+                : null,
+      );
 }
 
 class GetRequestedServiceQuotaChangeResponse {
@@ -436,7 +535,11 @@ class GetRequestedServiceQuotaChangeResponse {
   });
   static GetRequestedServiceQuotaChangeResponse fromJson(
           Map<String, dynamic> json) =>
-      GetRequestedServiceQuotaChangeResponse();
+      GetRequestedServiceQuotaChangeResponse(
+        requestedQuota: json.containsKey('RequestedQuota')
+            ? RequestedServiceQuotaChange.fromJson(json['RequestedQuota'])
+            : null,
+      );
 }
 
 class GetServiceQuotaIncreaseRequestFromTemplateResponse {
@@ -449,7 +552,13 @@ class GetServiceQuotaIncreaseRequestFromTemplateResponse {
   });
   static GetServiceQuotaIncreaseRequestFromTemplateResponse fromJson(
           Map<String, dynamic> json) =>
-      GetServiceQuotaIncreaseRequestFromTemplateResponse();
+      GetServiceQuotaIncreaseRequestFromTemplateResponse(
+        serviceQuotaIncreaseRequestInTemplate:
+            json.containsKey('ServiceQuotaIncreaseRequestInTemplate')
+                ? ServiceQuotaIncreaseRequestInTemplate.fromJson(
+                    json['ServiceQuotaIncreaseRequestInTemplate'])
+                : null,
+      );
 }
 
 class GetServiceQuotaResponse {
@@ -460,7 +569,11 @@ class GetServiceQuotaResponse {
     this.quota,
   });
   static GetServiceQuotaResponse fromJson(Map<String, dynamic> json) =>
-      GetServiceQuotaResponse();
+      GetServiceQuotaResponse(
+        quota: json.containsKey('Quota')
+            ? ServiceQuota.fromJson(json['Quota'])
+            : null,
+      );
 }
 
 class ListAwsDefaultServiceQuotasResponse {
@@ -480,7 +593,15 @@ class ListAwsDefaultServiceQuotasResponse {
   });
   static ListAwsDefaultServiceQuotasResponse fromJson(
           Map<String, dynamic> json) =>
-      ListAwsDefaultServiceQuotasResponse();
+      ListAwsDefaultServiceQuotasResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        quotas: json.containsKey('Quotas')
+            ? (json['Quotas'] as List)
+                .map((e) => ServiceQuota.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListRequestedServiceQuotaChangeHistoryByQuotaResponse {
@@ -502,7 +623,15 @@ class ListRequestedServiceQuotaChangeHistoryByQuotaResponse {
   });
   static ListRequestedServiceQuotaChangeHistoryByQuotaResponse fromJson(
           Map<String, dynamic> json) =>
-      ListRequestedServiceQuotaChangeHistoryByQuotaResponse();
+      ListRequestedServiceQuotaChangeHistoryByQuotaResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        requestedQuotas: json.containsKey('RequestedQuotas')
+            ? (json['RequestedQuotas'] as List)
+                .map((e) => RequestedServiceQuotaChange.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListRequestedServiceQuotaChangeHistoryResponse {
@@ -524,7 +653,15 @@ class ListRequestedServiceQuotaChangeHistoryResponse {
   });
   static ListRequestedServiceQuotaChangeHistoryResponse fromJson(
           Map<String, dynamic> json) =>
-      ListRequestedServiceQuotaChangeHistoryResponse();
+      ListRequestedServiceQuotaChangeHistoryResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        requestedQuotas: json.containsKey('RequestedQuotas')
+            ? (json['RequestedQuotas'] as List)
+                .map((e) => RequestedServiceQuotaChange.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListServiceQuotaIncreaseRequestsInTemplateResponse {
@@ -547,7 +684,16 @@ class ListServiceQuotaIncreaseRequestsInTemplateResponse {
   });
   static ListServiceQuotaIncreaseRequestsInTemplateResponse fromJson(
           Map<String, dynamic> json) =>
-      ListServiceQuotaIncreaseRequestsInTemplateResponse();
+      ListServiceQuotaIncreaseRequestsInTemplateResponse(
+        serviceQuotaIncreaseRequestInTemplateList: json
+                .containsKey('ServiceQuotaIncreaseRequestInTemplateList')
+            ? (json['ServiceQuotaIncreaseRequestInTemplateList'] as List)
+                .map((e) => ServiceQuotaIncreaseRequestInTemplate.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListServiceQuotasResponse {
@@ -569,7 +715,15 @@ class ListServiceQuotasResponse {
     this.quotas,
   });
   static ListServiceQuotasResponse fromJson(Map<String, dynamic> json) =>
-      ListServiceQuotasResponse();
+      ListServiceQuotasResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        quotas: json.containsKey('Quotas')
+            ? (json['Quotas'] as List)
+                .map((e) => ServiceQuota.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListServicesResponse {
@@ -590,7 +744,15 @@ class ListServicesResponse {
     this.services,
   });
   static ListServicesResponse fromJson(Map<String, dynamic> json) =>
-      ListServicesResponse();
+      ListServicesResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        services: json.containsKey('Services')
+            ? (json['Services'] as List)
+                .map((e) => ServiceInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A structure that uses CloudWatch metrics to gather data about the service
@@ -623,7 +785,22 @@ class MetricInfo {
     this.metricDimensions,
     this.metricStatisticRecommendation,
   });
-  static MetricInfo fromJson(Map<String, dynamic> json) => MetricInfo();
+  static MetricInfo fromJson(Map<String, dynamic> json) => MetricInfo(
+        metricNamespace: json.containsKey('MetricNamespace')
+            ? json['MetricNamespace'] as String
+            : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        metricDimensions: json.containsKey('MetricDimensions')
+            ? (json['MetricDimensions'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        metricStatisticRecommendation:
+            json.containsKey('MetricStatisticRecommendation')
+                ? json['MetricStatisticRecommendation'] as String
+                : null,
+      );
 }
 
 class PutServiceQuotaIncreaseRequestIntoTemplateResponse {
@@ -637,7 +814,13 @@ class PutServiceQuotaIncreaseRequestIntoTemplateResponse {
   });
   static PutServiceQuotaIncreaseRequestIntoTemplateResponse fromJson(
           Map<String, dynamic> json) =>
-      PutServiceQuotaIncreaseRequestIntoTemplateResponse();
+      PutServiceQuotaIncreaseRequestIntoTemplateResponse(
+        serviceQuotaIncreaseRequestInTemplate:
+            json.containsKey('ServiceQuotaIncreaseRequestInTemplate')
+                ? ServiceQuotaIncreaseRequestInTemplate.fromJson(
+                    json['ServiceQuotaIncreaseRequestInTemplate'])
+                : null,
+      );
 }
 
 /// A structure that contains information about the quota period.
@@ -652,7 +835,13 @@ class QuotaPeriod {
     this.periodValue,
     this.periodUnit,
   });
-  static QuotaPeriod fromJson(Map<String, dynamic> json) => QuotaPeriod();
+  static QuotaPeriod fromJson(Map<String, dynamic> json) => QuotaPeriod(
+        periodValue:
+            json.containsKey('PeriodValue') ? json['PeriodValue'] as int : null,
+        periodUnit: json.containsKey('PeriodUnit')
+            ? json['PeriodUnit'] as String
+            : null,
+      );
 }
 
 class RequestServiceQuotaIncreaseResponse {
@@ -664,7 +853,11 @@ class RequestServiceQuotaIncreaseResponse {
   });
   static RequestServiceQuotaIncreaseResponse fromJson(
           Map<String, dynamic> json) =>
-      RequestServiceQuotaIncreaseResponse();
+      RequestServiceQuotaIncreaseResponse(
+        requestedQuota: json.containsKey('RequestedQuota')
+            ? RequestedServiceQuotaChange.fromJson(json['RequestedQuota'])
+            : null,
+      );
 }
 
 /// A structure that contains information about a requested change for a quota.
@@ -730,7 +923,38 @@ class RequestedServiceQuotaChange {
     this.unit,
   });
   static RequestedServiceQuotaChange fromJson(Map<String, dynamic> json) =>
-      RequestedServiceQuotaChange();
+      RequestedServiceQuotaChange(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        caseId: json.containsKey('CaseId') ? json['CaseId'] as String : null,
+        serviceCode: json.containsKey('ServiceCode')
+            ? json['ServiceCode'] as String
+            : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        quotaCode:
+            json.containsKey('QuotaCode') ? json['QuotaCode'] as String : null,
+        quotaName:
+            json.containsKey('QuotaName') ? json['QuotaName'] as String : null,
+        desiredValue: json.containsKey('DesiredValue')
+            ? json['DesiredValue'] as double
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        created: json.containsKey('Created')
+            ? DateTime.parse(json['Created'])
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        requester:
+            json.containsKey('Requester') ? json['Requester'] as String : null,
+        quotaArn:
+            json.containsKey('QuotaArn') ? json['QuotaArn'] as String : null,
+        globalQuota: json.containsKey('GlobalQuota')
+            ? json['GlobalQuota'] as bool
+            : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
 }
 
 /// A structure that contains the `ServiceName` and `ServiceCode`. It does not
@@ -747,7 +971,14 @@ class ServiceInfo {
     this.serviceCode,
     this.serviceName,
   });
-  static ServiceInfo fromJson(Map<String, dynamic> json) => ServiceInfo();
+  static ServiceInfo fromJson(Map<String, dynamic> json) => ServiceInfo(
+        serviceCode: json.containsKey('ServiceCode')
+            ? json['ServiceCode'] as String
+            : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+      );
 }
 
 /// A structure that contains the full set of details that define the service
@@ -803,7 +1034,36 @@ class ServiceQuota {
     this.period,
     this.errorReason,
   });
-  static ServiceQuota fromJson(Map<String, dynamic> json) => ServiceQuota();
+  static ServiceQuota fromJson(Map<String, dynamic> json) => ServiceQuota(
+        serviceCode: json.containsKey('ServiceCode')
+            ? json['ServiceCode'] as String
+            : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        quotaArn:
+            json.containsKey('QuotaArn') ? json['QuotaArn'] as String : null,
+        quotaCode:
+            json.containsKey('QuotaCode') ? json['QuotaCode'] as String : null,
+        quotaName:
+            json.containsKey('QuotaName') ? json['QuotaName'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as double : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+        adjustable:
+            json.containsKey('Adjustable') ? json['Adjustable'] as bool : null,
+        globalQuota: json.containsKey('GlobalQuota')
+            ? json['GlobalQuota'] as bool
+            : null,
+        usageMetric: json.containsKey('UsageMetric')
+            ? MetricInfo.fromJson(json['UsageMetric'])
+            : null,
+        period: json.containsKey('Period')
+            ? QuotaPeriod.fromJson(json['Period'])
+            : null,
+        errorReason: json.containsKey('ErrorReason')
+            ? ErrorReason.fromJson(json['ErrorReason'])
+            : null,
+      );
 }
 
 /// A structure that contains information about one service quota increase
@@ -847,5 +1107,25 @@ class ServiceQuotaIncreaseRequestInTemplate {
   });
   static ServiceQuotaIncreaseRequestInTemplate fromJson(
           Map<String, dynamic> json) =>
-      ServiceQuotaIncreaseRequestInTemplate();
+      ServiceQuotaIncreaseRequestInTemplate(
+        serviceCode: json.containsKey('ServiceCode')
+            ? json['ServiceCode'] as String
+            : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        quotaCode:
+            json.containsKey('QuotaCode') ? json['QuotaCode'] as String : null,
+        quotaName:
+            json.containsKey('QuotaName') ? json['QuotaName'] as String : null,
+        desiredValue: json.containsKey('DesiredValue')
+            ? json['DesiredValue'] as double
+            : null,
+        awsRegion:
+            json.containsKey('AwsRegion') ? json['AwsRegion'] as String : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+        globalQuota: json.containsKey('GlobalQuota')
+            ? json['GlobalQuota'] as bool
+            : null,
+      );
 }

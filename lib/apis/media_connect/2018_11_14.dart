@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 /// API for AWS Elemental MediaConnect
 class MediaConnectApi {
+  final _client;
+  MediaConnectApi(client)
+      : _client = client.configured('MediaConnect', serializer: 'rest-json');
+
   /// Adds outputs to an existing flow. You can create up to 20 outputs per
   /// flow.
   ///
@@ -11,7 +15,11 @@ class MediaConnectApi {
   Future<AddFlowOutputsResponse> addFlowOutputs(
       {@required String flowArn,
       @required List<AddOutputRequest> outputs}) async {
-    return AddFlowOutputsResponse.fromJson({});
+    var response_ = await _client.send('AddFlowOutputs', {
+      'FlowArn': flowArn,
+      'Outputs': outputs,
+    });
+    return AddFlowOutputsResponse.fromJson(response_);
   }
 
   /// Creates a new flow. The request must include one source. The request
@@ -32,14 +40,24 @@ class MediaConnectApi {
       @required String name,
       List<AddOutputRequest> outputs,
       @required SetSourceRequest source}) async {
-    return CreateFlowResponse.fromJson({});
+    var response_ = await _client.send('CreateFlow', {
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (entitlements != null) 'Entitlements': entitlements,
+      'Name': name,
+      if (outputs != null) 'Outputs': outputs,
+      'Source': source,
+    });
+    return CreateFlowResponse.fromJson(response_);
   }
 
   /// Deletes a flow. Before you can delete a flow, you must stop the flow.
   ///
   /// [flowArn]: The ARN of the flow that you want to delete.
   Future<DeleteFlowResponse> deleteFlow(String flowArn) async {
-    return DeleteFlowResponse.fromJson({});
+    var response_ = await _client.send('DeleteFlow', {
+      'FlowArn': flowArn,
+    });
+    return DeleteFlowResponse.fromJson(response_);
   }
 
   /// Displays the details of a flow. The response includes the flow ARN, name,
@@ -48,7 +66,10 @@ class MediaConnectApi {
   ///
   /// [flowArn]: The ARN of the flow that you want to describe.
   Future<DescribeFlowResponse> describeFlow(String flowArn) async {
-    return DescribeFlowResponse.fromJson({});
+    var response_ = await _client.send('DescribeFlow', {
+      'FlowArn': flowArn,
+    });
+    return DescribeFlowResponse.fromJson(response_);
   }
 
   /// Grants entitlements to an existing flow.
@@ -59,7 +80,11 @@ class MediaConnectApi {
   Future<GrantFlowEntitlementsResponse> grantFlowEntitlements(
       {@required List<GrantEntitlementRequest> entitlements,
       @required String flowArn}) async {
-    return GrantFlowEntitlementsResponse.fromJson({});
+    var response_ = await _client.send('GrantFlowEntitlements', {
+      'Entitlements': entitlements,
+      'FlowArn': flowArn,
+    });
+    return GrantFlowEntitlementsResponse.fromJson(response_);
   }
 
   /// Displays a list of all entitlements that have been granted to this
@@ -82,7 +107,11 @@ class MediaConnectApi {
   /// value.
   Future<ListEntitlementsResponse> listEntitlements(
       {int maxResults, String nextToken}) async {
-    return ListEntitlementsResponse.fromJson({});
+    var response_ = await _client.send('ListEntitlements', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListEntitlementsResponse.fromJson(response_);
   }
 
   /// Displays a list of flows that are associated with this account. This
@@ -103,7 +132,11 @@ class MediaConnectApi {
   /// ListFlows request a second time and specify the NextToken value.
   Future<ListFlowsResponse> listFlows(
       {int maxResults, String nextToken}) async {
-    return ListFlowsResponse.fromJson({});
+    var response_ = await _client.send('ListFlows', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListFlowsResponse.fromJson(response_);
   }
 
   /// List all tags on an AWS Elemental MediaConnect resource
@@ -112,7 +145,10 @@ class MediaConnectApi {
   /// Elemental MediaConnect resource for which to list the tags.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Removes an output from an existing flow. This request can be made only on
@@ -126,7 +162,11 @@ class MediaConnectApi {
   /// [outputArn]: The ARN of the output that you want to remove.
   Future<RemoveFlowOutputResponse> removeFlowOutput(
       {@required String flowArn, @required String outputArn}) async {
-    return RemoveFlowOutputResponse.fromJson({});
+    var response_ = await _client.send('RemoveFlowOutput', {
+      'FlowArn': flowArn,
+      'OutputArn': outputArn,
+    });
+    return RemoveFlowOutputResponse.fromJson(response_);
   }
 
   /// Revokes an entitlement from a flow. Once an entitlement is revoked, the
@@ -138,21 +178,31 @@ class MediaConnectApi {
   /// [flowArn]: The flow that you want to revoke an entitlement from.
   Future<RevokeFlowEntitlementResponse> revokeFlowEntitlement(
       {@required String entitlementArn, @required String flowArn}) async {
-    return RevokeFlowEntitlementResponse.fromJson({});
+    var response_ = await _client.send('RevokeFlowEntitlement', {
+      'EntitlementArn': entitlementArn,
+      'FlowArn': flowArn,
+    });
+    return RevokeFlowEntitlementResponse.fromJson(response_);
   }
 
   /// Starts a flow.
   ///
   /// [flowArn]: The ARN of the flow that you want to start.
   Future<StartFlowResponse> startFlow(String flowArn) async {
-    return StartFlowResponse.fromJson({});
+    var response_ = await _client.send('StartFlow', {
+      'FlowArn': flowArn,
+    });
+    return StartFlowResponse.fromJson(response_);
   }
 
   /// Stops a flow.
   ///
   /// [flowArn]: The ARN of the flow that you want to stop.
   Future<StopFlowResponse> stopFlow(String flowArn) async {
-    return StopFlowResponse.fromJson({});
+    var response_ = await _client.send('StopFlow', {
+      'FlowArn': flowArn,
+    });
+    return StopFlowResponse.fromJson(response_);
   }
 
   /// Associates the specified tags to a resource with the specified
@@ -168,7 +218,12 @@ class MediaConnectApi {
   /// length of 256 characters.
   Future<void> tagResource(
       {@required String resourceArn,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+  }
 
   /// Deletes specified tags from a resource.
   ///
@@ -177,7 +232,12 @@ class MediaConnectApi {
   ///
   /// [tagKeys]: The keys of the tags to be removed.
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// You can change an entitlement's description, subscribers, and encryption.
   /// If you change the subscribers, the service will remove the outputs that
@@ -204,7 +264,14 @@ class MediaConnectApi {
       @required String entitlementArn,
       @required String flowArn,
       List<String> subscribers}) async {
-    return UpdateFlowEntitlementResponse.fromJson({});
+    var response_ = await _client.send('UpdateFlowEntitlement', {
+      if (description != null) 'Description': description,
+      if (encryption != null) 'Encryption': encryption,
+      'EntitlementArn': entitlementArn,
+      'FlowArn': flowArn,
+      if (subscribers != null) 'Subscribers': subscribers,
+    });
+    return UpdateFlowEntitlementResponse.fromJson(response_);
   }
 
   /// Updates an existing flow output.
@@ -254,7 +321,21 @@ class MediaConnectApi {
       String remoteId,
       int smoothingLatency,
       String streamId}) async {
-    return UpdateFlowOutputResponse.fromJson({});
+    var response_ = await _client.send('UpdateFlowOutput', {
+      if (cidrAllowList != null) 'CidrAllowList': cidrAllowList,
+      if (description != null) 'Description': description,
+      if (destination != null) 'Destination': destination,
+      if (encryption != null) 'Encryption': encryption,
+      'FlowArn': flowArn,
+      if (maxLatency != null) 'MaxLatency': maxLatency,
+      'OutputArn': outputArn,
+      if (port != null) 'Port': port,
+      if (protocol != null) 'Protocol': protocol,
+      if (remoteId != null) 'RemoteId': remoteId,
+      if (smoothingLatency != null) 'SmoothingLatency': smoothingLatency,
+      if (streamId != null) 'StreamId': streamId,
+    });
+    return UpdateFlowOutputResponse.fromJson(response_);
   }
 
   /// Updates the source of a flow.
@@ -304,7 +385,20 @@ class MediaConnectApi {
       @required String sourceArn,
       String streamId,
       String whitelistCidr}) async {
-    return UpdateFlowSourceResponse.fromJson({});
+    var response_ = await _client.send('UpdateFlowSource', {
+      if (decryption != null) 'Decryption': decryption,
+      if (description != null) 'Description': description,
+      if (entitlementArn != null) 'EntitlementArn': entitlementArn,
+      'FlowArn': flowArn,
+      if (ingestPort != null) 'IngestPort': ingestPort,
+      if (maxBitrate != null) 'MaxBitrate': maxBitrate,
+      if (maxLatency != null) 'MaxLatency': maxLatency,
+      if (protocol != null) 'Protocol': protocol,
+      'SourceArn': sourceArn,
+      if (streamId != null) 'StreamId': streamId,
+      if (whitelistCidr != null) 'WhitelistCidr': whitelistCidr,
+    });
+    return UpdateFlowSourceResponse.fromJson(response_);
   }
 }
 
@@ -320,7 +414,12 @@ class AddFlowOutputsResponse {
     this.outputs,
   });
   static AddFlowOutputsResponse fromJson(Map<String, dynamic> json) =>
-      AddFlowOutputsResponse();
+      AddFlowOutputsResponse(
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+        outputs: json.containsKey('Outputs')
+            ? (json['Outputs'] as List).map((e) => Output.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The output that you want to add to this flow.
@@ -376,6 +475,7 @@ class AddOutputRequest {
     this.smoothingLatency,
     this.streamId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateFlowResponse {
@@ -385,7 +485,9 @@ class CreateFlowResponse {
     this.flow,
   });
   static CreateFlowResponse fromJson(Map<String, dynamic> json) =>
-      CreateFlowResponse();
+      CreateFlowResponse(
+        flow: json.containsKey('Flow') ? Flow.fromJson(json['Flow']) : null,
+      );
 }
 
 class DeleteFlowResponse {
@@ -400,7 +502,10 @@ class DeleteFlowResponse {
     this.status,
   });
   static DeleteFlowResponse fromJson(Map<String, dynamic> json) =>
-      DeleteFlowResponse();
+      DeleteFlowResponse(
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class DescribeFlowResponse {
@@ -413,7 +518,12 @@ class DescribeFlowResponse {
     this.messages,
   });
   static DescribeFlowResponse fromJson(Map<String, dynamic> json) =>
-      DescribeFlowResponse();
+      DescribeFlowResponse(
+        flow: json.containsKey('Flow') ? Flow.fromJson(json['Flow']) : null,
+        messages: json.containsKey('Messages')
+            ? Messages.fromJson(json['Messages'])
+            : null,
+      );
 }
 
 /// Information about the encryption of the flow.
@@ -472,7 +582,25 @@ class Encryption {
     this.secretArn,
     this.url,
   });
-  static Encryption fromJson(Map<String, dynamic> json) => Encryption();
+  static Encryption fromJson(Map<String, dynamic> json) => Encryption(
+        algorithm: json['Algorithm'] as String,
+        constantInitializationVector:
+            json.containsKey('ConstantInitializationVector')
+                ? json['ConstantInitializationVector'] as String
+                : null,
+        deviceId:
+            json.containsKey('DeviceId') ? json['DeviceId'] as String : null,
+        keyType: json.containsKey('KeyType') ? json['KeyType'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        roleArn: json['RoleArn'] as String,
+        secretArn:
+            json.containsKey('SecretArn') ? json['SecretArn'] as String : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The settings for a flow entitlement.
@@ -502,7 +630,18 @@ class Entitlement {
     @required this.name,
     @required this.subscribers,
   });
-  static Entitlement fromJson(Map<String, dynamic> json) => Entitlement();
+  static Entitlement fromJson(Map<String, dynamic> json) => Entitlement(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? Encryption.fromJson(json['Encryption'])
+            : null,
+        entitlementArn: json['EntitlementArn'] as String,
+        name: json['Name'] as String,
+        subscribers:
+            (json['Subscribers'] as List).map((e) => e as String).toList(),
+      );
 }
 
 /// The settings for a flow, including its source, outputs, and entitlements.
@@ -547,7 +686,23 @@ class Flow {
     @required this.source,
     @required this.status,
   });
-  static Flow fromJson(Map<String, dynamic> json) => Flow();
+  static Flow fromJson(Map<String, dynamic> json) => Flow(
+        availabilityZone: json['AvailabilityZone'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        egressIp:
+            json.containsKey('EgressIp') ? json['EgressIp'] as String : null,
+        entitlements: (json['Entitlements'] as List)
+            .map((e) => Entitlement.fromJson(e))
+            .toList(),
+        flowArn: json['FlowArn'] as String,
+        name: json['Name'] as String,
+        outputs:
+            (json['Outputs'] as List).map((e) => Output.fromJson(e)).toList(),
+        source: Source.fromJson(json['Source']),
+        status: json['Status'] as String,
+      );
 }
 
 /// The entitlements that you want to grant on a flow.
@@ -576,6 +731,7 @@ class GrantEntitlementRequest {
     this.name,
     @required this.subscribers,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GrantFlowEntitlementsResponse {
@@ -590,7 +746,14 @@ class GrantFlowEntitlementsResponse {
     this.flowArn,
   });
   static GrantFlowEntitlementsResponse fromJson(Map<String, dynamic> json) =>
-      GrantFlowEntitlementsResponse();
+      GrantFlowEntitlementsResponse(
+        entitlements: json.containsKey('Entitlements')
+            ? (json['Entitlements'] as List)
+                .map((e) => Entitlement.fromJson(e))
+                .toList()
+            : null,
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+      );
 }
 
 class ListEntitlementsResponse {
@@ -610,7 +773,15 @@ class ListEntitlementsResponse {
     this.nextToken,
   });
   static ListEntitlementsResponse fromJson(Map<String, dynamic> json) =>
-      ListEntitlementsResponse();
+      ListEntitlementsResponse(
+        entitlements: json.containsKey('Entitlements')
+            ? (json['Entitlements'] as List)
+                .map((e) => ListedEntitlement.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListFlowsResponse {
@@ -629,7 +800,15 @@ class ListFlowsResponse {
     this.nextToken,
   });
   static ListFlowsResponse fromJson(Map<String, dynamic> json) =>
-      ListFlowsResponse();
+      ListFlowsResponse(
+        flows: json.containsKey('Flows')
+            ? (json['Flows'] as List)
+                .map((e) => ListedFlow.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -642,7 +821,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// An entitlement that has been granted to you from other AWS accounts.
@@ -658,7 +842,10 @@ class ListedEntitlement {
     @required this.entitlementName,
   });
   static ListedEntitlement fromJson(Map<String, dynamic> json) =>
-      ListedEntitlement();
+      ListedEntitlement(
+        entitlementArn: json['EntitlementArn'] as String,
+        entitlementName: json['EntitlementName'] as String,
+      );
 }
 
 /// Provides a summary of a flow, including its ARN, Availability Zone, and
@@ -693,7 +880,14 @@ class ListedFlow {
     @required this.sourceType,
     @required this.status,
   });
-  static ListedFlow fromJson(Map<String, dynamic> json) => ListedFlow();
+  static ListedFlow fromJson(Map<String, dynamic> json) => ListedFlow(
+        availabilityZone: json['AvailabilityZone'] as String,
+        description: json['Description'] as String,
+        flowArn: json['FlowArn'] as String,
+        name: json['Name'] as String,
+        sourceType: json['SourceType'] as String,
+        status: json['Status'] as String,
+      );
 }
 
 /// Messages that provide the state of the flow.
@@ -705,7 +899,9 @@ class Messages {
   Messages({
     @required this.errors,
   });
-  static Messages fromJson(Map<String, dynamic> json) => Messages();
+  static Messages fromJson(Map<String, dynamic> json) => Messages(
+        errors: (json['Errors'] as List).map((e) => e as String).toList(),
+      );
 }
 
 /// The settings for an output.
@@ -751,7 +947,29 @@ class Output {
     this.port,
     this.transport,
   });
-  static Output fromJson(Map<String, dynamic> json) => Output();
+  static Output fromJson(Map<String, dynamic> json) => Output(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        destination: json.containsKey('Destination')
+            ? json['Destination'] as String
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? Encryption.fromJson(json['Encryption'])
+            : null,
+        entitlementArn: json.containsKey('EntitlementArn')
+            ? json['EntitlementArn'] as String
+            : null,
+        mediaLiveInputArn: json.containsKey('MediaLiveInputArn')
+            ? json['MediaLiveInputArn'] as String
+            : null,
+        name: json['Name'] as String,
+        outputArn: json['OutputArn'] as String,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        transport: json.containsKey('Transport')
+            ? Transport.fromJson(json['Transport'])
+            : null,
+      );
 }
 
 class RemoveFlowOutputResponse {
@@ -766,7 +984,11 @@ class RemoveFlowOutputResponse {
     this.outputArn,
   });
   static RemoveFlowOutputResponse fromJson(Map<String, dynamic> json) =>
-      RemoveFlowOutputResponse();
+      RemoveFlowOutputResponse(
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+        outputArn:
+            json.containsKey('OutputArn') ? json['OutputArn'] as String : null,
+      );
 }
 
 class RevokeFlowEntitlementResponse {
@@ -781,7 +1003,12 @@ class RevokeFlowEntitlementResponse {
     this.flowArn,
   });
   static RevokeFlowEntitlementResponse fromJson(Map<String, dynamic> json) =>
-      RevokeFlowEntitlementResponse();
+      RevokeFlowEntitlementResponse(
+        entitlementArn: json.containsKey('EntitlementArn')
+            ? json['EntitlementArn'] as String
+            : null,
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+      );
 }
 
 /// The settings for the source of the flow.
@@ -836,6 +1063,7 @@ class SetSourceRequest {
     this.streamId,
     this.whitelistCidr,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The settings for the source of the flow.
@@ -884,7 +1112,29 @@ class Source {
     this.transport,
     this.whitelistCidr,
   });
-  static Source fromJson(Map<String, dynamic> json) => Source();
+  static Source fromJson(Map<String, dynamic> json) => Source(
+        decryption: json.containsKey('Decryption')
+            ? Encryption.fromJson(json['Decryption'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        entitlementArn: json.containsKey('EntitlementArn')
+            ? json['EntitlementArn'] as String
+            : null,
+        ingestIp:
+            json.containsKey('IngestIp') ? json['IngestIp'] as String : null,
+        ingestPort:
+            json.containsKey('IngestPort') ? json['IngestPort'] as int : null,
+        name: json['Name'] as String,
+        sourceArn: json['SourceArn'] as String,
+        transport: json.containsKey('Transport')
+            ? Transport.fromJson(json['Transport'])
+            : null,
+        whitelistCidr: json.containsKey('WhitelistCidr')
+            ? json['WhitelistCidr'] as String
+            : null,
+      );
 }
 
 class StartFlowResponse {
@@ -899,7 +1149,10 @@ class StartFlowResponse {
     this.status,
   });
   static StartFlowResponse fromJson(Map<String, dynamic> json) =>
-      StartFlowResponse();
+      StartFlowResponse(
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class StopFlowResponse {
@@ -914,7 +1167,10 @@ class StopFlowResponse {
     this.status,
   });
   static StopFlowResponse fromJson(Map<String, dynamic> json) =>
-      StopFlowResponse();
+      StopFlowResponse(
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Attributes related to the transport stream that are used in a source or
@@ -954,7 +1210,23 @@ class Transport {
     this.smoothingLatency,
     this.streamId,
   });
-  static Transport fromJson(Map<String, dynamic> json) => Transport();
+  static Transport fromJson(Map<String, dynamic> json) => Transport(
+        cidrAllowList: json.containsKey('CidrAllowList')
+            ? (json['CidrAllowList'] as List).map((e) => e as String).toList()
+            : null,
+        maxBitrate:
+            json.containsKey('MaxBitrate') ? json['MaxBitrate'] as int : null,
+        maxLatency:
+            json.containsKey('MaxLatency') ? json['MaxLatency'] as int : null,
+        protocol: json['Protocol'] as String,
+        remoteId:
+            json.containsKey('RemoteId') ? json['RemoteId'] as String : null,
+        smoothingLatency: json.containsKey('SmoothingLatency')
+            ? json['SmoothingLatency'] as int
+            : null,
+        streamId:
+            json.containsKey('StreamId') ? json['StreamId'] as String : null,
+      );
 }
 
 /// Information about the encryption of the flow.
@@ -1013,6 +1285,7 @@ class UpdateEncryption {
     this.secretArn,
     this.url,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateFlowEntitlementResponse {
@@ -1026,7 +1299,12 @@ class UpdateFlowEntitlementResponse {
     this.flowArn,
   });
   static UpdateFlowEntitlementResponse fromJson(Map<String, dynamic> json) =>
-      UpdateFlowEntitlementResponse();
+      UpdateFlowEntitlementResponse(
+        entitlement: json.containsKey('Entitlement')
+            ? Entitlement.fromJson(json['Entitlement'])
+            : null,
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+      );
 }
 
 class UpdateFlowOutputResponse {
@@ -1040,7 +1318,11 @@ class UpdateFlowOutputResponse {
     this.output,
   });
   static UpdateFlowOutputResponse fromJson(Map<String, dynamic> json) =>
-      UpdateFlowOutputResponse();
+      UpdateFlowOutputResponse(
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+        output:
+            json.containsKey('Output') ? Output.fromJson(json['Output']) : null,
+      );
 }
 
 class UpdateFlowSourceResponse {
@@ -1055,5 +1337,9 @@ class UpdateFlowSourceResponse {
     this.source,
   });
   static UpdateFlowSourceResponse fromJson(Map<String, dynamic> json) =>
-      UpdateFlowSourceResponse();
+      UpdateFlowSourceResponse(
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+        source:
+            json.containsKey('Source') ? Source.fromJson(json['Source']) : null,
+      );
 }

@@ -26,6 +26,10 @@ import 'dart:typed_data';
 /// cases so you can answer questions like which devices are about to fail or
 /// which customers are at risk of abandoning their wearable devices.
 class IotAnalyticsApi {
+  final _client;
+  IotAnalyticsApi(client)
+      : _client = client.configured('IoTAnalytics', serializer: 'rest-json');
+
   /// Sends messages to a channel.
   ///
   /// [channelName]: The name of the channel where the messages are sent.
@@ -57,7 +61,11 @@ class IotAnalyticsApi {
   /// message payloads.
   Future<BatchPutMessageResponse> batchPutMessage(
       {@required String channelName, @required List<Message> messages}) async {
-    return BatchPutMessageResponse.fromJson({});
+    var response_ = await _client.send('BatchPutMessage', {
+      'channelName': channelName,
+      'messages': messages,
+    });
+    return BatchPutMessageResponse.fromJson(response_);
   }
 
   /// Cancels the reprocessing of data through the pipeline.
@@ -69,7 +77,11 @@ class IotAnalyticsApi {
   /// "StartPipelineReprocessing").
   Future<CancelPipelineReprocessingResponse> cancelPipelineReprocessing(
       {@required String pipelineName, @required String reprocessingId}) async {
-    return CancelPipelineReprocessingResponse.fromJson({});
+    var response_ = await _client.send('CancelPipelineReprocessing', {
+      'pipelineName': pipelineName,
+      'reprocessingId': reprocessingId,
+    });
+    return CancelPipelineReprocessingResponse.fromJson(response_);
   }
 
   /// Creates a channel. A channel collects data from an MQTT topic and archives
@@ -87,7 +99,13 @@ class IotAnalyticsApi {
       {ChannelStorage channelStorage,
       RetentionPeriod retentionPeriod,
       List<Tag> tags}) async {
-    return CreateChannelResponse.fromJson({});
+    var response_ = await _client.send('CreateChannel', {
+      'channelName': channelName,
+      if (channelStorage != null) 'channelStorage': channelStorage,
+      if (retentionPeriod != null) 'retentionPeriod': retentionPeriod,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateChannelResponse.fromJson(response_);
   }
 
   /// Creates a data set. A data set stores data retrieved from a data store by
@@ -132,7 +150,18 @@ class IotAnalyticsApi {
       RetentionPeriod retentionPeriod,
       VersioningConfiguration versioningConfiguration,
       List<Tag> tags}) async {
-    return CreateDatasetResponse.fromJson({});
+    var response_ = await _client.send('CreateDataset', {
+      'datasetName': datasetName,
+      'actions': actions,
+      if (triggers != null) 'triggers': triggers,
+      if (contentDeliveryRules != null)
+        'contentDeliveryRules': contentDeliveryRules,
+      if (retentionPeriod != null) 'retentionPeriod': retentionPeriod,
+      if (versioningConfiguration != null)
+        'versioningConfiguration': versioningConfiguration,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDatasetResponse.fromJson(response_);
   }
 
   /// Creates the content of a data set by applying a "queryAction" (a SQL
@@ -141,7 +170,10 @@ class IotAnalyticsApi {
   /// [datasetName]: The name of the data set.
   Future<CreateDatasetContentResponse> createDatasetContent(
       String datasetName) async {
-    return CreateDatasetContentResponse.fromJson({});
+    var response_ = await _client.send('CreateDatasetContent', {
+      'datasetName': datasetName,
+    });
+    return CreateDatasetContentResponse.fromJson(response_);
   }
 
   /// Creates a data store, which is a repository for messages.
@@ -158,7 +190,13 @@ class IotAnalyticsApi {
       {DatastoreStorage datastoreStorage,
       RetentionPeriod retentionPeriod,
       List<Tag> tags}) async {
-    return CreateDatastoreResponse.fromJson({});
+    var response_ = await _client.send('CreateDatastore', {
+      'datastoreName': datastoreName,
+      if (datastoreStorage != null) 'datastoreStorage': datastoreStorage,
+      if (retentionPeriod != null) 'retentionPeriod': retentionPeriod,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDatastoreResponse.fromJson(response_);
   }
 
   /// Creates a pipeline. A pipeline consumes messages from one or more channels
@@ -187,13 +225,22 @@ class IotAnalyticsApi {
       {@required String pipelineName,
       @required List<PipelineActivity> pipelineActivities,
       List<Tag> tags}) async {
-    return CreatePipelineResponse.fromJson({});
+    var response_ = await _client.send('CreatePipeline', {
+      'pipelineName': pipelineName,
+      'pipelineActivities': pipelineActivities,
+      if (tags != null) 'tags': tags,
+    });
+    return CreatePipelineResponse.fromJson(response_);
   }
 
   /// Deletes the specified channel.
   ///
   /// [channelName]: The name of the channel to delete.
-  Future<void> deleteChannel(String channelName) async {}
+  Future<void> deleteChannel(String channelName) async {
+    await _client.send('DeleteChannel', {
+      'channelName': channelName,
+    });
+  }
 
   /// Deletes the specified data set.
   ///
@@ -201,7 +248,11 @@ class IotAnalyticsApi {
   /// this operation.
   ///
   /// [datasetName]: The name of the data set to delete.
-  Future<void> deleteDataset(String datasetName) async {}
+  Future<void> deleteDataset(String datasetName) async {
+    await _client.send('DeleteDataset', {
+      'datasetName': datasetName,
+    });
+  }
 
   /// Deletes the content of the specified data set.
   ///
@@ -212,17 +263,30 @@ class IotAnalyticsApi {
   /// or latest successfully completed data set. If not specified,
   /// "$LATEST_SUCCEEDED" is the default.
   Future<void> deleteDatasetContent(String datasetName,
-      {String versionId}) async {}
+      {String versionId}) async {
+    await _client.send('DeleteDatasetContent', {
+      'datasetName': datasetName,
+      if (versionId != null) 'versionId': versionId,
+    });
+  }
 
   /// Deletes the specified data store.
   ///
   /// [datastoreName]: The name of the data store to delete.
-  Future<void> deleteDatastore(String datastoreName) async {}
+  Future<void> deleteDatastore(String datastoreName) async {
+    await _client.send('DeleteDatastore', {
+      'datastoreName': datastoreName,
+    });
+  }
 
   /// Deletes the specified pipeline.
   ///
   /// [pipelineName]: The name of the pipeline to delete.
-  Future<void> deletePipeline(String pipelineName) async {}
+  Future<void> deletePipeline(String pipelineName) async {
+    await _client.send('DeletePipeline', {
+      'pipelineName': pipelineName,
+    });
+  }
 
   /// Retrieves information about a channel.
   ///
@@ -232,14 +296,21 @@ class IotAnalyticsApi {
   /// channel is included in the response.
   Future<DescribeChannelResponse> describeChannel(String channelName,
       {bool includeStatistics}) async {
-    return DescribeChannelResponse.fromJson({});
+    var response_ = await _client.send('DescribeChannel', {
+      'channelName': channelName,
+      if (includeStatistics != null) 'includeStatistics': includeStatistics,
+    });
+    return DescribeChannelResponse.fromJson(response_);
   }
 
   /// Retrieves information about a data set.
   ///
   /// [datasetName]: The name of the data set whose information is retrieved.
   Future<DescribeDatasetResponse> describeDataset(String datasetName) async {
-    return DescribeDatasetResponse.fromJson({});
+    var response_ = await _client.send('DescribeDataset', {
+      'datasetName': datasetName,
+    });
+    return DescribeDatasetResponse.fromJson(response_);
   }
 
   /// Retrieves information about a data store.
@@ -250,19 +321,27 @@ class IotAnalyticsApi {
   /// datastore is included in the response.
   Future<DescribeDatastoreResponse> describeDatastore(String datastoreName,
       {bool includeStatistics}) async {
-    return DescribeDatastoreResponse.fromJson({});
+    var response_ = await _client.send('DescribeDatastore', {
+      'datastoreName': datastoreName,
+      if (includeStatistics != null) 'includeStatistics': includeStatistics,
+    });
+    return DescribeDatastoreResponse.fromJson(response_);
   }
 
   /// Retrieves the current settings of the AWS IoT Analytics logging options.
   Future<DescribeLoggingOptionsResponse> describeLoggingOptions() async {
-    return DescribeLoggingOptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeLoggingOptions', {});
+    return DescribeLoggingOptionsResponse.fromJson(response_);
   }
 
   /// Retrieves information about a pipeline.
   ///
   /// [pipelineName]: The name of the pipeline whose information is retrieved.
   Future<DescribePipelineResponse> describePipeline(String pipelineName) async {
-    return DescribePipelineResponse.fromJson({});
+    var response_ = await _client.send('DescribePipeline', {
+      'pipelineName': pipelineName,
+    });
+    return DescribePipelineResponse.fromJson(response_);
   }
 
   /// Retrieves the contents of a data set as pre-signed URIs.
@@ -275,7 +354,11 @@ class IotAnalyticsApi {
   /// specified, "$LATEST_SUCCEEDED" is the default.
   Future<GetDatasetContentResponse> getDatasetContent(String datasetName,
       {String versionId}) async {
-    return GetDatasetContentResponse.fromJson({});
+    var response_ = await _client.send('GetDatasetContent', {
+      'datasetName': datasetName,
+      if (versionId != null) 'versionId': versionId,
+    });
+    return GetDatasetContentResponse.fromJson(response_);
   }
 
   /// Retrieves a list of channels.
@@ -287,7 +370,11 @@ class IotAnalyticsApi {
   /// The default value is 100.
   Future<ListChannelsResponse> listChannels(
       {String nextToken, int maxResults}) async {
-    return ListChannelsResponse.fromJson({});
+    var response_ = await _client.send('ListChannels', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListChannelsResponse.fromJson(response_);
   }
 
   /// Lists information about data set contents that have been created.
@@ -311,7 +398,14 @@ class IotAnalyticsApi {
       int maxResults,
       DateTime scheduledOnOrAfter,
       DateTime scheduledBefore}) async {
-    return ListDatasetContentsResponse.fromJson({});
+    var response_ = await _client.send('ListDatasetContents', {
+      'datasetName': datasetName,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (scheduledOnOrAfter != null) 'scheduledOnOrAfter': scheduledOnOrAfter,
+      if (scheduledBefore != null) 'scheduledBefore': scheduledBefore,
+    });
+    return ListDatasetContentsResponse.fromJson(response_);
   }
 
   /// Retrieves information about data sets.
@@ -323,7 +417,11 @@ class IotAnalyticsApi {
   /// The default value is 100.
   Future<ListDatasetsResponse> listDatasets(
       {String nextToken, int maxResults}) async {
-    return ListDatasetsResponse.fromJson({});
+    var response_ = await _client.send('ListDatasets', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDatasetsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of data stores.
@@ -335,7 +433,11 @@ class IotAnalyticsApi {
   /// The default value is 100.
   Future<ListDatastoresResponse> listDatastores(
       {String nextToken, int maxResults}) async {
-    return ListDatastoresResponse.fromJson({});
+    var response_ = await _client.send('ListDatastores', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDatastoresResponse.fromJson(response_);
   }
 
   /// Retrieves a list of pipelines.
@@ -347,7 +449,11 @@ class IotAnalyticsApi {
   /// The default value is 100.
   Future<ListPipelinesResponse> listPipelines(
       {String nextToken, int maxResults}) async {
-    return ListPipelinesResponse.fromJson({});
+    var response_ = await _client.send('ListPipelines', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListPipelinesResponse.fromJson(response_);
   }
 
   /// Lists the tags (metadata) which you have assigned to the resource.
@@ -355,7 +461,10 @@ class IotAnalyticsApi {
   /// [resourceArn]: The ARN of the resource whose tags you want to list.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Sets or updates the AWS IoT Analytics logging options.
@@ -367,7 +476,11 @@ class IotAnalyticsApi {
   /// change to take effect.
   ///
   /// [loggingOptions]: The new values of the AWS IoT Analytics logging options.
-  Future<void> putLoggingOptions(LoggingOptions loggingOptions) async {}
+  Future<void> putLoggingOptions(LoggingOptions loggingOptions) async {
+    await _client.send('PutLoggingOptions', {
+      'loggingOptions': loggingOptions,
+    });
+  }
 
   /// Simulates the results of running a pipeline activity on a message payload.
   ///
@@ -383,7 +496,11 @@ class IotAnalyticsApi {
   Future<RunPipelineActivityResponse> runPipelineActivity(
       {@required PipelineActivity pipelineActivity,
       @required List<Uint8List> payloads}) async {
-    return RunPipelineActivityResponse.fromJson({});
+    var response_ = await _client.send('RunPipelineActivity', {
+      'pipelineActivity': pipelineActivity,
+      'payloads': payloads,
+    });
+    return RunPipelineActivityResponse.fromJson(response_);
   }
 
   /// Retrieves a sample of messages from the specified channel ingested during
@@ -402,7 +519,13 @@ class IotAnalyticsApi {
   /// retrieved.
   Future<SampleChannelDataResponse> sampleChannelData(String channelName,
       {int maxMessages, DateTime startTime, DateTime endTime}) async {
-    return SampleChannelDataResponse.fromJson({});
+    var response_ = await _client.send('SampleChannelData', {
+      'channelName': channelName,
+      if (maxMessages != null) 'maxMessages': maxMessages,
+      if (startTime != null) 'startTime': startTime,
+      if (endTime != null) 'endTime': endTime,
+    });
+    return SampleChannelDataResponse.fromJson(response_);
   }
 
   /// Starts the reprocessing of raw message data through the pipeline.
@@ -418,7 +541,12 @@ class IotAnalyticsApi {
       String pipelineName,
       {DateTime startTime,
       DateTime endTime}) async {
-    return StartPipelineReprocessingResponse.fromJson({});
+    var response_ = await _client.send('StartPipelineReprocessing', {
+      'pipelineName': pipelineName,
+      if (startTime != null) 'startTime': startTime,
+      if (endTime != null) 'endTime': endTime,
+    });
+    return StartPipelineReprocessingResponse.fromJson(response_);
   }
 
   /// Adds to or modifies the tags of the given resource. Tags are metadata
@@ -429,7 +557,11 @@ class IotAnalyticsApi {
   /// [tags]: The new or modified tags for the resource.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes the given tags (metadata) from the resource.
@@ -439,7 +571,11 @@ class IotAnalyticsApi {
   /// [tagKeys]: The keys of those tags which you want to remove.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates the settings of a channel.
@@ -451,7 +587,13 @@ class IotAnalyticsApi {
   /// [retentionPeriod]: How long, in days, message data is kept for the
   /// channel.
   Future<void> updateChannel(String channelName,
-      {ChannelStorage channelStorage, RetentionPeriod retentionPeriod}) async {}
+      {ChannelStorage channelStorage, RetentionPeriod retentionPeriod}) async {
+    await _client.send('UpdateChannel', {
+      'channelName': channelName,
+      if (channelStorage != null) 'channelStorage': channelStorage,
+      if (retentionPeriod != null) 'retentionPeriod': retentionPeriod,
+    });
+  }
 
   /// Updates the settings of a data set.
   ///
@@ -480,7 +622,18 @@ class IotAnalyticsApi {
       List<DatasetTrigger> triggers,
       List<DatasetContentDeliveryRule> contentDeliveryRules,
       RetentionPeriod retentionPeriod,
-      VersioningConfiguration versioningConfiguration}) async {}
+      VersioningConfiguration versioningConfiguration}) async {
+    await _client.send('UpdateDataset', {
+      'datasetName': datasetName,
+      'actions': actions,
+      if (triggers != null) 'triggers': triggers,
+      if (contentDeliveryRules != null)
+        'contentDeliveryRules': contentDeliveryRules,
+      if (retentionPeriod != null) 'retentionPeriod': retentionPeriod,
+      if (versioningConfiguration != null)
+        'versioningConfiguration': versioningConfiguration,
+    });
+  }
 
   /// Updates the settings of a data store.
   ///
@@ -492,7 +645,13 @@ class IotAnalyticsApi {
   /// [datastoreStorage]: Where data store data is stored.
   Future<void> updateDatastore(String datastoreName,
       {RetentionPeriod retentionPeriod,
-      DatastoreStorage datastoreStorage}) async {}
+      DatastoreStorage datastoreStorage}) async {
+    await _client.send('UpdateDatastore', {
+      'datastoreName': datastoreName,
+      if (retentionPeriod != null) 'retentionPeriod': retentionPeriod,
+      if (datastoreStorage != null) 'datastoreStorage': datastoreStorage,
+    });
+  }
 
   /// Updates the settings of a pipeline. You must specify both a `channel` and
   /// a `datastore` activity and, optionally, as many as 23 additional
@@ -514,7 +673,12 @@ class IotAnalyticsApi {
   /// [ { "channel": { ... } }, { "lambda": { ... } }, ... ]`
   Future<void> updatePipeline(
       {@required String pipelineName,
-      @required List<PipelineActivity> pipelineActivities}) async {}
+      @required List<PipelineActivity> pipelineActivities}) async {
+    await _client.send('UpdatePipeline', {
+      'pipelineName': pipelineName,
+      'pipelineActivities': pipelineActivities,
+    });
+  }
 }
 
 /// An activity that adds other attributes based on existing attributes in the
@@ -541,7 +705,13 @@ class AddAttributesActivity {
     this.next,
   });
   static AddAttributesActivity fromJson(Map<String, dynamic> json) =>
-      AddAttributesActivity();
+      AddAttributesActivity(
+        name: json['name'] as String,
+        attributes: (json['attributes'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+        next: json.containsKey('next') ? json['next'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains informations about errors.
@@ -562,7 +732,15 @@ class BatchPutMessageErrorEntry {
     this.errorMessage,
   });
   static BatchPutMessageErrorEntry fromJson(Map<String, dynamic> json) =>
-      BatchPutMessageErrorEntry();
+      BatchPutMessageErrorEntry(
+        messageId:
+            json.containsKey('messageId') ? json['messageId'] as String : null,
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+      );
 }
 
 class BatchPutMessageResponse {
@@ -573,7 +751,14 @@ class BatchPutMessageResponse {
     this.batchPutMessageErrorEntries,
   });
   static BatchPutMessageResponse fromJson(Map<String, dynamic> json) =>
-      BatchPutMessageResponse();
+      BatchPutMessageResponse(
+        batchPutMessageErrorEntries:
+            json.containsKey('batchPutMessageErrorEntries')
+                ? (json['batchPutMessageErrorEntries'] as List)
+                    .map((e) => BatchPutMessageErrorEntry.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class CancelPipelineReprocessingResponse {
@@ -616,7 +801,23 @@ class Channel {
     this.creationTime,
     this.lastUpdateTime,
   });
-  static Channel fromJson(Map<String, dynamic> json) => Channel();
+  static Channel fromJson(Map<String, dynamic> json) => Channel(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        storage: json.containsKey('storage')
+            ? ChannelStorage.fromJson(json['storage'])
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        retentionPeriod: json.containsKey('retentionPeriod')
+            ? RetentionPeriod.fromJson(json['retentionPeriod'])
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+      );
 }
 
 /// The activity that determines the source of the messages to be processed.
@@ -635,8 +836,12 @@ class ChannelActivity {
     @required this.channelName,
     this.next,
   });
-  static ChannelActivity fromJson(Map<String, dynamic> json) =>
-      ChannelActivity();
+  static ChannelActivity fromJson(Map<String, dynamic> json) => ChannelActivity(
+        name: json['name'] as String,
+        channelName: json['channelName'] as String,
+        next: json.containsKey('next') ? json['next'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Statistics information about the channel.
@@ -648,7 +853,11 @@ class ChannelStatistics {
     this.size,
   });
   static ChannelStatistics fromJson(Map<String, dynamic> json) =>
-      ChannelStatistics();
+      ChannelStatistics(
+        size: json.containsKey('size')
+            ? EstimatedResourceSize.fromJson(json['size'])
+            : null,
+      );
 }
 
 /// Where channel data is stored.
@@ -664,7 +873,16 @@ class ChannelStorage {
     this.serviceManagedS3,
     this.customerManagedS3,
   });
-  static ChannelStorage fromJson(Map<String, dynamic> json) => ChannelStorage();
+  static ChannelStorage fromJson(Map<String, dynamic> json) => ChannelStorage(
+        serviceManagedS3: json.containsKey('serviceManagedS3')
+            ? ServiceManagedChannelS3Storage.fromJson(json['serviceManagedS3'])
+            : null,
+        customerManagedS3: json.containsKey('customerManagedS3')
+            ? CustomerManagedChannelS3Storage.fromJson(
+                json['customerManagedS3'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Where channel data is stored.
@@ -681,7 +899,16 @@ class ChannelStorageSummary {
     this.customerManagedS3,
   });
   static ChannelStorageSummary fromJson(Map<String, dynamic> json) =>
-      ChannelStorageSummary();
+      ChannelStorageSummary(
+        serviceManagedS3: json.containsKey('serviceManagedS3')
+            ? ServiceManagedChannelS3StorageSummary.fromJson(
+                json['serviceManagedS3'])
+            : null,
+        customerManagedS3: json.containsKey('customerManagedS3')
+            ? CustomerManagedChannelS3StorageSummary.fromJson(
+                json['customerManagedS3'])
+            : null,
+      );
 }
 
 /// A summary of information about a channel.
@@ -708,7 +935,21 @@ class ChannelSummary {
     this.creationTime,
     this.lastUpdateTime,
   });
-  static ChannelSummary fromJson(Map<String, dynamic> json) => ChannelSummary();
+  static ChannelSummary fromJson(Map<String, dynamic> json) => ChannelSummary(
+        channelName: json.containsKey('channelName')
+            ? json['channelName'] as String
+            : null,
+        channelStorage: json.containsKey('channelStorage')
+            ? ChannelStorageSummary.fromJson(json['channelStorage'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+      );
 }
 
 /// Information needed to run the "containerAction" to produce data set
@@ -741,7 +982,18 @@ class ContainerDatasetAction {
     this.variables,
   });
   static ContainerDatasetAction fromJson(Map<String, dynamic> json) =>
-      ContainerDatasetAction();
+      ContainerDatasetAction(
+        image: json['image'] as String,
+        executionRoleArn: json['executionRoleArn'] as String,
+        resourceConfiguration:
+            ResourceConfiguration.fromJson(json['resourceConfiguration']),
+        variables: json.containsKey('variables')
+            ? (json['variables'] as List)
+                .map((e) => Variable.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateChannelResponse {
@@ -760,7 +1012,17 @@ class CreateChannelResponse {
     this.retentionPeriod,
   });
   static CreateChannelResponse fromJson(Map<String, dynamic> json) =>
-      CreateChannelResponse();
+      CreateChannelResponse(
+        channelName: json.containsKey('channelName')
+            ? json['channelName'] as String
+            : null,
+        channelArn: json.containsKey('channelArn')
+            ? json['channelArn'] as String
+            : null,
+        retentionPeriod: json.containsKey('retentionPeriod')
+            ? RetentionPeriod.fromJson(json['retentionPeriod'])
+            : null,
+      );
 }
 
 class CreateDatasetContentResponse {
@@ -771,7 +1033,10 @@ class CreateDatasetContentResponse {
     this.versionId,
   });
   static CreateDatasetContentResponse fromJson(Map<String, dynamic> json) =>
-      CreateDatasetContentResponse();
+      CreateDatasetContentResponse(
+        versionId:
+            json.containsKey('versionId') ? json['versionId'] as String : null,
+      );
 }
 
 class CreateDatasetResponse {
@@ -790,7 +1055,17 @@ class CreateDatasetResponse {
     this.retentionPeriod,
   });
   static CreateDatasetResponse fromJson(Map<String, dynamic> json) =>
-      CreateDatasetResponse();
+      CreateDatasetResponse(
+        datasetName: json.containsKey('datasetName')
+            ? json['datasetName'] as String
+            : null,
+        datasetArn: json.containsKey('datasetArn')
+            ? json['datasetArn'] as String
+            : null,
+        retentionPeriod: json.containsKey('retentionPeriod')
+            ? RetentionPeriod.fromJson(json['retentionPeriod'])
+            : null,
+      );
 }
 
 class CreateDatastoreResponse {
@@ -809,7 +1084,17 @@ class CreateDatastoreResponse {
     this.retentionPeriod,
   });
   static CreateDatastoreResponse fromJson(Map<String, dynamic> json) =>
-      CreateDatastoreResponse();
+      CreateDatastoreResponse(
+        datastoreName: json.containsKey('datastoreName')
+            ? json['datastoreName'] as String
+            : null,
+        datastoreArn: json.containsKey('datastoreArn')
+            ? json['datastoreArn'] as String
+            : null,
+        retentionPeriod: json.containsKey('retentionPeriod')
+            ? RetentionPeriod.fromJson(json['retentionPeriod'])
+            : null,
+      );
 }
 
 class CreatePipelineResponse {
@@ -824,7 +1109,14 @@ class CreatePipelineResponse {
     this.pipelineArn,
   });
   static CreatePipelineResponse fromJson(Map<String, dynamic> json) =>
-      CreatePipelineResponse();
+      CreatePipelineResponse(
+        pipelineName: json.containsKey('pipelineName')
+            ? json['pipelineName'] as String
+            : null,
+        pipelineArn: json.containsKey('pipelineArn')
+            ? json['pipelineArn'] as String
+            : null,
+      );
 }
 
 /// Use this to store channel data in an S3 bucket that you manage.
@@ -847,7 +1139,13 @@ class CustomerManagedChannelS3Storage {
     @required this.roleArn,
   });
   static CustomerManagedChannelS3Storage fromJson(Map<String, dynamic> json) =>
-      CustomerManagedChannelS3Storage();
+      CustomerManagedChannelS3Storage(
+        bucket: json['bucket'] as String,
+        keyPrefix:
+            json.containsKey('keyPrefix') ? json['keyPrefix'] as String : null,
+        roleArn: json['roleArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Used to store channel data in an S3 bucket that you manage.
@@ -871,7 +1169,12 @@ class CustomerManagedChannelS3StorageSummary {
   });
   static CustomerManagedChannelS3StorageSummary fromJson(
           Map<String, dynamic> json) =>
-      CustomerManagedChannelS3StorageSummary();
+      CustomerManagedChannelS3StorageSummary(
+        bucket: json.containsKey('bucket') ? json['bucket'] as String : null,
+        keyPrefix:
+            json.containsKey('keyPrefix') ? json['keyPrefix'] as String : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+      );
 }
 
 /// Use this to store data store data in an S3 bucket that you manage.
@@ -895,7 +1198,13 @@ class CustomerManagedDatastoreS3Storage {
   });
   static CustomerManagedDatastoreS3Storage fromJson(
           Map<String, dynamic> json) =>
-      CustomerManagedDatastoreS3Storage();
+      CustomerManagedDatastoreS3Storage(
+        bucket: json['bucket'] as String,
+        keyPrefix:
+            json.containsKey('keyPrefix') ? json['keyPrefix'] as String : null,
+        roleArn: json['roleArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Used to store data store data in an S3 bucket that you manage.
@@ -919,7 +1228,12 @@ class CustomerManagedDatastoreS3StorageSummary {
   });
   static CustomerManagedDatastoreS3StorageSummary fromJson(
           Map<String, dynamic> json) =>
-      CustomerManagedDatastoreS3StorageSummary();
+      CustomerManagedDatastoreS3StorageSummary(
+        bucket: json.containsKey('bucket') ? json['bucket'] as String : null,
+        keyPrefix:
+            json.containsKey('keyPrefix') ? json['keyPrefix'] as String : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+      );
 }
 
 /// Information about a data set.
@@ -973,7 +1287,38 @@ class Dataset {
     this.retentionPeriod,
     this.versioningConfiguration,
   });
-  static Dataset fromJson(Map<String, dynamic> json) => Dataset();
+  static Dataset fromJson(Map<String, dynamic> json) => Dataset(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        actions: json.containsKey('actions')
+            ? (json['actions'] as List)
+                .map((e) => DatasetAction.fromJson(e))
+                .toList()
+            : null,
+        triggers: json.containsKey('triggers')
+            ? (json['triggers'] as List)
+                .map((e) => DatasetTrigger.fromJson(e))
+                .toList()
+            : null,
+        contentDeliveryRules: json.containsKey('contentDeliveryRules')
+            ? (json['contentDeliveryRules'] as List)
+                .map((e) => DatasetContentDeliveryRule.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+        retentionPeriod: json.containsKey('retentionPeriod')
+            ? RetentionPeriod.fromJson(json['retentionPeriod'])
+            : null,
+        versioningConfiguration: json.containsKey('versioningConfiguration')
+            ? VersioningConfiguration.fromJson(json['versioningConfiguration'])
+            : null,
+      );
 }
 
 /// A "DatasetAction" object that specifies how data set contents are
@@ -997,7 +1342,18 @@ class DatasetAction {
     this.queryAction,
     this.containerAction,
   });
-  static DatasetAction fromJson(Map<String, dynamic> json) => DatasetAction();
+  static DatasetAction fromJson(Map<String, dynamic> json) => DatasetAction(
+        actionName: json.containsKey('actionName')
+            ? json['actionName'] as String
+            : null,
+        queryAction: json.containsKey('queryAction')
+            ? SqlQueryDatasetAction.fromJson(json['queryAction'])
+            : null,
+        containerAction: json.containsKey('containerAction')
+            ? ContainerDatasetAction.fromJson(json['containerAction'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the action which automatically creates the data set's
@@ -1016,7 +1372,14 @@ class DatasetActionSummary {
     this.actionType,
   });
   static DatasetActionSummary fromJson(Map<String, dynamic> json) =>
-      DatasetActionSummary();
+      DatasetActionSummary(
+        actionName: json.containsKey('actionName')
+            ? json['actionName'] as String
+            : null,
+        actionType: json.containsKey('actionType')
+            ? json['actionType'] as String
+            : null,
+      );
 }
 
 /// The destination to which data set contents are delivered.
@@ -1034,7 +1397,19 @@ class DatasetContentDeliveryDestination {
   });
   static DatasetContentDeliveryDestination fromJson(
           Map<String, dynamic> json) =>
-      DatasetContentDeliveryDestination();
+      DatasetContentDeliveryDestination(
+        iotEventsDestinationConfiguration:
+            json.containsKey('iotEventsDestinationConfiguration')
+                ? IotEventsDestinationConfiguration.fromJson(
+                    json['iotEventsDestinationConfiguration'])
+                : null,
+        s3DestinationConfiguration:
+            json.containsKey('s3DestinationConfiguration')
+                ? S3DestinationConfiguration.fromJson(
+                    json['s3DestinationConfiguration'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When data set contents are created they are delivered to destination
@@ -1051,7 +1426,13 @@ class DatasetContentDeliveryRule {
     @required this.destination,
   });
   static DatasetContentDeliveryRule fromJson(Map<String, dynamic> json) =>
-      DatasetContentDeliveryRule();
+      DatasetContentDeliveryRule(
+        entryName:
+            json.containsKey('entryName') ? json['entryName'] as String : null,
+        destination:
+            DatasetContentDeliveryDestination.fromJson(json['destination']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The state of the data set contents and the reason they are in this state.
@@ -1068,7 +1449,10 @@ class DatasetContentStatus {
     this.reason,
   });
   static DatasetContentStatus fromJson(Map<String, dynamic> json) =>
-      DatasetContentStatus();
+      DatasetContentStatus(
+        state: json.containsKey('state') ? json['state'] as String : null,
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+      );
 }
 
 /// Summary information about data set contents.
@@ -1092,7 +1476,18 @@ class DatasetContentSummary {
     this.scheduleTime,
   });
   static DatasetContentSummary fromJson(Map<String, dynamic> json) =>
-      DatasetContentSummary();
+      DatasetContentSummary(
+        version: json.containsKey('version') ? json['version'] as String : null,
+        status: json.containsKey('status')
+            ? DatasetContentStatus.fromJson(json['status'])
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        scheduleTime: json.containsKey('scheduleTime')
+            ? DateTime.parse(json['scheduleTime'])
+            : null,
+      );
 }
 
 /// The data set whose latest contents are used as input to the notebook or
@@ -1106,7 +1501,10 @@ class DatasetContentVersionValue {
     @required this.datasetName,
   });
   static DatasetContentVersionValue fromJson(Map<String, dynamic> json) =>
-      DatasetContentVersionValue();
+      DatasetContentVersionValue(
+        datasetName: json['datasetName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The reference to a data set entry.
@@ -1121,7 +1519,11 @@ class DatasetEntry {
     this.entryName,
     this.dataUri,
   });
-  static DatasetEntry fromJson(Map<String, dynamic> json) => DatasetEntry();
+  static DatasetEntry fromJson(Map<String, dynamic> json) => DatasetEntry(
+        entryName:
+            json.containsKey('entryName') ? json['entryName'] as String : null,
+        dataUri: json.containsKey('dataURI') ? json['dataURI'] as String : null,
+      );
 }
 
 /// A summary of information about a data set.
@@ -1154,7 +1556,28 @@ class DatasetSummary {
     this.triggers,
     this.actions,
   });
-  static DatasetSummary fromJson(Map<String, dynamic> json) => DatasetSummary();
+  static DatasetSummary fromJson(Map<String, dynamic> json) => DatasetSummary(
+        datasetName: json.containsKey('datasetName')
+            ? json['datasetName'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+        triggers: json.containsKey('triggers')
+            ? (json['triggers'] as List)
+                .map((e) => DatasetTrigger.fromJson(e))
+                .toList()
+            : null,
+        actions: json.containsKey('actions')
+            ? (json['actions'] as List)
+                .map((e) => DatasetActionSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The "DatasetTrigger" that specifies when the data set is automatically
@@ -1171,7 +1594,15 @@ class DatasetTrigger {
     this.schedule,
     this.dataset,
   });
-  static DatasetTrigger fromJson(Map<String, dynamic> json) => DatasetTrigger();
+  static DatasetTrigger fromJson(Map<String, dynamic> json) => DatasetTrigger(
+        schedule: json.containsKey('schedule')
+            ? Schedule.fromJson(json['schedule'])
+            : null,
+        dataset: json.containsKey('dataset')
+            ? TriggeringDataset.fromJson(json['dataset'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a data store.
@@ -1218,7 +1649,23 @@ class Datastore {
     this.creationTime,
     this.lastUpdateTime,
   });
-  static Datastore fromJson(Map<String, dynamic> json) => Datastore();
+  static Datastore fromJson(Map<String, dynamic> json) => Datastore(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        storage: json.containsKey('storage')
+            ? DatastoreStorage.fromJson(json['storage'])
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        retentionPeriod: json.containsKey('retentionPeriod')
+            ? RetentionPeriod.fromJson(json['retentionPeriod'])
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+      );
 }
 
 /// The 'datastore' activity that specifies where to store the processed data.
@@ -1234,7 +1681,11 @@ class DatastoreActivity {
     @required this.datastoreName,
   });
   static DatastoreActivity fromJson(Map<String, dynamic> json) =>
-      DatastoreActivity();
+      DatastoreActivity(
+        name: json['name'] as String,
+        datastoreName: json['datastoreName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Statistical information about the data store.
@@ -1246,7 +1697,11 @@ class DatastoreStatistics {
     this.size,
   });
   static DatastoreStatistics fromJson(Map<String, dynamic> json) =>
-      DatastoreStatistics();
+      DatastoreStatistics(
+        size: json.containsKey('size')
+            ? EstimatedResourceSize.fromJson(json['size'])
+            : null,
+      );
 }
 
 /// Where data store data is stored.
@@ -1263,7 +1718,17 @@ class DatastoreStorage {
     this.customerManagedS3,
   });
   static DatastoreStorage fromJson(Map<String, dynamic> json) =>
-      DatastoreStorage();
+      DatastoreStorage(
+        serviceManagedS3: json.containsKey('serviceManagedS3')
+            ? ServiceManagedDatastoreS3Storage.fromJson(
+                json['serviceManagedS3'])
+            : null,
+        customerManagedS3: json.containsKey('customerManagedS3')
+            ? CustomerManagedDatastoreS3Storage.fromJson(
+                json['customerManagedS3'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Where data store data is stored.
@@ -1280,7 +1745,16 @@ class DatastoreStorageSummary {
     this.customerManagedS3,
   });
   static DatastoreStorageSummary fromJson(Map<String, dynamic> json) =>
-      DatastoreStorageSummary();
+      DatastoreStorageSummary(
+        serviceManagedS3: json.containsKey('serviceManagedS3')
+            ? ServiceManagedDatastoreS3StorageSummary.fromJson(
+                json['serviceManagedS3'])
+            : null,
+        customerManagedS3: json.containsKey('customerManagedS3')
+            ? CustomerManagedDatastoreS3StorageSummary.fromJson(
+                json['customerManagedS3'])
+            : null,
+      );
 }
 
 /// A summary of information about a data store.
@@ -1308,7 +1782,21 @@ class DatastoreSummary {
     this.lastUpdateTime,
   });
   static DatastoreSummary fromJson(Map<String, dynamic> json) =>
-      DatastoreSummary();
+      DatastoreSummary(
+        datastoreName: json.containsKey('datastoreName')
+            ? json['datastoreName'] as String
+            : null,
+        datastoreStorage: json.containsKey('datastoreStorage')
+            ? DatastoreStorageSummary.fromJson(json['datastoreStorage'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+      );
 }
 
 /// Used to limit data to that which has arrived since the last execution of the
@@ -1334,7 +1822,11 @@ class DeltaTime {
     @required this.offsetSeconds,
     @required this.timeExpression,
   });
-  static DeltaTime fromJson(Map<String, dynamic> json) => DeltaTime();
+  static DeltaTime fromJson(Map<String, dynamic> json) => DeltaTime(
+        offsetSeconds: json['offsetSeconds'] as int,
+        timeExpression: json['timeExpression'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DescribeChannelResponse {
@@ -1350,7 +1842,14 @@ class DescribeChannelResponse {
     this.statistics,
   });
   static DescribeChannelResponse fromJson(Map<String, dynamic> json) =>
-      DescribeChannelResponse();
+      DescribeChannelResponse(
+        channel: json.containsKey('channel')
+            ? Channel.fromJson(json['channel'])
+            : null,
+        statistics: json.containsKey('statistics')
+            ? ChannelStatistics.fromJson(json['statistics'])
+            : null,
+      );
 }
 
 class DescribeDatasetResponse {
@@ -1361,7 +1860,11 @@ class DescribeDatasetResponse {
     this.dataset,
   });
   static DescribeDatasetResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDatasetResponse();
+      DescribeDatasetResponse(
+        dataset: json.containsKey('dataset')
+            ? Dataset.fromJson(json['dataset'])
+            : null,
+      );
 }
 
 class DescribeDatastoreResponse {
@@ -1377,7 +1880,14 @@ class DescribeDatastoreResponse {
     this.statistics,
   });
   static DescribeDatastoreResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDatastoreResponse();
+      DescribeDatastoreResponse(
+        datastore: json.containsKey('datastore')
+            ? Datastore.fromJson(json['datastore'])
+            : null,
+        statistics: json.containsKey('statistics')
+            ? DatastoreStatistics.fromJson(json['statistics'])
+            : null,
+      );
 }
 
 class DescribeLoggingOptionsResponse {
@@ -1388,7 +1898,11 @@ class DescribeLoggingOptionsResponse {
     this.loggingOptions,
   });
   static DescribeLoggingOptionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLoggingOptionsResponse();
+      DescribeLoggingOptionsResponse(
+        loggingOptions: json.containsKey('loggingOptions')
+            ? LoggingOptions.fromJson(json['loggingOptions'])
+            : null,
+      );
 }
 
 class DescribePipelineResponse {
@@ -1399,7 +1913,11 @@ class DescribePipelineResponse {
     this.pipeline,
   });
   static DescribePipelineResponse fromJson(Map<String, dynamic> json) =>
-      DescribePipelineResponse();
+      DescribePipelineResponse(
+        pipeline: json.containsKey('pipeline')
+            ? Pipeline.fromJson(json['pipeline'])
+            : null,
+      );
 }
 
 /// An activity that adds data from the AWS IoT device registry to your message.
@@ -1429,7 +1947,14 @@ class DeviceRegistryEnrichActivity {
     this.next,
   });
   static DeviceRegistryEnrichActivity fromJson(Map<String, dynamic> json) =>
-      DeviceRegistryEnrichActivity();
+      DeviceRegistryEnrichActivity(
+        name: json['name'] as String,
+        attribute: json['attribute'] as String,
+        thingName: json['thingName'] as String,
+        roleArn: json['roleArn'] as String,
+        next: json.containsKey('next') ? json['next'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An activity that adds information from the AWS IoT Device Shadows service to
@@ -1459,7 +1984,14 @@ class DeviceShadowEnrichActivity {
     this.next,
   });
   static DeviceShadowEnrichActivity fromJson(Map<String, dynamic> json) =>
-      DeviceShadowEnrichActivity();
+      DeviceShadowEnrichActivity(
+        name: json['name'] as String,
+        attribute: json['attribute'] as String,
+        thingName: json['thingName'] as String,
+        roleArn: json['roleArn'] as String,
+        next: json.containsKey('next') ? json['next'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The estimated size of the resource.
@@ -1475,7 +2007,14 @@ class EstimatedResourceSize {
     this.estimatedOn,
   });
   static EstimatedResourceSize fromJson(Map<String, dynamic> json) =>
-      EstimatedResourceSize();
+      EstimatedResourceSize(
+        estimatedSizeInBytes: json.containsKey('estimatedSizeInBytes')
+            ? json['estimatedSizeInBytes'] as double
+            : null,
+        estimatedOn: json.containsKey('estimatedOn')
+            ? DateTime.parse(json['estimatedOn'])
+            : null,
+      );
 }
 
 /// An activity that filters a message based on its attributes.
@@ -1495,7 +2034,12 @@ class FilterActivity {
     @required this.filter,
     this.next,
   });
-  static FilterActivity fromJson(Map<String, dynamic> json) => FilterActivity();
+  static FilterActivity fromJson(Map<String, dynamic> json) => FilterActivity(
+        name: json['name'] as String,
+        filter: json['filter'] as String,
+        next: json.containsKey('next') ? json['next'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetDatasetContentResponse {
@@ -1514,7 +2058,19 @@ class GetDatasetContentResponse {
     this.status,
   });
   static GetDatasetContentResponse fromJson(Map<String, dynamic> json) =>
-      GetDatasetContentResponse();
+      GetDatasetContentResponse(
+        entries: json.containsKey('entries')
+            ? (json['entries'] as List)
+                .map((e) => DatasetEntry.fromJson(e))
+                .toList()
+            : null,
+        timestamp: json.containsKey('timestamp')
+            ? DateTime.parse(json['timestamp'])
+            : null,
+        status: json.containsKey('status')
+            ? DatasetContentStatus.fromJson(json['status'])
+            : null,
+      );
 }
 
 /// Configuration information for coordination with the AWS Glue ETL (extract,
@@ -1535,7 +2091,11 @@ class GlueConfiguration {
     @required this.databaseName,
   });
   static GlueConfiguration fromJson(Map<String, dynamic> json) =>
-      GlueConfiguration();
+      GlueConfiguration(
+        tableName: json['tableName'] as String,
+        databaseName: json['databaseName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration information for delivery of data set contents to AWS IoT
@@ -1555,7 +2115,11 @@ class IotEventsDestinationConfiguration {
   });
   static IotEventsDestinationConfiguration fromJson(
           Map<String, dynamic> json) =>
-      IotEventsDestinationConfiguration();
+      IotEventsDestinationConfiguration(
+        inputName: json['inputName'] as String,
+        roleArn: json['roleArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An activity that runs a Lambda function to modify the message.
@@ -1582,7 +2146,13 @@ class LambdaActivity {
     @required this.batchSize,
     this.next,
   });
-  static LambdaActivity fromJson(Map<String, dynamic> json) => LambdaActivity();
+  static LambdaActivity fromJson(Map<String, dynamic> json) => LambdaActivity(
+        name: json['name'] as String,
+        lambdaName: json['lambdaName'] as String,
+        batchSize: json['batchSize'] as int,
+        next: json.containsKey('next') ? json['next'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListChannelsResponse {
@@ -1598,7 +2168,15 @@ class ListChannelsResponse {
     this.nextToken,
   });
   static ListChannelsResponse fromJson(Map<String, dynamic> json) =>
-      ListChannelsResponse();
+      ListChannelsResponse(
+        channelSummaries: json.containsKey('channelSummaries')
+            ? (json['channelSummaries'] as List)
+                .map((e) => ChannelSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDatasetContentsResponse {
@@ -1614,7 +2192,15 @@ class ListDatasetContentsResponse {
     this.nextToken,
   });
   static ListDatasetContentsResponse fromJson(Map<String, dynamic> json) =>
-      ListDatasetContentsResponse();
+      ListDatasetContentsResponse(
+        datasetContentSummaries: json.containsKey('datasetContentSummaries')
+            ? (json['datasetContentSummaries'] as List)
+                .map((e) => DatasetContentSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDatasetsResponse {
@@ -1630,7 +2216,15 @@ class ListDatasetsResponse {
     this.nextToken,
   });
   static ListDatasetsResponse fromJson(Map<String, dynamic> json) =>
-      ListDatasetsResponse();
+      ListDatasetsResponse(
+        datasetSummaries: json.containsKey('datasetSummaries')
+            ? (json['datasetSummaries'] as List)
+                .map((e) => DatasetSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDatastoresResponse {
@@ -1646,7 +2240,15 @@ class ListDatastoresResponse {
     this.nextToken,
   });
   static ListDatastoresResponse fromJson(Map<String, dynamic> json) =>
-      ListDatastoresResponse();
+      ListDatastoresResponse(
+        datastoreSummaries: json.containsKey('datastoreSummaries')
+            ? (json['datastoreSummaries'] as List)
+                .map((e) => DatastoreSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListPipelinesResponse {
@@ -1662,7 +2264,15 @@ class ListPipelinesResponse {
     this.nextToken,
   });
   static ListPipelinesResponse fromJson(Map<String, dynamic> json) =>
-      ListPipelinesResponse();
+      ListPipelinesResponse(
+        pipelineSummaries: json.containsKey('pipelineSummaries')
+            ? (json['pipelineSummaries'] as List)
+                .map((e) => PipelineSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1673,7 +2283,11 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Information about logging options.
@@ -1693,7 +2307,12 @@ class LoggingOptions {
     @required this.level,
     @required this.enabled,
   });
-  static LoggingOptions fromJson(Map<String, dynamic> json) => LoggingOptions();
+  static LoggingOptions fromJson(Map<String, dynamic> json) => LoggingOptions(
+        roleArn: json['roleArn'] as String,
+        level: json['level'] as String,
+        enabled: json['enabled'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An activity that computes an arithmetic expression using the message's
@@ -1718,7 +2337,13 @@ class MathActivity {
     @required this.math,
     this.next,
   });
-  static MathActivity fromJson(Map<String, dynamic> json) => MathActivity();
+  static MathActivity fromJson(Map<String, dynamic> json) => MathActivity(
+        name: json['name'] as String,
+        attribute: json['attribute'] as String,
+        math: json['math'] as String,
+        next: json.containsKey('next') ? json['next'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a message.
@@ -1736,6 +2361,7 @@ class Message {
     @required this.messageId,
     @required this.payload,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The value of the variable as a structure that specifies an output file URI.
@@ -1748,7 +2374,10 @@ class OutputFileUriValue {
     @required this.fileName,
   });
   static OutputFileUriValue fromJson(Map<String, dynamic> json) =>
-      OutputFileUriValue();
+      OutputFileUriValue(
+        fileName: json['fileName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about a pipeline.
@@ -1779,7 +2408,26 @@ class Pipeline {
     this.creationTime,
     this.lastUpdateTime,
   });
-  static Pipeline fromJson(Map<String, dynamic> json) => Pipeline();
+  static Pipeline fromJson(Map<String, dynamic> json) => Pipeline(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        activities: json.containsKey('activities')
+            ? (json['activities'] as List)
+                .map((e) => PipelineActivity.fromJson(e))
+                .toList()
+            : null,
+        reprocessingSummaries: json.containsKey('reprocessingSummaries')
+            ? (json['reprocessingSummaries'] as List)
+                .map((e) => ReprocessingSummary.fromJson(e))
+                .toList()
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+      );
 }
 
 /// An activity that performs a transformation on a message.
@@ -1829,7 +2477,40 @@ class PipelineActivity {
     this.deviceShadowEnrich,
   });
   static PipelineActivity fromJson(Map<String, dynamic> json) =>
-      PipelineActivity();
+      PipelineActivity(
+        channel: json.containsKey('channel')
+            ? ChannelActivity.fromJson(json['channel'])
+            : null,
+        lambda: json.containsKey('lambda')
+            ? LambdaActivity.fromJson(json['lambda'])
+            : null,
+        datastore: json.containsKey('datastore')
+            ? DatastoreActivity.fromJson(json['datastore'])
+            : null,
+        addAttributes: json.containsKey('addAttributes')
+            ? AddAttributesActivity.fromJson(json['addAttributes'])
+            : null,
+        removeAttributes: json.containsKey('removeAttributes')
+            ? RemoveAttributesActivity.fromJson(json['removeAttributes'])
+            : null,
+        selectAttributes: json.containsKey('selectAttributes')
+            ? SelectAttributesActivity.fromJson(json['selectAttributes'])
+            : null,
+        filter: json.containsKey('filter')
+            ? FilterActivity.fromJson(json['filter'])
+            : null,
+        math: json.containsKey('math')
+            ? MathActivity.fromJson(json['math'])
+            : null,
+        deviceRegistryEnrich: json.containsKey('deviceRegistryEnrich')
+            ? DeviceRegistryEnrichActivity.fromJson(
+                json['deviceRegistryEnrich'])
+            : null,
+        deviceShadowEnrich: json.containsKey('deviceShadowEnrich')
+            ? DeviceShadowEnrichActivity.fromJson(json['deviceShadowEnrich'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A summary of information about a pipeline.
@@ -1852,8 +2533,22 @@ class PipelineSummary {
     this.creationTime,
     this.lastUpdateTime,
   });
-  static PipelineSummary fromJson(Map<String, dynamic> json) =>
-      PipelineSummary();
+  static PipelineSummary fromJson(Map<String, dynamic> json) => PipelineSummary(
+        pipelineName: json.containsKey('pipelineName')
+            ? json['pipelineName'] as String
+            : null,
+        reprocessingSummaries: json.containsKey('reprocessingSummaries')
+            ? (json['reprocessingSummaries'] as List)
+                .map((e) => ReprocessingSummary.fromJson(e))
+                .toList()
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+      );
 }
 
 /// Information which is used to filter message data, to segregate it according
@@ -1866,7 +2561,12 @@ class QueryFilter {
   QueryFilter({
     this.deltaTime,
   });
-  static QueryFilter fromJson(Map<String, dynamic> json) => QueryFilter();
+  static QueryFilter fromJson(Map<String, dynamic> json) => QueryFilter(
+        deltaTime: json.containsKey('deltaTime')
+            ? DeltaTime.fromJson(json['deltaTime'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An activity that removes attributes from a message.
@@ -1886,7 +2586,13 @@ class RemoveAttributesActivity {
     this.next,
   });
   static RemoveAttributesActivity fromJson(Map<String, dynamic> json) =>
-      RemoveAttributesActivity();
+      RemoveAttributesActivity(
+        name: json['name'] as String,
+        attributes:
+            (json['attributes'] as List).map((e) => e as String).toList(),
+        next: json.containsKey('next') ? json['next'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about pipeline reprocessing.
@@ -1906,7 +2612,13 @@ class ReprocessingSummary {
     this.creationTime,
   });
   static ReprocessingSummary fromJson(Map<String, dynamic> json) =>
-      ReprocessingSummary();
+      ReprocessingSummary(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+      );
 }
 
 /// The configuration of the resource used to execute the "containerAction".
@@ -1925,7 +2637,11 @@ class ResourceConfiguration {
     @required this.volumeSizeInGB,
   });
   static ResourceConfiguration fromJson(Map<String, dynamic> json) =>
-      ResourceConfiguration();
+      ResourceConfiguration(
+        computeType: json['computeType'] as String,
+        volumeSizeInGB: json['volumeSizeInGB'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// How long, in days, message data is kept.
@@ -1941,8 +2657,14 @@ class RetentionPeriod {
     this.unlimited,
     this.numberOfDays,
   });
-  static RetentionPeriod fromJson(Map<String, dynamic> json) =>
-      RetentionPeriod();
+  static RetentionPeriod fromJson(Map<String, dynamic> json) => RetentionPeriod(
+        unlimited:
+            json.containsKey('unlimited') ? json['unlimited'] as bool : null,
+        numberOfDays: json.containsKey('numberOfDays')
+            ? json['numberOfDays'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RunPipelineActivityResponse {
@@ -1959,7 +2681,13 @@ class RunPipelineActivityResponse {
     this.logResult,
   });
   static RunPipelineActivityResponse fromJson(Map<String, dynamic> json) =>
-      RunPipelineActivityResponse();
+      RunPipelineActivityResponse(
+        payloads: json.containsKey('payloads')
+            ? (json['payloads'] as List).map((e) => Uint8List(e)).toList()
+            : null,
+        logResult:
+            json.containsKey('logResult') ? json['logResult'] as String : null,
+      );
 }
 
 /// Configuration information for delivery of data set contents to Amazon S3.
@@ -1987,7 +2715,15 @@ class S3DestinationConfiguration {
     @required this.roleArn,
   });
   static S3DestinationConfiguration fromJson(Map<String, dynamic> json) =>
-      S3DestinationConfiguration();
+      S3DestinationConfiguration(
+        bucket: json['bucket'] as String,
+        key: json['key'] as String,
+        glueConfiguration: json.containsKey('glueConfiguration')
+            ? GlueConfiguration.fromJson(json['glueConfiguration'])
+            : null,
+        roleArn: json['roleArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SampleChannelDataResponse {
@@ -1999,7 +2735,11 @@ class SampleChannelDataResponse {
     this.payloads,
   });
   static SampleChannelDataResponse fromJson(Map<String, dynamic> json) =>
-      SampleChannelDataResponse();
+      SampleChannelDataResponse(
+        payloads: json.containsKey('payloads')
+            ? (json['payloads'] as List).map((e) => Uint8List(e)).toList()
+            : null,
+      );
 }
 
 /// The schedule for when to trigger an update.
@@ -2013,7 +2753,12 @@ class Schedule {
   Schedule({
     this.expression,
   });
-  static Schedule fromJson(Map<String, dynamic> json) => Schedule();
+  static Schedule fromJson(Map<String, dynamic> json) => Schedule(
+        expression: json.containsKey('expression')
+            ? json['expression'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Creates a new message using only the specified attributes from the original
@@ -2034,7 +2779,13 @@ class SelectAttributesActivity {
     this.next,
   });
   static SelectAttributesActivity fromJson(Map<String, dynamic> json) =>
-      SelectAttributesActivity();
+      SelectAttributesActivity(
+        name: json['name'] as String,
+        attributes:
+            (json['attributes'] as List).map((e) => e as String).toList(),
+        next: json.containsKey('next') ? json['next'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Use this to store channel data in an S3 bucket managed by the AWS IoT
@@ -2043,6 +2794,7 @@ class ServiceManagedChannelS3Storage {
   ServiceManagedChannelS3Storage();
   static ServiceManagedChannelS3Storage fromJson(Map<String, dynamic> json) =>
       ServiceManagedChannelS3Storage();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Used to store channel data in an S3 bucket managed by the AWS IoT Analytics
@@ -2060,6 +2812,7 @@ class ServiceManagedDatastoreS3Storage {
   ServiceManagedDatastoreS3Storage();
   static ServiceManagedDatastoreS3Storage fromJson(Map<String, dynamic> json) =>
       ServiceManagedDatastoreS3Storage();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Used to store data store data in an S3 bucket managed by the AWS IoT
@@ -2084,7 +2837,15 @@ class SqlQueryDatasetAction {
     this.filters,
   });
   static SqlQueryDatasetAction fromJson(Map<String, dynamic> json) =>
-      SqlQueryDatasetAction();
+      SqlQueryDatasetAction(
+        sqlQuery: json['sqlQuery'] as String,
+        filters: json.containsKey('filters')
+            ? (json['filters'] as List)
+                .map((e) => QueryFilter.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartPipelineReprocessingResponse {
@@ -2096,7 +2857,11 @@ class StartPipelineReprocessingResponse {
   });
   static StartPipelineReprocessingResponse fromJson(
           Map<String, dynamic> json) =>
-      StartPipelineReprocessingResponse();
+      StartPipelineReprocessingResponse(
+        reprocessingId: json.containsKey('reprocessingId')
+            ? json['reprocessingId'] as String
+            : null,
+      );
 }
 
 /// A set of key/value pairs which are used to manage the resource.
@@ -2111,7 +2876,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['key'] as String,
+        value: json['value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -2131,7 +2900,10 @@ class TriggeringDataset {
     @required this.name,
   });
   static TriggeringDataset fromJson(Map<String, dynamic> json) =>
-      TriggeringDataset();
+      TriggeringDataset(
+        name: json['name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -2168,7 +2940,24 @@ class Variable {
     this.datasetContentVersionValue,
     this.outputFileUriValue,
   });
-  static Variable fromJson(Map<String, dynamic> json) => Variable();
+  static Variable fromJson(Map<String, dynamic> json) => Variable(
+        name: json['name'] as String,
+        stringValue: json.containsKey('stringValue')
+            ? json['stringValue'] as String
+            : null,
+        doubleValue: json.containsKey('doubleValue')
+            ? json['doubleValue'] as double
+            : null,
+        datasetContentVersionValue:
+            json.containsKey('datasetContentVersionValue')
+                ? DatasetContentVersionValue.fromJson(
+                    json['datasetContentVersionValue'])
+                : null,
+        outputFileUriValue: json.containsKey('outputFileUriValue')
+            ? OutputFileUriValue.fromJson(json['outputFileUriValue'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the versioning of data set contents.
@@ -2185,5 +2974,11 @@ class VersioningConfiguration {
     this.maxVersions,
   });
   static VersioningConfiguration fromJson(Map<String, dynamic> json) =>
-      VersioningConfiguration();
+      VersioningConfiguration(
+        unlimited:
+            json.containsKey('unlimited') ? json['unlimited'] as bool : null,
+        maxVersions:
+            json.containsKey('maxVersions') ? json['maxVersions'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

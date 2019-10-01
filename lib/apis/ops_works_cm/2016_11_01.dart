@@ -67,6 +67,10 @@ import 'package:meta/meta.dart';
 /// All API operations allow for five requests per second with a burst of 10
 /// requests per second.
 class OpsWorksCMApi {
+  final _client;
+  OpsWorksCMApi(client)
+      : _client = client.configured('OpsWorksCM', serializer: 'json');
+
   ///  Associates a new node with the server. For more information about how to
   /// disassociate a node, see DisassociateNode.
   ///
@@ -115,7 +119,12 @@ class OpsWorksCMApi {
       {@required String serverName,
       @required String nodeName,
       @required List<EngineAttribute> engineAttributes}) async {
-    return AssociateNodeResponse.fromJson({});
+    var response_ = await _client.send('AssociateNode', {
+      'ServerName': serverName,
+      'NodeName': nodeName,
+      'EngineAttributes': engineAttributes,
+    });
+    return AssociateNodeResponse.fromJson(response_);
   }
 
   ///  Creates an application-level backup of a server. While the server is in
@@ -140,7 +149,11 @@ class OpsWorksCMApi {
   /// [description]:  A user-defined description of the backup.
   Future<CreateBackupResponse> createBackup(String serverName,
       {String description}) async {
-    return CreateBackupResponse.fromJson({});
+    var response_ = await _client.send('CreateBackup', {
+      'ServerName': serverName,
+      if (description != null) 'Description': description,
+    });
+    return CreateBackupResponse.fromJson(response_);
   }
 
   ///  Creates and immedately starts a new server. The server is ready to use
@@ -323,7 +336,31 @@ class OpsWorksCMApi {
       @required String serviceRoleArn,
       List<String> subnetIds,
       String backupId}) async {
-    return CreateServerResponse.fromJson({});
+    var response_ = await _client.send('CreateServer', {
+      if (associatePublicIpAddress != null)
+        'AssociatePublicIpAddress': associatePublicIpAddress,
+      if (disableAutomatedBackup != null)
+        'DisableAutomatedBackup': disableAutomatedBackup,
+      if (engine != null) 'Engine': engine,
+      if (engineModel != null) 'EngineModel': engineModel,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (engineAttributes != null) 'EngineAttributes': engineAttributes,
+      if (backupRetentionCount != null)
+        'BackupRetentionCount': backupRetentionCount,
+      'ServerName': serverName,
+      'InstanceProfileArn': instanceProfileArn,
+      'InstanceType': instanceType,
+      if (keyPair != null) 'KeyPair': keyPair,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      'ServiceRoleArn': serviceRoleArn,
+      if (subnetIds != null) 'SubnetIds': subnetIds,
+      if (backupId != null) 'BackupId': backupId,
+    });
+    return CreateServerResponse.fromJson(response_);
   }
 
   ///  Deletes a backup. You can delete both manual and automated backups. This
@@ -338,7 +375,10 @@ class OpsWorksCMApi {
   /// command to get a list of backup IDs. Backup IDs are in the format
   /// `ServerName-yyyyMMddHHmmssSSS`.
   Future<DeleteBackupResponse> deleteBackup(String backupId) async {
-    return DeleteBackupResponse.fromJson({});
+    var response_ = await _client.send('DeleteBackup', {
+      'BackupId': backupId,
+    });
+    return DeleteBackupResponse.fromJson(response_);
   }
 
   ///  Deletes the server and the underlying AWS CloudFormation stacks
@@ -356,14 +396,18 @@ class OpsWorksCMApi {
   ///
   /// [serverName]: The ID of the server to delete.
   Future<DeleteServerResponse> deleteServer(String serverName) async {
-    return DeleteServerResponse.fromJson({});
+    var response_ = await _client.send('DeleteServer', {
+      'ServerName': serverName,
+    });
+    return DeleteServerResponse.fromJson(response_);
   }
 
   ///  Describes your OpsWorks-CM account attributes.
   ///
   ///  This operation is synchronous.
   Future<DescribeAccountAttributesResponse> describeAccountAttributes() async {
-    return DescribeAccountAttributesResponse.fromJson({});
+    var response_ = await _client.send('DescribeAccountAttributes', {});
+    return DescribeAccountAttributesResponse.fromJson(response_);
   }
 
   ///  Describes backups. The results are ordered by time, with newest backups
@@ -391,7 +435,13 @@ class OpsWorksCMApi {
       String serverName,
       String nextToken,
       int maxResults}) async {
-    return DescribeBackupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeBackups', {
+      if (backupId != null) 'BackupId': backupId,
+      if (serverName != null) 'ServerName': serverName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeBackupsResponse.fromJson(response_);
   }
 
   ///  Describes events for a specified server. Results are ordered by time,
@@ -421,7 +471,12 @@ class OpsWorksCMApi {
   /// request parameter to get the next set of results.
   Future<DescribeEventsResponse> describeEvents(String serverName,
       {String nextToken, int maxResults}) async {
-    return DescribeEventsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      'ServerName': serverName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeEventsResponse.fromJson(response_);
   }
 
   ///  Returns the current status of an existing association or disassociation
@@ -439,7 +494,11 @@ class OpsWorksCMApi {
   Future<DescribeNodeAssociationStatusResponse> describeNodeAssociationStatus(
       {@required String nodeAssociationStatusToken,
       @required String serverName}) async {
-    return DescribeNodeAssociationStatusResponse.fromJson({});
+    var response_ = await _client.send('DescribeNodeAssociationStatus', {
+      'NodeAssociationStatusToken': nodeAssociationStatusToken,
+      'ServerName': serverName,
+    });
+    return DescribeNodeAssociationStatusResponse.fromJson(response_);
   }
 
   ///  Lists all configuration management servers that are identified with your
@@ -461,7 +520,12 @@ class OpsWorksCMApi {
   /// requests.
   Future<DescribeServersResponse> describeServers(
       {String serverName, String nextToken, int maxResults}) async {
-    return DescribeServersResponse.fromJson({});
+    var response_ = await _client.send('DescribeServers', {
+      if (serverName != null) 'ServerName': serverName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeServersResponse.fromJson(response_);
   }
 
   ///  Disassociates a node from an AWS OpsWorks CM server, and removes the node
@@ -490,7 +554,12 @@ class OpsWorksCMApi {
       {@required String serverName,
       @required String nodeName,
       List<EngineAttribute> engineAttributes}) async {
-    return DisassociateNodeResponse.fromJson({});
+    var response_ = await _client.send('DisassociateNode', {
+      'ServerName': serverName,
+      'NodeName': nodeName,
+      if (engineAttributes != null) 'EngineAttributes': engineAttributes,
+    });
+    return DisassociateNodeResponse.fromJson(response_);
   }
 
   ///  Exports a specified server engine attribute as a base64-encoded string.
@@ -535,7 +604,12 @@ class OpsWorksCMApi {
       {@required String exportAttributeName,
       @required String serverName,
       List<EngineAttribute> inputAttributes}) async {
-    return ExportServerEngineAttributeResponse.fromJson({});
+    var response_ = await _client.send('ExportServerEngineAttribute', {
+      'ExportAttributeName': exportAttributeName,
+      'ServerName': serverName,
+      if (inputAttributes != null) 'InputAttributes': inputAttributes,
+    });
+    return ExportServerEngineAttributeResponse.fromJson(response_);
   }
 
   ///  Restores a backup to a server that is in a `CONNECTION_LOST`, `HEALTHY`,
@@ -570,7 +644,13 @@ class OpsWorksCMApi {
       @required String serverName,
       String instanceType,
       String keyPair}) async {
-    return RestoreServerResponse.fromJson({});
+    var response_ = await _client.send('RestoreServer', {
+      'BackupId': backupId,
+      'ServerName': serverName,
+      if (instanceType != null) 'InstanceType': instanceType,
+      if (keyPair != null) 'KeyPair': keyPair,
+    });
+    return RestoreServerResponse.fromJson(response_);
   }
 
   ///  Manually starts server maintenance. This command can be useful if an
@@ -590,7 +670,11 @@ class OpsWorksCMApi {
   /// which you want to run maintenance.
   Future<StartMaintenanceResponse> startMaintenance(String serverName,
       {List<EngineAttribute> engineAttributes}) async {
-    return StartMaintenanceResponse.fromJson({});
+    var response_ = await _client.send('StartMaintenance', {
+      'ServerName': serverName,
+      if (engineAttributes != null) 'EngineAttributes': engineAttributes,
+    });
+    return StartMaintenanceResponse.fromJson(response_);
   }
 
   ///  Updates settings for a server.
@@ -610,7 +694,18 @@ class OpsWorksCMApi {
       int backupRetentionCount,
       String preferredMaintenanceWindow,
       String preferredBackupWindow}) async {
-    return UpdateServerResponse.fromJson({});
+    var response_ = await _client.send('UpdateServer', {
+      if (disableAutomatedBackup != null)
+        'DisableAutomatedBackup': disableAutomatedBackup,
+      if (backupRetentionCount != null)
+        'BackupRetentionCount': backupRetentionCount,
+      'ServerName': serverName,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (preferredBackupWindow != null)
+        'PreferredBackupWindow': preferredBackupWindow,
+    });
+    return UpdateServerResponse.fromJson(response_);
   }
 
   ///  Updates engine-specific attributes on a specified server. The server
@@ -636,7 +731,12 @@ class OpsWorksCMApi {
       {@required String serverName,
       @required String attributeName,
       String attributeValue}) async {
-    return UpdateServerEngineAttributesResponse.fromJson({});
+    var response_ = await _client.send('UpdateServerEngineAttributes', {
+      'ServerName': serverName,
+      'AttributeName': attributeName,
+      if (attributeValue != null) 'AttributeValue': attributeValue,
+    });
+    return UpdateServerEngineAttributesResponse.fromJson(response_);
   }
 }
 
@@ -665,7 +765,11 @@ class AccountAttribute {
     this.used,
   });
   static AccountAttribute fromJson(Map<String, dynamic> json) =>
-      AccountAttribute();
+      AccountAttribute(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        maximum: json.containsKey('Maximum') ? json['Maximum'] as int : null,
+        used: json.containsKey('Used') ? json['Used'] as int : null,
+      );
 }
 
 class AssociateNodeResponse {
@@ -678,7 +782,12 @@ class AssociateNodeResponse {
     this.nodeAssociationStatusToken,
   });
   static AssociateNodeResponse fromJson(Map<String, dynamic> json) =>
-      AssociateNodeResponse();
+      AssociateNodeResponse(
+        nodeAssociationStatusToken:
+            json.containsKey('NodeAssociationStatusToken')
+                ? json['NodeAssociationStatusToken'] as String
+                : null,
+      );
 }
 
 /// Describes a single backup.
@@ -796,7 +905,70 @@ class Backup {
     this.toolsVersion,
     this.userArn,
   });
-  static Backup fromJson(Map<String, dynamic> json) => Backup();
+  static Backup fromJson(Map<String, dynamic> json) => Backup(
+        backupArn:
+            json.containsKey('BackupArn') ? json['BackupArn'] as String : null,
+        backupId:
+            json.containsKey('BackupId') ? json['BackupId'] as String : null,
+        backupType: json.containsKey('BackupType')
+            ? json['BackupType'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineModel: json.containsKey('EngineModel')
+            ? json['EngineModel'] as String
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        instanceProfileArn: json.containsKey('InstanceProfileArn')
+            ? json['InstanceProfileArn'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        keyPair: json.containsKey('KeyPair') ? json['KeyPair'] as String : null,
+        preferredBackupWindow: json.containsKey('PreferredBackupWindow')
+            ? json['PreferredBackupWindow'] as String
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        s3DataSize:
+            json.containsKey('S3DataSize') ? json['S3DataSize'] as int : null,
+        s3DataUrl:
+            json.containsKey('S3DataUrl') ? json['S3DataUrl'] as String : null,
+        s3LogUrl:
+            json.containsKey('S3LogUrl') ? json['S3LogUrl'] as String : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        serverName: json.containsKey('ServerName')
+            ? json['ServerName'] as String
+            : null,
+        serviceRoleArn: json.containsKey('ServiceRoleArn')
+            ? json['ServiceRoleArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDescription: json.containsKey('StatusDescription')
+            ? json['StatusDescription'] as String
+            : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        toolsVersion: json.containsKey('ToolsVersion')
+            ? json['ToolsVersion'] as String
+            : null,
+        userArn: json.containsKey('UserArn') ? json['UserArn'] as String : null,
+      );
 }
 
 class CreateBackupResponse {
@@ -807,7 +979,10 @@ class CreateBackupResponse {
     this.backup,
   });
   static CreateBackupResponse fromJson(Map<String, dynamic> json) =>
-      CreateBackupResponse();
+      CreateBackupResponse(
+        backup:
+            json.containsKey('Backup') ? Backup.fromJson(json['Backup']) : null,
+      );
 }
 
 class CreateServerResponse {
@@ -818,7 +993,10 @@ class CreateServerResponse {
     this.server,
   });
   static CreateServerResponse fromJson(Map<String, dynamic> json) =>
-      CreateServerResponse();
+      CreateServerResponse(
+        server:
+            json.containsKey('Server') ? Server.fromJson(json['Server']) : null,
+      );
 }
 
 class DeleteBackupResponse {
@@ -842,7 +1020,13 @@ class DescribeAccountAttributesResponse {
   });
   static DescribeAccountAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAccountAttributesResponse();
+      DescribeAccountAttributesResponse(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List)
+                .map((e) => AccountAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeBackupsResponse {
@@ -857,7 +1041,13 @@ class DescribeBackupsResponse {
     this.nextToken,
   });
   static DescribeBackupsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeBackupsResponse();
+      DescribeBackupsResponse(
+        backups: json.containsKey('Backups')
+            ? (json['Backups'] as List).map((e) => Backup.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeEventsResponse {
@@ -879,7 +1069,15 @@ class DescribeEventsResponse {
     this.nextToken,
   });
   static DescribeEventsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventsResponse();
+      DescribeEventsResponse(
+        serverEvents: json.containsKey('ServerEvents')
+            ? (json['ServerEvents'] as List)
+                .map((e) => ServerEvent.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeNodeAssociationStatusResponse {
@@ -905,7 +1103,16 @@ class DescribeNodeAssociationStatusResponse {
   });
   static DescribeNodeAssociationStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeNodeAssociationStatusResponse();
+      DescribeNodeAssociationStatusResponse(
+        nodeAssociationStatus: json.containsKey('NodeAssociationStatus')
+            ? json['NodeAssociationStatus'] as String
+            : null,
+        engineAttributes: json.containsKey('EngineAttributes')
+            ? (json['EngineAttributes'] as List)
+                .map((e) => EngineAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeServersResponse {
@@ -925,7 +1132,13 @@ class DescribeServersResponse {
     this.nextToken,
   });
   static DescribeServersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeServersResponse();
+      DescribeServersResponse(
+        servers: json.containsKey('Servers')
+            ? (json['Servers'] as List).map((e) => Server.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DisassociateNodeResponse {
@@ -938,7 +1151,12 @@ class DisassociateNodeResponse {
     this.nodeAssociationStatusToken,
   });
   static DisassociateNodeResponse fromJson(Map<String, dynamic> json) =>
-      DisassociateNodeResponse();
+      DisassociateNodeResponse(
+        nodeAssociationStatusToken:
+            json.containsKey('NodeAssociationStatusToken')
+                ? json['NodeAssociationStatusToken'] as String
+                : null,
+      );
 }
 
 /// A name and value pair that is specific to the engine of the server.
@@ -953,8 +1171,11 @@ class EngineAttribute {
     this.name,
     this.value,
   });
-  static EngineAttribute fromJson(Map<String, dynamic> json) =>
-      EngineAttribute();
+  static EngineAttribute fromJson(Map<String, dynamic> json) => EngineAttribute(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ExportServerEngineAttributeResponse {
@@ -970,7 +1191,14 @@ class ExportServerEngineAttributeResponse {
   });
   static ExportServerEngineAttributeResponse fromJson(
           Map<String, dynamic> json) =>
-      ExportServerEngineAttributeResponse();
+      ExportServerEngineAttributeResponse(
+        engineAttribute: json.containsKey('EngineAttribute')
+            ? EngineAttribute.fromJson(json['EngineAttribute'])
+            : null,
+        serverName: json.containsKey('ServerName')
+            ? json['ServerName'] as String
+            : null,
+      );
 }
 
 class RestoreServerResponse {
@@ -1116,7 +1344,74 @@ class Server {
     this.subnetIds,
     this.serverArn,
   });
-  static Server fromJson(Map<String, dynamic> json) => Server();
+  static Server fromJson(Map<String, dynamic> json) => Server(
+        associatePublicIpAddress: json.containsKey('AssociatePublicIpAddress')
+            ? json['AssociatePublicIpAddress'] as bool
+            : null,
+        backupRetentionCount: json.containsKey('BackupRetentionCount')
+            ? json['BackupRetentionCount'] as int
+            : null,
+        serverName: json.containsKey('ServerName')
+            ? json['ServerName'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        cloudFormationStackArn: json.containsKey('CloudFormationStackArn')
+            ? json['CloudFormationStackArn'] as String
+            : null,
+        disableAutomatedBackup: json.containsKey('DisableAutomatedBackup')
+            ? json['DisableAutomatedBackup'] as bool
+            : null,
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineModel: json.containsKey('EngineModel')
+            ? json['EngineModel'] as String
+            : null,
+        engineAttributes: json.containsKey('EngineAttributes')
+            ? (json['EngineAttributes'] as List)
+                .map((e) => EngineAttribute.fromJson(e))
+                .toList()
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        instanceProfileArn: json.containsKey('InstanceProfileArn')
+            ? json['InstanceProfileArn'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        keyPair: json.containsKey('KeyPair') ? json['KeyPair'] as String : null,
+        maintenanceStatus: json.containsKey('MaintenanceStatus')
+            ? json['MaintenanceStatus'] as String
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        preferredBackupWindow: json.containsKey('PreferredBackupWindow')
+            ? json['PreferredBackupWindow'] as String
+            : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        serviceRoleArn: json.containsKey('ServiceRoleArn')
+            ? json['ServiceRoleArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusReason: json.containsKey('StatusReason')
+            ? json['StatusReason'] as String
+            : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        serverArn:
+            json.containsKey('ServerArn') ? json['ServerArn'] as String : null,
+      );
 }
 
 /// An event that is related to the server, such as the start of maintenance or
@@ -1140,7 +1435,16 @@ class ServerEvent {
     this.message,
     this.logUrl,
   });
-  static ServerEvent fromJson(Map<String, dynamic> json) => ServerEvent();
+  static ServerEvent fromJson(Map<String, dynamic> json) => ServerEvent(
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        serverName: json.containsKey('ServerName')
+            ? json['ServerName'] as String
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        logUrl: json.containsKey('LogUrl') ? json['LogUrl'] as String : null,
+      );
 }
 
 class StartMaintenanceResponse {
@@ -1151,7 +1455,10 @@ class StartMaintenanceResponse {
     this.server,
   });
   static StartMaintenanceResponse fromJson(Map<String, dynamic> json) =>
-      StartMaintenanceResponse();
+      StartMaintenanceResponse(
+        server:
+            json.containsKey('Server') ? Server.fromJson(json['Server']) : null,
+      );
 }
 
 class UpdateServerEngineAttributesResponse {
@@ -1163,7 +1470,10 @@ class UpdateServerEngineAttributesResponse {
   });
   static UpdateServerEngineAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateServerEngineAttributesResponse();
+      UpdateServerEngineAttributesResponse(
+        server:
+            json.containsKey('Server') ? Server.fromJson(json['Server']) : null,
+      );
 }
 
 class UpdateServerResponse {
@@ -1174,5 +1484,8 @@ class UpdateServerResponse {
     this.server,
   });
   static UpdateServerResponse fromJson(Map<String, dynamic> json) =>
-      UpdateServerResponse();
+      UpdateServerResponse(
+        server:
+            json.containsKey('Server') ? Server.fromJson(json['Server']) : null,
+      );
 }

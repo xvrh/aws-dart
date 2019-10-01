@@ -32,6 +32,10 @@ import 'package:meta/meta.dart';
 /// developers to perform the scenarios listed above, as well as give users the
 /// ability to grant access on a selective basis using the IAM model.
 class WorkMailApi {
+  final _client;
+  WorkMailApi(client)
+      : _client = client.configured('WorkMail', serializer: 'json');
+
   /// Adds a member (user or group) to the resource's set of delegates.
   ///
   /// [organizationId]: The organization under which the resource exists.
@@ -44,7 +48,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String resourceId,
       @required String entityId}) async {
-    return AssociateDelegateToResourceResponse.fromJson({});
+    var response_ = await _client.send('AssociateDelegateToResource', {
+      'OrganizationId': organizationId,
+      'ResourceId': resourceId,
+      'EntityId': entityId,
+    });
+    return AssociateDelegateToResourceResponse.fromJson(response_);
   }
 
   /// Adds a member (user or group) to the group's set.
@@ -58,7 +67,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String groupId,
       @required String memberId}) async {
-    return AssociateMemberToGroupResponse.fromJson({});
+    var response_ = await _client.send('AssociateMemberToGroup', {
+      'OrganizationId': organizationId,
+      'GroupId': groupId,
+      'MemberId': memberId,
+    });
+    return AssociateMemberToGroupResponse.fromJson(response_);
   }
 
   /// Adds an alias to the set of a given member (user or group) of Amazon
@@ -74,7 +88,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String entityId,
       @required String alias}) async {
-    return CreateAliasResponse.fromJson({});
+    var response_ = await _client.send('CreateAlias', {
+      'OrganizationId': organizationId,
+      'EntityId': entityId,
+      'Alias': alias,
+    });
+    return CreateAliasResponse.fromJson(response_);
   }
 
   /// Creates a group that can be used in Amazon WorkMail by calling the
@@ -85,7 +104,11 @@ class WorkMailApi {
   /// [name]: The name of the group.
   Future<CreateGroupResponse> createGroup(
       {@required String organizationId, @required String name}) async {
-    return CreateGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateGroup', {
+      'OrganizationId': organizationId,
+      'Name': name,
+    });
+    return CreateGroupResponse.fromJson(response_);
   }
 
   /// Creates a new Amazon WorkMail resource.
@@ -101,7 +124,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String name,
       @required String type}) async {
-    return CreateResourceResponse.fromJson({});
+    var response_ = await _client.send('CreateResource', {
+      'OrganizationId': organizationId,
+      'Name': name,
+      'Type': type,
+    });
+    return CreateResourceResponse.fromJson(response_);
   }
 
   /// Creates a user who can be used in Amazon WorkMail by calling the
@@ -121,7 +149,13 @@ class WorkMailApi {
       @required String name,
       @required String displayName,
       @required String password}) async {
-    return CreateUserResponse.fromJson({});
+    var response_ = await _client.send('CreateUser', {
+      'OrganizationId': organizationId,
+      'Name': name,
+      'DisplayName': displayName,
+      'Password': password,
+    });
+    return CreateUserResponse.fromJson(response_);
   }
 
   /// Remove one or more specified aliases from a set of aliases for a given
@@ -140,7 +174,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String entityId,
       @required String alias}) async {
-    return DeleteAliasResponse.fromJson({});
+    var response_ = await _client.send('DeleteAlias', {
+      'OrganizationId': organizationId,
+      'EntityId': entityId,
+      'Alias': alias,
+    });
+    return DeleteAliasResponse.fromJson(response_);
   }
 
   /// Deletes a group from Amazon WorkMail.
@@ -150,7 +189,11 @@ class WorkMailApi {
   /// [groupId]: The identifier of the group to be deleted.
   Future<DeleteGroupResponse> deleteGroup(
       {@required String organizationId, @required String groupId}) async {
-    return DeleteGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteGroup', {
+      'OrganizationId': organizationId,
+      'GroupId': groupId,
+    });
+    return DeleteGroupResponse.fromJson(response_);
   }
 
   /// Deletes permissions granted to a member (user or group).
@@ -167,7 +210,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String entityId,
       @required String granteeId}) async {
-    return DeleteMailboxPermissionsResponse.fromJson({});
+    var response_ = await _client.send('DeleteMailboxPermissions', {
+      'OrganizationId': organizationId,
+      'EntityId': entityId,
+      'GranteeId': granteeId,
+    });
+    return DeleteMailboxPermissionsResponse.fromJson(response_);
   }
 
   /// Deletes the specified resource.
@@ -178,7 +226,11 @@ class WorkMailApi {
   /// [resourceId]: The identifier of the resource to be deleted.
   Future<DeleteResourceResponse> deleteResource(
       {@required String organizationId, @required String resourceId}) async {
-    return DeleteResourceResponse.fromJson({});
+    var response_ = await _client.send('DeleteResource', {
+      'OrganizationId': organizationId,
+      'ResourceId': resourceId,
+    });
+    return DeleteResourceResponse.fromJson(response_);
   }
 
   /// Deletes a user from Amazon WorkMail and all subsequent systems. Before you
@@ -193,7 +245,11 @@ class WorkMailApi {
   /// [userId]: The identifier of the user to be deleted.
   Future<DeleteUserResponse> deleteUser(
       {@required String organizationId, @required String userId}) async {
-    return DeleteUserResponse.fromJson({});
+    var response_ = await _client.send('DeleteUser', {
+      'OrganizationId': organizationId,
+      'UserId': userId,
+    });
+    return DeleteUserResponse.fromJson(response_);
   }
 
   /// Mark a user, group, or resource as no longer used in Amazon WorkMail. This
@@ -207,7 +263,11 @@ class WorkMailApi {
   /// [entityId]: The identifier for the member (user or group) to be updated.
   Future<DeregisterFromWorkMailResponse> deregisterFromWorkMail(
       {@required String organizationId, @required String entityId}) async {
-    return DeregisterFromWorkMailResponse.fromJson({});
+    var response_ = await _client.send('DeregisterFromWorkMail', {
+      'OrganizationId': organizationId,
+      'EntityId': entityId,
+    });
+    return DeregisterFromWorkMailResponse.fromJson(response_);
   }
 
   /// Returns the data available for the group.
@@ -218,7 +278,11 @@ class WorkMailApi {
   /// [groupId]: The identifier for the group to be described.
   Future<DescribeGroupResponse> describeGroup(
       {@required String organizationId, @required String groupId}) async {
-    return DescribeGroupResponse.fromJson({});
+    var response_ = await _client.send('DescribeGroup', {
+      'OrganizationId': organizationId,
+      'GroupId': groupId,
+    });
+    return DescribeGroupResponse.fromJson(response_);
   }
 
   /// Provides more information regarding a given organization based on its
@@ -227,7 +291,10 @@ class WorkMailApi {
   /// [organizationId]: The identifier for the organization to be described.
   Future<DescribeOrganizationResponse> describeOrganization(
       String organizationId) async {
-    return DescribeOrganizationResponse.fromJson({});
+    var response_ = await _client.send('DescribeOrganization', {
+      'OrganizationId': organizationId,
+    });
+    return DescribeOrganizationResponse.fromJson(response_);
   }
 
   /// Returns the data available for the resource.
@@ -238,7 +305,11 @@ class WorkMailApi {
   /// [resourceId]: The identifier of the resource to be described.
   Future<DescribeResourceResponse> describeResource(
       {@required String organizationId, @required String resourceId}) async {
-    return DescribeResourceResponse.fromJson({});
+    var response_ = await _client.send('DescribeResource', {
+      'OrganizationId': organizationId,
+      'ResourceId': resourceId,
+    });
+    return DescribeResourceResponse.fromJson(response_);
   }
 
   /// Provides information regarding the user.
@@ -249,7 +320,11 @@ class WorkMailApi {
   /// [userId]: The identifier for the user to be described.
   Future<DescribeUserResponse> describeUser(
       {@required String organizationId, @required String userId}) async {
-    return DescribeUserResponse.fromJson({});
+    var response_ = await _client.send('DescribeUser', {
+      'OrganizationId': organizationId,
+      'UserId': userId,
+    });
+    return DescribeUserResponse.fromJson(response_);
   }
 
   /// Removes a member from the resource's set of delegates.
@@ -267,7 +342,12 @@ class WorkMailApi {
           {@required String organizationId,
           @required String resourceId,
           @required String entityId}) async {
-    return DisassociateDelegateFromResourceResponse.fromJson({});
+    var response_ = await _client.send('DisassociateDelegateFromResource', {
+      'OrganizationId': organizationId,
+      'ResourceId': resourceId,
+      'EntityId': entityId,
+    });
+    return DisassociateDelegateFromResourceResponse.fromJson(response_);
   }
 
   /// Removes a member from a group.
@@ -282,7 +362,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String groupId,
       @required String memberId}) async {
-    return DisassociateMemberFromGroupResponse.fromJson({});
+    var response_ = await _client.send('DisassociateMemberFromGroup', {
+      'OrganizationId': organizationId,
+      'GroupId': groupId,
+      'MemberId': memberId,
+    });
+    return DisassociateMemberFromGroupResponse.fromJson(response_);
   }
 
   /// Requests a user's mailbox details for a specified organization and user.
@@ -294,7 +379,11 @@ class WorkMailApi {
   /// requested.
   Future<GetMailboxDetailsResponse> getMailboxDetails(
       {@required String organizationId, @required String userId}) async {
-    return GetMailboxDetailsResponse.fromJson({});
+    var response_ = await _client.send('GetMailboxDetails', {
+      'OrganizationId': organizationId,
+      'UserId': userId,
+    });
+    return GetMailboxDetailsResponse.fromJson(response_);
   }
 
   /// Creates a paginated call to list the aliases associated with a given
@@ -314,7 +403,13 @@ class WorkMailApi {
       @required String entityId,
       String nextToken,
       int maxResults}) async {
-    return ListAliasesResponse.fromJson({});
+    var response_ = await _client.send('ListAliases', {
+      'OrganizationId': organizationId,
+      'EntityId': entityId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListAliasesResponse.fromJson(response_);
   }
 
   /// Returns an overview of the members of a group. Users and groups can be
@@ -335,7 +430,13 @@ class WorkMailApi {
       @required String groupId,
       String nextToken,
       int maxResults}) async {
-    return ListGroupMembersResponse.fromJson({});
+    var response_ = await _client.send('ListGroupMembers', {
+      'OrganizationId': organizationId,
+      'GroupId': groupId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListGroupMembersResponse.fromJson(response_);
   }
 
   /// Returns summaries of the organization's groups.
@@ -349,7 +450,12 @@ class WorkMailApi {
   /// [maxResults]: The maximum number of results to return in a single call.
   Future<ListGroupsResponse> listGroups(String organizationId,
       {String nextToken, int maxResults}) async {
-    return ListGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListGroups', {
+      'OrganizationId': organizationId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListGroupsResponse.fromJson(response_);
   }
 
   /// Lists the mailbox permissions associated with a user, group, or resource
@@ -370,7 +476,13 @@ class WorkMailApi {
       @required String entityId,
       String nextToken,
       int maxResults}) async {
-    return ListMailboxPermissionsResponse.fromJson({});
+    var response_ = await _client.send('ListMailboxPermissions', {
+      'OrganizationId': organizationId,
+      'EntityId': entityId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListMailboxPermissionsResponse.fromJson(response_);
   }
 
   /// Returns summaries of the customer's non-deleted organizations.
@@ -381,7 +493,11 @@ class WorkMailApi {
   /// [maxResults]: The maximum number of results to return in a single call.
   Future<ListOrganizationsResponse> listOrganizations(
       {String nextToken, int maxResults}) async {
-    return ListOrganizationsResponse.fromJson({});
+    var response_ = await _client.send('ListOrganizations', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListOrganizationsResponse.fromJson(response_);
   }
 
   /// Lists the delegates associated with a resource. Users and groups can be
@@ -401,7 +517,13 @@ class WorkMailApi {
       @required String resourceId,
       String nextToken,
       int maxResults}) async {
-    return ListResourceDelegatesResponse.fromJson({});
+    var response_ = await _client.send('ListResourceDelegates', {
+      'OrganizationId': organizationId,
+      'ResourceId': resourceId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListResourceDelegatesResponse.fromJson(response_);
   }
 
   /// Returns summaries of the organization's resources.
@@ -415,7 +537,12 @@ class WorkMailApi {
   /// [maxResults]: The maximum number of results to return in a single call.
   Future<ListResourcesResponse> listResources(String organizationId,
       {String nextToken, int maxResults}) async {
-    return ListResourcesResponse.fromJson({});
+    var response_ = await _client.send('ListResources', {
+      'OrganizationId': organizationId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListResourcesResponse.fromJson(response_);
   }
 
   /// Returns summaries of the organization's users.
@@ -429,7 +556,12 @@ class WorkMailApi {
   /// [maxResults]: The maximum number of results to return in a single call.
   Future<ListUsersResponse> listUsers(String organizationId,
       {String nextToken, int maxResults}) async {
-    return ListUsersResponse.fromJson({});
+    var response_ = await _client.send('ListUsers', {
+      'OrganizationId': organizationId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListUsersResponse.fromJson(response_);
   }
 
   /// Sets permissions for a user, group, or resource. This replaces any
@@ -456,7 +588,13 @@ class WorkMailApi {
       @required String entityId,
       @required String granteeId,
       @required List<String> permissionValues}) async {
-    return PutMailboxPermissionsResponse.fromJson({});
+    var response_ = await _client.send('PutMailboxPermissions', {
+      'OrganizationId': organizationId,
+      'EntityId': entityId,
+      'GranteeId': granteeId,
+      'PermissionValues': permissionValues,
+    });
+    return PutMailboxPermissionsResponse.fromJson(response_);
   }
 
   /// Registers an existing and disabled user, group, or resource for Amazon
@@ -481,7 +619,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String entityId,
       @required String email}) async {
-    return RegisterToWorkMailResponse.fromJson({});
+    var response_ = await _client.send('RegisterToWorkMail', {
+      'OrganizationId': organizationId,
+      'EntityId': entityId,
+      'Email': email,
+    });
+    return RegisterToWorkMailResponse.fromJson(response_);
   }
 
   /// Allows the administrator to reset the password for a user.
@@ -496,7 +639,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String userId,
       @required String password}) async {
-    return ResetPasswordResponse.fromJson({});
+    var response_ = await _client.send('ResetPassword', {
+      'OrganizationId': organizationId,
+      'UserId': userId,
+      'Password': password,
+    });
+    return ResetPasswordResponse.fromJson(response_);
   }
 
   /// Updates a user's current mailbox quota for a specified organization and
@@ -512,7 +660,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String userId,
       @required int mailboxQuota}) async {
-    return UpdateMailboxQuotaResponse.fromJson({});
+    var response_ = await _client.send('UpdateMailboxQuota', {
+      'OrganizationId': organizationId,
+      'UserId': userId,
+      'MailboxQuota': mailboxQuota,
+    });
+    return UpdateMailboxQuotaResponse.fromJson(response_);
   }
 
   /// Updates the primary email for a user, group, or resource. The current
@@ -530,7 +683,12 @@ class WorkMailApi {
       {@required String organizationId,
       @required String entityId,
       @required String email}) async {
-    return UpdatePrimaryEmailAddressResponse.fromJson({});
+    var response_ = await _client.send('UpdatePrimaryEmailAddress', {
+      'OrganizationId': organizationId,
+      'EntityId': entityId,
+      'Email': email,
+    });
+    return UpdatePrimaryEmailAddressResponse.fromJson(response_);
   }
 
   /// Updates data for the resource. To have the latest information, it must be
@@ -550,7 +708,13 @@ class WorkMailApi {
       @required String resourceId,
       String name,
       BookingOptions bookingOptions}) async {
-    return UpdateResourceResponse.fromJson({});
+    var response_ = await _client.send('UpdateResource', {
+      'OrganizationId': organizationId,
+      'ResourceId': resourceId,
+      if (name != null) 'Name': name,
+      if (bookingOptions != null) 'BookingOptions': bookingOptions,
+    });
+    return UpdateResourceResponse.fromJson(response_);
   }
 }
 
@@ -585,7 +749,20 @@ class BookingOptions {
     this.autoDeclineRecurringRequests,
     this.autoDeclineConflictingRequests,
   });
-  static BookingOptions fromJson(Map<String, dynamic> json) => BookingOptions();
+  static BookingOptions fromJson(Map<String, dynamic> json) => BookingOptions(
+        autoAcceptRequests: json.containsKey('AutoAcceptRequests')
+            ? json['AutoAcceptRequests'] as bool
+            : null,
+        autoDeclineRecurringRequests:
+            json.containsKey('AutoDeclineRecurringRequests')
+                ? json['AutoDeclineRecurringRequests'] as bool
+                : null,
+        autoDeclineConflictingRequests:
+            json.containsKey('AutoDeclineConflictingRequests')
+                ? json['AutoDeclineConflictingRequests'] as bool
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateAliasResponse {
@@ -602,7 +779,9 @@ class CreateGroupResponse {
     this.groupId,
   });
   static CreateGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateGroupResponse();
+      CreateGroupResponse(
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+      );
 }
 
 class CreateResourceResponse {
@@ -613,7 +792,11 @@ class CreateResourceResponse {
     this.resourceId,
   });
   static CreateResourceResponse fromJson(Map<String, dynamic> json) =>
-      CreateResourceResponse();
+      CreateResourceResponse(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+      );
 }
 
 class CreateUserResponse {
@@ -624,7 +807,9 @@ class CreateUserResponse {
     this.userId,
   });
   static CreateUserResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserResponse();
+      CreateUserResponse(
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+      );
 }
 
 /// The name of the attribute, which is one of the values defined in the
@@ -641,7 +826,10 @@ class Delegate {
     @required this.id,
     @required this.type,
   });
-  static Delegate fromJson(Map<String, dynamic> json) => Delegate();
+  static Delegate fromJson(Map<String, dynamic> json) => Delegate(
+        id: json['Id'] as String,
+        type: json['Type'] as String,
+      );
 }
 
 class DeleteAliasResponse {
@@ -711,7 +899,18 @@ class DescribeGroupResponse {
     this.disabledDate,
   });
   static DescribeGroupResponse fromJson(Map<String, dynamic> json) =>
-      DescribeGroupResponse();
+      DescribeGroupResponse(
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        enabledDate: json.containsKey('EnabledDate')
+            ? DateTime.parse(json['EnabledDate'])
+            : null,
+        disabledDate: json.containsKey('DisabledDate')
+            ? DateTime.parse(json['DisabledDate'])
+            : null,
+      );
 }
 
 class DescribeOrganizationResponse {
@@ -753,7 +952,28 @@ class DescribeOrganizationResponse {
     this.errorMessage,
   });
   static DescribeOrganizationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeOrganizationResponse();
+      DescribeOrganizationResponse(
+        organizationId: json.containsKey('OrganizationId')
+            ? json['OrganizationId'] as String
+            : null,
+        alias: json.containsKey('Alias') ? json['Alias'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        directoryType: json.containsKey('DirectoryType')
+            ? json['DirectoryType'] as String
+            : null,
+        defaultMailDomain: json.containsKey('DefaultMailDomain')
+            ? json['DefaultMailDomain'] as String
+            : null,
+        completedDate: json.containsKey('CompletedDate')
+            ? DateTime.parse(json['CompletedDate'])
+            : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class DescribeResourceResponse {
@@ -795,7 +1015,24 @@ class DescribeResourceResponse {
     this.disabledDate,
   });
   static DescribeResourceResponse fromJson(Map<String, dynamic> json) =>
-      DescribeResourceResponse();
+      DescribeResourceResponse(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        bookingOptions: json.containsKey('BookingOptions')
+            ? BookingOptions.fromJson(json['BookingOptions'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        enabledDate: json.containsKey('EnabledDate')
+            ? DateTime.parse(json['EnabledDate'])
+            : null,
+        disabledDate: json.containsKey('DisabledDate')
+            ? DateTime.parse(json['DisabledDate'])
+            : null,
+      );
 }
 
 class DescribeUserResponse {
@@ -842,7 +1079,23 @@ class DescribeUserResponse {
     this.disabledDate,
   });
   static DescribeUserResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUserResponse();
+      DescribeUserResponse(
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        userRole:
+            json.containsKey('UserRole') ? json['UserRole'] as String : null,
+        enabledDate: json.containsKey('EnabledDate')
+            ? DateTime.parse(json['EnabledDate'])
+            : null,
+        disabledDate: json.containsKey('DisabledDate')
+            ? DateTime.parse(json['DisabledDate'])
+            : null,
+      );
 }
 
 class DisassociateDelegateFromResourceResponse {
@@ -871,7 +1124,14 @@ class GetMailboxDetailsResponse {
     this.mailboxSize,
   });
   static GetMailboxDetailsResponse fromJson(Map<String, dynamic> json) =>
-      GetMailboxDetailsResponse();
+      GetMailboxDetailsResponse(
+        mailboxQuota: json.containsKey('MailboxQuota')
+            ? json['MailboxQuota'] as int
+            : null,
+        mailboxSize: json.containsKey('MailboxSize')
+            ? json['MailboxSize'] as double
+            : null,
+      );
 }
 
 /// The representation of an Amazon WorkMail group.
@@ -902,7 +1162,18 @@ class Group {
     this.enabledDate,
     this.disabledDate,
   });
-  static Group fromJson(Map<String, dynamic> json) => Group();
+  static Group fromJson(Map<String, dynamic> json) => Group(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        enabledDate: json.containsKey('EnabledDate')
+            ? DateTime.parse(json['EnabledDate'])
+            : null,
+        disabledDate: json.containsKey('DisabledDate')
+            ? DateTime.parse(json['DisabledDate'])
+            : null,
+      );
 }
 
 class ListAliasesResponse {
@@ -918,7 +1189,13 @@ class ListAliasesResponse {
     this.nextToken,
   });
   static ListAliasesResponse fromJson(Map<String, dynamic> json) =>
-      ListAliasesResponse();
+      ListAliasesResponse(
+        aliases: json.containsKey('Aliases')
+            ? (json['Aliases'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListGroupMembersResponse {
@@ -934,7 +1211,13 @@ class ListGroupMembersResponse {
     this.nextToken,
   });
   static ListGroupMembersResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupMembersResponse();
+      ListGroupMembersResponse(
+        members: json.containsKey('Members')
+            ? (json['Members'] as List).map((e) => Member.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListGroupsResponse {
@@ -950,7 +1233,13 @@ class ListGroupsResponse {
     this.nextToken,
   });
   static ListGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupsResponse();
+      ListGroupsResponse(
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List).map((e) => Group.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListMailboxPermissionsResponse {
@@ -966,7 +1255,15 @@ class ListMailboxPermissionsResponse {
     this.nextToken,
   });
   static ListMailboxPermissionsResponse fromJson(Map<String, dynamic> json) =>
-      ListMailboxPermissionsResponse();
+      ListMailboxPermissionsResponse(
+        permissions: json.containsKey('Permissions')
+            ? (json['Permissions'] as List)
+                .map((e) => Permission.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListOrganizationsResponse {
@@ -983,7 +1280,15 @@ class ListOrganizationsResponse {
     this.nextToken,
   });
   static ListOrganizationsResponse fromJson(Map<String, dynamic> json) =>
-      ListOrganizationsResponse();
+      ListOrganizationsResponse(
+        organizationSummaries: json.containsKey('OrganizationSummaries')
+            ? (json['OrganizationSummaries'] as List)
+                .map((e) => OrganizationSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListResourceDelegatesResponse {
@@ -1000,7 +1305,15 @@ class ListResourceDelegatesResponse {
     this.nextToken,
   });
   static ListResourceDelegatesResponse fromJson(Map<String, dynamic> json) =>
-      ListResourceDelegatesResponse();
+      ListResourceDelegatesResponse(
+        delegates: json.containsKey('Delegates')
+            ? (json['Delegates'] as List)
+                .map((e) => Delegate.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListResourcesResponse {
@@ -1017,7 +1330,15 @@ class ListResourcesResponse {
     this.nextToken,
   });
   static ListResourcesResponse fromJson(Map<String, dynamic> json) =>
-      ListResourcesResponse();
+      ListResourcesResponse(
+        resources: json.containsKey('Resources')
+            ? (json['Resources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListUsersResponse {
@@ -1033,7 +1354,13 @@ class ListUsersResponse {
     this.nextToken,
   });
   static ListUsersResponse fromJson(Map<String, dynamic> json) =>
-      ListUsersResponse();
+      ListUsersResponse(
+        users: json.containsKey('Users')
+            ? (json['Users'] as List).map((e) => User.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The representation of a user or group.
@@ -1064,7 +1391,18 @@ class Member {
     this.enabledDate,
     this.disabledDate,
   });
-  static Member fromJson(Map<String, dynamic> json) => Member();
+  static Member fromJson(Map<String, dynamic> json) => Member(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        enabledDate: json.containsKey('EnabledDate')
+            ? DateTime.parse(json['EnabledDate'])
+            : null,
+        disabledDate: json.containsKey('DisabledDate')
+            ? DateTime.parse(json['DisabledDate'])
+            : null,
+      );
 }
 
 /// The representation of an organization.
@@ -1090,7 +1428,16 @@ class OrganizationSummary {
     this.state,
   });
   static OrganizationSummary fromJson(Map<String, dynamic> json) =>
-      OrganizationSummary();
+      OrganizationSummary(
+        organizationId: json.containsKey('OrganizationId')
+            ? json['OrganizationId'] as String
+            : null,
+        alias: json.containsKey('Alias') ? json['Alias'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Permission granted to a user, group, or resource to access a certain aspect
@@ -1117,7 +1464,12 @@ class Permission {
     @required this.granteeType,
     @required this.permissionValues,
   });
-  static Permission fromJson(Map<String, dynamic> json) => Permission();
+  static Permission fromJson(Map<String, dynamic> json) => Permission(
+        granteeId: json['GranteeId'] as String,
+        granteeType: json['GranteeType'] as String,
+        permissionValues:
+            (json['PermissionValues'] as List).map((e) => e as String).toList(),
+      );
 }
 
 class PutMailboxPermissionsResponse {
@@ -1171,7 +1523,19 @@ class Resource {
     this.enabledDate,
     this.disabledDate,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        enabledDate: json.containsKey('EnabledDate')
+            ? DateTime.parse(json['EnabledDate'])
+            : null,
+        disabledDate: json.containsKey('DisabledDate')
+            ? DateTime.parse(json['DisabledDate'])
+            : null,
+      );
 }
 
 class UpdateMailboxQuotaResponse {
@@ -1229,5 +1593,21 @@ class User {
     this.enabledDate,
     this.disabledDate,
   });
-  static User fromJson(Map<String, dynamic> json) => User();
+  static User fromJson(Map<String, dynamic> json) => User(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        userRole:
+            json.containsKey('UserRole') ? json['UserRole'] as String : null,
+        enabledDate: json.containsKey('EnabledDate')
+            ? DateTime.parse(json['EnabledDate'])
+            : null,
+        disabledDate: json.containsKey('DisabledDate')
+            ? DateTime.parse(json['DisabledDate'])
+            : null,
+      );
 }

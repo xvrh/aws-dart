@@ -25,6 +25,10 @@ import 'package:meta/meta.dart';
 /// [What Is AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html)
 /// in the _AWS Config Developer Guide_.
 class ConfigServiceApi {
+  final _client;
+  ConfigServiceApi(client)
+      : _client = client.configured('Config Service', serializer: 'json');
+
   /// Returns the current configuration items for resources that are present in
   /// your AWS Config aggregator. The operation also returns a list of resources
   /// that are not processed in the current request. If there are no unprocessed
@@ -46,7 +50,11 @@ class ConfigServiceApi {
               String configurationAggregatorName,
           @required
               List<AggregateResourceIdentifier> resourceIdentifiers}) async {
-    return BatchGetAggregateResourceConfigResponse.fromJson({});
+    var response_ = await _client.send('BatchGetAggregateResourceConfig', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+      'ResourceIdentifiers': resourceIdentifiers,
+    });
+    return BatchGetAggregateResourceConfigResponse.fromJson(response_);
   }
 
   /// Returns the current configuration for one or more requested resources. The
@@ -67,7 +75,10 @@ class ConfigServiceApi {
   /// resource ID.
   Future<BatchGetResourceConfigResponse> batchGetResourceConfig(
       List<ResourceKey> resourceKeys) async {
-    return BatchGetResourceConfigResponse.fromJson({});
+    var response_ = await _client.send('BatchGetResourceConfig', {
+      'resourceKeys': resourceKeys,
+    });
+    return BatchGetResourceConfigResponse.fromJson(response_);
   }
 
   /// Deletes the authorization granted to the specified configuration
@@ -79,7 +90,12 @@ class ConfigServiceApi {
   /// [authorizedAwsRegion]: The region authorized to collect aggregated data.
   Future<void> deleteAggregationAuthorization(
       {@required String authorizedAccountId,
-      @required String authorizedAwsRegion}) async {}
+      @required String authorizedAwsRegion}) async {
+    await _client.send('DeleteAggregationAuthorization', {
+      'AuthorizedAccountId': authorizedAccountId,
+      'AuthorizedAwsRegion': authorizedAwsRegion,
+    });
+  }
 
   /// Deletes the specified AWS Config rule and all of its evaluation results.
   ///
@@ -92,14 +108,22 @@ class ConfigServiceApi {
   /// request.
   ///
   /// [configRuleName]: The name of the AWS Config rule that you want to delete.
-  Future<void> deleteConfigRule(String configRuleName) async {}
+  Future<void> deleteConfigRule(String configRuleName) async {
+    await _client.send('DeleteConfigRule', {
+      'ConfigRuleName': configRuleName,
+    });
+  }
 
   /// Deletes the specified configuration aggregator and the aggregated data
   /// associated with the aggregator.
   ///
   /// [configurationAggregatorName]: The name of the configuration aggregator.
   Future<void> deleteConfigurationAggregator(
-      String configurationAggregatorName) async {}
+      String configurationAggregatorName) async {
+    await _client.send('DeleteConfigurationAggregator', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+    });
+  }
 
   /// Deletes the configuration recorder.
   ///
@@ -117,7 +141,11 @@ class ConfigServiceApi {
   /// deleted. You can retrieve the name of your configuration recorder by using
   /// the `DescribeConfigurationRecorders` action.
   Future<void> deleteConfigurationRecorder(
-      String configurationRecorderName) async {}
+      String configurationRecorderName) async {
+    await _client.send('DeleteConfigurationRecorder', {
+      'ConfigurationRecorderName': configurationRecorderName,
+    });
+  }
 
   /// Deletes the delivery channel.
   ///
@@ -125,7 +153,11 @@ class ConfigServiceApi {
   /// configuration recorder by using the StopConfigurationRecorder action.
   ///
   /// [deliveryChannelName]: The name of the delivery channel to delete.
-  Future<void> deleteDeliveryChannel(String deliveryChannelName) async {}
+  Future<void> deleteDeliveryChannel(String deliveryChannelName) async {
+    await _client.send('DeleteDeliveryChannel', {
+      'DeliveryChannelName': deliveryChannelName,
+    });
+  }
 
   /// Deletes the evaluation results for the specified AWS Config rule. You can
   /// specify one AWS Config rule per request. After you delete the evaluation
@@ -136,7 +168,10 @@ class ConfigServiceApi {
   /// delete the evaluation results.
   Future<DeleteEvaluationResultsResponse> deleteEvaluationResults(
       String configRuleName) async {
-    return DeleteEvaluationResultsResponse.fromJson({});
+    var response_ = await _client.send('DeleteEvaluationResults', {
+      'ConfigRuleName': configRuleName,
+    });
+    return DeleteEvaluationResultsResponse.fromJson(response_);
   }
 
   /// Deletes the specified organization config rule and all of its evaluation
@@ -149,7 +184,11 @@ class ConfigServiceApi {
   /// [organizationConfigRuleName]: The name of organization config rule that
   /// you want to delete.
   Future<void> deleteOrganizationConfigRule(
-      String organizationConfigRuleName) async {}
+      String organizationConfigRuleName) async {
+    await _client.send('DeleteOrganizationConfigRule', {
+      'OrganizationConfigRuleName': organizationConfigRuleName,
+    });
+  }
 
   /// Deletes pending authorization requests for a specified aggregator account
   /// in a specified region.
@@ -160,7 +199,12 @@ class ConfigServiceApi {
   /// [requesterAwsRegion]: The region requesting to aggregate data.
   Future<void> deletePendingAggregationRequest(
       {@required String requesterAccountId,
-      @required String requesterAwsRegion}) async {}
+      @required String requesterAwsRegion}) async {
+    await _client.send('DeletePendingAggregationRequest', {
+      'RequesterAccountId': requesterAccountId,
+      'RequesterAwsRegion': requesterAwsRegion,
+    });
+  }
 
   /// Deletes the remediation configuration.
   ///
@@ -171,7 +215,11 @@ class ConfigServiceApi {
   Future<DeleteRemediationConfigurationResponse> deleteRemediationConfiguration(
       String configRuleName,
       {String resourceType}) async {
-    return DeleteRemediationConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DeleteRemediationConfiguration', {
+      'ConfigRuleName': configRuleName,
+      if (resourceType != null) 'ResourceType': resourceType,
+    });
+    return DeleteRemediationConfigurationResponse.fromJson(response_);
   }
 
   /// Deletes one or more remediation exceptions mentioned in the resource keys.
@@ -186,7 +234,11 @@ class ConfigServiceApi {
   Future<DeleteRemediationExceptionsResponse> deleteRemediationExceptions(
       {@required String configRuleName,
       @required List<RemediationExceptionResourceKey> resourceKeys}) async {
-    return DeleteRemediationExceptionsResponse.fromJson({});
+    var response_ = await _client.send('DeleteRemediationExceptions', {
+      'ConfigRuleName': configRuleName,
+      'ResourceKeys': resourceKeys,
+    });
+    return DeleteRemediationExceptionsResponse.fromJson(response_);
   }
 
   /// Deletes the retention configuration.
@@ -194,7 +246,11 @@ class ConfigServiceApi {
   /// [retentionConfigurationName]: The name of the retention configuration to
   /// delete.
   Future<void> deleteRetentionConfiguration(
-      String retentionConfigurationName) async {}
+      String retentionConfigurationName) async {
+    await _client.send('DeleteRetentionConfiguration', {
+      'RetentionConfigurationName': retentionConfigurationName,
+    });
+  }
 
   /// Schedules delivery of a configuration snapshot to the Amazon S3 bucket in
   /// the specified delivery channel. After the delivery has started, AWS Config
@@ -212,7 +268,10 @@ class ConfigServiceApi {
   /// snapshot is delivered.
   Future<DeliverConfigSnapshotResponse> deliverConfigSnapshot(
       String deliveryChannelName) async {
-    return DeliverConfigSnapshotResponse.fromJson({});
+    var response_ = await _client.send('DeliverConfigSnapshot', {
+      'deliveryChannelName': deliveryChannelName,
+    });
+    return DeliverConfigSnapshotResponse.fromJson(response_);
   }
 
   /// Returns a list of compliant and noncompliant rules with the number of
@@ -238,7 +297,14 @@ class ConfigServiceApi {
           {ConfigRuleComplianceFilters filters,
           int limit,
           String nextToken}) async {
-    return DescribeAggregateComplianceByConfigRulesResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeAggregateComplianceByConfigRules', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+      if (filters != null) 'Filters': filters,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAggregateComplianceByConfigRulesResponse.fromJson(response_);
   }
 
   /// Returns a list of authorizations granted to various aggregator accounts
@@ -252,7 +318,11 @@ class ConfigServiceApi {
   /// use to get the next page of results in a paginated response.
   Future<DescribeAggregationAuthorizationsResponse>
       describeAggregationAuthorizations({int limit, String nextToken}) async {
-    return DescribeAggregationAuthorizationsResponse.fromJson({});
+    var response_ = await _client.send('DescribeAggregationAuthorizations', {
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAggregationAuthorizationsResponse.fromJson(response_);
   }
 
   /// Indicates whether the specified AWS Config rules are compliant. If a rule
@@ -293,7 +363,12 @@ class ConfigServiceApi {
       {List<String> configRuleNames,
       List<String> complianceTypes,
       String nextToken}) async {
-    return DescribeComplianceByConfigRuleResponse.fromJson({});
+    var response_ = await _client.send('DescribeComplianceByConfigRule', {
+      if (configRuleNames != null) 'ConfigRuleNames': configRuleNames,
+      if (complianceTypes != null) 'ComplianceTypes': complianceTypes,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeComplianceByConfigRuleResponse.fromJson(response_);
   }
 
   /// Indicates whether the specified AWS resources are compliant. If a resource
@@ -348,7 +423,14 @@ class ConfigServiceApi {
       List<String> complianceTypes,
       int limit,
       String nextToken}) async {
-    return DescribeComplianceByResourceResponse.fromJson({});
+    var response_ = await _client.send('DescribeComplianceByResource', {
+      if (resourceType != null) 'ResourceType': resourceType,
+      if (resourceId != null) 'ResourceId': resourceId,
+      if (complianceTypes != null) 'ComplianceTypes': complianceTypes,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeComplianceByResourceResponse.fromJson(response_);
   }
 
   /// Returns status information for each of your AWS managed Config rules. The
@@ -374,7 +456,12 @@ class ConfigServiceApi {
   Future<DescribeConfigRuleEvaluationStatusResponse>
       describeConfigRuleEvaluationStatus(
           {List<String> configRuleNames, String nextToken, int limit}) async {
-    return DescribeConfigRuleEvaluationStatusResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfigRuleEvaluationStatus', {
+      if (configRuleNames != null) 'ConfigRuleNames': configRuleNames,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeConfigRuleEvaluationStatusResponse.fromJson(response_);
   }
 
   /// Returns details about your AWS Config rules.
@@ -387,7 +474,11 @@ class ConfigServiceApi {
   /// use to get the next page of results in a paginated response.
   Future<DescribeConfigRulesResponse> describeConfigRules(
       {List<String> configRuleNames, String nextToken}) async {
-    return DescribeConfigRulesResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfigRules', {
+      if (configRuleNames != null) 'ConfigRuleNames': configRuleNames,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeConfigRulesResponse.fromJson(response_);
   }
 
   /// Returns status information for sources within an aggregator. The status
@@ -417,7 +508,15 @@ class ConfigServiceApi {
           {List<String> updateStatus,
           String nextToken,
           int limit}) async {
-    return DescribeConfigurationAggregatorSourcesStatusResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeConfigurationAggregatorSourcesStatus', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+      if (updateStatus != null) 'UpdateStatus': updateStatus,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeConfigurationAggregatorSourcesStatusResponse.fromJson(
+        response_);
   }
 
   /// Returns the details of one or more configuration aggregators. If the
@@ -437,7 +536,13 @@ class ConfigServiceApi {
           {List<String> configurationAggregatorNames,
           String nextToken,
           int limit}) async {
-    return DescribeConfigurationAggregatorsResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfigurationAggregators', {
+      if (configurationAggregatorNames != null)
+        'ConfigurationAggregatorNames': configurationAggregatorNames,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeConfigurationAggregatorsResponse.fromJson(response_);
   }
 
   /// Returns the current status of the specified configuration recorder. If a
@@ -455,7 +560,11 @@ class ConfigServiceApi {
   Future<DescribeConfigurationRecorderStatusResponse>
       describeConfigurationRecorderStatus(
           {List<String> configurationRecorderNames}) async {
-    return DescribeConfigurationRecorderStatusResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfigurationRecorderStatus', {
+      if (configurationRecorderNames != null)
+        'ConfigurationRecorderNames': configurationRecorderNames,
+    });
+    return DescribeConfigurationRecorderStatusResponse.fromJson(response_);
   }
 
   /// Returns the details for the specified configuration recorders. If the
@@ -470,7 +579,11 @@ class ConfigServiceApi {
   /// [configurationRecorderNames]: A list of configuration recorder names.
   Future<DescribeConfigurationRecordersResponse> describeConfigurationRecorders(
       {List<String> configurationRecorderNames}) async {
-    return DescribeConfigurationRecordersResponse.fromJson({});
+    var response_ = await _client.send('DescribeConfigurationRecorders', {
+      if (configurationRecorderNames != null)
+        'ConfigurationRecorderNames': configurationRecorderNames,
+    });
+    return DescribeConfigurationRecordersResponse.fromJson(response_);
   }
 
   /// Returns the current status of the specified delivery channel. If a
@@ -485,7 +598,11 @@ class ConfigServiceApi {
   /// [deliveryChannelNames]: A list of delivery channel names.
   Future<DescribeDeliveryChannelStatusResponse> describeDeliveryChannelStatus(
       {List<String> deliveryChannelNames}) async {
-    return DescribeDeliveryChannelStatusResponse.fromJson({});
+    var response_ = await _client.send('DescribeDeliveryChannelStatus', {
+      if (deliveryChannelNames != null)
+        'DeliveryChannelNames': deliveryChannelNames,
+    });
+    return DescribeDeliveryChannelStatusResponse.fromJson(response_);
   }
 
   /// Returns details about the specified delivery channel. If a delivery
@@ -500,7 +617,11 @@ class ConfigServiceApi {
   /// [deliveryChannelNames]: A list of delivery channel names.
   Future<DescribeDeliveryChannelsResponse> describeDeliveryChannels(
       {List<String> deliveryChannelNames}) async {
-    return DescribeDeliveryChannelsResponse.fromJson({});
+    var response_ = await _client.send('DescribeDeliveryChannels', {
+      if (deliveryChannelNames != null)
+        'DeliveryChannelNames': deliveryChannelNames,
+    });
+    return DescribeDeliveryChannelsResponse.fromJson(response_);
   }
 
   /// Provides organization config rule deployment status for an organization.
@@ -533,7 +654,14 @@ class ConfigServiceApi {
           {List<String> organizationConfigRuleNames,
           int limit,
           String nextToken}) async {
-    return DescribeOrganizationConfigRuleStatusesResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeOrganizationConfigRuleStatuses', {
+      if (organizationConfigRuleNames != null)
+        'OrganizationConfigRuleNames': organizationConfigRuleNames,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeOrganizationConfigRuleStatusesResponse.fromJson(response_);
   }
 
   /// Returns a list of organization config rules.
@@ -562,7 +690,13 @@ class ConfigServiceApi {
           {List<String> organizationConfigRuleNames,
           int limit,
           String nextToken}) async {
-    return DescribeOrganizationConfigRulesResponse.fromJson({});
+    var response_ = await _client.send('DescribeOrganizationConfigRules', {
+      if (organizationConfigRuleNames != null)
+        'OrganizationConfigRuleNames': organizationConfigRuleNames,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeOrganizationConfigRulesResponse.fromJson(response_);
   }
 
   /// Returns a list of all pending aggregation requests.
@@ -574,7 +708,11 @@ class ConfigServiceApi {
   /// use to get the next page of results in a paginated response.
   Future<DescribePendingAggregationRequestsResponse>
       describePendingAggregationRequests({int limit, String nextToken}) async {
-    return DescribePendingAggregationRequestsResponse.fromJson({});
+    var response_ = await _client.send('DescribePendingAggregationRequests', {
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribePendingAggregationRequestsResponse.fromJson(response_);
   }
 
   /// Returns the details of one or more remediation configurations.
@@ -583,7 +721,10 @@ class ConfigServiceApi {
   /// configurations for which you want details.
   Future<DescribeRemediationConfigurationsResponse>
       describeRemediationConfigurations(List<String> configRuleNames) async {
-    return DescribeRemediationConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('DescribeRemediationConfigurations', {
+      'ConfigRuleNames': configRuleNames,
+    });
+    return DescribeRemediationConfigurationsResponse.fromJson(response_);
   }
 
   /// Returns the details of one or more remediation exceptions. A detailed view
@@ -618,7 +759,13 @@ class ConfigServiceApi {
       {List<RemediationExceptionResourceKey> resourceKeys,
       int limit,
       String nextToken}) async {
-    return DescribeRemediationExceptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeRemediationExceptions', {
+      'ConfigRuleName': configRuleName,
+      if (resourceKeys != null) 'ResourceKeys': resourceKeys,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeRemediationExceptionsResponse.fromJson(response_);
   }
 
   /// Provides a detailed view of a Remediation Execution for a set of resources
@@ -641,7 +788,13 @@ class ConfigServiceApi {
   Future<DescribeRemediationExecutionStatusResponse>
       describeRemediationExecutionStatus(String configRuleName,
           {List<ResourceKey> resourceKeys, int limit, String nextToken}) async {
-    return DescribeRemediationExecutionStatusResponse.fromJson({});
+    var response_ = await _client.send('DescribeRemediationExecutionStatus', {
+      'ConfigRuleName': configRuleName,
+      if (resourceKeys != null) 'ResourceKeys': resourceKeys,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeRemediationExecutionStatusResponse.fromJson(response_);
   }
 
   /// Returns the details of one or more retention configurations. If the
@@ -667,7 +820,12 @@ class ConfigServiceApi {
   Future<DescribeRetentionConfigurationsResponse>
       describeRetentionConfigurations(
           {List<String> retentionConfigurationNames, String nextToken}) async {
-    return DescribeRetentionConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('DescribeRetentionConfigurations', {
+      if (retentionConfigurationNames != null)
+        'RetentionConfigurationNames': retentionConfigurationNames,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeRetentionConfigurationsResponse.fromJson(response_);
   }
 
   /// Returns the evaluation results for the specified AWS Config rule for a
@@ -712,7 +870,18 @@ class ConfigServiceApi {
           String complianceType,
           int limit,
           String nextToken}) async {
-    return GetAggregateComplianceDetailsByConfigRuleResponse.fromJson({});
+    var response_ =
+        await _client.send('GetAggregateComplianceDetailsByConfigRule', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+      'ConfigRuleName': configRuleName,
+      'AccountId': accountId,
+      'AwsRegion': awsRegion,
+      if (complianceType != null) 'ComplianceType': complianceType,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetAggregateComplianceDetailsByConfigRuleResponse.fromJson(
+        response_);
   }
 
   /// Returns the number of compliant and noncompliant rules for one or more
@@ -743,7 +912,15 @@ class ConfigServiceApi {
           String groupByKey,
           int limit,
           String nextToken}) async {
-    return GetAggregateConfigRuleComplianceSummaryResponse.fromJson({});
+    var response_ =
+        await _client.send('GetAggregateConfigRuleComplianceSummary', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+      if (filters != null) 'Filters': filters,
+      if (groupByKey != null) 'GroupByKey': groupByKey,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetAggregateConfigRuleComplianceSummaryResponse.fromJson(response_);
   }
 
   /// Returns the resource counts across accounts and regions that are present
@@ -774,7 +951,14 @@ class ConfigServiceApi {
           String groupByKey,
           int limit,
           String nextToken}) async {
-    return GetAggregateDiscoveredResourceCountsResponse.fromJson({});
+    var response_ = await _client.send('GetAggregateDiscoveredResourceCounts', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+      if (filters != null) 'Filters': filters,
+      if (groupByKey != null) 'GroupByKey': groupByKey,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetAggregateDiscoveredResourceCountsResponse.fromJson(response_);
   }
 
   /// Returns configuration item that is aggregated for your specific resource
@@ -786,7 +970,11 @@ class ConfigServiceApi {
   Future<GetAggregateResourceConfigResponse> getAggregateResourceConfig(
       {@required String configurationAggregatorName,
       @required AggregateResourceIdentifier resourceIdentifier}) async {
-    return GetAggregateResourceConfigResponse.fromJson({});
+    var response_ = await _client.send('GetAggregateResourceConfig', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+      'ResourceIdentifier': resourceIdentifier,
+    });
+    return GetAggregateResourceConfigResponse.fromJson(response_);
   }
 
   /// Returns the evaluation results for the specified AWS Config rule. The
@@ -810,7 +998,13 @@ class ConfigServiceApi {
   Future<GetComplianceDetailsByConfigRuleResponse>
       getComplianceDetailsByConfigRule(String configRuleName,
           {List<String> complianceTypes, int limit, String nextToken}) async {
-    return GetComplianceDetailsByConfigRuleResponse.fromJson({});
+    var response_ = await _client.send('GetComplianceDetailsByConfigRule', {
+      'ConfigRuleName': configRuleName,
+      if (complianceTypes != null) 'ComplianceTypes': complianceTypes,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetComplianceDetailsByConfigRuleResponse.fromJson(response_);
   }
 
   /// Returns the evaluation results for the specified AWS resource. The results
@@ -834,14 +1028,21 @@ class ConfigServiceApi {
       @required String resourceId,
       List<String> complianceTypes,
       String nextToken}) async {
-    return GetComplianceDetailsByResourceResponse.fromJson({});
+    var response_ = await _client.send('GetComplianceDetailsByResource', {
+      'ResourceType': resourceType,
+      'ResourceId': resourceId,
+      if (complianceTypes != null) 'ComplianceTypes': complianceTypes,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetComplianceDetailsByResourceResponse.fromJson(response_);
   }
 
   /// Returns the number of AWS Config rules that are compliant and
   /// noncompliant, up to a maximum of 25 for each.
   Future<GetComplianceSummaryByConfigRuleResponse>
       getComplianceSummaryByConfigRule() async {
-    return GetComplianceSummaryByConfigRuleResponse.fromJson({});
+    var response_ = await _client.send('GetComplianceSummaryByConfigRule', {});
+    return GetComplianceSummaryByConfigRuleResponse.fromJson(response_);
   }
 
   /// Returns the number of resources that are compliant and the number that are
@@ -857,7 +1058,10 @@ class ConfigServiceApi {
   /// account by specifying `AWS::::Account`.
   Future<GetComplianceSummaryByResourceTypeResponse>
       getComplianceSummaryByResourceType({List<String> resourceTypes}) async {
-    return GetComplianceSummaryByResourceTypeResponse.fromJson({});
+    var response_ = await _client.send('GetComplianceSummaryByResourceType', {
+      if (resourceTypes != null) 'ResourceTypes': resourceTypes,
+    });
+    return GetComplianceSummaryByResourceTypeResponse.fromJson(response_);
   }
 
   /// Returns the resource types, the number of each resource type, and the
@@ -926,7 +1130,12 @@ class ConfigServiceApi {
   /// use to get the next page of results in a paginated response.
   Future<GetDiscoveredResourceCountsResponse> getDiscoveredResourceCounts(
       {List<String> resourceTypes, int limit, String nextToken}) async {
-    return GetDiscoveredResourceCountsResponse.fromJson({});
+    var response_ = await _client.send('GetDiscoveredResourceCounts', {
+      if (resourceTypes != null) 'resourceTypes': resourceTypes,
+      if (limit != null) 'limit': limit,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return GetDiscoveredResourceCountsResponse.fromJson(response_);
   }
 
   /// Returns detailed status for each member account within an organization for
@@ -950,7 +1159,14 @@ class ConfigServiceApi {
   Future<GetOrganizationConfigRuleDetailedStatusResponse>
       getOrganizationConfigRuleDetailedStatus(String organizationConfigRuleName,
           {StatusDetailFilters filters, int limit, String nextToken}) async {
-    return GetOrganizationConfigRuleDetailedStatusResponse.fromJson({});
+    var response_ =
+        await _client.send('GetOrganizationConfigRuleDetailedStatus', {
+      'OrganizationConfigRuleName': organizationConfigRuleName,
+      if (filters != null) 'Filters': filters,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetOrganizationConfigRuleDetailedStatusResponse.fromJson(response_);
   }
 
   /// Returns a list of configuration items for the specified resource. The list
@@ -1000,7 +1216,16 @@ class ConfigServiceApi {
       String chronologicalOrder,
       int limit,
       String nextToken}) async {
-    return GetResourceConfigHistoryResponse.fromJson({});
+    var response_ = await _client.send('GetResourceConfigHistory', {
+      'resourceType': resourceType,
+      'resourceId': resourceId,
+      if (laterTime != null) 'laterTime': laterTime,
+      if (earlierTime != null) 'earlierTime': earlierTime,
+      if (chronologicalOrder != null) 'chronologicalOrder': chronologicalOrder,
+      if (limit != null) 'limit': limit,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return GetResourceConfigHistoryResponse.fromJson(response_);
   }
 
   /// Accepts a resource type and returns a list of resource identifiers that
@@ -1035,7 +1260,14 @@ class ConfigServiceApi {
           ResourceFilters filters,
           int limit,
           String nextToken}) async {
-    return ListAggregateDiscoveredResourcesResponse.fromJson({});
+    var response_ = await _client.send('ListAggregateDiscoveredResources', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+      'ResourceType': resourceType,
+      if (filters != null) 'Filters': filters,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAggregateDiscoveredResourcesResponse.fromJson(response_);
   }
 
   /// Accepts a resource type and returns a list of resource identifiers for the
@@ -1081,7 +1313,16 @@ class ConfigServiceApi {
       int limit,
       bool includeDeletedResources,
       String nextToken}) async {
-    return ListDiscoveredResourcesResponse.fromJson({});
+    var response_ = await _client.send('ListDiscoveredResources', {
+      'resourceType': resourceType,
+      if (resourceIds != null) 'resourceIds': resourceIds,
+      if (resourceName != null) 'resourceName': resourceName,
+      if (limit != null) 'limit': limit,
+      if (includeDeletedResources != null)
+        'includeDeletedResources': includeDeletedResources,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListDiscoveredResourcesResponse.fromJson(response_);
   }
 
   /// List the tags for AWS Config resource.
@@ -1098,7 +1339,12 @@ class ConfigServiceApi {
   /// use to get the next page of results in a paginated response.
   Future<ListTagsForResourceResponse> listTagsForResource(String resourceArn,
       {int limit, String nextToken}) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Authorizes the aggregator account and region to collect data from the
@@ -1114,7 +1360,12 @@ class ConfigServiceApi {
       {@required String authorizedAccountId,
       @required String authorizedAwsRegion,
       List<Tag> tags}) async {
-    return PutAggregationAuthorizationResponse.fromJson({});
+    var response_ = await _client.send('PutAggregationAuthorization', {
+      'AuthorizedAccountId': authorizedAccountId,
+      'AuthorizedAwsRegion': authorizedAwsRegion,
+      if (tags != null) 'Tags': tags,
+    });
+    return PutAggregationAuthorizationResponse.fromJson(response_);
   }
 
   /// Adds or updates an AWS Config rule for evaluating whether your AWS
@@ -1158,7 +1409,12 @@ class ConfigServiceApi {
   /// [configRule]: The rule that you want to add to your account.
   ///
   /// [tags]: An array of tag object.
-  Future<void> putConfigRule(ConfigRule configRule, {List<Tag> tags}) async {}
+  Future<void> putConfigRule(ConfigRule configRule, {List<Tag> tags}) async {
+    await _client.send('PutConfigRule', {
+      'ConfigRule': configRule,
+      if (tags != null) 'Tags': tags,
+    });
+  }
 
   /// Creates and updates the configuration aggregator with the selected source
   /// accounts and regions. The source account can be individual account(s) or
@@ -1186,7 +1442,15 @@ class ConfigServiceApi {
       {List<AccountAggregationSource> accountAggregationSources,
       OrganizationAggregationSource organizationAggregationSource,
       List<Tag> tags}) async {
-    return PutConfigurationAggregatorResponse.fromJson({});
+    var response_ = await _client.send('PutConfigurationAggregator', {
+      'ConfigurationAggregatorName': configurationAggregatorName,
+      if (accountAggregationSources != null)
+        'AccountAggregationSources': accountAggregationSources,
+      if (organizationAggregationSource != null)
+        'OrganizationAggregationSource': organizationAggregationSource,
+      if (tags != null) 'Tags': tags,
+    });
+    return PutConfigurationAggregatorResponse.fromJson(response_);
   }
 
   /// Creates a new configuration recorder to record the selected resource
@@ -1207,7 +1471,11 @@ class ConfigServiceApi {
   /// [configurationRecorder]: The configuration recorder object that records
   /// each configuration change made to the resources.
   Future<void> putConfigurationRecorder(
-      ConfigurationRecorder configurationRecorder) async {}
+      ConfigurationRecorder configurationRecorder) async {
+    await _client.send('PutConfigurationRecorder', {
+      'ConfigurationRecorder': configurationRecorder,
+    });
+  }
 
   /// Creates a delivery channel object to deliver configuration information to
   /// an Amazon S3 bucket and Amazon SNS topic.
@@ -1229,7 +1497,11 @@ class ConfigServiceApi {
   /// [deliveryChannel]: The configuration delivery channel object that delivers
   /// the configuration information to an Amazon S3 bucket and to an Amazon SNS
   /// topic.
-  Future<void> putDeliveryChannel(DeliveryChannel deliveryChannel) async {}
+  Future<void> putDeliveryChannel(DeliveryChannel deliveryChannel) async {
+    await _client.send('PutDeliveryChannel', {
+      'DeliveryChannel': deliveryChannel,
+    });
+  }
 
   /// Used by an AWS Lambda function to deliver evaluation results to AWS
   /// Config. This action is required in every AWS Lambda function that is
@@ -1254,7 +1526,12 @@ class ConfigServiceApi {
   /// for the `ResultToken` parameter, but the value cannot be null.
   Future<PutEvaluationsResponse> putEvaluations(String resultToken,
       {List<Evaluation> evaluations, bool testMode}) async {
-    return PutEvaluationsResponse.fromJson({});
+    var response_ = await _client.send('PutEvaluations', {
+      if (evaluations != null) 'Evaluations': evaluations,
+      'ResultToken': resultToken,
+      if (testMode != null) 'TestMode': testMode,
+    });
+    return PutEvaluationsResponse.fromJson(response_);
   }
 
   /// Adds or updates organization config rule for your entire organization
@@ -1302,7 +1579,15 @@ class ConfigServiceApi {
       {OrganizationManagedRuleMetadata organizationManagedRuleMetadata,
       OrganizationCustomRuleMetadata organizationCustomRuleMetadata,
       List<String> excludedAccounts}) async {
-    return PutOrganizationConfigRuleResponse.fromJson({});
+    var response_ = await _client.send('PutOrganizationConfigRule', {
+      'OrganizationConfigRuleName': organizationConfigRuleName,
+      if (organizationManagedRuleMetadata != null)
+        'OrganizationManagedRuleMetadata': organizationManagedRuleMetadata,
+      if (organizationCustomRuleMetadata != null)
+        'OrganizationCustomRuleMetadata': organizationCustomRuleMetadata,
+      if (excludedAccounts != null) 'ExcludedAccounts': excludedAccounts,
+    });
+    return PutOrganizationConfigRuleResponse.fromJson(response_);
   }
 
   /// Adds or updates the remediation configuration with a specific AWS Config
@@ -1314,7 +1599,10 @@ class ConfigServiceApi {
   /// [remediationConfigurations]: A list of remediation configuration objects.
   Future<PutRemediationConfigurationsResponse> putRemediationConfigurations(
       List<RemediationConfiguration> remediationConfigurations) async {
-    return PutRemediationConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('PutRemediationConfigurations', {
+      'RemediationConfigurations': remediationConfigurations,
+    });
+    return PutRemediationConfigurationsResponse.fromJson(response_);
   }
 
   /// A remediation exception is when a specific resource is no longer
@@ -1339,7 +1627,13 @@ class ConfigServiceApi {
       @required List<RemediationExceptionResourceKey> resourceKeys,
       String message,
       DateTime expirationTime}) async {
-    return PutRemediationExceptionsResponse.fromJson({});
+    var response_ = await _client.send('PutRemediationExceptions', {
+      'ConfigRuleName': configRuleName,
+      'ResourceKeys': resourceKeys,
+      if (message != null) 'Message': message,
+      if (expirationTime != null) 'ExpirationTime': expirationTime,
+    });
+    return PutRemediationExceptionsResponse.fromJson(response_);
   }
 
   /// Creates and updates the retention configuration with details about
@@ -1361,7 +1655,10 @@ class ConfigServiceApi {
   /// Currently, only applicable to the configuration item history.
   Future<PutRetentionConfigurationResponse> putRetentionConfiguration(
       int retentionPeriodInDays) async {
-    return PutRetentionConfigurationResponse.fromJson({});
+    var response_ = await _client.send('PutRetentionConfiguration', {
+      'RetentionPeriodInDays': retentionPeriodInDays,
+    });
+    return PutRetentionConfigurationResponse.fromJson(response_);
   }
 
   /// Accepts a structured query language (SQL) `SELECT` command, performs the
@@ -1380,7 +1677,12 @@ class ConfigServiceApi {
   /// you use to request the next page of results in a paginated response.
   Future<SelectResourceConfigResponse> selectResourceConfig(String expression,
       {int limit, String nextToken}) async {
-    return SelectResourceConfigResponse.fromJson({});
+    var response_ = await _client.send('SelectResourceConfig', {
+      'Expression': expression,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return SelectResourceConfigResponse.fromJson(response_);
   }
 
   /// Runs an on-demand evaluation for the specified AWS Config rules against
@@ -1422,7 +1724,10 @@ class ConfigServiceApi {
   /// run evaluations for.
   Future<StartConfigRulesEvaluationResponse> startConfigRulesEvaluation(
       {List<String> configRuleNames}) async {
-    return StartConfigRulesEvaluationResponse.fromJson({});
+    var response_ = await _client.send('StartConfigRulesEvaluation', {
+      if (configRuleNames != null) 'ConfigRuleNames': configRuleNames,
+    });
+    return StartConfigRulesEvaluationResponse.fromJson(response_);
   }
 
   /// Starts recording configurations of the AWS resources you have selected to
@@ -1434,7 +1739,11 @@ class ConfigServiceApi {
   /// [configurationRecorderName]: The name of the recorder object that records
   /// each configuration change made to the resources.
   Future<void> startConfigurationRecorder(
-      String configurationRecorderName) async {}
+      String configurationRecorderName) async {
+    await _client.send('StartConfigurationRecorder', {
+      'ConfigurationRecorderName': configurationRecorderName,
+    });
+  }
 
   /// Runs an on-demand remediation for the specified AWS Config rules against
   /// the last known remediation configuration. It runs an execution against the
@@ -1453,7 +1762,11 @@ class ConfigServiceApi {
   Future<StartRemediationExecutionResponse> startRemediationExecution(
       {@required String configRuleName,
       @required List<ResourceKey> resourceKeys}) async {
-    return StartRemediationExecutionResponse.fromJson({});
+    var response_ = await _client.send('StartRemediationExecution', {
+      'ConfigRuleName': configRuleName,
+      'ResourceKeys': resourceKeys,
+    });
+    return StartRemediationExecutionResponse.fromJson(response_);
   }
 
   /// Stops recording configurations of the AWS resources you have selected to
@@ -1462,7 +1775,11 @@ class ConfigServiceApi {
   /// [configurationRecorderName]: The name of the recorder object that records
   /// each configuration change made to the resources.
   Future<void> stopConfigurationRecorder(
-      String configurationRecorderName) async {}
+      String configurationRecorderName) async {
+    await _client.send('StopConfigurationRecorder', {
+      'ConfigurationRecorderName': configurationRecorderName,
+    });
+  }
 
   /// Associates the specified tags to a resource with the specified
   /// resourceArn. If existing tags on a resource are not specified in the
@@ -1475,7 +1792,12 @@ class ConfigServiceApi {
   ///
   /// [tags]: An array of tag object.
   Future<void> tagResource(
-      {@required String resourceArn, @required List<Tag> tags}) async {}
+      {@required String resourceArn, @required List<Tag> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+  }
 
   /// Deletes specified tags from a resource.
   ///
@@ -1485,7 +1807,12 @@ class ConfigServiceApi {
   ///
   /// [tagKeys]: The keys of the tags to be removed.
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 }
 
 /// A collection of accounts and regions.
@@ -1505,7 +1832,17 @@ class AccountAggregationSource {
     this.awsRegions,
   });
   static AccountAggregationSource fromJson(Map<String, dynamic> json) =>
-      AccountAggregationSource();
+      AccountAggregationSource(
+        accountIds:
+            (json['AccountIds'] as List).map((e) => e as String).toList(),
+        allAwsRegions: json.containsKey('AllAwsRegions')
+            ? json['AllAwsRegions'] as bool
+            : null,
+        awsRegions: json.containsKey('AwsRegions')
+            ? (json['AwsRegions'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Indicates whether an AWS Config rule is compliant based on account ID,
@@ -1534,7 +1871,18 @@ class AggregateComplianceByConfigRule {
     this.awsRegion,
   });
   static AggregateComplianceByConfigRule fromJson(Map<String, dynamic> json) =>
-      AggregateComplianceByConfigRule();
+      AggregateComplianceByConfigRule(
+        configRuleName: json.containsKey('ConfigRuleName')
+            ? json['ConfigRuleName'] as String
+            : null,
+        compliance: json.containsKey('Compliance')
+            ? Compliance.fromJson(json['Compliance'])
+            : null,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        awsRegion:
+            json.containsKey('AwsRegion') ? json['AwsRegion'] as String : null,
+      );
 }
 
 /// Returns the number of compliant and noncompliant rules for one or more
@@ -1551,7 +1899,13 @@ class AggregateComplianceCount {
     this.complianceSummary,
   });
   static AggregateComplianceCount fromJson(Map<String, dynamic> json) =>
-      AggregateComplianceCount();
+      AggregateComplianceCount(
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        complianceSummary: json.containsKey('ComplianceSummary')
+            ? ComplianceSummary.fromJson(json['ComplianceSummary'])
+            : null,
+      );
 }
 
 /// The details of an AWS Config evaluation for an account ID and region in an
@@ -1594,7 +1948,29 @@ class AggregateEvaluationResult {
     this.awsRegion,
   });
   static AggregateEvaluationResult fromJson(Map<String, dynamic> json) =>
-      AggregateEvaluationResult();
+      AggregateEvaluationResult(
+        evaluationResultIdentifier:
+            json.containsKey('EvaluationResultIdentifier')
+                ? EvaluationResultIdentifier.fromJson(
+                    json['EvaluationResultIdentifier'])
+                : null,
+        complianceType: json.containsKey('ComplianceType')
+            ? json['ComplianceType'] as String
+            : null,
+        resultRecordedTime: json.containsKey('ResultRecordedTime')
+            ? DateTime.parse(json['ResultRecordedTime'])
+            : null,
+        configRuleInvokedTime: json.containsKey('ConfigRuleInvokedTime')
+            ? DateTime.parse(json['ConfigRuleInvokedTime'])
+            : null,
+        annotation: json.containsKey('Annotation')
+            ? json['Annotation'] as String
+            : null,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        awsRegion:
+            json.containsKey('AwsRegion') ? json['AwsRegion'] as String : null,
+      );
 }
 
 /// The details that identify a resource that is collected by AWS Config
@@ -1624,7 +2000,16 @@ class AggregateResourceIdentifier {
     this.resourceName,
   });
   static AggregateResourceIdentifier fromJson(Map<String, dynamic> json) =>
-      AggregateResourceIdentifier();
+      AggregateResourceIdentifier(
+        sourceAccountId: json['SourceAccountId'] as String,
+        sourceRegion: json['SourceRegion'] as String,
+        resourceId: json['ResourceId'] as String,
+        resourceType: json['ResourceType'] as String,
+        resourceName: json.containsKey('ResourceName')
+            ? json['ResourceName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The current sync status between the source and the aggregator account.
@@ -1668,7 +2053,27 @@ class AggregatedSourceStatus {
     this.lastErrorMessage,
   });
   static AggregatedSourceStatus fromJson(Map<String, dynamic> json) =>
-      AggregatedSourceStatus();
+      AggregatedSourceStatus(
+        sourceId:
+            json.containsKey('SourceId') ? json['SourceId'] as String : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        awsRegion:
+            json.containsKey('AwsRegion') ? json['AwsRegion'] as String : null,
+        lastUpdateStatus: json.containsKey('LastUpdateStatus')
+            ? json['LastUpdateStatus'] as String
+            : null,
+        lastUpdateTime: json.containsKey('LastUpdateTime')
+            ? DateTime.parse(json['LastUpdateTime'])
+            : null,
+        lastErrorCode: json.containsKey('LastErrorCode')
+            ? json['LastErrorCode'] as String
+            : null,
+        lastErrorMessage: json.containsKey('LastErrorMessage')
+            ? json['LastErrorMessage'] as String
+            : null,
+      );
 }
 
 /// An object that represents the authorizations granted to aggregator accounts
@@ -1693,7 +2098,21 @@ class AggregationAuthorization {
     this.creationTime,
   });
   static AggregationAuthorization fromJson(Map<String, dynamic> json) =>
-      AggregationAuthorization();
+      AggregationAuthorization(
+        aggregationAuthorizationArn:
+            json.containsKey('AggregationAuthorizationArn')
+                ? json['AggregationAuthorizationArn'] as String
+                : null,
+        authorizedAccountId: json.containsKey('AuthorizedAccountId')
+            ? json['AuthorizedAccountId'] as String
+            : null,
+        authorizedAwsRegion: json.containsKey('AuthorizedAwsRegion')
+            ? json['AuthorizedAwsRegion'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+      );
 }
 
 /// The detailed configuration of a specified resource.
@@ -1760,7 +2179,47 @@ class BaseConfigurationItem {
     this.supplementaryConfiguration,
   });
   static BaseConfigurationItem fromJson(Map<String, dynamic> json) =>
-      BaseConfigurationItem();
+      BaseConfigurationItem(
+        version: json.containsKey('version') ? json['version'] as String : null,
+        accountId:
+            json.containsKey('accountId') ? json['accountId'] as String : null,
+        configurationItemCaptureTime:
+            json.containsKey('configurationItemCaptureTime')
+                ? DateTime.parse(json['configurationItemCaptureTime'])
+                : null,
+        configurationItemStatus: json.containsKey('configurationItemStatus')
+            ? json['configurationItemStatus'] as String
+            : null,
+        configurationStateId: json.containsKey('configurationStateId')
+            ? json['configurationStateId'] as String
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        resourceId: json.containsKey('resourceId')
+            ? json['resourceId'] as String
+            : null,
+        resourceName: json.containsKey('resourceName')
+            ? json['resourceName'] as String
+            : null,
+        awsRegion:
+            json.containsKey('awsRegion') ? json['awsRegion'] as String : null,
+        availabilityZone: json.containsKey('availabilityZone')
+            ? json['availabilityZone'] as String
+            : null,
+        resourceCreationTime: json.containsKey('resourceCreationTime')
+            ? DateTime.parse(json['resourceCreationTime'])
+            : null,
+        configuration: json.containsKey('configuration')
+            ? json['configuration'] as String
+            : null,
+        supplementaryConfiguration:
+            json.containsKey('supplementaryConfiguration')
+                ? (json['supplementaryConfiguration'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as String))
+                : null,
+      );
 }
 
 class BatchGetAggregateResourceConfigResponse {
@@ -1777,7 +2236,19 @@ class BatchGetAggregateResourceConfigResponse {
   });
   static BatchGetAggregateResourceConfigResponse fromJson(
           Map<String, dynamic> json) =>
-      BatchGetAggregateResourceConfigResponse();
+      BatchGetAggregateResourceConfigResponse(
+        baseConfigurationItems: json.containsKey('BaseConfigurationItems')
+            ? (json['BaseConfigurationItems'] as List)
+                .map((e) => BaseConfigurationItem.fromJson(e))
+                .toList()
+            : null,
+        unprocessedResourceIdentifiers:
+            json.containsKey('UnprocessedResourceIdentifiers')
+                ? (json['UnprocessedResourceIdentifiers'] as List)
+                    .map((e) => AggregateResourceIdentifier.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class BatchGetResourceConfigResponse {
@@ -1796,7 +2267,18 @@ class BatchGetResourceConfigResponse {
     this.unprocessedResourceKeys,
   });
   static BatchGetResourceConfigResponse fromJson(Map<String, dynamic> json) =>
-      BatchGetResourceConfigResponse();
+      BatchGetResourceConfigResponse(
+        baseConfigurationItems: json.containsKey('baseConfigurationItems')
+            ? (json['baseConfigurationItems'] as List)
+                .map((e) => BaseConfigurationItem.fromJson(e))
+                .toList()
+            : null,
+        unprocessedResourceKeys: json.containsKey('unprocessedResourceKeys')
+            ? (json['unprocessedResourceKeys'] as List)
+                .map((e) => ResourceKey.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Indicates whether an AWS resource or AWS Config rule is compliant and
@@ -1827,7 +2309,16 @@ class Compliance {
     this.complianceType,
     this.complianceContributorCount,
   });
-  static Compliance fromJson(Map<String, dynamic> json) => Compliance();
+  static Compliance fromJson(Map<String, dynamic> json) => Compliance(
+        complianceType: json.containsKey('ComplianceType')
+            ? json['ComplianceType'] as String
+            : null,
+        complianceContributorCount:
+            json.containsKey('ComplianceContributorCount')
+                ? ComplianceContributorCount.fromJson(
+                    json['ComplianceContributorCount'])
+                : null,
+      );
 }
 
 /// Indicates whether an AWS Config rule is compliant. A rule is compliant if
@@ -1845,7 +2336,14 @@ class ComplianceByConfigRule {
     this.compliance,
   });
   static ComplianceByConfigRule fromJson(Map<String, dynamic> json) =>
-      ComplianceByConfigRule();
+      ComplianceByConfigRule(
+        configRuleName: json.containsKey('ConfigRuleName')
+            ? json['ConfigRuleName'] as String
+            : null,
+        compliance: json.containsKey('Compliance')
+            ? Compliance.fromJson(json['Compliance'])
+            : null,
+      );
 }
 
 /// Indicates whether an AWS resource that is evaluated according to one or more
@@ -1869,7 +2367,17 @@ class ComplianceByResource {
     this.compliance,
   });
   static ComplianceByResource fromJson(Map<String, dynamic> json) =>
-      ComplianceByResource();
+      ComplianceByResource(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        compliance: json.containsKey('Compliance')
+            ? Compliance.fromJson(json['Compliance'])
+            : null,
+      );
 }
 
 /// The number of AWS resources or AWS Config rules responsible for the current
@@ -1887,7 +2395,13 @@ class ComplianceContributorCount {
     this.capExceeded,
   });
   static ComplianceContributorCount fromJson(Map<String, dynamic> json) =>
-      ComplianceContributorCount();
+      ComplianceContributorCount(
+        cappedCount:
+            json.containsKey('CappedCount') ? json['CappedCount'] as int : null,
+        capExceeded: json.containsKey('CapExceeded')
+            ? json['CapExceeded'] as bool
+            : null,
+      );
 }
 
 /// The number of AWS Config rules or AWS resources that are compliant and
@@ -1910,7 +2424,20 @@ class ComplianceSummary {
     this.complianceSummaryTimestamp,
   });
   static ComplianceSummary fromJson(Map<String, dynamic> json) =>
-      ComplianceSummary();
+      ComplianceSummary(
+        compliantResourceCount: json.containsKey('CompliantResourceCount')
+            ? ComplianceContributorCount.fromJson(
+                json['CompliantResourceCount'])
+            : null,
+        nonCompliantResourceCount: json.containsKey('NonCompliantResourceCount')
+            ? ComplianceContributorCount.fromJson(
+                json['NonCompliantResourceCount'])
+            : null,
+        complianceSummaryTimestamp:
+            json.containsKey('ComplianceSummaryTimestamp')
+                ? DateTime.parse(json['ComplianceSummaryTimestamp'])
+                : null,
+      );
 }
 
 /// The number of AWS resources of a specific type that are compliant or
@@ -1928,7 +2455,14 @@ class ComplianceSummaryByResourceType {
     this.complianceSummary,
   });
   static ComplianceSummaryByResourceType fromJson(Map<String, dynamic> json) =>
-      ComplianceSummaryByResourceType();
+      ComplianceSummaryByResourceType(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        complianceSummary: json.containsKey('ComplianceSummary')
+            ? ComplianceSummary.fromJson(json['ComplianceSummary'])
+            : null,
+      );
 }
 
 /// Provides status of the delivery of the snapshot or the configuration history
@@ -1962,7 +2496,26 @@ class ConfigExportDeliveryInfo {
     this.nextDeliveryTime,
   });
   static ConfigExportDeliveryInfo fromJson(Map<String, dynamic> json) =>
-      ConfigExportDeliveryInfo();
+      ConfigExportDeliveryInfo(
+        lastStatus: json.containsKey('lastStatus')
+            ? json['lastStatus'] as String
+            : null,
+        lastErrorCode: json.containsKey('lastErrorCode')
+            ? json['lastErrorCode'] as String
+            : null,
+        lastErrorMessage: json.containsKey('lastErrorMessage')
+            ? json['lastErrorMessage'] as String
+            : null,
+        lastAttemptTime: json.containsKey('lastAttemptTime')
+            ? DateTime.parse(json['lastAttemptTime'])
+            : null,
+        lastSuccessfulTime: json.containsKey('lastSuccessfulTime')
+            ? DateTime.parse(json['lastSuccessfulTime'])
+            : null,
+        nextDeliveryTime: json.containsKey('nextDeliveryTime')
+            ? DateTime.parse(json['nextDeliveryTime'])
+            : null,
+      );
 }
 
 /// An AWS Config rule represents an AWS Lambda function that you create for a
@@ -2066,7 +2619,34 @@ class ConfigRule {
     this.configRuleState,
     this.createdBy,
   });
-  static ConfigRule fromJson(Map<String, dynamic> json) => ConfigRule();
+  static ConfigRule fromJson(Map<String, dynamic> json) => ConfigRule(
+        configRuleName: json.containsKey('ConfigRuleName')
+            ? json['ConfigRuleName'] as String
+            : null,
+        configRuleArn: json.containsKey('ConfigRuleArn')
+            ? json['ConfigRuleArn'] as String
+            : null,
+        configRuleId: json.containsKey('ConfigRuleId')
+            ? json['ConfigRuleId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        scope: json.containsKey('Scope') ? Scope.fromJson(json['Scope']) : null,
+        source: Source.fromJson(json['Source']),
+        inputParameters: json.containsKey('InputParameters')
+            ? json['InputParameters'] as String
+            : null,
+        maximumExecutionFrequency: json.containsKey('MaximumExecutionFrequency')
+            ? json['MaximumExecutionFrequency'] as String
+            : null,
+        configRuleState: json.containsKey('ConfigRuleState')
+            ? json['ConfigRuleState'] as String
+            : null,
+        createdBy:
+            json.containsKey('CreatedBy') ? json['CreatedBy'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Filters the compliance results based on account ID, region, compliance type,
@@ -2094,6 +2674,7 @@ class ConfigRuleComplianceFilters {
     this.accountId,
     this.awsRegion,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Filters the results based on the account IDs and regions.
@@ -2108,6 +2689,7 @@ class ConfigRuleComplianceSummaryFilters {
     this.accountId,
     this.awsRegion,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Status information for your AWS managed Config rules. The status includes
@@ -2175,7 +2757,43 @@ class ConfigRuleEvaluationStatus {
     this.firstEvaluationStarted,
   });
   static ConfigRuleEvaluationStatus fromJson(Map<String, dynamic> json) =>
-      ConfigRuleEvaluationStatus();
+      ConfigRuleEvaluationStatus(
+        configRuleName: json.containsKey('ConfigRuleName')
+            ? json['ConfigRuleName'] as String
+            : null,
+        configRuleArn: json.containsKey('ConfigRuleArn')
+            ? json['ConfigRuleArn'] as String
+            : null,
+        configRuleId: json.containsKey('ConfigRuleId')
+            ? json['ConfigRuleId'] as String
+            : null,
+        lastSuccessfulInvocationTime:
+            json.containsKey('LastSuccessfulInvocationTime')
+                ? DateTime.parse(json['LastSuccessfulInvocationTime'])
+                : null,
+        lastFailedInvocationTime: json.containsKey('LastFailedInvocationTime')
+            ? DateTime.parse(json['LastFailedInvocationTime'])
+            : null,
+        lastSuccessfulEvaluationTime:
+            json.containsKey('LastSuccessfulEvaluationTime')
+                ? DateTime.parse(json['LastSuccessfulEvaluationTime'])
+                : null,
+        lastFailedEvaluationTime: json.containsKey('LastFailedEvaluationTime')
+            ? DateTime.parse(json['LastFailedEvaluationTime'])
+            : null,
+        firstActivatedTime: json.containsKey('FirstActivatedTime')
+            ? DateTime.parse(json['FirstActivatedTime'])
+            : null,
+        lastErrorCode: json.containsKey('LastErrorCode')
+            ? json['LastErrorCode'] as String
+            : null,
+        lastErrorMessage: json.containsKey('LastErrorMessage')
+            ? json['LastErrorMessage'] as String
+            : null,
+        firstEvaluationStarted: json.containsKey('FirstEvaluationStarted')
+            ? json['FirstEvaluationStarted'] as bool
+            : null,
+      );
 }
 
 /// Provides options for how often AWS Config delivers configuration snapshots
@@ -2226,7 +2844,12 @@ class ConfigSnapshotDeliveryProperties {
     this.deliveryFrequency,
   });
   static ConfigSnapshotDeliveryProperties fromJson(Map<String, dynamic> json) =>
-      ConfigSnapshotDeliveryProperties();
+      ConfigSnapshotDeliveryProperties(
+        deliveryFrequency: json.containsKey('deliveryFrequency')
+            ? json['deliveryFrequency'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list that contains the status of the delivery of the configuration stream
@@ -2256,7 +2879,20 @@ class ConfigStreamDeliveryInfo {
     this.lastStatusChangeTime,
   });
   static ConfigStreamDeliveryInfo fromJson(Map<String, dynamic> json) =>
-      ConfigStreamDeliveryInfo();
+      ConfigStreamDeliveryInfo(
+        lastStatus: json.containsKey('lastStatus')
+            ? json['lastStatus'] as String
+            : null,
+        lastErrorCode: json.containsKey('lastErrorCode')
+            ? json['lastErrorCode'] as String
+            : null,
+        lastErrorMessage: json.containsKey('lastErrorMessage')
+            ? json['lastErrorMessage'] as String
+            : null,
+        lastStatusChangeTime: json.containsKey('lastStatusChangeTime')
+            ? DateTime.parse(json['lastStatusChangeTime'])
+            : null,
+      );
 }
 
 /// The details about the configuration aggregator, including information about
@@ -2289,7 +2925,32 @@ class ConfigurationAggregator {
     this.lastUpdatedTime,
   });
   static ConfigurationAggregator fromJson(Map<String, dynamic> json) =>
-      ConfigurationAggregator();
+      ConfigurationAggregator(
+        configurationAggregatorName:
+            json.containsKey('ConfigurationAggregatorName')
+                ? json['ConfigurationAggregatorName'] as String
+                : null,
+        configurationAggregatorArn:
+            json.containsKey('ConfigurationAggregatorArn')
+                ? json['ConfigurationAggregatorArn'] as String
+                : null,
+        accountAggregationSources: json.containsKey('AccountAggregationSources')
+            ? (json['AccountAggregationSources'] as List)
+                .map((e) => AccountAggregationSource.fromJson(e))
+                .toList()
+            : null,
+        organizationAggregationSource:
+            json.containsKey('OrganizationAggregationSource')
+                ? OrganizationAggregationSource.fromJson(
+                    json['OrganizationAggregationSource'])
+                : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+      );
 }
 
 /// A list that contains detailed configurations of a specified resource.
@@ -2383,7 +3044,62 @@ class ConfigurationItem {
     this.supplementaryConfiguration,
   });
   static ConfigurationItem fromJson(Map<String, dynamic> json) =>
-      ConfigurationItem();
+      ConfigurationItem(
+        version: json.containsKey('version') ? json['version'] as String : null,
+        accountId:
+            json.containsKey('accountId') ? json['accountId'] as String : null,
+        configurationItemCaptureTime:
+            json.containsKey('configurationItemCaptureTime')
+                ? DateTime.parse(json['configurationItemCaptureTime'])
+                : null,
+        configurationItemStatus: json.containsKey('configurationItemStatus')
+            ? json['configurationItemStatus'] as String
+            : null,
+        configurationStateId: json.containsKey('configurationStateId')
+            ? json['configurationStateId'] as String
+            : null,
+        configurationItemMd5Hash: json.containsKey('configurationItemMD5Hash')
+            ? json['configurationItemMD5Hash'] as String
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        resourceId: json.containsKey('resourceId')
+            ? json['resourceId'] as String
+            : null,
+        resourceName: json.containsKey('resourceName')
+            ? json['resourceName'] as String
+            : null,
+        awsRegion:
+            json.containsKey('awsRegion') ? json['awsRegion'] as String : null,
+        availabilityZone: json.containsKey('availabilityZone')
+            ? json['availabilityZone'] as String
+            : null,
+        resourceCreationTime: json.containsKey('resourceCreationTime')
+            ? DateTime.parse(json['resourceCreationTime'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        relatedEvents: json.containsKey('relatedEvents')
+            ? (json['relatedEvents'] as List).map((e) => e as String).toList()
+            : null,
+        relationships: json.containsKey('relationships')
+            ? (json['relationships'] as List)
+                .map((e) => Relationship.fromJson(e))
+                .toList()
+            : null,
+        configuration: json.containsKey('configuration')
+            ? json['configuration'] as String
+            : null,
+        supplementaryConfiguration:
+            json.containsKey('supplementaryConfiguration')
+                ? (json['supplementaryConfiguration'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as String))
+                : null,
+      );
 }
 
 /// An object that represents the recording of configuration changes of an AWS
@@ -2408,7 +3124,14 @@ class ConfigurationRecorder {
     this.recordingGroup,
   });
   static ConfigurationRecorder fromJson(Map<String, dynamic> json) =>
-      ConfigurationRecorder();
+      ConfigurationRecorder(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        roleArn: json.containsKey('roleARN') ? json['roleARN'] as String : null,
+        recordingGroup: json.containsKey('recordingGroup')
+            ? RecordingGroup.fromJson(json['recordingGroup'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The current status of the configuration recorder.
@@ -2448,7 +3171,29 @@ class ConfigurationRecorderStatus {
     this.lastStatusChangeTime,
   });
   static ConfigurationRecorderStatus fromJson(Map<String, dynamic> json) =>
-      ConfigurationRecorderStatus();
+      ConfigurationRecorderStatus(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        lastStartTime: json.containsKey('lastStartTime')
+            ? DateTime.parse(json['lastStartTime'])
+            : null,
+        lastStopTime: json.containsKey('lastStopTime')
+            ? DateTime.parse(json['lastStopTime'])
+            : null,
+        recording:
+            json.containsKey('recording') ? json['recording'] as bool : null,
+        lastStatus: json.containsKey('lastStatus')
+            ? json['lastStatus'] as String
+            : null,
+        lastErrorCode: json.containsKey('lastErrorCode')
+            ? json['lastErrorCode'] as String
+            : null,
+        lastErrorMessage: json.containsKey('lastErrorMessage')
+            ? json['lastErrorMessage'] as String
+            : null,
+        lastStatusChangeTime: json.containsKey('lastStatusChangeTime')
+            ? DateTime.parse(json['lastStatusChangeTime'])
+            : null,
+      );
 }
 
 /// The output when you delete the evaluation results for the specified AWS
@@ -2477,7 +3222,13 @@ class DeleteRemediationExceptionsResponse {
   });
   static DeleteRemediationExceptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DeleteRemediationExceptionsResponse();
+      DeleteRemediationExceptionsResponse(
+        failedBatches: json.containsKey('FailedBatches')
+            ? (json['FailedBatches'] as List)
+                .map((e) => FailedDeleteRemediationExceptionsBatch.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The output for the DeliverConfigSnapshot action, in JSON format.
@@ -2489,7 +3240,11 @@ class DeliverConfigSnapshotResponse {
     this.configSnapshotId,
   });
   static DeliverConfigSnapshotResponse fromJson(Map<String, dynamic> json) =>
-      DeliverConfigSnapshotResponse();
+      DeliverConfigSnapshotResponse(
+        configSnapshotId: json.containsKey('configSnapshotId')
+            ? json['configSnapshotId'] as String
+            : null,
+      );
 }
 
 /// The channel through which AWS Config delivers notifications and updated
@@ -2535,8 +3290,24 @@ class DeliveryChannel {
     this.snsTopicArn,
     this.configSnapshotDeliveryProperties,
   });
-  static DeliveryChannel fromJson(Map<String, dynamic> json) =>
-      DeliveryChannel();
+  static DeliveryChannel fromJson(Map<String, dynamic> json) => DeliveryChannel(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        s3BucketName: json.containsKey('s3BucketName')
+            ? json['s3BucketName'] as String
+            : null,
+        s3KeyPrefix: json.containsKey('s3KeyPrefix')
+            ? json['s3KeyPrefix'] as String
+            : null,
+        snsTopicArn: json.containsKey('snsTopicARN')
+            ? json['snsTopicARN'] as String
+            : null,
+        configSnapshotDeliveryProperties:
+            json.containsKey('configSnapshotDeliveryProperties')
+                ? ConfigSnapshotDeliveryProperties.fromJson(
+                    json['configSnapshotDeliveryProperties'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The status of a specified delivery channel.
@@ -2565,7 +3336,22 @@ class DeliveryChannelStatus {
     this.configStreamDeliveryInfo,
   });
   static DeliveryChannelStatus fromJson(Map<String, dynamic> json) =>
-      DeliveryChannelStatus();
+      DeliveryChannelStatus(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        configSnapshotDeliveryInfo:
+            json.containsKey('configSnapshotDeliveryInfo')
+                ? ConfigExportDeliveryInfo.fromJson(
+                    json['configSnapshotDeliveryInfo'])
+                : null,
+        configHistoryDeliveryInfo: json.containsKey('configHistoryDeliveryInfo')
+            ? ConfigExportDeliveryInfo.fromJson(
+                json['configHistoryDeliveryInfo'])
+            : null,
+        configStreamDeliveryInfo: json.containsKey('configStreamDeliveryInfo')
+            ? ConfigStreamDeliveryInfo.fromJson(
+                json['configStreamDeliveryInfo'])
+            : null,
+      );
 }
 
 class DescribeAggregateComplianceByConfigRulesResponse {
@@ -2582,7 +3368,16 @@ class DescribeAggregateComplianceByConfigRulesResponse {
   });
   static DescribeAggregateComplianceByConfigRulesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAggregateComplianceByConfigRulesResponse();
+      DescribeAggregateComplianceByConfigRulesResponse(
+        aggregateComplianceByConfigRules:
+            json.containsKey('AggregateComplianceByConfigRules')
+                ? (json['AggregateComplianceByConfigRules'] as List)
+                    .map((e) => AggregateComplianceByConfigRule.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeAggregationAuthorizationsResponse {
@@ -2600,7 +3395,15 @@ class DescribeAggregationAuthorizationsResponse {
   });
   static DescribeAggregationAuthorizationsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAggregationAuthorizationsResponse();
+      DescribeAggregationAuthorizationsResponse(
+        aggregationAuthorizations: json.containsKey('AggregationAuthorizations')
+            ? (json['AggregationAuthorizations'] as List)
+                .map((e) => AggregationAuthorization.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeComplianceByConfigRuleResponse {
@@ -2617,7 +3420,15 @@ class DescribeComplianceByConfigRuleResponse {
   });
   static DescribeComplianceByConfigRuleResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeComplianceByConfigRuleResponse();
+      DescribeComplianceByConfigRuleResponse(
+        complianceByConfigRules: json.containsKey('ComplianceByConfigRules')
+            ? (json['ComplianceByConfigRules'] as List)
+                .map((e) => ComplianceByConfigRule.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeComplianceByResourceResponse {
@@ -2635,7 +3446,15 @@ class DescribeComplianceByResourceResponse {
   });
   static DescribeComplianceByResourceResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeComplianceByResourceResponse();
+      DescribeComplianceByResourceResponse(
+        complianceByResources: json.containsKey('ComplianceByResources')
+            ? (json['ComplianceByResources'] as List)
+                .map((e) => ComplianceByResource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeConfigRuleEvaluationStatusResponse {
@@ -2652,7 +3471,16 @@ class DescribeConfigRuleEvaluationStatusResponse {
   });
   static DescribeConfigRuleEvaluationStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeConfigRuleEvaluationStatusResponse();
+      DescribeConfigRuleEvaluationStatusResponse(
+        configRulesEvaluationStatus:
+            json.containsKey('ConfigRulesEvaluationStatus')
+                ? (json['ConfigRulesEvaluationStatus'] as List)
+                    .map((e) => ConfigRuleEvaluationStatus.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeConfigRulesResponse {
@@ -2668,7 +3496,15 @@ class DescribeConfigRulesResponse {
     this.nextToken,
   });
   static DescribeConfigRulesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeConfigRulesResponse();
+      DescribeConfigRulesResponse(
+        configRules: json.containsKey('ConfigRules')
+            ? (json['ConfigRules'] as List)
+                .map((e) => ConfigRule.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeConfigurationAggregatorSourcesStatusResponse {
@@ -2685,7 +3521,16 @@ class DescribeConfigurationAggregatorSourcesStatusResponse {
   });
   static DescribeConfigurationAggregatorSourcesStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeConfigurationAggregatorSourcesStatusResponse();
+      DescribeConfigurationAggregatorSourcesStatusResponse(
+        aggregatedSourceStatusList:
+            json.containsKey('AggregatedSourceStatusList')
+                ? (json['AggregatedSourceStatusList'] as List)
+                    .map((e) => AggregatedSourceStatus.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeConfigurationAggregatorsResponse {
@@ -2702,7 +3547,15 @@ class DescribeConfigurationAggregatorsResponse {
   });
   static DescribeConfigurationAggregatorsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeConfigurationAggregatorsResponse();
+      DescribeConfigurationAggregatorsResponse(
+        configurationAggregators: json.containsKey('ConfigurationAggregators')
+            ? (json['ConfigurationAggregators'] as List)
+                .map((e) => ConfigurationAggregator.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The output for the DescribeConfigurationRecorderStatus action, in JSON
@@ -2716,7 +3569,14 @@ class DescribeConfigurationRecorderStatusResponse {
   });
   static DescribeConfigurationRecorderStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeConfigurationRecorderStatusResponse();
+      DescribeConfigurationRecorderStatusResponse(
+        configurationRecordersStatus:
+            json.containsKey('ConfigurationRecordersStatus')
+                ? (json['ConfigurationRecordersStatus'] as List)
+                    .map((e) => ConfigurationRecorderStatus.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// The output for the DescribeConfigurationRecorders action.
@@ -2730,7 +3590,13 @@ class DescribeConfigurationRecordersResponse {
   });
   static DescribeConfigurationRecordersResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeConfigurationRecordersResponse();
+      DescribeConfigurationRecordersResponse(
+        configurationRecorders: json.containsKey('ConfigurationRecorders')
+            ? (json['ConfigurationRecorders'] as List)
+                .map((e) => ConfigurationRecorder.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The output for the DescribeDeliveryChannelStatus action.
@@ -2743,7 +3609,13 @@ class DescribeDeliveryChannelStatusResponse {
   });
   static DescribeDeliveryChannelStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeDeliveryChannelStatusResponse();
+      DescribeDeliveryChannelStatusResponse(
+        deliveryChannelsStatus: json.containsKey('DeliveryChannelsStatus')
+            ? (json['DeliveryChannelsStatus'] as List)
+                .map((e) => DeliveryChannelStatus.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The output for the DescribeDeliveryChannels action.
@@ -2755,7 +3627,13 @@ class DescribeDeliveryChannelsResponse {
     this.deliveryChannels,
   });
   static DescribeDeliveryChannelsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDeliveryChannelsResponse();
+      DescribeDeliveryChannelsResponse(
+        deliveryChannels: json.containsKey('DeliveryChannels')
+            ? (json['DeliveryChannels'] as List)
+                .map((e) => DeliveryChannel.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeOrganizationConfigRuleStatusesResponse {
@@ -2772,7 +3650,16 @@ class DescribeOrganizationConfigRuleStatusesResponse {
   });
   static DescribeOrganizationConfigRuleStatusesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeOrganizationConfigRuleStatusesResponse();
+      DescribeOrganizationConfigRuleStatusesResponse(
+        organizationConfigRuleStatuses:
+            json.containsKey('OrganizationConfigRuleStatuses')
+                ? (json['OrganizationConfigRuleStatuses'] as List)
+                    .map((e) => OrganizationConfigRuleStatus.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeOrganizationConfigRulesResponse {
@@ -2789,7 +3676,15 @@ class DescribeOrganizationConfigRulesResponse {
   });
   static DescribeOrganizationConfigRulesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeOrganizationConfigRulesResponse();
+      DescribeOrganizationConfigRulesResponse(
+        organizationConfigRules: json.containsKey('OrganizationConfigRules')
+            ? (json['OrganizationConfigRules'] as List)
+                .map((e) => OrganizationConfigRule.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribePendingAggregationRequestsResponse {
@@ -2806,7 +3701,16 @@ class DescribePendingAggregationRequestsResponse {
   });
   static DescribePendingAggregationRequestsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribePendingAggregationRequestsResponse();
+      DescribePendingAggregationRequestsResponse(
+        pendingAggregationRequests:
+            json.containsKey('PendingAggregationRequests')
+                ? (json['PendingAggregationRequests'] as List)
+                    .map((e) => PendingAggregationRequest.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeRemediationConfigurationsResponse {
@@ -2818,7 +3722,13 @@ class DescribeRemediationConfigurationsResponse {
   });
   static DescribeRemediationConfigurationsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeRemediationConfigurationsResponse();
+      DescribeRemediationConfigurationsResponse(
+        remediationConfigurations: json.containsKey('RemediationConfigurations')
+            ? (json['RemediationConfigurations'] as List)
+                .map((e) => RemediationConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeRemediationExceptionsResponse {
@@ -2835,7 +3745,15 @@ class DescribeRemediationExceptionsResponse {
   });
   static DescribeRemediationExceptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeRemediationExceptionsResponse();
+      DescribeRemediationExceptionsResponse(
+        remediationExceptions: json.containsKey('RemediationExceptions')
+            ? (json['RemediationExceptions'] as List)
+                .map((e) => RemediationException.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeRemediationExecutionStatusResponse {
@@ -2852,7 +3770,16 @@ class DescribeRemediationExecutionStatusResponse {
   });
   static DescribeRemediationExecutionStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeRemediationExecutionStatusResponse();
+      DescribeRemediationExecutionStatusResponse(
+        remediationExecutionStatuses:
+            json.containsKey('RemediationExecutionStatuses')
+                ? (json['RemediationExecutionStatuses'] as List)
+                    .map((e) => RemediationExecutionStatus.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeRetentionConfigurationsResponse {
@@ -2869,7 +3796,15 @@ class DescribeRetentionConfigurationsResponse {
   });
   static DescribeRetentionConfigurationsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeRetentionConfigurationsResponse();
+      DescribeRetentionConfigurationsResponse(
+        retentionConfigurations: json.containsKey('RetentionConfigurations')
+            ? (json['RetentionConfigurations'] as List)
+                .map((e) => RetentionConfiguration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Identifies an AWS resource and indicates whether it complies with the AWS
@@ -2912,7 +3847,16 @@ class Evaluation {
     this.annotation,
     @required this.orderingTimestamp,
   });
-  static Evaluation fromJson(Map<String, dynamic> json) => Evaluation();
+  static Evaluation fromJson(Map<String, dynamic> json) => Evaluation(
+        complianceResourceType: json['ComplianceResourceType'] as String,
+        complianceResourceId: json['ComplianceResourceId'] as String,
+        complianceType: json['ComplianceType'] as String,
+        annotation: json.containsKey('Annotation')
+            ? json['Annotation'] as String
+            : null,
+        orderingTimestamp: DateTime.parse(json['OrderingTimestamp']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The details of an AWS Config evaluation. Provides the AWS resource that was
@@ -2955,7 +3899,28 @@ class EvaluationResult {
     this.resultToken,
   });
   static EvaluationResult fromJson(Map<String, dynamic> json) =>
-      EvaluationResult();
+      EvaluationResult(
+        evaluationResultIdentifier:
+            json.containsKey('EvaluationResultIdentifier')
+                ? EvaluationResultIdentifier.fromJson(
+                    json['EvaluationResultIdentifier'])
+                : null,
+        complianceType: json.containsKey('ComplianceType')
+            ? json['ComplianceType'] as String
+            : null,
+        resultRecordedTime: json.containsKey('ResultRecordedTime')
+            ? DateTime.parse(json['ResultRecordedTime'])
+            : null,
+        configRuleInvokedTime: json.containsKey('ConfigRuleInvokedTime')
+            ? DateTime.parse(json['ConfigRuleInvokedTime'])
+            : null,
+        annotation: json.containsKey('Annotation')
+            ? json['Annotation'] as String
+            : null,
+        resultToken: json.containsKey('ResultToken')
+            ? json['ResultToken'] as String
+            : null,
+      );
 }
 
 /// Uniquely identifies an evaluation result.
@@ -2975,7 +3940,15 @@ class EvaluationResultIdentifier {
     this.orderingTimestamp,
   });
   static EvaluationResultIdentifier fromJson(Map<String, dynamic> json) =>
-      EvaluationResultIdentifier();
+      EvaluationResultIdentifier(
+        evaluationResultQualifier: json.containsKey('EvaluationResultQualifier')
+            ? EvaluationResultQualifier.fromJson(
+                json['EvaluationResultQualifier'])
+            : null,
+        orderingTimestamp: json.containsKey('OrderingTimestamp')
+            ? DateTime.parse(json['OrderingTimestamp'])
+            : null,
+      );
 }
 
 /// Identifies an AWS Config rule that evaluated an AWS resource, and provides
@@ -2996,7 +3969,17 @@ class EvaluationResultQualifier {
     this.resourceId,
   });
   static EvaluationResultQualifier fromJson(Map<String, dynamic> json) =>
-      EvaluationResultQualifier();
+      EvaluationResultQualifier(
+        configRuleName: json.containsKey('ConfigRuleName')
+            ? json['ConfigRuleName'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+      );
 }
 
 /// The controls that AWS Config uses for executing remediations.
@@ -3008,7 +3991,12 @@ class ExecutionControls {
     this.ssmControls,
   });
   static ExecutionControls fromJson(Map<String, dynamic> json) =>
-      ExecutionControls();
+      ExecutionControls(
+        ssmControls: json.containsKey('SsmControls')
+            ? SsmControls.fromJson(json['SsmControls'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// List of each of the failed delete remediation exceptions with specific
@@ -3027,7 +4015,16 @@ class FailedDeleteRemediationExceptionsBatch {
   });
   static FailedDeleteRemediationExceptionsBatch fromJson(
           Map<String, dynamic> json) =>
-      FailedDeleteRemediationExceptionsBatch();
+      FailedDeleteRemediationExceptionsBatch(
+        failureMessage: json.containsKey('FailureMessage')
+            ? json['FailureMessage'] as String
+            : null,
+        failedItems: json.containsKey('FailedItems')
+            ? (json['FailedItems'] as List)
+                .map((e) => RemediationExceptionResourceKey.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// List of each of the failed remediations with specific reasons.
@@ -3043,7 +4040,16 @@ class FailedRemediationBatch {
     this.failedItems,
   });
   static FailedRemediationBatch fromJson(Map<String, dynamic> json) =>
-      FailedRemediationBatch();
+      FailedRemediationBatch(
+        failureMessage: json.containsKey('FailureMessage')
+            ? json['FailureMessage'] as String
+            : null,
+        failedItems: json.containsKey('FailedItems')
+            ? (json['FailedItems'] as List)
+                .map((e) => RemediationConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// List of each of the failed remediation exceptions with specific reasons.
@@ -3059,7 +4065,16 @@ class FailedRemediationExceptionBatch {
     this.failedItems,
   });
   static FailedRemediationExceptionBatch fromJson(Map<String, dynamic> json) =>
-      FailedRemediationExceptionBatch();
+      FailedRemediationExceptionBatch(
+        failureMessage: json.containsKey('FailureMessage')
+            ? json['FailureMessage'] as String
+            : null,
+        failedItems: json.containsKey('FailedItems')
+            ? (json['FailedItems'] as List)
+                .map((e) => RemediationException.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Details about the fields such as name of the field.
@@ -3070,7 +4085,9 @@ class FieldInfo {
   FieldInfo({
     this.name,
   });
-  static FieldInfo fromJson(Map<String, dynamic> json) => FieldInfo();
+  static FieldInfo fromJson(Map<String, dynamic> json) => FieldInfo(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class GetAggregateComplianceDetailsByConfigRuleResponse {
@@ -3087,7 +4104,16 @@ class GetAggregateComplianceDetailsByConfigRuleResponse {
   });
   static GetAggregateComplianceDetailsByConfigRuleResponse fromJson(
           Map<String, dynamic> json) =>
-      GetAggregateComplianceDetailsByConfigRuleResponse();
+      GetAggregateComplianceDetailsByConfigRuleResponse(
+        aggregateEvaluationResults:
+            json.containsKey('AggregateEvaluationResults')
+                ? (json['AggregateEvaluationResults'] as List)
+                    .map((e) => AggregateEvaluationResult.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetAggregateConfigRuleComplianceSummaryResponse {
@@ -3108,7 +4134,18 @@ class GetAggregateConfigRuleComplianceSummaryResponse {
   });
   static GetAggregateConfigRuleComplianceSummaryResponse fromJson(
           Map<String, dynamic> json) =>
-      GetAggregateConfigRuleComplianceSummaryResponse();
+      GetAggregateConfigRuleComplianceSummaryResponse(
+        groupByKey: json.containsKey('GroupByKey')
+            ? json['GroupByKey'] as String
+            : null,
+        aggregateComplianceCounts: json.containsKey('AggregateComplianceCounts')
+            ? (json['AggregateComplianceCounts'] as List)
+                .map((e) => AggregateComplianceCount.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetAggregateDiscoveredResourceCountsResponse {
@@ -3135,7 +4172,19 @@ class GetAggregateDiscoveredResourceCountsResponse {
   });
   static GetAggregateDiscoveredResourceCountsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetAggregateDiscoveredResourceCountsResponse();
+      GetAggregateDiscoveredResourceCountsResponse(
+        totalDiscoveredResources: BigInt.from(json['TotalDiscoveredResources']),
+        groupByKey: json.containsKey('GroupByKey')
+            ? json['GroupByKey'] as String
+            : null,
+        groupedResourceCounts: json.containsKey('GroupedResourceCounts')
+            ? (json['GroupedResourceCounts'] as List)
+                .map((e) => GroupedResourceCount.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetAggregateResourceConfigResponse {
@@ -3147,7 +4196,11 @@ class GetAggregateResourceConfigResponse {
   });
   static GetAggregateResourceConfigResponse fromJson(
           Map<String, dynamic> json) =>
-      GetAggregateResourceConfigResponse();
+      GetAggregateResourceConfigResponse(
+        configurationItem: json.containsKey('ConfigurationItem')
+            ? ConfigurationItem.fromJson(json['ConfigurationItem'])
+            : null,
+      );
 }
 
 class GetComplianceDetailsByConfigRuleResponse {
@@ -3165,7 +4218,15 @@ class GetComplianceDetailsByConfigRuleResponse {
   });
   static GetComplianceDetailsByConfigRuleResponse fromJson(
           Map<String, dynamic> json) =>
-      GetComplianceDetailsByConfigRuleResponse();
+      GetComplianceDetailsByConfigRuleResponse(
+        evaluationResults: json.containsKey('EvaluationResults')
+            ? (json['EvaluationResults'] as List)
+                .map((e) => EvaluationResult.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetComplianceDetailsByResourceResponse {
@@ -3183,7 +4244,15 @@ class GetComplianceDetailsByResourceResponse {
   });
   static GetComplianceDetailsByResourceResponse fromJson(
           Map<String, dynamic> json) =>
-      GetComplianceDetailsByResourceResponse();
+      GetComplianceDetailsByResourceResponse(
+        evaluationResults: json.containsKey('EvaluationResults')
+            ? (json['EvaluationResults'] as List)
+                .map((e) => EvaluationResult.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetComplianceSummaryByConfigRuleResponse {
@@ -3196,7 +4265,11 @@ class GetComplianceSummaryByConfigRuleResponse {
   });
   static GetComplianceSummaryByConfigRuleResponse fromJson(
           Map<String, dynamic> json) =>
-      GetComplianceSummaryByConfigRuleResponse();
+      GetComplianceSummaryByConfigRuleResponse(
+        complianceSummary: json.containsKey('ComplianceSummary')
+            ? ComplianceSummary.fromJson(json['ComplianceSummary'])
+            : null,
+      );
 }
 
 class GetComplianceSummaryByResourceTypeResponse {
@@ -3211,7 +4284,14 @@ class GetComplianceSummaryByResourceTypeResponse {
   });
   static GetComplianceSummaryByResourceTypeResponse fromJson(
           Map<String, dynamic> json) =>
-      GetComplianceSummaryByResourceTypeResponse();
+      GetComplianceSummaryByResourceTypeResponse(
+        complianceSummariesByResourceType:
+            json.containsKey('ComplianceSummariesByResourceType')
+                ? (json['ComplianceSummariesByResourceType'] as List)
+                    .map((e) => ComplianceSummaryByResourceType.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class GetDiscoveredResourceCountsResponse {
@@ -3246,7 +4326,18 @@ class GetDiscoveredResourceCountsResponse {
   });
   static GetDiscoveredResourceCountsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetDiscoveredResourceCountsResponse();
+      GetDiscoveredResourceCountsResponse(
+        totalDiscoveredResources: json.containsKey('totalDiscoveredResources')
+            ? BigInt.from(json['totalDiscoveredResources'])
+            : null,
+        resourceCounts: json.containsKey('resourceCounts')
+            ? (json['resourceCounts'] as List)
+                .map((e) => ResourceCount.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetOrganizationConfigRuleDetailedStatusResponse {
@@ -3263,7 +4354,16 @@ class GetOrganizationConfigRuleDetailedStatusResponse {
   });
   static GetOrganizationConfigRuleDetailedStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      GetOrganizationConfigRuleDetailedStatusResponse();
+      GetOrganizationConfigRuleDetailedStatusResponse(
+        organizationConfigRuleDetailedStatus:
+            json.containsKey('OrganizationConfigRuleDetailedStatus')
+                ? (json['OrganizationConfigRuleDetailedStatus'] as List)
+                    .map((e) => MemberAccountStatus.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The output for the GetResourceConfigHistory action.
@@ -3280,7 +4380,15 @@ class GetResourceConfigHistoryResponse {
     this.nextToken,
   });
   static GetResourceConfigHistoryResponse fromJson(Map<String, dynamic> json) =>
-      GetResourceConfigHistoryResponse();
+      GetResourceConfigHistoryResponse(
+        configurationItems: json.containsKey('configurationItems')
+            ? (json['configurationItems'] as List)
+                .map((e) => ConfigurationItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// The count of resources that are grouped by the group name.
@@ -3297,7 +4405,10 @@ class GroupedResourceCount {
     @required this.resourceCount,
   });
   static GroupedResourceCount fromJson(Map<String, dynamic> json) =>
-      GroupedResourceCount();
+      GroupedResourceCount(
+        groupName: json['GroupName'] as String,
+        resourceCount: BigInt.from(json['ResourceCount']),
+      );
 }
 
 class ListAggregateDiscoveredResourcesResponse {
@@ -3314,7 +4425,15 @@ class ListAggregateDiscoveredResourcesResponse {
   });
   static ListAggregateDiscoveredResourcesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListAggregateDiscoveredResourcesResponse();
+      ListAggregateDiscoveredResourcesResponse(
+        resourceIdentifiers: json.containsKey('ResourceIdentifiers')
+            ? (json['ResourceIdentifiers'] as List)
+                .map((e) => AggregateResourceIdentifier.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDiscoveredResourcesResponse {
@@ -3332,7 +4451,15 @@ class ListDiscoveredResourcesResponse {
     this.nextToken,
   });
   static ListDiscoveredResourcesResponse fromJson(Map<String, dynamic> json) =>
-      ListDiscoveredResourcesResponse();
+      ListDiscoveredResourcesResponse(
+        resourceIdentifiers: json.containsKey('resourceIdentifiers')
+            ? (json['resourceIdentifiers'] as List)
+                .map((e) => ResourceIdentifier.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -3348,7 +4475,13 @@ class ListTagsForResourceResponse {
     this.nextToken,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Organization config rule creation or deletion status in each member account.
@@ -3419,7 +4552,19 @@ class MemberAccountStatus {
     this.lastUpdateTime,
   });
   static MemberAccountStatus fromJson(Map<String, dynamic> json) =>
-      MemberAccountStatus();
+      MemberAccountStatus(
+        accountId: json['AccountId'] as String,
+        configRuleName: json['ConfigRuleName'] as String,
+        memberAccountRuleStatus: json['MemberAccountRuleStatus'] as String,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        lastUpdateTime: json.containsKey('LastUpdateTime')
+            ? DateTime.parse(json['LastUpdateTime'])
+            : null,
+      );
 }
 
 /// This object contains regions to set up the aggregator and an IAM role to
@@ -3441,7 +4586,16 @@ class OrganizationAggregationSource {
     this.allAwsRegions,
   });
   static OrganizationAggregationSource fromJson(Map<String, dynamic> json) =>
-      OrganizationAggregationSource();
+      OrganizationAggregationSource(
+        roleArn: json['RoleArn'] as String,
+        awsRegions: json.containsKey('AwsRegions')
+            ? (json['AwsRegions'] as List).map((e) => e as String).toList()
+            : null,
+        allAwsRegions: json.containsKey('AllAwsRegions')
+            ? json['AllAwsRegions'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An organization config rule that has information about config rules that AWS
@@ -3474,7 +4628,29 @@ class OrganizationConfigRule {
     this.lastUpdateTime,
   });
   static OrganizationConfigRule fromJson(Map<String, dynamic> json) =>
-      OrganizationConfigRule();
+      OrganizationConfigRule(
+        organizationConfigRuleName:
+            json['OrganizationConfigRuleName'] as String,
+        organizationConfigRuleArn: json['OrganizationConfigRuleArn'] as String,
+        organizationManagedRuleMetadata:
+            json.containsKey('OrganizationManagedRuleMetadata')
+                ? OrganizationManagedRuleMetadata.fromJson(
+                    json['OrganizationManagedRuleMetadata'])
+                : null,
+        organizationCustomRuleMetadata:
+            json.containsKey('OrganizationCustomRuleMetadata')
+                ? OrganizationCustomRuleMetadata.fromJson(
+                    json['OrganizationCustomRuleMetadata'])
+                : null,
+        excludedAccounts: json.containsKey('ExcludedAccounts')
+            ? (json['ExcludedAccounts'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        lastUpdateTime: json.containsKey('LastUpdateTime')
+            ? DateTime.parse(json['LastUpdateTime'])
+            : null,
+      );
 }
 
 /// Returns the status for an organization config rule in an organization.
@@ -3541,7 +4717,19 @@ class OrganizationConfigRuleStatus {
     this.lastUpdateTime,
   });
   static OrganizationConfigRuleStatus fromJson(Map<String, dynamic> json) =>
-      OrganizationConfigRuleStatus();
+      OrganizationConfigRuleStatus(
+        organizationConfigRuleName:
+            json['OrganizationConfigRuleName'] as String,
+        organizationRuleStatus: json['OrganizationRuleStatus'] as String,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        lastUpdateTime: json.containsKey('LastUpdateTime')
+            ? DateTime.parse(json['LastUpdateTime'])
+            : null,
+      );
 }
 
 /// An object that specifies organization custom rule metadata such as resource
@@ -3612,7 +4800,37 @@ class OrganizationCustomRuleMetadata {
     this.tagValueScope,
   });
   static OrganizationCustomRuleMetadata fromJson(Map<String, dynamic> json) =>
-      OrganizationCustomRuleMetadata();
+      OrganizationCustomRuleMetadata(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        lambdaFunctionArn: json['LambdaFunctionArn'] as String,
+        organizationConfigRuleTriggerTypes:
+            (json['OrganizationConfigRuleTriggerTypes'] as List)
+                .map((e) => e as String)
+                .toList(),
+        inputParameters: json.containsKey('InputParameters')
+            ? json['InputParameters'] as String
+            : null,
+        maximumExecutionFrequency: json.containsKey('MaximumExecutionFrequency')
+            ? json['MaximumExecutionFrequency'] as String
+            : null,
+        resourceTypesScope: json.containsKey('ResourceTypesScope')
+            ? (json['ResourceTypesScope'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        resourceIdScope: json.containsKey('ResourceIdScope')
+            ? json['ResourceIdScope'] as String
+            : null,
+        tagKeyScope: json.containsKey('TagKeyScope')
+            ? json['TagKeyScope'] as String
+            : null,
+        tagValueScope: json.containsKey('TagValueScope')
+            ? json['TagValueScope'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that specifies organization managed rule metadata such as resource
@@ -3669,7 +4887,33 @@ class OrganizationManagedRuleMetadata {
     this.tagValueScope,
   });
   static OrganizationManagedRuleMetadata fromJson(Map<String, dynamic> json) =>
-      OrganizationManagedRuleMetadata();
+      OrganizationManagedRuleMetadata(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        ruleIdentifier: json['RuleIdentifier'] as String,
+        inputParameters: json.containsKey('InputParameters')
+            ? json['InputParameters'] as String
+            : null,
+        maximumExecutionFrequency: json.containsKey('MaximumExecutionFrequency')
+            ? json['MaximumExecutionFrequency'] as String
+            : null,
+        resourceTypesScope: json.containsKey('ResourceTypesScope')
+            ? (json['ResourceTypesScope'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        resourceIdScope: json.containsKey('ResourceIdScope')
+            ? json['ResourceIdScope'] as String
+            : null,
+        tagKeyScope: json.containsKey('TagKeyScope')
+            ? json['TagKeyScope'] as String
+            : null,
+        tagValueScope: json.containsKey('TagValueScope')
+            ? json['TagValueScope'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that represents the account ID and region of an aggregator account
@@ -3686,7 +4930,14 @@ class PendingAggregationRequest {
     this.requesterAwsRegion,
   });
   static PendingAggregationRequest fromJson(Map<String, dynamic> json) =>
-      PendingAggregationRequest();
+      PendingAggregationRequest(
+        requesterAccountId: json.containsKey('RequesterAccountId')
+            ? json['RequesterAccountId'] as String
+            : null,
+        requesterAwsRegion: json.containsKey('RequesterAwsRegion')
+            ? json['RequesterAwsRegion'] as String
+            : null,
+      );
 }
 
 class PutAggregationAuthorizationResponse {
@@ -3698,7 +4949,12 @@ class PutAggregationAuthorizationResponse {
   });
   static PutAggregationAuthorizationResponse fromJson(
           Map<String, dynamic> json) =>
-      PutAggregationAuthorizationResponse();
+      PutAggregationAuthorizationResponse(
+        aggregationAuthorization: json.containsKey('AggregationAuthorization')
+            ? AggregationAuthorization.fromJson(
+                json['AggregationAuthorization'])
+            : null,
+      );
 }
 
 class PutConfigurationAggregatorResponse {
@@ -3710,7 +4966,11 @@ class PutConfigurationAggregatorResponse {
   });
   static PutConfigurationAggregatorResponse fromJson(
           Map<String, dynamic> json) =>
-      PutConfigurationAggregatorResponse();
+      PutConfigurationAggregatorResponse(
+        configurationAggregator: json.containsKey('ConfigurationAggregator')
+            ? ConfigurationAggregator.fromJson(json['ConfigurationAggregator'])
+            : null,
+      );
 }
 
 class PutEvaluationsResponse {
@@ -3721,7 +4981,13 @@ class PutEvaluationsResponse {
     this.failedEvaluations,
   });
   static PutEvaluationsResponse fromJson(Map<String, dynamic> json) =>
-      PutEvaluationsResponse();
+      PutEvaluationsResponse(
+        failedEvaluations: json.containsKey('FailedEvaluations')
+            ? (json['FailedEvaluations'] as List)
+                .map((e) => Evaluation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class PutOrganizationConfigRuleResponse {
@@ -3733,7 +4999,11 @@ class PutOrganizationConfigRuleResponse {
   });
   static PutOrganizationConfigRuleResponse fromJson(
           Map<String, dynamic> json) =>
-      PutOrganizationConfigRuleResponse();
+      PutOrganizationConfigRuleResponse(
+        organizationConfigRuleArn: json.containsKey('OrganizationConfigRuleArn')
+            ? json['OrganizationConfigRuleArn'] as String
+            : null,
+      );
 }
 
 class PutRemediationConfigurationsResponse {
@@ -3745,7 +5015,13 @@ class PutRemediationConfigurationsResponse {
   });
   static PutRemediationConfigurationsResponse fromJson(
           Map<String, dynamic> json) =>
-      PutRemediationConfigurationsResponse();
+      PutRemediationConfigurationsResponse(
+        failedBatches: json.containsKey('FailedBatches')
+            ? (json['FailedBatches'] as List)
+                .map((e) => FailedRemediationBatch.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class PutRemediationExceptionsResponse {
@@ -3757,7 +5033,13 @@ class PutRemediationExceptionsResponse {
     this.failedBatches,
   });
   static PutRemediationExceptionsResponse fromJson(Map<String, dynamic> json) =>
-      PutRemediationExceptionsResponse();
+      PutRemediationExceptionsResponse(
+        failedBatches: json.containsKey('FailedBatches')
+            ? (json['FailedBatches'] as List)
+                .map((e) => FailedRemediationExceptionBatch.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class PutRetentionConfigurationResponse {
@@ -3769,7 +5051,11 @@ class PutRetentionConfigurationResponse {
   });
   static PutRetentionConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      PutRetentionConfigurationResponse();
+      PutRetentionConfigurationResponse(
+        retentionConfiguration: json.containsKey('RetentionConfiguration')
+            ? RetentionConfiguration.fromJson(json['RetentionConfiguration'])
+            : null,
+      );
 }
 
 /// Details about the query.
@@ -3780,7 +5066,13 @@ class QueryInfo {
   QueryInfo({
     this.selectFields,
   });
-  static QueryInfo fromJson(Map<String, dynamic> json) => QueryInfo();
+  static QueryInfo fromJson(Map<String, dynamic> json) => QueryInfo(
+        selectFields: json.containsKey('SelectFields')
+            ? (json['SelectFields'] as List)
+                .map((e) => FieldInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Specifies the types of AWS resource for which AWS Config records
@@ -3864,7 +5156,19 @@ class RecordingGroup {
     this.includeGlobalResourceTypes,
     this.resourceTypes,
   });
-  static RecordingGroup fromJson(Map<String, dynamic> json) => RecordingGroup();
+  static RecordingGroup fromJson(Map<String, dynamic> json) => RecordingGroup(
+        allSupported: json.containsKey('allSupported')
+            ? json['allSupported'] as bool
+            : null,
+        includeGlobalResourceTypes:
+            json.containsKey('includeGlobalResourceTypes')
+                ? json['includeGlobalResourceTypes'] as bool
+                : null,
+        resourceTypes: json.containsKey('resourceTypes')
+            ? (json['resourceTypes'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The relationship of the related resource to the main resource.
@@ -3887,7 +5191,20 @@ class Relationship {
     this.resourceName,
     this.relationshipName,
   });
-  static Relationship fromJson(Map<String, dynamic> json) => Relationship();
+  static Relationship fromJson(Map<String, dynamic> json) => Relationship(
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        resourceId: json.containsKey('resourceId')
+            ? json['resourceId'] as String
+            : null,
+        resourceName: json.containsKey('resourceName')
+            ? json['resourceName'] as String
+            : null,
+        relationshipName: json.containsKey('relationshipName')
+            ? json['relationshipName'] as String
+            : null,
+      );
 }
 
 /// An object that represents the details about the remediation configuration
@@ -3956,7 +5273,37 @@ class RemediationConfiguration {
     this.createdByService,
   });
   static RemediationConfiguration fromJson(Map<String, dynamic> json) =>
-      RemediationConfiguration();
+      RemediationConfiguration(
+        configRuleName: json['ConfigRuleName'] as String,
+        targetType: json['TargetType'] as String,
+        targetId: json['TargetId'] as String,
+        targetVersion: json.containsKey('TargetVersion')
+            ? json['TargetVersion'] as String
+            : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as Map).map((k, v) =>
+                MapEntry(k as String, RemediationParameterValue.fromJson(v)))
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        automatic:
+            json.containsKey('Automatic') ? json['Automatic'] as bool : null,
+        executionControls: json.containsKey('ExecutionControls')
+            ? ExecutionControls.fromJson(json['ExecutionControls'])
+            : null,
+        maximumAutomaticAttempts: json.containsKey('MaximumAutomaticAttempts')
+            ? json['MaximumAutomaticAttempts'] as int
+            : null,
+        retryAttemptSeconds: json.containsKey('RetryAttemptSeconds')
+            ? BigInt.from(json['RetryAttemptSeconds'])
+            : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        createdByService: json.containsKey('CreatedByService')
+            ? json['CreatedByService'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that represents the details about the remediation exception. The
@@ -3986,7 +5333,15 @@ class RemediationException {
     this.expirationTime,
   });
   static RemediationException fromJson(Map<String, dynamic> json) =>
-      RemediationException();
+      RemediationException(
+        configRuleName: json['ConfigRuleName'] as String,
+        resourceType: json['ResourceType'] as String,
+        resourceId: json['ResourceId'] as String,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        expirationTime: json.containsKey('ExpirationTime')
+            ? DateTime.parse(json['ExpirationTime'])
+            : null,
+      );
 }
 
 /// The details that identify a resource within AWS Config, including the
@@ -4003,7 +5358,15 @@ class RemediationExceptionResourceKey {
     this.resourceId,
   });
   static RemediationExceptionResourceKey fromJson(Map<String, dynamic> json) =>
-      RemediationExceptionResourceKey();
+      RemediationExceptionResourceKey(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides details of the current status of the invoked remediation action for
@@ -4031,7 +5394,23 @@ class RemediationExecutionStatus {
     this.lastUpdatedTime,
   });
   static RemediationExecutionStatus fromJson(Map<String, dynamic> json) =>
-      RemediationExecutionStatus();
+      RemediationExecutionStatus(
+        resourceKey: json.containsKey('ResourceKey')
+            ? ResourceKey.fromJson(json['ResourceKey'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stepDetails: json.containsKey('StepDetails')
+            ? (json['StepDetails'] as List)
+                .map((e) => RemediationExecutionStep.fromJson(e))
+                .toList()
+            : null,
+        invocationTime: json.containsKey('InvocationTime')
+            ? DateTime.parse(json['InvocationTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+      );
 }
 
 /// Name of the step from the SSM document.
@@ -4059,7 +5438,19 @@ class RemediationExecutionStep {
     this.stopTime,
   });
   static RemediationExecutionStep fromJson(Map<String, dynamic> json) =>
-      RemediationExecutionStep();
+      RemediationExecutionStep(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        stopTime: json.containsKey('StopTime')
+            ? DateTime.parse(json['StopTime'])
+            : null,
+      );
 }
 
 /// The value is either a dynamic (resource) value or a static value. You must
@@ -4076,7 +5467,15 @@ class RemediationParameterValue {
     this.staticValue,
   });
   static RemediationParameterValue fromJson(Map<String, dynamic> json) =>
-      RemediationParameterValue();
+      RemediationParameterValue(
+        resourceValue: json.containsKey('ResourceValue')
+            ? ResourceValue.fromJson(json['ResourceValue'])
+            : null,
+        staticValue: json.containsKey('StaticValue')
+            ? StaticValue.fromJson(json['StaticValue'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains the resource type and the number of resources.
@@ -4091,7 +5490,12 @@ class ResourceCount {
     this.resourceType,
     this.count,
   });
-  static ResourceCount fromJson(Map<String, dynamic> json) => ResourceCount();
+  static ResourceCount fromJson(Map<String, dynamic> json) => ResourceCount(
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        count: json.containsKey('count') ? BigInt.from(json['count']) : null,
+      );
 }
 
 /// Filters the resource count based on account ID, region, and resource type.
@@ -4110,6 +5514,7 @@ class ResourceCountFilters {
     this.accountId,
     this.region,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Filters the results by resource account ID, region, resource ID, and
@@ -4133,6 +5538,7 @@ class ResourceFilters {
     this.resourceName,
     this.region,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The details that identify a resource that is discovered by AWS Config,
@@ -4158,7 +5564,20 @@ class ResourceIdentifier {
     this.resourceDeletionTime,
   });
   static ResourceIdentifier fromJson(Map<String, dynamic> json) =>
-      ResourceIdentifier();
+      ResourceIdentifier(
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        resourceId: json.containsKey('resourceId')
+            ? json['resourceId'] as String
+            : null,
+        resourceName: json.containsKey('resourceName')
+            ? json['resourceName'] as String
+            : null,
+        resourceDeletionTime: json.containsKey('resourceDeletionTime')
+            ? DateTime.parse(json['resourceDeletionTime'])
+            : null,
+      );
 }
 
 /// The details that identify a resource within AWS Config, including the
@@ -4174,7 +5593,11 @@ class ResourceKey {
     @required this.resourceType,
     @required this.resourceId,
   });
-  static ResourceKey fromJson(Map<String, dynamic> json) => ResourceKey();
+  static ResourceKey fromJson(Map<String, dynamic> json) => ResourceKey(
+        resourceType: json['resourceType'] as String,
+        resourceId: json['resourceId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The dynamic value of the resource.
@@ -4185,7 +5608,10 @@ class ResourceValue {
   ResourceValue({
     @required this.value,
   });
-  static ResourceValue fromJson(Map<String, dynamic> json) => ResourceValue();
+  static ResourceValue fromJson(Map<String, dynamic> json) => ResourceValue(
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object with the name of the retention configuration and the retention
@@ -4207,7 +5633,10 @@ class RetentionConfiguration {
     @required this.retentionPeriodInDays,
   });
   static RetentionConfiguration fromJson(Map<String, dynamic> json) =>
-      RetentionConfiguration();
+      RetentionConfiguration(
+        name: json['Name'] as String,
+        retentionPeriodInDays: json['RetentionPeriodInDays'] as int,
+      );
 }
 
 /// Defines which resources trigger an evaluation for an AWS Config rule. The
@@ -4242,7 +5671,20 @@ class Scope {
     this.tagValue,
     this.complianceResourceId,
   });
-  static Scope fromJson(Map<String, dynamic> json) => Scope();
+  static Scope fromJson(Map<String, dynamic> json) => Scope(
+        complianceResourceTypes: json.containsKey('ComplianceResourceTypes')
+            ? (json['ComplianceResourceTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        tagKey: json.containsKey('TagKey') ? json['TagKey'] as String : null,
+        tagValue:
+            json.containsKey('TagValue') ? json['TagValue'] as String : null,
+        complianceResourceId: json.containsKey('ComplianceResourceId')
+            ? json['ComplianceResourceId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SelectResourceConfigResponse {
@@ -4262,7 +5704,16 @@ class SelectResourceConfigResponse {
     this.nextToken,
   });
   static SelectResourceConfigResponse fromJson(Map<String, dynamic> json) =>
-      SelectResourceConfigResponse();
+      SelectResourceConfigResponse(
+        results: json.containsKey('Results')
+            ? (json['Results'] as List).map((e) => e as String).toList()
+            : null,
+        queryInfo: json.containsKey('QueryInfo')
+            ? QueryInfo.fromJson(json['QueryInfo'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Provides the AWS Config rule owner (AWS or customer), the rule identifier,
@@ -4291,7 +5742,16 @@ class Source {
     @required this.sourceIdentifier,
     this.sourceDetails,
   });
-  static Source fromJson(Map<String, dynamic> json) => Source();
+  static Source fromJson(Map<String, dynamic> json) => Source(
+        owner: json['Owner'] as String,
+        sourceIdentifier: json['SourceIdentifier'] as String,
+        sourceDetails: json.containsKey('SourceDetails')
+            ? (json['SourceDetails'] as List)
+                .map((e) => SourceDetail.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the source and the message types that trigger AWS Config to
@@ -4350,7 +5810,18 @@ class SourceDetail {
     this.messageType,
     this.maximumExecutionFrequency,
   });
-  static SourceDetail fromJson(Map<String, dynamic> json) => SourceDetail();
+  static SourceDetail fromJson(Map<String, dynamic> json) => SourceDetail(
+        eventSource: json.containsKey('EventSource')
+            ? json['EventSource'] as String
+            : null,
+        messageType: json.containsKey('MessageType')
+            ? json['MessageType'] as String
+            : null,
+        maximumExecutionFrequency: json.containsKey('MaximumExecutionFrequency')
+            ? json['MaximumExecutionFrequency'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// AWS Systems Manager (SSM) specific remediation controls.
@@ -4372,7 +5843,16 @@ class SsmControls {
     this.concurrentExecutionRatePercentage,
     this.errorPercentage,
   });
-  static SsmControls fromJson(Map<String, dynamic> json) => SsmControls();
+  static SsmControls fromJson(Map<String, dynamic> json) => SsmControls(
+        concurrentExecutionRatePercentage:
+            json.containsKey('ConcurrentExecutionRatePercentage')
+                ? json['ConcurrentExecutionRatePercentage'] as int
+                : null,
+        errorPercentage: json.containsKey('ErrorPercentage')
+            ? json['ErrorPercentage'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The output when you start the evaluation for the specified AWS Config rule.
@@ -4397,7 +5877,16 @@ class StartRemediationExecutionResponse {
   });
   static StartRemediationExecutionResponse fromJson(
           Map<String, dynamic> json) =>
-      StartRemediationExecutionResponse();
+      StartRemediationExecutionResponse(
+        failureMessage: json.containsKey('FailureMessage')
+            ? json['FailureMessage'] as String
+            : null,
+        failedItems: json.containsKey('FailedItems')
+            ? (json['FailedItems'] as List)
+                .map((e) => ResourceKey.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The static value of the resource.
@@ -4408,7 +5897,10 @@ class StaticValue {
   StaticValue({
     @required this.values,
   });
-  static StaticValue fromJson(Map<String, dynamic> json) => StaticValue();
+  static StaticValue fromJson(Map<String, dynamic> json) => StaticValue(
+        values: (json['Values'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Status filter object to filter results based on specific member account ID
@@ -4459,6 +5951,7 @@ class StatusDetailFilters {
     this.accountId,
     this.memberAccountRuleStatus,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The tags for the resource. The metadata that you apply to a resource to help
@@ -4479,5 +5972,9 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

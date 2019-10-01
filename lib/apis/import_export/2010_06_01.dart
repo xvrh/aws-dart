@@ -7,10 +7,18 @@ import 'package:meta/meta.dart';
 /// Internet. For large data sets, AWS Import/Export is often faster than
 /// Internet transfer and more cost effective than upgrading your connectivity.
 class ImportExportApi {
+  final _client;
+  ImportExportApi(client)
+      : _client = client.configured('ImportExport', serializer: 'query');
+
   /// This operation cancels a specified job. Only the job owner can cancel it.
   /// The operation fails if the job has already started or is complete.
   Future<CancelJobOutput> cancelJob(String jobId, {String apiVersion}) async {
-    return CancelJobOutput.fromJson({});
+    var response_ = await _client.send('CancelJob', {
+      'JobId': jobId,
+      if (apiVersion != null) 'APIVersion': apiVersion,
+    });
+    return CancelJobOutput.fromJson(response_);
   }
 
   /// This operation initiates the process of scheduling an upload or download
@@ -25,7 +33,14 @@ class ImportExportApi {
       String manifestAddendum,
       @required bool validateOnly,
       String apiVersion}) async {
-    return CreateJobOutput.fromJson({});
+    var response_ = await _client.send('CreateJob', {
+      'JobType': jobType,
+      'Manifest': manifest,
+      if (manifestAddendum != null) 'ManifestAddendum': manifestAddendum,
+      'ValidateOnly': validateOnly,
+      if (apiVersion != null) 'APIVersion': apiVersion,
+    });
+    return CreateJobOutput.fromJson(response_);
   }
 
   /// This operation generates a pre-paid UPS shipping label that you will use
@@ -42,7 +57,21 @@ class ImportExportApi {
       String street2,
       String street3,
       String apiVersion}) async {
-    return GetShippingLabelOutput.fromJson({});
+    var response_ = await _client.send('GetShippingLabel', {
+      'jobIds': jobIds,
+      if (name != null) 'name': name,
+      if (company != null) 'company': company,
+      if (phoneNumber != null) 'phoneNumber': phoneNumber,
+      if (country != null) 'country': country,
+      if (stateOrProvince != null) 'stateOrProvince': stateOrProvince,
+      if (city != null) 'city': city,
+      if (postalCode != null) 'postalCode': postalCode,
+      if (street1 != null) 'street1': street1,
+      if (street2 != null) 'street2': street2,
+      if (street3 != null) 'street3': street3,
+      if (apiVersion != null) 'APIVersion': apiVersion,
+    });
+    return GetShippingLabelOutput.fromJson(response_);
   }
 
   /// This operation returns information about a job, including where the job is
@@ -50,7 +79,11 @@ class ImportExportApi {
   /// value associated with the job. You can only return information about jobs
   /// you own.
   Future<GetStatusOutput> getStatus(String jobId, {String apiVersion}) async {
-    return GetStatusOutput.fromJson({});
+    var response_ = await _client.send('GetStatus', {
+      'JobId': jobId,
+      if (apiVersion != null) 'APIVersion': apiVersion,
+    });
+    return GetStatusOutput.fromJson(response_);
   }
 
   /// This operation returns the jobs associated with the requester. AWS
@@ -60,7 +93,12 @@ class ImportExportApi {
   /// by Test1.
   Future<ListJobsOutput> listJobs(
       {int maxJobs, String marker, String apiVersion}) async {
-    return ListJobsOutput.fromJson({});
+    var response_ = await _client.send('ListJobs', {
+      if (maxJobs != null) 'MaxJobs': maxJobs,
+      if (marker != null) 'Marker': marker,
+      if (apiVersion != null) 'APIVersion': apiVersion,
+    });
+    return ListJobsOutput.fromJson(response_);
   }
 
   /// You use this operation to change the parameters specified in the original
@@ -74,7 +112,14 @@ class ImportExportApi {
       @required String jobType,
       @required bool validateOnly,
       String apiVersion}) async {
-    return UpdateJobOutput.fromJson({});
+    var response_ = await _client.send('UpdateJob', {
+      'JobId': jobId,
+      'Manifest': manifest,
+      'JobType': jobType,
+      'ValidateOnly': validateOnly,
+      if (apiVersion != null) 'APIVersion': apiVersion,
+    });
+    return UpdateJobOutput.fromJson(response_);
   }
 }
 
@@ -89,7 +134,12 @@ class Artifact {
     this.description,
     this.url,
   });
-  static Artifact fromJson(Map<String, dynamic> json) => Artifact();
+  static Artifact fromJson(Map<String, dynamic> json) => Artifact(
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        url: json.containsKey('URL') ? json['URL'] as String : null,
+      );
 }
 
 /// Output structure for the CancelJob operation.
@@ -99,8 +149,9 @@ class CancelJobOutput {
   CancelJobOutput({
     this.success,
   });
-  static CancelJobOutput fromJson(Map<String, dynamic> json) =>
-      CancelJobOutput();
+  static CancelJobOutput fromJson(Map<String, dynamic> json) => CancelJobOutput(
+        success: json.containsKey('Success') ? json['Success'] as bool : null,
+      );
 }
 
 /// Output structure for the CreateJob operation.
@@ -125,8 +176,23 @@ class CreateJobOutput {
     this.warningMessage,
     this.artifactList,
   });
-  static CreateJobOutput fromJson(Map<String, dynamic> json) =>
-      CreateJobOutput();
+  static CreateJobOutput fromJson(Map<String, dynamic> json) => CreateJobOutput(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobType: json.containsKey('JobType') ? json['JobType'] as String : null,
+        signature:
+            json.containsKey('Signature') ? json['Signature'] as String : null,
+        signatureFileContents: json.containsKey('SignatureFileContents')
+            ? json['SignatureFileContents'] as String
+            : null,
+        warningMessage: json.containsKey('WarningMessage')
+            ? json['WarningMessage'] as String
+            : null,
+        artifactList: json.containsKey('ArtifactList')
+            ? (json['ArtifactList'] as List)
+                .map((e) => Artifact.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetShippingLabelOutput {
@@ -139,7 +205,12 @@ class GetShippingLabelOutput {
     this.warning,
   });
   static GetShippingLabelOutput fromJson(Map<String, dynamic> json) =>
-      GetShippingLabelOutput();
+      GetShippingLabelOutput(
+        shippingLabelUrl: json.containsKey('ShippingLabelURL')
+            ? json['ShippingLabelURL'] as String
+            : null,
+        warning: json.containsKey('Warning') ? json['Warning'] as String : null,
+      );
 }
 
 /// Output structure for the GetStatus operation.
@@ -194,8 +265,47 @@ class GetStatusOutput {
     this.creationDate,
     this.artifactList,
   });
-  static GetStatusOutput fromJson(Map<String, dynamic> json) =>
-      GetStatusOutput();
+  static GetStatusOutput fromJson(Map<String, dynamic> json) => GetStatusOutput(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobType: json.containsKey('JobType') ? json['JobType'] as String : null,
+        locationCode: json.containsKey('LocationCode')
+            ? json['LocationCode'] as String
+            : null,
+        locationMessage: json.containsKey('LocationMessage')
+            ? json['LocationMessage'] as String
+            : null,
+        progressCode: json.containsKey('ProgressCode')
+            ? json['ProgressCode'] as String
+            : null,
+        progressMessage: json.containsKey('ProgressMessage')
+            ? json['ProgressMessage'] as String
+            : null,
+        carrier: json.containsKey('Carrier') ? json['Carrier'] as String : null,
+        trackingNumber: json.containsKey('TrackingNumber')
+            ? json['TrackingNumber'] as String
+            : null,
+        logBucket:
+            json.containsKey('LogBucket') ? json['LogBucket'] as String : null,
+        logKey: json.containsKey('LogKey') ? json['LogKey'] as String : null,
+        errorCount:
+            json.containsKey('ErrorCount') ? json['ErrorCount'] as int : null,
+        signature:
+            json.containsKey('Signature') ? json['Signature'] as String : null,
+        signatureFileContents: json.containsKey('SignatureFileContents')
+            ? json['SignatureFileContents'] as String
+            : null,
+        currentManifest: json.containsKey('CurrentManifest')
+            ? json['CurrentManifest'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        artifactList: json.containsKey('ArtifactList')
+            ? (json['ArtifactList'] as List)
+                .map((e) => Artifact.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Representation of a job returned by the ListJobs operation.
@@ -214,7 +324,15 @@ class Job {
     this.isCanceled,
     this.jobType,
   });
-  static Job fromJson(Map<String, dynamic> json) => Job();
+  static Job fromJson(Map<String, dynamic> json) => Job(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        isCanceled:
+            json.containsKey('IsCanceled') ? json['IsCanceled'] as bool : null,
+        jobType: json.containsKey('JobType') ? json['JobType'] as String : null,
+      );
 }
 
 /// Output structure for the ListJobs operation.
@@ -227,7 +345,14 @@ class ListJobsOutput {
     this.jobs,
     this.isTruncated,
   });
-  static ListJobsOutput fromJson(Map<String, dynamic> json) => ListJobsOutput();
+  static ListJobsOutput fromJson(Map<String, dynamic> json) => ListJobsOutput(
+        jobs: json.containsKey('Jobs')
+            ? (json['Jobs'] as List).map((e) => Job.fromJson(e)).toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+      );
 }
 
 /// Output structure for the UpateJob operation.
@@ -243,6 +368,15 @@ class UpdateJobOutput {
     this.warningMessage,
     this.artifactList,
   });
-  static UpdateJobOutput fromJson(Map<String, dynamic> json) =>
-      UpdateJobOutput();
+  static UpdateJobOutput fromJson(Map<String, dynamic> json) => UpdateJobOutput(
+        success: json.containsKey('Success') ? json['Success'] as bool : null,
+        warningMessage: json.containsKey('WarningMessage')
+            ? json['WarningMessage'] as String
+            : null,
+        artifactList: json.containsKey('ArtifactList')
+            ? (json['ArtifactList'] as List)
+                .map((e) => Artifact.fromJson(e))
+                .toList()
+            : null,
+      );
 }

@@ -2,6 +2,9 @@ import 'package:meta/meta.dart';
 
 /// Amazon Mechanical Turk API Reference
 class MTurkApi {
+  final _client;
+  MTurkApi(client) : _client = client.configured('MTurk', serializer: 'json');
+
   ///  The `AcceptQualificationRequest` operation approves a Worker's request
   /// for a Qualification.
   ///
@@ -20,7 +23,11 @@ class MTurkApi {
   Future<AcceptQualificationRequestResponse> acceptQualificationRequest(
       String qualificationRequestId,
       {int integerValue}) async {
-    return AcceptQualificationRequestResponse.fromJson({});
+    var response_ = await _client.send('AcceptQualificationRequest', {
+      'QualificationRequestId': qualificationRequestId,
+      if (integerValue != null) 'IntegerValue': integerValue,
+    });
+    return AcceptQualificationRequestResponse.fromJson(response_);
   }
 
   ///  The `ApproveAssignment` operation approves the results of a completed
@@ -57,7 +64,12 @@ class MTurkApi {
   /// approved even if it was previously rejected. Defaults to `False`.
   Future<ApproveAssignmentResponse> approveAssignment(String assignmentId,
       {String requesterFeedback, bool overrideRejection}) async {
-    return ApproveAssignmentResponse.fromJson({});
+    var response_ = await _client.send('ApproveAssignment', {
+      'AssignmentId': assignmentId,
+      if (requesterFeedback != null) 'RequesterFeedback': requesterFeedback,
+      if (overrideRejection != null) 'OverrideRejection': overrideRejection,
+    });
+    return ApproveAssignmentResponse.fromJson(response_);
   }
 
   ///  The `AssociateQualificationWithWorker` operation gives a Worker a
@@ -94,7 +106,13 @@ class MTurkApi {
           @required String workerId,
           int integerValue,
           bool sendNotification}) async {
-    return AssociateQualificationWithWorkerResponse.fromJson({});
+    var response_ = await _client.send('AssociateQualificationWithWorker', {
+      'QualificationTypeId': qualificationTypeId,
+      'WorkerId': workerId,
+      if (integerValue != null) 'IntegerValue': integerValue,
+      if (sendNotification != null) 'SendNotification': sendNotification,
+    });
+    return AssociateQualificationWithWorkerResponse.fromJson(response_);
   }
 
   ///  The `CreateAdditionalAssignmentsForHIT` operation increases the maximum
@@ -132,7 +150,12 @@ class MTurkApi {
           {@required String hitId,
           @required int numberOfAdditionalAssignments,
           String uniqueRequestToken}) async {
-    return CreateAdditionalAssignmentsForHitResponse.fromJson({});
+    var response_ = await _client.send('CreateAdditionalAssignmentsForHIT', {
+      'HITId': hitId,
+      'NumberOfAdditionalAssignments': numberOfAdditionalAssignments,
+      if (uniqueRequestToken != null) 'UniqueRequestToken': uniqueRequestToken,
+    });
+    return CreateAdditionalAssignmentsForHitResponse.fromJson(response_);
   }
 
   /// The `CreateHIT` operation creates a new Human Intelligence Task (HIT). The
@@ -274,7 +297,30 @@ class MTurkApi {
       ReviewPolicy hitReviewPolicy,
       String hitLayoutId,
       List<HitLayoutParameter> hitLayoutParameters}) async {
-    return CreateHitResponse.fromJson({});
+    var response_ = await _client.send('CreateHIT', {
+      if (maxAssignments != null) 'MaxAssignments': maxAssignments,
+      if (autoApprovalDelayInSeconds != null)
+        'AutoApprovalDelayInSeconds': autoApprovalDelayInSeconds,
+      'LifetimeInSeconds': lifetimeInSeconds,
+      'AssignmentDurationInSeconds': assignmentDurationInSeconds,
+      'Reward': reward,
+      'Title': title,
+      if (keywords != null) 'Keywords': keywords,
+      'Description': description,
+      if (question != null) 'Question': question,
+      if (requesterAnnotation != null)
+        'RequesterAnnotation': requesterAnnotation,
+      if (qualificationRequirements != null)
+        'QualificationRequirements': qualificationRequirements,
+      if (uniqueRequestToken != null) 'UniqueRequestToken': uniqueRequestToken,
+      if (assignmentReviewPolicy != null)
+        'AssignmentReviewPolicy': assignmentReviewPolicy,
+      if (hitReviewPolicy != null) 'HITReviewPolicy': hitReviewPolicy,
+      if (hitLayoutId != null) 'HITLayoutId': hitLayoutId,
+      if (hitLayoutParameters != null)
+        'HITLayoutParameters': hitLayoutParameters,
+    });
+    return CreateHitResponse.fromJson(response_);
   }
 
   ///  The `CreateHITType` operation creates a new HIT type. This operation
@@ -325,7 +371,18 @@ class MTurkApi {
       String keywords,
       @required String description,
       List<QualificationRequirement> qualificationRequirements}) async {
-    return CreateHitTypeResponse.fromJson({});
+    var response_ = await _client.send('CreateHITType', {
+      if (autoApprovalDelayInSeconds != null)
+        'AutoApprovalDelayInSeconds': autoApprovalDelayInSeconds,
+      'AssignmentDurationInSeconds': assignmentDurationInSeconds,
+      'Reward': reward,
+      'Title': title,
+      if (keywords != null) 'Keywords': keywords,
+      'Description': description,
+      if (qualificationRequirements != null)
+        'QualificationRequirements': qualificationRequirements,
+    });
+    return CreateHitTypeResponse.fromJson(response_);
   }
 
   ///  The `CreateHITWithHITType` operation creates a new Human Intelligence
@@ -419,7 +476,22 @@ class MTurkApi {
       ReviewPolicy hitReviewPolicy,
       String hitLayoutId,
       List<HitLayoutParameter> hitLayoutParameters}) async {
-    return CreateHitWithHitTypeResponse.fromJson({});
+    var response_ = await _client.send('CreateHITWithHITType', {
+      'HITTypeId': hitTypeId,
+      if (maxAssignments != null) 'MaxAssignments': maxAssignments,
+      'LifetimeInSeconds': lifetimeInSeconds,
+      if (question != null) 'Question': question,
+      if (requesterAnnotation != null)
+        'RequesterAnnotation': requesterAnnotation,
+      if (uniqueRequestToken != null) 'UniqueRequestToken': uniqueRequestToken,
+      if (assignmentReviewPolicy != null)
+        'AssignmentReviewPolicy': assignmentReviewPolicy,
+      if (hitReviewPolicy != null) 'HITReviewPolicy': hitReviewPolicy,
+      if (hitLayoutId != null) 'HITLayoutId': hitLayoutId,
+      if (hitLayoutParameters != null)
+        'HITLayoutParameters': hitLayoutParameters,
+    });
+    return CreateHitWithHitTypeResponse.fromJson(response_);
   }
 
   ///  The `CreateQualificationType` operation creates a new Qualification type,
@@ -497,7 +569,21 @@ class MTurkApi {
       BigInt testDurationInSeconds,
       bool autoGranted,
       int autoGrantedValue}) async {
-    return CreateQualificationTypeResponse.fromJson({});
+    var response_ = await _client.send('CreateQualificationType', {
+      'Name': name,
+      if (keywords != null) 'Keywords': keywords,
+      'Description': description,
+      'QualificationTypeStatus': qualificationTypeStatus,
+      if (retryDelayInSeconds != null)
+        'RetryDelayInSeconds': retryDelayInSeconds,
+      if (test != null) 'Test': test,
+      if (answerKey != null) 'AnswerKey': answerKey,
+      if (testDurationInSeconds != null)
+        'TestDurationInSeconds': testDurationInSeconds,
+      if (autoGranted != null) 'AutoGranted': autoGranted,
+      if (autoGrantedValue != null) 'AutoGrantedValue': autoGrantedValue,
+    });
+    return CreateQualificationTypeResponse.fromJson(response_);
   }
 
   /// The `CreateWorkerBlock` operation allows you to prevent a Worker from
@@ -511,7 +597,11 @@ class MTurkApi {
   /// see this message.
   Future<CreateWorkerBlockResponse> createWorkerBlock(
       {@required String workerId, @required String reason}) async {
-    return CreateWorkerBlockResponse.fromJson({});
+    var response_ = await _client.send('CreateWorkerBlock', {
+      'WorkerId': workerId,
+      'Reason': reason,
+    });
+    return CreateWorkerBlockResponse.fromJson(response_);
   }
 
   ///  The `DeleteHIT` operation is used to delete HIT that is no longer needed.
@@ -537,7 +627,10 @@ class MTurkApi {
   ///
   /// [hitId]: The ID of the HIT to be deleted.
   Future<DeleteHitResponse> deleteHit(String hitId) async {
-    return DeleteHitResponse.fromJson({});
+    var response_ = await _client.send('DeleteHIT', {
+      'HITId': hitId,
+    });
+    return DeleteHitResponse.fromJson(response_);
   }
 
   ///  The `DeleteQualificationType` deletes a Qualification type and deletes
@@ -559,7 +652,10 @@ class MTurkApi {
   /// [qualificationTypeId]: The ID of the QualificationType to dispose.
   Future<DeleteQualificationTypeResponse> deleteQualificationType(
       String qualificationTypeId) async {
-    return DeleteQualificationTypeResponse.fromJson({});
+    var response_ = await _client.send('DeleteQualificationType', {
+      'QualificationTypeId': qualificationTypeId,
+    });
+    return DeleteQualificationTypeResponse.fromJson(response_);
   }
 
   /// The `DeleteWorkerBlock` operation allows you to reinstate a blocked Worker
@@ -575,7 +671,11 @@ class MTurkApi {
   /// The Worker does not see this message.
   Future<DeleteWorkerBlockResponse> deleteWorkerBlock(String workerId,
       {String reason}) async {
-    return DeleteWorkerBlockResponse.fromJson({});
+    var response_ = await _client.send('DeleteWorkerBlock', {
+      'WorkerId': workerId,
+      if (reason != null) 'Reason': reason,
+    });
+    return DeleteWorkerBlockResponse.fromJson(response_);
   }
 
   ///  The `DisassociateQualificationFromWorker` revokes a previously granted
@@ -597,13 +697,19 @@ class MTurkApi {
           {@required String workerId,
           @required String qualificationTypeId,
           String reason}) async {
-    return DisassociateQualificationFromWorkerResponse.fromJson({});
+    var response_ = await _client.send('DisassociateQualificationFromWorker', {
+      'WorkerId': workerId,
+      'QualificationTypeId': qualificationTypeId,
+      if (reason != null) 'Reason': reason,
+    });
+    return DisassociateQualificationFromWorkerResponse.fromJson(response_);
   }
 
   /// The `GetAccountBalance` operation retrieves the amount of money in your
   /// Amazon Mechanical Turk account.
   Future<GetAccountBalanceResponse> getAccountBalance() async {
-    return GetAccountBalanceResponse.fromJson({});
+    var response_ = await _client.send('GetAccountBalance', {});
+    return GetAccountBalanceResponse.fromJson(response_);
   }
 
   ///  The `GetAssignment` operation retrieves the details of the specified
@@ -611,7 +717,10 @@ class MTurkApi {
   ///
   /// [assignmentId]: The ID of the Assignment to be retrieved.
   Future<GetAssignmentResponse> getAssignment(String assignmentId) async {
-    return GetAssignmentResponse.fromJson({});
+    var response_ = await _client.send('GetAssignment', {
+      'AssignmentId': assignmentId,
+    });
+    return GetAssignmentResponse.fromJson(response_);
   }
 
   ///  The `GetFileUploadURL` operation generates and returns a temporary URL.
@@ -634,14 +743,21 @@ class MTurkApi {
   Future<GetFileUploadUrlResponse> getFileUploadUrl(
       {@required String assignmentId,
       @required String questionIdentifier}) async {
-    return GetFileUploadUrlResponse.fromJson({});
+    var response_ = await _client.send('GetFileUploadURL', {
+      'AssignmentId': assignmentId,
+      'QuestionIdentifier': questionIdentifier,
+    });
+    return GetFileUploadUrlResponse.fromJson(response_);
   }
 
   ///  The `GetHIT` operation retrieves the details of the specified HIT.
   ///
   /// [hitId]: The ID of the HIT to be retrieved.
   Future<GetHitResponse> getHit(String hitId) async {
-    return GetHitResponse.fromJson({});
+    var response_ = await _client.send('GetHIT', {
+      'HITId': hitId,
+    });
+    return GetHitResponse.fromJson(response_);
   }
 
   ///  The `GetQualificationScore` operation returns the value of a Worker's
@@ -659,7 +775,11 @@ class MTurkApi {
   /// [workerId]: The ID of the Worker whose Qualification is being updated.
   Future<GetQualificationScoreResponse> getQualificationScore(
       {@required String qualificationTypeId, @required String workerId}) async {
-    return GetQualificationScoreResponse.fromJson({});
+    var response_ = await _client.send('GetQualificationScore', {
+      'QualificationTypeId': qualificationTypeId,
+      'WorkerId': workerId,
+    });
+    return GetQualificationScoreResponse.fromJson(response_);
   }
 
   ///  The `GetQualificationType`operation retrieves information about a
@@ -668,7 +788,10 @@ class MTurkApi {
   /// [qualificationTypeId]: The ID of the QualificationType.
   Future<GetQualificationTypeResponse> getQualificationType(
       String qualificationTypeId) async {
-    return GetQualificationTypeResponse.fromJson({});
+    var response_ = await _client.send('GetQualificationType', {
+      'QualificationTypeId': qualificationTypeId,
+    });
+    return GetQualificationTypeResponse.fromJson(response_);
   }
 
   ///  The `ListAssignmentsForHIT` operation retrieves completed assignments for
@@ -703,7 +826,13 @@ class MTurkApi {
       {String nextToken,
       int maxResults,
       List<String> assignmentStatuses}) async {
-    return ListAssignmentsForHitResponse.fromJson({});
+    var response_ = await _client.send('ListAssignmentsForHIT', {
+      'HITId': hitId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (assignmentStatuses != null) 'AssignmentStatuses': assignmentStatuses,
+    });
+    return ListAssignmentsForHitResponse.fromJson(response_);
   }
 
   ///  The `ListBonusPayments` operation retrieves the amounts of bonuses you
@@ -725,7 +854,13 @@ class MTurkApi {
       String assignmentId,
       String nextToken,
       int maxResults}) async {
-    return ListBonusPaymentsResponse.fromJson({});
+    var response_ = await _client.send('ListBonusPayments', {
+      if (hitId != null) 'HITId': hitId,
+      if (assignmentId != null) 'AssignmentId': assignmentId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListBonusPaymentsResponse.fromJson(response_);
   }
 
   ///  The `ListHITs` operation returns all of a Requester's HITs. The operation
@@ -734,7 +869,11 @@ class MTurkApi {
   ///
   /// [nextToken]: Pagination token
   Future<ListHITsResponse> listHITs({String nextToken, int maxResults}) async {
-    return ListHITsResponse.fromJson({});
+    var response_ = await _client.send('ListHITs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListHITsResponse.fromJson(response_);
   }
 
   ///  The `ListHITsForQualificationType` operation returns the HITs that use
@@ -752,7 +891,12 @@ class MTurkApi {
       String qualificationTypeId,
       {String nextToken,
       int maxResults}) async {
-    return ListHITsForQualificationTypeResponse.fromJson({});
+    var response_ = await _client.send('ListHITsForQualificationType', {
+      'QualificationTypeId': qualificationTypeId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListHITsForQualificationTypeResponse.fromJson(response_);
   }
 
   ///  The `ListQualificationRequests` operation retrieves requests for
@@ -765,7 +909,13 @@ class MTurkApi {
   /// [maxResults]:  The maximum number of results to return in a single call.
   Future<ListQualificationRequestsResponse> listQualificationRequests(
       {String qualificationTypeId, String nextToken, int maxResults}) async {
-    return ListQualificationRequestsResponse.fromJson({});
+    var response_ = await _client.send('ListQualificationRequests', {
+      if (qualificationTypeId != null)
+        'QualificationTypeId': qualificationTypeId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListQualificationRequestsResponse.fromJson(response_);
   }
 
   ///  The `ListQualificationTypes` operation returns a list of Qualification
@@ -793,7 +943,15 @@ class MTurkApi {
       bool mustBeOwnedByCaller,
       String nextToken,
       int maxResults}) async {
-    return ListQualificationTypesResponse.fromJson({});
+    var response_ = await _client.send('ListQualificationTypes', {
+      if (query != null) 'Query': query,
+      'MustBeRequestable': mustBeRequestable,
+      if (mustBeOwnedByCaller != null)
+        'MustBeOwnedByCaller': mustBeOwnedByCaller,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListQualificationTypesResponse.fromJson(response_);
   }
 
   ///  The `ListReviewPolicyResultsForHIT` operation retrieves the computed
@@ -826,7 +984,15 @@ class MTurkApi {
       bool retrieveResults,
       String nextToken,
       int maxResults}) async {
-    return ListReviewPolicyResultsForHitResponse.fromJson({});
+    var response_ = await _client.send('ListReviewPolicyResultsForHIT', {
+      'HITId': hitId,
+      if (policyLevels != null) 'PolicyLevels': policyLevels,
+      if (retrieveActions != null) 'RetrieveActions': retrieveActions,
+      if (retrieveResults != null) 'RetrieveResults': retrieveResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListReviewPolicyResultsForHitResponse.fromJson(response_);
   }
 
   ///  The `ListReviewableHITs` operation retrieves the HITs with Status equal
@@ -847,7 +1013,13 @@ class MTurkApi {
       String status,
       String nextToken,
       int maxResults}) async {
-    return ListReviewableHITsResponse.fromJson({});
+    var response_ = await _client.send('ListReviewableHITs', {
+      if (hitTypeId != null) 'HITTypeId': hitTypeId,
+      if (status != null) 'Status': status,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListReviewableHITsResponse.fromJson(response_);
   }
 
   /// The `ListWorkersBlocks` operation retrieves a list of Workers who are
@@ -856,7 +1028,11 @@ class MTurkApi {
   /// [nextToken]: Pagination token
   Future<ListWorkerBlocksResponse> listWorkerBlocks(
       {String nextToken, int maxResults}) async {
-    return ListWorkerBlocksResponse.fromJson({});
+    var response_ = await _client.send('ListWorkerBlocks', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListWorkerBlocksResponse.fromJson(response_);
   }
 
   ///  The `ListWorkersWithQualificationType` operation returns all of the
@@ -874,7 +1050,13 @@ class MTurkApi {
   Future<ListWorkersWithQualificationTypeResponse>
       listWorkersWithQualificationType(String qualificationTypeId,
           {String status, String nextToken, int maxResults}) async {
-    return ListWorkersWithQualificationTypeResponse.fromJson({});
+    var response_ = await _client.send('ListWorkersWithQualificationType', {
+      'QualificationTypeId': qualificationTypeId,
+      if (status != null) 'Status': status,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListWorkersWithQualificationTypeResponse.fromJson(response_);
   }
 
   ///  The `NotifyWorkers` operation sends an email to one or more Workers that
@@ -895,7 +1077,12 @@ class MTurkApi {
       {@required String subject,
       @required String messageText,
       @required List<String> workerIds}) async {
-    return NotifyWorkersResponse.fromJson({});
+    var response_ = await _client.send('NotifyWorkers', {
+      'Subject': subject,
+      'MessageText': messageText,
+      'WorkerIds': workerIds,
+    });
+    return NotifyWorkersResponse.fromJson(response_);
   }
 
   ///  The `RejectAssignment` operation rejects the results of a completed
@@ -918,7 +1105,11 @@ class MTurkApi {
   Future<RejectAssignmentResponse> rejectAssignment(
       {@required String assignmentId,
       @required String requesterFeedback}) async {
-    return RejectAssignmentResponse.fromJson({});
+    var response_ = await _client.send('RejectAssignment', {
+      'AssignmentId': assignmentId,
+      'RequesterFeedback': requesterFeedback,
+    });
+    return RejectAssignmentResponse.fromJson(response_);
   }
 
   ///  The `RejectQualificationRequest` operation rejects a user's request for a
@@ -935,7 +1126,11 @@ class MTurkApi {
   Future<RejectQualificationRequestResponse> rejectQualificationRequest(
       String qualificationRequestId,
       {String reason}) async {
-    return RejectQualificationRequestResponse.fromJson({});
+    var response_ = await _client.send('RejectQualificationRequest', {
+      'QualificationRequestId': qualificationRequestId,
+      if (reason != null) 'Reason': reason,
+    });
+    return RejectQualificationRequestResponse.fromJson(response_);
   }
 
   ///  The `SendBonus` operation issues a payment of money from your account to
@@ -971,7 +1166,14 @@ class MTurkApi {
       @required String assignmentId,
       @required String reason,
       String uniqueRequestToken}) async {
-    return SendBonusResponse.fromJson({});
+    var response_ = await _client.send('SendBonus', {
+      'WorkerId': workerId,
+      'BonusAmount': bonusAmount,
+      'AssignmentId': assignmentId,
+      'Reason': reason,
+      if (uniqueRequestToken != null) 'UniqueRequestToken': uniqueRequestToken,
+    });
+    return SendBonusResponse.fromJson(response_);
   }
 
   ///  The `SendTestEventNotification` operation causes Amazon Mechanical Turk
@@ -993,7 +1195,11 @@ class MTurkApi {
   Future<SendTestEventNotificationResponse> sendTestEventNotification(
       {@required NotificationSpecification notification,
       @required String testEventType}) async {
-    return SendTestEventNotificationResponse.fromJson({});
+    var response_ = await _client.send('SendTestEventNotification', {
+      'Notification': notification,
+      'TestEventType': testEventType,
+    });
+    return SendTestEventNotificationResponse.fromJson(response_);
   }
 
   ///  The `UpdateExpirationForHIT` operation allows you update the expiration
@@ -1005,7 +1211,11 @@ class MTurkApi {
   /// [expireAt]:  The date and time at which you want the HIT to expire
   Future<UpdateExpirationForHitResponse> updateExpirationForHit(
       {@required String hitId, @required DateTime expireAt}) async {
-    return UpdateExpirationForHitResponse.fromJson({});
+    var response_ = await _client.send('UpdateExpirationForHIT', {
+      'HITId': hitId,
+      'ExpireAt': expireAt,
+    });
+    return UpdateExpirationForHitResponse.fromJson(response_);
   }
 
   ///  The `UpdateHITReviewStatus` operation updates the status of a HIT. If the
@@ -1023,7 +1233,11 @@ class MTurkApi {
   /// `Reviewable`
   Future<UpdateHitReviewStatusResponse> updateHitReviewStatus(String hitId,
       {bool revert}) async {
-    return UpdateHitReviewStatusResponse.fromJson({});
+    var response_ = await _client.send('UpdateHITReviewStatus', {
+      'HITId': hitId,
+      if (revert != null) 'Revert': revert,
+    });
+    return UpdateHitReviewStatusResponse.fromJson(response_);
   }
 
   ///  The `UpdateHITTypeOfHIT` operation allows you to change the HITType
@@ -1036,7 +1250,11 @@ class MTurkApi {
   /// [hitTypeId]: The ID of the new HIT type.
   Future<UpdateHitTypeOfHitResponse> updateHitTypeOfHit(
       {@required String hitId, @required String hitTypeId}) async {
-    return UpdateHitTypeOfHitResponse.fromJson({});
+    var response_ = await _client.send('UpdateHITTypeOfHIT', {
+      'HITId': hitId,
+      'HITTypeId': hitTypeId,
+    });
+    return UpdateHitTypeOfHitResponse.fromJson(response_);
   }
 
   ///  The `UpdateNotificationSettings` operation creates, updates, disables or
@@ -1064,7 +1282,12 @@ class MTurkApi {
       String hitTypeId,
       {NotificationSpecification notification,
       bool active}) async {
-    return UpdateNotificationSettingsResponse.fromJson({});
+    var response_ = await _client.send('UpdateNotificationSettings', {
+      'HITTypeId': hitTypeId,
+      if (notification != null) 'Notification': notification,
+      if (active != null) 'Active': active,
+    });
+    return UpdateNotificationSettingsResponse.fromJson(response_);
   }
 
   ///  The `UpdateQualificationType` operation modifies the attributes of an
@@ -1156,7 +1379,21 @@ class MTurkApi {
       BigInt retryDelayInSeconds,
       bool autoGranted,
       int autoGrantedValue}) async {
-    return UpdateQualificationTypeResponse.fromJson({});
+    var response_ = await _client.send('UpdateQualificationType', {
+      'QualificationTypeId': qualificationTypeId,
+      if (description != null) 'Description': description,
+      if (qualificationTypeStatus != null)
+        'QualificationTypeStatus': qualificationTypeStatus,
+      if (test != null) 'Test': test,
+      if (answerKey != null) 'AnswerKey': answerKey,
+      if (testDurationInSeconds != null)
+        'TestDurationInSeconds': testDurationInSeconds,
+      if (retryDelayInSeconds != null)
+        'RetryDelayInSeconds': retryDelayInSeconds,
+      if (autoGranted != null) 'AutoGranted': autoGranted,
+      if (autoGrantedValue != null) 'AutoGrantedValue': autoGrantedValue,
+    });
+    return UpdateQualificationTypeResponse.fromJson(response_);
   }
 }
 
@@ -1246,7 +1483,39 @@ class Assignment {
     this.answer,
     this.requesterFeedback,
   });
-  static Assignment fromJson(Map<String, dynamic> json) => Assignment();
+  static Assignment fromJson(Map<String, dynamic> json) => Assignment(
+        assignmentId: json.containsKey('AssignmentId')
+            ? json['AssignmentId'] as String
+            : null,
+        workerId:
+            json.containsKey('WorkerId') ? json['WorkerId'] as String : null,
+        hitId: json.containsKey('HITId') ? json['HITId'] as String : null,
+        assignmentStatus: json.containsKey('AssignmentStatus')
+            ? json['AssignmentStatus'] as String
+            : null,
+        autoApprovalTime: json.containsKey('AutoApprovalTime')
+            ? DateTime.parse(json['AutoApprovalTime'])
+            : null,
+        acceptTime: json.containsKey('AcceptTime')
+            ? DateTime.parse(json['AcceptTime'])
+            : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+        approvalTime: json.containsKey('ApprovalTime')
+            ? DateTime.parse(json['ApprovalTime'])
+            : null,
+        rejectionTime: json.containsKey('RejectionTime')
+            ? DateTime.parse(json['RejectionTime'])
+            : null,
+        deadline: json.containsKey('Deadline')
+            ? DateTime.parse(json['Deadline'])
+            : null,
+        answer: json.containsKey('Answer') ? json['Answer'] as String : null,
+        requesterFeedback: json.containsKey('RequesterFeedback')
+            ? json['RequesterFeedback'] as String
+            : null,
+      );
 }
 
 class AssociateQualificationWithWorkerResponse {
@@ -1279,7 +1548,20 @@ class BonusPayment {
     this.reason,
     this.grantTime,
   });
-  static BonusPayment fromJson(Map<String, dynamic> json) => BonusPayment();
+  static BonusPayment fromJson(Map<String, dynamic> json) => BonusPayment(
+        workerId:
+            json.containsKey('WorkerId') ? json['WorkerId'] as String : null,
+        bonusAmount: json.containsKey('BonusAmount')
+            ? json['BonusAmount'] as String
+            : null,
+        assignmentId: json.containsKey('AssignmentId')
+            ? json['AssignmentId'] as String
+            : null,
+        reason: json.containsKey('Reason') ? json['Reason'] as String : null,
+        grantTime: json.containsKey('GrantTime')
+            ? DateTime.parse(json['GrantTime'])
+            : null,
+      );
 }
 
 class CreateAdditionalAssignmentsForHitResponse {
@@ -1299,7 +1581,9 @@ class CreateHitResponse {
     this.hit,
   });
   static CreateHitResponse fromJson(Map<String, dynamic> json) =>
-      CreateHitResponse();
+      CreateHitResponse(
+        hit: json.containsKey('HIT') ? Hit.fromJson(json['HIT']) : null,
+      );
 }
 
 class CreateHitTypeResponse {
@@ -1310,7 +1594,10 @@ class CreateHitTypeResponse {
     this.hitTypeId,
   });
   static CreateHitTypeResponse fromJson(Map<String, dynamic> json) =>
-      CreateHitTypeResponse();
+      CreateHitTypeResponse(
+        hitTypeId:
+            json.containsKey('HITTypeId') ? json['HITTypeId'] as String : null,
+      );
 }
 
 class CreateHitWithHitTypeResponse {
@@ -1323,7 +1610,9 @@ class CreateHitWithHitTypeResponse {
     this.hit,
   });
   static CreateHitWithHitTypeResponse fromJson(Map<String, dynamic> json) =>
-      CreateHitWithHitTypeResponse();
+      CreateHitWithHitTypeResponse(
+        hit: json.containsKey('HIT') ? Hit.fromJson(json['HIT']) : null,
+      );
 }
 
 class CreateQualificationTypeResponse {
@@ -1335,7 +1624,11 @@ class CreateQualificationTypeResponse {
     this.qualificationType,
   });
   static CreateQualificationTypeResponse fromJson(Map<String, dynamic> json) =>
-      CreateQualificationTypeResponse();
+      CreateQualificationTypeResponse(
+        qualificationType: json.containsKey('QualificationType')
+            ? QualificationType.fromJson(json['QualificationType'])
+            : null,
+      );
 }
 
 class CreateWorkerBlockResponse {
@@ -1379,7 +1672,14 @@ class GetAccountBalanceResponse {
     this.onHoldBalance,
   });
   static GetAccountBalanceResponse fromJson(Map<String, dynamic> json) =>
-      GetAccountBalanceResponse();
+      GetAccountBalanceResponse(
+        availableBalance: json.containsKey('AvailableBalance')
+            ? json['AvailableBalance'] as String
+            : null,
+        onHoldBalance: json.containsKey('OnHoldBalance')
+            ? json['OnHoldBalance'] as String
+            : null,
+      );
 }
 
 class GetAssignmentResponse {
@@ -1395,7 +1695,12 @@ class GetAssignmentResponse {
     this.hit,
   });
   static GetAssignmentResponse fromJson(Map<String, dynamic> json) =>
-      GetAssignmentResponse();
+      GetAssignmentResponse(
+        assignment: json.containsKey('Assignment')
+            ? Assignment.fromJson(json['Assignment'])
+            : null,
+        hit: json.containsKey('HIT') ? Hit.fromJson(json['HIT']) : null,
+      );
 }
 
 class GetFileUploadUrlResponse {
@@ -1406,7 +1711,11 @@ class GetFileUploadUrlResponse {
     this.fileUploadUrl,
   });
   static GetFileUploadUrlResponse fromJson(Map<String, dynamic> json) =>
-      GetFileUploadUrlResponse();
+      GetFileUploadUrlResponse(
+        fileUploadUrl: json.containsKey('FileUploadURL')
+            ? json['FileUploadURL'] as String
+            : null,
+      );
 }
 
 class GetHitResponse {
@@ -1416,7 +1725,9 @@ class GetHitResponse {
   GetHitResponse({
     this.hit,
   });
-  static GetHitResponse fromJson(Map<String, dynamic> json) => GetHitResponse();
+  static GetHitResponse fromJson(Map<String, dynamic> json) => GetHitResponse(
+        hit: json.containsKey('HIT') ? Hit.fromJson(json['HIT']) : null,
+      );
 }
 
 class GetQualificationScoreResponse {
@@ -1428,7 +1739,11 @@ class GetQualificationScoreResponse {
     this.qualification,
   });
   static GetQualificationScoreResponse fromJson(Map<String, dynamic> json) =>
-      GetQualificationScoreResponse();
+      GetQualificationScoreResponse(
+        qualification: json.containsKey('Qualification')
+            ? Qualification.fromJson(json['Qualification'])
+            : null,
+      );
 }
 
 class GetQualificationTypeResponse {
@@ -1439,7 +1754,11 @@ class GetQualificationTypeResponse {
     this.qualificationType,
   });
   static GetQualificationTypeResponse fromJson(Map<String, dynamic> json) =>
-      GetQualificationTypeResponse();
+      GetQualificationTypeResponse(
+        qualificationType: json.containsKey('QualificationType')
+            ? QualificationType.fromJson(json['QualificationType'])
+            : null,
+      );
 }
 
 ///  The HIT data structure represents a single HIT, including all the
@@ -1551,7 +1870,68 @@ class Hit {
     this.numberOfAssignmentsAvailable,
     this.numberOfAssignmentsCompleted,
   });
-  static Hit fromJson(Map<String, dynamic> json) => Hit();
+  static Hit fromJson(Map<String, dynamic> json) => Hit(
+        hitId: json.containsKey('HITId') ? json['HITId'] as String : null,
+        hitTypeId:
+            json.containsKey('HITTypeId') ? json['HITTypeId'] as String : null,
+        hitGroupId: json.containsKey('HITGroupId')
+            ? json['HITGroupId'] as String
+            : null,
+        hitLayoutId: json.containsKey('HITLayoutId')
+            ? json['HITLayoutId'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        title: json.containsKey('Title') ? json['Title'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        question:
+            json.containsKey('Question') ? json['Question'] as String : null,
+        keywords:
+            json.containsKey('Keywords') ? json['Keywords'] as String : null,
+        hitStatus:
+            json.containsKey('HITStatus') ? json['HITStatus'] as String : null,
+        maxAssignments: json.containsKey('MaxAssignments')
+            ? json['MaxAssignments'] as int
+            : null,
+        reward: json.containsKey('Reward') ? json['Reward'] as String : null,
+        autoApprovalDelayInSeconds:
+            json.containsKey('AutoApprovalDelayInSeconds')
+                ? BigInt.from(json['AutoApprovalDelayInSeconds'])
+                : null,
+        expiration: json.containsKey('Expiration')
+            ? DateTime.parse(json['Expiration'])
+            : null,
+        assignmentDurationInSeconds:
+            json.containsKey('AssignmentDurationInSeconds')
+                ? BigInt.from(json['AssignmentDurationInSeconds'])
+                : null,
+        requesterAnnotation: json.containsKey('RequesterAnnotation')
+            ? json['RequesterAnnotation'] as String
+            : null,
+        qualificationRequirements: json.containsKey('QualificationRequirements')
+            ? (json['QualificationRequirements'] as List)
+                .map((e) => QualificationRequirement.fromJson(e))
+                .toList()
+            : null,
+        hitReviewStatus: json.containsKey('HITReviewStatus')
+            ? json['HITReviewStatus'] as String
+            : null,
+        numberOfAssignmentsPending:
+            json.containsKey('NumberOfAssignmentsPending')
+                ? json['NumberOfAssignmentsPending'] as int
+                : null,
+        numberOfAssignmentsAvailable:
+            json.containsKey('NumberOfAssignmentsAvailable')
+                ? json['NumberOfAssignmentsAvailable'] as int
+                : null,
+        numberOfAssignmentsCompleted:
+            json.containsKey('NumberOfAssignmentsCompleted')
+                ? json['NumberOfAssignmentsCompleted'] as int
+                : null,
+      );
 }
 
 ///  The HITLayoutParameter data structure defines parameter values used with a
@@ -1568,6 +1948,7 @@ class HitLayoutParameter {
     @required this.name,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListAssignmentsForHitResponse {
@@ -1586,7 +1967,17 @@ class ListAssignmentsForHitResponse {
     this.assignments,
   });
   static ListAssignmentsForHitResponse fromJson(Map<String, dynamic> json) =>
-      ListAssignmentsForHitResponse();
+      ListAssignmentsForHitResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        numResults:
+            json.containsKey('NumResults') ? json['NumResults'] as int : null,
+        assignments: json.containsKey('Assignments')
+            ? (json['Assignments'] as List)
+                .map((e) => Assignment.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListBonusPaymentsResponse {
@@ -1606,7 +1997,17 @@ class ListBonusPaymentsResponse {
     this.bonusPayments,
   });
   static ListBonusPaymentsResponse fromJson(Map<String, dynamic> json) =>
-      ListBonusPaymentsResponse();
+      ListBonusPaymentsResponse(
+        numResults:
+            json.containsKey('NumResults') ? json['NumResults'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        bonusPayments: json.containsKey('BonusPayments')
+            ? (json['BonusPayments'] as List)
+                .map((e) => BonusPayment.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListHITsForQualificationTypeResponse {
@@ -1626,7 +2027,15 @@ class ListHITsForQualificationTypeResponse {
   });
   static ListHITsForQualificationTypeResponse fromJson(
           Map<String, dynamic> json) =>
-      ListHITsForQualificationTypeResponse();
+      ListHITsForQualificationTypeResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        numResults:
+            json.containsKey('NumResults') ? json['NumResults'] as int : null,
+        hiTs: json.containsKey('HITs')
+            ? (json['HITs'] as List).map((e) => Hit.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListHITsResponse {
@@ -1645,7 +2054,15 @@ class ListHITsResponse {
     this.hiTs,
   });
   static ListHITsResponse fromJson(Map<String, dynamic> json) =>
-      ListHITsResponse();
+      ListHITsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        numResults:
+            json.containsKey('NumResults') ? json['NumResults'] as int : null,
+        hiTs: json.containsKey('HITs')
+            ? (json['HITs'] as List).map((e) => Hit.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListQualificationRequestsResponse {
@@ -1667,7 +2084,17 @@ class ListQualificationRequestsResponse {
   });
   static ListQualificationRequestsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListQualificationRequestsResponse();
+      ListQualificationRequestsResponse(
+        numResults:
+            json.containsKey('NumResults') ? json['NumResults'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        qualificationRequests: json.containsKey('QualificationRequests')
+            ? (json['QualificationRequests'] as List)
+                .map((e) => QualificationRequest.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListQualificationTypesResponse {
@@ -1686,7 +2113,17 @@ class ListQualificationTypesResponse {
     this.qualificationTypes,
   });
   static ListQualificationTypesResponse fromJson(Map<String, dynamic> json) =>
-      ListQualificationTypesResponse();
+      ListQualificationTypesResponse(
+        numResults:
+            json.containsKey('NumResults') ? json['NumResults'] as int : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        qualificationTypes: json.containsKey('QualificationTypes')
+            ? (json['QualificationTypes'] as List)
+                .map((e) => QualificationType.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListReviewPolicyResultsForHitResponse {
@@ -1719,7 +2156,23 @@ class ListReviewPolicyResultsForHitResponse {
   });
   static ListReviewPolicyResultsForHitResponse fromJson(
           Map<String, dynamic> json) =>
-      ListReviewPolicyResultsForHitResponse();
+      ListReviewPolicyResultsForHitResponse(
+        hitId: json.containsKey('HITId') ? json['HITId'] as String : null,
+        assignmentReviewPolicy: json.containsKey('AssignmentReviewPolicy')
+            ? ReviewPolicy.fromJson(json['AssignmentReviewPolicy'])
+            : null,
+        hitReviewPolicy: json.containsKey('HITReviewPolicy')
+            ? ReviewPolicy.fromJson(json['HITReviewPolicy'])
+            : null,
+        assignmentReviewReport: json.containsKey('AssignmentReviewReport')
+            ? ReviewReport.fromJson(json['AssignmentReviewReport'])
+            : null,
+        hitReviewReport: json.containsKey('HITReviewReport')
+            ? ReviewReport.fromJson(json['HITReviewReport'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListReviewableHITsResponse {
@@ -1738,7 +2191,15 @@ class ListReviewableHITsResponse {
     this.hiTs,
   });
   static ListReviewableHITsResponse fromJson(Map<String, dynamic> json) =>
-      ListReviewableHITsResponse();
+      ListReviewableHITsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        numResults:
+            json.containsKey('NumResults') ? json['NumResults'] as int : null,
+        hiTs: json.containsKey('HITs')
+            ? (json['HITs'] as List).map((e) => Hit.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListWorkerBlocksResponse {
@@ -1758,7 +2219,17 @@ class ListWorkerBlocksResponse {
     this.workerBlocks,
   });
   static ListWorkerBlocksResponse fromJson(Map<String, dynamic> json) =>
-      ListWorkerBlocksResponse();
+      ListWorkerBlocksResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        numResults:
+            json.containsKey('NumResults') ? json['NumResults'] as int : null,
+        workerBlocks: json.containsKey('WorkerBlocks')
+            ? (json['WorkerBlocks'] as List)
+                .map((e) => WorkerBlock.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListWorkersWithQualificationTypeResponse {
@@ -1778,7 +2249,17 @@ class ListWorkersWithQualificationTypeResponse {
   });
   static ListWorkersWithQualificationTypeResponse fromJson(
           Map<String, dynamic> json) =>
-      ListWorkersWithQualificationTypeResponse();
+      ListWorkersWithQualificationTypeResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        numResults:
+            json.containsKey('NumResults') ? json['NumResults'] as int : null,
+        qualifications: json.containsKey('Qualifications')
+            ? (json['Qualifications'] as List)
+                .map((e) => Qualification.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The Locale data structure represents a geographical region or location.
@@ -1795,7 +2276,13 @@ class Locale {
     @required this.country,
     this.subdivision,
   });
-  static Locale fromJson(Map<String, dynamic> json) => Locale();
+  static Locale fromJson(Map<String, dynamic> json) => Locale(
+        country: json['Country'] as String,
+        subdivision: json.containsKey('Subdivision')
+            ? json['Subdivision'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The NotificationSpecification data structure describes a HIT event
@@ -1831,6 +2318,7 @@ class NotificationSpecification {
     @required this.version,
     @required this.eventTypes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  When MTurk encounters an issue with notifying the Workers you specified, it
@@ -1851,7 +2339,17 @@ class NotifyWorkersFailureStatus {
     this.workerId,
   });
   static NotifyWorkersFailureStatus fromJson(Map<String, dynamic> json) =>
-      NotifyWorkersFailureStatus();
+      NotifyWorkersFailureStatus(
+        notifyWorkersFailureCode: json.containsKey('NotifyWorkersFailureCode')
+            ? json['NotifyWorkersFailureCode'] as String
+            : null,
+        notifyWorkersFailureMessage:
+            json.containsKey('NotifyWorkersFailureMessage')
+                ? json['NotifyWorkersFailureMessage'] as String
+                : null,
+        workerId:
+            json.containsKey('WorkerId') ? json['WorkerId'] as String : null,
+      );
 }
 
 class NotifyWorkersResponse {
@@ -1864,7 +2362,14 @@ class NotifyWorkersResponse {
     this.notifyWorkersFailureStatuses,
   });
   static NotifyWorkersResponse fromJson(Map<String, dynamic> json) =>
-      NotifyWorkersResponse();
+      NotifyWorkersResponse(
+        notifyWorkersFailureStatuses:
+            json.containsKey('NotifyWorkersFailureStatuses')
+                ? (json['NotifyWorkersFailureStatuses'] as List)
+                    .map((e) => NotifyWorkersFailureStatus.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 ///  This data structure is the data type for the AnswerKey parameter of the
@@ -1885,7 +2390,13 @@ class ParameterMapEntry {
     this.values,
   });
   static ParameterMapEntry fromJson(Map<String, dynamic> json) =>
-      ParameterMapEntry();
+      ParameterMapEntry(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Name of the parameter from the Review policy.
@@ -1904,8 +2415,18 @@ class PolicyParameter {
     this.values,
     this.mapEntries,
   });
-  static PolicyParameter fromJson(Map<String, dynamic> json) =>
-      PolicyParameter();
+  static PolicyParameter fromJson(Map<String, dynamic> json) => PolicyParameter(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as String).toList()
+            : null,
+        mapEntries: json.containsKey('MapEntries')
+            ? (json['MapEntries'] as List)
+                .map((e) => ParameterMapEntry.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Qualification data structure represents a Qualification assigned to a
@@ -1940,7 +2461,23 @@ class Qualification {
     this.localeValue,
     this.status,
   });
-  static Qualification fromJson(Map<String, dynamic> json) => Qualification();
+  static Qualification fromJson(Map<String, dynamic> json) => Qualification(
+        qualificationTypeId: json.containsKey('QualificationTypeId')
+            ? json['QualificationTypeId'] as String
+            : null,
+        workerId:
+            json.containsKey('WorkerId') ? json['WorkerId'] as String : null,
+        grantTime: json.containsKey('GrantTime')
+            ? DateTime.parse(json['GrantTime'])
+            : null,
+        integerValue: json.containsKey('IntegerValue')
+            ? json['IntegerValue'] as int
+            : null,
+        localeValue: json.containsKey('LocaleValue')
+            ? Locale.fromJson(json['LocaleValue'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 ///  The QualificationRequest data structure represents a request a Worker has
@@ -1984,7 +2521,21 @@ class QualificationRequest {
     this.submitTime,
   });
   static QualificationRequest fromJson(Map<String, dynamic> json) =>
-      QualificationRequest();
+      QualificationRequest(
+        qualificationRequestId: json.containsKey('QualificationRequestId')
+            ? json['QualificationRequestId'] as String
+            : null,
+        qualificationTypeId: json.containsKey('QualificationTypeId')
+            ? json['QualificationTypeId'] as String
+            : null,
+        workerId:
+            json.containsKey('WorkerId') ? json['WorkerId'] as String : null,
+        test: json.containsKey('Test') ? json['Test'] as String : null,
+        answer: json.containsKey('Answer') ? json['Answer'] as String : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+      );
 }
 
 ///  The QualificationRequirement data structure describes a Qualification that
@@ -2067,7 +2618,25 @@ class QualificationRequirement {
     this.actionsGuarded,
   });
   static QualificationRequirement fromJson(Map<String, dynamic> json) =>
-      QualificationRequirement();
+      QualificationRequirement(
+        qualificationTypeId: json['QualificationTypeId'] as String,
+        comparator: json['Comparator'] as String,
+        integerValues: json.containsKey('IntegerValues')
+            ? (json['IntegerValues'] as List).map((e) => e as int).toList()
+            : null,
+        localeValues: json.containsKey('LocaleValues')
+            ? (json['LocaleValues'] as List)
+                .map((e) => Locale.fromJson(e))
+                .toList()
+            : null,
+        requiredToPreview: json.containsKey('RequiredToPreview')
+            ? json['RequiredToPreview'] as bool
+            : null,
+        actionsGuarded: json.containsKey('ActionsGuarded')
+            ? json['ActionsGuarded'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  The QualificationType data structure represents a Qualification type, a
@@ -2156,7 +2725,41 @@ class QualificationType {
     this.autoGrantedValue,
   });
   static QualificationType fromJson(Map<String, dynamic> json) =>
-      QualificationType();
+      QualificationType(
+        qualificationTypeId: json.containsKey('QualificationTypeId')
+            ? json['QualificationTypeId'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        keywords:
+            json.containsKey('Keywords') ? json['Keywords'] as String : null,
+        qualificationTypeStatus: json.containsKey('QualificationTypeStatus')
+            ? json['QualificationTypeStatus'] as String
+            : null,
+        test: json.containsKey('Test') ? json['Test'] as String : null,
+        testDurationInSeconds: json.containsKey('TestDurationInSeconds')
+            ? BigInt.from(json['TestDurationInSeconds'])
+            : null,
+        answerKey:
+            json.containsKey('AnswerKey') ? json['AnswerKey'] as String : null,
+        retryDelayInSeconds: json.containsKey('RetryDelayInSeconds')
+            ? BigInt.from(json['RetryDelayInSeconds'])
+            : null,
+        isRequestable: json.containsKey('IsRequestable')
+            ? json['IsRequestable'] as bool
+            : null,
+        autoGranted: json.containsKey('AutoGranted')
+            ? json['AutoGranted'] as bool
+            : null,
+        autoGrantedValue: json.containsKey('AutoGrantedValue')
+            ? json['AutoGrantedValue'] as int
+            : null,
+      );
 }
 
 class RejectAssignmentResponse {
@@ -2214,7 +2817,25 @@ class ReviewActionDetail {
     this.errorCode,
   });
   static ReviewActionDetail fromJson(Map<String, dynamic> json) =>
-      ReviewActionDetail();
+      ReviewActionDetail(
+        actionId:
+            json.containsKey('ActionId') ? json['ActionId'] as String : null,
+        actionName: json.containsKey('ActionName')
+            ? json['ActionName'] as String
+            : null,
+        targetId:
+            json.containsKey('TargetId') ? json['TargetId'] as String : null,
+        targetType: json.containsKey('TargetType')
+            ? json['TargetType'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        completeTime: json.containsKey('CompleteTime')
+            ? DateTime.parse(json['CompleteTime'])
+            : null,
+        result: json.containsKey('Result') ? json['Result'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+      );
 }
 
 ///  HIT Review Policy data structures represent HIT review policies, which you
@@ -2231,7 +2852,15 @@ class ReviewPolicy {
     @required this.policyName,
     this.parameters,
   });
-  static ReviewPolicy fromJson(Map<String, dynamic> json) => ReviewPolicy();
+  static ReviewPolicy fromJson(Map<String, dynamic> json) => ReviewPolicy(
+        policyName: json['PolicyName'] as String,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => PolicyParameter.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Contains both ReviewResult and ReviewAction elements for a particular HIT.
@@ -2248,7 +2877,18 @@ class ReviewReport {
     this.reviewResults,
     this.reviewActions,
   });
-  static ReviewReport fromJson(Map<String, dynamic> json) => ReviewReport();
+  static ReviewReport fromJson(Map<String, dynamic> json) => ReviewReport(
+        reviewResults: json.containsKey('ReviewResults')
+            ? (json['ReviewResults'] as List)
+                .map((e) => ReviewResultDetail.fromJson(e))
+                .toList()
+            : null,
+        reviewActions: json.containsKey('ReviewActions')
+            ? (json['ReviewActions'] as List)
+                .map((e) => ReviewActionDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  This data structure is returned multiple times for each result specified in
@@ -2289,7 +2929,20 @@ class ReviewResultDetail {
     this.value,
   });
   static ReviewResultDetail fromJson(Map<String, dynamic> json) =>
-      ReviewResultDetail();
+      ReviewResultDetail(
+        actionId:
+            json.containsKey('ActionId') ? json['ActionId'] as String : null,
+        subjectId:
+            json.containsKey('SubjectId') ? json['SubjectId'] as String : null,
+        subjectType: json.containsKey('SubjectType')
+            ? json['SubjectType'] as String
+            : null,
+        questionId: json.containsKey('QuestionId')
+            ? json['QuestionId'] as String
+            : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 class SendBonusResponse {
@@ -2338,7 +2991,11 @@ class UpdateQualificationTypeResponse {
     this.qualificationType,
   });
   static UpdateQualificationTypeResponse fromJson(Map<String, dynamic> json) =>
-      UpdateQualificationTypeResponse();
+      UpdateQualificationTypeResponse(
+        qualificationType: json.containsKey('QualificationType')
+            ? QualificationType.fromJson(json['QualificationType'])
+            : null,
+      );
 }
 
 ///  The WorkerBlock data structure represents a Worker who has been blocked. It
@@ -2354,5 +3011,9 @@ class WorkerBlock {
     this.workerId,
     this.reason,
   });
-  static WorkerBlock fromJson(Map<String, dynamic> json) => WorkerBlock();
+  static WorkerBlock fromJson(Map<String, dynamic> json) => WorkerBlock(
+        workerId:
+            json.containsKey('WorkerId') ? json['WorkerId'] as String : null,
+        reason: json.containsKey('Reason') ? json['Reason'] as String : null,
+      );
 }

@@ -3,6 +3,10 @@ import 'package:meta/meta.dart';
 /// Amazon Personalize is a machine learning service that makes it easy to add
 /// individualized recommendations to customers.
 class PersonalizeApi {
+  final _client;
+  PersonalizeApi(client)
+      : _client = client.configured('Personalize', serializer: 'json');
+
   /// Creates a campaign by deploying a solution version. When a client calls
   /// the
   /// [GetRecommendations](https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html)
@@ -61,7 +65,12 @@ class PersonalizeApi {
       {@required String name,
       @required String solutionVersionArn,
       @required int minProvisionedTps}) async {
-    return CreateCampaignResponse.fromJson({});
+    var response_ = await _client.send('CreateCampaign', {
+      'name': name,
+      'solutionVersionArn': solutionVersionArn,
+      'minProvisionedTPS': minProvisionedTps,
+    });
+    return CreateCampaignResponse.fromJson(response_);
   }
 
   /// Creates an empty dataset and adds it to the specified dataset group. Use
@@ -121,7 +130,13 @@ class PersonalizeApi {
       @required String schemaArn,
       @required String datasetGroupArn,
       @required String datasetType}) async {
-    return CreateDatasetResponse.fromJson({});
+    var response_ = await _client.send('CreateDataset', {
+      'name': name,
+      'schemaArn': schemaArn,
+      'datasetGroupArn': datasetGroupArn,
+      'datasetType': datasetType,
+    });
+    return CreateDatasetResponse.fromJson(response_);
   }
 
   /// Creates an empty dataset group. A dataset group contains related datasets
@@ -184,7 +199,12 @@ class PersonalizeApi {
   /// the datasets.
   Future<CreateDatasetGroupResponse> createDatasetGroup(String name,
       {String roleArn, String kmsKeyArn}) async {
-    return CreateDatasetGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateDatasetGroup', {
+      'name': name,
+      if (roleArn != null) 'roleArn': roleArn,
+      if (kmsKeyArn != null) 'kmsKeyArn': kmsKeyArn,
+    });
+    return CreateDatasetGroupResponse.fromJson(response_);
   }
 
   /// Creates a job that imports training data from your data source (an Amazon
@@ -230,7 +250,13 @@ class PersonalizeApi {
       @required String datasetArn,
       @required DataSource dataSource,
       @required String roleArn}) async {
-    return CreateDatasetImportJobResponse.fromJson({});
+    var response_ = await _client.send('CreateDatasetImportJob', {
+      'jobName': jobName,
+      'datasetArn': datasetArn,
+      'dataSource': dataSource,
+      'roleArn': roleArn,
+    });
+    return CreateDatasetImportJobResponse.fromJson(response_);
   }
 
   /// Creates an event tracker that you use when sending event data to the
@@ -277,7 +303,11 @@ class PersonalizeApi {
   /// that receives the event data.
   Future<CreateEventTrackerResponse> createEventTracker(
       {@required String name, @required String datasetGroupArn}) async {
-    return CreateEventTrackerResponse.fromJson({});
+    var response_ = await _client.send('CreateEventTracker', {
+      'name': name,
+      'datasetGroupArn': datasetGroupArn,
+    });
+    return CreateEventTrackerResponse.fromJson(response_);
   }
 
   /// Creates an Amazon Personalize schema from the specified schema string. The
@@ -300,7 +330,11 @@ class PersonalizeApi {
   /// [schema]: A schema in Avro JSON format.
   Future<CreateSchemaResponse> createSchema(
       {@required String name, @required String schema}) async {
-    return CreateSchemaResponse.fromJson({});
+    var response_ = await _client.send('CreateSchema', {
+      'name': name,
+      'schema': schema,
+    });
+    return CreateSchemaResponse.fromJson(response_);
   }
 
   /// Creates the configuration for training a model. A trained model is known
@@ -390,7 +424,16 @@ class PersonalizeApi {
       @required String datasetGroupArn,
       String eventType,
       SolutionConfig solutionConfig}) async {
-    return CreateSolutionResponse.fromJson({});
+    var response_ = await _client.send('CreateSolution', {
+      'name': name,
+      if (performHpo != null) 'performHPO': performHpo,
+      if (performAutoML != null) 'performAutoML': performAutoML,
+      if (recipeArn != null) 'recipeArn': recipeArn,
+      'datasetGroupArn': datasetGroupArn,
+      if (eventType != null) 'eventType': eventType,
+      if (solutionConfig != null) 'solutionConfig': solutionConfig,
+    });
+    return CreateSolutionResponse.fromJson(response_);
   }
 
   /// Trains or retrains an active solution. A solution is created using the
@@ -430,7 +473,10 @@ class PersonalizeApi {
   /// the training configuration information.
   Future<CreateSolutionVersionResponse> createSolutionVersion(
       String solutionArn) async {
-    return CreateSolutionVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateSolutionVersion', {
+      'solutionArn': solutionArn,
+    });
+    return CreateSolutionVersionResponse.fromJson(response_);
   }
 
   /// Removes a campaign by deleting the solution deployment. The solution that
@@ -440,14 +486,22 @@ class PersonalizeApi {
   /// request. For more information on campaigns, see CreateCampaign.
   ///
   /// [campaignArn]: The Amazon Resource Name (ARN) of the campaign to delete.
-  Future<void> deleteCampaign(String campaignArn) async {}
+  Future<void> deleteCampaign(String campaignArn) async {
+    await _client.send('DeleteCampaign', {
+      'campaignArn': campaignArn,
+    });
+  }
 
   /// Deletes a dataset. You can't delete a dataset if an associated
   /// `DatasetImportJob` or `SolutionVersion` is in the CREATE PENDING or IN
   /// PROGRESS state. For more information on datasets, see CreateDataset.
   ///
   /// [datasetArn]: The Amazon Resource Name (ARN) of the dataset to delete.
-  Future<void> deleteDataset(String datasetArn) async {}
+  Future<void> deleteDataset(String datasetArn) async {
+    await _client.send('DeleteDataset', {
+      'datasetArn': datasetArn,
+    });
+  }
 
   /// Deletes a dataset group. Before you delete a dataset group, you must
   /// delete the following:
@@ -459,7 +513,11 @@ class PersonalizeApi {
   /// *   All datasets in the dataset group.
   ///
   /// [datasetGroupArn]: The ARN of the dataset group to delete.
-  Future<void> deleteDatasetGroup(String datasetGroupArn) async {}
+  Future<void> deleteDatasetGroup(String datasetGroupArn) async {
+    await _client.send('DeleteDatasetGroup', {
+      'datasetGroupArn': datasetGroupArn,
+    });
+  }
 
   /// Deletes the event tracker. Does not delete the event-interactions dataset
   /// from the associated dataset group. For more information on event trackers,
@@ -467,13 +525,21 @@ class PersonalizeApi {
   ///
   /// [eventTrackerArn]: The Amazon Resource Name (ARN) of the event tracker to
   /// delete.
-  Future<void> deleteEventTracker(String eventTrackerArn) async {}
+  Future<void> deleteEventTracker(String eventTrackerArn) async {
+    await _client.send('DeleteEventTracker', {
+      'eventTrackerArn': eventTrackerArn,
+    });
+  }
 
   /// Deletes a schema. Before deleting a schema, you must delete all datasets
   /// referencing the schema. For more information on schemas, see CreateSchema.
   ///
   /// [schemaArn]: The Amazon Resource Name (ARN) of the schema to delete.
-  Future<void> deleteSchema(String schemaArn) async {}
+  Future<void> deleteSchema(String schemaArn) async {
+    await _client.send('DeleteSchema', {
+      'schemaArn': schemaArn,
+    });
+  }
 
   /// Deletes all versions of a solution and the `Solution` object itself.
   /// Before deleting a solution, you must delete all campaigns based on the
@@ -484,7 +550,11 @@ class PersonalizeApi {
   /// see CreateSolution.
   ///
   /// [solutionArn]: The ARN of the solution to delete.
-  Future<void> deleteSolution(String solutionArn) async {}
+  Future<void> deleteSolution(String solutionArn) async {
+    await _client.send('DeleteSolution', {
+      'solutionArn': solutionArn,
+    });
+  }
 
   /// Describes the given algorithm.
   ///
@@ -492,7 +562,10 @@ class PersonalizeApi {
   /// describe.
   Future<DescribeAlgorithmResponse> describeAlgorithm(
       String algorithmArn) async {
-    return DescribeAlgorithmResponse.fromJson({});
+    var response_ = await _client.send('DescribeAlgorithm', {
+      'algorithmArn': algorithmArn,
+    });
+    return DescribeAlgorithmResponse.fromJson(response_);
   }
 
   /// Describes the given campaign, including its status.
@@ -511,7 +584,10 @@ class PersonalizeApi {
   ///
   /// [campaignArn]: The Amazon Resource Name (ARN) of the campaign.
   Future<DescribeCampaignResponse> describeCampaign(String campaignArn) async {
-    return DescribeCampaignResponse.fromJson({});
+    var response_ = await _client.send('DescribeCampaign', {
+      'campaignArn': campaignArn,
+    });
+    return DescribeCampaignResponse.fromJson(response_);
   }
 
   /// Describes the given dataset. For more information on datasets, see
@@ -519,7 +595,10 @@ class PersonalizeApi {
   ///
   /// [datasetArn]: The Amazon Resource Name (ARN) of the dataset to describe.
   Future<DescribeDatasetResponse> describeDataset(String datasetArn) async {
-    return DescribeDatasetResponse.fromJson({});
+    var response_ = await _client.send('DescribeDataset', {
+      'datasetArn': datasetArn,
+    });
+    return DescribeDatasetResponse.fromJson(response_);
   }
 
   /// Describes the given dataset group. For more information on dataset groups,
@@ -529,7 +608,10 @@ class PersonalizeApi {
   /// describe.
   Future<DescribeDatasetGroupResponse> describeDatasetGroup(
       String datasetGroupArn) async {
-    return DescribeDatasetGroupResponse.fromJson({});
+    var response_ = await _client.send('DescribeDatasetGroup', {
+      'datasetGroupArn': datasetGroupArn,
+    });
+    return DescribeDatasetGroupResponse.fromJson(response_);
   }
 
   /// Describes the dataset import job created by CreateDatasetImportJob,
@@ -539,7 +621,10 @@ class PersonalizeApi {
   /// import job to describe.
   Future<DescribeDatasetImportJobResponse> describeDatasetImportJob(
       String datasetImportJobArn) async {
-    return DescribeDatasetImportJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeDatasetImportJob', {
+      'datasetImportJobArn': datasetImportJobArn,
+    });
+    return DescribeDatasetImportJobResponse.fromJson(response_);
   }
 
   /// Describes an event tracker. The response includes the `trackingId` and
@@ -550,7 +635,10 @@ class PersonalizeApi {
   /// describe.
   Future<DescribeEventTrackerResponse> describeEventTracker(
       String eventTrackerArn) async {
-    return DescribeEventTrackerResponse.fromJson({});
+    var response_ = await _client.send('DescribeEventTracker', {
+      'eventTrackerArn': eventTrackerArn,
+    });
+    return DescribeEventTrackerResponse.fromJson(response_);
   }
 
   /// Describes the given feature transformation.
@@ -559,7 +647,10 @@ class PersonalizeApi {
   /// transformation to describe.
   Future<DescribeFeatureTransformationResponse> describeFeatureTransformation(
       String featureTransformationArn) async {
-    return DescribeFeatureTransformationResponse.fromJson({});
+    var response_ = await _client.send('DescribeFeatureTransformation', {
+      'featureTransformationArn': featureTransformationArn,
+    });
+    return DescribeFeatureTransformationResponse.fromJson(response_);
   }
 
   /// Describes a recipe.
@@ -584,14 +675,20 @@ class PersonalizeApi {
   ///
   /// [recipeArn]: The Amazon Resource Name (ARN) of the recipe to describe.
   Future<DescribeRecipeResponse> describeRecipe(String recipeArn) async {
-    return DescribeRecipeResponse.fromJson({});
+    var response_ = await _client.send('DescribeRecipe', {
+      'recipeArn': recipeArn,
+    });
+    return DescribeRecipeResponse.fromJson(response_);
   }
 
   /// Describes a schema. For more information on schemas, see CreateSchema.
   ///
   /// [schemaArn]: The Amazon Resource Name (ARN) of the schema to retrieve.
   Future<DescribeSchemaResponse> describeSchema(String schemaArn) async {
-    return DescribeSchemaResponse.fromJson({});
+    var response_ = await _client.send('DescribeSchema', {
+      'schemaArn': schemaArn,
+    });
+    return DescribeSchemaResponse.fromJson(response_);
   }
 
   /// Describes a solution. For more information on solutions, see
@@ -599,7 +696,10 @@ class PersonalizeApi {
   ///
   /// [solutionArn]: The Amazon Resource Name (ARN) of the solution to describe.
   Future<DescribeSolutionResponse> describeSolution(String solutionArn) async {
-    return DescribeSolutionResponse.fromJson({});
+    var response_ = await _client.send('DescribeSolution', {
+      'solutionArn': solutionArn,
+    });
+    return DescribeSolutionResponse.fromJson(response_);
   }
 
   /// Describes a specific version of a solution. For more information on
@@ -609,7 +709,10 @@ class PersonalizeApi {
   /// version.
   Future<DescribeSolutionVersionResponse> describeSolutionVersion(
       String solutionVersionArn) async {
-    return DescribeSolutionVersionResponse.fromJson({});
+    var response_ = await _client.send('DescribeSolutionVersion', {
+      'solutionVersionArn': solutionVersionArn,
+    });
+    return DescribeSolutionVersionResponse.fromJson(response_);
   }
 
   /// Gets the metrics for the specified solution version.
@@ -618,7 +721,10 @@ class PersonalizeApi {
   /// version for which to get metrics.
   Future<GetSolutionMetricsResponse> getSolutionMetrics(
       String solutionVersionArn) async {
-    return GetSolutionMetricsResponse.fromJson({});
+    var response_ = await _client.send('GetSolutionMetrics', {
+      'solutionVersionArn': solutionVersionArn,
+    });
+    return GetSolutionMetricsResponse.fromJson(response_);
   }
 
   /// Returns a list of campaigns that use the given solution. When a solution
@@ -637,7 +743,12 @@ class PersonalizeApi {
   /// [maxResults]: The maximum number of campaigns to return.
   Future<ListCampaignsResponse> listCampaigns(
       {String solutionArn, String nextToken, int maxResults}) async {
-    return ListCampaignsResponse.fromJson({});
+    var response_ = await _client.send('ListCampaigns', {
+      if (solutionArn != null) 'solutionArn': solutionArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListCampaignsResponse.fromJson(response_);
   }
 
   /// Returns a list of dataset groups. The response provides the properties for
@@ -651,7 +762,11 @@ class PersonalizeApi {
   /// [maxResults]: The maximum number of dataset groups to return.
   Future<ListDatasetGroupsResponse> listDatasetGroups(
       {String nextToken, int maxResults}) async {
-    return ListDatasetGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListDatasetGroups', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDatasetGroupsResponse.fromJson(response_);
   }
 
   /// Returns a list of dataset import jobs that use the given dataset. When a
@@ -671,7 +786,12 @@ class PersonalizeApi {
   /// [maxResults]: The maximum number of dataset import jobs to return.
   Future<ListDatasetImportJobsResponse> listDatasetImportJobs(
       {String datasetArn, String nextToken, int maxResults}) async {
-    return ListDatasetImportJobsResponse.fromJson({});
+    var response_ = await _client.send('ListDatasetImportJobs', {
+      if (datasetArn != null) 'datasetArn': datasetArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDatasetImportJobsResponse.fromJson(response_);
   }
 
   /// Returns the list of datasets contained in the given dataset group. The
@@ -688,7 +808,12 @@ class PersonalizeApi {
   /// [maxResults]: The maximum number of datasets to return.
   Future<ListDatasetsResponse> listDatasets(
       {String datasetGroupArn, String nextToken, int maxResults}) async {
-    return ListDatasetsResponse.fromJson({});
+    var response_ = await _client.send('ListDatasets', {
+      if (datasetGroupArn != null) 'datasetGroupArn': datasetGroupArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDatasetsResponse.fromJson(response_);
   }
 
   /// Returns the list of event trackers associated with the account. The
@@ -705,7 +830,12 @@ class PersonalizeApi {
   /// [maxResults]: The maximum number of event trackers to return.
   Future<ListEventTrackersResponse> listEventTrackers(
       {String datasetGroupArn, String nextToken, int maxResults}) async {
-    return ListEventTrackersResponse.fromJson({});
+    var response_ = await _client.send('ListEventTrackers', {
+      if (datasetGroupArn != null) 'datasetGroupArn': datasetGroupArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListEventTrackersResponse.fromJson(response_);
   }
 
   /// Returns a list of available recipes. The response provides the properties
@@ -719,7 +849,12 @@ class PersonalizeApi {
   /// [maxResults]: The maximum number of recipes to return.
   Future<ListRecipesResponse> listRecipes(
       {String recipeProvider, String nextToken, int maxResults}) async {
-    return ListRecipesResponse.fromJson({});
+    var response_ = await _client.send('ListRecipes', {
+      if (recipeProvider != null) 'recipeProvider': recipeProvider,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListRecipesResponse.fromJson(response_);
   }
 
   /// Returns the list of schemas associated with the account. The response
@@ -732,7 +867,11 @@ class PersonalizeApi {
   /// [maxResults]: The maximum number of schemas to return.
   Future<ListSchemasResponse> listSchemas(
       {String nextToken, int maxResults}) async {
-    return ListSchemasResponse.fromJson({});
+    var response_ = await _client.send('ListSchemas', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListSchemasResponse.fromJson(response_);
   }
 
   /// Returns a list of solution versions for the given solution. When a
@@ -750,7 +889,12 @@ class PersonalizeApi {
   /// [maxResults]: The maximum number of solution versions to return.
   Future<ListSolutionVersionsResponse> listSolutionVersions(
       {String solutionArn, String nextToken, int maxResults}) async {
-    return ListSolutionVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListSolutionVersions', {
+      if (solutionArn != null) 'solutionArn': solutionArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListSolutionVersionsResponse.fromJson(response_);
   }
 
   /// Returns a list of solutions that use the given dataset group. When a
@@ -767,7 +911,12 @@ class PersonalizeApi {
   /// [maxResults]: The maximum number of solutions to return.
   Future<ListSolutionsResponse> listSolutions(
       {String datasetGroupArn, String nextToken, int maxResults}) async {
-    return ListSolutionsResponse.fromJson({});
+    var response_ = await _client.send('ListSolutions', {
+      if (datasetGroupArn != null) 'datasetGroupArn': datasetGroupArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListSolutionsResponse.fromJson(response_);
   }
 
   /// Updates a campaign by either deploying a new solution or changing the
@@ -790,7 +939,12 @@ class PersonalizeApi {
   /// support.
   Future<UpdateCampaignResponse> updateCampaign(String campaignArn,
       {String solutionVersionArn, int minProvisionedTps}) async {
-    return UpdateCampaignResponse.fromJson({});
+    var response_ = await _client.send('UpdateCampaign', {
+      'campaignArn': campaignArn,
+      if (solutionVersionArn != null) 'solutionVersionArn': solutionVersionArn,
+      if (minProvisionedTps != null) 'minProvisionedTPS': minProvisionedTps,
+    });
+    return UpdateCampaignResponse.fromJson(response_);
   }
 }
 
@@ -841,7 +995,38 @@ class Algorithm {
     this.creationDateTime,
     this.lastUpdatedDateTime,
   });
-  static Algorithm fromJson(Map<String, dynamic> json) => Algorithm();
+  static Algorithm fromJson(Map<String, dynamic> json) => Algorithm(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        algorithmArn: json.containsKey('algorithmArn')
+            ? json['algorithmArn'] as String
+            : null,
+        algorithmImage: json.containsKey('algorithmImage')
+            ? AlgorithmImage.fromJson(json['algorithmImage'])
+            : null,
+        defaultHyperParameters: json.containsKey('defaultHyperParameters')
+            ? (json['defaultHyperParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        defaultHyperParameterRanges:
+            json.containsKey('defaultHyperParameterRanges')
+                ? DefaultHyperParameterRanges.fromJson(
+                    json['defaultHyperParameterRanges'])
+                : null,
+        defaultResourceConfig: json.containsKey('defaultResourceConfig')
+            ? (json['defaultResourceConfig'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        trainingInputMode: json.containsKey('trainingInputMode')
+            ? json['trainingInputMode'] as String
+            : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Describes an algorithm image.
@@ -856,7 +1041,10 @@ class AlgorithmImage {
     this.name,
     @required this.dockerUri,
   });
-  static AlgorithmImage fromJson(Map<String, dynamic> json) => AlgorithmImage();
+  static AlgorithmImage fromJson(Map<String, dynamic> json) => AlgorithmImage(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        dockerUri: json['dockerURI'] as String,
+      );
 }
 
 /// When the solution performs AutoML (`performAutoML` is true in
@@ -874,7 +1062,15 @@ class AutoMLConfig {
     this.metricName,
     this.recipeList,
   });
-  static AutoMLConfig fromJson(Map<String, dynamic> json) => AutoMLConfig();
+  static AutoMLConfig fromJson(Map<String, dynamic> json) => AutoMLConfig(
+        metricName: json.containsKey('metricName')
+            ? json['metricName'] as String
+            : null,
+        recipeList: json.containsKey('recipeList')
+            ? (json['recipeList'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When the solution performs AutoML (`performAutoML` is true in
@@ -887,7 +1083,11 @@ class AutoMLResult {
   AutoMLResult({
     this.bestRecipeArn,
   });
-  static AutoMLResult fromJson(Map<String, dynamic> json) => AutoMLResult();
+  static AutoMLResult fromJson(Map<String, dynamic> json) => AutoMLResult(
+        bestRecipeArn: json.containsKey('bestRecipeArn')
+            ? json['bestRecipeArn'] as String
+            : null,
+      );
 }
 
 /// Describes a deployed solution version, otherwise known as a campaign. For
@@ -937,7 +1137,31 @@ class Campaign {
     this.lastUpdatedDateTime,
     this.latestCampaignUpdate,
   });
-  static Campaign fromJson(Map<String, dynamic> json) => Campaign();
+  static Campaign fromJson(Map<String, dynamic> json) => Campaign(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        campaignArn: json.containsKey('campaignArn')
+            ? json['campaignArn'] as String
+            : null,
+        solutionVersionArn: json.containsKey('solutionVersionArn')
+            ? json['solutionVersionArn'] as String
+            : null,
+        minProvisionedTps: json.containsKey('minProvisionedTPS')
+            ? json['minProvisionedTPS'] as int
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+        latestCampaignUpdate: json.containsKey('latestCampaignUpdate')
+            ? CampaignUpdateSummary.fromJson(json['latestCampaignUpdate'])
+            : null,
+      );
 }
 
 /// Provides a summary of the properties of a campaign. For a complete listing,
@@ -975,8 +1199,22 @@ class CampaignSummary {
     this.lastUpdatedDateTime,
     this.failureReason,
   });
-  static CampaignSummary fromJson(Map<String, dynamic> json) =>
-      CampaignSummary();
+  static CampaignSummary fromJson(Map<String, dynamic> json) => CampaignSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        campaignArn: json.containsKey('campaignArn')
+            ? json['campaignArn'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 /// Provides a summary of the properties of a campaign update. For a complete
@@ -1017,7 +1255,24 @@ class CampaignUpdateSummary {
     this.lastUpdatedDateTime,
   });
   static CampaignUpdateSummary fromJson(Map<String, dynamic> json) =>
-      CampaignUpdateSummary();
+      CampaignUpdateSummary(
+        solutionVersionArn: json.containsKey('solutionVersionArn')
+            ? json['solutionVersionArn'] as String
+            : null,
+        minProvisionedTps: json.containsKey('minProvisionedTPS')
+            ? json['minProvisionedTPS'] as int
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Provides the name and range of a categorical hyperparameter.
@@ -1033,7 +1288,13 @@ class CategoricalHyperParameterRange {
     this.values,
   });
   static CategoricalHyperParameterRange fromJson(Map<String, dynamic> json) =>
-      CategoricalHyperParameterRange();
+      CategoricalHyperParameterRange(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        values: json.containsKey('values')
+            ? (json['values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the name and range of a continuous hyperparameter.
@@ -1053,7 +1314,14 @@ class ContinuousHyperParameterRange {
     this.maxValue,
   });
   static ContinuousHyperParameterRange fromJson(Map<String, dynamic> json) =>
-      ContinuousHyperParameterRange();
+      ContinuousHyperParameterRange(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        minValue:
+            json.containsKey('minValue') ? json['minValue'] as double : null,
+        maxValue:
+            json.containsKey('maxValue') ? json['maxValue'] as double : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateCampaignResponse {
@@ -1064,7 +1332,11 @@ class CreateCampaignResponse {
     this.campaignArn,
   });
   static CreateCampaignResponse fromJson(Map<String, dynamic> json) =>
-      CreateCampaignResponse();
+      CreateCampaignResponse(
+        campaignArn: json.containsKey('campaignArn')
+            ? json['campaignArn'] as String
+            : null,
+      );
 }
 
 class CreateDatasetGroupResponse {
@@ -1075,7 +1347,11 @@ class CreateDatasetGroupResponse {
     this.datasetGroupArn,
   });
   static CreateDatasetGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateDatasetGroupResponse();
+      CreateDatasetGroupResponse(
+        datasetGroupArn: json.containsKey('datasetGroupArn')
+            ? json['datasetGroupArn'] as String
+            : null,
+      );
 }
 
 class CreateDatasetImportJobResponse {
@@ -1086,7 +1362,11 @@ class CreateDatasetImportJobResponse {
     this.datasetImportJobArn,
   });
   static CreateDatasetImportJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateDatasetImportJobResponse();
+      CreateDatasetImportJobResponse(
+        datasetImportJobArn: json.containsKey('datasetImportJobArn')
+            ? json['datasetImportJobArn'] as String
+            : null,
+      );
 }
 
 class CreateDatasetResponse {
@@ -1097,7 +1377,11 @@ class CreateDatasetResponse {
     this.datasetArn,
   });
   static CreateDatasetResponse fromJson(Map<String, dynamic> json) =>
-      CreateDatasetResponse();
+      CreateDatasetResponse(
+        datasetArn: json.containsKey('datasetArn')
+            ? json['datasetArn'] as String
+            : null,
+      );
 }
 
 class CreateEventTrackerResponse {
@@ -1114,7 +1398,14 @@ class CreateEventTrackerResponse {
     this.trackingId,
   });
   static CreateEventTrackerResponse fromJson(Map<String, dynamic> json) =>
-      CreateEventTrackerResponse();
+      CreateEventTrackerResponse(
+        eventTrackerArn: json.containsKey('eventTrackerArn')
+            ? json['eventTrackerArn'] as String
+            : null,
+        trackingId: json.containsKey('trackingId')
+            ? json['trackingId'] as String
+            : null,
+      );
 }
 
 class CreateSchemaResponse {
@@ -1125,7 +1416,10 @@ class CreateSchemaResponse {
     this.schemaArn,
   });
   static CreateSchemaResponse fromJson(Map<String, dynamic> json) =>
-      CreateSchemaResponse();
+      CreateSchemaResponse(
+        schemaArn:
+            json.containsKey('schemaArn') ? json['schemaArn'] as String : null,
+      );
 }
 
 class CreateSolutionResponse {
@@ -1136,7 +1430,11 @@ class CreateSolutionResponse {
     this.solutionArn,
   });
   static CreateSolutionResponse fromJson(Map<String, dynamic> json) =>
-      CreateSolutionResponse();
+      CreateSolutionResponse(
+        solutionArn: json.containsKey('solutionArn')
+            ? json['solutionArn'] as String
+            : null,
+      );
 }
 
 class CreateSolutionVersionResponse {
@@ -1147,7 +1445,11 @@ class CreateSolutionVersionResponse {
     this.solutionVersionArn,
   });
   static CreateSolutionVersionResponse fromJson(Map<String, dynamic> json) =>
-      CreateSolutionVersionResponse();
+      CreateSolutionVersionResponse(
+        solutionVersionArn: json.containsKey('solutionVersionArn')
+            ? json['solutionVersionArn'] as String
+            : null,
+      );
 }
 
 /// Describes the data source that contains the data to upload to a dataset.
@@ -1161,7 +1463,12 @@ class DataSource {
   DataSource({
     this.dataLocation,
   });
-  static DataSource fromJson(Map<String, dynamic> json) => DataSource();
+  static DataSource fromJson(Map<String, dynamic> json) => DataSource(
+        dataLocation: json.containsKey('dataLocation')
+            ? json['dataLocation'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides metadata for a dataset.
@@ -1212,7 +1519,27 @@ class Dataset {
     this.creationDateTime,
     this.lastUpdatedDateTime,
   });
-  static Dataset fromJson(Map<String, dynamic> json) => Dataset();
+  static Dataset fromJson(Map<String, dynamic> json) => Dataset(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        datasetArn: json.containsKey('datasetArn')
+            ? json['datasetArn'] as String
+            : null,
+        datasetGroupArn: json.containsKey('datasetGroupArn')
+            ? json['datasetGroupArn'] as String
+            : null,
+        datasetType: json.containsKey('datasetType')
+            ? json['datasetType'] as String
+            : null,
+        schemaArn:
+            json.containsKey('schemaArn') ? json['schemaArn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// A dataset group is a collection of related datasets (Interactions, User, and
@@ -1266,7 +1593,25 @@ class DatasetGroup {
     this.lastUpdatedDateTime,
     this.failureReason,
   });
-  static DatasetGroup fromJson(Map<String, dynamic> json) => DatasetGroup();
+  static DatasetGroup fromJson(Map<String, dynamic> json) => DatasetGroup(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        datasetGroupArn: json.containsKey('datasetGroupArn')
+            ? json['datasetGroupArn'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        kmsKeyArn:
+            json.containsKey('kmsKeyArn') ? json['kmsKeyArn'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 /// Provides a summary of the properties of a dataset group. For a complete
@@ -1305,7 +1650,22 @@ class DatasetGroupSummary {
     this.failureReason,
   });
   static DatasetGroupSummary fromJson(Map<String, dynamic> json) =>
-      DatasetGroupSummary();
+      DatasetGroupSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        datasetGroupArn: json.containsKey('datasetGroupArn')
+            ? json['datasetGroupArn'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 /// Describes a job that imports training data from a data source (Amazon S3
@@ -1361,7 +1721,29 @@ class DatasetImportJob {
     this.failureReason,
   });
   static DatasetImportJob fromJson(Map<String, dynamic> json) =>
-      DatasetImportJob();
+      DatasetImportJob(
+        jobName: json.containsKey('jobName') ? json['jobName'] as String : null,
+        datasetImportJobArn: json.containsKey('datasetImportJobArn')
+            ? json['datasetImportJobArn'] as String
+            : null,
+        datasetArn: json.containsKey('datasetArn')
+            ? json['datasetArn'] as String
+            : null,
+        dataSource: json.containsKey('dataSource')
+            ? DataSource.fromJson(json['dataSource'])
+            : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 /// Provides a summary of the properties of a dataset import job. For a complete
@@ -1398,7 +1780,22 @@ class DatasetImportJobSummary {
     this.failureReason,
   });
   static DatasetImportJobSummary fromJson(Map<String, dynamic> json) =>
-      DatasetImportJobSummary();
+      DatasetImportJobSummary(
+        datasetImportJobArn: json.containsKey('datasetImportJobArn')
+            ? json['datasetImportJobArn'] as String
+            : null,
+        jobName: json.containsKey('jobName') ? json['jobName'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 /// Describes the schema for a dataset. For more information on schemas, see
@@ -1426,7 +1823,18 @@ class DatasetSchema {
     this.creationDateTime,
     this.lastUpdatedDateTime,
   });
-  static DatasetSchema fromJson(Map<String, dynamic> json) => DatasetSchema();
+  static DatasetSchema fromJson(Map<String, dynamic> json) => DatasetSchema(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        schemaArn:
+            json.containsKey('schemaArn') ? json['schemaArn'] as String : null,
+        schema: json.containsKey('schema') ? json['schema'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Provides a summary of the properties of a dataset schema. For a complete
@@ -1451,7 +1859,17 @@ class DatasetSchemaSummary {
     this.lastUpdatedDateTime,
   });
   static DatasetSchemaSummary fromJson(Map<String, dynamic> json) =>
-      DatasetSchemaSummary();
+      DatasetSchemaSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        schemaArn:
+            json.containsKey('schemaArn') ? json['schemaArn'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Provides a summary of the properties of a dataset. For a complete listing,
@@ -1497,7 +1915,22 @@ class DatasetSummary {
     this.creationDateTime,
     this.lastUpdatedDateTime,
   });
-  static DatasetSummary fromJson(Map<String, dynamic> json) => DatasetSummary();
+  static DatasetSummary fromJson(Map<String, dynamic> json) => DatasetSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        datasetArn: json.containsKey('datasetArn')
+            ? json['datasetArn'] as String
+            : null,
+        datasetType: json.containsKey('datasetType')
+            ? json['datasetType'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Provides the name and default range of a categorical hyperparameter and
@@ -1520,7 +1953,14 @@ class DefaultCategoricalHyperParameterRange {
   });
   static DefaultCategoricalHyperParameterRange fromJson(
           Map<String, dynamic> json) =>
-      DefaultCategoricalHyperParameterRange();
+      DefaultCategoricalHyperParameterRange(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        values: json.containsKey('values')
+            ? (json['values'] as List).map((e) => e as String).toList()
+            : null,
+        isTunable:
+            json.containsKey('isTunable') ? json['isTunable'] as bool : null,
+      );
 }
 
 /// Provides the name and default range of a continuous hyperparameter and
@@ -1547,7 +1987,15 @@ class DefaultContinuousHyperParameterRange {
   });
   static DefaultContinuousHyperParameterRange fromJson(
           Map<String, dynamic> json) =>
-      DefaultContinuousHyperParameterRange();
+      DefaultContinuousHyperParameterRange(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        minValue:
+            json.containsKey('minValue') ? json['minValue'] as double : null,
+        maxValue:
+            json.containsKey('maxValue') ? json['maxValue'] as double : null,
+        isTunable:
+            json.containsKey('isTunable') ? json['isTunable'] as bool : null,
+      );
 }
 
 /// Specifies the hyperparameters and their default ranges. Hyperparameters can
@@ -1570,7 +2018,26 @@ class DefaultHyperParameterRanges {
     this.categoricalHyperParameterRanges,
   });
   static DefaultHyperParameterRanges fromJson(Map<String, dynamic> json) =>
-      DefaultHyperParameterRanges();
+      DefaultHyperParameterRanges(
+        integerHyperParameterRanges:
+            json.containsKey('integerHyperParameterRanges')
+                ? (json['integerHyperParameterRanges'] as List)
+                    .map((e) => DefaultIntegerHyperParameterRange.fromJson(e))
+                    .toList()
+                : null,
+        continuousHyperParameterRanges: json
+                .containsKey('continuousHyperParameterRanges')
+            ? (json['continuousHyperParameterRanges'] as List)
+                .map((e) => DefaultContinuousHyperParameterRange.fromJson(e))
+                .toList()
+            : null,
+        categoricalHyperParameterRanges: json
+                .containsKey('categoricalHyperParameterRanges')
+            ? (json['categoricalHyperParameterRanges'] as List)
+                .map((e) => DefaultCategoricalHyperParameterRange.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides the name and default range of a integer-valued hyperparameter and
@@ -1597,7 +2064,13 @@ class DefaultIntegerHyperParameterRange {
   });
   static DefaultIntegerHyperParameterRange fromJson(
           Map<String, dynamic> json) =>
-      DefaultIntegerHyperParameterRange();
+      DefaultIntegerHyperParameterRange(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        minValue: json.containsKey('minValue') ? json['minValue'] as int : null,
+        maxValue: json.containsKey('maxValue') ? json['maxValue'] as int : null,
+        isTunable:
+            json.containsKey('isTunable') ? json['isTunable'] as bool : null,
+      );
 }
 
 class DescribeAlgorithmResponse {
@@ -1608,7 +2081,11 @@ class DescribeAlgorithmResponse {
     this.algorithm,
   });
   static DescribeAlgorithmResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAlgorithmResponse();
+      DescribeAlgorithmResponse(
+        algorithm: json.containsKey('algorithm')
+            ? Algorithm.fromJson(json['algorithm'])
+            : null,
+      );
 }
 
 class DescribeCampaignResponse {
@@ -1619,7 +2096,11 @@ class DescribeCampaignResponse {
     this.campaign,
   });
   static DescribeCampaignResponse fromJson(Map<String, dynamic> json) =>
-      DescribeCampaignResponse();
+      DescribeCampaignResponse(
+        campaign: json.containsKey('campaign')
+            ? Campaign.fromJson(json['campaign'])
+            : null,
+      );
 }
 
 class DescribeDatasetGroupResponse {
@@ -1630,7 +2111,11 @@ class DescribeDatasetGroupResponse {
     this.datasetGroup,
   });
   static DescribeDatasetGroupResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDatasetGroupResponse();
+      DescribeDatasetGroupResponse(
+        datasetGroup: json.containsKey('datasetGroup')
+            ? DatasetGroup.fromJson(json['datasetGroup'])
+            : null,
+      );
 }
 
 class DescribeDatasetImportJobResponse {
@@ -1651,7 +2136,11 @@ class DescribeDatasetImportJobResponse {
     this.datasetImportJob,
   });
   static DescribeDatasetImportJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDatasetImportJobResponse();
+      DescribeDatasetImportJobResponse(
+        datasetImportJob: json.containsKey('datasetImportJob')
+            ? DatasetImportJob.fromJson(json['datasetImportJob'])
+            : null,
+      );
 }
 
 class DescribeDatasetResponse {
@@ -1662,7 +2151,11 @@ class DescribeDatasetResponse {
     this.dataset,
   });
   static DescribeDatasetResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDatasetResponse();
+      DescribeDatasetResponse(
+        dataset: json.containsKey('dataset')
+            ? Dataset.fromJson(json['dataset'])
+            : null,
+      );
 }
 
 class DescribeEventTrackerResponse {
@@ -1673,7 +2166,11 @@ class DescribeEventTrackerResponse {
     this.eventTracker,
   });
   static DescribeEventTrackerResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventTrackerResponse();
+      DescribeEventTrackerResponse(
+        eventTracker: json.containsKey('eventTracker')
+            ? EventTracker.fromJson(json['eventTracker'])
+            : null,
+      );
 }
 
 class DescribeFeatureTransformationResponse {
@@ -1685,7 +2182,11 @@ class DescribeFeatureTransformationResponse {
   });
   static DescribeFeatureTransformationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeFeatureTransformationResponse();
+      DescribeFeatureTransformationResponse(
+        featureTransformation: json.containsKey('featureTransformation')
+            ? FeatureTransformation.fromJson(json['featureTransformation'])
+            : null,
+      );
 }
 
 class DescribeRecipeResponse {
@@ -1696,7 +2197,10 @@ class DescribeRecipeResponse {
     this.recipe,
   });
   static DescribeRecipeResponse fromJson(Map<String, dynamic> json) =>
-      DescribeRecipeResponse();
+      DescribeRecipeResponse(
+        recipe:
+            json.containsKey('recipe') ? Recipe.fromJson(json['recipe']) : null,
+      );
 }
 
 class DescribeSchemaResponse {
@@ -1707,7 +2211,11 @@ class DescribeSchemaResponse {
     this.schema,
   });
   static DescribeSchemaResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSchemaResponse();
+      DescribeSchemaResponse(
+        schema: json.containsKey('schema')
+            ? DatasetSchema.fromJson(json['schema'])
+            : null,
+      );
 }
 
 class DescribeSolutionResponse {
@@ -1718,7 +2226,11 @@ class DescribeSolutionResponse {
     this.solution,
   });
   static DescribeSolutionResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSolutionResponse();
+      DescribeSolutionResponse(
+        solution: json.containsKey('solution')
+            ? Solution.fromJson(json['solution'])
+            : null,
+      );
 }
 
 class DescribeSolutionVersionResponse {
@@ -1729,7 +2241,11 @@ class DescribeSolutionVersionResponse {
     this.solutionVersion,
   });
   static DescribeSolutionVersionResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSolutionVersionResponse();
+      DescribeSolutionVersionResponse(
+        solutionVersion: json.containsKey('solutionVersion')
+            ? SolutionVersion.fromJson(json['solutionVersion'])
+            : null,
+      );
 }
 
 /// Provides information about an event tracker.
@@ -1777,7 +2293,27 @@ class EventTracker {
     this.creationDateTime,
     this.lastUpdatedDateTime,
   });
-  static EventTracker fromJson(Map<String, dynamic> json) => EventTracker();
+  static EventTracker fromJson(Map<String, dynamic> json) => EventTracker(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        eventTrackerArn: json.containsKey('eventTrackerArn')
+            ? json['eventTrackerArn'] as String
+            : null,
+        accountId:
+            json.containsKey('accountId') ? json['accountId'] as String : null,
+        trackingId: json.containsKey('trackingId')
+            ? json['trackingId'] as String
+            : null,
+        datasetGroupArn: json.containsKey('datasetGroupArn')
+            ? json['datasetGroupArn'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Provides a summary of the properties of an event tracker. For a complete
@@ -1812,7 +2348,19 @@ class EventTrackerSummary {
     this.lastUpdatedDateTime,
   });
   static EventTrackerSummary fromJson(Map<String, dynamic> json) =>
-      EventTrackerSummary();
+      EventTrackerSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        eventTrackerArn: json.containsKey('eventTrackerArn')
+            ? json['eventTrackerArn'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Provides feature transformation information. Feature transformation is the
@@ -1851,7 +2399,23 @@ class FeatureTransformation {
     this.status,
   });
   static FeatureTransformation fromJson(Map<String, dynamic> json) =>
-      FeatureTransformation();
+      FeatureTransformation(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        featureTransformationArn: json.containsKey('featureTransformationArn')
+            ? json['featureTransformationArn'] as String
+            : null,
+        defaultParameters: json.containsKey('defaultParameters')
+            ? (json['defaultParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 class GetSolutionMetricsResponse {
@@ -1866,7 +2430,15 @@ class GetSolutionMetricsResponse {
     this.metrics,
   });
   static GetSolutionMetricsResponse fromJson(Map<String, dynamic> json) =>
-      GetSolutionMetricsResponse();
+      GetSolutionMetricsResponse(
+        solutionVersionArn: json.containsKey('solutionVersionArn')
+            ? json['solutionVersionArn'] as String
+            : null,
+        metrics: json.containsKey('metrics')
+            ? (json['metrics'] as Map)
+                .map((k, v) => MapEntry(k as String, v as double))
+            : null,
+      );
 }
 
 /// Describes the properties for hyperparameter optimization (HPO). For use with
@@ -1887,7 +2459,20 @@ class HpoConfig {
     this.hpoResourceConfig,
     this.algorithmHyperParameterRanges,
   });
-  static HpoConfig fromJson(Map<String, dynamic> json) => HpoConfig();
+  static HpoConfig fromJson(Map<String, dynamic> json) => HpoConfig(
+        hpoObjective: json.containsKey('hpoObjective')
+            ? HpoObjective.fromJson(json['hpoObjective'])
+            : null,
+        hpoResourceConfig: json.containsKey('hpoResourceConfig')
+            ? HpoResourceConfig.fromJson(json['hpoResourceConfig'])
+            : null,
+        algorithmHyperParameterRanges:
+            json.containsKey('algorithmHyperParameterRanges')
+                ? HyperParameterRanges.fromJson(
+                    json['algorithmHyperParameterRanges'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The metric to optimize during hyperparameter optimization (HPO).
@@ -1906,7 +2491,16 @@ class HpoObjective {
     this.metricName,
     this.metricRegex,
   });
-  static HpoObjective fromJson(Map<String, dynamic> json) => HpoObjective();
+  static HpoObjective fromJson(Map<String, dynamic> json) => HpoObjective(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        metricName: json.containsKey('metricName')
+            ? json['metricName'] as String
+            : null,
+        metricRegex: json.containsKey('metricRegex')
+            ? json['metricRegex'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the resource configuration for hyperparameter optimization (HPO).
@@ -1922,7 +2516,15 @@ class HpoResourceConfig {
     this.maxParallelTrainingJobs,
   });
   static HpoResourceConfig fromJson(Map<String, dynamic> json) =>
-      HpoResourceConfig();
+      HpoResourceConfig(
+        maxNumberOfTrainingJobs: json.containsKey('maxNumberOfTrainingJobs')
+            ? json['maxNumberOfTrainingJobs'] as String
+            : null,
+        maxParallelTrainingJobs: json.containsKey('maxParallelTrainingJobs')
+            ? json['maxParallelTrainingJobs'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the hyperparameters and their ranges. Hyperparameters can be
@@ -1943,7 +2545,27 @@ class HyperParameterRanges {
     this.categoricalHyperParameterRanges,
   });
   static HyperParameterRanges fromJson(Map<String, dynamic> json) =>
-      HyperParameterRanges();
+      HyperParameterRanges(
+        integerHyperParameterRanges:
+            json.containsKey('integerHyperParameterRanges')
+                ? (json['integerHyperParameterRanges'] as List)
+                    .map((e) => IntegerHyperParameterRange.fromJson(e))
+                    .toList()
+                : null,
+        continuousHyperParameterRanges:
+            json.containsKey('continuousHyperParameterRanges')
+                ? (json['continuousHyperParameterRanges'] as List)
+                    .map((e) => ContinuousHyperParameterRange.fromJson(e))
+                    .toList()
+                : null,
+        categoricalHyperParameterRanges:
+            json.containsKey('categoricalHyperParameterRanges')
+                ? (json['categoricalHyperParameterRanges'] as List)
+                    .map((e) => CategoricalHyperParameterRange.fromJson(e))
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the name and range of an integer-valued hyperparameter.
@@ -1963,7 +2585,12 @@ class IntegerHyperParameterRange {
     this.maxValue,
   });
   static IntegerHyperParameterRange fromJson(Map<String, dynamic> json) =>
-      IntegerHyperParameterRange();
+      IntegerHyperParameterRange(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        minValue: json.containsKey('minValue') ? json['minValue'] as int : null,
+        maxValue: json.containsKey('maxValue') ? json['maxValue'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListCampaignsResponse {
@@ -1978,7 +2605,15 @@ class ListCampaignsResponse {
     this.nextToken,
   });
   static ListCampaignsResponse fromJson(Map<String, dynamic> json) =>
-      ListCampaignsResponse();
+      ListCampaignsResponse(
+        campaigns: json.containsKey('campaigns')
+            ? (json['campaigns'] as List)
+                .map((e) => CampaignSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDatasetGroupsResponse {
@@ -1993,7 +2628,15 @@ class ListDatasetGroupsResponse {
     this.nextToken,
   });
   static ListDatasetGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListDatasetGroupsResponse();
+      ListDatasetGroupsResponse(
+        datasetGroups: json.containsKey('datasetGroups')
+            ? (json['datasetGroups'] as List)
+                .map((e) => DatasetGroupSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDatasetImportJobsResponse {
@@ -2008,7 +2651,15 @@ class ListDatasetImportJobsResponse {
     this.nextToken,
   });
   static ListDatasetImportJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListDatasetImportJobsResponse();
+      ListDatasetImportJobsResponse(
+        datasetImportJobs: json.containsKey('datasetImportJobs')
+            ? (json['datasetImportJobs'] as List)
+                .map((e) => DatasetImportJobSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDatasetsResponse {
@@ -2023,7 +2674,15 @@ class ListDatasetsResponse {
     this.nextToken,
   });
   static ListDatasetsResponse fromJson(Map<String, dynamic> json) =>
-      ListDatasetsResponse();
+      ListDatasetsResponse(
+        datasets: json.containsKey('datasets')
+            ? (json['datasets'] as List)
+                .map((e) => DatasetSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListEventTrackersResponse {
@@ -2038,7 +2697,15 @@ class ListEventTrackersResponse {
     this.nextToken,
   });
   static ListEventTrackersResponse fromJson(Map<String, dynamic> json) =>
-      ListEventTrackersResponse();
+      ListEventTrackersResponse(
+        eventTrackers: json.containsKey('eventTrackers')
+            ? (json['eventTrackers'] as List)
+                .map((e) => EventTrackerSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListRecipesResponse {
@@ -2053,7 +2720,15 @@ class ListRecipesResponse {
     this.nextToken,
   });
   static ListRecipesResponse fromJson(Map<String, dynamic> json) =>
-      ListRecipesResponse();
+      ListRecipesResponse(
+        recipes: json.containsKey('recipes')
+            ? (json['recipes'] as List)
+                .map((e) => RecipeSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListSchemasResponse {
@@ -2068,7 +2743,15 @@ class ListSchemasResponse {
     this.nextToken,
   });
   static ListSchemasResponse fromJson(Map<String, dynamic> json) =>
-      ListSchemasResponse();
+      ListSchemasResponse(
+        schemas: json.containsKey('schemas')
+            ? (json['schemas'] as List)
+                .map((e) => DatasetSchemaSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListSolutionVersionsResponse {
@@ -2083,7 +2766,15 @@ class ListSolutionVersionsResponse {
     this.nextToken,
   });
   static ListSolutionVersionsResponse fromJson(Map<String, dynamic> json) =>
-      ListSolutionVersionsResponse();
+      ListSolutionVersionsResponse(
+        solutionVersions: json.containsKey('solutionVersions')
+            ? (json['solutionVersions'] as List)
+                .map((e) => SolutionVersionSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListSolutionsResponse {
@@ -2098,7 +2789,15 @@ class ListSolutionsResponse {
     this.nextToken,
   });
   static ListSolutionsResponse fromJson(Map<String, dynamic> json) =>
-      ListSolutionsResponse();
+      ListSolutionsResponse(
+        solutions: json.containsKey('solutions')
+            ? (json['solutions'] as List)
+                .map((e) => SolutionSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Provides information about a recipe. Each recipe provides an algorithm that
@@ -2150,7 +2849,30 @@ class Recipe {
     this.recipeType,
     this.lastUpdatedDateTime,
   });
-  static Recipe fromJson(Map<String, dynamic> json) => Recipe();
+  static Recipe fromJson(Map<String, dynamic> json) => Recipe(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        recipeArn:
+            json.containsKey('recipeArn') ? json['recipeArn'] as String : null,
+        algorithmArn: json.containsKey('algorithmArn')
+            ? json['algorithmArn'] as String
+            : null,
+        featureTransformationArn: json.containsKey('featureTransformationArn')
+            ? json['featureTransformationArn'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        recipeType: json.containsKey('recipeType')
+            ? json['recipeType'] as String
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Provides a summary of the properties of a recipe. For a complete listing,
@@ -2178,7 +2900,18 @@ class RecipeSummary {
     this.creationDateTime,
     this.lastUpdatedDateTime,
   });
-  static RecipeSummary fromJson(Map<String, dynamic> json) => RecipeSummary();
+  static RecipeSummary fromJson(Map<String, dynamic> json) => RecipeSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        recipeArn:
+            json.containsKey('recipeArn') ? json['recipeArn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// An object that provides information about a solution. A solution is a
@@ -2251,7 +2984,40 @@ class Solution {
     this.lastUpdatedDateTime,
     this.latestSolutionVersion,
   });
-  static Solution fromJson(Map<String, dynamic> json) => Solution();
+  static Solution fromJson(Map<String, dynamic> json) => Solution(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        solutionArn: json.containsKey('solutionArn')
+            ? json['solutionArn'] as String
+            : null,
+        performHpo:
+            json.containsKey('performHPO') ? json['performHPO'] as bool : null,
+        performAutoML: json.containsKey('performAutoML')
+            ? json['performAutoML'] as bool
+            : null,
+        recipeArn:
+            json.containsKey('recipeArn') ? json['recipeArn'] as String : null,
+        datasetGroupArn: json.containsKey('datasetGroupArn')
+            ? json['datasetGroupArn'] as String
+            : null,
+        eventType:
+            json.containsKey('eventType') ? json['eventType'] as String : null,
+        solutionConfig: json.containsKey('solutionConfig')
+            ? SolutionConfig.fromJson(json['solutionConfig'])
+            : null,
+        autoMLResult: json.containsKey('autoMLResult')
+            ? AutoMLResult.fromJson(json['autoMLResult'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+        latestSolutionVersion: json.containsKey('latestSolutionVersion')
+            ? SolutionVersionSummary.fromJson(json['latestSolutionVersion'])
+            : null,
+      );
 }
 
 /// Describes the configuration properties for the solution.
@@ -2282,7 +3048,27 @@ class SolutionConfig {
     this.featureTransformationParameters,
     this.autoMLConfig,
   });
-  static SolutionConfig fromJson(Map<String, dynamic> json) => SolutionConfig();
+  static SolutionConfig fromJson(Map<String, dynamic> json) => SolutionConfig(
+        eventValueThreshold: json.containsKey('eventValueThreshold')
+            ? json['eventValueThreshold'] as String
+            : null,
+        hpoConfig: json.containsKey('hpoConfig')
+            ? HpoConfig.fromJson(json['hpoConfig'])
+            : null,
+        algorithmHyperParameters: json.containsKey('algorithmHyperParameters')
+            ? (json['algorithmHyperParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        featureTransformationParameters:
+            json.containsKey('featureTransformationParameters')
+                ? (json['featureTransformationParameters'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as String))
+                : null,
+        autoMLConfig: json.containsKey('autoMLConfig')
+            ? AutoMLConfig.fromJson(json['autoMLConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a summary of the properties of a solution. For a complete listing,
@@ -2316,8 +3102,19 @@ class SolutionSummary {
     this.creationDateTime,
     this.lastUpdatedDateTime,
   });
-  static SolutionSummary fromJson(Map<String, dynamic> json) =>
-      SolutionSummary();
+  static SolutionSummary fromJson(Map<String, dynamic> json) => SolutionSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        solutionArn: json.containsKey('solutionArn')
+            ? json['solutionArn'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// An object that provides information about a specific version of a Solution.
@@ -2382,8 +3179,39 @@ class SolutionVersion {
     this.creationDateTime,
     this.lastUpdatedDateTime,
   });
-  static SolutionVersion fromJson(Map<String, dynamic> json) =>
-      SolutionVersion();
+  static SolutionVersion fromJson(Map<String, dynamic> json) => SolutionVersion(
+        solutionVersionArn: json.containsKey('solutionVersionArn')
+            ? json['solutionVersionArn'] as String
+            : null,
+        solutionArn: json.containsKey('solutionArn')
+            ? json['solutionArn'] as String
+            : null,
+        performHpo:
+            json.containsKey('performHPO') ? json['performHPO'] as bool : null,
+        performAutoML: json.containsKey('performAutoML')
+            ? json['performAutoML'] as bool
+            : null,
+        recipeArn:
+            json.containsKey('recipeArn') ? json['recipeArn'] as String : null,
+        eventType:
+            json.containsKey('eventType') ? json['eventType'] as String : null,
+        datasetGroupArn: json.containsKey('datasetGroupArn')
+            ? json['datasetGroupArn'] as String
+            : null,
+        solutionConfig: json.containsKey('solutionConfig')
+            ? SolutionConfig.fromJson(json['solutionConfig'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+      );
 }
 
 /// Provides a summary of the properties of a solution version. For a complete
@@ -2418,7 +3246,21 @@ class SolutionVersionSummary {
     this.failureReason,
   });
   static SolutionVersionSummary fromJson(Map<String, dynamic> json) =>
-      SolutionVersionSummary();
+      SolutionVersionSummary(
+        solutionVersionArn: json.containsKey('solutionVersionArn')
+            ? json['solutionVersionArn'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        creationDateTime: json.containsKey('creationDateTime')
+            ? DateTime.parse(json['creationDateTime'])
+            : null,
+        lastUpdatedDateTime: json.containsKey('lastUpdatedDateTime')
+            ? DateTime.parse(json['lastUpdatedDateTime'])
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 class UpdateCampaignResponse {
@@ -2429,5 +3271,9 @@ class UpdateCampaignResponse {
     this.campaignArn,
   });
   static UpdateCampaignResponse fromJson(Map<String, dynamic> json) =>
-      UpdateCampaignResponse();
+      UpdateCampaignResponse(
+        campaignArn: json.containsKey('campaignArn')
+            ? json['campaignArn'] as String
+            : null,
+      );
 }

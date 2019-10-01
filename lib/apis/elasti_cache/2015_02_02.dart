@@ -15,6 +15,10 @@ import 'package:meta/meta.dart';
 /// enhanced visibility into the key performance statistics associated with
 /// their cache and can receive alarms if a part of their cache runs hot.
 class ElastiCacheApi {
+  final _client;
+  ElastiCacheApi(client)
+      : _client = client.configured('ElastiCache', serializer: 'query');
+
   /// Adds up to 50 cost allocation tags to the named resource. A cost
   /// allocation tag is a key-value pair where the key and value are
   /// case-sensitive. You can use cost allocation tags to categorize and track
@@ -41,7 +45,11 @@ class ElastiCacheApi {
   /// is a key-value pair. A tag key must be accompanied by a tag value.
   Future<TagListMessage> addTagsToResource(
       {@required String resourceName, @required List<Tag> tags}) async {
-    return TagListMessage.fromJson({});
+    var response_ = await _client.send('AddTagsToResource', {
+      'ResourceName': resourceName,
+      'Tags': tags,
+    });
+    return TagListMessage.fromJson(response_);
   }
 
   /// Allows network ingress to a cache security group. Applications using
@@ -68,7 +76,12 @@ class ElastiCacheApi {
           {@required String cacheSecurityGroupName,
           @required String ec2SecurityGroupName,
           @required String ec2SecurityGroupOwnerId}) async {
-    return AuthorizeCacheSecurityGroupIngressResult.fromJson({});
+    var response_ = await _client.send('AuthorizeCacheSecurityGroupIngress', {
+      'CacheSecurityGroupName': cacheSecurityGroupName,
+      'EC2SecurityGroupName': ec2SecurityGroupName,
+      'EC2SecurityGroupOwnerId': ec2SecurityGroupOwnerId,
+    });
+    return AuthorizeCacheSecurityGroupIngressResult.fromJson(response_);
   }
 
   /// Apply the service update. For more information on service updates and
@@ -81,7 +94,11 @@ class ElastiCacheApi {
   Future<UpdateActionResultsMessage> batchApplyUpdateAction(
       {@required List<String> replicationGroupIds,
       @required String serviceUpdateName}) async {
-    return UpdateActionResultsMessage.fromJson({});
+    var response_ = await _client.send('BatchApplyUpdateAction', {
+      'ReplicationGroupIds': replicationGroupIds,
+      'ServiceUpdateName': serviceUpdateName,
+    });
+    return UpdateActionResultsMessage.fromJson(response_);
   }
 
   /// Stop the service update. For more information on service updates and
@@ -94,7 +111,11 @@ class ElastiCacheApi {
   Future<UpdateActionResultsMessage> batchStopUpdateAction(
       {@required List<String> replicationGroupIds,
       @required String serviceUpdateName}) async {
-    return UpdateActionResultsMessage.fromJson({});
+    var response_ = await _client.send('BatchStopUpdateAction', {
+      'ReplicationGroupIds': replicationGroupIds,
+      'ServiceUpdateName': serviceUpdateName,
+    });
+    return UpdateActionResultsMessage.fromJson(response_);
   }
 
   /// Makes a copy of an existing snapshot.
@@ -198,7 +219,13 @@ class ElastiCacheApi {
       @required String targetSnapshotName,
       String targetBucket,
       String kmsKeyId}) async {
-    return CopySnapshotResult.fromJson({});
+    var response_ = await _client.send('CopySnapshot', {
+      'SourceSnapshotName': sourceSnapshotName,
+      'TargetSnapshotName': targetSnapshotName,
+      if (targetBucket != null) 'TargetBucket': targetBucket,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+    });
+    return CopySnapshotResult.fromJson(response_);
   }
 
   /// Creates a cluster. All nodes in the cluster run the same
@@ -516,7 +543,41 @@ class ElastiCacheApi {
       int snapshotRetentionLimit,
       String snapshotWindow,
       String authToken}) async {
-    return CreateCacheClusterResult.fromJson({});
+    var response_ = await _client.send('CreateCacheCluster', {
+      'CacheClusterId': cacheClusterId,
+      if (replicationGroupId != null) 'ReplicationGroupId': replicationGroupId,
+      if (azMode != null) 'AZMode': azMode,
+      if (preferredAvailabilityZone != null)
+        'PreferredAvailabilityZone': preferredAvailabilityZone,
+      if (preferredAvailabilityZones != null)
+        'PreferredAvailabilityZones': preferredAvailabilityZones,
+      if (numCacheNodes != null) 'NumCacheNodes': numCacheNodes,
+      if (cacheNodeType != null) 'CacheNodeType': cacheNodeType,
+      if (engine != null) 'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (cacheParameterGroupName != null)
+        'CacheParameterGroupName': cacheParameterGroupName,
+      if (cacheSubnetGroupName != null)
+        'CacheSubnetGroupName': cacheSubnetGroupName,
+      if (cacheSecurityGroupNames != null)
+        'CacheSecurityGroupNames': cacheSecurityGroupNames,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (tags != null) 'Tags': tags,
+      if (snapshotArns != null) 'SnapshotArns': snapshotArns,
+      if (snapshotName != null) 'SnapshotName': snapshotName,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (port != null) 'Port': port,
+      if (notificationTopicArn != null)
+        'NotificationTopicArn': notificationTopicArn,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (snapshotRetentionLimit != null)
+        'SnapshotRetentionLimit': snapshotRetentionLimit,
+      if (snapshotWindow != null) 'SnapshotWindow': snapshotWindow,
+      if (authToken != null) 'AuthToken': authToken,
+    });
+    return CreateCacheClusterResult.fromJson(response_);
   }
 
   /// Creates a new Amazon ElastiCache cache parameter group. An ElastiCache
@@ -551,7 +612,12 @@ class ElastiCacheApi {
       {@required String cacheParameterGroupName,
       @required String cacheParameterGroupFamily,
       @required String description}) async {
-    return CreateCacheParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CreateCacheParameterGroup', {
+      'CacheParameterGroupName': cacheParameterGroupName,
+      'CacheParameterGroupFamily': cacheParameterGroupFamily,
+      'Description': description,
+    });
+    return CreateCacheParameterGroupResult.fromJson(response_);
   }
 
   /// Creates a new cache security group. Use a cache security group to control
@@ -575,7 +641,11 @@ class ElastiCacheApi {
   Future<CreateCacheSecurityGroupResult> createCacheSecurityGroup(
       {@required String cacheSecurityGroupName,
       @required String description}) async {
-    return CreateCacheSecurityGroupResult.fromJson({});
+    var response_ = await _client.send('CreateCacheSecurityGroup', {
+      'CacheSecurityGroupName': cacheSecurityGroupName,
+      'Description': description,
+    });
+    return CreateCacheSecurityGroupResult.fromJson(response_);
   }
 
   /// Creates a new cache subnet group.
@@ -598,7 +668,12 @@ class ElastiCacheApi {
       {@required String cacheSubnetGroupName,
       @required String cacheSubnetGroupDescription,
       @required List<String> subnetIds}) async {
-    return CreateCacheSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('CreateCacheSubnetGroup', {
+      'CacheSubnetGroupName': cacheSubnetGroupName,
+      'CacheSubnetGroupDescription': cacheSubnetGroupDescription,
+      'SubnetIds': subnetIds,
+    });
+    return CreateCacheSubnetGroupResult.fromJson(response_);
   }
 
   /// Creates a Redis (cluster mode disabled) or a Redis (cluster mode enabled)
@@ -1017,7 +1092,51 @@ class ElastiCacheApi {
       bool transitEncryptionEnabled,
       bool atRestEncryptionEnabled,
       String kmsKeyId}) async {
-    return CreateReplicationGroupResult.fromJson({});
+    var response_ = await _client.send('CreateReplicationGroup', {
+      'ReplicationGroupId': replicationGroupId,
+      'ReplicationGroupDescription': replicationGroupDescription,
+      if (primaryClusterId != null) 'PrimaryClusterId': primaryClusterId,
+      if (automaticFailoverEnabled != null)
+        'AutomaticFailoverEnabled': automaticFailoverEnabled,
+      if (numCacheClusters != null) 'NumCacheClusters': numCacheClusters,
+      if (preferredCacheClusteraZs != null)
+        'PreferredCacheClusterAZs': preferredCacheClusteraZs,
+      if (numNodeGroups != null) 'NumNodeGroups': numNodeGroups,
+      if (replicasPerNodeGroup != null)
+        'ReplicasPerNodeGroup': replicasPerNodeGroup,
+      if (nodeGroupConfiguration != null)
+        'NodeGroupConfiguration': nodeGroupConfiguration,
+      if (cacheNodeType != null) 'CacheNodeType': cacheNodeType,
+      if (engine != null) 'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (cacheParameterGroupName != null)
+        'CacheParameterGroupName': cacheParameterGroupName,
+      if (cacheSubnetGroupName != null)
+        'CacheSubnetGroupName': cacheSubnetGroupName,
+      if (cacheSecurityGroupNames != null)
+        'CacheSecurityGroupNames': cacheSecurityGroupNames,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (tags != null) 'Tags': tags,
+      if (snapshotArns != null) 'SnapshotArns': snapshotArns,
+      if (snapshotName != null) 'SnapshotName': snapshotName,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (port != null) 'Port': port,
+      if (notificationTopicArn != null)
+        'NotificationTopicArn': notificationTopicArn,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (snapshotRetentionLimit != null)
+        'SnapshotRetentionLimit': snapshotRetentionLimit,
+      if (snapshotWindow != null) 'SnapshotWindow': snapshotWindow,
+      if (authToken != null) 'AuthToken': authToken,
+      if (transitEncryptionEnabled != null)
+        'TransitEncryptionEnabled': transitEncryptionEnabled,
+      if (atRestEncryptionEnabled != null)
+        'AtRestEncryptionEnabled': atRestEncryptionEnabled,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+    });
+    return CreateReplicationGroupResult.fromJson(response_);
   }
 
   /// Creates a copy of an entire cluster or replication group at a specific
@@ -1040,7 +1159,13 @@ class ElastiCacheApi {
       {String replicationGroupId,
       String cacheClusterId,
       String kmsKeyId}) async {
-    return CreateSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateSnapshot', {
+      if (replicationGroupId != null) 'ReplicationGroupId': replicationGroupId,
+      if (cacheClusterId != null) 'CacheClusterId': cacheClusterId,
+      'SnapshotName': snapshotName,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+    });
+    return CreateSnapshotResult.fromJson(response_);
   }
 
   /// Dynamically decreases the number of replics in a Redis (cluster mode
@@ -1085,7 +1210,15 @@ class ElastiCacheApi {
       List<ConfigureShard> replicaConfiguration,
       List<String> replicasToRemove,
       @required bool applyImmediately}) async {
-    return DecreaseReplicaCountResult.fromJson({});
+    var response_ = await _client.send('DecreaseReplicaCount', {
+      'ReplicationGroupId': replicationGroupId,
+      if (newReplicaCount != null) 'NewReplicaCount': newReplicaCount,
+      if (replicaConfiguration != null)
+        'ReplicaConfiguration': replicaConfiguration,
+      if (replicasToRemove != null) 'ReplicasToRemove': replicasToRemove,
+      'ApplyImmediately': applyImmediately,
+    });
+    return DecreaseReplicaCountResult.fromJson(response_);
   }
 
   /// Deletes a previously provisioned cluster. `DeleteCacheCluster` deletes all
@@ -1115,7 +1248,12 @@ class ElastiCacheApi {
   /// afterward.
   Future<DeleteCacheClusterResult> deleteCacheCluster(String cacheClusterId,
       {String finalSnapshotIdentifier}) async {
-    return DeleteCacheClusterResult.fromJson({});
+    var response_ = await _client.send('DeleteCacheCluster', {
+      'CacheClusterId': cacheClusterId,
+      if (finalSnapshotIdentifier != null)
+        'FinalSnapshotIdentifier': finalSnapshotIdentifier,
+    });
+    return DeleteCacheClusterResult.fromJson(response_);
   }
 
   /// Deletes the specified cache parameter group. You cannot delete a cache
@@ -1128,8 +1266,11 @@ class ElastiCacheApi {
   ///
   /// The specified cache security group must not be associated with any
   /// clusters.
-  Future<void> deleteCacheParameterGroup(
-      String cacheParameterGroupName) async {}
+  Future<void> deleteCacheParameterGroup(String cacheParameterGroupName) async {
+    await _client.send('DeleteCacheParameterGroup', {
+      'CacheParameterGroupName': cacheParameterGroupName,
+    });
+  }
 
   /// Deletes a cache security group.
   ///
@@ -1143,7 +1284,11 @@ class ElastiCacheApi {
   ///
   ///
   /// You cannot delete the default security group.
-  Future<void> deleteCacheSecurityGroup(String cacheSecurityGroupName) async {}
+  Future<void> deleteCacheSecurityGroup(String cacheSecurityGroupName) async {
+    await _client.send('DeleteCacheSecurityGroup', {
+      'CacheSecurityGroupName': cacheSecurityGroupName,
+    });
+  }
 
   /// Deletes a cache subnet group.
   ///
@@ -1156,7 +1301,11 @@ class ElastiCacheApi {
   ///
   /// Constraints: Must contain no more than 255 alphanumeric characters or
   /// hyphens.
-  Future<void> deleteCacheSubnetGroup(String cacheSubnetGroupName) async {}
+  Future<void> deleteCacheSubnetGroup(String cacheSubnetGroupName) async {
+    await _client.send('DeleteCacheSubnetGroup', {
+      'CacheSubnetGroupName': cacheSubnetGroupName,
+    });
+  }
 
   /// Deletes an existing replication group. By default, this operation deletes
   /// the entire replication group, including the primary/primaries and all of
@@ -1187,7 +1336,14 @@ class ElastiCacheApi {
       String replicationGroupId,
       {bool retainPrimaryCluster,
       String finalSnapshotIdentifier}) async {
-    return DeleteReplicationGroupResult.fromJson({});
+    var response_ = await _client.send('DeleteReplicationGroup', {
+      'ReplicationGroupId': replicationGroupId,
+      if (retainPrimaryCluster != null)
+        'RetainPrimaryCluster': retainPrimaryCluster,
+      if (finalSnapshotIdentifier != null)
+        'FinalSnapshotIdentifier': finalSnapshotIdentifier,
+    });
+    return DeleteReplicationGroupResult.fromJson(response_);
   }
 
   /// Deletes an existing snapshot. When you receive a successful response from
@@ -1200,7 +1356,10 @@ class ElastiCacheApi {
   ///
   /// [snapshotName]: The name of the snapshot to be deleted.
   Future<DeleteSnapshotResult> deleteSnapshot(String snapshotName) async {
-    return DeleteSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteSnapshot', {
+      'SnapshotName': snapshotName,
+    });
+    return DeleteSnapshotResult.fromJson(response_);
   }
 
   /// Returns information about all provisioned clusters if no cluster
@@ -1257,7 +1416,16 @@ class ElastiCacheApi {
       String marker,
       bool showCacheNodeInfo,
       bool showCacheClustersNotInReplicationGroups}) async {
-    return CacheClusterMessage.fromJson({});
+    var response_ = await _client.send('DescribeCacheClusters', {
+      if (cacheClusterId != null) 'CacheClusterId': cacheClusterId,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (showCacheNodeInfo != null) 'ShowCacheNodeInfo': showCacheNodeInfo,
+      if (showCacheClustersNotInReplicationGroups != null)
+        'ShowCacheClustersNotInReplicationGroups':
+            showCacheClustersNotInReplicationGroups,
+    });
+    return CacheClusterMessage.fromJson(response_);
   }
 
   /// Returns a list of the available cache engines and their versions.
@@ -1305,7 +1473,16 @@ class ElastiCacheApi {
       int maxRecords,
       String marker,
       bool defaultOnly}) async {
-    return CacheEngineVersionMessage.fromJson({});
+    var response_ = await _client.send('DescribeCacheEngineVersions', {
+      if (engine != null) 'Engine': engine,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (cacheParameterGroupFamily != null)
+        'CacheParameterGroupFamily': cacheParameterGroupFamily,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (defaultOnly != null) 'DefaultOnly': defaultOnly,
+    });
+    return CacheEngineVersionMessage.fromJson(response_);
   }
 
   /// Returns a list of cache parameter group descriptions. If a cache parameter
@@ -1329,7 +1506,13 @@ class ElastiCacheApi {
   /// value specified by `MaxRecords`.
   Future<CacheParameterGroupsMessage> describeCacheParameterGroups(
       {String cacheParameterGroupName, int maxRecords, String marker}) async {
-    return CacheParameterGroupsMessage.fromJson({});
+    var response_ = await _client.send('DescribeCacheParameterGroups', {
+      if (cacheParameterGroupName != null)
+        'CacheParameterGroupName': cacheParameterGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return CacheParameterGroupsMessage.fromJson(response_);
   }
 
   /// Returns the detailed parameter list for a particular cache parameter
@@ -1359,7 +1542,13 @@ class ElastiCacheApi {
       {String source,
       int maxRecords,
       String marker}) async {
-    return CacheParameterGroupDetails.fromJson({});
+    var response_ = await _client.send('DescribeCacheParameters', {
+      'CacheParameterGroupName': cacheParameterGroupName,
+      if (source != null) 'Source': source,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return CacheParameterGroupDetails.fromJson(response_);
   }
 
   /// Returns a list of cache security group descriptions. If a cache security
@@ -1383,7 +1572,13 @@ class ElastiCacheApi {
   /// value specified by `MaxRecords`.
   Future<CacheSecurityGroupMessage> describeCacheSecurityGroups(
       {String cacheSecurityGroupName, int maxRecords, String marker}) async {
-    return CacheSecurityGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeCacheSecurityGroups', {
+      if (cacheSecurityGroupName != null)
+        'CacheSecurityGroupName': cacheSecurityGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return CacheSecurityGroupMessage.fromJson(response_);
   }
 
   /// Returns a list of cache subnet group descriptions. If a subnet group name
@@ -1408,7 +1603,13 @@ class ElastiCacheApi {
   /// value specified by `MaxRecords`.
   Future<CacheSubnetGroupMessage> describeCacheSubnetGroups(
       {String cacheSubnetGroupName, int maxRecords, String marker}) async {
-    return CacheSubnetGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeCacheSubnetGroups', {
+      if (cacheSubnetGroupName != null)
+        'CacheSubnetGroupName': cacheSubnetGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return CacheSubnetGroupMessage.fromJson(response_);
   }
 
   /// Returns the default engine and system parameter information for the
@@ -1435,7 +1636,12 @@ class ElastiCacheApi {
       String cacheParameterGroupFamily,
       {int maxRecords,
       String marker}) async {
-    return DescribeEngineDefaultParametersResult.fromJson({});
+    var response_ = await _client.send('DescribeEngineDefaultParameters', {
+      'CacheParameterGroupFamily': cacheParameterGroupFamily,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeEngineDefaultParametersResult.fromJson(response_);
   }
 
   /// Returns events related to clusters, cache security groups, and cache
@@ -1484,7 +1690,16 @@ class ElastiCacheApi {
       int duration,
       int maxRecords,
       String marker}) async {
-    return EventsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      if (sourceIdentifier != null) 'SourceIdentifier': sourceIdentifier,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (duration != null) 'Duration': duration,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return EventsMessage.fromJson(response_);
   }
 
   /// Returns information about a particular replication group. If no identifier
@@ -1515,7 +1730,12 @@ class ElastiCacheApi {
   /// value specified by `MaxRecords`.
   Future<ReplicationGroupMessage> describeReplicationGroups(
       {String replicationGroupId, int maxRecords, String marker}) async {
-    return ReplicationGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeReplicationGroups', {
+      if (replicationGroupId != null) 'ReplicationGroupId': replicationGroupId,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ReplicationGroupMessage.fromJson(response_);
   }
 
   /// Returns information about reserved cache nodes for this account, or about
@@ -1641,7 +1861,19 @@ class ElastiCacheApi {
       String offeringType,
       int maxRecords,
       String marker}) async {
-    return ReservedCacheNodeMessage.fromJson({});
+    var response_ = await _client.send('DescribeReservedCacheNodes', {
+      if (reservedCacheNodeId != null)
+        'ReservedCacheNodeId': reservedCacheNodeId,
+      if (reservedCacheNodesOfferingId != null)
+        'ReservedCacheNodesOfferingId': reservedCacheNodesOfferingId,
+      if (cacheNodeType != null) 'CacheNodeType': cacheNodeType,
+      if (duration != null) 'Duration': duration,
+      if (productDescription != null) 'ProductDescription': productDescription,
+      if (offeringType != null) 'OfferingType': offeringType,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ReservedCacheNodeMessage.fromJson(response_);
   }
 
   /// Lists available reserved cache node offerings.
@@ -1763,7 +1995,17 @@ class ElastiCacheApi {
       String offeringType,
       int maxRecords,
       String marker}) async {
-    return ReservedCacheNodesOfferingMessage.fromJson({});
+    var response_ = await _client.send('DescribeReservedCacheNodesOfferings', {
+      if (reservedCacheNodesOfferingId != null)
+        'ReservedCacheNodesOfferingId': reservedCacheNodesOfferingId,
+      if (cacheNodeType != null) 'CacheNodeType': cacheNodeType,
+      if (duration != null) 'Duration': duration,
+      if (productDescription != null) 'ProductDescription': productDescription,
+      if (offeringType != null) 'OfferingType': offeringType,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ReservedCacheNodesOfferingMessage.fromJson(response_);
   }
 
   /// Returns details of the service updates
@@ -1783,7 +2025,14 @@ class ElastiCacheApi {
       List<String> serviceUpdateStatus,
       int maxRecords,
       String marker}) async {
-    return ServiceUpdatesMessage.fromJson({});
+    var response_ = await _client.send('DescribeServiceUpdates', {
+      if (serviceUpdateName != null) 'ServiceUpdateName': serviceUpdateName,
+      if (serviceUpdateStatus != null)
+        'ServiceUpdateStatus': serviceUpdateStatus,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ServiceUpdatesMessage.fromJson(response_);
   }
 
   /// Returns information about cluster or replication group snapshots. By
@@ -1834,7 +2083,17 @@ class ElastiCacheApi {
       String marker,
       int maxRecords,
       bool showNodeGroupConfig}) async {
-    return DescribeSnapshotsListMessage.fromJson({});
+    var response_ = await _client.send('DescribeSnapshots', {
+      if (replicationGroupId != null) 'ReplicationGroupId': replicationGroupId,
+      if (cacheClusterId != null) 'CacheClusterId': cacheClusterId,
+      if (snapshotName != null) 'SnapshotName': snapshotName,
+      if (snapshotSource != null) 'SnapshotSource': snapshotSource,
+      if (marker != null) 'Marker': marker,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (showNodeGroupConfig != null)
+        'ShowNodeGroupConfig': showNodeGroupConfig,
+    });
+    return DescribeSnapshotsListMessage.fromJson(response_);
   }
 
   /// Returns details of the update actions
@@ -1868,7 +2127,21 @@ class ElastiCacheApi {
       bool showNodeLevelUpdateStatus,
       int maxRecords,
       String marker}) async {
-    return UpdateActionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeUpdateActions', {
+      if (serviceUpdateName != null) 'ServiceUpdateName': serviceUpdateName,
+      if (replicationGroupIds != null)
+        'ReplicationGroupIds': replicationGroupIds,
+      if (serviceUpdateStatus != null)
+        'ServiceUpdateStatus': serviceUpdateStatus,
+      if (serviceUpdateTimeRange != null)
+        'ServiceUpdateTimeRange': serviceUpdateTimeRange,
+      if (updateActionStatus != null) 'UpdateActionStatus': updateActionStatus,
+      if (showNodeLevelUpdateStatus != null)
+        'ShowNodeLevelUpdateStatus': showNodeLevelUpdateStatus,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return UpdateActionsMessage.fromJson(response_);
   }
 
   /// Dynamically increases the number of replics in a Redis (cluster mode
@@ -1897,7 +2170,14 @@ class ElastiCacheApi {
       int newReplicaCount,
       List<ConfigureShard> replicaConfiguration,
       @required bool applyImmediately}) async {
-    return IncreaseReplicaCountResult.fromJson({});
+    var response_ = await _client.send('IncreaseReplicaCount', {
+      'ReplicationGroupId': replicationGroupId,
+      if (newReplicaCount != null) 'NewReplicaCount': newReplicaCount,
+      if (replicaConfiguration != null)
+        'ReplicaConfiguration': replicaConfiguration,
+      'ApplyImmediately': applyImmediately,
+    });
+    return IncreaseReplicaCountResult.fromJson(response_);
   }
 
   /// Lists all available node types that you can scale your Redis cluster's or
@@ -1929,7 +2209,11 @@ class ElastiCacheApi {
   /// `ReplicationGroupId`.
   Future<AllowedNodeTypeModificationsMessage> listAllowedNodeTypeModifications(
       {String cacheClusterId, String replicationGroupId}) async {
-    return AllowedNodeTypeModificationsMessage.fromJson({});
+    var response_ = await _client.send('ListAllowedNodeTypeModifications', {
+      if (cacheClusterId != null) 'CacheClusterId': cacheClusterId,
+      if (replicationGroupId != null) 'ReplicationGroupId': replicationGroupId,
+    });
+    return AllowedNodeTypeModificationsMessage.fromJson(response_);
   }
 
   /// Lists all cost allocation tags currently on the named resource. A `cost
@@ -1952,7 +2236,10 @@ class ElastiCacheApi {
   /// For more information about ARNs, see
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<TagListMessage> listTagsForResource(String resourceName) async {
-    return TagListMessage.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceName': resourceName,
+    });
+    return TagListMessage.fromJson(response_);
   }
 
   /// Modifies the settings for a cluster. You can use this operation to change
@@ -2226,7 +2513,35 @@ class ElastiCacheApi {
       int snapshotRetentionLimit,
       String snapshotWindow,
       String cacheNodeType}) async {
-    return ModifyCacheClusterResult.fromJson({});
+    var response_ = await _client.send('ModifyCacheCluster', {
+      'CacheClusterId': cacheClusterId,
+      if (numCacheNodes != null) 'NumCacheNodes': numCacheNodes,
+      if (cacheNodeIdsToRemove != null)
+        'CacheNodeIdsToRemove': cacheNodeIdsToRemove,
+      if (azMode != null) 'AZMode': azMode,
+      if (newAvailabilityZones != null)
+        'NewAvailabilityZones': newAvailabilityZones,
+      if (cacheSecurityGroupNames != null)
+        'CacheSecurityGroupNames': cacheSecurityGroupNames,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (notificationTopicArn != null)
+        'NotificationTopicArn': notificationTopicArn,
+      if (cacheParameterGroupName != null)
+        'CacheParameterGroupName': cacheParameterGroupName,
+      if (notificationTopicStatus != null)
+        'NotificationTopicStatus': notificationTopicStatus,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (snapshotRetentionLimit != null)
+        'SnapshotRetentionLimit': snapshotRetentionLimit,
+      if (snapshotWindow != null) 'SnapshotWindow': snapshotWindow,
+      if (cacheNodeType != null) 'CacheNodeType': cacheNodeType,
+    });
+    return ModifyCacheClusterResult.fromJson(response_);
   }
 
   /// Modifies the parameters of a cache parameter group. You can modify up to
@@ -2243,7 +2558,11 @@ class ElastiCacheApi {
   Future<CacheParameterGroupNameMessage> modifyCacheParameterGroup(
       {@required String cacheParameterGroupName,
       @required List<ParameterNameValue> parameterNameValues}) async {
-    return CacheParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ModifyCacheParameterGroup', {
+      'CacheParameterGroupName': cacheParameterGroupName,
+      'ParameterNameValues': parameterNameValues,
+    });
+    return CacheParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Modifies an existing cache subnet group.
@@ -2263,7 +2582,13 @@ class ElastiCacheApi {
       String cacheSubnetGroupName,
       {String cacheSubnetGroupDescription,
       List<String> subnetIds}) async {
-    return ModifyCacheSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('ModifyCacheSubnetGroup', {
+      'CacheSubnetGroupName': cacheSubnetGroupName,
+      if (cacheSubnetGroupDescription != null)
+        'CacheSubnetGroupDescription': cacheSubnetGroupDescription,
+      if (subnetIds != null) 'SubnetIds': subnetIds,
+    });
+    return ModifyCacheSubnetGroupResult.fromJson(response_);
   }
 
   /// Modifies the settings for a replication group.
@@ -2436,7 +2761,37 @@ class ElastiCacheApi {
       String snapshotWindow,
       String cacheNodeType,
       String nodeGroupId}) async {
-    return ModifyReplicationGroupResult.fromJson({});
+    var response_ = await _client.send('ModifyReplicationGroup', {
+      'ReplicationGroupId': replicationGroupId,
+      if (replicationGroupDescription != null)
+        'ReplicationGroupDescription': replicationGroupDescription,
+      if (primaryClusterId != null) 'PrimaryClusterId': primaryClusterId,
+      if (snapshottingClusterId != null)
+        'SnapshottingClusterId': snapshottingClusterId,
+      if (automaticFailoverEnabled != null)
+        'AutomaticFailoverEnabled': automaticFailoverEnabled,
+      if (cacheSecurityGroupNames != null)
+        'CacheSecurityGroupNames': cacheSecurityGroupNames,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (notificationTopicArn != null)
+        'NotificationTopicArn': notificationTopicArn,
+      if (cacheParameterGroupName != null)
+        'CacheParameterGroupName': cacheParameterGroupName,
+      if (notificationTopicStatus != null)
+        'NotificationTopicStatus': notificationTopicStatus,
+      if (applyImmediately != null) 'ApplyImmediately': applyImmediately,
+      if (engineVersion != null) 'EngineVersion': engineVersion,
+      if (autoMinorVersionUpgrade != null)
+        'AutoMinorVersionUpgrade': autoMinorVersionUpgrade,
+      if (snapshotRetentionLimit != null)
+        'SnapshotRetentionLimit': snapshotRetentionLimit,
+      if (snapshotWindow != null) 'SnapshotWindow': snapshotWindow,
+      if (cacheNodeType != null) 'CacheNodeType': cacheNodeType,
+      if (nodeGroupId != null) 'NodeGroupId': nodeGroupId,
+    });
+    return ModifyReplicationGroupResult.fromJson(response_);
   }
 
   /// Modifies a replication group's shards (node groups) by allowing you to add
@@ -2487,7 +2842,17 @@ class ElastiCacheApi {
           List<ReshardingConfiguration> reshardingConfiguration,
           List<String> nodeGroupsToRemove,
           List<String> nodeGroupsToRetain}) async {
-    return ModifyReplicationGroupShardConfigurationResult.fromJson({});
+    var response_ =
+        await _client.send('ModifyReplicationGroupShardConfiguration', {
+      'ReplicationGroupId': replicationGroupId,
+      'NodeGroupCount': nodeGroupCount,
+      'ApplyImmediately': applyImmediately,
+      if (reshardingConfiguration != null)
+        'ReshardingConfiguration': reshardingConfiguration,
+      if (nodeGroupsToRemove != null) 'NodeGroupsToRemove': nodeGroupsToRemove,
+      if (nodeGroupsToRetain != null) 'NodeGroupsToRetain': nodeGroupsToRetain,
+    });
+    return ModifyReplicationGroupShardConfigurationResult.fromJson(response_);
   }
 
   /// Allows you to purchase a reserved cache node offering.
@@ -2512,7 +2877,13 @@ class ElastiCacheApi {
   Future<PurchaseReservedCacheNodesOfferingResult>
       purchaseReservedCacheNodesOffering(String reservedCacheNodesOfferingId,
           {String reservedCacheNodeId, int cacheNodeCount}) async {
-    return PurchaseReservedCacheNodesOfferingResult.fromJson({});
+    var response_ = await _client.send('PurchaseReservedCacheNodesOffering', {
+      'ReservedCacheNodesOfferingId': reservedCacheNodesOfferingId,
+      if (reservedCacheNodeId != null)
+        'ReservedCacheNodeId': reservedCacheNodeId,
+      if (cacheNodeCount != null) 'CacheNodeCount': cacheNodeCount,
+    });
+    return PurchaseReservedCacheNodesOfferingResult.fromJson(response_);
   }
 
   /// Reboots some, or all, of the cache nodes within a provisioned cluster.
@@ -2544,7 +2915,11 @@ class ElastiCacheApi {
   Future<RebootCacheClusterResult> rebootCacheCluster(
       {@required String cacheClusterId,
       @required List<String> cacheNodeIdsToReboot}) async {
-    return RebootCacheClusterResult.fromJson({});
+    var response_ = await _client.send('RebootCacheCluster', {
+      'CacheClusterId': cacheClusterId,
+      'CacheNodeIdsToReboot': cacheNodeIdsToReboot,
+    });
+    return RebootCacheClusterResult.fromJson(response_);
   }
 
   /// Removes the tags identified by the `TagKeys` list from the named resource.
@@ -2561,7 +2936,11 @@ class ElastiCacheApi {
   /// the named resource.
   Future<TagListMessage> removeTagsFromResource(
       {@required String resourceName, @required List<String> tagKeys}) async {
-    return TagListMessage.fromJson({});
+    var response_ = await _client.send('RemoveTagsFromResource', {
+      'ResourceName': resourceName,
+      'TagKeys': tagKeys,
+    });
+    return TagListMessage.fromJson(response_);
   }
 
   /// Modifies the parameters of a cache parameter group to the engine or system
@@ -2585,7 +2964,13 @@ class ElastiCacheApi {
       String cacheParameterGroupName,
       {bool resetAllParameters,
       List<ParameterNameValue> parameterNameValues}) async {
-    return CacheParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ResetCacheParameterGroup', {
+      'CacheParameterGroupName': cacheParameterGroupName,
+      if (resetAllParameters != null) 'ResetAllParameters': resetAllParameters,
+      if (parameterNameValues != null)
+        'ParameterNameValues': parameterNameValues,
+    });
+    return CacheParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Revokes ingress from a cache security group. Use this operation to
@@ -2606,7 +2991,12 @@ class ElastiCacheApi {
       {@required String cacheSecurityGroupName,
       @required String ec2SecurityGroupName,
       @required String ec2SecurityGroupOwnerId}) async {
-    return RevokeCacheSecurityGroupIngressResult.fromJson({});
+    var response_ = await _client.send('RevokeCacheSecurityGroupIngress', {
+      'CacheSecurityGroupName': cacheSecurityGroupName,
+      'EC2SecurityGroupName': ec2SecurityGroupName,
+      'EC2SecurityGroupOwnerId': ec2SecurityGroupOwnerId,
+    });
+    return RevokeCacheSecurityGroupIngressResult.fromJson(response_);
   }
 
   /// Represents the input of a `TestFailover` operation which test automatic
@@ -2673,7 +3063,11 @@ class ElastiCacheApi {
   Future<TestFailoverResult> testFailover(
       {@required String replicationGroupId,
       @required String nodeGroupId}) async {
-    return TestFailoverResult.fromJson({});
+    var response_ = await _client.send('TestFailover', {
+      'ReplicationGroupId': replicationGroupId,
+      'NodeGroupId': nodeGroupId,
+    });
+    return TestFailoverResult.fromJson(response_);
   }
 }
 
@@ -2702,7 +3096,18 @@ class AllowedNodeTypeModificationsMessage {
   });
   static AllowedNodeTypeModificationsMessage fromJson(
           Map<String, dynamic> json) =>
-      AllowedNodeTypeModificationsMessage();
+      AllowedNodeTypeModificationsMessage(
+        scaleUpModifications: json.containsKey('ScaleUpModifications')
+            ? (json['ScaleUpModifications'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        scaleDownModifications: json.containsKey('ScaleDownModifications')
+            ? (json['ScaleDownModifications'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class AuthorizeCacheSecurityGroupIngressResult {
@@ -2713,7 +3118,11 @@ class AuthorizeCacheSecurityGroupIngressResult {
   });
   static AuthorizeCacheSecurityGroupIngressResult fromJson(
           Map<String, dynamic> json) =>
-      AuthorizeCacheSecurityGroupIngressResult();
+      AuthorizeCacheSecurityGroupIngressResult(
+        cacheSecurityGroup: json.containsKey('CacheSecurityGroup')
+            ? CacheSecurityGroup.fromJson(json['CacheSecurityGroup'])
+            : null,
+      );
 }
 
 /// Describes an Availability Zone in which the cluster is launched.
@@ -2725,7 +3134,9 @@ class AvailabilityZone {
     this.name,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Contains all of the attributes of a specific cluster.
@@ -2975,7 +3386,89 @@ class CacheCluster {
     this.transitEncryptionEnabled,
     this.atRestEncryptionEnabled,
   });
-  static CacheCluster fromJson(Map<String, dynamic> json) => CacheCluster();
+  static CacheCluster fromJson(Map<String, dynamic> json) => CacheCluster(
+        cacheClusterId: json.containsKey('CacheClusterId')
+            ? json['CacheClusterId'] as String
+            : null,
+        configurationEndpoint: json.containsKey('ConfigurationEndpoint')
+            ? Endpoint.fromJson(json['ConfigurationEndpoint'])
+            : null,
+        clientDownloadLandingPage: json.containsKey('ClientDownloadLandingPage')
+            ? json['ClientDownloadLandingPage'] as String
+            : null,
+        cacheNodeType: json.containsKey('CacheNodeType')
+            ? json['CacheNodeType'] as String
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        cacheClusterStatus: json.containsKey('CacheClusterStatus')
+            ? json['CacheClusterStatus'] as String
+            : null,
+        numCacheNodes: json.containsKey('NumCacheNodes')
+            ? json['NumCacheNodes'] as int
+            : null,
+        preferredAvailabilityZone: json.containsKey('PreferredAvailabilityZone')
+            ? json['PreferredAvailabilityZone'] as String
+            : null,
+        cacheClusterCreateTime: json.containsKey('CacheClusterCreateTime')
+            ? DateTime.parse(json['CacheClusterCreateTime'])
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        pendingModifiedValues: json.containsKey('PendingModifiedValues')
+            ? PendingModifiedValues.fromJson(json['PendingModifiedValues'])
+            : null,
+        notificationConfiguration: json.containsKey('NotificationConfiguration')
+            ? NotificationConfiguration.fromJson(
+                json['NotificationConfiguration'])
+            : null,
+        cacheSecurityGroups: json.containsKey('CacheSecurityGroups')
+            ? (json['CacheSecurityGroups'] as List)
+                .map((e) => CacheSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        cacheParameterGroup: json.containsKey('CacheParameterGroup')
+            ? CacheParameterGroupStatus.fromJson(json['CacheParameterGroup'])
+            : null,
+        cacheSubnetGroupName: json.containsKey('CacheSubnetGroupName')
+            ? json['CacheSubnetGroupName'] as String
+            : null,
+        cacheNodes: json.containsKey('CacheNodes')
+            ? (json['CacheNodes'] as List)
+                .map((e) => CacheNode.fromJson(e))
+                .toList()
+            : null,
+        autoMinorVersionUpgrade: json.containsKey('AutoMinorVersionUpgrade')
+            ? json['AutoMinorVersionUpgrade'] as bool
+            : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List)
+                .map((e) => SecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        replicationGroupId: json.containsKey('ReplicationGroupId')
+            ? json['ReplicationGroupId'] as String
+            : null,
+        snapshotRetentionLimit: json.containsKey('SnapshotRetentionLimit')
+            ? json['SnapshotRetentionLimit'] as int
+            : null,
+        snapshotWindow: json.containsKey('SnapshotWindow')
+            ? json['SnapshotWindow'] as String
+            : null,
+        authTokenEnabled: json.containsKey('AuthTokenEnabled')
+            ? json['AuthTokenEnabled'] as bool
+            : null,
+        transitEncryptionEnabled: json.containsKey('TransitEncryptionEnabled')
+            ? json['TransitEncryptionEnabled'] as bool
+            : null,
+        atRestEncryptionEnabled: json.containsKey('AtRestEncryptionEnabled')
+            ? json['AtRestEncryptionEnabled'] as bool
+            : null,
+      );
 }
 
 /// Represents the output of a `DescribeCacheClusters` operation.
@@ -2992,7 +3485,14 @@ class CacheClusterMessage {
     this.cacheClusters,
   });
   static CacheClusterMessage fromJson(Map<String, dynamic> json) =>
-      CacheClusterMessage();
+      CacheClusterMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        cacheClusters: json.containsKey('CacheClusters')
+            ? (json['CacheClusters'] as List)
+                .map((e) => CacheCluster.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides all of the details about a particular cache engine version.
@@ -3024,7 +3524,22 @@ class CacheEngineVersion {
     this.cacheEngineVersionDescription,
   });
   static CacheEngineVersion fromJson(Map<String, dynamic> json) =>
-      CacheEngineVersion();
+      CacheEngineVersion(
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        cacheParameterGroupFamily: json.containsKey('CacheParameterGroupFamily')
+            ? json['CacheParameterGroupFamily'] as String
+            : null,
+        cacheEngineDescription: json.containsKey('CacheEngineDescription')
+            ? json['CacheEngineDescription'] as String
+            : null,
+        cacheEngineVersionDescription:
+            json.containsKey('CacheEngineVersionDescription')
+                ? json['CacheEngineVersionDescription'] as String
+                : null,
+      );
 }
 
 /// Represents the output of a DescribeCacheEngineVersions operation.
@@ -3041,7 +3556,14 @@ class CacheEngineVersionMessage {
     this.cacheEngineVersions,
   });
   static CacheEngineVersionMessage fromJson(Map<String, dynamic> json) =>
-      CacheEngineVersionMessage();
+      CacheEngineVersionMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        cacheEngineVersions: json.containsKey('CacheEngineVersions')
+            ? (json['CacheEngineVersions'] as List)
+                .map((e) => CacheEngineVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents an individual cache node within a cluster. Each cache node runs
@@ -3153,7 +3675,29 @@ class CacheNode {
     this.sourceCacheNodeId,
     this.customerAvailabilityZone,
   });
-  static CacheNode fromJson(Map<String, dynamic> json) => CacheNode();
+  static CacheNode fromJson(Map<String, dynamic> json) => CacheNode(
+        cacheNodeId: json.containsKey('CacheNodeId')
+            ? json['CacheNodeId'] as String
+            : null,
+        cacheNodeStatus: json.containsKey('CacheNodeStatus')
+            ? json['CacheNodeStatus'] as String
+            : null,
+        cacheNodeCreateTime: json.containsKey('CacheNodeCreateTime')
+            ? DateTime.parse(json['CacheNodeCreateTime'])
+            : null,
+        endpoint: json.containsKey('Endpoint')
+            ? Endpoint.fromJson(json['Endpoint'])
+            : null,
+        parameterGroupStatus: json.containsKey('ParameterGroupStatus')
+            ? json['ParameterGroupStatus'] as String
+            : null,
+        sourceCacheNodeId: json.containsKey('SourceCacheNodeId')
+            ? json['SourceCacheNodeId'] as String
+            : null,
+        customerAvailabilityZone: json.containsKey('CustomerAvailabilityZone')
+            ? json['CustomerAvailabilityZone'] as String
+            : null,
+      );
 }
 
 /// A parameter that has a different value for each cache node type it is
@@ -3205,7 +3749,35 @@ class CacheNodeTypeSpecificParameter {
     this.changeType,
   });
   static CacheNodeTypeSpecificParameter fromJson(Map<String, dynamic> json) =>
-      CacheNodeTypeSpecificParameter();
+      CacheNodeTypeSpecificParameter(
+        parameterName: json.containsKey('ParameterName')
+            ? json['ParameterName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        dataType:
+            json.containsKey('DataType') ? json['DataType'] as String : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+        isModifiable: json.containsKey('IsModifiable')
+            ? json['IsModifiable'] as bool
+            : null,
+        minimumEngineVersion: json.containsKey('MinimumEngineVersion')
+            ? json['MinimumEngineVersion'] as String
+            : null,
+        cacheNodeTypeSpecificValues:
+            json.containsKey('CacheNodeTypeSpecificValues')
+                ? (json['CacheNodeTypeSpecificValues'] as List)
+                    .map((e) => CacheNodeTypeSpecificValue.fromJson(e))
+                    .toList()
+                : null,
+        changeType: json.containsKey('ChangeType')
+            ? json['ChangeType'] as String
+            : null,
+      );
 }
 
 /// A value that applies only to a certain cache node type.
@@ -3221,7 +3793,12 @@ class CacheNodeTypeSpecificValue {
     this.value,
   });
   static CacheNodeTypeSpecificValue fromJson(Map<String, dynamic> json) =>
-      CacheNodeTypeSpecificValue();
+      CacheNodeTypeSpecificValue(
+        cacheNodeType: json.containsKey('CacheNodeType')
+            ? json['CacheNodeType'] as String
+            : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// Represents the output of a `CreateCacheParameterGroup` operation.
@@ -3245,7 +3822,17 @@ class CacheParameterGroup {
     this.description,
   });
   static CacheParameterGroup fromJson(Map<String, dynamic> json) =>
-      CacheParameterGroup();
+      CacheParameterGroup(
+        cacheParameterGroupName: json.containsKey('CacheParameterGroupName')
+            ? json['CacheParameterGroupName'] as String
+            : null,
+        cacheParameterGroupFamily: json.containsKey('CacheParameterGroupFamily')
+            ? json['CacheParameterGroupFamily'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a `DescribeCacheParameters` operation.
@@ -3266,7 +3853,20 @@ class CacheParameterGroupDetails {
     this.cacheNodeTypeSpecificParameters,
   });
   static CacheParameterGroupDetails fromJson(Map<String, dynamic> json) =>
-      CacheParameterGroupDetails();
+      CacheParameterGroupDetails(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        cacheNodeTypeSpecificParameters:
+            json.containsKey('CacheNodeTypeSpecificParameters')
+                ? (json['CacheNodeTypeSpecificParameters'] as List)
+                    .map((e) => CacheNodeTypeSpecificParameter.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Represents the output of one of the following operations:
@@ -3282,7 +3882,11 @@ class CacheParameterGroupNameMessage {
     this.cacheParameterGroupName,
   });
   static CacheParameterGroupNameMessage fromJson(Map<String, dynamic> json) =>
-      CacheParameterGroupNameMessage();
+      CacheParameterGroupNameMessage(
+        cacheParameterGroupName: json.containsKey('CacheParameterGroupName')
+            ? json['CacheParameterGroupName'] as String
+            : null,
+      );
 }
 
 /// Status of the cache parameter group.
@@ -3304,7 +3908,19 @@ class CacheParameterGroupStatus {
     this.cacheNodeIdsToReboot,
   });
   static CacheParameterGroupStatus fromJson(Map<String, dynamic> json) =>
-      CacheParameterGroupStatus();
+      CacheParameterGroupStatus(
+        cacheParameterGroupName: json.containsKey('CacheParameterGroupName')
+            ? json['CacheParameterGroupName'] as String
+            : null,
+        parameterApplyStatus: json.containsKey('ParameterApplyStatus')
+            ? json['ParameterApplyStatus'] as String
+            : null,
+        cacheNodeIdsToReboot: json.containsKey('CacheNodeIdsToReboot')
+            ? (json['CacheNodeIdsToReboot'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a `DescribeCacheParameterGroups` operation.
@@ -3321,7 +3937,14 @@ class CacheParameterGroupsMessage {
     this.cacheParameterGroups,
   });
   static CacheParameterGroupsMessage fromJson(Map<String, dynamic> json) =>
-      CacheParameterGroupsMessage();
+      CacheParameterGroupsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        cacheParameterGroups: json.containsKey('CacheParameterGroups')
+            ? (json['CacheParameterGroups'] as List)
+                .map((e) => CacheParameterGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of one of the following operations:
@@ -3352,7 +3975,20 @@ class CacheSecurityGroup {
     this.ec2SecurityGroups,
   });
   static CacheSecurityGroup fromJson(Map<String, dynamic> json) =>
-      CacheSecurityGroup();
+      CacheSecurityGroup(
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        cacheSecurityGroupName: json.containsKey('CacheSecurityGroupName')
+            ? json['CacheSecurityGroupName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        ec2SecurityGroups: json.containsKey('EC2SecurityGroups')
+            ? (json['EC2SecurityGroups'] as List)
+                .map((e) => Ec2SecurityGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents a cluster's status within a particular cache security group.
@@ -3370,7 +4006,12 @@ class CacheSecurityGroupMembership {
     this.status,
   });
   static CacheSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      CacheSecurityGroupMembership();
+      CacheSecurityGroupMembership(
+        cacheSecurityGroupName: json.containsKey('CacheSecurityGroupName')
+            ? json['CacheSecurityGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Represents the output of a `DescribeCacheSecurityGroups` operation.
@@ -3387,7 +4028,14 @@ class CacheSecurityGroupMessage {
     this.cacheSecurityGroups,
   });
   static CacheSecurityGroupMessage fromJson(Map<String, dynamic> json) =>
-      CacheSecurityGroupMessage();
+      CacheSecurityGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        cacheSecurityGroups: json.containsKey('CacheSecurityGroups')
+            ? (json['CacheSecurityGroups'] as List)
+                .map((e) => CacheSecurityGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of one of the following operations:
@@ -3416,7 +4064,19 @@ class CacheSubnetGroup {
     this.subnets,
   });
   static CacheSubnetGroup fromJson(Map<String, dynamic> json) =>
-      CacheSubnetGroup();
+      CacheSubnetGroup(
+        cacheSubnetGroupName: json.containsKey('CacheSubnetGroupName')
+            ? json['CacheSubnetGroupName'] as String
+            : null,
+        cacheSubnetGroupDescription:
+            json.containsKey('CacheSubnetGroupDescription')
+                ? json['CacheSubnetGroupDescription'] as String
+                : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => Subnet.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Represents the output of a `DescribeCacheSubnetGroups` operation.
@@ -3433,7 +4093,14 @@ class CacheSubnetGroupMessage {
     this.cacheSubnetGroups,
   });
   static CacheSubnetGroupMessage fromJson(Map<String, dynamic> json) =>
-      CacheSubnetGroupMessage();
+      CacheSubnetGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        cacheSubnetGroups: json.containsKey('CacheSubnetGroups')
+            ? (json['CacheSubnetGroups'] as List)
+                .map((e) => CacheSubnetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Node group (shard) configuration options when adding or removing replicas.
@@ -3476,6 +4143,7 @@ class ConfigureShard {
     @required this.newReplicaCount,
     this.preferredAvailabilityZones,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CopySnapshotResult {
@@ -3485,7 +4153,11 @@ class CopySnapshotResult {
     this.snapshot,
   });
   static CopySnapshotResult fromJson(Map<String, dynamic> json) =>
-      CopySnapshotResult();
+      CopySnapshotResult(
+        snapshot: json.containsKey('Snapshot')
+            ? Snapshot.fromJson(json['Snapshot'])
+            : null,
+      );
 }
 
 class CreateCacheClusterResult {
@@ -3495,7 +4167,11 @@ class CreateCacheClusterResult {
     this.cacheCluster,
   });
   static CreateCacheClusterResult fromJson(Map<String, dynamic> json) =>
-      CreateCacheClusterResult();
+      CreateCacheClusterResult(
+        cacheCluster: json.containsKey('CacheCluster')
+            ? CacheCluster.fromJson(json['CacheCluster'])
+            : null,
+      );
 }
 
 class CreateCacheParameterGroupResult {
@@ -3505,7 +4181,11 @@ class CreateCacheParameterGroupResult {
     this.cacheParameterGroup,
   });
   static CreateCacheParameterGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateCacheParameterGroupResult();
+      CreateCacheParameterGroupResult(
+        cacheParameterGroup: json.containsKey('CacheParameterGroup')
+            ? CacheParameterGroup.fromJson(json['CacheParameterGroup'])
+            : null,
+      );
 }
 
 class CreateCacheSecurityGroupResult {
@@ -3515,7 +4195,11 @@ class CreateCacheSecurityGroupResult {
     this.cacheSecurityGroup,
   });
   static CreateCacheSecurityGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateCacheSecurityGroupResult();
+      CreateCacheSecurityGroupResult(
+        cacheSecurityGroup: json.containsKey('CacheSecurityGroup')
+            ? CacheSecurityGroup.fromJson(json['CacheSecurityGroup'])
+            : null,
+      );
 }
 
 class CreateCacheSubnetGroupResult {
@@ -3525,7 +4209,11 @@ class CreateCacheSubnetGroupResult {
     this.cacheSubnetGroup,
   });
   static CreateCacheSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateCacheSubnetGroupResult();
+      CreateCacheSubnetGroupResult(
+        cacheSubnetGroup: json.containsKey('CacheSubnetGroup')
+            ? CacheSubnetGroup.fromJson(json['CacheSubnetGroup'])
+            : null,
+      );
 }
 
 class CreateReplicationGroupResult {
@@ -3535,7 +4223,11 @@ class CreateReplicationGroupResult {
     this.replicationGroup,
   });
   static CreateReplicationGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateReplicationGroupResult();
+      CreateReplicationGroupResult(
+        replicationGroup: json.containsKey('ReplicationGroup')
+            ? ReplicationGroup.fromJson(json['ReplicationGroup'])
+            : null,
+      );
 }
 
 class CreateSnapshotResult {
@@ -3545,7 +4237,11 @@ class CreateSnapshotResult {
     this.snapshot,
   });
   static CreateSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateSnapshotResult();
+      CreateSnapshotResult(
+        snapshot: json.containsKey('Snapshot')
+            ? Snapshot.fromJson(json['Snapshot'])
+            : null,
+      );
 }
 
 class DecreaseReplicaCountResult {
@@ -3555,7 +4251,11 @@ class DecreaseReplicaCountResult {
     this.replicationGroup,
   });
   static DecreaseReplicaCountResult fromJson(Map<String, dynamic> json) =>
-      DecreaseReplicaCountResult();
+      DecreaseReplicaCountResult(
+        replicationGroup: json.containsKey('ReplicationGroup')
+            ? ReplicationGroup.fromJson(json['ReplicationGroup'])
+            : null,
+      );
 }
 
 class DeleteCacheClusterResult {
@@ -3565,7 +4265,11 @@ class DeleteCacheClusterResult {
     this.cacheCluster,
   });
   static DeleteCacheClusterResult fromJson(Map<String, dynamic> json) =>
-      DeleteCacheClusterResult();
+      DeleteCacheClusterResult(
+        cacheCluster: json.containsKey('CacheCluster')
+            ? CacheCluster.fromJson(json['CacheCluster'])
+            : null,
+      );
 }
 
 class DeleteReplicationGroupResult {
@@ -3575,7 +4279,11 @@ class DeleteReplicationGroupResult {
     this.replicationGroup,
   });
   static DeleteReplicationGroupResult fromJson(Map<String, dynamic> json) =>
-      DeleteReplicationGroupResult();
+      DeleteReplicationGroupResult(
+        replicationGroup: json.containsKey('ReplicationGroup')
+            ? ReplicationGroup.fromJson(json['ReplicationGroup'])
+            : null,
+      );
 }
 
 class DeleteSnapshotResult {
@@ -3585,7 +4293,11 @@ class DeleteSnapshotResult {
     this.snapshot,
   });
   static DeleteSnapshotResult fromJson(Map<String, dynamic> json) =>
-      DeleteSnapshotResult();
+      DeleteSnapshotResult(
+        snapshot: json.containsKey('Snapshot')
+            ? Snapshot.fromJson(json['Snapshot'])
+            : null,
+      );
 }
 
 class DescribeEngineDefaultParametersResult {
@@ -3596,7 +4308,11 @@ class DescribeEngineDefaultParametersResult {
   });
   static DescribeEngineDefaultParametersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEngineDefaultParametersResult();
+      DescribeEngineDefaultParametersResult(
+        engineDefaults: json.containsKey('EngineDefaults')
+            ? EngineDefaults.fromJson(json['EngineDefaults'])
+            : null,
+      );
 }
 
 /// Represents the output of a `DescribeSnapshots` operation.
@@ -3616,7 +4332,14 @@ class DescribeSnapshotsListMessage {
     this.snapshots,
   });
   static DescribeSnapshotsListMessage fromJson(Map<String, dynamic> json) =>
-      DescribeSnapshotsListMessage();
+      DescribeSnapshotsListMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        snapshots: json.containsKey('Snapshots')
+            ? (json['Snapshots'] as List)
+                .map((e) => Snapshot.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides ownership and status information for an Amazon EC2 security group.
@@ -3636,7 +4359,15 @@ class Ec2SecurityGroup {
     this.ec2SecurityGroupOwnerId,
   });
   static Ec2SecurityGroup fromJson(Map<String, dynamic> json) =>
-      Ec2SecurityGroup();
+      Ec2SecurityGroup(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        ec2SecurityGroupName: json.containsKey('EC2SecurityGroupName')
+            ? json['EC2SecurityGroupName'] as String
+            : null,
+        ec2SecurityGroupOwnerId: json.containsKey('EC2SecurityGroupOwnerId')
+            ? json['EC2SecurityGroupOwnerId'] as String
+            : null,
+      );
 }
 
 /// Represents the information required for client programs to connect to a
@@ -3652,7 +4383,10 @@ class Endpoint {
     this.address,
     this.port,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+      );
 }
 
 /// Represents the output of a `DescribeEngineDefaultParameters` operation.
@@ -3680,7 +4414,23 @@ class EngineDefaults {
     this.parameters,
     this.cacheNodeTypeSpecificParameters,
   });
-  static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults();
+  static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults(
+        cacheParameterGroupFamily: json.containsKey('CacheParameterGroupFamily')
+            ? json['CacheParameterGroupFamily'] as String
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        cacheNodeTypeSpecificParameters:
+            json.containsKey('CacheNodeTypeSpecificParameters')
+                ? (json['CacheNodeTypeSpecificParameters'] as List)
+                    .map((e) => CacheNodeTypeSpecificParameter.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Represents a single occurrence of something interesting within the system.
@@ -3708,7 +4458,16 @@ class Event {
     this.message,
     this.date,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        sourceIdentifier: json.containsKey('SourceIdentifier')
+            ? json['SourceIdentifier'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+      );
 }
 
 /// Represents the output of a `DescribeEvents` operation.
@@ -3724,7 +4483,12 @@ class EventsMessage {
     this.marker,
     this.events,
   });
-  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage();
+  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class IncreaseReplicaCountResult {
@@ -3734,7 +4498,11 @@ class IncreaseReplicaCountResult {
     this.replicationGroup,
   });
   static IncreaseReplicaCountResult fromJson(Map<String, dynamic> json) =>
-      IncreaseReplicaCountResult();
+      IncreaseReplicaCountResult(
+        replicationGroup: json.containsKey('ReplicationGroup')
+            ? ReplicationGroup.fromJson(json['ReplicationGroup'])
+            : null,
+      );
 }
 
 class ModifyCacheClusterResult {
@@ -3744,7 +4512,11 @@ class ModifyCacheClusterResult {
     this.cacheCluster,
   });
   static ModifyCacheClusterResult fromJson(Map<String, dynamic> json) =>
-      ModifyCacheClusterResult();
+      ModifyCacheClusterResult(
+        cacheCluster: json.containsKey('CacheCluster')
+            ? CacheCluster.fromJson(json['CacheCluster'])
+            : null,
+      );
 }
 
 class ModifyCacheSubnetGroupResult {
@@ -3754,7 +4526,11 @@ class ModifyCacheSubnetGroupResult {
     this.cacheSubnetGroup,
   });
   static ModifyCacheSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      ModifyCacheSubnetGroupResult();
+      ModifyCacheSubnetGroupResult(
+        cacheSubnetGroup: json.containsKey('CacheSubnetGroup')
+            ? CacheSubnetGroup.fromJson(json['CacheSubnetGroup'])
+            : null,
+      );
 }
 
 class ModifyReplicationGroupResult {
@@ -3764,7 +4540,11 @@ class ModifyReplicationGroupResult {
     this.replicationGroup,
   });
   static ModifyReplicationGroupResult fromJson(Map<String, dynamic> json) =>
-      ModifyReplicationGroupResult();
+      ModifyReplicationGroupResult(
+        replicationGroup: json.containsKey('ReplicationGroup')
+            ? ReplicationGroup.fromJson(json['ReplicationGroup'])
+            : null,
+      );
 }
 
 class ModifyReplicationGroupShardConfigurationResult {
@@ -3775,7 +4555,11 @@ class ModifyReplicationGroupShardConfigurationResult {
   });
   static ModifyReplicationGroupShardConfigurationResult fromJson(
           Map<String, dynamic> json) =>
-      ModifyReplicationGroupShardConfigurationResult();
+      ModifyReplicationGroupShardConfigurationResult(
+        replicationGroup: json.containsKey('ReplicationGroup')
+            ? ReplicationGroup.fromJson(json['ReplicationGroup'])
+            : null,
+      );
 }
 
 /// Represents a collection of cache nodes in a replication group. One node in
@@ -3814,7 +4598,24 @@ class NodeGroup {
     this.slots,
     this.nodeGroupMembers,
   });
-  static NodeGroup fromJson(Map<String, dynamic> json) => NodeGroup();
+  static NodeGroup fromJson(Map<String, dynamic> json) => NodeGroup(
+        nodeGroupId: json.containsKey('NodeGroupId')
+            ? json['NodeGroupId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        primaryEndpoint: json.containsKey('PrimaryEndpoint')
+            ? Endpoint.fromJson(json['PrimaryEndpoint'])
+            : null,
+        readerEndpoint: json.containsKey('ReaderEndpoint')
+            ? Endpoint.fromJson(json['ReaderEndpoint'])
+            : null,
+        slots: json.containsKey('Slots') ? json['Slots'] as String : null,
+        nodeGroupMembers: json.containsKey('NodeGroupMembers')
+            ? (json['NodeGroupMembers'] as List)
+                .map((e) => NodeGroupMember.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Node group (shard) configuration options. Each node group (shard)
@@ -3852,7 +4653,24 @@ class NodeGroupConfiguration {
     this.replicaAvailabilityZones,
   });
   static NodeGroupConfiguration fromJson(Map<String, dynamic> json) =>
-      NodeGroupConfiguration();
+      NodeGroupConfiguration(
+        nodeGroupId: json.containsKey('NodeGroupId')
+            ? json['NodeGroupId'] as String
+            : null,
+        slots: json.containsKey('Slots') ? json['Slots'] as String : null,
+        replicaCount: json.containsKey('ReplicaCount')
+            ? json['ReplicaCount'] as int
+            : null,
+        primaryAvailabilityZone: json.containsKey('PrimaryAvailabilityZone')
+            ? json['PrimaryAvailabilityZone'] as String
+            : null,
+        replicaAvailabilityZones: json.containsKey('ReplicaAvailabilityZones')
+            ? (json['ReplicaAvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a single node within a node group (shard).
@@ -3884,8 +4702,23 @@ class NodeGroupMember {
     this.preferredAvailabilityZone,
     this.currentRole,
   });
-  static NodeGroupMember fromJson(Map<String, dynamic> json) =>
-      NodeGroupMember();
+  static NodeGroupMember fromJson(Map<String, dynamic> json) => NodeGroupMember(
+        cacheClusterId: json.containsKey('CacheClusterId')
+            ? json['CacheClusterId'] as String
+            : null,
+        cacheNodeId: json.containsKey('CacheNodeId')
+            ? json['CacheNodeId'] as String
+            : null,
+        readEndpoint: json.containsKey('ReadEndpoint')
+            ? Endpoint.fromJson(json['ReadEndpoint'])
+            : null,
+        preferredAvailabilityZone: json.containsKey('PreferredAvailabilityZone')
+            ? json['PreferredAvailabilityZone'] as String
+            : null,
+        currentRole: json.containsKey('CurrentRole')
+            ? json['CurrentRole'] as String
+            : null,
+      );
 }
 
 /// The status of the service update on the node group member
@@ -3930,7 +4763,36 @@ class NodeGroupMemberUpdateStatus {
     this.nodeUpdateStatusModifiedDate,
   });
   static NodeGroupMemberUpdateStatus fromJson(Map<String, dynamic> json) =>
-      NodeGroupMemberUpdateStatus();
+      NodeGroupMemberUpdateStatus(
+        cacheClusterId: json.containsKey('CacheClusterId')
+            ? json['CacheClusterId'] as String
+            : null,
+        cacheNodeId: json.containsKey('CacheNodeId')
+            ? json['CacheNodeId'] as String
+            : null,
+        nodeUpdateStatus: json.containsKey('NodeUpdateStatus')
+            ? json['NodeUpdateStatus'] as String
+            : null,
+        nodeDeletionDate: json.containsKey('NodeDeletionDate')
+            ? DateTime.parse(json['NodeDeletionDate'])
+            : null,
+        nodeUpdateStartDate: json.containsKey('NodeUpdateStartDate')
+            ? DateTime.parse(json['NodeUpdateStartDate'])
+            : null,
+        nodeUpdateEndDate: json.containsKey('NodeUpdateEndDate')
+            ? DateTime.parse(json['NodeUpdateEndDate'])
+            : null,
+        nodeUpdateInitiatedBy: json.containsKey('NodeUpdateInitiatedBy')
+            ? json['NodeUpdateInitiatedBy'] as String
+            : null,
+        nodeUpdateInitiatedDate: json.containsKey('NodeUpdateInitiatedDate')
+            ? DateTime.parse(json['NodeUpdateInitiatedDate'])
+            : null,
+        nodeUpdateStatusModifiedDate:
+            json.containsKey('NodeUpdateStatusModifiedDate')
+                ? DateTime.parse(json['NodeUpdateStatusModifiedDate'])
+                : null,
+      );
 }
 
 /// The status of the service update on the node group
@@ -3946,7 +4808,17 @@ class NodeGroupUpdateStatus {
     this.nodeGroupMemberUpdateStatus,
   });
   static NodeGroupUpdateStatus fromJson(Map<String, dynamic> json) =>
-      NodeGroupUpdateStatus();
+      NodeGroupUpdateStatus(
+        nodeGroupId: json.containsKey('NodeGroupId')
+            ? json['NodeGroupId'] as String
+            : null,
+        nodeGroupMemberUpdateStatus:
+            json.containsKey('NodeGroupMemberUpdateStatus')
+                ? (json['NodeGroupMemberUpdateStatus'] as List)
+                    .map((e) => NodeGroupMemberUpdateStatus.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Represents an individual cache node in a snapshot of a cluster.
@@ -3982,7 +4854,28 @@ class NodeSnapshot {
     this.cacheNodeCreateTime,
     this.snapshotCreateTime,
   });
-  static NodeSnapshot fromJson(Map<String, dynamic> json) => NodeSnapshot();
+  static NodeSnapshot fromJson(Map<String, dynamic> json) => NodeSnapshot(
+        cacheClusterId: json.containsKey('CacheClusterId')
+            ? json['CacheClusterId'] as String
+            : null,
+        nodeGroupId: json.containsKey('NodeGroupId')
+            ? json['NodeGroupId'] as String
+            : null,
+        cacheNodeId: json.containsKey('CacheNodeId')
+            ? json['CacheNodeId'] as String
+            : null,
+        nodeGroupConfiguration: json.containsKey('NodeGroupConfiguration')
+            ? NodeGroupConfiguration.fromJson(json['NodeGroupConfiguration'])
+            : null,
+        cacheSize:
+            json.containsKey('CacheSize') ? json['CacheSize'] as String : null,
+        cacheNodeCreateTime: json.containsKey('CacheNodeCreateTime')
+            ? DateTime.parse(json['CacheNodeCreateTime'])
+            : null,
+        snapshotCreateTime: json.containsKey('SnapshotCreateTime')
+            ? DateTime.parse(json['SnapshotCreateTime'])
+            : null,
+      );
 }
 
 /// Describes a notification topic and its status. Notification topics are used
@@ -4000,7 +4893,13 @@ class NotificationConfiguration {
     this.topicStatus,
   });
   static NotificationConfiguration fromJson(Map<String, dynamic> json) =>
-      NotificationConfiguration();
+      NotificationConfiguration(
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+        topicStatus: json.containsKey('TopicStatus')
+            ? json['TopicStatus'] as String
+            : null,
+      );
 }
 
 /// Describes an individual setting that controls some aspect of ElastiCache
@@ -4049,7 +4948,32 @@ class Parameter {
     this.minimumEngineVersion,
     this.changeType,
   });
-  static Parameter fromJson(Map<String, dynamic> json) => Parameter();
+  static Parameter fromJson(Map<String, dynamic> json) => Parameter(
+        parameterName: json.containsKey('ParameterName')
+            ? json['ParameterName'] as String
+            : null,
+        parameterValue: json.containsKey('ParameterValue')
+            ? json['ParameterValue'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        dataType:
+            json.containsKey('DataType') ? json['DataType'] as String : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+        isModifiable: json.containsKey('IsModifiable')
+            ? json['IsModifiable'] as bool
+            : null,
+        minimumEngineVersion: json.containsKey('MinimumEngineVersion')
+            ? json['MinimumEngineVersion'] as String
+            : null,
+        changeType: json.containsKey('ChangeType')
+            ? json['ChangeType'] as String
+            : null,
+      );
 }
 
 /// Describes a name-value pair that is used to update the value of a parameter.
@@ -4064,6 +4988,7 @@ class ParameterNameValue {
     this.parameterName,
     this.parameterValue,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A group of settings that are applied to the cluster in the future, or that
@@ -4092,7 +5017,22 @@ class PendingModifiedValues {
     this.cacheNodeType,
   });
   static PendingModifiedValues fromJson(Map<String, dynamic> json) =>
-      PendingModifiedValues();
+      PendingModifiedValues(
+        numCacheNodes: json.containsKey('NumCacheNodes')
+            ? json['NumCacheNodes'] as int
+            : null,
+        cacheNodeIdsToRemove: json.containsKey('CacheNodeIdsToRemove')
+            ? (json['CacheNodeIdsToRemove'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        cacheNodeType: json.containsKey('CacheNodeType')
+            ? json['CacheNodeType'] as String
+            : null,
+      );
 }
 
 /// Update action that has been processed for the corresponding apply/stop
@@ -4113,7 +5053,17 @@ class ProcessedUpdateAction {
     this.updateActionStatus,
   });
   static ProcessedUpdateAction fromJson(Map<String, dynamic> json) =>
-      ProcessedUpdateAction();
+      ProcessedUpdateAction(
+        replicationGroupId: json.containsKey('ReplicationGroupId')
+            ? json['ReplicationGroupId'] as String
+            : null,
+        serviceUpdateName: json.containsKey('ServiceUpdateName')
+            ? json['ServiceUpdateName'] as String
+            : null,
+        updateActionStatus: json.containsKey('UpdateActionStatus')
+            ? json['UpdateActionStatus'] as String
+            : null,
+      );
 }
 
 class PurchaseReservedCacheNodesOfferingResult {
@@ -4124,7 +5074,11 @@ class PurchaseReservedCacheNodesOfferingResult {
   });
   static PurchaseReservedCacheNodesOfferingResult fromJson(
           Map<String, dynamic> json) =>
-      PurchaseReservedCacheNodesOfferingResult();
+      PurchaseReservedCacheNodesOfferingResult(
+        reservedCacheNode: json.containsKey('ReservedCacheNode')
+            ? ReservedCacheNode.fromJson(json['ReservedCacheNode'])
+            : null,
+      );
 }
 
 class RebootCacheClusterResult {
@@ -4134,7 +5088,11 @@ class RebootCacheClusterResult {
     this.cacheCluster,
   });
   static RebootCacheClusterResult fromJson(Map<String, dynamic> json) =>
-      RebootCacheClusterResult();
+      RebootCacheClusterResult(
+        cacheCluster: json.containsKey('CacheCluster')
+            ? CacheCluster.fromJson(json['CacheCluster'])
+            : null,
+      );
 }
 
 /// Contains the specific price and frequency of a recurring charges for a
@@ -4150,8 +5108,14 @@ class RecurringCharge {
     this.recurringChargeAmount,
     this.recurringChargeFrequency,
   });
-  static RecurringCharge fromJson(Map<String, dynamic> json) =>
-      RecurringCharge();
+  static RecurringCharge fromJson(Map<String, dynamic> json) => RecurringCharge(
+        recurringChargeAmount: json.containsKey('RecurringChargeAmount')
+            ? json['RecurringChargeAmount'] as double
+            : null,
+        recurringChargeFrequency: json.containsKey('RecurringChargeFrequency')
+            ? json['RecurringChargeFrequency'] as String
+            : null,
+      );
 }
 
 /// Contains all of the attributes of a specific Redis replication group.
@@ -4287,7 +5251,59 @@ class ReplicationGroup {
     this.kmsKeyId,
   });
   static ReplicationGroup fromJson(Map<String, dynamic> json) =>
-      ReplicationGroup();
+      ReplicationGroup(
+        replicationGroupId: json.containsKey('ReplicationGroupId')
+            ? json['ReplicationGroupId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        pendingModifiedValues: json.containsKey('PendingModifiedValues')
+            ? ReplicationGroupPendingModifiedValues.fromJson(
+                json['PendingModifiedValues'])
+            : null,
+        memberClusters: json.containsKey('MemberClusters')
+            ? (json['MemberClusters'] as List).map((e) => e as String).toList()
+            : null,
+        nodeGroups: json.containsKey('NodeGroups')
+            ? (json['NodeGroups'] as List)
+                .map((e) => NodeGroup.fromJson(e))
+                .toList()
+            : null,
+        snapshottingClusterId: json.containsKey('SnapshottingClusterId')
+            ? json['SnapshottingClusterId'] as String
+            : null,
+        automaticFailover: json.containsKey('AutomaticFailover')
+            ? json['AutomaticFailover'] as String
+            : null,
+        configurationEndpoint: json.containsKey('ConfigurationEndpoint')
+            ? Endpoint.fromJson(json['ConfigurationEndpoint'])
+            : null,
+        snapshotRetentionLimit: json.containsKey('SnapshotRetentionLimit')
+            ? json['SnapshotRetentionLimit'] as int
+            : null,
+        snapshotWindow: json.containsKey('SnapshotWindow')
+            ? json['SnapshotWindow'] as String
+            : null,
+        clusterEnabled: json.containsKey('ClusterEnabled')
+            ? json['ClusterEnabled'] as bool
+            : null,
+        cacheNodeType: json.containsKey('CacheNodeType')
+            ? json['CacheNodeType'] as String
+            : null,
+        authTokenEnabled: json.containsKey('AuthTokenEnabled')
+            ? json['AuthTokenEnabled'] as bool
+            : null,
+        transitEncryptionEnabled: json.containsKey('TransitEncryptionEnabled')
+            ? json['TransitEncryptionEnabled'] as bool
+            : null,
+        atRestEncryptionEnabled: json.containsKey('AtRestEncryptionEnabled')
+            ? json['AtRestEncryptionEnabled'] as bool
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
 }
 
 /// Represents the output of a `DescribeReplicationGroups` operation.
@@ -4304,7 +5320,14 @@ class ReplicationGroupMessage {
     this.replicationGroups,
   });
   static ReplicationGroupMessage fromJson(Map<String, dynamic> json) =>
-      ReplicationGroupMessage();
+      ReplicationGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        replicationGroups: json.containsKey('ReplicationGroups')
+            ? (json['ReplicationGroups'] as List)
+                .map((e) => ReplicationGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The settings to be applied to the Redis replication group, either
@@ -4338,7 +5361,17 @@ class ReplicationGroupPendingModifiedValues {
   });
   static ReplicationGroupPendingModifiedValues fromJson(
           Map<String, dynamic> json) =>
-      ReplicationGroupPendingModifiedValues();
+      ReplicationGroupPendingModifiedValues(
+        primaryClusterId: json.containsKey('PrimaryClusterId')
+            ? json['PrimaryClusterId'] as String
+            : null,
+        automaticFailoverStatus: json.containsKey('AutomaticFailoverStatus')
+            ? json['AutomaticFailoverStatus'] as String
+            : null,
+        resharding: json.containsKey('Resharding')
+            ? ReshardingStatus.fromJson(json['Resharding'])
+            : null,
+      );
 }
 
 /// Represents the output of a `PurchaseReservedCacheNodesOffering` operation.
@@ -4474,7 +5507,46 @@ class ReservedCacheNode {
     this.reservationArn,
   });
   static ReservedCacheNode fromJson(Map<String, dynamic> json) =>
-      ReservedCacheNode();
+      ReservedCacheNode(
+        reservedCacheNodeId: json.containsKey('ReservedCacheNodeId')
+            ? json['ReservedCacheNodeId'] as String
+            : null,
+        reservedCacheNodesOfferingId:
+            json.containsKey('ReservedCacheNodesOfferingId')
+                ? json['ReservedCacheNodesOfferingId'] as String
+                : null,
+        cacheNodeType: json.containsKey('CacheNodeType')
+            ? json['CacheNodeType'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        cacheNodeCount: json.containsKey('CacheNodeCount')
+            ? json['CacheNodeCount'] as int
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+        reservationArn: json.containsKey('ReservationARN')
+            ? json['ReservationARN'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a `DescribeReservedCacheNodes` operation.
@@ -4491,7 +5563,14 @@ class ReservedCacheNodeMessage {
     this.reservedCacheNodes,
   });
   static ReservedCacheNodeMessage fromJson(Map<String, dynamic> json) =>
-      ReservedCacheNodeMessage();
+      ReservedCacheNodeMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        reservedCacheNodes: json.containsKey('ReservedCacheNodes')
+            ? (json['ReservedCacheNodes'] as List)
+                .map((e) => ReservedCacheNode.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes all of the attributes of a reserved cache node offering.
@@ -4604,7 +5683,33 @@ class ReservedCacheNodesOffering {
     this.recurringCharges,
   });
   static ReservedCacheNodesOffering fromJson(Map<String, dynamic> json) =>
-      ReservedCacheNodesOffering();
+      ReservedCacheNodesOffering(
+        reservedCacheNodesOfferingId:
+            json.containsKey('ReservedCacheNodesOfferingId')
+                ? json['ReservedCacheNodesOfferingId'] as String
+                : null,
+        cacheNodeType: json.containsKey('CacheNodeType')
+            ? json['CacheNodeType'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a `DescribeReservedCacheNodesOfferings` operation.
@@ -4622,7 +5727,15 @@ class ReservedCacheNodesOfferingMessage {
   });
   static ReservedCacheNodesOfferingMessage fromJson(
           Map<String, dynamic> json) =>
-      ReservedCacheNodesOfferingMessage();
+      ReservedCacheNodesOfferingMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        reservedCacheNodesOfferings:
+            json.containsKey('ReservedCacheNodesOfferings')
+                ? (json['ReservedCacheNodesOfferings'] as List)
+                    .map((e) => ReservedCacheNodesOffering.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// A list of `PreferredAvailabilityZones` objects that specifies the
@@ -4639,6 +5752,7 @@ class ReshardingConfiguration {
     this.nodeGroupId,
     this.preferredAvailabilityZones,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The status of an online resharding operation.
@@ -4650,7 +5764,11 @@ class ReshardingStatus {
     this.slotMigration,
   });
   static ReshardingStatus fromJson(Map<String, dynamic> json) =>
-      ReshardingStatus();
+      ReshardingStatus(
+        slotMigration: json.containsKey('SlotMigration')
+            ? SlotMigration.fromJson(json['SlotMigration'])
+            : null,
+      );
 }
 
 class RevokeCacheSecurityGroupIngressResult {
@@ -4661,7 +5779,11 @@ class RevokeCacheSecurityGroupIngressResult {
   });
   static RevokeCacheSecurityGroupIngressResult fromJson(
           Map<String, dynamic> json) =>
-      RevokeCacheSecurityGroupIngressResult();
+      RevokeCacheSecurityGroupIngressResult(
+        cacheSecurityGroup: json.containsKey('CacheSecurityGroup')
+            ? CacheSecurityGroup.fromJson(json['CacheSecurityGroup'])
+            : null,
+      );
 }
 
 /// Represents a single cache security group and its status.
@@ -4679,7 +5801,12 @@ class SecurityGroupMembership {
     this.status,
   });
   static SecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      SecurityGroupMembership();
+      SecurityGroupMembership(
+        securityGroupId: json.containsKey('SecurityGroupId')
+            ? json['SecurityGroupId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// An update that you can apply to your Redis clusters.
@@ -4737,7 +5864,44 @@ class ServiceUpdate {
     this.autoUpdateAfterRecommendedApplyByDate,
     this.estimatedUpdateTime,
   });
-  static ServiceUpdate fromJson(Map<String, dynamic> json) => ServiceUpdate();
+  static ServiceUpdate fromJson(Map<String, dynamic> json) => ServiceUpdate(
+        serviceUpdateName: json.containsKey('ServiceUpdateName')
+            ? json['ServiceUpdateName'] as String
+            : null,
+        serviceUpdateReleaseDate: json.containsKey('ServiceUpdateReleaseDate')
+            ? DateTime.parse(json['ServiceUpdateReleaseDate'])
+            : null,
+        serviceUpdateEndDate: json.containsKey('ServiceUpdateEndDate')
+            ? DateTime.parse(json['ServiceUpdateEndDate'])
+            : null,
+        serviceUpdateSeverity: json.containsKey('ServiceUpdateSeverity')
+            ? json['ServiceUpdateSeverity'] as String
+            : null,
+        serviceUpdateRecommendedApplyByDate:
+            json.containsKey('ServiceUpdateRecommendedApplyByDate')
+                ? DateTime.parse(json['ServiceUpdateRecommendedApplyByDate'])
+                : null,
+        serviceUpdateStatus: json.containsKey('ServiceUpdateStatus')
+            ? json['ServiceUpdateStatus'] as String
+            : null,
+        serviceUpdateDescription: json.containsKey('ServiceUpdateDescription')
+            ? json['ServiceUpdateDescription'] as String
+            : null,
+        serviceUpdateType: json.containsKey('ServiceUpdateType')
+            ? json['ServiceUpdateType'] as String
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        autoUpdateAfterRecommendedApplyByDate:
+            json.containsKey('AutoUpdateAfterRecommendedApplyByDate')
+                ? json['AutoUpdateAfterRecommendedApplyByDate'] as bool
+                : null,
+        estimatedUpdateTime: json.containsKey('EstimatedUpdateTime')
+            ? json['EstimatedUpdateTime'] as String
+            : null,
+      );
 }
 
 class ServiceUpdatesMessage {
@@ -4755,7 +5919,14 @@ class ServiceUpdatesMessage {
     this.serviceUpdates,
   });
   static ServiceUpdatesMessage fromJson(Map<String, dynamic> json) =>
-      ServiceUpdatesMessage();
+      ServiceUpdatesMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        serviceUpdates: json.containsKey('ServiceUpdates')
+            ? (json['ServiceUpdates'] as List)
+                .map((e) => ServiceUpdate.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the progress of an online resharding operation.
@@ -4766,7 +5937,11 @@ class SlotMigration {
   SlotMigration({
     this.progressPercentage,
   });
-  static SlotMigration fromJson(Map<String, dynamic> json) => SlotMigration();
+  static SlotMigration fromJson(Map<String, dynamic> json) => SlotMigration(
+        progressPercentage: json.containsKey('ProgressPercentage')
+            ? json['ProgressPercentage'] as double
+            : null,
+      );
 }
 
 /// Represents a copy of an entire Redis cluster as of the time when the
@@ -5002,7 +6177,79 @@ class Snapshot {
     this.nodeSnapshots,
     this.kmsKeyId,
   });
-  static Snapshot fromJson(Map<String, dynamic> json) => Snapshot();
+  static Snapshot fromJson(Map<String, dynamic> json) => Snapshot(
+        snapshotName: json.containsKey('SnapshotName')
+            ? json['SnapshotName'] as String
+            : null,
+        replicationGroupId: json.containsKey('ReplicationGroupId')
+            ? json['ReplicationGroupId'] as String
+            : null,
+        replicationGroupDescription:
+            json.containsKey('ReplicationGroupDescription')
+                ? json['ReplicationGroupDescription'] as String
+                : null,
+        cacheClusterId: json.containsKey('CacheClusterId')
+            ? json['CacheClusterId'] as String
+            : null,
+        snapshotStatus: json.containsKey('SnapshotStatus')
+            ? json['SnapshotStatus'] as String
+            : null,
+        snapshotSource: json.containsKey('SnapshotSource')
+            ? json['SnapshotSource'] as String
+            : null,
+        cacheNodeType: json.containsKey('CacheNodeType')
+            ? json['CacheNodeType'] as String
+            : null,
+        engine: json.containsKey('Engine') ? json['Engine'] as String : null,
+        engineVersion: json.containsKey('EngineVersion')
+            ? json['EngineVersion'] as String
+            : null,
+        numCacheNodes: json.containsKey('NumCacheNodes')
+            ? json['NumCacheNodes'] as int
+            : null,
+        preferredAvailabilityZone: json.containsKey('PreferredAvailabilityZone')
+            ? json['PreferredAvailabilityZone'] as String
+            : null,
+        cacheClusterCreateTime: json.containsKey('CacheClusterCreateTime')
+            ? DateTime.parse(json['CacheClusterCreateTime'])
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        cacheParameterGroupName: json.containsKey('CacheParameterGroupName')
+            ? json['CacheParameterGroupName'] as String
+            : null,
+        cacheSubnetGroupName: json.containsKey('CacheSubnetGroupName')
+            ? json['CacheSubnetGroupName'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        autoMinorVersionUpgrade: json.containsKey('AutoMinorVersionUpgrade')
+            ? json['AutoMinorVersionUpgrade'] as bool
+            : null,
+        snapshotRetentionLimit: json.containsKey('SnapshotRetentionLimit')
+            ? json['SnapshotRetentionLimit'] as int
+            : null,
+        snapshotWindow: json.containsKey('SnapshotWindow')
+            ? json['SnapshotWindow'] as String
+            : null,
+        numNodeGroups: json.containsKey('NumNodeGroups')
+            ? json['NumNodeGroups'] as int
+            : null,
+        automaticFailover: json.containsKey('AutomaticFailover')
+            ? json['AutomaticFailover'] as String
+            : null,
+        nodeSnapshots: json.containsKey('NodeSnapshots')
+            ? (json['NodeSnapshots'] as List)
+                .map((e) => NodeSnapshot.fromJson(e))
+                .toList()
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
 }
 
 /// Represents the subnet associated with a cluster. This parameter refers to
@@ -5019,7 +6266,14 @@ class Subnet {
     this.subnetIdentifier,
     this.subnetAvailabilityZone,
   });
-  static Subnet fromJson(Map<String, dynamic> json) => Subnet();
+  static Subnet fromJson(Map<String, dynamic> json) => Subnet(
+        subnetIdentifier: json.containsKey('SubnetIdentifier')
+            ? json['SubnetIdentifier'] as String
+            : null,
+        subnetAvailabilityZone: json.containsKey('SubnetAvailabilityZone')
+            ? AvailabilityZone.fromJson(json['SubnetAvailabilityZone'])
+            : null,
+      );
 }
 
 /// A cost allocation Tag that can be added to an ElastiCache cluster or
@@ -5036,7 +6290,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output from the `AddTagsToResource`, `ListTagsForResource`,
@@ -5048,7 +6306,11 @@ class TagListMessage {
   TagListMessage({
     this.tagList,
   });
-  static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage();
+  static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage(
+        tagList: json.containsKey('TagList')
+            ? (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class TestFailoverResult {
@@ -5058,7 +6320,11 @@ class TestFailoverResult {
     this.replicationGroup,
   });
   static TestFailoverResult fromJson(Map<String, dynamic> json) =>
-      TestFailoverResult();
+      TestFailoverResult(
+        replicationGroup: json.containsKey('ReplicationGroup')
+            ? ReplicationGroup.fromJson(json['ReplicationGroup'])
+            : null,
+      );
 }
 
 /// Filters update actions from the service updates that are in available status
@@ -5074,6 +6340,7 @@ class TimeRangeFilter {
     this.startTime,
     this.endTime,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Update action that has failed to be processed for the corresponding
@@ -5098,7 +6365,19 @@ class UnprocessedUpdateAction {
     this.errorMessage,
   });
   static UnprocessedUpdateAction fromJson(Map<String, dynamic> json) =>
-      UnprocessedUpdateAction();
+      UnprocessedUpdateAction(
+        replicationGroupId: json.containsKey('ReplicationGroupId')
+            ? json['ReplicationGroupId'] as String
+            : null,
+        serviceUpdateName: json.containsKey('ServiceUpdateName')
+            ? json['ServiceUpdateName'] as String
+            : null,
+        errorType:
+            json.containsKey('ErrorType') ? json['ErrorType'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// The status of the service update for a specific replication group
@@ -5166,7 +6445,52 @@ class UpdateAction {
     this.nodeGroupUpdateStatus,
     this.estimatedUpdateTime,
   });
-  static UpdateAction fromJson(Map<String, dynamic> json) => UpdateAction();
+  static UpdateAction fromJson(Map<String, dynamic> json) => UpdateAction(
+        replicationGroupId: json.containsKey('ReplicationGroupId')
+            ? json['ReplicationGroupId'] as String
+            : null,
+        serviceUpdateName: json.containsKey('ServiceUpdateName')
+            ? json['ServiceUpdateName'] as String
+            : null,
+        serviceUpdateReleaseDate: json.containsKey('ServiceUpdateReleaseDate')
+            ? DateTime.parse(json['ServiceUpdateReleaseDate'])
+            : null,
+        serviceUpdateSeverity: json.containsKey('ServiceUpdateSeverity')
+            ? json['ServiceUpdateSeverity'] as String
+            : null,
+        serviceUpdateStatus: json.containsKey('ServiceUpdateStatus')
+            ? json['ServiceUpdateStatus'] as String
+            : null,
+        serviceUpdateRecommendedApplyByDate:
+            json.containsKey('ServiceUpdateRecommendedApplyByDate')
+                ? DateTime.parse(json['ServiceUpdateRecommendedApplyByDate'])
+                : null,
+        serviceUpdateType: json.containsKey('ServiceUpdateType')
+            ? json['ServiceUpdateType'] as String
+            : null,
+        updateActionAvailableDate: json.containsKey('UpdateActionAvailableDate')
+            ? DateTime.parse(json['UpdateActionAvailableDate'])
+            : null,
+        updateActionStatus: json.containsKey('UpdateActionStatus')
+            ? json['UpdateActionStatus'] as String
+            : null,
+        nodesUpdated: json.containsKey('NodesUpdated')
+            ? json['NodesUpdated'] as String
+            : null,
+        updateActionStatusModifiedDate:
+            json.containsKey('UpdateActionStatusModifiedDate')
+                ? DateTime.parse(json['UpdateActionStatusModifiedDate'])
+                : null,
+        slaMet: json.containsKey('SlaMet') ? json['SlaMet'] as String : null,
+        nodeGroupUpdateStatus: json.containsKey('NodeGroupUpdateStatus')
+            ? (json['NodeGroupUpdateStatus'] as List)
+                .map((e) => NodeGroupUpdateStatus.fromJson(e))
+                .toList()
+            : null,
+        estimatedUpdateTime: json.containsKey('EstimatedUpdateTime')
+            ? json['EstimatedUpdateTime'] as String
+            : null,
+      );
 }
 
 class UpdateActionResultsMessage {
@@ -5181,7 +6505,18 @@ class UpdateActionResultsMessage {
     this.unprocessedUpdateActions,
   });
   static UpdateActionResultsMessage fromJson(Map<String, dynamic> json) =>
-      UpdateActionResultsMessage();
+      UpdateActionResultsMessage(
+        processedUpdateActions: json.containsKey('ProcessedUpdateActions')
+            ? (json['ProcessedUpdateActions'] as List)
+                .map((e) => ProcessedUpdateAction.fromJson(e))
+                .toList()
+            : null,
+        unprocessedUpdateActions: json.containsKey('UnprocessedUpdateActions')
+            ? (json['UnprocessedUpdateActions'] as List)
+                .map((e) => UnprocessedUpdateAction.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateActionsMessage {
@@ -5199,5 +6534,12 @@ class UpdateActionsMessage {
     this.updateActions,
   });
   static UpdateActionsMessage fromJson(Map<String, dynamic> json) =>
-      UpdateActionsMessage();
+      UpdateActionsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        updateActions: json.containsKey('UpdateActions')
+            ? (json['UpdateActions'] as List)
+                .map((e) => UpdateAction.fromJson(e))
+                .toList()
+            : null,
+      );
 }

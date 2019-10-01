@@ -9,6 +9,10 @@ import 'dart:typed_data';
 /// Amazon EC2, or other publicly addressable web services that are hosted
 /// outside of AWS.
 class ApiGatewayApi {
+  final _client;
+  ApiGatewayApi(client)
+      : _client = client.configured('API Gateway', serializer: 'rest-json');
+
   /// Create an ApiKey resource.
   ///
   /// [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-api-key.html)
@@ -42,7 +46,17 @@ class ApiGatewayApi {
       List<StageKey> stageKeys,
       String customerId,
       Map<String, String> tags}) async {
-    return ApiKey.fromJson({});
+    var response_ = await _client.send('CreateApiKey', {
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (enabled != null) 'enabled': enabled,
+      if (generateDistinctId != null) 'generateDistinctId': generateDistinctId,
+      if (value != null) 'value': value,
+      if (stageKeys != null) 'stageKeys': stageKeys,
+      if (customerId != null) 'customerId': customerId,
+      if (tags != null) 'tags': tags,
+    });
+    return ApiKey.fromJson(response_);
   }
 
   /// Adds a new Authorizer resource to an existing RestApi resource.
@@ -130,7 +144,22 @@ class ApiGatewayApi {
       String identitySource,
       String identityValidationExpression,
       int authorizerResultTtlInSeconds}) async {
-    return Authorizer.fromJson({});
+    var response_ = await _client.send('CreateAuthorizer', {
+      'restApiId': restApiId,
+      'name': name,
+      'type': type,
+      if (providerARNs != null) 'providerARNs': providerARNs,
+      if (authType != null) 'authType': authType,
+      if (authorizerUri != null) 'authorizerUri': authorizerUri,
+      if (authorizerCredentials != null)
+        'authorizerCredentials': authorizerCredentials,
+      if (identitySource != null) 'identitySource': identitySource,
+      if (identityValidationExpression != null)
+        'identityValidationExpression': identityValidationExpression,
+      if (authorizerResultTtlInSeconds != null)
+        'authorizerResultTtlInSeconds': authorizerResultTtlInSeconds,
+    });
+    return Authorizer.fromJson(response_);
   }
 
   /// Creates a new BasePathMapping resource.
@@ -153,7 +182,13 @@ class ApiGatewayApi {
       String basePath,
       @required String restApiId,
       String stage}) async {
-    return BasePathMapping.fromJson({});
+    var response_ = await _client.send('CreateBasePathMapping', {
+      'domainName': domainName,
+      if (basePath != null) 'basePath': basePath,
+      'restApiId': restApiId,
+      if (stage != null) 'stage': stage,
+    });
+    return BasePathMapping.fromJson(response_);
   }
 
   /// Creates a Deployment resource, which makes a specified RestApi callable
@@ -194,7 +229,19 @@ class ApiGatewayApi {
       Map<String, String> variables,
       DeploymentCanarySettings canarySettings,
       bool tracingEnabled}) async {
-    return Deployment.fromJson({});
+    var response_ = await _client.send('CreateDeployment', {
+      'restApiId': restApiId,
+      if (stageName != null) 'stageName': stageName,
+      if (stageDescription != null) 'stageDescription': stageDescription,
+      if (description != null) 'description': description,
+      if (cacheClusterEnabled != null)
+        'cacheClusterEnabled': cacheClusterEnabled,
+      if (cacheClusterSize != null) 'cacheClusterSize': cacheClusterSize,
+      if (variables != null) 'variables': variables,
+      if (canarySettings != null) 'canarySettings': canarySettings,
+      if (tracingEnabled != null) 'tracingEnabled': tracingEnabled,
+    });
+    return Deployment.fromJson(response_);
   }
 
   ///
@@ -210,7 +257,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required DocumentationPartLocation location,
       @required String properties}) async {
-    return DocumentationPart.fromJson({});
+    var response_ = await _client.send('CreateDocumentationPart', {
+      'restApiId': restApiId,
+      'location': location,
+      'properties': properties,
+    });
+    return DocumentationPart.fromJson(response_);
   }
 
   ///
@@ -228,7 +280,13 @@ class ApiGatewayApi {
       @required String documentationVersion,
       String stageName,
       String description}) async {
-    return DocumentationVersion.fromJson({});
+    var response_ = await _client.send('CreateDocumentationVersion', {
+      'restApiId': restApiId,
+      'documentationVersion': documentationVersion,
+      if (stageName != null) 'stageName': stageName,
+      if (description != null) 'description': description,
+    });
+    return DocumentationVersion.fromJson(response_);
   }
 
   /// Creates a new domain name.
@@ -285,7 +343,24 @@ class ApiGatewayApi {
       EndpointConfiguration endpointConfiguration,
       Map<String, String> tags,
       String securityPolicy}) async {
-    return DomainName.fromJson({});
+    var response_ = await _client.send('CreateDomainName', {
+      'domainName': domainName,
+      if (certificateName != null) 'certificateName': certificateName,
+      if (certificateBody != null) 'certificateBody': certificateBody,
+      if (certificatePrivateKey != null)
+        'certificatePrivateKey': certificatePrivateKey,
+      if (certificateChain != null) 'certificateChain': certificateChain,
+      if (certificateArn != null) 'certificateArn': certificateArn,
+      if (regionalCertificateName != null)
+        'regionalCertificateName': regionalCertificateName,
+      if (regionalCertificateArn != null)
+        'regionalCertificateArn': regionalCertificateArn,
+      if (endpointConfiguration != null)
+        'endpointConfiguration': endpointConfiguration,
+      if (tags != null) 'tags': tags,
+      if (securityPolicy != null) 'securityPolicy': securityPolicy,
+    });
+    return DomainName.fromJson(response_);
   }
 
   /// Adds a new Model resource to an existing RestApi resource.
@@ -309,7 +384,14 @@ class ApiGatewayApi {
       String description,
       String schema,
       @required String contentType}) async {
-    return Model.fromJson({});
+    var response_ = await _client.send('CreateModel', {
+      'restApiId': restApiId,
+      'name': name,
+      if (description != null) 'description': description,
+      if (schema != null) 'schema': schema,
+      'contentType': contentType,
+    });
+    return Model.fromJson(response_);
   }
 
   /// Creates a ReqeustValidator of a given RestApi.
@@ -328,7 +410,15 @@ class ApiGatewayApi {
       {String name,
       bool validateRequestBody,
       bool validateRequestParameters}) async {
-    return RequestValidator.fromJson({});
+    var response_ = await _client.send('CreateRequestValidator', {
+      'restApiId': restApiId,
+      if (name != null) 'name': name,
+      if (validateRequestBody != null)
+        'validateRequestBody': validateRequestBody,
+      if (validateRequestParameters != null)
+        'validateRequestParameters': validateRequestParameters,
+    });
+    return RequestValidator.fromJson(response_);
   }
 
   /// Creates a Resource resource.
@@ -342,7 +432,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String parentId,
       @required String pathPart}) async {
-    return Resource.fromJson({});
+    var response_ = await _client.send('CreateResource', {
+      'restApiId': restApiId,
+      'parentId': parentId,
+      'pathPart': pathPart,
+    });
+    return Resource.fromJson(response_);
   }
 
   /// Creates a new RestApi resource.
@@ -392,7 +487,21 @@ class ApiGatewayApi {
       EndpointConfiguration endpointConfiguration,
       String policy,
       Map<String, String> tags}) async {
-    return RestApi.fromJson({});
+    var response_ = await _client.send('CreateRestApi', {
+      'name': name,
+      if (description != null) 'description': description,
+      if (version != null) 'version': version,
+      if (cloneFrom != null) 'cloneFrom': cloneFrom,
+      if (binaryMediaTypes != null) 'binaryMediaTypes': binaryMediaTypes,
+      if (minimumCompressionSize != null)
+        'minimumCompressionSize': minimumCompressionSize,
+      if (apiKeySource != null) 'apiKeySource': apiKeySource,
+      if (endpointConfiguration != null)
+        'endpointConfiguration': endpointConfiguration,
+      if (policy != null) 'policy': policy,
+      if (tags != null) 'tags': tags,
+    });
+    return RestApi.fromJson(response_);
   }
 
   /// Creates a new Stage resource that references a pre-existing Deployment for
@@ -439,7 +548,22 @@ class ApiGatewayApi {
       CanarySettings canarySettings,
       bool tracingEnabled,
       Map<String, String> tags}) async {
-    return Stage.fromJson({});
+    var response_ = await _client.send('CreateStage', {
+      'restApiId': restApiId,
+      'stageName': stageName,
+      'deploymentId': deploymentId,
+      if (description != null) 'description': description,
+      if (cacheClusterEnabled != null)
+        'cacheClusterEnabled': cacheClusterEnabled,
+      if (cacheClusterSize != null) 'cacheClusterSize': cacheClusterSize,
+      if (variables != null) 'variables': variables,
+      if (documentationVersion != null)
+        'documentationVersion': documentationVersion,
+      if (canarySettings != null) 'canarySettings': canarySettings,
+      if (tracingEnabled != null) 'tracingEnabled': tracingEnabled,
+      if (tags != null) 'tags': tags,
+    });
+    return Stage.fromJson(response_);
   }
 
   /// Creates a usage plan with the throttle and quota limits, as well as the
@@ -464,7 +588,15 @@ class ApiGatewayApi {
       ThrottleSettings throttle,
       QuotaSettings quota,
       Map<String, String> tags}) async {
-    return UsagePlan.fromJson({});
+    var response_ = await _client.send('CreateUsagePlan', {
+      'name': name,
+      if (description != null) 'description': description,
+      if (apiStages != null) 'apiStages': apiStages,
+      if (throttle != null) 'throttle': throttle,
+      if (quota != null) 'quota': quota,
+      if (tags != null) 'tags': tags,
+    });
+    return UsagePlan.fromJson(response_);
   }
 
   /// Creates a usage plan key for adding an existing API key to a usage plan.
@@ -482,7 +614,12 @@ class ApiGatewayApi {
       {@required String usagePlanId,
       @required String keyId,
       @required String keyType}) async {
-    return UsagePlanKey.fromJson({});
+    var response_ = await _client.send('CreateUsagePlanKey', {
+      'usagePlanId': usagePlanId,
+      'keyId': keyId,
+      'keyType': keyType,
+    });
+    return UsagePlanKey.fromJson(response_);
   }
 
   /// Creates a VPC link, under the caller's account in a selected region, in an
@@ -506,13 +643,23 @@ class ApiGatewayApi {
       String description,
       @required List<String> targetArns,
       Map<String, String> tags}) async {
-    return VpcLink.fromJson({});
+    var response_ = await _client.send('CreateVpcLink', {
+      'name': name,
+      if (description != null) 'description': description,
+      'targetArns': targetArns,
+      if (tags != null) 'tags': tags,
+    });
+    return VpcLink.fromJson(response_);
   }
 
   /// Deletes the ApiKey resource.
   ///
   /// [apiKey]: *required* The identifier of the ApiKey resource to be deleted.
-  Future<void> deleteApiKey(String apiKey) async {}
+  Future<void> deleteApiKey(String apiKey) async {
+    await _client.send('DeleteApiKey', {
+      'apiKey': apiKey,
+    });
+  }
 
   /// Deletes an existing Authorizer resource.
   ///
@@ -522,7 +669,12 @@ class ApiGatewayApi {
   ///
   /// [authorizerId]: *required* The identifier of the Authorizer resource.
   Future<void> deleteAuthorizer(
-      {@required String restApiId, @required String authorizerId}) async {}
+      {@required String restApiId, @required String authorizerId}) async {
+    await _client.send('DeleteAuthorizer', {
+      'restApiId': restApiId,
+      'authorizerId': authorizerId,
+    });
+  }
 
   /// Deletes the BasePathMapping resource.
   ///
@@ -534,13 +686,22 @@ class ApiGatewayApi {
   ///
   /// To specify an empty base path, set this parameter to `'(none)'`.
   Future<void> deleteBasePathMapping(
-      {@required String domainName, @required String basePath}) async {}
+      {@required String domainName, @required String basePath}) async {
+    await _client.send('DeleteBasePathMapping', {
+      'domainName': domainName,
+      'basePath': basePath,
+    });
+  }
 
   /// Deletes the ClientCertificate resource.
   ///
   /// [clientCertificateId]: *required* The identifier of the ClientCertificate
   /// resource to be deleted.
-  Future<void> deleteClientCertificate(String clientCertificateId) async {}
+  Future<void> deleteClientCertificate(String clientCertificateId) async {
+    await _client.send('DeleteClientCertificate', {
+      'clientCertificateId': clientCertificateId,
+    });
+  }
 
   /// Deletes a Deployment resource. Deleting a deployment will only succeed if
   /// there are no Stage resources associated with it.
@@ -550,7 +711,12 @@ class ApiGatewayApi {
   /// [deploymentId]: *required* The identifier of the Deployment resource to
   /// delete.
   Future<void> deleteDeployment(
-      {@required String restApiId, @required String deploymentId}) async {}
+      {@required String restApiId, @required String deploymentId}) async {
+    await _client.send('DeleteDeployment', {
+      'restApiId': restApiId,
+      'deploymentId': deploymentId,
+    });
+  }
 
   ///
   /// [restApiId]: *required* The string identifier of the associated RestApi.
@@ -559,7 +725,12 @@ class ApiGatewayApi {
   /// documentation part.
   Future<void> deleteDocumentationPart(
       {@required String restApiId,
-      @required String documentationPartId}) async {}
+      @required String documentationPartId}) async {
+    await _client.send('DeleteDocumentationPart', {
+      'restApiId': restApiId,
+      'documentationPartId': documentationPartId,
+    });
+  }
 
   ///
   /// [restApiId]: *required* The string identifier of the associated RestApi.
@@ -568,13 +739,22 @@ class ApiGatewayApi {
   /// to-be-deleted documentation snapshot.
   Future<void> deleteDocumentationVersion(
       {@required String restApiId,
-      @required String documentationVersion}) async {}
+      @required String documentationVersion}) async {
+    await _client.send('DeleteDocumentationVersion', {
+      'restApiId': restApiId,
+      'documentationVersion': documentationVersion,
+    });
+  }
 
   /// Deletes the DomainName resource.
   ///
   /// [domainName]: *required* The name of the DomainName resource to be
   /// deleted.
-  Future<void> deleteDomainName(String domainName) async {}
+  Future<void> deleteDomainName(String domainName) async {
+    await _client.send('DeleteDomainName', {
+      'domainName': domainName,
+    });
+  }
 
   /// Clears any customization of a GatewayResponse of a specified response type
   /// on the given RestApi and resets it with the default settings.
@@ -606,7 +786,12 @@ class ApiGatewayApi {
   /// *   UNAUTHORIZED
   /// *   UNSUPPORTED_MEDIA_TYPE
   Future<void> deleteGatewayResponse(
-      {@required String restApiId, @required String responseType}) async {}
+      {@required String restApiId, @required String responseType}) async {
+    await _client.send('DeleteGatewayResponse', {
+      'restApiId': restApiId,
+      'responseType': responseType,
+    });
+  }
 
   /// Represents a delete integration.
   ///
@@ -620,7 +805,13 @@ class ApiGatewayApi {
   Future<void> deleteIntegration(
       {@required String restApiId,
       @required String resourceId,
-      @required String httpMethod}) async {}
+      @required String httpMethod}) async {
+    await _client.send('DeleteIntegration', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+    });
+  }
 
   /// Represents a delete integration response.
   ///
@@ -638,7 +829,14 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String resourceId,
       @required String httpMethod,
-      @required String statusCode}) async {}
+      @required String statusCode}) async {
+    await _client.send('DeleteIntegrationResponse', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'statusCode': statusCode,
+    });
+  }
 
   /// Deletes an existing Method resource.
   ///
@@ -650,7 +848,13 @@ class ApiGatewayApi {
   Future<void> deleteMethod(
       {@required String restApiId,
       @required String resourceId,
-      @required String httpMethod}) async {}
+      @required String httpMethod}) async {
+    await _client.send('DeleteMethod', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+    });
+  }
 
   /// Deletes an existing MethodResponse resource.
   ///
@@ -667,7 +871,14 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String resourceId,
       @required String httpMethod,
-      @required String statusCode}) async {}
+      @required String statusCode}) async {
+    await _client.send('DeleteMethodResponse', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'statusCode': statusCode,
+    });
+  }
 
   /// Deletes a model.
   ///
@@ -675,7 +886,12 @@ class ApiGatewayApi {
   ///
   /// [modelName]: *required* The name of the model to delete.
   Future<void> deleteModel(
-      {@required String restApiId, @required String modelName}) async {}
+      {@required String restApiId, @required String modelName}) async {
+    await _client.send('DeleteModel', {
+      'restApiId': restApiId,
+      'modelName': modelName,
+    });
+  }
 
   /// Deletes a RequestValidator of a given RestApi.
   ///
@@ -684,8 +900,12 @@ class ApiGatewayApi {
   /// [requestValidatorId]: *required* The identifier of the RequestValidator to
   /// be deleted.
   Future<void> deleteRequestValidator(
-      {@required String restApiId,
-      @required String requestValidatorId}) async {}
+      {@required String restApiId, @required String requestValidatorId}) async {
+    await _client.send('DeleteRequestValidator', {
+      'restApiId': restApiId,
+      'requestValidatorId': requestValidatorId,
+    });
+  }
 
   /// Deletes a Resource resource.
   ///
@@ -693,12 +913,21 @@ class ApiGatewayApi {
   ///
   /// [resourceId]: *required* The identifier of the Resource resource.
   Future<void> deleteResource(
-      {@required String restApiId, @required String resourceId}) async {}
+      {@required String restApiId, @required String resourceId}) async {
+    await _client.send('DeleteResource', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+    });
+  }
 
   /// Deletes the specified API.
   ///
   /// [restApiId]: *required* The string identifier of the associated RestApi.
-  Future<void> deleteRestApi(String restApiId) async {}
+  Future<void> deleteRestApi(String restApiId) async {
+    await _client.send('DeleteRestApi', {
+      'restApiId': restApiId,
+    });
+  }
 
   /// Deletes a Stage resource.
   ///
@@ -706,12 +935,21 @@ class ApiGatewayApi {
   ///
   /// [stageName]: *required* The name of the Stage resource to delete.
   Future<void> deleteStage(
-      {@required String restApiId, @required String stageName}) async {}
+      {@required String restApiId, @required String stageName}) async {
+    await _client.send('DeleteStage', {
+      'restApiId': restApiId,
+      'stageName': stageName,
+    });
+  }
 
   /// Deletes a usage plan of a given plan Id.
   ///
   /// [usagePlanId]: *required* The Id of the to-be-deleted usage plan.
-  Future<void> deleteUsagePlan(String usagePlanId) async {}
+  Future<void> deleteUsagePlan(String usagePlanId) async {
+    await _client.send('DeleteUsagePlan', {
+      'usagePlanId': usagePlanId,
+    });
+  }
 
   /// Deletes a usage plan key and remove the underlying API key from the
   /// associated usage plan.
@@ -722,13 +960,22 @@ class ApiGatewayApi {
   ///
   /// [keyId]: *required* The Id of the UsagePlanKey resource to be deleted.
   Future<void> deleteUsagePlanKey(
-      {@required String usagePlanId, @required String keyId}) async {}
+      {@required String usagePlanId, @required String keyId}) async {
+    await _client.send('DeleteUsagePlanKey', {
+      'usagePlanId': usagePlanId,
+      'keyId': keyId,
+    });
+  }
 
   /// Deletes an existing VpcLink of a specified identifier.
   ///
   /// [vpcLinkId]: *required* The identifier of the VpcLink. It is used in an
   /// Integration to reference this VpcLink.
-  Future<void> deleteVpcLink(String vpcLinkId) async {}
+  Future<void> deleteVpcLink(String vpcLinkId) async {
+    await _client.send('DeleteVpcLink', {
+      'vpcLinkId': vpcLinkId,
+    });
+  }
 
   /// Flushes all authorizer cache entries on a stage.
   ///
@@ -736,7 +983,12 @@ class ApiGatewayApi {
   ///
   /// [stageName]: The name of the stage to flush.
   Future<void> flushStageAuthorizersCache(
-      {@required String restApiId, @required String stageName}) async {}
+      {@required String restApiId, @required String stageName}) async {
+    await _client.send('FlushStageAuthorizersCache', {
+      'restApiId': restApiId,
+      'stageName': stageName,
+    });
+  }
 
   /// Flushes a stage's cache.
   ///
@@ -744,7 +996,12 @@ class ApiGatewayApi {
   ///
   /// [stageName]: *required* The name of the stage to flush its cache.
   Future<void> flushStageCache(
-      {@required String restApiId, @required String stageName}) async {}
+      {@required String restApiId, @required String stageName}) async {
+    await _client.send('FlushStageCache', {
+      'restApiId': restApiId,
+      'stageName': stageName,
+    });
+  }
 
   /// Generates a ClientCertificate resource.
   ///
@@ -755,12 +1012,17 @@ class ApiGatewayApi {
   /// start with `aws:`. The tag value can be up to 256 characters.
   Future<ClientCertificate> generateClientCertificate(
       {String description, Map<String, String> tags}) async {
-    return ClientCertificate.fromJson({});
+    var response_ = await _client.send('GenerateClientCertificate', {
+      if (description != null) 'description': description,
+      if (tags != null) 'tags': tags,
+    });
+    return ClientCertificate.fromJson(response_);
   }
 
   /// Gets information about the current Account resource.
   Future<Account> getAccount() async {
-    return Account.fromJson({});
+    var response_ = await _client.send('GetAccount', {});
+    return Account.fromJson(response_);
   }
 
   /// Gets information about the current ApiKey resource.
@@ -770,7 +1032,11 @@ class ApiGatewayApi {
   /// [includeValue]: A boolean flag to specify whether (`true`) or not
   /// (`false`) the result contains the key value.
   Future<ApiKey> getApiKey(String apiKey, {bool includeValue}) async {
-    return ApiKey.fromJson({});
+    var response_ = await _client.send('GetApiKey', {
+      'apiKey': apiKey,
+      if (includeValue != null) 'includeValue': includeValue,
+    });
+    return ApiKey.fromJson(response_);
   }
 
   /// Gets information about the current ApiKeys resource.
@@ -793,7 +1059,14 @@ class ApiGatewayApi {
       String nameQuery,
       String customerId,
       bool includeValues}) async {
-    return ApiKeys.fromJson({});
+    var response_ = await _client.send('GetApiKeys', {
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+      if (nameQuery != null) 'nameQuery': nameQuery,
+      if (customerId != null) 'customerId': customerId,
+      if (includeValues != null) 'includeValues': includeValues,
+    });
+    return ApiKeys.fromJson(response_);
   }
 
   /// Describe an existing Authorizer resource.
@@ -805,7 +1078,11 @@ class ApiGatewayApi {
   /// [authorizerId]: *required* The identifier of the Authorizer resource.
   Future<Authorizer> getAuthorizer(
       {@required String restApiId, @required String authorizerId}) async {
-    return Authorizer.fromJson({});
+    var response_ = await _client.send('GetAuthorizer', {
+      'restApiId': restApiId,
+      'authorizerId': authorizerId,
+    });
+    return Authorizer.fromJson(response_);
   }
 
   /// Describe an existing Authorizers resource.
@@ -820,7 +1097,12 @@ class ApiGatewayApi {
   /// value is 25 and the maximum value is 500.
   Future<Authorizers> getAuthorizers(String restApiId,
       {String position, int limit}) async {
-    return Authorizers.fromJson({});
+    var response_ = await _client.send('GetAuthorizers', {
+      'restApiId': restApiId,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return Authorizers.fromJson(response_);
   }
 
   /// Describe a BasePathMapping resource.
@@ -835,7 +1117,11 @@ class ApiGatewayApi {
   /// name.
   Future<BasePathMapping> getBasePathMapping(
       {@required String domainName, @required String basePath}) async {
-    return BasePathMapping.fromJson({});
+    var response_ = await _client.send('GetBasePathMapping', {
+      'domainName': domainName,
+      'basePath': basePath,
+    });
+    return BasePathMapping.fromJson(response_);
   }
 
   /// Represents a collection of BasePathMapping resources.
@@ -848,7 +1134,12 @@ class ApiGatewayApi {
   /// value is 25 and the maximum value is 500.
   Future<BasePathMappings> getBasePathMappings(String domainName,
       {String position, int limit}) async {
-    return BasePathMappings.fromJson({});
+    var response_ = await _client.send('GetBasePathMappings', {
+      'domainName': domainName,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return BasePathMappings.fromJson(response_);
   }
 
   /// Gets information about the current ClientCertificate resource.
@@ -857,7 +1148,10 @@ class ApiGatewayApi {
   /// resource to be described.
   Future<ClientCertificate> getClientCertificate(
       String clientCertificateId) async {
-    return ClientCertificate.fromJson({});
+    var response_ = await _client.send('GetClientCertificate', {
+      'clientCertificateId': clientCertificateId,
+    });
+    return ClientCertificate.fromJson(response_);
   }
 
   /// Gets a collection of ClientCertificate resources.
@@ -868,7 +1162,11 @@ class ApiGatewayApi {
   /// value is 25 and the maximum value is 500.
   Future<ClientCertificates> getClientCertificates(
       {String position, int limit}) async {
-    return ClientCertificates.fromJson({});
+    var response_ = await _client.send('GetClientCertificates', {
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return ClientCertificates.fromJson(response_);
   }
 
   /// Gets information about a Deployment resource.
@@ -891,7 +1189,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String deploymentId,
       List<String> embed}) async {
-    return Deployment.fromJson({});
+    var response_ = await _client.send('GetDeployment', {
+      'restApiId': restApiId,
+      'deploymentId': deploymentId,
+      if (embed != null) 'embed': embed,
+    });
+    return Deployment.fromJson(response_);
   }
 
   /// Gets information about a Deployments collection.
@@ -904,7 +1207,12 @@ class ApiGatewayApi {
   /// value is 25 and the maximum value is 500.
   Future<Deployments> getDeployments(String restApiId,
       {String position, int limit}) async {
-    return Deployments.fromJson({});
+    var response_ = await _client.send('GetDeployments', {
+      'restApiId': restApiId,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return Deployments.fromJson(response_);
   }
 
   ///
@@ -915,7 +1223,11 @@ class ApiGatewayApi {
   Future<DocumentationPart> getDocumentationPart(
       {@required String restApiId,
       @required String documentationPartId}) async {
-    return DocumentationPart.fromJson({});
+    var response_ = await _client.send('GetDocumentationPart', {
+      'restApiId': restApiId,
+      'documentationPartId': documentationPartId,
+    });
+    return DocumentationPart.fromJson(response_);
   }
 
   ///
@@ -946,7 +1258,16 @@ class ApiGatewayApi {
       String position,
       int limit,
       String locationStatus}) async {
-    return DocumentationParts.fromJson({});
+    var response_ = await _client.send('GetDocumentationParts', {
+      'restApiId': restApiId,
+      if (type != null) 'type': type,
+      if (nameQuery != null) 'nameQuery': nameQuery,
+      if (path != null) 'path': path,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+      if (locationStatus != null) 'locationStatus': locationStatus,
+    });
+    return DocumentationParts.fromJson(response_);
   }
 
   ///
@@ -957,7 +1278,11 @@ class ApiGatewayApi {
   Future<DocumentationVersion> getDocumentationVersion(
       {@required String restApiId,
       @required String documentationVersion}) async {
-    return DocumentationVersion.fromJson({});
+    var response_ = await _client.send('GetDocumentationVersion', {
+      'restApiId': restApiId,
+      'documentationVersion': documentationVersion,
+    });
+    return DocumentationVersion.fromJson(response_);
   }
 
   ///
@@ -969,7 +1294,12 @@ class ApiGatewayApi {
   /// value is 25 and the maximum value is 500.
   Future<DocumentationVersions> getDocumentationVersions(String restApiId,
       {String position, int limit}) async {
-    return DocumentationVersions.fromJson({});
+    var response_ = await _client.send('GetDocumentationVersions', {
+      'restApiId': restApiId,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return DocumentationVersions.fromJson(response_);
   }
 
   /// Represents a domain name that is contained in a simpler, more intuitive
@@ -977,7 +1307,10 @@ class ApiGatewayApi {
   ///
   /// [domainName]: *required* The name of the DomainName resource.
   Future<DomainName> getDomainName(String domainName) async {
-    return DomainName.fromJson({});
+    var response_ = await _client.send('GetDomainName', {
+      'domainName': domainName,
+    });
+    return DomainName.fromJson(response_);
   }
 
   /// Represents a collection of DomainName resources.
@@ -987,7 +1320,11 @@ class ApiGatewayApi {
   /// [limit]: The maximum number of returned results per page. The default
   /// value is 25 and the maximum value is 500.
   Future<DomainNames> getDomainNames({String position, int limit}) async {
-    return DomainNames.fromJson({});
+    var response_ = await _client.send('GetDomainNames', {
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return DomainNames.fromJson(response_);
   }
 
   /// Exports a deployed version of a RestApi in a specified format.
@@ -1019,7 +1356,14 @@ class ApiGatewayApi {
       @required String exportType,
       Map<String, String> parameters,
       String accepts}) async {
-    return ExportResponse.fromJson({});
+    var response_ = await _client.send('GetExport', {
+      'restApiId': restApiId,
+      'stageName': stageName,
+      'exportType': exportType,
+      if (parameters != null) 'parameters': parameters,
+      if (accepts != null) 'accepts': accepts,
+    });
+    return ExportResponse.fromJson(response_);
   }
 
   /// Gets a GatewayResponse of a specified response type on the given RestApi.
@@ -1052,7 +1396,11 @@ class ApiGatewayApi {
   /// *   UNSUPPORTED_MEDIA_TYPE
   Future<GatewayResponse> getGatewayResponse(
       {@required String restApiId, @required String responseType}) async {
-    return GatewayResponse.fromJson({});
+    var response_ = await _client.send('GetGatewayResponse', {
+      'restApiId': restApiId,
+      'responseType': responseType,
+    });
+    return GatewayResponse.fromJson(response_);
   }
 
   /// Gets the GatewayResponses collection on the given RestApi. If an API
@@ -1071,7 +1419,12 @@ class ApiGatewayApi {
   /// does not support pagination and the limit does not apply here.
   Future<GatewayResponses> getGatewayResponses(String restApiId,
       {String position, int limit}) async {
-    return GatewayResponses.fromJson({});
+    var response_ = await _client.send('GetGatewayResponses', {
+      'restApiId': restApiId,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return GatewayResponses.fromJson(response_);
   }
 
   /// Get the integration settings.
@@ -1087,7 +1440,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String resourceId,
       @required String httpMethod}) async {
-    return Integration.fromJson({});
+    var response_ = await _client.send('GetIntegration', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+    });
+    return Integration.fromJson(response_);
   }
 
   /// Represents a get integration response.
@@ -1107,7 +1465,13 @@ class ApiGatewayApi {
       @required String resourceId,
       @required String httpMethod,
       @required String statusCode}) async {
-    return IntegrationResponse.fromJson({});
+    var response_ = await _client.send('GetIntegrationResponse', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'statusCode': statusCode,
+    });
+    return IntegrationResponse.fromJson(response_);
   }
 
   /// Describe an existing Method resource.
@@ -1121,7 +1485,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String resourceId,
       @required String httpMethod}) async {
-    return Method.fromJson({});
+    var response_ = await _client.send('GetMethod', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+    });
+    return Method.fromJson(response_);
   }
 
   /// Describes a MethodResponse resource.
@@ -1139,7 +1508,13 @@ class ApiGatewayApi {
       @required String resourceId,
       @required String httpMethod,
       @required String statusCode}) async {
-    return MethodResponse.fromJson({});
+    var response_ = await _client.send('GetMethodResponse', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'statusCode': statusCode,
+    });
+    return MethodResponse.fromJson(response_);
   }
 
   /// Describes an existing model defined for a RestApi resource.
@@ -1156,7 +1531,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String modelName,
       bool flatten}) async {
-    return Model.fromJson({});
+    var response_ = await _client.send('GetModel', {
+      'restApiId': restApiId,
+      'modelName': modelName,
+      if (flatten != null) 'flatten': flatten,
+    });
+    return Model.fromJson(response_);
   }
 
   /// Generates a sample mapping template that can be used to transform a
@@ -1168,7 +1548,11 @@ class ApiGatewayApi {
   /// template.
   Future<Template> getModelTemplate(
       {@required String restApiId, @required String modelName}) async {
-    return Template.fromJson({});
+    var response_ = await _client.send('GetModelTemplate', {
+      'restApiId': restApiId,
+      'modelName': modelName,
+    });
+    return Template.fromJson(response_);
   }
 
   /// Describes existing Models defined for a RestApi resource.
@@ -1181,7 +1565,12 @@ class ApiGatewayApi {
   /// value is 25 and the maximum value is 500.
   Future<Models> getModels(String restApiId,
       {String position, int limit}) async {
-    return Models.fromJson({});
+    var response_ = await _client.send('GetModels', {
+      'restApiId': restApiId,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return Models.fromJson(response_);
   }
 
   /// Gets a RequestValidator of a given RestApi.
@@ -1192,7 +1581,11 @@ class ApiGatewayApi {
   /// be retrieved.
   Future<RequestValidator> getRequestValidator(
       {@required String restApiId, @required String requestValidatorId}) async {
-    return RequestValidator.fromJson({});
+    var response_ = await _client.send('GetRequestValidator', {
+      'restApiId': restApiId,
+      'requestValidatorId': requestValidatorId,
+    });
+    return RequestValidator.fromJson(response_);
   }
 
   /// Gets the RequestValidators collection of a given RestApi.
@@ -1205,7 +1598,12 @@ class ApiGatewayApi {
   /// value is 25 and the maximum value is 500.
   Future<RequestValidators> getRequestValidators(String restApiId,
       {String position, int limit}) async {
-    return RequestValidators.fromJson({});
+    var response_ = await _client.send('GetRequestValidators', {
+      'restApiId': restApiId,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return RequestValidators.fromJson(response_);
   }
 
   /// Lists information about a resource.
@@ -1225,7 +1623,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String resourceId,
       List<String> embed}) async {
-    return Resource.fromJson({});
+    var response_ = await _client.send('GetResource', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      if (embed != null) 'embed': embed,
+    });
+    return Resource.fromJson(response_);
   }
 
   /// Lists information about a collection of Resource resources.
@@ -1246,14 +1649,23 @@ class ApiGatewayApi {
   /// /restapis/{restapi_id}/resources?embed=methods`.
   Future<Resources> getResources(String restApiId,
       {String position, int limit, List<String> embed}) async {
-    return Resources.fromJson({});
+    var response_ = await _client.send('GetResources', {
+      'restApiId': restApiId,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+      if (embed != null) 'embed': embed,
+    });
+    return Resources.fromJson(response_);
   }
 
   /// Lists the RestApi resource in the collection.
   ///
   /// [restApiId]: *required* The string identifier of the associated RestApi.
   Future<RestApi> getRestApi(String restApiId) async {
-    return RestApi.fromJson({});
+    var response_ = await _client.send('GetRestApi', {
+      'restApiId': restApiId,
+    });
+    return RestApi.fromJson(response_);
   }
 
   /// Lists the RestApis resources for your collection.
@@ -1263,7 +1675,11 @@ class ApiGatewayApi {
   /// [limit]: The maximum number of returned results per page. The default
   /// value is 25 and the maximum value is 500.
   Future<RestApis> getRestApis({String position, int limit}) async {
-    return RestApis.fromJson({});
+    var response_ = await _client.send('GetRestApis', {
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return RestApis.fromJson(response_);
   }
 
   /// Generates a client SDK for a RestApi and Stage.
@@ -1287,13 +1703,22 @@ class ApiGatewayApi {
       @required String stageName,
       @required String sdkType,
       Map<String, String> parameters}) async {
-    return SdkResponse.fromJson({});
+    var response_ = await _client.send('GetSdk', {
+      'restApiId': restApiId,
+      'stageName': stageName,
+      'sdkType': sdkType,
+      if (parameters != null) 'parameters': parameters,
+    });
+    return SdkResponse.fromJson(response_);
   }
 
   ///
   /// [id]: *required* The identifier of the queried SdkType instance.
   Future<SdkType> getSdkType(String id) async {
-    return SdkType.fromJson({});
+    var response_ = await _client.send('GetSdkType', {
+      'id': id,
+    });
+    return SdkType.fromJson(response_);
   }
 
   ///
@@ -1302,7 +1727,11 @@ class ApiGatewayApi {
   /// [limit]: The maximum number of returned results per page. The default
   /// value is 25 and the maximum value is 500.
   Future<SdkTypes> getSdkTypes({String position, int limit}) async {
-    return SdkTypes.fromJson({});
+    var response_ = await _client.send('GetSdkTypes', {
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return SdkTypes.fromJson(response_);
   }
 
   /// Gets information about a Stage resource.
@@ -1313,7 +1742,11 @@ class ApiGatewayApi {
   /// about.
   Future<Stage> getStage(
       {@required String restApiId, @required String stageName}) async {
-    return Stage.fromJson({});
+    var response_ = await _client.send('GetStage', {
+      'restApiId': restApiId,
+      'stageName': stageName,
+    });
+    return Stage.fromJson(response_);
   }
 
   /// Gets information about one or more Stage resources.
@@ -1322,7 +1755,11 @@ class ApiGatewayApi {
   ///
   /// [deploymentId]: The stages' deployment identifiers.
   Future<Stages> getStages(String restApiId, {String deploymentId}) async {
-    return Stages.fromJson({});
+    var response_ = await _client.send('GetStages', {
+      'restApiId': restApiId,
+      if (deploymentId != null) 'deploymentId': deploymentId,
+    });
+    return Stages.fromJson(response_);
   }
 
   /// Gets the Tags collection for a given resource.
@@ -1336,7 +1773,12 @@ class ApiGatewayApi {
   /// [limit]: (Not currently supported) The maximum number of returned results
   /// per page. The default value is 25 and the maximum value is 500.
   Future<Tags> getTags(String resourceArn, {String position, int limit}) async {
-    return Tags.fromJson({});
+    var response_ = await _client.send('GetTags', {
+      'resourceArn': resourceArn,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return Tags.fromJson(response_);
   }
 
   /// Gets the usage data of a usage plan in a specified time interval.
@@ -1363,7 +1805,15 @@ class ApiGatewayApi {
       @required String endDate,
       String position,
       int limit}) async {
-    return Usage.fromJson({});
+    var response_ = await _client.send('GetUsage', {
+      'usagePlanId': usagePlanId,
+      if (keyId != null) 'keyId': keyId,
+      'startDate': startDate,
+      'endDate': endDate,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return Usage.fromJson(response_);
   }
 
   /// Gets a usage plan of a given plan identifier.
@@ -1371,7 +1821,10 @@ class ApiGatewayApi {
   /// [usagePlanId]: *required* The identifier of the UsagePlan resource to be
   /// retrieved.
   Future<UsagePlan> getUsagePlan(String usagePlanId) async {
-    return UsagePlan.fromJson({});
+    var response_ = await _client.send('GetUsagePlan', {
+      'usagePlanId': usagePlanId,
+    });
+    return UsagePlan.fromJson(response_);
   }
 
   /// Gets a usage plan key of a given key identifier.
@@ -1384,7 +1837,11 @@ class ApiGatewayApi {
   /// resource representing a plan customer.
   Future<UsagePlanKey> getUsagePlanKey(
       {@required String usagePlanId, @required String keyId}) async {
-    return UsagePlanKey.fromJson({});
+    var response_ = await _client.send('GetUsagePlanKey', {
+      'usagePlanId': usagePlanId,
+      'keyId': keyId,
+    });
+    return UsagePlanKey.fromJson(response_);
   }
 
   /// Gets all the usage plan keys representing the API keys added to a
@@ -1403,7 +1860,13 @@ class ApiGatewayApi {
   /// usage plan keys.
   Future<UsagePlanKeys> getUsagePlanKeys(String usagePlanId,
       {String position, int limit, String nameQuery}) async {
-    return UsagePlanKeys.fromJson({});
+    var response_ = await _client.send('GetUsagePlanKeys', {
+      'usagePlanId': usagePlanId,
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+      if (nameQuery != null) 'nameQuery': nameQuery,
+    });
+    return UsagePlanKeys.fromJson(response_);
   }
 
   /// Gets all the usage plans of the caller's account.
@@ -1416,7 +1879,12 @@ class ApiGatewayApi {
   /// value is 25 and the maximum value is 500.
   Future<UsagePlans> getUsagePlans(
       {String position, String keyId, int limit}) async {
-    return UsagePlans.fromJson({});
+    var response_ = await _client.send('GetUsagePlans', {
+      if (position != null) 'position': position,
+      if (keyId != null) 'keyId': keyId,
+      if (limit != null) 'limit': limit,
+    });
+    return UsagePlans.fromJson(response_);
   }
 
   /// Gets a specified VPC link under the caller's account in a region.
@@ -1424,7 +1892,10 @@ class ApiGatewayApi {
   /// [vpcLinkId]: *required* The identifier of the VpcLink. It is used in an
   /// Integration to reference this VpcLink.
   Future<VpcLink> getVpcLink(String vpcLinkId) async {
-    return VpcLink.fromJson({});
+    var response_ = await _client.send('GetVpcLink', {
+      'vpcLinkId': vpcLinkId,
+    });
+    return VpcLink.fromJson(response_);
   }
 
   /// Gets the VpcLinks collection under the caller's account in a selected
@@ -1435,7 +1906,11 @@ class ApiGatewayApi {
   /// [limit]: The maximum number of returned results per page. The default
   /// value is 25 and the maximum value is 500.
   Future<VpcLinks> getVpcLinks({String position, int limit}) async {
-    return VpcLinks.fromJson({});
+    var response_ = await _client.send('GetVpcLinks', {
+      if (position != null) 'position': position,
+      if (limit != null) 'limit': limit,
+    });
+    return VpcLinks.fromJson(response_);
   }
 
   /// Import API keys from an external source, such as a CSV-formatted file.
@@ -1453,7 +1928,12 @@ class ApiGatewayApi {
       {@required Uint8List body,
       @required String format,
       bool failOnWarnings}) async {
-    return ApiKeyIds.fromJson({});
+    var response_ = await _client.send('ImportApiKeys', {
+      'body': body,
+      'format': format,
+      if (failOnWarnings != null) 'failOnWarnings': failOnWarnings,
+    });
+    return ApiKeyIds.fromJson(response_);
   }
 
   ///
@@ -1475,7 +1955,13 @@ class ApiGatewayApi {
       String mode,
       bool failOnWarnings,
       @required Uint8List body}) async {
-    return DocumentationPartIds.fromJson({});
+    var response_ = await _client.send('ImportDocumentationParts', {
+      'restApiId': restApiId,
+      if (mode != null) 'mode': mode,
+      if (failOnWarnings != null) 'failOnWarnings': failOnWarnings,
+      'body': body,
+    });
+    return DocumentationPartIds.fromJson(response_);
   }
 
   /// A feature of the API Gateway control service for creating a new API from
@@ -1517,7 +2003,12 @@ class ApiGatewayApi {
   /// supported. The maximum size of the API definition file is 2MB.
   Future<RestApi> importRestApi(Uint8List body,
       {bool failOnWarnings, Map<String, String> parameters}) async {
-    return RestApi.fromJson({});
+    var response_ = await _client.send('ImportRestApi', {
+      if (failOnWarnings != null) 'failOnWarnings': failOnWarnings,
+      if (parameters != null) 'parameters': parameters,
+      'body': body,
+    });
+    return RestApi.fromJson(response_);
   }
 
   /// Creates a customization of a GatewayResponse of a specified response type
@@ -1564,7 +2055,14 @@ class ApiGatewayApi {
       String statusCode,
       Map<String, String> responseParameters,
       Map<String, String> responseTemplates}) async {
-    return GatewayResponse.fromJson({});
+    var response_ = await _client.send('PutGatewayResponse', {
+      'restApiId': restApiId,
+      'responseType': responseType,
+      if (statusCode != null) 'statusCode': statusCode,
+      if (responseParameters != null) 'responseParameters': responseParameters,
+      if (responseTemplates != null) 'responseTemplates': responseTemplates,
+    });
+    return GatewayResponse.fromJson(response_);
   }
 
   /// Sets up a method's integration.
@@ -1697,7 +2195,27 @@ class ApiGatewayApi {
       List<String> cacheKeyParameters,
       String contentHandling,
       int timeoutInMillis}) async {
-    return Integration.fromJson({});
+    var response_ = await _client.send('PutIntegration', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'type': type,
+      if (integrationHttpMethod != null)
+        'integrationHttpMethod': integrationHttpMethod,
+      if (uri != null) 'uri': uri,
+      if (connectionType != null) 'connectionType': connectionType,
+      if (connectionId != null) 'connectionId': connectionId,
+      if (credentials != null) 'credentials': credentials,
+      if (requestParameters != null) 'requestParameters': requestParameters,
+      if (requestTemplates != null) 'requestTemplates': requestTemplates,
+      if (passthroughBehavior != null)
+        'passthroughBehavior': passthroughBehavior,
+      if (cacheNamespace != null) 'cacheNamespace': cacheNamespace,
+      if (cacheKeyParameters != null) 'cacheKeyParameters': cacheKeyParameters,
+      if (contentHandling != null) 'contentHandling': contentHandling,
+      if (timeoutInMillis != null) 'timeoutInMillis': timeoutInMillis,
+    });
+    return Integration.fromJson(response_);
   }
 
   /// Represents a put integration.
@@ -1753,7 +2271,17 @@ class ApiGatewayApi {
       Map<String, String> responseParameters,
       Map<String, String> responseTemplates,
       String contentHandling}) async {
-    return IntegrationResponse.fromJson({});
+    var response_ = await _client.send('PutIntegrationResponse', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'statusCode': statusCode,
+      if (selectionPattern != null) 'selectionPattern': selectionPattern,
+      if (responseParameters != null) 'responseParameters': responseParameters,
+      if (responseTemplates != null) 'responseTemplates': responseTemplates,
+      if (contentHandling != null) 'contentHandling': contentHandling,
+    });
+    return IntegrationResponse.fromJson(response_);
   }
 
   /// Add a method to an existing Resource resource.
@@ -1818,7 +2346,21 @@ class ApiGatewayApi {
       Map<String, String> requestModels,
       String requestValidatorId,
       List<String> authorizationScopes}) async {
-    return Method.fromJson({});
+    var response_ = await _client.send('PutMethod', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'authorizationType': authorizationType,
+      if (authorizerId != null) 'authorizerId': authorizerId,
+      if (apiKeyRequired != null) 'apiKeyRequired': apiKeyRequired,
+      if (operationName != null) 'operationName': operationName,
+      if (requestParameters != null) 'requestParameters': requestParameters,
+      if (requestModels != null) 'requestModels': requestModels,
+      if (requestValidatorId != null) 'requestValidatorId': requestValidatorId,
+      if (authorizationScopes != null)
+        'authorizationScopes': authorizationScopes,
+    });
+    return Method.fromJson(response_);
   }
 
   /// Adds a MethodResponse to an existing Method resource.
@@ -1855,7 +2397,15 @@ class ApiGatewayApi {
       @required String statusCode,
       Map<String, bool> responseParameters,
       Map<String, String> responseModels}) async {
-    return MethodResponse.fromJson({});
+    var response_ = await _client.send('PutMethodResponse', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'statusCode': statusCode,
+      if (responseParameters != null) 'responseParameters': responseParameters,
+      if (responseModels != null) 'responseModels': responseModels,
+    });
+    return MethodResponse.fromJson(response_);
   }
 
   /// A feature of the API Gateway control service for updating an existing API
@@ -1888,7 +2438,14 @@ class ApiGatewayApi {
       bool failOnWarnings,
       Map<String, String> parameters,
       @required Uint8List body}) async {
-    return RestApi.fromJson({});
+    var response_ = await _client.send('PutRestApi', {
+      'restApiId': restApiId,
+      if (mode != null) 'mode': mode,
+      if (failOnWarnings != null) 'failOnWarnings': failOnWarnings,
+      if (parameters != null) 'parameters': parameters,
+      'body': body,
+    });
+    return RestApi.fromJson(response_);
   }
 
   /// Adds or updates a tag on a given resource.
@@ -1901,7 +2458,12 @@ class ApiGatewayApi {
   /// start with `aws:`. The tag value can be up to 256 characters.
   Future<void> tagResource(
       {@required String resourceArn,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+  }
 
   /// Simulate the execution of an Authorizer in your RestApi with headers,
   /// parameters, and an incoming request body.
@@ -1944,7 +2506,18 @@ class ApiGatewayApi {
       String body,
       Map<String, String> stageVariables,
       Map<String, String> additionalContext}) async {
-    return TestInvokeAuthorizerResponse.fromJson({});
+    var response_ = await _client.send('TestInvokeAuthorizer', {
+      'restApiId': restApiId,
+      'authorizerId': authorizerId,
+      if (headers != null) 'headers': headers,
+      if (multiValueHeaders != null) 'multiValueHeaders': multiValueHeaders,
+      if (pathWithQueryString != null)
+        'pathWithQueryString': pathWithQueryString,
+      if (body != null) 'body': body,
+      if (stageVariables != null) 'stageVariables': stageVariables,
+      if (additionalContext != null) 'additionalContext': additionalContext,
+    });
+    return TestInvokeAuthorizerResponse.fromJson(response_);
   }
 
   /// Simulate the execution of a Method in your RestApi with headers,
@@ -1986,7 +2559,20 @@ class ApiGatewayApi {
       Map<String, List<String>> multiValueHeaders,
       String clientCertificateId,
       Map<String, String> stageVariables}) async {
-    return TestInvokeMethodResponse.fromJson({});
+    var response_ = await _client.send('TestInvokeMethod', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      if (pathWithQueryString != null)
+        'pathWithQueryString': pathWithQueryString,
+      if (body != null) 'body': body,
+      if (headers != null) 'headers': headers,
+      if (multiValueHeaders != null) 'multiValueHeaders': multiValueHeaders,
+      if (clientCertificateId != null)
+        'clientCertificateId': clientCertificateId,
+      if (stageVariables != null) 'stageVariables': stageVariables,
+    });
+    return TestInvokeMethodResponse.fromJson(response_);
   }
 
   /// Removes a tag from a given resource.
@@ -1996,14 +2582,22 @@ class ApiGatewayApi {
   ///
   /// [tagKeys]: *required* The Tag keys to delete.
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+  }
 
   /// Changes information about the current Account resource.
   ///
   /// [patchOperations]: A list of update operations to be applied to the
   /// specified resource and in the order specified in this list.
   Future<Account> updateAccount({List<PatchOperation> patchOperations}) async {
-    return Account.fromJson({});
+    var response_ = await _client.send('UpdateAccount', {
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return Account.fromJson(response_);
   }
 
   /// Changes information about an ApiKey resource.
@@ -2014,7 +2608,11 @@ class ApiGatewayApi {
   /// specified resource and in the order specified in this list.
   Future<ApiKey> updateApiKey(String apiKey,
       {List<PatchOperation> patchOperations}) async {
-    return ApiKey.fromJson({});
+    var response_ = await _client.send('UpdateApiKey', {
+      'apiKey': apiKey,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return ApiKey.fromJson(response_);
   }
 
   /// Updates an existing Authorizer resource.
@@ -2031,7 +2629,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String authorizerId,
       List<PatchOperation> patchOperations}) async {
-    return Authorizer.fromJson({});
+    var response_ = await _client.send('UpdateAuthorizer', {
+      'restApiId': restApiId,
+      'authorizerId': authorizerId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return Authorizer.fromJson(response_);
   }
 
   /// Changes information about the BasePathMapping resource.
@@ -2050,7 +2653,12 @@ class ApiGatewayApi {
       {@required String domainName,
       @required String basePath,
       List<PatchOperation> patchOperations}) async {
-    return BasePathMapping.fromJson({});
+    var response_ = await _client.send('UpdateBasePathMapping', {
+      'domainName': domainName,
+      'basePath': basePath,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return BasePathMapping.fromJson(response_);
   }
 
   /// Changes information about an ClientCertificate resource.
@@ -2062,7 +2670,11 @@ class ApiGatewayApi {
   /// specified resource and in the order specified in this list.
   Future<ClientCertificate> updateClientCertificate(String clientCertificateId,
       {List<PatchOperation> patchOperations}) async {
-    return ClientCertificate.fromJson({});
+    var response_ = await _client.send('UpdateClientCertificate', {
+      'clientCertificateId': clientCertificateId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return ClientCertificate.fromJson(response_);
   }
 
   /// Changes information about a Deployment resource.
@@ -2078,7 +2690,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String deploymentId,
       List<PatchOperation> patchOperations}) async {
-    return Deployment.fromJson({});
+    var response_ = await _client.send('UpdateDeployment', {
+      'restApiId': restApiId,
+      'deploymentId': deploymentId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return Deployment.fromJson(response_);
   }
 
   ///
@@ -2093,7 +2710,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String documentationPartId,
       List<PatchOperation> patchOperations}) async {
-    return DocumentationPart.fromJson({});
+    var response_ = await _client.send('UpdateDocumentationPart', {
+      'restApiId': restApiId,
+      'documentationPartId': documentationPartId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return DocumentationPart.fromJson(response_);
   }
 
   ///
@@ -2108,7 +2730,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String documentationVersion,
       List<PatchOperation> patchOperations}) async {
-    return DocumentationVersion.fromJson({});
+    var response_ = await _client.send('UpdateDocumentationVersion', {
+      'restApiId': restApiId,
+      'documentationVersion': documentationVersion,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return DocumentationVersion.fromJson(response_);
   }
 
   /// Changes information about the DomainName resource.
@@ -2120,7 +2747,11 @@ class ApiGatewayApi {
   /// specified resource and in the order specified in this list.
   Future<DomainName> updateDomainName(String domainName,
       {List<PatchOperation> patchOperations}) async {
-    return DomainName.fromJson({});
+    var response_ = await _client.send('UpdateDomainName', {
+      'domainName': domainName,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return DomainName.fromJson(response_);
   }
 
   /// Updates a GatewayResponse of a specified response type on the given
@@ -2159,7 +2790,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String responseType,
       List<PatchOperation> patchOperations}) async {
-    return GatewayResponse.fromJson({});
+    var response_ = await _client.send('UpdateGatewayResponse', {
+      'restApiId': restApiId,
+      'responseType': responseType,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return GatewayResponse.fromJson(response_);
   }
 
   /// Represents an update integration.
@@ -2179,7 +2815,13 @@ class ApiGatewayApi {
       @required String resourceId,
       @required String httpMethod,
       List<PatchOperation> patchOperations}) async {
-    return Integration.fromJson({});
+    var response_ = await _client.send('UpdateIntegration', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return Integration.fromJson(response_);
   }
 
   /// Represents an update integration response.
@@ -2203,7 +2845,14 @@ class ApiGatewayApi {
       @required String httpMethod,
       @required String statusCode,
       List<PatchOperation> patchOperations}) async {
-    return IntegrationResponse.fromJson({});
+    var response_ = await _client.send('UpdateIntegrationResponse', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'statusCode': statusCode,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return IntegrationResponse.fromJson(response_);
   }
 
   /// Updates an existing Method resource.
@@ -2221,7 +2870,13 @@ class ApiGatewayApi {
       @required String resourceId,
       @required String httpMethod,
       List<PatchOperation> patchOperations}) async {
-    return Method.fromJson({});
+    var response_ = await _client.send('UpdateMethod', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return Method.fromJson(response_);
   }
 
   /// Updates an existing MethodResponse resource.
@@ -2243,7 +2898,14 @@ class ApiGatewayApi {
       @required String httpMethod,
       @required String statusCode,
       List<PatchOperation> patchOperations}) async {
-    return MethodResponse.fromJson({});
+    var response_ = await _client.send('UpdateMethodResponse', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      'httpMethod': httpMethod,
+      'statusCode': statusCode,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return MethodResponse.fromJson(response_);
   }
 
   /// Changes information about a model.
@@ -2258,7 +2920,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String modelName,
       List<PatchOperation> patchOperations}) async {
-    return Model.fromJson({});
+    var response_ = await _client.send('UpdateModel', {
+      'restApiId': restApiId,
+      'modelName': modelName,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return Model.fromJson(response_);
   }
 
   /// Updates a RequestValidator of a given RestApi.
@@ -2274,7 +2941,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String requestValidatorId,
       List<PatchOperation> patchOperations}) async {
-    return RequestValidator.fromJson({});
+    var response_ = await _client.send('UpdateRequestValidator', {
+      'restApiId': restApiId,
+      'requestValidatorId': requestValidatorId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return RequestValidator.fromJson(response_);
   }
 
   /// Changes information about a Resource resource.
@@ -2289,7 +2961,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String resourceId,
       List<PatchOperation> patchOperations}) async {
-    return Resource.fromJson({});
+    var response_ = await _client.send('UpdateResource', {
+      'restApiId': restApiId,
+      'resourceId': resourceId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return Resource.fromJson(response_);
   }
 
   /// Changes information about the specified API.
@@ -2300,7 +2977,11 @@ class ApiGatewayApi {
   /// specified resource and in the order specified in this list.
   Future<RestApi> updateRestApi(String restApiId,
       {List<PatchOperation> patchOperations}) async {
-    return RestApi.fromJson({});
+    var response_ = await _client.send('UpdateRestApi', {
+      'restApiId': restApiId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return RestApi.fromJson(response_);
   }
 
   /// Changes information about a Stage resource.
@@ -2316,7 +2997,12 @@ class ApiGatewayApi {
       {@required String restApiId,
       @required String stageName,
       List<PatchOperation> patchOperations}) async {
-    return Stage.fromJson({});
+    var response_ = await _client.send('UpdateStage', {
+      'restApiId': restApiId,
+      'stageName': stageName,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return Stage.fromJson(response_);
   }
 
   /// Grants a temporary extension to the remaining quota of a usage plan
@@ -2335,7 +3021,12 @@ class ApiGatewayApi {
       {@required String usagePlanId,
       @required String keyId,
       List<PatchOperation> patchOperations}) async {
-    return Usage.fromJson({});
+    var response_ = await _client.send('UpdateUsage', {
+      'usagePlanId': usagePlanId,
+      'keyId': keyId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return Usage.fromJson(response_);
   }
 
   /// Updates a usage plan of a given plan Id.
@@ -2346,7 +3037,11 @@ class ApiGatewayApi {
   /// specified resource and in the order specified in this list.
   Future<UsagePlan> updateUsagePlan(String usagePlanId,
       {List<PatchOperation> patchOperations}) async {
-    return UsagePlan.fromJson({});
+    var response_ = await _client.send('UpdateUsagePlan', {
+      'usagePlanId': usagePlanId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return UsagePlan.fromJson(response_);
   }
 
   /// Updates an existing VpcLink of a specified identifier.
@@ -2358,7 +3053,11 @@ class ApiGatewayApi {
   /// specified resource and in the order specified in this list.
   Future<VpcLink> updateVpcLink(String vpcLinkId,
       {List<PatchOperation> patchOperations}) async {
-    return VpcLink.fromJson({});
+    var response_ = await _client.send('UpdateVpcLink', {
+      'vpcLinkId': vpcLinkId,
+      if (patchOperations != null) 'patchOperations': patchOperations,
+    });
+    return VpcLink.fromJson(response_);
   }
 }
 
@@ -2378,7 +3077,12 @@ class AccessLogSettings {
     this.destinationArn,
   });
   static AccessLogSettings fromJson(Map<String, dynamic> json) =>
-      AccessLogSettings();
+      AccessLogSettings(
+        format: json.containsKey('format') ? json['format'] as String : null,
+        destinationArn: json.containsKey('destinationArn')
+            ? json['destinationArn'] as String
+            : null,
+      );
 }
 
 /// Represents an AWS account that is associated with API Gateway.
@@ -2446,7 +3150,20 @@ class Account {
     this.features,
     this.apiKeyVersion,
   });
-  static Account fromJson(Map<String, dynamic> json) => Account();
+  static Account fromJson(Map<String, dynamic> json) => Account(
+        cloudwatchRoleArn: json.containsKey('cloudwatchRoleArn')
+            ? json['cloudwatchRoleArn'] as String
+            : null,
+        throttleSettings: json.containsKey('throttleSettings')
+            ? ThrottleSettings.fromJson(json['throttleSettings'])
+            : null,
+        features: json.containsKey('features')
+            ? (json['features'] as List).map((e) => e as String).toList()
+            : null,
+        apiKeyVersion: json.containsKey('apiKeyVersion')
+            ? json['apiKeyVersion'] as String
+            : null,
+      );
 }
 
 /// A resource that can be distributed to callers for executing Method resources
@@ -2501,7 +3218,31 @@ class ApiKey {
     this.stageKeys,
     this.tags,
   });
-  static ApiKey fromJson(Map<String, dynamic> json) => ApiKey();
+  static ApiKey fromJson(Map<String, dynamic> json) => ApiKey(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        customerId: json.containsKey('customerId')
+            ? json['customerId'] as String
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        enabled: json.containsKey('enabled') ? json['enabled'] as bool : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        stageKeys: json.containsKey('stageKeys')
+            ? (json['stageKeys'] as List).map((e) => e as String).toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The identifier of an ApiKey used in a UsagePlan.
@@ -2516,7 +3257,14 @@ class ApiKeyIds {
     this.ids,
     this.warnings,
   });
-  static ApiKeyIds fromJson(Map<String, dynamic> json) => ApiKeyIds();
+  static ApiKeyIds fromJson(Map<String, dynamic> json) => ApiKeyIds(
+        ids: json.containsKey('ids')
+            ? (json['ids'] as List).map((e) => e as String).toList()
+            : null,
+        warnings: json.containsKey('warnings')
+            ? (json['warnings'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Represents a collection of API keys as represented by an ApiKeys resource.
@@ -2538,7 +3286,16 @@ class ApiKeys {
     this.position,
     this.items,
   });
-  static ApiKeys fromJson(Map<String, dynamic> json) => ApiKeys();
+  static ApiKeys fromJson(Map<String, dynamic> json) => ApiKeys(
+        warnings: json.containsKey('warnings')
+            ? (json['warnings'] as List).map((e) => e as String).toList()
+            : null,
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List).map((e) => ApiKey.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// API stage name of the associated API stage in a usage plan.
@@ -2558,7 +3315,15 @@ class ApiStage {
     this.stage,
     this.throttle,
   });
-  static ApiStage fromJson(Map<String, dynamic> json) => ApiStage();
+  static ApiStage fromJson(Map<String, dynamic> json) => ApiStage(
+        apiId: json.containsKey('apiId') ? json['apiId'] as String : null,
+        stage: json.containsKey('stage') ? json['stage'] as String : null,
+        throttle: json.containsKey('throttle')
+            ? (json['throttle'] as Map).map(
+                (k, v) => MapEntry(k as String, ThrottleSettings.fromJson(v)))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents an authorization layer for methods. If enabled on a method, API
@@ -2658,7 +3423,33 @@ class Authorizer {
     this.identityValidationExpression,
     this.authorizerResultTtlInSeconds,
   });
-  static Authorizer fromJson(Map<String, dynamic> json) => Authorizer();
+  static Authorizer fromJson(Map<String, dynamic> json) => Authorizer(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        providerARNs: json.containsKey('providerARNs')
+            ? (json['providerARNs'] as List).map((e) => e as String).toList()
+            : null,
+        authType:
+            json.containsKey('authType') ? json['authType'] as String : null,
+        authorizerUri: json.containsKey('authorizerUri')
+            ? json['authorizerUri'] as String
+            : null,
+        authorizerCredentials: json.containsKey('authorizerCredentials')
+            ? json['authorizerCredentials'] as String
+            : null,
+        identitySource: json.containsKey('identitySource')
+            ? json['identitySource'] as String
+            : null,
+        identityValidationExpression:
+            json.containsKey('identityValidationExpression')
+                ? json['identityValidationExpression'] as String
+                : null,
+        authorizerResultTtlInSeconds:
+            json.containsKey('authorizerResultTtlInSeconds')
+                ? json['authorizerResultTtlInSeconds'] as int
+                : null,
+      );
 }
 
 /// Represents a collection of Authorizer resources.
@@ -2676,7 +3467,15 @@ class Authorizers {
     this.position,
     this.items,
   });
-  static Authorizers fromJson(Map<String, dynamic> json) => Authorizers();
+  static Authorizers fromJson(Map<String, dynamic> json) => Authorizers(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => Authorizer.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the base path that callers of the API must provide as part of the
@@ -2703,8 +3502,13 @@ class BasePathMapping {
     this.restApiId,
     this.stage,
   });
-  static BasePathMapping fromJson(Map<String, dynamic> json) =>
-      BasePathMapping();
+  static BasePathMapping fromJson(Map<String, dynamic> json) => BasePathMapping(
+        basePath:
+            json.containsKey('basePath') ? json['basePath'] as String : null,
+        restApiId:
+            json.containsKey('restApiId') ? json['restApiId'] as String : null,
+        stage: json.containsKey('stage') ? json['stage'] as String : null,
+      );
 }
 
 /// Represents a collection of BasePathMapping resources.
@@ -2722,7 +3526,15 @@ class BasePathMappings {
     this.items,
   });
   static BasePathMappings fromJson(Map<String, dynamic> json) =>
-      BasePathMappings();
+      BasePathMappings(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => BasePathMapping.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Configuration settings of a canary deployment.
@@ -2749,7 +3561,22 @@ class CanarySettings {
     this.stageVariableOverrides,
     this.useStageCache,
   });
-  static CanarySettings fromJson(Map<String, dynamic> json) => CanarySettings();
+  static CanarySettings fromJson(Map<String, dynamic> json) => CanarySettings(
+        percentTraffic: json.containsKey('percentTraffic')
+            ? json['percentTraffic'] as double
+            : null,
+        deploymentId: json.containsKey('deploymentId')
+            ? json['deploymentId'] as String
+            : null,
+        stageVariableOverrides: json.containsKey('stageVariableOverrides')
+            ? (json['stageVariableOverrides'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        useStageCache: json.containsKey('useStageCache')
+            ? json['useStageCache'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a client certificate used to configure client-side SSL
@@ -2791,7 +3618,27 @@ class ClientCertificate {
     this.tags,
   });
   static ClientCertificate fromJson(Map<String, dynamic> json) =>
-      ClientCertificate();
+      ClientCertificate(
+        clientCertificateId: json.containsKey('clientCertificateId')
+            ? json['clientCertificateId'] as String
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        pemEncodedCertificate: json.containsKey('pemEncodedCertificate')
+            ? json['pemEncodedCertificate'] as String
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        expirationDate: json.containsKey('expirationDate')
+            ? DateTime.parse(json['expirationDate'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents a collection of ClientCertificate resources.
@@ -2809,7 +3656,15 @@ class ClientCertificates {
     this.items,
   });
   static ClientCertificates fromJson(Map<String, dynamic> json) =>
-      ClientCertificates();
+      ClientCertificates(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => ClientCertificate.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An immutable representation of a RestApi resource that can be called by
@@ -2844,7 +3699,21 @@ class Deployment {
     this.createdDate,
     this.apiSummary,
   });
-  static Deployment fromJson(Map<String, dynamic> json) => Deployment();
+  static Deployment fromJson(Map<String, dynamic> json) => Deployment(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        apiSummary: json.containsKey('apiSummary')
+            ? (json['apiSummary'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as Map).map((k, v) =>
+                    MapEntry(k as String, MethodSnapshot.fromJson(v)))))
+            : null,
+      );
 }
 
 /// The input configuration for a canary deployment.
@@ -2867,6 +3736,7 @@ class DeploymentCanarySettings {
     this.stageVariableOverrides,
     this.useStageCache,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a collection resource that contains zero or more references to
@@ -2893,7 +3763,15 @@ class Deployments {
     this.position,
     this.items,
   });
-  static Deployments fromJson(Map<String, dynamic> json) => Deployments();
+  static Deployments fromJson(Map<String, dynamic> json) => Deployments(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => Deployment.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A documentation part for a targeted API entity.
@@ -2940,7 +3818,15 @@ class DocumentationPart {
     this.properties,
   });
   static DocumentationPart fromJson(Map<String, dynamic> json) =>
-      DocumentationPart();
+      DocumentationPart(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        location: json.containsKey('location')
+            ? DocumentationPartLocation.fromJson(json['location'])
+            : null,
+        properties: json.containsKey('properties')
+            ? json['properties'] as String
+            : null,
+      );
 }
 
 /// A collection of the imported DocumentationPart identifiers.
@@ -2964,7 +3850,14 @@ class DocumentationPartIds {
     this.warnings,
   });
   static DocumentationPartIds fromJson(Map<String, dynamic> json) =>
-      DocumentationPartIds();
+      DocumentationPartIds(
+        ids: json.containsKey('ids')
+            ? (json['ids'] as List).map((e) => e as String).toList()
+            : null,
+        warnings: json.containsKey('warnings')
+            ? (json['warnings'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Specifies the target API entity to which the documentation applies.
@@ -3018,7 +3911,16 @@ class DocumentationPartLocation {
     this.name,
   });
   static DocumentationPartLocation fromJson(Map<String, dynamic> json) =>
-      DocumentationPartLocation();
+      DocumentationPartLocation(
+        type: json['type'] as String,
+        path: json.containsKey('path') ? json['path'] as String : null,
+        method: json.containsKey('method') ? json['method'] as String : null,
+        statusCode: json.containsKey('statusCode')
+            ? json['statusCode'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The collection of documentation parts of an API.
@@ -3037,7 +3939,15 @@ class DocumentationParts {
     this.items,
   });
   static DocumentationParts fromJson(Map<String, dynamic> json) =>
-      DocumentationParts();
+      DocumentationParts(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => DocumentationPart.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A snapshot of the documentation of an API.
@@ -3065,7 +3975,15 @@ class DocumentationVersion {
     this.description,
   });
   static DocumentationVersion fromJson(Map<String, dynamic> json) =>
-      DocumentationVersion();
+      DocumentationVersion(
+        version: json.containsKey('version') ? json['version'] as String : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+      );
 }
 
 /// The collection of documentation snapshots of an API.
@@ -3087,7 +4005,15 @@ class DocumentationVersions {
     this.items,
   });
   static DocumentationVersions fromJson(Map<String, dynamic> json) =>
-      DocumentationVersions();
+      DocumentationVersions(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => DocumentationVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents a custom domain name as a user-friendly host name of an API
@@ -3201,7 +4127,54 @@ class DomainName {
     this.securityPolicy,
     this.tags,
   });
-  static DomainName fromJson(Map<String, dynamic> json) => DomainName();
+  static DomainName fromJson(Map<String, dynamic> json) => DomainName(
+        domainName: json.containsKey('domainName')
+            ? json['domainName'] as String
+            : null,
+        certificateName: json.containsKey('certificateName')
+            ? json['certificateName'] as String
+            : null,
+        certificateArn: json.containsKey('certificateArn')
+            ? json['certificateArn'] as String
+            : null,
+        certificateUploadDate: json.containsKey('certificateUploadDate')
+            ? DateTime.parse(json['certificateUploadDate'])
+            : null,
+        regionalDomainName: json.containsKey('regionalDomainName')
+            ? json['regionalDomainName'] as String
+            : null,
+        regionalHostedZoneId: json.containsKey('regionalHostedZoneId')
+            ? json['regionalHostedZoneId'] as String
+            : null,
+        regionalCertificateName: json.containsKey('regionalCertificateName')
+            ? json['regionalCertificateName'] as String
+            : null,
+        regionalCertificateArn: json.containsKey('regionalCertificateArn')
+            ? json['regionalCertificateArn'] as String
+            : null,
+        distributionDomainName: json.containsKey('distributionDomainName')
+            ? json['distributionDomainName'] as String
+            : null,
+        distributionHostedZoneId: json.containsKey('distributionHostedZoneId')
+            ? json['distributionHostedZoneId'] as String
+            : null,
+        endpointConfiguration: json.containsKey('endpointConfiguration')
+            ? EndpointConfiguration.fromJson(json['endpointConfiguration'])
+            : null,
+        domainNameStatus: json.containsKey('domainNameStatus')
+            ? json['domainNameStatus'] as String
+            : null,
+        domainNameStatusMessage: json.containsKey('domainNameStatusMessage')
+            ? json['domainNameStatusMessage'] as String
+            : null,
+        securityPolicy: json.containsKey('securityPolicy')
+            ? json['securityPolicy'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents a collection of DomainName resources.
@@ -3218,7 +4191,15 @@ class DomainNames {
     this.position,
     this.items,
   });
-  static DomainNames fromJson(Map<String, dynamic> json) => DomainNames();
+  static DomainNames fromJson(Map<String, dynamic> json) => DomainNames(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => DomainName.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The endpoint configuration to indicate the types of endpoints an API
@@ -3235,7 +4216,12 @@ class EndpointConfiguration {
     this.types,
   });
   static EndpointConfiguration fromJson(Map<String, dynamic> json) =>
-      EndpointConfiguration();
+      EndpointConfiguration(
+        types: json.containsKey('types')
+            ? (json['types'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The binary blob response to GetExport, which contains the generated SDK.
@@ -3255,7 +4241,15 @@ class ExportResponse {
     this.contentDisposition,
     this.body,
   });
-  static ExportResponse fromJson(Map<String, dynamic> json) => ExportResponse();
+  static ExportResponse fromJson(Map<String, dynamic> json) => ExportResponse(
+        contentType: json.containsKey('contentType')
+            ? json['contentType'] as String
+            : null,
+        contentDisposition: json.containsKey('contentDisposition')
+            ? json['contentDisposition'] as String
+            : null,
+        body: json.containsKey('body') ? Uint8List(json['body']) : null,
+      );
 }
 
 /// A gateway response of a given response type and status code, with optional
@@ -3359,8 +4353,25 @@ class GatewayResponse {
     this.responseTemplates,
     this.defaultResponse,
   });
-  static GatewayResponse fromJson(Map<String, dynamic> json) =>
-      GatewayResponse();
+  static GatewayResponse fromJson(Map<String, dynamic> json) => GatewayResponse(
+        responseType: json.containsKey('responseType')
+            ? json['responseType'] as String
+            : null,
+        statusCode: json.containsKey('statusCode')
+            ? json['statusCode'] as String
+            : null,
+        responseParameters: json.containsKey('responseParameters')
+            ? (json['responseParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseTemplates: json.containsKey('responseTemplates')
+            ? (json['responseTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        defaultResponse: json.containsKey('defaultResponse')
+            ? json['defaultResponse'] as bool
+            : null,
+      );
 }
 
 /// The collection of the GatewayResponse instances of a RestApi as a
@@ -3415,7 +4426,15 @@ class GatewayResponses {
     this.items,
   });
   static GatewayResponses fromJson(Map<String, dynamic> json) =>
-      GatewayResponses();
+      GatewayResponses(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => GatewayResponse.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents an HTTP, HTTP_PROXY, AWS, AWS_PROXY, or Mock integration.
@@ -3629,7 +4648,51 @@ class Integration {
     this.cacheKeyParameters,
     this.integrationResponses,
   });
-  static Integration fromJson(Map<String, dynamic> json) => Integration();
+  static Integration fromJson(Map<String, dynamic> json) => Integration(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        httpMethod: json.containsKey('httpMethod')
+            ? json['httpMethod'] as String
+            : null,
+        uri: json.containsKey('uri') ? json['uri'] as String : null,
+        connectionType: json.containsKey('connectionType')
+            ? json['connectionType'] as String
+            : null,
+        connectionId: json.containsKey('connectionId')
+            ? json['connectionId'] as String
+            : null,
+        credentials: json.containsKey('credentials')
+            ? json['credentials'] as String
+            : null,
+        requestParameters: json.containsKey('requestParameters')
+            ? (json['requestParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        requestTemplates: json.containsKey('requestTemplates')
+            ? (json['requestTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        passthroughBehavior: json.containsKey('passthroughBehavior')
+            ? json['passthroughBehavior'] as String
+            : null,
+        contentHandling: json.containsKey('contentHandling')
+            ? json['contentHandling'] as String
+            : null,
+        timeoutInMillis: json.containsKey('timeoutInMillis')
+            ? json['timeoutInMillis'] as int
+            : null,
+        cacheNamespace: json.containsKey('cacheNamespace')
+            ? json['cacheNamespace'] as String
+            : null,
+        cacheKeyParameters: json.containsKey('cacheKeyParameters')
+            ? (json['cacheKeyParameters'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        integrationResponses: json.containsKey('integrationResponses')
+            ? (json['integrationResponses'] as Map).map((k, v) =>
+                MapEntry(k as String, IntegrationResponse.fromJson(v)))
+            : null,
+      );
 }
 
 /// Represents an integration response. The status code must map to an existing
@@ -3695,7 +4758,25 @@ class IntegrationResponse {
     this.contentHandling,
   });
   static IntegrationResponse fromJson(Map<String, dynamic> json) =>
-      IntegrationResponse();
+      IntegrationResponse(
+        statusCode: json.containsKey('statusCode')
+            ? json['statusCode'] as String
+            : null,
+        selectionPattern: json.containsKey('selectionPattern')
+            ? json['selectionPattern'] as String
+            : null,
+        responseParameters: json.containsKey('responseParameters')
+            ? (json['responseParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseTemplates: json.containsKey('responseTemplates')
+            ? (json['responseTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        contentHandling: json.containsKey('contentHandling')
+            ? json['contentHandling'] as String
+            : null,
+      );
 }
 
 ///  Represents a client-facing interface by which the client calls the API to
@@ -3953,7 +5034,46 @@ class Method {
     this.methodIntegration,
     this.authorizationScopes,
   });
-  static Method fromJson(Map<String, dynamic> json) => Method();
+  static Method fromJson(Map<String, dynamic> json) => Method(
+        httpMethod: json.containsKey('httpMethod')
+            ? json['httpMethod'] as String
+            : null,
+        authorizationType: json.containsKey('authorizationType')
+            ? json['authorizationType'] as String
+            : null,
+        authorizerId: json.containsKey('authorizerId')
+            ? json['authorizerId'] as String
+            : null,
+        apiKeyRequired: json.containsKey('apiKeyRequired')
+            ? json['apiKeyRequired'] as bool
+            : null,
+        requestValidatorId: json.containsKey('requestValidatorId')
+            ? json['requestValidatorId'] as String
+            : null,
+        operationName: json.containsKey('operationName')
+            ? json['operationName'] as String
+            : null,
+        requestParameters: json.containsKey('requestParameters')
+            ? (json['requestParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as bool))
+            : null,
+        requestModels: json.containsKey('requestModels')
+            ? (json['requestModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        methodResponses: json.containsKey('methodResponses')
+            ? (json['methodResponses'] as Map).map(
+                (k, v) => MapEntry(k as String, MethodResponse.fromJson(v)))
+            : null,
+        methodIntegration: json.containsKey('methodIntegration')
+            ? Integration.fromJson(json['methodIntegration'])
+            : null,
+        authorizationScopes: json.containsKey('authorizationScopes')
+            ? (json['authorizationScopes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Represents a method response of a given HTTP status code returned to the
@@ -4021,7 +5141,19 @@ class MethodResponse {
     this.responseParameters,
     this.responseModels,
   });
-  static MethodResponse fromJson(Map<String, dynamic> json) => MethodResponse();
+  static MethodResponse fromJson(Map<String, dynamic> json) => MethodResponse(
+        statusCode: json.containsKey('statusCode')
+            ? json['statusCode'] as String
+            : null,
+        responseParameters: json.containsKey('responseParameters')
+            ? (json['responseParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as bool))
+            : null,
+        responseModels: json.containsKey('responseModels')
+            ? (json['responseModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Specifies the method setting properties.
@@ -4094,7 +5226,40 @@ class MethodSetting {
     this.requireAuthorizationForCacheControl,
     this.unauthorizedCacheControlHeaderStrategy,
   });
-  static MethodSetting fromJson(Map<String, dynamic> json) => MethodSetting();
+  static MethodSetting fromJson(Map<String, dynamic> json) => MethodSetting(
+        metricsEnabled: json.containsKey('metricsEnabled')
+            ? json['metricsEnabled'] as bool
+            : null,
+        loggingLevel: json.containsKey('loggingLevel')
+            ? json['loggingLevel'] as String
+            : null,
+        dataTraceEnabled: json.containsKey('dataTraceEnabled')
+            ? json['dataTraceEnabled'] as bool
+            : null,
+        throttlingBurstLimit: json.containsKey('throttlingBurstLimit')
+            ? json['throttlingBurstLimit'] as int
+            : null,
+        throttlingRateLimit: json.containsKey('throttlingRateLimit')
+            ? json['throttlingRateLimit'] as double
+            : null,
+        cachingEnabled: json.containsKey('cachingEnabled')
+            ? json['cachingEnabled'] as bool
+            : null,
+        cacheTtlInSeconds: json.containsKey('cacheTtlInSeconds')
+            ? json['cacheTtlInSeconds'] as int
+            : null,
+        cacheDataEncrypted: json.containsKey('cacheDataEncrypted')
+            ? json['cacheDataEncrypted'] as bool
+            : null,
+        requireAuthorizationForCacheControl:
+            json.containsKey('requireAuthorizationForCacheControl')
+                ? json['requireAuthorizationForCacheControl'] as bool
+                : null,
+        unauthorizedCacheControlHeaderStrategy:
+            json.containsKey('unauthorizedCacheControlHeaderStrategy')
+                ? json['unauthorizedCacheControlHeaderStrategy'] as String
+                : null,
+      );
 }
 
 /// Represents a summary of a Method resource, given a particular date and time.
@@ -4111,7 +5276,14 @@ class MethodSnapshot {
     this.authorizationType,
     this.apiKeyRequired,
   });
-  static MethodSnapshot fromJson(Map<String, dynamic> json) => MethodSnapshot();
+  static MethodSnapshot fromJson(Map<String, dynamic> json) => MethodSnapshot(
+        authorizationType: json.containsKey('authorizationType')
+            ? json['authorizationType'] as String
+            : null,
+        apiKeyRequired: json.containsKey('apiKeyRequired')
+            ? json['apiKeyRequired'] as bool
+            : null,
+      );
 }
 
 /// Represents the data structure of a method's request or response payload.
@@ -4154,7 +5326,17 @@ class Model {
     this.schema,
     this.contentType,
   });
-  static Model fromJson(Map<String, dynamic> json) => Model();
+  static Model fromJson(Map<String, dynamic> json) => Model(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        schema: json.containsKey('schema') ? json['schema'] as String : null,
+        contentType: json.containsKey('contentType')
+            ? json['contentType'] as String
+            : null,
+      );
 }
 
 /// Represents a collection of Model resources.
@@ -4171,7 +5353,13 @@ class Models {
     this.position,
     this.items,
   });
-  static Models fromJson(Map<String, dynamic> json) => Models();
+  static Models fromJson(Map<String, dynamic> json) => Models(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List).map((e) => Model.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A single patch operation to apply to the specified resource. Please refer to
@@ -4218,6 +5406,7 @@ class PatchOperation {
     this.value,
     this.from,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Quotas configured for a usage plan.
@@ -4238,7 +5427,12 @@ class QuotaSettings {
     this.offset,
     this.period,
   });
-  static QuotaSettings fromJson(Map<String, dynamic> json) => QuotaSettings();
+  static QuotaSettings fromJson(Map<String, dynamic> json) => QuotaSettings(
+        limit: json.containsKey('limit') ? json['limit'] as int : null,
+        offset: json.containsKey('offset') ? json['offset'] as int : null,
+        period: json.containsKey('period') ? json['period'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A set of validation rules for incoming Method requests.
@@ -4272,7 +5466,16 @@ class RequestValidator {
     this.validateRequestParameters,
   });
   static RequestValidator fromJson(Map<String, dynamic> json) =>
-      RequestValidator();
+      RequestValidator(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        validateRequestBody: json.containsKey('validateRequestBody')
+            ? json['validateRequestBody'] as bool
+            : null,
+        validateRequestParameters: json.containsKey('validateRequestParameters')
+            ? json['validateRequestParameters'] as bool
+            : null,
+      );
 }
 
 /// A collection of RequestValidator resources of a given RestApi.
@@ -4293,7 +5496,15 @@ class RequestValidators {
     this.items,
   });
   static RequestValidators fromJson(Map<String, dynamic> json) =>
-      RequestValidators();
+      RequestValidators(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => RequestValidator.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents an API resource.
@@ -4399,7 +5610,18 @@ class Resource {
     this.path,
     this.resourceMethods,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        parentId:
+            json.containsKey('parentId') ? json['parentId'] as String : null,
+        pathPart:
+            json.containsKey('pathPart') ? json['pathPart'] as String : null,
+        path: json.containsKey('path') ? json['path'] as String : null,
+        resourceMethods: json.containsKey('resourceMethods')
+            ? (json['resourceMethods'] as Map)
+                .map((k, v) => MapEntry(k as String, Method.fromJson(v)))
+            : null,
+      );
 }
 
 /// Represents a collection of Resource resources.
@@ -4416,7 +5638,13 @@ class Resources {
     this.position,
     this.items,
   });
-  static Resources fromJson(Map<String, dynamic> json) => Resources();
+  static Resources fromJson(Map<String, dynamic> json) => Resources(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List).map((e) => Resource.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Represents a REST API.
@@ -4490,7 +5718,39 @@ class RestApi {
     this.policy,
     this.tags,
   });
-  static RestApi fromJson(Map<String, dynamic> json) => RestApi();
+  static RestApi fromJson(Map<String, dynamic> json) => RestApi(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        warnings: json.containsKey('warnings')
+            ? (json['warnings'] as List).map((e) => e as String).toList()
+            : null,
+        binaryMediaTypes: json.containsKey('binaryMediaTypes')
+            ? (json['binaryMediaTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        minimumCompressionSize: json.containsKey('minimumCompressionSize')
+            ? json['minimumCompressionSize'] as int
+            : null,
+        apiKeySource: json.containsKey('apiKeySource')
+            ? json['apiKeySource'] as String
+            : null,
+        endpointConfiguration: json.containsKey('endpointConfiguration')
+            ? EndpointConfiguration.fromJson(json['endpointConfiguration'])
+            : null,
+        policy: json.containsKey('policy') ? json['policy'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Contains references to your APIs and links that guide you in how to interact
@@ -4508,7 +5768,13 @@ class RestApis {
     this.position,
     this.items,
   });
-  static RestApis fromJson(Map<String, dynamic> json) => RestApis();
+  static RestApis fromJson(Map<String, dynamic> json) => RestApis(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List).map((e) => RestApi.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A configuration property of an SDK type.
@@ -4538,7 +5804,20 @@ class SdkConfigurationProperty {
     this.defaultValue,
   });
   static SdkConfigurationProperty fromJson(Map<String, dynamic> json) =>
-      SdkConfigurationProperty();
+      SdkConfigurationProperty(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        friendlyName: json.containsKey('friendlyName')
+            ? json['friendlyName'] as String
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        isRequired:
+            json.containsKey('required') ? json['required'] as bool : null,
+        defaultValue: json.containsKey('defaultValue')
+            ? json['defaultValue'] as String
+            : null,
+      );
 }
 
 /// The binary blob response to GetSdk, which contains the generated SDK.
@@ -4557,7 +5836,15 @@ class SdkResponse {
     this.contentDisposition,
     this.body,
   });
-  static SdkResponse fromJson(Map<String, dynamic> json) => SdkResponse();
+  static SdkResponse fromJson(Map<String, dynamic> json) => SdkResponse(
+        contentType: json.containsKey('contentType')
+            ? json['contentType'] as String
+            : null,
+        contentDisposition: json.containsKey('contentDisposition')
+            ? json['contentDisposition'] as String
+            : null,
+        body: json.containsKey('body') ? Uint8List(json['body']) : null,
+      );
 }
 
 /// A type of SDK that API Gateway can generate.
@@ -4580,7 +5867,20 @@ class SdkType {
     this.description,
     this.configurationProperties,
   });
-  static SdkType fromJson(Map<String, dynamic> json) => SdkType();
+  static SdkType fromJson(Map<String, dynamic> json) => SdkType(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        friendlyName: json.containsKey('friendlyName')
+            ? json['friendlyName'] as String
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        configurationProperties: json.containsKey('configurationProperties')
+            ? (json['configurationProperties'] as List)
+                .map((e) => SdkConfigurationProperty.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The collection of SdkType instances.
@@ -4594,7 +5894,13 @@ class SdkTypes {
     this.position,
     this.items,
   });
-  static SdkTypes fromJson(Map<String, dynamic> json) => SdkTypes();
+  static SdkTypes fromJson(Map<String, dynamic> json) => SdkTypes(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List).map((e) => SdkType.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Represents a unique identifier for a version of a deployed RestApi that is
@@ -4682,7 +5988,60 @@ class Stage {
     this.createdDate,
     this.lastUpdatedDate,
   });
-  static Stage fromJson(Map<String, dynamic> json) => Stage();
+  static Stage fromJson(Map<String, dynamic> json) => Stage(
+        deploymentId: json.containsKey('deploymentId')
+            ? json['deploymentId'] as String
+            : null,
+        clientCertificateId: json.containsKey('clientCertificateId')
+            ? json['clientCertificateId'] as String
+            : null,
+        stageName:
+            json.containsKey('stageName') ? json['stageName'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        cacheClusterEnabled: json.containsKey('cacheClusterEnabled')
+            ? json['cacheClusterEnabled'] as bool
+            : null,
+        cacheClusterSize: json.containsKey('cacheClusterSize')
+            ? json['cacheClusterSize'] as String
+            : null,
+        cacheClusterStatus: json.containsKey('cacheClusterStatus')
+            ? json['cacheClusterStatus'] as String
+            : null,
+        methodSettings: json.containsKey('methodSettings')
+            ? (json['methodSettings'] as Map)
+                .map((k, v) => MapEntry(k as String, MethodSetting.fromJson(v)))
+            : null,
+        variables: json.containsKey('variables')
+            ? (json['variables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        documentationVersion: json.containsKey('documentationVersion')
+            ? json['documentationVersion'] as String
+            : null,
+        accessLogSettings: json.containsKey('accessLogSettings')
+            ? AccessLogSettings.fromJson(json['accessLogSettings'])
+            : null,
+        canarySettings: json.containsKey('canarySettings')
+            ? CanarySettings.fromJson(json['canarySettings'])
+            : null,
+        tracingEnabled: json.containsKey('tracingEnabled')
+            ? json['tracingEnabled'] as bool
+            : null,
+        webAclArn:
+            json.containsKey('webAclArn') ? json['webAclArn'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+      );
 }
 
 /// A reference to a unique stage identified in the format
@@ -4698,6 +6057,7 @@ class StageKey {
     this.restApiId,
     this.stageName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of Stage resources that are associated with the ApiKey resource.
@@ -4710,7 +6070,11 @@ class Stages {
   Stages({
     this.item,
   });
-  static Stages fromJson(Map<String, dynamic> json) => Stages();
+  static Stages fromJson(Map<String, dynamic> json) => Stages(
+        item: json.containsKey('item')
+            ? (json['item'] as List).map((e) => Stage.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The collection of tags. Each tag element is associated with a given
@@ -4723,7 +6087,12 @@ class Tags {
   Tags({
     this.tags,
   });
-  static Tags fromJson(Map<String, dynamic> json) => Tags();
+  static Tags fromJson(Map<String, dynamic> json) => Tags(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents a mapping template used to transform a payload.
@@ -4739,7 +6108,9 @@ class Template {
   Template({
     this.value,
   });
-  static Template fromJson(Map<String, dynamic> json) => Template();
+  static Template fromJson(Map<String, dynamic> json) => Template(
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
 }
 
 /// Represents the response of the test invoke request for a custom Authorizer
@@ -4778,7 +6149,26 @@ class TestInvokeAuthorizerResponse {
     this.claims,
   });
   static TestInvokeAuthorizerResponse fromJson(Map<String, dynamic> json) =>
-      TestInvokeAuthorizerResponse();
+      TestInvokeAuthorizerResponse(
+        clientStatus: json.containsKey('clientStatus')
+            ? json['clientStatus'] as int
+            : null,
+        log: json.containsKey('log') ? json['log'] as String : null,
+        latency:
+            json.containsKey('latency') ? BigInt.from(json['latency']) : null,
+        principalId: json.containsKey('principalId')
+            ? json['principalId'] as String
+            : null,
+        policy: json.containsKey('policy') ? json['policy'] as String : null,
+        authorization: json.containsKey('authorization')
+            ? (json['authorization'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        claims: json.containsKey('claims')
+            ? (json['claims'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents the response of the test invoke request in the HTTP method.
@@ -4813,7 +6203,21 @@ class TestInvokeMethodResponse {
     this.latency,
   });
   static TestInvokeMethodResponse fromJson(Map<String, dynamic> json) =>
-      TestInvokeMethodResponse();
+      TestInvokeMethodResponse(
+        status: json.containsKey('status') ? json['status'] as int : null,
+        body: json.containsKey('body') ? json['body'] as String : null,
+        headers: json.containsKey('headers')
+            ? (json['headers'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        multiValueHeaders: json.containsKey('multiValueHeaders')
+            ? (json['multiValueHeaders'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        log: json.containsKey('log') ? json['log'] as String : null,
+        latency:
+            json.containsKey('latency') ? BigInt.from(json['latency']) : null,
+      );
 }
 
 ///  The API request rate limits.
@@ -4831,7 +6235,13 @@ class ThrottleSettings {
     this.rateLimit,
   });
   static ThrottleSettings fromJson(Map<String, dynamic> json) =>
-      ThrottleSettings();
+      ThrottleSettings(
+        burstLimit:
+            json.containsKey('burstLimit') ? json['burstLimit'] as int : null,
+        rateLimit:
+            json.containsKey('rateLimit') ? json['rateLimit'] as double : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the usage data of a usage plan.
@@ -4865,7 +6275,23 @@ class Usage {
     this.position,
     this.items,
   });
-  static Usage fromJson(Map<String, dynamic> json) => Usage();
+  static Usage fromJson(Map<String, dynamic> json) => Usage(
+        usagePlanId: json.containsKey('usagePlanId')
+            ? json['usagePlanId'] as String
+            : null,
+        startDate:
+            json.containsKey('startDate') ? json['startDate'] as String : null,
+        endDate: json.containsKey('endDate') ? json['endDate'] as String : null,
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as List)
+                    .map((e) => (e as List).map((e) => BigInt.from(e)).toList())
+                    .toList()))
+            : null,
+      );
 }
 
 /// Represents a usage plan than can specify who can assess associated API
@@ -4914,7 +6340,31 @@ class UsagePlan {
     this.productCode,
     this.tags,
   });
-  static UsagePlan fromJson(Map<String, dynamic> json) => UsagePlan();
+  static UsagePlan fromJson(Map<String, dynamic> json) => UsagePlan(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        apiStages: json.containsKey('apiStages')
+            ? (json['apiStages'] as List)
+                .map((e) => ApiStage.fromJson(e))
+                .toList()
+            : null,
+        throttle: json.containsKey('throttle')
+            ? ThrottleSettings.fromJson(json['throttle'])
+            : null,
+        quota: json.containsKey('quota')
+            ? QuotaSettings.fromJson(json['quota'])
+            : null,
+        productCode: json.containsKey('productCode')
+            ? json['productCode'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents a usage plan key to identify a plan customer.
@@ -4945,7 +6395,12 @@ class UsagePlanKey {
     this.value,
     this.name,
   });
-  static UsagePlanKey fromJson(Map<String, dynamic> json) => UsagePlanKey();
+  static UsagePlanKey fromJson(Map<String, dynamic> json) => UsagePlanKey(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
 }
 
 /// Represents the collection of usage plan keys added to usage plans for the
@@ -4963,7 +6418,15 @@ class UsagePlanKeys {
     this.position,
     this.items,
   });
-  static UsagePlanKeys fromJson(Map<String, dynamic> json) => UsagePlanKeys();
+  static UsagePlanKeys fromJson(Map<String, dynamic> json) => UsagePlanKeys(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List)
+                .map((e) => UsagePlanKey.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents a collection of usage plans for an AWS account.
@@ -4980,7 +6443,13 @@ class UsagePlans {
     this.position,
     this.items,
   });
-  static UsagePlans fromJson(Map<String, dynamic> json) => UsagePlans();
+  static UsagePlans fromJson(Map<String, dynamic> json) => UsagePlans(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List).map((e) => UsagePlan.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A API Gateway VPC link for a RestApi to access resources in an Amazon
@@ -5030,7 +6499,24 @@ class VpcLink {
     this.statusMessage,
     this.tags,
   });
-  static VpcLink fromJson(Map<String, dynamic> json) => VpcLink();
+  static VpcLink fromJson(Map<String, dynamic> json) => VpcLink(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        targetArns: json.containsKey('targetArns')
+            ? (json['targetArns'] as List).map((e) => e as String).toList()
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusMessage: json.containsKey('statusMessage')
+            ? json['statusMessage'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The collection of VPC links under the caller's account in a region.
@@ -5048,5 +6534,11 @@ class VpcLinks {
     this.position,
     this.items,
   });
-  static VpcLinks fromJson(Map<String, dynamic> json) => VpcLinks();
+  static VpcLinks fromJson(Map<String, dynamic> json) => VpcLinks(
+        position:
+            json.containsKey('position') ? json['position'] as String : null,
+        items: json.containsKey('items')
+            ? (json['items'] as List).map((e) => VpcLink.fromJson(e)).toList()
+            : null,
+      );
 }

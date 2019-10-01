@@ -69,6 +69,10 @@ import 'dart:typed_data';
 /// including how to turn it on and find your log files, see the
 /// [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
 class SecretsManagerApi {
+  final _client;
+  SecretsManagerApi(client)
+      : _client = client.configured('Secrets Manager', serializer: 'json');
+
   /// Disables automatic scheduled rotation and cancels the rotation of a secret
   /// if one is currently in progress.
   ///
@@ -133,7 +137,10 @@ class SecretsManagerApi {
   /// unexpected results. To avoid this situation, we recommend that you don’t
   /// create secret names that end with a hyphen followed by six characters.
   Future<CancelRotateSecretResponse> cancelRotateSecret(String secretId) async {
-    return CancelRotateSecretResponse.fromJson({});
+    var response_ = await _client.send('CancelRotateSecret', {
+      'SecretId': secretId,
+    });
+    return CancelRotateSecretResponse.fromJson(response_);
   }
 
   /// Creates a new secret. A secret in Secrets Manager consists of both the
@@ -371,7 +378,16 @@ class SecretsManagerApi {
       Uint8List secretBinary,
       String secretString,
       List<Tag> tags}) async {
-    return CreateSecretResponse.fromJson({});
+    var response_ = await _client.send('CreateSecret', {
+      'Name': name,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (description != null) 'Description': description,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (secretBinary != null) 'SecretBinary': secretBinary,
+      if (secretString != null) 'SecretString': secretString,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateSecretResponse.fromJson(response_);
   }
 
   /// Deletes the resource-based permission policy that's attached to the
@@ -412,7 +428,10 @@ class SecretsManagerApi {
   /// create secret names that end with a hyphen followed by six characters.
   Future<DeleteResourcePolicyResponse> deleteResourcePolicy(
       String secretId) async {
-    return DeleteResourcePolicyResponse.fromJson({});
+    var response_ = await _client.send('DeleteResourcePolicy', {
+      'SecretId': secretId,
+    });
+    return DeleteResourcePolicyResponse.fromJson(response_);
   }
 
   /// Deletes an entire secret and all of its versions. You can optionally
@@ -497,7 +516,14 @@ class SecretsManagerApi {
   /// have no opportunity to recover the secret. It is permanently lost.
   Future<DeleteSecretResponse> deleteSecret(String secretId,
       {BigInt recoveryWindowInDays, bool forceDeleteWithoutRecovery}) async {
-    return DeleteSecretResponse.fromJson({});
+    var response_ = await _client.send('DeleteSecret', {
+      'SecretId': secretId,
+      if (recoveryWindowInDays != null)
+        'RecoveryWindowInDays': recoveryWindowInDays,
+      if (forceDeleteWithoutRecovery != null)
+        'ForceDeleteWithoutRecovery': forceDeleteWithoutRecovery,
+    });
+    return DeleteSecretResponse.fromJson(response_);
   }
 
   /// Retrieves the details of a secret. It does not include the encrypted
@@ -540,7 +566,10 @@ class SecretsManagerApi {
   /// unexpected results. To avoid this situation, we recommend that you don’t
   /// create secret names that end with a hyphen followed by six characters.
   Future<DescribeSecretResponse> describeSecret(String secretId) async {
-    return DescribeSecretResponse.fromJson({});
+    var response_ = await _client.send('DescribeSecret', {
+      'SecretId': secretId,
+    });
+    return DescribeSecretResponse.fromJson(response_);
   }
 
   /// Generates a random password of the specified complexity. This operation is
@@ -600,7 +629,18 @@ class SecretsManagerApi {
       bool excludeLowercase,
       bool includeSpace,
       bool requireEachIncludedType}) async {
-    return GetRandomPasswordResponse.fromJson({});
+    var response_ = await _client.send('GetRandomPassword', {
+      if (passwordLength != null) 'PasswordLength': passwordLength,
+      if (excludeCharacters != null) 'ExcludeCharacters': excludeCharacters,
+      if (excludeNumbers != null) 'ExcludeNumbers': excludeNumbers,
+      if (excludePunctuation != null) 'ExcludePunctuation': excludePunctuation,
+      if (excludeUppercase != null) 'ExcludeUppercase': excludeUppercase,
+      if (excludeLowercase != null) 'ExcludeLowercase': excludeLowercase,
+      if (includeSpace != null) 'IncludeSpace': includeSpace,
+      if (requireEachIncludedType != null)
+        'RequireEachIncludedType': requireEachIncludedType,
+    });
+    return GetRandomPasswordResponse.fromJson(response_);
   }
 
   /// Retrieves the JSON text of the resource-based policy document that's
@@ -642,7 +682,10 @@ class SecretsManagerApi {
   /// unexpected results. To avoid this situation, we recommend that you don’t
   /// create secret names that end with a hyphen followed by six characters.
   Future<GetResourcePolicyResponse> getResourcePolicy(String secretId) async {
-    return GetResourcePolicyResponse.fromJson({});
+    var response_ = await _client.send('GetResourcePolicy', {
+      'SecretId': secretId,
+    });
+    return GetResourcePolicyResponse.fromJson(response_);
   }
 
   /// Retrieves the contents of the encrypted fields `SecretString` or
@@ -706,7 +749,12 @@ class SecretsManagerApi {
   /// `VersionStage` value of `AWSCURRENT`.
   Future<GetSecretValueResponse> getSecretValue(String secretId,
       {String versionId, String versionStage}) async {
-    return GetSecretValueResponse.fromJson({});
+    var response_ = await _client.send('GetSecretValue', {
+      'SecretId': secretId,
+      if (versionId != null) 'VersionId': versionId,
+      if (versionStage != null) 'VersionStage': versionStage,
+    });
+    return GetSecretValueResponse.fromJson(response_);
   }
 
   /// Lists all of the versions attached to the specified secret. The output
@@ -773,7 +821,13 @@ class SecretsManagerApi {
   /// Secrets Manager as needed.
   Future<ListSecretVersionIdsResponse> listSecretVersionIds(String secretId,
       {int maxResults, String nextToken, bool includeDeprecated}) async {
-    return ListSecretVersionIdsResponse.fromJson({});
+    var response_ = await _client.send('ListSecretVersionIds', {
+      'SecretId': secretId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (includeDeprecated != null) 'IncludeDeprecated': includeDeprecated,
+    });
+    return ListSecretVersionIdsResponse.fromJson(response_);
   }
 
   /// Lists all of the secrets that are stored by Secrets Manager in the AWS
@@ -818,7 +872,11 @@ class SecretsManagerApi {
   /// continue from.
   Future<ListSecretsResponse> listSecrets(
       {int maxResults, String nextToken}) async {
-    return ListSecretsResponse.fromJson({});
+    var response_ = await _client.send('ListSecrets', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListSecretsResponse.fromJson(response_);
   }
 
   /// Attaches the contents of the specified resource-based permission policy to
@@ -877,7 +935,11 @@ class SecretsManagerApi {
   /// in the _AWS CLI User Guide_.
   Future<PutResourcePolicyResponse> putResourcePolicy(
       {@required String secretId, @required String resourcePolicy}) async {
-    return PutResourcePolicyResponse.fromJson({});
+    var response_ = await _client.send('PutResourcePolicy', {
+      'SecretId': secretId,
+      'ResourcePolicy': resourcePolicy,
+    });
+    return PutResourcePolicyResponse.fromJson(response_);
   }
 
   /// Stores a new encrypted secret value in the specified secret. To do this,
@@ -1056,7 +1118,14 @@ class SecretsManagerApi {
       Uint8List secretBinary,
       String secretString,
       List<String> versionStages}) async {
-    return PutSecretValueResponse.fromJson({});
+    var response_ = await _client.send('PutSecretValue', {
+      'SecretId': secretId,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (secretBinary != null) 'SecretBinary': secretBinary,
+      if (secretString != null) 'SecretString': secretString,
+      if (versionStages != null) 'VersionStages': versionStages,
+    });
+    return PutSecretValueResponse.fromJson(response_);
   }
 
   /// Cancels the scheduled deletion of a secret by removing the `DeletedDate`
@@ -1091,7 +1160,10 @@ class SecretsManagerApi {
   /// unexpected results. To avoid this situation, we recommend that you don’t
   /// create secret names that end with a hyphen followed by six characters.
   Future<RestoreSecretResponse> restoreSecret(String secretId) async {
-    return RestoreSecretResponse.fromJson({});
+    var response_ = await _client.send('RestoreSecret', {
+      'SecretId': secretId,
+    });
+    return RestoreSecretResponse.fromJson(response_);
   }
 
   /// Configures and starts the asynchronous process of rotating this secret. If
@@ -1201,7 +1273,13 @@ class SecretsManagerApi {
       {String clientRequestToken,
       String rotationLambdaArn,
       RotationRulesType rotationRules}) async {
-    return RotateSecretResponse.fromJson({});
+    var response_ = await _client.send('RotateSecret', {
+      'SecretId': secretId,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (rotationLambdaArn != null) 'RotationLambdaARN': rotationLambdaArn,
+      if (rotationRules != null) 'RotationRules': rotationRules,
+    });
+    return RotateSecretResponse.fromJson(response_);
   }
 
   /// Attaches one or more tags, each consisting of a key name and a value, to
@@ -1279,7 +1357,12 @@ class SecretsManagerApi {
   /// in the _AWS CLI User Guide_. For the AWS CLI, you can also use the syntax:
   /// `--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]`
   Future<void> tagResource(
-      {@required String secretId, @required List<Tag> tags}) async {}
+      {@required String secretId, @required List<Tag> tags}) async {
+    await _client.send('TagResource', {
+      'SecretId': secretId,
+      'Tags': tags,
+    });
+  }
 
   /// Removes one or more tags from the specified secret.
   ///
@@ -1332,7 +1415,12 @@ class SecretsManagerApi {
   /// [Using JSON for Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
   /// in the _AWS CLI User Guide_.
   Future<void> untagResource(
-      {@required String secretId, @required List<String> tagKeys}) async {}
+      {@required String secretId, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'SecretId': secretId,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Modifies many of the details of the specified secret. If you include a
   /// `ClientRequestToken` and _either_ `SecretString` or `SecretBinary` then it
@@ -1514,7 +1602,15 @@ class SecretsManagerApi {
       String kmsKeyId,
       Uint8List secretBinary,
       String secretString}) async {
-    return UpdateSecretResponse.fromJson({});
+    var response_ = await _client.send('UpdateSecret', {
+      'SecretId': secretId,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (description != null) 'Description': description,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (secretBinary != null) 'SecretBinary': secretBinary,
+      if (secretString != null) 'SecretString': secretString,
+    });
+    return UpdateSecretResponse.fromJson(response_);
   }
 
   /// Modifies the staging labels attached to a version of a secret. Staging
@@ -1592,7 +1688,14 @@ class SecretsManagerApi {
       @required String versionStage,
       String removeFromVersionId,
       String moveToVersionId}) async {
-    return UpdateSecretVersionStageResponse.fromJson({});
+    var response_ = await _client.send('UpdateSecretVersionStage', {
+      'SecretId': secretId,
+      'VersionStage': versionStage,
+      if (removeFromVersionId != null)
+        'RemoveFromVersionId': removeFromVersionId,
+      if (moveToVersionId != null) 'MoveToVersionId': moveToVersionId,
+    });
+    return UpdateSecretVersionStageResponse.fromJson(response_);
   }
 }
 
@@ -1617,7 +1720,12 @@ class CancelRotateSecretResponse {
     this.versionId,
   });
   static CancelRotateSecretResponse fromJson(Map<String, dynamic> json) =>
-      CancelRotateSecretResponse();
+      CancelRotateSecretResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 class CreateSecretResponse {
@@ -1646,7 +1754,12 @@ class CreateSecretResponse {
     this.versionId,
   });
   static CreateSecretResponse fromJson(Map<String, dynamic> json) =>
-      CreateSecretResponse();
+      CreateSecretResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 class DeleteResourcePolicyResponse {
@@ -1662,7 +1775,10 @@ class DeleteResourcePolicyResponse {
     this.name,
   });
   static DeleteResourcePolicyResponse fromJson(Map<String, dynamic> json) =>
-      DeleteResourcePolicyResponse();
+      DeleteResourcePolicyResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class DeleteSecretResponse {
@@ -1684,7 +1800,13 @@ class DeleteSecretResponse {
     this.deletionDate,
   });
   static DeleteSecretResponse fromJson(Map<String, dynamic> json) =>
-      DeleteSecretResponse();
+      DeleteSecretResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        deletionDate: json.containsKey('DeletionDate')
+            ? DateTime.parse(json['DeletionDate'])
+            : null,
+      );
 }
 
 class DescribeSecretResponse {
@@ -1774,7 +1896,46 @@ class DescribeSecretResponse {
     this.owningService,
   });
   static DescribeSecretResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSecretResponse();
+      DescribeSecretResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        rotationEnabled: json.containsKey('RotationEnabled')
+            ? json['RotationEnabled'] as bool
+            : null,
+        rotationLambdaArn: json.containsKey('RotationLambdaARN')
+            ? json['RotationLambdaARN'] as String
+            : null,
+        rotationRules: json.containsKey('RotationRules')
+            ? RotationRulesType.fromJson(json['RotationRules'])
+            : null,
+        lastRotatedDate: json.containsKey('LastRotatedDate')
+            ? DateTime.parse(json['LastRotatedDate'])
+            : null,
+        lastChangedDate: json.containsKey('LastChangedDate')
+            ? DateTime.parse(json['LastChangedDate'])
+            : null,
+        lastAccessedDate: json.containsKey('LastAccessedDate')
+            ? DateTime.parse(json['LastAccessedDate'])
+            : null,
+        deletedDate: json.containsKey('DeletedDate')
+            ? DateTime.parse(json['DeletedDate'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        versionIdsToStages: json.containsKey('VersionIdsToStages')
+            ? (json['VersionIdsToStages'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        owningService: json.containsKey('OwningService')
+            ? json['OwningService'] as String
+            : null,
+      );
 }
 
 class GetRandomPasswordResponse {
@@ -1785,7 +1946,11 @@ class GetRandomPasswordResponse {
     this.randomPassword,
   });
   static GetRandomPasswordResponse fromJson(Map<String, dynamic> json) =>
-      GetRandomPasswordResponse();
+      GetRandomPasswordResponse(
+        randomPassword: json.containsKey('RandomPassword')
+            ? json['RandomPassword'] as String
+            : null,
+      );
 }
 
 class GetResourcePolicyResponse {
@@ -1811,7 +1976,13 @@ class GetResourcePolicyResponse {
     this.resourcePolicy,
   });
   static GetResourcePolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetResourcePolicyResponse();
+      GetResourcePolicyResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        resourcePolicy: json.containsKey('ResourcePolicy')
+            ? json['ResourcePolicy'] as String
+            : null,
+      );
 }
 
 class GetSecretValueResponse {
@@ -1869,7 +2040,24 @@ class GetSecretValueResponse {
     this.createdDate,
   });
   static GetSecretValueResponse fromJson(Map<String, dynamic> json) =>
-      GetSecretValueResponse();
+      GetSecretValueResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        secretBinary: json.containsKey('SecretBinary')
+            ? Uint8List(json['SecretBinary'])
+            : null,
+        secretString: json.containsKey('SecretString')
+            ? json['SecretString'] as String
+            : null,
+        versionStages: json.containsKey('VersionStages')
+            ? (json['VersionStages'] as List).map((e) => e as String).toList()
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+      );
 }
 
 class ListSecretVersionIdsResponse {
@@ -1907,7 +2095,17 @@ class ListSecretVersionIdsResponse {
     this.name,
   });
   static ListSecretVersionIdsResponse fromJson(Map<String, dynamic> json) =>
-      ListSecretVersionIdsResponse();
+      ListSecretVersionIdsResponse(
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => SecretVersionsListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class ListSecretsResponse {
@@ -1928,7 +2126,15 @@ class ListSecretsResponse {
     this.nextToken,
   });
   static ListSecretsResponse fromJson(Map<String, dynamic> json) =>
-      ListSecretsResponse();
+      ListSecretsResponse(
+        secretList: json.containsKey('SecretList')
+            ? (json['SecretList'] as List)
+                .map((e) => SecretListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class PutResourcePolicyResponse {
@@ -1944,7 +2150,10 @@ class PutResourcePolicyResponse {
     this.name,
   });
   static PutResourcePolicyResponse fromJson(Map<String, dynamic> json) =>
-      PutResourcePolicyResponse();
+      PutResourcePolicyResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class PutSecretValueResponse {
@@ -1972,7 +2181,15 @@ class PutSecretValueResponse {
     this.versionStages,
   });
   static PutSecretValueResponse fromJson(Map<String, dynamic> json) =>
-      PutSecretValueResponse();
+      PutSecretValueResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        versionStages: json.containsKey('VersionStages')
+            ? (json['VersionStages'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class RestoreSecretResponse {
@@ -1987,7 +2204,10 @@ class RestoreSecretResponse {
     this.name,
   });
   static RestoreSecretResponse fromJson(Map<String, dynamic> json) =>
-      RestoreSecretResponse();
+      RestoreSecretResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class RotateSecretResponse {
@@ -2007,7 +2227,12 @@ class RotateSecretResponse {
     this.versionId,
   });
   static RotateSecretResponse fromJson(Map<String, dynamic> json) =>
-      RotateSecretResponse();
+      RotateSecretResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 /// A structure that defines the rotation configuration for the secret.
@@ -2027,7 +2252,12 @@ class RotationRulesType {
     this.automaticallyAfterDays,
   });
   static RotationRulesType fromJson(Map<String, dynamic> json) =>
-      RotationRulesType();
+      RotationRulesType(
+        automaticallyAfterDays: json.containsKey('AutomaticallyAfterDays')
+            ? BigInt.from(json['AutomaticallyAfterDays'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A structure that contains the details about a secret. It does not include
@@ -2120,8 +2350,46 @@ class SecretListEntry {
     this.secretVersionsToStages,
     this.owningService,
   });
-  static SecretListEntry fromJson(Map<String, dynamic> json) =>
-      SecretListEntry();
+  static SecretListEntry fromJson(Map<String, dynamic> json) => SecretListEntry(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        rotationEnabled: json.containsKey('RotationEnabled')
+            ? json['RotationEnabled'] as bool
+            : null,
+        rotationLambdaArn: json.containsKey('RotationLambdaARN')
+            ? json['RotationLambdaARN'] as String
+            : null,
+        rotationRules: json.containsKey('RotationRules')
+            ? RotationRulesType.fromJson(json['RotationRules'])
+            : null,
+        lastRotatedDate: json.containsKey('LastRotatedDate')
+            ? DateTime.parse(json['LastRotatedDate'])
+            : null,
+        lastChangedDate: json.containsKey('LastChangedDate')
+            ? DateTime.parse(json['LastChangedDate'])
+            : null,
+        lastAccessedDate: json.containsKey('LastAccessedDate')
+            ? DateTime.parse(json['LastAccessedDate'])
+            : null,
+        deletedDate: json.containsKey('DeletedDate')
+            ? DateTime.parse(json['DeletedDate'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        secretVersionsToStages: json.containsKey('SecretVersionsToStages')
+            ? (json['SecretVersionsToStages'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        owningService: json.containsKey('OwningService')
+            ? json['OwningService'] as String
+            : null,
+      );
 }
 
 /// A structure that contains information about one version of a secret.
@@ -2148,7 +2416,19 @@ class SecretVersionsListEntry {
     this.createdDate,
   });
   static SecretVersionsListEntry fromJson(Map<String, dynamic> json) =>
-      SecretVersionsListEntry();
+      SecretVersionsListEntry(
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        versionStages: json.containsKey('VersionStages')
+            ? (json['VersionStages'] as List).map((e) => e as String).toList()
+            : null,
+        lastAccessedDate: json.containsKey('LastAccessedDate')
+            ? DateTime.parse(json['LastAccessedDate'])
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+      );
 }
 
 /// A structure that contains information about a tag.
@@ -2163,7 +2443,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateSecretResponse {
@@ -2192,7 +2476,12 @@ class UpdateSecretResponse {
     this.versionId,
   });
   static UpdateSecretResponse fromJson(Map<String, dynamic> json) =>
-      UpdateSecretResponse();
+      UpdateSecretResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 class UpdateSecretVersionStageResponse {
@@ -2207,5 +2496,8 @@ class UpdateSecretVersionStageResponse {
     this.name,
   });
   static UpdateSecretVersionStageResponse fromJson(Map<String, dynamic> json) =>
-      UpdateSecretVersionStageResponse();
+      UpdateSecretVersionStageResponse(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }

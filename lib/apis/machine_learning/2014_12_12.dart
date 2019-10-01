@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 /// Definition of the public APIs exposed by Amazon Machine Learning
 class MachineLearningApi {
+  final _client;
+  MachineLearningApi(client)
+      : _client = client.configured('Machine Learning', serializer: 'json');
+
   /// Adds one or more tags to an object, up to a limit of 10. Each tag consists
   /// of a key and an optional value. If you add a tag using a key that is
   /// already associated with the ML object, `AddTags` updates the tag's value.
@@ -18,7 +22,12 @@ class MachineLearningApi {
       {@required List<Tag> tags,
       @required String resourceId,
       @required String resourceType}) async {
-    return AddTagsOutput.fromJson({});
+    var response_ = await _client.send('AddTags', {
+      'Tags': tags,
+      'ResourceId': resourceId,
+      'ResourceType': resourceType,
+    });
+    return AddTagsOutput.fromJson(response_);
   }
 
   /// Generates predictions for a group of observations. The observations to
@@ -63,7 +72,15 @@ class MachineLearningApi {
       @required String mlModelId,
       @required String batchPredictionDataSourceId,
       @required String outputUri}) async {
-    return CreateBatchPredictionOutput.fromJson({});
+    var response_ = await _client.send('CreateBatchPrediction', {
+      'BatchPredictionId': batchPredictionId,
+      if (batchPredictionName != null)
+        'BatchPredictionName': batchPredictionName,
+      'MLModelId': mlModelId,
+      'BatchPredictionDataSourceId': batchPredictionDataSourceId,
+      'OutputUri': outputUri,
+    });
+    return CreateBatchPredictionOutput.fromJson(response_);
   }
 
   /// Creates a `DataSource` object from an
@@ -152,7 +169,14 @@ class MachineLearningApi {
       @required RdsDataSpec rdsData,
       @required String roleArn,
       bool computeStatistics}) async {
-    return CreateDataSourceFromRdsOutput.fromJson({});
+    var response_ = await _client.send('CreateDataSourceFromRDS', {
+      'DataSourceId': dataSourceId,
+      if (dataSourceName != null) 'DataSourceName': dataSourceName,
+      'RDSData': rdsData,
+      'RoleARN': roleArn,
+      if (computeStatistics != null) 'ComputeStatistics': computeStatistics,
+    });
+    return CreateDataSourceFromRdsOutput.fromJson(response_);
   }
 
   /// Creates a `DataSource` from a database hosted on an Amazon Redshift
@@ -246,7 +270,14 @@ class MachineLearningApi {
       @required RedshiftDataSpec dataSpec,
       @required String roleArn,
       bool computeStatistics}) async {
-    return CreateDataSourceFromRedshiftOutput.fromJson({});
+    var response_ = await _client.send('CreateDataSourceFromRedshift', {
+      'DataSourceId': dataSourceId,
+      if (dataSourceName != null) 'DataSourceName': dataSourceName,
+      'DataSpec': dataSpec,
+      'RoleARN': roleArn,
+      if (computeStatistics != null) 'ComputeStatistics': computeStatistics,
+    });
+    return CreateDataSourceFromRedshiftOutput.fromJson(response_);
   }
 
   /// Creates a `DataSource` object. A `DataSource` references data that can be
@@ -310,7 +341,13 @@ class MachineLearningApi {
       String dataSourceName,
       @required S3DataSpec dataSpec,
       bool computeStatistics}) async {
-    return CreateDataSourceFromS3Output.fromJson({});
+    var response_ = await _client.send('CreateDataSourceFromS3', {
+      'DataSourceId': dataSourceId,
+      if (dataSourceName != null) 'DataSourceName': dataSourceName,
+      'DataSpec': dataSpec,
+      if (computeStatistics != null) 'ComputeStatistics': computeStatistics,
+    });
+    return CreateDataSourceFromS3Output.fromJson(response_);
   }
 
   /// Creates a new `Evaluation` of an `MLModel`. An `MLModel` is evaluated on a
@@ -350,7 +387,13 @@ class MachineLearningApi {
       String evaluationName,
       @required String mlModelId,
       @required String evaluationDataSourceId}) async {
-    return CreateEvaluationOutput.fromJson({});
+    var response_ = await _client.send('CreateEvaluation', {
+      'EvaluationId': evaluationId,
+      if (evaluationName != null) 'EvaluationName': evaluationName,
+      'MLModelId': mlModelId,
+      'EvaluationDataSourceId': evaluationDataSourceId,
+    });
+    return CreateEvaluationOutput.fromJson(response_);
   }
 
   /// Creates a new `MLModel` using the `DataSource` and the recipe as
@@ -446,7 +489,16 @@ class MachineLearningApi {
       @required String trainingDataSourceId,
       String recipe,
       String recipeUri}) async {
-    return CreateMLModelOutput.fromJson({});
+    var response_ = await _client.send('CreateMLModel', {
+      'MLModelId': mlModelId,
+      if (mlModelName != null) 'MLModelName': mlModelName,
+      'MLModelType': mlModelType,
+      if (parameters != null) 'Parameters': parameters,
+      'TrainingDataSourceId': trainingDataSourceId,
+      if (recipe != null) 'Recipe': recipe,
+      if (recipeUri != null) 'RecipeUri': recipeUri,
+    });
+    return CreateMLModelOutput.fromJson(response_);
   }
 
   /// Creates a real-time endpoint for the `MLModel`. The endpoint contains the
@@ -456,7 +508,10 @@ class MachineLearningApi {
   /// [mlModelId]: The ID assigned to the `MLModel` during creation.
   Future<CreateRealtimeEndpointOutput> createRealtimeEndpoint(
       String mlModelId) async {
-    return CreateRealtimeEndpointOutput.fromJson({});
+    var response_ = await _client.send('CreateRealtimeEndpoint', {
+      'MLModelId': mlModelId,
+    });
+    return CreateRealtimeEndpointOutput.fromJson(response_);
   }
 
   /// Assigns the DELETED status to a `BatchPrediction`, rendering it unusable.
@@ -472,7 +527,10 @@ class MachineLearningApi {
   /// `BatchPrediction`.
   Future<DeleteBatchPredictionOutput> deleteBatchPrediction(
       String batchPredictionId) async {
-    return DeleteBatchPredictionOutput.fromJson({});
+    var response_ = await _client.send('DeleteBatchPrediction', {
+      'BatchPredictionId': batchPredictionId,
+    });
+    return DeleteBatchPredictionOutput.fromJson(response_);
   }
 
   /// Assigns the DELETED status to a `DataSource`, rendering it unusable.
@@ -487,7 +545,10 @@ class MachineLearningApi {
   /// [dataSourceId]: A user-supplied ID that uniquely identifies the
   /// `DataSource`.
   Future<DeleteDataSourceOutput> deleteDataSource(String dataSourceId) async {
-    return DeleteDataSourceOutput.fromJson({});
+    var response_ = await _client.send('DeleteDataSource', {
+      'DataSourceId': dataSourceId,
+    });
+    return DeleteDataSourceOutput.fromJson(response_);
   }
 
   /// Assigns the `DELETED` status to an `Evaluation`, rendering it unusable.
@@ -503,7 +564,10 @@ class MachineLearningApi {
   /// [evaluationId]: A user-supplied ID that uniquely identifies the
   /// `Evaluation` to delete.
   Future<DeleteEvaluationOutput> deleteEvaluation(String evaluationId) async {
-    return DeleteEvaluationOutput.fromJson({});
+    var response_ = await _client.send('DeleteEvaluation', {
+      'EvaluationId': evaluationId,
+    });
+    return DeleteEvaluationOutput.fromJson(response_);
   }
 
   /// Assigns the `DELETED` status to an `MLModel`, rendering it unusable.
@@ -515,7 +579,10 @@ class MachineLearningApi {
   ///
   /// [mlModelId]: A user-supplied ID that uniquely identifies the `MLModel`.
   Future<DeleteMLModelOutput> deleteMLModel(String mlModelId) async {
-    return DeleteMLModelOutput.fromJson({});
+    var response_ = await _client.send('DeleteMLModel', {
+      'MLModelId': mlModelId,
+    });
+    return DeleteMLModelOutput.fromJson(response_);
   }
 
   /// Deletes a real time endpoint of an `MLModel`.
@@ -523,7 +590,10 @@ class MachineLearningApi {
   /// [mlModelId]: The ID assigned to the `MLModel` during creation.
   Future<DeleteRealtimeEndpointOutput> deleteRealtimeEndpoint(
       String mlModelId) async {
-    return DeleteRealtimeEndpointOutput.fromJson({});
+    var response_ = await _client.send('DeleteRealtimeEndpoint', {
+      'MLModelId': mlModelId,
+    });
+    return DeleteRealtimeEndpointOutput.fromJson(response_);
   }
 
   /// Deletes the specified tags associated with an ML object. After this
@@ -541,7 +611,12 @@ class MachineLearningApi {
       {@required List<String> tagKeys,
       @required String resourceId,
       @required String resourceType}) async {
-    return DeleteTagsOutput.fromJson({});
+    var response_ = await _client.send('DeleteTags', {
+      'TagKeys': tagKeys,
+      'ResourceId': resourceId,
+      'ResourceType': resourceType,
+    });
+    return DeleteTagsOutput.fromJson(response_);
   }
 
   /// Returns a list of `BatchPrediction` operations that match the search
@@ -625,7 +700,20 @@ class MachineLearningApi {
       String sortOrder,
       String nextToken,
       int limit}) async {
-    return DescribeBatchPredictionsOutput.fromJson({});
+    var response_ = await _client.send('DescribeBatchPredictions', {
+      if (filterVariable != null) 'FilterVariable': filterVariable,
+      if (eq != null) 'EQ': eq,
+      if (gt != null) 'GT': gt,
+      if (lt != null) 'LT': lt,
+      if (ge != null) 'GE': ge,
+      if (le != null) 'LE': le,
+      if (ne != null) 'NE': ne,
+      if (prefix != null) 'Prefix': prefix,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeBatchPredictionsOutput.fromJson(response_);
   }
 
   /// Returns a list of `DataSource` that match the search criteria in the
@@ -703,7 +791,20 @@ class MachineLearningApi {
       String sortOrder,
       String nextToken,
       int limit}) async {
-    return DescribeDataSourcesOutput.fromJson({});
+    var response_ = await _client.send('DescribeDataSources', {
+      if (filterVariable != null) 'FilterVariable': filterVariable,
+      if (eq != null) 'EQ': eq,
+      if (gt != null) 'GT': gt,
+      if (lt != null) 'LT': lt,
+      if (ge != null) 'GE': ge,
+      if (le != null) 'LE': le,
+      if (ne != null) 'NE': ne,
+      if (prefix != null) 'Prefix': prefix,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeDataSourcesOutput.fromJson(response_);
   }
 
   /// Returns a list of `DescribeEvaluations` that match the search criteria in
@@ -785,7 +886,20 @@ class MachineLearningApi {
       String sortOrder,
       String nextToken,
       int limit}) async {
-    return DescribeEvaluationsOutput.fromJson({});
+    var response_ = await _client.send('DescribeEvaluations', {
+      if (filterVariable != null) 'FilterVariable': filterVariable,
+      if (eq != null) 'EQ': eq,
+      if (gt != null) 'GT': gt,
+      if (lt != null) 'LT': lt,
+      if (ge != null) 'GE': ge,
+      if (le != null) 'LE': le,
+      if (ne != null) 'NE': ne,
+      if (prefix != null) 'Prefix': prefix,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeEvaluationsOutput.fromJson(response_);
   }
 
   /// Returns a list of `MLModel` that match the search criteria in the request.
@@ -871,7 +985,20 @@ class MachineLearningApi {
       String sortOrder,
       String nextToken,
       int limit}) async {
-    return DescribeMLModelsOutput.fromJson({});
+    var response_ = await _client.send('DescribeMLModels', {
+      if (filterVariable != null) 'FilterVariable': filterVariable,
+      if (eq != null) 'EQ': eq,
+      if (gt != null) 'GT': gt,
+      if (lt != null) 'LT': lt,
+      if (ge != null) 'GE': ge,
+      if (le != null) 'LE': le,
+      if (ne != null) 'NE': ne,
+      if (prefix != null) 'Prefix': prefix,
+      if (sortOrder != null) 'SortOrder': sortOrder,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeMLModelsOutput.fromJson(response_);
   }
 
   /// Describes one or more of the tags for your Amazon ML object.
@@ -881,7 +1008,11 @@ class MachineLearningApi {
   /// [resourceType]: The type of the ML object.
   Future<DescribeTagsOutput> describeTags(
       {@required String resourceId, @required String resourceType}) async {
-    return DescribeTagsOutput.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      'ResourceId': resourceId,
+      'ResourceType': resourceType,
+    });
+    return DescribeTagsOutput.fromJson(response_);
   }
 
   /// Returns a `BatchPrediction` that includes detailed metadata, status, and
@@ -890,7 +1021,10 @@ class MachineLearningApi {
   /// [batchPredictionId]: An ID assigned to the `BatchPrediction` at creation.
   Future<GetBatchPredictionOutput> getBatchPrediction(
       String batchPredictionId) async {
-    return GetBatchPredictionOutput.fromJson({});
+    var response_ = await _client.send('GetBatchPrediction', {
+      'BatchPredictionId': batchPredictionId,
+    });
+    return GetBatchPredictionOutput.fromJson(response_);
   }
 
   /// Returns a `DataSource` that includes metadata and data file information,
@@ -910,7 +1044,11 @@ class MachineLearningApi {
   /// If false, `DataSourceSchema` is not returned.
   Future<GetDataSourceOutput> getDataSource(String dataSourceId,
       {bool verbose}) async {
-    return GetDataSourceOutput.fromJson({});
+    var response_ = await _client.send('GetDataSource', {
+      'DataSourceId': dataSourceId,
+      if (verbose != null) 'Verbose': verbose,
+    });
+    return GetDataSourceOutput.fromJson(response_);
   }
 
   /// Returns an `Evaluation` that includes metadata as well as the current
@@ -920,7 +1058,10 @@ class MachineLearningApi {
   /// each `MLModel` is recorded and cataloged. The ID provides the means to
   /// access the information.
   Future<GetEvaluationOutput> getEvaluation(String evaluationId) async {
-    return GetEvaluationOutput.fromJson({});
+    var response_ = await _client.send('GetEvaluation', {
+      'EvaluationId': evaluationId,
+    });
+    return GetEvaluationOutput.fromJson(response_);
   }
 
   /// Returns an `MLModel` that includes detailed metadata, data source
@@ -937,7 +1078,11 @@ class MachineLearningApi {
   ///
   /// If false, `Recipe` is not returned.
   Future<GetMLModelOutput> getMLModel(String mlModelId, {bool verbose}) async {
-    return GetMLModelOutput.fromJson({});
+    var response_ = await _client.send('GetMLModel', {
+      'MLModelId': mlModelId,
+      if (verbose != null) 'Verbose': verbose,
+    });
+    return GetMLModelOutput.fromJson(response_);
   }
 
   /// Generates a prediction for the observation using the specified `ML Model`.
@@ -952,7 +1097,12 @@ class MachineLearningApi {
       {@required String mlModelId,
       @required Map<String, String> record,
       @required String predictEndpoint}) async {
-    return PredictOutput.fromJson({});
+    var response_ = await _client.send('Predict', {
+      'MLModelId': mlModelId,
+      'Record': record,
+      'PredictEndpoint': predictEndpoint,
+    });
+    return PredictOutput.fromJson(response_);
   }
 
   /// Updates the `BatchPredictionName` of a `BatchPrediction`.
@@ -968,7 +1118,11 @@ class MachineLearningApi {
   Future<UpdateBatchPredictionOutput> updateBatchPrediction(
       {@required String batchPredictionId,
       @required String batchPredictionName}) async {
-    return UpdateBatchPredictionOutput.fromJson({});
+    var response_ = await _client.send('UpdateBatchPrediction', {
+      'BatchPredictionId': batchPredictionId,
+      'BatchPredictionName': batchPredictionName,
+    });
+    return UpdateBatchPredictionOutput.fromJson(response_);
   }
 
   /// Updates the `DataSourceName` of a `DataSource`.
@@ -982,7 +1136,11 @@ class MachineLearningApi {
   /// `DataSource` that will replace the current description.
   Future<UpdateDataSourceOutput> updateDataSource(
       {@required String dataSourceId, @required String dataSourceName}) async {
-    return UpdateDataSourceOutput.fromJson({});
+    var response_ = await _client.send('UpdateDataSource', {
+      'DataSourceId': dataSourceId,
+      'DataSourceName': dataSourceName,
+    });
+    return UpdateDataSourceOutput.fromJson(response_);
   }
 
   /// Updates the `EvaluationName` of an `Evaluation`.
@@ -996,7 +1154,11 @@ class MachineLearningApi {
   /// `Evaluation` that will replace the current content.
   Future<UpdateEvaluationOutput> updateEvaluation(
       {@required String evaluationId, @required String evaluationName}) async {
-    return UpdateEvaluationOutput.fromJson({});
+    var response_ = await _client.send('UpdateEvaluation', {
+      'EvaluationId': evaluationId,
+      'EvaluationName': evaluationName,
+    });
+    return UpdateEvaluationOutput.fromJson(response_);
   }
 
   /// Updates the `MLModelName` and the `ScoreThreshold` of an `MLModel`.
@@ -1018,7 +1180,12 @@ class MachineLearningApi {
   /// such as `false`.
   Future<UpdateMLModelOutput> updateMLModel(String mlModelId,
       {String mlModelName, double scoreThreshold}) async {
-    return UpdateMLModelOutput.fromJson({});
+    var response_ = await _client.send('UpdateMLModel', {
+      'MLModelId': mlModelId,
+      if (mlModelName != null) 'MLModelName': mlModelName,
+      if (scoreThreshold != null) 'ScoreThreshold': scoreThreshold,
+    });
+    return UpdateMLModelOutput.fromJson(response_);
   }
 }
 
@@ -1034,7 +1201,14 @@ class AddTagsOutput {
     this.resourceId,
     this.resourceType,
   });
-  static AddTagsOutput fromJson(Map<String, dynamic> json) => AddTagsOutput();
+  static AddTagsOutput fromJson(Map<String, dynamic> json) => AddTagsOutput(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+      );
 }
 
 ///  Represents the output of a `GetBatchPrediction` operation.
@@ -1124,8 +1298,49 @@ class BatchPrediction {
     this.totalRecordCount,
     this.invalidRecordCount,
   });
-  static BatchPrediction fromJson(Map<String, dynamic> json) =>
-      BatchPrediction();
+  static BatchPrediction fromJson(Map<String, dynamic> json) => BatchPrediction(
+        batchPredictionId: json.containsKey('BatchPredictionId')
+            ? json['BatchPredictionId'] as String
+            : null,
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+        batchPredictionDataSourceId:
+            json.containsKey('BatchPredictionDataSourceId')
+                ? json['BatchPredictionDataSourceId'] as String
+                : null,
+        inputDataLocationS3: json.containsKey('InputDataLocationS3')
+            ? json['InputDataLocationS3'] as String
+            : null,
+        createdByIamUser: json.containsKey('CreatedByIamUser')
+            ? json['CreatedByIamUser'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('LastUpdatedAt')
+            ? DateTime.parse(json['LastUpdatedAt'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        outputUri:
+            json.containsKey('OutputUri') ? json['OutputUri'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        computeTime: json.containsKey('ComputeTime')
+            ? BigInt.from(json['ComputeTime'])
+            : null,
+        finishedAt: json.containsKey('FinishedAt')
+            ? DateTime.parse(json['FinishedAt'])
+            : null,
+        startedAt: json.containsKey('StartedAt')
+            ? DateTime.parse(json['StartedAt'])
+            : null,
+        totalRecordCount: json.containsKey('TotalRecordCount')
+            ? BigInt.from(json['TotalRecordCount'])
+            : null,
+        invalidRecordCount: json.containsKey('InvalidRecordCount')
+            ? BigInt.from(json['InvalidRecordCount'])
+            : null,
+      );
 }
 
 ///  Represents the output of a `CreateBatchPrediction` operation, and is an
@@ -1143,7 +1358,11 @@ class CreateBatchPredictionOutput {
     this.batchPredictionId,
   });
   static CreateBatchPredictionOutput fromJson(Map<String, dynamic> json) =>
-      CreateBatchPredictionOutput();
+      CreateBatchPredictionOutput(
+        batchPredictionId: json.containsKey('BatchPredictionId')
+            ? json['BatchPredictionId'] as String
+            : null,
+      );
 }
 
 ///  Represents the output of a `CreateDataSourceFromRDS` operation, and is an
@@ -1164,7 +1383,11 @@ class CreateDataSourceFromRdsOutput {
     this.dataSourceId,
   });
   static CreateDataSourceFromRdsOutput fromJson(Map<String, dynamic> json) =>
-      CreateDataSourceFromRdsOutput();
+      CreateDataSourceFromRdsOutput(
+        dataSourceId: json.containsKey('DataSourceId')
+            ? json['DataSourceId'] as String
+            : null,
+      );
 }
 
 ///  Represents the output of a `CreateDataSourceFromRedshift` operation, and is
@@ -1183,7 +1406,11 @@ class CreateDataSourceFromRedshiftOutput {
   });
   static CreateDataSourceFromRedshiftOutput fromJson(
           Map<String, dynamic> json) =>
-      CreateDataSourceFromRedshiftOutput();
+      CreateDataSourceFromRedshiftOutput(
+        dataSourceId: json.containsKey('DataSourceId')
+            ? json['DataSourceId'] as String
+            : null,
+      );
 }
 
 ///  Represents the output of a `CreateDataSourceFromS3` operation, and is an
@@ -1201,7 +1428,11 @@ class CreateDataSourceFromS3Output {
     this.dataSourceId,
   });
   static CreateDataSourceFromS3Output fromJson(Map<String, dynamic> json) =>
-      CreateDataSourceFromS3Output();
+      CreateDataSourceFromS3Output(
+        dataSourceId: json.containsKey('DataSourceId')
+            ? json['DataSourceId'] as String
+            : null,
+      );
 }
 
 ///  Represents the output of a `CreateEvaluation` operation, and is an
@@ -1219,7 +1450,11 @@ class CreateEvaluationOutput {
     this.evaluationId,
   });
   static CreateEvaluationOutput fromJson(Map<String, dynamic> json) =>
-      CreateEvaluationOutput();
+      CreateEvaluationOutput(
+        evaluationId: json.containsKey('EvaluationId')
+            ? json['EvaluationId'] as String
+            : null,
+      );
 }
 
 ///  Represents the output of a `CreateMLModel` operation, and is an
@@ -1237,7 +1472,10 @@ class CreateMLModelOutput {
     this.mlModelId,
   });
   static CreateMLModelOutput fromJson(Map<String, dynamic> json) =>
-      CreateMLModelOutput();
+      CreateMLModelOutput(
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+      );
 }
 
 /// Represents the output of an `CreateRealtimeEndpoint` operation.
@@ -1262,7 +1500,13 @@ class CreateRealtimeEndpointOutput {
     this.realtimeEndpointInfo,
   });
   static CreateRealtimeEndpointOutput fromJson(Map<String, dynamic> json) =>
-      CreateRealtimeEndpointOutput();
+      CreateRealtimeEndpointOutput(
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+        realtimeEndpointInfo: json.containsKey('RealtimeEndpointInfo')
+            ? RealtimeEndpointInfo.fromJson(json['RealtimeEndpointInfo'])
+            : null,
+      );
 }
 
 ///  Represents the output of the `GetDataSource` operation.
@@ -1355,7 +1599,54 @@ class DataSource {
     this.finishedAt,
     this.startedAt,
   });
-  static DataSource fromJson(Map<String, dynamic> json) => DataSource();
+  static DataSource fromJson(Map<String, dynamic> json) => DataSource(
+        dataSourceId: json.containsKey('DataSourceId')
+            ? json['DataSourceId'] as String
+            : null,
+        dataLocationS3: json.containsKey('DataLocationS3')
+            ? json['DataLocationS3'] as String
+            : null,
+        dataRearrangement: json.containsKey('DataRearrangement')
+            ? json['DataRearrangement'] as String
+            : null,
+        createdByIamUser: json.containsKey('CreatedByIamUser')
+            ? json['CreatedByIamUser'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('LastUpdatedAt')
+            ? DateTime.parse(json['LastUpdatedAt'])
+            : null,
+        dataSizeInBytes: json.containsKey('DataSizeInBytes')
+            ? BigInt.from(json['DataSizeInBytes'])
+            : null,
+        numberOfFiles: json.containsKey('NumberOfFiles')
+            ? BigInt.from(json['NumberOfFiles'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        redshiftMetadata: json.containsKey('RedshiftMetadata')
+            ? RedshiftMetadata.fromJson(json['RedshiftMetadata'])
+            : null,
+        rdsMetadata: json.containsKey('RDSMetadata')
+            ? RdsMetadata.fromJson(json['RDSMetadata'])
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+        computeStatistics: json.containsKey('ComputeStatistics')
+            ? json['ComputeStatistics'] as bool
+            : null,
+        computeTime: json.containsKey('ComputeTime')
+            ? BigInt.from(json['ComputeTime'])
+            : null,
+        finishedAt: json.containsKey('FinishedAt')
+            ? DateTime.parse(json['FinishedAt'])
+            : null,
+        startedAt: json.containsKey('StartedAt')
+            ? DateTime.parse(json['StartedAt'])
+            : null,
+      );
 }
 
 ///  Represents the output of a `DeleteBatchPrediction` operation.
@@ -1373,7 +1664,11 @@ class DeleteBatchPredictionOutput {
     this.batchPredictionId,
   });
   static DeleteBatchPredictionOutput fromJson(Map<String, dynamic> json) =>
-      DeleteBatchPredictionOutput();
+      DeleteBatchPredictionOutput(
+        batchPredictionId: json.containsKey('BatchPredictionId')
+            ? json['BatchPredictionId'] as String
+            : null,
+      );
 }
 
 ///  Represents the output of a `DeleteDataSource` operation.
@@ -1386,7 +1681,11 @@ class DeleteDataSourceOutput {
     this.dataSourceId,
   });
   static DeleteDataSourceOutput fromJson(Map<String, dynamic> json) =>
-      DeleteDataSourceOutput();
+      DeleteDataSourceOutput(
+        dataSourceId: json.containsKey('DataSourceId')
+            ? json['DataSourceId'] as String
+            : null,
+      );
 }
 
 ///  Represents the output of a `DeleteEvaluation` operation. The output
@@ -1403,7 +1702,11 @@ class DeleteEvaluationOutput {
     this.evaluationId,
   });
   static DeleteEvaluationOutput fromJson(Map<String, dynamic> json) =>
-      DeleteEvaluationOutput();
+      DeleteEvaluationOutput(
+        evaluationId: json.containsKey('EvaluationId')
+            ? json['EvaluationId'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a `DeleteMLModel` operation.
@@ -1419,7 +1722,10 @@ class DeleteMLModelOutput {
     this.mlModelId,
   });
   static DeleteMLModelOutput fromJson(Map<String, dynamic> json) =>
-      DeleteMLModelOutput();
+      DeleteMLModelOutput(
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+      );
 }
 
 /// Represents the output of an `DeleteRealtimeEndpoint` operation.
@@ -1439,7 +1745,13 @@ class DeleteRealtimeEndpointOutput {
     this.realtimeEndpointInfo,
   });
   static DeleteRealtimeEndpointOutput fromJson(Map<String, dynamic> json) =>
-      DeleteRealtimeEndpointOutput();
+      DeleteRealtimeEndpointOutput(
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+        realtimeEndpointInfo: json.containsKey('RealtimeEndpointInfo')
+            ? RealtimeEndpointInfo.fromJson(json['RealtimeEndpointInfo'])
+            : null,
+      );
 }
 
 /// Amazon ML returns the following elements.
@@ -1455,7 +1767,14 @@ class DeleteTagsOutput {
     this.resourceType,
   });
   static DeleteTagsOutput fromJson(Map<String, dynamic> json) =>
-      DeleteTagsOutput();
+      DeleteTagsOutput(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a `DescribeBatchPredictions` operation. The content
@@ -1473,7 +1792,15 @@ class DescribeBatchPredictionsOutput {
     this.nextToken,
   });
   static DescribeBatchPredictionsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeBatchPredictionsOutput();
+      DescribeBatchPredictionsOutput(
+        results: json.containsKey('Results')
+            ? (json['Results'] as List)
+                .map((e) => BatchPrediction.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the query results from a DescribeDataSources operation. The
@@ -1491,7 +1818,15 @@ class DescribeDataSourcesOutput {
     this.nextToken,
   });
   static DescribeDataSourcesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeDataSourcesOutput();
+      DescribeDataSourcesOutput(
+        results: json.containsKey('Results')
+            ? (json['Results'] as List)
+                .map((e) => DataSource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the query results from a `DescribeEvaluations` operation. The
@@ -1509,7 +1844,15 @@ class DescribeEvaluationsOutput {
     this.nextToken,
   });
   static DescribeEvaluationsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeEvaluationsOutput();
+      DescribeEvaluationsOutput(
+        results: json.containsKey('Results')
+            ? (json['Results'] as List)
+                .map((e) => Evaluation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a `DescribeMLModels` operation. The content is
@@ -1527,7 +1870,13 @@ class DescribeMLModelsOutput {
     this.nextToken,
   });
   static DescribeMLModelsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeMLModelsOutput();
+      DescribeMLModelsOutput(
+        results: json.containsKey('Results')
+            ? (json['Results'] as List).map((e) => MLModel.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Amazon ML returns the following elements.
@@ -1547,7 +1896,17 @@ class DescribeTagsOutput {
     this.tags,
   });
   static DescribeTagsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTagsOutput();
+      DescribeTagsOutput(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 ///  Represents the output of `GetEvaluation` operation.
@@ -1640,7 +1999,43 @@ class Evaluation {
     this.finishedAt,
     this.startedAt,
   });
-  static Evaluation fromJson(Map<String, dynamic> json) => Evaluation();
+  static Evaluation fromJson(Map<String, dynamic> json) => Evaluation(
+        evaluationId: json.containsKey('EvaluationId')
+            ? json['EvaluationId'] as String
+            : null,
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+        evaluationDataSourceId: json.containsKey('EvaluationDataSourceId')
+            ? json['EvaluationDataSourceId'] as String
+            : null,
+        inputDataLocationS3: json.containsKey('InputDataLocationS3')
+            ? json['InputDataLocationS3'] as String
+            : null,
+        createdByIamUser: json.containsKey('CreatedByIamUser')
+            ? json['CreatedByIamUser'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('LastUpdatedAt')
+            ? DateTime.parse(json['LastUpdatedAt'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        performanceMetrics: json.containsKey('PerformanceMetrics')
+            ? PerformanceMetrics.fromJson(json['PerformanceMetrics'])
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        computeTime: json.containsKey('ComputeTime')
+            ? BigInt.from(json['ComputeTime'])
+            : null,
+        finishedAt: json.containsKey('FinishedAt')
+            ? DateTime.parse(json['FinishedAt'])
+            : null,
+        startedAt: json.containsKey('StartedAt')
+            ? DateTime.parse(json['StartedAt'])
+            : null,
+      );
 }
 
 /// Represents the output of a `GetBatchPrediction` operation and describes a
@@ -1746,7 +2141,50 @@ class GetBatchPredictionOutput {
     this.invalidRecordCount,
   });
   static GetBatchPredictionOutput fromJson(Map<String, dynamic> json) =>
-      GetBatchPredictionOutput();
+      GetBatchPredictionOutput(
+        batchPredictionId: json.containsKey('BatchPredictionId')
+            ? json['BatchPredictionId'] as String
+            : null,
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+        batchPredictionDataSourceId:
+            json.containsKey('BatchPredictionDataSourceId')
+                ? json['BatchPredictionDataSourceId'] as String
+                : null,
+        inputDataLocationS3: json.containsKey('InputDataLocationS3')
+            ? json['InputDataLocationS3'] as String
+            : null,
+        createdByIamUser: json.containsKey('CreatedByIamUser')
+            ? json['CreatedByIamUser'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('LastUpdatedAt')
+            ? DateTime.parse(json['LastUpdatedAt'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        outputUri:
+            json.containsKey('OutputUri') ? json['OutputUri'] as String : null,
+        logUri: json.containsKey('LogUri') ? json['LogUri'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        computeTime: json.containsKey('ComputeTime')
+            ? BigInt.from(json['ComputeTime'])
+            : null,
+        finishedAt: json.containsKey('FinishedAt')
+            ? DateTime.parse(json['FinishedAt'])
+            : null,
+        startedAt: json.containsKey('StartedAt')
+            ? DateTime.parse(json['StartedAt'])
+            : null,
+        totalRecordCount: json.containsKey('TotalRecordCount')
+            ? BigInt.from(json['TotalRecordCount'])
+            : null,
+        invalidRecordCount: json.containsKey('InvalidRecordCount')
+            ? BigInt.from(json['InvalidRecordCount'])
+            : null,
+      );
 }
 
 /// Represents the output of a `GetDataSource` operation and describes a
@@ -1860,7 +2298,58 @@ class GetDataSourceOutput {
     this.dataSourceSchema,
   });
   static GetDataSourceOutput fromJson(Map<String, dynamic> json) =>
-      GetDataSourceOutput();
+      GetDataSourceOutput(
+        dataSourceId: json.containsKey('DataSourceId')
+            ? json['DataSourceId'] as String
+            : null,
+        dataLocationS3: json.containsKey('DataLocationS3')
+            ? json['DataLocationS3'] as String
+            : null,
+        dataRearrangement: json.containsKey('DataRearrangement')
+            ? json['DataRearrangement'] as String
+            : null,
+        createdByIamUser: json.containsKey('CreatedByIamUser')
+            ? json['CreatedByIamUser'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('LastUpdatedAt')
+            ? DateTime.parse(json['LastUpdatedAt'])
+            : null,
+        dataSizeInBytes: json.containsKey('DataSizeInBytes')
+            ? BigInt.from(json['DataSizeInBytes'])
+            : null,
+        numberOfFiles: json.containsKey('NumberOfFiles')
+            ? BigInt.from(json['NumberOfFiles'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        logUri: json.containsKey('LogUri') ? json['LogUri'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        redshiftMetadata: json.containsKey('RedshiftMetadata')
+            ? RedshiftMetadata.fromJson(json['RedshiftMetadata'])
+            : null,
+        rdsMetadata: json.containsKey('RDSMetadata')
+            ? RdsMetadata.fromJson(json['RDSMetadata'])
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+        computeStatistics: json.containsKey('ComputeStatistics')
+            ? json['ComputeStatistics'] as bool
+            : null,
+        computeTime: json.containsKey('ComputeTime')
+            ? BigInt.from(json['ComputeTime'])
+            : null,
+        finishedAt: json.containsKey('FinishedAt')
+            ? DateTime.parse(json['FinishedAt'])
+            : null,
+        startedAt: json.containsKey('StartedAt')
+            ? DateTime.parse(json['StartedAt'])
+            : null,
+        dataSourceSchema: json.containsKey('DataSourceSchema')
+            ? json['DataSourceSchema'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a `GetEvaluation` operation and describes an
@@ -1966,7 +2455,44 @@ class GetEvaluationOutput {
     this.startedAt,
   });
   static GetEvaluationOutput fromJson(Map<String, dynamic> json) =>
-      GetEvaluationOutput();
+      GetEvaluationOutput(
+        evaluationId: json.containsKey('EvaluationId')
+            ? json['EvaluationId'] as String
+            : null,
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+        evaluationDataSourceId: json.containsKey('EvaluationDataSourceId')
+            ? json['EvaluationDataSourceId'] as String
+            : null,
+        inputDataLocationS3: json.containsKey('InputDataLocationS3')
+            ? json['InputDataLocationS3'] as String
+            : null,
+        createdByIamUser: json.containsKey('CreatedByIamUser')
+            ? json['CreatedByIamUser'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('LastUpdatedAt')
+            ? DateTime.parse(json['LastUpdatedAt'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        performanceMetrics: json.containsKey('PerformanceMetrics')
+            ? PerformanceMetrics.fromJson(json['PerformanceMetrics'])
+            : null,
+        logUri: json.containsKey('LogUri') ? json['LogUri'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        computeTime: json.containsKey('ComputeTime')
+            ? BigInt.from(json['ComputeTime'])
+            : null,
+        finishedAt: json.containsKey('FinishedAt')
+            ? DateTime.parse(json['FinishedAt'])
+            : null,
+        startedAt: json.containsKey('StartedAt')
+            ? DateTime.parse(json['StartedAt'])
+            : null,
+      );
 }
 
 /// Represents the output of a `GetMLModel` operation, and provides detailed
@@ -2141,7 +2667,60 @@ class GetMLModelOutput {
     this.schema,
   });
   static GetMLModelOutput fromJson(Map<String, dynamic> json) =>
-      GetMLModelOutput();
+      GetMLModelOutput(
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+        trainingDataSourceId: json.containsKey('TrainingDataSourceId')
+            ? json['TrainingDataSourceId'] as String
+            : null,
+        createdByIamUser: json.containsKey('CreatedByIamUser')
+            ? json['CreatedByIamUser'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('LastUpdatedAt')
+            ? DateTime.parse(json['LastUpdatedAt'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        sizeInBytes: json.containsKey('SizeInBytes')
+            ? BigInt.from(json['SizeInBytes'])
+            : null,
+        endpointInfo: json.containsKey('EndpointInfo')
+            ? RealtimeEndpointInfo.fromJson(json['EndpointInfo'])
+            : null,
+        trainingParameters: json.containsKey('TrainingParameters')
+            ? (json['TrainingParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        inputDataLocationS3: json.containsKey('InputDataLocationS3')
+            ? json['InputDataLocationS3'] as String
+            : null,
+        mlModelType: json.containsKey('MLModelType')
+            ? json['MLModelType'] as String
+            : null,
+        scoreThreshold: json.containsKey('ScoreThreshold')
+            ? json['ScoreThreshold'] as double
+            : null,
+        scoreThresholdLastUpdatedAt:
+            json.containsKey('ScoreThresholdLastUpdatedAt')
+                ? DateTime.parse(json['ScoreThresholdLastUpdatedAt'])
+                : null,
+        logUri: json.containsKey('LogUri') ? json['LogUri'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        computeTime: json.containsKey('ComputeTime')
+            ? BigInt.from(json['ComputeTime'])
+            : null,
+        finishedAt: json.containsKey('FinishedAt')
+            ? DateTime.parse(json['FinishedAt'])
+            : null,
+        startedAt: json.containsKey('StartedAt')
+            ? DateTime.parse(json['StartedAt'])
+            : null,
+        recipe: json.containsKey('Recipe') ? json['Recipe'] as String : null,
+        schema: json.containsKey('Schema') ? json['Schema'] as String : null,
+      );
 }
 
 ///  Represents the output of a `GetMLModel` operation.
@@ -2287,7 +2866,59 @@ class MLModel {
     this.finishedAt,
     this.startedAt,
   });
-  static MLModel fromJson(Map<String, dynamic> json) => MLModel();
+  static MLModel fromJson(Map<String, dynamic> json) => MLModel(
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+        trainingDataSourceId: json.containsKey('TrainingDataSourceId')
+            ? json['TrainingDataSourceId'] as String
+            : null,
+        createdByIamUser: json.containsKey('CreatedByIamUser')
+            ? json['CreatedByIamUser'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('LastUpdatedAt')
+            ? DateTime.parse(json['LastUpdatedAt'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        sizeInBytes: json.containsKey('SizeInBytes')
+            ? BigInt.from(json['SizeInBytes'])
+            : null,
+        endpointInfo: json.containsKey('EndpointInfo')
+            ? RealtimeEndpointInfo.fromJson(json['EndpointInfo'])
+            : null,
+        trainingParameters: json.containsKey('TrainingParameters')
+            ? (json['TrainingParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        inputDataLocationS3: json.containsKey('InputDataLocationS3')
+            ? json['InputDataLocationS3'] as String
+            : null,
+        algorithm:
+            json.containsKey('Algorithm') ? json['Algorithm'] as String : null,
+        mlModelType: json.containsKey('MLModelType')
+            ? json['MLModelType'] as String
+            : null,
+        scoreThreshold: json.containsKey('ScoreThreshold')
+            ? json['ScoreThreshold'] as double
+            : null,
+        scoreThresholdLastUpdatedAt:
+            json.containsKey('ScoreThresholdLastUpdatedAt')
+                ? DateTime.parse(json['ScoreThresholdLastUpdatedAt'])
+                : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        computeTime: json.containsKey('ComputeTime')
+            ? BigInt.from(json['ComputeTime'])
+            : null,
+        finishedAt: json.containsKey('FinishedAt')
+            ? DateTime.parse(json['FinishedAt'])
+            : null,
+        startedAt: json.containsKey('StartedAt')
+            ? DateTime.parse(json['StartedAt'])
+            : null,
+      );
 }
 
 /// Measurements of how well the `MLModel` performed on known observations. One
@@ -2313,7 +2944,12 @@ class PerformanceMetrics {
     this.properties,
   });
   static PerformanceMetrics fromJson(Map<String, dynamic> json) =>
-      PerformanceMetrics();
+      PerformanceMetrics(
+        properties: json.containsKey('Properties')
+            ? (json['Properties'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class PredictOutput {
@@ -2322,7 +2958,11 @@ class PredictOutput {
   PredictOutput({
     this.prediction,
   });
-  static PredictOutput fromJson(Map<String, dynamic> json) => PredictOutput();
+  static PredictOutput fromJson(Map<String, dynamic> json) => PredictOutput(
+        prediction: json.containsKey('Prediction')
+            ? Prediction.fromJson(json['Prediction'])
+            : null,
+      );
 }
 
 /// The output from a `Predict` operation:
@@ -2355,7 +2995,22 @@ class Prediction {
     this.predictedScores,
     this.details,
   });
-  static Prediction fromJson(Map<String, dynamic> json) => Prediction();
+  static Prediction fromJson(Map<String, dynamic> json) => Prediction(
+        predictedLabel: json.containsKey('predictedLabel')
+            ? json['predictedLabel'] as String
+            : null,
+        predictedValue: json.containsKey('predictedValue')
+            ? json['predictedValue'] as double
+            : null,
+        predictedScores: json.containsKey('predictedScores')
+            ? (json['predictedScores'] as Map)
+                .map((k, v) => MapEntry(k as String, v as double))
+            : null,
+        details: json.containsKey('details')
+            ? (json['details'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The data specification of an Amazon Relational Database Service (Amazon RDS)
@@ -2534,6 +3189,7 @@ class RdsDataSpec {
     @required this.subnetId,
     @required this.securityGroupIds,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The database details of an Amazon RDS database.
@@ -2547,7 +3203,11 @@ class RdsDatabase {
     @required this.instanceIdentifier,
     @required this.databaseName,
   });
-  static RdsDatabase fromJson(Map<String, dynamic> json) => RdsDatabase();
+  static RdsDatabase fromJson(Map<String, dynamic> json) => RdsDatabase(
+        instanceIdentifier: json['InstanceIdentifier'] as String,
+        databaseName: json['DatabaseName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The database credentials to connect to a database on an RDS DB instance.
@@ -2560,6 +3220,7 @@ class RdsDatabaseCredentials {
     @required this.username,
     @required this.password,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The datasource details that are specific to Amazon RDS.
@@ -2600,7 +3261,26 @@ class RdsMetadata {
     this.serviceRole,
     this.dataPipelineId,
   });
-  static RdsMetadata fromJson(Map<String, dynamic> json) => RdsMetadata();
+  static RdsMetadata fromJson(Map<String, dynamic> json) => RdsMetadata(
+        database: json.containsKey('Database')
+            ? RdsDatabase.fromJson(json['Database'])
+            : null,
+        databaseUserName: json.containsKey('DatabaseUserName')
+            ? json['DatabaseUserName'] as String
+            : null,
+        selectSqlQuery: json.containsKey('SelectSqlQuery')
+            ? json['SelectSqlQuery'] as String
+            : null,
+        resourceRole: json.containsKey('ResourceRole')
+            ? json['ResourceRole'] as String
+            : null,
+        serviceRole: json.containsKey('ServiceRole')
+            ? json['ServiceRole'] as String
+            : null,
+        dataPipelineId: json.containsKey('DataPipelineId')
+            ? json['DataPipelineId'] as String
+            : null,
+      );
 }
 
 ///  Describes the real-time endpoint information for an `MLModel`.
@@ -2637,7 +3317,20 @@ class RealtimeEndpointInfo {
     this.endpointStatus,
   });
   static RealtimeEndpointInfo fromJson(Map<String, dynamic> json) =>
-      RealtimeEndpointInfo();
+      RealtimeEndpointInfo(
+        peakRequestsPerSecond: json.containsKey('PeakRequestsPerSecond')
+            ? json['PeakRequestsPerSecond'] as int
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        endpointUrl: json.containsKey('EndpointUrl')
+            ? json['EndpointUrl'] as String
+            : null,
+        endpointStatus: json.containsKey('EndpointStatus')
+            ? json['EndpointStatus'] as String
+            : null,
+      );
 }
 
 /// Describes the data specification of an Amazon Redshift `DataSource`.
@@ -2786,6 +3479,7 @@ class RedshiftDataSpec {
     this.dataSchema,
     this.dataSchemaUri,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the database details required to connect to an Amazon Redshift
@@ -2800,7 +3494,11 @@ class RedshiftDatabase {
     @required this.clusterIdentifier,
   });
   static RedshiftDatabase fromJson(Map<String, dynamic> json) =>
-      RedshiftDatabase();
+      RedshiftDatabase(
+        databaseName: json['DatabaseName'] as String,
+        clusterIdentifier: json['ClusterIdentifier'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Describes the database credentials for connecting to a database on an
@@ -2814,6 +3512,7 @@ class RedshiftDatabaseCredentials {
     @required this.username,
     @required this.password,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the `DataSource` details specific to Amazon Redshift.
@@ -2832,7 +3531,17 @@ class RedshiftMetadata {
     this.selectSqlQuery,
   });
   static RedshiftMetadata fromJson(Map<String, dynamic> json) =>
-      RedshiftMetadata();
+      RedshiftMetadata(
+        redshiftDatabase: json.containsKey('RedshiftDatabase')
+            ? RedshiftDatabase.fromJson(json['RedshiftDatabase'])
+            : null,
+        databaseUserName: json.containsKey('DatabaseUserName')
+            ? json['DatabaseUserName'] as String
+            : null,
+        selectSqlQuery: json.containsKey('SelectSqlQuery')
+            ? json['SelectSqlQuery'] as String
+            : null,
+      );
 }
 
 ///  Describes the data specification of a `DataSource`.
@@ -2968,6 +3677,7 @@ class S3DataSpec {
     this.dataSchema,
     this.dataSchemaLocationS3,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A custom key-value pair associated with an ML object, such as an ML model.
@@ -2985,7 +3695,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of an `UpdateBatchPrediction` operation.
@@ -3001,7 +3715,11 @@ class UpdateBatchPredictionOutput {
     this.batchPredictionId,
   });
   static UpdateBatchPredictionOutput fromJson(Map<String, dynamic> json) =>
-      UpdateBatchPredictionOutput();
+      UpdateBatchPredictionOutput(
+        batchPredictionId: json.containsKey('BatchPredictionId')
+            ? json['BatchPredictionId'] as String
+            : null,
+      );
 }
 
 /// Represents the output of an `UpdateDataSource` operation.
@@ -3016,7 +3734,11 @@ class UpdateDataSourceOutput {
     this.dataSourceId,
   });
   static UpdateDataSourceOutput fromJson(Map<String, dynamic> json) =>
-      UpdateDataSourceOutput();
+      UpdateDataSourceOutput(
+        dataSourceId: json.containsKey('DataSourceId')
+            ? json['DataSourceId'] as String
+            : null,
+      );
 }
 
 /// Represents the output of an `UpdateEvaluation` operation.
@@ -3031,7 +3753,11 @@ class UpdateEvaluationOutput {
     this.evaluationId,
   });
   static UpdateEvaluationOutput fromJson(Map<String, dynamic> json) =>
-      UpdateEvaluationOutput();
+      UpdateEvaluationOutput(
+        evaluationId: json.containsKey('EvaluationId')
+            ? json['EvaluationId'] as String
+            : null,
+      );
 }
 
 /// Represents the output of an `UpdateMLModel` operation.
@@ -3046,5 +3772,8 @@ class UpdateMLModelOutput {
     this.mlModelId,
   });
   static UpdateMLModelOutput fromJson(Map<String, dynamic> json) =>
-      UpdateMLModelOutput();
+      UpdateMLModelOutput(
+        mlModelId:
+            json.containsKey('MLModelId') ? json['MLModelId'] as String : null,
+      );
 }

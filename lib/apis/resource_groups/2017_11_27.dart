@@ -37,6 +37,10 @@ import 'package:meta/meta.dart';
 ///
 /// *   Searching AWS resources based on a resource query
 class ResourceGroupsApi {
+  final _client;
+  ResourceGroupsApi(client)
+      : _client = client.configured('Resource Groups', serializer: 'rest-json');
+
   /// Creates a group with a specified name, description, and resource query.
   ///
   /// [name]: The name of the group, which is the identifier of the group in
@@ -61,7 +65,13 @@ class ResourceGroupsApi {
       String description,
       @required ResourceQuery resourceQuery,
       Map<String, String> tags}) async {
-    return CreateGroupOutput.fromJson({});
+    var response_ = await _client.send('CreateGroup', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'ResourceQuery': resourceQuery,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateGroupOutput.fromJson(response_);
   }
 
   /// Deletes a specified resource group. Deleting a resource group does not
@@ -70,21 +80,30 @@ class ResourceGroupsApi {
   ///
   /// [groupName]: The name of the resource group to delete.
   Future<DeleteGroupOutput> deleteGroup(String groupName) async {
-    return DeleteGroupOutput.fromJson({});
+    var response_ = await _client.send('DeleteGroup', {
+      'GroupName': groupName,
+    });
+    return DeleteGroupOutput.fromJson(response_);
   }
 
   /// Returns information about a specified resource group.
   ///
   /// [groupName]: The name of the resource group.
   Future<GetGroupOutput> getGroup(String groupName) async {
-    return GetGroupOutput.fromJson({});
+    var response_ = await _client.send('GetGroup', {
+      'GroupName': groupName,
+    });
+    return GetGroupOutput.fromJson(response_);
   }
 
   /// Returns the resource query associated with the specified resource group.
   ///
   /// [groupName]: The name of the resource group.
   Future<GetGroupQueryOutput> getGroupQuery(String groupName) async {
-    return GetGroupQueryOutput.fromJson({});
+    var response_ = await _client.send('GetGroupQuery', {
+      'GroupName': groupName,
+    });
+    return GetGroupQueryOutput.fromJson(response_);
   }
 
   /// Returns a list of tags that are associated with a resource group,
@@ -93,7 +112,10 @@ class ResourceGroupsApi {
   /// [arn]: The ARN of the resource group for which you want a list of tags.
   /// The resource must exist within the account you are using.
   Future<GetTagsOutput> getTags(String arn) async {
-    return GetTagsOutput.fromJson({});
+    var response_ = await _client.send('GetTags', {
+      'Arn': arn,
+    });
+    return GetTagsOutput.fromJson(response_);
   }
 
   /// Returns a list of ARNs of resources that are members of a specified
@@ -117,7 +139,13 @@ class ResourceGroupsApi {
   /// again, add the NextToken parameter, and specify the NextToken value.
   Future<ListGroupResourcesOutput> listGroupResources(String groupName,
       {List<ResourceFilter> filters, int maxResults, String nextToken}) async {
-    return ListGroupResourcesOutput.fromJson({});
+    var response_ = await _client.send('ListGroupResources', {
+      'GroupName': groupName,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListGroupResourcesOutput.fromJson(response_);
   }
 
   /// Returns a list of existing resource groups in your account.
@@ -137,7 +165,12 @@ class ResourceGroupsApi {
   /// add the NextToken parameter, and specify the NextToken value.
   Future<ListGroupsOutput> listGroups(
       {List<GroupFilter> filters, int maxResults, String nextToken}) async {
-    return ListGroupsOutput.fromJson({});
+    var response_ = await _client.send('ListGroups', {
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListGroupsOutput.fromJson(response_);
   }
 
   /// Returns a list of AWS resource identifiers that matches a specified query.
@@ -155,7 +188,12 @@ class ResourceGroupsApi {
   /// again, add the NextToken parameter, and specify the NextToken value.
   Future<SearchResourcesOutput> searchResources(ResourceQuery resourceQuery,
       {int maxResults, String nextToken}) async {
-    return SearchResourcesOutput.fromJson({});
+    var response_ = await _client.send('SearchResources', {
+      'ResourceQuery': resourceQuery,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return SearchResourcesOutput.fromJson(response_);
   }
 
   /// Adds tags to a resource group with the specified ARN. Existing tags on a
@@ -170,7 +208,11 @@ class ResourceGroupsApi {
   /// length of 256 characters.
   Future<TagOutput> tag(
       {@required String arn, @required Map<String, String> tags}) async {
-    return TagOutput.fromJson({});
+    var response_ = await _client.send('Tag', {
+      'Arn': arn,
+      'Tags': tags,
+    });
+    return TagOutput.fromJson(response_);
   }
 
   /// Deletes specified tags from a specified resource.
@@ -180,7 +222,11 @@ class ResourceGroupsApi {
   /// [keys]: The keys of the tags to be removed.
   Future<UntagOutput> untag(
       {@required String arn, @required List<String> keys}) async {
-    return UntagOutput.fromJson({});
+    var response_ = await _client.send('Untag', {
+      'Arn': arn,
+      'Keys': keys,
+    });
+    return UntagOutput.fromJson(response_);
   }
 
   /// Updates an existing group with a new or changed description. You cannot
@@ -194,7 +240,11 @@ class ResourceGroupsApi {
   /// underscores, punctuation, and spaces.
   Future<UpdateGroupOutput> updateGroup(String groupName,
       {String description}) async {
-    return UpdateGroupOutput.fromJson({});
+    var response_ = await _client.send('UpdateGroup', {
+      'GroupName': groupName,
+      if (description != null) 'Description': description,
+    });
+    return UpdateGroupOutput.fromJson(response_);
   }
 
   /// Updates the resource query of a group.
@@ -207,7 +257,11 @@ class ResourceGroupsApi {
   Future<UpdateGroupQueryOutput> updateGroupQuery(
       {@required String groupName,
       @required ResourceQuery resourceQuery}) async {
-    return UpdateGroupQueryOutput.fromJson({});
+    var response_ = await _client.send('UpdateGroupQuery', {
+      'GroupName': groupName,
+      'ResourceQuery': resourceQuery,
+    });
+    return UpdateGroupQueryOutput.fromJson(response_);
   }
 }
 
@@ -227,7 +281,16 @@ class CreateGroupOutput {
     this.tags,
   });
   static CreateGroupOutput fromJson(Map<String, dynamic> json) =>
-      CreateGroupOutput();
+      CreateGroupOutput(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+        resourceQuery: json.containsKey('ResourceQuery')
+            ? ResourceQuery.fromJson(json['ResourceQuery'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DeleteGroupOutput {
@@ -238,7 +301,9 @@ class DeleteGroupOutput {
     this.group,
   });
   static DeleteGroupOutput fromJson(Map<String, dynamic> json) =>
-      DeleteGroupOutput();
+      DeleteGroupOutput(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+      );
 }
 
 class GetGroupOutput {
@@ -248,7 +313,9 @@ class GetGroupOutput {
   GetGroupOutput({
     this.group,
   });
-  static GetGroupOutput fromJson(Map<String, dynamic> json) => GetGroupOutput();
+  static GetGroupOutput fromJson(Map<String, dynamic> json) => GetGroupOutput(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+      );
 }
 
 class GetGroupQueryOutput {
@@ -259,7 +326,11 @@ class GetGroupQueryOutput {
     this.groupQuery,
   });
   static GetGroupQueryOutput fromJson(Map<String, dynamic> json) =>
-      GetGroupQueryOutput();
+      GetGroupQueryOutput(
+        groupQuery: json.containsKey('GroupQuery')
+            ? GroupQuery.fromJson(json['GroupQuery'])
+            : null,
+      );
 }
 
 class GetTagsOutput {
@@ -273,7 +344,13 @@ class GetTagsOutput {
     this.arn,
     this.tags,
   });
-  static GetTagsOutput fromJson(Map<String, dynamic> json) => GetTagsOutput();
+  static GetTagsOutput fromJson(Map<String, dynamic> json) => GetTagsOutput(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A resource group.
@@ -292,7 +369,13 @@ class Group {
     @required this.name,
     this.description,
   });
-  static Group fromJson(Map<String, dynamic> json) => Group();
+  static Group fromJson(Map<String, dynamic> json) => Group(
+        groupArn: json['GroupArn'] as String,
+        name: json['Name'] as String,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// A filter name and value pair that is used to obtain more specific results
@@ -309,6 +392,7 @@ class GroupFilter {
     @required this.name,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The ARN and group name of a group.
@@ -323,8 +407,12 @@ class GroupIdentifier {
     this.groupName,
     this.groupArn,
   });
-  static GroupIdentifier fromJson(Map<String, dynamic> json) =>
-      GroupIdentifier();
+  static GroupIdentifier fromJson(Map<String, dynamic> json) => GroupIdentifier(
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        groupArn:
+            json.containsKey('GroupArn') ? json['GroupArn'] as String : null,
+      );
 }
 
 /// The underlying resource query of a resource group. Resources that match
@@ -342,7 +430,10 @@ class GroupQuery {
     @required this.groupName,
     @required this.resourceQuery,
   });
-  static GroupQuery fromJson(Map<String, dynamic> json) => GroupQuery();
+  static GroupQuery fromJson(Map<String, dynamic> json) => GroupQuery(
+        groupName: json['GroupName'] as String,
+        resourceQuery: ResourceQuery.fromJson(json['ResourceQuery']),
+      );
 }
 
 class ListGroupResourcesOutput {
@@ -365,7 +456,20 @@ class ListGroupResourcesOutput {
     this.queryErrors,
   });
   static ListGroupResourcesOutput fromJson(Map<String, dynamic> json) =>
-      ListGroupResourcesOutput();
+      ListGroupResourcesOutput(
+        resourceIdentifiers: json.containsKey('ResourceIdentifiers')
+            ? (json['ResourceIdentifiers'] as List)
+                .map((e) => ResourceIdentifier.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        queryErrors: json.containsKey('QueryErrors')
+            ? (json['QueryErrors'] as List)
+                .map((e) => QueryError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListGroupsOutput {
@@ -386,7 +490,18 @@ class ListGroupsOutput {
     this.nextToken,
   });
   static ListGroupsOutput fromJson(Map<String, dynamic> json) =>
-      ListGroupsOutput();
+      ListGroupsOutput(
+        groupIdentifiers: json.containsKey('GroupIdentifiers')
+            ? (json['GroupIdentifiers'] as List)
+                .map((e) => GroupIdentifier.fromJson(e))
+                .toList()
+            : null,
+        groups: json.containsKey('Groups')
+            ? (json['Groups'] as List).map((e) => Group.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A two-part error structure that can occur in `ListGroupResources` or
@@ -412,7 +527,11 @@ class QueryError {
     this.errorCode,
     this.message,
   });
-  static QueryError fromJson(Map<String, dynamic> json) => QueryError();
+  static QueryError fromJson(Map<String, dynamic> json) => QueryError(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// A filter name and value pair that is used to obtain more specific results
@@ -429,6 +548,7 @@ class ResourceFilter {
     @required this.name,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The ARN of a resource, and its resource type.
@@ -444,7 +564,14 @@ class ResourceIdentifier {
     this.resourceType,
   });
   static ResourceIdentifier fromJson(Map<String, dynamic> json) =>
-      ResourceIdentifier();
+      ResourceIdentifier(
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+      );
 }
 
 /// The query that is used to define a resource group or a search for resources.
@@ -497,7 +624,11 @@ class ResourceQuery {
     @required this.type,
     @required this.query,
   });
-  static ResourceQuery fromJson(Map<String, dynamic> json) => ResourceQuery();
+  static ResourceQuery fromJson(Map<String, dynamic> json) => ResourceQuery(
+        type: json['Type'] as String,
+        query: json['Query'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SearchResourcesOutput {
@@ -520,7 +651,20 @@ class SearchResourcesOutput {
     this.queryErrors,
   });
   static SearchResourcesOutput fromJson(Map<String, dynamic> json) =>
-      SearchResourcesOutput();
+      SearchResourcesOutput(
+        resourceIdentifiers: json.containsKey('ResourceIdentifiers')
+            ? (json['ResourceIdentifiers'] as List)
+                .map((e) => ResourceIdentifier.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        queryErrors: json.containsKey('QueryErrors')
+            ? (json['QueryErrors'] as List)
+                .map((e) => QueryError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class TagOutput {
@@ -534,7 +678,13 @@ class TagOutput {
     this.arn,
     this.tags,
   });
-  static TagOutput fromJson(Map<String, dynamic> json) => TagOutput();
+  static TagOutput fromJson(Map<String, dynamic> json) => TagOutput(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class UntagOutput {
@@ -548,7 +698,12 @@ class UntagOutput {
     this.arn,
     this.keys,
   });
-  static UntagOutput fromJson(Map<String, dynamic> json) => UntagOutput();
+  static UntagOutput fromJson(Map<String, dynamic> json) => UntagOutput(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        keys: json.containsKey('Keys')
+            ? (json['Keys'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class UpdateGroupOutput {
@@ -559,7 +714,9 @@ class UpdateGroupOutput {
     this.group,
   });
   static UpdateGroupOutput fromJson(Map<String, dynamic> json) =>
-      UpdateGroupOutput();
+      UpdateGroupOutput(
+        group: json.containsKey('Group') ? Group.fromJson(json['Group']) : null,
+      );
 }
 
 class UpdateGroupQueryOutput {
@@ -570,5 +727,9 @@ class UpdateGroupQueryOutput {
     this.groupQuery,
   });
   static UpdateGroupQueryOutput fromJson(Map<String, dynamic> json) =>
-      UpdateGroupQueryOutput();
+      UpdateGroupQueryOutput(
+        groupQuery: json.containsKey('GroupQuery')
+            ? GroupQuery.fromJson(json['GroupQuery'])
+            : null,
+      );
 }

@@ -1,6 +1,11 @@
 import 'package:meta/meta.dart';
 
 class PersonalizeRuntimeApi {
+  final _client;
+  PersonalizeRuntimeApi(client)
+      : _client =
+            client.configured('Personalize Runtime', serializer: 'rest-json');
+
   /// Re-ranks a list of recommended items for the given user. The first item in
   /// the list is deemed the most likely item to be of interest to the user.
   ///
@@ -22,7 +27,12 @@ class PersonalizeRuntimeApi {
       {@required String campaignArn,
       @required List<String> inputList,
       @required String userId}) async {
-    return GetPersonalizedRankingResponse.fromJson({});
+    var response_ = await _client.send('GetPersonalizedRanking', {
+      'campaignArn': campaignArn,
+      'inputList': inputList,
+      'userId': userId,
+    });
+    return GetPersonalizedRankingResponse.fromJson(response_);
   }
 
   /// Returns a list of recommended items. The required input depends on the
@@ -53,7 +63,13 @@ class PersonalizeRuntimeApi {
   /// maximum is 100.
   Future<GetRecommendationsResponse> getRecommendations(String campaignArn,
       {String itemId, String userId, int numResults}) async {
-    return GetRecommendationsResponse.fromJson({});
+    var response_ = await _client.send('GetRecommendations', {
+      'campaignArn': campaignArn,
+      if (itemId != null) 'itemId': itemId,
+      if (userId != null) 'userId': userId,
+      if (numResults != null) 'numResults': numResults,
+    });
+    return GetRecommendationsResponse.fromJson(response_);
   }
 }
 
@@ -65,7 +81,13 @@ class GetPersonalizedRankingResponse {
     this.personalizedRanking,
   });
   static GetPersonalizedRankingResponse fromJson(Map<String, dynamic> json) =>
-      GetPersonalizedRankingResponse();
+      GetPersonalizedRankingResponse(
+        personalizedRanking: json.containsKey('personalizedRanking')
+            ? (json['personalizedRanking'] as List)
+                .map((e) => PredictedItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetRecommendationsResponse {
@@ -76,7 +98,13 @@ class GetRecommendationsResponse {
     this.itemList,
   });
   static GetRecommendationsResponse fromJson(Map<String, dynamic> json) =>
-      GetRecommendationsResponse();
+      GetRecommendationsResponse(
+        itemList: json.containsKey('itemList')
+            ? (json['itemList'] as List)
+                .map((e) => PredictedItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An object that identifies an item.
@@ -89,5 +117,7 @@ class PredictedItem {
   PredictedItem({
     this.itemId,
   });
-  static PredictedItem fromJson(Map<String, dynamic> json) => PredictedItem();
+  static PredictedItem fromJson(Map<String, dynamic> json) => PredictedItem(
+        itemId: json.containsKey('itemId') ? json['itemId'] as String : null,
+      );
 }

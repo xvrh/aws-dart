@@ -23,6 +23,10 @@ import 'package:meta/meta.dart';
 /// the task is done, the task runner reports the final success or failure of
 /// the task to the web service.
 class DataPipelineApi {
+  final _client;
+  DataPipelineApi(client)
+      : _client = client.configured('Data Pipeline', serializer: 'json');
+
   /// Validates the specified pipeline and starts processing pipeline tasks. If
   /// the pipeline does not pass validation, activation fails.
   ///
@@ -41,7 +45,12 @@ class DataPipelineApi {
   /// the pipeline resumes from the last completed execution.
   Future<ActivatePipelineOutput> activatePipeline(String pipelineId,
       {List<ParameterValue> parameterValues, DateTime startTimestamp}) async {
-    return ActivatePipelineOutput.fromJson({});
+    var response_ = await _client.send('ActivatePipeline', {
+      'pipelineId': pipelineId,
+      if (parameterValues != null) 'parameterValues': parameterValues,
+      if (startTimestamp != null) 'startTimestamp': startTimestamp,
+    });
+    return ActivatePipelineOutput.fromJson(response_);
   }
 
   /// Adds or modifies tags for the specified pipeline.
@@ -51,7 +60,11 @@ class DataPipelineApi {
   /// [tags]: The tags to add, as key/value pairs.
   Future<AddTagsOutput> addTags(
       {@required String pipelineId, @required List<Tag> tags}) async {
-    return AddTagsOutput.fromJson({});
+    var response_ = await _client.send('AddTags', {
+      'pipelineId': pipelineId,
+      'tags': tags,
+    });
+    return AddTagsOutput.fromJson(response_);
   }
 
   /// Creates a new, empty pipeline. Use PutPipelineDefinition to populate the
@@ -85,7 +98,13 @@ class DataPipelineApi {
       @required String uniqueId,
       String description,
       List<Tag> tags}) async {
-    return CreatePipelineOutput.fromJson({});
+    var response_ = await _client.send('CreatePipeline', {
+      'name': name,
+      'uniqueId': uniqueId,
+      if (description != null) 'description': description,
+      if (tags != null) 'tags': tags,
+    });
+    return CreatePipelineOutput.fromJson(response_);
   }
 
   /// Deactivates the specified running pipeline. The pipeline is set to the
@@ -103,7 +122,11 @@ class DataPipelineApi {
   /// running objects finish.
   Future<DeactivatePipelineOutput> deactivatePipeline(String pipelineId,
       {bool cancelActive}) async {
-    return DeactivatePipelineOutput.fromJson({});
+    var response_ = await _client.send('DeactivatePipeline', {
+      'pipelineId': pipelineId,
+      if (cancelActive != null) 'cancelActive': cancelActive,
+    });
+    return DeactivatePipelineOutput.fromJson(response_);
   }
 
   /// Deletes a pipeline, its pipeline definition, and its run history. AWS Data
@@ -116,7 +139,11 @@ class DataPipelineApi {
   /// Components that are paused by SetStatus can be resumed.
   ///
   /// [pipelineId]: The ID of the pipeline.
-  Future<void> deletePipeline(String pipelineId) async {}
+  Future<void> deletePipeline(String pipelineId) async {
+    await _client.send('DeletePipeline', {
+      'pipelineId': pipelineId,
+    });
+  }
 
   /// Gets the object definitions for a set of objects associated with the
   /// pipeline. Object definitions are composed of a set of fields that define
@@ -140,7 +167,14 @@ class DataPipelineApi {
       @required List<String> objectIds,
       bool evaluateExpressions,
       String marker}) async {
-    return DescribeObjectsOutput.fromJson({});
+    var response_ = await _client.send('DescribeObjects', {
+      'pipelineId': pipelineId,
+      'objectIds': objectIds,
+      if (evaluateExpressions != null)
+        'evaluateExpressions': evaluateExpressions,
+      if (marker != null) 'marker': marker,
+    });
+    return DescribeObjectsOutput.fromJson(response_);
   }
 
   /// Retrieves metadata about one or more pipelines. The information retrieved
@@ -159,7 +193,10 @@ class DataPipelineApi {
   /// ListPipelines.
   Future<DescribePipelinesOutput> describePipelines(
       List<String> pipelineIds) async {
-    return DescribePipelinesOutput.fromJson({});
+    var response_ = await _client.send('DescribePipelines', {
+      'pipelineIds': pipelineIds,
+    });
+    return DescribePipelinesOutput.fromJson(response_);
   }
 
   /// Task runners call `EvaluateExpression` to evaluate a string in the context
@@ -175,7 +212,12 @@ class DataPipelineApi {
       {@required String pipelineId,
       @required String objectId,
       @required String expression}) async {
-    return EvaluateExpressionOutput.fromJson({});
+    var response_ = await _client.send('EvaluateExpression', {
+      'pipelineId': pipelineId,
+      'objectId': objectId,
+      'expression': expression,
+    });
+    return EvaluateExpressionOutput.fromJson(response_);
   }
 
   /// Gets the definition of the specified pipeline. You can call
@@ -189,7 +231,11 @@ class DataPipelineApi {
   /// pipeline or `active` to use the last definition that was activated.
   Future<GetPipelineDefinitionOutput> getPipelineDefinition(String pipelineId,
       {String version}) async {
-    return GetPipelineDefinitionOutput.fromJson({});
+    var response_ = await _client.send('GetPipelineDefinition', {
+      'pipelineId': pipelineId,
+      if (version != null) 'version': version,
+    });
+    return GetPipelineDefinitionOutput.fromJson(response_);
   }
 
   /// Lists the pipeline identifiers for all active pipelines that you have
@@ -200,7 +246,10 @@ class DataPipelineApi {
   /// continue to call `ListPipelines` with the marker value from the previous
   /// call to retrieve the next set of results.
   Future<ListPipelinesOutput> listPipelines({String marker}) async {
-    return ListPipelinesOutput.fromJson({});
+    var response_ = await _client.send('ListPipelines', {
+      if (marker != null) 'marker': marker,
+    });
+    return ListPipelinesOutput.fromJson(response_);
   }
 
   /// Task runners call `PollForTask` to receive a task to perform from AWS Data
@@ -238,7 +287,12 @@ class DataPipelineApi {
   /// the proper AWS Data Pipeline service charges are applied to your pipeline.
   Future<PollForTaskOutput> pollForTask(String workerGroup,
       {String hostname, InstanceIdentity instanceIdentity}) async {
-    return PollForTaskOutput.fromJson({});
+    var response_ = await _client.send('PollForTask', {
+      'workerGroup': workerGroup,
+      if (hostname != null) 'hostname': hostname,
+      if (instanceIdentity != null) 'instanceIdentity': instanceIdentity,
+    });
+    return PollForTaskOutput.fromJson(response_);
   }
 
   /// Adds tasks, schedules, and preconditions to the specified pipeline. You
@@ -270,7 +324,13 @@ class DataPipelineApi {
       @required List<PipelineObject> pipelineObjects,
       List<ParameterObject> parameterObjects,
       List<ParameterValue> parameterValues}) async {
-    return PutPipelineDefinitionOutput.fromJson({});
+    var response_ = await _client.send('PutPipelineDefinition', {
+      'pipelineId': pipelineId,
+      'pipelineObjects': pipelineObjects,
+      if (parameterObjects != null) 'parameterObjects': parameterObjects,
+      if (parameterValues != null) 'parameterValues': parameterValues,
+    });
+    return PutPipelineDefinitionOutput.fromJson(response_);
   }
 
   /// Queries the specified pipeline for the names of objects that match the
@@ -299,7 +359,14 @@ class DataPipelineApi {
       @required String sphere,
       String marker,
       int limit}) async {
-    return QueryObjectsOutput.fromJson({});
+    var response_ = await _client.send('QueryObjects', {
+      'pipelineId': pipelineId,
+      if (query != null) 'query': query,
+      'sphere': sphere,
+      if (marker != null) 'marker': marker,
+      if (limit != null) 'limit': limit,
+    });
+    return QueryObjectsOutput.fromJson(response_);
   }
 
   /// Removes existing tags from the specified pipeline.
@@ -309,7 +376,11 @@ class DataPipelineApi {
   /// [tagKeys]: The keys of the tags to remove.
   Future<RemoveTagsOutput> removeTags(
       {@required String pipelineId, @required List<String> tagKeys}) async {
-    return RemoveTagsOutput.fromJson({});
+    var response_ = await _client.send('RemoveTags', {
+      'pipelineId': pipelineId,
+      'tagKeys': tagKeys,
+    });
+    return RemoveTagsOutput.fromJson(response_);
   }
 
   /// Task runners call `ReportTaskProgress` when assigned a task to acknowledge
@@ -332,7 +403,11 @@ class DataPipelineApi {
   /// ReportTaskProgressInput object.
   Future<ReportTaskProgressOutput> reportTaskProgress(String taskId,
       {List<Field> fields}) async {
-    return ReportTaskProgressOutput.fromJson({});
+    var response_ = await _client.send('ReportTaskProgress', {
+      'taskId': taskId,
+      if (fields != null) 'fields': fields,
+    });
+    return ReportTaskProgressOutput.fromJson(response_);
   }
 
   /// Task runners call `ReportTaskRunnerHeartbeat` every 15 minutes to indicate
@@ -359,7 +434,12 @@ class DataPipelineApi {
       String taskrunnerId,
       {String workerGroup,
       String hostname}) async {
-    return ReportTaskRunnerHeartbeatOutput.fromJson({});
+    var response_ = await _client.send('ReportTaskRunnerHeartbeat', {
+      'taskrunnerId': taskrunnerId,
+      if (workerGroup != null) 'workerGroup': workerGroup,
+      if (hostname != null) 'hostname': hostname,
+    });
+    return ReportTaskRunnerHeartbeatOutput.fromJson(response_);
   }
 
   /// Requests that the status of the specified physical or logical pipeline
@@ -380,7 +460,13 @@ class DataPipelineApi {
   Future<void> setStatus(
       {@required String pipelineId,
       @required List<String> objectIds,
-      @required String status}) async {}
+      @required String status}) async {
+    await _client.send('SetStatus', {
+      'pipelineId': pipelineId,
+      'objectIds': objectIds,
+      'status': status,
+    });
+  }
 
   /// Task runners call `SetTaskStatus` to notify AWS Data Pipeline that a task
   /// is completed and provide information about the final status. A task runner
@@ -414,7 +500,14 @@ class DataPipelineApi {
       String errorId,
       String errorMessage,
       String errorStackTrace}) async {
-    return SetTaskStatusOutput.fromJson({});
+    var response_ = await _client.send('SetTaskStatus', {
+      'taskId': taskId,
+      'taskStatus': taskStatus,
+      if (errorId != null) 'errorId': errorId,
+      if (errorMessage != null) 'errorMessage': errorMessage,
+      if (errorStackTrace != null) 'errorStackTrace': errorStackTrace,
+    });
+    return SetTaskStatusOutput.fromJson(response_);
   }
 
   /// Validates the specified pipeline definition to ensure that it is well
@@ -433,7 +526,13 @@ class DataPipelineApi {
       @required List<PipelineObject> pipelineObjects,
       List<ParameterObject> parameterObjects,
       List<ParameterValue> parameterValues}) async {
-    return ValidatePipelineDefinitionOutput.fromJson({});
+    var response_ = await _client.send('ValidatePipelineDefinition', {
+      'pipelineId': pipelineId,
+      'pipelineObjects': pipelineObjects,
+      if (parameterObjects != null) 'parameterObjects': parameterObjects,
+      if (parameterValues != null) 'parameterValues': parameterValues,
+    });
+    return ValidatePipelineDefinitionOutput.fromJson(response_);
   }
 }
 
@@ -460,7 +559,9 @@ class CreatePipelineOutput {
     @required this.pipelineId,
   });
   static CreatePipelineOutput fromJson(Map<String, dynamic> json) =>
-      CreatePipelineOutput();
+      CreatePipelineOutput(
+        pipelineId: json['pipelineId'] as String,
+      );
 }
 
 /// Contains the output of DeactivatePipeline.
@@ -489,7 +590,15 @@ class DescribeObjectsOutput {
     this.hasMoreResults,
   });
   static DescribeObjectsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeObjectsOutput();
+      DescribeObjectsOutput(
+        pipelineObjects: (json['pipelineObjects'] as List)
+            .map((e) => PipelineObject.fromJson(e))
+            .toList(),
+        marker: json.containsKey('marker') ? json['marker'] as String : null,
+        hasMoreResults: json.containsKey('hasMoreResults')
+            ? json['hasMoreResults'] as bool
+            : null,
+      );
 }
 
 /// Contains the output of DescribePipelines.
@@ -501,7 +610,11 @@ class DescribePipelinesOutput {
     @required this.pipelineDescriptionList,
   });
   static DescribePipelinesOutput fromJson(Map<String, dynamic> json) =>
-      DescribePipelinesOutput();
+      DescribePipelinesOutput(
+        pipelineDescriptionList: (json['pipelineDescriptionList'] as List)
+            .map((e) => PipelineDescription.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Contains the output of EvaluateExpression.
@@ -513,7 +626,9 @@ class EvaluateExpressionOutput {
     @required this.evaluatedExpression,
   });
   static EvaluateExpressionOutput fromJson(Map<String, dynamic> json) =>
-      EvaluateExpressionOutput();
+      EvaluateExpressionOutput(
+        evaluatedExpression: json['evaluatedExpression'] as String,
+      );
 }
 
 /// A key-value pair that describes a property of a pipeline object. The value
@@ -534,7 +649,15 @@ class Field {
     this.stringValue,
     this.refValue,
   });
-  static Field fromJson(Map<String, dynamic> json) => Field();
+  static Field fromJson(Map<String, dynamic> json) => Field(
+        key: json['key'] as String,
+        stringValue: json.containsKey('stringValue')
+            ? json['stringValue'] as String
+            : null,
+        refValue:
+            json.containsKey('refValue') ? json['refValue'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of GetPipelineDefinition.
@@ -554,7 +677,23 @@ class GetPipelineDefinitionOutput {
     this.parameterValues,
   });
   static GetPipelineDefinitionOutput fromJson(Map<String, dynamic> json) =>
-      GetPipelineDefinitionOutput();
+      GetPipelineDefinitionOutput(
+        pipelineObjects: json.containsKey('pipelineObjects')
+            ? (json['pipelineObjects'] as List)
+                .map((e) => PipelineObject.fromJson(e))
+                .toList()
+            : null,
+        parameterObjects: json.containsKey('parameterObjects')
+            ? (json['parameterObjects'] as List)
+                .map((e) => ParameterObject.fromJson(e))
+                .toList()
+            : null,
+        parameterValues: json.containsKey('parameterValues')
+            ? (json['parameterValues'] as List)
+                .map((e) => ParameterValue.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Identity information for the EC2 instance that is hosting the task runner.
@@ -578,6 +717,7 @@ class InstanceIdentity {
     this.document,
     this.signature,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of ListPipelines.
@@ -602,7 +742,15 @@ class ListPipelinesOutput {
     this.hasMoreResults,
   });
   static ListPipelinesOutput fromJson(Map<String, dynamic> json) =>
-      ListPipelinesOutput();
+      ListPipelinesOutput(
+        pipelineIdList: (json['pipelineIdList'] as List)
+            .map((e) => PipelineIdName.fromJson(e))
+            .toList(),
+        marker: json.containsKey('marker') ? json['marker'] as String : null,
+        hasMoreResults: json.containsKey('hasMoreResults')
+            ? json['hasMoreResults'] as bool
+            : null,
+      );
 }
 
 /// Contains a logical operation for comparing the value of a field with a
@@ -650,6 +798,7 @@ class Operator {
     this.type,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The attributes allowed or specified with a parameter object.
@@ -665,7 +814,11 @@ class ParameterAttribute {
     @required this.stringValue,
   });
   static ParameterAttribute fromJson(Map<String, dynamic> json) =>
-      ParameterAttribute();
+      ParameterAttribute(
+        key: json['key'] as String,
+        stringValue: json['stringValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about a parameter object.
@@ -680,8 +833,13 @@ class ParameterObject {
     @required this.id,
     @required this.attributes,
   });
-  static ParameterObject fromJson(Map<String, dynamic> json) =>
-      ParameterObject();
+  static ParameterObject fromJson(Map<String, dynamic> json) => ParameterObject(
+        id: json['id'] as String,
+        attributes: (json['attributes'] as List)
+            .map((e) => ParameterAttribute.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A value or list of parameter values.
@@ -696,7 +854,11 @@ class ParameterValue {
     @required this.id,
     @required this.stringValue,
   });
-  static ParameterValue fromJson(Map<String, dynamic> json) => ParameterValue();
+  static ParameterValue fromJson(Map<String, dynamic> json) => ParameterValue(
+        id: json['id'] as String,
+        stringValue: json['stringValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains pipeline metadata.
@@ -729,7 +891,17 @@ class PipelineDescription {
     this.tags,
   });
   static PipelineDescription fromJson(Map<String, dynamic> json) =>
-      PipelineDescription();
+      PipelineDescription(
+        pipelineId: json['pipelineId'] as String,
+        name: json['name'] as String,
+        fields: (json['fields'] as List).map((e) => Field.fromJson(e)).toList(),
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains the name and identifier of a pipeline.
@@ -745,7 +917,10 @@ class PipelineIdName {
     this.id,
     this.name,
   });
-  static PipelineIdName fromJson(Map<String, dynamic> json) => PipelineIdName();
+  static PipelineIdName fromJson(Map<String, dynamic> json) => PipelineIdName(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
 }
 
 /// Contains information about a pipeline object. This can be a logical,
@@ -766,7 +941,12 @@ class PipelineObject {
     @required this.name,
     @required this.fields,
   });
-  static PipelineObject fromJson(Map<String, dynamic> json) => PipelineObject();
+  static PipelineObject fromJson(Map<String, dynamic> json) => PipelineObject(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        fields: (json['fields'] as List).map((e) => Field.fromJson(e)).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of PollForTask.
@@ -782,7 +962,11 @@ class PollForTaskOutput {
     this.taskObject,
   });
   static PollForTaskOutput fromJson(Map<String, dynamic> json) =>
-      PollForTaskOutput();
+      PollForTaskOutput(
+        taskObject: json.containsKey('taskObject')
+            ? TaskObject.fromJson(json['taskObject'])
+            : null,
+      );
 }
 
 /// Contains the output of PutPipelineDefinition.
@@ -807,7 +991,19 @@ class PutPipelineDefinitionOutput {
     @required this.errored,
   });
   static PutPipelineDefinitionOutput fromJson(Map<String, dynamic> json) =>
-      PutPipelineDefinitionOutput();
+      PutPipelineDefinitionOutput(
+        validationErrors: json.containsKey('validationErrors')
+            ? (json['validationErrors'] as List)
+                .map((e) => ValidationError.fromJson(e))
+                .toList()
+            : null,
+        validationWarnings: json.containsKey('validationWarnings')
+            ? (json['validationWarnings'] as List)
+                .map((e) => ValidationWarning.fromJson(e))
+                .toList()
+            : null,
+        errored: json['errored'] as bool,
+      );
 }
 
 /// Defines the query to run against an object.
@@ -819,6 +1015,7 @@ class Query {
   Query({
     this.selectors,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of QueryObjects.
@@ -841,7 +1038,15 @@ class QueryObjectsOutput {
     this.hasMoreResults,
   });
   static QueryObjectsOutput fromJson(Map<String, dynamic> json) =>
-      QueryObjectsOutput();
+      QueryObjectsOutput(
+        ids: json.containsKey('ids')
+            ? (json['ids'] as List).map((e) => e as String).toList()
+            : null,
+        marker: json.containsKey('marker') ? json['marker'] as String : null,
+        hasMoreResults: json.containsKey('hasMoreResults')
+            ? json['hasMoreResults'] as bool
+            : null,
+      );
 }
 
 /// Contains the output of RemoveTags.
@@ -861,7 +1066,9 @@ class ReportTaskProgressOutput {
     @required this.canceled,
   });
   static ReportTaskProgressOutput fromJson(Map<String, dynamic> json) =>
-      ReportTaskProgressOutput();
+      ReportTaskProgressOutput(
+        canceled: json['canceled'] as bool,
+      );
 }
 
 /// Contains the output of ReportTaskRunnerHeartbeat.
@@ -873,7 +1080,9 @@ class ReportTaskRunnerHeartbeatOutput {
     @required this.terminate,
   });
   static ReportTaskRunnerHeartbeatOutput fromJson(Map<String, dynamic> json) =>
-      ReportTaskRunnerHeartbeatOutput();
+      ReportTaskRunnerHeartbeatOutput(
+        terminate: json['terminate'] as bool,
+      );
 }
 
 /// A comparision that is used to determine whether a query should return this
@@ -891,6 +1100,7 @@ class Selector {
     this.fieldName,
     this.operator,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of SetTaskStatus.
@@ -921,7 +1131,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['key'] as String,
+        value: json['value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about a pipeline task that is assigned to a task
@@ -948,7 +1162,18 @@ class TaskObject {
     this.attemptId,
     this.objects,
   });
-  static TaskObject fromJson(Map<String, dynamic> json) => TaskObject();
+  static TaskObject fromJson(Map<String, dynamic> json) => TaskObject(
+        taskId: json.containsKey('taskId') ? json['taskId'] as String : null,
+        pipelineId: json.containsKey('pipelineId')
+            ? json['pipelineId'] as String
+            : null,
+        attemptId:
+            json.containsKey('attemptId') ? json['attemptId'] as String : null,
+        objects: json.containsKey('objects')
+            ? (json['objects'] as Map).map(
+                (k, v) => MapEntry(k as String, PipelineObject.fromJson(v)))
+            : null,
+      );
 }
 
 /// Contains the output of ValidatePipelineDefinition.
@@ -968,7 +1193,19 @@ class ValidatePipelineDefinitionOutput {
     @required this.errored,
   });
   static ValidatePipelineDefinitionOutput fromJson(Map<String, dynamic> json) =>
-      ValidatePipelineDefinitionOutput();
+      ValidatePipelineDefinitionOutput(
+        validationErrors: json.containsKey('validationErrors')
+            ? (json['validationErrors'] as List)
+                .map((e) => ValidationError.fromJson(e))
+                .toList()
+            : null,
+        validationWarnings: json.containsKey('validationWarnings')
+            ? (json['validationWarnings'] as List)
+                .map((e) => ValidationWarning.fromJson(e))
+                .toList()
+            : null,
+        errored: json['errored'] as bool,
+      );
 }
 
 /// Defines a validation error. Validation errors prevent pipeline activation.
@@ -985,8 +1222,12 @@ class ValidationError {
     this.id,
     this.errors,
   });
-  static ValidationError fromJson(Map<String, dynamic> json) =>
-      ValidationError();
+  static ValidationError fromJson(Map<String, dynamic> json) => ValidationError(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        errors: json.containsKey('errors')
+            ? (json['errors'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Defines a validation warning. Validation warnings do not prevent pipeline
@@ -1004,5 +1245,10 @@ class ValidationWarning {
     this.warnings,
   });
   static ValidationWarning fromJson(Map<String, dynamic> json) =>
-      ValidationWarning();
+      ValidationWarning(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        warnings: json.containsKey('warnings')
+            ? (json['warnings'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }

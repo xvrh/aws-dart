@@ -15,23 +15,39 @@ import 'package:meta/meta.dart';
 ///
 /// *   cur.us-east-1.amazonaws.com
 class CostAndUsageReportServiceApi {
+  final _client;
+  CostAndUsageReportServiceApi(client)
+      : _client = client.configured('Cost and Usage Report Service',
+            serializer: 'json');
+
   /// Deletes the specified report.
   Future<DeleteReportDefinitionResponse> deleteReportDefinition(
       {String reportName}) async {
-    return DeleteReportDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeleteReportDefinition', {
+      if (reportName != null) 'ReportName': reportName,
+    });
+    return DeleteReportDefinitionResponse.fromJson(response_);
   }
 
   /// Lists the AWS Cost and Usage reports available to this account.
   Future<DescribeReportDefinitionsResponse> describeReportDefinitions(
       {int maxResults, String nextToken}) async {
-    return DescribeReportDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeReportDefinitions', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeReportDefinitionsResponse.fromJson(response_);
   }
 
   /// Allows you to programatically update your report preferences.
   Future<ModifyReportDefinitionResponse> modifyReportDefinition(
       {@required String reportName,
       @required ReportDefinition reportDefinition}) async {
-    return ModifyReportDefinitionResponse.fromJson({});
+    var response_ = await _client.send('ModifyReportDefinition', {
+      'ReportName': reportName,
+      'ReportDefinition': reportDefinition,
+    });
+    return ModifyReportDefinitionResponse.fromJson(response_);
   }
 
   /// Creates a new report using the description that you provide.
@@ -41,7 +57,10 @@ class CostAndUsageReportServiceApi {
   /// information.
   Future<PutReportDefinitionResponse> putReportDefinition(
       ReportDefinition reportDefinition) async {
-    return PutReportDefinitionResponse.fromJson({});
+    var response_ = await _client.send('PutReportDefinition', {
+      'ReportDefinition': reportDefinition,
+    });
+    return PutReportDefinitionResponse.fromJson(response_);
   }
 }
 
@@ -53,7 +72,11 @@ class DeleteReportDefinitionResponse {
     this.responseMessage,
   });
   static DeleteReportDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      DeleteReportDefinitionResponse();
+      DeleteReportDefinitionResponse(
+        responseMessage: json.containsKey('ResponseMessage')
+            ? json['ResponseMessage'] as String
+            : null,
+      );
 }
 
 /// If the action is successful, the service sends back an HTTP 200 response.
@@ -69,7 +92,15 @@ class DescribeReportDefinitionsResponse {
   });
   static DescribeReportDefinitionsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeReportDefinitionsResponse();
+      DescribeReportDefinitionsResponse(
+        reportDefinitions: json.containsKey('ReportDefinitions')
+            ? (json['ReportDefinitions'] as List)
+                .map((e) => ReportDefinition.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ModifyReportDefinitionResponse {
@@ -136,5 +167,28 @@ class ReportDefinition {
     this.reportVersioning,
   });
   static ReportDefinition fromJson(Map<String, dynamic> json) =>
-      ReportDefinition();
+      ReportDefinition(
+        reportName: json['ReportName'] as String,
+        timeUnit: json['TimeUnit'] as String,
+        format: json['Format'] as String,
+        compression: json['Compression'] as String,
+        additionalSchemaElements: (json['AdditionalSchemaElements'] as List)
+            .map((e) => e as String)
+            .toList(),
+        s3Bucket: json['S3Bucket'] as String,
+        s3Prefix: json['S3Prefix'] as String,
+        s3Region: json['S3Region'] as String,
+        additionalArtifacts: json.containsKey('AdditionalArtifacts')
+            ? (json['AdditionalArtifacts'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        refreshClosedReports: json.containsKey('RefreshClosedReports')
+            ? json['RefreshClosedReports'] as bool
+            : null,
+        reportVersioning: json.containsKey('ReportVersioning')
+            ? json['ReportVersioning'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

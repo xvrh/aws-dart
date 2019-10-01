@@ -9,6 +9,9 @@ import 'package:meta/meta.dart';
 /// AWS Shield Advanced APIs, see the
 /// [AWS WAF and AWS Shield Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
 class ShieldApi {
+  final _client;
+  ShieldApi(client) : _client = client.configured('Shield', serializer: 'json');
+
   /// Authorizes the DDoS Response team (DRT) to access the specified Amazon S3
   /// bucket containing your AWS WAF logs. You can associate up to 10 Amazon S3
   /// buckets with your subscription.
@@ -22,7 +25,10 @@ class ShieldApi {
   /// [logBucket]: The Amazon S3 bucket that contains your AWS WAF logs.
   Future<AssociateDrtLogBucketResponse> associateDrtLogBucket(
       String logBucket) async {
-    return AssociateDrtLogBucketResponse.fromJson({});
+    var response_ = await _client.send('AssociateDRTLogBucket', {
+      'LogBucket': logBucket,
+    });
+    return AssociateDrtLogBucketResponse.fromJson(response_);
   }
 
   /// Authorizes the DDoS Response team (DRT), using the specified role, to
@@ -68,7 +74,10 @@ class ShieldApi {
   /// [Attaching and Detaching IAM Policies](
   /// https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html).
   Future<AssociateDrtRoleResponse> associateDrtRole(String roleArn) async {
-    return AssociateDrtRoleResponse.fromJson({});
+    var response_ = await _client.send('AssociateDRTRole', {
+      'RoleArn': roleArn,
+    });
+    return AssociateDrtRoleResponse.fromJson(response_);
   }
 
   /// Enables AWS Shield Advanced for a specific AWS resource. The resource can
@@ -112,7 +121,11 @@ class ShieldApi {
   /// `arn:aws:ec2:_region_:_account-id_:eip-allocation/_allocation-id_`
   Future<CreateProtectionResponse> createProtection(
       {@required String name, @required String resourceArn}) async {
-    return CreateProtectionResponse.fromJson({});
+    var response_ = await _client.send('CreateProtection', {
+      'Name': name,
+      'ResourceArn': resourceArn,
+    });
+    return CreateProtectionResponse.fromJson(response_);
   }
 
   /// Activates AWS Shield Advanced for an account.
@@ -131,7 +144,8 @@ class ShieldApi {
   /// automatically renewed at the end of the existing subscription period. You
   /// can change this by submitting an `UpdateSubscription` request.
   Future<CreateSubscriptionResponse> createSubscription() async {
-    return CreateSubscriptionResponse.fromJson({});
+    var response_ = await _client.send('CreateSubscription', {});
+    return CreateSubscriptionResponse.fromJson(response_);
   }
 
   /// Deletes an AWS Shield Advanced Protection.
@@ -139,14 +153,18 @@ class ShieldApi {
   /// [protectionId]: The unique identifier (ID) for the Protection object to be
   /// deleted.
   Future<DeleteProtectionResponse> deleteProtection(String protectionId) async {
-    return DeleteProtectionResponse.fromJson({});
+    var response_ = await _client.send('DeleteProtection', {
+      'ProtectionId': protectionId,
+    });
+    return DeleteProtectionResponse.fromJson(response_);
   }
 
   /// Removes AWS Shield Advanced from an account. AWS Shield Advanced requires
   /// a 1-year subscription commitment. You cannot delete a subscription prior
   /// to the completion of that commitment.
   Future<DeleteSubscriptionResponse> deleteSubscription() async {
-    return DeleteSubscriptionResponse.fromJson({});
+    var response_ = await _client.send('DeleteSubscription', {});
+    return DeleteSubscriptionResponse.fromJson(response_);
   }
 
   /// Describes the details of a DDoS attack.
@@ -154,21 +172,26 @@ class ShieldApi {
   /// [attackId]: The unique identifier (ID) for the attack that to be
   /// described.
   Future<DescribeAttackResponse> describeAttack(String attackId) async {
-    return DescribeAttackResponse.fromJson({});
+    var response_ = await _client.send('DescribeAttack', {
+      'AttackId': attackId,
+    });
+    return DescribeAttackResponse.fromJson(response_);
   }
 
   /// Returns the current role and list of Amazon S3 log buckets used by the
   /// DDoS Response team (DRT) to access your AWS account while assisting with
   /// attack mitigation.
   Future<DescribeDrtAccessResponse> describeDrtAccess() async {
-    return DescribeDrtAccessResponse.fromJson({});
+    var response_ = await _client.send('DescribeDRTAccess', {});
+    return DescribeDrtAccessResponse.fromJson(response_);
   }
 
   /// Lists the email addresses that the DRT can use to contact you during a
   /// suspected attack.
   Future<DescribeEmergencyContactSettingsResponse>
       describeEmergencyContactSettings() async {
-    return DescribeEmergencyContactSettingsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEmergencyContactSettings', {});
+    return DescribeEmergencyContactSettingsResponse.fromJson(response_);
   }
 
   /// Lists the details of a Protection object.
@@ -183,13 +206,18 @@ class ShieldApi {
   /// the `ProtectionID`, but not both.
   Future<DescribeProtectionResponse> describeProtection(
       {String protectionId, String resourceArn}) async {
-    return DescribeProtectionResponse.fromJson({});
+    var response_ = await _client.send('DescribeProtection', {
+      if (protectionId != null) 'ProtectionId': protectionId,
+      if (resourceArn != null) 'ResourceArn': resourceArn,
+    });
+    return DescribeProtectionResponse.fromJson(response_);
   }
 
   /// Provides details about the AWS Shield Advanced subscription for an
   /// account.
   Future<DescribeSubscriptionResponse> describeSubscription() async {
-    return DescribeSubscriptionResponse.fromJson({});
+    var response_ = await _client.send('DescribeSubscription', {});
+    return DescribeSubscriptionResponse.fromJson(response_);
   }
 
   /// Removes the DDoS Response team's (DRT) access to the specified Amazon S3
@@ -207,7 +235,10 @@ class ShieldApi {
   /// [logBucket]: The Amazon S3 bucket that contains your AWS WAF logs.
   Future<DisassociateDrtLogBucketResponse> disassociateDrtLogBucket(
       String logBucket) async {
-    return DisassociateDrtLogBucketResponse.fromJson({});
+    var response_ = await _client.send('DisassociateDRTLogBucket', {
+      'LogBucket': logBucket,
+    });
+    return DisassociateDrtLogBucketResponse.fromJson(response_);
   }
 
   /// Removes the DDoS Response team's (DRT) access to your AWS account.
@@ -220,12 +251,14 @@ class ShieldApi {
   /// been previously and had granted the DRT access to your account, you can
   /// submit a `DisassociateDRTRole` request to remove this access.
   Future<DisassociateDrtRoleResponse> disassociateDrtRole() async {
-    return DisassociateDrtRoleResponse.fromJson({});
+    var response_ = await _client.send('DisassociateDRTRole', {});
+    return DisassociateDrtRoleResponse.fromJson(response_);
   }
 
   /// Returns the `SubscriptionState`, either `Active` or `Inactive`.
   Future<GetSubscriptionStateResponse> getSubscriptionState() async {
-    return GetSubscriptionStateResponse.fromJson({});
+    var response_ = await _client.send('GetSubscriptionState', {});
+    return GetSubscriptionStateResponse.fromJson(response_);
   }
 
   /// Returns all ongoing DDoS attacks or all DDoS attacks during a specified
@@ -264,7 +297,14 @@ class ShieldApi {
       TimeRange endTime,
       String nextToken,
       int maxResults}) async {
-    return ListAttacksResponse.fromJson({});
+    var response_ = await _client.send('ListAttacks', {
+      if (resourceArns != null) 'ResourceArns': resourceArns,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListAttacksResponse.fromJson(response_);
   }
 
   /// Lists all Protection objects for the account.
@@ -282,7 +322,11 @@ class ShieldApi {
   /// return, AWS WAF will always also return a `NextToken`.
   Future<ListProtectionsResponse> listProtections(
       {String nextToken, int maxResults}) async {
-    return ListProtectionsResponse.fromJson({});
+    var response_ = await _client.send('ListProtections', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListProtectionsResponse.fromJson(response_);
   }
 
   /// Updates the details of the list of email addresses that the DRT can use to
@@ -292,7 +336,11 @@ class ShieldApi {
   /// contact you during a suspected attack.
   Future<UpdateEmergencyContactSettingsResponse> updateEmergencyContactSettings(
       {List<EmergencyContact> emergencyContactList}) async {
-    return UpdateEmergencyContactSettingsResponse.fromJson({});
+    var response_ = await _client.send('UpdateEmergencyContactSettings', {
+      if (emergencyContactList != null)
+        'EmergencyContactList': emergencyContactList,
+    });
+    return UpdateEmergencyContactSettingsResponse.fromJson(response_);
   }
 
   /// Updates the details of an existing subscription. Only enter values for
@@ -306,7 +354,10 @@ class ShieldApi {
   /// `AutoRenew` remains unchanged.
   Future<UpdateSubscriptionResponse> updateSubscription(
       {String autoRenew}) async {
-    return UpdateSubscriptionResponse.fromJson({});
+    var response_ = await _client.send('UpdateSubscription', {
+      if (autoRenew != null) 'AutoRenew': autoRenew,
+    });
+    return UpdateSubscriptionResponse.fromJson(response_);
   }
 }
 
@@ -363,7 +414,39 @@ class AttackDetail {
     this.attackProperties,
     this.mitigations,
   });
-  static AttackDetail fromJson(Map<String, dynamic> json) => AttackDetail();
+  static AttackDetail fromJson(Map<String, dynamic> json) => AttackDetail(
+        attackId:
+            json.containsKey('AttackId') ? json['AttackId'] as String : null,
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        subResources: json.containsKey('SubResources')
+            ? (json['SubResources'] as List)
+                .map((e) => SubResourceSummary.fromJson(e))
+                .toList()
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        attackCounters: json.containsKey('AttackCounters')
+            ? (json['AttackCounters'] as List)
+                .map((e) => SummarizedCounter.fromJson(e))
+                .toList()
+            : null,
+        attackProperties: json.containsKey('AttackProperties')
+            ? (json['AttackProperties'] as List)
+                .map((e) => AttackProperty.fromJson(e))
+                .toList()
+            : null,
+        mitigations: json.containsKey('Mitigations')
+            ? (json['Mitigations'] as List)
+                .map((e) => Mitigation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Details of the described attack.
@@ -396,7 +479,21 @@ class AttackProperty {
     this.unit,
     this.total,
   });
-  static AttackProperty fromJson(Map<String, dynamic> json) => AttackProperty();
+  static AttackProperty fromJson(Map<String, dynamic> json) => AttackProperty(
+        attackLayer: json.containsKey('AttackLayer')
+            ? json['AttackLayer'] as String
+            : null,
+        attackPropertyIdentifier: json.containsKey('AttackPropertyIdentifier')
+            ? json['AttackPropertyIdentifier'] as String
+            : null,
+        topContributors: json.containsKey('TopContributors')
+            ? (json['TopContributors'] as List)
+                .map((e) => Contributor.fromJson(e))
+                .toList()
+            : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+        total: json.containsKey('Total') ? BigInt.from(json['Total']) : null,
+      );
 }
 
 /// Summarizes all DDoS attacks for a specified time period.
@@ -427,7 +524,24 @@ class AttackSummary {
     this.endTime,
     this.attackVectors,
   });
-  static AttackSummary fromJson(Map<String, dynamic> json) => AttackSummary();
+  static AttackSummary fromJson(Map<String, dynamic> json) => AttackSummary(
+        attackId:
+            json.containsKey('AttackId') ? json['AttackId'] as String : null,
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        attackVectors: json.containsKey('AttackVectors')
+            ? (json['AttackVectors'] as List)
+                .map((e) => AttackVectorDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the attack.
@@ -475,7 +589,9 @@ class AttackVectorDescription {
     @required this.vectorType,
   });
   static AttackVectorDescription fromJson(Map<String, dynamic> json) =>
-      AttackVectorDescription();
+      AttackVectorDescription(
+        vectorType: json['VectorType'] as String,
+      );
 }
 
 /// A contributor to the attack and their contribution.
@@ -493,7 +609,10 @@ class Contributor {
     this.name,
     this.value,
   });
-  static Contributor fromJson(Map<String, dynamic> json) => Contributor();
+  static Contributor fromJson(Map<String, dynamic> json) => Contributor(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        value: json.containsKey('Value') ? BigInt.from(json['Value']) : null,
+      );
 }
 
 class CreateProtectionResponse {
@@ -504,7 +623,11 @@ class CreateProtectionResponse {
     this.protectionId,
   });
   static CreateProtectionResponse fromJson(Map<String, dynamic> json) =>
-      CreateProtectionResponse();
+      CreateProtectionResponse(
+        protectionId: json.containsKey('ProtectionId')
+            ? json['ProtectionId'] as String
+            : null,
+      );
 }
 
 class CreateSubscriptionResponse {
@@ -533,7 +656,11 @@ class DescribeAttackResponse {
     this.attack,
   });
   static DescribeAttackResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAttackResponse();
+      DescribeAttackResponse(
+        attack: json.containsKey('Attack')
+            ? AttackDetail.fromJson(json['Attack'])
+            : null,
+      );
 }
 
 class DescribeDrtAccessResponse {
@@ -549,7 +676,12 @@ class DescribeDrtAccessResponse {
     this.logBucketList,
   });
   static DescribeDrtAccessResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDrtAccessResponse();
+      DescribeDrtAccessResponse(
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        logBucketList: json.containsKey('LogBucketList')
+            ? (json['LogBucketList'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class DescribeEmergencyContactSettingsResponse {
@@ -562,7 +694,13 @@ class DescribeEmergencyContactSettingsResponse {
   });
   static DescribeEmergencyContactSettingsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeEmergencyContactSettingsResponse();
+      DescribeEmergencyContactSettingsResponse(
+        emergencyContactList: json.containsKey('EmergencyContactList')
+            ? (json['EmergencyContactList'] as List)
+                .map((e) => EmergencyContact.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeProtectionResponse {
@@ -573,7 +711,11 @@ class DescribeProtectionResponse {
     this.protection,
   });
   static DescribeProtectionResponse fromJson(Map<String, dynamic> json) =>
-      DescribeProtectionResponse();
+      DescribeProtectionResponse(
+        protection: json.containsKey('Protection')
+            ? Protection.fromJson(json['Protection'])
+            : null,
+      );
 }
 
 class DescribeSubscriptionResponse {
@@ -584,7 +726,11 @@ class DescribeSubscriptionResponse {
     this.subscription,
   });
   static DescribeSubscriptionResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSubscriptionResponse();
+      DescribeSubscriptionResponse(
+        subscription: json.containsKey('Subscription')
+            ? Subscription.fromJson(json['Subscription'])
+            : null,
+      );
 }
 
 class DisassociateDrtLogBucketResponse {
@@ -610,7 +756,10 @@ class EmergencyContact {
     @required this.emailAddress,
   });
   static EmergencyContact fromJson(Map<String, dynamic> json) =>
-      EmergencyContact();
+      EmergencyContact(
+        emailAddress: json['EmailAddress'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetSubscriptionStateResponse {
@@ -621,7 +770,9 @@ class GetSubscriptionStateResponse {
     @required this.subscriptionState,
   });
   static GetSubscriptionStateResponse fromJson(Map<String, dynamic> json) =>
-      GetSubscriptionStateResponse();
+      GetSubscriptionStateResponse(
+        subscriptionState: json['SubscriptionState'] as String,
+      );
 }
 
 /// Specifies how many protections of a given type you can create.
@@ -637,7 +788,10 @@ class Limit {
     this.type,
     this.max,
   });
-  static Limit fromJson(Map<String, dynamic> json) => Limit();
+  static Limit fromJson(Map<String, dynamic> json) => Limit(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        max: json.containsKey('Max') ? BigInt.from(json['Max']) : null,
+      );
 }
 
 class ListAttacksResponse {
@@ -659,7 +813,15 @@ class ListAttacksResponse {
     this.nextToken,
   });
   static ListAttacksResponse fromJson(Map<String, dynamic> json) =>
-      ListAttacksResponse();
+      ListAttacksResponse(
+        attackSummaries: json.containsKey('AttackSummaries')
+            ? (json['AttackSummaries'] as List)
+                .map((e) => AttackSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListProtectionsResponse {
@@ -683,7 +845,15 @@ class ListProtectionsResponse {
     this.nextToken,
   });
   static ListProtectionsResponse fromJson(Map<String, dynamic> json) =>
-      ListProtectionsResponse();
+      ListProtectionsResponse(
+        protections: json.containsKey('Protections')
+            ? (json['Protections'] as List)
+                .map((e) => Protection.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The mitigation applied to a DDoS attack.
@@ -694,7 +864,11 @@ class Mitigation {
   Mitigation({
     this.mitigationName,
   });
-  static Mitigation fromJson(Map<String, dynamic> json) => Mitigation();
+  static Mitigation fromJson(Map<String, dynamic> json) => Mitigation(
+        mitigationName: json.containsKey('MitigationName')
+            ? json['MitigationName'] as String
+            : null,
+      );
 }
 
 /// An object that represents a resource that is under DDoS protection.
@@ -714,7 +888,13 @@ class Protection {
     this.name,
     this.resourceArn,
   });
-  static Protection fromJson(Map<String, dynamic> json) => Protection();
+  static Protection fromJson(Map<String, dynamic> json) => Protection(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+      );
 }
 
 /// The attack information for the specified SubResource.
@@ -738,7 +918,20 @@ class SubResourceSummary {
     this.counters,
   });
   static SubResourceSummary fromJson(Map<String, dynamic> json) =>
-      SubResourceSummary();
+      SubResourceSummary(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        attackVectors: json.containsKey('AttackVectors')
+            ? (json['AttackVectors'] as List)
+                .map((e) => SummarizedAttackVector.fromJson(e))
+                .toList()
+            : null,
+        counters: json.containsKey('Counters')
+            ? (json['Counters'] as List)
+                .map((e) => SummarizedCounter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about the AWS Shield Advanced subscription for an account.
@@ -774,7 +967,22 @@ class Subscription {
     this.autoRenew,
     this.limits,
   });
-  static Subscription fromJson(Map<String, dynamic> json) => Subscription();
+  static Subscription fromJson(Map<String, dynamic> json) => Subscription(
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        timeCommitmentInSeconds: json.containsKey('TimeCommitmentInSeconds')
+            ? BigInt.from(json['TimeCommitmentInSeconds'])
+            : null,
+        autoRenew:
+            json.containsKey('AutoRenew') ? json['AutoRenew'] as String : null,
+        limits: json.containsKey('Limits')
+            ? (json['Limits'] as List).map((e) => Limit.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A summary of information about the attack.
@@ -790,7 +998,14 @@ class SummarizedAttackVector {
     this.vectorCounters,
   });
   static SummarizedAttackVector fromJson(Map<String, dynamic> json) =>
-      SummarizedAttackVector();
+      SummarizedAttackVector(
+        vectorType: json['VectorType'] as String,
+        vectorCounters: json.containsKey('VectorCounters')
+            ? (json['VectorCounters'] as List)
+                .map((e) => SummarizedCounter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The counter that describes a DDoS attack.
@@ -822,7 +1037,14 @@ class SummarizedCounter {
     this.unit,
   });
   static SummarizedCounter fromJson(Map<String, dynamic> json) =>
-      SummarizedCounter();
+      SummarizedCounter(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        max: json.containsKey('Max') ? json['Max'] as double : null,
+        average: json.containsKey('Average') ? json['Average'] as double : null,
+        sum: json.containsKey('Sum') ? json['Sum'] as double : null,
+        n: json.containsKey('N') ? json['N'] as int : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
 }
 
 /// The time range.
@@ -839,6 +1061,7 @@ class TimeRange {
     this.fromInclusive,
     this.toExclusive,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateEmergencyContactSettingsResponse {

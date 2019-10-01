@@ -20,6 +20,10 @@ import 'package:meta/meta.dart';
 /// [DNS for Services and Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 /// in the Kubernetes documentation.
 class AppMeshApi {
+  final _client;
+  AppMeshApi(client)
+      : _client = client.configured('App Mesh', serializer: 'rest-json');
+
   /// Creates a service mesh. A service mesh is a logical boundary for network
   /// traffic between the services that reside within it.
   ///
@@ -42,7 +46,13 @@ class AppMeshApi {
   /// length of 256 characters.
   Future<CreateMeshOutput> createMesh(String meshName,
       {String clientToken, MeshSpec spec, List<TagRef> tags}) async {
-    return CreateMeshOutput.fromJson({});
+    var response_ = await _client.send('CreateMesh', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      if (spec != null) 'spec': spec,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateMeshOutput.fromJson(response_);
   }
 
   /// Creates a route that is associated with a virtual router.
@@ -80,7 +90,15 @@ class AppMeshApi {
       @required RouteSpec spec,
       List<TagRef> tags,
       @required String virtualRouterName}) async {
-    return CreateRouteOutput.fromJson({});
+    var response_ = await _client.send('CreateRoute', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      'routeName': routeName,
+      'spec': spec,
+      if (tags != null) 'tags': tags,
+      'virtualRouterName': virtualRouterName,
+    });
+    return CreateRouteOutput.fromJson(response_);
   }
 
   /// Creates a virtual node within a service mesh.
@@ -130,7 +148,14 @@ class AppMeshApi {
       @required VirtualNodeSpec spec,
       List<TagRef> tags,
       @required String virtualNodeName}) async {
-    return CreateVirtualNodeOutput.fromJson({});
+    var response_ = await _client.send('CreateVirtualNode', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      'spec': spec,
+      if (tags != null) 'tags': tags,
+      'virtualNodeName': virtualNodeName,
+    });
+    return CreateVirtualNodeOutput.fromJson(response_);
   }
 
   /// Creates a virtual router within a service mesh.
@@ -164,7 +189,14 @@ class AppMeshApi {
       @required VirtualRouterSpec spec,
       List<TagRef> tags,
       @required String virtualRouterName}) async {
-    return CreateVirtualRouterOutput.fromJson({});
+    var response_ = await _client.send('CreateVirtualRouter', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      'spec': spec,
+      if (tags != null) 'tags': tags,
+      'virtualRouterName': virtualRouterName,
+    });
+    return CreateVirtualRouterOutput.fromJson(response_);
   }
 
   /// Creates a virtual service within a service mesh.
@@ -196,7 +228,14 @@ class AppMeshApi {
       @required VirtualServiceSpec spec,
       List<TagRef> tags,
       @required String virtualServiceName}) async {
-    return CreateVirtualServiceOutput.fromJson({});
+    var response_ = await _client.send('CreateVirtualService', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      'spec': spec,
+      if (tags != null) 'tags': tags,
+      'virtualServiceName': virtualServiceName,
+    });
+    return CreateVirtualServiceOutput.fromJson(response_);
   }
 
   /// Deletes an existing service mesh.
@@ -207,7 +246,10 @@ class AppMeshApi {
   ///
   /// [meshName]: The name of the service mesh to delete.
   Future<DeleteMeshOutput> deleteMesh(String meshName) async {
-    return DeleteMeshOutput.fromJson({});
+    var response_ = await _client.send('DeleteMesh', {
+      'meshName': meshName,
+    });
+    return DeleteMeshOutput.fromJson(response_);
   }
 
   /// Deletes an existing route.
@@ -222,7 +264,12 @@ class AppMeshApi {
       {@required String meshName,
       @required String routeName,
       @required String virtualRouterName}) async {
-    return DeleteRouteOutput.fromJson({});
+    var response_ = await _client.send('DeleteRoute', {
+      'meshName': meshName,
+      'routeName': routeName,
+      'virtualRouterName': virtualRouterName,
+    });
+    return DeleteRouteOutput.fromJson(response_);
   }
 
   /// Deletes an existing virtual node.
@@ -235,7 +282,11 @@ class AppMeshApi {
   /// [virtualNodeName]: The name of the virtual node to delete.
   Future<DeleteVirtualNodeOutput> deleteVirtualNode(
       {@required String meshName, @required String virtualNodeName}) async {
-    return DeleteVirtualNodeOutput.fromJson({});
+    var response_ = await _client.send('DeleteVirtualNode', {
+      'meshName': meshName,
+      'virtualNodeName': virtualNodeName,
+    });
+    return DeleteVirtualNodeOutput.fromJson(response_);
   }
 
   /// Deletes an existing virtual router.
@@ -248,7 +299,11 @@ class AppMeshApi {
   /// [virtualRouterName]: The name of the virtual router to delete.
   Future<DeleteVirtualRouterOutput> deleteVirtualRouter(
       {@required String meshName, @required String virtualRouterName}) async {
-    return DeleteVirtualRouterOutput.fromJson({});
+    var response_ = await _client.send('DeleteVirtualRouter', {
+      'meshName': meshName,
+      'virtualRouterName': virtualRouterName,
+    });
+    return DeleteVirtualRouterOutput.fromJson(response_);
   }
 
   /// Deletes an existing virtual service.
@@ -258,14 +313,21 @@ class AppMeshApi {
   /// [virtualServiceName]: The name of the virtual service to delete.
   Future<DeleteVirtualServiceOutput> deleteVirtualService(
       {@required String meshName, @required String virtualServiceName}) async {
-    return DeleteVirtualServiceOutput.fromJson({});
+    var response_ = await _client.send('DeleteVirtualService', {
+      'meshName': meshName,
+      'virtualServiceName': virtualServiceName,
+    });
+    return DeleteVirtualServiceOutput.fromJson(response_);
   }
 
   /// Describes an existing service mesh.
   ///
   /// [meshName]: The name of the service mesh to describe.
   Future<DescribeMeshOutput> describeMesh(String meshName) async {
-    return DescribeMeshOutput.fromJson({});
+    var response_ = await _client.send('DescribeMesh', {
+      'meshName': meshName,
+    });
+    return DescribeMeshOutput.fromJson(response_);
   }
 
   /// Describes an existing route.
@@ -280,7 +342,12 @@ class AppMeshApi {
       {@required String meshName,
       @required String routeName,
       @required String virtualRouterName}) async {
-    return DescribeRouteOutput.fromJson({});
+    var response_ = await _client.send('DescribeRoute', {
+      'meshName': meshName,
+      'routeName': routeName,
+      'virtualRouterName': virtualRouterName,
+    });
+    return DescribeRouteOutput.fromJson(response_);
   }
 
   /// Describes an existing virtual node.
@@ -290,7 +357,11 @@ class AppMeshApi {
   /// [virtualNodeName]: The name of the virtual node to describe.
   Future<DescribeVirtualNodeOutput> describeVirtualNode(
       {@required String meshName, @required String virtualNodeName}) async {
-    return DescribeVirtualNodeOutput.fromJson({});
+    var response_ = await _client.send('DescribeVirtualNode', {
+      'meshName': meshName,
+      'virtualNodeName': virtualNodeName,
+    });
+    return DescribeVirtualNodeOutput.fromJson(response_);
   }
 
   /// Describes an existing virtual router.
@@ -301,7 +372,11 @@ class AppMeshApi {
   /// [virtualRouterName]: The name of the virtual router to describe.
   Future<DescribeVirtualRouterOutput> describeVirtualRouter(
       {@required String meshName, @required String virtualRouterName}) async {
-    return DescribeVirtualRouterOutput.fromJson({});
+    var response_ = await _client.send('DescribeVirtualRouter', {
+      'meshName': meshName,
+      'virtualRouterName': virtualRouterName,
+    });
+    return DescribeVirtualRouterOutput.fromJson(response_);
   }
 
   /// Describes an existing virtual service.
@@ -312,7 +387,11 @@ class AppMeshApi {
   /// [virtualServiceName]: The name of the virtual service to describe.
   Future<DescribeVirtualServiceOutput> describeVirtualService(
       {@required String meshName, @required String virtualServiceName}) async {
-    return DescribeVirtualServiceOutput.fromJson({});
+    var response_ = await _client.send('DescribeVirtualService', {
+      'meshName': meshName,
+      'virtualServiceName': virtualServiceName,
+    });
+    return DescribeVirtualServiceOutput.fromJson(response_);
   }
 
   /// Returns a list of existing service meshes.
@@ -336,7 +415,11 @@ class AppMeshApi {
   /// This token should be treated as an opaque identifier that is used only to
   /// retrieve the next items in a list and not for other programmatic purposes.
   Future<ListMeshesOutput> listMeshes({int limit, String nextToken}) async {
-    return ListMeshesOutput.fromJson({});
+    var response_ = await _client.send('ListMeshes', {
+      if (limit != null) 'limit': limit,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListMeshesOutput.fromJson(response_);
   }
 
   /// Returns a list of existing routes in a service mesh.
@@ -363,7 +446,13 @@ class AppMeshApi {
       @required String meshName,
       String nextToken,
       @required String virtualRouterName}) async {
-    return ListRoutesOutput.fromJson({});
+    var response_ = await _client.send('ListRoutes', {
+      if (limit != null) 'limit': limit,
+      'meshName': meshName,
+      if (nextToken != null) 'nextToken': nextToken,
+      'virtualRouterName': virtualRouterName,
+    });
+    return ListRoutesOutput.fromJson(response_);
   }
 
   /// List the tags for an App Mesh resource.
@@ -386,7 +475,12 @@ class AppMeshApi {
   /// to list the tags for.
   Future<ListTagsForResourceOutput> listTagsForResource(String resourceArn,
       {int limit, String nextToken}) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      if (limit != null) 'limit': limit,
+      if (nextToken != null) 'nextToken': nextToken,
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   /// Returns a list of existing virtual nodes.
@@ -408,7 +502,12 @@ class AppMeshApi {
   /// previous results that returned the `nextToken` value.
   Future<ListVirtualNodesOutput> listVirtualNodes(String meshName,
       {int limit, String nextToken}) async {
-    return ListVirtualNodesOutput.fromJson({});
+    var response_ = await _client.send('ListVirtualNodes', {
+      if (limit != null) 'limit': limit,
+      'meshName': meshName,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListVirtualNodesOutput.fromJson(response_);
   }
 
   /// Returns a list of existing virtual routers in a service mesh.
@@ -430,7 +529,12 @@ class AppMeshApi {
   /// the previous results that returned the `nextToken` value.
   Future<ListVirtualRoutersOutput> listVirtualRouters(String meshName,
       {int limit, String nextToken}) async {
-    return ListVirtualRoutersOutput.fromJson({});
+    var response_ = await _client.send('ListVirtualRouters', {
+      if (limit != null) 'limit': limit,
+      'meshName': meshName,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListVirtualRoutersOutput.fromJson(response_);
   }
 
   /// Returns a list of existing virtual services in a service mesh.
@@ -452,7 +556,12 @@ class AppMeshApi {
   /// the previous results that returned the `nextToken` value.
   Future<ListVirtualServicesOutput> listVirtualServices(String meshName,
       {int limit, String nextToken}) async {
-    return ListVirtualServicesOutput.fromJson({});
+    var response_ = await _client.send('ListVirtualServices', {
+      if (limit != null) 'limit': limit,
+      'meshName': meshName,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListVirtualServicesOutput.fromJson(response_);
   }
 
   /// Associates the specified tags to a resource with the specified
@@ -468,7 +577,11 @@ class AppMeshApi {
   /// tag values can have a maximum length of 256 characters.
   Future<TagResourceOutput> tagResource(
       {@required String resourceArn, @required List<TagRef> tags}) async {
-    return TagResourceOutput.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceOutput.fromJson(response_);
   }
 
   /// Deletes specified tags from a resource.
@@ -479,7 +592,11 @@ class AppMeshApi {
   /// [tagKeys]: The keys of the tags to be removed.
   Future<UntagResourceOutput> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceOutput.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceOutput.fromJson(response_);
   }
 
   /// Updates an existing service mesh.
@@ -493,7 +610,12 @@ class AppMeshApi {
   /// [spec]: The service mesh specification to apply.
   Future<UpdateMeshOutput> updateMesh(String meshName,
       {String clientToken, MeshSpec spec}) async {
-    return UpdateMeshOutput.fromJson({});
+    var response_ = await _client.send('UpdateMesh', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      if (spec != null) 'spec': spec,
+    });
+    return UpdateMeshOutput.fromJson(response_);
   }
 
   /// Updates an existing route for a specified service mesh and virtual router.
@@ -517,7 +639,14 @@ class AppMeshApi {
       @required String routeName,
       @required RouteSpec spec,
       @required String virtualRouterName}) async {
-    return UpdateRouteOutput.fromJson({});
+    var response_ = await _client.send('UpdateRoute', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      'routeName': routeName,
+      'spec': spec,
+      'virtualRouterName': virtualRouterName,
+    });
+    return UpdateRouteOutput.fromJson(response_);
   }
 
   /// Updates an existing virtual node in a specified service mesh.
@@ -537,7 +666,13 @@ class AppMeshApi {
       @required String meshName,
       @required VirtualNodeSpec spec,
       @required String virtualNodeName}) async {
-    return UpdateVirtualNodeOutput.fromJson({});
+    var response_ = await _client.send('UpdateVirtualNode', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      'spec': spec,
+      'virtualNodeName': virtualNodeName,
+    });
+    return UpdateVirtualNodeOutput.fromJson(response_);
   }
 
   /// Updates an existing virtual router in a specified service mesh.
@@ -558,7 +693,13 @@ class AppMeshApi {
       @required String meshName,
       @required VirtualRouterSpec spec,
       @required String virtualRouterName}) async {
-    return UpdateVirtualRouterOutput.fromJson({});
+    var response_ = await _client.send('UpdateVirtualRouter', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      'spec': spec,
+      'virtualRouterName': virtualRouterName,
+    });
+    return UpdateVirtualRouterOutput.fromJson(response_);
   }
 
   /// Updates an existing virtual service in a specified service mesh.
@@ -579,7 +720,13 @@ class AppMeshApi {
       @required String meshName,
       @required VirtualServiceSpec spec,
       @required String virtualServiceName}) async {
-    return UpdateVirtualServiceOutput.fromJson({});
+    var response_ = await _client.send('UpdateVirtualService', {
+      if (clientToken != null) 'clientToken': clientToken,
+      'meshName': meshName,
+      'spec': spec,
+      'virtualServiceName': virtualServiceName,
+    });
+    return UpdateVirtualServiceOutput.fromJson(response_);
   }
 }
 
@@ -591,7 +738,10 @@ class VirtualRouterListener {
     @required this.portMapping,
   });
   static VirtualRouterListener fromJson(Map<String, dynamic> json) =>
-      VirtualRouterListener();
+      VirtualRouterListener(
+        portMapping: PortMapping.fromJson(json['portMapping']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateVirtualNodeOutput {
@@ -602,7 +752,9 @@ class CreateVirtualNodeOutput {
     @required this.virtualNode,
   });
   static CreateVirtualNodeOutput fromJson(Map<String, dynamic> json) =>
-      CreateVirtualNodeOutput();
+      CreateVirtualNodeOutput(
+        virtualNode: VirtualNodeData.fromJson(json['virtualNode']),
+      );
 }
 
 /// An object representing the logging information for a virtual node.
@@ -613,7 +765,12 @@ class Logging {
   Logging({
     this.accessLog,
   });
-  static Logging fromJson(Map<String, dynamic> json) => Logging();
+  static Logging fromJson(Map<String, dynamic> json) => Logging(
+        accessLog: json.containsKey('accessLog')
+            ? AccessLog.fromJson(json['accessLog'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateVirtualRouterOutput {
@@ -624,7 +781,9 @@ class UpdateVirtualRouterOutput {
     @required this.virtualRouter,
   });
   static UpdateVirtualRouterOutput fromJson(Map<String, dynamic> json) =>
-      UpdateVirtualRouterOutput();
+      UpdateVirtualRouterOutput(
+        virtualRouter: VirtualRouterData.fromJson(json['virtualRouter']),
+      );
 }
 
 class DescribeMeshOutput {
@@ -635,7 +794,9 @@ class DescribeMeshOutput {
     @required this.mesh,
   });
   static DescribeMeshOutput fromJson(Map<String, dynamic> json) =>
-      DescribeMeshOutput();
+      DescribeMeshOutput(
+        mesh: MeshData.fromJson(json['mesh']),
+      );
 }
 
 class ListVirtualRoutersOutput {
@@ -653,7 +814,13 @@ class ListVirtualRoutersOutput {
     @required this.virtualRouters,
   });
   static ListVirtualRoutersOutput fromJson(Map<String, dynamic> json) =>
-      ListVirtualRoutersOutput();
+      ListVirtualRoutersOutput(
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        virtualRouters: (json['virtualRouters'] as List)
+            .map((e) => VirtualRouterRef.fromJson(e))
+            .toList(),
+      );
 }
 
 class DeleteRouteOutput {
@@ -664,7 +831,9 @@ class DeleteRouteOutput {
     @required this.route,
   });
   static DeleteRouteOutput fromJson(Map<String, dynamic> json) =>
-      DeleteRouteOutput();
+      DeleteRouteOutput(
+        route: RouteData.fromJson(json['route']),
+      );
 }
 
 /// An object representing metadata for a resource.
@@ -694,7 +863,13 @@ class ResourceMetadata {
     @required this.version,
   });
   static ResourceMetadata fromJson(Map<String, dynamic> json) =>
-      ResourceMetadata();
+      ResourceMetadata(
+        arn: json['arn'] as String,
+        createdAt: DateTime.parse(json['createdAt']),
+        lastUpdatedAt: DateTime.parse(json['lastUpdatedAt']),
+        uid: json['uid'] as String,
+        version: BigInt.from(json['version']),
+      );
 }
 
 class UpdateVirtualNodeOutput {
@@ -705,7 +880,9 @@ class UpdateVirtualNodeOutput {
     @required this.virtualNode,
   });
   static UpdateVirtualNodeOutput fromJson(Map<String, dynamic> json) =>
-      UpdateVirtualNodeOutput();
+      UpdateVirtualNodeOutput(
+        virtualNode: VirtualNodeData.fromJson(json['virtualNode']),
+      );
 }
 
 class ListRoutesOutput {
@@ -724,7 +901,12 @@ class ListRoutesOutput {
     @required this.routes,
   });
   static ListRoutesOutput fromJson(Map<String, dynamic> json) =>
-      ListRoutesOutput();
+      ListRoutesOutput(
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        routes:
+            (json['routes'] as List).map((e) => RouteRef.fromJson(e)).toList(),
+      );
 }
 
 /// An object representing a virtual service backend for a virtual node.
@@ -736,7 +918,10 @@ class VirtualServiceBackend {
     @required this.virtualServiceName,
   });
   static VirtualServiceBackend fromJson(Map<String, dynamic> json) =>
-      VirtualServiceBackend();
+      VirtualServiceBackend(
+        virtualServiceName: json['virtualServiceName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateRouteOutput {
@@ -747,7 +932,9 @@ class UpdateRouteOutput {
     @required this.route,
   });
   static UpdateRouteOutput fromJson(Map<String, dynamic> json) =>
-      UpdateRouteOutput();
+      UpdateRouteOutput(
+        route: RouteData.fromJson(json['route']),
+      );
 }
 
 /// An object representing the traffic distribution requirements for matched
@@ -761,8 +948,12 @@ class HttpRouteAction {
   HttpRouteAction({
     @required this.weightedTargets,
   });
-  static HttpRouteAction fromJson(Map<String, dynamic> json) =>
-      HttpRouteAction();
+  static HttpRouteAction fromJson(Map<String, dynamic> json) => HttpRouteAction(
+        weightedTargets: (json['weightedTargets'] as List)
+            .map((e) => WeightedTarget.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the health check policy for a virtual node's
@@ -805,7 +996,16 @@ class HealthCheckPolicy {
     @required this.unhealthyThreshold,
   });
   static HealthCheckPolicy fromJson(Map<String, dynamic> json) =>
-      HealthCheckPolicy();
+      HealthCheckPolicy(
+        healthyThreshold: json['healthyThreshold'] as int,
+        intervalMillis: BigInt.from(json['intervalMillis']),
+        path: json.containsKey('path') ? json['path'] as String : null,
+        port: json.containsKey('port') ? json['port'] as int : null,
+        protocol: json['protocol'] as String,
+        timeoutMillis: BigInt.from(json['timeoutMillis']),
+        unhealthyThreshold: json['unhealthyThreshold'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a virtual service returned by a list operation.
@@ -825,7 +1025,11 @@ class VirtualServiceRef {
     @required this.virtualServiceName,
   });
   static VirtualServiceRef fromJson(Map<String, dynamic> json) =>
-      VirtualServiceRef();
+      VirtualServiceRef(
+        arn: json['arn'] as String,
+        meshName: json['meshName'] as String,
+        virtualServiceName: json['virtualServiceName'] as String,
+      );
 }
 
 /// An object representing the egress filter rules for a service mesh.
@@ -840,7 +1044,10 @@ class EgressFilter {
   EgressFilter({
     @required this.type,
   });
-  static EgressFilter fromJson(Map<String, dynamic> json) => EgressFilter();
+  static EgressFilter fromJson(Map<String, dynamic> json) => EgressFilter(
+        type: json['type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the current status of the virtual node.
@@ -852,7 +1059,9 @@ class VirtualNodeStatus {
     @required this.status,
   });
   static VirtualNodeStatus fromJson(Map<String, dynamic> json) =>
-      VirtualNodeStatus();
+      VirtualNodeStatus(
+        status: json['status'] as String,
+      );
 }
 
 /// An object representing a virtual router returned by a list operation.
@@ -872,7 +1081,11 @@ class VirtualRouterRef {
     @required this.virtualRouterName,
   });
   static VirtualRouterRef fromJson(Map<String, dynamic> json) =>
-      VirtualRouterRef();
+      VirtualRouterRef(
+        arn: json['arn'] as String,
+        meshName: json['meshName'] as String,
+        virtualRouterName: json['virtualRouterName'] as String,
+      );
 }
 
 /// An object representing a virtual service returned by a describe operation.
@@ -899,7 +1112,13 @@ class VirtualServiceData {
     @required this.virtualServiceName,
   });
   static VirtualServiceData fromJson(Map<String, dynamic> json) =>
-      VirtualServiceData();
+      VirtualServiceData(
+        meshName: json['meshName'] as String,
+        metadata: ResourceMetadata.fromJson(json['metadata']),
+        spec: VirtualServiceSpec.fromJson(json['spec']),
+        status: VirtualServiceStatus.fromJson(json['status']),
+        virtualServiceName: json['virtualServiceName'] as String,
+      );
 }
 
 /// An object representing the HTTP header in the request.
@@ -919,8 +1138,14 @@ class HttpRouteHeader {
     this.match,
     @required this.name,
   });
-  static HttpRouteHeader fromJson(Map<String, dynamic> json) =>
-      HttpRouteHeader();
+  static HttpRouteHeader fromJson(Map<String, dynamic> json) => HttpRouteHeader(
+        invert: json.containsKey('invert') ? json['invert'] as bool : null,
+        match: json.containsKey('match')
+            ? HeaderMatchMethod.fromJson(json['match'])
+            : null,
+        name: json['name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DescribeVirtualServiceOutput {
@@ -931,7 +1156,9 @@ class DescribeVirtualServiceOutput {
     @required this.virtualService,
   });
   static DescribeVirtualServiceOutput fromJson(Map<String, dynamic> json) =>
-      DescribeVirtualServiceOutput();
+      DescribeVirtualServiceOutput(
+        virtualService: VirtualServiceData.fromJson(json['virtualService']),
+      );
 }
 
 /// An object representing a virtual node returned by a list operation.
@@ -950,7 +1177,11 @@ class VirtualNodeRef {
     @required this.meshName,
     @required this.virtualNodeName,
   });
-  static VirtualNodeRef fromJson(Map<String, dynamic> json) => VirtualNodeRef();
+  static VirtualNodeRef fromJson(Map<String, dynamic> json) => VirtualNodeRef(
+        arn: json['arn'] as String,
+        meshName: json['meshName'] as String,
+        virtualNodeName: json['virtualNodeName'] as String,
+      );
 }
 
 class DescribeVirtualNodeOutput {
@@ -961,7 +1192,9 @@ class DescribeVirtualNodeOutput {
     @required this.virtualNode,
   });
   static DescribeVirtualNodeOutput fromJson(Map<String, dynamic> json) =>
-      DescribeVirtualNodeOutput();
+      DescribeVirtualNodeOutput(
+        virtualNode: VirtualNodeData.fromJson(json['virtualNode']),
+      );
 }
 
 class UpdateMeshOutput {
@@ -971,7 +1204,9 @@ class UpdateMeshOutput {
     @required this.mesh,
   });
   static UpdateMeshOutput fromJson(Map<String, dynamic> json) =>
-      UpdateMeshOutput();
+      UpdateMeshOutput(
+        mesh: MeshData.fromJson(json['mesh']),
+      );
 }
 
 class CreateRouteOutput {
@@ -982,7 +1217,9 @@ class CreateRouteOutput {
     @required this.route,
   });
   static CreateRouteOutput fromJson(Map<String, dynamic> json) =>
-      CreateRouteOutput();
+      CreateRouteOutput(
+        route: RouteData.fromJson(json['route']),
+      );
 }
 
 /// An object representing the DNS service discovery information for your
@@ -995,7 +1232,10 @@ class DnsServiceDiscovery {
     @required this.hostname,
   });
   static DnsServiceDiscovery fromJson(Map<String, dynamic> json) =>
-      DnsServiceDiscovery();
+      DnsServiceDiscovery(
+        hostname: json['hostname'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a virtual node returned by a describe operation.
@@ -1022,8 +1262,13 @@ class VirtualNodeData {
     @required this.status,
     @required this.virtualNodeName,
   });
-  static VirtualNodeData fromJson(Map<String, dynamic> json) =>
-      VirtualNodeData();
+  static VirtualNodeData fromJson(Map<String, dynamic> json) => VirtualNodeData(
+        meshName: json['meshName'] as String,
+        metadata: ResourceMetadata.fromJson(json['metadata']),
+        spec: VirtualNodeSpec.fromJson(json['spec']),
+        status: VirtualNodeStatus.fromJson(json['status']),
+        virtualNodeName: json['virtualNodeName'] as String,
+      );
 }
 
 class UntagResourceOutput {
@@ -1050,7 +1295,11 @@ class AwsCloudMapInstanceAttribute {
     @required this.value,
   });
   static AwsCloudMapInstanceAttribute fromJson(Map<String, dynamic> json) =>
-      AwsCloudMapInstanceAttribute();
+      AwsCloudMapInstanceAttribute(
+        key: json['key'] as String,
+        value: json['value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the specification of a virtual service.
@@ -1063,7 +1312,12 @@ class VirtualServiceSpec {
     this.provider,
   });
   static VirtualServiceSpec fromJson(Map<String, dynamic> json) =>
-      VirtualServiceSpec();
+      VirtualServiceSpec(
+        provider: json.containsKey('provider')
+            ? VirtualServiceProvider.fromJson(json['provider'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the backends that a virtual node is expected to send
@@ -1075,7 +1329,12 @@ class Backend {
   Backend({
     this.virtualService,
   });
-  static Backend fromJson(Map<String, dynamic> json) => Backend();
+  static Backend fromJson(Map<String, dynamic> json) => Backend(
+        virtualService: json.containsKey('virtualService')
+            ? VirtualServiceBackend.fromJson(json['virtualService'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The range of values to match on. The first character of the range is
@@ -1092,7 +1351,11 @@ class MatchRange {
     @required this.end,
     @required this.start,
   });
-  static MatchRange fromJson(Map<String, dynamic> json) => MatchRange();
+  static MatchRange fromJson(Map<String, dynamic> json) => MatchRange(
+        end: BigInt.from(json['end']),
+        start: BigInt.from(json['start']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the TCP routing specification for a route.
@@ -1103,7 +1366,10 @@ class TcpRoute {
   TcpRoute({
     @required this.action,
   });
-  static TcpRoute fromJson(Map<String, dynamic> json) => TcpRoute();
+  static TcpRoute fromJson(Map<String, dynamic> json) => TcpRoute(
+        action: TcpRouteAction.fromJson(json['action']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a virtual router returned by a describe operation.
@@ -1131,7 +1397,13 @@ class VirtualRouterData {
     @required this.virtualRouterName,
   });
   static VirtualRouterData fromJson(Map<String, dynamic> json) =>
-      VirtualRouterData();
+      VirtualRouterData(
+        meshName: json['meshName'] as String,
+        metadata: ResourceMetadata.fromJson(json['metadata']),
+        spec: VirtualRouterSpec.fromJson(json['spec']),
+        status: VirtualRouterStatus.fromJson(json['status']),
+        virtualRouterName: json['virtualRouterName'] as String,
+      );
 }
 
 /// An object representing the access logging information for a virtual node.
@@ -1142,7 +1414,12 @@ class AccessLog {
   AccessLog({
     this.file,
   });
-  static AccessLog fromJson(Map<String, dynamic> json) => AccessLog();
+  static AccessLog fromJson(Map<String, dynamic> json) => AccessLog(
+        file: json.containsKey('file')
+            ? FileAccessLog.fromJson(json['file'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DescribeVirtualRouterOutput {
@@ -1153,7 +1430,9 @@ class DescribeVirtualRouterOutput {
     @required this.virtualRouter,
   });
   static DescribeVirtualRouterOutput fromJson(Map<String, dynamic> json) =>
-      DescribeVirtualRouterOutput();
+      DescribeVirtualRouterOutput(
+        virtualRouter: VirtualRouterData.fromJson(json['virtualRouter']),
+      );
 }
 
 class CreateMeshOutput {
@@ -1164,7 +1443,9 @@ class CreateMeshOutput {
     @required this.mesh,
   });
   static CreateMeshOutput fromJson(Map<String, dynamic> json) =>
-      CreateMeshOutput();
+      CreateMeshOutput(
+        mesh: MeshData.fromJson(json['mesh']),
+      );
 }
 
 class CreateVirtualRouterOutput {
@@ -1175,7 +1456,9 @@ class CreateVirtualRouterOutput {
     @required this.virtualRouter,
   });
   static CreateVirtualRouterOutput fromJson(Map<String, dynamic> json) =>
-      CreateVirtualRouterOutput();
+      CreateVirtualRouterOutput(
+        virtualRouter: VirtualRouterData.fromJson(json['virtualRouter']),
+      );
 }
 
 /// An object representing the status of a virtual service.
@@ -1187,7 +1470,9 @@ class VirtualServiceStatus {
     @required this.status,
   });
   static VirtualServiceStatus fromJson(Map<String, dynamic> json) =>
-      VirtualServiceStatus();
+      VirtualServiceStatus(
+        status: json['status'] as String,
+      );
 }
 
 /// An object representing the specification of a virtual router.
@@ -1200,7 +1485,14 @@ class VirtualRouterSpec {
     this.listeners,
   });
   static VirtualRouterSpec fromJson(Map<String, dynamic> json) =>
-      VirtualRouterSpec();
+      VirtualRouterSpec(
+        listeners: json.containsKey('listeners')
+            ? (json['listeners'] as List)
+                .map((e) => VirtualRouterListener.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the specification of a virtual node.
@@ -1226,8 +1518,25 @@ class VirtualNodeSpec {
     this.logging,
     this.serviceDiscovery,
   });
-  static VirtualNodeSpec fromJson(Map<String, dynamic> json) =>
-      VirtualNodeSpec();
+  static VirtualNodeSpec fromJson(Map<String, dynamic> json) => VirtualNodeSpec(
+        backends: json.containsKey('backends')
+            ? (json['backends'] as List)
+                .map((e) => Backend.fromJson(e))
+                .toList()
+            : null,
+        listeners: json.containsKey('listeners')
+            ? (json['listeners'] as List)
+                .map((e) => Listener.fromJson(e))
+                .toList()
+            : null,
+        logging: json.containsKey('logging')
+            ? Logging.fromJson(json['logging'])
+            : null,
+        serviceDiscovery: json.containsKey('serviceDiscovery')
+            ? ServiceDiscovery.fromJson(json['serviceDiscovery'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListMeshesOutput {
@@ -1245,7 +1554,12 @@ class ListMeshesOutput {
     this.nextToken,
   });
   static ListMeshesOutput fromJson(Map<String, dynamic> json) =>
-      ListMeshesOutput();
+      ListMeshesOutput(
+        meshes:
+            (json['meshes'] as List).map((e) => MeshRef.fromJson(e)).toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// An object representing the duration between retry attempts.
@@ -1260,7 +1574,11 @@ class Duration {
     this.unit,
     this.value,
   });
-  static Duration fromJson(Map<String, dynamic> json) => Duration();
+  static Duration fromJson(Map<String, dynamic> json) => Duration(
+        unit: json.containsKey('unit') ? json['unit'] as String : null,
+        value: json.containsKey('value') ? BigInt.from(json['value']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DescribeRouteOutput {
@@ -1271,7 +1589,9 @@ class DescribeRouteOutput {
     @required this.route,
   });
   static DescribeRouteOutput fromJson(Map<String, dynamic> json) =>
-      DescribeRouteOutput();
+      DescribeRouteOutput(
+        route: RouteData.fromJson(json['route']),
+      );
 }
 
 /// An object representing the requirements for a route to match HTTP requests
@@ -1300,7 +1620,17 @@ class HttpRouteMatch {
     @required this.prefix,
     this.scheme,
   });
-  static HttpRouteMatch fromJson(Map<String, dynamic> json) => HttpRouteMatch();
+  static HttpRouteMatch fromJson(Map<String, dynamic> json) => HttpRouteMatch(
+        headers: json.containsKey('headers')
+            ? (json['headers'] as List)
+                .map((e) => HttpRouteHeader.fromJson(e))
+                .toList()
+            : null,
+        method: json.containsKey('method') ? json['method'] as String : null,
+        prefix: json['prefix'] as String,
+        scheme: json.containsKey('scheme') ? json['scheme'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Optional metadata that you apply to a resource to assist with categorization
@@ -1320,7 +1650,11 @@ class TagRef {
     @required this.key,
     this.value,
   });
-  static TagRef fromJson(Map<String, dynamic> json) => TagRef();
+  static TagRef fromJson(Map<String, dynamic> json) => TagRef(
+        key: json['key'] as String,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a service mesh returned by a list operation.
@@ -1335,7 +1669,10 @@ class MeshRef {
     @required this.arn,
     @required this.meshName,
   });
-  static MeshRef fromJson(Map<String, dynamic> json) => MeshRef();
+  static MeshRef fromJson(Map<String, dynamic> json) => MeshRef(
+        arn: json['arn'] as String,
+        meshName: json['meshName'] as String,
+      );
 }
 
 /// An object representing a virtual node or virtual router listener port
@@ -1351,7 +1688,11 @@ class PortMapping {
     @required this.port,
     @required this.protocol,
   });
-  static PortMapping fromJson(Map<String, dynamic> json) => PortMapping();
+  static PortMapping fromJson(Map<String, dynamic> json) => PortMapping(
+        port: json['port'] as int,
+        protocol: json['protocol'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a service mesh returned by a describe operation.
@@ -1374,7 +1715,12 @@ class MeshData {
     @required this.spec,
     @required this.status,
   });
-  static MeshData fromJson(Map<String, dynamic> json) => MeshData();
+  static MeshData fromJson(Map<String, dynamic> json) => MeshData(
+        meshName: json['meshName'] as String,
+        metadata: ResourceMetadata.fromJson(json['metadata']),
+        spec: MeshSpec.fromJson(json['spec']),
+        status: MeshStatus.fromJson(json['status']),
+      );
 }
 
 /// An object representing the status of a virtual router.
@@ -1386,7 +1732,9 @@ class VirtualRouterStatus {
     @required this.status,
   });
   static VirtualRouterStatus fromJson(Map<String, dynamic> json) =>
-      VirtualRouterStatus();
+      VirtualRouterStatus(
+        status: json['status'] as String,
+      );
 }
 
 class ListVirtualServicesOutput {
@@ -1404,7 +1752,13 @@ class ListVirtualServicesOutput {
     @required this.virtualServices,
   });
   static ListVirtualServicesOutput fromJson(Map<String, dynamic> json) =>
-      ListVirtualServicesOutput();
+      ListVirtualServicesOutput(
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        virtualServices: (json['virtualServices'] as List)
+            .map((e) => VirtualServiceRef.fromJson(e))
+            .toList(),
+      );
 }
 
 /// An object representing a target and its relative weight. Traffic is
@@ -1422,7 +1776,11 @@ class WeightedTarget {
     @required this.virtualNode,
     @required this.weight,
   });
-  static WeightedTarget fromJson(Map<String, dynamic> json) => WeightedTarget();
+  static WeightedTarget fromJson(Map<String, dynamic> json) => WeightedTarget(
+        virtualNode: json['virtualNode'] as String,
+        weight: json['weight'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the traffic distribution requirements for matched TCP
@@ -1436,7 +1794,12 @@ class TcpRouteAction {
   TcpRouteAction({
     @required this.weightedTargets,
   });
-  static TcpRouteAction fromJson(Map<String, dynamic> json) => TcpRouteAction();
+  static TcpRouteAction fromJson(Map<String, dynamic> json) => TcpRouteAction(
+        weightedTargets: (json['weightedTargets'] as List)
+            .map((e) => WeightedTarget.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the current status of a route.
@@ -1447,7 +1810,9 @@ class RouteStatus {
   RouteStatus({
     @required this.status,
   });
-  static RouteStatus fromJson(Map<String, dynamic> json) => RouteStatus();
+  static RouteStatus fromJson(Map<String, dynamic> json) => RouteStatus(
+        status: json['status'] as String,
+      );
 }
 
 /// An object representing a route returned by a list operation.
@@ -1470,7 +1835,12 @@ class RouteRef {
     @required this.routeName,
     @required this.virtualRouterName,
   });
-  static RouteRef fromJson(Map<String, dynamic> json) => RouteRef();
+  static RouteRef fromJson(Map<String, dynamic> json) => RouteRef(
+        arn: json['arn'] as String,
+        meshName: json['meshName'] as String,
+        routeName: json['routeName'] as String,
+        virtualRouterName: json['virtualRouterName'] as String,
+      );
 }
 
 /// An object representing a listener for a virtual node.
@@ -1485,7 +1855,13 @@ class Listener {
     this.healthCheck,
     @required this.portMapping,
   });
-  static Listener fromJson(Map<String, dynamic> json) => Listener();
+  static Listener fromJson(Map<String, dynamic> json) => Listener(
+        healthCheck: json.containsKey('healthCheck')
+            ? HealthCheckPolicy.fromJson(json['healthCheck'])
+            : null,
+        portMapping: PortMapping.fromJson(json['portMapping']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a route returned by a describe operation.
@@ -1516,7 +1892,14 @@ class RouteData {
     @required this.status,
     @required this.virtualRouterName,
   });
-  static RouteData fromJson(Map<String, dynamic> json) => RouteData();
+  static RouteData fromJson(Map<String, dynamic> json) => RouteData(
+        meshName: json['meshName'] as String,
+        metadata: ResourceMetadata.fromJson(json['metadata']),
+        routeName: json['routeName'] as String,
+        spec: RouteSpec.fromJson(json['spec']),
+        status: RouteStatus.fromJson(json['status']),
+        virtualRouterName: json['virtualRouterName'] as String,
+      );
 }
 
 class DeleteVirtualServiceOutput {
@@ -1527,7 +1910,9 @@ class DeleteVirtualServiceOutput {
     @required this.virtualService,
   });
   static DeleteVirtualServiceOutput fromJson(Map<String, dynamic> json) =>
-      DeleteVirtualServiceOutput();
+      DeleteVirtualServiceOutput(
+        virtualService: VirtualServiceData.fromJson(json['virtualService']),
+      );
 }
 
 /// An object representing a virtual node service provider.
@@ -1539,7 +1924,10 @@ class VirtualNodeServiceProvider {
     @required this.virtualNodeName,
   });
   static VirtualNodeServiceProvider fromJson(Map<String, dynamic> json) =>
-      VirtualNodeServiceProvider();
+      VirtualNodeServiceProvider(
+        virtualNodeName: json['virtualNodeName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that represents a retry policy.
@@ -1572,8 +1960,17 @@ class HttpRetryPolicy {
     @required this.perRetryTimeout,
     this.tcpRetryEvents,
   });
-  static HttpRetryPolicy fromJson(Map<String, dynamic> json) =>
-      HttpRetryPolicy();
+  static HttpRetryPolicy fromJson(Map<String, dynamic> json) => HttpRetryPolicy(
+        httpRetryEvents: json.containsKey('httpRetryEvents')
+            ? (json['httpRetryEvents'] as List).map((e) => e as String).toList()
+            : null,
+        maxRetries: BigInt.from(json['maxRetries']),
+        perRetryTimeout: Duration.fromJson(json['perRetryTimeout']),
+        tcpRetryEvents: json.containsKey('tcpRetryEvents')
+            ? (json['tcpRetryEvents'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceOutput {
@@ -1612,7 +2009,16 @@ class HeaderMatchMethod {
     this.suffix,
   });
   static HeaderMatchMethod fromJson(Map<String, dynamic> json) =>
-      HeaderMatchMethod();
+      HeaderMatchMethod(
+        exact: json.containsKey('exact') ? json['exact'] as String : null,
+        prefix: json.containsKey('prefix') ? json['prefix'] as String : null,
+        range: json.containsKey('range')
+            ? MatchRange.fromJson(json['range'])
+            : null,
+        regex: json.containsKey('regex') ? json['regex'] as String : null,
+        suffix: json.containsKey('suffix') ? json['suffix'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteMeshOutput {
@@ -1623,7 +2029,9 @@ class DeleteMeshOutput {
     @required this.mesh,
   });
   static DeleteMeshOutput fromJson(Map<String, dynamic> json) =>
-      DeleteMeshOutput();
+      DeleteMeshOutput(
+        mesh: MeshData.fromJson(json['mesh']),
+      );
 }
 
 /// An object representing the provider for a virtual service.
@@ -1639,7 +2047,15 @@ class VirtualServiceProvider {
     this.virtualRouter,
   });
   static VirtualServiceProvider fromJson(Map<String, dynamic> json) =>
-      VirtualServiceProvider();
+      VirtualServiceProvider(
+        virtualNode: json.containsKey('virtualNode')
+            ? VirtualNodeServiceProvider.fromJson(json['virtualNode'])
+            : null,
+        virtualRouter: json.containsKey('virtualRouter')
+            ? VirtualRouterServiceProvider.fromJson(json['virtualRouter'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the AWS Cloud Map service discovery information for
@@ -1663,7 +2079,16 @@ class AwsCloudMapServiceDiscovery {
     @required this.serviceName,
   });
   static AwsCloudMapServiceDiscovery fromJson(Map<String, dynamic> json) =>
-      AwsCloudMapServiceDiscovery();
+      AwsCloudMapServiceDiscovery(
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as List)
+                .map((e) => AwsCloudMapInstanceAttribute.fromJson(e))
+                .toList()
+            : null,
+        namespaceName: json['namespaceName'] as String,
+        serviceName: json['serviceName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateVirtualServiceOutput {
@@ -1674,7 +2099,9 @@ class UpdateVirtualServiceOutput {
     @required this.virtualService,
   });
   static UpdateVirtualServiceOutput fromJson(Map<String, dynamic> json) =>
-      UpdateVirtualServiceOutput();
+      UpdateVirtualServiceOutput(
+        virtualService: VirtualServiceData.fromJson(json['virtualService']),
+      );
 }
 
 /// An object representing the status of a service mesh.
@@ -1685,7 +2112,9 @@ class MeshStatus {
   MeshStatus({
     this.status,
   });
-  static MeshStatus fromJson(Map<String, dynamic> json) => MeshStatus();
+  static MeshStatus fromJson(Map<String, dynamic> json) => MeshStatus(
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// An object representing the specification of a route.
@@ -1705,7 +2134,16 @@ class RouteSpec {
     this.priority,
     this.tcpRoute,
   });
-  static RouteSpec fromJson(Map<String, dynamic> json) => RouteSpec();
+  static RouteSpec fromJson(Map<String, dynamic> json) => RouteSpec(
+        httpRoute: json.containsKey('httpRoute')
+            ? HttpRoute.fromJson(json['httpRoute'])
+            : null,
+        priority: json.containsKey('priority') ? json['priority'] as int : null,
+        tcpRoute: json.containsKey('tcpRoute')
+            ? TcpRoute.fromJson(json['tcpRoute'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the HTTP routing specification for a route.
@@ -1724,7 +2162,14 @@ class HttpRoute {
     @required this.match,
     this.retryPolicy,
   });
-  static HttpRoute fromJson(Map<String, dynamic> json) => HttpRoute();
+  static HttpRoute fromJson(Map<String, dynamic> json) => HttpRoute(
+        action: HttpRouteAction.fromJson(json['action']),
+        match: HttpRouteMatch.fromJson(json['match']),
+        retryPolicy: json.containsKey('retryPolicy')
+            ? HttpRetryPolicy.fromJson(json['retryPolicy'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the specification of a service mesh.
@@ -1735,7 +2180,12 @@ class MeshSpec {
   MeshSpec({
     this.egressFilter,
   });
-  static MeshSpec fromJson(Map<String, dynamic> json) => MeshSpec();
+  static MeshSpec fromJson(Map<String, dynamic> json) => MeshSpec(
+        egressFilter: json.containsKey('egressFilter')
+            ? EgressFilter.fromJson(json['egressFilter'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateVirtualServiceOutput {
@@ -1746,7 +2196,9 @@ class CreateVirtualServiceOutput {
     @required this.virtualService,
   });
   static CreateVirtualServiceOutput fromJson(Map<String, dynamic> json) =>
-      CreateVirtualServiceOutput();
+      CreateVirtualServiceOutput(
+        virtualService: VirtualServiceData.fromJson(json['virtualService']),
+      );
 }
 
 /// An object representing an access log file.
@@ -1766,7 +2218,10 @@ class FileAccessLog {
   FileAccessLog({
     @required this.path,
   });
-  static FileAccessLog fromJson(Map<String, dynamic> json) => FileAccessLog();
+  static FileAccessLog fromJson(Map<String, dynamic> json) => FileAccessLog(
+        path: json['path'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a virtual node service provider.
@@ -1778,7 +2233,10 @@ class VirtualRouterServiceProvider {
     @required this.virtualRouterName,
   });
   static VirtualRouterServiceProvider fromJson(Map<String, dynamic> json) =>
-      VirtualRouterServiceProvider();
+      VirtualRouterServiceProvider(
+        virtualRouterName: json['virtualRouterName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListTagsForResourceOutput {
@@ -1796,7 +2254,11 @@ class ListTagsForResourceOutput {
     @required this.tags,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        tags: (json['tags'] as List).map((e) => TagRef.fromJson(e)).toList(),
+      );
 }
 
 /// An object representing the service discovery information for a virtual node.
@@ -1812,7 +2274,15 @@ class ServiceDiscovery {
     this.dns,
   });
   static ServiceDiscovery fromJson(Map<String, dynamic> json) =>
-      ServiceDiscovery();
+      ServiceDiscovery(
+        awsCloudMap: json.containsKey('awsCloudMap')
+            ? AwsCloudMapServiceDiscovery.fromJson(json['awsCloudMap'])
+            : null,
+        dns: json.containsKey('dns')
+            ? DnsServiceDiscovery.fromJson(json['dns'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListVirtualNodesOutput {
@@ -1830,7 +2300,13 @@ class ListVirtualNodesOutput {
     @required this.virtualNodes,
   });
   static ListVirtualNodesOutput fromJson(Map<String, dynamic> json) =>
-      ListVirtualNodesOutput();
+      ListVirtualNodesOutput(
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        virtualNodes: (json['virtualNodes'] as List)
+            .map((e) => VirtualNodeRef.fromJson(e))
+            .toList(),
+      );
 }
 
 class DeleteVirtualRouterOutput {
@@ -1841,7 +2317,9 @@ class DeleteVirtualRouterOutput {
     @required this.virtualRouter,
   });
   static DeleteVirtualRouterOutput fromJson(Map<String, dynamic> json) =>
-      DeleteVirtualRouterOutput();
+      DeleteVirtualRouterOutput(
+        virtualRouter: VirtualRouterData.fromJson(json['virtualRouter']),
+      );
 }
 
 class DeleteVirtualNodeOutput {
@@ -1852,5 +2330,7 @@ class DeleteVirtualNodeOutput {
     @required this.virtualNode,
   });
   static DeleteVirtualNodeOutput fromJson(Map<String, dynamic> json) =>
-      DeleteVirtualNodeOutput();
+      DeleteVirtualNodeOutput(
+        virtualNode: VirtualNodeData.fromJson(json['virtualNode']),
+      );
 }

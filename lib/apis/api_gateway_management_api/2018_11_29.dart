@@ -8,12 +8,24 @@ import 'dart:typed_data';
 /// will be the endpoint corresponding to your API's custom domain and base
 /// path, if applicable.
 class ApiGatewayManagementApiApi {
+  final _client;
+  ApiGatewayManagementApiApi(client)
+      : _client = client.configured('ApiGatewayManagementApi',
+            serializer: 'rest-json');
+
   /// Delete the connection with the provided id.
-  Future<void> deleteConnection(String connectionId) async {}
+  Future<void> deleteConnection(String connectionId) async {
+    await _client.send('DeleteConnection', {
+      'ConnectionId': connectionId,
+    });
+  }
 
   /// Get information about the connection with the provided id.
   Future<GetConnectionResponse> getConnection(String connectionId) async {
-    return GetConnectionResponse.fromJson({});
+    var response_ = await _client.send('GetConnection', {
+      'ConnectionId': connectionId,
+    });
+    return GetConnectionResponse.fromJson(response_);
   }
 
   /// Sends the provided data to the specified connection.
@@ -23,7 +35,12 @@ class ApiGatewayManagementApiApi {
   /// [connectionId]: The identifier of the connection that a specific client is
   /// using.
   Future<void> postToConnection(
-      {@required Uint8List data, @required String connectionId}) async {}
+      {@required Uint8List data, @required String connectionId}) async {
+    await _client.send('PostToConnection', {
+      'Data': data,
+      'ConnectionId': connectionId,
+    });
+  }
 }
 
 class GetConnectionResponse {
@@ -41,7 +58,17 @@ class GetConnectionResponse {
     this.lastActiveAt,
   });
   static GetConnectionResponse fromJson(Map<String, dynamic> json) =>
-      GetConnectionResponse();
+      GetConnectionResponse(
+        connectedAt: json.containsKey('ConnectedAt')
+            ? DateTime.parse(json['ConnectedAt'])
+            : null,
+        identity: json.containsKey('Identity')
+            ? Identity.fromJson(json['Identity'])
+            : null,
+        lastActiveAt: json.containsKey('LastActiveAt')
+            ? DateTime.parse(json['LastActiveAt'])
+            : null,
+      );
 }
 
 class Identity {
@@ -56,5 +83,8 @@ class Identity {
     @required this.sourceIp,
     @required this.userAgent,
   });
-  static Identity fromJson(Map<String, dynamic> json) => Identity();
+  static Identity fromJson(Map<String, dynamic> json) => Identity(
+        sourceIp: json['SourceIp'] as String,
+        userAgent: json['UserAgent'] as String,
+      );
 }

@@ -29,6 +29,11 @@ import 'package:meta/meta.dart';
 /// they complete at most one time. If you repeat an operation, it succeeds with
 /// a 200 OK response code.
 class ElasticLoadBalancingApi {
+  final _client;
+  ElasticLoadBalancingApi(client)
+      : _client =
+            client.configured('Elastic Load Balancing', serializer: 'query');
+
   /// Adds the specified tags to the specified load balancer. Each load balancer
   /// can have a maximum of 10 tags.
   ///
@@ -47,7 +52,11 @@ class ElasticLoadBalancingApi {
   Future<AddTagsOutput> addTags(
       {@required List<String> loadBalancerNames,
       @required List<Tag> tags}) async {
-    return AddTagsOutput.fromJson({});
+    var response_ = await _client.send('AddTags', {
+      'LoadBalancerNames': loadBalancerNames,
+      'Tags': tags,
+    });
+    return AddTagsOutput.fromJson(response_);
   }
 
   /// Associates one or more security groups with your load balancer in a
@@ -67,7 +76,11 @@ class ElasticLoadBalancingApi {
       applySecurityGroupsToLoadBalancer(
           {@required String loadBalancerName,
           @required List<String> securityGroups}) async {
-    return ApplySecurityGroupsToLoadBalancerOutput.fromJson({});
+    var response_ = await _client.send('ApplySecurityGroupsToLoadBalancer', {
+      'LoadBalancerName': loadBalancerName,
+      'SecurityGroups': securityGroups,
+    });
+    return ApplySecurityGroupsToLoadBalancerOutput.fromJson(response_);
   }
 
   /// Adds one or more subnets to the set of configured subnets for the
@@ -85,7 +98,11 @@ class ElasticLoadBalancingApi {
   Future<AttachLoadBalancerToSubnetsOutput> attachLoadBalancerToSubnets(
       {@required String loadBalancerName,
       @required List<String> subnets}) async {
-    return AttachLoadBalancerToSubnetsOutput.fromJson({});
+    var response_ = await _client.send('AttachLoadBalancerToSubnets', {
+      'LoadBalancerName': loadBalancerName,
+      'Subnets': subnets,
+    });
+    return AttachLoadBalancerToSubnetsOutput.fromJson(response_);
   }
 
   /// Specifies the health check settings to use when evaluating the health
@@ -101,7 +118,11 @@ class ElasticLoadBalancingApi {
   Future<ConfigureHealthCheckOutput> configureHealthCheck(
       {@required String loadBalancerName,
       @required HealthCheck healthCheck}) async {
-    return ConfigureHealthCheckOutput.fromJson({});
+    var response_ = await _client.send('ConfigureHealthCheck', {
+      'LoadBalancerName': loadBalancerName,
+      'HealthCheck': healthCheck,
+    });
+    return ConfigureHealthCheckOutput.fromJson(response_);
   }
 
   /// Generates a stickiness policy with sticky session lifetimes that follow
@@ -133,7 +154,12 @@ class ElasticLoadBalancingApi {
       {@required String loadBalancerName,
       @required String policyName,
       @required String cookieName}) async {
-    return CreateAppCookieStickinessPolicyOutput.fromJson({});
+    var response_ = await _client.send('CreateAppCookieStickinessPolicy', {
+      'LoadBalancerName': loadBalancerName,
+      'PolicyName': policyName,
+      'CookieName': cookieName,
+    });
+    return CreateAppCookieStickinessPolicyOutput.fromJson(response_);
   }
 
   /// Generates a stickiness policy with sticky session lifetimes controlled by
@@ -171,7 +197,13 @@ class ElasticLoadBalancingApi {
       {@required String loadBalancerName,
       @required String policyName,
       BigInt cookieExpirationPeriod}) async {
-    return CreateLBCookieStickinessPolicyOutput.fromJson({});
+    var response_ = await _client.send('CreateLBCookieStickinessPolicy', {
+      'LoadBalancerName': loadBalancerName,
+      'PolicyName': policyName,
+      if (cookieExpirationPeriod != null)
+        'CookieExpirationPeriod': cookieExpirationPeriod,
+    });
+    return CreateLBCookieStickinessPolicyOutput.fromJson(response_);
   }
 
   /// Creates a Classic Load Balancer.
@@ -243,7 +275,16 @@ class ElasticLoadBalancingApi {
       List<String> securityGroups,
       String scheme,
       List<Tag> tags}) async {
-    return CreateAccessPointOutput.fromJson({});
+    var response_ = await _client.send('CreateLoadBalancer', {
+      'LoadBalancerName': loadBalancerName,
+      'Listeners': listeners,
+      if (availabilityZones != null) 'AvailabilityZones': availabilityZones,
+      if (subnets != null) 'Subnets': subnets,
+      if (securityGroups != null) 'SecurityGroups': securityGroups,
+      if (scheme != null) 'Scheme': scheme,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateAccessPointOutput.fromJson(response_);
   }
 
   /// Creates one or more listeners for the specified load balancer. If a
@@ -261,7 +302,11 @@ class ElasticLoadBalancingApi {
   Future<CreateLoadBalancerListenerOutput> createLoadBalancerListeners(
       {@required String loadBalancerName,
       @required List<Listener> listeners}) async {
-    return CreateLoadBalancerListenerOutput.fromJson({});
+    var response_ = await _client.send('CreateLoadBalancerListeners', {
+      'LoadBalancerName': loadBalancerName,
+      'Listeners': listeners,
+    });
+    return CreateLoadBalancerListenerOutput.fromJson(response_);
   }
 
   /// Creates a policy with the specified attributes for the specified load
@@ -285,7 +330,13 @@ class ElasticLoadBalancingApi {
       @required String policyName,
       @required String policyTypeName,
       List<PolicyAttribute> policyAttributes}) async {
-    return CreateLoadBalancerPolicyOutput.fromJson({});
+    var response_ = await _client.send('CreateLoadBalancerPolicy', {
+      'LoadBalancerName': loadBalancerName,
+      'PolicyName': policyName,
+      'PolicyTypeName': policyTypeName,
+      if (policyAttributes != null) 'PolicyAttributes': policyAttributes,
+    });
+    return CreateLoadBalancerPolicyOutput.fromJson(response_);
   }
 
   /// Deletes the specified load balancer.
@@ -302,7 +353,10 @@ class ElasticLoadBalancingApi {
   /// [loadBalancerName]: The name of the load balancer.
   Future<DeleteAccessPointOutput> deleteLoadBalancer(
       String loadBalancerName) async {
-    return DeleteAccessPointOutput.fromJson({});
+    var response_ = await _client.send('DeleteLoadBalancer', {
+      'LoadBalancerName': loadBalancerName,
+    });
+    return DeleteAccessPointOutput.fromJson(response_);
   }
 
   /// Deletes the specified listeners from the specified load balancer.
@@ -313,7 +367,11 @@ class ElasticLoadBalancingApi {
   Future<DeleteLoadBalancerListenerOutput> deleteLoadBalancerListeners(
       {@required String loadBalancerName,
       @required List<int> loadBalancerPorts}) async {
-    return DeleteLoadBalancerListenerOutput.fromJson({});
+    var response_ = await _client.send('DeleteLoadBalancerListeners', {
+      'LoadBalancerName': loadBalancerName,
+      'LoadBalancerPorts': loadBalancerPorts,
+    });
+    return DeleteLoadBalancerListenerOutput.fromJson(response_);
   }
 
   /// Deletes the specified policy from the specified load balancer. This policy
@@ -324,7 +382,11 @@ class ElasticLoadBalancingApi {
   /// [policyName]: The name of the policy.
   Future<DeleteLoadBalancerPolicyOutput> deleteLoadBalancerPolicy(
       {@required String loadBalancerName, @required String policyName}) async {
-    return DeleteLoadBalancerPolicyOutput.fromJson({});
+    var response_ = await _client.send('DeleteLoadBalancerPolicy', {
+      'LoadBalancerName': loadBalancerName,
+      'PolicyName': policyName,
+    });
+    return DeleteLoadBalancerPolicyOutput.fromJson(response_);
   }
 
   /// Deregisters the specified instances from the specified load balancer.
@@ -344,7 +406,11 @@ class ElasticLoadBalancingApi {
   Future<DeregisterEndPointsOutput> deregisterInstancesFromLoadBalancer(
       {@required String loadBalancerName,
       @required List<Instance> instances}) async {
-    return DeregisterEndPointsOutput.fromJson({});
+    var response_ = await _client.send('DeregisterInstancesFromLoadBalancer', {
+      'LoadBalancerName': loadBalancerName,
+      'Instances': instances,
+    });
+    return DeregisterEndPointsOutput.fromJson(response_);
   }
 
   /// Describes the current Elastic Load Balancing resource limits for your AWS
@@ -360,7 +426,11 @@ class ElasticLoadBalancingApi {
   /// [pageSize]: The maximum number of results to return with this call.
   Future<DescribeAccountLimitsOutput> describeAccountLimits(
       {String marker, int pageSize}) async {
-    return DescribeAccountLimitsOutput.fromJson({});
+    var response_ = await _client.send('DescribeAccountLimits', {
+      if (marker != null) 'Marker': marker,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeAccountLimitsOutput.fromJson(response_);
   }
 
   /// Describes the state of the specified instances with respect to the
@@ -376,7 +446,11 @@ class ElasticLoadBalancingApi {
   Future<DescribeEndPointStateOutput> describeInstanceHealth(
       String loadBalancerName,
       {List<Instance> instances}) async {
-    return DescribeEndPointStateOutput.fromJson({});
+    var response_ = await _client.send('DescribeInstanceHealth', {
+      'LoadBalancerName': loadBalancerName,
+      if (instances != null) 'Instances': instances,
+    });
+    return DescribeEndPointStateOutput.fromJson(response_);
   }
 
   /// Describes the attributes for the specified load balancer.
@@ -384,7 +458,10 @@ class ElasticLoadBalancingApi {
   /// [loadBalancerName]: The name of the load balancer.
   Future<DescribeLoadBalancerAttributesOutput> describeLoadBalancerAttributes(
       String loadBalancerName) async {
-    return DescribeLoadBalancerAttributesOutput.fromJson({});
+    var response_ = await _client.send('DescribeLoadBalancerAttributes', {
+      'LoadBalancerName': loadBalancerName,
+    });
+    return DescribeLoadBalancerAttributesOutput.fromJson(response_);
   }
 
   /// Describes the specified policies.
@@ -402,7 +479,11 @@ class ElasticLoadBalancingApi {
   /// [policyNames]: The names of the policies.
   Future<DescribeLoadBalancerPoliciesOutput> describeLoadBalancerPolicies(
       {String loadBalancerName, List<String> policyNames}) async {
-    return DescribeLoadBalancerPoliciesOutput.fromJson({});
+    var response_ = await _client.send('DescribeLoadBalancerPolicies', {
+      if (loadBalancerName != null) 'LoadBalancerName': loadBalancerName,
+      if (policyNames != null) 'PolicyNames': policyNames,
+    });
+    return DescribeLoadBalancerPoliciesOutput.fromJson(response_);
   }
 
   /// Describes the specified load balancer policy types or all load balancer
@@ -422,7 +503,10 @@ class ElasticLoadBalancingApi {
   /// specified, describes all policy types defined by Elastic Load Balancing.
   Future<DescribeLoadBalancerPolicyTypesOutput> describeLoadBalancerPolicyTypes(
       {List<String> policyTypeNames}) async {
-    return DescribeLoadBalancerPolicyTypesOutput.fromJson({});
+    var response_ = await _client.send('DescribeLoadBalancerPolicyTypes', {
+      if (policyTypeNames != null) 'PolicyTypeNames': policyTypeNames,
+    });
+    return DescribeLoadBalancerPolicyTypesOutput.fromJson(response_);
   }
 
   /// Describes the specified the load balancers. If no load balancers are
@@ -437,7 +521,12 @@ class ElasticLoadBalancingApi {
   /// number from 1 to 400). The default is 400.
   Future<DescribeAccessPointsOutput> describeLoadBalancers(
       {List<String> loadBalancerNames, String marker, int pageSize}) async {
-    return DescribeAccessPointsOutput.fromJson({});
+    var response_ = await _client.send('DescribeLoadBalancers', {
+      if (loadBalancerNames != null) 'LoadBalancerNames': loadBalancerNames,
+      if (marker != null) 'Marker': marker,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return DescribeAccessPointsOutput.fromJson(response_);
   }
 
   /// Describes the tags associated with the specified load balancers.
@@ -445,7 +534,10 @@ class ElasticLoadBalancingApi {
   /// [loadBalancerNames]: The names of the load balancers.
   Future<DescribeTagsOutput> describeTags(
       List<String> loadBalancerNames) async {
-    return DescribeTagsOutput.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      'LoadBalancerNames': loadBalancerNames,
+    });
+    return DescribeTagsOutput.fromJson(response_);
   }
 
   /// Removes the specified subnets from the set of configured subnets for the
@@ -461,7 +553,11 @@ class ElasticLoadBalancingApi {
   Future<DetachLoadBalancerFromSubnetsOutput> detachLoadBalancerFromSubnets(
       {@required String loadBalancerName,
       @required List<String> subnets}) async {
-    return DetachLoadBalancerFromSubnetsOutput.fromJson({});
+    var response_ = await _client.send('DetachLoadBalancerFromSubnets', {
+      'LoadBalancerName': loadBalancerName,
+      'Subnets': subnets,
+    });
+    return DetachLoadBalancerFromSubnetsOutput.fromJson(response_);
   }
 
   /// Removes the specified Availability Zones from the set of Availability
@@ -487,7 +583,12 @@ class ElasticLoadBalancingApi {
   Future<RemoveAvailabilityZonesOutput> disableAvailabilityZonesForLoadBalancer(
       {@required String loadBalancerName,
       @required List<String> availabilityZones}) async {
-    return RemoveAvailabilityZonesOutput.fromJson({});
+    var response_ =
+        await _client.send('DisableAvailabilityZonesForLoadBalancer', {
+      'LoadBalancerName': loadBalancerName,
+      'AvailabilityZones': availabilityZones,
+    });
+    return RemoveAvailabilityZonesOutput.fromJson(response_);
   }
 
   /// Adds the specified Availability Zones to the set of Availability Zones for
@@ -507,7 +608,12 @@ class ElasticLoadBalancingApi {
   Future<AddAvailabilityZonesOutput> enableAvailabilityZonesForLoadBalancer(
       {@required String loadBalancerName,
       @required List<String> availabilityZones}) async {
-    return AddAvailabilityZonesOutput.fromJson({});
+    var response_ =
+        await _client.send('EnableAvailabilityZonesForLoadBalancer', {
+      'LoadBalancerName': loadBalancerName,
+      'AvailabilityZones': availabilityZones,
+    });
+    return AddAvailabilityZonesOutput.fromJson(response_);
   }
 
   /// Modifies the attributes of the specified load balancer.
@@ -539,7 +645,11 @@ class ElasticLoadBalancingApi {
   Future<ModifyLoadBalancerAttributesOutput> modifyLoadBalancerAttributes(
       {@required String loadBalancerName,
       @required LoadBalancerAttributes loadBalancerAttributes}) async {
-    return ModifyLoadBalancerAttributesOutput.fromJson({});
+    var response_ = await _client.send('ModifyLoadBalancerAttributes', {
+      'LoadBalancerName': loadBalancerName,
+      'LoadBalancerAttributes': loadBalancerAttributes,
+    });
+    return ModifyLoadBalancerAttributesOutput.fromJson(response_);
   }
 
   /// Adds the specified instances to the specified load balancer.
@@ -575,7 +685,11 @@ class ElasticLoadBalancingApi {
   Future<RegisterEndPointsOutput> registerInstancesWithLoadBalancer(
       {@required String loadBalancerName,
       @required List<Instance> instances}) async {
-    return RegisterEndPointsOutput.fromJson({});
+    var response_ = await _client.send('RegisterInstancesWithLoadBalancer', {
+      'LoadBalancerName': loadBalancerName,
+      'Instances': instances,
+    });
+    return RegisterEndPointsOutput.fromJson(response_);
   }
 
   /// Removes one or more tags from the specified load balancer.
@@ -587,7 +701,11 @@ class ElasticLoadBalancingApi {
   Future<RemoveTagsOutput> removeTags(
       {@required List<String> loadBalancerNames,
       @required List<TagKeyOnly> tags}) async {
-    return RemoveTagsOutput.fromJson({});
+    var response_ = await _client.send('RemoveTags', {
+      'LoadBalancerNames': loadBalancerNames,
+      'Tags': tags,
+    });
+    return RemoveTagsOutput.fromJson(response_);
   }
 
   /// Sets the certificate that terminates the specified listener's SSL
@@ -608,7 +726,13 @@ class ElasticLoadBalancingApi {
           {@required String loadBalancerName,
           @required int loadBalancerPort,
           @required String sslCertificateId}) async {
-    return SetLoadBalancerListenerSslCertificateOutput.fromJson({});
+    var response_ =
+        await _client.send('SetLoadBalancerListenerSSLCertificate', {
+      'LoadBalancerName': loadBalancerName,
+      'LoadBalancerPort': loadBalancerPort,
+      'SSLCertificateId': sslCertificateId,
+    });
+    return SetLoadBalancerListenerSslCertificateOutput.fromJson(response_);
   }
 
   /// Replaces the set of policies associated with the specified port on which
@@ -642,7 +766,13 @@ class ElasticLoadBalancingApi {
           {@required String loadBalancerName,
           @required int instancePort,
           @required List<String> policyNames}) async {
-    return SetLoadBalancerPoliciesForBackendServerOutput.fromJson({});
+    var response_ =
+        await _client.send('SetLoadBalancerPoliciesForBackendServer', {
+      'LoadBalancerName': loadBalancerName,
+      'InstancePort': instancePort,
+      'PolicyNames': policyNames,
+    });
+    return SetLoadBalancerPoliciesForBackendServerOutput.fromJson(response_);
   }
 
   /// Replaces the current set of policies for the specified load balancer port
@@ -670,7 +800,12 @@ class ElasticLoadBalancingApi {
           {@required String loadBalancerName,
           @required int loadBalancerPort,
           @required List<String> policyNames}) async {
-    return SetLoadBalancerPoliciesOfListenerOutput.fromJson({});
+    var response_ = await _client.send('SetLoadBalancerPoliciesOfListener', {
+      'LoadBalancerName': loadBalancerName,
+      'LoadBalancerPort': loadBalancerPort,
+      'PolicyNames': policyNames,
+    });
+    return SetLoadBalancerPoliciesOfListenerOutput.fromJson(response_);
   }
 }
 
@@ -699,7 +834,19 @@ class AccessLog {
     this.emitInterval,
     this.s3BucketPrefix,
   });
-  static AccessLog fromJson(Map<String, dynamic> json) => AccessLog();
+  static AccessLog fromJson(Map<String, dynamic> json) => AccessLog(
+        enabled: json['Enabled'] as bool,
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+        emitInterval: json.containsKey('EmitInterval')
+            ? json['EmitInterval'] as int
+            : null,
+        s3BucketPrefix: json.containsKey('S3BucketPrefix')
+            ? json['S3BucketPrefix'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of EnableAvailabilityZonesForLoadBalancer.
@@ -711,7 +858,13 @@ class AddAvailabilityZonesOutput {
     this.availabilityZones,
   });
   static AddAvailabilityZonesOutput fromJson(Map<String, dynamic> json) =>
-      AddAvailabilityZonesOutput();
+      AddAvailabilityZonesOutput(
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of AddTags.
@@ -733,7 +886,11 @@ class AdditionalAttribute {
     this.value,
   });
   static AdditionalAttribute fromJson(Map<String, dynamic> json) =>
-      AdditionalAttribute();
+      AdditionalAttribute(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a policy for application-controlled session stickiness.
@@ -750,7 +907,14 @@ class AppCookieStickinessPolicy {
     this.cookieName,
   });
   static AppCookieStickinessPolicy fromJson(Map<String, dynamic> json) =>
-      AppCookieStickinessPolicy();
+      AppCookieStickinessPolicy(
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        cookieName: json.containsKey('CookieName')
+            ? json['CookieName'] as String
+            : null,
+      );
 }
 
 /// Contains the output of ApplySecurityGroupsToLoadBalancer.
@@ -763,7 +927,11 @@ class ApplySecurityGroupsToLoadBalancerOutput {
   });
   static ApplySecurityGroupsToLoadBalancerOutput fromJson(
           Map<String, dynamic> json) =>
-      ApplySecurityGroupsToLoadBalancerOutput();
+      ApplySecurityGroupsToLoadBalancerOutput(
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Contains the output of AttachLoadBalancerToSubnets.
@@ -776,7 +944,11 @@ class AttachLoadBalancerToSubnetsOutput {
   });
   static AttachLoadBalancerToSubnetsOutput fromJson(
           Map<String, dynamic> json) =>
-      AttachLoadBalancerToSubnetsOutput();
+      AttachLoadBalancerToSubnetsOutput(
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Information about the configuration of an EC2 instance.
@@ -792,7 +964,14 @@ class BackendServerDescription {
     this.policyNames,
   });
   static BackendServerDescription fromJson(Map<String, dynamic> json) =>
-      BackendServerDescription();
+      BackendServerDescription(
+        instancePort: json.containsKey('InstancePort')
+            ? json['InstancePort'] as int
+            : null,
+        policyNames: json.containsKey('PolicyNames')
+            ? (json['PolicyNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Contains the output of ConfigureHealthCheck.
@@ -804,7 +983,11 @@ class ConfigureHealthCheckOutput {
     this.healthCheck,
   });
   static ConfigureHealthCheckOutput fromJson(Map<String, dynamic> json) =>
-      ConfigureHealthCheckOutput();
+      ConfigureHealthCheckOutput(
+        healthCheck: json.containsKey('HealthCheck')
+            ? HealthCheck.fromJson(json['HealthCheck'])
+            : null,
+      );
 }
 
 /// Information about the `ConnectionDraining` attribute.
@@ -821,7 +1004,11 @@ class ConnectionDraining {
     this.timeout,
   });
   static ConnectionDraining fromJson(Map<String, dynamic> json) =>
-      ConnectionDraining();
+      ConnectionDraining(
+        enabled: json['Enabled'] as bool,
+        timeout: json.containsKey('Timeout') ? json['Timeout'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the `ConnectionSettings` attribute.
@@ -835,7 +1022,10 @@ class ConnectionSettings {
     @required this.idleTimeout,
   });
   static ConnectionSettings fromJson(Map<String, dynamic> json) =>
-      ConnectionSettings();
+      ConnectionSettings(
+        idleTimeout: json['IdleTimeout'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output for CreateLoadBalancer.
@@ -847,7 +1037,9 @@ class CreateAccessPointOutput {
     this.dnsName,
   });
   static CreateAccessPointOutput fromJson(Map<String, dynamic> json) =>
-      CreateAccessPointOutput();
+      CreateAccessPointOutput(
+        dnsName: json.containsKey('DNSName') ? json['DNSName'] as String : null,
+      );
 }
 
 /// Contains the output for CreateAppCookieStickinessPolicy.
@@ -890,7 +1082,10 @@ class CrossZoneLoadBalancing {
     @required this.enabled,
   });
   static CrossZoneLoadBalancing fromJson(Map<String, dynamic> json) =>
-      CrossZoneLoadBalancing();
+      CrossZoneLoadBalancing(
+        enabled: json['Enabled'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the output of DeleteLoadBalancer.
@@ -923,7 +1118,13 @@ class DeregisterEndPointsOutput {
     this.instances,
   });
   static DeregisterEndPointsOutput fromJson(Map<String, dynamic> json) =>
-      DeregisterEndPointsOutput();
+      DeregisterEndPointsOutput(
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the parameters for DescribeLoadBalancers.
@@ -940,7 +1141,16 @@ class DescribeAccessPointsOutput {
     this.nextMarker,
   });
   static DescribeAccessPointsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAccessPointsOutput();
+      DescribeAccessPointsOutput(
+        loadBalancerDescriptions: json.containsKey('LoadBalancerDescriptions')
+            ? (json['LoadBalancerDescriptions'] as List)
+                .map((e) => LoadBalancerDescription.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 class DescribeAccountLimitsOutput {
@@ -956,7 +1166,14 @@ class DescribeAccountLimitsOutput {
     this.nextMarker,
   });
   static DescribeAccountLimitsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAccountLimitsOutput();
+      DescribeAccountLimitsOutput(
+        limits: json.containsKey('Limits')
+            ? (json['Limits'] as List).map((e) => Limit.fromJson(e)).toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+      );
 }
 
 /// Contains the output for DescribeInstanceHealth.
@@ -968,7 +1185,13 @@ class DescribeEndPointStateOutput {
     this.instanceStates,
   });
   static DescribeEndPointStateOutput fromJson(Map<String, dynamic> json) =>
-      DescribeEndPointStateOutput();
+      DescribeEndPointStateOutput(
+        instanceStates: json.containsKey('InstanceStates')
+            ? (json['InstanceStates'] as List)
+                .map((e) => InstanceState.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of DescribeLoadBalancerAttributes.
@@ -981,7 +1204,11 @@ class DescribeLoadBalancerAttributesOutput {
   });
   static DescribeLoadBalancerAttributesOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeLoadBalancerAttributesOutput();
+      DescribeLoadBalancerAttributesOutput(
+        loadBalancerAttributes: json.containsKey('LoadBalancerAttributes')
+            ? LoadBalancerAttributes.fromJson(json['LoadBalancerAttributes'])
+            : null,
+      );
 }
 
 /// Contains the output of DescribeLoadBalancerPolicies.
@@ -994,7 +1221,13 @@ class DescribeLoadBalancerPoliciesOutput {
   });
   static DescribeLoadBalancerPoliciesOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeLoadBalancerPoliciesOutput();
+      DescribeLoadBalancerPoliciesOutput(
+        policyDescriptions: json.containsKey('PolicyDescriptions')
+            ? (json['PolicyDescriptions'] as List)
+                .map((e) => PolicyDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of DescribeLoadBalancerPolicyTypes.
@@ -1007,7 +1240,13 @@ class DescribeLoadBalancerPolicyTypesOutput {
   });
   static DescribeLoadBalancerPolicyTypesOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeLoadBalancerPolicyTypesOutput();
+      DescribeLoadBalancerPolicyTypesOutput(
+        policyTypeDescriptions: json.containsKey('PolicyTypeDescriptions')
+            ? (json['PolicyTypeDescriptions'] as List)
+                .map((e) => PolicyTypeDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output for DescribeTags.
@@ -1019,7 +1258,13 @@ class DescribeTagsOutput {
     this.tagDescriptions,
   });
   static DescribeTagsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTagsOutput();
+      DescribeTagsOutput(
+        tagDescriptions: json.containsKey('TagDescriptions')
+            ? (json['TagDescriptions'] as List)
+                .map((e) => TagDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of DetachLoadBalancerFromSubnets.
@@ -1032,7 +1277,11 @@ class DetachLoadBalancerFromSubnetsOutput {
   });
   static DetachLoadBalancerFromSubnetsOutput fromJson(
           Map<String, dynamic> json) =>
-      DetachLoadBalancerFromSubnetsOutput();
+      DetachLoadBalancerFromSubnetsOutput(
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Information about a health check.
@@ -1082,7 +1331,14 @@ class HealthCheck {
     @required this.unhealthyThreshold,
     @required this.healthyThreshold,
   });
-  static HealthCheck fromJson(Map<String, dynamic> json) => HealthCheck();
+  static HealthCheck fromJson(Map<String, dynamic> json) => HealthCheck(
+        target: json['Target'] as String,
+        interval: json['Interval'] as int,
+        timeout: json['Timeout'] as int,
+        unhealthyThreshold: json['UnhealthyThreshold'] as int,
+        healthyThreshold: json['HealthyThreshold'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The ID of an EC2 instance.
@@ -1093,7 +1349,12 @@ class Instance {
   Instance({
     this.instanceId,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the state of an EC2 instance.
@@ -1149,7 +1410,18 @@ class InstanceState {
     this.reasonCode,
     this.description,
   });
-  static InstanceState fromJson(Map<String, dynamic> json) => InstanceState();
+  static InstanceState fromJson(Map<String, dynamic> json) => InstanceState(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        reasonCode: json.containsKey('ReasonCode')
+            ? json['ReasonCode'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Information about a policy for duration-based session stickiness.
@@ -1168,7 +1440,14 @@ class LBCookieStickinessPolicy {
     this.cookieExpirationPeriod,
   });
   static LBCookieStickinessPolicy fromJson(Map<String, dynamic> json) =>
-      LBCookieStickinessPolicy();
+      LBCookieStickinessPolicy(
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        cookieExpirationPeriod: json.containsKey('CookieExpirationPeriod')
+            ? BigInt.from(json['CookieExpirationPeriod'])
+            : null,
+      );
 }
 
 /// Information about an Elastic Load Balancing resource limit for your AWS
@@ -1190,7 +1469,10 @@ class Limit {
     this.name,
     this.max,
   });
-  static Limit fromJson(Map<String, dynamic> json) => Limit();
+  static Limit fromJson(Map<String, dynamic> json) => Limit(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        max: json.containsKey('Max') ? json['Max'] as String : null,
+      );
 }
 
 /// Information about a listener.
@@ -1237,7 +1519,18 @@ class Listener {
     @required this.instancePort,
     this.sslCertificateId,
   });
-  static Listener fromJson(Map<String, dynamic> json) => Listener();
+  static Listener fromJson(Map<String, dynamic> json) => Listener(
+        protocol: json['Protocol'] as String,
+        loadBalancerPort: json['LoadBalancerPort'] as int,
+        instanceProtocol: json.containsKey('InstanceProtocol')
+            ? json['InstanceProtocol'] as String
+            : null,
+        instancePort: json['InstancePort'] as int,
+        sslCertificateId: json.containsKey('SSLCertificateId')
+            ? json['SSLCertificateId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The policies enabled for a listener.
@@ -1253,7 +1546,14 @@ class ListenerDescription {
     this.policyNames,
   });
   static ListenerDescription fromJson(Map<String, dynamic> json) =>
-      ListenerDescription();
+      ListenerDescription(
+        listener: json.containsKey('Listener')
+            ? Listener.fromJson(json['Listener'])
+            : null,
+        policyNames: json.containsKey('PolicyNames')
+            ? (json['PolicyNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// The attributes for a load balancer.
@@ -1305,7 +1605,26 @@ class LoadBalancerAttributes {
     this.additionalAttributes,
   });
   static LoadBalancerAttributes fromJson(Map<String, dynamic> json) =>
-      LoadBalancerAttributes();
+      LoadBalancerAttributes(
+        crossZoneLoadBalancing: json.containsKey('CrossZoneLoadBalancing')
+            ? CrossZoneLoadBalancing.fromJson(json['CrossZoneLoadBalancing'])
+            : null,
+        accessLog: json.containsKey('AccessLog')
+            ? AccessLog.fromJson(json['AccessLog'])
+            : null,
+        connectionDraining: json.containsKey('ConnectionDraining')
+            ? ConnectionDraining.fromJson(json['ConnectionDraining'])
+            : null,
+        connectionSettings: json.containsKey('ConnectionSettings')
+            ? ConnectionSettings.fromJson(json['ConnectionSettings'])
+            : null,
+        additionalAttributes: json.containsKey('AdditionalAttributes')
+            ? (json['AdditionalAttributes'] as List)
+                .map((e) => AdditionalAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a load balancer.
@@ -1391,7 +1710,58 @@ class LoadBalancerDescription {
     this.scheme,
   });
   static LoadBalancerDescription fromJson(Map<String, dynamic> json) =>
-      LoadBalancerDescription();
+      LoadBalancerDescription(
+        loadBalancerName: json.containsKey('LoadBalancerName')
+            ? json['LoadBalancerName'] as String
+            : null,
+        dnsName: json.containsKey('DNSName') ? json['DNSName'] as String : null,
+        canonicalHostedZoneName: json.containsKey('CanonicalHostedZoneName')
+            ? json['CanonicalHostedZoneName'] as String
+            : null,
+        canonicalHostedZoneNameID: json.containsKey('CanonicalHostedZoneNameID')
+            ? json['CanonicalHostedZoneNameID'] as String
+            : null,
+        listenerDescriptions: json.containsKey('ListenerDescriptions')
+            ? (json['ListenerDescriptions'] as List)
+                .map((e) => ListenerDescription.fromJson(e))
+                .toList()
+            : null,
+        policies: json.containsKey('Policies')
+            ? Policies.fromJson(json['Policies'])
+            : null,
+        backendServerDescriptions: json.containsKey('BackendServerDescriptions')
+            ? (json['BackendServerDescriptions'] as List)
+                .map((e) => BackendServerDescription.fromJson(e))
+                .toList()
+            : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => e as String).toList()
+            : null,
+        vpcId: json.containsKey('VPCId') ? json['VPCId'] as String : null,
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+        healthCheck: json.containsKey('HealthCheck')
+            ? HealthCheck.fromJson(json['HealthCheck'])
+            : null,
+        sourceSecurityGroup: json.containsKey('SourceSecurityGroup')
+            ? SourceSecurityGroup.fromJson(json['SourceSecurityGroup'])
+            : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        scheme: json.containsKey('Scheme') ? json['Scheme'] as String : null,
+      );
 }
 
 /// Contains the output of ModifyLoadBalancerAttributes.
@@ -1408,7 +1778,14 @@ class ModifyLoadBalancerAttributesOutput {
   });
   static ModifyLoadBalancerAttributesOutput fromJson(
           Map<String, dynamic> json) =>
-      ModifyLoadBalancerAttributesOutput();
+      ModifyLoadBalancerAttributesOutput(
+        loadBalancerName: json.containsKey('LoadBalancerName')
+            ? json['LoadBalancerName'] as String
+            : null,
+        loadBalancerAttributes: json.containsKey('LoadBalancerAttributes')
+            ? LoadBalancerAttributes.fromJson(json['LoadBalancerAttributes'])
+            : null,
+      );
 }
 
 /// The policies for a load balancer.
@@ -1427,7 +1804,23 @@ class Policies {
     this.lbCookieStickinessPolicies,
     this.otherPolicies,
   });
-  static Policies fromJson(Map<String, dynamic> json) => Policies();
+  static Policies fromJson(Map<String, dynamic> json) => Policies(
+        appCookieStickinessPolicies:
+            json.containsKey('AppCookieStickinessPolicies')
+                ? (json['AppCookieStickinessPolicies'] as List)
+                    .map((e) => AppCookieStickinessPolicy.fromJson(e))
+                    .toList()
+                : null,
+        lbCookieStickinessPolicies:
+            json.containsKey('LBCookieStickinessPolicies')
+                ? (json['LBCookieStickinessPolicies'] as List)
+                    .map((e) => LBCookieStickinessPolicy.fromJson(e))
+                    .toList()
+                : null,
+        otherPolicies: json.containsKey('OtherPolicies')
+            ? (json['OtherPolicies'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Information about a policy attribute.
@@ -1442,6 +1835,7 @@ class PolicyAttribute {
     this.attributeName,
     this.attributeValue,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a policy attribute.
@@ -1457,7 +1851,14 @@ class PolicyAttributeDescription {
     this.attributeValue,
   });
   static PolicyAttributeDescription fromJson(Map<String, dynamic> json) =>
-      PolicyAttributeDescription();
+      PolicyAttributeDescription(
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+        attributeValue: json.containsKey('AttributeValue')
+            ? json['AttributeValue'] as String
+            : null,
+      );
 }
 
 /// Information about a policy attribute type.
@@ -1495,7 +1896,23 @@ class PolicyAttributeTypeDescription {
     this.cardinality,
   });
   static PolicyAttributeTypeDescription fromJson(Map<String, dynamic> json) =>
-      PolicyAttributeTypeDescription();
+      PolicyAttributeTypeDescription(
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+        attributeType: json.containsKey('AttributeType')
+            ? json['AttributeType'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        cardinality: json.containsKey('Cardinality')
+            ? json['Cardinality'] as String
+            : null,
+      );
 }
 
 /// Information about a policy.
@@ -1515,7 +1932,20 @@ class PolicyDescription {
     this.policyAttributeDescriptions,
   });
   static PolicyDescription fromJson(Map<String, dynamic> json) =>
-      PolicyDescription();
+      PolicyDescription(
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        policyTypeName: json.containsKey('PolicyTypeName')
+            ? json['PolicyTypeName'] as String
+            : null,
+        policyAttributeDescriptions:
+            json.containsKey('PolicyAttributeDescriptions')
+                ? (json['PolicyAttributeDescriptions'] as List)
+                    .map((e) => PolicyAttributeDescription.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Information about a policy type.
@@ -1536,7 +1966,20 @@ class PolicyTypeDescription {
     this.policyAttributeTypeDescriptions,
   });
   static PolicyTypeDescription fromJson(Map<String, dynamic> json) =>
-      PolicyTypeDescription();
+      PolicyTypeDescription(
+        policyTypeName: json.containsKey('PolicyTypeName')
+            ? json['PolicyTypeName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        policyAttributeTypeDescriptions:
+            json.containsKey('PolicyAttributeTypeDescriptions')
+                ? (json['PolicyAttributeTypeDescriptions'] as List)
+                    .map((e) => PolicyAttributeTypeDescription.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Contains the output of RegisterInstancesWithLoadBalancer.
@@ -1548,7 +1991,13 @@ class RegisterEndPointsOutput {
     this.instances,
   });
   static RegisterEndPointsOutput fromJson(Map<String, dynamic> json) =>
-      RegisterEndPointsOutput();
+      RegisterEndPointsOutput(
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output for DisableAvailabilityZonesForLoadBalancer.
@@ -1560,7 +2009,13 @@ class RemoveAvailabilityZonesOutput {
     this.availabilityZones,
   });
   static RemoveAvailabilityZonesOutput fromJson(Map<String, dynamic> json) =>
-      RemoveAvailabilityZonesOutput();
+      RemoveAvailabilityZonesOutput(
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output of RemoveTags.
@@ -1607,7 +2062,13 @@ class SourceSecurityGroup {
     this.groupName,
   });
   static SourceSecurityGroup fromJson(Map<String, dynamic> json) =>
-      SourceSecurityGroup();
+      SourceSecurityGroup(
+        ownerAlias: json.containsKey('OwnerAlias')
+            ? json['OwnerAlias'] as String
+            : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+      );
 }
 
 /// Information about a tag.
@@ -1622,7 +2083,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The tags associated with a load balancer.
@@ -1637,7 +2102,14 @@ class TagDescription {
     this.loadBalancerName,
     this.tags,
   });
-  static TagDescription fromJson(Map<String, dynamic> json) => TagDescription();
+  static TagDescription fromJson(Map<String, dynamic> json) => TagDescription(
+        loadBalancerName: json.containsKey('LoadBalancerName')
+            ? json['LoadBalancerName'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The key of a tag.
@@ -1648,4 +2120,5 @@ class TagKeyOnly {
   TagKeyOnly({
     this.key,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

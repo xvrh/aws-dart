@@ -3,6 +3,9 @@ import 'package:meta/meta.dart';
 /// Amazon FSx is a fully managed service that makes it easy for storage and
 /// application administrators to launch and use shared file storage.
 class FSxApi {
+  final _client;
+  FSxApi(client) : _client = client.configured('FSx', serializer: 'json');
+
   /// Creates a backup of an existing Amazon FSx for Windows File Server file
   /// system. Creating regular backups for your file system is a best practice
   /// that complements the replication that Amazon FSx for Windows File Server
@@ -45,7 +48,12 @@ class FSxApi {
   /// of the `Name` tag appears in the console as the backup name.
   Future<CreateBackupResponse> createBackup(String fileSystemId,
       {String clientRequestToken, List<Tag> tags}) async {
-    return CreateBackupResponse.fromJson({});
+    var response_ = await _client.send('CreateBackup', {
+      'FileSystemId': fileSystemId,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateBackupResponse.fromJson(response_);
   }
 
   /// Creates a new, empty Amazon FSx file system.
@@ -120,7 +128,20 @@ class FSxApi {
       String kmsKeyId,
       CreateFileSystemWindowsConfiguration windowsConfiguration,
       CreateFileSystemLustreConfiguration lustreConfiguration}) async {
-    return CreateFileSystemResponse.fromJson({});
+    var response_ = await _client.send('CreateFileSystem', {
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      'FileSystemType': fileSystemType,
+      'StorageCapacity': storageCapacity,
+      'SubnetIds': subnetIds,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (tags != null) 'Tags': tags,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (windowsConfiguration != null)
+        'WindowsConfiguration': windowsConfiguration,
+      if (lustreConfiguration != null)
+        'LustreConfiguration': lustreConfiguration,
+    });
+    return CreateFileSystemResponse.fromJson(response_);
   }
 
   /// Creates a new Amazon FSx file system from an existing Amazon FSx for
@@ -186,7 +207,16 @@ class FSxApi {
       List<String> securityGroupIds,
       List<Tag> tags,
       CreateFileSystemWindowsConfiguration windowsConfiguration}) async {
-    return CreateFileSystemFromBackupResponse.fromJson({});
+    var response_ = await _client.send('CreateFileSystemFromBackup', {
+      'BackupId': backupId,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      'SubnetIds': subnetIds,
+      if (securityGroupIds != null) 'SecurityGroupIds': securityGroupIds,
+      if (tags != null) 'Tags': tags,
+      if (windowsConfiguration != null)
+        'WindowsConfiguration': windowsConfiguration,
+    });
+    return CreateFileSystemFromBackupResponse.fromJson(response_);
   }
 
   /// Deletes an Amazon FSx for Windows File Server backup, deleting its
@@ -208,7 +238,11 @@ class FSxApi {
   /// filled on your behalf when using the AWS CLI or SDK.
   Future<DeleteBackupResponse> deleteBackup(String backupId,
       {String clientRequestToken}) async {
-    return DeleteBackupResponse.fromJson({});
+    var response_ = await _client.send('DeleteBackup', {
+      'BackupId': backupId,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return DeleteBackupResponse.fromJson(response_);
   }
 
   /// Deletes a file system, deleting its contents. After deletion, the file
@@ -239,7 +273,13 @@ class FSxApi {
   Future<DeleteFileSystemResponse> deleteFileSystem(String fileSystemId,
       {String clientRequestToken,
       DeleteFileSystemWindowsConfiguration windowsConfiguration}) async {
-    return DeleteFileSystemResponse.fromJson({});
+    var response_ = await _client.send('DeleteFileSystem', {
+      'FileSystemId': fileSystemId,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (windowsConfiguration != null)
+        'WindowsConfiguration': windowsConfiguration,
+    });
+    return DeleteFileSystemResponse.fromJson(response_);
   }
 
   /// Returns the description of specific Amazon FSx for Windows File Server
@@ -289,7 +329,13 @@ class FSxApi {
       List<Filter> filters,
       int maxResults,
       String nextToken}) async {
-    return DescribeBackupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeBackups', {
+      if (backupIds != null) 'BackupIds': backupIds,
+      if (filters != null) 'Filters': filters,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeBackupsResponse.fromJson(response_);
   }
 
   /// Returns the description of specific Amazon FSx file systems, if a
@@ -333,7 +379,12 @@ class FSxApi {
   /// continues the list from where the returning call left off.
   Future<DescribeFileSystemsResponse> describeFileSystems(
       {List<String> fileSystemIds, int maxResults, String nextToken}) async {
-    return DescribeFileSystemsResponse.fromJson({});
+    var response_ = await _client.send('DescribeFileSystems', {
+      if (fileSystemIds != null) 'FileSystemIds': fileSystemIds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeFileSystemsResponse.fromJson(response_);
   }
 
   /// Lists tags for an Amazon FSx file systems and backups in the case of
@@ -374,7 +425,12 @@ class FSxApi {
   /// continues the list from where the returning call left off.
   Future<ListTagsForResourceResponse> listTagsForResource(String resourceArn,
       {int maxResults, String nextToken}) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceARN': resourceArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Tags an Amazon FSx resource.
@@ -386,7 +442,11 @@ class FSxApi {
   /// exists, the value is replaced by the one specified in this parameter.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceARN': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// This action removes a tag from an Amazon FSx resource.
@@ -397,7 +457,11 @@ class FSxApi {
   /// tag key doesn't exist, the call will still succeed to be idempotent.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceARN': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates a file system configuration.
@@ -414,7 +478,15 @@ class FSxApi {
       {String clientRequestToken,
       UpdateFileSystemWindowsConfiguration windowsConfiguration,
       UpdateFileSystemLustreConfiguration lustreConfiguration}) async {
-    return UpdateFileSystemResponse.fromJson({});
+    var response_ = await _client.send('UpdateFileSystem', {
+      'FileSystemId': fileSystemId,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (windowsConfiguration != null)
+        'WindowsConfiguration': windowsConfiguration,
+      if (lustreConfiguration != null)
+        'LustreConfiguration': lustreConfiguration,
+    });
+    return UpdateFileSystemResponse.fromJson(response_);
   }
 }
 
@@ -433,7 +505,14 @@ class ActiveDirectoryBackupAttributes {
     this.activeDirectoryId,
   });
   static ActiveDirectoryBackupAttributes fromJson(Map<String, dynamic> json) =>
-      ActiveDirectoryBackupAttributes();
+      ActiveDirectoryBackupAttributes(
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        activeDirectoryId: json.containsKey('ActiveDirectoryId')
+            ? json['ActiveDirectoryId'] as String
+            : null,
+      );
 }
 
 /// A backup of an Amazon FSx for Windows File Server file system. You can
@@ -487,7 +566,31 @@ class Backup {
     @required this.fileSystem,
     this.directoryInformation,
   });
-  static Backup fromJson(Map<String, dynamic> json) => Backup();
+  static Backup fromJson(Map<String, dynamic> json) => Backup(
+        backupId: json['BackupId'] as String,
+        lifecycle: json['Lifecycle'] as String,
+        failureDetails: json.containsKey('FailureDetails')
+            ? BackupFailureDetails.fromJson(json['FailureDetails'])
+            : null,
+        type: json['Type'] as String,
+        progressPercent: json.containsKey('ProgressPercent')
+            ? json['ProgressPercent'] as int
+            : null,
+        creationTime: DateTime.parse(json['CreationTime']),
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        fileSystem: FileSystem.fromJson(json['FileSystem']),
+        directoryInformation: json.containsKey('DirectoryInformation')
+            ? ActiveDirectoryBackupAttributes.fromJson(
+                json['DirectoryInformation'])
+            : null,
+      );
 }
 
 /// If backup creation fails, this structure contains the details of that
@@ -500,7 +603,9 @@ class BackupFailureDetails {
     this.message,
   });
   static BackupFailureDetails fromJson(Map<String, dynamic> json) =>
-      BackupFailureDetails();
+      BackupFailureDetails(
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// The response object for the `CreateBackup` operation.
@@ -512,7 +617,10 @@ class CreateBackupResponse {
     this.backup,
   });
   static CreateBackupResponse fromJson(Map<String, dynamic> json) =>
-      CreateBackupResponse();
+      CreateBackupResponse(
+        backup:
+            json.containsKey('Backup') ? Backup.fromJson(json['Backup']) : null,
+      );
 }
 
 /// The response object for the `CreateFileSystemFromBackup` operation.
@@ -525,7 +633,11 @@ class CreateFileSystemFromBackupResponse {
   });
   static CreateFileSystemFromBackupResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateFileSystemFromBackupResponse();
+      CreateFileSystemFromBackupResponse(
+        fileSystem: json.containsKey('FileSystem')
+            ? FileSystem.fromJson(json['FileSystem'])
+            : null,
+      );
 }
 
 /// The Lustre configuration for the file system being created. This value is
@@ -578,6 +690,7 @@ class CreateFileSystemLustreConfiguration {
     this.exportPath,
     this.importedFileChunkSize,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The response object returned after the file system is created.
@@ -589,7 +702,11 @@ class CreateFileSystemResponse {
     this.fileSystem,
   });
   static CreateFileSystemResponse fromJson(Map<String, dynamic> json) =>
-      CreateFileSystemResponse();
+      CreateFileSystemResponse(
+        fileSystem: json.containsKey('FileSystem')
+            ? FileSystem.fromJson(json['FileSystem'])
+            : null,
+      );
 }
 
 /// The configuration object for the Microsoft Windows file system used in
@@ -636,6 +753,7 @@ class CreateFileSystemWindowsConfiguration {
     this.automaticBackupRetentionDays,
     this.copyTagsToBackups,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The data repository configuration object for Lustre file systems returned in
@@ -668,7 +786,17 @@ class DataRepositoryConfiguration {
     this.importedFileChunkSize,
   });
   static DataRepositoryConfiguration fromJson(Map<String, dynamic> json) =>
-      DataRepositoryConfiguration();
+      DataRepositoryConfiguration(
+        importPath: json.containsKey('ImportPath')
+            ? json['ImportPath'] as String
+            : null,
+        exportPath: json.containsKey('ExportPath')
+            ? json['ExportPath'] as String
+            : null,
+        importedFileChunkSize: json.containsKey('ImportedFileChunkSize')
+            ? json['ImportedFileChunkSize'] as int
+            : null,
+      );
 }
 
 /// The response object for `DeleteBackup` operation.
@@ -684,7 +812,12 @@ class DeleteBackupResponse {
     this.lifecycle,
   });
   static DeleteBackupResponse fromJson(Map<String, dynamic> json) =>
-      DeleteBackupResponse();
+      DeleteBackupResponse(
+        backupId:
+            json.containsKey('BackupId') ? json['BackupId'] as String : null,
+        lifecycle:
+            json.containsKey('Lifecycle') ? json['Lifecycle'] as String : null,
+      );
 }
 
 /// The response object for the `DeleteFileSystem` operation.
@@ -703,7 +836,16 @@ class DeleteFileSystemResponse {
     this.windowsResponse,
   });
   static DeleteFileSystemResponse fromJson(Map<String, dynamic> json) =>
-      DeleteFileSystemResponse();
+      DeleteFileSystemResponse(
+        fileSystemId: json.containsKey('FileSystemId')
+            ? json['FileSystemId'] as String
+            : null,
+        lifecycle:
+            json.containsKey('Lifecycle') ? json['Lifecycle'] as String : null,
+        windowsResponse: json.containsKey('WindowsResponse')
+            ? DeleteFileSystemWindowsResponse.fromJson(json['WindowsResponse'])
+            : null,
+      );
 }
 
 /// The configuration object for the Microsoft Windows file system used in the
@@ -722,6 +864,7 @@ class DeleteFileSystemWindowsConfiguration {
     this.skipFinalBackup,
     this.finalBackupTags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The response object for the Microsoft Windows file system used in the
@@ -738,7 +881,16 @@ class DeleteFileSystemWindowsResponse {
     this.finalBackupTags,
   });
   static DeleteFileSystemWindowsResponse fromJson(Map<String, dynamic> json) =>
-      DeleteFileSystemWindowsResponse();
+      DeleteFileSystemWindowsResponse(
+        finalBackupId: json.containsKey('FinalBackupId')
+            ? json['FinalBackupId'] as String
+            : null,
+        finalBackupTags: json.containsKey('FinalBackupTags')
+            ? (json['FinalBackupTags'] as List)
+                .map((e) => Tag.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Response object for `DescribeBackups` operation.
@@ -756,7 +908,13 @@ class DescribeBackupsResponse {
     this.nextToken,
   });
   static DescribeBackupsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeBackupsResponse();
+      DescribeBackupsResponse(
+        backups: json.containsKey('Backups')
+            ? (json['Backups'] as List).map((e) => Backup.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The response object for `DescribeFileSystems` operation.
@@ -774,7 +932,15 @@ class DescribeFileSystemsResponse {
     this.nextToken,
   });
   static DescribeFileSystemsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeFileSystemsResponse();
+      DescribeFileSystemsResponse(
+        fileSystems: json.containsKey('FileSystems')
+            ? (json['FileSystems'] as List)
+                .map((e) => FileSystem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A description of a specific Amazon FSx file system.
@@ -878,7 +1044,52 @@ class FileSystem {
     this.windowsConfiguration,
     this.lustreConfiguration,
   });
-  static FileSystem fromJson(Map<String, dynamic> json) => FileSystem();
+  static FileSystem fromJson(Map<String, dynamic> json) => FileSystem(
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        fileSystemId: json.containsKey('FileSystemId')
+            ? json['FileSystemId'] as String
+            : null,
+        fileSystemType: json.containsKey('FileSystemType')
+            ? json['FileSystemType'] as String
+            : null,
+        lifecycle:
+            json.containsKey('Lifecycle') ? json['Lifecycle'] as String : null,
+        failureDetails: json.containsKey('FailureDetails')
+            ? FileSystemFailureDetails.fromJson(json['FailureDetails'])
+            : null,
+        storageCapacity: json.containsKey('StorageCapacity')
+            ? json['StorageCapacity'] as int
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        networkInterfaceIds: json.containsKey('NetworkInterfaceIds')
+            ? (json['NetworkInterfaceIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        dnsName: json.containsKey('DNSName') ? json['DNSName'] as String : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        windowsConfiguration: json.containsKey('WindowsConfiguration')
+            ? WindowsFileSystemConfiguration.fromJson(
+                json['WindowsConfiguration'])
+            : null,
+        lustreConfiguration: json.containsKey('LustreConfiguration')
+            ? LustreFileSystemConfiguration.fromJson(
+                json['LustreConfiguration'])
+            : null,
+      );
 }
 
 /// A structure providing details of any failures that occur when creating the
@@ -892,7 +1103,9 @@ class FileSystemFailureDetails {
     this.message,
   });
   static FileSystemFailureDetails fromJson(Map<String, dynamic> json) =>
-      FileSystemFailureDetails();
+      FileSystemFailureDetails(
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// A filter used to restrict the results of describe calls. You can use
@@ -910,6 +1123,7 @@ class Filter {
     this.name,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The response object for `ListTagsForResource` operation.
@@ -927,7 +1141,13 @@ class ListTagsForResourceResponse {
     this.nextToken,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The configuration for the Amazon FSx for Lustre file system.
@@ -942,7 +1162,17 @@ class LustreFileSystemConfiguration {
     this.dataRepositoryConfiguration,
   });
   static LustreFileSystemConfiguration fromJson(Map<String, dynamic> json) =>
-      LustreFileSystemConfiguration();
+      LustreFileSystemConfiguration(
+        weeklyMaintenanceStartTime:
+            json.containsKey('WeeklyMaintenanceStartTime')
+                ? json['WeeklyMaintenanceStartTime'] as String
+                : null,
+        dataRepositoryConfiguration:
+            json.containsKey('DataRepositoryConfiguration')
+                ? DataRepositoryConfiguration.fromJson(
+                    json['DataRepositoryConfiguration'])
+                : null,
+      );
 }
 
 /// The configuration of the self-managed Microsoft Active Directory (AD)
@@ -977,7 +1207,24 @@ class SelfManagedActiveDirectoryAttributes {
   });
   static SelfManagedActiveDirectoryAttributes fromJson(
           Map<String, dynamic> json) =>
-      SelfManagedActiveDirectoryAttributes();
+      SelfManagedActiveDirectoryAttributes(
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        organizationalUnitDistinguishedName:
+            json.containsKey('OrganizationalUnitDistinguishedName')
+                ? json['OrganizationalUnitDistinguishedName'] as String
+                : null,
+        fileSystemAdministratorsGroup:
+            json.containsKey('FileSystemAdministratorsGroup')
+                ? json['FileSystemAdministratorsGroup'] as String
+                : null,
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        dnsIps: json.containsKey('DnsIps')
+            ? (json['DnsIps'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// The configuration that Amazon FSx uses to join the Windows File Server
@@ -1042,6 +1289,7 @@ class SelfManagedActiveDirectoryConfiguration {
     @required this.password,
     @required this.dnsIps,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration that Amazon FSx uses to join the Windows File Server
@@ -1066,6 +1314,7 @@ class SelfManagedActiveDirectoryConfigurationUpdates {
     this.password,
     this.dnsIps,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a key-value pair for a resource tag.
@@ -1084,7 +1333,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The response object for the `TagResource` operation.
@@ -1110,6 +1363,7 @@ class UpdateFileSystemLustreConfiguration {
   UpdateFileSystemLustreConfiguration({
     this.weeklyMaintenanceStartTime,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The response object for the `UpdateFileSystem` operation.
@@ -1121,7 +1375,11 @@ class UpdateFileSystemResponse {
     this.fileSystem,
   });
   static UpdateFileSystemResponse fromJson(Map<String, dynamic> json) =>
-      UpdateFileSystemResponse();
+      UpdateFileSystemResponse(
+        fileSystem: json.containsKey('FileSystem')
+            ? FileSystem.fromJson(json['FileSystem'])
+            : null,
+      );
 }
 
 /// Updates the Microsoft Windows configuration for an existing Amazon FSx for
@@ -1151,6 +1409,7 @@ class UpdateFileSystemWindowsConfiguration {
     this.automaticBackupRetentionDays,
     this.selfManagedActiveDirectoryConfiguration,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration for this Microsoft Windows file system.
@@ -1199,5 +1458,38 @@ class WindowsFileSystemConfiguration {
     this.copyTagsToBackups,
   });
   static WindowsFileSystemConfiguration fromJson(Map<String, dynamic> json) =>
-      WindowsFileSystemConfiguration();
+      WindowsFileSystemConfiguration(
+        activeDirectoryId: json.containsKey('ActiveDirectoryId')
+            ? json['ActiveDirectoryId'] as String
+            : null,
+        selfManagedActiveDirectoryConfiguration:
+            json.containsKey('SelfManagedActiveDirectoryConfiguration')
+                ? SelfManagedActiveDirectoryAttributes.fromJson(
+                    json['SelfManagedActiveDirectoryConfiguration'])
+                : null,
+        throughputCapacity: json.containsKey('ThroughputCapacity')
+            ? json['ThroughputCapacity'] as int
+            : null,
+        maintenanceOperationsInProgress:
+            json.containsKey('MaintenanceOperationsInProgress')
+                ? (json['MaintenanceOperationsInProgress'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        weeklyMaintenanceStartTime:
+            json.containsKey('WeeklyMaintenanceStartTime')
+                ? json['WeeklyMaintenanceStartTime'] as String
+                : null,
+        dailyAutomaticBackupStartTime:
+            json.containsKey('DailyAutomaticBackupStartTime')
+                ? json['DailyAutomaticBackupStartTime'] as String
+                : null,
+        automaticBackupRetentionDays:
+            json.containsKey('AutomaticBackupRetentionDays')
+                ? json['AutomaticBackupRetentionDays'] as int
+                : null,
+        copyTagsToBackups: json.containsKey('CopyTagsToBackups')
+            ? json['CopyTagsToBackups'] as bool
+            : null,
+      );
 }

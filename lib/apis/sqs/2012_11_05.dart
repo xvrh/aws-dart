@@ -44,6 +44,9 @@ import 'dart:typed_data';
 ///     *
 /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sqs_region)
 class SqsApi {
+  final _client;
+  SqsApi(client) : _client = client.configured('SQS', serializer: 'query');
+
   /// Adds a permission to a queue for a specific
   /// [principal](https://docs.aws.amazon.com/general/latest/gr/glos-chap.html#P).
   /// This allows sharing access to the queue.
@@ -112,7 +115,14 @@ class SqsApi {
       {@required String queueUrl,
       @required String label,
       @required List<String> awsAccountIds,
-      @required List<String> actions}) async {}
+      @required List<String> actions}) async {
+    await _client.send('AddPermission', {
+      'QueueUrl': queueUrl,
+      'Label': label,
+      'AWSAccountIds': awsAccountIds,
+      'Actions': actions,
+    });
+  }
 
   /// Changes the visibility timeout of a specified message in a queue to a new
   /// value. The default visibility timeout for a message is 30 seconds. The
@@ -187,7 +197,13 @@ class SqsApi {
   Future<void> changeMessageVisibility(
       {@required String queueUrl,
       @required String receiptHandle,
-      @required int visibilityTimeout}) async {}
+      @required int visibilityTimeout}) async {
+    await _client.send('ChangeMessageVisibility', {
+      'QueueUrl': queueUrl,
+      'ReceiptHandle': receiptHandle,
+      'VisibilityTimeout': visibilityTimeout,
+    });
+  }
 
   /// Changes the visibility timeout of multiple messages. This is a batch
   /// version of  `ChangeMessageVisibility.` The result of the action on each
@@ -217,7 +233,11 @@ class SqsApi {
   Future<ChangeMessageVisibilityBatchResult> changeMessageVisibilityBatch(
       {@required String queueUrl,
       @required List<ChangeMessageVisibilityBatchRequestEntry> entries}) async {
-    return ChangeMessageVisibilityBatchResult.fromJson({});
+    var response_ = await _client.send('ChangeMessageVisibilityBatch', {
+      'QueueUrl': queueUrl,
+      'Entries': entries,
+    });
+    return ChangeMessageVisibilityBatchResult.fromJson(response_);
   }
 
   /// Creates a new standard or FIFO queue. You can pass one or more attributes
@@ -437,7 +457,12 @@ class SqsApi {
   /// in the _Amazon Simple Queue Service Developer Guide_.
   Future<CreateQueueResult> createQueue(String queueName,
       {Map<String, String> attributes, Map<String, String> tags}) async {
-    return CreateQueueResult.fromJson({});
+    var response_ = await _client.send('CreateQueue', {
+      'QueueName': queueName,
+      if (attributes != null) 'Attributes': attributes,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateQueueResult.fromJson(response_);
   }
 
   /// Deletes the specified message from the specified queue. To select the
@@ -472,7 +497,12 @@ class SqsApi {
   ///
   /// [receiptHandle]: The receipt handle associated with the message to delete.
   Future<void> deleteMessage(
-      {@required String queueUrl, @required String receiptHandle}) async {}
+      {@required String queueUrl, @required String receiptHandle}) async {
+    await _client.send('DeleteMessage', {
+      'QueueUrl': queueUrl,
+      'ReceiptHandle': receiptHandle,
+    });
+  }
 
   /// Deletes up to ten messages from the specified queue. This is a batch
   /// version of  `DeleteMessage.` The result of the action on each message is
@@ -499,7 +529,11 @@ class SqsApi {
   Future<DeleteMessageBatchResult> deleteMessageBatch(
       {@required String queueUrl,
       @required List<DeleteMessageBatchRequestEntry> entries}) async {
-    return DeleteMessageBatchResult.fromJson({});
+    var response_ = await _client.send('DeleteMessageBatch', {
+      'QueueUrl': queueUrl,
+      'Entries': entries,
+    });
+    return DeleteMessageBatchResult.fromJson(response_);
   }
 
   /// Deletes the queue specified by the `QueueUrl`, regardless of the queue's
@@ -527,7 +561,11 @@ class SqsApi {
   /// [queueUrl]: The URL of the Amazon SQS queue to delete.
   ///
   /// Queue URLs and names are case-sensitive.
-  Future<void> deleteQueue(String queueUrl) async {}
+  Future<void> deleteQueue(String queueUrl) async {
+    await _client.send('DeleteQueue', {
+      'QueueUrl': queueUrl,
+    });
+  }
 
   /// Gets attributes for the specified queue.
   ///
@@ -645,7 +683,11 @@ class SqsApi {
   /// in the _Amazon Simple Queue Service Developer Guide_.
   Future<GetQueueAttributesResult> getQueueAttributes(String queueUrl,
       {List<String> attributeNames}) async {
-    return GetQueueAttributesResult.fromJson({});
+    var response_ = await _client.send('GetQueueAttributes', {
+      'QueueUrl': queueUrl,
+      if (attributeNames != null) 'AttributeNames': attributeNames,
+    });
+    return GetQueueAttributesResult.fromJson(response_);
   }
 
   /// Returns the URL of an existing Amazon SQS queue.
@@ -668,7 +710,12 @@ class SqsApi {
   /// the queue.
   Future<GetQueueUrlResult> getQueueUrl(String queueName,
       {String queueOwnerAwsAccountId}) async {
-    return GetQueueUrlResult.fromJson({});
+    var response_ = await _client.send('GetQueueUrl', {
+      'QueueName': queueName,
+      if (queueOwnerAwsAccountId != null)
+        'QueueOwnerAWSAccountId': queueOwnerAwsAccountId,
+    });
+    return GetQueueUrlResult.fromJson(response_);
   }
 
   /// Returns a list of your queues that have the `RedrivePolicy` queue
@@ -683,7 +730,10 @@ class SqsApi {
   /// Queue URLs and names are case-sensitive.
   Future<ListDeadLetterSourceQueuesResult> listDeadLetterSourceQueues(
       String queueUrl) async {
-    return ListDeadLetterSourceQueuesResult.fromJson({});
+    var response_ = await _client.send('ListDeadLetterSourceQueues', {
+      'QueueUrl': queueUrl,
+    });
+    return ListDeadLetterSourceQueuesResult.fromJson(response_);
   }
 
   /// List all cost allocation tags added to the specified Amazon SQS queue. For
@@ -700,7 +750,10 @@ class SqsApi {
   ///
   /// [queueUrl]: The URL of the queue.
   Future<ListQueueTagsResult> listQueueTags(String queueUrl) async {
-    return ListQueueTagsResult.fromJson({});
+    var response_ = await _client.send('ListQueueTags', {
+      'QueueUrl': queueUrl,
+    });
+    return ListQueueTagsResult.fromJson(response_);
   }
 
   /// Returns a list of your queues. The maximum number of queues that can be
@@ -720,7 +773,10 @@ class SqsApi {
   ///
   /// Queue URLs and names are case-sensitive.
   Future<ListQueuesResult> listQueues({String queueNamePrefix}) async {
-    return ListQueuesResult.fromJson({});
+    var response_ = await _client.send('ListQueues', {
+      if (queueNamePrefix != null) 'QueueNamePrefix': queueNamePrefix,
+    });
+    return ListQueuesResult.fromJson(response_);
   }
 
   /// Deletes the messages in a queue specified by the `QueueURL` parameter.
@@ -741,7 +797,11 @@ class SqsApi {
   /// deletes messages.
   ///
   /// Queue URLs and names are case-sensitive.
-  Future<void> purgeQueue(String queueUrl) async {}
+  Future<void> purgeQueue(String queueUrl) async {
+    await _client.send('PurgeQueue', {
+      'QueueUrl': queueUrl,
+    });
+  }
 
   /// Retrieves one or more messages (up to 10), from the specified queue. Using
   /// the `WaitTimeSeconds` parameter enables long-poll support. For more
@@ -939,7 +999,19 @@ class SqsApi {
       int visibilityTimeout,
       int waitTimeSeconds,
       String receiveRequestAttemptId}) async {
-    return ReceiveMessageResult.fromJson({});
+    var response_ = await _client.send('ReceiveMessage', {
+      'QueueUrl': queueUrl,
+      if (attributeNames != null) 'AttributeNames': attributeNames,
+      if (messageAttributeNames != null)
+        'MessageAttributeNames': messageAttributeNames,
+      if (maxNumberOfMessages != null)
+        'MaxNumberOfMessages': maxNumberOfMessages,
+      if (visibilityTimeout != null) 'VisibilityTimeout': visibilityTimeout,
+      if (waitTimeSeconds != null) 'WaitTimeSeconds': waitTimeSeconds,
+      if (receiveRequestAttemptId != null)
+        'ReceiveRequestAttemptId': receiveRequestAttemptId,
+    });
+    return ReceiveMessageResult.fromJson(response_);
   }
 
   /// Revokes any permissions in the queue policy that matches the specified
@@ -966,7 +1038,12 @@ class SqsApi {
   /// [label]: The identification of the permission to remove. This is the label
   /// added using the  `AddPermission`  action.
   Future<void> removePermission(
-      {@required String queueUrl, @required String label}) async {}
+      {@required String queueUrl, @required String label}) async {
+    await _client.send('RemovePermission', {
+      'QueueUrl': queueUrl,
+      'Label': label,
+    });
+  }
 
   /// Delivers a message to the specified queue.
   ///
@@ -1121,7 +1198,18 @@ class SqsApi {
       Map<String, MessageSystemAttributeValue> messageSystemAttributes,
       String messageDeduplicationId,
       String messageGroupId}) async {
-    return SendMessageResult.fromJson({});
+    var response_ = await _client.send('SendMessage', {
+      'QueueUrl': queueUrl,
+      'MessageBody': messageBody,
+      if (delaySeconds != null) 'DelaySeconds': delaySeconds,
+      if (messageAttributes != null) 'MessageAttributes': messageAttributes,
+      if (messageSystemAttributes != null)
+        'MessageSystemAttributes': messageSystemAttributes,
+      if (messageDeduplicationId != null)
+        'MessageDeduplicationId': messageDeduplicationId,
+      if (messageGroupId != null) 'MessageGroupId': messageGroupId,
+    });
+    return SendMessageResult.fromJson(response_);
   }
 
   /// Delivers up to ten messages to the specified queue. This is a batch
@@ -1168,7 +1256,11 @@ class SqsApi {
   Future<SendMessageBatchResult> sendMessageBatch(
       {@required String queueUrl,
       @required List<SendMessageBatchRequestEntry> entries}) async {
-    return SendMessageBatchResult.fromJson({});
+    var response_ = await _client.send('SendMessageBatch', {
+      'QueueUrl': queueUrl,
+      'Entries': entries,
+    });
+    return SendMessageBatchResult.fromJson(response_);
   }
 
   /// Sets the value of one or more queue attributes. When you change a queue's
@@ -1307,7 +1399,12 @@ class SqsApi {
   /// delivered.
   Future<void> setQueueAttributes(
       {@required String queueUrl,
-      @required Map<String, String> attributes}) async {}
+      @required Map<String, String> attributes}) async {
+    await _client.send('SetQueueAttributes', {
+      'QueueUrl': queueUrl,
+      'Attributes': attributes,
+    });
+  }
 
   /// Add cost allocation tags to the specified Amazon SQS queue. For an
   /// overview, see
@@ -1342,7 +1439,12 @@ class SqsApi {
   ///
   /// [tags]: The list of tags to be added to the specified queue.
   Future<void> tagQueue(
-      {@required String queueUrl, @required Map<String, String> tags}) async {}
+      {@required String queueUrl, @required Map<String, String> tags}) async {
+    await _client.send('TagQueue', {
+      'QueueUrl': queueUrl,
+      'Tags': tags,
+    });
+  }
 
   /// Remove cost allocation tags from the specified Amazon SQS queue. For an
   /// overview, see
@@ -1360,7 +1462,12 @@ class SqsApi {
   ///
   /// [tagKeys]: The list of tags to be removed from the specified queue.
   Future<void> untagQueue(
-      {@required String queueUrl, @required List<String> tagKeys}) async {}
+      {@required String queueUrl, @required List<String> tagKeys}) async {
+    await _client.send('UntagQueue', {
+      'QueueUrl': queueUrl,
+      'TagKeys': tagKeys,
+    });
+  }
 }
 
 /// Gives a detailed description of the result of an action on each entry in the
@@ -1385,7 +1492,12 @@ class BatchResultErrorEntry {
     this.message,
   });
   static BatchResultErrorEntry fromJson(Map<String, dynamic> json) =>
-      BatchResultErrorEntry();
+      BatchResultErrorEntry(
+        id: json['Id'] as String,
+        senderFault: json['SenderFault'] as bool,
+        code: json['Code'] as String,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Encloses a receipt handle and an entry id for each message in
@@ -1422,6 +1534,7 @@ class ChangeMessageVisibilityBatchRequestEntry {
     @required this.receiptHandle,
     this.visibilityTimeout,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// For each message in the batch, the response contains a
@@ -1440,7 +1553,14 @@ class ChangeMessageVisibilityBatchResult {
   });
   static ChangeMessageVisibilityBatchResult fromJson(
           Map<String, dynamic> json) =>
-      ChangeMessageVisibilityBatchResult();
+      ChangeMessageVisibilityBatchResult(
+        successful: (json['Successful'] as List)
+            .map((e) => ChangeMessageVisibilityBatchResultEntry.fromJson(e))
+            .toList(),
+        failed: (json['Failed'] as List)
+            .map((e) => BatchResultErrorEntry.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Encloses the `Id` of an entry in  `ChangeMessageVisibilityBatch.`
@@ -1454,7 +1574,9 @@ class ChangeMessageVisibilityBatchResultEntry {
   });
   static ChangeMessageVisibilityBatchResultEntry fromJson(
           Map<String, dynamic> json) =>
-      ChangeMessageVisibilityBatchResultEntry();
+      ChangeMessageVisibilityBatchResultEntry(
+        id: json['Id'] as String,
+      );
 }
 
 /// Returns the `QueueUrl` attribute of the created queue.
@@ -1466,7 +1588,10 @@ class CreateQueueResult {
     this.queueUrl,
   });
   static CreateQueueResult fromJson(Map<String, dynamic> json) =>
-      CreateQueueResult();
+      CreateQueueResult(
+        queueUrl:
+            json.containsKey('QueueUrl') ? json['QueueUrl'] as String : null,
+      );
 }
 
 /// Encloses a receipt handle and an identifier for it.
@@ -1486,6 +1611,7 @@ class DeleteMessageBatchRequestEntry {
     @required this.id,
     @required this.receiptHandle,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// For each message in the batch, the response contains a
@@ -1503,7 +1629,14 @@ class DeleteMessageBatchResult {
     @required this.failed,
   });
   static DeleteMessageBatchResult fromJson(Map<String, dynamic> json) =>
-      DeleteMessageBatchResult();
+      DeleteMessageBatchResult(
+        successful: (json['Successful'] as List)
+            .map((e) => DeleteMessageBatchResultEntry.fromJson(e))
+            .toList(),
+        failed: (json['Failed'] as List)
+            .map((e) => BatchResultErrorEntry.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Encloses the `Id` of an entry in  `DeleteMessageBatch.`
@@ -1515,7 +1648,9 @@ class DeleteMessageBatchResultEntry {
     @required this.id,
   });
   static DeleteMessageBatchResultEntry fromJson(Map<String, dynamic> json) =>
-      DeleteMessageBatchResultEntry();
+      DeleteMessageBatchResultEntry(
+        id: json['Id'] as String,
+      );
 }
 
 /// A list of returned queue attributes.
@@ -1527,7 +1662,12 @@ class GetQueueAttributesResult {
     this.attributes,
   });
   static GetQueueAttributesResult fromJson(Map<String, dynamic> json) =>
-      GetQueueAttributesResult();
+      GetQueueAttributesResult(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// For more information, see
@@ -1541,7 +1681,10 @@ class GetQueueUrlResult {
     this.queueUrl,
   });
   static GetQueueUrlResult fromJson(Map<String, dynamic> json) =>
-      GetQueueUrlResult();
+      GetQueueUrlResult(
+        queueUrl:
+            json.containsKey('QueueUrl') ? json['QueueUrl'] as String : null,
+      );
 }
 
 /// A list of your dead letter source queues.
@@ -1554,7 +1697,9 @@ class ListDeadLetterSourceQueuesResult {
     @required this.queueUrls,
   });
   static ListDeadLetterSourceQueuesResult fromJson(Map<String, dynamic> json) =>
-      ListDeadLetterSourceQueuesResult();
+      ListDeadLetterSourceQueuesResult(
+        queueUrls: (json['queueUrls'] as List).map((e) => e as String).toList(),
+      );
 }
 
 class ListQueueTagsResult {
@@ -1565,7 +1710,12 @@ class ListQueueTagsResult {
     this.tags,
   });
   static ListQueueTagsResult fromJson(Map<String, dynamic> json) =>
-      ListQueueTagsResult();
+      ListQueueTagsResult(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A list of your queues.
@@ -1577,7 +1727,11 @@ class ListQueuesResult {
     this.queueUrls,
   });
   static ListQueuesResult fromJson(Map<String, dynamic> json) =>
-      ListQueuesResult();
+      ListQueuesResult(
+        queueUrls: json.containsKey('QueueUrls')
+            ? (json['QueueUrls'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// An Amazon SQS message.
@@ -1643,7 +1797,27 @@ class Message {
     this.md5OfMessageAttributes,
     this.messageAttributes,
   });
-  static Message fromJson(Map<String, dynamic> json) => Message();
+  static Message fromJson(Map<String, dynamic> json) => Message(
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+        receiptHandle: json.containsKey('ReceiptHandle')
+            ? json['ReceiptHandle'] as String
+            : null,
+        md5OfBody:
+            json.containsKey('MD5OfBody') ? json['MD5OfBody'] as String : null,
+        body: json.containsKey('Body') ? json['Body'] as String : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        md5OfMessageAttributes: json.containsKey('MD5OfMessageAttributes')
+            ? json['MD5OfMessageAttributes'] as String
+            : null,
+        messageAttributes: json.containsKey('MessageAttributes')
+            ? (json['MessageAttributes'] as Map).map((k, v) =>
+                MapEntry(k as String, MessageAttributeValue.fromJson(v)))
+            : null,
+      );
 }
 
 /// The user-specified message attribute value. For string data types, the
@@ -1685,7 +1859,26 @@ class MessageAttributeValue {
     @required this.dataType,
   });
   static MessageAttributeValue fromJson(Map<String, dynamic> json) =>
-      MessageAttributeValue();
+      MessageAttributeValue(
+        stringValue: json.containsKey('StringValue')
+            ? json['StringValue'] as String
+            : null,
+        binaryValue: json.containsKey('BinaryValue')
+            ? Uint8List(json['BinaryValue'])
+            : null,
+        stringListValues: json.containsKey('StringListValues')
+            ? (json['StringListValues'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        binaryListValues: json.containsKey('BinaryListValues')
+            ? (json['BinaryListValues'] as List)
+                .map((e) => Uint8List(e))
+                .toList()
+            : null,
+        dataType: json['DataType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The user-specified message system attribute value. For string data types,
@@ -1724,6 +1917,7 @@ class MessageSystemAttributeValue {
     this.binaryListValues,
     @required this.dataType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of received messages.
@@ -1735,7 +1929,13 @@ class ReceiveMessageResult {
     this.messages,
   });
   static ReceiveMessageResult fromJson(Map<String, dynamic> json) =>
-      ReceiveMessageResult();
+      ReceiveMessageResult(
+        messages: json.containsKey('Messages')
+            ? (json['Messages'] as List)
+                .map((e) => Message.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the details of a single Amazon SQS message along with an `Id`.
@@ -1879,6 +2079,7 @@ class SendMessageBatchRequestEntry {
     this.messageDeduplicationId,
     this.messageGroupId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// For each message in the batch, the response contains a
@@ -1897,7 +2098,14 @@ class SendMessageBatchResult {
     @required this.failed,
   });
   static SendMessageBatchResult fromJson(Map<String, dynamic> json) =>
-      SendMessageBatchResult();
+      SendMessageBatchResult(
+        successful: (json['Successful'] as List)
+            .map((e) => SendMessageBatchResultEntry.fromJson(e))
+            .toList(),
+        failed: (json['Failed'] as List)
+            .map((e) => BatchResultErrorEntry.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Encloses a `MessageId` for a successfully-enqueued message in a
@@ -1947,7 +2155,21 @@ class SendMessageBatchResultEntry {
     this.sequenceNumber,
   });
   static SendMessageBatchResultEntry fromJson(Map<String, dynamic> json) =>
-      SendMessageBatchResultEntry();
+      SendMessageBatchResultEntry(
+        id: json['Id'] as String,
+        messageId: json['MessageId'] as String,
+        md5OfMessageBody: json['MD5OfMessageBody'] as String,
+        md5OfMessageAttributes: json.containsKey('MD5OfMessageAttributes')
+            ? json['MD5OfMessageAttributes'] as String
+            : null,
+        md5OfMessageSystemAttributes:
+            json.containsKey('MD5OfMessageSystemAttributes')
+                ? json['MD5OfMessageSystemAttributes'] as String
+                : null,
+        sequenceNumber: json.containsKey('SequenceNumber')
+            ? json['SequenceNumber'] as String
+            : null,
+      );
 }
 
 /// The `MD5OfMessageBody` and `MessageId` elements.
@@ -1994,5 +2216,21 @@ class SendMessageResult {
     this.sequenceNumber,
   });
   static SendMessageResult fromJson(Map<String, dynamic> json) =>
-      SendMessageResult();
+      SendMessageResult(
+        md5OfMessageBody: json.containsKey('MD5OfMessageBody')
+            ? json['MD5OfMessageBody'] as String
+            : null,
+        md5OfMessageAttributes: json.containsKey('MD5OfMessageAttributes')
+            ? json['MD5OfMessageAttributes'] as String
+            : null,
+        md5OfMessageSystemAttributes:
+            json.containsKey('MD5OfMessageSystemAttributes')
+                ? json['MD5OfMessageSystemAttributes'] as String
+                : null,
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+        sequenceNumber: json.containsKey('SequenceNumber')
+            ? json['SequenceNumber'] as String
+            : null,
+      );
 }

@@ -4,6 +4,11 @@ import 'package:meta/meta.dart';
 /// service. Also provides sample requests, responses, and errors for the
 /// supported web services protocols.
 class Iot1ClickDevicesServiceApi {
+  final _client;
+  Iot1ClickDevicesServiceApi(client)
+      : _client = client.configured('IoT 1Click Devices Service',
+            serializer: 'rest-json');
+
   /// Adds device(s) to your account (i.e., claim one or more devices) if and
   /// only if you received a claim code with the device(s).
   ///
@@ -11,7 +16,10 @@ class Iot1ClickDevicesServiceApi {
   /// manufacturer.
   Future<ClaimDevicesByClaimCodeResponse> claimDevicesByClaimCode(
       String claimCode) async {
-    return ClaimDevicesByClaimCodeResponse.fromJson({});
+    var response_ = await _client.send('ClaimDevicesByClaimCode', {
+      'ClaimCode': claimCode,
+    });
+    return ClaimDevicesByClaimCodeResponse.fromJson(response_);
   }
 
   /// Given a device ID, returns a DescribeDeviceResponse object describing the
@@ -19,7 +27,10 @@ class Iot1ClickDevicesServiceApi {
   ///
   /// [deviceId]: The unique identifier of the device.
   Future<DescribeDeviceResponse> describeDevice(String deviceId) async {
-    return DescribeDeviceResponse.fromJson({});
+    var response_ = await _client.send('DescribeDevice', {
+      'DeviceId': deviceId,
+    });
+    return DescribeDeviceResponse.fromJson(response_);
   }
 
   /// Given a device ID, finalizes the claim request for the associated device.
@@ -36,7 +47,11 @@ class Iot1ClickDevicesServiceApi {
   /// [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
   Future<FinalizeDeviceClaimResponse> finalizeDeviceClaim(String deviceId,
       {Map<String, String> tags}) async {
-    return FinalizeDeviceClaimResponse.fromJson({});
+    var response_ = await _client.send('FinalizeDeviceClaim', {
+      'DeviceId': deviceId,
+      if (tags != null) 'Tags': tags,
+    });
+    return FinalizeDeviceClaimResponse.fromJson(response_);
   }
 
   /// Given a device ID, returns the invokable methods associated with the
@@ -44,7 +59,10 @@ class Iot1ClickDevicesServiceApi {
   ///
   /// [deviceId]: The unique identifier of the device.
   Future<GetDeviceMethodsResponse> getDeviceMethods(String deviceId) async {
-    return GetDeviceMethodsResponse.fromJson({});
+    var response_ = await _client.send('GetDeviceMethods', {
+      'DeviceId': deviceId,
+    });
+    return GetDeviceMethodsResponse.fromJson(response_);
   }
 
   /// Given a device ID, initiates a claim request for the associated device.
@@ -56,7 +74,10 @@ class Iot1ClickDevicesServiceApi {
   /// [deviceId]: The unique identifier of the device.
   Future<InitiateDeviceClaimResponse> initiateDeviceClaim(
       String deviceId) async {
-    return InitiateDeviceClaimResponse.fromJson({});
+    var response_ = await _client.send('InitiateDeviceClaim', {
+      'DeviceId': deviceId,
+    });
+    return InitiateDeviceClaimResponse.fromJson(response_);
   }
 
   /// Given a device ID, issues a request to invoke a named device method (with
@@ -70,7 +91,13 @@ class Iot1ClickDevicesServiceApi {
   /// method request parameters.
   Future<InvokeDeviceMethodResponse> invokeDeviceMethod(String deviceId,
       {DeviceMethod deviceMethod, String deviceMethodParameters}) async {
-    return InvokeDeviceMethodResponse.fromJson({});
+    var response_ = await _client.send('InvokeDeviceMethod', {
+      'DeviceId': deviceId,
+      if (deviceMethod != null) 'DeviceMethod': deviceMethod,
+      if (deviceMethodParameters != null)
+        'DeviceMethodParameters': deviceMethodParameters,
+    });
+    return InvokeDeviceMethodResponse.fromJson(response_);
   }
 
   /// Using a device ID, returns a DeviceEventsResponse object containing an
@@ -94,7 +121,14 @@ class Iot1ClickDevicesServiceApi {
       int maxResults,
       String nextToken,
       @required DateTime toTimeStamp}) async {
-    return ListDeviceEventsResponse.fromJson({});
+    var response_ = await _client.send('ListDeviceEvents', {
+      'DeviceId': deviceId,
+      'FromTimeStamp': fromTimeStamp,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'ToTimeStamp': toTimeStamp,
+    });
+    return ListDeviceEventsResponse.fromJson(response_);
   }
 
   /// Lists the 1-Click compatible devices associated with your AWS account.
@@ -107,7 +141,12 @@ class Iot1ClickDevicesServiceApi {
   /// [nextToken]: The token to retrieve the next set of results.
   Future<ListDevicesResponse> listDevices(
       {String deviceType, int maxResults, String nextToken}) async {
-    return ListDevicesResponse.fromJson({});
+    var response_ = await _client.send('ListDevices', {
+      if (deviceType != null) 'DeviceType': deviceType,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListDevicesResponse.fromJson(response_);
   }
 
   /// Lists the tags associated with the specified resource ARN.
@@ -115,7 +154,10 @@ class Iot1ClickDevicesServiceApi {
   /// [resourceArn]: The ARN of the resource.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Adds or updates the tags associated with the resource ARN. See
@@ -130,13 +172,21 @@ class Iot1ClickDevicesServiceApi {
   /// [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
   Future<void> tagResource(
       {@required String resourceArn,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+  }
 
   /// Disassociates a device from your AWS account using its device ID.
   ///
   /// [deviceId]: The unique identifier of the device.
   Future<UnclaimDeviceResponse> unclaimDevice(String deviceId) async {
-    return UnclaimDeviceResponse.fromJson({});
+    var response_ = await _client.send('UnclaimDevice', {
+      'DeviceId': deviceId,
+    });
+    return UnclaimDeviceResponse.fromJson(response_);
   }
 
   /// Using tag keys, deletes the tags (key/value pairs) associated with the
@@ -146,7 +196,12 @@ class Iot1ClickDevicesServiceApi {
   ///
   /// [tagKeys]: A collections of tag keys. For example, {"key1","key2"}
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Using a Boolean value (true or false), this operation enables or disables
   /// the device given a device ID.
@@ -157,7 +212,11 @@ class Iot1ClickDevicesServiceApi {
   /// disabled.
   Future<UpdateDeviceStateResponse> updateDeviceState(String deviceId,
       {bool enabled}) async {
-    return UpdateDeviceStateResponse.fromJson({});
+    var response_ = await _client.send('UpdateDeviceState', {
+      'DeviceId': deviceId,
+      if (enabled != null) 'Enabled': enabled,
+    });
+    return UpdateDeviceStateResponse.fromJson(response_);
   }
 }
 
@@ -179,7 +238,11 @@ class ClaimDevicesByClaimCodeResponse {
     this.total,
   });
   static ClaimDevicesByClaimCodeResponse fromJson(Map<String, dynamic> json) =>
-      ClaimDevicesByClaimCodeResponse();
+      ClaimDevicesByClaimCodeResponse(
+        claimCode:
+            json.containsKey('ClaimCode') ? json['ClaimCode'] as String : null,
+        total: json.containsKey('Total') ? json['Total'] as int : null,
+      );
 }
 
 class DescribeDeviceResponse {
@@ -190,7 +253,11 @@ class DescribeDeviceResponse {
     this.deviceDescription,
   });
   static DescribeDeviceResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDeviceResponse();
+      DescribeDeviceResponse(
+        deviceDescription: json.containsKey('DeviceDescription')
+            ? DeviceDescription.fromJson(json['DeviceDescription'])
+            : null,
+      );
 }
 
 class Device {
@@ -208,7 +275,14 @@ class Device {
     this.deviceId,
     this.type,
   });
-  static Device fromJson(Map<String, dynamic> json) => Device();
+  static Device fromJson(Map<String, dynamic> json) => Device(
+        attributes: json.containsKey('Attributes')
+            ? Attributes.fromJson(json['Attributes'])
+            : null,
+        deviceId:
+            json.containsKey('DeviceId') ? json['DeviceId'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 class DeviceDescription {
@@ -245,7 +319,24 @@ class DeviceDescription {
     this.tags,
   });
   static DeviceDescription fromJson(Map<String, dynamic> json) =>
-      DeviceDescription();
+      DeviceDescription(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        deviceId:
+            json.containsKey('DeviceId') ? json['DeviceId'] as String : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        remainingLife: json.containsKey('RemainingLife')
+            ? json['RemainingLife'] as double
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DeviceEvent {
@@ -259,7 +350,12 @@ class DeviceEvent {
     this.device,
     this.stdEvent,
   });
-  static DeviceEvent fromJson(Map<String, dynamic> json) => DeviceEvent();
+  static DeviceEvent fromJson(Map<String, dynamic> json) => DeviceEvent(
+        device:
+            json.containsKey('Device') ? Device.fromJson(json['Device']) : null,
+        stdEvent:
+            json.containsKey('StdEvent') ? json['StdEvent'] as String : null,
+      );
 }
 
 class DeviceMethod {
@@ -273,7 +369,15 @@ class DeviceMethod {
     this.deviceType,
     this.methodName,
   });
-  static DeviceMethod fromJson(Map<String, dynamic> json) => DeviceMethod();
+  static DeviceMethod fromJson(Map<String, dynamic> json) => DeviceMethod(
+        deviceType: json.containsKey('DeviceType')
+            ? json['DeviceType'] as String
+            : null,
+        methodName: json.containsKey('MethodName')
+            ? json['MethodName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class FinalizeDeviceClaimResponse {
@@ -284,7 +388,9 @@ class FinalizeDeviceClaimResponse {
     this.state,
   });
   static FinalizeDeviceClaimResponse fromJson(Map<String, dynamic> json) =>
-      FinalizeDeviceClaimResponse();
+      FinalizeDeviceClaimResponse(
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 class GetDeviceMethodsResponse {
@@ -295,7 +401,13 @@ class GetDeviceMethodsResponse {
     this.deviceMethods,
   });
   static GetDeviceMethodsResponse fromJson(Map<String, dynamic> json) =>
-      GetDeviceMethodsResponse();
+      GetDeviceMethodsResponse(
+        deviceMethods: json.containsKey('DeviceMethods')
+            ? (json['DeviceMethods'] as List)
+                .map((e) => DeviceMethod.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class InitiateDeviceClaimResponse {
@@ -306,7 +418,9 @@ class InitiateDeviceClaimResponse {
     this.state,
   });
   static InitiateDeviceClaimResponse fromJson(Map<String, dynamic> json) =>
-      InitiateDeviceClaimResponse();
+      InitiateDeviceClaimResponse(
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 class InvokeDeviceMethodResponse {
@@ -317,7 +431,11 @@ class InvokeDeviceMethodResponse {
     this.deviceMethodResponse,
   });
   static InvokeDeviceMethodResponse fromJson(Map<String, dynamic> json) =>
-      InvokeDeviceMethodResponse();
+      InvokeDeviceMethodResponse(
+        deviceMethodResponse: json.containsKey('DeviceMethodResponse')
+            ? json['DeviceMethodResponse'] as String
+            : null,
+      );
 }
 
 class ListDeviceEventsResponse {
@@ -333,7 +451,15 @@ class ListDeviceEventsResponse {
     this.nextToken,
   });
   static ListDeviceEventsResponse fromJson(Map<String, dynamic> json) =>
-      ListDeviceEventsResponse();
+      ListDeviceEventsResponse(
+        events: json.containsKey('Events')
+            ? (json['Events'] as List)
+                .map((e) => DeviceEvent.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDevicesResponse {
@@ -348,7 +474,15 @@ class ListDevicesResponse {
     this.nextToken,
   });
   static ListDevicesResponse fromJson(Map<String, dynamic> json) =>
-      ListDevicesResponse();
+      ListDevicesResponse(
+        devices: json.containsKey('Devices')
+            ? (json['Devices'] as List)
+                .map((e) => DeviceDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -361,7 +495,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class UnclaimDeviceResponse {
@@ -372,7 +511,9 @@ class UnclaimDeviceResponse {
     this.state,
   });
   static UnclaimDeviceResponse fromJson(Map<String, dynamic> json) =>
-      UnclaimDeviceResponse();
+      UnclaimDeviceResponse(
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 class UpdateDeviceStateResponse {

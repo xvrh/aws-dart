@@ -33,6 +33,11 @@ import 'package:meta/meta.dart';
 ///     Publishing Applications – Configure and upload applications to make them
 /// available to other developers, and publish new versions of applications.
 class ServerlessApplicationRepositoryApi {
+  final _client;
+  ServerlessApplicationRepositoryApi(client)
+      : _client = client.configured('ServerlessApplicationRepository',
+            serializer: 'rest-json');
+
   /// Creates an application, optionally including an AWS SAM file to create the
   /// first application version in the same call.
   ///
@@ -137,7 +142,25 @@ class ServerlessApplicationRepositoryApi {
       String spdxLicenseId,
       String templateBody,
       String templateUrl}) async {
-    return CreateApplicationResponse.fromJson({});
+    var response_ = await _client.send('CreateApplication', {
+      'Author': author,
+      'Description': description,
+      if (homePageUrl != null) 'HomePageUrl': homePageUrl,
+      if (labels != null) 'Labels': labels,
+      if (licenseBody != null) 'LicenseBody': licenseBody,
+      if (licenseUrl != null) 'LicenseUrl': licenseUrl,
+      'Name': name,
+      if (readmeBody != null) 'ReadmeBody': readmeBody,
+      if (readmeUrl != null) 'ReadmeUrl': readmeUrl,
+      if (semanticVersion != null) 'SemanticVersion': semanticVersion,
+      if (sourceCodeArchiveUrl != null)
+        'SourceCodeArchiveUrl': sourceCodeArchiveUrl,
+      if (sourceCodeUrl != null) 'SourceCodeUrl': sourceCodeUrl,
+      if (spdxLicenseId != null) 'SpdxLicenseId': spdxLicenseId,
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateUrl': templateUrl,
+    });
+    return CreateApplicationResponse.fromJson(response_);
   }
 
   /// Creates an application version.
@@ -165,7 +188,16 @@ class ServerlessApplicationRepositoryApi {
       String sourceCodeUrl,
       String templateBody,
       String templateUrl}) async {
-    return CreateApplicationVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateApplicationVersion', {
+      'ApplicationId': applicationId,
+      'SemanticVersion': semanticVersion,
+      if (sourceCodeArchiveUrl != null)
+        'SourceCodeArchiveUrl': sourceCodeArchiveUrl,
+      if (sourceCodeUrl != null) 'SourceCodeUrl': sourceCodeUrl,
+      if (templateBody != null) 'TemplateBody': templateBody,
+      if (templateUrl != null) 'TemplateUrl': templateUrl,
+    });
+    return CreateApplicationVersionResponse.fromJson(response_);
   }
 
   /// Creates an AWS CloudFormation change set for the given application.
@@ -275,7 +307,23 @@ class ServerlessApplicationRepositoryApi {
       @required String stackName,
       List<Tag> tags,
       String templateId}) async {
-    return CreateCloudFormationChangeSetResponse.fromJson({});
+    var response_ = await _client.send('CreateCloudFormationChangeSet', {
+      'ApplicationId': applicationId,
+      if (capabilities != null) 'Capabilities': capabilities,
+      if (changeSetName != null) 'ChangeSetName': changeSetName,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (description != null) 'Description': description,
+      if (notificationArns != null) 'NotificationArns': notificationArns,
+      if (parameterOverrides != null) 'ParameterOverrides': parameterOverrides,
+      if (resourceTypes != null) 'ResourceTypes': resourceTypes,
+      if (rollbackConfiguration != null)
+        'RollbackConfiguration': rollbackConfiguration,
+      if (semanticVersion != null) 'SemanticVersion': semanticVersion,
+      'StackName': stackName,
+      if (tags != null) 'Tags': tags,
+      if (templateId != null) 'TemplateId': templateId,
+    });
+    return CreateCloudFormationChangeSetResponse.fromJson(response_);
   }
 
   /// Creates an AWS CloudFormation template.
@@ -288,13 +336,21 @@ class ServerlessApplicationRepositoryApi {
   Future<CreateCloudFormationTemplateResponse> createCloudFormationTemplate(
       String applicationId,
       {String semanticVersion}) async {
-    return CreateCloudFormationTemplateResponse.fromJson({});
+    var response_ = await _client.send('CreateCloudFormationTemplate', {
+      'ApplicationId': applicationId,
+      if (semanticVersion != null) 'SemanticVersion': semanticVersion,
+    });
+    return CreateCloudFormationTemplateResponse.fromJson(response_);
   }
 
   /// Deletes the specified application.
   ///
   /// [applicationId]: The Amazon Resource Name (ARN) of the application.
-  Future<void> deleteApplication(String applicationId) async {}
+  Future<void> deleteApplication(String applicationId) async {
+    await _client.send('DeleteApplication', {
+      'ApplicationId': applicationId,
+    });
+  }
 
   /// Gets the specified application.
   ///
@@ -303,7 +359,11 @@ class ServerlessApplicationRepositoryApi {
   /// [semanticVersion]: The semantic version of the application to get.
   Future<GetApplicationResponse> getApplication(String applicationId,
       {String semanticVersion}) async {
-    return GetApplicationResponse.fromJson({});
+    var response_ = await _client.send('GetApplication', {
+      'ApplicationId': applicationId,
+      if (semanticVersion != null) 'SemanticVersion': semanticVersion,
+    });
+    return GetApplicationResponse.fromJson(response_);
   }
 
   /// Retrieves the policy for the application.
@@ -311,7 +371,10 @@ class ServerlessApplicationRepositoryApi {
   /// [applicationId]: The Amazon Resource Name (ARN) of the application.
   Future<GetApplicationPolicyResponse> getApplicationPolicy(
       String applicationId) async {
-    return GetApplicationPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetApplicationPolicy', {
+      'ApplicationId': applicationId,
+    });
+    return GetApplicationPolicyResponse.fromJson(response_);
   }
 
   /// Gets the specified AWS CloudFormation template.
@@ -324,7 +387,11 @@ class ServerlessApplicationRepositoryApi {
   /// [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}
   Future<GetCloudFormationTemplateResponse> getCloudFormationTemplate(
       {@required String applicationId, @required String templateId}) async {
-    return GetCloudFormationTemplateResponse.fromJson({});
+    var response_ = await _client.send('GetCloudFormationTemplate', {
+      'ApplicationId': applicationId,
+      'TemplateId': templateId,
+    });
+    return GetCloudFormationTemplateResponse.fromJson(response_);
   }
 
   /// Retrieves the list of applications nested in the containing application.
@@ -341,7 +408,13 @@ class ServerlessApplicationRepositoryApi {
       {int maxItems,
       String nextToken,
       String semanticVersion}) async {
-    return ListApplicationDependenciesResponse.fromJson({});
+    var response_ = await _client.send('ListApplicationDependencies', {
+      'ApplicationId': applicationId,
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (semanticVersion != null) 'SemanticVersion': semanticVersion,
+    });
+    return ListApplicationDependenciesResponse.fromJson(response_);
   }
 
   /// Lists versions for the specified application.
@@ -355,7 +428,12 @@ class ServerlessApplicationRepositoryApi {
       String applicationId,
       {int maxItems,
       String nextToken}) async {
-    return ListApplicationVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListApplicationVersions', {
+      'ApplicationId': applicationId,
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListApplicationVersionsResponse.fromJson(response_);
   }
 
   /// Lists applications owned by the requester.
@@ -365,7 +443,11 @@ class ServerlessApplicationRepositoryApi {
   /// [nextToken]: A token to specify where to start paginating.
   Future<ListApplicationsResponse> listApplications(
       {int maxItems, String nextToken}) async {
-    return ListApplicationsResponse.fromJson({});
+    var response_ = await _client.send('ListApplications', {
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListApplicationsResponse.fromJson(response_);
   }
 
   /// Sets the permission policy for an application. For the list of actions
@@ -379,7 +461,11 @@ class ServerlessApplicationRepositoryApi {
   Future<PutApplicationPolicyResponse> putApplicationPolicy(
       {@required String applicationId,
       @required List<ApplicationPolicyStatement> statements}) async {
-    return PutApplicationPolicyResponse.fromJson({});
+    var response_ = await _client.send('PutApplicationPolicy', {
+      'ApplicationId': applicationId,
+      'Statements': statements,
+    });
+    return PutApplicationPolicyResponse.fromJson(response_);
   }
 
   /// Updates the specified application.
@@ -421,7 +507,16 @@ class ServerlessApplicationRepositoryApi {
       List<String> labels,
       String readmeBody,
       String readmeUrl}) async {
-    return UpdateApplicationResponse.fromJson({});
+    var response_ = await _client.send('UpdateApplication', {
+      'ApplicationId': applicationId,
+      if (author != null) 'Author': author,
+      if (description != null) 'Description': description,
+      if (homePageUrl != null) 'HomePageUrl': homePageUrl,
+      if (labels != null) 'Labels': labels,
+      if (readmeBody != null) 'ReadmeBody': readmeBody,
+      if (readmeUrl != null) 'ReadmeUrl': readmeUrl,
+    });
+    return UpdateApplicationResponse.fromJson(response_);
   }
 }
 
@@ -438,7 +533,10 @@ class ApplicationDependencySummary {
     @required this.semanticVersion,
   });
   static ApplicationDependencySummary fromJson(Map<String, dynamic> json) =>
-      ApplicationDependencySummary();
+      ApplicationDependencySummary(
+        applicationId: json['ApplicationId'] as String,
+        semanticVersion: json['SemanticVersion'] as String,
+      );
 }
 
 /// Policy statement applied to the application.
@@ -459,7 +557,15 @@ class ApplicationPolicyStatement {
     this.statementId,
   });
   static ApplicationPolicyStatement fromJson(Map<String, dynamic> json) =>
-      ApplicationPolicyStatement();
+      ApplicationPolicyStatement(
+        actions: (json['Actions'] as List).map((e) => e as String).toList(),
+        principals:
+            (json['Principals'] as List).map((e) => e as String).toList(),
+        statementId: json.containsKey('StatementId')
+            ? json['StatementId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Summary of details about the application.
@@ -515,7 +621,24 @@ class ApplicationSummary {
     this.spdxLicenseId,
   });
   static ApplicationSummary fromJson(Map<String, dynamic> json) =>
-      ApplicationSummary();
+      ApplicationSummary(
+        applicationId: json['ApplicationId'] as String,
+        author: json['Author'] as String,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        description: json['Description'] as String,
+        homePageUrl: json.containsKey('HomePageUrl')
+            ? json['HomePageUrl'] as String
+            : null,
+        labels: json.containsKey('Labels')
+            ? (json['Labels'] as List).map((e) => e as String).toList()
+            : null,
+        name: json['Name'] as String,
+        spdxLicenseId: json.containsKey('SpdxLicenseId')
+            ? json['SpdxLicenseId'] as String
+            : null,
+      );
 }
 
 class CreateApplicationResponse {
@@ -587,7 +710,36 @@ class CreateApplicationResponse {
     this.version,
   });
   static CreateApplicationResponse fromJson(Map<String, dynamic> json) =>
-      CreateApplicationResponse();
+      CreateApplicationResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        author: json.containsKey('Author') ? json['Author'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        homePageUrl: json.containsKey('HomePageUrl')
+            ? json['HomePageUrl'] as String
+            : null,
+        labels: json.containsKey('Labels')
+            ? (json['Labels'] as List).map((e) => e as String).toList()
+            : null,
+        licenseUrl: json.containsKey('LicenseUrl')
+            ? json['LicenseUrl'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        readmeUrl:
+            json.containsKey('ReadmeUrl') ? json['ReadmeUrl'] as String : null,
+        spdxLicenseId: json.containsKey('SpdxLicenseId')
+            ? json['SpdxLicenseId'] as String
+            : null,
+        version: json.containsKey('Version')
+            ? Version.fromJson(json['Version'])
+            : null,
+      );
 }
 
 class CreateApplicationVersionResponse {
@@ -672,7 +824,39 @@ class CreateApplicationVersionResponse {
     this.templateUrl,
   });
   static CreateApplicationVersionResponse fromJson(Map<String, dynamic> json) =>
-      CreateApplicationVersionResponse();
+      CreateApplicationVersionResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        parameterDefinitions: json.containsKey('ParameterDefinitions')
+            ? (json['ParameterDefinitions'] as List)
+                .map((e) => ParameterDefinition.fromJson(e))
+                .toList()
+            : null,
+        requiredCapabilities: json.containsKey('RequiredCapabilities')
+            ? (json['RequiredCapabilities'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        resourcesSupported: json.containsKey('ResourcesSupported')
+            ? json['ResourcesSupported'] as bool
+            : null,
+        semanticVersion: json.containsKey('SemanticVersion')
+            ? json['SemanticVersion'] as String
+            : null,
+        sourceCodeArchiveUrl: json.containsKey('SourceCodeArchiveUrl')
+            ? json['SourceCodeArchiveUrl'] as String
+            : null,
+        sourceCodeUrl: json.containsKey('SourceCodeUrl')
+            ? json['SourceCodeUrl'] as String
+            : null,
+        templateUrl: json.containsKey('TemplateUrl')
+            ? json['TemplateUrl'] as String
+            : null,
+      );
 }
 
 class CreateCloudFormationChangeSetResponse {
@@ -702,7 +886,18 @@ class CreateCloudFormationChangeSetResponse {
   });
   static CreateCloudFormationChangeSetResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateCloudFormationChangeSetResponse();
+      CreateCloudFormationChangeSetResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        changeSetId: json.containsKey('ChangeSetId')
+            ? json['ChangeSetId'] as String
+            : null,
+        semanticVersion: json.containsKey('SemanticVersion')
+            ? json['SemanticVersion'] as String
+            : null,
+        stackId: json.containsKey('StackId') ? json['StackId'] as String : null,
+      );
 }
 
 class CreateCloudFormationTemplateResponse {
@@ -747,7 +942,27 @@ class CreateCloudFormationTemplateResponse {
   });
   static CreateCloudFormationTemplateResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateCloudFormationTemplateResponse();
+      CreateCloudFormationTemplateResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        expirationTime: json.containsKey('ExpirationTime')
+            ? json['ExpirationTime'] as String
+            : null,
+        semanticVersion: json.containsKey('SemanticVersion')
+            ? json['SemanticVersion'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        templateId: json.containsKey('TemplateId')
+            ? json['TemplateId'] as String
+            : null,
+        templateUrl: json.containsKey('TemplateUrl')
+            ? json['TemplateUrl'] as String
+            : null,
+      );
 }
 
 class GetApplicationPolicyResponse {
@@ -758,7 +973,13 @@ class GetApplicationPolicyResponse {
     this.statements,
   });
   static GetApplicationPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetApplicationPolicyResponse();
+      GetApplicationPolicyResponse(
+        statements: json.containsKey('Statements')
+            ? (json['Statements'] as List)
+                .map((e) => ApplicationPolicyStatement.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetApplicationResponse {
@@ -830,7 +1051,36 @@ class GetApplicationResponse {
     this.version,
   });
   static GetApplicationResponse fromJson(Map<String, dynamic> json) =>
-      GetApplicationResponse();
+      GetApplicationResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        author: json.containsKey('Author') ? json['Author'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        homePageUrl: json.containsKey('HomePageUrl')
+            ? json['HomePageUrl'] as String
+            : null,
+        labels: json.containsKey('Labels')
+            ? (json['Labels'] as List).map((e) => e as String).toList()
+            : null,
+        licenseUrl: json.containsKey('LicenseUrl')
+            ? json['LicenseUrl'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        readmeUrl:
+            json.containsKey('ReadmeUrl') ? json['ReadmeUrl'] as String : null,
+        spdxLicenseId: json.containsKey('SpdxLicenseId')
+            ? json['SpdxLicenseId'] as String
+            : null,
+        version: json.containsKey('Version')
+            ? Version.fromJson(json['Version'])
+            : null,
+      );
 }
 
 class GetCloudFormationTemplateResponse {
@@ -875,7 +1125,27 @@ class GetCloudFormationTemplateResponse {
   });
   static GetCloudFormationTemplateResponse fromJson(
           Map<String, dynamic> json) =>
-      GetCloudFormationTemplateResponse();
+      GetCloudFormationTemplateResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        expirationTime: json.containsKey('ExpirationTime')
+            ? json['ExpirationTime'] as String
+            : null,
+        semanticVersion: json.containsKey('SemanticVersion')
+            ? json['SemanticVersion'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        templateId: json.containsKey('TemplateId')
+            ? json['TemplateId'] as String
+            : null,
+        templateUrl: json.containsKey('TemplateUrl')
+            ? json['TemplateUrl'] as String
+            : null,
+      );
 }
 
 class ListApplicationDependenciesResponse {
@@ -891,7 +1161,15 @@ class ListApplicationDependenciesResponse {
   });
   static ListApplicationDependenciesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListApplicationDependenciesResponse();
+      ListApplicationDependenciesResponse(
+        dependencies: json.containsKey('Dependencies')
+            ? (json['Dependencies'] as List)
+                .map((e) => ApplicationDependencySummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListApplicationVersionsResponse {
@@ -906,7 +1184,15 @@ class ListApplicationVersionsResponse {
     this.versions,
   });
   static ListApplicationVersionsResponse fromJson(Map<String, dynamic> json) =>
-      ListApplicationVersionsResponse();
+      ListApplicationVersionsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => VersionSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListApplicationsResponse {
@@ -921,7 +1207,15 @@ class ListApplicationsResponse {
     this.nextToken,
   });
   static ListApplicationsResponse fromJson(Map<String, dynamic> json) =>
-      ListApplicationsResponse();
+      ListApplicationsResponse(
+        applications: json.containsKey('Applications')
+            ? (json['Applications'] as List)
+                .map((e) => ApplicationSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Parameters supported by the application.
@@ -1031,7 +1325,35 @@ class ParameterDefinition {
     this.type,
   });
   static ParameterDefinition fromJson(Map<String, dynamic> json) =>
-      ParameterDefinition();
+      ParameterDefinition(
+        allowedPattern: json.containsKey('AllowedPattern')
+            ? json['AllowedPattern'] as String
+            : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? (json['AllowedValues'] as List).map((e) => e as String).toList()
+            : null,
+        constraintDescription: json.containsKey('ConstraintDescription')
+            ? json['ConstraintDescription'] as String
+            : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        maxLength:
+            json.containsKey('MaxLength') ? json['MaxLength'] as int : null,
+        maxValue: json.containsKey('MaxValue') ? json['MaxValue'] as int : null,
+        minLength:
+            json.containsKey('MinLength') ? json['MinLength'] as int : null,
+        minValue: json.containsKey('MinValue') ? json['MinValue'] as int : null,
+        name: json['Name'] as String,
+        noEcho: json.containsKey('NoEcho') ? json['NoEcho'] as bool : null,
+        referencedByResources: (json['ReferencedByResources'] as List)
+            .map((e) => e as String)
+            .toList(),
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Parameter value of the application.
@@ -1048,6 +1370,7 @@ class ParameterValue {
     @required this.name,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutApplicationPolicyResponse {
@@ -1058,7 +1381,13 @@ class PutApplicationPolicyResponse {
     this.statements,
   });
   static PutApplicationPolicyResponse fromJson(Map<String, dynamic> json) =>
-      PutApplicationPolicyResponse();
+      PutApplicationPolicyResponse(
+        statements: json.containsKey('Statements')
+            ? (json['Statements'] as List)
+                .map((e) => ApplicationPolicyStatement.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// This property corresponds to the _AWS CloudFormation
@@ -1081,6 +1410,7 @@ class RollbackConfiguration {
     this.monitoringTimeInMinutes,
     this.rollbackTriggers,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This property corresponds to the _AWS CloudFormation
@@ -1103,6 +1433,7 @@ class RollbackTrigger {
     @required this.arn,
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This property corresponds to the _AWS CloudFormation
@@ -1125,6 +1456,7 @@ class Tag {
     @required this.key,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateApplicationResponse {
@@ -1196,7 +1528,36 @@ class UpdateApplicationResponse {
     this.version,
   });
   static UpdateApplicationResponse fromJson(Map<String, dynamic> json) =>
-      UpdateApplicationResponse();
+      UpdateApplicationResponse(
+        applicationId: json.containsKey('ApplicationId')
+            ? json['ApplicationId'] as String
+            : null,
+        author: json.containsKey('Author') ? json['Author'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? json['CreationTime'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        homePageUrl: json.containsKey('HomePageUrl')
+            ? json['HomePageUrl'] as String
+            : null,
+        labels: json.containsKey('Labels')
+            ? (json['Labels'] as List).map((e) => e as String).toList()
+            : null,
+        licenseUrl: json.containsKey('LicenseUrl')
+            ? json['LicenseUrl'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        readmeUrl:
+            json.containsKey('ReadmeUrl') ? json['ReadmeUrl'] as String : null,
+        spdxLicenseId: json.containsKey('SpdxLicenseId')
+            ? json['SpdxLicenseId'] as String
+            : null,
+        version: json.containsKey('Version')
+            ? Version.fromJson(json['Version'])
+            : null,
+      );
 }
 
 /// Application version details.
@@ -1281,7 +1642,25 @@ class Version {
     this.sourceCodeUrl,
     @required this.templateUrl,
   });
-  static Version fromJson(Map<String, dynamic> json) => Version();
+  static Version fromJson(Map<String, dynamic> json) => Version(
+        applicationId: json['ApplicationId'] as String,
+        creationTime: json['CreationTime'] as String,
+        parameterDefinitions: (json['ParameterDefinitions'] as List)
+            .map((e) => ParameterDefinition.fromJson(e))
+            .toList(),
+        requiredCapabilities: (json['RequiredCapabilities'] as List)
+            .map((e) => e as String)
+            .toList(),
+        resourcesSupported: json['ResourcesSupported'] as bool,
+        semanticVersion: json['SemanticVersion'] as String,
+        sourceCodeArchiveUrl: json.containsKey('SourceCodeArchiveUrl')
+            ? json['SourceCodeArchiveUrl'] as String
+            : null,
+        sourceCodeUrl: json.containsKey('SourceCodeUrl')
+            ? json['SourceCodeUrl'] as String
+            : null,
+        templateUrl: json['TemplateUrl'] as String,
+      );
 }
 
 /// An application version summary.
@@ -1307,5 +1686,12 @@ class VersionSummary {
     @required this.semanticVersion,
     this.sourceCodeUrl,
   });
-  static VersionSummary fromJson(Map<String, dynamic> json) => VersionSummary();
+  static VersionSummary fromJson(Map<String, dynamic> json) => VersionSummary(
+        applicationId: json['ApplicationId'] as String,
+        creationTime: json['CreationTime'] as String,
+        semanticVersion: json['SemanticVersion'] as String,
+        sourceCodeUrl: json.containsKey('SourceCodeUrl')
+            ? json['SourceCodeUrl'] as String
+            : null,
+      );
 }

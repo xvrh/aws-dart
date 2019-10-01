@@ -11,6 +11,10 @@ import 'dart:typed_data';
 /// [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html)
 /// in the _Amazon Aurora User Guide_.
 class RdsDataApi {
+  final _client;
+  RdsDataApi(client)
+      : _client = client.configured('RDS Data', serializer: 'rest-json');
+
   /// Runs a batch SQL statement over an array of data.
   ///
   /// You can run bulk update and insert operations for multiple records using a
@@ -52,7 +56,16 @@ class RdsDataApi {
       @required String secretArn,
       @required String sql,
       String transactionId}) async {
-    return BatchExecuteStatementResponse.fromJson({});
+    var response_ = await _client.send('BatchExecuteStatement', {
+      if (database != null) 'database': database,
+      if (parameterSets != null) 'parameterSets': parameterSets,
+      'resourceArn': resourceArn,
+      if (schema != null) 'schema': schema,
+      'secretArn': secretArn,
+      'sql': sql,
+      if (transactionId != null) 'transactionId': transactionId,
+    });
+    return BatchExecuteStatementResponse.fromJson(response_);
   }
 
   /// Starts a SQL transaction.
@@ -84,7 +97,13 @@ class RdsDataApi {
       @required String resourceArn,
       String schema,
       @required String secretArn}) async {
-    return BeginTransactionResponse.fromJson({});
+    var response_ = await _client.send('BeginTransaction', {
+      if (database != null) 'database': database,
+      'resourceArn': resourceArn,
+      if (schema != null) 'schema': schema,
+      'secretArn': secretArn,
+    });
+    return BeginTransactionResponse.fromJson(response_);
   }
 
   /// Ends a SQL transaction started with the `BeginTransaction` operation and
@@ -101,7 +120,12 @@ class RdsDataApi {
       {@required String resourceArn,
       @required String secretArn,
       @required String transactionId}) async {
-    return CommitTransactionResponse.fromJson({});
+    var response_ = await _client.send('CommitTransaction', {
+      'resourceArn': resourceArn,
+      'secretArn': secretArn,
+      'transactionId': transactionId,
+    });
+    return CommitTransactionResponse.fromJson(response_);
   }
 
   /// Runs one or more SQL statements.
@@ -131,7 +155,14 @@ class RdsDataApi {
       @required String dbClusterOrInstanceArn,
       String schema,
       @required String sqlStatements}) async {
-    return ExecuteSqlResponse.fromJson({});
+    var response_ = await _client.send('ExecuteSql', {
+      'awsSecretStoreArn': awsSecretStoreArn,
+      if (database != null) 'database': database,
+      'dbClusterOrInstanceArn': dbClusterOrInstanceArn,
+      if (schema != null) 'schema': schema,
+      'sqlStatements': sqlStatements,
+    });
+    return ExecuteSqlResponse.fromJson(response_);
   }
 
   /// Runs a SQL statement against a database.
@@ -186,7 +217,20 @@ class RdsDataApi {
       @required String secretArn,
       @required String sql,
       String transactionId}) async {
-    return ExecuteStatementResponse.fromJson({});
+    var response_ = await _client.send('ExecuteStatement', {
+      if (continueAfterTimeout != null)
+        'continueAfterTimeout': continueAfterTimeout,
+      if (database != null) 'database': database,
+      if (includeResultMetadata != null)
+        'includeResultMetadata': includeResultMetadata,
+      if (parameters != null) 'parameters': parameters,
+      'resourceArn': resourceArn,
+      if (schema != null) 'schema': schema,
+      'secretArn': secretArn,
+      'sql': sql,
+      if (transactionId != null) 'transactionId': transactionId,
+    });
+    return ExecuteStatementResponse.fromJson(response_);
   }
 
   /// Performs a rollback of a transaction. Rolling back a transaction cancels
@@ -203,7 +247,12 @@ class RdsDataApi {
       {@required String resourceArn,
       @required String secretArn,
       @required String transactionId}) async {
-    return RollbackTransactionResponse.fromJson({});
+    var response_ = await _client.send('RollbackTransaction', {
+      'resourceArn': resourceArn,
+      'secretArn': secretArn,
+      'transactionId': transactionId,
+    });
+    return RollbackTransactionResponse.fromJson(response_);
   }
 }
 
@@ -219,7 +268,14 @@ class ResultFrame {
     this.records,
     this.resultSetMetadata,
   });
-  static ResultFrame fromJson(Map<String, dynamic> json) => ResultFrame();
+  static ResultFrame fromJson(Map<String, dynamic> json) => ResultFrame(
+        records: json.containsKey('records')
+            ? (json['records'] as List).map((e) => Record.fromJson(e)).toList()
+            : null,
+        resultSetMetadata: json.containsKey('resultSetMetadata')
+            ? ResultSetMetadata.fromJson(json['resultSetMetadata'])
+            : null,
+      );
 }
 
 /// The response elements represent the output of a commit transaction request.
@@ -231,7 +287,11 @@ class CommitTransactionResponse {
     this.transactionStatus,
   });
   static CommitTransactionResponse fromJson(Map<String, dynamic> json) =>
-      CommitTransactionResponse();
+      CommitTransactionResponse(
+        transactionStatus: json.containsKey('transactionStatus')
+            ? json['transactionStatus'] as String
+            : null,
+      );
 }
 
 /// A parameter used in a SQL statement.
@@ -246,6 +306,7 @@ class SqlParameter {
     this.name,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains a value.
@@ -276,7 +337,24 @@ class Field {
     this.longValue,
     this.stringValue,
   });
-  static Field fromJson(Map<String, dynamic> json) => Field();
+  static Field fromJson(Map<String, dynamic> json) => Field(
+        blobValue:
+            json.containsKey('blobValue') ? Uint8List(json['blobValue']) : null,
+        booleanValue: json.containsKey('booleanValue')
+            ? json['booleanValue'] as bool
+            : null,
+        doubleValue: json.containsKey('doubleValue')
+            ? json['doubleValue'] as double
+            : null,
+        isNull: json.containsKey('isNull') ? json['isNull'] as bool : null,
+        longValue: json.containsKey('longValue')
+            ? BigInt.from(json['longValue'])
+            : null,
+        stringValue: json.containsKey('stringValue')
+            ? json['stringValue'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A structure value returned by a call.
@@ -287,7 +365,13 @@ class StructValue {
   StructValue({
     this.attributes,
   });
-  static StructValue fromJson(Map<String, dynamic> json) => StructValue();
+  static StructValue fromJson(Map<String, dynamic> json) => StructValue(
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as List)
+                .map((e) => Value.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A record returned by a call.
@@ -298,7 +382,11 @@ class Record {
   Record({
     this.values,
   });
-  static Record fromJson(Map<String, dynamic> json) => Record();
+  static Record fromJson(Map<String, dynamic> json) => Record(
+        values: json.containsKey('values')
+            ? (json['values'] as List).map((e) => Value.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains the value of a column.
@@ -345,7 +433,33 @@ class Value {
     this.stringValue,
     this.structValue,
   });
-  static Value fromJson(Map<String, dynamic> json) => Value();
+  static Value fromJson(Map<String, dynamic> json) => Value(
+        arrayValues: json.containsKey('arrayValues')
+            ? (json['arrayValues'] as List)
+                .map((e) => Value.fromJson(e))
+                .toList()
+            : null,
+        bigIntValue: json.containsKey('bigIntValue')
+            ? BigInt.from(json['bigIntValue'])
+            : null,
+        bitValue:
+            json.containsKey('bitValue') ? json['bitValue'] as bool : null,
+        blobValue:
+            json.containsKey('blobValue') ? Uint8List(json['blobValue']) : null,
+        doubleValue: json.containsKey('doubleValue')
+            ? json['doubleValue'] as double
+            : null,
+        intValue: json.containsKey('intValue') ? json['intValue'] as int : null,
+        isNull: json.containsKey('isNull') ? json['isNull'] as bool : null,
+        realValue:
+            json.containsKey('realValue') ? json['realValue'] as double : null,
+        stringValue: json.containsKey('stringValue')
+            ? json['stringValue'] as String
+            : null,
+        structValue: json.containsKey('structValue')
+            ? StructValue.fromJson(json['structValue'])
+            : null,
+      );
 }
 
 /// The response elements represent the output of a request to run a SQL
@@ -370,7 +484,26 @@ class ExecuteStatementResponse {
     this.records,
   });
   static ExecuteStatementResponse fromJson(Map<String, dynamic> json) =>
-      ExecuteStatementResponse();
+      ExecuteStatementResponse(
+        columnMetadata: json.containsKey('columnMetadata')
+            ? (json['columnMetadata'] as List)
+                .map((e) => ColumnMetadata.fromJson(e))
+                .toList()
+            : null,
+        generatedFields: json.containsKey('generatedFields')
+            ? (json['generatedFields'] as List)
+                .map((e) => Field.fromJson(e))
+                .toList()
+            : null,
+        numberOfRecordsUpdated: json.containsKey('numberOfRecordsUpdated')
+            ? BigInt.from(json['numberOfRecordsUpdated'])
+            : null,
+        records: json.containsKey('records')
+            ? (json['records'] as List)
+                .map((e) => (e as List).map((e) => Field.fromJson(e)).toList())
+                .toList()
+            : null,
+      );
 }
 
 /// The response elements represent the results of an update.
@@ -381,7 +514,13 @@ class UpdateResult {
   UpdateResult({
     this.generatedFields,
   });
-  static UpdateResult fromJson(Map<String, dynamic> json) => UpdateResult();
+  static UpdateResult fromJson(Map<String, dynamic> json) => UpdateResult(
+        generatedFields: json.containsKey('generatedFields')
+            ? (json['generatedFields'] as List)
+                .map((e) => Field.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The response elements represent the output of a request to run one or more
@@ -394,7 +533,13 @@ class ExecuteSqlResponse {
     this.sqlStatementResults,
   });
   static ExecuteSqlResponse fromJson(Map<String, dynamic> json) =>
-      ExecuteSqlResponse();
+      ExecuteSqlResponse(
+        sqlStatementResults: json.containsKey('sqlStatementResults')
+            ? (json['sqlStatementResults'] as List)
+                .map((e) => SqlStatementResult.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The result of a SQL statement.
@@ -410,7 +555,14 @@ class SqlStatementResult {
     this.resultFrame,
   });
   static SqlStatementResult fromJson(Map<String, dynamic> json) =>
-      SqlStatementResult();
+      SqlStatementResult(
+        numberOfRecordsUpdated: json.containsKey('numberOfRecordsUpdated')
+            ? BigInt.from(json['numberOfRecordsUpdated'])
+            : null,
+        resultFrame: json.containsKey('resultFrame')
+            ? ResultFrame.fromJson(json['resultFrame'])
+            : null,
+      );
 }
 
 /// The response elements represent the output of a request to perform a
@@ -423,7 +575,11 @@ class RollbackTransactionResponse {
     this.transactionStatus,
   });
   static RollbackTransactionResponse fromJson(Map<String, dynamic> json) =>
-      RollbackTransactionResponse();
+      RollbackTransactionResponse(
+        transactionStatus: json.containsKey('transactionStatus')
+            ? json['transactionStatus'] as String
+            : null,
+      );
 }
 
 /// The response elements represent the output of a SQL statement over an array
@@ -436,7 +592,13 @@ class BatchExecuteStatementResponse {
     this.updateResults,
   });
   static BatchExecuteStatementResponse fromJson(Map<String, dynamic> json) =>
-      BatchExecuteStatementResponse();
+      BatchExecuteStatementResponse(
+        updateResults: json.containsKey('updateResults')
+            ? (json['updateResults'] as List)
+                .map((e) => UpdateResult.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The metadata of the result set returned by a SQL statement.
@@ -452,7 +614,16 @@ class ResultSetMetadata {
     this.columnMetadata,
   });
   static ResultSetMetadata fromJson(Map<String, dynamic> json) =>
-      ResultSetMetadata();
+      ResultSetMetadata(
+        columnCount: json.containsKey('columnCount')
+            ? BigInt.from(json['columnCount'])
+            : null,
+        columnMetadata: json.containsKey('columnMetadata')
+            ? (json['columnMetadata'] as List)
+                .map((e) => ColumnMetadata.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The response elements represent the output of a request to start a SQL
@@ -465,7 +636,11 @@ class BeginTransactionResponse {
     this.transactionId,
   });
   static BeginTransactionResponse fromJson(Map<String, dynamic> json) =>
-      BeginTransactionResponse();
+      BeginTransactionResponse(
+        transactionId: json.containsKey('transactionId')
+            ? json['transactionId'] as String
+            : null,
+      );
 }
 
 /// Contains the metadata for a column.
@@ -528,5 +703,33 @@ class ColumnMetadata {
     this.type,
     this.typeName,
   });
-  static ColumnMetadata fromJson(Map<String, dynamic> json) => ColumnMetadata();
+  static ColumnMetadata fromJson(Map<String, dynamic> json) => ColumnMetadata(
+        arrayBaseColumnType: json.containsKey('arrayBaseColumnType')
+            ? json['arrayBaseColumnType'] as int
+            : null,
+        isAutoIncrement: json.containsKey('isAutoIncrement')
+            ? json['isAutoIncrement'] as bool
+            : null,
+        isCaseSensitive: json.containsKey('isCaseSensitive')
+            ? json['isCaseSensitive'] as bool
+            : null,
+        isCurrency:
+            json.containsKey('isCurrency') ? json['isCurrency'] as bool : null,
+        isSigned:
+            json.containsKey('isSigned') ? json['isSigned'] as bool : null,
+        label: json.containsKey('label') ? json['label'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        nullable: json.containsKey('nullable') ? json['nullable'] as int : null,
+        precision:
+            json.containsKey('precision') ? json['precision'] as int : null,
+        scale: json.containsKey('scale') ? json['scale'] as int : null,
+        schemaName: json.containsKey('schemaName')
+            ? json['schemaName'] as String
+            : null,
+        tableName:
+            json.containsKey('tableName') ? json['tableName'] as String : null,
+        type: json.containsKey('type') ? json['type'] as int : null,
+        typeName:
+            json.containsKey('typeName') ? json['typeName'] as String : null,
+      );
 }

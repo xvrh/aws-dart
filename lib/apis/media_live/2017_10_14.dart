@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 /// API for AWS Elemental MediaLive
 class MediaLiveApi {
+  final _client;
+  MediaLiveApi(client)
+      : _client = client.configured('MediaLive', serializer: 'rest-json');
+
   /// Update a channel schedule
   ///
   /// [channelId]: Id of the channel whose schedule is being updated.
@@ -12,7 +16,12 @@ class MediaLiveApi {
   Future<BatchUpdateScheduleResponse> batchUpdateSchedule(String channelId,
       {BatchScheduleActionCreateRequest creates,
       BatchScheduleActionDeleteRequest deletes}) async {
-    return BatchUpdateScheduleResponse.fromJson({});
+    var response_ = await _client.send('BatchUpdateSchedule', {
+      'ChannelId': channelId,
+      if (creates != null) 'Creates': creates,
+      if (deletes != null) 'Deletes': deletes,
+    });
+    return BatchUpdateScheduleResponse.fromJson(response_);
   }
 
   /// Creates a new channel
@@ -50,7 +59,20 @@ class MediaLiveApi {
       String reserved,
       String roleArn,
       Map<String, String> tags}) async {
-    return CreateChannelResponse.fromJson({});
+    var response_ = await _client.send('CreateChannel', {
+      if (channelClass != null) 'ChannelClass': channelClass,
+      if (destinations != null) 'Destinations': destinations,
+      if (encoderSettings != null) 'EncoderSettings': encoderSettings,
+      if (inputAttachments != null) 'InputAttachments': inputAttachments,
+      if (inputSpecification != null) 'InputSpecification': inputSpecification,
+      if (logLevel != null) 'LogLevel': logLevel,
+      if (name != null) 'Name': name,
+      if (requestId != null) 'RequestId': requestId,
+      if (reserved != null) 'Reserved': reserved,
+      if (roleArn != null) 'RoleArn': roleArn,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateChannelResponse.fromJson(response_);
   }
 
   /// Create an input
@@ -90,7 +112,20 @@ class MediaLiveApi {
       Map<String, String> tags,
       String type,
       InputVpcRequest vpc}) async {
-    return CreateInputResponse.fromJson({});
+    var response_ = await _client.send('CreateInput', {
+      if (destinations != null) 'Destinations': destinations,
+      if (inputSecurityGroups != null)
+        'InputSecurityGroups': inputSecurityGroups,
+      if (mediaConnectFlows != null) 'MediaConnectFlows': mediaConnectFlows,
+      if (name != null) 'Name': name,
+      if (requestId != null) 'RequestId': requestId,
+      if (roleArn != null) 'RoleArn': roleArn,
+      if (sources != null) 'Sources': sources,
+      if (tags != null) 'Tags': tags,
+      if (type != null) 'Type': type,
+      if (vpc != null) 'Vpc': vpc,
+    });
+    return CreateInputResponse.fromJson(response_);
   }
 
   /// Creates a Input Security Group
@@ -101,25 +136,40 @@ class MediaLiveApi {
   Future<CreateInputSecurityGroupResponse> createInputSecurityGroup(
       {Map<String, String> tags,
       List<InputWhitelistRuleCidr> whitelistRules}) async {
-    return CreateInputSecurityGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateInputSecurityGroup', {
+      if (tags != null) 'Tags': tags,
+      if (whitelistRules != null) 'WhitelistRules': whitelistRules,
+    });
+    return CreateInputSecurityGroupResponse.fromJson(response_);
   }
 
   /// Create tags for a resource
   Future<void> createTags(String resourceArn,
-      {Map<String, String> tags}) async {}
+      {Map<String, String> tags}) async {
+    await _client.send('CreateTags', {
+      'ResourceArn': resourceArn,
+      if (tags != null) 'Tags': tags,
+    });
+  }
 
   /// Starts deletion of channel. The associated outputs are also deleted.
   ///
   /// [channelId]: Unique ID of the channel.
   Future<DeleteChannelResponse> deleteChannel(String channelId) async {
-    return DeleteChannelResponse.fromJson({});
+    var response_ = await _client.send('DeleteChannel', {
+      'ChannelId': channelId,
+    });
+    return DeleteChannelResponse.fromJson(response_);
   }
 
   /// Deletes the input end point
   ///
   /// [inputId]: Unique ID of the input
   Future<DeleteInputResponse> deleteInput(String inputId) async {
-    return DeleteInputResponse.fromJson({});
+    var response_ = await _client.send('DeleteInput', {
+      'InputId': inputId,
+    });
+    return DeleteInputResponse.fromJson(response_);
   }
 
   /// Deletes an Input Security Group
@@ -127,7 +177,10 @@ class MediaLiveApi {
   /// [inputSecurityGroupId]: The Input Security Group to delete
   Future<DeleteInputSecurityGroupResponse> deleteInputSecurityGroup(
       String inputSecurityGroupId) async {
-    return DeleteInputSecurityGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteInputSecurityGroup', {
+      'InputSecurityGroupId': inputSecurityGroupId,
+    });
+    return DeleteInputSecurityGroupResponse.fromJson(response_);
   }
 
   /// Delete an expired reservation.
@@ -135,34 +188,51 @@ class MediaLiveApi {
   /// [reservationId]: Unique reservation ID, e.g. '1234567'
   Future<DeleteReservationResponse> deleteReservation(
       String reservationId) async {
-    return DeleteReservationResponse.fromJson({});
+    var response_ = await _client.send('DeleteReservation', {
+      'ReservationId': reservationId,
+    });
+    return DeleteReservationResponse.fromJson(response_);
   }
 
   /// Delete all schedule actions on a channel.
   ///
   /// [channelId]: Id of the channel whose schedule is being deleted.
   Future<DeleteScheduleResponse> deleteSchedule(String channelId) async {
-    return DeleteScheduleResponse.fromJson({});
+    var response_ = await _client.send('DeleteSchedule', {
+      'ChannelId': channelId,
+    });
+    return DeleteScheduleResponse.fromJson(response_);
   }
 
   /// Removes tags for a resource
   ///
   /// [tagKeys]: An array of tag keys to delete
   Future<void> deleteTags(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('DeleteTags', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Gets details about a channel
   ///
   /// [channelId]: channel ID
   Future<DescribeChannelResponse> describeChannel(String channelId) async {
-    return DescribeChannelResponse.fromJson({});
+    var response_ = await _client.send('DescribeChannel', {
+      'ChannelId': channelId,
+    });
+    return DescribeChannelResponse.fromJson(response_);
   }
 
   /// Produces details about an input
   ///
   /// [inputId]: Unique ID of the input
   Future<DescribeInputResponse> describeInput(String inputId) async {
-    return DescribeInputResponse.fromJson({});
+    var response_ = await _client.send('DescribeInput', {
+      'InputId': inputId,
+    });
+    return DescribeInputResponse.fromJson(response_);
   }
 
   /// Produces a summary of an Input Security Group
@@ -170,14 +240,20 @@ class MediaLiveApi {
   /// [inputSecurityGroupId]: The id of the Input Security Group to describe
   Future<DescribeInputSecurityGroupResponse> describeInputSecurityGroup(
       String inputSecurityGroupId) async {
-    return DescribeInputSecurityGroupResponse.fromJson({});
+    var response_ = await _client.send('DescribeInputSecurityGroup', {
+      'InputSecurityGroupId': inputSecurityGroupId,
+    });
+    return DescribeInputSecurityGroupResponse.fromJson(response_);
   }
 
   /// Get details for an offering.
   ///
   /// [offeringId]: Unique offering ID, e.g. '87654321'
   Future<DescribeOfferingResponse> describeOffering(String offeringId) async {
-    return DescribeOfferingResponse.fromJson({});
+    var response_ = await _client.send('DescribeOffering', {
+      'OfferingId': offeringId,
+    });
+    return DescribeOfferingResponse.fromJson(response_);
   }
 
   /// Get details for a reservation.
@@ -185,7 +261,10 @@ class MediaLiveApi {
   /// [reservationId]: Unique reservation ID, e.g. '1234567'
   Future<DescribeReservationResponse> describeReservation(
       String reservationId) async {
-    return DescribeReservationResponse.fromJson({});
+    var response_ = await _client.send('DescribeReservation', {
+      'ReservationId': reservationId,
+    });
+    return DescribeReservationResponse.fromJson(response_);
   }
 
   /// Get a channel schedule
@@ -193,25 +272,42 @@ class MediaLiveApi {
   /// [channelId]: Id of the channel whose schedule is being updated.
   Future<DescribeScheduleResponse> describeSchedule(String channelId,
       {int maxResults, String nextToken}) async {
-    return DescribeScheduleResponse.fromJson({});
+    var response_ = await _client.send('DescribeSchedule', {
+      'ChannelId': channelId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeScheduleResponse.fromJson(response_);
   }
 
   /// Produces list of channels that have been created
   Future<ListChannelsResponse> listChannels(
       {int maxResults, String nextToken}) async {
-    return ListChannelsResponse.fromJson({});
+    var response_ = await _client.send('ListChannels', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListChannelsResponse.fromJson(response_);
   }
 
   /// Produces a list of Input Security Groups for an account
   Future<ListInputSecurityGroupsResponse> listInputSecurityGroups(
       {int maxResults, String nextToken}) async {
-    return ListInputSecurityGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListInputSecurityGroups', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListInputSecurityGroupsResponse.fromJson(response_);
   }
 
   /// Produces list of inputs that have been created
   Future<ListInputsResponse> listInputs(
       {int maxResults, String nextToken}) async {
-    return ListInputsResponse.fromJson({});
+    var response_ = await _client.send('ListInputs', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListInputsResponse.fromJson(response_);
   }
 
   /// List offerings available for purchase.
@@ -249,7 +345,21 @@ class MediaLiveApi {
       String resourceType,
       String specialFeature,
       String videoQuality}) async {
-    return ListOfferingsResponse.fromJson({});
+    var response_ = await _client.send('ListOfferings', {
+      if (channelClass != null) 'ChannelClass': channelClass,
+      if (channelConfiguration != null)
+        'ChannelConfiguration': channelConfiguration,
+      if (codec != null) 'Codec': codec,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (maximumBitrate != null) 'MaximumBitrate': maximumBitrate,
+      if (maximumFramerate != null) 'MaximumFramerate': maximumFramerate,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (resolution != null) 'Resolution': resolution,
+      if (resourceType != null) 'ResourceType': resourceType,
+      if (specialFeature != null) 'SpecialFeature': specialFeature,
+      if (videoQuality != null) 'VideoQuality': videoQuality,
+    });
+    return ListOfferingsResponse.fromJson(response_);
   }
 
   /// List purchased reservations.
@@ -283,13 +393,28 @@ class MediaLiveApi {
       String resourceType,
       String specialFeature,
       String videoQuality}) async {
-    return ListReservationsResponse.fromJson({});
+    var response_ = await _client.send('ListReservations', {
+      if (channelClass != null) 'ChannelClass': channelClass,
+      if (codec != null) 'Codec': codec,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (maximumBitrate != null) 'MaximumBitrate': maximumBitrate,
+      if (maximumFramerate != null) 'MaximumFramerate': maximumFramerate,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (resolution != null) 'Resolution': resolution,
+      if (resourceType != null) 'ResourceType': resourceType,
+      if (specialFeature != null) 'SpecialFeature': specialFeature,
+      if (videoQuality != null) 'VideoQuality': videoQuality,
+    });
+    return ListReservationsResponse.fromJson(response_);
   }
 
   /// Produces list of tags that have been created for a resource
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Purchase an offering and create a reservation.
@@ -315,21 +440,35 @@ class MediaLiveApi {
       String requestId,
       String start,
       Map<String, String> tags}) async {
-    return PurchaseOfferingResponse.fromJson({});
+    var response_ = await _client.send('PurchaseOffering', {
+      'Count': count,
+      if (name != null) 'Name': name,
+      'OfferingId': offeringId,
+      if (requestId != null) 'RequestId': requestId,
+      if (start != null) 'Start': start,
+      if (tags != null) 'Tags': tags,
+    });
+    return PurchaseOfferingResponse.fromJson(response_);
   }
 
   /// Starts an existing channel
   ///
   /// [channelId]: A request to start a channel
   Future<StartChannelResponse> startChannel(String channelId) async {
-    return StartChannelResponse.fromJson({});
+    var response_ = await _client.send('StartChannel', {
+      'ChannelId': channelId,
+    });
+    return StartChannelResponse.fromJson(response_);
   }
 
   /// Stops a running channel
   ///
   /// [channelId]: A request to stop a running channel
   Future<StopChannelResponse> stopChannel(String channelId) async {
-    return StopChannelResponse.fromJson({});
+    var response_ = await _client.send('StopChannel', {
+      'ChannelId': channelId,
+    });
+    return StopChannelResponse.fromJson(response_);
   }
 
   /// Updates a channel.
@@ -358,7 +497,17 @@ class MediaLiveApi {
       String logLevel,
       String name,
       String roleArn}) async {
-    return UpdateChannelResponse.fromJson({});
+    var response_ = await _client.send('UpdateChannel', {
+      'ChannelId': channelId,
+      if (destinations != null) 'Destinations': destinations,
+      if (encoderSettings != null) 'EncoderSettings': encoderSettings,
+      if (inputAttachments != null) 'InputAttachments': inputAttachments,
+      if (inputSpecification != null) 'InputSpecification': inputSpecification,
+      if (logLevel != null) 'LogLevel': logLevel,
+      if (name != null) 'Name': name,
+      if (roleArn != null) 'RoleArn': roleArn,
+    });
+    return UpdateChannelResponse.fromJson(response_);
   }
 
   /// Changes the class of the channel.
@@ -373,7 +522,12 @@ class MediaLiveApi {
       {@required String channelClass,
       @required String channelId,
       List<OutputDestination> destinations}) async {
-    return UpdateChannelClassResponse.fromJson({});
+    var response_ = await _client.send('UpdateChannelClass', {
+      'ChannelClass': channelClass,
+      'ChannelId': channelId,
+      if (destinations != null) 'Destinations': destinations,
+    });
+    return UpdateChannelClassResponse.fromJson(response_);
   }
 
   /// Updates an input.
@@ -406,7 +560,17 @@ class MediaLiveApi {
       String name,
       String roleArn,
       List<InputSourceRequest> sources}) async {
-    return UpdateInputResponse.fromJson({});
+    var response_ = await _client.send('UpdateInput', {
+      if (destinations != null) 'Destinations': destinations,
+      'InputId': inputId,
+      if (inputSecurityGroups != null)
+        'InputSecurityGroups': inputSecurityGroups,
+      if (mediaConnectFlows != null) 'MediaConnectFlows': mediaConnectFlows,
+      if (name != null) 'Name': name,
+      if (roleArn != null) 'RoleArn': roleArn,
+      if (sources != null) 'Sources': sources,
+    });
+    return UpdateInputResponse.fromJson(response_);
   }
 
   /// Update an Input Security Group's Whilelists.
@@ -420,7 +584,12 @@ class MediaLiveApi {
       String inputSecurityGroupId,
       {Map<String, String> tags,
       List<InputWhitelistRuleCidr> whitelistRules}) async {
-    return UpdateInputSecurityGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateInputSecurityGroup', {
+      'InputSecurityGroupId': inputSecurityGroupId,
+      if (tags != null) 'Tags': tags,
+      if (whitelistRules != null) 'WhitelistRules': whitelistRules,
+    });
+    return UpdateInputSecurityGroupResponse.fromJson(response_);
   }
 
   /// Update reservation.
@@ -430,7 +599,11 @@ class MediaLiveApi {
   /// [reservationId]: Unique reservation ID, e.g. '1234567'
   Future<UpdateReservationResponse> updateReservation(String reservationId,
       {String name}) async {
-    return UpdateReservationResponse.fromJson({});
+    var response_ = await _client.send('UpdateReservation', {
+      if (name != null) 'Name': name,
+      'ReservationId': reservationId,
+    });
+    return UpdateReservationResponse.fromJson(response_);
   }
 }
 
@@ -487,7 +660,28 @@ class AacSettings {
     this.spec,
     this.vbrQuality,
   });
-  static AacSettings fromJson(Map<String, dynamic> json) => AacSettings();
+  static AacSettings fromJson(Map<String, dynamic> json) => AacSettings(
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as double : null,
+        codingMode: json.containsKey('CodingMode')
+            ? json['CodingMode'] as String
+            : null,
+        inputType:
+            json.containsKey('InputType') ? json['InputType'] as String : null,
+        profile: json.containsKey('Profile') ? json['Profile'] as String : null,
+        rateControlMode: json.containsKey('RateControlMode')
+            ? json['RateControlMode'] as String
+            : null,
+        rawFormat:
+            json.containsKey('RawFormat') ? json['RawFormat'] as String : null,
+        sampleRate: json.containsKey('SampleRate')
+            ? json['SampleRate'] as double
+            : null,
+        spec: json.containsKey('Spec') ? json['Spec'] as String : null,
+        vbrQuality: json.containsKey('VbrQuality')
+            ? json['VbrQuality'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Ac3 Settings
@@ -529,7 +723,25 @@ class Ac3Settings {
     this.lfeFilter,
     this.metadataControl,
   });
-  static Ac3Settings fromJson(Map<String, dynamic> json) => Ac3Settings();
+  static Ac3Settings fromJson(Map<String, dynamic> json) => Ac3Settings(
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as double : null,
+        bitstreamMode: json.containsKey('BitstreamMode')
+            ? json['BitstreamMode'] as String
+            : null,
+        codingMode: json.containsKey('CodingMode')
+            ? json['CodingMode'] as String
+            : null,
+        dialnorm: json.containsKey('Dialnorm') ? json['Dialnorm'] as int : null,
+        drcProfile: json.containsKey('DrcProfile')
+            ? json['DrcProfile'] as String
+            : null,
+        lfeFilter:
+            json.containsKey('LfeFilter') ? json['LfeFilter'] as String : null,
+        metadataControl: json.containsKey('MetadataControl')
+            ? json['MetadataControl'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Archive Container Settings
@@ -540,7 +752,12 @@ class ArchiveContainerSettings {
     this.m2TsSettings,
   });
   static ArchiveContainerSettings fromJson(Map<String, dynamic> json) =>
-      ArchiveContainerSettings();
+      ArchiveContainerSettings(
+        m2TsSettings: json.containsKey('M2tsSettings')
+            ? M2TsSettings.fromJson(json['M2tsSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Archive Group Settings
@@ -557,7 +774,13 @@ class ArchiveGroupSettings {
     this.rolloverInterval,
   });
   static ArchiveGroupSettings fromJson(Map<String, dynamic> json) =>
-      ArchiveGroupSettings();
+      ArchiveGroupSettings(
+        destination: OutputLocationRef.fromJson(json['Destination']),
+        rolloverInterval: json.containsKey('RolloverInterval')
+            ? json['RolloverInterval'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Archive Output Settings
@@ -579,7 +802,16 @@ class ArchiveOutputSettings {
     this.nameModifier,
   });
   static ArchiveOutputSettings fromJson(Map<String, dynamic> json) =>
-      ArchiveOutputSettings();
+      ArchiveOutputSettings(
+        containerSettings:
+            ArchiveContainerSettings.fromJson(json['ContainerSettings']),
+        extension:
+            json.containsKey('Extension') ? json['Extension'] as String : null,
+        nameModifier: json.containsKey('NameModifier')
+            ? json['NameModifier'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Arib Destination Settings
@@ -587,6 +819,7 @@ class AribDestinationSettings {
   AribDestinationSettings();
   static AribDestinationSettings fromJson(Map<String, dynamic> json) =>
       AribDestinationSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Arib Source Settings
@@ -594,6 +827,7 @@ class AribSourceSettings {
   AribSourceSettings();
   static AribSourceSettings fromJson(Map<String, dynamic> json) =>
       AribSourceSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Audio Channel Mapping
@@ -610,7 +844,13 @@ class AudioChannelMapping {
     @required this.outputChannel,
   });
   static AudioChannelMapping fromJson(Map<String, dynamic> json) =>
-      AudioChannelMapping();
+      AudioChannelMapping(
+        inputChannelLevels: (json['InputChannelLevels'] as List)
+            .map((e) => InputChannelLevel.fromJson(e))
+            .toList(),
+        outputChannel: json['OutputChannel'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Audio Codec Settings
@@ -633,7 +873,24 @@ class AudioCodecSettings {
     this.passThroughSettings,
   });
   static AudioCodecSettings fromJson(Map<String, dynamic> json) =>
-      AudioCodecSettings();
+      AudioCodecSettings(
+        aacSettings: json.containsKey('AacSettings')
+            ? AacSettings.fromJson(json['AacSettings'])
+            : null,
+        ac3Settings: json.containsKey('Ac3Settings')
+            ? Ac3Settings.fromJson(json['Ac3Settings'])
+            : null,
+        eac3Settings: json.containsKey('Eac3Settings')
+            ? Eac3Settings.fromJson(json['Eac3Settings'])
+            : null,
+        mp2Settings: json.containsKey('Mp2Settings')
+            ? Mp2Settings.fromJson(json['Mp2Settings'])
+            : null,
+        passThroughSettings: json.containsKey('PassThroughSettings')
+            ? PassThroughSettings.fromJson(json['PassThroughSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Audio Description
@@ -697,7 +954,36 @@ class AudioDescription {
     this.streamName,
   });
   static AudioDescription fromJson(Map<String, dynamic> json) =>
-      AudioDescription();
+      AudioDescription(
+        audioNormalizationSettings:
+            json.containsKey('AudioNormalizationSettings')
+                ? AudioNormalizationSettings.fromJson(
+                    json['AudioNormalizationSettings'])
+                : null,
+        audioSelectorName: json['AudioSelectorName'] as String,
+        audioType:
+            json.containsKey('AudioType') ? json['AudioType'] as String : null,
+        audioTypeControl: json.containsKey('AudioTypeControl')
+            ? json['AudioTypeControl'] as String
+            : null,
+        codecSettings: json.containsKey('CodecSettings')
+            ? AudioCodecSettings.fromJson(json['CodecSettings'])
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        languageCodeControl: json.containsKey('LanguageCodeControl')
+            ? json['LanguageCodeControl'] as String
+            : null,
+        name: json['Name'] as String,
+        remixSettings: json.containsKey('RemixSettings')
+            ? RemixSettings.fromJson(json['RemixSettings'])
+            : null,
+        streamName: json.containsKey('StreamName')
+            ? json['StreamName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Audio Language Selection
@@ -718,7 +1004,13 @@ class AudioLanguageSelection {
     this.languageSelectionPolicy,
   });
   static AudioLanguageSelection fromJson(Map<String, dynamic> json) =>
-      AudioLanguageSelection();
+      AudioLanguageSelection(
+        languageCode: json['LanguageCode'] as String,
+        languageSelectionPolicy: json.containsKey('LanguageSelectionPolicy')
+            ? json['LanguageSelectionPolicy'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Audio Normalization Settings
@@ -744,7 +1036,17 @@ class AudioNormalizationSettings {
     this.targetLkfs,
   });
   static AudioNormalizationSettings fromJson(Map<String, dynamic> json) =>
-      AudioNormalizationSettings();
+      AudioNormalizationSettings(
+        algorithm:
+            json.containsKey('Algorithm') ? json['Algorithm'] as String : null,
+        algorithmControl: json.containsKey('AlgorithmControl')
+            ? json['AlgorithmControl'] as String
+            : null,
+        targetLkfs: json.containsKey('TargetLkfs')
+            ? json['TargetLkfs'] as double
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Audio Only Hls Settings
@@ -779,7 +1081,18 @@ class AudioOnlyHlsSettings {
     this.audioTrackType,
   });
   static AudioOnlyHlsSettings fromJson(Map<String, dynamic> json) =>
-      AudioOnlyHlsSettings();
+      AudioOnlyHlsSettings(
+        audioGroupId: json.containsKey('AudioGroupId')
+            ? json['AudioGroupId'] as String
+            : null,
+        audioOnlyImage: json.containsKey('AudioOnlyImage')
+            ? InputLocation.fromJson(json['AudioOnlyImage'])
+            : null,
+        audioTrackType: json.containsKey('AudioTrackType')
+            ? json['AudioTrackType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Audio Pid Selection
@@ -791,7 +1104,10 @@ class AudioPidSelection {
     @required this.pid,
   });
   static AudioPidSelection fromJson(Map<String, dynamic> json) =>
-      AudioPidSelection();
+      AudioPidSelection(
+        pid: json['Pid'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Audio Selector
@@ -808,7 +1124,13 @@ class AudioSelector {
     @required this.name,
     this.selectorSettings,
   });
-  static AudioSelector fromJson(Map<String, dynamic> json) => AudioSelector();
+  static AudioSelector fromJson(Map<String, dynamic> json) => AudioSelector(
+        name: json['Name'] as String,
+        selectorSettings: json.containsKey('SelectorSettings')
+            ? AudioSelectorSettings.fromJson(json['SelectorSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Audio Selector Settings
@@ -822,7 +1144,15 @@ class AudioSelectorSettings {
     this.audioPidSelection,
   });
   static AudioSelectorSettings fromJson(Map<String, dynamic> json) =>
-      AudioSelectorSettings();
+      AudioSelectorSettings(
+        audioLanguageSelection: json.containsKey('AudioLanguageSelection')
+            ? AudioLanguageSelection.fromJson(json['AudioLanguageSelection'])
+            : null,
+        audioPidSelection: json.containsKey('AudioPidSelection')
+            ? AudioPidSelection.fromJson(json['AudioPidSelection'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Avail Blanking
@@ -839,7 +1169,13 @@ class AvailBlanking {
     this.availBlankingImage,
     this.state,
   });
-  static AvailBlanking fromJson(Map<String, dynamic> json) => AvailBlanking();
+  static AvailBlanking fromJson(Map<String, dynamic> json) => AvailBlanking(
+        availBlankingImage: json.containsKey('AvailBlankingImage')
+            ? InputLocation.fromJson(json['AvailBlankingImage'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Avail Configuration
@@ -851,7 +1187,12 @@ class AvailConfiguration {
     this.availSettings,
   });
   static AvailConfiguration fromJson(Map<String, dynamic> json) =>
-      AvailConfiguration();
+      AvailConfiguration(
+        availSettings: json.containsKey('AvailSettings')
+            ? AvailSettings.fromJson(json['AvailSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Avail Settings
@@ -864,7 +1205,15 @@ class AvailSettings {
     this.scte35SpliceInsert,
     this.scte35TimeSignalApos,
   });
-  static AvailSettings fromJson(Map<String, dynamic> json) => AvailSettings();
+  static AvailSettings fromJson(Map<String, dynamic> json) => AvailSettings(
+        scte35SpliceInsert: json.containsKey('Scte35SpliceInsert')
+            ? Scte35SpliceInsert.fromJson(json['Scte35SpliceInsert'])
+            : null,
+        scte35TimeSignalApos: json.containsKey('Scte35TimeSignalApos')
+            ? Scte35TimeSignalApos.fromJson(json['Scte35TimeSignalApos'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of schedule actions to create (in a request) or that have been
@@ -876,6 +1225,7 @@ class BatchScheduleActionCreateRequest {
   BatchScheduleActionCreateRequest({
     @required this.scheduleActions,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// List of actions that have been created in the schedule.
@@ -887,7 +1237,11 @@ class BatchScheduleActionCreateResult {
     @required this.scheduleActions,
   });
   static BatchScheduleActionCreateResult fromJson(Map<String, dynamic> json) =>
-      BatchScheduleActionCreateResult();
+      BatchScheduleActionCreateResult(
+        scheduleActions: (json['ScheduleActions'] as List)
+            .map((e) => ScheduleAction.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A list of schedule actions to delete.
@@ -898,6 +1252,7 @@ class BatchScheduleActionDeleteRequest {
   BatchScheduleActionDeleteRequest({
     @required this.actionNames,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// List of actions that have been deleted from the schedule.
@@ -909,7 +1264,11 @@ class BatchScheduleActionDeleteResult {
     @required this.scheduleActions,
   });
   static BatchScheduleActionDeleteResult fromJson(Map<String, dynamic> json) =>
-      BatchScheduleActionDeleteResult();
+      BatchScheduleActionDeleteResult(
+        scheduleActions: (json['ScheduleActions'] as List)
+            .map((e) => ScheduleAction.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Placeholder documentation for BatchUpdateScheduleResponse
@@ -925,7 +1284,14 @@ class BatchUpdateScheduleResponse {
     this.deletes,
   });
   static BatchUpdateScheduleResponse fromJson(Map<String, dynamic> json) =>
-      BatchUpdateScheduleResponse();
+      BatchUpdateScheduleResponse(
+        creates: json.containsKey('Creates')
+            ? BatchScheduleActionCreateResult.fromJson(json['Creates'])
+            : null,
+        deletes: json.containsKey('Deletes')
+            ? BatchScheduleActionDeleteResult.fromJson(json['Deletes'])
+            : null,
+      );
 }
 
 /// Blackout Slate
@@ -961,7 +1327,21 @@ class BlackoutSlate {
     this.networkId,
     this.state,
   });
-  static BlackoutSlate fromJson(Map<String, dynamic> json) => BlackoutSlate();
+  static BlackoutSlate fromJson(Map<String, dynamic> json) => BlackoutSlate(
+        blackoutSlateImage: json.containsKey('BlackoutSlateImage')
+            ? InputLocation.fromJson(json['BlackoutSlateImage'])
+            : null,
+        networkEndBlackout: json.containsKey('NetworkEndBlackout')
+            ? json['NetworkEndBlackout'] as String
+            : null,
+        networkEndBlackoutImage: json.containsKey('NetworkEndBlackoutImage')
+            ? InputLocation.fromJson(json['NetworkEndBlackoutImage'])
+            : null,
+        networkId:
+            json.containsKey('NetworkId') ? json['NetworkId'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Burn In Destination Settings
@@ -1082,7 +1462,53 @@ class BurnInDestinationSettings {
     this.yPosition,
   });
   static BurnInDestinationSettings fromJson(Map<String, dynamic> json) =>
-      BurnInDestinationSettings();
+      BurnInDestinationSettings(
+        alignment:
+            json.containsKey('Alignment') ? json['Alignment'] as String : null,
+        backgroundColor: json.containsKey('BackgroundColor')
+            ? json['BackgroundColor'] as String
+            : null,
+        backgroundOpacity: json.containsKey('BackgroundOpacity')
+            ? json['BackgroundOpacity'] as int
+            : null,
+        font: json.containsKey('Font')
+            ? InputLocation.fromJson(json['Font'])
+            : null,
+        fontColor:
+            json.containsKey('FontColor') ? json['FontColor'] as String : null,
+        fontOpacity:
+            json.containsKey('FontOpacity') ? json['FontOpacity'] as int : null,
+        fontResolution: json.containsKey('FontResolution')
+            ? json['FontResolution'] as int
+            : null,
+        fontSize:
+            json.containsKey('FontSize') ? json['FontSize'] as String : null,
+        outlineColor: json.containsKey('OutlineColor')
+            ? json['OutlineColor'] as String
+            : null,
+        outlineSize:
+            json.containsKey('OutlineSize') ? json['OutlineSize'] as int : null,
+        shadowColor: json.containsKey('ShadowColor')
+            ? json['ShadowColor'] as String
+            : null,
+        shadowOpacity: json.containsKey('ShadowOpacity')
+            ? json['ShadowOpacity'] as int
+            : null,
+        shadowxOffset: json.containsKey('ShadowXOffset')
+            ? json['ShadowXOffset'] as int
+            : null,
+        shadowyOffset: json.containsKey('ShadowYOffset')
+            ? json['ShadowYOffset'] as int
+            : null,
+        teletextGridControl: json.containsKey('TeletextGridControl')
+            ? json['TeletextGridControl'] as String
+            : null,
+        xPosition:
+            json.containsKey('XPosition') ? json['XPosition'] as int : null,
+        yPosition:
+            json.containsKey('YPosition') ? json['YPosition'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Output groups for this Live Event. Output groups contain information about
@@ -1116,7 +1542,20 @@ class CaptionDescription {
     @required this.name,
   });
   static CaptionDescription fromJson(Map<String, dynamic> json) =>
-      CaptionDescription();
+      CaptionDescription(
+        captionSelectorName: json['CaptionSelectorName'] as String,
+        destinationSettings: json.containsKey('DestinationSettings')
+            ? CaptionDestinationSettings.fromJson(json['DestinationSettings'])
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        languageDescription: json.containsKey('LanguageDescription')
+            ? json['LanguageDescription'] as String
+            : null,
+        name: json['Name'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Caption Destination Settings
@@ -1162,7 +1601,61 @@ class CaptionDestinationSettings {
     this.webvttDestinationSettings,
   });
   static CaptionDestinationSettings fromJson(Map<String, dynamic> json) =>
-      CaptionDestinationSettings();
+      CaptionDestinationSettings(
+        aribDestinationSettings: json.containsKey('AribDestinationSettings')
+            ? AribDestinationSettings.fromJson(json['AribDestinationSettings'])
+            : null,
+        burnInDestinationSettings: json.containsKey('BurnInDestinationSettings')
+            ? BurnInDestinationSettings.fromJson(
+                json['BurnInDestinationSettings'])
+            : null,
+        dvbSubDestinationSettings: json.containsKey('DvbSubDestinationSettings')
+            ? DvbSubDestinationSettings.fromJson(
+                json['DvbSubDestinationSettings'])
+            : null,
+        embeddedDestinationSettings:
+            json.containsKey('EmbeddedDestinationSettings')
+                ? EmbeddedDestinationSettings.fromJson(
+                    json['EmbeddedDestinationSettings'])
+                : null,
+        embeddedPlusScte20DestinationSettings:
+            json.containsKey('EmbeddedPlusScte20DestinationSettings')
+                ? EmbeddedPlusScte20DestinationSettings.fromJson(
+                    json['EmbeddedPlusScte20DestinationSettings'])
+                : null,
+        rtmpCaptionInfoDestinationSettings:
+            json.containsKey('RtmpCaptionInfoDestinationSettings')
+                ? RtmpCaptionInfoDestinationSettings.fromJson(
+                    json['RtmpCaptionInfoDestinationSettings'])
+                : null,
+        scte20PlusEmbeddedDestinationSettings:
+            json.containsKey('Scte20PlusEmbeddedDestinationSettings')
+                ? Scte20PlusEmbeddedDestinationSettings.fromJson(
+                    json['Scte20PlusEmbeddedDestinationSettings'])
+                : null,
+        scte27DestinationSettings: json.containsKey('Scte27DestinationSettings')
+            ? Scte27DestinationSettings.fromJson(
+                json['Scte27DestinationSettings'])
+            : null,
+        smpteTtDestinationSettings:
+            json.containsKey('SmpteTtDestinationSettings')
+                ? SmpteTtDestinationSettings.fromJson(
+                    json['SmpteTtDestinationSettings'])
+                : null,
+        teletextDestinationSettings:
+            json.containsKey('TeletextDestinationSettings')
+                ? TeletextDestinationSettings.fromJson(
+                    json['TeletextDestinationSettings'])
+                : null,
+        ttmlDestinationSettings: json.containsKey('TtmlDestinationSettings')
+            ? TtmlDestinationSettings.fromJson(json['TtmlDestinationSettings'])
+            : null,
+        webvttDestinationSettings: json.containsKey('WebvttDestinationSettings')
+            ? WebvttDestinationSettings.fromJson(
+                json['WebvttDestinationSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Maps a caption channel to an ISO 693-2 language code
@@ -1185,7 +1678,12 @@ class CaptionLanguageMapping {
     @required this.languageDescription,
   });
   static CaptionLanguageMapping fromJson(Map<String, dynamic> json) =>
-      CaptionLanguageMapping();
+      CaptionLanguageMapping(
+        captionChannel: json['CaptionChannel'] as int,
+        languageCode: json['LanguageCode'] as String,
+        languageDescription: json['LanguageDescription'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Output groups for this Live Event. Output groups contain information about
@@ -1208,8 +1706,16 @@ class CaptionSelector {
     @required this.name,
     this.selectorSettings,
   });
-  static CaptionSelector fromJson(Map<String, dynamic> json) =>
-      CaptionSelector();
+  static CaptionSelector fromJson(Map<String, dynamic> json) => CaptionSelector(
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        name: json['Name'] as String,
+        selectorSettings: json.containsKey('SelectorSettings')
+            ? CaptionSelectorSettings.fromJson(json['SelectorSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Caption Selector Settings
@@ -1235,7 +1741,27 @@ class CaptionSelectorSettings {
     this.teletextSourceSettings,
   });
   static CaptionSelectorSettings fromJson(Map<String, dynamic> json) =>
-      CaptionSelectorSettings();
+      CaptionSelectorSettings(
+        aribSourceSettings: json.containsKey('AribSourceSettings')
+            ? AribSourceSettings.fromJson(json['AribSourceSettings'])
+            : null,
+        dvbSubSourceSettings: json.containsKey('DvbSubSourceSettings')
+            ? DvbSubSourceSettings.fromJson(json['DvbSubSourceSettings'])
+            : null,
+        embeddedSourceSettings: json.containsKey('EmbeddedSourceSettings')
+            ? EmbeddedSourceSettings.fromJson(json['EmbeddedSourceSettings'])
+            : null,
+        scte20SourceSettings: json.containsKey('Scte20SourceSettings')
+            ? Scte20SourceSettings.fromJson(json['Scte20SourceSettings'])
+            : null,
+        scte27SourceSettings: json.containsKey('Scte27SourceSettings')
+            ? Scte27SourceSettings.fromJson(json['Scte27SourceSettings'])
+            : null,
+        teletextSourceSettings: json.containsKey('TeletextSourceSettings')
+            ? TeletextSourceSettings.fromJson(json['TeletextSourceSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for Channel
@@ -1303,7 +1829,51 @@ class Channel {
     this.state,
     this.tags,
   });
-  static Channel fromJson(Map<String, dynamic> json) => Channel();
+  static Channel fromJson(Map<String, dynamic> json) => Channel(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelClass: json.containsKey('ChannelClass')
+            ? json['ChannelClass'] as String
+            : null,
+        destinations: json.containsKey('Destinations')
+            ? (json['Destinations'] as List)
+                .map((e) => OutputDestination.fromJson(e))
+                .toList()
+            : null,
+        egressEndpoints: json.containsKey('EgressEndpoints')
+            ? (json['EgressEndpoints'] as List)
+                .map((e) => ChannelEgressEndpoint.fromJson(e))
+                .toList()
+            : null,
+        encoderSettings: json.containsKey('EncoderSettings')
+            ? EncoderSettings.fromJson(json['EncoderSettings'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputAttachments: json.containsKey('InputAttachments')
+            ? (json['InputAttachments'] as List)
+                .map((e) => InputAttachment.fromJson(e))
+                .toList()
+            : null,
+        inputSpecification: json.containsKey('InputSpecification')
+            ? InputSpecification.fromJson(json['InputSpecification'])
+            : null,
+        logLevel:
+            json.containsKey('LogLevel') ? json['LogLevel'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        pipelineDetails: json.containsKey('PipelineDetails')
+            ? (json['PipelineDetails'] as List)
+                .map((e) => PipelineDetail.fromJson(e))
+                .toList()
+            : null,
+        pipelinesRunningCount: json.containsKey('PipelinesRunningCount')
+            ? json['PipelinesRunningCount'] as int
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Placeholder documentation for ChannelEgressEndpoint
@@ -1315,7 +1885,10 @@ class ChannelEgressEndpoint {
     this.sourceIp,
   });
   static ChannelEgressEndpoint fromJson(Map<String, dynamic> json) =>
-      ChannelEgressEndpoint();
+      ChannelEgressEndpoint(
+        sourceIp:
+            json.containsKey('SourceIp') ? json['SourceIp'] as String : null,
+      );
 }
 
 /// Placeholder documentation for ChannelSummary
@@ -1376,7 +1949,43 @@ class ChannelSummary {
     this.state,
     this.tags,
   });
-  static ChannelSummary fromJson(Map<String, dynamic> json) => ChannelSummary();
+  static ChannelSummary fromJson(Map<String, dynamic> json) => ChannelSummary(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelClass: json.containsKey('ChannelClass')
+            ? json['ChannelClass'] as String
+            : null,
+        destinations: json.containsKey('Destinations')
+            ? (json['Destinations'] as List)
+                .map((e) => OutputDestination.fromJson(e))
+                .toList()
+            : null,
+        egressEndpoints: json.containsKey('EgressEndpoints')
+            ? (json['EgressEndpoints'] as List)
+                .map((e) => ChannelEgressEndpoint.fromJson(e))
+                .toList()
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputAttachments: json.containsKey('InputAttachments')
+            ? (json['InputAttachments'] as List)
+                .map((e) => InputAttachment.fromJson(e))
+                .toList()
+            : null,
+        inputSpecification: json.containsKey('InputSpecification')
+            ? InputSpecification.fromJson(json['InputSpecification'])
+            : null,
+        logLevel:
+            json.containsKey('LogLevel') ? json['LogLevel'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        pipelinesRunningCount: json.containsKey('PipelinesRunningCount')
+            ? json['PipelinesRunningCount'] as int
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Passthrough applies no color space conversion to the output
@@ -1384,6 +1993,7 @@ class ColorSpacePassthroughSettings {
   ColorSpacePassthroughSettings();
   static ColorSpacePassthroughSettings fromJson(Map<String, dynamic> json) =>
       ColorSpacePassthroughSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for CreateChannelResponse
@@ -1394,7 +2004,11 @@ class CreateChannelResponse {
     this.channel,
   });
   static CreateChannelResponse fromJson(Map<String, dynamic> json) =>
-      CreateChannelResponse();
+      CreateChannelResponse(
+        channel: json.containsKey('Channel')
+            ? Channel.fromJson(json['Channel'])
+            : null,
+      );
 }
 
 /// Placeholder documentation for CreateInputResponse
@@ -1405,7 +2019,9 @@ class CreateInputResponse {
     this.input,
   });
   static CreateInputResponse fromJson(Map<String, dynamic> json) =>
-      CreateInputResponse();
+      CreateInputResponse(
+        input: json.containsKey('Input') ? Input.fromJson(json['Input']) : null,
+      );
 }
 
 /// Placeholder documentation for CreateInputSecurityGroupResponse
@@ -1416,7 +2032,11 @@ class CreateInputSecurityGroupResponse {
     this.securityGroup,
   });
   static CreateInputSecurityGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateInputSecurityGroupResponse();
+      CreateInputSecurityGroupResponse(
+        securityGroup: json.containsKey('SecurityGroup')
+            ? InputSecurityGroup.fromJson(json['SecurityGroup'])
+            : null,
+      );
 }
 
 /// Placeholder documentation for DeleteChannelResponse
@@ -1485,7 +2105,51 @@ class DeleteChannelResponse {
     this.tags,
   });
   static DeleteChannelResponse fromJson(Map<String, dynamic> json) =>
-      DeleteChannelResponse();
+      DeleteChannelResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelClass: json.containsKey('ChannelClass')
+            ? json['ChannelClass'] as String
+            : null,
+        destinations: json.containsKey('Destinations')
+            ? (json['Destinations'] as List)
+                .map((e) => OutputDestination.fromJson(e))
+                .toList()
+            : null,
+        egressEndpoints: json.containsKey('EgressEndpoints')
+            ? (json['EgressEndpoints'] as List)
+                .map((e) => ChannelEgressEndpoint.fromJson(e))
+                .toList()
+            : null,
+        encoderSettings: json.containsKey('EncoderSettings')
+            ? EncoderSettings.fromJson(json['EncoderSettings'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputAttachments: json.containsKey('InputAttachments')
+            ? (json['InputAttachments'] as List)
+                .map((e) => InputAttachment.fromJson(e))
+                .toList()
+            : null,
+        inputSpecification: json.containsKey('InputSpecification')
+            ? InputSpecification.fromJson(json['InputSpecification'])
+            : null,
+        logLevel:
+            json.containsKey('LogLevel') ? json['LogLevel'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        pipelineDetails: json.containsKey('PipelineDetails')
+            ? (json['PipelineDetails'] as List)
+                .map((e) => PipelineDetail.fromJson(e))
+                .toList()
+            : null,
+        pipelinesRunningCount: json.containsKey('PipelinesRunningCount')
+            ? json['PipelinesRunningCount'] as int
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Placeholder documentation for DeleteInputResponse
@@ -1584,7 +2248,48 @@ class DeleteReservationResponse {
     this.usagePrice,
   });
   static DeleteReservationResponse fromJson(Map<String, dynamic> json) =>
-      DeleteReservationResponse();
+      DeleteReservationResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        durationUnits: json.containsKey('DurationUnits')
+            ? json['DurationUnits'] as String
+            : null,
+        end: json.containsKey('End') ? json['End'] as String : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        offeringDescription: json.containsKey('OfferingDescription')
+            ? json['OfferingDescription'] as String
+            : null,
+        offeringId: json.containsKey('OfferingId')
+            ? json['OfferingId'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        reservationId: json.containsKey('ReservationId')
+            ? json['ReservationId'] as String
+            : null,
+        resourceSpecification: json.containsKey('ResourceSpecification')
+            ? ReservationResourceSpecification.fromJson(
+                json['ResourceSpecification'])
+            : null,
+        start: json.containsKey('Start') ? json['Start'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+      );
 }
 
 /// Placeholder documentation for DeleteScheduleResponse
@@ -1660,7 +2365,51 @@ class DescribeChannelResponse {
     this.tags,
   });
   static DescribeChannelResponse fromJson(Map<String, dynamic> json) =>
-      DescribeChannelResponse();
+      DescribeChannelResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelClass: json.containsKey('ChannelClass')
+            ? json['ChannelClass'] as String
+            : null,
+        destinations: json.containsKey('Destinations')
+            ? (json['Destinations'] as List)
+                .map((e) => OutputDestination.fromJson(e))
+                .toList()
+            : null,
+        egressEndpoints: json.containsKey('EgressEndpoints')
+            ? (json['EgressEndpoints'] as List)
+                .map((e) => ChannelEgressEndpoint.fromJson(e))
+                .toList()
+            : null,
+        encoderSettings: json.containsKey('EncoderSettings')
+            ? EncoderSettings.fromJson(json['EncoderSettings'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputAttachments: json.containsKey('InputAttachments')
+            ? (json['InputAttachments'] as List)
+                .map((e) => InputAttachment.fromJson(e))
+                .toList()
+            : null,
+        inputSpecification: json.containsKey('InputSpecification')
+            ? InputSpecification.fromJson(json['InputSpecification'])
+            : null,
+        logLevel:
+            json.containsKey('LogLevel') ? json['LogLevel'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        pipelineDetails: json.containsKey('PipelineDetails')
+            ? (json['PipelineDetails'] as List)
+                .map((e) => PipelineDetail.fromJson(e))
+                .toList()
+            : null,
+        pipelinesRunningCount: json.containsKey('PipelinesRunningCount')
+            ? json['PipelinesRunningCount'] as int
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Placeholder documentation for DescribeInputResponse
@@ -1733,7 +2482,47 @@ class DescribeInputResponse {
     this.type,
   });
   static DescribeInputResponse fromJson(Map<String, dynamic> json) =>
-      DescribeInputResponse();
+      DescribeInputResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        attachedChannels: json.containsKey('AttachedChannels')
+            ? (json['AttachedChannels'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        destinations: json.containsKey('Destinations')
+            ? (json['Destinations'] as List)
+                .map((e) => InputDestination.fromJson(e))
+                .toList()
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputClass: json.containsKey('InputClass')
+            ? json['InputClass'] as String
+            : null,
+        inputSourceType: json.containsKey('InputSourceType')
+            ? json['InputSourceType'] as String
+            : null,
+        mediaConnectFlows: json.containsKey('MediaConnectFlows')
+            ? (json['MediaConnectFlows'] as List)
+                .map((e) => MediaConnectFlow.fromJson(e))
+                .toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        sources: json.containsKey('Sources')
+            ? (json['Sources'] as List)
+                .map((e) => InputSource.fromJson(e))
+                .toList()
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Placeholder documentation for DescribeInputSecurityGroupResponse
@@ -1766,7 +2555,23 @@ class DescribeInputSecurityGroupResponse {
   });
   static DescribeInputSecurityGroupResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeInputSecurityGroupResponse();
+      DescribeInputSecurityGroupResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputs: json.containsKey('Inputs')
+            ? (json['Inputs'] as List).map((e) => e as String).toList()
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        whitelistRules: json.containsKey('WhitelistRules')
+            ? (json['WhitelistRules'] as List)
+                .map((e) => InputWhitelistRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Placeholder documentation for DescribeOfferingResponse
@@ -1821,7 +2626,36 @@ class DescribeOfferingResponse {
     this.usagePrice,
   });
   static DescribeOfferingResponse fromJson(Map<String, dynamic> json) =>
-      DescribeOfferingResponse();
+      DescribeOfferingResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        durationUnits: json.containsKey('DurationUnits')
+            ? json['DurationUnits'] as String
+            : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        offeringDescription: json.containsKey('OfferingDescription')
+            ? json['OfferingDescription'] as String
+            : null,
+        offeringId: json.containsKey('OfferingId')
+            ? json['OfferingId'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        resourceSpecification: json.containsKey('ResourceSpecification')
+            ? ReservationResourceSpecification.fromJson(
+                json['ResourceSpecification'])
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+      );
 }
 
 /// Placeholder documentation for DescribeReservationResponse
@@ -1906,7 +2740,48 @@ class DescribeReservationResponse {
     this.usagePrice,
   });
   static DescribeReservationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeReservationResponse();
+      DescribeReservationResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        durationUnits: json.containsKey('DurationUnits')
+            ? json['DurationUnits'] as String
+            : null,
+        end: json.containsKey('End') ? json['End'] as String : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        offeringDescription: json.containsKey('OfferingDescription')
+            ? json['OfferingDescription'] as String
+            : null,
+        offeringId: json.containsKey('OfferingId')
+            ? json['OfferingId'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        reservationId: json.containsKey('ReservationId')
+            ? json['ReservationId'] as String
+            : null,
+        resourceSpecification: json.containsKey('ResourceSpecification')
+            ? ReservationResourceSpecification.fromJson(
+                json['ResourceSpecification'])
+            : null,
+        start: json.containsKey('Start') ? json['Start'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+      );
 }
 
 /// Placeholder documentation for DescribeScheduleResponse
@@ -1922,7 +2797,15 @@ class DescribeScheduleResponse {
     this.scheduleActions,
   });
   static DescribeScheduleResponse fromJson(Map<String, dynamic> json) =>
-      DescribeScheduleResponse();
+      DescribeScheduleResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        scheduleActions: json.containsKey('ScheduleActions')
+            ? (json['ScheduleActions'] as List)
+                .map((e) => ScheduleAction.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// DVB Network Information Table (NIT)
@@ -1943,7 +2826,13 @@ class DvbNitSettings {
     @required this.networkName,
     this.repInterval,
   });
-  static DvbNitSettings fromJson(Map<String, dynamic> json) => DvbNitSettings();
+  static DvbNitSettings fromJson(Map<String, dynamic> json) => DvbNitSettings(
+        networkId: json['NetworkId'] as int,
+        networkName: json['NetworkName'] as String,
+        repInterval:
+            json.containsKey('RepInterval') ? json['RepInterval'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// DVB Service Description Table (SDT)
@@ -1975,7 +2864,19 @@ class DvbSdtSettings {
     this.serviceName,
     this.serviceProviderName,
   });
-  static DvbSdtSettings fromJson(Map<String, dynamic> json) => DvbSdtSettings();
+  static DvbSdtSettings fromJson(Map<String, dynamic> json) => DvbSdtSettings(
+        outputSdt:
+            json.containsKey('OutputSdt') ? json['OutputSdt'] as String : null,
+        repInterval:
+            json.containsKey('RepInterval') ? json['RepInterval'] as int : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        serviceProviderName: json.containsKey('ServiceProviderName')
+            ? json['ServiceProviderName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Dvb Sub Destination Settings
@@ -2103,7 +3004,53 @@ class DvbSubDestinationSettings {
     this.yPosition,
   });
   static DvbSubDestinationSettings fromJson(Map<String, dynamic> json) =>
-      DvbSubDestinationSettings();
+      DvbSubDestinationSettings(
+        alignment:
+            json.containsKey('Alignment') ? json['Alignment'] as String : null,
+        backgroundColor: json.containsKey('BackgroundColor')
+            ? json['BackgroundColor'] as String
+            : null,
+        backgroundOpacity: json.containsKey('BackgroundOpacity')
+            ? json['BackgroundOpacity'] as int
+            : null,
+        font: json.containsKey('Font')
+            ? InputLocation.fromJson(json['Font'])
+            : null,
+        fontColor:
+            json.containsKey('FontColor') ? json['FontColor'] as String : null,
+        fontOpacity:
+            json.containsKey('FontOpacity') ? json['FontOpacity'] as int : null,
+        fontResolution: json.containsKey('FontResolution')
+            ? json['FontResolution'] as int
+            : null,
+        fontSize:
+            json.containsKey('FontSize') ? json['FontSize'] as String : null,
+        outlineColor: json.containsKey('OutlineColor')
+            ? json['OutlineColor'] as String
+            : null,
+        outlineSize:
+            json.containsKey('OutlineSize') ? json['OutlineSize'] as int : null,
+        shadowColor: json.containsKey('ShadowColor')
+            ? json['ShadowColor'] as String
+            : null,
+        shadowOpacity: json.containsKey('ShadowOpacity')
+            ? json['ShadowOpacity'] as int
+            : null,
+        shadowxOffset: json.containsKey('ShadowXOffset')
+            ? json['ShadowXOffset'] as int
+            : null,
+        shadowyOffset: json.containsKey('ShadowYOffset')
+            ? json['ShadowYOffset'] as int
+            : null,
+        teletextGridControl: json.containsKey('TeletextGridControl')
+            ? json['TeletextGridControl'] as String
+            : null,
+        xPosition:
+            json.containsKey('XPosition') ? json['XPosition'] as int : null,
+        yPosition:
+            json.containsKey('YPosition') ? json['YPosition'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Dvb Sub Source Settings
@@ -2117,7 +3064,10 @@ class DvbSubSourceSettings {
     this.pid,
   });
   static DvbSubSourceSettings fromJson(Map<String, dynamic> json) =>
-      DvbSubSourceSettings();
+      DvbSubSourceSettings(
+        pid: json.containsKey('Pid') ? json['Pid'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// DVB Time and Date Table (SDT)
@@ -2129,7 +3079,11 @@ class DvbTdtSettings {
   DvbTdtSettings({
     this.repInterval,
   });
-  static DvbTdtSettings fromJson(Map<String, dynamic> json) => DvbTdtSettings();
+  static DvbTdtSettings fromJson(Map<String, dynamic> json) => DvbTdtSettings(
+        repInterval:
+            json.containsKey('RepInterval') ? json['RepInterval'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Eac3 Settings
@@ -2232,7 +3186,59 @@ class Eac3Settings {
     this.surroundExMode,
     this.surroundMode,
   });
-  static Eac3Settings fromJson(Map<String, dynamic> json) => Eac3Settings();
+  static Eac3Settings fromJson(Map<String, dynamic> json) => Eac3Settings(
+        attenuationControl: json.containsKey('AttenuationControl')
+            ? json['AttenuationControl'] as String
+            : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as double : null,
+        bitstreamMode: json.containsKey('BitstreamMode')
+            ? json['BitstreamMode'] as String
+            : null,
+        codingMode: json.containsKey('CodingMode')
+            ? json['CodingMode'] as String
+            : null,
+        dcFilter:
+            json.containsKey('DcFilter') ? json['DcFilter'] as String : null,
+        dialnorm: json.containsKey('Dialnorm') ? json['Dialnorm'] as int : null,
+        drcLine: json.containsKey('DrcLine') ? json['DrcLine'] as String : null,
+        drcRf: json.containsKey('DrcRf') ? json['DrcRf'] as String : null,
+        lfeControl: json.containsKey('LfeControl')
+            ? json['LfeControl'] as String
+            : null,
+        lfeFilter:
+            json.containsKey('LfeFilter') ? json['LfeFilter'] as String : null,
+        loRoCenterMixLevel: json.containsKey('LoRoCenterMixLevel')
+            ? json['LoRoCenterMixLevel'] as double
+            : null,
+        loRoSurroundMixLevel: json.containsKey('LoRoSurroundMixLevel')
+            ? json['LoRoSurroundMixLevel'] as double
+            : null,
+        ltRtCenterMixLevel: json.containsKey('LtRtCenterMixLevel')
+            ? json['LtRtCenterMixLevel'] as double
+            : null,
+        ltRtSurroundMixLevel: json.containsKey('LtRtSurroundMixLevel')
+            ? json['LtRtSurroundMixLevel'] as double
+            : null,
+        metadataControl: json.containsKey('MetadataControl')
+            ? json['MetadataControl'] as String
+            : null,
+        passthroughControl: json.containsKey('PassthroughControl')
+            ? json['PassthroughControl'] as String
+            : null,
+        phaseControl: json.containsKey('PhaseControl')
+            ? json['PhaseControl'] as String
+            : null,
+        stereoDownmix: json.containsKey('StereoDownmix')
+            ? json['StereoDownmix'] as String
+            : null,
+        surroundExMode: json.containsKey('SurroundExMode')
+            ? json['SurroundExMode'] as String
+            : null,
+        surroundMode: json.containsKey('SurroundMode')
+            ? json['SurroundMode'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Embedded Destination Settings
@@ -2240,6 +3246,7 @@ class EmbeddedDestinationSettings {
   EmbeddedDestinationSettings();
   static EmbeddedDestinationSettings fromJson(Map<String, dynamic> json) =>
       EmbeddedDestinationSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Embedded Plus Scte20 Destination Settings
@@ -2248,6 +3255,7 @@ class EmbeddedPlusScte20DestinationSettings {
   static EmbeddedPlusScte20DestinationSettings fromJson(
           Map<String, dynamic> json) =>
       EmbeddedPlusScte20DestinationSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Embedded Source Settings
@@ -2275,7 +3283,21 @@ class EmbeddedSourceSettings {
     this.source608TrackNumber,
   });
   static EmbeddedSourceSettings fromJson(Map<String, dynamic> json) =>
-      EmbeddedSourceSettings();
+      EmbeddedSourceSettings(
+        convert608To708: json.containsKey('Convert608To708')
+            ? json['Convert608To708'] as String
+            : null,
+        scte20Detection: json.containsKey('Scte20Detection')
+            ? json['Scte20Detection'] as String
+            : null,
+        source608ChannelNumber: json.containsKey('Source608ChannelNumber')
+            ? json['Source608ChannelNumber'] as int
+            : null,
+        source608TrackNumber: json.containsKey('Source608TrackNumber')
+            ? json['Source608TrackNumber'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Encoder Settings
@@ -2316,8 +3338,36 @@ class EncoderSettings {
     @required this.timecodeConfig,
     @required this.videoDescriptions,
   });
-  static EncoderSettings fromJson(Map<String, dynamic> json) =>
-      EncoderSettings();
+  static EncoderSettings fromJson(Map<String, dynamic> json) => EncoderSettings(
+        audioDescriptions: (json['AudioDescriptions'] as List)
+            .map((e) => AudioDescription.fromJson(e))
+            .toList(),
+        availBlanking: json.containsKey('AvailBlanking')
+            ? AvailBlanking.fromJson(json['AvailBlanking'])
+            : null,
+        availConfiguration: json.containsKey('AvailConfiguration')
+            ? AvailConfiguration.fromJson(json['AvailConfiguration'])
+            : null,
+        blackoutSlate: json.containsKey('BlackoutSlate')
+            ? BlackoutSlate.fromJson(json['BlackoutSlate'])
+            : null,
+        captionDescriptions: json.containsKey('CaptionDescriptions')
+            ? (json['CaptionDescriptions'] as List)
+                .map((e) => CaptionDescription.fromJson(e))
+                .toList()
+            : null,
+        globalConfiguration: json.containsKey('GlobalConfiguration')
+            ? GlobalConfiguration.fromJson(json['GlobalConfiguration'])
+            : null,
+        outputGroups: (json['OutputGroups'] as List)
+            .map((e) => OutputGroup.fromJson(e))
+            .toList(),
+        timecodeConfig: TimecodeConfig.fromJson(json['TimecodeConfig']),
+        videoDescriptions: (json['VideoDescriptions'] as List)
+            .map((e) => VideoDescription.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Fec Output Settings
@@ -2345,7 +3395,16 @@ class FecOutputSettings {
     this.rowLength,
   });
   static FecOutputSettings fromJson(Map<String, dynamic> json) =>
-      FecOutputSettings();
+      FecOutputSettings(
+        columnDepth:
+            json.containsKey('ColumnDepth') ? json['ColumnDepth'] as int : null,
+        includeFec: json.containsKey('IncludeFec')
+            ? json['IncludeFec'] as String
+            : null,
+        rowLength:
+            json.containsKey('RowLength') ? json['RowLength'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Start time for the action.
@@ -2362,7 +3421,10 @@ class FixedModeScheduleActionStartSettings {
   });
   static FixedModeScheduleActionStartSettings fromJson(
           Map<String, dynamic> json) =>
-      FixedModeScheduleActionStartSettings();
+      FixedModeScheduleActionStartSettings(
+        time: json['Time'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings to specify if an action follows another.
@@ -2380,7 +3442,11 @@ class FollowModeScheduleActionStartSettings {
   });
   static FollowModeScheduleActionStartSettings fromJson(
           Map<String, dynamic> json) =>
-      FollowModeScheduleActionStartSettings();
+      FollowModeScheduleActionStartSettings(
+        followPoint: json['FollowPoint'] as String,
+        referenceActionName: json['ReferenceActionName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Frame Capture Group Settings
@@ -2399,7 +3465,10 @@ class FrameCaptureGroupSettings {
     @required this.destination,
   });
   static FrameCaptureGroupSettings fromJson(Map<String, dynamic> json) =>
-      FrameCaptureGroupSettings();
+      FrameCaptureGroupSettings(
+        destination: OutputLocationRef.fromJson(json['Destination']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Frame Capture Output Settings
@@ -2412,7 +3481,12 @@ class FrameCaptureOutputSettings {
     this.nameModifier,
   });
   static FrameCaptureOutputSettings fromJson(Map<String, dynamic> json) =>
-      FrameCaptureOutputSettings();
+      FrameCaptureOutputSettings(
+        nameModifier: json.containsKey('NameModifier')
+            ? json['NameModifier'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Frame Capture Settings
@@ -2425,7 +3499,10 @@ class FrameCaptureSettings {
     @required this.captureInterval,
   });
   static FrameCaptureSettings fromJson(Map<String, dynamic> json) =>
-      FrameCaptureSettings();
+      FrameCaptureSettings(
+        captureInterval: json['CaptureInterval'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Global Configuration
@@ -2471,7 +3548,27 @@ class GlobalConfiguration {
     this.supportLowFramerateInputs,
   });
   static GlobalConfiguration fromJson(Map<String, dynamic> json) =>
-      GlobalConfiguration();
+      GlobalConfiguration(
+        initialAudioGain: json.containsKey('InitialAudioGain')
+            ? json['InitialAudioGain'] as int
+            : null,
+        inputEndAction: json.containsKey('InputEndAction')
+            ? json['InputEndAction'] as String
+            : null,
+        inputLossBehavior: json.containsKey('InputLossBehavior')
+            ? InputLossBehavior.fromJson(json['InputLossBehavior'])
+            : null,
+        outputLockingMode: json.containsKey('OutputLockingMode')
+            ? json['OutputLockingMode'] as String
+            : null,
+        outputTimingSource: json.containsKey('OutputTimingSource')
+            ? json['OutputTimingSource'] as String
+            : null,
+        supportLowFramerateInputs: json.containsKey('SupportLowFramerateInputs')
+            ? json['SupportLowFramerateInputs'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// H264 Color Space Settings
@@ -2488,7 +3585,20 @@ class H264ColorSpaceSettings {
     this.rec709Settings,
   });
   static H264ColorSpaceSettings fromJson(Map<String, dynamic> json) =>
-      H264ColorSpaceSettings();
+      H264ColorSpaceSettings(
+        colorSpacePassthroughSettings:
+            json.containsKey('ColorSpacePassthroughSettings')
+                ? ColorSpacePassthroughSettings.fromJson(
+                    json['ColorSpacePassthroughSettings'])
+                : null,
+        rec601Settings: json.containsKey('Rec601Settings')
+            ? Rec601Settings.fromJson(json['Rec601Settings'])
+            : null,
+        rec709Settings: json.containsKey('Rec709Settings')
+            ? Rec709Settings.fromJson(json['Rec709Settings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// H264 Settings
@@ -2709,7 +3819,101 @@ class H264Settings {
     this.temporalAq,
     this.timecodeInsertion,
   });
-  static H264Settings fromJson(Map<String, dynamic> json) => H264Settings();
+  static H264Settings fromJson(Map<String, dynamic> json) => H264Settings(
+        adaptiveQuantization: json.containsKey('AdaptiveQuantization')
+            ? json['AdaptiveQuantization'] as String
+            : null,
+        afdSignaling: json.containsKey('AfdSignaling')
+            ? json['AfdSignaling'] as String
+            : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        bufFillPct:
+            json.containsKey('BufFillPct') ? json['BufFillPct'] as int : null,
+        bufSize: json.containsKey('BufSize') ? json['BufSize'] as int : null,
+        colorMetadata: json.containsKey('ColorMetadata')
+            ? json['ColorMetadata'] as String
+            : null,
+        colorSpaceSettings: json.containsKey('ColorSpaceSettings')
+            ? H264ColorSpaceSettings.fromJson(json['ColorSpaceSettings'])
+            : null,
+        entropyEncoding: json.containsKey('EntropyEncoding')
+            ? json['EntropyEncoding'] as String
+            : null,
+        fixedAfd:
+            json.containsKey('FixedAfd') ? json['FixedAfd'] as String : null,
+        flickerAq:
+            json.containsKey('FlickerAq') ? json['FlickerAq'] as String : null,
+        framerateControl: json.containsKey('FramerateControl')
+            ? json['FramerateControl'] as String
+            : null,
+        framerateDenominator: json.containsKey('FramerateDenominator')
+            ? json['FramerateDenominator'] as int
+            : null,
+        framerateNumerator: json.containsKey('FramerateNumerator')
+            ? json['FramerateNumerator'] as int
+            : null,
+        gopbReference: json.containsKey('GopBReference')
+            ? json['GopBReference'] as String
+            : null,
+        gopClosedCadence: json.containsKey('GopClosedCadence')
+            ? json['GopClosedCadence'] as int
+            : null,
+        gopNumbFrames: json.containsKey('GopNumBFrames')
+            ? json['GopNumBFrames'] as int
+            : null,
+        gopSize: json.containsKey('GopSize') ? json['GopSize'] as double : null,
+        gopSizeUnits: json.containsKey('GopSizeUnits')
+            ? json['GopSizeUnits'] as String
+            : null,
+        level: json.containsKey('Level') ? json['Level'] as String : null,
+        lookAheadRateControl: json.containsKey('LookAheadRateControl')
+            ? json['LookAheadRateControl'] as String
+            : null,
+        maxBitrate:
+            json.containsKey('MaxBitrate') ? json['MaxBitrate'] as int : null,
+        miniInterval: json.containsKey('MinIInterval')
+            ? json['MinIInterval'] as int
+            : null,
+        numRefFrames: json.containsKey('NumRefFrames')
+            ? json['NumRefFrames'] as int
+            : null,
+        parControl: json.containsKey('ParControl')
+            ? json['ParControl'] as String
+            : null,
+        parDenominator: json.containsKey('ParDenominator')
+            ? json['ParDenominator'] as int
+            : null,
+        parNumerator: json.containsKey('ParNumerator')
+            ? json['ParNumerator'] as int
+            : null,
+        profile: json.containsKey('Profile') ? json['Profile'] as String : null,
+        qvbrQualityLevel: json.containsKey('QvbrQualityLevel')
+            ? json['QvbrQualityLevel'] as int
+            : null,
+        rateControlMode: json.containsKey('RateControlMode')
+            ? json['RateControlMode'] as String
+            : null,
+        scanType:
+            json.containsKey('ScanType') ? json['ScanType'] as String : null,
+        sceneChangeDetect: json.containsKey('SceneChangeDetect')
+            ? json['SceneChangeDetect'] as String
+            : null,
+        slices: json.containsKey('Slices') ? json['Slices'] as int : null,
+        softness: json.containsKey('Softness') ? json['Softness'] as int : null,
+        spatialAq:
+            json.containsKey('SpatialAq') ? json['SpatialAq'] as String : null,
+        subgopLength: json.containsKey('SubgopLength')
+            ? json['SubgopLength'] as String
+            : null,
+        syntax: json.containsKey('Syntax') ? json['Syntax'] as String : null,
+        temporalAq: json.containsKey('TemporalAq')
+            ? json['TemporalAq'] as String
+            : null,
+        timecodeInsertion: json.containsKey('TimecodeInsertion')
+            ? json['TimecodeInsertion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// H265 Color Space Settings
@@ -2729,7 +3933,23 @@ class H265ColorSpaceSettings {
     this.rec709Settings,
   });
   static H265ColorSpaceSettings fromJson(Map<String, dynamic> json) =>
-      H265ColorSpaceSettings();
+      H265ColorSpaceSettings(
+        colorSpacePassthroughSettings:
+            json.containsKey('ColorSpacePassthroughSettings')
+                ? ColorSpacePassthroughSettings.fromJson(
+                    json['ColorSpacePassthroughSettings'])
+                : null,
+        hdr10Settings: json.containsKey('Hdr10Settings')
+            ? Hdr10Settings.fromJson(json['Hdr10Settings'])
+            : null,
+        rec601Settings: json.containsKey('Rec601Settings')
+            ? Rec601Settings.fromJson(json['Rec601Settings'])
+            : null,
+        rec709Settings: json.containsKey('Rec709Settings')
+            ? Rec709Settings.fromJson(json['Rec709Settings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// H265 Settings
@@ -2889,7 +4109,72 @@ class H265Settings {
     this.tier,
     this.timecodeInsertion,
   });
-  static H265Settings fromJson(Map<String, dynamic> json) => H265Settings();
+  static H265Settings fromJson(Map<String, dynamic> json) => H265Settings(
+        adaptiveQuantization: json.containsKey('AdaptiveQuantization')
+            ? json['AdaptiveQuantization'] as String
+            : null,
+        afdSignaling: json.containsKey('AfdSignaling')
+            ? json['AfdSignaling'] as String
+            : null,
+        alternativeTransferFunction:
+            json.containsKey('AlternativeTransferFunction')
+                ? json['AlternativeTransferFunction'] as String
+                : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        bufSize: json.containsKey('BufSize') ? json['BufSize'] as int : null,
+        colorMetadata: json.containsKey('ColorMetadata')
+            ? json['ColorMetadata'] as String
+            : null,
+        colorSpaceSettings: json.containsKey('ColorSpaceSettings')
+            ? H265ColorSpaceSettings.fromJson(json['ColorSpaceSettings'])
+            : null,
+        fixedAfd:
+            json.containsKey('FixedAfd') ? json['FixedAfd'] as String : null,
+        flickerAq:
+            json.containsKey('FlickerAq') ? json['FlickerAq'] as String : null,
+        framerateDenominator: json['FramerateDenominator'] as int,
+        framerateNumerator: json['FramerateNumerator'] as int,
+        gopClosedCadence: json.containsKey('GopClosedCadence')
+            ? json['GopClosedCadence'] as int
+            : null,
+        gopSize: json.containsKey('GopSize') ? json['GopSize'] as double : null,
+        gopSizeUnits: json.containsKey('GopSizeUnits')
+            ? json['GopSizeUnits'] as String
+            : null,
+        level: json.containsKey('Level') ? json['Level'] as String : null,
+        lookAheadRateControl: json.containsKey('LookAheadRateControl')
+            ? json['LookAheadRateControl'] as String
+            : null,
+        maxBitrate:
+            json.containsKey('MaxBitrate') ? json['MaxBitrate'] as int : null,
+        miniInterval: json.containsKey('MinIInterval')
+            ? json['MinIInterval'] as int
+            : null,
+        parDenominator: json.containsKey('ParDenominator')
+            ? json['ParDenominator'] as int
+            : null,
+        parNumerator: json.containsKey('ParNumerator')
+            ? json['ParNumerator'] as int
+            : null,
+        profile: json.containsKey('Profile') ? json['Profile'] as String : null,
+        qvbrQualityLevel: json.containsKey('QvbrQualityLevel')
+            ? json['QvbrQualityLevel'] as int
+            : null,
+        rateControlMode: json.containsKey('RateControlMode')
+            ? json['RateControlMode'] as String
+            : null,
+        scanType:
+            json.containsKey('ScanType') ? json['ScanType'] as String : null,
+        sceneChangeDetect: json.containsKey('SceneChangeDetect')
+            ? json['SceneChangeDetect'] as String
+            : null,
+        slices: json.containsKey('Slices') ? json['Slices'] as int : null,
+        tier: json.containsKey('Tier') ? json['Tier'] as String : null,
+        timecodeInsertion: json.containsKey('TimecodeInsertion')
+            ? json['TimecodeInsertion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hdr10 Settings
@@ -2908,7 +4193,11 @@ class Hdr10Settings {
     this.maxCll,
     this.maxFall,
   });
-  static Hdr10Settings fromJson(Map<String, dynamic> json) => Hdr10Settings();
+  static Hdr10Settings fromJson(Map<String, dynamic> json) => Hdr10Settings(
+        maxCll: json.containsKey('MaxCll') ? json['MaxCll'] as int : null,
+        maxFall: json.containsKey('MaxFall') ? json['MaxFall'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hls Akamai Settings
@@ -2948,7 +4237,25 @@ class HlsAkamaiSettings {
     this.token,
   });
   static HlsAkamaiSettings fromJson(Map<String, dynamic> json) =>
-      HlsAkamaiSettings();
+      HlsAkamaiSettings(
+        connectionRetryInterval: json.containsKey('ConnectionRetryInterval')
+            ? json['ConnectionRetryInterval'] as int
+            : null,
+        filecacheDuration: json.containsKey('FilecacheDuration')
+            ? json['FilecacheDuration'] as int
+            : null,
+        httpTransferMode: json.containsKey('HttpTransferMode')
+            ? json['HttpTransferMode'] as String
+            : null,
+        numRetries:
+            json.containsKey('NumRetries') ? json['NumRetries'] as int : null,
+        restartDelay: json.containsKey('RestartDelay')
+            ? json['RestartDelay'] as int
+            : null,
+        salt: json.containsKey('Salt') ? json['Salt'] as String : null,
+        token: json.containsKey('Token') ? json['Token'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hls Basic Put Settings
@@ -2975,7 +4282,20 @@ class HlsBasicPutSettings {
     this.restartDelay,
   });
   static HlsBasicPutSettings fromJson(Map<String, dynamic> json) =>
-      HlsBasicPutSettings();
+      HlsBasicPutSettings(
+        connectionRetryInterval: json.containsKey('ConnectionRetryInterval')
+            ? json['ConnectionRetryInterval'] as int
+            : null,
+        filecacheDuration: json.containsKey('FilecacheDuration')
+            ? json['FilecacheDuration'] as int
+            : null,
+        numRetries:
+            json.containsKey('NumRetries') ? json['NumRetries'] as int : null,
+        restartDelay: json.containsKey('RestartDelay')
+            ? json['RestartDelay'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hls Cdn Settings
@@ -2994,7 +4314,21 @@ class HlsCdnSettings {
     this.hlsMediaStoreSettings,
     this.hlsWebdavSettings,
   });
-  static HlsCdnSettings fromJson(Map<String, dynamic> json) => HlsCdnSettings();
+  static HlsCdnSettings fromJson(Map<String, dynamic> json) => HlsCdnSettings(
+        hlsAkamaiSettings: json.containsKey('HlsAkamaiSettings')
+            ? HlsAkamaiSettings.fromJson(json['HlsAkamaiSettings'])
+            : null,
+        hlsBasicPutSettings: json.containsKey('HlsBasicPutSettings')
+            ? HlsBasicPutSettings.fromJson(json['HlsBasicPutSettings'])
+            : null,
+        hlsMediaStoreSettings: json.containsKey('HlsMediaStoreSettings')
+            ? HlsMediaStoreSettings.fromJson(json['HlsMediaStoreSettings'])
+            : null,
+        hlsWebdavSettings: json.containsKey('HlsWebdavSettings')
+            ? HlsWebdavSettings.fromJson(json['HlsWebdavSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hls Group Settings
@@ -3229,7 +4563,117 @@ class HlsGroupSettings {
     this.tsFileMode,
   });
   static HlsGroupSettings fromJson(Map<String, dynamic> json) =>
-      HlsGroupSettings();
+      HlsGroupSettings(
+        adMarkers: json.containsKey('AdMarkers')
+            ? (json['AdMarkers'] as List).map((e) => e as String).toList()
+            : null,
+        baseUrlContent: json.containsKey('BaseUrlContent')
+            ? json['BaseUrlContent'] as String
+            : null,
+        baseUrlManifest: json.containsKey('BaseUrlManifest')
+            ? json['BaseUrlManifest'] as String
+            : null,
+        captionLanguageMappings: json.containsKey('CaptionLanguageMappings')
+            ? (json['CaptionLanguageMappings'] as List)
+                .map((e) => CaptionLanguageMapping.fromJson(e))
+                .toList()
+            : null,
+        captionLanguageSetting: json.containsKey('CaptionLanguageSetting')
+            ? json['CaptionLanguageSetting'] as String
+            : null,
+        clientCache: json.containsKey('ClientCache')
+            ? json['ClientCache'] as String
+            : null,
+        codecSpecification: json.containsKey('CodecSpecification')
+            ? json['CodecSpecification'] as String
+            : null,
+        constantIv: json.containsKey('ConstantIv')
+            ? json['ConstantIv'] as String
+            : null,
+        destination: OutputLocationRef.fromJson(json['Destination']),
+        directoryStructure: json.containsKey('DirectoryStructure')
+            ? json['DirectoryStructure'] as String
+            : null,
+        encryptionType: json.containsKey('EncryptionType')
+            ? json['EncryptionType'] as String
+            : null,
+        hlsCdnSettings: json.containsKey('HlsCdnSettings')
+            ? HlsCdnSettings.fromJson(json['HlsCdnSettings'])
+            : null,
+        iFrameOnlyPlaylists: json.containsKey('IFrameOnlyPlaylists')
+            ? json['IFrameOnlyPlaylists'] as String
+            : null,
+        indexnSegments: json.containsKey('IndexNSegments')
+            ? json['IndexNSegments'] as int
+            : null,
+        inputLossAction: json.containsKey('InputLossAction')
+            ? json['InputLossAction'] as String
+            : null,
+        ivInManifest: json.containsKey('IvInManifest')
+            ? json['IvInManifest'] as String
+            : null,
+        ivSource:
+            json.containsKey('IvSource') ? json['IvSource'] as String : null,
+        keepSegments: json.containsKey('KeepSegments')
+            ? json['KeepSegments'] as int
+            : null,
+        keyFormat:
+            json.containsKey('KeyFormat') ? json['KeyFormat'] as String : null,
+        keyFormatVersions: json.containsKey('KeyFormatVersions')
+            ? json['KeyFormatVersions'] as String
+            : null,
+        keyProviderSettings: json.containsKey('KeyProviderSettings')
+            ? KeyProviderSettings.fromJson(json['KeyProviderSettings'])
+            : null,
+        manifestCompression: json.containsKey('ManifestCompression')
+            ? json['ManifestCompression'] as String
+            : null,
+        manifestDurationFormat: json.containsKey('ManifestDurationFormat')
+            ? json['ManifestDurationFormat'] as String
+            : null,
+        minSegmentLength: json.containsKey('MinSegmentLength')
+            ? json['MinSegmentLength'] as int
+            : null,
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+        outputSelection: json.containsKey('OutputSelection')
+            ? json['OutputSelection'] as String
+            : null,
+        programDateTime: json.containsKey('ProgramDateTime')
+            ? json['ProgramDateTime'] as String
+            : null,
+        programDateTimePeriod: json.containsKey('ProgramDateTimePeriod')
+            ? json['ProgramDateTimePeriod'] as int
+            : null,
+        redundantManifest: json.containsKey('RedundantManifest')
+            ? json['RedundantManifest'] as String
+            : null,
+        segmentLength: json.containsKey('SegmentLength')
+            ? json['SegmentLength'] as int
+            : null,
+        segmentationMode: json.containsKey('SegmentationMode')
+            ? json['SegmentationMode'] as String
+            : null,
+        segmentsPerSubdirectory: json.containsKey('SegmentsPerSubdirectory')
+            ? json['SegmentsPerSubdirectory'] as int
+            : null,
+        streamInfResolution: json.containsKey('StreamInfResolution')
+            ? json['StreamInfResolution'] as String
+            : null,
+        timedMetadataId3Frame: json.containsKey('TimedMetadataId3Frame')
+            ? json['TimedMetadataId3Frame'] as String
+            : null,
+        timedMetadataId3Period: json.containsKey('TimedMetadataId3Period')
+            ? json['TimedMetadataId3Period'] as int
+            : null,
+        timestampDeltaMilliseconds:
+            json.containsKey('TimestampDeltaMilliseconds')
+                ? json['TimestampDeltaMilliseconds'] as int
+                : null,
+        tsFileMode: json.containsKey('TsFileMode')
+            ? json['TsFileMode'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hls Input Settings
@@ -3260,7 +4704,18 @@ class HlsInputSettings {
     this.retryInterval,
   });
   static HlsInputSettings fromJson(Map<String, dynamic> json) =>
-      HlsInputSettings();
+      HlsInputSettings(
+        bandwidth:
+            json.containsKey('Bandwidth') ? json['Bandwidth'] as int : null,
+        bufferSegments: json.containsKey('BufferSegments')
+            ? json['BufferSegments'] as int
+            : null,
+        retries: json.containsKey('Retries') ? json['Retries'] as int : null,
+        retryInterval: json.containsKey('RetryInterval')
+            ? json['RetryInterval'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hls Media Store Settings
@@ -3292,7 +4747,23 @@ class HlsMediaStoreSettings {
     this.restartDelay,
   });
   static HlsMediaStoreSettings fromJson(Map<String, dynamic> json) =>
-      HlsMediaStoreSettings();
+      HlsMediaStoreSettings(
+        connectionRetryInterval: json.containsKey('ConnectionRetryInterval')
+            ? json['ConnectionRetryInterval'] as int
+            : null,
+        filecacheDuration: json.containsKey('FilecacheDuration')
+            ? json['FilecacheDuration'] as int
+            : null,
+        mediaStoreStorageClass: json.containsKey('MediaStoreStorageClass')
+            ? json['MediaStoreStorageClass'] as String
+            : null,
+        numRetries:
+            json.containsKey('NumRetries') ? json['NumRetries'] as int : null,
+        restartDelay: json.containsKey('RestartDelay')
+            ? json['RestartDelay'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hls Output Settings
@@ -3314,7 +4785,16 @@ class HlsOutputSettings {
     this.segmentModifier,
   });
   static HlsOutputSettings fromJson(Map<String, dynamic> json) =>
-      HlsOutputSettings();
+      HlsOutputSettings(
+        hlsSettings: HlsSettings.fromJson(json['HlsSettings']),
+        nameModifier: json.containsKey('NameModifier')
+            ? json['NameModifier'] as String
+            : null,
+        segmentModifier: json.containsKey('SegmentModifier')
+            ? json['SegmentModifier'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hls Settings
@@ -3327,7 +4807,15 @@ class HlsSettings {
     this.audioOnlyHlsSettings,
     this.standardHlsSettings,
   });
-  static HlsSettings fromJson(Map<String, dynamic> json) => HlsSettings();
+  static HlsSettings fromJson(Map<String, dynamic> json) => HlsSettings(
+        audioOnlyHlsSettings: json.containsKey('AudioOnlyHlsSettings')
+            ? AudioOnlyHlsSettings.fromJson(json['AudioOnlyHlsSettings'])
+            : null,
+        standardHlsSettings: json.containsKey('StandardHlsSettings')
+            ? StandardHlsSettings.fromJson(json['StandardHlsSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for the action to emit HLS metadata
@@ -3341,7 +4829,10 @@ class HlsTimedMetadataScheduleActionSettings {
   });
   static HlsTimedMetadataScheduleActionSettings fromJson(
           Map<String, dynamic> json) =>
-      HlsTimedMetadataScheduleActionSettings();
+      HlsTimedMetadataScheduleActionSettings(
+        id3: json['Id3'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hls Webdav Settings
@@ -3372,7 +4863,23 @@ class HlsWebdavSettings {
     this.restartDelay,
   });
   static HlsWebdavSettings fromJson(Map<String, dynamic> json) =>
-      HlsWebdavSettings();
+      HlsWebdavSettings(
+        connectionRetryInterval: json.containsKey('ConnectionRetryInterval')
+            ? json['ConnectionRetryInterval'] as int
+            : null,
+        filecacheDuration: json.containsKey('FilecacheDuration')
+            ? json['FilecacheDuration'] as int
+            : null,
+        httpTransferMode: json.containsKey('HttpTransferMode')
+            ? json['HttpTransferMode'] as String
+            : null,
+        numRetries:
+            json.containsKey('NumRetries') ? json['NumRetries'] as int : null,
+        restartDelay: json.containsKey('RestartDelay')
+            ? json['RestartDelay'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings to configure an action so that it occurs immediately. This is only
@@ -3382,6 +4889,7 @@ class ImmediateModeScheduleActionStartSettings {
   static ImmediateModeScheduleActionStartSettings fromJson(
           Map<String, dynamic> json) =>
       ImmediateModeScheduleActionStartSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for Input
@@ -3453,7 +4961,47 @@ class Input {
     this.tags,
     this.type,
   });
-  static Input fromJson(Map<String, dynamic> json) => Input();
+  static Input fromJson(Map<String, dynamic> json) => Input(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        attachedChannels: json.containsKey('AttachedChannels')
+            ? (json['AttachedChannels'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        destinations: json.containsKey('Destinations')
+            ? (json['Destinations'] as List)
+                .map((e) => InputDestination.fromJson(e))
+                .toList()
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputClass: json.containsKey('InputClass')
+            ? json['InputClass'] as String
+            : null,
+        inputSourceType: json.containsKey('InputSourceType')
+            ? json['InputSourceType'] as String
+            : null,
+        mediaConnectFlows: json.containsKey('MediaConnectFlows')
+            ? (json['MediaConnectFlows'] as List)
+                .map((e) => MediaConnectFlow.fromJson(e))
+                .toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        sources: json.containsKey('Sources')
+            ? (json['Sources'] as List)
+                .map((e) => InputSource.fromJson(e))
+                .toList()
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Placeholder documentation for InputAttachment
@@ -3473,8 +5021,16 @@ class InputAttachment {
     this.inputId,
     this.inputSettings,
   });
-  static InputAttachment fromJson(Map<String, dynamic> json) =>
-      InputAttachment();
+  static InputAttachment fromJson(Map<String, dynamic> json) => InputAttachment(
+        inputAttachmentName: json.containsKey('InputAttachmentName')
+            ? json['InputAttachmentName'] as String
+            : null,
+        inputId: json.containsKey('InputId') ? json['InputId'] as String : null,
+        inputSettings: json.containsKey('InputSettings')
+            ? InputSettings.fromJson(json['InputSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Input Channel Level
@@ -3491,7 +5047,11 @@ class InputChannelLevel {
     @required this.inputChannel,
   });
   static InputChannelLevel fromJson(Map<String, dynamic> json) =>
-      InputChannelLevel();
+      InputChannelLevel(
+        gain: json['Gain'] as int,
+        inputChannel: json['InputChannel'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings to let you create a clip of the file input, in order to set up the
@@ -3512,7 +5072,16 @@ class InputClippingSettings {
     this.stopTimecode,
   });
   static InputClippingSettings fromJson(Map<String, dynamic> json) =>
-      InputClippingSettings();
+      InputClippingSettings(
+        inputTimecodeSource: json['InputTimecodeSource'] as String,
+        startTimecode: json.containsKey('StartTimecode')
+            ? StartTimecode.fromJson(json['StartTimecode'])
+            : null,
+        stopTimecode: json.containsKey('StopTimecode')
+            ? StopTimecode.fromJson(json['StopTimecode'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The settings for a PUSH type input.
@@ -3536,7 +5105,14 @@ class InputDestination {
     this.vpc,
   });
   static InputDestination fromJson(Map<String, dynamic> json) =>
-      InputDestination();
+      InputDestination(
+        ip: json.containsKey('Ip') ? json['Ip'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as String : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        vpc: json.containsKey('Vpc')
+            ? InputDestinationVpc.fromJson(json['Vpc'])
+            : null,
+      );
 }
 
 /// Endpoint settings for a PUSH type input.
@@ -3547,6 +5123,7 @@ class InputDestinationRequest {
   InputDestinationRequest({
     this.streamName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The properties for a VPC type input destination.
@@ -3562,7 +5139,14 @@ class InputDestinationVpc {
     this.networkInterfaceId,
   });
   static InputDestinationVpc fromJson(Map<String, dynamic> json) =>
-      InputDestinationVpc();
+      InputDestinationVpc(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+      );
 }
 
 /// Input Location
@@ -3584,7 +5168,15 @@ class InputLocation {
     @required this.uri,
     this.username,
   });
-  static InputLocation fromJson(Map<String, dynamic> json) => InputLocation();
+  static InputLocation fromJson(Map<String, dynamic> json) => InputLocation(
+        passwordParam: json.containsKey('PasswordParam')
+            ? json['PasswordParam'] as String
+            : null,
+        uri: json['Uri'] as String,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Input Loss Behavior
@@ -3615,7 +5207,24 @@ class InputLossBehavior {
     this.repeatFrameMsec,
   });
   static InputLossBehavior fromJson(Map<String, dynamic> json) =>
-      InputLossBehavior();
+      InputLossBehavior(
+        blackFrameMsec: json.containsKey('BlackFrameMsec')
+            ? json['BlackFrameMsec'] as int
+            : null,
+        inputLossImageColor: json.containsKey('InputLossImageColor')
+            ? json['InputLossImageColor'] as String
+            : null,
+        inputLossImageSlate: json.containsKey('InputLossImageSlate')
+            ? InputLocation.fromJson(json['InputLossImageSlate'])
+            : null,
+        inputLossImageType: json.containsKey('InputLossImageType')
+            ? json['InputLossImageType'] as String
+            : null,
+        repeatFrameMsec: json.containsKey('RepeatFrameMsec')
+            ? json['RepeatFrameMsec'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An Input Security Group
@@ -3647,7 +5256,23 @@ class InputSecurityGroup {
     this.whitelistRules,
   });
   static InputSecurityGroup fromJson(Map<String, dynamic> json) =>
-      InputSecurityGroup();
+      InputSecurityGroup(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputs: json.containsKey('Inputs')
+            ? (json['Inputs'] as List).map((e) => e as String).toList()
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        whitelistRules: json.containsKey('WhitelistRules')
+            ? (json['WhitelistRules'] as List)
+                .map((e) => InputWhitelistRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Live Event input parameters. There can be multiple inputs in a single Live
@@ -3698,7 +5323,40 @@ class InputSettings {
     this.sourceEndBehavior,
     this.videoSelector,
   });
-  static InputSettings fromJson(Map<String, dynamic> json) => InputSettings();
+  static InputSettings fromJson(Map<String, dynamic> json) => InputSettings(
+        audioSelectors: json.containsKey('AudioSelectors')
+            ? (json['AudioSelectors'] as List)
+                .map((e) => AudioSelector.fromJson(e))
+                .toList()
+            : null,
+        captionSelectors: json.containsKey('CaptionSelectors')
+            ? (json['CaptionSelectors'] as List)
+                .map((e) => CaptionSelector.fromJson(e))
+                .toList()
+            : null,
+        deblockFilter: json.containsKey('DeblockFilter')
+            ? json['DeblockFilter'] as String
+            : null,
+        denoiseFilter: json.containsKey('DenoiseFilter')
+            ? json['DenoiseFilter'] as String
+            : null,
+        filterStrength: json.containsKey('FilterStrength')
+            ? json['FilterStrength'] as int
+            : null,
+        inputFilter: json.containsKey('InputFilter')
+            ? json['InputFilter'] as String
+            : null,
+        networkInputSettings: json.containsKey('NetworkInputSettings')
+            ? NetworkInputSettings.fromJson(json['NetworkInputSettings'])
+            : null,
+        sourceEndBehavior: json.containsKey('SourceEndBehavior')
+            ? json['SourceEndBehavior'] as String
+            : null,
+        videoSelector: json.containsKey('VideoSelector')
+            ? VideoSelector.fromJson(json['VideoSelector'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The settings for a PULL type input.
@@ -3717,7 +5375,14 @@ class InputSource {
     this.url,
     this.username,
   });
-  static InputSource fromJson(Map<String, dynamic> json) => InputSource();
+  static InputSource fromJson(Map<String, dynamic> json) => InputSource(
+        passwordParam: json.containsKey('PasswordParam')
+            ? json['PasswordParam'] as String
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+      );
 }
 
 /// Settings for for a PULL type input.
@@ -3736,6 +5401,7 @@ class InputSourceRequest {
     this.url,
     this.username,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for InputSpecification
@@ -3755,7 +5421,16 @@ class InputSpecification {
     this.resolution,
   });
   static InputSpecification fromJson(Map<String, dynamic> json) =>
-      InputSpecification();
+      InputSpecification(
+        codec: json.containsKey('Codec') ? json['Codec'] as String : null,
+        maximumBitrate: json.containsKey('MaximumBitrate')
+            ? json['MaximumBitrate'] as String
+            : null,
+        resolution: json.containsKey('Resolution')
+            ? json['Resolution'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for the "switch input" action: to switch from ingesting one input
@@ -3782,7 +5457,17 @@ class InputSwitchScheduleActionSettings {
   });
   static InputSwitchScheduleActionSettings fromJson(
           Map<String, dynamic> json) =>
-      InputSwitchScheduleActionSettings();
+      InputSwitchScheduleActionSettings(
+        inputAttachmentNameReference:
+            json['InputAttachmentNameReference'] as String,
+        inputClippingSettings: json.containsKey('InputClippingSettings')
+            ? InputClippingSettings.fromJson(json['InputClippingSettings'])
+            : null,
+        urlPath: json.containsKey('UrlPath')
+            ? (json['UrlPath'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for a private VPC Input. When this property is specified, the input
@@ -3803,6 +5488,7 @@ class InputVpcRequest {
     this.securityGroupIds,
     @required this.subnetIds,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Whitelist rule
@@ -3814,7 +5500,9 @@ class InputWhitelistRule {
     this.cidr,
   });
   static InputWhitelistRule fromJson(Map<String, dynamic> json) =>
-      InputWhitelistRule();
+      InputWhitelistRule(
+        cidr: json.containsKey('Cidr') ? json['Cidr'] as String : null,
+      );
 }
 
 /// An IPv4 CIDR to whitelist.
@@ -3825,6 +5513,7 @@ class InputWhitelistRuleCidr {
   InputWhitelistRuleCidr({
     this.cidr,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Key Provider Settings
@@ -3835,7 +5524,12 @@ class KeyProviderSettings {
     this.staticKeySettings,
   });
   static KeyProviderSettings fromJson(Map<String, dynamic> json) =>
-      KeyProviderSettings();
+      KeyProviderSettings(
+        staticKeySettings: json.containsKey('StaticKeySettings')
+            ? StaticKeySettings.fromJson(json['StaticKeySettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for ListChannelsResponse
@@ -3849,7 +5543,15 @@ class ListChannelsResponse {
     this.nextToken,
   });
   static ListChannelsResponse fromJson(Map<String, dynamic> json) =>
-      ListChannelsResponse();
+      ListChannelsResponse(
+        channels: json.containsKey('Channels')
+            ? (json['Channels'] as List)
+                .map((e) => ChannelSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Placeholder documentation for ListInputSecurityGroupsResponse
@@ -3864,7 +5566,15 @@ class ListInputSecurityGroupsResponse {
     this.nextToken,
   });
   static ListInputSecurityGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListInputSecurityGroupsResponse();
+      ListInputSecurityGroupsResponse(
+        inputSecurityGroups: json.containsKey('InputSecurityGroups')
+            ? (json['InputSecurityGroups'] as List)
+                .map((e) => InputSecurityGroup.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Placeholder documentation for ListInputsResponse
@@ -3878,7 +5588,13 @@ class ListInputsResponse {
     this.nextToken,
   });
   static ListInputsResponse fromJson(Map<String, dynamic> json) =>
-      ListInputsResponse();
+      ListInputsResponse(
+        inputs: json.containsKey('Inputs')
+            ? (json['Inputs'] as List).map((e) => Input.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Placeholder documentation for ListOfferingsResponse
@@ -3894,7 +5610,15 @@ class ListOfferingsResponse {
     this.offerings,
   });
   static ListOfferingsResponse fromJson(Map<String, dynamic> json) =>
-      ListOfferingsResponse();
+      ListOfferingsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        offerings: json.containsKey('Offerings')
+            ? (json['Offerings'] as List)
+                .map((e) => Offering.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Placeholder documentation for ListReservationsResponse
@@ -3910,7 +5634,15 @@ class ListReservationsResponse {
     this.reservations,
   });
   static ListReservationsResponse fromJson(Map<String, dynamic> json) =>
-      ListReservationsResponse();
+      ListReservationsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        reservations: json.containsKey('Reservations')
+            ? (json['Reservations'] as List)
+                .map((e) => Reservation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Placeholder documentation for ListTagsForResourceResponse
@@ -3921,7 +5653,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// M2ts Settings
@@ -4202,7 +5939,125 @@ class M2TsSettings {
     this.transportStreamId,
     this.videoPid,
   });
-  static M2TsSettings fromJson(Map<String, dynamic> json) => M2TsSettings();
+  static M2TsSettings fromJson(Map<String, dynamic> json) => M2TsSettings(
+        absentInputAudioBehavior: json.containsKey('AbsentInputAudioBehavior')
+            ? json['AbsentInputAudioBehavior'] as String
+            : null,
+        arib: json.containsKey('Arib') ? json['Arib'] as String : null,
+        aribCaptionsPid: json.containsKey('AribCaptionsPid')
+            ? json['AribCaptionsPid'] as String
+            : null,
+        aribCaptionsPidControl: json.containsKey('AribCaptionsPidControl')
+            ? json['AribCaptionsPidControl'] as String
+            : null,
+        audioBufferModel: json.containsKey('AudioBufferModel')
+            ? json['AudioBufferModel'] as String
+            : null,
+        audioFramesPerPes: json.containsKey('AudioFramesPerPes')
+            ? json['AudioFramesPerPes'] as int
+            : null,
+        audioPids:
+            json.containsKey('AudioPids') ? json['AudioPids'] as String : null,
+        audioStreamType: json.containsKey('AudioStreamType')
+            ? json['AudioStreamType'] as String
+            : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        bufferModel: json.containsKey('BufferModel')
+            ? json['BufferModel'] as String
+            : null,
+        ccDescriptor: json.containsKey('CcDescriptor')
+            ? json['CcDescriptor'] as String
+            : null,
+        dvbNitSettings: json.containsKey('DvbNitSettings')
+            ? DvbNitSettings.fromJson(json['DvbNitSettings'])
+            : null,
+        dvbSdtSettings: json.containsKey('DvbSdtSettings')
+            ? DvbSdtSettings.fromJson(json['DvbSdtSettings'])
+            : null,
+        dvbSubPids: json.containsKey('DvbSubPids')
+            ? json['DvbSubPids'] as String
+            : null,
+        dvbTdtSettings: json.containsKey('DvbTdtSettings')
+            ? DvbTdtSettings.fromJson(json['DvbTdtSettings'])
+            : null,
+        dvbTeletextPid: json.containsKey('DvbTeletextPid')
+            ? json['DvbTeletextPid'] as String
+            : null,
+        ebif: json.containsKey('Ebif') ? json['Ebif'] as String : null,
+        ebpAudioInterval: json.containsKey('EbpAudioInterval')
+            ? json['EbpAudioInterval'] as String
+            : null,
+        ebpLookaheadMs: json.containsKey('EbpLookaheadMs')
+            ? json['EbpLookaheadMs'] as int
+            : null,
+        ebpPlacement: json.containsKey('EbpPlacement')
+            ? json['EbpPlacement'] as String
+            : null,
+        ecmPid: json.containsKey('EcmPid') ? json['EcmPid'] as String : null,
+        esRateInPes: json.containsKey('EsRateInPes')
+            ? json['EsRateInPes'] as String
+            : null,
+        etvPlatformPid: json.containsKey('EtvPlatformPid')
+            ? json['EtvPlatformPid'] as String
+            : null,
+        etvSignalPid: json.containsKey('EtvSignalPid')
+            ? json['EtvSignalPid'] as String
+            : null,
+        fragmentTime: json.containsKey('FragmentTime')
+            ? json['FragmentTime'] as double
+            : null,
+        klv: json.containsKey('Klv') ? json['Klv'] as String : null,
+        klvDataPids: json.containsKey('KlvDataPids')
+            ? json['KlvDataPids'] as String
+            : null,
+        nullPacketBitrate: json.containsKey('NullPacketBitrate')
+            ? json['NullPacketBitrate'] as double
+            : null,
+        patInterval:
+            json.containsKey('PatInterval') ? json['PatInterval'] as int : null,
+        pcrControl: json.containsKey('PcrControl')
+            ? json['PcrControl'] as String
+            : null,
+        pcrPeriod:
+            json.containsKey('PcrPeriod') ? json['PcrPeriod'] as int : null,
+        pcrPid: json.containsKey('PcrPid') ? json['PcrPid'] as String : null,
+        pmtInterval:
+            json.containsKey('PmtInterval') ? json['PmtInterval'] as int : null,
+        pmtPid: json.containsKey('PmtPid') ? json['PmtPid'] as String : null,
+        programNum:
+            json.containsKey('ProgramNum') ? json['ProgramNum'] as int : null,
+        rateMode:
+            json.containsKey('RateMode') ? json['RateMode'] as String : null,
+        scte27Pids: json.containsKey('Scte27Pids')
+            ? json['Scte27Pids'] as String
+            : null,
+        scte35Control: json.containsKey('Scte35Control')
+            ? json['Scte35Control'] as String
+            : null,
+        scte35Pid:
+            json.containsKey('Scte35Pid') ? json['Scte35Pid'] as String : null,
+        segmentationMarkers: json.containsKey('SegmentationMarkers')
+            ? json['SegmentationMarkers'] as String
+            : null,
+        segmentationStyle: json.containsKey('SegmentationStyle')
+            ? json['SegmentationStyle'] as String
+            : null,
+        segmentationTime: json.containsKey('SegmentationTime')
+            ? json['SegmentationTime'] as double
+            : null,
+        timedMetadataBehavior: json.containsKey('TimedMetadataBehavior')
+            ? json['TimedMetadataBehavior'] as String
+            : null,
+        timedMetadataPid: json.containsKey('TimedMetadataPid')
+            ? json['TimedMetadataPid'] as String
+            : null,
+        transportStreamId: json.containsKey('TransportStreamId')
+            ? json['TransportStreamId'] as int
+            : null,
+        videoPid:
+            json.containsKey('VideoPid') ? json['VideoPid'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings information for the .m3u8 container
@@ -4290,7 +6145,44 @@ class M3U8Settings {
     this.transportStreamId,
     this.videoPid,
   });
-  static M3U8Settings fromJson(Map<String, dynamic> json) => M3U8Settings();
+  static M3U8Settings fromJson(Map<String, dynamic> json) => M3U8Settings(
+        audioFramesPerPes: json.containsKey('AudioFramesPerPes')
+            ? json['AudioFramesPerPes'] as int
+            : null,
+        audioPids:
+            json.containsKey('AudioPids') ? json['AudioPids'] as String : null,
+        ecmPid: json.containsKey('EcmPid') ? json['EcmPid'] as String : null,
+        patInterval:
+            json.containsKey('PatInterval') ? json['PatInterval'] as int : null,
+        pcrControl: json.containsKey('PcrControl')
+            ? json['PcrControl'] as String
+            : null,
+        pcrPeriod:
+            json.containsKey('PcrPeriod') ? json['PcrPeriod'] as int : null,
+        pcrPid: json.containsKey('PcrPid') ? json['PcrPid'] as String : null,
+        pmtInterval:
+            json.containsKey('PmtInterval') ? json['PmtInterval'] as int : null,
+        pmtPid: json.containsKey('PmtPid') ? json['PmtPid'] as String : null,
+        programNum:
+            json.containsKey('ProgramNum') ? json['ProgramNum'] as int : null,
+        scte35Behavior: json.containsKey('Scte35Behavior')
+            ? json['Scte35Behavior'] as String
+            : null,
+        scte35Pid:
+            json.containsKey('Scte35Pid') ? json['Scte35Pid'] as String : null,
+        timedMetadataBehavior: json.containsKey('TimedMetadataBehavior')
+            ? json['TimedMetadataBehavior'] as String
+            : null,
+        timedMetadataPid: json.containsKey('TimedMetadataPid')
+            ? json['TimedMetadataPid'] as String
+            : null,
+        transportStreamId: json.containsKey('TransportStreamId')
+            ? json['TransportStreamId'] as int
+            : null,
+        videoPid:
+            json.containsKey('VideoPid') ? json['VideoPid'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The settings for a MediaConnect Flow.
@@ -4302,7 +6194,9 @@ class MediaConnectFlow {
     this.flowArn,
   });
   static MediaConnectFlow fromJson(Map<String, dynamic> json) =>
-      MediaConnectFlow();
+      MediaConnectFlow(
+        flowArn: json.containsKey('FlowArn') ? json['FlowArn'] as String : null,
+      );
 }
 
 /// The settings for a MediaConnect Flow.
@@ -4313,6 +6207,7 @@ class MediaConnectFlowRequest {
   MediaConnectFlowRequest({
     this.flowArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Media Package Group Settings
@@ -4324,7 +6219,10 @@ class MediaPackageGroupSettings {
     @required this.destination,
   });
   static MediaPackageGroupSettings fromJson(Map<String, dynamic> json) =>
-      MediaPackageGroupSettings();
+      MediaPackageGroupSettings(
+        destination: OutputLocationRef.fromJson(json['Destination']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// MediaPackage Output Destination Settings
@@ -4341,7 +6239,11 @@ class MediaPackageOutputDestinationSettings {
   });
   static MediaPackageOutputDestinationSettings fromJson(
           Map<String, dynamic> json) =>
-      MediaPackageOutputDestinationSettings();
+      MediaPackageOutputDestinationSettings(
+        channelId:
+            json.containsKey('ChannelId') ? json['ChannelId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Media Package Output Settings
@@ -4349,6 +6251,7 @@ class MediaPackageOutputSettings {
   MediaPackageOutputSettings();
   static MediaPackageOutputSettings fromJson(Map<String, dynamic> json) =>
       MediaPackageOutputSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Mp2 Settings
@@ -4368,7 +6271,16 @@ class Mp2Settings {
     this.codingMode,
     this.sampleRate,
   });
-  static Mp2Settings fromJson(Map<String, dynamic> json) => Mp2Settings();
+  static Mp2Settings fromJson(Map<String, dynamic> json) => Mp2Settings(
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as double : null,
+        codingMode: json.containsKey('CodingMode')
+            ? json['CodingMode'] as String
+            : null,
+        sampleRate: json.containsKey('SampleRate')
+            ? json['SampleRate'] as double
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Ms Smooth Group Settings
@@ -4476,7 +6388,60 @@ class MsSmoothGroupSettings {
     this.timestampOffsetMode,
   });
   static MsSmoothGroupSettings fromJson(Map<String, dynamic> json) =>
-      MsSmoothGroupSettings();
+      MsSmoothGroupSettings(
+        acquisitionPointId: json.containsKey('AcquisitionPointId')
+            ? json['AcquisitionPointId'] as String
+            : null,
+        audioOnlyTimecodeControl: json.containsKey('AudioOnlyTimecodeControl')
+            ? json['AudioOnlyTimecodeControl'] as String
+            : null,
+        certificateMode: json.containsKey('CertificateMode')
+            ? json['CertificateMode'] as String
+            : null,
+        connectionRetryInterval: json.containsKey('ConnectionRetryInterval')
+            ? json['ConnectionRetryInterval'] as int
+            : null,
+        destination: OutputLocationRef.fromJson(json['Destination']),
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+        eventIdMode: json.containsKey('EventIdMode')
+            ? json['EventIdMode'] as String
+            : null,
+        eventStopBehavior: json.containsKey('EventStopBehavior')
+            ? json['EventStopBehavior'] as String
+            : null,
+        filecacheDuration: json.containsKey('FilecacheDuration')
+            ? json['FilecacheDuration'] as int
+            : null,
+        fragmentLength: json.containsKey('FragmentLength')
+            ? json['FragmentLength'] as int
+            : null,
+        inputLossAction: json.containsKey('InputLossAction')
+            ? json['InputLossAction'] as String
+            : null,
+        numRetries:
+            json.containsKey('NumRetries') ? json['NumRetries'] as int : null,
+        restartDelay: json.containsKey('RestartDelay')
+            ? json['RestartDelay'] as int
+            : null,
+        segmentationMode: json.containsKey('SegmentationMode')
+            ? json['SegmentationMode'] as String
+            : null,
+        sendDelayMs:
+            json.containsKey('SendDelayMs') ? json['SendDelayMs'] as int : null,
+        sparseTrackType: json.containsKey('SparseTrackType')
+            ? json['SparseTrackType'] as String
+            : null,
+        streamManifestBehavior: json.containsKey('StreamManifestBehavior')
+            ? json['StreamManifestBehavior'] as String
+            : null,
+        timestampOffset: json.containsKey('TimestampOffset')
+            ? json['TimestampOffset'] as String
+            : null,
+        timestampOffsetMode: json.containsKey('TimestampOffsetMode')
+            ? json['TimestampOffsetMode'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Ms Smooth Output Settings
@@ -4495,7 +6460,15 @@ class MsSmoothOutputSettings {
     this.nameModifier,
   });
   static MsSmoothOutputSettings fromJson(Map<String, dynamic> json) =>
-      MsSmoothOutputSettings();
+      MsSmoothOutputSettings(
+        h265PackagingType: json.containsKey('H265PackagingType')
+            ? json['H265PackagingType'] as String
+            : null,
+        nameModifier: json.containsKey('NameModifier')
+            ? json['NameModifier'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Network source to transcode. Must be accessible to the Elemental Live node
@@ -4517,7 +6490,15 @@ class NetworkInputSettings {
     this.serverValidation,
   });
   static NetworkInputSettings fromJson(Map<String, dynamic> json) =>
-      NetworkInputSettings();
+      NetworkInputSettings(
+        hlsInputSettings: json.containsKey('HlsInputSettings')
+            ? HlsInputSettings.fromJson(json['HlsInputSettings'])
+            : null,
+        serverValidation: json.containsKey('ServerValidation')
+            ? json['ServerValidation'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Reserved resources available for purchase
@@ -4571,7 +6552,36 @@ class Offering {
     this.resourceSpecification,
     this.usagePrice,
   });
-  static Offering fromJson(Map<String, dynamic> json) => Offering();
+  static Offering fromJson(Map<String, dynamic> json) => Offering(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        durationUnits: json.containsKey('DurationUnits')
+            ? json['DurationUnits'] as String
+            : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        offeringDescription: json.containsKey('OfferingDescription')
+            ? json['OfferingDescription'] as String
+            : null,
+        offeringId: json.containsKey('OfferingId')
+            ? json['OfferingId'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        resourceSpecification: json.containsKey('ResourceSpecification')
+            ? ReservationResourceSpecification.fromJson(
+                json['ResourceSpecification'])
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+      );
 }
 
 /// Output settings. There can be multiple outputs within a group.
@@ -4599,7 +6609,26 @@ class Output {
     @required this.outputSettings,
     this.videoDescriptionName,
   });
-  static Output fromJson(Map<String, dynamic> json) => Output();
+  static Output fromJson(Map<String, dynamic> json) => Output(
+        audioDescriptionNames: json.containsKey('AudioDescriptionNames')
+            ? (json['AudioDescriptionNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        captionDescriptionNames: json.containsKey('CaptionDescriptionNames')
+            ? (json['CaptionDescriptionNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        outputName: json.containsKey('OutputName')
+            ? json['OutputName'] as String
+            : null,
+        outputSettings: OutputSettings.fromJson(json['OutputSettings']),
+        videoDescriptionName: json.containsKey('VideoDescriptionName')
+            ? json['VideoDescriptionName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for OutputDestination
@@ -4621,7 +6650,20 @@ class OutputDestination {
     this.settings,
   });
   static OutputDestination fromJson(Map<String, dynamic> json) =>
-      OutputDestination();
+      OutputDestination(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        mediaPackageSettings: json.containsKey('MediaPackageSettings')
+            ? (json['MediaPackageSettings'] as List)
+                .map((e) => MediaPackageOutputDestinationSettings.fromJson(e))
+                .toList()
+            : null,
+        settings: json.containsKey('Settings')
+            ? (json['Settings'] as List)
+                .map((e) => OutputDestinationSettings.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for OutputDestinationSettings
@@ -4645,7 +6687,18 @@ class OutputDestinationSettings {
     this.username,
   });
   static OutputDestinationSettings fromJson(Map<String, dynamic> json) =>
-      OutputDestinationSettings();
+      OutputDestinationSettings(
+        passwordParam: json.containsKey('PasswordParam')
+            ? json['PasswordParam'] as String
+            : null,
+        streamName: json.containsKey('StreamName')
+            ? json['StreamName'] as String
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Output groups for this Live Event. Output groups contain information about
@@ -4665,7 +6718,14 @@ class OutputGroup {
     @required this.outputGroupSettings,
     @required this.outputs,
   });
-  static OutputGroup fromJson(Map<String, dynamic> json) => OutputGroup();
+  static OutputGroup fromJson(Map<String, dynamic> json) => OutputGroup(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        outputGroupSettings:
+            OutputGroupSettings.fromJson(json['OutputGroupSettings']),
+        outputs:
+            (json['Outputs'] as List).map((e) => Output.fromJson(e)).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Output Group Settings
@@ -4694,7 +6754,32 @@ class OutputGroupSettings {
     this.udpGroupSettings,
   });
   static OutputGroupSettings fromJson(Map<String, dynamic> json) =>
-      OutputGroupSettings();
+      OutputGroupSettings(
+        archiveGroupSettings: json.containsKey('ArchiveGroupSettings')
+            ? ArchiveGroupSettings.fromJson(json['ArchiveGroupSettings'])
+            : null,
+        frameCaptureGroupSettings: json.containsKey('FrameCaptureGroupSettings')
+            ? FrameCaptureGroupSettings.fromJson(
+                json['FrameCaptureGroupSettings'])
+            : null,
+        hlsGroupSettings: json.containsKey('HlsGroupSettings')
+            ? HlsGroupSettings.fromJson(json['HlsGroupSettings'])
+            : null,
+        mediaPackageGroupSettings: json.containsKey('MediaPackageGroupSettings')
+            ? MediaPackageGroupSettings.fromJson(
+                json['MediaPackageGroupSettings'])
+            : null,
+        msSmoothGroupSettings: json.containsKey('MsSmoothGroupSettings')
+            ? MsSmoothGroupSettings.fromJson(json['MsSmoothGroupSettings'])
+            : null,
+        rtmpGroupSettings: json.containsKey('RtmpGroupSettings')
+            ? RtmpGroupSettings.fromJson(json['RtmpGroupSettings'])
+            : null,
+        udpGroupSettings: json.containsKey('UdpGroupSettings')
+            ? UdpGroupSettings.fromJson(json['UdpGroupSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Reference to an OutputDestination ID defined in the channel
@@ -4705,7 +6790,12 @@ class OutputLocationRef {
     this.destinationRefId,
   });
   static OutputLocationRef fromJson(Map<String, dynamic> json) =>
-      OutputLocationRef();
+      OutputLocationRef(
+        destinationRefId: json.containsKey('DestinationRefId')
+            ? json['DestinationRefId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Output Settings
@@ -4733,7 +6823,34 @@ class OutputSettings {
     this.rtmpOutputSettings,
     this.udpOutputSettings,
   });
-  static OutputSettings fromJson(Map<String, dynamic> json) => OutputSettings();
+  static OutputSettings fromJson(Map<String, dynamic> json) => OutputSettings(
+        archiveOutputSettings: json.containsKey('ArchiveOutputSettings')
+            ? ArchiveOutputSettings.fromJson(json['ArchiveOutputSettings'])
+            : null,
+        frameCaptureOutputSettings:
+            json.containsKey('FrameCaptureOutputSettings')
+                ? FrameCaptureOutputSettings.fromJson(
+                    json['FrameCaptureOutputSettings'])
+                : null,
+        hlsOutputSettings: json.containsKey('HlsOutputSettings')
+            ? HlsOutputSettings.fromJson(json['HlsOutputSettings'])
+            : null,
+        mediaPackageOutputSettings:
+            json.containsKey('MediaPackageOutputSettings')
+                ? MediaPackageOutputSettings.fromJson(
+                    json['MediaPackageOutputSettings'])
+                : null,
+        msSmoothOutputSettings: json.containsKey('MsSmoothOutputSettings')
+            ? MsSmoothOutputSettings.fromJson(json['MsSmoothOutputSettings'])
+            : null,
+        rtmpOutputSettings: json.containsKey('RtmpOutputSettings')
+            ? RtmpOutputSettings.fromJson(json['RtmpOutputSettings'])
+            : null,
+        udpOutputSettings: json.containsKey('UdpOutputSettings')
+            ? UdpOutputSettings.fromJson(json['UdpOutputSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Pass Through Settings
@@ -4741,6 +6858,7 @@ class PassThroughSettings {
   PassThroughSettings();
   static PassThroughSettings fromJson(Map<String, dynamic> json) =>
       PassThroughSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for the action to set pause state of a channel.
@@ -4751,7 +6869,14 @@ class PauseStateScheduleActionSettings {
     this.pipelines,
   });
   static PauseStateScheduleActionSettings fromJson(Map<String, dynamic> json) =>
-      PauseStateScheduleActionSettings();
+      PauseStateScheduleActionSettings(
+        pipelines: json.containsKey('Pipelines')
+            ? (json['Pipelines'] as List)
+                .map((e) => PipelinePauseStateSettings.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Runtime details of a pipeline when a channel is running.
@@ -4773,7 +6898,18 @@ class PipelineDetail {
     this.activeInputSwitchActionName,
     this.pipelineId,
   });
-  static PipelineDetail fromJson(Map<String, dynamic> json) => PipelineDetail();
+  static PipelineDetail fromJson(Map<String, dynamic> json) => PipelineDetail(
+        activeInputAttachmentName: json.containsKey('ActiveInputAttachmentName')
+            ? json['ActiveInputAttachmentName'] as String
+            : null,
+        activeInputSwitchActionName:
+            json.containsKey('ActiveInputSwitchActionName')
+                ? json['ActiveInputSwitchActionName'] as String
+                : null,
+        pipelineId: json.containsKey('PipelineId')
+            ? json['PipelineId'] as String
+            : null,
+      );
 }
 
 /// Settings for pausing a pipeline.
@@ -4785,7 +6921,10 @@ class PipelinePauseStateSettings {
     @required this.pipelineId,
   });
   static PipelinePauseStateSettings fromJson(Map<String, dynamic> json) =>
-      PipelinePauseStateSettings();
+      PipelinePauseStateSettings(
+        pipelineId: json['PipelineId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for PurchaseOfferingResponse
@@ -4796,19 +6935,25 @@ class PurchaseOfferingResponse {
     this.reservation,
   });
   static PurchaseOfferingResponse fromJson(Map<String, dynamic> json) =>
-      PurchaseOfferingResponse();
+      PurchaseOfferingResponse(
+        reservation: json.containsKey('Reservation')
+            ? Reservation.fromJson(json['Reservation'])
+            : null,
+      );
 }
 
 /// Rec601 Settings
 class Rec601Settings {
   Rec601Settings();
   static Rec601Settings fromJson(Map<String, dynamic> json) => Rec601Settings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Rec709 Settings
 class Rec709Settings {
   Rec709Settings();
   static Rec709Settings fromJson(Map<String, dynamic> json) => Rec709Settings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Remix Settings
@@ -4828,7 +6973,16 @@ class RemixSettings {
     this.channelsIn,
     this.channelsOut,
   });
-  static RemixSettings fromJson(Map<String, dynamic> json) => RemixSettings();
+  static RemixSettings fromJson(Map<String, dynamic> json) => RemixSettings(
+        channelMappings: (json['ChannelMappings'] as List)
+            .map((e) => AudioChannelMapping.fromJson(e))
+            .toList(),
+        channelsIn:
+            json.containsKey('ChannelsIn') ? json['ChannelsIn'] as int : null,
+        channelsOut:
+            json.containsKey('ChannelsOut') ? json['ChannelsOut'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Reserved resources available to use
@@ -4912,7 +7066,48 @@ class Reservation {
     this.tags,
     this.usagePrice,
   });
-  static Reservation fromJson(Map<String, dynamic> json) => Reservation();
+  static Reservation fromJson(Map<String, dynamic> json) => Reservation(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        durationUnits: json.containsKey('DurationUnits')
+            ? json['DurationUnits'] as String
+            : null,
+        end: json.containsKey('End') ? json['End'] as String : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        offeringDescription: json.containsKey('OfferingDescription')
+            ? json['OfferingDescription'] as String
+            : null,
+        offeringId: json.containsKey('OfferingId')
+            ? json['OfferingId'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        reservationId: json.containsKey('ReservationId')
+            ? json['ReservationId'] as String
+            : null,
+        resourceSpecification: json.containsKey('ResourceSpecification')
+            ? ReservationResourceSpecification.fromJson(
+                json['ResourceSpecification'])
+            : null,
+        start: json.containsKey('Start') ? json['Start'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+      );
 }
 
 /// Resource configuration (codec, resolution, bitrate, ...)
@@ -4952,7 +7147,30 @@ class ReservationResourceSpecification {
     this.videoQuality,
   });
   static ReservationResourceSpecification fromJson(Map<String, dynamic> json) =>
-      ReservationResourceSpecification();
+      ReservationResourceSpecification(
+        channelClass: json.containsKey('ChannelClass')
+            ? json['ChannelClass'] as String
+            : null,
+        codec: json.containsKey('Codec') ? json['Codec'] as String : null,
+        maximumBitrate: json.containsKey('MaximumBitrate')
+            ? json['MaximumBitrate'] as String
+            : null,
+        maximumFramerate: json.containsKey('MaximumFramerate')
+            ? json['MaximumFramerate'] as String
+            : null,
+        resolution: json.containsKey('Resolution')
+            ? json['Resolution'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        specialFeature: json.containsKey('SpecialFeature')
+            ? json['SpecialFeature'] as String
+            : null,
+        videoQuality: json.containsKey('VideoQuality')
+            ? json['VideoQuality'] as String
+            : null,
+      );
 }
 
 /// Rtmp Caption Info Destination Settings
@@ -4961,6 +7179,7 @@ class RtmpCaptionInfoDestinationSettings {
   static RtmpCaptionInfoDestinationSettings fromJson(
           Map<String, dynamic> json) =>
       RtmpCaptionInfoDestinationSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Rtmp Group Settings
@@ -5007,7 +7226,26 @@ class RtmpGroupSettings {
     this.restartDelay,
   });
   static RtmpGroupSettings fromJson(Map<String, dynamic> json) =>
-      RtmpGroupSettings();
+      RtmpGroupSettings(
+        authenticationScheme: json.containsKey('AuthenticationScheme')
+            ? json['AuthenticationScheme'] as String
+            : null,
+        cacheFullBehavior: json.containsKey('CacheFullBehavior')
+            ? json['CacheFullBehavior'] as String
+            : null,
+        cacheLength:
+            json.containsKey('CacheLength') ? json['CacheLength'] as int : null,
+        captionData: json.containsKey('CaptionData')
+            ? json['CaptionData'] as String
+            : null,
+        inputLossAction: json.containsKey('InputLossAction')
+            ? json['InputLossAction'] as String
+            : null,
+        restartDelay: json.containsKey('RestartDelay')
+            ? json['RestartDelay'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Rtmp Output Settings
@@ -5036,7 +7274,18 @@ class RtmpOutputSettings {
     this.numRetries,
   });
   static RtmpOutputSettings fromJson(Map<String, dynamic> json) =>
-      RtmpOutputSettings();
+      RtmpOutputSettings(
+        certificateMode: json.containsKey('CertificateMode')
+            ? json['CertificateMode'] as String
+            : null,
+        connectionRetryInterval: json.containsKey('ConnectionRetryInterval')
+            ? json['ConnectionRetryInterval'] as int
+            : null,
+        destination: OutputLocationRef.fromJson(json['Destination']),
+        numRetries:
+            json.containsKey('NumRetries') ? json['NumRetries'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information on a single schedule action.
@@ -5059,7 +7308,14 @@ class ScheduleAction {
     @required this.scheduleActionSettings,
     @required this.scheduleActionStartSettings,
   });
-  static ScheduleAction fromJson(Map<String, dynamic> json) => ScheduleAction();
+  static ScheduleAction fromJson(Map<String, dynamic> json) => ScheduleAction(
+        actionName: json['ActionName'] as String,
+        scheduleActionSettings:
+            ScheduleActionSettings.fromJson(json['ScheduleActionSettings']),
+        scheduleActionStartSettings: ScheduleActionStartSettings.fromJson(
+            json['ScheduleActionStartSettings']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Holds the settings for a single schedule action.
@@ -5101,7 +7357,45 @@ class ScheduleActionSettings {
     this.staticImageDeactivateSettings,
   });
   static ScheduleActionSettings fromJson(Map<String, dynamic> json) =>
-      ScheduleActionSettings();
+      ScheduleActionSettings(
+        hlsTimedMetadataSettings: json.containsKey('HlsTimedMetadataSettings')
+            ? HlsTimedMetadataScheduleActionSettings.fromJson(
+                json['HlsTimedMetadataSettings'])
+            : null,
+        inputSwitchSettings: json.containsKey('InputSwitchSettings')
+            ? InputSwitchScheduleActionSettings.fromJson(
+                json['InputSwitchSettings'])
+            : null,
+        pauseStateSettings: json.containsKey('PauseStateSettings')
+            ? PauseStateScheduleActionSettings.fromJson(
+                json['PauseStateSettings'])
+            : null,
+        scte35ReturnToNetworkSettings:
+            json.containsKey('Scte35ReturnToNetworkSettings')
+                ? Scte35ReturnToNetworkScheduleActionSettings.fromJson(
+                    json['Scte35ReturnToNetworkSettings'])
+                : null,
+        scte35SpliceInsertSettings:
+            json.containsKey('Scte35SpliceInsertSettings')
+                ? Scte35SpliceInsertScheduleActionSettings.fromJson(
+                    json['Scte35SpliceInsertSettings'])
+                : null,
+        scte35TimeSignalSettings: json.containsKey('Scte35TimeSignalSettings')
+            ? Scte35TimeSignalScheduleActionSettings.fromJson(
+                json['Scte35TimeSignalSettings'])
+            : null,
+        staticImageActivateSettings:
+            json.containsKey('StaticImageActivateSettings')
+                ? StaticImageActivateScheduleActionSettings.fromJson(
+                    json['StaticImageActivateSettings'])
+                : null,
+        staticImageDeactivateSettings:
+            json.containsKey('StaticImageDeactivateSettings')
+                ? StaticImageDeactivateScheduleActionSettings.fromJson(
+                    json['StaticImageDeactivateSettings'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings to specify when an action should occur. Only one of the options
@@ -5125,7 +7419,24 @@ class ScheduleActionStartSettings {
     this.immediateModeScheduleActionStartSettings,
   });
   static ScheduleActionStartSettings fromJson(Map<String, dynamic> json) =>
-      ScheduleActionStartSettings();
+      ScheduleActionStartSettings(
+        fixedModeScheduleActionStartSettings:
+            json.containsKey('FixedModeScheduleActionStartSettings')
+                ? FixedModeScheduleActionStartSettings.fromJson(
+                    json['FixedModeScheduleActionStartSettings'])
+                : null,
+        followModeScheduleActionStartSettings:
+            json.containsKey('FollowModeScheduleActionStartSettings')
+                ? FollowModeScheduleActionStartSettings.fromJson(
+                    json['FollowModeScheduleActionStartSettings'])
+                : null,
+        immediateModeScheduleActionStartSettings:
+            json.containsKey('ImmediateModeScheduleActionStartSettings')
+                ? ImmediateModeScheduleActionStartSettings.fromJson(
+                    json['ImmediateModeScheduleActionStartSettings'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Scte20 Plus Embedded Destination Settings
@@ -5134,6 +7445,7 @@ class Scte20PlusEmbeddedDestinationSettings {
   static Scte20PlusEmbeddedDestinationSettings fromJson(
           Map<String, dynamic> json) =>
       Scte20PlusEmbeddedDestinationSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Scte20 Source Settings
@@ -5152,7 +7464,15 @@ class Scte20SourceSettings {
     this.source608ChannelNumber,
   });
   static Scte20SourceSettings fromJson(Map<String, dynamic> json) =>
-      Scte20SourceSettings();
+      Scte20SourceSettings(
+        convert608To708: json.containsKey('Convert608To708')
+            ? json['Convert608To708'] as String
+            : null,
+        source608ChannelNumber: json.containsKey('Source608ChannelNumber')
+            ? json['Source608ChannelNumber'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Scte27 Destination Settings
@@ -5160,6 +7480,7 @@ class Scte27DestinationSettings {
   Scte27DestinationSettings();
   static Scte27DestinationSettings fromJson(Map<String, dynamic> json) =>
       Scte27DestinationSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Scte27 Source Settings
@@ -5177,7 +7498,10 @@ class Scte27SourceSettings {
     this.pid,
   });
   static Scte27SourceSettings fromJson(Map<String, dynamic> json) =>
-      Scte27SourceSettings();
+      Scte27SourceSettings(
+        pid: json.containsKey('Pid') ? json['Pid'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Corresponds to SCTE-35 delivery_not_restricted_flag parameter. To declare
@@ -5203,7 +7527,13 @@ class Scte35DeliveryRestrictions {
     @required this.webDeliveryAllowedFlag,
   });
   static Scte35DeliveryRestrictions fromJson(Map<String, dynamic> json) =>
-      Scte35DeliveryRestrictions();
+      Scte35DeliveryRestrictions(
+        archiveAllowedFlag: json['ArchiveAllowedFlag'] as String,
+        deviceRestrictions: json['DeviceRestrictions'] as String,
+        noRegionalBlackoutFlag: json['NoRegionalBlackoutFlag'] as String,
+        webDeliveryAllowedFlag: json['WebDeliveryAllowedFlag'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Holds one set of SCTE-35 Descriptor Settings.
@@ -5215,7 +7545,11 @@ class Scte35Descriptor {
     @required this.scte35DescriptorSettings,
   });
   static Scte35Descriptor fromJson(Map<String, dynamic> json) =>
-      Scte35Descriptor();
+      Scte35Descriptor(
+        scte35DescriptorSettings:
+            Scte35DescriptorSettings.fromJson(json['Scte35DescriptorSettings']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// SCTE-35 Descriptor settings.
@@ -5228,7 +7562,12 @@ class Scte35DescriptorSettings {
     @required this.segmentationDescriptorScte35DescriptorSettings,
   });
   static Scte35DescriptorSettings fromJson(Map<String, dynamic> json) =>
-      Scte35DescriptorSettings();
+      Scte35DescriptorSettings(
+        segmentationDescriptorScte35DescriptorSettings:
+            Scte35SegmentationDescriptor.fromJson(
+                json['SegmentationDescriptorScte35DescriptorSettings']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for a SCTE-35 return_to_network message.
@@ -5241,7 +7580,10 @@ class Scte35ReturnToNetworkScheduleActionSettings {
   });
   static Scte35ReturnToNetworkScheduleActionSettings fromJson(
           Map<String, dynamic> json) =>
-      Scte35ReturnToNetworkScheduleActionSettings();
+      Scte35ReturnToNetworkScheduleActionSettings(
+        spliceEventId: BigInt.from(json['SpliceEventId']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Corresponds to SCTE-35 segmentation_descriptor.
@@ -5314,7 +7656,38 @@ class Scte35SegmentationDescriptor {
     this.subSegmentsExpected,
   });
   static Scte35SegmentationDescriptor fromJson(Map<String, dynamic> json) =>
-      Scte35SegmentationDescriptor();
+      Scte35SegmentationDescriptor(
+        deliveryRestrictions: json.containsKey('DeliveryRestrictions')
+            ? Scte35DeliveryRestrictions.fromJson(json['DeliveryRestrictions'])
+            : null,
+        segmentNum:
+            json.containsKey('SegmentNum') ? json['SegmentNum'] as int : null,
+        segmentationCancelIndicator:
+            json['SegmentationCancelIndicator'] as String,
+        segmentationDuration: json.containsKey('SegmentationDuration')
+            ? BigInt.from(json['SegmentationDuration'])
+            : null,
+        segmentationEventId: BigInt.from(json['SegmentationEventId']),
+        segmentationTypeId: json.containsKey('SegmentationTypeId')
+            ? json['SegmentationTypeId'] as int
+            : null,
+        segmentationUpid: json.containsKey('SegmentationUpid')
+            ? json['SegmentationUpid'] as String
+            : null,
+        segmentationUpidType: json.containsKey('SegmentationUpidType')
+            ? json['SegmentationUpidType'] as int
+            : null,
+        segmentsExpected: json.containsKey('SegmentsExpected')
+            ? json['SegmentsExpected'] as int
+            : null,
+        subSegmentNum: json.containsKey('SubSegmentNum')
+            ? json['SubSegmentNum'] as int
+            : null,
+        subSegmentsExpected: json.containsKey('SubSegmentsExpected')
+            ? json['SubSegmentsExpected'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Scte35 Splice Insert
@@ -5338,7 +7711,18 @@ class Scte35SpliceInsert {
     this.webDeliveryAllowedFlag,
   });
   static Scte35SpliceInsert fromJson(Map<String, dynamic> json) =>
-      Scte35SpliceInsert();
+      Scte35SpliceInsert(
+        adAvailOffset: json.containsKey('AdAvailOffset')
+            ? json['AdAvailOffset'] as int
+            : null,
+        noRegionalBlackoutFlag: json.containsKey('NoRegionalBlackoutFlag')
+            ? json['NoRegionalBlackoutFlag'] as String
+            : null,
+        webDeliveryAllowedFlag: json.containsKey('WebDeliveryAllowedFlag')
+            ? json['WebDeliveryAllowedFlag'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for a SCTE-35 splice_insert message.
@@ -5360,7 +7744,12 @@ class Scte35SpliceInsertScheduleActionSettings {
   });
   static Scte35SpliceInsertScheduleActionSettings fromJson(
           Map<String, dynamic> json) =>
-      Scte35SpliceInsertScheduleActionSettings();
+      Scte35SpliceInsertScheduleActionSettings(
+        duration:
+            json.containsKey('Duration') ? BigInt.from(json['Duration']) : null,
+        spliceEventId: BigInt.from(json['SpliceEventId']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Scte35 Time Signal Apos
@@ -5384,7 +7773,18 @@ class Scte35TimeSignalApos {
     this.webDeliveryAllowedFlag,
   });
   static Scte35TimeSignalApos fromJson(Map<String, dynamic> json) =>
-      Scte35TimeSignalApos();
+      Scte35TimeSignalApos(
+        adAvailOffset: json.containsKey('AdAvailOffset')
+            ? json['AdAvailOffset'] as int
+            : null,
+        noRegionalBlackoutFlag: json.containsKey('NoRegionalBlackoutFlag')
+            ? json['NoRegionalBlackoutFlag'] as String
+            : null,
+        webDeliveryAllowedFlag: json.containsKey('WebDeliveryAllowedFlag')
+            ? json['WebDeliveryAllowedFlag'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for a SCTE-35 time_signal.
@@ -5397,7 +7797,12 @@ class Scte35TimeSignalScheduleActionSettings {
   });
   static Scte35TimeSignalScheduleActionSettings fromJson(
           Map<String, dynamic> json) =>
-      Scte35TimeSignalScheduleActionSettings();
+      Scte35TimeSignalScheduleActionSettings(
+        scte35Descriptors: (json['Scte35Descriptors'] as List)
+            .map((e) => Scte35Descriptor.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Smpte Tt Destination Settings
@@ -5405,6 +7810,7 @@ class SmpteTtDestinationSettings {
   SmpteTtDestinationSettings();
   static SmpteTtDestinationSettings fromJson(Map<String, dynamic> json) =>
       SmpteTtDestinationSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Standard Hls Settings
@@ -5421,7 +7827,13 @@ class StandardHlsSettings {
     @required this.m3U8Settings,
   });
   static StandardHlsSettings fromJson(Map<String, dynamic> json) =>
-      StandardHlsSettings();
+      StandardHlsSettings(
+        audioRenditionSets: json.containsKey('AudioRenditionSets')
+            ? json['AudioRenditionSets'] as String
+            : null,
+        m3U8Settings: M3U8Settings.fromJson(json['M3u8Settings']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for StartChannelResponse
@@ -5490,7 +7902,51 @@ class StartChannelResponse {
     this.tags,
   });
   static StartChannelResponse fromJson(Map<String, dynamic> json) =>
-      StartChannelResponse();
+      StartChannelResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelClass: json.containsKey('ChannelClass')
+            ? json['ChannelClass'] as String
+            : null,
+        destinations: json.containsKey('Destinations')
+            ? (json['Destinations'] as List)
+                .map((e) => OutputDestination.fromJson(e))
+                .toList()
+            : null,
+        egressEndpoints: json.containsKey('EgressEndpoints')
+            ? (json['EgressEndpoints'] as List)
+                .map((e) => ChannelEgressEndpoint.fromJson(e))
+                .toList()
+            : null,
+        encoderSettings: json.containsKey('EncoderSettings')
+            ? EncoderSettings.fromJson(json['EncoderSettings'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputAttachments: json.containsKey('InputAttachments')
+            ? (json['InputAttachments'] as List)
+                .map((e) => InputAttachment.fromJson(e))
+                .toList()
+            : null,
+        inputSpecification: json.containsKey('InputSpecification')
+            ? InputSpecification.fromJson(json['InputSpecification'])
+            : null,
+        logLevel:
+            json.containsKey('LogLevel') ? json['LogLevel'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        pipelineDetails: json.containsKey('PipelineDetails')
+            ? (json['PipelineDetails'] as List)
+                .map((e) => PipelineDetail.fromJson(e))
+                .toList()
+            : null,
+        pipelinesRunningCount: json.containsKey('PipelinesRunningCount')
+            ? json['PipelinesRunningCount'] as int
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Settings to identify the start of the clip.
@@ -5503,7 +7959,11 @@ class StartTimecode {
   StartTimecode({
     this.timecode,
   });
-  static StartTimecode fromJson(Map<String, dynamic> json) => StartTimecode();
+  static StartTimecode fromJson(Map<String, dynamic> json) => StartTimecode(
+        timecode:
+            json.containsKey('Timecode') ? json['Timecode'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for the action to activate a static image.
@@ -5573,7 +8033,19 @@ class StaticImageActivateScheduleActionSettings {
   });
   static StaticImageActivateScheduleActionSettings fromJson(
           Map<String, dynamic> json) =>
-      StaticImageActivateScheduleActionSettings();
+      StaticImageActivateScheduleActionSettings(
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fadeIn: json.containsKey('FadeIn') ? json['FadeIn'] as int : null,
+        fadeOut: json.containsKey('FadeOut') ? json['FadeOut'] as int : null,
+        height: json.containsKey('Height') ? json['Height'] as int : null,
+        image: InputLocation.fromJson(json['Image']),
+        imagex: json.containsKey('ImageX') ? json['ImageX'] as int : null,
+        imagey: json.containsKey('ImageY') ? json['ImageY'] as int : null,
+        layer: json.containsKey('Layer') ? json['Layer'] as int : null,
+        opacity: json.containsKey('Opacity') ? json['Opacity'] as int : null,
+        width: json.containsKey('Width') ? json['Width'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for the action to deactivate the image in a specific layer.
@@ -5591,7 +8063,11 @@ class StaticImageDeactivateScheduleActionSettings {
   });
   static StaticImageDeactivateScheduleActionSettings fromJson(
           Map<String, dynamic> json) =>
-      StaticImageDeactivateScheduleActionSettings();
+      StaticImageDeactivateScheduleActionSettings(
+        fadeOut: json.containsKey('FadeOut') ? json['FadeOut'] as int : null,
+        layer: json.containsKey('Layer') ? json['Layer'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Static Key Settings
@@ -5607,7 +8083,13 @@ class StaticKeySettings {
     @required this.staticKeyValue,
   });
   static StaticKeySettings fromJson(Map<String, dynamic> json) =>
-      StaticKeySettings();
+      StaticKeySettings(
+        keyProviderServer: json.containsKey('KeyProviderServer')
+            ? InputLocation.fromJson(json['KeyProviderServer'])
+            : null,
+        staticKeyValue: json['StaticKeyValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for StopChannelResponse
@@ -5676,7 +8158,51 @@ class StopChannelResponse {
     this.tags,
   });
   static StopChannelResponse fromJson(Map<String, dynamic> json) =>
-      StopChannelResponse();
+      StopChannelResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        channelClass: json.containsKey('ChannelClass')
+            ? json['ChannelClass'] as String
+            : null,
+        destinations: json.containsKey('Destinations')
+            ? (json['Destinations'] as List)
+                .map((e) => OutputDestination.fromJson(e))
+                .toList()
+            : null,
+        egressEndpoints: json.containsKey('EgressEndpoints')
+            ? (json['EgressEndpoints'] as List)
+                .map((e) => ChannelEgressEndpoint.fromJson(e))
+                .toList()
+            : null,
+        encoderSettings: json.containsKey('EncoderSettings')
+            ? EncoderSettings.fromJson(json['EncoderSettings'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        inputAttachments: json.containsKey('InputAttachments')
+            ? (json['InputAttachments'] as List)
+                .map((e) => InputAttachment.fromJson(e))
+                .toList()
+            : null,
+        inputSpecification: json.containsKey('InputSpecification')
+            ? InputSpecification.fromJson(json['InputSpecification'])
+            : null,
+        logLevel:
+            json.containsKey('LogLevel') ? json['LogLevel'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        pipelineDetails: json.containsKey('PipelineDetails')
+            ? (json['PipelineDetails'] as List)
+                .map((e) => PipelineDetail.fromJson(e))
+                .toList()
+            : null,
+        pipelinesRunningCount: json.containsKey('PipelinesRunningCount')
+            ? json['PipelinesRunningCount'] as int
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Settings to identify the end of the clip.
@@ -5695,7 +8221,14 @@ class StopTimecode {
     this.lastFrameClippingBehavior,
     this.timecode,
   });
-  static StopTimecode fromJson(Map<String, dynamic> json) => StopTimecode();
+  static StopTimecode fromJson(Map<String, dynamic> json) => StopTimecode(
+        lastFrameClippingBehavior: json.containsKey('LastFrameClippingBehavior')
+            ? json['LastFrameClippingBehavior'] as String
+            : null,
+        timecode:
+            json.containsKey('Timecode') ? json['Timecode'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Teletext Destination Settings
@@ -5703,6 +8236,7 @@ class TeletextDestinationSettings {
   TeletextDestinationSettings();
   static TeletextDestinationSettings fromJson(Map<String, dynamic> json) =>
       TeletextDestinationSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Teletext Source Settings
@@ -5717,7 +8251,12 @@ class TeletextSourceSettings {
     this.pageNumber,
   });
   static TeletextSourceSettings fromJson(Map<String, dynamic> json) =>
-      TeletextSourceSettings();
+      TeletextSourceSettings(
+        pageNumber: json.containsKey('PageNumber')
+            ? json['PageNumber'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Timecode Config
@@ -5740,7 +8279,13 @@ class TimecodeConfig {
     @required this.source,
     this.syncThreshold,
   });
-  static TimecodeConfig fromJson(Map<String, dynamic> json) => TimecodeConfig();
+  static TimecodeConfig fromJson(Map<String, dynamic> json) => TimecodeConfig(
+        source: json['Source'] as String,
+        syncThreshold: json.containsKey('SyncThreshold')
+            ? json['SyncThreshold'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Ttml Destination Settings
@@ -5754,7 +8299,12 @@ class TtmlDestinationSettings {
     this.styleControl,
   });
   static TtmlDestinationSettings fromJson(Map<String, dynamic> json) =>
-      TtmlDestinationSettings();
+      TtmlDestinationSettings(
+        styleControl: json.containsKey('StyleControl')
+            ? json['StyleControl'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Udp Container Settings
@@ -5765,7 +8315,12 @@ class UdpContainerSettings {
     this.m2TsSettings,
   });
   static UdpContainerSettings fromJson(Map<String, dynamic> json) =>
-      UdpContainerSettings();
+      UdpContainerSettings(
+        m2TsSettings: json.containsKey('M2tsSettings')
+            ? M2TsSettings.fromJson(json['M2tsSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Udp Group Settings
@@ -5791,7 +8346,18 @@ class UdpGroupSettings {
     this.timedMetadataId3Period,
   });
   static UdpGroupSettings fromJson(Map<String, dynamic> json) =>
-      UdpGroupSettings();
+      UdpGroupSettings(
+        inputLossAction: json.containsKey('InputLossAction')
+            ? json['InputLossAction'] as String
+            : null,
+        timedMetadataId3Frame: json.containsKey('TimedMetadataId3Frame')
+            ? json['TimedMetadataId3Frame'] as String
+            : null,
+        timedMetadataId3Period: json.containsKey('TimedMetadataId3Period')
+            ? json['TimedMetadataId3Period'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Udp Output Settings
@@ -5821,7 +8387,17 @@ class UdpOutputSettings {
     this.fecOutputSettings,
   });
   static UdpOutputSettings fromJson(Map<String, dynamic> json) =>
-      UdpOutputSettings();
+      UdpOutputSettings(
+        bufferMsec:
+            json.containsKey('BufferMsec') ? json['BufferMsec'] as int : null,
+        containerSettings:
+            UdpContainerSettings.fromJson(json['ContainerSettings']),
+        destination: OutputLocationRef.fromJson(json['Destination']),
+        fecOutputSettings: json.containsKey('FecOutputSettings')
+            ? FecOutputSettings.fromJson(json['FecOutputSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Placeholder documentation for UpdateChannelClassResponse
@@ -5832,7 +8408,11 @@ class UpdateChannelClassResponse {
     this.channel,
   });
   static UpdateChannelClassResponse fromJson(Map<String, dynamic> json) =>
-      UpdateChannelClassResponse();
+      UpdateChannelClassResponse(
+        channel: json.containsKey('Channel')
+            ? Channel.fromJson(json['Channel'])
+            : null,
+      );
 }
 
 /// Placeholder documentation for UpdateChannelResponse
@@ -5843,7 +8423,11 @@ class UpdateChannelResponse {
     this.channel,
   });
   static UpdateChannelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateChannelResponse();
+      UpdateChannelResponse(
+        channel: json.containsKey('Channel')
+            ? Channel.fromJson(json['Channel'])
+            : null,
+      );
 }
 
 /// Placeholder documentation for UpdateInputResponse
@@ -5854,7 +8438,9 @@ class UpdateInputResponse {
     this.input,
   });
   static UpdateInputResponse fromJson(Map<String, dynamic> json) =>
-      UpdateInputResponse();
+      UpdateInputResponse(
+        input: json.containsKey('Input') ? Input.fromJson(json['Input']) : null,
+      );
 }
 
 /// Placeholder documentation for UpdateInputSecurityGroupResponse
@@ -5865,7 +8451,11 @@ class UpdateInputSecurityGroupResponse {
     this.securityGroup,
   });
   static UpdateInputSecurityGroupResponse fromJson(Map<String, dynamic> json) =>
-      UpdateInputSecurityGroupResponse();
+      UpdateInputSecurityGroupResponse(
+        securityGroup: json.containsKey('SecurityGroup')
+            ? InputSecurityGroup.fromJson(json['SecurityGroup'])
+            : null,
+      );
 }
 
 /// Placeholder documentation for UpdateReservationResponse
@@ -5876,7 +8466,11 @@ class UpdateReservationResponse {
     this.reservation,
   });
   static UpdateReservationResponse fromJson(Map<String, dynamic> json) =>
-      UpdateReservationResponse();
+      UpdateReservationResponse(
+        reservation: json.containsKey('Reservation')
+            ? Reservation.fromJson(json['Reservation'])
+            : null,
+      );
 }
 
 /// Video Codec Settings
@@ -5893,7 +8487,18 @@ class VideoCodecSettings {
     this.h265Settings,
   });
   static VideoCodecSettings fromJson(Map<String, dynamic> json) =>
-      VideoCodecSettings();
+      VideoCodecSettings(
+        frameCaptureSettings: json.containsKey('FrameCaptureSettings')
+            ? FrameCaptureSettings.fromJson(json['FrameCaptureSettings'])
+            : null,
+        h264Settings: json.containsKey('H264Settings')
+            ? H264Settings.fromJson(json['H264Settings'])
+            : null,
+        h265Settings: json.containsKey('H265Settings')
+            ? H265Settings.fromJson(json['H265Settings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Video settings for this stream.
@@ -5951,7 +8556,23 @@ class VideoDescription {
     this.width,
   });
   static VideoDescription fromJson(Map<String, dynamic> json) =>
-      VideoDescription();
+      VideoDescription(
+        codecSettings: json.containsKey('CodecSettings')
+            ? VideoCodecSettings.fromJson(json['CodecSettings'])
+            : null,
+        height: json.containsKey('Height') ? json['Height'] as int : null,
+        name: json['Name'] as String,
+        respondToAfd: json.containsKey('RespondToAfd')
+            ? json['RespondToAfd'] as String
+            : null,
+        scalingBehavior: json.containsKey('ScalingBehavior')
+            ? json['ScalingBehavior'] as String
+            : null,
+        sharpness:
+            json.containsKey('Sharpness') ? json['Sharpness'] as int : null,
+        width: json.containsKey('Width') ? json['Width'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a particular video stream within an input source. An input may
@@ -5981,7 +8602,18 @@ class VideoSelector {
     this.colorSpaceUsage,
     this.selectorSettings,
   });
-  static VideoSelector fromJson(Map<String, dynamic> json) => VideoSelector();
+  static VideoSelector fromJson(Map<String, dynamic> json) => VideoSelector(
+        colorSpace: json.containsKey('ColorSpace')
+            ? json['ColorSpace'] as String
+            : null,
+        colorSpaceUsage: json.containsKey('ColorSpaceUsage')
+            ? json['ColorSpaceUsage'] as String
+            : null,
+        selectorSettings: json.containsKey('SelectorSettings')
+            ? VideoSelectorSettings.fromJson(json['SelectorSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Video Selector Pid
@@ -5993,7 +8625,10 @@ class VideoSelectorPid {
     this.pid,
   });
   static VideoSelectorPid fromJson(Map<String, dynamic> json) =>
-      VideoSelectorPid();
+      VideoSelectorPid(
+        pid: json.containsKey('Pid') ? json['Pid'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Video Selector Program Id
@@ -6007,7 +8642,11 @@ class VideoSelectorProgramId {
     this.programId,
   });
   static VideoSelectorProgramId fromJson(Map<String, dynamic> json) =>
-      VideoSelectorProgramId();
+      VideoSelectorProgramId(
+        programId:
+            json.containsKey('ProgramId') ? json['ProgramId'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Video Selector Settings
@@ -6021,7 +8660,15 @@ class VideoSelectorSettings {
     this.videoSelectorProgramId,
   });
   static VideoSelectorSettings fromJson(Map<String, dynamic> json) =>
-      VideoSelectorSettings();
+      VideoSelectorSettings(
+        videoSelectorPid: json.containsKey('VideoSelectorPid')
+            ? VideoSelectorPid.fromJson(json['VideoSelectorPid'])
+            : null,
+        videoSelectorProgramId: json.containsKey('VideoSelectorProgramId')
+            ? VideoSelectorProgramId.fromJson(json['VideoSelectorProgramId'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Webvtt Destination Settings
@@ -6029,4 +8676,5 @@ class WebvttDestinationSettings {
   WebvttDestinationSettings();
   static WebvttDestinationSettings fromJson(Map<String, dynamic> json) =>
       WebvttDestinationSettings();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

@@ -13,6 +13,10 @@ import 'package:meta/meta.dart';
 /// This is the _Amazon Kinesis Analytics v1 API Reference_. The Amazon Kinesis
 /// Analytics Developer Guide provides additional information.
 class KinesisAnalyticsApi {
+  final _client;
+  KinesisAnalyticsApi(client)
+      : _client = client.configured('Kinesis Analytics', serializer: 'json');
+
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
@@ -38,7 +42,13 @@ class KinesisAnalyticsApi {
           {@required String applicationName,
           @required BigInt currentApplicationVersionId,
           @required CloudWatchLoggingOption cloudWatchLoggingOption}) async {
-    return AddApplicationCloudWatchLoggingOptionResponse.fromJson({});
+    var response_ =
+        await _client.send('AddApplicationCloudWatchLoggingOption', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'CloudWatchLoggingOption': cloudWatchLoggingOption,
+    });
+    return AddApplicationCloudWatchLoggingOptionResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -79,7 +89,12 @@ class KinesisAnalyticsApi {
       {@required String applicationName,
       @required BigInt currentApplicationVersionId,
       @required Input input}) async {
-    return AddApplicationInputResponse.fromJson({});
+    var response_ = await _client.send('AddApplicationInput', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'Input': input,
+    });
+    return AddApplicationInputResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -125,7 +140,15 @@ class KinesisAnalyticsApi {
           @required
               InputProcessingConfiguration
                   inputProcessingConfiguration}) async {
-    return AddApplicationInputProcessingConfigurationResponse.fromJson({});
+    var response_ =
+        await _client.send('AddApplicationInputProcessingConfiguration', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'InputId': inputId,
+      'InputProcessingConfiguration': inputProcessingConfiguration,
+    });
+    return AddApplicationInputProcessingConfigurationResponse.fromJson(
+        response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -180,7 +203,12 @@ class KinesisAnalyticsApi {
       {@required String applicationName,
       @required BigInt currentApplicationVersionId,
       @required Output output}) async {
-    return AddApplicationOutputResponse.fromJson({});
+    var response_ = await _client.send('AddApplicationOutput', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'Output': output,
+    });
+    return AddApplicationOutputResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -227,7 +255,12 @@ class KinesisAnalyticsApi {
           {@required String applicationName,
           @required BigInt currentApplicationVersionId,
           @required ReferenceDataSource referenceDataSource}) async {
-    return AddApplicationReferenceDataSourceResponse.fromJson({});
+    var response_ = await _client.send('AddApplicationReferenceDataSource', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'ReferenceDataSource': referenceDataSource,
+    });
+    return AddApplicationReferenceDataSourceResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -342,7 +375,18 @@ class KinesisAnalyticsApi {
       List<CloudWatchLoggingOption> cloudWatchLoggingOptions,
       String applicationCode,
       List<Tag> tags}) async {
-    return CreateApplicationResponse.fromJson({});
+    var response_ = await _client.send('CreateApplication', {
+      'ApplicationName': applicationName,
+      if (applicationDescription != null)
+        'ApplicationDescription': applicationDescription,
+      if (inputs != null) 'Inputs': inputs,
+      if (outputs != null) 'Outputs': outputs,
+      if (cloudWatchLoggingOptions != null)
+        'CloudWatchLoggingOptions': cloudWatchLoggingOptions,
+      if (applicationCode != null) 'ApplicationCode': applicationCode,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateApplicationResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -367,7 +411,11 @@ class KinesisAnalyticsApi {
   Future<DeleteApplicationResponse> deleteApplication(
       {@required String applicationName,
       @required DateTime createTimestamp}) async {
-    return DeleteApplicationResponse.fromJson({});
+    var response_ = await _client.send('DeleteApplication', {
+      'ApplicationName': applicationName,
+      'CreateTimestamp': createTimestamp,
+    });
+    return DeleteApplicationResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -396,7 +444,13 @@ class KinesisAnalyticsApi {
           {@required String applicationName,
           @required BigInt currentApplicationVersionId,
           @required String cloudWatchLoggingOptionId}) async {
-    return DeleteApplicationCloudWatchLoggingOptionResponse.fromJson({});
+    var response_ =
+        await _client.send('DeleteApplicationCloudWatchLoggingOption', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'CloudWatchLoggingOptionId': cloudWatchLoggingOptionId,
+    });
+    return DeleteApplicationCloudWatchLoggingOptionResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -424,7 +478,14 @@ class KinesisAnalyticsApi {
           {@required String applicationName,
           @required BigInt currentApplicationVersionId,
           @required String inputId}) async {
-    return DeleteApplicationInputProcessingConfigurationResponse.fromJson({});
+    var response_ =
+        await _client.send('DeleteApplicationInputProcessingConfiguration', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'InputId': inputId,
+    });
+    return DeleteApplicationInputProcessingConfigurationResponse.fromJson(
+        response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -462,7 +523,12 @@ class KinesisAnalyticsApi {
       {@required String applicationName,
       @required BigInt currentApplicationVersionId,
       @required String outputId}) async {
-    return DeleteApplicationOutputResponse.fromJson({});
+    var response_ = await _client.send('DeleteApplicationOutput', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'OutputId': outputId,
+    });
+    return DeleteApplicationOutputResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -501,7 +567,12 @@ class KinesisAnalyticsApi {
           {@required String applicationName,
           @required BigInt currentApplicationVersionId,
           @required String referenceId}) async {
-    return DeleteApplicationReferenceDataSourceResponse.fromJson({});
+    var response_ = await _client.send('DeleteApplicationReferenceDataSource', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'ReferenceId': referenceId,
+    });
+    return DeleteApplicationReferenceDataSourceResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -525,7 +596,10 @@ class KinesisAnalyticsApi {
   /// [applicationName]: Name of the application.
   Future<DescribeApplicationResponse> describeApplication(
       String applicationName) async {
-    return DescribeApplicationResponse.fromJson({});
+    var response_ = await _client.send('DescribeApplication', {
+      'ApplicationName': applicationName,
+    });
+    return DescribeApplicationResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -571,7 +645,17 @@ class KinesisAnalyticsApi {
       InputStartingPositionConfiguration inputStartingPositionConfiguration,
       S3Configuration s3Configuration,
       InputProcessingConfiguration inputProcessingConfiguration}) async {
-    return DiscoverInputSchemaResponse.fromJson({});
+    var response_ = await _client.send('DiscoverInputSchema', {
+      if (resourceArn != null) 'ResourceARN': resourceArn,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (inputStartingPositionConfiguration != null)
+        'InputStartingPositionConfiguration':
+            inputStartingPositionConfiguration,
+      if (s3Configuration != null) 'S3Configuration': s3Configuration,
+      if (inputProcessingConfiguration != null)
+        'InputProcessingConfiguration': inputProcessingConfiguration,
+    });
+    return DiscoverInputSchemaResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -602,7 +686,12 @@ class KinesisAnalyticsApi {
   /// get the next page of applications.
   Future<ListApplicationsResponse> listApplications(
       {int limit, String exclusiveStartApplicationName}) async {
-    return ListApplicationsResponse.fromJson({});
+    var response_ = await _client.send('ListApplications', {
+      if (limit != null) 'Limit': limit,
+      if (exclusiveStartApplicationName != null)
+        'ExclusiveStartApplicationName': exclusiveStartApplicationName,
+    });
+    return ListApplicationsResponse.fromJson(response_);
   }
 
   /// Retrieves the list of key-value tags assigned to the application. For more
@@ -612,7 +701,10 @@ class KinesisAnalyticsApi {
   /// [resourceArn]: The ARN of the application for which to retrieve tags.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceARN': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -650,7 +742,11 @@ class KinesisAnalyticsApi {
   Future<StartApplicationResponse> startApplication(
       {@required String applicationName,
       @required List<InputConfiguration> inputConfigurations}) async {
-    return StartApplicationResponse.fromJson({});
+    var response_ = await _client.send('StartApplication', {
+      'ApplicationName': applicationName,
+      'InputConfigurations': inputConfigurations,
+    });
+    return StartApplicationResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -673,7 +769,10 @@ class KinesisAnalyticsApi {
   /// [applicationName]: Name of the running application to stop.
   Future<StopApplicationResponse> stopApplication(
       String applicationName) async {
-    return StopApplicationResponse.fromJson({});
+    var response_ = await _client.send('StopApplication', {
+      'ApplicationName': applicationName,
+    });
+    return StopApplicationResponse.fromJson(response_);
   }
 
   /// Adds one or more key-value tags to a Kinesis Analytics application. Note
@@ -687,7 +786,11 @@ class KinesisAnalyticsApi {
   /// [tags]: The key-value tags to assign to the application.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceARN': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes one or more tags from a Kinesis Analytics application. For more
@@ -701,7 +804,11 @@ class KinesisAnalyticsApi {
   /// application.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceARN': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -733,7 +840,12 @@ class KinesisAnalyticsApi {
       {@required String applicationName,
       @required BigInt currentApplicationVersionId,
       @required ApplicationUpdate applicationUpdate}) async {
-    return UpdateApplicationResponse.fromJson({});
+    var response_ = await _client.send('UpdateApplication', {
+      'ApplicationName': applicationName,
+      'CurrentApplicationVersionId': currentApplicationVersionId,
+      'ApplicationUpdate': applicationUpdate,
+    });
+    return UpdateApplicationResponse.fromJson(response_);
   }
 }
 
@@ -840,7 +952,46 @@ class ApplicationDetail {
     @required this.applicationVersionId,
   });
   static ApplicationDetail fromJson(Map<String, dynamic> json) =>
-      ApplicationDetail();
+      ApplicationDetail(
+        applicationName: json['ApplicationName'] as String,
+        applicationDescription: json.containsKey('ApplicationDescription')
+            ? json['ApplicationDescription'] as String
+            : null,
+        applicationArn: json['ApplicationARN'] as String,
+        applicationStatus: json['ApplicationStatus'] as String,
+        createTimestamp: json.containsKey('CreateTimestamp')
+            ? DateTime.parse(json['CreateTimestamp'])
+            : null,
+        lastUpdateTimestamp: json.containsKey('LastUpdateTimestamp')
+            ? DateTime.parse(json['LastUpdateTimestamp'])
+            : null,
+        inputDescriptions: json.containsKey('InputDescriptions')
+            ? (json['InputDescriptions'] as List)
+                .map((e) => InputDescription.fromJson(e))
+                .toList()
+            : null,
+        outputDescriptions: json.containsKey('OutputDescriptions')
+            ? (json['OutputDescriptions'] as List)
+                .map((e) => OutputDescription.fromJson(e))
+                .toList()
+            : null,
+        referenceDataSourceDescriptions:
+            json.containsKey('ReferenceDataSourceDescriptions')
+                ? (json['ReferenceDataSourceDescriptions'] as List)
+                    .map((e) => ReferenceDataSourceDescription.fromJson(e))
+                    .toList()
+                : null,
+        cloudWatchLoggingOptionDescriptions:
+            json.containsKey('CloudWatchLoggingOptionDescriptions')
+                ? (json['CloudWatchLoggingOptionDescriptions'] as List)
+                    .map((e) => CloudWatchLoggingOptionDescription.fromJson(e))
+                    .toList()
+                : null,
+        applicationCode: json.containsKey('ApplicationCode')
+            ? json['ApplicationCode'] as String
+            : null,
+        applicationVersionId: BigInt.from(json['ApplicationVersionId']),
+      );
 }
 
 /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
@@ -867,7 +1018,11 @@ class ApplicationSummary {
     @required this.applicationStatus,
   });
   static ApplicationSummary fromJson(Map<String, dynamic> json) =>
-      ApplicationSummary();
+      ApplicationSummary(
+        applicationName: json['ApplicationName'] as String,
+        applicationArn: json['ApplicationARN'] as String,
+        applicationStatus: json['ApplicationStatus'] as String,
+      );
 }
 
 /// Describes updates to apply to an existing Amazon Kinesis Analytics
@@ -895,6 +1050,7 @@ class ApplicationUpdate {
     this.referenceDataSourceUpdates,
     this.cloudWatchLoggingOptionUpdates,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides additional mapping information when the record format uses
@@ -919,7 +1075,11 @@ class CsvMappingParameters {
     @required this.recordColumnDelimiter,
   });
   static CsvMappingParameters fromJson(Map<String, dynamic> json) =>
-      CsvMappingParameters();
+      CsvMappingParameters(
+        recordRowDelimiter: json['RecordRowDelimiter'] as String,
+        recordColumnDelimiter: json['RecordColumnDelimiter'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a description of CloudWatch logging options, including the log
@@ -937,6 +1097,7 @@ class CloudWatchLoggingOption {
     @required this.logStreamArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Description of the CloudWatch logging option.
@@ -959,7 +1120,13 @@ class CloudWatchLoggingOptionDescription {
   });
   static CloudWatchLoggingOptionDescription fromJson(
           Map<String, dynamic> json) =>
-      CloudWatchLoggingOptionDescription();
+      CloudWatchLoggingOptionDescription(
+        cloudWatchLoggingOptionId: json.containsKey('CloudWatchLoggingOptionId')
+            ? json['CloudWatchLoggingOptionId'] as String
+            : null,
+        logStreamArn: json['LogStreamARN'] as String,
+        roleArn: json['RoleARN'] as String,
+      );
 }
 
 /// Describes CloudWatch logging option updates.
@@ -980,6 +1147,7 @@ class CloudWatchLoggingOptionUpdate {
     this.logStreamArnUpdate,
     this.roleArnUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// TBD
@@ -993,7 +1161,10 @@ class CreateApplicationResponse {
     @required this.applicationSummary,
   });
   static CreateApplicationResponse fromJson(Map<String, dynamic> json) =>
-      CreateApplicationResponse();
+      CreateApplicationResponse(
+        applicationSummary:
+            ApplicationSummary.fromJson(json['ApplicationSummary']),
+      );
 }
 
 class DeleteApplicationCloudWatchLoggingOptionResponse {
@@ -1039,7 +1210,10 @@ class DescribeApplicationResponse {
     @required this.applicationDetail,
   });
   static DescribeApplicationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeApplicationResponse();
+      DescribeApplicationResponse(
+        applicationDetail:
+            ApplicationDetail.fromJson(json['ApplicationDetail']),
+      );
 }
 
 /// Describes the data format when records are written to the destination. For
@@ -1053,7 +1227,10 @@ class DestinationSchema {
     @required this.recordFormatType,
   });
   static DestinationSchema fromJson(Map<String, dynamic> json) =>
-      DestinationSchema();
+      DestinationSchema(
+        recordFormatType: json['RecordFormatType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DiscoverInputSchemaResponse {
@@ -1080,7 +1257,24 @@ class DiscoverInputSchemaResponse {
     this.rawInputRecords,
   });
   static DiscoverInputSchemaResponse fromJson(Map<String, dynamic> json) =>
-      DiscoverInputSchemaResponse();
+      DiscoverInputSchemaResponse(
+        inputSchema: json.containsKey('InputSchema')
+            ? SourceSchema.fromJson(json['InputSchema'])
+            : null,
+        parsedInputRecords: json.containsKey('ParsedInputRecords')
+            ? (json['ParsedInputRecords'] as List)
+                .map((e) => (e as List).map((e) => e as String).toList())
+                .toList()
+            : null,
+        processedInputRecords: json.containsKey('ProcessedInputRecords')
+            ? (json['ProcessedInputRecords'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        rawInputRecords: json.containsKey('RawInputRecords')
+            ? (json['RawInputRecords'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// When you configure the application input, you specify the streaming source,
@@ -1140,6 +1334,7 @@ class Input {
     this.inputParallelism,
     @required this.inputSchema,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When you start your application, you provide this configuration, which
@@ -1159,6 +1354,7 @@ class InputConfiguration {
     @required this.id,
     @required this.inputStartingPositionConfiguration,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the application input configuration. For more information, see
@@ -1216,7 +1412,43 @@ class InputDescription {
     this.inputStartingPositionConfiguration,
   });
   static InputDescription fromJson(Map<String, dynamic> json) =>
-      InputDescription();
+      InputDescription(
+        inputId: json.containsKey('InputId') ? json['InputId'] as String : null,
+        namePrefix: json.containsKey('NamePrefix')
+            ? json['NamePrefix'] as String
+            : null,
+        inAppStreamNames: json.containsKey('InAppStreamNames')
+            ? (json['InAppStreamNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        inputProcessingConfigurationDescription:
+            json.containsKey('InputProcessingConfigurationDescription')
+                ? InputProcessingConfigurationDescription.fromJson(
+                    json['InputProcessingConfigurationDescription'])
+                : null,
+        kinesisStreamsInputDescription:
+            json.containsKey('KinesisStreamsInputDescription')
+                ? KinesisStreamsInputDescription.fromJson(
+                    json['KinesisStreamsInputDescription'])
+                : null,
+        kinesisFirehoseInputDescription:
+            json.containsKey('KinesisFirehoseInputDescription')
+                ? KinesisFirehoseInputDescription.fromJson(
+                    json['KinesisFirehoseInputDescription'])
+                : null,
+        inputSchema: json.containsKey('InputSchema')
+            ? SourceSchema.fromJson(json['InputSchema'])
+            : null,
+        inputParallelism: json.containsKey('InputParallelism')
+            ? InputParallelism.fromJson(json['InputParallelism'])
+            : null,
+        inputStartingPositionConfiguration:
+            json.containsKey('InputStartingPositionConfiguration')
+                ? InputStartingPositionConfiguration.fromJson(
+                    json['InputStartingPositionConfiguration'])
+                : null,
+      );
 }
 
 /// An object that contains the Amazon Resource Name (ARN) of the
@@ -1242,6 +1474,7 @@ class InputLambdaProcessor {
     @required this.resourceArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains the Amazon Resource Name (ARN) of the
@@ -1261,7 +1494,12 @@ class InputLambdaProcessorDescription {
     this.roleArn,
   });
   static InputLambdaProcessorDescription fromJson(Map<String, dynamic> json) =>
-      InputLambdaProcessorDescription();
+      InputLambdaProcessorDescription(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+      );
 }
 
 /// Represents an update to the
@@ -1288,6 +1526,7 @@ class InputLambdaProcessorUpdate {
     this.resourceArnUpdate,
     this.roleArnUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the number of in-application streams to create for a given
@@ -1302,7 +1541,10 @@ class InputParallelism {
     this.count,
   });
   static InputParallelism fromJson(Map<String, dynamic> json) =>
-      InputParallelism();
+      InputParallelism(
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides updates to the parallelism count.
@@ -1314,6 +1556,7 @@ class InputParallelismUpdate {
   InputParallelismUpdate({
     this.countUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a description of a processor that is used to preprocess the records
@@ -1330,6 +1573,7 @@ class InputProcessingConfiguration {
   InputProcessingConfiguration({
     @required this.inputLambdaProcessor,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides configuration information about an input processor. Currently, the
@@ -1345,7 +1589,13 @@ class InputProcessingConfigurationDescription {
   });
   static InputProcessingConfigurationDescription fromJson(
           Map<String, dynamic> json) =>
-      InputProcessingConfigurationDescription();
+      InputProcessingConfigurationDescription(
+        inputLambdaProcessorDescription:
+            json.containsKey('InputLambdaProcessorDescription')
+                ? InputLambdaProcessorDescription.fromJson(
+                    json['InputLambdaProcessorDescription'])
+                : null,
+      );
 }
 
 /// Describes updates to an
@@ -1358,6 +1608,7 @@ class InputProcessingConfigurationUpdate {
   InputProcessingConfigurationUpdate({
     @required this.inputLambdaProcessorUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes updates for the application's input schema.
@@ -1379,6 +1630,7 @@ class InputSchemaUpdate {
     this.recordEncodingUpdate,
     this.recordColumnUpdates,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the point at which the application reads from the streaming
@@ -1402,7 +1654,12 @@ class InputStartingPositionConfiguration {
   });
   static InputStartingPositionConfiguration fromJson(
           Map<String, dynamic> json) =>
-      InputStartingPositionConfiguration();
+      InputStartingPositionConfiguration(
+        inputStartingPosition: json.containsKey('InputStartingPosition')
+            ? json['InputStartingPosition'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes updates to a specific input configuration (identified by the
@@ -1444,6 +1701,7 @@ class InputUpdate {
     this.inputSchemaUpdate,
     this.inputParallelismUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides additional mapping information when JSON is the record format on
@@ -1456,7 +1714,10 @@ class JsonMappingParameters {
     @required this.recordRowPath,
   });
   static JsonMappingParameters fromJson(Map<String, dynamic> json) =>
-      JsonMappingParameters();
+      JsonMappingParameters(
+        recordRowPath: json['RecordRowPath'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Identifies an Amazon Kinesis Firehose delivery stream as the streaming
@@ -1476,6 +1737,7 @@ class KinesisFirehoseInput {
     @required this.resourceArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Describes the Amazon Kinesis Firehose delivery stream that is configured as
@@ -1493,7 +1755,12 @@ class KinesisFirehoseInputDescription {
     this.roleArn,
   });
   static KinesisFirehoseInputDescription fromJson(Map<String, dynamic> json) =>
-      KinesisFirehoseInputDescription();
+      KinesisFirehoseInputDescription(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+      );
 }
 
 /// When updating application input configuration, provides information about an
@@ -1512,6 +1779,7 @@ class KinesisFirehoseInputUpdate {
     this.resourceArnUpdate,
     this.roleArnUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When configuring application output, identifies an Amazon Kinesis Firehose
@@ -1532,6 +1800,7 @@ class KinesisFirehoseOutput {
     @required this.resourceArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  For an application output, describes the Amazon Kinesis Firehose delivery
@@ -1549,7 +1818,12 @@ class KinesisFirehoseOutputDescription {
     this.roleArn,
   });
   static KinesisFirehoseOutputDescription fromJson(Map<String, dynamic> json) =>
-      KinesisFirehoseOutputDescription();
+      KinesisFirehoseOutputDescription(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+      );
 }
 
 ///  When updating an output configuration using the
@@ -1570,6 +1844,7 @@ class KinesisFirehoseOutputUpdate {
     this.resourceArnUpdate,
     this.roleArnUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Identifies an Amazon Kinesis stream as the streaming source. You provide
@@ -1588,6 +1863,7 @@ class KinesisStreamsInput {
     @required this.resourceArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Describes the Amazon Kinesis stream that is configured as the streaming
@@ -1605,7 +1881,12 @@ class KinesisStreamsInputDescription {
     this.roleArn,
   });
   static KinesisStreamsInputDescription fromJson(Map<String, dynamic> json) =>
-      KinesisStreamsInputDescription();
+      KinesisStreamsInputDescription(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+      );
 }
 
 /// When updating application input configuration, provides information about an
@@ -1623,6 +1904,7 @@ class KinesisStreamsInputUpdate {
     this.resourceArnUpdate,
     this.roleArnUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When configuring application output, identifies an Amazon Kinesis stream as
@@ -1642,6 +1924,7 @@ class KinesisStreamsOutput {
     @required this.resourceArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  For an application output, describes the Amazon Kinesis stream configured
@@ -1659,7 +1942,12 @@ class KinesisStreamsOutputDescription {
     this.roleArn,
   });
   static KinesisStreamsOutputDescription fromJson(Map<String, dynamic> json) =>
-      KinesisStreamsOutputDescription();
+      KinesisStreamsOutputDescription(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+      );
 }
 
 ///  When updating an output configuration using the
@@ -1680,6 +1968,7 @@ class KinesisStreamsOutputUpdate {
     this.resourceArnUpdate,
     this.roleArnUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When configuring application output, identifies an AWS Lambda function as
@@ -1706,6 +1995,7 @@ class LambdaOutput {
     @required this.resourceArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// For an application output, describes the AWS Lambda function configured as
@@ -1723,7 +2013,12 @@ class LambdaOutputDescription {
     this.roleArn,
   });
   static LambdaOutputDescription fromJson(Map<String, dynamic> json) =>
-      LambdaOutputDescription();
+      LambdaOutputDescription(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+      );
 }
 
 /// When updating an output configuration using the
@@ -1750,6 +2045,7 @@ class LambdaOutputUpdate {
     this.resourceArnUpdate,
     this.roleArnUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListApplicationsResponse {
@@ -1764,7 +2060,12 @@ class ListApplicationsResponse {
     @required this.hasMoreApplications,
   });
   static ListApplicationsResponse fromJson(Map<String, dynamic> json) =>
-      ListApplicationsResponse();
+      ListApplicationsResponse(
+        applicationSummaries: (json['ApplicationSummaries'] as List)
+            .map((e) => ApplicationSummary.fromJson(e))
+            .toList(),
+        hasMoreApplications: json['HasMoreApplications'] as bool,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1775,7 +2076,11 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// When configuring application input at the time of creating or updating an
@@ -1796,7 +2101,15 @@ class MappingParameters {
     this.csvMappingParameters,
   });
   static MappingParameters fromJson(Map<String, dynamic> json) =>
-      MappingParameters();
+      MappingParameters(
+        jsonMappingParameters: json.containsKey('JSONMappingParameters')
+            ? JsonMappingParameters.fromJson(json['JSONMappingParameters'])
+            : null,
+        csvMappingParameters: json.containsKey('CSVMappingParameters')
+            ? CsvMappingParameters.fromJson(json['CSVMappingParameters'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Describes application output configuration in which you identify an
@@ -1832,6 +2145,7 @@ class Output {
     this.lambdaOutput,
     @required this.destinationSchema,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the application output configuration, which includes the
@@ -1869,7 +2183,27 @@ class OutputDescription {
     this.destinationSchema,
   });
   static OutputDescription fromJson(Map<String, dynamic> json) =>
-      OutputDescription();
+      OutputDescription(
+        outputId:
+            json.containsKey('OutputId') ? json['OutputId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        kinesisStreamsOutputDescription:
+            json.containsKey('KinesisStreamsOutputDescription')
+                ? KinesisStreamsOutputDescription.fromJson(
+                    json['KinesisStreamsOutputDescription'])
+                : null,
+        kinesisFirehoseOutputDescription:
+            json.containsKey('KinesisFirehoseOutputDescription')
+                ? KinesisFirehoseOutputDescription.fromJson(
+                    json['KinesisFirehoseOutputDescription'])
+                : null,
+        lambdaOutputDescription: json.containsKey('LambdaOutputDescription')
+            ? LambdaOutputDescription.fromJson(json['LambdaOutputDescription'])
+            : null,
+        destinationSchema: json.containsKey('DestinationSchema')
+            ? DestinationSchema.fromJson(json['DestinationSchema'])
+            : null,
+      );
 }
 
 ///  Describes updates to the output configuration identified by the `OutputId`.
@@ -1905,6 +2239,7 @@ class OutputUpdate {
     this.lambdaOutputUpdate,
     this.destinationSchemaUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the mapping of each data element in the streaming source to the
@@ -1931,7 +2266,12 @@ class RecordColumn {
     this.mapping,
     @required this.sqlType,
   });
-  static RecordColumn fromJson(Map<String, dynamic> json) => RecordColumn();
+  static RecordColumn fromJson(Map<String, dynamic> json) => RecordColumn(
+        name: json['Name'] as String,
+        mapping: json.containsKey('Mapping') ? json['Mapping'] as String : null,
+        sqlType: json['SqlType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Describes the record format and relevant mapping information that should be
@@ -1950,7 +2290,13 @@ class RecordFormat {
     @required this.recordFormatType,
     this.mappingParameters,
   });
-  static RecordFormat fromJson(Map<String, dynamic> json) => RecordFormat();
+  static RecordFormat fromJson(Map<String, dynamic> json) => RecordFormat(
+        recordFormatType: json['RecordFormatType'] as String,
+        mappingParameters: json.containsKey('MappingParameters')
+            ? MappingParameters.fromJson(json['MappingParameters'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the reference data source by providing the source information (S3
@@ -1979,6 +2325,7 @@ class ReferenceDataSource {
     this.s3ReferenceDataSource,
     @required this.referenceSchema,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the reference data source configured for an application.
@@ -2012,7 +2359,16 @@ class ReferenceDataSourceDescription {
     this.referenceSchema,
   });
   static ReferenceDataSourceDescription fromJson(Map<String, dynamic> json) =>
-      ReferenceDataSourceDescription();
+      ReferenceDataSourceDescription(
+        referenceId: json['ReferenceId'] as String,
+        tableName: json['TableName'] as String,
+        s3ReferenceDataSourceDescription:
+            S3ReferenceDataSourceDescription.fromJson(
+                json['S3ReferenceDataSourceDescription']),
+        referenceSchema: json.containsKey('ReferenceSchema')
+            ? SourceSchema.fromJson(json['ReferenceSchema'])
+            : null,
+      );
 }
 
 /// When you update a reference data source configuration for an application,
@@ -2045,6 +2401,7 @@ class ReferenceDataSourceUpdate {
     this.s3ReferenceDataSourceUpdate,
     this.referenceSchemaUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a description of an Amazon S3 data source, including the Amazon
@@ -2066,6 +2423,7 @@ class S3Configuration {
     @required this.bucketArn,
     @required this.fileKey,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Identifies the S3 bucket and object that contains the reference data. Also
@@ -2094,6 +2452,7 @@ class S3ReferenceDataSource {
     @required this.fileKey,
     @required this.referenceRoleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides the bucket name and object key name that stores the reference data.
@@ -2115,7 +2474,11 @@ class S3ReferenceDataSourceDescription {
     @required this.referenceRoleArn,
   });
   static S3ReferenceDataSourceDescription fromJson(Map<String, dynamic> json) =>
-      S3ReferenceDataSourceDescription();
+      S3ReferenceDataSourceDescription(
+        bucketArn: json['BucketARN'] as String,
+        fileKey: json['FileKey'] as String,
+        referenceRoleArn: json['ReferenceRoleARN'] as String,
+      );
 }
 
 /// Describes the S3 bucket name, object key name, and IAM role that Amazon
@@ -2137,6 +2500,7 @@ class S3ReferenceDataSourceUpdate {
     this.fileKeyUpdate,
     this.referenceRoleArnUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the format of the data in the streaming source, and how each data
@@ -2157,7 +2521,16 @@ class SourceSchema {
     this.recordEncoding,
     @required this.recordColumns,
   });
-  static SourceSchema fromJson(Map<String, dynamic> json) => SourceSchema();
+  static SourceSchema fromJson(Map<String, dynamic> json) => SourceSchema(
+        recordFormat: RecordFormat.fromJson(json['RecordFormat']),
+        recordEncoding: json.containsKey('RecordEncoding')
+            ? json['RecordEncoding'] as String
+            : null,
+        recordColumns: (json['RecordColumns'] as List)
+            .map((e) => RecordColumn.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartApplicationResponse {
@@ -2189,7 +2562,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {

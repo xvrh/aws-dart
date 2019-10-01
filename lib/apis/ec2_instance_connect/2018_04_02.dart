@@ -5,6 +5,10 @@ import 'package:meta/meta.dart';
 /// connections to their instances without leaving a permanent authentication
 /// option.
 class Ec2InstanceConnectApi {
+  final _client;
+  Ec2InstanceConnectApi(client)
+      : _client = client.configured('EC2 Instance Connect', serializer: 'json');
+
   /// Pushes an SSH public key to a particular OS user on a given EC2 instance
   /// for 60 seconds.
   ///
@@ -23,7 +27,13 @@ class Ec2InstanceConnectApi {
       @required String instanceOSUser,
       @required String sshPublicKey,
       @required String availabilityZone}) async {
-    return SendSshPublicKeyResponse.fromJson({});
+    var response_ = await _client.send('SendSSHPublicKey', {
+      'InstanceId': instanceId,
+      'InstanceOSUser': instanceOSUser,
+      'SSHPublicKey': sshPublicKey,
+      'AvailabilityZone': availabilityZone,
+    });
+    return SendSshPublicKeyResponse.fromJson(response_);
   }
 }
 
@@ -40,5 +50,9 @@ class SendSshPublicKeyResponse {
     this.success,
   });
   static SendSshPublicKeyResponse fromJson(Map<String, dynamic> json) =>
-      SendSshPublicKeyResponse();
+      SendSshPublicKeyResponse(
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        success: json.containsKey('Success') ? json['Success'] as bool : null,
+      );
 }

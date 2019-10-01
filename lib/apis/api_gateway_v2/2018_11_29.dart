@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 /// Amazon API Gateway V2
 class ApiGatewayV2Api {
+  final _client;
+  ApiGatewayV2Api(client)
+      : _client = client.configured('ApiGatewayV2', serializer: 'rest-json');
+
   /// Creates an Api resource.
   ///
   /// [apiKeySelectionExpression]: An API key selection expression. See
@@ -32,14 +36,24 @@ class ApiGatewayV2Api {
       @required String routeSelectionExpression,
       String version,
       Map<String, String> tags}) async {
-    return CreateApiResponse.fromJson({});
+    var response_ = await _client.send('CreateApi', {
+      if (apiKeySelectionExpression != null)
+        'ApiKeySelectionExpression': apiKeySelectionExpression,
+      if (description != null) 'Description': description,
+      if (disableSchemaValidation != null)
+        'DisableSchemaValidation': disableSchemaValidation,
+      'Name': name,
+      'ProtocolType': protocolType,
+      'RouteSelectionExpression': routeSelectionExpression,
+      if (version != null) 'Version': version,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateApiResponse.fromJson(response_);
   }
 
   /// Creates an API mapping.
   ///
   /// [apiId]: The API identifier.
-  ///
-  /// [apiMappingKey]:
   ///
   /// [domainName]: The domain name.
   ///
@@ -49,7 +63,13 @@ class ApiGatewayV2Api {
       String apiMappingKey,
       @required String domainName,
       @required String stage}) async {
-    return CreateApiMappingResponse.fromJson({});
+    var response_ = await _client.send('CreateApiMapping', {
+      'ApiId': apiId,
+      if (apiMappingKey != null) 'ApiMappingKey': apiMappingKey,
+      'DomainName': domainName,
+      'Stage': stage,
+    });
+    return CreateApiMappingResponse.fromJson(response_);
   }
 
   /// Creates an Authorizer for an API.
@@ -115,7 +135,21 @@ class ApiGatewayV2Api {
       String identityValidationExpression,
       @required String name,
       List<String> providerArns}) async {
-    return CreateAuthorizerResponse.fromJson({});
+    var response_ = await _client.send('CreateAuthorizer', {
+      'ApiId': apiId,
+      if (authorizerCredentialsArn != null)
+        'AuthorizerCredentialsArn': authorizerCredentialsArn,
+      if (authorizerResultTtlInSeconds != null)
+        'AuthorizerResultTtlInSeconds': authorizerResultTtlInSeconds,
+      'AuthorizerType': authorizerType,
+      'AuthorizerUri': authorizerUri,
+      'IdentitySource': identitySource,
+      if (identityValidationExpression != null)
+        'IdentityValidationExpression': identityValidationExpression,
+      'Name': name,
+      if (providerArns != null) 'ProviderArns': providerArns,
+    });
+    return CreateAuthorizerResponse.fromJson(response_);
   }
 
   /// Creates a Deployment for an API.
@@ -128,7 +162,12 @@ class ApiGatewayV2Api {
   /// create.
   Future<CreateDeploymentResponse> createDeployment(String apiId,
       {String description, String stageName}) async {
-    return CreateDeploymentResponse.fromJson({});
+    var response_ = await _client.send('CreateDeployment', {
+      'ApiId': apiId,
+      if (description != null) 'Description': description,
+      if (stageName != null) 'StageName': stageName,
+    });
+    return CreateDeploymentResponse.fromJson(response_);
   }
 
   /// Creates a domain name.
@@ -143,7 +182,13 @@ class ApiGatewayV2Api {
   Future<CreateDomainNameResponse> createDomainName(String domainName,
       {List<DomainNameConfiguration> domainNameConfigurations,
       Map<String, String> tags}) async {
-    return CreateDomainNameResponse.fromJson({});
+    var response_ = await _client.send('CreateDomainName', {
+      'DomainName': domainName,
+      if (domainNameConfigurations != null)
+        'DomainNameConfigurations': domainNameConfigurations,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDomainNameResponse.fromJson(response_);
   }
 
   /// Creates an Integration.
@@ -259,7 +304,26 @@ class ApiGatewayV2Api {
       Map<String, String> requestTemplates,
       String templateSelectionExpression,
       int timeoutInMillis}) async {
-    return CreateIntegrationResponse.fromJson({});
+    var response_ = await _client.send('CreateIntegration', {
+      'ApiId': apiId,
+      if (connectionId != null) 'ConnectionId': connectionId,
+      if (connectionType != null) 'ConnectionType': connectionType,
+      if (contentHandlingStrategy != null)
+        'ContentHandlingStrategy': contentHandlingStrategy,
+      if (credentialsArn != null) 'CredentialsArn': credentialsArn,
+      if (description != null) 'Description': description,
+      if (integrationMethod != null) 'IntegrationMethod': integrationMethod,
+      'IntegrationType': integrationType,
+      if (integrationUri != null) 'IntegrationUri': integrationUri,
+      if (passthroughBehavior != null)
+        'PassthroughBehavior': passthroughBehavior,
+      if (requestParameters != null) 'RequestParameters': requestParameters,
+      if (requestTemplates != null) 'RequestTemplates': requestTemplates,
+      if (templateSelectionExpression != null)
+        'TemplateSelectionExpression': templateSelectionExpression,
+      if (timeoutInMillis != null) 'TimeoutInMillis': timeoutInMillis,
+    });
+    return CreateIntegrationResponse.fromJson(response_);
   }
 
   /// Creates an IntegrationResponses.
@@ -311,7 +375,18 @@ class ApiGatewayV2Api {
       Map<String, String> responseParameters,
       Map<String, String> responseTemplates,
       String templateSelectionExpression}) async {
-    return CreateIntegrationResponseResponse.fromJson({});
+    var response_ = await _client.send('CreateIntegrationResponse', {
+      'ApiId': apiId,
+      if (contentHandlingStrategy != null)
+        'ContentHandlingStrategy': contentHandlingStrategy,
+      'IntegrationId': integrationId,
+      'IntegrationResponseKey': integrationResponseKey,
+      if (responseParameters != null) 'ResponseParameters': responseParameters,
+      if (responseTemplates != null) 'ResponseTemplates': responseTemplates,
+      if (templateSelectionExpression != null)
+        'TemplateSelectionExpression': templateSelectionExpression,
+    });
+    return CreateIntegrationResponseResponse.fromJson(response_);
   }
 
   /// Creates a Model for an API.
@@ -333,7 +408,14 @@ class ApiGatewayV2Api {
       String description,
       @required String name,
       @required String schema}) async {
-    return CreateModelResponse.fromJson({});
+    var response_ = await _client.send('CreateModel', {
+      'ApiId': apiId,
+      if (contentType != null) 'ContentType': contentType,
+      if (description != null) 'Description': description,
+      'Name': name,
+      'Schema': schema,
+    });
+    return CreateModelResponse.fromJson(response_);
   }
 
   /// Creates a Route for an API.
@@ -379,7 +461,24 @@ class ApiGatewayV2Api {
       @required String routeKey,
       String routeResponseSelectionExpression,
       String target}) async {
-    return CreateRouteResponse.fromJson({});
+    var response_ = await _client.send('CreateRoute', {
+      'ApiId': apiId,
+      if (apiKeyRequired != null) 'ApiKeyRequired': apiKeyRequired,
+      if (authorizationScopes != null)
+        'AuthorizationScopes': authorizationScopes,
+      if (authorizationType != null) 'AuthorizationType': authorizationType,
+      if (authorizerId != null) 'AuthorizerId': authorizerId,
+      if (modelSelectionExpression != null)
+        'ModelSelectionExpression': modelSelectionExpression,
+      if (operationName != null) 'OperationName': operationName,
+      if (requestModels != null) 'RequestModels': requestModels,
+      if (requestParameters != null) 'RequestParameters': requestParameters,
+      'RouteKey': routeKey,
+      if (routeResponseSelectionExpression != null)
+        'RouteResponseSelectionExpression': routeResponseSelectionExpression,
+      if (target != null) 'Target': target,
+    });
+    return CreateRouteResponse.fromJson(response_);
   }
 
   /// Creates a RouteResponse for a Route.
@@ -403,7 +502,16 @@ class ApiGatewayV2Api {
       Map<String, ParameterConstraints> responseParameters,
       @required String routeId,
       @required String routeResponseKey}) async {
-    return CreateRouteResponseResponse.fromJson({});
+    var response_ = await _client.send('CreateRouteResponse', {
+      'ApiId': apiId,
+      if (modelSelectionExpression != null)
+        'ModelSelectionExpression': modelSelectionExpression,
+      if (responseModels != null) 'ResponseModels': responseModels,
+      if (responseParameters != null) 'ResponseParameters': responseParameters,
+      'RouteId': routeId,
+      'RouteResponseKey': routeResponseKey,
+    });
+    return CreateRouteResponseResponse.fromJson(response_);
   }
 
   /// Creates a Stage for an API.
@@ -442,13 +550,31 @@ class ApiGatewayV2Api {
       @required String stageName,
       Map<String, String> stageVariables,
       Map<String, String> tags}) async {
-    return CreateStageResponse.fromJson({});
+    var response_ = await _client.send('CreateStage', {
+      if (accessLogSettings != null) 'AccessLogSettings': accessLogSettings,
+      'ApiId': apiId,
+      if (clientCertificateId != null)
+        'ClientCertificateId': clientCertificateId,
+      if (defaultRouteSettings != null)
+        'DefaultRouteSettings': defaultRouteSettings,
+      if (deploymentId != null) 'DeploymentId': deploymentId,
+      if (description != null) 'Description': description,
+      if (routeSettings != null) 'RouteSettings': routeSettings,
+      'StageName': stageName,
+      if (stageVariables != null) 'StageVariables': stageVariables,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateStageResponse.fromJson(response_);
   }
 
   /// Deletes an Api resource.
   ///
   /// [apiId]: The API identifier.
-  Future<void> deleteApi(String apiId) async {}
+  Future<void> deleteApi(String apiId) async {
+    await _client.send('DeleteApi', {
+      'ApiId': apiId,
+    });
+  }
 
   /// Deletes an API mapping.
   ///
@@ -456,7 +582,12 @@ class ApiGatewayV2Api {
   ///
   /// [domainName]: The domain name.
   Future<void> deleteApiMapping(
-      {@required String apiMappingId, @required String domainName}) async {}
+      {@required String apiMappingId, @required String domainName}) async {
+    await _client.send('DeleteApiMapping', {
+      'ApiMappingId': apiMappingId,
+      'DomainName': domainName,
+    });
+  }
 
   /// Deletes an Authorizer.
   ///
@@ -464,7 +595,12 @@ class ApiGatewayV2Api {
   ///
   /// [authorizerId]: The authorizer identifier.
   Future<void> deleteAuthorizer(
-      {@required String apiId, @required String authorizerId}) async {}
+      {@required String apiId, @required String authorizerId}) async {
+    await _client.send('DeleteAuthorizer', {
+      'ApiId': apiId,
+      'AuthorizerId': authorizerId,
+    });
+  }
 
   /// Deletes a Deployment.
   ///
@@ -472,12 +608,21 @@ class ApiGatewayV2Api {
   ///
   /// [deploymentId]: The deployment ID.
   Future<void> deleteDeployment(
-      {@required String apiId, @required String deploymentId}) async {}
+      {@required String apiId, @required String deploymentId}) async {
+    await _client.send('DeleteDeployment', {
+      'ApiId': apiId,
+      'DeploymentId': deploymentId,
+    });
+  }
 
   /// Deletes a domain name.
   ///
   /// [domainName]: The domain name.
-  Future<void> deleteDomainName(String domainName) async {}
+  Future<void> deleteDomainName(String domainName) async {
+    await _client.send('DeleteDomainName', {
+      'DomainName': domainName,
+    });
+  }
 
   /// Deletes an Integration.
   ///
@@ -485,7 +630,12 @@ class ApiGatewayV2Api {
   ///
   /// [integrationId]: The integration ID.
   Future<void> deleteIntegration(
-      {@required String apiId, @required String integrationId}) async {}
+      {@required String apiId, @required String integrationId}) async {
+    await _client.send('DeleteIntegration', {
+      'ApiId': apiId,
+      'IntegrationId': integrationId,
+    });
+  }
 
   /// Deletes an IntegrationResponses.
   ///
@@ -497,7 +647,13 @@ class ApiGatewayV2Api {
   Future<void> deleteIntegrationResponse(
       {@required String apiId,
       @required String integrationId,
-      @required String integrationResponseId}) async {}
+      @required String integrationResponseId}) async {
+    await _client.send('DeleteIntegrationResponse', {
+      'ApiId': apiId,
+      'IntegrationId': integrationId,
+      'IntegrationResponseId': integrationResponseId,
+    });
+  }
 
   /// Deletes a Model.
   ///
@@ -505,7 +661,12 @@ class ApiGatewayV2Api {
   ///
   /// [modelId]: The model ID.
   Future<void> deleteModel(
-      {@required String apiId, @required String modelId}) async {}
+      {@required String apiId, @required String modelId}) async {
+    await _client.send('DeleteModel', {
+      'ApiId': apiId,
+      'ModelId': modelId,
+    });
+  }
 
   /// Deletes a Route.
   ///
@@ -513,7 +674,12 @@ class ApiGatewayV2Api {
   ///
   /// [routeId]: The route ID.
   Future<void> deleteRoute(
-      {@required String apiId, @required String routeId}) async {}
+      {@required String apiId, @required String routeId}) async {
+    await _client.send('DeleteRoute', {
+      'ApiId': apiId,
+      'RouteId': routeId,
+    });
+  }
 
   /// Deletes a RouteResponse.
   ///
@@ -525,7 +691,13 @@ class ApiGatewayV2Api {
   Future<void> deleteRouteResponse(
       {@required String apiId,
       @required String routeId,
-      @required String routeResponseId}) async {}
+      @required String routeResponseId}) async {
+    await _client.send('DeleteRouteResponse', {
+      'ApiId': apiId,
+      'RouteId': routeId,
+      'RouteResponseId': routeResponseId,
+    });
+  }
 
   /// Deletes a Stage.
   ///
@@ -533,13 +705,21 @@ class ApiGatewayV2Api {
   ///
   /// [stageName]: The stage name.
   Future<void> deleteStage(
-      {@required String apiId, @required String stageName}) async {}
+      {@required String apiId, @required String stageName}) async {
+    await _client.send('DeleteStage', {
+      'ApiId': apiId,
+      'StageName': stageName,
+    });
+  }
 
   /// Gets an Api resource.
   ///
   /// [apiId]: The API identifier.
   Future<GetApiResponse> getApi(String apiId) async {
-    return GetApiResponse.fromJson({});
+    var response_ = await _client.send('GetApi', {
+      'ApiId': apiId,
+    });
+    return GetApiResponse.fromJson(response_);
   }
 
   /// The API mapping.
@@ -549,7 +729,11 @@ class ApiGatewayV2Api {
   /// [domainName]: The domain name.
   Future<GetApiMappingResponse> getApiMapping(
       {@required String apiMappingId, @required String domainName}) async {
-    return GetApiMappingResponse.fromJson({});
+    var response_ = await _client.send('GetApiMapping', {
+      'ApiMappingId': apiMappingId,
+      'DomainName': domainName,
+    });
+    return GetApiMappingResponse.fromJson(response_);
   }
 
   /// The API mappings.
@@ -563,7 +747,12 @@ class ApiGatewayV2Api {
   /// the last element of the collection.
   Future<GetApiMappingsResponse> getApiMappings(String domainName,
       {String maxResults, String nextToken}) async {
-    return GetApiMappingsResponse.fromJson({});
+    var response_ = await _client.send('GetApiMappings', {
+      'DomainName': domainName,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetApiMappingsResponse.fromJson(response_);
   }
 
   /// Gets a collection of Api resources.
@@ -574,7 +763,11 @@ class ApiGatewayV2Api {
   /// [nextToken]: The next page of elements from this collection. Not valid for
   /// the last element of the collection.
   Future<GetApisResponse> getApis({String maxResults, String nextToken}) async {
-    return GetApisResponse.fromJson({});
+    var response_ = await _client.send('GetApis', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetApisResponse.fromJson(response_);
   }
 
   /// Gets an Authorizer.
@@ -584,7 +777,11 @@ class ApiGatewayV2Api {
   /// [authorizerId]: The authorizer identifier.
   Future<GetAuthorizerResponse> getAuthorizer(
       {@required String apiId, @required String authorizerId}) async {
-    return GetAuthorizerResponse.fromJson({});
+    var response_ = await _client.send('GetAuthorizer', {
+      'ApiId': apiId,
+      'AuthorizerId': authorizerId,
+    });
+    return GetAuthorizerResponse.fromJson(response_);
   }
 
   /// Gets the Authorizers for an API.
@@ -598,7 +795,12 @@ class ApiGatewayV2Api {
   /// the last element of the collection.
   Future<GetAuthorizersResponse> getAuthorizers(String apiId,
       {String maxResults, String nextToken}) async {
-    return GetAuthorizersResponse.fromJson({});
+    var response_ = await _client.send('GetAuthorizers', {
+      'ApiId': apiId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetAuthorizersResponse.fromJson(response_);
   }
 
   /// Gets a Deployment.
@@ -608,7 +810,11 @@ class ApiGatewayV2Api {
   /// [deploymentId]: The deployment ID.
   Future<GetDeploymentResponse> getDeployment(
       {@required String apiId, @required String deploymentId}) async {
-    return GetDeploymentResponse.fromJson({});
+    var response_ = await _client.send('GetDeployment', {
+      'ApiId': apiId,
+      'DeploymentId': deploymentId,
+    });
+    return GetDeploymentResponse.fromJson(response_);
   }
 
   /// Gets the Deployments for an API.
@@ -622,14 +828,22 @@ class ApiGatewayV2Api {
   /// the last element of the collection.
   Future<GetDeploymentsResponse> getDeployments(String apiId,
       {String maxResults, String nextToken}) async {
-    return GetDeploymentsResponse.fromJson({});
+    var response_ = await _client.send('GetDeployments', {
+      'ApiId': apiId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetDeploymentsResponse.fromJson(response_);
   }
 
   /// Gets a domain name.
   ///
   /// [domainName]: The domain name.
   Future<GetDomainNameResponse> getDomainName(String domainName) async {
-    return GetDomainNameResponse.fromJson({});
+    var response_ = await _client.send('GetDomainName', {
+      'DomainName': domainName,
+    });
+    return GetDomainNameResponse.fromJson(response_);
   }
 
   /// Gets the domain names for an AWS account.
@@ -641,7 +855,11 @@ class ApiGatewayV2Api {
   /// the last element of the collection.
   Future<GetDomainNamesResponse> getDomainNames(
       {String maxResults, String nextToken}) async {
-    return GetDomainNamesResponse.fromJson({});
+    var response_ = await _client.send('GetDomainNames', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetDomainNamesResponse.fromJson(response_);
   }
 
   /// Gets an Integration.
@@ -651,7 +869,11 @@ class ApiGatewayV2Api {
   /// [integrationId]: The integration ID.
   Future<GetIntegrationResponse> getIntegration(
       {@required String apiId, @required String integrationId}) async {
-    return GetIntegrationResponse.fromJson({});
+    var response_ = await _client.send('GetIntegration', {
+      'ApiId': apiId,
+      'IntegrationId': integrationId,
+    });
+    return GetIntegrationResponse.fromJson(response_);
   }
 
   /// Gets an IntegrationResponses.
@@ -665,7 +887,12 @@ class ApiGatewayV2Api {
       {@required String apiId,
       @required String integrationId,
       @required String integrationResponseId}) async {
-    return GetIntegrationResponseResponse.fromJson({});
+    var response_ = await _client.send('GetIntegrationResponse', {
+      'ApiId': apiId,
+      'IntegrationId': integrationId,
+      'IntegrationResponseId': integrationResponseId,
+    });
+    return GetIntegrationResponseResponse.fromJson(response_);
   }
 
   /// Gets the IntegrationResponses for an Integration.
@@ -684,7 +911,13 @@ class ApiGatewayV2Api {
       @required String integrationId,
       String maxResults,
       String nextToken}) async {
-    return GetIntegrationResponsesResponse.fromJson({});
+    var response_ = await _client.send('GetIntegrationResponses', {
+      'ApiId': apiId,
+      'IntegrationId': integrationId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetIntegrationResponsesResponse.fromJson(response_);
   }
 
   /// Gets the Integrations for an API.
@@ -698,7 +931,12 @@ class ApiGatewayV2Api {
   /// the last element of the collection.
   Future<GetIntegrationsResponse> getIntegrations(String apiId,
       {String maxResults, String nextToken}) async {
-    return GetIntegrationsResponse.fromJson({});
+    var response_ = await _client.send('GetIntegrations', {
+      'ApiId': apiId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetIntegrationsResponse.fromJson(response_);
   }
 
   /// Gets a Model.
@@ -708,7 +946,11 @@ class ApiGatewayV2Api {
   /// [modelId]: The model ID.
   Future<GetModelResponse> getModel(
       {@required String apiId, @required String modelId}) async {
-    return GetModelResponse.fromJson({});
+    var response_ = await _client.send('GetModel', {
+      'ApiId': apiId,
+      'ModelId': modelId,
+    });
+    return GetModelResponse.fromJson(response_);
   }
 
   /// Gets a model template.
@@ -718,7 +960,11 @@ class ApiGatewayV2Api {
   /// [modelId]: The model ID.
   Future<GetModelTemplateResponse> getModelTemplate(
       {@required String apiId, @required String modelId}) async {
-    return GetModelTemplateResponse.fromJson({});
+    var response_ = await _client.send('GetModelTemplate', {
+      'ApiId': apiId,
+      'ModelId': modelId,
+    });
+    return GetModelTemplateResponse.fromJson(response_);
   }
 
   /// Gets the Models for an API.
@@ -732,7 +978,12 @@ class ApiGatewayV2Api {
   /// the last element of the collection.
   Future<GetModelsResponse> getModels(String apiId,
       {String maxResults, String nextToken}) async {
-    return GetModelsResponse.fromJson({});
+    var response_ = await _client.send('GetModels', {
+      'ApiId': apiId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetModelsResponse.fromJson(response_);
   }
 
   /// Gets a Route.
@@ -742,7 +993,11 @@ class ApiGatewayV2Api {
   /// [routeId]: The route ID.
   Future<GetRouteResponse> getRoute(
       {@required String apiId, @required String routeId}) async {
-    return GetRouteResponse.fromJson({});
+    var response_ = await _client.send('GetRoute', {
+      'ApiId': apiId,
+      'RouteId': routeId,
+    });
+    return GetRouteResponse.fromJson(response_);
   }
 
   /// Gets a RouteResponse.
@@ -756,7 +1011,12 @@ class ApiGatewayV2Api {
       {@required String apiId,
       @required String routeId,
       @required String routeResponseId}) async {
-    return GetRouteResponseResponse.fromJson({});
+    var response_ = await _client.send('GetRouteResponse', {
+      'ApiId': apiId,
+      'RouteId': routeId,
+      'RouteResponseId': routeResponseId,
+    });
+    return GetRouteResponseResponse.fromJson(response_);
   }
 
   /// Gets the RouteResponses for a Route.
@@ -775,7 +1035,13 @@ class ApiGatewayV2Api {
       String maxResults,
       String nextToken,
       @required String routeId}) async {
-    return GetRouteResponsesResponse.fromJson({});
+    var response_ = await _client.send('GetRouteResponses', {
+      'ApiId': apiId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'RouteId': routeId,
+    });
+    return GetRouteResponsesResponse.fromJson(response_);
   }
 
   /// Gets the Routes for an API.
@@ -789,7 +1055,12 @@ class ApiGatewayV2Api {
   /// the last element of the collection.
   Future<GetRoutesResponse> getRoutes(String apiId,
       {String maxResults, String nextToken}) async {
-    return GetRoutesResponse.fromJson({});
+    var response_ = await _client.send('GetRoutes', {
+      'ApiId': apiId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetRoutesResponse.fromJson(response_);
   }
 
   /// Gets a Stage.
@@ -799,7 +1070,11 @@ class ApiGatewayV2Api {
   /// [stageName]: The stage name.
   Future<GetStageResponse> getStage(
       {@required String apiId, @required String stageName}) async {
-    return GetStageResponse.fromJson({});
+    var response_ = await _client.send('GetStage', {
+      'ApiId': apiId,
+      'StageName': stageName,
+    });
+    return GetStageResponse.fromJson(response_);
   }
 
   /// Gets the Stages for an API.
@@ -813,12 +1088,20 @@ class ApiGatewayV2Api {
   /// the last element of the collection.
   Future<GetStagesResponse> getStages(String apiId,
       {String maxResults, String nextToken}) async {
-    return GetStagesResponse.fromJson({});
+    var response_ = await _client.send('GetStages', {
+      'ApiId': apiId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetStagesResponse.fromJson(response_);
   }
 
   /// Gets the Tags for an API.
   Future<GetTagsResponse> getTags(String resourceArn) async {
-    return GetTagsResponse.fromJson({});
+    var response_ = await _client.send('GetTags', {
+      'ResourceArn': resourceArn,
+    });
+    return GetTagsResponse.fromJson(response_);
   }
 
   /// Tag an APIGW resource
@@ -830,7 +1113,11 @@ class ApiGatewayV2Api {
   /// start with aws:. The tag value can be up to 256 characters..
   Future<TagResourceResponse> tagResource(String resourceArn,
       {Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      if (tags != null) 'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Untag an APIGW resource
@@ -839,7 +1126,12 @@ class ApiGatewayV2Api {
   ///
   /// [tagKeys]: The Tag keys to delete
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Updates an Api resource.
   ///
@@ -865,7 +1157,19 @@ class ApiGatewayV2Api {
       String name,
       String routeSelectionExpression,
       String version}) async {
-    return UpdateApiResponse.fromJson({});
+    var response_ = await _client.send('UpdateApi', {
+      'ApiId': apiId,
+      if (apiKeySelectionExpression != null)
+        'ApiKeySelectionExpression': apiKeySelectionExpression,
+      if (description != null) 'Description': description,
+      if (disableSchemaValidation != null)
+        'DisableSchemaValidation': disableSchemaValidation,
+      if (name != null) 'Name': name,
+      if (routeSelectionExpression != null)
+        'RouteSelectionExpression': routeSelectionExpression,
+      if (version != null) 'Version': version,
+    });
+    return UpdateApiResponse.fromJson(response_);
   }
 
   /// The API mapping.
@@ -885,7 +1189,14 @@ class ApiGatewayV2Api {
       String apiMappingKey,
       @required String domainName,
       String stage}) async {
-    return UpdateApiMappingResponse.fromJson({});
+    var response_ = await _client.send('UpdateApiMapping', {
+      'ApiId': apiId,
+      'ApiMappingId': apiMappingId,
+      if (apiMappingKey != null) 'ApiMappingKey': apiMappingKey,
+      'DomainName': domainName,
+      if (stage != null) 'Stage': stage,
+    });
+    return UpdateApiMappingResponse.fromJson(response_);
   }
 
   /// Updates an Authorizer.
@@ -954,7 +1265,22 @@ class ApiGatewayV2Api {
       String identityValidationExpression,
       String name,
       List<String> providerArns}) async {
-    return UpdateAuthorizerResponse.fromJson({});
+    var response_ = await _client.send('UpdateAuthorizer', {
+      'ApiId': apiId,
+      if (authorizerCredentialsArn != null)
+        'AuthorizerCredentialsArn': authorizerCredentialsArn,
+      'AuthorizerId': authorizerId,
+      if (authorizerResultTtlInSeconds != null)
+        'AuthorizerResultTtlInSeconds': authorizerResultTtlInSeconds,
+      if (authorizerType != null) 'AuthorizerType': authorizerType,
+      if (authorizerUri != null) 'AuthorizerUri': authorizerUri,
+      if (identitySource != null) 'IdentitySource': identitySource,
+      if (identityValidationExpression != null)
+        'IdentityValidationExpression': identityValidationExpression,
+      if (name != null) 'Name': name,
+      if (providerArns != null) 'ProviderArns': providerArns,
+    });
+    return UpdateAuthorizerResponse.fromJson(response_);
   }
 
   /// Updates a Deployment.
@@ -968,7 +1294,12 @@ class ApiGatewayV2Api {
       {@required String apiId,
       @required String deploymentId,
       String description}) async {
-    return UpdateDeploymentResponse.fromJson({});
+    var response_ = await _client.send('UpdateDeployment', {
+      'ApiId': apiId,
+      'DeploymentId': deploymentId,
+      if (description != null) 'Description': description,
+    });
+    return UpdateDeploymentResponse.fromJson(response_);
   }
 
   /// Updates a domain name.
@@ -978,7 +1309,12 @@ class ApiGatewayV2Api {
   /// [domainNameConfigurations]: The domain name configurations.
   Future<UpdateDomainNameResponse> updateDomainName(String domainName,
       {List<DomainNameConfiguration> domainNameConfigurations}) async {
-    return UpdateDomainNameResponse.fromJson({});
+    var response_ = await _client.send('UpdateDomainName', {
+      'DomainName': domainName,
+      if (domainNameConfigurations != null)
+        'DomainNameConfigurations': domainNameConfigurations,
+    });
+    return UpdateDomainNameResponse.fromJson(response_);
   }
 
   /// Updates an Integration.
@@ -1097,7 +1433,27 @@ class ApiGatewayV2Api {
       Map<String, String> requestTemplates,
       String templateSelectionExpression,
       int timeoutInMillis}) async {
-    return UpdateIntegrationResponse.fromJson({});
+    var response_ = await _client.send('UpdateIntegration', {
+      'ApiId': apiId,
+      if (connectionId != null) 'ConnectionId': connectionId,
+      if (connectionType != null) 'ConnectionType': connectionType,
+      if (contentHandlingStrategy != null)
+        'ContentHandlingStrategy': contentHandlingStrategy,
+      if (credentialsArn != null) 'CredentialsArn': credentialsArn,
+      if (description != null) 'Description': description,
+      'IntegrationId': integrationId,
+      if (integrationMethod != null) 'IntegrationMethod': integrationMethod,
+      if (integrationType != null) 'IntegrationType': integrationType,
+      if (integrationUri != null) 'IntegrationUri': integrationUri,
+      if (passthroughBehavior != null)
+        'PassthroughBehavior': passthroughBehavior,
+      if (requestParameters != null) 'RequestParameters': requestParameters,
+      if (requestTemplates != null) 'RequestTemplates': requestTemplates,
+      if (templateSelectionExpression != null)
+        'TemplateSelectionExpression': templateSelectionExpression,
+      if (timeoutInMillis != null) 'TimeoutInMillis': timeoutInMillis,
+    });
+    return UpdateIntegrationResponse.fromJson(response_);
   }
 
   /// Updates an IntegrationResponses.
@@ -1152,7 +1508,20 @@ class ApiGatewayV2Api {
       Map<String, String> responseParameters,
       Map<String, String> responseTemplates,
       String templateSelectionExpression}) async {
-    return UpdateIntegrationResponseResponse.fromJson({});
+    var response_ = await _client.send('UpdateIntegrationResponse', {
+      'ApiId': apiId,
+      if (contentHandlingStrategy != null)
+        'ContentHandlingStrategy': contentHandlingStrategy,
+      'IntegrationId': integrationId,
+      'IntegrationResponseId': integrationResponseId,
+      if (integrationResponseKey != null)
+        'IntegrationResponseKey': integrationResponseKey,
+      if (responseParameters != null) 'ResponseParameters': responseParameters,
+      if (responseTemplates != null) 'ResponseTemplates': responseTemplates,
+      if (templateSelectionExpression != null)
+        'TemplateSelectionExpression': templateSelectionExpression,
+    });
+    return UpdateIntegrationResponseResponse.fromJson(response_);
   }
 
   /// Updates a Model.
@@ -1177,7 +1546,15 @@ class ApiGatewayV2Api {
       @required String modelId,
       String name,
       String schema}) async {
-    return UpdateModelResponse.fromJson({});
+    var response_ = await _client.send('UpdateModel', {
+      'ApiId': apiId,
+      if (contentType != null) 'ContentType': contentType,
+      if (description != null) 'Description': description,
+      'ModelId': modelId,
+      if (name != null) 'Name': name,
+      if (schema != null) 'Schema': schema,
+    });
+    return UpdateModelResponse.fromJson(response_);
   }
 
   /// Updates a Route.
@@ -1226,7 +1603,25 @@ class ApiGatewayV2Api {
       String routeKey,
       String routeResponseSelectionExpression,
       String target}) async {
-    return UpdateRouteResponse.fromJson({});
+    var response_ = await _client.send('UpdateRoute', {
+      'ApiId': apiId,
+      if (apiKeyRequired != null) 'ApiKeyRequired': apiKeyRequired,
+      if (authorizationScopes != null)
+        'AuthorizationScopes': authorizationScopes,
+      if (authorizationType != null) 'AuthorizationType': authorizationType,
+      if (authorizerId != null) 'AuthorizerId': authorizerId,
+      if (modelSelectionExpression != null)
+        'ModelSelectionExpression': modelSelectionExpression,
+      if (operationName != null) 'OperationName': operationName,
+      if (requestModels != null) 'RequestModels': requestModels,
+      if (requestParameters != null) 'RequestParameters': requestParameters,
+      'RouteId': routeId,
+      if (routeKey != null) 'RouteKey': routeKey,
+      if (routeResponseSelectionExpression != null)
+        'RouteResponseSelectionExpression': routeResponseSelectionExpression,
+      if (target != null) 'Target': target,
+    });
+    return UpdateRouteResponse.fromJson(response_);
   }
 
   /// Updates a RouteResponse.
@@ -1253,7 +1648,17 @@ class ApiGatewayV2Api {
       @required String routeId,
       @required String routeResponseId,
       String routeResponseKey}) async {
-    return UpdateRouteResponseResponse.fromJson({});
+    var response_ = await _client.send('UpdateRouteResponse', {
+      'ApiId': apiId,
+      if (modelSelectionExpression != null)
+        'ModelSelectionExpression': modelSelectionExpression,
+      if (responseModels != null) 'ResponseModels': responseModels,
+      if (responseParameters != null) 'ResponseParameters': responseParameters,
+      'RouteId': routeId,
+      'RouteResponseId': routeResponseId,
+      if (routeResponseKey != null) 'RouteResponseKey': routeResponseKey,
+    });
+    return UpdateRouteResponseResponse.fromJson(response_);
   }
 
   /// Updates a Stage.
@@ -1287,7 +1692,20 @@ class ApiGatewayV2Api {
       Map<String, RouteSettings> routeSettings,
       @required String stageName,
       Map<String, String> stageVariables}) async {
-    return UpdateStageResponse.fromJson({});
+    var response_ = await _client.send('UpdateStage', {
+      if (accessLogSettings != null) 'AccessLogSettings': accessLogSettings,
+      'ApiId': apiId,
+      if (clientCertificateId != null)
+        'ClientCertificateId': clientCertificateId,
+      if (defaultRouteSettings != null)
+        'DefaultRouteSettings': defaultRouteSettings,
+      if (deploymentId != null) 'DeploymentId': deploymentId,
+      if (description != null) 'Description': description,
+      if (routeSettings != null) 'RouteSettings': routeSettings,
+      'StageName': stageName,
+      if (stageVariables != null) 'StageVariables': stageVariables,
+    });
+    return UpdateStageResponse.fromJson(response_);
   }
 }
 
@@ -1305,7 +1723,13 @@ class AccessLogSettings {
     this.format,
   });
   static AccessLogSettings fromJson(Map<String, dynamic> json) =>
-      AccessLogSettings();
+      AccessLogSettings(
+        destinationArn: json.containsKey('DestinationArn')
+            ? json['DestinationArn'] as String
+            : null,
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents an API.
@@ -1366,7 +1790,35 @@ class Api {
     this.warnings,
     this.tags,
   });
-  static Api fromJson(Map<String, dynamic> json) => Api();
+  static Api fromJson(Map<String, dynamic> json) => Api(
+        apiEndpoint: json.containsKey('ApiEndpoint')
+            ? json['ApiEndpoint'] as String
+            : null,
+        apiId: json.containsKey('ApiId') ? json['ApiId'] as String : null,
+        apiKeySelectionExpression: json.containsKey('ApiKeySelectionExpression')
+            ? json['ApiKeySelectionExpression'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        disableSchemaValidation: json.containsKey('DisableSchemaValidation')
+            ? json['DisableSchemaValidation'] as bool
+            : null,
+        name: json['Name'] as String,
+        protocolType: json['ProtocolType'] as String,
+        routeSelectionExpression: json['RouteSelectionExpression'] as String,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List).map((e) => e as String).toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents an API mapping.
@@ -1389,7 +1841,16 @@ class ApiMapping {
     this.apiMappingKey,
     @required this.stage,
   });
-  static ApiMapping fromJson(Map<String, dynamic> json) => ApiMapping();
+  static ApiMapping fromJson(Map<String, dynamic> json) => ApiMapping(
+        apiId: json['ApiId'] as String,
+        apiMappingId: json.containsKey('ApiMappingId')
+            ? json['ApiMappingId'] as String
+            : null,
+        apiMappingKey: json.containsKey('ApiMappingKey')
+            ? json['ApiMappingKey'] as String
+            : null,
+        stage: json['Stage'] as String,
+      );
 }
 
 /// Represents an authorizer.
@@ -1462,7 +1923,35 @@ class Authorizer {
     @required this.name,
     this.providerArns,
   });
-  static Authorizer fromJson(Map<String, dynamic> json) => Authorizer();
+  static Authorizer fromJson(Map<String, dynamic> json) => Authorizer(
+        authorizerCredentialsArn: json.containsKey('AuthorizerCredentialsArn')
+            ? json['AuthorizerCredentialsArn'] as String
+            : null,
+        authorizerId: json.containsKey('AuthorizerId')
+            ? json['AuthorizerId'] as String
+            : null,
+        authorizerResultTtlInSeconds:
+            json.containsKey('AuthorizerResultTtlInSeconds')
+                ? json['AuthorizerResultTtlInSeconds'] as int
+                : null,
+        authorizerType: json.containsKey('AuthorizerType')
+            ? json['AuthorizerType'] as String
+            : null,
+        authorizerUri: json.containsKey('AuthorizerUri')
+            ? json['AuthorizerUri'] as String
+            : null,
+        identitySource: json.containsKey('IdentitySource')
+            ? (json['IdentitySource'] as List).map((e) => e as String).toList()
+            : null,
+        identityValidationExpression:
+            json.containsKey('IdentityValidationExpression')
+                ? json['IdentityValidationExpression'] as String
+                : null,
+        name: json['Name'] as String,
+        providerArns: json.containsKey('ProviderArns')
+            ? (json['ProviderArns'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class CreateApiMappingResponse {
@@ -1485,7 +1974,16 @@ class CreateApiMappingResponse {
     this.stage,
   });
   static CreateApiMappingResponse fromJson(Map<String, dynamic> json) =>
-      CreateApiMappingResponse();
+      CreateApiMappingResponse(
+        apiId: json.containsKey('ApiId') ? json['ApiId'] as String : null,
+        apiMappingId: json.containsKey('ApiMappingId')
+            ? json['ApiMappingId'] as String
+            : null,
+        apiMappingKey: json.containsKey('ApiMappingKey')
+            ? json['ApiMappingKey'] as String
+            : null,
+        stage: json.containsKey('Stage') ? json['Stage'] as String : null,
+      );
 }
 
 class CreateApiResponse {
@@ -1546,7 +2044,39 @@ class CreateApiResponse {
     this.tags,
   });
   static CreateApiResponse fromJson(Map<String, dynamic> json) =>
-      CreateApiResponse();
+      CreateApiResponse(
+        apiEndpoint: json.containsKey('ApiEndpoint')
+            ? json['ApiEndpoint'] as String
+            : null,
+        apiId: json.containsKey('ApiId') ? json['ApiId'] as String : null,
+        apiKeySelectionExpression: json.containsKey('ApiKeySelectionExpression')
+            ? json['ApiKeySelectionExpression'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        disableSchemaValidation: json.containsKey('DisableSchemaValidation')
+            ? json['DisableSchemaValidation'] as bool
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        protocolType: json.containsKey('ProtocolType')
+            ? json['ProtocolType'] as String
+            : null,
+        routeSelectionExpression: json.containsKey('RouteSelectionExpression')
+            ? json['RouteSelectionExpression'] as String
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List).map((e) => e as String).toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateAuthorizerResponse {
@@ -1619,7 +2149,35 @@ class CreateAuthorizerResponse {
     this.providerArns,
   });
   static CreateAuthorizerResponse fromJson(Map<String, dynamic> json) =>
-      CreateAuthorizerResponse();
+      CreateAuthorizerResponse(
+        authorizerCredentialsArn: json.containsKey('AuthorizerCredentialsArn')
+            ? json['AuthorizerCredentialsArn'] as String
+            : null,
+        authorizerId: json.containsKey('AuthorizerId')
+            ? json['AuthorizerId'] as String
+            : null,
+        authorizerResultTtlInSeconds:
+            json.containsKey('AuthorizerResultTtlInSeconds')
+                ? json['AuthorizerResultTtlInSeconds'] as int
+                : null,
+        authorizerType: json.containsKey('AuthorizerType')
+            ? json['AuthorizerType'] as String
+            : null,
+        authorizerUri: json.containsKey('AuthorizerUri')
+            ? json['AuthorizerUri'] as String
+            : null,
+        identitySource: json.containsKey('IdentitySource')
+            ? (json['IdentitySource'] as List).map((e) => e as String).toList()
+            : null,
+        identityValidationExpression:
+            json.containsKey('IdentityValidationExpression')
+                ? json['IdentityValidationExpression'] as String
+                : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        providerArns: json.containsKey('ProviderArns')
+            ? (json['ProviderArns'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class CreateDeploymentResponse {
@@ -1646,7 +2204,23 @@ class CreateDeploymentResponse {
     this.description,
   });
   static CreateDeploymentResponse fromJson(Map<String, dynamic> json) =>
-      CreateDeploymentResponse();
+      CreateDeploymentResponse(
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        deploymentStatus: json.containsKey('DeploymentStatus')
+            ? json['DeploymentStatus'] as String
+            : null,
+        deploymentStatusMessage: json.containsKey('DeploymentStatusMessage')
+            ? json['DeploymentStatusMessage'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class CreateDomainNameResponse {
@@ -1671,7 +2245,24 @@ class CreateDomainNameResponse {
     this.tags,
   });
   static CreateDomainNameResponse fromJson(Map<String, dynamic> json) =>
-      CreateDomainNameResponse();
+      CreateDomainNameResponse(
+        apiMappingSelectionExpression:
+            json.containsKey('ApiMappingSelectionExpression')
+                ? json['ApiMappingSelectionExpression'] as String
+                : null,
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        domainNameConfigurations: json.containsKey('DomainNameConfigurations')
+            ? (json['DomainNameConfigurations'] as List)
+                .map((e) => DomainNameConfiguration.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateIntegrationResponse {
@@ -1803,7 +2394,57 @@ class CreateIntegrationResponse {
     this.timeoutInMillis,
   });
   static CreateIntegrationResponse fromJson(Map<String, dynamic> json) =>
-      CreateIntegrationResponse();
+      CreateIntegrationResponse(
+        connectionId: json.containsKey('ConnectionId')
+            ? json['ConnectionId'] as String
+            : null,
+        connectionType: json.containsKey('ConnectionType')
+            ? json['ConnectionType'] as String
+            : null,
+        contentHandlingStrategy: json.containsKey('ContentHandlingStrategy')
+            ? json['ContentHandlingStrategy'] as String
+            : null,
+        credentialsArn: json.containsKey('CredentialsArn')
+            ? json['CredentialsArn'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        integrationId: json.containsKey('IntegrationId')
+            ? json['IntegrationId'] as String
+            : null,
+        integrationMethod: json.containsKey('IntegrationMethod')
+            ? json['IntegrationMethod'] as String
+            : null,
+        integrationResponseSelectionExpression:
+            json.containsKey('IntegrationResponseSelectionExpression')
+                ? json['IntegrationResponseSelectionExpression'] as String
+                : null,
+        integrationType: json.containsKey('IntegrationType')
+            ? json['IntegrationType'] as String
+            : null,
+        integrationUri: json.containsKey('IntegrationUri')
+            ? json['IntegrationUri'] as String
+            : null,
+        passthroughBehavior: json.containsKey('PassthroughBehavior')
+            ? json['PassthroughBehavior'] as String
+            : null,
+        requestParameters: json.containsKey('RequestParameters')
+            ? (json['RequestParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        requestTemplates: json.containsKey('RequestTemplates')
+            ? (json['RequestTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        templateSelectionExpression:
+            json.containsKey('TemplateSelectionExpression')
+                ? json['TemplateSelectionExpression'] as String
+                : null,
+        timeoutInMillis: json.containsKey('TimeoutInMillis')
+            ? json['TimeoutInMillis'] as int
+            : null,
+      );
 }
 
 class CreateIntegrationResponseResponse {
@@ -1860,7 +2501,29 @@ class CreateIntegrationResponseResponse {
   });
   static CreateIntegrationResponseResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateIntegrationResponseResponse();
+      CreateIntegrationResponseResponse(
+        contentHandlingStrategy: json.containsKey('ContentHandlingStrategy')
+            ? json['ContentHandlingStrategy'] as String
+            : null,
+        integrationResponseId: json.containsKey('IntegrationResponseId')
+            ? json['IntegrationResponseId'] as String
+            : null,
+        integrationResponseKey: json.containsKey('IntegrationResponseKey')
+            ? json['IntegrationResponseKey'] as String
+            : null,
+        responseParameters: json.containsKey('ResponseParameters')
+            ? (json['ResponseParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseTemplates: json.containsKey('ResponseTemplates')
+            ? (json['ResponseTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        templateSelectionExpression:
+            json.containsKey('TemplateSelectionExpression')
+                ? json['TemplateSelectionExpression'] as String
+                : null,
+      );
 }
 
 class CreateModelResponse {
@@ -1888,7 +2551,17 @@ class CreateModelResponse {
     this.schema,
   });
   static CreateModelResponse fromJson(Map<String, dynamic> json) =>
-      CreateModelResponse();
+      CreateModelResponse(
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        modelId: json.containsKey('ModelId') ? json['ModelId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        schema: json.containsKey('Schema') ? json['Schema'] as String : null,
+      );
 }
 
 class CreateRouteResponse {
@@ -1954,7 +2627,44 @@ class CreateRouteResponse {
     this.target,
   });
   static CreateRouteResponse fromJson(Map<String, dynamic> json) =>
-      CreateRouteResponse();
+      CreateRouteResponse(
+        apiKeyRequired: json.containsKey('ApiKeyRequired')
+            ? json['ApiKeyRequired'] as bool
+            : null,
+        authorizationScopes: json.containsKey('AuthorizationScopes')
+            ? (json['AuthorizationScopes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        authorizationType: json.containsKey('AuthorizationType')
+            ? json['AuthorizationType'] as String
+            : null,
+        authorizerId: json.containsKey('AuthorizerId')
+            ? json['AuthorizerId'] as String
+            : null,
+        modelSelectionExpression: json.containsKey('ModelSelectionExpression')
+            ? json['ModelSelectionExpression'] as String
+            : null,
+        operationName: json.containsKey('OperationName')
+            ? json['OperationName'] as String
+            : null,
+        requestModels: json.containsKey('RequestModels')
+            ? (json['RequestModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        requestParameters: json.containsKey('RequestParameters')
+            ? (json['RequestParameters'] as Map).map((k, v) =>
+                MapEntry(k as String, ParameterConstraints.fromJson(v)))
+            : null,
+        routeId: json.containsKey('RouteId') ? json['RouteId'] as String : null,
+        routeKey:
+            json.containsKey('RouteKey') ? json['RouteKey'] as String : null,
+        routeResponseSelectionExpression:
+            json.containsKey('RouteResponseSelectionExpression')
+                ? json['RouteResponseSelectionExpression'] as String
+                : null,
+        target: json.containsKey('Target') ? json['Target'] as String : null,
+      );
 }
 
 class CreateRouteResponseResponse {
@@ -1981,7 +2691,25 @@ class CreateRouteResponseResponse {
     this.routeResponseKey,
   });
   static CreateRouteResponseResponse fromJson(Map<String, dynamic> json) =>
-      CreateRouteResponseResponse();
+      CreateRouteResponseResponse(
+        modelSelectionExpression: json.containsKey('ModelSelectionExpression')
+            ? json['ModelSelectionExpression'] as String
+            : null,
+        responseModels: json.containsKey('ResponseModels')
+            ? (json['ResponseModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseParameters: json.containsKey('ResponseParameters')
+            ? (json['ResponseParameters'] as Map).map((k, v) =>
+                MapEntry(k as String, ParameterConstraints.fromJson(v)))
+            : null,
+        routeResponseId: json.containsKey('RouteResponseId')
+            ? json['RouteResponseId'] as String
+            : null,
+        routeResponseKey: json.containsKey('RouteResponseKey')
+            ? json['RouteResponseKey'] as String
+            : null,
+      );
 }
 
 class CreateStageResponse {
@@ -2036,7 +2764,43 @@ class CreateStageResponse {
     this.tags,
   });
   static CreateStageResponse fromJson(Map<String, dynamic> json) =>
-      CreateStageResponse();
+      CreateStageResponse(
+        accessLogSettings: json.containsKey('AccessLogSettings')
+            ? AccessLogSettings.fromJson(json['AccessLogSettings'])
+            : null,
+        clientCertificateId: json.containsKey('ClientCertificateId')
+            ? json['ClientCertificateId'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        defaultRouteSettings: json.containsKey('DefaultRouteSettings')
+            ? RouteSettings.fromJson(json['DefaultRouteSettings'])
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('LastUpdatedDate')
+            ? DateTime.parse(json['LastUpdatedDate'])
+            : null,
+        routeSettings: json.containsKey('RouteSettings')
+            ? (json['RouteSettings'] as Map)
+                .map((k, v) => MapEntry(k as String, RouteSettings.fromJson(v)))
+            : null,
+        stageName:
+            json.containsKey('StageName') ? json['StageName'] as String : null,
+        stageVariables: json.containsKey('StageVariables')
+            ? (json['StageVariables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// An immutable representation of an API that can be called by users. A
@@ -2065,7 +2829,23 @@ class Deployment {
     this.deploymentStatusMessage,
     this.description,
   });
-  static Deployment fromJson(Map<String, dynamic> json) => Deployment();
+  static Deployment fromJson(Map<String, dynamic> json) => Deployment(
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        deploymentStatus: json.containsKey('DeploymentStatus')
+            ? json['DeploymentStatus'] as String
+            : null,
+        deploymentStatusMessage: json.containsKey('DeploymentStatusMessage')
+            ? json['DeploymentStatusMessage'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Represents a domain name.
@@ -2090,7 +2870,22 @@ class DomainName {
     this.domainNameConfigurations,
     this.tags,
   });
-  static DomainName fromJson(Map<String, dynamic> json) => DomainName();
+  static DomainName fromJson(Map<String, dynamic> json) => DomainName(
+        apiMappingSelectionExpression:
+            json.containsKey('ApiMappingSelectionExpression')
+                ? json['ApiMappingSelectionExpression'] as String
+                : null,
+        domainName: json['DomainName'] as String,
+        domainNameConfigurations: json.containsKey('DomainNameConfigurations')
+            ? (json['DomainNameConfigurations'] as List)
+                .map((e) => DomainNameConfiguration.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The domain name configuration.
@@ -2143,7 +2938,36 @@ class DomainNameConfiguration {
     this.domainNameStatusMessage,
   });
   static DomainNameConfiguration fromJson(Map<String, dynamic> json) =>
-      DomainNameConfiguration();
+      DomainNameConfiguration(
+        apiGatewayDomainName: json.containsKey('ApiGatewayDomainName')
+            ? json['ApiGatewayDomainName'] as String
+            : null,
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        certificateName: json.containsKey('CertificateName')
+            ? json['CertificateName'] as String
+            : null,
+        certificateUploadDate: json.containsKey('CertificateUploadDate')
+            ? DateTime.parse(json['CertificateUploadDate'])
+            : null,
+        endpointType: json.containsKey('EndpointType')
+            ? json['EndpointType'] as String
+            : null,
+        hostedZoneId: json.containsKey('HostedZoneId')
+            ? json['HostedZoneId'] as String
+            : null,
+        securityPolicy: json.containsKey('SecurityPolicy')
+            ? json['SecurityPolicy'] as String
+            : null,
+        domainNameStatus: json.containsKey('DomainNameStatus')
+            ? json['DomainNameStatus'] as String
+            : null,
+        domainNameStatusMessage: json.containsKey('DomainNameStatusMessage')
+            ? json['DomainNameStatusMessage'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetApiMappingResponse {
@@ -2166,7 +2990,16 @@ class GetApiMappingResponse {
     this.stage,
   });
   static GetApiMappingResponse fromJson(Map<String, dynamic> json) =>
-      GetApiMappingResponse();
+      GetApiMappingResponse(
+        apiId: json.containsKey('ApiId') ? json['ApiId'] as String : null,
+        apiMappingId: json.containsKey('ApiMappingId')
+            ? json['ApiMappingId'] as String
+            : null,
+        apiMappingKey: json.containsKey('ApiMappingKey')
+            ? json['ApiMappingKey'] as String
+            : null,
+        stage: json.containsKey('Stage') ? json['Stage'] as String : null,
+      );
 }
 
 class GetApiMappingsResponse {
@@ -2182,7 +3015,15 @@ class GetApiMappingsResponse {
     this.nextToken,
   });
   static GetApiMappingsResponse fromJson(Map<String, dynamic> json) =>
-      GetApiMappingsResponse();
+      GetApiMappingsResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => ApiMapping.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetApiResponse {
@@ -2242,7 +3083,39 @@ class GetApiResponse {
     this.warnings,
     this.tags,
   });
-  static GetApiResponse fromJson(Map<String, dynamic> json) => GetApiResponse();
+  static GetApiResponse fromJson(Map<String, dynamic> json) => GetApiResponse(
+        apiEndpoint: json.containsKey('ApiEndpoint')
+            ? json['ApiEndpoint'] as String
+            : null,
+        apiId: json.containsKey('ApiId') ? json['ApiId'] as String : null,
+        apiKeySelectionExpression: json.containsKey('ApiKeySelectionExpression')
+            ? json['ApiKeySelectionExpression'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        disableSchemaValidation: json.containsKey('DisableSchemaValidation')
+            ? json['DisableSchemaValidation'] as bool
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        protocolType: json.containsKey('ProtocolType')
+            ? json['ProtocolType'] as String
+            : null,
+        routeSelectionExpression: json.containsKey('RouteSelectionExpression')
+            ? json['RouteSelectionExpression'] as String
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List).map((e) => e as String).toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetApisResponse {
@@ -2257,8 +3130,13 @@ class GetApisResponse {
     this.items,
     this.nextToken,
   });
-  static GetApisResponse fromJson(Map<String, dynamic> json) =>
-      GetApisResponse();
+  static GetApisResponse fromJson(Map<String, dynamic> json) => GetApisResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => Api.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetAuthorizerResponse {
@@ -2331,7 +3209,35 @@ class GetAuthorizerResponse {
     this.providerArns,
   });
   static GetAuthorizerResponse fromJson(Map<String, dynamic> json) =>
-      GetAuthorizerResponse();
+      GetAuthorizerResponse(
+        authorizerCredentialsArn: json.containsKey('AuthorizerCredentialsArn')
+            ? json['AuthorizerCredentialsArn'] as String
+            : null,
+        authorizerId: json.containsKey('AuthorizerId')
+            ? json['AuthorizerId'] as String
+            : null,
+        authorizerResultTtlInSeconds:
+            json.containsKey('AuthorizerResultTtlInSeconds')
+                ? json['AuthorizerResultTtlInSeconds'] as int
+                : null,
+        authorizerType: json.containsKey('AuthorizerType')
+            ? json['AuthorizerType'] as String
+            : null,
+        authorizerUri: json.containsKey('AuthorizerUri')
+            ? json['AuthorizerUri'] as String
+            : null,
+        identitySource: json.containsKey('IdentitySource')
+            ? (json['IdentitySource'] as List).map((e) => e as String).toList()
+            : null,
+        identityValidationExpression:
+            json.containsKey('IdentityValidationExpression')
+                ? json['IdentityValidationExpression'] as String
+                : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        providerArns: json.containsKey('ProviderArns')
+            ? (json['ProviderArns'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class GetAuthorizersResponse {
@@ -2347,7 +3253,15 @@ class GetAuthorizersResponse {
     this.nextToken,
   });
   static GetAuthorizersResponse fromJson(Map<String, dynamic> json) =>
-      GetAuthorizersResponse();
+      GetAuthorizersResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => Authorizer.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetDeploymentResponse {
@@ -2374,7 +3288,23 @@ class GetDeploymentResponse {
     this.description,
   });
   static GetDeploymentResponse fromJson(Map<String, dynamic> json) =>
-      GetDeploymentResponse();
+      GetDeploymentResponse(
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        deploymentStatus: json.containsKey('DeploymentStatus')
+            ? json['DeploymentStatus'] as String
+            : null,
+        deploymentStatusMessage: json.containsKey('DeploymentStatusMessage')
+            ? json['DeploymentStatusMessage'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class GetDeploymentsResponse {
@@ -2390,7 +3320,15 @@ class GetDeploymentsResponse {
     this.nextToken,
   });
   static GetDeploymentsResponse fromJson(Map<String, dynamic> json) =>
-      GetDeploymentsResponse();
+      GetDeploymentsResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => Deployment.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetDomainNameResponse {
@@ -2415,7 +3353,24 @@ class GetDomainNameResponse {
     this.tags,
   });
   static GetDomainNameResponse fromJson(Map<String, dynamic> json) =>
-      GetDomainNameResponse();
+      GetDomainNameResponse(
+        apiMappingSelectionExpression:
+            json.containsKey('ApiMappingSelectionExpression')
+                ? json['ApiMappingSelectionExpression'] as String
+                : null,
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        domainNameConfigurations: json.containsKey('DomainNameConfigurations')
+            ? (json['DomainNameConfigurations'] as List)
+                .map((e) => DomainNameConfiguration.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetDomainNamesResponse {
@@ -2431,7 +3386,15 @@ class GetDomainNamesResponse {
     this.nextToken,
   });
   static GetDomainNamesResponse fromJson(Map<String, dynamic> json) =>
-      GetDomainNamesResponse();
+      GetDomainNamesResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => DomainName.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetIntegrationResponse {
@@ -2563,7 +3526,57 @@ class GetIntegrationResponse {
     this.timeoutInMillis,
   });
   static GetIntegrationResponse fromJson(Map<String, dynamic> json) =>
-      GetIntegrationResponse();
+      GetIntegrationResponse(
+        connectionId: json.containsKey('ConnectionId')
+            ? json['ConnectionId'] as String
+            : null,
+        connectionType: json.containsKey('ConnectionType')
+            ? json['ConnectionType'] as String
+            : null,
+        contentHandlingStrategy: json.containsKey('ContentHandlingStrategy')
+            ? json['ContentHandlingStrategy'] as String
+            : null,
+        credentialsArn: json.containsKey('CredentialsArn')
+            ? json['CredentialsArn'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        integrationId: json.containsKey('IntegrationId')
+            ? json['IntegrationId'] as String
+            : null,
+        integrationMethod: json.containsKey('IntegrationMethod')
+            ? json['IntegrationMethod'] as String
+            : null,
+        integrationResponseSelectionExpression:
+            json.containsKey('IntegrationResponseSelectionExpression')
+                ? json['IntegrationResponseSelectionExpression'] as String
+                : null,
+        integrationType: json.containsKey('IntegrationType')
+            ? json['IntegrationType'] as String
+            : null,
+        integrationUri: json.containsKey('IntegrationUri')
+            ? json['IntegrationUri'] as String
+            : null,
+        passthroughBehavior: json.containsKey('PassthroughBehavior')
+            ? json['PassthroughBehavior'] as String
+            : null,
+        requestParameters: json.containsKey('RequestParameters')
+            ? (json['RequestParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        requestTemplates: json.containsKey('RequestTemplates')
+            ? (json['RequestTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        templateSelectionExpression:
+            json.containsKey('TemplateSelectionExpression')
+                ? json['TemplateSelectionExpression'] as String
+                : null,
+        timeoutInMillis: json.containsKey('TimeoutInMillis')
+            ? json['TimeoutInMillis'] as int
+            : null,
+      );
 }
 
 class GetIntegrationResponseResponse {
@@ -2619,7 +3632,29 @@ class GetIntegrationResponseResponse {
     this.templateSelectionExpression,
   });
   static GetIntegrationResponseResponse fromJson(Map<String, dynamic> json) =>
-      GetIntegrationResponseResponse();
+      GetIntegrationResponseResponse(
+        contentHandlingStrategy: json.containsKey('ContentHandlingStrategy')
+            ? json['ContentHandlingStrategy'] as String
+            : null,
+        integrationResponseId: json.containsKey('IntegrationResponseId')
+            ? json['IntegrationResponseId'] as String
+            : null,
+        integrationResponseKey: json.containsKey('IntegrationResponseKey')
+            ? json['IntegrationResponseKey'] as String
+            : null,
+        responseParameters: json.containsKey('ResponseParameters')
+            ? (json['ResponseParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseTemplates: json.containsKey('ResponseTemplates')
+            ? (json['ResponseTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        templateSelectionExpression:
+            json.containsKey('TemplateSelectionExpression')
+                ? json['TemplateSelectionExpression'] as String
+                : null,
+      );
 }
 
 class GetIntegrationResponsesResponse {
@@ -2635,7 +3670,15 @@ class GetIntegrationResponsesResponse {
     this.nextToken,
   });
   static GetIntegrationResponsesResponse fromJson(Map<String, dynamic> json) =>
-      GetIntegrationResponsesResponse();
+      GetIntegrationResponsesResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => IntegrationResponse.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetIntegrationsResponse {
@@ -2651,7 +3694,15 @@ class GetIntegrationsResponse {
     this.nextToken,
   });
   static GetIntegrationsResponse fromJson(Map<String, dynamic> json) =>
-      GetIntegrationsResponse();
+      GetIntegrationsResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => Integration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetModelResponse {
@@ -2679,7 +3730,17 @@ class GetModelResponse {
     this.schema,
   });
   static GetModelResponse fromJson(Map<String, dynamic> json) =>
-      GetModelResponse();
+      GetModelResponse(
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        modelId: json.containsKey('ModelId') ? json['ModelId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        schema: json.containsKey('Schema') ? json['Schema'] as String : null,
+      );
 }
 
 class GetModelTemplateResponse {
@@ -2690,7 +3751,9 @@ class GetModelTemplateResponse {
     this.value,
   });
   static GetModelTemplateResponse fromJson(Map<String, dynamic> json) =>
-      GetModelTemplateResponse();
+      GetModelTemplateResponse(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 class GetModelsResponse {
@@ -2706,7 +3769,13 @@ class GetModelsResponse {
     this.nextToken,
   });
   static GetModelsResponse fromJson(Map<String, dynamic> json) =>
-      GetModelsResponse();
+      GetModelsResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => Model.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetRouteResponse {
@@ -2772,7 +3841,44 @@ class GetRouteResponse {
     this.target,
   });
   static GetRouteResponse fromJson(Map<String, dynamic> json) =>
-      GetRouteResponse();
+      GetRouteResponse(
+        apiKeyRequired: json.containsKey('ApiKeyRequired')
+            ? json['ApiKeyRequired'] as bool
+            : null,
+        authorizationScopes: json.containsKey('AuthorizationScopes')
+            ? (json['AuthorizationScopes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        authorizationType: json.containsKey('AuthorizationType')
+            ? json['AuthorizationType'] as String
+            : null,
+        authorizerId: json.containsKey('AuthorizerId')
+            ? json['AuthorizerId'] as String
+            : null,
+        modelSelectionExpression: json.containsKey('ModelSelectionExpression')
+            ? json['ModelSelectionExpression'] as String
+            : null,
+        operationName: json.containsKey('OperationName')
+            ? json['OperationName'] as String
+            : null,
+        requestModels: json.containsKey('RequestModels')
+            ? (json['RequestModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        requestParameters: json.containsKey('RequestParameters')
+            ? (json['RequestParameters'] as Map).map((k, v) =>
+                MapEntry(k as String, ParameterConstraints.fromJson(v)))
+            : null,
+        routeId: json.containsKey('RouteId') ? json['RouteId'] as String : null,
+        routeKey:
+            json.containsKey('RouteKey') ? json['RouteKey'] as String : null,
+        routeResponseSelectionExpression:
+            json.containsKey('RouteResponseSelectionExpression')
+                ? json['RouteResponseSelectionExpression'] as String
+                : null,
+        target: json.containsKey('Target') ? json['Target'] as String : null,
+      );
 }
 
 class GetRouteResponseResponse {
@@ -2799,7 +3905,25 @@ class GetRouteResponseResponse {
     this.routeResponseKey,
   });
   static GetRouteResponseResponse fromJson(Map<String, dynamic> json) =>
-      GetRouteResponseResponse();
+      GetRouteResponseResponse(
+        modelSelectionExpression: json.containsKey('ModelSelectionExpression')
+            ? json['ModelSelectionExpression'] as String
+            : null,
+        responseModels: json.containsKey('ResponseModels')
+            ? (json['ResponseModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseParameters: json.containsKey('ResponseParameters')
+            ? (json['ResponseParameters'] as Map).map((k, v) =>
+                MapEntry(k as String, ParameterConstraints.fromJson(v)))
+            : null,
+        routeResponseId: json.containsKey('RouteResponseId')
+            ? json['RouteResponseId'] as String
+            : null,
+        routeResponseKey: json.containsKey('RouteResponseKey')
+            ? json['RouteResponseKey'] as String
+            : null,
+      );
 }
 
 class GetRouteResponsesResponse {
@@ -2815,7 +3939,15 @@ class GetRouteResponsesResponse {
     this.nextToken,
   });
   static GetRouteResponsesResponse fromJson(Map<String, dynamic> json) =>
-      GetRouteResponsesResponse();
+      GetRouteResponsesResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => RouteResponse.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetRoutesResponse {
@@ -2831,7 +3963,13 @@ class GetRoutesResponse {
     this.nextToken,
   });
   static GetRoutesResponse fromJson(Map<String, dynamic> json) =>
-      GetRoutesResponse();
+      GetRoutesResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => Route.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetStageResponse {
@@ -2886,7 +4024,43 @@ class GetStageResponse {
     this.tags,
   });
   static GetStageResponse fromJson(Map<String, dynamic> json) =>
-      GetStageResponse();
+      GetStageResponse(
+        accessLogSettings: json.containsKey('AccessLogSettings')
+            ? AccessLogSettings.fromJson(json['AccessLogSettings'])
+            : null,
+        clientCertificateId: json.containsKey('ClientCertificateId')
+            ? json['ClientCertificateId'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        defaultRouteSettings: json.containsKey('DefaultRouteSettings')
+            ? RouteSettings.fromJson(json['DefaultRouteSettings'])
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('LastUpdatedDate')
+            ? DateTime.parse(json['LastUpdatedDate'])
+            : null,
+        routeSettings: json.containsKey('RouteSettings')
+            ? (json['RouteSettings'] as Map)
+                .map((k, v) => MapEntry(k as String, RouteSettings.fromJson(v)))
+            : null,
+        stageName:
+            json.containsKey('StageName') ? json['StageName'] as String : null,
+        stageVariables: json.containsKey('StageVariables')
+            ? (json['StageVariables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetStagesResponse {
@@ -2902,7 +4076,13 @@ class GetStagesResponse {
     this.nextToken,
   });
   static GetStagesResponse fromJson(Map<String, dynamic> json) =>
-      GetStagesResponse();
+      GetStagesResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => Stage.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Represents an integration.
@@ -3034,7 +4214,57 @@ class Integration {
     this.templateSelectionExpression,
     this.timeoutInMillis,
   });
-  static Integration fromJson(Map<String, dynamic> json) => Integration();
+  static Integration fromJson(Map<String, dynamic> json) => Integration(
+        connectionId: json.containsKey('ConnectionId')
+            ? json['ConnectionId'] as String
+            : null,
+        connectionType: json.containsKey('ConnectionType')
+            ? json['ConnectionType'] as String
+            : null,
+        contentHandlingStrategy: json.containsKey('ContentHandlingStrategy')
+            ? json['ContentHandlingStrategy'] as String
+            : null,
+        credentialsArn: json.containsKey('CredentialsArn')
+            ? json['CredentialsArn'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        integrationId: json.containsKey('IntegrationId')
+            ? json['IntegrationId'] as String
+            : null,
+        integrationMethod: json.containsKey('IntegrationMethod')
+            ? json['IntegrationMethod'] as String
+            : null,
+        integrationResponseSelectionExpression:
+            json.containsKey('IntegrationResponseSelectionExpression')
+                ? json['IntegrationResponseSelectionExpression'] as String
+                : null,
+        integrationType: json.containsKey('IntegrationType')
+            ? json['IntegrationType'] as String
+            : null,
+        integrationUri: json.containsKey('IntegrationUri')
+            ? json['IntegrationUri'] as String
+            : null,
+        passthroughBehavior: json.containsKey('PassthroughBehavior')
+            ? json['PassthroughBehavior'] as String
+            : null,
+        requestParameters: json.containsKey('RequestParameters')
+            ? (json['RequestParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        requestTemplates: json.containsKey('RequestTemplates')
+            ? (json['RequestTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        templateSelectionExpression:
+            json.containsKey('TemplateSelectionExpression')
+                ? json['TemplateSelectionExpression'] as String
+                : null,
+        timeoutInMillis: json.containsKey('TimeoutInMillis')
+            ? json['TimeoutInMillis'] as int
+            : null,
+      );
 }
 
 /// Represents an integration response.
@@ -3091,7 +4321,27 @@ class IntegrationResponse {
     this.templateSelectionExpression,
   });
   static IntegrationResponse fromJson(Map<String, dynamic> json) =>
-      IntegrationResponse();
+      IntegrationResponse(
+        contentHandlingStrategy: json.containsKey('ContentHandlingStrategy')
+            ? json['ContentHandlingStrategy'] as String
+            : null,
+        integrationResponseId: json.containsKey('IntegrationResponseId')
+            ? json['IntegrationResponseId'] as String
+            : null,
+        integrationResponseKey: json['IntegrationResponseKey'] as String,
+        responseParameters: json.containsKey('ResponseParameters')
+            ? (json['ResponseParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseTemplates: json.containsKey('ResponseTemplates')
+            ? (json['ResponseTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        templateSelectionExpression:
+            json.containsKey('TemplateSelectionExpression')
+                ? json['TemplateSelectionExpression'] as String
+                : null,
+      );
 }
 
 class GetTagsResponse {
@@ -3100,8 +4350,12 @@ class GetTagsResponse {
   GetTagsResponse({
     this.tags,
   });
-  static GetTagsResponse fromJson(Map<String, dynamic> json) =>
-      GetTagsResponse();
+  static GetTagsResponse fromJson(Map<String, dynamic> json) => GetTagsResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents a data model for an API. See
@@ -3130,7 +4384,17 @@ class Model {
     @required this.name,
     this.schema,
   });
-  static Model fromJson(Map<String, dynamic> json) => Model();
+  static Model fromJson(Map<String, dynamic> json) => Model(
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        modelId: json.containsKey('ModelId') ? json['ModelId'] as String : null,
+        name: json['Name'] as String,
+        schema: json.containsKey('Schema') ? json['Schema'] as String : null,
+      );
 }
 
 /// Validation constraints imposed on parameters of a request (path, query
@@ -3143,7 +4407,11 @@ class ParameterConstraints {
     this.isRequired,
   });
   static ParameterConstraints fromJson(Map<String, dynamic> json) =>
-      ParameterConstraints();
+      ParameterConstraints(
+        isRequired:
+            json.containsKey('Required') ? json['Required'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a route.
@@ -3209,7 +4477,43 @@ class Route {
     this.routeResponseSelectionExpression,
     this.target,
   });
-  static Route fromJson(Map<String, dynamic> json) => Route();
+  static Route fromJson(Map<String, dynamic> json) => Route(
+        apiKeyRequired: json.containsKey('ApiKeyRequired')
+            ? json['ApiKeyRequired'] as bool
+            : null,
+        authorizationScopes: json.containsKey('AuthorizationScopes')
+            ? (json['AuthorizationScopes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        authorizationType: json.containsKey('AuthorizationType')
+            ? json['AuthorizationType'] as String
+            : null,
+        authorizerId: json.containsKey('AuthorizerId')
+            ? json['AuthorizerId'] as String
+            : null,
+        modelSelectionExpression: json.containsKey('ModelSelectionExpression')
+            ? json['ModelSelectionExpression'] as String
+            : null,
+        operationName: json.containsKey('OperationName')
+            ? json['OperationName'] as String
+            : null,
+        requestModels: json.containsKey('RequestModels')
+            ? (json['RequestModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        requestParameters: json.containsKey('RequestParameters')
+            ? (json['RequestParameters'] as Map).map((k, v) =>
+                MapEntry(k as String, ParameterConstraints.fromJson(v)))
+            : null,
+        routeId: json.containsKey('RouteId') ? json['RouteId'] as String : null,
+        routeKey: json['RouteKey'] as String,
+        routeResponseSelectionExpression:
+            json.containsKey('RouteResponseSelectionExpression')
+                ? json['RouteResponseSelectionExpression'] as String
+                : null,
+        target: json.containsKey('Target') ? json['Target'] as String : null,
+      );
 }
 
 /// Represents a route response.
@@ -3236,7 +4540,23 @@ class RouteResponse {
     this.routeResponseId,
     @required this.routeResponseKey,
   });
-  static RouteResponse fromJson(Map<String, dynamic> json) => RouteResponse();
+  static RouteResponse fromJson(Map<String, dynamic> json) => RouteResponse(
+        modelSelectionExpression: json.containsKey('ModelSelectionExpression')
+            ? json['ModelSelectionExpression'] as String
+            : null,
+        responseModels: json.containsKey('ResponseModels')
+            ? (json['ResponseModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseParameters: json.containsKey('ResponseParameters')
+            ? (json['ResponseParameters'] as Map).map((k, v) =>
+                MapEntry(k as String, ParameterConstraints.fromJson(v)))
+            : null,
+        routeResponseId: json.containsKey('RouteResponseId')
+            ? json['RouteResponseId'] as String
+            : null,
+        routeResponseKey: json['RouteResponseKey'] as String,
+      );
 }
 
 /// Represents a collection of route settings.
@@ -3266,7 +4586,24 @@ class RouteSettings {
     this.throttlingBurstLimit,
     this.throttlingRateLimit,
   });
-  static RouteSettings fromJson(Map<String, dynamic> json) => RouteSettings();
+  static RouteSettings fromJson(Map<String, dynamic> json) => RouteSettings(
+        dataTraceEnabled: json.containsKey('DataTraceEnabled')
+            ? json['DataTraceEnabled'] as bool
+            : null,
+        detailedMetricsEnabled: json.containsKey('DetailedMetricsEnabled')
+            ? json['DetailedMetricsEnabled'] as bool
+            : null,
+        loggingLevel: json.containsKey('LoggingLevel')
+            ? json['LoggingLevel'] as String
+            : null,
+        throttlingBurstLimit: json.containsKey('ThrottlingBurstLimit')
+            ? json['ThrottlingBurstLimit'] as int
+            : null,
+        throttlingRateLimit: json.containsKey('ThrottlingRateLimit')
+            ? json['ThrottlingRateLimit'] as double
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents an API stage.
@@ -3321,7 +4658,42 @@ class Stage {
     this.stageVariables,
     this.tags,
   });
-  static Stage fromJson(Map<String, dynamic> json) => Stage();
+  static Stage fromJson(Map<String, dynamic> json) => Stage(
+        accessLogSettings: json.containsKey('AccessLogSettings')
+            ? AccessLogSettings.fromJson(json['AccessLogSettings'])
+            : null,
+        clientCertificateId: json.containsKey('ClientCertificateId')
+            ? json['ClientCertificateId'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        defaultRouteSettings: json.containsKey('DefaultRouteSettings')
+            ? RouteSettings.fromJson(json['DefaultRouteSettings'])
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('LastUpdatedDate')
+            ? DateTime.parse(json['LastUpdatedDate'])
+            : null,
+        routeSettings: json.containsKey('RouteSettings')
+            ? (json['RouteSettings'] as Map)
+                .map((k, v) => MapEntry(k as String, RouteSettings.fromJson(v)))
+            : null,
+        stageName: json['StageName'] as String,
+        stageVariables: json.containsKey('StageVariables')
+            ? (json['StageVariables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class TagResourceResponse {
@@ -3350,7 +4722,16 @@ class UpdateApiMappingResponse {
     this.stage,
   });
   static UpdateApiMappingResponse fromJson(Map<String, dynamic> json) =>
-      UpdateApiMappingResponse();
+      UpdateApiMappingResponse(
+        apiId: json.containsKey('ApiId') ? json['ApiId'] as String : null,
+        apiMappingId: json.containsKey('ApiMappingId')
+            ? json['ApiMappingId'] as String
+            : null,
+        apiMappingKey: json.containsKey('ApiMappingKey')
+            ? json['ApiMappingKey'] as String
+            : null,
+        stage: json.containsKey('Stage') ? json['Stage'] as String : null,
+      );
 }
 
 class UpdateApiResponse {
@@ -3411,7 +4792,39 @@ class UpdateApiResponse {
     this.tags,
   });
   static UpdateApiResponse fromJson(Map<String, dynamic> json) =>
-      UpdateApiResponse();
+      UpdateApiResponse(
+        apiEndpoint: json.containsKey('ApiEndpoint')
+            ? json['ApiEndpoint'] as String
+            : null,
+        apiId: json.containsKey('ApiId') ? json['ApiId'] as String : null,
+        apiKeySelectionExpression: json.containsKey('ApiKeySelectionExpression')
+            ? json['ApiKeySelectionExpression'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        disableSchemaValidation: json.containsKey('DisableSchemaValidation')
+            ? json['DisableSchemaValidation'] as bool
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        protocolType: json.containsKey('ProtocolType')
+            ? json['ProtocolType'] as String
+            : null,
+        routeSelectionExpression: json.containsKey('RouteSelectionExpression')
+            ? json['RouteSelectionExpression'] as String
+            : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List).map((e) => e as String).toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class UpdateAuthorizerResponse {
@@ -3484,7 +4897,35 @@ class UpdateAuthorizerResponse {
     this.providerArns,
   });
   static UpdateAuthorizerResponse fromJson(Map<String, dynamic> json) =>
-      UpdateAuthorizerResponse();
+      UpdateAuthorizerResponse(
+        authorizerCredentialsArn: json.containsKey('AuthorizerCredentialsArn')
+            ? json['AuthorizerCredentialsArn'] as String
+            : null,
+        authorizerId: json.containsKey('AuthorizerId')
+            ? json['AuthorizerId'] as String
+            : null,
+        authorizerResultTtlInSeconds:
+            json.containsKey('AuthorizerResultTtlInSeconds')
+                ? json['AuthorizerResultTtlInSeconds'] as int
+                : null,
+        authorizerType: json.containsKey('AuthorizerType')
+            ? json['AuthorizerType'] as String
+            : null,
+        authorizerUri: json.containsKey('AuthorizerUri')
+            ? json['AuthorizerUri'] as String
+            : null,
+        identitySource: json.containsKey('IdentitySource')
+            ? (json['IdentitySource'] as List).map((e) => e as String).toList()
+            : null,
+        identityValidationExpression:
+            json.containsKey('IdentityValidationExpression')
+                ? json['IdentityValidationExpression'] as String
+                : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        providerArns: json.containsKey('ProviderArns')
+            ? (json['ProviderArns'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class UpdateDeploymentResponse {
@@ -3511,7 +4952,23 @@ class UpdateDeploymentResponse {
     this.description,
   });
   static UpdateDeploymentResponse fromJson(Map<String, dynamic> json) =>
-      UpdateDeploymentResponse();
+      UpdateDeploymentResponse(
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        deploymentStatus: json.containsKey('DeploymentStatus')
+            ? json['DeploymentStatus'] as String
+            : null,
+        deploymentStatusMessage: json.containsKey('DeploymentStatusMessage')
+            ? json['DeploymentStatusMessage'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class UpdateDomainNameResponse {
@@ -3536,7 +4993,24 @@ class UpdateDomainNameResponse {
     this.tags,
   });
   static UpdateDomainNameResponse fromJson(Map<String, dynamic> json) =>
-      UpdateDomainNameResponse();
+      UpdateDomainNameResponse(
+        apiMappingSelectionExpression:
+            json.containsKey('ApiMappingSelectionExpression')
+                ? json['ApiMappingSelectionExpression'] as String
+                : null,
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        domainNameConfigurations: json.containsKey('DomainNameConfigurations')
+            ? (json['DomainNameConfigurations'] as List)
+                .map((e) => DomainNameConfiguration.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class UpdateIntegrationResponse {
@@ -3668,7 +5142,57 @@ class UpdateIntegrationResponse {
     this.timeoutInMillis,
   });
   static UpdateIntegrationResponse fromJson(Map<String, dynamic> json) =>
-      UpdateIntegrationResponse();
+      UpdateIntegrationResponse(
+        connectionId: json.containsKey('ConnectionId')
+            ? json['ConnectionId'] as String
+            : null,
+        connectionType: json.containsKey('ConnectionType')
+            ? json['ConnectionType'] as String
+            : null,
+        contentHandlingStrategy: json.containsKey('ContentHandlingStrategy')
+            ? json['ContentHandlingStrategy'] as String
+            : null,
+        credentialsArn: json.containsKey('CredentialsArn')
+            ? json['CredentialsArn'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        integrationId: json.containsKey('IntegrationId')
+            ? json['IntegrationId'] as String
+            : null,
+        integrationMethod: json.containsKey('IntegrationMethod')
+            ? json['IntegrationMethod'] as String
+            : null,
+        integrationResponseSelectionExpression:
+            json.containsKey('IntegrationResponseSelectionExpression')
+                ? json['IntegrationResponseSelectionExpression'] as String
+                : null,
+        integrationType: json.containsKey('IntegrationType')
+            ? json['IntegrationType'] as String
+            : null,
+        integrationUri: json.containsKey('IntegrationUri')
+            ? json['IntegrationUri'] as String
+            : null,
+        passthroughBehavior: json.containsKey('PassthroughBehavior')
+            ? json['PassthroughBehavior'] as String
+            : null,
+        requestParameters: json.containsKey('RequestParameters')
+            ? (json['RequestParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        requestTemplates: json.containsKey('RequestTemplates')
+            ? (json['RequestTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        templateSelectionExpression:
+            json.containsKey('TemplateSelectionExpression')
+                ? json['TemplateSelectionExpression'] as String
+                : null,
+        timeoutInMillis: json.containsKey('TimeoutInMillis')
+            ? json['TimeoutInMillis'] as int
+            : null,
+      );
 }
 
 class UpdateIntegrationResponseResponse {
@@ -3725,7 +5249,29 @@ class UpdateIntegrationResponseResponse {
   });
   static UpdateIntegrationResponseResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateIntegrationResponseResponse();
+      UpdateIntegrationResponseResponse(
+        contentHandlingStrategy: json.containsKey('ContentHandlingStrategy')
+            ? json['ContentHandlingStrategy'] as String
+            : null,
+        integrationResponseId: json.containsKey('IntegrationResponseId')
+            ? json['IntegrationResponseId'] as String
+            : null,
+        integrationResponseKey: json.containsKey('IntegrationResponseKey')
+            ? json['IntegrationResponseKey'] as String
+            : null,
+        responseParameters: json.containsKey('ResponseParameters')
+            ? (json['ResponseParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseTemplates: json.containsKey('ResponseTemplates')
+            ? (json['ResponseTemplates'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        templateSelectionExpression:
+            json.containsKey('TemplateSelectionExpression')
+                ? json['TemplateSelectionExpression'] as String
+                : null,
+      );
 }
 
 class UpdateModelResponse {
@@ -3753,7 +5299,17 @@ class UpdateModelResponse {
     this.schema,
   });
   static UpdateModelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateModelResponse();
+      UpdateModelResponse(
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        modelId: json.containsKey('ModelId') ? json['ModelId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        schema: json.containsKey('Schema') ? json['Schema'] as String : null,
+      );
 }
 
 class UpdateRouteResponse {
@@ -3819,7 +5375,44 @@ class UpdateRouteResponse {
     this.target,
   });
   static UpdateRouteResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRouteResponse();
+      UpdateRouteResponse(
+        apiKeyRequired: json.containsKey('ApiKeyRequired')
+            ? json['ApiKeyRequired'] as bool
+            : null,
+        authorizationScopes: json.containsKey('AuthorizationScopes')
+            ? (json['AuthorizationScopes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        authorizationType: json.containsKey('AuthorizationType')
+            ? json['AuthorizationType'] as String
+            : null,
+        authorizerId: json.containsKey('AuthorizerId')
+            ? json['AuthorizerId'] as String
+            : null,
+        modelSelectionExpression: json.containsKey('ModelSelectionExpression')
+            ? json['ModelSelectionExpression'] as String
+            : null,
+        operationName: json.containsKey('OperationName')
+            ? json['OperationName'] as String
+            : null,
+        requestModels: json.containsKey('RequestModels')
+            ? (json['RequestModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        requestParameters: json.containsKey('RequestParameters')
+            ? (json['RequestParameters'] as Map).map((k, v) =>
+                MapEntry(k as String, ParameterConstraints.fromJson(v)))
+            : null,
+        routeId: json.containsKey('RouteId') ? json['RouteId'] as String : null,
+        routeKey:
+            json.containsKey('RouteKey') ? json['RouteKey'] as String : null,
+        routeResponseSelectionExpression:
+            json.containsKey('RouteResponseSelectionExpression')
+                ? json['RouteResponseSelectionExpression'] as String
+                : null,
+        target: json.containsKey('Target') ? json['Target'] as String : null,
+      );
 }
 
 class UpdateRouteResponseResponse {
@@ -3846,7 +5439,25 @@ class UpdateRouteResponseResponse {
     this.routeResponseKey,
   });
   static UpdateRouteResponseResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRouteResponseResponse();
+      UpdateRouteResponseResponse(
+        modelSelectionExpression: json.containsKey('ModelSelectionExpression')
+            ? json['ModelSelectionExpression'] as String
+            : null,
+        responseModels: json.containsKey('ResponseModels')
+            ? (json['ResponseModels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        responseParameters: json.containsKey('ResponseParameters')
+            ? (json['ResponseParameters'] as Map).map((k, v) =>
+                MapEntry(k as String, ParameterConstraints.fromJson(v)))
+            : null,
+        routeResponseId: json.containsKey('RouteResponseId')
+            ? json['RouteResponseId'] as String
+            : null,
+        routeResponseKey: json.containsKey('RouteResponseKey')
+            ? json['RouteResponseKey'] as String
+            : null,
+      );
 }
 
 class UpdateStageResponse {
@@ -3901,5 +5512,41 @@ class UpdateStageResponse {
     this.tags,
   });
   static UpdateStageResponse fromJson(Map<String, dynamic> json) =>
-      UpdateStageResponse();
+      UpdateStageResponse(
+        accessLogSettings: json.containsKey('AccessLogSettings')
+            ? AccessLogSettings.fromJson(json['AccessLogSettings'])
+            : null,
+        clientCertificateId: json.containsKey('ClientCertificateId')
+            ? json['ClientCertificateId'] as String
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        defaultRouteSettings: json.containsKey('DefaultRouteSettings')
+            ? RouteSettings.fromJson(json['DefaultRouteSettings'])
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? json['DeploymentId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('LastUpdatedDate')
+            ? DateTime.parse(json['LastUpdatedDate'])
+            : null,
+        routeSettings: json.containsKey('RouteSettings')
+            ? (json['RouteSettings'] as Map)
+                .map((k, v) => MapEntry(k as String, RouteSettings.fromJson(v)))
+            : null,
+        stageName:
+            json.containsKey('StageName') ? json['StageName'] as String : null,
+        stageVariables: json.containsKey('StageVariables')
+            ? (json['StageVariables'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }

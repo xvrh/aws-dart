@@ -16,6 +16,10 @@ import 'package:meta/meta.dart';
 /// and the
 /// [AWS CloudHSM API Reference](http://docs.aws.amazon.com/cloudhsm/latest/APIReference/).
 class CloudHsmApi {
+  final _client;
+  CloudHsmApi(client)
+      : _client = client.configured('CloudHSM', serializer: 'json');
+
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
   /// see
   /// [AWS CloudHSM Classic FAQs](http://aws.amazon.com/cloudhsm/faqs-classic/),
@@ -42,7 +46,11 @@ class CloudHsmApi {
   /// [tagList]: One or more tags.
   Future<AddTagsToResourceResponse> addTagsToResource(
       {@required String resourceArn, @required List<Tag> tagList}) async {
-    return AddTagsToResourceResponse.fromJson({});
+    var response_ = await _client.send('AddTagsToResource', {
+      'ResourceArn': resourceArn,
+      'TagList': tagList,
+    });
+    return AddTagsToResourceResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -64,7 +72,10 @@ class CloudHsmApi {
   ///
   /// [label]: The label of the new high-availability partition group.
   Future<CreateHapgResponse> createHapg(String label) async {
-    return CreateHapgResponse.fromJson({});
+    var response_ = await _client.send('CreateHapg', {
+      'Label': label,
+    });
+    return CreateHapgResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -124,7 +135,17 @@ class CloudHsmApi {
       @required String subscriptionType,
       String clientToken,
       String syslogIp}) async {
-    return CreateHsmResponse.fromJson({});
+    var response_ = await _client.send('CreateHsm', {
+      'SubnetId': subnetId,
+      'SshKey': sshKey,
+      if (eniIp != null) 'EniIp': eniIp,
+      'IamRoleArn': iamRoleArn,
+      if (externalId != null) 'ExternalId': externalId,
+      'SubscriptionType': subscriptionType,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (syslogIp != null) 'SyslogIp': syslogIp,
+    });
+    return CreateHsmResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -149,7 +170,11 @@ class CloudHsmApi {
   /// installed on the HSMs used by this client.
   Future<CreateLunaClientResponse> createLunaClient(String certificate,
       {String label}) async {
-    return CreateLunaClientResponse.fromJson({});
+    var response_ = await _client.send('CreateLunaClient', {
+      if (label != null) 'Label': label,
+      'Certificate': certificate,
+    });
+    return CreateLunaClientResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -170,7 +195,10 @@ class CloudHsmApi {
   ///
   /// [hapgArn]: The ARN of the high-availability partition group to delete.
   Future<DeleteHapgResponse> deleteHapg(String hapgArn) async {
-    return DeleteHapgResponse.fromJson({});
+    var response_ = await _client.send('DeleteHapg', {
+      'HapgArn': hapgArn,
+    });
+    return DeleteHapgResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -192,7 +220,10 @@ class CloudHsmApi {
   ///
   /// [hsmArn]: The ARN of the HSM to delete.
   Future<DeleteHsmResponse> deleteHsm(String hsmArn) async {
-    return DeleteHsmResponse.fromJson({});
+    var response_ = await _client.send('DeleteHsm', {
+      'HsmArn': hsmArn,
+    });
+    return DeleteHsmResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -213,7 +244,10 @@ class CloudHsmApi {
   ///
   /// [clientArn]: The ARN of the client to delete.
   Future<DeleteLunaClientResponse> deleteLunaClient(String clientArn) async {
-    return DeleteLunaClientResponse.fromJson({});
+    var response_ = await _client.send('DeleteLunaClient', {
+      'ClientArn': clientArn,
+    });
+    return DeleteLunaClientResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -234,7 +268,10 @@ class CloudHsmApi {
   ///
   /// [hapgArn]: The ARN of the high-availability partition group to describe.
   Future<DescribeHapgResponse> describeHapg(String hapgArn) async {
-    return DescribeHapgResponse.fromJson({});
+    var response_ = await _client.send('DescribeHapg', {
+      'HapgArn': hapgArn,
+    });
+    return DescribeHapgResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -261,7 +298,11 @@ class CloudHsmApi {
   /// the `HsmSerialNumber` parameter must be specified.
   Future<DescribeHsmResponse> describeHsm(
       {String hsmArn, String hsmSerialNumber}) async {
-    return DescribeHsmResponse.fromJson({});
+    var response_ = await _client.send('DescribeHsm', {
+      if (hsmArn != null) 'HsmArn': hsmArn,
+      if (hsmSerialNumber != null) 'HsmSerialNumber': hsmSerialNumber,
+    });
+    return DescribeHsmResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -285,7 +326,12 @@ class CloudHsmApi {
   /// [certificateFingerprint]: The certificate fingerprint.
   Future<DescribeLunaClientResponse> describeLunaClient(
       {String clientArn, String certificateFingerprint}) async {
-    return DescribeLunaClientResponse.fromJson({});
+    var response_ = await _client.send('DescribeLunaClient', {
+      if (clientArn != null) 'ClientArn': clientArn,
+      if (certificateFingerprint != null)
+        'CertificateFingerprint': certificateFingerprint,
+    });
+    return DescribeLunaClientResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -315,7 +361,12 @@ class CloudHsmApi {
       {@required String clientArn,
       @required String clientVersion,
       @required List<String> hapgList}) async {
-    return GetConfigResponse.fromJson({});
+    var response_ = await _client.send('GetConfig', {
+      'ClientArn': clientArn,
+      'ClientVersion': clientVersion,
+      'HapgList': hapgList,
+    });
+    return GetConfigResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -334,7 +385,8 @@ class CloudHsmApi {
   ///
   /// Lists the Availability Zones that have available AWS CloudHSM capacity.
   Future<ListAvailableZonesResponse> listAvailableZones() async {
-    return ListAvailableZonesResponse.fromJson({});
+    var response_ = await _client.send('ListAvailableZones', {});
+    return ListAvailableZonesResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -361,7 +413,10 @@ class CloudHsmApi {
   /// [nextToken]: The `NextToken` value from a previous call to `ListHapgs`.
   /// Pass null if this is the first call.
   Future<ListHapgsResponse> listHapgs({String nextToken}) async {
-    return ListHapgsResponse.fromJson({});
+    var response_ = await _client.send('ListHapgs', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListHapgsResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -389,7 +444,10 @@ class CloudHsmApi {
   /// [nextToken]: The `NextToken` value from a previous call to `ListHsms`.
   /// Pass null if this is the first call.
   Future<ListHsmsResponse> listHsms({String nextToken}) async {
-    return ListHsmsResponse.fromJson({});
+    var response_ = await _client.send('ListHsms', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListHsmsResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -416,7 +474,10 @@ class CloudHsmApi {
   /// [nextToken]: The `NextToken` value from a previous call to
   /// `ListLunaClients`. Pass null if this is the first call.
   Future<ListLunaClientsResponse> listLunaClients({String nextToken}) async {
-    return ListLunaClientsResponse.fromJson({});
+    var response_ = await _client.send('ListLunaClients', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListLunaClientsResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -439,7 +500,10 @@ class CloudHsmApi {
   /// resource.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -466,7 +530,13 @@ class CloudHsmApi {
   /// members of the high-availability partition group.
   Future<ModifyHapgResponse> modifyHapg(String hapgArn,
       {String label, List<String> partitionSerialList}) async {
-    return ModifyHapgResponse.fromJson({});
+    var response_ = await _client.send('ModifyHapg', {
+      'HapgArn': hapgArn,
+      if (label != null) 'Label': label,
+      if (partitionSerialList != null)
+        'PartitionSerialList': partitionSerialList,
+    });
+    return ModifyHapgResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -517,7 +587,15 @@ class CloudHsmApi {
       String iamRoleArn,
       String externalId,
       String syslogIp}) async {
-    return ModifyHsmResponse.fromJson({});
+    var response_ = await _client.send('ModifyHsm', {
+      'HsmArn': hsmArn,
+      if (subnetId != null) 'SubnetId': subnetId,
+      if (eniIp != null) 'EniIp': eniIp,
+      if (iamRoleArn != null) 'IamRoleArn': iamRoleArn,
+      if (externalId != null) 'ExternalId': externalId,
+      if (syslogIp != null) 'SyslogIp': syslogIp,
+    });
+    return ModifyHsmResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -544,7 +622,11 @@ class CloudHsmApi {
   /// [certificate]: The new certificate for the client.
   Future<ModifyLunaClientResponse> modifyLunaClient(
       {@required String clientArn, @required String certificate}) async {
-    return ModifyLunaClientResponse.fromJson({});
+    var response_ = await _client.send('ModifyLunaClient', {
+      'ClientArn': clientArn,
+      'Certificate': certificate,
+    });
+    return ModifyLunaClientResponse.fromJson(response_);
   }
 
   /// This is documentation for **AWS CloudHSM Classic**. For more information,
@@ -575,7 +657,11 @@ class CloudHsmApi {
   /// for an existing tag, use AddTagsToResource.
   Future<RemoveTagsFromResourceResponse> removeTagsFromResource(
       {@required String resourceArn, @required List<String> tagKeyList}) async {
-    return RemoveTagsFromResourceResponse.fromJson({});
+    var response_ = await _client.send('RemoveTagsFromResource', {
+      'ResourceArn': resourceArn,
+      'TagKeyList': tagKeyList,
+    });
+    return RemoveTagsFromResourceResponse.fromJson(response_);
   }
 }
 
@@ -587,7 +673,9 @@ class AddTagsToResourceResponse {
     @required this.status,
   });
   static AddTagsToResourceResponse fromJson(Map<String, dynamic> json) =>
-      AddTagsToResourceResponse();
+      AddTagsToResourceResponse(
+        status: json['Status'] as String,
+      );
 }
 
 /// Contains the output of the CreateHAPartitionGroup action.
@@ -599,7 +687,9 @@ class CreateHapgResponse {
     this.hapgArn,
   });
   static CreateHapgResponse fromJson(Map<String, dynamic> json) =>
-      CreateHapgResponse();
+      CreateHapgResponse(
+        hapgArn: json.containsKey('HapgArn') ? json['HapgArn'] as String : null,
+      );
 }
 
 /// Contains the output of the `CreateHsm` operation.
@@ -611,7 +701,9 @@ class CreateHsmResponse {
     this.hsmArn,
   });
   static CreateHsmResponse fromJson(Map<String, dynamic> json) =>
-      CreateHsmResponse();
+      CreateHsmResponse(
+        hsmArn: json.containsKey('HsmArn') ? json['HsmArn'] as String : null,
+      );
 }
 
 /// Contains the output of the CreateLunaClient action.
@@ -623,7 +715,10 @@ class CreateLunaClientResponse {
     this.clientArn,
   });
   static CreateLunaClientResponse fromJson(Map<String, dynamic> json) =>
-      CreateLunaClientResponse();
+      CreateLunaClientResponse(
+        clientArn:
+            json.containsKey('ClientArn') ? json['ClientArn'] as String : null,
+      );
 }
 
 /// Contains the output of the DeleteHapg action.
@@ -635,7 +730,9 @@ class DeleteHapgResponse {
     @required this.status,
   });
   static DeleteHapgResponse fromJson(Map<String, dynamic> json) =>
-      DeleteHapgResponse();
+      DeleteHapgResponse(
+        status: json['Status'] as String,
+      );
 }
 
 /// Contains the output of the DeleteHsm operation.
@@ -647,7 +744,9 @@ class DeleteHsmResponse {
     @required this.status,
   });
   static DeleteHsmResponse fromJson(Map<String, dynamic> json) =>
-      DeleteHsmResponse();
+      DeleteHsmResponse(
+        status: json['Status'] as String,
+      );
 }
 
 class DeleteLunaClientResponse {
@@ -658,7 +757,9 @@ class DeleteLunaClientResponse {
     @required this.status,
   });
   static DeleteLunaClientResponse fromJson(Map<String, dynamic> json) =>
-      DeleteLunaClientResponse();
+      DeleteLunaClientResponse(
+        status: json['Status'] as String,
+      );
 }
 
 /// Contains the output of the DescribeHapg action.
@@ -700,7 +801,37 @@ class DescribeHapgResponse {
     this.state,
   });
   static DescribeHapgResponse fromJson(Map<String, dynamic> json) =>
-      DescribeHapgResponse();
+      DescribeHapgResponse(
+        hapgArn: json.containsKey('HapgArn') ? json['HapgArn'] as String : null,
+        hapgSerial: json.containsKey('HapgSerial')
+            ? json['HapgSerial'] as String
+            : null,
+        hsmsLastActionFailed: json.containsKey('HsmsLastActionFailed')
+            ? (json['HsmsLastActionFailed'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        hsmsPendingDeletion: json.containsKey('HsmsPendingDeletion')
+            ? (json['HsmsPendingDeletion'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        hsmsPendingRegistration: json.containsKey('HsmsPendingRegistration')
+            ? (json['HsmsPendingRegistration'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        label: json.containsKey('Label') ? json['Label'] as String : null,
+        lastModifiedTimestamp: json.containsKey('LastModifiedTimestamp')
+            ? json['LastModifiedTimestamp'] as String
+            : null,
+        partitionSerialList: json.containsKey('PartitionSerialList')
+            ? (json['PartitionSerialList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Contains the output of the DescribeHsm operation.
@@ -791,7 +922,58 @@ class DescribeHsmResponse {
     this.partitions,
   });
   static DescribeHsmResponse fromJson(Map<String, dynamic> json) =>
-      DescribeHsmResponse();
+      DescribeHsmResponse(
+        hsmArn: json.containsKey('HsmArn') ? json['HsmArn'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusDetails: json.containsKey('StatusDetails')
+            ? json['StatusDetails'] as String
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        eniId: json.containsKey('EniId') ? json['EniId'] as String : null,
+        eniIp: json.containsKey('EniIp') ? json['EniIp'] as String : null,
+        subscriptionType: json.containsKey('SubscriptionType')
+            ? json['SubscriptionType'] as String
+            : null,
+        subscriptionStartDate: json.containsKey('SubscriptionStartDate')
+            ? json['SubscriptionStartDate'] as String
+            : null,
+        subscriptionEndDate: json.containsKey('SubscriptionEndDate')
+            ? json['SubscriptionEndDate'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        serialNumber: json.containsKey('SerialNumber')
+            ? json['SerialNumber'] as String
+            : null,
+        vendorName: json.containsKey('VendorName')
+            ? json['VendorName'] as String
+            : null,
+        hsmType: json.containsKey('HsmType') ? json['HsmType'] as String : null,
+        softwareVersion: json.containsKey('SoftwareVersion')
+            ? json['SoftwareVersion'] as String
+            : null,
+        sshPublicKey: json.containsKey('SshPublicKey')
+            ? json['SshPublicKey'] as String
+            : null,
+        sshKeyLastUpdated: json.containsKey('SshKeyLastUpdated')
+            ? json['SshKeyLastUpdated'] as String
+            : null,
+        serverCertUri: json.containsKey('ServerCertUri')
+            ? json['ServerCertUri'] as String
+            : null,
+        serverCertLastUpdated: json.containsKey('ServerCertLastUpdated')
+            ? json['ServerCertLastUpdated'] as String
+            : null,
+        partitions: json.containsKey('Partitions')
+            ? (json['Partitions'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class DescribeLunaClientResponse {
@@ -818,7 +1000,20 @@ class DescribeLunaClientResponse {
     this.label,
   });
   static DescribeLunaClientResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLunaClientResponse();
+      DescribeLunaClientResponse(
+        clientArn:
+            json.containsKey('ClientArn') ? json['ClientArn'] as String : null,
+        certificate: json.containsKey('Certificate')
+            ? json['Certificate'] as String
+            : null,
+        certificateFingerprint: json.containsKey('CertificateFingerprint')
+            ? json['CertificateFingerprint'] as String
+            : null,
+        lastModifiedTimestamp: json.containsKey('LastModifiedTimestamp')
+            ? json['LastModifiedTimestamp'] as String
+            : null,
+        label: json.containsKey('Label') ? json['Label'] as String : null,
+      );
 }
 
 class GetConfigResponse {
@@ -837,7 +1032,17 @@ class GetConfigResponse {
     this.configCred,
   });
   static GetConfigResponse fromJson(Map<String, dynamic> json) =>
-      GetConfigResponse();
+      GetConfigResponse(
+        configType: json.containsKey('ConfigType')
+            ? json['ConfigType'] as String
+            : null,
+        configFile: json.containsKey('ConfigFile')
+            ? json['ConfigFile'] as String
+            : null,
+        configCred: json.containsKey('ConfigCred')
+            ? json['ConfigCred'] as String
+            : null,
+      );
 }
 
 class ListAvailableZonesResponse {
@@ -848,7 +1053,11 @@ class ListAvailableZonesResponse {
     this.azList,
   });
   static ListAvailableZonesResponse fromJson(Map<String, dynamic> json) =>
-      ListAvailableZonesResponse();
+      ListAvailableZonesResponse(
+        azList: json.containsKey('AZList')
+            ? (json['AZList'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class ListHapgsResponse {
@@ -864,7 +1073,11 @@ class ListHapgsResponse {
     this.nextToken,
   });
   static ListHapgsResponse fromJson(Map<String, dynamic> json) =>
-      ListHapgsResponse();
+      ListHapgsResponse(
+        hapgList: (json['HapgList'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Contains the output of the `ListHsms` operation.
@@ -881,7 +1094,13 @@ class ListHsmsResponse {
     this.nextToken,
   });
   static ListHsmsResponse fromJson(Map<String, dynamic> json) =>
-      ListHsmsResponse();
+      ListHsmsResponse(
+        hsmList: json.containsKey('HsmList')
+            ? (json['HsmList'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListLunaClientsResponse {
@@ -897,7 +1116,12 @@ class ListLunaClientsResponse {
     this.nextToken,
   });
   static ListLunaClientsResponse fromJson(Map<String, dynamic> json) =>
-      ListLunaClientsResponse();
+      ListLunaClientsResponse(
+        clientList:
+            (json['ClientList'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -908,7 +1132,9 @@ class ListTagsForResourceResponse {
     @required this.tagList,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tagList: (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList(),
+      );
 }
 
 class ModifyHapgResponse {
@@ -919,7 +1145,9 @@ class ModifyHapgResponse {
     this.hapgArn,
   });
   static ModifyHapgResponse fromJson(Map<String, dynamic> json) =>
-      ModifyHapgResponse();
+      ModifyHapgResponse(
+        hapgArn: json.containsKey('HapgArn') ? json['HapgArn'] as String : null,
+      );
 }
 
 /// Contains the output of the ModifyHsm operation.
@@ -931,7 +1159,9 @@ class ModifyHsmResponse {
     this.hsmArn,
   });
   static ModifyHsmResponse fromJson(Map<String, dynamic> json) =>
-      ModifyHsmResponse();
+      ModifyHsmResponse(
+        hsmArn: json.containsKey('HsmArn') ? json['HsmArn'] as String : null,
+      );
 }
 
 class ModifyLunaClientResponse {
@@ -942,7 +1172,10 @@ class ModifyLunaClientResponse {
     this.clientArn,
   });
   static ModifyLunaClientResponse fromJson(Map<String, dynamic> json) =>
-      ModifyLunaClientResponse();
+      ModifyLunaClientResponse(
+        clientArn:
+            json.containsKey('ClientArn') ? json['ClientArn'] as String : null,
+      );
 }
 
 class RemoveTagsFromResourceResponse {
@@ -953,7 +1186,9 @@ class RemoveTagsFromResourceResponse {
     @required this.status,
   });
   static RemoveTagsFromResourceResponse fromJson(Map<String, dynamic> json) =>
-      RemoveTagsFromResourceResponse();
+      RemoveTagsFromResourceResponse(
+        status: json['Status'] as String,
+      );
 }
 
 /// A key-value pair that identifies or specifies metadata about an AWS CloudHSM
@@ -969,5 +1204,9 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

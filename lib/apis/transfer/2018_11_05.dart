@@ -11,6 +11,10 @@ import 'package:meta/meta.dart';
 /// Getting started with AWS Transfer for SFTP (AWS SFTP) is easy; there is no
 /// infrastructure to buy and set up.
 class TransferApi {
+  final _client;
+  TransferApi(client)
+      : _client = client.configured('Transfer', serializer: 'json');
+
   /// Instantiates an autoscaling virtual server based on Secure File Transfer
   /// Protocol (SFTP) in AWS. When you make updates to your server or when you
   /// work with users, use the service-generated `ServerId` property that is
@@ -62,7 +66,18 @@ class TransferApi {
       String identityProviderType,
       String loggingRole,
       List<Tag> tags}) async {
-    return CreateServerResponse.fromJson({});
+    var response_ = await _client.send('CreateServer', {
+      if (endpointDetails != null) 'EndpointDetails': endpointDetails,
+      if (endpointType != null) 'EndpointType': endpointType,
+      if (hostKey != null) 'HostKey': hostKey,
+      if (identityProviderDetails != null)
+        'IdentityProviderDetails': identityProviderDetails,
+      if (identityProviderType != null)
+        'IdentityProviderType': identityProviderType,
+      if (loggingRole != null) 'LoggingRole': loggingRole,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateServerResponse.fromJson(response_);
   }
 
   /// Creates a user and associates them with an existing Secure File Transfer
@@ -127,7 +142,16 @@ class TransferApi {
       String sshPublicKeyBody,
       List<Tag> tags,
       @required String userName}) async {
-    return CreateUserResponse.fromJson({});
+    var response_ = await _client.send('CreateUser', {
+      if (homeDirectory != null) 'HomeDirectory': homeDirectory,
+      if (policy != null) 'Policy': policy,
+      'Role': role,
+      'ServerId': serverId,
+      if (sshPublicKeyBody != null) 'SshPublicKeyBody': sshPublicKeyBody,
+      if (tags != null) 'Tags': tags,
+      'UserName': userName,
+    });
+    return CreateUserResponse.fromJson(response_);
   }
 
   /// Deletes the Secure File Transfer Protocol (SFTP) server that you specify.
@@ -136,7 +160,11 @@ class TransferApi {
   ///
   /// [serverId]: A unique system-assigned identifier for an SFTP server
   /// instance.
-  Future<void> deleteServer(String serverId) async {}
+  Future<void> deleteServer(String serverId) async {
+    await _client.send('DeleteServer', {
+      'ServerId': serverId,
+    });
+  }
 
   /// Deletes a user's Secure Shell (SSH) public key.
   ///
@@ -153,7 +181,13 @@ class TransferApi {
   Future<void> deleteSshPublicKey(
       {@required String serverId,
       @required String sshPublicKeyId,
-      @required String userName}) async {}
+      @required String userName}) async {
+    await _client.send('DeleteSshPublicKey', {
+      'ServerId': serverId,
+      'SshPublicKeyId': sshPublicKeyId,
+      'UserName': userName,
+    });
+  }
 
   /// Deletes the user belonging to the server you specify.
   ///
@@ -169,7 +203,12 @@ class TransferApi {
   /// [userName]: A unique string that identifies a user that is being deleted
   /// from the server.
   Future<void> deleteUser(
-      {@required String serverId, @required String userName}) async {}
+      {@required String serverId, @required String userName}) async {
+    await _client.send('DeleteUser', {
+      'ServerId': serverId,
+      'UserName': userName,
+    });
+  }
 
   /// Describes the server that you specify by passing the `ServerId` parameter.
   ///
@@ -177,7 +216,10 @@ class TransferApi {
   ///
   /// [serverId]: A system-assigned unique identifier for an SFTP server.
   Future<DescribeServerResponse> describeServer(String serverId) async {
-    return DescribeServerResponse.fromJson({});
+    var response_ = await _client.send('DescribeServer', {
+      'ServerId': serverId,
+    });
+    return DescribeServerResponse.fromJson(response_);
   }
 
   /// Describes the user assigned to a specific server, as identified by its
@@ -194,7 +236,11 @@ class TransferApi {
   /// service and perform file transfer tasks.
   Future<DescribeUserResponse> describeUser(
       {@required String serverId, @required String userName}) async {
-    return DescribeUserResponse.fromJson({});
+    var response_ = await _client.send('DescribeUser', {
+      'ServerId': serverId,
+      'UserName': userName,
+    });
+    return DescribeUserResponse.fromJson(response_);
   }
 
   /// Adds a Secure Shell (SSH) public key to a user account identified by a
@@ -213,7 +259,12 @@ class TransferApi {
       {@required String serverId,
       @required String sshPublicKeyBody,
       @required String userName}) async {
-    return ImportSshPublicKeyResponse.fromJson({});
+    var response_ = await _client.send('ImportSshPublicKey', {
+      'ServerId': serverId,
+      'SshPublicKeyBody': sshPublicKeyBody,
+      'UserName': userName,
+    });
+    return ImportSshPublicKeyResponse.fromJson(response_);
   }
 
   /// Lists the Secure File Transfer Protocol (SFTP) servers that are associated
@@ -228,7 +279,11 @@ class TransferApi {
   /// additional servers.
   Future<ListServersResponse> listServers(
       {int maxResults, String nextToken}) async {
-    return ListServersResponse.fromJson({});
+    var response_ = await _client.send('ListServers', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListServersResponse.fromJson(response_);
   }
 
   /// Lists all of the tags associated with the Amazon Resource Number (ARN) you
@@ -247,7 +302,12 @@ class TransferApi {
   /// parameter to continue listing additional tags.
   Future<ListTagsForResourceResponse> listTagsForResource(String arn,
       {int maxResults, String nextToken}) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'Arn': arn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Lists the users for the server that you specify by passing the `ServerId`
@@ -265,7 +325,12 @@ class TransferApi {
   /// Protocol (SFTP) server that has users assigned to it.
   Future<ListUsersResponse> listUsers(String serverId,
       {int maxResults, String nextToken}) async {
-    return ListUsersResponse.fromJson({});
+    var response_ = await _client.send('ListUsers', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      'ServerId': serverId,
+    });
+    return ListUsersResponse.fromJson(response_);
   }
 
   /// Changes the state of a Secure File Transfer Protocol (SFTP) server from
@@ -280,7 +345,11 @@ class TransferApi {
   ///
   /// [serverId]: A system-assigned unique identifier for an SFTP server that
   /// you start.
-  Future<void> startServer(String serverId) async {}
+  Future<void> startServer(String serverId) async {
+    await _client.send('StartServer', {
+      'ServerId': serverId,
+    });
+  }
 
   /// Changes the state of an SFTP server from `ONLINE` to `OFFLINE`. An
   /// `OFFLINE` server cannot accept and process file transfer jobs. Information
@@ -296,7 +365,11 @@ class TransferApi {
   ///
   /// [serverId]: A system-assigned unique identifier for an SFTP server that
   /// you stopped.
-  Future<void> stopServer(String serverId) async {}
+  Future<void> stopServer(String serverId) async {
+    await _client.send('StopServer', {
+      'ServerId': serverId,
+    });
+  }
 
   /// Attaches a key-value pair to a resource, as identified by its Amazon
   /// Resource Name (ARN). Resources are users, servers, roles, and other
@@ -311,7 +384,12 @@ class TransferApi {
   /// search for resources by type. You can attach this metadata to user
   /// accounts for any purpose.
   Future<void> tagResource(
-      {@required String arn, @required List<Tag> tags}) async {}
+      {@required String arn, @required List<Tag> tags}) async {
+    await _client.send('TagResource', {
+      'Arn': arn,
+      'Tags': tags,
+    });
+  }
 
   /// If the `IdentityProviderType` of the server is `API_Gateway`, tests
   /// whether your API Gateway is set up successfully. We highly recommend that
@@ -332,7 +410,12 @@ class TransferApi {
       {@required String serverId,
       @required String userName,
       String userPassword}) async {
-    return TestIdentityProviderResponse.fromJson({});
+    var response_ = await _client.send('TestIdentityProvider', {
+      'ServerId': serverId,
+      'UserName': userName,
+      if (userPassword != null) 'UserPassword': userPassword,
+    });
+    return TestIdentityProviderResponse.fromJson(response_);
   }
 
   /// Detaches a key-value pair from a resource, as identified by its Amazon
@@ -349,7 +432,12 @@ class TransferApi {
   /// to group and search for resources by type. This metadata can be attached
   /// to resources for any purpose.
   Future<void> untagResource(
-      {@required String arn, @required List<String> tagKeys}) async {}
+      {@required String arn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'Arn': arn,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Updates the server properties after that server has been created.
   ///
@@ -392,7 +480,16 @@ class TransferApi {
       String hostKey,
       IdentityProviderDetails identityProviderDetails,
       String loggingRole}) async {
-    return UpdateServerResponse.fromJson({});
+    var response_ = await _client.send('UpdateServer', {
+      if (endpointDetails != null) 'EndpointDetails': endpointDetails,
+      if (endpointType != null) 'EndpointType': endpointType,
+      if (hostKey != null) 'HostKey': hostKey,
+      if (identityProviderDetails != null)
+        'IdentityProviderDetails': identityProviderDetails,
+      if (loggingRole != null) 'LoggingRole': loggingRole,
+      'ServerId': serverId,
+    });
+    return UpdateServerResponse.fromJson(response_);
   }
 
   /// Assigns new properties to a user. Parameters you pass modify any or all of
@@ -450,7 +547,14 @@ class TransferApi {
       String role,
       @required String serverId,
       @required String userName}) async {
-    return UpdateUserResponse.fromJson({});
+    var response_ = await _client.send('UpdateUser', {
+      if (homeDirectory != null) 'HomeDirectory': homeDirectory,
+      if (policy != null) 'Policy': policy,
+      if (role != null) 'Role': role,
+      'ServerId': serverId,
+      'UserName': userName,
+    });
+    return UpdateUserResponse.fromJson(response_);
   }
 }
 
@@ -462,7 +566,9 @@ class CreateServerResponse {
     @required this.serverId,
   });
   static CreateServerResponse fromJson(Map<String, dynamic> json) =>
-      CreateServerResponse();
+      CreateServerResponse(
+        serverId: json['ServerId'] as String,
+      );
 }
 
 class CreateUserResponse {
@@ -478,7 +584,10 @@ class CreateUserResponse {
     @required this.userName,
   });
   static CreateUserResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserResponse();
+      CreateUserResponse(
+        serverId: json['ServerId'] as String,
+        userName: json['UserName'] as String,
+      );
 }
 
 class DescribeServerResponse {
@@ -490,7 +599,9 @@ class DescribeServerResponse {
     @required this.server,
   });
   static DescribeServerResponse fromJson(Map<String, dynamic> json) =>
-      DescribeServerResponse();
+      DescribeServerResponse(
+        server: DescribedServer.fromJson(json['Server']),
+      );
 }
 
 class DescribeUserResponse {
@@ -507,7 +618,10 @@ class DescribeUserResponse {
     @required this.user,
   });
   static DescribeUserResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUserResponse();
+      DescribeUserResponse(
+        serverId: json['ServerId'] as String,
+        user: DescribedUser.fromJson(json['User']),
+      );
 }
 
 /// Describes the properties of the server that was specified. Information
@@ -586,8 +700,35 @@ class DescribedServer {
     this.tags,
     this.userCount,
   });
-  static DescribedServer fromJson(Map<String, dynamic> json) =>
-      DescribedServer();
+  static DescribedServer fromJson(Map<String, dynamic> json) => DescribedServer(
+        arn: json['Arn'] as String,
+        endpointDetails: json.containsKey('EndpointDetails')
+            ? EndpointDetails.fromJson(json['EndpointDetails'])
+            : null,
+        endpointType: json.containsKey('EndpointType')
+            ? json['EndpointType'] as String
+            : null,
+        hostKeyFingerprint: json.containsKey('HostKeyFingerprint')
+            ? json['HostKeyFingerprint'] as String
+            : null,
+        identityProviderDetails: json.containsKey('IdentityProviderDetails')
+            ? IdentityProviderDetails.fromJson(json['IdentityProviderDetails'])
+            : null,
+        identityProviderType: json.containsKey('IdentityProviderType')
+            ? json['IdentityProviderType'] as String
+            : null,
+        loggingRole: json.containsKey('LoggingRole')
+            ? json['LoggingRole'] as String
+            : null,
+        serverId:
+            json.containsKey('ServerId') ? json['ServerId'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        userCount:
+            json.containsKey('UserCount') ? json['UserCount'] as int : null,
+      );
 }
 
 /// Returns properties of the user that you want to describe.
@@ -634,7 +775,24 @@ class DescribedUser {
     this.tags,
     this.userName,
   });
-  static DescribedUser fromJson(Map<String, dynamic> json) => DescribedUser();
+  static DescribedUser fromJson(Map<String, dynamic> json) => DescribedUser(
+        arn: json['Arn'] as String,
+        homeDirectory: json.containsKey('HomeDirectory')
+            ? json['HomeDirectory'] as String
+            : null,
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        sshPublicKeys: json.containsKey('SshPublicKeys')
+            ? (json['SshPublicKeys'] as List)
+                .map((e) => SshPublicKey.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+      );
 }
 
 /// The configuration settings for the virtual private cloud (VPC) endpoint for
@@ -646,8 +804,12 @@ class EndpointDetails {
   EndpointDetails({
     this.vpcEndpointId,
   });
-  static EndpointDetails fromJson(Map<String, dynamic> json) =>
-      EndpointDetails();
+  static EndpointDetails fromJson(Map<String, dynamic> json) => EndpointDetails(
+        vpcEndpointId: json.containsKey('VpcEndpointId')
+            ? json['VpcEndpointId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Returns information related to the type of user authentication that is in
@@ -667,7 +829,13 @@ class IdentityProviderDetails {
     this.invocationRole,
   });
   static IdentityProviderDetails fromJson(Map<String, dynamic> json) =>
-      IdentityProviderDetails();
+      IdentityProviderDetails(
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        invocationRole: json.containsKey('InvocationRole')
+            ? json['InvocationRole'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This response identifies the user, the server they belong to, and the
@@ -690,7 +858,11 @@ class ImportSshPublicKeyResponse {
     @required this.userName,
   });
   static ImportSshPublicKeyResponse fromJson(Map<String, dynamic> json) =>
-      ImportSshPublicKeyResponse();
+      ImportSshPublicKeyResponse(
+        serverId: json['ServerId'] as String,
+        sshPublicKeyId: json['SshPublicKeyId'] as String,
+        userName: json['UserName'] as String,
+      );
 }
 
 class ListServersResponse {
@@ -708,7 +880,13 @@ class ListServersResponse {
     @required this.servers,
   });
   static ListServersResponse fromJson(Map<String, dynamic> json) =>
-      ListServersResponse();
+      ListServersResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        servers: (json['Servers'] as List)
+            .map((e) => ListedServer.fromJson(e))
+            .toList(),
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -731,7 +909,14 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListUsersResponse {
@@ -755,7 +940,13 @@ class ListUsersResponse {
     @required this.users,
   });
   static ListUsersResponse fromJson(Map<String, dynamic> json) =>
-      ListUsersResponse();
+      ListUsersResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        serverId: json['ServerId'] as String,
+        users:
+            (json['Users'] as List).map((e) => ListedUser.fromJson(e)).toList(),
+      );
 }
 
 /// Returns properties of the server that was specified.
@@ -806,7 +997,23 @@ class ListedServer {
     this.state,
     this.userCount,
   });
-  static ListedServer fromJson(Map<String, dynamic> json) => ListedServer();
+  static ListedServer fromJson(Map<String, dynamic> json) => ListedServer(
+        arn: json['Arn'] as String,
+        identityProviderType: json.containsKey('IdentityProviderType')
+            ? json['IdentityProviderType'] as String
+            : null,
+        endpointType: json.containsKey('EndpointType')
+            ? json['EndpointType'] as String
+            : null,
+        loggingRole: json.containsKey('LoggingRole')
+            ? json['LoggingRole'] as String
+            : null,
+        serverId:
+            json.containsKey('ServerId') ? json['ServerId'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        userCount:
+            json.containsKey('UserCount') ? json['UserCount'] as int : null,
+      );
 }
 
 /// Returns properties of the user that you specify.
@@ -841,7 +1048,18 @@ class ListedUser {
     this.sshPublicKeyCount,
     this.userName,
   });
-  static ListedUser fromJson(Map<String, dynamic> json) => ListedUser();
+  static ListedUser fromJson(Map<String, dynamic> json) => ListedUser(
+        arn: json['Arn'] as String,
+        homeDirectory: json.containsKey('HomeDirectory')
+            ? json['HomeDirectory'] as String
+            : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        sshPublicKeyCount: json.containsKey('SshPublicKeyCount')
+            ? json['SshPublicKeyCount'] as int
+            : null,
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+      );
 }
 
 /// Provides information about the public Secure Shell (SSH) key that is
@@ -865,7 +1083,11 @@ class SshPublicKey {
     @required this.sshPublicKeyBody,
     @required this.sshPublicKeyId,
   });
-  static SshPublicKey fromJson(Map<String, dynamic> json) => SshPublicKey();
+  static SshPublicKey fromJson(Map<String, dynamic> json) => SshPublicKey(
+        dateImported: DateTime.parse(json['DateImported']),
+        sshPublicKeyBody: json['SshPublicKeyBody'] as String,
+        sshPublicKeyId: json['SshPublicKeyId'] as String,
+      );
 }
 
 /// Creates a key-value pair for a specific resource. Tags are metadata that you
@@ -886,7 +1108,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TestIdentityProviderResponse {
@@ -909,7 +1135,13 @@ class TestIdentityProviderResponse {
     @required this.url,
   });
   static TestIdentityProviderResponse fromJson(Map<String, dynamic> json) =>
-      TestIdentityProviderResponse();
+      TestIdentityProviderResponse(
+        response:
+            json.containsKey('Response') ? json['Response'] as String : null,
+        statusCode: json['StatusCode'] as int,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        url: json['Url'] as String,
+      );
 }
 
 class UpdateServerResponse {
@@ -921,7 +1153,9 @@ class UpdateServerResponse {
     @required this.serverId,
   });
   static UpdateServerResponse fromJson(Map<String, dynamic> json) =>
-      UpdateServerResponse();
+      UpdateServerResponse(
+        serverId: json['ServerId'] as String,
+      );
 }
 
 ///  `UpdateUserResponse` returns the user name and server identifier for the
@@ -940,5 +1174,8 @@ class UpdateUserResponse {
     @required this.userName,
   });
   static UpdateUserResponse fromJson(Map<String, dynamic> json) =>
-      UpdateUserResponse();
+      UpdateUserResponse(
+        serverId: json['ServerId'] as String,
+        userName: json['UserName'] as String,
+      );
 }

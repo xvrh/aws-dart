@@ -7,6 +7,10 @@ import 'package:meta/meta.dart';
 /// errors. For detailed information about CloudFront features, see the _Amazon
 /// CloudFront Developer Guide_.
 class CloudFrontApi {
+  final _client;
+  CloudFrontApi(client)
+      : _client = client.configured('CloudFront', serializer: 'rest-xml');
+
   /// Creates a new origin access identity. If you're using Amazon S3 for your
   /// origin, you can use an origin access identity to require users to access
   /// your content using a CloudFront URL instead of the Amazon S3 URL. For more
@@ -20,7 +24,12 @@ class CloudFrontApi {
       createCloudFrontOriginAccessIdentity20190326(
           CloudFrontOriginAccessIdentityConfig
               cloudFrontOriginAccessIdentityConfig) async {
-    return CreateCloudFrontOriginAccessIdentityResult.fromJson({});
+    var response_ =
+        await _client.send('CreateCloudFrontOriginAccessIdentity2019_03_26', {
+      'CloudFrontOriginAccessIdentityConfig':
+          cloudFrontOriginAccessIdentityConfig,
+    });
+    return CreateCloudFrontOriginAccessIdentityResult.fromJson(response_);
   }
 
   /// Creates a new web distribution. You create a CloudFront distribution to
@@ -43,7 +52,10 @@ class CloudFrontApi {
   /// [distributionConfig]: The distribution's configuration information.
   Future<CreateDistributionResult> createDistribution20190326(
       DistributionConfig distributionConfig) async {
-    return CreateDistributionResult.fromJson({});
+    var response_ = await _client.send('CreateDistribution2019_03_26', {
+      'DistributionConfig': distributionConfig,
+    });
+    return CreateDistributionResult.fromJson(response_);
   }
 
   /// Create a new distribution with tags.
@@ -52,7 +64,10 @@ class CloudFrontApi {
   /// information.
   Future<CreateDistributionWithTagsResult> createDistributionWithTags20190326(
       DistributionConfigWithTags distributionConfigWithTags) async {
-    return CreateDistributionWithTagsResult.fromJson({});
+    var response_ = await _client.send('CreateDistributionWithTags2019_03_26', {
+      'DistributionConfigWithTags': distributionConfigWithTags,
+    });
+    return CreateDistributionWithTagsResult.fromJson(response_);
   }
 
   /// Create a new field-level encryption configuration.
@@ -62,7 +77,11 @@ class CloudFrontApi {
   Future<CreateFieldLevelEncryptionConfigResult>
       createFieldLevelEncryptionConfig20190326(
           FieldLevelEncryptionConfig fieldLevelEncryptionConfig) async {
-    return CreateFieldLevelEncryptionConfigResult.fromJson({});
+    var response_ =
+        await _client.send('CreateFieldLevelEncryptionConfig2019_03_26', {
+      'FieldLevelEncryptionConfig': fieldLevelEncryptionConfig,
+    });
+    return CreateFieldLevelEncryptionConfigResult.fromJson(response_);
   }
 
   /// Create a field-level encryption profile.
@@ -73,7 +92,11 @@ class CloudFrontApi {
       createFieldLevelEncryptionProfile20190326(
           FieldLevelEncryptionProfileConfig
               fieldLevelEncryptionProfileConfig) async {
-    return CreateFieldLevelEncryptionProfileResult.fromJson({});
+    var response_ =
+        await _client.send('CreateFieldLevelEncryptionProfile2019_03_26', {
+      'FieldLevelEncryptionProfileConfig': fieldLevelEncryptionProfileConfig,
+    });
+    return CreateFieldLevelEncryptionProfileResult.fromJson(response_);
   }
 
   /// Create a new invalidation.
@@ -84,7 +107,11 @@ class CloudFrontApi {
   Future<CreateInvalidationResult> createInvalidation20190326(
       {@required String distributionId,
       @required InvalidationBatch invalidationBatch}) async {
-    return CreateInvalidationResult.fromJson({});
+    var response_ = await _client.send('CreateInvalidation2019_03_26', {
+      'DistributionId': distributionId,
+      'InvalidationBatch': invalidationBatch,
+    });
+    return CreateInvalidationResult.fromJson(response_);
   }
 
   /// Add a new public key to CloudFront to use, for example, for field-level
@@ -93,7 +120,10 @@ class CloudFrontApi {
   /// [publicKeyConfig]: The request to add a public key to CloudFront.
   Future<CreatePublicKeyResult> createPublicKey20190326(
       PublicKeyConfig publicKeyConfig) async {
-    return CreatePublicKeyResult.fromJson({});
+    var response_ = await _client.send('CreatePublicKey2019_03_26', {
+      'PublicKeyConfig': publicKeyConfig,
+    });
+    return CreatePublicKeyResult.fromJson(response_);
   }
 
   /// Creates a new RTMP distribution. An RTMP distribution is similar to a web
@@ -132,7 +162,11 @@ class CloudFrontApi {
   /// information.
   Future<CreateStreamingDistributionResult> createStreamingDistribution20190326(
       StreamingDistributionConfig streamingDistributionConfig) async {
-    return CreateStreamingDistributionResult.fromJson({});
+    var response_ =
+        await _client.send('CreateStreamingDistribution2019_03_26', {
+      'StreamingDistributionConfig': streamingDistributionConfig,
+    });
+    return CreateStreamingDistributionResult.fromJson(response_);
   }
 
   /// Create a new streaming distribution with tags.
@@ -143,7 +177,12 @@ class CloudFrontApi {
       createStreamingDistributionWithTags20190326(
           StreamingDistributionConfigWithTags
               streamingDistributionConfigWithTags) async {
-    return CreateStreamingDistributionWithTagsResult.fromJson({});
+    var response_ =
+        await _client.send('CreateStreamingDistributionWithTags2019_03_26', {
+      'StreamingDistributionConfigWithTags':
+          streamingDistributionConfigWithTags,
+    });
+    return CreateStreamingDistributionWithTagsResult.fromJson(response_);
   }
 
   /// Delete an origin access identity.
@@ -153,7 +192,12 @@ class CloudFrontApi {
   /// [ifMatch]: The value of the `ETag` header you received from a previous
   /// `GET` or `PUT` request. For example: `E2QWRUHAPOMQZL`.
   Future<void> deleteCloudFrontOriginAccessIdentity20190326(String id,
-      {String ifMatch}) async {}
+      {String ifMatch}) async {
+    await _client.send('DeleteCloudFrontOriginAccessIdentity2019_03_26', {
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+  }
 
   /// Delete a distribution.
   ///
@@ -161,7 +205,12 @@ class CloudFrontApi {
   ///
   /// [ifMatch]: The value of the `ETag` header that you received when you
   /// disabled the distribution. For example: `E2QWRUHAPOMQZL`.
-  Future<void> deleteDistribution20190326(String id, {String ifMatch}) async {}
+  Future<void> deleteDistribution20190326(String id, {String ifMatch}) async {
+    await _client.send('DeleteDistribution2019_03_26', {
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+  }
 
   /// Remove a field-level encryption configuration.
   ///
@@ -171,7 +220,12 @@ class CloudFrontApi {
   /// retrieving the configuration identity to delete. For example:
   /// `E2QWRUHAPOMQZL`.
   Future<void> deleteFieldLevelEncryptionConfig20190326(String id,
-      {String ifMatch}) async {}
+      {String ifMatch}) async {
+    await _client.send('DeleteFieldLevelEncryptionConfig2019_03_26', {
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+  }
 
   /// Remove a field-level encryption profile.
   ///
@@ -180,7 +234,12 @@ class CloudFrontApi {
   /// [ifMatch]: The value of the `ETag` header that you received when
   /// retrieving the profile to delete. For example: `E2QWRUHAPOMQZL`.
   Future<void> deleteFieldLevelEncryptionProfile20190326(String id,
-      {String ifMatch}) async {}
+      {String ifMatch}) async {
+    await _client.send('DeleteFieldLevelEncryptionProfile2019_03_26', {
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+  }
 
   /// Remove a public key you previously added to CloudFront.
   ///
@@ -189,7 +248,12 @@ class CloudFrontApi {
   /// [ifMatch]: The value of the `ETag` header that you received when
   /// retrieving the public key identity to delete. For example:
   /// `E2QWRUHAPOMQZL`.
-  Future<void> deletePublicKey20190326(String id, {String ifMatch}) async {}
+  Future<void> deletePublicKey20190326(String id, {String ifMatch}) async {
+    await _client.send('DeletePublicKey2019_03_26', {
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+  }
 
   /// Delete a streaming distribution. To delete an RTMP distribution using the
   /// CloudFront API, perform the following steps.
@@ -238,14 +302,23 @@ class CloudFrontApi {
   /// [ifMatch]: The value of the `ETag` header that you received when you
   /// disabled the streaming distribution. For example: `E2QWRUHAPOMQZL`.
   Future<void> deleteStreamingDistribution20190326(String id,
-      {String ifMatch}) async {}
+      {String ifMatch}) async {
+    await _client.send('DeleteStreamingDistribution2019_03_26', {
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+  }
 
   /// Get the information about an origin access identity.
   ///
   /// [id]: The identity's ID.
   Future<GetCloudFrontOriginAccessIdentityResult>
       getCloudFrontOriginAccessIdentity20190326(String id) async {
-    return GetCloudFrontOriginAccessIdentityResult.fromJson({});
+    var response_ =
+        await _client.send('GetCloudFrontOriginAccessIdentity2019_03_26', {
+      'Id': id,
+    });
+    return GetCloudFrontOriginAccessIdentityResult.fromJson(response_);
   }
 
   /// Get the configuration information about an origin access identity.
@@ -253,7 +326,11 @@ class CloudFrontApi {
   /// [id]: The identity's ID.
   Future<GetCloudFrontOriginAccessIdentityConfigResult>
       getCloudFrontOriginAccessIdentityConfig20190326(String id) async {
-    return GetCloudFrontOriginAccessIdentityConfigResult.fromJson({});
+    var response_ = await _client
+        .send('GetCloudFrontOriginAccessIdentityConfig2019_03_26', {
+      'Id': id,
+    });
+    return GetCloudFrontOriginAccessIdentityConfigResult.fromJson(response_);
   }
 
   /// Get the information about a distribution.
@@ -261,7 +338,10 @@ class CloudFrontApi {
   /// [id]: The distribution's ID. If the ID is empty, an empty distribution
   /// configuration is returned.
   Future<GetDistributionResult> getDistribution20190326(String id) async {
-    return GetDistributionResult.fromJson({});
+    var response_ = await _client.send('GetDistribution2019_03_26', {
+      'Id': id,
+    });
+    return GetDistributionResult.fromJson(response_);
   }
 
   /// Get the configuration information about a distribution.
@@ -270,7 +350,10 @@ class CloudFrontApi {
   /// configuration is returned.
   Future<GetDistributionConfigResult> getDistributionConfig20190326(
       String id) async {
-    return GetDistributionConfigResult.fromJson({});
+    var response_ = await _client.send('GetDistributionConfig2019_03_26', {
+      'Id': id,
+    });
+    return GetDistributionConfigResult.fromJson(response_);
   }
 
   /// Get the field-level encryption configuration information.
@@ -279,7 +362,10 @@ class CloudFrontApi {
   /// information.
   Future<GetFieldLevelEncryptionResult> getFieldLevelEncryption20190326(
       String id) async {
-    return GetFieldLevelEncryptionResult.fromJson({});
+    var response_ = await _client.send('GetFieldLevelEncryption2019_03_26', {
+      'Id': id,
+    });
+    return GetFieldLevelEncryptionResult.fromJson(response_);
   }
 
   /// Get the field-level encryption configuration information.
@@ -288,7 +374,11 @@ class CloudFrontApi {
   /// information.
   Future<GetFieldLevelEncryptionConfigResult>
       getFieldLevelEncryptionConfig20190326(String id) async {
-    return GetFieldLevelEncryptionConfigResult.fromJson({});
+    var response_ =
+        await _client.send('GetFieldLevelEncryptionConfig2019_03_26', {
+      'Id': id,
+    });
+    return GetFieldLevelEncryptionConfigResult.fromJson(response_);
   }
 
   /// Get the field-level encryption profile information.
@@ -296,7 +386,11 @@ class CloudFrontApi {
   /// [id]: Get the ID for the field-level encryption profile information.
   Future<GetFieldLevelEncryptionProfileResult>
       getFieldLevelEncryptionProfile20190326(String id) async {
-    return GetFieldLevelEncryptionProfileResult.fromJson({});
+    var response_ =
+        await _client.send('GetFieldLevelEncryptionProfile2019_03_26', {
+      'Id': id,
+    });
+    return GetFieldLevelEncryptionProfileResult.fromJson(response_);
   }
 
   /// Get the field-level encryption profile configuration information.
@@ -305,7 +399,11 @@ class CloudFrontApi {
   /// information.
   Future<GetFieldLevelEncryptionProfileConfigResult>
       getFieldLevelEncryptionProfileConfig20190326(String id) async {
-    return GetFieldLevelEncryptionProfileConfigResult.fromJson({});
+    var response_ =
+        await _client.send('GetFieldLevelEncryptionProfileConfig2019_03_26', {
+      'Id': id,
+    });
+    return GetFieldLevelEncryptionProfileConfigResult.fromJson(response_);
   }
 
   /// Get the information about an invalidation.
@@ -316,21 +414,31 @@ class CloudFrontApi {
   /// `IDFDVBD632BHDS5`.
   Future<GetInvalidationResult> getInvalidation20190326(
       {@required String distributionId, @required String id}) async {
-    return GetInvalidationResult.fromJson({});
+    var response_ = await _client.send('GetInvalidation2019_03_26', {
+      'DistributionId': distributionId,
+      'Id': id,
+    });
+    return GetInvalidationResult.fromJson(response_);
   }
 
   /// Get the public key information.
   ///
   /// [id]: Request the ID for the public key.
   Future<GetPublicKeyResult> getPublicKey20190326(String id) async {
-    return GetPublicKeyResult.fromJson({});
+    var response_ = await _client.send('GetPublicKey2019_03_26', {
+      'Id': id,
+    });
+    return GetPublicKeyResult.fromJson(response_);
   }
 
   /// Return public key configuration informaation
   ///
   /// [id]: Request the ID for the public key configuration.
   Future<GetPublicKeyConfigResult> getPublicKeyConfig20190326(String id) async {
-    return GetPublicKeyConfigResult.fromJson({});
+    var response_ = await _client.send('GetPublicKeyConfig2019_03_26', {
+      'Id': id,
+    });
+    return GetPublicKeyConfigResult.fromJson(response_);
   }
 
   /// Gets information about a specified RTMP distribution, including the
@@ -339,7 +447,10 @@ class CloudFrontApi {
   /// [id]: The streaming distribution's ID.
   Future<GetStreamingDistributionResult> getStreamingDistribution20190326(
       String id) async {
-    return GetStreamingDistributionResult.fromJson({});
+    var response_ = await _client.send('GetStreamingDistribution2019_03_26', {
+      'Id': id,
+    });
+    return GetStreamingDistributionResult.fromJson(response_);
   }
 
   /// Get the configuration information about a streaming distribution.
@@ -347,7 +458,11 @@ class CloudFrontApi {
   /// [id]: The streaming distribution's ID.
   Future<GetStreamingDistributionConfigResult>
       getStreamingDistributionConfig20190326(String id) async {
-    return GetStreamingDistributionConfigResult.fromJson({});
+    var response_ =
+        await _client.send('GetStreamingDistributionConfig2019_03_26', {
+      'Id': id,
+    });
+    return GetStreamingDistributionConfigResult.fromJson(response_);
   }
 
   /// Lists origin access identities.
@@ -363,7 +478,12 @@ class CloudFrontApi {
   Future<ListCloudFrontOriginAccessIdentitiesResult>
       listCloudFrontOriginAccessIdentities20190326(
           {String marker, String maxItems}) async {
-    return ListCloudFrontOriginAccessIdentitiesResult.fromJson({});
+    var response_ =
+        await _client.send('ListCloudFrontOriginAccessIdentities2019_03_26', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListCloudFrontOriginAccessIdentitiesResult.fromJson(response_);
   }
 
   /// List CloudFront distributions.
@@ -378,7 +498,11 @@ class CloudFrontApi {
   /// body.
   Future<ListDistributionsResult> listDistributions20190326(
       {String marker, String maxItems}) async {
-    return ListDistributionsResult.fromJson({});
+    var response_ = await _client.send('ListDistributions2019_03_26', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListDistributionsResult.fromJson(response_);
   }
 
   /// List the distributions that are associated with a specified AWS WAF web
@@ -402,7 +526,13 @@ class CloudFrontApi {
       String webAclId,
       {String marker,
       String maxItems}) async {
-    return ListDistributionsByWebAclIdResult.fromJson({});
+    var response_ =
+        await _client.send('ListDistributionsByWebACLId2019_03_26', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+      'WebACLId': webAclId,
+    });
+    return ListDistributionsByWebAclIdResult.fromJson(response_);
   }
 
   /// List all field-level encryption configurations that have been created in
@@ -419,7 +549,12 @@ class CloudFrontApi {
   Future<ListFieldLevelEncryptionConfigsResult>
       listFieldLevelEncryptionConfigs20190326(
           {String marker, String maxItems}) async {
-    return ListFieldLevelEncryptionConfigsResult.fromJson({});
+    var response_ =
+        await _client.send('ListFieldLevelEncryptionConfigs2019_03_26', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListFieldLevelEncryptionConfigsResult.fromJson(response_);
   }
 
   /// Request a list of field-level encryption profiles that have been created
@@ -436,7 +571,12 @@ class CloudFrontApi {
   Future<ListFieldLevelEncryptionProfilesResult>
       listFieldLevelEncryptionProfiles20190326(
           {String marker, String maxItems}) async {
-    return ListFieldLevelEncryptionProfilesResult.fromJson({});
+    var response_ =
+        await _client.send('ListFieldLevelEncryptionProfiles2019_03_26', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListFieldLevelEncryptionProfilesResult.fromJson(response_);
   }
 
   /// Lists invalidation batches.
@@ -457,7 +597,12 @@ class CloudFrontApi {
       String distributionId,
       {String marker,
       String maxItems}) async {
-    return ListInvalidationsResult.fromJson({});
+    var response_ = await _client.send('ListInvalidations2019_03_26', {
+      'DistributionId': distributionId,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListInvalidationsResult.fromJson(response_);
   }
 
   /// List all public keys that have been added to CloudFront for this account.
@@ -472,7 +617,11 @@ class CloudFrontApi {
   /// body.
   Future<ListPublicKeysResult> listPublicKeys20190326(
       {String marker, String maxItems}) async {
-    return ListPublicKeysResult.fromJson({});
+    var response_ = await _client.send('ListPublicKeys2019_03_26', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListPublicKeysResult.fromJson(response_);
   }
 
   /// List streaming distributions.
@@ -483,7 +632,11 @@ class CloudFrontApi {
   /// parameter.
   Future<ListStreamingDistributionsResult> listStreamingDistributions20190326(
       {String marker, String maxItems}) async {
-    return ListStreamingDistributionsResult.fromJson({});
+    var response_ = await _client.send('ListStreamingDistributions2019_03_26', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListStreamingDistributionsResult.fromJson(response_);
   }
 
   /// List tags for a CloudFront resource.
@@ -491,7 +644,10 @@ class CloudFrontApi {
   /// [resource]:  An ARN of a CloudFront resource.
   Future<ListTagsForResourceResult> listTagsForResource20190326(
       String resource) async {
-    return ListTagsForResourceResult.fromJson({});
+    var response_ = await _client.send('ListTagsForResource2019_03_26', {
+      'Resource': resource,
+    });
+    return ListTagsForResourceResult.fromJson(response_);
   }
 
   /// Add tags to a CloudFront resource.
@@ -500,7 +656,12 @@ class CloudFrontApi {
   ///
   /// [tags]:  A complex type that contains zero or more `Tag` elements.
   Future<void> tagResource20190326(
-      {@required String resource, @required Tags tags}) async {}
+      {@required String resource, @required Tags tags}) async {
+    await _client.send('TagResource2019_03_26', {
+      'Resource': resource,
+      'Tags': tags,
+    });
+  }
 
   /// Remove tags from a CloudFront resource.
   ///
@@ -508,7 +669,12 @@ class CloudFrontApi {
   ///
   /// [tagKeys]:  A complex type that contains zero or more `Tag` key elements.
   Future<void> untagResource20190326(
-      {@required String resource, @required TagKeys tagKeys}) async {}
+      {@required String resource, @required TagKeys tagKeys}) async {
+    await _client.send('UntagResource2019_03_26', {
+      'Resource': resource,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Update an origin access identity.
   ///
@@ -527,7 +693,14 @@ class CloudFrontApi {
           @required
               String id,
           String ifMatch}) async {
-    return UpdateCloudFrontOriginAccessIdentityResult.fromJson({});
+    var response_ =
+        await _client.send('UpdateCloudFrontOriginAccessIdentity2019_03_26', {
+      'CloudFrontOriginAccessIdentityConfig':
+          cloudFrontOriginAccessIdentityConfig,
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+    return UpdateCloudFrontOriginAccessIdentityResult.fromJson(response_);
   }
 
   /// Updates the configuration for a web distribution.
@@ -612,7 +785,12 @@ class CloudFrontApi {
       {@required DistributionConfig distributionConfig,
       @required String id,
       String ifMatch}) async {
-    return UpdateDistributionResult.fromJson({});
+    var response_ = await _client.send('UpdateDistribution2019_03_26', {
+      'DistributionConfig': distributionConfig,
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+    return UpdateDistributionResult.fromJson(response_);
   }
 
   /// Update a field-level encryption configuration.
@@ -630,7 +808,13 @@ class CloudFrontApi {
           {@required FieldLevelEncryptionConfig fieldLevelEncryptionConfig,
           @required String id,
           String ifMatch}) async {
-    return UpdateFieldLevelEncryptionConfigResult.fromJson({});
+    var response_ =
+        await _client.send('UpdateFieldLevelEncryptionConfig2019_03_26', {
+      'FieldLevelEncryptionConfig': fieldLevelEncryptionConfig,
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+    return UpdateFieldLevelEncryptionConfigResult.fromJson(response_);
   }
 
   /// Update a field-level encryption profile.
@@ -650,7 +834,13 @@ class CloudFrontApi {
           @required
               String id,
           String ifMatch}) async {
-    return UpdateFieldLevelEncryptionProfileResult.fromJson({});
+    var response_ =
+        await _client.send('UpdateFieldLevelEncryptionProfile2019_03_26', {
+      'FieldLevelEncryptionProfileConfig': fieldLevelEncryptionProfileConfig,
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+    return UpdateFieldLevelEncryptionProfileResult.fromJson(response_);
   }
 
   /// Update public key information. Note that the only value you can change is
@@ -666,7 +856,12 @@ class CloudFrontApi {
       {@required PublicKeyConfig publicKeyConfig,
       @required String id,
       String ifMatch}) async {
-    return UpdatePublicKeyResult.fromJson({});
+    var response_ = await _client.send('UpdatePublicKey2019_03_26', {
+      'PublicKeyConfig': publicKeyConfig,
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+    return UpdatePublicKeyResult.fromJson(response_);
   }
 
   /// Update a streaming distribution.
@@ -683,7 +878,13 @@ class CloudFrontApi {
       {@required StreamingDistributionConfig streamingDistributionConfig,
       @required String id,
       String ifMatch}) async {
-    return UpdateStreamingDistributionResult.fromJson({});
+    var response_ =
+        await _client.send('UpdateStreamingDistribution2019_03_26', {
+      'StreamingDistributionConfig': streamingDistributionConfig,
+      'Id': id,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+    });
+    return UpdateStreamingDistributionResult.fromJson(response_);
   }
 }
 
@@ -721,7 +922,13 @@ class ActiveTrustedSigners {
     this.items,
   });
   static ActiveTrustedSigners fromJson(Map<String, dynamic> json) =>
-      ActiveTrustedSigners();
+      ActiveTrustedSigners(
+        enabled: json['Enabled'] as bool,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => Signer.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// AWS services in China customers must file for an Internet Content Provider
@@ -762,7 +969,12 @@ class AliasIcpRecordal {
     this.icpRecordalStatus,
   });
   static AliasIcpRecordal fromJson(Map<String, dynamic> json) =>
-      AliasIcpRecordal();
+      AliasIcpRecordal(
+        cname: json.containsKey('CNAME') ? json['CNAME'] as String : null,
+        icpRecordalStatus: json.containsKey('ICPRecordalStatus')
+            ? json['ICPRecordalStatus'] as String
+            : null,
+      );
 }
 
 /// A complex type that contains information about CNAMEs (alternate domain
@@ -780,7 +992,13 @@ class Aliases {
     @required this.quantity,
     this.items,
   });
-  static Aliases fromJson(Map<String, dynamic> json) => Aliases();
+  static Aliases fromJson(Map<String, dynamic> json) => Aliases(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that controls which HTTP methods CloudFront processes and
@@ -817,7 +1035,14 @@ class AllowedMethods {
     @required this.items,
     this.cachedMethods,
   });
-  static AllowedMethods fromJson(Map<String, dynamic> json) => AllowedMethods();
+  static AllowedMethods fromJson(Map<String, dynamic> json) => AllowedMethods(
+        quantity: json['Quantity'] as int,
+        items: (json['Items'] as List).map((e) => e as String).toList(),
+        cachedMethods: json.containsKey('CachedMethods')
+            ? CachedMethods.fromJson(json['CachedMethods'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that describes how CloudFront processes requests.
@@ -1003,7 +1228,35 @@ class CacheBehavior {
     this.lambdaFunctionAssociations,
     this.fieldLevelEncryptionId,
   });
-  static CacheBehavior fromJson(Map<String, dynamic> json) => CacheBehavior();
+  static CacheBehavior fromJson(Map<String, dynamic> json) => CacheBehavior(
+        pathPattern: json['PathPattern'] as String,
+        targetOriginId: json['TargetOriginId'] as String,
+        forwardedValues: ForwardedValues.fromJson(json['ForwardedValues']),
+        trustedSigners: TrustedSigners.fromJson(json['TrustedSigners']),
+        viewerProtocolPolicy: json['ViewerProtocolPolicy'] as String,
+        minTtl: BigInt.from(json['MinTTL']),
+        allowedMethods: json.containsKey('AllowedMethods')
+            ? AllowedMethods.fromJson(json['AllowedMethods'])
+            : null,
+        smoothStreaming: json.containsKey('SmoothStreaming')
+            ? json['SmoothStreaming'] as bool
+            : null,
+        defaultTtl: json.containsKey('DefaultTTL')
+            ? BigInt.from(json['DefaultTTL'])
+            : null,
+        maxTtl: json.containsKey('MaxTTL') ? BigInt.from(json['MaxTTL']) : null,
+        compress:
+            json.containsKey('Compress') ? json['Compress'] as bool : null,
+        lambdaFunctionAssociations:
+            json.containsKey('LambdaFunctionAssociations')
+                ? LambdaFunctionAssociations.fromJson(
+                    json['LambdaFunctionAssociations'])
+                : null,
+        fieldLevelEncryptionId: json.containsKey('FieldLevelEncryptionId')
+            ? json['FieldLevelEncryptionId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains zero or more `CacheBehavior` elements.
@@ -1019,7 +1272,15 @@ class CacheBehaviors {
     @required this.quantity,
     this.items,
   });
-  static CacheBehaviors fromJson(Map<String, dynamic> json) => CacheBehaviors();
+  static CacheBehaviors fromJson(Map<String, dynamic> json) => CacheBehaviors(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => CacheBehavior.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that controls whether CloudFront caches the response to
@@ -1048,7 +1309,11 @@ class CachedMethods {
     @required this.quantity,
     @required this.items,
   });
-  static CachedMethods fromJson(Map<String, dynamic> json) => CachedMethods();
+  static CachedMethods fromJson(Map<String, dynamic> json) => CachedMethods(
+        quantity: json['Quantity'] as int,
+        items: (json['Items'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// CloudFront origin access identity.
@@ -1071,7 +1336,15 @@ class CloudFrontOriginAccessIdentity {
     this.cloudFrontOriginAccessIdentityConfig,
   });
   static CloudFrontOriginAccessIdentity fromJson(Map<String, dynamic> json) =>
-      CloudFrontOriginAccessIdentity();
+      CloudFrontOriginAccessIdentity(
+        id: json['Id'] as String,
+        s3CanonicalUserId: json['S3CanonicalUserId'] as String,
+        cloudFrontOriginAccessIdentityConfig:
+            json.containsKey('CloudFrontOriginAccessIdentityConfig')
+                ? CloudFrontOriginAccessIdentityConfig.fromJson(
+                    json['CloudFrontOriginAccessIdentityConfig'])
+                : null,
+      );
 }
 
 /// Origin access identity configuration. Send a `GET` request to the
@@ -1105,7 +1378,11 @@ class CloudFrontOriginAccessIdentityConfig {
   });
   static CloudFrontOriginAccessIdentityConfig fromJson(
           Map<String, dynamic> json) =>
-      CloudFrontOriginAccessIdentityConfig();
+      CloudFrontOriginAccessIdentityConfig(
+        callerReference: json['CallerReference'] as String,
+        comment: json['Comment'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Lists the origin access identities for CloudFront.Send a `GET` request to
@@ -1157,7 +1434,20 @@ class CloudFrontOriginAccessIdentityList {
   });
   static CloudFrontOriginAccessIdentityList fromJson(
           Map<String, dynamic> json) =>
-      CloudFrontOriginAccessIdentityList();
+      CloudFrontOriginAccessIdentityList(
+        marker: json['Marker'] as String,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as int,
+        isTruncated: json['IsTruncated'] as bool,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => CloudFrontOriginAccessIdentitySummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Summary of the information about a CloudFront origin access identity.
@@ -1181,7 +1471,11 @@ class CloudFrontOriginAccessIdentitySummary {
   });
   static CloudFrontOriginAccessIdentitySummary fromJson(
           Map<String, dynamic> json) =>
-      CloudFrontOriginAccessIdentitySummary();
+      CloudFrontOriginAccessIdentitySummary(
+        id: json['Id'] as String,
+        s3CanonicalUserId: json['S3CanonicalUserId'] as String,
+        comment: json['Comment'] as String,
+      );
 }
 
 /// A field-level encryption content type profile.
@@ -1202,7 +1496,13 @@ class ContentTypeProfile {
     @required this.contentType,
   });
   static ContentTypeProfile fromJson(Map<String, dynamic> json) =>
-      ContentTypeProfile();
+      ContentTypeProfile(
+        format: json['Format'] as String,
+        profileId:
+            json.containsKey('ProfileId') ? json['ProfileId'] as String : null,
+        contentType: json['ContentType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration for a field-level encryption content type-profile mapping.
@@ -1222,7 +1522,14 @@ class ContentTypeProfileConfig {
     this.contentTypeProfiles,
   });
   static ContentTypeProfileConfig fromJson(Map<String, dynamic> json) =>
-      ContentTypeProfileConfig();
+      ContentTypeProfileConfig(
+        forwardWhenContentTypeIsUnknown:
+            json['ForwardWhenContentTypeIsUnknown'] as bool,
+        contentTypeProfiles: json.containsKey('ContentTypeProfiles')
+            ? ContentTypeProfiles.fromJson(json['ContentTypeProfiles'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Field-level encryption content type-profile.
@@ -1238,7 +1545,15 @@ class ContentTypeProfiles {
     this.items,
   });
   static ContentTypeProfiles fromJson(Map<String, dynamic> json) =>
-      ContentTypeProfiles();
+      ContentTypeProfiles(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => ContentTypeProfile.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that specifies whether you want CloudFront to forward cookies
@@ -1259,7 +1574,13 @@ class CookieNames {
     @required this.quantity,
     this.items,
   });
-  static CookieNames fromJson(Map<String, dynamic> json) => CookieNames();
+  static CookieNames fromJson(Map<String, dynamic> json) => CookieNames(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that specifies whether you want CloudFront to forward cookies
@@ -1297,7 +1618,13 @@ class CookiePreference {
     this.whitelistedNames,
   });
   static CookiePreference fromJson(Map<String, dynamic> json) =>
-      CookiePreference();
+      CookiePreference(
+        forward: json['Forward'] as String,
+        whitelistedNames: json.containsKey('WhitelistedNames')
+            ? CookieNames.fromJson(json['WhitelistedNames'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The returned result of the corresponding request.
@@ -1320,7 +1647,16 @@ class CreateCloudFrontOriginAccessIdentityResult {
   });
   static CreateCloudFrontOriginAccessIdentityResult fromJson(
           Map<String, dynamic> json) =>
-      CreateCloudFrontOriginAccessIdentityResult();
+      CreateCloudFrontOriginAccessIdentityResult(
+        cloudFrontOriginAccessIdentity:
+            json.containsKey('CloudFrontOriginAccessIdentity')
+                ? CloudFrontOriginAccessIdentity.fromJson(
+                    json['CloudFrontOriginAccessIdentity'])
+                : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -1342,7 +1678,14 @@ class CreateDistributionResult {
     this.eTag,
   });
   static CreateDistributionResult fromJson(Map<String, dynamic> json) =>
-      CreateDistributionResult();
+      CreateDistributionResult(
+        distribution: json.containsKey('Distribution')
+            ? Distribution.fromJson(json['Distribution'])
+            : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -1364,7 +1707,14 @@ class CreateDistributionWithTagsResult {
     this.eTag,
   });
   static CreateDistributionWithTagsResult fromJson(Map<String, dynamic> json) =>
-      CreateDistributionWithTagsResult();
+      CreateDistributionWithTagsResult(
+        distribution: json.containsKey('Distribution')
+            ? Distribution.fromJson(json['Distribution'])
+            : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class CreateFieldLevelEncryptionConfigResult {
@@ -1387,7 +1737,14 @@ class CreateFieldLevelEncryptionConfigResult {
   });
   static CreateFieldLevelEncryptionConfigResult fromJson(
           Map<String, dynamic> json) =>
-      CreateFieldLevelEncryptionConfigResult();
+      CreateFieldLevelEncryptionConfigResult(
+        fieldLevelEncryption: json.containsKey('FieldLevelEncryption')
+            ? FieldLevelEncryption.fromJson(json['FieldLevelEncryption'])
+            : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class CreateFieldLevelEncryptionProfileResult {
@@ -1410,7 +1767,16 @@ class CreateFieldLevelEncryptionProfileResult {
   });
   static CreateFieldLevelEncryptionProfileResult fromJson(
           Map<String, dynamic> json) =>
-      CreateFieldLevelEncryptionProfileResult();
+      CreateFieldLevelEncryptionProfileResult(
+        fieldLevelEncryptionProfile:
+            json.containsKey('FieldLevelEncryptionProfile')
+                ? FieldLevelEncryptionProfile.fromJson(
+                    json['FieldLevelEncryptionProfile'])
+                : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -1427,7 +1793,13 @@ class CreateInvalidationResult {
     this.invalidation,
   });
   static CreateInvalidationResult fromJson(Map<String, dynamic> json) =>
-      CreateInvalidationResult();
+      CreateInvalidationResult(
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        invalidation: json.containsKey('Invalidation')
+            ? Invalidation.fromJson(json['Invalidation'])
+            : null,
+      );
 }
 
 class CreatePublicKeyResult {
@@ -1448,7 +1820,14 @@ class CreatePublicKeyResult {
     this.eTag,
   });
   static CreatePublicKeyResult fromJson(Map<String, dynamic> json) =>
-      CreatePublicKeyResult();
+      CreatePublicKeyResult(
+        publicKey: json.containsKey('PublicKey')
+            ? PublicKey.fromJson(json['PublicKey'])
+            : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -1471,7 +1850,14 @@ class CreateStreamingDistributionResult {
   });
   static CreateStreamingDistributionResult fromJson(
           Map<String, dynamic> json) =>
-      CreateStreamingDistributionResult();
+      CreateStreamingDistributionResult(
+        streamingDistribution: json.containsKey('StreamingDistribution')
+            ? StreamingDistribution.fromJson(json['StreamingDistribution'])
+            : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -1494,7 +1880,14 @@ class CreateStreamingDistributionWithTagsResult {
   });
   static CreateStreamingDistributionWithTagsResult fromJson(
           Map<String, dynamic> json) =>
-      CreateStreamingDistributionWithTagsResult();
+      CreateStreamingDistributionWithTagsResult(
+        streamingDistribution: json.containsKey('StreamingDistribution')
+            ? StreamingDistribution.fromJson(json['StreamingDistribution'])
+            : null,
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// A complex type that controls:
@@ -1585,7 +1978,19 @@ class CustomErrorResponse {
     this.errorCachingMinTtl,
   });
   static CustomErrorResponse fromJson(Map<String, dynamic> json) =>
-      CustomErrorResponse();
+      CustomErrorResponse(
+        errorCode: json['ErrorCode'] as int,
+        responsePagePath: json.containsKey('ResponsePagePath')
+            ? json['ResponsePagePath'] as String
+            : null,
+        responseCode: json.containsKey('ResponseCode')
+            ? json['ResponseCode'] as String
+            : null,
+        errorCachingMinTtl: json.containsKey('ErrorCachingMinTTL')
+            ? BigInt.from(json['ErrorCachingMinTTL'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that controls:
@@ -1615,7 +2020,15 @@ class CustomErrorResponses {
     this.items,
   });
   static CustomErrorResponses fromJson(Map<String, dynamic> json) =>
-      CustomErrorResponses();
+      CustomErrorResponses(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => CustomErrorResponse.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains the list of Custom Headers for each origin.
@@ -1632,7 +2045,15 @@ class CustomHeaders {
     @required this.quantity,
     this.items,
   });
-  static CustomHeaders fromJson(Map<String, dynamic> json) => CustomHeaders();
+  static CustomHeaders fromJson(Map<String, dynamic> json) => CustomHeaders(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => OriginCustomHeader.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A custom origin or an Amazon S3 bucket configured as a website endpoint.
@@ -1677,7 +2098,21 @@ class CustomOriginConfig {
     this.originKeepaliveTimeout,
   });
   static CustomOriginConfig fromJson(Map<String, dynamic> json) =>
-      CustomOriginConfig();
+      CustomOriginConfig(
+        httpPort: json['HTTPPort'] as int,
+        httpsPort: json['HTTPSPort'] as int,
+        originProtocolPolicy: json['OriginProtocolPolicy'] as String,
+        originSslProtocols: json.containsKey('OriginSslProtocols')
+            ? OriginSslProtocols.fromJson(json['OriginSslProtocols'])
+            : null,
+        originReadTimeout: json.containsKey('OriginReadTimeout')
+            ? json['OriginReadTimeout'] as int
+            : null,
+        originKeepaliveTimeout: json.containsKey('OriginKeepaliveTimeout')
+            ? json['OriginKeepaliveTimeout'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that describes the default cache behavior if you don't
@@ -1818,7 +2253,34 @@ class DefaultCacheBehavior {
     this.fieldLevelEncryptionId,
   });
   static DefaultCacheBehavior fromJson(Map<String, dynamic> json) =>
-      DefaultCacheBehavior();
+      DefaultCacheBehavior(
+        targetOriginId: json['TargetOriginId'] as String,
+        forwardedValues: ForwardedValues.fromJson(json['ForwardedValues']),
+        trustedSigners: TrustedSigners.fromJson(json['TrustedSigners']),
+        viewerProtocolPolicy: json['ViewerProtocolPolicy'] as String,
+        minTtl: BigInt.from(json['MinTTL']),
+        allowedMethods: json.containsKey('AllowedMethods')
+            ? AllowedMethods.fromJson(json['AllowedMethods'])
+            : null,
+        smoothStreaming: json.containsKey('SmoothStreaming')
+            ? json['SmoothStreaming'] as bool
+            : null,
+        defaultTtl: json.containsKey('DefaultTTL')
+            ? BigInt.from(json['DefaultTTL'])
+            : null,
+        maxTtl: json.containsKey('MaxTTL') ? BigInt.from(json['MaxTTL']) : null,
+        compress:
+            json.containsKey('Compress') ? json['Compress'] as bool : null,
+        lambdaFunctionAssociations:
+            json.containsKey('LambdaFunctionAssociations')
+                ? LambdaFunctionAssociations.fromJson(
+                    json['LambdaFunctionAssociations'])
+                : null,
+        fieldLevelEncryptionId: json.containsKey('FieldLevelEncryptionId')
+            ? json['FieldLevelEncryptionId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A distribution tells CloudFront where you want content to be delivered from,
@@ -1884,7 +2346,24 @@ class Distribution {
     @required this.distributionConfig,
     this.aliasIcpRecordals,
   });
-  static Distribution fromJson(Map<String, dynamic> json) => Distribution();
+  static Distribution fromJson(Map<String, dynamic> json) => Distribution(
+        id: json['Id'] as String,
+        arn: json['ARN'] as String,
+        status: json['Status'] as String,
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        inProgressInvalidationBatches:
+            json['InProgressInvalidationBatches'] as int,
+        domainName: json['DomainName'] as String,
+        activeTrustedSigners:
+            ActiveTrustedSigners.fromJson(json['ActiveTrustedSigners']),
+        distributionConfig:
+            DistributionConfig.fromJson(json['DistributionConfig']),
+        aliasIcpRecordals: json.containsKey('AliasICPRecordals')
+            ? (json['AliasICPRecordals'] as List)
+                .map((e) => AliasIcpRecordal.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A distribution configuration.
@@ -2096,7 +2575,50 @@ class DistributionConfig {
     this.isIpv6Enabled,
   });
   static DistributionConfig fromJson(Map<String, dynamic> json) =>
-      DistributionConfig();
+      DistributionConfig(
+        callerReference: json['CallerReference'] as String,
+        aliases: json.containsKey('Aliases')
+            ? Aliases.fromJson(json['Aliases'])
+            : null,
+        defaultRootObject: json.containsKey('DefaultRootObject')
+            ? json['DefaultRootObject'] as String
+            : null,
+        origins: Origins.fromJson(json['Origins']),
+        originGroups: json.containsKey('OriginGroups')
+            ? OriginGroups.fromJson(json['OriginGroups'])
+            : null,
+        defaultCacheBehavior:
+            DefaultCacheBehavior.fromJson(json['DefaultCacheBehavior']),
+        cacheBehaviors: json.containsKey('CacheBehaviors')
+            ? CacheBehaviors.fromJson(json['CacheBehaviors'])
+            : null,
+        customErrorResponses: json.containsKey('CustomErrorResponses')
+            ? CustomErrorResponses.fromJson(json['CustomErrorResponses'])
+            : null,
+        comment: json['Comment'] as String,
+        logging: json.containsKey('Logging')
+            ? LoggingConfig.fromJson(json['Logging'])
+            : null,
+        priceClass: json.containsKey('PriceClass')
+            ? json['PriceClass'] as String
+            : null,
+        enabled: json['Enabled'] as bool,
+        viewerCertificate: json.containsKey('ViewerCertificate')
+            ? ViewerCertificate.fromJson(json['ViewerCertificate'])
+            : null,
+        restrictions: json.containsKey('Restrictions')
+            ? Restrictions.fromJson(json['Restrictions'])
+            : null,
+        webAclId:
+            json.containsKey('WebACLId') ? json['WebACLId'] as String : null,
+        httpVersion: json.containsKey('HttpVersion')
+            ? json['HttpVersion'] as String
+            : null,
+        isIpv6Enabled: json.containsKey('IsIPV6Enabled')
+            ? json['IsIPV6Enabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A distribution Configuration and a list of tags to be associated with the
@@ -2112,6 +2634,7 @@ class DistributionConfigWithTags {
     @required this.distributionConfig,
     @required this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A distribution list.
@@ -2149,7 +2672,20 @@ class DistributionList {
     this.items,
   });
   static DistributionList fromJson(Map<String, dynamic> json) =>
-      DistributionList();
+      DistributionList(
+        marker: json['Marker'] as String,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as int,
+        isTruncated: json['IsTruncated'] as bool,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => DistributionSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A summary of the information about a CloudFront distribution.
@@ -2264,7 +2800,37 @@ class DistributionSummary {
     this.aliasIcpRecordals,
   });
   static DistributionSummary fromJson(Map<String, dynamic> json) =>
-      DistributionSummary();
+      DistributionSummary(
+        id: json['Id'] as String,
+        arn: json['ARN'] as String,
+        status: json['Status'] as String,
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        domainName: json['DomainName'] as String,
+        aliases: Aliases.fromJson(json['Aliases']),
+        origins: Origins.fromJson(json['Origins']),
+        originGroups: json.containsKey('OriginGroups')
+            ? OriginGroups.fromJson(json['OriginGroups'])
+            : null,
+        defaultCacheBehavior:
+            DefaultCacheBehavior.fromJson(json['DefaultCacheBehavior']),
+        cacheBehaviors: CacheBehaviors.fromJson(json['CacheBehaviors']),
+        customErrorResponses:
+            CustomErrorResponses.fromJson(json['CustomErrorResponses']),
+        comment: json['Comment'] as String,
+        priceClass: json['PriceClass'] as String,
+        enabled: json['Enabled'] as bool,
+        viewerCertificate:
+            ViewerCertificate.fromJson(json['ViewerCertificate']),
+        restrictions: Restrictions.fromJson(json['Restrictions']),
+        webAclId: json['WebACLId'] as String,
+        httpVersion: json['HttpVersion'] as String,
+        isIpv6Enabled: json['IsIPV6Enabled'] as bool,
+        aliasIcpRecordals: json.containsKey('AliasICPRecordals')
+            ? (json['AliasICPRecordals'] as List)
+                .map((e) => AliasIcpRecordal.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Complex data type for field-level encryption profiles that includes all of
@@ -2283,7 +2849,15 @@ class EncryptionEntities {
     this.items,
   });
   static EncryptionEntities fromJson(Map<String, dynamic> json) =>
-      EncryptionEntities();
+      EncryptionEntities(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => EncryptionEntity.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Complex data type for field-level encryption profiles that includes the
@@ -2311,7 +2885,12 @@ class EncryptionEntity {
     @required this.fieldPatterns,
   });
   static EncryptionEntity fromJson(Map<String, dynamic> json) =>
-      EncryptionEntity();
+      EncryptionEntity(
+        publicKeyId: json['PublicKeyId'] as String,
+        providerId: json['ProviderId'] as String,
+        fieldPatterns: FieldPatterns.fromJson(json['FieldPatterns']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex data type that includes the profile configurations and other
@@ -2335,7 +2914,12 @@ class FieldLevelEncryption {
     @required this.fieldLevelEncryptionConfig,
   });
   static FieldLevelEncryption fromJson(Map<String, dynamic> json) =>
-      FieldLevelEncryption();
+      FieldLevelEncryption(
+        id: json['Id'] as String,
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        fieldLevelEncryptionConfig: FieldLevelEncryptionConfig.fromJson(
+            json['FieldLevelEncryptionConfig']),
+      );
 }
 
 /// A complex data type that includes the profile configurations specified for
@@ -2364,7 +2948,18 @@ class FieldLevelEncryptionConfig {
     this.contentTypeProfileConfig,
   });
   static FieldLevelEncryptionConfig fromJson(Map<String, dynamic> json) =>
-      FieldLevelEncryptionConfig();
+      FieldLevelEncryptionConfig(
+        callerReference: json['CallerReference'] as String,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        queryArgProfileConfig: json.containsKey('QueryArgProfileConfig')
+            ? QueryArgProfileConfig.fromJson(json['QueryArgProfileConfig'])
+            : null,
+        contentTypeProfileConfig: json.containsKey('ContentTypeProfileConfig')
+            ? ContentTypeProfileConfig.fromJson(
+                json['ContentTypeProfileConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// List of field-level encrpytion configurations.
@@ -2390,7 +2985,18 @@ class FieldLevelEncryptionList {
     this.items,
   });
   static FieldLevelEncryptionList fromJson(Map<String, dynamic> json) =>
-      FieldLevelEncryptionList();
+      FieldLevelEncryptionList(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as int,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => FieldLevelEncryptionSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A complex data type for field-level encryption profiles.
@@ -2413,7 +3019,13 @@ class FieldLevelEncryptionProfile {
     @required this.fieldLevelEncryptionProfileConfig,
   });
   static FieldLevelEncryptionProfile fromJson(Map<String, dynamic> json) =>
-      FieldLevelEncryptionProfile();
+      FieldLevelEncryptionProfile(
+        id: json['Id'] as String,
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        fieldLevelEncryptionProfileConfig:
+            FieldLevelEncryptionProfileConfig.fromJson(
+                json['FieldLevelEncryptionProfileConfig']),
+      );
 }
 
 /// A complex data type of profiles for the field-level encryption.
@@ -2440,7 +3052,14 @@ class FieldLevelEncryptionProfileConfig {
   });
   static FieldLevelEncryptionProfileConfig fromJson(
           Map<String, dynamic> json) =>
-      FieldLevelEncryptionProfileConfig();
+      FieldLevelEncryptionProfileConfig(
+        name: json['Name'] as String,
+        callerReference: json['CallerReference'] as String,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        encryptionEntities:
+            EncryptionEntities.fromJson(json['EncryptionEntities']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// List of field-level encryption profiles.
@@ -2467,7 +3086,18 @@ class FieldLevelEncryptionProfileList {
     this.items,
   });
   static FieldLevelEncryptionProfileList fromJson(Map<String, dynamic> json) =>
-      FieldLevelEncryptionProfileList();
+      FieldLevelEncryptionProfileList(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as int,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => FieldLevelEncryptionProfileSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The field-level encryption profile summary.
@@ -2499,7 +3129,14 @@ class FieldLevelEncryptionProfileSummary {
   });
   static FieldLevelEncryptionProfileSummary fromJson(
           Map<String, dynamic> json) =>
-      FieldLevelEncryptionProfileSummary();
+      FieldLevelEncryptionProfileSummary(
+        id: json['Id'] as String,
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        name: json['Name'] as String,
+        encryptionEntities:
+            EncryptionEntities.fromJson(json['EncryptionEntities']),
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+      );
 }
 
 /// A summary of a field-level encryption item.
@@ -2528,7 +3165,18 @@ class FieldLevelEncryptionSummary {
     this.contentTypeProfileConfig,
   });
   static FieldLevelEncryptionSummary fromJson(Map<String, dynamic> json) =>
-      FieldLevelEncryptionSummary();
+      FieldLevelEncryptionSummary(
+        id: json['Id'] as String,
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+        queryArgProfileConfig: json.containsKey('QueryArgProfileConfig')
+            ? QueryArgProfileConfig.fromJson(json['QueryArgProfileConfig'])
+            : null,
+        contentTypeProfileConfig: json.containsKey('ContentTypeProfileConfig')
+            ? ContentTypeProfileConfig.fromJson(
+                json['ContentTypeProfileConfig'])
+            : null,
+      );
 }
 
 /// A complex data type that includes the field patterns to match for
@@ -2544,7 +3192,13 @@ class FieldPatterns {
     @required this.quantity,
     this.items,
   });
-  static FieldPatterns fromJson(Map<String, dynamic> json) => FieldPatterns();
+  static FieldPatterns fromJson(Map<String, dynamic> json) => FieldPatterns(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that specifies how CloudFront handles query strings and
@@ -2605,8 +3259,17 @@ class ForwardedValues {
     this.headers,
     this.queryStringCacheKeys,
   });
-  static ForwardedValues fromJson(Map<String, dynamic> json) =>
-      ForwardedValues();
+  static ForwardedValues fromJson(Map<String, dynamic> json) => ForwardedValues(
+        queryString: json['QueryString'] as bool,
+        cookies: CookiePreference.fromJson(json['Cookies']),
+        headers: json.containsKey('Headers')
+            ? Headers.fromJson(json['Headers'])
+            : null,
+        queryStringCacheKeys: json.containsKey('QueryStringCacheKeys')
+            ? QueryStringCacheKeys.fromJson(json['QueryStringCacheKeys'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that controls the countries in which your content is
@@ -2651,7 +3314,14 @@ class GeoRestriction {
     @required this.quantity,
     this.items,
   });
-  static GeoRestriction fromJson(Map<String, dynamic> json) => GeoRestriction();
+  static GeoRestriction fromJson(Map<String, dynamic> json) => GeoRestriction(
+        restrictionType: json['RestrictionType'] as String,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The returned result of the corresponding request.
@@ -2669,7 +3339,14 @@ class GetCloudFrontOriginAccessIdentityConfigResult {
   });
   static GetCloudFrontOriginAccessIdentityConfigResult fromJson(
           Map<String, dynamic> json) =>
-      GetCloudFrontOriginAccessIdentityConfigResult();
+      GetCloudFrontOriginAccessIdentityConfigResult(
+        cloudFrontOriginAccessIdentityConfig:
+            json.containsKey('CloudFrontOriginAccessIdentityConfig')
+                ? CloudFrontOriginAccessIdentityConfig.fromJson(
+                    json['CloudFrontOriginAccessIdentityConfig'])
+                : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -2687,7 +3364,14 @@ class GetCloudFrontOriginAccessIdentityResult {
   });
   static GetCloudFrontOriginAccessIdentityResult fromJson(
           Map<String, dynamic> json) =>
-      GetCloudFrontOriginAccessIdentityResult();
+      GetCloudFrontOriginAccessIdentityResult(
+        cloudFrontOriginAccessIdentity:
+            json.containsKey('CloudFrontOriginAccessIdentity')
+                ? CloudFrontOriginAccessIdentity.fromJson(
+                    json['CloudFrontOriginAccessIdentity'])
+                : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -2703,7 +3387,12 @@ class GetDistributionConfigResult {
     this.eTag,
   });
   static GetDistributionConfigResult fromJson(Map<String, dynamic> json) =>
-      GetDistributionConfigResult();
+      GetDistributionConfigResult(
+        distributionConfig: json.containsKey('DistributionConfig')
+            ? DistributionConfig.fromJson(json['DistributionConfig'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -2720,7 +3409,12 @@ class GetDistributionResult {
     this.eTag,
   });
   static GetDistributionResult fromJson(Map<String, dynamic> json) =>
-      GetDistributionResult();
+      GetDistributionResult(
+        distribution: json.containsKey('Distribution')
+            ? Distribution.fromJson(json['Distribution'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class GetFieldLevelEncryptionConfigResult {
@@ -2737,7 +3431,14 @@ class GetFieldLevelEncryptionConfigResult {
   });
   static GetFieldLevelEncryptionConfigResult fromJson(
           Map<String, dynamic> json) =>
-      GetFieldLevelEncryptionConfigResult();
+      GetFieldLevelEncryptionConfigResult(
+        fieldLevelEncryptionConfig:
+            json.containsKey('FieldLevelEncryptionConfig')
+                ? FieldLevelEncryptionConfig.fromJson(
+                    json['FieldLevelEncryptionConfig'])
+                : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class GetFieldLevelEncryptionProfileConfigResult {
@@ -2754,7 +3455,14 @@ class GetFieldLevelEncryptionProfileConfigResult {
   });
   static GetFieldLevelEncryptionProfileConfigResult fromJson(
           Map<String, dynamic> json) =>
-      GetFieldLevelEncryptionProfileConfigResult();
+      GetFieldLevelEncryptionProfileConfigResult(
+        fieldLevelEncryptionProfileConfig:
+            json.containsKey('FieldLevelEncryptionProfileConfig')
+                ? FieldLevelEncryptionProfileConfig.fromJson(
+                    json['FieldLevelEncryptionProfileConfig'])
+                : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class GetFieldLevelEncryptionProfileResult {
@@ -2771,7 +3479,14 @@ class GetFieldLevelEncryptionProfileResult {
   });
   static GetFieldLevelEncryptionProfileResult fromJson(
           Map<String, dynamic> json) =>
-      GetFieldLevelEncryptionProfileResult();
+      GetFieldLevelEncryptionProfileResult(
+        fieldLevelEncryptionProfile:
+            json.containsKey('FieldLevelEncryptionProfile')
+                ? FieldLevelEncryptionProfile.fromJson(
+                    json['FieldLevelEncryptionProfile'])
+                : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class GetFieldLevelEncryptionResult {
@@ -2787,7 +3502,12 @@ class GetFieldLevelEncryptionResult {
     this.eTag,
   });
   static GetFieldLevelEncryptionResult fromJson(Map<String, dynamic> json) =>
-      GetFieldLevelEncryptionResult();
+      GetFieldLevelEncryptionResult(
+        fieldLevelEncryption: json.containsKey('FieldLevelEncryption')
+            ? FieldLevelEncryption.fromJson(json['FieldLevelEncryption'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -2800,7 +3520,11 @@ class GetInvalidationResult {
     this.invalidation,
   });
   static GetInvalidationResult fromJson(Map<String, dynamic> json) =>
-      GetInvalidationResult();
+      GetInvalidationResult(
+        invalidation: json.containsKey('Invalidation')
+            ? Invalidation.fromJson(json['Invalidation'])
+            : null,
+      );
 }
 
 class GetPublicKeyConfigResult {
@@ -2816,7 +3540,12 @@ class GetPublicKeyConfigResult {
     this.eTag,
   });
   static GetPublicKeyConfigResult fromJson(Map<String, dynamic> json) =>
-      GetPublicKeyConfigResult();
+      GetPublicKeyConfigResult(
+        publicKeyConfig: json.containsKey('PublicKeyConfig')
+            ? PublicKeyConfig.fromJson(json['PublicKeyConfig'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class GetPublicKeyResult {
@@ -2831,7 +3560,12 @@ class GetPublicKeyResult {
     this.eTag,
   });
   static GetPublicKeyResult fromJson(Map<String, dynamic> json) =>
-      GetPublicKeyResult();
+      GetPublicKeyResult(
+        publicKey: json.containsKey('PublicKey')
+            ? PublicKey.fromJson(json['PublicKey'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -2848,7 +3582,14 @@ class GetStreamingDistributionConfigResult {
   });
   static GetStreamingDistributionConfigResult fromJson(
           Map<String, dynamic> json) =>
-      GetStreamingDistributionConfigResult();
+      GetStreamingDistributionConfigResult(
+        streamingDistributionConfig:
+            json.containsKey('StreamingDistributionConfig')
+                ? StreamingDistributionConfig.fromJson(
+                    json['StreamingDistributionConfig'])
+                : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -2865,7 +3606,12 @@ class GetStreamingDistributionResult {
     this.eTag,
   });
   static GetStreamingDistributionResult fromJson(Map<String, dynamic> json) =>
-      GetStreamingDistributionResult();
+      GetStreamingDistributionResult(
+        streamingDistribution: json.containsKey('StreamingDistribution')
+            ? StreamingDistribution.fromJson(json['StreamingDistribution'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// A complex type that specifies the request headers, if any, that you want
@@ -2921,7 +3667,13 @@ class Headers {
     @required this.quantity,
     this.items,
   });
-  static Headers fromJson(Map<String, dynamic> json) => Headers();
+  static Headers fromJson(Map<String, dynamic> json) => Headers(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An invalidation.
@@ -2946,7 +3698,13 @@ class Invalidation {
     @required this.createTime,
     @required this.invalidationBatch,
   });
-  static Invalidation fromJson(Map<String, dynamic> json) => Invalidation();
+  static Invalidation fromJson(Map<String, dynamic> json) => Invalidation(
+        id: json['Id'] as String,
+        status: json['Status'] as String,
+        createTime: DateTime.parse(json['CreateTime']),
+        invalidationBatch:
+            InvalidationBatch.fromJson(json['InvalidationBatch']),
+      );
 }
 
 /// An invalidation batch.
@@ -2982,7 +3740,11 @@ class InvalidationBatch {
     @required this.callerReference,
   });
   static InvalidationBatch fromJson(Map<String, dynamic> json) =>
-      InvalidationBatch();
+      InvalidationBatch(
+        paths: Paths.fromJson(json['Paths']),
+        callerReference: json['CallerReference'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The `InvalidationList` complex type describes the list of invalidation
@@ -3024,7 +3786,20 @@ class InvalidationList {
     this.items,
   });
   static InvalidationList fromJson(Map<String, dynamic> json) =>
-      InvalidationList();
+      InvalidationList(
+        marker: json['Marker'] as String,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as int,
+        isTruncated: json['IsTruncated'] as bool,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => InvalidationSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A summary of an invalidation request.
@@ -3044,7 +3819,11 @@ class InvalidationSummary {
     @required this.status,
   });
   static InvalidationSummary fromJson(Map<String, dynamic> json) =>
-      InvalidationSummary();
+      InvalidationSummary(
+        id: json['Id'] as String,
+        createTime: DateTime.parse(json['CreateTime']),
+        status: json['Status'] as String,
+      );
 }
 
 /// A complex type that lists the active CloudFront key pairs, if any, that are
@@ -3070,7 +3849,12 @@ class KeyPairIds {
     @required this.quantity,
     this.items,
   });
-  static KeyPairIds fromJson(Map<String, dynamic> json) => KeyPairIds();
+  static KeyPairIds fromJson(Map<String, dynamic> json) => KeyPairIds(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// A complex type that contains a Lambda function association.
@@ -3115,7 +3899,14 @@ class LambdaFunctionAssociation {
     this.includeBody,
   });
   static LambdaFunctionAssociation fromJson(Map<String, dynamic> json) =>
-      LambdaFunctionAssociation();
+      LambdaFunctionAssociation(
+        lambdaFunctionArn: json['LambdaFunctionARN'] as String,
+        eventType: json['EventType'] as String,
+        includeBody: json.containsKey('IncludeBody')
+            ? json['IncludeBody'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that specifies a list of Lambda functions associations for a
@@ -3143,7 +3934,15 @@ class LambdaFunctionAssociations {
     this.items,
   });
   static LambdaFunctionAssociations fromJson(Map<String, dynamic> json) =>
-      LambdaFunctionAssociations();
+      LambdaFunctionAssociations(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => LambdaFunctionAssociation.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The returned result of the corresponding request.
@@ -3156,7 +3955,13 @@ class ListCloudFrontOriginAccessIdentitiesResult {
   });
   static ListCloudFrontOriginAccessIdentitiesResult fromJson(
           Map<String, dynamic> json) =>
-      ListCloudFrontOriginAccessIdentitiesResult();
+      ListCloudFrontOriginAccessIdentitiesResult(
+        cloudFrontOriginAccessIdentityList:
+            json.containsKey('CloudFrontOriginAccessIdentityList')
+                ? CloudFrontOriginAccessIdentityList.fromJson(
+                    json['CloudFrontOriginAccessIdentityList'])
+                : null,
+      );
 }
 
 /// The response to a request to list the distributions that are associated with
@@ -3170,7 +3975,11 @@ class ListDistributionsByWebAclIdResult {
   });
   static ListDistributionsByWebAclIdResult fromJson(
           Map<String, dynamic> json) =>
-      ListDistributionsByWebAclIdResult();
+      ListDistributionsByWebAclIdResult(
+        distributionList: json.containsKey('DistributionList')
+            ? DistributionList.fromJson(json['DistributionList'])
+            : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -3182,7 +3991,11 @@ class ListDistributionsResult {
     this.distributionList,
   });
   static ListDistributionsResult fromJson(Map<String, dynamic> json) =>
-      ListDistributionsResult();
+      ListDistributionsResult(
+        distributionList: json.containsKey('DistributionList')
+            ? DistributionList.fromJson(json['DistributionList'])
+            : null,
+      );
 }
 
 class ListFieldLevelEncryptionConfigsResult {
@@ -3195,7 +4008,12 @@ class ListFieldLevelEncryptionConfigsResult {
   });
   static ListFieldLevelEncryptionConfigsResult fromJson(
           Map<String, dynamic> json) =>
-      ListFieldLevelEncryptionConfigsResult();
+      ListFieldLevelEncryptionConfigsResult(
+        fieldLevelEncryptionList: json.containsKey('FieldLevelEncryptionList')
+            ? FieldLevelEncryptionList.fromJson(
+                json['FieldLevelEncryptionList'])
+            : null,
+      );
 }
 
 class ListFieldLevelEncryptionProfilesResult {
@@ -3208,7 +4026,13 @@ class ListFieldLevelEncryptionProfilesResult {
   });
   static ListFieldLevelEncryptionProfilesResult fromJson(
           Map<String, dynamic> json) =>
-      ListFieldLevelEncryptionProfilesResult();
+      ListFieldLevelEncryptionProfilesResult(
+        fieldLevelEncryptionProfileList:
+            json.containsKey('FieldLevelEncryptionProfileList')
+                ? FieldLevelEncryptionProfileList.fromJson(
+                    json['FieldLevelEncryptionProfileList'])
+                : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -3220,7 +4044,11 @@ class ListInvalidationsResult {
     this.invalidationList,
   });
   static ListInvalidationsResult fromJson(Map<String, dynamic> json) =>
-      ListInvalidationsResult();
+      ListInvalidationsResult(
+        invalidationList: json.containsKey('InvalidationList')
+            ? InvalidationList.fromJson(json['InvalidationList'])
+            : null,
+      );
 }
 
 class ListPublicKeysResult {
@@ -3232,7 +4060,11 @@ class ListPublicKeysResult {
     this.publicKeyList,
   });
   static ListPublicKeysResult fromJson(Map<String, dynamic> json) =>
-      ListPublicKeysResult();
+      ListPublicKeysResult(
+        publicKeyList: json.containsKey('PublicKeyList')
+            ? PublicKeyList.fromJson(json['PublicKeyList'])
+            : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -3244,7 +4076,12 @@ class ListStreamingDistributionsResult {
     this.streamingDistributionList,
   });
   static ListStreamingDistributionsResult fromJson(Map<String, dynamic> json) =>
-      ListStreamingDistributionsResult();
+      ListStreamingDistributionsResult(
+        streamingDistributionList: json.containsKey('StreamingDistributionList')
+            ? StreamingDistributionList.fromJson(
+                json['StreamingDistributionList'])
+            : null,
+      );
 }
 
 ///  The returned result of the corresponding request.
@@ -3256,7 +4093,9 @@ class ListTagsForResourceResult {
     @required this.tags,
   });
   static ListTagsForResourceResult fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResult();
+      ListTagsForResourceResult(
+        tags: Tags.fromJson(json['Tags']),
+      );
 }
 
 /// A complex type that controls whether access logs are written for the
@@ -3295,7 +4134,13 @@ class LoggingConfig {
     @required this.bucket,
     @required this.prefix,
   });
-  static LoggingConfig fromJson(Map<String, dynamic> json) => LoggingConfig();
+  static LoggingConfig fromJson(Map<String, dynamic> json) => LoggingConfig(
+        enabled: json['Enabled'] as bool,
+        includeCookies: json['IncludeCookies'] as bool,
+        bucket: json['Bucket'] as String,
+        prefix: json['Prefix'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that describes the Amazon S3 bucket, HTTP server (for
@@ -3403,7 +4248,23 @@ class Origin {
     this.s3OriginConfig,
     this.customOriginConfig,
   });
-  static Origin fromJson(Map<String, dynamic> json) => Origin();
+  static Origin fromJson(Map<String, dynamic> json) => Origin(
+        id: json['Id'] as String,
+        domainName: json['DomainName'] as String,
+        originPath: json.containsKey('OriginPath')
+            ? json['OriginPath'] as String
+            : null,
+        customHeaders: json.containsKey('CustomHeaders')
+            ? CustomHeaders.fromJson(json['CustomHeaders'])
+            : null,
+        s3OriginConfig: json.containsKey('S3OriginConfig')
+            ? S3OriginConfig.fromJson(json['S3OriginConfig'])
+            : null,
+        customOriginConfig: json.containsKey('CustomOriginConfig')
+            ? CustomOriginConfig.fromJson(json['CustomOriginConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains `HeaderName` and `HeaderValue` elements, if
@@ -3423,7 +4284,11 @@ class OriginCustomHeader {
     @required this.headerValue,
   });
   static OriginCustomHeader fromJson(Map<String, dynamic> json) =>
-      OriginCustomHeader();
+      OriginCustomHeader(
+        headerName: json['HeaderName'] as String,
+        headerValue: json['HeaderValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An origin group includes two origins (a primary origin and a second origin
@@ -3449,7 +4314,13 @@ class OriginGroup {
     @required this.failoverCriteria,
     @required this.members,
   });
-  static OriginGroup fromJson(Map<String, dynamic> json) => OriginGroup();
+  static OriginGroup fromJson(Map<String, dynamic> json) => OriginGroup(
+        id: json['Id'] as String,
+        failoverCriteria:
+            OriginGroupFailoverCriteria.fromJson(json['FailoverCriteria']),
+        members: OriginGroupMembers.fromJson(json['Members']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex data type that includes information about the failover criteria
@@ -3464,7 +4335,10 @@ class OriginGroupFailoverCriteria {
     @required this.statusCodes,
   });
   static OriginGroupFailoverCriteria fromJson(Map<String, dynamic> json) =>
-      OriginGroupFailoverCriteria();
+      OriginGroupFailoverCriteria(
+        statusCodes: StatusCodes.fromJson(json['StatusCodes']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An origin in an origin group.
@@ -3476,7 +4350,10 @@ class OriginGroupMember {
     @required this.originId,
   });
   static OriginGroupMember fromJson(Map<String, dynamic> json) =>
-      OriginGroupMember();
+      OriginGroupMember(
+        originId: json['OriginId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex data type for the origins included in an origin group.
@@ -3492,7 +4369,13 @@ class OriginGroupMembers {
     @required this.items,
   });
   static OriginGroupMembers fromJson(Map<String, dynamic> json) =>
-      OriginGroupMembers();
+      OriginGroupMembers(
+        quantity: json['Quantity'] as int,
+        items: (json['Items'] as List)
+            .map((e) => OriginGroupMember.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex data type for the origin groups specified for a distribution.
@@ -3507,7 +4390,15 @@ class OriginGroups {
     @required this.quantity,
     this.items,
   });
-  static OriginGroups fromJson(Map<String, dynamic> json) => OriginGroups();
+  static OriginGroups fromJson(Map<String, dynamic> json) => OriginGroups(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => OriginGroup.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about the SSL/TLS protocols that
@@ -3525,7 +4416,11 @@ class OriginSslProtocols {
     @required this.items,
   });
   static OriginSslProtocols fromJson(Map<String, dynamic> json) =>
-      OriginSslProtocols();
+      OriginSslProtocols(
+        quantity: json['Quantity'] as int,
+        items: (json['Items'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about origins and origin groups for
@@ -3542,7 +4437,11 @@ class Origins {
     @required this.quantity,
     @required this.items,
   });
-  static Origins fromJson(Map<String, dynamic> json) => Origins();
+  static Origins fromJson(Map<String, dynamic> json) => Origins(
+        quantity: json['Quantity'] as int,
+        items: (json['Items'] as List).map((e) => Origin.fromJson(e)).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about the objects that you want to
@@ -3562,7 +4461,13 @@ class Paths {
     @required this.quantity,
     this.items,
   });
-  static Paths fromJson(Map<String, dynamic> json) => Paths();
+  static Paths fromJson(Map<String, dynamic> json) => Paths(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex data type of public keys you add to CloudFront to use with
@@ -3583,7 +4488,11 @@ class PublicKey {
     @required this.createdTime,
     @required this.publicKeyConfig,
   });
-  static PublicKey fromJson(Map<String, dynamic> json) => PublicKey();
+  static PublicKey fromJson(Map<String, dynamic> json) => PublicKey(
+        id: json['Id'] as String,
+        createdTime: DateTime.parse(json['CreatedTime']),
+        publicKeyConfig: PublicKeyConfig.fromJson(json['PublicKeyConfig']),
+      );
 }
 
 /// Information about a public key you add to CloudFront to use with features
@@ -3609,8 +4518,13 @@ class PublicKeyConfig {
     @required this.encodedKey,
     this.comment,
   });
-  static PublicKeyConfig fromJson(Map<String, dynamic> json) =>
-      PublicKeyConfig();
+  static PublicKeyConfig fromJson(Map<String, dynamic> json) => PublicKeyConfig(
+        callerReference: json['CallerReference'] as String,
+        name: json['Name'] as String,
+        encodedKey: json['EncodedKey'] as String,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of public keys you've added to CloudFront to use with features like
@@ -3638,7 +4552,18 @@ class PublicKeyList {
     @required this.quantity,
     this.items,
   });
-  static PublicKeyList fromJson(Map<String, dynamic> json) => PublicKeyList();
+  static PublicKeyList fromJson(Map<String, dynamic> json) => PublicKeyList(
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as int,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => PublicKeySummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A complex data type for public key information.
@@ -3666,7 +4591,13 @@ class PublicKeySummary {
     this.comment,
   });
   static PublicKeySummary fromJson(Map<String, dynamic> json) =>
-      PublicKeySummary();
+      PublicKeySummary(
+        id: json['Id'] as String,
+        name: json['Name'] as String,
+        createdTime: DateTime.parse(json['CreatedTime']),
+        encodedKey: json['EncodedKey'] as String,
+        comment: json.containsKey('Comment') ? json['Comment'] as String : null,
+      );
 }
 
 /// Query argument-profile mapping for field-level encryption.
@@ -3682,8 +4613,11 @@ class QueryArgProfile {
     @required this.queryArg,
     @required this.profileId,
   });
-  static QueryArgProfile fromJson(Map<String, dynamic> json) =>
-      QueryArgProfile();
+  static QueryArgProfile fromJson(Map<String, dynamic> json) => QueryArgProfile(
+        queryArg: json['QueryArg'] as String,
+        profileId: json['ProfileId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Configuration for query argument-profile mapping for field-level encryption.
@@ -3702,7 +4636,14 @@ class QueryArgProfileConfig {
     this.queryArgProfiles,
   });
   static QueryArgProfileConfig fromJson(Map<String, dynamic> json) =>
-      QueryArgProfileConfig();
+      QueryArgProfileConfig(
+        forwardWhenQueryArgProfileIsUnknown:
+            json['ForwardWhenQueryArgProfileIsUnknown'] as bool,
+        queryArgProfiles: json.containsKey('QueryArgProfiles')
+            ? QueryArgProfiles.fromJson(json['QueryArgProfiles'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Query argument-profile mapping for field-level encryption.
@@ -3720,7 +4661,15 @@ class QueryArgProfiles {
     this.items,
   });
   static QueryArgProfiles fromJson(Map<String, dynamic> json) =>
-      QueryArgProfiles();
+      QueryArgProfiles(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => QueryArgProfile.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about the query string parameters
@@ -3739,7 +4688,13 @@ class QueryStringCacheKeys {
     this.items,
   });
   static QueryStringCacheKeys fromJson(Map<String, dynamic> json) =>
-      QueryStringCacheKeys();
+      QueryStringCacheKeys(
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that identifies ways in which you want to restrict
@@ -3753,7 +4708,10 @@ class Restrictions {
   Restrictions({
     @required this.geoRestriction,
   });
-  static Restrictions fromJson(Map<String, dynamic> json) => Restrictions();
+  static Restrictions fromJson(Map<String, dynamic> json) => Restrictions(
+        geoRestriction: GeoRestriction.fromJson(json['GeoRestriction']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about the Amazon S3 bucket from
@@ -3786,7 +4744,11 @@ class S3Origin {
     @required this.domainName,
     @required this.originAccessIdentity,
   });
-  static S3Origin fromJson(Map<String, dynamic> json) => S3Origin();
+  static S3Origin fromJson(Map<String, dynamic> json) => S3Origin(
+        domainName: json['DomainName'] as String,
+        originAccessIdentity: json['OriginAccessIdentity'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that contains information about the Amazon S3 origin. If the
@@ -3821,7 +4783,10 @@ class S3OriginConfig {
   S3OriginConfig({
     @required this.originAccessIdentity,
   });
-  static S3OriginConfig fromJson(Map<String, dynamic> json) => S3OriginConfig();
+  static S3OriginConfig fromJson(Map<String, dynamic> json) => S3OriginConfig(
+        originAccessIdentity: json['OriginAccessIdentity'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that lists the AWS accounts that were included in the
@@ -3844,7 +4809,14 @@ class Signer {
     this.awsAccountNumber,
     this.keyPairIds,
   });
-  static Signer fromJson(Map<String, dynamic> json) => Signer();
+  static Signer fromJson(Map<String, dynamic> json) => Signer(
+        awsAccountNumber: json.containsKey('AwsAccountNumber')
+            ? json['AwsAccountNumber'] as String
+            : null,
+        keyPairIds: json.containsKey('KeyPairIds')
+            ? KeyPairIds.fromJson(json['KeyPairIds'])
+            : null,
+      );
 }
 
 /// A complex data type for the status codes that you specify that, when
@@ -3861,7 +4833,11 @@ class StatusCodes {
     @required this.quantity,
     @required this.items,
   });
-  static StatusCodes fromJson(Map<String, dynamic> json) => StatusCodes();
+  static StatusCodes fromJson(Map<String, dynamic> json) => StatusCodes(
+        quantity: json['Quantity'] as int,
+        items: (json['Items'] as List).map((e) => e as int).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A streaming distribution tells CloudFront where you want RTMP content to be
@@ -3917,7 +4893,19 @@ class StreamingDistribution {
     @required this.streamingDistributionConfig,
   });
   static StreamingDistribution fromJson(Map<String, dynamic> json) =>
-      StreamingDistribution();
+      StreamingDistribution(
+        id: json['Id'] as String,
+        arn: json['ARN'] as String,
+        status: json['Status'] as String,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        domainName: json['DomainName'] as String,
+        activeTrustedSigners:
+            ActiveTrustedSigners.fromJson(json['ActiveTrustedSigners']),
+        streamingDistributionConfig: StreamingDistributionConfig.fromJson(
+            json['StreamingDistributionConfig']),
+      );
 }
 
 /// The RTMP distribution's configuration information.
@@ -3976,7 +4964,23 @@ class StreamingDistributionConfig {
     @required this.enabled,
   });
   static StreamingDistributionConfig fromJson(Map<String, dynamic> json) =>
-      StreamingDistributionConfig();
+      StreamingDistributionConfig(
+        callerReference: json['CallerReference'] as String,
+        s3Origin: S3Origin.fromJson(json['S3Origin']),
+        aliases: json.containsKey('Aliases')
+            ? Aliases.fromJson(json['Aliases'])
+            : null,
+        comment: json['Comment'] as String,
+        logging: json.containsKey('Logging')
+            ? StreamingLoggingConfig.fromJson(json['Logging'])
+            : null,
+        trustedSigners: TrustedSigners.fromJson(json['TrustedSigners']),
+        priceClass: json.containsKey('PriceClass')
+            ? json['PriceClass'] as String
+            : null,
+        enabled: json['Enabled'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A streaming distribution Configuration and a list of tags to be associated
@@ -3992,6 +4996,7 @@ class StreamingDistributionConfigWithTags {
     @required this.streamingDistributionConfig,
     @required this.tags,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A streaming distribution list.
@@ -4030,7 +5035,20 @@ class StreamingDistributionList {
     this.items,
   });
   static StreamingDistributionList fromJson(Map<String, dynamic> json) =>
-      StreamingDistributionList();
+      StreamingDistributionList(
+        marker: json['Marker'] as String,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        maxItems: json['MaxItems'] as int,
+        isTruncated: json['IsTruncated'] as bool,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => StreamingDistributionSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  A summary of the information for a CloudFront streaming distribution.
@@ -4106,7 +5124,19 @@ class StreamingDistributionSummary {
     @required this.enabled,
   });
   static StreamingDistributionSummary fromJson(Map<String, dynamic> json) =>
-      StreamingDistributionSummary();
+      StreamingDistributionSummary(
+        id: json['Id'] as String,
+        arn: json['ARN'] as String,
+        status: json['Status'] as String,
+        lastModifiedTime: DateTime.parse(json['LastModifiedTime']),
+        domainName: json['DomainName'] as String,
+        s3Origin: S3Origin.fromJson(json['S3Origin']),
+        aliases: Aliases.fromJson(json['Aliases']),
+        trustedSigners: TrustedSigners.fromJson(json['TrustedSigners']),
+        comment: json['Comment'] as String,
+        priceClass: json['PriceClass'] as String,
+        enabled: json['Enabled'] as bool,
+      );
 }
 
 /// A complex type that controls whether access logs are written for this
@@ -4137,7 +5167,12 @@ class StreamingLoggingConfig {
     @required this.prefix,
   });
   static StreamingLoggingConfig fromJson(Map<String, dynamic> json) =>
-      StreamingLoggingConfig();
+      StreamingLoggingConfig(
+        enabled: json['Enabled'] as bool,
+        bucket: json['Bucket'] as String,
+        prefix: json['Prefix'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  A complex type that contains `Tag` key and `Tag` value.
@@ -4160,7 +5195,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  A complex type that contains zero or more `Tag` elements.
@@ -4171,6 +5210,7 @@ class TagKeys {
   TagKeys({
     this.items,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  A complex type that contains zero or more `Tag` elements.
@@ -4181,7 +5221,12 @@ class Tags {
   Tags({
     this.items,
   });
-  static Tags fromJson(Map<String, dynamic> json) => Tags();
+  static Tags fromJson(Map<String, dynamic> json) => Tags(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type that specifies the AWS accounts, if any, that you want to
@@ -4223,7 +5268,14 @@ class TrustedSigners {
     @required this.quantity,
     this.items,
   });
-  static TrustedSigners fromJson(Map<String, dynamic> json) => TrustedSigners();
+  static TrustedSigners fromJson(Map<String, dynamic> json) => TrustedSigners(
+        enabled: json['Enabled'] as bool,
+        quantity: json['Quantity'] as int,
+        items: json.containsKey('Items')
+            ? (json['Items'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The returned result of the corresponding request.
@@ -4240,7 +5292,14 @@ class UpdateCloudFrontOriginAccessIdentityResult {
   });
   static UpdateCloudFrontOriginAccessIdentityResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateCloudFrontOriginAccessIdentityResult();
+      UpdateCloudFrontOriginAccessIdentityResult(
+        cloudFrontOriginAccessIdentity:
+            json.containsKey('CloudFrontOriginAccessIdentity')
+                ? CloudFrontOriginAccessIdentity.fromJson(
+                    json['CloudFrontOriginAccessIdentity'])
+                : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -4256,7 +5315,12 @@ class UpdateDistributionResult {
     this.eTag,
   });
   static UpdateDistributionResult fromJson(Map<String, dynamic> json) =>
-      UpdateDistributionResult();
+      UpdateDistributionResult(
+        distribution: json.containsKey('Distribution')
+            ? Distribution.fromJson(json['Distribution'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class UpdateFieldLevelEncryptionConfigResult {
@@ -4273,7 +5337,12 @@ class UpdateFieldLevelEncryptionConfigResult {
   });
   static UpdateFieldLevelEncryptionConfigResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateFieldLevelEncryptionConfigResult();
+      UpdateFieldLevelEncryptionConfigResult(
+        fieldLevelEncryption: json.containsKey('FieldLevelEncryption')
+            ? FieldLevelEncryption.fromJson(json['FieldLevelEncryption'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class UpdateFieldLevelEncryptionProfileResult {
@@ -4289,7 +5358,14 @@ class UpdateFieldLevelEncryptionProfileResult {
   });
   static UpdateFieldLevelEncryptionProfileResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateFieldLevelEncryptionProfileResult();
+      UpdateFieldLevelEncryptionProfileResult(
+        fieldLevelEncryptionProfile:
+            json.containsKey('FieldLevelEncryptionProfile')
+                ? FieldLevelEncryptionProfile.fromJson(
+                    json['FieldLevelEncryptionProfile'])
+                : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 class UpdatePublicKeyResult {
@@ -4305,7 +5381,12 @@ class UpdatePublicKeyResult {
     this.eTag,
   });
   static UpdatePublicKeyResult fromJson(Map<String, dynamic> json) =>
-      UpdatePublicKeyResult();
+      UpdatePublicKeyResult(
+        publicKey: json.containsKey('PublicKey')
+            ? PublicKey.fromJson(json['PublicKey'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// The returned result of the corresponding request.
@@ -4322,7 +5403,12 @@ class UpdateStreamingDistributionResult {
   });
   static UpdateStreamingDistributionResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateStreamingDistributionResult();
+      UpdateStreamingDistributionResult(
+        streamingDistribution: json.containsKey('StreamingDistribution')
+            ? StreamingDistribution.fromJson(json['StreamingDistribution'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+      );
 }
 
 /// A complex type that specifies the following:
@@ -4492,5 +5578,29 @@ class ViewerCertificate {
     this.certificateSource,
   });
   static ViewerCertificate fromJson(Map<String, dynamic> json) =>
-      ViewerCertificate();
+      ViewerCertificate(
+        cloudFrontDefaultCertificate:
+            json.containsKey('CloudFrontDefaultCertificate')
+                ? json['CloudFrontDefaultCertificate'] as bool
+                : null,
+        iamCertificateId: json.containsKey('IAMCertificateId')
+            ? json['IAMCertificateId'] as String
+            : null,
+        acmCertificateArn: json.containsKey('ACMCertificateArn')
+            ? json['ACMCertificateArn'] as String
+            : null,
+        sslSupportMethod: json.containsKey('SSLSupportMethod')
+            ? json['SSLSupportMethod'] as String
+            : null,
+        minimumProtocolVersion: json.containsKey('MinimumProtocolVersion')
+            ? json['MinimumProtocolVersion'] as String
+            : null,
+        certificate: json.containsKey('Certificate')
+            ? json['Certificate'] as String
+            : null,
+        certificateSource: json.containsKey('CertificateSource')
+            ? json['CertificateSource'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

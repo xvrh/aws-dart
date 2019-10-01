@@ -21,6 +21,10 @@ import 'package:meta/meta.dart';
 /// is created only in the us-west-2 Region. Security Hub must be enabled for
 /// the member account in the same Region that the invite was sent from.
 class SecurityHubApi {
+  final _client;
+  SecurityHubApi(client)
+      : _client = client.configured('SecurityHub', serializer: 'rest-json');
+
   /// Accepts the invitation to be a member account and be monitored by the
   /// Security Hub master account that the invitation was sent from. When the
   /// member account accepts the invitation, permission is granted to the master
@@ -33,7 +37,11 @@ class SecurityHubApi {
   /// account.
   Future<AcceptInvitationResponse> acceptInvitation(
       {@required String masterId, @required String invitationId}) async {
-    return AcceptInvitationResponse.fromJson({});
+    var response_ = await _client.send('AcceptInvitation', {
+      'MasterId': masterId,
+      'InvitationId': invitationId,
+    });
+    return AcceptInvitationResponse.fromJson(response_);
   }
 
   /// Disables the standards specified by the provided
@@ -44,7 +52,10 @@ class SecurityHubApi {
   /// disable.
   Future<BatchDisableStandardsResponse> batchDisableStandards(
       List<String> standardsSubscriptionArns) async {
-    return BatchDisableStandardsResponse.fromJson({});
+    var response_ = await _client.send('BatchDisableStandards', {
+      'StandardsSubscriptionArns': standardsSubscriptionArns,
+    });
+    return BatchDisableStandardsResponse.fromJson(response_);
   }
 
   /// Enables the standards specified by the provided `standardsArn`. In this
@@ -64,7 +75,10 @@ class SecurityHubApi {
   /// `arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0`.
   Future<BatchEnableStandardsResponse> batchEnableStandards(
       List<StandardsSubscriptionRequest> standardsSubscriptionRequests) async {
-    return BatchEnableStandardsResponse.fromJson({});
+    var response_ = await _client.send('BatchEnableStandards', {
+      'StandardsSubscriptionRequests': standardsSubscriptionRequests,
+    });
+    return BatchEnableStandardsResponse.fromJson(response_);
   }
 
   /// Imports security findings generated from an integrated third-party product
@@ -78,7 +92,10 @@ class SecurityHubApi {
   /// [AWS Security Finding Format](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html).
   Future<BatchImportFindingsResponse> batchImportFindings(
       List<AwsSecurityFinding> findings) async {
-    return BatchImportFindingsResponse.fromJson({});
+    var response_ = await _client.send('BatchImportFindings', {
+      'Findings': findings,
+    });
+    return BatchImportFindingsResponse.fromJson(response_);
   }
 
   /// Creates a custom action target in Security Hub. You can use custom actions
@@ -94,7 +111,12 @@ class SecurityHubApi {
       {@required String name,
       @required String description,
       @required String id}) async {
-    return CreateActionTargetResponse.fromJson({});
+    var response_ = await _client.send('CreateActionTarget', {
+      'Name': name,
+      'Description': description,
+      'Id': id,
+    });
+    return CreateActionTargetResponse.fromJson(response_);
   }
 
   /// Creates a custom insight in Security Hub. An insight is a consolidation of
@@ -114,7 +136,12 @@ class SecurityHubApi {
       {@required String name,
       @required AwsSecurityFindingFilters filters,
       @required String groupByAttribute}) async {
-    return CreateInsightResponse.fromJson({});
+    var response_ = await _client.send('CreateInsight', {
+      'Name': name,
+      'Filters': filters,
+      'GroupByAttribute': groupByAttribute,
+    });
+    return CreateInsightResponse.fromJson(response_);
   }
 
   /// Creates a member association in Security Hub between the specified
@@ -139,7 +166,10 @@ class SecurityHubApi {
   /// accounts to associate with the Security Hub master account.
   Future<CreateMembersResponse> createMembers(
       {List<AccountDetails> accountDetails}) async {
-    return CreateMembersResponse.fromJson({});
+    var response_ = await _client.send('CreateMembers', {
+      if (accountDetails != null) 'AccountDetails': accountDetails,
+    });
+    return CreateMembersResponse.fromJson(response_);
   }
 
   /// Declines invitations to become a member account.
@@ -148,7 +178,10 @@ class SecurityHubApi {
   /// invitations to Security Hub are declined from.
   Future<DeclineInvitationsResponse> declineInvitations(
       List<String> accountIds) async {
-    return DeclineInvitationsResponse.fromJson({});
+    var response_ = await _client.send('DeclineInvitations', {
+      'AccountIds': accountIds,
+    });
+    return DeclineInvitationsResponse.fromJson(response_);
   }
 
   /// Deletes a custom action target from Security Hub. Deleting a custom action
@@ -158,14 +191,20 @@ class SecurityHubApi {
   /// [actionTargetArn]: The ARN of the custom action target to delete.
   Future<DeleteActionTargetResponse> deleteActionTarget(
       String actionTargetArn) async {
-    return DeleteActionTargetResponse.fromJson({});
+    var response_ = await _client.send('DeleteActionTarget', {
+      'ActionTargetArn': actionTargetArn,
+    });
+    return DeleteActionTargetResponse.fromJson(response_);
   }
 
   /// Deletes the insight specified by the `InsightArn`.
   ///
   /// [insightArn]: The ARN of the insight to delete.
   Future<DeleteInsightResponse> deleteInsight(String insightArn) async {
-    return DeleteInsightResponse.fromJson({});
+    var response_ = await _client.send('DeleteInsight', {
+      'InsightArn': insightArn,
+    });
+    return DeleteInsightResponse.fromJson(response_);
   }
 
   /// Deletes invitations received by the AWS account to become a member
@@ -175,14 +214,20 @@ class SecurityHubApi {
   /// delete.
   Future<DeleteInvitationsResponse> deleteInvitations(
       List<String> accountIds) async {
-    return DeleteInvitationsResponse.fromJson({});
+    var response_ = await _client.send('DeleteInvitations', {
+      'AccountIds': accountIds,
+    });
+    return DeleteInvitationsResponse.fromJson(response_);
   }
 
   /// Deletes the specified member accounts from Security Hub.
   ///
   /// [accountIds]: A list of account IDs of the member accounts to delete.
   Future<DeleteMembersResponse> deleteMembers({List<String> accountIds}) async {
-    return DeleteMembersResponse.fromJson({});
+    var response_ = await _client.send('DeleteMembers', {
+      if (accountIds != null) 'AccountIds': accountIds,
+    });
+    return DeleteMembersResponse.fromJson(response_);
   }
 
   /// Returns a list of the custom action targets in Security Hub in your
@@ -196,7 +241,12 @@ class SecurityHubApi {
   /// [maxResults]: The maximum number of results to return.
   Future<DescribeActionTargetsResponse> describeActionTargets(
       {List<String> actionTargetArns, String nextToken, int maxResults}) async {
-    return DescribeActionTargetsResponse.fromJson({});
+    var response_ = await _client.send('DescribeActionTargets', {
+      if (actionTargetArns != null) 'ActionTargetArns': actionTargetArns,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeActionTargetsResponse.fromJson(response_);
   }
 
   /// Returns details about the Hub resource in your account, including the
@@ -204,7 +254,10 @@ class SecurityHubApi {
   ///
   /// [hubArn]: The ARN of the Hub resource to retrieve.
   Future<DescribeHubResponse> describeHub({String hubArn}) async {
-    return DescribeHubResponse.fromJson({});
+    var response_ = await _client.send('DescribeHub', {
+      if (hubArn != null) 'HubArn': hubArn,
+    });
+    return DescribeHubResponse.fromJson(response_);
   }
 
   /// Returns information about the products available that you can subscribe to
@@ -215,7 +268,11 @@ class SecurityHubApi {
   /// [maxResults]: The maximum number of results to return.
   Future<DescribeProductsResponse> describeProducts(
       {String nextToken, int maxResults}) async {
-    return DescribeProductsResponse.fromJson({});
+    var response_ = await _client.send('DescribeProducts', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeProductsResponse.fromJson(response_);
   }
 
   /// Disables the integration of the specified product with Security Hub.
@@ -226,7 +283,10 @@ class SecurityHubApi {
   /// integration for.
   Future<DisableImportFindingsForProductResponse>
       disableImportFindingsForProduct(String productSubscriptionArn) async {
-    return DisableImportFindingsForProductResponse.fromJson({});
+    var response_ = await _client.send('DisableImportFindingsForProduct', {
+      'ProductSubscriptionArn': productSubscriptionArn,
+    });
+    return DisableImportFindingsForProductResponse.fromJson(response_);
   }
 
   /// Disables Security Hub in your account only in the current Region. To
@@ -241,14 +301,16 @@ class SecurityHubApi {
   /// and member account associations are removed. If you want to save your
   /// existing findings, you must export them before you disable Security Hub.
   Future<DisableSecurityHubResponse> disableSecurityHub() async {
-    return DisableSecurityHubResponse.fromJson({});
+    var response_ = await _client.send('DisableSecurityHub', {});
+    return DisableSecurityHubResponse.fromJson(response_);
   }
 
   /// Disassociates the current Security Hub member account from the associated
   /// master account.
   Future<DisassociateFromMasterAccountResponse>
       disassociateFromMasterAccount() async {
-    return DisassociateFromMasterAccountResponse.fromJson({});
+    var response_ = await _client.send('DisassociateFromMasterAccount', {});
+    return DisassociateFromMasterAccountResponse.fromJson(response_);
   }
 
   /// Disassociates the specified member accounts from the associated master
@@ -258,7 +320,10 @@ class SecurityHubApi {
   /// the master account.
   Future<DisassociateMembersResponse> disassociateMembers(
       {List<String> accountIds}) async {
-    return DisassociateMembersResponse.fromJson({});
+    var response_ = await _client.send('DisassociateMembers', {
+      if (accountIds != null) 'AccountIds': accountIds,
+    });
+    return DisassociateMembersResponse.fromJson(response_);
   }
 
   /// Enables the integration of a partner product with Security Hub. Integrated
@@ -269,7 +334,10 @@ class SecurityHubApi {
   /// [productArn]: The ARN of the product to enable the integration for.
   Future<EnableImportFindingsForProductResponse> enableImportFindingsForProduct(
       String productArn) async {
-    return EnableImportFindingsForProductResponse.fromJson({});
+    var response_ = await _client.send('EnableImportFindingsForProduct', {
+      'ProductArn': productArn,
+    });
+    return EnableImportFindingsForProductResponse.fromJson(response_);
   }
 
   /// Enables Security Hub for your account in the current Region or the Region
@@ -281,7 +349,10 @@ class SecurityHubApi {
   /// [tags]: The tags to add to the Hub resource when you enable Security Hub.
   Future<EnableSecurityHubResponse> enableSecurityHub(
       {Map<String, String> tags}) async {
-    return EnableSecurityHubResponse.fromJson({});
+    var response_ = await _client.send('EnableSecurityHub', {
+      if (tags != null) 'Tags': tags,
+    });
+    return EnableSecurityHubResponse.fromJson(response_);
   }
 
   /// Returns a list of the standards that are currently enabled.
@@ -300,7 +371,13 @@ class SecurityHubApi {
       {List<String> standardsSubscriptionArns,
       String nextToken,
       int maxResults}) async {
-    return GetEnabledStandardsResponse.fromJson({});
+    var response_ = await _client.send('GetEnabledStandards', {
+      if (standardsSubscriptionArns != null)
+        'StandardsSubscriptionArns': standardsSubscriptionArns,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetEnabledStandardsResponse.fromJson(response_);
   }
 
   /// Returns a list of findings that match the specified criteria.
@@ -322,7 +399,13 @@ class SecurityHubApi {
       List<SortCriterion> sortCriteria,
       String nextToken,
       int maxResults}) async {
-    return GetFindingsResponse.fromJson({});
+    var response_ = await _client.send('GetFindings', {
+      if (filters != null) 'Filters': filters,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetFindingsResponse.fromJson(response_);
   }
 
   /// Lists the results of the Security Hub insight that the insight ARN
@@ -330,7 +413,10 @@ class SecurityHubApi {
   ///
   /// [insightArn]: The ARN of the insight whose results you want to see.
   Future<GetInsightResultsResponse> getInsightResults(String insightArn) async {
-    return GetInsightResultsResponse.fromJson({});
+    var response_ = await _client.send('GetInsightResults', {
+      'InsightArn': insightArn,
+    });
+    return GetInsightResultsResponse.fromJson(response_);
   }
 
   /// Lists and describes insights that insight ARNs specify.
@@ -345,20 +431,27 @@ class SecurityHubApi {
   /// [maxResults]: The maximum number of items that you want in the response.
   Future<GetInsightsResponse> getInsights(
       {List<String> insightArns, String nextToken, int maxResults}) async {
-    return GetInsightsResponse.fromJson({});
+    var response_ = await _client.send('GetInsights', {
+      if (insightArns != null) 'InsightArns': insightArns,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetInsightsResponse.fromJson(response_);
   }
 
   /// Returns the count of all Security Hub membership invitations that were
   /// sent to the current member account, not including the currently accepted
   /// invitation.
   Future<GetInvitationsCountResponse> getInvitationsCount() async {
-    return GetInvitationsCountResponse.fromJson({});
+    var response_ = await _client.send('GetInvitationsCount', {});
+    return GetInvitationsCountResponse.fromJson(response_);
   }
 
   /// Provides the details for the Security Hub master account to the current
   /// member account.
   Future<GetMasterAccountResponse> getMasterAccount() async {
-    return GetMasterAccountResponse.fromJson({});
+    var response_ = await _client.send('GetMasterAccount', {});
+    return GetMasterAccountResponse.fromJson(response_);
   }
 
   /// Returns the details on the Security Hub member accounts that the account
@@ -367,7 +460,10 @@ class SecurityHubApi {
   /// [accountIds]: A list of account IDs for the Security Hub member accounts
   /// that you want to return the details for.
   Future<GetMembersResponse> getMembers(List<String> accountIds) async {
-    return GetMembersResponse.fromJson({});
+    var response_ = await _client.send('GetMembers', {
+      'AccountIds': accountIds,
+    });
+    return GetMembersResponse.fromJson(response_);
   }
 
   /// Invites other AWS accounts to become member accounts for the Security Hub
@@ -381,7 +477,10 @@ class SecurityHubApi {
   /// [accountIds]: A list of IDs of the AWS accounts that you want to invite to
   /// Security Hub as members.
   Future<InviteMembersResponse> inviteMembers({List<String> accountIds}) async {
-    return InviteMembersResponse.fromJson({});
+    var response_ = await _client.send('InviteMembers', {
+      if (accountIds != null) 'AccountIds': accountIds,
+    });
+    return InviteMembersResponse.fromJson(response_);
   }
 
   /// Lists all findings-generating solutions (products) whose findings you have
@@ -396,7 +495,11 @@ class SecurityHubApi {
   /// [maxResults]: The maximum number of items that you want in the response.
   Future<ListEnabledProductsForImportResponse> listEnabledProductsForImport(
       {String nextToken, int maxResults}) async {
-    return ListEnabledProductsForImportResponse.fromJson({});
+    var response_ = await _client.send('ListEnabledProductsForImport', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListEnabledProductsForImportResponse.fromJson(response_);
   }
 
   /// Lists all Security Hub membership invitations that were sent to the
@@ -411,7 +514,11 @@ class SecurityHubApi {
   /// listing data.
   Future<ListInvitationsResponse> listInvitations(
       {int maxResults, String nextToken}) async {
-    return ListInvitationsResponse.fromJson({});
+    var response_ = await _client.send('ListInvitations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListInvitationsResponse.fromJson(response_);
   }
 
   /// Lists details about all member accounts for the current Security Hub
@@ -432,7 +539,12 @@ class SecurityHubApi {
   /// `nextToken` from the previous response to continue listing data.
   Future<ListMembersResponse> listMembers(
       {bool onlyAssociated, int maxResults, String nextToken}) async {
-    return ListMembersResponse.fromJson({});
+    var response_ = await _client.send('ListMembers', {
+      if (onlyAssociated != null) 'OnlyAssociated': onlyAssociated,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListMembersResponse.fromJson(response_);
   }
 
   /// Returns a list of tags associated with a resource.
@@ -440,7 +552,10 @@ class SecurityHubApi {
   /// [resourceArn]: The ARN of the resource to retrieve tags for.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Adds one or more tags to a resource.
@@ -451,7 +566,11 @@ class SecurityHubApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes one or more tags from a resource.
@@ -462,7 +581,11 @@ class SecurityHubApi {
   /// resource.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates the name and description of a custom action target in Security
@@ -475,7 +598,12 @@ class SecurityHubApi {
   /// [description]: The updated description for the custom action target.
   Future<UpdateActionTargetResponse> updateActionTarget(String actionTargetArn,
       {String name, String description}) async {
-    return UpdateActionTargetResponse.fromJson({});
+    var response_ = await _client.send('UpdateActionTarget', {
+      'ActionTargetArn': actionTargetArn,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+    });
+    return UpdateActionTargetResponse.fromJson(response_);
   }
 
   /// Updates the `Note` and `RecordState` of the Security Hub-aggregated
@@ -492,7 +620,12 @@ class SecurityHubApi {
       AwsSecurityFindingFilters filters,
       {NoteUpdate note,
       String recordState}) async {
-    return UpdateFindingsResponse.fromJson({});
+    var response_ = await _client.send('UpdateFindings', {
+      'Filters': filters,
+      if (note != null) 'Note': note,
+      if (recordState != null) 'RecordState': recordState,
+    });
+    return UpdateFindingsResponse.fromJson(response_);
   }
 
   /// Updates the Security Hub insight that the insight ARN specifies.
@@ -509,7 +642,13 @@ class SecurityHubApi {
       {String name,
       AwsSecurityFindingFilters filters,
       String groupByAttribute}) async {
-    return UpdateInsightResponse.fromJson({});
+    var response_ = await _client.send('UpdateInsight', {
+      'InsightArn': insightArn,
+      if (name != null) 'Name': name,
+      if (filters != null) 'Filters': filters,
+      if (groupByAttribute != null) 'GroupByAttribute': groupByAttribute,
+    });
+    return UpdateInsightResponse.fromJson(response_);
   }
 }
 
@@ -531,6 +670,7 @@ class AccountDetails {
     this.accountId,
     this.email,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An `ActionTarget` object.
@@ -549,7 +689,11 @@ class ActionTarget {
     @required this.name,
     @required this.description,
   });
-  static ActionTarget fromJson(Map<String, dynamic> json) => ActionTarget();
+  static ActionTarget fromJson(Map<String, dynamic> json) => ActionTarget(
+        actionTargetArn: json['ActionTargetArn'] as String,
+        name: json['Name'] as String,
+        description: json['Description'] as String,
+      );
 }
 
 /// The details of an Amazon EC2 instance.
@@ -593,7 +737,27 @@ class AwsEc2InstanceDetails {
     this.launchedAt,
   });
   static AwsEc2InstanceDetails fromJson(Map<String, dynamic> json) =>
-      AwsEc2InstanceDetails();
+      AwsEc2InstanceDetails(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        ipV4Addresses: json.containsKey('IpV4Addresses')
+            ? (json['IpV4Addresses'] as List).map((e) => e as String).toList()
+            : null,
+        ipV6Addresses: json.containsKey('IpV6Addresses')
+            ? (json['IpV6Addresses'] as List).map((e) => e as String).toList()
+            : null,
+        keyName: json.containsKey('KeyName') ? json['KeyName'] as String : null,
+        iamInstanceProfileArn: json.containsKey('IamInstanceProfileArn')
+            ? json['IamInstanceProfileArn'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        launchedAt: json.containsKey('LaunchedAt')
+            ? json['LaunchedAt'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// IAM access key details related to a finding.
@@ -613,7 +777,14 @@ class AwsIamAccessKeyDetails {
     this.createdAt,
   });
   static AwsIamAccessKeyDetails fromJson(Map<String, dynamic> json) =>
-      AwsIamAccessKeyDetails();
+      AwsIamAccessKeyDetails(
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        createdAt:
+            json.containsKey('CreatedAt') ? json['CreatedAt'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The details of an Amazon S3 bucket.
@@ -629,7 +800,12 @@ class AwsS3BucketDetails {
     this.ownerName,
   });
   static AwsS3BucketDetails fromJson(Map<String, dynamic> json) =>
-      AwsS3BucketDetails();
+      AwsS3BucketDetails(
+        ownerId: json.containsKey('OwnerId') ? json['OwnerId'] as String : null,
+        ownerName:
+            json.containsKey('OwnerName') ? json['OwnerName'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides consistent format for the contents of the Security Hub-aggregated
@@ -803,7 +979,78 @@ class AwsSecurityFinding {
     this.note,
   });
   static AwsSecurityFinding fromJson(Map<String, dynamic> json) =>
-      AwsSecurityFinding();
+      AwsSecurityFinding(
+        schemaVersion: json['SchemaVersion'] as String,
+        id: json['Id'] as String,
+        productArn: json['ProductArn'] as String,
+        generatorId: json['GeneratorId'] as String,
+        awsAccountId: json['AwsAccountId'] as String,
+        types: (json['Types'] as List).map((e) => e as String).toList(),
+        firstObservedAt: json.containsKey('FirstObservedAt')
+            ? json['FirstObservedAt'] as String
+            : null,
+        lastObservedAt: json.containsKey('LastObservedAt')
+            ? json['LastObservedAt'] as String
+            : null,
+        createdAt: json['CreatedAt'] as String,
+        updatedAt: json['UpdatedAt'] as String,
+        severity: Severity.fromJson(json['Severity']),
+        confidence:
+            json.containsKey('Confidence') ? json['Confidence'] as int : null,
+        criticality:
+            json.containsKey('Criticality') ? json['Criticality'] as int : null,
+        title: json['Title'] as String,
+        description: json['Description'] as String,
+        remediation: json.containsKey('Remediation')
+            ? Remediation.fromJson(json['Remediation'])
+            : null,
+        sourceUrl:
+            json.containsKey('SourceUrl') ? json['SourceUrl'] as String : null,
+        productFields: json.containsKey('ProductFields')
+            ? (json['ProductFields'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        userDefinedFields: json.containsKey('UserDefinedFields')
+            ? (json['UserDefinedFields'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        malware: json.containsKey('Malware')
+            ? (json['Malware'] as List).map((e) => Malware.fromJson(e)).toList()
+            : null,
+        network: json.containsKey('Network')
+            ? Network.fromJson(json['Network'])
+            : null,
+        process: json.containsKey('Process')
+            ? ProcessDetails.fromJson(json['Process'])
+            : null,
+        threatIntelIndicators: json.containsKey('ThreatIntelIndicators')
+            ? (json['ThreatIntelIndicators'] as List)
+                .map((e) => ThreatIntelIndicator.fromJson(e))
+                .toList()
+            : null,
+        resources: (json['Resources'] as List)
+            .map((e) => Resource.fromJson(e))
+            .toList(),
+        compliance: json.containsKey('Compliance')
+            ? Compliance.fromJson(json['Compliance'])
+            : null,
+        verificationState: json.containsKey('VerificationState')
+            ? json['VerificationState'] as String
+            : null,
+        workflowState: json.containsKey('WorkflowState')
+            ? json['WorkflowState'] as String
+            : null,
+        recordState: json.containsKey('RecordState')
+            ? json['RecordState'] as String
+            : null,
+        relatedFindings: json.containsKey('RelatedFindings')
+            ? (json['RelatedFindings'] as List)
+                .map((e) => RelatedFinding.fromJson(e))
+                .toList()
+            : null,
+        note: json.containsKey('Note') ? Note.fromJson(json['Note']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A collection of attributes that are applied to all active Security
@@ -1177,7 +1424,442 @@ class AwsSecurityFindingFilters {
     this.keyword,
   });
   static AwsSecurityFindingFilters fromJson(Map<String, dynamic> json) =>
-      AwsSecurityFindingFilters();
+      AwsSecurityFindingFilters(
+        productArn: json.containsKey('ProductArn')
+            ? (json['ProductArn'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        awsAccountId: json.containsKey('AwsAccountId')
+            ? (json['AwsAccountId'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        id: json.containsKey('Id')
+            ? (json['Id'] as List).map((e) => StringFilter.fromJson(e)).toList()
+            : null,
+        generatorId: json.containsKey('GeneratorId')
+            ? (json['GeneratorId'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        type: json.containsKey('Type')
+            ? (json['Type'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        firstObservedAt: json.containsKey('FirstObservedAt')
+            ? (json['FirstObservedAt'] as List)
+                .map((e) => DateFilter.fromJson(e))
+                .toList()
+            : null,
+        lastObservedAt: json.containsKey('LastObservedAt')
+            ? (json['LastObservedAt'] as List)
+                .map((e) => DateFilter.fromJson(e))
+                .toList()
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? (json['CreatedAt'] as List)
+                .map((e) => DateFilter.fromJson(e))
+                .toList()
+            : null,
+        updatedAt: json.containsKey('UpdatedAt')
+            ? (json['UpdatedAt'] as List)
+                .map((e) => DateFilter.fromJson(e))
+                .toList()
+            : null,
+        severityProduct: json.containsKey('SeverityProduct')
+            ? (json['SeverityProduct'] as List)
+                .map((e) => NumberFilter.fromJson(e))
+                .toList()
+            : null,
+        severityNormalized: json.containsKey('SeverityNormalized')
+            ? (json['SeverityNormalized'] as List)
+                .map((e) => NumberFilter.fromJson(e))
+                .toList()
+            : null,
+        severityLabel: json.containsKey('SeverityLabel')
+            ? (json['SeverityLabel'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        confidence: json.containsKey('Confidence')
+            ? (json['Confidence'] as List)
+                .map((e) => NumberFilter.fromJson(e))
+                .toList()
+            : null,
+        criticality: json.containsKey('Criticality')
+            ? (json['Criticality'] as List)
+                .map((e) => NumberFilter.fromJson(e))
+                .toList()
+            : null,
+        title: json.containsKey('Title')
+            ? (json['Title'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        description: json.containsKey('Description')
+            ? (json['Description'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        recommendationText: json.containsKey('RecommendationText')
+            ? (json['RecommendationText'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        sourceUrl: json.containsKey('SourceUrl')
+            ? (json['SourceUrl'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        productFields: json.containsKey('ProductFields')
+            ? (json['ProductFields'] as List)
+                .map((e) => MapFilter.fromJson(e))
+                .toList()
+            : null,
+        productName: json.containsKey('ProductName')
+            ? (json['ProductName'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        companyName: json.containsKey('CompanyName')
+            ? (json['CompanyName'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        userDefinedFields: json.containsKey('UserDefinedFields')
+            ? (json['UserDefinedFields'] as List)
+                .map((e) => MapFilter.fromJson(e))
+                .toList()
+            : null,
+        malwareName: json.containsKey('MalwareName')
+            ? (json['MalwareName'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        malwareType: json.containsKey('MalwareType')
+            ? (json['MalwareType'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        malwarePath: json.containsKey('MalwarePath')
+            ? (json['MalwarePath'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        malwareState: json.containsKey('MalwareState')
+            ? (json['MalwareState'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        networkDirection: json.containsKey('NetworkDirection')
+            ? (json['NetworkDirection'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        networkProtocol: json.containsKey('NetworkProtocol')
+            ? (json['NetworkProtocol'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        networkSourceIpV4: json.containsKey('NetworkSourceIpV4')
+            ? (json['NetworkSourceIpV4'] as List)
+                .map((e) => IpFilter.fromJson(e))
+                .toList()
+            : null,
+        networkSourceIpV6: json.containsKey('NetworkSourceIpV6')
+            ? (json['NetworkSourceIpV6'] as List)
+                .map((e) => IpFilter.fromJson(e))
+                .toList()
+            : null,
+        networkSourcePort: json.containsKey('NetworkSourcePort')
+            ? (json['NetworkSourcePort'] as List)
+                .map((e) => NumberFilter.fromJson(e))
+                .toList()
+            : null,
+        networkSourceDomain: json.containsKey('NetworkSourceDomain')
+            ? (json['NetworkSourceDomain'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        networkSourceMac: json.containsKey('NetworkSourceMac')
+            ? (json['NetworkSourceMac'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        networkDestinationIpV4: json.containsKey('NetworkDestinationIpV4')
+            ? (json['NetworkDestinationIpV4'] as List)
+                .map((e) => IpFilter.fromJson(e))
+                .toList()
+            : null,
+        networkDestinationIpV6: json.containsKey('NetworkDestinationIpV6')
+            ? (json['NetworkDestinationIpV6'] as List)
+                .map((e) => IpFilter.fromJson(e))
+                .toList()
+            : null,
+        networkDestinationPort: json.containsKey('NetworkDestinationPort')
+            ? (json['NetworkDestinationPort'] as List)
+                .map((e) => NumberFilter.fromJson(e))
+                .toList()
+            : null,
+        networkDestinationDomain: json.containsKey('NetworkDestinationDomain')
+            ? (json['NetworkDestinationDomain'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        processName: json.containsKey('ProcessName')
+            ? (json['ProcessName'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        processPath: json.containsKey('ProcessPath')
+            ? (json['ProcessPath'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        processPid: json.containsKey('ProcessPid')
+            ? (json['ProcessPid'] as List)
+                .map((e) => NumberFilter.fromJson(e))
+                .toList()
+            : null,
+        processParentPid: json.containsKey('ProcessParentPid')
+            ? (json['ProcessParentPid'] as List)
+                .map((e) => NumberFilter.fromJson(e))
+                .toList()
+            : null,
+        processLaunchedAt: json.containsKey('ProcessLaunchedAt')
+            ? (json['ProcessLaunchedAt'] as List)
+                .map((e) => DateFilter.fromJson(e))
+                .toList()
+            : null,
+        processTerminatedAt: json.containsKey('ProcessTerminatedAt')
+            ? (json['ProcessTerminatedAt'] as List)
+                .map((e) => DateFilter.fromJson(e))
+                .toList()
+            : null,
+        threatIntelIndicatorType: json.containsKey('ThreatIntelIndicatorType')
+            ? (json['ThreatIntelIndicatorType'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        threatIntelIndicatorValue: json.containsKey('ThreatIntelIndicatorValue')
+            ? (json['ThreatIntelIndicatorValue'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        threatIntelIndicatorCategory:
+            json.containsKey('ThreatIntelIndicatorCategory')
+                ? (json['ThreatIntelIndicatorCategory'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        threatIntelIndicatorLastObservedAt:
+            json.containsKey('ThreatIntelIndicatorLastObservedAt')
+                ? (json['ThreatIntelIndicatorLastObservedAt'] as List)
+                    .map((e) => DateFilter.fromJson(e))
+                    .toList()
+                : null,
+        threatIntelIndicatorSource:
+            json.containsKey('ThreatIntelIndicatorSource')
+                ? (json['ThreatIntelIndicatorSource'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        threatIntelIndicatorSourceUrl:
+            json.containsKey('ThreatIntelIndicatorSourceUrl')
+                ? (json['ThreatIntelIndicatorSourceUrl'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceType: json.containsKey('ResourceType')
+            ? (json['ResourceType'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? (json['ResourceId'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        resourcePartition: json.containsKey('ResourcePartition')
+            ? (json['ResourcePartition'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        resourceRegion: json.containsKey('ResourceRegion')
+            ? (json['ResourceRegion'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        resourceTags: json.containsKey('ResourceTags')
+            ? (json['ResourceTags'] as List)
+                .map((e) => MapFilter.fromJson(e))
+                .toList()
+            : null,
+        resourceAwsEc2InstanceType:
+            json.containsKey('ResourceAwsEc2InstanceType')
+                ? (json['ResourceAwsEc2InstanceType'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsEc2InstanceImageId:
+            json.containsKey('ResourceAwsEc2InstanceImageId')
+                ? (json['ResourceAwsEc2InstanceImageId'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsEc2InstanceIpV4Addresses:
+            json.containsKey('ResourceAwsEc2InstanceIpV4Addresses')
+                ? (json['ResourceAwsEc2InstanceIpV4Addresses'] as List)
+                    .map((e) => IpFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsEc2InstanceIpV6Addresses:
+            json.containsKey('ResourceAwsEc2InstanceIpV6Addresses')
+                ? (json['ResourceAwsEc2InstanceIpV6Addresses'] as List)
+                    .map((e) => IpFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsEc2InstanceKeyName:
+            json.containsKey('ResourceAwsEc2InstanceKeyName')
+                ? (json['ResourceAwsEc2InstanceKeyName'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsEc2InstanceIamInstanceProfileArn:
+            json.containsKey('ResourceAwsEc2InstanceIamInstanceProfileArn')
+                ? (json['ResourceAwsEc2InstanceIamInstanceProfileArn'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsEc2InstanceVpcId:
+            json.containsKey('ResourceAwsEc2InstanceVpcId')
+                ? (json['ResourceAwsEc2InstanceVpcId'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsEc2InstanceSubnetId:
+            json.containsKey('ResourceAwsEc2InstanceSubnetId')
+                ? (json['ResourceAwsEc2InstanceSubnetId'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsEc2InstanceLaunchedAt:
+            json.containsKey('ResourceAwsEc2InstanceLaunchedAt')
+                ? (json['ResourceAwsEc2InstanceLaunchedAt'] as List)
+                    .map((e) => DateFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsS3BucketOwnerId:
+            json.containsKey('ResourceAwsS3BucketOwnerId')
+                ? (json['ResourceAwsS3BucketOwnerId'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsS3BucketOwnerName:
+            json.containsKey('ResourceAwsS3BucketOwnerName')
+                ? (json['ResourceAwsS3BucketOwnerName'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsIamAccessKeyUserName:
+            json.containsKey('ResourceAwsIamAccessKeyUserName')
+                ? (json['ResourceAwsIamAccessKeyUserName'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsIamAccessKeyStatus:
+            json.containsKey('ResourceAwsIamAccessKeyStatus')
+                ? (json['ResourceAwsIamAccessKeyStatus'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceAwsIamAccessKeyCreatedAt:
+            json.containsKey('ResourceAwsIamAccessKeyCreatedAt')
+                ? (json['ResourceAwsIamAccessKeyCreatedAt'] as List)
+                    .map((e) => DateFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceContainerName: json.containsKey('ResourceContainerName')
+            ? (json['ResourceContainerName'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        resourceContainerImageId: json.containsKey('ResourceContainerImageId')
+            ? (json['ResourceContainerImageId'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        resourceContainerImageName:
+            json.containsKey('ResourceContainerImageName')
+                ? (json['ResourceContainerImageName'] as List)
+                    .map((e) => StringFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceContainerLaunchedAt:
+            json.containsKey('ResourceContainerLaunchedAt')
+                ? (json['ResourceContainerLaunchedAt'] as List)
+                    .map((e) => DateFilter.fromJson(e))
+                    .toList()
+                : null,
+        resourceDetailsOther: json.containsKey('ResourceDetailsOther')
+            ? (json['ResourceDetailsOther'] as List)
+                .map((e) => MapFilter.fromJson(e))
+                .toList()
+            : null,
+        complianceStatus: json.containsKey('ComplianceStatus')
+            ? (json['ComplianceStatus'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        verificationState: json.containsKey('VerificationState')
+            ? (json['VerificationState'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        workflowState: json.containsKey('WorkflowState')
+            ? (json['WorkflowState'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        recordState: json.containsKey('RecordState')
+            ? (json['RecordState'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        relatedFindingsProductArn: json.containsKey('RelatedFindingsProductArn')
+            ? (json['RelatedFindingsProductArn'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        relatedFindingsId: json.containsKey('RelatedFindingsId')
+            ? (json['RelatedFindingsId'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        noteText: json.containsKey('NoteText')
+            ? (json['NoteText'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        noteUpdatedAt: json.containsKey('NoteUpdatedAt')
+            ? (json['NoteUpdatedAt'] as List)
+                .map((e) => DateFilter.fromJson(e))
+                .toList()
+            : null,
+        noteUpdatedBy: json.containsKey('NoteUpdatedBy')
+            ? (json['NoteUpdatedBy'] as List)
+                .map((e) => StringFilter.fromJson(e))
+                .toList()
+            : null,
+        keyword: json.containsKey('Keyword')
+            ? (json['Keyword'] as List)
+                .map((e) => KeywordFilter.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class BatchDisableStandardsResponse {
@@ -1188,7 +1870,13 @@ class BatchDisableStandardsResponse {
     this.standardsSubscriptions,
   });
   static BatchDisableStandardsResponse fromJson(Map<String, dynamic> json) =>
-      BatchDisableStandardsResponse();
+      BatchDisableStandardsResponse(
+        standardsSubscriptions: json.containsKey('StandardsSubscriptions')
+            ? (json['StandardsSubscriptions'] as List)
+                .map((e) => StandardsSubscription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchEnableStandardsResponse {
@@ -1199,7 +1887,13 @@ class BatchEnableStandardsResponse {
     this.standardsSubscriptions,
   });
   static BatchEnableStandardsResponse fromJson(Map<String, dynamic> json) =>
-      BatchEnableStandardsResponse();
+      BatchEnableStandardsResponse(
+        standardsSubscriptions: json.containsKey('StandardsSubscriptions')
+            ? (json['StandardsSubscriptions'] as List)
+                .map((e) => StandardsSubscription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchImportFindingsResponse {
@@ -1218,7 +1912,15 @@ class BatchImportFindingsResponse {
     this.failedFindings,
   });
   static BatchImportFindingsResponse fromJson(Map<String, dynamic> json) =>
-      BatchImportFindingsResponse();
+      BatchImportFindingsResponse(
+        failedCount: json['FailedCount'] as int,
+        successCount: json['SuccessCount'] as int,
+        failedFindings: json.containsKey('FailedFindings')
+            ? (json['FailedFindings'] as List)
+                .map((e) => ImportFindingsError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Exclusive to findings that are generated as the result of a check run
@@ -1231,7 +1933,10 @@ class Compliance {
   Compliance({
     this.status,
   });
-  static Compliance fromJson(Map<String, dynamic> json) => Compliance();
+  static Compliance fromJson(Map<String, dynamic> json) => Compliance(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Container details related to a finding.
@@ -1255,7 +1960,16 @@ class ContainerDetails {
     this.launchedAt,
   });
   static ContainerDetails fromJson(Map<String, dynamic> json) =>
-      ContainerDetails();
+      ContainerDetails(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        imageName:
+            json.containsKey('ImageName') ? json['ImageName'] as String : null,
+        launchedAt: json.containsKey('LaunchedAt')
+            ? json['LaunchedAt'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateActionTargetResponse {
@@ -1266,7 +1980,9 @@ class CreateActionTargetResponse {
     @required this.actionTargetArn,
   });
   static CreateActionTargetResponse fromJson(Map<String, dynamic> json) =>
-      CreateActionTargetResponse();
+      CreateActionTargetResponse(
+        actionTargetArn: json['ActionTargetArn'] as String,
+      );
 }
 
 class CreateInsightResponse {
@@ -1277,7 +1993,9 @@ class CreateInsightResponse {
     @required this.insightArn,
   });
   static CreateInsightResponse fromJson(Map<String, dynamic> json) =>
-      CreateInsightResponse();
+      CreateInsightResponse(
+        insightArn: json['InsightArn'] as String,
+      );
 }
 
 class CreateMembersResponse {
@@ -1289,7 +2007,13 @@ class CreateMembersResponse {
     this.unprocessedAccounts,
   });
   static CreateMembersResponse fromJson(Map<String, dynamic> json) =>
-      CreateMembersResponse();
+      CreateMembersResponse(
+        unprocessedAccounts: json.containsKey('UnprocessedAccounts')
+            ? (json['UnprocessedAccounts'] as List)
+                .map((e) => Result.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A date filter for querying findings.
@@ -1308,7 +2032,14 @@ class DateFilter {
     this.end,
     this.dateRange,
   });
-  static DateFilter fromJson(Map<String, dynamic> json) => DateFilter();
+  static DateFilter fromJson(Map<String, dynamic> json) => DateFilter(
+        start: json.containsKey('Start') ? json['Start'] as String : null,
+        end: json.containsKey('End') ? json['End'] as String : null,
+        dateRange: json.containsKey('DateRange')
+            ? DateRange.fromJson(json['DateRange'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A date range for the date filter.
@@ -1323,7 +2054,11 @@ class DateRange {
     this.value,
     this.unit,
   });
-  static DateRange fromJson(Map<String, dynamic> json) => DateRange();
+  static DateRange fromJson(Map<String, dynamic> json) => DateRange(
+        value: json.containsKey('Value') ? json['Value'] as int : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeclineInvitationsResponse {
@@ -1335,7 +2070,13 @@ class DeclineInvitationsResponse {
     this.unprocessedAccounts,
   });
   static DeclineInvitationsResponse fromJson(Map<String, dynamic> json) =>
-      DeclineInvitationsResponse();
+      DeclineInvitationsResponse(
+        unprocessedAccounts: json.containsKey('UnprocessedAccounts')
+            ? (json['UnprocessedAccounts'] as List)
+                .map((e) => Result.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteActionTargetResponse {
@@ -1346,7 +2087,9 @@ class DeleteActionTargetResponse {
     @required this.actionTargetArn,
   });
   static DeleteActionTargetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteActionTargetResponse();
+      DeleteActionTargetResponse(
+        actionTargetArn: json['ActionTargetArn'] as String,
+      );
 }
 
 class DeleteInsightResponse {
@@ -1357,7 +2100,9 @@ class DeleteInsightResponse {
     @required this.insightArn,
   });
   static DeleteInsightResponse fromJson(Map<String, dynamic> json) =>
-      DeleteInsightResponse();
+      DeleteInsightResponse(
+        insightArn: json['InsightArn'] as String,
+      );
 }
 
 class DeleteInvitationsResponse {
@@ -1369,7 +2114,13 @@ class DeleteInvitationsResponse {
     this.unprocessedAccounts,
   });
   static DeleteInvitationsResponse fromJson(Map<String, dynamic> json) =>
-      DeleteInvitationsResponse();
+      DeleteInvitationsResponse(
+        unprocessedAccounts: json.containsKey('UnprocessedAccounts')
+            ? (json['UnprocessedAccounts'] as List)
+                .map((e) => Result.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteMembersResponse {
@@ -1381,7 +2132,13 @@ class DeleteMembersResponse {
     this.unprocessedAccounts,
   });
   static DeleteMembersResponse fromJson(Map<String, dynamic> json) =>
-      DeleteMembersResponse();
+      DeleteMembersResponse(
+        unprocessedAccounts: json.containsKey('UnprocessedAccounts')
+            ? (json['UnprocessedAccounts'] as List)
+                .map((e) => Result.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeActionTargetsResponse {
@@ -1398,7 +2155,13 @@ class DescribeActionTargetsResponse {
     this.nextToken,
   });
   static DescribeActionTargetsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeActionTargetsResponse();
+      DescribeActionTargetsResponse(
+        actionTargets: (json['ActionTargets'] as List)
+            .map((e) => ActionTarget.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeHubResponse {
@@ -1413,7 +2176,12 @@ class DescribeHubResponse {
     this.subscribedAt,
   });
   static DescribeHubResponse fromJson(Map<String, dynamic> json) =>
-      DescribeHubResponse();
+      DescribeHubResponse(
+        hubArn: json.containsKey('HubArn') ? json['HubArn'] as String : null,
+        subscribedAt: json.containsKey('SubscribedAt')
+            ? json['SubscribedAt'] as String
+            : null,
+      );
 }
 
 class DescribeProductsResponse {
@@ -1428,7 +2196,12 @@ class DescribeProductsResponse {
     this.nextToken,
   });
   static DescribeProductsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeProductsResponse();
+      DescribeProductsResponse(
+        products:
+            (json['Products'] as List).map((e) => Product.fromJson(e)).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DisableImportFindingsForProductResponse {
@@ -1466,7 +2239,11 @@ class EnableImportFindingsForProductResponse {
   });
   static EnableImportFindingsForProductResponse fromJson(
           Map<String, dynamic> json) =>
-      EnableImportFindingsForProductResponse();
+      EnableImportFindingsForProductResponse(
+        productSubscriptionArn: json.containsKey('ProductSubscriptionArn')
+            ? json['ProductSubscriptionArn'] as String
+            : null,
+      );
 }
 
 class EnableSecurityHubResponse {
@@ -1488,7 +2265,15 @@ class GetEnabledStandardsResponse {
     this.nextToken,
   });
   static GetEnabledStandardsResponse fromJson(Map<String, dynamic> json) =>
-      GetEnabledStandardsResponse();
+      GetEnabledStandardsResponse(
+        standardsSubscriptions: json.containsKey('StandardsSubscriptions')
+            ? (json['StandardsSubscriptions'] as List)
+                .map((e) => StandardsSubscription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetFindingsResponse {
@@ -1503,7 +2288,13 @@ class GetFindingsResponse {
     this.nextToken,
   });
   static GetFindingsResponse fromJson(Map<String, dynamic> json) =>
-      GetFindingsResponse();
+      GetFindingsResponse(
+        findings: (json['Findings'] as List)
+            .map((e) => AwsSecurityFinding.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetInsightResultsResponse {
@@ -1514,7 +2305,9 @@ class GetInsightResultsResponse {
     @required this.insightResults,
   });
   static GetInsightResultsResponse fromJson(Map<String, dynamic> json) =>
-      GetInsightResultsResponse();
+      GetInsightResultsResponse(
+        insightResults: InsightResults.fromJson(json['InsightResults']),
+      );
 }
 
 class GetInsightsResponse {
@@ -1529,7 +2322,12 @@ class GetInsightsResponse {
     this.nextToken,
   });
   static GetInsightsResponse fromJson(Map<String, dynamic> json) =>
-      GetInsightsResponse();
+      GetInsightsResponse(
+        insights:
+            (json['Insights'] as List).map((e) => Insight.fromJson(e)).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetInvitationsCountResponse {
@@ -1541,7 +2339,11 @@ class GetInvitationsCountResponse {
     this.invitationsCount,
   });
   static GetInvitationsCountResponse fromJson(Map<String, dynamic> json) =>
-      GetInvitationsCountResponse();
+      GetInvitationsCountResponse(
+        invitationsCount: json.containsKey('InvitationsCount')
+            ? json['InvitationsCount'] as int
+            : null,
+      );
 }
 
 class GetMasterAccountResponse {
@@ -1553,7 +2355,11 @@ class GetMasterAccountResponse {
     this.master,
   });
   static GetMasterAccountResponse fromJson(Map<String, dynamic> json) =>
-      GetMasterAccountResponse();
+      GetMasterAccountResponse(
+        master: json.containsKey('Master')
+            ? Invitation.fromJson(json['Master'])
+            : null,
+      );
 }
 
 class GetMembersResponse {
@@ -1569,7 +2375,16 @@ class GetMembersResponse {
     this.unprocessedAccounts,
   });
   static GetMembersResponse fromJson(Map<String, dynamic> json) =>
-      GetMembersResponse();
+      GetMembersResponse(
+        members: json.containsKey('Members')
+            ? (json['Members'] as List).map((e) => Member.fromJson(e)).toList()
+            : null,
+        unprocessedAccounts: json.containsKey('UnprocessedAccounts')
+            ? (json['UnprocessedAccounts'] as List)
+                .map((e) => Result.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Includes details of the list of the findings that can't be imported.
@@ -1589,7 +2404,11 @@ class ImportFindingsError {
     @required this.errorMessage,
   });
   static ImportFindingsError fromJson(Map<String, dynamic> json) =>
-      ImportFindingsError();
+      ImportFindingsError(
+        id: json['Id'] as String,
+        errorCode: json['ErrorCode'] as String,
+        errorMessage: json['ErrorMessage'] as String,
+      );
 }
 
 /// Contains information about a Security Hub insight.
@@ -1616,7 +2435,12 @@ class Insight {
     @required this.filters,
     @required this.groupByAttribute,
   });
-  static Insight fromJson(Map<String, dynamic> json) => Insight();
+  static Insight fromJson(Map<String, dynamic> json) => Insight(
+        insightArn: json['InsightArn'] as String,
+        name: json['Name'] as String,
+        filters: AwsSecurityFindingFilters.fromJson(json['Filters']),
+        groupByAttribute: json['GroupByAttribute'] as String,
+      );
 }
 
 /// The insight result values returned by the `GetInsightResults` operation.
@@ -1633,7 +2457,10 @@ class InsightResultValue {
     @required this.count,
   });
   static InsightResultValue fromJson(Map<String, dynamic> json) =>
-      InsightResultValue();
+      InsightResultValue(
+        groupByAttributeValue: json['GroupByAttributeValue'] as String,
+        count: json['Count'] as int,
+      );
 }
 
 /// The insight results returned by the `GetInsightResults` operation.
@@ -1655,7 +2482,13 @@ class InsightResults {
     @required this.groupByAttribute,
     @required this.resultValues,
   });
-  static InsightResults fromJson(Map<String, dynamic> json) => InsightResults();
+  static InsightResults fromJson(Map<String, dynamic> json) => InsightResults(
+        insightArn: json['InsightArn'] as String,
+        groupByAttribute: json['GroupByAttribute'] as String,
+        resultValues: (json['ResultValues'] as List)
+            .map((e) => InsightResultValue.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Details about an invitation.
@@ -1679,7 +2512,19 @@ class Invitation {
     this.invitedAt,
     this.memberStatus,
   });
-  static Invitation fromJson(Map<String, dynamic> json) => Invitation();
+  static Invitation fromJson(Map<String, dynamic> json) => Invitation(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        invitationId: json.containsKey('InvitationId')
+            ? json['InvitationId'] as String
+            : null,
+        invitedAt: json.containsKey('InvitedAt')
+            ? DateTime.parse(json['InvitedAt'])
+            : null,
+        memberStatus: json.containsKey('MemberStatus')
+            ? json['MemberStatus'] as String
+            : null,
+      );
 }
 
 class InviteMembersResponse {
@@ -1691,7 +2536,13 @@ class InviteMembersResponse {
     this.unprocessedAccounts,
   });
   static InviteMembersResponse fromJson(Map<String, dynamic> json) =>
-      InviteMembersResponse();
+      InviteMembersResponse(
+        unprocessedAccounts: json.containsKey('UnprocessedAccounts')
+            ? (json['UnprocessedAccounts'] as List)
+                .map((e) => Result.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The IP filter for querying findings.
@@ -1702,7 +2553,10 @@ class IpFilter {
   IpFilter({
     this.cidr,
   });
-  static IpFilter fromJson(Map<String, dynamic> json) => IpFilter();
+  static IpFilter fromJson(Map<String, dynamic> json) => IpFilter(
+        cidr: json.containsKey('Cidr') ? json['Cidr'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A keyword filter for querying findings.
@@ -1713,7 +2567,10 @@ class KeywordFilter {
   KeywordFilter({
     this.value,
   });
-  static KeywordFilter fromJson(Map<String, dynamic> json) => KeywordFilter();
+  static KeywordFilter fromJson(Map<String, dynamic> json) => KeywordFilter(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListEnabledProductsForImportResponse {
@@ -1730,7 +2587,15 @@ class ListEnabledProductsForImportResponse {
   });
   static ListEnabledProductsForImportResponse fromJson(
           Map<String, dynamic> json) =>
-      ListEnabledProductsForImportResponse();
+      ListEnabledProductsForImportResponse(
+        productSubscriptions: json.containsKey('ProductSubscriptions')
+            ? (json['ProductSubscriptions'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListInvitationsResponse {
@@ -1745,7 +2610,15 @@ class ListInvitationsResponse {
     this.nextToken,
   });
   static ListInvitationsResponse fromJson(Map<String, dynamic> json) =>
-      ListInvitationsResponse();
+      ListInvitationsResponse(
+        invitations: json.containsKey('Invitations')
+            ? (json['Invitations'] as List)
+                .map((e) => Invitation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListMembersResponse {
@@ -1760,7 +2633,13 @@ class ListMembersResponse {
     this.nextToken,
   });
   static ListMembersResponse fromJson(Map<String, dynamic> json) =>
-      ListMembersResponse();
+      ListMembersResponse(
+        members: json.containsKey('Members')
+            ? (json['Members'] as List).map((e) => Member.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1771,7 +2650,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A list of malware related to a finding.
@@ -1794,7 +2678,13 @@ class Malware {
     this.path,
     this.state,
   });
-  static Malware fromJson(Map<String, dynamic> json) => Malware();
+  static Malware fromJson(Map<String, dynamic> json) => Malware(
+        name: json['Name'] as String,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The map filter for querying findings.
@@ -1814,7 +2704,14 @@ class MapFilter {
     this.value,
     this.comparison,
   });
-  static MapFilter fromJson(Map<String, dynamic> json) => MapFilter();
+  static MapFilter fromJson(Map<String, dynamic> json) => MapFilter(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        comparison: json.containsKey('Comparison')
+            ? json['Comparison'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The details about a member account.
@@ -1848,7 +2745,22 @@ class Member {
     this.invitedAt,
     this.updatedAt,
   });
-  static Member fromJson(Map<String, dynamic> json) => Member();
+  static Member fromJson(Map<String, dynamic> json) => Member(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        masterId:
+            json.containsKey('MasterId') ? json['MasterId'] as String : null,
+        memberStatus: json.containsKey('MemberStatus')
+            ? json['MemberStatus'] as String
+            : null,
+        invitedAt: json.containsKey('InvitedAt')
+            ? DateTime.parse(json['InvitedAt'])
+            : null,
+        updatedAt: json.containsKey('UpdatedAt')
+            ? DateTime.parse(json['UpdatedAt'])
+            : null,
+      );
 }
 
 /// The details of network-related information about a finding.
@@ -1902,7 +2814,38 @@ class Network {
     this.destinationPort,
     this.destinationDomain,
   });
-  static Network fromJson(Map<String, dynamic> json) => Network();
+  static Network fromJson(Map<String, dynamic> json) => Network(
+        direction:
+            json.containsKey('Direction') ? json['Direction'] as String : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        sourceIpV4: json.containsKey('SourceIpV4')
+            ? json['SourceIpV4'] as String
+            : null,
+        sourceIpV6: json.containsKey('SourceIpV6')
+            ? json['SourceIpV6'] as String
+            : null,
+        sourcePort:
+            json.containsKey('SourcePort') ? json['SourcePort'] as int : null,
+        sourceDomain: json.containsKey('SourceDomain')
+            ? json['SourceDomain'] as String
+            : null,
+        sourceMac:
+            json.containsKey('SourceMac') ? json['SourceMac'] as String : null,
+        destinationIpV4: json.containsKey('DestinationIpV4')
+            ? json['DestinationIpV4'] as String
+            : null,
+        destinationIpV6: json.containsKey('DestinationIpV6')
+            ? json['DestinationIpV6'] as String
+            : null,
+        destinationPort: json.containsKey('DestinationPort')
+            ? json['DestinationPort'] as int
+            : null,
+        destinationDomain: json.containsKey('DestinationDomain')
+            ? json['DestinationDomain'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A user-defined note added to a finding.
@@ -1921,7 +2864,12 @@ class Note {
     @required this.updatedBy,
     @required this.updatedAt,
   });
-  static Note fromJson(Map<String, dynamic> json) => Note();
+  static Note fromJson(Map<String, dynamic> json) => Note(
+        text: json['Text'] as String,
+        updatedBy: json['UpdatedBy'] as String,
+        updatedAt: json['UpdatedAt'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The updated note.
@@ -1936,6 +2884,7 @@ class NoteUpdate {
     @required this.text,
     @required this.updatedBy,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A number filter for querying findings.
@@ -1957,7 +2906,12 @@ class NumberFilter {
     this.lte,
     this.eq,
   });
-  static NumberFilter fromJson(Map<String, dynamic> json) => NumberFilter();
+  static NumberFilter fromJson(Map<String, dynamic> json) => NumberFilter(
+        gte: json.containsKey('Gte') ? json['Gte'] as double : null,
+        lte: json.containsKey('Lte') ? json['Lte'] as double : null,
+        eq: json.containsKey('Eq') ? json['Eq'] as double : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The details of process-related information about a finding.
@@ -1988,7 +2942,20 @@ class ProcessDetails {
     this.launchedAt,
     this.terminatedAt,
   });
-  static ProcessDetails fromJson(Map<String, dynamic> json) => ProcessDetails();
+  static ProcessDetails fromJson(Map<String, dynamic> json) => ProcessDetails(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        pid: json.containsKey('Pid') ? json['Pid'] as int : null,
+        parentPid:
+            json.containsKey('ParentPid') ? json['ParentPid'] as int : null,
+        launchedAt: json.containsKey('LaunchedAt')
+            ? json['LaunchedAt'] as String
+            : null,
+        terminatedAt: json.containsKey('TerminatedAt')
+            ? json['TerminatedAt'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains details about a product.
@@ -2027,7 +2994,31 @@ class Product {
     this.activationUrl,
     this.productSubscriptionResourcePolicy,
   });
-  static Product fromJson(Map<String, dynamic> json) => Product();
+  static Product fromJson(Map<String, dynamic> json) => Product(
+        productArn: json['ProductArn'] as String,
+        productName: json.containsKey('ProductName')
+            ? json['ProductName'] as String
+            : null,
+        companyName: json.containsKey('CompanyName')
+            ? json['CompanyName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        categories: json.containsKey('Categories')
+            ? (json['Categories'] as List).map((e) => e as String).toList()
+            : null,
+        marketplaceUrl: json.containsKey('MarketplaceUrl')
+            ? json['MarketplaceUrl'] as String
+            : null,
+        activationUrl: json.containsKey('ActivationUrl')
+            ? json['ActivationUrl'] as String
+            : null,
+        productSubscriptionResourcePolicy:
+            json.containsKey('ProductSubscriptionResourcePolicy')
+                ? json['ProductSubscriptionResourcePolicy'] as String
+                : null,
+      );
 }
 
 /// A recommendation on how to remediate the issue identified in a finding.
@@ -2044,7 +3035,11 @@ class Recommendation {
     this.text,
     this.url,
   });
-  static Recommendation fromJson(Map<String, dynamic> json) => Recommendation();
+  static Recommendation fromJson(Map<String, dynamic> json) => Recommendation(
+        text: json.containsKey('Text') ? json['Text'] as String : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about a related finding.
@@ -2059,7 +3054,11 @@ class RelatedFinding {
     @required this.productArn,
     @required this.id,
   });
-  static RelatedFinding fromJson(Map<String, dynamic> json) => RelatedFinding();
+  static RelatedFinding fromJson(Map<String, dynamic> json) => RelatedFinding(
+        productArn: json['ProductArn'] as String,
+        id: json['Id'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about the remediation steps for a finding.
@@ -2071,7 +3070,12 @@ class Remediation {
   Remediation({
     this.recommendation,
   });
-  static Remediation fromJson(Map<String, dynamic> json) => Remediation();
+  static Remediation fromJson(Map<String, dynamic> json) => Remediation(
+        recommendation: json.containsKey('Recommendation')
+            ? Recommendation.fromJson(json['Recommendation'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A resource related to a finding.
@@ -2103,7 +3107,21 @@ class Resource {
     this.tags,
     this.details,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        type: json['Type'] as String,
+        id: json['Id'] as String,
+        partition:
+            json.containsKey('Partition') ? json['Partition'] as String : null,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        details: json.containsKey('Details')
+            ? ResourceDetails.fromJson(json['Details'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Additional details about a resource related to a finding.
@@ -2130,8 +3148,25 @@ class ResourceDetails {
     this.container,
     this.other,
   });
-  static ResourceDetails fromJson(Map<String, dynamic> json) =>
-      ResourceDetails();
+  static ResourceDetails fromJson(Map<String, dynamic> json) => ResourceDetails(
+        awsEc2Instance: json.containsKey('AwsEc2Instance')
+            ? AwsEc2InstanceDetails.fromJson(json['AwsEc2Instance'])
+            : null,
+        awsS3Bucket: json.containsKey('AwsS3Bucket')
+            ? AwsS3BucketDetails.fromJson(json['AwsS3Bucket'])
+            : null,
+        awsIamAccessKey: json.containsKey('AwsIamAccessKey')
+            ? AwsIamAccessKeyDetails.fromJson(json['AwsIamAccessKey'])
+            : null,
+        container: json.containsKey('Container')
+            ? ContainerDetails.fromJson(json['Container'])
+            : null,
+        other: json.containsKey('Other')
+            ? (json['Other'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about the account that wasn't processed.
@@ -2146,7 +3181,13 @@ class Result {
     this.accountId,
     this.processingResult,
   });
-  static Result fromJson(Map<String, dynamic> json) => Result();
+  static Result fromJson(Map<String, dynamic> json) => Result(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        processingResult: json.containsKey('ProcessingResult')
+            ? json['ProcessingResult'] as String
+            : null,
+      );
 }
 
 /// The severity of the finding.
@@ -2162,7 +3203,11 @@ class Severity {
     this.product,
     @required this.normalized,
   });
-  static Severity fromJson(Map<String, dynamic> json) => Severity();
+  static Severity fromJson(Map<String, dynamic> json) => Severity(
+        product: json.containsKey('Product') ? json['Product'] as double : null,
+        normalized: json['Normalized'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A collection of finding attributes used to sort findings.
@@ -2177,6 +3222,7 @@ class SortCriterion {
     this.field,
     this.sortOrder,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A resource that represents your subscription to a supported standard.
@@ -2205,7 +3251,13 @@ class StandardsSubscription {
     @required this.standardsStatus,
   });
   static StandardsSubscription fromJson(Map<String, dynamic> json) =>
-      StandardsSubscription();
+      StandardsSubscription(
+        standardsSubscriptionArn: json['StandardsSubscriptionArn'] as String,
+        standardsArn: json['StandardsArn'] as String,
+        standardsInput: (json['StandardsInput'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+        standardsStatus: json['StandardsStatus'] as String,
+      );
 }
 
 /// The standard that you want to enable.
@@ -2228,6 +3280,7 @@ class StandardsSubscriptionRequest {
     @required this.standardsArn,
     this.standardsInput,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A string filter for querying findings.
@@ -2242,7 +3295,13 @@ class StringFilter {
     this.value,
     this.comparison,
   });
-  static StringFilter fromJson(Map<String, dynamic> json) => StringFilter();
+  static StringFilter fromJson(Map<String, dynamic> json) => StringFilter(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        comparison: json.containsKey('Comparison')
+            ? json['Comparison'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -2282,7 +3341,19 @@ class ThreatIntelIndicator {
     this.sourceUrl,
   });
   static ThreatIntelIndicator fromJson(Map<String, dynamic> json) =>
-      ThreatIntelIndicator();
+      ThreatIntelIndicator(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        category:
+            json.containsKey('Category') ? json['Category'] as String : null,
+        lastObservedAt: json.containsKey('LastObservedAt')
+            ? json['LastObservedAt'] as String
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        sourceUrl:
+            json.containsKey('SourceUrl') ? json['SourceUrl'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {

@@ -2,6 +2,9 @@ import 'package:meta/meta.dart';
 import 'dart:typed_data';
 
 class S3Api {
+  final _client;
+  S3Api(client) : _client = client.configured('S3', serializer: 'rest-xml');
+
   /// Aborts a multipart upload.
   ///
   /// To verify that all parts have been removed, so you don't get charged for
@@ -18,7 +21,13 @@ class S3Api {
       @required String key,
       @required String uploadId,
       String requestPayer}) async {
-    return AbortMultipartUploadOutput.fromJson({});
+    var response_ = await _client.send('AbortMultipartUpload', {
+      'Bucket': bucket,
+      'Key': key,
+      'UploadId': uploadId,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return AbortMultipartUploadOutput.fromJson(response_);
   }
 
   /// Completes a multipart upload by assembling previously uploaded parts.
@@ -36,7 +45,14 @@ class S3Api {
       CompletedMultipartUpload multipartUpload,
       @required String uploadId,
       String requestPayer}) async {
-    return CompleteMultipartUploadOutput.fromJson({});
+    var response_ = await _client.send('CompleteMultipartUpload', {
+      'Bucket': bucket,
+      'Key': key,
+      if (multipartUpload != null) 'MultipartUpload': multipartUpload,
+      'UploadId': uploadId,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return CompleteMultipartUploadOutput.fromJson(response_);
   }
 
   /// Creates a copy of an object that is already stored in Amazon S3.
@@ -193,7 +209,58 @@ class S3Api {
       String objectLockMode,
       DateTime objectLockRetainUntilDate,
       String objectLockLegalHoldStatus}) async {
-    return CopyObjectOutput.fromJson({});
+    var response_ = await _client.send('CopyObject', {
+      if (acl != null) 'ACL': acl,
+      'Bucket': bucket,
+      if (cacheControl != null) 'CacheControl': cacheControl,
+      if (contentDisposition != null) 'ContentDisposition': contentDisposition,
+      if (contentEncoding != null) 'ContentEncoding': contentEncoding,
+      if (contentLanguage != null) 'ContentLanguage': contentLanguage,
+      if (contentType != null) 'ContentType': contentType,
+      'CopySource': copySource,
+      if (copySourceIfMatch != null) 'CopySourceIfMatch': copySourceIfMatch,
+      if (copySourceIfModifiedSince != null)
+        'CopySourceIfModifiedSince': copySourceIfModifiedSince,
+      if (copySourceIfNoneMatch != null)
+        'CopySourceIfNoneMatch': copySourceIfNoneMatch,
+      if (copySourceIfUnmodifiedSince != null)
+        'CopySourceIfUnmodifiedSince': copySourceIfUnmodifiedSince,
+      if (expires != null) 'Expires': expires,
+      if (grantFullControl != null) 'GrantFullControl': grantFullControl,
+      if (grantRead != null) 'GrantRead': grantRead,
+      if (grantReadAcp != null) 'GrantReadACP': grantReadAcp,
+      if (grantWriteAcp != null) 'GrantWriteACP': grantWriteAcp,
+      'Key': key,
+      if (metadata != null) 'Metadata': metadata,
+      if (metadataDirective != null) 'MetadataDirective': metadataDirective,
+      if (taggingDirective != null) 'TaggingDirective': taggingDirective,
+      if (serverSideEncryption != null)
+        'ServerSideEncryption': serverSideEncryption,
+      if (storageClass != null) 'StorageClass': storageClass,
+      if (websiteRedirectLocation != null)
+        'WebsiteRedirectLocation': websiteRedirectLocation,
+      if (sseCustomerAlgorithm != null)
+        'SSECustomerAlgorithm': sseCustomerAlgorithm,
+      if (sseCustomerKey != null) 'SSECustomerKey': sseCustomerKey,
+      if (sseCustomerKeyMd5 != null) 'SSECustomerKeyMD5': sseCustomerKeyMd5,
+      if (ssekmsKeyId != null) 'SSEKMSKeyId': ssekmsKeyId,
+      if (ssekmsEncryptionContext != null)
+        'SSEKMSEncryptionContext': ssekmsEncryptionContext,
+      if (copySourceSseCustomerAlgorithm != null)
+        'CopySourceSSECustomerAlgorithm': copySourceSseCustomerAlgorithm,
+      if (copySourceSseCustomerKey != null)
+        'CopySourceSSECustomerKey': copySourceSseCustomerKey,
+      if (copySourceSseCustomerKeyMd5 != null)
+        'CopySourceSSECustomerKeyMD5': copySourceSseCustomerKeyMd5,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (tagging != null) 'Tagging': tagging,
+      if (objectLockMode != null) 'ObjectLockMode': objectLockMode,
+      if (objectLockRetainUntilDate != null)
+        'ObjectLockRetainUntilDate': objectLockRetainUntilDate,
+      if (objectLockLegalHoldStatus != null)
+        'ObjectLockLegalHoldStatus': objectLockLegalHoldStatus,
+    });
+    return CopyObjectOutput.fromJson(response_);
   }
 
   /// Creates a new bucket.
@@ -228,7 +295,20 @@ class S3Api {
       String grantWrite,
       String grantWriteAcp,
       bool objectLockEnabledForBucket}) async {
-    return CreateBucketOutput.fromJson({});
+    var response_ = await _client.send('CreateBucket', {
+      if (acl != null) 'ACL': acl,
+      'Bucket': bucket,
+      if (createBucketConfiguration != null)
+        'CreateBucketConfiguration': createBucketConfiguration,
+      if (grantFullControl != null) 'GrantFullControl': grantFullControl,
+      if (grantRead != null) 'GrantRead': grantRead,
+      if (grantReadAcp != null) 'GrantReadACP': grantReadAcp,
+      if (grantWrite != null) 'GrantWrite': grantWrite,
+      if (grantWriteAcp != null) 'GrantWriteACP': grantWriteAcp,
+      if (objectLockEnabledForBucket != null)
+        'ObjectLockEnabledForBucket': objectLockEnabledForBucket,
+    });
+    return CreateBucketOutput.fromJson(response_);
   }
 
   /// Initiates a multipart upload and returns an upload ID.
@@ -346,7 +426,42 @@ class S3Api {
       String objectLockMode,
       DateTime objectLockRetainUntilDate,
       String objectLockLegalHoldStatus}) async {
-    return CreateMultipartUploadOutput.fromJson({});
+    var response_ = await _client.send('CreateMultipartUpload', {
+      if (acl != null) 'ACL': acl,
+      'Bucket': bucket,
+      if (cacheControl != null) 'CacheControl': cacheControl,
+      if (contentDisposition != null) 'ContentDisposition': contentDisposition,
+      if (contentEncoding != null) 'ContentEncoding': contentEncoding,
+      if (contentLanguage != null) 'ContentLanguage': contentLanguage,
+      if (contentType != null) 'ContentType': contentType,
+      if (expires != null) 'Expires': expires,
+      if (grantFullControl != null) 'GrantFullControl': grantFullControl,
+      if (grantRead != null) 'GrantRead': grantRead,
+      if (grantReadAcp != null) 'GrantReadACP': grantReadAcp,
+      if (grantWriteAcp != null) 'GrantWriteACP': grantWriteAcp,
+      'Key': key,
+      if (metadata != null) 'Metadata': metadata,
+      if (serverSideEncryption != null)
+        'ServerSideEncryption': serverSideEncryption,
+      if (storageClass != null) 'StorageClass': storageClass,
+      if (websiteRedirectLocation != null)
+        'WebsiteRedirectLocation': websiteRedirectLocation,
+      if (sseCustomerAlgorithm != null)
+        'SSECustomerAlgorithm': sseCustomerAlgorithm,
+      if (sseCustomerKey != null) 'SSECustomerKey': sseCustomerKey,
+      if (sseCustomerKeyMd5 != null) 'SSECustomerKeyMD5': sseCustomerKeyMd5,
+      if (ssekmsKeyId != null) 'SSEKMSKeyId': ssekmsKeyId,
+      if (ssekmsEncryptionContext != null)
+        'SSEKMSEncryptionContext': ssekmsEncryptionContext,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (tagging != null) 'Tagging': tagging,
+      if (objectLockMode != null) 'ObjectLockMode': objectLockMode,
+      if (objectLockRetainUntilDate != null)
+        'ObjectLockRetainUntilDate': objectLockRetainUntilDate,
+      if (objectLockLegalHoldStatus != null)
+        'ObjectLockLegalHoldStatus': objectLockLegalHoldStatus,
+    });
+    return CreateMultipartUploadOutput.fromJson(response_);
   }
 
   /// Deletes the bucket. All objects (including all object versions and Delete
@@ -354,7 +469,11 @@ class S3Api {
   /// deleted.
   ///
   /// [bucket]:
-  Future<void> deleteBucket(String bucket) async {}
+  Future<void> deleteBucket(String bucket) async {
+    await _client.send('DeleteBucket', {
+      'Bucket': bucket,
+    });
+  }
 
   /// Deletes an analytics configuration for the bucket (specified by the
   /// analytics configuration ID).
@@ -368,18 +487,31 @@ class S3Api {
   ///
   /// [id]: The ID that identifies the analytics configuration.
   Future<void> deleteBucketAnalyticsConfiguration(
-      {@required String bucket, @required String id}) async {}
+      {@required String bucket, @required String id}) async {
+    await _client.send('DeleteBucketAnalyticsConfiguration', {
+      'Bucket': bucket,
+      'Id': id,
+    });
+  }
 
   /// Deletes the CORS configuration information set for the bucket.
   ///
   /// [bucket]:
-  Future<void> deleteBucketCors(String bucket) async {}
+  Future<void> deleteBucketCors(String bucket) async {
+    await _client.send('DeleteBucketCors', {
+      'Bucket': bucket,
+    });
+  }
 
   /// Deletes the server-side encryption configuration from the bucket.
   ///
   /// [bucket]: The name of the bucket containing the server-side encryption
   /// configuration to delete.
-  Future<void> deleteBucketEncryption(String bucket) async {}
+  Future<void> deleteBucketEncryption(String bucket) async {
+    await _client.send('DeleteBucketEncryption', {
+      'Bucket': bucket,
+    });
+  }
 
   /// Deletes an inventory configuration (identified by the inventory ID) from
   /// the bucket.
@@ -389,12 +521,21 @@ class S3Api {
   ///
   /// [id]: The ID used to identify the inventory configuration.
   Future<void> deleteBucketInventoryConfiguration(
-      {@required String bucket, @required String id}) async {}
+      {@required String bucket, @required String id}) async {
+    await _client.send('DeleteBucketInventoryConfiguration', {
+      'Bucket': bucket,
+      'Id': id,
+    });
+  }
 
   /// Deletes the lifecycle configuration from the bucket.
   ///
   /// [bucket]:
-  Future<void> deleteBucketLifecycle(String bucket) async {}
+  Future<void> deleteBucketLifecycle(String bucket) async {
+    await _client.send('DeleteBucketLifecycle', {
+      'Bucket': bucket,
+    });
+  }
 
   /// Deletes a metrics configuration (specified by the metrics configuration
   /// ID) from the bucket.
@@ -404,12 +545,21 @@ class S3Api {
   ///
   /// [id]: The ID used to identify the metrics configuration.
   Future<void> deleteBucketMetricsConfiguration(
-      {@required String bucket, @required String id}) async {}
+      {@required String bucket, @required String id}) async {
+    await _client.send('DeleteBucketMetricsConfiguration', {
+      'Bucket': bucket,
+      'Id': id,
+    });
+  }
 
   /// Deletes the policy from the bucket.
   ///
   /// [bucket]:
-  Future<void> deleteBucketPolicy(String bucket) async {}
+  Future<void> deleteBucketPolicy(String bucket) async {
+    await _client.send('DeleteBucketPolicy', {
+      'Bucket': bucket,
+    });
+  }
 
   ///  Deletes the replication configuration from the bucket. For information
   /// about replication configuration, see
@@ -422,17 +572,29 @@ class S3Api {
   ///
   /// It can take a while to propagate the deletion of a replication
   /// configuration to all Amazon S3 systems.
-  Future<void> deleteBucketReplication(String bucket) async {}
+  Future<void> deleteBucketReplication(String bucket) async {
+    await _client.send('DeleteBucketReplication', {
+      'Bucket': bucket,
+    });
+  }
 
   /// Deletes the tags from the bucket.
   ///
   /// [bucket]:
-  Future<void> deleteBucketTagging(String bucket) async {}
+  Future<void> deleteBucketTagging(String bucket) async {
+    await _client.send('DeleteBucketTagging', {
+      'Bucket': bucket,
+    });
+  }
 
   /// This operation removes the website configuration from the bucket.
   ///
   /// [bucket]:
-  Future<void> deleteBucketWebsite(String bucket) async {}
+  Future<void> deleteBucketWebsite(String bucket) async {
+    await _client.send('DeleteBucketWebsite', {
+      'Bucket': bucket,
+    });
+  }
 
   /// Removes the null version (if there is one) of an object and inserts a
   /// delete marker, which becomes the latest version of the object. If there
@@ -456,7 +618,16 @@ class S3Api {
       String versionId,
       String requestPayer,
       bool bypassGovernanceRetention}) async {
-    return DeleteObjectOutput.fromJson({});
+    var response_ = await _client.send('DeleteObject', {
+      'Bucket': bucket,
+      'Key': key,
+      if (mfa != null) 'MFA': mfa,
+      if (versionId != null) 'VersionId': versionId,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (bypassGovernanceRetention != null)
+        'BypassGovernanceRetention': bypassGovernanceRetention,
+    });
+    return DeleteObjectOutput.fromJson(response_);
   }
 
   /// Removes the tag-set from an existing object.
@@ -469,7 +640,12 @@ class S3Api {
   /// from.
   Future<DeleteObjectTaggingOutput> deleteObjectTagging(
       {@required String bucket, @required String key, String versionId}) async {
-    return DeleteObjectTaggingOutput.fromJson({});
+    var response_ = await _client.send('DeleteObjectTagging', {
+      'Bucket': bucket,
+      'Key': key,
+      if (versionId != null) 'VersionId': versionId,
+    });
+    return DeleteObjectTaggingOutput.fromJson(response_);
   }
 
   /// This operation enables you to delete multiple objects from a bucket using
@@ -491,14 +667,26 @@ class S3Api {
       String mfa,
       String requestPayer,
       bool bypassGovernanceRetention}) async {
-    return DeleteObjectsOutput.fromJson({});
+    var response_ = await _client.send('DeleteObjects', {
+      'Bucket': bucket,
+      'Delete': delete,
+      if (mfa != null) 'MFA': mfa,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (bypassGovernanceRetention != null)
+        'BypassGovernanceRetention': bypassGovernanceRetention,
+    });
+    return DeleteObjectsOutput.fromJson(response_);
   }
 
   /// Removes the `PublicAccessBlock` configuration from an Amazon S3 bucket.
   ///
   /// [bucket]: The Amazon S3 bucket whose `PublicAccessBlock` configuration you
   /// want to delete.
-  Future<void> deletePublicAccessBlock(String bucket) async {}
+  Future<void> deletePublicAccessBlock(String bucket) async {
+    await _client.send('DeletePublicAccessBlock', {
+      'Bucket': bucket,
+    });
+  }
 
   /// Returns the accelerate configuration of a bucket.
   ///
@@ -506,14 +694,20 @@ class S3Api {
   /// retrieved.
   Future<GetBucketAccelerateConfigurationOutput>
       getBucketAccelerateConfiguration(String bucket) async {
-    return GetBucketAccelerateConfigurationOutput.fromJson({});
+    var response_ = await _client.send('GetBucketAccelerateConfiguration', {
+      'Bucket': bucket,
+    });
+    return GetBucketAccelerateConfigurationOutput.fromJson(response_);
   }
 
   /// Gets the access control policy for the bucket.
   ///
   /// [bucket]:
   Future<GetBucketAclOutput> getBucketAcl(String bucket) async {
-    return GetBucketAclOutput.fromJson({});
+    var response_ = await _client.send('GetBucketAcl', {
+      'Bucket': bucket,
+    });
+    return GetBucketAclOutput.fromJson(response_);
   }
 
   /// Gets an analytics configuration for the bucket (specified by the analytics
@@ -525,14 +719,21 @@ class S3Api {
   /// [id]: The ID that identifies the analytics configuration.
   Future<GetBucketAnalyticsConfigurationOutput> getBucketAnalyticsConfiguration(
       {@required String bucket, @required String id}) async {
-    return GetBucketAnalyticsConfigurationOutput.fromJson({});
+    var response_ = await _client.send('GetBucketAnalyticsConfiguration', {
+      'Bucket': bucket,
+      'Id': id,
+    });
+    return GetBucketAnalyticsConfigurationOutput.fromJson(response_);
   }
 
   /// Returns the CORS configuration for the bucket.
   ///
   /// [bucket]:
   Future<GetBucketCorsOutput> getBucketCors(String bucket) async {
-    return GetBucketCorsOutput.fromJson({});
+    var response_ = await _client.send('GetBucketCors', {
+      'Bucket': bucket,
+    });
+    return GetBucketCorsOutput.fromJson(response_);
   }
 
   /// Returns the server-side encryption configuration of a bucket.
@@ -540,7 +741,10 @@ class S3Api {
   /// [bucket]: The name of the bucket from which the server-side encryption
   /// configuration is retrieved.
   Future<GetBucketEncryptionOutput> getBucketEncryption(String bucket) async {
-    return GetBucketEncryptionOutput.fromJson({});
+    var response_ = await _client.send('GetBucketEncryption', {
+      'Bucket': bucket,
+    });
+    return GetBucketEncryptionOutput.fromJson(response_);
   }
 
   /// Returns an inventory configuration (identified by the inventory ID) from
@@ -552,14 +756,21 @@ class S3Api {
   /// [id]: The ID used to identify the inventory configuration.
   Future<GetBucketInventoryConfigurationOutput> getBucketInventoryConfiguration(
       {@required String bucket, @required String id}) async {
-    return GetBucketInventoryConfigurationOutput.fromJson({});
+    var response_ = await _client.send('GetBucketInventoryConfiguration', {
+      'Bucket': bucket,
+      'Id': id,
+    });
+    return GetBucketInventoryConfigurationOutput.fromJson(response_);
   }
 
   ///  No longer used, see the GetBucketLifecycleConfiguration operation.
   ///
   /// [bucket]:
   Future<GetBucketLifecycleOutput> getBucketLifecycle(String bucket) async {
-    return GetBucketLifecycleOutput.fromJson({});
+    var response_ = await _client.send('GetBucketLifecycle', {
+      'Bucket': bucket,
+    });
+    return GetBucketLifecycleOutput.fromJson(response_);
   }
 
   /// Returns the lifecycle configuration information set on the bucket.
@@ -567,14 +778,20 @@ class S3Api {
   /// [bucket]:
   Future<GetBucketLifecycleConfigurationOutput> getBucketLifecycleConfiguration(
       String bucket) async {
-    return GetBucketLifecycleConfigurationOutput.fromJson({});
+    var response_ = await _client.send('GetBucketLifecycleConfiguration', {
+      'Bucket': bucket,
+    });
+    return GetBucketLifecycleConfigurationOutput.fromJson(response_);
   }
 
   /// Returns the region the bucket resides in.
   ///
   /// [bucket]:
   Future<GetBucketLocationOutput> getBucketLocation(String bucket) async {
-    return GetBucketLocationOutput.fromJson({});
+    var response_ = await _client.send('GetBucketLocation', {
+      'Bucket': bucket,
+    });
+    return GetBucketLocationOutput.fromJson(response_);
   }
 
   /// Returns the logging status of a bucket and the permissions users have to
@@ -582,7 +799,10 @@ class S3Api {
   ///
   /// [bucket]:
   Future<GetBucketLoggingOutput> getBucketLogging(String bucket) async {
-    return GetBucketLoggingOutput.fromJson({});
+    var response_ = await _client.send('GetBucketLogging', {
+      'Bucket': bucket,
+    });
+    return GetBucketLoggingOutput.fromJson(response_);
   }
 
   /// Gets a metrics configuration (specified by the metrics configuration ID)
@@ -594,7 +814,11 @@ class S3Api {
   /// [id]: The ID used to identify the metrics configuration.
   Future<GetBucketMetricsConfigurationOutput> getBucketMetricsConfiguration(
       {@required String bucket, @required String id}) async {
-    return GetBucketMetricsConfigurationOutput.fromJson({});
+    var response_ = await _client.send('GetBucketMetricsConfiguration', {
+      'Bucket': bucket,
+      'Id': id,
+    });
+    return GetBucketMetricsConfigurationOutput.fromJson(response_);
   }
 
   ///  No longer used, see the GetBucketNotificationConfiguration operation.
@@ -602,7 +826,10 @@ class S3Api {
   /// [bucket]: Name of the bucket to get the notification configuration for.
   Future<NotificationConfigurationDeprecated> getBucketNotification(
       String bucket) async {
-    return NotificationConfigurationDeprecated.fromJson({});
+    var response_ = await _client.send('GetBucketNotification', {
+      'Bucket': bucket,
+    });
+    return NotificationConfigurationDeprecated.fromJson(response_);
   }
 
   /// Returns the notification configuration of a bucket.
@@ -610,14 +837,20 @@ class S3Api {
   /// [bucket]: Name of the bucket to get the notification configuration for.
   Future<NotificationConfiguration> getBucketNotificationConfiguration(
       String bucket) async {
-    return NotificationConfiguration.fromJson({});
+    var response_ = await _client.send('GetBucketNotificationConfiguration', {
+      'Bucket': bucket,
+    });
+    return NotificationConfiguration.fromJson(response_);
   }
 
   /// Returns the policy of a specified bucket.
   ///
   /// [bucket]:
   Future<GetBucketPolicyOutput> getBucketPolicy(String bucket) async {
-    return GetBucketPolicyOutput.fromJson({});
+    var response_ = await _client.send('GetBucketPolicy', {
+      'Bucket': bucket,
+    });
+    return GetBucketPolicyOutput.fromJson(response_);
   }
 
   /// Retrieves the policy status for an Amazon S3 bucket, indicating whether
@@ -627,7 +860,10 @@ class S3Api {
   /// retrieve.
   Future<GetBucketPolicyStatusOutput> getBucketPolicyStatus(
       String bucket) async {
-    return GetBucketPolicyStatusOutput.fromJson({});
+    var response_ = await _client.send('GetBucketPolicyStatus', {
+      'Bucket': bucket,
+    });
+    return GetBucketPolicyStatusOutput.fromJson(response_);
   }
 
   /// Returns the replication configuration of a bucket.
@@ -638,7 +874,10 @@ class S3Api {
   ///
   /// [bucket]:
   Future<GetBucketReplicationOutput> getBucketReplication(String bucket) async {
-    return GetBucketReplicationOutput.fromJson({});
+    var response_ = await _client.send('GetBucketReplication', {
+      'Bucket': bucket,
+    });
+    return GetBucketReplicationOutput.fromJson(response_);
   }
 
   /// Returns the request payment configuration of a bucket.
@@ -646,28 +885,40 @@ class S3Api {
   /// [bucket]:
   Future<GetBucketRequestPaymentOutput> getBucketRequestPayment(
       String bucket) async {
-    return GetBucketRequestPaymentOutput.fromJson({});
+    var response_ = await _client.send('GetBucketRequestPayment', {
+      'Bucket': bucket,
+    });
+    return GetBucketRequestPaymentOutput.fromJson(response_);
   }
 
   /// Returns the tag set associated with the bucket.
   ///
   /// [bucket]:
   Future<GetBucketTaggingOutput> getBucketTagging(String bucket) async {
-    return GetBucketTaggingOutput.fromJson({});
+    var response_ = await _client.send('GetBucketTagging', {
+      'Bucket': bucket,
+    });
+    return GetBucketTaggingOutput.fromJson(response_);
   }
 
   /// Returns the versioning state of a bucket.
   ///
   /// [bucket]:
   Future<GetBucketVersioningOutput> getBucketVersioning(String bucket) async {
-    return GetBucketVersioningOutput.fromJson({});
+    var response_ = await _client.send('GetBucketVersioning', {
+      'Bucket': bucket,
+    });
+    return GetBucketVersioningOutput.fromJson(response_);
   }
 
   /// Returns the website configuration for a bucket.
   ///
   /// [bucket]:
   Future<GetBucketWebsiteOutput> getBucketWebsite(String bucket) async {
-    return GetBucketWebsiteOutput.fromJson({});
+    var response_ = await _client.send('GetBucketWebsite', {
+      'Bucket': bucket,
+    });
+    return GetBucketWebsiteOutput.fromJson(response_);
   }
 
   /// Retrieves objects from Amazon S3.
@@ -746,7 +997,34 @@ class S3Api {
       String sseCustomerKeyMd5,
       String requestPayer,
       int partNumber}) async {
-    return GetObjectOutput.fromJson({});
+    var response_ = await _client.send('GetObject', {
+      'Bucket': bucket,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+      if (ifModifiedSince != null) 'IfModifiedSince': ifModifiedSince,
+      if (ifNoneMatch != null) 'IfNoneMatch': ifNoneMatch,
+      if (ifUnmodifiedSince != null) 'IfUnmodifiedSince': ifUnmodifiedSince,
+      'Key': key,
+      if (range != null) 'Range': range,
+      if (responseCacheControl != null)
+        'ResponseCacheControl': responseCacheControl,
+      if (responseContentDisposition != null)
+        'ResponseContentDisposition': responseContentDisposition,
+      if (responseContentEncoding != null)
+        'ResponseContentEncoding': responseContentEncoding,
+      if (responseContentLanguage != null)
+        'ResponseContentLanguage': responseContentLanguage,
+      if (responseContentType != null)
+        'ResponseContentType': responseContentType,
+      if (responseExpires != null) 'ResponseExpires': responseExpires,
+      if (versionId != null) 'VersionId': versionId,
+      if (sseCustomerAlgorithm != null)
+        'SSECustomerAlgorithm': sseCustomerAlgorithm,
+      if (sseCustomerKey != null) 'SSECustomerKey': sseCustomerKey,
+      if (sseCustomerKeyMd5 != null) 'SSECustomerKeyMD5': sseCustomerKeyMd5,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (partNumber != null) 'PartNumber': partNumber,
+    });
+    return GetObjectOutput.fromJson(response_);
   }
 
   /// Returns the access control list (ACL) of an object.
@@ -761,7 +1039,13 @@ class S3Api {
       @required String key,
       String versionId,
       String requestPayer}) async {
-    return GetObjectAclOutput.fromJson({});
+    var response_ = await _client.send('GetObjectAcl', {
+      'Bucket': bucket,
+      'Key': key,
+      if (versionId != null) 'VersionId': versionId,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return GetObjectAclOutput.fromJson(response_);
   }
 
   /// Gets an object's current Legal Hold status.
@@ -779,7 +1063,13 @@ class S3Api {
       @required String key,
       String versionId,
       String requestPayer}) async {
-    return GetObjectLegalHoldOutput.fromJson({});
+    var response_ = await _client.send('GetObjectLegalHold', {
+      'Bucket': bucket,
+      'Key': key,
+      if (versionId != null) 'VersionId': versionId,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return GetObjectLegalHoldOutput.fromJson(response_);
   }
 
   /// Gets the object lock configuration for a bucket. The rule specified in the
@@ -789,7 +1079,10 @@ class S3Api {
   /// [bucket]: The bucket whose object lock configuration you want to retrieve.
   Future<GetObjectLockConfigurationOutput> getObjectLockConfiguration(
       String bucket) async {
-    return GetObjectLockConfigurationOutput.fromJson({});
+    var response_ = await _client.send('GetObjectLockConfiguration', {
+      'Bucket': bucket,
+    });
+    return GetObjectLockConfigurationOutput.fromJson(response_);
   }
 
   /// Retrieves an object's retention settings.
@@ -807,7 +1100,13 @@ class S3Api {
       @required String key,
       String versionId,
       String requestPayer}) async {
-    return GetObjectRetentionOutput.fromJson({});
+    var response_ = await _client.send('GetObjectRetention', {
+      'Bucket': bucket,
+      'Key': key,
+      if (versionId != null) 'VersionId': versionId,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return GetObjectRetentionOutput.fromJson(response_);
   }
 
   /// Returns the tag-set of an object.
@@ -819,7 +1118,12 @@ class S3Api {
   /// [versionId]:
   Future<GetObjectTaggingOutput> getObjectTagging(
       {@required String bucket, @required String key, String versionId}) async {
-    return GetObjectTaggingOutput.fromJson({});
+    var response_ = await _client.send('GetObjectTagging', {
+      'Bucket': bucket,
+      'Key': key,
+      if (versionId != null) 'VersionId': versionId,
+    });
+    return GetObjectTaggingOutput.fromJson(response_);
   }
 
   /// Return torrent files from a bucket.
@@ -831,7 +1135,12 @@ class S3Api {
       {@required String bucket,
       @required String key,
       String requestPayer}) async {
-    return GetObjectTorrentOutput.fromJson({});
+    var response_ = await _client.send('GetObjectTorrent', {
+      'Bucket': bucket,
+      'Key': key,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return GetObjectTorrentOutput.fromJson(response_);
   }
 
   /// Retrieves the `PublicAccessBlock` configuration for an Amazon S3 bucket.
@@ -839,14 +1148,21 @@ class S3Api {
   /// [bucket]: The name of the Amazon S3 bucket whose `PublicAccessBlock`
   /// configuration you want to retrieve.
   Future<GetPublicAccessBlockOutput> getPublicAccessBlock(String bucket) async {
-    return GetPublicAccessBlockOutput.fromJson({});
+    var response_ = await _client.send('GetPublicAccessBlock', {
+      'Bucket': bucket,
+    });
+    return GetPublicAccessBlockOutput.fromJson(response_);
   }
 
   /// This operation is useful to determine if a bucket exists and you have
   /// permission to access it.
   ///
   /// [bucket]:
-  Future<void> headBucket(String bucket) async {}
+  Future<void> headBucket(String bucket) async {
+    await _client.send('HeadBucket', {
+      'Bucket': bucket,
+    });
+  }
 
   /// The HEAD operation retrieves metadata from an object without returning the
   /// object itself. This operation is useful if you're only interested in an
@@ -906,7 +1222,23 @@ class S3Api {
       String sseCustomerKeyMd5,
       String requestPayer,
       int partNumber}) async {
-    return HeadObjectOutput.fromJson({});
+    var response_ = await _client.send('HeadObject', {
+      'Bucket': bucket,
+      if (ifMatch != null) 'IfMatch': ifMatch,
+      if (ifModifiedSince != null) 'IfModifiedSince': ifModifiedSince,
+      if (ifNoneMatch != null) 'IfNoneMatch': ifNoneMatch,
+      if (ifUnmodifiedSince != null) 'IfUnmodifiedSince': ifUnmodifiedSince,
+      'Key': key,
+      if (range != null) 'Range': range,
+      if (versionId != null) 'VersionId': versionId,
+      if (sseCustomerAlgorithm != null)
+        'SSECustomerAlgorithm': sseCustomerAlgorithm,
+      if (sseCustomerKey != null) 'SSECustomerKey': sseCustomerKey,
+      if (sseCustomerKeyMd5 != null) 'SSECustomerKeyMD5': sseCustomerKeyMd5,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (partNumber != null) 'PartNumber': partNumber,
+    });
+    return HeadObjectOutput.fromJson(response_);
   }
 
   /// Lists the analytics configurations for the bucket.
@@ -919,7 +1251,11 @@ class S3Api {
   Future<ListBucketAnalyticsConfigurationsOutput>
       listBucketAnalyticsConfigurations(String bucket,
           {String continuationToken}) async {
-    return ListBucketAnalyticsConfigurationsOutput.fromJson({});
+    var response_ = await _client.send('ListBucketAnalyticsConfigurations', {
+      'Bucket': bucket,
+      if (continuationToken != null) 'ContinuationToken': continuationToken,
+    });
+    return ListBucketAnalyticsConfigurationsOutput.fromJson(response_);
   }
 
   /// Returns a list of inventory configurations for the bucket.
@@ -935,7 +1271,11 @@ class S3Api {
   Future<ListBucketInventoryConfigurationsOutput>
       listBucketInventoryConfigurations(String bucket,
           {String continuationToken}) async {
-    return ListBucketInventoryConfigurationsOutput.fromJson({});
+    var response_ = await _client.send('ListBucketInventoryConfigurations', {
+      'Bucket': bucket,
+      if (continuationToken != null) 'ContinuationToken': continuationToken,
+    });
+    return ListBucketInventoryConfigurationsOutput.fromJson(response_);
   }
 
   /// Lists the metrics configurations for the bucket.
@@ -951,13 +1291,18 @@ class S3Api {
   Future<ListBucketMetricsConfigurationsOutput> listBucketMetricsConfigurations(
       String bucket,
       {String continuationToken}) async {
-    return ListBucketMetricsConfigurationsOutput.fromJson({});
+    var response_ = await _client.send('ListBucketMetricsConfigurations', {
+      'Bucket': bucket,
+      if (continuationToken != null) 'ContinuationToken': continuationToken,
+    });
+    return ListBucketMetricsConfigurationsOutput.fromJson(response_);
   }
 
   /// Returns a list of all buckets owned by the authenticated sender of the
   /// request.
   Future<ListBucketsOutput> listBuckets() async {
-    return ListBucketsOutput.fromJson({});
+    var response_ = await _client.send('ListBuckets', {});
+    return ListBucketsOutput.fromJson(response_);
   }
 
   /// This operation lists in-progress multipart uploads.
@@ -986,7 +1331,16 @@ class S3Api {
       int maxUploads,
       String prefix,
       String uploadIdMarker}) async {
-    return ListMultipartUploadsOutput.fromJson({});
+    var response_ = await _client.send('ListMultipartUploads', {
+      'Bucket': bucket,
+      if (delimiter != null) 'Delimiter': delimiter,
+      if (encodingType != null) 'EncodingType': encodingType,
+      if (keyMarker != null) 'KeyMarker': keyMarker,
+      if (maxUploads != null) 'MaxUploads': maxUploads,
+      if (prefix != null) 'Prefix': prefix,
+      if (uploadIdMarker != null) 'UploadIdMarker': uploadIdMarker,
+    });
+    return ListMultipartUploadsOutput.fromJson(response_);
   }
 
   /// Returns metadata about all of the versions of objects in a bucket.
@@ -1013,7 +1367,16 @@ class S3Api {
       int maxKeys,
       String prefix,
       String versionIdMarker}) async {
-    return ListObjectVersionsOutput.fromJson({});
+    var response_ = await _client.send('ListObjectVersions', {
+      'Bucket': bucket,
+      if (delimiter != null) 'Delimiter': delimiter,
+      if (encodingType != null) 'EncodingType': encodingType,
+      if (keyMarker != null) 'KeyMarker': keyMarker,
+      if (maxKeys != null) 'MaxKeys': maxKeys,
+      if (prefix != null) 'Prefix': prefix,
+      if (versionIdMarker != null) 'VersionIdMarker': versionIdMarker,
+    });
+    return ListObjectVersionsOutput.fromJson(response_);
   }
 
   /// Returns some or all (up to 1000) of the objects in a bucket. You can use
@@ -1043,7 +1406,16 @@ class S3Api {
       int maxKeys,
       String prefix,
       String requestPayer}) async {
-    return ListObjectsOutput.fromJson({});
+    var response_ = await _client.send('ListObjects', {
+      'Bucket': bucket,
+      if (delimiter != null) 'Delimiter': delimiter,
+      if (encodingType != null) 'EncodingType': encodingType,
+      if (marker != null) 'Marker': marker,
+      if (maxKeys != null) 'MaxKeys': maxKeys,
+      if (prefix != null) 'Prefix': prefix,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return ListObjectsOutput.fromJson(response_);
   }
 
   /// Returns some or all (up to 1000) of the objects in a bucket. You can use
@@ -1088,7 +1460,18 @@ class S3Api {
       bool fetchOwner,
       String startAfter,
       String requestPayer}) async {
-    return ListObjectsV2Output.fromJson({});
+    var response_ = await _client.send('ListObjectsV2', {
+      'Bucket': bucket,
+      if (delimiter != null) 'Delimiter': delimiter,
+      if (encodingType != null) 'EncodingType': encodingType,
+      if (maxKeys != null) 'MaxKeys': maxKeys,
+      if (prefix != null) 'Prefix': prefix,
+      if (continuationToken != null) 'ContinuationToken': continuationToken,
+      if (fetchOwner != null) 'FetchOwner': fetchOwner,
+      if (startAfter != null) 'StartAfter': startAfter,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return ListObjectsV2Output.fromJson(response_);
   }
 
   /// Lists the parts that have been uploaded for a specific multipart upload.
@@ -1111,7 +1494,15 @@ class S3Api {
       int partNumberMarker,
       @required String uploadId,
       String requestPayer}) async {
-    return ListPartsOutput.fromJson({});
+    var response_ = await _client.send('ListParts', {
+      'Bucket': bucket,
+      'Key': key,
+      if (maxParts != null) 'MaxParts': maxParts,
+      if (partNumberMarker != null) 'PartNumberMarker': partNumberMarker,
+      'UploadId': uploadId,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return ListPartsOutput.fromJson(response_);
   }
 
   /// Sets the accelerate configuration of an existing bucket.
@@ -1123,7 +1514,12 @@ class S3Api {
   /// to set for the bucket.
   Future<void> putBucketAccelerateConfiguration(
       {@required String bucket,
-      @required AccelerateConfiguration accelerateConfiguration}) async {}
+      @required AccelerateConfiguration accelerateConfiguration}) async {
+    await _client.send('PutBucketAccelerateConfiguration', {
+      'Bucket': bucket,
+      'AccelerateConfiguration': accelerateConfiguration,
+    });
+  }
 
   /// Sets the permissions on a bucket using access control lists (ACL).
   ///
@@ -1156,7 +1552,20 @@ class S3Api {
       String grantRead,
       String grantReadAcp,
       String grantWrite,
-      String grantWriteAcp}) async {}
+      String grantWriteAcp}) async {
+    await _client.send('PutBucketAcl', {
+      if (acl != null) 'ACL': acl,
+      if (accessControlPolicy != null)
+        'AccessControlPolicy': accessControlPolicy,
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      if (grantFullControl != null) 'GrantFullControl': grantFullControl,
+      if (grantRead != null) 'GrantRead': grantRead,
+      if (grantReadAcp != null) 'GrantReadACP': grantReadAcp,
+      if (grantWrite != null) 'GrantWrite': grantWrite,
+      if (grantWriteAcp != null) 'GrantWriteACP': grantWriteAcp,
+    });
+  }
 
   /// Sets an analytics configuration for the bucket (specified by the analytics
   /// configuration ID).
@@ -1171,7 +1580,13 @@ class S3Api {
   Future<void> putBucketAnalyticsConfiguration(
       {@required String bucket,
       @required String id,
-      @required AnalyticsConfiguration analyticsConfiguration}) async {}
+      @required AnalyticsConfiguration analyticsConfiguration}) async {
+    await _client.send('PutBucketAnalyticsConfiguration', {
+      'Bucket': bucket,
+      'Id': id,
+      'AnalyticsConfiguration': analyticsConfiguration,
+    });
+  }
 
   /// Sets the CORS configuration for a bucket.
   ///
@@ -1183,7 +1598,13 @@ class S3Api {
   Future<void> putBucketCors(
       {@required String bucket,
       @required CorsConfiguration corsConfiguration,
-      String contentMd5}) async {}
+      String contentMd5}) async {
+    await _client.send('PutBucketCors', {
+      'Bucket': bucket,
+      'CORSConfiguration': corsConfiguration,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+    });
+  }
 
   /// Creates a new server-side encryption configuration (or replaces an
   /// existing one, if present).
@@ -1206,7 +1627,13 @@ class S3Api {
       String contentMd5,
       @required
           ServerSideEncryptionConfiguration
-              serverSideEncryptionConfiguration}) async {}
+              serverSideEncryptionConfiguration}) async {
+    await _client.send('PutBucketEncryption', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      'ServerSideEncryptionConfiguration': serverSideEncryptionConfiguration,
+    });
+  }
 
   /// Adds an inventory configuration (identified by the inventory ID) from the
   /// bucket.
@@ -1220,7 +1647,13 @@ class S3Api {
   Future<void> putBucketInventoryConfiguration(
       {@required String bucket,
       @required String id,
-      @required InventoryConfiguration inventoryConfiguration}) async {}
+      @required InventoryConfiguration inventoryConfiguration}) async {
+    await _client.send('PutBucketInventoryConfiguration', {
+      'Bucket': bucket,
+      'Id': id,
+      'InventoryConfiguration': inventoryConfiguration,
+    });
+  }
 
   ///  No longer used, see the PutBucketLifecycleConfiguration operation.
   ///
@@ -1231,7 +1664,14 @@ class S3Api {
   /// [lifecycleConfiguration]:
   Future<void> putBucketLifecycle(String bucket,
       {String contentMd5,
-      LifecycleConfiguration lifecycleConfiguration}) async {}
+      LifecycleConfiguration lifecycleConfiguration}) async {
+    await _client.send('PutBucketLifecycle', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      if (lifecycleConfiguration != null)
+        'LifecycleConfiguration': lifecycleConfiguration,
+    });
+  }
 
   /// Sets lifecycle configuration for your bucket. If a lifecycle configuration
   /// exists, it replaces it.
@@ -1240,7 +1680,13 @@ class S3Api {
   ///
   /// [lifecycleConfiguration]:
   Future<void> putBucketLifecycleConfiguration(String bucket,
-      {BucketLifecycleConfiguration lifecycleConfiguration}) async {}
+      {BucketLifecycleConfiguration lifecycleConfiguration}) async {
+    await _client.send('PutBucketLifecycleConfiguration', {
+      'Bucket': bucket,
+      if (lifecycleConfiguration != null)
+        'LifecycleConfiguration': lifecycleConfiguration,
+    });
+  }
 
   /// Set the logging parameters for a bucket and to specify permissions for who
   /// can view and modify the logging parameters. To set the logging status of a
@@ -1254,7 +1700,13 @@ class S3Api {
   Future<void> putBucketLogging(
       {@required String bucket,
       @required BucketLoggingStatus bucketLoggingStatus,
-      String contentMd5}) async {}
+      String contentMd5}) async {
+    await _client.send('PutBucketLogging', {
+      'Bucket': bucket,
+      'BucketLoggingStatus': bucketLoggingStatus,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+    });
+  }
 
   /// Sets a metrics configuration (specified by the metrics configuration ID)
   /// for the bucket.
@@ -1268,7 +1720,13 @@ class S3Api {
   Future<void> putBucketMetricsConfiguration(
       {@required String bucket,
       @required String id,
-      @required MetricsConfiguration metricsConfiguration}) async {}
+      @required MetricsConfiguration metricsConfiguration}) async {
+    await _client.send('PutBucketMetricsConfiguration', {
+      'Bucket': bucket,
+      'Id': id,
+      'MetricsConfiguration': metricsConfiguration,
+    });
+  }
 
   ///  No longer used, see the PutBucketNotificationConfiguration operation.
   ///
@@ -1283,7 +1741,13 @@ class S3Api {
       String contentMd5,
       @required
           NotificationConfigurationDeprecated
-              notificationConfiguration}) async {}
+              notificationConfiguration}) async {
+    await _client.send('PutBucketNotification', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      'NotificationConfiguration': notificationConfiguration,
+    });
+  }
 
   /// Enables notifications of specified events for a bucket.
   ///
@@ -1292,7 +1756,12 @@ class S3Api {
   /// [notificationConfiguration]:
   Future<void> putBucketNotificationConfiguration(
       {@required String bucket,
-      @required NotificationConfiguration notificationConfiguration}) async {}
+      @required NotificationConfiguration notificationConfiguration}) async {
+    await _client.send('PutBucketNotificationConfiguration', {
+      'Bucket': bucket,
+      'NotificationConfiguration': notificationConfiguration,
+    });
+  }
 
   /// Applies an Amazon S3 bucket policy to an Amazon S3 bucket.
   ///
@@ -1309,7 +1778,15 @@ class S3Api {
       {@required String bucket,
       String contentMd5,
       bool confirmRemoveSelfBucketAccess,
-      @required String policy}) async {}
+      @required String policy}) async {
+    await _client.send('PutBucketPolicy', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      if (confirmRemoveSelfBucketAccess != null)
+        'ConfirmRemoveSelfBucketAccess': confirmRemoveSelfBucketAccess,
+      'Policy': policy,
+    });
+  }
 
   ///  Creates a replication configuration or replaces an existing one. For more
   /// information, see
@@ -1330,7 +1807,14 @@ class S3Api {
       {@required String bucket,
       String contentMd5,
       @required ReplicationConfiguration replicationConfiguration,
-      String token}) async {}
+      String token}) async {
+    await _client.send('PutBucketReplication', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      'ReplicationConfiguration': replicationConfiguration,
+      if (token != null) 'Token': token,
+    });
+  }
 
   /// Sets the request payment configuration for a bucket. By default, the
   /// bucket owner pays for downloads from the bucket. This configuration
@@ -1349,7 +1833,13 @@ class S3Api {
           String bucket,
       String contentMd5,
       @required
-          RequestPaymentConfiguration requestPaymentConfiguration}) async {}
+          RequestPaymentConfiguration requestPaymentConfiguration}) async {
+    await _client.send('PutBucketRequestPayment', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      'RequestPaymentConfiguration': requestPaymentConfiguration,
+    });
+  }
 
   /// Sets the tags for a bucket.
   ///
@@ -1361,7 +1851,13 @@ class S3Api {
   Future<void> putBucketTagging(
       {@required String bucket,
       String contentMd5,
-      @required Tagging tagging}) async {}
+      @required Tagging tagging}) async {
+    await _client.send('PutBucketTagging', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      'Tagging': tagging,
+    });
+  }
 
   /// Sets the versioning state of an existing bucket. To set the versioning
   /// state, you must be the bucket owner.
@@ -1378,7 +1874,14 @@ class S3Api {
       {@required String bucket,
       String contentMd5,
       String mfa,
-      @required VersioningConfiguration versioningConfiguration}) async {}
+      @required VersioningConfiguration versioningConfiguration}) async {
+    await _client.send('PutBucketVersioning', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      if (mfa != null) 'MFA': mfa,
+      'VersioningConfiguration': versioningConfiguration,
+    });
+  }
 
   /// Set the website configuration for a bucket.
   ///
@@ -1390,7 +1893,13 @@ class S3Api {
   Future<void> putBucketWebsite(
       {@required String bucket,
       String contentMd5,
-      @required WebsiteConfiguration websiteConfiguration}) async {}
+      @required WebsiteConfiguration websiteConfiguration}) async {
+    await _client.send('PutBucketWebsite', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      'WebsiteConfiguration': websiteConfiguration,
+    });
+  }
 
   /// Adds an object to a bucket.
   ///
@@ -1513,7 +2022,45 @@ class S3Api {
       String objectLockMode,
       DateTime objectLockRetainUntilDate,
       String objectLockLegalHoldStatus}) async {
-    return PutObjectOutput.fromJson({});
+    var response_ = await _client.send('PutObject', {
+      if (acl != null) 'ACL': acl,
+      if (body != null) 'Body': body,
+      'Bucket': bucket,
+      if (cacheControl != null) 'CacheControl': cacheControl,
+      if (contentDisposition != null) 'ContentDisposition': contentDisposition,
+      if (contentEncoding != null) 'ContentEncoding': contentEncoding,
+      if (contentLanguage != null) 'ContentLanguage': contentLanguage,
+      if (contentLength != null) 'ContentLength': contentLength,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      if (contentType != null) 'ContentType': contentType,
+      if (expires != null) 'Expires': expires,
+      if (grantFullControl != null) 'GrantFullControl': grantFullControl,
+      if (grantRead != null) 'GrantRead': grantRead,
+      if (grantReadAcp != null) 'GrantReadACP': grantReadAcp,
+      if (grantWriteAcp != null) 'GrantWriteACP': grantWriteAcp,
+      'Key': key,
+      if (metadata != null) 'Metadata': metadata,
+      if (serverSideEncryption != null)
+        'ServerSideEncryption': serverSideEncryption,
+      if (storageClass != null) 'StorageClass': storageClass,
+      if (websiteRedirectLocation != null)
+        'WebsiteRedirectLocation': websiteRedirectLocation,
+      if (sseCustomerAlgorithm != null)
+        'SSECustomerAlgorithm': sseCustomerAlgorithm,
+      if (sseCustomerKey != null) 'SSECustomerKey': sseCustomerKey,
+      if (sseCustomerKeyMd5 != null) 'SSECustomerKeyMD5': sseCustomerKeyMd5,
+      if (ssekmsKeyId != null) 'SSEKMSKeyId': ssekmsKeyId,
+      if (ssekmsEncryptionContext != null)
+        'SSEKMSEncryptionContext': ssekmsEncryptionContext,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (tagging != null) 'Tagging': tagging,
+      if (objectLockMode != null) 'ObjectLockMode': objectLockMode,
+      if (objectLockRetainUntilDate != null)
+        'ObjectLockRetainUntilDate': objectLockRetainUntilDate,
+      if (objectLockLegalHoldStatus != null)
+        'ObjectLockLegalHoldStatus': objectLockLegalHoldStatus,
+    });
+    return PutObjectOutput.fromJson(response_);
   }
 
   /// uses the acl subresource to set the access control list (ACL) permissions
@@ -1557,7 +2104,22 @@ class S3Api {
       @required String key,
       String requestPayer,
       String versionId}) async {
-    return PutObjectAclOutput.fromJson({});
+    var response_ = await _client.send('PutObjectAcl', {
+      if (acl != null) 'ACL': acl,
+      if (accessControlPolicy != null)
+        'AccessControlPolicy': accessControlPolicy,
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      if (grantFullControl != null) 'GrantFullControl': grantFullControl,
+      if (grantRead != null) 'GrantRead': grantRead,
+      if (grantReadAcp != null) 'GrantReadACP': grantReadAcp,
+      if (grantWrite != null) 'GrantWrite': grantWrite,
+      if (grantWriteAcp != null) 'GrantWriteACP': grantWriteAcp,
+      'Key': key,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (versionId != null) 'VersionId': versionId,
+    });
+    return PutObjectAclOutput.fromJson(response_);
   }
 
   /// Applies a Legal Hold configuration to the specified object.
@@ -1581,7 +2143,15 @@ class S3Api {
       String requestPayer,
       String versionId,
       String contentMd5}) async {
-    return PutObjectLegalHoldOutput.fromJson({});
+    var response_ = await _client.send('PutObjectLegalHold', {
+      'Bucket': bucket,
+      'Key': key,
+      if (legalHold != null) 'LegalHold': legalHold,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (versionId != null) 'VersionId': versionId,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+    });
+    return PutObjectLegalHoldOutput.fromJson(response_);
   }
 
   /// Places an object lock configuration on the specified bucket. The rule
@@ -1604,7 +2174,15 @@ class S3Api {
       String requestPayer,
       String token,
       String contentMd5}) async {
-    return PutObjectLockConfigurationOutput.fromJson({});
+    var response_ = await _client.send('PutObjectLockConfiguration', {
+      'Bucket': bucket,
+      if (objectLockConfiguration != null)
+        'ObjectLockConfiguration': objectLockConfiguration,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (token != null) 'Token': token,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+    });
+    return PutObjectLockConfigurationOutput.fromJson(response_);
   }
 
   /// Places an Object Retention configuration on an object.
@@ -1632,7 +2210,17 @@ class S3Api {
       String versionId,
       bool bypassGovernanceRetention,
       String contentMd5}) async {
-    return PutObjectRetentionOutput.fromJson({});
+    var response_ = await _client.send('PutObjectRetention', {
+      'Bucket': bucket,
+      'Key': key,
+      if (retention != null) 'Retention': retention,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+      if (versionId != null) 'VersionId': versionId,
+      if (bypassGovernanceRetention != null)
+        'BypassGovernanceRetention': bypassGovernanceRetention,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+    });
+    return PutObjectRetentionOutput.fromJson(response_);
   }
 
   /// Sets the supplied tag-set to an object that already exists in a bucket
@@ -1652,7 +2240,14 @@ class S3Api {
       String versionId,
       String contentMd5,
       @required Tagging tagging}) async {
-    return PutObjectTaggingOutput.fromJson({});
+    var response_ = await _client.send('PutObjectTagging', {
+      'Bucket': bucket,
+      'Key': key,
+      if (versionId != null) 'VersionId': versionId,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      'Tagging': tagging,
+    });
+    return PutObjectTaggingOutput.fromJson(response_);
   }
 
   /// Creates or modifies the `PublicAccessBlock` configuration for an Amazon S3
@@ -1675,7 +2270,13 @@ class S3Api {
       String contentMd5,
       @required
           PublicAccessBlockConfiguration
-              publicAccessBlockConfiguration}) async {}
+              publicAccessBlockConfiguration}) async {
+    await _client.send('PutPublicAccessBlock', {
+      'Bucket': bucket,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      'PublicAccessBlockConfiguration': publicAccessBlockConfiguration,
+    });
+  }
 
   /// Restores an archived copy of an object back into Amazon S3
   ///
@@ -1692,7 +2293,14 @@ class S3Api {
       String versionId,
       RestoreRequest restoreRequest,
       String requestPayer}) async {
-    return RestoreObjectOutput.fromJson({});
+    var response_ = await _client.send('RestoreObject', {
+      'Bucket': bucket,
+      'Key': key,
+      if (versionId != null) 'VersionId': versionId,
+      if (restoreRequest != null) 'RestoreRequest': restoreRequest,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return RestoreObjectOutput.fromJson(response_);
   }
 
   /// This operation filters the contents of an Amazon S3 object based on a
@@ -1739,7 +2347,20 @@ class S3Api {
       RequestProgress requestProgress,
       @required InputSerialization inputSerialization,
       @required OutputSerialization outputSerialization}) async {
-    return SelectObjectContentOutput.fromJson({});
+    var response_ = await _client.send('SelectObjectContent', {
+      'Bucket': bucket,
+      'Key': key,
+      if (sseCustomerAlgorithm != null)
+        'SSECustomerAlgorithm': sseCustomerAlgorithm,
+      if (sseCustomerKey != null) 'SSECustomerKey': sseCustomerKey,
+      if (sseCustomerKeyMd5 != null) 'SSECustomerKeyMD5': sseCustomerKeyMd5,
+      'Expression': expression,
+      'ExpressionType': expressionType,
+      if (requestProgress != null) 'RequestProgress': requestProgress,
+      'InputSerialization': inputSerialization,
+      'OutputSerialization': outputSerialization,
+    });
+    return SelectObjectContentOutput.fromJson(response_);
   }
 
   /// Uploads a part in a multipart upload.
@@ -1795,7 +2416,21 @@ class S3Api {
       Uint8List sseCustomerKey,
       String sseCustomerKeyMd5,
       String requestPayer}) async {
-    return UploadPartOutput.fromJson({});
+    var response_ = await _client.send('UploadPart', {
+      if (body != null) 'Body': body,
+      'Bucket': bucket,
+      if (contentLength != null) 'ContentLength': contentLength,
+      if (contentMd5 != null) 'ContentMD5': contentMd5,
+      'Key': key,
+      'PartNumber': partNumber,
+      'UploadId': uploadId,
+      if (sseCustomerAlgorithm != null)
+        'SSECustomerAlgorithm': sseCustomerAlgorithm,
+      if (sseCustomerKey != null) 'SSECustomerKey': sseCustomerKey,
+      if (sseCustomerKeyMd5 != null) 'SSECustomerKeyMD5': sseCustomerKeyMd5,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return UploadPartOutput.fromJson(response_);
   }
 
   /// Uploads a part by copying data from an existing object as data source.
@@ -1876,7 +2511,33 @@ class S3Api {
       Uint8List copySourceSseCustomerKey,
       String copySourceSseCustomerKeyMd5,
       String requestPayer}) async {
-    return UploadPartCopyOutput.fromJson({});
+    var response_ = await _client.send('UploadPartCopy', {
+      'Bucket': bucket,
+      'CopySource': copySource,
+      if (copySourceIfMatch != null) 'CopySourceIfMatch': copySourceIfMatch,
+      if (copySourceIfModifiedSince != null)
+        'CopySourceIfModifiedSince': copySourceIfModifiedSince,
+      if (copySourceIfNoneMatch != null)
+        'CopySourceIfNoneMatch': copySourceIfNoneMatch,
+      if (copySourceIfUnmodifiedSince != null)
+        'CopySourceIfUnmodifiedSince': copySourceIfUnmodifiedSince,
+      if (copySourceRange != null) 'CopySourceRange': copySourceRange,
+      'Key': key,
+      'PartNumber': partNumber,
+      'UploadId': uploadId,
+      if (sseCustomerAlgorithm != null)
+        'SSECustomerAlgorithm': sseCustomerAlgorithm,
+      if (sseCustomerKey != null) 'SSECustomerKey': sseCustomerKey,
+      if (sseCustomerKeyMd5 != null) 'SSECustomerKeyMD5': sseCustomerKeyMd5,
+      if (copySourceSseCustomerAlgorithm != null)
+        'CopySourceSSECustomerAlgorithm': copySourceSseCustomerAlgorithm,
+      if (copySourceSseCustomerKey != null)
+        'CopySourceSSECustomerKey': copySourceSseCustomerKey,
+      if (copySourceSseCustomerKeyMd5 != null)
+        'CopySourceSSECustomerKeyMD5': copySourceSseCustomerKeyMd5,
+      if (requestPayer != null) 'RequestPayer': requestPayer,
+    });
+    return UploadPartCopyOutput.fromJson(response_);
   }
 }
 
@@ -1894,7 +2555,12 @@ class AbortIncompleteMultipartUpload {
     this.daysAfterInitiation,
   });
   static AbortIncompleteMultipartUpload fromJson(Map<String, dynamic> json) =>
-      AbortIncompleteMultipartUpload();
+      AbortIncompleteMultipartUpload(
+        daysAfterInitiation: json.containsKey('DaysAfterInitiation')
+            ? json['DaysAfterInitiation'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class AbortMultipartUploadOutput {
@@ -1904,7 +2570,11 @@ class AbortMultipartUploadOutput {
     this.requestCharged,
   });
   static AbortMultipartUploadOutput fromJson(Map<String, dynamic> json) =>
-      AbortMultipartUploadOutput();
+      AbortMultipartUploadOutput(
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 /// Configures the transfer acceleration state for an Amazon S3 bucket. For more
@@ -1918,6 +2588,7 @@ class AccelerateConfiguration {
   AccelerateConfiguration({
     this.status,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the elements that set the ACL permissions for an object per
@@ -1933,6 +2604,7 @@ class AccessControlPolicy {
     this.grants,
     this.owner,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for information about access control for replicas.
@@ -1946,7 +2618,10 @@ class AccessControlTranslation {
     @required this.owner,
   });
   static AccessControlTranslation fromJson(Map<String, dynamic> json) =>
-      AccessControlTranslation();
+      AccessControlTranslation(
+        owner: json['Owner'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A conjunction (logical AND) of predicates, which is used in evaluating a
@@ -1966,7 +2641,13 @@ class AnalyticsAndOperator {
     this.tags,
   });
   static AnalyticsAndOperator fromJson(Map<String, dynamic> json) =>
-      AnalyticsAndOperator();
+      AnalyticsAndOperator(
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Specifies the configuration and any analyses for the analytics filter of an
@@ -1995,7 +2676,15 @@ class AnalyticsConfiguration {
     @required this.storageClassAnalysis,
   });
   static AnalyticsConfiguration fromJson(Map<String, dynamic> json) =>
-      AnalyticsConfiguration();
+      AnalyticsConfiguration(
+        id: json['Id'] as String,
+        filter: json.containsKey('Filter')
+            ? AnalyticsFilter.fromJson(json['Filter'])
+            : null,
+        storageClassAnalysis:
+            StorageClassAnalysis.fromJson(json['StorageClassAnalysis']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Where to publish the analytics results.
@@ -2007,7 +2696,11 @@ class AnalyticsExportDestination {
     @required this.s3BucketDestination,
   });
   static AnalyticsExportDestination fromJson(Map<String, dynamic> json) =>
-      AnalyticsExportDestination();
+      AnalyticsExportDestination(
+        s3BucketDestination:
+            AnalyticsS3BucketDestination.fromJson(json['S3BucketDestination']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class AnalyticsFilter {
@@ -2026,8 +2719,14 @@ class AnalyticsFilter {
     this.tag,
     this.and,
   });
-  static AnalyticsFilter fromJson(Map<String, dynamic> json) =>
-      AnalyticsFilter();
+  static AnalyticsFilter fromJson(Map<String, dynamic> json) => AnalyticsFilter(
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        tag: json.containsKey('Tag') ? Tag.fromJson(json['Tag']) : null,
+        and: json.containsKey('And')
+            ? AnalyticsAndOperator.fromJson(json['And'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class AnalyticsS3BucketDestination {
@@ -2052,7 +2751,15 @@ class AnalyticsS3BucketDestination {
     this.prefix,
   });
   static AnalyticsS3BucketDestination fromJson(Map<String, dynamic> json) =>
-      AnalyticsS3BucketDestination();
+      AnalyticsS3BucketDestination(
+        format: json['Format'] as String,
+        bucketAccountId: json.containsKey('BucketAccountId')
+            ? json['BucketAccountId'] as String
+            : null,
+        bucket: json['Bucket'] as String,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Bucket {
@@ -2066,7 +2773,12 @@ class Bucket {
     this.name,
     this.creationDate,
   });
-  static Bucket fromJson(Map<String, dynamic> json) => Bucket();
+  static Bucket fromJson(Map<String, dynamic> json) => Bucket(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 /// Specifies the lifecycle configuration for objects in an Amazon S3 bucket.
@@ -2080,6 +2792,7 @@ class BucketLifecycleConfiguration {
   BucketLifecycleConfiguration({
     @required this.rules,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class BucketLoggingStatus {
@@ -2088,6 +2801,7 @@ class BucketLoggingStatus {
   BucketLoggingStatus({
     this.loggingEnabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the cross-origin access configuration for objects in an Amazon S3
@@ -2101,6 +2815,7 @@ class CorsConfiguration {
   CorsConfiguration({
     @required this.corsRules,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a cross-origin access rule for an Amazon S3 bucket.
@@ -2135,7 +2850,22 @@ class CorsRule {
     this.exposeHeaders,
     this.maxAgeSeconds,
   });
-  static CorsRule fromJson(Map<String, dynamic> json) => CorsRule();
+  static CorsRule fromJson(Map<String, dynamic> json) => CorsRule(
+        allowedHeaders: json.containsKey('AllowedHeaders')
+            ? (json['AllowedHeaders'] as List).map((e) => e as String).toList()
+            : null,
+        allowedMethods:
+            (json['AllowedMethods'] as List).map((e) => e as String).toList(),
+        allowedOrigins:
+            (json['AllowedOrigins'] as List).map((e) => e as String).toList(),
+        exposeHeaders: json.containsKey('ExposeHeaders')
+            ? (json['ExposeHeaders'] as List).map((e) => e as String).toList()
+            : null,
+        maxAgeSeconds: json.containsKey('MaxAgeSeconds')
+            ? json['MaxAgeSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes how a CSV-formatted input object is formatted.
@@ -2174,6 +2904,7 @@ class CsvInput {
     this.quoteCharacter,
     this.allowQuotedRecordDelimiter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes how CSV-formatted results are formatted.
@@ -2202,6 +2933,7 @@ class CsvOutput {
     this.fieldDelimiter,
     this.quoteCharacter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CloudFunctionConfiguration {
@@ -2223,7 +2955,20 @@ class CloudFunctionConfiguration {
     this.invocationRole,
   });
   static CloudFunctionConfiguration fromJson(Map<String, dynamic> json) =>
-      CloudFunctionConfiguration();
+      CloudFunctionConfiguration(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        event: json.containsKey('Event') ? json['Event'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => e as String).toList()
+            : null,
+        cloudFunction: json.containsKey('CloudFunction')
+            ? json['CloudFunction'] as String
+            : null,
+        invocationRole: json.containsKey('InvocationRole')
+            ? json['InvocationRole'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CommonPrefix {
@@ -2232,7 +2977,9 @@ class CommonPrefix {
   CommonPrefix({
     this.prefix,
   });
-  static CommonPrefix fromJson(Map<String, dynamic> json) => CommonPrefix();
+  static CommonPrefix fromJson(Map<String, dynamic> json) => CommonPrefix(
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+      );
 }
 
 class CompleteMultipartUploadOutput {
@@ -2275,7 +3022,27 @@ class CompleteMultipartUploadOutput {
     this.requestCharged,
   });
   static CompleteMultipartUploadOutput fromJson(Map<String, dynamic> json) =>
-      CompleteMultipartUploadOutput();
+      CompleteMultipartUploadOutput(
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+        bucket: json.containsKey('Bucket') ? json['Bucket'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        expiration: json.containsKey('Expiration')
+            ? json['Expiration'] as String
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        serverSideEncryption: json.containsKey('ServerSideEncryption')
+            ? json['ServerSideEncryption'] as String
+            : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        ssekmsKeyId: json.containsKey('SSEKMSKeyId')
+            ? json['SSEKMSKeyId'] as String
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class CompletedMultipartUpload {
@@ -2284,6 +3051,7 @@ class CompletedMultipartUpload {
   CompletedMultipartUpload({
     this.parts,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CompletedPart {
@@ -2298,6 +3066,7 @@ class CompletedPart {
     this.eTag,
     this.partNumber,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a condition that must be met for a redirect to apply.
@@ -2323,7 +3092,16 @@ class Condition {
     this.httpErrorCodeReturnedEquals,
     this.keyPrefixEquals,
   });
-  static Condition fromJson(Map<String, dynamic> json) => Condition();
+  static Condition fromJson(Map<String, dynamic> json) => Condition(
+        httpErrorCodeReturnedEquals:
+            json.containsKey('HttpErrorCodeReturnedEquals')
+                ? json['HttpErrorCodeReturnedEquals'] as String
+                : null,
+        keyPrefixEquals: json.containsKey('KeyPrefixEquals')
+            ? json['KeyPrefixEquals'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ContinuationEvent {
@@ -2381,7 +3159,37 @@ class CopyObjectOutput {
     this.requestCharged,
   });
   static CopyObjectOutput fromJson(Map<String, dynamic> json) =>
-      CopyObjectOutput();
+      CopyObjectOutput(
+        copyObjectResult: json.containsKey('CopyObjectResult')
+            ? CopyObjectResult.fromJson(json['CopyObjectResult'])
+            : null,
+        expiration: json.containsKey('Expiration')
+            ? json['Expiration'] as String
+            : null,
+        copySourceVersionId: json.containsKey('CopySourceVersionId')
+            ? json['CopySourceVersionId'] as String
+            : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        serverSideEncryption: json.containsKey('ServerSideEncryption')
+            ? json['ServerSideEncryption'] as String
+            : null,
+        sseCustomerAlgorithm: json.containsKey('SSECustomerAlgorithm')
+            ? json['SSECustomerAlgorithm'] as String
+            : null,
+        sseCustomerKeyMd5: json.containsKey('SSECustomerKeyMD5')
+            ? json['SSECustomerKeyMD5'] as String
+            : null,
+        ssekmsKeyId: json.containsKey('SSEKMSKeyId')
+            ? json['SSEKMSKeyId'] as String
+            : null,
+        ssekmsEncryptionContext: json.containsKey('SSEKMSEncryptionContext')
+            ? json['SSEKMSEncryptionContext'] as String
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class CopyObjectResult {
@@ -2394,7 +3202,12 @@ class CopyObjectResult {
     this.lastModified,
   });
   static CopyObjectResult fromJson(Map<String, dynamic> json) =>
-      CopyObjectResult();
+      CopyObjectResult(
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+      );
 }
 
 class CopyPartResult {
@@ -2408,7 +3221,12 @@ class CopyPartResult {
     this.eTag,
     this.lastModified,
   });
-  static CopyPartResult fromJson(Map<String, dynamic> json) => CopyPartResult();
+  static CopyPartResult fromJson(Map<String, dynamic> json) => CopyPartResult(
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+      );
 }
 
 class CreateBucketConfiguration {
@@ -2420,6 +3238,7 @@ class CreateBucketConfiguration {
   CreateBucketConfiguration({
     this.locationConstraint,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateBucketOutput {
@@ -2429,7 +3248,10 @@ class CreateBucketOutput {
     this.location,
   });
   static CreateBucketOutput fromJson(Map<String, dynamic> json) =>
-      CreateBucketOutput();
+      CreateBucketOutput(
+        location:
+            json.containsKey('Location') ? json['Location'] as String : null,
+      );
 }
 
 class CreateMultipartUploadOutput {
@@ -2489,7 +3311,36 @@ class CreateMultipartUploadOutput {
     this.requestCharged,
   });
   static CreateMultipartUploadOutput fromJson(Map<String, dynamic> json) =>
-      CreateMultipartUploadOutput();
+      CreateMultipartUploadOutput(
+        abortDate: json.containsKey('AbortDate')
+            ? DateTime.parse(json['AbortDate'])
+            : null,
+        abortRuleId: json.containsKey('AbortRuleId')
+            ? json['AbortRuleId'] as String
+            : null,
+        bucket: json.containsKey('Bucket') ? json['Bucket'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        uploadId:
+            json.containsKey('UploadId') ? json['UploadId'] as String : null,
+        serverSideEncryption: json.containsKey('ServerSideEncryption')
+            ? json['ServerSideEncryption'] as String
+            : null,
+        sseCustomerAlgorithm: json.containsKey('SSECustomerAlgorithm')
+            ? json['SSECustomerAlgorithm'] as String
+            : null,
+        sseCustomerKeyMd5: json.containsKey('SSECustomerKeyMD5')
+            ? json['SSECustomerKeyMD5'] as String
+            : null,
+        ssekmsKeyId: json.containsKey('SSEKMSKeyId')
+            ? json['SSEKMSKeyId'] as String
+            : null,
+        ssekmsEncryptionContext: json.containsKey('SSEKMSEncryptionContext')
+            ? json['SSEKMSEncryptionContext'] as String
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 /// The container element for specifying the default object lock retention
@@ -2513,7 +3364,12 @@ class DefaultRetention {
     this.years,
   });
   static DefaultRetention fromJson(Map<String, dynamic> json) =>
-      DefaultRetention();
+      DefaultRetention(
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+        days: json.containsKey('Days') ? json['Days'] as int : null,
+        years: json.containsKey('Years') ? json['Years'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Delete {
@@ -2527,6 +3383,7 @@ class Delete {
     @required this.objects,
     this.quiet,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteMarkerEntry {
@@ -2553,7 +3410,17 @@ class DeleteMarkerEntry {
     this.lastModified,
   });
   static DeleteMarkerEntry fromJson(Map<String, dynamic> json) =>
-      DeleteMarkerEntry();
+      DeleteMarkerEntry(
+        owner: json.containsKey('Owner') ? Owner.fromJson(json['Owner']) : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        isLatest:
+            json.containsKey('IsLatest') ? json['IsLatest'] as bool : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+      );
 }
 
 /// Specifies whether Amazon S3 should replicate delete makers.
@@ -2568,7 +3435,10 @@ class DeleteMarkerReplication {
     this.status,
   });
   static DeleteMarkerReplication fromJson(Map<String, dynamic> json) =>
-      DeleteMarkerReplication();
+      DeleteMarkerReplication(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteObjectOutput {
@@ -2588,7 +3458,16 @@ class DeleteObjectOutput {
     this.requestCharged,
   });
   static DeleteObjectOutput fromJson(Map<String, dynamic> json) =>
-      DeleteObjectOutput();
+      DeleteObjectOutput(
+        deleteMarker: json.containsKey('DeleteMarker')
+            ? json['DeleteMarker'] as bool
+            : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class DeleteObjectTaggingOutput {
@@ -2599,7 +3478,10 @@ class DeleteObjectTaggingOutput {
     this.versionId,
   });
   static DeleteObjectTaggingOutput fromJson(Map<String, dynamic> json) =>
-      DeleteObjectTaggingOutput();
+      DeleteObjectTaggingOutput(
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 class DeleteObjectsOutput {
@@ -2615,7 +3497,19 @@ class DeleteObjectsOutput {
     this.errors,
   });
   static DeleteObjectsOutput fromJson(Map<String, dynamic> json) =>
-      DeleteObjectsOutput();
+      DeleteObjectsOutput(
+        deleted: json.containsKey('Deleted')
+            ? (json['Deleted'] as List)
+                .map((e) => DeletedObject.fromJson(e))
+                .toList()
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List).map((e) => Error.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DeletedObject {
@@ -2633,7 +3527,17 @@ class DeletedObject {
     this.deleteMarker,
     this.deleteMarkerVersionId,
   });
-  static DeletedObject fromJson(Map<String, dynamic> json) => DeletedObject();
+  static DeletedObject fromJson(Map<String, dynamic> json) => DeletedObject(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        deleteMarker: json.containsKey('DeleteMarker')
+            ? json['DeleteMarker'] as bool
+            : null,
+        deleteMarkerVersionId: json.containsKey('DeleteMarkerVersionId')
+            ? json['DeleteMarkerVersionId'] as String
+            : null,
+      );
 }
 
 /// Specifies information about where to publish analysis or configuration
@@ -2683,7 +3587,21 @@ class Destination {
     this.accessControlTranslation,
     this.encryptionConfiguration,
   });
-  static Destination fromJson(Map<String, dynamic> json) => Destination();
+  static Destination fromJson(Map<String, dynamic> json) => Destination(
+        bucket: json['Bucket'] as String,
+        account: json.containsKey('Account') ? json['Account'] as String : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        accessControlTranslation: json.containsKey('AccessControlTranslation')
+            ? AccessControlTranslation.fromJson(
+                json['AccessControlTranslation'])
+            : null,
+        encryptionConfiguration: json.containsKey('EncryptionConfiguration')
+            ? EncryptionConfiguration.fromJson(json['EncryptionConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the server-side encryption that will be applied to the restore
@@ -2706,6 +3624,7 @@ class Encryption {
     this.kmsKeyId,
     this.kmsContext,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies encryption-related information for an Amazon S3 bucket that is a
@@ -2719,7 +3638,12 @@ class EncryptionConfiguration {
     this.replicaKmsKeyID,
   });
   static EncryptionConfiguration fromJson(Map<String, dynamic> json) =>
-      EncryptionConfiguration();
+      EncryptionConfiguration(
+        replicaKmsKeyID: json.containsKey('ReplicaKmsKeyID')
+            ? json['ReplicaKmsKeyID'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class EndEvent {
@@ -2742,7 +3666,13 @@ class Error {
     this.code,
     this.message,
   });
-  static Error fromJson(Map<String, dynamic> json) => Error();
+  static Error fromJson(Map<String, dynamic> json) => Error(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 class ErrorDocument {
@@ -2752,7 +3682,10 @@ class ErrorDocument {
   ErrorDocument({
     @required this.key,
   });
-  static ErrorDocument fromJson(Map<String, dynamic> json) => ErrorDocument();
+  static ErrorDocument fromJson(Map<String, dynamic> json) => ErrorDocument(
+        key: json['Key'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the Amazon S3 object key name to filter on and whether to filter
@@ -2773,7 +3706,11 @@ class FilterRule {
     this.name,
     this.value,
   });
-  static FilterRule fromJson(Map<String, dynamic> json) => FilterRule();
+  static FilterRule fromJson(Map<String, dynamic> json) => FilterRule(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetBucketAccelerateConfigurationOutput {
@@ -2785,7 +3722,9 @@ class GetBucketAccelerateConfigurationOutput {
   });
   static GetBucketAccelerateConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      GetBucketAccelerateConfigurationOutput();
+      GetBucketAccelerateConfigurationOutput(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class GetBucketAclOutput {
@@ -2799,7 +3738,12 @@ class GetBucketAclOutput {
     this.grants,
   });
   static GetBucketAclOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketAclOutput();
+      GetBucketAclOutput(
+        owner: json.containsKey('Owner') ? Owner.fromJson(json['Owner']) : null,
+        grants: json.containsKey('Grants')
+            ? (json['Grants'] as List).map((e) => Grant.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetBucketAnalyticsConfigurationOutput {
@@ -2811,7 +3755,11 @@ class GetBucketAnalyticsConfigurationOutput {
   });
   static GetBucketAnalyticsConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      GetBucketAnalyticsConfigurationOutput();
+      GetBucketAnalyticsConfigurationOutput(
+        analyticsConfiguration: json.containsKey('AnalyticsConfiguration')
+            ? AnalyticsConfiguration.fromJson(json['AnalyticsConfiguration'])
+            : null,
+      );
 }
 
 class GetBucketCorsOutput {
@@ -2821,7 +3769,13 @@ class GetBucketCorsOutput {
     this.corsRules,
   });
   static GetBucketCorsOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketCorsOutput();
+      GetBucketCorsOutput(
+        corsRules: json.containsKey('CORSRules')
+            ? (json['CORSRules'] as List)
+                .map((e) => CorsRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetBucketEncryptionOutput {
@@ -2831,7 +3785,13 @@ class GetBucketEncryptionOutput {
     this.serverSideEncryptionConfiguration,
   });
   static GetBucketEncryptionOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketEncryptionOutput();
+      GetBucketEncryptionOutput(
+        serverSideEncryptionConfiguration:
+            json.containsKey('ServerSideEncryptionConfiguration')
+                ? ServerSideEncryptionConfiguration.fromJson(
+                    json['ServerSideEncryptionConfiguration'])
+                : null,
+      );
 }
 
 class GetBucketInventoryConfigurationOutput {
@@ -2843,7 +3803,11 @@ class GetBucketInventoryConfigurationOutput {
   });
   static GetBucketInventoryConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      GetBucketInventoryConfigurationOutput();
+      GetBucketInventoryConfigurationOutput(
+        inventoryConfiguration: json.containsKey('InventoryConfiguration')
+            ? InventoryConfiguration.fromJson(json['InventoryConfiguration'])
+            : null,
+      );
 }
 
 class GetBucketLifecycleConfigurationOutput {
@@ -2854,7 +3818,13 @@ class GetBucketLifecycleConfigurationOutput {
   });
   static GetBucketLifecycleConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      GetBucketLifecycleConfigurationOutput();
+      GetBucketLifecycleConfigurationOutput(
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List)
+                .map((e) => LifecycleRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetBucketLifecycleOutput {
@@ -2864,7 +3834,11 @@ class GetBucketLifecycleOutput {
     this.rules,
   });
   static GetBucketLifecycleOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketLifecycleOutput();
+      GetBucketLifecycleOutput(
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List).map((e) => Rule.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetBucketLocationOutput {
@@ -2874,7 +3848,11 @@ class GetBucketLocationOutput {
     this.locationConstraint,
   });
   static GetBucketLocationOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketLocationOutput();
+      GetBucketLocationOutput(
+        locationConstraint: json.containsKey('LocationConstraint')
+            ? json['LocationConstraint'] as String
+            : null,
+      );
 }
 
 class GetBucketLoggingOutput {
@@ -2884,7 +3862,11 @@ class GetBucketLoggingOutput {
     this.loggingEnabled,
   });
   static GetBucketLoggingOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketLoggingOutput();
+      GetBucketLoggingOutput(
+        loggingEnabled: json.containsKey('LoggingEnabled')
+            ? LoggingEnabled.fromJson(json['LoggingEnabled'])
+            : null,
+      );
 }
 
 class GetBucketMetricsConfigurationOutput {
@@ -2896,7 +3878,11 @@ class GetBucketMetricsConfigurationOutput {
   });
   static GetBucketMetricsConfigurationOutput fromJson(
           Map<String, dynamic> json) =>
-      GetBucketMetricsConfigurationOutput();
+      GetBucketMetricsConfigurationOutput(
+        metricsConfiguration: json.containsKey('MetricsConfiguration')
+            ? MetricsConfiguration.fromJson(json['MetricsConfiguration'])
+            : null,
+      );
 }
 
 class GetBucketPolicyOutput {
@@ -2907,7 +3893,9 @@ class GetBucketPolicyOutput {
     this.policy,
   });
   static GetBucketPolicyOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketPolicyOutput();
+      GetBucketPolicyOutput(
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+      );
 }
 
 class GetBucketPolicyStatusOutput {
@@ -2918,7 +3906,11 @@ class GetBucketPolicyStatusOutput {
     this.policyStatus,
   });
   static GetBucketPolicyStatusOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketPolicyStatusOutput();
+      GetBucketPolicyStatusOutput(
+        policyStatus: json.containsKey('PolicyStatus')
+            ? PolicyStatus.fromJson(json['PolicyStatus'])
+            : null,
+      );
 }
 
 class GetBucketReplicationOutput {
@@ -2928,7 +3920,12 @@ class GetBucketReplicationOutput {
     this.replicationConfiguration,
   });
   static GetBucketReplicationOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketReplicationOutput();
+      GetBucketReplicationOutput(
+        replicationConfiguration: json.containsKey('ReplicationConfiguration')
+            ? ReplicationConfiguration.fromJson(
+                json['ReplicationConfiguration'])
+            : null,
+      );
 }
 
 class GetBucketRequestPaymentOutput {
@@ -2939,7 +3936,9 @@ class GetBucketRequestPaymentOutput {
     this.payer,
   });
   static GetBucketRequestPaymentOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketRequestPaymentOutput();
+      GetBucketRequestPaymentOutput(
+        payer: json.containsKey('Payer') ? json['Payer'] as String : null,
+      );
 }
 
 class GetBucketTaggingOutput {
@@ -2949,7 +3948,9 @@ class GetBucketTaggingOutput {
     @required this.tagSet,
   });
   static GetBucketTaggingOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketTaggingOutput();
+      GetBucketTaggingOutput(
+        tagSet: (json['TagSet'] as List).map((e) => Tag.fromJson(e)).toList(),
+      );
 }
 
 class GetBucketVersioningOutput {
@@ -2967,7 +3968,11 @@ class GetBucketVersioningOutput {
     this.mfaDelete,
   });
   static GetBucketVersioningOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketVersioningOutput();
+      GetBucketVersioningOutput(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        mfaDelete:
+            json.containsKey('MFADelete') ? json['MFADelete'] as String : null,
+      );
 }
 
 class GetBucketWebsiteOutput {
@@ -2986,7 +3991,22 @@ class GetBucketWebsiteOutput {
     this.routingRules,
   });
   static GetBucketWebsiteOutput fromJson(Map<String, dynamic> json) =>
-      GetBucketWebsiteOutput();
+      GetBucketWebsiteOutput(
+        redirectAllRequestsTo: json.containsKey('RedirectAllRequestsTo')
+            ? RedirectAllRequestsTo.fromJson(json['RedirectAllRequestsTo'])
+            : null,
+        indexDocument: json.containsKey('IndexDocument')
+            ? IndexDocument.fromJson(json['IndexDocument'])
+            : null,
+        errorDocument: json.containsKey('ErrorDocument')
+            ? ErrorDocument.fromJson(json['ErrorDocument'])
+            : null,
+        routingRules: json.containsKey('RoutingRules')
+            ? (json['RoutingRules'] as List)
+                .map((e) => RoutingRule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetObjectAclOutput {
@@ -3003,7 +4023,15 @@ class GetObjectAclOutput {
     this.requestCharged,
   });
   static GetObjectAclOutput fromJson(Map<String, dynamic> json) =>
-      GetObjectAclOutput();
+      GetObjectAclOutput(
+        owner: json.containsKey('Owner') ? Owner.fromJson(json['Owner']) : null,
+        grants: json.containsKey('Grants')
+            ? (json['Grants'] as List).map((e) => Grant.fromJson(e)).toList()
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class GetObjectLegalHoldOutput {
@@ -3014,7 +4042,11 @@ class GetObjectLegalHoldOutput {
     this.legalHold,
   });
   static GetObjectLegalHoldOutput fromJson(Map<String, dynamic> json) =>
-      GetObjectLegalHoldOutput();
+      GetObjectLegalHoldOutput(
+        legalHold: json.containsKey('LegalHold')
+            ? ObjectLockLegalHold.fromJson(json['LegalHold'])
+            : null,
+      );
 }
 
 class GetObjectLockConfigurationOutput {
@@ -3025,7 +4057,11 @@ class GetObjectLockConfigurationOutput {
     this.objectLockConfiguration,
   });
   static GetObjectLockConfigurationOutput fromJson(Map<String, dynamic> json) =>
-      GetObjectLockConfigurationOutput();
+      GetObjectLockConfigurationOutput(
+        objectLockConfiguration: json.containsKey('ObjectLockConfiguration')
+            ? ObjectLockConfiguration.fromJson(json['ObjectLockConfiguration'])
+            : null,
+      );
 }
 
 class GetObjectOutput {
@@ -3172,8 +4208,91 @@ class GetObjectOutput {
     this.objectLockRetainUntilDate,
     this.objectLockLegalHoldStatus,
   });
-  static GetObjectOutput fromJson(Map<String, dynamic> json) =>
-      GetObjectOutput();
+  static GetObjectOutput fromJson(Map<String, dynamic> json) => GetObjectOutput(
+        body: json.containsKey('Body') ? Uint8List(json['Body']) : null,
+        deleteMarker: json.containsKey('DeleteMarker')
+            ? json['DeleteMarker'] as bool
+            : null,
+        acceptRanges: json.containsKey('AcceptRanges')
+            ? json['AcceptRanges'] as String
+            : null,
+        expiration: json.containsKey('Expiration')
+            ? json['Expiration'] as String
+            : null,
+        restore: json.containsKey('Restore') ? json['Restore'] as String : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        contentLength: json.containsKey('ContentLength')
+            ? BigInt.from(json['ContentLength'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        missingMeta:
+            json.containsKey('MissingMeta') ? json['MissingMeta'] as int : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        cacheControl: json.containsKey('CacheControl')
+            ? json['CacheControl'] as String
+            : null,
+        contentDisposition: json.containsKey('ContentDisposition')
+            ? json['ContentDisposition'] as String
+            : null,
+        contentEncoding: json.containsKey('ContentEncoding')
+            ? json['ContentEncoding'] as String
+            : null,
+        contentLanguage: json.containsKey('ContentLanguage')
+            ? json['ContentLanguage'] as String
+            : null,
+        contentRange: json.containsKey('ContentRange')
+            ? json['ContentRange'] as String
+            : null,
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        expires: json.containsKey('Expires')
+            ? DateTime.parse(json['Expires'])
+            : null,
+        websiteRedirectLocation: json.containsKey('WebsiteRedirectLocation')
+            ? json['WebsiteRedirectLocation'] as String
+            : null,
+        serverSideEncryption: json.containsKey('ServerSideEncryption')
+            ? json['ServerSideEncryption'] as String
+            : null,
+        metadata: json.containsKey('Metadata')
+            ? (json['Metadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        sseCustomerAlgorithm: json.containsKey('SSECustomerAlgorithm')
+            ? json['SSECustomerAlgorithm'] as String
+            : null,
+        sseCustomerKeyMd5: json.containsKey('SSECustomerKeyMD5')
+            ? json['SSECustomerKeyMD5'] as String
+            : null,
+        ssekmsKeyId: json.containsKey('SSEKMSKeyId')
+            ? json['SSEKMSKeyId'] as String
+            : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+        replicationStatus: json.containsKey('ReplicationStatus')
+            ? json['ReplicationStatus'] as String
+            : null,
+        partsCount:
+            json.containsKey('PartsCount') ? json['PartsCount'] as int : null,
+        tagCount: json.containsKey('TagCount') ? json['TagCount'] as int : null,
+        objectLockMode: json.containsKey('ObjectLockMode')
+            ? json['ObjectLockMode'] as String
+            : null,
+        objectLockRetainUntilDate: json.containsKey('ObjectLockRetainUntilDate')
+            ? DateTime.parse(json['ObjectLockRetainUntilDate'])
+            : null,
+        objectLockLegalHoldStatus: json.containsKey('ObjectLockLegalHoldStatus')
+            ? json['ObjectLockLegalHoldStatus'] as String
+            : null,
+      );
 }
 
 class GetObjectRetentionOutput {
@@ -3184,7 +4303,11 @@ class GetObjectRetentionOutput {
     this.retention,
   });
   static GetObjectRetentionOutput fromJson(Map<String, dynamic> json) =>
-      GetObjectRetentionOutput();
+      GetObjectRetentionOutput(
+        retention: json.containsKey('Retention')
+            ? ObjectLockRetention.fromJson(json['Retention'])
+            : null,
+      );
 }
 
 class GetObjectTaggingOutput {
@@ -3197,7 +4320,11 @@ class GetObjectTaggingOutput {
     @required this.tagSet,
   });
   static GetObjectTaggingOutput fromJson(Map<String, dynamic> json) =>
-      GetObjectTaggingOutput();
+      GetObjectTaggingOutput(
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        tagSet: (json['TagSet'] as List).map((e) => Tag.fromJson(e)).toList(),
+      );
 }
 
 class GetObjectTorrentOutput {
@@ -3210,7 +4337,12 @@ class GetObjectTorrentOutput {
     this.requestCharged,
   });
   static GetObjectTorrentOutput fromJson(Map<String, dynamic> json) =>
-      GetObjectTorrentOutput();
+      GetObjectTorrentOutput(
+        body: json.containsKey('Body') ? Uint8List(json['Body']) : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class GetPublicAccessBlockOutput {
@@ -3222,7 +4354,13 @@ class GetPublicAccessBlockOutput {
     this.publicAccessBlockConfiguration,
   });
   static GetPublicAccessBlockOutput fromJson(Map<String, dynamic> json) =>
-      GetPublicAccessBlockOutput();
+      GetPublicAccessBlockOutput(
+        publicAccessBlockConfiguration:
+            json.containsKey('PublicAccessBlockConfiguration')
+                ? PublicAccessBlockConfiguration.fromJson(
+                    json['PublicAccessBlockConfiguration'])
+                : null,
+      );
 }
 
 class GlacierJobParameters {
@@ -3232,6 +4370,7 @@ class GlacierJobParameters {
   GlacierJobParameters({
     @required this.tier,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Grant {
@@ -3244,7 +4383,15 @@ class Grant {
     this.grantee,
     this.permission,
   });
-  static Grant fromJson(Map<String, dynamic> json) => Grant();
+  static Grant fromJson(Map<String, dynamic> json) => Grant(
+        grantee: json.containsKey('Grantee')
+            ? Grantee.fromJson(json['Grantee'])
+            : null,
+        permission: json.containsKey('Permission')
+            ? json['Permission'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Grantee {
@@ -3270,7 +4417,18 @@ class Grantee {
     @required this.type,
     this.uri,
   });
-  static Grantee fromJson(Map<String, dynamic> json) => Grantee();
+  static Grantee fromJson(Map<String, dynamic> json) => Grantee(
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        emailAddress: json.containsKey('EmailAddress')
+            ? json['EmailAddress'] as String
+            : null,
+        id: json.containsKey('ID') ? json['ID'] as String : null,
+        type: json['Type'] as String,
+        uri: json.containsKey('URI') ? json['URI'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class HeadObjectOutput {
@@ -3405,7 +4563,86 @@ class HeadObjectOutput {
     this.objectLockLegalHoldStatus,
   });
   static HeadObjectOutput fromJson(Map<String, dynamic> json) =>
-      HeadObjectOutput();
+      HeadObjectOutput(
+        deleteMarker: json.containsKey('DeleteMarker')
+            ? json['DeleteMarker'] as bool
+            : null,
+        acceptRanges: json.containsKey('AcceptRanges')
+            ? json['AcceptRanges'] as String
+            : null,
+        expiration: json.containsKey('Expiration')
+            ? json['Expiration'] as String
+            : null,
+        restore: json.containsKey('Restore') ? json['Restore'] as String : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        contentLength: json.containsKey('ContentLength')
+            ? BigInt.from(json['ContentLength'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        missingMeta:
+            json.containsKey('MissingMeta') ? json['MissingMeta'] as int : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        cacheControl: json.containsKey('CacheControl')
+            ? json['CacheControl'] as String
+            : null,
+        contentDisposition: json.containsKey('ContentDisposition')
+            ? json['ContentDisposition'] as String
+            : null,
+        contentEncoding: json.containsKey('ContentEncoding')
+            ? json['ContentEncoding'] as String
+            : null,
+        contentLanguage: json.containsKey('ContentLanguage')
+            ? json['ContentLanguage'] as String
+            : null,
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        expires: json.containsKey('Expires')
+            ? DateTime.parse(json['Expires'])
+            : null,
+        websiteRedirectLocation: json.containsKey('WebsiteRedirectLocation')
+            ? json['WebsiteRedirectLocation'] as String
+            : null,
+        serverSideEncryption: json.containsKey('ServerSideEncryption')
+            ? json['ServerSideEncryption'] as String
+            : null,
+        metadata: json.containsKey('Metadata')
+            ? (json['Metadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        sseCustomerAlgorithm: json.containsKey('SSECustomerAlgorithm')
+            ? json['SSECustomerAlgorithm'] as String
+            : null,
+        sseCustomerKeyMd5: json.containsKey('SSECustomerKeyMD5')
+            ? json['SSECustomerKeyMD5'] as String
+            : null,
+        ssekmsKeyId: json.containsKey('SSEKMSKeyId')
+            ? json['SSEKMSKeyId'] as String
+            : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+        replicationStatus: json.containsKey('ReplicationStatus')
+            ? json['ReplicationStatus'] as String
+            : null,
+        partsCount:
+            json.containsKey('PartsCount') ? json['PartsCount'] as int : null,
+        objectLockMode: json.containsKey('ObjectLockMode')
+            ? json['ObjectLockMode'] as String
+            : null,
+        objectLockRetainUntilDate: json.containsKey('ObjectLockRetainUntilDate')
+            ? DateTime.parse(json['ObjectLockRetainUntilDate'])
+            : null,
+        objectLockLegalHoldStatus: json.containsKey('ObjectLockLegalHoldStatus')
+            ? json['ObjectLockLegalHoldStatus'] as String
+            : null,
+      );
 }
 
 class IndexDocument {
@@ -3419,7 +4656,10 @@ class IndexDocument {
   IndexDocument({
     @required this.suffix,
   });
-  static IndexDocument fromJson(Map<String, dynamic> json) => IndexDocument();
+  static IndexDocument fromJson(Map<String, dynamic> json) => IndexDocument(
+        suffix: json['Suffix'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Initiator {
@@ -3434,7 +4674,12 @@ class Initiator {
     this.id,
     this.displayName,
   });
-  static Initiator fromJson(Map<String, dynamic> json) => Initiator();
+  static Initiator fromJson(Map<String, dynamic> json) => Initiator(
+        id: json.containsKey('ID') ? json['ID'] as String : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+      );
 }
 
 /// Describes the serialization format of the object.
@@ -3458,6 +4703,7 @@ class InputSerialization {
     this.json,
     this.parquet,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the inventory configuration for an Amazon S3 bucket. For more
@@ -3502,7 +4748,20 @@ class InventoryConfiguration {
     @required this.schedule,
   });
   static InventoryConfiguration fromJson(Map<String, dynamic> json) =>
-      InventoryConfiguration();
+      InventoryConfiguration(
+        destination: InventoryDestination.fromJson(json['Destination']),
+        isEnabled: json['IsEnabled'] as bool,
+        filter: json.containsKey('Filter')
+            ? InventoryFilter.fromJson(json['Filter'])
+            : null,
+        id: json['Id'] as String,
+        includedObjectVersions: json['IncludedObjectVersions'] as String,
+        optionalFields: json.containsKey('OptionalFields')
+            ? (json['OptionalFields'] as List).map((e) => e as String).toList()
+            : null,
+        schedule: InventorySchedule.fromJson(json['Schedule']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class InventoryDestination {
@@ -3514,7 +4773,11 @@ class InventoryDestination {
     @required this.s3BucketDestination,
   });
   static InventoryDestination fromJson(Map<String, dynamic> json) =>
-      InventoryDestination();
+      InventoryDestination(
+        s3BucketDestination:
+            InventoryS3BucketDestination.fromJson(json['S3BucketDestination']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the type of server-side encryption used to encrypt the inventory
@@ -3531,7 +4794,12 @@ class InventoryEncryption {
     this.ssekms,
   });
   static InventoryEncryption fromJson(Map<String, dynamic> json) =>
-      InventoryEncryption();
+      InventoryEncryption(
+        sses3: json.containsKey('SSES3') ? Sses3.fromJson(json['SSES3']) : null,
+        ssekms:
+            json.containsKey('SSEKMS') ? Ssekms.fromJson(json['SSEKMS']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class InventoryFilter {
@@ -3542,8 +4810,10 @@ class InventoryFilter {
   InventoryFilter({
     @required this.prefix,
   });
-  static InventoryFilter fromJson(Map<String, dynamic> json) =>
-      InventoryFilter();
+  static InventoryFilter fromJson(Map<String, dynamic> json) => InventoryFilter(
+        prefix: json['Prefix'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class InventoryS3BucketDestination {
@@ -3572,7 +4842,17 @@ class InventoryS3BucketDestination {
     this.encryption,
   });
   static InventoryS3BucketDestination fromJson(Map<String, dynamic> json) =>
-      InventoryS3BucketDestination();
+      InventoryS3BucketDestination(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        bucket: json['Bucket'] as String,
+        format: json['Format'] as String,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        encryption: json.containsKey('Encryption')
+            ? InventoryEncryption.fromJson(json['Encryption'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class InventorySchedule {
@@ -3583,7 +4863,10 @@ class InventorySchedule {
     @required this.frequency,
   });
   static InventorySchedule fromJson(Map<String, dynamic> json) =>
-      InventorySchedule();
+      InventorySchedule(
+        frequency: json['Frequency'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class JsonInput {
@@ -3593,6 +4876,7 @@ class JsonInput {
   JsonInput({
     this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class JsonOutput {
@@ -3602,6 +4886,7 @@ class JsonOutput {
   JsonOutput({
     this.recordDelimiter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for specifying the configuration for AWS Lambda notifications.
@@ -3627,7 +4912,15 @@ class LambdaFunctionConfiguration {
     this.filter,
   });
   static LambdaFunctionConfiguration fromJson(Map<String, dynamic> json) =>
-      LambdaFunctionConfiguration();
+      LambdaFunctionConfiguration(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        lambdaFunctionArn: json['LambdaFunctionArn'] as String,
+        events: (json['Events'] as List).map((e) => e as String).toList(),
+        filter: json.containsKey('Filter')
+            ? NotificationConfigurationFilter.fromJson(json['Filter'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class LifecycleConfiguration {
@@ -3636,6 +4929,7 @@ class LifecycleConfiguration {
   LifecycleConfiguration({
     @required this.rules,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class LifecycleExpiration {
@@ -3659,7 +4953,14 @@ class LifecycleExpiration {
     this.expiredObjectDeleteMarker,
   });
   static LifecycleExpiration fromJson(Map<String, dynamic> json) =>
-      LifecycleExpiration();
+      LifecycleExpiration(
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+        days: json.containsKey('Days') ? json['Days'] as int : null,
+        expiredObjectDeleteMarker: json.containsKey('ExpiredObjectDeleteMarker')
+            ? json['ExpiredObjectDeleteMarker'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class LifecycleRule {
@@ -3698,7 +4999,39 @@ class LifecycleRule {
     this.noncurrentVersionExpiration,
     this.abortIncompleteMultipartUpload,
   });
-  static LifecycleRule fromJson(Map<String, dynamic> json) => LifecycleRule();
+  static LifecycleRule fromJson(Map<String, dynamic> json) => LifecycleRule(
+        expiration: json.containsKey('Expiration')
+            ? LifecycleExpiration.fromJson(json['Expiration'])
+            : null,
+        id: json.containsKey('ID') ? json['ID'] as String : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        filter: json.containsKey('Filter')
+            ? LifecycleRuleFilter.fromJson(json['Filter'])
+            : null,
+        status: json['Status'] as String,
+        transitions: json.containsKey('Transitions')
+            ? (json['Transitions'] as List)
+                .map((e) => Transition.fromJson(e))
+                .toList()
+            : null,
+        noncurrentVersionTransitions:
+            json.containsKey('NoncurrentVersionTransitions')
+                ? (json['NoncurrentVersionTransitions'] as List)
+                    .map((e) => NoncurrentVersionTransition.fromJson(e))
+                    .toList()
+                : null,
+        noncurrentVersionExpiration:
+            json.containsKey('NoncurrentVersionExpiration')
+                ? NoncurrentVersionExpiration.fromJson(
+                    json['NoncurrentVersionExpiration'])
+                : null,
+        abortIncompleteMultipartUpload:
+            json.containsKey('AbortIncompleteMultipartUpload')
+                ? AbortIncompleteMultipartUpload.fromJson(
+                    json['AbortIncompleteMultipartUpload'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This is used in a Lifecycle Rule Filter to apply a logical AND to two or
@@ -3716,7 +5049,13 @@ class LifecycleRuleAndOperator {
     this.tags,
   });
   static LifecycleRuleAndOperator fromJson(Map<String, dynamic> json) =>
-      LifecycleRuleAndOperator();
+      LifecycleRuleAndOperator(
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Filter is used to identify objects that a Lifecycle Rule applies to. A
@@ -3737,7 +5076,14 @@ class LifecycleRuleFilter {
     this.and,
   });
   static LifecycleRuleFilter fromJson(Map<String, dynamic> json) =>
-      LifecycleRuleFilter();
+      LifecycleRuleFilter(
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        tag: json.containsKey('Tag') ? Tag.fromJson(json['Tag']) : null,
+        and: json.containsKey('And')
+            ? LifecycleRuleAndOperator.fromJson(json['And'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListBucketAnalyticsConfigurationsOutput {
@@ -3766,7 +5112,23 @@ class ListBucketAnalyticsConfigurationsOutput {
   });
   static ListBucketAnalyticsConfigurationsOutput fromJson(
           Map<String, dynamic> json) =>
-      ListBucketAnalyticsConfigurationsOutput();
+      ListBucketAnalyticsConfigurationsOutput(
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        continuationToken: json.containsKey('ContinuationToken')
+            ? json['ContinuationToken'] as String
+            : null,
+        nextContinuationToken: json.containsKey('NextContinuationToken')
+            ? json['NextContinuationToken'] as String
+            : null,
+        analyticsConfigurationList:
+            json.containsKey('AnalyticsConfigurationList')
+                ? (json['AnalyticsConfigurationList'] as List)
+                    .map((e) => AnalyticsConfiguration.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class ListBucketInventoryConfigurationsOutput {
@@ -3796,7 +5158,23 @@ class ListBucketInventoryConfigurationsOutput {
   });
   static ListBucketInventoryConfigurationsOutput fromJson(
           Map<String, dynamic> json) =>
-      ListBucketInventoryConfigurationsOutput();
+      ListBucketInventoryConfigurationsOutput(
+        continuationToken: json.containsKey('ContinuationToken')
+            ? json['ContinuationToken'] as String
+            : null,
+        inventoryConfigurationList:
+            json.containsKey('InventoryConfigurationList')
+                ? (json['InventoryConfigurationList'] as List)
+                    .map((e) => InventoryConfiguration.fromJson(e))
+                    .toList()
+                : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        nextContinuationToken: json.containsKey('NextContinuationToken')
+            ? json['NextContinuationToken'] as String
+            : null,
+      );
 }
 
 class ListBucketMetricsConfigurationsOutput {
@@ -3826,7 +5204,22 @@ class ListBucketMetricsConfigurationsOutput {
   });
   static ListBucketMetricsConfigurationsOutput fromJson(
           Map<String, dynamic> json) =>
-      ListBucketMetricsConfigurationsOutput();
+      ListBucketMetricsConfigurationsOutput(
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        continuationToken: json.containsKey('ContinuationToken')
+            ? json['ContinuationToken'] as String
+            : null,
+        nextContinuationToken: json.containsKey('NextContinuationToken')
+            ? json['NextContinuationToken'] as String
+            : null,
+        metricsConfigurationList: json.containsKey('MetricsConfigurationList')
+            ? (json['MetricsConfigurationList'] as List)
+                .map((e) => MetricsConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListBucketsOutput {
@@ -3839,7 +5232,12 @@ class ListBucketsOutput {
     this.owner,
   });
   static ListBucketsOutput fromJson(Map<String, dynamic> json) =>
-      ListBucketsOutput();
+      ListBucketsOutput(
+        buckets: json.containsKey('Buckets')
+            ? (json['Buckets'] as List).map((e) => Bucket.fromJson(e)).toList()
+            : null,
+        owner: json.containsKey('Owner') ? Owner.fromJson(json['Owner']) : null,
+      );
 }
 
 class ListMultipartUploadsOutput {
@@ -3899,7 +5297,41 @@ class ListMultipartUploadsOutput {
     this.encodingType,
   });
   static ListMultipartUploadsOutput fromJson(Map<String, dynamic> json) =>
-      ListMultipartUploadsOutput();
+      ListMultipartUploadsOutput(
+        bucket: json.containsKey('Bucket') ? json['Bucket'] as String : null,
+        keyMarker:
+            json.containsKey('KeyMarker') ? json['KeyMarker'] as String : null,
+        uploadIdMarker: json.containsKey('UploadIdMarker')
+            ? json['UploadIdMarker'] as String
+            : null,
+        nextKeyMarker: json.containsKey('NextKeyMarker')
+            ? json['NextKeyMarker'] as String
+            : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        delimiter:
+            json.containsKey('Delimiter') ? json['Delimiter'] as String : null,
+        nextUploadIdMarker: json.containsKey('NextUploadIdMarker')
+            ? json['NextUploadIdMarker'] as String
+            : null,
+        maxUploads:
+            json.containsKey('MaxUploads') ? json['MaxUploads'] as int : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        uploads: json.containsKey('Uploads')
+            ? (json['Uploads'] as List)
+                .map((e) => MultipartUpload.fromJson(e))
+                .toList()
+            : null,
+        commonPrefixes: json.containsKey('CommonPrefixes')
+            ? (json['CommonPrefixes'] as List)
+                .map((e) => CommonPrefix.fromJson(e))
+                .toList()
+            : null,
+        encodingType: json.containsKey('EncodingType')
+            ? json['EncodingType'] as String
+            : null,
+      );
 }
 
 class ListObjectVersionsOutput {
@@ -3956,7 +5388,45 @@ class ListObjectVersionsOutput {
     this.encodingType,
   });
   static ListObjectVersionsOutput fromJson(Map<String, dynamic> json) =>
-      ListObjectVersionsOutput();
+      ListObjectVersionsOutput(
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        keyMarker:
+            json.containsKey('KeyMarker') ? json['KeyMarker'] as String : null,
+        versionIdMarker: json.containsKey('VersionIdMarker')
+            ? json['VersionIdMarker'] as String
+            : null,
+        nextKeyMarker: json.containsKey('NextKeyMarker')
+            ? json['NextKeyMarker'] as String
+            : null,
+        nextVersionIdMarker: json.containsKey('NextVersionIdMarker')
+            ? json['NextVersionIdMarker'] as String
+            : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => ObjectVersion.fromJson(e))
+                .toList()
+            : null,
+        deleteMarkers: json.containsKey('DeleteMarkers')
+            ? (json['DeleteMarkers'] as List)
+                .map((e) => DeleteMarkerEntry.fromJson(e))
+                .toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        delimiter:
+            json.containsKey('Delimiter') ? json['Delimiter'] as String : null,
+        maxKeys: json.containsKey('MaxKeys') ? json['MaxKeys'] as int : null,
+        commonPrefixes: json.containsKey('CommonPrefixes')
+            ? (json['CommonPrefixes'] as List)
+                .map((e) => CommonPrefix.fromJson(e))
+                .toList()
+            : null,
+        encodingType: json.containsKey('EncodingType')
+            ? json['EncodingType'] as String
+            : null,
+      );
 }
 
 class ListObjectsOutput {
@@ -4004,7 +5474,31 @@ class ListObjectsOutput {
     this.encodingType,
   });
   static ListObjectsOutput fromJson(Map<String, dynamic> json) =>
-      ListObjectsOutput();
+      ListObjectsOutput(
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        contents: json.containsKey('Contents')
+            ? (json['Contents'] as List).map((e) => Object.fromJson(e)).toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        delimiter:
+            json.containsKey('Delimiter') ? json['Delimiter'] as String : null,
+        maxKeys: json.containsKey('MaxKeys') ? json['MaxKeys'] as int : null,
+        commonPrefixes: json.containsKey('CommonPrefixes')
+            ? (json['CommonPrefixes'] as List)
+                .map((e) => CommonPrefix.fromJson(e))
+                .toList()
+            : null,
+        encodingType: json.containsKey('EncodingType')
+            ? json['EncodingType'] as String
+            : null,
+      );
 }
 
 class ListObjectsV2Output {
@@ -4071,7 +5565,37 @@ class ListObjectsV2Output {
     this.startAfter,
   });
   static ListObjectsV2Output fromJson(Map<String, dynamic> json) =>
-      ListObjectsV2Output();
+      ListObjectsV2Output(
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        contents: json.containsKey('Contents')
+            ? (json['Contents'] as List).map((e) => Object.fromJson(e)).toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        delimiter:
+            json.containsKey('Delimiter') ? json['Delimiter'] as String : null,
+        maxKeys: json.containsKey('MaxKeys') ? json['MaxKeys'] as int : null,
+        commonPrefixes: json.containsKey('CommonPrefixes')
+            ? (json['CommonPrefixes'] as List)
+                .map((e) => CommonPrefix.fromJson(e))
+                .toList()
+            : null,
+        encodingType: json.containsKey('EncodingType')
+            ? json['EncodingType'] as String
+            : null,
+        keyCount: json.containsKey('KeyCount') ? json['KeyCount'] as int : null,
+        continuationToken: json.containsKey('ContinuationToken')
+            ? json['ContinuationToken'] as String
+            : null,
+        nextContinuationToken: json.containsKey('NextContinuationToken')
+            ? json['NextContinuationToken'] as String
+            : null,
+        startAfter: json.containsKey('StartAfter')
+            ? json['StartAfter'] as String
+            : null,
+      );
 }
 
 class ListPartsOutput {
@@ -4134,8 +5658,41 @@ class ListPartsOutput {
     this.storageClass,
     this.requestCharged,
   });
-  static ListPartsOutput fromJson(Map<String, dynamic> json) =>
-      ListPartsOutput();
+  static ListPartsOutput fromJson(Map<String, dynamic> json) => ListPartsOutput(
+        abortDate: json.containsKey('AbortDate')
+            ? DateTime.parse(json['AbortDate'])
+            : null,
+        abortRuleId: json.containsKey('AbortRuleId')
+            ? json['AbortRuleId'] as String
+            : null,
+        bucket: json.containsKey('Bucket') ? json['Bucket'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        uploadId:
+            json.containsKey('UploadId') ? json['UploadId'] as String : null,
+        partNumberMarker: json.containsKey('PartNumberMarker')
+            ? json['PartNumberMarker'] as int
+            : null,
+        nextPartNumberMarker: json.containsKey('NextPartNumberMarker')
+            ? json['NextPartNumberMarker'] as int
+            : null,
+        maxParts: json.containsKey('MaxParts') ? json['MaxParts'] as int : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        parts: json.containsKey('Parts')
+            ? (json['Parts'] as List).map((e) => Part.fromJson(e)).toList()
+            : null,
+        initiator: json.containsKey('Initiator')
+            ? Initiator.fromJson(json['Initiator'])
+            : null,
+        owner: json.containsKey('Owner') ? Owner.fromJson(json['Owner']) : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 /// Describes where logs are stored and the prefix that Amazon S3 assigns to all
@@ -4163,7 +5720,16 @@ class LoggingEnabled {
     this.targetGrants,
     @required this.targetPrefix,
   });
-  static LoggingEnabled fromJson(Map<String, dynamic> json) => LoggingEnabled();
+  static LoggingEnabled fromJson(Map<String, dynamic> json) => LoggingEnabled(
+        targetBucket: json['TargetBucket'] as String,
+        targetGrants: json.containsKey('TargetGrants')
+            ? (json['TargetGrants'] as List)
+                .map((e) => TargetGrant.fromJson(e))
+                .toList()
+            : null,
+        targetPrefix: json['TargetPrefix'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A metadata key-value pair to store with an object.
@@ -4176,6 +5742,7 @@ class MetadataEntry {
     this.name,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class MetricsAndOperator {
@@ -4190,7 +5757,13 @@ class MetricsAndOperator {
     this.tags,
   });
   static MetricsAndOperator fromJson(Map<String, dynamic> json) =>
-      MetricsAndOperator();
+      MetricsAndOperator(
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a metrics configuration for the CloudWatch request metrics
@@ -4214,7 +5787,13 @@ class MetricsConfiguration {
     this.filter,
   });
   static MetricsConfiguration fromJson(Map<String, dynamic> json) =>
-      MetricsConfiguration();
+      MetricsConfiguration(
+        id: json['Id'] as String,
+        filter: json.containsKey('Filter')
+            ? MetricsFilter.fromJson(json['Filter'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class MetricsFilter {
@@ -4234,7 +5813,14 @@ class MetricsFilter {
     this.tag,
     this.and,
   });
-  static MetricsFilter fromJson(Map<String, dynamic> json) => MetricsFilter();
+  static MetricsFilter fromJson(Map<String, dynamic> json) => MetricsFilter(
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        tag: json.containsKey('Tag') ? Tag.fromJson(json['Tag']) : null,
+        and: json.containsKey('And')
+            ? MetricsAndOperator.fromJson(json['And'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class MultipartUpload {
@@ -4263,8 +5849,21 @@ class MultipartUpload {
     this.owner,
     this.initiator,
   });
-  static MultipartUpload fromJson(Map<String, dynamic> json) =>
-      MultipartUpload();
+  static MultipartUpload fromJson(Map<String, dynamic> json) => MultipartUpload(
+        uploadId:
+            json.containsKey('UploadId') ? json['UploadId'] as String : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        initiated: json.containsKey('Initiated')
+            ? DateTime.parse(json['Initiated'])
+            : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        owner: json.containsKey('Owner') ? Owner.fromJson(json['Owner']) : null,
+        initiator: json.containsKey('Initiator')
+            ? Initiator.fromJson(json['Initiator'])
+            : null,
+      );
 }
 
 /// Specifies when noncurrent object versions expire. Upon expiration, Amazon S3
@@ -4284,7 +5883,12 @@ class NoncurrentVersionExpiration {
     this.noncurrentDays,
   });
   static NoncurrentVersionExpiration fromJson(Map<String, dynamic> json) =>
-      NoncurrentVersionExpiration();
+      NoncurrentVersionExpiration(
+        noncurrentDays: json.containsKey('NoncurrentDays')
+            ? json['NoncurrentDays'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Container for the transition rule that describes when noncurrent objects
@@ -4310,7 +5914,15 @@ class NoncurrentVersionTransition {
     this.storageClass,
   });
   static NoncurrentVersionTransition fromJson(Map<String, dynamic> json) =>
-      NoncurrentVersionTransition();
+      NoncurrentVersionTransition(
+        noncurrentDays: json.containsKey('NoncurrentDays')
+            ? json['NoncurrentDays'] as int
+            : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for specifying the notification configuration of the bucket. If
@@ -4334,7 +5946,25 @@ class NotificationConfiguration {
     this.lambdaFunctionConfigurations,
   });
   static NotificationConfiguration fromJson(Map<String, dynamic> json) =>
-      NotificationConfiguration();
+      NotificationConfiguration(
+        topicConfigurations: json.containsKey('TopicConfigurations')
+            ? (json['TopicConfigurations'] as List)
+                .map((e) => TopicConfiguration.fromJson(e))
+                .toList()
+            : null,
+        queueConfigurations: json.containsKey('QueueConfigurations')
+            ? (json['QueueConfigurations'] as List)
+                .map((e) => QueueConfiguration.fromJson(e))
+                .toList()
+            : null,
+        lambdaFunctionConfigurations:
+            json.containsKey('LambdaFunctionConfigurations')
+                ? (json['LambdaFunctionConfigurations'] as List)
+                    .map((e) => LambdaFunctionConfiguration.fromJson(e))
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class NotificationConfigurationDeprecated {
@@ -4351,7 +5981,20 @@ class NotificationConfigurationDeprecated {
   });
   static NotificationConfigurationDeprecated fromJson(
           Map<String, dynamic> json) =>
-      NotificationConfigurationDeprecated();
+      NotificationConfigurationDeprecated(
+        topicConfiguration: json.containsKey('TopicConfiguration')
+            ? TopicConfigurationDeprecated.fromJson(json['TopicConfiguration'])
+            : null,
+        queueConfiguration: json.containsKey('QueueConfiguration')
+            ? QueueConfigurationDeprecated.fromJson(json['QueueConfiguration'])
+            : null,
+        cloudFunctionConfiguration:
+            json.containsKey('CloudFunctionConfiguration')
+                ? CloudFunctionConfiguration.fromJson(
+                    json['CloudFunctionConfiguration'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies object key name filtering rules. For information about key name
@@ -4365,7 +6008,10 @@ class NotificationConfigurationFilter {
     this.key,
   });
   static NotificationConfigurationFilter fromJson(Map<String, dynamic> json) =>
-      NotificationConfigurationFilter();
+      NotificationConfigurationFilter(
+        key: json.containsKey('Key') ? S3KeyFilter.fromJson(json['Key']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Object {
@@ -4390,7 +6036,18 @@ class Object {
     this.storageClass,
     this.owner,
   });
-  static Object fromJson(Map<String, dynamic> json) => Object();
+  static Object fromJson(Map<String, dynamic> json) => Object(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        size: json.containsKey('Size') ? json['Size'] as int : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        owner: json.containsKey('Owner') ? Owner.fromJson(json['Owner']) : null,
+      );
 }
 
 class ObjectIdentifier {
@@ -4404,6 +6061,7 @@ class ObjectIdentifier {
     @required this.key,
     this.versionId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The container element for object lock configuration parameters.
@@ -4419,7 +6077,15 @@ class ObjectLockConfiguration {
     this.rule,
   });
   static ObjectLockConfiguration fromJson(Map<String, dynamic> json) =>
-      ObjectLockConfiguration();
+      ObjectLockConfiguration(
+        objectLockEnabled: json.containsKey('ObjectLockEnabled')
+            ? json['ObjectLockEnabled'] as String
+            : null,
+        rule: json.containsKey('Rule')
+            ? ObjectLockRule.fromJson(json['Rule'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A Legal Hold configuration for an object.
@@ -4431,7 +6097,10 @@ class ObjectLockLegalHold {
     this.status,
   });
   static ObjectLockLegalHold fromJson(Map<String, dynamic> json) =>
-      ObjectLockLegalHold();
+      ObjectLockLegalHold(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A Retention configuration for an object.
@@ -4447,7 +6116,13 @@ class ObjectLockRetention {
     this.retainUntilDate,
   });
   static ObjectLockRetention fromJson(Map<String, dynamic> json) =>
-      ObjectLockRetention();
+      ObjectLockRetention(
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+        retainUntilDate: json.containsKey('RetainUntilDate')
+            ? DateTime.parse(json['RetainUntilDate'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The container element for an object lock rule.
@@ -4459,7 +6134,12 @@ class ObjectLockRule {
   ObjectLockRule({
     this.defaultRetention,
   });
-  static ObjectLockRule fromJson(Map<String, dynamic> json) => ObjectLockRule();
+  static ObjectLockRule fromJson(Map<String, dynamic> json) => ObjectLockRule(
+        defaultRetention: json.containsKey('DefaultRetention')
+            ? DefaultRetention.fromJson(json['DefaultRetention'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ObjectVersion {
@@ -4496,7 +6176,22 @@ class ObjectVersion {
     this.lastModified,
     this.owner,
   });
-  static ObjectVersion fromJson(Map<String, dynamic> json) => ObjectVersion();
+  static ObjectVersion fromJson(Map<String, dynamic> json) => ObjectVersion(
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        size: json.containsKey('Size') ? json['Size'] as int : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        isLatest:
+            json.containsKey('IsLatest') ? json['IsLatest'] as bool : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        owner: json.containsKey('Owner') ? Owner.fromJson(json['Owner']) : null,
+      );
 }
 
 /// Describes the location where the restore job's output is stored.
@@ -4508,6 +6203,7 @@ class OutputLocation {
   OutputLocation({
     this.s3,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes how results of the Select job are serialized.
@@ -4522,6 +6218,7 @@ class OutputSerialization {
     this.csv,
     this.json,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Owner {
@@ -4533,11 +6230,18 @@ class Owner {
     this.displayName,
     this.id,
   });
-  static Owner fromJson(Map<String, dynamic> json) => Owner();
+  static Owner fromJson(Map<String, dynamic> json) => Owner(
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        id: json.containsKey('ID') ? json['ID'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ParquetInput {
   ParquetInput();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Part {
@@ -4560,7 +6264,15 @@ class Part {
     this.eTag,
     this.size,
   });
-  static Part fromJson(Map<String, dynamic> json) => Part();
+  static Part fromJson(Map<String, dynamic> json) => Part(
+        partNumber:
+            json.containsKey('PartNumber') ? json['PartNumber'] as int : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        size: json.containsKey('Size') ? json['Size'] as int : null,
+      );
 }
 
 /// The container element for a bucket's policy status.
@@ -4572,7 +6284,10 @@ class PolicyStatus {
   PolicyStatus({
     this.isPublic,
   });
-  static PolicyStatus fromJson(Map<String, dynamic> json) => PolicyStatus();
+  static PolicyStatus fromJson(Map<String, dynamic> json) => PolicyStatus(
+        isPublic:
+            json.containsKey('IsPublic') ? json['IsPublic'] as bool : null,
+      );
 }
 
 class Progress {
@@ -4590,7 +6305,17 @@ class Progress {
     this.bytesProcessed,
     this.bytesReturned,
   });
-  static Progress fromJson(Map<String, dynamic> json) => Progress();
+  static Progress fromJson(Map<String, dynamic> json) => Progress(
+        bytesScanned: json.containsKey('BytesScanned')
+            ? BigInt.from(json['BytesScanned'])
+            : null,
+        bytesProcessed: json.containsKey('BytesProcessed')
+            ? BigInt.from(json['BytesProcessed'])
+            : null,
+        bytesReturned: json.containsKey('BytesReturned')
+            ? BigInt.from(json['BytesReturned'])
+            : null,
+      );
 }
 
 class ProgressEvent {
@@ -4600,7 +6325,11 @@ class ProgressEvent {
   ProgressEvent({
     this.details,
   });
-  static ProgressEvent fromJson(Map<String, dynamic> json) => ProgressEvent();
+  static ProgressEvent fromJson(Map<String, dynamic> json) => ProgressEvent(
+        details: json.containsKey('Details')
+            ? Progress.fromJson(json['Details'])
+            : null,
+      );
 }
 
 /// Specifies the Block Public Access configuration for an Amazon S3 bucket.
@@ -4650,7 +6379,21 @@ class PublicAccessBlockConfiguration {
     this.restrictPublicBuckets,
   });
   static PublicAccessBlockConfiguration fromJson(Map<String, dynamic> json) =>
-      PublicAccessBlockConfiguration();
+      PublicAccessBlockConfiguration(
+        blockPublicAcls: json.containsKey('BlockPublicAcls')
+            ? json['BlockPublicAcls'] as bool
+            : null,
+        ignorePublicAcls: json.containsKey('IgnorePublicAcls')
+            ? json['IgnorePublicAcls'] as bool
+            : null,
+        blockPublicPolicy: json.containsKey('BlockPublicPolicy')
+            ? json['BlockPublicPolicy'] as bool
+            : null,
+        restrictPublicBuckets: json.containsKey('RestrictPublicBuckets')
+            ? json['RestrictPublicBuckets'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutObjectAclOutput {
@@ -4660,7 +6403,11 @@ class PutObjectAclOutput {
     this.requestCharged,
   });
   static PutObjectAclOutput fromJson(Map<String, dynamic> json) =>
-      PutObjectAclOutput();
+      PutObjectAclOutput(
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class PutObjectLegalHoldOutput {
@@ -4670,7 +6417,11 @@ class PutObjectLegalHoldOutput {
     this.requestCharged,
   });
   static PutObjectLegalHoldOutput fromJson(Map<String, dynamic> json) =>
-      PutObjectLegalHoldOutput();
+      PutObjectLegalHoldOutput(
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class PutObjectLockConfigurationOutput {
@@ -4680,7 +6431,11 @@ class PutObjectLockConfigurationOutput {
     this.requestCharged,
   });
   static PutObjectLockConfigurationOutput fromJson(Map<String, dynamic> json) =>
-      PutObjectLockConfigurationOutput();
+      PutObjectLockConfigurationOutput(
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class PutObjectOutput {
@@ -4731,8 +6486,32 @@ class PutObjectOutput {
     this.ssekmsEncryptionContext,
     this.requestCharged,
   });
-  static PutObjectOutput fromJson(Map<String, dynamic> json) =>
-      PutObjectOutput();
+  static PutObjectOutput fromJson(Map<String, dynamic> json) => PutObjectOutput(
+        expiration: json.containsKey('Expiration')
+            ? json['Expiration'] as String
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        serverSideEncryption: json.containsKey('ServerSideEncryption')
+            ? json['ServerSideEncryption'] as String
+            : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        sseCustomerAlgorithm: json.containsKey('SSECustomerAlgorithm')
+            ? json['SSECustomerAlgorithm'] as String
+            : null,
+        sseCustomerKeyMd5: json.containsKey('SSECustomerKeyMD5')
+            ? json['SSECustomerKeyMD5'] as String
+            : null,
+        ssekmsKeyId: json.containsKey('SSEKMSKeyId')
+            ? json['SSEKMSKeyId'] as String
+            : null,
+        ssekmsEncryptionContext: json.containsKey('SSEKMSEncryptionContext')
+            ? json['SSEKMSEncryptionContext'] as String
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class PutObjectRetentionOutput {
@@ -4742,7 +6521,11 @@ class PutObjectRetentionOutput {
     this.requestCharged,
   });
   static PutObjectRetentionOutput fromJson(Map<String, dynamic> json) =>
-      PutObjectRetentionOutput();
+      PutObjectRetentionOutput(
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class PutObjectTaggingOutput {
@@ -4752,7 +6535,10 @@ class PutObjectTaggingOutput {
     this.versionId,
   });
   static PutObjectTaggingOutput fromJson(Map<String, dynamic> json) =>
-      PutObjectTaggingOutput();
+      PutObjectTaggingOutput(
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+      );
 }
 
 /// Specifies the configuration for publishing messages to an Amazon Simple
@@ -4775,7 +6561,15 @@ class QueueConfiguration {
     this.filter,
   });
   static QueueConfiguration fromJson(Map<String, dynamic> json) =>
-      QueueConfiguration();
+      QueueConfiguration(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        queueArn: json['QueueArn'] as String,
+        events: (json['Events'] as List).map((e) => e as String).toList(),
+        filter: json.containsKey('Filter')
+            ? NotificationConfigurationFilter.fromJson(json['Filter'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class QueueConfigurationDeprecated {
@@ -4794,7 +6588,15 @@ class QueueConfigurationDeprecated {
     this.queue,
   });
   static QueueConfigurationDeprecated fromJson(Map<String, dynamic> json) =>
-      QueueConfigurationDeprecated();
+      QueueConfigurationDeprecated(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        event: json.containsKey('Event') ? json['Event'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => e as String).toList()
+            : null,
+        queue: json.containsKey('Queue') ? json['Queue'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RecordsEvent {
@@ -4804,7 +6606,10 @@ class RecordsEvent {
   RecordsEvent({
     this.payload,
   });
-  static RecordsEvent fromJson(Map<String, dynamic> json) => RecordsEvent();
+  static RecordsEvent fromJson(Map<String, dynamic> json) => RecordsEvent(
+        payload:
+            json.containsKey('Payload') ? Uint8List(json['Payload']) : null,
+      );
 }
 
 /// Specifies how requests are redirected. In the event of an error, you can
@@ -4842,7 +6647,22 @@ class Redirect {
     this.replaceKeyPrefixWith,
     this.replaceKeyWith,
   });
-  static Redirect fromJson(Map<String, dynamic> json) => Redirect();
+  static Redirect fromJson(Map<String, dynamic> json) => Redirect(
+        hostName:
+            json.containsKey('HostName') ? json['HostName'] as String : null,
+        httpRedirectCode: json.containsKey('HttpRedirectCode')
+            ? json['HttpRedirectCode'] as String
+            : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        replaceKeyPrefixWith: json.containsKey('ReplaceKeyPrefixWith')
+            ? json['ReplaceKeyPrefixWith'] as String
+            : null,
+        replaceKeyWith: json.containsKey('ReplaceKeyWith')
+            ? json['ReplaceKeyWith'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the redirect behavior of all requests to a website endpoint of an
@@ -4860,7 +6680,12 @@ class RedirectAllRequestsTo {
     this.protocol,
   });
   static RedirectAllRequestsTo fromJson(Map<String, dynamic> json) =>
-      RedirectAllRequestsTo();
+      RedirectAllRequestsTo(
+        hostName: json['HostName'] as String,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for replication rules. You can add up to 1,000 rules. The
@@ -4882,7 +6707,13 @@ class ReplicationConfiguration {
     @required this.rules,
   });
   static ReplicationConfiguration fromJson(Map<String, dynamic> json) =>
-      ReplicationConfiguration();
+      ReplicationConfiguration(
+        role: json['Role'] as String,
+        rules: (json['Rules'] as List)
+            .map((e) => ReplicationRule.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies which Amazon S3 objects to replicate and where to store the
@@ -4941,8 +6772,23 @@ class ReplicationRule {
     @required this.destination,
     this.deleteMarkerReplication,
   });
-  static ReplicationRule fromJson(Map<String, dynamic> json) =>
-      ReplicationRule();
+  static ReplicationRule fromJson(Map<String, dynamic> json) => ReplicationRule(
+        id: json.containsKey('ID') ? json['ID'] as String : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        filter: json.containsKey('Filter')
+            ? ReplicationRuleFilter.fromJson(json['Filter'])
+            : null,
+        status: json['Status'] as String,
+        sourceSelectionCriteria: json.containsKey('SourceSelectionCriteria')
+            ? SourceSelectionCriteria.fromJson(json['SourceSelectionCriteria'])
+            : null,
+        destination: Destination.fromJson(json['Destination']),
+        deleteMarkerReplication: json.containsKey('DeleteMarkerReplication')
+            ? DeleteMarkerReplication.fromJson(json['DeleteMarkerReplication'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ReplicationRuleAndOperator {
@@ -4955,7 +6801,13 @@ class ReplicationRuleAndOperator {
     this.tags,
   });
   static ReplicationRuleAndOperator fromJson(Map<String, dynamic> json) =>
-      ReplicationRuleAndOperator();
+      ReplicationRuleAndOperator(
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A filter that identifies the subset of objects to which the replication rule
@@ -4988,7 +6840,14 @@ class ReplicationRuleFilter {
     this.and,
   });
   static ReplicationRuleFilter fromJson(Map<String, dynamic> json) =>
-      ReplicationRuleFilter();
+      ReplicationRuleFilter(
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+        tag: json.containsKey('Tag') ? Tag.fromJson(json['Tag']) : null,
+        and: json.containsKey('And')
+            ? ReplicationRuleAndOperator.fromJson(json['And'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RequestPaymentConfiguration {
@@ -4998,6 +6857,7 @@ class RequestPaymentConfiguration {
   RequestPaymentConfiguration({
     @required this.payer,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RequestProgress {
@@ -5008,6 +6868,7 @@ class RequestProgress {
   RequestProgress({
     this.enabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RestoreObjectOutput {
@@ -5022,7 +6883,14 @@ class RestoreObjectOutput {
     this.restoreOutputPath,
   });
   static RestoreObjectOutput fromJson(Map<String, dynamic> json) =>
-      RestoreObjectOutput();
+      RestoreObjectOutput(
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+        restoreOutputPath: json.containsKey('RestoreOutputPath')
+            ? json['RestoreOutputPath'] as String
+            : null,
+      );
 }
 
 /// Container for restore job parameters.
@@ -5059,6 +6927,7 @@ class RestoreRequest {
     this.selectParameters,
     this.outputLocation,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the redirect behavior and when a redirect is applied.
@@ -5079,7 +6948,13 @@ class RoutingRule {
     this.condition,
     @required this.redirect,
   });
-  static RoutingRule fromJson(Map<String, dynamic> json) => RoutingRule();
+  static RoutingRule fromJson(Map<String, dynamic> json) => RoutingRule(
+        condition: json.containsKey('Condition')
+            ? Condition.fromJson(json['Condition'])
+            : null,
+        redirect: Redirect.fromJson(json['Redirect']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies lifecycle rules for an Amazon S3 bucket. For more information, see
@@ -5118,7 +6993,33 @@ class Rule {
     this.noncurrentVersionExpiration,
     this.abortIncompleteMultipartUpload,
   });
-  static Rule fromJson(Map<String, dynamic> json) => Rule();
+  static Rule fromJson(Map<String, dynamic> json) => Rule(
+        expiration: json.containsKey('Expiration')
+            ? LifecycleExpiration.fromJson(json['Expiration'])
+            : null,
+        id: json.containsKey('ID') ? json['ID'] as String : null,
+        prefix: json['Prefix'] as String,
+        status: json['Status'] as String,
+        transition: json.containsKey('Transition')
+            ? Transition.fromJson(json['Transition'])
+            : null,
+        noncurrentVersionTransition:
+            json.containsKey('NoncurrentVersionTransition')
+                ? NoncurrentVersionTransition.fromJson(
+                    json['NoncurrentVersionTransition'])
+                : null,
+        noncurrentVersionExpiration:
+            json.containsKey('NoncurrentVersionExpiration')
+                ? NoncurrentVersionExpiration.fromJson(
+                    json['NoncurrentVersionExpiration'])
+                : null,
+        abortIncompleteMultipartUpload:
+            json.containsKey('AbortIncompleteMultipartUpload')
+                ? AbortIncompleteMultipartUpload.fromJson(
+                    json['AbortIncompleteMultipartUpload'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for object key name prefix and suffix filtering rules.
@@ -5128,7 +7029,14 @@ class S3KeyFilter {
   S3KeyFilter({
     this.filterRules,
   });
-  static S3KeyFilter fromJson(Map<String, dynamic> json) => S3KeyFilter();
+  static S3KeyFilter fromJson(Map<String, dynamic> json) => S3KeyFilter(
+        filterRules: json.containsKey('FilterRules')
+            ? (json['FilterRules'] as List)
+                .map((e) => FilterRule.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an S3 location that will receive the results of the restore
@@ -5167,6 +7075,7 @@ class S3Location {
     this.userMetadata,
     this.storageClass,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the use of SSE-KMS to encrypt delivered Inventory reports.
@@ -5178,13 +7087,17 @@ class Ssekms {
   Ssekms({
     @required this.keyId,
   });
-  static Ssekms fromJson(Map<String, dynamic> json) => Ssekms();
+  static Ssekms fromJson(Map<String, dynamic> json) => Ssekms(
+        keyId: json['KeyId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the use of SSE-S3 to encrypt delivered Inventory reports.
 class Sses3 {
   Sses3();
   static Sses3 fromJson(Map<String, dynamic> json) => Sses3();
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SelectObjectContentEventStream {
@@ -5211,7 +7124,21 @@ class SelectObjectContentEventStream {
     this.end,
   });
   static SelectObjectContentEventStream fromJson(Map<String, dynamic> json) =>
-      SelectObjectContentEventStream();
+      SelectObjectContentEventStream(
+        records: json.containsKey('Records')
+            ? RecordsEvent.fromJson(json['Records'])
+            : null,
+        stats: json.containsKey('Stats')
+            ? StatsEvent.fromJson(json['Stats'])
+            : null,
+        progress: json.containsKey('Progress')
+            ? ProgressEvent.fromJson(json['Progress'])
+            : null,
+        cont: json.containsKey('Cont')
+            ? ContinuationEvent.fromJson(json['Cont'])
+            : null,
+        end: json.containsKey('End') ? EndEvent.fromJson(json['End']) : null,
+      );
 }
 
 class SelectObjectContentOutput {
@@ -5221,7 +7148,11 @@ class SelectObjectContentOutput {
     this.payload,
   });
   static SelectObjectContentOutput fromJson(Map<String, dynamic> json) =>
-      SelectObjectContentOutput();
+      SelectObjectContentOutput(
+        payload: json.containsKey('Payload')
+            ? SelectObjectContentEventStream.fromJson(json['Payload'])
+            : null,
+      );
 }
 
 /// Describes the parameters for Select job types.
@@ -5244,6 +7175,7 @@ class SelectParameters {
     @required this.expression,
     @required this.outputSerialization,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the default server-side encryption to apply to new objects in the
@@ -5264,7 +7196,13 @@ class ServerSideEncryptionByDefault {
     this.kmsMasterKeyID,
   });
   static ServerSideEncryptionByDefault fromJson(Map<String, dynamic> json) =>
-      ServerSideEncryptionByDefault();
+      ServerSideEncryptionByDefault(
+        sseAlgorithm: json['SSEAlgorithm'] as String,
+        kmsMasterKeyID: json.containsKey('KMSMasterKeyID')
+            ? json['KMSMasterKeyID'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the default server-side-encryption configuration.
@@ -5278,7 +7216,12 @@ class ServerSideEncryptionConfiguration {
   });
   static ServerSideEncryptionConfiguration fromJson(
           Map<String, dynamic> json) =>
-      ServerSideEncryptionConfiguration();
+      ServerSideEncryptionConfiguration(
+        rules: (json['Rules'] as List)
+            .map((e) => ServerSideEncryptionRule.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the default server-side encryption configuration.
@@ -5292,7 +7235,14 @@ class ServerSideEncryptionRule {
     this.applyServerSideEncryptionByDefault,
   });
   static ServerSideEncryptionRule fromJson(Map<String, dynamic> json) =>
-      ServerSideEncryptionRule();
+      ServerSideEncryptionRule(
+        applyServerSideEncryptionByDefault:
+            json.containsKey('ApplyServerSideEncryptionByDefault')
+                ? ServerSideEncryptionByDefault.fromJson(
+                    json['ApplyServerSideEncryptionByDefault'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container that describes additional filters for identifying the source
@@ -5310,7 +7260,12 @@ class SourceSelectionCriteria {
     this.sseKmsEncryptedObjects,
   });
   static SourceSelectionCriteria fromJson(Map<String, dynamic> json) =>
-      SourceSelectionCriteria();
+      SourceSelectionCriteria(
+        sseKmsEncryptedObjects: json.containsKey('SseKmsEncryptedObjects')
+            ? SseKmsEncryptedObjects.fromJson(json['SseKmsEncryptedObjects'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for filter information for the selection of S3 objects encrypted
@@ -5324,7 +7279,10 @@ class SseKmsEncryptedObjects {
     @required this.status,
   });
   static SseKmsEncryptedObjects fromJson(Map<String, dynamic> json) =>
-      SseKmsEncryptedObjects();
+      SseKmsEncryptedObjects(
+        status: json['Status'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Stats {
@@ -5342,7 +7300,17 @@ class Stats {
     this.bytesProcessed,
     this.bytesReturned,
   });
-  static Stats fromJson(Map<String, dynamic> json) => Stats();
+  static Stats fromJson(Map<String, dynamic> json) => Stats(
+        bytesScanned: json.containsKey('BytesScanned')
+            ? BigInt.from(json['BytesScanned'])
+            : null,
+        bytesProcessed: json.containsKey('BytesProcessed')
+            ? BigInt.from(json['BytesProcessed'])
+            : null,
+        bytesReturned: json.containsKey('BytesReturned')
+            ? BigInt.from(json['BytesReturned'])
+            : null,
+      );
 }
 
 class StatsEvent {
@@ -5352,7 +7320,11 @@ class StatsEvent {
   StatsEvent({
     this.details,
   });
-  static StatsEvent fromJson(Map<String, dynamic> json) => StatsEvent();
+  static StatsEvent fromJson(Map<String, dynamic> json) => StatsEvent(
+        details: json.containsKey('Details')
+            ? Stats.fromJson(json['Details'])
+            : null,
+      );
 }
 
 /// Specifies data related to access patterns to be collected and made available
@@ -5367,7 +7339,12 @@ class StorageClassAnalysis {
     this.dataExport,
   });
   static StorageClassAnalysis fromJson(Map<String, dynamic> json) =>
-      StorageClassAnalysis();
+      StorageClassAnalysis(
+        dataExport: json.containsKey('DataExport')
+            ? StorageClassAnalysisDataExport.fromJson(json['DataExport'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StorageClassAnalysisDataExport {
@@ -5383,7 +7360,11 @@ class StorageClassAnalysisDataExport {
     @required this.destination,
   });
   static StorageClassAnalysisDataExport fromJson(Map<String, dynamic> json) =>
-      StorageClassAnalysisDataExport();
+      StorageClassAnalysisDataExport(
+        outputSchemaVersion: json['OutputSchemaVersion'] as String,
+        destination: AnalyticsExportDestination.fromJson(json['Destination']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Tag {
@@ -5397,7 +7378,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class Tagging {
@@ -5406,6 +7391,7 @@ class Tagging {
   Tagging({
     @required this.tagSet,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TargetGrant {
@@ -5418,7 +7404,15 @@ class TargetGrant {
     this.grantee,
     this.permission,
   });
-  static TargetGrant fromJson(Map<String, dynamic> json) => TargetGrant();
+  static TargetGrant fromJson(Map<String, dynamic> json) => TargetGrant(
+        grantee: json.containsKey('Grantee')
+            ? Grantee.fromJson(json['Grantee'])
+            : null,
+        permission: json.containsKey('Permission')
+            ? json['Permission'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A container for specifying the configuration for publication of messages to
@@ -5446,7 +7440,15 @@ class TopicConfiguration {
     this.filter,
   });
   static TopicConfiguration fromJson(Map<String, dynamic> json) =>
-      TopicConfiguration();
+      TopicConfiguration(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        topicArn: json['TopicArn'] as String,
+        events: (json['Events'] as List).map((e) => e as String).toList(),
+        filter: json.containsKey('Filter')
+            ? NotificationConfigurationFilter.fromJson(json['Filter'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TopicConfigurationDeprecated {
@@ -5468,7 +7470,15 @@ class TopicConfigurationDeprecated {
     this.topic,
   });
   static TopicConfigurationDeprecated fromJson(Map<String, dynamic> json) =>
-      TopicConfigurationDeprecated();
+      TopicConfigurationDeprecated(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => e as String).toList()
+            : null,
+        event: json.containsKey('Event') ? json['Event'] as String : null,
+        topic: json.containsKey('Topic') ? json['Topic'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies when an object transitions to a specified storage class.
@@ -5490,7 +7500,14 @@ class Transition {
     this.days,
     this.storageClass,
   });
-  static Transition fromJson(Map<String, dynamic> json) => Transition();
+  static Transition fromJson(Map<String, dynamic> json) => Transition(
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+        days: json.containsKey('Days') ? json['Days'] as int : null,
+        storageClass: json.containsKey('StorageClass')
+            ? json['StorageClass'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UploadPartCopyOutput {
@@ -5530,7 +7547,29 @@ class UploadPartCopyOutput {
     this.requestCharged,
   });
   static UploadPartCopyOutput fromJson(Map<String, dynamic> json) =>
-      UploadPartCopyOutput();
+      UploadPartCopyOutput(
+        copySourceVersionId: json.containsKey('CopySourceVersionId')
+            ? json['CopySourceVersionId'] as String
+            : null,
+        copyPartResult: json.containsKey('CopyPartResult')
+            ? CopyPartResult.fromJson(json['CopyPartResult'])
+            : null,
+        serverSideEncryption: json.containsKey('ServerSideEncryption')
+            ? json['ServerSideEncryption'] as String
+            : null,
+        sseCustomerAlgorithm: json.containsKey('SSECustomerAlgorithm')
+            ? json['SSECustomerAlgorithm'] as String
+            : null,
+        sseCustomerKeyMd5: json.containsKey('SSECustomerKeyMD5')
+            ? json['SSECustomerKeyMD5'] as String
+            : null,
+        ssekmsKeyId: json.containsKey('SSEKMSKeyId')
+            ? json['SSEKMSKeyId'] as String
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 class UploadPartOutput {
@@ -5566,7 +7605,24 @@ class UploadPartOutput {
     this.requestCharged,
   });
   static UploadPartOutput fromJson(Map<String, dynamic> json) =>
-      UploadPartOutput();
+      UploadPartOutput(
+        serverSideEncryption: json.containsKey('ServerSideEncryption')
+            ? json['ServerSideEncryption'] as String
+            : null,
+        eTag: json.containsKey('ETag') ? json['ETag'] as String : null,
+        sseCustomerAlgorithm: json.containsKey('SSECustomerAlgorithm')
+            ? json['SSECustomerAlgorithm'] as String
+            : null,
+        sseCustomerKeyMd5: json.containsKey('SSECustomerKeyMD5')
+            ? json['SSECustomerKeyMD5'] as String
+            : null,
+        ssekmsKeyId: json.containsKey('SSEKMSKeyId')
+            ? json['SSEKMSKeyId'] as String
+            : null,
+        requestCharged: json.containsKey('RequestCharged')
+            ? json['RequestCharged'] as String
+            : null,
+      );
 }
 
 /// Describes the versioning state of an Amazon S3 bucket. For more information,
@@ -5587,6 +7643,7 @@ class VersioningConfiguration {
     this.mfaDelete,
     this.status,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies website configuration parameters for an Amazon S3 bucket.
@@ -5613,4 +7670,5 @@ class WebsiteConfiguration {
     this.redirectAllRequestsTo,
     this.routingRules,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

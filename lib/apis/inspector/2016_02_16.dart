@@ -6,6 +6,10 @@ import 'package:meta/meta.dart';
 /// and to identify potential security issues. For more information, see
 /// [Amazon Inspector User Guide](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html).
 class InspectorApi {
+  final _client;
+  InspectorApi(client)
+      : _client = client.configured('Inspector', serializer: 'json');
+
   /// Assigns attributes (key and value pairs) to the findings that are
   /// specified by the ARNs of the findings.
   ///
@@ -17,7 +21,11 @@ class InspectorApi {
   Future<AddAttributesToFindingsResponse> addAttributesToFindings(
       {@required List<String> findingArns,
       @required List<Attribute> attributes}) async {
-    return AddAttributesToFindingsResponse.fromJson({});
+    var response_ = await _client.send('AddAttributesToFindings', {
+      'findingArns': findingArns,
+      'attributes': attributes,
+    });
+    return AddAttributesToFindingsResponse.fromJson(response_);
   }
 
   /// Creates a new assessment target using the ARN of the resource group that
@@ -43,7 +51,11 @@ class InspectorApi {
   Future<CreateAssessmentTargetResponse> createAssessmentTarget(
       String assessmentTargetName,
       {String resourceGroupArn}) async {
-    return CreateAssessmentTargetResponse.fromJson({});
+    var response_ = await _client.send('CreateAssessmentTarget', {
+      'assessmentTargetName': assessmentTargetName,
+      if (resourceGroupArn != null) 'resourceGroupArn': resourceGroupArn,
+    });
+    return CreateAssessmentTargetResponse.fromJson(response_);
   }
 
   /// Creates an assessment template for the assessment target that is specified
@@ -77,7 +89,15 @@ class InspectorApi {
       @required int durationInSeconds,
       @required List<String> rulesPackageArns,
       List<Attribute> userAttributesForFindings}) async {
-    return CreateAssessmentTemplateResponse.fromJson({});
+    var response_ = await _client.send('CreateAssessmentTemplate', {
+      'assessmentTargetArn': assessmentTargetArn,
+      'assessmentTemplateName': assessmentTemplateName,
+      'durationInSeconds': durationInSeconds,
+      'rulesPackageArns': rulesPackageArns,
+      if (userAttributesForFindings != null)
+        'userAttributesForFindings': userAttributesForFindings,
+    });
+    return CreateAssessmentTemplateResponse.fromJson(response_);
   }
 
   /// Starts the generation of an exclusions preview for the specified
@@ -89,7 +109,10 @@ class InspectorApi {
   /// for which you want to create an exclusions preview.
   Future<CreateExclusionsPreviewResponse> createExclusionsPreview(
       String assessmentTemplateArn) async {
-    return CreateExclusionsPreviewResponse.fromJson({});
+    var response_ = await _client.send('CreateExclusionsPreview', {
+      'assessmentTemplateArn': assessmentTemplateArn,
+    });
+    return CreateExclusionsPreviewResponse.fromJson(response_);
   }
 
   /// Creates a resource group using the specified set of tags (key and value
@@ -104,7 +127,10 @@ class InspectorApi {
   /// For example,'[{"key":"Name","values":["TestEC2Instance"]}]'.
   Future<CreateResourceGroupResponse> createResourceGroup(
       List<ResourceGroupTag> resourceGroupTags) async {
-    return CreateResourceGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateResourceGroup', {
+      'resourceGroupTags': resourceGroupTags,
+    });
+    return CreateResourceGroupResponse.fromJson(response_);
   }
 
   /// Deletes the assessment run that is specified by the ARN of the assessment
@@ -112,21 +138,33 @@ class InspectorApi {
   ///
   /// [assessmentRunArn]: The ARN that specifies the assessment run that you
   /// want to delete.
-  Future<void> deleteAssessmentRun(String assessmentRunArn) async {}
+  Future<void> deleteAssessmentRun(String assessmentRunArn) async {
+    await _client.send('DeleteAssessmentRun', {
+      'assessmentRunArn': assessmentRunArn,
+    });
+  }
 
   /// Deletes the assessment target that is specified by the ARN of the
   /// assessment target.
   ///
   /// [assessmentTargetArn]: The ARN that specifies the assessment target that
   /// you want to delete.
-  Future<void> deleteAssessmentTarget(String assessmentTargetArn) async {}
+  Future<void> deleteAssessmentTarget(String assessmentTargetArn) async {
+    await _client.send('DeleteAssessmentTarget', {
+      'assessmentTargetArn': assessmentTargetArn,
+    });
+  }
 
   /// Deletes the assessment template that is specified by the ARN of the
   /// assessment template.
   ///
   /// [assessmentTemplateArn]: The ARN that specifies the assessment template
   /// that you want to delete.
-  Future<void> deleteAssessmentTemplate(String assessmentTemplateArn) async {}
+  Future<void> deleteAssessmentTemplate(String assessmentTemplateArn) async {
+    await _client.send('DeleteAssessmentTemplate', {
+      'assessmentTemplateArn': assessmentTemplateArn,
+    });
+  }
 
   /// Describes the assessment runs that are specified by the ARNs of the
   /// assessment runs.
@@ -135,7 +173,10 @@ class InspectorApi {
   /// want to describe.
   Future<DescribeAssessmentRunsResponse> describeAssessmentRuns(
       List<String> assessmentRunArns) async {
-    return DescribeAssessmentRunsResponse.fromJson({});
+    var response_ = await _client.send('DescribeAssessmentRuns', {
+      'assessmentRunArns': assessmentRunArns,
+    });
+    return DescribeAssessmentRunsResponse.fromJson(response_);
   }
 
   /// Describes the assessment targets that are specified by the ARNs of the
@@ -145,21 +186,28 @@ class InspectorApi {
   /// that you want to describe.
   Future<DescribeAssessmentTargetsResponse> describeAssessmentTargets(
       List<String> assessmentTargetArns) async {
-    return DescribeAssessmentTargetsResponse.fromJson({});
+    var response_ = await _client.send('DescribeAssessmentTargets', {
+      'assessmentTargetArns': assessmentTargetArns,
+    });
+    return DescribeAssessmentTargetsResponse.fromJson(response_);
   }
 
   /// Describes the assessment templates that are specified by the ARNs of the
   /// assessment templates.
   Future<DescribeAssessmentTemplatesResponse> describeAssessmentTemplates(
       List<String> assessmentTemplateArns) async {
-    return DescribeAssessmentTemplatesResponse.fromJson({});
+    var response_ = await _client.send('DescribeAssessmentTemplates', {
+      'assessmentTemplateArns': assessmentTemplateArns,
+    });
+    return DescribeAssessmentTemplatesResponse.fromJson(response_);
   }
 
   /// Describes the IAM role that enables Amazon Inspector to access your AWS
   /// account.
   Future<DescribeCrossAccountAccessRoleResponse>
       describeCrossAccountAccessRole() async {
-    return DescribeCrossAccountAccessRoleResponse.fromJson({});
+    var response_ = await _client.send('DescribeCrossAccountAccessRole', {});
+    return DescribeCrossAccountAccessRoleResponse.fromJson(response_);
   }
 
   /// Describes the exclusions that are specified by the exclusions' ARNs.
@@ -172,7 +220,11 @@ class InspectorApi {
   Future<DescribeExclusionsResponse> describeExclusions(
       List<String> exclusionArns,
       {String locale}) async {
-    return DescribeExclusionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeExclusions', {
+      'exclusionArns': exclusionArns,
+      if (locale != null) 'locale': locale,
+    });
+    return DescribeExclusionsResponse.fromJson(response_);
   }
 
   /// Describes the findings that are specified by the ARNs of the findings.
@@ -185,7 +237,11 @@ class InspectorApi {
   /// finding.
   Future<DescribeFindingsResponse> describeFindings(List<String> findingArns,
       {String locale}) async {
-    return DescribeFindingsResponse.fromJson({});
+    var response_ = await _client.send('DescribeFindings', {
+      'findingArns': findingArns,
+      if (locale != null) 'locale': locale,
+    });
+    return DescribeFindingsResponse.fromJson(response_);
   }
 
   /// Describes the resource groups that are specified by the ARNs of the
@@ -195,7 +251,10 @@ class InspectorApi {
   /// want to describe.
   Future<DescribeResourceGroupsResponse> describeResourceGroups(
       List<String> resourceGroupArns) async {
-    return DescribeResourceGroupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeResourceGroups', {
+      'resourceGroupArns': resourceGroupArns,
+    });
+    return DescribeResourceGroupsResponse.fromJson(response_);
   }
 
   /// Describes the rules packages that are specified by the ARNs of the rules
@@ -209,7 +268,11 @@ class InspectorApi {
   Future<DescribeRulesPackagesResponse> describeRulesPackages(
       List<String> rulesPackageArns,
       {String locale}) async {
-    return DescribeRulesPackagesResponse.fromJson({});
+    var response_ = await _client.send('DescribeRulesPackages', {
+      'rulesPackageArns': rulesPackageArns,
+      if (locale != null) 'locale': locale,
+    });
+    return DescribeRulesPackagesResponse.fromJson(response_);
   }
 
   /// Produces an assessment report that includes detailed and comprehensive
@@ -229,7 +292,12 @@ class InspectorApi {
       {@required String assessmentRunArn,
       @required String reportFileFormat,
       @required String reportType}) async {
-    return GetAssessmentReportResponse.fromJson({});
+    var response_ = await _client.send('GetAssessmentReport', {
+      'assessmentRunArn': assessmentRunArn,
+      'reportFileFormat': reportFileFormat,
+      'reportType': reportType,
+    });
+    return GetAssessmentReportResponse.fromJson(response_);
   }
 
   /// Retrieves the exclusions preview (a list of ExclusionPreview objects)
@@ -260,7 +328,14 @@ class InspectorApi {
       String nextToken,
       int maxResults,
       String locale}) async {
-    return GetExclusionsPreviewResponse.fromJson({});
+    var response_ = await _client.send('GetExclusionsPreview', {
+      'assessmentTemplateArn': assessmentTemplateArn,
+      'previewToken': previewToken,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (locale != null) 'locale': locale,
+    });
+    return GetExclusionsPreviewResponse.fromJson(response_);
   }
 
   /// Information about the data that is collected for the specified assessment
@@ -270,7 +345,10 @@ class InspectorApi {
   /// telemetry data that you want to obtain.
   Future<GetTelemetryMetadataResponse> getTelemetryMetadata(
       String assessmentRunArn) async {
-    return GetTelemetryMetadataResponse.fromJson({});
+    var response_ = await _client.send('GetTelemetryMetadata', {
+      'assessmentRunArn': assessmentRunArn,
+    });
+    return GetTelemetryMetadataResponse.fromJson(response_);
   }
 
   /// Lists the agents of the assessment runs that are specified by the ARNs of
@@ -300,7 +378,13 @@ class InspectorApi {
       {AgentFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListAssessmentRunAgentsResponse.fromJson({});
+    var response_ = await _client.send('ListAssessmentRunAgents', {
+      'assessmentRunArn': assessmentRunArn,
+      if (filter != null) 'filter': filter,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListAssessmentRunAgentsResponse.fromJson(response_);
   }
 
   /// Lists the assessment runs that correspond to the assessment templates that
@@ -330,7 +414,14 @@ class InspectorApi {
       AssessmentRunFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListAssessmentRunsResponse.fromJson({});
+    var response_ = await _client.send('ListAssessmentRuns', {
+      if (assessmentTemplateArns != null)
+        'assessmentTemplateArns': assessmentTemplateArns,
+      if (filter != null) 'filter': filter,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListAssessmentRunsResponse.fromJson(response_);
   }
 
   /// Lists the ARNs of the assessment targets within this AWS account. For more
@@ -355,7 +446,12 @@ class InspectorApi {
   /// is 500.
   Future<ListAssessmentTargetsResponse> listAssessmentTargets(
       {AssessmentTargetFilter filter, String nextToken, int maxResults}) async {
-    return ListAssessmentTargetsResponse.fromJson({});
+    var response_ = await _client.send('ListAssessmentTargets', {
+      if (filter != null) 'filter': filter,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListAssessmentTargetsResponse.fromJson(response_);
   }
 
   /// Lists the assessment templates that correspond to the assessment targets
@@ -385,7 +481,14 @@ class InspectorApi {
       AssessmentTemplateFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListAssessmentTemplatesResponse.fromJson({});
+    var response_ = await _client.send('ListAssessmentTemplates', {
+      if (assessmentTargetArns != null)
+        'assessmentTargetArns': assessmentTargetArns,
+      if (filter != null) 'filter': filter,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListAssessmentTemplatesResponse.fromJson(response_);
   }
 
   /// Lists all the event subscriptions for the assessment template that is
@@ -406,7 +509,12 @@ class InspectorApi {
   /// is 500.
   Future<ListEventSubscriptionsResponse> listEventSubscriptions(
       {String resourceArn, String nextToken, int maxResults}) async {
-    return ListEventSubscriptionsResponse.fromJson({});
+    var response_ = await _client.send('ListEventSubscriptions', {
+      if (resourceArn != null) 'resourceArn': resourceArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListEventSubscriptionsResponse.fromJson(response_);
   }
 
   /// List exclusions that are generated by the assessment run.
@@ -425,7 +533,12 @@ class InspectorApi {
   /// value is 500.
   Future<ListExclusionsResponse> listExclusions(String assessmentRunArn,
       {String nextToken, int maxResults}) async {
-    return ListExclusionsResponse.fromJson({});
+    var response_ = await _client.send('ListExclusions', {
+      'assessmentRunArn': assessmentRunArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListExclusionsResponse.fromJson(response_);
   }
 
   /// Lists findings that are generated by the assessment runs that are
@@ -455,7 +568,13 @@ class InspectorApi {
       FindingFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListFindingsResponse.fromJson({});
+    var response_ = await _client.send('ListFindings', {
+      if (assessmentRunArns != null) 'assessmentRunArns': assessmentRunArns,
+      if (filter != null) 'filter': filter,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListFindingsResponse.fromJson(response_);
   }
 
   /// Lists all available Amazon Inspector rules packages.
@@ -471,7 +590,11 @@ class InspectorApi {
   /// is 500.
   Future<ListRulesPackagesResponse> listRulesPackages(
       {String nextToken, int maxResults}) async {
-    return ListRulesPackagesResponse.fromJson({});
+    var response_ = await _client.send('ListRulesPackages', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListRulesPackagesResponse.fromJson(response_);
   }
 
   /// Lists all tags associated with an assessment template.
@@ -480,7 +603,10 @@ class InspectorApi {
   /// you want to list.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Previews the agents installed on the EC2 instances that are part of the
@@ -500,7 +626,12 @@ class InspectorApi {
   /// is 500.
   Future<PreviewAgentsResponse> previewAgents(String previewAgentsArn,
       {String nextToken, int maxResults}) async {
-    return PreviewAgentsResponse.fromJson({});
+    var response_ = await _client.send('PreviewAgents', {
+      'previewAgentsArn': previewAgentsArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return PreviewAgentsResponse.fromJson(response_);
   }
 
   /// Registers the IAM role that grants Amazon Inspector access to AWS Services
@@ -508,7 +639,11 @@ class InspectorApi {
   ///
   /// [roleArn]: The ARN of the IAM role that grants Amazon Inspector access to
   /// AWS Services needed to perform security assessments.
-  Future<void> registerCrossAccountAccessRole(String roleArn) async {}
+  Future<void> registerCrossAccountAccessRole(String roleArn) async {
+    await _client.send('RegisterCrossAccountAccessRole', {
+      'roleArn': roleArn,
+    });
+  }
 
   /// Removes entire attributes (key and value pairs) from the findings that are
   /// specified by the ARNs of the findings where an attribute with the
@@ -522,7 +657,11 @@ class InspectorApi {
   Future<RemoveAttributesFromFindingsResponse> removeAttributesFromFindings(
       {@required List<String> findingArns,
       @required List<String> attributeKeys}) async {
-    return RemoveAttributesFromFindingsResponse.fromJson({});
+    var response_ = await _client.send('RemoveAttributesFromFindings', {
+      'findingArns': findingArns,
+      'attributeKeys': attributeKeys,
+    });
+    return RemoveAttributesFromFindingsResponse.fromJson(response_);
   }
 
   /// Sets tags (key and value pairs) to the assessment template that is
@@ -533,7 +672,12 @@ class InspectorApi {
   ///
   /// [tags]: A collection of key and value pairs that you want to set to the
   /// assessment template.
-  Future<void> setTagsForResource(String resourceArn, {List<Tag> tags}) async {}
+  Future<void> setTagsForResource(String resourceArn, {List<Tag> tags}) async {
+    await _client.send('SetTagsForResource', {
+      'resourceArn': resourceArn,
+      if (tags != null) 'tags': tags,
+    });
+  }
 
   /// Starts the assessment run specified by the ARN of the assessment template.
   /// For this API to function properly, you must not exceed the limit of
@@ -548,7 +692,11 @@ class InspectorApi {
   Future<StartAssessmentRunResponse> startAssessmentRun(
       String assessmentTemplateArn,
       {String assessmentRunName}) async {
-    return StartAssessmentRunResponse.fromJson({});
+    var response_ = await _client.send('StartAssessmentRun', {
+      'assessmentTemplateArn': assessmentTemplateArn,
+      if (assessmentRunName != null) 'assessmentRunName': assessmentRunName,
+    });
+    return StartAssessmentRunResponse.fromJson(response_);
   }
 
   /// Stops the assessment run that is specified by the ARN of the assessment
@@ -562,7 +710,12 @@ class InspectorApi {
   /// findings generation process. SKIP_EVALUATION cancels the assessment run
   /// immediately, after which no findings are generated.
   Future<void> stopAssessmentRun(String assessmentRunArn,
-      {String stopAction}) async {}
+      {String stopAction}) async {
+    await _client.send('StopAssessmentRun', {
+      'assessmentRunArn': assessmentRunArn,
+      if (stopAction != null) 'stopAction': stopAction,
+    });
+  }
 
   /// Enables the process of sending Amazon Simple Notification Service (SNS)
   /// notifications about a specified event to a specified SNS topic.
@@ -577,7 +730,13 @@ class InspectorApi {
   Future<void> subscribeToEvent(
       {@required String resourceArn,
       @required String event,
-      @required String topicArn}) async {}
+      @required String topicArn}) async {
+    await _client.send('SubscribeToEvent', {
+      'resourceArn': resourceArn,
+      'event': event,
+      'topicArn': topicArn,
+    });
+  }
 
   /// Disables the process of sending Amazon Simple Notification Service (SNS)
   /// notifications about a specified event to a specified SNS topic.
@@ -591,7 +750,13 @@ class InspectorApi {
   Future<void> unsubscribeFromEvent(
       {@required String resourceArn,
       @required String event,
-      @required String topicArn}) async {}
+      @required String topicArn}) async {
+    await _client.send('UnsubscribeFromEvent', {
+      'resourceArn': resourceArn,
+      'event': event,
+      'topicArn': topicArn,
+    });
+  }
 
   /// Updates the assessment target that is specified by the ARN of the
   /// assessment target.
@@ -610,7 +775,13 @@ class InspectorApi {
   Future<void> updateAssessmentTarget(
       {@required String assessmentTargetArn,
       @required String assessmentTargetName,
-      String resourceGroupArn}) async {}
+      String resourceGroupArn}) async {
+    await _client.send('UpdateAssessmentTarget', {
+      'assessmentTargetArn': assessmentTargetArn,
+      'assessmentTargetName': assessmentTargetName,
+      if (resourceGroupArn != null) 'resourceGroupArn': resourceGroupArn,
+    });
+  }
 }
 
 class AddAttributesToFindingsResponse {
@@ -622,7 +793,10 @@ class AddAttributesToFindingsResponse {
     @required this.failedItems,
   });
   static AddAttributesToFindingsResponse fromJson(Map<String, dynamic> json) =>
-      AddAttributesToFindingsResponse();
+      AddAttributesToFindingsResponse(
+        failedItems: (json['failedItems'] as Map).map(
+            (k, v) => MapEntry(k as String, FailedItemDetails.fromJson(v))),
+      );
 }
 
 /// Contains information about an Amazon Inspector agent. This data type is used
@@ -640,6 +814,7 @@ class AgentFilter {
     @required this.agentHealths,
     @required this.agentHealthCodes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Used as a response element in the PreviewAgents action.
@@ -682,7 +857,29 @@ class AgentPreview {
     this.kernelVersion,
     this.ipv4Address,
   });
-  static AgentPreview fromJson(Map<String, dynamic> json) => AgentPreview();
+  static AgentPreview fromJson(Map<String, dynamic> json) => AgentPreview(
+        hostname:
+            json.containsKey('hostname') ? json['hostname'] as String : null,
+        agentId: json['agentId'] as String,
+        autoScalingGroup: json.containsKey('autoScalingGroup')
+            ? json['autoScalingGroup'] as String
+            : null,
+        agentHealth: json.containsKey('agentHealth')
+            ? json['agentHealth'] as String
+            : null,
+        agentVersion: json.containsKey('agentVersion')
+            ? json['agentVersion'] as String
+            : null,
+        operatingSystem: json.containsKey('operatingSystem')
+            ? json['operatingSystem'] as String
+            : null,
+        kernelVersion: json.containsKey('kernelVersion')
+            ? json['kernelVersion'] as String
+            : null,
+        ipv4Address: json.containsKey('ipv4Address')
+            ? json['ipv4Address'] as String
+            : null,
+      );
 }
 
 /// A snapshot of an Amazon Inspector assessment run that contains the findings
@@ -756,7 +953,35 @@ class AssessmentRun {
     @required this.notifications,
     @required this.findingCounts,
   });
-  static AssessmentRun fromJson(Map<String, dynamic> json) => AssessmentRun();
+  static AssessmentRun fromJson(Map<String, dynamic> json) => AssessmentRun(
+        arn: json['arn'] as String,
+        name: json['name'] as String,
+        assessmentTemplateArn: json['assessmentTemplateArn'] as String,
+        state: json['state'] as String,
+        durationInSeconds: json['durationInSeconds'] as int,
+        rulesPackageArns:
+            (json['rulesPackageArns'] as List).map((e) => e as String).toList(),
+        userAttributesForFindings: (json['userAttributesForFindings'] as List)
+            .map((e) => Attribute.fromJson(e))
+            .toList(),
+        createdAt: DateTime.parse(json['createdAt']),
+        startedAt: json.containsKey('startedAt')
+            ? DateTime.parse(json['startedAt'])
+            : null,
+        completedAt: json.containsKey('completedAt')
+            ? DateTime.parse(json['completedAt'])
+            : null,
+        stateChangedAt: DateTime.parse(json['stateChangedAt']),
+        dataCollected: json['dataCollected'] as bool,
+        stateChanges: (json['stateChanges'] as List)
+            .map((e) => AssessmentRunStateChange.fromJson(e))
+            .toList(),
+        notifications: (json['notifications'] as List)
+            .map((e) => AssessmentRunNotification.fromJson(e))
+            .toList(),
+        findingCounts: (json['findingCounts'] as Map)
+            .map((k, v) => MapEntry(k as String, v as int)),
+      );
 }
 
 /// Contains information about an Amazon Inspector agent. This data type is used
@@ -795,7 +1020,21 @@ class AssessmentRunAgent {
     @required this.telemetryMetadata,
   });
   static AssessmentRunAgent fromJson(Map<String, dynamic> json) =>
-      AssessmentRunAgent();
+      AssessmentRunAgent(
+        agentId: json['agentId'] as String,
+        assessmentRunArn: json['assessmentRunArn'] as String,
+        agentHealth: json['agentHealth'] as String,
+        agentHealthCode: json['agentHealthCode'] as String,
+        agentHealthDetails: json.containsKey('agentHealthDetails')
+            ? json['agentHealthDetails'] as String
+            : null,
+        autoScalingGroup: json.containsKey('autoScalingGroup')
+            ? json['autoScalingGroup'] as String
+            : null,
+        telemetryMetadata: (json['telemetryMetadata'] as List)
+            .map((e) => TelemetryMetadata.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Used as the request parameter in the ListAssessmentRuns action.
@@ -848,6 +1087,7 @@ class AssessmentRunFilter {
     this.completionTimeRange,
     this.stateChangeTimeRange,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Used as one of the elements of the AssessmentRun data type.
@@ -880,7 +1120,18 @@ class AssessmentRunNotification {
     this.snsPublishStatusCode,
   });
   static AssessmentRunNotification fromJson(Map<String, dynamic> json) =>
-      AssessmentRunNotification();
+      AssessmentRunNotification(
+        date: DateTime.parse(json['date']),
+        event: json['event'] as String,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        error: json['error'] as bool,
+        snsTopicArn: json.containsKey('snsTopicArn')
+            ? json['snsTopicArn'] as String
+            : null,
+        snsPublishStatusCode: json.containsKey('snsPublishStatusCode')
+            ? json['snsPublishStatusCode'] as String
+            : null,
+      );
 }
 
 /// Used as one of the elements of the AssessmentRun data type.
@@ -896,7 +1147,10 @@ class AssessmentRunStateChange {
     @required this.state,
   });
   static AssessmentRunStateChange fromJson(Map<String, dynamic> json) =>
-      AssessmentRunStateChange();
+      AssessmentRunStateChange(
+        stateChangedAt: DateTime.parse(json['stateChangedAt']),
+        state: json['state'] as String,
+      );
 }
 
 /// Contains information about an Amazon Inspector application. This data type
@@ -926,7 +1180,15 @@ class AssessmentTarget {
     @required this.updatedAt,
   });
   static AssessmentTarget fromJson(Map<String, dynamic> json) =>
-      AssessmentTarget();
+      AssessmentTarget(
+        arn: json['arn'] as String,
+        name: json['name'] as String,
+        resourceGroupArn: json.containsKey('resourceGroupArn')
+            ? json['resourceGroupArn'] as String
+            : null,
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
+      );
 }
 
 /// Used as the request parameter in the ListAssessmentTargets action.
@@ -940,6 +1202,7 @@ class AssessmentTargetFilter {
   AssessmentTargetFilter({
     this.assessmentTargetNamePattern,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about an Amazon Inspector assessment template. This
@@ -992,7 +1255,22 @@ class AssessmentTemplate {
     @required this.createdAt,
   });
   static AssessmentTemplate fromJson(Map<String, dynamic> json) =>
-      AssessmentTemplate();
+      AssessmentTemplate(
+        arn: json['arn'] as String,
+        name: json['name'] as String,
+        assessmentTargetArn: json['assessmentTargetArn'] as String,
+        durationInSeconds: json['durationInSeconds'] as int,
+        rulesPackageArns:
+            (json['rulesPackageArns'] as List).map((e) => e as String).toList(),
+        userAttributesForFindings: (json['userAttributesForFindings'] as List)
+            .map((e) => Attribute.fromJson(e))
+            .toList(),
+        lastAssessmentRunArn: json.containsKey('lastAssessmentRunArn')
+            ? json['lastAssessmentRunArn'] as String
+            : null,
+        assessmentRunCount: json['assessmentRunCount'] as int,
+        createdAt: DateTime.parse(json['createdAt']),
+      );
 }
 
 /// Used as the request parameter in the ListAssessmentTemplates action.
@@ -1019,6 +1297,7 @@ class AssessmentTemplateFilter {
     this.durationRange,
     this.rulesPackageArns,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A collection of attributes of the host from which the finding is generated.
@@ -1061,8 +1340,27 @@ class AssetAttributes {
     this.tags,
     this.networkInterfaces,
   });
-  static AssetAttributes fromJson(Map<String, dynamic> json) =>
-      AssetAttributes();
+  static AssetAttributes fromJson(Map<String, dynamic> json) => AssetAttributes(
+        schemaVersion: json['schemaVersion'] as int,
+        agentId: json.containsKey('agentId') ? json['agentId'] as String : null,
+        autoScalingGroup: json.containsKey('autoScalingGroup')
+            ? json['autoScalingGroup'] as String
+            : null,
+        amiId: json.containsKey('amiId') ? json['amiId'] as String : null,
+        hostname:
+            json.containsKey('hostname') ? json['hostname'] as String : null,
+        ipv4Addresses: json.containsKey('ipv4Addresses')
+            ? (json['ipv4Addresses'] as List).map((e) => e as String).toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        networkInterfaces: json.containsKey('networkInterfaces')
+            ? (json['networkInterfaces'] as List)
+                .map((e) => NetworkInterface.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// This data type is used as a request parameter in the AddAttributesToFindings
@@ -1078,7 +1376,11 @@ class Attribute {
     @required this.key,
     this.value,
   });
-  static Attribute fromJson(Map<String, dynamic> json) => Attribute();
+  static Attribute fromJson(Map<String, dynamic> json) => Attribute(
+        key: json['key'] as String,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateAssessmentTargetResponse {
@@ -1089,7 +1391,9 @@ class CreateAssessmentTargetResponse {
     @required this.assessmentTargetArn,
   });
   static CreateAssessmentTargetResponse fromJson(Map<String, dynamic> json) =>
-      CreateAssessmentTargetResponse();
+      CreateAssessmentTargetResponse(
+        assessmentTargetArn: json['assessmentTargetArn'] as String,
+      );
 }
 
 class CreateAssessmentTemplateResponse {
@@ -1100,7 +1404,9 @@ class CreateAssessmentTemplateResponse {
     @required this.assessmentTemplateArn,
   });
   static CreateAssessmentTemplateResponse fromJson(Map<String, dynamic> json) =>
-      CreateAssessmentTemplateResponse();
+      CreateAssessmentTemplateResponse(
+        assessmentTemplateArn: json['assessmentTemplateArn'] as String,
+      );
 }
 
 class CreateExclusionsPreviewResponse {
@@ -1113,7 +1419,9 @@ class CreateExclusionsPreviewResponse {
     @required this.previewToken,
   });
   static CreateExclusionsPreviewResponse fromJson(Map<String, dynamic> json) =>
-      CreateExclusionsPreviewResponse();
+      CreateExclusionsPreviewResponse(
+        previewToken: json['previewToken'] as String,
+      );
 }
 
 class CreateResourceGroupResponse {
@@ -1124,7 +1432,9 @@ class CreateResourceGroupResponse {
     @required this.resourceGroupArn,
   });
   static CreateResourceGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateResourceGroupResponse();
+      CreateResourceGroupResponse(
+        resourceGroupArn: json['resourceGroupArn'] as String,
+      );
 }
 
 class DescribeAssessmentRunsResponse {
@@ -1140,7 +1450,13 @@ class DescribeAssessmentRunsResponse {
     @required this.failedItems,
   });
   static DescribeAssessmentRunsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAssessmentRunsResponse();
+      DescribeAssessmentRunsResponse(
+        assessmentRuns: (json['assessmentRuns'] as List)
+            .map((e) => AssessmentRun.fromJson(e))
+            .toList(),
+        failedItems: (json['failedItems'] as Map).map(
+            (k, v) => MapEntry(k as String, FailedItemDetails.fromJson(v))),
+      );
 }
 
 class DescribeAssessmentTargetsResponse {
@@ -1157,7 +1473,13 @@ class DescribeAssessmentTargetsResponse {
   });
   static DescribeAssessmentTargetsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAssessmentTargetsResponse();
+      DescribeAssessmentTargetsResponse(
+        assessmentTargets: (json['assessmentTargets'] as List)
+            .map((e) => AssessmentTarget.fromJson(e))
+            .toList(),
+        failedItems: (json['failedItems'] as Map).map(
+            (k, v) => MapEntry(k as String, FailedItemDetails.fromJson(v))),
+      );
 }
 
 class DescribeAssessmentTemplatesResponse {
@@ -1174,7 +1496,13 @@ class DescribeAssessmentTemplatesResponse {
   });
   static DescribeAssessmentTemplatesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAssessmentTemplatesResponse();
+      DescribeAssessmentTemplatesResponse(
+        assessmentTemplates: (json['assessmentTemplates'] as List)
+            .map((e) => AssessmentTemplate.fromJson(e))
+            .toList(),
+        failedItems: (json['failedItems'] as Map).map(
+            (k, v) => MapEntry(k as String, FailedItemDetails.fromJson(v))),
+      );
 }
 
 class DescribeCrossAccountAccessRoleResponse {
@@ -1196,7 +1524,11 @@ class DescribeCrossAccountAccessRoleResponse {
   });
   static DescribeCrossAccountAccessRoleResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeCrossAccountAccessRoleResponse();
+      DescribeCrossAccountAccessRoleResponse(
+        roleArn: json['roleArn'] as String,
+        valid: json['valid'] as bool,
+        registeredAt: DateTime.parse(json['registeredAt']),
+      );
 }
 
 class DescribeExclusionsResponse {
@@ -1212,7 +1544,12 @@ class DescribeExclusionsResponse {
     @required this.failedItems,
   });
   static DescribeExclusionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeExclusionsResponse();
+      DescribeExclusionsResponse(
+        exclusions: (json['exclusions'] as Map)
+            .map((k, v) => MapEntry(k as String, Exclusion.fromJson(v))),
+        failedItems: (json['failedItems'] as Map).map(
+            (k, v) => MapEntry(k as String, FailedItemDetails.fromJson(v))),
+      );
 }
 
 class DescribeFindingsResponse {
@@ -1228,7 +1565,12 @@ class DescribeFindingsResponse {
     @required this.failedItems,
   });
   static DescribeFindingsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeFindingsResponse();
+      DescribeFindingsResponse(
+        findings:
+            (json['findings'] as List).map((e) => Finding.fromJson(e)).toList(),
+        failedItems: (json['failedItems'] as Map).map(
+            (k, v) => MapEntry(k as String, FailedItemDetails.fromJson(v))),
+      );
 }
 
 class DescribeResourceGroupsResponse {
@@ -1244,7 +1586,13 @@ class DescribeResourceGroupsResponse {
     @required this.failedItems,
   });
   static DescribeResourceGroupsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeResourceGroupsResponse();
+      DescribeResourceGroupsResponse(
+        resourceGroups: (json['resourceGroups'] as List)
+            .map((e) => ResourceGroup.fromJson(e))
+            .toList(),
+        failedItems: (json['failedItems'] as Map).map(
+            (k, v) => MapEntry(k as String, FailedItemDetails.fromJson(v))),
+      );
 }
 
 class DescribeRulesPackagesResponse {
@@ -1260,7 +1608,13 @@ class DescribeRulesPackagesResponse {
     @required this.failedItems,
   });
   static DescribeRulesPackagesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeRulesPackagesResponse();
+      DescribeRulesPackagesResponse(
+        rulesPackages: (json['rulesPackages'] as List)
+            .map((e) => RulesPackage.fromJson(e))
+            .toList(),
+        failedItems: (json['failedItems'] as Map).map(
+            (k, v) => MapEntry(k as String, FailedItemDetails.fromJson(v))),
+      );
 }
 
 /// This data type is used in the AssessmentTemplateFilter data type.
@@ -1276,6 +1630,7 @@ class DurationRange {
     this.minSeconds,
     this.maxSeconds,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This data type is used in the Subscription data type.
@@ -1292,7 +1647,10 @@ class EventSubscription {
     @required this.subscribedAt,
   });
   static EventSubscription fromJson(Map<String, dynamic> json) =>
-      EventSubscription();
+      EventSubscription(
+        event: json['event'] as String,
+        subscribedAt: DateTime.parse(json['subscribedAt']),
+      );
 }
 
 /// Contains information about what was excluded from an assessment run.
@@ -1323,7 +1681,18 @@ class Exclusion {
     @required this.scopes,
     this.attributes,
   });
-  static Exclusion fromJson(Map<String, dynamic> json) => Exclusion();
+  static Exclusion fromJson(Map<String, dynamic> json) => Exclusion(
+        arn: json['arn'] as String,
+        title: json['title'] as String,
+        description: json['description'] as String,
+        recommendation: json['recommendation'] as String,
+        scopes: (json['scopes'] as List).map((e) => Scope.fromJson(e)).toList(),
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains information about what is excluded from an assessment run given the
@@ -1352,7 +1721,17 @@ class ExclusionPreview {
     this.attributes,
   });
   static ExclusionPreview fromJson(Map<String, dynamic> json) =>
-      ExclusionPreview();
+      ExclusionPreview(
+        title: json['title'] as String,
+        description: json['description'] as String,
+        recommendation: json['recommendation'] as String,
+        scopes: (json['scopes'] as List).map((e) => Scope.fromJson(e)).toList(),
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Includes details about the failed items.
@@ -1369,7 +1748,10 @@ class FailedItemDetails {
     @required this.retryable,
   });
   static FailedItemDetails fromJson(Map<String, dynamic> json) =>
-      FailedItemDetails();
+      FailedItemDetails(
+        failureCode: json['failureCode'] as String,
+        retryable: json['retryable'] as bool,
+      );
 }
 
 /// Contains information about an Amazon Inspector finding. This data type is
@@ -1451,7 +1833,47 @@ class Finding {
     @required this.createdAt,
     @required this.updatedAt,
   });
-  static Finding fromJson(Map<String, dynamic> json) => Finding();
+  static Finding fromJson(Map<String, dynamic> json) => Finding(
+        arn: json['arn'] as String,
+        schemaVersion: json.containsKey('schemaVersion')
+            ? json['schemaVersion'] as int
+            : null,
+        service: json.containsKey('service') ? json['service'] as String : null,
+        serviceAttributes: json.containsKey('serviceAttributes')
+            ? InspectorServiceAttributes.fromJson(json['serviceAttributes'])
+            : null,
+        assetType:
+            json.containsKey('assetType') ? json['assetType'] as String : null,
+        assetAttributes: json.containsKey('assetAttributes')
+            ? AssetAttributes.fromJson(json['assetAttributes'])
+            : null,
+        id: json.containsKey('id') ? json['id'] as String : null,
+        title: json.containsKey('title') ? json['title'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        recommendation: json.containsKey('recommendation')
+            ? json['recommendation'] as String
+            : null,
+        severity:
+            json.containsKey('severity') ? json['severity'] as String : null,
+        numericSeverity: json.containsKey('numericSeverity')
+            ? json['numericSeverity'] as double
+            : null,
+        confidence:
+            json.containsKey('confidence') ? json['confidence'] as int : null,
+        indicatorOfCompromise: json.containsKey('indicatorOfCompromise')
+            ? json['indicatorOfCompromise'] as bool
+            : null,
+        attributes: (json['attributes'] as List)
+            .map((e) => Attribute.fromJson(e))
+            .toList(),
+        userAttributes: (json['userAttributes'] as List)
+            .map((e) => Attribute.fromJson(e))
+            .toList(),
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
+      );
 }
 
 /// This data type is used as a request parameter in the ListFindings action.
@@ -1504,6 +1926,7 @@ class FindingFilter {
     this.userAttributes,
     this.creationTimeRange,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetAssessmentReportResponse {
@@ -1519,7 +1942,10 @@ class GetAssessmentReportResponse {
     this.url,
   });
   static GetAssessmentReportResponse fromJson(Map<String, dynamic> json) =>
-      GetAssessmentReportResponse();
+      GetAssessmentReportResponse(
+        status: json['status'] as String,
+        url: json.containsKey('url') ? json['url'] as String : null,
+      );
 }
 
 class GetExclusionsPreviewResponse {
@@ -1541,7 +1967,16 @@ class GetExclusionsPreviewResponse {
     this.nextToken,
   });
   static GetExclusionsPreviewResponse fromJson(Map<String, dynamic> json) =>
-      GetExclusionsPreviewResponse();
+      GetExclusionsPreviewResponse(
+        previewStatus: json['previewStatus'] as String,
+        exclusionPreviews: json.containsKey('exclusionPreviews')
+            ? (json['exclusionPreviews'] as List)
+                .map((e) => ExclusionPreview.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetTelemetryMetadataResponse {
@@ -1552,7 +1987,11 @@ class GetTelemetryMetadataResponse {
     @required this.telemetryMetadata,
   });
   static GetTelemetryMetadataResponse fromJson(Map<String, dynamic> json) =>
-      GetTelemetryMetadataResponse();
+      GetTelemetryMetadataResponse(
+        telemetryMetadata: (json['telemetryMetadata'] as List)
+            .map((e) => TelemetryMetadata.fromJson(e))
+            .toList(),
+      );
 }
 
 /// This data type is used in the Finding data type.
@@ -1572,7 +2011,15 @@ class InspectorServiceAttributes {
     this.rulesPackageArn,
   });
   static InspectorServiceAttributes fromJson(Map<String, dynamic> json) =>
-      InspectorServiceAttributes();
+      InspectorServiceAttributes(
+        schemaVersion: json['schemaVersion'] as int,
+        assessmentRunArn: json.containsKey('assessmentRunArn')
+            ? json['assessmentRunArn'] as String
+            : null,
+        rulesPackageArn: json.containsKey('rulesPackageArn')
+            ? json['rulesPackageArn'] as String
+            : null,
+      );
 }
 
 class ListAssessmentRunAgentsResponse {
@@ -1590,7 +2037,13 @@ class ListAssessmentRunAgentsResponse {
     this.nextToken,
   });
   static ListAssessmentRunAgentsResponse fromJson(Map<String, dynamic> json) =>
-      ListAssessmentRunAgentsResponse();
+      ListAssessmentRunAgentsResponse(
+        assessmentRunAgents: (json['assessmentRunAgents'] as List)
+            .map((e) => AssessmentRunAgent.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListAssessmentRunsResponse {
@@ -1609,7 +2062,13 @@ class ListAssessmentRunsResponse {
     this.nextToken,
   });
   static ListAssessmentRunsResponse fromJson(Map<String, dynamic> json) =>
-      ListAssessmentRunsResponse();
+      ListAssessmentRunsResponse(
+        assessmentRunArns: (json['assessmentRunArns'] as List)
+            .map((e) => e as String)
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListAssessmentTargetsResponse {
@@ -1628,7 +2087,13 @@ class ListAssessmentTargetsResponse {
     this.nextToken,
   });
   static ListAssessmentTargetsResponse fromJson(Map<String, dynamic> json) =>
-      ListAssessmentTargetsResponse();
+      ListAssessmentTargetsResponse(
+        assessmentTargetArns: (json['assessmentTargetArns'] as List)
+            .map((e) => e as String)
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListAssessmentTemplatesResponse {
@@ -1647,7 +2112,13 @@ class ListAssessmentTemplatesResponse {
     this.nextToken,
   });
   static ListAssessmentTemplatesResponse fromJson(Map<String, dynamic> json) =>
-      ListAssessmentTemplatesResponse();
+      ListAssessmentTemplatesResponse(
+        assessmentTemplateArns: (json['assessmentTemplateArns'] as List)
+            .map((e) => e as String)
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListEventSubscriptionsResponse {
@@ -1665,7 +2136,13 @@ class ListEventSubscriptionsResponse {
     this.nextToken,
   });
   static ListEventSubscriptionsResponse fromJson(Map<String, dynamic> json) =>
-      ListEventSubscriptionsResponse();
+      ListEventSubscriptionsResponse(
+        subscriptions: (json['subscriptions'] as List)
+            .map((e) => Subscription.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListExclusionsResponse {
@@ -1683,7 +2160,12 @@ class ListExclusionsResponse {
     this.nextToken,
   });
   static ListExclusionsResponse fromJson(Map<String, dynamic> json) =>
-      ListExclusionsResponse();
+      ListExclusionsResponse(
+        exclusionArns:
+            (json['exclusionArns'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListFindingsResponse {
@@ -1701,7 +2183,12 @@ class ListFindingsResponse {
     this.nextToken,
   });
   static ListFindingsResponse fromJson(Map<String, dynamic> json) =>
-      ListFindingsResponse();
+      ListFindingsResponse(
+        findingArns:
+            (json['findingArns'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListRulesPackagesResponse {
@@ -1719,7 +2206,12 @@ class ListRulesPackagesResponse {
     this.nextToken,
   });
   static ListRulesPackagesResponse fromJson(Map<String, dynamic> json) =>
-      ListRulesPackagesResponse();
+      ListRulesPackagesResponse(
+        rulesPackageArns:
+            (json['rulesPackageArns'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1730,7 +2222,9 @@ class ListTagsForResourceResponse {
     @required this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: (json['tags'] as List).map((e) => Tag.fromJson(e)).toList(),
+      );
 }
 
 /// Contains information about the network interfaces interacting with an EC2
@@ -1782,7 +2276,38 @@ class NetworkInterface {
     this.securityGroups,
   });
   static NetworkInterface fromJson(Map<String, dynamic> json) =>
-      NetworkInterface();
+      NetworkInterface(
+        networkInterfaceId: json.containsKey('networkInterfaceId')
+            ? json['networkInterfaceId'] as String
+            : null,
+        subnetId:
+            json.containsKey('subnetId') ? json['subnetId'] as String : null,
+        vpcId: json.containsKey('vpcId') ? json['vpcId'] as String : null,
+        privateDnsName: json.containsKey('privateDnsName')
+            ? json['privateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('privateIpAddress')
+            ? json['privateIpAddress'] as String
+            : null,
+        privateIpAddresses: json.containsKey('privateIpAddresses')
+            ? (json['privateIpAddresses'] as List)
+                .map((e) => PrivateIp.fromJson(e))
+                .toList()
+            : null,
+        publicDnsName: json.containsKey('publicDnsName')
+            ? json['publicDnsName'] as String
+            : null,
+        publicIp:
+            json.containsKey('publicIp') ? json['publicIp'] as String : null,
+        ipv6Addresses: json.containsKey('ipv6Addresses')
+            ? (json['ipv6Addresses'] as List).map((e) => e as String).toList()
+            : null,
+        securityGroups: json.containsKey('securityGroups')
+            ? (json['securityGroups'] as List)
+                .map((e) => SecurityGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class PreviewAgentsResponse {
@@ -1800,7 +2325,13 @@ class PreviewAgentsResponse {
     this.nextToken,
   });
   static PreviewAgentsResponse fromJson(Map<String, dynamic> json) =>
-      PreviewAgentsResponse();
+      PreviewAgentsResponse(
+        agentPreviews: (json['agentPreviews'] as List)
+            .map((e) => AgentPreview.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Contains information about a private IP address associated with a network
@@ -1817,7 +2348,14 @@ class PrivateIp {
     this.privateDnsName,
     this.privateIpAddress,
   });
-  static PrivateIp fromJson(Map<String, dynamic> json) => PrivateIp();
+  static PrivateIp fromJson(Map<String, dynamic> json) => PrivateIp(
+        privateDnsName: json.containsKey('privateDnsName')
+            ? json['privateDnsName'] as String
+            : null,
+        privateIpAddress: json.containsKey('privateIpAddress')
+            ? json['privateIpAddress'] as String
+            : null,
+      );
 }
 
 class RemoveAttributesFromFindingsResponse {
@@ -1830,7 +2368,10 @@ class RemoveAttributesFromFindingsResponse {
   });
   static RemoveAttributesFromFindingsResponse fromJson(
           Map<String, dynamic> json) =>
-      RemoveAttributesFromFindingsResponse();
+      RemoveAttributesFromFindingsResponse(
+        failedItems: (json['failedItems'] as Map).map(
+            (k, v) => MapEntry(k as String, FailedItemDetails.fromJson(v))),
+      );
 }
 
 /// Contains information about a resource group. The resource group defines a
@@ -1853,7 +2394,13 @@ class ResourceGroup {
     @required this.tags,
     @required this.createdAt,
   });
-  static ResourceGroup fromJson(Map<String, dynamic> json) => ResourceGroup();
+  static ResourceGroup fromJson(Map<String, dynamic> json) => ResourceGroup(
+        arn: json['arn'] as String,
+        tags: (json['tags'] as List)
+            .map((e) => ResourceGroupTag.fromJson(e))
+            .toList(),
+        createdAt: DateTime.parse(json['createdAt']),
+      );
 }
 
 /// This data type is used as one of the elements of the ResourceGroup data
@@ -1870,7 +2417,11 @@ class ResourceGroupTag {
     this.value,
   });
   static ResourceGroupTag fromJson(Map<String, dynamic> json) =>
-      ResourceGroupTag();
+      ResourceGroupTag(
+        key: json['key'] as String,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about an Amazon Inspector rules package. This data type
@@ -1898,7 +2449,15 @@ class RulesPackage {
     @required this.provider,
     this.description,
   });
-  static RulesPackage fromJson(Map<String, dynamic> json) => RulesPackage();
+  static RulesPackage fromJson(Map<String, dynamic> json) => RulesPackage(
+        arn: json['arn'] as String,
+        name: json['name'] as String,
+        version: json['version'] as String,
+        provider: json['provider'] as String,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+      );
 }
 
 /// This data type contains key-value pairs that identify various Amazon
@@ -1914,7 +2473,10 @@ class Scope {
     this.key,
     this.value,
   });
-  static Scope fromJson(Map<String, dynamic> json) => Scope();
+  static Scope fromJson(Map<String, dynamic> json) => Scope(
+        key: json.containsKey('key') ? json['key'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
 }
 
 /// Contains information about a security group associated with a network
@@ -1931,7 +2493,11 @@ class SecurityGroup {
     this.groupName,
     this.groupId,
   });
-  static SecurityGroup fromJson(Map<String, dynamic> json) => SecurityGroup();
+  static SecurityGroup fromJson(Map<String, dynamic> json) => SecurityGroup(
+        groupName:
+            json.containsKey('groupName') ? json['groupName'] as String : null,
+        groupId: json.containsKey('groupId') ? json['groupId'] as String : null,
+      );
 }
 
 class StartAssessmentRunResponse {
@@ -1942,7 +2508,9 @@ class StartAssessmentRunResponse {
     @required this.assessmentRunArn,
   });
   static StartAssessmentRunResponse fromJson(Map<String, dynamic> json) =>
-      StartAssessmentRunResponse();
+      StartAssessmentRunResponse(
+        assessmentRunArn: json['assessmentRunArn'] as String,
+      );
 }
 
 /// This data type is used as a response element in the ListEventSubscriptions
@@ -1964,7 +2532,13 @@ class Subscription {
     @required this.topicArn,
     @required this.eventSubscriptions,
   });
-  static Subscription fromJson(Map<String, dynamic> json) => Subscription();
+  static Subscription fromJson(Map<String, dynamic> json) => Subscription(
+        resourceArn: json['resourceArn'] as String,
+        topicArn: json['topicArn'] as String,
+        eventSubscriptions: (json['eventSubscriptions'] as List)
+            .map((e) => EventSubscription.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A key and value pair. This data type is used as a request parameter in the
@@ -1981,7 +2555,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['key'] as String,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The metadata about the Amazon Inspector application data metrics collected
@@ -2005,7 +2583,12 @@ class TelemetryMetadata {
     this.dataSize,
   });
   static TelemetryMetadata fromJson(Map<String, dynamic> json) =>
-      TelemetryMetadata();
+      TelemetryMetadata(
+        messageType: json['messageType'] as String,
+        count: BigInt.from(json['count']),
+        dataSize:
+            json.containsKey('dataSize') ? BigInt.from(json['dataSize']) : null,
+      );
 }
 
 /// This data type is used in the AssessmentRunFilter data type.
@@ -2020,4 +2603,5 @@ class TimestampRange {
     this.beginDate,
     this.endDate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

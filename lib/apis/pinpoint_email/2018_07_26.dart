@@ -23,6 +23,10 @@ import 'dart:typed_data';
 /// see
 /// [AWS Global Infrastructure](http://aws.amazon.com/about-aws/global-infrastructure/).
 class PinpointEmailApi {
+  final _client;
+  PinpointEmailApi(client)
+      : _client = client.configured('Pinpoint Email', serializer: 'rest-json');
+
   /// Create a configuration set. _Configuration sets_ are groups of rules that
   /// you can apply to the emails you send using Amazon Pinpoint. You apply a
   /// configuration set to an email by including a reference to the
@@ -54,7 +58,15 @@ class PinpointEmailApi {
       ReputationOptions reputationOptions,
       SendingOptions sendingOptions,
       List<Tag> tags}) async {
-    return CreateConfigurationSetResponse.fromJson({});
+    var response_ = await _client.send('CreateConfigurationSet', {
+      'ConfigurationSetName': configurationSetName,
+      if (trackingOptions != null) 'TrackingOptions': trackingOptions,
+      if (deliveryOptions != null) 'DeliveryOptions': deliveryOptions,
+      if (reputationOptions != null) 'ReputationOptions': reputationOptions,
+      if (sendingOptions != null) 'SendingOptions': sendingOptions,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateConfigurationSetResponse.fromJson(response_);
   }
 
   /// Create an event destination. In Amazon Pinpoint, _events_ include message
@@ -79,7 +91,13 @@ class PinpointEmailApi {
           {@required String configurationSetName,
           @required String eventDestinationName,
           @required EventDestinationDefinition eventDestination}) async {
-    return CreateConfigurationSetEventDestinationResponse.fromJson({});
+    var response_ =
+        await _client.send('CreateConfigurationSetEventDestination', {
+      'ConfigurationSetName': configurationSetName,
+      'EventDestinationName': eventDestinationName,
+      'EventDestination': eventDestination,
+    });
+    return CreateConfigurationSetEventDestinationResponse.fromJson(response_);
   }
 
   /// Create a new pool of dedicated IP addresses. A pool can include one or
@@ -94,7 +112,11 @@ class PinpointEmailApi {
   /// associate with the pool.
   Future<CreateDedicatedIpPoolResponse> createDedicatedIpPool(String poolName,
       {List<Tag> tags}) async {
-    return CreateDedicatedIpPoolResponse.fromJson({});
+    var response_ = await _client.send('CreateDedicatedIpPool', {
+      'PoolName': poolName,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDedicatedIpPoolResponse.fromJson(response_);
   }
 
   /// Create a new predictive inbox placement test. Predictive inbox placement
@@ -122,7 +144,13 @@ class PinpointEmailApi {
       @required String fromEmailAddress,
       @required EmailContent content,
       List<Tag> tags}) async {
-    return CreateDeliverabilityTestReportResponse.fromJson({});
+    var response_ = await _client.send('CreateDeliverabilityTestReport', {
+      if (reportName != null) 'ReportName': reportName,
+      'FromEmailAddress': fromEmailAddress,
+      'Content': content,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateDeliverabilityTestReportResponse.fromJson(response_);
   }
 
   /// Verifies an email identity for use with Amazon Pinpoint. In Amazon
@@ -149,7 +177,11 @@ class PinpointEmailApi {
   /// you want to associate with the email identity.
   Future<CreateEmailIdentityResponse> createEmailIdentity(String emailIdentity,
       {List<Tag> tags}) async {
-    return CreateEmailIdentityResponse.fromJson({});
+    var response_ = await _client.send('CreateEmailIdentity', {
+      'EmailIdentity': emailIdentity,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateEmailIdentityResponse.fromJson(response_);
   }
 
   /// Delete an existing configuration set.
@@ -164,7 +196,10 @@ class PinpointEmailApi {
   /// delete.
   Future<DeleteConfigurationSetResponse> deleteConfigurationSet(
       String configurationSetName) async {
-    return DeleteConfigurationSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteConfigurationSet', {
+      'ConfigurationSetName': configurationSetName,
+    });
+    return DeleteConfigurationSetResponse.fromJson(response_);
   }
 
   /// Delete an event destination.
@@ -185,7 +220,12 @@ class PinpointEmailApi {
       deleteConfigurationSetEventDestination(
           {@required String configurationSetName,
           @required String eventDestinationName}) async {
-    return DeleteConfigurationSetEventDestinationResponse.fromJson({});
+    var response_ =
+        await _client.send('DeleteConfigurationSetEventDestination', {
+      'ConfigurationSetName': configurationSetName,
+      'EventDestinationName': eventDestinationName,
+    });
+    return DeleteConfigurationSetEventDestinationResponse.fromJson(response_);
   }
 
   /// Delete a dedicated IP pool.
@@ -193,7 +233,10 @@ class PinpointEmailApi {
   /// [poolName]: The name of the dedicated IP pool that you want to delete.
   Future<DeleteDedicatedIpPoolResponse> deleteDedicatedIpPool(
       String poolName) async {
-    return DeleteDedicatedIpPoolResponse.fromJson({});
+    var response_ = await _client.send('DeleteDedicatedIpPool', {
+      'PoolName': poolName,
+    });
+    return DeleteDedicatedIpPoolResponse.fromJson(response_);
   }
 
   /// Deletes an email identity that you previously verified for use with Amazon
@@ -203,13 +246,17 @@ class PinpointEmailApi {
   /// you want to delete from your Amazon Pinpoint account.
   Future<DeleteEmailIdentityResponse> deleteEmailIdentity(
       String emailIdentity) async {
-    return DeleteEmailIdentityResponse.fromJson({});
+    var response_ = await _client.send('DeleteEmailIdentity', {
+      'EmailIdentity': emailIdentity,
+    });
+    return DeleteEmailIdentityResponse.fromJson(response_);
   }
 
   /// Obtain information about the email-sending status and capabilities of your
   /// Amazon Pinpoint account in the current AWS Region.
   Future<GetAccountResponse> getAccount() async {
-    return GetAccountResponse.fromJson({});
+    var response_ = await _client.send('GetAccount', {});
+    return GetAccountResponse.fromJson(response_);
   }
 
   /// Retrieve a list of the blacklists that your dedicated IP addresses appear
@@ -220,7 +267,10 @@ class PinpointEmailApi {
   /// addresses that you use to send email using Amazon Pinpoint or Amazon SES.
   Future<GetBlacklistReportsResponse> getBlacklistReports(
       List<String> blacklistItemNames) async {
-    return GetBlacklistReportsResponse.fromJson({});
+    var response_ = await _client.send('GetBlacklistReports', {
+      'BlacklistItemNames': blacklistItemNames,
+    });
+    return GetBlacklistReportsResponse.fromJson(response_);
   }
 
   /// Get information about an existing configuration set, including the
@@ -237,7 +287,10 @@ class PinpointEmailApi {
   /// obtain more information about.
   Future<GetConfigurationSetResponse> getConfigurationSet(
       String configurationSetName) async {
-    return GetConfigurationSetResponse.fromJson({});
+    var response_ = await _client.send('GetConfigurationSet', {
+      'ConfigurationSetName': configurationSetName,
+    });
+    return GetConfigurationSetResponse.fromJson(response_);
   }
 
   /// Retrieve a list of event destinations that are associated with a
@@ -254,7 +307,10 @@ class PinpointEmailApi {
   /// the event destination.
   Future<GetConfigurationSetEventDestinationsResponse>
       getConfigurationSetEventDestinations(String configurationSetName) async {
-    return GetConfigurationSetEventDestinationsResponse.fromJson({});
+    var response_ = await _client.send('GetConfigurationSetEventDestinations', {
+      'ConfigurationSetName': configurationSetName,
+    });
+    return GetConfigurationSetEventDestinationsResponse.fromJson(response_);
   }
 
   /// Get information about a dedicated IP address, including the name of the
@@ -265,7 +321,10 @@ class PinpointEmailApi {
   /// value you specify has to be a dedicated IP address that's assocaited with
   /// your Amazon Pinpoint account.
   Future<GetDedicatedIpResponse> getDedicatedIp(String ip) async {
-    return GetDedicatedIpResponse.fromJson({});
+    var response_ = await _client.send('GetDedicatedIp', {
+      'Ip': ip,
+    });
+    return GetDedicatedIpResponse.fromJson(response_);
   }
 
   /// List the dedicated IP addresses that are associated with your Amazon
@@ -283,7 +342,12 @@ class PinpointEmailApi {
   /// `NextToken` element, which you can use to obtain additional results.
   Future<GetDedicatedIpsResponse> getDedicatedIps(
       {String poolName, String nextToken, int pageSize}) async {
-    return GetDedicatedIpsResponse.fromJson({});
+    var response_ = await _client.send('GetDedicatedIps', {
+      if (poolName != null) 'PoolName': poolName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return GetDedicatedIpsResponse.fromJson(response_);
   }
 
   /// Retrieve information about the status of the Deliverability dashboard for
@@ -299,7 +363,8 @@ class PinpointEmailApi {
   /// [Amazon Pinpoint Pricing](http://aws.amazon.com/pinpoint/pricing/).
   Future<GetDeliverabilityDashboardOptionsResponse>
       getDeliverabilityDashboardOptions() async {
-    return GetDeliverabilityDashboardOptionsResponse.fromJson({});
+    var response_ = await _client.send('GetDeliverabilityDashboardOptions', {});
+    return GetDeliverabilityDashboardOptionsResponse.fromJson(response_);
   }
 
   /// Retrieve the results of a predictive inbox placement test.
@@ -308,7 +373,10 @@ class PinpointEmailApi {
   /// test.
   Future<GetDeliverabilityTestReportResponse> getDeliverabilityTestReport(
       String reportId) async {
-    return GetDeliverabilityTestReportResponse.fromJson({});
+    var response_ = await _client.send('GetDeliverabilityTestReport', {
+      'ReportId': reportId,
+    });
+    return GetDeliverabilityTestReportResponse.fromJson(response_);
   }
 
   /// Retrieve all the deliverability data for a specific campaign. This data is
@@ -323,7 +391,10 @@ class PinpointEmailApi {
   /// Pinpoint API or the Amazon Pinpoint console.
   Future<GetDomainDeliverabilityCampaignResponse>
       getDomainDeliverabilityCampaign(String campaignId) async {
-    return GetDomainDeliverabilityCampaignResponse.fromJson({});
+    var response_ = await _client.send('GetDomainDeliverabilityCampaign', {
+      'CampaignId': campaignId,
+    });
+    return GetDomainDeliverabilityCampaignResponse.fromJson(response_);
   }
 
   /// Retrieve inbox placement and engagement rates for the domains that you use
@@ -341,7 +412,12 @@ class PinpointEmailApi {
       {@required String domain,
       @required DateTime startDate,
       @required DateTime endDate}) async {
-    return GetDomainStatisticsReportResponse.fromJson({});
+    var response_ = await _client.send('GetDomainStatisticsReport', {
+      'Domain': domain,
+      'StartDate': startDate,
+      'EndDate': endDate,
+    });
+    return GetDomainStatisticsReportResponse.fromJson(response_);
   }
 
   /// Provides information about a specific identity associated with your Amazon
@@ -351,7 +427,10 @@ class PinpointEmailApi {
   /// [emailIdentity]: The email identity that you want to retrieve details for.
   Future<GetEmailIdentityResponse> getEmailIdentity(
       String emailIdentity) async {
-    return GetEmailIdentityResponse.fromJson({});
+    var response_ = await _client.send('GetEmailIdentity', {
+      'EmailIdentity': emailIdentity,
+    });
+    return GetEmailIdentityResponse.fromJson(response_);
   }
 
   /// List all of the configuration sets associated with your Amazon Pinpoint
@@ -373,7 +452,11 @@ class PinpointEmailApi {
   /// `NextToken` element, which you can use to obtain additional results.
   Future<ListConfigurationSetsResponse> listConfigurationSets(
       {String nextToken, int pageSize}) async {
-    return ListConfigurationSetsResponse.fromJson({});
+    var response_ = await _client.send('ListConfigurationSets', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListConfigurationSetsResponse.fromJson(response_);
   }
 
   /// List all of the dedicated IP pools that exist in your Amazon Pinpoint
@@ -389,7 +472,11 @@ class PinpointEmailApi {
   /// element, which you can use to obtain additional results.
   Future<ListDedicatedIpPoolsResponse> listDedicatedIpPools(
       {String nextToken, int pageSize}) async {
-    return ListDedicatedIpPoolsResponse.fromJson({});
+    var response_ = await _client.send('ListDedicatedIpPools', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListDedicatedIpPoolsResponse.fromJson(response_);
   }
 
   /// Show a list of the predictive inbox placement tests that you've performed,
@@ -409,7 +496,11 @@ class PinpointEmailApi {
   /// The value you specify has to be at least 0, and can be no more than 1000.
   Future<ListDeliverabilityTestReportsResponse> listDeliverabilityTestReports(
       {String nextToken, int pageSize}) async {
-    return ListDeliverabilityTestReportsResponse.fromJson({});
+    var response_ = await _client.send('ListDeliverabilityTestReports', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListDeliverabilityTestReportsResponse.fromJson(response_);
   }
 
   /// Retrieve deliverability data for all the campaigns that used a specific
@@ -442,7 +533,14 @@ class PinpointEmailApi {
           @required String subscribedDomain,
           String nextToken,
           int pageSize}) async {
-    return ListDomainDeliverabilityCampaignsResponse.fromJson({});
+    var response_ = await _client.send('ListDomainDeliverabilityCampaigns', {
+      'StartDate': startDate,
+      'EndDate': endDate,
+      'SubscribedDomain': subscribedDomain,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListDomainDeliverabilityCampaignsResponse.fromJson(response_);
   }
 
   /// Returns a list of all of the email identities that are associated with
@@ -461,7 +559,11 @@ class PinpointEmailApi {
   /// The value you specify has to be at least 0, and can be no more than 1000.
   Future<ListEmailIdentitiesResponse> listEmailIdentities(
       {String nextToken, int pageSize}) async {
-    return ListEmailIdentitiesResponse.fromJson({});
+    var response_ = await _client.send('ListEmailIdentities', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (pageSize != null) 'PageSize': pageSize,
+    });
+    return ListEmailIdentitiesResponse.fromJson(response_);
   }
 
   /// Retrieve a list of the tags (keys and values) that are associated with a
@@ -475,7 +577,10 @@ class PinpointEmailApi {
   /// want to retrieve tag information for.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Enable or disable the automatic warm-up feature for dedicated IP
@@ -487,7 +592,11 @@ class PinpointEmailApi {
   /// warm-up feature, or set to `false` to disable it.
   Future<PutAccountDedicatedIpWarmupAttributesResponse>
       putAccountDedicatedIpWarmupAttributes({bool autoWarmupEnabled}) async {
-    return PutAccountDedicatedIpWarmupAttributesResponse.fromJson({});
+    var response_ =
+        await _client.send('PutAccountDedicatedIpWarmupAttributes', {
+      if (autoWarmupEnabled != null) 'AutoWarmupEnabled': autoWarmupEnabled,
+    });
+    return PutAccountDedicatedIpWarmupAttributesResponse.fromJson(response_);
   }
 
   /// Enable or disable the ability of your account to send email.
@@ -502,7 +611,10 @@ class PinpointEmailApi {
   /// operation to resume your account's ability to send email.
   Future<PutAccountSendingAttributesResponse> putAccountSendingAttributes(
       {bool sendingEnabled}) async {
-    return PutAccountSendingAttributesResponse.fromJson({});
+    var response_ = await _client.send('PutAccountSendingAttributes', {
+      if (sendingEnabled != null) 'SendingEnabled': sendingEnabled,
+    });
+    return PutAccountSendingAttributesResponse.fromJson(response_);
   }
 
   /// Associate a configuration set with a dedicated IP pool. You can use
@@ -520,7 +632,12 @@ class PinpointEmailApi {
   Future<PutConfigurationSetDeliveryOptionsResponse>
       putConfigurationSetDeliveryOptions(String configurationSetName,
           {String tlsPolicy, String sendingPoolName}) async {
-    return PutConfigurationSetDeliveryOptionsResponse.fromJson({});
+    var response_ = await _client.send('PutConfigurationSetDeliveryOptions', {
+      'ConfigurationSetName': configurationSetName,
+      if (tlsPolicy != null) 'TlsPolicy': tlsPolicy,
+      if (sendingPoolName != null) 'SendingPoolName': sendingPoolName,
+    });
+    return PutConfigurationSetDeliveryOptionsResponse.fromJson(response_);
   }
 
   /// Enable or disable collection of reputation metrics for emails that you
@@ -535,7 +652,12 @@ class PinpointEmailApi {
   Future<PutConfigurationSetReputationOptionsResponse>
       putConfigurationSetReputationOptions(String configurationSetName,
           {bool reputationMetricsEnabled}) async {
-    return PutConfigurationSetReputationOptionsResponse.fromJson({});
+    var response_ = await _client.send('PutConfigurationSetReputationOptions', {
+      'ConfigurationSetName': configurationSetName,
+      if (reputationMetricsEnabled != null)
+        'ReputationMetricsEnabled': reputationMetricsEnabled,
+    });
+    return PutConfigurationSetReputationOptionsResponse.fromJson(response_);
   }
 
   /// Enable or disable email sending for messages that use a particular
@@ -550,7 +672,11 @@ class PinpointEmailApi {
   Future<PutConfigurationSetSendingOptionsResponse>
       putConfigurationSetSendingOptions(String configurationSetName,
           {bool sendingEnabled}) async {
-    return PutConfigurationSetSendingOptionsResponse.fromJson({});
+    var response_ = await _client.send('PutConfigurationSetSendingOptions', {
+      'ConfigurationSetName': configurationSetName,
+      if (sendingEnabled != null) 'SendingEnabled': sendingEnabled,
+    });
+    return PutConfigurationSetSendingOptionsResponse.fromJson(response_);
   }
 
   /// Specify a custom domain to use for open and click tracking elements in
@@ -564,7 +690,12 @@ class PinpointEmailApi {
   Future<PutConfigurationSetTrackingOptionsResponse>
       putConfigurationSetTrackingOptions(String configurationSetName,
           {String customRedirectDomain}) async {
-    return PutConfigurationSetTrackingOptionsResponse.fromJson({});
+    var response_ = await _client.send('PutConfigurationSetTrackingOptions', {
+      'ConfigurationSetName': configurationSetName,
+      if (customRedirectDomain != null)
+        'CustomRedirectDomain': customRedirectDomain,
+    });
+    return PutConfigurationSetTrackingOptionsResponse.fromJson(response_);
   }
 
   /// Move a dedicated IP address to an existing dedicated IP pool.
@@ -586,7 +717,11 @@ class PinpointEmailApi {
   /// exists.
   Future<PutDedicatedIpInPoolResponse> putDedicatedIpInPool(
       {@required String ip, @required String destinationPoolName}) async {
-    return PutDedicatedIpInPoolResponse.fromJson({});
+    var response_ = await _client.send('PutDedicatedIpInPool', {
+      'Ip': ip,
+      'DestinationPoolName': destinationPoolName,
+    });
+    return PutDedicatedIpInPoolResponse.fromJson(response_);
   }
 
   ///
@@ -597,7 +732,11 @@ class PinpointEmailApi {
   /// the dedicated IP address.
   Future<PutDedicatedIpWarmupAttributesResponse> putDedicatedIpWarmupAttributes(
       {@required String ip, @required int warmupPercentage}) async {
-    return PutDedicatedIpWarmupAttributesResponse.fromJson({});
+    var response_ = await _client.send('PutDedicatedIpWarmupAttributes', {
+      'Ip': ip,
+      'WarmupPercentage': warmupPercentage,
+    });
+    return PutDedicatedIpWarmupAttributesResponse.fromJson(response_);
   }
 
   /// Enable or disable the Deliverability dashboard for your Amazon Pinpoint
@@ -621,7 +760,11 @@ class PinpointEmailApi {
   Future<PutDeliverabilityDashboardOptionResponse>
       putDeliverabilityDashboardOption(bool dashboardEnabled,
           {List<DomainDeliverabilityTrackingOption> subscribedDomains}) async {
-    return PutDeliverabilityDashboardOptionResponse.fromJson({});
+    var response_ = await _client.send('PutDeliverabilityDashboardOption', {
+      'DashboardEnabled': dashboardEnabled,
+      if (subscribedDomains != null) 'SubscribedDomains': subscribedDomains,
+    });
+    return PutDeliverabilityDashboardOptionResponse.fromJson(response_);
   }
 
   /// Used to enable or disable DKIM authentication for an email identity.
@@ -638,7 +781,11 @@ class PinpointEmailApi {
   Future<PutEmailIdentityDkimAttributesResponse> putEmailIdentityDkimAttributes(
       String emailIdentity,
       {bool signingEnabled}) async {
-    return PutEmailIdentityDkimAttributesResponse.fromJson({});
+    var response_ = await _client.send('PutEmailIdentityDkimAttributes', {
+      'EmailIdentity': emailIdentity,
+      if (signingEnabled != null) 'SigningEnabled': signingEnabled,
+    });
+    return PutEmailIdentityDkimAttributesResponse.fromJson(response_);
   }
 
   /// Used to enable or disable feedback forwarding for an identity. This
@@ -678,7 +825,12 @@ class PinpointEmailApi {
   Future<PutEmailIdentityFeedbackAttributesResponse>
       putEmailIdentityFeedbackAttributes(String emailIdentity,
           {bool emailForwardingEnabled}) async {
-    return PutEmailIdentityFeedbackAttributesResponse.fromJson({});
+    var response_ = await _client.send('PutEmailIdentityFeedbackAttributes', {
+      'EmailIdentity': emailIdentity,
+      if (emailForwardingEnabled != null)
+        'EmailForwardingEnabled': emailForwardingEnabled,
+    });
+    return PutEmailIdentityFeedbackAttributesResponse.fromJson(response_);
   }
 
   /// Used to enable or disable the custom Mail-From domain configuration for an
@@ -709,7 +861,13 @@ class PinpointEmailApi {
   Future<PutEmailIdentityMailFromAttributesResponse>
       putEmailIdentityMailFromAttributes(String emailIdentity,
           {String mailFromDomain, String behaviorOnMxFailure}) async {
-    return PutEmailIdentityMailFromAttributesResponse.fromJson({});
+    var response_ = await _client.send('PutEmailIdentityMailFromAttributes', {
+      'EmailIdentity': emailIdentity,
+      if (mailFromDomain != null) 'MailFromDomain': mailFromDomain,
+      if (behaviorOnMxFailure != null)
+        'BehaviorOnMxFailure': behaviorOnMxFailure,
+    });
+    return PutEmailIdentityMailFromAttributesResponse.fromJson(response_);
   }
 
   /// Sends an email message. You can use the Amazon Pinpoint Email API to send
@@ -756,7 +914,18 @@ class PinpointEmailApi {
       @required EmailContent content,
       List<MessageTag> emailTags,
       String configurationSetName}) async {
-    return SendEmailResponse.fromJson({});
+    var response_ = await _client.send('SendEmail', {
+      if (fromEmailAddress != null) 'FromEmailAddress': fromEmailAddress,
+      'Destination': destination,
+      if (replyToAddresses != null) 'ReplyToAddresses': replyToAddresses,
+      if (feedbackForwardingEmailAddress != null)
+        'FeedbackForwardingEmailAddress': feedbackForwardingEmailAddress,
+      'Content': content,
+      if (emailTags != null) 'EmailTags': emailTags,
+      if (configurationSetName != null)
+        'ConfigurationSetName': configurationSetName,
+    });
+    return SendEmailResponse.fromJson(response_);
   }
 
   /// Add one or more tags (keys and values) to a specified resource. A _tag_ is
@@ -779,7 +948,11 @@ class PinpointEmailApi {
   /// length of a tag value is 256 characters.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Remove one or more tags (keys and values) from a specified resource.
@@ -797,7 +970,11 @@ class PinpointEmailApi {
   /// `/v1/email/tags?ResourceArn=ResourceArn&TagKeys=Key1&TagKeys=Key2`
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Update the configuration of an event destination for a configuration set.
@@ -821,7 +998,13 @@ class PinpointEmailApi {
           {@required String configurationSetName,
           @required String eventDestinationName,
           @required EventDestinationDefinition eventDestination}) async {
-    return UpdateConfigurationSetEventDestinationResponse.fromJson({});
+    var response_ =
+        await _client.send('UpdateConfigurationSetEventDestination', {
+      'ConfigurationSetName': configurationSetName,
+      'EventDestinationName': eventDestinationName,
+      'EventDestination': eventDestination,
+    });
+    return UpdateConfigurationSetEventDestinationResponse.fromJson(response_);
   }
 }
 
@@ -843,7 +1026,15 @@ class BlacklistEntry {
     this.listingTime,
     this.description,
   });
-  static BlacklistEntry fromJson(Map<String, dynamic> json) => BlacklistEntry();
+  static BlacklistEntry fromJson(Map<String, dynamic> json) => BlacklistEntry(
+        rblName: json.containsKey('RblName') ? json['RblName'] as String : null,
+        listingTime: json.containsKey('ListingTime')
+            ? DateTime.parse(json['ListingTime'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Represents the body of the email message.
@@ -862,6 +1053,7 @@ class Body {
     this.text,
     this.html,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that defines an Amazon CloudWatch destination for email events.
@@ -876,7 +1068,12 @@ class CloudWatchDestination {
     @required this.dimensionConfigurations,
   });
   static CloudWatchDestination fromJson(Map<String, dynamic> json) =>
-      CloudWatchDestination();
+      CloudWatchDestination(
+        dimensionConfigurations: (json['DimensionConfigurations'] as List)
+            .map((e) => CloudWatchDimensionConfiguration.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that defines the dimension configuration to use when you send
@@ -915,7 +1112,12 @@ class CloudWatchDimensionConfiguration {
     @required this.defaultDimensionValue,
   });
   static CloudWatchDimensionConfiguration fromJson(Map<String, dynamic> json) =>
-      CloudWatchDimensionConfiguration();
+      CloudWatchDimensionConfiguration(
+        dimensionName: json['DimensionName'] as String,
+        dimensionValueSource: json['DimensionValueSource'] as String,
+        defaultDimensionValue: json['DefaultDimensionValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that represents the content of the email, and optionally a
@@ -935,6 +1137,7 @@ class Content {
     @required this.data,
     this.charset,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An HTTP 200 response if the request succeeds, or an error message if the
@@ -981,7 +1184,10 @@ class CreateDeliverabilityTestReportResponse {
   });
   static CreateDeliverabilityTestReportResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateDeliverabilityTestReportResponse();
+      CreateDeliverabilityTestReportResponse(
+        reportId: json['ReportId'] as String,
+        deliverabilityTestStatus: json['DeliverabilityTestStatus'] as String,
+      );
 }
 
 /// If the email identity is a domain, this object contains tokens that you can
@@ -1010,7 +1216,17 @@ class CreateEmailIdentityResponse {
     this.dkimAttributes,
   });
   static CreateEmailIdentityResponse fromJson(Map<String, dynamic> json) =>
-      CreateEmailIdentityResponse();
+      CreateEmailIdentityResponse(
+        identityType: json.containsKey('IdentityType')
+            ? json['IdentityType'] as String
+            : null,
+        verifiedForSendingStatus: json.containsKey('VerifiedForSendingStatus')
+            ? json['VerifiedForSendingStatus'] as bool
+            : null,
+        dkimAttributes: json.containsKey('DkimAttributes')
+            ? DkimAttributes.fromJson(json['DkimAttributes'])
+            : null,
+      );
 }
 
 /// An object that contains information about the volume of email sent on each
@@ -1032,7 +1248,19 @@ class DailyVolume {
     this.volumeStatistics,
     this.domainIspPlacements,
   });
-  static DailyVolume fromJson(Map<String, dynamic> json) => DailyVolume();
+  static DailyVolume fromJson(Map<String, dynamic> json) => DailyVolume(
+        startDate: json.containsKey('StartDate')
+            ? DateTime.parse(json['StartDate'])
+            : null,
+        volumeStatistics: json.containsKey('VolumeStatistics')
+            ? VolumeStatistics.fromJson(json['VolumeStatistics'])
+            : null,
+        domainIspPlacements: json.containsKey('DomainIspPlacements')
+            ? (json['DomainIspPlacements'] as List)
+                .map((e) => DomainIspPlacement.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains information about a dedicated IP address that is associated with
@@ -1065,7 +1293,13 @@ class DedicatedIp {
     @required this.warmupPercentage,
     this.poolName,
   });
-  static DedicatedIp fromJson(Map<String, dynamic> json) => DedicatedIp();
+  static DedicatedIp fromJson(Map<String, dynamic> json) => DedicatedIp(
+        ip: json['Ip'] as String,
+        warmupStatus: json['WarmupStatus'] as String,
+        warmupPercentage: json['WarmupPercentage'] as int,
+        poolName:
+            json.containsKey('PoolName') ? json['PoolName'] as String : null,
+      );
 }
 
 /// An HTTP 200 response if the request succeeds, or an error message if the
@@ -1139,7 +1373,23 @@ class DeliverabilityTestReport {
     this.deliverabilityTestStatus,
   });
   static DeliverabilityTestReport fromJson(Map<String, dynamic> json) =>
-      DeliverabilityTestReport();
+      DeliverabilityTestReport(
+        reportId:
+            json.containsKey('ReportId') ? json['ReportId'] as String : null,
+        reportName: json.containsKey('ReportName')
+            ? json['ReportName'] as String
+            : null,
+        subject: json.containsKey('Subject') ? json['Subject'] as String : null,
+        fromEmailAddress: json.containsKey('FromEmailAddress')
+            ? json['FromEmailAddress'] as String
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        deliverabilityTestStatus: json.containsKey('DeliverabilityTestStatus')
+            ? json['DeliverabilityTestStatus'] as String
+            : null,
+      );
 }
 
 /// Used to associate a configuration set with a dedicated IP pool.
@@ -1159,8 +1409,14 @@ class DeliveryOptions {
     this.tlsPolicy,
     this.sendingPoolName,
   });
-  static DeliveryOptions fromJson(Map<String, dynamic> json) =>
-      DeliveryOptions();
+  static DeliveryOptions fromJson(Map<String, dynamic> json) => DeliveryOptions(
+        tlsPolicy:
+            json.containsKey('TlsPolicy') ? json['TlsPolicy'] as String : null,
+        sendingPoolName: json.containsKey('SendingPoolName')
+            ? json['SendingPoolName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that describes the recipients for an email.
@@ -1182,6 +1438,7 @@ class Destination {
     this.ccAddresses,
     this.bccAddresses,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains information about the DKIM configuration for an
@@ -1227,7 +1484,15 @@ class DkimAttributes {
     this.status,
     this.tokens,
   });
-  static DkimAttributes fromJson(Map<String, dynamic> json) => DkimAttributes();
+  static DkimAttributes fromJson(Map<String, dynamic> json) => DkimAttributes(
+        signingEnabled: json.containsKey('SigningEnabled')
+            ? json['SigningEnabled'] as bool
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        tokens: json.containsKey('Tokens')
+            ? (json['Tokens'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// An object that contains the deliverability data for a specific campaign.
@@ -1312,7 +1577,46 @@ class DomainDeliverabilityCampaign {
     this.esps,
   });
   static DomainDeliverabilityCampaign fromJson(Map<String, dynamic> json) =>
-      DomainDeliverabilityCampaign();
+      DomainDeliverabilityCampaign(
+        campaignId: json.containsKey('CampaignId')
+            ? json['CampaignId'] as String
+            : null,
+        imageUrl:
+            json.containsKey('ImageUrl') ? json['ImageUrl'] as String : null,
+        subject: json.containsKey('Subject') ? json['Subject'] as String : null,
+        fromAddress: json.containsKey('FromAddress')
+            ? json['FromAddress'] as String
+            : null,
+        sendingIps: json.containsKey('SendingIps')
+            ? (json['SendingIps'] as List).map((e) => e as String).toList()
+            : null,
+        firstSeenDateTime: json.containsKey('FirstSeenDateTime')
+            ? DateTime.parse(json['FirstSeenDateTime'])
+            : null,
+        lastSeenDateTime: json.containsKey('LastSeenDateTime')
+            ? DateTime.parse(json['LastSeenDateTime'])
+            : null,
+        inboxCount: json.containsKey('InboxCount')
+            ? BigInt.from(json['InboxCount'])
+            : null,
+        spamCount: json.containsKey('SpamCount')
+            ? BigInt.from(json['SpamCount'])
+            : null,
+        readRate:
+            json.containsKey('ReadRate') ? json['ReadRate'] as double : null,
+        deleteRate: json.containsKey('DeleteRate')
+            ? json['DeleteRate'] as double
+            : null,
+        readDeleteRate: json.containsKey('ReadDeleteRate')
+            ? json['ReadDeleteRate'] as double
+            : null,
+        projectedVolume: json.containsKey('ProjectedVolume')
+            ? BigInt.from(json['ProjectedVolume'])
+            : null,
+        esps: json.containsKey('Esps')
+            ? (json['Esps'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// An object that contains information about the Deliverability dashboard
@@ -1340,7 +1644,18 @@ class DomainDeliverabilityTrackingOption {
   });
   static DomainDeliverabilityTrackingOption fromJson(
           Map<String, dynamic> json) =>
-      DomainDeliverabilityTrackingOption();
+      DomainDeliverabilityTrackingOption(
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        subscriptionStartDate: json.containsKey('SubscriptionStartDate')
+            ? DateTime.parse(json['SubscriptionStartDate'])
+            : null,
+        inboxPlacementTrackingOption:
+            json.containsKey('InboxPlacementTrackingOption')
+                ? InboxPlacementTrackingOption.fromJson(
+                    json['InboxPlacementTrackingOption'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains inbox placement data for email sent from one of your
@@ -1375,7 +1690,21 @@ class DomainIspPlacement {
     this.spamPercentage,
   });
   static DomainIspPlacement fromJson(Map<String, dynamic> json) =>
-      DomainIspPlacement();
+      DomainIspPlacement(
+        ispName: json.containsKey('IspName') ? json['IspName'] as String : null,
+        inboxRawCount: json.containsKey('InboxRawCount')
+            ? BigInt.from(json['InboxRawCount'])
+            : null,
+        spamRawCount: json.containsKey('SpamRawCount')
+            ? BigInt.from(json['SpamRawCount'])
+            : null,
+        inboxPercentage: json.containsKey('InboxPercentage')
+            ? json['InboxPercentage'] as double
+            : null,
+        spamPercentage: json.containsKey('SpamPercentage')
+            ? json['SpamPercentage'] as double
+            : null,
+      );
 }
 
 /// An object that defines the entire content of the email, including the
@@ -1416,6 +1745,7 @@ class EmailContent {
     this.simple,
     this.raw,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// In Amazon Pinpoint, _events_ include message sends, deliveries, opens,
@@ -1470,7 +1800,27 @@ class EventDestination {
     this.pinpointDestination,
   });
   static EventDestination fromJson(Map<String, dynamic> json) =>
-      EventDestination();
+      EventDestination(
+        name: json['Name'] as String,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        matchingEventTypes: (json['MatchingEventTypes'] as List)
+            .map((e) => e as String)
+            .toList(),
+        kinesisFirehoseDestination:
+            json.containsKey('KinesisFirehoseDestination')
+                ? KinesisFirehoseDestination.fromJson(
+                    json['KinesisFirehoseDestination'])
+                : null,
+        cloudWatchDestination: json.containsKey('CloudWatchDestination')
+            ? CloudWatchDestination.fromJson(json['CloudWatchDestination'])
+            : null,
+        snsDestination: json.containsKey('SnsDestination')
+            ? SnsDestination.fromJson(json['SnsDestination'])
+            : null,
+        pinpointDestination: json.containsKey('PinpointDestination')
+            ? PinpointDestination.fromJson(json['PinpointDestination'])
+            : null,
+      );
 }
 
 /// An object that defines the event destination. Specifically, it defines which
@@ -1518,6 +1868,7 @@ class EventDestinationDefinition {
     this.snsDestination,
     this.pinpointDestination,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of details about the email-sending capabilities of your Amazon
@@ -1574,7 +1925,24 @@ class GetAccountResponse {
     this.productionAccessEnabled,
   });
   static GetAccountResponse fromJson(Map<String, dynamic> json) =>
-      GetAccountResponse();
+      GetAccountResponse(
+        sendQuota: json.containsKey('SendQuota')
+            ? SendQuota.fromJson(json['SendQuota'])
+            : null,
+        sendingEnabled: json.containsKey('SendingEnabled')
+            ? json['SendingEnabled'] as bool
+            : null,
+        dedicatedIpAutoWarmupEnabled:
+            json.containsKey('DedicatedIpAutoWarmupEnabled')
+                ? json['DedicatedIpAutoWarmupEnabled'] as bool
+                : null,
+        enforcementStatus: json.containsKey('EnforcementStatus')
+            ? json['EnforcementStatus'] as String
+            : null,
+        productionAccessEnabled: json.containsKey('ProductionAccessEnabled')
+            ? json['ProductionAccessEnabled'] as bool
+            : null,
+      );
 }
 
 /// An object that contains information about blacklist events.
@@ -1587,7 +1955,11 @@ class GetBlacklistReportsResponse {
     @required this.blacklistReport,
   });
   static GetBlacklistReportsResponse fromJson(Map<String, dynamic> json) =>
-      GetBlacklistReportsResponse();
+      GetBlacklistReportsResponse(
+        blacklistReport: (json['BlacklistReport'] as Map).map((k, v) =>
+            MapEntry(k as String,
+                (v as List).map((e) => BlacklistEntry.fromJson(e)).toList())),
+      );
 }
 
 /// Information about an event destination for a configuration set.
@@ -1601,7 +1973,13 @@ class GetConfigurationSetEventDestinationsResponse {
   });
   static GetConfigurationSetEventDestinationsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetConfigurationSetEventDestinationsResponse();
+      GetConfigurationSetEventDestinationsResponse(
+        eventDestinations: json.containsKey('EventDestinations')
+            ? (json['EventDestinations'] as List)
+                .map((e) => EventDestination.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a configuration set.
@@ -1638,7 +2016,26 @@ class GetConfigurationSetResponse {
     this.tags,
   });
   static GetConfigurationSetResponse fromJson(Map<String, dynamic> json) =>
-      GetConfigurationSetResponse();
+      GetConfigurationSetResponse(
+        configurationSetName: json.containsKey('ConfigurationSetName')
+            ? json['ConfigurationSetName'] as String
+            : null,
+        trackingOptions: json.containsKey('TrackingOptions')
+            ? TrackingOptions.fromJson(json['TrackingOptions'])
+            : null,
+        deliveryOptions: json.containsKey('DeliveryOptions')
+            ? DeliveryOptions.fromJson(json['DeliveryOptions'])
+            : null,
+        reputationOptions: json.containsKey('ReputationOptions')
+            ? ReputationOptions.fromJson(json['ReputationOptions'])
+            : null,
+        sendingOptions: json.containsKey('SendingOptions')
+            ? SendingOptions.fromJson(json['SendingOptions'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Information about a dedicated IP address.
@@ -1650,7 +2047,11 @@ class GetDedicatedIpResponse {
     this.dedicatedIp,
   });
   static GetDedicatedIpResponse fromJson(Map<String, dynamic> json) =>
-      GetDedicatedIpResponse();
+      GetDedicatedIpResponse(
+        dedicatedIp: json.containsKey('DedicatedIp')
+            ? DedicatedIp.fromJson(json['DedicatedIp'])
+            : null,
+      );
 }
 
 /// Information about the dedicated IP addresses that are associated with your
@@ -1670,7 +2071,15 @@ class GetDedicatedIpsResponse {
     this.nextToken,
   });
   static GetDedicatedIpsResponse fromJson(Map<String, dynamic> json) =>
-      GetDedicatedIpsResponse();
+      GetDedicatedIpsResponse(
+        dedicatedIps: json.containsKey('DedicatedIps')
+            ? (json['DedicatedIps'] as List)
+                .map((e) => DedicatedIp.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// An object that shows the status of the Deliverability dashboard for your
@@ -1712,7 +2121,26 @@ class GetDeliverabilityDashboardOptionsResponse {
   });
   static GetDeliverabilityDashboardOptionsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetDeliverabilityDashboardOptionsResponse();
+      GetDeliverabilityDashboardOptionsResponse(
+        dashboardEnabled: json['DashboardEnabled'] as bool,
+        subscriptionExpiryDate: json.containsKey('SubscriptionExpiryDate')
+            ? DateTime.parse(json['SubscriptionExpiryDate'])
+            : null,
+        accountStatus: json.containsKey('AccountStatus')
+            ? json['AccountStatus'] as String
+            : null,
+        activeSubscribedDomains: json.containsKey('ActiveSubscribedDomains')
+            ? (json['ActiveSubscribedDomains'] as List)
+                .map((e) => DomainDeliverabilityTrackingOption.fromJson(e))
+                .toList()
+            : null,
+        pendingExpirationSubscribedDomains:
+            json.containsKey('PendingExpirationSubscribedDomains')
+                ? (json['PendingExpirationSubscribedDomains'] as List)
+                    .map((e) => DomainDeliverabilityTrackingOption.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// The results of the predictive inbox placement test.
@@ -1748,7 +2176,19 @@ class GetDeliverabilityTestReportResponse {
   });
   static GetDeliverabilityTestReportResponse fromJson(
           Map<String, dynamic> json) =>
-      GetDeliverabilityTestReportResponse();
+      GetDeliverabilityTestReportResponse(
+        deliverabilityTestReport:
+            DeliverabilityTestReport.fromJson(json['DeliverabilityTestReport']),
+        overallPlacement:
+            PlacementStatistics.fromJson(json['OverallPlacement']),
+        ispPlacements: (json['IspPlacements'] as List)
+            .map((e) => IspPlacement.fromJson(e))
+            .toList(),
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// An object that contains all the deliverability data for a specific campaign.
@@ -1764,7 +2204,10 @@ class GetDomainDeliverabilityCampaignResponse {
   });
   static GetDomainDeliverabilityCampaignResponse fromJson(
           Map<String, dynamic> json) =>
-      GetDomainDeliverabilityCampaignResponse();
+      GetDomainDeliverabilityCampaignResponse(
+        domainDeliverabilityCampaign: DomainDeliverabilityCampaign.fromJson(
+            json['DomainDeliverabilityCampaign']),
+      );
 }
 
 /// An object that includes statistics that are related to the domain that you
@@ -1786,7 +2229,12 @@ class GetDomainStatisticsReportResponse {
   });
   static GetDomainStatisticsReportResponse fromJson(
           Map<String, dynamic> json) =>
-      GetDomainStatisticsReportResponse();
+      GetDomainStatisticsReportResponse(
+        overallVolume: OverallVolume.fromJson(json['OverallVolume']),
+        dailyVolumes: (json['DailyVolumes'] as List)
+            .map((e) => DailyVolume.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Details about an email identity.
@@ -1838,7 +2286,26 @@ class GetEmailIdentityResponse {
     this.tags,
   });
   static GetEmailIdentityResponse fromJson(Map<String, dynamic> json) =>
-      GetEmailIdentityResponse();
+      GetEmailIdentityResponse(
+        identityType: json.containsKey('IdentityType')
+            ? json['IdentityType'] as String
+            : null,
+        feedbackForwardingStatus: json.containsKey('FeedbackForwardingStatus')
+            ? json['FeedbackForwardingStatus'] as bool
+            : null,
+        verifiedForSendingStatus: json.containsKey('VerifiedForSendingStatus')
+            ? json['VerifiedForSendingStatus'] as bool
+            : null,
+        dkimAttributes: json.containsKey('DkimAttributes')
+            ? DkimAttributes.fromJson(json['DkimAttributes'])
+            : null,
+        mailFromAttributes: json.containsKey('MailFromAttributes')
+            ? MailFromAttributes.fromJson(json['MailFromAttributes'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Information about an email identity.
@@ -1868,7 +2335,17 @@ class IdentityInfo {
     this.identityName,
     this.sendingEnabled,
   });
-  static IdentityInfo fromJson(Map<String, dynamic> json) => IdentityInfo();
+  static IdentityInfo fromJson(Map<String, dynamic> json) => IdentityInfo(
+        identityType: json.containsKey('IdentityType')
+            ? json['IdentityType'] as String
+            : null,
+        identityName: json.containsKey('IdentityName')
+            ? json['IdentityName'] as String
+            : null,
+        sendingEnabled: json.containsKey('SendingEnabled')
+            ? json['SendingEnabled'] as bool
+            : null,
+      );
 }
 
 /// An object that contains information about the inbox placement data settings
@@ -1888,7 +2365,13 @@ class InboxPlacementTrackingOption {
     this.trackedIsps,
   });
   static InboxPlacementTrackingOption fromJson(Map<String, dynamic> json) =>
-      InboxPlacementTrackingOption();
+      InboxPlacementTrackingOption(
+        global: json.containsKey('Global') ? json['Global'] as bool : null,
+        trackedIsps: json.containsKey('TrackedIsps')
+            ? (json['TrackedIsps'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that describes how email sent during the predictive inbox
@@ -1905,7 +2388,12 @@ class IspPlacement {
     this.ispName,
     this.placementStatistics,
   });
-  static IspPlacement fromJson(Map<String, dynamic> json) => IspPlacement();
+  static IspPlacement fromJson(Map<String, dynamic> json) => IspPlacement(
+        ispName: json.containsKey('IspName') ? json['IspName'] as String : null,
+        placementStatistics: json.containsKey('PlacementStatistics')
+            ? PlacementStatistics.fromJson(json['PlacementStatistics'])
+            : null,
+      );
 }
 
 /// An object that defines an Amazon Kinesis Data Firehose destination for email
@@ -1925,7 +2413,11 @@ class KinesisFirehoseDestination {
     @required this.deliveryStreamArn,
   });
   static KinesisFirehoseDestination fromJson(Map<String, dynamic> json) =>
-      KinesisFirehoseDestination();
+      KinesisFirehoseDestination(
+        iamRoleArn: json['IamRoleArn'] as String,
+        deliveryStreamArn: json['DeliveryStreamArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A list of configuration sets in your Amazon Pinpoint account in the current
@@ -1945,7 +2437,15 @@ class ListConfigurationSetsResponse {
     this.nextToken,
   });
   static ListConfigurationSetsResponse fromJson(Map<String, dynamic> json) =>
-      ListConfigurationSetsResponse();
+      ListConfigurationSetsResponse(
+        configurationSets: json.containsKey('ConfigurationSets')
+            ? (json['ConfigurationSets'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A list of dedicated IP pools.
@@ -1964,7 +2464,15 @@ class ListDedicatedIpPoolsResponse {
     this.nextToken,
   });
   static ListDedicatedIpPoolsResponse fromJson(Map<String, dynamic> json) =>
-      ListDedicatedIpPoolsResponse();
+      ListDedicatedIpPoolsResponse(
+        dedicatedIpPools: json.containsKey('DedicatedIpPools')
+            ? (json['DedicatedIpPools'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A list of the predictive inbox placement test reports that are available for
@@ -1986,7 +2494,13 @@ class ListDeliverabilityTestReportsResponse {
   });
   static ListDeliverabilityTestReportsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListDeliverabilityTestReportsResponse();
+      ListDeliverabilityTestReportsResponse(
+        deliverabilityTestReports: (json['DeliverabilityTestReports'] as List)
+            .map((e) => DeliverabilityTestReport.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// An array of objects that provide deliverability data for all the campaigns
@@ -2009,7 +2523,14 @@ class ListDomainDeliverabilityCampaignsResponse {
   });
   static ListDomainDeliverabilityCampaignsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListDomainDeliverabilityCampaignsResponse();
+      ListDomainDeliverabilityCampaignsResponse(
+        domainDeliverabilityCampaigns:
+            (json['DomainDeliverabilityCampaigns'] as List)
+                .map((e) => DomainDeliverabilityCampaign.fromJson(e))
+                .toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A list of all of the identities that you've attempted to verify for use with
@@ -2030,7 +2551,15 @@ class ListEmailIdentitiesResponse {
     this.nextToken,
   });
   static ListEmailIdentitiesResponse fromJson(Map<String, dynamic> json) =>
-      ListEmailIdentitiesResponse();
+      ListEmailIdentitiesResponse(
+        emailIdentities: json.containsKey('EmailIdentities')
+            ? (json['EmailIdentities'] as List)
+                .map((e) => IdentityInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -2043,7 +2572,9 @@ class ListTagsForResourceResponse {
     @required this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList(),
+      );
 }
 
 /// A list of attributes that are associated with a MAIL FROM domain.
@@ -2085,7 +2616,11 @@ class MailFromAttributes {
     @required this.behaviorOnMxFailure,
   });
   static MailFromAttributes fromJson(Map<String, dynamic> json) =>
-      MailFromAttributes();
+      MailFromAttributes(
+        mailFromDomain: json['MailFromDomain'] as String,
+        mailFromDomainStatus: json['MailFromDomainStatus'] as String,
+        behaviorOnMxFailure: json['BehaviorOnMxFailure'] as String,
+      );
 }
 
 /// Represents the email message that you're sending. The `Message` object
@@ -2105,6 +2640,7 @@ class Message {
     @required this.subject,
     @required this.body,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the name and value of a tag that you apply to an email. You can use
@@ -2132,6 +2668,7 @@ class MessageTag {
     @required this.name,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains information about email that was sent from the
@@ -2154,7 +2691,19 @@ class OverallVolume {
     this.readRatePercent,
     this.domainIspPlacements,
   });
-  static OverallVolume fromJson(Map<String, dynamic> json) => OverallVolume();
+  static OverallVolume fromJson(Map<String, dynamic> json) => OverallVolume(
+        volumeStatistics: json.containsKey('VolumeStatistics')
+            ? VolumeStatistics.fromJson(json['VolumeStatistics'])
+            : null,
+        readRatePercent: json.containsKey('ReadRatePercent')
+            ? json['ReadRatePercent'] as double
+            : null,
+        domainIspPlacements: json.containsKey('DomainIspPlacements')
+            ? (json['DomainIspPlacements'] as List)
+                .map((e) => DomainIspPlacement.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An object that defines a Amazon Pinpoint destination for email events. You
@@ -2170,7 +2719,12 @@ class PinpointDestination {
     this.applicationArn,
   });
   static PinpointDestination fromJson(Map<String, dynamic> json) =>
-      PinpointDestination();
+      PinpointDestination(
+        applicationArn: json.containsKey('ApplicationArn')
+            ? json['ApplicationArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains inbox placement data for an email provider.
@@ -2203,7 +2757,23 @@ class PlacementStatistics {
     this.dkimPercentage,
   });
   static PlacementStatistics fromJson(Map<String, dynamic> json) =>
-      PlacementStatistics();
+      PlacementStatistics(
+        inboxPercentage: json.containsKey('InboxPercentage')
+            ? json['InboxPercentage'] as double
+            : null,
+        spamPercentage: json.containsKey('SpamPercentage')
+            ? json['SpamPercentage'] as double
+            : null,
+        missingPercentage: json.containsKey('MissingPercentage')
+            ? json['MissingPercentage'] as double
+            : null,
+        spfPercentage: json.containsKey('SpfPercentage')
+            ? json['SpfPercentage'] as double
+            : null,
+        dkimPercentage: json.containsKey('DkimPercentage')
+            ? json['DkimPercentage'] as double
+            : null,
+      );
 }
 
 /// An HTTP 200 response if the request succeeds, or an error message if the
@@ -2340,6 +2910,7 @@ class RawMessage {
   RawMessage({
     @required this.data,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Enable or disable collection of reputation metrics for emails that you send
@@ -2361,7 +2932,15 @@ class ReputationOptions {
     this.lastFreshStart,
   });
   static ReputationOptions fromJson(Map<String, dynamic> json) =>
-      ReputationOptions();
+      ReputationOptions(
+        reputationMetricsEnabled: json.containsKey('ReputationMetricsEnabled')
+            ? json['ReputationMetricsEnabled'] as bool
+            : null,
+        lastFreshStart: json.containsKey('LastFreshStart')
+            ? DateTime.parse(json['LastFreshStart'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A unique message ID that you receive when Amazon Pinpoint accepts an email
@@ -2382,7 +2961,10 @@ class SendEmailResponse {
     this.messageId,
   });
   static SendEmailResponse fromJson(Map<String, dynamic> json) =>
-      SendEmailResponse();
+      SendEmailResponse(
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+      );
 }
 
 /// An object that contains information about the per-day and per-second sending
@@ -2406,7 +2988,17 @@ class SendQuota {
     this.maxSendRate,
     this.sentLast24Hours,
   });
-  static SendQuota fromJson(Map<String, dynamic> json) => SendQuota();
+  static SendQuota fromJson(Map<String, dynamic> json) => SendQuota(
+        max24HourSend: json.containsKey('Max24HourSend')
+            ? json['Max24HourSend'] as double
+            : null,
+        maxSendRate: json.containsKey('MaxSendRate')
+            ? json['MaxSendRate'] as double
+            : null,
+        sentLast24Hours: json.containsKey('SentLast24Hours')
+            ? json['SentLast24Hours'] as double
+            : null,
+      );
 }
 
 /// Used to enable or disable email sending for messages that use this
@@ -2419,7 +3011,12 @@ class SendingOptions {
   SendingOptions({
     this.sendingEnabled,
   });
-  static SendingOptions fromJson(Map<String, dynamic> json) => SendingOptions();
+  static SendingOptions fromJson(Map<String, dynamic> json) => SendingOptions(
+        sendingEnabled: json.containsKey('SendingEnabled')
+            ? json['SendingEnabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that defines an Amazon SNS destination for email events. You can
@@ -2434,7 +3031,10 @@ class SnsDestination {
   SnsDestination({
     @required this.topicArn,
   });
-  static SnsDestination fromJson(Map<String, dynamic> json) => SnsDestination();
+  static SnsDestination fromJson(Map<String, dynamic> json) => SnsDestination(
+        topicArn: json['TopicArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that defines the tags that are associated with a resource.
@@ -2481,7 +3081,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -2506,8 +3110,10 @@ class TrackingOptions {
   TrackingOptions({
     @required this.customRedirectDomain,
   });
-  static TrackingOptions fromJson(Map<String, dynamic> json) =>
-      TrackingOptions();
+  static TrackingOptions fromJson(Map<String, dynamic> json) => TrackingOptions(
+        customRedirectDomain: json['CustomRedirectDomain'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -2550,5 +3156,18 @@ class VolumeStatistics {
     this.projectedSpam,
   });
   static VolumeStatistics fromJson(Map<String, dynamic> json) =>
-      VolumeStatistics();
+      VolumeStatistics(
+        inboxRawCount: json.containsKey('InboxRawCount')
+            ? BigInt.from(json['InboxRawCount'])
+            : null,
+        spamRawCount: json.containsKey('SpamRawCount')
+            ? BigInt.from(json['SpamRawCount'])
+            : null,
+        projectedInbox: json.containsKey('ProjectedInbox')
+            ? BigInt.from(json['ProjectedInbox'])
+            : null,
+        projectedSpam: json.containsKey('ProjectedSpam')
+            ? BigInt.from(json['ProjectedSpam'])
+            : null,
+      );
 }

@@ -194,6 +194,10 @@ import 'dart:typed_data';
 /// For information about how to use AWS CodeCommit, see the
 /// [AWS CodeCommit User Guide](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html).
 class CodeCommitApi {
+  final _client;
+  CodeCommitApi(client)
+      : _client = client.configured('CodeCommit', serializer: 'json');
+
   /// Returns information about one or more merge conflicts in the attempted
   /// merge of two commit specifiers using the squash or three-way merge
   /// strategy.
@@ -244,7 +248,21 @@ class CodeCommitApi {
       String conflictDetailLevel,
       String conflictResolutionStrategy,
       String nextToken}) async {
-    return BatchDescribeMergeConflictsOutput.fromJson({});
+    var response_ = await _client.send('BatchDescribeMergeConflicts', {
+      'repositoryName': repositoryName,
+      'destinationCommitSpecifier': destinationCommitSpecifier,
+      'sourceCommitSpecifier': sourceCommitSpecifier,
+      'mergeOption': mergeOption,
+      if (maxMergeHunks != null) 'maxMergeHunks': maxMergeHunks,
+      if (maxConflictFiles != null) 'maxConflictFiles': maxConflictFiles,
+      if (filePaths != null) 'filePaths': filePaths,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return BatchDescribeMergeConflictsOutput.fromJson(response_);
   }
 
   /// Returns information about the contents of one or more commits in a
@@ -261,7 +279,11 @@ class CodeCommitApi {
   Future<BatchGetCommitsOutput> batchGetCommits(
       {@required List<String> commitIds,
       @required String repositoryName}) async {
-    return BatchGetCommitsOutput.fromJson({});
+    var response_ = await _client.send('BatchGetCommits', {
+      'commitIds': commitIds,
+      'repositoryName': repositoryName,
+    });
+    return BatchGetCommitsOutput.fromJson(response_);
   }
 
   /// Returns information about one or more repositories.
@@ -278,7 +300,10 @@ class CodeCommitApi {
   /// [repositoryNames]: The names of the repositories to get information about.
   Future<BatchGetRepositoriesOutput> batchGetRepositories(
       List<String> repositoryNames) async {
-    return BatchGetRepositoriesOutput.fromJson({});
+    var response_ = await _client.send('BatchGetRepositories', {
+      'repositoryNames': repositoryNames,
+    });
+    return BatchGetRepositoriesOutput.fromJson(response_);
   }
 
   /// Creates a new branch in a repository and points the branch to a commit.
@@ -297,7 +322,13 @@ class CodeCommitApi {
   Future<void> createBranch(
       {@required String repositoryName,
       @required String branchName,
-      @required String commitId}) async {}
+      @required String commitId}) async {
+    await _client.send('CreateBranch', {
+      'repositoryName': repositoryName,
+      'branchName': branchName,
+      'commitId': commitId,
+    });
+  }
 
   /// Creates a commit for a repository on the tip of a specified branch.
   ///
@@ -340,7 +371,19 @@ class CodeCommitApi {
       List<PutFileEntry> putFiles,
       List<DeleteFileEntry> deleteFiles,
       List<SetFileModeEntry> setFileModes}) async {
-    return CreateCommitOutput.fromJson({});
+    var response_ = await _client.send('CreateCommit', {
+      'repositoryName': repositoryName,
+      'branchName': branchName,
+      if (parentCommitId != null) 'parentCommitId': parentCommitId,
+      if (authorName != null) 'authorName': authorName,
+      if (email != null) 'email': email,
+      if (commitMessage != null) 'commitMessage': commitMessage,
+      if (keepEmptyFolders != null) 'keepEmptyFolders': keepEmptyFolders,
+      if (putFiles != null) 'putFiles': putFiles,
+      if (deleteFiles != null) 'deleteFiles': deleteFiles,
+      if (setFileModes != null) 'setFileModes': setFileModes,
+    });
+    return CreateCommitOutput.fromJson(response_);
   }
 
   /// Creates a pull request in the specified repository.
@@ -371,7 +414,13 @@ class CodeCommitApi {
       String description,
       @required List<Target> targets,
       String clientRequestToken}) async {
-    return CreatePullRequestOutput.fromJson({});
+    var response_ = await _client.send('CreatePullRequest', {
+      'title': title,
+      if (description != null) 'description': description,
+      'targets': targets,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+    });
+    return CreatePullRequestOutput.fromJson(response_);
   }
 
   /// Creates a new, empty repository.
@@ -403,7 +452,13 @@ class CodeCommitApi {
   /// repository.
   Future<CreateRepositoryOutput> createRepository(String repositoryName,
       {String repositoryDescription, Map<String, String> tags}) async {
-    return CreateRepositoryOutput.fromJson({});
+    var response_ = await _client.send('CreateRepository', {
+      'repositoryName': repositoryName,
+      if (repositoryDescription != null)
+        'repositoryDescription': repositoryDescription,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateRepositoryOutput.fromJson(response_);
   }
 
   /// Creates an unreferenced commit that represents the result of merging two
@@ -471,7 +526,22 @@ class CodeCommitApi {
       String commitMessage,
       bool keepEmptyFolders,
       ConflictResolution conflictResolution}) async {
-    return CreateUnreferencedMergeCommitOutput.fromJson({});
+    var response_ = await _client.send('CreateUnreferencedMergeCommit', {
+      'repositoryName': repositoryName,
+      'sourceCommitSpecifier': sourceCommitSpecifier,
+      'destinationCommitSpecifier': destinationCommitSpecifier,
+      'mergeOption': mergeOption,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+      if (authorName != null) 'authorName': authorName,
+      if (email != null) 'email': email,
+      if (commitMessage != null) 'commitMessage': commitMessage,
+      if (keepEmptyFolders != null) 'keepEmptyFolders': keepEmptyFolders,
+      if (conflictResolution != null) 'conflictResolution': conflictResolution,
+    });
+    return CreateUnreferencedMergeCommitOutput.fromJson(response_);
   }
 
   /// Deletes a branch from a repository, unless that branch is the default
@@ -483,7 +553,11 @@ class CodeCommitApi {
   /// [branchName]: The name of the branch to delete.
   Future<DeleteBranchOutput> deleteBranch(
       {@required String repositoryName, @required String branchName}) async {
-    return DeleteBranchOutput.fromJson({});
+    var response_ = await _client.send('DeleteBranch', {
+      'repositoryName': repositoryName,
+      'branchName': branchName,
+    });
+    return DeleteBranchOutput.fromJson(response_);
   }
 
   /// Deletes the content of a comment made on a change, file, or commit in a
@@ -493,7 +567,10 @@ class CodeCommitApi {
   /// ID, use GetCommentsForComparedCommit or GetCommentsForPullRequest.
   Future<DeleteCommentContentOutput> deleteCommentContent(
       String commentId) async {
-    return DeleteCommentContentOutput.fromJson({});
+    var response_ = await _client.send('DeleteCommentContent', {
+      'commentId': commentId,
+    });
+    return DeleteCommentContentOutput.fromJson(response_);
   }
 
   /// Deletes a specified file from a specified branch. A commit is created on
@@ -543,7 +620,17 @@ class CodeCommitApi {
       String commitMessage,
       String name,
       String email}) async {
-    return DeleteFileOutput.fromJson({});
+    var response_ = await _client.send('DeleteFile', {
+      'repositoryName': repositoryName,
+      'branchName': branchName,
+      'filePath': filePath,
+      'parentCommitId': parentCommitId,
+      if (keepEmptyFolders != null) 'keepEmptyFolders': keepEmptyFolders,
+      if (commitMessage != null) 'commitMessage': commitMessage,
+      if (name != null) 'name': name,
+      if (email != null) 'email': email,
+    });
+    return DeleteFileOutput.fromJson(response_);
   }
 
   /// Deletes a repository. If a specified repository was already deleted, a
@@ -557,7 +644,10 @@ class CodeCommitApi {
   ///
   /// [repositoryName]: The name of the repository to delete.
   Future<DeleteRepositoryOutput> deleteRepository(String repositoryName) async {
-    return DeleteRepositoryOutput.fromJson({});
+    var response_ = await _client.send('DeleteRepository', {
+      'repositoryName': repositoryName,
+    });
+    return DeleteRepositoryOutput.fromJson(response_);
   }
 
   /// Returns information about one or more merge conflicts in the attempted
@@ -607,7 +697,20 @@ class CodeCommitApi {
       String conflictDetailLevel,
       String conflictResolutionStrategy,
       String nextToken}) async {
-    return DescribeMergeConflictsOutput.fromJson({});
+    var response_ = await _client.send('DescribeMergeConflicts', {
+      'repositoryName': repositoryName,
+      'destinationCommitSpecifier': destinationCommitSpecifier,
+      'sourceCommitSpecifier': sourceCommitSpecifier,
+      'mergeOption': mergeOption,
+      if (maxMergeHunks != null) 'maxMergeHunks': maxMergeHunks,
+      'filePath': filePath,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeMergeConflictsOutput.fromJson(response_);
   }
 
   /// Returns information about one or more pull request events.
@@ -634,7 +737,15 @@ class CodeCommitApi {
       String actorArn,
       String nextToken,
       int maxResults}) async {
-    return DescribePullRequestEventsOutput.fromJson({});
+    var response_ = await _client.send('DescribePullRequestEvents', {
+      'pullRequestId': pullRequestId,
+      if (pullRequestEventType != null)
+        'pullRequestEventType': pullRequestEventType,
+      if (actorArn != null) 'actorArn': actorArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return DescribePullRequestEventsOutput.fromJson(response_);
   }
 
   /// Returns the base-64 encoded content of an individual blob within a
@@ -645,7 +756,11 @@ class CodeCommitApi {
   /// [blobId]: The ID of the blob, which is its SHA-1 pointer.
   Future<GetBlobOutput> getBlob(
       {@required String repositoryName, @required String blobId}) async {
-    return GetBlobOutput.fromJson({});
+    var response_ = await _client.send('GetBlob', {
+      'repositoryName': repositoryName,
+      'blobId': blobId,
+    });
+    return GetBlobOutput.fromJson(response_);
   }
 
   /// Returns information about a repository branch, including its name and the
@@ -658,7 +773,11 @@ class CodeCommitApi {
   /// information.
   Future<GetBranchOutput> getBranch(
       {String repositoryName, String branchName}) async {
-    return GetBranchOutput.fromJson({});
+    var response_ = await _client.send('GetBranch', {
+      if (repositoryName != null) 'repositoryName': repositoryName,
+      if (branchName != null) 'branchName': branchName,
+    });
+    return GetBranchOutput.fromJson(response_);
   }
 
   /// Returns the content of a comment made on a change, file, or commit in a
@@ -667,7 +786,10 @@ class CodeCommitApi {
   /// [commentId]: The unique, system-generated ID of the comment. To get this
   /// ID, use GetCommentsForComparedCommit or GetCommentsForPullRequest.
   Future<GetCommentOutput> getComment(String commentId) async {
-    return GetCommentOutput.fromJson({});
+    var response_ = await _client.send('GetComment', {
+      'commentId': commentId,
+    });
+    return GetCommentOutput.fromJson(response_);
   }
 
   /// Returns information about comments made on the comparison between two
@@ -693,7 +815,14 @@ class CodeCommitApi {
       @required String afterCommitId,
       String nextToken,
       int maxResults}) async {
-    return GetCommentsForComparedCommitOutput.fromJson({});
+    var response_ = await _client.send('GetCommentsForComparedCommit', {
+      'repositoryName': repositoryName,
+      if (beforeCommitId != null) 'beforeCommitId': beforeCommitId,
+      'afterCommitId': afterCommitId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetCommentsForComparedCommitOutput.fromJson(response_);
   }
 
   /// Returns comments made on a pull request.
@@ -724,7 +853,15 @@ class CodeCommitApi {
       String afterCommitId,
       String nextToken,
       int maxResults}) async {
-    return GetCommentsForPullRequestOutput.fromJson({});
+    var response_ = await _client.send('GetCommentsForPullRequest', {
+      'pullRequestId': pullRequestId,
+      if (repositoryName != null) 'repositoryName': repositoryName,
+      if (beforeCommitId != null) 'beforeCommitId': beforeCommitId,
+      if (afterCommitId != null) 'afterCommitId': afterCommitId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetCommentsForPullRequestOutput.fromJson(response_);
   }
 
   /// Returns information about a commit, including commit message and committer
@@ -735,7 +872,11 @@ class CodeCommitApi {
   /// [commitId]: The commit ID. Commit IDs are the full SHA of the commit.
   Future<GetCommitOutput> getCommit(
       {@required String repositoryName, @required String commitId}) async {
-    return GetCommitOutput.fromJson({});
+    var response_ = await _client.send('GetCommit', {
+      'repositoryName': repositoryName,
+      'commitId': commitId,
+    });
+    return GetCommitOutput.fromJson(response_);
   }
 
   /// Returns information about the differences in a valid commit specifier
@@ -778,7 +919,17 @@ class CodeCommitApi {
       String afterPath,
       int maxResults,
       String nextToken}) async {
-    return GetDifferencesOutput.fromJson({});
+    var response_ = await _client.send('GetDifferences', {
+      'repositoryName': repositoryName,
+      if (beforeCommitSpecifier != null)
+        'beforeCommitSpecifier': beforeCommitSpecifier,
+      'afterCommitSpecifier': afterCommitSpecifier,
+      if (beforePath != null) 'beforePath': beforePath,
+      if (afterPath != null) 'afterPath': afterPath,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetDifferencesOutput.fromJson(response_);
   }
 
   /// Returns the base-64 encoded contents of a specified file and its metadata.
@@ -797,7 +948,12 @@ class CodeCommitApi {
       {@required String repositoryName,
       String commitSpecifier,
       @required String filePath}) async {
-    return GetFileOutput.fromJson({});
+    var response_ = await _client.send('GetFile', {
+      'repositoryName': repositoryName,
+      if (commitSpecifier != null) 'commitSpecifier': commitSpecifier,
+      'filePath': filePath,
+    });
+    return GetFileOutput.fromJson(response_);
   }
 
   /// Returns the contents of a specified folder in a repository.
@@ -818,7 +974,12 @@ class CodeCommitApi {
       {@required String repositoryName,
       String commitSpecifier,
       @required String folderPath}) async {
-    return GetFolderOutput.fromJson({});
+    var response_ = await _client.send('GetFolder', {
+      'repositoryName': repositoryName,
+      if (commitSpecifier != null) 'commitSpecifier': commitSpecifier,
+      'folderPath': folderPath,
+    });
+    return GetFolderOutput.fromJson(response_);
   }
 
   /// Returns information about a specified merge commit.
@@ -850,7 +1011,16 @@ class CodeCommitApi {
       @required String destinationCommitSpecifier,
       String conflictDetailLevel,
       String conflictResolutionStrategy}) async {
-    return GetMergeCommitOutput.fromJson({});
+    var response_ = await _client.send('GetMergeCommit', {
+      'repositoryName': repositoryName,
+      'sourceCommitSpecifier': sourceCommitSpecifier,
+      'destinationCommitSpecifier': destinationCommitSpecifier,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+    });
+    return GetMergeCommitOutput.fromJson(response_);
   }
 
   /// Returns information about merge conflicts between the before and after
@@ -894,7 +1064,19 @@ class CodeCommitApi {
       int maxConflictFiles,
       String conflictResolutionStrategy,
       String nextToken}) async {
-    return GetMergeConflictsOutput.fromJson({});
+    var response_ = await _client.send('GetMergeConflicts', {
+      'repositoryName': repositoryName,
+      'destinationCommitSpecifier': destinationCommitSpecifier,
+      'sourceCommitSpecifier': sourceCommitSpecifier,
+      'mergeOption': mergeOption,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (maxConflictFiles != null) 'maxConflictFiles': maxConflictFiles,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return GetMergeConflictsOutput.fromJson(response_);
   }
 
   /// Returns information about the merge options available for merging two
@@ -928,7 +1110,16 @@ class CodeCommitApi {
       @required String destinationCommitSpecifier,
       String conflictDetailLevel,
       String conflictResolutionStrategy}) async {
-    return GetMergeOptionsOutput.fromJson({});
+    var response_ = await _client.send('GetMergeOptions', {
+      'repositoryName': repositoryName,
+      'sourceCommitSpecifier': sourceCommitSpecifier,
+      'destinationCommitSpecifier': destinationCommitSpecifier,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+    });
+    return GetMergeOptionsOutput.fromJson(response_);
   }
 
   /// Gets information about a pull request in a specified repository.
@@ -936,7 +1127,10 @@ class CodeCommitApi {
   /// [pullRequestId]: The system-generated ID of the pull request. To get this
   /// ID, use ListPullRequests.
   Future<GetPullRequestOutput> getPullRequest(String pullRequestId) async {
-    return GetPullRequestOutput.fromJson({});
+    var response_ = await _client.send('GetPullRequest', {
+      'pullRequestId': pullRequestId,
+    });
+    return GetPullRequestOutput.fromJson(response_);
   }
 
   /// Returns information about a repository.
@@ -952,7 +1146,10 @@ class CodeCommitApi {
   ///
   /// [repositoryName]: The name of the repository to get information about.
   Future<GetRepositoryOutput> getRepository(String repositoryName) async {
-    return GetRepositoryOutput.fromJson({});
+    var response_ = await _client.send('GetRepository', {
+      'repositoryName': repositoryName,
+    });
+    return GetRepositoryOutput.fromJson(response_);
   }
 
   /// Gets information about triggers configured for a repository.
@@ -961,7 +1158,10 @@ class CodeCommitApi {
   /// configured.
   Future<GetRepositoryTriggersOutput> getRepositoryTriggers(
       String repositoryName) async {
-    return GetRepositoryTriggersOutput.fromJson({});
+    var response_ = await _client.send('GetRepositoryTriggers', {
+      'repositoryName': repositoryName,
+    });
+    return GetRepositoryTriggersOutput.fromJson(response_);
   }
 
   /// Gets information about one or more branches in a repository.
@@ -972,7 +1172,11 @@ class CodeCommitApi {
   /// results.
   Future<ListBranchesOutput> listBranches(String repositoryName,
       {String nextToken}) async {
-    return ListBranchesOutput.fromJson({});
+    var response_ = await _client.send('ListBranches', {
+      'repositoryName': repositoryName,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListBranchesOutput.fromJson(response_);
   }
 
   /// Returns a list of pull requests for a specified repository. The return
@@ -999,7 +1203,14 @@ class CodeCommitApi {
       String pullRequestStatus,
       String nextToken,
       int maxResults}) async {
-    return ListPullRequestsOutput.fromJson({});
+    var response_ = await _client.send('ListPullRequests', {
+      'repositoryName': repositoryName,
+      if (authorArn != null) 'authorArn': authorArn,
+      if (pullRequestStatus != null) 'pullRequestStatus': pullRequestStatus,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListPullRequestsOutput.fromJson(response_);
   }
 
   /// Gets information about one or more repositories.
@@ -1016,7 +1227,12 @@ class CodeCommitApi {
   /// operation.
   Future<ListRepositoriesOutput> listRepositories(
       {String nextToken, String sortBy, String order}) async {
-    return ListRepositoriesOutput.fromJson({});
+    var response_ = await _client.send('ListRepositories', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (sortBy != null) 'sortBy': sortBy,
+      if (order != null) 'order': order,
+    });
+    return ListRepositoriesOutput.fromJson(response_);
   }
 
   /// Gets information about AWS tags for a specified Amazon Resource Name (ARN)
@@ -1031,7 +1247,11 @@ class CodeCommitApi {
   /// the next batch of the results.
   Future<ListTagsForResourceOutput> listTagsForResource(String resourceArn,
       {String nextToken}) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   /// Merges two branches using the fast-forward merge strategy.
@@ -1053,7 +1273,13 @@ class CodeCommitApi {
       @required String sourceCommitSpecifier,
       @required String destinationCommitSpecifier,
       String targetBranch}) async {
-    return MergeBranchesByFastForwardOutput.fromJson({});
+    var response_ = await _client.send('MergeBranchesByFastForward', {
+      'repositoryName': repositoryName,
+      'sourceCommitSpecifier': sourceCommitSpecifier,
+      'destinationCommitSpecifier': destinationCommitSpecifier,
+      if (targetBranch != null) 'targetBranch': targetBranch,
+    });
+    return MergeBranchesByFastForwardOutput.fromJson(response_);
   }
 
   /// Merges two branches using the squash merge strategy.
@@ -1109,7 +1335,22 @@ class CodeCommitApi {
       String commitMessage,
       bool keepEmptyFolders,
       ConflictResolution conflictResolution}) async {
-    return MergeBranchesBySquashOutput.fromJson({});
+    var response_ = await _client.send('MergeBranchesBySquash', {
+      'repositoryName': repositoryName,
+      'sourceCommitSpecifier': sourceCommitSpecifier,
+      'destinationCommitSpecifier': destinationCommitSpecifier,
+      if (targetBranch != null) 'targetBranch': targetBranch,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+      if (authorName != null) 'authorName': authorName,
+      if (email != null) 'email': email,
+      if (commitMessage != null) 'commitMessage': commitMessage,
+      if (keepEmptyFolders != null) 'keepEmptyFolders': keepEmptyFolders,
+      if (conflictResolution != null) 'conflictResolution': conflictResolution,
+    });
+    return MergeBranchesBySquashOutput.fromJson(response_);
   }
 
   /// Merges two specified branches using the three-way merge strategy.
@@ -1166,7 +1407,22 @@ class CodeCommitApi {
       String commitMessage,
       bool keepEmptyFolders,
       ConflictResolution conflictResolution}) async {
-    return MergeBranchesByThreeWayOutput.fromJson({});
+    var response_ = await _client.send('MergeBranchesByThreeWay', {
+      'repositoryName': repositoryName,
+      'sourceCommitSpecifier': sourceCommitSpecifier,
+      'destinationCommitSpecifier': destinationCommitSpecifier,
+      if (targetBranch != null) 'targetBranch': targetBranch,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+      if (authorName != null) 'authorName': authorName,
+      if (email != null) 'email': email,
+      if (commitMessage != null) 'commitMessage': commitMessage,
+      if (keepEmptyFolders != null) 'keepEmptyFolders': keepEmptyFolders,
+      if (conflictResolution != null) 'conflictResolution': conflictResolution,
+    });
+    return MergeBranchesByThreeWayOutput.fromJson(response_);
   }
 
   /// Attempts to merge the source commit of a pull request into the specified
@@ -1188,7 +1444,12 @@ class CodeCommitApi {
       {@required String pullRequestId,
       @required String repositoryName,
       String sourceCommitId}) async {
-    return MergePullRequestByFastForwardOutput.fromJson({});
+    var response_ = await _client.send('MergePullRequestByFastForward', {
+      'pullRequestId': pullRequestId,
+      'repositoryName': repositoryName,
+      if (sourceCommitId != null) 'sourceCommitId': sourceCommitId,
+    });
+    return MergePullRequestByFastForwardOutput.fromJson(response_);
   }
 
   /// Attempts to merge the source commit of a pull request into the specified
@@ -1245,7 +1506,21 @@ class CodeCommitApi {
       String email,
       bool keepEmptyFolders,
       ConflictResolution conflictResolution}) async {
-    return MergePullRequestBySquashOutput.fromJson({});
+    var response_ = await _client.send('MergePullRequestBySquash', {
+      'pullRequestId': pullRequestId,
+      'repositoryName': repositoryName,
+      if (sourceCommitId != null) 'sourceCommitId': sourceCommitId,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+      if (commitMessage != null) 'commitMessage': commitMessage,
+      if (authorName != null) 'authorName': authorName,
+      if (email != null) 'email': email,
+      if (keepEmptyFolders != null) 'keepEmptyFolders': keepEmptyFolders,
+      if (conflictResolution != null) 'conflictResolution': conflictResolution,
+    });
+    return MergePullRequestBySquashOutput.fromJson(response_);
   }
 
   /// Attempts to merge the source commit of a pull request into the specified
@@ -1302,7 +1577,21 @@ class CodeCommitApi {
       String email,
       bool keepEmptyFolders,
       ConflictResolution conflictResolution}) async {
-    return MergePullRequestByThreeWayOutput.fromJson({});
+    var response_ = await _client.send('MergePullRequestByThreeWay', {
+      'pullRequestId': pullRequestId,
+      'repositoryName': repositoryName,
+      if (sourceCommitId != null) 'sourceCommitId': sourceCommitId,
+      if (conflictDetailLevel != null)
+        'conflictDetailLevel': conflictDetailLevel,
+      if (conflictResolutionStrategy != null)
+        'conflictResolutionStrategy': conflictResolutionStrategy,
+      if (commitMessage != null) 'commitMessage': commitMessage,
+      if (authorName != null) 'authorName': authorName,
+      if (email != null) 'email': email,
+      if (keepEmptyFolders != null) 'keepEmptyFolders': keepEmptyFolders,
+      if (conflictResolution != null) 'conflictResolution': conflictResolution,
+    });
+    return MergePullRequestByThreeWayOutput.fromJson(response_);
   }
 
   /// Posts a comment on the comparison between two commits.
@@ -1337,7 +1626,15 @@ class CodeCommitApi {
       Location location,
       @required String content,
       String clientRequestToken}) async {
-    return PostCommentForComparedCommitOutput.fromJson({});
+    var response_ = await _client.send('PostCommentForComparedCommit', {
+      'repositoryName': repositoryName,
+      if (beforeCommitId != null) 'beforeCommitId': beforeCommitId,
+      'afterCommitId': afterCommitId,
+      if (location != null) 'location': location,
+      'content': content,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+    });
+    return PostCommentForComparedCommitOutput.fromJson(response_);
   }
 
   /// Posts a comment on a pull request.
@@ -1376,7 +1673,16 @@ class CodeCommitApi {
       Location location,
       @required String content,
       String clientRequestToken}) async {
-    return PostCommentForPullRequestOutput.fromJson({});
+    var response_ = await _client.send('PostCommentForPullRequest', {
+      'pullRequestId': pullRequestId,
+      'repositoryName': repositoryName,
+      'beforeCommitId': beforeCommitId,
+      'afterCommitId': afterCommitId,
+      if (location != null) 'location': location,
+      'content': content,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+    });
+    return PostCommentForPullRequestOutput.fromJson(response_);
   }
 
   /// Posts a comment in reply to an existing comment on a comparison between
@@ -1397,7 +1703,12 @@ class CodeCommitApi {
       {@required String inReplyTo,
       String clientRequestToken,
       @required String content}) async {
-    return PostCommentReplyOutput.fromJson({});
+    var response_ = await _client.send('PostCommentReply', {
+      'inReplyTo': inReplyTo,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+      'content': content,
+    });
+    return PostCommentReplyOutput.fromJson(response_);
   }
 
   /// Adds or updates a file in a branch in an AWS CodeCommit repository, and
@@ -1450,7 +1761,18 @@ class CodeCommitApi {
       String commitMessage,
       String name,
       String email}) async {
-    return PutFileOutput.fromJson({});
+    var response_ = await _client.send('PutFile', {
+      'repositoryName': repositoryName,
+      'branchName': branchName,
+      'fileContent': fileContent,
+      'filePath': filePath,
+      if (fileMode != null) 'fileMode': fileMode,
+      if (parentCommitId != null) 'parentCommitId': parentCommitId,
+      if (commitMessage != null) 'commitMessage': commitMessage,
+      if (name != null) 'name': name,
+      if (email != null) 'email': email,
+    });
+    return PutFileOutput.fromJson(response_);
   }
 
   /// Replaces all triggers for a repository. This can be used to create or
@@ -1463,7 +1785,11 @@ class CodeCommitApi {
   Future<PutRepositoryTriggersOutput> putRepositoryTriggers(
       {@required String repositoryName,
       @required List<RepositoryTrigger> triggers}) async {
-    return PutRepositoryTriggersOutput.fromJson({});
+    var response_ = await _client.send('PutRepositoryTriggers', {
+      'repositoryName': repositoryName,
+      'triggers': triggers,
+    });
+    return PutRepositoryTriggersOutput.fromJson(response_);
   }
 
   /// Adds or updates tags for a resource in AWS CodeCommit. For a list of valid
@@ -1477,7 +1803,12 @@ class CodeCommitApi {
   /// [tags]: The key-value pair to use when tagging this repository.
   Future<void> tagResource(
       {@required String resourceArn,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+  }
 
   /// Tests the functionality of repository triggers by sending information to
   /// the trigger target. If real data is available in the repository, the test
@@ -1491,7 +1822,11 @@ class CodeCommitApi {
   Future<TestRepositoryTriggersOutput> testRepositoryTriggers(
       {@required String repositoryName,
       @required List<RepositoryTrigger> triggers}) async {
-    return TestRepositoryTriggersOutput.fromJson({});
+    var response_ = await _client.send('TestRepositoryTriggers', {
+      'repositoryName': repositoryName,
+      'triggers': triggers,
+    });
+    return TestRepositoryTriggersOutput.fromJson(response_);
   }
 
   /// Removes tags for a resource in AWS CodeCommit. For a list of valid
@@ -1505,7 +1840,12 @@ class CodeCommitApi {
   /// [tagKeys]: The tag key for each tag that you want to remove from the
   /// resource.
   Future<void> untagResource(
-      {@required String resourceArn, @required List<String> tagKeys}) async {}
+      {@required String resourceArn, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+  }
 
   /// Replaces the contents of a comment.
   ///
@@ -1517,7 +1857,11 @@ class CodeCommitApi {
   /// content of the comment.
   Future<UpdateCommentOutput> updateComment(
       {@required String commentId, @required String content}) async {
-    return UpdateCommentOutput.fromJson({});
+    var response_ = await _client.send('UpdateComment', {
+      'commentId': commentId,
+      'content': content,
+    });
+    return UpdateCommentOutput.fromJson(response_);
   }
 
   /// Sets or changes the default branch name for the specified repository.
@@ -1534,7 +1878,12 @@ class CodeCommitApi {
   /// [defaultBranchName]: The name of the branch to set as the default.
   Future<void> updateDefaultBranch(
       {@required String repositoryName,
-      @required String defaultBranchName}) async {}
+      @required String defaultBranchName}) async {
+    await _client.send('UpdateDefaultBranch', {
+      'repositoryName': repositoryName,
+      'defaultBranchName': defaultBranchName,
+    });
+  }
 
   /// Replaces the contents of the description of a pull request.
   ///
@@ -1545,7 +1894,11 @@ class CodeCommitApi {
   /// request. This content will replace the existing description.
   Future<UpdatePullRequestDescriptionOutput> updatePullRequestDescription(
       {@required String pullRequestId, @required String description}) async {
-    return UpdatePullRequestDescriptionOutput.fromJson({});
+    var response_ = await _client.send('UpdatePullRequestDescription', {
+      'pullRequestId': pullRequestId,
+      'description': description,
+    });
+    return UpdatePullRequestDescriptionOutput.fromJson(response_);
   }
 
   /// Updates the status of a pull request.
@@ -1559,7 +1912,11 @@ class CodeCommitApi {
   Future<UpdatePullRequestStatusOutput> updatePullRequestStatus(
       {@required String pullRequestId,
       @required String pullRequestStatus}) async {
-    return UpdatePullRequestStatusOutput.fromJson({});
+    var response_ = await _client.send('UpdatePullRequestStatus', {
+      'pullRequestId': pullRequestId,
+      'pullRequestStatus': pullRequestStatus,
+    });
+    return UpdatePullRequestStatusOutput.fromJson(response_);
   }
 
   /// Replaces the title of a pull request.
@@ -1571,7 +1928,11 @@ class CodeCommitApi {
   /// existing title.
   Future<UpdatePullRequestTitleOutput> updatePullRequestTitle(
       {@required String pullRequestId, @required String title}) async {
-    return UpdatePullRequestTitleOutput.fromJson({});
+    var response_ = await _client.send('UpdatePullRequestTitle', {
+      'pullRequestId': pullRequestId,
+      'title': title,
+    });
+    return UpdatePullRequestTitleOutput.fromJson(response_);
   }
 
   /// Sets or changes the comment or description for a repository.
@@ -1591,7 +1952,13 @@ class CodeCommitApi {
   /// [repositoryDescription]: The new comment or description for the specified
   /// repository. Repository descriptions are limited to 1,000 characters.
   Future<void> updateRepositoryDescription(String repositoryName,
-      {String repositoryDescription}) async {}
+      {String repositoryDescription}) async {
+    await _client.send('UpdateRepositoryDescription', {
+      'repositoryName': repositoryName,
+      if (repositoryDescription != null)
+        'repositoryDescription': repositoryDescription,
+    });
+  }
 
   /// Renames a repository. The repository name must be unique across the
   /// calling AWS account. In addition, repository names are limited to 100
@@ -1605,7 +1972,12 @@ class CodeCommitApi {
   ///
   /// [newName]: The new name for the repository.
   Future<void> updateRepositoryName(
-      {@required String oldName, @required String newName}) async {}
+      {@required String oldName, @required String newName}) async {
+    await _client.send('UpdateRepositoryName', {
+      'oldName': oldName,
+      'newName': newName,
+    });
+  }
 }
 
 /// Information about errors in a BatchDescribeMergeConflicts operation.
@@ -1625,7 +1997,11 @@ class BatchDescribeMergeConflictsError {
     @required this.message,
   });
   static BatchDescribeMergeConflictsError fromJson(Map<String, dynamic> json) =>
-      BatchDescribeMergeConflictsError();
+      BatchDescribeMergeConflictsError(
+        filePath: json['filePath'] as String,
+        exceptionName: json['exceptionName'] as String,
+        message: json['message'] as String,
+      );
 }
 
 class BatchDescribeMergeConflictsOutput {
@@ -1662,7 +2038,23 @@ class BatchDescribeMergeConflictsOutput {
   });
   static BatchDescribeMergeConflictsOutput fromJson(
           Map<String, dynamic> json) =>
-      BatchDescribeMergeConflictsOutput();
+      BatchDescribeMergeConflictsOutput(
+        conflicts: (json['conflicts'] as List)
+            .map((e) => Conflict.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        errors: json.containsKey('errors')
+            ? (json['errors'] as List)
+                .map((e) => BatchDescribeMergeConflictsError.fromJson(e))
+                .toList()
+            : null,
+        destinationCommitId: json['destinationCommitId'] as String,
+        sourceCommitId: json['sourceCommitId'] as String,
+        baseCommitId: json.containsKey('baseCommitId')
+            ? json['baseCommitId'] as String
+            : null,
+      );
 }
 
 /// Returns information about errors in a BatchGetCommits operation.
@@ -1684,7 +2076,15 @@ class BatchGetCommitsError {
     this.errorMessage,
   });
   static BatchGetCommitsError fromJson(Map<String, dynamic> json) =>
-      BatchGetCommitsError();
+      BatchGetCommitsError(
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+      );
 }
 
 class BatchGetCommitsOutput {
@@ -1703,7 +2103,16 @@ class BatchGetCommitsOutput {
     this.errors,
   });
   static BatchGetCommitsOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetCommitsOutput();
+      BatchGetCommitsOutput(
+        commits: json.containsKey('commits')
+            ? (json['commits'] as List).map((e) => Commit.fromJson(e)).toList()
+            : null,
+        errors: json.containsKey('errors')
+            ? (json['errors'] as List)
+                .map((e) => BatchGetCommitsError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a batch get repositories operation.
@@ -1720,7 +2129,18 @@ class BatchGetRepositoriesOutput {
     this.repositoriesNotFound,
   });
   static BatchGetRepositoriesOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetRepositoriesOutput();
+      BatchGetRepositoriesOutput(
+        repositories: json.containsKey('repositories')
+            ? (json['repositories'] as List)
+                .map((e) => RepositoryMetadata.fromJson(e))
+                .toList()
+            : null,
+        repositoriesNotFound: json.containsKey('repositoriesNotFound')
+            ? (json['repositoriesNotFound'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Returns information about a specific Git blob object.
@@ -1747,7 +2167,11 @@ class BlobMetadata {
     this.path,
     this.mode,
   });
-  static BlobMetadata fromJson(Map<String, dynamic> json) => BlobMetadata();
+  static BlobMetadata fromJson(Map<String, dynamic> json) => BlobMetadata(
+        blobId: json.containsKey('blobId') ? json['blobId'] as String : null,
+        path: json.containsKey('path') ? json['path'] as String : null,
+        mode: json.containsKey('mode') ? json['mode'] as String : null,
+      );
 }
 
 /// Returns information about a branch.
@@ -1762,7 +2186,13 @@ class BranchInfo {
     this.branchName,
     this.commitId,
   });
-  static BranchInfo fromJson(Map<String, dynamic> json) => BranchInfo();
+  static BranchInfo fromJson(Map<String, dynamic> json) => BranchInfo(
+        branchName: json.containsKey('branchName')
+            ? json['branchName'] as String
+            : null,
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+      );
 }
 
 /// Returns information about a specific comment.
@@ -1806,7 +2236,25 @@ class Comment {
     this.deleted,
     this.clientRequestToken,
   });
-  static Comment fromJson(Map<String, dynamic> json) => Comment();
+  static Comment fromJson(Map<String, dynamic> json) => Comment(
+        commentId:
+            json.containsKey('commentId') ? json['commentId'] as String : null,
+        content: json.containsKey('content') ? json['content'] as String : null,
+        inReplyTo:
+            json.containsKey('inReplyTo') ? json['inReplyTo'] as String : null,
+        creationDate: json.containsKey('creationDate')
+            ? DateTime.parse(json['creationDate'])
+            : null,
+        lastModifiedDate: json.containsKey('lastModifiedDate')
+            ? DateTime.parse(json['lastModifiedDate'])
+            : null,
+        authorArn:
+            json.containsKey('authorArn') ? json['authorArn'] as String : null,
+        deleted: json.containsKey('deleted') ? json['deleted'] as bool : null,
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+      );
 }
 
 /// Returns information about comments on the comparison between two commits.
@@ -1849,7 +2297,31 @@ class CommentsForComparedCommit {
     this.comments,
   });
   static CommentsForComparedCommit fromJson(Map<String, dynamic> json) =>
-      CommentsForComparedCommit();
+      CommentsForComparedCommit(
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        beforeCommitId: json.containsKey('beforeCommitId')
+            ? json['beforeCommitId'] as String
+            : null,
+        afterCommitId: json.containsKey('afterCommitId')
+            ? json['afterCommitId'] as String
+            : null,
+        beforeBlobId: json.containsKey('beforeBlobId')
+            ? json['beforeBlobId'] as String
+            : null,
+        afterBlobId: json.containsKey('afterBlobId')
+            ? json['afterBlobId'] as String
+            : null,
+        location: json.containsKey('location')
+            ? Location.fromJson(json['location'])
+            : null,
+        comments: json.containsKey('comments')
+            ? (json['comments'] as List)
+                .map((e) => Comment.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returns information about comments on a pull request.
@@ -1899,7 +2371,34 @@ class CommentsForPullRequest {
     this.comments,
   });
   static CommentsForPullRequest fromJson(Map<String, dynamic> json) =>
-      CommentsForPullRequest();
+      CommentsForPullRequest(
+        pullRequestId: json.containsKey('pullRequestId')
+            ? json['pullRequestId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        beforeCommitId: json.containsKey('beforeCommitId')
+            ? json['beforeCommitId'] as String
+            : null,
+        afterCommitId: json.containsKey('afterCommitId')
+            ? json['afterCommitId'] as String
+            : null,
+        beforeBlobId: json.containsKey('beforeBlobId')
+            ? json['beforeBlobId'] as String
+            : null,
+        afterBlobId: json.containsKey('afterBlobId')
+            ? json['afterBlobId'] as String
+            : null,
+        location: json.containsKey('location')
+            ? Location.fromJson(json['location'])
+            : null,
+        comments: json.containsKey('comments')
+            ? (json['comments'] as List)
+                .map((e) => Comment.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returns information about a specific commit.
@@ -1945,7 +2444,24 @@ class Commit {
     this.committer,
     this.additionalData,
   });
-  static Commit fromJson(Map<String, dynamic> json) => Commit();
+  static Commit fromJson(Map<String, dynamic> json) => Commit(
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+        treeId: json.containsKey('treeId') ? json['treeId'] as String : null,
+        parents: json.containsKey('parents')
+            ? (json['parents'] as List).map((e) => e as String).toList()
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        author: json.containsKey('author')
+            ? UserInfo.fromJson(json['author'])
+            : null,
+        committer: json.containsKey('committer')
+            ? UserInfo.fromJson(json['committer'])
+            : null,
+        additionalData: json.containsKey('additionalData')
+            ? json['additionalData'] as String
+            : null,
+      );
 }
 
 /// Information about conflicts in a merge operation.
@@ -1961,7 +2477,16 @@ class Conflict {
     this.conflictMetadata,
     this.mergeHunks,
   });
-  static Conflict fromJson(Map<String, dynamic> json) => Conflict();
+  static Conflict fromJson(Map<String, dynamic> json) => Conflict(
+        conflictMetadata: json.containsKey('conflictMetadata')
+            ? ConflictMetadata.fromJson(json['conflictMetadata'])
+            : null,
+        mergeHunks: json.containsKey('mergeHunks')
+            ? (json['mergeHunks'] as List)
+                .map((e) => MergeHunk.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about the metadata for a conflict in a merge operation.
@@ -2017,7 +2542,37 @@ class ConflictMetadata {
     this.mergeOperations,
   });
   static ConflictMetadata fromJson(Map<String, dynamic> json) =>
-      ConflictMetadata();
+      ConflictMetadata(
+        filePath:
+            json.containsKey('filePath') ? json['filePath'] as String : null,
+        fileSizes: json.containsKey('fileSizes')
+            ? FileSizes.fromJson(json['fileSizes'])
+            : null,
+        fileModes: json.containsKey('fileModes')
+            ? FileModes.fromJson(json['fileModes'])
+            : null,
+        objectTypes: json.containsKey('objectTypes')
+            ? ObjectTypes.fromJson(json['objectTypes'])
+            : null,
+        numberOfConflicts: json.containsKey('numberOfConflicts')
+            ? json['numberOfConflicts'] as int
+            : null,
+        isBinaryFile: json.containsKey('isBinaryFile')
+            ? IsBinaryFile.fromJson(json['isBinaryFile'])
+            : null,
+        contentConflict: json.containsKey('contentConflict')
+            ? json['contentConflict'] as bool
+            : null,
+        fileModeConflict: json.containsKey('fileModeConflict')
+            ? json['fileModeConflict'] as bool
+            : null,
+        objectTypeConflict: json.containsKey('objectTypeConflict')
+            ? json['objectTypeConflict'] as bool
+            : null,
+        mergeOperations: json.containsKey('mergeOperations')
+            ? MergeOperations.fromJson(json['mergeOperations'])
+            : null,
+      );
 }
 
 /// A list of inputs to use when resolving conflicts during a merge if AUTOMERGE
@@ -2038,6 +2593,7 @@ class ConflictResolution {
     this.deleteFiles,
     this.setFileModes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateCommitOutput {
@@ -2066,7 +2622,26 @@ class CreateCommitOutput {
     this.filesDeleted,
   });
   static CreateCommitOutput fromJson(Map<String, dynamic> json) =>
-      CreateCommitOutput();
+      CreateCommitOutput(
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+        treeId: json.containsKey('treeId') ? json['treeId'] as String : null,
+        filesAdded: json.containsKey('filesAdded')
+            ? (json['filesAdded'] as List)
+                .map((e) => FileMetadata.fromJson(e))
+                .toList()
+            : null,
+        filesUpdated: json.containsKey('filesUpdated')
+            ? (json['filesUpdated'] as List)
+                .map((e) => FileMetadata.fromJson(e))
+                .toList()
+            : null,
+        filesDeleted: json.containsKey('filesDeleted')
+            ? (json['filesDeleted'] as List)
+                .map((e) => FileMetadata.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreatePullRequestOutput {
@@ -2077,7 +2652,9 @@ class CreatePullRequestOutput {
     @required this.pullRequest,
   });
   static CreatePullRequestOutput fromJson(Map<String, dynamic> json) =>
-      CreatePullRequestOutput();
+      CreatePullRequestOutput(
+        pullRequest: PullRequest.fromJson(json['pullRequest']),
+      );
 }
 
 /// Represents the output of a create repository operation.
@@ -2089,7 +2666,11 @@ class CreateRepositoryOutput {
     this.repositoryMetadata,
   });
   static CreateRepositoryOutput fromJson(Map<String, dynamic> json) =>
-      CreateRepositoryOutput();
+      CreateRepositoryOutput(
+        repositoryMetadata: json.containsKey('repositoryMetadata')
+            ? RepositoryMetadata.fromJson(json['repositoryMetadata'])
+            : null,
+      );
 }
 
 class CreateUnreferencedMergeCommitOutput {
@@ -2106,7 +2687,11 @@ class CreateUnreferencedMergeCommitOutput {
   });
   static CreateUnreferencedMergeCommitOutput fromJson(
           Map<String, dynamic> json) =>
-      CreateUnreferencedMergeCommitOutput();
+      CreateUnreferencedMergeCommitOutput(
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+        treeId: json.containsKey('treeId') ? json['treeId'] as String : null,
+      );
 }
 
 /// Represents the output of a delete branch operation.
@@ -2119,7 +2704,11 @@ class DeleteBranchOutput {
     this.deletedBranch,
   });
   static DeleteBranchOutput fromJson(Map<String, dynamic> json) =>
-      DeleteBranchOutput();
+      DeleteBranchOutput(
+        deletedBranch: json.containsKey('deletedBranch')
+            ? BranchInfo.fromJson(json['deletedBranch'])
+            : null,
+      );
 }
 
 class DeleteCommentContentOutput {
@@ -2130,7 +2719,11 @@ class DeleteCommentContentOutput {
     this.comment,
   });
   static DeleteCommentContentOutput fromJson(Map<String, dynamic> json) =>
-      DeleteCommentContentOutput();
+      DeleteCommentContentOutput(
+        comment: json.containsKey('comment')
+            ? Comment.fromJson(json['comment'])
+            : null,
+      );
 }
 
 /// A file that will be deleted as part of a commit.
@@ -2142,6 +2735,7 @@ class DeleteFileEntry {
   DeleteFileEntry({
     @required this.filePath,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteFileOutput {
@@ -2167,7 +2761,12 @@ class DeleteFileOutput {
     @required this.filePath,
   });
   static DeleteFileOutput fromJson(Map<String, dynamic> json) =>
-      DeleteFileOutput();
+      DeleteFileOutput(
+        commitId: json['commitId'] as String,
+        blobId: json['blobId'] as String,
+        treeId: json['treeId'] as String,
+        filePath: json['filePath'] as String,
+      );
 }
 
 /// Represents the output of a delete repository operation.
@@ -2179,7 +2778,11 @@ class DeleteRepositoryOutput {
     this.repositoryId,
   });
   static DeleteRepositoryOutput fromJson(Map<String, dynamic> json) =>
-      DeleteRepositoryOutput();
+      DeleteRepositoryOutput(
+        repositoryId: json.containsKey('repositoryId')
+            ? json['repositoryId'] as String
+            : null,
+      );
 }
 
 class DescribeMergeConflictsOutput {
@@ -2213,7 +2816,19 @@ class DescribeMergeConflictsOutput {
     this.baseCommitId,
   });
   static DescribeMergeConflictsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeMergeConflictsOutput();
+      DescribeMergeConflictsOutput(
+        conflictMetadata: ConflictMetadata.fromJson(json['conflictMetadata']),
+        mergeHunks: (json['mergeHunks'] as List)
+            .map((e) => MergeHunk.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        destinationCommitId: json['destinationCommitId'] as String,
+        sourceCommitId: json['sourceCommitId'] as String,
+        baseCommitId: json.containsKey('baseCommitId')
+            ? json['baseCommitId'] as String
+            : null,
+      );
 }
 
 class DescribePullRequestEventsOutput {
@@ -2229,7 +2844,13 @@ class DescribePullRequestEventsOutput {
     this.nextToken,
   });
   static DescribePullRequestEventsOutput fromJson(Map<String, dynamic> json) =>
-      DescribePullRequestEventsOutput();
+      DescribePullRequestEventsOutput(
+        pullRequestEvents: (json['pullRequestEvents'] as List)
+            .map((e) => PullRequestEvent.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Returns information about a set of differences for a commit specifier.
@@ -2251,7 +2872,17 @@ class Difference {
     this.afterBlob,
     this.changeType,
   });
-  static Difference fromJson(Map<String, dynamic> json) => Difference();
+  static Difference fromJson(Map<String, dynamic> json) => Difference(
+        beforeBlob: json.containsKey('beforeBlob')
+            ? BlobMetadata.fromJson(json['beforeBlob'])
+            : null,
+        afterBlob: json.containsKey('afterBlob')
+            ? BlobMetadata.fromJson(json['afterBlob'])
+            : null,
+        changeType: json.containsKey('changeType')
+            ? json['changeType'] as String
+            : null,
+      );
 }
 
 /// Returns information about a file in a repository.
@@ -2275,7 +2906,17 @@ class File {
     this.relativePath,
     this.fileMode,
   });
-  static File fromJson(Map<String, dynamic> json) => File();
+  static File fromJson(Map<String, dynamic> json) => File(
+        blobId: json.containsKey('blobId') ? json['blobId'] as String : null,
+        absolutePath: json.containsKey('absolutePath')
+            ? json['absolutePath'] as String
+            : null,
+        relativePath: json.containsKey('relativePath')
+            ? json['relativePath'] as String
+            : null,
+        fileMode:
+            json.containsKey('fileMode') ? json['fileMode'] as String : null,
+      );
 }
 
 /// A file that will be added, updated, or deleted as part of a commit.
@@ -2296,7 +2937,14 @@ class FileMetadata {
     this.blobId,
     this.fileMode,
   });
-  static FileMetadata fromJson(Map<String, dynamic> json) => FileMetadata();
+  static FileMetadata fromJson(Map<String, dynamic> json) => FileMetadata(
+        absolutePath: json.containsKey('absolutePath')
+            ? json['absolutePath'] as String
+            : null,
+        blobId: json.containsKey('blobId') ? json['blobId'] as String : null,
+        fileMode:
+            json.containsKey('fileMode') ? json['fileMode'] as String : null,
+      );
 }
 
 /// Information about file modes in a merge or pull request.
@@ -2315,7 +2963,13 @@ class FileModes {
     this.destination,
     this.base,
   });
-  static FileModes fromJson(Map<String, dynamic> json) => FileModes();
+  static FileModes fromJson(Map<String, dynamic> json) => FileModes(
+        source: json.containsKey('source') ? json['source'] as String : null,
+        destination: json.containsKey('destination')
+            ? json['destination'] as String
+            : null,
+        base: json.containsKey('base') ? json['base'] as String : null,
+      );
 }
 
 /// Information about the size of files in a merge or pull request.
@@ -2334,7 +2988,13 @@ class FileSizes {
     this.destination,
     this.base,
   });
-  static FileSizes fromJson(Map<String, dynamic> json) => FileSizes();
+  static FileSizes fromJson(Map<String, dynamic> json) => FileSizes(
+        source: json.containsKey('source') ? BigInt.from(json['source']) : null,
+        destination: json.containsKey('destination')
+            ? BigInt.from(json['destination'])
+            : null,
+        base: json.containsKey('base') ? BigInt.from(json['base']) : null,
+      );
 }
 
 /// Returns information about a folder in a repository.
@@ -2355,7 +3015,15 @@ class Folder {
     this.absolutePath,
     this.relativePath,
   });
-  static Folder fromJson(Map<String, dynamic> json) => Folder();
+  static Folder fromJson(Map<String, dynamic> json) => Folder(
+        treeId: json.containsKey('treeId') ? json['treeId'] as String : null,
+        absolutePath: json.containsKey('absolutePath')
+            ? json['absolutePath'] as String
+            : null,
+        relativePath: json.containsKey('relativePath')
+            ? json['relativePath'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a get blob operation.
@@ -2366,7 +3034,9 @@ class GetBlobOutput {
   GetBlobOutput({
     @required this.content,
   });
-  static GetBlobOutput fromJson(Map<String, dynamic> json) => GetBlobOutput();
+  static GetBlobOutput fromJson(Map<String, dynamic> json) => GetBlobOutput(
+        content: Uint8List(json['content']),
+      );
 }
 
 /// Represents the output of a get branch operation.
@@ -2377,8 +3047,11 @@ class GetBranchOutput {
   GetBranchOutput({
     this.branch,
   });
-  static GetBranchOutput fromJson(Map<String, dynamic> json) =>
-      GetBranchOutput();
+  static GetBranchOutput fromJson(Map<String, dynamic> json) => GetBranchOutput(
+        branch: json.containsKey('branch')
+            ? BranchInfo.fromJson(json['branch'])
+            : null,
+      );
 }
 
 class GetCommentOutput {
@@ -2389,7 +3062,11 @@ class GetCommentOutput {
     this.comment,
   });
   static GetCommentOutput fromJson(Map<String, dynamic> json) =>
-      GetCommentOutput();
+      GetCommentOutput(
+        comment: json.containsKey('comment')
+            ? Comment.fromJson(json['comment'])
+            : null,
+      );
 }
 
 class GetCommentsForComparedCommitOutput {
@@ -2406,7 +3083,16 @@ class GetCommentsForComparedCommitOutput {
   });
   static GetCommentsForComparedCommitOutput fromJson(
           Map<String, dynamic> json) =>
-      GetCommentsForComparedCommitOutput();
+      GetCommentsForComparedCommitOutput(
+        commentsForComparedCommitData:
+            json.containsKey('commentsForComparedCommitData')
+                ? (json['commentsForComparedCommitData'] as List)
+                    .map((e) => CommentsForComparedCommit.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetCommentsForPullRequestOutput {
@@ -2422,7 +3108,16 @@ class GetCommentsForPullRequestOutput {
     this.nextToken,
   });
   static GetCommentsForPullRequestOutput fromJson(Map<String, dynamic> json) =>
-      GetCommentsForPullRequestOutput();
+      GetCommentsForPullRequestOutput(
+        commentsForPullRequestData:
+            json.containsKey('commentsForPullRequestData')
+                ? (json['commentsForPullRequestData'] as List)
+                    .map((e) => CommentsForPullRequest.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a get commit operation.
@@ -2434,8 +3129,9 @@ class GetCommitOutput {
   GetCommitOutput({
     @required this.commit,
   });
-  static GetCommitOutput fromJson(Map<String, dynamic> json) =>
-      GetCommitOutput();
+  static GetCommitOutput fromJson(Map<String, dynamic> json) => GetCommitOutput(
+        commit: Commit.fromJson(json['commit']),
+      );
 }
 
 class GetDifferencesOutput {
@@ -2453,7 +3149,15 @@ class GetDifferencesOutput {
     this.nextToken,
   });
   static GetDifferencesOutput fromJson(Map<String, dynamic> json) =>
-      GetDifferencesOutput();
+      GetDifferencesOutput(
+        differences: json.containsKey('differences')
+            ? (json['differences'] as List)
+                .map((e) => Difference.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class GetFileOutput {
@@ -2493,7 +3197,14 @@ class GetFileOutput {
     @required this.fileSize,
     @required this.fileContent,
   });
-  static GetFileOutput fromJson(Map<String, dynamic> json) => GetFileOutput();
+  static GetFileOutput fromJson(Map<String, dynamic> json) => GetFileOutput(
+        commitId: json['commitId'] as String,
+        blobId: json['blobId'] as String,
+        filePath: json['filePath'] as String,
+        fileMode: json['fileMode'] as String,
+        fileSize: BigInt.from(json['fileSize']),
+        fileContent: Uint8List(json['fileContent']),
+      );
 }
 
 class GetFolderOutput {
@@ -2530,8 +3241,29 @@ class GetFolderOutput {
     this.symbolicLinks,
     this.subModules,
   });
-  static GetFolderOutput fromJson(Map<String, dynamic> json) =>
-      GetFolderOutput();
+  static GetFolderOutput fromJson(Map<String, dynamic> json) => GetFolderOutput(
+        commitId: json['commitId'] as String,
+        folderPath: json['folderPath'] as String,
+        treeId: json.containsKey('treeId') ? json['treeId'] as String : null,
+        subFolders: json.containsKey('subFolders')
+            ? (json['subFolders'] as List)
+                .map((e) => Folder.fromJson(e))
+                .toList()
+            : null,
+        files: json.containsKey('files')
+            ? (json['files'] as List).map((e) => File.fromJson(e)).toList()
+            : null,
+        symbolicLinks: json.containsKey('symbolicLinks')
+            ? (json['symbolicLinks'] as List)
+                .map((e) => SymbolicLink.fromJson(e))
+                .toList()
+            : null,
+        subModules: json.containsKey('subModules')
+            ? (json['subModules'] as List)
+                .map((e) => SubModule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetMergeCommitOutput {
@@ -2558,7 +3290,20 @@ class GetMergeCommitOutput {
     this.mergedCommitId,
   });
   static GetMergeCommitOutput fromJson(Map<String, dynamic> json) =>
-      GetMergeCommitOutput();
+      GetMergeCommitOutput(
+        sourceCommitId: json.containsKey('sourceCommitId')
+            ? json['sourceCommitId'] as String
+            : null,
+        destinationCommitId: json.containsKey('destinationCommitId')
+            ? json['destinationCommitId'] as String
+            : null,
+        baseCommitId: json.containsKey('baseCommitId')
+            ? json['baseCommitId'] as String
+            : null,
+        mergedCommitId: json.containsKey('mergedCommitId')
+            ? json['mergedCommitId'] as String
+            : null,
+      );
 }
 
 class GetMergeConflictsOutput {
@@ -2594,7 +3339,19 @@ class GetMergeConflictsOutput {
     this.nextToken,
   });
   static GetMergeConflictsOutput fromJson(Map<String, dynamic> json) =>
-      GetMergeConflictsOutput();
+      GetMergeConflictsOutput(
+        mergeable: json['mergeable'] as bool,
+        destinationCommitId: json['destinationCommitId'] as String,
+        sourceCommitId: json['sourceCommitId'] as String,
+        baseCommitId: json.containsKey('baseCommitId')
+            ? json['baseCommitId'] as String
+            : null,
+        conflictMetadataList: (json['conflictMetadataList'] as List)
+            .map((e) => ConflictMetadata.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetMergeOptionsOutput {
@@ -2619,7 +3376,13 @@ class GetMergeOptionsOutput {
     @required this.baseCommitId,
   });
   static GetMergeOptionsOutput fromJson(Map<String, dynamic> json) =>
-      GetMergeOptionsOutput();
+      GetMergeOptionsOutput(
+        mergeOptions:
+            (json['mergeOptions'] as List).map((e) => e as String).toList(),
+        sourceCommitId: json['sourceCommitId'] as String,
+        destinationCommitId: json['destinationCommitId'] as String,
+        baseCommitId: json['baseCommitId'] as String,
+      );
 }
 
 class GetPullRequestOutput {
@@ -2630,7 +3393,9 @@ class GetPullRequestOutput {
     @required this.pullRequest,
   });
   static GetPullRequestOutput fromJson(Map<String, dynamic> json) =>
-      GetPullRequestOutput();
+      GetPullRequestOutput(
+        pullRequest: PullRequest.fromJson(json['pullRequest']),
+      );
 }
 
 /// Represents the output of a get repository operation.
@@ -2642,7 +3407,11 @@ class GetRepositoryOutput {
     this.repositoryMetadata,
   });
   static GetRepositoryOutput fromJson(Map<String, dynamic> json) =>
-      GetRepositoryOutput();
+      GetRepositoryOutput(
+        repositoryMetadata: json.containsKey('repositoryMetadata')
+            ? RepositoryMetadata.fromJson(json['repositoryMetadata'])
+            : null,
+      );
 }
 
 /// Represents the output of a get repository triggers operation.
@@ -2658,7 +3427,16 @@ class GetRepositoryTriggersOutput {
     this.triggers,
   });
   static GetRepositoryTriggersOutput fromJson(Map<String, dynamic> json) =>
-      GetRepositoryTriggersOutput();
+      GetRepositoryTriggersOutput(
+        configurationId: json.containsKey('configurationId')
+            ? json['configurationId'] as String
+            : null,
+        triggers: json.containsKey('triggers')
+            ? (json['triggers'] as List)
+                .map((e) => RepositoryTrigger.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about whether a file is binary or textual in a merge or pull
@@ -2681,7 +3459,13 @@ class IsBinaryFile {
     this.destination,
     this.base,
   });
-  static IsBinaryFile fromJson(Map<String, dynamic> json) => IsBinaryFile();
+  static IsBinaryFile fromJson(Map<String, dynamic> json) => IsBinaryFile(
+        source: json.containsKey('source') ? json['source'] as bool : null,
+        destination: json.containsKey('destination')
+            ? json['destination'] as bool
+            : null,
+        base: json.containsKey('base') ? json['base'] as bool : null,
+      );
 }
 
 /// Represents the output of a list branches operation.
@@ -2697,7 +3481,13 @@ class ListBranchesOutput {
     this.nextToken,
   });
   static ListBranchesOutput fromJson(Map<String, dynamic> json) =>
-      ListBranchesOutput();
+      ListBranchesOutput(
+        branches: json.containsKey('branches')
+            ? (json['branches'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListPullRequestsOutput {
@@ -2713,7 +3503,12 @@ class ListPullRequestsOutput {
     this.nextToken,
   });
   static ListPullRequestsOutput fromJson(Map<String, dynamic> json) =>
-      ListPullRequestsOutput();
+      ListPullRequestsOutput(
+        pullRequestIds:
+            (json['pullRequestIds'] as List).map((e) => e as String).toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a list repositories operation.
@@ -2732,7 +3527,15 @@ class ListRepositoriesOutput {
     this.nextToken,
   });
   static ListRepositoriesOutput fromJson(Map<String, dynamic> json) =>
-      ListRepositoriesOutput();
+      ListRepositoriesOutput(
+        repositories: json.containsKey('repositories')
+            ? (json['repositories'] as List)
+                .map((e) => RepositoryNameIdPair.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceOutput {
@@ -2748,7 +3551,14 @@ class ListTagsForResourceOutput {
     this.nextToken,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Returns information about the location of a change or comment in the
@@ -2770,7 +3580,17 @@ class Location {
     this.filePosition,
     this.relativeFileVersion,
   });
-  static Location fromJson(Map<String, dynamic> json) => Location();
+  static Location fromJson(Map<String, dynamic> json) => Location(
+        filePath:
+            json.containsKey('filePath') ? json['filePath'] as String : null,
+        filePosition: json.containsKey('filePosition')
+            ? BigInt.from(json['filePosition'])
+            : null,
+        relativeFileVersion: json.containsKey('relativeFileVersion')
+            ? json['relativeFileVersion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class MergeBranchesByFastForwardOutput {
@@ -2785,7 +3605,11 @@ class MergeBranchesByFastForwardOutput {
     this.treeId,
   });
   static MergeBranchesByFastForwardOutput fromJson(Map<String, dynamic> json) =>
-      MergeBranchesByFastForwardOutput();
+      MergeBranchesByFastForwardOutput(
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+        treeId: json.containsKey('treeId') ? json['treeId'] as String : null,
+      );
 }
 
 class MergeBranchesBySquashOutput {
@@ -2800,7 +3624,11 @@ class MergeBranchesBySquashOutput {
     this.treeId,
   });
   static MergeBranchesBySquashOutput fromJson(Map<String, dynamic> json) =>
-      MergeBranchesBySquashOutput();
+      MergeBranchesBySquashOutput(
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+        treeId: json.containsKey('treeId') ? json['treeId'] as String : null,
+      );
 }
 
 class MergeBranchesByThreeWayOutput {
@@ -2815,7 +3643,11 @@ class MergeBranchesByThreeWayOutput {
     this.treeId,
   });
   static MergeBranchesByThreeWayOutput fromJson(Map<String, dynamic> json) =>
-      MergeBranchesByThreeWayOutput();
+      MergeBranchesByThreeWayOutput(
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+        treeId: json.containsKey('treeId') ? json['treeId'] as String : null,
+      );
 }
 
 /// Information about merge hunks in a merge or pull request operation.
@@ -2844,7 +3676,19 @@ class MergeHunk {
     this.destination,
     this.base,
   });
-  static MergeHunk fromJson(Map<String, dynamic> json) => MergeHunk();
+  static MergeHunk fromJson(Map<String, dynamic> json) => MergeHunk(
+        isConflict:
+            json.containsKey('isConflict') ? json['isConflict'] as bool : null,
+        source: json.containsKey('source')
+            ? MergeHunkDetail.fromJson(json['source'])
+            : null,
+        destination: json.containsKey('destination')
+            ? MergeHunkDetail.fromJson(json['destination'])
+            : null,
+        base: json.containsKey('base')
+            ? MergeHunkDetail.fromJson(json['base'])
+            : null,
+      );
 }
 
 /// Information about the details of a merge hunk that contains a conflict in a
@@ -2865,8 +3709,14 @@ class MergeHunkDetail {
     this.endLine,
     this.hunkContent,
   });
-  static MergeHunkDetail fromJson(Map<String, dynamic> json) =>
-      MergeHunkDetail();
+  static MergeHunkDetail fromJson(Map<String, dynamic> json) => MergeHunkDetail(
+        startLine:
+            json.containsKey('startLine') ? json['startLine'] as int : null,
+        endLine: json.containsKey('endLine') ? json['endLine'] as int : null,
+        hunkContent: json.containsKey('hunkContent')
+            ? json['hunkContent'] as String
+            : null,
+      );
 }
 
 /// Returns information about a merge or potential merge between a source
@@ -2890,7 +3740,18 @@ class MergeMetadata {
     this.mergeCommitId,
     this.mergeOption,
   });
-  static MergeMetadata fromJson(Map<String, dynamic> json) => MergeMetadata();
+  static MergeMetadata fromJson(Map<String, dynamic> json) => MergeMetadata(
+        isMerged:
+            json.containsKey('isMerged') ? json['isMerged'] as bool : null,
+        mergedBy:
+            json.containsKey('mergedBy') ? json['mergedBy'] as String : null,
+        mergeCommitId: json.containsKey('mergeCommitId')
+            ? json['mergeCommitId'] as String
+            : null,
+        mergeOption: json.containsKey('mergeOption')
+            ? json['mergeOption'] as String
+            : null,
+      );
 }
 
 /// Information about the file operation conflicts in a merge operation.
@@ -2906,8 +3767,12 @@ class MergeOperations {
     this.source,
     this.destination,
   });
-  static MergeOperations fromJson(Map<String, dynamic> json) =>
-      MergeOperations();
+  static MergeOperations fromJson(Map<String, dynamic> json) => MergeOperations(
+        source: json.containsKey('source') ? json['source'] as String : null,
+        destination: json.containsKey('destination')
+            ? json['destination'] as String
+            : null,
+      );
 }
 
 class MergePullRequestByFastForwardOutput {
@@ -2920,7 +3785,11 @@ class MergePullRequestByFastForwardOutput {
   });
   static MergePullRequestByFastForwardOutput fromJson(
           Map<String, dynamic> json) =>
-      MergePullRequestByFastForwardOutput();
+      MergePullRequestByFastForwardOutput(
+        pullRequest: json.containsKey('pullRequest')
+            ? PullRequest.fromJson(json['pullRequest'])
+            : null,
+      );
 }
 
 class MergePullRequestBySquashOutput {
@@ -2930,7 +3799,11 @@ class MergePullRequestBySquashOutput {
     this.pullRequest,
   });
   static MergePullRequestBySquashOutput fromJson(Map<String, dynamic> json) =>
-      MergePullRequestBySquashOutput();
+      MergePullRequestBySquashOutput(
+        pullRequest: json.containsKey('pullRequest')
+            ? PullRequest.fromJson(json['pullRequest'])
+            : null,
+      );
 }
 
 class MergePullRequestByThreeWayOutput {
@@ -2940,7 +3813,11 @@ class MergePullRequestByThreeWayOutput {
     this.pullRequest,
   });
   static MergePullRequestByThreeWayOutput fromJson(Map<String, dynamic> json) =>
-      MergePullRequestByThreeWayOutput();
+      MergePullRequestByThreeWayOutput(
+        pullRequest: json.containsKey('pullRequest')
+            ? PullRequest.fromJson(json['pullRequest'])
+            : null,
+      );
 }
 
 /// Information about the type of an object in a merge operation.
@@ -2959,7 +3836,13 @@ class ObjectTypes {
     this.destination,
     this.base,
   });
-  static ObjectTypes fromJson(Map<String, dynamic> json) => ObjectTypes();
+  static ObjectTypes fromJson(Map<String, dynamic> json) => ObjectTypes(
+        source: json.containsKey('source') ? json['source'] as String : null,
+        destination: json.containsKey('destination')
+            ? json['destination'] as String
+            : null,
+        base: json.containsKey('base') ? json['base'] as String : null,
+      );
 }
 
 class PostCommentForComparedCommitOutput {
@@ -2998,7 +3881,29 @@ class PostCommentForComparedCommitOutput {
   });
   static PostCommentForComparedCommitOutput fromJson(
           Map<String, dynamic> json) =>
-      PostCommentForComparedCommitOutput();
+      PostCommentForComparedCommitOutput(
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        beforeCommitId: json.containsKey('beforeCommitId')
+            ? json['beforeCommitId'] as String
+            : null,
+        afterCommitId: json.containsKey('afterCommitId')
+            ? json['afterCommitId'] as String
+            : null,
+        beforeBlobId: json.containsKey('beforeBlobId')
+            ? json['beforeBlobId'] as String
+            : null,
+        afterBlobId: json.containsKey('afterBlobId')
+            ? json['afterBlobId'] as String
+            : null,
+        location: json.containsKey('location')
+            ? Location.fromJson(json['location'])
+            : null,
+        comment: json.containsKey('comment')
+            ? Comment.fromJson(json['comment'])
+            : null,
+      );
 }
 
 class PostCommentForPullRequestOutput {
@@ -3042,7 +3947,32 @@ class PostCommentForPullRequestOutput {
     this.comment,
   });
   static PostCommentForPullRequestOutput fromJson(Map<String, dynamic> json) =>
-      PostCommentForPullRequestOutput();
+      PostCommentForPullRequestOutput(
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        pullRequestId: json.containsKey('pullRequestId')
+            ? json['pullRequestId'] as String
+            : null,
+        beforeCommitId: json.containsKey('beforeCommitId')
+            ? json['beforeCommitId'] as String
+            : null,
+        afterCommitId: json.containsKey('afterCommitId')
+            ? json['afterCommitId'] as String
+            : null,
+        beforeBlobId: json.containsKey('beforeBlobId')
+            ? json['beforeBlobId'] as String
+            : null,
+        afterBlobId: json.containsKey('afterBlobId')
+            ? json['afterBlobId'] as String
+            : null,
+        location: json.containsKey('location')
+            ? Location.fromJson(json['location'])
+            : null,
+        comment: json.containsKey('comment')
+            ? Comment.fromJson(json['comment'])
+            : null,
+      );
 }
 
 class PostCommentReplyOutput {
@@ -3053,7 +3983,11 @@ class PostCommentReplyOutput {
     this.comment,
   });
   static PostCommentReplyOutput fromJson(Map<String, dynamic> json) =>
-      PostCommentReplyOutput();
+      PostCommentReplyOutput(
+        comment: json.containsKey('comment')
+            ? Comment.fromJson(json['comment'])
+            : null,
+      );
 }
 
 /// Returns information about a pull request.
@@ -3106,7 +4040,34 @@ class PullRequest {
     this.pullRequestTargets,
     this.clientRequestToken,
   });
-  static PullRequest fromJson(Map<String, dynamic> json) => PullRequest();
+  static PullRequest fromJson(Map<String, dynamic> json) => PullRequest(
+        pullRequestId: json.containsKey('pullRequestId')
+            ? json['pullRequestId'] as String
+            : null,
+        title: json.containsKey('title') ? json['title'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        lastActivityDate: json.containsKey('lastActivityDate')
+            ? DateTime.parse(json['lastActivityDate'])
+            : null,
+        creationDate: json.containsKey('creationDate')
+            ? DateTime.parse(json['creationDate'])
+            : null,
+        pullRequestStatus: json.containsKey('pullRequestStatus')
+            ? json['pullRequestStatus'] as String
+            : null,
+        authorArn:
+            json.containsKey('authorArn') ? json['authorArn'] as String : null,
+        pullRequestTargets: json.containsKey('pullRequestTargets')
+            ? (json['pullRequestTargets'] as List)
+                .map((e) => PullRequestTarget.fromJson(e))
+                .toList()
+            : null,
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+      );
 }
 
 /// Metadata about the pull request that is used when comparing the pull request
@@ -3133,7 +4094,19 @@ class PullRequestCreatedEventMetadata {
     this.mergeBase,
   });
   static PullRequestCreatedEventMetadata fromJson(Map<String, dynamic> json) =>
-      PullRequestCreatedEventMetadata();
+      PullRequestCreatedEventMetadata(
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        sourceCommitId: json.containsKey('sourceCommitId')
+            ? json['sourceCommitId'] as String
+            : null,
+        destinationCommitId: json.containsKey('destinationCommitId')
+            ? json['destinationCommitId'] as String
+            : null,
+        mergeBase:
+            json.containsKey('mergeBase') ? json['mergeBase'] as String : null,
+      );
 }
 
 /// Returns information about a pull request event.
@@ -3182,7 +4155,39 @@ class PullRequestEvent {
     this.pullRequestMergedStateChangedEventMetadata,
   });
   static PullRequestEvent fromJson(Map<String, dynamic> json) =>
-      PullRequestEvent();
+      PullRequestEvent(
+        pullRequestId: json.containsKey('pullRequestId')
+            ? json['pullRequestId'] as String
+            : null,
+        eventDate: json.containsKey('eventDate')
+            ? DateTime.parse(json['eventDate'])
+            : null,
+        pullRequestEventType: json.containsKey('pullRequestEventType')
+            ? json['pullRequestEventType'] as String
+            : null,
+        actorArn:
+            json.containsKey('actorArn') ? json['actorArn'] as String : null,
+        pullRequestCreatedEventMetadata:
+            json.containsKey('pullRequestCreatedEventMetadata')
+                ? PullRequestCreatedEventMetadata.fromJson(
+                    json['pullRequestCreatedEventMetadata'])
+                : null,
+        pullRequestStatusChangedEventMetadata:
+            json.containsKey('pullRequestStatusChangedEventMetadata')
+                ? PullRequestStatusChangedEventMetadata.fromJson(
+                    json['pullRequestStatusChangedEventMetadata'])
+                : null,
+        pullRequestSourceReferenceUpdatedEventMetadata:
+            json.containsKey('pullRequestSourceReferenceUpdatedEventMetadata')
+                ? PullRequestSourceReferenceUpdatedEventMetadata.fromJson(
+                    json['pullRequestSourceReferenceUpdatedEventMetadata'])
+                : null,
+        pullRequestMergedStateChangedEventMetadata:
+            json.containsKey('pullRequestMergedStateChangedEventMetadata')
+                ? PullRequestMergedStateChangedEventMetadata.fromJson(
+                    json['pullRequestMergedStateChangedEventMetadata'])
+                : null,
+      );
 }
 
 /// Returns information about the change in the merge state for a pull request
@@ -3204,7 +4209,17 @@ class PullRequestMergedStateChangedEventMetadata {
   });
   static PullRequestMergedStateChangedEventMetadata fromJson(
           Map<String, dynamic> json) =>
-      PullRequestMergedStateChangedEventMetadata();
+      PullRequestMergedStateChangedEventMetadata(
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        destinationReference: json.containsKey('destinationReference')
+            ? json['destinationReference'] as String
+            : null,
+        mergeMetadata: json.containsKey('mergeMetadata')
+            ? MergeMetadata.fromJson(json['mergeMetadata'])
+            : null,
+      );
 }
 
 /// Information about an update to the source branch of a pull request.
@@ -3232,7 +4247,19 @@ class PullRequestSourceReferenceUpdatedEventMetadata {
   });
   static PullRequestSourceReferenceUpdatedEventMetadata fromJson(
           Map<String, dynamic> json) =>
-      PullRequestSourceReferenceUpdatedEventMetadata();
+      PullRequestSourceReferenceUpdatedEventMetadata(
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        beforeCommitId: json.containsKey('beforeCommitId')
+            ? json['beforeCommitId'] as String
+            : null,
+        afterCommitId: json.containsKey('afterCommitId')
+            ? json['afterCommitId'] as String
+            : null,
+        mergeBase:
+            json.containsKey('mergeBase') ? json['mergeBase'] as String : null,
+      );
 }
 
 /// Information about a change to the status of a pull request.
@@ -3245,7 +4272,11 @@ class PullRequestStatusChangedEventMetadata {
   });
   static PullRequestStatusChangedEventMetadata fromJson(
           Map<String, dynamic> json) =>
-      PullRequestStatusChangedEventMetadata();
+      PullRequestStatusChangedEventMetadata(
+        pullRequestStatus: json.containsKey('pullRequestStatus')
+            ? json['pullRequestStatus'] as String
+            : null,
+      );
 }
 
 /// Returns information about a pull request target.
@@ -3290,7 +4321,28 @@ class PullRequestTarget {
     this.mergeMetadata,
   });
   static PullRequestTarget fromJson(Map<String, dynamic> json) =>
-      PullRequestTarget();
+      PullRequestTarget(
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        sourceReference: json.containsKey('sourceReference')
+            ? json['sourceReference'] as String
+            : null,
+        destinationReference: json.containsKey('destinationReference')
+            ? json['destinationReference'] as String
+            : null,
+        destinationCommit: json.containsKey('destinationCommit')
+            ? json['destinationCommit'] as String
+            : null,
+        sourceCommit: json.containsKey('sourceCommit')
+            ? json['sourceCommit'] as String
+            : null,
+        mergeBase:
+            json.containsKey('mergeBase') ? json['mergeBase'] as String : null,
+        mergeMetadata: json.containsKey('mergeMetadata')
+            ? MergeMetadata.fromJson(json['mergeMetadata'])
+            : null,
+      );
 }
 
 /// Information about a file that will be added or updated as part of a commit.
@@ -3317,6 +4369,7 @@ class PutFileEntry {
     this.fileContent,
     this.sourceFile,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutFileOutput {
@@ -3335,7 +4388,11 @@ class PutFileOutput {
     @required this.blobId,
     @required this.treeId,
   });
-  static PutFileOutput fromJson(Map<String, dynamic> json) => PutFileOutput();
+  static PutFileOutput fromJson(Map<String, dynamic> json) => PutFileOutput(
+        commitId: json['commitId'] as String,
+        blobId: json['blobId'] as String,
+        treeId: json['treeId'] as String,
+      );
 }
 
 /// Represents the output of a put repository triggers operation.
@@ -3347,7 +4404,11 @@ class PutRepositoryTriggersOutput {
     this.configurationId,
   });
   static PutRepositoryTriggersOutput fromJson(Map<String, dynamic> json) =>
-      PutRepositoryTriggersOutput();
+      PutRepositoryTriggersOutput(
+        configurationId: json.containsKey('configurationId')
+            ? json['configurationId'] as String
+            : null,
+      );
 }
 
 /// Information about a replacement content entry in the conflict of a merge or
@@ -3372,6 +4433,7 @@ class ReplaceContentEntry {
     this.content,
     this.fileMode,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a repository.
@@ -3419,7 +4481,35 @@ class RepositoryMetadata {
     this.arn,
   });
   static RepositoryMetadata fromJson(Map<String, dynamic> json) =>
-      RepositoryMetadata();
+      RepositoryMetadata(
+        accountId:
+            json.containsKey('accountId') ? json['accountId'] as String : null,
+        repositoryId: json.containsKey('repositoryId')
+            ? json['repositoryId'] as String
+            : null,
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        repositoryDescription: json.containsKey('repositoryDescription')
+            ? json['repositoryDescription'] as String
+            : null,
+        defaultBranch: json.containsKey('defaultBranch')
+            ? json['defaultBranch'] as String
+            : null,
+        lastModifiedDate: json.containsKey('lastModifiedDate')
+            ? DateTime.parse(json['lastModifiedDate'])
+            : null,
+        creationDate: json.containsKey('creationDate')
+            ? DateTime.parse(json['creationDate'])
+            : null,
+        cloneUrlHttp: json.containsKey('cloneUrlHttp')
+            ? json['cloneUrlHttp'] as String
+            : null,
+        cloneUrlSsh: json.containsKey('cloneUrlSsh')
+            ? json['cloneUrlSsh'] as String
+            : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+      );
 }
 
 /// Information about a repository name and ID.
@@ -3435,7 +4525,14 @@ class RepositoryNameIdPair {
     this.repositoryId,
   });
   static RepositoryNameIdPair fromJson(Map<String, dynamic> json) =>
-      RepositoryNameIdPair();
+      RepositoryNameIdPair(
+        repositoryName: json.containsKey('repositoryName')
+            ? json['repositoryName'] as String
+            : null,
+        repositoryId: json.containsKey('repositoryId')
+            ? json['repositoryId'] as String
+            : null,
+      );
 }
 
 /// Information about a trigger for a repository.
@@ -3476,7 +4573,18 @@ class RepositoryTrigger {
     @required this.events,
   });
   static RepositoryTrigger fromJson(Map<String, dynamic> json) =>
-      RepositoryTrigger();
+      RepositoryTrigger(
+        name: json['name'] as String,
+        destinationArn: json['destinationArn'] as String,
+        customData: json.containsKey('customData')
+            ? json['customData'] as String
+            : null,
+        branches: json.containsKey('branches')
+            ? (json['branches'] as List).map((e) => e as String).toList()
+            : null,
+        events: (json['events'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A trigger failed to run.
@@ -3493,7 +4601,12 @@ class RepositoryTriggerExecutionFailure {
   });
   static RepositoryTriggerExecutionFailure fromJson(
           Map<String, dynamic> json) =>
-      RepositoryTriggerExecutionFailure();
+      RepositoryTriggerExecutionFailure(
+        trigger: json.containsKey('trigger') ? json['trigger'] as String : null,
+        failureMessage: json.containsKey('failureMessage')
+            ? json['failureMessage'] as String
+            : null,
+      );
 }
 
 /// Information about the file mode changes.
@@ -3508,6 +4621,7 @@ class SetFileModeEntry {
     @required this.filePath,
     @required this.fileMode,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a source file that is part of changes made in a commit.
@@ -3522,6 +4636,7 @@ class SourceFileSpecifier {
     @required this.filePath,
     this.isMove,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Returns information about a submodule reference in a repository folder.
@@ -3542,7 +4657,16 @@ class SubModule {
     this.absolutePath,
     this.relativePath,
   });
-  static SubModule fromJson(Map<String, dynamic> json) => SubModule();
+  static SubModule fromJson(Map<String, dynamic> json) => SubModule(
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+        absolutePath: json.containsKey('absolutePath')
+            ? json['absolutePath'] as String
+            : null,
+        relativePath: json.containsKey('relativePath')
+            ? json['relativePath'] as String
+            : null,
+      );
 }
 
 /// Returns information about a symbolic link in a repository folder.
@@ -3567,7 +4691,17 @@ class SymbolicLink {
     this.relativePath,
     this.fileMode,
   });
-  static SymbolicLink fromJson(Map<String, dynamic> json) => SymbolicLink();
+  static SymbolicLink fromJson(Map<String, dynamic> json) => SymbolicLink(
+        blobId: json.containsKey('blobId') ? json['blobId'] as String : null,
+        absolutePath: json.containsKey('absolutePath')
+            ? json['absolutePath'] as String
+            : null,
+        relativePath: json.containsKey('relativePath')
+            ? json['relativePath'] as String
+            : null,
+        fileMode:
+            json.containsKey('fileMode') ? json['fileMode'] as String : null,
+      );
 }
 
 /// Returns information about a target for a pull request.
@@ -3588,6 +4722,7 @@ class Target {
     @required this.sourceReference,
     this.destinationReference,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a test repository triggers operation.
@@ -3605,7 +4740,18 @@ class TestRepositoryTriggersOutput {
     this.failedExecutions,
   });
   static TestRepositoryTriggersOutput fromJson(Map<String, dynamic> json) =>
-      TestRepositoryTriggersOutput();
+      TestRepositoryTriggersOutput(
+        successfulExecutions: json.containsKey('successfulExecutions')
+            ? (json['successfulExecutions'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        failedExecutions: json.containsKey('failedExecutions')
+            ? (json['failedExecutions'] as List)
+                .map((e) => RepositoryTriggerExecutionFailure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateCommentOutput {
@@ -3616,7 +4762,11 @@ class UpdateCommentOutput {
     this.comment,
   });
   static UpdateCommentOutput fromJson(Map<String, dynamic> json) =>
-      UpdateCommentOutput();
+      UpdateCommentOutput(
+        comment: json.containsKey('comment')
+            ? Comment.fromJson(json['comment'])
+            : null,
+      );
 }
 
 class UpdatePullRequestDescriptionOutput {
@@ -3628,7 +4778,9 @@ class UpdatePullRequestDescriptionOutput {
   });
   static UpdatePullRequestDescriptionOutput fromJson(
           Map<String, dynamic> json) =>
-      UpdatePullRequestDescriptionOutput();
+      UpdatePullRequestDescriptionOutput(
+        pullRequest: PullRequest.fromJson(json['pullRequest']),
+      );
 }
 
 class UpdatePullRequestStatusOutput {
@@ -3639,7 +4791,9 @@ class UpdatePullRequestStatusOutput {
     @required this.pullRequest,
   });
   static UpdatePullRequestStatusOutput fromJson(Map<String, dynamic> json) =>
-      UpdatePullRequestStatusOutput();
+      UpdatePullRequestStatusOutput(
+        pullRequest: PullRequest.fromJson(json['pullRequest']),
+      );
 }
 
 class UpdatePullRequestTitleOutput {
@@ -3650,7 +4804,9 @@ class UpdatePullRequestTitleOutput {
     @required this.pullRequest,
   });
   static UpdatePullRequestTitleOutput fromJson(Map<String, dynamic> json) =>
-      UpdatePullRequestTitleOutput();
+      UpdatePullRequestTitleOutput(
+        pullRequest: PullRequest.fromJson(json['pullRequest']),
+      );
 }
 
 /// Information about the user who made a specified commit.
@@ -3670,5 +4826,9 @@ class UserInfo {
     this.email,
     this.date,
   });
-  static UserInfo fromJson(Map<String, dynamic> json) => UserInfo();
+  static UserInfo fromJson(Map<String, dynamic> json) => UserInfo(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        email: json.containsKey('email') ? json['email'] as String : null,
+        date: json.containsKey('date') ? json['date'] as String : null,
+      );
 }

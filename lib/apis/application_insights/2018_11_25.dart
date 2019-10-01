@@ -17,6 +17,10 @@ import 'package:meta/meta.dart';
 /// that a memory pressure problem with your SQL Server database is occurring.
 /// It bases this analysis on impactful metrics and log errors.
 class ApplicationInsightsApi {
+  final _client;
+  ApplicationInsightsApi(client)
+      : _client = client.configured('Application Insights', serializer: 'json');
+
   /// Adds an application that is created from a resource group.
   ///
   /// [resourceGroupName]: The name of the resource group.
@@ -29,7 +33,12 @@ class ApplicationInsightsApi {
   /// for updates to the opsItem.
   Future<CreateApplicationResponse> createApplication(String resourceGroupName,
       {bool opsCenterEnabled, String opsItemSnsTopicArn}) async {
-    return CreateApplicationResponse.fromJson({});
+    var response_ = await _client.send('CreateApplication', {
+      'ResourceGroupName': resourceGroupName,
+      if (opsCenterEnabled != null) 'OpsCenterEnabled': opsCenterEnabled,
+      if (opsItemSnsTopicArn != null) 'OpsItemSNSTopicArn': opsItemSnsTopicArn,
+    });
+    return CreateApplicationResponse.fromJson(response_);
   }
 
   /// Creates a custom component by grouping similar standalone instances to
@@ -44,7 +53,12 @@ class ApplicationInsightsApi {
       {@required String resourceGroupName,
       @required String componentName,
       @required List<String> resourceList}) async {
-    return CreateComponentResponse.fromJson({});
+    var response_ = await _client.send('CreateComponent', {
+      'ResourceGroupName': resourceGroupName,
+      'ComponentName': componentName,
+      'ResourceList': resourceList,
+    });
+    return CreateComponentResponse.fromJson(response_);
   }
 
   /// Removes the specified application from monitoring. Does not delete the
@@ -53,7 +67,10 @@ class ApplicationInsightsApi {
   /// [resourceGroupName]: The name of the resource group.
   Future<DeleteApplicationResponse> deleteApplication(
       String resourceGroupName) async {
-    return DeleteApplicationResponse.fromJson({});
+    var response_ = await _client.send('DeleteApplication', {
+      'ResourceGroupName': resourceGroupName,
+    });
+    return DeleteApplicationResponse.fromJson(response_);
   }
 
   /// Ungroups a custom component. When you ungroup custom components, all
@@ -66,7 +83,11 @@ class ApplicationInsightsApi {
   Future<DeleteComponentResponse> deleteComponent(
       {@required String resourceGroupName,
       @required String componentName}) async {
-    return DeleteComponentResponse.fromJson({});
+    var response_ = await _client.send('DeleteComponent', {
+      'ResourceGroupName': resourceGroupName,
+      'ComponentName': componentName,
+    });
+    return DeleteComponentResponse.fromJson(response_);
   }
 
   /// Describes the application.
@@ -74,7 +95,10 @@ class ApplicationInsightsApi {
   /// [resourceGroupName]: The name of the resource group.
   Future<DescribeApplicationResponse> describeApplication(
       String resourceGroupName) async {
-    return DescribeApplicationResponse.fromJson({});
+    var response_ = await _client.send('DescribeApplication', {
+      'ResourceGroupName': resourceGroupName,
+    });
+    return DescribeApplicationResponse.fromJson(response_);
   }
 
   /// Describes a component and lists the resources that are grouped together in
@@ -86,7 +110,11 @@ class ApplicationInsightsApi {
   Future<DescribeComponentResponse> describeComponent(
       {@required String resourceGroupName,
       @required String componentName}) async {
-    return DescribeComponentResponse.fromJson({});
+    var response_ = await _client.send('DescribeComponent', {
+      'ResourceGroupName': resourceGroupName,
+      'ComponentName': componentName,
+    });
+    return DescribeComponentResponse.fromJson(response_);
   }
 
   /// Describes the monitoring configuration of the component.
@@ -97,7 +125,11 @@ class ApplicationInsightsApi {
   Future<DescribeComponentConfigurationResponse> describeComponentConfiguration(
       {@required String resourceGroupName,
       @required String componentName}) async {
-    return DescribeComponentConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DescribeComponentConfiguration', {
+      'ResourceGroupName': resourceGroupName,
+      'ComponentName': componentName,
+    });
+    return DescribeComponentConfigurationResponse.fromJson(response_);
   }
 
   /// Describes the recommended monitoring configuration of the component.
@@ -113,7 +145,14 @@ class ApplicationInsightsApi {
           {@required String resourceGroupName,
           @required String componentName,
           @required String tier}) async {
-    return DescribeComponentConfigurationRecommendationResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeComponentConfigurationRecommendation', {
+      'ResourceGroupName': resourceGroupName,
+      'ComponentName': componentName,
+      'Tier': tier,
+    });
+    return DescribeComponentConfigurationRecommendationResponse.fromJson(
+        response_);
   }
 
   /// Describes an anomaly or error with the application.
@@ -121,14 +160,20 @@ class ApplicationInsightsApi {
   /// [observationId]: The ID of the observation.
   Future<DescribeObservationResponse> describeObservation(
       String observationId) async {
-    return DescribeObservationResponse.fromJson({});
+    var response_ = await _client.send('DescribeObservation', {
+      'ObservationId': observationId,
+    });
+    return DescribeObservationResponse.fromJson(response_);
   }
 
   /// Describes an application problem.
   ///
   /// [problemId]: The ID of the problem.
   Future<DescribeProblemResponse> describeProblem(String problemId) async {
-    return DescribeProblemResponse.fromJson({});
+    var response_ = await _client.send('DescribeProblem', {
+      'ProblemId': problemId,
+    });
+    return DescribeProblemResponse.fromJson(response_);
   }
 
   /// Describes the anomalies or errors associated with the problem.
@@ -136,7 +181,10 @@ class ApplicationInsightsApi {
   /// [problemId]: The ID of the problem.
   Future<DescribeProblemObservationsResponse> describeProblemObservations(
       String problemId) async {
-    return DescribeProblemObservationsResponse.fromJson({});
+    var response_ = await _client.send('DescribeProblemObservations', {
+      'ProblemId': problemId,
+    });
+    return DescribeProblemObservationsResponse.fromJson(response_);
   }
 
   /// Lists the IDs of the applications that you are monitoring.
@@ -148,7 +196,11 @@ class ApplicationInsightsApi {
   /// [nextToken]: The token to request the next page of results.
   Future<ListApplicationsResponse> listApplications(
       {int maxResults, String nextToken}) async {
-    return ListApplicationsResponse.fromJson({});
+    var response_ = await _client.send('ListApplications', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListApplicationsResponse.fromJson(response_);
   }
 
   /// Lists the auto-grouped, standalone, and custom components of the
@@ -163,7 +215,12 @@ class ApplicationInsightsApi {
   /// [nextToken]: The token to request the next page of results.
   Future<ListComponentsResponse> listComponents(String resourceGroupName,
       {int maxResults, String nextToken}) async {
-    return ListComponentsResponse.fromJson({});
+    var response_ = await _client.send('ListComponents', {
+      'ResourceGroupName': resourceGroupName,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListComponentsResponse.fromJson(response_);
   }
 
   /// Lists the problems with your application.
@@ -188,7 +245,14 @@ class ApplicationInsightsApi {
       DateTime endTime,
       int maxResults,
       String nextToken}) async {
-    return ListProblemsResponse.fromJson({});
+    var response_ = await _client.send('ListProblems', {
+      if (resourceGroupName != null) 'ResourceGroupName': resourceGroupName,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListProblemsResponse.fromJson(response_);
   }
 
   /// Updates the application.
@@ -208,7 +272,13 @@ class ApplicationInsightsApi {
       {bool opsCenterEnabled,
       String opsItemSnsTopicArn,
       bool removeSnsTopic}) async {
-    return UpdateApplicationResponse.fromJson({});
+    var response_ = await _client.send('UpdateApplication', {
+      'ResourceGroupName': resourceGroupName,
+      if (opsCenterEnabled != null) 'OpsCenterEnabled': opsCenterEnabled,
+      if (opsItemSnsTopicArn != null) 'OpsItemSNSTopicArn': opsItemSnsTopicArn,
+      if (removeSnsTopic != null) 'RemoveSNSTopic': removeSnsTopic,
+    });
+    return UpdateApplicationResponse.fromJson(response_);
   }
 
   /// Updates the custom component name and/or the list of resources that make
@@ -226,7 +296,13 @@ class ApplicationInsightsApi {
       @required String componentName,
       String newComponentName,
       List<String> resourceList}) async {
-    return UpdateComponentResponse.fromJson({});
+    var response_ = await _client.send('UpdateComponent', {
+      'ResourceGroupName': resourceGroupName,
+      'ComponentName': componentName,
+      if (newComponentName != null) 'NewComponentName': newComponentName,
+      if (resourceList != null) 'ResourceList': resourceList,
+    });
+    return UpdateComponentResponse.fromJson(response_);
   }
 
   /// Updates the monitoring configurations for the component. The configuration
@@ -255,7 +331,15 @@ class ApplicationInsightsApi {
       bool monitor,
       String tier,
       String componentConfiguration}) async {
-    return UpdateComponentConfigurationResponse.fromJson({});
+    var response_ = await _client.send('UpdateComponentConfiguration', {
+      'ResourceGroupName': resourceGroupName,
+      'ComponentName': componentName,
+      if (monitor != null) 'Monitor': monitor,
+      if (tier != null) 'Tier': tier,
+      if (componentConfiguration != null)
+        'ComponentConfiguration': componentConfiguration,
+    });
+    return UpdateComponentConfigurationResponse.fromJson(response_);
   }
 }
 
@@ -282,7 +366,16 @@ class ApplicationComponent {
     this.monitor,
   });
   static ApplicationComponent fromJson(Map<String, dynamic> json) =>
-      ApplicationComponent();
+      ApplicationComponent(
+        componentName: json.containsKey('ComponentName')
+            ? json['ComponentName'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        tier: json.containsKey('Tier') ? json['Tier'] as String : null,
+        monitor: json.containsKey('Monitor') ? json['Monitor'] as bool : null,
+      );
 }
 
 /// Describes the status of the application.
@@ -312,8 +405,20 @@ class ApplicationInfo {
     this.opsCenterEnabled,
     this.remarks,
   });
-  static ApplicationInfo fromJson(Map<String, dynamic> json) =>
-      ApplicationInfo();
+  static ApplicationInfo fromJson(Map<String, dynamic> json) => ApplicationInfo(
+        resourceGroupName: json.containsKey('ResourceGroupName')
+            ? json['ResourceGroupName'] as String
+            : null,
+        lifeCycle:
+            json.containsKey('LifeCycle') ? json['LifeCycle'] as String : null,
+        opsItemSnsTopicArn: json.containsKey('OpsItemSNSTopicArn')
+            ? json['OpsItemSNSTopicArn'] as String
+            : null,
+        opsCenterEnabled: json.containsKey('OpsCenterEnabled')
+            ? json['OpsCenterEnabled'] as bool
+            : null,
+        remarks: json.containsKey('Remarks') ? json['Remarks'] as String : null,
+      );
 }
 
 class CreateApplicationResponse {
@@ -324,7 +429,11 @@ class CreateApplicationResponse {
     this.applicationInfo,
   });
   static CreateApplicationResponse fromJson(Map<String, dynamic> json) =>
-      CreateApplicationResponse();
+      CreateApplicationResponse(
+        applicationInfo: json.containsKey('ApplicationInfo')
+            ? ApplicationInfo.fromJson(json['ApplicationInfo'])
+            : null,
+      );
 }
 
 class CreateComponentResponse {
@@ -353,7 +462,11 @@ class DescribeApplicationResponse {
     this.applicationInfo,
   });
   static DescribeApplicationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeApplicationResponse();
+      DescribeApplicationResponse(
+        applicationInfo: json.containsKey('ApplicationInfo')
+            ? ApplicationInfo.fromJson(json['ApplicationInfo'])
+            : null,
+      );
 }
 
 class DescribeComponentConfigurationRecommendationResponse {
@@ -366,7 +479,11 @@ class DescribeComponentConfigurationRecommendationResponse {
   });
   static DescribeComponentConfigurationRecommendationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeComponentConfigurationRecommendationResponse();
+      DescribeComponentConfigurationRecommendationResponse(
+        componentConfiguration: json.containsKey('ComponentConfiguration')
+            ? json['ComponentConfiguration'] as String
+            : null,
+      );
 }
 
 class DescribeComponentConfigurationResponse {
@@ -388,7 +505,13 @@ class DescribeComponentConfigurationResponse {
   });
   static DescribeComponentConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeComponentConfigurationResponse();
+      DescribeComponentConfigurationResponse(
+        monitor: json.containsKey('Monitor') ? json['Monitor'] as bool : null,
+        tier: json.containsKey('Tier') ? json['Tier'] as String : null,
+        componentConfiguration: json.containsKey('ComponentConfiguration')
+            ? json['ComponentConfiguration'] as String
+            : null,
+      );
 }
 
 class DescribeComponentResponse {
@@ -402,7 +525,14 @@ class DescribeComponentResponse {
     this.resourceList,
   });
   static DescribeComponentResponse fromJson(Map<String, dynamic> json) =>
-      DescribeComponentResponse();
+      DescribeComponentResponse(
+        applicationComponent: json.containsKey('ApplicationComponent')
+            ? ApplicationComponent.fromJson(json['ApplicationComponent'])
+            : null,
+        resourceList: json.containsKey('ResourceList')
+            ? (json['ResourceList'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class DescribeObservationResponse {
@@ -413,7 +543,11 @@ class DescribeObservationResponse {
     this.observation,
   });
   static DescribeObservationResponse fromJson(Map<String, dynamic> json) =>
-      DescribeObservationResponse();
+      DescribeObservationResponse(
+        observation: json.containsKey('Observation')
+            ? Observation.fromJson(json['Observation'])
+            : null,
+      );
 }
 
 class DescribeProblemObservationsResponse {
@@ -425,7 +559,11 @@ class DescribeProblemObservationsResponse {
   });
   static DescribeProblemObservationsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeProblemObservationsResponse();
+      DescribeProblemObservationsResponse(
+        relatedObservations: json.containsKey('RelatedObservations')
+            ? RelatedObservations.fromJson(json['RelatedObservations'])
+            : null,
+      );
 }
 
 class DescribeProblemResponse {
@@ -436,7 +574,11 @@ class DescribeProblemResponse {
     this.problem,
   });
   static DescribeProblemResponse fromJson(Map<String, dynamic> json) =>
-      DescribeProblemResponse();
+      DescribeProblemResponse(
+        problem: json.containsKey('Problem')
+            ? Problem.fromJson(json['Problem'])
+            : null,
+      );
 }
 
 class ListApplicationsResponse {
@@ -452,7 +594,15 @@ class ListApplicationsResponse {
     this.nextToken,
   });
   static ListApplicationsResponse fromJson(Map<String, dynamic> json) =>
-      ListApplicationsResponse();
+      ListApplicationsResponse(
+        applicationInfoList: json.containsKey('ApplicationInfoList')
+            ? (json['ApplicationInfoList'] as List)
+                .map((e) => ApplicationInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListComponentsResponse {
@@ -467,7 +617,15 @@ class ListComponentsResponse {
     this.nextToken,
   });
   static ListComponentsResponse fromJson(Map<String, dynamic> json) =>
-      ListComponentsResponse();
+      ListComponentsResponse(
+        applicationComponentList: json.containsKey('ApplicationComponentList')
+            ? (json['ApplicationComponentList'] as List)
+                .map((e) => ApplicationComponent.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListProblemsResponse {
@@ -483,7 +641,15 @@ class ListProblemsResponse {
     this.nextToken,
   });
   static ListProblemsResponse fromJson(Map<String, dynamic> json) =>
-      ListProblemsResponse();
+      ListProblemsResponse(
+        problemList: json.containsKey('ProblemList')
+            ? (json['ProblemList'] as List)
+                .map((e) => Problem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes an anomaly or error with the application.
@@ -543,7 +709,36 @@ class Observation {
     this.unit,
     this.value,
   });
-  static Observation fromJson(Map<String, dynamic> json) => Observation();
+  static Observation fromJson(Map<String, dynamic> json) => Observation(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        sourceArn:
+            json.containsKey('SourceARN') ? json['SourceARN'] as String : null,
+        logGroup:
+            json.containsKey('LogGroup') ? json['LogGroup'] as String : null,
+        lineTime: json.containsKey('LineTime')
+            ? DateTime.parse(json['LineTime'])
+            : null,
+        logText: json.containsKey('LogText') ? json['LogText'] as String : null,
+        logFilter:
+            json.containsKey('LogFilter') ? json['LogFilter'] as String : null,
+        metricNamespace: json.containsKey('MetricNamespace')
+            ? json['MetricNamespace'] as String
+            : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as double : null,
+      );
 }
 
 /// Describes a problem that is detected by correlating observations.
@@ -590,7 +785,32 @@ class Problem {
     this.resourceGroupName,
     this.feedback,
   });
-  static Problem fromJson(Map<String, dynamic> json) => Problem();
+  static Problem fromJson(Map<String, dynamic> json) => Problem(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        title: json.containsKey('Title') ? json['Title'] as String : null,
+        insights:
+            json.containsKey('Insights') ? json['Insights'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        affectedResource: json.containsKey('AffectedResource')
+            ? json['AffectedResource'] as String
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        severityLevel: json.containsKey('SeverityLevel')
+            ? json['SeverityLevel'] as String
+            : null,
+        resourceGroupName: json.containsKey('ResourceGroupName')
+            ? json['ResourceGroupName'] as String
+            : null,
+        feedback: json.containsKey('Feedback')
+            ? (json['Feedback'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Describes observations related to the problem.
@@ -602,7 +822,13 @@ class RelatedObservations {
     this.observationList,
   });
   static RelatedObservations fromJson(Map<String, dynamic> json) =>
-      RelatedObservations();
+      RelatedObservations(
+        observationList: json.containsKey('ObservationList')
+            ? (json['ObservationList'] as List)
+                .map((e) => Observation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateApplicationResponse {
@@ -613,7 +839,11 @@ class UpdateApplicationResponse {
     this.applicationInfo,
   });
   static UpdateApplicationResponse fromJson(Map<String, dynamic> json) =>
-      UpdateApplicationResponse();
+      UpdateApplicationResponse(
+        applicationInfo: json.containsKey('ApplicationInfo')
+            ? ApplicationInfo.fromJson(json['ApplicationInfo'])
+            : null,
+      );
 }
 
 class UpdateComponentConfigurationResponse {

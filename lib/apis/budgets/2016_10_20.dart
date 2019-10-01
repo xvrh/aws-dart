@@ -48,6 +48,10 @@ import 'package:meta/meta.dart';
 /// see
 /// [AWS Cost Management Pricing](https://aws.amazon.com/aws-cost-management/pricing/).
 class BudgetsApi {
+  final _client;
+  BudgetsApi(client)
+      : _client = client.configured('Budgets', serializer: 'json');
+
   /// Creates a budget and, if included, notifications and subscribers.
   ///
   ///
@@ -72,7 +76,13 @@ class BudgetsApi {
       {@required String accountId,
       @required Budget budget,
       List<NotificationWithSubscribers> notificationsWithSubscribers}) async {
-    return CreateBudgetResponse.fromJson({});
+    var response_ = await _client.send('CreateBudget', {
+      'AccountId': accountId,
+      'Budget': budget,
+      if (notificationsWithSubscribers != null)
+        'NotificationsWithSubscribers': notificationsWithSubscribers,
+    });
+    return CreateBudgetResponse.fromJson(response_);
   }
 
   /// Creates a notification. You must create the budget before you create the
@@ -94,7 +104,13 @@ class BudgetsApi {
       @required String budgetName,
       @required Notification notification,
       @required List<Subscriber> subscribers}) async {
-    return CreateNotificationResponse.fromJson({});
+    var response_ = await _client.send('CreateNotification', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+      'Notification': notification,
+      'Subscribers': subscribers,
+    });
+    return CreateNotificationResponse.fromJson(response_);
   }
 
   /// Creates a subscriber. You must create the associated budget and
@@ -115,7 +131,13 @@ class BudgetsApi {
       @required String budgetName,
       @required Notification notification,
       @required Subscriber subscriber}) async {
-    return CreateSubscriberResponse.fromJson({});
+    var response_ = await _client.send('CreateSubscriber', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+      'Notification': notification,
+      'Subscriber': subscriber,
+    });
+    return CreateSubscriberResponse.fromJson(response_);
   }
 
   /// Deletes a budget. You can delete your budget at any time.
@@ -131,7 +153,11 @@ class BudgetsApi {
   /// [budgetName]: The name of the budget that you want to delete.
   Future<DeleteBudgetResponse> deleteBudget(
       {@required String accountId, @required String budgetName}) async {
-    return DeleteBudgetResponse.fromJson({});
+    var response_ = await _client.send('DeleteBudget', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+    });
+    return DeleteBudgetResponse.fromJson(response_);
   }
 
   /// Deletes a notification.
@@ -152,7 +178,12 @@ class BudgetsApi {
       {@required String accountId,
       @required String budgetName,
       @required Notification notification}) async {
-    return DeleteNotificationResponse.fromJson({});
+    var response_ = await _client.send('DeleteNotification', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+      'Notification': notification,
+    });
+    return DeleteNotificationResponse.fromJson(response_);
   }
 
   /// Deletes a subscriber.
@@ -175,7 +206,13 @@ class BudgetsApi {
       @required String budgetName,
       @required Notification notification,
       @required Subscriber subscriber}) async {
-    return DeleteSubscriberResponse.fromJson({});
+    var response_ = await _client.send('DeleteSubscriber', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+      'Notification': notification,
+      'Subscriber': subscriber,
+    });
+    return DeleteSubscriberResponse.fromJson(response_);
   }
 
   /// Describes a budget.
@@ -193,7 +230,11 @@ class BudgetsApi {
   /// [budgetName]: The name of the budget that you want a description of.
   Future<DescribeBudgetResponse> describeBudget(
       {@required String accountId, @required String budgetName}) async {
-    return DescribeBudgetResponse.fromJson({});
+    var response_ = await _client.send('DescribeBudget', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+    });
+    return DescribeBudgetResponse.fromJson(response_);
   }
 
   /// Describes the history for `DAILY`, `MONTHLY`, and `QUARTERLY` budgets.
@@ -208,7 +249,14 @@ class BudgetsApi {
           TimePeriod timePeriod,
           int maxResults,
           String nextToken}) async {
-    return DescribeBudgetPerformanceHistoryResponse.fromJson({});
+    var response_ = await _client.send('DescribeBudgetPerformanceHistory', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+      if (timePeriod != null) 'TimePeriod': timePeriod,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeBudgetPerformanceHistoryResponse.fromJson(response_);
   }
 
   /// Lists the budgets that are associated with an account.
@@ -230,7 +278,12 @@ class BudgetsApi {
   /// indicate the next set of results that you want to retrieve.
   Future<DescribeBudgetsResponse> describeBudgets(String accountId,
       {int maxResults, String nextToken}) async {
-    return DescribeBudgetsResponse.fromJson({});
+    var response_ = await _client.send('DescribeBudgets', {
+      'AccountId': accountId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeBudgetsResponse.fromJson(response_);
   }
 
   /// Lists the notifications that are associated with a budget.
@@ -251,7 +304,13 @@ class BudgetsApi {
       @required String budgetName,
       int maxResults,
       String nextToken}) async {
-    return DescribeNotificationsForBudgetResponse.fromJson({});
+    var response_ = await _client.send('DescribeNotificationsForBudget', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeNotificationsForBudgetResponse.fromJson(response_);
   }
 
   /// Lists the subscribers that are associated with a notification.
@@ -276,7 +335,14 @@ class BudgetsApi {
           @required Notification notification,
           int maxResults,
           String nextToken}) async {
-    return DescribeSubscribersForNotificationResponse.fromJson({});
+    var response_ = await _client.send('DescribeSubscribersForNotification', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+      'Notification': notification,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeSubscribersForNotificationResponse.fromJson(response_);
   }
 
   /// Updates a budget. You can change every part of a budget except for the
@@ -299,7 +365,11 @@ class BudgetsApi {
   /// [newBudget]: The budget that you want to update your budget to.
   Future<UpdateBudgetResponse> updateBudget(
       {@required String accountId, @required Budget newBudget}) async {
-    return UpdateBudgetResponse.fromJson({});
+    var response_ = await _client.send('UpdateBudget', {
+      'AccountId': accountId,
+      'NewBudget': newBudget,
+    });
+    return UpdateBudgetResponse.fromJson(response_);
   }
 
   /// Updates a notification.
@@ -320,7 +390,13 @@ class BudgetsApi {
       @required String budgetName,
       @required Notification oldNotification,
       @required Notification newNotification}) async {
-    return UpdateNotificationResponse.fromJson({});
+    var response_ = await _client.send('UpdateNotification', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+      'OldNotification': oldNotification,
+      'NewNotification': newNotification,
+    });
+    return UpdateNotificationResponse.fromJson(response_);
   }
 
   /// Updates a subscriber.
@@ -343,7 +419,14 @@ class BudgetsApi {
       @required Notification notification,
       @required Subscriber oldSubscriber,
       @required Subscriber newSubscriber}) async {
-    return UpdateSubscriberResponse.fromJson({});
+    var response_ = await _client.send('UpdateSubscriber', {
+      'AccountId': accountId,
+      'BudgetName': budgetName,
+      'Notification': notification,
+      'OldSubscriber': oldSubscriber,
+      'NewSubscriber': newSubscriber,
+    });
+    return UpdateSubscriberResponse.fromJson(response_);
   }
 }
 
@@ -468,7 +551,35 @@ class Budget {
     @required this.budgetType,
     this.lastUpdatedTime,
   });
-  static Budget fromJson(Map<String, dynamic> json) => Budget();
+  static Budget fromJson(Map<String, dynamic> json) => Budget(
+        budgetName: json['BudgetName'] as String,
+        budgetLimit: json.containsKey('BudgetLimit')
+            ? Spend.fromJson(json['BudgetLimit'])
+            : null,
+        plannedBudgetLimits: json.containsKey('PlannedBudgetLimits')
+            ? (json['PlannedBudgetLimits'] as Map)
+                .map((k, v) => MapEntry(k as String, Spend.fromJson(v)))
+            : null,
+        costFilters: json.containsKey('CostFilters')
+            ? (json['CostFilters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        costTypes: json.containsKey('CostTypes')
+            ? CostTypes.fromJson(json['CostTypes'])
+            : null,
+        timeUnit: json['TimeUnit'] as String,
+        timePeriod: json.containsKey('TimePeriod')
+            ? TimePeriod.fromJson(json['TimePeriod'])
+            : null,
+        calculatedSpend: json.containsKey('CalculatedSpend')
+            ? CalculatedSpend.fromJson(json['CalculatedSpend'])
+            : null,
+        budgetType: json['BudgetType'] as String,
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A history of the state of a budget at the end of the budget's specified time
@@ -501,7 +612,29 @@ class BudgetPerformanceHistory {
     this.budgetedAndActualAmountsList,
   });
   static BudgetPerformanceHistory fromJson(Map<String, dynamic> json) =>
-      BudgetPerformanceHistory();
+      BudgetPerformanceHistory(
+        budgetName: json.containsKey('BudgetName')
+            ? json['BudgetName'] as String
+            : null,
+        budgetType: json.containsKey('BudgetType')
+            ? json['BudgetType'] as String
+            : null,
+        costFilters: json.containsKey('CostFilters')
+            ? (json['CostFilters'] as Map).map((k, v) => MapEntry(
+                k as String, (v as List).map((e) => e as String).toList()))
+            : null,
+        costTypes: json.containsKey('CostTypes')
+            ? CostTypes.fromJson(json['CostTypes'])
+            : null,
+        timeUnit:
+            json.containsKey('TimeUnit') ? json['TimeUnit'] as String : null,
+        budgetedAndActualAmountsList:
+            json.containsKey('BudgetedAndActualAmountsList')
+                ? (json['BudgetedAndActualAmountsList'] as List)
+                    .map((e) => BudgetedAndActualAmounts.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// The amount of cost or usage that you created the budget for, compared to
@@ -522,7 +655,17 @@ class BudgetedAndActualAmounts {
     this.timePeriod,
   });
   static BudgetedAndActualAmounts fromJson(Map<String, dynamic> json) =>
-      BudgetedAndActualAmounts();
+      BudgetedAndActualAmounts(
+        budgetedAmount: json.containsKey('BudgetedAmount')
+            ? Spend.fromJson(json['BudgetedAmount'])
+            : null,
+        actualAmount: json.containsKey('ActualAmount')
+            ? Spend.fromJson(json['ActualAmount'])
+            : null,
+        timePeriod: json.containsKey('TimePeriod')
+            ? TimePeriod.fromJson(json['TimePeriod'])
+            : null,
+      );
 }
 
 /// The spend objects that are associated with this budget. The `actualSpend`
@@ -544,8 +687,13 @@ class CalculatedSpend {
     @required this.actualSpend,
     this.forecastedSpend,
   });
-  static CalculatedSpend fromJson(Map<String, dynamic> json) =>
-      CalculatedSpend();
+  static CalculatedSpend fromJson(Map<String, dynamic> json) => CalculatedSpend(
+        actualSpend: Spend.fromJson(json['ActualSpend']),
+        forecastedSpend: json.containsKey('ForecastedSpend')
+            ? Spend.fromJson(json['ForecastedSpend'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The types of cost that are included in a `COST` budget, such as tax and
@@ -623,7 +771,40 @@ class CostTypes {
     this.includeDiscount,
     this.useAmortized,
   });
-  static CostTypes fromJson(Map<String, dynamic> json) => CostTypes();
+  static CostTypes fromJson(Map<String, dynamic> json) => CostTypes(
+        includeTax:
+            json.containsKey('IncludeTax') ? json['IncludeTax'] as bool : null,
+        includeSubscription: json.containsKey('IncludeSubscription')
+            ? json['IncludeSubscription'] as bool
+            : null,
+        useBlended:
+            json.containsKey('UseBlended') ? json['UseBlended'] as bool : null,
+        includeRefund: json.containsKey('IncludeRefund')
+            ? json['IncludeRefund'] as bool
+            : null,
+        includeCredit: json.containsKey('IncludeCredit')
+            ? json['IncludeCredit'] as bool
+            : null,
+        includeUpfront: json.containsKey('IncludeUpfront')
+            ? json['IncludeUpfront'] as bool
+            : null,
+        includeRecurring: json.containsKey('IncludeRecurring')
+            ? json['IncludeRecurring'] as bool
+            : null,
+        includeOtherSubscription: json.containsKey('IncludeOtherSubscription')
+            ? json['IncludeOtherSubscription'] as bool
+            : null,
+        includeSupport: json.containsKey('IncludeSupport')
+            ? json['IncludeSupport'] as bool
+            : null,
+        includeDiscount: json.containsKey('IncludeDiscount')
+            ? json['IncludeDiscount'] as bool
+            : null,
+        useAmortized: json.containsKey('UseAmortized')
+            ? json['UseAmortized'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Response of CreateBudget
@@ -686,7 +867,14 @@ class DescribeBudgetPerformanceHistoryResponse {
   });
   static DescribeBudgetPerformanceHistoryResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeBudgetPerformanceHistoryResponse();
+      DescribeBudgetPerformanceHistoryResponse(
+        budgetPerformanceHistory: json.containsKey('BudgetPerformanceHistory')
+            ? BudgetPerformanceHistory.fromJson(
+                json['BudgetPerformanceHistory'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 ///  Response of DescribeBudget
@@ -698,7 +886,10 @@ class DescribeBudgetResponse {
     this.budget,
   });
   static DescribeBudgetResponse fromJson(Map<String, dynamic> json) =>
-      DescribeBudgetResponse();
+      DescribeBudgetResponse(
+        budget:
+            json.containsKey('Budget') ? Budget.fromJson(json['Budget']) : null,
+      );
 }
 
 ///  Response of DescribeBudgets
@@ -715,7 +906,13 @@ class DescribeBudgetsResponse {
     this.nextToken,
   });
   static DescribeBudgetsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeBudgetsResponse();
+      DescribeBudgetsResponse(
+        budgets: json.containsKey('Budgets')
+            ? (json['Budgets'] as List).map((e) => Budget.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 ///  Response of GetNotificationsForBudget
@@ -733,7 +930,15 @@ class DescribeNotificationsForBudgetResponse {
   });
   static DescribeNotificationsForBudgetResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeNotificationsForBudgetResponse();
+      DescribeNotificationsForBudgetResponse(
+        notifications: json.containsKey('Notifications')
+            ? (json['Notifications'] as List)
+                .map((e) => Notification.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 ///  Response of DescribeSubscribersForNotification
@@ -751,7 +956,15 @@ class DescribeSubscribersForNotificationResponse {
   });
   static DescribeSubscribersForNotificationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeSubscribersForNotificationResponse();
+      DescribeSubscribersForNotificationResponse(
+        subscribers: json.containsKey('Subscribers')
+            ? (json['Subscribers'] as List)
+                .map((e) => Subscriber.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A notification that is associated with a budget. A budget can have up to
@@ -804,7 +1017,18 @@ class Notification {
     this.thresholdType,
     this.notificationState,
   });
-  static Notification fromJson(Map<String, dynamic> json) => Notification();
+  static Notification fromJson(Map<String, dynamic> json) => Notification(
+        notificationType: json['NotificationType'] as String,
+        comparisonOperator: json['ComparisonOperator'] as String,
+        threshold: json['Threshold'] as double,
+        thresholdType: json.containsKey('ThresholdType')
+            ? json['ThresholdType'] as String
+            : null,
+        notificationState: json.containsKey('NotificationState')
+            ? json['NotificationState'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A notification with subscribers. A notification can have one SNS subscriber
@@ -820,6 +1044,7 @@ class NotificationWithSubscribers {
     @required this.notification,
     @required this.subscribers,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The amount of cost or usage that is measured for a budget.
@@ -843,7 +1068,11 @@ class Spend {
     @required this.amount,
     @required this.unit,
   });
-  static Spend fromJson(Map<String, dynamic> json) => Spend();
+  static Spend fromJson(Map<String, dynamic> json) => Spend(
+        amount: json['Amount'] as String,
+        unit: json['Unit'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The subscriber to a budget notification. The subscriber consists of a
@@ -869,7 +1098,11 @@ class Subscriber {
     @required this.subscriptionType,
     @required this.address,
   });
-  static Subscriber fromJson(Map<String, dynamic> json) => Subscriber();
+  static Subscriber fromJson(Map<String, dynamic> json) => Subscriber(
+        subscriptionType: json['SubscriptionType'] as String,
+        address: json['Address'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The period of time that is covered by a budget. The period has a start date
@@ -900,7 +1133,11 @@ class TimePeriod {
     this.start,
     this.end,
   });
-  static TimePeriod fromJson(Map<String, dynamic> json) => TimePeriod();
+  static TimePeriod fromJson(Map<String, dynamic> json) => TimePeriod(
+        start: json.containsKey('Start') ? DateTime.parse(json['Start']) : null,
+        end: json.containsKey('End') ? DateTime.parse(json['End']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Response of UpdateBudget

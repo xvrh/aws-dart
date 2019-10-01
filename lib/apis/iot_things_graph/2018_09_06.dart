@@ -12,6 +12,10 @@ import 'package:meta/meta.dart';
 /// For more information about how AWS IoT Things Graph works, see the
 /// [User Guide](https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-whatis.html).
 class IotThingsGraphApi {
+  final _client;
+  IotThingsGraphApi(client)
+      : _client = client.configured('IoTThingsGraph', serializer: 'json');
+
   /// Associates a device with a concrete thing that is in the user's registry.
   ///
   /// A thing can be associated with only one device at a time. If you associate
@@ -32,7 +36,12 @@ class IotThingsGraphApi {
       {@required String thingName,
       @required String entityId,
       BigInt namespaceVersion}) async {
-    return AssociateEntityToThingResponse.fromJson({});
+    var response_ = await _client.send('AssociateEntityToThing', {
+      'thingName': thingName,
+      'entityId': entityId,
+      if (namespaceVersion != null) 'namespaceVersion': namespaceVersion,
+    });
+    return AssociateEntityToThingResponse.fromJson(response_);
   }
 
   /// Creates a workflow template. Workflows can be created only in the user's
@@ -50,7 +59,12 @@ class IotThingsGraphApi {
   Future<CreateFlowTemplateResponse> createFlowTemplate(
       DefinitionDocument definition,
       {BigInt compatibleNamespaceVersion}) async {
-    return CreateFlowTemplateResponse.fromJson({});
+    var response_ = await _client.send('CreateFlowTemplate', {
+      'definition': definition,
+      if (compatibleNamespaceVersion != null)
+        'compatibleNamespaceVersion': compatibleNamespaceVersion,
+    });
+    return CreateFlowTemplateResponse.fromJson(response_);
   }
 
   /// Creates a system instance.
@@ -101,7 +115,18 @@ class IotThingsGraphApi {
       String s3BucketName,
       MetricsConfiguration metricsConfiguration,
       String flowActionsRoleArn}) async {
-    return CreateSystemInstanceResponse.fromJson({});
+    var response_ = await _client.send('CreateSystemInstance', {
+      if (tags != null) 'tags': tags,
+      'definition': definition,
+      'target': target,
+      if (greengrassGroupName != null)
+        'greengrassGroupName': greengrassGroupName,
+      if (s3BucketName != null) 's3BucketName': s3BucketName,
+      if (metricsConfiguration != null)
+        'metricsConfiguration': metricsConfiguration,
+      if (flowActionsRoleArn != null) 'flowActionsRoleArn': flowActionsRoleArn,
+    });
+    return CreateSystemInstanceResponse.fromJson(response_);
   }
 
   /// Creates a system. The system is validated against the entities in the
@@ -117,7 +142,12 @@ class IotThingsGraphApi {
   Future<CreateSystemTemplateResponse> createSystemTemplate(
       DefinitionDocument definition,
       {BigInt compatibleNamespaceVersion}) async {
-    return CreateSystemTemplateResponse.fromJson({});
+    var response_ = await _client.send('CreateSystemTemplate', {
+      'definition': definition,
+      if (compatibleNamespaceVersion != null)
+        'compatibleNamespaceVersion': compatibleNamespaceVersion,
+    });
+    return CreateSystemTemplateResponse.fromJson(response_);
   }
 
   /// Deletes a workflow. Any new system or deployment that contains this
@@ -131,14 +161,18 @@ class IotThingsGraphApi {
   ///
   ///  `urn:tdm:REGION/ACCOUNT ID/default:workflow:WORKFLOWNAME`
   Future<DeleteFlowTemplateResponse> deleteFlowTemplate(String id) async {
-    return DeleteFlowTemplateResponse.fromJson({});
+    var response_ = await _client.send('DeleteFlowTemplate', {
+      'id': id,
+    });
+    return DeleteFlowTemplateResponse.fromJson(response_);
   }
 
   /// Deletes the specified namespace. This action deletes all of the entities
   /// in the namespace. Delete the systems and flows that use entities in the
   /// namespace before performing this action.
   Future<DeleteNamespaceResponse> deleteNamespace() async {
-    return DeleteNamespaceResponse.fromJson({});
+    var response_ = await _client.send('DeleteNamespace', {});
+    return DeleteNamespaceResponse.fromJson(response_);
   }
 
   /// Deletes a system instance. Only system instances that have never been
@@ -149,7 +183,10 @@ class IotThingsGraphApi {
   ///
   /// [id]: The ID of the system instance to be deleted.
   Future<DeleteSystemInstanceResponse> deleteSystemInstance({String id}) async {
-    return DeleteSystemInstanceResponse.fromJson({});
+    var response_ = await _client.send('DeleteSystemInstance', {
+      if (id != null) 'id': id,
+    });
+    return DeleteSystemInstanceResponse.fromJson(response_);
   }
 
   /// Deletes a system. New deployments can't contain the system after its
@@ -163,7 +200,10 @@ class IotThingsGraphApi {
   ///
   ///  `urn:tdm:REGION/ACCOUNT ID/default:system:SYSTEMNAME`
   Future<DeleteSystemTemplateResponse> deleteSystemTemplate(String id) async {
-    return DeleteSystemTemplateResponse.fromJson({});
+    var response_ = await _client.send('DeleteSystemTemplate', {
+      'id': id,
+    });
+    return DeleteSystemTemplateResponse.fromJson(response_);
   }
 
   ///  **Greengrass and Cloud Deployments**
@@ -193,7 +233,10 @@ class IotThingsGraphApi {
   ///
   ///  `urn:tdm:REGION/ACCOUNT ID/default:deployment:DEPLOYMENTNAME`
   Future<DeploySystemInstanceResponse> deploySystemInstance({String id}) async {
-    return DeploySystemInstanceResponse.fromJson({});
+    var response_ = await _client.send('DeploySystemInstance', {
+      if (id != null) 'id': id,
+    });
+    return DeploySystemInstanceResponse.fromJson(response_);
   }
 
   /// Deprecates the specified workflow. This action marks the workflow for
@@ -206,7 +249,10 @@ class IotThingsGraphApi {
   ///
   ///  `urn:tdm:REGION/ACCOUNT ID/default:workflow:WORKFLOWNAME`
   Future<DeprecateFlowTemplateResponse> deprecateFlowTemplate(String id) async {
-    return DeprecateFlowTemplateResponse.fromJson({});
+    var response_ = await _client.send('DeprecateFlowTemplate', {
+      'id': id,
+    });
+    return DeprecateFlowTemplateResponse.fromJson(response_);
   }
 
   /// Deprecates the specified system.
@@ -218,7 +264,10 @@ class IotThingsGraphApi {
   ///  `urn:tdm:REGION/ACCOUNT ID/default:system:SYSTEMNAME`
   Future<DeprecateSystemTemplateResponse> deprecateSystemTemplate(
       String id) async {
-    return DeprecateSystemTemplateResponse.fromJson({});
+    var response_ = await _client.send('DeprecateSystemTemplate', {
+      'id': id,
+    });
+    return DeprecateSystemTemplateResponse.fromJson(response_);
   }
 
   /// Gets the latest version of the user's namespace and the public version
@@ -228,7 +277,10 @@ class IotThingsGraphApi {
   /// get the public namespace.
   Future<DescribeNamespaceResponse> describeNamespace(
       {String namespaceName}) async {
-    return DescribeNamespaceResponse.fromJson({});
+    var response_ = await _client.send('DescribeNamespace', {
+      if (namespaceName != null) 'namespaceName': namespaceName,
+    });
+    return DescribeNamespaceResponse.fromJson(response_);
   }
 
   /// Dissociates a device entity from a concrete thing. The action takes only
@@ -240,7 +292,11 @@ class IotThingsGraphApi {
   /// [entityType]: The entity type from which to disassociate the thing.
   Future<DissociateEntityFromThingResponse> dissociateEntityFromThing(
       {@required String thingName, @required String entityType}) async {
-    return DissociateEntityFromThingResponse.fromJson({});
+    var response_ = await _client.send('DissociateEntityFromThing', {
+      'thingName': thingName,
+      'entityType': entityType,
+    });
+    return DissociateEntityFromThingResponse.fromJson(response_);
   }
 
   /// Gets definitions of the specified entities. Uses the latest version of the
@@ -278,7 +334,11 @@ class IotThingsGraphApi {
   /// latest version of the user's namespace.
   Future<GetEntitiesResponse> getEntities(List<String> ids,
       {BigInt namespaceVersion}) async {
-    return GetEntitiesResponse.fromJson({});
+    var response_ = await _client.send('GetEntities', {
+      'ids': ids,
+      if (namespaceVersion != null) 'namespaceVersion': namespaceVersion,
+    });
+    return GetEntitiesResponse.fromJson(response_);
   }
 
   /// Gets the latest version of the `DefinitionDocument` and
@@ -293,7 +353,11 @@ class IotThingsGraphApi {
   /// [revisionNumber]: The number of the workflow revision to retrieve.
   Future<GetFlowTemplateResponse> getFlowTemplate(String id,
       {BigInt revisionNumber}) async {
-    return GetFlowTemplateResponse.fromJson({});
+    var response_ = await _client.send('GetFlowTemplate', {
+      'id': id,
+      if (revisionNumber != null) 'revisionNumber': revisionNumber,
+    });
+    return GetFlowTemplateResponse.fromJson(response_);
   }
 
   /// Gets revisions of the specified workflow. Only the last 100 revisions are
@@ -313,13 +377,19 @@ class IotThingsGraphApi {
   /// [maxResults]: The maximum number of results to return in the response.
   Future<GetFlowTemplateRevisionsResponse> getFlowTemplateRevisions(String id,
       {String nextToken, int maxResults}) async {
-    return GetFlowTemplateRevisionsResponse.fromJson({});
+    var response_ = await _client.send('GetFlowTemplateRevisions', {
+      'id': id,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetFlowTemplateRevisionsResponse.fromJson(response_);
   }
 
   /// Gets the status of a namespace deletion task.
   Future<GetNamespaceDeletionStatusResponse>
       getNamespaceDeletionStatus() async {
-    return GetNamespaceDeletionStatusResponse.fromJson({});
+    var response_ = await _client.send('GetNamespaceDeletionStatus', {});
+    return GetNamespaceDeletionStatusResponse.fromJson(response_);
   }
 
   /// Gets a system instance.
@@ -331,7 +401,10 @@ class IotThingsGraphApi {
   ///
   ///  `urn:tdm:REGION/ACCOUNT ID/default:deployment:DEPLOYMENTNAME`
   Future<GetSystemInstanceResponse> getSystemInstance(String id) async {
-    return GetSystemInstanceResponse.fromJson({});
+    var response_ = await _client.send('GetSystemInstance', {
+      'id': id,
+    });
+    return GetSystemInstanceResponse.fromJson(response_);
   }
 
   /// Gets a system.
@@ -347,7 +420,11 @@ class IotThingsGraphApi {
   /// get.
   Future<GetSystemTemplateResponse> getSystemTemplate(String id,
       {BigInt revisionNumber}) async {
-    return GetSystemTemplateResponse.fromJson({});
+    var response_ = await _client.send('GetSystemTemplate', {
+      'id': id,
+      if (revisionNumber != null) 'revisionNumber': revisionNumber,
+    });
+    return GetSystemTemplateResponse.fromJson(response_);
   }
 
   /// Gets revisions made to the specified system template. Only the previous
@@ -369,7 +446,12 @@ class IotThingsGraphApi {
       String id,
       {String nextToken,
       int maxResults}) async {
-    return GetSystemTemplateRevisionsResponse.fromJson({});
+    var response_ = await _client.send('GetSystemTemplateRevisions', {
+      'id': id,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetSystemTemplateRevisionsResponse.fromJson(response_);
   }
 
   /// Gets the status of the specified upload.
@@ -377,7 +459,10 @@ class IotThingsGraphApi {
   /// [uploadId]: The ID of the upload. This value is returned by the
   /// `UploadEntityDefinitions` action.
   Future<GetUploadStatusResponse> getUploadStatus(String uploadId) async {
-    return GetUploadStatusResponse.fromJson({});
+    var response_ = await _client.send('GetUploadStatus', {
+      'uploadId': uploadId,
+    });
+    return GetUploadStatusResponse.fromJson(response_);
   }
 
   /// Returns a list of objects that contain information about events in a flow
@@ -393,7 +478,12 @@ class IotThingsGraphApi {
       String flowExecutionId,
       {String nextToken,
       int maxResults}) async {
-    return ListFlowExecutionMessagesResponse.fromJson({});
+    var response_ = await _client.send('ListFlowExecutionMessages', {
+      'flowExecutionId': flowExecutionId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListFlowExecutionMessagesResponse.fromJson(response_);
   }
 
   /// Lists all tags on an AWS IoT Things Graph resource.
@@ -406,7 +496,12 @@ class IotThingsGraphApi {
   /// [nextToken]: The token that specifies the next page of results to return.
   Future<ListTagsForResourceResponse> listTagsForResource(String resourceArn,
       {int maxResults, String nextToken}) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      if (maxResults != null) 'maxResults': maxResults,
+      'resourceArn': resourceArn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Searches for entities of the specified type. You can search for entities
@@ -435,7 +530,14 @@ class IotThingsGraphApi {
       String nextToken,
       int maxResults,
       BigInt namespaceVersion}) async {
-    return SearchEntitiesResponse.fromJson({});
+    var response_ = await _client.send('SearchEntities', {
+      'entityTypes': entityTypes,
+      if (filters != null) 'filters': filters,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (namespaceVersion != null) 'namespaceVersion': namespaceVersion,
+    });
+    return SearchEntitiesResponse.fromJson(response_);
   }
 
   /// Searches for AWS IoT Things Graph workflow execution instances.
@@ -459,7 +561,15 @@ class IotThingsGraphApi {
       DateTime endTime,
       String nextToken,
       int maxResults}) async {
-    return SearchFlowExecutionsResponse.fromJson({});
+    var response_ = await _client.send('SearchFlowExecutions', {
+      'systemInstanceId': systemInstanceId,
+      if (flowExecutionId != null) 'flowExecutionId': flowExecutionId,
+      if (startTime != null) 'startTime': startTime,
+      if (endTime != null) 'endTime': endTime,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return SearchFlowExecutionsResponse.fromJson(response_);
   }
 
   /// Searches for summary information about workflows.
@@ -475,7 +585,12 @@ class IotThingsGraphApi {
       {List<FlowTemplateFilter> filters,
       String nextToken,
       int maxResults}) async {
-    return SearchFlowTemplatesResponse.fromJson({});
+    var response_ = await _client.send('SearchFlowTemplates', {
+      if (filters != null) 'filters': filters,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return SearchFlowTemplatesResponse.fromJson(response_);
   }
 
   /// Searches for system instances in the user's account.
@@ -494,7 +609,12 @@ class IotThingsGraphApi {
       {List<SystemInstanceFilter> filters,
       String nextToken,
       int maxResults}) async {
-    return SearchSystemInstancesResponse.fromJson({});
+    var response_ = await _client.send('SearchSystemInstances', {
+      if (filters != null) 'filters': filters,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return SearchSystemInstancesResponse.fromJson(response_);
   }
 
   /// Searches for summary information about systems in the user's account. You
@@ -512,7 +632,12 @@ class IotThingsGraphApi {
       {List<SystemTemplateFilter> filters,
       String nextToken,
       int maxResults}) async {
-    return SearchSystemTemplatesResponse.fromJson({});
+    var response_ = await _client.send('SearchSystemTemplates', {
+      if (filters != null) 'filters': filters,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return SearchSystemTemplatesResponse.fromJson(response_);
   }
 
   /// Searches for things associated with the specified entity. You can search
@@ -541,7 +666,13 @@ class IotThingsGraphApi {
   /// latest version of the user's namespace.
   Future<SearchThingsResponse> searchThings(String entityId,
       {String nextToken, int maxResults, BigInt namespaceVersion}) async {
-    return SearchThingsResponse.fromJson({});
+    var response_ = await _client.send('SearchThings', {
+      'entityId': entityId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (namespaceVersion != null) 'namespaceVersion': namespaceVersion,
+    });
+    return SearchThingsResponse.fromJson(response_);
   }
 
   /// Creates a tag for the specified resource.
@@ -552,7 +683,11 @@ class IotThingsGraphApi {
   /// [tags]: A list of tags to add to the resource.>
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes a system instance from its target (Cloud or Greengrass).
@@ -560,7 +695,10 @@ class IotThingsGraphApi {
   /// [id]: The ID of the system instance to remove from its target.
   Future<UndeploySystemInstanceResponse> undeploySystemInstance(
       {String id}) async {
-    return UndeploySystemInstanceResponse.fromJson({});
+    var response_ = await _client.send('UndeploySystemInstance', {
+      if (id != null) 'id': id,
+    });
+    return UndeploySystemInstanceResponse.fromJson(response_);
   }
 
   /// Removes a tag from the specified resource.
@@ -578,7 +716,11 @@ class IotThingsGraphApi {
   /// in the _AWS CLI User Guide_.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates the specified workflow. All deployed systems and system instances
@@ -605,7 +747,13 @@ class IotThingsGraphApi {
       {@required String id,
       @required DefinitionDocument definition,
       BigInt compatibleNamespaceVersion}) async {
-    return UpdateFlowTemplateResponse.fromJson({});
+    var response_ = await _client.send('UpdateFlowTemplate', {
+      'id': id,
+      'definition': definition,
+      if (compatibleNamespaceVersion != null)
+        'compatibleNamespaceVersion': compatibleNamespaceVersion,
+    });
+    return UpdateFlowTemplateResponse.fromJson(response_);
   }
 
   /// Updates the specified system. You don't need to run this action after
@@ -629,7 +777,13 @@ class IotThingsGraphApi {
       {@required String id,
       @required DefinitionDocument definition,
       BigInt compatibleNamespaceVersion}) async {
-    return UpdateSystemTemplateResponse.fromJson({});
+    var response_ = await _client.send('UpdateSystemTemplate', {
+      'id': id,
+      'definition': definition,
+      if (compatibleNamespaceVersion != null)
+        'compatibleNamespaceVersion': compatibleNamespaceVersion,
+    });
+    return UpdateSystemTemplateResponse.fromJson(response_);
   }
 
   /// Asynchronously uploads one or more entity definitions to the user's
@@ -670,7 +824,14 @@ class IotThingsGraphApi {
       {DefinitionDocument document,
       bool syncWithPublicNamespace,
       bool deprecateExistingEntities}) async {
-    return UploadEntityDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('UploadEntityDefinitions', {
+      if (document != null) 'document': document,
+      if (syncWithPublicNamespace != null)
+        'syncWithPublicNamespace': syncWithPublicNamespace,
+      if (deprecateExistingEntities != null)
+        'deprecateExistingEntities': deprecateExistingEntities,
+    });
+    return UploadEntityDefinitionsResponse.fromJson(response_);
   }
 }
 
@@ -688,7 +849,11 @@ class CreateFlowTemplateResponse {
     this.summary,
   });
   static CreateFlowTemplateResponse fromJson(Map<String, dynamic> json) =>
-      CreateFlowTemplateResponse();
+      CreateFlowTemplateResponse(
+        summary: json.containsKey('summary')
+            ? FlowTemplateSummary.fromJson(json['summary'])
+            : null,
+      );
 }
 
 class CreateSystemInstanceResponse {
@@ -699,7 +864,11 @@ class CreateSystemInstanceResponse {
     this.summary,
   });
   static CreateSystemInstanceResponse fromJson(Map<String, dynamic> json) =>
-      CreateSystemInstanceResponse();
+      CreateSystemInstanceResponse(
+        summary: json.containsKey('summary')
+            ? SystemInstanceSummary.fromJson(json['summary'])
+            : null,
+      );
 }
 
 class CreateSystemTemplateResponse {
@@ -710,7 +879,11 @@ class CreateSystemTemplateResponse {
     this.summary,
   });
   static CreateSystemTemplateResponse fromJson(Map<String, dynamic> json) =>
-      CreateSystemTemplateResponse();
+      CreateSystemTemplateResponse(
+        summary: json.containsKey('summary')
+            ? SystemTemplateSummary.fromJson(json['summary'])
+            : null,
+      );
 }
 
 /// A document that defines an entity.
@@ -726,7 +899,11 @@ class DefinitionDocument {
     @required this.text,
   });
   static DefinitionDocument fromJson(Map<String, dynamic> json) =>
-      DefinitionDocument();
+      DefinitionDocument(
+        language: json['language'] as String,
+        text: json['text'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteFlowTemplateResponse {
@@ -747,7 +924,14 @@ class DeleteNamespaceResponse {
     this.namespaceName,
   });
   static DeleteNamespaceResponse fromJson(Map<String, dynamic> json) =>
-      DeleteNamespaceResponse();
+      DeleteNamespaceResponse(
+        namespaceArn: json.containsKey('namespaceArn')
+            ? json['namespaceArn'] as String
+            : null,
+        namespaceName: json.containsKey('namespaceName')
+            ? json['namespaceName'] as String
+            : null,
+      );
 }
 
 class DeleteSystemInstanceResponse {
@@ -776,7 +960,12 @@ class DependencyRevision {
     this.revisionNumber,
   });
   static DependencyRevision fromJson(Map<String, dynamic> json) =>
-      DependencyRevision();
+      DependencyRevision(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        revisionNumber: json.containsKey('revisionNumber')
+            ? BigInt.from(json['revisionNumber'])
+            : null,
+      );
 }
 
 class DeploySystemInstanceResponse {
@@ -792,7 +981,12 @@ class DeploySystemInstanceResponse {
     this.greengrassDeploymentId,
   });
   static DeploySystemInstanceResponse fromJson(Map<String, dynamic> json) =>
-      DeploySystemInstanceResponse();
+      DeploySystemInstanceResponse(
+        summary: SystemInstanceSummary.fromJson(json['summary']),
+        greengrassDeploymentId: json.containsKey('greengrassDeploymentId')
+            ? json['greengrassDeploymentId'] as String
+            : null,
+      );
 }
 
 class DeprecateFlowTemplateResponse {
@@ -832,7 +1026,23 @@ class DescribeNamespaceResponse {
     this.namespaceVersion,
   });
   static DescribeNamespaceResponse fromJson(Map<String, dynamic> json) =>
-      DescribeNamespaceResponse();
+      DescribeNamespaceResponse(
+        namespaceArn: json.containsKey('namespaceArn')
+            ? json['namespaceArn'] as String
+            : null,
+        namespaceName: json.containsKey('namespaceName')
+            ? json['namespaceName'] as String
+            : null,
+        trackingNamespaceName: json.containsKey('trackingNamespaceName')
+            ? json['trackingNamespaceName'] as String
+            : null,
+        trackingNamespaceVersion: json.containsKey('trackingNamespaceVersion')
+            ? BigInt.from(json['trackingNamespaceVersion'])
+            : null,
+        namespaceVersion: json.containsKey('namespaceVersion')
+            ? BigInt.from(json['namespaceVersion'])
+            : null,
+      );
 }
 
 class DissociateEntityFromThingResponse {
@@ -867,7 +1077,17 @@ class EntityDescription {
     this.definition,
   });
   static EntityDescription fromJson(Map<String, dynamic> json) =>
-      EntityDescription();
+      EntityDescription(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        definition: json.containsKey('definition')
+            ? DefinitionDocument.fromJson(json['definition'])
+            : null,
+      );
 }
 
 /// An object that filters an entity search. Multiple filters function as OR
@@ -889,6 +1109,7 @@ class EntityFilter {
     this.name,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains information about a flow event.
@@ -912,7 +1133,16 @@ class FlowExecutionMessage {
     this.payload,
   });
   static FlowExecutionMessage fromJson(Map<String, dynamic> json) =>
-      FlowExecutionMessage();
+      FlowExecutionMessage(
+        messageId:
+            json.containsKey('messageId') ? json['messageId'] as String : null,
+        eventType:
+            json.containsKey('eventType') ? json['eventType'] as String : null,
+        timestamp: json.containsKey('timestamp')
+            ? DateTime.parse(json['timestamp'])
+            : null,
+        payload: json.containsKey('payload') ? json['payload'] as String : null,
+      );
 }
 
 /// An object that contains summary information about a flow execution.
@@ -944,7 +1174,24 @@ class FlowExecutionSummary {
     this.updatedAt,
   });
   static FlowExecutionSummary fromJson(Map<String, dynamic> json) =>
-      FlowExecutionSummary();
+      FlowExecutionSummary(
+        flowExecutionId: json.containsKey('flowExecutionId')
+            ? json['flowExecutionId'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        systemInstanceId: json.containsKey('systemInstanceId')
+            ? json['systemInstanceId'] as String
+            : null,
+        flowTemplateId: json.containsKey('flowTemplateId')
+            ? json['flowTemplateId'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        updatedAt: json.containsKey('updatedAt')
+            ? DateTime.parse(json['updatedAt'])
+            : null,
+      );
 }
 
 /// An object that contains a workflow's definition and summary information.
@@ -965,7 +1212,17 @@ class FlowTemplateDescription {
     this.validatedNamespaceVersion,
   });
   static FlowTemplateDescription fromJson(Map<String, dynamic> json) =>
-      FlowTemplateDescription();
+      FlowTemplateDescription(
+        summary: json.containsKey('summary')
+            ? FlowTemplateSummary.fromJson(json['summary'])
+            : null,
+        definition: json.containsKey('definition')
+            ? DefinitionDocument.fromJson(json['definition'])
+            : null,
+        validatedNamespaceVersion: json.containsKey('validatedNamespaceVersion')
+            ? BigInt.from(json['validatedNamespaceVersion'])
+            : null,
+      );
 }
 
 /// An object that filters a workflow search.
@@ -981,6 +1238,7 @@ class FlowTemplateFilter {
     @required this.name,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains summary information about a workflow.
@@ -1004,7 +1262,16 @@ class FlowTemplateSummary {
     this.createdAt,
   });
   static FlowTemplateSummary fromJson(Map<String, dynamic> json) =>
-      FlowTemplateSummary();
+      FlowTemplateSummary(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        revisionNumber: json.containsKey('revisionNumber')
+            ? BigInt.from(json['revisionNumber'])
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+      );
 }
 
 class GetEntitiesResponse {
@@ -1015,7 +1282,13 @@ class GetEntitiesResponse {
     this.descriptions,
   });
   static GetEntitiesResponse fromJson(Map<String, dynamic> json) =>
-      GetEntitiesResponse();
+      GetEntitiesResponse(
+        descriptions: json.containsKey('descriptions')
+            ? (json['descriptions'] as List)
+                .map((e) => EntityDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetFlowTemplateResponse {
@@ -1026,7 +1299,11 @@ class GetFlowTemplateResponse {
     this.description,
   });
   static GetFlowTemplateResponse fromJson(Map<String, dynamic> json) =>
-      GetFlowTemplateResponse();
+      GetFlowTemplateResponse(
+        description: json.containsKey('description')
+            ? FlowTemplateDescription.fromJson(json['description'])
+            : null,
+      );
 }
 
 class GetFlowTemplateRevisionsResponse {
@@ -1042,7 +1319,15 @@ class GetFlowTemplateRevisionsResponse {
     this.nextToken,
   });
   static GetFlowTemplateRevisionsResponse fromJson(Map<String, dynamic> json) =>
-      GetFlowTemplateRevisionsResponse();
+      GetFlowTemplateRevisionsResponse(
+        summaries: json.containsKey('summaries')
+            ? (json['summaries'] as List)
+                .map((e) => FlowTemplateSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetNamespaceDeletionStatusResponse {
@@ -1070,7 +1355,20 @@ class GetNamespaceDeletionStatusResponse {
   });
   static GetNamespaceDeletionStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      GetNamespaceDeletionStatusResponse();
+      GetNamespaceDeletionStatusResponse(
+        namespaceArn: json.containsKey('namespaceArn')
+            ? json['namespaceArn'] as String
+            : null,
+        namespaceName: json.containsKey('namespaceName')
+            ? json['namespaceName'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+      );
 }
 
 class GetSystemInstanceResponse {
@@ -1081,7 +1379,11 @@ class GetSystemInstanceResponse {
     this.description,
   });
   static GetSystemInstanceResponse fromJson(Map<String, dynamic> json) =>
-      GetSystemInstanceResponse();
+      GetSystemInstanceResponse(
+        description: json.containsKey('description')
+            ? SystemInstanceDescription.fromJson(json['description'])
+            : null,
+      );
 }
 
 class GetSystemTemplateResponse {
@@ -1092,7 +1394,11 @@ class GetSystemTemplateResponse {
     this.description,
   });
   static GetSystemTemplateResponse fromJson(Map<String, dynamic> json) =>
-      GetSystemTemplateResponse();
+      GetSystemTemplateResponse(
+        description: json.containsKey('description')
+            ? SystemTemplateDescription.fromJson(json['description'])
+            : null,
+      );
 }
 
 class GetSystemTemplateRevisionsResponse {
@@ -1110,7 +1416,15 @@ class GetSystemTemplateRevisionsResponse {
   });
   static GetSystemTemplateRevisionsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetSystemTemplateRevisionsResponse();
+      GetSystemTemplateRevisionsResponse(
+        summaries: json.containsKey('summaries')
+            ? (json['summaries'] as List)
+                .map((e) => SystemTemplateSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetUploadStatusResponse {
@@ -1147,7 +1461,23 @@ class GetUploadStatusResponse {
     @required this.createdDate,
   });
   static GetUploadStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetUploadStatusResponse();
+      GetUploadStatusResponse(
+        uploadId: json['uploadId'] as String,
+        uploadStatus: json['uploadStatus'] as String,
+        namespaceArn: json.containsKey('namespaceArn')
+            ? json['namespaceArn'] as String
+            : null,
+        namespaceName: json.containsKey('namespaceName')
+            ? json['namespaceName'] as String
+            : null,
+        namespaceVersion: json.containsKey('namespaceVersion')
+            ? BigInt.from(json['namespaceVersion'])
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? (json['failureReason'] as List).map((e) => e as String).toList()
+            : null,
+        createdDate: DateTime.parse(json['createdDate']),
+      );
 }
 
 class ListFlowExecutionMessagesResponse {
@@ -1165,7 +1495,15 @@ class ListFlowExecutionMessagesResponse {
   });
   static ListFlowExecutionMessagesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListFlowExecutionMessagesResponse();
+      ListFlowExecutionMessagesResponse(
+        messages: json.containsKey('messages')
+            ? (json['messages'] as List)
+                .map((e) => FlowExecutionMessage.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1180,7 +1518,13 @@ class ListTagsForResourceResponse {
     this.nextToken,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// An object that specifies whether cloud metrics are collected in a deployment
@@ -1197,7 +1541,15 @@ class MetricsConfiguration {
     this.metricRuleRoleArn,
   });
   static MetricsConfiguration fromJson(Map<String, dynamic> json) =>
-      MetricsConfiguration();
+      MetricsConfiguration(
+        cloudMetricEnabled: json.containsKey('cloudMetricEnabled')
+            ? json['cloudMetricEnabled'] as bool
+            : null,
+        metricRuleRoleArn: json.containsKey('metricRuleRoleArn')
+            ? json['metricRuleRoleArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SearchEntitiesResponse {
@@ -1213,7 +1565,15 @@ class SearchEntitiesResponse {
     this.nextToken,
   });
   static SearchEntitiesResponse fromJson(Map<String, dynamic> json) =>
-      SearchEntitiesResponse();
+      SearchEntitiesResponse(
+        descriptions: json.containsKey('descriptions')
+            ? (json['descriptions'] as List)
+                .map((e) => EntityDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class SearchFlowExecutionsResponse {
@@ -1230,7 +1590,15 @@ class SearchFlowExecutionsResponse {
     this.nextToken,
   });
   static SearchFlowExecutionsResponse fromJson(Map<String, dynamic> json) =>
-      SearchFlowExecutionsResponse();
+      SearchFlowExecutionsResponse(
+        summaries: json.containsKey('summaries')
+            ? (json['summaries'] as List)
+                .map((e) => FlowExecutionSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class SearchFlowTemplatesResponse {
@@ -1247,7 +1615,15 @@ class SearchFlowTemplatesResponse {
     this.nextToken,
   });
   static SearchFlowTemplatesResponse fromJson(Map<String, dynamic> json) =>
-      SearchFlowTemplatesResponse();
+      SearchFlowTemplatesResponse(
+        summaries: json.containsKey('summaries')
+            ? (json['summaries'] as List)
+                .map((e) => FlowTemplateSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class SearchSystemInstancesResponse {
@@ -1264,7 +1640,15 @@ class SearchSystemInstancesResponse {
     this.nextToken,
   });
   static SearchSystemInstancesResponse fromJson(Map<String, dynamic> json) =>
-      SearchSystemInstancesResponse();
+      SearchSystemInstancesResponse(
+        summaries: json.containsKey('summaries')
+            ? (json['summaries'] as List)
+                .map((e) => SystemInstanceSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class SearchSystemTemplatesResponse {
@@ -1281,7 +1665,15 @@ class SearchSystemTemplatesResponse {
     this.nextToken,
   });
   static SearchSystemTemplatesResponse fromJson(Map<String, dynamic> json) =>
-      SearchSystemTemplatesResponse();
+      SearchSystemTemplatesResponse(
+        summaries: json.containsKey('summaries')
+            ? (json['summaries'] as List)
+                .map((e) => SystemTemplateSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class SearchThingsResponse {
@@ -1297,7 +1689,13 @@ class SearchThingsResponse {
     this.nextToken,
   });
   static SearchThingsResponse fromJson(Map<String, dynamic> json) =>
-      SearchThingsResponse();
+      SearchThingsResponse(
+        things: json.containsKey('things')
+            ? (json['things'] as List).map((e) => Thing.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// An object that contains a system instance definition and summary
@@ -1338,7 +1736,32 @@ class SystemInstanceDescription {
     this.flowActionsRoleArn,
   });
   static SystemInstanceDescription fromJson(Map<String, dynamic> json) =>
-      SystemInstanceDescription();
+      SystemInstanceDescription(
+        summary: json.containsKey('summary')
+            ? SystemInstanceSummary.fromJson(json['summary'])
+            : null,
+        definition: json.containsKey('definition')
+            ? DefinitionDocument.fromJson(json['definition'])
+            : null,
+        s3BucketName: json.containsKey('s3BucketName')
+            ? json['s3BucketName'] as String
+            : null,
+        metricsConfiguration: json.containsKey('metricsConfiguration')
+            ? MetricsConfiguration.fromJson(json['metricsConfiguration'])
+            : null,
+        validatedNamespaceVersion: json.containsKey('validatedNamespaceVersion')
+            ? BigInt.from(json['validatedNamespaceVersion'])
+            : null,
+        validatedDependencyRevisions:
+            json.containsKey('validatedDependencyRevisions')
+                ? (json['validatedDependencyRevisions'] as List)
+                    .map((e) => DependencyRevision.fromJson(e))
+                    .toList()
+                : null,
+        flowActionsRoleArn: json.containsKey('flowActionsRoleArn')
+            ? json['flowActionsRoleArn'] as String
+            : null,
+      );
 }
 
 /// An object that filters a system instance search. Multiple filters function
@@ -1357,6 +1780,7 @@ class SystemInstanceFilter {
     this.name,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains summary information about a system instance.
@@ -1400,7 +1824,27 @@ class SystemInstanceSummary {
     this.greengrassGroupVersionId,
   });
   static SystemInstanceSummary fromJson(Map<String, dynamic> json) =>
-      SystemInstanceSummary();
+      SystemInstanceSummary(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        target: json.containsKey('target') ? json['target'] as String : null,
+        greengrassGroupName: json.containsKey('greengrassGroupName')
+            ? json['greengrassGroupName'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        updatedAt: json.containsKey('updatedAt')
+            ? DateTime.parse(json['updatedAt'])
+            : null,
+        greengrassGroupId: json.containsKey('greengrassGroupId')
+            ? json['greengrassGroupId'] as String
+            : null,
+        greengrassGroupVersionId: json.containsKey('greengrassGroupVersionId')
+            ? json['greengrassGroupVersionId'] as String
+            : null,
+      );
 }
 
 /// An object that contains a system's definition document and summary
@@ -1422,7 +1866,17 @@ class SystemTemplateDescription {
     this.validatedNamespaceVersion,
   });
   static SystemTemplateDescription fromJson(Map<String, dynamic> json) =>
-      SystemTemplateDescription();
+      SystemTemplateDescription(
+        summary: json.containsKey('summary')
+            ? SystemTemplateSummary.fromJson(json['summary'])
+            : null,
+        definition: json.containsKey('definition')
+            ? DefinitionDocument.fromJson(json['definition'])
+            : null,
+        validatedNamespaceVersion: json.containsKey('validatedNamespaceVersion')
+            ? BigInt.from(json['validatedNamespaceVersion'])
+            : null,
+      );
 }
 
 /// An object that filters a system search.
@@ -1438,6 +1892,7 @@ class SystemTemplateFilter {
     @required this.name,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object that contains information about a system.
@@ -1461,7 +1916,16 @@ class SystemTemplateSummary {
     this.createdAt,
   });
   static SystemTemplateSummary fromJson(Map<String, dynamic> json) =>
-      SystemTemplateSummary();
+      SystemTemplateSummary(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        revisionNumber: json.containsKey('revisionNumber')
+            ? BigInt.from(json['revisionNumber'])
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+      );
 }
 
 /// Metadata assigned to an AWS IoT Things Graph resource consisting of a
@@ -1479,7 +1943,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['key'] as String,
+        value: json['value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -1500,7 +1968,12 @@ class Thing {
     this.thingArn,
     this.thingName,
   });
-  static Thing fromJson(Map<String, dynamic> json) => Thing();
+  static Thing fromJson(Map<String, dynamic> json) => Thing(
+        thingArn:
+            json.containsKey('thingArn') ? json['thingArn'] as String : null,
+        thingName:
+            json.containsKey('thingName') ? json['thingName'] as String : null,
+      );
 }
 
 class UndeploySystemInstanceResponse {
@@ -1512,7 +1985,11 @@ class UndeploySystemInstanceResponse {
     this.summary,
   });
   static UndeploySystemInstanceResponse fromJson(Map<String, dynamic> json) =>
-      UndeploySystemInstanceResponse();
+      UndeploySystemInstanceResponse(
+        summary: json.containsKey('summary')
+            ? SystemInstanceSummary.fromJson(json['summary'])
+            : null,
+      );
 }
 
 class UntagResourceResponse {
@@ -1529,7 +2006,11 @@ class UpdateFlowTemplateResponse {
     this.summary,
   });
   static UpdateFlowTemplateResponse fromJson(Map<String, dynamic> json) =>
-      UpdateFlowTemplateResponse();
+      UpdateFlowTemplateResponse(
+        summary: json.containsKey('summary')
+            ? FlowTemplateSummary.fromJson(json['summary'])
+            : null,
+      );
 }
 
 class UpdateSystemTemplateResponse {
@@ -1540,7 +2021,11 @@ class UpdateSystemTemplateResponse {
     this.summary,
   });
   static UpdateSystemTemplateResponse fromJson(Map<String, dynamic> json) =>
-      UpdateSystemTemplateResponse();
+      UpdateSystemTemplateResponse(
+        summary: json.containsKey('summary')
+            ? SystemTemplateSummary.fromJson(json['summary'])
+            : null,
+      );
 }
 
 class UploadEntityDefinitionsResponse {
@@ -1552,5 +2037,7 @@ class UploadEntityDefinitionsResponse {
     @required this.uploadId,
   });
   static UploadEntityDefinitionsResponse fromJson(Map<String, dynamic> json) =>
-      UploadEntityDefinitionsResponse();
+      UploadEntityDefinitionsResponse(
+        uploadId: json['uploadId'] as String,
+      );
 }

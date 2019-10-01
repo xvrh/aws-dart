@@ -10,11 +10,18 @@ import 'package:meta/meta.dart';
 /// information, see the
 /// [Macie User Guide](https://docs.aws.amazon.com/macie/latest/userguide/what-is-macie.html).
 class MacieApi {
+  final _client;
+  MacieApi(client) : _client = client.configured('Macie', serializer: 'json');
+
   /// Associates a specified AWS account with Amazon Macie as a member account.
   ///
   /// [memberAccountId]: The ID of the AWS account that you want to associate
   /// with Amazon Macie as a member account.
-  Future<void> associateMemberAccount(String memberAccountId) async {}
+  Future<void> associateMemberAccount(String memberAccountId) async {
+    await _client.send('AssociateMemberAccount', {
+      'memberAccountId': memberAccountId,
+    });
+  }
 
   /// Associates specified S3 resources with Amazon Macie for monitoring and
   /// data classification. If memberAccountId isn't specified, the action
@@ -30,14 +37,22 @@ class MacieApi {
   Future<AssociateS3ResourcesResult> associateS3Resources(
       List<S3ResourceClassification> s3Resources,
       {String memberAccountId}) async {
-    return AssociateS3ResourcesResult.fromJson({});
+    var response_ = await _client.send('AssociateS3Resources', {
+      if (memberAccountId != null) 'memberAccountId': memberAccountId,
+      's3Resources': s3Resources,
+    });
+    return AssociateS3ResourcesResult.fromJson(response_);
   }
 
   /// Removes the specified member account from Amazon Macie.
   ///
   /// [memberAccountId]: The ID of the member account that you want to remove
   /// from Amazon Macie.
-  Future<void> disassociateMemberAccount(String memberAccountId) async {}
+  Future<void> disassociateMemberAccount(String memberAccountId) async {
+    await _client.send('DisassociateMemberAccount', {
+      'memberAccountId': memberAccountId,
+    });
+  }
 
   /// Removes specified S3 resources from being monitored by Amazon Macie. If
   /// memberAccountId isn't specified, the action removes specified S3 resources
@@ -53,7 +68,11 @@ class MacieApi {
   Future<DisassociateS3ResourcesResult> disassociateS3Resources(
       List<S3Resource> associatedS3Resources,
       {String memberAccountId}) async {
-    return DisassociateS3ResourcesResult.fromJson({});
+    var response_ = await _client.send('DisassociateS3Resources', {
+      if (memberAccountId != null) 'memberAccountId': memberAccountId,
+      'associatedS3Resources': associatedS3Resources,
+    });
+    return DisassociateS3ResourcesResult.fromJson(response_);
   }
 
   /// Lists all Amazon Macie member accounts for the current Amazon Macie master
@@ -69,7 +88,11 @@ class MacieApi {
   /// that you want in the response. The default value is 250.
   Future<ListMemberAccountsResult> listMemberAccounts(
       {String nextToken, int maxResults}) async {
-    return ListMemberAccountsResult.fromJson({});
+    var response_ = await _client.send('ListMemberAccounts', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListMemberAccountsResult.fromJson(response_);
   }
 
   /// Lists all the S3 resources associated with Amazon Macie. If
@@ -90,7 +113,12 @@ class MacieApi {
   /// that you want in the response. The default value is 250.
   Future<ListS3ResourcesResult> listS3Resources(
       {String memberAccountId, String nextToken, int maxResults}) async {
-    return ListS3ResourcesResult.fromJson({});
+    var response_ = await _client.send('ListS3Resources', {
+      if (memberAccountId != null) 'memberAccountId': memberAccountId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListS3ResourcesResult.fromJson(response_);
   }
 
   /// Updates the classification types for the specified S3 resources. If
@@ -108,7 +136,11 @@ class MacieApi {
   Future<UpdateS3ResourcesResult> updateS3Resources(
       List<S3ResourceClassificationUpdate> s3ResourcesUpdate,
       {String memberAccountId}) async {
-    return UpdateS3ResourcesResult.fromJson({});
+    var response_ = await _client.send('UpdateS3Resources', {
+      if (memberAccountId != null) 'memberAccountId': memberAccountId,
+      's3ResourcesUpdate': s3ResourcesUpdate,
+    });
+    return UpdateS3ResourcesResult.fromJson(response_);
   }
 }
 
@@ -121,7 +153,13 @@ class AssociateS3ResourcesResult {
     this.failedS3Resources,
   });
   static AssociateS3ResourcesResult fromJson(Map<String, dynamic> json) =>
-      AssociateS3ResourcesResult();
+      AssociateS3ResourcesResult(
+        failedS3Resources: json.containsKey('failedS3Resources')
+            ? (json['failedS3Resources'] as List)
+                .map((e) => FailedS3Resource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The classification type that Amazon Macie applies to the associated S3
@@ -141,7 +179,11 @@ class ClassificationType {
     @required this.continuous,
   });
   static ClassificationType fromJson(Map<String, dynamic> json) =>
-      ClassificationType();
+      ClassificationType(
+        oneTime: json['oneTime'] as String,
+        continuous: json['continuous'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The classification type that Amazon Macie applies to the associated S3
@@ -161,6 +203,7 @@ class ClassificationTypeUpdate {
     this.oneTime,
     this.continuous,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DisassociateS3ResourcesResult {
@@ -173,7 +216,13 @@ class DisassociateS3ResourcesResult {
     this.failedS3Resources,
   });
   static DisassociateS3ResourcesResult fromJson(Map<String, dynamic> json) =>
-      DisassociateS3ResourcesResult();
+      DisassociateS3ResourcesResult(
+        failedS3Resources: json.containsKey('failedS3Resources')
+            ? (json['failedS3Resources'] as List)
+                .map((e) => FailedS3Resource.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Includes details about the failed S3 resources.
@@ -193,7 +242,16 @@ class FailedS3Resource {
     this.errorMessage,
   });
   static FailedS3Resource fromJson(Map<String, dynamic> json) =>
-      FailedS3Resource();
+      FailedS3Resource(
+        failedItem: json.containsKey('failedItem')
+            ? S3Resource.fromJson(json['failedItem'])
+            : null,
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+      );
 }
 
 class ListMemberAccountsResult {
@@ -212,7 +270,15 @@ class ListMemberAccountsResult {
     this.nextToken,
   });
   static ListMemberAccountsResult fromJson(Map<String, dynamic> json) =>
-      ListMemberAccountsResult();
+      ListMemberAccountsResult(
+        memberAccounts: json.containsKey('memberAccounts')
+            ? (json['memberAccounts'] as List)
+                .map((e) => MemberAccount.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListS3ResourcesResult {
@@ -230,7 +296,15 @@ class ListS3ResourcesResult {
     this.nextToken,
   });
   static ListS3ResourcesResult fromJson(Map<String, dynamic> json) =>
-      ListS3ResourcesResult();
+      ListS3ResourcesResult(
+        s3Resources: json.containsKey('s3Resources')
+            ? (json['s3Resources'] as List)
+                .map((e) => S3ResourceClassification.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Contains information about the Amazon Macie member account.
@@ -241,7 +315,10 @@ class MemberAccount {
   MemberAccount({
     this.accountId,
   });
-  static MemberAccount fromJson(Map<String, dynamic> json) => MemberAccount();
+  static MemberAccount fromJson(Map<String, dynamic> json) => MemberAccount(
+        accountId:
+            json.containsKey('accountId') ? json['accountId'] as String : null,
+      );
 }
 
 /// Contains information about the S3 resource. This data type is used as a
@@ -259,7 +336,11 @@ class S3Resource {
     @required this.bucketName,
     this.prefix,
   });
-  static S3Resource fromJson(Map<String, dynamic> json) => S3Resource();
+  static S3Resource fromJson(Map<String, dynamic> json) => S3Resource(
+        bucketName: json['bucketName'] as String,
+        prefix: json.containsKey('prefix') ? json['prefix'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The S3 resources that you want to associate with Amazon Macie for monitoring
@@ -283,7 +364,13 @@ class S3ResourceClassification {
     @required this.classificationType,
   });
   static S3ResourceClassification fromJson(Map<String, dynamic> json) =>
-      S3ResourceClassification();
+      S3ResourceClassification(
+        bucketName: json['bucketName'] as String,
+        prefix: json.containsKey('prefix') ? json['prefix'] as String : null,
+        classificationType:
+            ClassificationType.fromJson(json['classificationType']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The S3 resources whose classification types you want to update. This data
@@ -304,6 +391,7 @@ class S3ResourceClassificationUpdate {
     this.prefix,
     @required this.classificationTypeUpdate,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateS3ResourcesResult {
@@ -315,5 +403,11 @@ class UpdateS3ResourcesResult {
     this.failedS3Resources,
   });
   static UpdateS3ResourcesResult fromJson(Map<String, dynamic> json) =>
-      UpdateS3ResourcesResult();
+      UpdateS3ResourcesResult(
+        failedS3Resources: json.containsKey('failedS3Resources')
+            ? (json['failedS3Resources'] as List)
+                .map((e) => FailedS3Resource.fromJson(e))
+                .toList()
+            : null,
+      );
 }

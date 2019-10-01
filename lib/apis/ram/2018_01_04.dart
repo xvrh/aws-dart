@@ -19,6 +19,9 @@ import 'package:meta/meta.dart';
 /// administrator of the specified account can use IAM policies to restrict
 /// access resources in the resource share.
 class RamApi {
+  final _client;
+  RamApi(client) : _client = client.configured('RAM', serializer: 'rest-json');
+
   /// Accepts an invitation to a resource share from another AWS account.
   ///
   /// [resourceShareInvitationArn]: The Amazon Resource Name (ARN) of the
@@ -29,7 +32,11 @@ class RamApi {
   Future<AcceptResourceShareInvitationResponse> acceptResourceShareInvitation(
       String resourceShareInvitationArn,
       {String clientToken}) async {
-    return AcceptResourceShareInvitationResponse.fromJson({});
+    var response_ = await _client.send('AcceptResourceShareInvitation', {
+      'resourceShareInvitationArn': resourceShareInvitationArn,
+      if (clientToken != null) 'clientToken': clientToken,
+    });
+    return AcceptResourceShareInvitationResponse.fromJson(response_);
   }
 
   /// Associates the specified resource share with the specified principals and
@@ -48,7 +55,13 @@ class RamApi {
       {List<String> resourceArns,
       List<String> principals,
       String clientToken}) async {
-    return AssociateResourceShareResponse.fromJson({});
+    var response_ = await _client.send('AssociateResourceShare', {
+      'resourceShareArn': resourceShareArn,
+      if (resourceArns != null) 'resourceArns': resourceArns,
+      if (principals != null) 'principals': principals,
+      if (clientToken != null) 'clientToken': clientToken,
+    });
+    return AssociateResourceShareResponse.fromJson(response_);
   }
 
   /// Creates a resource share.
@@ -75,7 +88,16 @@ class RamApi {
       List<Tag> tags,
       bool allowExternalPrincipals,
       String clientToken}) async {
-    return CreateResourceShareResponse.fromJson({});
+    var response_ = await _client.send('CreateResourceShare', {
+      'name': name,
+      if (resourceArns != null) 'resourceArns': resourceArns,
+      if (principals != null) 'principals': principals,
+      if (tags != null) 'tags': tags,
+      if (allowExternalPrincipals != null)
+        'allowExternalPrincipals': allowExternalPrincipals,
+      if (clientToken != null) 'clientToken': clientToken,
+    });
+    return CreateResourceShareResponse.fromJson(response_);
   }
 
   /// Deletes the specified resource share.
@@ -87,7 +109,11 @@ class RamApi {
   Future<DeleteResourceShareResponse> deleteResourceShare(
       String resourceShareArn,
       {String clientToken}) async {
-    return DeleteResourceShareResponse.fromJson({});
+    var response_ = await _client.send('DeleteResourceShare', {
+      'resourceShareArn': resourceShareArn,
+      if (clientToken != null) 'clientToken': clientToken,
+    });
+    return DeleteResourceShareResponse.fromJson(response_);
   }
 
   /// Disassociates the specified principals or resources from the specified
@@ -106,13 +132,20 @@ class RamApi {
       {List<String> resourceArns,
       List<String> principals,
       String clientToken}) async {
-    return DisassociateResourceShareResponse.fromJson({});
+    var response_ = await _client.send('DisassociateResourceShare', {
+      'resourceShareArn': resourceShareArn,
+      if (resourceArns != null) 'resourceArns': resourceArns,
+      if (principals != null) 'principals': principals,
+      if (clientToken != null) 'clientToken': clientToken,
+    });
+    return DisassociateResourceShareResponse.fromJson(response_);
   }
 
   /// Enables resource sharing within your organization.
   Future<EnableSharingWithAwsOrganizationResponse>
       enableSharingWithAwsOrganization() async {
-    return EnableSharingWithAwsOrganizationResponse.fromJson({});
+    var response_ = await _client.send('EnableSharingWithAwsOrganization', {});
+    return EnableSharingWithAwsOrganizationResponse.fromJson(response_);
   }
 
   /// Gets the policies for the specifies resources.
@@ -131,7 +164,13 @@ class RamApi {
       {String principal,
       String nextToken,
       int maxResults}) async {
-    return GetResourcePoliciesResponse.fromJson({});
+    var response_ = await _client.send('GetResourcePolicies', {
+      'resourceArns': resourceArns,
+      if (principal != null) 'principal': principal,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetResourcePoliciesResponse.fromJson(response_);
   }
 
   /// Gets the associations for the specified resource share.
@@ -160,7 +199,16 @@ class RamApi {
       String associationStatus,
       String nextToken,
       int maxResults}) async {
-    return GetResourceShareAssociationsResponse.fromJson({});
+    var response_ = await _client.send('GetResourceShareAssociations', {
+      'associationType': associationType,
+      if (resourceShareArns != null) 'resourceShareArns': resourceShareArns,
+      if (resourceArn != null) 'resourceArn': resourceArn,
+      if (principal != null) 'principal': principal,
+      if (associationStatus != null) 'associationStatus': associationStatus,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetResourceShareAssociationsResponse.fromJson(response_);
   }
 
   /// Gets the specified invitations for resource sharing.
@@ -181,7 +229,14 @@ class RamApi {
       List<String> resourceShareArns,
       String nextToken,
       int maxResults}) async {
-    return GetResourceShareInvitationsResponse.fromJson({});
+    var response_ = await _client.send('GetResourceShareInvitations', {
+      if (resourceShareInvitationArns != null)
+        'resourceShareInvitationArns': resourceShareInvitationArns,
+      if (resourceShareArns != null) 'resourceShareArns': resourceShareArns,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetResourceShareInvitationsResponse.fromJson(response_);
   }
 
   /// Gets the specified resource shares or all of your resource shares.
@@ -209,7 +264,17 @@ class RamApi {
       List<TagFilter> tagFilters,
       String nextToken,
       int maxResults}) async {
-    return GetResourceSharesResponse.fromJson({});
+    var response_ = await _client.send('GetResourceShares', {
+      if (resourceShareArns != null) 'resourceShareArns': resourceShareArns,
+      if (resourceShareStatus != null)
+        'resourceShareStatus': resourceShareStatus,
+      'resourceOwner': resourceOwner,
+      if (name != null) 'name': name,
+      if (tagFilters != null) 'tagFilters': tagFilters,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetResourceSharesResponse.fromJson(response_);
   }
 
   /// Lists the principals with access to the specified resource.
@@ -237,7 +302,16 @@ class RamApi {
       List<String> resourceShareArns,
       String nextToken,
       int maxResults}) async {
-    return ListPrincipalsResponse.fromJson({});
+    var response_ = await _client.send('ListPrincipals', {
+      'resourceOwner': resourceOwner,
+      if (resourceArn != null) 'resourceArn': resourceArn,
+      if (principals != null) 'principals': principals,
+      if (resourceType != null) 'resourceType': resourceType,
+      if (resourceShareArns != null) 'resourceShareArns': resourceShareArns,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListPrincipalsResponse.fromJson(response_);
   }
 
   /// Lists the resources that the specified principal can access.
@@ -265,7 +339,16 @@ class RamApi {
       List<String> resourceShareArns,
       String nextToken,
       int maxResults}) async {
-    return ListResourcesResponse.fromJson({});
+    var response_ = await _client.send('ListResources', {
+      'resourceOwner': resourceOwner,
+      if (principal != null) 'principal': principal,
+      if (resourceType != null) 'resourceType': resourceType,
+      if (resourceArns != null) 'resourceArns': resourceArns,
+      if (resourceShareArns != null) 'resourceShareArns': resourceShareArns,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListResourcesResponse.fromJson(response_);
   }
 
   /// Rejects an invitation to a resource share from another AWS account.
@@ -278,7 +361,11 @@ class RamApi {
   Future<RejectResourceShareInvitationResponse> rejectResourceShareInvitation(
       String resourceShareInvitationArn,
       {String clientToken}) async {
-    return RejectResourceShareInvitationResponse.fromJson({});
+    var response_ = await _client.send('RejectResourceShareInvitation', {
+      'resourceShareInvitationArn': resourceShareInvitationArn,
+      if (clientToken != null) 'clientToken': clientToken,
+    });
+    return RejectResourceShareInvitationResponse.fromJson(response_);
   }
 
   /// Adds the specified tags to the specified resource share.
@@ -288,7 +375,11 @@ class RamApi {
   /// [tags]: One or more tags.
   Future<TagResourceResponse> tagResource(
       {@required String resourceShareArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceShareArn': resourceShareArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes the specified tags from the specified resource share.
@@ -299,7 +390,11 @@ class RamApi {
   Future<UntagResourceResponse> untagResource(
       {@required String resourceShareArn,
       @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceShareArn': resourceShareArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates the specified resource share.
@@ -318,7 +413,14 @@ class RamApi {
       {String name,
       bool allowExternalPrincipals,
       String clientToken}) async {
-    return UpdateResourceShareResponse.fromJson({});
+    var response_ = await _client.send('UpdateResourceShare', {
+      'resourceShareArn': resourceShareArn,
+      if (name != null) 'name': name,
+      if (allowExternalPrincipals != null)
+        'allowExternalPrincipals': allowExternalPrincipals,
+      if (clientToken != null) 'clientToken': clientToken,
+    });
+    return UpdateResourceShareResponse.fromJson(response_);
   }
 }
 
@@ -336,7 +438,14 @@ class AcceptResourceShareInvitationResponse {
   });
   static AcceptResourceShareInvitationResponse fromJson(
           Map<String, dynamic> json) =>
-      AcceptResourceShareInvitationResponse();
+      AcceptResourceShareInvitationResponse(
+        resourceShareInvitation: json.containsKey('resourceShareInvitation')
+            ? ResourceShareInvitation.fromJson(json['resourceShareInvitation'])
+            : null,
+        clientToken: json.containsKey('clientToken')
+            ? json['clientToken'] as String
+            : null,
+      );
 }
 
 class AssociateResourceShareResponse {
@@ -352,7 +461,16 @@ class AssociateResourceShareResponse {
     this.clientToken,
   });
   static AssociateResourceShareResponse fromJson(Map<String, dynamic> json) =>
-      AssociateResourceShareResponse();
+      AssociateResourceShareResponse(
+        resourceShareAssociations: json.containsKey('resourceShareAssociations')
+            ? (json['resourceShareAssociations'] as List)
+                .map((e) => ResourceShareAssociation.fromJson(e))
+                .toList()
+            : null,
+        clientToken: json.containsKey('clientToken')
+            ? json['clientToken'] as String
+            : null,
+      );
 }
 
 class CreateResourceShareResponse {
@@ -368,7 +486,14 @@ class CreateResourceShareResponse {
     this.clientToken,
   });
   static CreateResourceShareResponse fromJson(Map<String, dynamic> json) =>
-      CreateResourceShareResponse();
+      CreateResourceShareResponse(
+        resourceShare: json.containsKey('resourceShare')
+            ? ResourceShare.fromJson(json['resourceShare'])
+            : null,
+        clientToken: json.containsKey('clientToken')
+            ? json['clientToken'] as String
+            : null,
+      );
 }
 
 class DeleteResourceShareResponse {
@@ -384,7 +509,14 @@ class DeleteResourceShareResponse {
     this.clientToken,
   });
   static DeleteResourceShareResponse fromJson(Map<String, dynamic> json) =>
-      DeleteResourceShareResponse();
+      DeleteResourceShareResponse(
+        returnValue: json.containsKey('returnValue')
+            ? json['returnValue'] as bool
+            : null,
+        clientToken: json.containsKey('clientToken')
+            ? json['clientToken'] as String
+            : null,
+      );
 }
 
 class DisassociateResourceShareResponse {
@@ -401,7 +533,16 @@ class DisassociateResourceShareResponse {
   });
   static DisassociateResourceShareResponse fromJson(
           Map<String, dynamic> json) =>
-      DisassociateResourceShareResponse();
+      DisassociateResourceShareResponse(
+        resourceShareAssociations: json.containsKey('resourceShareAssociations')
+            ? (json['resourceShareAssociations'] as List)
+                .map((e) => ResourceShareAssociation.fromJson(e))
+                .toList()
+            : null,
+        clientToken: json.containsKey('clientToken')
+            ? json['clientToken'] as String
+            : null,
+      );
 }
 
 class EnableSharingWithAwsOrganizationResponse {
@@ -413,7 +554,11 @@ class EnableSharingWithAwsOrganizationResponse {
   });
   static EnableSharingWithAwsOrganizationResponse fromJson(
           Map<String, dynamic> json) =>
-      EnableSharingWithAwsOrganizationResponse();
+      EnableSharingWithAwsOrganizationResponse(
+        returnValue: json.containsKey('returnValue')
+            ? json['returnValue'] as bool
+            : null,
+      );
 }
 
 class GetResourcePoliciesResponse {
@@ -429,7 +574,13 @@ class GetResourcePoliciesResponse {
     this.nextToken,
   });
   static GetResourcePoliciesResponse fromJson(Map<String, dynamic> json) =>
-      GetResourcePoliciesResponse();
+      GetResourcePoliciesResponse(
+        policies: json.containsKey('policies')
+            ? (json['policies'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetResourceShareAssociationsResponse {
@@ -446,7 +597,15 @@ class GetResourceShareAssociationsResponse {
   });
   static GetResourceShareAssociationsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetResourceShareAssociationsResponse();
+      GetResourceShareAssociationsResponse(
+        resourceShareAssociations: json.containsKey('resourceShareAssociations')
+            ? (json['resourceShareAssociations'] as List)
+                .map((e) => ResourceShareAssociation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetResourceShareInvitationsResponse {
@@ -463,7 +622,15 @@ class GetResourceShareInvitationsResponse {
   });
   static GetResourceShareInvitationsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetResourceShareInvitationsResponse();
+      GetResourceShareInvitationsResponse(
+        resourceShareInvitations: json.containsKey('resourceShareInvitations')
+            ? (json['resourceShareInvitations'] as List)
+                .map((e) => ResourceShareInvitation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetResourceSharesResponse {
@@ -479,7 +646,15 @@ class GetResourceSharesResponse {
     this.nextToken,
   });
   static GetResourceSharesResponse fromJson(Map<String, dynamic> json) =>
-      GetResourceSharesResponse();
+      GetResourceSharesResponse(
+        resourceShares: json.containsKey('resourceShares')
+            ? (json['resourceShares'] as List)
+                .map((e) => ResourceShare.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListPrincipalsResponse {
@@ -495,7 +670,15 @@ class ListPrincipalsResponse {
     this.nextToken,
   });
   static ListPrincipalsResponse fromJson(Map<String, dynamic> json) =>
-      ListPrincipalsResponse();
+      ListPrincipalsResponse(
+        principals: json.containsKey('principals')
+            ? (json['principals'] as List)
+                .map((e) => Principal.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListResourcesResponse {
@@ -511,7 +694,15 @@ class ListResourcesResponse {
     this.nextToken,
   });
   static ListResourcesResponse fromJson(Map<String, dynamic> json) =>
-      ListResourcesResponse();
+      ListResourcesResponse(
+        resources: json.containsKey('resources')
+            ? (json['resources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Describes a principal for use with AWS Resource Access Manager.
@@ -539,7 +730,20 @@ class Principal {
     this.lastUpdatedTime,
     this.isExternal,
   });
-  static Principal fromJson(Map<String, dynamic> json) => Principal();
+  static Principal fromJson(Map<String, dynamic> json) => Principal(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        resourceShareArn: json.containsKey('resourceShareArn')
+            ? json['resourceShareArn'] as String
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('lastUpdatedTime')
+            ? DateTime.parse(json['lastUpdatedTime'])
+            : null,
+        isExternal:
+            json.containsKey('external') ? json['external'] as bool : null,
+      );
 }
 
 class RejectResourceShareInvitationResponse {
@@ -556,7 +760,14 @@ class RejectResourceShareInvitationResponse {
   });
   static RejectResourceShareInvitationResponse fromJson(
           Map<String, dynamic> json) =>
-      RejectResourceShareInvitationResponse();
+      RejectResourceShareInvitationResponse(
+        resourceShareInvitation: json.containsKey('resourceShareInvitation')
+            ? ResourceShareInvitation.fromJson(json['resourceShareInvitation'])
+            : null,
+        clientToken: json.containsKey('clientToken')
+            ? json['clientToken'] as String
+            : null,
+      );
 }
 
 /// Describes a resource associated with a resource share.
@@ -591,7 +802,23 @@ class Resource {
     this.creationTime,
     this.lastUpdatedTime,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        resourceShareArn: json.containsKey('resourceShareArn')
+            ? json['resourceShareArn'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusMessage: json.containsKey('statusMessage')
+            ? json['statusMessage'] as String
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('lastUpdatedTime')
+            ? DateTime.parse(json['lastUpdatedTime'])
+            : null,
+      );
 }
 
 /// Describes a resource share.
@@ -635,7 +862,31 @@ class ResourceShare {
     this.creationTime,
     this.lastUpdatedTime,
   });
-  static ResourceShare fromJson(Map<String, dynamic> json) => ResourceShare();
+  static ResourceShare fromJson(Map<String, dynamic> json) => ResourceShare(
+        resourceShareArn: json.containsKey('resourceShareArn')
+            ? json['resourceShareArn'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        owningAccountId: json.containsKey('owningAccountId')
+            ? json['owningAccountId'] as String
+            : null,
+        allowExternalPrincipals: json.containsKey('allowExternalPrincipals')
+            ? json['allowExternalPrincipals'] as bool
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusMessage: json.containsKey('statusMessage')
+            ? json['statusMessage'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('lastUpdatedTime')
+            ? DateTime.parse(json['lastUpdatedTime'])
+            : null,
+      );
 }
 
 /// Describes an association with a resource share.
@@ -678,7 +929,29 @@ class ResourceShareAssociation {
     this.isExternal,
   });
   static ResourceShareAssociation fromJson(Map<String, dynamic> json) =>
-      ResourceShareAssociation();
+      ResourceShareAssociation(
+        resourceShareArn: json.containsKey('resourceShareArn')
+            ? json['resourceShareArn'] as String
+            : null,
+        associatedEntity: json.containsKey('associatedEntity')
+            ? json['associatedEntity'] as String
+            : null,
+        associationType: json.containsKey('associationType')
+            ? json['associationType'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusMessage: json.containsKey('statusMessage')
+            ? json['statusMessage'] as String
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('lastUpdatedTime')
+            ? DateTime.parse(json['lastUpdatedTime'])
+            : null,
+        isExternal:
+            json.containsKey('external') ? json['external'] as bool : null,
+      );
 }
 
 /// Describes an invitation to join a resource share.
@@ -718,7 +991,33 @@ class ResourceShareInvitation {
     this.resourceShareAssociations,
   });
   static ResourceShareInvitation fromJson(Map<String, dynamic> json) =>
-      ResourceShareInvitation();
+      ResourceShareInvitation(
+        resourceShareInvitationArn:
+            json.containsKey('resourceShareInvitationArn')
+                ? json['resourceShareInvitationArn'] as String
+                : null,
+        resourceShareName: json.containsKey('resourceShareName')
+            ? json['resourceShareName'] as String
+            : null,
+        resourceShareArn: json.containsKey('resourceShareArn')
+            ? json['resourceShareArn'] as String
+            : null,
+        senderAccountId: json.containsKey('senderAccountId')
+            ? json['senderAccountId'] as String
+            : null,
+        receiverAccountId: json.containsKey('receiverAccountId')
+            ? json['receiverAccountId'] as String
+            : null,
+        invitationTimestamp: json.containsKey('invitationTimestamp')
+            ? DateTime.parse(json['invitationTimestamp'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        resourceShareAssociations: json.containsKey('resourceShareAssociations')
+            ? (json['resourceShareAssociations'] as List)
+                .map((e) => ResourceShareAssociation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a tag.
@@ -733,7 +1032,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('key') ? json['key'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Used to filter information based on tags.
@@ -748,6 +1051,7 @@ class TagFilter {
     this.tagKey,
     this.tagValues,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -775,5 +1079,12 @@ class UpdateResourceShareResponse {
     this.clientToken,
   });
   static UpdateResourceShareResponse fromJson(Map<String, dynamic> json) =>
-      UpdateResourceShareResponse();
+      UpdateResourceShareResponse(
+        resourceShare: json.containsKey('resourceShare')
+            ? ResourceShare.fromJson(json['resourceShare'])
+            : null,
+        clientToken: json.containsKey('clientToken')
+            ? json['clientToken'] as String
+            : null,
+      );
 }

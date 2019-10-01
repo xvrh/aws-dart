@@ -2,6 +2,11 @@ import 'package:meta/meta.dart';
 import 'dart:typed_data';
 
 class KinesisVideoMediaApi {
+  final _client;
+  KinesisVideoMediaApi(client)
+      : _client =
+            client.configured('Kinesis Video Media', serializer: 'rest-json');
+
   ///  Use this API to retrieve media content from a Kinesis video stream. In
   /// the request, you identify the stream name or stream Amazon Resource Name
   /// (ARN), and the starting chunk. Kinesis Video Streams then returns a stream
@@ -62,7 +67,12 @@ class KinesisVideoMediaApi {
   /// stream.
   Future<GetMediaOutput> getMedia(StartSelector startSelector,
       {String streamName, String streamArn}) async {
-    return GetMediaOutput.fromJson({});
+    var response_ = await _client.send('GetMedia', {
+      if (streamName != null) 'StreamName': streamName,
+      if (streamArn != null) 'StreamARN': streamArn,
+      'StartSelector': startSelector,
+    });
+    return GetMediaOutput.fromJson(response_);
   }
 }
 
@@ -127,7 +137,13 @@ class GetMediaOutput {
     this.contentType,
     this.payload,
   });
-  static GetMediaOutput fromJson(Map<String, dynamic> json) => GetMediaOutput();
+  static GetMediaOutput fromJson(Map<String, dynamic> json) => GetMediaOutput(
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        payload:
+            json.containsKey('Payload') ? Uint8List(json['Payload']) : null,
+      );
 }
 
 /// Identifies the chunk on the Kinesis video stream where you want the
@@ -190,4 +206,5 @@ class StartSelector {
     this.startTimestamp,
     this.continuationToken,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

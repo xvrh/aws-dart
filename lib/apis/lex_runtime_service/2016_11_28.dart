@@ -13,6 +13,11 @@ import 'dart:typed_data';
 /// bot). You use the build-time API to create and manage your Amazon Lex bot.
 /// For a list of build-time operations, see the build-time API, .
 class LexRuntimeServiceApi {
+  final _client;
+  LexRuntimeServiceApi(client)
+      : _client =
+            client.configured('Lex Runtime Service', serializer: 'rest-json');
+
   /// Removes session information for a specified bot, alias, and user ID.
   ///
   /// [botName]: The name of the bot that contains the session data.
@@ -24,7 +29,12 @@ class LexRuntimeServiceApi {
       {@required String botName,
       @required String botAlias,
       @required String userId}) async {
-    return DeleteSessionResponse.fromJson({});
+    var response_ = await _client.send('DeleteSession', {
+      'botName': botName,
+      'botAlias': botAlias,
+      'userId': userId,
+    });
+    return DeleteSessionResponse.fromJson(response_);
   }
 
   /// Returns session information for a specified bot, alias, and user ID.
@@ -39,7 +49,12 @@ class LexRuntimeServiceApi {
       {@required String botName,
       @required String botAlias,
       @required String userId}) async {
-    return GetSessionResponse.fromJson({});
+    var response_ = await _client.send('GetSession', {
+      'botName': botName,
+      'botAlias': botAlias,
+      'userId': userId,
+    });
+    return GetSessionResponse.fromJson(response_);
   }
 
   ///  Sends user input (text or speech) to Amazon Lex. Clients use this API to
@@ -227,7 +242,17 @@ class LexRuntimeServiceApi {
       @required String contentType,
       String accept,
       @required Uint8List inputStream}) async {
-    return PostContentResponse.fromJson({});
+    var response_ = await _client.send('PostContent', {
+      'botName': botName,
+      'botAlias': botAlias,
+      'userId': userId,
+      if (sessionAttributes != null) 'sessionAttributes': sessionAttributes,
+      if (requestAttributes != null) 'requestAttributes': requestAttributes,
+      'contentType': contentType,
+      if (accept != null) 'accept': accept,
+      'inputStream': inputStream,
+    });
+    return PostContentResponse.fromJson(response_);
   }
 
   /// Sends user input (text or SSML) to Amazon Lex. Client applications can use
@@ -340,7 +365,15 @@ class LexRuntimeServiceApi {
       Map<String, String> sessionAttributes,
       Map<String, String> requestAttributes,
       @required String inputText}) async {
-    return PostTextResponse.fromJson({});
+    var response_ = await _client.send('PostText', {
+      'botName': botName,
+      'botAlias': botAlias,
+      'userId': userId,
+      if (sessionAttributes != null) 'sessionAttributes': sessionAttributes,
+      if (requestAttributes != null) 'requestAttributes': requestAttributes,
+      'inputText': inputText,
+    });
+    return PostTextResponse.fromJson(response_);
   }
 
   /// Creates a new session or modifies an existing session with an Amazon Lex
@@ -396,7 +429,15 @@ class LexRuntimeServiceApi {
       Map<String, String> sessionAttributes,
       DialogAction dialogAction,
       String accept}) async {
-    return PutSessionResponse.fromJson({});
+    var response_ = await _client.send('PutSession', {
+      'botName': botName,
+      'botAlias': botAlias,
+      'userId': userId,
+      if (sessionAttributes != null) 'sessionAttributes': sessionAttributes,
+      if (dialogAction != null) 'dialogAction': dialogAction,
+      if (accept != null) 'accept': accept,
+    });
+    return PutSessionResponse.fromJson(response_);
   }
 }
 
@@ -415,7 +456,10 @@ class Button {
     @required this.text,
     @required this.value,
   });
-  static Button fromJson(Map<String, dynamic> json) => Button();
+  static Button fromJson(Map<String, dynamic> json) => Button(
+        text: json['text'] as String,
+        value: json['value'] as String,
+      );
 }
 
 class DeleteSessionResponse {
@@ -438,7 +482,14 @@ class DeleteSessionResponse {
     this.sessionId,
   });
   static DeleteSessionResponse fromJson(Map<String, dynamic> json) =>
-      DeleteSessionResponse();
+      DeleteSessionResponse(
+        botName: json.containsKey('botName') ? json['botName'] as String : null,
+        botAlias:
+            json.containsKey('botAlias') ? json['botAlias'] as String : null,
+        userId: json.containsKey('userId') ? json['userId'] as String : null,
+        sessionId:
+            json.containsKey('sessionId') ? json['sessionId'] as String : null,
+      );
 }
 
 /// Describes the next action that the bot should take in its interaction with
@@ -512,7 +563,27 @@ class DialogAction {
     this.message,
     this.messageFormat,
   });
-  static DialogAction fromJson(Map<String, dynamic> json) => DialogAction();
+  static DialogAction fromJson(Map<String, dynamic> json) => DialogAction(
+        type: json['type'] as String,
+        intentName: json.containsKey('intentName')
+            ? json['intentName'] as String
+            : null,
+        slots: json.containsKey('slots')
+            ? (json['slots'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        slotToElicit: json.containsKey('slotToElicit')
+            ? json['slotToElicit'] as String
+            : null,
+        fulfillmentState: json.containsKey('fulfillmentState')
+            ? json['fulfillmentState'] as String
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        messageFormat: json.containsKey('messageFormat')
+            ? json['messageFormat'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents an option rendered to the user when a prompt is shown. It could
@@ -541,7 +612,19 @@ class GenericAttachment {
     this.buttons,
   });
   static GenericAttachment fromJson(Map<String, dynamic> json) =>
-      GenericAttachment();
+      GenericAttachment(
+        title: json.containsKey('title') ? json['title'] as String : null,
+        subTitle:
+            json.containsKey('subTitle') ? json['subTitle'] as String : null,
+        attachmentLinkUrl: json.containsKey('attachmentLinkUrl')
+            ? json['attachmentLinkUrl'] as String
+            : null,
+        imageUrl:
+            json.containsKey('imageUrl') ? json['imageUrl'] as String : null,
+        buttons: json.containsKey('buttons')
+            ? (json['buttons'] as List).map((e) => Button.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetSessionResponse {
@@ -569,7 +652,22 @@ class GetSessionResponse {
     this.dialogAction,
   });
   static GetSessionResponse fromJson(Map<String, dynamic> json) =>
-      GetSessionResponse();
+      GetSessionResponse(
+        recentIntentSummaryView: json.containsKey('recentIntentSummaryView')
+            ? (json['recentIntentSummaryView'] as List)
+                .map((e) => IntentSummary.fromJson(e))
+                .toList()
+            : null,
+        sessionAttributes: json.containsKey('sessionAttributes')
+            ? (json['sessionAttributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        sessionId:
+            json.containsKey('sessionId') ? json['sessionId'] as String : null,
+        dialogAction: json.containsKey('dialogAction')
+            ? DialogAction.fromJson(json['dialogAction'])
+            : null,
+      );
 }
 
 /// Provides information about the state of an intent. You can use this
@@ -640,7 +738,25 @@ class IntentSummary {
     this.fulfillmentState,
     this.slotToElicit,
   });
-  static IntentSummary fromJson(Map<String, dynamic> json) => IntentSummary();
+  static IntentSummary fromJson(Map<String, dynamic> json) => IntentSummary(
+        intentName: json.containsKey('intentName')
+            ? json['intentName'] as String
+            : null,
+        slots: json.containsKey('slots')
+            ? (json['slots'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        confirmationStatus: json.containsKey('confirmationStatus')
+            ? json['confirmationStatus'] as String
+            : null,
+        dialogActionType: json['dialogActionType'] as String,
+        fulfillmentState: json.containsKey('fulfillmentState')
+            ? json['fulfillmentState'] as String
+            : null,
+        slotToElicit: json.containsKey('slotToElicit')
+            ? json['slotToElicit'] as String
+            : null,
+      );
 }
 
 class PostContentResponse {
@@ -779,7 +895,34 @@ class PostContentResponse {
     this.audioStream,
   });
   static PostContentResponse fromJson(Map<String, dynamic> json) =>
-      PostContentResponse();
+      PostContentResponse(
+        contentType: json.containsKey('contentType')
+            ? json['contentType'] as String
+            : null,
+        intentName: json.containsKey('intentName')
+            ? json['intentName'] as String
+            : null,
+        slots: json.containsKey('slots') ? json['slots'] as String : null,
+        sessionAttributes: json.containsKey('sessionAttributes')
+            ? json['sessionAttributes'] as String
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        messageFormat: json.containsKey('messageFormat')
+            ? json['messageFormat'] as String
+            : null,
+        dialogState: json.containsKey('dialogState')
+            ? json['dialogState'] as String
+            : null,
+        slotToElicit: json.containsKey('slotToElicit')
+            ? json['slotToElicit'] as String
+            : null,
+        inputTranscript: json.containsKey('inputTranscript')
+            ? json['inputTranscript'] as String
+            : null,
+        audioStream: json.containsKey('audioStream')
+            ? Uint8List(json['audioStream'])
+            : null,
+      );
 }
 
 class PostTextResponse {
@@ -903,7 +1046,32 @@ class PostTextResponse {
     this.responseCard,
   });
   static PostTextResponse fromJson(Map<String, dynamic> json) =>
-      PostTextResponse();
+      PostTextResponse(
+        intentName: json.containsKey('intentName')
+            ? json['intentName'] as String
+            : null,
+        slots: json.containsKey('slots')
+            ? (json['slots'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        sessionAttributes: json.containsKey('sessionAttributes')
+            ? (json['sessionAttributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        messageFormat: json.containsKey('messageFormat')
+            ? json['messageFormat'] as String
+            : null,
+        dialogState: json.containsKey('dialogState')
+            ? json['dialogState'] as String
+            : null,
+        slotToElicit: json.containsKey('slotToElicit')
+            ? json['slotToElicit'] as String
+            : null,
+        responseCard: json.containsKey('responseCard')
+            ? ResponseCard.fromJson(json['responseCard'])
+            : null,
+      );
 }
 
 class PutSessionResponse {
@@ -989,7 +1157,33 @@ class PutSessionResponse {
     this.sessionId,
   });
   static PutSessionResponse fromJson(Map<String, dynamic> json) =>
-      PutSessionResponse();
+      PutSessionResponse(
+        contentType: json.containsKey('contentType')
+            ? json['contentType'] as String
+            : null,
+        intentName: json.containsKey('intentName')
+            ? json['intentName'] as String
+            : null,
+        slots: json.containsKey('slots') ? json['slots'] as String : null,
+        sessionAttributes: json.containsKey('sessionAttributes')
+            ? json['sessionAttributes'] as String
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        messageFormat: json.containsKey('messageFormat')
+            ? json['messageFormat'] as String
+            : null,
+        dialogState: json.containsKey('dialogState')
+            ? json['dialogState'] as String
+            : null,
+        slotToElicit: json.containsKey('slotToElicit')
+            ? json['slotToElicit'] as String
+            : null,
+        audioStream: json.containsKey('audioStream')
+            ? Uint8List(json['audioStream'])
+            : null,
+        sessionId:
+            json.containsKey('sessionId') ? json['sessionId'] as String : null,
+      );
 }
 
 /// If you configure a response card when creating your bots, Amazon Lex
@@ -1011,5 +1205,15 @@ class ResponseCard {
     this.contentType,
     this.genericAttachments,
   });
-  static ResponseCard fromJson(Map<String, dynamic> json) => ResponseCard();
+  static ResponseCard fromJson(Map<String, dynamic> json) => ResponseCard(
+        version: json.containsKey('version') ? json['version'] as String : null,
+        contentType: json.containsKey('contentType')
+            ? json['contentType'] as String
+            : null,
+        genericAttachments: json.containsKey('genericAttachments')
+            ? (json['genericAttachments'] as List)
+                .map((e) => GenericAttachment.fromJson(e))
+                .toList()
+            : null,
+      );
 }

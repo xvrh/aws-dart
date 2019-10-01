@@ -19,6 +19,9 @@ import 'package:meta/meta.dart';
 /// to the requested dimensions, such as SQL, Wait-event, User or Host, measured
 /// at that time point.
 class PIApi {
+  final _client;
+  PIApi(client) : _client = client.configured('PI', serializer: 'json');
+
   /// For a specific time period, retrieve the top `N` dimension keys for a
   /// metric.
   ///
@@ -111,7 +114,20 @@ class PIApi {
       Map<String, String> filter,
       int maxResults,
       String nextToken}) async {
-    return DescribeDimensionKeysResponse.fromJson({});
+    var response_ = await _client.send('DescribeDimensionKeys', {
+      'ServiceType': serviceType,
+      'Identifier': identifier,
+      'StartTime': startTime,
+      'EndTime': endTime,
+      'Metric': metric,
+      if (periodInSeconds != null) 'PeriodInSeconds': periodInSeconds,
+      'GroupBy': groupBy,
+      if (partitionBy != null) 'PartitionBy': partitionBy,
+      if (filter != null) 'Filter': filter,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeDimensionKeysResponse.fromJson(response_);
   }
 
   /// Retrieve Performance Insights metrics for a set of data sources, over a
@@ -180,7 +196,17 @@ class PIApi {
       int periodInSeconds,
       int maxResults,
       String nextToken}) async {
-    return GetResourceMetricsResponse.fromJson({});
+    var response_ = await _client.send('GetResourceMetrics', {
+      'ServiceType': serviceType,
+      'Identifier': identifier,
+      'MetricQueries': metricQueries,
+      'StartTime': startTime,
+      'EndTime': endTime,
+      if (periodInSeconds != null) 'PeriodInSeconds': periodInSeconds,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetResourceMetricsResponse.fromJson(response_);
   }
 }
 
@@ -197,7 +223,10 @@ class DataPoint {
     @required this.timestamp,
     @required this.value,
   });
-  static DataPoint fromJson(Map<String, dynamic> json) => DataPoint();
+  static DataPoint fromJson(Map<String, dynamic> json) => DataPoint(
+        timestamp: DateTime.parse(json['Timestamp']),
+        value: json['Value'] as double,
+      );
 }
 
 class DescribeDimensionKeysResponse {
@@ -232,7 +261,26 @@ class DescribeDimensionKeysResponse {
     this.nextToken,
   });
   static DescribeDimensionKeysResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDimensionKeysResponse();
+      DescribeDimensionKeysResponse(
+        alignedStartTime: json.containsKey('AlignedStartTime')
+            ? DateTime.parse(json['AlignedStartTime'])
+            : null,
+        alignedEndTime: json.containsKey('AlignedEndTime')
+            ? DateTime.parse(json['AlignedEndTime'])
+            : null,
+        partitionKeys: json.containsKey('PartitionKeys')
+            ? (json['PartitionKeys'] as List)
+                .map((e) => ResponsePartitionKey.fromJson(e))
+                .toList()
+            : null,
+        keys: json.containsKey('Keys')
+            ? (json['Keys'] as List)
+                .map((e) => DimensionKeyDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A logical grouping of Performance Insights metrics for a related subject
@@ -298,6 +346,7 @@ class DimensionGroup {
     this.dimensions,
     this.limit,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An array of descriptions and aggregated values for each dimension within a
@@ -320,7 +369,16 @@ class DimensionKeyDescription {
     this.partitions,
   });
   static DimensionKeyDescription fromJson(Map<String, dynamic> json) =>
-      DimensionKeyDescription();
+      DimensionKeyDescription(
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        total: json.containsKey('Total') ? json['Total'] as double : null,
+        partitions: json.containsKey('Partitions')
+            ? (json['Partitions'] as List).map((e) => e as double).toList()
+            : null,
+      );
 }
 
 class GetResourceMetricsResponse {
@@ -358,7 +416,24 @@ class GetResourceMetricsResponse {
     this.nextToken,
   });
   static GetResourceMetricsResponse fromJson(Map<String, dynamic> json) =>
-      GetResourceMetricsResponse();
+      GetResourceMetricsResponse(
+        alignedStartTime: json.containsKey('AlignedStartTime')
+            ? DateTime.parse(json['AlignedStartTime'])
+            : null,
+        alignedEndTime: json.containsKey('AlignedEndTime')
+            ? DateTime.parse(json['AlignedEndTime'])
+            : null,
+        identifier: json.containsKey('Identifier')
+            ? json['Identifier'] as String
+            : null,
+        metricList: json.containsKey('MetricList')
+            ? (json['MetricList'] as List)
+                .map((e) => MetricKeyDataPoints.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A time-ordered series of data points, correpsonding to a dimension of a
@@ -376,7 +451,16 @@ class MetricKeyDataPoints {
     this.dataPoints,
   });
   static MetricKeyDataPoints fromJson(Map<String, dynamic> json) =>
-      MetricKeyDataPoints();
+      MetricKeyDataPoints(
+        key: json.containsKey('Key')
+            ? ResponseResourceMetricKey.fromJson(json['Key'])
+            : null,
+        dataPoints: json.containsKey('DataPoints')
+            ? (json['DataPoints'] as List)
+                .map((e) => DataPoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A single query to be processed. You must provide the metric to query. If no
@@ -416,6 +500,7 @@ class MetricQuery {
     this.groupBy,
     this.filter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// If `PartitionBy` was specified in a `DescribeDimensionKeys` request, the
@@ -429,7 +514,10 @@ class ResponsePartitionKey {
     @required this.dimensions,
   });
   static ResponsePartitionKey fromJson(Map<String, dynamic> json) =>
-      ResponsePartitionKey();
+      ResponsePartitionKey(
+        dimensions: (json['Dimensions'] as Map)
+            .map((k, v) => MapEntry(k as String, v as String)),
+      );
 }
 
 /// An object describing a Performance Insights metric and one or more
@@ -454,5 +542,11 @@ class ResponseResourceMetricKey {
     this.dimensions,
   });
   static ResponseResourceMetricKey fromJson(Map<String, dynamic> json) =>
-      ResponseResourceMetricKey();
+      ResponseResourceMetricKey(
+        metric: json['Metric'] as String,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }

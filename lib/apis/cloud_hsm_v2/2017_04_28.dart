@@ -4,6 +4,10 @@ import 'package:meta/meta.dart';
 /// [AWS CloudHSM](http://aws.amazon.com/cloudhsm/) and the
 /// [AWS CloudHSM User Guide](http://docs.aws.amazon.com/cloudhsm/latest/userguide/).
 class CloudHsmV2Api {
+  final _client;
+  CloudHsmV2Api(client)
+      : _client = client.configured('CloudHSM V2', serializer: 'json');
+
   /// Copy an AWS CloudHSM cluster backup to a different region.
   ///
   /// [destinationRegion]: The AWS region that will contain your copied CloudHSM
@@ -13,7 +17,11 @@ class CloudHsmV2Api {
   /// region.
   Future<CopyBackupToRegionResponse> copyBackupToRegion(
       {@required String destinationRegion, @required String backupId}) async {
-    return CopyBackupToRegionResponse.fromJson({});
+    var response_ = await _client.send('CopyBackupToRegion', {
+      'DestinationRegion': destinationRegion,
+      'BackupId': backupId,
+    });
+    return CopyBackupToRegionResponse.fromJson(response_);
   }
 
   /// Creates a new AWS CloudHSM cluster.
@@ -36,7 +44,12 @@ class CloudHsmV2Api {
       {@required List<String> subnetIds,
       @required String hsmType,
       String sourceBackupId}) async {
-    return CreateClusterResponse.fromJson({});
+    var response_ = await _client.send('CreateCluster', {
+      'SubnetIds': subnetIds,
+      'HsmType': hsmType,
+      if (sourceBackupId != null) 'SourceBackupId': sourceBackupId,
+    });
+    return CreateClusterResponse.fromJson(response_);
   }
 
   /// Creates a new hardware security module (HSM) in the specified AWS CloudHSM
@@ -56,7 +69,12 @@ class CloudHsmV2Api {
       {@required String clusterId,
       @required String availabilityZone,
       String ipAddress}) async {
-    return CreateHsmResponse.fromJson({});
+    var response_ = await _client.send('CreateHsm', {
+      'ClusterId': clusterId,
+      'AvailabilityZone': availabilityZone,
+      if (ipAddress != null) 'IpAddress': ipAddress,
+    });
+    return CreateHsmResponse.fromJson(response_);
   }
 
   /// Deletes a specified AWS CloudHSM backup. A backup can be restored up to 7
@@ -66,7 +84,10 @@ class CloudHsmV2Api {
   /// [backupId]: The ID of the backup to be deleted. To find the ID of a
   /// backup, use the DescribeBackups operation.
   Future<DeleteBackupResponse> deleteBackup(String backupId) async {
-    return DeleteBackupResponse.fromJson({});
+    var response_ = await _client.send('DeleteBackup', {
+      'BackupId': backupId,
+    });
+    return DeleteBackupResponse.fromJson(response_);
   }
 
   /// Deletes the specified AWS CloudHSM cluster. Before you can delete a
@@ -76,7 +97,10 @@ class CloudHsmV2Api {
   /// [clusterId]: The identifier (ID) of the cluster that you are deleting. To
   /// find the cluster ID, use DescribeClusters.
   Future<DeleteClusterResponse> deleteCluster(String clusterId) async {
-    return DeleteClusterResponse.fromJson({});
+    var response_ = await _client.send('DeleteCluster', {
+      'ClusterId': clusterId,
+    });
+    return DeleteClusterResponse.fromJson(response_);
   }
 
   /// Deletes the specified HSM. To specify an HSM, you can use its identifier
@@ -96,7 +120,13 @@ class CloudHsmV2Api {
   /// that you are deleting.
   Future<DeleteHsmResponse> deleteHsm(String clusterId,
       {String hsmId, String eniId, String eniIp}) async {
-    return DeleteHsmResponse.fromJson({});
+    var response_ = await _client.send('DeleteHsm', {
+      'ClusterId': clusterId,
+      if (hsmId != null) 'HsmId': hsmId,
+      if (eniId != null) 'EniId': eniId,
+      if (eniIp != null) 'EniIp': eniIp,
+    });
+    return DeleteHsmResponse.fromJson(response_);
   }
 
   /// Gets information about backups of AWS CloudHSM clusters.
@@ -135,7 +165,13 @@ class CloudHsmV2Api {
       int maxResults,
       Map<String, List<String>> filters,
       bool sortAscending}) async {
-    return DescribeBackupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeBackups', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+      if (sortAscending != null) 'SortAscending': sortAscending,
+    });
+    return DescribeBackupsResponse.fromJson(response_);
   }
 
   /// Gets information about AWS CloudHSM clusters.
@@ -169,7 +205,12 @@ class CloudHsmV2Api {
       {Map<String, List<String>> filters,
       String nextToken,
       int maxResults}) async {
-    return DescribeClustersResponse.fromJson({});
+    var response_ = await _client.send('DescribeClusters', {
+      if (filters != null) 'Filters': filters,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeClustersResponse.fromJson(response_);
   }
 
   /// Claims an AWS CloudHSM cluster by submitting the cluster certificate
@@ -195,7 +236,12 @@ class CloudHsmV2Api {
       {@required String clusterId,
       @required String signedCert,
       @required String trustAnchor}) async {
-    return InitializeClusterResponse.fromJson({});
+    var response_ = await _client.send('InitializeCluster', {
+      'ClusterId': clusterId,
+      'SignedCert': signedCert,
+      'TrustAnchor': trustAnchor,
+    });
+    return InitializeClusterResponse.fromJson(response_);
   }
 
   /// Gets a list of tags for the specified AWS CloudHSM cluster.
@@ -218,7 +264,12 @@ class CloudHsmV2Api {
   /// `NextToken` value.
   Future<ListTagsResponse> listTags(String resourceId,
       {String nextToken, int maxResults}) async {
-    return ListTagsResponse.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'ResourceId': resourceId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTagsResponse.fromJson(response_);
   }
 
   /// Restores a specified AWS CloudHSM backup that is in the `PENDING_DELETION`
@@ -227,7 +278,10 @@ class CloudHsmV2Api {
   /// [backupId]: The ID of the backup to be restored. To find the ID of a
   /// backup, use the DescribeBackups operation.
   Future<RestoreBackupResponse> restoreBackup(String backupId) async {
-    return RestoreBackupResponse.fromJson({});
+    var response_ = await _client.send('RestoreBackup', {
+      'BackupId': backupId,
+    });
+    return RestoreBackupResponse.fromJson(response_);
   }
 
   /// Adds or overwrites one or more tags for the specified AWS CloudHSM
@@ -239,7 +293,11 @@ class CloudHsmV2Api {
   /// [tagList]: A list of one or more tags.
   Future<TagResourceResponse> tagResource(
       {@required String resourceId, @required List<Tag> tagList}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceId': resourceId,
+      'TagList': tagList,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes the specified tag or tags from the specified AWS CloudHSM cluster.
@@ -251,7 +309,11 @@ class CloudHsmV2Api {
   /// removing. Specify only the tag keys, not the tag values.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceId, @required List<String> tagKeyList}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceId': resourceId,
+      'TagKeyList': tagKeyList,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 }
 
@@ -291,7 +353,32 @@ class Backup {
     this.sourceCluster,
     this.deleteTimestamp,
   });
-  static Backup fromJson(Map<String, dynamic> json) => Backup();
+  static Backup fromJson(Map<String, dynamic> json) => Backup(
+        backupId: json['BackupId'] as String,
+        backupState: json.containsKey('BackupState')
+            ? json['BackupState'] as String
+            : null,
+        clusterId:
+            json.containsKey('ClusterId') ? json['ClusterId'] as String : null,
+        createTimestamp: json.containsKey('CreateTimestamp')
+            ? DateTime.parse(json['CreateTimestamp'])
+            : null,
+        copyTimestamp: json.containsKey('CopyTimestamp')
+            ? DateTime.parse(json['CopyTimestamp'])
+            : null,
+        sourceRegion: json.containsKey('SourceRegion')
+            ? json['SourceRegion'] as String
+            : null,
+        sourceBackup: json.containsKey('SourceBackup')
+            ? json['SourceBackup'] as String
+            : null,
+        sourceCluster: json.containsKey('SourceCluster')
+            ? json['SourceCluster'] as String
+            : null,
+        deleteTimestamp: json.containsKey('DeleteTimestamp')
+            ? DateTime.parse(json['DeleteTimestamp'])
+            : null,
+      );
 }
 
 /// Contains one or more certificates or a certificate signing request (CSR).
@@ -320,7 +407,24 @@ class Certificates {
     this.manufacturerHardwareCertificate,
     this.clusterCertificate,
   });
-  static Certificates fromJson(Map<String, dynamic> json) => Certificates();
+  static Certificates fromJson(Map<String, dynamic> json) => Certificates(
+        clusterCsr: json.containsKey('ClusterCsr')
+            ? json['ClusterCsr'] as String
+            : null,
+        hsmCertificate: json.containsKey('HsmCertificate')
+            ? json['HsmCertificate'] as String
+            : null,
+        awsHardwareCertificate: json.containsKey('AwsHardwareCertificate')
+            ? json['AwsHardwareCertificate'] as String
+            : null,
+        manufacturerHardwareCertificate:
+            json.containsKey('ManufacturerHardwareCertificate')
+                ? json['ManufacturerHardwareCertificate'] as String
+                : null,
+        clusterCertificate: json.containsKey('ClusterCertificate')
+            ? json['ClusterCertificate'] as String
+            : null,
+      );
 }
 
 /// Contains information about an AWS CloudHSM cluster.
@@ -381,7 +485,41 @@ class Cluster {
     this.vpcId,
     this.certificates,
   });
-  static Cluster fromJson(Map<String, dynamic> json) => Cluster();
+  static Cluster fromJson(Map<String, dynamic> json) => Cluster(
+        backupPolicy: json.containsKey('BackupPolicy')
+            ? json['BackupPolicy'] as String
+            : null,
+        clusterId:
+            json.containsKey('ClusterId') ? json['ClusterId'] as String : null,
+        createTimestamp: json.containsKey('CreateTimestamp')
+            ? DateTime.parse(json['CreateTimestamp'])
+            : null,
+        hsms: json.containsKey('Hsms')
+            ? (json['Hsms'] as List).map((e) => Hsm.fromJson(e)).toList()
+            : null,
+        hsmType: json.containsKey('HsmType') ? json['HsmType'] as String : null,
+        preCoPassword: json.containsKey('PreCoPassword')
+            ? json['PreCoPassword'] as String
+            : null,
+        securityGroup: json.containsKey('SecurityGroup')
+            ? json['SecurityGroup'] as String
+            : null,
+        sourceBackupId: json.containsKey('SourceBackupId')
+            ? json['SourceBackupId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateMessage: json.containsKey('StateMessage')
+            ? json['StateMessage'] as String
+            : null,
+        subnetMapping: json.containsKey('SubnetMapping')
+            ? (json['SubnetMapping'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        certificates: json.containsKey('Certificates')
+            ? Certificates.fromJson(json['Certificates'])
+            : null,
+      );
 }
 
 class CopyBackupToRegionResponse {
@@ -399,7 +537,11 @@ class CopyBackupToRegionResponse {
     this.destinationBackup,
   });
   static CopyBackupToRegionResponse fromJson(Map<String, dynamic> json) =>
-      CopyBackupToRegionResponse();
+      CopyBackupToRegionResponse(
+        destinationBackup: json.containsKey('DestinationBackup')
+            ? DestinationBackup.fromJson(json['DestinationBackup'])
+            : null,
+      );
 }
 
 class CreateClusterResponse {
@@ -410,7 +552,11 @@ class CreateClusterResponse {
     this.cluster,
   });
   static CreateClusterResponse fromJson(Map<String, dynamic> json) =>
-      CreateClusterResponse();
+      CreateClusterResponse(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class CreateHsmResponse {
@@ -421,7 +567,9 @@ class CreateHsmResponse {
     this.hsm,
   });
   static CreateHsmResponse fromJson(Map<String, dynamic> json) =>
-      CreateHsmResponse();
+      CreateHsmResponse(
+        hsm: json.containsKey('Hsm') ? Hsm.fromJson(json['Hsm']) : null,
+      );
 }
 
 class DeleteBackupResponse {
@@ -432,7 +580,10 @@ class DeleteBackupResponse {
     this.backup,
   });
   static DeleteBackupResponse fromJson(Map<String, dynamic> json) =>
-      DeleteBackupResponse();
+      DeleteBackupResponse(
+        backup:
+            json.containsKey('Backup') ? Backup.fromJson(json['Backup']) : null,
+      );
 }
 
 class DeleteClusterResponse {
@@ -443,7 +594,11 @@ class DeleteClusterResponse {
     this.cluster,
   });
   static DeleteClusterResponse fromJson(Map<String, dynamic> json) =>
-      DeleteClusterResponse();
+      DeleteClusterResponse(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class DeleteHsmResponse {
@@ -454,7 +609,9 @@ class DeleteHsmResponse {
     this.hsmId,
   });
   static DeleteHsmResponse fromJson(Map<String, dynamic> json) =>
-      DeleteHsmResponse();
+      DeleteHsmResponse(
+        hsmId: json.containsKey('HsmId') ? json['HsmId'] as String : null,
+      );
 }
 
 class DescribeBackupsResponse {
@@ -471,7 +628,13 @@ class DescribeBackupsResponse {
     this.nextToken,
   });
   static DescribeBackupsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeBackupsResponse();
+      DescribeBackupsResponse(
+        backups: json.containsKey('Backups')
+            ? (json['Backups'] as List).map((e) => Backup.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeClustersResponse {
@@ -488,7 +651,15 @@ class DescribeClustersResponse {
     this.nextToken,
   });
   static DescribeClustersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeClustersResponse();
+      DescribeClustersResponse(
+        clusters: json.containsKey('Clusters')
+            ? (json['Clusters'] as List)
+                .map((e) => Cluster.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DestinationBackup {
@@ -507,7 +678,20 @@ class DestinationBackup {
     this.sourceCluster,
   });
   static DestinationBackup fromJson(Map<String, dynamic> json) =>
-      DestinationBackup();
+      DestinationBackup(
+        createTimestamp: json.containsKey('CreateTimestamp')
+            ? DateTime.parse(json['CreateTimestamp'])
+            : null,
+        sourceRegion: json.containsKey('SourceRegion')
+            ? json['SourceRegion'] as String
+            : null,
+        sourceBackup: json.containsKey('SourceBackup')
+            ? json['SourceBackup'] as String
+            : null,
+        sourceCluster: json.containsKey('SourceCluster')
+            ? json['SourceCluster'] as String
+            : null,
+      );
 }
 
 /// Contains information about a hardware security module (HSM) in an AWS
@@ -547,7 +731,22 @@ class Hsm {
     this.state,
     this.stateMessage,
   });
-  static Hsm fromJson(Map<String, dynamic> json) => Hsm();
+  static Hsm fromJson(Map<String, dynamic> json) => Hsm(
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        clusterId:
+            json.containsKey('ClusterId') ? json['ClusterId'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        eniId: json.containsKey('EniId') ? json['EniId'] as String : null,
+        eniIp: json.containsKey('EniIp') ? json['EniIp'] as String : null,
+        hsmId: json['HsmId'] as String,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateMessage: json.containsKey('StateMessage')
+            ? json['StateMessage'] as String
+            : null,
+      );
 }
 
 class InitializeClusterResponse {
@@ -562,7 +761,12 @@ class InitializeClusterResponse {
     this.stateMessage,
   });
   static InitializeClusterResponse fromJson(Map<String, dynamic> json) =>
-      InitializeClusterResponse();
+      InitializeClusterResponse(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        stateMessage: json.containsKey('StateMessage')
+            ? json['StateMessage'] as String
+            : null,
+      );
 }
 
 class ListTagsResponse {
@@ -579,7 +783,11 @@ class ListTagsResponse {
     this.nextToken,
   });
   static ListTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsResponse();
+      ListTagsResponse(
+        tagList: (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList(),
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class RestoreBackupResponse {
@@ -590,7 +798,10 @@ class RestoreBackupResponse {
     this.backup,
   });
   static RestoreBackupResponse fromJson(Map<String, dynamic> json) =>
-      RestoreBackupResponse();
+      RestoreBackupResponse(
+        backup:
+            json.containsKey('Backup') ? Backup.fromJson(json['Backup']) : null,
+      );
 }
 
 /// Contains a tag. A tag is a key-value pair.
@@ -605,7 +816,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {

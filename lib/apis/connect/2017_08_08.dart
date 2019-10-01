@@ -18,6 +18,10 @@ import 'package:meta/meta.dart';
 /// [Amazon Connect service limits increase form](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase).
 /// You must be signed in to your AWS account to access the form.
 class ConnectApi {
+  final _client;
+  ConnectApi(client)
+      : _client = client.configured('Connect', serializer: 'rest-json');
+
   /// Creates a new user account in your Amazon Connect instance.
   ///
   /// [username]: The user name in Amazon Connect for the account to create. If
@@ -77,7 +81,18 @@ class ConnectApi {
       @required String routingProfileId,
       String hierarchyGroupId,
       @required String instanceId}) async {
-    return CreateUserResponse.fromJson({});
+    var response_ = await _client.send('CreateUser', {
+      'Username': username,
+      if (password != null) 'Password': password,
+      if (identityInfo != null) 'IdentityInfo': identityInfo,
+      'PhoneConfig': phoneConfig,
+      if (directoryUserId != null) 'DirectoryUserId': directoryUserId,
+      'SecurityProfileIds': securityProfileIds,
+      'RoutingProfileId': routingProfileId,
+      if (hierarchyGroupId != null) 'HierarchyGroupId': hierarchyGroupId,
+      'InstanceId': instanceId,
+    });
+    return CreateUserResponse.fromJson(response_);
   }
 
   /// Deletes a user account from Amazon Connect.
@@ -92,7 +107,12 @@ class ConnectApi {
   ///
   /// [userId]: The unique identifier of the user to delete.
   Future<void> deleteUser(
-      {@required String instanceId, @required String userId}) async {}
+      {@required String instanceId, @required String userId}) async {
+    await _client.send('DeleteUser', {
+      'InstanceId': instanceId,
+      'UserId': userId,
+    });
+  }
 
   /// Returns a `User` object that contains information about the user account
   /// specified by the `UserId`.
@@ -108,7 +128,11 @@ class ConnectApi {
   /// 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
   Future<DescribeUserResponse> describeUser(
       {@required String userId, @required String instanceId}) async {
-    return DescribeUserResponse.fromJson({});
+    var response_ = await _client.send('DescribeUser', {
+      'UserId': userId,
+      'InstanceId': instanceId,
+    });
+    return DescribeUserResponse.fromJson(response_);
   }
 
   /// Returns a `HierarchyGroup` object that includes information about a
@@ -125,7 +149,11 @@ class ConnectApi {
   /// 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
   Future<DescribeUserHierarchyGroupResponse> describeUserHierarchyGroup(
       {@required String hierarchyGroupId, @required String instanceId}) async {
-    return DescribeUserHierarchyGroupResponse.fromJson({});
+    var response_ = await _client.send('DescribeUserHierarchyGroup', {
+      'HierarchyGroupId': hierarchyGroupId,
+      'InstanceId': instanceId,
+    });
+    return DescribeUserHierarchyGroupResponse.fromJson(response_);
   }
 
   /// Returns a `HiearchyGroupStructure` object, which contains data about the
@@ -140,7 +168,10 @@ class ConnectApi {
   /// 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
   Future<DescribeUserHierarchyStructureResponse> describeUserHierarchyStructure(
       String instanceId) async {
-    return DescribeUserHierarchyStructureResponse.fromJson({});
+    var response_ = await _client.send('DescribeUserHierarchyStructure', {
+      'InstanceId': instanceId,
+    });
+    return DescribeUserHierarchyStructureResponse.fromJson(response_);
   }
 
   /// Retrieves the contact attributes associated with a contact.
@@ -152,7 +183,11 @@ class ConnectApi {
   /// associated with the attributes to update.
   Future<GetContactAttributesResponse> getContactAttributes(
       {@required String instanceId, @required String initialContactId}) async {
-    return GetContactAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetContactAttributes', {
+      'InstanceId': instanceId,
+      'InitialContactId': initialContactId,
+    });
+    return GetContactAttributesResponse.fromJson(response_);
   }
 
   /// The `GetCurrentMetricData` operation retrieves current metric data from
@@ -257,7 +292,15 @@ class ConnectApi {
       @required List<CurrentMetric> currentMetrics,
       String nextToken,
       int maxResults}) async {
-    return GetCurrentMetricDataResponse.fromJson({});
+    var response_ = await _client.send('GetCurrentMetricData', {
+      'InstanceId': instanceId,
+      'Filters': filters,
+      if (groupings != null) 'Groupings': groupings,
+      'CurrentMetrics': currentMetrics,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetCurrentMetricDataResponse.fromJson(response_);
   }
 
   /// Retrieves a token for federation.
@@ -271,7 +314,10 @@ class ConnectApi {
   /// 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
   Future<GetFederationTokenResponse> getFederationToken(
       String instanceId) async {
-    return GetFederationTokenResponse.fromJson({});
+    var response_ = await _client.send('GetFederationToken', {
+      'InstanceId': instanceId,
+    });
+    return GetFederationTokenResponse.fromJson(response_);
   }
 
   /// The `GetMetricData` operation retrieves historical metrics data from your
@@ -517,7 +563,17 @@ class ConnectApi {
       @required List<HistoricalMetric> historicalMetrics,
       String nextToken,
       int maxResults}) async {
-    return GetMetricDataResponse.fromJson({});
+    var response_ = await _client.send('GetMetricData', {
+      'InstanceId': instanceId,
+      'StartTime': startTime,
+      'EndTime': endTime,
+      'Filters': filters,
+      if (groupings != null) 'Groupings': groupings,
+      'HistoricalMetrics': historicalMetrics,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return GetMetricDataResponse.fromJson(response_);
   }
 
   /// Returns an array of `RoutingProfileSummary` objects that includes
@@ -539,7 +595,12 @@ class ConnectApi {
   /// response.
   Future<ListRoutingProfilesResponse> listRoutingProfiles(String instanceId,
       {String nextToken, int maxResults}) async {
-    return ListRoutingProfilesResponse.fromJson({});
+    var response_ = await _client.send('ListRoutingProfiles', {
+      'InstanceId': instanceId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListRoutingProfilesResponse.fromJson(response_);
   }
 
   /// Returns an array of SecurityProfileSummary objects that contain
@@ -561,7 +622,12 @@ class ConnectApi {
   /// [maxResults]: The maximum number of security profiles to return.
   Future<ListSecurityProfilesResponse> listSecurityProfiles(String instanceId,
       {String nextToken, int maxResults}) async {
-    return ListSecurityProfilesResponse.fromJson({});
+    var response_ = await _client.send('ListSecurityProfiles', {
+      'InstanceId': instanceId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListSecurityProfilesResponse.fromJson(response_);
   }
 
   /// Returns a `UserHierarchyGroupSummaryList`, which is an array of
@@ -585,7 +651,12 @@ class ConnectApi {
       String instanceId,
       {String nextToken,
       int maxResults}) async {
-    return ListUserHierarchyGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListUserHierarchyGroups', {
+      'InstanceId': instanceId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListUserHierarchyGroupsResponse.fromJson(response_);
   }
 
   /// Returns a `UserSummaryList`, which is an array of `UserSummary` objects.
@@ -605,7 +676,12 @@ class ConnectApi {
   /// [maxResults]: The maximum number of results to return in the response.
   Future<ListUsersResponse> listUsers(String instanceId,
       {String nextToken, int maxResults}) async {
-    return ListUsersResponse.fromJson({});
+    var response_ = await _client.send('ListUsers', {
+      'InstanceId': instanceId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListUsersResponse.fromJson(response_);
   }
 
   /// The `StartOutboundVoiceContact` operation initiates a contact flow to
@@ -675,7 +751,16 @@ class ConnectApi {
       String sourcePhoneNumber,
       String queueId,
       Map<String, String> attributes}) async {
-    return StartOutboundVoiceContactResponse.fromJson({});
+    var response_ = await _client.send('StartOutboundVoiceContact', {
+      'DestinationPhoneNumber': destinationPhoneNumber,
+      'ContactFlowId': contactFlowId,
+      'InstanceId': instanceId,
+      if (clientToken != null) 'ClientToken': clientToken,
+      if (sourcePhoneNumber != null) 'SourcePhoneNumber': sourcePhoneNumber,
+      if (queueId != null) 'QueueId': queueId,
+      if (attributes != null) 'Attributes': attributes,
+    });
+    return StartOutboundVoiceContactResponse.fromJson(response_);
   }
 
   /// Ends the contact initiated by the `StartOutboundVoiceContact` operation.
@@ -694,7 +779,11 @@ class ConnectApi {
   /// 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
   Future<StopContactResponse> stopContact(
       {@required String contactId, @required String instanceId}) async {
-    return StopContactResponse.fromJson({});
+    var response_ = await _client.send('StopContact', {
+      'ContactId': contactId,
+      'InstanceId': instanceId,
+    });
+    return StopContactResponse.fromJson(response_);
   }
 
   /// The `UpdateContactAttributes` operation lets you programmatically create
@@ -745,7 +834,12 @@ class ConnectApi {
       {@required String initialContactId,
       @required String instanceId,
       @required Map<String, String> attributes}) async {
-    return UpdateContactAttributesResponse.fromJson({});
+    var response_ = await _client.send('UpdateContactAttributes', {
+      'InitialContactId': initialContactId,
+      'InstanceId': instanceId,
+      'Attributes': attributes,
+    });
+    return UpdateContactAttributesResponse.fromJson(response_);
   }
 
   /// Assigns the specified hierarchy group to the user.
@@ -766,7 +860,13 @@ class ConnectApi {
   Future<void> updateUserHierarchy(
       {String hierarchyGroupId,
       @required String userId,
-      @required String instanceId}) async {}
+      @required String instanceId}) async {
+    await _client.send('UpdateUserHierarchy', {
+      if (hierarchyGroupId != null) 'HierarchyGroupId': hierarchyGroupId,
+      'UserId': userId,
+      'InstanceId': instanceId,
+    });
+  }
 
   /// Updates the identity information for the specified user in a
   /// `UserIdentityInfo` object, including email, first name, and last name.
@@ -786,7 +886,13 @@ class ConnectApi {
   Future<void> updateUserIdentityInfo(
       {@required UserIdentityInfo identityInfo,
       @required String userId,
-      @required String instanceId}) async {}
+      @required String instanceId}) async {
+    await _client.send('UpdateUserIdentityInfo', {
+      'IdentityInfo': identityInfo,
+      'UserId': userId,
+      'InstanceId': instanceId,
+    });
+  }
 
   /// Updates the phone configuration settings in the `UserPhoneConfig` object
   /// for the specified user.
@@ -808,7 +914,13 @@ class ConnectApi {
   Future<void> updateUserPhoneConfig(
       {@required UserPhoneConfig phoneConfig,
       @required String userId,
-      @required String instanceId}) async {}
+      @required String instanceId}) async {
+    await _client.send('UpdateUserPhoneConfig', {
+      'PhoneConfig': phoneConfig,
+      'UserId': userId,
+      'InstanceId': instanceId,
+    });
+  }
 
   /// Assigns the specified routing profile to a user.
   ///
@@ -828,7 +940,13 @@ class ConnectApi {
   Future<void> updateUserRoutingProfile(
       {@required String routingProfileId,
       @required String userId,
-      @required String instanceId}) async {}
+      @required String instanceId}) async {
+    await _client.send('UpdateUserRoutingProfile', {
+      'RoutingProfileId': routingProfileId,
+      'UserId': userId,
+      'InstanceId': instanceId,
+    });
+  }
 
   /// Updates the security profiles assigned to the user.
   ///
@@ -848,7 +966,13 @@ class ConnectApi {
   Future<void> updateUserSecurityProfiles(
       {@required List<String> securityProfileIds,
       @required String userId,
-      @required String instanceId}) async {}
+      @required String instanceId}) async {
+    await _client.send('UpdateUserSecurityProfiles', {
+      'SecurityProfileIds': securityProfileIds,
+      'UserId': userId,
+      'InstanceId': instanceId,
+    });
+  }
 }
 
 class CreateUserResponse {
@@ -863,7 +987,10 @@ class CreateUserResponse {
     this.userArn,
   });
   static CreateUserResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserResponse();
+      CreateUserResponse(
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+        userArn: json.containsKey('UserArn') ? json['UserArn'] as String : null,
+      );
 }
 
 /// The credentials to use for federation.
@@ -887,7 +1014,20 @@ class Credentials {
     this.refreshToken,
     this.refreshTokenExpiration,
   });
-  static Credentials fromJson(Map<String, dynamic> json) => Credentials();
+  static Credentials fromJson(Map<String, dynamic> json) => Credentials(
+        accessToken: json.containsKey('AccessToken')
+            ? json['AccessToken'] as String
+            : null,
+        accessTokenExpiration: json.containsKey('AccessTokenExpiration')
+            ? DateTime.parse(json['AccessTokenExpiration'])
+            : null,
+        refreshToken: json.containsKey('RefreshToken')
+            ? json['RefreshToken'] as String
+            : null,
+        refreshTokenExpiration: json.containsKey('RefreshTokenExpiration')
+            ? DateTime.parse(json['RefreshTokenExpiration'])
+            : null,
+      );
 }
 
 /// A `CurrentMetric` object that contains the Name and Unit for the metric.
@@ -902,7 +1042,11 @@ class CurrentMetric {
     this.name,
     this.unit,
   });
-  static CurrentMetric fromJson(Map<String, dynamic> json) => CurrentMetric();
+  static CurrentMetric fromJson(Map<String, dynamic> json) => CurrentMetric(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A `CurrentMetricData` object.
@@ -918,7 +1062,12 @@ class CurrentMetricData {
     this.value,
   });
   static CurrentMetricData fromJson(Map<String, dynamic> json) =>
-      CurrentMetricData();
+      CurrentMetricData(
+        metric: json.containsKey('Metric')
+            ? CurrentMetric.fromJson(json['Metric'])
+            : null,
+        value: json.containsKey('Value') ? json['Value'] as double : null,
+      );
 }
 
 /// A `CurrentMetricResult` object.
@@ -934,7 +1083,16 @@ class CurrentMetricResult {
     this.collections,
   });
   static CurrentMetricResult fromJson(Map<String, dynamic> json) =>
-      CurrentMetricResult();
+      CurrentMetricResult(
+        dimensions: json.containsKey('Dimensions')
+            ? Dimensions.fromJson(json['Dimensions'])
+            : null,
+        collections: json.containsKey('Collections')
+            ? (json['Collections'] as List)
+                .map((e) => CurrentMetricData.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeUserHierarchyGroupResponse {
@@ -946,7 +1104,11 @@ class DescribeUserHierarchyGroupResponse {
   });
   static DescribeUserHierarchyGroupResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeUserHierarchyGroupResponse();
+      DescribeUserHierarchyGroupResponse(
+        hierarchyGroup: json.containsKey('HierarchyGroup')
+            ? HierarchyGroup.fromJson(json['HierarchyGroup'])
+            : null,
+      );
 }
 
 class DescribeUserHierarchyStructureResponse {
@@ -958,7 +1120,11 @@ class DescribeUserHierarchyStructureResponse {
   });
   static DescribeUserHierarchyStructureResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeUserHierarchyStructureResponse();
+      DescribeUserHierarchyStructureResponse(
+        hierarchyStructure: json.containsKey('HierarchyStructure')
+            ? HierarchyStructure.fromJson(json['HierarchyStructure'])
+            : null,
+      );
 }
 
 class DescribeUserResponse {
@@ -970,7 +1136,9 @@ class DescribeUserResponse {
     this.user,
   });
   static DescribeUserResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUserResponse();
+      DescribeUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+      );
 }
 
 /// A `Dimensions` object that includes the Channel and Queue for the metric.
@@ -986,7 +1154,12 @@ class Dimensions {
     this.queue,
     this.channel,
   });
-  static Dimensions fromJson(Map<String, dynamic> json) => Dimensions();
+  static Dimensions fromJson(Map<String, dynamic> json) => Dimensions(
+        queue: json.containsKey('Queue')
+            ? QueueReference.fromJson(json['Queue'])
+            : null,
+        channel: json.containsKey('Channel') ? json['Channel'] as String : null,
+      );
 }
 
 /// The filter, either channel or queues, to apply to the metric results
@@ -1004,6 +1177,7 @@ class Filters {
     this.queues,
     this.channels,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetContactAttributesResponse {
@@ -1014,7 +1188,12 @@ class GetContactAttributesResponse {
     this.attributes,
   });
   static GetContactAttributesResponse fromJson(Map<String, dynamic> json) =>
-      GetContactAttributesResponse();
+      GetContactAttributesResponse(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetCurrentMetricDataResponse {
@@ -1049,7 +1228,18 @@ class GetCurrentMetricDataResponse {
     this.dataSnapshotTime,
   });
   static GetCurrentMetricDataResponse fromJson(Map<String, dynamic> json) =>
-      GetCurrentMetricDataResponse();
+      GetCurrentMetricDataResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        metricResults: json.containsKey('MetricResults')
+            ? (json['MetricResults'] as List)
+                .map((e) => CurrentMetricResult.fromJson(e))
+                .toList()
+            : null,
+        dataSnapshotTime: json.containsKey('DataSnapshotTime')
+            ? DateTime.parse(json['DataSnapshotTime'])
+            : null,
+      );
 }
 
 class GetFederationTokenResponse {
@@ -1060,7 +1250,11 @@ class GetFederationTokenResponse {
     this.credentials,
   });
   static GetFederationTokenResponse fromJson(Map<String, dynamic> json) =>
-      GetFederationTokenResponse();
+      GetFederationTokenResponse(
+        credentials: json.containsKey('Credentials')
+            ? Credentials.fromJson(json['Credentials'])
+            : null,
+      );
 }
 
 class GetMetricDataResponse {
@@ -1087,7 +1281,15 @@ class GetMetricDataResponse {
     this.metricResults,
   });
   static GetMetricDataResponse fromJson(Map<String, dynamic> json) =>
-      GetMetricDataResponse();
+      GetMetricDataResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        metricResults: json.containsKey('MetricResults')
+            ? (json['MetricResults'] as List)
+                .map((e) => HistoricalMetricResult.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A `HierarchyGroup` object that contains information about a hierarchy group
@@ -1116,7 +1318,15 @@ class HierarchyGroup {
     this.levelId,
     this.hierarchyPath,
   });
-  static HierarchyGroup fromJson(Map<String, dynamic> json) => HierarchyGroup();
+  static HierarchyGroup fromJson(Map<String, dynamic> json) => HierarchyGroup(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        levelId: json.containsKey('LevelId') ? json['LevelId'] as String : null,
+        hierarchyPath: json.containsKey('HierarchyPath')
+            ? HierarchyPath.fromJson(json['HierarchyPath'])
+            : null,
+      );
 }
 
 /// A `HierarchyGroupSummary` object that contains information about the
@@ -1137,7 +1347,11 @@ class HierarchyGroupSummary {
     this.name,
   });
   static HierarchyGroupSummary fromJson(Map<String, dynamic> json) =>
-      HierarchyGroupSummary();
+      HierarchyGroupSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// A `HierarchyLevel` object that contains information about the levels in a
@@ -1157,7 +1371,11 @@ class HierarchyLevel {
     this.arn,
     this.name,
   });
-  static HierarchyLevel fromJson(Map<String, dynamic> json) => HierarchyLevel();
+  static HierarchyLevel fromJson(Map<String, dynamic> json) => HierarchyLevel(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// A `HierarchyPath` object that contains information about the levels of the
@@ -1190,7 +1408,23 @@ class HierarchyPath {
     this.levelFour,
     this.levelFive,
   });
-  static HierarchyPath fromJson(Map<String, dynamic> json) => HierarchyPath();
+  static HierarchyPath fromJson(Map<String, dynamic> json) => HierarchyPath(
+        levelOne: json.containsKey('LevelOne')
+            ? HierarchyGroupSummary.fromJson(json['LevelOne'])
+            : null,
+        levelTwo: json.containsKey('LevelTwo')
+            ? HierarchyGroupSummary.fromJson(json['LevelTwo'])
+            : null,
+        levelThree: json.containsKey('LevelThree')
+            ? HierarchyGroupSummary.fromJson(json['LevelThree'])
+            : null,
+        levelFour: json.containsKey('LevelFour')
+            ? HierarchyGroupSummary.fromJson(json['LevelFour'])
+            : null,
+        levelFive: json.containsKey('LevelFive')
+            ? HierarchyGroupSummary.fromJson(json['LevelFive'])
+            : null,
+      );
 }
 
 /// A `HierarchyStructure` object that contains information about the hierarchy
@@ -1224,7 +1458,23 @@ class HierarchyStructure {
     this.levelFive,
   });
   static HierarchyStructure fromJson(Map<String, dynamic> json) =>
-      HierarchyStructure();
+      HierarchyStructure(
+        levelOne: json.containsKey('LevelOne')
+            ? HierarchyLevel.fromJson(json['LevelOne'])
+            : null,
+        levelTwo: json.containsKey('LevelTwo')
+            ? HierarchyLevel.fromJson(json['LevelTwo'])
+            : null,
+        levelThree: json.containsKey('LevelThree')
+            ? HierarchyLevel.fromJson(json['LevelThree'])
+            : null,
+        levelFour: json.containsKey('LevelFour')
+            ? HierarchyLevel.fromJson(json['LevelFour'])
+            : null,
+        levelFive: json.containsKey('LevelFive')
+            ? HierarchyLevel.fromJson(json['LevelFive'])
+            : null,
+      );
 }
 
 /// A `HistoricalMetric` object that contains the Name, Unit, Statistic, and
@@ -1249,7 +1499,16 @@ class HistoricalMetric {
     this.unit,
   });
   static HistoricalMetric fromJson(Map<String, dynamic> json) =>
-      HistoricalMetric();
+      HistoricalMetric(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        threshold: json.containsKey('Threshold')
+            ? Threshold.fromJson(json['Threshold'])
+            : null,
+        statistic:
+            json.containsKey('Statistic') ? json['Statistic'] as String : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A `HistoricalMetricData` object than contains a `Metric` and a `Value`.
@@ -1265,7 +1524,12 @@ class HistoricalMetricData {
     this.value,
   });
   static HistoricalMetricData fromJson(Map<String, dynamic> json) =>
-      HistoricalMetricData();
+      HistoricalMetricData(
+        metric: json.containsKey('Metric')
+            ? HistoricalMetric.fromJson(json['Metric'])
+            : null,
+        value: json.containsKey('Value') ? json['Value'] as double : null,
+      );
 }
 
 /// The metrics data returned from a `GetMetricData` operation.
@@ -1281,7 +1545,16 @@ class HistoricalMetricResult {
     this.collections,
   });
   static HistoricalMetricResult fromJson(Map<String, dynamic> json) =>
-      HistoricalMetricResult();
+      HistoricalMetricResult(
+        dimensions: json.containsKey('Dimensions')
+            ? Dimensions.fromJson(json['Dimensions'])
+            : null,
+        collections: json.containsKey('Collections')
+            ? (json['Collections'] as List)
+                .map((e) => HistoricalMetricData.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListRoutingProfilesResponse {
@@ -1299,7 +1572,15 @@ class ListRoutingProfilesResponse {
     this.nextToken,
   });
   static ListRoutingProfilesResponse fromJson(Map<String, dynamic> json) =>
-      ListRoutingProfilesResponse();
+      ListRoutingProfilesResponse(
+        routingProfileSummaryList: json.containsKey('RoutingProfileSummaryList')
+            ? (json['RoutingProfileSummaryList'] as List)
+                .map((e) => RoutingProfileSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListSecurityProfilesResponse {
@@ -1316,7 +1597,16 @@ class ListSecurityProfilesResponse {
     this.nextToken,
   });
   static ListSecurityProfilesResponse fromJson(Map<String, dynamic> json) =>
-      ListSecurityProfilesResponse();
+      ListSecurityProfilesResponse(
+        securityProfileSummaryList:
+            json.containsKey('SecurityProfileSummaryList')
+                ? (json['SecurityProfileSummaryList'] as List)
+                    .map((e) => SecurityProfileSummary.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListUserHierarchyGroupsResponse {
@@ -1333,7 +1623,16 @@ class ListUserHierarchyGroupsResponse {
     this.nextToken,
   });
   static ListUserHierarchyGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListUserHierarchyGroupsResponse();
+      ListUserHierarchyGroupsResponse(
+        userHierarchyGroupSummaryList:
+            json.containsKey('UserHierarchyGroupSummaryList')
+                ? (json['UserHierarchyGroupSummaryList'] as List)
+                    .map((e) => HierarchyGroupSummary.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListUsersResponse {
@@ -1351,7 +1650,15 @@ class ListUsersResponse {
     this.nextToken,
   });
   static ListUsersResponse fromJson(Map<String, dynamic> json) =>
-      ListUsersResponse();
+      ListUsersResponse(
+        userSummaryList: json.containsKey('UserSummaryList')
+            ? (json['UserSummaryList'] as List)
+                .map((e) => UserSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A QueueReference object that contains the the QueueId and ARN for the queue
@@ -1367,7 +1674,10 @@ class QueueReference {
     this.id,
     this.arn,
   });
-  static QueueReference fromJson(Map<String, dynamic> json) => QueueReference();
+  static QueueReference fromJson(Map<String, dynamic> json) => QueueReference(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+      );
 }
 
 /// A `RoutingProfileSummary` object that contains information about a routing
@@ -1388,7 +1698,11 @@ class RoutingProfileSummary {
     this.name,
   });
   static RoutingProfileSummary fromJson(Map<String, dynamic> json) =>
-      RoutingProfileSummary();
+      RoutingProfileSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// A `SecurityProfileSummary` object that contains information about a security
@@ -1409,7 +1723,11 @@ class SecurityProfileSummary {
     this.name,
   });
   static SecurityProfileSummary fromJson(Map<String, dynamic> json) =>
-      SecurityProfileSummary();
+      SecurityProfileSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class StartOutboundVoiceContactResponse {
@@ -1421,7 +1739,10 @@ class StartOutboundVoiceContactResponse {
   });
   static StartOutboundVoiceContactResponse fromJson(
           Map<String, dynamic> json) =>
-      StartOutboundVoiceContactResponse();
+      StartOutboundVoiceContactResponse(
+        contactId:
+            json.containsKey('ContactId') ? json['ContactId'] as String : null,
+      );
 }
 
 class StopContactResponse {
@@ -1445,7 +1766,15 @@ class Threshold {
     this.comparison,
     this.thresholdValue,
   });
-  static Threshold fromJson(Map<String, dynamic> json) => Threshold();
+  static Threshold fromJson(Map<String, dynamic> json) => Threshold(
+        comparison: json.containsKey('Comparison')
+            ? json['Comparison'] as String
+            : null,
+        thresholdValue: json.containsKey('ThresholdValue')
+            ? json['ThresholdValue'] as double
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateContactAttributesResponse {
@@ -1496,7 +1825,32 @@ class User {
     this.routingProfileId,
     this.hierarchyGroupId,
   });
-  static User fromJson(Map<String, dynamic> json) => User();
+  static User fromJson(Map<String, dynamic> json) => User(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+        identityInfo: json.containsKey('IdentityInfo')
+            ? UserIdentityInfo.fromJson(json['IdentityInfo'])
+            : null,
+        phoneConfig: json.containsKey('PhoneConfig')
+            ? UserPhoneConfig.fromJson(json['PhoneConfig'])
+            : null,
+        directoryUserId: json.containsKey('DirectoryUserId')
+            ? json['DirectoryUserId'] as String
+            : null,
+        securityProfileIds: json.containsKey('SecurityProfileIds')
+            ? (json['SecurityProfileIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        routingProfileId: json.containsKey('RoutingProfileId')
+            ? json['RoutingProfileId'] as String
+            : null,
+        hierarchyGroupId: json.containsKey('HierarchyGroupId')
+            ? json['HierarchyGroupId'] as String
+            : null,
+      );
 }
 
 /// A `UserIdentityInfo` object that contains information about the user's
@@ -1521,7 +1875,14 @@ class UserIdentityInfo {
     this.email,
   });
   static UserIdentityInfo fromJson(Map<String, dynamic> json) =>
-      UserIdentityInfo();
+      UserIdentityInfo(
+        firstName:
+            json.containsKey('FirstName') ? json['FirstName'] as String : null,
+        lastName:
+            json.containsKey('LastName') ? json['LastName'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A `UserPhoneConfig` object that contains information about the user phone
@@ -1545,8 +1906,18 @@ class UserPhoneConfig {
     this.afterContactWorkTimeLimit,
     this.deskPhoneNumber,
   });
-  static UserPhoneConfig fromJson(Map<String, dynamic> json) =>
-      UserPhoneConfig();
+  static UserPhoneConfig fromJson(Map<String, dynamic> json) => UserPhoneConfig(
+        phoneType: json['PhoneType'] as String,
+        autoAccept:
+            json.containsKey('AutoAccept') ? json['AutoAccept'] as bool : null,
+        afterContactWorkTimeLimit: json.containsKey('AfterContactWorkTimeLimit')
+            ? json['AfterContactWorkTimeLimit'] as int
+            : null,
+        deskPhoneNumber: json.containsKey('DeskPhoneNumber')
+            ? json['DeskPhoneNumber'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A `UserSummary` object that contains Information about a user, including
@@ -1566,5 +1937,10 @@ class UserSummary {
     this.arn,
     this.username,
   });
-  static UserSummary fromJson(Map<String, dynamic> json) => UserSummary();
+  static UserSummary fromJson(Map<String, dynamic> json) => UserSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+      );
 }

@@ -7,6 +7,10 @@ import 'dart:typed_data';
 /// Amazon DynamoDB removes traditional scalability limitations on data storage
 /// while maintaining low latency and predictable performance.
 class DynamoDBApi {
+  final _client;
+  DynamoDBApi(client)
+      : _client = client.configured('DynamoDB', serializer: 'json');
+
   /// Retrieves the attributes for multiple items from multiple tables using
   /// their primary keys.
   ///
@@ -25,7 +29,10 @@ class DynamoDBApi {
   /// assemble the pages of results into one set.
   Future<BatchGetItemOutput> batchGetItem(
       Map<String, KeysAndAttributes> requestItems) async {
-    return BatchGetItemOutput.fromJson({});
+    var response_ = await _client.send('BatchGetItem', {
+      'RequestItems': requestItems,
+    });
+    return BatchGetItemOutput.fromJson(response_);
   }
 
   /// Allows to execute a batch of Put and/or Delete Requests for many tables in
@@ -38,7 +45,10 @@ class DynamoDBApi {
   /// input to the `BatchWriteItem` API call
   Future<BatchWriteItemOutput> batchWriteItem(
       Map<String, List<WriteRequest>> requestItems) async {
-    return BatchWriteItemOutput.fromJson({});
+    var response_ = await _client.send('BatchWriteItem', {
+      'RequestItems': requestItems,
+    });
+    return BatchWriteItemOutput.fromJson(response_);
   }
 
   /// Adds a new table to your account.
@@ -58,7 +68,12 @@ class DynamoDBApi {
       {@required String tableName,
       @required KeySchema keySchema,
       @required ProvisionedThroughput provisionedThroughput}) async {
-    return CreateTableOutput.fromJson({});
+    var response_ = await _client.send('CreateTable', {
+      'TableName': tableName,
+      'KeySchema': keySchema,
+      'ProvisionedThroughput': provisionedThroughput,
+    });
+    return CreateTableOutput.fromJson(response_);
   }
 
   /// Deletes a single item in a table by primary key.
@@ -74,7 +89,13 @@ class DynamoDBApi {
       @required Key key,
       Map<String, ExpectedAttributeValue> expected,
       String returnValues}) async {
-    return DeleteItemOutput.fromJson({});
+    var response_ = await _client.send('DeleteItem', {
+      'TableName': tableName,
+      'Key': key,
+      if (expected != null) 'Expected': expected,
+      if (returnValues != null) 'ReturnValues': returnValues,
+    });
+    return DeleteItemOutput.fromJson(response_);
   }
 
   /// Deletes a table and all of its items.
@@ -87,7 +108,10 @@ class DynamoDBApi {
   /// [tableName]: The name of the table you want to delete. Allowed characters
   /// are `a-z`, `A-Z`, `0-9`, `_` (underscore), `-` (hyphen) and `.` (period).
   Future<DeleteTableOutput> deleteTable(String tableName) async {
-    return DeleteTableOutput.fromJson({});
+    var response_ = await _client.send('DeleteTable', {
+      'TableName': tableName,
+    });
+    return DeleteTableOutput.fromJson(response_);
   }
 
   /// Retrieves information about the table, including the current status of the
@@ -100,7 +124,10 @@ class DynamoDBApi {
   /// characters are `a-z`, `A-Z`, `0-9`, `_` (underscore), `-` (hyphen) and `.`
   /// (period).
   Future<DescribeTableOutput> describeTable(String tableName) async {
-    return DescribeTableOutput.fromJson({});
+    var response_ = await _client.send('DescribeTable', {
+      'TableName': tableName,
+    });
+    return DescribeTableOutput.fromJson(response_);
   }
 
   /// Retrieves a set of Attributes for an item that matches the primary key.
@@ -118,7 +145,13 @@ class DynamoDBApi {
       @required Key key,
       List<String> attributesToGet,
       bool consistentRead}) async {
-    return GetItemOutput.fromJson({});
+    var response_ = await _client.send('GetItem', {
+      'TableName': tableName,
+      'Key': key,
+      if (attributesToGet != null) 'AttributesToGet': attributesToGet,
+      if (consistentRead != null) 'ConsistentRead': consistentRead,
+    });
+    return GetItemOutput.fromJson(response_);
   }
 
   /// Retrieves a paginated list of table names created by the AWS Account of
@@ -130,7 +163,12 @@ class DynamoDBApi {
   /// continue the list.
   Future<ListTablesOutput> listTables(
       {String exclusiveStartTableName, int limit}) async {
-    return ListTablesOutput.fromJson({});
+    var response_ = await _client.send('ListTables', {
+      if (exclusiveStartTableName != null)
+        'ExclusiveStartTableName': exclusiveStartTableName,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListTablesOutput.fromJson(response_);
   }
 
   /// Creates a new item, or replaces an old item with a new item (including all
@@ -150,7 +188,13 @@ class DynamoDBApi {
       @required Map<String, AttributeValue> item,
       Map<String, ExpectedAttributeValue> expected,
       String returnValues}) async {
-    return PutItemOutput.fromJson({});
+    var response_ = await _client.send('PutItem', {
+      'TableName': tableName,
+      'Item': item,
+      if (expected != null) 'Expected': expected,
+      if (returnValues != null) 'ReturnValues': returnValues,
+    });
+    return PutItemOutput.fromJson(response_);
   }
 
   /// Gets the values of one or more items and its attributes by primary key
@@ -204,7 +248,18 @@ class DynamoDBApi {
       Condition rangeKeyCondition,
       bool scanIndexForward,
       Key exclusiveStartKey}) async {
-    return QueryOutput.fromJson({});
+    var response_ = await _client.send('Query', {
+      'TableName': tableName,
+      if (attributesToGet != null) 'AttributesToGet': attributesToGet,
+      if (limit != null) 'Limit': limit,
+      if (consistentRead != null) 'ConsistentRead': consistentRead,
+      if (count != null) 'Count': count,
+      'HashKeyValue': hashKeyValue,
+      if (rangeKeyCondition != null) 'RangeKeyCondition': rangeKeyCondition,
+      if (scanIndexForward != null) 'ScanIndexForward': scanIndexForward,
+      if (exclusiveStartKey != null) 'ExclusiveStartKey': exclusiveStartKey,
+    });
+    return QueryOutput.fromJson(response_);
   }
 
   /// Retrieves one or more items and its attributes by performing a full scan
@@ -246,7 +301,15 @@ class DynamoDBApi {
       bool count,
       Map<String, Condition> scanFilter,
       Key exclusiveStartKey}) async {
-    return ScanOutput.fromJson({});
+    var response_ = await _client.send('Scan', {
+      'TableName': tableName,
+      if (attributesToGet != null) 'AttributesToGet': attributesToGet,
+      if (limit != null) 'Limit': limit,
+      if (count != null) 'Count': count,
+      if (scanFilter != null) 'ScanFilter': scanFilter,
+      if (exclusiveStartKey != null) 'ExclusiveStartKey': exclusiveStartKey,
+    });
+    return ScanOutput.fromJson(response_);
   }
 
   /// Edits an existing item's attributes.
@@ -264,7 +327,14 @@ class DynamoDBApi {
       @required Map<String, AttributeValueUpdate> attributeUpdates,
       Map<String, ExpectedAttributeValue> expected,
       String returnValues}) async {
-    return UpdateItemOutput.fromJson({});
+    var response_ = await _client.send('UpdateItem', {
+      'TableName': tableName,
+      'Key': key,
+      'AttributeUpdates': attributeUpdates,
+      if (expected != null) 'Expected': expected,
+      if (returnValues != null) 'ReturnValues': returnValues,
+    });
+    return UpdateItemOutput.fromJson(response_);
   }
 
   /// Updates the provisioned throughput for the given table.
@@ -277,7 +347,11 @@ class DynamoDBApi {
   Future<UpdateTableOutput> updateTable(
       {@required String tableName,
       @required ProvisionedThroughput provisionedThroughput}) async {
-    return UpdateTableOutput.fromJson({});
+    var response_ = await _client.send('UpdateTable', {
+      'TableName': tableName,
+      'ProvisionedThroughput': provisionedThroughput,
+    });
+    return UpdateTableOutput.fromJson(response_);
   }
 }
 
@@ -314,7 +388,21 @@ class AttributeValue {
     this.ns,
     this.bs,
   });
-  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
+  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue(
+        s: json.containsKey('S') ? json['S'] as String : null,
+        n: json.containsKey('N') ? json['N'] as String : null,
+        b: json.containsKey('B') ? Uint8List(json['B']) : null,
+        ss: json.containsKey('SS')
+            ? (json['SS'] as List).map((e) => e as String).toList()
+            : null,
+        ns: json.containsKey('NS')
+            ? (json['NS'] as List).map((e) => e as String).toList()
+            : null,
+        bs: json.containsKey('BS')
+            ? (json['BS'] as List).map((e) => Uint8List(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the attribute to update and how to perform the update. Possible
@@ -328,6 +416,7 @@ class AttributeValueUpdate {
     this.value,
     this.action,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class BatchGetItemOutput {
@@ -346,7 +435,16 @@ class BatchGetItemOutput {
     this.unprocessedKeys,
   });
   static BatchGetItemOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetItemOutput();
+      BatchGetItemOutput(
+        responses: json.containsKey('Responses')
+            ? (json['Responses'] as Map)
+                .map((k, v) => MapEntry(k as String, BatchResponse.fromJson(v)))
+            : null,
+        unprocessedKeys: json.containsKey('UnprocessedKeys')
+            ? (json['UnprocessedKeys'] as Map).map(
+                (k, v) => MapEntry(k as String, KeysAndAttributes.fromJson(v)))
+            : null,
+      );
 }
 
 /// The item attributes from a response in a specific table, along with the read
@@ -360,7 +458,17 @@ class BatchResponse {
     this.items,
     this.consumedCapacityUnits,
   });
-  static BatchResponse fromJson(Map<String, dynamic> json) => BatchResponse();
+  static BatchResponse fromJson(Map<String, dynamic> json) => BatchResponse(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => (e as Map).map((k, v) =>
+                    MapEntry(k as String, AttributeValue.fromJson(v))))
+                .toList()
+            : null,
+        consumedCapacityUnits: json.containsKey('ConsumedCapacityUnits')
+            ? json['ConsumedCapacityUnits'] as double
+            : null,
+      );
 }
 
 /// A container for `BatchWriteItem` response
@@ -378,7 +486,17 @@ class BatchWriteItemOutput {
     this.unprocessedItems,
   });
   static BatchWriteItemOutput fromJson(Map<String, dynamic> json) =>
-      BatchWriteItemOutput();
+      BatchWriteItemOutput(
+        responses: json.containsKey('Responses')
+            ? (json['Responses'] as Map).map(
+                (k, v) => MapEntry(k as String, BatchWriteResponse.fromJson(v)))
+            : null,
+        unprocessedItems: json.containsKey('UnprocessedItems')
+            ? (json['UnprocessedItems'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as List).map((e) => WriteRequest.fromJson(e)).toList()))
+            : null,
+      );
 }
 
 class BatchWriteResponse {
@@ -388,7 +506,11 @@ class BatchWriteResponse {
     this.consumedCapacityUnits,
   });
   static BatchWriteResponse fromJson(Map<String, dynamic> json) =>
-      BatchWriteResponse();
+      BatchWriteResponse(
+        consumedCapacityUnits: json.containsKey('ConsumedCapacityUnits')
+            ? json['ConsumedCapacityUnits'] as double
+            : null,
+      );
 }
 
 class Condition {
@@ -400,6 +522,7 @@ class Condition {
     this.attributeValueList,
     @required this.comparisonOperator,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateTableOutput {
@@ -409,7 +532,11 @@ class CreateTableOutput {
     this.tableDescription,
   });
   static CreateTableOutput fromJson(Map<String, dynamic> json) =>
-      CreateTableOutput();
+      CreateTableOutput(
+        tableDescription: json.containsKey('TableDescription')
+            ? TableDescription.fromJson(json['TableDescription'])
+            : null,
+      );
 }
 
 class DeleteItemOutput {
@@ -426,7 +553,15 @@ class DeleteItemOutput {
     this.consumedCapacityUnits,
   });
   static DeleteItemOutput fromJson(Map<String, dynamic> json) =>
-      DeleteItemOutput();
+      DeleteItemOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacityUnits: json.containsKey('ConsumedCapacityUnits')
+            ? json['ConsumedCapacityUnits'] as double
+            : null,
+      );
 }
 
 /// A container for a Delete BatchWrite request
@@ -437,7 +572,10 @@ class DeleteRequest {
   DeleteRequest({
     @required this.key,
   });
-  static DeleteRequest fromJson(Map<String, dynamic> json) => DeleteRequest();
+  static DeleteRequest fromJson(Map<String, dynamic> json) => DeleteRequest(
+        key: Key.fromJson(json['Key']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteTableOutput {
@@ -447,7 +585,11 @@ class DeleteTableOutput {
     this.tableDescription,
   });
   static DeleteTableOutput fromJson(Map<String, dynamic> json) =>
-      DeleteTableOutput();
+      DeleteTableOutput(
+        tableDescription: json.containsKey('TableDescription')
+            ? TableDescription.fromJson(json['TableDescription'])
+            : null,
+      );
 }
 
 class DescribeTableOutput {
@@ -457,7 +599,11 @@ class DescribeTableOutput {
     this.table,
   });
   static DescribeTableOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTableOutput();
+      DescribeTableOutput(
+        table: json.containsKey('Table')
+            ? TableDescription.fromJson(json['Table'])
+            : null,
+      );
 }
 
 /// Allows you to provide an attribute name, and whether or not Amazon DynamoDB
@@ -476,6 +622,7 @@ class ExpectedAttributeValue {
     this.value,
     this.exists,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetItemOutput {
@@ -488,7 +635,15 @@ class GetItemOutput {
     this.item,
     this.consumedCapacityUnits,
   });
-  static GetItemOutput fromJson(Map<String, dynamic> json) => GetItemOutput();
+  static GetItemOutput fromJson(Map<String, dynamic> json) => GetItemOutput(
+        item: json.containsKey('Item')
+            ? (json['Item'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacityUnits: json.containsKey('ConsumedCapacityUnits')
+            ? json['ConsumedCapacityUnits'] as double
+            : null,
+      );
 }
 
 /// The primary key that uniquely identifies each item in a table. A primary key
@@ -510,7 +665,13 @@ class Key {
     @required this.hashKeyElement,
     this.rangeKeyElement,
   });
-  static Key fromJson(Map<String, dynamic> json) => Key();
+  static Key fromJson(Map<String, dynamic> json) => Key(
+        hashKeyElement: AttributeValue.fromJson(json['HashKeyElement']),
+        rangeKeyElement: json.containsKey('RangeKeyElement')
+            ? AttributeValue.fromJson(json['RangeKeyElement'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The KeySchema identifies the primary key as a one attribute primary key
@@ -534,7 +695,13 @@ class KeySchema {
     @required this.hashKeyElement,
     this.rangeKeyElement,
   });
-  static KeySchema fromJson(Map<String, dynamic> json) => KeySchema();
+  static KeySchema fromJson(Map<String, dynamic> json) => KeySchema(
+        hashKeyElement: KeySchemaElement.fromJson(json['HashKeyElement']),
+        rangeKeyElement: json.containsKey('RangeKeyElement')
+            ? KeySchemaElement.fromJson(json['RangeKeyElement'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// `KeySchemaElement` is the primary key (hash or hash-and-range) structure for
@@ -552,7 +719,11 @@ class KeySchemaElement {
     @required this.attributeType,
   });
   static KeySchemaElement fromJson(Map<String, dynamic> json) =>
-      KeySchemaElement();
+      KeySchemaElement(
+        attributeName: json['AttributeName'] as String,
+        attributeType: json['AttributeType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class KeysAndAttributes {
@@ -568,7 +739,16 @@ class KeysAndAttributes {
     this.consistentRead,
   });
   static KeysAndAttributes fromJson(Map<String, dynamic> json) =>
-      KeysAndAttributes();
+      KeysAndAttributes(
+        keys: (json['Keys'] as List).map((e) => Key.fromJson(e)).toList(),
+        attributesToGet: json.containsKey('AttributesToGet')
+            ? (json['AttributesToGet'] as List).map((e) => e as String).toList()
+            : null,
+        consistentRead: json.containsKey('ConsistentRead')
+            ? json['ConsistentRead'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListTablesOutput {
@@ -585,7 +765,14 @@ class ListTablesOutput {
     this.lastEvaluatedTableName,
   });
   static ListTablesOutput fromJson(Map<String, dynamic> json) =>
-      ListTablesOutput();
+      ListTablesOutput(
+        tableNames: json.containsKey('TableNames')
+            ? (json['TableNames'] as List).map((e) => e as String).toList()
+            : null,
+        lastEvaluatedTableName: json.containsKey('LastEvaluatedTableName')
+            ? json['LastEvaluatedTableName'] as String
+            : null,
+      );
 }
 
 /// Provisioned throughput reserves the required read and write resources for
@@ -611,6 +798,7 @@ class ProvisionedThroughput {
     @required this.readCapacityUnits,
     @required this.writeCapacityUnits,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ProvisionedThroughputDescription {
@@ -632,7 +820,23 @@ class ProvisionedThroughputDescription {
     this.writeCapacityUnits,
   });
   static ProvisionedThroughputDescription fromJson(Map<String, dynamic> json) =>
-      ProvisionedThroughputDescription();
+      ProvisionedThroughputDescription(
+        lastIncreaseDateTime: json.containsKey('LastIncreaseDateTime')
+            ? DateTime.parse(json['LastIncreaseDateTime'])
+            : null,
+        lastDecreaseDateTime: json.containsKey('LastDecreaseDateTime')
+            ? DateTime.parse(json['LastDecreaseDateTime'])
+            : null,
+        numberOfDecreasesToday: json.containsKey('NumberOfDecreasesToday')
+            ? BigInt.from(json['NumberOfDecreasesToday'])
+            : null,
+        readCapacityUnits: json.containsKey('ReadCapacityUnits')
+            ? BigInt.from(json['ReadCapacityUnits'])
+            : null,
+        writeCapacityUnits: json.containsKey('WriteCapacityUnits')
+            ? BigInt.from(json['WriteCapacityUnits'])
+            : null,
+      );
 }
 
 class PutItemOutput {
@@ -646,7 +850,15 @@ class PutItemOutput {
     this.attributes,
     this.consumedCapacityUnits,
   });
-  static PutItemOutput fromJson(Map<String, dynamic> json) => PutItemOutput();
+  static PutItemOutput fromJson(Map<String, dynamic> json) => PutItemOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacityUnits: json.containsKey('ConsumedCapacityUnits')
+            ? json['ConsumedCapacityUnits'] as double
+            : null,
+      );
 }
 
 /// A container for a Put BatchWrite request
@@ -657,7 +869,11 @@ class PutRequest {
   PutRequest({
     @required this.item,
   });
-  static PutRequest fromJson(Map<String, dynamic> json) => PutRequest();
+  static PutRequest fromJson(Map<String, dynamic> json) => PutRequest(
+        item: (json['Item'] as Map)
+            .map((k, v) => MapEntry(k as String, AttributeValue.fromJson(v))),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class QueryOutput {
@@ -681,7 +897,21 @@ class QueryOutput {
     this.lastEvaluatedKey,
     this.consumedCapacityUnits,
   });
-  static QueryOutput fromJson(Map<String, dynamic> json) => QueryOutput();
+  static QueryOutput fromJson(Map<String, dynamic> json) => QueryOutput(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => (e as Map).map((k, v) =>
+                    MapEntry(k as String, AttributeValue.fromJson(v))))
+                .toList()
+            : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        lastEvaluatedKey: json.containsKey('LastEvaluatedKey')
+            ? Key.fromJson(json['LastEvaluatedKey'])
+            : null,
+        consumedCapacityUnits: json.containsKey('ConsumedCapacityUnits')
+            ? json['ConsumedCapacityUnits'] as double
+            : null,
+      );
 }
 
 class ScanOutput {
@@ -710,7 +940,24 @@ class ScanOutput {
     this.lastEvaluatedKey,
     this.consumedCapacityUnits,
   });
-  static ScanOutput fromJson(Map<String, dynamic> json) => ScanOutput();
+  static ScanOutput fromJson(Map<String, dynamic> json) => ScanOutput(
+        items: json.containsKey('Items')
+            ? (json['Items'] as List)
+                .map((e) => (e as Map).map((k, v) =>
+                    MapEntry(k as String, AttributeValue.fromJson(v))))
+                .toList()
+            : null,
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        scannedCount: json.containsKey('ScannedCount')
+            ? json['ScannedCount'] as int
+            : null,
+        lastEvaluatedKey: json.containsKey('LastEvaluatedKey')
+            ? Key.fromJson(json['LastEvaluatedKey'])
+            : null,
+        consumedCapacityUnits: json.containsKey('ConsumedCapacityUnits')
+            ? json['ConsumedCapacityUnits'] as double
+            : null,
+      );
 }
 
 class TableDescription {
@@ -739,7 +986,29 @@ class TableDescription {
     this.itemCount,
   });
   static TableDescription fromJson(Map<String, dynamic> json) =>
-      TableDescription();
+      TableDescription(
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        keySchema: json.containsKey('KeySchema')
+            ? KeySchema.fromJson(json['KeySchema'])
+            : null,
+        tableStatus: json.containsKey('TableStatus')
+            ? json['TableStatus'] as String
+            : null,
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        provisionedThroughput: json.containsKey('ProvisionedThroughput')
+            ? ProvisionedThroughputDescription.fromJson(
+                json['ProvisionedThroughput'])
+            : null,
+        tableSizeBytes: json.containsKey('TableSizeBytes')
+            ? BigInt.from(json['TableSizeBytes'])
+            : null,
+        itemCount: json.containsKey('ItemCount')
+            ? BigInt.from(json['ItemCount'])
+            : null,
+      );
 }
 
 class UpdateItemOutput {
@@ -754,7 +1023,15 @@ class UpdateItemOutput {
     this.consumedCapacityUnits,
   });
   static UpdateItemOutput fromJson(Map<String, dynamic> json) =>
-      UpdateItemOutput();
+      UpdateItemOutput(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        consumedCapacityUnits: json.containsKey('ConsumedCapacityUnits')
+            ? json['ConsumedCapacityUnits'] as double
+            : null,
+      );
 }
 
 class UpdateTableOutput {
@@ -764,7 +1041,11 @@ class UpdateTableOutput {
     this.tableDescription,
   });
   static UpdateTableOutput fromJson(Map<String, dynamic> json) =>
-      UpdateTableOutput();
+      UpdateTableOutput(
+        tableDescription: json.containsKey('TableDescription')
+            ? TableDescription.fromJson(json['TableDescription'])
+            : null,
+      );
 }
 
 /// This structure is a Union of PutRequest and DeleteRequest. It can contain
@@ -779,5 +1060,13 @@ class WriteRequest {
     this.putRequest,
     this.deleteRequest,
   });
-  static WriteRequest fromJson(Map<String, dynamic> json) => WriteRequest();
+  static WriteRequest fromJson(Map<String, dynamic> json) => WriteRequest(
+        putRequest: json.containsKey('PutRequest')
+            ? PutRequest.fromJson(json['PutRequest'])
+            : null,
+        deleteRequest: json.containsKey('DeleteRequest')
+            ? DeleteRequest.fromJson(json['DeleteRequest'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

@@ -21,6 +21,10 @@ import 'package:meta/meta.dart';
 /// For more information about the features of Amazon EventBridge, see the
 /// [Amazon EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/).
 class EventBridgeApi {
+  final _client;
+  EventBridgeApi(client)
+      : _client = client.configured('EventBridge', serializer: 'json');
+
   /// Activates a partner event source that has been deactivated. Once
   /// activated, your matching event bus will start receiving events from the
   /// event source.
@@ -30,7 +34,11 @@ class EventBridgeApi {
   /// This operation is performed by AWS customers, not by SaaS partners.
   ///
   /// [name]: The name of the partner event source to activate.
-  Future<void> activateEventSource(String name) async {}
+  Future<void> activateEventSource(String name) async {
+    await _client.send('ActivateEventSource', {
+      'Name': name,
+    });
+  }
 
   /// Creates a new event bus within your account. This can be a custom event
   /// bus which you can use to receive events from your own custom applications
@@ -55,7 +63,11 @@ class EventBridgeApi {
   /// the partner event source that the new event bus will be matched with.
   Future<CreateEventBusResponse> createEventBus(String name,
       {String eventSourceName}) async {
-    return CreateEventBusResponse.fromJson({});
+    var response_ = await _client.send('CreateEventBus', {
+      'Name': name,
+      if (eventSourceName != null) 'EventSourceName': eventSourceName,
+    });
+    return CreateEventBusResponse.fromJson(response_);
   }
 
   /// Called by an SaaS partner to create a partner event source.
@@ -100,7 +112,11 @@ class EventBridgeApi {
   /// matching partner event bus for this partner event source.
   Future<CreatePartnerEventSourceResponse> createPartnerEventSource(
       {@required String name, @required String account}) async {
-    return CreatePartnerEventSourceResponse.fromJson({});
+    var response_ = await _client.send('CreatePartnerEventSource', {
+      'Name': name,
+      'Account': account,
+    });
+    return CreatePartnerEventSourceResponse.fromJson(response_);
   }
 
   /// An AWS customer uses this operation to temporarily stop receiving events
@@ -114,7 +130,11 @@ class EventBridgeApi {
   /// To activate a deactivated partner event source, use ActivateEventSource.
   ///
   /// [name]: The name of the partner event source to deactivate.
-  Future<void> deactivateEventSource(String name) async {}
+  Future<void> deactivateEventSource(String name) async {
+    await _client.send('DeactivateEventSource', {
+      'Name': name,
+    });
+  }
 
   /// Deletes the specified custom event bus or partner event bus. All rules
   /// associated with this event bus are also deleted. You can't delete your
@@ -125,7 +145,11 @@ class EventBridgeApi {
   /// This operation is performed by AWS customers, not by SaaS partners.
   ///
   /// [name]: The name of the event bus to delete.
-  Future<void> deleteEventBus(String name) async {}
+  Future<void> deleteEventBus(String name) async {
+    await _client.send('DeleteEventBus', {
+      'Name': name,
+    });
+  }
 
   /// This operation is used by SaaS partners to delete a partner event source.
   /// AWS customers don't use this operation.
@@ -138,7 +162,12 @@ class EventBridgeApi {
   /// [account]: The AWS account ID of the AWS customer that the event source
   /// was created for.
   Future<void> deletePartnerEventSource(
-      {@required String name, @required String account}) async {}
+      {@required String name, @required String account}) async {
+    await _client.send('DeletePartnerEventSource', {
+      'Name': name,
+      'Account': account,
+    });
+  }
 
   /// Deletes the specified rule.
   ///
@@ -165,7 +194,13 @@ class EventBridgeApi {
   /// whether a rule is a managed rule by using `DescribeRule` or `ListRules`
   /// and checking the `ManagedBy` field of the response.
   Future<void> deleteRule(String name,
-      {String eventBusName, bool force}) async {}
+      {String eventBusName, bool force}) async {
+    await _client.send('DeleteRule', {
+      'Name': name,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+      if (force != null) 'Force': force,
+    });
+  }
 
   /// Displays details about an event bus in your account. This can include the
   /// external AWS accounts that are permitted to write events to your default
@@ -180,7 +215,10 @@ class EventBridgeApi {
   /// [name]: The name of the event bus to show details for. If you omit this,
   /// the default event bus is displayed.
   Future<DescribeEventBusResponse> describeEventBus({String name}) async {
-    return DescribeEventBusResponse.fromJson({});
+    var response_ = await _client.send('DescribeEventBus', {
+      if (name != null) 'Name': name,
+    });
+    return DescribeEventBusResponse.fromJson(response_);
   }
 
   /// This operation lists details about a partner event source that is shared
@@ -192,7 +230,10 @@ class EventBridgeApi {
   ///
   /// [name]: The name of the partner event source to display the details of.
   Future<DescribeEventSourceResponse> describeEventSource(String name) async {
-    return DescribeEventSourceResponse.fromJson({});
+    var response_ = await _client.send('DescribeEventSource', {
+      'Name': name,
+    });
+    return DescribeEventSourceResponse.fromJson(response_);
   }
 
   /// An SaaS partner can use this operation to list details about a partner
@@ -207,7 +248,10 @@ class EventBridgeApi {
   /// [name]: The name of the event source to display.
   Future<DescribePartnerEventSourceResponse> describePartnerEventSource(
       String name) async {
-    return DescribePartnerEventSourceResponse.fromJson({});
+    var response_ = await _client.send('DescribePartnerEventSource', {
+      'Name': name,
+    });
+    return DescribePartnerEventSourceResponse.fromJson(response_);
   }
 
   /// Describes the specified rule.
@@ -221,7 +265,11 @@ class EventBridgeApi {
   /// the default event bus is used.
   Future<DescribeRuleResponse> describeRule(String name,
       {String eventBusName}) async {
-    return DescribeRuleResponse.fromJson({});
+    var response_ = await _client.send('DescribeRule', {
+      'Name': name,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+    });
+    return DescribeRuleResponse.fromJson(response_);
   }
 
   /// Disables the specified rule. A disabled rule won't match any events and
@@ -234,7 +282,12 @@ class EventBridgeApi {
   ///
   /// [eventBusName]: The event bus associated with the rule. If you omit this,
   /// the default event bus is used.
-  Future<void> disableRule(String name, {String eventBusName}) async {}
+  Future<void> disableRule(String name, {String eventBusName}) async {
+    await _client.send('DisableRule', {
+      'Name': name,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+    });
+  }
 
   /// Enables the specified rule. If the rule doesn't exist, the operation
   /// fails.
@@ -247,7 +300,12 @@ class EventBridgeApi {
   ///
   /// [eventBusName]: The event bus associated with the rule. If you omit this,
   /// the default event bus is used.
-  Future<void> enableRule(String name, {String eventBusName}) async {}
+  Future<void> enableRule(String name, {String eventBusName}) async {
+    await _client.send('EnableRule', {
+      'Name': name,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+    });
+  }
 
   /// Lists all the event buses in your account, including the default event
   /// bus, custom event buses, and partner event buses.
@@ -267,7 +325,12 @@ class EventBridgeApi {
   /// subsequent operation to retrieve the next set of results.
   Future<ListEventBusesResponse> listEventBuses(
       {String namePrefix, String nextToken, int limit}) async {
-    return ListEventBusesResponse.fromJson({});
+    var response_ = await _client.send('ListEventBuses', {
+      if (namePrefix != null) 'NamePrefix': namePrefix,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListEventBusesResponse.fromJson(response_);
   }
 
   /// You can use this to see all the partner event sources that have been
@@ -289,7 +352,12 @@ class EventBridgeApi {
   /// subsequent operation to retrieve the next set of results.
   Future<ListEventSourcesResponse> listEventSources(
       {String namePrefix, String nextToken, int limit}) async {
-    return ListEventSourcesResponse.fromJson({});
+    var response_ = await _client.send('ListEventSources', {
+      if (namePrefix != null) 'NamePrefix': namePrefix,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListEventSourcesResponse.fromJson(response_);
   }
 
   /// An SaaS partner can use this operation to display the AWS account ID that
@@ -312,7 +380,12 @@ class EventBridgeApi {
       String eventSourceName,
       {String nextToken,
       int limit}) async {
-    return ListPartnerEventSourceAccountsResponse.fromJson({});
+    var response_ = await _client.send('ListPartnerEventSourceAccounts', {
+      'EventSourceName': eventSourceName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListPartnerEventSourceAccountsResponse.fromJson(response_);
   }
 
   /// An SaaS partner can use this operation to list all the partner event
@@ -335,7 +408,12 @@ class EventBridgeApi {
       String namePrefix,
       {String nextToken,
       int limit}) async {
-    return ListPartnerEventSourcesResponse.fromJson({});
+    var response_ = await _client.send('ListPartnerEventSources', {
+      'NamePrefix': namePrefix,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListPartnerEventSourcesResponse.fromJson(response_);
   }
 
   /// Lists the rules for the specified target. You can see which rules can
@@ -352,7 +430,13 @@ class EventBridgeApi {
   /// [limit]: The maximum number of results to return.
   Future<ListRuleNamesByTargetResponse> listRuleNamesByTarget(String targetArn,
       {String eventBusName, String nextToken, int limit}) async {
-    return ListRuleNamesByTargetResponse.fromJson({});
+    var response_ = await _client.send('ListRuleNamesByTarget', {
+      'TargetArn': targetArn,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListRuleNamesByTargetResponse.fromJson(response_);
   }
 
   /// Lists your EventBridge rules. You can either list all the rules or provide
@@ -375,7 +459,13 @@ class EventBridgeApi {
       String eventBusName,
       String nextToken,
       int limit}) async {
-    return ListRulesResponse.fromJson({});
+    var response_ = await _client.send('ListRules', {
+      if (namePrefix != null) 'NamePrefix': namePrefix,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListRulesResponse.fromJson(response_);
   }
 
   /// Displays the tags associated with an EventBridge resource. In EventBridge,
@@ -384,7 +474,10 @@ class EventBridgeApi {
   /// [resourceArn]: The ARN of the rule for which you want to view tags.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceARN': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Lists the targets assigned to the specified rule.
@@ -400,7 +493,13 @@ class EventBridgeApi {
   /// [limit]: The maximum number of results to return.
   Future<ListTargetsByRuleResponse> listTargetsByRule(String rule,
       {String eventBusName, String nextToken, int limit}) async {
-    return ListTargetsByRuleResponse.fromJson({});
+    var response_ = await _client.send('ListTargetsByRule', {
+      'Rule': rule,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListTargetsByRuleResponse.fromJson(response_);
   }
 
   /// Sends custom events to EventBridge so that they can be matched to rules.
@@ -411,7 +510,10 @@ class EventBridgeApi {
   /// resources associated with the event, and so on.
   Future<PutEventsResponse> putEvents(
       List<PutEventsRequestEntry> entries) async {
-    return PutEventsResponse.fromJson({});
+    var response_ = await _client.send('PutEvents', {
+      'Entries': entries,
+    });
+    return PutEventsResponse.fromJson(response_);
   }
 
   /// This is used by SaaS partners to write events to a customer's partner
@@ -426,7 +528,10 @@ class EventBridgeApi {
   /// [entries]: The list of events to write to the event bus.
   Future<PutPartnerEventsResponse> putPartnerEvents(
       List<PutPartnerEventsRequestEntry> entries) async {
-    return PutPartnerEventsResponse.fromJson({});
+    var response_ = await _client.send('PutPartnerEvents', {
+      'Entries': entries,
+    });
+    return PutPartnerEventsResponse.fromJson(response_);
   }
 
   /// Running `PutPermission` permits the specified AWS account or AWS
@@ -491,7 +596,15 @@ class EventBridgeApi {
       @required String action,
       @required String principal,
       @required String statementId,
-      Condition condition}) async {}
+      Condition condition}) async {
+    await _client.send('PutPermission', {
+      if (eventBusName != null) 'EventBusName': eventBusName,
+      'Action': action,
+      'Principal': principal,
+      'StatementId': statementId,
+      if (condition != null) 'Condition': condition,
+    });
+  }
 
   /// Creates or updates the specified rule. Rules are enabled by default or
   /// based on value of the state. You can disable a rule using DisableRule.
@@ -579,7 +692,17 @@ class EventBridgeApi {
       String roleArn,
       List<Tag> tags,
       String eventBusName}) async {
-    return PutRuleResponse.fromJson({});
+    var response_ = await _client.send('PutRule', {
+      'Name': name,
+      if (scheduleExpression != null) 'ScheduleExpression': scheduleExpression,
+      if (eventPattern != null) 'EventPattern': eventPattern,
+      if (state != null) 'State': state,
+      if (description != null) 'Description': description,
+      if (roleArn != null) 'RoleArn': roleArn,
+      if (tags != null) 'Tags': tags,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+    });
+    return PutRuleResponse.fromJson(response_);
   }
 
   /// Adds the specified targets to the specified rule, or updates the targets
@@ -703,7 +826,12 @@ class EventBridgeApi {
       {@required String rule,
       String eventBusName,
       @required List<Target> targets}) async {
-    return PutTargetsResponse.fromJson({});
+    var response_ = await _client.send('PutTargets', {
+      'Rule': rule,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+      'Targets': targets,
+    });
+    return PutTargetsResponse.fromJson(response_);
   }
 
   /// Revokes the permission of another AWS account to be able to put events to
@@ -718,7 +846,12 @@ class EventBridgeApi {
   /// [eventBusName]: The name of the event bus to revoke permissions for. If
   /// you omit this, the default event bus is used.
   Future<void> removePermission(String statementId,
-      {String eventBusName}) async {}
+      {String eventBusName}) async {
+    await _client.send('RemovePermission', {
+      'StatementId': statementId,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+    });
+  }
 
   /// Removes the specified targets from the specified rule. When the rule is
   /// triggered, those targets are no longer be invoked.
@@ -748,7 +881,13 @@ class EventBridgeApi {
       String eventBusName,
       @required List<String> ids,
       bool force}) async {
-    return RemoveTargetsResponse.fromJson({});
+    var response_ = await _client.send('RemoveTargets', {
+      'Rule': rule,
+      if (eventBusName != null) 'EventBusName': eventBusName,
+      'Ids': ids,
+      if (force != null) 'Force': force,
+    });
+    return RemoveTargetsResponse.fromJson(response_);
   }
 
   /// Assigns one or more tags (key-value pairs) to the specified EventBridge
@@ -773,7 +912,11 @@ class EventBridgeApi {
   /// [tags]: The list of key-value pairs to associate with the rule.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceARN': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Tests whether the specified event pattern matches the provided event.
@@ -791,7 +934,11 @@ class EventBridgeApi {
   /// [event]: The event, in JSON format, to test against the event pattern.
   Future<TestEventPatternResponse> testEventPattern(
       {@required String eventPattern, @required String event}) async {
-    return TestEventPatternResponse.fromJson({});
+    var response_ = await _client.send('TestEventPattern', {
+      'EventPattern': eventPattern,
+      'Event': event,
+    });
+    return TestEventPatternResponse.fromJson(response_);
   }
 
   /// Removes one or more tags from the specified EventBridge resource. In
@@ -802,7 +949,11 @@ class EventBridgeApi {
   /// [tagKeys]: The list of tag keys to remove from the resource.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceARN': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 }
 
@@ -831,7 +982,16 @@ class AwsVpcConfiguration {
     this.assignPublicIp,
   });
   static AwsVpcConfiguration fromJson(Map<String, dynamic> json) =>
-      AwsVpcConfiguration();
+      AwsVpcConfiguration(
+        subnets: (json['Subnets'] as List).map((e) => e as String).toList(),
+        securityGroups: json.containsKey('SecurityGroups')
+            ? (json['SecurityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        assignPublicIp: json.containsKey('AssignPublicIp')
+            ? json['AssignPublicIp'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The array properties for the submitted job, such as the size of the array.
@@ -847,7 +1007,10 @@ class BatchArrayProperties {
     this.size,
   });
   static BatchArrayProperties fromJson(Map<String, dynamic> json) =>
-      BatchArrayProperties();
+      BatchArrayProperties(
+        size: json.containsKey('Size') ? json['Size'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The custom parameters to be used when the target is an AWS Batch job.
@@ -878,8 +1041,17 @@ class BatchParameters {
     this.arrayProperties,
     this.retryStrategy,
   });
-  static BatchParameters fromJson(Map<String, dynamic> json) =>
-      BatchParameters();
+  static BatchParameters fromJson(Map<String, dynamic> json) => BatchParameters(
+        jobDefinition: json['JobDefinition'] as String,
+        jobName: json['JobName'] as String,
+        arrayProperties: json.containsKey('ArrayProperties')
+            ? BatchArrayProperties.fromJson(json['ArrayProperties'])
+            : null,
+        retryStrategy: json.containsKey('RetryStrategy')
+            ? BatchRetryStrategy.fromJson(json['RetryStrategy'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The retry strategy to use for failed jobs if the target is an AWS Batch job.
@@ -894,7 +1066,10 @@ class BatchRetryStrategy {
     this.attempts,
   });
   static BatchRetryStrategy fromJson(Map<String, dynamic> json) =>
-      BatchRetryStrategy();
+      BatchRetryStrategy(
+        attempts: json.containsKey('Attempts') ? json['Attempts'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A JSON string that you can use to limit the event bus permissions that
@@ -923,6 +1098,7 @@ class Condition {
     @required this.key,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateEventBusResponse {
@@ -933,7 +1109,11 @@ class CreateEventBusResponse {
     this.eventBusArn,
   });
   static CreateEventBusResponse fromJson(Map<String, dynamic> json) =>
-      CreateEventBusResponse();
+      CreateEventBusResponse(
+        eventBusArn: json.containsKey('EventBusArn')
+            ? json['EventBusArn'] as String
+            : null,
+      );
 }
 
 class CreatePartnerEventSourceResponse {
@@ -944,7 +1124,11 @@ class CreatePartnerEventSourceResponse {
     this.eventSourceArn,
   });
   static CreatePartnerEventSourceResponse fromJson(Map<String, dynamic> json) =>
-      CreatePartnerEventSourceResponse();
+      CreatePartnerEventSourceResponse(
+        eventSourceArn: json.containsKey('EventSourceArn')
+            ? json['EventSourceArn'] as String
+            : null,
+      );
 }
 
 class DescribeEventBusResponse {
@@ -965,7 +1149,11 @@ class DescribeEventBusResponse {
     this.policy,
   });
   static DescribeEventBusResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventBusResponse();
+      DescribeEventBusResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+      );
 }
 
 class DescribeEventSourceResponse {
@@ -1001,7 +1189,19 @@ class DescribeEventSourceResponse {
     this.state,
   });
   static DescribeEventSourceResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventSourceResponse();
+      DescribeEventSourceResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        createdBy:
+            json.containsKey('CreatedBy') ? json['CreatedBy'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        expirationTime: json.containsKey('ExpirationTime')
+            ? DateTime.parse(json['ExpirationTime'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 class DescribePartnerEventSourceResponse {
@@ -1017,7 +1217,10 @@ class DescribePartnerEventSourceResponse {
   });
   static DescribePartnerEventSourceResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribePartnerEventSourceResponse();
+      DescribePartnerEventSourceResponse(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class DescribeRuleResponse {
@@ -1065,7 +1268,26 @@ class DescribeRuleResponse {
     this.eventBusName,
   });
   static DescribeRuleResponse fromJson(Map<String, dynamic> json) =>
-      DescribeRuleResponse();
+      DescribeRuleResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        eventPattern: json.containsKey('EventPattern')
+            ? json['EventPattern'] as String
+            : null,
+        scheduleExpression: json.containsKey('ScheduleExpression')
+            ? json['ScheduleExpression'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        managedBy:
+            json.containsKey('ManagedBy') ? json['ManagedBy'] as String : null,
+        eventBusName: json.containsKey('EventBusName')
+            ? json['EventBusName'] as String
+            : null,
+      );
 }
 
 /// The custom parameters to be used when the target is an Amazon ECS task.
@@ -1116,7 +1338,22 @@ class EcsParameters {
     this.platformVersion,
     this.group,
   });
-  static EcsParameters fromJson(Map<String, dynamic> json) => EcsParameters();
+  static EcsParameters fromJson(Map<String, dynamic> json) => EcsParameters(
+        taskDefinitionArn: json['TaskDefinitionArn'] as String,
+        taskCount:
+            json.containsKey('TaskCount') ? json['TaskCount'] as int : null,
+        launchType: json.containsKey('LaunchType')
+            ? json['LaunchType'] as String
+            : null,
+        networkConfiguration: json.containsKey('NetworkConfiguration')
+            ? NetworkConfiguration.fromJson(json['NetworkConfiguration'])
+            : null,
+        platformVersion: json.containsKey('PlatformVersion')
+            ? json['PlatformVersion'] as String
+            : null,
+        group: json.containsKey('Group') ? json['Group'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An event bus receives events from a source and routes them to rules
@@ -1141,7 +1378,11 @@ class EventBus {
     this.arn,
     this.policy,
   });
-  static EventBus fromJson(Map<String, dynamic> json) => EventBus();
+  static EventBus fromJson(Map<String, dynamic> json) => EventBus(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+      );
 }
 
 /// A partner event source is created by an SaaS partner. If a customer creates
@@ -1179,7 +1420,19 @@ class EventSource {
     this.name,
     this.state,
   });
-  static EventSource fromJson(Map<String, dynamic> json) => EventSource();
+  static EventSource fromJson(Map<String, dynamic> json) => EventSource(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        createdBy:
+            json.containsKey('CreatedBy') ? json['CreatedBy'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        expirationTime: json.containsKey('ExpirationTime')
+            ? DateTime.parse(json['ExpirationTime'])
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Contains the parameters needed for you to provide custom input to a target
@@ -1243,7 +1496,14 @@ class InputTransformer {
     @required this.inputTemplate,
   });
   static InputTransformer fromJson(Map<String, dynamic> json) =>
-      InputTransformer();
+      InputTransformer(
+        inputPathsMap: json.containsKey('InputPathsMap')
+            ? (json['InputPathsMap'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        inputTemplate: json['InputTemplate'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This object enables you to specify a JSON path to extract from the event and
@@ -1261,7 +1521,10 @@ class KinesisParameters {
     @required this.partitionKeyPath,
   });
   static KinesisParameters fromJson(Map<String, dynamic> json) =>
-      KinesisParameters();
+      KinesisParameters(
+        partitionKeyPath: json['PartitionKeyPath'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListEventBusesResponse {
@@ -1277,7 +1540,15 @@ class ListEventBusesResponse {
     this.nextToken,
   });
   static ListEventBusesResponse fromJson(Map<String, dynamic> json) =>
-      ListEventBusesResponse();
+      ListEventBusesResponse(
+        eventBuses: json.containsKey('EventBuses')
+            ? (json['EventBuses'] as List)
+                .map((e) => EventBus.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListEventSourcesResponse {
@@ -1293,7 +1564,15 @@ class ListEventSourcesResponse {
     this.nextToken,
   });
   static ListEventSourcesResponse fromJson(Map<String, dynamic> json) =>
-      ListEventSourcesResponse();
+      ListEventSourcesResponse(
+        eventSources: json.containsKey('EventSources')
+            ? (json['EventSources'] as List)
+                .map((e) => EventSource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPartnerEventSourceAccountsResponse {
@@ -1310,7 +1589,16 @@ class ListPartnerEventSourceAccountsResponse {
   });
   static ListPartnerEventSourceAccountsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListPartnerEventSourceAccountsResponse();
+      ListPartnerEventSourceAccountsResponse(
+        partnerEventSourceAccounts:
+            json.containsKey('PartnerEventSourceAccounts')
+                ? (json['PartnerEventSourceAccounts'] as List)
+                    .map((e) => PartnerEventSourceAccount.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPartnerEventSourcesResponse {
@@ -1326,7 +1614,15 @@ class ListPartnerEventSourcesResponse {
     this.nextToken,
   });
   static ListPartnerEventSourcesResponse fromJson(Map<String, dynamic> json) =>
-      ListPartnerEventSourcesResponse();
+      ListPartnerEventSourcesResponse(
+        partnerEventSources: json.containsKey('PartnerEventSources')
+            ? (json['PartnerEventSources'] as List)
+                .map((e) => PartnerEventSource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListRuleNamesByTargetResponse {
@@ -1342,7 +1638,13 @@ class ListRuleNamesByTargetResponse {
     this.nextToken,
   });
   static ListRuleNamesByTargetResponse fromJson(Map<String, dynamic> json) =>
-      ListRuleNamesByTargetResponse();
+      ListRuleNamesByTargetResponse(
+        ruleNames: json.containsKey('RuleNames')
+            ? (json['RuleNames'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListRulesResponse {
@@ -1358,7 +1660,13 @@ class ListRulesResponse {
     this.nextToken,
   });
   static ListRulesResponse fromJson(Map<String, dynamic> json) =>
-      ListRulesResponse();
+      ListRulesResponse(
+        rules: json.containsKey('Rules')
+            ? (json['Rules'] as List).map((e) => Rule.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1370,7 +1678,11 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListTargetsByRuleResponse {
@@ -1386,7 +1698,13 @@ class ListTargetsByRuleResponse {
     this.nextToken,
   });
   static ListTargetsByRuleResponse fromJson(Map<String, dynamic> json) =>
-      ListTargetsByRuleResponse();
+      ListTargetsByRuleResponse(
+        targets: json.containsKey('Targets')
+            ? (json['Targets'] as List).map((e) => Target.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// This structure specifies the network configuration for an ECS task.
@@ -1400,7 +1718,12 @@ class NetworkConfiguration {
     this.awsvpcConfiguration,
   });
   static NetworkConfiguration fromJson(Map<String, dynamic> json) =>
-      NetworkConfiguration();
+      NetworkConfiguration(
+        awsvpcConfiguration: json.containsKey('awsvpcConfiguration')
+            ? AwsVpcConfiguration.fromJson(json['awsvpcConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A partner event source is created by an SaaS partner. If a customer creates
@@ -1418,7 +1741,10 @@ class PartnerEventSource {
     this.name,
   });
   static PartnerEventSource fromJson(Map<String, dynamic> json) =>
-      PartnerEventSource();
+      PartnerEventSource(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// The AWS account that a partner event source has been offered to.
@@ -1447,7 +1773,16 @@ class PartnerEventSourceAccount {
     this.state,
   });
   static PartnerEventSourceAccount fromJson(Map<String, dynamic> json) =>
-      PartnerEventSourceAccount();
+      PartnerEventSourceAccount(
+        account: json.containsKey('Account') ? json['Account'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        expirationTime: json.containsKey('ExpirationTime')
+            ? DateTime.parse(json['ExpirationTime'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 /// Represents an event to be submitted.
@@ -1484,6 +1819,7 @@ class PutEventsRequestEntry {
     this.detail,
     this.eventBusName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutEventsResponse {
@@ -1501,7 +1837,16 @@ class PutEventsResponse {
     this.entries,
   });
   static PutEventsResponse fromJson(Map<String, dynamic> json) =>
-      PutEventsResponse();
+      PutEventsResponse(
+        failedEntryCount: json.containsKey('FailedEntryCount')
+            ? json['FailedEntryCount'] as int
+            : null,
+        entries: json.containsKey('Entries')
+            ? (json['Entries'] as List)
+                .map((e) => PutEventsResultEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents an event that failed to be submitted.
@@ -1521,7 +1866,14 @@ class PutEventsResultEntry {
     this.errorMessage,
   });
   static PutEventsResultEntry fromJson(Map<String, dynamic> json) =>
-      PutEventsResultEntry();
+      PutEventsResultEntry(
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// The details about an event generated by an SaaS partner.
@@ -1551,6 +1903,7 @@ class PutPartnerEventsRequestEntry {
     this.detailType,
     this.detail,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutPartnerEventsResponse {
@@ -1567,7 +1920,16 @@ class PutPartnerEventsResponse {
     this.entries,
   });
   static PutPartnerEventsResponse fromJson(Map<String, dynamic> json) =>
-      PutPartnerEventsResponse();
+      PutPartnerEventsResponse(
+        failedEntryCount: json.containsKey('FailedEntryCount')
+            ? json['FailedEntryCount'] as int
+            : null,
+        entries: json.containsKey('Entries')
+            ? (json['Entries'] as List)
+                .map((e) => PutPartnerEventsResultEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents an event that a partner tried to generate but failed.
@@ -1587,7 +1949,14 @@ class PutPartnerEventsResultEntry {
     this.errorMessage,
   });
   static PutPartnerEventsResultEntry fromJson(Map<String, dynamic> json) =>
-      PutPartnerEventsResultEntry();
+      PutPartnerEventsResultEntry(
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class PutRuleResponse {
@@ -1597,8 +1966,9 @@ class PutRuleResponse {
   PutRuleResponse({
     this.ruleArn,
   });
-  static PutRuleResponse fromJson(Map<String, dynamic> json) =>
-      PutRuleResponse();
+  static PutRuleResponse fromJson(Map<String, dynamic> json) => PutRuleResponse(
+        ruleArn: json.containsKey('RuleArn') ? json['RuleArn'] as String : null,
+      );
 }
 
 class PutTargetsResponse {
@@ -1613,7 +1983,16 @@ class PutTargetsResponse {
     this.failedEntries,
   });
   static PutTargetsResponse fromJson(Map<String, dynamic> json) =>
-      PutTargetsResponse();
+      PutTargetsResponse(
+        failedEntryCount: json.containsKey('FailedEntryCount')
+            ? json['FailedEntryCount'] as int
+            : null,
+        failedEntries: json.containsKey('FailedEntries')
+            ? (json['FailedEntries'] as List)
+                .map((e) => PutTargetsResultEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents a target that failed to be added to a rule.
@@ -1635,7 +2014,15 @@ class PutTargetsResultEntry {
     this.errorMessage,
   });
   static PutTargetsResultEntry fromJson(Map<String, dynamic> json) =>
-      PutTargetsResultEntry();
+      PutTargetsResultEntry(
+        targetId:
+            json.containsKey('TargetId') ? json['TargetId'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class RemoveTargetsResponse {
@@ -1650,7 +2037,16 @@ class RemoveTargetsResponse {
     this.failedEntries,
   });
   static RemoveTargetsResponse fromJson(Map<String, dynamic> json) =>
-      RemoveTargetsResponse();
+      RemoveTargetsResponse(
+        failedEntryCount: json.containsKey('FailedEntryCount')
+            ? json['FailedEntryCount'] as int
+            : null,
+        failedEntries: json.containsKey('FailedEntries')
+            ? (json['FailedEntries'] as List)
+                .map((e) => RemoveTargetsResultEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents a target that failed to be removed from a rule.
@@ -1672,7 +2068,15 @@ class RemoveTargetsResultEntry {
     this.errorMessage,
   });
   static RemoveTargetsResultEntry fromJson(Map<String, dynamic> json) =>
-      RemoveTargetsResultEntry();
+      RemoveTargetsResultEntry(
+        targetId:
+            json.containsKey('TargetId') ? json['TargetId'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Contains information about a rule in Amazon EventBridge.
@@ -1720,7 +2124,26 @@ class Rule {
     this.managedBy,
     this.eventBusName,
   });
-  static Rule fromJson(Map<String, dynamic> json) => Rule();
+  static Rule fromJson(Map<String, dynamic> json) => Rule(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        eventPattern: json.containsKey('EventPattern')
+            ? json['EventPattern'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        scheduleExpression: json.containsKey('ScheduleExpression')
+            ? json['ScheduleExpression'] as String
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        managedBy:
+            json.containsKey('ManagedBy') ? json['ManagedBy'] as String : null,
+        eventBusName: json.containsKey('EventBusName')
+            ? json['EventBusName'] as String
+            : null,
+      );
 }
 
 /// This parameter contains the criteria (either `InstanceIds` or a tag) used to
@@ -1734,7 +2157,12 @@ class RunCommandParameters {
     @required this.runCommandTargets,
   });
   static RunCommandParameters fromJson(Map<String, dynamic> json) =>
-      RunCommandParameters();
+      RunCommandParameters(
+        runCommandTargets: (json['RunCommandTargets'] as List)
+            .map((e) => RunCommandTarget.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the EC2 instances that are to be sent the command,
@@ -1753,7 +2181,11 @@ class RunCommandTarget {
     @required this.values,
   });
   static RunCommandTarget fromJson(Map<String, dynamic> json) =>
-      RunCommandTarget();
+      RunCommandTarget(
+        key: json['Key'] as String,
+        values: (json['Values'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This structure includes the custom parameter to be used when the target is
@@ -1765,7 +2197,12 @@ class SqsParameters {
   SqsParameters({
     this.messageGroupId,
   });
-  static SqsParameters fromJson(Map<String, dynamic> json) => SqsParameters();
+  static SqsParameters fromJson(Map<String, dynamic> json) => SqsParameters(
+        messageGroupId: json.containsKey('MessageGroupId')
+            ? json['MessageGroupId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A key-value pair associated with an AWS resource. In EventBridge, rules
@@ -1782,7 +2219,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -1870,7 +2311,33 @@ class Target {
     this.batchParameters,
     this.sqsParameters,
   });
-  static Target fromJson(Map<String, dynamic> json) => Target();
+  static Target fromJson(Map<String, dynamic> json) => Target(
+        id: json['Id'] as String,
+        arn: json['Arn'] as String,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        input: json.containsKey('Input') ? json['Input'] as String : null,
+        inputPath:
+            json.containsKey('InputPath') ? json['InputPath'] as String : null,
+        inputTransformer: json.containsKey('InputTransformer')
+            ? InputTransformer.fromJson(json['InputTransformer'])
+            : null,
+        kinesisParameters: json.containsKey('KinesisParameters')
+            ? KinesisParameters.fromJson(json['KinesisParameters'])
+            : null,
+        runCommandParameters: json.containsKey('RunCommandParameters')
+            ? RunCommandParameters.fromJson(json['RunCommandParameters'])
+            : null,
+        ecsParameters: json.containsKey('EcsParameters')
+            ? EcsParameters.fromJson(json['EcsParameters'])
+            : null,
+        batchParameters: json.containsKey('BatchParameters')
+            ? BatchParameters.fromJson(json['BatchParameters'])
+            : null,
+        sqsParameters: json.containsKey('SqsParameters')
+            ? SqsParameters.fromJson(json['SqsParameters'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TestEventPatternResponse {
@@ -1881,7 +2348,9 @@ class TestEventPatternResponse {
     this.result,
   });
   static TestEventPatternResponse fromJson(Map<String, dynamic> json) =>
-      TestEventPatternResponse();
+      TestEventPatternResponse(
+        result: json.containsKey('Result') ? json['Result'] as bool : null,
+      );
 }
 
 class UntagResourceResponse {

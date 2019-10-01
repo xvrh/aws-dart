@@ -7,6 +7,11 @@ import 'dart:typed_data';
 /// interfaces. Use these actions to create, update, and delete conversational
 /// bots for new and existing client applications.
 class LexModelBuildingServiceApi {
+  final _client;
+  LexModelBuildingServiceApi(client)
+      : _client = client.configured('Lex Model Building Service',
+            serializer: 'rest-json');
+
   /// Creates a new version of the bot based on the `$LATEST` version. If the
   /// `$LATEST` version of this resource hasn't changed since you created the
   /// last version, Amazon Lex doesn't create a new version. It returns the last
@@ -32,7 +37,11 @@ class LexModelBuildingServiceApi {
   /// checksum, Amazon Lex publishes the `$LATEST` version.
   Future<CreateBotVersionResponse> createBotVersion(String name,
       {String checksum}) async {
-    return CreateBotVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateBotVersion', {
+      'name': name,
+      if (checksum != null) 'checksum': checksum,
+    });
+    return CreateBotVersionResponse.fromJson(response_);
   }
 
   /// Creates a new version of an intent based on the `$LATEST` version of the
@@ -62,7 +71,11 @@ class LexModelBuildingServiceApi {
   /// `$LATEST` version.
   Future<CreateIntentVersionResponse> createIntentVersion(String name,
       {String checksum}) async {
-    return CreateIntentVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateIntentVersion', {
+      'name': name,
+      if (checksum != null) 'checksum': checksum,
+    });
+    return CreateIntentVersionResponse.fromJson(response_);
   }
 
   /// Creates a new version of a slot type based on the `$LATEST` version of the
@@ -92,7 +105,11 @@ class LexModelBuildingServiceApi {
   /// `$LATEST` version.
   Future<CreateSlotTypeVersionResponse> createSlotTypeVersion(String name,
       {String checksum}) async {
-    return CreateSlotTypeVersionResponse.fromJson({});
+    var response_ = await _client.send('CreateSlotTypeVersion', {
+      'name': name,
+      if (checksum != null) 'checksum': checksum,
+    });
+    return CreateSlotTypeVersionResponse.fromJson(response_);
   }
 
   /// Deletes all versions of the bot, including the `$LATEST` version. To
@@ -107,7 +124,11 @@ class LexModelBuildingServiceApi {
   /// This operation requires permissions for the `lex:DeleteBot` action.
   ///
   /// [name]: The name of the bot. The name is case sensitive.
-  Future<void> deleteBot(String name) async {}
+  Future<void> deleteBot(String name) async {
+    await _client.send('DeleteBot', {
+      'name': name,
+    });
+  }
 
   /// Deletes an alias for the specified bot.
   ///
@@ -123,7 +144,12 @@ class LexModelBuildingServiceApi {
   ///
   /// [botName]: The name of the bot that the alias points to.
   Future<void> deleteBotAlias(
-      {@required String name, @required String botName}) async {}
+      {@required String name, @required String botName}) async {
+    await _client.send('DeleteBotAlias', {
+      'name': name,
+      'botName': botName,
+    });
+  }
 
   /// Deletes the association between an Amazon Lex bot and a messaging
   /// platform.
@@ -140,7 +166,13 @@ class LexModelBuildingServiceApi {
   Future<void> deleteBotChannelAssociation(
       {@required String name,
       @required String botName,
-      @required String botAlias}) async {}
+      @required String botAlias}) async {
+    await _client.send('DeleteBotChannelAssociation', {
+      'name': name,
+      'botName': botName,
+      'botAlias': botAlias,
+    });
+  }
 
   /// Deletes a specific version of a bot. To delete all versions of a bot, use
   /// the DeleteBot operation.
@@ -153,7 +185,12 @@ class LexModelBuildingServiceApi {
   /// `$LATEST` version of the bot. To delete the `$LATEST` version, use the
   /// DeleteBot operation.
   Future<void> deleteBotVersion(
-      {@required String name, @required String version}) async {}
+      {@required String name, @required String version}) async {
+    await _client.send('DeleteBotVersion', {
+      'name': name,
+      'version': version,
+    });
+  }
 
   /// Deletes all versions of the intent, including the `$LATEST` version. To
   /// delete a specific version of the intent, use the DeleteIntentVersion
@@ -173,7 +210,11 @@ class LexModelBuildingServiceApi {
   ///  This operation requires permission for the `lex:DeleteIntent` action.
   ///
   /// [name]: The name of the intent. The name is case sensitive.
-  Future<void> deleteIntent(String name) async {}
+  Future<void> deleteIntent(String name) async {
+    await _client.send('DeleteIntent', {
+      'name': name,
+    });
+  }
 
   /// Deletes a specific version of an intent. To delete all versions of a
   /// intent, use the DeleteIntent operation.
@@ -187,7 +228,12 @@ class LexModelBuildingServiceApi {
   /// `$LATEST` version of the intent. To delete the `$LATEST` version, use the
   /// DeleteIntent operation.
   Future<void> deleteIntentVersion(
-      {@required String name, @required String version}) async {}
+      {@required String name, @required String version}) async {
+    await _client.send('DeleteIntentVersion', {
+      'name': name,
+      'version': version,
+    });
+  }
 
   /// Deletes all versions of the slot type, including the `$LATEST` version. To
   /// delete a specific version of the slot type, use the DeleteSlotTypeVersion
@@ -207,7 +253,11 @@ class LexModelBuildingServiceApi {
   /// This operation requires permission for the `lex:DeleteSlotType` action.
   ///
   /// [name]: The name of the slot type. The name is case sensitive.
-  Future<void> deleteSlotType(String name) async {}
+  Future<void> deleteSlotType(String name) async {
+    await _client.send('DeleteSlotType', {
+      'name': name,
+    });
+  }
 
   /// Deletes a specific version of a slot type. To delete all versions of a
   /// slot type, use the DeleteSlotType operation.
@@ -221,7 +271,12 @@ class LexModelBuildingServiceApi {
   /// `$LATEST` version of the slot type. To delete the `$LATEST` version, use
   /// the DeleteSlotType operation.
   Future<void> deleteSlotTypeVersion(
-      {@required String name, @required String version}) async {}
+      {@required String name, @required String version}) async {
+    await _client.send('DeleteSlotTypeVersion', {
+      'name': name,
+      'version': version,
+    });
+  }
 
   /// Deletes stored utterances.
   ///
@@ -244,7 +299,12 @@ class LexModelBuildingServiceApi {
   /// [PostText](http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html)
   /// operation request that contained the utterance.
   Future<void> deleteUtterances(
-      {@required String botName, @required String userId}) async {}
+      {@required String botName, @required String userId}) async {
+    await _client.send('DeleteUtterances', {
+      'botName': botName,
+      'userId': userId,
+    });
+  }
 
   /// Returns metadata information for a specific bot. You must provide the bot
   /// name and the bot version or alias.
@@ -256,7 +316,11 @@ class LexModelBuildingServiceApi {
   /// [versionOrAlias]: The version or alias of the bot.
   Future<GetBotResponse> getBot(
       {@required String name, @required String versionOrAlias}) async {
-    return GetBotResponse.fromJson({});
+    var response_ = await _client.send('GetBot', {
+      'name': name,
+      'versionOrAlias': versionOrAlias,
+    });
+    return GetBotResponse.fromJson(response_);
   }
 
   /// Returns information about an Amazon Lex bot alias. For more information
@@ -269,7 +333,11 @@ class LexModelBuildingServiceApi {
   /// [botName]: The name of the bot.
   Future<GetBotAliasResponse> getBotAlias(
       {@required String name, @required String botName}) async {
-    return GetBotAliasResponse.fromJson({});
+    var response_ = await _client.send('GetBotAlias', {
+      'name': name,
+      'botName': botName,
+    });
+    return GetBotAliasResponse.fromJson(response_);
   }
 
   /// Returns a list of aliases for a specified Amazon Lex bot.
@@ -291,7 +359,13 @@ class LexModelBuildingServiceApi {
   /// matches both "xyzabc" and "abcxyz."
   Future<GetBotAliasesResponse> getBotAliases(String botName,
       {String nextToken, int maxResults, String nameContains}) async {
-    return GetBotAliasesResponse.fromJson({});
+    var response_ = await _client.send('GetBotAliases', {
+      'botName': botName,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nameContains != null) 'nameContains': nameContains,
+    });
+    return GetBotAliasesResponse.fromJson(response_);
   }
 
   /// Returns information about the association between an Amazon Lex bot and a
@@ -311,7 +385,12 @@ class LexModelBuildingServiceApi {
       {@required String name,
       @required String botName,
       @required String botAlias}) async {
-    return GetBotChannelAssociationResponse.fromJson({});
+    var response_ = await _client.send('GetBotChannelAssociation', {
+      'name': name,
+      'botName': botName,
+      'botAlias': botAlias,
+    });
+    return GetBotChannelAssociationResponse.fromJson(response_);
   }
 
   ///  Returns a list of all of the channels associated with the specified bot.
@@ -343,7 +422,14 @@ class LexModelBuildingServiceApi {
       String nextToken,
       int maxResults,
       String nameContains}) async {
-    return GetBotChannelAssociationsResponse.fromJson({});
+    var response_ = await _client.send('GetBotChannelAssociations', {
+      'botName': botName,
+      'botAlias': botAlias,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nameContains != null) 'nameContains': nameContains,
+    });
+    return GetBotChannelAssociationsResponse.fromJson(response_);
   }
 
   /// Gets information about all of the versions of a bot.
@@ -369,7 +455,12 @@ class LexModelBuildingServiceApi {
   /// response. The default is 10.
   Future<GetBotVersionsResponse> getBotVersions(String name,
       {String nextToken, int maxResults}) async {
-    return GetBotVersionsResponse.fromJson({});
+    var response_ = await _client.send('GetBotVersions', {
+      'name': name,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetBotVersionsResponse.fromJson(response_);
   }
 
   /// Returns bot information as follows:
@@ -397,7 +488,12 @@ class LexModelBuildingServiceApi {
   /// both "xyzabc" and "abcxyz."
   Future<GetBotsResponse> getBots(
       {String nextToken, int maxResults, String nameContains}) async {
-    return GetBotsResponse.fromJson({});
+    var response_ = await _client.send('GetBots', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nameContains != null) 'nameContains': nameContains,
+    });
+    return GetBotsResponse.fromJson(response_);
   }
 
   /// Returns information about a built-in intent.
@@ -409,7 +505,10 @@ class LexModelBuildingServiceApi {
   /// [Standard Built-in Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
   /// in the _Alexa Skills Kit_.
   Future<GetBuiltinIntentResponse> getBuiltinIntent(String signature) async {
-    return GetBuiltinIntentResponse.fromJson({});
+    var response_ = await _client.send('GetBuiltinIntent', {
+      'signature': signature,
+    });
+    return GetBuiltinIntentResponse.fromJson(response_);
   }
 
   /// Gets a list of built-in intents that meet the specified criteria.
@@ -437,7 +536,13 @@ class LexModelBuildingServiceApi {
       String signatureContains,
       String nextToken,
       int maxResults}) async {
-    return GetBuiltinIntentsResponse.fromJson({});
+    var response_ = await _client.send('GetBuiltinIntents', {
+      if (locale != null) 'locale': locale,
+      if (signatureContains != null) 'signatureContains': signatureContains,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetBuiltinIntentsResponse.fromJson(response_);
   }
 
   /// Gets a list of built-in slot types that meet the specified criteria.
@@ -467,7 +572,13 @@ class LexModelBuildingServiceApi {
       String signatureContains,
       String nextToken,
       int maxResults}) async {
-    return GetBuiltinSlotTypesResponse.fromJson({});
+    var response_ = await _client.send('GetBuiltinSlotTypes', {
+      if (locale != null) 'locale': locale,
+      if (signatureContains != null) 'signatureContains': signatureContains,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetBuiltinSlotTypesResponse.fromJson(response_);
   }
 
   /// Exports the contents of a Amazon Lex resource in a specified format.
@@ -484,7 +595,13 @@ class LexModelBuildingServiceApi {
       @required String version,
       @required String resourceType,
       @required String exportType}) async {
-    return GetExportResponse.fromJson({});
+    var response_ = await _client.send('GetExport', {
+      'name': name,
+      'version': version,
+      'resourceType': resourceType,
+      'exportType': exportType,
+    });
+    return GetExportResponse.fromJson(response_);
   }
 
   /// Gets information about an import job started with the `StartImport`
@@ -492,7 +609,10 @@ class LexModelBuildingServiceApi {
   ///
   /// [importId]: The identifier of the import job information to return.
   Future<GetImportResponse> getImport(String importId) async {
-    return GetImportResponse.fromJson({});
+    var response_ = await _client.send('GetImport', {
+      'importId': importId,
+    });
+    return GetImportResponse.fromJson(response_);
   }
 
   ///  Returns information about an intent. In addition to the intent name, you
@@ -506,7 +626,11 @@ class LexModelBuildingServiceApi {
   /// [version]: The version of the intent.
   Future<GetIntentResponse> getIntent(
       {@required String name, @required String version}) async {
-    return GetIntentResponse.fromJson({});
+    var response_ = await _client.send('GetIntent', {
+      'name': name,
+      'version': version,
+    });
+    return GetIntentResponse.fromJson(response_);
   }
 
   /// Gets information about all of the versions of an intent.
@@ -534,7 +658,12 @@ class LexModelBuildingServiceApi {
   /// response. The default is 10.
   Future<GetIntentVersionsResponse> getIntentVersions(String name,
       {String nextToken, int maxResults}) async {
-    return GetIntentVersionsResponse.fromJson({});
+    var response_ = await _client.send('GetIntentVersions', {
+      'name': name,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetIntentVersionsResponse.fromJson(response_);
   }
 
   /// Returns intent information as follows:
@@ -561,7 +690,12 @@ class LexModelBuildingServiceApi {
   /// matches both "xyzabc" and "abcxyz."
   Future<GetIntentsResponse> getIntents(
       {String nextToken, int maxResults, String nameContains}) async {
-    return GetIntentsResponse.fromJson({});
+    var response_ = await _client.send('GetIntents', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nameContains != null) 'nameContains': nameContains,
+    });
+    return GetIntentsResponse.fromJson(response_);
   }
 
   /// Returns information about a specific version of a slot type. In addition
@@ -574,7 +708,11 @@ class LexModelBuildingServiceApi {
   /// [version]: The version of the slot type.
   Future<GetSlotTypeResponse> getSlotType(
       {@required String name, @required String version}) async {
-    return GetSlotTypeResponse.fromJson({});
+    var response_ = await _client.send('GetSlotType', {
+      'name': name,
+      'version': version,
+    });
+    return GetSlotTypeResponse.fromJson(response_);
   }
 
   /// Gets information about all versions of a slot type.
@@ -602,7 +740,12 @@ class LexModelBuildingServiceApi {
   /// response. The default is 10.
   Future<GetSlotTypeVersionsResponse> getSlotTypeVersions(String name,
       {String nextToken, int maxResults}) async {
-    return GetSlotTypeVersionsResponse.fromJson({});
+    var response_ = await _client.send('GetSlotTypeVersions', {
+      'name': name,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetSlotTypeVersionsResponse.fromJson(response_);
   }
 
   /// Returns slot type information as follows:
@@ -629,7 +772,12 @@ class LexModelBuildingServiceApi {
   /// matches both "xyzabc" and "abcxyz."
   Future<GetSlotTypesResponse> getSlotTypes(
       {String nextToken, int maxResults, String nameContains}) async {
-    return GetSlotTypesResponse.fromJson({});
+    var response_ = await _client.send('GetSlotTypes', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nameContains != null) 'nameContains': nameContains,
+    });
+    return GetSlotTypesResponse.fromJson(response_);
   }
 
   /// Use the `GetUtterancesView` operation to get information about the
@@ -668,7 +816,12 @@ class LexModelBuildingServiceApi {
       {@required String botName,
       @required List<String> botVersions,
       @required String statusType}) async {
-    return GetUtterancesViewResponse.fromJson({});
+    var response_ = await _client.send('GetUtterancesView', {
+      'botName': botName,
+      'botVersions': botVersions,
+      'statusType': statusType,
+    });
+    return GetUtterancesViewResponse.fromJson(response_);
   }
 
   /// Creates an Amazon Lex conversational bot or replaces an existing bot. When
@@ -811,7 +964,23 @@ class LexModelBuildingServiceApi {
       @required String locale,
       @required bool childDirected,
       bool createVersion}) async {
-    return PutBotResponse.fromJson({});
+    var response_ = await _client.send('PutBot', {
+      'name': name,
+      if (description != null) 'description': description,
+      if (intents != null) 'intents': intents,
+      if (clarificationPrompt != null)
+        'clarificationPrompt': clarificationPrompt,
+      if (abortStatement != null) 'abortStatement': abortStatement,
+      if (idleSessionTtlInSeconds != null)
+        'idleSessionTTLInSeconds': idleSessionTtlInSeconds,
+      if (voiceId != null) 'voiceId': voiceId,
+      if (checksum != null) 'checksum': checksum,
+      if (processBehavior != null) 'processBehavior': processBehavior,
+      'locale': locale,
+      'childDirected': childDirected,
+      if (createVersion != null) 'createVersion': createVersion,
+    });
+    return PutBotResponse.fromJson(response_);
   }
 
   /// Creates an alias for the specified version of the bot or replaces an alias
@@ -844,7 +1013,14 @@ class LexModelBuildingServiceApi {
       @required String botVersion,
       @required String botName,
       String checksum}) async {
-    return PutBotAliasResponse.fromJson({});
+    var response_ = await _client.send('PutBotAlias', {
+      'name': name,
+      if (description != null) 'description': description,
+      'botVersion': botVersion,
+      'botName': botName,
+      if (checksum != null) 'checksum': checksum,
+    });
+    return PutBotAliasResponse.fromJson(response_);
   }
 
   /// Creates an intent or replaces an existing intent.
@@ -1028,7 +1204,25 @@ class LexModelBuildingServiceApi {
       String parentIntentSignature,
       String checksum,
       bool createVersion}) async {
-    return PutIntentResponse.fromJson({});
+    var response_ = await _client.send('PutIntent', {
+      'name': name,
+      if (description != null) 'description': description,
+      if (slots != null) 'slots': slots,
+      if (sampleUtterances != null) 'sampleUtterances': sampleUtterances,
+      if (confirmationPrompt != null) 'confirmationPrompt': confirmationPrompt,
+      if (rejectionStatement != null) 'rejectionStatement': rejectionStatement,
+      if (followUpPrompt != null) 'followUpPrompt': followUpPrompt,
+      if (conclusionStatement != null)
+        'conclusionStatement': conclusionStatement,
+      if (dialogCodeHook != null) 'dialogCodeHook': dialogCodeHook,
+      if (fulfillmentActivity != null)
+        'fulfillmentActivity': fulfillmentActivity,
+      if (parentIntentSignature != null)
+        'parentIntentSignature': parentIntentSignature,
+      if (checksum != null) 'checksum': checksum,
+      if (createVersion != null) 'createVersion': createVersion,
+    });
+    return PutIntentResponse.fromJson(response_);
   }
 
   /// Creates a custom slot type or replaces an existing custom slot type.
@@ -1102,7 +1296,16 @@ class LexModelBuildingServiceApi {
       String checksum,
       String valueSelectionStrategy,
       bool createVersion}) async {
-    return PutSlotTypeResponse.fromJson({});
+    var response_ = await _client.send('PutSlotType', {
+      'name': name,
+      if (description != null) 'description': description,
+      if (enumerationValues != null) 'enumerationValues': enumerationValues,
+      if (checksum != null) 'checksum': checksum,
+      if (valueSelectionStrategy != null)
+        'valueSelectionStrategy': valueSelectionStrategy,
+      if (createVersion != null) 'createVersion': createVersion,
+    });
+    return PutSlotTypeResponse.fromJson(response_);
   }
 
   /// Starts a job to import a resource to Amazon Lex.
@@ -1133,7 +1336,12 @@ class LexModelBuildingServiceApi {
       {@required Uint8List payload,
       @required String resourceType,
       @required String mergeStrategy}) async {
-    return StartImportResponse.fromJson({});
+    var response_ = await _client.send('StartImport', {
+      'payload': payload,
+      'resourceType': resourceType,
+      'mergeStrategy': mergeStrategy,
+    });
+    return StartImportResponse.fromJson(response_);
   }
 }
 
@@ -1171,7 +1379,24 @@ class BotAliasMetadata {
     this.checksum,
   });
   static BotAliasMetadata fromJson(Map<String, dynamic> json) =>
-      BotAliasMetadata();
+      BotAliasMetadata(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        botVersion: json.containsKey('botVersion')
+            ? json['botVersion'] as String
+            : null,
+        botName: json.containsKey('botName') ? json['botName'] as String : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+      );
 }
 
 /// Represents an association between an Amazon Lex bot and an external
@@ -1233,7 +1458,27 @@ class BotChannelAssociation {
     this.failureReason,
   });
   static BotChannelAssociation fromJson(Map<String, dynamic> json) =>
-      BotChannelAssociation();
+      BotChannelAssociation(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        botAlias:
+            json.containsKey('botAlias') ? json['botAlias'] as String : null,
+        botName: json.containsKey('botName') ? json['botName'] as String : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        botConfiguration: json.containsKey('botConfiguration')
+            ? (json['botConfiguration'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 /// Provides information about a bot. .
@@ -1265,7 +1510,20 @@ class BotMetadata {
     this.createdDate,
     this.version,
   });
-  static BotMetadata fromJson(Map<String, dynamic> json) => BotMetadata();
+  static BotMetadata fromJson(Map<String, dynamic> json) => BotMetadata(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+      );
 }
 
 /// Provides metadata for a built-in intent.
@@ -1284,7 +1542,15 @@ class BuiltinIntentMetadata {
     this.supportedLocales,
   });
   static BuiltinIntentMetadata fromJson(Map<String, dynamic> json) =>
-      BuiltinIntentMetadata();
+      BuiltinIntentMetadata(
+        signature:
+            json.containsKey('signature') ? json['signature'] as String : null,
+        supportedLocales: json.containsKey('supportedLocales')
+            ? (json['supportedLocales'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Provides information about a slot used in a built-in intent.
@@ -1296,7 +1562,9 @@ class BuiltinIntentSlot {
     this.name,
   });
   static BuiltinIntentSlot fromJson(Map<String, dynamic> json) =>
-      BuiltinIntentSlot();
+      BuiltinIntentSlot(
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
 }
 
 /// Provides information about a built in slot type.
@@ -1315,7 +1583,15 @@ class BuiltinSlotTypeMetadata {
     this.supportedLocales,
   });
   static BuiltinSlotTypeMetadata fromJson(Map<String, dynamic> json) =>
-      BuiltinSlotTypeMetadata();
+      BuiltinSlotTypeMetadata(
+        signature:
+            json.containsKey('signature') ? json['signature'] as String : null,
+        supportedLocales: json.containsKey('supportedLocales')
+            ? (json['supportedLocales'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Specifies a Lambda function that verifies requests to a bot or fulfills the
@@ -1332,7 +1608,11 @@ class CodeHook {
     @required this.uri,
     @required this.messageVersion,
   });
-  static CodeHook fromJson(Map<String, dynamic> json) => CodeHook();
+  static CodeHook fromJson(Map<String, dynamic> json) => CodeHook(
+        uri: json['uri'] as String,
+        messageVersion: json['messageVersion'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateBotVersionResponse {
@@ -1432,7 +1712,42 @@ class CreateBotVersionResponse {
     this.childDirected,
   });
   static CreateBotVersionResponse fromJson(Map<String, dynamic> json) =>
-      CreateBotVersionResponse();
+      CreateBotVersionResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        intents: json.containsKey('intents')
+            ? (json['intents'] as List).map((e) => Intent.fromJson(e)).toList()
+            : null,
+        clarificationPrompt: json.containsKey('clarificationPrompt')
+            ? Prompt.fromJson(json['clarificationPrompt'])
+            : null,
+        abortStatement: json.containsKey('abortStatement')
+            ? Statement.fromJson(json['abortStatement'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        idleSessionTtlInSeconds: json.containsKey('idleSessionTTLInSeconds')
+            ? json['idleSessionTTLInSeconds'] as int
+            : null,
+        voiceId: json.containsKey('voiceId') ? json['voiceId'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        locale: json.containsKey('locale') ? json['locale'] as String : null,
+        childDirected: json.containsKey('childDirected')
+            ? json['childDirected'] as bool
+            : null,
+      );
 }
 
 class CreateIntentVersionResponse {
@@ -1505,7 +1820,50 @@ class CreateIntentVersionResponse {
     this.checksum,
   });
   static CreateIntentVersionResponse fromJson(Map<String, dynamic> json) =>
-      CreateIntentVersionResponse();
+      CreateIntentVersionResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        slots: json.containsKey('slots')
+            ? (json['slots'] as List).map((e) => Slot.fromJson(e)).toList()
+            : null,
+        sampleUtterances: json.containsKey('sampleUtterances')
+            ? (json['sampleUtterances'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        confirmationPrompt: json.containsKey('confirmationPrompt')
+            ? Prompt.fromJson(json['confirmationPrompt'])
+            : null,
+        rejectionStatement: json.containsKey('rejectionStatement')
+            ? Statement.fromJson(json['rejectionStatement'])
+            : null,
+        followUpPrompt: json.containsKey('followUpPrompt')
+            ? FollowUpPrompt.fromJson(json['followUpPrompt'])
+            : null,
+        conclusionStatement: json.containsKey('conclusionStatement')
+            ? Statement.fromJson(json['conclusionStatement'])
+            : null,
+        dialogCodeHook: json.containsKey('dialogCodeHook')
+            ? CodeHook.fromJson(json['dialogCodeHook'])
+            : null,
+        fulfillmentActivity: json.containsKey('fulfillmentActivity')
+            ? FulfillmentActivity.fromJson(json['fulfillmentActivity'])
+            : null,
+        parentIntentSignature: json.containsKey('parentIntentSignature')
+            ? json['parentIntentSignature'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+      );
 }
 
 class CreateSlotTypeVersionResponse {
@@ -1547,7 +1905,29 @@ class CreateSlotTypeVersionResponse {
     this.valueSelectionStrategy,
   });
   static CreateSlotTypeVersionResponse fromJson(Map<String, dynamic> json) =>
-      CreateSlotTypeVersionResponse();
+      CreateSlotTypeVersionResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        enumerationValues: json.containsKey('enumerationValues')
+            ? (json['enumerationValues'] as List)
+                .map((e) => EnumerationValue.fromJson(e))
+                .toList()
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+        valueSelectionStrategy: json.containsKey('valueSelectionStrategy')
+            ? json['valueSelectionStrategy'] as String
+            : null,
+      );
 }
 
 /// Each slot type can have a set of values. Each enumeration value represents a
@@ -1574,7 +1954,13 @@ class EnumerationValue {
     this.synonyms,
   });
   static EnumerationValue fromJson(Map<String, dynamic> json) =>
-      EnumerationValue();
+      EnumerationValue(
+        value: json['value'] as String,
+        synonyms: json.containsKey('synonyms')
+            ? (json['synonyms'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A prompt for additional activity after an intent is fulfilled. For example,
@@ -1593,7 +1979,11 @@ class FollowUpPrompt {
     @required this.prompt,
     @required this.rejectionStatement,
   });
-  static FollowUpPrompt fromJson(Map<String, dynamic> json) => FollowUpPrompt();
+  static FollowUpPrompt fromJson(Map<String, dynamic> json) => FollowUpPrompt(
+        prompt: Prompt.fromJson(json['prompt']),
+        rejectionStatement: Statement.fromJson(json['rejectionStatement']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Describes how the intent is fulfilled after the user provides all of the
@@ -1627,7 +2017,13 @@ class FulfillmentActivity {
     this.codeHook,
   });
   static FulfillmentActivity fromJson(Map<String, dynamic> json) =>
-      FulfillmentActivity();
+      FulfillmentActivity(
+        type: json['type'] as String,
+        codeHook: json.containsKey('codeHook')
+            ? CodeHook.fromJson(json['codeHook'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetBotAliasResponse {
@@ -1663,7 +2059,24 @@ class GetBotAliasResponse {
     this.checksum,
   });
   static GetBotAliasResponse fromJson(Map<String, dynamic> json) =>
-      GetBotAliasResponse();
+      GetBotAliasResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        botVersion: json.containsKey('botVersion')
+            ? json['botVersion'] as String
+            : null,
+        botName: json.containsKey('botName') ? json['botName'] as String : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+      );
 }
 
 class GetBotAliasesResponse {
@@ -1681,7 +2094,15 @@ class GetBotAliasesResponse {
     this.nextToken,
   });
   static GetBotAliasesResponse fromJson(Map<String, dynamic> json) =>
-      GetBotAliasesResponse();
+      GetBotAliasesResponse(
+        botAliases: json.containsKey('BotAliases')
+            ? (json['BotAliases'] as List)
+                .map((e) => BotAliasMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetBotChannelAssociationResponse {
@@ -1734,7 +2155,27 @@ class GetBotChannelAssociationResponse {
     this.failureReason,
   });
   static GetBotChannelAssociationResponse fromJson(Map<String, dynamic> json) =>
-      GetBotChannelAssociationResponse();
+      GetBotChannelAssociationResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        botAlias:
+            json.containsKey('botAlias') ? json['botAlias'] as String : null,
+        botName: json.containsKey('botName') ? json['botName'] as String : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        botConfiguration: json.containsKey('botConfiguration')
+            ? (json['botConfiguration'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+      );
 }
 
 class GetBotChannelAssociationsResponse {
@@ -1754,7 +2195,15 @@ class GetBotChannelAssociationsResponse {
   });
   static GetBotChannelAssociationsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetBotChannelAssociationsResponse();
+      GetBotChannelAssociationsResponse(
+        botChannelAssociations: json.containsKey('botChannelAssociations')
+            ? (json['botChannelAssociations'] as List)
+                .map((e) => BotChannelAssociation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetBotResponse {
@@ -1854,7 +2303,42 @@ class GetBotResponse {
     this.locale,
     this.childDirected,
   });
-  static GetBotResponse fromJson(Map<String, dynamic> json) => GetBotResponse();
+  static GetBotResponse fromJson(Map<String, dynamic> json) => GetBotResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        intents: json.containsKey('intents')
+            ? (json['intents'] as List).map((e) => Intent.fromJson(e)).toList()
+            : null,
+        clarificationPrompt: json.containsKey('clarificationPrompt')
+            ? Prompt.fromJson(json['clarificationPrompt'])
+            : null,
+        abortStatement: json.containsKey('abortStatement')
+            ? Statement.fromJson(json['abortStatement'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        idleSessionTtlInSeconds: json.containsKey('idleSessionTTLInSeconds')
+            ? json['idleSessionTTLInSeconds'] as int
+            : null,
+        voiceId: json.containsKey('voiceId') ? json['voiceId'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        locale: json.containsKey('locale') ? json['locale'] as String : null,
+        childDirected: json.containsKey('childDirected')
+            ? json['childDirected'] as bool
+            : null,
+      );
 }
 
 class GetBotVersionsResponse {
@@ -1873,7 +2357,15 @@ class GetBotVersionsResponse {
     this.nextToken,
   });
   static GetBotVersionsResponse fromJson(Map<String, dynamic> json) =>
-      GetBotVersionsResponse();
+      GetBotVersionsResponse(
+        bots: json.containsKey('bots')
+            ? (json['bots'] as List)
+                .map((e) => BotMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetBotsResponse {
@@ -1888,8 +2380,15 @@ class GetBotsResponse {
     this.bots,
     this.nextToken,
   });
-  static GetBotsResponse fromJson(Map<String, dynamic> json) =>
-      GetBotsResponse();
+  static GetBotsResponse fromJson(Map<String, dynamic> json) => GetBotsResponse(
+        bots: json.containsKey('bots')
+            ? (json['bots'] as List)
+                .map((e) => BotMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetBuiltinIntentResponse {
@@ -1909,7 +2408,20 @@ class GetBuiltinIntentResponse {
     this.slots,
   });
   static GetBuiltinIntentResponse fromJson(Map<String, dynamic> json) =>
-      GetBuiltinIntentResponse();
+      GetBuiltinIntentResponse(
+        signature:
+            json.containsKey('signature') ? json['signature'] as String : null,
+        supportedLocales: json.containsKey('supportedLocales')
+            ? (json['supportedLocales'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        slots: json.containsKey('slots')
+            ? (json['slots'] as List)
+                .map((e) => BuiltinIntentSlot.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetBuiltinIntentsResponse {
@@ -1928,7 +2440,15 @@ class GetBuiltinIntentsResponse {
     this.nextToken,
   });
   static GetBuiltinIntentsResponse fromJson(Map<String, dynamic> json) =>
-      GetBuiltinIntentsResponse();
+      GetBuiltinIntentsResponse(
+        intents: json.containsKey('intents')
+            ? (json['intents'] as List)
+                .map((e) => BuiltinIntentMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetBuiltinSlotTypesResponse {
@@ -1946,7 +2466,15 @@ class GetBuiltinSlotTypesResponse {
     this.nextToken,
   });
   static GetBuiltinSlotTypesResponse fromJson(Map<String, dynamic> json) =>
-      GetBuiltinSlotTypesResponse();
+      GetBuiltinSlotTypesResponse(
+        slotTypes: json.containsKey('slotTypes')
+            ? (json['slotTypes'] as List)
+                .map((e) => BuiltinSlotTypeMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetExportResponse {
@@ -1991,7 +2519,23 @@ class GetExportResponse {
     this.url,
   });
   static GetExportResponse fromJson(Map<String, dynamic> json) =>
-      GetExportResponse();
+      GetExportResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        exportType: json.containsKey('exportType')
+            ? json['exportType'] as String
+            : null,
+        exportStatus: json.containsKey('exportStatus')
+            ? json['exportStatus'] as String
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        url: json.containsKey('url') ? json['url'] as String : null,
+      );
 }
 
 class GetImportResponse {
@@ -2028,7 +2572,26 @@ class GetImportResponse {
     this.createdDate,
   });
   static GetImportResponse fromJson(Map<String, dynamic> json) =>
-      GetImportResponse();
+      GetImportResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        mergeStrategy: json.containsKey('mergeStrategy')
+            ? json['mergeStrategy'] as String
+            : null,
+        importId:
+            json.containsKey('importId') ? json['importId'] as String : null,
+        importStatus: json.containsKey('importStatus')
+            ? json['importStatus'] as String
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? (json['failureReason'] as List).map((e) => e as String).toList()
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+      );
 }
 
 class GetIntentResponse {
@@ -2104,7 +2667,50 @@ class GetIntentResponse {
     this.checksum,
   });
   static GetIntentResponse fromJson(Map<String, dynamic> json) =>
-      GetIntentResponse();
+      GetIntentResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        slots: json.containsKey('slots')
+            ? (json['slots'] as List).map((e) => Slot.fromJson(e)).toList()
+            : null,
+        sampleUtterances: json.containsKey('sampleUtterances')
+            ? (json['sampleUtterances'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        confirmationPrompt: json.containsKey('confirmationPrompt')
+            ? Prompt.fromJson(json['confirmationPrompt'])
+            : null,
+        rejectionStatement: json.containsKey('rejectionStatement')
+            ? Statement.fromJson(json['rejectionStatement'])
+            : null,
+        followUpPrompt: json.containsKey('followUpPrompt')
+            ? FollowUpPrompt.fromJson(json['followUpPrompt'])
+            : null,
+        conclusionStatement: json.containsKey('conclusionStatement')
+            ? Statement.fromJson(json['conclusionStatement'])
+            : null,
+        dialogCodeHook: json.containsKey('dialogCodeHook')
+            ? CodeHook.fromJson(json['dialogCodeHook'])
+            : null,
+        fulfillmentActivity: json.containsKey('fulfillmentActivity')
+            ? FulfillmentActivity.fromJson(json['fulfillmentActivity'])
+            : null,
+        parentIntentSignature: json.containsKey('parentIntentSignature')
+            ? json['parentIntentSignature'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+      );
 }
 
 class GetIntentVersionsResponse {
@@ -2123,7 +2729,15 @@ class GetIntentVersionsResponse {
     this.nextToken,
   });
   static GetIntentVersionsResponse fromJson(Map<String, dynamic> json) =>
-      GetIntentVersionsResponse();
+      GetIntentVersionsResponse(
+        intents: json.containsKey('intents')
+            ? (json['intents'] as List)
+                .map((e) => IntentMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetIntentsResponse {
@@ -2140,7 +2754,15 @@ class GetIntentsResponse {
     this.nextToken,
   });
   static GetIntentsResponse fromJson(Map<String, dynamic> json) =>
-      GetIntentsResponse();
+      GetIntentsResponse(
+        intents: json.containsKey('intents')
+            ? (json['intents'] as List)
+                .map((e) => IntentMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetSlotTypeResponse {
@@ -2182,7 +2804,29 @@ class GetSlotTypeResponse {
     this.valueSelectionStrategy,
   });
   static GetSlotTypeResponse fromJson(Map<String, dynamic> json) =>
-      GetSlotTypeResponse();
+      GetSlotTypeResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        enumerationValues: json.containsKey('enumerationValues')
+            ? (json['enumerationValues'] as List)
+                .map((e) => EnumerationValue.fromJson(e))
+                .toList()
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+        valueSelectionStrategy: json.containsKey('valueSelectionStrategy')
+            ? json['valueSelectionStrategy'] as String
+            : null,
+      );
 }
 
 class GetSlotTypeVersionsResponse {
@@ -2201,7 +2845,15 @@ class GetSlotTypeVersionsResponse {
     this.nextToken,
   });
   static GetSlotTypeVersionsResponse fromJson(Map<String, dynamic> json) =>
-      GetSlotTypeVersionsResponse();
+      GetSlotTypeVersionsResponse(
+        slotTypes: json.containsKey('slotTypes')
+            ? (json['slotTypes'] as List)
+                .map((e) => SlotTypeMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetSlotTypesResponse {
@@ -2218,7 +2870,15 @@ class GetSlotTypesResponse {
     this.nextToken,
   });
   static GetSlotTypesResponse fromJson(Map<String, dynamic> json) =>
-      GetSlotTypesResponse();
+      GetSlotTypesResponse(
+        slotTypes: json.containsKey('slotTypes')
+            ? (json['slotTypes'] as List)
+                .map((e) => SlotTypeMetadata.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetUtterancesViewResponse {
@@ -2236,7 +2896,14 @@ class GetUtterancesViewResponse {
     this.utterances,
   });
   static GetUtterancesViewResponse fromJson(Map<String, dynamic> json) =>
-      GetUtterancesViewResponse();
+      GetUtterancesViewResponse(
+        botName: json.containsKey('botName') ? json['botName'] as String : null,
+        utterances: json.containsKey('utterances')
+            ? (json['utterances'] as List)
+                .map((e) => UtteranceList.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Identifies the specific version of an intent.
@@ -2251,7 +2918,11 @@ class Intent {
     @required this.intentName,
     @required this.intentVersion,
   });
-  static Intent fromJson(Map<String, dynamic> json) => Intent();
+  static Intent fromJson(Map<String, dynamic> json) => Intent(
+        intentName: json['intentName'] as String,
+        intentVersion: json['intentVersion'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about an intent.
@@ -2279,7 +2950,19 @@ class IntentMetadata {
     this.createdDate,
     this.version,
   });
-  static IntentMetadata fromJson(Map<String, dynamic> json) => IntentMetadata();
+  static IntentMetadata fromJson(Map<String, dynamic> json) => IntentMetadata(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+      );
 }
 
 /// The message object that provides the message text and its type.
@@ -2300,7 +2983,13 @@ class Message {
     @required this.content,
     this.groupNumber,
   });
-  static Message fromJson(Map<String, dynamic> json) => Message();
+  static Message fromJson(Map<String, dynamic> json) => Message(
+        contentType: json['contentType'] as String,
+        content: json['content'] as String,
+        groupNumber:
+            json.containsKey('groupNumber') ? json['groupNumber'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Obtains information from the user. To define a prompt, provide one or more
@@ -2326,7 +3015,15 @@ class Prompt {
     @required this.maxAttempts,
     this.responseCard,
   });
-  static Prompt fromJson(Map<String, dynamic> json) => Prompt();
+  static Prompt fromJson(Map<String, dynamic> json) => Prompt(
+        messages:
+            (json['messages'] as List).map((e) => Message.fromJson(e)).toList(),
+        maxAttempts: json['maxAttempts'] as int,
+        responseCard: json.containsKey('responseCard')
+            ? json['responseCard'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutBotAliasResponse {
@@ -2362,7 +3059,24 @@ class PutBotAliasResponse {
     this.checksum,
   });
   static PutBotAliasResponse fromJson(Map<String, dynamic> json) =>
-      PutBotAliasResponse();
+      PutBotAliasResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        botVersion: json.containsKey('botVersion')
+            ? json['botVersion'] as String
+            : null,
+        botName: json.containsKey('botName') ? json['botName'] as String : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+      );
 }
 
 class PutBotResponse {
@@ -2469,7 +3183,45 @@ class PutBotResponse {
     this.childDirected,
     this.createVersion,
   });
-  static PutBotResponse fromJson(Map<String, dynamic> json) => PutBotResponse();
+  static PutBotResponse fromJson(Map<String, dynamic> json) => PutBotResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        intents: json.containsKey('intents')
+            ? (json['intents'] as List).map((e) => Intent.fromJson(e)).toList()
+            : null,
+        clarificationPrompt: json.containsKey('clarificationPrompt')
+            ? Prompt.fromJson(json['clarificationPrompt'])
+            : null,
+        abortStatement: json.containsKey('abortStatement')
+            ? Statement.fromJson(json['abortStatement'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        idleSessionTtlInSeconds: json.containsKey('idleSessionTTLInSeconds')
+            ? json['idleSessionTTLInSeconds'] as int
+            : null,
+        voiceId: json.containsKey('voiceId') ? json['voiceId'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        locale: json.containsKey('locale') ? json['locale'] as String : null,
+        childDirected: json.containsKey('childDirected')
+            ? json['childDirected'] as bool
+            : null,
+        createVersion: json.containsKey('createVersion')
+            ? json['createVersion'] as bool
+            : null,
+      );
 }
 
 class PutIntentResponse {
@@ -2549,7 +3301,53 @@ class PutIntentResponse {
     this.createVersion,
   });
   static PutIntentResponse fromJson(Map<String, dynamic> json) =>
-      PutIntentResponse();
+      PutIntentResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        slots: json.containsKey('slots')
+            ? (json['slots'] as List).map((e) => Slot.fromJson(e)).toList()
+            : null,
+        sampleUtterances: json.containsKey('sampleUtterances')
+            ? (json['sampleUtterances'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        confirmationPrompt: json.containsKey('confirmationPrompt')
+            ? Prompt.fromJson(json['confirmationPrompt'])
+            : null,
+        rejectionStatement: json.containsKey('rejectionStatement')
+            ? Statement.fromJson(json['rejectionStatement'])
+            : null,
+        followUpPrompt: json.containsKey('followUpPrompt')
+            ? FollowUpPrompt.fromJson(json['followUpPrompt'])
+            : null,
+        conclusionStatement: json.containsKey('conclusionStatement')
+            ? Statement.fromJson(json['conclusionStatement'])
+            : null,
+        dialogCodeHook: json.containsKey('dialogCodeHook')
+            ? CodeHook.fromJson(json['dialogCodeHook'])
+            : null,
+        fulfillmentActivity: json.containsKey('fulfillmentActivity')
+            ? FulfillmentActivity.fromJson(json['fulfillmentActivity'])
+            : null,
+        parentIntentSignature: json.containsKey('parentIntentSignature')
+            ? json['parentIntentSignature'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+        createVersion: json.containsKey('createVersion')
+            ? json['createVersion'] as bool
+            : null,
+      );
 }
 
 class PutSlotTypeResponse {
@@ -2595,7 +3393,32 @@ class PutSlotTypeResponse {
     this.createVersion,
   });
   static PutSlotTypeResponse fromJson(Map<String, dynamic> json) =>
-      PutSlotTypeResponse();
+      PutSlotTypeResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        enumerationValues: json.containsKey('enumerationValues')
+            ? (json['enumerationValues'] as List)
+                .map((e) => EnumerationValue.fromJson(e))
+                .toList()
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        checksum:
+            json.containsKey('checksum') ? json['checksum'] as String : null,
+        valueSelectionStrategy: json.containsKey('valueSelectionStrategy')
+            ? json['valueSelectionStrategy'] as String
+            : null,
+        createVersion: json.containsKey('createVersion')
+            ? json['createVersion'] as bool
+            : null,
+      );
 }
 
 /// Identifies the version of a specific slot.
@@ -2649,7 +3472,31 @@ class Slot {
     this.sampleUtterances,
     this.responseCard,
   });
-  static Slot fromJson(Map<String, dynamic> json) => Slot();
+  static Slot fromJson(Map<String, dynamic> json) => Slot(
+        name: json['name'] as String,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        slotConstraint: json['slotConstraint'] as String,
+        slotType:
+            json.containsKey('slotType') ? json['slotType'] as String : null,
+        slotTypeVersion: json.containsKey('slotTypeVersion')
+            ? json['slotTypeVersion'] as String
+            : null,
+        valueElicitationPrompt: json.containsKey('valueElicitationPrompt')
+            ? Prompt.fromJson(json['valueElicitationPrompt'])
+            : null,
+        priority: json.containsKey('priority') ? json['priority'] as int : null,
+        sampleUtterances: json.containsKey('sampleUtterances')
+            ? (json['sampleUtterances'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        responseCard: json.containsKey('responseCard')
+            ? json['responseCard'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a slot type..
@@ -2678,7 +3525,19 @@ class SlotTypeMetadata {
     this.version,
   });
   static SlotTypeMetadata fromJson(Map<String, dynamic> json) =>
-      SlotTypeMetadata();
+      SlotTypeMetadata(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        lastUpdatedDate: json.containsKey('lastUpdatedDate')
+            ? DateTime.parse(json['lastUpdatedDate'])
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+      );
 }
 
 class StartImportResponse {
@@ -2710,7 +3569,23 @@ class StartImportResponse {
     this.createdDate,
   });
   static StartImportResponse fromJson(Map<String, dynamic> json) =>
-      StartImportResponse();
+      StartImportResponse(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        mergeStrategy: json.containsKey('mergeStrategy')
+            ? json['mergeStrategy'] as String
+            : null,
+        importId:
+            json.containsKey('importId') ? json['importId'] as String : null,
+        importStatus: json.containsKey('importStatus')
+            ? json['importStatus'] as String
+            : null,
+        createdDate: json.containsKey('createdDate')
+            ? DateTime.parse(json['createdDate'])
+            : null,
+      );
 }
 
 /// A collection of messages that convey information to the user. At runtime,
@@ -2730,7 +3605,14 @@ class Statement {
     @required this.messages,
     this.responseCard,
   });
-  static Statement fromJson(Map<String, dynamic> json) => Statement();
+  static Statement fromJson(Map<String, dynamic> json) => Statement(
+        messages:
+            (json['messages'] as List).map((e) => Message.fromJson(e)).toList(),
+        responseCard: json.containsKey('responseCard')
+            ? json['responseCard'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a single utterance that was made to your bot.
@@ -2758,7 +3640,21 @@ class UtteranceData {
     this.firstUtteredDate,
     this.lastUtteredDate,
   });
-  static UtteranceData fromJson(Map<String, dynamic> json) => UtteranceData();
+  static UtteranceData fromJson(Map<String, dynamic> json) => UtteranceData(
+        utteranceString: json.containsKey('utteranceString')
+            ? json['utteranceString'] as String
+            : null,
+        count: json.containsKey('count') ? json['count'] as int : null,
+        distinctUsers: json.containsKey('distinctUsers')
+            ? json['distinctUsers'] as int
+            : null,
+        firstUtteredDate: json.containsKey('firstUtteredDate')
+            ? DateTime.parse(json['firstUtteredDate'])
+            : null,
+        lastUtteredDate: json.containsKey('lastUtteredDate')
+            ? DateTime.parse(json['lastUtteredDate'])
+            : null,
+      );
 }
 
 /// Provides a list of utterances that have been made to a specific version of
@@ -2776,5 +3672,14 @@ class UtteranceList {
     this.botVersion,
     this.utterances,
   });
-  static UtteranceList fromJson(Map<String, dynamic> json) => UtteranceList();
+  static UtteranceList fromJson(Map<String, dynamic> json) => UtteranceList(
+        botVersion: json.containsKey('botVersion')
+            ? json['botVersion'] as String
+            : null,
+        utterances: json.containsKey('utterances')
+            ? (json['utterances'] as List)
+                .map((e) => UtteranceData.fromJson(e))
+                .toList()
+            : null,
+      );
 }

@@ -2,13 +2,20 @@ import 'package:meta/meta.dart';
 
 /// AWS Elemental MediaConvert
 class MediaConvertApi {
+  final _client;
+  MediaConvertApi(client)
+      : _client = client.configured('MediaConvert', serializer: 'rest-json');
+
   /// Associates an AWS Certificate Manager (ACM) Amazon Resource Name (ARN)
   /// with AWS Elemental MediaConvert.
   ///
   /// [arn]: The ARN of the ACM certificate that you want to associate with your
   /// MediaConvert resource.
   Future<AssociateCertificateResponse> associateCertificate(String arn) async {
-    return AssociateCertificateResponse.fromJson({});
+    var response_ = await _client.send('AssociateCertificate', {
+      'Arn': arn,
+    });
+    return AssociateCertificateResponse.fromJson(response_);
   }
 
   /// Permanently cancel a job. Once you have canceled a job, you can't start it
@@ -16,7 +23,10 @@ class MediaConvertApi {
   ///
   /// [id]: The Job ID of the job to be cancelled.
   Future<CancelJobResponse> cancelJob(String id) async {
-    return CancelJobResponse.fromJson({});
+    var response_ = await _client.send('CancelJob', {
+      'Id': id,
+    });
+    return CancelJobResponse.fromJson(response_);
   }
 
   /// Create a new transcoding job. For information about jobs and job settings,
@@ -83,7 +93,23 @@ class MediaConvertApi {
       String simulateReservedQueue,
       String statusUpdateInterval,
       Map<String, String> userMetadata}) async {
-    return CreateJobResponse.fromJson({});
+    var response_ = await _client.send('CreateJob', {
+      if (accelerationSettings != null)
+        'AccelerationSettings': accelerationSettings,
+      if (billingTagsSource != null) 'BillingTagsSource': billingTagsSource,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (jobTemplate != null) 'JobTemplate': jobTemplate,
+      if (priority != null) 'Priority': priority,
+      if (queue != null) 'Queue': queue,
+      'Role': role,
+      'Settings': settings,
+      if (simulateReservedQueue != null)
+        'SimulateReservedQueue': simulateReservedQueue,
+      if (statusUpdateInterval != null)
+        'StatusUpdateInterval': statusUpdateInterval,
+      if (userMetadata != null) 'UserMetadata': userMetadata,
+    });
+    return CreateJobResponse.fromJson(response_);
   }
 
   /// Create a new job template. For information about job templates see the
@@ -132,7 +158,20 @@ class MediaConvertApi {
       @required JobTemplateSettings settings,
       String statusUpdateInterval,
       Map<String, String> tags}) async {
-    return CreateJobTemplateResponse.fromJson({});
+    var response_ = await _client.send('CreateJobTemplate', {
+      if (accelerationSettings != null)
+        'AccelerationSettings': accelerationSettings,
+      if (category != null) 'Category': category,
+      if (description != null) 'Description': description,
+      'Name': name,
+      if (priority != null) 'Priority': priority,
+      if (queue != null) 'Queue': queue,
+      'Settings': settings,
+      if (statusUpdateInterval != null)
+        'StatusUpdateInterval': statusUpdateInterval,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateJobTemplateResponse.fromJson(response_);
   }
 
   /// Create a new preset. For information about job templates see the User
@@ -154,7 +193,14 @@ class MediaConvertApi {
       @required String name,
       @required PresetSettings settings,
       Map<String, String> tags}) async {
-    return CreatePresetResponse.fromJson({});
+    var response_ = await _client.send('CreatePreset', {
+      if (category != null) 'Category': category,
+      if (description != null) 'Description': description,
+      'Name': name,
+      'Settings': settings,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreatePresetResponse.fromJson(response_);
   }
 
   /// Create a new transcoding queue. For information about queues, see Working
@@ -187,28 +233,46 @@ class MediaConvertApi {
       ReservationPlanSettings reservationPlanSettings,
       String status,
       Map<String, String> tags}) async {
-    return CreateQueueResponse.fromJson({});
+    var response_ = await _client.send('CreateQueue', {
+      if (description != null) 'Description': description,
+      'Name': name,
+      if (pricingPlan != null) 'PricingPlan': pricingPlan,
+      if (reservationPlanSettings != null)
+        'ReservationPlanSettings': reservationPlanSettings,
+      if (status != null) 'Status': status,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateQueueResponse.fromJson(response_);
   }
 
   /// Permanently delete a job template you have created.
   ///
   /// [name]: The name of the job template to be deleted.
   Future<DeleteJobTemplateResponse> deleteJobTemplate(String name) async {
-    return DeleteJobTemplateResponse.fromJson({});
+    var response_ = await _client.send('DeleteJobTemplate', {
+      'Name': name,
+    });
+    return DeleteJobTemplateResponse.fromJson(response_);
   }
 
   /// Permanently delete a preset you have created.
   ///
   /// [name]: The name of the preset to be deleted.
   Future<DeletePresetResponse> deletePreset(String name) async {
-    return DeletePresetResponse.fromJson({});
+    var response_ = await _client.send('DeletePreset', {
+      'Name': name,
+    });
+    return DeletePresetResponse.fromJson(response_);
   }
 
   /// Permanently delete a queue you have created.
   ///
   /// [name]: The name of the queue that you want to delete.
   Future<DeleteQueueResponse> deleteQueue(String name) async {
-    return DeleteQueueResponse.fromJson({});
+    var response_ = await _client.send('DeleteQueue', {
+      'Name': name,
+    });
+    return DeleteQueueResponse.fromJson(response_);
   }
 
   /// Send an request with an empty body to the regional API endpoint to get
@@ -226,7 +290,12 @@ class MediaConvertApi {
   /// request, to request the next batch of endpoints.
   Future<DescribeEndpointsResponse> describeEndpoints(
       {int maxResults, String mode, String nextToken}) async {
-    return DescribeEndpointsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEndpoints', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (mode != null) 'Mode': mode,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeEndpointsResponse.fromJson(response_);
   }
 
   /// Removes an association between the Amazon Resource Name (ARN) of an AWS
@@ -237,35 +306,50 @@ class MediaConvertApi {
   /// your MediaConvert resource.
   Future<DisassociateCertificateResponse> disassociateCertificate(
       String arn) async {
-    return DisassociateCertificateResponse.fromJson({});
+    var response_ = await _client.send('DisassociateCertificate', {
+      'Arn': arn,
+    });
+    return DisassociateCertificateResponse.fromJson(response_);
   }
 
   /// Retrieve the JSON for a specific completed transcoding job.
   ///
   /// [id]: the job ID of the job.
   Future<GetJobResponse> getJob(String id) async {
-    return GetJobResponse.fromJson({});
+    var response_ = await _client.send('GetJob', {
+      'Id': id,
+    });
+    return GetJobResponse.fromJson(response_);
   }
 
   /// Retrieve the JSON for a specific job template.
   ///
   /// [name]: The name of the job template.
   Future<GetJobTemplateResponse> getJobTemplate(String name) async {
-    return GetJobTemplateResponse.fromJson({});
+    var response_ = await _client.send('GetJobTemplate', {
+      'Name': name,
+    });
+    return GetJobTemplateResponse.fromJson(response_);
   }
 
   /// Retrieve the JSON for a specific preset.
   ///
   /// [name]: The name of the preset.
   Future<GetPresetResponse> getPreset(String name) async {
-    return GetPresetResponse.fromJson({});
+    var response_ = await _client.send('GetPreset', {
+      'Name': name,
+    });
+    return GetPresetResponse.fromJson(response_);
   }
 
   /// Retrieve the JSON for a specific queue.
   ///
   /// [name]: The name of the queue that you want information about.
   Future<GetQueueResponse> getQueue(String name) async {
-    return GetQueueResponse.fromJson({});
+    var response_ = await _client.send('GetQueue', {
+      'Name': name,
+    });
+    return GetQueueResponse.fromJson(response_);
   }
 
   /// Retrieve a JSON array of up to twenty of your job templates. This will
@@ -294,7 +378,14 @@ class MediaConvertApi {
       int maxResults,
       String nextToken,
       String order}) async {
-    return ListJobTemplatesResponse.fromJson({});
+    var response_ = await _client.send('ListJobTemplates', {
+      if (category != null) 'Category': category,
+      if (listBy != null) 'ListBy': listBy,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (order != null) 'Order': order,
+    });
+    return ListJobTemplatesResponse.fromJson(response_);
   }
 
   /// Retrieve a JSON array of up to twenty of your most recently created jobs.
@@ -323,7 +414,14 @@ class MediaConvertApi {
       String order,
       String queue,
       String status}) async {
-    return ListJobsResponse.fromJson({});
+    var response_ = await _client.send('ListJobs', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (order != null) 'Order': order,
+      if (queue != null) 'Queue': queue,
+      if (status != null) 'Status': status,
+    });
+    return ListJobsResponse.fromJson(response_);
   }
 
   /// Retrieve a JSON array of up to twenty of your presets. This will return
@@ -352,7 +450,14 @@ class MediaConvertApi {
       int maxResults,
       String nextToken,
       String order}) async {
-    return ListPresetsResponse.fromJson({});
+    var response_ = await _client.send('ListPresets', {
+      if (category != null) 'Category': category,
+      if (listBy != null) 'ListBy': listBy,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (order != null) 'Order': order,
+    });
+    return ListPresetsResponse.fromJson(response_);
   }
 
   /// Retrieve a JSON array of up to twenty of your queues. This will return the
@@ -374,7 +479,13 @@ class MediaConvertApi {
   /// by resource.
   Future<ListQueuesResponse> listQueues(
       {String listBy, int maxResults, String nextToken, String order}) async {
-    return ListQueuesResponse.fromJson({});
+    var response_ = await _client.send('ListQueues', {
+      if (listBy != null) 'ListBy': listBy,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (order != null) 'Order': order,
+    });
+    return ListQueuesResponse.fromJson(response_);
   }
 
   /// Retrieve the tags for a MediaConvert resource.
@@ -382,7 +493,10 @@ class MediaConvertApi {
   /// [arn]: The Amazon Resource Name (ARN) of the resource that you want to
   /// list tags for. To get the ARN, send a GET request with the resource name.
   Future<ListTagsForResourceResponse> listTagsForResource(String arn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'Arn': arn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Add tags to a MediaConvert queue, preset, or job template. For information
@@ -396,7 +510,11 @@ class MediaConvertApi {
   /// resources with a key-value pair or with only a key.
   Future<TagResourceResponse> tagResource(
       {@required String arn, @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'Arn': arn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Remove tags from a MediaConvert queue, preset, or job template. For
@@ -410,7 +528,11 @@ class MediaConvertApi {
   /// [tagKeys]: The keys of the tags that you want to remove from the resource.
   Future<UntagResourceResponse> untagResource(String arn,
       {List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'Arn': arn,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Modify one of your existing job templates.
@@ -451,7 +573,19 @@ class MediaConvertApi {
       String queue,
       JobTemplateSettings settings,
       String statusUpdateInterval}) async {
-    return UpdateJobTemplateResponse.fromJson({});
+    var response_ = await _client.send('UpdateJobTemplate', {
+      if (accelerationSettings != null)
+        'AccelerationSettings': accelerationSettings,
+      if (category != null) 'Category': category,
+      if (description != null) 'Description': description,
+      'Name': name,
+      if (priority != null) 'Priority': priority,
+      if (queue != null) 'Queue': queue,
+      if (settings != null) 'Settings': settings,
+      if (statusUpdateInterval != null)
+        'StatusUpdateInterval': statusUpdateInterval,
+    });
+    return UpdateJobTemplateResponse.fromJson(response_);
   }
 
   /// Modify one of your existing presets.
@@ -465,7 +599,13 @@ class MediaConvertApi {
   /// [settings]: Settings for preset
   Future<UpdatePresetResponse> updatePreset(String name,
       {String category, String description, PresetSettings settings}) async {
-    return UpdatePresetResponse.fromJson({});
+    var response_ = await _client.send('UpdatePreset', {
+      if (category != null) 'Category': category,
+      if (description != null) 'Description': description,
+      'Name': name,
+      if (settings != null) 'Settings': settings,
+    });
+    return UpdatePresetResponse.fromJson(response_);
   }
 
   /// Modify one of your existing queues.
@@ -489,7 +629,14 @@ class MediaConvertApi {
       {String description,
       ReservationPlanSettings reservationPlanSettings,
       String status}) async {
-    return UpdateQueueResponse.fromJson({});
+    var response_ = await _client.send('UpdateQueue', {
+      if (description != null) 'Description': description,
+      'Name': name,
+      if (reservationPlanSettings != null)
+        'ReservationPlanSettings': reservationPlanSettings,
+      if (status != null) 'Status': status,
+    });
+    return UpdateQueueResponse.fromJson(response_);
   }
 }
 
@@ -561,7 +708,33 @@ class AacSettings {
     this.specification,
     this.vbrQuality,
   });
-  static AacSettings fromJson(Map<String, dynamic> json) => AacSettings();
+  static AacSettings fromJson(Map<String, dynamic> json) => AacSettings(
+        audioDescriptionBroadcasterMix:
+            json.containsKey('AudioDescriptionBroadcasterMix')
+                ? json['AudioDescriptionBroadcasterMix'] as String
+                : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        codecProfile: json.containsKey('CodecProfile')
+            ? json['CodecProfile'] as String
+            : null,
+        codingMode: json.containsKey('CodingMode')
+            ? json['CodingMode'] as String
+            : null,
+        rateControlMode: json.containsKey('RateControlMode')
+            ? json['RateControlMode'] as String
+            : null,
+        rawFormat:
+            json.containsKey('RawFormat') ? json['RawFormat'] as String : null,
+        sampleRate:
+            json.containsKey('SampleRate') ? json['SampleRate'] as int : null,
+        specification: json.containsKey('Specification')
+            ? json['Specification'] as String
+            : null,
+        vbrQuality: json.containsKey('VbrQuality')
+            ? json['VbrQuality'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
@@ -610,7 +783,28 @@ class Ac3Settings {
     this.metadataControl,
     this.sampleRate,
   });
-  static Ac3Settings fromJson(Map<String, dynamic> json) => Ac3Settings();
+  static Ac3Settings fromJson(Map<String, dynamic> json) => Ac3Settings(
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        bitstreamMode: json.containsKey('BitstreamMode')
+            ? json['BitstreamMode'] as String
+            : null,
+        codingMode: json.containsKey('CodingMode')
+            ? json['CodingMode'] as String
+            : null,
+        dialnorm: json.containsKey('Dialnorm') ? json['Dialnorm'] as int : null,
+        dynamicRangeCompressionProfile:
+            json.containsKey('DynamicRangeCompressionProfile')
+                ? json['DynamicRangeCompressionProfile'] as String
+                : null,
+        lfeFilter:
+            json.containsKey('LfeFilter') ? json['LfeFilter'] as String : null,
+        metadataControl: json.containsKey('MetadataControl')
+            ? json['MetadataControl'] as String
+            : null,
+        sampleRate:
+            json.containsKey('SampleRate') ? json['SampleRate'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Accelerated transcoding can significantly speed up jobs with long, visually
@@ -625,7 +819,10 @@ class AccelerationSettings {
     @required this.mode,
   });
   static AccelerationSettings fromJson(Map<String, dynamic> json) =>
-      AccelerationSettings();
+      AccelerationSettings(
+        mode: json['Mode'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
@@ -648,7 +845,13 @@ class AiffSettings {
     this.channels,
     this.sampleRate,
   });
-  static AiffSettings fromJson(Map<String, dynamic> json) => AiffSettings();
+  static AiffSettings fromJson(Map<String, dynamic> json) => AiffSettings(
+        bitDepth: json.containsKey('BitDepth') ? json['BitDepth'] as int : null,
+        channels: json.containsKey('Channels') ? json['Channels'] as int : null,
+        sampleRate:
+            json.containsKey('SampleRate') ? json['SampleRate'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for ancillary captions source.
@@ -675,7 +878,19 @@ class AncillarySourceSettings {
     this.terminateCaptions,
   });
   static AncillarySourceSettings fromJson(Map<String, dynamic> json) =>
-      AncillarySourceSettings();
+      AncillarySourceSettings(
+        convert608To708: json.containsKey('Convert608To708')
+            ? json['Convert608To708'] as String
+            : null,
+        sourceAncillaryChannelNumber:
+            json.containsKey('SourceAncillaryChannelNumber')
+                ? json['SourceAncillaryChannelNumber'] as int
+                : null,
+        terminateCaptions: json.containsKey('TerminateCaptions')
+            ? json['TerminateCaptions'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class AssociateCertificateResponse {
@@ -739,7 +954,31 @@ class AudioCodecSettings {
     this.wavSettings,
   });
   static AudioCodecSettings fromJson(Map<String, dynamic> json) =>
-      AudioCodecSettings();
+      AudioCodecSettings(
+        aacSettings: json.containsKey('AacSettings')
+            ? AacSettings.fromJson(json['AacSettings'])
+            : null,
+        ac3Settings: json.containsKey('Ac3Settings')
+            ? Ac3Settings.fromJson(json['Ac3Settings'])
+            : null,
+        aiffSettings: json.containsKey('AiffSettings')
+            ? AiffSettings.fromJson(json['AiffSettings'])
+            : null,
+        codec: json.containsKey('Codec') ? json['Codec'] as String : null,
+        eac3AtmosSettings: json.containsKey('Eac3AtmosSettings')
+            ? Eac3AtmosSettings.fromJson(json['Eac3AtmosSettings'])
+            : null,
+        eac3Settings: json.containsKey('Eac3Settings')
+            ? Eac3Settings.fromJson(json['Eac3Settings'])
+            : null,
+        mp2Settings: json.containsKey('Mp2Settings')
+            ? Mp2Settings.fromJson(json['Mp2Settings'])
+            : null,
+        wavSettings: json.containsKey('WavSettings')
+            ? WavSettings.fromJson(json['WavSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Description of audio output
@@ -827,7 +1066,40 @@ class AudioDescription {
     this.streamName,
   });
   static AudioDescription fromJson(Map<String, dynamic> json) =>
-      AudioDescription();
+      AudioDescription(
+        audioNormalizationSettings:
+            json.containsKey('AudioNormalizationSettings')
+                ? AudioNormalizationSettings.fromJson(
+                    json['AudioNormalizationSettings'])
+                : null,
+        audioSourceName: json.containsKey('AudioSourceName')
+            ? json['AudioSourceName'] as String
+            : null,
+        audioType:
+            json.containsKey('AudioType') ? json['AudioType'] as int : null,
+        audioTypeControl: json.containsKey('AudioTypeControl')
+            ? json['AudioTypeControl'] as String
+            : null,
+        codecSettings: json.containsKey('CodecSettings')
+            ? AudioCodecSettings.fromJson(json['CodecSettings'])
+            : null,
+        customLanguageCode: json.containsKey('CustomLanguageCode')
+            ? json['CustomLanguageCode'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        languageCodeControl: json.containsKey('LanguageCodeControl')
+            ? json['LanguageCodeControl'] as String
+            : null,
+        remixSettings: json.containsKey('RemixSettings')
+            ? RemixSettings.fromJson(json['RemixSettings'])
+            : null,
+        streamName: json.containsKey('StreamName')
+            ? json['StreamName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Advanced audio normalization settings. Ignore these settings unless you need
@@ -878,7 +1150,26 @@ class AudioNormalizationSettings {
     this.targetLkfs,
   });
   static AudioNormalizationSettings fromJson(Map<String, dynamic> json) =>
-      AudioNormalizationSettings();
+      AudioNormalizationSettings(
+        algorithm:
+            json.containsKey('Algorithm') ? json['Algorithm'] as String : null,
+        algorithmControl: json.containsKey('AlgorithmControl')
+            ? json['AlgorithmControl'] as String
+            : null,
+        correctionGateLevel: json.containsKey('CorrectionGateLevel')
+            ? json['CorrectionGateLevel'] as int
+            : null,
+        loudnessLogging: json.containsKey('LoudnessLogging')
+            ? json['LoudnessLogging'] as String
+            : null,
+        peakCalculation: json.containsKey('PeakCalculation')
+            ? json['PeakCalculation'] as String
+            : null,
+        targetLkfs: json.containsKey('TargetLkfs')
+            ? json['TargetLkfs'] as double
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Selector for Audio
@@ -946,7 +1237,37 @@ class AudioSelector {
     this.selectorType,
     this.tracks,
   });
-  static AudioSelector fromJson(Map<String, dynamic> json) => AudioSelector();
+  static AudioSelector fromJson(Map<String, dynamic> json) => AudioSelector(
+        customLanguageCode: json.containsKey('CustomLanguageCode')
+            ? json['CustomLanguageCode'] as String
+            : null,
+        defaultSelection: json.containsKey('DefaultSelection')
+            ? json['DefaultSelection'] as String
+            : null,
+        externalAudioFileInput: json.containsKey('ExternalAudioFileInput')
+            ? json['ExternalAudioFileInput'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        offset: json.containsKey('Offset') ? json['Offset'] as int : null,
+        pids: json.containsKey('Pids')
+            ? (json['Pids'] as List).map((e) => e as int).toList()
+            : null,
+        programSelection: json.containsKey('ProgramSelection')
+            ? json['ProgramSelection'] as int
+            : null,
+        remixSettings: json.containsKey('RemixSettings')
+            ? RemixSettings.fromJson(json['RemixSettings'])
+            : null,
+        selectorType: json.containsKey('SelectorType')
+            ? json['SelectorType'] as String
+            : null,
+        tracks: json.containsKey('Tracks')
+            ? (json['Tracks'] as List).map((e) => e as int).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Group of Audio Selectors
@@ -961,7 +1282,14 @@ class AudioSelectorGroup {
     this.audioSelectorNames,
   });
   static AudioSelectorGroup fromJson(Map<String, dynamic> json) =>
-      AudioSelectorGroup();
+      AudioSelectorGroup(
+        audioSelectorNames: json.containsKey('AudioSelectorNames')
+            ? (json['AudioSelectorNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for Avail Blanking
@@ -973,7 +1301,12 @@ class AvailBlanking {
   AvailBlanking({
     this.availBlankingImage,
   });
-  static AvailBlanking fromJson(Map<String, dynamic> json) => AvailBlanking();
+  static AvailBlanking fromJson(Map<String, dynamic> json) => AvailBlanking(
+        availBlankingImage: json.containsKey('AvailBlankingImage')
+            ? json['AvailBlankingImage'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Burn-In Destination Settings.
@@ -1102,7 +1435,52 @@ class BurninDestinationSettings {
     this.yPosition,
   });
   static BurninDestinationSettings fromJson(Map<String, dynamic> json) =>
-      BurninDestinationSettings();
+      BurninDestinationSettings(
+        alignment:
+            json.containsKey('Alignment') ? json['Alignment'] as String : null,
+        backgroundColor: json.containsKey('BackgroundColor')
+            ? json['BackgroundColor'] as String
+            : null,
+        backgroundOpacity: json.containsKey('BackgroundOpacity')
+            ? json['BackgroundOpacity'] as int
+            : null,
+        fontColor:
+            json.containsKey('FontColor') ? json['FontColor'] as String : null,
+        fontOpacity:
+            json.containsKey('FontOpacity') ? json['FontOpacity'] as int : null,
+        fontResolution: json.containsKey('FontResolution')
+            ? json['FontResolution'] as int
+            : null,
+        fontScript: json.containsKey('FontScript')
+            ? json['FontScript'] as String
+            : null,
+        fontSize: json.containsKey('FontSize') ? json['FontSize'] as int : null,
+        outlineColor: json.containsKey('OutlineColor')
+            ? json['OutlineColor'] as String
+            : null,
+        outlineSize:
+            json.containsKey('OutlineSize') ? json['OutlineSize'] as int : null,
+        shadowColor: json.containsKey('ShadowColor')
+            ? json['ShadowColor'] as String
+            : null,
+        shadowOpacity: json.containsKey('ShadowOpacity')
+            ? json['ShadowOpacity'] as int
+            : null,
+        shadowxOffset: json.containsKey('ShadowXOffset')
+            ? json['ShadowXOffset'] as int
+            : null,
+        shadowyOffset: json.containsKey('ShadowYOffset')
+            ? json['ShadowYOffset'] as int
+            : null,
+        teletextSpacing: json.containsKey('TeletextSpacing')
+            ? json['TeletextSpacing'] as String
+            : null,
+        xPosition:
+            json.containsKey('XPosition') ? json['XPosition'] as int : null,
+        yPosition:
+            json.containsKey('YPosition') ? json['YPosition'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CancelJobResponse {
@@ -1154,7 +1532,24 @@ class CaptionDescription {
     this.languageDescription,
   });
   static CaptionDescription fromJson(Map<String, dynamic> json) =>
-      CaptionDescription();
+      CaptionDescription(
+        captionSelectorName: json.containsKey('CaptionSelectorName')
+            ? json['CaptionSelectorName'] as String
+            : null,
+        customLanguageCode: json.containsKey('CustomLanguageCode')
+            ? json['CustomLanguageCode'] as String
+            : null,
+        destinationSettings: json.containsKey('DestinationSettings')
+            ? CaptionDestinationSettings.fromJson(json['DestinationSettings'])
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        languageDescription: json.containsKey('LanguageDescription')
+            ? json['LanguageDescription'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Caption Description for preset
@@ -1193,7 +1588,21 @@ class CaptionDescriptionPreset {
     this.languageDescription,
   });
   static CaptionDescriptionPreset fromJson(Map<String, dynamic> json) =>
-      CaptionDescriptionPreset();
+      CaptionDescriptionPreset(
+        customLanguageCode: json.containsKey('CustomLanguageCode')
+            ? json['CustomLanguageCode'] as String
+            : null,
+        destinationSettings: json.containsKey('DestinationSettings')
+            ? CaptionDestinationSettings.fromJson(json['DestinationSettings'])
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        languageDescription: json.containsKey('LanguageDescription')
+            ? json['LanguageDescription'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specific settings required by destination type. Note that
@@ -1243,7 +1652,39 @@ class CaptionDestinationSettings {
     this.ttmlDestinationSettings,
   });
   static CaptionDestinationSettings fromJson(Map<String, dynamic> json) =>
-      CaptionDestinationSettings();
+      CaptionDestinationSettings(
+        burninDestinationSettings: json.containsKey('BurninDestinationSettings')
+            ? BurninDestinationSettings.fromJson(
+                json['BurninDestinationSettings'])
+            : null,
+        destinationType: json.containsKey('DestinationType')
+            ? json['DestinationType'] as String
+            : null,
+        dvbSubDestinationSettings: json.containsKey('DvbSubDestinationSettings')
+            ? DvbSubDestinationSettings.fromJson(
+                json['DvbSubDestinationSettings'])
+            : null,
+        embeddedDestinationSettings:
+            json.containsKey('EmbeddedDestinationSettings')
+                ? EmbeddedDestinationSettings.fromJson(
+                    json['EmbeddedDestinationSettings'])
+                : null,
+        imscDestinationSettings: json.containsKey('ImscDestinationSettings')
+            ? ImscDestinationSettings.fromJson(json['ImscDestinationSettings'])
+            : null,
+        sccDestinationSettings: json.containsKey('SccDestinationSettings')
+            ? SccDestinationSettings.fromJson(json['SccDestinationSettings'])
+            : null,
+        teletextDestinationSettings:
+            json.containsKey('TeletextDestinationSettings')
+                ? TeletextDestinationSettings.fromJson(
+                    json['TeletextDestinationSettings'])
+                : null,
+        ttmlDestinationSettings: json.containsKey('TtmlDestinationSettings')
+            ? TtmlDestinationSettings.fromJson(json['TtmlDestinationSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Set up captions in your outputs by first selecting them from your input
@@ -1277,8 +1718,18 @@ class CaptionSelector {
     this.languageCode,
     this.sourceSettings,
   });
-  static CaptionSelector fromJson(Map<String, dynamic> json) =>
-      CaptionSelector();
+  static CaptionSelector fromJson(Map<String, dynamic> json) => CaptionSelector(
+        customLanguageCode: json.containsKey('CustomLanguageCode')
+            ? json['CustomLanguageCode'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        sourceSettings: json.containsKey('SourceSettings')
+            ? CaptionSourceSettings.fromJson(json['SourceSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file,
@@ -1324,7 +1775,30 @@ class CaptionSourceSettings {
     this.trackSourceSettings,
   });
   static CaptionSourceSettings fromJson(Map<String, dynamic> json) =>
-      CaptionSourceSettings();
+      CaptionSourceSettings(
+        ancillarySourceSettings: json.containsKey('AncillarySourceSettings')
+            ? AncillarySourceSettings.fromJson(json['AncillarySourceSettings'])
+            : null,
+        dvbSubSourceSettings: json.containsKey('DvbSubSourceSettings')
+            ? DvbSubSourceSettings.fromJson(json['DvbSubSourceSettings'])
+            : null,
+        embeddedSourceSettings: json.containsKey('EmbeddedSourceSettings')
+            ? EmbeddedSourceSettings.fromJson(json['EmbeddedSourceSettings'])
+            : null,
+        fileSourceSettings: json.containsKey('FileSourceSettings')
+            ? FileSourceSettings.fromJson(json['FileSourceSettings'])
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        teletextSourceSettings: json.containsKey('TeletextSourceSettings')
+            ? TeletextSourceSettings.fromJson(json['TeletextSourceSettings'])
+            : null,
+        trackSourceSettings: json.containsKey('TrackSourceSettings')
+            ? TrackSourceSettings.fromJson(json['TrackSourceSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Channel mapping (ChannelMapping) contains the group of fields that hold the
@@ -1338,7 +1812,14 @@ class ChannelMapping {
   ChannelMapping({
     this.outputChannels,
   });
-  static ChannelMapping fromJson(Map<String, dynamic> json) => ChannelMapping();
+  static ChannelMapping fromJson(Map<String, dynamic> json) => ChannelMapping(
+        outputChannels: json.containsKey('OutputChannels')
+            ? (json['OutputChannels'] as List)
+                .map((e) => OutputChannelMapping.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for CMAF encryption
@@ -1380,7 +1861,27 @@ class CmafEncryptionSettings {
     this.type,
   });
   static CmafEncryptionSettings fromJson(Map<String, dynamic> json) =>
-      CmafEncryptionSettings();
+      CmafEncryptionSettings(
+        constantInitializationVector:
+            json.containsKey('ConstantInitializationVector')
+                ? json['ConstantInitializationVector'] as String
+                : null,
+        encryptionMethod: json.containsKey('EncryptionMethod')
+            ? json['EncryptionMethod'] as String
+            : null,
+        initializationVectorInManifest:
+            json.containsKey('InitializationVectorInManifest')
+                ? json['InitializationVectorInManifest'] as String
+                : null,
+        spekeKeyProvider: json.containsKey('SpekeKeyProvider')
+            ? SpekeKeyProviderCmaf.fromJson(json['SpekeKeyProvider'])
+            : null,
+        staticKeyProvider: json.containsKey('StaticKeyProvider')
+            ? StaticKeyProvider.fromJson(json['StaticKeyProvider'])
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
@@ -1494,7 +1995,55 @@ class CmafGroupSettings {
     this.writeHlsManifest,
   });
   static CmafGroupSettings fromJson(Map<String, dynamic> json) =>
-      CmafGroupSettings();
+      CmafGroupSettings(
+        baseUrl: json.containsKey('BaseUrl') ? json['BaseUrl'] as String : null,
+        clientCache: json.containsKey('ClientCache')
+            ? json['ClientCache'] as String
+            : null,
+        codecSpecification: json.containsKey('CodecSpecification')
+            ? json['CodecSpecification'] as String
+            : null,
+        destination: json.containsKey('Destination')
+            ? json['Destination'] as String
+            : null,
+        destinationSettings: json.containsKey('DestinationSettings')
+            ? DestinationSettings.fromJson(json['DestinationSettings'])
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? CmafEncryptionSettings.fromJson(json['Encryption'])
+            : null,
+        fragmentLength: json.containsKey('FragmentLength')
+            ? json['FragmentLength'] as int
+            : null,
+        manifestCompression: json.containsKey('ManifestCompression')
+            ? json['ManifestCompression'] as String
+            : null,
+        manifestDurationFormat: json.containsKey('ManifestDurationFormat')
+            ? json['ManifestDurationFormat'] as String
+            : null,
+        minBufferTime: json.containsKey('MinBufferTime')
+            ? json['MinBufferTime'] as int
+            : null,
+        minFinalSegmentLength: json.containsKey('MinFinalSegmentLength')
+            ? json['MinFinalSegmentLength'] as double
+            : null,
+        segmentControl: json.containsKey('SegmentControl')
+            ? json['SegmentControl'] as String
+            : null,
+        segmentLength: json.containsKey('SegmentLength')
+            ? json['SegmentLength'] as int
+            : null,
+        streamInfResolution: json.containsKey('StreamInfResolution')
+            ? json['StreamInfResolution'] as String
+            : null,
+        writeDashManifest: json.containsKey('WriteDashManifest')
+            ? json['WriteDashManifest'] as String
+            : null,
+        writeHlsManifest: json.containsKey('WriteHlsManifest')
+            ? json['WriteHlsManifest'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for color correction.
@@ -1541,7 +2090,21 @@ class ColorCorrector {
     this.hue,
     this.saturation,
   });
-  static ColorCorrector fromJson(Map<String, dynamic> json) => ColorCorrector();
+  static ColorCorrector fromJson(Map<String, dynamic> json) => ColorCorrector(
+        brightness:
+            json.containsKey('Brightness') ? json['Brightness'] as int : null,
+        colorSpaceConversion: json.containsKey('ColorSpaceConversion')
+            ? json['ColorSpaceConversion'] as String
+            : null,
+        contrast: json.containsKey('Contrast') ? json['Contrast'] as int : null,
+        hdr10Metadata: json.containsKey('Hdr10Metadata')
+            ? Hdr10Metadata.fromJson(json['Hdr10Metadata'])
+            : null,
+        hue: json.containsKey('Hue') ? json['Hue'] as int : null,
+        saturation:
+            json.containsKey('Saturation') ? json['Saturation'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Container specific settings.
@@ -1584,7 +2147,26 @@ class ContainerSettings {
     this.mp4Settings,
   });
   static ContainerSettings fromJson(Map<String, dynamic> json) =>
-      ContainerSettings();
+      ContainerSettings(
+        container:
+            json.containsKey('Container') ? json['Container'] as String : null,
+        f4vSettings: json.containsKey('F4vSettings')
+            ? F4vSettings.fromJson(json['F4vSettings'])
+            : null,
+        m2TsSettings: json.containsKey('M2tsSettings')
+            ? M2TsSettings.fromJson(json['M2tsSettings'])
+            : null,
+        m3U8Settings: json.containsKey('M3u8Settings')
+            ? M3U8Settings.fromJson(json['M3u8Settings'])
+            : null,
+        movSettings: json.containsKey('MovSettings')
+            ? MovSettings.fromJson(json['MovSettings'])
+            : null,
+        mp4Settings: json.containsKey('Mp4Settings')
+            ? Mp4Settings.fromJson(json['Mp4Settings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateJobResponse {
@@ -1597,7 +2179,9 @@ class CreateJobResponse {
     this.job,
   });
   static CreateJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateJobResponse();
+      CreateJobResponse(
+        job: json.containsKey('Job') ? Job.fromJson(json['Job']) : null,
+      );
 }
 
 class CreateJobTemplateResponse {
@@ -1609,7 +2193,11 @@ class CreateJobTemplateResponse {
     this.jobTemplate,
   });
   static CreateJobTemplateResponse fromJson(Map<String, dynamic> json) =>
-      CreateJobTemplateResponse();
+      CreateJobTemplateResponse(
+        jobTemplate: json.containsKey('JobTemplate')
+            ? JobTemplate.fromJson(json['JobTemplate'])
+            : null,
+      );
 }
 
 class CreatePresetResponse {
@@ -1622,7 +2210,10 @@ class CreatePresetResponse {
     this.preset,
   });
   static CreatePresetResponse fromJson(Map<String, dynamic> json) =>
-      CreatePresetResponse();
+      CreatePresetResponse(
+        preset:
+            json.containsKey('Preset') ? Preset.fromJson(json['Preset']) : null,
+      );
 }
 
 class CreateQueueResponse {
@@ -1637,7 +2228,9 @@ class CreateQueueResponse {
     this.queue,
   });
   static CreateQueueResponse fromJson(Map<String, dynamic> json) =>
-      CreateQueueResponse();
+      CreateQueueResponse(
+        queue: json.containsKey('Queue') ? Queue.fromJson(json['Queue']) : null,
+      );
 }
 
 /// Specifies DRM settings for DASH outputs.
@@ -1662,7 +2255,16 @@ class DashIsoEncryptionSettings {
     this.spekeKeyProvider,
   });
   static DashIsoEncryptionSettings fromJson(Map<String, dynamic> json) =>
-      DashIsoEncryptionSettings();
+      DashIsoEncryptionSettings(
+        playbackDeviceCompatibility:
+            json.containsKey('PlaybackDeviceCompatibility')
+                ? json['PlaybackDeviceCompatibility'] as String
+                : null,
+        spekeKeyProvider: json.containsKey('SpekeKeyProvider')
+            ? SpekeKeyProvider.fromJson(json['SpekeKeyProvider'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
@@ -1736,7 +2338,38 @@ class DashIsoGroupSettings {
     this.writeSegmentTimelineInRepresentation,
   });
   static DashIsoGroupSettings fromJson(Map<String, dynamic> json) =>
-      DashIsoGroupSettings();
+      DashIsoGroupSettings(
+        baseUrl: json.containsKey('BaseUrl') ? json['BaseUrl'] as String : null,
+        destination: json.containsKey('Destination')
+            ? json['Destination'] as String
+            : null,
+        destinationSettings: json.containsKey('DestinationSettings')
+            ? DestinationSettings.fromJson(json['DestinationSettings'])
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? DashIsoEncryptionSettings.fromJson(json['Encryption'])
+            : null,
+        fragmentLength: json.containsKey('FragmentLength')
+            ? json['FragmentLength'] as int
+            : null,
+        hbbtvCompliance: json.containsKey('HbbtvCompliance')
+            ? json['HbbtvCompliance'] as String
+            : null,
+        minBufferTime: json.containsKey('MinBufferTime')
+            ? json['MinBufferTime'] as int
+            : null,
+        segmentControl: json.containsKey('SegmentControl')
+            ? json['SegmentControl'] as String
+            : null,
+        segmentLength: json.containsKey('SegmentLength')
+            ? json['SegmentLength'] as int
+            : null,
+        writeSegmentTimelineInRepresentation:
+            json.containsKey('WriteSegmentTimelineInRepresentation')
+                ? json['WriteSegmentTimelineInRepresentation'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for deinterlacer
@@ -1771,7 +2404,13 @@ class Deinterlacer {
     this.control,
     this.mode,
   });
-  static Deinterlacer fromJson(Map<String, dynamic> json) => Deinterlacer();
+  static Deinterlacer fromJson(Map<String, dynamic> json) => Deinterlacer(
+        algorithm:
+            json.containsKey('Algorithm') ? json['Algorithm'] as String : null,
+        control: json.containsKey('Control') ? json['Control'] as String : null,
+        mode: json.containsKey('Mode') ? json['Mode'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteJobTemplateResponse {
@@ -1804,7 +2443,15 @@ class DescribeEndpointsResponse {
     this.nextToken,
   });
   static DescribeEndpointsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEndpointsResponse();
+      DescribeEndpointsResponse(
+        endpoints: json.containsKey('Endpoints')
+            ? (json['Endpoints'] as List)
+                .map((e) => Endpoint.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Settings associated with the destination. Will vary based on the type of
@@ -1817,7 +2464,12 @@ class DestinationSettings {
     this.s3Settings,
   });
   static DestinationSettings fromJson(Map<String, dynamic> json) =>
-      DestinationSettings();
+      DestinationSettings(
+        s3Settings: json.containsKey('S3Settings')
+            ? S3DestinationSettings.fromJson(json['S3Settings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DisassociateCertificateResponse {
@@ -1845,7 +2497,16 @@ class DvbNitSettings {
     this.networkName,
     this.nitInterval,
   });
-  static DvbNitSettings fromJson(Map<String, dynamic> json) => DvbNitSettings();
+  static DvbNitSettings fromJson(Map<String, dynamic> json) => DvbNitSettings(
+        networkId:
+            json.containsKey('NetworkId') ? json['NetworkId'] as int : null,
+        networkName: json.containsKey('NetworkName')
+            ? json['NetworkName'] as String
+            : null,
+        nitInterval:
+            json.containsKey('NitInterval') ? json['NitInterval'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Inserts DVB Service Description Table (NIT) at the specified table
@@ -1878,7 +2539,19 @@ class DvbSdtSettings {
     this.serviceName,
     this.serviceProviderName,
   });
-  static DvbSdtSettings fromJson(Map<String, dynamic> json) => DvbSdtSettings();
+  static DvbSdtSettings fromJson(Map<String, dynamic> json) => DvbSdtSettings(
+        outputSdt:
+            json.containsKey('OutputSdt') ? json['OutputSdt'] as String : null,
+        sdtInterval:
+            json.containsKey('SdtInterval') ? json['SdtInterval'] as int : null,
+        serviceName: json.containsKey('ServiceName')
+            ? json['ServiceName'] as String
+            : null,
+        serviceProviderName: json.containsKey('ServiceProviderName')
+            ? json['ServiceProviderName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// DVB-Sub Destination Settings
@@ -2007,7 +2680,52 @@ class DvbSubDestinationSettings {
     this.yPosition,
   });
   static DvbSubDestinationSettings fromJson(Map<String, dynamic> json) =>
-      DvbSubDestinationSettings();
+      DvbSubDestinationSettings(
+        alignment:
+            json.containsKey('Alignment') ? json['Alignment'] as String : null,
+        backgroundColor: json.containsKey('BackgroundColor')
+            ? json['BackgroundColor'] as String
+            : null,
+        backgroundOpacity: json.containsKey('BackgroundOpacity')
+            ? json['BackgroundOpacity'] as int
+            : null,
+        fontColor:
+            json.containsKey('FontColor') ? json['FontColor'] as String : null,
+        fontOpacity:
+            json.containsKey('FontOpacity') ? json['FontOpacity'] as int : null,
+        fontResolution: json.containsKey('FontResolution')
+            ? json['FontResolution'] as int
+            : null,
+        fontScript: json.containsKey('FontScript')
+            ? json['FontScript'] as String
+            : null,
+        fontSize: json.containsKey('FontSize') ? json['FontSize'] as int : null,
+        outlineColor: json.containsKey('OutlineColor')
+            ? json['OutlineColor'] as String
+            : null,
+        outlineSize:
+            json.containsKey('OutlineSize') ? json['OutlineSize'] as int : null,
+        shadowColor: json.containsKey('ShadowColor')
+            ? json['ShadowColor'] as String
+            : null,
+        shadowOpacity: json.containsKey('ShadowOpacity')
+            ? json['ShadowOpacity'] as int
+            : null,
+        shadowxOffset: json.containsKey('ShadowXOffset')
+            ? json['ShadowXOffset'] as int
+            : null,
+        shadowyOffset: json.containsKey('ShadowYOffset')
+            ? json['ShadowYOffset'] as int
+            : null,
+        teletextSpacing: json.containsKey('TeletextSpacing')
+            ? json['TeletextSpacing'] as String
+            : null,
+        xPosition:
+            json.containsKey('XPosition') ? json['XPosition'] as int : null,
+        yPosition:
+            json.containsKey('YPosition') ? json['YPosition'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// DVB Sub Source Settings
@@ -2021,7 +2739,10 @@ class DvbSubSourceSettings {
     this.pid,
   });
   static DvbSubSourceSettings fromJson(Map<String, dynamic> json) =>
-      DvbSubSourceSettings();
+      DvbSubSourceSettings(
+        pid: json.containsKey('Pid') ? json['Pid'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Inserts DVB Time and Date Table (TDT) at the specified table repetition
@@ -2034,7 +2755,11 @@ class DvbTdtSettings {
   DvbTdtSettings({
     this.tdtInterval,
   });
-  static DvbTdtSettings fromJson(Map<String, dynamic> json) => DvbTdtSettings();
+  static DvbTdtSettings fromJson(Map<String, dynamic> json) => DvbTdtSettings(
+        tdtInterval:
+            json.containsKey('TdtInterval') ? json['TdtInterval'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
@@ -2128,7 +2853,52 @@ class Eac3AtmosSettings {
     this.surroundExMode,
   });
   static Eac3AtmosSettings fromJson(Map<String, dynamic> json) =>
-      Eac3AtmosSettings();
+      Eac3AtmosSettings(
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        bitstreamMode: json.containsKey('BitstreamMode')
+            ? json['BitstreamMode'] as String
+            : null,
+        codingMode: json.containsKey('CodingMode')
+            ? json['CodingMode'] as String
+            : null,
+        dialogueIntelligence: json.containsKey('DialogueIntelligence')
+            ? json['DialogueIntelligence'] as String
+            : null,
+        dynamicRangeCompressionLine:
+            json.containsKey('DynamicRangeCompressionLine')
+                ? json['DynamicRangeCompressionLine'] as String
+                : null,
+        dynamicRangeCompressionRf: json.containsKey('DynamicRangeCompressionRf')
+            ? json['DynamicRangeCompressionRf'] as String
+            : null,
+        loRoCenterMixLevel: json.containsKey('LoRoCenterMixLevel')
+            ? json['LoRoCenterMixLevel'] as double
+            : null,
+        loRoSurroundMixLevel: json.containsKey('LoRoSurroundMixLevel')
+            ? json['LoRoSurroundMixLevel'] as double
+            : null,
+        ltRtCenterMixLevel: json.containsKey('LtRtCenterMixLevel')
+            ? json['LtRtCenterMixLevel'] as double
+            : null,
+        ltRtSurroundMixLevel: json.containsKey('LtRtSurroundMixLevel')
+            ? json['LtRtSurroundMixLevel'] as double
+            : null,
+        meteringMode: json.containsKey('MeteringMode')
+            ? json['MeteringMode'] as String
+            : null,
+        sampleRate:
+            json.containsKey('SampleRate') ? json['SampleRate'] as int : null,
+        speechThreshold: json.containsKey('SpeechThreshold')
+            ? json['SpeechThreshold'] as int
+            : null,
+        stereoDownmix: json.containsKey('StereoDownmix')
+            ? json['StereoDownmix'] as String
+            : null,
+        surroundExMode: json.containsKey('SurroundExMode')
+            ? json['SurroundExMode'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
@@ -2274,7 +3044,66 @@ class Eac3Settings {
     this.surroundExMode,
     this.surroundMode,
   });
-  static Eac3Settings fromJson(Map<String, dynamic> json) => Eac3Settings();
+  static Eac3Settings fromJson(Map<String, dynamic> json) => Eac3Settings(
+        attenuationControl: json.containsKey('AttenuationControl')
+            ? json['AttenuationControl'] as String
+            : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        bitstreamMode: json.containsKey('BitstreamMode')
+            ? json['BitstreamMode'] as String
+            : null,
+        codingMode: json.containsKey('CodingMode')
+            ? json['CodingMode'] as String
+            : null,
+        dcFilter:
+            json.containsKey('DcFilter') ? json['DcFilter'] as String : null,
+        dialnorm: json.containsKey('Dialnorm') ? json['Dialnorm'] as int : null,
+        dynamicRangeCompressionLine:
+            json.containsKey('DynamicRangeCompressionLine')
+                ? json['DynamicRangeCompressionLine'] as String
+                : null,
+        dynamicRangeCompressionRf: json.containsKey('DynamicRangeCompressionRf')
+            ? json['DynamicRangeCompressionRf'] as String
+            : null,
+        lfeControl: json.containsKey('LfeControl')
+            ? json['LfeControl'] as String
+            : null,
+        lfeFilter:
+            json.containsKey('LfeFilter') ? json['LfeFilter'] as String : null,
+        loRoCenterMixLevel: json.containsKey('LoRoCenterMixLevel')
+            ? json['LoRoCenterMixLevel'] as double
+            : null,
+        loRoSurroundMixLevel: json.containsKey('LoRoSurroundMixLevel')
+            ? json['LoRoSurroundMixLevel'] as double
+            : null,
+        ltRtCenterMixLevel: json.containsKey('LtRtCenterMixLevel')
+            ? json['LtRtCenterMixLevel'] as double
+            : null,
+        ltRtSurroundMixLevel: json.containsKey('LtRtSurroundMixLevel')
+            ? json['LtRtSurroundMixLevel'] as double
+            : null,
+        metadataControl: json.containsKey('MetadataControl')
+            ? json['MetadataControl'] as String
+            : null,
+        passthroughControl: json.containsKey('PassthroughControl')
+            ? json['PassthroughControl'] as String
+            : null,
+        phaseControl: json.containsKey('PhaseControl')
+            ? json['PhaseControl'] as String
+            : null,
+        sampleRate:
+            json.containsKey('SampleRate') ? json['SampleRate'] as int : null,
+        stereoDownmix: json.containsKey('StereoDownmix')
+            ? json['StereoDownmix'] as String
+            : null,
+        surroundExMode: json.containsKey('SurroundExMode')
+            ? json['SurroundExMode'] as String
+            : null,
+        surroundMode: json.containsKey('SurroundMode')
+            ? json['SurroundMode'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings specific to embedded/ancillary caption outputs, including 608/708
@@ -2305,7 +3134,17 @@ class EmbeddedDestinationSettings {
     this.destination708ServiceNumber,
   });
   static EmbeddedDestinationSettings fromJson(Map<String, dynamic> json) =>
-      EmbeddedDestinationSettings();
+      EmbeddedDestinationSettings(
+        destination608ChannelNumber:
+            json.containsKey('Destination608ChannelNumber')
+                ? json['Destination608ChannelNumber'] as int
+                : null,
+        destination708ServiceNumber:
+            json.containsKey('Destination708ServiceNumber')
+                ? json['Destination708ServiceNumber'] as int
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for embedded captions Source
@@ -2337,7 +3176,21 @@ class EmbeddedSourceSettings {
     this.terminateCaptions,
   });
   static EmbeddedSourceSettings fromJson(Map<String, dynamic> json) =>
-      EmbeddedSourceSettings();
+      EmbeddedSourceSettings(
+        convert608To708: json.containsKey('Convert608To708')
+            ? json['Convert608To708'] as String
+            : null,
+        source608ChannelNumber: json.containsKey('Source608ChannelNumber')
+            ? json['Source608ChannelNumber'] as int
+            : null,
+        source608TrackNumber: json.containsKey('Source608TrackNumber')
+            ? json['Source608TrackNumber'] as int
+            : null,
+        terminateCaptions: json.containsKey('TerminateCaptions')
+            ? json['TerminateCaptions'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an account-specific API endpoint.
@@ -2348,7 +3201,9 @@ class Endpoint {
   Endpoint({
     this.url,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
 }
 
 /// ESAM ManifestConfirmConditionNotification defined by
@@ -2365,7 +3220,10 @@ class EsamManifestConfirmConditionNotification {
   });
   static EsamManifestConfirmConditionNotification fromJson(
           Map<String, dynamic> json) =>
-      EsamManifestConfirmConditionNotification();
+      EsamManifestConfirmConditionNotification(
+        mccXml: json.containsKey('MccXml') ? json['MccXml'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for Event Signaling And Messaging (ESAM). If you don't do ad
@@ -2394,7 +3252,22 @@ class EsamSettings {
     this.responseSignalPreroll,
     this.signalProcessingNotification,
   });
-  static EsamSettings fromJson(Map<String, dynamic> json) => EsamSettings();
+  static EsamSettings fromJson(Map<String, dynamic> json) => EsamSettings(
+        manifestConfirmConditionNotification:
+            json.containsKey('ManifestConfirmConditionNotification')
+                ? EsamManifestConfirmConditionNotification.fromJson(
+                    json['ManifestConfirmConditionNotification'])
+                : null,
+        responseSignalPreroll: json.containsKey('ResponseSignalPreroll')
+            ? json['ResponseSignalPreroll'] as int
+            : null,
+        signalProcessingNotification:
+            json.containsKey('SignalProcessingNotification')
+                ? EsamSignalProcessingNotification.fromJson(
+                    json['SignalProcessingNotification'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// ESAM SignalProcessingNotification data defined by OC-SP-ESAM-API-I03-131025.
@@ -2414,7 +3287,10 @@ class EsamSignalProcessingNotification {
     this.sccXml,
   });
   static EsamSignalProcessingNotification fromJson(Map<String, dynamic> json) =>
-      EsamSignalProcessingNotification();
+      EsamSignalProcessingNotification(
+        sccXml: json.containsKey('SccXml') ? json['SccXml'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for F4v container
@@ -2427,7 +3303,12 @@ class F4vSettings {
   F4vSettings({
     this.moovPlacement,
   });
-  static F4vSettings fromJson(Map<String, dynamic> json) => F4vSettings();
+  static F4vSettings fromJson(Map<String, dynamic> json) => F4vSettings(
+        moovPlacement: json.containsKey('MoovPlacement')
+            ? json['MoovPlacement'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
@@ -2449,7 +3330,15 @@ class FileGroupSettings {
     this.destinationSettings,
   });
   static FileGroupSettings fromJson(Map<String, dynamic> json) =>
-      FileGroupSettings();
+      FileGroupSettings(
+        destination: json.containsKey('Destination')
+            ? json['Destination'] as String
+            : null,
+        destinationSettings: json.containsKey('DestinationSettings')
+            ? DestinationSettings.fromJson(json['DestinationSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// If your input captions are SCC, SMI, SRT, STL, TTML, or IMSC 1.1 in an xml
@@ -2478,7 +3367,17 @@ class FileSourceSettings {
     this.timeDelta,
   });
   static FileSourceSettings fromJson(Map<String, dynamic> json) =>
-      FileSourceSettings();
+      FileSourceSettings(
+        convert608To708: json.containsKey('Convert608To708')
+            ? json['Convert608To708'] as String
+            : null,
+        sourceFile: json.containsKey('SourceFile')
+            ? json['SourceFile'] as String
+            : null,
+        timeDelta:
+            json.containsKey('TimeDelta') ? json['TimeDelta'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
@@ -2513,7 +3412,18 @@ class FrameCaptureSettings {
     this.quality,
   });
   static FrameCaptureSettings fromJson(Map<String, dynamic> json) =>
-      FrameCaptureSettings();
+      FrameCaptureSettings(
+        framerateDenominator: json.containsKey('FramerateDenominator')
+            ? json['FramerateDenominator'] as int
+            : null,
+        framerateNumerator: json.containsKey('FramerateNumerator')
+            ? json['FramerateNumerator'] as int
+            : null,
+        maxCaptures:
+            json.containsKey('MaxCaptures') ? json['MaxCaptures'] as int : null,
+        quality: json.containsKey('Quality') ? json['Quality'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetJobResponse {
@@ -2525,7 +3435,9 @@ class GetJobResponse {
   GetJobResponse({
     this.job,
   });
-  static GetJobResponse fromJson(Map<String, dynamic> json) => GetJobResponse();
+  static GetJobResponse fromJson(Map<String, dynamic> json) => GetJobResponse(
+        job: json.containsKey('Job') ? Job.fromJson(json['Job']) : null,
+      );
 }
 
 class GetJobTemplateResponse {
@@ -2537,7 +3449,11 @@ class GetJobTemplateResponse {
     this.jobTemplate,
   });
   static GetJobTemplateResponse fromJson(Map<String, dynamic> json) =>
-      GetJobTemplateResponse();
+      GetJobTemplateResponse(
+        jobTemplate: json.containsKey('JobTemplate')
+            ? JobTemplate.fromJson(json['JobTemplate'])
+            : null,
+      );
 }
 
 class GetPresetResponse {
@@ -2550,7 +3466,10 @@ class GetPresetResponse {
     this.preset,
   });
   static GetPresetResponse fromJson(Map<String, dynamic> json) =>
-      GetPresetResponse();
+      GetPresetResponse(
+        preset:
+            json.containsKey('Preset') ? Preset.fromJson(json['Preset']) : null,
+      );
 }
 
 class GetQueueResponse {
@@ -2565,7 +3484,9 @@ class GetQueueResponse {
     this.queue,
   });
   static GetQueueResponse fromJson(Map<String, dynamic> json) =>
-      GetQueueResponse();
+      GetQueueResponse(
+        queue: json.containsKey('Queue') ? Queue.fromJson(json['Queue']) : null,
+      );
 }
 
 /// Settings for quality-defined variable bitrate encoding with the H.264 codec.
@@ -2593,7 +3514,15 @@ class H264QvbrSettings {
     this.qvbrQualityLevel,
   });
   static H264QvbrSettings fromJson(Map<String, dynamic> json) =>
-      H264QvbrSettings();
+      H264QvbrSettings(
+        maxAverageBitrate: json.containsKey('MaxAverageBitrate')
+            ? json['MaxAverageBitrate'] as int
+            : null,
+        qvbrQualityLevel: json.containsKey('QvbrQualityLevel')
+            ? json['QvbrQualityLevel'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
@@ -2841,7 +3770,117 @@ class H264Settings {
     this.temporalAdaptiveQuantization,
     this.unregisteredSeiTimecode,
   });
-  static H264Settings fromJson(Map<String, dynamic> json) => H264Settings();
+  static H264Settings fromJson(Map<String, dynamic> json) => H264Settings(
+        adaptiveQuantization: json.containsKey('AdaptiveQuantization')
+            ? json['AdaptiveQuantization'] as String
+            : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        codecLevel: json.containsKey('CodecLevel')
+            ? json['CodecLevel'] as String
+            : null,
+        codecProfile: json.containsKey('CodecProfile')
+            ? json['CodecProfile'] as String
+            : null,
+        dynamicSubGop: json.containsKey('DynamicSubGop')
+            ? json['DynamicSubGop'] as String
+            : null,
+        entropyEncoding: json.containsKey('EntropyEncoding')
+            ? json['EntropyEncoding'] as String
+            : null,
+        fieldEncoding: json.containsKey('FieldEncoding')
+            ? json['FieldEncoding'] as String
+            : null,
+        flickerAdaptiveQuantization:
+            json.containsKey('FlickerAdaptiveQuantization')
+                ? json['FlickerAdaptiveQuantization'] as String
+                : null,
+        framerateControl: json.containsKey('FramerateControl')
+            ? json['FramerateControl'] as String
+            : null,
+        framerateConversionAlgorithm:
+            json.containsKey('FramerateConversionAlgorithm')
+                ? json['FramerateConversionAlgorithm'] as String
+                : null,
+        framerateDenominator: json.containsKey('FramerateDenominator')
+            ? json['FramerateDenominator'] as int
+            : null,
+        framerateNumerator: json.containsKey('FramerateNumerator')
+            ? json['FramerateNumerator'] as int
+            : null,
+        gopbReference: json.containsKey('GopBReference')
+            ? json['GopBReference'] as String
+            : null,
+        gopClosedCadence: json.containsKey('GopClosedCadence')
+            ? json['GopClosedCadence'] as int
+            : null,
+        gopSize: json.containsKey('GopSize') ? json['GopSize'] as double : null,
+        gopSizeUnits: json.containsKey('GopSizeUnits')
+            ? json['GopSizeUnits'] as String
+            : null,
+        hrdBufferInitialFillPercentage:
+            json.containsKey('HrdBufferInitialFillPercentage')
+                ? json['HrdBufferInitialFillPercentage'] as int
+                : null,
+        hrdBufferSize: json.containsKey('HrdBufferSize')
+            ? json['HrdBufferSize'] as int
+            : null,
+        interlaceMode: json.containsKey('InterlaceMode')
+            ? json['InterlaceMode'] as String
+            : null,
+        maxBitrate:
+            json.containsKey('MaxBitrate') ? json['MaxBitrate'] as int : null,
+        miniInterval: json.containsKey('MinIInterval')
+            ? json['MinIInterval'] as int
+            : null,
+        numberbFramesBetweenReferenceFrames:
+            json.containsKey('NumberBFramesBetweenReferenceFrames')
+                ? json['NumberBFramesBetweenReferenceFrames'] as int
+                : null,
+        numberReferenceFrames: json.containsKey('NumberReferenceFrames')
+            ? json['NumberReferenceFrames'] as int
+            : null,
+        parControl: json.containsKey('ParControl')
+            ? json['ParControl'] as String
+            : null,
+        parDenominator: json.containsKey('ParDenominator')
+            ? json['ParDenominator'] as int
+            : null,
+        parNumerator: json.containsKey('ParNumerator')
+            ? json['ParNumerator'] as int
+            : null,
+        qualityTuningLevel: json.containsKey('QualityTuningLevel')
+            ? json['QualityTuningLevel'] as String
+            : null,
+        qvbrSettings: json.containsKey('QvbrSettings')
+            ? H264QvbrSettings.fromJson(json['QvbrSettings'])
+            : null,
+        rateControlMode: json.containsKey('RateControlMode')
+            ? json['RateControlMode'] as String
+            : null,
+        repeatPps:
+            json.containsKey('RepeatPps') ? json['RepeatPps'] as String : null,
+        sceneChangeDetect: json.containsKey('SceneChangeDetect')
+            ? json['SceneChangeDetect'] as String
+            : null,
+        slices: json.containsKey('Slices') ? json['Slices'] as int : null,
+        slowPal: json.containsKey('SlowPal') ? json['SlowPal'] as String : null,
+        softness: json.containsKey('Softness') ? json['Softness'] as int : null,
+        spatialAdaptiveQuantization:
+            json.containsKey('SpatialAdaptiveQuantization')
+                ? json['SpatialAdaptiveQuantization'] as String
+                : null,
+        syntax: json.containsKey('Syntax') ? json['Syntax'] as String : null,
+        telecine:
+            json.containsKey('Telecine') ? json['Telecine'] as String : null,
+        temporalAdaptiveQuantization:
+            json.containsKey('TemporalAdaptiveQuantization')
+                ? json['TemporalAdaptiveQuantization'] as String
+                : null,
+        unregisteredSeiTimecode: json.containsKey('UnregisteredSeiTimecode')
+            ? json['UnregisteredSeiTimecode'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for quality-defined variable bitrate encoding with the H.265 codec.
@@ -2869,7 +3908,15 @@ class H265QvbrSettings {
     this.qvbrQualityLevel,
   });
   static H265QvbrSettings fromJson(Map<String, dynamic> json) =>
-      H265QvbrSettings();
+      H265QvbrSettings(
+        maxAverageBitrate: json.containsKey('MaxAverageBitrate')
+            ? json['MaxAverageBitrate'] as int
+            : null,
+        qvbrQualityLevel: json.containsKey('QvbrQualityLevel')
+            ? json['QvbrQualityLevel'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for H265 codec
@@ -3132,7 +4179,122 @@ class H265Settings {
     this.unregisteredSeiTimecode,
     this.writeMp4PackagingType,
   });
-  static H265Settings fromJson(Map<String, dynamic> json) => H265Settings();
+  static H265Settings fromJson(Map<String, dynamic> json) => H265Settings(
+        adaptiveQuantization: json.containsKey('AdaptiveQuantization')
+            ? json['AdaptiveQuantization'] as String
+            : null,
+        alternateTransferFunctionSei:
+            json.containsKey('AlternateTransferFunctionSei')
+                ? json['AlternateTransferFunctionSei'] as String
+                : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        codecLevel: json.containsKey('CodecLevel')
+            ? json['CodecLevel'] as String
+            : null,
+        codecProfile: json.containsKey('CodecProfile')
+            ? json['CodecProfile'] as String
+            : null,
+        dynamicSubGop: json.containsKey('DynamicSubGop')
+            ? json['DynamicSubGop'] as String
+            : null,
+        flickerAdaptiveQuantization:
+            json.containsKey('FlickerAdaptiveQuantization')
+                ? json['FlickerAdaptiveQuantization'] as String
+                : null,
+        framerateControl: json.containsKey('FramerateControl')
+            ? json['FramerateControl'] as String
+            : null,
+        framerateConversionAlgorithm:
+            json.containsKey('FramerateConversionAlgorithm')
+                ? json['FramerateConversionAlgorithm'] as String
+                : null,
+        framerateDenominator: json.containsKey('FramerateDenominator')
+            ? json['FramerateDenominator'] as int
+            : null,
+        framerateNumerator: json.containsKey('FramerateNumerator')
+            ? json['FramerateNumerator'] as int
+            : null,
+        gopbReference: json.containsKey('GopBReference')
+            ? json['GopBReference'] as String
+            : null,
+        gopClosedCadence: json.containsKey('GopClosedCadence')
+            ? json['GopClosedCadence'] as int
+            : null,
+        gopSize: json.containsKey('GopSize') ? json['GopSize'] as double : null,
+        gopSizeUnits: json.containsKey('GopSizeUnits')
+            ? json['GopSizeUnits'] as String
+            : null,
+        hrdBufferInitialFillPercentage:
+            json.containsKey('HrdBufferInitialFillPercentage')
+                ? json['HrdBufferInitialFillPercentage'] as int
+                : null,
+        hrdBufferSize: json.containsKey('HrdBufferSize')
+            ? json['HrdBufferSize'] as int
+            : null,
+        interlaceMode: json.containsKey('InterlaceMode')
+            ? json['InterlaceMode'] as String
+            : null,
+        maxBitrate:
+            json.containsKey('MaxBitrate') ? json['MaxBitrate'] as int : null,
+        miniInterval: json.containsKey('MinIInterval')
+            ? json['MinIInterval'] as int
+            : null,
+        numberbFramesBetweenReferenceFrames:
+            json.containsKey('NumberBFramesBetweenReferenceFrames')
+                ? json['NumberBFramesBetweenReferenceFrames'] as int
+                : null,
+        numberReferenceFrames: json.containsKey('NumberReferenceFrames')
+            ? json['NumberReferenceFrames'] as int
+            : null,
+        parControl: json.containsKey('ParControl')
+            ? json['ParControl'] as String
+            : null,
+        parDenominator: json.containsKey('ParDenominator')
+            ? json['ParDenominator'] as int
+            : null,
+        parNumerator: json.containsKey('ParNumerator')
+            ? json['ParNumerator'] as int
+            : null,
+        qualityTuningLevel: json.containsKey('QualityTuningLevel')
+            ? json['QualityTuningLevel'] as String
+            : null,
+        qvbrSettings: json.containsKey('QvbrSettings')
+            ? H265QvbrSettings.fromJson(json['QvbrSettings'])
+            : null,
+        rateControlMode: json.containsKey('RateControlMode')
+            ? json['RateControlMode'] as String
+            : null,
+        sampleAdaptiveOffsetFilterMode:
+            json.containsKey('SampleAdaptiveOffsetFilterMode')
+                ? json['SampleAdaptiveOffsetFilterMode'] as String
+                : null,
+        sceneChangeDetect: json.containsKey('SceneChangeDetect')
+            ? json['SceneChangeDetect'] as String
+            : null,
+        slices: json.containsKey('Slices') ? json['Slices'] as int : null,
+        slowPal: json.containsKey('SlowPal') ? json['SlowPal'] as String : null,
+        spatialAdaptiveQuantization:
+            json.containsKey('SpatialAdaptiveQuantization')
+                ? json['SpatialAdaptiveQuantization'] as String
+                : null,
+        telecine:
+            json.containsKey('Telecine') ? json['Telecine'] as String : null,
+        temporalAdaptiveQuantization:
+            json.containsKey('TemporalAdaptiveQuantization')
+                ? json['TemporalAdaptiveQuantization'] as String
+                : null,
+        temporalIds: json.containsKey('TemporalIds')
+            ? json['TemporalIds'] as String
+            : null,
+        tiles: json.containsKey('Tiles') ? json['Tiles'] as String : null,
+        unregisteredSeiTimecode: json.containsKey('UnregisteredSeiTimecode')
+            ? json['UnregisteredSeiTimecode'] as String
+            : null,
+        writeMp4PackagingType: json.containsKey('WriteMp4PackagingType')
+            ? json['WriteMp4PackagingType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Use these settings to specify static color calibration metadata, as defined
@@ -3221,7 +4383,41 @@ class Hdr10Metadata {
     this.whitePointx,
     this.whitePointy,
   });
-  static Hdr10Metadata fromJson(Map<String, dynamic> json) => Hdr10Metadata();
+  static Hdr10Metadata fromJson(Map<String, dynamic> json) => Hdr10Metadata(
+        bluePrimaryx: json.containsKey('BluePrimaryX')
+            ? json['BluePrimaryX'] as int
+            : null,
+        bluePrimaryy: json.containsKey('BluePrimaryY')
+            ? json['BluePrimaryY'] as int
+            : null,
+        greenPrimaryx: json.containsKey('GreenPrimaryX')
+            ? json['GreenPrimaryX'] as int
+            : null,
+        greenPrimaryy: json.containsKey('GreenPrimaryY')
+            ? json['GreenPrimaryY'] as int
+            : null,
+        maxContentLightLevel: json.containsKey('MaxContentLightLevel')
+            ? json['MaxContentLightLevel'] as int
+            : null,
+        maxFrameAverageLightLevel: json.containsKey('MaxFrameAverageLightLevel')
+            ? json['MaxFrameAverageLightLevel'] as int
+            : null,
+        maxLuminance: json.containsKey('MaxLuminance')
+            ? json['MaxLuminance'] as int
+            : null,
+        minLuminance: json.containsKey('MinLuminance')
+            ? json['MinLuminance'] as int
+            : null,
+        redPrimaryx:
+            json.containsKey('RedPrimaryX') ? json['RedPrimaryX'] as int : null,
+        redPrimaryy:
+            json.containsKey('RedPrimaryY') ? json['RedPrimaryY'] as int : null,
+        whitePointx:
+            json.containsKey('WhitePointX') ? json['WhitePointX'] as int : null,
+        whitePointy:
+            json.containsKey('WhitePointY') ? json['WhitePointY'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Caption Language Mapping
@@ -3247,7 +4443,21 @@ class HlsCaptionLanguageMapping {
     this.languageDescription,
   });
   static HlsCaptionLanguageMapping fromJson(Map<String, dynamic> json) =>
-      HlsCaptionLanguageMapping();
+      HlsCaptionLanguageMapping(
+        captionChannel: json.containsKey('CaptionChannel')
+            ? json['CaptionChannel'] as int
+            : null,
+        customLanguageCode: json.containsKey('CustomLanguageCode')
+            ? json['CustomLanguageCode'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        languageDescription: json.containsKey('LanguageDescription')
+            ? json['LanguageDescription'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for HLS encryption
@@ -3297,7 +4507,30 @@ class HlsEncryptionSettings {
     this.type,
   });
   static HlsEncryptionSettings fromJson(Map<String, dynamic> json) =>
-      HlsEncryptionSettings();
+      HlsEncryptionSettings(
+        constantInitializationVector:
+            json.containsKey('ConstantInitializationVector')
+                ? json['ConstantInitializationVector'] as String
+                : null,
+        encryptionMethod: json.containsKey('EncryptionMethod')
+            ? json['EncryptionMethod'] as String
+            : null,
+        initializationVectorInManifest:
+            json.containsKey('InitializationVectorInManifest')
+                ? json['InitializationVectorInManifest'] as String
+                : null,
+        offlineEncrypted: json.containsKey('OfflineEncrypted')
+            ? json['OfflineEncrypted'] as String
+            : null,
+        spekeKeyProvider: json.containsKey('SpekeKeyProvider')
+            ? SpekeKeyProvider.fromJson(json['SpekeKeyProvider'])
+            : null,
+        staticKeyProvider: json.containsKey('StaticKeyProvider')
+            ? StaticKeyProvider.fromJson(json['StaticKeyProvider'])
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
@@ -3446,7 +4679,82 @@ class HlsGroupSettings {
     this.timestampDeltaMilliseconds,
   });
   static HlsGroupSettings fromJson(Map<String, dynamic> json) =>
-      HlsGroupSettings();
+      HlsGroupSettings(
+        adMarkers: json.containsKey('AdMarkers')
+            ? (json['AdMarkers'] as List).map((e) => e as String).toList()
+            : null,
+        baseUrl: json.containsKey('BaseUrl') ? json['BaseUrl'] as String : null,
+        captionLanguageMappings: json.containsKey('CaptionLanguageMappings')
+            ? (json['CaptionLanguageMappings'] as List)
+                .map((e) => HlsCaptionLanguageMapping.fromJson(e))
+                .toList()
+            : null,
+        captionLanguageSetting: json.containsKey('CaptionLanguageSetting')
+            ? json['CaptionLanguageSetting'] as String
+            : null,
+        clientCache: json.containsKey('ClientCache')
+            ? json['ClientCache'] as String
+            : null,
+        codecSpecification: json.containsKey('CodecSpecification')
+            ? json['CodecSpecification'] as String
+            : null,
+        destination: json.containsKey('Destination')
+            ? json['Destination'] as String
+            : null,
+        destinationSettings: json.containsKey('DestinationSettings')
+            ? DestinationSettings.fromJson(json['DestinationSettings'])
+            : null,
+        directoryStructure: json.containsKey('DirectoryStructure')
+            ? json['DirectoryStructure'] as String
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? HlsEncryptionSettings.fromJson(json['Encryption'])
+            : null,
+        manifestCompression: json.containsKey('ManifestCompression')
+            ? json['ManifestCompression'] as String
+            : null,
+        manifestDurationFormat: json.containsKey('ManifestDurationFormat')
+            ? json['ManifestDurationFormat'] as String
+            : null,
+        minFinalSegmentLength: json.containsKey('MinFinalSegmentLength')
+            ? json['MinFinalSegmentLength'] as double
+            : null,
+        minSegmentLength: json.containsKey('MinSegmentLength')
+            ? json['MinSegmentLength'] as int
+            : null,
+        outputSelection: json.containsKey('OutputSelection')
+            ? json['OutputSelection'] as String
+            : null,
+        programDateTime: json.containsKey('ProgramDateTime')
+            ? json['ProgramDateTime'] as String
+            : null,
+        programDateTimePeriod: json.containsKey('ProgramDateTimePeriod')
+            ? json['ProgramDateTimePeriod'] as int
+            : null,
+        segmentControl: json.containsKey('SegmentControl')
+            ? json['SegmentControl'] as String
+            : null,
+        segmentLength: json.containsKey('SegmentLength')
+            ? json['SegmentLength'] as int
+            : null,
+        segmentsPerSubdirectory: json.containsKey('SegmentsPerSubdirectory')
+            ? json['SegmentsPerSubdirectory'] as int
+            : null,
+        streamInfResolution: json.containsKey('StreamInfResolution')
+            ? json['StreamInfResolution'] as String
+            : null,
+        timedMetadataId3Frame: json.containsKey('TimedMetadataId3Frame')
+            ? json['TimedMetadataId3Frame'] as String
+            : null,
+        timedMetadataId3Period: json.containsKey('TimedMetadataId3Period')
+            ? json['TimedMetadataId3Period'] as int
+            : null,
+        timestampDeltaMilliseconds:
+            json.containsKey('TimestampDeltaMilliseconds')
+                ? json['TimestampDeltaMilliseconds'] as int
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for HLS output groups
@@ -3496,7 +4804,27 @@ class HlsSettings {
     this.iFrameOnlyManifest,
     this.segmentModifier,
   });
-  static HlsSettings fromJson(Map<String, dynamic> json) => HlsSettings();
+  static HlsSettings fromJson(Map<String, dynamic> json) => HlsSettings(
+        audioGroupId: json.containsKey('AudioGroupId')
+            ? json['AudioGroupId'] as String
+            : null,
+        audioOnlyContainer: json.containsKey('AudioOnlyContainer')
+            ? json['AudioOnlyContainer'] as String
+            : null,
+        audioRenditionSets: json.containsKey('AudioRenditionSets')
+            ? json['AudioRenditionSets'] as String
+            : null,
+        audioTrackType: json.containsKey('AudioTrackType')
+            ? json['AudioTrackType'] as String
+            : null,
+        iFrameOnlyManifest: json.containsKey('IFrameOnlyManifest')
+            ? json['IFrameOnlyManifest'] as String
+            : null,
+        segmentModifier: json.containsKey('SegmentModifier')
+            ? json['SegmentModifier'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// To insert ID3 tags in your output, specify two values. Use ID3 tag (Id3) to
@@ -3514,7 +4842,12 @@ class Id3Insertion {
     this.id3,
     this.timecode,
   });
-  static Id3Insertion fromJson(Map<String, dynamic> json) => Id3Insertion();
+  static Id3Insertion fromJson(Map<String, dynamic> json) => Id3Insertion(
+        id3: json.containsKey('Id3') ? json['Id3'] as String : null,
+        timecode:
+            json.containsKey('Timecode') ? json['Timecode'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Enable the image inserter feature to include a graphic overlay on your
@@ -3528,7 +4861,14 @@ class ImageInserter {
   ImageInserter({
     this.insertableImages,
   });
-  static ImageInserter fromJson(Map<String, dynamic> json) => ImageInserter();
+  static ImageInserter fromJson(Map<String, dynamic> json) => ImageInserter(
+        insertableImages: json.containsKey('InsertableImages')
+            ? (json['InsertableImages'] as List)
+                .map((e) => InsertableImage.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings specific to IMSC caption outputs.
@@ -3543,7 +4883,12 @@ class ImscDestinationSettings {
     this.stylePassthrough,
   });
   static ImscDestinationSettings fromJson(Map<String, dynamic> json) =>
-      ImscDestinationSettings();
+      ImscDestinationSettings(
+        stylePassthrough: json.containsKey('StylePassthrough')
+            ? json['StylePassthrough'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies media input
@@ -3698,7 +5043,71 @@ class Input {
     this.timecodeStart,
     this.videoSelector,
   });
-  static Input fromJson(Map<String, dynamic> json) => Input();
+  static Input fromJson(Map<String, dynamic> json) => Input(
+        audioSelectorGroups: json.containsKey('AudioSelectorGroups')
+            ? (json['AudioSelectorGroups'] as Map).map(
+                (k, v) => MapEntry(k as String, AudioSelectorGroup.fromJson(v)))
+            : null,
+        audioSelectors: json.containsKey('AudioSelectors')
+            ? (json['AudioSelectors'] as Map)
+                .map((k, v) => MapEntry(k as String, AudioSelector.fromJson(v)))
+            : null,
+        captionSelectors: json.containsKey('CaptionSelectors')
+            ? (json['CaptionSelectors'] as Map).map(
+                (k, v) => MapEntry(k as String, CaptionSelector.fromJson(v)))
+            : null,
+        crop:
+            json.containsKey('Crop') ? Rectangle.fromJson(json['Crop']) : null,
+        deblockFilter: json.containsKey('DeblockFilter')
+            ? json['DeblockFilter'] as String
+            : null,
+        decryptionSettings: json.containsKey('DecryptionSettings')
+            ? InputDecryptionSettings.fromJson(json['DecryptionSettings'])
+            : null,
+        denoiseFilter: json.containsKey('DenoiseFilter')
+            ? json['DenoiseFilter'] as String
+            : null,
+        fileInput:
+            json.containsKey('FileInput') ? json['FileInput'] as String : null,
+        filterEnable: json.containsKey('FilterEnable')
+            ? json['FilterEnable'] as String
+            : null,
+        filterStrength: json.containsKey('FilterStrength')
+            ? json['FilterStrength'] as int
+            : null,
+        imageInserter: json.containsKey('ImageInserter')
+            ? ImageInserter.fromJson(json['ImageInserter'])
+            : null,
+        inputClippings: json.containsKey('InputClippings')
+            ? (json['InputClippings'] as List)
+                .map((e) => InputClipping.fromJson(e))
+                .toList()
+            : null,
+        position: json.containsKey('Position')
+            ? Rectangle.fromJson(json['Position'])
+            : null,
+        programNumber: json.containsKey('ProgramNumber')
+            ? json['ProgramNumber'] as int
+            : null,
+        psiControl: json.containsKey('PsiControl')
+            ? json['PsiControl'] as String
+            : null,
+        supplementalImps: json.containsKey('SupplementalImps')
+            ? (json['SupplementalImps'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        timecodeSource: json.containsKey('TimecodeSource')
+            ? json['TimecodeSource'] as String
+            : null,
+        timecodeStart: json.containsKey('TimecodeStart')
+            ? json['TimecodeStart'] as String
+            : null,
+        videoSelector: json.containsKey('VideoSelector')
+            ? VideoSelector.fromJson(json['VideoSelector'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// To transcode only portions of your input (clips), include one Input clipping
@@ -3731,7 +5140,15 @@ class InputClipping {
     this.endTimecode,
     this.startTimecode,
   });
-  static InputClipping fromJson(Map<String, dynamic> json) => InputClipping();
+  static InputClipping fromJson(Map<String, dynamic> json) => InputClipping(
+        endTimecode: json.containsKey('EndTimecode')
+            ? json['EndTimecode'] as String
+            : null,
+        startTimecode: json.containsKey('StartTimecode')
+            ? json['StartTimecode'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for decrypting any input files that you encrypt before you upload
@@ -3768,7 +5185,21 @@ class InputDecryptionSettings {
     this.kmsKeyRegion,
   });
   static InputDecryptionSettings fromJson(Map<String, dynamic> json) =>
-      InputDecryptionSettings();
+      InputDecryptionSettings(
+        decryptionMode: json.containsKey('DecryptionMode')
+            ? json['DecryptionMode'] as String
+            : null,
+        encryptedDecryptionKey: json.containsKey('EncryptedDecryptionKey')
+            ? json['EncryptedDecryptionKey'] as String
+            : null,
+        initializationVector: json.containsKey('InitializationVector')
+            ? json['InitializationVector'] as String
+            : null,
+        kmsKeyRegion: json.containsKey('KmsKeyRegion')
+            ? json['KmsKeyRegion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specified video input in a template.
@@ -3896,7 +5327,61 @@ class InputTemplate {
     this.timecodeStart,
     this.videoSelector,
   });
-  static InputTemplate fromJson(Map<String, dynamic> json) => InputTemplate();
+  static InputTemplate fromJson(Map<String, dynamic> json) => InputTemplate(
+        audioSelectorGroups: json.containsKey('AudioSelectorGroups')
+            ? (json['AudioSelectorGroups'] as Map).map(
+                (k, v) => MapEntry(k as String, AudioSelectorGroup.fromJson(v)))
+            : null,
+        audioSelectors: json.containsKey('AudioSelectors')
+            ? (json['AudioSelectors'] as Map)
+                .map((k, v) => MapEntry(k as String, AudioSelector.fromJson(v)))
+            : null,
+        captionSelectors: json.containsKey('CaptionSelectors')
+            ? (json['CaptionSelectors'] as Map).map(
+                (k, v) => MapEntry(k as String, CaptionSelector.fromJson(v)))
+            : null,
+        crop:
+            json.containsKey('Crop') ? Rectangle.fromJson(json['Crop']) : null,
+        deblockFilter: json.containsKey('DeblockFilter')
+            ? json['DeblockFilter'] as String
+            : null,
+        denoiseFilter: json.containsKey('DenoiseFilter')
+            ? json['DenoiseFilter'] as String
+            : null,
+        filterEnable: json.containsKey('FilterEnable')
+            ? json['FilterEnable'] as String
+            : null,
+        filterStrength: json.containsKey('FilterStrength')
+            ? json['FilterStrength'] as int
+            : null,
+        imageInserter: json.containsKey('ImageInserter')
+            ? ImageInserter.fromJson(json['ImageInserter'])
+            : null,
+        inputClippings: json.containsKey('InputClippings')
+            ? (json['InputClippings'] as List)
+                .map((e) => InputClipping.fromJson(e))
+                .toList()
+            : null,
+        position: json.containsKey('Position')
+            ? Rectangle.fromJson(json['Position'])
+            : null,
+        programNumber: json.containsKey('ProgramNumber')
+            ? json['ProgramNumber'] as int
+            : null,
+        psiControl: json.containsKey('PsiControl')
+            ? json['PsiControl'] as String
+            : null,
+        timecodeSource: json.containsKey('TimecodeSource')
+            ? json['TimecodeSource'] as String
+            : null,
+        timecodeStart: json.containsKey('TimecodeStart')
+            ? json['TimecodeStart'] as String
+            : null,
+        videoSelector: json.containsKey('VideoSelector')
+            ? VideoSelector.fromJson(json['VideoSelector'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings that specify how your still graphic overlay appears.
@@ -3970,8 +5455,23 @@ class InsertableImage {
     this.startTime,
     this.width,
   });
-  static InsertableImage fromJson(Map<String, dynamic> json) =>
-      InsertableImage();
+  static InsertableImage fromJson(Map<String, dynamic> json) => InsertableImage(
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fadeIn: json.containsKey('FadeIn') ? json['FadeIn'] as int : null,
+        fadeOut: json.containsKey('FadeOut') ? json['FadeOut'] as int : null,
+        height: json.containsKey('Height') ? json['Height'] as int : null,
+        imageInserterInput: json.containsKey('ImageInserterInput')
+            ? json['ImageInserterInput'] as String
+            : null,
+        imagex: json.containsKey('ImageX') ? json['ImageX'] as int : null,
+        imagey: json.containsKey('ImageY') ? json['ImageY'] as int : null,
+        layer: json.containsKey('Layer') ? json['Layer'] as int : null,
+        opacity: json.containsKey('Opacity') ? json['Opacity'] as int : null,
+        startTime:
+            json.containsKey('StartTime') ? json['StartTime'] as String : null,
+        width: json.containsKey('Width') ? json['Width'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Each job converts an input file into an output file or files. For more
@@ -4096,7 +5596,57 @@ class Job {
     this.timing,
     this.userMetadata,
   });
-  static Job fromJson(Map<String, dynamic> json) => Job();
+  static Job fromJson(Map<String, dynamic> json) => Job(
+        accelerationSettings: json.containsKey('AccelerationSettings')
+            ? AccelerationSettings.fromJson(json['AccelerationSettings'])
+            : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        billingTagsSource: json.containsKey('BillingTagsSource')
+            ? json['BillingTagsSource'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        currentPhase: json.containsKey('CurrentPhase')
+            ? json['CurrentPhase'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as int : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        jobPercentComplete: json.containsKey('JobPercentComplete')
+            ? json['JobPercentComplete'] as int
+            : null,
+        jobTemplate: json.containsKey('JobTemplate')
+            ? json['JobTemplate'] as String
+            : null,
+        outputGroupDetails: json.containsKey('OutputGroupDetails')
+            ? (json['OutputGroupDetails'] as List)
+                .map((e) => OutputGroupDetail.fromJson(e))
+                .toList()
+            : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        queue: json.containsKey('Queue') ? json['Queue'] as String : null,
+        retryCount:
+            json.containsKey('RetryCount') ? json['RetryCount'] as int : null,
+        role: json['Role'] as String,
+        settings: JobSettings.fromJson(json['Settings']),
+        simulateReservedQueue: json.containsKey('SimulateReservedQueue')
+            ? json['SimulateReservedQueue'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusUpdateInterval: json.containsKey('StatusUpdateInterval')
+            ? json['StatusUpdateInterval'] as String
+            : null,
+        timing:
+            json.containsKey('Timing') ? Timing.fromJson(json['Timing']) : null,
+        userMetadata: json.containsKey('UserMetadata')
+            ? (json['UserMetadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// JobSettings contains all the transcode settings for a job.
@@ -4163,7 +5713,38 @@ class JobSettings {
     this.timecodeConfig,
     this.timedMetadataInsertion,
   });
-  static JobSettings fromJson(Map<String, dynamic> json) => JobSettings();
+  static JobSettings fromJson(Map<String, dynamic> json) => JobSettings(
+        adAvailOffset: json.containsKey('AdAvailOffset')
+            ? json['AdAvailOffset'] as int
+            : null,
+        availBlanking: json.containsKey('AvailBlanking')
+            ? AvailBlanking.fromJson(json['AvailBlanking'])
+            : null,
+        esam: json.containsKey('Esam')
+            ? EsamSettings.fromJson(json['Esam'])
+            : null,
+        inputs: json.containsKey('Inputs')
+            ? (json['Inputs'] as List).map((e) => Input.fromJson(e)).toList()
+            : null,
+        motionImageInserter: json.containsKey('MotionImageInserter')
+            ? MotionImageInserter.fromJson(json['MotionImageInserter'])
+            : null,
+        nielsenConfiguration: json.containsKey('NielsenConfiguration')
+            ? NielsenConfiguration.fromJson(json['NielsenConfiguration'])
+            : null,
+        outputGroups: json.containsKey('OutputGroups')
+            ? (json['OutputGroups'] as List)
+                .map((e) => OutputGroup.fromJson(e))
+                .toList()
+            : null,
+        timecodeConfig: json.containsKey('TimecodeConfig')
+            ? TimecodeConfig.fromJson(json['TimecodeConfig'])
+            : null,
+        timedMetadataInsertion: json.containsKey('TimedMetadataInsertion')
+            ? TimedMetadataInsertion.fromJson(json['TimedMetadataInsertion'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A job template is a pre-made set of encoding instructions that you can use
@@ -4228,7 +5809,31 @@ class JobTemplate {
     this.statusUpdateInterval,
     this.type,
   });
-  static JobTemplate fromJson(Map<String, dynamic> json) => JobTemplate();
+  static JobTemplate fromJson(Map<String, dynamic> json) => JobTemplate(
+        accelerationSettings: json.containsKey('AccelerationSettings')
+            ? AccelerationSettings.fromJson(json['AccelerationSettings'])
+            : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        category:
+            json.containsKey('Category') ? json['Category'] as String : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        name: json['Name'] as String,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        queue: json.containsKey('Queue') ? json['Queue'] as String : null,
+        settings: JobTemplateSettings.fromJson(json['Settings']),
+        statusUpdateInterval: json.containsKey('StatusUpdateInterval')
+            ? json['StatusUpdateInterval'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// JobTemplateSettings contains all the transcode settings saved in the
@@ -4297,7 +5902,40 @@ class JobTemplateSettings {
     this.timedMetadataInsertion,
   });
   static JobTemplateSettings fromJson(Map<String, dynamic> json) =>
-      JobTemplateSettings();
+      JobTemplateSettings(
+        adAvailOffset: json.containsKey('AdAvailOffset')
+            ? json['AdAvailOffset'] as int
+            : null,
+        availBlanking: json.containsKey('AvailBlanking')
+            ? AvailBlanking.fromJson(json['AvailBlanking'])
+            : null,
+        esam: json.containsKey('Esam')
+            ? EsamSettings.fromJson(json['Esam'])
+            : null,
+        inputs: json.containsKey('Inputs')
+            ? (json['Inputs'] as List)
+                .map((e) => InputTemplate.fromJson(e))
+                .toList()
+            : null,
+        motionImageInserter: json.containsKey('MotionImageInserter')
+            ? MotionImageInserter.fromJson(json['MotionImageInserter'])
+            : null,
+        nielsenConfiguration: json.containsKey('NielsenConfiguration')
+            ? NielsenConfiguration.fromJson(json['NielsenConfiguration'])
+            : null,
+        outputGroups: json.containsKey('OutputGroups')
+            ? (json['OutputGroups'] as List)
+                .map((e) => OutputGroup.fromJson(e))
+                .toList()
+            : null,
+        timecodeConfig: json.containsKey('TimecodeConfig')
+            ? TimecodeConfig.fromJson(json['TimecodeConfig'])
+            : null,
+        timedMetadataInsertion: json.containsKey('TimedMetadataInsertion')
+            ? TimedMetadataInsertion.fromJson(json['TimedMetadataInsertion'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListJobTemplatesResponse {
@@ -4312,7 +5950,15 @@ class ListJobTemplatesResponse {
     this.nextToken,
   });
   static ListJobTemplatesResponse fromJson(Map<String, dynamic> json) =>
-      ListJobTemplatesResponse();
+      ListJobTemplatesResponse(
+        jobTemplates: json.containsKey('JobTemplates')
+            ? (json['JobTemplates'] as List)
+                .map((e) => JobTemplate.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListJobsResponse {
@@ -4327,7 +5973,13 @@ class ListJobsResponse {
     this.nextToken,
   });
   static ListJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListJobsResponse();
+      ListJobsResponse(
+        jobs: json.containsKey('Jobs')
+            ? (json['Jobs'] as List).map((e) => Job.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPresetsResponse {
@@ -4342,7 +5994,13 @@ class ListPresetsResponse {
     this.presets,
   });
   static ListPresetsResponse fromJson(Map<String, dynamic> json) =>
-      ListPresetsResponse();
+      ListPresetsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        presets: json.containsKey('Presets')
+            ? (json['Presets'] as List).map((e) => Preset.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListQueuesResponse {
@@ -4357,7 +6015,13 @@ class ListQueuesResponse {
     this.queues,
   });
   static ListQueuesResponse fromJson(Map<String, dynamic> json) =>
-      ListQueuesResponse();
+      ListQueuesResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        queues: json.containsKey('Queues')
+            ? (json['Queues'] as List).map((e) => Queue.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -4369,7 +6033,11 @@ class ListTagsForResourceResponse {
     this.resourceTags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        resourceTags: json.containsKey('ResourceTags')
+            ? ResourceTags.fromJson(json['ResourceTags'])
+            : null,
+      );
 }
 
 /// Settings for SCTE-35 signals from ESAM. Include this in your job settings to
@@ -4384,7 +6052,12 @@ class M2TsScte35Esam {
   M2TsScte35Esam({
     this.scte35EsamPid,
   });
-  static M2TsScte35Esam fromJson(Map<String, dynamic> json) => M2TsScte35Esam();
+  static M2TsScte35Esam fromJson(Map<String, dynamic> json) => M2TsScte35Esam(
+        scte35EsamPid: json.containsKey('Scte35EsamPid')
+            ? json['Scte35EsamPid'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// MPEG-2 TS container settings. These apply to outputs in a File output group
@@ -4623,7 +6296,105 @@ class M2TsSettings {
     this.transportStreamId,
     this.videoPid,
   });
-  static M2TsSettings fromJson(Map<String, dynamic> json) => M2TsSettings();
+  static M2TsSettings fromJson(Map<String, dynamic> json) => M2TsSettings(
+        audioBufferModel: json.containsKey('AudioBufferModel')
+            ? json['AudioBufferModel'] as String
+            : null,
+        audioFramesPerPes: json.containsKey('AudioFramesPerPes')
+            ? json['AudioFramesPerPes'] as int
+            : null,
+        audioPids: json.containsKey('AudioPids')
+            ? (json['AudioPids'] as List).map((e) => e as int).toList()
+            : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        bufferModel: json.containsKey('BufferModel')
+            ? json['BufferModel'] as String
+            : null,
+        dvbNitSettings: json.containsKey('DvbNitSettings')
+            ? DvbNitSettings.fromJson(json['DvbNitSettings'])
+            : null,
+        dvbSdtSettings: json.containsKey('DvbSdtSettings')
+            ? DvbSdtSettings.fromJson(json['DvbSdtSettings'])
+            : null,
+        dvbSubPids: json.containsKey('DvbSubPids')
+            ? (json['DvbSubPids'] as List).map((e) => e as int).toList()
+            : null,
+        dvbTdtSettings: json.containsKey('DvbTdtSettings')
+            ? DvbTdtSettings.fromJson(json['DvbTdtSettings'])
+            : null,
+        dvbTeletextPid: json.containsKey('DvbTeletextPid')
+            ? json['DvbTeletextPid'] as int
+            : null,
+        ebpAudioInterval: json.containsKey('EbpAudioInterval')
+            ? json['EbpAudioInterval'] as String
+            : null,
+        ebpPlacement: json.containsKey('EbpPlacement')
+            ? json['EbpPlacement'] as String
+            : null,
+        esRateInPes: json.containsKey('EsRateInPes')
+            ? json['EsRateInPes'] as String
+            : null,
+        forceTsVideoEbpOrder: json.containsKey('ForceTsVideoEbpOrder')
+            ? json['ForceTsVideoEbpOrder'] as String
+            : null,
+        fragmentTime: json.containsKey('FragmentTime')
+            ? json['FragmentTime'] as double
+            : null,
+        maxPcrInterval: json.containsKey('MaxPcrInterval')
+            ? json['MaxPcrInterval'] as int
+            : null,
+        minEbpInterval: json.containsKey('MinEbpInterval')
+            ? json['MinEbpInterval'] as int
+            : null,
+        nielsenId3: json.containsKey('NielsenId3')
+            ? json['NielsenId3'] as String
+            : null,
+        nullPacketBitrate: json.containsKey('NullPacketBitrate')
+            ? json['NullPacketBitrate'] as double
+            : null,
+        patInterval:
+            json.containsKey('PatInterval') ? json['PatInterval'] as int : null,
+        pcrControl: json.containsKey('PcrControl')
+            ? json['PcrControl'] as String
+            : null,
+        pcrPid: json.containsKey('PcrPid') ? json['PcrPid'] as int : null,
+        pmtInterval:
+            json.containsKey('PmtInterval') ? json['PmtInterval'] as int : null,
+        pmtPid: json.containsKey('PmtPid') ? json['PmtPid'] as int : null,
+        privateMetadataPid: json.containsKey('PrivateMetadataPid')
+            ? json['PrivateMetadataPid'] as int
+            : null,
+        programNumber: json.containsKey('ProgramNumber')
+            ? json['ProgramNumber'] as int
+            : null,
+        rateMode:
+            json.containsKey('RateMode') ? json['RateMode'] as String : null,
+        scte35Esam: json.containsKey('Scte35Esam')
+            ? M2TsScte35Esam.fromJson(json['Scte35Esam'])
+            : null,
+        scte35Pid:
+            json.containsKey('Scte35Pid') ? json['Scte35Pid'] as int : null,
+        scte35Source: json.containsKey('Scte35Source')
+            ? json['Scte35Source'] as String
+            : null,
+        segmentationMarkers: json.containsKey('SegmentationMarkers')
+            ? json['SegmentationMarkers'] as String
+            : null,
+        segmentationStyle: json.containsKey('SegmentationStyle')
+            ? json['SegmentationStyle'] as String
+            : null,
+        segmentationTime: json.containsKey('SegmentationTime')
+            ? json['SegmentationTime'] as double
+            : null,
+        timedMetadataPid: json.containsKey('TimedMetadataPid')
+            ? json['TimedMetadataPid'] as int
+            : null,
+        transportStreamId: json.containsKey('TransportStreamId')
+            ? json['TransportStreamId'] as int
+            : null,
+        videoPid: json.containsKey('VideoPid') ? json['VideoPid'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for TS segments in HLS
@@ -4716,7 +6487,48 @@ class M3U8Settings {
     this.transportStreamId,
     this.videoPid,
   });
-  static M3U8Settings fromJson(Map<String, dynamic> json) => M3U8Settings();
+  static M3U8Settings fromJson(Map<String, dynamic> json) => M3U8Settings(
+        audioFramesPerPes: json.containsKey('AudioFramesPerPes')
+            ? json['AudioFramesPerPes'] as int
+            : null,
+        audioPids: json.containsKey('AudioPids')
+            ? (json['AudioPids'] as List).map((e) => e as int).toList()
+            : null,
+        nielsenId3: json.containsKey('NielsenId3')
+            ? json['NielsenId3'] as String
+            : null,
+        patInterval:
+            json.containsKey('PatInterval') ? json['PatInterval'] as int : null,
+        pcrControl: json.containsKey('PcrControl')
+            ? json['PcrControl'] as String
+            : null,
+        pcrPid: json.containsKey('PcrPid') ? json['PcrPid'] as int : null,
+        pmtInterval:
+            json.containsKey('PmtInterval') ? json['PmtInterval'] as int : null,
+        pmtPid: json.containsKey('PmtPid') ? json['PmtPid'] as int : null,
+        privateMetadataPid: json.containsKey('PrivateMetadataPid')
+            ? json['PrivateMetadataPid'] as int
+            : null,
+        programNumber: json.containsKey('ProgramNumber')
+            ? json['ProgramNumber'] as int
+            : null,
+        scte35Pid:
+            json.containsKey('Scte35Pid') ? json['Scte35Pid'] as int : null,
+        scte35Source: json.containsKey('Scte35Source')
+            ? json['Scte35Source'] as String
+            : null,
+        timedMetadata: json.containsKey('TimedMetadata')
+            ? json['TimedMetadata'] as String
+            : null,
+        timedMetadataPid: json.containsKey('TimedMetadataPid')
+            ? json['TimedMetadataPid'] as int
+            : null,
+        transportStreamId: json.containsKey('TransportStreamId')
+            ? json['TransportStreamId'] as int
+            : null,
+        videoPid: json.containsKey('VideoPid') ? json['VideoPid'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Overlay motion graphics on top of your video at the time that you specify.
@@ -4781,7 +6593,23 @@ class MotionImageInserter {
     this.startTime,
   });
   static MotionImageInserter fromJson(Map<String, dynamic> json) =>
-      MotionImageInserter();
+      MotionImageInserter(
+        framerate: json.containsKey('Framerate')
+            ? MotionImageInsertionFramerate.fromJson(json['Framerate'])
+            : null,
+        input: json.containsKey('Input') ? json['Input'] as String : null,
+        insertionMode: json.containsKey('InsertionMode')
+            ? json['InsertionMode'] as String
+            : null,
+        offset: json.containsKey('Offset')
+            ? MotionImageInsertionOffset.fromJson(json['Offset'])
+            : null,
+        playback:
+            json.containsKey('Playback') ? json['Playback'] as String : null,
+        startTime:
+            json.containsKey('StartTime') ? json['StartTime'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// For motion overlays that don't have a built-in frame rate, specify the frame
@@ -4802,7 +6630,15 @@ class MotionImageInsertionFramerate {
     this.framerateNumerator,
   });
   static MotionImageInsertionFramerate fromJson(Map<String, dynamic> json) =>
-      MotionImageInsertionFramerate();
+      MotionImageInsertionFramerate(
+        framerateDenominator: json.containsKey('FramerateDenominator')
+            ? json['FramerateDenominator'] as int
+            : null,
+        framerateNumerator: json.containsKey('FramerateNumerator')
+            ? json['FramerateNumerator'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specify the offset between the upper-left corner of the video frame and the
@@ -4821,7 +6657,11 @@ class MotionImageInsertionOffset {
     this.imagey,
   });
   static MotionImageInsertionOffset fromJson(Map<String, dynamic> json) =>
-      MotionImageInsertionOffset();
+      MotionImageInsertionOffset(
+        imagex: json.containsKey('ImageX') ? json['ImageX'] as int : null,
+        imagey: json.containsKey('ImageY') ? json['ImageY'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for MOV Container.
@@ -4856,7 +6696,21 @@ class MovSettings {
     this.paddingControl,
     this.reference,
   });
-  static MovSettings fromJson(Map<String, dynamic> json) => MovSettings();
+  static MovSettings fromJson(Map<String, dynamic> json) => MovSettings(
+        clapAtom:
+            json.containsKey('ClapAtom') ? json['ClapAtom'] as String : null,
+        cslgAtom:
+            json.containsKey('CslgAtom') ? json['CslgAtom'] as String : null,
+        mpeg2FourCCControl: json.containsKey('Mpeg2FourCCControl')
+            ? json['Mpeg2FourCCControl'] as String
+            : null,
+        paddingControl: json.containsKey('PaddingControl')
+            ? json['PaddingControl'] as String
+            : null,
+        reference:
+            json.containsKey('Reference') ? json['Reference'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
@@ -4878,7 +6732,13 @@ class Mp2Settings {
     this.channels,
     this.sampleRate,
   });
-  static Mp2Settings fromJson(Map<String, dynamic> json) => Mp2Settings();
+  static Mp2Settings fromJson(Map<String, dynamic> json) => Mp2Settings(
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        channels: json.containsKey('Channels') ? json['Channels'] as int : null,
+        sampleRate:
+            json.containsKey('SampleRate') ? json['SampleRate'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for MP4 container. You can create audio-only AAC outputs with this
@@ -4909,7 +6769,20 @@ class Mp4Settings {
     this.moovPlacement,
     this.mp4MajorBrand,
   });
-  static Mp4Settings fromJson(Map<String, dynamic> json) => Mp4Settings();
+  static Mp4Settings fromJson(Map<String, dynamic> json) => Mp4Settings(
+        cslgAtom:
+            json.containsKey('CslgAtom') ? json['CslgAtom'] as String : null,
+        freeSpaceBox: json.containsKey('FreeSpaceBox')
+            ? json['FreeSpaceBox'] as String
+            : null,
+        moovPlacement: json.containsKey('MoovPlacement')
+            ? json['MoovPlacement'] as String
+            : null,
+        mp4MajorBrand: json.containsKey('Mp4MajorBrand')
+            ? json['Mp4MajorBrand'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
@@ -5105,7 +6978,95 @@ class Mpeg2Settings {
     this.telecine,
     this.temporalAdaptiveQuantization,
   });
-  static Mpeg2Settings fromJson(Map<String, dynamic> json) => Mpeg2Settings();
+  static Mpeg2Settings fromJson(Map<String, dynamic> json) => Mpeg2Settings(
+        adaptiveQuantization: json.containsKey('AdaptiveQuantization')
+            ? json['AdaptiveQuantization'] as String
+            : null,
+        bitrate: json.containsKey('Bitrate') ? json['Bitrate'] as int : null,
+        codecLevel: json.containsKey('CodecLevel')
+            ? json['CodecLevel'] as String
+            : null,
+        codecProfile: json.containsKey('CodecProfile')
+            ? json['CodecProfile'] as String
+            : null,
+        dynamicSubGop: json.containsKey('DynamicSubGop')
+            ? json['DynamicSubGop'] as String
+            : null,
+        framerateControl: json.containsKey('FramerateControl')
+            ? json['FramerateControl'] as String
+            : null,
+        framerateConversionAlgorithm:
+            json.containsKey('FramerateConversionAlgorithm')
+                ? json['FramerateConversionAlgorithm'] as String
+                : null,
+        framerateDenominator: json.containsKey('FramerateDenominator')
+            ? json['FramerateDenominator'] as int
+            : null,
+        framerateNumerator: json.containsKey('FramerateNumerator')
+            ? json['FramerateNumerator'] as int
+            : null,
+        gopClosedCadence: json.containsKey('GopClosedCadence')
+            ? json['GopClosedCadence'] as int
+            : null,
+        gopSize: json.containsKey('GopSize') ? json['GopSize'] as double : null,
+        gopSizeUnits: json.containsKey('GopSizeUnits')
+            ? json['GopSizeUnits'] as String
+            : null,
+        hrdBufferInitialFillPercentage:
+            json.containsKey('HrdBufferInitialFillPercentage')
+                ? json['HrdBufferInitialFillPercentage'] as int
+                : null,
+        hrdBufferSize: json.containsKey('HrdBufferSize')
+            ? json['HrdBufferSize'] as int
+            : null,
+        interlaceMode: json.containsKey('InterlaceMode')
+            ? json['InterlaceMode'] as String
+            : null,
+        intraDcPrecision: json.containsKey('IntraDcPrecision')
+            ? json['IntraDcPrecision'] as String
+            : null,
+        maxBitrate:
+            json.containsKey('MaxBitrate') ? json['MaxBitrate'] as int : null,
+        miniInterval: json.containsKey('MinIInterval')
+            ? json['MinIInterval'] as int
+            : null,
+        numberbFramesBetweenReferenceFrames:
+            json.containsKey('NumberBFramesBetweenReferenceFrames')
+                ? json['NumberBFramesBetweenReferenceFrames'] as int
+                : null,
+        parControl: json.containsKey('ParControl')
+            ? json['ParControl'] as String
+            : null,
+        parDenominator: json.containsKey('ParDenominator')
+            ? json['ParDenominator'] as int
+            : null,
+        parNumerator: json.containsKey('ParNumerator')
+            ? json['ParNumerator'] as int
+            : null,
+        qualityTuningLevel: json.containsKey('QualityTuningLevel')
+            ? json['QualityTuningLevel'] as String
+            : null,
+        rateControlMode: json.containsKey('RateControlMode')
+            ? json['RateControlMode'] as String
+            : null,
+        sceneChangeDetect: json.containsKey('SceneChangeDetect')
+            ? json['SceneChangeDetect'] as String
+            : null,
+        slowPal: json.containsKey('SlowPal') ? json['SlowPal'] as String : null,
+        softness: json.containsKey('Softness') ? json['Softness'] as int : null,
+        spatialAdaptiveQuantization:
+            json.containsKey('SpatialAdaptiveQuantization')
+                ? json['SpatialAdaptiveQuantization'] as String
+                : null,
+        syntax: json.containsKey('Syntax') ? json['Syntax'] as String : null,
+        telecine:
+            json.containsKey('Telecine') ? json['Telecine'] as String : null,
+        temporalAdaptiveQuantization:
+            json.containsKey('TemporalAdaptiveQuantization')
+                ? json['TemporalAdaptiveQuantization'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to specify
@@ -5121,7 +7082,12 @@ class MsSmoothEncryptionSettings {
     this.spekeKeyProvider,
   });
   static MsSmoothEncryptionSettings fromJson(Map<String, dynamic> json) =>
-      MsSmoothEncryptionSettings();
+      MsSmoothEncryptionSettings(
+        spekeKeyProvider: json.containsKey('SpekeKeyProvider')
+            ? SpekeKeyProvider.fromJson(json['SpekeKeyProvider'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
@@ -5164,7 +7130,27 @@ class MsSmoothGroupSettings {
     this.manifestEncoding,
   });
   static MsSmoothGroupSettings fromJson(Map<String, dynamic> json) =>
-      MsSmoothGroupSettings();
+      MsSmoothGroupSettings(
+        audioDeduplication: json.containsKey('AudioDeduplication')
+            ? json['AudioDeduplication'] as String
+            : null,
+        destination: json.containsKey('Destination')
+            ? json['Destination'] as String
+            : null,
+        destinationSettings: json.containsKey('DestinationSettings')
+            ? DestinationSettings.fromJson(json['DestinationSettings'])
+            : null,
+        encryption: json.containsKey('Encryption')
+            ? MsSmoothEncryptionSettings.fromJson(json['Encryption'])
+            : null,
+        fragmentLength: json.containsKey('FragmentLength')
+            ? json['FragmentLength'] as int
+            : null,
+        manifestEncoding: json.containsKey('ManifestEncoding')
+            ? json['ManifestEncoding'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for your Nielsen configuration. If you don't do Nielsen measurement
@@ -5188,7 +7174,15 @@ class NielsenConfiguration {
     this.distributorId,
   });
   static NielsenConfiguration fromJson(Map<String, dynamic> json) =>
-      NielsenConfiguration();
+      NielsenConfiguration(
+        breakoutCode: json.containsKey('BreakoutCode')
+            ? json['BreakoutCode'] as int
+            : null,
+        distributorId: json.containsKey('DistributorId')
+            ? json['DistributorId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Enable the Noise reducer (NoiseReducer) feature to remove noise from your
@@ -5221,7 +7215,21 @@ class NoiseReducer {
     this.spatialFilterSettings,
     this.temporalFilterSettings,
   });
-  static NoiseReducer fromJson(Map<String, dynamic> json) => NoiseReducer();
+  static NoiseReducer fromJson(Map<String, dynamic> json) => NoiseReducer(
+        filter: json.containsKey('Filter') ? json['Filter'] as String : null,
+        filterSettings: json.containsKey('FilterSettings')
+            ? NoiseReducerFilterSettings.fromJson(json['FilterSettings'])
+            : null,
+        spatialFilterSettings: json.containsKey('SpatialFilterSettings')
+            ? NoiseReducerSpatialFilterSettings.fromJson(
+                json['SpatialFilterSettings'])
+            : null,
+        temporalFilterSettings: json.containsKey('TemporalFilterSettings')
+            ? NoiseReducerTemporalFilterSettings.fromJson(
+                json['TemporalFilterSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for a noise reducer filter
@@ -5234,7 +7242,10 @@ class NoiseReducerFilterSettings {
     this.strength,
   });
   static NoiseReducerFilterSettings fromJson(Map<String, dynamic> json) =>
-      NoiseReducerFilterSettings();
+      NoiseReducerFilterSettings(
+        strength: json.containsKey('Strength') ? json['Strength'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Noise reducer filter settings for spatial filter.
@@ -5258,7 +7269,14 @@ class NoiseReducerSpatialFilterSettings {
   });
   static NoiseReducerSpatialFilterSettings fromJson(
           Map<String, dynamic> json) =>
-      NoiseReducerSpatialFilterSettings();
+      NoiseReducerSpatialFilterSettings(
+        postFilterSharpenStrength: json.containsKey('PostFilterSharpenStrength')
+            ? json['PostFilterSharpenStrength'] as int
+            : null,
+        speed: json.containsKey('Speed') ? json['Speed'] as int : null,
+        strength: json.containsKey('Strength') ? json['Strength'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Noise reducer filter settings for temporal filter.
@@ -5287,7 +7305,14 @@ class NoiseReducerTemporalFilterSettings {
   });
   static NoiseReducerTemporalFilterSettings fromJson(
           Map<String, dynamic> json) =>
-      NoiseReducerTemporalFilterSettings();
+      NoiseReducerTemporalFilterSettings(
+        aggressiveMode: json.containsKey('AggressiveMode')
+            ? json['AggressiveMode'] as int
+            : null,
+        speed: json.containsKey('Speed') ? json['Speed'] as int : null,
+        strength: json.containsKey('Strength') ? json['Strength'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An output object describes the settings for a single output file or stream
@@ -5347,7 +7372,34 @@ class Output {
     this.preset,
     this.videoDescription,
   });
-  static Output fromJson(Map<String, dynamic> json) => Output();
+  static Output fromJson(Map<String, dynamic> json) => Output(
+        audioDescriptions: json.containsKey('AudioDescriptions')
+            ? (json['AudioDescriptions'] as List)
+                .map((e) => AudioDescription.fromJson(e))
+                .toList()
+            : null,
+        captionDescriptions: json.containsKey('CaptionDescriptions')
+            ? (json['CaptionDescriptions'] as List)
+                .map((e) => CaptionDescription.fromJson(e))
+                .toList()
+            : null,
+        containerSettings: json.containsKey('ContainerSettings')
+            ? ContainerSettings.fromJson(json['ContainerSettings'])
+            : null,
+        extension:
+            json.containsKey('Extension') ? json['Extension'] as String : null,
+        nameModifier: json.containsKey('NameModifier')
+            ? json['NameModifier'] as String
+            : null,
+        outputSettings: json.containsKey('OutputSettings')
+            ? OutputSettings.fromJson(json['OutputSettings'])
+            : null,
+        preset: json.containsKey('Preset') ? json['Preset'] as String : null,
+        videoDescription: json.containsKey('VideoDescription')
+            ? VideoDescription.fromJson(json['VideoDescription'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// OutputChannel mapping settings.
@@ -5359,7 +7411,12 @@ class OutputChannelMapping {
     this.inputChannels,
   });
   static OutputChannelMapping fromJson(Map<String, dynamic> json) =>
-      OutputChannelMapping();
+      OutputChannelMapping(
+        inputChannels: json.containsKey('InputChannels')
+            ? (json['InputChannels'] as List).map((e) => e as int).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details regarding output
@@ -5374,7 +7431,14 @@ class OutputDetail {
     this.durationInMs,
     this.videoDetails,
   });
-  static OutputDetail fromJson(Map<String, dynamic> json) => OutputDetail();
+  static OutputDetail fromJson(Map<String, dynamic> json) => OutputDetail(
+        durationInMs: json.containsKey('DurationInMs')
+            ? json['DurationInMs'] as int
+            : null,
+        videoDetails: json.containsKey('VideoDetails')
+            ? VideoDetail.fromJson(json['VideoDetails'])
+            : null,
+      );
 }
 
 /// Group of outputs
@@ -5401,7 +7465,19 @@ class OutputGroup {
     this.outputGroupSettings,
     this.outputs,
   });
-  static OutputGroup fromJson(Map<String, dynamic> json) => OutputGroup();
+  static OutputGroup fromJson(Map<String, dynamic> json) => OutputGroup(
+        customName: json.containsKey('CustomName')
+            ? json['CustomName'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        outputGroupSettings: json.containsKey('OutputGroupSettings')
+            ? OutputGroupSettings.fromJson(json['OutputGroupSettings'])
+            : null,
+        outputs: json.containsKey('Outputs')
+            ? (json['Outputs'] as List).map((e) => Output.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains details about the output groups specified in the job settings.
@@ -5413,7 +7489,13 @@ class OutputGroupDetail {
     this.outputDetails,
   });
   static OutputGroupDetail fromJson(Map<String, dynamic> json) =>
-      OutputGroupDetail();
+      OutputGroupDetail(
+        outputDetails: json.containsKey('OutputDetails')
+            ? (json['OutputDetails'] as List)
+                .map((e) => OutputDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Output Group settings, including type
@@ -5452,7 +7534,25 @@ class OutputGroupSettings {
     this.type,
   });
   static OutputGroupSettings fromJson(Map<String, dynamic> json) =>
-      OutputGroupSettings();
+      OutputGroupSettings(
+        cmafGroupSettings: json.containsKey('CmafGroupSettings')
+            ? CmafGroupSettings.fromJson(json['CmafGroupSettings'])
+            : null,
+        dashIsoGroupSettings: json.containsKey('DashIsoGroupSettings')
+            ? DashIsoGroupSettings.fromJson(json['DashIsoGroupSettings'])
+            : null,
+        fileGroupSettings: json.containsKey('FileGroupSettings')
+            ? FileGroupSettings.fromJson(json['FileGroupSettings'])
+            : null,
+        hlsGroupSettings: json.containsKey('HlsGroupSettings')
+            ? HlsGroupSettings.fromJson(json['HlsGroupSettings'])
+            : null,
+        msSmoothGroupSettings: json.containsKey('MsSmoothGroupSettings')
+            ? MsSmoothGroupSettings.fromJson(json['MsSmoothGroupSettings'])
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specific settings for this type of output.
@@ -5463,7 +7563,12 @@ class OutputSettings {
   OutputSettings({
     this.hlsSettings,
   });
-  static OutputSettings fromJson(Map<String, dynamic> json) => OutputSettings();
+  static OutputSettings fromJson(Map<String, dynamic> json) => OutputSettings(
+        hlsSettings: json.containsKey('HlsSettings')
+            ? HlsSettings.fromJson(json['HlsSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A preset is a collection of preconfigured media conversion settings that you
@@ -5505,7 +7610,23 @@ class Preset {
     @required this.settings,
     this.type,
   });
-  static Preset fromJson(Map<String, dynamic> json) => Preset();
+  static Preset fromJson(Map<String, dynamic> json) => Preset(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        category:
+            json.containsKey('Category') ? json['Category'] as String : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        name: json['Name'] as String,
+        settings: PresetSettings.fromJson(json['Settings']),
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Settings for preset
@@ -5534,7 +7655,25 @@ class PresetSettings {
     this.containerSettings,
     this.videoDescription,
   });
-  static PresetSettings fromJson(Map<String, dynamic> json) => PresetSettings();
+  static PresetSettings fromJson(Map<String, dynamic> json) => PresetSettings(
+        audioDescriptions: json.containsKey('AudioDescriptions')
+            ? (json['AudioDescriptions'] as List)
+                .map((e) => AudioDescription.fromJson(e))
+                .toList()
+            : null,
+        captionDescriptions: json.containsKey('CaptionDescriptions')
+            ? (json['CaptionDescriptions'] as List)
+                .map((e) => CaptionDescriptionPreset.fromJson(e))
+                .toList()
+            : null,
+        containerSettings: json.containsKey('ContainerSettings')
+            ? ContainerSettings.fromJson(json['ContainerSettings'])
+            : null,
+        videoDescription: json.containsKey('VideoDescription')
+            ? VideoDescription.fromJson(json['VideoDescription'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
@@ -5622,7 +7761,40 @@ class ProresSettings {
     this.slowPal,
     this.telecine,
   });
-  static ProresSettings fromJson(Map<String, dynamic> json) => ProresSettings();
+  static ProresSettings fromJson(Map<String, dynamic> json) => ProresSettings(
+        codecProfile: json.containsKey('CodecProfile')
+            ? json['CodecProfile'] as String
+            : null,
+        framerateControl: json.containsKey('FramerateControl')
+            ? json['FramerateControl'] as String
+            : null,
+        framerateConversionAlgorithm:
+            json.containsKey('FramerateConversionAlgorithm')
+                ? json['FramerateConversionAlgorithm'] as String
+                : null,
+        framerateDenominator: json.containsKey('FramerateDenominator')
+            ? json['FramerateDenominator'] as int
+            : null,
+        framerateNumerator: json.containsKey('FramerateNumerator')
+            ? json['FramerateNumerator'] as int
+            : null,
+        interlaceMode: json.containsKey('InterlaceMode')
+            ? json['InterlaceMode'] as String
+            : null,
+        parControl: json.containsKey('ParControl')
+            ? json['ParControl'] as String
+            : null,
+        parDenominator: json.containsKey('ParDenominator')
+            ? json['ParDenominator'] as int
+            : null,
+        parNumerator: json.containsKey('ParNumerator')
+            ? json['ParNumerator'] as int
+            : null,
+        slowPal: json.containsKey('SlowPal') ? json['SlowPal'] as String : null,
+        telecine:
+            json.containsKey('Telecine') ? json['Telecine'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// You can use queues to manage the resources that are available to your AWS
@@ -5688,7 +7860,33 @@ class Queue {
     this.submittedJobsCount,
     this.type,
   });
-  static Queue fromJson(Map<String, dynamic> json) => Queue();
+  static Queue fromJson(Map<String, dynamic> json) => Queue(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        lastUpdated: json.containsKey('LastUpdated')
+            ? DateTime.parse(json['LastUpdated'])
+            : null,
+        name: json['Name'] as String,
+        pricingPlan: json.containsKey('PricingPlan')
+            ? json['PricingPlan'] as String
+            : null,
+        progressingJobsCount: json.containsKey('ProgressingJobsCount')
+            ? json['ProgressingJobsCount'] as int
+            : null,
+        reservationPlan: json.containsKey('ReservationPlan')
+            ? ReservationPlan.fromJson(json['ReservationPlan'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        submittedJobsCount: json.containsKey('SubmittedJobsCount')
+            ? json['SubmittedJobsCount'] as int
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Use Rectangle to identify a specific area of the video frame.
@@ -5713,7 +7911,13 @@ class Rectangle {
     this.x,
     this.y,
   });
-  static Rectangle fromJson(Map<String, dynamic> json) => Rectangle();
+  static Rectangle fromJson(Map<String, dynamic> json) => Rectangle(
+        height: json.containsKey('Height') ? json['Height'] as int : null,
+        width: json.containsKey('Width') ? json['Width'] as int : null,
+        x: json.containsKey('X') ? json['X'] as int : null,
+        y: json.containsKey('Y') ? json['Y'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Use Manual audio remixing (RemixSettings) to adjust audio levels for each
@@ -5742,7 +7946,16 @@ class RemixSettings {
     this.channelsIn,
     this.channelsOut,
   });
-  static RemixSettings fromJson(Map<String, dynamic> json) => RemixSettings();
+  static RemixSettings fromJson(Map<String, dynamic> json) => RemixSettings(
+        channelMapping: json.containsKey('ChannelMapping')
+            ? ChannelMapping.fromJson(json['ChannelMapping'])
+            : null,
+        channelsIn:
+            json.containsKey('ChannelsIn') ? json['ChannelsIn'] as int : null,
+        channelsOut:
+            json.containsKey('ChannelsOut') ? json['ChannelsOut'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details about the pricing plan for your reserved queue. Required for
@@ -5785,8 +7998,24 @@ class ReservationPlan {
     this.reservedSlots,
     this.status,
   });
-  static ReservationPlan fromJson(Map<String, dynamic> json) =>
-      ReservationPlan();
+  static ReservationPlan fromJson(Map<String, dynamic> json) => ReservationPlan(
+        commitment: json.containsKey('Commitment')
+            ? json['Commitment'] as String
+            : null,
+        expiresAt: json.containsKey('ExpiresAt')
+            ? DateTime.parse(json['ExpiresAt'])
+            : null,
+        purchasedAt: json.containsKey('PurchasedAt')
+            ? DateTime.parse(json['PurchasedAt'])
+            : null,
+        renewalType: json.containsKey('RenewalType')
+            ? json['RenewalType'] as String
+            : null,
+        reservedSlots: json.containsKey('ReservedSlots')
+            ? json['ReservedSlots'] as int
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Details about the pricing plan for your reserved queue. Required for
@@ -5816,6 +8045,7 @@ class ReservationPlanSettings {
     @required this.renewalType,
     @required this.reservedSlots,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Amazon Resource Name (ARN) and tags for an AWS Elemental MediaConvert
@@ -5831,7 +8061,13 @@ class ResourceTags {
     this.arn,
     this.tags,
   });
-  static ResourceTags fromJson(Map<String, dynamic> json) => ResourceTags();
+  static ResourceTags fromJson(Map<String, dynamic> json) => ResourceTags(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Settings associated with S3 destination
@@ -5844,7 +8080,12 @@ class S3DestinationSettings {
     this.encryption,
   });
   static S3DestinationSettings fromJson(Map<String, dynamic> json) =>
-      S3DestinationSettings();
+      S3DestinationSettings(
+        encryption: json.containsKey('Encryption')
+            ? S3EncryptionSettings.fromJson(json['Encryption'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for how your job outputs are encrypted as they are uploaded to
@@ -5878,7 +8119,14 @@ class S3EncryptionSettings {
     this.kmsKeyArn,
   });
   static S3EncryptionSettings fromJson(Map<String, dynamic> json) =>
-      S3EncryptionSettings();
+      S3EncryptionSettings(
+        encryptionType: json.containsKey('EncryptionType')
+            ? json['EncryptionType'] as String
+            : null,
+        kmsKeyArn:
+            json.containsKey('KmsKeyArn') ? json['KmsKeyArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for SCC caption output.
@@ -5895,7 +8143,11 @@ class SccDestinationSettings {
     this.framerate,
   });
   static SccDestinationSettings fromJson(Map<String, dynamic> json) =>
-      SccDestinationSettings();
+      SccDestinationSettings(
+        framerate:
+            json.containsKey('Framerate') ? json['Framerate'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// If your output group type is HLS, DASH, or Microsoft Smooth, use these
@@ -5930,7 +8182,19 @@ class SpekeKeyProvider {
     this.url,
   });
   static SpekeKeyProvider fromJson(Map<String, dynamic> json) =>
-      SpekeKeyProvider();
+      SpekeKeyProvider(
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        systemIds: json.containsKey('SystemIds')
+            ? (json['SystemIds'] as List).map((e) => e as String).toList()
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// If your output group type is CMAF, use these settings when doing DRM
@@ -5971,7 +8235,26 @@ class SpekeKeyProviderCmaf {
     this.url,
   });
   static SpekeKeyProviderCmaf fromJson(Map<String, dynamic> json) =>
-      SpekeKeyProviderCmaf();
+      SpekeKeyProviderCmaf(
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        dashSignaledSystemIds: json.containsKey('DashSignaledSystemIds')
+            ? (json['DashSignaledSystemIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        hlsSignaledSystemIds: json.containsKey('HlsSignaledSystemIds')
+            ? (json['HlsSignaledSystemIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Use these settings to set up encryption with a static key provider.
@@ -6000,7 +8283,18 @@ class StaticKeyProvider {
     this.url,
   });
   static StaticKeyProvider fromJson(Map<String, dynamic> json) =>
-      StaticKeyProvider();
+      StaticKeyProvider(
+        keyFormat:
+            json.containsKey('KeyFormat') ? json['KeyFormat'] as String : null,
+        keyFormatVersions: json.containsKey('KeyFormatVersions')
+            ? json['KeyFormatVersions'] as String
+            : null,
+        staticKeyValue: json.containsKey('StaticKeyValue')
+            ? json['StaticKeyValue'] as String
+            : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -6029,7 +8323,15 @@ class TeletextDestinationSettings {
     this.pageTypes,
   });
   static TeletextDestinationSettings fromJson(Map<String, dynamic> json) =>
-      TeletextDestinationSettings();
+      TeletextDestinationSettings(
+        pageNumber: json.containsKey('PageNumber')
+            ? json['PageNumber'] as String
+            : null,
+        pageTypes: json.containsKey('PageTypes')
+            ? (json['PageTypes'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings specific to Teletext caption sources, including Page number.
@@ -6043,7 +8345,12 @@ class TeletextSourceSettings {
     this.pageNumber,
   });
   static TeletextSourceSettings fromJson(Map<String, dynamic> json) =>
-      TeletextSourceSettings();
+      TeletextSourceSettings(
+        pageNumber: json.containsKey('PageNumber')
+            ? json['PageNumber'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified
@@ -6070,7 +8377,13 @@ class TimecodeBurnin {
     this.position,
     this.prefix,
   });
-  static TimecodeBurnin fromJson(Map<String, dynamic> json) => TimecodeBurnin();
+  static TimecodeBurnin fromJson(Map<String, dynamic> json) => TimecodeBurnin(
+        fontSize: json.containsKey('FontSize') ? json['FontSize'] as int : null,
+        position:
+            json.containsKey('Position') ? json['Position'] as String : null,
+        prefix: json.containsKey('Prefix') ? json['Prefix'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// These settings control how the service handles timecodes throughout the job.
@@ -6126,7 +8439,15 @@ class TimecodeConfig {
     this.start,
     this.timestampOffset,
   });
-  static TimecodeConfig fromJson(Map<String, dynamic> json) => TimecodeConfig();
+  static TimecodeConfig fromJson(Map<String, dynamic> json) => TimecodeConfig(
+        anchor: json.containsKey('Anchor') ? json['Anchor'] as String : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        start: json.containsKey('Start') ? json['Start'] as String : null,
+        timestampOffset: json.containsKey('TimestampOffset')
+            ? json['TimestampOffset'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags
@@ -6141,7 +8462,14 @@ class TimedMetadataInsertion {
     this.id3Insertions,
   });
   static TimedMetadataInsertion fromJson(Map<String, dynamic> json) =>
-      TimedMetadataInsertion();
+      TimedMetadataInsertion(
+        id3Insertions: json.containsKey('Id3Insertions')
+            ? (json['Id3Insertions'] as List)
+                .map((e) => Id3Insertion.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about when jobs are submitted, started, and finished is
@@ -6161,7 +8489,17 @@ class Timing {
     this.startTime,
     this.submitTime,
   });
-  static Timing fromJson(Map<String, dynamic> json) => Timing();
+  static Timing fromJson(Map<String, dynamic> json) => Timing(
+        finishTime: json.containsKey('FinishTime')
+            ? DateTime.parse(json['FinishTime'])
+            : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+      );
 }
 
 /// Settings specific to caption sources that are specified by track number.
@@ -6182,7 +8520,11 @@ class TrackSourceSettings {
     this.trackNumber,
   });
   static TrackSourceSettings fromJson(Map<String, dynamic> json) =>
-      TrackSourceSettings();
+      TrackSourceSettings(
+        trackNumber:
+            json.containsKey('TrackNumber') ? json['TrackNumber'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings specific to TTML caption outputs, including Pass style information
@@ -6196,7 +8538,12 @@ class TtmlDestinationSettings {
     this.stylePassthrough,
   });
   static TtmlDestinationSettings fromJson(Map<String, dynamic> json) =>
-      TtmlDestinationSettings();
+      TtmlDestinationSettings(
+        stylePassthrough: json.containsKey('StylePassthrough')
+            ? json['StylePassthrough'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -6214,7 +8561,11 @@ class UpdateJobTemplateResponse {
     this.jobTemplate,
   });
   static UpdateJobTemplateResponse fromJson(Map<String, dynamic> json) =>
-      UpdateJobTemplateResponse();
+      UpdateJobTemplateResponse(
+        jobTemplate: json.containsKey('JobTemplate')
+            ? JobTemplate.fromJson(json['JobTemplate'])
+            : null,
+      );
 }
 
 class UpdatePresetResponse {
@@ -6227,7 +8578,10 @@ class UpdatePresetResponse {
     this.preset,
   });
   static UpdatePresetResponse fromJson(Map<String, dynamic> json) =>
-      UpdatePresetResponse();
+      UpdatePresetResponse(
+        preset:
+            json.containsKey('Preset') ? Preset.fromJson(json['Preset']) : null,
+      );
 }
 
 class UpdateQueueResponse {
@@ -6242,7 +8596,9 @@ class UpdateQueueResponse {
     this.queue,
   });
   static UpdateQueueResponse fromJson(Map<String, dynamic> json) =>
-      UpdateQueueResponse();
+      UpdateQueueResponse(
+        queue: json.containsKey('Queue') ? Queue.fromJson(json['Queue']) : null,
+      );
 }
 
 /// Video codec settings, (CodecSettings) under (VideoDescription), contains the
@@ -6285,7 +8641,25 @@ class VideoCodecSettings {
     this.proresSettings,
   });
   static VideoCodecSettings fromJson(Map<String, dynamic> json) =>
-      VideoCodecSettings();
+      VideoCodecSettings(
+        codec: json.containsKey('Codec') ? json['Codec'] as String : null,
+        frameCaptureSettings: json.containsKey('FrameCaptureSettings')
+            ? FrameCaptureSettings.fromJson(json['FrameCaptureSettings'])
+            : null,
+        h264Settings: json.containsKey('H264Settings')
+            ? H264Settings.fromJson(json['H264Settings'])
+            : null,
+        h265Settings: json.containsKey('H265Settings')
+            ? H265Settings.fromJson(json['H265Settings'])
+            : null,
+        mpeg2Settings: json.containsKey('Mpeg2Settings')
+            ? Mpeg2Settings.fromJson(json['Mpeg2Settings'])
+            : null,
+        proresSettings: json.containsKey('ProresSettings')
+            ? ProresSettings.fromJson(json['ProresSettings'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Settings for video outputs
@@ -6410,7 +8784,45 @@ class VideoDescription {
     this.width,
   });
   static VideoDescription fromJson(Map<String, dynamic> json) =>
-      VideoDescription();
+      VideoDescription(
+        afdSignaling: json.containsKey('AfdSignaling')
+            ? json['AfdSignaling'] as String
+            : null,
+        antiAlias:
+            json.containsKey('AntiAlias') ? json['AntiAlias'] as String : null,
+        codecSettings: json.containsKey('CodecSettings')
+            ? VideoCodecSettings.fromJson(json['CodecSettings'])
+            : null,
+        colorMetadata: json.containsKey('ColorMetadata')
+            ? json['ColorMetadata'] as String
+            : null,
+        crop:
+            json.containsKey('Crop') ? Rectangle.fromJson(json['Crop']) : null,
+        dropFrameTimecode: json.containsKey('DropFrameTimecode')
+            ? json['DropFrameTimecode'] as String
+            : null,
+        fixedAfd: json.containsKey('FixedAfd') ? json['FixedAfd'] as int : null,
+        height: json.containsKey('Height') ? json['Height'] as int : null,
+        position: json.containsKey('Position')
+            ? Rectangle.fromJson(json['Position'])
+            : null,
+        respondToAfd: json.containsKey('RespondToAfd')
+            ? json['RespondToAfd'] as String
+            : null,
+        scalingBehavior: json.containsKey('ScalingBehavior')
+            ? json['ScalingBehavior'] as String
+            : null,
+        sharpness:
+            json.containsKey('Sharpness') ? json['Sharpness'] as int : null,
+        timecodeInsertion: json.containsKey('TimecodeInsertion')
+            ? json['TimecodeInsertion'] as String
+            : null,
+        videoPreprocessors: json.containsKey('VideoPreprocessors')
+            ? VideoPreprocessor.fromJson(json['VideoPreprocessors'])
+            : null,
+        width: json.containsKey('Width') ? json['Width'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains details about the output's video stream
@@ -6425,7 +8837,12 @@ class VideoDetail {
     this.heightInPx,
     this.widthInPx,
   });
-  static VideoDetail fromJson(Map<String, dynamic> json) => VideoDetail();
+  static VideoDetail fromJson(Map<String, dynamic> json) => VideoDetail(
+        heightInPx:
+            json.containsKey('HeightInPx') ? json['HeightInPx'] as int : null,
+        widthInPx:
+            json.containsKey('WidthInPx') ? json['WidthInPx'] as int : null,
+      );
 }
 
 /// Find additional transcoding features under Preprocessors
@@ -6463,7 +8880,24 @@ class VideoPreprocessor {
     this.timecodeBurnin,
   });
   static VideoPreprocessor fromJson(Map<String, dynamic> json) =>
-      VideoPreprocessor();
+      VideoPreprocessor(
+        colorCorrector: json.containsKey('ColorCorrector')
+            ? ColorCorrector.fromJson(json['ColorCorrector'])
+            : null,
+        deinterlacer: json.containsKey('Deinterlacer')
+            ? Deinterlacer.fromJson(json['Deinterlacer'])
+            : null,
+        imageInserter: json.containsKey('ImageInserter')
+            ? ImageInserter.fromJson(json['ImageInserter'])
+            : null,
+        noiseReducer: json.containsKey('NoiseReducer')
+            ? NoiseReducer.fromJson(json['NoiseReducer'])
+            : null,
+        timecodeBurnin: json.containsKey('TimecodeBurnin')
+            ? TimecodeBurnin.fromJson(json['TimecodeBurnin'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Selector for video.
@@ -6538,7 +8972,23 @@ class VideoSelector {
     this.programNumber,
     this.rotate,
   });
-  static VideoSelector fromJson(Map<String, dynamic> json) => VideoSelector();
+  static VideoSelector fromJson(Map<String, dynamic> json) => VideoSelector(
+        colorSpace: json.containsKey('ColorSpace')
+            ? json['ColorSpace'] as String
+            : null,
+        colorSpaceUsage: json.containsKey('ColorSpaceUsage')
+            ? json['ColorSpaceUsage'] as String
+            : null,
+        hdr10Metadata: json.containsKey('Hdr10Metadata')
+            ? Hdr10Metadata.fromJson(json['Hdr10Metadata'])
+            : null,
+        pid: json.containsKey('Pid') ? json['Pid'] as int : null,
+        programNumber: json.containsKey('ProgramNumber')
+            ? json['ProgramNumber'] as int
+            : null,
+        rotate: json.containsKey('Rotate') ? json['Rotate'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
@@ -6568,5 +9018,12 @@ class WavSettings {
     this.format,
     this.sampleRate,
   });
-  static WavSettings fromJson(Map<String, dynamic> json) => WavSettings();
+  static WavSettings fromJson(Map<String, dynamic> json) => WavSettings(
+        bitDepth: json.containsKey('BitDepth') ? json['BitDepth'] as int : null,
+        channels: json.containsKey('Channels') ? json['Channels'] as int : null,
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        sampleRate:
+            json.containsKey('SampleRate') ? json['SampleRate'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

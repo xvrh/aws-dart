@@ -31,6 +31,10 @@ import 'package:meta/meta.dart';
 /// non-rotated log data off of a host and into the log service. You can then
 /// access the raw log data when you need it.
 class CloudWatchLogsApi {
+  final _client;
+  CloudWatchLogsApi(client)
+      : _client = client.configured('CloudWatch Logs', serializer: 'json');
+
   /// Associates the specified AWS Key Management Service (AWS KMS) customer
   /// master key (CMK) with the specified log group.
   ///
@@ -53,14 +57,23 @@ class CloudWatchLogsApi {
   /// encrypting log data. For more information, see
   /// [Amazon Resource Names - AWS Key Management Service (AWS KMS)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms).
   Future<void> associateKmsKey(
-      {@required String logGroupName, @required String kmsKeyId}) async {}
+      {@required String logGroupName, @required String kmsKeyId}) async {
+    await _client.send('AssociateKmsKey', {
+      'logGroupName': logGroupName,
+      'kmsKeyId': kmsKeyId,
+    });
+  }
 
   /// Cancels the specified export task.
   ///
   /// The task must be in the `PENDING` or `RUNNING` state.
   ///
   /// [taskId]: The ID of the export task.
-  Future<void> cancelExportTask(String taskId) async {}
+  Future<void> cancelExportTask(String taskId) async {
+    await _client.send('CancelExportTask', {
+      'taskId': taskId,
+    });
+  }
 
   /// Creates an export task, which allows you to efficiently export data from a
   /// log group to an Amazon S3 bucket.
@@ -109,7 +122,17 @@ class CloudWatchLogsApi {
       @required BigInt to,
       @required String destination,
       String destinationPrefix}) async {
-    return CreateExportTaskResponse.fromJson({});
+    var response_ = await _client.send('CreateExportTask', {
+      if (taskName != null) 'taskName': taskName,
+      'logGroupName': logGroupName,
+      if (logStreamNamePrefix != null)
+        'logStreamNamePrefix': logStreamNamePrefix,
+      'from': from,
+      'to': to,
+      'destination': destination,
+      if (destinationPrefix != null) 'destinationPrefix': destinationPrefix,
+    });
+    return CreateExportTaskResponse.fromJson(response_);
   }
 
   /// Creates a log group with the specified name.
@@ -144,7 +167,13 @@ class CloudWatchLogsApi {
   ///
   /// [tags]: The key-value pairs to use for the tags.
   Future<void> createLogGroup(String logGroupName,
-      {String kmsKeyId, Map<String, String> tags}) async {}
+      {String kmsKeyId, Map<String, String> tags}) async {
+    await _client.send('CreateLogGroup', {
+      'logGroupName': logGroupName,
+      if (kmsKeyId != null) 'kmsKeyId': kmsKeyId,
+      if (tags != null) 'tags': tags,
+    });
+  }
 
   /// Creates a log stream for the specified log group.
   ///
@@ -163,20 +192,33 @@ class CloudWatchLogsApi {
   ///
   /// [logStreamName]: The name of the log stream.
   Future<void> createLogStream(
-      {@required String logGroupName, @required String logStreamName}) async {}
+      {@required String logGroupName, @required String logStreamName}) async {
+    await _client.send('CreateLogStream', {
+      'logGroupName': logGroupName,
+      'logStreamName': logStreamName,
+    });
+  }
 
   /// Deletes the specified destination, and eventually disables all the
   /// subscription filters that publish to it. This operation does not delete
   /// the physical resource encapsulated by the destination.
   ///
   /// [destinationName]: The name of the destination.
-  Future<void> deleteDestination(String destinationName) async {}
+  Future<void> deleteDestination(String destinationName) async {
+    await _client.send('DeleteDestination', {
+      'destinationName': destinationName,
+    });
+  }
 
   /// Deletes the specified log group and permanently deletes all the archived
   /// log events associated with the log group.
   ///
   /// [logGroupName]: The name of the log group.
-  Future<void> deleteLogGroup(String logGroupName) async {}
+  Future<void> deleteLogGroup(String logGroupName) async {
+    await _client.send('DeleteLogGroup', {
+      'logGroupName': logGroupName,
+    });
+  }
 
   /// Deletes the specified log stream and permanently deletes all the archived
   /// log events associated with the log stream.
@@ -185,7 +227,12 @@ class CloudWatchLogsApi {
   ///
   /// [logStreamName]: The name of the log stream.
   Future<void> deleteLogStream(
-      {@required String logGroupName, @required String logStreamName}) async {}
+      {@required String logGroupName, @required String logStreamName}) async {
+    await _client.send('DeleteLogStream', {
+      'logGroupName': logGroupName,
+      'logStreamName': logStreamName,
+    });
+  }
 
   /// Deletes the specified metric filter.
   ///
@@ -193,14 +240,23 @@ class CloudWatchLogsApi {
   ///
   /// [filterName]: The name of the metric filter.
   Future<void> deleteMetricFilter(
-      {@required String logGroupName, @required String filterName}) async {}
+      {@required String logGroupName, @required String filterName}) async {
+    await _client.send('DeleteMetricFilter', {
+      'logGroupName': logGroupName,
+      'filterName': filterName,
+    });
+  }
 
   /// Deletes a resource policy from this account. This revokes the access of
   /// the identities in that policy to put log events to this account.
   ///
   /// [policyName]: The name of the policy to be revoked. This parameter is
   /// required.
-  Future<void> deleteResourcePolicy({String policyName}) async {}
+  Future<void> deleteResourcePolicy({String policyName}) async {
+    await _client.send('DeleteResourcePolicy', {
+      if (policyName != null) 'policyName': policyName,
+    });
+  }
 
   /// Deletes the specified retention policy.
   ///
@@ -208,7 +264,11 @@ class CloudWatchLogsApi {
   /// policy.
   ///
   /// [logGroupName]: The name of the log group.
-  Future<void> deleteRetentionPolicy(String logGroupName) async {}
+  Future<void> deleteRetentionPolicy(String logGroupName) async {
+    await _client.send('DeleteRetentionPolicy', {
+      'logGroupName': logGroupName,
+    });
+  }
 
   /// Deletes the specified subscription filter.
   ///
@@ -216,7 +276,12 @@ class CloudWatchLogsApi {
   ///
   /// [filterName]: The name of the subscription filter.
   Future<void> deleteSubscriptionFilter(
-      {@required String logGroupName, @required String filterName}) async {}
+      {@required String logGroupName, @required String filterName}) async {
+    await _client.send('DeleteSubscriptionFilter', {
+      'logGroupName': logGroupName,
+      'filterName': filterName,
+    });
+  }
 
   /// Lists all your destinations. The results are ASCII-sorted by destination
   /// name.
@@ -231,7 +296,13 @@ class CloudWatchLogsApi {
   /// value, the default is up to 50 items.
   Future<DescribeDestinationsResponse> describeDestinations(
       {String destinationNamePrefix, String nextToken, int limit}) async {
-    return DescribeDestinationsResponse.fromJson({});
+    var response_ = await _client.send('DescribeDestinations', {
+      if (destinationNamePrefix != null)
+        'DestinationNamePrefix': destinationNamePrefix,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (limit != null) 'limit': limit,
+    });
+    return DescribeDestinationsResponse.fromJson(response_);
   }
 
   /// Lists the specified export tasks. You can list all your export tasks or
@@ -250,7 +321,13 @@ class CloudWatchLogsApi {
   /// value, the default is up to 50 items.
   Future<DescribeExportTasksResponse> describeExportTasks(
       {String taskId, String statusCode, String nextToken, int limit}) async {
-    return DescribeExportTasksResponse.fromJson({});
+    var response_ = await _client.send('DescribeExportTasks', {
+      if (taskId != null) 'taskId': taskId,
+      if (statusCode != null) 'statusCode': statusCode,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (limit != null) 'limit': limit,
+    });
+    return DescribeExportTasksResponse.fromJson(response_);
   }
 
   /// Lists the specified log groups. You can list all your log groups or filter
@@ -265,7 +342,12 @@ class CloudWatchLogsApi {
   /// value, the default is up to 50 items.
   Future<DescribeLogGroupsResponse> describeLogGroups(
       {String logGroupNamePrefix, String nextToken, int limit}) async {
-    return DescribeLogGroupsResponse.fromJson({});
+    var response_ = await _client.send('DescribeLogGroups', {
+      if (logGroupNamePrefix != null) 'logGroupNamePrefix': logGroupNamePrefix,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (limit != null) 'limit': limit,
+    });
+    return DescribeLogGroupsResponse.fromJson(response_);
   }
 
   /// Lists the log streams for the specified log group. You can list all the
@@ -309,7 +391,16 @@ class CloudWatchLogsApi {
       bool descending,
       String nextToken,
       int limit}) async {
-    return DescribeLogStreamsResponse.fromJson({});
+    var response_ = await _client.send('DescribeLogStreams', {
+      'logGroupName': logGroupName,
+      if (logStreamNamePrefix != null)
+        'logStreamNamePrefix': logStreamNamePrefix,
+      if (orderBy != null) 'orderBy': orderBy,
+      if (descending != null) 'descending': descending,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (limit != null) 'limit': limit,
+    });
+    return DescribeLogStreamsResponse.fromJson(response_);
   }
 
   /// Lists the specified metric filters. You can list all the metric filters or
@@ -340,7 +431,15 @@ class CloudWatchLogsApi {
       int limit,
       String metricName,
       String metricNamespace}) async {
-    return DescribeMetricFiltersResponse.fromJson({});
+    var response_ = await _client.send('DescribeMetricFilters', {
+      if (logGroupName != null) 'logGroupName': logGroupName,
+      if (filterNamePrefix != null) 'filterNamePrefix': filterNamePrefix,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (limit != null) 'limit': limit,
+      if (metricName != null) 'metricName': metricName,
+      if (metricNamespace != null) 'metricNamespace': metricNamespace,
+    });
+    return DescribeMetricFiltersResponse.fromJson(response_);
   }
 
   /// Returns a list of CloudWatch Logs Insights queries that are scheduled,
@@ -362,7 +461,13 @@ class CloudWatchLogsApi {
       String status,
       int maxResults,
       String nextToken}) async {
-    return DescribeQueriesResponse.fromJson({});
+    var response_ = await _client.send('DescribeQueries', {
+      if (logGroupName != null) 'logGroupName': logGroupName,
+      if (status != null) 'status': status,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeQueriesResponse.fromJson(response_);
   }
 
   /// Lists the resource policies in this account.
@@ -371,7 +476,11 @@ class CloudWatchLogsApi {
   /// call of this API.
   Future<DescribeResourcePoliciesResponse> describeResourcePolicies(
       {String nextToken, int limit}) async {
-    return DescribeResourcePoliciesResponse.fromJson({});
+    var response_ = await _client.send('DescribeResourcePolicies', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (limit != null) 'limit': limit,
+    });
+    return DescribeResourcePoliciesResponse.fromJson(response_);
   }
 
   /// Lists the subscription filters for the specified log group. You can list
@@ -393,7 +502,13 @@ class CloudWatchLogsApi {
       {String filterNamePrefix,
       String nextToken,
       int limit}) async {
-    return DescribeSubscriptionFiltersResponse.fromJson({});
+    var response_ = await _client.send('DescribeSubscriptionFilters', {
+      'logGroupName': logGroupName,
+      if (filterNamePrefix != null) 'filterNamePrefix': filterNamePrefix,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (limit != null) 'limit': limit,
+    });
+    return DescribeSubscriptionFiltersResponse.fromJson(response_);
   }
 
   /// Disassociates the associated AWS Key Management Service (AWS KMS) customer
@@ -407,7 +522,11 @@ class CloudWatchLogsApi {
   /// Note that it can take up to 5 minutes for this operation to take effect.
   ///
   /// [logGroupName]: The name of the log group.
-  Future<void> disassociateKmsKey(String logGroupName) async {}
+  Future<void> disassociateKmsKey(String logGroupName) async {
+    await _client.send('DisassociateKmsKey', {
+      'logGroupName': logGroupName,
+    });
+  }
 
   /// Lists log events from the specified log group. You can list all the log
   /// events or filter the results using a filter pattern, a time range, and the
@@ -473,7 +592,19 @@ class CloudWatchLogsApi {
       String nextToken,
       int limit,
       bool interleaved}) async {
-    return FilterLogEventsResponse.fromJson({});
+    var response_ = await _client.send('FilterLogEvents', {
+      'logGroupName': logGroupName,
+      if (logStreamNames != null) 'logStreamNames': logStreamNames,
+      if (logStreamNamePrefix != null)
+        'logStreamNamePrefix': logStreamNamePrefix,
+      if (startTime != null) 'startTime': startTime,
+      if (endTime != null) 'endTime': endTime,
+      if (filterPattern != null) 'filterPattern': filterPattern,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (limit != null) 'limit': limit,
+      if (interleaved != null) 'interleaved': interleaved,
+    });
+    return FilterLogEventsResponse.fromJson(response_);
   }
 
   /// Lists log events from the specified log stream. You can list all the log
@@ -517,7 +648,16 @@ class CloudWatchLogsApi {
       String nextToken,
       int limit,
       bool startFromHead}) async {
-    return GetLogEventsResponse.fromJson({});
+    var response_ = await _client.send('GetLogEvents', {
+      'logGroupName': logGroupName,
+      'logStreamName': logStreamName,
+      if (startTime != null) 'startTime': startTime,
+      if (endTime != null) 'endTime': endTime,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (limit != null) 'limit': limit,
+      if (startFromHead != null) 'startFromHead': startFromHead,
+    });
+    return GetLogEventsResponse.fromJson(response_);
   }
 
   /// Returns a list of the fields that are included in log events in the
@@ -541,7 +681,11 @@ class CloudWatchLogsApi {
   /// January 1, 1970, 00:00:00 UTC.
   Future<GetLogGroupFieldsResponse> getLogGroupFields(String logGroupName,
       {BigInt time}) async {
-    return GetLogGroupFieldsResponse.fromJson({});
+    var response_ = await _client.send('GetLogGroupFields', {
+      'logGroupName': logGroupName,
+      if (time != null) 'time': time,
+    });
+    return GetLogGroupFieldsResponse.fromJson(response_);
   }
 
   /// Retrieves all the fields and values of a single log event. All fields are
@@ -557,7 +701,10 @@ class CloudWatchLogsApi {
   /// is the value to use as `logRecordPointer` to retrieve that complete log
   /// event record.
   Future<GetLogRecordResponse> getLogRecord(String logRecordPointer) async {
-    return GetLogRecordResponse.fromJson({});
+    var response_ = await _client.send('GetLogRecord', {
+      'logRecordPointer': logRecordPointer,
+    });
+    return GetLogRecordResponse.fromJson(response_);
   }
 
   /// Returns the results from the specified query.
@@ -575,14 +722,20 @@ class CloudWatchLogsApi {
   ///
   /// [queryId]: The ID number of the query.
   Future<GetQueryResultsResponse> getQueryResults(String queryId) async {
-    return GetQueryResultsResponse.fromJson({});
+    var response_ = await _client.send('GetQueryResults', {
+      'queryId': queryId,
+    });
+    return GetQueryResultsResponse.fromJson(response_);
   }
 
   /// Lists the tags for the specified log group.
   ///
   /// [logGroupName]: The name of the log group.
   Future<ListTagsLogGroupResponse> listTagsLogGroup(String logGroupName) async {
-    return ListTagsLogGroupResponse.fromJson({});
+    var response_ = await _client.send('ListTagsLogGroup', {
+      'logGroupName': logGroupName,
+    });
+    return ListTagsLogGroupResponse.fromJson(response_);
   }
 
   /// Creates or updates a destination. A destination encapsulates a physical
@@ -608,7 +761,12 @@ class CloudWatchLogsApi {
       {@required String destinationName,
       @required String targetArn,
       @required String roleArn}) async {
-    return PutDestinationResponse.fromJson({});
+    var response_ = await _client.send('PutDestination', {
+      'destinationName': destinationName,
+      'targetArn': targetArn,
+      'roleArn': roleArn,
+    });
+    return PutDestinationResponse.fromJson(response_);
   }
 
   /// Creates or updates an access policy associated with an existing
@@ -622,8 +780,12 @@ class CloudWatchLogsApi {
   /// [accessPolicy]: An IAM policy document that authorizes cross-account users
   /// to deliver their log events to the associated destination.
   Future<void> putDestinationPolicy(
-      {@required String destinationName,
-      @required String accessPolicy}) async {}
+      {@required String destinationName, @required String accessPolicy}) async {
+    await _client.send('PutDestinationPolicy', {
+      'destinationName': destinationName,
+      'accessPolicy': accessPolicy,
+    });
+  }
 
   /// Uploads a batch of log events to the specified log stream.
   ///
@@ -678,7 +840,13 @@ class CloudWatchLogsApi {
       @required String logStreamName,
       @required List<InputLogEvent> logEvents,
       String sequenceToken}) async {
-    return PutLogEventsResponse.fromJson({});
+    var response_ = await _client.send('PutLogEvents', {
+      'logGroupName': logGroupName,
+      'logStreamName': logStreamName,
+      'logEvents': logEvents,
+      if (sequenceToken != null) 'sequenceToken': sequenceToken,
+    });
+    return PutLogEventsResponse.fromJson(response_);
   }
 
   /// Creates or updates a metric filter and associates it with the specified
@@ -701,7 +869,14 @@ class CloudWatchLogsApi {
       {@required String logGroupName,
       @required String filterName,
       @required String filterPattern,
-      @required List<MetricTransformation> metricTransformations}) async {}
+      @required List<MetricTransformation> metricTransformations}) async {
+    await _client.send('PutMetricFilter', {
+      'logGroupName': logGroupName,
+      'filterName': filterName,
+      'filterPattern': filterPattern,
+      'metricTransformations': metricTransformations,
+    });
+  }
 
   /// Creates or updates a resource policy allowing other AWS services to put
   /// log events to this account, such as Amazon Route 53. An account can have
@@ -723,7 +898,11 @@ class CloudWatchLogsApi {
   /// }, "Action":"logs:PutLogEvents", "Resource": "logArn" } ] }`
   Future<PutResourcePolicyResponse> putResourcePolicy(
       {String policyName, String policyDocument}) async {
-    return PutResourcePolicyResponse.fromJson({});
+    var response_ = await _client.send('PutResourcePolicy', {
+      if (policyName != null) 'policyName': policyName,
+      if (policyDocument != null) 'policyDocument': policyDocument,
+    });
+    return PutResourcePolicyResponse.fromJson(response_);
   }
 
   /// Sets the retention of the specified log group. A retention policy allows
@@ -732,7 +911,12 @@ class CloudWatchLogsApi {
   ///
   /// [logGroupName]: The name of the log group.
   Future<void> putRetentionPolicy(
-      {@required String logGroupName, @required int retentionInDays}) async {}
+      {@required String logGroupName, @required int retentionInDays}) async {
+    await _client.send('PutRetentionPolicy', {
+      'logGroupName': logGroupName,
+      'retentionInDays': retentionInDays,
+    });
+  }
 
   /// Creates or updates a subscription filter and associates it with the
   /// specified log group. Subscription filters allow you to subscribe to a
@@ -799,7 +983,16 @@ class CloudWatchLogsApi {
       @required String filterPattern,
       @required String destinationArn,
       String roleArn,
-      String distribution}) async {}
+      String distribution}) async {
+    await _client.send('PutSubscriptionFilter', {
+      'logGroupName': logGroupName,
+      'filterName': filterName,
+      'filterPattern': filterPattern,
+      'destinationArn': destinationArn,
+      if (roleArn != null) 'roleArn': roleArn,
+      if (distribution != null) 'distribution': distribution,
+    });
+  }
 
   /// Schedules a query of a log group using CloudWatch Logs Insights. You
   /// specify the log group and time range to query, and the query string to
@@ -844,7 +1037,15 @@ class CloudWatchLogsApi {
       @required BigInt endTime,
       @required String queryString,
       int limit}) async {
-    return StartQueryResponse.fromJson({});
+    var response_ = await _client.send('StartQuery', {
+      if (logGroupName != null) 'logGroupName': logGroupName,
+      if (logGroupNames != null) 'logGroupNames': logGroupNames,
+      'startTime': startTime,
+      'endTime': endTime,
+      'queryString': queryString,
+      if (limit != null) 'limit': limit,
+    });
+    return StartQueryResponse.fromJson(response_);
   }
 
   /// Stops a CloudWatch Logs Insights query that is in progress. If the query
@@ -854,7 +1055,10 @@ class CloudWatchLogsApi {
   /// [queryId]: The ID number of the query to stop. If necessary, you can use
   /// `DescribeQueries` to find this ID number.
   Future<StopQueryResponse> stopQuery(String queryId) async {
-    return StopQueryResponse.fromJson({});
+    var response_ = await _client.send('StopQuery', {
+      'queryId': queryId,
+    });
+    return StopQueryResponse.fromJson(response_);
   }
 
   /// Adds or updates the specified tags for the specified log group.
@@ -871,7 +1075,12 @@ class CloudWatchLogsApi {
   /// [tags]: The key-value pairs to use for the tags.
   Future<void> tagLogGroup(
       {@required String logGroupName,
-      @required Map<String, String> tags}) async {}
+      @required Map<String, String> tags}) async {
+    await _client.send('TagLogGroup', {
+      'logGroupName': logGroupName,
+      'tags': tags,
+    });
+  }
 
   /// Tests the filter pattern of a metric filter against a sample of log event
   /// messages. You can use this operation to validate the correctness of a
@@ -881,7 +1090,11 @@ class CloudWatchLogsApi {
   Future<TestMetricFilterResponse> testMetricFilter(
       {@required String filterPattern,
       @required List<String> logEventMessages}) async {
-    return TestMetricFilterResponse.fromJson({});
+    var response_ = await _client.send('TestMetricFilter', {
+      'filterPattern': filterPattern,
+      'logEventMessages': logEventMessages,
+    });
+    return TestMetricFilterResponse.fromJson(response_);
   }
 
   /// Removes the specified tags from the specified log group.
@@ -894,7 +1107,12 @@ class CloudWatchLogsApi {
   /// [tags]: The tag keys. The corresponding tags are removed from the log
   /// group.
   Future<void> untagLogGroup(
-      {@required String logGroupName, @required List<String> tags}) async {}
+      {@required String logGroupName, @required List<String> tags}) async {
+    await _client.send('UntagLogGroup', {
+      'logGroupName': logGroupName,
+      'tags': tags,
+    });
+  }
 }
 
 class CreateExportTaskResponse {
@@ -905,7 +1123,9 @@ class CreateExportTaskResponse {
     this.taskId,
   });
   static CreateExportTaskResponse fromJson(Map<String, dynamic> json) =>
-      CreateExportTaskResponse();
+      CreateExportTaskResponse(
+        taskId: json.containsKey('taskId') ? json['taskId'] as String : null,
+      );
 }
 
 class DescribeDestinationsResponse {
@@ -919,7 +1139,15 @@ class DescribeDestinationsResponse {
     this.nextToken,
   });
   static DescribeDestinationsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDestinationsResponse();
+      DescribeDestinationsResponse(
+        destinations: json.containsKey('destinations')
+            ? (json['destinations'] as List)
+                .map((e) => Destination.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeExportTasksResponse {
@@ -933,7 +1161,15 @@ class DescribeExportTasksResponse {
     this.nextToken,
   });
   static DescribeExportTasksResponse fromJson(Map<String, dynamic> json) =>
-      DescribeExportTasksResponse();
+      DescribeExportTasksResponse(
+        exportTasks: json.containsKey('exportTasks')
+            ? (json['exportTasks'] as List)
+                .map((e) => ExportTask.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeLogGroupsResponse {
@@ -947,7 +1183,15 @@ class DescribeLogGroupsResponse {
     this.nextToken,
   });
   static DescribeLogGroupsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLogGroupsResponse();
+      DescribeLogGroupsResponse(
+        logGroups: json.containsKey('logGroups')
+            ? (json['logGroups'] as List)
+                .map((e) => LogGroup.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeLogStreamsResponse {
@@ -961,7 +1205,15 @@ class DescribeLogStreamsResponse {
     this.nextToken,
   });
   static DescribeLogStreamsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLogStreamsResponse();
+      DescribeLogStreamsResponse(
+        logStreams: json.containsKey('logStreams')
+            ? (json['logStreams'] as List)
+                .map((e) => LogStream.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeMetricFiltersResponse {
@@ -975,7 +1227,15 @@ class DescribeMetricFiltersResponse {
     this.nextToken,
   });
   static DescribeMetricFiltersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeMetricFiltersResponse();
+      DescribeMetricFiltersResponse(
+        metricFilters: json.containsKey('metricFilters')
+            ? (json['metricFilters'] as List)
+                .map((e) => MetricFilter.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeQueriesResponse {
@@ -989,7 +1249,15 @@ class DescribeQueriesResponse {
     this.nextToken,
   });
   static DescribeQueriesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeQueriesResponse();
+      DescribeQueriesResponse(
+        queries: json.containsKey('queries')
+            ? (json['queries'] as List)
+                .map((e) => QueryInfo.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeResourcePoliciesResponse {
@@ -1003,7 +1271,15 @@ class DescribeResourcePoliciesResponse {
     this.nextToken,
   });
   static DescribeResourcePoliciesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeResourcePoliciesResponse();
+      DescribeResourcePoliciesResponse(
+        resourcePolicies: json.containsKey('resourcePolicies')
+            ? (json['resourcePolicies'] as List)
+                .map((e) => ResourcePolicy.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeSubscriptionFiltersResponse {
@@ -1018,7 +1294,15 @@ class DescribeSubscriptionFiltersResponse {
   });
   static DescribeSubscriptionFiltersResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeSubscriptionFiltersResponse();
+      DescribeSubscriptionFiltersResponse(
+        subscriptionFilters: json.containsKey('subscriptionFilters')
+            ? (json['subscriptionFilters'] as List)
+                .map((e) => SubscriptionFilter.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents a cross-account destination that receives subscription log
@@ -1053,7 +1337,21 @@ class Destination {
     this.arn,
     this.creationTime,
   });
-  static Destination fromJson(Map<String, dynamic> json) => Destination();
+  static Destination fromJson(Map<String, dynamic> json) => Destination(
+        destinationName: json.containsKey('destinationName')
+            ? json['destinationName'] as String
+            : null,
+        targetArn:
+            json.containsKey('targetArn') ? json['targetArn'] as String : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        accessPolicy: json.containsKey('accessPolicy')
+            ? json['accessPolicy'] as String
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        creationTime: json.containsKey('creationTime')
+            ? BigInt.from(json['creationTime'])
+            : null,
+      );
 }
 
 /// Represents an export task.
@@ -1100,7 +1398,28 @@ class ExportTask {
     this.status,
     this.executionInfo,
   });
-  static ExportTask fromJson(Map<String, dynamic> json) => ExportTask();
+  static ExportTask fromJson(Map<String, dynamic> json) => ExportTask(
+        taskId: json.containsKey('taskId') ? json['taskId'] as String : null,
+        taskName:
+            json.containsKey('taskName') ? json['taskName'] as String : null,
+        logGroupName: json.containsKey('logGroupName')
+            ? json['logGroupName'] as String
+            : null,
+        from: json.containsKey('from') ? BigInt.from(json['from']) : null,
+        to: json.containsKey('to') ? BigInt.from(json['to']) : null,
+        destination: json.containsKey('destination')
+            ? json['destination'] as String
+            : null,
+        destinationPrefix: json.containsKey('destinationPrefix')
+            ? json['destinationPrefix'] as String
+            : null,
+        status: json.containsKey('status')
+            ? ExportTaskStatus.fromJson(json['status'])
+            : null,
+        executionInfo: json.containsKey('executionInfo')
+            ? ExportTaskExecutionInfo.fromJson(json['executionInfo'])
+            : null,
+      );
 }
 
 /// Represents the status of an export task.
@@ -1118,7 +1437,14 @@ class ExportTaskExecutionInfo {
     this.completionTime,
   });
   static ExportTaskExecutionInfo fromJson(Map<String, dynamic> json) =>
-      ExportTaskExecutionInfo();
+      ExportTaskExecutionInfo(
+        creationTime: json.containsKey('creationTime')
+            ? BigInt.from(json['creationTime'])
+            : null,
+        completionTime: json.containsKey('completionTime')
+            ? BigInt.from(json['completionTime'])
+            : null,
+      );
 }
 
 /// Represents the status of an export task.
@@ -1134,7 +1460,10 @@ class ExportTaskStatus {
     this.message,
   });
   static ExportTaskStatus fromJson(Map<String, dynamic> json) =>
-      ExportTaskStatus();
+      ExportTaskStatus(
+        code: json.containsKey('code') ? json['code'] as String : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 class FilterLogEventsResponse {
@@ -1155,7 +1484,20 @@ class FilterLogEventsResponse {
     this.nextToken,
   });
   static FilterLogEventsResponse fromJson(Map<String, dynamic> json) =>
-      FilterLogEventsResponse();
+      FilterLogEventsResponse(
+        events: json.containsKey('events')
+            ? (json['events'] as List)
+                .map((e) => FilteredLogEvent.fromJson(e))
+                .toList()
+            : null,
+        searchedLogStreams: json.containsKey('searchedLogStreams')
+            ? (json['searchedLogStreams'] as List)
+                .map((e) => SearchedLogStream.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents a matched event.
@@ -1185,7 +1527,19 @@ class FilteredLogEvent {
     this.eventId,
   });
   static FilteredLogEvent fromJson(Map<String, dynamic> json) =>
-      FilteredLogEvent();
+      FilteredLogEvent(
+        logStreamName: json.containsKey('logStreamName')
+            ? json['logStreamName'] as String
+            : null,
+        timestamp: json.containsKey('timestamp')
+            ? BigInt.from(json['timestamp'])
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        ingestionTime: json.containsKey('ingestionTime')
+            ? BigInt.from(json['ingestionTime'])
+            : null,
+        eventId: json.containsKey('eventId') ? json['eventId'] as String : null,
+      );
 }
 
 class GetLogEventsResponse {
@@ -1208,7 +1562,19 @@ class GetLogEventsResponse {
     this.nextBackwardToken,
   });
   static GetLogEventsResponse fromJson(Map<String, dynamic> json) =>
-      GetLogEventsResponse();
+      GetLogEventsResponse(
+        events: json.containsKey('events')
+            ? (json['events'] as List)
+                .map((e) => OutputLogEvent.fromJson(e))
+                .toList()
+            : null,
+        nextForwardToken: json.containsKey('nextForwardToken')
+            ? json['nextForwardToken'] as String
+            : null,
+        nextBackwardToken: json.containsKey('nextBackwardToken')
+            ? json['nextBackwardToken'] as String
+            : null,
+      );
 }
 
 class GetLogGroupFieldsResponse {
@@ -1221,7 +1587,13 @@ class GetLogGroupFieldsResponse {
     this.logGroupFields,
   });
   static GetLogGroupFieldsResponse fromJson(Map<String, dynamic> json) =>
-      GetLogGroupFieldsResponse();
+      GetLogGroupFieldsResponse(
+        logGroupFields: json.containsKey('logGroupFields')
+            ? (json['logGroupFields'] as List)
+                .map((e) => LogGroupField.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetLogRecordResponse {
@@ -1232,7 +1604,12 @@ class GetLogRecordResponse {
     this.logRecord,
   });
   static GetLogRecordResponse fromJson(Map<String, dynamic> json) =>
-      GetLogRecordResponse();
+      GetLogRecordResponse(
+        logRecord: json.containsKey('logRecord')
+            ? (json['logRecord'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class GetQueryResultsResponse {
@@ -1264,7 +1641,18 @@ class GetQueryResultsResponse {
     this.status,
   });
   static GetQueryResultsResponse fromJson(Map<String, dynamic> json) =>
-      GetQueryResultsResponse();
+      GetQueryResultsResponse(
+        results: json.containsKey('results')
+            ? (json['results'] as List)
+                .map((e) =>
+                    (e as List).map((e) => ResultField.fromJson(e)).toList())
+                .toList()
+            : null,
+        statistics: json.containsKey('statistics')
+            ? QueryStatistics.fromJson(json['statistics'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// Represents a log event, which is a record of activity that was recorded by
@@ -1281,6 +1669,7 @@ class InputLogEvent {
     @required this.timestamp,
     @required this.message,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListTagsLogGroupResponse {
@@ -1291,7 +1680,12 @@ class ListTagsLogGroupResponse {
     this.tags,
   });
   static ListTagsLogGroupResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsLogGroupResponse();
+      ListTagsLogGroupResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Represents a log group.
@@ -1326,7 +1720,26 @@ class LogGroup {
     this.storedBytes,
     this.kmsKeyId,
   });
-  static LogGroup fromJson(Map<String, dynamic> json) => LogGroup();
+  static LogGroup fromJson(Map<String, dynamic> json) => LogGroup(
+        logGroupName: json.containsKey('logGroupName')
+            ? json['logGroupName'] as String
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? BigInt.from(json['creationTime'])
+            : null,
+        retentionInDays: json.containsKey('retentionInDays')
+            ? json['retentionInDays'] as int
+            : null,
+        metricFilterCount: json.containsKey('metricFilterCount')
+            ? json['metricFilterCount'] as int
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        storedBytes: json.containsKey('storedBytes')
+            ? BigInt.from(json['storedBytes'])
+            : null,
+        kmsKeyId:
+            json.containsKey('kmsKeyId') ? json['kmsKeyId'] as String : null,
+      );
 }
 
 /// The fields contained in log events found by a `GetLogGroupFields` operation,
@@ -1342,7 +1755,10 @@ class LogGroupField {
     this.name,
     this.percent,
   });
-  static LogGroupField fromJson(Map<String, dynamic> json) => LogGroupField();
+  static LogGroupField fromJson(Map<String, dynamic> json) => LogGroupField(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        percent: json.containsKey('percent') ? json['percent'] as int : null,
+      );
 }
 
 /// Represents a log stream, which is a sequence of log events from a single
@@ -1394,7 +1810,30 @@ class LogStream {
     this.arn,
     this.storedBytes,
   });
-  static LogStream fromJson(Map<String, dynamic> json) => LogStream();
+  static LogStream fromJson(Map<String, dynamic> json) => LogStream(
+        logStreamName: json.containsKey('logStreamName')
+            ? json['logStreamName'] as String
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? BigInt.from(json['creationTime'])
+            : null,
+        firstEventTimestamp: json.containsKey('firstEventTimestamp')
+            ? BigInt.from(json['firstEventTimestamp'])
+            : null,
+        lastEventTimestamp: json.containsKey('lastEventTimestamp')
+            ? BigInt.from(json['lastEventTimestamp'])
+            : null,
+        lastIngestionTime: json.containsKey('lastIngestionTime')
+            ? BigInt.from(json['lastIngestionTime'])
+            : null,
+        uploadSequenceToken: json.containsKey('uploadSequenceToken')
+            ? json['uploadSequenceToken'] as String
+            : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        storedBytes: json.containsKey('storedBytes')
+            ? BigInt.from(json['storedBytes'])
+            : null,
+      );
 }
 
 /// Metric filters express how CloudWatch Logs would extract metric observations
@@ -1423,7 +1862,25 @@ class MetricFilter {
     this.creationTime,
     this.logGroupName,
   });
-  static MetricFilter fromJson(Map<String, dynamic> json) => MetricFilter();
+  static MetricFilter fromJson(Map<String, dynamic> json) => MetricFilter(
+        filterName: json.containsKey('filterName')
+            ? json['filterName'] as String
+            : null,
+        filterPattern: json.containsKey('filterPattern')
+            ? json['filterPattern'] as String
+            : null,
+        metricTransformations: json.containsKey('metricTransformations')
+            ? (json['metricTransformations'] as List)
+                .map((e) => MetricTransformation.fromJson(e))
+                .toList()
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? BigInt.from(json['creationTime'])
+            : null,
+        logGroupName: json.containsKey('logGroupName')
+            ? json['logGroupName'] as String
+            : null,
+      );
 }
 
 /// Represents a matched event.
@@ -1443,7 +1900,18 @@ class MetricFilterMatchRecord {
     this.extractedValues,
   });
   static MetricFilterMatchRecord fromJson(Map<String, dynamic> json) =>
-      MetricFilterMatchRecord();
+      MetricFilterMatchRecord(
+        eventNumber: json.containsKey('eventNumber')
+            ? BigInt.from(json['eventNumber'])
+            : null,
+        eventMessage: json.containsKey('eventMessage')
+            ? json['eventMessage'] as String
+            : null,
+        extractedValues: json.containsKey('extractedValues')
+            ? (json['extractedValues'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Indicates how to transform ingested log events to metric data in a
@@ -1470,7 +1938,15 @@ class MetricTransformation {
     this.defaultValue,
   });
   static MetricTransformation fromJson(Map<String, dynamic> json) =>
-      MetricTransformation();
+      MetricTransformation(
+        metricName: json['metricName'] as String,
+        metricNamespace: json['metricNamespace'] as String,
+        metricValue: json['metricValue'] as String,
+        defaultValue: json.containsKey('defaultValue')
+            ? json['defaultValue'] as double
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a log event.
@@ -1491,7 +1967,15 @@ class OutputLogEvent {
     this.message,
     this.ingestionTime,
   });
-  static OutputLogEvent fromJson(Map<String, dynamic> json) => OutputLogEvent();
+  static OutputLogEvent fromJson(Map<String, dynamic> json) => OutputLogEvent(
+        timestamp: json.containsKey('timestamp')
+            ? BigInt.from(json['timestamp'])
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        ingestionTime: json.containsKey('ingestionTime')
+            ? BigInt.from(json['ingestionTime'])
+            : null,
+      );
 }
 
 class PutDestinationResponse {
@@ -1502,7 +1986,11 @@ class PutDestinationResponse {
     this.destination,
   });
   static PutDestinationResponse fromJson(Map<String, dynamic> json) =>
-      PutDestinationResponse();
+      PutDestinationResponse(
+        destination: json.containsKey('destination')
+            ? Destination.fromJson(json['destination'])
+            : null,
+      );
 }
 
 class PutLogEventsResponse {
@@ -1517,7 +2005,14 @@ class PutLogEventsResponse {
     this.rejectedLogEventsInfo,
   });
   static PutLogEventsResponse fromJson(Map<String, dynamic> json) =>
-      PutLogEventsResponse();
+      PutLogEventsResponse(
+        nextSequenceToken: json.containsKey('nextSequenceToken')
+            ? json['nextSequenceToken'] as String
+            : null,
+        rejectedLogEventsInfo: json.containsKey('rejectedLogEventsInfo')
+            ? RejectedLogEventsInfo.fromJson(json['rejectedLogEventsInfo'])
+            : null,
+      );
 }
 
 class PutResourcePolicyResponse {
@@ -1528,7 +2023,11 @@ class PutResourcePolicyResponse {
     this.resourcePolicy,
   });
   static PutResourcePolicyResponse fromJson(Map<String, dynamic> json) =>
-      PutResourcePolicyResponse();
+      PutResourcePolicyResponse(
+        resourcePolicy: json.containsKey('resourcePolicy')
+            ? ResourcePolicy.fromJson(json['resourcePolicy'])
+            : null,
+      );
 }
 
 /// Information about one CloudWatch Logs Insights query that matches the
@@ -1557,7 +2056,19 @@ class QueryInfo {
     this.createTime,
     this.logGroupName,
   });
-  static QueryInfo fromJson(Map<String, dynamic> json) => QueryInfo();
+  static QueryInfo fromJson(Map<String, dynamic> json) => QueryInfo(
+        queryId: json.containsKey('queryId') ? json['queryId'] as String : null,
+        queryString: json.containsKey('queryString')
+            ? json['queryString'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        createTime: json.containsKey('createTime')
+            ? BigInt.from(json['createTime'])
+            : null,
+        logGroupName: json.containsKey('logGroupName')
+            ? json['logGroupName'] as String
+            : null,
+      );
 }
 
 /// Contains the number of log events scanned by the query, the number of log
@@ -1578,8 +2089,17 @@ class QueryStatistics {
     this.recordsScanned,
     this.bytesScanned,
   });
-  static QueryStatistics fromJson(Map<String, dynamic> json) =>
-      QueryStatistics();
+  static QueryStatistics fromJson(Map<String, dynamic> json) => QueryStatistics(
+        recordsMatched: json.containsKey('recordsMatched')
+            ? json['recordsMatched'] as double
+            : null,
+        recordsScanned: json.containsKey('recordsScanned')
+            ? json['recordsScanned'] as double
+            : null,
+        bytesScanned: json.containsKey('bytesScanned')
+            ? json['bytesScanned'] as double
+            : null,
+      );
 }
 
 /// Represents the rejected events.
@@ -1599,7 +2119,17 @@ class RejectedLogEventsInfo {
     this.expiredLogEventEndIndex,
   });
   static RejectedLogEventsInfo fromJson(Map<String, dynamic> json) =>
-      RejectedLogEventsInfo();
+      RejectedLogEventsInfo(
+        tooNewLogEventStartIndex: json.containsKey('tooNewLogEventStartIndex')
+            ? json['tooNewLogEventStartIndex'] as int
+            : null,
+        tooOldLogEventEndIndex: json.containsKey('tooOldLogEventEndIndex')
+            ? json['tooOldLogEventEndIndex'] as int
+            : null,
+        expiredLogEventEndIndex: json.containsKey('expiredLogEventEndIndex')
+            ? json['expiredLogEventEndIndex'] as int
+            : null,
+      );
 }
 
 /// A policy enabling one or more entities to put logs to a log group in this
@@ -1620,7 +2150,17 @@ class ResourcePolicy {
     this.policyDocument,
     this.lastUpdatedTime,
   });
-  static ResourcePolicy fromJson(Map<String, dynamic> json) => ResourcePolicy();
+  static ResourcePolicy fromJson(Map<String, dynamic> json) => ResourcePolicy(
+        policyName: json.containsKey('policyName')
+            ? json['policyName'] as String
+            : null,
+        policyDocument: json.containsKey('policyDocument')
+            ? json['policyDocument'] as String
+            : null,
+        lastUpdatedTime: json.containsKey('lastUpdatedTime')
+            ? BigInt.from(json['lastUpdatedTime'])
+            : null,
+      );
 }
 
 /// Contains one field from one log event returned by a CloudWatch Logs Insights
@@ -1636,7 +2176,10 @@ class ResultField {
     this.field,
     this.value,
   });
-  static ResultField fromJson(Map<String, dynamic> json) => ResultField();
+  static ResultField fromJson(Map<String, dynamic> json) => ResultField(
+        field: json.containsKey('field') ? json['field'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
 }
 
 /// Represents the search status of a log stream.
@@ -1652,7 +2195,14 @@ class SearchedLogStream {
     this.searchedCompletely,
   });
   static SearchedLogStream fromJson(Map<String, dynamic> json) =>
-      SearchedLogStream();
+      SearchedLogStream(
+        logStreamName: json.containsKey('logStreamName')
+            ? json['logStreamName'] as String
+            : null,
+        searchedCompletely: json.containsKey('searchedCompletely')
+            ? json['searchedCompletely'] as bool
+            : null,
+      );
 }
 
 class StartQueryResponse {
@@ -1663,7 +2213,9 @@ class StartQueryResponse {
     this.queryId,
   });
   static StartQueryResponse fromJson(Map<String, dynamic> json) =>
-      StartQueryResponse();
+      StartQueryResponse(
+        queryId: json.containsKey('queryId') ? json['queryId'] as String : null,
+      );
 }
 
 class StopQueryResponse {
@@ -1674,7 +2226,9 @@ class StopQueryResponse {
     this.success,
   });
   static StopQueryResponse fromJson(Map<String, dynamic> json) =>
-      StopQueryResponse();
+      StopQueryResponse(
+        success: json.containsKey('success') ? json['success'] as bool : null,
+      );
 }
 
 /// Represents a subscription filter.
@@ -1708,7 +2262,27 @@ class SubscriptionFilter {
     this.creationTime,
   });
   static SubscriptionFilter fromJson(Map<String, dynamic> json) =>
-      SubscriptionFilter();
+      SubscriptionFilter(
+        filterName: json.containsKey('filterName')
+            ? json['filterName'] as String
+            : null,
+        logGroupName: json.containsKey('logGroupName')
+            ? json['logGroupName'] as String
+            : null,
+        filterPattern: json.containsKey('filterPattern')
+            ? json['filterPattern'] as String
+            : null,
+        destinationArn: json.containsKey('destinationArn')
+            ? json['destinationArn'] as String
+            : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        distribution: json.containsKey('distribution')
+            ? json['distribution'] as String
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? BigInt.from(json['creationTime'])
+            : null,
+      );
 }
 
 class TestMetricFilterResponse {
@@ -1719,5 +2293,11 @@ class TestMetricFilterResponse {
     this.matches,
   });
   static TestMetricFilterResponse fromJson(Map<String, dynamic> json) =>
-      TestMetricFilterResponse();
+      TestMetricFilterResponse(
+        matches: json.containsKey('matches')
+            ? (json['matches'] as List)
+                .map((e) => MetricFilterMatchRecord.fromJson(e))
+                .toList()
+            : null,
+      );
 }

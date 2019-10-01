@@ -9,6 +9,10 @@ import 'dart:typed_data';
 /// [Capturing Table Activity with DynamoDB Streams](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html)
 /// in the Amazon DynamoDB Developer Guide.
 class DynamoDBStreamsApi {
+  final _client;
+  DynamoDBStreamsApi(client)
+      : _client = client.configured('DynamoDB Streams', serializer: 'json');
+
   /// Returns information about a stream, including the current status of the
   /// stream, its Amazon Resource Name (ARN), the composition of its shards, and
   /// its corresponding DynamoDB table.
@@ -32,7 +36,13 @@ class DynamoDBStreamsApi {
   /// `LastEvaluatedShardId` in the previous operation.
   Future<DescribeStreamOutput> describeStream(String streamArn,
       {int limit, String exclusiveStartShardId}) async {
-    return DescribeStreamOutput.fromJson({});
+    var response_ = await _client.send('DescribeStream', {
+      'StreamArn': streamArn,
+      if (limit != null) 'Limit': limit,
+      if (exclusiveStartShardId != null)
+        'ExclusiveStartShardId': exclusiveStartShardId,
+    });
+    return DescribeStreamOutput.fromJson(response_);
   }
 
   /// Retrieves the stream records from a given shard.
@@ -54,7 +64,11 @@ class DynamoDBStreamsApi {
   /// [limit]: The maximum number of records to return from the shard. The upper
   /// limit is 1000.
   Future<GetRecordsOutput> getRecords(String shardIterator, {int limit}) async {
-    return GetRecordsOutput.fromJson({});
+    var response_ = await _client.send('GetRecords', {
+      'ShardIterator': shardIterator,
+      if (limit != null) 'Limit': limit,
+    });
+    return GetRecordsOutput.fromJson(response_);
   }
 
   /// Returns a shard iterator. A shard iterator provides information about how
@@ -95,7 +109,13 @@ class DynamoDBStreamsApi {
       @required String shardId,
       @required String shardIteratorType,
       String sequenceNumber}) async {
-    return GetShardIteratorOutput.fromJson({});
+    var response_ = await _client.send('GetShardIterator', {
+      'StreamArn': streamArn,
+      'ShardId': shardId,
+      'ShardIteratorType': shardIteratorType,
+      if (sequenceNumber != null) 'SequenceNumber': sequenceNumber,
+    });
+    return GetShardIteratorOutput.fromJson(response_);
   }
 
   /// Returns an array of stream ARNs associated with the current account and
@@ -116,7 +136,13 @@ class DynamoDBStreamsApi {
   /// for `LastEvaluatedStreamArn` in the previous operation.
   Future<ListStreamsOutput> listStreams(
       {String tableName, int limit, String exclusiveStartStreamArn}) async {
-    return ListStreamsOutput.fromJson({});
+    var response_ = await _client.send('ListStreams', {
+      if (tableName != null) 'TableName': tableName,
+      if (limit != null) 'Limit': limit,
+      if (exclusiveStartStreamArn != null)
+        'ExclusiveStartStreamArn': exclusiveStartStreamArn,
+    });
+    return ListStreamsOutput.fromJson(response_);
   }
 }
 
@@ -170,7 +196,31 @@ class AttributeValue {
     this.null$,
     this.bool$,
   });
-  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
+  static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue(
+        s: json.containsKey('S') ? json['S'] as String : null,
+        n: json.containsKey('N') ? json['N'] as String : null,
+        b: json.containsKey('B') ? Uint8List(json['B']) : null,
+        ss: json.containsKey('SS')
+            ? (json['SS'] as List).map((e) => e as String).toList()
+            : null,
+        ns: json.containsKey('NS')
+            ? (json['NS'] as List).map((e) => e as String).toList()
+            : null,
+        bs: json.containsKey('BS')
+            ? (json['BS'] as List).map((e) => Uint8List(e)).toList()
+            : null,
+        m: json.containsKey('M')
+            ? (json['M'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        l: json.containsKey('L')
+            ? (json['L'] as List)
+                .map((e) => AttributeValue.fromJson(e))
+                .toList()
+            : null,
+        null$: json.containsKey('NULL') ? json['NULL'] as bool : null,
+        bool$: json.containsKey('BOOL') ? json['BOOL'] as bool : null,
+      );
 }
 
 /// Represents the output of a `DescribeStream` operation.
@@ -185,7 +235,11 @@ class DescribeStreamOutput {
     this.streamDescription,
   });
   static DescribeStreamOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStreamOutput();
+      DescribeStreamOutput(
+        streamDescription: json.containsKey('StreamDescription')
+            ? StreamDescription.fromJson(json['StreamDescription'])
+            : null,
+      );
 }
 
 /// Represents the output of a `GetRecords` operation.
@@ -204,7 +258,14 @@ class GetRecordsOutput {
     this.nextShardIterator,
   });
   static GetRecordsOutput fromJson(Map<String, dynamic> json) =>
-      GetRecordsOutput();
+      GetRecordsOutput(
+        records: json.containsKey('Records')
+            ? (json['Records'] as List).map((e) => Record.fromJson(e)).toList()
+            : null,
+        nextShardIterator: json.containsKey('NextShardIterator')
+            ? json['NextShardIterator'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a `GetShardIterator` operation.
@@ -218,7 +279,11 @@ class GetShardIteratorOutput {
     this.shardIterator,
   });
   static GetShardIteratorOutput fromJson(Map<String, dynamic> json) =>
-      GetShardIteratorOutput();
+      GetShardIteratorOutput(
+        shardIterator: json.containsKey('ShardIterator')
+            ? json['ShardIterator'] as String
+            : null,
+      );
 }
 
 /// Contains details about the type of identity that made the request.
@@ -234,7 +299,12 @@ class Identity {
     this.principalId,
     this.type,
   });
-  static Identity fromJson(Map<String, dynamic> json) => Identity();
+  static Identity fromJson(Map<String, dynamic> json) => Identity(
+        principalId: json.containsKey('PrincipalId')
+            ? json['PrincipalId'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Represents _a single element_ of a key schema. A key schema specifies the
@@ -271,7 +341,10 @@ class KeySchemaElement {
     @required this.keyType,
   });
   static KeySchemaElement fromJson(Map<String, dynamic> json) =>
-      KeySchemaElement();
+      KeySchemaElement(
+        attributeName: json['AttributeName'] as String,
+        keyType: json['KeyType'] as String,
+      );
 }
 
 /// Represents the output of a `ListStreams` operation.
@@ -298,7 +371,14 @@ class ListStreamsOutput {
     this.lastEvaluatedStreamArn,
   });
   static ListStreamsOutput fromJson(Map<String, dynamic> json) =>
-      ListStreamsOutput();
+      ListStreamsOutput(
+        streams: json.containsKey('Streams')
+            ? (json['Streams'] as List).map((e) => Stream.fromJson(e)).toList()
+            : null,
+        lastEvaluatedStreamArn: json.containsKey('LastEvaluatedStreamArn')
+            ? json['LastEvaluatedStreamArn'] as String
+            : null,
+      );
 }
 
 /// A description of a unique event within a stream.
@@ -358,7 +438,25 @@ class Record {
     this.dynamodb,
     this.userIdentity,
   });
-  static Record fromJson(Map<String, dynamic> json) => Record();
+  static Record fromJson(Map<String, dynamic> json) => Record(
+        eventID: json.containsKey('eventID') ? json['eventID'] as String : null,
+        eventName:
+            json.containsKey('eventName') ? json['eventName'] as String : null,
+        eventVersion: json.containsKey('eventVersion')
+            ? json['eventVersion'] as String
+            : null,
+        eventSource: json.containsKey('eventSource')
+            ? json['eventSource'] as String
+            : null,
+        awsRegion:
+            json.containsKey('awsRegion') ? json['awsRegion'] as String : null,
+        dynamodb: json.containsKey('dynamodb')
+            ? StreamRecord.fromJson(json['dynamodb'])
+            : null,
+        userIdentity: json.containsKey('userIdentity')
+            ? Identity.fromJson(json['userIdentity'])
+            : null,
+      );
 }
 
 /// The beginning and ending sequence numbers for the stream records contained
@@ -375,7 +473,14 @@ class SequenceNumberRange {
     this.endingSequenceNumber,
   });
   static SequenceNumberRange fromJson(Map<String, dynamic> json) =>
-      SequenceNumberRange();
+      SequenceNumberRange(
+        startingSequenceNumber: json.containsKey('StartingSequenceNumber')
+            ? json['StartingSequenceNumber'] as String
+            : null,
+        endingSequenceNumber: json.containsKey('EndingSequenceNumber')
+            ? json['EndingSequenceNumber'] as String
+            : null,
+      );
 }
 
 /// A uniquely identified group of stream records within a stream.
@@ -394,7 +499,15 @@ class Shard {
     this.sequenceNumberRange,
     this.parentShardId,
   });
-  static Shard fromJson(Map<String, dynamic> json) => Shard();
+  static Shard fromJson(Map<String, dynamic> json) => Shard(
+        shardId: json.containsKey('ShardId') ? json['ShardId'] as String : null,
+        sequenceNumberRange: json.containsKey('SequenceNumberRange')
+            ? SequenceNumberRange.fromJson(json['SequenceNumberRange'])
+            : null,
+        parentShardId: json.containsKey('ParentShardId')
+            ? json['ParentShardId'] as String
+            : null,
+      );
 }
 
 /// Represents all of the data describing a particular stream.
@@ -424,7 +537,15 @@ class Stream {
     this.tableName,
     this.streamLabel,
   });
-  static Stream fromJson(Map<String, dynamic> json) => Stream();
+  static Stream fromJson(Map<String, dynamic> json) => Stream(
+        streamArn:
+            json.containsKey('StreamArn') ? json['StreamArn'] as String : null,
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        streamLabel: json.containsKey('StreamLabel')
+            ? json['StreamLabel'] as String
+            : null,
+      );
 }
 
 /// Represents all of the data describing a particular stream.
@@ -510,7 +631,35 @@ class StreamDescription {
     this.lastEvaluatedShardId,
   });
   static StreamDescription fromJson(Map<String, dynamic> json) =>
-      StreamDescription();
+      StreamDescription(
+        streamArn:
+            json.containsKey('StreamArn') ? json['StreamArn'] as String : null,
+        streamLabel: json.containsKey('StreamLabel')
+            ? json['StreamLabel'] as String
+            : null,
+        streamStatus: json.containsKey('StreamStatus')
+            ? json['StreamStatus'] as String
+            : null,
+        streamViewType: json.containsKey('StreamViewType')
+            ? json['StreamViewType'] as String
+            : null,
+        creationRequestDateTime: json.containsKey('CreationRequestDateTime')
+            ? DateTime.parse(json['CreationRequestDateTime'])
+            : null,
+        tableName:
+            json.containsKey('TableName') ? json['TableName'] as String : null,
+        keySchema: json.containsKey('KeySchema')
+            ? (json['KeySchema'] as List)
+                .map((e) => KeySchemaElement.fromJson(e))
+                .toList()
+            : null,
+        shards: json.containsKey('Shards')
+            ? (json['Shards'] as List).map((e) => Shard.fromJson(e)).toList()
+            : null,
+        lastEvaluatedShardId: json.containsKey('LastEvaluatedShardId')
+            ? json['LastEvaluatedShardId'] as String
+            : null,
+      );
 }
 
 /// A description of a single data modification that was performed on an item in
@@ -557,5 +706,31 @@ class StreamRecord {
     this.sizeBytes,
     this.streamViewType,
   });
-  static StreamRecord fromJson(Map<String, dynamic> json) => StreamRecord();
+  static StreamRecord fromJson(Map<String, dynamic> json) => StreamRecord(
+        approximateCreationDateTime:
+            json.containsKey('ApproximateCreationDateTime')
+                ? DateTime.parse(json['ApproximateCreationDateTime'])
+                : null,
+        keys: json.containsKey('Keys')
+            ? (json['Keys'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        newImage: json.containsKey('NewImage')
+            ? (json['NewImage'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        oldImage: json.containsKey('OldImage')
+            ? (json['OldImage'] as Map).map(
+                (k, v) => MapEntry(k as String, AttributeValue.fromJson(v)))
+            : null,
+        sequenceNumber: json.containsKey('SequenceNumber')
+            ? json['SequenceNumber'] as String
+            : null,
+        sizeBytes: json.containsKey('SizeBytes')
+            ? BigInt.from(json['SizeBytes'])
+            : null,
+        streamViewType: json.containsKey('StreamViewType')
+            ? json['StreamViewType'] as String
+            : null,
+      );
 }

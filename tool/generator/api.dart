@@ -4,12 +4,7 @@ import 'utils/dart_keywords.dart';
 import 'utils/split_words.dart';
 import 'package:meta/meta.dart';
 
-// 1/ Exposer tous les paramètres dans les méthodes (faire le renommage, marqué comme required)
-//    Ajouter la validation pour chaque paramètre
-//    Serializer tous les paramtères
-// 2/ Générer les classes qui se retrouve dans les paramètres et faire la serialization
-//    + Faire la validation dans le constructeur? Oui si les classes sont immutables
-// 3/ Faire la deserialization du type de retour (pas de validation dans le constructeur).
+// 2/+ Faire la validation dans le constructeur des classes input et des paramètres inputs
 // 4/ Faire les implémentations du client avec tous les méthodes de serialization
 //    => recopier le code du sdk js pour la gestion des credentials? => non
 //
@@ -242,6 +237,8 @@ abstract class Shape {
   }
 
   DartType get dartType;
+
+  String fromJsonCode(String property);
 }
 
 class DartType {
@@ -269,42 +266,56 @@ class PrimitiveString extends Primitive {
   PrimitiveString(String name, s.Shape shape) : super._(name, shape);
 
   get dartType => const DartType.core('String');
+
+  String fromJsonCode(String property) => '$property as String';
 }
 
 class PrimitiveBoolean extends Primitive {
   PrimitiveBoolean(String name, s.Shape shape) : super._(name, shape);
 
   get dartType => const DartType.core('bool');
+
+  String fromJsonCode(String property) => '$property as bool';
 }
 
 class PrimitiveTimestamp extends Primitive {
   PrimitiveTimestamp(String name, s.Shape shape) : super._(name, shape);
 
   get dartType => const DartType.core('DateTime');
+
+  String fromJsonCode(String property) => 'DateTime.parse($property)';
 }
 
 class PrimitiveInteger extends Primitive {
   PrimitiveInteger(String name, s.Shape shape) : super._(name, shape);
 
   get dartType => const DartType.core('int');
+
+  String fromJsonCode(String property) => '$property as int';
 }
 
 class PrimitiveLong extends Primitive {
   PrimitiveLong(String name, s.Shape shape) : super._(name, shape);
 
   get dartType => const DartType.core('BigInt');
+
+  String fromJsonCode(String property) => 'BigInt.from($property)';
 }
 
 class PrimitiveDouble extends Primitive {
   PrimitiveDouble(String name, s.Shape shape) : super._(name, shape);
 
   get dartType => const DartType.core('double');
+
+  String fromJsonCode(String property) => '$property as double';
 }
 
 class PrimitiveBlob extends Primitive {
   PrimitiveBlob(String name, s.Shape shape) : super._(name, shape);
 
   get dartType => const DartType('Uint8List', {'dart:typed_data'});
+
+  String fromJsonCode(String property) => 'Uint8List($property)';
 }
 
 class ShapeList extends Shape {
@@ -322,6 +333,8 @@ class ShapeList extends Shape {
   }
 
   get children => [_itemType];
+
+  String fromJsonCode(String property) => '($property as List).map((e) => ${_itemType.fromJsonCode('e')}).toList()';
 }
 
 class ShapeMap extends Shape {
@@ -340,6 +353,8 @@ class ShapeMap extends Shape {
   }
 
   get children => [_key, _value];
+
+  String fromJsonCode(String property) => '($property as Map).map((k, v) => MapEntry(${_key.fromJsonCode('k')}, ${_value.fromJsonCode('v')}))';
 }
 
 class Structure extends Shape {
@@ -366,6 +381,8 @@ class Structure extends Shape {
   List<Property> get properties =>
       members.map((m) => Property(m,
           isRequired: shape.required?.contains(m.key) ?? false)).toList();
+
+  String fromJsonCode(String property) => '$className.fromJson($property)';
 }
 
 class Member {
@@ -382,7 +399,13 @@ class Property {
 
   Property(this.member, {@required this.isRequired});
 
+  String get name => member.key;
+
   String get dartName {
     return preventKeywords(dartStyleVariable(splitWords(member.key)));
+  }
+
+  fromJsonCode(String jsonProperty) {
+    return member.shape.fromJsonCode(jsonProperty);
   }
 }

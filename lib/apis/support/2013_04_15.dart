@@ -59,6 +59,10 @@ import 'dart:typed_data';
 /// service to create and manage your support cases, and how to call Trusted
 /// Advisor for results of checks on your resources.
 class SupportApi {
+  final _client;
+  SupportApi(client)
+      : _client = client.configured('Support', serializer: 'json');
+
   /// Adds one or more attachments to an attachment set. If an `attachmentSetId`
   /// is not specified, a new attachment set is created, and the ID of the set
   /// is returned in the response. If an `attachmentSetId` is specified, the
@@ -80,7 +84,11 @@ class SupportApi {
   Future<AddAttachmentsToSetResponse> addAttachmentsToSet(
       List<Attachment> attachments,
       {String attachmentSetId}) async {
-    return AddAttachmentsToSetResponse.fromJson({});
+    var response_ = await _client.send('AddAttachmentsToSet', {
+      if (attachmentSetId != null) 'attachmentSetId': attachmentSetId,
+      'attachments': attachments,
+    });
+    return AddAttachmentsToSetResponse.fromJson(response_);
   }
 
   /// Adds additional customer communication to an AWS Support case. You use the
@@ -112,7 +120,13 @@ class SupportApi {
       {String caseId,
       List<String> ccEmailAddresses,
       String attachmentSetId}) async {
-    return AddCommunicationToCaseResponse.fromJson({});
+    var response_ = await _client.send('AddCommunicationToCase', {
+      if (caseId != null) 'caseId': caseId,
+      'communicationBody': communicationBody,
+      if (ccEmailAddresses != null) 'ccEmailAddresses': ccEmailAddresses,
+      if (attachmentSetId != null) 'attachmentSetId': attachmentSetId,
+    });
+    return AddCommunicationToCaseResponse.fromJson(response_);
   }
 
   /// Creates a new case in the AWS Support Center. This operation is modeled on
@@ -211,7 +225,18 @@ class SupportApi {
       String language,
       String issueType,
       String attachmentSetId}) async {
-    return CreateCaseResponse.fromJson({});
+    var response_ = await _client.send('CreateCase', {
+      'subject': subject,
+      if (serviceCode != null) 'serviceCode': serviceCode,
+      if (severityCode != null) 'severityCode': severityCode,
+      if (categoryCode != null) 'categoryCode': categoryCode,
+      'communicationBody': communicationBody,
+      if (ccEmailAddresses != null) 'ccEmailAddresses': ccEmailAddresses,
+      if (language != null) 'language': language,
+      if (issueType != null) 'issueType': issueType,
+      if (attachmentSetId != null) 'attachmentSetId': attachmentSetId,
+    });
+    return CreateCaseResponse.fromJson(response_);
   }
 
   /// Returns the attachment that has the specified ID. Attachment IDs are
@@ -224,7 +249,10 @@ class SupportApi {
   /// returned by the DescribeCommunications operation.
   Future<DescribeAttachmentResponse> describeAttachment(
       String attachmentId) async {
-    return DescribeAttachmentResponse.fromJson({});
+    var response_ = await _client.send('DescribeAttachment', {
+      'attachmentId': attachmentId,
+    });
+    return DescribeAttachmentResponse.fromJson(response_);
   }
 
   /// Returns a list of cases that you specify by passing one or more case IDs.
@@ -281,7 +309,20 @@ class SupportApi {
       int maxResults,
       String language,
       bool includeCommunications}) async {
-    return DescribeCasesResponse.fromJson({});
+    var response_ = await _client.send('DescribeCases', {
+      if (caseIdList != null) 'caseIdList': caseIdList,
+      if (displayId != null) 'displayId': displayId,
+      if (afterTime != null) 'afterTime': afterTime,
+      if (beforeTime != null) 'beforeTime': beforeTime,
+      if (includeResolvedCases != null)
+        'includeResolvedCases': includeResolvedCases,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (language != null) 'language': language,
+      if (includeCommunications != null)
+        'includeCommunications': includeCommunications,
+    });
+    return DescribeCasesResponse.fromJson(response_);
   }
 
   /// Returns communications (and attachments) for one or more support cases.
@@ -317,7 +358,14 @@ class SupportApi {
       String afterTime,
       String nextToken,
       int maxResults}) async {
-    return DescribeCommunicationsResponse.fromJson({});
+    var response_ = await _client.send('DescribeCommunications', {
+      'caseId': caseId,
+      if (beforeTime != null) 'beforeTime': beforeTime,
+      if (afterTime != null) 'afterTime': afterTime,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return DescribeCommunicationsResponse.fromJson(response_);
   }
 
   /// Returns the current list of AWS services and a list of service categories
@@ -343,7 +391,11 @@ class SupportApi {
   /// take them.
   Future<DescribeServicesResponse> describeServices(
       {List<String> serviceCodeList, String language}) async {
-    return DescribeServicesResponse.fromJson({});
+    var response_ = await _client.send('DescribeServices', {
+      if (serviceCodeList != null) 'serviceCodeList': serviceCodeList,
+      if (language != null) 'language': language,
+    });
+    return DescribeServicesResponse.fromJson(response_);
   }
 
   /// Returns the list of severity levels that you can assign to an AWS Support
@@ -356,7 +408,10 @@ class SupportApi {
   /// take them.
   Future<DescribeSeverityLevelsResponse> describeSeverityLevels(
       {String language}) async {
-    return DescribeSeverityLevelsResponse.fromJson({});
+    var response_ = await _client.send('DescribeSeverityLevels', {
+      if (language != null) 'language': language,
+    });
+    return DescribeSeverityLevelsResponse.fromJson(response_);
   }
 
   /// Returns the refresh status of the Trusted Advisor checks that have the
@@ -375,7 +430,12 @@ class SupportApi {
   /// refreshed causes an `InvalidParameterValue` error.
   Future<DescribeTrustedAdvisorCheckRefreshStatusesResponse>
       describeTrustedAdvisorCheckRefreshStatuses(List<String> checkIds) async {
-    return DescribeTrustedAdvisorCheckRefreshStatusesResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeTrustedAdvisorCheckRefreshStatuses', {
+      'checkIds': checkIds,
+    });
+    return DescribeTrustedAdvisorCheckRefreshStatusesResponse.fromJson(
+        response_);
   }
 
   /// Returns the results of the Trusted Advisor check that has the specified
@@ -410,7 +470,11 @@ class SupportApi {
   Future<DescribeTrustedAdvisorCheckResultResponse>
       describeTrustedAdvisorCheckResult(String checkId,
           {String language}) async {
-    return DescribeTrustedAdvisorCheckResultResponse.fromJson({});
+    var response_ = await _client.send('DescribeTrustedAdvisorCheckResult', {
+      'checkId': checkId,
+      if (language != null) 'language': language,
+    });
+    return DescribeTrustedAdvisorCheckResultResponse.fromJson(response_);
   }
 
   /// Returns the summaries of the results of the Trusted Advisor checks that
@@ -422,7 +486,10 @@ class SupportApi {
   /// [checkIds]: The IDs of the Trusted Advisor checks.
   Future<DescribeTrustedAdvisorCheckSummariesResponse>
       describeTrustedAdvisorCheckSummaries(List<String> checkIds) async {
-    return DescribeTrustedAdvisorCheckSummariesResponse.fromJson({});
+    var response_ = await _client.send('DescribeTrustedAdvisorCheckSummaries', {
+      'checkIds': checkIds,
+    });
+    return DescribeTrustedAdvisorCheckSummariesResponse.fromJson(response_);
   }
 
   /// Returns information about all available Trusted Advisor checks, including
@@ -436,7 +503,10 @@ class SupportApi {
   /// take them.
   Future<DescribeTrustedAdvisorChecksResponse> describeTrustedAdvisorChecks(
       String language) async {
-    return DescribeTrustedAdvisorChecksResponse.fromJson({});
+    var response_ = await _client.send('DescribeTrustedAdvisorChecks', {
+      'language': language,
+    });
+    return DescribeTrustedAdvisorChecksResponse.fromJson(response_);
   }
 
   /// Requests a refresh of the Trusted Advisor check that has the specified
@@ -463,7 +533,10 @@ class SupportApi {
   /// refreshed causes an `InvalidParameterValue` error.
   Future<RefreshTrustedAdvisorCheckResponse> refreshTrustedAdvisorCheck(
       String checkId) async {
-    return RefreshTrustedAdvisorCheckResponse.fromJson({});
+    var response_ = await _client.send('RefreshTrustedAdvisorCheck', {
+      'checkId': checkId,
+    });
+    return RefreshTrustedAdvisorCheckResponse.fromJson(response_);
   }
 
   /// Takes a `caseId` and returns the initial state of the case along with the
@@ -473,7 +546,10 @@ class SupportApi {
   /// case ID is an alphanumeric string formatted as shown in this example:
   /// case-_12345678910-2013-c4c1d2bf33c5cf47_
   Future<ResolveCaseResponse> resolveCase({String caseId}) async {
-    return ResolveCaseResponse.fromJson({});
+    var response_ = await _client.send('ResolveCase', {
+      if (caseId != null) 'caseId': caseId,
+    });
+    return ResolveCaseResponse.fromJson(response_);
   }
 }
 
@@ -494,7 +570,14 @@ class AddAttachmentsToSetResponse {
     this.expiryTime,
   });
   static AddAttachmentsToSetResponse fromJson(Map<String, dynamic> json) =>
-      AddAttachmentsToSetResponse();
+      AddAttachmentsToSetResponse(
+        attachmentSetId: json.containsKey('attachmentSetId')
+            ? json['attachmentSetId'] as String
+            : null,
+        expiryTime: json.containsKey('expiryTime')
+            ? json['expiryTime'] as String
+            : null,
+      );
 }
 
 /// The result of the AddCommunicationToCase operation.
@@ -506,7 +589,9 @@ class AddCommunicationToCaseResponse {
     this.result,
   });
   static AddCommunicationToCaseResponse fromJson(Map<String, dynamic> json) =>
-      AddCommunicationToCaseResponse();
+      AddCommunicationToCaseResponse(
+        result: json.containsKey('result') ? json['result'] as bool : null,
+      );
 }
 
 /// An attachment to a case communication. The attachment consists of the file
@@ -522,7 +607,12 @@ class Attachment {
     this.fileName,
     this.data,
   });
-  static Attachment fromJson(Map<String, dynamic> json) => Attachment();
+  static Attachment fromJson(Map<String, dynamic> json) => Attachment(
+        fileName:
+            json.containsKey('fileName') ? json['fileName'] as String : null,
+        data: json.containsKey('data') ? Uint8List(json['data']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The file name and ID of an attachment to a case communication. You can use
@@ -539,7 +629,13 @@ class AttachmentDetails {
     this.fileName,
   });
   static AttachmentDetails fromJson(Map<String, dynamic> json) =>
-      AttachmentDetails();
+      AttachmentDetails(
+        attachmentId: json.containsKey('attachmentId')
+            ? json['attachmentId'] as String
+            : null,
+        fileName:
+            json.containsKey('fileName') ? json['fileName'] as String : null,
+      );
 }
 
 /// A JSON-formatted object that contains the metadata for a support case. It is
@@ -640,7 +736,38 @@ class CaseDetails {
     this.ccEmailAddresses,
     this.language,
   });
-  static CaseDetails fromJson(Map<String, dynamic> json) => CaseDetails();
+  static CaseDetails fromJson(Map<String, dynamic> json) => CaseDetails(
+        caseId: json.containsKey('caseId') ? json['caseId'] as String : null,
+        displayId:
+            json.containsKey('displayId') ? json['displayId'] as String : null,
+        subject: json.containsKey('subject') ? json['subject'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        serviceCode: json.containsKey('serviceCode')
+            ? json['serviceCode'] as String
+            : null,
+        categoryCode: json.containsKey('categoryCode')
+            ? json['categoryCode'] as String
+            : null,
+        severityCode: json.containsKey('severityCode')
+            ? json['severityCode'] as String
+            : null,
+        submittedBy: json.containsKey('submittedBy')
+            ? json['submittedBy'] as String
+            : null,
+        timeCreated: json.containsKey('timeCreated')
+            ? json['timeCreated'] as String
+            : null,
+        recentCommunications: json.containsKey('recentCommunications')
+            ? RecentCaseCommunications.fromJson(json['recentCommunications'])
+            : null,
+        ccEmailAddresses: json.containsKey('ccEmailAddresses')
+            ? (json['ccEmailAddresses'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        language:
+            json.containsKey('language') ? json['language'] as String : null,
+      );
 }
 
 /// A JSON-formatted name/value pair that represents the category name and
@@ -657,7 +784,10 @@ class Category {
     this.code,
     this.name,
   });
-  static Category fromJson(Map<String, dynamic> json) => Category();
+  static Category fromJson(Map<String, dynamic> json) => Category(
+        code: json.containsKey('code') ? json['code'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
 }
 
 /// A communication associated with an AWS Support case. The communication
@@ -688,7 +818,21 @@ class Communication {
     this.timeCreated,
     this.attachmentSet,
   });
-  static Communication fromJson(Map<String, dynamic> json) => Communication();
+  static Communication fromJson(Map<String, dynamic> json) => Communication(
+        caseId: json.containsKey('caseId') ? json['caseId'] as String : null,
+        body: json.containsKey('body') ? json['body'] as String : null,
+        submittedBy: json.containsKey('submittedBy')
+            ? json['submittedBy'] as String
+            : null,
+        timeCreated: json.containsKey('timeCreated')
+            ? json['timeCreated'] as String
+            : null,
+        attachmentSet: json.containsKey('attachmentSet')
+            ? (json['attachmentSet'] as List)
+                .map((e) => AttachmentDetails.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The AWS Support case ID returned by a successful completion of the
@@ -703,7 +847,9 @@ class CreateCaseResponse {
     this.caseId,
   });
   static CreateCaseResponse fromJson(Map<String, dynamic> json) =>
-      CreateCaseResponse();
+      CreateCaseResponse(
+        caseId: json.containsKey('caseId') ? json['caseId'] as String : null,
+      );
 }
 
 /// The content and file name of the attachment returned by the
@@ -716,7 +862,11 @@ class DescribeAttachmentResponse {
     this.attachment,
   });
   static DescribeAttachmentResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAttachmentResponse();
+      DescribeAttachmentResponse(
+        attachment: json.containsKey('attachment')
+            ? Attachment.fromJson(json['attachment'])
+            : null,
+      );
 }
 
 /// Returns an array of CaseDetails objects and a `nextToken` that defines a
@@ -733,7 +883,15 @@ class DescribeCasesResponse {
     this.nextToken,
   });
   static DescribeCasesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeCasesResponse();
+      DescribeCasesResponse(
+        cases: json.containsKey('cases')
+            ? (json['cases'] as List)
+                .map((e) => CaseDetails.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// The communications returned by the DescribeCommunications operation.
@@ -749,7 +907,15 @@ class DescribeCommunicationsResponse {
     this.nextToken,
   });
   static DescribeCommunicationsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeCommunicationsResponse();
+      DescribeCommunicationsResponse(
+        communications: json.containsKey('communications')
+            ? (json['communications'] as List)
+                .map((e) => Communication.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// The list of AWS services returned by the DescribeServices operation.
@@ -761,7 +927,13 @@ class DescribeServicesResponse {
     this.services,
   });
   static DescribeServicesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeServicesResponse();
+      DescribeServicesResponse(
+        services: json.containsKey('services')
+            ? (json['services'] as List)
+                .map((e) => Service.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The list of severity levels returned by the DescribeSeverityLevels
@@ -775,7 +947,13 @@ class DescribeSeverityLevelsResponse {
     this.severityLevels,
   });
   static DescribeSeverityLevelsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeSeverityLevelsResponse();
+      DescribeSeverityLevelsResponse(
+        severityLevels: json.containsKey('severityLevels')
+            ? (json['severityLevels'] as List)
+                .map((e) => SeverityLevel.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The statuses of the Trusted Advisor checks returned by the
@@ -789,7 +967,11 @@ class DescribeTrustedAdvisorCheckRefreshStatusesResponse {
   });
   static DescribeTrustedAdvisorCheckRefreshStatusesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeTrustedAdvisorCheckRefreshStatusesResponse();
+      DescribeTrustedAdvisorCheckRefreshStatusesResponse(
+        statuses: (json['statuses'] as List)
+            .map((e) => TrustedAdvisorCheckRefreshStatus.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The result of the Trusted Advisor check returned by the
@@ -803,7 +985,11 @@ class DescribeTrustedAdvisorCheckResultResponse {
   });
   static DescribeTrustedAdvisorCheckResultResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeTrustedAdvisorCheckResultResponse();
+      DescribeTrustedAdvisorCheckResultResponse(
+        result: json.containsKey('result')
+            ? TrustedAdvisorCheckResult.fromJson(json['result'])
+            : null,
+      );
 }
 
 /// The summaries of the Trusted Advisor checks returned by the
@@ -817,7 +1003,11 @@ class DescribeTrustedAdvisorCheckSummariesResponse {
   });
   static DescribeTrustedAdvisorCheckSummariesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeTrustedAdvisorCheckSummariesResponse();
+      DescribeTrustedAdvisorCheckSummariesResponse(
+        summaries: (json['summaries'] as List)
+            .map((e) => TrustedAdvisorCheckSummary.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Information about the Trusted Advisor checks returned by the
@@ -831,7 +1021,11 @@ class DescribeTrustedAdvisorChecksResponse {
   });
   static DescribeTrustedAdvisorChecksResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeTrustedAdvisorChecksResponse();
+      DescribeTrustedAdvisorChecksResponse(
+        checks: (json['checks'] as List)
+            .map((e) => TrustedAdvisorCheckDescription.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The five most recent communications associated with the case.
@@ -847,7 +1041,15 @@ class RecentCaseCommunications {
     this.nextToken,
   });
   static RecentCaseCommunications fromJson(Map<String, dynamic> json) =>
-      RecentCaseCommunications();
+      RecentCaseCommunications(
+        communications: json.containsKey('communications')
+            ? (json['communications'] as List)
+                .map((e) => Communication.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// The current refresh status of a Trusted Advisor check.
@@ -861,7 +1063,9 @@ class RefreshTrustedAdvisorCheckResponse {
   });
   static RefreshTrustedAdvisorCheckResponse fromJson(
           Map<String, dynamic> json) =>
-      RefreshTrustedAdvisorCheckResponse();
+      RefreshTrustedAdvisorCheckResponse(
+        status: TrustedAdvisorCheckRefreshStatus.fromJson(json['status']),
+      );
 }
 
 /// The status of the case returned by the ResolveCase operation.
@@ -877,7 +1081,14 @@ class ResolveCaseResponse {
     this.finalCaseStatus,
   });
   static ResolveCaseResponse fromJson(Map<String, dynamic> json) =>
-      ResolveCaseResponse();
+      ResolveCaseResponse(
+        initialCaseStatus: json.containsKey('initialCaseStatus')
+            ? json['initialCaseStatus'] as String
+            : null,
+        finalCaseStatus: json.containsKey('finalCaseStatus')
+            ? json['finalCaseStatus'] as String
+            : null,
+      );
 }
 
 /// Information about an AWS service returned by the DescribeServices operation.
@@ -901,7 +1112,15 @@ class Service {
     this.name,
     this.categories,
   });
-  static Service fromJson(Map<String, dynamic> json) => Service();
+  static Service fromJson(Map<String, dynamic> json) => Service(
+        code: json.containsKey('code') ? json['code'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        categories: json.containsKey('categories')
+            ? (json['categories'] as List)
+                .map((e) => Category.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A code and name pair that represent a severity level that can be applied to
@@ -920,7 +1139,10 @@ class SeverityLevel {
     this.code,
     this.name,
   });
-  static SeverityLevel fromJson(Map<String, dynamic> json) => SeverityLevel();
+  static SeverityLevel fromJson(Map<String, dynamic> json) => SeverityLevel(
+        code: json.containsKey('code') ? json['code'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
 }
 
 /// The container for summary information that relates to the category of the
@@ -935,7 +1157,12 @@ class TrustedAdvisorCategorySpecificSummary {
   });
   static TrustedAdvisorCategorySpecificSummary fromJson(
           Map<String, dynamic> json) =>
-      TrustedAdvisorCategorySpecificSummary();
+      TrustedAdvisorCategorySpecificSummary(
+        costOptimizing: json.containsKey('costOptimizing')
+            ? TrustedAdvisorCostOptimizingSummary.fromJson(
+                json['costOptimizing'])
+            : null,
+      );
 }
 
 /// The description and metadata for a Trusted Advisor check.
@@ -968,7 +1195,13 @@ class TrustedAdvisorCheckDescription {
     @required this.metadata,
   });
   static TrustedAdvisorCheckDescription fromJson(Map<String, dynamic> json) =>
-      TrustedAdvisorCheckDescription();
+      TrustedAdvisorCheckDescription(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        description: json['description'] as String,
+        category: json['category'] as String,
+        metadata: (json['metadata'] as List).map((e) => e as String).toList(),
+      );
 }
 
 /// The refresh status of a Trusted Advisor check.
@@ -990,7 +1223,12 @@ class TrustedAdvisorCheckRefreshStatus {
     @required this.millisUntilNextRefreshable,
   });
   static TrustedAdvisorCheckRefreshStatus fromJson(Map<String, dynamic> json) =>
-      TrustedAdvisorCheckRefreshStatus();
+      TrustedAdvisorCheckRefreshStatus(
+        checkId: json['checkId'] as String,
+        status: json['status'] as String,
+        millisUntilNextRefreshable:
+            BigInt.from(json['millisUntilNextRefreshable']),
+      );
 }
 
 /// The results of a Trusted Advisor check returned by
@@ -1024,7 +1262,18 @@ class TrustedAdvisorCheckResult {
     @required this.flaggedResources,
   });
   static TrustedAdvisorCheckResult fromJson(Map<String, dynamic> json) =>
-      TrustedAdvisorCheckResult();
+      TrustedAdvisorCheckResult(
+        checkId: json['checkId'] as String,
+        timestamp: json['timestamp'] as String,
+        status: json['status'] as String,
+        resourcesSummary:
+            TrustedAdvisorResourcesSummary.fromJson(json['resourcesSummary']),
+        categorySpecificSummary: TrustedAdvisorCategorySpecificSummary.fromJson(
+            json['categorySpecificSummary']),
+        flaggedResources: (json['flaggedResources'] as List)
+            .map((e) => TrustedAdvisorResourceDetail.fromJson(e))
+            .toList(),
+      );
 }
 
 /// A summary of a Trusted Advisor check result, including the alert status,
@@ -1058,7 +1307,18 @@ class TrustedAdvisorCheckSummary {
     @required this.categorySpecificSummary,
   });
   static TrustedAdvisorCheckSummary fromJson(Map<String, dynamic> json) =>
-      TrustedAdvisorCheckSummary();
+      TrustedAdvisorCheckSummary(
+        checkId: json['checkId'] as String,
+        timestamp: json['timestamp'] as String,
+        status: json['status'] as String,
+        hasFlaggedResources: json.containsKey('hasFlaggedResources')
+            ? json['hasFlaggedResources'] as bool
+            : null,
+        resourcesSummary:
+            TrustedAdvisorResourcesSummary.fromJson(json['resourcesSummary']),
+        categorySpecificSummary: TrustedAdvisorCategorySpecificSummary.fromJson(
+            json['categorySpecificSummary']),
+      );
 }
 
 /// The estimated cost savings that might be realized if the recommended actions
@@ -1078,7 +1338,11 @@ class TrustedAdvisorCostOptimizingSummary {
   });
   static TrustedAdvisorCostOptimizingSummary fromJson(
           Map<String, dynamic> json) =>
-      TrustedAdvisorCostOptimizingSummary();
+      TrustedAdvisorCostOptimizingSummary(
+        estimatedMonthlySavings: json['estimatedMonthlySavings'] as double,
+        estimatedPercentMonthlySavings:
+            json['estimatedPercentMonthlySavings'] as double,
+      );
 }
 
 /// Contains information about a resource identified by a Trusted Advisor check.
@@ -1112,7 +1376,15 @@ class TrustedAdvisorResourceDetail {
     @required this.metadata,
   });
   static TrustedAdvisorResourceDetail fromJson(Map<String, dynamic> json) =>
-      TrustedAdvisorResourceDetail();
+      TrustedAdvisorResourceDetail(
+        status: json['status'] as String,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        resourceId: json['resourceId'] as String,
+        isSuppressed: json.containsKey('isSuppressed')
+            ? json['isSuppressed'] as bool
+            : null,
+        metadata: (json['metadata'] as List).map((e) => e as String).toList(),
+      );
 }
 
 /// Details about AWS resources that were analyzed in a call to Trusted Advisor
@@ -1141,5 +1413,10 @@ class TrustedAdvisorResourcesSummary {
     @required this.resourcesSuppressed,
   });
   static TrustedAdvisorResourcesSummary fromJson(Map<String, dynamic> json) =>
-      TrustedAdvisorResourcesSummary();
+      TrustedAdvisorResourcesSummary(
+        resourcesProcessed: BigInt.from(json['resourcesProcessed']),
+        resourcesFlagged: BigInt.from(json['resourcesFlagged']),
+        resourcesIgnored: BigInt.from(json['resourcesIgnored']),
+        resourcesSuppressed: BigInt.from(json['resourcesSuppressed']),
+      );
 }

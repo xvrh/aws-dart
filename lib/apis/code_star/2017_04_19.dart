@@ -57,6 +57,10 @@ import 'package:meta/meta.dart';
 ///
 /// *    `UpdateUserProfile`, which updates the profile for a user.
 class CodeStarApi {
+  final _client;
+  CodeStarApi(client)
+      : _client = client.configured('CodeStar', serializer: 'json');
+
   /// Adds an IAM user to the team for an AWS CodeStar project.
   ///
   /// [projectId]: The ID of the project to which you will add the IAM user.
@@ -81,7 +85,15 @@ class CodeStarApi {
       @required String userArn,
       @required String projectRole,
       bool remoteAccessAllowed}) async {
-    return AssociateTeamMemberResult.fromJson({});
+    var response_ = await _client.send('AssociateTeamMember', {
+      'projectId': projectId,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+      'userArn': userArn,
+      'projectRole': projectRole,
+      if (remoteAccessAllowed != null)
+        'remoteAccessAllowed': remoteAccessAllowed,
+    });
+    return AssociateTeamMemberResult.fromJson(response_);
   }
 
   /// Creates a project, including project resources. This action creates a
@@ -116,7 +128,16 @@ class CodeStarApi {
       List<Code> sourceCode,
       Toolchain toolchain,
       Map<String, String> tags}) async {
-    return CreateProjectResult.fromJson({});
+    var response_ = await _client.send('CreateProject', {
+      'name': name,
+      'id': id,
+      if (description != null) 'description': description,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+      if (sourceCode != null) 'sourceCode': sourceCode,
+      if (toolchain != null) 'toolchain': toolchain,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateProjectResult.fromJson(response_);
   }
 
   /// Creates a profile for a user that includes user preferences, such as the
@@ -142,7 +163,13 @@ class CodeStarApi {
       @required String displayName,
       @required String emailAddress,
       String sshPublicKey}) async {
-    return CreateUserProfileResult.fromJson({});
+    var response_ = await _client.send('CreateUserProfile', {
+      'userArn': userArn,
+      'displayName': displayName,
+      'emailAddress': emailAddress,
+      if (sshPublicKey != null) 'sshPublicKey': sshPublicKey,
+    });
+    return CreateUserProfileResult.fromJson(response_);
   }
 
   /// Deletes a project, including project resources. Does not delete users
@@ -162,7 +189,12 @@ class CodeStarApi {
   /// itself. Recommended for most use cases.
   Future<DeleteProjectResult> deleteProject(String id,
       {String clientRequestToken, bool deleteStack}) async {
-    return DeleteProjectResult.fromJson({});
+    var response_ = await _client.send('DeleteProject', {
+      'id': id,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+      if (deleteStack != null) 'deleteStack': deleteStack,
+    });
+    return DeleteProjectResult.fromJson(response_);
   }
 
   /// Deletes a user profile in AWS CodeStar, including all personal preference
@@ -173,14 +205,20 @@ class CodeStarApi {
   /// [userArn]: The Amazon Resource Name (ARN) of the user to delete from AWS
   /// CodeStar.
   Future<DeleteUserProfileResult> deleteUserProfile(String userArn) async {
-    return DeleteUserProfileResult.fromJson({});
+    var response_ = await _client.send('DeleteUserProfile', {
+      'userArn': userArn,
+    });
+    return DeleteUserProfileResult.fromJson(response_);
   }
 
   /// Describes a project and its resources.
   ///
   /// [id]: The ID of the project.
   Future<DescribeProjectResult> describeProject(String id) async {
-    return DescribeProjectResult.fromJson({});
+    var response_ = await _client.send('DescribeProject', {
+      'id': id,
+    });
+    return DescribeProjectResult.fromJson(response_);
   }
 
   /// Describes a user in AWS CodeStar and the user attributes across all
@@ -188,7 +226,10 @@ class CodeStarApi {
   ///
   /// [userArn]: The Amazon Resource Name (ARN) of the user.
   Future<DescribeUserProfileResult> describeUserProfile(String userArn) async {
-    return DescribeUserProfileResult.fromJson({});
+    var response_ = await _client.send('DescribeUserProfile', {
+      'userArn': userArn,
+    });
+    return DescribeUserProfileResult.fromJson(response_);
   }
 
   /// Removes a user from a project. Removing a user from a project also removes
@@ -203,7 +244,11 @@ class CodeStarApi {
   /// you want to remove from the project.
   Future<DisassociateTeamMemberResult> disassociateTeamMember(
       {@required String projectId, @required String userArn}) async {
-    return DisassociateTeamMemberResult.fromJson({});
+    var response_ = await _client.send('DisassociateTeamMember', {
+      'projectId': projectId,
+      'userArn': userArn,
+    });
+    return DisassociateTeamMemberResult.fromJson(response_);
   }
 
   /// Lists all projects in AWS CodeStar associated with your AWS account.
@@ -215,7 +260,11 @@ class CodeStarApi {
   /// set of results.
   Future<ListProjectsResult> listProjects(
       {String nextToken, int maxResults}) async {
-    return ListProjectsResult.fromJson({});
+    var response_ = await _client.send('ListProjects', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListProjectsResult.fromJson(response_);
   }
 
   /// Lists resources associated with a project in AWS CodeStar.
@@ -229,7 +278,12 @@ class CodeStarApi {
   /// set of results.
   Future<ListResourcesResult> listResources(String projectId,
       {String nextToken, int maxResults}) async {
-    return ListResourcesResult.fromJson({});
+    var response_ = await _client.send('ListResources', {
+      'projectId': projectId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListResourcesResult.fromJson(response_);
   }
 
   /// Gets the tags for a project.
@@ -241,7 +295,12 @@ class CodeStarApi {
   /// [maxResults]: Reserved for future use.
   Future<ListTagsForProjectResult> listTagsForProject(String id,
       {String nextToken, int maxResults}) async {
-    return ListTagsForProjectResult.fromJson({});
+    var response_ = await _client.send('ListTagsForProject', {
+      'id': id,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListTagsForProjectResult.fromJson(response_);
   }
 
   /// Lists all team members associated with a project.
@@ -256,7 +315,12 @@ class CodeStarApi {
   /// response.
   Future<ListTeamMembersResult> listTeamMembers(String projectId,
       {String nextToken, int maxResults}) async {
-    return ListTeamMembersResult.fromJson({});
+    var response_ = await _client.send('ListTeamMembers', {
+      'projectId': projectId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListTeamMembersResult.fromJson(response_);
   }
 
   /// Lists all the user profiles configured for your AWS account in AWS
@@ -268,7 +332,11 @@ class CodeStarApi {
   /// [maxResults]: The maximum number of results to return in a response.
   Future<ListUserProfilesResult> listUserProfiles(
       {String nextToken, int maxResults}) async {
-    return ListUserProfilesResult.fromJson({});
+    var response_ = await _client.send('ListUserProfiles', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListUserProfilesResult.fromJson(response_);
   }
 
   /// Adds tags to a project.
@@ -278,7 +346,11 @@ class CodeStarApi {
   /// [tags]: The tags you want to add to the project.
   Future<TagProjectResult> tagProject(
       {@required String id, @required Map<String, String> tags}) async {
-    return TagProjectResult.fromJson({});
+    var response_ = await _client.send('TagProject', {
+      'id': id,
+      'tags': tags,
+    });
+    return TagProjectResult.fromJson(response_);
   }
 
   /// Removes tags from a project.
@@ -288,7 +360,11 @@ class CodeStarApi {
   /// [tags]: The tags to remove from the project.
   Future<UntagProjectResult> untagProject(
       {@required String id, @required List<String> tags}) async {
-    return UntagProjectResult.fromJson({});
+    var response_ = await _client.send('UntagProject', {
+      'id': id,
+      'tags': tags,
+    });
+    return UntagProjectResult.fromJson(response_);
   }
 
   /// Updates a project in AWS CodeStar.
@@ -300,7 +376,12 @@ class CodeStarApi {
   /// [description]: The description of the project, if any.
   Future<UpdateProjectResult> updateProject(String id,
       {String name, String description}) async {
-    return UpdateProjectResult.fromJson({});
+    var response_ = await _client.send('UpdateProject', {
+      'id': id,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+    });
+    return UpdateProjectResult.fromJson(response_);
   }
 
   /// Updates a team member's attributes in an AWS CodeStar project. For
@@ -326,7 +407,14 @@ class CodeStarApi {
       @required String userArn,
       String projectRole,
       bool remoteAccessAllowed}) async {
-    return UpdateTeamMemberResult.fromJson({});
+    var response_ = await _client.send('UpdateTeamMember', {
+      'projectId': projectId,
+      'userArn': userArn,
+      if (projectRole != null) 'projectRole': projectRole,
+      if (remoteAccessAllowed != null)
+        'remoteAccessAllowed': remoteAccessAllowed,
+    });
+    return UpdateTeamMemberResult.fromJson(response_);
   }
 
   /// Updates a user's profile in AWS CodeStar. The user profile is not
@@ -348,7 +436,13 @@ class CodeStarApi {
   /// for SSH access.
   Future<UpdateUserProfileResult> updateUserProfile(String userArn,
       {String displayName, String emailAddress, String sshPublicKey}) async {
-    return UpdateUserProfileResult.fromJson({});
+    var response_ = await _client.send('UpdateUserProfile', {
+      'userArn': userArn,
+      if (displayName != null) 'displayName': displayName,
+      if (emailAddress != null) 'emailAddress': emailAddress,
+      if (sshPublicKey != null) 'sshPublicKey': sshPublicKey,
+    });
+    return UpdateUserProfileResult.fromJson(response_);
   }
 }
 
@@ -361,7 +455,11 @@ class AssociateTeamMemberResult {
     this.clientRequestToken,
   });
   static AssociateTeamMemberResult fromJson(Map<String, dynamic> json) =>
-      AssociateTeamMemberResult();
+      AssociateTeamMemberResult(
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+      );
 }
 
 /// Location and destination information about the source code files provided
@@ -382,6 +480,7 @@ class Code {
     @required this.source,
     @required this.destination,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the AWS CodeCommit repository to be created in AWS
@@ -394,6 +493,7 @@ class CodeCommitCodeDestination {
   CodeCommitCodeDestination({
     @required this.name,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The repository to be created in AWS CodeStar. Valid values are AWS
@@ -415,6 +515,7 @@ class CodeDestination {
     this.codeCommit,
     this.gitHub,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The location where the source code files provided with the project request
@@ -427,6 +528,7 @@ class CodeSource {
   CodeSource({
     @required this.s3,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateProjectResult {
@@ -450,7 +552,16 @@ class CreateProjectResult {
     this.projectTemplateId,
   });
   static CreateProjectResult fromJson(Map<String, dynamic> json) =>
-      CreateProjectResult();
+      CreateProjectResult(
+        id: json['id'] as String,
+        arn: json['arn'] as String,
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+        projectTemplateId: json.containsKey('projectTemplateId')
+            ? json['projectTemplateId'] as String
+            : null,
+      );
 }
 
 class CreateUserProfileResult {
@@ -486,7 +597,24 @@ class CreateUserProfileResult {
     this.lastModifiedTimestamp,
   });
   static CreateUserProfileResult fromJson(Map<String, dynamic> json) =>
-      CreateUserProfileResult();
+      CreateUserProfileResult(
+        userArn: json['userArn'] as String,
+        displayName: json.containsKey('displayName')
+            ? json['displayName'] as String
+            : null,
+        emailAddress: json.containsKey('emailAddress')
+            ? json['emailAddress'] as String
+            : null,
+        sshPublicKey: json.containsKey('sshPublicKey')
+            ? json['sshPublicKey'] as String
+            : null,
+        createdTimestamp: json.containsKey('createdTimestamp')
+            ? DateTime.parse(json['createdTimestamp'])
+            : null,
+        lastModifiedTimestamp: json.containsKey('lastModifiedTimestamp')
+            ? DateTime.parse(json['lastModifiedTimestamp'])
+            : null,
+      );
 }
 
 class DeleteProjectResult {
@@ -502,7 +630,12 @@ class DeleteProjectResult {
     this.projectArn,
   });
   static DeleteProjectResult fromJson(Map<String, dynamic> json) =>
-      DeleteProjectResult();
+      DeleteProjectResult(
+        stackId: json.containsKey('stackId') ? json['stackId'] as String : null,
+        projectArn: json.containsKey('projectArn')
+            ? json['projectArn'] as String
+            : null,
+      );
 }
 
 class DeleteUserProfileResult {
@@ -513,7 +646,9 @@ class DeleteUserProfileResult {
     @required this.userArn,
   });
   static DeleteUserProfileResult fromJson(Map<String, dynamic> json) =>
-      DeleteUserProfileResult();
+      DeleteUserProfileResult(
+        userArn: json['userArn'] as String,
+      );
 }
 
 class DescribeProjectResult {
@@ -558,7 +693,27 @@ class DescribeProjectResult {
     this.status,
   });
   static DescribeProjectResult fromJson(Map<String, dynamic> json) =>
-      DescribeProjectResult();
+      DescribeProjectResult(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        id: json.containsKey('id') ? json['id'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+        createdTimeStamp: json.containsKey('createdTimeStamp')
+            ? DateTime.parse(json['createdTimeStamp'])
+            : null,
+        stackId: json.containsKey('stackId') ? json['stackId'] as String : null,
+        projectTemplateId: json.containsKey('projectTemplateId')
+            ? json['projectTemplateId'] as String
+            : null,
+        status: json.containsKey('status')
+            ? ProjectStatus.fromJson(json['status'])
+            : null,
+      );
 }
 
 class DescribeUserProfileResult {
@@ -603,7 +758,20 @@ class DescribeUserProfileResult {
     @required this.lastModifiedTimestamp,
   });
   static DescribeUserProfileResult fromJson(Map<String, dynamic> json) =>
-      DescribeUserProfileResult();
+      DescribeUserProfileResult(
+        userArn: json['userArn'] as String,
+        displayName: json.containsKey('displayName')
+            ? json['displayName'] as String
+            : null,
+        emailAddress: json.containsKey('emailAddress')
+            ? json['emailAddress'] as String
+            : null,
+        sshPublicKey: json.containsKey('sshPublicKey')
+            ? json['sshPublicKey'] as String
+            : null,
+        createdTimestamp: DateTime.parse(json['createdTimestamp']),
+        lastModifiedTimestamp: DateTime.parse(json['lastModifiedTimestamp']),
+      );
 }
 
 class DisassociateTeamMemberResult {
@@ -650,6 +818,7 @@ class GitHubCodeDestination {
     @required this.issuesEnabled,
     @required this.token,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListProjectsResult {
@@ -665,7 +834,13 @@ class ListProjectsResult {
     this.nextToken,
   });
   static ListProjectsResult fromJson(Map<String, dynamic> json) =>
-      ListProjectsResult();
+      ListProjectsResult(
+        projects: (json['projects'] as List)
+            .map((e) => ProjectSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListResourcesResult {
@@ -681,7 +856,15 @@ class ListResourcesResult {
     this.nextToken,
   });
   static ListResourcesResult fromJson(Map<String, dynamic> json) =>
-      ListResourcesResult();
+      ListResourcesResult(
+        resources: json.containsKey('resources')
+            ? (json['resources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForProjectResult {
@@ -696,7 +879,14 @@ class ListTagsForProjectResult {
     this.nextToken,
   });
   static ListTagsForProjectResult fromJson(Map<String, dynamic> json) =>
-      ListTagsForProjectResult();
+      ListTagsForProjectResult(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTeamMembersResult {
@@ -712,7 +902,13 @@ class ListTeamMembersResult {
     this.nextToken,
   });
   static ListTeamMembersResult fromJson(Map<String, dynamic> json) =>
-      ListTeamMembersResult();
+      ListTeamMembersResult(
+        teamMembers: (json['teamMembers'] as List)
+            .map((e) => TeamMember.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListUserProfilesResult {
@@ -728,7 +924,13 @@ class ListUserProfilesResult {
     this.nextToken,
   });
   static ListUserProfilesResult fromJson(Map<String, dynamic> json) =>
-      ListUserProfilesResult();
+      ListUserProfilesResult(
+        userProfiles: (json['userProfiles'] as List)
+            .map((e) => UserProfileSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// An indication of whether a project creation or deletion is failed or
@@ -745,7 +947,10 @@ class ProjectStatus {
     @required this.state,
     this.reason,
   });
-  static ProjectStatus fromJson(Map<String, dynamic> json) => ProjectStatus();
+  static ProjectStatus fromJson(Map<String, dynamic> json) => ProjectStatus(
+        state: json['state'] as String,
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+      );
 }
 
 /// Information about the metadata for a project.
@@ -760,7 +965,13 @@ class ProjectSummary {
     this.projectId,
     this.projectArn,
   });
-  static ProjectSummary fromJson(Map<String, dynamic> json) => ProjectSummary();
+  static ProjectSummary fromJson(Map<String, dynamic> json) => ProjectSummary(
+        projectId:
+            json.containsKey('projectId') ? json['projectId'] as String : null,
+        projectArn: json.containsKey('projectArn')
+            ? json['projectArn'] as String
+            : null,
+      );
 }
 
 /// Information about a resource for a project.
@@ -771,7 +982,9 @@ class Resource {
   Resource({
     @required this.id,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        id: json['id'] as String,
+      );
 }
 
 /// The Amazon S3 location where the source code files provided with the project
@@ -789,6 +1002,7 @@ class S3Location {
     this.bucketName,
     this.bucketKey,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagProjectResult {
@@ -799,7 +1013,12 @@ class TagProjectResult {
     this.tags,
   });
   static TagProjectResult fromJson(Map<String, dynamic> json) =>
-      TagProjectResult();
+      TagProjectResult(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Information about a team member in a project.
@@ -822,7 +1041,13 @@ class TeamMember {
     @required this.projectRole,
     this.remoteAccessAllowed,
   });
-  static TeamMember fromJson(Map<String, dynamic> json) => TeamMember();
+  static TeamMember fromJson(Map<String, dynamic> json) => TeamMember(
+        userArn: json['userArn'] as String,
+        projectRole: json['projectRole'] as String,
+        remoteAccessAllowed: json.containsKey('remoteAccessAllowed')
+            ? json['remoteAccessAllowed'] as bool
+            : null,
+      );
 }
 
 /// The toolchain template file provided with the project request. AWS CodeStar
@@ -846,6 +1071,7 @@ class Toolchain {
     this.roleArn,
     this.stackParameters,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Amazon S3 location where the toolchain template file provided with the
@@ -859,6 +1085,7 @@ class ToolchainSource {
   ToolchainSource({
     @required this.s3,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagProjectResult {
@@ -891,7 +1118,15 @@ class UpdateTeamMemberResult {
     this.remoteAccessAllowed,
   });
   static UpdateTeamMemberResult fromJson(Map<String, dynamic> json) =>
-      UpdateTeamMemberResult();
+      UpdateTeamMemberResult(
+        userArn: json.containsKey('userArn') ? json['userArn'] as String : null,
+        projectRole: json.containsKey('projectRole')
+            ? json['projectRole'] as String
+            : null,
+        remoteAccessAllowed: json.containsKey('remoteAccessAllowed')
+            ? json['remoteAccessAllowed'] as bool
+            : null,
+      );
 }
 
 class UpdateUserProfileResult {
@@ -927,7 +1162,24 @@ class UpdateUserProfileResult {
     this.lastModifiedTimestamp,
   });
   static UpdateUserProfileResult fromJson(Map<String, dynamic> json) =>
-      UpdateUserProfileResult();
+      UpdateUserProfileResult(
+        userArn: json['userArn'] as String,
+        displayName: json.containsKey('displayName')
+            ? json['displayName'] as String
+            : null,
+        emailAddress: json.containsKey('emailAddress')
+            ? json['emailAddress'] as String
+            : null,
+        sshPublicKey: json.containsKey('sshPublicKey')
+            ? json['sshPublicKey'] as String
+            : null,
+        createdTimestamp: json.containsKey('createdTimestamp')
+            ? DateTime.parse(json['createdTimestamp'])
+            : null,
+        lastModifiedTimestamp: json.containsKey('lastModifiedTimestamp')
+            ? DateTime.parse(json['lastModifiedTimestamp'])
+            : null,
+      );
 }
 
 /// Information about a user's profile in AWS CodeStar.
@@ -961,5 +1213,16 @@ class UserProfileSummary {
     this.sshPublicKey,
   });
   static UserProfileSummary fromJson(Map<String, dynamic> json) =>
-      UserProfileSummary();
+      UserProfileSummary(
+        userArn: json.containsKey('userArn') ? json['userArn'] as String : null,
+        displayName: json.containsKey('displayName')
+            ? json['displayName'] as String
+            : null,
+        emailAddress: json.containsKey('emailAddress')
+            ? json['emailAddress'] as String
+            : null,
+        sshPublicKey: json.containsKey('sshPublicKey')
+            ? json['sshPublicKey'] as String
+            : null,
+      );
 }

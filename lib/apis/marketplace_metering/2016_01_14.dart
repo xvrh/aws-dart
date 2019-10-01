@@ -47,6 +47,10 @@ import 'package:meta/meta.dart';
 /// _[AWS CloudTrail User Guide](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html)_
 /// .
 class MarketplaceMeteringApi {
+  final _client;
+  MarketplaceMeteringApi(client)
+      : _client = client.configured('Marketplace Metering', serializer: 'json');
+
   /// BatchMeterUsage is called from a SaaS application listed on the AWS
   /// Marketplace to post metering records for a set of customers.
   ///
@@ -68,7 +72,11 @@ class MarketplaceMeteringApi {
   Future<BatchMeterUsageResult> batchMeterUsage(
       {@required List<UsageRecord> usageRecords,
       @required String productCode}) async {
-    return BatchMeterUsageResult.fromJson({});
+    var response_ = await _client.send('BatchMeterUsage', {
+      'UsageRecords': usageRecords,
+      'ProductCode': productCode,
+    });
+    return BatchMeterUsageResult.fromJson(response_);
   }
 
   /// API to emit metering records. For identical requests, the API is
@@ -101,7 +109,14 @@ class MarketplaceMeteringApi {
       @required String usageDimension,
       int usageQuantity,
       bool dryRun}) async {
-    return MeterUsageResult.fromJson({});
+    var response_ = await _client.send('MeterUsage', {
+      'ProductCode': productCode,
+      'Timestamp': timestamp,
+      'UsageDimension': usageDimension,
+      if (usageQuantity != null) 'UsageQuantity': usageQuantity,
+      if (dryRun != null) 'DryRun': dryRun,
+    });
+    return MeterUsageResult.fromJson(response_);
   }
 
   /// Paid container software products sold through AWS Marketplace must
@@ -151,7 +166,12 @@ class MarketplaceMeteringApi {
       {@required String productCode,
       @required int publicKeyVersion,
       String nonce}) async {
-    return RegisterUsageResult.fromJson({});
+    var response_ = await _client.send('RegisterUsage', {
+      'ProductCode': productCode,
+      'PublicKeyVersion': publicKeyVersion,
+      if (nonce != null) 'Nonce': nonce,
+    });
+    return RegisterUsageResult.fromJson(response_);
   }
 
   /// ResolveCustomer is called by a SaaS application during the registration
@@ -166,7 +186,10 @@ class MarketplaceMeteringApi {
   /// and product code.
   Future<ResolveCustomerResult> resolveCustomer(
       String registrationToken) async {
-    return ResolveCustomerResult.fromJson({});
+    var response_ = await _client.send('ResolveCustomer', {
+      'RegistrationToken': registrationToken,
+    });
+    return ResolveCustomerResult.fromJson(response_);
   }
 }
 
@@ -188,7 +211,18 @@ class BatchMeterUsageResult {
     this.unprocessedRecords,
   });
   static BatchMeterUsageResult fromJson(Map<String, dynamic> json) =>
-      BatchMeterUsageResult();
+      BatchMeterUsageResult(
+        results: json.containsKey('Results')
+            ? (json['Results'] as List)
+                .map((e) => UsageRecordResult.fromJson(e))
+                .toList()
+            : null,
+        unprocessedRecords: json.containsKey('UnprocessedRecords')
+            ? (json['UnprocessedRecords'] as List)
+                .map((e) => UsageRecord.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class MeterUsageResult {
@@ -199,7 +233,11 @@ class MeterUsageResult {
     this.meteringRecordId,
   });
   static MeterUsageResult fromJson(Map<String, dynamic> json) =>
-      MeterUsageResult();
+      MeterUsageResult(
+        meteringRecordId: json.containsKey('MeteringRecordId')
+            ? json['MeteringRecordId'] as String
+            : null,
+      );
 }
 
 class RegisterUsageResult {
@@ -214,7 +252,14 @@ class RegisterUsageResult {
     this.signature,
   });
   static RegisterUsageResult fromJson(Map<String, dynamic> json) =>
-      RegisterUsageResult();
+      RegisterUsageResult(
+        publicKeyRotationTimestamp:
+            json.containsKey('PublicKeyRotationTimestamp')
+                ? DateTime.parse(json['PublicKeyRotationTimestamp'])
+                : null,
+        signature:
+            json.containsKey('Signature') ? json['Signature'] as String : null,
+      );
 }
 
 /// The result of the ResolveCustomer operation. Contains the CustomerIdentifier
@@ -235,7 +280,14 @@ class ResolveCustomerResult {
     this.productCode,
   });
   static ResolveCustomerResult fromJson(Map<String, dynamic> json) =>
-      ResolveCustomerResult();
+      ResolveCustomerResult(
+        customerIdentifier: json.containsKey('CustomerIdentifier')
+            ? json['CustomerIdentifier'] as String
+            : null,
+        productCode: json.containsKey('ProductCode')
+            ? json['ProductCode'] as String
+            : null,
+      );
 }
 
 /// A UsageRecord indicates a quantity of usage for a given product, customer,
@@ -269,7 +321,13 @@ class UsageRecord {
     @required this.dimension,
     this.quantity,
   });
-  static UsageRecord fromJson(Map<String, dynamic> json) => UsageRecord();
+  static UsageRecord fromJson(Map<String, dynamic> json) => UsageRecord(
+        timestamp: DateTime.parse(json['Timestamp']),
+        customerIdentifier: json['CustomerIdentifier'] as String,
+        dimension: json['Dimension'] as String,
+        quantity: json.containsKey('Quantity') ? json['Quantity'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A UsageRecordResult indicates the status of a given UsageRecord processed by
@@ -303,5 +361,13 @@ class UsageRecordResult {
     this.status,
   });
   static UsageRecordResult fromJson(Map<String, dynamic> json) =>
-      UsageRecordResult();
+      UsageRecordResult(
+        usageRecord: json.containsKey('UsageRecord')
+            ? UsageRecord.fromJson(json['UsageRecord'])
+            : null,
+        meteringRecordId: json.containsKey('MeteringRecordId')
+            ? json['MeteringRecordId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }

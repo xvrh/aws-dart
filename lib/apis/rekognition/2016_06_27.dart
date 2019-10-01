@@ -3,6 +3,10 @@ import 'dart:typed_data';
 
 /// This is the Amazon Rekognition API reference.
 class RekognitionApi {
+  final _client;
+  RekognitionApi(client)
+      : _client = client.configured('Rekognition', serializer: 'json');
+
   /// Compares a face in the _source_ input image with each of the 100 largest
   /// faces detected in the _target_ input image.
   ///
@@ -70,7 +74,13 @@ class RekognitionApi {
       {@required Image sourceImage,
       @required Image targetImage,
       double similarityThreshold}) async {
-    return CompareFacesResponse.fromJson({});
+    var response_ = await _client.send('CompareFaces', {
+      'SourceImage': sourceImage,
+      'TargetImage': targetImage,
+      if (similarityThreshold != null)
+        'SimilarityThreshold': similarityThreshold,
+    });
+    return CompareFacesResponse.fromJson(response_);
   }
 
   /// Creates a collection in an AWS Region. You can add faces to the collection
@@ -91,7 +101,10 @@ class RekognitionApi {
   ///
   /// [collectionId]: ID for the collection that you are creating.
   Future<CreateCollectionResponse> createCollection(String collectionId) async {
-    return CreateCollectionResponse.fromJson({});
+    var response_ = await _client.send('CreateCollection', {
+      'CollectionId': collectionId,
+    });
+    return CreateCollectionResponse.fromJson(response_);
   }
 
   /// Creates an Amazon Rekognition stream processor that you can use to detect
@@ -137,7 +150,14 @@ class RekognitionApi {
       @required String name,
       @required StreamProcessorSettings settings,
       @required String roleArn}) async {
-    return CreateStreamProcessorResponse.fromJson({});
+    var response_ = await _client.send('CreateStreamProcessor', {
+      'Input': input,
+      'Output': output,
+      'Name': name,
+      'Settings': settings,
+      'RoleArn': roleArn,
+    });
+    return CreateStreamProcessorResponse.fromJson(response_);
   }
 
   /// Deletes the specified collection. Note that this operation removes all
@@ -148,7 +168,10 @@ class RekognitionApi {
   ///
   /// [collectionId]: ID of the collection to delete.
   Future<DeleteCollectionResponse> deleteCollection(String collectionId) async {
-    return DeleteCollectionResponse.fromJson({});
+    var response_ = await _client.send('DeleteCollection', {
+      'CollectionId': collectionId,
+    });
+    return DeleteCollectionResponse.fromJson(response_);
   }
 
   /// Deletes faces from a collection. You specify a collection ID and an array
@@ -162,7 +185,11 @@ class RekognitionApi {
   /// [faceIds]: An array of face IDs to delete.
   Future<DeleteFacesResponse> deleteFaces(
       {@required String collectionId, @required List<String> faceIds}) async {
-    return DeleteFacesResponse.fromJson({});
+    var response_ = await _client.send('DeleteFaces', {
+      'CollectionId': collectionId,
+      'FaceIds': faceIds,
+    });
+    return DeleteFacesResponse.fromJson(response_);
   }
 
   /// Deletes the stream processor identified by `Name`. You assign the value
@@ -173,7 +200,10 @@ class RekognitionApi {
   /// [name]: The name of the stream processor you want to delete.
   Future<DeleteStreamProcessorResponse> deleteStreamProcessor(
       String name) async {
-    return DeleteStreamProcessorResponse.fromJson({});
+    var response_ = await _client.send('DeleteStreamProcessor', {
+      'Name': name,
+    });
+    return DeleteStreamProcessorResponse.fromJson(response_);
   }
 
   /// Describes the specified collection. You can use `DescribeCollection` to
@@ -186,7 +216,10 @@ class RekognitionApi {
   /// [collectionId]: The ID of the collection to describe.
   Future<DescribeCollectionResponse> describeCollection(
       String collectionId) async {
-    return DescribeCollectionResponse.fromJson({});
+    var response_ = await _client.send('DescribeCollection', {
+      'CollectionId': collectionId,
+    });
+    return DescribeCollectionResponse.fromJson(response_);
   }
 
   /// Provides information about a stream processor created by
@@ -197,7 +230,10 @@ class RekognitionApi {
   /// [name]: Name of the stream processor for which you want information.
   Future<DescribeStreamProcessorResponse> describeStreamProcessor(
       String name) async {
-    return DescribeStreamProcessorResponse.fromJson({});
+    var response_ = await _client.send('DescribeStreamProcessor', {
+      'Name': name,
+    });
+    return DescribeStreamProcessorResponse.fromJson(response_);
   }
 
   /// Detects faces within an image that is provided as input.
@@ -245,7 +281,11 @@ class RekognitionApi {
   /// attributes).
   Future<DetectFacesResponse> detectFaces(Image image,
       {List<String> attributes}) async {
-    return DetectFacesResponse.fromJson({});
+    var response_ = await _client.send('DetectFaces', {
+      'Image': image,
+      if (attributes != null) 'Attributes': attributes,
+    });
+    return DetectFacesResponse.fromJson(response_);
   }
 
   /// Detects instances of real-world entities within an image (JPEG or PNG)
@@ -341,7 +381,12 @@ class RekognitionApi {
   /// confidence values greater than or equal to 55 percent.
   Future<DetectLabelsResponse> detectLabels(Image image,
       {int maxLabels, double minConfidence}) async {
-    return DetectLabelsResponse.fromJson({});
+    var response_ = await _client.send('DetectLabels', {
+      'Image': image,
+      if (maxLabels != null) 'MaxLabels': maxLabels,
+      if (minConfidence != null) 'MinConfidence': minConfidence,
+    });
+    return DetectLabelsResponse.fromJson(response_);
   }
 
   /// Detects unsafe content in a specified JPEG or PNG format image. Use
@@ -376,7 +421,11 @@ class RekognitionApi {
   /// confidence values greater than or equal to 50 percent.
   Future<DetectModerationLabelsResponse> detectModerationLabels(Image image,
       {double minConfidence}) async {
-    return DetectModerationLabelsResponse.fromJson({});
+    var response_ = await _client.send('DetectModerationLabels', {
+      'Image': image,
+      if (minConfidence != null) 'MinConfidence': minConfidence,
+    });
+    return DetectModerationLabelsResponse.fromJson(response_);
   }
 
   /// Detects text in the input image and converts it into machine-readable
@@ -422,7 +471,10 @@ class RekognitionApi {
   /// to base64-encode image bytes passed using the `Bytes` field. For more
   /// information, see Images in the Amazon Rekognition developer guide.
   Future<DetectTextResponse> detectText(Image image) async {
-    return DetectTextResponse.fromJson({});
+    var response_ = await _client.send('DetectText', {
+      'Image': image,
+    });
+    return DetectTextResponse.fromJson(response_);
   }
 
   /// Gets the name and additional information about a celebrity based on his or
@@ -440,7 +492,10 @@ class RekognitionApi {
   /// the RecognizeCelebrities operation, which recognizes celebrities in an
   /// image.
   Future<GetCelebrityInfoResponse> getCelebrityInfo(String id) async {
-    return GetCelebrityInfoResponse.fromJson({});
+    var response_ = await _client.send('GetCelebrityInfo', {
+      'Id': id,
+    });
+    return GetCelebrityInfoResponse.fromJson(response_);
   }
 
   /// Gets the celebrity recognition results for a Amazon Rekognition Video
@@ -508,7 +563,13 @@ class RekognitionApi {
   /// sort by the time the celebrity was recognized.
   Future<GetCelebrityRecognitionResponse> getCelebrityRecognition(String jobId,
       {int maxResults, String nextToken, String sortBy}) async {
-    return GetCelebrityRecognitionResponse.fromJson({});
+    var response_ = await _client.send('GetCelebrityRecognition', {
+      'JobId': jobId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (sortBy != null) 'SortBy': sortBy,
+    });
+    return GetCelebrityRecognitionResponse.fromJson(response_);
   }
 
   /// Gets the unsafe content analysis results for a Amazon Rekognition Video
@@ -566,7 +627,13 @@ class RekognitionApi {
   /// detection confidence. The default sort is by `TIMESTAMP`.
   Future<GetContentModerationResponse> getContentModeration(String jobId,
       {int maxResults, String nextToken, String sortBy}) async {
-    return GetContentModerationResponse.fromJson({});
+    var response_ = await _client.send('GetContentModeration', {
+      'JobId': jobId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (sortBy != null) 'SortBy': sortBy,
+    });
+    return GetContentModerationResponse.fromJson(response_);
   }
 
   /// Gets face detection results for a Amazon Rekognition Video analysis
@@ -605,7 +672,12 @@ class RekognitionApi {
   /// next set of faces.
   Future<GetFaceDetectionResponse> getFaceDetection(String jobId,
       {int maxResults, String nextToken}) async {
-    return GetFaceDetectionResponse.fromJson({});
+    var response_ = await _client.send('GetFaceDetection', {
+      'JobId': jobId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetFaceDetectionResponse.fromJson(response_);
   }
 
   /// Gets the face search results for Amazon Rekognition Video face search
@@ -658,7 +730,13 @@ class RekognitionApi {
   /// by recognized faces.
   Future<GetFaceSearchResponse> getFaceSearch(String jobId,
       {int maxResults, String nextToken, String sortBy}) async {
-    return GetFaceSearchResponse.fromJson({});
+    var response_ = await _client.send('GetFaceSearch', {
+      'JobId': jobId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (sortBy != null) 'SortBy': sortBy,
+    });
+    return GetFaceSearchResponse.fromJson(response_);
   }
 
   /// Gets the label detection results of a Amazon Rekognition Video analysis
@@ -712,7 +790,13 @@ class RekognitionApi {
   /// sort is by `TIMESTAMP`.
   Future<GetLabelDetectionResponse> getLabelDetection(String jobId,
       {int maxResults, String nextToken, String sortBy}) async {
-    return GetLabelDetectionResponse.fromJson({});
+    var response_ = await _client.send('GetLabelDetection', {
+      'JobId': jobId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (sortBy != null) 'SortBy': sortBy,
+    });
+    return GetLabelDetectionResponse.fromJson(response_);
   }
 
   /// Gets the path tracking results of a Amazon Rekognition Video analysis
@@ -770,7 +854,13 @@ class RekognitionApi {
   /// `TIMESTAMP`.
   Future<GetPersonTrackingResponse> getPersonTracking(String jobId,
       {int maxResults, String nextToken, String sortBy}) async {
-    return GetPersonTrackingResponse.fromJson({});
+    var response_ = await _client.send('GetPersonTracking', {
+      'JobId': jobId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (sortBy != null) 'SortBy': sortBy,
+    });
+    return GetPersonTrackingResponse.fromJson(response_);
   }
 
   /// Detects faces in the input image and adds them to the specified
@@ -935,7 +1025,16 @@ class RekognitionApi {
       List<String> detectionAttributes,
       int maxFaces,
       String qualityFilter}) async {
-    return IndexFacesResponse.fromJson({});
+    var response_ = await _client.send('IndexFaces', {
+      'CollectionId': collectionId,
+      'Image': image,
+      if (externalImageId != null) 'ExternalImageId': externalImageId,
+      if (detectionAttributes != null)
+        'DetectionAttributes': detectionAttributes,
+      if (maxFaces != null) 'MaxFaces': maxFaces,
+      if (qualityFilter != null) 'QualityFilter': qualityFilter,
+    });
+    return IndexFacesResponse.fromJson(response_);
   }
 
   /// Returns list of collection IDs in your account. If the result is
@@ -953,7 +1052,11 @@ class RekognitionApi {
   /// [maxResults]: Maximum number of collection IDs to return.
   Future<ListCollectionsResponse> listCollections(
       {String nextToken, int maxResults}) async {
-    return ListCollectionsResponse.fromJson({});
+    var response_ = await _client.send('ListCollections', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListCollectionsResponse.fromJson(response_);
   }
 
   /// Returns metadata for faces in the specified collection. This metadata
@@ -974,7 +1077,12 @@ class RekognitionApi {
   /// [maxResults]: Maximum number of faces to return.
   Future<ListFacesResponse> listFaces(String collectionId,
       {String nextToken, int maxResults}) async {
-    return ListFacesResponse.fromJson({});
+    var response_ = await _client.send('ListFaces', {
+      'CollectionId': collectionId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListFacesResponse.fromJson(response_);
   }
 
   /// Gets a list of stream processors that you have created with
@@ -989,7 +1097,11 @@ class RekognitionApi {
   /// Rekognition Video to return in the response. The default is 1000.
   Future<ListStreamProcessorsResponse> listStreamProcessors(
       {String nextToken, int maxResults}) async {
-    return ListStreamProcessorsResponse.fromJson({});
+    var response_ = await _client.send('ListStreamProcessors', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListStreamProcessorsResponse.fromJson(response_);
   }
 
   /// Returns an array of celebrities recognized in the input image. For more
@@ -1034,7 +1146,10 @@ class RekognitionApi {
   /// to base64-encode image bytes passed using the `Bytes` field. For more
   /// information, see Images in the Amazon Rekognition developer guide.
   Future<RecognizeCelebritiesResponse> recognizeCelebrities(Image image) async {
-    return RecognizeCelebritiesResponse.fromJson({});
+    var response_ = await _client.send('RecognizeCelebrities', {
+      'Image': image,
+    });
+    return RecognizeCelebritiesResponse.fromJson(response_);
   }
 
   /// For a given input face ID, searches for matching faces in the collection
@@ -1073,7 +1188,13 @@ class RekognitionApi {
       @required String faceId,
       int maxFaces,
       double faceMatchThreshold}) async {
-    return SearchFacesResponse.fromJson({});
+    var response_ = await _client.send('SearchFaces', {
+      'CollectionId': collectionId,
+      'FaceId': faceId,
+      if (maxFaces != null) 'MaxFaces': maxFaces,
+      if (faceMatchThreshold != null) 'FaceMatchThreshold': faceMatchThreshold,
+    });
+    return SearchFacesResponse.fromJson(response_);
   }
 
   /// For a given input image, first detects the largest face in the image, and
@@ -1129,7 +1250,13 @@ class RekognitionApi {
       @required Image image,
       int maxFaces,
       double faceMatchThreshold}) async {
-    return SearchFacesByImageResponse.fromJson({});
+    var response_ = await _client.send('SearchFacesByImage', {
+      'CollectionId': collectionId,
+      'Image': image,
+      if (maxFaces != null) 'MaxFaces': maxFaces,
+      if (faceMatchThreshold != null) 'FaceMatchThreshold': faceMatchThreshold,
+    });
+    return SearchFacesByImageResponse.fromJson(response_);
   }
 
   /// Starts asynchronous recognition of celebrities in a stored video.
@@ -1170,7 +1297,14 @@ class RekognitionApi {
       {String clientRequestToken,
       NotificationChannel notificationChannel,
       String jobTag}) async {
-    return StartCelebrityRecognitionResponse.fromJson({});
+    var response_ = await _client.send('StartCelebrityRecognition', {
+      'Video': video,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (notificationChannel != null)
+        'NotificationChannel': notificationChannel,
+      if (jobTag != null) 'JobTag': jobTag,
+    });
+    return StartCelebrityRecognitionResponse.fromJson(response_);
   }
 
   ///  Starts asynchronous detection of unsafe content in a stored video.
@@ -1221,7 +1355,15 @@ class RekognitionApi {
       String clientRequestToken,
       NotificationChannel notificationChannel,
       String jobTag}) async {
-    return StartContentModerationResponse.fromJson({});
+    var response_ = await _client.send('StartContentModeration', {
+      'Video': video,
+      if (minConfidence != null) 'MinConfidence': minConfidence,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (notificationChannel != null)
+        'NotificationChannel': notificationChannel,
+      if (jobTag != null) 'JobTag': jobTag,
+    });
+    return StartContentModerationResponse.fromJson(response_);
   }
 
   /// Starts asynchronous detection of faces in a stored video.
@@ -1268,7 +1410,15 @@ class RekognitionApi {
       NotificationChannel notificationChannel,
       String faceAttributes,
       String jobTag}) async {
-    return StartFaceDetectionResponse.fromJson({});
+    var response_ = await _client.send('StartFaceDetection', {
+      'Video': video,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (notificationChannel != null)
+        'NotificationChannel': notificationChannel,
+      if (faceAttributes != null) 'FaceAttributes': faceAttributes,
+      if (jobTag != null) 'JobTag': jobTag,
+    });
+    return StartFaceDetectionResponse.fromJson(response_);
   }
 
   /// Starts the asynchronous search for faces in a collection that match the
@@ -1314,7 +1464,16 @@ class RekognitionApi {
       @required String collectionId,
       NotificationChannel notificationChannel,
       String jobTag}) async {
-    return StartFaceSearchResponse.fromJson({});
+    var response_ = await _client.send('StartFaceSearch', {
+      'Video': video,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (faceMatchThreshold != null) 'FaceMatchThreshold': faceMatchThreshold,
+      'CollectionId': collectionId,
+      if (notificationChannel != null)
+        'NotificationChannel': notificationChannel,
+      if (jobTag != null) 'JobTag': jobTag,
+    });
+    return StartFaceSearchResponse.fromJson(response_);
   }
 
   /// Starts asynchronous detection of labels in a stored video.
@@ -1368,7 +1527,15 @@ class RekognitionApi {
       double minConfidence,
       NotificationChannel notificationChannel,
       String jobTag}) async {
-    return StartLabelDetectionResponse.fromJson({});
+    var response_ = await _client.send('StartLabelDetection', {
+      'Video': video,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (minConfidence != null) 'MinConfidence': minConfidence,
+      if (notificationChannel != null)
+        'NotificationChannel': notificationChannel,
+      if (jobTag != null) 'JobTag': jobTag,
+    });
+    return StartLabelDetectionResponse.fromJson(response_);
   }
 
   /// Starts the asynchronous tracking of a person's path in a stored video.
@@ -1406,7 +1573,14 @@ class RekognitionApi {
       {String clientRequestToken,
       NotificationChannel notificationChannel,
       String jobTag}) async {
-    return StartPersonTrackingResponse.fromJson({});
+    var response_ = await _client.send('StartPersonTracking', {
+      'Video': video,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (notificationChannel != null)
+        'NotificationChannel': notificationChannel,
+      if (jobTag != null) 'JobTag': jobTag,
+    });
+    return StartPersonTrackingResponse.fromJson(response_);
   }
 
   /// Starts processing a stream processor. You create a stream processor by
@@ -1416,7 +1590,10 @@ class RekognitionApi {
   ///
   /// [name]: The name of the stream processor to start processing.
   Future<StartStreamProcessorResponse> startStreamProcessor(String name) async {
-    return StartStreamProcessorResponse.fromJson({});
+    var response_ = await _client.send('StartStreamProcessor', {
+      'Name': name,
+    });
+    return StartStreamProcessorResponse.fromJson(response_);
   }
 
   /// Stops a running stream processor that was created by
@@ -1424,7 +1601,10 @@ class RekognitionApi {
   ///
   /// [name]: The name of a stream processor created by CreateStreamProcessor.
   Future<StopStreamProcessorResponse> stopStreamProcessor(String name) async {
-    return StopStreamProcessorResponse.fromJson({});
+    var response_ = await _client.send('StopStreamProcessor', {
+      'Name': name,
+    });
+    return StopStreamProcessorResponse.fromJson(response_);
   }
 }
 
@@ -1445,7 +1625,10 @@ class AgeRange {
     this.low,
     this.high,
   });
-  static AgeRange fromJson(Map<String, dynamic> json) => AgeRange();
+  static AgeRange fromJson(Map<String, dynamic> json) => AgeRange(
+        low: json.containsKey('Low') ? json['Low'] as int : null,
+        high: json.containsKey('High') ? json['High'] as int : null,
+      );
 }
 
 /// Indicates whether or not the face has a beard, and the confidence level in
@@ -1461,7 +1644,12 @@ class Beard {
     this.value,
     this.confidence,
   });
-  static Beard fromJson(Map<String, dynamic> json) => Beard();
+  static Beard fromJson(Map<String, dynamic> json) => Beard(
+        value: json.containsKey('Value') ? json['Value'] as bool : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Identifies the bounding box around the label, face, or text. The `left`
@@ -1503,7 +1691,12 @@ class BoundingBox {
     this.left,
     this.top,
   });
-  static BoundingBox fromJson(Map<String, dynamic> json) => BoundingBox();
+  static BoundingBox fromJson(Map<String, dynamic> json) => BoundingBox(
+        width: json.containsKey('Width') ? json['Width'] as double : null,
+        height: json.containsKey('Height') ? json['Height'] as double : null,
+        left: json.containsKey('Left') ? json['Left'] as double : null,
+        top: json.containsKey('Top') ? json['Top'] as double : null,
+      );
 }
 
 /// Provides information about a celebrity recognized by the
@@ -1535,7 +1728,19 @@ class Celebrity {
     this.face,
     this.matchConfidence,
   });
-  static Celebrity fromJson(Map<String, dynamic> json) => Celebrity();
+  static Celebrity fromJson(Map<String, dynamic> json) => Celebrity(
+        urls: json.containsKey('Urls')
+            ? (json['Urls'] as List).map((e) => e as String).toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        face: json.containsKey('Face')
+            ? ComparedFace.fromJson(json['Face'])
+            : null,
+        matchConfidence: json.containsKey('MatchConfidence')
+            ? json['MatchConfidence'] as double
+            : null,
+      );
 }
 
 /// Information about a recognized celebrity.
@@ -1567,8 +1772,21 @@ class CelebrityDetail {
     this.boundingBox,
     this.face,
   });
-  static CelebrityDetail fromJson(Map<String, dynamic> json) =>
-      CelebrityDetail();
+  static CelebrityDetail fromJson(Map<String, dynamic> json) => CelebrityDetail(
+        urls: json.containsKey('Urls')
+            ? (json['Urls'] as List).map((e) => e as String).toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+        boundingBox: json.containsKey('BoundingBox')
+            ? BoundingBox.fromJson(json['BoundingBox'])
+            : null,
+        face:
+            json.containsKey('Face') ? FaceDetail.fromJson(json['Face']) : null,
+      );
 }
 
 /// Information about a detected celebrity and the time the celebrity was
@@ -1587,7 +1805,14 @@ class CelebrityRecognition {
     this.celebrity,
   });
   static CelebrityRecognition fromJson(Map<String, dynamic> json) =>
-      CelebrityRecognition();
+      CelebrityRecognition(
+        timestamp: json.containsKey('Timestamp')
+            ? BigInt.from(json['Timestamp'])
+            : null,
+        celebrity: json.containsKey('Celebrity')
+            ? CelebrityDetail.fromJson(json['Celebrity'])
+            : null,
+      );
 }
 
 /// Provides information about a face in a target image that matches the source
@@ -1608,7 +1833,14 @@ class CompareFacesMatch {
     this.face,
   });
   static CompareFacesMatch fromJson(Map<String, dynamic> json) =>
-      CompareFacesMatch();
+      CompareFacesMatch(
+        similarity: json.containsKey('Similarity')
+            ? json['Similarity'] as double
+            : null,
+        face: json.containsKey('Face')
+            ? ComparedFace.fromJson(json['Face'])
+            : null,
+      );
 }
 
 class CompareFacesResponse {
@@ -1663,7 +1895,29 @@ class CompareFacesResponse {
     this.targetImageOrientationCorrection,
   });
   static CompareFacesResponse fromJson(Map<String, dynamic> json) =>
-      CompareFacesResponse();
+      CompareFacesResponse(
+        sourceImageFace: json.containsKey('SourceImageFace')
+            ? ComparedSourceImageFace.fromJson(json['SourceImageFace'])
+            : null,
+        faceMatches: json.containsKey('FaceMatches')
+            ? (json['FaceMatches'] as List)
+                .map((e) => CompareFacesMatch.fromJson(e))
+                .toList()
+            : null,
+        unmatchedFaces: json.containsKey('UnmatchedFaces')
+            ? (json['UnmatchedFaces'] as List)
+                .map((e) => ComparedFace.fromJson(e))
+                .toList()
+            : null,
+        sourceImageOrientationCorrection:
+            json.containsKey('SourceImageOrientationCorrection')
+                ? json['SourceImageOrientationCorrection'] as String
+                : null,
+        targetImageOrientationCorrection:
+            json.containsKey('TargetImageOrientationCorrection')
+                ? json['TargetImageOrientationCorrection'] as String
+                : null,
+      );
 }
 
 /// Provides face metadata for target image faces that are analyzed by
@@ -1691,7 +1945,23 @@ class ComparedFace {
     this.pose,
     this.quality,
   });
-  static ComparedFace fromJson(Map<String, dynamic> json) => ComparedFace();
+  static ComparedFace fromJson(Map<String, dynamic> json) => ComparedFace(
+        boundingBox: json.containsKey('BoundingBox')
+            ? BoundingBox.fromJson(json['BoundingBox'])
+            : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+        landmarks: json.containsKey('Landmarks')
+            ? (json['Landmarks'] as List)
+                .map((e) => Landmark.fromJson(e))
+                .toList()
+            : null,
+        pose: json.containsKey('Pose') ? Pose.fromJson(json['Pose']) : null,
+        quality: json.containsKey('Quality')
+            ? ImageQuality.fromJson(json['Quality'])
+            : null,
+      );
 }
 
 /// Type that describes the face Amazon Rekognition chose to compare with the
@@ -1711,7 +1981,14 @@ class ComparedSourceImageFace {
     this.confidence,
   });
   static ComparedSourceImageFace fromJson(Map<String, dynamic> json) =>
-      ComparedSourceImageFace();
+      ComparedSourceImageFace(
+        boundingBox: json.containsKey('BoundingBox')
+            ? BoundingBox.fromJson(json['BoundingBox'])
+            : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Information about an unsafe content label detection in a stored video.
@@ -1728,7 +2005,14 @@ class ContentModerationDetection {
     this.moderationLabel,
   });
   static ContentModerationDetection fromJson(Map<String, dynamic> json) =>
-      ContentModerationDetection();
+      ContentModerationDetection(
+        timestamp: json.containsKey('Timestamp')
+            ? BigInt.from(json['Timestamp'])
+            : null,
+        moderationLabel: json.containsKey('ModerationLabel')
+            ? ModerationLabel.fromJson(json['ModerationLabel'])
+            : null,
+      );
 }
 
 class CreateCollectionResponse {
@@ -1749,7 +2033,16 @@ class CreateCollectionResponse {
     this.faceModelVersion,
   });
   static CreateCollectionResponse fromJson(Map<String, dynamic> json) =>
-      CreateCollectionResponse();
+      CreateCollectionResponse(
+        statusCode:
+            json.containsKey('StatusCode') ? json['StatusCode'] as int : null,
+        collectionArn: json.containsKey('CollectionArn')
+            ? json['CollectionArn'] as String
+            : null,
+        faceModelVersion: json.containsKey('FaceModelVersion')
+            ? json['FaceModelVersion'] as String
+            : null,
+      );
 }
 
 class CreateStreamProcessorResponse {
@@ -1760,7 +2053,11 @@ class CreateStreamProcessorResponse {
     this.streamProcessorArn,
   });
   static CreateStreamProcessorResponse fromJson(Map<String, dynamic> json) =>
-      CreateStreamProcessorResponse();
+      CreateStreamProcessorResponse(
+        streamProcessorArn: json.containsKey('StreamProcessorArn')
+            ? json['StreamProcessorArn'] as String
+            : null,
+      );
 }
 
 class DeleteCollectionResponse {
@@ -1771,7 +2068,10 @@ class DeleteCollectionResponse {
     this.statusCode,
   });
   static DeleteCollectionResponse fromJson(Map<String, dynamic> json) =>
-      DeleteCollectionResponse();
+      DeleteCollectionResponse(
+        statusCode:
+            json.containsKey('StatusCode') ? json['StatusCode'] as int : null,
+      );
 }
 
 class DeleteFacesResponse {
@@ -1782,7 +2082,11 @@ class DeleteFacesResponse {
     this.deletedFaces,
   });
   static DeleteFacesResponse fromJson(Map<String, dynamic> json) =>
-      DeleteFacesResponse();
+      DeleteFacesResponse(
+        deletedFaces: json.containsKey('DeletedFaces')
+            ? (json['DeletedFaces'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class DeleteStreamProcessorResponse {
@@ -1818,7 +2122,20 @@ class DescribeCollectionResponse {
     this.creationTimestamp,
   });
   static DescribeCollectionResponse fromJson(Map<String, dynamic> json) =>
-      DescribeCollectionResponse();
+      DescribeCollectionResponse(
+        faceCount: json.containsKey('FaceCount')
+            ? BigInt.from(json['FaceCount'])
+            : null,
+        faceModelVersion: json.containsKey('FaceModelVersion')
+            ? json['FaceModelVersion'] as String
+            : null,
+        collectionArn: json.containsKey('CollectionARN')
+            ? json['CollectionARN'] as String
+            : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? DateTime.parse(json['CreationTimestamp'])
+            : null,
+      );
 }
 
 class DescribeStreamProcessorResponse {
@@ -1870,7 +2187,32 @@ class DescribeStreamProcessorResponse {
     this.settings,
   });
   static DescribeStreamProcessorResponse fromJson(Map<String, dynamic> json) =>
-      DescribeStreamProcessorResponse();
+      DescribeStreamProcessorResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        streamProcessorArn: json.containsKey('StreamProcessorArn')
+            ? json['StreamProcessorArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        creationTimestamp: json.containsKey('CreationTimestamp')
+            ? DateTime.parse(json['CreationTimestamp'])
+            : null,
+        lastUpdateTimestamp: json.containsKey('LastUpdateTimestamp')
+            ? DateTime.parse(json['LastUpdateTimestamp'])
+            : null,
+        input: json.containsKey('Input')
+            ? StreamProcessorInput.fromJson(json['Input'])
+            : null,
+        output: json.containsKey('Output')
+            ? StreamProcessorOutput.fromJson(json['Output'])
+            : null,
+        roleArn: json.containsKey('RoleArn') ? json['RoleArn'] as String : null,
+        settings: json.containsKey('Settings')
+            ? StreamProcessorSettings.fromJson(json['Settings'])
+            : null,
+      );
 }
 
 class DetectFacesResponse {
@@ -1897,7 +2239,16 @@ class DetectFacesResponse {
     this.orientationCorrection,
   });
   static DetectFacesResponse fromJson(Map<String, dynamic> json) =>
-      DetectFacesResponse();
+      DetectFacesResponse(
+        faceDetails: json.containsKey('FaceDetails')
+            ? (json['FaceDetails'] as List)
+                .map((e) => FaceDetail.fromJson(e))
+                .toList()
+            : null,
+        orientationCorrection: json.containsKey('OrientationCorrection')
+            ? json['OrientationCorrection'] as String
+            : null,
+      );
 }
 
 class DetectLabelsResponse {
@@ -1929,7 +2280,17 @@ class DetectLabelsResponse {
     this.labelModelVersion,
   });
   static DetectLabelsResponse fromJson(Map<String, dynamic> json) =>
-      DetectLabelsResponse();
+      DetectLabelsResponse(
+        labels: json.containsKey('Labels')
+            ? (json['Labels'] as List).map((e) => Label.fromJson(e)).toList()
+            : null,
+        orientationCorrection: json.containsKey('OrientationCorrection')
+            ? json['OrientationCorrection'] as String
+            : null,
+        labelModelVersion: json.containsKey('LabelModelVersion')
+            ? json['LabelModelVersion'] as String
+            : null,
+      );
 }
 
 class DetectModerationLabelsResponse {
@@ -1946,7 +2307,16 @@ class DetectModerationLabelsResponse {
     this.moderationModelVersion,
   });
   static DetectModerationLabelsResponse fromJson(Map<String, dynamic> json) =>
-      DetectModerationLabelsResponse();
+      DetectModerationLabelsResponse(
+        moderationLabels: json.containsKey('ModerationLabels')
+            ? (json['ModerationLabels'] as List)
+                .map((e) => ModerationLabel.fromJson(e))
+                .toList()
+            : null,
+        moderationModelVersion: json.containsKey('ModerationModelVersion')
+            ? json['ModerationModelVersion'] as String
+            : null,
+      );
 }
 
 class DetectTextResponse {
@@ -1957,7 +2327,13 @@ class DetectTextResponse {
     this.textDetections,
   });
   static DetectTextResponse fromJson(Map<String, dynamic> json) =>
-      DetectTextResponse();
+      DetectTextResponse(
+        textDetections: json.containsKey('TextDetections')
+            ? (json['TextDetections'] as List)
+                .map((e) => TextDetection.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The emotions that appear to be expressed on the face, and the confidence
@@ -1977,7 +2353,12 @@ class Emotion {
     this.type,
     this.confidence,
   });
-  static Emotion fromJson(Map<String, dynamic> json) => Emotion();
+  static Emotion fromJson(Map<String, dynamic> json) => Emotion(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Indicates whether or not the eyes on the face are open, and the confidence
@@ -1993,7 +2374,12 @@ class EyeOpen {
     this.value,
     this.confidence,
   });
-  static EyeOpen fromJson(Map<String, dynamic> json) => EyeOpen();
+  static EyeOpen fromJson(Map<String, dynamic> json) => EyeOpen(
+        value: json.containsKey('Value') ? json['Value'] as bool : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Indicates whether or not the face is wearing eye glasses, and the confidence
@@ -2010,7 +2396,12 @@ class Eyeglasses {
     this.value,
     this.confidence,
   });
-  static Eyeglasses fromJson(Map<String, dynamic> json) => Eyeglasses();
+  static Eyeglasses fromJson(Map<String, dynamic> json) => Eyeglasses(
+        value: json.containsKey('Value') ? json['Value'] as bool : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Describes the face properties such as the bounding box, face ID, image ID of
@@ -2039,7 +2430,19 @@ class Face {
     this.externalImageId,
     this.confidence,
   });
-  static Face fromJson(Map<String, dynamic> json) => Face();
+  static Face fromJson(Map<String, dynamic> json) => Face(
+        faceId: json.containsKey('FaceId') ? json['FaceId'] as String : null,
+        boundingBox: json.containsKey('BoundingBox')
+            ? BoundingBox.fromJson(json['BoundingBox'])
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        externalImageId: json.containsKey('ExternalImageId')
+            ? json['ExternalImageId'] as String
+            : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Structure containing attributes of the face that the algorithm detected.
@@ -2144,7 +2547,50 @@ class FaceDetail {
     this.quality,
     this.confidence,
   });
-  static FaceDetail fromJson(Map<String, dynamic> json) => FaceDetail();
+  static FaceDetail fromJson(Map<String, dynamic> json) => FaceDetail(
+        boundingBox: json.containsKey('BoundingBox')
+            ? BoundingBox.fromJson(json['BoundingBox'])
+            : null,
+        ageRange: json.containsKey('AgeRange')
+            ? AgeRange.fromJson(json['AgeRange'])
+            : null,
+        smile: json.containsKey('Smile') ? Smile.fromJson(json['Smile']) : null,
+        eyeglasses: json.containsKey('Eyeglasses')
+            ? Eyeglasses.fromJson(json['Eyeglasses'])
+            : null,
+        sunglasses: json.containsKey('Sunglasses')
+            ? Sunglasses.fromJson(json['Sunglasses'])
+            : null,
+        gender:
+            json.containsKey('Gender') ? Gender.fromJson(json['Gender']) : null,
+        beard: json.containsKey('Beard') ? Beard.fromJson(json['Beard']) : null,
+        mustache: json.containsKey('Mustache')
+            ? Mustache.fromJson(json['Mustache'])
+            : null,
+        eyesOpen: json.containsKey('EyesOpen')
+            ? EyeOpen.fromJson(json['EyesOpen'])
+            : null,
+        mouthOpen: json.containsKey('MouthOpen')
+            ? MouthOpen.fromJson(json['MouthOpen'])
+            : null,
+        emotions: json.containsKey('Emotions')
+            ? (json['Emotions'] as List)
+                .map((e) => Emotion.fromJson(e))
+                .toList()
+            : null,
+        landmarks: json.containsKey('Landmarks')
+            ? (json['Landmarks'] as List)
+                .map((e) => Landmark.fromJson(e))
+                .toList()
+            : null,
+        pose: json.containsKey('Pose') ? Pose.fromJson(json['Pose']) : null,
+        quality: json.containsKey('Quality')
+            ? ImageQuality.fromJson(json['Quality'])
+            : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Information about a face detected in a video analysis request and the time
@@ -2161,7 +2607,13 @@ class FaceDetection {
     this.timestamp,
     this.face,
   });
-  static FaceDetection fromJson(Map<String, dynamic> json) => FaceDetection();
+  static FaceDetection fromJson(Map<String, dynamic> json) => FaceDetection(
+        timestamp: json.containsKey('Timestamp')
+            ? BigInt.from(json['Timestamp'])
+            : null,
+        face:
+            json.containsKey('Face') ? FaceDetail.fromJson(json['Face']) : null,
+      );
 }
 
 /// Provides face metadata. In addition, it also provides the confidence in the
@@ -2178,7 +2630,12 @@ class FaceMatch {
     this.similarity,
     this.face,
   });
-  static FaceMatch fromJson(Map<String, dynamic> json) => FaceMatch();
+  static FaceMatch fromJson(Map<String, dynamic> json) => FaceMatch(
+        similarity: json.containsKey('Similarity')
+            ? json['Similarity'] as double
+            : null,
+        face: json.containsKey('Face') ? Face.fromJson(json['Face']) : null,
+      );
 }
 
 /// Object containing both the face metadata (stored in the backend database),
@@ -2195,7 +2652,12 @@ class FaceRecord {
     this.face,
     this.faceDetail,
   });
-  static FaceRecord fromJson(Map<String, dynamic> json) => FaceRecord();
+  static FaceRecord fromJson(Map<String, dynamic> json) => FaceRecord(
+        face: json.containsKey('Face') ? Face.fromJson(json['Face']) : null,
+        faceDetail: json.containsKey('FaceDetail')
+            ? FaceDetail.fromJson(json['FaceDetail'])
+            : null,
+      );
 }
 
 /// Input face recognition parameters for an Amazon Rekognition stream
@@ -2215,7 +2677,15 @@ class FaceSearchSettings {
     this.faceMatchThreshold,
   });
   static FaceSearchSettings fromJson(Map<String, dynamic> json) =>
-      FaceSearchSettings();
+      FaceSearchSettings(
+        collectionId: json.containsKey('CollectionId')
+            ? json['CollectionId'] as String
+            : null,
+        faceMatchThreshold: json.containsKey('FaceMatchThreshold')
+            ? json['FaceMatchThreshold'] as double
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Gender of the face and the confidence level in the determination.
@@ -2230,7 +2700,12 @@ class Gender {
     this.value,
     this.confidence,
   });
-  static Gender fromJson(Map<String, dynamic> json) => Gender();
+  static Gender fromJson(Map<String, dynamic> json) => Gender(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Information about where the text detected by DetectText is located on an
@@ -2247,7 +2722,14 @@ class Geometry {
     this.boundingBox,
     this.polygon,
   });
-  static Geometry fromJson(Map<String, dynamic> json) => Geometry();
+  static Geometry fromJson(Map<String, dynamic> json) => Geometry(
+        boundingBox: json.containsKey('BoundingBox')
+            ? BoundingBox.fromJson(json['BoundingBox'])
+            : null,
+        polygon: json.containsKey('Polygon')
+            ? (json['Polygon'] as List).map((e) => Point.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetCelebrityInfoResponse {
@@ -2262,7 +2744,12 @@ class GetCelebrityInfoResponse {
     this.name,
   });
   static GetCelebrityInfoResponse fromJson(Map<String, dynamic> json) =>
-      GetCelebrityInfoResponse();
+      GetCelebrityInfoResponse(
+        urls: json.containsKey('Urls')
+            ? (json['Urls'] as List).map((e) => e as String).toList()
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class GetCelebrityRecognitionResponse {
@@ -2293,7 +2780,23 @@ class GetCelebrityRecognitionResponse {
     this.celebrities,
   });
   static GetCelebrityRecognitionResponse fromJson(Map<String, dynamic> json) =>
-      GetCelebrityRecognitionResponse();
+      GetCelebrityRecognitionResponse(
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        videoMetadata: json.containsKey('VideoMetadata')
+            ? VideoMetadata.fromJson(json['VideoMetadata'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        celebrities: json.containsKey('Celebrities')
+            ? (json['Celebrities'] as List)
+                .map((e) => CelebrityRecognition.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetContentModerationResponse {
@@ -2329,7 +2832,26 @@ class GetContentModerationResponse {
     this.moderationModelVersion,
   });
   static GetContentModerationResponse fromJson(Map<String, dynamic> json) =>
-      GetContentModerationResponse();
+      GetContentModerationResponse(
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        videoMetadata: json.containsKey('VideoMetadata')
+            ? VideoMetadata.fromJson(json['VideoMetadata'])
+            : null,
+        moderationLabels: json.containsKey('ModerationLabels')
+            ? (json['ModerationLabels'] as List)
+                .map((e) => ContentModerationDetection.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        moderationModelVersion: json.containsKey('ModerationModelVersion')
+            ? json['ModerationModelVersion'] as String
+            : null,
+      );
 }
 
 class GetFaceDetectionResponse {
@@ -2361,7 +2883,23 @@ class GetFaceDetectionResponse {
     this.faces,
   });
   static GetFaceDetectionResponse fromJson(Map<String, dynamic> json) =>
-      GetFaceDetectionResponse();
+      GetFaceDetectionResponse(
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        videoMetadata: json.containsKey('VideoMetadata')
+            ? VideoMetadata.fromJson(json['VideoMetadata'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        faces: json.containsKey('Faces')
+            ? (json['Faces'] as List)
+                .map((e) => FaceDetection.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetFaceSearchResponse {
@@ -2398,7 +2936,23 @@ class GetFaceSearchResponse {
     this.persons,
   });
   static GetFaceSearchResponse fromJson(Map<String, dynamic> json) =>
-      GetFaceSearchResponse();
+      GetFaceSearchResponse(
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        videoMetadata: json.containsKey('VideoMetadata')
+            ? VideoMetadata.fromJson(json['VideoMetadata'])
+            : null,
+        persons: json.containsKey('Persons')
+            ? (json['Persons'] as List)
+                .map((e) => PersonMatch.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetLabelDetectionResponse {
@@ -2436,7 +2990,26 @@ class GetLabelDetectionResponse {
     this.labelModelVersion,
   });
   static GetLabelDetectionResponse fromJson(Map<String, dynamic> json) =>
-      GetLabelDetectionResponse();
+      GetLabelDetectionResponse(
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        videoMetadata: json.containsKey('VideoMetadata')
+            ? VideoMetadata.fromJson(json['VideoMetadata'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        labels: json.containsKey('Labels')
+            ? (json['Labels'] as List)
+                .map((e) => LabelDetection.fromJson(e))
+                .toList()
+            : null,
+        labelModelVersion: json.containsKey('LabelModelVersion')
+            ? json['LabelModelVersion'] as String
+            : null,
+      );
 }
 
 class GetPersonTrackingResponse {
@@ -2469,7 +3042,23 @@ class GetPersonTrackingResponse {
     this.persons,
   });
   static GetPersonTrackingResponse fromJson(Map<String, dynamic> json) =>
-      GetPersonTrackingResponse();
+      GetPersonTrackingResponse(
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+        videoMetadata: json.containsKey('VideoMetadata')
+            ? VideoMetadata.fromJson(json['VideoMetadata'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        persons: json.containsKey('Persons')
+            ? (json['Persons'] as List)
+                .map((e) => PersonDetection.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides the input image either as bytes or an S3 object.
@@ -2510,6 +3099,7 @@ class Image {
     this.bytes,
     this.s3Object,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Identifies face image brightness and sharpness.
@@ -2528,7 +3118,13 @@ class ImageQuality {
     this.brightness,
     this.sharpness,
   });
-  static ImageQuality fromJson(Map<String, dynamic> json) => ImageQuality();
+  static ImageQuality fromJson(Map<String, dynamic> json) => ImageQuality(
+        brightness: json.containsKey('Brightness')
+            ? json['Brightness'] as double
+            : null,
+        sharpness:
+            json.containsKey('Sharpness') ? json['Sharpness'] as double : null,
+      );
 }
 
 class IndexFacesResponse {
@@ -2580,7 +3176,24 @@ class IndexFacesResponse {
     this.unindexedFaces,
   });
   static IndexFacesResponse fromJson(Map<String, dynamic> json) =>
-      IndexFacesResponse();
+      IndexFacesResponse(
+        faceRecords: json.containsKey('FaceRecords')
+            ? (json['FaceRecords'] as List)
+                .map((e) => FaceRecord.fromJson(e))
+                .toList()
+            : null,
+        orientationCorrection: json.containsKey('OrientationCorrection')
+            ? json['OrientationCorrection'] as String
+            : null,
+        faceModelVersion: json.containsKey('FaceModelVersion')
+            ? json['FaceModelVersion'] as String
+            : null,
+        unindexedFaces: json.containsKey('UnindexedFaces')
+            ? (json['UnindexedFaces'] as List)
+                .map((e) => UnindexedFace.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An instance of a label returned by Amazon Rekognition Image (DetectLabels)
@@ -2597,7 +3210,14 @@ class Instance {
     this.boundingBox,
     this.confidence,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        boundingBox: json.containsKey('BoundingBox')
+            ? BoundingBox.fromJson(json['BoundingBox'])
+            : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// The Kinesis data stream Amazon Rekognition to which the analysis results of
@@ -2611,7 +3231,10 @@ class KinesisDataStream {
     this.arn,
   });
   static KinesisDataStream fromJson(Map<String, dynamic> json) =>
-      KinesisDataStream();
+      KinesisDataStream(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Kinesis video stream stream that provides the source streaming video for a
@@ -2625,7 +3248,10 @@ class KinesisVideoStream {
     this.arn,
   });
   static KinesisVideoStream fromJson(Map<String, dynamic> json) =>
-      KinesisVideoStream();
+      KinesisVideoStream(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Structure containing details about the detected label, including the name,
@@ -2651,7 +3277,20 @@ class Label {
     this.instances,
     this.parents,
   });
-  static Label fromJson(Map<String, dynamic> json) => Label();
+  static Label fromJson(Map<String, dynamic> json) => Label(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+        parents: json.containsKey('Parents')
+            ? (json['Parents'] as List).map((e) => Parent.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Information about a label detected in a video analysis request and the time
@@ -2668,7 +3307,12 @@ class LabelDetection {
     this.timestamp,
     this.label,
   });
-  static LabelDetection fromJson(Map<String, dynamic> json) => LabelDetection();
+  static LabelDetection fromJson(Map<String, dynamic> json) => LabelDetection(
+        timestamp: json.containsKey('Timestamp')
+            ? BigInt.from(json['Timestamp'])
+            : null,
+        label: json.containsKey('Label') ? Label.fromJson(json['Label']) : null,
+      );
 }
 
 /// Indicates the location of the landmark on the face.
@@ -2691,7 +3335,11 @@ class Landmark {
     this.x,
     this.y,
   });
-  static Landmark fromJson(Map<String, dynamic> json) => Landmark();
+  static Landmark fromJson(Map<String, dynamic> json) => Landmark(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        x: json.containsKey('X') ? json['X'] as double : null,
+        y: json.containsKey('Y') ? json['Y'] as double : null,
+      );
 }
 
 class ListCollectionsResponse {
@@ -2714,7 +3362,18 @@ class ListCollectionsResponse {
     this.faceModelVersions,
   });
   static ListCollectionsResponse fromJson(Map<String, dynamic> json) =>
-      ListCollectionsResponse();
+      ListCollectionsResponse(
+        collectionIds: json.containsKey('CollectionIds')
+            ? (json['CollectionIds'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        faceModelVersions: json.containsKey('FaceModelVersions')
+            ? (json['FaceModelVersions'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class ListFacesResponse {
@@ -2735,7 +3394,16 @@ class ListFacesResponse {
     this.faceModelVersion,
   });
   static ListFacesResponse fromJson(Map<String, dynamic> json) =>
-      ListFacesResponse();
+      ListFacesResponse(
+        faces: json.containsKey('Faces')
+            ? (json['Faces'] as List).map((e) => Face.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        faceModelVersion: json.containsKey('FaceModelVersion')
+            ? json['FaceModelVersion'] as String
+            : null,
+      );
 }
 
 class ListStreamProcessorsResponse {
@@ -2752,7 +3420,15 @@ class ListStreamProcessorsResponse {
     this.streamProcessors,
   });
   static ListStreamProcessorsResponse fromJson(Map<String, dynamic> json) =>
-      ListStreamProcessorsResponse();
+      ListStreamProcessorsResponse(
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        streamProcessors: json.containsKey('StreamProcessors')
+            ? (json['StreamProcessors'] as List)
+                .map((e) => StreamProcessor.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides information about a single type of unsafe content found in an image
@@ -2780,8 +3456,15 @@ class ModerationLabel {
     this.name,
     this.parentName,
   });
-  static ModerationLabel fromJson(Map<String, dynamic> json) =>
-      ModerationLabel();
+  static ModerationLabel fromJson(Map<String, dynamic> json) => ModerationLabel(
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        parentName: json.containsKey('ParentName')
+            ? json['ParentName'] as String
+            : null,
+      );
 }
 
 /// Indicates whether or not the mouth on the face is open, and the confidence
@@ -2797,7 +3480,12 @@ class MouthOpen {
     this.value,
     this.confidence,
   });
-  static MouthOpen fromJson(Map<String, dynamic> json) => MouthOpen();
+  static MouthOpen fromJson(Map<String, dynamic> json) => MouthOpen(
+        value: json.containsKey('Value') ? json['Value'] as bool : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Indicates whether or not the face has a mustache, and the confidence level
@@ -2813,7 +3501,12 @@ class Mustache {
     this.value,
     this.confidence,
   });
-  static Mustache fromJson(Map<String, dynamic> json) => Mustache();
+  static Mustache fromJson(Map<String, dynamic> json) => Mustache(
+        value: json.containsKey('Value') ? json['Value'] as bool : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// The Amazon Simple Notification Service topic to which Amazon Rekognition
@@ -2832,6 +3525,7 @@ class NotificationChannel {
     @required this.snsTopicArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A parent label for a label. A label can have 0, 1, or more parents.
@@ -2842,7 +3536,9 @@ class Parent {
   Parent({
     this.name,
   });
-  static Parent fromJson(Map<String, dynamic> json) => Parent();
+  static Parent fromJson(Map<String, dynamic> json) => Parent(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Details about a person detected in a video analysis request.
@@ -2863,7 +3559,14 @@ class PersonDetail {
     this.boundingBox,
     this.face,
   });
-  static PersonDetail fromJson(Map<String, dynamic> json) => PersonDetail();
+  static PersonDetail fromJson(Map<String, dynamic> json) => PersonDetail(
+        index: json.containsKey('Index') ? BigInt.from(json['Index']) : null,
+        boundingBox: json.containsKey('BoundingBox')
+            ? BoundingBox.fromJson(json['BoundingBox'])
+            : null,
+        face:
+            json.containsKey('Face') ? FaceDetail.fromJson(json['Face']) : null,
+      );
 }
 
 /// Details and path tracking information for a single time a person's path is
@@ -2885,8 +3588,14 @@ class PersonDetection {
     this.timestamp,
     this.person,
   });
-  static PersonDetection fromJson(Map<String, dynamic> json) =>
-      PersonDetection();
+  static PersonDetection fromJson(Map<String, dynamic> json) => PersonDetection(
+        timestamp: json.containsKey('Timestamp')
+            ? BigInt.from(json['Timestamp'])
+            : null,
+        person: json.containsKey('Person')
+            ? PersonDetail.fromJson(json['Person'])
+            : null,
+      );
 }
 
 /// Information about a person whose face matches a face(s) in an Amazon
@@ -2911,7 +3620,19 @@ class PersonMatch {
     this.person,
     this.faceMatches,
   });
-  static PersonMatch fromJson(Map<String, dynamic> json) => PersonMatch();
+  static PersonMatch fromJson(Map<String, dynamic> json) => PersonMatch(
+        timestamp: json.containsKey('Timestamp')
+            ? BigInt.from(json['Timestamp'])
+            : null,
+        person: json.containsKey('Person')
+            ? PersonDetail.fromJson(json['Person'])
+            : null,
+        faceMatches: json.containsKey('FaceMatches')
+            ? (json['FaceMatches'] as List)
+                .map((e) => FaceMatch.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The X and Y coordinates of a point on an image. The X and Y values returned
@@ -2933,7 +3654,10 @@ class Point {
     this.x,
     this.y,
   });
-  static Point fromJson(Map<String, dynamic> json) => Point();
+  static Point fromJson(Map<String, dynamic> json) => Point(
+        x: json.containsKey('X') ? json['X'] as double : null,
+        y: json.containsKey('Y') ? json['Y'] as double : null,
+      );
 }
 
 /// Indicates the pose of the face as determined by its pitch, roll, and yaw.
@@ -2952,7 +3676,11 @@ class Pose {
     this.yaw,
     this.pitch,
   });
-  static Pose fromJson(Map<String, dynamic> json) => Pose();
+  static Pose fromJson(Map<String, dynamic> json) => Pose(
+        roll: json.containsKey('Roll') ? json['Roll'] as double : null,
+        yaw: json.containsKey('Yaw') ? json['Yaw'] as double : null,
+        pitch: json.containsKey('Pitch') ? json['Pitch'] as double : null,
+      );
 }
 
 class RecognizeCelebritiesResponse {
@@ -2986,7 +3714,21 @@ class RecognizeCelebritiesResponse {
     this.orientationCorrection,
   });
   static RecognizeCelebritiesResponse fromJson(Map<String, dynamic> json) =>
-      RecognizeCelebritiesResponse();
+      RecognizeCelebritiesResponse(
+        celebrityFaces: json.containsKey('CelebrityFaces')
+            ? (json['CelebrityFaces'] as List)
+                .map((e) => Celebrity.fromJson(e))
+                .toList()
+            : null,
+        unrecognizedFaces: json.containsKey('UnrecognizedFaces')
+            ? (json['UnrecognizedFaces'] as List)
+                .map((e) => ComparedFace.fromJson(e))
+                .toList()
+            : null,
+        orientationCorrection: json.containsKey('OrientationCorrection')
+            ? json['OrientationCorrection'] as String
+            : null,
+      );
 }
 
 /// Provides the S3 bucket name and object name.
@@ -3012,6 +3754,7 @@ class S3Object {
     this.name,
     this.version,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SearchFacesByImageResponse {
@@ -3038,7 +3781,22 @@ class SearchFacesByImageResponse {
     this.faceModelVersion,
   });
   static SearchFacesByImageResponse fromJson(Map<String, dynamic> json) =>
-      SearchFacesByImageResponse();
+      SearchFacesByImageResponse(
+        searchedFaceBoundingBox: json.containsKey('SearchedFaceBoundingBox')
+            ? BoundingBox.fromJson(json['SearchedFaceBoundingBox'])
+            : null,
+        searchedFaceConfidence: json.containsKey('SearchedFaceConfidence')
+            ? json['SearchedFaceConfidence'] as double
+            : null,
+        faceMatches: json.containsKey('FaceMatches')
+            ? (json['FaceMatches'] as List)
+                .map((e) => FaceMatch.fromJson(e))
+                .toList()
+            : null,
+        faceModelVersion: json.containsKey('FaceModelVersion')
+            ? json['FaceModelVersion'] as String
+            : null,
+      );
 }
 
 class SearchFacesResponse {
@@ -3059,7 +3817,19 @@ class SearchFacesResponse {
     this.faceModelVersion,
   });
   static SearchFacesResponse fromJson(Map<String, dynamic> json) =>
-      SearchFacesResponse();
+      SearchFacesResponse(
+        searchedFaceId: json.containsKey('SearchedFaceId')
+            ? json['SearchedFaceId'] as String
+            : null,
+        faceMatches: json.containsKey('FaceMatches')
+            ? (json['FaceMatches'] as List)
+                .map((e) => FaceMatch.fromJson(e))
+                .toList()
+            : null,
+        faceModelVersion: json.containsKey('FaceModelVersion')
+            ? json['FaceModelVersion'] as String
+            : null,
+      );
 }
 
 /// Indicates whether or not the face is smiling, and the confidence level in
@@ -3075,7 +3845,12 @@ class Smile {
     this.value,
     this.confidence,
   });
-  static Smile fromJson(Map<String, dynamic> json) => Smile();
+  static Smile fromJson(Map<String, dynamic> json) => Smile(
+        value: json.containsKey('Value') ? json['Value'] as bool : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 class StartCelebrityRecognitionResponse {
@@ -3088,7 +3863,9 @@ class StartCelebrityRecognitionResponse {
   });
   static StartCelebrityRecognitionResponse fromJson(
           Map<String, dynamic> json) =>
-      StartCelebrityRecognitionResponse();
+      StartCelebrityRecognitionResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 class StartContentModerationResponse {
@@ -3100,7 +3877,9 @@ class StartContentModerationResponse {
     this.jobId,
   });
   static StartContentModerationResponse fromJson(Map<String, dynamic> json) =>
-      StartContentModerationResponse();
+      StartContentModerationResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 class StartFaceDetectionResponse {
@@ -3112,7 +3891,9 @@ class StartFaceDetectionResponse {
     this.jobId,
   });
   static StartFaceDetectionResponse fromJson(Map<String, dynamic> json) =>
-      StartFaceDetectionResponse();
+      StartFaceDetectionResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 class StartFaceSearchResponse {
@@ -3124,7 +3905,9 @@ class StartFaceSearchResponse {
     this.jobId,
   });
   static StartFaceSearchResponse fromJson(Map<String, dynamic> json) =>
-      StartFaceSearchResponse();
+      StartFaceSearchResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 class StartLabelDetectionResponse {
@@ -3136,7 +3919,9 @@ class StartLabelDetectionResponse {
     this.jobId,
   });
   static StartLabelDetectionResponse fromJson(Map<String, dynamic> json) =>
-      StartLabelDetectionResponse();
+      StartLabelDetectionResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 class StartPersonTrackingResponse {
@@ -3148,7 +3933,9 @@ class StartPersonTrackingResponse {
     this.jobId,
   });
   static StartPersonTrackingResponse fromJson(Map<String, dynamic> json) =>
-      StartPersonTrackingResponse();
+      StartPersonTrackingResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 class StartStreamProcessorResponse {
@@ -3179,8 +3966,10 @@ class StreamProcessor {
     this.name,
     this.status,
   });
-  static StreamProcessor fromJson(Map<String, dynamic> json) =>
-      StreamProcessor();
+  static StreamProcessor fromJson(Map<String, dynamic> json) => StreamProcessor(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Information about the source streaming video.
@@ -3192,7 +3981,12 @@ class StreamProcessorInput {
     this.kinesisVideoStream,
   });
   static StreamProcessorInput fromJson(Map<String, dynamic> json) =>
-      StreamProcessorInput();
+      StreamProcessorInput(
+        kinesisVideoStream: json.containsKey('KinesisVideoStream')
+            ? KinesisVideoStream.fromJson(json['KinesisVideoStream'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the Amazon Kinesis Data Streams stream to which a Amazon
@@ -3208,7 +4002,12 @@ class StreamProcessorOutput {
     this.kinesisDataStream,
   });
   static StreamProcessorOutput fromJson(Map<String, dynamic> json) =>
-      StreamProcessorOutput();
+      StreamProcessorOutput(
+        kinesisDataStream: json.containsKey('KinesisDataStream')
+            ? KinesisDataStream.fromJson(json['KinesisDataStream'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Input parameters used to recognize faces in a streaming video analyzed by a
@@ -3221,7 +4020,12 @@ class StreamProcessorSettings {
     this.faceSearch,
   });
   static StreamProcessorSettings fromJson(Map<String, dynamic> json) =>
-      StreamProcessorSettings();
+      StreamProcessorSettings(
+        faceSearch: json.containsKey('FaceSearch')
+            ? FaceSearchSettings.fromJson(json['FaceSearch'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Indicates whether or not the face is wearing sunglasses, and the confidence
@@ -3238,7 +4042,12 @@ class Sunglasses {
     this.value,
     this.confidence,
   });
-  static Sunglasses fromJson(Map<String, dynamic> json) => Sunglasses();
+  static Sunglasses fromJson(Map<String, dynamic> json) => Sunglasses(
+        value: json.containsKey('Value') ? json['Value'] as bool : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+      );
 }
 
 /// Information about a word or line of text detected by DetectText.
@@ -3286,7 +4095,20 @@ class TextDetection {
     this.confidence,
     this.geometry,
   });
-  static TextDetection fromJson(Map<String, dynamic> json) => TextDetection();
+  static TextDetection fromJson(Map<String, dynamic> json) => TextDetection(
+        detectedText: json.containsKey('DetectedText')
+            ? json['DetectedText'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as int : null,
+        parentId: json.containsKey('ParentId') ? json['ParentId'] as int : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+        geometry: json.containsKey('Geometry')
+            ? Geometry.fromJson(json['Geometry'])
+            : null,
+      );
 }
 
 /// A face that IndexFaces detected, but didn't index. Use the `Reasons`
@@ -3317,7 +4139,14 @@ class UnindexedFace {
     this.reasons,
     this.faceDetail,
   });
-  static UnindexedFace fromJson(Map<String, dynamic> json) => UnindexedFace();
+  static UnindexedFace fromJson(Map<String, dynamic> json) => UnindexedFace(
+        reasons: json.containsKey('Reasons')
+            ? (json['Reasons'] as List).map((e) => e as String).toList()
+            : null,
+        faceDetail: json.containsKey('FaceDetail')
+            ? FaceDetail.fromJson(json['FaceDetail'])
+            : null,
+      );
 }
 
 /// Video file stored in an Amazon S3 bucket. Amazon Rekognition video start
@@ -3330,6 +4159,7 @@ class Video {
   Video({
     this.s3Object,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a video that Amazon Rekognition analyzed. `Videometadata`
@@ -3362,5 +4192,19 @@ class VideoMetadata {
     this.frameHeight,
     this.frameWidth,
   });
-  static VideoMetadata fromJson(Map<String, dynamic> json) => VideoMetadata();
+  static VideoMetadata fromJson(Map<String, dynamic> json) => VideoMetadata(
+        codec: json.containsKey('Codec') ? json['Codec'] as String : null,
+        durationMillis: json.containsKey('DurationMillis')
+            ? BigInt.from(json['DurationMillis'])
+            : null,
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        frameRate:
+            json.containsKey('FrameRate') ? json['FrameRate'] as double : null,
+        frameHeight: json.containsKey('FrameHeight')
+            ? BigInt.from(json['FrameHeight'])
+            : null,
+        frameWidth: json.containsKey('FrameWidth')
+            ? BigInt.from(json['FrameWidth'])
+            : null,
+      );
 }

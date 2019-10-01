@@ -4,10 +4,18 @@ import 'dart:typed_data';
 /// Provides translation between one source language and another of the same set
 /// of languages.
 class TranslateApi {
+  final _client;
+  TranslateApi(client)
+      : _client = client.configured('Translate', serializer: 'json');
+
   /// A synchronous action that deletes a custom terminology.
   ///
   /// [name]: The name of the custom terminology being deleted.
-  Future<void> deleteTerminology(String name) async {}
+  Future<void> deleteTerminology(String name) async {
+    await _client.send('DeleteTerminology', {
+      'Name': name,
+    });
+  }
 
   /// Retrieves a custom terminology.
   ///
@@ -17,7 +25,11 @@ class TranslateApi {
   /// retrieved, either CSV or TMX.
   Future<GetTerminologyResponse> getTerminology(
       {@required String name, @required String terminologyDataFormat}) async {
-    return GetTerminologyResponse.fromJson({});
+    var response_ = await _client.send('GetTerminology', {
+      'Name': name,
+      'TerminologyDataFormat': terminologyDataFormat,
+    });
+    return GetTerminologyResponse.fromJson(response_);
   }
 
   /// Creates or updates a custom terminology, depending on whether or not one
@@ -52,7 +64,14 @@ class TranslateApi {
       String description,
       @required TerminologyData terminologyData,
       EncryptionKey encryptionKey}) async {
-    return ImportTerminologyResponse.fromJson({});
+    var response_ = await _client.send('ImportTerminology', {
+      'Name': name,
+      'MergeStrategy': mergeStrategy,
+      if (description != null) 'Description': description,
+      'TerminologyData': terminologyData,
+      if (encryptionKey != null) 'EncryptionKey': encryptionKey,
+    });
+    return ImportTerminologyResponse.fromJson(response_);
   }
 
   /// Provides a list of custom terminologies associated with your account.
@@ -65,7 +84,11 @@ class TranslateApi {
   /// request.
   Future<ListTerminologiesResponse> listTerminologies(
       {String nextToken, int maxResults}) async {
-    return ListTerminologiesResponse.fromJson({});
+    var response_ = await _client.send('ListTerminologies', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTerminologiesResponse.fromJson(response_);
   }
 
   /// Translates input text from the source language to the target language. It
@@ -146,7 +169,13 @@ class TranslateApi {
       List<String> terminologyNames,
       @required String sourceLanguageCode,
       @required String targetLanguageCode}) async {
-    return TranslateTextResponse.fromJson({});
+    var response_ = await _client.send('TranslateText', {
+      'Text': text,
+      if (terminologyNames != null) 'TerminologyNames': terminologyNames,
+      'SourceLanguageCode': sourceLanguageCode,
+      'TargetLanguageCode': targetLanguageCode,
+    });
+    return TranslateTextResponse.fromJson(response_);
   }
 }
 
@@ -170,7 +199,12 @@ class AppliedTerminology {
     this.terms,
   });
   static AppliedTerminology fromJson(Map<String, dynamic> json) =>
-      AppliedTerminology();
+      AppliedTerminology(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        terms: json.containsKey('Terms')
+            ? (json['Terms'] as List).map((e) => Term.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The encryption key used to encrypt the custom terminologies used by Amazon
@@ -188,7 +222,11 @@ class EncryptionKey {
     @required this.type,
     @required this.id,
   });
-  static EncryptionKey fromJson(Map<String, dynamic> json) => EncryptionKey();
+  static EncryptionKey fromJson(Map<String, dynamic> json) => EncryptionKey(
+        type: json['Type'] as String,
+        id: json['Id'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetTerminologyResponse {
@@ -205,7 +243,14 @@ class GetTerminologyResponse {
     this.terminologyDataLocation,
   });
   static GetTerminologyResponse fromJson(Map<String, dynamic> json) =>
-      GetTerminologyResponse();
+      GetTerminologyResponse(
+        terminologyProperties: json.containsKey('TerminologyProperties')
+            ? TerminologyProperties.fromJson(json['TerminologyProperties'])
+            : null,
+        terminologyDataLocation: json.containsKey('TerminologyDataLocation')
+            ? TerminologyDataLocation.fromJson(json['TerminologyDataLocation'])
+            : null,
+      );
 }
 
 class ImportTerminologyResponse {
@@ -216,7 +261,11 @@ class ImportTerminologyResponse {
     this.terminologyProperties,
   });
   static ImportTerminologyResponse fromJson(Map<String, dynamic> json) =>
-      ImportTerminologyResponse();
+      ImportTerminologyResponse(
+        terminologyProperties: json.containsKey('TerminologyProperties')
+            ? TerminologyProperties.fromJson(json['TerminologyProperties'])
+            : null,
+      );
 }
 
 class ListTerminologiesResponse {
@@ -233,7 +282,15 @@ class ListTerminologiesResponse {
     this.nextToken,
   });
   static ListTerminologiesResponse fromJson(Map<String, dynamic> json) =>
-      ListTerminologiesResponse();
+      ListTerminologiesResponse(
+        terminologyPropertiesList: json.containsKey('TerminologyPropertiesList')
+            ? (json['TerminologyPropertiesList'] as List)
+                .map((e) => TerminologyProperties.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The term being translated by the custom terminology.
@@ -248,7 +305,14 @@ class Term {
     this.sourceText,
     this.targetText,
   });
-  static Term fromJson(Map<String, dynamic> json) => Term();
+  static Term fromJson(Map<String, dynamic> json) => Term(
+        sourceText: json.containsKey('SourceText')
+            ? json['SourceText'] as String
+            : null,
+        targetText: json.containsKey('TargetText')
+            ? json['TargetText'] as String
+            : null,
+      );
 }
 
 /// The data associated with the custom terminology.
@@ -263,6 +327,7 @@ class TerminologyData {
     @required this.file,
     @required this.format,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The location of the custom terminology data.
@@ -278,7 +343,10 @@ class TerminologyDataLocation {
     @required this.location,
   });
   static TerminologyDataLocation fromJson(Map<String, dynamic> json) =>
-      TerminologyDataLocation();
+      TerminologyDataLocation(
+        repositoryType: json['RepositoryType'] as String,
+        location: json['Location'] as String,
+      );
 }
 
 /// The properties of the custom terminology.
@@ -330,7 +398,34 @@ class TerminologyProperties {
     this.lastUpdatedAt,
   });
   static TerminologyProperties fromJson(Map<String, dynamic> json) =>
-      TerminologyProperties();
+      TerminologyProperties(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        sourceLanguageCode: json.containsKey('SourceLanguageCode')
+            ? json['SourceLanguageCode'] as String
+            : null,
+        targetLanguageCodes: json.containsKey('TargetLanguageCodes')
+            ? (json['TargetLanguageCodes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        encryptionKey: json.containsKey('EncryptionKey')
+            ? EncryptionKey.fromJson(json['EncryptionKey'])
+            : null,
+        sizeBytes:
+            json.containsKey('SizeBytes') ? json['SizeBytes'] as int : null,
+        termCount:
+            json.containsKey('TermCount') ? json['TermCount'] as int : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastUpdatedAt: json.containsKey('LastUpdatedAt')
+            ? DateTime.parse(json['LastUpdatedAt'])
+            : null,
+      );
 }
 
 class TranslateTextResponse {
@@ -354,5 +449,14 @@ class TranslateTextResponse {
     this.appliedTerminologies,
   });
   static TranslateTextResponse fromJson(Map<String, dynamic> json) =>
-      TranslateTextResponse();
+      TranslateTextResponse(
+        translatedText: json['TranslatedText'] as String,
+        sourceLanguageCode: json['SourceLanguageCode'] as String,
+        targetLanguageCode: json['TargetLanguageCode'] as String,
+        appliedTerminologies: json.containsKey('AppliedTerminologies')
+            ? (json['AppliedTerminologies'] as List)
+                .map((e) => AppliedTerminology.fromJson(e))
+                .toList()
+            : null,
+      );
 }

@@ -65,6 +65,9 @@ import 'dart:typed_data';
 /// This set of topics walk you through the process of signing a request using
 /// an access key ID and secret access key.
 class IamApi {
+  final _client;
+  IamApi(client) : _client = client.configured('IAM', serializer: 'query');
+
   /// Adds a new client ID (also known as audience) to the list of client IDs
   /// already registered for the specified IAM OpenID Connect (OIDC) provider
   /// resource.
@@ -81,7 +84,12 @@ class IamApi {
   /// OpenID Connect provider resource.
   Future<void> addClientIDToOpenIDConnectProvider(
       {@required String openIDConnectProviderArn,
-      @required String clientID}) async {}
+      @required String clientID}) async {
+    await _client.send('AddClientIDToOpenIDConnectProvider', {
+      'OpenIDConnectProviderArn': openIDConnectProviderArn,
+      'ClientID': clientID,
+    });
+  }
 
   /// Adds the specified IAM role to the specified instance profile. An instance
   /// profile can contain only one role, and this limit cannot be increased. You
@@ -117,8 +125,12 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> addRoleToInstanceProfile(
-      {@required String instanceProfileName,
-      @required String roleName}) async {}
+      {@required String instanceProfileName, @required String roleName}) async {
+    await _client.send('AddRoleToInstanceProfile', {
+      'InstanceProfileName': instanceProfileName,
+      'RoleName': roleName,
+    });
+  }
 
   /// Adds the specified user to the specified group.
   ///
@@ -136,7 +148,12 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> addUserToGroup(
-      {@required String groupName, @required String userName}) async {}
+      {@required String groupName, @required String userName}) async {
+    await _client.send('AddUserToGroup', {
+      'GroupName': groupName,
+      'UserName': userName,
+    });
+  }
 
   /// Attaches the specified managed policy to the specified IAM group.
   ///
@@ -162,7 +179,12 @@ class IamApi {
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> attachGroupPolicy(
-      {@required String groupName, @required String policyArn}) async {}
+      {@required String groupName, @required String policyArn}) async {
+    await _client.send('AttachGroupPolicy', {
+      'GroupName': groupName,
+      'PolicyArn': policyArn,
+    });
+  }
 
   /// Attaches the specified managed policy to the specified IAM role. When you
   /// attach a managed policy to a role, the managed policy becomes part of the
@@ -193,7 +215,12 @@ class IamApi {
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> attachRolePolicy(
-      {@required String roleName, @required String policyArn}) async {}
+      {@required String roleName, @required String policyArn}) async {
+    await _client.send('AttachRolePolicy', {
+      'RoleName': roleName,
+      'PolicyArn': policyArn,
+    });
+  }
 
   /// Attaches the specified managed policy to the specified user.
   ///
@@ -219,7 +246,12 @@ class IamApi {
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> attachUserPolicy(
-      {@required String userName, @required String policyArn}) async {}
+      {@required String userName, @required String policyArn}) async {
+    await _client.send('AttachUserPolicy', {
+      'UserName': userName,
+      'PolicyArn': policyArn,
+    });
+  }
 
   /// Changes the password of the IAM user who is calling this operation. The
   /// AWS account root user password is not affected by this operation.
@@ -243,7 +275,12 @@ class IamApi {
   /// AWS Management Console, might restrict the ability to type certain
   /// characters because they have special meaning within that tool.
   Future<void> changePassword(
-      {@required String oldPassword, @required String newPassword}) async {}
+      {@required String oldPassword, @required String newPassword}) async {
+    await _client.send('ChangePassword', {
+      'OldPassword': oldPassword,
+      'NewPassword': newPassword,
+    });
+  }
 
   ///  Creates a new AWS secret access key and corresponding AWS access key ID
   /// for the specified user. The default status for new keys is `Active`.
@@ -273,7 +310,10 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<CreateAccessKeyResponse> createAccessKey({String userName}) async {
-    return CreateAccessKeyResponse.fromJson({});
+    var response_ = await _client.send('CreateAccessKey', {
+      if (userName != null) 'UserName': userName,
+    });
+    return CreateAccessKeyResponse.fromJson(response_);
   }
 
   /// Creates an alias for your AWS account. For information about using an AWS
@@ -287,7 +327,11 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of lowercase letters, digits, and dashes. You cannot start or
   /// finish with a dash, nor can you have two dashes in a row.
-  Future<void> createAccountAlias(String accountAlias) async {}
+  Future<void> createAccountAlias(String accountAlias) async {
+    await _client.send('CreateAccountAlias', {
+      'AccountAlias': accountAlias,
+    });
+  }
 
   /// Creates a new group.
   ///
@@ -317,7 +361,11 @@ class IamApi {
   /// resources named both "MyResource" and "myresource".
   Future<CreateGroupResponse> createGroup(String groupName,
       {String path}) async {
-    return CreateGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateGroup', {
+      if (path != null) 'Path': path,
+      'GroupName': groupName,
+    });
+    return CreateGroupResponse.fromJson(response_);
   }
 
   ///  Creates a new instance profile. For information about instance profiles,
@@ -352,7 +400,11 @@ class IamApi {
   Future<CreateInstanceProfileResponse> createInstanceProfile(
       String instanceProfileName,
       {String path}) async {
-    return CreateInstanceProfileResponse.fromJson({});
+    var response_ = await _client.send('CreateInstanceProfile', {
+      'InstanceProfileName': instanceProfileName,
+      if (path != null) 'Path': path,
+    });
+    return CreateInstanceProfileResponse.fromJson(response_);
   }
 
   ///  Creates a password for the specified user, giving the user the ability to
@@ -386,7 +438,13 @@ class IamApi {
       {@required String userName,
       @required String password,
       bool passwordResetRequired}) async {
-    return CreateLoginProfileResponse.fromJson({});
+    var response_ = await _client.send('CreateLoginProfile', {
+      'UserName': userName,
+      'Password': password,
+      if (passwordResetRequired != null)
+        'PasswordResetRequired': passwordResetRequired,
+    });
+    return CreateLoginProfileResponse.fromJson(response_);
   }
 
   /// Creates an IAM entity to describe an identity provider (IdP) that supports
@@ -463,7 +521,12 @@ class IamApi {
       {@required String url,
       List<String> clientIDList,
       @required List<String> thumbprintList}) async {
-    return CreateOpenIDConnectProviderResponse.fromJson({});
+    var response_ = await _client.send('CreateOpenIDConnectProvider', {
+      'Url': url,
+      if (clientIDList != null) 'ClientIDList': clientIDList,
+      'ThumbprintList': thumbprintList,
+    });
+    return CreateOpenIDConnectProviderResponse.fromJson(response_);
   }
 
   /// Creates a new managed policy for your AWS account.
@@ -532,7 +595,13 @@ class IamApi {
       String path,
       @required String policyDocument,
       String description}) async {
-    return CreatePolicyResponse.fromJson({});
+    var response_ = await _client.send('CreatePolicy', {
+      'PolicyName': policyName,
+      if (path != null) 'Path': path,
+      'PolicyDocument': policyDocument,
+      if (description != null) 'Description': description,
+    });
+    return CreatePolicyResponse.fromJson(response_);
   }
 
   /// Creates a new version of the specified managed policy. To update a managed
@@ -590,7 +659,12 @@ class IamApi {
       {@required String policyArn,
       @required String policyDocument,
       bool setAsDefault}) async {
-    return CreatePolicyVersionResponse.fromJson({});
+    var response_ = await _client.send('CreatePolicyVersion', {
+      'PolicyArn': policyArn,
+      'PolicyDocument': policyDocument,
+      if (setAsDefault != null) 'SetAsDefault': setAsDefault,
+    });
+    return CreatePolicyVersionResponse.fromJson(response_);
   }
 
   /// Creates a new role for your AWS account. For more information about roles,
@@ -685,7 +759,17 @@ class IamApi {
       int maxSessionDuration,
       String permissionsBoundary,
       List<Tag> tags}) async {
-    return CreateRoleResponse.fromJson({});
+    var response_ = await _client.send('CreateRole', {
+      if (path != null) 'Path': path,
+      'RoleName': roleName,
+      'AssumeRolePolicyDocument': assumeRolePolicyDocument,
+      if (description != null) 'Description': description,
+      if (maxSessionDuration != null) 'MaxSessionDuration': maxSessionDuration,
+      if (permissionsBoundary != null)
+        'PermissionsBoundary': permissionsBoundary,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateRoleResponse.fromJson(response_);
   }
 
   /// Creates an IAM resource that describes an identity provider (IdP) that
@@ -733,7 +817,11 @@ class IamApi {
   /// You can also include any of the following characters: _+=,.@-
   Future<CreateSamlProviderResponse> createSamlProvider(
       {@required String samlMetadataDocument, @required String name}) async {
-    return CreateSamlProviderResponse.fromJson({});
+    var response_ = await _client.send('CreateSAMLProvider', {
+      'SAMLMetadataDocument': samlMetadataDocument,
+      'Name': name,
+    });
+    return CreateSamlProviderResponse.fromJson(response_);
   }
 
   /// Creates an IAM role that is linked to a specific AWS service. The service
@@ -776,7 +864,12 @@ class IamApi {
       String awsServiceName,
       {String description,
       String customSuffix}) async {
-    return CreateServiceLinkedRoleResponse.fromJson({});
+    var response_ = await _client.send('CreateServiceLinkedRole', {
+      'AWSServiceName': awsServiceName,
+      if (description != null) 'Description': description,
+      if (customSuffix != null) 'CustomSuffix': customSuffix,
+    });
+    return CreateServiceLinkedRoleResponse.fromJson(response_);
   }
 
   /// Generates a set of credentials consisting of a user name and password that
@@ -812,7 +905,11 @@ class IamApi {
   Future<CreateServiceSpecificCredentialResponse>
       createServiceSpecificCredential(
           {@required String userName, @required String serviceName}) async {
-    return CreateServiceSpecificCredentialResponse.fromJson({});
+    var response_ = await _client.send('CreateServiceSpecificCredential', {
+      'UserName': userName,
+      'ServiceName': serviceName,
+    });
+    return CreateServiceSpecificCredentialResponse.fromJson(response_);
   }
 
   /// Creates a new IAM user for your AWS account.
@@ -857,7 +954,14 @@ class IamApi {
   /// tags per user, then the entire request fails and the user is not created.
   Future<CreateUserResponse> createUser(String userName,
       {String path, String permissionsBoundary, List<Tag> tags}) async {
-    return CreateUserResponse.fromJson({});
+    var response_ = await _client.send('CreateUser', {
+      if (path != null) 'Path': path,
+      'UserName': userName,
+      if (permissionsBoundary != null)
+        'PermissionsBoundary': permissionsBoundary,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateUserResponse.fromJson(response_);
   }
 
   /// Creates a new virtual MFA device for the AWS account. After creating the
@@ -905,7 +1009,11 @@ class IamApi {
   Future<CreateVirtualMfaDeviceResponse> createVirtualMfaDevice(
       String virtualMfaDeviceName,
       {String path}) async {
-    return CreateVirtualMfaDeviceResponse.fromJson({});
+    var response_ = await _client.send('CreateVirtualMFADevice', {
+      if (path != null) 'Path': path,
+      'VirtualMFADeviceName': virtualMfaDeviceName,
+    });
+    return CreateVirtualMfaDeviceResponse.fromJson(response_);
   }
 
   /// Deactivates the specified MFA device and removes it from association with
@@ -931,7 +1039,12 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: =,.@:/-
   Future<void> deactivateMfaDevice(
-      {@required String userName, @required String serialNumber}) async {}
+      {@required String userName, @required String serialNumber}) async {
+    await _client.send('DeactivateMFADevice', {
+      'UserName': userName,
+      'SerialNumber': serialNumber,
+    });
+  }
 
   /// Deletes the access key pair associated with the specified IAM user.
   ///
@@ -954,7 +1067,12 @@ class IamApi {
   /// This parameter allows (through its
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// that can consist of any upper or lowercased letter or digit.
-  Future<void> deleteAccessKey(String accessKeyId, {String userName}) async {}
+  Future<void> deleteAccessKey(String accessKeyId, {String userName}) async {
+    await _client.send('DeleteAccessKey', {
+      if (userName != null) 'UserName': userName,
+      'AccessKeyId': accessKeyId,
+    });
+  }
 
   ///  Deletes the specified AWS account alias. For information about using an
   /// AWS account alias, see
@@ -967,10 +1085,16 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of lowercase letters, digits, and dashes. You cannot start or
   /// finish with a dash, nor can you have two dashes in a row.
-  Future<void> deleteAccountAlias(String accountAlias) async {}
+  Future<void> deleteAccountAlias(String accountAlias) async {
+    await _client.send('DeleteAccountAlias', {
+      'AccountAlias': accountAlias,
+    });
+  }
 
   /// Deletes the password policy for the AWS account. There are no parameters.
-  Future<void> deleteAccountPasswordPolicy() async {}
+  Future<void> deleteAccountPasswordPolicy() async {
+    await _client.send('DeleteAccountPasswordPolicy', {});
+  }
 
   /// Deletes the specified IAM group. The group must not contain any users or
   /// have any attached policies.
@@ -981,7 +1105,11 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
-  Future<void> deleteGroup(String groupName) async {}
+  Future<void> deleteGroup(String groupName) async {
+    await _client.send('DeleteGroup', {
+      'GroupName': groupName,
+    });
+  }
 
   /// Deletes the specified inline policy that is embedded in the specified IAM
   /// group.
@@ -1007,7 +1135,12 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteGroupPolicy(
-      {@required String groupName, @required String policyName}) async {}
+      {@required String groupName, @required String policyName}) async {
+    await _client.send('DeleteGroupPolicy', {
+      'GroupName': groupName,
+      'PolicyName': policyName,
+    });
+  }
 
   /// Deletes the specified instance profile. The instance profile must not have
   /// an associated role.
@@ -1026,7 +1159,11 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
-  Future<void> deleteInstanceProfile(String instanceProfileName) async {}
+  Future<void> deleteInstanceProfile(String instanceProfileName) async {
+    await _client.send('DeleteInstanceProfile', {
+      'InstanceProfileName': instanceProfileName,
+    });
+  }
 
   /// Deletes the password for the specified IAM user, which terminates the
   /// user's ability to access AWS services through the AWS Management Console.
@@ -1043,7 +1180,11 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
-  Future<void> deleteLoginProfile(String userName) async {}
+  Future<void> deleteLoginProfile(String userName) async {
+    await _client.send('DeleteLoginProfile', {
+      'UserName': userName,
+    });
+  }
 
   /// Deletes an OpenID Connect identity provider (IdP) resource object in IAM.
   ///
@@ -1059,7 +1200,11 @@ class IamApi {
   /// OpenID Connect provider resource ARNs by using the
   /// ListOpenIDConnectProviders operation.
   Future<void> deleteOpenIDConnectProvider(
-      String openIDConnectProviderArn) async {}
+      String openIDConnectProviderArn) async {
+    await _client.send('DeleteOpenIDConnectProvider', {
+      'OpenIDConnectProviderArn': openIDConnectProviderArn,
+    });
+  }
 
   /// Deletes the specified managed policy.
   ///
@@ -1093,7 +1238,11 @@ class IamApi {
   /// For more information about ARNs, see
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
-  Future<void> deletePolicy(String policyArn) async {}
+  Future<void> deletePolicy(String policyArn) async {
+    await _client.send('DeletePolicy', {
+      'PolicyArn': policyArn,
+    });
+  }
 
   /// Deletes the specified version from the specified managed policy.
   ///
@@ -1125,7 +1274,12 @@ class IamApi {
   /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   Future<void> deletePolicyVersion(
-      {@required String policyArn, @required String versionId}) async {}
+      {@required String policyArn, @required String versionId}) async {
+    await _client.send('DeletePolicyVersion', {
+      'PolicyArn': policyArn,
+      'VersionId': versionId,
+    });
+  }
 
   /// Deletes the specified role. The role must not have any policies attached.
   /// For more information about roles, go to
@@ -1144,7 +1298,11 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
-  Future<void> deleteRole(String roleName) async {}
+  Future<void> deleteRole(String roleName) async {
+    await _client.send('DeleteRole', {
+      'RoleName': roleName,
+    });
+  }
 
   /// Deletes the permissions boundary for the specified IAM role.
   ///
@@ -1156,7 +1314,11 @@ class IamApi {
   ///
   /// [roleName]: The name (friendly name, not ARN) of the IAM role from which
   /// you want to remove the permissions boundary.
-  Future<void> deleteRolePermissionsBoundary(String roleName) async {}
+  Future<void> deleteRolePermissionsBoundary(String roleName) async {
+    await _client.send('DeleteRolePermissionsBoundary', {
+      'RoleName': roleName,
+    });
+  }
 
   /// Deletes the specified inline policy that is embedded in the specified IAM
   /// role.
@@ -1183,7 +1345,12 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteRolePolicy(
-      {@required String roleName, @required String policyName}) async {}
+      {@required String roleName, @required String policyName}) async {
+    await _client.send('DeleteRolePolicy', {
+      'RoleName': roleName,
+      'PolicyName': policyName,
+    });
+  }
 
   /// Deletes a SAML provider resource in IAM.
   ///
@@ -1197,7 +1364,11 @@ class IamApi {
   ///
   /// [samlProviderArn]: The Amazon Resource Name (ARN) of the SAML provider to
   /// delete.
-  Future<void> deleteSamlProvider(String samlProviderArn) async {}
+  Future<void> deleteSamlProvider(String samlProviderArn) async {
+    await _client.send('DeleteSAMLProvider', {
+      'SAMLProviderArn': samlProviderArn,
+    });
+  }
 
   /// Deletes the specified SSH public key.
   ///
@@ -1221,7 +1392,12 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// that can consist of any upper or lowercased letter or digit.
   Future<void> deleteSshPublicKey(
-      {@required String userName, @required String sshPublicKeyId}) async {}
+      {@required String userName, @required String sshPublicKeyId}) async {
+    await _client.send('DeleteSSHPublicKey', {
+      'UserName': userName,
+      'SSHPublicKeyId': sshPublicKeyId,
+    });
+  }
 
   /// Deletes the specified server certificate.
   ///
@@ -1247,7 +1423,11 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
-  Future<void> deleteServerCertificate(String serverCertificateName) async {}
+  Future<void> deleteServerCertificate(String serverCertificateName) async {
+    await _client.send('DeleteServerCertificate', {
+      'ServerCertificateName': serverCertificateName,
+    });
+  }
 
   /// Submits a service-linked role deletion request and returns a
   /// `DeletionTaskId`, which you can use to check the status of the deletion.
@@ -1274,7 +1454,10 @@ class IamApi {
   /// [roleName]: The name of the service-linked role to be deleted.
   Future<DeleteServiceLinkedRoleResponse> deleteServiceLinkedRole(
       String roleName) async {
-    return DeleteServiceLinkedRoleResponse.fromJson({});
+    var response_ = await _client.send('DeleteServiceLinkedRole', {
+      'RoleName': roleName,
+    });
+    return DeleteServiceLinkedRoleResponse.fromJson(response_);
   }
 
   /// Deletes the specified service-specific credential.
@@ -1297,7 +1480,12 @@ class IamApi {
   /// that can consist of any upper or lowercased letter or digit.
   Future<void> deleteServiceSpecificCredential(
       String serviceSpecificCredentialId,
-      {String userName}) async {}
+      {String userName}) async {
+    await _client.send('DeleteServiceSpecificCredential', {
+      if (userName != null) 'UserName': userName,
+      'ServiceSpecificCredentialId': serviceSpecificCredentialId,
+    });
+  }
 
   /// Deletes a signing certificate associated with the specified IAM user.
   ///
@@ -1320,7 +1508,12 @@ class IamApi {
   /// [regex](http://wikipedia.org/wiki/regex) pattern, is a string of
   /// characters that can be upper- or lower-cased letters or digits.
   Future<void> deleteSigningCertificate(String certificateId,
-      {String userName}) async {}
+      {String userName}) async {
+    await _client.send('DeleteSigningCertificate', {
+      if (userName != null) 'UserName': userName,
+      'CertificateId': certificateId,
+    });
+  }
 
   /// Deletes the specified IAM user. Unlike the AWS Management Console, when
   /// you delete a user programmatically, you must delete the items attached to
@@ -1353,7 +1546,11 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
-  Future<void> deleteUser(String userName) async {}
+  Future<void> deleteUser(String userName) async {
+    await _client.send('DeleteUser', {
+      'UserName': userName,
+    });
+  }
 
   /// Deletes the permissions boundary for the specified IAM user.
   ///
@@ -1365,7 +1562,11 @@ class IamApi {
   ///
   /// [userName]: The name (friendly name, not ARN) of the IAM user from which
   /// you want to remove the permissions boundary.
-  Future<void> deleteUserPermissionsBoundary(String userName) async {}
+  Future<void> deleteUserPermissionsBoundary(String userName) async {
+    await _client.send('DeleteUserPermissionsBoundary', {
+      'UserName': userName,
+    });
+  }
 
   /// Deletes the specified inline policy that is embedded in the specified IAM
   /// user.
@@ -1391,7 +1592,12 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteUserPolicy(
-      {@required String userName, @required String policyName}) async {}
+      {@required String userName, @required String policyName}) async {
+    await _client.send('DeleteUserPolicy', {
+      'UserName': userName,
+      'PolicyName': policyName,
+    });
+  }
 
   /// Deletes a virtual MFA device.
   ///
@@ -1406,7 +1612,11 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: =,.@:/-
-  Future<void> deleteVirtualMfaDevice(String serialNumber) async {}
+  Future<void> deleteVirtualMfaDevice(String serialNumber) async {
+    await _client.send('DeleteVirtualMFADevice', {
+      'SerialNumber': serialNumber,
+    });
+  }
 
   /// Removes the specified managed policy from the specified IAM group.
   ///
@@ -1431,7 +1641,12 @@ class IamApi {
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> detachGroupPolicy(
-      {@required String groupName, @required String policyArn}) async {}
+      {@required String groupName, @required String policyArn}) async {
+    await _client.send('DetachGroupPolicy', {
+      'GroupName': groupName,
+      'PolicyArn': policyArn,
+    });
+  }
 
   /// Removes the specified managed policy from the specified role.
   ///
@@ -1455,7 +1670,12 @@ class IamApi {
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> detachRolePolicy(
-      {@required String roleName, @required String policyArn}) async {}
+      {@required String roleName, @required String policyArn}) async {
+    await _client.send('DetachRolePolicy', {
+      'RoleName': roleName,
+      'PolicyArn': policyArn,
+    });
+  }
 
   /// Removes the specified managed policy from the specified user.
   ///
@@ -1479,7 +1699,12 @@ class IamApi {
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> detachUserPolicy(
-      {@required String userName, @required String policyArn}) async {}
+      {@required String userName, @required String policyArn}) async {
+    await _client.send('DetachUserPolicy', {
+      'UserName': userName,
+      'PolicyArn': policyArn,
+    });
+  }
 
   /// Enables the specified MFA device and associates it with the specified IAM
   /// user. When enabled, the MFA device is required for every subsequent login
@@ -1531,14 +1756,22 @@ class IamApi {
       {@required String userName,
       @required String serialNumber,
       @required String authenticationCode1,
-      @required String authenticationCode2}) async {}
+      @required String authenticationCode2}) async {
+    await _client.send('EnableMFADevice', {
+      'UserName': userName,
+      'SerialNumber': serialNumber,
+      'AuthenticationCode1': authenticationCode1,
+      'AuthenticationCode2': authenticationCode2,
+    });
+  }
 
   ///  Generates a credential report for the AWS account. For more information
   /// about the credential report, see
   /// [Getting Credential Reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html)
   /// in the _IAM User Guide_.
   Future<GenerateCredentialReportResponse> generateCredentialReport() async {
-    return GenerateCredentialReportResponse.fromJson({});
+    var response_ = await _client.send('GenerateCredentialReport', {});
+    return GenerateCredentialReportResponse.fromJson(response_);
   }
 
   /// Generates a report for service last accessed data for AWS Organizations.
@@ -1682,7 +1915,12 @@ class IamApi {
   Future<GenerateOrganizationsAccessReportResponse>
       generateOrganizationsAccessReport(String entityPath,
           {String organizationsPolicyId}) async {
-    return GenerateOrganizationsAccessReportResponse.fromJson({});
+    var response_ = await _client.send('GenerateOrganizationsAccessReport', {
+      'EntityPath': entityPath,
+      if (organizationsPolicyId != null)
+        'OrganizationsPolicyId': organizationsPolicyId,
+    });
+    return GenerateOrganizationsAccessReportResponse.fromJson(response_);
   }
 
   /// Generates a report that includes details about when an IAM resource (user,
@@ -1743,7 +1981,10 @@ class IamApi {
   /// attempt to access an AWS service.
   Future<GenerateServiceLastAccessedDetailsResponse>
       generateServiceLastAccessedDetails(String arn) async {
-    return GenerateServiceLastAccessedDetailsResponse.fromJson({});
+    var response_ = await _client.send('GenerateServiceLastAccessedDetails', {
+      'Arn': arn,
+    });
+    return GenerateServiceLastAccessedDetailsResponse.fromJson(response_);
   }
 
   /// Retrieves information about when the specified access key was last used.
@@ -1758,7 +1999,10 @@ class IamApi {
   /// that can consist of any upper or lowercased letter or digit.
   Future<GetAccessKeyLastUsedResponse> getAccessKeyLastUsed(
       String accessKeyId) async {
-    return GetAccessKeyLastUsedResponse.fromJson({});
+    var response_ = await _client.send('GetAccessKeyLastUsed', {
+      'AccessKeyId': accessKeyId,
+    });
+    return GetAccessKeyLastUsedResponse.fromJson(response_);
   }
 
   /// Retrieves information about all IAM users, groups, roles, and policies in
@@ -1800,14 +2044,20 @@ class IamApi {
   /// indicate where the next call should start.
   Future<GetAccountAuthorizationDetailsResponse> getAccountAuthorizationDetails(
       {List<String> filter, int maxItems, String marker}) async {
-    return GetAccountAuthorizationDetailsResponse.fromJson({});
+    var response_ = await _client.send('GetAccountAuthorizationDetails', {
+      if (filter != null) 'Filter': filter,
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (marker != null) 'Marker': marker,
+    });
+    return GetAccountAuthorizationDetailsResponse.fromJson(response_);
   }
 
   /// Retrieves the password policy for the AWS account. For more information
   /// about using a password policy, go to
   /// [Managing an IAM Password Policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html).
   Future<GetAccountPasswordPolicyResponse> getAccountPasswordPolicy() async {
-    return GetAccountPasswordPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetAccountPasswordPolicy', {});
+    return GetAccountPasswordPolicyResponse.fromJson(response_);
   }
 
   /// Retrieves information about IAM entity usage and IAM quotas in the AWS
@@ -1817,7 +2067,8 @@ class IamApi {
   /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   Future<GetAccountSummaryResponse> getAccountSummary() async {
-    return GetAccountSummaryResponse.fromJson({});
+    var response_ = await _client.send('GetAccountSummary', {});
+    return GetAccountSummaryResponse.fromJson(response_);
   }
 
   /// Gets a list of all of the context keys referenced in the input policies.
@@ -1850,7 +2101,10 @@ class IamApi {
   /// return (u000D)
   Future<GetContextKeysForPolicyResponse> getContextKeysForCustomPolicy(
       List<String> policyInputList) async {
-    return GetContextKeysForPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetContextKeysForCustomPolicy', {
+      'PolicyInputList': policyInputList,
+    });
+    return GetContextKeysForPolicyResponse.fromJson(response_);
   }
 
   /// Gets a list of all of the context keys referenced in all the IAM policies
@@ -1903,7 +2157,11 @@ class IamApi {
   Future<GetContextKeysForPolicyResponse> getContextKeysForPrincipalPolicy(
       String policySourceArn,
       {List<String> policyInputList}) async {
-    return GetContextKeysForPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetContextKeysForPrincipalPolicy', {
+      'PolicySourceArn': policySourceArn,
+      if (policyInputList != null) 'PolicyInputList': policyInputList,
+    });
+    return GetContextKeysForPolicyResponse.fromJson(response_);
   }
 
   ///  Retrieves a credential report for the AWS account. For more information
@@ -1911,7 +2169,8 @@ class IamApi {
   /// [Getting Credential Reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html)
   /// in the _IAM User Guide_.
   Future<GetCredentialReportResponse> getCredentialReport() async {
-    return GetCredentialReportResponse.fromJson({});
+    var response_ = await _client.send('GetCredentialReport', {});
+    return GetCredentialReportResponse.fromJson(response_);
   }
 
   ///  Returns a list of IAM users that are in the specified IAM group. You can
@@ -1940,7 +2199,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<GetGroupResponse> getGroup(String groupName,
       {String marker, int maxItems}) async {
-    return GetGroupResponse.fromJson({});
+    var response_ = await _client.send('GetGroup', {
+      'GroupName': groupName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return GetGroupResponse.fromJson(response_);
   }
 
   /// Retrieves the specified inline policy document that is embedded in the
@@ -1977,7 +2241,11 @@ class IamApi {
   /// You can also include any of the following characters: _+=,.@-
   Future<GetGroupPolicyResponse> getGroupPolicy(
       {@required String groupName, @required String policyName}) async {
-    return GetGroupPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetGroupPolicy', {
+      'GroupName': groupName,
+      'PolicyName': policyName,
+    });
+    return GetGroupPolicyResponse.fromJson(response_);
   }
 
   ///  Retrieves information about the specified instance profile, including the
@@ -1995,7 +2263,10 @@ class IamApi {
   /// You can also include any of the following characters: _+=,.@-
   Future<GetInstanceProfileResponse> getInstanceProfile(
       String instanceProfileName) async {
-    return GetInstanceProfileResponse.fromJson({});
+    var response_ = await _client.send('GetInstanceProfile', {
+      'InstanceProfileName': instanceProfileName,
+    });
+    return GetInstanceProfileResponse.fromJson(response_);
   }
 
   /// Retrieves the user name and password-creation date for the specified IAM
@@ -2009,7 +2280,10 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetLoginProfileResponse> getLoginProfile(String userName) async {
-    return GetLoginProfileResponse.fromJson({});
+    var response_ = await _client.send('GetLoginProfile', {
+      'UserName': userName,
+    });
+    return GetLoginProfileResponse.fromJson(response_);
   }
 
   /// Returns information about the specified OpenID Connect (OIDC) provider
@@ -2025,7 +2299,10 @@ class IamApi {
   /// in the _AWS General Reference_.
   Future<GetOpenIDConnectProviderResponse> getOpenIDConnectProvider(
       String openIDConnectProviderArn) async {
-    return GetOpenIDConnectProviderResponse.fromJson({});
+    var response_ = await _client.send('GetOpenIDConnectProvider', {
+      'OpenIDConnectProviderArn': openIDConnectProviderArn,
+    });
+    return GetOpenIDConnectProviderResponse.fromJson(response_);
   }
 
   /// Retrieves the service last accessed data report for AWS Organizations that
@@ -2078,7 +2355,13 @@ class IamApi {
       {int maxItems,
       String marker,
       String sortKey}) async {
-    return GetOrganizationsAccessReportResponse.fromJson({});
+    var response_ = await _client.send('GetOrganizationsAccessReport', {
+      'JobId': jobId,
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (marker != null) 'Marker': marker,
+      if (sortKey != null) 'SortKey': sortKey,
+    });
+    return GetOrganizationsAccessReportResponse.fromJson(response_);
   }
 
   /// Retrieves information about the specified managed policy, including the
@@ -2105,7 +2388,10 @@ class IamApi {
   /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<GetPolicyResponse> getPolicy(String policyArn) async {
-    return GetPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetPolicy', {
+      'PolicyArn': policyArn,
+    });
+    return GetPolicyResponse.fromJson(response_);
   }
 
   /// Retrieves information about the specified version of the specified managed
@@ -2148,7 +2434,11 @@ class IamApi {
   /// digits.
   Future<GetPolicyVersionResponse> getPolicyVersion(
       {@required String policyArn, @required String versionId}) async {
-    return GetPolicyVersionResponse.fromJson({});
+    var response_ = await _client.send('GetPolicyVersion', {
+      'PolicyArn': policyArn,
+      'VersionId': versionId,
+    });
+    return GetPolicyVersionResponse.fromJson(response_);
   }
 
   /// Retrieves information about the specified role, including the role's path,
@@ -2172,7 +2462,10 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetRoleResponse> getRole(String roleName) async {
-    return GetRoleResponse.fromJson({});
+    var response_ = await _client.send('GetRole', {
+      'RoleName': roleName,
+    });
+    return GetRoleResponse.fromJson(response_);
   }
 
   /// Retrieves the specified inline policy document that is embedded with the
@@ -2212,7 +2505,11 @@ class IamApi {
   /// You can also include any of the following characters: _+=,.@-
   Future<GetRolePolicyResponse> getRolePolicy(
       {@required String roleName, @required String policyName}) async {
-    return GetRolePolicyResponse.fromJson({});
+    var response_ = await _client.send('GetRolePolicy', {
+      'RoleName': roleName,
+      'PolicyName': policyName,
+    });
+    return GetRolePolicyResponse.fromJson(response_);
   }
 
   /// Returns the SAML provider metadocument that was uploaded when the IAM SAML
@@ -2231,7 +2528,10 @@ class IamApi {
   /// in the _AWS General Reference_.
   Future<GetSamlProviderResponse> getSamlProvider(
       String samlProviderArn) async {
-    return GetSamlProviderResponse.fromJson({});
+    var response_ = await _client.send('GetSAMLProvider', {
+      'SAMLProviderArn': samlProviderArn,
+    });
+    return GetSamlProviderResponse.fromJson(response_);
   }
 
   /// Retrieves the specified SSH public key, including metadata about the key.
@@ -2263,7 +2563,12 @@ class IamApi {
       {@required String userName,
       @required String sshPublicKeyId,
       @required String encoding}) async {
-    return GetSshPublicKeyResponse.fromJson({});
+    var response_ = await _client.send('GetSSHPublicKey', {
+      'UserName': userName,
+      'SSHPublicKeyId': sshPublicKeyId,
+      'Encoding': encoding,
+    });
+    return GetSshPublicKeyResponse.fromJson(response_);
   }
 
   /// Retrieves information about the specified server certificate stored in
@@ -2283,7 +2588,10 @@ class IamApi {
   /// You can also include any of the following characters: _+=,.@-
   Future<GetServerCertificateResponse> getServerCertificate(
       String serverCertificateName) async {
-    return GetServerCertificateResponse.fromJson({});
+    var response_ = await _client.send('GetServerCertificate', {
+      'ServerCertificateName': serverCertificateName,
+    });
+    return GetServerCertificateResponse.fromJson(response_);
   }
 
   /// Retrieves a service last accessed report that was created using the
@@ -2349,7 +2657,12 @@ class IamApi {
       String jobId,
       {int maxItems,
       String marker}) async {
-    return GetServiceLastAccessedDetailsResponse.fromJson({});
+    var response_ = await _client.send('GetServiceLastAccessedDetails', {
+      'JobId': jobId,
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (marker != null) 'Marker': marker,
+    });
+    return GetServiceLastAccessedDetailsResponse.fromJson(response_);
   }
 
   /// After you generate a group or policy report using the
@@ -2412,7 +2725,15 @@ class IamApi {
           @required String serviceNamespace,
           int maxItems,
           String marker}) async {
-    return GetServiceLastAccessedDetailsWithEntitiesResponse.fromJson({});
+    var response_ =
+        await _client.send('GetServiceLastAccessedDetailsWithEntities', {
+      'JobId': jobId,
+      'ServiceNamespace': serviceNamespace,
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (marker != null) 'Marker': marker,
+    });
+    return GetServiceLastAccessedDetailsWithEntitiesResponse.fromJson(
+        response_);
   }
 
   /// Retrieves the status of your service-linked role deletion. After you use
@@ -2427,7 +2748,10 @@ class IamApi {
   /// `task/aws-service-role/<service-principal-name>/<role-name>/<task-uuid>`.
   Future<GetServiceLinkedRoleDeletionStatusResponse>
       getServiceLinkedRoleDeletionStatus(String deletionTaskId) async {
-    return GetServiceLinkedRoleDeletionStatusResponse.fromJson({});
+    var response_ = await _client.send('GetServiceLinkedRoleDeletionStatus', {
+      'DeletionTaskId': deletionTaskId,
+    });
+    return GetServiceLinkedRoleDeletionStatusResponse.fromJson(response_);
   }
 
   /// Retrieves information about the specified IAM user, including the user's
@@ -2444,7 +2768,10 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetUserResponse> getUser({String userName}) async {
-    return GetUserResponse.fromJson({});
+    var response_ = await _client.send('GetUser', {
+      if (userName != null) 'UserName': userName,
+    });
+    return GetUserResponse.fromJson(response_);
   }
 
   /// Retrieves the specified inline policy document that is embedded in the
@@ -2481,7 +2808,11 @@ class IamApi {
   /// You can also include any of the following characters: _+=,.@-
   Future<GetUserPolicyResponse> getUserPolicy(
       {@required String userName, @required String policyName}) async {
-    return GetUserPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetUserPolicy', {
+      'UserName': userName,
+      'PolicyName': policyName,
+    });
+    return GetUserPolicyResponse.fromJson(response_);
   }
 
   /// Returns information about the access key IDs associated with the specified
@@ -2524,7 +2855,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListAccessKeysResponse> listAccessKeys(
       {String userName, String marker, int maxItems}) async {
-    return ListAccessKeysResponse.fromJson({});
+    var response_ = await _client.send('ListAccessKeys', {
+      if (userName != null) 'UserName': userName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListAccessKeysResponse.fromJson(response_);
   }
 
   /// Lists the account alias associated with the AWS account (Note: you can
@@ -2548,7 +2884,11 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListAccountAliasesResponse> listAccountAliases(
       {String marker, int maxItems}) async {
-    return ListAccountAliasesResponse.fromJson({});
+    var response_ = await _client.send('ListAccountAliases', {
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListAccountAliasesResponse.fromJson(response_);
   }
 
   /// Lists all managed policies that are attached to the specified IAM group.
@@ -2603,7 +2943,13 @@ class IamApi {
       {String pathPrefix,
       String marker,
       int maxItems}) async {
-    return ListAttachedGroupPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListAttachedGroupPolicies', {
+      'GroupName': groupName,
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListAttachedGroupPoliciesResponse.fromJson(response_);
   }
 
   /// Lists all managed policies that are attached to the specified IAM role.
@@ -2658,7 +3004,13 @@ class IamApi {
       {String pathPrefix,
       String marker,
       int maxItems}) async {
-    return ListAttachedRolePoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListAttachedRolePolicies', {
+      'RoleName': roleName,
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListAttachedRolePoliciesResponse.fromJson(response_);
   }
 
   /// Lists all managed policies that are attached to the specified IAM user.
@@ -2713,7 +3065,13 @@ class IamApi {
       {String pathPrefix,
       String marker,
       int maxItems}) async {
-    return ListAttachedUserPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListAttachedUserPolicies', {
+      'UserName': userName,
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListAttachedUserPoliciesResponse.fromJson(response_);
   }
 
   /// Lists all IAM users, groups, and roles that the specified managed policy
@@ -2783,7 +3141,15 @@ class IamApi {
       String policyUsageFilter,
       String marker,
       int maxItems}) async {
-    return ListEntitiesForPolicyResponse.fromJson({});
+    var response_ = await _client.send('ListEntitiesForPolicy', {
+      'PolicyArn': policyArn,
+      if (entityFilter != null) 'EntityFilter': entityFilter,
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (policyUsageFilter != null) 'PolicyUsageFilter': policyUsageFilter,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListEntitiesForPolicyResponse.fromJson(response_);
   }
 
   /// Lists the names of the inline policies that are embedded in the specified
@@ -2822,7 +3188,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListGroupPoliciesResponse> listGroupPolicies(String groupName,
       {String marker, int maxItems}) async {
-    return ListGroupPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListGroupPolicies', {
+      'GroupName': groupName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListGroupPoliciesResponse.fromJson(response_);
   }
 
   /// Lists the IAM groups that have the specified path prefix.
@@ -2858,7 +3229,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListGroupsResponse> listGroups(
       {String pathPrefix, String marker, int maxItems}) async {
-    return ListGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListGroups', {
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListGroupsResponse.fromJson(response_);
   }
 
   /// Lists the IAM groups that the specified IAM user belongs to.
@@ -2888,7 +3264,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListGroupsForUserResponse> listGroupsForUser(String userName,
       {String marker, int maxItems}) async {
-    return ListGroupsForUserResponse.fromJson({});
+    var response_ = await _client.send('ListGroupsForUser', {
+      'UserName': userName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListGroupsForUserResponse.fromJson(response_);
   }
 
   /// Lists the instance profiles that have the specified path prefix. If there
@@ -2926,7 +3307,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListInstanceProfilesResponse> listInstanceProfiles(
       {String pathPrefix, String marker, int maxItems}) async {
-    return ListInstanceProfilesResponse.fromJson({});
+    var response_ = await _client.send('ListInstanceProfiles', {
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListInstanceProfilesResponse.fromJson(response_);
   }
 
   /// Lists the instance profiles that have the specified associated IAM role.
@@ -2961,7 +3347,12 @@ class IamApi {
       String roleName,
       {String marker,
       int maxItems}) async {
-    return ListInstanceProfilesForRoleResponse.fromJson({});
+    var response_ = await _client.send('ListInstanceProfilesForRole', {
+      'RoleName': roleName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListInstanceProfilesForRoleResponse.fromJson(response_);
   }
 
   /// Lists the MFA devices for an IAM user. If the request includes a IAM user
@@ -2995,14 +3386,20 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListMfaDevicesResponse> listMfaDevices(
       {String userName, String marker, int maxItems}) async {
-    return ListMfaDevicesResponse.fromJson({});
+    var response_ = await _client.send('ListMFADevices', {
+      if (userName != null) 'UserName': userName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListMfaDevicesResponse.fromJson(response_);
   }
 
   /// Lists information about the IAM OpenID Connect (OIDC) provider resource
   /// objects defined in the AWS account.
   Future<ListOpenIDConnectProvidersResponse>
       listOpenIDConnectProviders() async {
-    return ListOpenIDConnectProvidersResponse.fromJson({});
+    var response_ = await _client.send('ListOpenIDConnectProviders', {});
+    return ListOpenIDConnectProvidersResponse.fromJson(response_);
   }
 
   /// Lists all the managed policies that are available in your AWS account,
@@ -3077,7 +3474,15 @@ class IamApi {
       String policyUsageFilter,
       String marker,
       int maxItems}) async {
-    return ListPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListPolicies', {
+      if (scope != null) 'Scope': scope,
+      if (onlyAttached != null) 'OnlyAttached': onlyAttached,
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (policyUsageFilter != null) 'PolicyUsageFilter': policyUsageFilter,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListPoliciesResponse.fromJson(response_);
   }
 
   /// Retrieves a list of policies that the IAM identity (user, group, or role)
@@ -3144,7 +3549,12 @@ class IamApi {
           {String marker,
           @required String arn,
           @required List<String> serviceNamespaces}) async {
-    return ListPoliciesGrantingServiceAccessResponse.fromJson({});
+    var response_ = await _client.send('ListPoliciesGrantingServiceAccess', {
+      if (marker != null) 'Marker': marker,
+      'Arn': arn,
+      'ServiceNamespaces': serviceNamespaces,
+    });
+    return ListPoliciesGrantingServiceAccessResponse.fromJson(response_);
   }
 
   /// Lists information about the versions of the specified managed policy,
@@ -3178,7 +3588,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListPolicyVersionsResponse> listPolicyVersions(String policyArn,
       {String marker, int maxItems}) async {
-    return ListPolicyVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListPolicyVersions', {
+      'PolicyArn': policyArn,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListPolicyVersionsResponse.fromJson(response_);
   }
 
   /// Lists the names of the inline policies that are embedded in the specified
@@ -3217,7 +3632,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListRolePoliciesResponse> listRolePolicies(String roleName,
       {String marker, int maxItems}) async {
-    return ListRolePoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListRolePolicies', {
+      'RoleName': roleName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListRolePoliciesResponse.fromJson(response_);
   }
 
   /// Lists the tags that are attached to the specified role. The returned list
@@ -3250,7 +3670,12 @@ class IamApi {
   /// where to continue from.
   Future<ListRoleTagsResponse> listRoleTags(String roleName,
       {String marker, int maxItems}) async {
-    return ListRoleTagsResponse.fromJson({});
+    var response_ = await _client.send('ListRoleTags', {
+      'RoleName': roleName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListRoleTagsResponse.fromJson(response_);
   }
 
   /// Lists the IAM roles that have the specified path prefix. If there are
@@ -3288,7 +3713,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListRolesResponse> listRoles(
       {String pathPrefix, String marker, int maxItems}) async {
-    return ListRolesResponse.fromJson({});
+    var response_ = await _client.send('ListRoles', {
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListRolesResponse.fromJson(response_);
   }
 
   /// Lists the SAML provider resource objects defined in IAM in the account.
@@ -3296,7 +3726,8 @@ class IamApi {
   ///   This operation requires
   /// [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   Future<ListSamlProvidersResponse> listSamlProviders() async {
-    return ListSamlProvidersResponse.fromJson({});
+    var response_ = await _client.send('ListSAMLProviders', {});
+    return ListSamlProvidersResponse.fromJson(response_);
   }
 
   /// Returns information about the SSH public keys associated with the
@@ -3337,7 +3768,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListSshPublicKeysResponse> listSshPublicKeys(
       {String userName, String marker, int maxItems}) async {
-    return ListSshPublicKeysResponse.fromJson({});
+    var response_ = await _client.send('ListSSHPublicKeys', {
+      if (userName != null) 'UserName': userName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListSshPublicKeysResponse.fromJson(response_);
   }
 
   /// Lists the server certificates stored in IAM that have the specified path
@@ -3379,7 +3815,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListServerCertificatesResponse> listServerCertificates(
       {String pathPrefix, String marker, int maxItems}) async {
-    return ListServerCertificatesResponse.fromJson({});
+    var response_ = await _client.send('ListServerCertificates', {
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListServerCertificatesResponse.fromJson(response_);
   }
 
   /// Returns information about the service-specific credentials associated with
@@ -3405,7 +3846,11 @@ class IamApi {
   /// credentials for all services.
   Future<ListServiceSpecificCredentialsResponse> listServiceSpecificCredentials(
       {String userName, String serviceName}) async {
-    return ListServiceSpecificCredentialsResponse.fromJson({});
+    var response_ = await _client.send('ListServiceSpecificCredentials', {
+      if (userName != null) 'UserName': userName,
+      if (serviceName != null) 'ServiceName': serviceName,
+    });
+    return ListServiceSpecificCredentialsResponse.fromJson(response_);
   }
 
   /// Returns information about the signing certificates associated with the
@@ -3445,7 +3890,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListSigningCertificatesResponse> listSigningCertificates(
       {String userName, String marker, int maxItems}) async {
-    return ListSigningCertificatesResponse.fromJson({});
+    var response_ = await _client.send('ListSigningCertificates', {
+      if (userName != null) 'UserName': userName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListSigningCertificatesResponse.fromJson(response_);
   }
 
   /// Lists the names of the inline policies embedded in the specified IAM user.
@@ -3483,7 +3933,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListUserPoliciesResponse> listUserPolicies(String userName,
       {String marker, int maxItems}) async {
-    return ListUserPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListUserPolicies', {
+      'UserName': userName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListUserPoliciesResponse.fromJson(response_);
   }
 
   /// Lists the tags that are attached to the specified user. The returned list
@@ -3515,7 +3970,12 @@ class IamApi {
   /// where to continue from.
   Future<ListUserTagsResponse> listUserTags(String userName,
       {String marker, int maxItems}) async {
-    return ListUserTagsResponse.fromJson({});
+    var response_ = await _client.send('ListUserTags', {
+      'UserName': userName,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListUserTagsResponse.fromJson(response_);
   }
 
   /// Lists the IAM users that have the specified path prefix. If no path prefix
@@ -3552,7 +4012,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListUsersResponse> listUsers(
       {String pathPrefix, String marker, int maxItems}) async {
-    return ListUsersResponse.fromJson({});
+    var response_ = await _client.send('ListUsers', {
+      if (pathPrefix != null) 'PathPrefix': pathPrefix,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListUsersResponse.fromJson(response_);
   }
 
   /// Lists the virtual MFA devices defined in the AWS account by assignment
@@ -3583,7 +4048,12 @@ class IamApi {
   /// that tells the service where to continue from.
   Future<ListVirtualMfaDevicesResponse> listVirtualMfaDevices(
       {String assignmentStatus, String marker, int maxItems}) async {
-    return ListVirtualMfaDevicesResponse.fromJson({});
+    var response_ = await _client.send('ListVirtualMFADevices', {
+      if (assignmentStatus != null) 'AssignmentStatus': assignmentStatus,
+      if (marker != null) 'Marker': marker,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return ListVirtualMfaDevicesResponse.fromJson(response_);
   }
 
   /// Adds or updates an inline policy document that is embedded in the
@@ -3643,7 +4113,13 @@ class IamApi {
   Future<void> putGroupPolicy(
       {@required String groupName,
       @required String policyName,
-      @required String policyDocument}) async {}
+      @required String policyDocument}) async {
+    await _client.send('PutGroupPolicy', {
+      'GroupName': groupName,
+      'PolicyName': policyName,
+      'PolicyDocument': policyDocument,
+    });
+  }
 
   /// Adds or updates the policy that is specified as the IAM role's permissions
   /// boundary. You can use an AWS managed policy or a customer managed policy
@@ -3667,8 +4143,12 @@ class IamApi {
   /// [permissionsBoundary]: The ARN of the policy that is used to set the
   /// permissions boundary for the role.
   Future<void> putRolePermissionsBoundary(
-      {@required String roleName,
-      @required String permissionsBoundary}) async {}
+      {@required String roleName, @required String permissionsBoundary}) async {
+    await _client.send('PutRolePermissionsBoundary', {
+      'RoleName': roleName,
+      'PermissionsBoundary': permissionsBoundary,
+    });
+  }
 
   /// Adds or updates an inline policy document that is embedded in the
   /// specified IAM role.
@@ -3734,7 +4214,13 @@ class IamApi {
   Future<void> putRolePolicy(
       {@required String roleName,
       @required String policyName,
-      @required String policyDocument}) async {}
+      @required String policyDocument}) async {
+    await _client.send('PutRolePolicy', {
+      'RoleName': roleName,
+      'PolicyName': policyName,
+      'PolicyDocument': policyDocument,
+    });
+  }
 
   /// Adds or updates the policy that is specified as the IAM user's permissions
   /// boundary. You can use an AWS managed policy or a customer managed policy
@@ -3756,8 +4242,12 @@ class IamApi {
   /// [permissionsBoundary]: The ARN of the policy that is used to set the
   /// permissions boundary for the user.
   Future<void> putUserPermissionsBoundary(
-      {@required String userName,
-      @required String permissionsBoundary}) async {}
+      {@required String userName, @required String permissionsBoundary}) async {
+    await _client.send('PutUserPermissionsBoundary', {
+      'UserName': userName,
+      'PermissionsBoundary': permissionsBoundary,
+    });
+  }
 
   /// Adds or updates an inline policy document that is embedded in the
   /// specified IAM user.
@@ -3816,7 +4306,13 @@ class IamApi {
   Future<void> putUserPolicy(
       {@required String userName,
       @required String policyName,
-      @required String policyDocument}) async {}
+      @required String policyDocument}) async {
+    await _client.send('PutUserPolicy', {
+      'UserName': userName,
+      'PolicyName': policyName,
+      'PolicyDocument': policyDocument,
+    });
+  }
 
   /// Removes the specified client ID (also known as audience) from the list of
   /// client IDs registered for the specified IAM OpenID Connect (OIDC) provider
@@ -3838,7 +4334,12 @@ class IamApi {
   /// CreateOpenIDConnectProvider.
   Future<void> removeClientIDFromOpenIDConnectProvider(
       {@required String openIDConnectProviderArn,
-      @required String clientID}) async {}
+      @required String clientID}) async {
+    await _client.send('RemoveClientIDFromOpenIDConnectProvider', {
+      'OpenIDConnectProviderArn': openIDConnectProviderArn,
+      'ClientID': clientID,
+    });
+  }
 
   /// Removes the specified IAM role from the specified EC2 instance profile.
   ///
@@ -3866,8 +4367,12 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> removeRoleFromInstanceProfile(
-      {@required String instanceProfileName,
-      @required String roleName}) async {}
+      {@required String instanceProfileName, @required String roleName}) async {
+    await _client.send('RemoveRoleFromInstanceProfile', {
+      'InstanceProfileName': instanceProfileName,
+      'RoleName': roleName,
+    });
+  }
 
   /// Removes the specified user from the specified group.
   ///
@@ -3885,7 +4390,12 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> removeUserFromGroup(
-      {@required String groupName, @required String userName}) async {}
+      {@required String groupName, @required String userName}) async {
+    await _client.send('RemoveUserFromGroup', {
+      'GroupName': groupName,
+      'UserName': userName,
+    });
+  }
 
   /// Resets the password for a service-specific credential. The new password is
   /// AWS generated and cryptographically strong. It cannot be configured by the
@@ -3910,7 +4420,11 @@ class IamApi {
   Future<ResetServiceSpecificCredentialResponse> resetServiceSpecificCredential(
       String serviceSpecificCredentialId,
       {String userName}) async {
-    return ResetServiceSpecificCredentialResponse.fromJson({});
+    var response_ = await _client.send('ResetServiceSpecificCredential', {
+      if (userName != null) 'UserName': userName,
+      'ServiceSpecificCredentialId': serviceSpecificCredentialId,
+    });
+    return ResetServiceSpecificCredentialResponse.fromJson(response_);
   }
 
   /// Synchronizes the specified MFA device with its IAM resource object on the
@@ -3948,7 +4462,14 @@ class IamApi {
       {@required String userName,
       @required String serialNumber,
       @required String authenticationCode1,
-      @required String authenticationCode2}) async {}
+      @required String authenticationCode2}) async {
+    await _client.send('ResyncMFADevice', {
+      'UserName': userName,
+      'SerialNumber': serialNumber,
+      'AuthenticationCode1': authenticationCode1,
+      'AuthenticationCode2': authenticationCode2,
+    });
+  }
 
   /// Sets the specified version of the specified policy as the policy's default
   /// (operative) version.
@@ -3975,7 +4496,12 @@ class IamApi {
   /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   Future<void> setDefaultPolicyVersion(
-      {@required String policyArn, @required String versionId}) async {}
+      {@required String policyArn, @required String versionId}) async {
+    await _client.send('SetDefaultPolicyVersion', {
+      'PolicyArn': policyArn,
+      'VersionId': versionId,
+    });
+  }
 
   /// Sets the specified version of the global endpoint token as the token
   /// version used for the AWS account.
@@ -4014,7 +4540,11 @@ class IamApi {
   /// [Activating and Deactivating STS in an AWS Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
   /// in the _IAM User Guide_.
   Future<void> setSecurityTokenServicePreferences(
-      String globalEndpointTokenVersion) async {}
+      String globalEndpointTokenVersion) async {
+    await _client.send('SetSecurityTokenServicePreferences', {
+      'GlobalEndpointTokenVersion': globalEndpointTokenVersion,
+    });
+  }
 
   /// Simulate how a set of IAM policies and optionally a resource-based policy
   /// works with a list of API operations and AWS resources to determine the
@@ -4198,7 +4728,20 @@ class IamApi {
       String resourceHandlingOption,
       int maxItems,
       String marker}) async {
-    return SimulatePolicyResponse.fromJson({});
+    var response_ = await _client.send('SimulateCustomPolicy', {
+      'PolicyInputList': policyInputList,
+      'ActionNames': actionNames,
+      if (resourceArns != null) 'ResourceArns': resourceArns,
+      if (resourcePolicy != null) 'ResourcePolicy': resourcePolicy,
+      if (resourceOwner != null) 'ResourceOwner': resourceOwner,
+      if (callerArn != null) 'CallerArn': callerArn,
+      if (contextEntries != null) 'ContextEntries': contextEntries,
+      if (resourceHandlingOption != null)
+        'ResourceHandlingOption': resourceHandlingOption,
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (marker != null) 'Marker': marker,
+    });
+    return SimulatePolicyResponse.fromJson(response_);
   }
 
   /// Simulate how a set of IAM policies attached to an IAM entity works with a
@@ -4399,7 +4942,21 @@ class IamApi {
       String resourceHandlingOption,
       int maxItems,
       String marker}) async {
-    return SimulatePolicyResponse.fromJson({});
+    var response_ = await _client.send('SimulatePrincipalPolicy', {
+      'PolicySourceArn': policySourceArn,
+      if (policyInputList != null) 'PolicyInputList': policyInputList,
+      'ActionNames': actionNames,
+      if (resourceArns != null) 'ResourceArns': resourceArns,
+      if (resourcePolicy != null) 'ResourcePolicy': resourcePolicy,
+      if (resourceOwner != null) 'ResourceOwner': resourceOwner,
+      if (callerArn != null) 'CallerArn': callerArn,
+      if (contextEntries != null) 'ContextEntries': contextEntries,
+      if (resourceHandlingOption != null)
+        'ResourceHandlingOption': resourceHandlingOption,
+      if (maxItems != null) 'MaxItems': maxItems,
+      if (marker != null) 'Marker': marker,
+    });
+    return SimulatePolicyResponse.fromJson(response_);
   }
 
   /// Adds one or more tags to an IAM role. The role can be a regular role or a
@@ -4450,7 +5007,12 @@ class IamApi {
   /// consists of a key name and an associated value. You can specify this with
   /// a JSON string.
   Future<void> tagRole(
-      {@required String roleName, @required List<Tag> tags}) async {}
+      {@required String roleName, @required List<Tag> tags}) async {
+    await _client.send('TagRole', {
+      'RoleName': roleName,
+      'Tags': tags,
+    });
+  }
 
   /// Adds one or more tags to an IAM user. If a tag with the same key name
   /// already exists, then that tag is overwritten with the new value.
@@ -4499,7 +5061,12 @@ class IamApi {
   /// [tags]: The list of tags that you want to attach to the user. Each tag
   /// consists of a key name and an associated value.
   Future<void> tagUser(
-      {@required String userName, @required List<Tag> tags}) async {}
+      {@required String userName, @required List<Tag> tags}) async {
+    await _client.send('TagUser', {
+      'UserName': userName,
+      'Tags': tags,
+    });
+  }
 
   /// Removes the specified tags from the role. For more information about
   /// tagging, see
@@ -4516,7 +5083,12 @@ class IamApi {
   /// [tagKeys]: A list of key names as a simple array of strings. The tags with
   /// matching keys are removed from the specified role.
   Future<void> untagRole(
-      {@required String roleName, @required List<String> tagKeys}) async {}
+      {@required String roleName, @required List<String> tagKeys}) async {
+    await _client.send('UntagRole', {
+      'RoleName': roleName,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Removes the specified tags from the user. For more information about
   /// tagging, see
@@ -4533,7 +5105,12 @@ class IamApi {
   /// [tagKeys]: A list of key names as a simple array of strings. The tags with
   /// matching keys are removed from the specified user.
   Future<void> untagUser(
-      {@required String userName, @required List<String> tagKeys}) async {}
+      {@required String userName, @required List<String> tagKeys}) async {
+    await _client.send('UntagUser', {
+      'UserName': userName,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Changes the status of the specified access key from Active to Inactive, or
   /// vice versa. This operation can be used to disable a user's key as part of
@@ -4569,7 +5146,13 @@ class IamApi {
   Future<void> updateAccessKey(
       {String userName,
       @required String accessKeyId,
-      @required String status}) async {}
+      @required String status}) async {
+    await _client.send('UpdateAccessKey', {
+      if (userName != null) 'UserName': userName,
+      'AccessKeyId': accessKeyId,
+      'Status': status,
+    });
+  }
 
   /// Updates the password policy settings for the AWS account.
   ///
@@ -4662,7 +5245,24 @@ class IamApi {
       bool allowUsersToChangePassword,
       int maxPasswordAge,
       int passwordReusePrevention,
-      bool hardExpiry}) async {}
+      bool hardExpiry}) async {
+    await _client.send('UpdateAccountPasswordPolicy', {
+      if (minimumPasswordLength != null)
+        'MinimumPasswordLength': minimumPasswordLength,
+      if (requireSymbols != null) 'RequireSymbols': requireSymbols,
+      if (requireNumbers != null) 'RequireNumbers': requireNumbers,
+      if (requireUppercaseCharacters != null)
+        'RequireUppercaseCharacters': requireUppercaseCharacters,
+      if (requireLowercaseCharacters != null)
+        'RequireLowercaseCharacters': requireLowercaseCharacters,
+      if (allowUsersToChangePassword != null)
+        'AllowUsersToChangePassword': allowUsersToChangePassword,
+      if (maxPasswordAge != null) 'MaxPasswordAge': maxPasswordAge,
+      if (passwordReusePrevention != null)
+        'PasswordReusePrevention': passwordReusePrevention,
+      if (hardExpiry != null) 'HardExpiry': hardExpiry,
+    });
+  }
 
   /// Updates the policy that grants an IAM entity permission to assume a role.
   /// This is typically referred to as the "role trust policy". For more
@@ -4696,7 +5296,12 @@ class IamApi {
   /// *   The special characters tab (u0009), line feed (u000A), and carriage
   /// return (u000D)
   Future<void> updateAssumeRolePolicy(
-      {@required String roleName, @required String policyDocument}) async {}
+      {@required String roleName, @required String policyDocument}) async {
+    await _client.send('UpdateAssumeRolePolicy', {
+      'RoleName': roleName,
+      'PolicyDocument': policyDocument,
+    });
+  }
 
   /// Updates the name and/or the path of the specified IAM group.
   ///
@@ -4738,7 +5343,13 @@ class IamApi {
   /// Names are not distinguished by case. For example, you cannot create
   /// resources named both "MyResource" and "myresource".
   Future<void> updateGroup(String groupName,
-      {String newPath, String newGroupName}) async {}
+      {String newPath, String newGroupName}) async {
+    await _client.send('UpdateGroup', {
+      'GroupName': groupName,
+      if (newPath != null) 'NewPath': newPath,
+      if (newGroupName != null) 'NewGroupName': newGroupName,
+    });
+  }
 
   /// Changes the password for the specified IAM user.
   ///
@@ -4776,7 +5387,14 @@ class IamApi {
   /// [passwordResetRequired]: Allows this new password to be used only once by
   /// requiring the specified IAM user to set a new password on next sign-in.
   Future<void> updateLoginProfile(String userName,
-      {String password, bool passwordResetRequired}) async {}
+      {String password, bool passwordResetRequired}) async {
+    await _client.send('UpdateLoginProfile', {
+      'UserName': userName,
+      if (password != null) 'Password': password,
+      if (passwordResetRequired != null)
+        'PasswordResetRequired': passwordResetRequired,
+    });
+  }
 
   /// Replaces the existing list of server certificate thumbprints associated
   /// with an OpenID Connect (OIDC) provider resource object with a new list of
@@ -4812,7 +5430,12 @@ class IamApi {
   /// CreateOpenIDConnectProvider.
   Future<void> updateOpenIDConnectProviderThumbprint(
       {@required String openIDConnectProviderArn,
-      @required List<String> thumbprintList}) async {}
+      @required List<String> thumbprintList}) async {
+    await _client.send('UpdateOpenIDConnectProviderThumbprint', {
+      'OpenIDConnectProviderArn': openIDConnectProviderArn,
+      'ThumbprintList': thumbprintList,
+    });
+  }
 
   /// Updates the description or maximum session duration setting of a role.
   ///
@@ -4839,7 +5462,12 @@ class IamApi {
   /// in the _IAM User Guide_.
   Future<UpdateRoleResponse> updateRole(String roleName,
       {String description, int maxSessionDuration}) async {
-    return UpdateRoleResponse.fromJson({});
+    var response_ = await _client.send('UpdateRole', {
+      'RoleName': roleName,
+      if (description != null) 'Description': description,
+      if (maxSessionDuration != null) 'MaxSessionDuration': maxSessionDuration,
+    });
+    return UpdateRoleResponse.fromJson(response_);
   }
 
   /// Use UpdateRole instead.
@@ -4853,7 +5481,11 @@ class IamApi {
   /// role.
   Future<UpdateRoleDescriptionResponse> updateRoleDescription(
       {@required String roleName, @required String description}) async {
-    return UpdateRoleDescriptionResponse.fromJson({});
+    var response_ = await _client.send('UpdateRoleDescription', {
+      'RoleName': roleName,
+      'Description': description,
+    });
+    return UpdateRoleDescriptionResponse.fromJson(response_);
   }
 
   /// Updates the metadata document for an existing SAML provider resource
@@ -4880,7 +5512,11 @@ class IamApi {
   Future<UpdateSamlProviderResponse> updateSamlProvider(
       {@required String samlMetadataDocument,
       @required String samlProviderArn}) async {
-    return UpdateSamlProviderResponse.fromJson({});
+    var response_ = await _client.send('UpdateSAMLProvider', {
+      'SAMLMetadataDocument': samlMetadataDocument,
+      'SAMLProviderArn': samlProviderArn,
+    });
+    return UpdateSamlProviderResponse.fromJson(response_);
   }
 
   /// Sets the status of an IAM user's SSH public key to active or inactive. SSH
@@ -4914,7 +5550,13 @@ class IamApi {
   Future<void> updateSshPublicKey(
       {@required String userName,
       @required String sshPublicKeyId,
-      @required String status}) async {}
+      @required String status}) async {
+    await _client.send('UpdateSSHPublicKey', {
+      'UserName': userName,
+      'SSHPublicKeyId': sshPublicKeyId,
+      'Status': status,
+    });
+  }
 
   /// Updates the name and/or the path of the specified server certificate
   /// stored in IAM.
@@ -4966,7 +5608,14 @@ class IamApi {
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> updateServerCertificate(String serverCertificateName,
-      {String newPath, String newServerCertificateName}) async {}
+      {String newPath, String newServerCertificateName}) async {
+    await _client.send('UpdateServerCertificate', {
+      'ServerCertificateName': serverCertificateName,
+      if (newPath != null) 'NewPath': newPath,
+      if (newServerCertificateName != null)
+        'NewServerCertificateName': newServerCertificateName,
+    });
+  }
 
   /// Sets the status of a service-specific credential to `Active` or
   /// `Inactive`. Service-specific credentials that are inactive cannot be used
@@ -4994,7 +5643,13 @@ class IamApi {
   Future<void> updateServiceSpecificCredential(
       {String userName,
       @required String serviceSpecificCredentialId,
-      @required String status}) async {}
+      @required String status}) async {
+    await _client.send('UpdateServiceSpecificCredential', {
+      if (userName != null) 'UserName': userName,
+      'ServiceSpecificCredentialId': serviceSpecificCredentialId,
+      'Status': status,
+    });
+  }
 
   /// Changes the status of the specified user signing certificate from active
   /// to disabled, or vice versa. This operation can be used to disable an IAM
@@ -5025,7 +5680,13 @@ class IamApi {
   Future<void> updateSigningCertificate(
       {String userName,
       @required String certificateId,
-      @required String status}) async {}
+      @required String status}) async {
+    await _client.send('UpdateSigningCertificate', {
+      if (userName != null) 'UserName': userName,
+      'CertificateId': certificateId,
+      'Status': status,
+    });
+  }
 
   /// Updates the name and/or the path of the specified IAM user.
   ///
@@ -5066,7 +5727,13 @@ class IamApi {
   /// Names are not distinguished by case. For example, you cannot create
   /// resources named both "MyResource" and "myresource".
   Future<void> updateUser(String userName,
-      {String newPath, String newUserName}) async {}
+      {String newPath, String newUserName}) async {
+    await _client.send('UpdateUser', {
+      'UserName': userName,
+      if (newPath != null) 'NewPath': newPath,
+      if (newUserName != null) 'NewUserName': newUserName,
+    });
+  }
 
   /// Uploads an SSH public key and associates it with the specified IAM user.
   ///
@@ -5102,7 +5769,11 @@ class IamApi {
   /// return (u000D)
   Future<UploadSshPublicKeyResponse> uploadSshPublicKey(
       {@required String userName, @required String sshPublicKeyBody}) async {
-    return UploadSshPublicKeyResponse.fromJson({});
+    var response_ = await _client.send('UploadSSHPublicKey', {
+      'UserName': userName,
+      'SSHPublicKeyBody': sshPublicKeyBody,
+    });
+    return UploadSshPublicKeyResponse.fromJson(response_);
   }
 
   /// Uploads a server certificate entity for the AWS account. The server
@@ -5216,7 +5887,14 @@ class IamApi {
       @required String certificateBody,
       @required String privateKey,
       String certificateChain}) async {
-    return UploadServerCertificateResponse.fromJson({});
+    var response_ = await _client.send('UploadServerCertificate', {
+      if (path != null) 'Path': path,
+      'ServerCertificateName': serverCertificateName,
+      'CertificateBody': certificateBody,
+      'PrivateKey': privateKey,
+      if (certificateChain != null) 'CertificateChain': certificateChain,
+    });
+    return UploadServerCertificateResponse.fromJson(response_);
   }
 
   /// Uploads an X.509 signing certificate and associates it with the specified
@@ -5264,7 +5942,11 @@ class IamApi {
   Future<UploadSigningCertificateResponse> uploadSigningCertificate(
       String certificateBody,
       {String userName}) async {
-    return UploadSigningCertificateResponse.fromJson({});
+    var response_ = await _client.send('UploadSigningCertificate', {
+      if (userName != null) 'UserName': userName,
+      'CertificateBody': certificateBody,
+    });
+    return UploadSigningCertificateResponse.fromJson(response_);
   }
 }
 
@@ -5331,7 +6013,21 @@ class AccessDetail {
     this.lastAuthenticatedTime,
     this.totalAuthenticatedEntities,
   });
-  static AccessDetail fromJson(Map<String, dynamic> json) => AccessDetail();
+  static AccessDetail fromJson(Map<String, dynamic> json) => AccessDetail(
+        serviceName: json['ServiceName'] as String,
+        serviceNamespace: json['ServiceNamespace'] as String,
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        entityPath: json.containsKey('EntityPath')
+            ? json['EntityPath'] as String
+            : null,
+        lastAuthenticatedTime: json.containsKey('LastAuthenticatedTime')
+            ? DateTime.parse(json['LastAuthenticatedTime'])
+            : null,
+        totalAuthenticatedEntities:
+            json.containsKey('TotalAuthenticatedEntities')
+                ? json['TotalAuthenticatedEntities'] as int
+                : null,
+      );
 }
 
 /// Contains information about an AWS access key.
@@ -5369,7 +6065,15 @@ class AccessKey {
     @required this.secretAccessKey,
     this.createDate,
   });
-  static AccessKey fromJson(Map<String, dynamic> json) => AccessKey();
+  static AccessKey fromJson(Map<String, dynamic> json) => AccessKey(
+        userName: json['UserName'] as String,
+        accessKeyId: json['AccessKeyId'] as String,
+        status: json['Status'] as String,
+        secretAccessKey: json['SecretAccessKey'] as String,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+      );
 }
 
 /// Contains information about the last time an AWS access key was used since
@@ -5424,7 +6128,11 @@ class AccessKeyLastUsed {
     @required this.region,
   });
   static AccessKeyLastUsed fromJson(Map<String, dynamic> json) =>
-      AccessKeyLastUsed();
+      AccessKeyLastUsed(
+        lastUsedDate: DateTime.parse(json['LastUsedDate']),
+        serviceName: json['ServiceName'] as String,
+        region: json['Region'] as String,
+      );
 }
 
 /// Contains information about an AWS access key, without its secret key.
@@ -5452,7 +6160,17 @@ class AccessKeyMetadata {
     this.createDate,
   });
   static AccessKeyMetadata fromJson(Map<String, dynamic> json) =>
-      AccessKeyMetadata();
+      AccessKeyMetadata(
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        accessKeyId: json.containsKey('AccessKeyId')
+            ? json['AccessKeyId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+      );
 }
 
 /// Contains information about an attached permissions boundary.
@@ -5478,7 +6196,14 @@ class AttachedPermissionsBoundary {
     this.permissionsBoundaryArn,
   });
   static AttachedPermissionsBoundary fromJson(Map<String, dynamic> json) =>
-      AttachedPermissionsBoundary();
+      AttachedPermissionsBoundary(
+        permissionsBoundaryType: json.containsKey('PermissionsBoundaryType')
+            ? json['PermissionsBoundaryType'] as String
+            : null,
+        permissionsBoundaryArn: json.containsKey('PermissionsBoundaryArn')
+            ? json['PermissionsBoundaryArn'] as String
+            : null,
+      );
 }
 
 /// Contains information about an attached policy.
@@ -5501,7 +6226,13 @@ class AttachedPolicy {
     this.policyName,
     this.policyArn,
   });
-  static AttachedPolicy fromJson(Map<String, dynamic> json) => AttachedPolicy();
+  static AttachedPolicy fromJson(Map<String, dynamic> json) => AttachedPolicy(
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        policyArn:
+            json.containsKey('PolicyArn') ? json['PolicyArn'] as String : null,
+      );
 }
 
 /// Contains information about a condition context key. It includes the name of
@@ -5530,6 +6261,7 @@ class ContextEntry {
     this.contextKeyValues,
     this.contextKeyType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the response to a successful CreateAccessKey request.
@@ -5541,7 +6273,9 @@ class CreateAccessKeyResponse {
     @required this.accessKey,
   });
   static CreateAccessKeyResponse fromJson(Map<String, dynamic> json) =>
-      CreateAccessKeyResponse();
+      CreateAccessKeyResponse(
+        accessKey: AccessKey.fromJson(json['AccessKey']),
+      );
 }
 
 /// Contains the response to a successful CreateGroup request.
@@ -5553,7 +6287,9 @@ class CreateGroupResponse {
     @required this.group,
   });
   static CreateGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateGroupResponse();
+      CreateGroupResponse(
+        group: Group.fromJson(json['Group']),
+      );
 }
 
 /// Contains the response to a successful CreateInstanceProfile request.
@@ -5565,7 +6301,9 @@ class CreateInstanceProfileResponse {
     @required this.instanceProfile,
   });
   static CreateInstanceProfileResponse fromJson(Map<String, dynamic> json) =>
-      CreateInstanceProfileResponse();
+      CreateInstanceProfileResponse(
+        instanceProfile: InstanceProfile.fromJson(json['InstanceProfile']),
+      );
 }
 
 /// Contains the response to a successful CreateLoginProfile request.
@@ -5577,7 +6315,9 @@ class CreateLoginProfileResponse {
     @required this.loginProfile,
   });
   static CreateLoginProfileResponse fromJson(Map<String, dynamic> json) =>
-      CreateLoginProfileResponse();
+      CreateLoginProfileResponse(
+        loginProfile: LoginProfile.fromJson(json['LoginProfile']),
+      );
 }
 
 /// Contains the response to a successful CreateOpenIDConnectProvider request.
@@ -5591,7 +6331,11 @@ class CreateOpenIDConnectProviderResponse {
   });
   static CreateOpenIDConnectProviderResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateOpenIDConnectProviderResponse();
+      CreateOpenIDConnectProviderResponse(
+        openIDConnectProviderArn: json.containsKey('OpenIDConnectProviderArn')
+            ? json['OpenIDConnectProviderArn'] as String
+            : null,
+      );
 }
 
 /// Contains the response to a successful CreatePolicy request.
@@ -5603,7 +6347,10 @@ class CreatePolicyResponse {
     this.policy,
   });
   static CreatePolicyResponse fromJson(Map<String, dynamic> json) =>
-      CreatePolicyResponse();
+      CreatePolicyResponse(
+        policy:
+            json.containsKey('Policy') ? Policy.fromJson(json['Policy']) : null,
+      );
 }
 
 /// Contains the response to a successful CreatePolicyVersion request.
@@ -5615,7 +6362,11 @@ class CreatePolicyVersionResponse {
     this.policyVersion,
   });
   static CreatePolicyVersionResponse fromJson(Map<String, dynamic> json) =>
-      CreatePolicyVersionResponse();
+      CreatePolicyVersionResponse(
+        policyVersion: json.containsKey('PolicyVersion')
+            ? PolicyVersion.fromJson(json['PolicyVersion'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful CreateRole request.
@@ -5627,7 +6378,9 @@ class CreateRoleResponse {
     @required this.role,
   });
   static CreateRoleResponse fromJson(Map<String, dynamic> json) =>
-      CreateRoleResponse();
+      CreateRoleResponse(
+        role: Role.fromJson(json['Role']),
+      );
 }
 
 /// Contains the response to a successful CreateSAMLProvider request.
@@ -5639,7 +6392,11 @@ class CreateSamlProviderResponse {
     this.samlProviderArn,
   });
   static CreateSamlProviderResponse fromJson(Map<String, dynamic> json) =>
-      CreateSamlProviderResponse();
+      CreateSamlProviderResponse(
+        samlProviderArn: json.containsKey('SAMLProviderArn')
+            ? json['SAMLProviderArn'] as String
+            : null,
+      );
 }
 
 class CreateServiceLinkedRoleResponse {
@@ -5650,7 +6407,9 @@ class CreateServiceLinkedRoleResponse {
     this.role,
   });
   static CreateServiceLinkedRoleResponse fromJson(Map<String, dynamic> json) =>
-      CreateServiceLinkedRoleResponse();
+      CreateServiceLinkedRoleResponse(
+        role: json.containsKey('Role') ? Role.fromJson(json['Role']) : null,
+      );
 }
 
 class CreateServiceSpecificCredentialResponse {
@@ -5669,7 +6428,12 @@ class CreateServiceSpecificCredentialResponse {
   });
   static CreateServiceSpecificCredentialResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateServiceSpecificCredentialResponse();
+      CreateServiceSpecificCredentialResponse(
+        serviceSpecificCredential: json.containsKey('ServiceSpecificCredential')
+            ? ServiceSpecificCredential.fromJson(
+                json['ServiceSpecificCredential'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful CreateUser request.
@@ -5681,7 +6445,9 @@ class CreateUserResponse {
     this.user,
   });
   static CreateUserResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserResponse();
+      CreateUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+      );
 }
 
 /// Contains the response to a successful CreateVirtualMFADevice request.
@@ -5693,7 +6459,9 @@ class CreateVirtualMfaDeviceResponse {
     @required this.virtualMfaDevice,
   });
   static CreateVirtualMfaDeviceResponse fromJson(Map<String, dynamic> json) =>
-      CreateVirtualMfaDeviceResponse();
+      CreateVirtualMfaDeviceResponse(
+        virtualMfaDevice: VirtualMfaDevice.fromJson(json['VirtualMFADevice']),
+      );
 }
 
 class DeleteServiceLinkedRoleResponse {
@@ -5706,7 +6474,9 @@ class DeleteServiceLinkedRoleResponse {
     @required this.deletionTaskId,
   });
   static DeleteServiceLinkedRoleResponse fromJson(Map<String, dynamic> json) =>
-      DeleteServiceLinkedRoleResponse();
+      DeleteServiceLinkedRoleResponse(
+        deletionTaskId: json['DeletionTaskId'] as String,
+      );
 }
 
 /// The reason that the service-linked role deletion failed.
@@ -5732,7 +6502,14 @@ class DeletionTaskFailureReasonType {
     this.roleUsageList,
   });
   static DeletionTaskFailureReasonType fromJson(Map<String, dynamic> json) =>
-      DeletionTaskFailureReasonType();
+      DeletionTaskFailureReasonType(
+        reason: json.containsKey('Reason') ? json['Reason'] as String : null,
+        roleUsageList: json.containsKey('RoleUsageList')
+            ? (json['RoleUsageList'] as List)
+                .map((e) => RoleUsageType.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An object that contains details about when the IAM entities (users or roles)
@@ -5759,7 +6536,12 @@ class EntityDetails {
     @required this.entityInfo,
     this.lastAuthenticated,
   });
-  static EntityDetails fromJson(Map<String, dynamic> json) => EntityDetails();
+  static EntityDetails fromJson(Map<String, dynamic> json) => EntityDetails(
+        entityInfo: EntityInfo.fromJson(json['EntityInfo']),
+        lastAuthenticated: json.containsKey('LastAuthenticated')
+            ? DateTime.parse(json['LastAuthenticated'])
+            : null,
+      );
 }
 
 /// Contains details about the specified entity (user or role).
@@ -5790,7 +6572,13 @@ class EntityInfo {
     @required this.id,
     this.path,
   });
-  static EntityInfo fromJson(Map<String, dynamic> json) => EntityInfo();
+  static EntityInfo fromJson(Map<String, dynamic> json) => EntityInfo(
+        arn: json['Arn'] as String,
+        name: json['Name'] as String,
+        type: json['Type'] as String,
+        id: json['Id'] as String,
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+      );
 }
 
 /// Contains information about the reason that the operation failed.
@@ -5809,7 +6597,10 @@ class ErrorDetails {
     @required this.message,
     @required this.code,
   });
-  static ErrorDetails fromJson(Map<String, dynamic> json) => ErrorDetails();
+  static ErrorDetails fromJson(Map<String, dynamic> json) => ErrorDetails(
+        message: json['Message'] as String,
+        code: json['Code'] as String,
+      );
 }
 
 /// Contains the results of a simulation.
@@ -5871,7 +6662,37 @@ class EvaluationResult {
     this.resourceSpecificResults,
   });
   static EvaluationResult fromJson(Map<String, dynamic> json) =>
-      EvaluationResult();
+      EvaluationResult(
+        evalActionName: json['EvalActionName'] as String,
+        evalResourceName: json.containsKey('EvalResourceName')
+            ? json['EvalResourceName'] as String
+            : null,
+        evalDecision: json['EvalDecision'] as String,
+        matchedStatements: json.containsKey('MatchedStatements')
+            ? (json['MatchedStatements'] as List)
+                .map((e) => Statement.fromJson(e))
+                .toList()
+            : null,
+        missingContextValues: json.containsKey('MissingContextValues')
+            ? (json['MissingContextValues'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        organizationsDecisionDetail:
+            json.containsKey('OrganizationsDecisionDetail')
+                ? OrganizationsDecisionDetail.fromJson(
+                    json['OrganizationsDecisionDetail'])
+                : null,
+        evalDecisionDetails: json.containsKey('EvalDecisionDetails')
+            ? (json['EvalDecisionDetails'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        resourceSpecificResults: json.containsKey('ResourceSpecificResults')
+            ? (json['ResourceSpecificResults'] as List)
+                .map((e) => ResourceSpecificResult.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a successful GenerateCredentialReport request.
@@ -5887,7 +6708,12 @@ class GenerateCredentialReportResponse {
     this.description,
   });
   static GenerateCredentialReportResponse fromJson(Map<String, dynamic> json) =>
-      GenerateCredentialReportResponse();
+      GenerateCredentialReportResponse(
+        state: json.containsKey('State') ? json['State'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class GenerateOrganizationsAccessReportResponse {
@@ -5900,7 +6726,9 @@ class GenerateOrganizationsAccessReportResponse {
   });
   static GenerateOrganizationsAccessReportResponse fromJson(
           Map<String, dynamic> json) =>
-      GenerateOrganizationsAccessReportResponse();
+      GenerateOrganizationsAccessReportResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 class GenerateServiceLastAccessedDetailsResponse {
@@ -5913,7 +6741,9 @@ class GenerateServiceLastAccessedDetailsResponse {
   });
   static GenerateServiceLastAccessedDetailsResponse fromJson(
           Map<String, dynamic> json) =>
-      GenerateServiceLastAccessedDetailsResponse();
+      GenerateServiceLastAccessedDetailsResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 /// Contains the response to a successful GetAccessKeyLastUsed request. It is
@@ -5931,7 +6761,13 @@ class GetAccessKeyLastUsedResponse {
     this.accessKeyLastUsed,
   });
   static GetAccessKeyLastUsedResponse fromJson(Map<String, dynamic> json) =>
-      GetAccessKeyLastUsedResponse();
+      GetAccessKeyLastUsedResponse(
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        accessKeyLastUsed: json.containsKey('AccessKeyLastUsed')
+            ? AccessKeyLastUsed.fromJson(json['AccessKeyLastUsed'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetAccountAuthorizationDetails
@@ -5972,7 +6808,32 @@ class GetAccountAuthorizationDetailsResponse {
   });
   static GetAccountAuthorizationDetailsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetAccountAuthorizationDetailsResponse();
+      GetAccountAuthorizationDetailsResponse(
+        userDetailList: json.containsKey('UserDetailList')
+            ? (json['UserDetailList'] as List)
+                .map((e) => UserDetail.fromJson(e))
+                .toList()
+            : null,
+        groupDetailList: json.containsKey('GroupDetailList')
+            ? (json['GroupDetailList'] as List)
+                .map((e) => GroupDetail.fromJson(e))
+                .toList()
+            : null,
+        roleDetailList: json.containsKey('RoleDetailList')
+            ? (json['RoleDetailList'] as List)
+                .map((e) => RoleDetail.fromJson(e))
+                .toList()
+            : null,
+        policies: json.containsKey('Policies')
+            ? (json['Policies'] as List)
+                .map((e) => ManagedPolicyDetail.fromJson(e))
+                .toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful GetAccountPasswordPolicy request.
@@ -5984,7 +6845,9 @@ class GetAccountPasswordPolicyResponse {
     @required this.passwordPolicy,
   });
   static GetAccountPasswordPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetAccountPasswordPolicyResponse();
+      GetAccountPasswordPolicyResponse(
+        passwordPolicy: PasswordPolicy.fromJson(json['PasswordPolicy']),
+      );
 }
 
 /// Contains the response to a successful GetAccountSummary request.
@@ -5997,7 +6860,12 @@ class GetAccountSummaryResponse {
     this.summaryMap,
   });
   static GetAccountSummaryResponse fromJson(Map<String, dynamic> json) =>
-      GetAccountSummaryResponse();
+      GetAccountSummaryResponse(
+        summaryMap: json.containsKey('SummaryMap')
+            ? (json['SummaryMap'] as Map)
+                .map((k, v) => MapEntry(k as String, v as int))
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetContextKeysForPrincipalPolicy or
@@ -6010,7 +6878,11 @@ class GetContextKeysForPolicyResponse {
     this.contextKeyNames,
   });
   static GetContextKeysForPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetContextKeysForPolicyResponse();
+      GetContextKeysForPolicyResponse(
+        contextKeyNames: json.containsKey('ContextKeyNames')
+            ? (json['ContextKeyNames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetCredentialReport request.
@@ -6031,7 +6903,16 @@ class GetCredentialReportResponse {
     this.generatedTime,
   });
   static GetCredentialReportResponse fromJson(Map<String, dynamic> json) =>
-      GetCredentialReportResponse();
+      GetCredentialReportResponse(
+        content:
+            json.containsKey('Content') ? Uint8List(json['Content']) : null,
+        reportFormat: json.containsKey('ReportFormat')
+            ? json['ReportFormat'] as String
+            : null,
+        generatedTime: json.containsKey('GeneratedTime')
+            ? DateTime.parse(json['GeneratedTime'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetGroupPolicy request.
@@ -6056,7 +6937,11 @@ class GetGroupPolicyResponse {
     @required this.policyDocument,
   });
   static GetGroupPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetGroupPolicyResponse();
+      GetGroupPolicyResponse(
+        groupName: json['GroupName'] as String,
+        policyName: json['PolicyName'] as String,
+        policyDocument: json['PolicyDocument'] as String,
+      );
 }
 
 /// Contains the response to a successful GetGroup request.
@@ -6087,7 +6972,14 @@ class GetGroupResponse {
     this.marker,
   });
   static GetGroupResponse fromJson(Map<String, dynamic> json) =>
-      GetGroupResponse();
+      GetGroupResponse(
+        group: Group.fromJson(json['Group']),
+        users: (json['Users'] as List).map((e) => User.fromJson(e)).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful GetInstanceProfile request.
@@ -6099,7 +6991,9 @@ class GetInstanceProfileResponse {
     @required this.instanceProfile,
   });
   static GetInstanceProfileResponse fromJson(Map<String, dynamic> json) =>
-      GetInstanceProfileResponse();
+      GetInstanceProfileResponse(
+        instanceProfile: InstanceProfile.fromJson(json['InstanceProfile']),
+      );
 }
 
 /// Contains the response to a successful GetLoginProfile request.
@@ -6112,7 +7006,9 @@ class GetLoginProfileResponse {
     @required this.loginProfile,
   });
   static GetLoginProfileResponse fromJson(Map<String, dynamic> json) =>
-      GetLoginProfileResponse();
+      GetLoginProfileResponse(
+        loginProfile: LoginProfile.fromJson(json['LoginProfile']),
+      );
 }
 
 /// Contains the response to a successful GetOpenIDConnectProvider request.
@@ -6142,7 +7038,18 @@ class GetOpenIDConnectProviderResponse {
     this.createDate,
   });
   static GetOpenIDConnectProviderResponse fromJson(Map<String, dynamic> json) =>
-      GetOpenIDConnectProviderResponse();
+      GetOpenIDConnectProviderResponse(
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+        clientIDList: json.containsKey('ClientIDList')
+            ? (json['ClientIDList'] as List).map((e) => e as String).toList()
+            : null,
+        thumbprintList: json.containsKey('ThumbprintList')
+            ? (json['ThumbprintList'] as List).map((e) => e as String).toList()
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+      );
 }
 
 class GetOrganizationsAccessReportResponse {
@@ -6202,7 +7109,33 @@ class GetOrganizationsAccessReportResponse {
   });
   static GetOrganizationsAccessReportResponse fromJson(
           Map<String, dynamic> json) =>
-      GetOrganizationsAccessReportResponse();
+      GetOrganizationsAccessReportResponse(
+        jobStatus: json['JobStatus'] as String,
+        jobCreationDate: DateTime.parse(json['JobCreationDate']),
+        jobCompletionDate: json.containsKey('JobCompletionDate')
+            ? DateTime.parse(json['JobCompletionDate'])
+            : null,
+        numberOfServicesAccessible:
+            json.containsKey('NumberOfServicesAccessible')
+                ? json['NumberOfServicesAccessible'] as int
+                : null,
+        numberOfServicesNotAccessed:
+            json.containsKey('NumberOfServicesNotAccessed')
+                ? json['NumberOfServicesNotAccessed'] as int
+                : null,
+        accessDetails: json.containsKey('AccessDetails')
+            ? (json['AccessDetails'] as List)
+                .map((e) => AccessDetail.fromJson(e))
+                .toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        errorDetails: json.containsKey('ErrorDetails')
+            ? ErrorDetails.fromJson(json['ErrorDetails'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetPolicy request.
@@ -6214,7 +7147,10 @@ class GetPolicyResponse {
     this.policy,
   });
   static GetPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetPolicyResponse();
+      GetPolicyResponse(
+        policy:
+            json.containsKey('Policy') ? Policy.fromJson(json['Policy']) : null,
+      );
 }
 
 /// Contains the response to a successful GetPolicyVersion request.
@@ -6226,7 +7162,11 @@ class GetPolicyVersionResponse {
     this.policyVersion,
   });
   static GetPolicyVersionResponse fromJson(Map<String, dynamic> json) =>
-      GetPolicyVersionResponse();
+      GetPolicyVersionResponse(
+        policyVersion: json.containsKey('PolicyVersion')
+            ? PolicyVersion.fromJson(json['PolicyVersion'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetRolePolicy request.
@@ -6251,7 +7191,11 @@ class GetRolePolicyResponse {
     @required this.policyDocument,
   });
   static GetRolePolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetRolePolicyResponse();
+      GetRolePolicyResponse(
+        roleName: json['RoleName'] as String,
+        policyName: json['PolicyName'] as String,
+        policyDocument: json['PolicyDocument'] as String,
+      );
 }
 
 /// Contains the response to a successful GetRole request.
@@ -6262,8 +7206,9 @@ class GetRoleResponse {
   GetRoleResponse({
     @required this.role,
   });
-  static GetRoleResponse fromJson(Map<String, dynamic> json) =>
-      GetRoleResponse();
+  static GetRoleResponse fromJson(Map<String, dynamic> json) => GetRoleResponse(
+        role: Role.fromJson(json['Role']),
+      );
 }
 
 /// Contains the response to a successful GetSAMLProvider request.
@@ -6284,7 +7229,17 @@ class GetSamlProviderResponse {
     this.validUntil,
   });
   static GetSamlProviderResponse fromJson(Map<String, dynamic> json) =>
-      GetSamlProviderResponse();
+      GetSamlProviderResponse(
+        samlMetadataDocument: json.containsKey('SAMLMetadataDocument')
+            ? json['SAMLMetadataDocument'] as String
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        validUntil: json.containsKey('ValidUntil')
+            ? DateTime.parse(json['ValidUntil'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetSSHPublicKey request.
@@ -6296,7 +7251,11 @@ class GetSshPublicKeyResponse {
     this.sshPublicKey,
   });
   static GetSshPublicKeyResponse fromJson(Map<String, dynamic> json) =>
-      GetSshPublicKeyResponse();
+      GetSshPublicKeyResponse(
+        sshPublicKey: json.containsKey('SSHPublicKey')
+            ? SshPublicKey.fromJson(json['SSHPublicKey'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetServerCertificate request.
@@ -6308,7 +7267,10 @@ class GetServerCertificateResponse {
     @required this.serverCertificate,
   });
   static GetServerCertificateResponse fromJson(Map<String, dynamic> json) =>
-      GetServerCertificateResponse();
+      GetServerCertificateResponse(
+        serverCertificate:
+            ServerCertificate.fromJson(json['ServerCertificate']),
+      );
 }
 
 class GetServiceLastAccessedDetailsResponse {
@@ -6359,7 +7321,21 @@ class GetServiceLastAccessedDetailsResponse {
   });
   static GetServiceLastAccessedDetailsResponse fromJson(
           Map<String, dynamic> json) =>
-      GetServiceLastAccessedDetailsResponse();
+      GetServiceLastAccessedDetailsResponse(
+        jobStatus: json['JobStatus'] as String,
+        jobCreationDate: DateTime.parse(json['JobCreationDate']),
+        servicesLastAccessed: (json['ServicesLastAccessed'] as List)
+            .map((e) => ServiceLastAccessed.fromJson(e))
+            .toList(),
+        jobCompletionDate: DateTime.parse(json['JobCompletionDate']),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        error: json.containsKey('Error')
+            ? ErrorDetails.fromJson(json['Error'])
+            : null,
+      );
 }
 
 class GetServiceLastAccessedDetailsWithEntitiesResponse {
@@ -6411,7 +7387,21 @@ class GetServiceLastAccessedDetailsWithEntitiesResponse {
   });
   static GetServiceLastAccessedDetailsWithEntitiesResponse fromJson(
           Map<String, dynamic> json) =>
-      GetServiceLastAccessedDetailsWithEntitiesResponse();
+      GetServiceLastAccessedDetailsWithEntitiesResponse(
+        jobStatus: json['JobStatus'] as String,
+        jobCreationDate: DateTime.parse(json['JobCreationDate']),
+        jobCompletionDate: DateTime.parse(json['JobCompletionDate']),
+        entityDetailsList: (json['EntityDetailsList'] as List)
+            .map((e) => EntityDetails.fromJson(e))
+            .toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        error: json.containsKey('Error')
+            ? ErrorDetails.fromJson(json['Error'])
+            : null,
+      );
 }
 
 class GetServiceLinkedRoleDeletionStatusResponse {
@@ -6427,7 +7417,12 @@ class GetServiceLinkedRoleDeletionStatusResponse {
   });
   static GetServiceLinkedRoleDeletionStatusResponse fromJson(
           Map<String, dynamic> json) =>
-      GetServiceLinkedRoleDeletionStatusResponse();
+      GetServiceLinkedRoleDeletionStatusResponse(
+        status: json['Status'] as String,
+        reason: json.containsKey('Reason')
+            ? DeletionTaskFailureReasonType.fromJson(json['Reason'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful GetUserPolicy request.
@@ -6452,7 +7447,11 @@ class GetUserPolicyResponse {
     @required this.policyDocument,
   });
   static GetUserPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetUserPolicyResponse();
+      GetUserPolicyResponse(
+        userName: json['UserName'] as String,
+        policyName: json['PolicyName'] as String,
+        policyDocument: json['PolicyDocument'] as String,
+      );
 }
 
 /// Contains the response to a successful GetUser request.
@@ -6482,8 +7481,9 @@ class GetUserResponse {
   GetUserResponse({
     @required this.user,
   });
-  static GetUserResponse fromJson(Map<String, dynamic> json) =>
-      GetUserResponse();
+  static GetUserResponse fromJson(Map<String, dynamic> json) => GetUserResponse(
+        user: User.fromJson(json['User']),
+      );
 }
 
 /// Contains information about an IAM group entity.
@@ -6528,7 +7528,13 @@ class Group {
     @required this.arn,
     @required this.createDate,
   });
-  static Group fromJson(Map<String, dynamic> json) => Group();
+  static Group fromJson(Map<String, dynamic> json) => Group(
+        path: json['Path'] as String,
+        groupName: json['GroupName'] as String,
+        groupId: json['GroupId'] as String,
+        arn: json['Arn'] as String,
+        createDate: DateTime.parse(json['CreateDate']),
+      );
 }
 
 /// Contains information about an IAM group, including all of the group's
@@ -6573,7 +7579,26 @@ class GroupDetail {
     this.groupPolicyList,
     this.attachedManagedPolicies,
   });
-  static GroupDetail fromJson(Map<String, dynamic> json) => GroupDetail();
+  static GroupDetail fromJson(Map<String, dynamic> json) => GroupDetail(
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        groupPolicyList: json.containsKey('GroupPolicyList')
+            ? (json['GroupPolicyList'] as List)
+                .map((e) => PolicyDetail.fromJson(e))
+                .toList()
+            : null,
+        attachedManagedPolicies: json.containsKey('AttachedManagedPolicies')
+            ? (json['AttachedManagedPolicies'] as List)
+                .map((e) => AttachedPolicy.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains information about an instance profile.
@@ -6622,8 +7647,14 @@ class InstanceProfile {
     @required this.createDate,
     @required this.roles,
   });
-  static InstanceProfile fromJson(Map<String, dynamic> json) =>
-      InstanceProfile();
+  static InstanceProfile fromJson(Map<String, dynamic> json) => InstanceProfile(
+        path: json['Path'] as String,
+        instanceProfileName: json['InstanceProfileName'] as String,
+        instanceProfileId: json['InstanceProfileId'] as String,
+        arn: json['Arn'] as String,
+        createDate: DateTime.parse(json['CreateDate']),
+        roles: (json['Roles'] as List).map((e) => Role.fromJson(e)).toList(),
+      );
 }
 
 /// Contains the response to a successful ListAccessKeys request.
@@ -6650,7 +7681,15 @@ class ListAccessKeysResponse {
     this.marker,
   });
   static ListAccessKeysResponse fromJson(Map<String, dynamic> json) =>
-      ListAccessKeysResponse();
+      ListAccessKeysResponse(
+        accessKeyMetadata: (json['AccessKeyMetadata'] as List)
+            .map((e) => AccessKeyMetadata.fromJson(e))
+            .toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListAccountAliases request.
@@ -6678,7 +7717,14 @@ class ListAccountAliasesResponse {
     this.marker,
   });
   static ListAccountAliasesResponse fromJson(Map<String, dynamic> json) =>
-      ListAccountAliasesResponse();
+      ListAccountAliasesResponse(
+        accountAliases:
+            (json['AccountAliases'] as List).map((e) => e as String).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListAttachedGroupPolicies request.
@@ -6706,7 +7752,17 @@ class ListAttachedGroupPoliciesResponse {
   });
   static ListAttachedGroupPoliciesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListAttachedGroupPoliciesResponse();
+      ListAttachedGroupPoliciesResponse(
+        attachedPolicies: json.containsKey('AttachedPolicies')
+            ? (json['AttachedPolicies'] as List)
+                .map((e) => AttachedPolicy.fromJson(e))
+                .toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListAttachedRolePolicies request.
@@ -6733,7 +7789,17 @@ class ListAttachedRolePoliciesResponse {
     this.marker,
   });
   static ListAttachedRolePoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListAttachedRolePoliciesResponse();
+      ListAttachedRolePoliciesResponse(
+        attachedPolicies: json.containsKey('AttachedPolicies')
+            ? (json['AttachedPolicies'] as List)
+                .map((e) => AttachedPolicy.fromJson(e))
+                .toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListAttachedUserPolicies request.
@@ -6760,7 +7826,17 @@ class ListAttachedUserPoliciesResponse {
     this.marker,
   });
   static ListAttachedUserPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListAttachedUserPoliciesResponse();
+      ListAttachedUserPoliciesResponse(
+        attachedPolicies: json.containsKey('AttachedPolicies')
+            ? (json['AttachedPolicies'] as List)
+                .map((e) => AttachedPolicy.fromJson(e))
+                .toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListEntitiesForPolicy request.
@@ -6795,7 +7871,27 @@ class ListEntitiesForPolicyResponse {
     this.marker,
   });
   static ListEntitiesForPolicyResponse fromJson(Map<String, dynamic> json) =>
-      ListEntitiesForPolicyResponse();
+      ListEntitiesForPolicyResponse(
+        policyGroups: json.containsKey('PolicyGroups')
+            ? (json['PolicyGroups'] as List)
+                .map((e) => PolicyGroup.fromJson(e))
+                .toList()
+            : null,
+        policyUsers: json.containsKey('PolicyUsers')
+            ? (json['PolicyUsers'] as List)
+                .map((e) => PolicyUser.fromJson(e))
+                .toList()
+            : null,
+        policyRoles: json.containsKey('PolicyRoles')
+            ? (json['PolicyRoles'] as List)
+                .map((e) => PolicyRole.fromJson(e))
+                .toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListGroupPolicies request.
@@ -6827,7 +7923,14 @@ class ListGroupPoliciesResponse {
     this.marker,
   });
   static ListGroupPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupPoliciesResponse();
+      ListGroupPoliciesResponse(
+        policyNames:
+            (json['PolicyNames'] as List).map((e) => e as String).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListGroupsForUser request.
@@ -6854,7 +7957,13 @@ class ListGroupsForUserResponse {
     this.marker,
   });
   static ListGroupsForUserResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupsForUserResponse();
+      ListGroupsForUserResponse(
+        groups: (json['Groups'] as List).map((e) => Group.fromJson(e)).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListGroups request.
@@ -6881,7 +7990,13 @@ class ListGroupsResponse {
     this.marker,
   });
   static ListGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListGroupsResponse();
+      ListGroupsResponse(
+        groups: (json['Groups'] as List).map((e) => Group.fromJson(e)).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListInstanceProfilesForRole request.
@@ -6909,7 +8024,15 @@ class ListInstanceProfilesForRoleResponse {
   });
   static ListInstanceProfilesForRoleResponse fromJson(
           Map<String, dynamic> json) =>
-      ListInstanceProfilesForRoleResponse();
+      ListInstanceProfilesForRoleResponse(
+        instanceProfiles: (json['InstanceProfiles'] as List)
+            .map((e) => InstanceProfile.fromJson(e))
+            .toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListInstanceProfiles request.
@@ -6936,7 +8059,15 @@ class ListInstanceProfilesResponse {
     this.marker,
   });
   static ListInstanceProfilesResponse fromJson(Map<String, dynamic> json) =>
-      ListInstanceProfilesResponse();
+      ListInstanceProfilesResponse(
+        instanceProfiles: (json['InstanceProfiles'] as List)
+            .map((e) => InstanceProfile.fromJson(e))
+            .toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListMFADevices request.
@@ -6963,7 +8094,15 @@ class ListMfaDevicesResponse {
     this.marker,
   });
   static ListMfaDevicesResponse fromJson(Map<String, dynamic> json) =>
-      ListMfaDevicesResponse();
+      ListMfaDevicesResponse(
+        mfaDevices: (json['MFADevices'] as List)
+            .map((e) => MfaDevice.fromJson(e))
+            .toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListOpenIDConnectProviders request.
@@ -6976,7 +8115,13 @@ class ListOpenIDConnectProvidersResponse {
   });
   static ListOpenIDConnectProvidersResponse fromJson(
           Map<String, dynamic> json) =>
-      ListOpenIDConnectProvidersResponse();
+      ListOpenIDConnectProvidersResponse(
+        openIDConnectProviderList: json.containsKey('OpenIDConnectProviderList')
+            ? (json['OpenIDConnectProviderList'] as List)
+                .map((e) => OpenIDConnectProviderListEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains details about the permissions policies that are attached to the
@@ -7007,7 +8152,16 @@ class ListPoliciesGrantingServiceAccessEntry {
   });
   static ListPoliciesGrantingServiceAccessEntry fromJson(
           Map<String, dynamic> json) =>
-      ListPoliciesGrantingServiceAccessEntry();
+      ListPoliciesGrantingServiceAccessEntry(
+        serviceNamespace: json.containsKey('ServiceNamespace')
+            ? json['ServiceNamespace'] as String
+            : null,
+        policies: json.containsKey('Policies')
+            ? (json['Policies'] as List)
+                .map((e) => PolicyGrantingServiceAccess.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListPoliciesGrantingServiceAccessResponse {
@@ -7036,7 +8190,16 @@ class ListPoliciesGrantingServiceAccessResponse {
   });
   static ListPoliciesGrantingServiceAccessResponse fromJson(
           Map<String, dynamic> json) =>
-      ListPoliciesGrantingServiceAccessResponse();
+      ListPoliciesGrantingServiceAccessResponse(
+        policiesGrantingServiceAccess:
+            (json['PoliciesGrantingServiceAccess'] as List)
+                .map((e) => ListPoliciesGrantingServiceAccessEntry.fromJson(e))
+                .toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListPolicies request.
@@ -7063,7 +8226,15 @@ class ListPoliciesResponse {
     this.marker,
   });
   static ListPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListPoliciesResponse();
+      ListPoliciesResponse(
+        policies: json.containsKey('Policies')
+            ? (json['Policies'] as List).map((e) => Policy.fromJson(e)).toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListPolicyVersions request.
@@ -7094,7 +8265,17 @@ class ListPolicyVersionsResponse {
     this.marker,
   });
   static ListPolicyVersionsResponse fromJson(Map<String, dynamic> json) =>
-      ListPolicyVersionsResponse();
+      ListPolicyVersionsResponse(
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List)
+                .map((e) => PolicyVersion.fromJson(e))
+                .toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListRolePolicies request.
@@ -7121,7 +8302,14 @@ class ListRolePoliciesResponse {
     this.marker,
   });
   static ListRolePoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListRolePoliciesResponse();
+      ListRolePoliciesResponse(
+        policyNames:
+            (json['PolicyNames'] as List).map((e) => e as String).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class ListRoleTagsResponse {
@@ -7149,7 +8337,13 @@ class ListRoleTagsResponse {
     this.marker,
   });
   static ListRoleTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListRoleTagsResponse();
+      ListRoleTagsResponse(
+        tags: (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListRoles request.
@@ -7176,7 +8370,13 @@ class ListRolesResponse {
     this.marker,
   });
   static ListRolesResponse fromJson(Map<String, dynamic> json) =>
-      ListRolesResponse();
+      ListRolesResponse(
+        roles: (json['Roles'] as List).map((e) => Role.fromJson(e)).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListSAMLProviders request.
@@ -7189,7 +8389,13 @@ class ListSamlProvidersResponse {
     this.samlProviderList,
   });
   static ListSamlProvidersResponse fromJson(Map<String, dynamic> json) =>
-      ListSamlProvidersResponse();
+      ListSamlProvidersResponse(
+        samlProviderList: json.containsKey('SAMLProviderList')
+            ? (json['SAMLProviderList'] as List)
+                .map((e) => SamlProviderListEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the response to a successful ListSSHPublicKeys request.
@@ -7216,7 +8422,17 @@ class ListSshPublicKeysResponse {
     this.marker,
   });
   static ListSshPublicKeysResponse fromJson(Map<String, dynamic> json) =>
-      ListSshPublicKeysResponse();
+      ListSshPublicKeysResponse(
+        sshPublicKeys: json.containsKey('SSHPublicKeys')
+            ? (json['SSHPublicKeys'] as List)
+                .map((e) => SshPublicKeyMetadata.fromJson(e))
+                .toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListServerCertificates request.
@@ -7243,7 +8459,16 @@ class ListServerCertificatesResponse {
     this.marker,
   });
   static ListServerCertificatesResponse fromJson(Map<String, dynamic> json) =>
-      ListServerCertificatesResponse();
+      ListServerCertificatesResponse(
+        serverCertificateMetadataList:
+            (json['ServerCertificateMetadataList'] as List)
+                .map((e) => ServerCertificateMetadata.fromJson(e))
+                .toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class ListServiceSpecificCredentialsResponse {
@@ -7256,7 +8481,14 @@ class ListServiceSpecificCredentialsResponse {
   });
   static ListServiceSpecificCredentialsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListServiceSpecificCredentialsResponse();
+      ListServiceSpecificCredentialsResponse(
+        serviceSpecificCredentials:
+            json.containsKey('ServiceSpecificCredentials')
+                ? (json['ServiceSpecificCredentials'] as List)
+                    .map((e) => ServiceSpecificCredentialMetadata.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Contains the response to a successful ListSigningCertificates request.
@@ -7283,7 +8515,15 @@ class ListSigningCertificatesResponse {
     this.marker,
   });
   static ListSigningCertificatesResponse fromJson(Map<String, dynamic> json) =>
-      ListSigningCertificatesResponse();
+      ListSigningCertificatesResponse(
+        certificates: (json['Certificates'] as List)
+            .map((e) => SigningCertificate.fromJson(e))
+            .toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListUserPolicies request.
@@ -7310,7 +8550,14 @@ class ListUserPoliciesResponse {
     this.marker,
   });
   static ListUserPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListUserPoliciesResponse();
+      ListUserPoliciesResponse(
+        policyNames:
+            (json['PolicyNames'] as List).map((e) => e as String).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class ListUserTagsResponse {
@@ -7338,7 +8585,13 @@ class ListUserTagsResponse {
     this.marker,
   });
   static ListUserTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListUserTagsResponse();
+      ListUserTagsResponse(
+        tags: (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListUsers request.
@@ -7365,7 +8618,13 @@ class ListUsersResponse {
     this.marker,
   });
   static ListUsersResponse fromJson(Map<String, dynamic> json) =>
-      ListUsersResponse();
+      ListUsersResponse(
+        users: (json['Users'] as List).map((e) => User.fromJson(e)).toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the response to a successful ListVirtualMFADevices request.
@@ -7393,7 +8652,15 @@ class ListVirtualMfaDevicesResponse {
     this.marker,
   });
   static ListVirtualMfaDevicesResponse fromJson(Map<String, dynamic> json) =>
-      ListVirtualMfaDevicesResponse();
+      ListVirtualMfaDevicesResponse(
+        virtualMfaDevices: (json['VirtualMFADevices'] as List)
+            .map((e) => VirtualMfaDevice.fromJson(e))
+            .toList(),
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains the user name and password create date for a user.
@@ -7417,7 +8684,13 @@ class LoginProfile {
     @required this.createDate,
     this.passwordResetRequired,
   });
-  static LoginProfile fromJson(Map<String, dynamic> json) => LoginProfile();
+  static LoginProfile fromJson(Map<String, dynamic> json) => LoginProfile(
+        userName: json['UserName'] as String,
+        createDate: DateTime.parse(json['CreateDate']),
+        passwordResetRequired: json.containsKey('PasswordResetRequired')
+            ? json['PasswordResetRequired'] as bool
+            : null,
+      );
 }
 
 /// Contains information about an MFA device.
@@ -7440,7 +8713,11 @@ class MfaDevice {
     @required this.serialNumber,
     @required this.enableDate,
   });
-  static MfaDevice fromJson(Map<String, dynamic> json) => MfaDevice();
+  static MfaDevice fromJson(Map<String, dynamic> json) => MfaDevice(
+        userName: json['UserName'] as String,
+        serialNumber: json['SerialNumber'] as String,
+        enableDate: DateTime.parse(json['EnableDate']),
+      );
 }
 
 /// Contains information about a managed policy, including the policy's ARN,
@@ -7533,7 +8810,42 @@ class ManagedPolicyDetail {
     this.policyVersionList,
   });
   static ManagedPolicyDetail fromJson(Map<String, dynamic> json) =>
-      ManagedPolicyDetail();
+      ManagedPolicyDetail(
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        policyId:
+            json.containsKey('PolicyId') ? json['PolicyId'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        defaultVersionId: json.containsKey('DefaultVersionId')
+            ? json['DefaultVersionId'] as String
+            : null,
+        attachmentCount: json.containsKey('AttachmentCount')
+            ? json['AttachmentCount'] as int
+            : null,
+        permissionsBoundaryUsageCount:
+            json.containsKey('PermissionsBoundaryUsageCount')
+                ? json['PermissionsBoundaryUsageCount'] as int
+                : null,
+        isAttachable: json.containsKey('IsAttachable')
+            ? json['IsAttachable'] as bool
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        updateDate: json.containsKey('UpdateDate')
+            ? DateTime.parse(json['UpdateDate'])
+            : null,
+        policyVersionList: json.containsKey('PolicyVersionList')
+            ? (json['PolicyVersionList'] as List)
+                .map((e) => PolicyVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the Amazon Resource Name (ARN) for an IAM OpenID Connect provider.
@@ -7544,7 +8856,9 @@ class OpenIDConnectProviderListEntry {
     this.arn,
   });
   static OpenIDConnectProviderListEntry fromJson(Map<String, dynamic> json) =>
-      OpenIDConnectProviderListEntry();
+      OpenIDConnectProviderListEntry(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+      );
 }
 
 /// Contains information about the effect that Organizations has on a policy
@@ -7558,7 +8872,11 @@ class OrganizationsDecisionDetail {
     this.allowedByOrganizations,
   });
   static OrganizationsDecisionDetail fromJson(Map<String, dynamic> json) =>
-      OrganizationsDecisionDetail();
+      OrganizationsDecisionDetail(
+        allowedByOrganizations: json.containsKey('AllowedByOrganizations')
+            ? json['AllowedByOrganizations'] as bool
+            : null,
+      );
 }
 
 /// Contains information about the account password policy.
@@ -7612,7 +8930,40 @@ class PasswordPolicy {
     this.passwordReusePrevention,
     this.hardExpiry,
   });
-  static PasswordPolicy fromJson(Map<String, dynamic> json) => PasswordPolicy();
+  static PasswordPolicy fromJson(Map<String, dynamic> json) => PasswordPolicy(
+        minimumPasswordLength: json.containsKey('MinimumPasswordLength')
+            ? json['MinimumPasswordLength'] as int
+            : null,
+        requireSymbols: json.containsKey('RequireSymbols')
+            ? json['RequireSymbols'] as bool
+            : null,
+        requireNumbers: json.containsKey('RequireNumbers')
+            ? json['RequireNumbers'] as bool
+            : null,
+        requireUppercaseCharacters:
+            json.containsKey('RequireUppercaseCharacters')
+                ? json['RequireUppercaseCharacters'] as bool
+                : null,
+        requireLowercaseCharacters:
+            json.containsKey('RequireLowercaseCharacters')
+                ? json['RequireLowercaseCharacters'] as bool
+                : null,
+        allowUsersToChangePassword:
+            json.containsKey('AllowUsersToChangePassword')
+                ? json['AllowUsersToChangePassword'] as bool
+                : null,
+        expirePasswords: json.containsKey('ExpirePasswords')
+            ? json['ExpirePasswords'] as bool
+            : null,
+        maxPasswordAge: json.containsKey('MaxPasswordAge')
+            ? json['MaxPasswordAge'] as int
+            : null,
+        passwordReusePrevention: json.containsKey('PasswordReusePrevention')
+            ? json['PasswordReusePrevention'] as int
+            : null,
+        hardExpiry:
+            json.containsKey('HardExpiry') ? json['HardExpiry'] as bool : null,
+      );
 }
 
 /// Contains information about a managed policy.
@@ -7697,7 +9048,37 @@ class Policy {
     this.createDate,
     this.updateDate,
   });
-  static Policy fromJson(Map<String, dynamic> json) => Policy();
+  static Policy fromJson(Map<String, dynamic> json) => Policy(
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        policyId:
+            json.containsKey('PolicyId') ? json['PolicyId'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        defaultVersionId: json.containsKey('DefaultVersionId')
+            ? json['DefaultVersionId'] as String
+            : null,
+        attachmentCount: json.containsKey('AttachmentCount')
+            ? json['AttachmentCount'] as int
+            : null,
+        permissionsBoundaryUsageCount:
+            json.containsKey('PermissionsBoundaryUsageCount')
+                ? json['PermissionsBoundaryUsageCount'] as int
+                : null,
+        isAttachable: json.containsKey('IsAttachable')
+            ? json['IsAttachable'] as bool
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        updateDate: json.containsKey('UpdateDate')
+            ? DateTime.parse(json['UpdateDate'])
+            : null,
+      );
 }
 
 /// Contains information about an IAM policy, including the policy document.
@@ -7715,7 +9096,14 @@ class PolicyDetail {
     this.policyName,
     this.policyDocument,
   });
-  static PolicyDetail fromJson(Map<String, dynamic> json) => PolicyDetail();
+  static PolicyDetail fromJson(Map<String, dynamic> json) => PolicyDetail(
+        policyName: json.containsKey('PolicyName')
+            ? json['PolicyName'] as String
+            : null,
+        policyDocument: json.containsKey('PolicyDocument')
+            ? json['PolicyDocument'] as String
+            : null,
+      );
 }
 
 /// Contains details about the permissions policies that are attached to the
@@ -7760,7 +9148,18 @@ class PolicyGrantingServiceAccess {
     this.entityName,
   });
   static PolicyGrantingServiceAccess fromJson(Map<String, dynamic> json) =>
-      PolicyGrantingServiceAccess();
+      PolicyGrantingServiceAccess(
+        policyName: json['PolicyName'] as String,
+        policyType: json['PolicyType'] as String,
+        policyArn:
+            json.containsKey('PolicyArn') ? json['PolicyArn'] as String : null,
+        entityType: json.containsKey('EntityType')
+            ? json['EntityType'] as String
+            : null,
+        entityName: json.containsKey('EntityName')
+            ? json['EntityName'] as String
+            : null,
+      );
 }
 
 /// Contains information about a group that a managed policy is attached to.
@@ -7785,7 +9184,11 @@ class PolicyGroup {
     this.groupName,
     this.groupId,
   });
-  static PolicyGroup fromJson(Map<String, dynamic> json) => PolicyGroup();
+  static PolicyGroup fromJson(Map<String, dynamic> json) => PolicyGroup(
+        groupName:
+            json.containsKey('GroupName') ? json['GroupName'] as String : null,
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+      );
 }
 
 /// Contains information about a role that a managed policy is attached to.
@@ -7810,7 +9213,11 @@ class PolicyRole {
     this.roleName,
     this.roleId,
   });
-  static PolicyRole fromJson(Map<String, dynamic> json) => PolicyRole();
+  static PolicyRole fromJson(Map<String, dynamic> json) => PolicyRole(
+        roleName:
+            json.containsKey('RoleName') ? json['RoleName'] as String : null,
+        roleId: json.containsKey('RoleId') ? json['RoleId'] as String : null,
+      );
 }
 
 /// Contains information about a user that a managed policy is attached to.
@@ -7835,7 +9242,11 @@ class PolicyUser {
     this.userName,
     this.userId,
   });
-  static PolicyUser fromJson(Map<String, dynamic> json) => PolicyUser();
+  static PolicyUser fromJson(Map<String, dynamic> json) => PolicyUser(
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+      );
 }
 
 /// Contains information about a version of a managed policy.
@@ -7883,7 +9294,18 @@ class PolicyVersion {
     this.isDefaultVersion,
     this.createDate,
   });
-  static PolicyVersion fromJson(Map<String, dynamic> json) => PolicyVersion();
+  static PolicyVersion fromJson(Map<String, dynamic> json) => PolicyVersion(
+        document:
+            json.containsKey('Document') ? json['Document'] as String : null,
+        versionId:
+            json.containsKey('VersionId') ? json['VersionId'] as String : null,
+        isDefaultVersion: json.containsKey('IsDefaultVersion')
+            ? json['IsDefaultVersion'] as bool
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+      );
 }
 
 /// Contains the row and column of a location of a `Statement` element in a
@@ -7901,7 +9323,10 @@ class Position {
     this.line,
     this.column,
   });
-  static Position fromJson(Map<String, dynamic> json) => Position();
+  static Position fromJson(Map<String, dynamic> json) => Position(
+        line: json.containsKey('Line') ? json['Line'] as int : null,
+        column: json.containsKey('Column') ? json['Column'] as int : null,
+      );
 }
 
 class ResetServiceSpecificCredentialResponse {
@@ -7919,7 +9344,12 @@ class ResetServiceSpecificCredentialResponse {
   });
   static ResetServiceSpecificCredentialResponse fromJson(
           Map<String, dynamic> json) =>
-      ResetServiceSpecificCredentialResponse();
+      ResetServiceSpecificCredentialResponse(
+        serviceSpecificCredential: json.containsKey('ServiceSpecificCredential')
+            ? ServiceSpecificCredential.fromJson(
+                json['ServiceSpecificCredential'])
+            : null,
+      );
 }
 
 /// Contains the result of the simulation of a single API operation call on a
@@ -7967,7 +9397,24 @@ class ResourceSpecificResult {
     this.evalDecisionDetails,
   });
   static ResourceSpecificResult fromJson(Map<String, dynamic> json) =>
-      ResourceSpecificResult();
+      ResourceSpecificResult(
+        evalResourceName: json['EvalResourceName'] as String,
+        evalResourceDecision: json['EvalResourceDecision'] as String,
+        matchedStatements: json.containsKey('MatchedStatements')
+            ? (json['MatchedStatements'] as List)
+                .map((e) => Statement.fromJson(e))
+                .toList()
+            : null,
+        missingContextValues: json.containsKey('MissingContextValues')
+            ? (json['MissingContextValues'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        evalDecisionDetails: json.containsKey('EvalDecisionDetails')
+            ? (json['EvalDecisionDetails'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Contains information about an IAM role. This structure is returned as a
@@ -8035,7 +9482,28 @@ class Role {
     this.permissionsBoundary,
     this.tags,
   });
-  static Role fromJson(Map<String, dynamic> json) => Role();
+  static Role fromJson(Map<String, dynamic> json) => Role(
+        path: json['Path'] as String,
+        roleName: json['RoleName'] as String,
+        roleId: json['RoleId'] as String,
+        arn: json['Arn'] as String,
+        createDate: DateTime.parse(json['CreateDate']),
+        assumeRolePolicyDocument: json.containsKey('AssumeRolePolicyDocument')
+            ? json['AssumeRolePolicyDocument'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        maxSessionDuration: json.containsKey('MaxSessionDuration')
+            ? json['MaxSessionDuration'] as int
+            : null,
+        permissionsBoundary: json.containsKey('PermissionsBoundary')
+            ? AttachedPermissionsBoundary.fromJson(json['PermissionsBoundary'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains information about an IAM role, including all of the role's
@@ -8105,7 +9573,40 @@ class RoleDetail {
     this.permissionsBoundary,
     this.tags,
   });
-  static RoleDetail fromJson(Map<String, dynamic> json) => RoleDetail();
+  static RoleDetail fromJson(Map<String, dynamic> json) => RoleDetail(
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        roleName:
+            json.containsKey('RoleName') ? json['RoleName'] as String : null,
+        roleId: json.containsKey('RoleId') ? json['RoleId'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        assumeRolePolicyDocument: json.containsKey('AssumeRolePolicyDocument')
+            ? json['AssumeRolePolicyDocument'] as String
+            : null,
+        instanceProfileList: json.containsKey('InstanceProfileList')
+            ? (json['InstanceProfileList'] as List)
+                .map((e) => InstanceProfile.fromJson(e))
+                .toList()
+            : null,
+        rolePolicyList: json.containsKey('RolePolicyList')
+            ? (json['RolePolicyList'] as List)
+                .map((e) => PolicyDetail.fromJson(e))
+                .toList()
+            : null,
+        attachedManagedPolicies: json.containsKey('AttachedManagedPolicies')
+            ? (json['AttachedManagedPolicies'] as List)
+                .map((e) => AttachedPolicy.fromJson(e))
+                .toList()
+            : null,
+        permissionsBoundary: json.containsKey('PermissionsBoundary')
+            ? AttachedPermissionsBoundary.fromJson(json['PermissionsBoundary'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// An object that contains details about how a service-linked role is used, if
@@ -8124,7 +9625,12 @@ class RoleUsageType {
     this.region,
     this.resources,
   });
-  static RoleUsageType fromJson(Map<String, dynamic> json) => RoleUsageType();
+  static RoleUsageType fromJson(Map<String, dynamic> json) => RoleUsageType(
+        region: json.containsKey('Region') ? json['Region'] as String : null,
+        resources: json.containsKey('Resources')
+            ? (json['Resources'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Contains the list of SAML providers for this account.
@@ -8144,7 +9650,15 @@ class SamlProviderListEntry {
     this.createDate,
   });
   static SamlProviderListEntry fromJson(Map<String, dynamic> json) =>
-      SamlProviderListEntry();
+      SamlProviderListEntry(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        validUntil: json.containsKey('ValidUntil')
+            ? DateTime.parse(json['ValidUntil'])
+            : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+      );
 }
 
 /// Contains information about an SSH public key.
@@ -8182,7 +9696,16 @@ class SshPublicKey {
     @required this.status,
     this.uploadDate,
   });
-  static SshPublicKey fromJson(Map<String, dynamic> json) => SshPublicKey();
+  static SshPublicKey fromJson(Map<String, dynamic> json) => SshPublicKey(
+        userName: json['UserName'] as String,
+        sshPublicKeyId: json['SSHPublicKeyId'] as String,
+        fingerprint: json['Fingerprint'] as String,
+        sshPublicKeyBody: json['SSHPublicKeyBody'] as String,
+        status: json['Status'] as String,
+        uploadDate: json.containsKey('UploadDate')
+            ? DateTime.parse(json['UploadDate'])
+            : null,
+      );
 }
 
 /// Contains information about an SSH public key, without the key's body or
@@ -8214,7 +9737,12 @@ class SshPublicKeyMetadata {
     @required this.uploadDate,
   });
   static SshPublicKeyMetadata fromJson(Map<String, dynamic> json) =>
-      SshPublicKeyMetadata();
+      SshPublicKeyMetadata(
+        userName: json['UserName'] as String,
+        sshPublicKeyId: json['SSHPublicKeyId'] as String,
+        status: json['Status'] as String,
+        uploadDate: DateTime.parse(json['UploadDate']),
+      );
 }
 
 /// Contains information about a server certificate.
@@ -8238,7 +9766,14 @@ class ServerCertificate {
     this.certificateChain,
   });
   static ServerCertificate fromJson(Map<String, dynamic> json) =>
-      ServerCertificate();
+      ServerCertificate(
+        serverCertificateMetadata: ServerCertificateMetadata.fromJson(
+            json['ServerCertificateMetadata']),
+        certificateBody: json['CertificateBody'] as String,
+        certificateChain: json.containsKey('CertificateChain')
+            ? json['CertificateChain'] as String
+            : null,
+      );
 }
 
 /// Contains information about a server certificate without its certificate
@@ -8282,7 +9817,18 @@ class ServerCertificateMetadata {
     this.expiration,
   });
   static ServerCertificateMetadata fromJson(Map<String, dynamic> json) =>
-      ServerCertificateMetadata();
+      ServerCertificateMetadata(
+        path: json['Path'] as String,
+        serverCertificateName: json['ServerCertificateName'] as String,
+        serverCertificateId: json['ServerCertificateId'] as String,
+        arn: json['Arn'] as String,
+        uploadDate: json.containsKey('UploadDate')
+            ? DateTime.parse(json['UploadDate'])
+            : null,
+        expiration: json.containsKey('Expiration')
+            ? DateTime.parse(json['Expiration'])
+            : null,
+      );
 }
 
 /// Contains details about the most recent attempt to access the service.
@@ -8339,7 +9885,20 @@ class ServiceLastAccessed {
     this.totalAuthenticatedEntities,
   });
   static ServiceLastAccessed fromJson(Map<String, dynamic> json) =>
-      ServiceLastAccessed();
+      ServiceLastAccessed(
+        serviceName: json['ServiceName'] as String,
+        lastAuthenticated: json.containsKey('LastAuthenticated')
+            ? DateTime.parse(json['LastAuthenticated'])
+            : null,
+        serviceNamespace: json['ServiceNamespace'] as String,
+        lastAuthenticatedEntity: json.containsKey('LastAuthenticatedEntity')
+            ? json['LastAuthenticatedEntity'] as String
+            : null,
+        totalAuthenticatedEntities:
+            json.containsKey('TotalAuthenticatedEntities')
+                ? json['TotalAuthenticatedEntities'] as int
+                : null,
+      );
 }
 
 /// Contains the details of a service-specific credential.
@@ -8381,7 +9940,16 @@ class ServiceSpecificCredential {
     @required this.status,
   });
   static ServiceSpecificCredential fromJson(Map<String, dynamic> json) =>
-      ServiceSpecificCredential();
+      ServiceSpecificCredential(
+        createDate: DateTime.parse(json['CreateDate']),
+        serviceName: json['ServiceName'] as String,
+        serviceUserName: json['ServiceUserName'] as String,
+        servicePassword: json['ServicePassword'] as String,
+        serviceSpecificCredentialId:
+            json['ServiceSpecificCredentialId'] as String,
+        userName: json['UserName'] as String,
+        status: json['Status'] as String,
+      );
 }
 
 /// Contains additional details about a service-specific credential.
@@ -8417,7 +9985,15 @@ class ServiceSpecificCredentialMetadata {
   });
   static ServiceSpecificCredentialMetadata fromJson(
           Map<String, dynamic> json) =>
-      ServiceSpecificCredentialMetadata();
+      ServiceSpecificCredentialMetadata(
+        userName: json['UserName'] as String,
+        status: json['Status'] as String,
+        serviceUserName: json['ServiceUserName'] as String,
+        createDate: DateTime.parse(json['CreateDate']),
+        serviceSpecificCredentialId:
+            json['ServiceSpecificCredentialId'] as String,
+        serviceName: json['ServiceName'] as String,
+      );
 }
 
 /// Contains information about an X.509 signing certificate.
@@ -8449,7 +10025,15 @@ class SigningCertificate {
     this.uploadDate,
   });
   static SigningCertificate fromJson(Map<String, dynamic> json) =>
-      SigningCertificate();
+      SigningCertificate(
+        userName: json['UserName'] as String,
+        certificateId: json['CertificateId'] as String,
+        certificateBody: json['CertificateBody'] as String,
+        status: json['Status'] as String,
+        uploadDate: json.containsKey('UploadDate')
+            ? DateTime.parse(json['UploadDate'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful SimulatePrincipalPolicy or
@@ -8477,7 +10061,17 @@ class SimulatePolicyResponse {
     this.marker,
   });
   static SimulatePolicyResponse fromJson(Map<String, dynamic> json) =>
-      SimulatePolicyResponse();
+      SimulatePolicyResponse(
+        evaluationResults: json.containsKey('EvaluationResults')
+            ? (json['EvaluationResults'] as List)
+                .map((e) => EvaluationResult.fromJson(e))
+                .toList()
+            : null,
+        isTruncated: json.containsKey('IsTruncated')
+            ? json['IsTruncated'] as bool
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Contains a reference to a `Statement` element in a policy document that
@@ -8504,7 +10098,20 @@ class Statement {
     this.startPosition,
     this.endPosition,
   });
-  static Statement fromJson(Map<String, dynamic> json) => Statement();
+  static Statement fromJson(Map<String, dynamic> json) => Statement(
+        sourcePolicyId: json.containsKey('SourcePolicyId')
+            ? json['SourcePolicyId'] as String
+            : null,
+        sourcePolicyType: json.containsKey('SourcePolicyType')
+            ? json['SourcePolicyType'] as String
+            : null,
+        startPosition: json.containsKey('StartPosition')
+            ? Position.fromJson(json['StartPosition'])
+            : null,
+        endPosition: json.containsKey('EndPosition')
+            ? Position.fromJson(json['EndPosition'])
+            : null,
+      );
 }
 
 /// A structure that represents user-provided metadata that can be associated
@@ -8535,7 +10142,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateRoleDescriptionResponse {
@@ -8546,7 +10157,9 @@ class UpdateRoleDescriptionResponse {
     this.role,
   });
   static UpdateRoleDescriptionResponse fromJson(Map<String, dynamic> json) =>
-      UpdateRoleDescriptionResponse();
+      UpdateRoleDescriptionResponse(
+        role: json.containsKey('Role') ? Role.fromJson(json['Role']) : null,
+      );
 }
 
 class UpdateRoleResponse {
@@ -8564,7 +10177,11 @@ class UpdateSamlProviderResponse {
     this.samlProviderArn,
   });
   static UpdateSamlProviderResponse fromJson(Map<String, dynamic> json) =>
-      UpdateSamlProviderResponse();
+      UpdateSamlProviderResponse(
+        samlProviderArn: json.containsKey('SAMLProviderArn')
+            ? json['SAMLProviderArn'] as String
+            : null,
+      );
 }
 
 /// Contains the response to a successful UploadSSHPublicKey request.
@@ -8576,7 +10193,11 @@ class UploadSshPublicKeyResponse {
     this.sshPublicKey,
   });
   static UploadSshPublicKeyResponse fromJson(Map<String, dynamic> json) =>
-      UploadSshPublicKeyResponse();
+      UploadSshPublicKeyResponse(
+        sshPublicKey: json.containsKey('SSHPublicKey')
+            ? SshPublicKey.fromJson(json['SSHPublicKey'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful UploadServerCertificate request.
@@ -8589,7 +10210,12 @@ class UploadServerCertificateResponse {
     this.serverCertificateMetadata,
   });
   static UploadServerCertificateResponse fromJson(Map<String, dynamic> json) =>
-      UploadServerCertificateResponse();
+      UploadServerCertificateResponse(
+        serverCertificateMetadata: json.containsKey('ServerCertificateMetadata')
+            ? ServerCertificateMetadata.fromJson(
+                json['ServerCertificateMetadata'])
+            : null,
+      );
 }
 
 /// Contains the response to a successful UploadSigningCertificate request.
@@ -8601,7 +10227,9 @@ class UploadSigningCertificateResponse {
     @required this.certificate,
   });
   static UploadSigningCertificateResponse fromJson(Map<String, dynamic> json) =>
-      UploadSigningCertificateResponse();
+      UploadSigningCertificateResponse(
+        certificate: SigningCertificate.fromJson(json['Certificate']),
+      );
 }
 
 /// Contains information about an IAM user entity.
@@ -8685,7 +10313,22 @@ class User {
     this.permissionsBoundary,
     this.tags,
   });
-  static User fromJson(Map<String, dynamic> json) => User();
+  static User fromJson(Map<String, dynamic> json) => User(
+        path: json['Path'] as String,
+        userName: json['UserName'] as String,
+        userId: json['UserId'] as String,
+        arn: json['Arn'] as String,
+        createDate: DateTime.parse(json['CreateDate']),
+        passwordLastUsed: json.containsKey('PasswordLastUsed')
+            ? DateTime.parse(json['PasswordLastUsed'])
+            : null,
+        permissionsBoundary: json.containsKey('PermissionsBoundary')
+            ? AttachedPermissionsBoundary.fromJson(json['PermissionsBoundary'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains information about an IAM user, including all the user's policies
@@ -8749,7 +10392,35 @@ class UserDetail {
     this.permissionsBoundary,
     this.tags,
   });
-  static UserDetail fromJson(Map<String, dynamic> json) => UserDetail();
+  static UserDetail fromJson(Map<String, dynamic> json) => UserDetail(
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        createDate: json.containsKey('CreateDate')
+            ? DateTime.parse(json['CreateDate'])
+            : null,
+        userPolicyList: json.containsKey('UserPolicyList')
+            ? (json['UserPolicyList'] as List)
+                .map((e) => PolicyDetail.fromJson(e))
+                .toList()
+            : null,
+        groupList: json.containsKey('GroupList')
+            ? (json['GroupList'] as List).map((e) => e as String).toList()
+            : null,
+        attachedManagedPolicies: json.containsKey('AttachedManagedPolicies')
+            ? (json['AttachedManagedPolicies'] as List)
+                .map((e) => AttachedPolicy.fromJson(e))
+                .toList()
+            : null,
+        permissionsBoundary: json.containsKey('PermissionsBoundary')
+            ? AttachedPermissionsBoundary.fromJson(json['PermissionsBoundary'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains information about a virtual MFA device.
@@ -8784,5 +10455,16 @@ class VirtualMfaDevice {
     this.enableDate,
   });
   static VirtualMfaDevice fromJson(Map<String, dynamic> json) =>
-      VirtualMfaDevice();
+      VirtualMfaDevice(
+        serialNumber: json['SerialNumber'] as String,
+        base32StringSeed: json.containsKey('Base32StringSeed')
+            ? Uint8List(json['Base32StringSeed'])
+            : null,
+        qrCodePng:
+            json.containsKey('QRCodePNG') ? Uint8List(json['QRCodePNG']) : null,
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+        enableDate: json.containsKey('EnableDate')
+            ? DateTime.parse(json['EnableDate'])
+            : null,
+      );
 }

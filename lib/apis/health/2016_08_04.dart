@@ -46,6 +46,9 @@ import 'package:meta/meta.dart';
 ///
 /// *   https://health.us-east-1.amazonaws.com
 class HealthApi {
+  final _client;
+  HealthApi(client) : _client = client.configured('Health', serializer: 'json');
+
   /// Returns a list of entities that have been affected by the specified
   /// events, based on the specified filter criteria. Entities can refer to
   /// individual customer resources, groups of customer resources, or any other
@@ -75,7 +78,13 @@ class HealthApi {
       {String locale,
       String nextToken,
       int maxResults}) async {
-    return DescribeAffectedEntitiesResponse.fromJson({});
+    var response_ = await _client.send('DescribeAffectedEntities', {
+      'filter': filter,
+      if (locale != null) 'locale': locale,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return DescribeAffectedEntitiesResponse.fromJson(response_);
   }
 
   /// Returns the number of entities that are affected by each of the specified
@@ -87,7 +96,10 @@ class HealthApi {
   /// "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"`
   Future<DescribeEntityAggregatesResponse> describeEntityAggregates(
       {List<String> eventArns}) async {
-    return DescribeEntityAggregatesResponse.fromJson({});
+    var response_ = await _client.send('DescribeEntityAggregates', {
+      if (eventArns != null) 'eventArns': eventArns,
+    });
+    return DescribeEntityAggregatesResponse.fromJson(response_);
   }
 
   /// Returns the number of events of each event type (issue, scheduled change,
@@ -112,7 +124,13 @@ class HealthApi {
       {EventFilter filter,
       int maxResults,
       String nextToken}) async {
-    return DescribeEventAggregatesResponse.fromJson({});
+    var response_ = await _client.send('DescribeEventAggregates', {
+      if (filter != null) 'filter': filter,
+      'aggregateField': aggregateField,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeEventAggregatesResponse.fromJson(response_);
   }
 
   /// Returns detailed information about one or more specified events.
@@ -134,7 +152,11 @@ class HealthApi {
   Future<DescribeEventDetailsResponse> describeEventDetails(
       List<String> eventArns,
       {String locale}) async {
-    return DescribeEventDetailsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEventDetails', {
+      'eventArns': eventArns,
+      if (locale != null) 'locale': locale,
+    });
+    return DescribeEventDetailsResponse.fromJson(response_);
   }
 
   /// Returns the event types that meet the specified filter criteria. If no
@@ -159,7 +181,13 @@ class HealthApi {
       String locale,
       String nextToken,
       int maxResults}) async {
-    return DescribeEventTypesResponse.fromJson({});
+    var response_ = await _client.send('DescribeEventTypes', {
+      if (filter != null) 'filter': filter,
+      if (locale != null) 'locale': locale,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return DescribeEventTypesResponse.fromJson(response_);
   }
 
   /// Returns information about events that meet the specified filter criteria.
@@ -189,7 +217,13 @@ class HealthApi {
       String nextToken,
       int maxResults,
       String locale}) async {
-    return DescribeEventsResponse.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      if (filter != null) 'filter': filter,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (locale != null) 'locale': locale,
+    });
+    return DescribeEventsResponse.fromJson(response_);
   }
 }
 
@@ -235,7 +269,30 @@ class AffectedEntity {
     this.statusCode,
     this.tags,
   });
-  static AffectedEntity fromJson(Map<String, dynamic> json) => AffectedEntity();
+  static AffectedEntity fromJson(Map<String, dynamic> json) => AffectedEntity(
+        entityArn:
+            json.containsKey('entityArn') ? json['entityArn'] as String : null,
+        eventArn:
+            json.containsKey('eventArn') ? json['eventArn'] as String : null,
+        entityValue: json.containsKey('entityValue')
+            ? json['entityValue'] as String
+            : null,
+        entityUrl:
+            json.containsKey('entityUrl') ? json['entityUrl'] as String : null,
+        awsAccountId: json.containsKey('awsAccountId')
+            ? json['awsAccountId'] as String
+            : null,
+        lastUpdatedTime: json.containsKey('lastUpdatedTime')
+            ? DateTime.parse(json['lastUpdatedTime'])
+            : null,
+        statusCode: json.containsKey('statusCode')
+            ? json['statusCode'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// A range of dates and times that is used by the EventFilter and EntityFilter
@@ -255,6 +312,7 @@ class DateTimeRange {
     this.from,
     this.to,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DescribeAffectedEntitiesResponse {
@@ -273,7 +331,15 @@ class DescribeAffectedEntitiesResponse {
     this.nextToken,
   });
   static DescribeAffectedEntitiesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAffectedEntitiesResponse();
+      DescribeAffectedEntitiesResponse(
+        entities: json.containsKey('entities')
+            ? (json['entities'] as List)
+                .map((e) => AffectedEntity.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeEntityAggregatesResponse {
@@ -284,7 +350,13 @@ class DescribeEntityAggregatesResponse {
     this.entityAggregates,
   });
   static DescribeEntityAggregatesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEntityAggregatesResponse();
+      DescribeEntityAggregatesResponse(
+        entityAggregates: json.containsKey('entityAggregates')
+            ? (json['entityAggregates'] as List)
+                .map((e) => EntityAggregate.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeEventAggregatesResponse {
@@ -304,7 +376,15 @@ class DescribeEventAggregatesResponse {
     this.nextToken,
   });
   static DescribeEventAggregatesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventAggregatesResponse();
+      DescribeEventAggregatesResponse(
+        eventAggregates: json.containsKey('eventAggregates')
+            ? (json['eventAggregates'] as List)
+                .map((e) => EventAggregate.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeEventDetailsResponse {
@@ -319,7 +399,18 @@ class DescribeEventDetailsResponse {
     this.failedSet,
   });
   static DescribeEventDetailsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventDetailsResponse();
+      DescribeEventDetailsResponse(
+        successfulSet: json.containsKey('successfulSet')
+            ? (json['successfulSet'] as List)
+                .map((e) => EventDetails.fromJson(e))
+                .toList()
+            : null,
+        failedSet: json.containsKey('failedSet')
+            ? (json['failedSet'] as List)
+                .map((e) => EventDetailsErrorItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeEventTypesResponse {
@@ -342,7 +433,15 @@ class DescribeEventTypesResponse {
     this.nextToken,
   });
   static DescribeEventTypesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventTypesResponse();
+      DescribeEventTypesResponse(
+        eventTypes: json.containsKey('eventTypes')
+            ? (json['eventTypes'] as List)
+                .map((e) => EventType.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeEventsResponse {
@@ -361,7 +460,13 @@ class DescribeEventsResponse {
     this.nextToken,
   });
   static DescribeEventsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEventsResponse();
+      DescribeEventsResponse(
+        events: json.containsKey('events')
+            ? (json['events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// The number of entities that are affected by one or more events. Returned by
@@ -380,8 +485,11 @@ class EntityAggregate {
     this.eventArn,
     this.count,
   });
-  static EntityAggregate fromJson(Map<String, dynamic> json) =>
-      EntityAggregate();
+  static EntityAggregate fromJson(Map<String, dynamic> json) => EntityAggregate(
+        eventArn:
+            json.containsKey('eventArn') ? json['eventArn'] as String : null,
+        count: json.containsKey('count') ? json['count'] as int : null,
+      );
 }
 
 /// The values to use to filter results from the DescribeAffectedEntities
@@ -415,6 +523,7 @@ class EntityFilter {
     this.tags,
     this.statusCodes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Summary information about an event, returned by the DescribeEvents
@@ -470,7 +579,32 @@ class Event {
     this.lastUpdatedTime,
     this.statusCode,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        service: json.containsKey('service') ? json['service'] as String : null,
+        eventTypeCode: json.containsKey('eventTypeCode')
+            ? json['eventTypeCode'] as String
+            : null,
+        eventTypeCategory: json.containsKey('eventTypeCategory')
+            ? json['eventTypeCategory'] as String
+            : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        availabilityZone: json.containsKey('availabilityZone')
+            ? json['availabilityZone'] as String
+            : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        endTime: json.containsKey('endTime')
+            ? DateTime.parse(json['endTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('lastUpdatedTime')
+            ? DateTime.parse(json['lastUpdatedTime'])
+            : null,
+        statusCode: json.containsKey('statusCode')
+            ? json['statusCode'] as String
+            : null,
+      );
 }
 
 /// The number of events of each issue type. Returned by the
@@ -486,7 +620,12 @@ class EventAggregate {
     this.aggregateValue,
     this.count,
   });
-  static EventAggregate fromJson(Map<String, dynamic> json) => EventAggregate();
+  static EventAggregate fromJson(Map<String, dynamic> json) => EventAggregate(
+        aggregateValue: json.containsKey('aggregateValue')
+            ? json['aggregateValue'] as String
+            : null,
+        count: json.containsKey('count') ? json['count'] as int : null,
+      );
 }
 
 /// The detailed description of the event. Included in the information returned
@@ -499,7 +638,11 @@ class EventDescription {
     this.latestDescription,
   });
   static EventDescription fromJson(Map<String, dynamic> json) =>
-      EventDescription();
+      EventDescription(
+        latestDescription: json.containsKey('latestDescription')
+            ? json['latestDescription'] as String
+            : null,
+      );
 }
 
 /// Detailed information about an event. A combination of an Event object, an
@@ -520,7 +663,16 @@ class EventDetails {
     this.eventDescription,
     this.eventMetadata,
   });
-  static EventDetails fromJson(Map<String, dynamic> json) => EventDetails();
+  static EventDetails fromJson(Map<String, dynamic> json) => EventDetails(
+        event: json.containsKey('event') ? Event.fromJson(json['event']) : null,
+        eventDescription: json.containsKey('eventDescription')
+            ? EventDescription.fromJson(json['eventDescription'])
+            : null,
+        eventMetadata: json.containsKey('eventMetadata')
+            ? (json['eventMetadata'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Error information returned when a DescribeEventDetails operation cannot find
@@ -544,7 +696,15 @@ class EventDetailsErrorItem {
     this.errorMessage,
   });
   static EventDetailsErrorItem fromJson(Map<String, dynamic> json) =>
-      EventDetailsErrorItem();
+      EventDetailsErrorItem(
+        eventArn:
+            json.containsKey('eventArn') ? json['eventArn'] as String : null,
+        errorName:
+            json.containsKey('errorName') ? json['errorName'] as String : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+      );
 }
 
 /// The values to use to filter results from the DescribeEvents and
@@ -609,6 +769,7 @@ class EventFilter {
     this.tags,
     this.eventStatusCodes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Metadata about a type of event that is reported by AWS Health. Data consists
@@ -632,7 +793,12 @@ class EventType {
     this.code,
     this.category,
   });
-  static EventType fromJson(Map<String, dynamic> json) => EventType();
+  static EventType fromJson(Map<String, dynamic> json) => EventType(
+        service: json.containsKey('service') ? json['service'] as String : null,
+        code: json.containsKey('code') ? json['code'] as String : null,
+        category:
+            json.containsKey('category') ? json['category'] as String : null,
+      );
 }
 
 /// The values to use to filter results from the DescribeEventTypes operation.
@@ -652,4 +818,5 @@ class EventTypeFilter {
     this.services,
     this.eventTypeCategories,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

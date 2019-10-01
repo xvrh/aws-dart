@@ -73,25 +73,38 @@ import 'package:meta/meta.dart';
 /// objects. Each `SourceCredentialsInfo` object includes the authentication
 /// type, token ARN, and type of source provider for one set of credentials.
 class CodeBuildApi {
+  final _client;
+  CodeBuildApi(client)
+      : _client = client.configured('CodeBuild', serializer: 'json');
+
   /// Deletes one or more builds.
   ///
   /// [ids]: The IDs of the builds to delete.
   Future<BatchDeleteBuildsOutput> batchDeleteBuilds(List<String> ids) async {
-    return BatchDeleteBuildsOutput.fromJson({});
+    var response_ = await _client.send('BatchDeleteBuilds', {
+      'ids': ids,
+    });
+    return BatchDeleteBuildsOutput.fromJson(response_);
   }
 
   /// Gets information about builds.
   ///
   /// [ids]: The IDs of the builds.
   Future<BatchGetBuildsOutput> batchGetBuilds(List<String> ids) async {
-    return BatchGetBuildsOutput.fromJson({});
+    var response_ = await _client.send('BatchGetBuilds', {
+      'ids': ids,
+    });
+    return BatchGetBuildsOutput.fromJson(response_);
   }
 
   /// Gets information about build projects.
   ///
   /// [names]: The names of the build projects.
   Future<BatchGetProjectsOutput> batchGetProjects(List<String> names) async {
-    return BatchGetProjectsOutput.fromJson({});
+    var response_ = await _client.send('BatchGetProjects', {
+      'names': names,
+    });
+    return BatchGetProjectsOutput.fromJson(response_);
   }
 
   /// Creates a build project.
@@ -203,7 +216,29 @@ class CodeBuildApi {
       VpcConfig vpcConfig,
       bool badgeEnabled,
       LogsConfig logsConfig}) async {
-    return CreateProjectOutput.fromJson({});
+    var response_ = await _client.send('CreateProject', {
+      'name': name,
+      if (description != null) 'description': description,
+      'source': source,
+      if (secondarySources != null) 'secondarySources': secondarySources,
+      if (sourceVersion != null) 'sourceVersion': sourceVersion,
+      if (secondarySourceVersions != null)
+        'secondarySourceVersions': secondarySourceVersions,
+      'artifacts': artifacts,
+      if (secondaryArtifacts != null) 'secondaryArtifacts': secondaryArtifacts,
+      if (cache != null) 'cache': cache,
+      'environment': environment,
+      'serviceRole': serviceRole,
+      if (timeoutInMinutes != null) 'timeoutInMinutes': timeoutInMinutes,
+      if (queuedTimeoutInMinutes != null)
+        'queuedTimeoutInMinutes': queuedTimeoutInMinutes,
+      if (encryptionKey != null) 'encryptionKey': encryptionKey,
+      if (tags != null) 'tags': tags,
+      if (vpcConfig != null) 'vpcConfig': vpcConfig,
+      if (badgeEnabled != null) 'badgeEnabled': badgeEnabled,
+      if (logsConfig != null) 'logsConfig': logsConfig,
+    });
+    return CreateProjectOutput.fromJson(response_);
   }
 
   /// For an existing AWS CodeBuild build project that has its source code
@@ -240,14 +275,22 @@ class CodeBuildApi {
   /// filters must pass.
   Future<CreateWebhookOutput> createWebhook(String projectName,
       {String branchFilter, List<List<WebhookFilter>> filterGroups}) async {
-    return CreateWebhookOutput.fromJson({});
+    var response_ = await _client.send('CreateWebhook', {
+      'projectName': projectName,
+      if (branchFilter != null) 'branchFilter': branchFilter,
+      if (filterGroups != null) 'filterGroups': filterGroups,
+    });
+    return CreateWebhookOutput.fromJson(response_);
   }
 
   /// Deletes a build project.
   ///
   /// [name]: The name of the build project.
   Future<DeleteProjectOutput> deleteProject(String name) async {
-    return DeleteProjectOutput.fromJson({});
+    var response_ = await _client.send('DeleteProject', {
+      'name': name,
+    });
+    return DeleteProjectOutput.fromJson(response_);
   }
 
   ///  Deletes a set of GitHub, GitHub Enterprise, or Bitbucket source
@@ -256,7 +299,10 @@ class CodeBuildApi {
   /// [arn]:  The Amazon Resource Name (ARN) of the token.
   Future<DeleteSourceCredentialsOutput> deleteSourceCredentials(
       String arn) async {
-    return DeleteSourceCredentialsOutput.fromJson({});
+    var response_ = await _client.send('DeleteSourceCredentials', {
+      'arn': arn,
+    });
+    return DeleteSourceCredentialsOutput.fromJson(response_);
   }
 
   /// For an existing AWS CodeBuild build project that has its source code
@@ -266,7 +312,10 @@ class CodeBuildApi {
   ///
   /// [projectName]: The name of the AWS CodeBuild project.
   Future<DeleteWebhookOutput> deleteWebhook(String projectName) async {
-    return DeleteWebhookOutput.fromJson({});
+    var response_ = await _client.send('DeleteWebhook', {
+      'projectName': projectName,
+    });
+    return DeleteWebhookOutput.fromJson(response_);
   }
 
   ///  Imports the source repository credentials for an AWS CodeBuild project
@@ -295,7 +344,14 @@ class CodeBuildApi {
       @required String serverType,
       @required String authType,
       bool shouldOverwrite}) async {
-    return ImportSourceCredentialsOutput.fromJson({});
+    var response_ = await _client.send('ImportSourceCredentials', {
+      if (username != null) 'username': username,
+      'token': token,
+      'serverType': serverType,
+      'authType': authType,
+      if (shouldOverwrite != null) 'shouldOverwrite': shouldOverwrite,
+    });
+    return ImportSourceCredentialsOutput.fromJson(response_);
   }
 
   /// Resets the cache for a project.
@@ -304,7 +360,10 @@ class CodeBuildApi {
   /// is reset for.
   Future<InvalidateProjectCacheOutput> invalidateProjectCache(
       String projectName) async {
-    return InvalidateProjectCacheOutput.fromJson({});
+    var response_ = await _client.send('InvalidateProjectCache', {
+      'projectName': projectName,
+    });
+    return InvalidateProjectCacheOutput.fromJson(response_);
   }
 
   /// Gets a list of build IDs, with each build ID representing a single build.
@@ -323,7 +382,11 @@ class CodeBuildApi {
   /// next token that is returned, until no more next tokens are returned.
   Future<ListBuildsOutput> listBuilds(
       {String sortOrder, String nextToken}) async {
-    return ListBuildsOutput.fromJson({});
+    var response_ = await _client.send('ListBuilds', {
+      if (sortOrder != null) 'sortOrder': sortOrder,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListBuildsOutput.fromJson(response_);
   }
 
   /// Gets a list of build IDs for the specified build project, with each build
@@ -345,13 +408,19 @@ class CodeBuildApi {
   /// next token that is returned, until no more next tokens are returned.
   Future<ListBuildsForProjectOutput> listBuildsForProject(String projectName,
       {String sortOrder, String nextToken}) async {
-    return ListBuildsForProjectOutput.fromJson({});
+    var response_ = await _client.send('ListBuildsForProject', {
+      'projectName': projectName,
+      if (sortOrder != null) 'sortOrder': sortOrder,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListBuildsForProjectOutput.fromJson(response_);
   }
 
   /// Gets information about Docker images that are managed by AWS CodeBuild.
   Future<ListCuratedEnvironmentImagesOutput>
       listCuratedEnvironmentImages() async {
-    return ListCuratedEnvironmentImagesOutput.fromJson({});
+    var response_ = await _client.send('ListCuratedEnvironmentImages', {});
+    return ListCuratedEnvironmentImagesOutput.fromJson(response_);
   }
 
   /// Gets a list of build project names, with each build project name
@@ -390,12 +459,18 @@ class CodeBuildApi {
   /// next token that is returned, until no more next tokens are returned.
   Future<ListProjectsOutput> listProjects(
       {String sortBy, String sortOrder, String nextToken}) async {
-    return ListProjectsOutput.fromJson({});
+    var response_ = await _client.send('ListProjects', {
+      if (sortBy != null) 'sortBy': sortBy,
+      if (sortOrder != null) 'sortOrder': sortOrder,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListProjectsOutput.fromJson(response_);
   }
 
   ///  Returns a list of `SourceCredentialsInfo` objects.
   Future<ListSourceCredentialsOutput> listSourceCredentials() async {
-    return ListSourceCredentialsOutput.fromJson({});
+    var response_ = await _client.send('ListSourceCredentials', {});
+    return ListSourceCredentialsOutput.fromJson(response_);
   }
 
   /// Starts running a build.
@@ -560,14 +635,65 @@ class CodeBuildApi {
       LogsConfig logsConfigOverride,
       RegistryCredential registryCredentialOverride,
       String imagePullCredentialsTypeOverride}) async {
-    return StartBuildOutput.fromJson({});
+    var response_ = await _client.send('StartBuild', {
+      'projectName': projectName,
+      if (secondarySourcesOverride != null)
+        'secondarySourcesOverride': secondarySourcesOverride,
+      if (secondarySourcesVersionOverride != null)
+        'secondarySourcesVersionOverride': secondarySourcesVersionOverride,
+      if (sourceVersion != null) 'sourceVersion': sourceVersion,
+      if (artifactsOverride != null) 'artifactsOverride': artifactsOverride,
+      if (secondaryArtifactsOverride != null)
+        'secondaryArtifactsOverride': secondaryArtifactsOverride,
+      if (environmentVariablesOverride != null)
+        'environmentVariablesOverride': environmentVariablesOverride,
+      if (sourceTypeOverride != null) 'sourceTypeOverride': sourceTypeOverride,
+      if (sourceLocationOverride != null)
+        'sourceLocationOverride': sourceLocationOverride,
+      if (sourceAuthOverride != null) 'sourceAuthOverride': sourceAuthOverride,
+      if (gitCloneDepthOverride != null)
+        'gitCloneDepthOverride': gitCloneDepthOverride,
+      if (gitSubmodulesConfigOverride != null)
+        'gitSubmodulesConfigOverride': gitSubmodulesConfigOverride,
+      if (buildspecOverride != null) 'buildspecOverride': buildspecOverride,
+      if (insecureSslOverride != null)
+        'insecureSslOverride': insecureSslOverride,
+      if (reportBuildStatusOverride != null)
+        'reportBuildStatusOverride': reportBuildStatusOverride,
+      if (environmentTypeOverride != null)
+        'environmentTypeOverride': environmentTypeOverride,
+      if (imageOverride != null) 'imageOverride': imageOverride,
+      if (computeTypeOverride != null)
+        'computeTypeOverride': computeTypeOverride,
+      if (certificateOverride != null)
+        'certificateOverride': certificateOverride,
+      if (cacheOverride != null) 'cacheOverride': cacheOverride,
+      if (serviceRoleOverride != null)
+        'serviceRoleOverride': serviceRoleOverride,
+      if (privilegedModeOverride != null)
+        'privilegedModeOverride': privilegedModeOverride,
+      if (timeoutInMinutesOverride != null)
+        'timeoutInMinutesOverride': timeoutInMinutesOverride,
+      if (queuedTimeoutInMinutesOverride != null)
+        'queuedTimeoutInMinutesOverride': queuedTimeoutInMinutesOverride,
+      if (idempotencyToken != null) 'idempotencyToken': idempotencyToken,
+      if (logsConfigOverride != null) 'logsConfigOverride': logsConfigOverride,
+      if (registryCredentialOverride != null)
+        'registryCredentialOverride': registryCredentialOverride,
+      if (imagePullCredentialsTypeOverride != null)
+        'imagePullCredentialsTypeOverride': imagePullCredentialsTypeOverride,
+    });
+    return StartBuildOutput.fromJson(response_);
   }
 
   /// Attempts to stop running a build.
   ///
   /// [id]: The ID of the build.
   Future<StopBuildOutput> stopBuild(String id) async {
-    return StopBuildOutput.fromJson({});
+    var response_ = await _client.send('StopBuild', {
+      'id': id,
+    });
+    return StopBuildOutput.fromJson(response_);
   }
 
   /// Changes the settings of a build project.
@@ -680,7 +806,29 @@ class CodeBuildApi {
       VpcConfig vpcConfig,
       bool badgeEnabled,
       LogsConfig logsConfig}) async {
-    return UpdateProjectOutput.fromJson({});
+    var response_ = await _client.send('UpdateProject', {
+      'name': name,
+      if (description != null) 'description': description,
+      if (source != null) 'source': source,
+      if (secondarySources != null) 'secondarySources': secondarySources,
+      if (sourceVersion != null) 'sourceVersion': sourceVersion,
+      if (secondarySourceVersions != null)
+        'secondarySourceVersions': secondarySourceVersions,
+      if (artifacts != null) 'artifacts': artifacts,
+      if (secondaryArtifacts != null) 'secondaryArtifacts': secondaryArtifacts,
+      if (cache != null) 'cache': cache,
+      if (environment != null) 'environment': environment,
+      if (serviceRole != null) 'serviceRole': serviceRole,
+      if (timeoutInMinutes != null) 'timeoutInMinutes': timeoutInMinutes,
+      if (queuedTimeoutInMinutes != null)
+        'queuedTimeoutInMinutes': queuedTimeoutInMinutes,
+      if (encryptionKey != null) 'encryptionKey': encryptionKey,
+      if (tags != null) 'tags': tags,
+      if (vpcConfig != null) 'vpcConfig': vpcConfig,
+      if (badgeEnabled != null) 'badgeEnabled': badgeEnabled,
+      if (logsConfig != null) 'logsConfig': logsConfig,
+    });
+    return UpdateProjectOutput.fromJson(response_);
   }
 
   ///  Updates the webhook associated with an AWS CodeBuild build project.
@@ -707,7 +855,13 @@ class CodeBuildApi {
       {String branchFilter,
       bool rotateSecret,
       List<List<WebhookFilter>> filterGroups}) async {
-    return UpdateWebhookOutput.fromJson({});
+    var response_ = await _client.send('UpdateWebhook', {
+      'projectName': projectName,
+      if (branchFilter != null) 'branchFilter': branchFilter,
+      if (rotateSecret != null) 'rotateSecret': rotateSecret,
+      if (filterGroups != null) 'filterGroups': filterGroups,
+    });
+    return UpdateWebhookOutput.fromJson(response_);
   }
 }
 
@@ -723,7 +877,16 @@ class BatchDeleteBuildsOutput {
     this.buildsNotDeleted,
   });
   static BatchDeleteBuildsOutput fromJson(Map<String, dynamic> json) =>
-      BatchDeleteBuildsOutput();
+      BatchDeleteBuildsOutput(
+        buildsDeleted: json.containsKey('buildsDeleted')
+            ? (json['buildsDeleted'] as List).map((e) => e as String).toList()
+            : null,
+        buildsNotDeleted: json.containsKey('buildsNotDeleted')
+            ? (json['buildsNotDeleted'] as List)
+                .map((e) => BuildNotDeleted.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchGetBuildsOutput {
@@ -738,7 +901,14 @@ class BatchGetBuildsOutput {
     this.buildsNotFound,
   });
   static BatchGetBuildsOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetBuildsOutput();
+      BatchGetBuildsOutput(
+        builds: json.containsKey('builds')
+            ? (json['builds'] as List).map((e) => Build.fromJson(e)).toList()
+            : null,
+        buildsNotFound: json.containsKey('buildsNotFound')
+            ? (json['buildsNotFound'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class BatchGetProjectsOutput {
@@ -753,7 +923,18 @@ class BatchGetProjectsOutput {
     this.projectsNotFound,
   });
   static BatchGetProjectsOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetProjectsOutput();
+      BatchGetProjectsOutput(
+        projects: json.containsKey('projects')
+            ? (json['projects'] as List)
+                .map((e) => Project.fromJson(e))
+                .toList()
+            : null,
+        projectsNotFound: json.containsKey('projectsNotFound')
+            ? (json['projectsNotFound'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a build.
@@ -931,7 +1112,89 @@ class Build {
     this.networkInterface,
     this.encryptionKey,
   });
-  static Build fromJson(Map<String, dynamic> json) => Build();
+  static Build fromJson(Map<String, dynamic> json) => Build(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        endTime: json.containsKey('endTime')
+            ? DateTime.parse(json['endTime'])
+            : null,
+        currentPhase: json.containsKey('currentPhase')
+            ? json['currentPhase'] as String
+            : null,
+        buildStatus: json.containsKey('buildStatus')
+            ? json['buildStatus'] as String
+            : null,
+        sourceVersion: json.containsKey('sourceVersion')
+            ? json['sourceVersion'] as String
+            : null,
+        resolvedSourceVersion: json.containsKey('resolvedSourceVersion')
+            ? json['resolvedSourceVersion'] as String
+            : null,
+        projectName: json.containsKey('projectName')
+            ? json['projectName'] as String
+            : null,
+        phases: json.containsKey('phases')
+            ? (json['phases'] as List)
+                .map((e) => BuildPhase.fromJson(e))
+                .toList()
+            : null,
+        source: json.containsKey('source')
+            ? ProjectSource.fromJson(json['source'])
+            : null,
+        secondarySources: json.containsKey('secondarySources')
+            ? (json['secondarySources'] as List)
+                .map((e) => ProjectSource.fromJson(e))
+                .toList()
+            : null,
+        secondarySourceVersions: json.containsKey('secondarySourceVersions')
+            ? (json['secondarySourceVersions'] as List)
+                .map((e) => ProjectSourceVersion.fromJson(e))
+                .toList()
+            : null,
+        artifacts: json.containsKey('artifacts')
+            ? BuildArtifacts.fromJson(json['artifacts'])
+            : null,
+        secondaryArtifacts: json.containsKey('secondaryArtifacts')
+            ? (json['secondaryArtifacts'] as List)
+                .map((e) => BuildArtifacts.fromJson(e))
+                .toList()
+            : null,
+        cache: json.containsKey('cache')
+            ? ProjectCache.fromJson(json['cache'])
+            : null,
+        environment: json.containsKey('environment')
+            ? ProjectEnvironment.fromJson(json['environment'])
+            : null,
+        serviceRole: json.containsKey('serviceRole')
+            ? json['serviceRole'] as String
+            : null,
+        logs: json.containsKey('logs')
+            ? LogsLocation.fromJson(json['logs'])
+            : null,
+        timeoutInMinutes: json.containsKey('timeoutInMinutes')
+            ? json['timeoutInMinutes'] as int
+            : null,
+        queuedTimeoutInMinutes: json.containsKey('queuedTimeoutInMinutes')
+            ? json['queuedTimeoutInMinutes'] as int
+            : null,
+        buildComplete: json.containsKey('buildComplete')
+            ? json['buildComplete'] as bool
+            : null,
+        initiator:
+            json.containsKey('initiator') ? json['initiator'] as String : null,
+        vpcConfig: json.containsKey('vpcConfig')
+            ? VpcConfig.fromJson(json['vpcConfig'])
+            : null,
+        networkInterface: json.containsKey('networkInterface')
+            ? NetworkInterface.fromJson(json['networkInterface'])
+            : null,
+        encryptionKey: json.containsKey('encryptionKey')
+            ? json['encryptionKey'] as String
+            : null,
+      );
 }
 
 /// Information about build output artifacts.
@@ -981,7 +1244,22 @@ class BuildArtifacts {
     this.encryptionDisabled,
     this.artifactIdentifier,
   });
-  static BuildArtifacts fromJson(Map<String, dynamic> json) => BuildArtifacts();
+  static BuildArtifacts fromJson(Map<String, dynamic> json) => BuildArtifacts(
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        sha256Sum:
+            json.containsKey('sha256sum') ? json['sha256sum'] as String : null,
+        md5sum: json.containsKey('md5sum') ? json['md5sum'] as String : null,
+        overrideArtifactName: json.containsKey('overrideArtifactName')
+            ? json['overrideArtifactName'] as bool
+            : null,
+        encryptionDisabled: json.containsKey('encryptionDisabled')
+            ? json['encryptionDisabled'] as bool
+            : null,
+        artifactIdentifier: json.containsKey('artifactIdentifier')
+            ? json['artifactIdentifier'] as String
+            : null,
+      );
 }
 
 /// Information about a build that could not be successfully deleted.
@@ -997,8 +1275,12 @@ class BuildNotDeleted {
     this.id,
     this.statusCode,
   });
-  static BuildNotDeleted fromJson(Map<String, dynamic> json) =>
-      BuildNotDeleted();
+  static BuildNotDeleted fromJson(Map<String, dynamic> json) => BuildNotDeleted(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        statusCode: json.containsKey('statusCode')
+            ? json['statusCode'] as String
+            : null,
+      );
 }
 
 /// Information about a stage for a build.
@@ -1074,7 +1356,27 @@ class BuildPhase {
     this.durationInSeconds,
     this.contexts,
   });
-  static BuildPhase fromJson(Map<String, dynamic> json) => BuildPhase();
+  static BuildPhase fromJson(Map<String, dynamic> json) => BuildPhase(
+        phaseType:
+            json.containsKey('phaseType') ? json['phaseType'] as String : null,
+        phaseStatus: json.containsKey('phaseStatus')
+            ? json['phaseStatus'] as String
+            : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        endTime: json.containsKey('endTime')
+            ? DateTime.parse(json['endTime'])
+            : null,
+        durationInSeconds: json.containsKey('durationInSeconds')
+            ? BigInt.from(json['durationInSeconds'])
+            : null,
+        contexts: json.containsKey('contexts')
+            ? (json['contexts'] as List)
+                .map((e) => PhaseContext.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Information about Amazon CloudWatch Logs for a build project.
@@ -1104,7 +1406,15 @@ class CloudWatchLogsConfig {
     this.streamName,
   });
   static CloudWatchLogsConfig fromJson(Map<String, dynamic> json) =>
-      CloudWatchLogsConfig();
+      CloudWatchLogsConfig(
+        status: json['status'] as String,
+        groupName:
+            json.containsKey('groupName') ? json['groupName'] as String : null,
+        streamName: json.containsKey('streamName')
+            ? json['streamName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateProjectOutput {
@@ -1115,7 +1425,11 @@ class CreateProjectOutput {
     this.project,
   });
   static CreateProjectOutput fromJson(Map<String, dynamic> json) =>
-      CreateProjectOutput();
+      CreateProjectOutput(
+        project: json.containsKey('project')
+            ? Project.fromJson(json['project'])
+            : null,
+      );
 }
 
 class CreateWebhookOutput {
@@ -1127,7 +1441,11 @@ class CreateWebhookOutput {
     this.webhook,
   });
   static CreateWebhookOutput fromJson(Map<String, dynamic> json) =>
-      CreateWebhookOutput();
+      CreateWebhookOutput(
+        webhook: json.containsKey('webhook')
+            ? Webhook.fromJson(json['webhook'])
+            : null,
+      );
 }
 
 class DeleteProjectOutput {
@@ -1144,7 +1462,9 @@ class DeleteSourceCredentialsOutput {
     this.arn,
   });
   static DeleteSourceCredentialsOutput fromJson(Map<String, dynamic> json) =>
-      DeleteSourceCredentialsOutput();
+      DeleteSourceCredentialsOutput(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+      );
 }
 
 class DeleteWebhookOutput {
@@ -1170,7 +1490,15 @@ class EnvironmentImage {
     this.versions,
   });
   static EnvironmentImage fromJson(Map<String, dynamic> json) =>
-      EnvironmentImage();
+      EnvironmentImage(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        versions: json.containsKey('versions')
+            ? (json['versions'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// A set of Docker images that are related by programming language and are
@@ -1188,7 +1516,15 @@ class EnvironmentLanguage {
     this.images,
   });
   static EnvironmentLanguage fromJson(Map<String, dynamic> json) =>
-      EnvironmentLanguage();
+      EnvironmentLanguage(
+        language:
+            json.containsKey('language') ? json['language'] as String : null,
+        images: json.containsKey('images')
+            ? (json['images'] as List)
+                .map((e) => EnvironmentImage.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A set of Docker images that are related by platform and are managed by AWS
@@ -1206,7 +1542,15 @@ class EnvironmentPlatform {
     this.languages,
   });
   static EnvironmentPlatform fromJson(Map<String, dynamic> json) =>
-      EnvironmentPlatform();
+      EnvironmentPlatform(
+        platform:
+            json.containsKey('platform') ? json['platform'] as String : null,
+        languages: json.containsKey('languages')
+            ? (json['languages'] as List)
+                .map((e) => EnvironmentLanguage.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about an environment variable for a build project or a build.
@@ -1238,7 +1582,12 @@ class EnvironmentVariable {
     this.type,
   });
   static EnvironmentVariable fromJson(Map<String, dynamic> json) =>
-      EnvironmentVariable();
+      EnvironmentVariable(
+        name: json['name'] as String,
+        value: json['value'] as String,
+        type: json.containsKey('type') ? json['type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Information about the Git submodules configuration for an AWS CodeBuild
@@ -1251,7 +1600,10 @@ class GitSubmodulesConfig {
     @required this.fetchSubmodules,
   });
   static GitSubmodulesConfig fromJson(Map<String, dynamic> json) =>
-      GitSubmodulesConfig();
+      GitSubmodulesConfig(
+        fetchSubmodules: json['fetchSubmodules'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ImportSourceCredentialsOutput {
@@ -1262,7 +1614,9 @@ class ImportSourceCredentialsOutput {
     this.arn,
   });
   static ImportSourceCredentialsOutput fromJson(Map<String, dynamic> json) =>
-      ImportSourceCredentialsOutput();
+      ImportSourceCredentialsOutput(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+      );
 }
 
 class InvalidateProjectCacheOutput {
@@ -1287,7 +1641,13 @@ class ListBuildsForProjectOutput {
     this.nextToken,
   });
   static ListBuildsForProjectOutput fromJson(Map<String, dynamic> json) =>
-      ListBuildsForProjectOutput();
+      ListBuildsForProjectOutput(
+        ids: json.containsKey('ids')
+            ? (json['ids'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListBuildsOutput {
@@ -1305,7 +1665,13 @@ class ListBuildsOutput {
     this.nextToken,
   });
   static ListBuildsOutput fromJson(Map<String, dynamic> json) =>
-      ListBuildsOutput();
+      ListBuildsOutput(
+        ids: json.containsKey('ids')
+            ? (json['ids'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListCuratedEnvironmentImagesOutput {
@@ -1318,7 +1684,13 @@ class ListCuratedEnvironmentImagesOutput {
   });
   static ListCuratedEnvironmentImagesOutput fromJson(
           Map<String, dynamic> json) =>
-      ListCuratedEnvironmentImagesOutput();
+      ListCuratedEnvironmentImagesOutput(
+        platforms: json.containsKey('platforms')
+            ? (json['platforms'] as List)
+                .map((e) => EnvironmentPlatform.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListProjectsOutput {
@@ -1337,7 +1709,13 @@ class ListProjectsOutput {
     this.projects,
   });
   static ListProjectsOutput fromJson(Map<String, dynamic> json) =>
-      ListProjectsOutput();
+      ListProjectsOutput(
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        projects: json.containsKey('projects')
+            ? (json['projects'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class ListSourceCredentialsOutput {
@@ -1350,7 +1728,13 @@ class ListSourceCredentialsOutput {
     this.sourceCredentialsInfos,
   });
   static ListSourceCredentialsOutput fromJson(Map<String, dynamic> json) =>
-      ListSourceCredentialsOutput();
+      ListSourceCredentialsOutput(
+        sourceCredentialsInfos: json.containsKey('sourceCredentialsInfos')
+            ? (json['sourceCredentialsInfos'] as List)
+                .map((e) => SourceCredentialsInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Information about logs for a build project. These can be logs in Amazon
@@ -1368,7 +1752,15 @@ class LogsConfig {
     this.cloudWatchLogs,
     this.s3Logs,
   });
-  static LogsConfig fromJson(Map<String, dynamic> json) => LogsConfig();
+  static LogsConfig fromJson(Map<String, dynamic> json) => LogsConfig(
+        cloudWatchLogs: json.containsKey('cloudWatchLogs')
+            ? CloudWatchLogsConfig.fromJson(json['cloudWatchLogs'])
+            : null,
+        s3Logs: json.containsKey('s3Logs')
+            ? S3LogsConfig.fromJson(json['s3Logs'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about build logs in Amazon CloudWatch Logs.
@@ -1399,7 +1791,24 @@ class LogsLocation {
     this.cloudWatchLogs,
     this.s3Logs,
   });
-  static LogsLocation fromJson(Map<String, dynamic> json) => LogsLocation();
+  static LogsLocation fromJson(Map<String, dynamic> json) => LogsLocation(
+        groupName:
+            json.containsKey('groupName') ? json['groupName'] as String : null,
+        streamName: json.containsKey('streamName')
+            ? json['streamName'] as String
+            : null,
+        deepLink:
+            json.containsKey('deepLink') ? json['deepLink'] as String : null,
+        s3DeepLink: json.containsKey('s3DeepLink')
+            ? json['s3DeepLink'] as String
+            : null,
+        cloudWatchLogs: json.containsKey('cloudWatchLogs')
+            ? CloudWatchLogsConfig.fromJson(json['cloudWatchLogs'])
+            : null,
+        s3Logs: json.containsKey('s3Logs')
+            ? S3LogsConfig.fromJson(json['s3Logs'])
+            : null,
+      );
 }
 
 /// Describes a network interface.
@@ -1415,7 +1824,13 @@ class NetworkInterface {
     this.networkInterfaceId,
   });
   static NetworkInterface fromJson(Map<String, dynamic> json) =>
-      NetworkInterface();
+      NetworkInterface(
+        subnetId:
+            json.containsKey('subnetId') ? json['subnetId'] as String : null,
+        networkInterfaceId: json.containsKey('networkInterfaceId')
+            ? json['networkInterfaceId'] as String
+            : null,
+      );
 }
 
 /// Additional information about a build phase that has an error. You can use
@@ -1432,7 +1847,12 @@ class PhaseContext {
     this.statusCode,
     this.message,
   });
-  static PhaseContext fromJson(Map<String, dynamic> json) => PhaseContext();
+  static PhaseContext fromJson(Map<String, dynamic> json) => PhaseContext(
+        statusCode: json.containsKey('statusCode')
+            ? json['statusCode'] as String
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 /// Information about a build project.
@@ -1573,7 +1993,76 @@ class Project {
     this.badge,
     this.logsConfig,
   });
-  static Project fromJson(Map<String, dynamic> json) => Project();
+  static Project fromJson(Map<String, dynamic> json) => Project(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        source: json.containsKey('source')
+            ? ProjectSource.fromJson(json['source'])
+            : null,
+        secondarySources: json.containsKey('secondarySources')
+            ? (json['secondarySources'] as List)
+                .map((e) => ProjectSource.fromJson(e))
+                .toList()
+            : null,
+        sourceVersion: json.containsKey('sourceVersion')
+            ? json['sourceVersion'] as String
+            : null,
+        secondarySourceVersions: json.containsKey('secondarySourceVersions')
+            ? (json['secondarySourceVersions'] as List)
+                .map((e) => ProjectSourceVersion.fromJson(e))
+                .toList()
+            : null,
+        artifacts: json.containsKey('artifacts')
+            ? ProjectArtifacts.fromJson(json['artifacts'])
+            : null,
+        secondaryArtifacts: json.containsKey('secondaryArtifacts')
+            ? (json['secondaryArtifacts'] as List)
+                .map((e) => ProjectArtifacts.fromJson(e))
+                .toList()
+            : null,
+        cache: json.containsKey('cache')
+            ? ProjectCache.fromJson(json['cache'])
+            : null,
+        environment: json.containsKey('environment')
+            ? ProjectEnvironment.fromJson(json['environment'])
+            : null,
+        serviceRole: json.containsKey('serviceRole')
+            ? json['serviceRole'] as String
+            : null,
+        timeoutInMinutes: json.containsKey('timeoutInMinutes')
+            ? json['timeoutInMinutes'] as int
+            : null,
+        queuedTimeoutInMinutes: json.containsKey('queuedTimeoutInMinutes')
+            ? json['queuedTimeoutInMinutes'] as int
+            : null,
+        encryptionKey: json.containsKey('encryptionKey')
+            ? json['encryptionKey'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        lastModified: json.containsKey('lastModified')
+            ? DateTime.parse(json['lastModified'])
+            : null,
+        webhook: json.containsKey('webhook')
+            ? Webhook.fromJson(json['webhook'])
+            : null,
+        vpcConfig: json.containsKey('vpcConfig')
+            ? VpcConfig.fromJson(json['vpcConfig'])
+            : null,
+        badge: json.containsKey('badge')
+            ? ProjectBadge.fromJson(json['badge'])
+            : null,
+        logsConfig: json.containsKey('logsConfig')
+            ? LogsConfig.fromJson(json['logsConfig'])
+            : null,
+      );
 }
 
 /// Information about the build output artifacts for the build project.
@@ -1721,7 +2210,28 @@ class ProjectArtifacts {
     this.artifactIdentifier,
   });
   static ProjectArtifacts fromJson(Map<String, dynamic> json) =>
-      ProjectArtifacts();
+      ProjectArtifacts(
+        type: json['type'] as String,
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        path: json.containsKey('path') ? json['path'] as String : null,
+        namespaceType: json.containsKey('namespaceType')
+            ? json['namespaceType'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        packaging:
+            json.containsKey('packaging') ? json['packaging'] as String : null,
+        overrideArtifactName: json.containsKey('overrideArtifactName')
+            ? json['overrideArtifactName'] as bool
+            : null,
+        encryptionDisabled: json.containsKey('encryptionDisabled')
+            ? json['encryptionDisabled'] as bool
+            : null,
+        artifactIdentifier: json.containsKey('artifactIdentifier')
+            ? json['artifactIdentifier'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the build badge for the build project.
@@ -1741,7 +2251,14 @@ class ProjectBadge {
     this.badgeEnabled,
     this.badgeRequestUrl,
   });
-  static ProjectBadge fromJson(Map<String, dynamic> json) => ProjectBadge();
+  static ProjectBadge fromJson(Map<String, dynamic> json) => ProjectBadge(
+        badgeEnabled: json.containsKey('badgeEnabled')
+            ? json['badgeEnabled'] as bool
+            : null,
+        badgeRequestUrl: json.containsKey('badgeRequestUrl')
+            ? json['badgeRequestUrl'] as String
+            : null,
+      );
 }
 
 /// Information about the cache for the build project.
@@ -1807,7 +2324,15 @@ class ProjectCache {
     this.location,
     this.modes,
   });
-  static ProjectCache fromJson(Map<String, dynamic> json) => ProjectCache();
+  static ProjectCache fromJson(Map<String, dynamic> json) => ProjectCache(
+        type: json['type'] as String,
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        modes: json.containsKey('modes')
+            ? (json['modes'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the build environment of the build project.
@@ -1901,7 +2426,29 @@ class ProjectEnvironment {
     this.imagePullCredentialsType,
   });
   static ProjectEnvironment fromJson(Map<String, dynamic> json) =>
-      ProjectEnvironment();
+      ProjectEnvironment(
+        type: json['type'] as String,
+        image: json['image'] as String,
+        computeType: json['computeType'] as String,
+        environmentVariables: json.containsKey('environmentVariables')
+            ? (json['environmentVariables'] as List)
+                .map((e) => EnvironmentVariable.fromJson(e))
+                .toList()
+            : null,
+        privilegedMode: json.containsKey('privilegedMode')
+            ? json['privilegedMode'] as bool
+            : null,
+        certificate: json.containsKey('certificate')
+            ? json['certificate'] as String
+            : null,
+        registryCredential: json.containsKey('registryCredential')
+            ? RegistryCredential.fromJson(json['registryCredential'])
+            : null,
+        imagePullCredentialsType: json.containsKey('imagePullCredentialsType')
+            ? json['imagePullCredentialsType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the build input source code for the build project.
@@ -2015,7 +2562,31 @@ class ProjectSource {
     this.insecureSsl,
     this.sourceIdentifier,
   });
-  static ProjectSource fromJson(Map<String, dynamic> json) => ProjectSource();
+  static ProjectSource fromJson(Map<String, dynamic> json) => ProjectSource(
+        type: json['type'] as String,
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        gitCloneDepth: json.containsKey('gitCloneDepth')
+            ? json['gitCloneDepth'] as int
+            : null,
+        gitSubmodulesConfig: json.containsKey('gitSubmodulesConfig')
+            ? GitSubmodulesConfig.fromJson(json['gitSubmodulesConfig'])
+            : null,
+        buildspec:
+            json.containsKey('buildspec') ? json['buildspec'] as String : null,
+        auth:
+            json.containsKey('auth') ? SourceAuth.fromJson(json['auth']) : null,
+        reportBuildStatus: json.containsKey('reportBuildStatus')
+            ? json['reportBuildStatus'] as bool
+            : null,
+        insecureSsl: json.containsKey('insecureSsl')
+            ? json['insecureSsl'] as bool
+            : null,
+        sourceIdentifier: json.containsKey('sourceIdentifier')
+            ? json['sourceIdentifier'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  A source identifier and its corresponding version.
@@ -2054,7 +2625,11 @@ class ProjectSourceVersion {
     @required this.sourceVersion,
   });
   static ProjectSourceVersion fromJson(Map<String, dynamic> json) =>
-      ProjectSourceVersion();
+      ProjectSourceVersion(
+        sourceIdentifier: json['sourceIdentifier'] as String,
+        sourceVersion: json['sourceVersion'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Information about credentials that provide access to a private Docker
@@ -2084,7 +2659,11 @@ class RegistryCredential {
     @required this.credentialProvider,
   });
   static RegistryCredential fromJson(Map<String, dynamic> json) =>
-      RegistryCredential();
+      RegistryCredential(
+        credential: json['credential'] as String,
+        credentialProvider: json['credentialProvider'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Information about S3 logs for a build project.
@@ -2111,7 +2690,15 @@ class S3LogsConfig {
     this.location,
     this.encryptionDisabled,
   });
-  static S3LogsConfig fromJson(Map<String, dynamic> json) => S3LogsConfig();
+  static S3LogsConfig fromJson(Map<String, dynamic> json) => S3LogsConfig(
+        status: json['status'] as String,
+        location:
+            json.containsKey('location') ? json['location'] as String : null,
+        encryptionDisabled: json.containsKey('encryptionDisabled')
+            ? json['encryptionDisabled'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the authorization settings for AWS CodeBuild to access the
@@ -2133,7 +2720,12 @@ class SourceAuth {
     @required this.type,
     this.resource,
   });
-  static SourceAuth fromJson(Map<String, dynamic> json) => SourceAuth();
+  static SourceAuth fromJson(Map<String, dynamic> json) => SourceAuth(
+        type: json['type'] as String,
+        resource:
+            json.containsKey('resource') ? json['resource'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Information about the credentials for a GitHub, GitHub Enterprise, or
@@ -2156,7 +2748,14 @@ class SourceCredentialsInfo {
     this.authType,
   });
   static SourceCredentialsInfo fromJson(Map<String, dynamic> json) =>
-      SourceCredentialsInfo();
+      SourceCredentialsInfo(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        serverType: json.containsKey('serverType')
+            ? json['serverType'] as String
+            : null,
+        authType:
+            json.containsKey('authType') ? json['authType'] as String : null,
+      );
 }
 
 class StartBuildOutput {
@@ -2167,7 +2766,9 @@ class StartBuildOutput {
     this.build,
   });
   static StartBuildOutput fromJson(Map<String, dynamic> json) =>
-      StartBuildOutput();
+      StartBuildOutput(
+        build: json.containsKey('build') ? Build.fromJson(json['build']) : null,
+      );
 }
 
 class StopBuildOutput {
@@ -2177,8 +2778,9 @@ class StopBuildOutput {
   StopBuildOutput({
     this.build,
   });
-  static StopBuildOutput fromJson(Map<String, dynamic> json) =>
-      StopBuildOutput();
+  static StopBuildOutput fromJson(Map<String, dynamic> json) => StopBuildOutput(
+        build: json.containsKey('build') ? Build.fromJson(json['build']) : null,
+      );
 }
 
 /// A tag, consisting of a key and a value.
@@ -2196,7 +2798,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('key') ? json['key'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateProjectOutput {
@@ -2207,7 +2813,11 @@ class UpdateProjectOutput {
     this.project,
   });
   static UpdateProjectOutput fromJson(Map<String, dynamic> json) =>
-      UpdateProjectOutput();
+      UpdateProjectOutput(
+        project: json.containsKey('project')
+            ? Project.fromJson(json['project'])
+            : null,
+      );
 }
 
 class UpdateWebhookOutput {
@@ -2219,7 +2829,11 @@ class UpdateWebhookOutput {
     this.webhook,
   });
   static UpdateWebhookOutput fromJson(Map<String, dynamic> json) =>
-      UpdateWebhookOutput();
+      UpdateWebhookOutput(
+        webhook: json.containsKey('webhook')
+            ? Webhook.fromJson(json['webhook'])
+            : null,
+      );
 }
 
 /// Information about the VPC configuration that AWS CodeBuild accesses.
@@ -2238,7 +2852,18 @@ class VpcConfig {
     this.subnets,
     this.securityGroupIds,
   });
-  static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig();
+  static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig(
+        vpcId: json.containsKey('vpcId') ? json['vpcId'] as String : null,
+        subnets: json.containsKey('subnets')
+            ? (json['subnets'] as List).map((e) => e as String).toList()
+            : null,
+        securityGroupIds: json.containsKey('securityGroupIds')
+            ? (json['securityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a webhook that connects repository events to a build
@@ -2284,7 +2909,25 @@ class Webhook {
     this.filterGroups,
     this.lastModifiedSecret,
   });
-  static Webhook fromJson(Map<String, dynamic> json) => Webhook();
+  static Webhook fromJson(Map<String, dynamic> json) => Webhook(
+        url: json.containsKey('url') ? json['url'] as String : null,
+        payloadUrl: json.containsKey('payloadUrl')
+            ? json['payloadUrl'] as String
+            : null,
+        secret: json.containsKey('secret') ? json['secret'] as String : null,
+        branchFilter: json.containsKey('branchFilter')
+            ? json['branchFilter'] as String
+            : null,
+        filterGroups: json.containsKey('filterGroups')
+            ? (json['filterGroups'] as List)
+                .map((e) =>
+                    (e as List).map((e) => WebhookFilter.fromJson(e)).toList())
+                .toList()
+            : null,
+        lastModifiedSecret: json.containsKey('lastModifiedSecret')
+            ? DateTime.parse(json['lastModifiedSecret'])
+            : null,
+      );
 }
 
 ///  A filter used to determine which webhooks trigger a build.
@@ -2356,5 +2999,12 @@ class WebhookFilter {
     @required this.pattern,
     this.excludeMatchedPattern,
   });
-  static WebhookFilter fromJson(Map<String, dynamic> json) => WebhookFilter();
+  static WebhookFilter fromJson(Map<String, dynamic> json) => WebhookFilter(
+        type: json['type'] as String,
+        pattern: json['pattern'] as String,
+        excludeMatchedPattern: json.containsKey('excludeMatchedPattern')
+            ? json['excludeMatchedPattern'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

@@ -4,6 +4,10 @@ import 'package:meta/meta.dart';
 /// Android, iOS, and Fire OS apps on physical phones, tablets, and other
 /// devices in the cloud.
 class DeviceFarmApi {
+  final _client;
+  DeviceFarmApi(client)
+      : _client = client.configured('Device Farm', serializer: 'json');
+
   /// Creates a device pool.
   ///
   /// [projectArn]: The ARN of the project for the device pool.
@@ -28,7 +32,14 @@ class DeviceFarmApi {
       String description,
       @required List<Rule> rules,
       int maxDevices}) async {
-    return CreateDevicePoolResult.fromJson({});
+    var response_ = await _client.send('CreateDevicePool', {
+      'projectArn': projectArn,
+      'name': name,
+      if (description != null) 'description': description,
+      'rules': rules,
+      if (maxDevices != null) 'maxDevices': maxDevices,
+    });
+    return CreateDevicePoolResult.fromJson(response_);
   }
 
   /// Creates a profile that can be applied to one or more private fleet device
@@ -55,7 +66,15 @@ class DeviceFarmApi {
       bool packageCleanup,
       List<String> excludeAppPackagesFromCleanup,
       bool rebootAfterUse}) async {
-    return CreateInstanceProfileResult.fromJson({});
+    var response_ = await _client.send('CreateInstanceProfile', {
+      'name': name,
+      if (description != null) 'description': description,
+      if (packageCleanup != null) 'packageCleanup': packageCleanup,
+      if (excludeAppPackagesFromCleanup != null)
+        'excludeAppPackagesFromCleanup': excludeAppPackagesFromCleanup,
+      if (rebootAfterUse != null) 'rebootAfterUse': rebootAfterUse,
+    });
+    return CreateInstanceProfileResult.fromJson(response_);
   }
 
   /// Creates a network profile.
@@ -106,7 +125,24 @@ class DeviceFarmApi {
       BigInt downlinkJitterMs,
       int uplinkLossPercent,
       int downlinkLossPercent}) async {
-    return CreateNetworkProfileResult.fromJson({});
+    var response_ = await _client.send('CreateNetworkProfile', {
+      'projectArn': projectArn,
+      'name': name,
+      if (description != null) 'description': description,
+      if (type != null) 'type': type,
+      if (uplinkBandwidthBits != null)
+        'uplinkBandwidthBits': uplinkBandwidthBits,
+      if (downlinkBandwidthBits != null)
+        'downlinkBandwidthBits': downlinkBandwidthBits,
+      if (uplinkDelayMs != null) 'uplinkDelayMs': uplinkDelayMs,
+      if (downlinkDelayMs != null) 'downlinkDelayMs': downlinkDelayMs,
+      if (uplinkJitterMs != null) 'uplinkJitterMs': uplinkJitterMs,
+      if (downlinkJitterMs != null) 'downlinkJitterMs': downlinkJitterMs,
+      if (uplinkLossPercent != null) 'uplinkLossPercent': uplinkLossPercent,
+      if (downlinkLossPercent != null)
+        'downlinkLossPercent': downlinkLossPercent,
+    });
+    return CreateNetworkProfileResult.fromJson(response_);
   }
 
   /// Creates a new project.
@@ -118,7 +154,12 @@ class DeviceFarmApi {
   /// execution timeout value unless overridden when scheduling a run.
   Future<CreateProjectResult> createProject(String name,
       {int defaultJobTimeoutMinutes}) async {
-    return CreateProjectResult.fromJson({});
+    var response_ = await _client.send('CreateProject', {
+      'name': name,
+      if (defaultJobTimeoutMinutes != null)
+        'defaultJobTimeoutMinutes': defaultJobTimeoutMinutes,
+    });
+    return CreateProjectResult.fromJson(response_);
   }
 
   /// Specifies and starts a remote access session.
@@ -190,7 +231,22 @@ class DeviceFarmApi {
       CreateRemoteAccessSessionConfiguration configuration,
       String interactionMode,
       bool skipAppResign}) async {
-    return CreateRemoteAccessSessionResult.fromJson({});
+    var response_ = await _client.send('CreateRemoteAccessSession', {
+      'projectArn': projectArn,
+      'deviceArn': deviceArn,
+      if (instanceArn != null) 'instanceArn': instanceArn,
+      if (sshPublicKey != null) 'sshPublicKey': sshPublicKey,
+      if (remoteDebugEnabled != null) 'remoteDebugEnabled': remoteDebugEnabled,
+      if (remoteRecordEnabled != null)
+        'remoteRecordEnabled': remoteRecordEnabled,
+      if (remoteRecordAppArn != null) 'remoteRecordAppArn': remoteRecordAppArn,
+      if (name != null) 'name': name,
+      if (clientId != null) 'clientId': clientId,
+      if (configuration != null) 'configuration': configuration,
+      if (interactionMode != null) 'interactionMode': interactionMode,
+      if (skipAppResign != null) 'skipAppResign': skipAppResign,
+    });
+    return CreateRemoteAccessSessionResult.fromJson(response_);
   }
 
   /// Uploads an app or test scripts.
@@ -294,7 +350,13 @@ class DeviceFarmApi {
       @required String name,
       @required String type,
       String contentType}) async {
-    return CreateUploadResult.fromJson({});
+    var response_ = await _client.send('CreateUpload', {
+      'projectArn': projectArn,
+      'name': name,
+      'type': type,
+      if (contentType != null) 'contentType': contentType,
+    });
+    return CreateUploadResult.fromJson(response_);
   }
 
   /// Creates a configuration record in Device Farm for your Amazon Virtual
@@ -316,7 +378,14 @@ class DeviceFarmApi {
       @required String vpceServiceName,
       @required String serviceDnsName,
       String vpceConfigurationDescription}) async {
-    return CreateVpceConfigurationResult.fromJson({});
+    var response_ = await _client.send('CreateVPCEConfiguration', {
+      'vpceConfigurationName': vpceConfigurationName,
+      'vpceServiceName': vpceServiceName,
+      'serviceDnsName': serviceDnsName,
+      if (vpceConfigurationDescription != null)
+        'vpceConfigurationDescription': vpceConfigurationDescription,
+    });
+    return CreateVpceConfigurationResult.fromJson(response_);
   }
 
   /// Deletes a device pool given the pool ARN. Does not allow deletion of
@@ -325,7 +394,10 @@ class DeviceFarmApi {
   /// [arn]: Represents the Amazon Resource Name (ARN) of the Device Farm device
   /// pool you wish to delete.
   Future<DeleteDevicePoolResult> deleteDevicePool(String arn) async {
-    return DeleteDevicePoolResult.fromJson({});
+    var response_ = await _client.send('DeleteDevicePool', {
+      'arn': arn,
+    });
+    return DeleteDevicePoolResult.fromJson(response_);
   }
 
   /// Deletes a profile that can be applied to one or more private device
@@ -334,7 +406,10 @@ class DeviceFarmApi {
   /// [arn]: The Amazon Resource Name (ARN) of the instance profile you are
   /// requesting to delete.
   Future<DeleteInstanceProfileResult> deleteInstanceProfile(String arn) async {
-    return DeleteInstanceProfileResult.fromJson({});
+    var response_ = await _client.send('DeleteInstanceProfile', {
+      'arn': arn,
+    });
+    return DeleteInstanceProfileResult.fromJson(response_);
   }
 
   /// Deletes a network profile.
@@ -342,7 +417,10 @@ class DeviceFarmApi {
   /// [arn]: The Amazon Resource Name (ARN) of the network profile you want to
   /// delete.
   Future<DeleteNetworkProfileResult> deleteNetworkProfile(String arn) async {
-    return DeleteNetworkProfileResult.fromJson({});
+    var response_ = await _client.send('DeleteNetworkProfile', {
+      'arn': arn,
+    });
+    return DeleteNetworkProfileResult.fromJson(response_);
   }
 
   /// Deletes an AWS Device Farm project, given the project ARN.
@@ -352,7 +430,10 @@ class DeviceFarmApi {
   /// [arn]: Represents the Amazon Resource Name (ARN) of the Device Farm
   /// project you wish to delete.
   Future<DeleteProjectResult> deleteProject(String arn) async {
-    return DeleteProjectResult.fromJson({});
+    var response_ = await _client.send('DeleteProject', {
+      'arn': arn,
+    });
+    return DeleteProjectResult.fromJson(response_);
   }
 
   /// Deletes a completed remote access session and its results.
@@ -361,7 +442,10 @@ class DeviceFarmApi {
   /// delete remote access.
   Future<DeleteRemoteAccessSessionResult> deleteRemoteAccessSession(
       String arn) async {
-    return DeleteRemoteAccessSessionResult.fromJson({});
+    var response_ = await _client.send('DeleteRemoteAccessSession', {
+      'arn': arn,
+    });
+    return DeleteRemoteAccessSessionResult.fromJson(response_);
   }
 
   /// Deletes the run, given the run ARN.
@@ -370,7 +454,10 @@ class DeviceFarmApi {
   ///
   /// [arn]: The Amazon Resource Name (ARN) for the run you wish to delete.
   Future<DeleteRunResult> deleteRun(String arn) async {
-    return DeleteRunResult.fromJson({});
+    var response_ = await _client.send('DeleteRun', {
+      'arn': arn,
+    });
+    return DeleteRunResult.fromJson(response_);
   }
 
   /// Deletes an upload given the upload ARN.
@@ -378,7 +465,10 @@ class DeviceFarmApi {
   /// [arn]: Represents the Amazon Resource Name (ARN) of the Device Farm upload
   /// you wish to delete.
   Future<DeleteUploadResult> deleteUpload(String arn) async {
-    return DeleteUploadResult.fromJson({});
+    var response_ = await _client.send('DeleteUpload', {
+      'arn': arn,
+    });
+    return DeleteUploadResult.fromJson(response_);
   }
 
   /// Deletes a configuration for your Amazon Virtual Private Cloud (VPC)
@@ -388,20 +478,27 @@ class DeviceFarmApi {
   /// you want to delete.
   Future<DeleteVpceConfigurationResult> deleteVpceConfiguration(
       String arn) async {
-    return DeleteVpceConfigurationResult.fromJson({});
+    var response_ = await _client.send('DeleteVPCEConfiguration', {
+      'arn': arn,
+    });
+    return DeleteVpceConfigurationResult.fromJson(response_);
   }
 
   /// Returns the number of unmetered iOS and/or unmetered Android devices that
   /// have been purchased by the account.
   Future<GetAccountSettingsResult> getAccountSettings() async {
-    return GetAccountSettingsResult.fromJson({});
+    var response_ = await _client.send('GetAccountSettings', {});
+    return GetAccountSettingsResult.fromJson(response_);
   }
 
   /// Gets information about a unique device type.
   ///
   /// [arn]: The device type's ARN.
   Future<GetDeviceResult> getDevice(String arn) async {
-    return GetDeviceResult.fromJson({});
+    var response_ = await _client.send('GetDevice', {
+      'arn': arn,
+    });
+    return GetDeviceResult.fromJson(response_);
   }
 
   /// Returns information about a device instance belonging to a private device
@@ -410,14 +507,20 @@ class DeviceFarmApi {
   /// [arn]: The Amazon Resource Name (ARN) of the instance you're requesting
   /// information about.
   Future<GetDeviceInstanceResult> getDeviceInstance(String arn) async {
-    return GetDeviceInstanceResult.fromJson({});
+    var response_ = await _client.send('GetDeviceInstance', {
+      'arn': arn,
+    });
+    return GetDeviceInstanceResult.fromJson(response_);
   }
 
   /// Gets information about a device pool.
   ///
   /// [arn]: The device pool's ARN.
   Future<GetDevicePoolResult> getDevicePool(String arn) async {
-    return GetDevicePoolResult.fromJson({});
+    var response_ = await _client.send('GetDevicePool', {
+      'arn': arn,
+    });
+    return GetDevicePoolResult.fromJson(response_);
   }
 
   /// Gets information about compatibility with a device pool.
@@ -480,21 +583,34 @@ class DeviceFarmApi {
       String testType,
       ScheduleRunTest test,
       ScheduleRunConfiguration configuration}) async {
-    return GetDevicePoolCompatibilityResult.fromJson({});
+    var response_ = await _client.send('GetDevicePoolCompatibility', {
+      'devicePoolArn': devicePoolArn,
+      if (appArn != null) 'appArn': appArn,
+      if (testType != null) 'testType': testType,
+      if (test != null) 'test': test,
+      if (configuration != null) 'configuration': configuration,
+    });
+    return GetDevicePoolCompatibilityResult.fromJson(response_);
   }
 
   /// Returns information about the specified instance profile.
   ///
   /// [arn]: The Amazon Resource Name (ARN) of your instance profile.
   Future<GetInstanceProfileResult> getInstanceProfile(String arn) async {
-    return GetInstanceProfileResult.fromJson({});
+    var response_ = await _client.send('GetInstanceProfile', {
+      'arn': arn,
+    });
+    return GetInstanceProfileResult.fromJson(response_);
   }
 
   /// Gets information about a job.
   ///
   /// [arn]: The job's ARN.
   Future<GetJobResult> getJob(String arn) async {
-    return GetJobResult.fromJson({});
+    var response_ = await _client.send('GetJob', {
+      'arn': arn,
+    });
+    return GetJobResult.fromJson(response_);
   }
 
   /// Returns information about a network profile.
@@ -502,7 +618,10 @@ class DeviceFarmApi {
   /// [arn]: The Amazon Resource Name (ARN) of the network profile you want to
   /// return information about.
   Future<GetNetworkProfileResult> getNetworkProfile(String arn) async {
-    return GetNetworkProfileResult.fromJson({});
+    var response_ = await _client.send('GetNetworkProfile', {
+      'arn': arn,
+    });
+    return GetNetworkProfileResult.fromJson(response_);
   }
 
   /// Gets the current status and future status of all offerings purchased by an
@@ -517,14 +636,20 @@ class DeviceFarmApi {
   /// this operation, which can be used to return the next set of items in the
   /// list.
   Future<GetOfferingStatusResult> getOfferingStatus({String nextToken}) async {
-    return GetOfferingStatusResult.fromJson({});
+    var response_ = await _client.send('GetOfferingStatus', {
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return GetOfferingStatusResult.fromJson(response_);
   }
 
   /// Gets information about a project.
   ///
   /// [arn]: The project's ARN.
   Future<GetProjectResult> getProject(String arn) async {
-    return GetProjectResult.fromJson({});
+    var response_ = await _client.send('GetProject', {
+      'arn': arn,
+    });
+    return GetProjectResult.fromJson(response_);
   }
 
   /// Returns a link to a currently running remote access session.
@@ -533,35 +658,50 @@ class DeviceFarmApi {
   /// which you want to get session information.
   Future<GetRemoteAccessSessionResult> getRemoteAccessSession(
       String arn) async {
-    return GetRemoteAccessSessionResult.fromJson({});
+    var response_ = await _client.send('GetRemoteAccessSession', {
+      'arn': arn,
+    });
+    return GetRemoteAccessSessionResult.fromJson(response_);
   }
 
   /// Gets information about a run.
   ///
   /// [arn]: The run's ARN.
   Future<GetRunResult> getRun(String arn) async {
-    return GetRunResult.fromJson({});
+    var response_ = await _client.send('GetRun', {
+      'arn': arn,
+    });
+    return GetRunResult.fromJson(response_);
   }
 
   /// Gets information about a suite.
   ///
   /// [arn]: The suite's ARN.
   Future<GetSuiteResult> getSuite(String arn) async {
-    return GetSuiteResult.fromJson({});
+    var response_ = await _client.send('GetSuite', {
+      'arn': arn,
+    });
+    return GetSuiteResult.fromJson(response_);
   }
 
   /// Gets information about a test.
   ///
   /// [arn]: The test's ARN.
   Future<GetTestResult> getTest(String arn) async {
-    return GetTestResult.fromJson({});
+    var response_ = await _client.send('GetTest', {
+      'arn': arn,
+    });
+    return GetTestResult.fromJson(response_);
   }
 
   /// Gets information about an upload.
   ///
   /// [arn]: The upload's ARN.
   Future<GetUploadResult> getUpload(String arn) async {
-    return GetUploadResult.fromJson({});
+    var response_ = await _client.send('GetUpload', {
+      'arn': arn,
+    });
+    return GetUploadResult.fromJson(response_);
   }
 
   /// Returns information about the configuration settings for your Amazon
@@ -570,7 +710,10 @@ class DeviceFarmApi {
   /// [arn]: The Amazon Resource Name (ARN) of the VPC endpoint configuration
   /// you want to describe.
   Future<GetVpceConfigurationResult> getVpceConfiguration(String arn) async {
-    return GetVpceConfigurationResult.fromJson({});
+    var response_ = await _client.send('GetVPCEConfiguration', {
+      'arn': arn,
+    });
+    return GetVpceConfigurationResult.fromJson(response_);
   }
 
   /// Installs an application to the device in a remote access session. For
@@ -585,7 +728,11 @@ class DeviceFarmApi {
   Future<InstallToRemoteAccessSessionResult> installToRemoteAccessSession(
       {@required String remoteAccessSessionArn,
       @required String appArn}) async {
-    return InstallToRemoteAccessSessionResult.fromJson({});
+    var response_ = await _client.send('InstallToRemoteAccessSession', {
+      'remoteAccessSessionArn': remoteAccessSessionArn,
+      'appArn': appArn,
+    });
+    return InstallToRemoteAccessSessionResult.fromJson(response_);
   }
 
   /// Gets information about artifacts.
@@ -607,7 +754,12 @@ class DeviceFarmApi {
   /// list.
   Future<ListArtifactsResult> listArtifacts(
       {@required String arn, @required String type, String nextToken}) async {
-    return ListArtifactsResult.fromJson({});
+    var response_ = await _client.send('ListArtifacts', {
+      'arn': arn,
+      'type': type,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListArtifactsResult.fromJson(response_);
   }
 
   /// Returns information about the private device instances associated with one
@@ -621,7 +773,11 @@ class DeviceFarmApi {
   /// list.
   Future<ListDeviceInstancesResult> listDeviceInstances(
       {int maxResults, String nextToken}) async {
-    return ListDeviceInstancesResult.fromJson({});
+    var response_ = await _client.send('ListDeviceInstances', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListDeviceInstancesResult.fromJson(response_);
   }
 
   /// Gets information about device pools.
@@ -642,7 +798,12 @@ class DeviceFarmApi {
   /// list.
   Future<ListDevicePoolsResult> listDevicePools(String arn,
       {String type, String nextToken}) async {
-    return ListDevicePoolsResult.fromJson({});
+    var response_ = await _client.send('ListDevicePools', {
+      'arn': arn,
+      if (type != null) 'type': type,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListDevicePoolsResult.fromJson(response_);
   }
 
   /// Gets information about unique device types.
@@ -721,7 +882,12 @@ class DeviceFarmApi {
   /// "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE" as values.
   Future<ListDevicesResult> listDevices(
       {String arn, String nextToken, List<DeviceFilter> filters}) async {
-    return ListDevicesResult.fromJson({});
+    var response_ = await _client.send('ListDevices', {
+      if (arn != null) 'arn': arn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (filters != null) 'filters': filters,
+    });
+    return ListDevicesResult.fromJson(response_);
   }
 
   /// Returns information about all the instance profiles in an AWS account.
@@ -734,7 +900,11 @@ class DeviceFarmApi {
   /// list.
   Future<ListInstanceProfilesResult> listInstanceProfiles(
       {int maxResults, String nextToken}) async {
-    return ListInstanceProfilesResult.fromJson({});
+    var response_ = await _client.send('ListInstanceProfiles', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListInstanceProfilesResult.fromJson(response_);
   }
 
   /// Gets information about jobs for a given test run.
@@ -745,7 +915,11 @@ class DeviceFarmApi {
   /// this operation, which can be used to return the next set of items in the
   /// list.
   Future<ListJobsResult> listJobs(String arn, {String nextToken}) async {
-    return ListJobsResult.fromJson({});
+    var response_ = await _client.send('ListJobs', {
+      'arn': arn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListJobsResult.fromJson(response_);
   }
 
   /// Returns the list of available network profiles.
@@ -761,7 +935,12 @@ class DeviceFarmApi {
   /// list.
   Future<ListNetworkProfilesResult> listNetworkProfiles(String arn,
       {String type, String nextToken}) async {
-    return ListNetworkProfilesResult.fromJson({});
+    var response_ = await _client.send('ListNetworkProfiles', {
+      'arn': arn,
+      if (type != null) 'type': type,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListNetworkProfilesResult.fromJson(response_);
   }
 
   /// Returns a list of offering promotions. Each offering promotion record
@@ -776,7 +955,10 @@ class DeviceFarmApi {
   /// list.
   Future<ListOfferingPromotionsResult> listOfferingPromotions(
       {String nextToken}) async {
-    return ListOfferingPromotionsResult.fromJson({});
+    var response_ = await _client.send('ListOfferingPromotions', {
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListOfferingPromotionsResult.fromJson(response_);
   }
 
   /// Returns a list of all historical purchases, renewals, and system renewal
@@ -792,7 +974,10 @@ class DeviceFarmApi {
   /// list.
   Future<ListOfferingTransactionsResult> listOfferingTransactions(
       {String nextToken}) async {
-    return ListOfferingTransactionsResult.fromJson({});
+    var response_ = await _client.send('ListOfferingTransactions', {
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListOfferingTransactionsResult.fromJson(response_);
   }
 
   /// Returns a list of products or offerings that the user can manage through
@@ -806,7 +991,10 @@ class DeviceFarmApi {
   /// this operation, which can be used to return the next set of items in the
   /// list.
   Future<ListOfferingsResult> listOfferings({String nextToken}) async {
-    return ListOfferingsResult.fromJson({});
+    var response_ = await _client.send('ListOfferings', {
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListOfferingsResult.fromJson(response_);
   }
 
   /// Gets information about projects.
@@ -820,7 +1008,11 @@ class DeviceFarmApi {
   /// list.
   Future<ListProjectsResult> listProjects(
       {String arn, String nextToken}) async {
-    return ListProjectsResult.fromJson({});
+    var response_ = await _client.send('ListProjects', {
+      if (arn != null) 'arn': arn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListProjectsResult.fromJson(response_);
   }
 
   /// Returns a list of all currently running remote access sessions.
@@ -833,7 +1025,11 @@ class DeviceFarmApi {
   /// list.
   Future<ListRemoteAccessSessionsResult> listRemoteAccessSessions(String arn,
       {String nextToken}) async {
-    return ListRemoteAccessSessionsResult.fromJson({});
+    var response_ = await _client.send('ListRemoteAccessSessions', {
+      'arn': arn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListRemoteAccessSessionsResult.fromJson(response_);
   }
 
   /// Gets information about runs, given an AWS Device Farm project ARN.
@@ -845,7 +1041,11 @@ class DeviceFarmApi {
   /// this operation, which can be used to return the next set of items in the
   /// list.
   Future<ListRunsResult> listRuns(String arn, {String nextToken}) async {
-    return ListRunsResult.fromJson({});
+    var response_ = await _client.send('ListRuns', {
+      'arn': arn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListRunsResult.fromJson(response_);
   }
 
   /// Gets information about samples, given an AWS Device Farm job ARN.
@@ -856,7 +1056,11 @@ class DeviceFarmApi {
   /// this operation, which can be used to return the next set of items in the
   /// list.
   Future<ListSamplesResult> listSamples(String arn, {String nextToken}) async {
-    return ListSamplesResult.fromJson({});
+    var response_ = await _client.send('ListSamples', {
+      'arn': arn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListSamplesResult.fromJson(response_);
   }
 
   /// Gets information about test suites for a given job.
@@ -867,7 +1071,11 @@ class DeviceFarmApi {
   /// this operation, which can be used to return the next set of items in the
   /// list.
   Future<ListSuitesResult> listSuites(String arn, {String nextToken}) async {
-    return ListSuitesResult.fromJson({});
+    var response_ = await _client.send('ListSuites', {
+      'arn': arn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListSuitesResult.fromJson(response_);
   }
 
   /// List the tags for an AWS Device Farm resource.
@@ -879,7 +1087,10 @@ class DeviceFarmApi {
   /// `VPCE_CONFIGURATION`.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceARN': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Gets information about tests in a given test suite.
@@ -890,7 +1101,11 @@ class DeviceFarmApi {
   /// this operation, which can be used to return the next set of items in the
   /// list.
   Future<ListTestsResult> listTests(String arn, {String nextToken}) async {
-    return ListTestsResult.fromJson({});
+    var response_ = await _client.send('ListTests', {
+      'arn': arn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListTestsResult.fromJson(response_);
   }
 
   /// Gets information about unique problems.
@@ -902,7 +1117,11 @@ class DeviceFarmApi {
   /// list.
   Future<ListUniqueProblemsResult> listUniqueProblems(String arn,
       {String nextToken}) async {
-    return ListUniqueProblemsResult.fromJson({});
+    var response_ = await _client.send('ListUniqueProblems', {
+      'arn': arn,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListUniqueProblemsResult.fromJson(response_);
   }
 
   /// Gets information about uploads, given an AWS Device Farm project ARN.
@@ -995,7 +1214,12 @@ class DeviceFarmApi {
   /// list.
   Future<ListUploadsResult> listUploads(String arn,
       {String type, String nextToken}) async {
-    return ListUploadsResult.fromJson({});
+    var response_ = await _client.send('ListUploads', {
+      'arn': arn,
+      if (type != null) 'type': type,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListUploadsResult.fromJson(response_);
   }
 
   /// Returns information about all Amazon Virtual Private Cloud (VPC) endpoint
@@ -1009,7 +1233,11 @@ class DeviceFarmApi {
   /// list.
   Future<ListVpceConfigurationsResult> listVpceConfigurations(
       {int maxResults, String nextToken}) async {
-    return ListVpceConfigurationsResult.fromJson({});
+    var response_ = await _client.send('ListVPCEConfigurations', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListVpceConfigurationsResult.fromJson(response_);
   }
 
   /// Immediately purchases offerings for an AWS account. Offerings renew with
@@ -1028,7 +1256,13 @@ class DeviceFarmApi {
   /// the purchase.
   Future<PurchaseOfferingResult> purchaseOffering(
       {String offeringId, int quantity, String offeringPromotionId}) async {
-    return PurchaseOfferingResult.fromJson({});
+    var response_ = await _client.send('PurchaseOffering', {
+      if (offeringId != null) 'offeringId': offeringId,
+      if (quantity != null) 'quantity': quantity,
+      if (offeringPromotionId != null)
+        'offeringPromotionId': offeringPromotionId,
+    });
+    return PurchaseOfferingResult.fromJson(response_);
   }
 
   /// Explicitly sets the quantity of devices to renew for an offering, starting
@@ -1043,7 +1277,11 @@ class DeviceFarmApi {
   /// [quantity]: The quantity requested in an offering renewal.
   Future<RenewOfferingResult> renewOffering(
       {String offeringId, int quantity}) async {
-    return RenewOfferingResult.fromJson({});
+    var response_ = await _client.send('RenewOffering', {
+      if (offeringId != null) 'offeringId': offeringId,
+      if (quantity != null) 'quantity': quantity,
+    });
+    return RenewOfferingResult.fromJson(response_);
   }
 
   /// Schedules a run.
@@ -1079,7 +1317,19 @@ class DeviceFarmApi {
       @required ScheduleRunTest test,
       ScheduleRunConfiguration configuration,
       ExecutionConfiguration executionConfiguration}) async {
-    return ScheduleRunResult.fromJson({});
+    var response_ = await _client.send('ScheduleRun', {
+      'projectArn': projectArn,
+      if (appArn != null) 'appArn': appArn,
+      if (devicePoolArn != null) 'devicePoolArn': devicePoolArn,
+      if (deviceSelectionConfiguration != null)
+        'deviceSelectionConfiguration': deviceSelectionConfiguration,
+      if (name != null) 'name': name,
+      'test': test,
+      if (configuration != null) 'configuration': configuration,
+      if (executionConfiguration != null)
+        'executionConfiguration': executionConfiguration,
+    });
+    return ScheduleRunResult.fromJson(response_);
   }
 
   /// Initiates a stop request for the current job. AWS Device Farm will
@@ -1093,7 +1343,10 @@ class DeviceFarmApi {
   /// [arn]: Represents the Amazon Resource Name (ARN) of the Device Farm job
   /// you wish to stop.
   Future<StopJobResult> stopJob(String arn) async {
-    return StopJobResult.fromJson({});
+    var response_ = await _client.send('StopJob', {
+      'arn': arn,
+    });
+    return StopJobResult.fromJson(response_);
   }
 
   /// Ends a specified remote access session.
@@ -1102,7 +1355,10 @@ class DeviceFarmApi {
   /// wish to stop.
   Future<StopRemoteAccessSessionResult> stopRemoteAccessSession(
       String arn) async {
-    return StopRemoteAccessSessionResult.fromJson({});
+    var response_ = await _client.send('StopRemoteAccessSession', {
+      'arn': arn,
+    });
+    return StopRemoteAccessSessionResult.fromJson(response_);
   }
 
   /// Initiates a stop request for the current test run. AWS Device Farm will
@@ -1116,7 +1372,10 @@ class DeviceFarmApi {
   /// [arn]: Represents the Amazon Resource Name (ARN) of the Device Farm run
   /// you wish to stop.
   Future<StopRunResult> stopRun(String arn) async {
-    return StopRunResult.fromJson({});
+    var response_ = await _client.send('StopRun', {
+      'arn': arn,
+    });
+    return StopRunResult.fromJson(response_);
   }
 
   /// Associates the specified tags to a resource with the specified
@@ -1135,7 +1394,11 @@ class DeviceFarmApi {
   /// tag values can have a maximum length of 256 characters.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceARN': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Deletes the specified tags from a resource.
@@ -1149,7 +1412,11 @@ class DeviceFarmApi {
   /// [tagKeys]: The keys of the tags to be removed.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceARN': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates information about an existing private device instance.
@@ -1163,7 +1430,12 @@ class DeviceFarmApi {
   /// instance.
   Future<UpdateDeviceInstanceResult> updateDeviceInstance(String arn,
       {String profileArn, List<String> labels}) async {
-    return UpdateDeviceInstanceResult.fromJson({});
+    var response_ = await _client.send('UpdateDeviceInstance', {
+      'arn': arn,
+      if (profileArn != null) 'profileArn': profileArn,
+      if (labels != null) 'labels': labels,
+    });
+    return UpdateDeviceInstanceResult.fromJson(response_);
   }
 
   /// Modifies the name, description, and rules in a device pool given the
@@ -1209,7 +1481,15 @@ class DeviceFarmApi {
       List<Rule> rules,
       int maxDevices,
       bool clearMaxDevices}) async {
-    return UpdateDevicePoolResult.fromJson({});
+    var response_ = await _client.send('UpdateDevicePool', {
+      'arn': arn,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (rules != null) 'rules': rules,
+      if (maxDevices != null) 'maxDevices': maxDevices,
+      if (clearMaxDevices != null) 'clearMaxDevices': clearMaxDevices,
+    });
+    return UpdateDevicePoolResult.fromJson(response_);
   }
 
   /// Updates information about an existing private device instance profile.
@@ -1238,7 +1518,16 @@ class DeviceFarmApi {
       bool packageCleanup,
       List<String> excludeAppPackagesFromCleanup,
       bool rebootAfterUse}) async {
-    return UpdateInstanceProfileResult.fromJson({});
+    var response_ = await _client.send('UpdateInstanceProfile', {
+      'arn': arn,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (packageCleanup != null) 'packageCleanup': packageCleanup,
+      if (excludeAppPackagesFromCleanup != null)
+        'excludeAppPackagesFromCleanup': excludeAppPackagesFromCleanup,
+      if (rebootAfterUse != null) 'rebootAfterUse': rebootAfterUse,
+    });
+    return UpdateInstanceProfileResult.fromJson(response_);
   }
 
   /// Updates the network profile with specific settings.
@@ -1290,7 +1579,24 @@ class DeviceFarmApi {
       BigInt downlinkJitterMs,
       int uplinkLossPercent,
       int downlinkLossPercent}) async {
-    return UpdateNetworkProfileResult.fromJson({});
+    var response_ = await _client.send('UpdateNetworkProfile', {
+      'arn': arn,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (type != null) 'type': type,
+      if (uplinkBandwidthBits != null)
+        'uplinkBandwidthBits': uplinkBandwidthBits,
+      if (downlinkBandwidthBits != null)
+        'downlinkBandwidthBits': downlinkBandwidthBits,
+      if (uplinkDelayMs != null) 'uplinkDelayMs': uplinkDelayMs,
+      if (downlinkDelayMs != null) 'downlinkDelayMs': downlinkDelayMs,
+      if (uplinkJitterMs != null) 'uplinkJitterMs': uplinkJitterMs,
+      if (downlinkJitterMs != null) 'downlinkJitterMs': downlinkJitterMs,
+      if (uplinkLossPercent != null) 'uplinkLossPercent': uplinkLossPercent,
+      if (downlinkLossPercent != null)
+        'downlinkLossPercent': downlinkLossPercent,
+    });
+    return UpdateNetworkProfileResult.fromJson(response_);
   }
 
   /// Modifies the specified project name, given the project ARN and a new name.
@@ -1305,7 +1611,13 @@ class DeviceFarmApi {
   /// project will execute before it times out.
   Future<UpdateProjectResult> updateProject(String arn,
       {String name, int defaultJobTimeoutMinutes}) async {
-    return UpdateProjectResult.fromJson({});
+    var response_ = await _client.send('UpdateProject', {
+      'arn': arn,
+      if (name != null) 'name': name,
+      if (defaultJobTimeoutMinutes != null)
+        'defaultJobTimeoutMinutes': defaultJobTimeoutMinutes,
+    });
+    return UpdateProjectResult.fromJson(response_);
   }
 
   /// Update an uploaded test specification (test spec).
@@ -1323,7 +1635,13 @@ class DeviceFarmApi {
   /// updated; otherwise, set to false.
   Future<UpdateUploadResult> updateUpload(String arn,
       {String name, String contentType, bool editContent}) async {
-    return UpdateUploadResult.fromJson({});
+    var response_ = await _client.send('UpdateUpload', {
+      'arn': arn,
+      if (name != null) 'name': name,
+      if (contentType != null) 'contentType': contentType,
+      if (editContent != null) 'editContent': editContent,
+    });
+    return UpdateUploadResult.fromJson(response_);
   }
 
   /// Updates information about an existing Amazon Virtual Private Cloud (VPC)
@@ -1349,7 +1667,16 @@ class DeviceFarmApi {
       String vpceServiceName,
       String serviceDnsName,
       String vpceConfigurationDescription}) async {
-    return UpdateVpceConfigurationResult.fromJson({});
+    var response_ = await _client.send('UpdateVPCEConfiguration', {
+      'arn': arn,
+      if (vpceConfigurationName != null)
+        'vpceConfigurationName': vpceConfigurationName,
+      if (vpceServiceName != null) 'vpceServiceName': vpceServiceName,
+      if (serviceDnsName != null) 'serviceDnsName': serviceDnsName,
+      if (vpceConfigurationDescription != null)
+        'vpceConfigurationDescription': vpceConfigurationDescription,
+    });
+    return UpdateVpceConfigurationResult.fromJson(response_);
   }
 }
 
@@ -1400,8 +1727,36 @@ class AccountSettings {
     this.defaultJobTimeoutMinutes,
     this.skipAppResign,
   });
-  static AccountSettings fromJson(Map<String, dynamic> json) =>
-      AccountSettings();
+  static AccountSettings fromJson(Map<String, dynamic> json) => AccountSettings(
+        awsAccountNumber: json.containsKey('awsAccountNumber')
+            ? json['awsAccountNumber'] as String
+            : null,
+        unmeteredDevices: json.containsKey('unmeteredDevices')
+            ? (json['unmeteredDevices'] as Map)
+                .map((k, v) => MapEntry(k as String, v as int))
+            : null,
+        unmeteredRemoteAccessDevices:
+            json.containsKey('unmeteredRemoteAccessDevices')
+                ? (json['unmeteredRemoteAccessDevices'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as int))
+                : null,
+        maxJobTimeoutMinutes: json.containsKey('maxJobTimeoutMinutes')
+            ? json['maxJobTimeoutMinutes'] as int
+            : null,
+        trialMinutes: json.containsKey('trialMinutes')
+            ? TrialMinutes.fromJson(json['trialMinutes'])
+            : null,
+        maxSlots: json.containsKey('maxSlots')
+            ? (json['maxSlots'] as Map)
+                .map((k, v) => MapEntry(k as String, v as int))
+            : null,
+        defaultJobTimeoutMinutes: json.containsKey('defaultJobTimeoutMinutes')
+            ? json['defaultJobTimeoutMinutes'] as int
+            : null,
+        skipAppResign: json.containsKey('skipAppResign')
+            ? json['skipAppResign'] as bool
+            : null,
+      );
 }
 
 /// Represents the output of a test. Examples of artifacts include logs and
@@ -1489,7 +1844,14 @@ class Artifact {
     this.extension,
     this.url,
   });
-  static Artifact fromJson(Map<String, dynamic> json) => Artifact();
+  static Artifact fromJson(Map<String, dynamic> json) => Artifact(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        extension:
+            json.containsKey('extension') ? json['extension'] as String : null,
+        url: json.containsKey('url') ? json['url'] as String : null,
+      );
 }
 
 /// Represents the amount of CPU that an app is using on a physical device.
@@ -1511,7 +1873,14 @@ class Cpu {
     this.architecture,
     this.clock,
   });
-  static Cpu fromJson(Map<String, dynamic> json) => Cpu();
+  static Cpu fromJson(Map<String, dynamic> json) => Cpu(
+        frequency:
+            json.containsKey('frequency') ? json['frequency'] as String : null,
+        architecture: json.containsKey('architecture')
+            ? json['architecture'] as String
+            : null,
+        clock: json.containsKey('clock') ? json['clock'] as double : null,
+      );
 }
 
 /// Represents entity counters.
@@ -1546,7 +1915,15 @@ class Counters {
     this.stopped,
     this.skipped,
   });
-  static Counters fromJson(Map<String, dynamic> json) => Counters();
+  static Counters fromJson(Map<String, dynamic> json) => Counters(
+        total: json.containsKey('total') ? json['total'] as int : null,
+        passed: json.containsKey('passed') ? json['passed'] as int : null,
+        failed: json.containsKey('failed') ? json['failed'] as int : null,
+        warned: json.containsKey('warned') ? json['warned'] as int : null,
+        errored: json.containsKey('errored') ? json['errored'] as int : null,
+        stopped: json.containsKey('stopped') ? json['stopped'] as int : null,
+        skipped: json.containsKey('skipped') ? json['skipped'] as int : null,
+      );
 }
 
 /// Represents the result of a create device pool request.
@@ -1558,7 +1935,11 @@ class CreateDevicePoolResult {
     this.devicePool,
   });
   static CreateDevicePoolResult fromJson(Map<String, dynamic> json) =>
-      CreateDevicePoolResult();
+      CreateDevicePoolResult(
+        devicePool: json.containsKey('devicePool')
+            ? DevicePool.fromJson(json['devicePool'])
+            : null,
+      );
 }
 
 class CreateInstanceProfileResult {
@@ -1569,7 +1950,11 @@ class CreateInstanceProfileResult {
     this.instanceProfile,
   });
   static CreateInstanceProfileResult fromJson(Map<String, dynamic> json) =>
-      CreateInstanceProfileResult();
+      CreateInstanceProfileResult(
+        instanceProfile: json.containsKey('instanceProfile')
+            ? InstanceProfile.fromJson(json['instanceProfile'])
+            : null,
+      );
 }
 
 class CreateNetworkProfileResult {
@@ -1581,7 +1966,11 @@ class CreateNetworkProfileResult {
     this.networkProfile,
   });
   static CreateNetworkProfileResult fromJson(Map<String, dynamic> json) =>
-      CreateNetworkProfileResult();
+      CreateNetworkProfileResult(
+        networkProfile: json.containsKey('networkProfile')
+            ? NetworkProfile.fromJson(json['networkProfile'])
+            : null,
+      );
 }
 
 /// Represents the result of a create project request.
@@ -1593,7 +1982,11 @@ class CreateProjectResult {
     this.project,
   });
   static CreateProjectResult fromJson(Map<String, dynamic> json) =>
-      CreateProjectResult();
+      CreateProjectResult(
+        project: json.containsKey('project')
+            ? Project.fromJson(json['project'])
+            : null,
+      );
 }
 
 /// Configuration settings for a remote access session, including billing
@@ -1610,6 +2003,7 @@ class CreateRemoteAccessSessionConfiguration {
     this.billingMethod,
     this.vpceConfigurationArns,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the server response from a request to create a remote access
@@ -1623,7 +2017,11 @@ class CreateRemoteAccessSessionResult {
     this.remoteAccessSession,
   });
   static CreateRemoteAccessSessionResult fromJson(Map<String, dynamic> json) =>
-      CreateRemoteAccessSessionResult();
+      CreateRemoteAccessSessionResult(
+        remoteAccessSession: json.containsKey('remoteAccessSession')
+            ? RemoteAccessSession.fromJson(json['remoteAccessSession'])
+            : null,
+      );
 }
 
 /// Represents the result of a create upload request.
@@ -1635,7 +2033,10 @@ class CreateUploadResult {
     this.upload,
   });
   static CreateUploadResult fromJson(Map<String, dynamic> json) =>
-      CreateUploadResult();
+      CreateUploadResult(
+        upload:
+            json.containsKey('upload') ? Upload.fromJson(json['upload']) : null,
+      );
 }
 
 class CreateVpceConfigurationResult {
@@ -1646,7 +2047,11 @@ class CreateVpceConfigurationResult {
     this.vpceConfiguration,
   });
   static CreateVpceConfigurationResult fromJson(Map<String, dynamic> json) =>
-      CreateVpceConfigurationResult();
+      CreateVpceConfigurationResult(
+        vpceConfiguration: json.containsKey('vpceConfiguration')
+            ? VpceConfiguration.fromJson(json['vpceConfiguration'])
+            : null,
+      );
 }
 
 /// A JSON object specifying the paths where the artifacts generated by the
@@ -1676,7 +2081,18 @@ class CustomerArtifactPaths {
     this.deviceHostPaths,
   });
   static CustomerArtifactPaths fromJson(Map<String, dynamic> json) =>
-      CustomerArtifactPaths();
+      CustomerArtifactPaths(
+        iosPaths: json.containsKey('iosPaths')
+            ? (json['iosPaths'] as List).map((e) => e as String).toList()
+            : null,
+        androidPaths: json.containsKey('androidPaths')
+            ? (json['androidPaths'] as List).map((e) => e as String).toList()
+            : null,
+        deviceHostPaths: json.containsKey('deviceHostPaths')
+            ? (json['deviceHostPaths'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the result of a delete device pool request.
@@ -1835,7 +2251,49 @@ class Device {
     this.instances,
     this.availability,
   });
-  static Device fromJson(Map<String, dynamic> json) => Device();
+  static Device fromJson(Map<String, dynamic> json) => Device(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        manufacturer: json.containsKey('manufacturer')
+            ? json['manufacturer'] as String
+            : null,
+        model: json.containsKey('model') ? json['model'] as String : null,
+        modelId: json.containsKey('modelId') ? json['modelId'] as String : null,
+        formFactor: json.containsKey('formFactor')
+            ? json['formFactor'] as String
+            : null,
+        platform:
+            json.containsKey('platform') ? json['platform'] as String : null,
+        os: json.containsKey('os') ? json['os'] as String : null,
+        cpu: json.containsKey('cpu') ? Cpu.fromJson(json['cpu']) : null,
+        resolution: json.containsKey('resolution')
+            ? Resolution.fromJson(json['resolution'])
+            : null,
+        heapSize:
+            json.containsKey('heapSize') ? BigInt.from(json['heapSize']) : null,
+        memory: json.containsKey('memory') ? BigInt.from(json['memory']) : null,
+        image: json.containsKey('image') ? json['image'] as String : null,
+        carrier: json.containsKey('carrier') ? json['carrier'] as String : null,
+        radio: json.containsKey('radio') ? json['radio'] as String : null,
+        remoteAccessEnabled: json.containsKey('remoteAccessEnabled')
+            ? json['remoteAccessEnabled'] as bool
+            : null,
+        remoteDebugEnabled: json.containsKey('remoteDebugEnabled')
+            ? json['remoteDebugEnabled'] as bool
+            : null,
+        fleetType:
+            json.containsKey('fleetType') ? json['fleetType'] as String : null,
+        fleetName:
+            json.containsKey('fleetName') ? json['fleetName'] as String : null,
+        instances: json.containsKey('instances')
+            ? (json['instances'] as List)
+                .map((e) => DeviceInstance.fromJson(e))
+                .toList()
+            : null,
+        availability: json.containsKey('availability')
+            ? json['availability'] as String
+            : null,
+      );
 }
 
 /// Represents a device filter used to select a set of devices to be included in
@@ -1963,7 +2421,16 @@ class DeviceFilter {
     this.operator,
     this.values,
   });
-  static DeviceFilter fromJson(Map<String, dynamic> json) => DeviceFilter();
+  static DeviceFilter fromJson(Map<String, dynamic> json) => DeviceFilter(
+        attribute:
+            json.containsKey('attribute') ? json['attribute'] as String : null,
+        operator:
+            json.containsKey('operator') ? json['operator'] as String : null,
+        values: json.containsKey('values')
+            ? (json['values'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the device instance.
@@ -1994,7 +2461,19 @@ class DeviceInstance {
     this.udid,
     this.instanceProfile,
   });
-  static DeviceInstance fromJson(Map<String, dynamic> json) => DeviceInstance();
+  static DeviceInstance fromJson(Map<String, dynamic> json) => DeviceInstance(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        deviceArn:
+            json.containsKey('deviceArn') ? json['deviceArn'] as String : null,
+        labels: json.containsKey('labels')
+            ? (json['labels'] as List).map((e) => e as String).toList()
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        udid: json.containsKey('udid') ? json['udid'] as String : null,
+        instanceProfile: json.containsKey('instanceProfile')
+            ? InstanceProfile.fromJson(json['instanceProfile'])
+            : null,
+      );
 }
 
 /// Represents the total (metered or unmetered) minutes used by the resource to
@@ -2017,7 +2496,12 @@ class DeviceMinutes {
     this.metered,
     this.unmetered,
   });
-  static DeviceMinutes fromJson(Map<String, dynamic> json) => DeviceMinutes();
+  static DeviceMinutes fromJson(Map<String, dynamic> json) => DeviceMinutes(
+        total: json.containsKey('total') ? json['total'] as double : null,
+        metered: json.containsKey('metered') ? json['metered'] as double : null,
+        unmetered:
+            json.containsKey('unmetered') ? json['unmetered'] as double : null,
+      );
 }
 
 /// Represents a collection of device types.
@@ -2062,7 +2546,19 @@ class DevicePool {
     this.rules,
     this.maxDevices,
   });
-  static DevicePool fromJson(Map<String, dynamic> json) => DevicePool();
+  static DevicePool fromJson(Map<String, dynamic> json) => DevicePool(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        rules: json.containsKey('rules')
+            ? (json['rules'] as List).map((e) => Rule.fromJson(e)).toList()
+            : null,
+        maxDevices:
+            json.containsKey('maxDevices') ? json['maxDevices'] as int : null,
+      );
 }
 
 /// Represents a device pool compatibility result.
@@ -2082,7 +2578,17 @@ class DevicePoolCompatibilityResult {
     this.incompatibilityMessages,
   });
   static DevicePoolCompatibilityResult fromJson(Map<String, dynamic> json) =>
-      DevicePoolCompatibilityResult();
+      DevicePoolCompatibilityResult(
+        device:
+            json.containsKey('device') ? Device.fromJson(json['device']) : null,
+        compatible:
+            json.containsKey('compatible') ? json['compatible'] as bool : null,
+        incompatibilityMessages: json.containsKey('incompatibilityMessages')
+            ? (json['incompatibilityMessages'] as List)
+                .map((e) => IncompatibilityMessage.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the device filters used in a test run as well as the maximum
@@ -2181,6 +2687,7 @@ class DeviceSelectionConfiguration {
     @required this.filters,
     @required this.maxDevices,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains the run results requested by the device selection configuration as
@@ -2203,7 +2710,18 @@ class DeviceSelectionResult {
     this.maxDevices,
   });
   static DeviceSelectionResult fromJson(Map<String, dynamic> json) =>
-      DeviceSelectionResult();
+      DeviceSelectionResult(
+        filters: json.containsKey('filters')
+            ? (json['filters'] as List)
+                .map((e) => DeviceFilter.fromJson(e))
+                .toList()
+            : null,
+        matchedDevicesCount: json.containsKey('matchedDevicesCount')
+            ? json['matchedDevicesCount'] as int
+            : null,
+        maxDevices:
+            json.containsKey('maxDevices') ? json['maxDevices'] as int : null,
+      );
 }
 
 /// Represents configuration information about a test run, such as the execution
@@ -2240,6 +2758,7 @@ class ExecutionConfiguration {
     this.videoCapture,
     this.skipAppResign,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the account settings return values from the `GetAccountSettings`
@@ -2252,7 +2771,11 @@ class GetAccountSettingsResult {
     this.accountSettings,
   });
   static GetAccountSettingsResult fromJson(Map<String, dynamic> json) =>
-      GetAccountSettingsResult();
+      GetAccountSettingsResult(
+        accountSettings: json.containsKey('accountSettings')
+            ? AccountSettings.fromJson(json['accountSettings'])
+            : null,
+      );
 }
 
 class GetDeviceInstanceResult {
@@ -2263,7 +2786,11 @@ class GetDeviceInstanceResult {
     this.deviceInstance,
   });
   static GetDeviceInstanceResult fromJson(Map<String, dynamic> json) =>
-      GetDeviceInstanceResult();
+      GetDeviceInstanceResult(
+        deviceInstance: json.containsKey('deviceInstance')
+            ? DeviceInstance.fromJson(json['deviceInstance'])
+            : null,
+      );
 }
 
 /// Represents the result of describe device pool compatibility request.
@@ -2279,7 +2806,18 @@ class GetDevicePoolCompatibilityResult {
     this.incompatibleDevices,
   });
   static GetDevicePoolCompatibilityResult fromJson(Map<String, dynamic> json) =>
-      GetDevicePoolCompatibilityResult();
+      GetDevicePoolCompatibilityResult(
+        compatibleDevices: json.containsKey('compatibleDevices')
+            ? (json['compatibleDevices'] as List)
+                .map((e) => DevicePoolCompatibilityResult.fromJson(e))
+                .toList()
+            : null,
+        incompatibleDevices: json.containsKey('incompatibleDevices')
+            ? (json['incompatibleDevices'] as List)
+                .map((e) => DevicePoolCompatibilityResult.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the result of a get device pool request.
@@ -2291,7 +2829,11 @@ class GetDevicePoolResult {
     this.devicePool,
   });
   static GetDevicePoolResult fromJson(Map<String, dynamic> json) =>
-      GetDevicePoolResult();
+      GetDevicePoolResult(
+        devicePool: json.containsKey('devicePool')
+            ? DevicePool.fromJson(json['devicePool'])
+            : null,
+      );
 }
 
 /// Represents the result of a get device request.
@@ -2302,8 +2844,10 @@ class GetDeviceResult {
   GetDeviceResult({
     this.device,
   });
-  static GetDeviceResult fromJson(Map<String, dynamic> json) =>
-      GetDeviceResult();
+  static GetDeviceResult fromJson(Map<String, dynamic> json) => GetDeviceResult(
+        device:
+            json.containsKey('device') ? Device.fromJson(json['device']) : null,
+      );
 }
 
 class GetInstanceProfileResult {
@@ -2314,7 +2858,11 @@ class GetInstanceProfileResult {
     this.instanceProfile,
   });
   static GetInstanceProfileResult fromJson(Map<String, dynamic> json) =>
-      GetInstanceProfileResult();
+      GetInstanceProfileResult(
+        instanceProfile: json.containsKey('instanceProfile')
+            ? InstanceProfile.fromJson(json['instanceProfile'])
+            : null,
+      );
 }
 
 /// Represents the result of a get job request.
@@ -2325,7 +2873,9 @@ class GetJobResult {
   GetJobResult({
     this.job,
   });
-  static GetJobResult fromJson(Map<String, dynamic> json) => GetJobResult();
+  static GetJobResult fromJson(Map<String, dynamic> json) => GetJobResult(
+        job: json.containsKey('job') ? Job.fromJson(json['job']) : null,
+      );
 }
 
 class GetNetworkProfileResult {
@@ -2336,7 +2886,11 @@ class GetNetworkProfileResult {
     this.networkProfile,
   });
   static GetNetworkProfileResult fromJson(Map<String, dynamic> json) =>
-      GetNetworkProfileResult();
+      GetNetworkProfileResult(
+        networkProfile: json.containsKey('networkProfile')
+            ? NetworkProfile.fromJson(json['networkProfile'])
+            : null,
+      );
 }
 
 /// Returns the status result for a device offering.
@@ -2357,7 +2911,18 @@ class GetOfferingStatusResult {
     this.nextToken,
   });
   static GetOfferingStatusResult fromJson(Map<String, dynamic> json) =>
-      GetOfferingStatusResult();
+      GetOfferingStatusResult(
+        current: json.containsKey('current')
+            ? (json['current'] as Map).map(
+                (k, v) => MapEntry(k as String, OfferingStatus.fromJson(v)))
+            : null,
+        nextPeriod: json.containsKey('nextPeriod')
+            ? (json['nextPeriod'] as Map).map(
+                (k, v) => MapEntry(k as String, OfferingStatus.fromJson(v)))
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a get project request.
@@ -2369,7 +2934,11 @@ class GetProjectResult {
     this.project,
   });
   static GetProjectResult fromJson(Map<String, dynamic> json) =>
-      GetProjectResult();
+      GetProjectResult(
+        project: json.containsKey('project')
+            ? Project.fromJson(json['project'])
+            : null,
+      );
 }
 
 /// Represents the response from the server that lists detailed information
@@ -2383,7 +2952,11 @@ class GetRemoteAccessSessionResult {
     this.remoteAccessSession,
   });
   static GetRemoteAccessSessionResult fromJson(Map<String, dynamic> json) =>
-      GetRemoteAccessSessionResult();
+      GetRemoteAccessSessionResult(
+        remoteAccessSession: json.containsKey('remoteAccessSession')
+            ? RemoteAccessSession.fromJson(json['remoteAccessSession'])
+            : null,
+      );
 }
 
 /// Represents the result of a get run request.
@@ -2394,7 +2967,9 @@ class GetRunResult {
   GetRunResult({
     this.run,
   });
-  static GetRunResult fromJson(Map<String, dynamic> json) => GetRunResult();
+  static GetRunResult fromJson(Map<String, dynamic> json) => GetRunResult(
+        run: json.containsKey('run') ? Run.fromJson(json['run']) : null,
+      );
 }
 
 /// Represents the result of a get suite request.
@@ -2405,7 +2980,9 @@ class GetSuiteResult {
   GetSuiteResult({
     this.suite,
   });
-  static GetSuiteResult fromJson(Map<String, dynamic> json) => GetSuiteResult();
+  static GetSuiteResult fromJson(Map<String, dynamic> json) => GetSuiteResult(
+        suite: json.containsKey('suite') ? Suite.fromJson(json['suite']) : null,
+      );
 }
 
 /// Represents the result of a get test request.
@@ -2416,7 +2993,9 @@ class GetTestResult {
   GetTestResult({
     this.test,
   });
-  static GetTestResult fromJson(Map<String, dynamic> json) => GetTestResult();
+  static GetTestResult fromJson(Map<String, dynamic> json) => GetTestResult(
+        test: json.containsKey('test') ? Test.fromJson(json['test']) : null,
+      );
 }
 
 /// Represents the result of a get upload request.
@@ -2427,8 +3006,10 @@ class GetUploadResult {
   GetUploadResult({
     this.upload,
   });
-  static GetUploadResult fromJson(Map<String, dynamic> json) =>
-      GetUploadResult();
+  static GetUploadResult fromJson(Map<String, dynamic> json) => GetUploadResult(
+        upload:
+            json.containsKey('upload') ? Upload.fromJson(json['upload']) : null,
+      );
 }
 
 class GetVpceConfigurationResult {
@@ -2439,7 +3020,11 @@ class GetVpceConfigurationResult {
     this.vpceConfiguration,
   });
   static GetVpceConfigurationResult fromJson(Map<String, dynamic> json) =>
-      GetVpceConfigurationResult();
+      GetVpceConfigurationResult(
+        vpceConfiguration: json.containsKey('vpceConfiguration')
+            ? VpceConfiguration.fromJson(json['vpceConfiguration'])
+            : null,
+      );
 }
 
 /// Represents information about incompatibility.
@@ -2470,7 +3055,10 @@ class IncompatibilityMessage {
     this.type,
   });
   static IncompatibilityMessage fromJson(Map<String, dynamic> json) =>
-      IncompatibilityMessage();
+      IncompatibilityMessage(
+        message: json.containsKey('message') ? json['message'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+      );
 }
 
 /// Represents the response from the server after AWS Device Farm makes a
@@ -2484,7 +3072,11 @@ class InstallToRemoteAccessSessionResult {
   });
   static InstallToRemoteAccessSessionResult fromJson(
           Map<String, dynamic> json) =>
-      InstallToRemoteAccessSessionResult();
+      InstallToRemoteAccessSessionResult(
+        appUpload: json.containsKey('appUpload')
+            ? Upload.fromJson(json['appUpload'])
+            : null,
+      );
 }
 
 /// Represents the instance profile.
@@ -2521,8 +3113,25 @@ class InstanceProfile {
     this.name,
     this.description,
   });
-  static InstanceProfile fromJson(Map<String, dynamic> json) =>
-      InstanceProfile();
+  static InstanceProfile fromJson(Map<String, dynamic> json) => InstanceProfile(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        packageCleanup: json.containsKey('packageCleanup')
+            ? json['packageCleanup'] as bool
+            : null,
+        excludeAppPackagesFromCleanup:
+            json.containsKey('excludeAppPackagesFromCleanup')
+                ? (json['excludeAppPackagesFromCleanup'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        rebootAfterUse: json.containsKey('rebootAfterUse')
+            ? json['rebootAfterUse'] as bool
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+      );
 }
 
 /// Represents a device.
@@ -2666,7 +3275,40 @@ class Job {
     this.videoEndpoint,
     this.videoCapture,
   });
-  static Job fromJson(Map<String, dynamic> json) => Job();
+  static Job fromJson(Map<String, dynamic> json) => Job(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        result: json.containsKey('result') ? json['result'] as String : null,
+        started: json.containsKey('started')
+            ? DateTime.parse(json['started'])
+            : null,
+        stopped: json.containsKey('stopped')
+            ? DateTime.parse(json['stopped'])
+            : null,
+        counters: json.containsKey('counters')
+            ? Counters.fromJson(json['counters'])
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        device:
+            json.containsKey('device') ? Device.fromJson(json['device']) : null,
+        instanceArn: json.containsKey('instanceArn')
+            ? json['instanceArn'] as String
+            : null,
+        deviceMinutes: json.containsKey('deviceMinutes')
+            ? DeviceMinutes.fromJson(json['deviceMinutes'])
+            : null,
+        videoEndpoint: json.containsKey('videoEndpoint')
+            ? json['videoEndpoint'] as String
+            : null,
+        videoCapture: json.containsKey('videoCapture')
+            ? json['videoCapture'] as bool
+            : null,
+      );
 }
 
 /// Represents the result of a list artifacts operation.
@@ -2684,7 +3326,15 @@ class ListArtifactsResult {
     this.nextToken,
   });
   static ListArtifactsResult fromJson(Map<String, dynamic> json) =>
-      ListArtifactsResult();
+      ListArtifactsResult(
+        artifacts: json.containsKey('artifacts')
+            ? (json['artifacts'] as List)
+                .map((e) => Artifact.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDeviceInstancesResult {
@@ -2700,7 +3350,15 @@ class ListDeviceInstancesResult {
     this.nextToken,
   });
   static ListDeviceInstancesResult fromJson(Map<String, dynamic> json) =>
-      ListDeviceInstancesResult();
+      ListDeviceInstancesResult(
+        deviceInstances: json.containsKey('deviceInstances')
+            ? (json['deviceInstances'] as List)
+                .map((e) => DeviceInstance.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a list device pools request.
@@ -2718,7 +3376,15 @@ class ListDevicePoolsResult {
     this.nextToken,
   });
   static ListDevicePoolsResult fromJson(Map<String, dynamic> json) =>
-      ListDevicePoolsResult();
+      ListDevicePoolsResult(
+        devicePools: json.containsKey('devicePools')
+            ? (json['devicePools'] as List)
+                .map((e) => DevicePool.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a list devices operation.
@@ -2736,7 +3402,13 @@ class ListDevicesResult {
     this.nextToken,
   });
   static ListDevicesResult fromJson(Map<String, dynamic> json) =>
-      ListDevicesResult();
+      ListDevicesResult(
+        devices: json.containsKey('devices')
+            ? (json['devices'] as List).map((e) => Device.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListInstanceProfilesResult {
@@ -2752,7 +3424,15 @@ class ListInstanceProfilesResult {
     this.nextToken,
   });
   static ListInstanceProfilesResult fromJson(Map<String, dynamic> json) =>
-      ListInstanceProfilesResult();
+      ListInstanceProfilesResult(
+        instanceProfiles: json.containsKey('instanceProfiles')
+            ? (json['instanceProfiles'] as List)
+                .map((e) => InstanceProfile.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a list jobs request.
@@ -2769,7 +3449,13 @@ class ListJobsResult {
     this.jobs,
     this.nextToken,
   });
-  static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult();
+  static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult(
+        jobs: json.containsKey('jobs')
+            ? (json['jobs'] as List).map((e) => Job.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListNetworkProfilesResult {
@@ -2785,7 +3471,15 @@ class ListNetworkProfilesResult {
     this.nextToken,
   });
   static ListNetworkProfilesResult fromJson(Map<String, dynamic> json) =>
-      ListNetworkProfilesResult();
+      ListNetworkProfilesResult(
+        networkProfiles: json.containsKey('networkProfiles')
+            ? (json['networkProfiles'] as List)
+                .map((e) => NetworkProfile.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListOfferingPromotionsResult {
@@ -2801,7 +3495,15 @@ class ListOfferingPromotionsResult {
     this.nextToken,
   });
   static ListOfferingPromotionsResult fromJson(Map<String, dynamic> json) =>
-      ListOfferingPromotionsResult();
+      ListOfferingPromotionsResult(
+        offeringPromotions: json.containsKey('offeringPromotions')
+            ? (json['offeringPromotions'] as List)
+                .map((e) => OfferingPromotion.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Returns the transaction log of the specified offerings.
@@ -2819,7 +3521,15 @@ class ListOfferingTransactionsResult {
     this.nextToken,
   });
   static ListOfferingTransactionsResult fromJson(Map<String, dynamic> json) =>
-      ListOfferingTransactionsResult();
+      ListOfferingTransactionsResult(
+        offeringTransactions: json.containsKey('offeringTransactions')
+            ? (json['offeringTransactions'] as List)
+                .map((e) => OfferingTransaction.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the return values of the list of offerings.
@@ -2836,7 +3546,15 @@ class ListOfferingsResult {
     this.nextToken,
   });
   static ListOfferingsResult fromJson(Map<String, dynamic> json) =>
-      ListOfferingsResult();
+      ListOfferingsResult(
+        offerings: json.containsKey('offerings')
+            ? (json['offerings'] as List)
+                .map((e) => Offering.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a list projects request.
@@ -2854,7 +3572,15 @@ class ListProjectsResult {
     this.nextToken,
   });
   static ListProjectsResult fromJson(Map<String, dynamic> json) =>
-      ListProjectsResult();
+      ListProjectsResult(
+        projects: json.containsKey('projects')
+            ? (json['projects'] as List)
+                .map((e) => Project.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the response from the server after AWS Device Farm makes a
@@ -2873,7 +3599,15 @@ class ListRemoteAccessSessionsResult {
     this.nextToken,
   });
   static ListRemoteAccessSessionsResult fromJson(Map<String, dynamic> json) =>
-      ListRemoteAccessSessionsResult();
+      ListRemoteAccessSessionsResult(
+        remoteAccessSessions: json.containsKey('remoteAccessSessions')
+            ? (json['remoteAccessSessions'] as List)
+                .map((e) => RemoteAccessSession.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a list runs request.
@@ -2890,7 +3624,13 @@ class ListRunsResult {
     this.runs,
     this.nextToken,
   });
-  static ListRunsResult fromJson(Map<String, dynamic> json) => ListRunsResult();
+  static ListRunsResult fromJson(Map<String, dynamic> json) => ListRunsResult(
+        runs: json.containsKey('runs')
+            ? (json['runs'] as List).map((e) => Run.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a list samples request.
@@ -2908,7 +3648,13 @@ class ListSamplesResult {
     this.nextToken,
   });
   static ListSamplesResult fromJson(Map<String, dynamic> json) =>
-      ListSamplesResult();
+      ListSamplesResult(
+        samples: json.containsKey('samples')
+            ? (json['samples'] as List).map((e) => Sample.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a list suites request.
@@ -2926,7 +3672,13 @@ class ListSuitesResult {
     this.nextToken,
   });
   static ListSuitesResult fromJson(Map<String, dynamic> json) =>
-      ListSuitesResult();
+      ListSuitesResult(
+        suites: json.containsKey('suites')
+            ? (json['suites'] as List).map((e) => Suite.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -2939,7 +3691,11 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Represents the result of a list tests request.
@@ -2956,8 +3712,13 @@ class ListTestsResult {
     this.tests,
     this.nextToken,
   });
-  static ListTestsResult fromJson(Map<String, dynamic> json) =>
-      ListTestsResult();
+  static ListTestsResult fromJson(Map<String, dynamic> json) => ListTestsResult(
+        tests: json.containsKey('tests')
+            ? (json['tests'] as List).map((e) => Test.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a list unique problems request.
@@ -2991,7 +3752,15 @@ class ListUniqueProblemsResult {
     this.nextToken,
   });
   static ListUniqueProblemsResult fromJson(Map<String, dynamic> json) =>
-      ListUniqueProblemsResult();
+      ListUniqueProblemsResult(
+        uniqueProblems: json.containsKey('uniqueProblems')
+            ? (json['uniqueProblems'] as Map).map((k, v) => MapEntry(
+                k as String,
+                (v as List).map((e) => UniqueProblem.fromJson(e)).toList()))
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the result of a list uploads request.
@@ -3009,7 +3778,13 @@ class ListUploadsResult {
     this.nextToken,
   });
   static ListUploadsResult fromJson(Map<String, dynamic> json) =>
-      ListUploadsResult();
+      ListUploadsResult(
+        uploads: json.containsKey('uploads')
+            ? (json['uploads'] as List).map((e) => Upload.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListVpceConfigurationsResult {
@@ -3026,7 +3801,15 @@ class ListVpceConfigurationsResult {
     this.nextToken,
   });
   static ListVpceConfigurationsResult fromJson(Map<String, dynamic> json) =>
-      ListVpceConfigurationsResult();
+      ListVpceConfigurationsResult(
+        vpceConfigurations: json.containsKey('vpceConfigurations')
+            ? (json['vpceConfigurations'] as List)
+                .map((e) => VpceConfiguration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents a latitude and longitude pair, expressed in geographic coordinate
@@ -3044,7 +3827,11 @@ class Location {
     @required this.latitude,
     @required this.longitude,
   });
-  static Location fromJson(Map<String, dynamic> json) => Location();
+  static Location fromJson(Map<String, dynamic> json) => Location(
+        latitude: json['latitude'] as double,
+        longitude: json['longitude'] as double,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A number representing the monetary amount for an offering or transaction.
@@ -3060,7 +3847,12 @@ class MonetaryAmount {
     this.amount,
     this.currencyCode,
   });
-  static MonetaryAmount fromJson(Map<String, dynamic> json) => MonetaryAmount();
+  static MonetaryAmount fromJson(Map<String, dynamic> json) => MonetaryAmount(
+        amount: json.containsKey('amount') ? json['amount'] as double : null,
+        currencyCode: json.containsKey('currencyCode')
+            ? json['currencyCode'] as String
+            : null,
+      );
 }
 
 /// An array of settings that describes characteristics of a network profile.
@@ -3122,7 +3914,38 @@ class NetworkProfile {
     this.uplinkLossPercent,
     this.downlinkLossPercent,
   });
-  static NetworkProfile fromJson(Map<String, dynamic> json) => NetworkProfile();
+  static NetworkProfile fromJson(Map<String, dynamic> json) => NetworkProfile(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        uplinkBandwidthBits: json.containsKey('uplinkBandwidthBits')
+            ? BigInt.from(json['uplinkBandwidthBits'])
+            : null,
+        downlinkBandwidthBits: json.containsKey('downlinkBandwidthBits')
+            ? BigInt.from(json['downlinkBandwidthBits'])
+            : null,
+        uplinkDelayMs: json.containsKey('uplinkDelayMs')
+            ? BigInt.from(json['uplinkDelayMs'])
+            : null,
+        downlinkDelayMs: json.containsKey('downlinkDelayMs')
+            ? BigInt.from(json['downlinkDelayMs'])
+            : null,
+        uplinkJitterMs: json.containsKey('uplinkJitterMs')
+            ? BigInt.from(json['uplinkJitterMs'])
+            : null,
+        downlinkJitterMs: json.containsKey('downlinkJitterMs')
+            ? BigInt.from(json['downlinkJitterMs'])
+            : null,
+        uplinkLossPercent: json.containsKey('uplinkLossPercent')
+            ? json['uplinkLossPercent'] as int
+            : null,
+        downlinkLossPercent: json.containsKey('downlinkLossPercent')
+            ? json['downlinkLossPercent'] as int
+            : null,
+      );
 }
 
 /// Represents the metadata of a device offering.
@@ -3149,7 +3972,20 @@ class Offering {
     this.platform,
     this.recurringCharges,
   });
-  static Offering fromJson(Map<String, dynamic> json) => Offering();
+  static Offering fromJson(Map<String, dynamic> json) => Offering(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        platform:
+            json.containsKey('platform') ? json['platform'] as String : null,
+        recurringCharges: json.containsKey('recurringCharges')
+            ? (json['recurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents information about an offering promotion.
@@ -3165,7 +4001,12 @@ class OfferingPromotion {
     this.description,
   });
   static OfferingPromotion fromJson(Map<String, dynamic> json) =>
-      OfferingPromotion();
+      OfferingPromotion(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+      );
 }
 
 /// The status of the offering.
@@ -3188,7 +4029,16 @@ class OfferingStatus {
     this.quantity,
     this.effectiveOn,
   });
-  static OfferingStatus fromJson(Map<String, dynamic> json) => OfferingStatus();
+  static OfferingStatus fromJson(Map<String, dynamic> json) => OfferingStatus(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        offering: json.containsKey('offering')
+            ? Offering.fromJson(json['offering'])
+            : null,
+        quantity: json.containsKey('quantity') ? json['quantity'] as int : null,
+        effectiveOn: json.containsKey('effectiveOn')
+            ? DateTime.parse(json['effectiveOn'])
+            : null,
+      );
 }
 
 /// Represents the metadata of an offering transaction.
@@ -3216,7 +4066,23 @@ class OfferingTransaction {
     this.cost,
   });
   static OfferingTransaction fromJson(Map<String, dynamic> json) =>
-      OfferingTransaction();
+      OfferingTransaction(
+        offeringStatus: json.containsKey('offeringStatus')
+            ? OfferingStatus.fromJson(json['offeringStatus'])
+            : null,
+        transactionId: json.containsKey('transactionId')
+            ? json['transactionId'] as String
+            : null,
+        offeringPromotionId: json.containsKey('offeringPromotionId')
+            ? json['offeringPromotionId'] as String
+            : null,
+        createdOn: json.containsKey('createdOn')
+            ? DateTime.parse(json['createdOn'])
+            : null,
+        cost: json.containsKey('cost')
+            ? MonetaryAmount.fromJson(json['cost'])
+            : null,
+      );
 }
 
 /// Represents a specific warning or failure.
@@ -3267,7 +4133,24 @@ class Problem {
     this.result,
     this.message,
   });
-  static Problem fromJson(Map<String, dynamic> json) => Problem();
+  static Problem fromJson(Map<String, dynamic> json) => Problem(
+        run: json.containsKey('run')
+            ? ProblemDetail.fromJson(json['run'])
+            : null,
+        job: json.containsKey('job')
+            ? ProblemDetail.fromJson(json['job'])
+            : null,
+        suite: json.containsKey('suite')
+            ? ProblemDetail.fromJson(json['suite'])
+            : null,
+        test: json.containsKey('test')
+            ? ProblemDetail.fromJson(json['test'])
+            : null,
+        device:
+            json.containsKey('device') ? Device.fromJson(json['device']) : null,
+        result: json.containsKey('result') ? json['result'] as String : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 /// Information about a problem detail.
@@ -3282,7 +4165,10 @@ class ProblemDetail {
     this.arn,
     this.name,
   });
-  static ProblemDetail fromJson(Map<String, dynamic> json) => ProblemDetail();
+  static ProblemDetail fromJson(Map<String, dynamic> json) => ProblemDetail(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
 }
 
 /// Represents an operating-system neutral workspace for running and managing
@@ -3307,7 +4193,16 @@ class Project {
     this.defaultJobTimeoutMinutes,
     this.created,
   });
-  static Project fromJson(Map<String, dynamic> json) => Project();
+  static Project fromJson(Map<String, dynamic> json) => Project(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        defaultJobTimeoutMinutes: json.containsKey('defaultJobTimeoutMinutes')
+            ? json['defaultJobTimeoutMinutes'] as int
+            : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+      );
 }
 
 /// The result of the purchase offering (e.g., success or failure).
@@ -3319,7 +4214,11 @@ class PurchaseOfferingResult {
     this.offeringTransaction,
   });
   static PurchaseOfferingResult fromJson(Map<String, dynamic> json) =>
-      PurchaseOfferingResult();
+      PurchaseOfferingResult(
+        offeringTransaction: json.containsKey('offeringTransaction')
+            ? OfferingTransaction.fromJson(json['offeringTransaction'])
+            : null,
+      );
 }
 
 /// Represents the set of radios and their states on a device. Examples of
@@ -3344,7 +4243,14 @@ class Radios {
     this.nfc,
     this.gps,
   });
-  static Radios fromJson(Map<String, dynamic> json) => Radios();
+  static Radios fromJson(Map<String, dynamic> json) => Radios(
+        wifi: json.containsKey('wifi') ? json['wifi'] as bool : null,
+        bluetooth:
+            json.containsKey('bluetooth') ? json['bluetooth'] as bool : null,
+        nfc: json.containsKey('nfc') ? json['nfc'] as bool : null,
+        gps: json.containsKey('gps') ? json['gps'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies whether charges for devices will be recurring.
@@ -3359,8 +4265,13 @@ class RecurringCharge {
     this.cost,
     this.frequency,
   });
-  static RecurringCharge fromJson(Map<String, dynamic> json) =>
-      RecurringCharge();
+  static RecurringCharge fromJson(Map<String, dynamic> json) => RecurringCharge(
+        cost: json.containsKey('cost')
+            ? MonetaryAmount.fromJson(json['cost'])
+            : null,
+        frequency:
+            json.containsKey('frequency') ? json['frequency'] as String : null,
+      );
 }
 
 /// Represents information about the remote access session.
@@ -3512,7 +4423,58 @@ class RemoteAccessSession {
     this.skipAppResign,
   });
   static RemoteAccessSession fromJson(Map<String, dynamic> json) =>
-      RemoteAccessSession();
+      RemoteAccessSession(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        result: json.containsKey('result') ? json['result'] as String : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        started: json.containsKey('started')
+            ? DateTime.parse(json['started'])
+            : null,
+        stopped: json.containsKey('stopped')
+            ? DateTime.parse(json['stopped'])
+            : null,
+        device:
+            json.containsKey('device') ? Device.fromJson(json['device']) : null,
+        instanceArn: json.containsKey('instanceArn')
+            ? json['instanceArn'] as String
+            : null,
+        remoteDebugEnabled: json.containsKey('remoteDebugEnabled')
+            ? json['remoteDebugEnabled'] as bool
+            : null,
+        remoteRecordEnabled: json.containsKey('remoteRecordEnabled')
+            ? json['remoteRecordEnabled'] as bool
+            : null,
+        remoteRecordAppArn: json.containsKey('remoteRecordAppArn')
+            ? json['remoteRecordAppArn'] as String
+            : null,
+        hostAddress: json.containsKey('hostAddress')
+            ? json['hostAddress'] as String
+            : null,
+        clientId:
+            json.containsKey('clientId') ? json['clientId'] as String : null,
+        billingMethod: json.containsKey('billingMethod')
+            ? json['billingMethod'] as String
+            : null,
+        deviceMinutes: json.containsKey('deviceMinutes')
+            ? DeviceMinutes.fromJson(json['deviceMinutes'])
+            : null,
+        endpoint:
+            json.containsKey('endpoint') ? json['endpoint'] as String : null,
+        deviceUdid: json.containsKey('deviceUdid')
+            ? json['deviceUdid'] as String
+            : null,
+        interactionMode: json.containsKey('interactionMode')
+            ? json['interactionMode'] as String
+            : null,
+        skipAppResign: json.containsKey('skipAppResign')
+            ? json['skipAppResign'] as bool
+            : null,
+      );
 }
 
 /// The result of a renewal offering.
@@ -3524,7 +4486,11 @@ class RenewOfferingResult {
     this.offeringTransaction,
   });
   static RenewOfferingResult fromJson(Map<String, dynamic> json) =>
-      RenewOfferingResult();
+      RenewOfferingResult(
+        offeringTransaction: json.containsKey('offeringTransaction')
+            ? OfferingTransaction.fromJson(json['offeringTransaction'])
+            : null,
+      );
 }
 
 /// Represents the screen resolution of a device in height and width, expressed
@@ -3540,7 +4506,10 @@ class Resolution {
     this.width,
     this.height,
   });
-  static Resolution fromJson(Map<String, dynamic> json) => Resolution();
+  static Resolution fromJson(Map<String, dynamic> json) => Resolution(
+        width: json.containsKey('width') ? json['width'] as int : null,
+        height: json.containsKey('height') ? json['height'] as int : null,
+      );
 }
 
 /// Represents a condition for a device pool.
@@ -3649,7 +4618,14 @@ class Rule {
     this.operator,
     this.value,
   });
-  static Rule fromJson(Map<String, dynamic> json) => Rule();
+  static Rule fromJson(Map<String, dynamic> json) => Rule(
+        attribute:
+            json.containsKey('attribute') ? json['attribute'] as String : null,
+        operator:
+            json.containsKey('operator') ? json['operator'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a test run on a set of devices with a given app package, test
@@ -3876,7 +4852,78 @@ class Run {
     this.testSpecArn,
     this.deviceSelectionResult,
   });
-  static Run fromJson(Map<String, dynamic> json) => Run();
+  static Run fromJson(Map<String, dynamic> json) => Run(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        platform:
+            json.containsKey('platform') ? json['platform'] as String : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        result: json.containsKey('result') ? json['result'] as String : null,
+        started: json.containsKey('started')
+            ? DateTime.parse(json['started'])
+            : null,
+        stopped: json.containsKey('stopped')
+            ? DateTime.parse(json['stopped'])
+            : null,
+        counters: json.containsKey('counters')
+            ? Counters.fromJson(json['counters'])
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        totalJobs:
+            json.containsKey('totalJobs') ? json['totalJobs'] as int : null,
+        completedJobs: json.containsKey('completedJobs')
+            ? json['completedJobs'] as int
+            : null,
+        billingMethod: json.containsKey('billingMethod')
+            ? json['billingMethod'] as String
+            : null,
+        deviceMinutes: json.containsKey('deviceMinutes')
+            ? DeviceMinutes.fromJson(json['deviceMinutes'])
+            : null,
+        networkProfile: json.containsKey('networkProfile')
+            ? NetworkProfile.fromJson(json['networkProfile'])
+            : null,
+        parsingResultUrl: json.containsKey('parsingResultUrl')
+            ? json['parsingResultUrl'] as String
+            : null,
+        resultCode: json.containsKey('resultCode')
+            ? json['resultCode'] as String
+            : null,
+        seed: json.containsKey('seed') ? json['seed'] as int : null,
+        appUpload:
+            json.containsKey('appUpload') ? json['appUpload'] as String : null,
+        eventCount:
+            json.containsKey('eventCount') ? json['eventCount'] as int : null,
+        jobTimeoutMinutes: json.containsKey('jobTimeoutMinutes')
+            ? json['jobTimeoutMinutes'] as int
+            : null,
+        devicePoolArn: json.containsKey('devicePoolArn')
+            ? json['devicePoolArn'] as String
+            : null,
+        locale: json.containsKey('locale') ? json['locale'] as String : null,
+        radios:
+            json.containsKey('radios') ? Radios.fromJson(json['radios']) : null,
+        location: json.containsKey('location')
+            ? Location.fromJson(json['location'])
+            : null,
+        customerArtifactPaths: json.containsKey('customerArtifactPaths')
+            ? CustomerArtifactPaths.fromJson(json['customerArtifactPaths'])
+            : null,
+        webUrl: json.containsKey('webUrl') ? json['webUrl'] as String : null,
+        skipAppResign: json.containsKey('skipAppResign')
+            ? json['skipAppResign'] as bool
+            : null,
+        testSpecArn: json.containsKey('testSpecArn')
+            ? json['testSpecArn'] as String
+            : null,
+        deviceSelectionResult: json.containsKey('deviceSelectionResult')
+            ? DeviceSelectionResult.fromJson(json['deviceSelectionResult'])
+            : null,
+      );
 }
 
 /// Represents a sample of performance data.
@@ -3937,7 +4984,11 @@ class Sample {
     this.type,
     this.url,
   });
-  static Sample fromJson(Map<String, dynamic> json) => Sample();
+  static Sample fromJson(Map<String, dynamic> json) => Sample(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        url: json.containsKey('url') ? json['url'] as String : null,
+      );
 }
 
 /// Represents the settings for a run. Includes things like location, radio
@@ -3985,6 +5036,7 @@ class ScheduleRunConfiguration {
     this.auxiliaryApps,
     this.billingMethod,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the result of a schedule run request.
@@ -3996,7 +5048,9 @@ class ScheduleRunResult {
     this.run,
   });
   static ScheduleRunResult fromJson(Map<String, dynamic> json) =>
-      ScheduleRunResult();
+      ScheduleRunResult(
+        run: json.containsKey('run') ? Run.fromJson(json['run']) : null,
+      );
 }
 
 /// Represents test settings. This data structure is passed in as the "test"
@@ -4156,6 +5210,7 @@ class ScheduleRunTest {
     this.filter,
     this.parameters,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StopJobResult {
@@ -4165,7 +5220,9 @@ class StopJobResult {
   StopJobResult({
     this.job,
   });
-  static StopJobResult fromJson(Map<String, dynamic> json) => StopJobResult();
+  static StopJobResult fromJson(Map<String, dynamic> json) => StopJobResult(
+        job: json.containsKey('job') ? Job.fromJson(json['job']) : null,
+      );
 }
 
 /// Represents the response from the server that describes the remote access
@@ -4179,7 +5236,11 @@ class StopRemoteAccessSessionResult {
     this.remoteAccessSession,
   });
   static StopRemoteAccessSessionResult fromJson(Map<String, dynamic> json) =>
-      StopRemoteAccessSessionResult();
+      StopRemoteAccessSessionResult(
+        remoteAccessSession: json.containsKey('remoteAccessSession')
+            ? RemoteAccessSession.fromJson(json['remoteAccessSession'])
+            : null,
+      );
 }
 
 /// Represents the results of your stop run attempt.
@@ -4190,7 +5251,9 @@ class StopRunResult {
   StopRunResult({
     this.run,
   });
-  static StopRunResult fromJson(Map<String, dynamic> json) => StopRunResult();
+  static StopRunResult fromJson(Map<String, dynamic> json) => StopRunResult(
+        run: json.containsKey('run') ? Run.fromJson(json['run']) : null,
+      );
 }
 
 /// Represents a collection of one or more tests.
@@ -4318,7 +5381,29 @@ class Suite {
     this.message,
     this.deviceMinutes,
   });
-  static Suite fromJson(Map<String, dynamic> json) => Suite();
+  static Suite fromJson(Map<String, dynamic> json) => Suite(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        result: json.containsKey('result') ? json['result'] as String : null,
+        started: json.containsKey('started')
+            ? DateTime.parse(json['started'])
+            : null,
+        stopped: json.containsKey('stopped')
+            ? DateTime.parse(json['stopped'])
+            : null,
+        counters: json.containsKey('counters')
+            ? Counters.fromJson(json['counters'])
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        deviceMinutes: json.containsKey('deviceMinutes')
+            ? DeviceMinutes.fromJson(json['deviceMinutes'])
+            : null,
+      );
 }
 
 /// The metadata that you apply to a resource to help you categorize and
@@ -4338,7 +5423,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -4471,7 +5560,29 @@ class Test {
     this.message,
     this.deviceMinutes,
   });
-  static Test fromJson(Map<String, dynamic> json) => Test();
+  static Test fromJson(Map<String, dynamic> json) => Test(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        result: json.containsKey('result') ? json['result'] as String : null,
+        started: json.containsKey('started')
+            ? DateTime.parse(json['started'])
+            : null,
+        stopped: json.containsKey('stopped')
+            ? DateTime.parse(json['stopped'])
+            : null,
+        counters: json.containsKey('counters')
+            ? Counters.fromJson(json['counters'])
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        deviceMinutes: json.containsKey('deviceMinutes')
+            ? DeviceMinutes.fromJson(json['deviceMinutes'])
+            : null,
+      );
 }
 
 /// Represents information about free trial device minutes for an AWS account.
@@ -4486,7 +5597,11 @@ class TrialMinutes {
     this.total,
     this.remaining,
   });
-  static TrialMinutes fromJson(Map<String, dynamic> json) => TrialMinutes();
+  static TrialMinutes fromJson(Map<String, dynamic> json) => TrialMinutes(
+        total: json.containsKey('total') ? json['total'] as double : null,
+        remaining:
+            json.containsKey('remaining') ? json['remaining'] as double : null,
+      );
 }
 
 /// A collection of one or more problems, grouped by their result.
@@ -4501,7 +5616,14 @@ class UniqueProblem {
     this.message,
     this.problems,
   });
-  static UniqueProblem fromJson(Map<String, dynamic> json) => UniqueProblem();
+  static UniqueProblem fromJson(Map<String, dynamic> json) => UniqueProblem(
+        message: json.containsKey('message') ? json['message'] as String : null,
+        problems: json.containsKey('problems')
+            ? (json['problems'] as List)
+                .map((e) => Problem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UntagResourceResponse {
@@ -4518,7 +5640,11 @@ class UpdateDeviceInstanceResult {
     this.deviceInstance,
   });
   static UpdateDeviceInstanceResult fromJson(Map<String, dynamic> json) =>
-      UpdateDeviceInstanceResult();
+      UpdateDeviceInstanceResult(
+        deviceInstance: json.containsKey('deviceInstance')
+            ? DeviceInstance.fromJson(json['deviceInstance'])
+            : null,
+      );
 }
 
 /// Represents the result of an update device pool request.
@@ -4530,7 +5656,11 @@ class UpdateDevicePoolResult {
     this.devicePool,
   });
   static UpdateDevicePoolResult fromJson(Map<String, dynamic> json) =>
-      UpdateDevicePoolResult();
+      UpdateDevicePoolResult(
+        devicePool: json.containsKey('devicePool')
+            ? DevicePool.fromJson(json['devicePool'])
+            : null,
+      );
 }
 
 class UpdateInstanceProfileResult {
@@ -4541,7 +5671,11 @@ class UpdateInstanceProfileResult {
     this.instanceProfile,
   });
   static UpdateInstanceProfileResult fromJson(Map<String, dynamic> json) =>
-      UpdateInstanceProfileResult();
+      UpdateInstanceProfileResult(
+        instanceProfile: json.containsKey('instanceProfile')
+            ? InstanceProfile.fromJson(json['instanceProfile'])
+            : null,
+      );
 }
 
 class UpdateNetworkProfileResult {
@@ -4552,7 +5686,11 @@ class UpdateNetworkProfileResult {
     this.networkProfile,
   });
   static UpdateNetworkProfileResult fromJson(Map<String, dynamic> json) =>
-      UpdateNetworkProfileResult();
+      UpdateNetworkProfileResult(
+        networkProfile: json.containsKey('networkProfile')
+            ? NetworkProfile.fromJson(json['networkProfile'])
+            : null,
+      );
 }
 
 /// Represents the result of an update project request.
@@ -4564,7 +5702,11 @@ class UpdateProjectResult {
     this.project,
   });
   static UpdateProjectResult fromJson(Map<String, dynamic> json) =>
-      UpdateProjectResult();
+      UpdateProjectResult(
+        project: json.containsKey('project')
+            ? Project.fromJson(json['project'])
+            : null,
+      );
 }
 
 class UpdateUploadResult {
@@ -4575,7 +5717,10 @@ class UpdateUploadResult {
     this.upload,
   });
   static UpdateUploadResult fromJson(Map<String, dynamic> json) =>
-      UpdateUploadResult();
+      UpdateUploadResult(
+        upload:
+            json.containsKey('upload') ? Upload.fromJson(json['upload']) : null,
+      );
 }
 
 class UpdateVpceConfigurationResult {
@@ -4586,7 +5731,11 @@ class UpdateVpceConfigurationResult {
     this.vpceConfiguration,
   });
   static UpdateVpceConfigurationResult fromJson(Map<String, dynamic> json) =>
-      UpdateVpceConfigurationResult();
+      UpdateVpceConfigurationResult(
+        vpceConfiguration: json.containsKey('vpceConfiguration')
+            ? VpceConfiguration.fromJson(json['vpceConfiguration'])
+            : null,
+      );
 }
 
 /// An app or a set of one or more tests to upload or that have been uploaded.
@@ -4728,7 +5877,24 @@ class Upload {
     this.message,
     this.category,
   });
-  static Upload fromJson(Map<String, dynamic> json) => Upload();
+  static Upload fromJson(Map<String, dynamic> json) => Upload(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        created: json.containsKey('created')
+            ? DateTime.parse(json['created'])
+            : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        url: json.containsKey('url') ? json['url'] as String : null,
+        metadata:
+            json.containsKey('metadata') ? json['metadata'] as String : null,
+        contentType: json.containsKey('contentType')
+            ? json['contentType'] as String
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        category:
+            json.containsKey('category') ? json['category'] as String : null,
+      );
 }
 
 /// Represents an Amazon Virtual Private Cloud (VPC) endpoint configuration.
@@ -4760,5 +5926,20 @@ class VpceConfiguration {
     this.vpceConfigurationDescription,
   });
   static VpceConfiguration fromJson(Map<String, dynamic> json) =>
-      VpceConfiguration();
+      VpceConfiguration(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        vpceConfigurationName: json.containsKey('vpceConfigurationName')
+            ? json['vpceConfigurationName'] as String
+            : null,
+        vpceServiceName: json.containsKey('vpceServiceName')
+            ? json['vpceServiceName'] as String
+            : null,
+        serviceDnsName: json.containsKey('serviceDnsName')
+            ? json['serviceDnsName'] as String
+            : null,
+        vpceConfigurationDescription:
+            json.containsKey('vpceConfigurationDescription')
+                ? json['vpceConfigurationDescription'] as String
+                : null,
+      );
 }

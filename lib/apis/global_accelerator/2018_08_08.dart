@@ -88,6 +88,10 @@ import 'package:meta/meta.dart';
 /// specify the proportion of traffic to route to each one. This can be useful,
 /// for example, to do performance testing within a Region.
 class GlobalAcceleratorApi {
+  final _client;
+  GlobalAcceleratorApi(client)
+      : _client = client.configured('Global Accelerator', serializer: 'json');
+
   /// Create an accelerator. An accelerator includes one or more listeners that
   /// process inbound connections and direct traffic to one or more endpoint
   /// groups, each of which includes endpoints, such as Network Load Balancers.
@@ -118,7 +122,13 @@ class GlobalAcceleratorApi {
       String ipAddressType,
       bool enabled,
       @required String idempotencyToken}) async {
-    return CreateAcceleratorResponse.fromJson({});
+    var response_ = await _client.send('CreateAccelerator', {
+      'Name': name,
+      if (ipAddressType != null) 'IpAddressType': ipAddressType,
+      if (enabled != null) 'Enabled': enabled,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return CreateAcceleratorResponse.fromJson(response_);
   }
 
   /// Create an endpoint group for the specified listener. An endpoint group is
@@ -177,7 +187,23 @@ class GlobalAcceleratorApi {
       int healthCheckIntervalSeconds,
       int thresholdCount,
       @required String idempotencyToken}) async {
-    return CreateEndpointGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateEndpointGroup', {
+      'ListenerArn': listenerArn,
+      'EndpointGroupRegion': endpointGroupRegion,
+      if (endpointConfigurations != null)
+        'EndpointConfigurations': endpointConfigurations,
+      if (trafficDialPercentage != null)
+        'TrafficDialPercentage': trafficDialPercentage,
+      if (healthCheckPort != null) 'HealthCheckPort': healthCheckPort,
+      if (healthCheckProtocol != null)
+        'HealthCheckProtocol': healthCheckProtocol,
+      if (healthCheckPath != null) 'HealthCheckPath': healthCheckPath,
+      if (healthCheckIntervalSeconds != null)
+        'HealthCheckIntervalSeconds': healthCheckIntervalSeconds,
+      if (thresholdCount != null) 'ThresholdCount': thresholdCount,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return CreateEndpointGroupResponse.fromJson(response_);
   }
 
   /// Create a listener to process inbound connections from clients to an
@@ -223,7 +249,14 @@ class GlobalAcceleratorApi {
       @required String protocol,
       String clientAffinity,
       @required String idempotencyToken}) async {
-    return CreateListenerResponse.fromJson({});
+    var response_ = await _client.send('CreateListener', {
+      'AcceleratorArn': acceleratorArn,
+      'PortRanges': portRanges,
+      'Protocol': protocol,
+      if (clientAffinity != null) 'ClientAffinity': clientAffinity,
+      'IdempotencyToken': idempotencyToken,
+    });
+    return CreateListenerResponse.fromJson(response_);
   }
 
   /// Delete an accelerator. Note: before you can delete an accelerator, you
@@ -231,18 +264,30 @@ class GlobalAcceleratorApi {
   /// groups).
   ///
   /// [acceleratorArn]: The Amazon Resource Name (ARN) of an accelerator.
-  Future<void> deleteAccelerator(String acceleratorArn) async {}
+  Future<void> deleteAccelerator(String acceleratorArn) async {
+    await _client.send('DeleteAccelerator', {
+      'AcceleratorArn': acceleratorArn,
+    });
+  }
 
   /// Delete an endpoint group from a listener.
   ///
   /// [endpointGroupArn]: The Amazon Resource Name (ARN) of the endpoint group
   /// to delete.
-  Future<void> deleteEndpointGroup(String endpointGroupArn) async {}
+  Future<void> deleteEndpointGroup(String endpointGroupArn) async {
+    await _client.send('DeleteEndpointGroup', {
+      'EndpointGroupArn': endpointGroupArn,
+    });
+  }
 
   /// Delete a listener from an accelerator.
   ///
   /// [listenerArn]: The Amazon Resource Name (ARN) of the listener.
-  Future<void> deleteListener(String listenerArn) async {}
+  Future<void> deleteListener(String listenerArn) async {
+    await _client.send('DeleteListener', {
+      'ListenerArn': listenerArn,
+    });
+  }
 
   /// Describe an accelerator. To see an AWS CLI example of describing an
   /// accelerator, scroll down to **Example**.
@@ -251,7 +296,10 @@ class GlobalAcceleratorApi {
   /// describe.
   Future<DescribeAcceleratorResponse> describeAccelerator(
       String acceleratorArn) async {
-    return DescribeAcceleratorResponse.fromJson({});
+    var response_ = await _client.send('DescribeAccelerator', {
+      'AcceleratorArn': acceleratorArn,
+    });
+    return DescribeAcceleratorResponse.fromJson(response_);
   }
 
   /// Describe the attributes of an accelerator.
@@ -260,7 +308,10 @@ class GlobalAcceleratorApi {
   /// the attributes that you want to describe.
   Future<DescribeAcceleratorAttributesResponse> describeAcceleratorAttributes(
       String acceleratorArn) async {
-    return DescribeAcceleratorAttributesResponse.fromJson({});
+    var response_ = await _client.send('DescribeAcceleratorAttributes', {
+      'AcceleratorArn': acceleratorArn,
+    });
+    return DescribeAcceleratorAttributesResponse.fromJson(response_);
   }
 
   /// Describe an endpoint group.
@@ -269,14 +320,20 @@ class GlobalAcceleratorApi {
   /// to describe.
   Future<DescribeEndpointGroupResponse> describeEndpointGroup(
       String endpointGroupArn) async {
-    return DescribeEndpointGroupResponse.fromJson({});
+    var response_ = await _client.send('DescribeEndpointGroup', {
+      'EndpointGroupArn': endpointGroupArn,
+    });
+    return DescribeEndpointGroupResponse.fromJson(response_);
   }
 
   /// Describe a listener.
   ///
   /// [listenerArn]: The Amazon Resource Name (ARN) of the listener to describe.
   Future<DescribeListenerResponse> describeListener(String listenerArn) async {
-    return DescribeListenerResponse.fromJson({});
+    var response_ = await _client.send('DescribeListener', {
+      'ListenerArn': listenerArn,
+    });
+    return DescribeListenerResponse.fromJson(response_);
   }
 
   /// List the accelerators for an AWS account.
@@ -288,7 +345,11 @@ class GlobalAcceleratorApi {
   /// from a previous call.
   Future<ListAcceleratorsResponse> listAccelerators(
       {int maxResults, String nextToken}) async {
-    return ListAcceleratorsResponse.fromJson({});
+    var response_ = await _client.send('ListAccelerators', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAcceleratorsResponse.fromJson(response_);
   }
 
   /// List the endpoint groups that are associated with a listener.
@@ -302,7 +363,12 @@ class GlobalAcceleratorApi {
   /// from a previous call.
   Future<ListEndpointGroupsResponse> listEndpointGroups(String listenerArn,
       {int maxResults, String nextToken}) async {
-    return ListEndpointGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListEndpointGroups', {
+      'ListenerArn': listenerArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListEndpointGroupsResponse.fromJson(response_);
   }
 
   /// List the listeners for an accelerator.
@@ -317,7 +383,12 @@ class GlobalAcceleratorApi {
   /// from a previous call.
   Future<ListListenersResponse> listListeners(String acceleratorArn,
       {int maxResults, String nextToken}) async {
-    return ListListenersResponse.fromJson({});
+    var response_ = await _client.send('ListListeners', {
+      'AcceleratorArn': acceleratorArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListListenersResponse.fromJson(response_);
   }
 
   /// Update an accelerator. To see an AWS CLI example of updating an
@@ -344,7 +415,13 @@ class GlobalAcceleratorApi {
   /// false, the accelerator can be deleted.
   Future<UpdateAcceleratorResponse> updateAccelerator(String acceleratorArn,
       {String name, String ipAddressType, bool enabled}) async {
-    return UpdateAcceleratorResponse.fromJson({});
+    var response_ = await _client.send('UpdateAccelerator', {
+      'AcceleratorArn': acceleratorArn,
+      if (name != null) 'Name': name,
+      if (ipAddressType != null) 'IpAddressType': ipAddressType,
+      if (enabled != null) 'Enabled': enabled,
+    });
+    return UpdateAcceleratorResponse.fromJson(response_);
   }
 
   /// Update the attributes for an accelerator. To see an AWS CLI example of
@@ -375,7 +452,13 @@ class GlobalAcceleratorApi {
       {bool flowLogsEnabled,
       String flowLogsS3Bucket,
       String flowLogsS3Prefix}) async {
-    return UpdateAcceleratorAttributesResponse.fromJson({});
+    var response_ = await _client.send('UpdateAcceleratorAttributes', {
+      'AcceleratorArn': acceleratorArn,
+      if (flowLogsEnabled != null) 'FlowLogsEnabled': flowLogsEnabled,
+      if (flowLogsS3Bucket != null) 'FlowLogsS3Bucket': flowLogsS3Bucket,
+      if (flowLogsS3Prefix != null) 'FlowLogsS3Prefix': flowLogsS3Prefix,
+    });
+    return UpdateAcceleratorAttributesResponse.fromJson(response_);
   }
 
   /// Update an endpoint group. To see an AWS CLI example of updating an
@@ -424,7 +507,21 @@ class GlobalAcceleratorApi {
       String healthCheckPath,
       int healthCheckIntervalSeconds,
       int thresholdCount}) async {
-    return UpdateEndpointGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateEndpointGroup', {
+      'EndpointGroupArn': endpointGroupArn,
+      if (endpointConfigurations != null)
+        'EndpointConfigurations': endpointConfigurations,
+      if (trafficDialPercentage != null)
+        'TrafficDialPercentage': trafficDialPercentage,
+      if (healthCheckPort != null) 'HealthCheckPort': healthCheckPort,
+      if (healthCheckProtocol != null)
+        'HealthCheckProtocol': healthCheckProtocol,
+      if (healthCheckPath != null) 'HealthCheckPath': healthCheckPath,
+      if (healthCheckIntervalSeconds != null)
+        'HealthCheckIntervalSeconds': healthCheckIntervalSeconds,
+      if (thresholdCount != null) 'ThresholdCount': thresholdCount,
+    });
+    return UpdateEndpointGroupResponse.fromJson(response_);
   }
 
   /// Update a listener.
@@ -463,7 +560,13 @@ class GlobalAcceleratorApi {
       {List<PortRange> portRanges,
       String protocol,
       String clientAffinity}) async {
-    return UpdateListenerResponse.fromJson({});
+    var response_ = await _client.send('UpdateListener', {
+      'ListenerArn': listenerArn,
+      if (portRanges != null) 'PortRanges': portRanges,
+      if (protocol != null) 'Protocol': protocol,
+      if (clientAffinity != null) 'ClientAffinity': clientAffinity,
+    });
+    return UpdateListenerResponse.fromJson(response_);
   }
 }
 
@@ -511,7 +614,26 @@ class Accelerator {
     this.createdTime,
     this.lastModifiedTime,
   });
-  static Accelerator fromJson(Map<String, dynamic> json) => Accelerator();
+  static Accelerator fromJson(Map<String, dynamic> json) => Accelerator(
+        acceleratorArn: json.containsKey('AcceleratorArn')
+            ? json['AcceleratorArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        ipAddressType: json.containsKey('IpAddressType')
+            ? json['IpAddressType'] as String
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        ipSets: json.containsKey('IpSets')
+            ? (json['IpSets'] as List).map((e) => IpSet.fromJson(e)).toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+      );
 }
 
 /// Attributes of an accelerator.
@@ -542,7 +664,17 @@ class AcceleratorAttributes {
     this.flowLogsS3Prefix,
   });
   static AcceleratorAttributes fromJson(Map<String, dynamic> json) =>
-      AcceleratorAttributes();
+      AcceleratorAttributes(
+        flowLogsEnabled: json.containsKey('FlowLogsEnabled')
+            ? json['FlowLogsEnabled'] as bool
+            : null,
+        flowLogsS3Bucket: json.containsKey('FlowLogsS3Bucket')
+            ? json['FlowLogsS3Bucket'] as String
+            : null,
+        flowLogsS3Prefix: json.containsKey('FlowLogsS3Prefix')
+            ? json['FlowLogsS3Prefix'] as String
+            : null,
+      );
 }
 
 class CreateAcceleratorResponse {
@@ -554,7 +686,11 @@ class CreateAcceleratorResponse {
     this.accelerator,
   });
   static CreateAcceleratorResponse fromJson(Map<String, dynamic> json) =>
-      CreateAcceleratorResponse();
+      CreateAcceleratorResponse(
+        accelerator: json.containsKey('Accelerator')
+            ? Accelerator.fromJson(json['Accelerator'])
+            : null,
+      );
 }
 
 class CreateEndpointGroupResponse {
@@ -565,7 +701,11 @@ class CreateEndpointGroupResponse {
     this.endpointGroup,
   });
   static CreateEndpointGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateEndpointGroupResponse();
+      CreateEndpointGroupResponse(
+        endpointGroup: json.containsKey('EndpointGroup')
+            ? EndpointGroup.fromJson(json['EndpointGroup'])
+            : null,
+      );
 }
 
 class CreateListenerResponse {
@@ -576,7 +716,11 @@ class CreateListenerResponse {
     this.listener,
   });
   static CreateListenerResponse fromJson(Map<String, dynamic> json) =>
-      CreateListenerResponse();
+      CreateListenerResponse(
+        listener: json.containsKey('Listener')
+            ? Listener.fromJson(json['Listener'])
+            : null,
+      );
 }
 
 class DescribeAcceleratorAttributesResponse {
@@ -588,7 +732,11 @@ class DescribeAcceleratorAttributesResponse {
   });
   static DescribeAcceleratorAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAcceleratorAttributesResponse();
+      DescribeAcceleratorAttributesResponse(
+        acceleratorAttributes: json.containsKey('AcceleratorAttributes')
+            ? AcceleratorAttributes.fromJson(json['AcceleratorAttributes'])
+            : null,
+      );
 }
 
 class DescribeAcceleratorResponse {
@@ -599,7 +747,11 @@ class DescribeAcceleratorResponse {
     this.accelerator,
   });
   static DescribeAcceleratorResponse fromJson(Map<String, dynamic> json) =>
-      DescribeAcceleratorResponse();
+      DescribeAcceleratorResponse(
+        accelerator: json.containsKey('Accelerator')
+            ? Accelerator.fromJson(json['Accelerator'])
+            : null,
+      );
 }
 
 class DescribeEndpointGroupResponse {
@@ -610,7 +762,11 @@ class DescribeEndpointGroupResponse {
     this.endpointGroup,
   });
   static DescribeEndpointGroupResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEndpointGroupResponse();
+      DescribeEndpointGroupResponse(
+        endpointGroup: json.containsKey('EndpointGroup')
+            ? EndpointGroup.fromJson(json['EndpointGroup'])
+            : null,
+      );
 }
 
 class DescribeListenerResponse {
@@ -621,7 +777,11 @@ class DescribeListenerResponse {
     this.listener,
   });
   static DescribeListenerResponse fromJson(Map<String, dynamic> json) =>
-      DescribeListenerResponse();
+      DescribeListenerResponse(
+        listener: json.containsKey('Listener')
+            ? Listener.fromJson(json['Listener'])
+            : null,
+      );
 }
 
 /// A complex type for endpoints.
@@ -661,6 +821,7 @@ class EndpointConfiguration {
     this.weight,
     this.clientIPPreservationEnabled,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A complex type for an endpoint. Each endpoint group can include one or more
@@ -732,7 +893,22 @@ class EndpointDescription {
     this.clientIPPreservationEnabled,
   });
   static EndpointDescription fromJson(Map<String, dynamic> json) =>
-      EndpointDescription();
+      EndpointDescription(
+        endpointId: json.containsKey('EndpointId')
+            ? json['EndpointId'] as String
+            : null,
+        weight: json.containsKey('Weight') ? json['Weight'] as int : null,
+        healthState: json.containsKey('HealthState')
+            ? json['HealthState'] as String
+            : null,
+        healthReason: json.containsKey('HealthReason')
+            ? json['HealthReason'] as String
+            : null,
+        clientIPPreservationEnabled:
+            json.containsKey('ClientIPPreservationEnabled')
+                ? json['ClientIPPreservationEnabled'] as bool
+                : null,
+      );
 }
 
 /// A complex type for the endpoint group. An AWS Region can have only one
@@ -794,7 +970,38 @@ class EndpointGroup {
     this.healthCheckIntervalSeconds,
     this.thresholdCount,
   });
-  static EndpointGroup fromJson(Map<String, dynamic> json) => EndpointGroup();
+  static EndpointGroup fromJson(Map<String, dynamic> json) => EndpointGroup(
+        endpointGroupArn: json.containsKey('EndpointGroupArn')
+            ? json['EndpointGroupArn'] as String
+            : null,
+        endpointGroupRegion: json.containsKey('EndpointGroupRegion')
+            ? json['EndpointGroupRegion'] as String
+            : null,
+        endpointDescriptions: json.containsKey('EndpointDescriptions')
+            ? (json['EndpointDescriptions'] as List)
+                .map((e) => EndpointDescription.fromJson(e))
+                .toList()
+            : null,
+        trafficDialPercentage: json.containsKey('TrafficDialPercentage')
+            ? json['TrafficDialPercentage'] as double
+            : null,
+        healthCheckPort: json.containsKey('HealthCheckPort')
+            ? json['HealthCheckPort'] as int
+            : null,
+        healthCheckProtocol: json.containsKey('HealthCheckProtocol')
+            ? json['HealthCheckProtocol'] as String
+            : null,
+        healthCheckPath: json.containsKey('HealthCheckPath')
+            ? json['HealthCheckPath'] as String
+            : null,
+        healthCheckIntervalSeconds:
+            json.containsKey('HealthCheckIntervalSeconds')
+                ? json['HealthCheckIntervalSeconds'] as int
+                : null,
+        thresholdCount: json.containsKey('ThresholdCount')
+            ? json['ThresholdCount'] as int
+            : null,
+      );
 }
 
 /// A complex type for the set of IP addresses for an accelerator.
@@ -810,7 +1017,13 @@ class IpSet {
     this.ipFamily,
     this.ipAddresses,
   });
-  static IpSet fromJson(Map<String, dynamic> json) => IpSet();
+  static IpSet fromJson(Map<String, dynamic> json) => IpSet(
+        ipFamily:
+            json.containsKey('IpFamily') ? json['IpFamily'] as String : null,
+        ipAddresses: json.containsKey('IpAddresses')
+            ? (json['IpAddresses'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class ListAcceleratorsResponse {
@@ -826,7 +1039,15 @@ class ListAcceleratorsResponse {
     this.nextToken,
   });
   static ListAcceleratorsResponse fromJson(Map<String, dynamic> json) =>
-      ListAcceleratorsResponse();
+      ListAcceleratorsResponse(
+        accelerators: json.containsKey('Accelerators')
+            ? (json['Accelerators'] as List)
+                .map((e) => Accelerator.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListEndpointGroupsResponse {
@@ -842,7 +1063,15 @@ class ListEndpointGroupsResponse {
     this.nextToken,
   });
   static ListEndpointGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListEndpointGroupsResponse();
+      ListEndpointGroupsResponse(
+        endpointGroups: json.containsKey('EndpointGroups')
+            ? (json['EndpointGroups'] as List)
+                .map((e) => EndpointGroup.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListListenersResponse {
@@ -858,7 +1087,15 @@ class ListListenersResponse {
     this.nextToken,
   });
   static ListListenersResponse fromJson(Map<String, dynamic> json) =>
-      ListListenersResponse();
+      ListListenersResponse(
+        listeners: json.containsKey('Listeners')
+            ? (json['Listeners'] as List)
+                .map((e) => Listener.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// A complex type for a listener.
@@ -902,7 +1139,21 @@ class Listener {
     this.protocol,
     this.clientAffinity,
   });
-  static Listener fromJson(Map<String, dynamic> json) => Listener();
+  static Listener fromJson(Map<String, dynamic> json) => Listener(
+        listenerArn: json.containsKey('ListenerArn')
+            ? json['ListenerArn'] as String
+            : null,
+        portRanges: json.containsKey('PortRanges')
+            ? (json['PortRanges'] as List)
+                .map((e) => PortRange.fromJson(e))
+                .toList()
+            : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        clientAffinity: json.containsKey('ClientAffinity')
+            ? json['ClientAffinity'] as String
+            : null,
+      );
 }
 
 /// A complex type for a range of ports for a listener.
@@ -917,7 +1168,11 @@ class PortRange {
     this.fromPort,
     this.toPort,
   });
-  static PortRange fromJson(Map<String, dynamic> json) => PortRange();
+  static PortRange fromJson(Map<String, dynamic> json) => PortRange(
+        fromPort: json.containsKey('FromPort') ? json['FromPort'] as int : null,
+        toPort: json.containsKey('ToPort') ? json['ToPort'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateAcceleratorAttributesResponse {
@@ -929,7 +1184,11 @@ class UpdateAcceleratorAttributesResponse {
   });
   static UpdateAcceleratorAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateAcceleratorAttributesResponse();
+      UpdateAcceleratorAttributesResponse(
+        acceleratorAttributes: json.containsKey('AcceleratorAttributes')
+            ? AcceleratorAttributes.fromJson(json['AcceleratorAttributes'])
+            : null,
+      );
 }
 
 class UpdateAcceleratorResponse {
@@ -940,7 +1199,11 @@ class UpdateAcceleratorResponse {
     this.accelerator,
   });
   static UpdateAcceleratorResponse fromJson(Map<String, dynamic> json) =>
-      UpdateAcceleratorResponse();
+      UpdateAcceleratorResponse(
+        accelerator: json.containsKey('Accelerator')
+            ? Accelerator.fromJson(json['Accelerator'])
+            : null,
+      );
 }
 
 class UpdateEndpointGroupResponse {
@@ -951,7 +1214,11 @@ class UpdateEndpointGroupResponse {
     this.endpointGroup,
   });
   static UpdateEndpointGroupResponse fromJson(Map<String, dynamic> json) =>
-      UpdateEndpointGroupResponse();
+      UpdateEndpointGroupResponse(
+        endpointGroup: json.containsKey('EndpointGroup')
+            ? EndpointGroup.fromJson(json['EndpointGroup'])
+            : null,
+      );
 }
 
 class UpdateListenerResponse {
@@ -962,5 +1229,9 @@ class UpdateListenerResponse {
     this.listener,
   });
   static UpdateListenerResponse fromJson(Map<String, dynamic> json) =>
-      UpdateListenerResponse();
+      UpdateListenerResponse(
+        listener: json.containsKey('Listener')
+            ? Listener.fromJson(json['Listener'])
+            : null,
+      );
 }

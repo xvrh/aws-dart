@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 /// Operations and objects for transcribing speech to text.
 class TranscribeApi {
+  final _client;
+  TranscribeApi(client)
+      : _client = client.configured('Transcribe', serializer: 'json');
+
   /// Creates a new custom vocabulary that you can use to change the way Amazon
   /// Transcribe handles transcription of an audio file.
   ///
@@ -35,19 +39,33 @@ class TranscribeApi {
       @required String languageCode,
       List<String> phrases,
       String vocabularyFileUri}) async {
-    return CreateVocabularyResponse.fromJson({});
+    var response_ = await _client.send('CreateVocabulary', {
+      'VocabularyName': vocabularyName,
+      'LanguageCode': languageCode,
+      if (phrases != null) 'Phrases': phrases,
+      if (vocabularyFileUri != null) 'VocabularyFileUri': vocabularyFileUri,
+    });
+    return CreateVocabularyResponse.fromJson(response_);
   }
 
   /// Deletes a previously submitted transcription job along with any other
   /// generated results such as the transcription, models, and so on.
   ///
   /// [transcriptionJobName]: The name of the transcription job to be deleted.
-  Future<void> deleteTranscriptionJob(String transcriptionJobName) async {}
+  Future<void> deleteTranscriptionJob(String transcriptionJobName) async {
+    await _client.send('DeleteTranscriptionJob', {
+      'TranscriptionJobName': transcriptionJobName,
+    });
+  }
 
   /// Deletes a vocabulary from Amazon Transcribe.
   ///
   /// [vocabularyName]: The name of the vocabulary to delete.
-  Future<void> deleteVocabulary(String vocabularyName) async {}
+  Future<void> deleteVocabulary(String vocabularyName) async {
+    await _client.send('DeleteVocabulary', {
+      'VocabularyName': vocabularyName,
+    });
+  }
 
   /// Returns information about a transcription job. To see the status of the
   /// job, check the `TranscriptionJobStatus` field. If the status is
@@ -57,7 +75,10 @@ class TranscribeApi {
   /// [transcriptionJobName]: The name of the job.
   Future<GetTranscriptionJobResponse> getTranscriptionJob(
       String transcriptionJobName) async {
-    return GetTranscriptionJobResponse.fromJson({});
+    var response_ = await _client.send('GetTranscriptionJob', {
+      'TranscriptionJobName': transcriptionJobName,
+    });
+    return GetTranscriptionJobResponse.fromJson(response_);
   }
 
   /// Gets information about a vocabulary.
@@ -65,7 +86,10 @@ class TranscribeApi {
   /// [vocabularyName]: The name of the vocabulary to return information about.
   /// The name is case-sensitive.
   Future<GetVocabularyResponse> getVocabulary(String vocabularyName) async {
-    return GetVocabularyResponse.fromJson({});
+    var response_ = await _client.send('GetVocabulary', {
+      'VocabularyName': vocabularyName,
+    });
+    return GetVocabularyResponse.fromJson(response_);
   }
 
   /// Lists transcription jobs with the specified status.
@@ -90,7 +114,13 @@ class TranscribeApi {
       String jobNameContains,
       String nextToken,
       int maxResults}) async {
-    return ListTranscriptionJobsResponse.fromJson({});
+    var response_ = await _client.send('ListTranscriptionJobs', {
+      if (status != null) 'Status': status,
+      if (jobNameContains != null) 'JobNameContains': jobNameContains,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTranscriptionJobsResponse.fromJson(response_);
   }
 
   /// Returns a list of vocabularies that match the specified criteria. If no
@@ -115,7 +145,13 @@ class TranscribeApi {
       int maxResults,
       String stateEquals,
       String nameContains}) async {
-    return ListVocabulariesResponse.fromJson({});
+    var response_ = await _client.send('ListVocabularies', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (stateEquals != null) 'StateEquals': stateEquals,
+      if (nameContains != null) 'NameContains': nameContains,
+    });
+    return ListVocabulariesResponse.fromJson(response_);
   }
 
   /// Starts an asynchronous job to transcribe speech to text.
@@ -174,7 +210,17 @@ class TranscribeApi {
       @required Media media,
       String outputBucketName,
       Settings settings}) async {
-    return StartTranscriptionJobResponse.fromJson({});
+    var response_ = await _client.send('StartTranscriptionJob', {
+      'TranscriptionJobName': transcriptionJobName,
+      'LanguageCode': languageCode,
+      if (mediaSampleRateHertz != null)
+        'MediaSampleRateHertz': mediaSampleRateHertz,
+      if (mediaFormat != null) 'MediaFormat': mediaFormat,
+      'Media': media,
+      if (outputBucketName != null) 'OutputBucketName': outputBucketName,
+      if (settings != null) 'Settings': settings,
+    });
+    return StartTranscriptionJobResponse.fromJson(response_);
   }
 
   /// Updates an existing vocabulary with new values. The `UpdateVocabulary`
@@ -211,7 +257,13 @@ class TranscribeApi {
       @required String languageCode,
       List<String> phrases,
       String vocabularyFileUri}) async {
-    return UpdateVocabularyResponse.fromJson({});
+    var response_ = await _client.send('UpdateVocabulary', {
+      'VocabularyName': vocabularyName,
+      'LanguageCode': languageCode,
+      if (phrases != null) 'Phrases': phrases,
+      if (vocabularyFileUri != null) 'VocabularyFileUri': vocabularyFileUri,
+    });
+    return UpdateVocabularyResponse.fromJson(response_);
   }
 }
 
@@ -242,7 +294,23 @@ class CreateVocabularyResponse {
     this.failureReason,
   });
   static CreateVocabularyResponse fromJson(Map<String, dynamic> json) =>
-      CreateVocabularyResponse();
+      CreateVocabularyResponse(
+        vocabularyName: json.containsKey('VocabularyName')
+            ? json['VocabularyName'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        vocabularyState: json.containsKey('VocabularyState')
+            ? json['VocabularyState'] as String
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+      );
 }
 
 class GetTranscriptionJobResponse {
@@ -253,7 +321,11 @@ class GetTranscriptionJobResponse {
     this.transcriptionJob,
   });
   static GetTranscriptionJobResponse fromJson(Map<String, dynamic> json) =>
-      GetTranscriptionJobResponse();
+      GetTranscriptionJobResponse(
+        transcriptionJob: json.containsKey('TranscriptionJob')
+            ? TranscriptionJob.fromJson(json['TranscriptionJob'])
+            : null,
+      );
 }
 
 class GetVocabularyResponse {
@@ -286,7 +358,26 @@ class GetVocabularyResponse {
     this.downloadUri,
   });
   static GetVocabularyResponse fromJson(Map<String, dynamic> json) =>
-      GetVocabularyResponse();
+      GetVocabularyResponse(
+        vocabularyName: json.containsKey('VocabularyName')
+            ? json['VocabularyName'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        vocabularyState: json.containsKey('VocabularyState')
+            ? json['VocabularyState'] as String
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        downloadUri: json.containsKey('DownloadUri')
+            ? json['DownloadUri'] as String
+            : null,
+      );
 }
 
 class ListTranscriptionJobsResponse {
@@ -309,7 +400,16 @@ class ListTranscriptionJobsResponse {
     this.transcriptionJobSummaries,
   });
   static ListTranscriptionJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListTranscriptionJobsResponse();
+      ListTranscriptionJobsResponse(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        transcriptionJobSummaries: json.containsKey('TranscriptionJobSummaries')
+            ? (json['TranscriptionJobSummaries'] as List)
+                .map((e) => TranscriptionJobSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListVocabulariesResponse {
@@ -333,7 +433,16 @@ class ListVocabulariesResponse {
     this.vocabularies,
   });
   static ListVocabulariesResponse fromJson(Map<String, dynamic> json) =>
-      ListVocabulariesResponse();
+      ListVocabulariesResponse(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        vocabularies: json.containsKey('Vocabularies')
+            ? (json['Vocabularies'] as List)
+                .map((e) => VocabularyInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the input media file in a transcription request.
@@ -359,7 +468,12 @@ class Media {
   Media({
     this.mediaFileUri,
   });
-  static Media fromJson(Map<String, dynamic> json) => Media();
+  static Media fromJson(Map<String, dynamic> json) => Media(
+        mediaFileUri: json.containsKey('MediaFileUri')
+            ? json['MediaFileUri'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides optional settings for the `StartTranscriptionJob` operation.
@@ -404,7 +518,21 @@ class Settings {
     this.maxSpeakerLabels,
     this.channelIdentification,
   });
-  static Settings fromJson(Map<String, dynamic> json) => Settings();
+  static Settings fromJson(Map<String, dynamic> json) => Settings(
+        vocabularyName: json.containsKey('VocabularyName')
+            ? json['VocabularyName'] as String
+            : null,
+        showSpeakerLabels: json.containsKey('ShowSpeakerLabels')
+            ? json['ShowSpeakerLabels'] as bool
+            : null,
+        maxSpeakerLabels: json.containsKey('MaxSpeakerLabels')
+            ? json['MaxSpeakerLabels'] as int
+            : null,
+        channelIdentification: json.containsKey('ChannelIdentification')
+            ? json['ChannelIdentification'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartTranscriptionJobResponse {
@@ -415,7 +543,11 @@ class StartTranscriptionJobResponse {
     this.transcriptionJob,
   });
   static StartTranscriptionJobResponse fromJson(Map<String, dynamic> json) =>
-      StartTranscriptionJobResponse();
+      StartTranscriptionJobResponse(
+        transcriptionJob: json.containsKey('TranscriptionJob')
+            ? TranscriptionJob.fromJson(json['TranscriptionJob'])
+            : null,
+      );
 }
 
 /// Identifies the location of a transcription.
@@ -431,7 +563,11 @@ class Transcript {
   Transcript({
     this.transcriptFileUri,
   });
-  static Transcript fromJson(Map<String, dynamic> json) => Transcript();
+  static Transcript fromJson(Map<String, dynamic> json) => Transcript(
+        transcriptFileUri: json.containsKey('TranscriptFileUri')
+            ? json['TranscriptFileUri'] as String
+            : null,
+      );
 }
 
 /// Describes an asynchronous transcription job that was created with the
@@ -520,7 +656,39 @@ class TranscriptionJob {
     this.settings,
   });
   static TranscriptionJob fromJson(Map<String, dynamic> json) =>
-      TranscriptionJob();
+      TranscriptionJob(
+        transcriptionJobName: json.containsKey('TranscriptionJobName')
+            ? json['TranscriptionJobName'] as String
+            : null,
+        transcriptionJobStatus: json.containsKey('TranscriptionJobStatus')
+            ? json['TranscriptionJobStatus'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        mediaSampleRateHertz: json.containsKey('MediaSampleRateHertz')
+            ? json['MediaSampleRateHertz'] as int
+            : null,
+        mediaFormat: json.containsKey('MediaFormat')
+            ? json['MediaFormat'] as String
+            : null,
+        media: json.containsKey('Media') ? Media.fromJson(json['Media']) : null,
+        transcript: json.containsKey('Transcript')
+            ? Transcript.fromJson(json['Transcript'])
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        completionTime: json.containsKey('CompletionTime')
+            ? DateTime.parse(json['CompletionTime'])
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        settings: json.containsKey('Settings')
+            ? Settings.fromJson(json['Settings'])
+            : null,
+      );
 }
 
 /// Provides a summary of information about a transcription job. .
@@ -567,7 +735,29 @@ class TranscriptionJobSummary {
     this.outputLocationType,
   });
   static TranscriptionJobSummary fromJson(Map<String, dynamic> json) =>
-      TranscriptionJobSummary();
+      TranscriptionJobSummary(
+        transcriptionJobName: json.containsKey('TranscriptionJobName')
+            ? json['TranscriptionJobName'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        completionTime: json.containsKey('CompletionTime')
+            ? DateTime.parse(json['CompletionTime'])
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        transcriptionJobStatus: json.containsKey('TranscriptionJobStatus')
+            ? json['TranscriptionJobStatus'] as String
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        outputLocationType: json.containsKey('OutputLocationType')
+            ? json['OutputLocationType'] as String
+            : null,
+      );
 }
 
 class UpdateVocabularyResponse {
@@ -592,7 +782,20 @@ class UpdateVocabularyResponse {
     this.vocabularyState,
   });
   static UpdateVocabularyResponse fromJson(Map<String, dynamic> json) =>
-      UpdateVocabularyResponse();
+      UpdateVocabularyResponse(
+        vocabularyName: json.containsKey('VocabularyName')
+            ? json['VocabularyName'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        vocabularyState: json.containsKey('VocabularyState')
+            ? json['VocabularyState'] as String
+            : null,
+      );
 }
 
 /// Provides information about a custom vocabulary.
@@ -616,5 +819,18 @@ class VocabularyInfo {
     this.lastModifiedTime,
     this.vocabularyState,
   });
-  static VocabularyInfo fromJson(Map<String, dynamic> json) => VocabularyInfo();
+  static VocabularyInfo fromJson(Map<String, dynamic> json) => VocabularyInfo(
+        vocabularyName: json.containsKey('VocabularyName')
+            ? json['VocabularyName'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        lastModifiedTime: json.containsKey('LastModifiedTime')
+            ? DateTime.parse(json['LastModifiedTime'])
+            : null,
+        vocabularyState: json.containsKey('VocabularyState')
+            ? json['VocabularyState'] as String
+            : null,
+      );
 }

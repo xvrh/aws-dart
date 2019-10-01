@@ -5,6 +5,10 @@ import 'package:meta/meta.dart';
 /// Events API commands enable you to create, read, update and delete inputs and
 /// detector models, and to list their versions.
 class IotEventsApi {
+  final _client;
+  IotEventsApi(client)
+      : _client = client.configured('IoT Events', serializer: 'rest-json');
+
   /// Creates a detector model.
   ///
   /// [detectorModelName]: The name of the detector model.
@@ -32,7 +36,16 @@ class IotEventsApi {
       String key,
       @required String roleArn,
       List<Tag> tags}) async {
-    return CreateDetectorModelResponse.fromJson({});
+    var response_ = await _client.send('CreateDetectorModel', {
+      'detectorModelName': detectorModelName,
+      'detectorModelDefinition': detectorModelDefinition,
+      if (detectorModelDescription != null)
+        'detectorModelDescription': detectorModelDescription,
+      if (key != null) 'key': key,
+      'roleArn': roleArn,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDetectorModelResponse.fromJson(response_);
   }
 
   /// Creates an input.
@@ -49,7 +62,13 @@ class IotEventsApi {
       String inputDescription,
       @required InputDefinition inputDefinition,
       List<Tag> tags}) async {
-    return CreateInputResponse.fromJson({});
+    var response_ = await _client.send('CreateInput', {
+      'inputName': inputName,
+      if (inputDescription != null) 'inputDescription': inputDescription,
+      'inputDefinition': inputDefinition,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateInputResponse.fromJson(response_);
   }
 
   /// Deletes a detector model. Any active instances of the detector model are
@@ -58,14 +77,20 @@ class IotEventsApi {
   /// [detectorModelName]: The name of the detector model to be deleted.
   Future<DeleteDetectorModelResponse> deleteDetectorModel(
       String detectorModelName) async {
-    return DeleteDetectorModelResponse.fromJson({});
+    var response_ = await _client.send('DeleteDetectorModel', {
+      'detectorModelName': detectorModelName,
+    });
+    return DeleteDetectorModelResponse.fromJson(response_);
   }
 
   /// Deletes an input.
   ///
   /// [inputName]: The name of the input to delete.
   Future<DeleteInputResponse> deleteInput(String inputName) async {
-    return DeleteInputResponse.fromJson({});
+    var response_ = await _client.send('DeleteInput', {
+      'inputName': inputName,
+    });
+    return DeleteInputResponse.fromJson(response_);
   }
 
   /// Describes a detector model. If the `"version"` parameter is not specified,
@@ -77,19 +102,28 @@ class IotEventsApi {
   Future<DescribeDetectorModelResponse> describeDetectorModel(
       String detectorModelName,
       {String detectorModelVersion}) async {
-    return DescribeDetectorModelResponse.fromJson({});
+    var response_ = await _client.send('DescribeDetectorModel', {
+      'detectorModelName': detectorModelName,
+      if (detectorModelVersion != null)
+        'detectorModelVersion': detectorModelVersion,
+    });
+    return DescribeDetectorModelResponse.fromJson(response_);
   }
 
   /// Describes an input.
   ///
   /// [inputName]: The name of the input.
   Future<DescribeInputResponse> describeInput(String inputName) async {
-    return DescribeInputResponse.fromJson({});
+    var response_ = await _client.send('DescribeInput', {
+      'inputName': inputName,
+    });
+    return DescribeInputResponse.fromJson(response_);
   }
 
   /// Retrieves the current settings of the AWS IoT Events logging options.
   Future<DescribeLoggingOptionsResponse> describeLoggingOptions() async {
-    return DescribeLoggingOptionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeLoggingOptions', {});
+    return DescribeLoggingOptionsResponse.fromJson(response_);
   }
 
   /// Lists all the versions of a detector model. Only the metadata associated
@@ -105,7 +139,12 @@ class IotEventsApi {
       String detectorModelName,
       {String nextToken,
       int maxResults}) async {
-    return ListDetectorModelVersionsResponse.fromJson({});
+    var response_ = await _client.send('ListDetectorModelVersions', {
+      'detectorModelName': detectorModelName,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDetectorModelVersionsResponse.fromJson(response_);
   }
 
   /// Lists the detector models you have created. Only the metadata associated
@@ -116,7 +155,11 @@ class IotEventsApi {
   /// [maxResults]: The maximum number of results to return at one time.
   Future<ListDetectorModelsResponse> listDetectorModels(
       {String nextToken, int maxResults}) async {
-    return ListDetectorModelsResponse.fromJson({});
+    var response_ = await _client.send('ListDetectorModels', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListDetectorModelsResponse.fromJson(response_);
   }
 
   /// Lists the inputs you have created.
@@ -126,7 +169,11 @@ class IotEventsApi {
   /// [maxResults]: The maximum number of results to return at one time.
   Future<ListInputsResponse> listInputs(
       {String nextToken, int maxResults}) async {
-    return ListInputsResponse.fromJson({});
+    var response_ = await _client.send('ListInputs', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListInputsResponse.fromJson(response_);
   }
 
   /// Lists the tags (metadata) you have assigned to the resource.
@@ -134,7 +181,10 @@ class IotEventsApi {
   /// [resourceArn]: The ARN of the resource.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Sets or updates the AWS IoT Events logging options.
@@ -146,7 +196,11 @@ class IotEventsApi {
   /// to take effect.
   ///
   /// [loggingOptions]: The new values of the AWS IoT Events logging options.
-  Future<void> putLoggingOptions(LoggingOptions loggingOptions) async {}
+  Future<void> putLoggingOptions(LoggingOptions loggingOptions) async {
+    await _client.send('PutLoggingOptions', {
+      'loggingOptions': loggingOptions,
+    });
+  }
 
   /// Adds to or modifies the tags of the given resource. Tags are metadata that
   /// can be used to manage a resource.
@@ -156,7 +210,11 @@ class IotEventsApi {
   /// [tags]: The new or modified tags for the resource.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes the given tags (metadata) from the resource.
@@ -166,7 +224,11 @@ class IotEventsApi {
   /// [tagKeys]: A list of the keys of the tags to be removed from the resource.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates a detector model. Detectors (instances) spawned by the previous
@@ -186,7 +248,14 @@ class IotEventsApi {
       @required DetectorModelDefinition detectorModelDefinition,
       String detectorModelDescription,
       @required String roleArn}) async {
-    return UpdateDetectorModelResponse.fromJson({});
+    var response_ = await _client.send('UpdateDetectorModel', {
+      'detectorModelName': detectorModelName,
+      'detectorModelDefinition': detectorModelDefinition,
+      if (detectorModelDescription != null)
+        'detectorModelDescription': detectorModelDescription,
+      'roleArn': roleArn,
+    });
+    return UpdateDetectorModelResponse.fromJson(response_);
   }
 
   /// Updates an input.
@@ -200,7 +269,12 @@ class IotEventsApi {
       {@required String inputName,
       String inputDescription,
       @required InputDefinition inputDefinition}) async {
-    return UpdateInputResponse.fromJson({});
+    var response_ = await _client.send('UpdateInput', {
+      'inputName': inputName,
+      if (inputDescription != null) 'inputDescription': inputDescription,
+      'inputDefinition': inputDefinition,
+    });
+    return UpdateInputResponse.fromJson(response_);
   }
 }
 
@@ -253,7 +327,37 @@ class Action {
     this.sqs,
     this.firehose,
   });
-  static Action fromJson(Map<String, dynamic> json) => Action();
+  static Action fromJson(Map<String, dynamic> json) => Action(
+        setVariable: json.containsKey('setVariable')
+            ? SetVariableAction.fromJson(json['setVariable'])
+            : null,
+        sns: json.containsKey('sns')
+            ? SnsTopicPublishAction.fromJson(json['sns'])
+            : null,
+        iotTopicPublish: json.containsKey('iotTopicPublish')
+            ? IotTopicPublishAction.fromJson(json['iotTopicPublish'])
+            : null,
+        setTimer: json.containsKey('setTimer')
+            ? SetTimerAction.fromJson(json['setTimer'])
+            : null,
+        clearTimer: json.containsKey('clearTimer')
+            ? ClearTimerAction.fromJson(json['clearTimer'])
+            : null,
+        resetTimer: json.containsKey('resetTimer')
+            ? ResetTimerAction.fromJson(json['resetTimer'])
+            : null,
+        lambda: json.containsKey('lambda')
+            ? LambdaAction.fromJson(json['lambda'])
+            : null,
+        iotEvents: json.containsKey('iotEvents')
+            ? IotEventsAction.fromJson(json['iotEvents'])
+            : null,
+        sqs: json.containsKey('sqs') ? SqsAction.fromJson(json['sqs']) : null,
+        firehose: json.containsKey('firehose')
+            ? FirehoseAction.fromJson(json['firehose'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The attributes from the JSON payload that are made available by the input.
@@ -275,7 +379,10 @@ class Attribute {
   Attribute({
     @required this.jsonPath,
   });
-  static Attribute fromJson(Map<String, dynamic> json) => Attribute();
+  static Attribute fromJson(Map<String, dynamic> json) => Attribute(
+        jsonPath: json['jsonPath'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information needed to clear the timer.
@@ -287,7 +394,10 @@ class ClearTimerAction {
     @required this.timerName,
   });
   static ClearTimerAction fromJson(Map<String, dynamic> json) =>
-      ClearTimerAction();
+      ClearTimerAction(
+        timerName: json['timerName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateDetectorModelResponse {
@@ -298,7 +408,13 @@ class CreateDetectorModelResponse {
     this.detectorModelConfiguration,
   });
   static CreateDetectorModelResponse fromJson(Map<String, dynamic> json) =>
-      CreateDetectorModelResponse();
+      CreateDetectorModelResponse(
+        detectorModelConfiguration:
+            json.containsKey('detectorModelConfiguration')
+                ? DetectorModelConfiguration.fromJson(
+                    json['detectorModelConfiguration'])
+                : null,
+      );
 }
 
 class CreateInputResponse {
@@ -309,7 +425,11 @@ class CreateInputResponse {
     this.inputConfiguration,
   });
   static CreateInputResponse fromJson(Map<String, dynamic> json) =>
-      CreateInputResponse();
+      CreateInputResponse(
+        inputConfiguration: json.containsKey('inputConfiguration')
+            ? InputConfiguration.fromJson(json['inputConfiguration'])
+            : null,
+      );
 }
 
 class DeleteDetectorModelResponse {
@@ -332,7 +452,11 @@ class DescribeDetectorModelResponse {
     this.detectorModel,
   });
   static DescribeDetectorModelResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDetectorModelResponse();
+      DescribeDetectorModelResponse(
+        detectorModel: json.containsKey('detectorModel')
+            ? DetectorModel.fromJson(json['detectorModel'])
+            : null,
+      );
 }
 
 class DescribeInputResponse {
@@ -343,7 +467,9 @@ class DescribeInputResponse {
     this.input,
   });
   static DescribeInputResponse fromJson(Map<String, dynamic> json) =>
-      DescribeInputResponse();
+      DescribeInputResponse(
+        input: json.containsKey('input') ? Input.fromJson(json['input']) : null,
+      );
 }
 
 class DescribeLoggingOptionsResponse {
@@ -354,7 +480,11 @@ class DescribeLoggingOptionsResponse {
     this.loggingOptions,
   });
   static DescribeLoggingOptionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLoggingOptionsResponse();
+      DescribeLoggingOptionsResponse(
+        loggingOptions: json.containsKey('loggingOptions')
+            ? LoggingOptions.fromJson(json['loggingOptions'])
+            : null,
+      );
 }
 
 /// The detector model and the specific detectors (instances) for which the
@@ -372,7 +502,12 @@ class DetectorDebugOption {
     this.keyValue,
   });
   static DetectorDebugOption fromJson(Map<String, dynamic> json) =>
-      DetectorDebugOption();
+      DetectorDebugOption(
+        detectorModelName: json['detectorModelName'] as String,
+        keyValue:
+            json.containsKey('keyValue') ? json['keyValue'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the detector model.
@@ -387,7 +522,16 @@ class DetectorModel {
     this.detectorModelDefinition,
     this.detectorModelConfiguration,
   });
-  static DetectorModel fromJson(Map<String, dynamic> json) => DetectorModel();
+  static DetectorModel fromJson(Map<String, dynamic> json) => DetectorModel(
+        detectorModelDefinition: json.containsKey('detectorModelDefinition')
+            ? DetectorModelDefinition.fromJson(json['detectorModelDefinition'])
+            : null,
+        detectorModelConfiguration:
+            json.containsKey('detectorModelConfiguration')
+                ? DetectorModelConfiguration.fromJson(
+                    json['detectorModelConfiguration'])
+                : null,
+      );
 }
 
 /// Information about how the detector model is configured.
@@ -437,7 +581,29 @@ class DetectorModelConfiguration {
     this.key,
   });
   static DetectorModelConfiguration fromJson(Map<String, dynamic> json) =>
-      DetectorModelConfiguration();
+      DetectorModelConfiguration(
+        detectorModelName: json.containsKey('detectorModelName')
+            ? json['detectorModelName'] as String
+            : null,
+        detectorModelVersion: json.containsKey('detectorModelVersion')
+            ? json['detectorModelVersion'] as String
+            : null,
+        detectorModelDescription: json.containsKey('detectorModelDescription')
+            ? json['detectorModelDescription'] as String
+            : null,
+        detectorModelArn: json.containsKey('detectorModelArn')
+            ? json['detectorModelArn'] as String
+            : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        key: json.containsKey('key') ? json['key'] as String : null,
+      );
 }
 
 /// Information that defines how a detector operates.
@@ -453,7 +619,11 @@ class DetectorModelDefinition {
     @required this.initialStateName,
   });
   static DetectorModelDefinition fromJson(Map<String, dynamic> json) =>
-      DetectorModelDefinition();
+      DetectorModelDefinition(
+        states: (json['states'] as List).map((e) => State.fromJson(e)).toList(),
+        initialStateName: json['initialStateName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the detector model.
@@ -473,7 +643,17 @@ class DetectorModelSummary {
     this.creationTime,
   });
   static DetectorModelSummary fromJson(Map<String, dynamic> json) =>
-      DetectorModelSummary();
+      DetectorModelSummary(
+        detectorModelName: json.containsKey('detectorModelName')
+            ? json['detectorModelName'] as String
+            : null,
+        detectorModelDescription: json.containsKey('detectorModelDescription')
+            ? json['detectorModelDescription'] as String
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+      );
 }
 
 /// Information about the detector model version.
@@ -510,7 +690,25 @@ class DetectorModelVersionSummary {
     this.status,
   });
   static DetectorModelVersionSummary fromJson(Map<String, dynamic> json) =>
-      DetectorModelVersionSummary();
+      DetectorModelVersionSummary(
+        detectorModelName: json.containsKey('detectorModelName')
+            ? json['detectorModelName'] as String
+            : null,
+        detectorModelVersion: json.containsKey('detectorModelVersion')
+            ? json['detectorModelVersion'] as String
+            : null,
+        detectorModelArn: json.containsKey('detectorModelArn')
+            ? json['detectorModelArn'] as String
+            : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// Specifies the `"actions"` to be performed when the `"condition"` evaluates
@@ -533,7 +731,15 @@ class Event {
     this.condition,
     this.actions,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        eventName: json['eventName'] as String,
+        condition:
+            json.containsKey('condition') ? json['condition'] as String : null,
+        actions: json.containsKey('actions')
+            ? (json['actions'] as List).map((e) => Action.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Sends information about the detector model instance and the event which
@@ -551,7 +757,12 @@ class FirehoseAction {
     @required this.deliveryStreamName,
     this.separator,
   });
-  static FirehoseAction fromJson(Map<String, dynamic> json) => FirehoseAction();
+  static FirehoseAction fromJson(Map<String, dynamic> json) => FirehoseAction(
+        deliveryStreamName: json['deliveryStreamName'] as String,
+        separator:
+            json.containsKey('separator') ? json['separator'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the input.
@@ -566,7 +777,14 @@ class Input {
     this.inputConfiguration,
     this.inputDefinition,
   });
-  static Input fromJson(Map<String, dynamic> json) => Input();
+  static Input fromJson(Map<String, dynamic> json) => Input(
+        inputConfiguration: json.containsKey('inputConfiguration')
+            ? InputConfiguration.fromJson(json['inputConfiguration'])
+            : null,
+        inputDefinition: json.containsKey('inputDefinition')
+            ? InputDefinition.fromJson(json['inputDefinition'])
+            : null,
+      );
 }
 
 /// Information about the configuration of an input.
@@ -598,7 +816,16 @@ class InputConfiguration {
     @required this.status,
   });
   static InputConfiguration fromJson(Map<String, dynamic> json) =>
-      InputConfiguration();
+      InputConfiguration(
+        inputName: json['inputName'] as String,
+        inputDescription: json.containsKey('inputDescription')
+            ? json['inputDescription'] as String
+            : null,
+        inputArn: json['inputArn'] as String,
+        creationTime: DateTime.parse(json['creationTime']),
+        lastUpdateTime: DateTime.parse(json['lastUpdateTime']),
+        status: json['status'] as String,
+      );
 }
 
 /// The definition of the input.
@@ -614,8 +841,12 @@ class InputDefinition {
   InputDefinition({
     @required this.attributes,
   });
-  static InputDefinition fromJson(Map<String, dynamic> json) =>
-      InputDefinition();
+  static InputDefinition fromJson(Map<String, dynamic> json) => InputDefinition(
+        attributes: (json['attributes'] as List)
+            .map((e) => Attribute.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the input.
@@ -646,7 +877,22 @@ class InputSummary {
     this.lastUpdateTime,
     this.status,
   });
-  static InputSummary fromJson(Map<String, dynamic> json) => InputSummary();
+  static InputSummary fromJson(Map<String, dynamic> json) => InputSummary(
+        inputName:
+            json.containsKey('inputName') ? json['inputName'] as String : null,
+        inputDescription: json.containsKey('inputDescription')
+            ? json['inputDescription'] as String
+            : null,
+        inputArn:
+            json.containsKey('inputArn') ? json['inputArn'] as String : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastUpdateTime: json.containsKey('lastUpdateTime')
+            ? DateTime.parse(json['lastUpdateTime'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// Sends an IoT Events input, passing in information about the detector model
@@ -658,8 +904,10 @@ class IotEventsAction {
   IotEventsAction({
     @required this.inputName,
   });
-  static IotEventsAction fromJson(Map<String, dynamic> json) =>
-      IotEventsAction();
+  static IotEventsAction fromJson(Map<String, dynamic> json) => IotEventsAction(
+        inputName: json['inputName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information required to publish the MQTT message via the AWS IoT message
@@ -672,7 +920,10 @@ class IotTopicPublishAction {
     @required this.mqttTopic,
   });
   static IotTopicPublishAction fromJson(Map<String, dynamic> json) =>
-      IotTopicPublishAction();
+      IotTopicPublishAction(
+        mqttTopic: json['mqttTopic'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Calls a Lambda function, passing in information about the detector model
@@ -684,7 +935,10 @@ class LambdaAction {
   LambdaAction({
     @required this.functionArn,
   });
-  static LambdaAction fromJson(Map<String, dynamic> json) => LambdaAction();
+  static LambdaAction fromJson(Map<String, dynamic> json) => LambdaAction(
+        functionArn: json['functionArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListDetectorModelVersionsResponse {
@@ -701,7 +955,16 @@ class ListDetectorModelVersionsResponse {
   });
   static ListDetectorModelVersionsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListDetectorModelVersionsResponse();
+      ListDetectorModelVersionsResponse(
+        detectorModelVersionSummaries:
+            json.containsKey('detectorModelVersionSummaries')
+                ? (json['detectorModelVersionSummaries'] as List)
+                    .map((e) => DetectorModelVersionSummary.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDetectorModelsResponse {
@@ -717,7 +980,15 @@ class ListDetectorModelsResponse {
     this.nextToken,
   });
   static ListDetectorModelsResponse fromJson(Map<String, dynamic> json) =>
-      ListDetectorModelsResponse();
+      ListDetectorModelsResponse(
+        detectorModelSummaries: json.containsKey('detectorModelSummaries')
+            ? (json['detectorModelSummaries'] as List)
+                .map((e) => DetectorModelSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListInputsResponse {
@@ -733,7 +1004,15 @@ class ListInputsResponse {
     this.nextToken,
   });
   static ListInputsResponse fromJson(Map<String, dynamic> json) =>
-      ListInputsResponse();
+      ListInputsResponse(
+        inputSummaries: json.containsKey('inputSummaries')
+            ? (json['inputSummaries'] as List)
+                .map((e) => InputSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -744,7 +1023,11 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The values of the AWS IoT Events logging options.
@@ -769,7 +1052,17 @@ class LoggingOptions {
     @required this.enabled,
     this.detectorDebugOptions,
   });
-  static LoggingOptions fromJson(Map<String, dynamic> json) => LoggingOptions();
+  static LoggingOptions fromJson(Map<String, dynamic> json) => LoggingOptions(
+        roleArn: json['roleArn'] as String,
+        level: json['level'] as String,
+        enabled: json['enabled'] as bool,
+        detectorDebugOptions: json.containsKey('detectorDebugOptions')
+            ? (json['detectorDebugOptions'] as List)
+                .map((e) => DetectorDebugOption.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When entering this state, perform these `actions` if the `condition` is
@@ -783,7 +1076,12 @@ class OnEnterLifecycle {
     this.events,
   });
   static OnEnterLifecycle fromJson(Map<String, dynamic> json) =>
-      OnEnterLifecycle();
+      OnEnterLifecycle(
+        events: json.containsKey('events')
+            ? (json['events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// When exiting this state, perform these `"actions"` if the specified
@@ -796,8 +1094,12 @@ class OnExitLifecycle {
   OnExitLifecycle({
     this.events,
   });
-  static OnExitLifecycle fromJson(Map<String, dynamic> json) =>
-      OnExitLifecycle();
+  static OnExitLifecycle fromJson(Map<String, dynamic> json) => OnExitLifecycle(
+        events: json.containsKey('events')
+            ? (json['events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the actions performed when the `"condition"` evaluates to TRUE.
@@ -814,7 +1116,17 @@ class OnInputLifecycle {
     this.transitionEvents,
   });
   static OnInputLifecycle fromJson(Map<String, dynamic> json) =>
-      OnInputLifecycle();
+      OnInputLifecycle(
+        events: json.containsKey('events')
+            ? (json['events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+        transitionEvents: json.containsKey('transitionEvents')
+            ? (json['transitionEvents'] as List)
+                .map((e) => TransitionEvent.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information needed to reset the timer.
@@ -826,7 +1138,10 @@ class ResetTimerAction {
     @required this.timerName,
   });
   static ResetTimerAction fromJson(Map<String, dynamic> json) =>
-      ResetTimerAction();
+      ResetTimerAction(
+        timerName: json['timerName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information required to publish the Amazon SNS message.
@@ -838,7 +1153,10 @@ class SnsTopicPublishAction {
     @required this.targetArn,
   });
   static SnsTopicPublishAction fromJson(Map<String, dynamic> json) =>
-      SnsTopicPublishAction();
+      SnsTopicPublishAction(
+        targetArn: json['targetArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information needed to set the timer.
@@ -854,7 +1172,11 @@ class SetTimerAction {
     @required this.timerName,
     @required this.seconds,
   });
-  static SetTimerAction fromJson(Map<String, dynamic> json) => SetTimerAction();
+  static SetTimerAction fromJson(Map<String, dynamic> json) => SetTimerAction(
+        timerName: json['timerName'] as String,
+        seconds: json['seconds'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the variable and its new value.
@@ -870,7 +1192,11 @@ class SetVariableAction {
     @required this.value,
   });
   static SetVariableAction fromJson(Map<String, dynamic> json) =>
-      SetVariableAction();
+      SetVariableAction(
+        variableName: json['variableName'] as String,
+        value: json['value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Sends information about the detector model instance and the event which
@@ -887,7 +1213,12 @@ class SqsAction {
     @required this.queueUrl,
     this.useBase64,
   });
-  static SqsAction fromJson(Map<String, dynamic> json) => SqsAction();
+  static SqsAction fromJson(Map<String, dynamic> json) => SqsAction(
+        queueUrl: json['queueUrl'] as String,
+        useBase64:
+            json.containsKey('useBase64') ? json['useBase64'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information that defines a state of a detector.
@@ -913,7 +1244,19 @@ class State {
     this.onEnter,
     this.onExit,
   });
-  static State fromJson(Map<String, dynamic> json) => State();
+  static State fromJson(Map<String, dynamic> json) => State(
+        stateName: json['stateName'] as String,
+        onInput: json.containsKey('onInput')
+            ? OnInputLifecycle.fromJson(json['onInput'])
+            : null,
+        onEnter: json.containsKey('onEnter')
+            ? OnEnterLifecycle.fromJson(json['onEnter'])
+            : null,
+        onExit: json.containsKey('onExit')
+            ? OnExitLifecycle.fromJson(json['onExit'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Metadata that can be used to manage the resource.
@@ -928,7 +1271,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['key'] as String,
+        value: json['value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -959,8 +1306,15 @@ class TransitionEvent {
     this.actions,
     @required this.nextState,
   });
-  static TransitionEvent fromJson(Map<String, dynamic> json) =>
-      TransitionEvent();
+  static TransitionEvent fromJson(Map<String, dynamic> json) => TransitionEvent(
+        eventName: json['eventName'] as String,
+        condition: json['condition'] as String,
+        actions: json.containsKey('actions')
+            ? (json['actions'] as List).map((e) => Action.fromJson(e)).toList()
+            : null,
+        nextState: json['nextState'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -977,7 +1331,13 @@ class UpdateDetectorModelResponse {
     this.detectorModelConfiguration,
   });
   static UpdateDetectorModelResponse fromJson(Map<String, dynamic> json) =>
-      UpdateDetectorModelResponse();
+      UpdateDetectorModelResponse(
+        detectorModelConfiguration:
+            json.containsKey('detectorModelConfiguration')
+                ? DetectorModelConfiguration.fromJson(
+                    json['detectorModelConfiguration'])
+                : null,
+      );
 }
 
 class UpdateInputResponse {
@@ -988,5 +1348,9 @@ class UpdateInputResponse {
     this.inputConfiguration,
   });
   static UpdateInputResponse fromJson(Map<String, dynamic> json) =>
-      UpdateInputResponse();
+      UpdateInputResponse(
+        inputConfiguration: json.containsKey('inputConfiguration')
+            ? InputConfiguration.fromJson(json['inputConfiguration'])
+            : null,
+      );
 }

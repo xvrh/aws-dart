@@ -15,11 +15,18 @@ import 'package:meta/meta.dart';
 /// set this up, see the
 /// [Lightsail Dev Guide](http://lightsail.aws.amazon.com/ls/docs/how-to/article/lightsail-how-to-set-up-access-keys-to-use-sdk-api-cli).
 class LightsailApi {
+  final _client;
+  LightsailApi(client)
+      : _client = client.configured('Lightsail', serializer: 'json');
+
   /// Allocates a static IP address.
   ///
   /// [staticIpName]: The name of the static IP address.
   Future<AllocateStaticIpResult> allocateStaticIp(String staticIpName) async {
-    return AllocateStaticIpResult.fromJson({});
+    var response_ = await _client.send('AllocateStaticIp', {
+      'staticIpName': staticIpName,
+    });
+    return AllocateStaticIpResult.fromJson(response_);
   }
 
   /// Attaches a block storage disk to a running or stopped Lightsail instance
@@ -40,7 +47,12 @@ class LightsailApi {
       {@required String diskName,
       @required String instanceName,
       @required String diskPath}) async {
-    return AttachDiskResult.fromJson({});
+    var response_ = await _client.send('AttachDisk', {
+      'diskName': diskName,
+      'instanceName': instanceName,
+      'diskPath': diskPath,
+    });
+    return AttachDiskResult.fromJson(response_);
   }
 
   /// Attaches one or more Lightsail instances to a load balancer.
@@ -67,7 +79,11 @@ class LightsailApi {
   Future<AttachInstancesToLoadBalancerResult> attachInstancesToLoadBalancer(
       {@required String loadBalancerName,
       @required List<String> instanceNames}) async {
-    return AttachInstancesToLoadBalancerResult.fromJson({});
+    var response_ = await _client.send('AttachInstancesToLoadBalancer', {
+      'loadBalancerName': loadBalancerName,
+      'instanceNames': instanceNames,
+    });
+    return AttachInstancesToLoadBalancerResult.fromJson(response_);
   }
 
   /// Attaches a Transport Layer Security (TLS) certificate to your load
@@ -93,7 +109,11 @@ class LightsailApi {
       attachLoadBalancerTlsCertificate(
           {@required String loadBalancerName,
           @required String certificateName}) async {
-    return AttachLoadBalancerTlsCertificateResult.fromJson({});
+    var response_ = await _client.send('AttachLoadBalancerTlsCertificate', {
+      'loadBalancerName': loadBalancerName,
+      'certificateName': certificateName,
+    });
+    return AttachLoadBalancerTlsCertificateResult.fromJson(response_);
   }
 
   /// Attaches a static IP address to a specific Amazon Lightsail instance.
@@ -104,7 +124,11 @@ class LightsailApi {
   /// IP address.
   Future<AttachStaticIpResult> attachStaticIp(
       {@required String staticIpName, @required String instanceName}) async {
-    return AttachStaticIpResult.fromJson({});
+    var response_ = await _client.send('AttachStaticIp', {
+      'staticIpName': staticIpName,
+      'instanceName': instanceName,
+    });
+    return AttachStaticIpResult.fromJson(response_);
   }
 
   /// Closes the public ports on a specific Amazon Lightsail instance.
@@ -120,7 +144,11 @@ class LightsailApi {
   /// close the public ports.
   Future<CloseInstancePublicPortsResult> closeInstancePublicPorts(
       {@required PortInfo portInfo, @required String instanceName}) async {
-    return CloseInstancePublicPortsResult.fromJson({});
+    var response_ = await _client.send('CloseInstancePublicPorts', {
+      'portInfo': portInfo,
+      'instanceName': instanceName,
+    });
+    return CloseInstancePublicPortsResult.fromJson(response_);
   }
 
   /// Copies an instance or disk snapshot from one AWS Region to another in
@@ -137,7 +165,12 @@ class LightsailApi {
       {@required String sourceSnapshotName,
       @required String targetSnapshotName,
       @required String sourceRegion}) async {
-    return CopySnapshotResult.fromJson({});
+    var response_ = await _client.send('CopySnapshot', {
+      'sourceSnapshotName': sourceSnapshotName,
+      'targetSnapshotName': targetSnapshotName,
+      'sourceRegion': sourceRegion,
+    });
+    return CopySnapshotResult.fromJson(response_);
   }
 
   /// Creates an AWS CloudFormation stack, which creates a new Amazon EC2
@@ -158,7 +191,10 @@ class LightsailApi {
   /// one instance entry in this array.
   Future<CreateCloudFormationStackResult> createCloudFormationStack(
       List<InstanceEntry> instances) async {
-    return CreateCloudFormationStackResult.fromJson({});
+    var response_ = await _client.send('CreateCloudFormationStack', {
+      'instances': instances,
+    });
+    return CreateCloudFormationStackResult.fromJson(response_);
   }
 
   /// Creates a block storage disk that can be attached to a Lightsail instance
@@ -192,7 +228,13 @@ class LightsailApi {
       @required String availabilityZone,
       @required int sizeInGb,
       List<Tag> tags}) async {
-    return CreateDiskResult.fromJson({});
+    var response_ = await _client.send('CreateDisk', {
+      'diskName': diskName,
+      'availabilityZone': availabilityZone,
+      'sizeInGb': sizeInGb,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDiskResult.fromJson(response_);
   }
 
   /// Creates a block storage disk from a disk snapshot that can be attached to
@@ -231,7 +273,14 @@ class LightsailApi {
       @required String availabilityZone,
       @required int sizeInGb,
       List<Tag> tags}) async {
-    return CreateDiskFromSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateDiskFromSnapshot', {
+      'diskName': diskName,
+      'diskSnapshotName': diskSnapshotName,
+      'availabilityZone': availabilityZone,
+      'sizeInGb': sizeInGb,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDiskFromSnapshotResult.fromJson(response_);
   }
 
   /// Creates a snapshot of a block storage disk. You can use snapshots for
@@ -290,7 +339,13 @@ class LightsailApi {
   /// operation.
   Future<CreateDiskSnapshotResult> createDiskSnapshot(String diskSnapshotName,
       {String diskName, String instanceName, List<Tag> tags}) async {
-    return CreateDiskSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateDiskSnapshot', {
+      if (diskName != null) 'diskName': diskName,
+      'diskSnapshotName': diskSnapshotName,
+      if (instanceName != null) 'instanceName': instanceName,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDiskSnapshotResult.fromJson(response_);
   }
 
   /// Creates a domain resource for the specified domain (e.g., example.com).
@@ -315,7 +370,11 @@ class LightsailApi {
   /// operation.
   Future<CreateDomainResult> createDomain(String domainName,
       {List<Tag> tags}) async {
-    return CreateDomainResult.fromJson({});
+    var response_ = await _client.send('CreateDomain', {
+      'domainName': domainName,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDomainResult.fromJson(response_);
   }
 
   /// Creates one of the following entry records associated with the domain:
@@ -334,7 +393,11 @@ class LightsailApi {
   /// the domain entry request.
   Future<CreateDomainEntryResult> createDomainEntry(
       {@required String domainName, @required DomainEntry domainEntry}) async {
-    return CreateDomainEntryResult.fromJson({});
+    var response_ = await _client.send('CreateDomainEntry', {
+      'domainName': domainName,
+      'domainEntry': domainEntry,
+    });
+    return CreateDomainEntryResult.fromJson(response_);
   }
 
   /// Creates a snapshot of a specific virtual private server, or _instance_.
@@ -358,7 +421,12 @@ class LightsailApi {
       {@required String instanceSnapshotName,
       @required String instanceName,
       List<Tag> tags}) async {
-    return CreateInstanceSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateInstanceSnapshot', {
+      'instanceSnapshotName': instanceSnapshotName,
+      'instanceName': instanceName,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateInstanceSnapshotResult.fromJson(response_);
   }
 
   /// Creates one or more Amazon Lightsail virtual private servers, or
@@ -426,7 +494,17 @@ class LightsailApi {
       String userData,
       String keyPairName,
       List<Tag> tags}) async {
-    return CreateInstancesResult.fromJson({});
+    var response_ = await _client.send('CreateInstances', {
+      'instanceNames': instanceNames,
+      'availabilityZone': availabilityZone,
+      if (customImageName != null) 'customImageName': customImageName,
+      'blueprintId': blueprintId,
+      'bundleId': bundleId,
+      if (userData != null) 'userData': userData,
+      if (keyPairName != null) 'keyPairName': keyPairName,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateInstancesResult.fromJson(response_);
   }
 
   /// Uses a specific snapshot as a blueprint for creating one or more new
@@ -483,7 +561,18 @@ class LightsailApi {
       String userData,
       String keyPairName,
       List<Tag> tags}) async {
-    return CreateInstancesFromSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateInstancesFromSnapshot', {
+      'instanceNames': instanceNames,
+      if (attachedDiskMapping != null)
+        'attachedDiskMapping': attachedDiskMapping,
+      'availabilityZone': availabilityZone,
+      'instanceSnapshotName': instanceSnapshotName,
+      'bundleId': bundleId,
+      if (userData != null) 'userData': userData,
+      if (keyPairName != null) 'keyPairName': keyPairName,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateInstancesFromSnapshotResult.fromJson(response_);
   }
 
   /// Creates an SSH key pair.
@@ -501,7 +590,11 @@ class LightsailApi {
   /// operation.
   Future<CreateKeyPairResult> createKeyPair(String keyPairName,
       {List<Tag> tags}) async {
-    return CreateKeyPairResult.fromJson({});
+    var response_ = await _client.send('CreateKeyPair', {
+      'keyPairName': keyPairName,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateKeyPairResult.fromJson(response_);
   }
 
   /// Creates a Lightsail load balancer. To learn more about deciding whether to
@@ -558,7 +651,18 @@ class LightsailApi {
       String certificateDomainName,
       List<String> certificateAlternativeNames,
       List<Tag> tags}) async {
-    return CreateLoadBalancerResult.fromJson({});
+    var response_ = await _client.send('CreateLoadBalancer', {
+      'loadBalancerName': loadBalancerName,
+      'instancePort': instancePort,
+      if (healthCheckPath != null) 'healthCheckPath': healthCheckPath,
+      if (certificateName != null) 'certificateName': certificateName,
+      if (certificateDomainName != null)
+        'certificateDomainName': certificateDomainName,
+      if (certificateAlternativeNames != null)
+        'certificateAlternativeNames': certificateAlternativeNames,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateLoadBalancerResult.fromJson(response_);
   }
 
   /// Creates a Lightsail load balancer TLS certificate.
@@ -602,7 +706,15 @@ class LightsailApi {
           @required String certificateDomainName,
           List<String> certificateAlternativeNames,
           List<Tag> tags}) async {
-    return CreateLoadBalancerTlsCertificateResult.fromJson({});
+    var response_ = await _client.send('CreateLoadBalancerTlsCertificate', {
+      'loadBalancerName': loadBalancerName,
+      'certificateName': certificateName,
+      'certificateDomainName': certificateDomainName,
+      if (certificateAlternativeNames != null)
+        'certificateAlternativeNames': certificateAlternativeNames,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateLoadBalancerTlsCertificateResult.fromJson(response_);
   }
 
   /// Creates a new database in Amazon Lightsail.
@@ -735,7 +847,22 @@ class LightsailApi {
       String preferredMaintenanceWindow,
       bool publiclyAccessible,
       List<Tag> tags}) async {
-    return CreateRelationalDatabaseResult.fromJson({});
+    var response_ = await _client.send('CreateRelationalDatabase', {
+      'relationalDatabaseName': relationalDatabaseName,
+      if (availabilityZone != null) 'availabilityZone': availabilityZone,
+      'relationalDatabaseBlueprintId': relationalDatabaseBlueprintId,
+      'relationalDatabaseBundleId': relationalDatabaseBundleId,
+      'masterDatabaseName': masterDatabaseName,
+      'masterUsername': masterUsername,
+      if (masterUserPassword != null) 'masterUserPassword': masterUserPassword,
+      if (preferredBackupWindow != null)
+        'preferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'preferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (publiclyAccessible != null) 'publiclyAccessible': publiclyAccessible,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateRelationalDatabaseResult.fromJson(response_);
   }
 
   /// Creates a new database from an existing database snapshot in Amazon
@@ -826,7 +953,22 @@ class LightsailApi {
           DateTime restoreTime,
           bool useLatestRestorableTime,
           List<Tag> tags}) async {
-    return CreateRelationalDatabaseFromSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateRelationalDatabaseFromSnapshot', {
+      'relationalDatabaseName': relationalDatabaseName,
+      if (availabilityZone != null) 'availabilityZone': availabilityZone,
+      if (publiclyAccessible != null) 'publiclyAccessible': publiclyAccessible,
+      if (relationalDatabaseSnapshotName != null)
+        'relationalDatabaseSnapshotName': relationalDatabaseSnapshotName,
+      if (relationalDatabaseBundleId != null)
+        'relationalDatabaseBundleId': relationalDatabaseBundleId,
+      if (sourceRelationalDatabaseName != null)
+        'sourceRelationalDatabaseName': sourceRelationalDatabaseName,
+      if (restoreTime != null) 'restoreTime': restoreTime,
+      if (useLatestRestorableTime != null)
+        'useLatestRestorableTime': useLatestRestorableTime,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateRelationalDatabaseFromSnapshotResult.fromJson(response_);
   }
 
   /// Creates a snapshot of your database in Amazon Lightsail. You can use
@@ -858,7 +1000,12 @@ class LightsailApi {
           {@required String relationalDatabaseName,
           @required String relationalDatabaseSnapshotName,
           List<Tag> tags}) async {
-    return CreateRelationalDatabaseSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateRelationalDatabaseSnapshot', {
+      'relationalDatabaseName': relationalDatabaseName,
+      'relationalDatabaseSnapshotName': relationalDatabaseSnapshotName,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateRelationalDatabaseSnapshotResult.fromJson(response_);
   }
 
   /// Deletes the specified block storage disk. The disk must be in the
@@ -874,7 +1021,10 @@ class LightsailApi {
   /// [diskName]: The unique name of the disk you want to delete (e.g.,
   /// `my-disk`).
   Future<DeleteDiskResult> deleteDisk(String diskName) async {
-    return DeleteDiskResult.fromJson({});
+    var response_ = await _client.send('DeleteDisk', {
+      'diskName': diskName,
+    });
+    return DeleteDiskResult.fromJson(response_);
   }
 
   /// Deletes the specified disk snapshot.
@@ -895,7 +1045,10 @@ class LightsailApi {
   /// (e.g., `my-disk-snapshot`).
   Future<DeleteDiskSnapshotResult> deleteDiskSnapshot(
       String diskSnapshotName) async {
-    return DeleteDiskSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteDiskSnapshot', {
+      'diskSnapshotName': diskSnapshotName,
+    });
+    return DeleteDiskSnapshotResult.fromJson(response_);
   }
 
   /// Deletes the specified domain recordset and all of its domain records.
@@ -907,7 +1060,10 @@ class LightsailApi {
   ///
   /// [domainName]: The specific domain name to delete.
   Future<DeleteDomainResult> deleteDomain(String domainName) async {
-    return DeleteDomainResult.fromJson({});
+    var response_ = await _client.send('DeleteDomain', {
+      'domainName': domainName,
+    });
+    return DeleteDomainResult.fromJson(response_);
   }
 
   /// Deletes a specific domain entry.
@@ -923,7 +1079,11 @@ class LightsailApi {
   /// your domain entries.
   Future<DeleteDomainEntryResult> deleteDomainEntry(
       {@required String domainName, @required DomainEntry domainEntry}) async {
-    return DeleteDomainEntryResult.fromJson({});
+    var response_ = await _client.send('DeleteDomainEntry', {
+      'domainName': domainName,
+      'domainEntry': domainEntry,
+    });
+    return DeleteDomainEntryResult.fromJson(response_);
   }
 
   /// Deletes a specific Amazon Lightsail virtual private server, or _instance_.
@@ -935,7 +1095,10 @@ class LightsailApi {
   ///
   /// [instanceName]: The name of the instance to delete.
   Future<DeleteInstanceResult> deleteInstance(String instanceName) async {
-    return DeleteInstanceResult.fromJson({});
+    var response_ = await _client.send('DeleteInstance', {
+      'instanceName': instanceName,
+    });
+    return DeleteInstanceResult.fromJson(response_);
   }
 
   /// Deletes a specific snapshot of a virtual private server (or _instance_).
@@ -948,7 +1111,10 @@ class LightsailApi {
   /// [instanceSnapshotName]: The name of the snapshot to delete.
   Future<DeleteInstanceSnapshotResult> deleteInstanceSnapshot(
       String instanceSnapshotName) async {
-    return DeleteInstanceSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteInstanceSnapshot', {
+      'instanceSnapshotName': instanceSnapshotName,
+    });
+    return DeleteInstanceSnapshotResult.fromJson(response_);
   }
 
   /// Deletes a specific SSH key pair.
@@ -960,7 +1126,10 @@ class LightsailApi {
   ///
   /// [keyPairName]: The name of the key pair to delete.
   Future<DeleteKeyPairResult> deleteKeyPair(String keyPairName) async {
-    return DeleteKeyPairResult.fromJson({});
+    var response_ = await _client.send('DeleteKeyPair', {
+      'keyPairName': keyPairName,
+    });
+    return DeleteKeyPairResult.fromJson(response_);
   }
 
   /// Deletes the known host key or certificate used by the Amazon Lightsail
@@ -979,7 +1148,10 @@ class LightsailApi {
   /// host key or certificate.
   Future<DeleteKnownHostKeysResult> deleteKnownHostKeys(
       String instanceName) async {
-    return DeleteKnownHostKeysResult.fromJson({});
+    var response_ = await _client.send('DeleteKnownHostKeys', {
+      'instanceName': instanceName,
+    });
+    return DeleteKnownHostKeysResult.fromJson(response_);
   }
 
   /// Deletes a Lightsail load balancer and all its associated SSL/TLS
@@ -995,7 +1167,10 @@ class LightsailApi {
   /// [loadBalancerName]: The name of the load balancer you want to delete.
   Future<DeleteLoadBalancerResult> deleteLoadBalancer(
       String loadBalancerName) async {
-    return DeleteLoadBalancerResult.fromJson({});
+    var response_ = await _client.send('DeleteLoadBalancer', {
+      'loadBalancerName': loadBalancerName,
+    });
+    return DeleteLoadBalancerResult.fromJson(response_);
   }
 
   /// Deletes an SSL/TLS certificate associated with a Lightsail load balancer.
@@ -1020,7 +1195,12 @@ class LightsailApi {
           {@required String loadBalancerName,
           @required String certificateName,
           bool force}) async {
-    return DeleteLoadBalancerTlsCertificateResult.fromJson({});
+    var response_ = await _client.send('DeleteLoadBalancerTlsCertificate', {
+      'loadBalancerName': loadBalancerName,
+      'certificateName': certificateName,
+      if (force != null) 'force': force,
+    });
+    return DeleteLoadBalancerTlsCertificateResult.fromJson(response_);
   }
 
   /// Deletes a database in Amazon Lightsail.
@@ -1058,7 +1238,14 @@ class LightsailApi {
       String relationalDatabaseName,
       {bool skipFinalSnapshot,
       String finalRelationalDatabaseSnapshotName}) async {
-    return DeleteRelationalDatabaseResult.fromJson({});
+    var response_ = await _client.send('DeleteRelationalDatabase', {
+      'relationalDatabaseName': relationalDatabaseName,
+      if (skipFinalSnapshot != null) 'skipFinalSnapshot': skipFinalSnapshot,
+      if (finalRelationalDatabaseSnapshotName != null)
+        'finalRelationalDatabaseSnapshotName':
+            finalRelationalDatabaseSnapshotName,
+    });
+    return DeleteRelationalDatabaseResult.fromJson(response_);
   }
 
   /// Deletes a database snapshot in Amazon Lightsail.
@@ -1073,7 +1260,10 @@ class LightsailApi {
   Future<DeleteRelationalDatabaseSnapshotResult>
       deleteRelationalDatabaseSnapshot(
           String relationalDatabaseSnapshotName) async {
-    return DeleteRelationalDatabaseSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteRelationalDatabaseSnapshot', {
+      'relationalDatabaseSnapshotName': relationalDatabaseSnapshotName,
+    });
+    return DeleteRelationalDatabaseSnapshotResult.fromJson(response_);
   }
 
   /// Detaches a stopped block storage disk from a Lightsail instance. Make sure
@@ -1088,7 +1278,10 @@ class LightsailApi {
   /// [diskName]: The unique name of the disk you want to detach from your
   /// instance (e.g., `my-disk`).
   Future<DetachDiskResult> detachDisk(String diskName) async {
-    return DetachDiskResult.fromJson({});
+    var response_ = await _client.send('DetachDisk', {
+      'diskName': diskName,
+    });
+    return DetachDiskResult.fromJson(response_);
   }
 
   /// Detaches the specified instances from a Lightsail load balancer.
@@ -1108,7 +1301,11 @@ class LightsailApi {
   Future<DetachInstancesFromLoadBalancerResult> detachInstancesFromLoadBalancer(
       {@required String loadBalancerName,
       @required List<String> instanceNames}) async {
-    return DetachInstancesFromLoadBalancerResult.fromJson({});
+    var response_ = await _client.send('DetachInstancesFromLoadBalancer', {
+      'loadBalancerName': loadBalancerName,
+      'instanceNames': instanceNames,
+    });
+    return DetachInstancesFromLoadBalancerResult.fromJson(response_);
   }
 
   /// Detaches a static IP from the Amazon Lightsail instance to which it is
@@ -1116,12 +1313,16 @@ class LightsailApi {
   ///
   /// [staticIpName]: The name of the static IP to detach from the instance.
   Future<DetachStaticIpResult> detachStaticIp(String staticIpName) async {
-    return DetachStaticIpResult.fromJson({});
+    var response_ = await _client.send('DetachStaticIp', {
+      'staticIpName': staticIpName,
+    });
+    return DetachStaticIpResult.fromJson(response_);
   }
 
   /// Downloads the default SSH key pair from the user's account.
   Future<DownloadDefaultKeyPairResult> downloadDefaultKeyPair() async {
-    return DownloadDefaultKeyPairResult.fromJson({});
+    var response_ = await _client.send('DownloadDefaultKeyPair', {});
+    return DownloadDefaultKeyPairResult.fromJson(response_);
   }
 
   /// Exports an Amazon Lightsail instance or block storage disk snapshot to
@@ -1148,7 +1349,10 @@ class LightsailApi {
   /// [sourceSnapshotName]: The name of the instance or disk snapshot to be
   /// exported to Amazon EC2.
   Future<ExportSnapshotResult> exportSnapshot(String sourceSnapshotName) async {
-    return ExportSnapshotResult.fromJson({});
+    var response_ = await _client.send('ExportSnapshot', {
+      'sourceSnapshotName': sourceSnapshotName,
+    });
+    return ExportSnapshotResult.fromJson(response_);
   }
 
   /// Returns the names of all active (not deleted) resources.
@@ -1156,7 +1360,10 @@ class LightsailApi {
   /// [pageToken]: A token used for paginating results from your get active
   /// names request.
   Future<GetActiveNamesResult> getActiveNames({String pageToken}) async {
-    return GetActiveNamesResult.fromJson({});
+    var response_ = await _client.send('GetActiveNames', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetActiveNamesResult.fromJson(response_);
   }
 
   /// Returns the list of available instance images, or _blueprints_. You can
@@ -1172,7 +1379,11 @@ class LightsailApi {
   /// your get blueprints request.
   Future<GetBlueprintsResult> getBlueprints(
       {bool includeInactive, String pageToken}) async {
-    return GetBlueprintsResult.fromJson({});
+    var response_ = await _client.send('GetBlueprints', {
+      if (includeInactive != null) 'includeInactive': includeInactive,
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetBlueprintsResult.fromJson(response_);
   }
 
   /// Returns the list of bundles that are available for purchase. A bundle
@@ -1185,7 +1396,11 @@ class LightsailApi {
   /// your get bundles request.
   Future<GetBundlesResult> getBundles(
       {bool includeInactive, String pageToken}) async {
-    return GetBundlesResult.fromJson({});
+    var response_ = await _client.send('GetBundles', {
+      if (includeInactive != null) 'includeInactive': includeInactive,
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetBundlesResult.fromJson(response_);
   }
 
   /// Returns the CloudFormation stack record created as a result of the `create
@@ -1198,14 +1413,20 @@ class LightsailApi {
   /// your `get cloud formation stack records` request.
   Future<GetCloudFormationStackRecordsResult> getCloudFormationStackRecords(
       {String pageToken}) async {
-    return GetCloudFormationStackRecordsResult.fromJson({});
+    var response_ = await _client.send('GetCloudFormationStackRecords', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetCloudFormationStackRecordsResult.fromJson(response_);
   }
 
   /// Returns information about a specific block storage disk.
   ///
   /// [diskName]: The name of the disk (e.g., `my-disk`).
   Future<GetDiskResult> getDisk(String diskName) async {
-    return GetDiskResult.fromJson({});
+    var response_ = await _client.send('GetDisk', {
+      'diskName': diskName,
+    });
+    return GetDiskResult.fromJson(response_);
   }
 
   /// Returns information about a specific block storage disk snapshot.
@@ -1213,7 +1434,10 @@ class LightsailApi {
   /// [diskSnapshotName]: The name of the disk snapshot (e.g.,
   /// `my-disk-snapshot`).
   Future<GetDiskSnapshotResult> getDiskSnapshot(String diskSnapshotName) async {
-    return GetDiskSnapshotResult.fromJson({});
+    var response_ = await _client.send('GetDiskSnapshot', {
+      'diskSnapshotName': diskSnapshotName,
+    });
+    return GetDiskSnapshotResult.fromJson(response_);
   }
 
   /// Returns information about all block storage disk snapshots in your AWS
@@ -1226,7 +1450,10 @@ class LightsailApi {
   /// [pageToken]: A token used for advancing to the next page of results from
   /// your GetDiskSnapshots request.
   Future<GetDiskSnapshotsResult> getDiskSnapshots({String pageToken}) async {
-    return GetDiskSnapshotsResult.fromJson({});
+    var response_ = await _client.send('GetDiskSnapshots', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetDiskSnapshotsResult.fromJson(response_);
   }
 
   /// Returns information about all block storage disks in your AWS account and
@@ -1239,7 +1466,10 @@ class LightsailApi {
   /// [pageToken]: A token used for advancing to the next page of results from
   /// your GetDisks request.
   Future<GetDisksResult> getDisks({String pageToken}) async {
-    return GetDisksResult.fromJson({});
+    var response_ = await _client.send('GetDisks', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetDisksResult.fromJson(response_);
   }
 
   /// Returns information about a specific domain recordset.
@@ -1247,7 +1477,10 @@ class LightsailApi {
   /// [domainName]: The domain name for which your want to return information
   /// about.
   Future<GetDomainResult> getDomain(String domainName) async {
-    return GetDomainResult.fromJson({});
+    var response_ = await _client.send('GetDomain', {
+      'domainName': domainName,
+    });
+    return GetDomainResult.fromJson(response_);
   }
 
   /// Returns a list of all domains in the user's account.
@@ -1255,7 +1488,10 @@ class LightsailApi {
   /// [pageToken]: A token used for advancing to the next page of results from
   /// your get domains request.
   Future<GetDomainsResult> getDomains({String pageToken}) async {
-    return GetDomainsResult.fromJson({});
+    var response_ = await _client.send('GetDomains', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetDomainsResult.fromJson(response_);
   }
 
   /// Returns the export snapshot record created as a result of the `export
@@ -1269,7 +1505,10 @@ class LightsailApi {
   /// your `get export snapshot records` request.
   Future<GetExportSnapshotRecordsResult> getExportSnapshotRecords(
       {String pageToken}) async {
-    return GetExportSnapshotRecordsResult.fromJson({});
+    var response_ = await _client.send('GetExportSnapshotRecords', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetExportSnapshotRecordsResult.fromJson(response_);
   }
 
   /// Returns information about a specific Amazon Lightsail instance, which is a
@@ -1277,7 +1516,10 @@ class LightsailApi {
   ///
   /// [instanceName]: The name of the instance.
   Future<GetInstanceResult> getInstance(String instanceName) async {
-    return GetInstanceResult.fromJson({});
+    var response_ = await _client.send('GetInstance', {
+      'instanceName': instanceName,
+    });
+    return GetInstanceResult.fromJson(response_);
   }
 
   /// Returns temporary SSH keys you can use to connect to a specific virtual
@@ -1295,7 +1537,11 @@ class LightsailApi {
   Future<GetInstanceAccessDetailsResult> getInstanceAccessDetails(
       String instanceName,
       {String protocol}) async {
-    return GetInstanceAccessDetailsResult.fromJson({});
+    var response_ = await _client.send('GetInstanceAccessDetails', {
+      'instanceName': instanceName,
+      if (protocol != null) 'protocol': protocol,
+    });
+    return GetInstanceAccessDetailsResult.fromJson(response_);
   }
 
   /// Returns the data points for the specified Amazon Lightsail instance
@@ -1323,7 +1569,16 @@ class LightsailApi {
       @required DateTime endTime,
       @required String unit,
       @required List<String> statistics}) async {
-    return GetInstanceMetricDataResult.fromJson({});
+    var response_ = await _client.send('GetInstanceMetricData', {
+      'instanceName': instanceName,
+      'metricName': metricName,
+      'period': period,
+      'startTime': startTime,
+      'endTime': endTime,
+      'unit': unit,
+      'statistics': statistics,
+    });
+    return GetInstanceMetricDataResult.fromJson(response_);
   }
 
   /// Returns the port states for a specific virtual private server, or
@@ -1332,7 +1587,10 @@ class LightsailApi {
   /// [instanceName]: The name of the instance.
   Future<GetInstancePortStatesResult> getInstancePortStates(
       String instanceName) async {
-    return GetInstancePortStatesResult.fromJson({});
+    var response_ = await _client.send('GetInstancePortStates', {
+      'instanceName': instanceName,
+    });
+    return GetInstancePortStatesResult.fromJson(response_);
   }
 
   /// Returns information about a specific instance snapshot.
@@ -1341,7 +1599,10 @@ class LightsailApi {
   /// requesting information.
   Future<GetInstanceSnapshotResult> getInstanceSnapshot(
       String instanceSnapshotName) async {
-    return GetInstanceSnapshotResult.fromJson({});
+    var response_ = await _client.send('GetInstanceSnapshot', {
+      'instanceSnapshotName': instanceSnapshotName,
+    });
+    return GetInstanceSnapshotResult.fromJson(response_);
   }
 
   /// Returns all instance snapshots for the user's account.
@@ -1350,14 +1611,20 @@ class LightsailApi {
   /// your get instance snapshots request.
   Future<GetInstanceSnapshotsResult> getInstanceSnapshots(
       {String pageToken}) async {
-    return GetInstanceSnapshotsResult.fromJson({});
+    var response_ = await _client.send('GetInstanceSnapshots', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetInstanceSnapshotsResult.fromJson(response_);
   }
 
   /// Returns the state of a specific instance. Works on one instance at a time.
   ///
   /// [instanceName]: The name of the instance to get state information about.
   Future<GetInstanceStateResult> getInstanceState(String instanceName) async {
-    return GetInstanceStateResult.fromJson({});
+    var response_ = await _client.send('GetInstanceState', {
+      'instanceName': instanceName,
+    });
+    return GetInstanceStateResult.fromJson(response_);
   }
 
   /// Returns information about all Amazon Lightsail virtual private servers, or
@@ -1366,7 +1633,10 @@ class LightsailApi {
   /// [pageToken]: A token used for advancing to the next page of results from
   /// your get instances request.
   Future<GetInstancesResult> getInstances({String pageToken}) async {
-    return GetInstancesResult.fromJson({});
+    var response_ = await _client.send('GetInstances', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetInstancesResult.fromJson(response_);
   }
 
   /// Returns information about a specific key pair.
@@ -1374,7 +1644,10 @@ class LightsailApi {
   /// [keyPairName]: The name of the key pair for which you are requesting
   /// information.
   Future<GetKeyPairResult> getKeyPair(String keyPairName) async {
-    return GetKeyPairResult.fromJson({});
+    var response_ = await _client.send('GetKeyPair', {
+      'keyPairName': keyPairName,
+    });
+    return GetKeyPairResult.fromJson(response_);
   }
 
   /// Returns information about all key pairs in the user's account.
@@ -1382,14 +1655,20 @@ class LightsailApi {
   /// [pageToken]: A token used for advancing to the next page of results from
   /// your get key pairs request.
   Future<GetKeyPairsResult> getKeyPairs({String pageToken}) async {
-    return GetKeyPairsResult.fromJson({});
+    var response_ = await _client.send('GetKeyPairs', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetKeyPairsResult.fromJson(response_);
   }
 
   /// Returns information about the specified Lightsail load balancer.
   ///
   /// [loadBalancerName]: The name of the load balancer.
   Future<GetLoadBalancerResult> getLoadBalancer(String loadBalancerName) async {
-    return GetLoadBalancerResult.fromJson({});
+    var response_ = await _client.send('GetLoadBalancer', {
+      'loadBalancerName': loadBalancerName,
+    });
+    return GetLoadBalancerResult.fromJson(response_);
   }
 
   /// Returns information about health metrics for your Lightsail load balancer.
@@ -1523,7 +1802,16 @@ class LightsailApi {
       @required DateTime endTime,
       @required String unit,
       @required List<String> statistics}) async {
-    return GetLoadBalancerMetricDataResult.fromJson({});
+    var response_ = await _client.send('GetLoadBalancerMetricData', {
+      'loadBalancerName': loadBalancerName,
+      'metricName': metricName,
+      'period': period,
+      'startTime': startTime,
+      'endTime': endTime,
+      'unit': unit,
+      'statistics': statistics,
+    });
+    return GetLoadBalancerMetricDataResult.fromJson(response_);
   }
 
   /// Returns information about the TLS certificates that are associated with
@@ -1538,7 +1826,10 @@ class LightsailApi {
   /// SSL/TLS certificate.
   Future<GetLoadBalancerTlsCertificatesResult> getLoadBalancerTlsCertificates(
       String loadBalancerName) async {
-    return GetLoadBalancerTlsCertificatesResult.fromJson({});
+    var response_ = await _client.send('GetLoadBalancerTlsCertificates', {
+      'loadBalancerName': loadBalancerName,
+    });
+    return GetLoadBalancerTlsCertificatesResult.fromJson(response_);
   }
 
   /// Returns information about all load balancers in an account.
@@ -1550,7 +1841,10 @@ class LightsailApi {
   /// [pageToken]: A token used for paginating the results from your
   /// GetLoadBalancers request.
   Future<GetLoadBalancersResult> getLoadBalancers({String pageToken}) async {
-    return GetLoadBalancersResult.fromJson({});
+    var response_ = await _client.send('GetLoadBalancers', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetLoadBalancersResult.fromJson(response_);
   }
 
   /// Returns information about a specific operation. Operations include events
@@ -1559,7 +1853,10 @@ class LightsailApi {
   ///
   /// [operationId]: A GUID used to identify the operation.
   Future<GetOperationResult> getOperation(String operationId) async {
-    return GetOperationResult.fromJson({});
+    var response_ = await _client.send('GetOperation', {
+      'operationId': operationId,
+    });
+    return GetOperationResult.fromJson(response_);
   }
 
   /// Returns information about all operations.
@@ -1571,7 +1868,10 @@ class LightsailApi {
   /// [pageToken]: A token used for advancing to the next page of results from
   /// your get operations request.
   Future<GetOperationsResult> getOperations({String pageToken}) async {
-    return GetOperationsResult.fromJson({});
+    var response_ = await _client.send('GetOperations', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetOperationsResult.fromJson(response_);
   }
 
   /// Gets operations for a specific resource (e.g., an instance or a static
@@ -1585,7 +1885,11 @@ class LightsailApi {
   Future<GetOperationsForResourceResult> getOperationsForResource(
       String resourceName,
       {String pageToken}) async {
-    return GetOperationsForResourceResult.fromJson({});
+    var response_ = await _client.send('GetOperationsForResource', {
+      'resourceName': resourceName,
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetOperationsForResourceResult.fromJson(response_);
   }
 
   /// Returns a list of all valid regions for Amazon Lightsail. Use the `include
@@ -1603,7 +1907,14 @@ class LightsailApi {
   Future<GetRegionsResult> getRegions(
       {bool includeAvailabilityZones,
       bool includeRelationalDatabaseAvailabilityZones}) async {
-    return GetRegionsResult.fromJson({});
+    var response_ = await _client.send('GetRegions', {
+      if (includeAvailabilityZones != null)
+        'includeAvailabilityZones': includeAvailabilityZones,
+      if (includeRelationalDatabaseAvailabilityZones != null)
+        'includeRelationalDatabaseAvailabilityZones':
+            includeRelationalDatabaseAvailabilityZones,
+    });
+    return GetRegionsResult.fromJson(response_);
   }
 
   /// Returns information about a specific database in Amazon Lightsail.
@@ -1612,7 +1923,10 @@ class LightsailApi {
   /// up.
   Future<GetRelationalDatabaseResult> getRelationalDatabase(
       String relationalDatabaseName) async {
-    return GetRelationalDatabaseResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabase', {
+      'relationalDatabaseName': relationalDatabaseName,
+    });
+    return GetRelationalDatabaseResult.fromJson(response_);
   }
 
   /// Returns a list of available database blueprints in Amazon Lightsail. A
@@ -1625,7 +1939,10 @@ class LightsailApi {
   /// your `get relational database blueprints` request.
   Future<GetRelationalDatabaseBlueprintsResult> getRelationalDatabaseBlueprints(
       {String pageToken}) async {
-    return GetRelationalDatabaseBlueprintsResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabaseBlueprints', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetRelationalDatabaseBlueprintsResult.fromJson(response_);
   }
 
   /// Returns the list of bundles that are available in Amazon Lightsail. A
@@ -1638,7 +1955,10 @@ class LightsailApi {
   /// your `get relational database bundles` request.
   Future<GetRelationalDatabaseBundlesResult> getRelationalDatabaseBundles(
       {String pageToken}) async {
-    return GetRelationalDatabaseBundlesResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabaseBundles', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetRelationalDatabaseBundlesResult.fromJson(response_);
   }
 
   /// Returns a list of events for a specific database in Amazon Lightsail.
@@ -1660,7 +1980,12 @@ class LightsailApi {
       String relationalDatabaseName,
       {int durationInMinutes,
       String pageToken}) async {
-    return GetRelationalDatabaseEventsResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabaseEvents', {
+      'relationalDatabaseName': relationalDatabaseName,
+      if (durationInMinutes != null) 'durationInMinutes': durationInMinutes,
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetRelationalDatabaseEventsResult.fromJson(response_);
   }
 
   /// Returns a list of log events for a database in Amazon Lightsail.
@@ -1711,7 +2036,15 @@ class LightsailApi {
       DateTime endTime,
       bool startFromHead,
       String pageToken}) async {
-    return GetRelationalDatabaseLogEventsResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabaseLogEvents', {
+      'relationalDatabaseName': relationalDatabaseName,
+      'logStreamName': logStreamName,
+      if (startTime != null) 'startTime': startTime,
+      if (endTime != null) 'endTime': endTime,
+      if (startFromHead != null) 'startFromHead': startFromHead,
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetRelationalDatabaseLogEventsResult.fromJson(response_);
   }
 
   /// Returns a list of available log streams for a specific database in Amazon
@@ -1721,7 +2054,10 @@ class LightsailApi {
   /// streams.
   Future<GetRelationalDatabaseLogStreamsResult> getRelationalDatabaseLogStreams(
       String relationalDatabaseName) async {
-    return GetRelationalDatabaseLogStreamsResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabaseLogStreams', {
+      'relationalDatabaseName': relationalDatabaseName,
+    });
+    return GetRelationalDatabaseLogStreamsResult.fromJson(response_);
   }
 
   /// Returns the current, previous, or pending versions of the master user
@@ -1745,7 +2081,12 @@ class LightsailApi {
   Future<GetRelationalDatabaseMasterUserPasswordResult>
       getRelationalDatabaseMasterUserPassword(String relationalDatabaseName,
           {String passwordVersion}) async {
-    return GetRelationalDatabaseMasterUserPasswordResult.fromJson({});
+    var response_ =
+        await _client.send('GetRelationalDatabaseMasterUserPassword', {
+      'relationalDatabaseName': relationalDatabaseName,
+      if (passwordVersion != null) 'passwordVersion': passwordVersion,
+    });
+    return GetRelationalDatabaseMasterUserPasswordResult.fromJson(response_);
   }
 
   /// Returns the data points of the specified metric for a database in Amazon
@@ -1791,7 +2132,16 @@ class LightsailApi {
       @required DateTime endTime,
       @required String unit,
       @required List<String> statistics}) async {
-    return GetRelationalDatabaseMetricDataResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabaseMetricData', {
+      'relationalDatabaseName': relationalDatabaseName,
+      'metricName': metricName,
+      'period': period,
+      'startTime': startTime,
+      'endTime': endTime,
+      'unit': unit,
+      'statistics': statistics,
+    });
+    return GetRelationalDatabaseMetricDataResult.fromJson(response_);
   }
 
   /// Returns all of the runtime parameters offered by the underlying database
@@ -1810,7 +2160,11 @@ class LightsailApi {
   Future<GetRelationalDatabaseParametersResult> getRelationalDatabaseParameters(
       String relationalDatabaseName,
       {String pageToken}) async {
-    return GetRelationalDatabaseParametersResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabaseParameters', {
+      'relationalDatabaseName': relationalDatabaseName,
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetRelationalDatabaseParametersResult.fromJson(response_);
   }
 
   /// Returns information about a specific database snapshot in Amazon
@@ -1820,7 +2174,10 @@ class LightsailApi {
   /// which to get information.
   Future<GetRelationalDatabaseSnapshotResult> getRelationalDatabaseSnapshot(
       String relationalDatabaseSnapshotName) async {
-    return GetRelationalDatabaseSnapshotResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabaseSnapshot', {
+      'relationalDatabaseSnapshotName': relationalDatabaseSnapshotName,
+    });
+    return GetRelationalDatabaseSnapshotResult.fromJson(response_);
   }
 
   /// Returns information about all of your database snapshots in Amazon
@@ -1830,7 +2187,10 @@ class LightsailApi {
   /// your `get relational database snapshots` request.
   Future<GetRelationalDatabaseSnapshotsResult> getRelationalDatabaseSnapshots(
       {String pageToken}) async {
-    return GetRelationalDatabaseSnapshotsResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabaseSnapshots', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetRelationalDatabaseSnapshotsResult.fromJson(response_);
   }
 
   /// Returns information about all of your databases in Amazon Lightsail.
@@ -1839,14 +2199,20 @@ class LightsailApi {
   /// your `get relational database` request.
   Future<GetRelationalDatabasesResult> getRelationalDatabases(
       {String pageToken}) async {
-    return GetRelationalDatabasesResult.fromJson({});
+    var response_ = await _client.send('GetRelationalDatabases', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetRelationalDatabasesResult.fromJson(response_);
   }
 
   /// Returns information about a specific static IP.
   ///
   /// [staticIpName]: The name of the static IP in Lightsail.
   Future<GetStaticIpResult> getStaticIp(String staticIpName) async {
-    return GetStaticIpResult.fromJson({});
+    var response_ = await _client.send('GetStaticIp', {
+      'staticIpName': staticIpName,
+    });
+    return GetStaticIpResult.fromJson(response_);
   }
 
   /// Returns information about all static IPs in the user's account.
@@ -1854,7 +2220,10 @@ class LightsailApi {
   /// [pageToken]: A token used for advancing to the next page of results from
   /// your get static IPs request.
   Future<GetStaticIpsResult> getStaticIps({String pageToken}) async {
-    return GetStaticIpsResult.fromJson({});
+    var response_ = await _client.send('GetStaticIps', {
+      if (pageToken != null) 'pageToken': pageToken,
+    });
+    return GetStaticIpsResult.fromJson(response_);
   }
 
   /// Imports a public SSH key from a specific key pair.
@@ -1865,12 +2234,17 @@ class LightsailApi {
   /// [publicKeyBase64]: A base64-encoded public key of the `ssh-rsa` type.
   Future<ImportKeyPairResult> importKeyPair(
       {@required String keyPairName, @required String publicKeyBase64}) async {
-    return ImportKeyPairResult.fromJson({});
+    var response_ = await _client.send('ImportKeyPair', {
+      'keyPairName': keyPairName,
+      'publicKeyBase64': publicKeyBase64,
+    });
+    return ImportKeyPairResult.fromJson(response_);
   }
 
   /// Returns a Boolean value indicating whether your Lightsail VPC is peered.
   Future<IsVpcPeeredResult> isVpcPeered() async {
-    return IsVpcPeeredResult.fromJson({});
+    var response_ = await _client.send('IsVpcPeered', {});
+    return IsVpcPeeredResult.fromJson(response_);
   }
 
   /// Adds public ports to an Amazon Lightsail instance.
@@ -1887,12 +2261,17 @@ class LightsailApi {
   /// public ports.
   Future<OpenInstancePublicPortsResult> openInstancePublicPorts(
       {@required PortInfo portInfo, @required String instanceName}) async {
-    return OpenInstancePublicPortsResult.fromJson({});
+    var response_ = await _client.send('OpenInstancePublicPorts', {
+      'portInfo': portInfo,
+      'instanceName': instanceName,
+    });
+    return OpenInstancePublicPortsResult.fromJson(response_);
   }
 
   /// Tries to peer the Lightsail VPC with the user's default VPC.
   Future<PeerVpcResult> peerVpc() async {
-    return PeerVpcResult.fromJson({});
+    var response_ = await _client.send('PeerVpc', {});
+    return PeerVpcResult.fromJson(response_);
   }
 
   /// Sets the specified open ports for an Amazon Lightsail instance, and closes
@@ -1910,7 +2289,11 @@ class LightsailApi {
   Future<PutInstancePublicPortsResult> putInstancePublicPorts(
       {@required List<PortInfo> portInfos,
       @required String instanceName}) async {
-    return PutInstancePublicPortsResult.fromJson({});
+    var response_ = await _client.send('PutInstancePublicPorts', {
+      'portInfos': portInfos,
+      'instanceName': instanceName,
+    });
+    return PutInstancePublicPortsResult.fromJson(response_);
   }
 
   /// Restarts a specific instance.
@@ -1922,7 +2305,10 @@ class LightsailApi {
   ///
   /// [instanceName]: The name of the instance to reboot.
   Future<RebootInstanceResult> rebootInstance(String instanceName) async {
-    return RebootInstanceResult.fromJson({});
+    var response_ = await _client.send('RebootInstance', {
+      'instanceName': instanceName,
+    });
+    return RebootInstanceResult.fromJson(response_);
   }
 
   /// Restarts a specific database in Amazon Lightsail.
@@ -1935,14 +2321,20 @@ class LightsailApi {
   /// [relationalDatabaseName]: The name of your database to reboot.
   Future<RebootRelationalDatabaseResult> rebootRelationalDatabase(
       String relationalDatabaseName) async {
-    return RebootRelationalDatabaseResult.fromJson({});
+    var response_ = await _client.send('RebootRelationalDatabase', {
+      'relationalDatabaseName': relationalDatabaseName,
+    });
+    return RebootRelationalDatabaseResult.fromJson(response_);
   }
 
   /// Deletes a specific static IP from your account.
   ///
   /// [staticIpName]: The name of the static IP to delete.
   Future<ReleaseStaticIpResult> releaseStaticIp(String staticIpName) async {
-    return ReleaseStaticIpResult.fromJson({});
+    var response_ = await _client.send('ReleaseStaticIp', {
+      'staticIpName': staticIpName,
+    });
+    return ReleaseStaticIpResult.fromJson(response_);
   }
 
   /// Starts a specific Amazon Lightsail instance from a stopped state. To
@@ -1963,7 +2355,10 @@ class LightsailApi {
   /// [instanceName]: The name of the instance (a virtual private server) to
   /// start.
   Future<StartInstanceResult> startInstance(String instanceName) async {
-    return StartInstanceResult.fromJson({});
+    var response_ = await _client.send('StartInstance', {
+      'instanceName': instanceName,
+    });
+    return StartInstanceResult.fromJson(response_);
   }
 
   /// Starts a specific database from a stopped state in Amazon Lightsail. To
@@ -1977,7 +2372,10 @@ class LightsailApi {
   /// [relationalDatabaseName]: The name of your database to start.
   Future<StartRelationalDatabaseResult> startRelationalDatabase(
       String relationalDatabaseName) async {
-    return StartRelationalDatabaseResult.fromJson({});
+    var response_ = await _client.send('StartRelationalDatabase', {
+      'relationalDatabaseName': relationalDatabaseName,
+    });
+    return StartRelationalDatabaseResult.fromJson(response_);
   }
 
   /// Stops a specific Amazon Lightsail instance that is currently running.
@@ -2007,7 +2405,11 @@ class LightsailApi {
   /// adding this parameter to your API request.
   Future<StopInstanceResult> stopInstance(String instanceName,
       {bool force}) async {
-    return StopInstanceResult.fromJson({});
+    var response_ = await _client.send('StopInstance', {
+      'instanceName': instanceName,
+      if (force != null) 'force': force,
+    });
+    return StopInstanceResult.fromJson(response_);
   }
 
   /// Stops a specific database that is currently running in Amazon Lightsail.
@@ -2024,7 +2426,12 @@ class LightsailApi {
   Future<StopRelationalDatabaseResult> stopRelationalDatabase(
       String relationalDatabaseName,
       {String relationalDatabaseSnapshotName}) async {
-    return StopRelationalDatabaseResult.fromJson({});
+    var response_ = await _client.send('StopRelationalDatabase', {
+      'relationalDatabaseName': relationalDatabaseName,
+      if (relationalDatabaseSnapshotName != null)
+        'relationalDatabaseSnapshotName': relationalDatabaseSnapshotName,
+    });
+    return StopRelationalDatabaseResult.fromJson(response_);
   }
 
   /// Adds one or more tags to the specified Amazon Lightsail resource. Each
@@ -2043,12 +2450,17 @@ class LightsailApi {
   /// [tags]: The tag key and optional value.
   Future<TagResourceResult> tagResource(
       {@required String resourceName, @required List<Tag> tags}) async {
-    return TagResourceResult.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceName': resourceName,
+      'tags': tags,
+    });
+    return TagResourceResult.fromJson(response_);
   }
 
   /// Attempts to unpeer the Lightsail VPC from the user's default VPC.
   Future<UnpeerVpcResult> unpeerVpc() async {
-    return UnpeerVpcResult.fromJson({});
+    var response_ = await _client.send('UnpeerVpc', {});
+    return UnpeerVpcResult.fromJson(response_);
   }
 
   /// Deletes the specified set of tag keys and their values from the specified
@@ -2065,7 +2477,11 @@ class LightsailApi {
   /// [tagKeys]: The tag keys to delete from the specified resource.
   Future<UntagResourceResult> untagResource(
       {@required String resourceName, @required List<String> tagKeys}) async {
-    return UntagResourceResult.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceName': resourceName,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResult.fromJson(response_);
   }
 
   /// Updates a domain recordset after it is created.
@@ -2081,7 +2497,11 @@ class LightsailApi {
   /// the domain entry.
   Future<UpdateDomainEntryResult> updateDomainEntry(
       {@required String domainName, @required DomainEntry domainEntry}) async {
-    return UpdateDomainEntryResult.fromJson({});
+    var response_ = await _client.send('UpdateDomainEntry', {
+      'domainName': domainName,
+      'domainEntry': domainEntry,
+    });
+    return UpdateDomainEntryResult.fromJson(response_);
   }
 
   /// Updates the specified attribute for a load balancer. You can only update
@@ -2104,7 +2524,12 @@ class LightsailApi {
       {@required String loadBalancerName,
       @required String attributeName,
       @required String attributeValue}) async {
-    return UpdateLoadBalancerAttributeResult.fromJson({});
+    var response_ = await _client.send('UpdateLoadBalancerAttribute', {
+      'loadBalancerName': loadBalancerName,
+      'attributeName': attributeName,
+      'attributeValue': attributeValue,
+    });
+    return UpdateLoadBalancerAttributeResult.fromJson(response_);
   }
 
   /// Allows the update of one or more attributes of a database in Amazon
@@ -2203,7 +2628,23 @@ class LightsailApi {
       bool disableBackupRetention,
       bool publiclyAccessible,
       bool applyImmediately}) async {
-    return UpdateRelationalDatabaseResult.fromJson({});
+    var response_ = await _client.send('UpdateRelationalDatabase', {
+      'relationalDatabaseName': relationalDatabaseName,
+      if (masterUserPassword != null) 'masterUserPassword': masterUserPassword,
+      if (rotateMasterUserPassword != null)
+        'rotateMasterUserPassword': rotateMasterUserPassword,
+      if (preferredBackupWindow != null)
+        'preferredBackupWindow': preferredBackupWindow,
+      if (preferredMaintenanceWindow != null)
+        'preferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (enableBackupRetention != null)
+        'enableBackupRetention': enableBackupRetention,
+      if (disableBackupRetention != null)
+        'disableBackupRetention': disableBackupRetention,
+      if (publiclyAccessible != null) 'publiclyAccessible': publiclyAccessible,
+      if (applyImmediately != null) 'applyImmediately': applyImmediately,
+    });
+    return UpdateRelationalDatabaseResult.fromJson(response_);
   }
 
   /// Allows the update of one or more parameters of a database in Amazon
@@ -2230,7 +2671,11 @@ class LightsailApi {
       updateRelationalDatabaseParameters(
           {@required String relationalDatabaseName,
           @required List<RelationalDatabaseParameter> parameters}) async {
-    return UpdateRelationalDatabaseParametersResult.fromJson({});
+    var response_ = await _client.send('UpdateRelationalDatabaseParameters', {
+      'relationalDatabaseName': relationalDatabaseName,
+      'parameters': parameters,
+    });
+    return UpdateRelationalDatabaseParametersResult.fromJson(response_);
   }
 }
 
@@ -2243,7 +2688,13 @@ class AllocateStaticIpResult {
     this.operations,
   });
   static AllocateStaticIpResult fromJson(Map<String, dynamic> json) =>
-      AllocateStaticIpResult();
+      AllocateStaticIpResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class AttachDiskResult {
@@ -2254,7 +2705,13 @@ class AttachDiskResult {
     this.operations,
   });
   static AttachDiskResult fromJson(Map<String, dynamic> json) =>
-      AttachDiskResult();
+      AttachDiskResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class AttachInstancesToLoadBalancerResult {
@@ -2266,7 +2723,13 @@ class AttachInstancesToLoadBalancerResult {
   });
   static AttachInstancesToLoadBalancerResult fromJson(
           Map<String, dynamic> json) =>
-      AttachInstancesToLoadBalancerResult();
+      AttachInstancesToLoadBalancerResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class AttachLoadBalancerTlsCertificateResult {
@@ -2281,7 +2744,13 @@ class AttachLoadBalancerTlsCertificateResult {
   });
   static AttachLoadBalancerTlsCertificateResult fromJson(
           Map<String, dynamic> json) =>
-      AttachLoadBalancerTlsCertificateResult();
+      AttachLoadBalancerTlsCertificateResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class AttachStaticIpResult {
@@ -2293,7 +2762,13 @@ class AttachStaticIpResult {
     this.operations,
   });
   static AttachStaticIpResult fromJson(Map<String, dynamic> json) =>
-      AttachStaticIpResult();
+      AttachStaticIpResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes an Availability Zone.
@@ -2310,7 +2785,11 @@ class AvailabilityZone {
     this.state,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        zoneName:
+            json.containsKey('zoneName') ? json['zoneName'] as String : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+      );
 }
 
 /// Describes a blueprint (a virtual private server image).
@@ -2375,7 +2854,32 @@ class Blueprint {
     this.licenseUrl,
     this.platform,
   });
-  static Blueprint fromJson(Map<String, dynamic> json) => Blueprint();
+  static Blueprint fromJson(Map<String, dynamic> json) => Blueprint(
+        blueprintId: json.containsKey('blueprintId')
+            ? json['blueprintId'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        group: json.containsKey('group') ? json['group'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        isActive:
+            json.containsKey('isActive') ? json['isActive'] as bool : null,
+        minPower: json.containsKey('minPower') ? json['minPower'] as int : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        versionCode: json.containsKey('versionCode')
+            ? json['versionCode'] as String
+            : null,
+        productUrl: json.containsKey('productUrl')
+            ? json['productUrl'] as String
+            : null,
+        licenseUrl: json.containsKey('licenseUrl')
+            ? json['licenseUrl'] as String
+            : null,
+        platform:
+            json.containsKey('platform') ? json['platform'] as String : null,
+      );
 }
 
 /// Describes a bundle, which is a set of specs describing your virtual private
@@ -2434,7 +2938,33 @@ class Bundle {
     this.transferPerMonthInGb,
     this.supportedPlatforms,
   });
-  static Bundle fromJson(Map<String, dynamic> json) => Bundle();
+  static Bundle fromJson(Map<String, dynamic> json) => Bundle(
+        price: json.containsKey('price') ? json['price'] as double : null,
+        cpuCount: json.containsKey('cpuCount') ? json['cpuCount'] as int : null,
+        diskSizeInGb: json.containsKey('diskSizeInGb')
+            ? json['diskSizeInGb'] as int
+            : null,
+        bundleId:
+            json.containsKey('bundleId') ? json['bundleId'] as String : null,
+        instanceType: json.containsKey('instanceType')
+            ? json['instanceType'] as String
+            : null,
+        isActive:
+            json.containsKey('isActive') ? json['isActive'] as bool : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        power: json.containsKey('power') ? json['power'] as int : null,
+        ramSizeInGb: json.containsKey('ramSizeInGb')
+            ? json['ramSizeInGb'] as double
+            : null,
+        transferPerMonthInGb: json.containsKey('transferPerMonthInGb')
+            ? json['transferPerMonthInGb'] as int
+            : null,
+        supportedPlatforms: json.containsKey('supportedPlatforms')
+            ? (json['supportedPlatforms'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class CloseInstancePublicPortsResult {
@@ -2445,7 +2975,11 @@ class CloseInstancePublicPortsResult {
     this.operation,
   });
   static CloseInstancePublicPortsResult fromJson(Map<String, dynamic> json) =>
-      CloseInstancePublicPortsResult();
+      CloseInstancePublicPortsResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 /// Describes a CloudFormation stack record created as a result of the `create
@@ -2495,7 +3029,28 @@ class CloudFormationStackRecord {
     this.destinationInfo,
   });
   static CloudFormationStackRecord fromJson(Map<String, dynamic> json) =>
-      CloudFormationStackRecord();
+      CloudFormationStackRecord(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        sourceInfo: json.containsKey('sourceInfo')
+            ? (json['sourceInfo'] as List)
+                .map((e) => CloudFormationStackRecordSourceInfo.fromJson(e))
+                .toList()
+            : null,
+        destinationInfo: json.containsKey('destinationInfo')
+            ? DestinationInfo.fromJson(json['destinationInfo'])
+            : null,
+      );
 }
 
 /// Describes the source of a CloudFormation stack record (i.e., the export
@@ -2517,7 +3072,13 @@ class CloudFormationStackRecordSourceInfo {
   });
   static CloudFormationStackRecordSourceInfo fromJson(
           Map<String, dynamic> json) =>
-      CloudFormationStackRecordSourceInfo();
+      CloudFormationStackRecordSourceInfo(
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+      );
 }
 
 class CopySnapshotResult {
@@ -2528,7 +3089,13 @@ class CopySnapshotResult {
     this.operations,
   });
   static CopySnapshotResult fromJson(Map<String, dynamic> json) =>
-      CopySnapshotResult();
+      CopySnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateCloudFormationStackResult {
@@ -2539,7 +3106,13 @@ class CreateCloudFormationStackResult {
     this.operations,
   });
   static CreateCloudFormationStackResult fromJson(Map<String, dynamic> json) =>
-      CreateCloudFormationStackResult();
+      CreateCloudFormationStackResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateDiskFromSnapshotResult {
@@ -2550,7 +3123,13 @@ class CreateDiskFromSnapshotResult {
     this.operations,
   });
   static CreateDiskFromSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateDiskFromSnapshotResult();
+      CreateDiskFromSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateDiskResult {
@@ -2561,7 +3140,13 @@ class CreateDiskResult {
     this.operations,
   });
   static CreateDiskResult fromJson(Map<String, dynamic> json) =>
-      CreateDiskResult();
+      CreateDiskResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateDiskSnapshotResult {
@@ -2572,7 +3157,13 @@ class CreateDiskSnapshotResult {
     this.operations,
   });
   static CreateDiskSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateDiskSnapshotResult();
+      CreateDiskSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateDomainEntryResult {
@@ -2583,7 +3174,11 @@ class CreateDomainEntryResult {
     this.operation,
   });
   static CreateDomainEntryResult fromJson(Map<String, dynamic> json) =>
-      CreateDomainEntryResult();
+      CreateDomainEntryResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 class CreateDomainResult {
@@ -2595,7 +3190,11 @@ class CreateDomainResult {
     this.operation,
   });
   static CreateDomainResult fromJson(Map<String, dynamic> json) =>
-      CreateDomainResult();
+      CreateDomainResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 class CreateInstanceSnapshotResult {
@@ -2607,7 +3206,13 @@ class CreateInstanceSnapshotResult {
     this.operations,
   });
   static CreateInstanceSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateInstanceSnapshotResult();
+      CreateInstanceSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateInstancesFromSnapshotResult {
@@ -2620,7 +3225,13 @@ class CreateInstancesFromSnapshotResult {
   });
   static CreateInstancesFromSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      CreateInstancesFromSnapshotResult();
+      CreateInstancesFromSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateInstancesResult {
@@ -2632,7 +3243,13 @@ class CreateInstancesResult {
     this.operations,
   });
   static CreateInstancesResult fromJson(Map<String, dynamic> json) =>
-      CreateInstancesResult();
+      CreateInstancesResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateKeyPairResult {
@@ -2657,7 +3274,20 @@ class CreateKeyPairResult {
     this.operation,
   });
   static CreateKeyPairResult fromJson(Map<String, dynamic> json) =>
-      CreateKeyPairResult();
+      CreateKeyPairResult(
+        keyPair: json.containsKey('keyPair')
+            ? KeyPair.fromJson(json['keyPair'])
+            : null,
+        publicKeyBase64: json.containsKey('publicKeyBase64')
+            ? json['publicKeyBase64'] as String
+            : null,
+        privateKeyBase64: json.containsKey('privateKeyBase64')
+            ? json['privateKeyBase64'] as String
+            : null,
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 class CreateLoadBalancerResult {
@@ -2668,7 +3298,13 @@ class CreateLoadBalancerResult {
     this.operations,
   });
   static CreateLoadBalancerResult fromJson(Map<String, dynamic> json) =>
-      CreateLoadBalancerResult();
+      CreateLoadBalancerResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateLoadBalancerTlsCertificateResult {
@@ -2680,7 +3316,13 @@ class CreateLoadBalancerTlsCertificateResult {
   });
   static CreateLoadBalancerTlsCertificateResult fromJson(
           Map<String, dynamic> json) =>
-      CreateLoadBalancerTlsCertificateResult();
+      CreateLoadBalancerTlsCertificateResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateRelationalDatabaseFromSnapshotResult {
@@ -2693,7 +3335,13 @@ class CreateRelationalDatabaseFromSnapshotResult {
   });
   static CreateRelationalDatabaseFromSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      CreateRelationalDatabaseFromSnapshotResult();
+      CreateRelationalDatabaseFromSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateRelationalDatabaseResult {
@@ -2705,7 +3353,13 @@ class CreateRelationalDatabaseResult {
     this.operations,
   });
   static CreateRelationalDatabaseResult fromJson(Map<String, dynamic> json) =>
-      CreateRelationalDatabaseResult();
+      CreateRelationalDatabaseResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreateRelationalDatabaseSnapshotResult {
@@ -2718,7 +3372,13 @@ class CreateRelationalDatabaseSnapshotResult {
   });
   static CreateRelationalDatabaseSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      CreateRelationalDatabaseSnapshotResult();
+      CreateRelationalDatabaseSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteDiskResult {
@@ -2729,7 +3389,13 @@ class DeleteDiskResult {
     this.operations,
   });
   static DeleteDiskResult fromJson(Map<String, dynamic> json) =>
-      DeleteDiskResult();
+      DeleteDiskResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteDiskSnapshotResult {
@@ -2740,7 +3406,13 @@ class DeleteDiskSnapshotResult {
     this.operations,
   });
   static DeleteDiskSnapshotResult fromJson(Map<String, dynamic> json) =>
-      DeleteDiskSnapshotResult();
+      DeleteDiskSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteDomainEntryResult {
@@ -2752,7 +3424,11 @@ class DeleteDomainEntryResult {
     this.operation,
   });
   static DeleteDomainEntryResult fromJson(Map<String, dynamic> json) =>
-      DeleteDomainEntryResult();
+      DeleteDomainEntryResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 class DeleteDomainResult {
@@ -2764,7 +3440,11 @@ class DeleteDomainResult {
     this.operation,
   });
   static DeleteDomainResult fromJson(Map<String, dynamic> json) =>
-      DeleteDomainResult();
+      DeleteDomainResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 class DeleteInstanceResult {
@@ -2776,7 +3456,13 @@ class DeleteInstanceResult {
     this.operations,
   });
   static DeleteInstanceResult fromJson(Map<String, dynamic> json) =>
-      DeleteInstanceResult();
+      DeleteInstanceResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteInstanceSnapshotResult {
@@ -2788,7 +3474,13 @@ class DeleteInstanceSnapshotResult {
     this.operations,
   });
   static DeleteInstanceSnapshotResult fromJson(Map<String, dynamic> json) =>
-      DeleteInstanceSnapshotResult();
+      DeleteInstanceSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteKeyPairResult {
@@ -2800,7 +3492,11 @@ class DeleteKeyPairResult {
     this.operation,
   });
   static DeleteKeyPairResult fromJson(Map<String, dynamic> json) =>
-      DeleteKeyPairResult();
+      DeleteKeyPairResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 class DeleteKnownHostKeysResult {
@@ -2811,7 +3507,13 @@ class DeleteKnownHostKeysResult {
     this.operations,
   });
   static DeleteKnownHostKeysResult fromJson(Map<String, dynamic> json) =>
-      DeleteKnownHostKeysResult();
+      DeleteKnownHostKeysResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteLoadBalancerResult {
@@ -2822,7 +3524,13 @@ class DeleteLoadBalancerResult {
     this.operations,
   });
   static DeleteLoadBalancerResult fromJson(Map<String, dynamic> json) =>
-      DeleteLoadBalancerResult();
+      DeleteLoadBalancerResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteLoadBalancerTlsCertificateResult {
@@ -2834,7 +3542,13 @@ class DeleteLoadBalancerTlsCertificateResult {
   });
   static DeleteLoadBalancerTlsCertificateResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteLoadBalancerTlsCertificateResult();
+      DeleteLoadBalancerTlsCertificateResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteRelationalDatabaseResult {
@@ -2846,7 +3560,13 @@ class DeleteRelationalDatabaseResult {
     this.operations,
   });
   static DeleteRelationalDatabaseResult fromJson(Map<String, dynamic> json) =>
-      DeleteRelationalDatabaseResult();
+      DeleteRelationalDatabaseResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteRelationalDatabaseSnapshotResult {
@@ -2859,7 +3579,13 @@ class DeleteRelationalDatabaseSnapshotResult {
   });
   static DeleteRelationalDatabaseSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      DeleteRelationalDatabaseSnapshotResult();
+      DeleteRelationalDatabaseSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the destination of a record.
@@ -2874,8 +3600,10 @@ class DestinationInfo {
     this.id,
     this.service,
   });
-  static DestinationInfo fromJson(Map<String, dynamic> json) =>
-      DestinationInfo();
+  static DestinationInfo fromJson(Map<String, dynamic> json) => DestinationInfo(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        service: json.containsKey('service') ? json['service'] as String : null,
+      );
 }
 
 class DetachDiskResult {
@@ -2886,7 +3614,13 @@ class DetachDiskResult {
     this.operations,
   });
   static DetachDiskResult fromJson(Map<String, dynamic> json) =>
-      DetachDiskResult();
+      DetachDiskResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DetachInstancesFromLoadBalancerResult {
@@ -2898,7 +3632,13 @@ class DetachInstancesFromLoadBalancerResult {
   });
   static DetachInstancesFromLoadBalancerResult fromJson(
           Map<String, dynamic> json) =>
-      DetachInstancesFromLoadBalancerResult();
+      DetachInstancesFromLoadBalancerResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DetachStaticIpResult {
@@ -2910,7 +3650,13 @@ class DetachStaticIpResult {
     this.operations,
   });
   static DetachStaticIpResult fromJson(Map<String, dynamic> json) =>
-      DetachStaticIpResult();
+      DetachStaticIpResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a system disk or an block storage disk.
@@ -2998,7 +3744,41 @@ class Disk {
     this.attachmentState,
     this.gbInUse,
   });
-  static Disk fromJson(Map<String, dynamic> json) => Disk();
+  static Disk fromJson(Map<String, dynamic> json) => Disk(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        sizeInGb: json.containsKey('sizeInGb') ? json['sizeInGb'] as int : null,
+        isSystemDisk: json.containsKey('isSystemDisk')
+            ? json['isSystemDisk'] as bool
+            : null,
+        iops: json.containsKey('iops') ? json['iops'] as int : null,
+        path: json.containsKey('path') ? json['path'] as String : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        attachedTo: json.containsKey('attachedTo')
+            ? json['attachedTo'] as String
+            : null,
+        isAttached:
+            json.containsKey('isAttached') ? json['isAttached'] as bool : null,
+        attachmentState: json.containsKey('attachmentState')
+            ? json['attachmentState'] as String
+            : null,
+        gbInUse: json.containsKey('gbInUse') ? json['gbInUse'] as int : null,
+      );
 }
 
 /// Describes a disk.
@@ -3022,7 +3802,14 @@ class DiskInfo {
     this.sizeInGb,
     this.isSystemDisk,
   });
-  static DiskInfo fromJson(Map<String, dynamic> json) => DiskInfo();
+  static DiskInfo fromJson(Map<String, dynamic> json) => DiskInfo(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        path: json.containsKey('path') ? json['path'] as String : null,
+        sizeInGb: json.containsKey('sizeInGb') ? json['sizeInGb'] as int : null,
+        isSystemDisk: json.containsKey('isSystemDisk')
+            ? json['isSystemDisk'] as bool
+            : null,
+      );
 }
 
 /// Describes a block storage disk mapping.
@@ -3037,6 +3824,7 @@ class DiskMap {
     this.originalDiskPath,
     this.newDiskName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a block storage disk snapshot.
@@ -3108,7 +3896,41 @@ class DiskSnapshot {
     this.fromInstanceName,
     this.fromInstanceArn,
   });
-  static DiskSnapshot fromJson(Map<String, dynamic> json) => DiskSnapshot();
+  static DiskSnapshot fromJson(Map<String, dynamic> json) => DiskSnapshot(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        sizeInGb: json.containsKey('sizeInGb') ? json['sizeInGb'] as int : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        progress:
+            json.containsKey('progress') ? json['progress'] as String : null,
+        fromDiskName: json.containsKey('fromDiskName')
+            ? json['fromDiskName'] as String
+            : null,
+        fromDiskArn: json.containsKey('fromDiskArn')
+            ? json['fromDiskArn'] as String
+            : null,
+        fromInstanceName: json.containsKey('fromInstanceName')
+            ? json['fromInstanceName'] as String
+            : null,
+        fromInstanceArn: json.containsKey('fromInstanceArn')
+            ? json['fromInstanceArn'] as String
+            : null,
+      );
 }
 
 /// Describes a disk snapshot.
@@ -3120,7 +3942,9 @@ class DiskSnapshotInfo {
     this.sizeInGb,
   });
   static DiskSnapshotInfo fromJson(Map<String, dynamic> json) =>
-      DiskSnapshotInfo();
+      DiskSnapshotInfo(
+        sizeInGb: json.containsKey('sizeInGb') ? json['sizeInGb'] as int : null,
+      );
 }
 
 /// Describes a domain where you are storing recordsets in Lightsail.
@@ -3167,7 +3991,30 @@ class Domain {
     this.tags,
     this.domainEntries,
   });
-  static Domain fromJson(Map<String, dynamic> json) => Domain();
+  static Domain fromJson(Map<String, dynamic> json) => Domain(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        domainEntries: json.containsKey('domainEntries')
+            ? (json['domainEntries'] as List)
+                .map((e) => DomainEntry.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a domain recordset entry.
@@ -3229,7 +4076,18 @@ class DomainEntry {
     this.type,
     this.options,
   });
-  static DomainEntry fromJson(Map<String, dynamic> json) => DomainEntry();
+  static DomainEntry fromJson(Map<String, dynamic> json) => DomainEntry(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        target: json.containsKey('target') ? json['target'] as String : null,
+        isAlias: json.containsKey('isAlias') ? json['isAlias'] as bool : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        options: json.containsKey('options')
+            ? (json['options'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DownloadDefaultKeyPairResult {
@@ -3244,7 +4102,14 @@ class DownloadDefaultKeyPairResult {
     this.privateKeyBase64,
   });
   static DownloadDefaultKeyPairResult fromJson(Map<String, dynamic> json) =>
-      DownloadDefaultKeyPairResult();
+      DownloadDefaultKeyPairResult(
+        publicKeyBase64: json.containsKey('publicKeyBase64')
+            ? json['publicKeyBase64'] as String
+            : null,
+        privateKeyBase64: json.containsKey('privateKeyBase64')
+            ? json['privateKeyBase64'] as String
+            : null,
+      );
 }
 
 /// Describes an export snapshot record.
@@ -3286,7 +4151,26 @@ class ExportSnapshotRecord {
     this.destinationInfo,
   });
   static ExportSnapshotRecord fromJson(Map<String, dynamic> json) =>
-      ExportSnapshotRecord();
+      ExportSnapshotRecord(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        sourceInfo: json.containsKey('sourceInfo')
+            ? ExportSnapshotRecordSourceInfo.fromJson(json['sourceInfo'])
+            : null,
+        destinationInfo: json.containsKey('destinationInfo')
+            ? DestinationInfo.fromJson(json['destinationInfo'])
+            : null,
+      );
 }
 
 /// Describes the source of an export snapshot record.
@@ -3326,7 +4210,28 @@ class ExportSnapshotRecordSourceInfo {
     this.diskSnapshotInfo,
   });
   static ExportSnapshotRecordSourceInfo fromJson(Map<String, dynamic> json) =>
-      ExportSnapshotRecordSourceInfo();
+      ExportSnapshotRecordSourceInfo(
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        fromResourceName: json.containsKey('fromResourceName')
+            ? json['fromResourceName'] as String
+            : null,
+        fromResourceArn: json.containsKey('fromResourceArn')
+            ? json['fromResourceArn'] as String
+            : null,
+        instanceSnapshotInfo: json.containsKey('instanceSnapshotInfo')
+            ? InstanceSnapshotInfo.fromJson(json['instanceSnapshotInfo'])
+            : null,
+        diskSnapshotInfo: json.containsKey('diskSnapshotInfo')
+            ? DiskSnapshotInfo.fromJson(json['diskSnapshotInfo'])
+            : null,
+      );
 }
 
 class ExportSnapshotResult {
@@ -3337,7 +4242,13 @@ class ExportSnapshotResult {
     this.operations,
   });
   static ExportSnapshotResult fromJson(Map<String, dynamic> json) =>
-      ExportSnapshotResult();
+      ExportSnapshotResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetActiveNamesResult {
@@ -3353,7 +4264,14 @@ class GetActiveNamesResult {
     this.nextPageToken,
   });
   static GetActiveNamesResult fromJson(Map<String, dynamic> json) =>
-      GetActiveNamesResult();
+      GetActiveNamesResult(
+        activeNames: json.containsKey('activeNames')
+            ? (json['activeNames'] as List).map((e) => e as String).toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetBlueprintsResult {
@@ -3370,7 +4288,16 @@ class GetBlueprintsResult {
     this.nextPageToken,
   });
   static GetBlueprintsResult fromJson(Map<String, dynamic> json) =>
-      GetBlueprintsResult();
+      GetBlueprintsResult(
+        blueprints: json.containsKey('blueprints')
+            ? (json['blueprints'] as List)
+                .map((e) => Blueprint.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetBundlesResult {
@@ -3387,7 +4314,14 @@ class GetBundlesResult {
     this.nextPageToken,
   });
   static GetBundlesResult fromJson(Map<String, dynamic> json) =>
-      GetBundlesResult();
+      GetBundlesResult(
+        bundles: json.containsKey('bundles')
+            ? (json['bundles'] as List).map((e) => Bundle.fromJson(e)).toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetCloudFormationStackRecordsResult {
@@ -3404,7 +4338,17 @@ class GetCloudFormationStackRecordsResult {
   });
   static GetCloudFormationStackRecordsResult fromJson(
           Map<String, dynamic> json) =>
-      GetCloudFormationStackRecordsResult();
+      GetCloudFormationStackRecordsResult(
+        cloudFormationStackRecords:
+            json.containsKey('cloudFormationStackRecords')
+                ? (json['cloudFormationStackRecords'] as List)
+                    .map((e) => CloudFormationStackRecord.fromJson(e))
+                    .toList()
+                : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetDiskResult {
@@ -3414,7 +4358,9 @@ class GetDiskResult {
   GetDiskResult({
     this.disk,
   });
-  static GetDiskResult fromJson(Map<String, dynamic> json) => GetDiskResult();
+  static GetDiskResult fromJson(Map<String, dynamic> json) => GetDiskResult(
+        disk: json.containsKey('disk') ? Disk.fromJson(json['disk']) : null,
+      );
 }
 
 class GetDiskSnapshotResult {
@@ -3425,7 +4371,11 @@ class GetDiskSnapshotResult {
     this.diskSnapshot,
   });
   static GetDiskSnapshotResult fromJson(Map<String, dynamic> json) =>
-      GetDiskSnapshotResult();
+      GetDiskSnapshotResult(
+        diskSnapshot: json.containsKey('diskSnapshot')
+            ? DiskSnapshot.fromJson(json['diskSnapshot'])
+            : null,
+      );
 }
 
 class GetDiskSnapshotsResult {
@@ -3442,7 +4392,16 @@ class GetDiskSnapshotsResult {
     this.nextPageToken,
   });
   static GetDiskSnapshotsResult fromJson(Map<String, dynamic> json) =>
-      GetDiskSnapshotsResult();
+      GetDiskSnapshotsResult(
+        diskSnapshots: json.containsKey('diskSnapshots')
+            ? (json['diskSnapshots'] as List)
+                .map((e) => DiskSnapshot.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetDisksResult {
@@ -3457,7 +4416,14 @@ class GetDisksResult {
     this.disks,
     this.nextPageToken,
   });
-  static GetDisksResult fromJson(Map<String, dynamic> json) => GetDisksResult();
+  static GetDisksResult fromJson(Map<String, dynamic> json) => GetDisksResult(
+        disks: json.containsKey('disks')
+            ? (json['disks'] as List).map((e) => Disk.fromJson(e)).toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetDomainResult {
@@ -3468,8 +4434,10 @@ class GetDomainResult {
   GetDomainResult({
     this.domain,
   });
-  static GetDomainResult fromJson(Map<String, dynamic> json) =>
-      GetDomainResult();
+  static GetDomainResult fromJson(Map<String, dynamic> json) => GetDomainResult(
+        domain:
+            json.containsKey('domain') ? Domain.fromJson(json['domain']) : null,
+      );
 }
 
 class GetDomainsResult {
@@ -3486,7 +4454,14 @@ class GetDomainsResult {
     this.nextPageToken,
   });
   static GetDomainsResult fromJson(Map<String, dynamic> json) =>
-      GetDomainsResult();
+      GetDomainsResult(
+        domains: json.containsKey('domains')
+            ? (json['domains'] as List).map((e) => Domain.fromJson(e)).toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetExportSnapshotRecordsResult {
@@ -3502,7 +4477,16 @@ class GetExportSnapshotRecordsResult {
     this.nextPageToken,
   });
   static GetExportSnapshotRecordsResult fromJson(Map<String, dynamic> json) =>
-      GetExportSnapshotRecordsResult();
+      GetExportSnapshotRecordsResult(
+        exportSnapshotRecords: json.containsKey('exportSnapshotRecords')
+            ? (json['exportSnapshotRecords'] as List)
+                .map((e) => ExportSnapshotRecord.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetInstanceAccessDetailsResult {
@@ -3514,7 +4498,11 @@ class GetInstanceAccessDetailsResult {
     this.accessDetails,
   });
   static GetInstanceAccessDetailsResult fromJson(Map<String, dynamic> json) =>
-      GetInstanceAccessDetailsResult();
+      GetInstanceAccessDetailsResult(
+        accessDetails: json.containsKey('accessDetails')
+            ? InstanceAccessDetails.fromJson(json['accessDetails'])
+            : null,
+      );
 }
 
 class GetInstanceMetricDataResult {
@@ -3530,7 +4518,16 @@ class GetInstanceMetricDataResult {
     this.metricData,
   });
   static GetInstanceMetricDataResult fromJson(Map<String, dynamic> json) =>
-      GetInstanceMetricDataResult();
+      GetInstanceMetricDataResult(
+        metricName: json.containsKey('metricName')
+            ? json['metricName'] as String
+            : null,
+        metricData: json.containsKey('metricData')
+            ? (json['metricData'] as List)
+                .map((e) => MetricDatapoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetInstancePortStatesResult {
@@ -3541,7 +4538,13 @@ class GetInstancePortStatesResult {
     this.portStates,
   });
   static GetInstancePortStatesResult fromJson(Map<String, dynamic> json) =>
-      GetInstancePortStatesResult();
+      GetInstancePortStatesResult(
+        portStates: json.containsKey('portStates')
+            ? (json['portStates'] as List)
+                .map((e) => InstancePortState.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetInstanceResult {
@@ -3553,7 +4556,11 @@ class GetInstanceResult {
     this.instance,
   });
   static GetInstanceResult fromJson(Map<String, dynamic> json) =>
-      GetInstanceResult();
+      GetInstanceResult(
+        instance: json.containsKey('instance')
+            ? Instance.fromJson(json['instance'])
+            : null,
+      );
 }
 
 class GetInstanceSnapshotResult {
@@ -3565,7 +4572,11 @@ class GetInstanceSnapshotResult {
     this.instanceSnapshot,
   });
   static GetInstanceSnapshotResult fromJson(Map<String, dynamic> json) =>
-      GetInstanceSnapshotResult();
+      GetInstanceSnapshotResult(
+        instanceSnapshot: json.containsKey('instanceSnapshot')
+            ? InstanceSnapshot.fromJson(json['instanceSnapshot'])
+            : null,
+      );
 }
 
 class GetInstanceSnapshotsResult {
@@ -3582,7 +4593,16 @@ class GetInstanceSnapshotsResult {
     this.nextPageToken,
   });
   static GetInstanceSnapshotsResult fromJson(Map<String, dynamic> json) =>
-      GetInstanceSnapshotsResult();
+      GetInstanceSnapshotsResult(
+        instanceSnapshots: json.containsKey('instanceSnapshots')
+            ? (json['instanceSnapshots'] as List)
+                .map((e) => InstanceSnapshot.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetInstanceStateResult {
@@ -3593,7 +4613,11 @@ class GetInstanceStateResult {
     this.state,
   });
   static GetInstanceStateResult fromJson(Map<String, dynamic> json) =>
-      GetInstanceStateResult();
+      GetInstanceStateResult(
+        state: json.containsKey('state')
+            ? InstanceState.fromJson(json['state'])
+            : null,
+      );
 }
 
 class GetInstancesResult {
@@ -3609,7 +4633,16 @@ class GetInstancesResult {
     this.nextPageToken,
   });
   static GetInstancesResult fromJson(Map<String, dynamic> json) =>
-      GetInstancesResult();
+      GetInstancesResult(
+        instances: json.containsKey('instances')
+            ? (json['instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetKeyPairResult {
@@ -3620,7 +4653,11 @@ class GetKeyPairResult {
     this.keyPair,
   });
   static GetKeyPairResult fromJson(Map<String, dynamic> json) =>
-      GetKeyPairResult();
+      GetKeyPairResult(
+        keyPair: json.containsKey('keyPair')
+            ? KeyPair.fromJson(json['keyPair'])
+            : null,
+      );
 }
 
 class GetKeyPairsResult {
@@ -3636,7 +4673,16 @@ class GetKeyPairsResult {
     this.nextPageToken,
   });
   static GetKeyPairsResult fromJson(Map<String, dynamic> json) =>
-      GetKeyPairsResult();
+      GetKeyPairsResult(
+        keyPairs: json.containsKey('keyPairs')
+            ? (json['keyPairs'] as List)
+                .map((e) => KeyPair.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetLoadBalancerMetricDataResult {
@@ -3736,7 +4782,16 @@ class GetLoadBalancerMetricDataResult {
     this.metricData,
   });
   static GetLoadBalancerMetricDataResult fromJson(Map<String, dynamic> json) =>
-      GetLoadBalancerMetricDataResult();
+      GetLoadBalancerMetricDataResult(
+        metricName: json.containsKey('metricName')
+            ? json['metricName'] as String
+            : null,
+        metricData: json.containsKey('metricData')
+            ? (json['metricData'] as List)
+                .map((e) => MetricDatapoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetLoadBalancerResult {
@@ -3747,7 +4802,11 @@ class GetLoadBalancerResult {
     this.loadBalancer,
   });
   static GetLoadBalancerResult fromJson(Map<String, dynamic> json) =>
-      GetLoadBalancerResult();
+      GetLoadBalancerResult(
+        loadBalancer: json.containsKey('loadBalancer')
+            ? LoadBalancer.fromJson(json['loadBalancer'])
+            : null,
+      );
 }
 
 class GetLoadBalancerTlsCertificatesResult {
@@ -3760,7 +4819,13 @@ class GetLoadBalancerTlsCertificatesResult {
   });
   static GetLoadBalancerTlsCertificatesResult fromJson(
           Map<String, dynamic> json) =>
-      GetLoadBalancerTlsCertificatesResult();
+      GetLoadBalancerTlsCertificatesResult(
+        tlsCertificates: json.containsKey('tlsCertificates')
+            ? (json['tlsCertificates'] as List)
+                .map((e) => LoadBalancerTlsCertificate.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetLoadBalancersResult {
@@ -3776,7 +4841,16 @@ class GetLoadBalancersResult {
     this.nextPageToken,
   });
   static GetLoadBalancersResult fromJson(Map<String, dynamic> json) =>
-      GetLoadBalancersResult();
+      GetLoadBalancersResult(
+        loadBalancers: json.containsKey('loadBalancers')
+            ? (json['loadBalancers'] as List)
+                .map((e) => LoadBalancer.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetOperationResult {
@@ -3788,7 +4862,11 @@ class GetOperationResult {
     this.operation,
   });
   static GetOperationResult fromJson(Map<String, dynamic> json) =>
-      GetOperationResult();
+      GetOperationResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 class GetOperationsForResourceResult {
@@ -3815,7 +4893,19 @@ class GetOperationsForResourceResult {
     this.nextPageToken,
   });
   static GetOperationsForResourceResult fromJson(Map<String, dynamic> json) =>
-      GetOperationsForResourceResult();
+      GetOperationsForResourceResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+        nextPageCount: json.containsKey('nextPageCount')
+            ? json['nextPageCount'] as String
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetOperationsResult {
@@ -3832,7 +4922,16 @@ class GetOperationsResult {
     this.nextPageToken,
   });
   static GetOperationsResult fromJson(Map<String, dynamic> json) =>
-      GetOperationsResult();
+      GetOperationsResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetRegionsResult {
@@ -3844,7 +4943,11 @@ class GetRegionsResult {
     this.regions,
   });
   static GetRegionsResult fromJson(Map<String, dynamic> json) =>
-      GetRegionsResult();
+      GetRegionsResult(
+        regions: json.containsKey('regions')
+            ? (json['regions'] as List).map((e) => Region.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetRelationalDatabaseBlueprintsResult {
@@ -3862,7 +4965,16 @@ class GetRelationalDatabaseBlueprintsResult {
   });
   static GetRelationalDatabaseBlueprintsResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseBlueprintsResult();
+      GetRelationalDatabaseBlueprintsResult(
+        blueprints: json.containsKey('blueprints')
+            ? (json['blueprints'] as List)
+                .map((e) => RelationalDatabaseBlueprint.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetRelationalDatabaseBundlesResult {
@@ -3880,7 +4992,16 @@ class GetRelationalDatabaseBundlesResult {
   });
   static GetRelationalDatabaseBundlesResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseBundlesResult();
+      GetRelationalDatabaseBundlesResult(
+        bundles: json.containsKey('bundles')
+            ? (json['bundles'] as List)
+                .map((e) => RelationalDatabaseBundle.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetRelationalDatabaseEventsResult {
@@ -3898,7 +5019,16 @@ class GetRelationalDatabaseEventsResult {
   });
   static GetRelationalDatabaseEventsResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseEventsResult();
+      GetRelationalDatabaseEventsResult(
+        relationalDatabaseEvents: json.containsKey('relationalDatabaseEvents')
+            ? (json['relationalDatabaseEvents'] as List)
+                .map((e) => RelationalDatabaseEvent.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetRelationalDatabaseLogEventsResult {
@@ -3921,7 +5051,19 @@ class GetRelationalDatabaseLogEventsResult {
   });
   static GetRelationalDatabaseLogEventsResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseLogEventsResult();
+      GetRelationalDatabaseLogEventsResult(
+        resourceLogEvents: json.containsKey('resourceLogEvents')
+            ? (json['resourceLogEvents'] as List)
+                .map((e) => LogEvent.fromJson(e))
+                .toList()
+            : null,
+        nextBackwardToken: json.containsKey('nextBackwardToken')
+            ? json['nextBackwardToken'] as String
+            : null,
+        nextForwardToken: json.containsKey('nextForwardToken')
+            ? json['nextForwardToken'] as String
+            : null,
+      );
 }
 
 class GetRelationalDatabaseLogStreamsResult {
@@ -3934,7 +5076,11 @@ class GetRelationalDatabaseLogStreamsResult {
   });
   static GetRelationalDatabaseLogStreamsResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseLogStreamsResult();
+      GetRelationalDatabaseLogStreamsResult(
+        logStreams: json.containsKey('logStreams')
+            ? (json['logStreams'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class GetRelationalDatabaseMasterUserPasswordResult {
@@ -3951,7 +5097,14 @@ class GetRelationalDatabaseMasterUserPasswordResult {
   });
   static GetRelationalDatabaseMasterUserPasswordResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseMasterUserPasswordResult();
+      GetRelationalDatabaseMasterUserPasswordResult(
+        masterUserPassword: json.containsKey('masterUserPassword')
+            ? json['masterUserPassword'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+      );
 }
 
 class GetRelationalDatabaseMetricDataResult {
@@ -3968,7 +5121,16 @@ class GetRelationalDatabaseMetricDataResult {
   });
   static GetRelationalDatabaseMetricDataResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseMetricDataResult();
+      GetRelationalDatabaseMetricDataResult(
+        metricName: json.containsKey('metricName')
+            ? json['metricName'] as String
+            : null,
+        metricData: json.containsKey('metricData')
+            ? (json['metricData'] as List)
+                .map((e) => MetricDatapoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetRelationalDatabaseParametersResult {
@@ -3986,7 +5148,16 @@ class GetRelationalDatabaseParametersResult {
   });
   static GetRelationalDatabaseParametersResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseParametersResult();
+      GetRelationalDatabaseParametersResult(
+        parameters: json.containsKey('parameters')
+            ? (json['parameters'] as List)
+                .map((e) => RelationalDatabaseParameter.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetRelationalDatabaseResult {
@@ -3997,7 +5168,11 @@ class GetRelationalDatabaseResult {
     this.relationalDatabase,
   });
   static GetRelationalDatabaseResult fromJson(Map<String, dynamic> json) =>
-      GetRelationalDatabaseResult();
+      GetRelationalDatabaseResult(
+        relationalDatabase: json.containsKey('relationalDatabase')
+            ? RelationalDatabase.fromJson(json['relationalDatabase'])
+            : null,
+      );
 }
 
 class GetRelationalDatabaseSnapshotResult {
@@ -4009,7 +5184,13 @@ class GetRelationalDatabaseSnapshotResult {
   });
   static GetRelationalDatabaseSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseSnapshotResult();
+      GetRelationalDatabaseSnapshotResult(
+        relationalDatabaseSnapshot:
+            json.containsKey('relationalDatabaseSnapshot')
+                ? RelationalDatabaseSnapshot.fromJson(
+                    json['relationalDatabaseSnapshot'])
+                : null,
+      );
 }
 
 class GetRelationalDatabaseSnapshotsResult {
@@ -4027,7 +5208,17 @@ class GetRelationalDatabaseSnapshotsResult {
   });
   static GetRelationalDatabaseSnapshotsResult fromJson(
           Map<String, dynamic> json) =>
-      GetRelationalDatabaseSnapshotsResult();
+      GetRelationalDatabaseSnapshotsResult(
+        relationalDatabaseSnapshots:
+            json.containsKey('relationalDatabaseSnapshots')
+                ? (json['relationalDatabaseSnapshots'] as List)
+                    .map((e) => RelationalDatabaseSnapshot.fromJson(e))
+                    .toList()
+                : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetRelationalDatabasesResult {
@@ -4043,7 +5234,16 @@ class GetRelationalDatabasesResult {
     this.nextPageToken,
   });
   static GetRelationalDatabasesResult fromJson(Map<String, dynamic> json) =>
-      GetRelationalDatabasesResult();
+      GetRelationalDatabasesResult(
+        relationalDatabases: json.containsKey('relationalDatabases')
+            ? (json['relationalDatabases'] as List)
+                .map((e) => RelationalDatabase.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 class GetStaticIpResult {
@@ -4055,7 +5255,11 @@ class GetStaticIpResult {
     this.staticIp,
   });
   static GetStaticIpResult fromJson(Map<String, dynamic> json) =>
-      GetStaticIpResult();
+      GetStaticIpResult(
+        staticIp: json.containsKey('staticIp')
+            ? StaticIp.fromJson(json['staticIp'])
+            : null,
+      );
 }
 
 class GetStaticIpsResult {
@@ -4072,7 +5276,16 @@ class GetStaticIpsResult {
     this.nextPageToken,
   });
   static GetStaticIpsResult fromJson(Map<String, dynamic> json) =>
-      GetStaticIpsResult();
+      GetStaticIpsResult(
+        staticIps: json.containsKey('staticIps')
+            ? (json['staticIps'] as List)
+                .map((e) => StaticIp.fromJson(e))
+                .toList()
+            : null,
+        nextPageToken: json.containsKey('nextPageToken')
+            ? json['nextPageToken'] as String
+            : null,
+      );
 }
 
 /// Describes the public SSH host keys or the RDP certificate.
@@ -4134,7 +5347,27 @@ class HostKeyAttributes {
     this.notValidAfter,
   });
   static HostKeyAttributes fromJson(Map<String, dynamic> json) =>
-      HostKeyAttributes();
+      HostKeyAttributes(
+        algorithm:
+            json.containsKey('algorithm') ? json['algorithm'] as String : null,
+        publicKey:
+            json.containsKey('publicKey') ? json['publicKey'] as String : null,
+        witnessedAt: json.containsKey('witnessedAt')
+            ? DateTime.parse(json['witnessedAt'])
+            : null,
+        fingerprintSha1: json.containsKey('fingerprintSHA1')
+            ? json['fingerprintSHA1'] as String
+            : null,
+        fingerprintSha256: json.containsKey('fingerprintSHA256')
+            ? json['fingerprintSHA256'] as String
+            : null,
+        notValidBefore: json.containsKey('notValidBefore')
+            ? DateTime.parse(json['notValidBefore'])
+            : null,
+        notValidAfter: json.containsKey('notValidAfter')
+            ? DateTime.parse(json['notValidAfter'])
+            : null,
+      );
 }
 
 class ImportKeyPairResult {
@@ -4146,7 +5379,11 @@ class ImportKeyPairResult {
     this.operation,
   });
   static ImportKeyPairResult fromJson(Map<String, dynamic> json) =>
-      ImportKeyPairResult();
+      ImportKeyPairResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 /// Describes an instance (a virtual private server).
@@ -4238,7 +5475,58 @@ class Instance {
     this.username,
     this.sshKeyName,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        blueprintId: json.containsKey('blueprintId')
+            ? json['blueprintId'] as String
+            : null,
+        blueprintName: json.containsKey('blueprintName')
+            ? json['blueprintName'] as String
+            : null,
+        bundleId:
+            json.containsKey('bundleId') ? json['bundleId'] as String : null,
+        isStaticIp:
+            json.containsKey('isStaticIp') ? json['isStaticIp'] as bool : null,
+        privateIpAddress: json.containsKey('privateIpAddress')
+            ? json['privateIpAddress'] as String
+            : null,
+        publicIpAddress: json.containsKey('publicIpAddress')
+            ? json['publicIpAddress'] as String
+            : null,
+        ipv6Address: json.containsKey('ipv6Address')
+            ? json['ipv6Address'] as String
+            : null,
+        hardware: json.containsKey('hardware')
+            ? InstanceHardware.fromJson(json['hardware'])
+            : null,
+        networking: json.containsKey('networking')
+            ? InstanceNetworking.fromJson(json['networking'])
+            : null,
+        state: json.containsKey('state')
+            ? InstanceState.fromJson(json['state'])
+            : null,
+        username:
+            json.containsKey('username') ? json['username'] as String : null,
+        sshKeyName: json.containsKey('sshKeyName')
+            ? json['sshKeyName'] as String
+            : null,
+      );
 }
 
 /// The parameters for gaining temporary access to one of your Amazon Lightsail
@@ -4307,7 +5595,34 @@ class InstanceAccessDetails {
     this.hostKeys,
   });
   static InstanceAccessDetails fromJson(Map<String, dynamic> json) =>
-      InstanceAccessDetails();
+      InstanceAccessDetails(
+        certKey: json.containsKey('certKey') ? json['certKey'] as String : null,
+        expiresAt: json.containsKey('expiresAt')
+            ? DateTime.parse(json['expiresAt'])
+            : null,
+        ipAddress:
+            json.containsKey('ipAddress') ? json['ipAddress'] as String : null,
+        password:
+            json.containsKey('password') ? json['password'] as String : null,
+        passwordData: json.containsKey('passwordData')
+            ? PasswordData.fromJson(json['passwordData'])
+            : null,
+        privateKey: json.containsKey('privateKey')
+            ? json['privateKey'] as String
+            : null,
+        protocol:
+            json.containsKey('protocol') ? json['protocol'] as String : null,
+        instanceName: json.containsKey('instanceName')
+            ? json['instanceName'] as String
+            : null,
+        username:
+            json.containsKey('username') ? json['username'] as String : null,
+        hostKeys: json.containsKey('hostKeys')
+            ? (json['hostKeys'] as List)
+                .map((e) => HostKeyAttributes.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the Amazon Elastic Compute Cloud instance and related resources to
@@ -4359,6 +5674,7 @@ class InstanceEntry {
     this.userData,
     @required this.availabilityZone,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the hardware for the instance.
@@ -4378,7 +5694,15 @@ class InstanceHardware {
     this.ramSizeInGb,
   });
   static InstanceHardware fromJson(Map<String, dynamic> json) =>
-      InstanceHardware();
+      InstanceHardware(
+        cpuCount: json.containsKey('cpuCount') ? json['cpuCount'] as int : null,
+        disks: json.containsKey('disks')
+            ? (json['disks'] as List).map((e) => Disk.fromJson(e)).toList()
+            : null,
+        ramSizeInGb: json.containsKey('ramSizeInGb')
+            ? json['ramSizeInGb'] as double
+            : null,
+      );
 }
 
 /// Describes information about the health of the instance.
@@ -4452,7 +5776,17 @@ class InstanceHealthSummary {
     this.instanceHealthReason,
   });
   static InstanceHealthSummary fromJson(Map<String, dynamic> json) =>
-      InstanceHealthSummary();
+      InstanceHealthSummary(
+        instanceName: json.containsKey('instanceName')
+            ? json['instanceName'] as String
+            : null,
+        instanceHealth: json.containsKey('instanceHealth')
+            ? json['instanceHealth'] as String
+            : null,
+        instanceHealthReason: json.containsKey('instanceHealthReason')
+            ? json['instanceHealthReason'] as String
+            : null,
+      );
 }
 
 /// Describes monthly data transfer rates and port information for an instance.
@@ -4469,7 +5803,16 @@ class InstanceNetworking {
     this.ports,
   });
   static InstanceNetworking fromJson(Map<String, dynamic> json) =>
-      InstanceNetworking();
+      InstanceNetworking(
+        monthlyTransfer: json.containsKey('monthlyTransfer')
+            ? MonthlyTransfer.fromJson(json['monthlyTransfer'])
+            : null,
+        ports: json.containsKey('ports')
+            ? (json['ports'] as List)
+                .map((e) => InstancePortInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes information about the instance ports.
@@ -4524,7 +5867,24 @@ class InstancePortInfo {
     this.accessDirection,
   });
   static InstancePortInfo fromJson(Map<String, dynamic> json) =>
-      InstancePortInfo();
+      InstancePortInfo(
+        fromPort: json.containsKey('fromPort') ? json['fromPort'] as int : null,
+        toPort: json.containsKey('toPort') ? json['toPort'] as int : null,
+        protocol:
+            json.containsKey('protocol') ? json['protocol'] as String : null,
+        accessFrom: json.containsKey('accessFrom')
+            ? json['accessFrom'] as String
+            : null,
+        accessType: json.containsKey('accessType')
+            ? json['accessType'] as String
+            : null,
+        commonName: json.containsKey('commonName')
+            ? json['commonName'] as String
+            : null,
+        accessDirection: json.containsKey('accessDirection')
+            ? json['accessDirection'] as String
+            : null,
+      );
 }
 
 /// Describes the port state.
@@ -4567,7 +5927,13 @@ class InstancePortState {
     this.state,
   });
   static InstancePortState fromJson(Map<String, dynamic> json) =>
-      InstancePortState();
+      InstancePortState(
+        fromPort: json.containsKey('fromPort') ? json['fromPort'] as int : null,
+        toPort: json.containsKey('toPort') ? json['toPort'] as int : null,
+        protocol:
+            json.containsKey('protocol') ? json['protocol'] as String : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+      );
 }
 
 /// Describes the snapshot of the virtual private server, or _instance_.
@@ -4646,7 +6012,46 @@ class InstanceSnapshot {
     this.sizeInGb,
   });
   static InstanceSnapshot fromJson(Map<String, dynamic> json) =>
-      InstanceSnapshot();
+      InstanceSnapshot(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        progress:
+            json.containsKey('progress') ? json['progress'] as String : null,
+        fromAttachedDisks: json.containsKey('fromAttachedDisks')
+            ? (json['fromAttachedDisks'] as List)
+                .map((e) => Disk.fromJson(e))
+                .toList()
+            : null,
+        fromInstanceName: json.containsKey('fromInstanceName')
+            ? json['fromInstanceName'] as String
+            : null,
+        fromInstanceArn: json.containsKey('fromInstanceArn')
+            ? json['fromInstanceArn'] as String
+            : null,
+        fromBlueprintId: json.containsKey('fromBlueprintId')
+            ? json['fromBlueprintId'] as String
+            : null,
+        fromBundleId: json.containsKey('fromBundleId')
+            ? json['fromBundleId'] as String
+            : null,
+        sizeInGb: json.containsKey('sizeInGb') ? json['sizeInGb'] as int : null,
+      );
 }
 
 /// Describes an instance snapshot.
@@ -4668,7 +6073,19 @@ class InstanceSnapshotInfo {
     this.fromDiskInfo,
   });
   static InstanceSnapshotInfo fromJson(Map<String, dynamic> json) =>
-      InstanceSnapshotInfo();
+      InstanceSnapshotInfo(
+        fromBundleId: json.containsKey('fromBundleId')
+            ? json['fromBundleId'] as String
+            : null,
+        fromBlueprintId: json.containsKey('fromBlueprintId')
+            ? json['fromBlueprintId'] as String
+            : null,
+        fromDiskInfo: json.containsKey('fromDiskInfo')
+            ? (json['fromDiskInfo'] as List)
+                .map((e) => DiskInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the virtual private server (or _instance_) status.
@@ -4683,7 +6100,10 @@ class InstanceState {
     this.code,
     this.name,
   });
-  static InstanceState fromJson(Map<String, dynamic> json) => InstanceState();
+  static InstanceState fromJson(Map<String, dynamic> json) => InstanceState(
+        code: json.containsKey('code') ? json['code'] as int : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
 }
 
 class IsVpcPeeredResult {
@@ -4694,7 +6114,10 @@ class IsVpcPeeredResult {
     this.isPeered,
   });
   static IsVpcPeeredResult fromJson(Map<String, dynamic> json) =>
-      IsVpcPeeredResult();
+      IsVpcPeeredResult(
+        isPeered:
+            json.containsKey('isPeered') ? json['isPeered'] as bool : null,
+      );
 }
 
 /// Describes the SSH key pair.
@@ -4739,7 +6162,28 @@ class KeyPair {
     this.tags,
     this.fingerprint,
   });
-  static KeyPair fromJson(Map<String, dynamic> json) => KeyPair();
+  static KeyPair fromJson(Map<String, dynamic> json) => KeyPair(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        fingerprint: json.containsKey('fingerprint')
+            ? json['fingerprint'] as String
+            : null,
+      );
 }
 
 /// Describes the Lightsail load balancer.
@@ -4828,7 +6272,52 @@ class LoadBalancer {
     this.tlsCertificateSummaries,
     this.configurationOptions,
   });
-  static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer();
+  static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        dnsName: json.containsKey('dnsName') ? json['dnsName'] as String : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        protocol:
+            json.containsKey('protocol') ? json['protocol'] as String : null,
+        publicPorts: json.containsKey('publicPorts')
+            ? (json['publicPorts'] as List).map((e) => e as int).toList()
+            : null,
+        healthCheckPath: json.containsKey('healthCheckPath')
+            ? json['healthCheckPath'] as String
+            : null,
+        instancePort: json.containsKey('instancePort')
+            ? json['instancePort'] as int
+            : null,
+        instanceHealthSummary: json.containsKey('instanceHealthSummary')
+            ? (json['instanceHealthSummary'] as List)
+                .map((e) => InstanceHealthSummary.fromJson(e))
+                .toList()
+            : null,
+        tlsCertificateSummaries: json.containsKey('tlsCertificateSummaries')
+            ? (json['tlsCertificateSummaries'] as List)
+                .map((e) => LoadBalancerTlsCertificateSummary.fromJson(e))
+                .toList()
+            : null,
+        configurationOptions: json.containsKey('configurationOptions')
+            ? (json['configurationOptions'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Describes a load balancer SSL/TLS certificate.
@@ -4976,7 +6465,77 @@ class LoadBalancerTlsCertificate {
     this.subjectAlternativeNames,
   });
   static LoadBalancerTlsCertificate fromJson(Map<String, dynamic> json) =>
-      LoadBalancerTlsCertificate();
+      LoadBalancerTlsCertificate(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        loadBalancerName: json.containsKey('loadBalancerName')
+            ? json['loadBalancerName'] as String
+            : null,
+        isAttached:
+            json.containsKey('isAttached') ? json['isAttached'] as bool : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        domainName: json.containsKey('domainName')
+            ? json['domainName'] as String
+            : null,
+        domainValidationRecords: json.containsKey('domainValidationRecords')
+            ? (json['domainValidationRecords'] as List)
+                .map((e) =>
+                    LoadBalancerTlsCertificateDomainValidationRecord.fromJson(
+                        e))
+                .toList()
+            : null,
+        failureReason: json.containsKey('failureReason')
+            ? json['failureReason'] as String
+            : null,
+        issuedAt: json.containsKey('issuedAt')
+            ? DateTime.parse(json['issuedAt'])
+            : null,
+        issuer: json.containsKey('issuer') ? json['issuer'] as String : null,
+        keyAlgorithm: json.containsKey('keyAlgorithm')
+            ? json['keyAlgorithm'] as String
+            : null,
+        notAfter: json.containsKey('notAfter')
+            ? DateTime.parse(json['notAfter'])
+            : null,
+        notBefore: json.containsKey('notBefore')
+            ? DateTime.parse(json['notBefore'])
+            : null,
+        renewalSummary: json.containsKey('renewalSummary')
+            ? LoadBalancerTlsCertificateRenewalSummary.fromJson(
+                json['renewalSummary'])
+            : null,
+        revocationReason: json.containsKey('revocationReason')
+            ? json['revocationReason'] as String
+            : null,
+        revokedAt: json.containsKey('revokedAt')
+            ? DateTime.parse(json['revokedAt'])
+            : null,
+        serial: json.containsKey('serial') ? json['serial'] as String : null,
+        signatureAlgorithm: json.containsKey('signatureAlgorithm')
+            ? json['signatureAlgorithm'] as String
+            : null,
+        subject: json.containsKey('subject') ? json['subject'] as String : null,
+        subjectAlternativeNames: json.containsKey('subjectAlternativeNames')
+            ? (json['subjectAlternativeNames'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Contains information about the domain names on an SSL/TLS certificate that
@@ -4994,7 +6553,14 @@ class LoadBalancerTlsCertificateDomainValidationOption {
   });
   static LoadBalancerTlsCertificateDomainValidationOption fromJson(
           Map<String, dynamic> json) =>
-      LoadBalancerTlsCertificateDomainValidationOption();
+      LoadBalancerTlsCertificateDomainValidationOption(
+        domainName: json.containsKey('domainName')
+            ? json['domainName'] as String
+            : null,
+        validationStatus: json.containsKey('validationStatus')
+            ? json['validationStatus'] as String
+            : null,
+      );
 }
 
 /// Describes the validation record of each domain name in the SSL/TLS
@@ -5025,7 +6591,17 @@ class LoadBalancerTlsCertificateDomainValidationRecord {
   });
   static LoadBalancerTlsCertificateDomainValidationRecord fromJson(
           Map<String, dynamic> json) =>
-      LoadBalancerTlsCertificateDomainValidationRecord();
+      LoadBalancerTlsCertificateDomainValidationRecord(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+        validationStatus: json.containsKey('validationStatus')
+            ? json['validationStatus'] as String
+            : null,
+        domainName: json.containsKey('domainName')
+            ? json['domainName'] as String
+            : null,
+      );
 }
 
 /// Contains information about the status of Lightsail's managed renewal for the
@@ -5048,7 +6624,18 @@ class LoadBalancerTlsCertificateRenewalSummary {
   });
   static LoadBalancerTlsCertificateRenewalSummary fromJson(
           Map<String, dynamic> json) =>
-      LoadBalancerTlsCertificateRenewalSummary();
+      LoadBalancerTlsCertificateRenewalSummary(
+        renewalStatus: json.containsKey('renewalStatus')
+            ? json['renewalStatus'] as String
+            : null,
+        domainValidationOptions: json.containsKey('domainValidationOptions')
+            ? (json['domainValidationOptions'] as List)
+                .map((e) =>
+                    LoadBalancerTlsCertificateDomainValidationOption.fromJson(
+                        e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides a summary of SSL/TLS certificate metadata.
@@ -5066,7 +6653,11 @@ class LoadBalancerTlsCertificateSummary {
   });
   static LoadBalancerTlsCertificateSummary fromJson(
           Map<String, dynamic> json) =>
-      LoadBalancerTlsCertificateSummary();
+      LoadBalancerTlsCertificateSummary(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        isAttached:
+            json.containsKey('isAttached') ? json['isAttached'] as bool : null,
+      );
 }
 
 /// Describes a database log event.
@@ -5081,7 +6672,12 @@ class LogEvent {
     this.createdAt,
     this.message,
   });
-  static LogEvent fromJson(Map<String, dynamic> json) => LogEvent();
+  static LogEvent fromJson(Map<String, dynamic> json) => LogEvent(
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 /// Describes the metric data point.
@@ -5116,8 +6712,19 @@ class MetricDatapoint {
     this.timestamp,
     this.unit,
   });
-  static MetricDatapoint fromJson(Map<String, dynamic> json) =>
-      MetricDatapoint();
+  static MetricDatapoint fromJson(Map<String, dynamic> json) => MetricDatapoint(
+        average: json.containsKey('average') ? json['average'] as double : null,
+        maximum: json.containsKey('maximum') ? json['maximum'] as double : null,
+        minimum: json.containsKey('minimum') ? json['minimum'] as double : null,
+        sampleCount: json.containsKey('sampleCount')
+            ? json['sampleCount'] as double
+            : null,
+        sum: json.containsKey('sum') ? json['sum'] as double : null,
+        timestamp: json.containsKey('timestamp')
+            ? DateTime.parse(json['timestamp'])
+            : null,
+        unit: json.containsKey('unit') ? json['unit'] as String : null,
+      );
 }
 
 /// Describes the monthly data transfer in and out of your virtual private
@@ -5129,8 +6736,11 @@ class MonthlyTransfer {
   MonthlyTransfer({
     this.gbPerMonthAllocated,
   });
-  static MonthlyTransfer fromJson(Map<String, dynamic> json) =>
-      MonthlyTransfer();
+  static MonthlyTransfer fromJson(Map<String, dynamic> json) => MonthlyTransfer(
+        gbPerMonthAllocated: json.containsKey('gbPerMonthAllocated')
+            ? json['gbPerMonthAllocated'] as int
+            : null,
+      );
 }
 
 class OpenInstancePublicPortsResult {
@@ -5142,7 +6752,11 @@ class OpenInstancePublicPortsResult {
     this.operation,
   });
   static OpenInstancePublicPortsResult fromJson(Map<String, dynamic> json) =>
-      OpenInstancePublicPortsResult();
+      OpenInstancePublicPortsResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 /// Describes the API operation.
@@ -5197,7 +6811,38 @@ class Operation {
     this.errorCode,
     this.errorDetails,
   });
-  static Operation fromJson(Map<String, dynamic> json) => Operation();
+  static Operation fromJson(Map<String, dynamic> json) => Operation(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        resourceName: json.containsKey('resourceName')
+            ? json['resourceName'] as String
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        isTerminal:
+            json.containsKey('isTerminal') ? json['isTerminal'] as bool : null,
+        operationDetails: json.containsKey('operationDetails')
+            ? json['operationDetails'] as String
+            : null,
+        operationType: json.containsKey('operationType')
+            ? json['operationType'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusChangedAt: json.containsKey('statusChangedAt')
+            ? DateTime.parse(json['statusChangedAt'])
+            : null,
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        errorDetails: json.containsKey('errorDetails')
+            ? json['errorDetails'] as String
+            : null,
+      );
 }
 
 /// The password data for the Windows Server-based instance, including the
@@ -5235,7 +6880,14 @@ class PasswordData {
     this.ciphertext,
     this.keyPairName,
   });
-  static PasswordData fromJson(Map<String, dynamic> json) => PasswordData();
+  static PasswordData fromJson(Map<String, dynamic> json) => PasswordData(
+        ciphertext: json.containsKey('ciphertext')
+            ? json['ciphertext'] as String
+            : null,
+        keyPairName: json.containsKey('keyPairName')
+            ? json['keyPairName'] as String
+            : null,
+      );
 }
 
 class PeerVpcResult {
@@ -5246,7 +6898,11 @@ class PeerVpcResult {
   PeerVpcResult({
     this.operation,
   });
-  static PeerVpcResult fromJson(Map<String, dynamic> json) => PeerVpcResult();
+  static PeerVpcResult fromJson(Map<String, dynamic> json) => PeerVpcResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 /// Describes a pending database maintenance action.
@@ -5266,7 +6922,15 @@ class PendingMaintenanceAction {
     this.currentApplyDate,
   });
   static PendingMaintenanceAction fromJson(Map<String, dynamic> json) =>
-      PendingMaintenanceAction();
+      PendingMaintenanceAction(
+        action: json.containsKey('action') ? json['action'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        currentApplyDate: json.containsKey('currentApplyDate')
+            ? DateTime.parse(json['currentApplyDate'])
+            : null,
+      );
 }
 
 /// Describes a pending database value modification.
@@ -5287,7 +6951,17 @@ class PendingModifiedRelationalDatabaseValues {
   });
   static PendingModifiedRelationalDatabaseValues fromJson(
           Map<String, dynamic> json) =>
-      PendingModifiedRelationalDatabaseValues();
+      PendingModifiedRelationalDatabaseValues(
+        masterUserPassword: json.containsKey('masterUserPassword')
+            ? json['masterUserPassword'] as String
+            : null,
+        engineVersion: json.containsKey('engineVersion')
+            ? json['engineVersion'] as String
+            : null,
+        backupRetentionEnabled: json.containsKey('backupRetentionEnabled')
+            ? json['backupRetentionEnabled'] as bool
+            : null,
+      );
 }
 
 /// Describes information about the ports on your virtual private server (or
@@ -5307,6 +6981,7 @@ class PortInfo {
     this.toPort,
     this.protocol,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutInstancePublicPortsResult {
@@ -5317,7 +6992,11 @@ class PutInstancePublicPortsResult {
     this.operation,
   });
   static PutInstancePublicPortsResult fromJson(Map<String, dynamic> json) =>
-      PutInstancePublicPortsResult();
+      PutInstancePublicPortsResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 class RebootInstanceResult {
@@ -5329,7 +7008,13 @@ class RebootInstanceResult {
     this.operations,
   });
   static RebootInstanceResult fromJson(Map<String, dynamic> json) =>
-      RebootInstanceResult();
+      RebootInstanceResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class RebootRelationalDatabaseResult {
@@ -5341,7 +7026,13 @@ class RebootRelationalDatabaseResult {
     this.operations,
   });
   static RebootRelationalDatabaseResult fromJson(Map<String, dynamic> json) =>
-      RebootRelationalDatabaseResult();
+      RebootRelationalDatabaseResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the AWS Region.
@@ -5374,7 +7065,29 @@ class Region {
     this.availabilityZones,
     this.relationalDatabaseAvailabilityZones,
   });
-  static Region fromJson(Map<String, dynamic> json) => Region();
+  static Region fromJson(Map<String, dynamic> json) => Region(
+        continentCode: json.containsKey('continentCode')
+            ? json['continentCode'] as String
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        displayName: json.containsKey('displayName')
+            ? json['displayName'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        availabilityZones: json.containsKey('availabilityZones')
+            ? (json['availabilityZones'] as List)
+                .map((e) => AvailabilityZone.fromJson(e))
+                .toList()
+            : null,
+        relationalDatabaseAvailabilityZones:
+            json.containsKey('relationalDatabaseAvailabilityZones')
+                ? (json['relationalDatabaseAvailabilityZones'] as List)
+                    .map((e) => AvailabilityZone.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Describes a database.
@@ -5501,7 +7214,81 @@ class RelationalDatabase {
     this.pendingMaintenanceActions,
   });
   static RelationalDatabase fromJson(Map<String, dynamic> json) =>
-      RelationalDatabase();
+      RelationalDatabase(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        relationalDatabaseBlueprintId:
+            json.containsKey('relationalDatabaseBlueprintId')
+                ? json['relationalDatabaseBlueprintId'] as String
+                : null,
+        relationalDatabaseBundleId:
+            json.containsKey('relationalDatabaseBundleId')
+                ? json['relationalDatabaseBundleId'] as String
+                : null,
+        masterDatabaseName: json.containsKey('masterDatabaseName')
+            ? json['masterDatabaseName'] as String
+            : null,
+        hardware: json.containsKey('hardware')
+            ? RelationalDatabaseHardware.fromJson(json['hardware'])
+            : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        secondaryAvailabilityZone: json.containsKey('secondaryAvailabilityZone')
+            ? json['secondaryAvailabilityZone'] as String
+            : null,
+        backupRetentionEnabled: json.containsKey('backupRetentionEnabled')
+            ? json['backupRetentionEnabled'] as bool
+            : null,
+        pendingModifiedValues: json.containsKey('pendingModifiedValues')
+            ? PendingModifiedRelationalDatabaseValues.fromJson(
+                json['pendingModifiedValues'])
+            : null,
+        engine: json.containsKey('engine') ? json['engine'] as String : null,
+        engineVersion: json.containsKey('engineVersion')
+            ? json['engineVersion'] as String
+            : null,
+        latestRestorableTime: json.containsKey('latestRestorableTime')
+            ? DateTime.parse(json['latestRestorableTime'])
+            : null,
+        masterUsername: json.containsKey('masterUsername')
+            ? json['masterUsername'] as String
+            : null,
+        parameterApplyStatus: json.containsKey('parameterApplyStatus')
+            ? json['parameterApplyStatus'] as String
+            : null,
+        preferredBackupWindow: json.containsKey('preferredBackupWindow')
+            ? json['preferredBackupWindow'] as String
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('preferredMaintenanceWindow')
+                ? json['preferredMaintenanceWindow'] as String
+                : null,
+        publiclyAccessible: json.containsKey('publiclyAccessible')
+            ? json['publiclyAccessible'] as bool
+            : null,
+        masterEndpoint: json.containsKey('masterEndpoint')
+            ? RelationalDatabaseEndpoint.fromJson(json['masterEndpoint'])
+            : null,
+        pendingMaintenanceActions: json.containsKey('pendingMaintenanceActions')
+            ? (json['pendingMaintenanceActions'] as List)
+                .map((e) => PendingMaintenanceAction.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a database image, or blueprint. A blueprint describes the major
@@ -5536,7 +7323,24 @@ class RelationalDatabaseBlueprint {
     this.isEngineDefault,
   });
   static RelationalDatabaseBlueprint fromJson(Map<String, dynamic> json) =>
-      RelationalDatabaseBlueprint();
+      RelationalDatabaseBlueprint(
+        blueprintId: json.containsKey('blueprintId')
+            ? json['blueprintId'] as String
+            : null,
+        engine: json.containsKey('engine') ? json['engine'] as String : null,
+        engineVersion: json.containsKey('engineVersion')
+            ? json['engineVersion'] as String
+            : null,
+        engineDescription: json.containsKey('engineDescription')
+            ? json['engineDescription'] as String
+            : null,
+        engineVersionDescription: json.containsKey('engineVersionDescription')
+            ? json['engineVersionDescription'] as String
+            : null,
+        isEngineDefault: json.containsKey('isEngineDefault')
+            ? json['isEngineDefault'] as bool
+            : null,
+      );
 }
 
 /// Describes a database bundle. A bundle describes the performance
@@ -5581,7 +7385,27 @@ class RelationalDatabaseBundle {
     this.isActive,
   });
   static RelationalDatabaseBundle fromJson(Map<String, dynamic> json) =>
-      RelationalDatabaseBundle();
+      RelationalDatabaseBundle(
+        bundleId:
+            json.containsKey('bundleId') ? json['bundleId'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        price: json.containsKey('price') ? json['price'] as double : null,
+        ramSizeInGb: json.containsKey('ramSizeInGb')
+            ? json['ramSizeInGb'] as double
+            : null,
+        diskSizeInGb: json.containsKey('diskSizeInGb')
+            ? json['diskSizeInGb'] as int
+            : null,
+        transferPerMonthInGb: json.containsKey('transferPerMonthInGb')
+            ? json['transferPerMonthInGb'] as int
+            : null,
+        cpuCount: json.containsKey('cpuCount') ? json['cpuCount'] as int : null,
+        isEncrypted: json.containsKey('isEncrypted')
+            ? json['isEncrypted'] as bool
+            : null,
+        isActive:
+            json.containsKey('isActive') ? json['isActive'] as bool : null,
+      );
 }
 
 /// Describes an endpoint for a database.
@@ -5597,7 +7421,10 @@ class RelationalDatabaseEndpoint {
     this.address,
   });
   static RelationalDatabaseEndpoint fromJson(Map<String, dynamic> json) =>
-      RelationalDatabaseEndpoint();
+      RelationalDatabaseEndpoint(
+        port: json.containsKey('port') ? json['port'] as int : null,
+        address: json.containsKey('address') ? json['address'] as String : null,
+      );
 }
 
 /// Describes an event for a database.
@@ -5621,7 +7448,17 @@ class RelationalDatabaseEvent {
     this.eventCategories,
   });
   static RelationalDatabaseEvent fromJson(Map<String, dynamic> json) =>
-      RelationalDatabaseEvent();
+      RelationalDatabaseEvent(
+        resource:
+            json.containsKey('resource') ? json['resource'] as String : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        eventCategories: json.containsKey('eventCategories')
+            ? (json['eventCategories'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Describes the hardware of a database.
@@ -5641,7 +7478,15 @@ class RelationalDatabaseHardware {
     this.ramSizeInGb,
   });
   static RelationalDatabaseHardware fromJson(Map<String, dynamic> json) =>
-      RelationalDatabaseHardware();
+      RelationalDatabaseHardware(
+        cpuCount: json.containsKey('cpuCount') ? json['cpuCount'] as int : null,
+        diskSizeInGb: json.containsKey('diskSizeInGb')
+            ? json['diskSizeInGb'] as int
+            : null,
+        ramSizeInGb: json.containsKey('ramSizeInGb')
+            ? json['ramSizeInGb'] as double
+            : null,
+      );
 }
 
 /// Describes the parameters of a database.
@@ -5683,7 +7528,31 @@ class RelationalDatabaseParameter {
     this.parameterValue,
   });
   static RelationalDatabaseParameter fromJson(Map<String, dynamic> json) =>
-      RelationalDatabaseParameter();
+      RelationalDatabaseParameter(
+        allowedValues: json.containsKey('allowedValues')
+            ? json['allowedValues'] as String
+            : null,
+        applyMethod: json.containsKey('applyMethod')
+            ? json['applyMethod'] as String
+            : null,
+        applyType:
+            json.containsKey('applyType') ? json['applyType'] as String : null,
+        dataType:
+            json.containsKey('dataType') ? json['dataType'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        isModifiable: json.containsKey('isModifiable')
+            ? json['isModifiable'] as bool
+            : null,
+        parameterName: json.containsKey('parameterName')
+            ? json['parameterName'] as String
+            : null,
+        parameterValue: json.containsKey('parameterValue')
+            ? json['parameterValue'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a database snapshot.
@@ -5762,7 +7631,46 @@ class RelationalDatabaseSnapshot {
     this.fromRelationalDatabaseBlueprintId,
   });
   static RelationalDatabaseSnapshot fromJson(Map<String, dynamic> json) =>
-      RelationalDatabaseSnapshot();
+      RelationalDatabaseSnapshot(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        engine: json.containsKey('engine') ? json['engine'] as String : null,
+        engineVersion: json.containsKey('engineVersion')
+            ? json['engineVersion'] as String
+            : null,
+        sizeInGb: json.containsKey('sizeInGb') ? json['sizeInGb'] as int : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        fromRelationalDatabaseName:
+            json.containsKey('fromRelationalDatabaseName')
+                ? json['fromRelationalDatabaseName'] as String
+                : null,
+        fromRelationalDatabaseArn: json.containsKey('fromRelationalDatabaseArn')
+            ? json['fromRelationalDatabaseArn'] as String
+            : null,
+        fromRelationalDatabaseBundleId:
+            json.containsKey('fromRelationalDatabaseBundleId')
+                ? json['fromRelationalDatabaseBundleId'] as String
+                : null,
+        fromRelationalDatabaseBlueprintId:
+            json.containsKey('fromRelationalDatabaseBlueprintId')
+                ? json['fromRelationalDatabaseBlueprintId'] as String
+                : null,
+      );
 }
 
 class ReleaseStaticIpResult {
@@ -5774,7 +7682,13 @@ class ReleaseStaticIpResult {
     this.operations,
   });
   static ReleaseStaticIpResult fromJson(Map<String, dynamic> json) =>
-      ReleaseStaticIpResult();
+      ReleaseStaticIpResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the resource location.
@@ -5790,7 +7704,14 @@ class ResourceLocation {
     this.regionName,
   });
   static ResourceLocation fromJson(Map<String, dynamic> json) =>
-      ResourceLocation();
+      ResourceLocation(
+        availabilityZone: json.containsKey('availabilityZone')
+            ? json['availabilityZone'] as String
+            : null,
+        regionName: json.containsKey('regionName')
+            ? json['regionName'] as String
+            : null,
+      );
 }
 
 class StartInstanceResult {
@@ -5802,7 +7723,13 @@ class StartInstanceResult {
     this.operations,
   });
   static StartInstanceResult fromJson(Map<String, dynamic> json) =>
-      StartInstanceResult();
+      StartInstanceResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class StartRelationalDatabaseResult {
@@ -5813,7 +7740,13 @@ class StartRelationalDatabaseResult {
     this.operations,
   });
   static StartRelationalDatabaseResult fromJson(Map<String, dynamic> json) =>
-      StartRelationalDatabaseResult();
+      StartRelationalDatabaseResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the static IP.
@@ -5861,7 +7794,29 @@ class StaticIp {
     this.attachedTo,
     this.isAttached,
   });
-  static StaticIp fromJson(Map<String, dynamic> json) => StaticIp();
+  static StaticIp fromJson(Map<String, dynamic> json) => StaticIp(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        supportCode: json.containsKey('supportCode')
+            ? json['supportCode'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        location: json.containsKey('location')
+            ? ResourceLocation.fromJson(json['location'])
+            : null,
+        resourceType: json.containsKey('resourceType')
+            ? json['resourceType'] as String
+            : null,
+        ipAddress:
+            json.containsKey('ipAddress') ? json['ipAddress'] as String : null,
+        attachedTo: json.containsKey('attachedTo')
+            ? json['attachedTo'] as String
+            : null,
+        isAttached:
+            json.containsKey('isAttached') ? json['isAttached'] as bool : null,
+      );
 }
 
 class StopInstanceResult {
@@ -5873,7 +7828,13 @@ class StopInstanceResult {
     this.operations,
   });
   static StopInstanceResult fromJson(Map<String, dynamic> json) =>
-      StopInstanceResult();
+      StopInstanceResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class StopRelationalDatabaseResult {
@@ -5884,7 +7845,13 @@ class StopRelationalDatabaseResult {
     this.operations,
   });
   static StopRelationalDatabaseResult fromJson(Map<String, dynamic> json) =>
-      StopRelationalDatabaseResult();
+      StopRelationalDatabaseResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a tag key and optional value assigned to an Amazon Lightsail
@@ -5909,7 +7876,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('key') ? json['key'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResult {
@@ -5920,7 +7891,13 @@ class TagResourceResult {
     this.operations,
   });
   static TagResourceResult fromJson(Map<String, dynamic> json) =>
-      TagResourceResult();
+      TagResourceResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UnpeerVpcResult {
@@ -5931,8 +7908,11 @@ class UnpeerVpcResult {
   UnpeerVpcResult({
     this.operation,
   });
-  static UnpeerVpcResult fromJson(Map<String, dynamic> json) =>
-      UnpeerVpcResult();
+  static UnpeerVpcResult fromJson(Map<String, dynamic> json) => UnpeerVpcResult(
+        operation: json.containsKey('operation')
+            ? Operation.fromJson(json['operation'])
+            : null,
+      );
 }
 
 class UntagResourceResult {
@@ -5943,7 +7923,13 @@ class UntagResourceResult {
     this.operations,
   });
   static UntagResourceResult fromJson(Map<String, dynamic> json) =>
-      UntagResourceResult();
+      UntagResourceResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateDomainEntryResult {
@@ -5955,7 +7941,13 @@ class UpdateDomainEntryResult {
     this.operations,
   });
   static UpdateDomainEntryResult fromJson(Map<String, dynamic> json) =>
-      UpdateDomainEntryResult();
+      UpdateDomainEntryResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateLoadBalancerAttributeResult {
@@ -5967,7 +7959,13 @@ class UpdateLoadBalancerAttributeResult {
   });
   static UpdateLoadBalancerAttributeResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateLoadBalancerAttributeResult();
+      UpdateLoadBalancerAttributeResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateRelationalDatabaseParametersResult {
@@ -5980,7 +7978,13 @@ class UpdateRelationalDatabaseParametersResult {
   });
   static UpdateRelationalDatabaseParametersResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateRelationalDatabaseParametersResult();
+      UpdateRelationalDatabaseParametersResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateRelationalDatabaseResult {
@@ -5992,5 +7996,11 @@ class UpdateRelationalDatabaseResult {
     this.operations,
   });
   static UpdateRelationalDatabaseResult fromJson(Map<String, dynamic> json) =>
-      UpdateRelationalDatabaseResult();
+      UpdateRelationalDatabaseResult(
+        operations: json.containsKey('operations')
+            ? (json['operations'] as List)
+                .map((e) => Operation.fromJson(e))
+                .toList()
+            : null,
+      );
 }

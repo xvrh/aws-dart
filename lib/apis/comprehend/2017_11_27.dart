@@ -5,6 +5,10 @@ import 'package:meta/meta.dart';
 /// documents, the topics they discuss, the predominant sentiment expressed in
 /// them, the predominant language used, and more.
 class ComprehendApi {
+  final _client;
+  ComprehendApi(client)
+      : _client = client.configured('Comprehend', serializer: 'json');
+
   /// Determines the dominant language of the input text for a batch of
   /// documents. For a list of languages that Amazon Comprehend can detect, see
   /// [Amazon Comprehend Supported Languages](https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html).
@@ -15,7 +19,10 @@ class ComprehendApi {
   /// encoded characters.
   Future<BatchDetectDominantLanguageResponse> batchDetectDominantLanguage(
       List<String> textList) async {
-    return BatchDetectDominantLanguageResponse.fromJson({});
+    var response_ = await _client.send('BatchDetectDominantLanguage', {
+      'TextList': textList,
+    });
+    return BatchDetectDominantLanguageResponse.fromJson(response_);
   }
 
   /// Inspects the text of a batch of documents for named entities and returns
@@ -32,7 +39,11 @@ class ComprehendApi {
   /// Portuguese ("pt"). All documents must be in the same language.
   Future<BatchDetectEntitiesResponse> batchDetectEntities(
       {@required List<String> textList, @required String languageCode}) async {
-    return BatchDetectEntitiesResponse.fromJson({});
+    var response_ = await _client.send('BatchDetectEntities', {
+      'TextList': textList,
+      'LanguageCode': languageCode,
+    });
+    return BatchDetectEntitiesResponse.fromJson(response_);
   }
 
   /// Detects the key noun phrases found in a batch of documents.
@@ -47,7 +58,11 @@ class ComprehendApi {
   /// Portuguese ("pt"). All documents must be in the same language.
   Future<BatchDetectKeyPhrasesResponse> batchDetectKeyPhrases(
       {@required List<String> textList, @required String languageCode}) async {
-    return BatchDetectKeyPhrasesResponse.fromJson({});
+    var response_ = await _client.send('BatchDetectKeyPhrases', {
+      'TextList': textList,
+      'LanguageCode': languageCode,
+    });
+    return BatchDetectKeyPhrasesResponse.fromJson(response_);
   }
 
   /// Inspects a batch of documents and returns an inference of the prevailing
@@ -63,7 +78,11 @@ class ComprehendApi {
   /// Portuguese ("pt"). All documents must be in the same language.
   Future<BatchDetectSentimentResponse> batchDetectSentiment(
       {@required List<String> textList, @required String languageCode}) async {
-    return BatchDetectSentimentResponse.fromJson({});
+    var response_ = await _client.send('BatchDetectSentiment', {
+      'TextList': textList,
+      'LanguageCode': languageCode,
+    });
+    return BatchDetectSentimentResponse.fromJson(response_);
   }
 
   /// Inspects the text of a batch of documents for the syntax and part of
@@ -80,7 +99,11 @@ class ComprehendApi {
   /// Portuguese ("pt"). All documents must be in the same language.
   Future<BatchDetectSyntaxResponse> batchDetectSyntax(
       {@required List<String> textList, @required String languageCode}) async {
-    return BatchDetectSyntaxResponse.fromJson({});
+    var response_ = await _client.send('BatchDetectSyntax', {
+      'TextList': textList,
+      'LanguageCode': languageCode,
+    });
+    return BatchDetectSyntaxResponse.fromJson(response_);
   }
 
   /// Creates a new document classifier that you can use to categorize
@@ -139,7 +162,18 @@ class ComprehendApi {
       @required String languageCode,
       String volumeKmsKeyId,
       VpcConfig vpcConfig}) async {
-    return CreateDocumentClassifierResponse.fromJson({});
+    var response_ = await _client.send('CreateDocumentClassifier', {
+      'DocumentClassifierName': documentClassifierName,
+      'DataAccessRoleArn': dataAccessRoleArn,
+      if (tags != null) 'Tags': tags,
+      'InputDataConfig': inputDataConfig,
+      if (outputDataConfig != null) 'OutputDataConfig': outputDataConfig,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      'LanguageCode': languageCode,
+      if (volumeKmsKeyId != null) 'VolumeKmsKeyId': volumeKmsKeyId,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+    });
+    return CreateDocumentClassifierResponse.fromJson(response_);
   }
 
   /// Creates an entity recognizer using submitted files. After your
@@ -193,7 +227,17 @@ class ComprehendApi {
       @required String languageCode,
       String volumeKmsKeyId,
       VpcConfig vpcConfig}) async {
-    return CreateEntityRecognizerResponse.fromJson({});
+    var response_ = await _client.send('CreateEntityRecognizer', {
+      'RecognizerName': recognizerName,
+      'DataAccessRoleArn': dataAccessRoleArn,
+      if (tags != null) 'Tags': tags,
+      'InputDataConfig': inputDataConfig,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      'LanguageCode': languageCode,
+      if (volumeKmsKeyId != null) 'VolumeKmsKeyId': volumeKmsKeyId,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+    });
+    return CreateEntityRecognizerResponse.fromJson(response_);
   }
 
   /// Deletes a previously created document classifier
@@ -211,7 +255,10 @@ class ComprehendApi {
   /// the document classifier.
   Future<DeleteDocumentClassifierResponse> deleteDocumentClassifier(
       String documentClassifierArn) async {
-    return DeleteDocumentClassifierResponse.fromJson({});
+    var response_ = await _client.send('DeleteDocumentClassifier', {
+      'DocumentClassifierArn': documentClassifierArn,
+    });
+    return DeleteDocumentClassifierResponse.fromJson(response_);
   }
 
   /// Deletes an entity recognizer.
@@ -229,7 +276,10 @@ class ComprehendApi {
   /// entity recognizer.
   Future<DeleteEntityRecognizerResponse> deleteEntityRecognizer(
       String entityRecognizerArn) async {
-    return DeleteEntityRecognizerResponse.fromJson({});
+    var response_ = await _client.send('DeleteEntityRecognizer', {
+      'EntityRecognizerArn': entityRecognizerArn,
+    });
+    return DeleteEntityRecognizerResponse.fromJson(response_);
   }
 
   /// Gets the properties associated with a document classification job. Use
@@ -239,7 +289,10 @@ class ComprehendApi {
   /// operation returns this identifier in its response.
   Future<DescribeDocumentClassificationJobResponse>
       describeDocumentClassificationJob(String jobId) async {
-    return DescribeDocumentClassificationJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeDocumentClassificationJob', {
+      'JobId': jobId,
+    });
+    return DescribeDocumentClassificationJobResponse.fromJson(response_);
   }
 
   /// Gets the properties associated with a document classifier.
@@ -249,7 +302,10 @@ class ComprehendApi {
   /// response.
   Future<DescribeDocumentClassifierResponse> describeDocumentClassifier(
       String documentClassifierArn) async {
-    return DescribeDocumentClassifierResponse.fromJson({});
+    var response_ = await _client.send('DescribeDocumentClassifier', {
+      'DocumentClassifierArn': documentClassifierArn,
+    });
+    return DescribeDocumentClassifierResponse.fromJson(response_);
   }
 
   /// Gets the properties associated with a dominant language detection job. Use
@@ -259,7 +315,10 @@ class ComprehendApi {
   /// operation returns this identifier in its response.
   Future<DescribeDominantLanguageDetectionJobResponse>
       describeDominantLanguageDetectionJob(String jobId) async {
-    return DescribeDominantLanguageDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeDominantLanguageDetectionJob', {
+      'JobId': jobId,
+    });
+    return DescribeDominantLanguageDetectionJobResponse.fromJson(response_);
   }
 
   /// Gets the properties associated with an entities detection job. Use this
@@ -269,7 +328,10 @@ class ComprehendApi {
   /// operation returns this identifier in its response.
   Future<DescribeEntitiesDetectionJobResponse> describeEntitiesDetectionJob(
       String jobId) async {
-    return DescribeEntitiesDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeEntitiesDetectionJob', {
+      'JobId': jobId,
+    });
+    return DescribeEntitiesDetectionJobResponse.fromJson(response_);
   }
 
   /// Provides details about an entity recognizer including status, S3 buckets
@@ -279,7 +341,10 @@ class ComprehendApi {
   /// entity recognizer.
   Future<DescribeEntityRecognizerResponse> describeEntityRecognizer(
       String entityRecognizerArn) async {
-    return DescribeEntityRecognizerResponse.fromJson({});
+    var response_ = await _client.send('DescribeEntityRecognizer', {
+      'EntityRecognizerArn': entityRecognizerArn,
+    });
+    return DescribeEntityRecognizerResponse.fromJson(response_);
   }
 
   /// Gets the properties associated with a key phrases detection job. Use this
@@ -289,7 +354,10 @@ class ComprehendApi {
   /// operation returns this identifier in its response.
   Future<DescribeKeyPhrasesDetectionJobResponse> describeKeyPhrasesDetectionJob(
       String jobId) async {
-    return DescribeKeyPhrasesDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeKeyPhrasesDetectionJob', {
+      'JobId': jobId,
+    });
+    return DescribeKeyPhrasesDetectionJobResponse.fromJson(response_);
   }
 
   /// Gets the properties associated with a sentiment detection job. Use this
@@ -299,7 +367,10 @@ class ComprehendApi {
   /// operation returns this identifier in its response.
   Future<DescribeSentimentDetectionJobResponse> describeSentimentDetectionJob(
       String jobId) async {
-    return DescribeSentimentDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeSentimentDetectionJob', {
+      'JobId': jobId,
+    });
+    return DescribeSentimentDetectionJobResponse.fromJson(response_);
   }
 
   /// Gets the properties associated with a topic detection job. Use this
@@ -308,7 +379,10 @@ class ComprehendApi {
   /// [jobId]: The identifier assigned by the user to the detection job.
   Future<DescribeTopicsDetectionJobResponse> describeTopicsDetectionJob(
       String jobId) async {
-    return DescribeTopicsDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeTopicsDetectionJob', {
+      'JobId': jobId,
+    });
+    return DescribeTopicsDetectionJobResponse.fromJson(response_);
   }
 
   /// Determines the dominant language of the input text. For a list of
@@ -320,7 +394,10 @@ class ComprehendApi {
   /// characters.
   Future<DetectDominantLanguageResponse> detectDominantLanguage(
       String text) async {
-    return DetectDominantLanguageResponse.fromJson({});
+    var response_ = await _client.send('DetectDominantLanguage', {
+      'Text': text,
+    });
+    return DetectDominantLanguageResponse.fromJson(response_);
   }
 
   /// Inspects text for named entities, and returns information about them. For
@@ -335,7 +412,11 @@ class ComprehendApi {
   /// Portuguese ("pt"). All documents must be in the same language.
   Future<DetectEntitiesResponse> detectEntities(
       {@required String text, @required String languageCode}) async {
-    return DetectEntitiesResponse.fromJson({});
+    var response_ = await _client.send('DetectEntities', {
+      'Text': text,
+      'LanguageCode': languageCode,
+    });
+    return DetectEntitiesResponse.fromJson(response_);
   }
 
   /// Detects the key noun phrases found in the text.
@@ -349,7 +430,11 @@ class ComprehendApi {
   /// Portuguese ("pt"). All documents must be in the same language.
   Future<DetectKeyPhrasesResponse> detectKeyPhrases(
       {@required String text, @required String languageCode}) async {
-    return DetectKeyPhrasesResponse.fromJson({});
+    var response_ = await _client.send('DetectKeyPhrases', {
+      'Text': text,
+      'LanguageCode': languageCode,
+    });
+    return DetectKeyPhrasesResponse.fromJson(response_);
   }
 
   /// Inspects text and returns an inference of the prevailing sentiment
@@ -364,7 +449,11 @@ class ComprehendApi {
   /// Portuguese ("pt"). All documents must be in the same language.
   Future<DetectSentimentResponse> detectSentiment(
       {@required String text, @required String languageCode}) async {
-    return DetectSentimentResponse.fromJson({});
+    var response_ = await _client.send('DetectSentiment', {
+      'Text': text,
+      'LanguageCode': languageCode,
+    });
+    return DetectSentimentResponse.fromJson(response_);
   }
 
   /// Inspects text for syntax and the part of speech of words in the document.
@@ -379,7 +468,11 @@ class ComprehendApi {
   /// Portuguese ("pt").
   Future<DetectSyntaxResponse> detectSyntax(
       {@required String text, @required String languageCode}) async {
-    return DetectSyntaxResponse.fromJson({});
+    var response_ = await _client.send('DetectSyntax', {
+      'Text': text,
+      'LanguageCode': languageCode,
+    });
+    return DetectSyntaxResponse.fromJson(response_);
   }
 
   /// Gets a list of the documentation classification jobs that you have
@@ -397,7 +490,12 @@ class ComprehendApi {
       {DocumentClassificationJobFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListDocumentClassificationJobsResponse.fromJson({});
+    var response_ = await _client.send('ListDocumentClassificationJobs', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDocumentClassificationJobsResponse.fromJson(response_);
   }
 
   /// Gets a list of the document classifiers that you have created.
@@ -414,7 +512,12 @@ class ComprehendApi {
       {DocumentClassifierFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListDocumentClassifiersResponse.fromJson({});
+    var response_ = await _client.send('ListDocumentClassifiers', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDocumentClassifiersResponse.fromJson(response_);
   }
 
   /// Gets a list of the dominant language detection jobs that you have
@@ -433,7 +536,12 @@ class ComprehendApi {
           {DominantLanguageDetectionJobFilter filter,
           String nextToken,
           int maxResults}) async {
-    return ListDominantLanguageDetectionJobsResponse.fromJson({});
+    var response_ = await _client.send('ListDominantLanguageDetectionJobs', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDominantLanguageDetectionJobsResponse.fromJson(response_);
   }
 
   /// Gets a list of the entity detection jobs that you have submitted.
@@ -450,7 +558,12 @@ class ComprehendApi {
       {EntitiesDetectionJobFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListEntitiesDetectionJobsResponse.fromJson({});
+    var response_ = await _client.send('ListEntitiesDetectionJobs', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListEntitiesDetectionJobsResponse.fromJson(response_);
   }
 
   /// Gets a list of the properties of all entity recognizers that you created,
@@ -472,7 +585,12 @@ class ComprehendApi {
   /// default is 100.
   Future<ListEntityRecognizersResponse> listEntityRecognizers(
       {EntityRecognizerFilter filter, String nextToken, int maxResults}) async {
-    return ListEntityRecognizersResponse.fromJson({});
+    var response_ = await _client.send('ListEntityRecognizers', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListEntityRecognizersResponse.fromJson(response_);
   }
 
   /// Get a list of key phrase detection jobs that you have submitted.
@@ -489,7 +607,12 @@ class ComprehendApi {
       {KeyPhrasesDetectionJobFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListKeyPhrasesDetectionJobsResponse.fromJson({});
+    var response_ = await _client.send('ListKeyPhrasesDetectionJobs', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListKeyPhrasesDetectionJobsResponse.fromJson(response_);
   }
 
   /// Gets a list of sentiment detection jobs that you have submitted.
@@ -506,7 +629,12 @@ class ComprehendApi {
       {SentimentDetectionJobFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListSentimentDetectionJobsResponse.fromJson({});
+    var response_ = await _client.send('ListSentimentDetectionJobs', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListSentimentDetectionJobsResponse.fromJson(response_);
   }
 
   /// Lists all tags associated with a given Amazon Comprehend resource.
@@ -515,7 +643,10 @@ class ComprehendApi {
   /// Comprehend resource you are querying.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Gets a list of the topic detection jobs that you have submitted.
@@ -532,7 +663,12 @@ class ComprehendApi {
       {TopicsDetectionJobFilter filter,
       String nextToken,
       int maxResults}) async {
-    return ListTopicsDetectionJobsResponse.fromJson({});
+    var response_ = await _client.send('ListTopicsDetectionJobs', {
+      if (filter != null) 'Filter': filter,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTopicsDetectionJobsResponse.fromJson(response_);
   }
 
   /// Starts an asynchronous document classification job. Use the operation to
@@ -578,7 +714,17 @@ class ComprehendApi {
       String clientRequestToken,
       String volumeKmsKeyId,
       VpcConfig vpcConfig}) async {
-    return StartDocumentClassificationJobResponse.fromJson({});
+    var response_ = await _client.send('StartDocumentClassificationJob', {
+      if (jobName != null) 'JobName': jobName,
+      'DocumentClassifierArn': documentClassifierArn,
+      'InputDataConfig': inputDataConfig,
+      'OutputDataConfig': outputDataConfig,
+      'DataAccessRoleArn': dataAccessRoleArn,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (volumeKmsKeyId != null) 'VolumeKmsKeyId': volumeKmsKeyId,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+    });
+    return StartDocumentClassificationJobResponse.fromJson(response_);
   }
 
   /// Starts an asynchronous dominant language detection job for a collection of
@@ -622,7 +768,16 @@ class ComprehendApi {
           String clientRequestToken,
           String volumeKmsKeyId,
           VpcConfig vpcConfig}) async {
-    return StartDominantLanguageDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('StartDominantLanguageDetectionJob', {
+      'InputDataConfig': inputDataConfig,
+      'OutputDataConfig': outputDataConfig,
+      'DataAccessRoleArn': dataAccessRoleArn,
+      if (jobName != null) 'JobName': jobName,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (volumeKmsKeyId != null) 'VolumeKmsKeyId': volumeKmsKeyId,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+    });
+    return StartDominantLanguageDetectionJobResponse.fromJson(response_);
   }
 
   /// Starts an asynchronous entity detection job for a collection of documents.
@@ -683,7 +838,19 @@ class ComprehendApi {
       String clientRequestToken,
       String volumeKmsKeyId,
       VpcConfig vpcConfig}) async {
-    return StartEntitiesDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('StartEntitiesDetectionJob', {
+      'InputDataConfig': inputDataConfig,
+      'OutputDataConfig': outputDataConfig,
+      'DataAccessRoleArn': dataAccessRoleArn,
+      if (jobName != null) 'JobName': jobName,
+      if (entityRecognizerArn != null)
+        'EntityRecognizerArn': entityRecognizerArn,
+      'LanguageCode': languageCode,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (volumeKmsKeyId != null) 'VolumeKmsKeyId': volumeKmsKeyId,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+    });
+    return StartEntitiesDetectionJobResponse.fromJson(response_);
   }
 
   /// Starts an asynchronous key phrase detection job for a collection of
@@ -732,7 +899,17 @@ class ComprehendApi {
       String clientRequestToken,
       String volumeKmsKeyId,
       VpcConfig vpcConfig}) async {
-    return StartKeyPhrasesDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('StartKeyPhrasesDetectionJob', {
+      'InputDataConfig': inputDataConfig,
+      'OutputDataConfig': outputDataConfig,
+      'DataAccessRoleArn': dataAccessRoleArn,
+      if (jobName != null) 'JobName': jobName,
+      'LanguageCode': languageCode,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (volumeKmsKeyId != null) 'VolumeKmsKeyId': volumeKmsKeyId,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+    });
+    return StartKeyPhrasesDetectionJobResponse.fromJson(response_);
   }
 
   /// Starts an asynchronous sentiment detection job for a collection of
@@ -781,7 +958,17 @@ class ComprehendApi {
       String clientRequestToken,
       String volumeKmsKeyId,
       VpcConfig vpcConfig}) async {
-    return StartSentimentDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('StartSentimentDetectionJob', {
+      'InputDataConfig': inputDataConfig,
+      'OutputDataConfig': outputDataConfig,
+      'DataAccessRoleArn': dataAccessRoleArn,
+      if (jobName != null) 'JobName': jobName,
+      'LanguageCode': languageCode,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (volumeKmsKeyId != null) 'VolumeKmsKeyId': volumeKmsKeyId,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+    });
+    return StartSentimentDetectionJobResponse.fromJson(response_);
   }
 
   /// Starts an asynchronous topic detection job. Use the
@@ -830,7 +1017,17 @@ class ComprehendApi {
       String clientRequestToken,
       String volumeKmsKeyId,
       VpcConfig vpcConfig}) async {
-    return StartTopicsDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('StartTopicsDetectionJob', {
+      'InputDataConfig': inputDataConfig,
+      'OutputDataConfig': outputDataConfig,
+      'DataAccessRoleArn': dataAccessRoleArn,
+      if (jobName != null) 'JobName': jobName,
+      if (numberOfTopics != null) 'NumberOfTopics': numberOfTopics,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (volumeKmsKeyId != null) 'VolumeKmsKeyId': volumeKmsKeyId,
+      if (vpcConfig != null) 'VpcConfig': vpcConfig,
+    });
+    return StartTopicsDetectionJobResponse.fromJson(response_);
   }
 
   /// Stops a dominant language detection job in progress.
@@ -850,7 +1047,10 @@ class ComprehendApi {
   /// [jobId]: The identifier of the dominant language detection job to stop.
   Future<StopDominantLanguageDetectionJobResponse>
       stopDominantLanguageDetectionJob(String jobId) async {
-    return StopDominantLanguageDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('StopDominantLanguageDetectionJob', {
+      'JobId': jobId,
+    });
+    return StopDominantLanguageDetectionJobResponse.fromJson(response_);
   }
 
   /// Stops an entities detection job in progress.
@@ -870,7 +1070,10 @@ class ComprehendApi {
   /// [jobId]: The identifier of the entities detection job to stop.
   Future<StopEntitiesDetectionJobResponse> stopEntitiesDetectionJob(
       String jobId) async {
-    return StopEntitiesDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('StopEntitiesDetectionJob', {
+      'JobId': jobId,
+    });
+    return StopEntitiesDetectionJobResponse.fromJson(response_);
   }
 
   /// Stops a key phrases detection job in progress.
@@ -890,7 +1093,10 @@ class ComprehendApi {
   /// [jobId]: The identifier of the key phrases detection job to stop.
   Future<StopKeyPhrasesDetectionJobResponse> stopKeyPhrasesDetectionJob(
       String jobId) async {
-    return StopKeyPhrasesDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('StopKeyPhrasesDetectionJob', {
+      'JobId': jobId,
+    });
+    return StopKeyPhrasesDetectionJobResponse.fromJson(response_);
   }
 
   /// Stops a sentiment detection job in progress.
@@ -910,7 +1116,10 @@ class ComprehendApi {
   /// [jobId]: The identifier of the sentiment detection job to stop.
   Future<StopSentimentDetectionJobResponse> stopSentimentDetectionJob(
       String jobId) async {
-    return StopSentimentDetectionJobResponse.fromJson({});
+    var response_ = await _client.send('StopSentimentDetectionJob', {
+      'JobId': jobId,
+    });
+    return StopSentimentDetectionJobResponse.fromJson(response_);
   }
 
   /// Stops a document classifier training job while in progress.
@@ -925,7 +1134,10 @@ class ComprehendApi {
   /// the document classifier currently being trained.
   Future<StopTrainingDocumentClassifierResponse> stopTrainingDocumentClassifier(
       String documentClassifierArn) async {
-    return StopTrainingDocumentClassifierResponse.fromJson({});
+    var response_ = await _client.send('StopTrainingDocumentClassifier', {
+      'DocumentClassifierArn': documentClassifierArn,
+    });
+    return StopTrainingDocumentClassifierResponse.fromJson(response_);
   }
 
   /// Stops an entity recognizer training job while in progress.
@@ -940,7 +1152,10 @@ class ComprehendApi {
   /// entity recognizer currently being trained.
   Future<StopTrainingEntityRecognizerResponse> stopTrainingEntityRecognizer(
       String entityRecognizerArn) async {
-    return StopTrainingEntityRecognizerResponse.fromJson({});
+    var response_ = await _client.send('StopTrainingEntityRecognizer', {
+      'EntityRecognizerArn': entityRecognizerArn,
+    });
+    return StopTrainingEntityRecognizerResponse.fromJson(response_);
   }
 
   /// Associates a specific tag with an Amazon Comprehend resource. A tag is a
@@ -956,7 +1171,11 @@ class ComprehendApi {
   /// with a specific resource.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes a specific tag associated with an Amazon Comprehend resource.
@@ -970,7 +1189,11 @@ class ComprehendApi {
   /// Keys must be unique and cannot be duplicated for a particular resource.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 }
 
@@ -990,7 +1213,14 @@ class BatchDetectDominantLanguageItemResult {
   });
   static BatchDetectDominantLanguageItemResult fromJson(
           Map<String, dynamic> json) =>
-      BatchDetectDominantLanguageItemResult();
+      BatchDetectDominantLanguageItemResult(
+        index: json.containsKey('Index') ? json['Index'] as int : null,
+        languages: json.containsKey('Languages')
+            ? (json['Languages'] as List)
+                .map((e) => DominantLanguage.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDetectDominantLanguageResponse {
@@ -1012,7 +1242,14 @@ class BatchDetectDominantLanguageResponse {
   });
   static BatchDetectDominantLanguageResponse fromJson(
           Map<String, dynamic> json) =>
-      BatchDetectDominantLanguageResponse();
+      BatchDetectDominantLanguageResponse(
+        resultList: (json['ResultList'] as List)
+            .map((e) => BatchDetectDominantLanguageItemResult.fromJson(e))
+            .toList(),
+        errorList: (json['ErrorList'] as List)
+            .map((e) => BatchItemError.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The result of calling the operation. The operation returns one object for
@@ -1029,7 +1266,12 @@ class BatchDetectEntitiesItemResult {
     this.entities,
   });
   static BatchDetectEntitiesItemResult fromJson(Map<String, dynamic> json) =>
-      BatchDetectEntitiesItemResult();
+      BatchDetectEntitiesItemResult(
+        index: json.containsKey('Index') ? json['Index'] as int : null,
+        entities: json.containsKey('Entities')
+            ? (json['Entities'] as List).map((e) => Entity.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class BatchDetectEntitiesResponse {
@@ -1050,7 +1292,14 @@ class BatchDetectEntitiesResponse {
     @required this.errorList,
   });
   static BatchDetectEntitiesResponse fromJson(Map<String, dynamic> json) =>
-      BatchDetectEntitiesResponse();
+      BatchDetectEntitiesResponse(
+        resultList: (json['ResultList'] as List)
+            .map((e) => BatchDetectEntitiesItemResult.fromJson(e))
+            .toList(),
+        errorList: (json['ErrorList'] as List)
+            .map((e) => BatchItemError.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The result of calling the operation. The operation returns one object for
@@ -1068,7 +1317,14 @@ class BatchDetectKeyPhrasesItemResult {
     this.keyPhrases,
   });
   static BatchDetectKeyPhrasesItemResult fromJson(Map<String, dynamic> json) =>
-      BatchDetectKeyPhrasesItemResult();
+      BatchDetectKeyPhrasesItemResult(
+        index: json.containsKey('Index') ? json['Index'] as int : null,
+        keyPhrases: json.containsKey('KeyPhrases')
+            ? (json['KeyPhrases'] as List)
+                .map((e) => KeyPhrase.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDetectKeyPhrasesResponse {
@@ -1089,7 +1345,14 @@ class BatchDetectKeyPhrasesResponse {
     @required this.errorList,
   });
   static BatchDetectKeyPhrasesResponse fromJson(Map<String, dynamic> json) =>
-      BatchDetectKeyPhrasesResponse();
+      BatchDetectKeyPhrasesResponse(
+        resultList: (json['ResultList'] as List)
+            .map((e) => BatchDetectKeyPhrasesItemResult.fromJson(e))
+            .toList(),
+        errorList: (json['ErrorList'] as List)
+            .map((e) => BatchItemError.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The result of calling the operation. The operation returns one object for
@@ -1111,7 +1374,14 @@ class BatchDetectSentimentItemResult {
     this.sentimentScore,
   });
   static BatchDetectSentimentItemResult fromJson(Map<String, dynamic> json) =>
-      BatchDetectSentimentItemResult();
+      BatchDetectSentimentItemResult(
+        index: json.containsKey('Index') ? json['Index'] as int : null,
+        sentiment:
+            json.containsKey('Sentiment') ? json['Sentiment'] as String : null,
+        sentimentScore: json.containsKey('SentimentScore')
+            ? SentimentScore.fromJson(json['SentimentScore'])
+            : null,
+      );
 }
 
 class BatchDetectSentimentResponse {
@@ -1132,7 +1402,14 @@ class BatchDetectSentimentResponse {
     @required this.errorList,
   });
   static BatchDetectSentimentResponse fromJson(Map<String, dynamic> json) =>
-      BatchDetectSentimentResponse();
+      BatchDetectSentimentResponse(
+        resultList: (json['ResultList'] as List)
+            .map((e) => BatchDetectSentimentItemResult.fromJson(e))
+            .toList(),
+        errorList: (json['ErrorList'] as List)
+            .map((e) => BatchItemError.fromJson(e))
+            .toList(),
+      );
 }
 
 /// The result of calling the operation. The operation returns one object that
@@ -1149,7 +1426,14 @@ class BatchDetectSyntaxItemResult {
     this.syntaxTokens,
   });
   static BatchDetectSyntaxItemResult fromJson(Map<String, dynamic> json) =>
-      BatchDetectSyntaxItemResult();
+      BatchDetectSyntaxItemResult(
+        index: json.containsKey('Index') ? json['Index'] as int : null,
+        syntaxTokens: json.containsKey('SyntaxTokens')
+            ? (json['SyntaxTokens'] as List)
+                .map((e) => SyntaxToken.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDetectSyntaxResponse {
@@ -1170,7 +1454,14 @@ class BatchDetectSyntaxResponse {
     @required this.errorList,
   });
   static BatchDetectSyntaxResponse fromJson(Map<String, dynamic> json) =>
-      BatchDetectSyntaxResponse();
+      BatchDetectSyntaxResponse(
+        resultList: (json['ResultList'] as List)
+            .map((e) => BatchDetectSyntaxItemResult.fromJson(e))
+            .toList(),
+        errorList: (json['ErrorList'] as List)
+            .map((e) => BatchItemError.fromJson(e))
+            .toList(),
+      );
 }
 
 /// Describes an error that occurred while processing a document in a batch. The
@@ -1191,7 +1482,14 @@ class BatchItemError {
     this.errorCode,
     this.errorMessage,
   });
-  static BatchItemError fromJson(Map<String, dynamic> json) => BatchItemError();
+  static BatchItemError fromJson(Map<String, dynamic> json) => BatchItemError(
+        index: json.containsKey('Index') ? json['Index'] as int : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Describes the result metrics for the test data associated with an
@@ -1225,7 +1523,14 @@ class ClassifierEvaluationMetrics {
     this.f1Score,
   });
   static ClassifierEvaluationMetrics fromJson(Map<String, dynamic> json) =>
-      ClassifierEvaluationMetrics();
+      ClassifierEvaluationMetrics(
+        accuracy:
+            json.containsKey('Accuracy') ? json['Accuracy'] as double : null,
+        precision:
+            json.containsKey('Precision') ? json['Precision'] as double : null,
+        recall: json.containsKey('Recall') ? json['Recall'] as double : null,
+        f1Score: json.containsKey('F1Score') ? json['F1Score'] as double : null,
+      );
 }
 
 /// Provides information about a document classifier.
@@ -1252,7 +1557,20 @@ class ClassifierMetadata {
     this.evaluationMetrics,
   });
   static ClassifierMetadata fromJson(Map<String, dynamic> json) =>
-      ClassifierMetadata();
+      ClassifierMetadata(
+        numberOfLabels: json.containsKey('NumberOfLabels')
+            ? json['NumberOfLabels'] as int
+            : null,
+        numberOfTrainedDocuments: json.containsKey('NumberOfTrainedDocuments')
+            ? json['NumberOfTrainedDocuments'] as int
+            : null,
+        numberOfTestDocuments: json.containsKey('NumberOfTestDocuments')
+            ? json['NumberOfTestDocuments'] as int
+            : null,
+        evaluationMetrics: json.containsKey('EvaluationMetrics')
+            ? ClassifierEvaluationMetrics.fromJson(json['EvaluationMetrics'])
+            : null,
+      );
 }
 
 class CreateDocumentClassifierResponse {
@@ -1263,7 +1581,11 @@ class CreateDocumentClassifierResponse {
     this.documentClassifierArn,
   });
   static CreateDocumentClassifierResponse fromJson(Map<String, dynamic> json) =>
-      CreateDocumentClassifierResponse();
+      CreateDocumentClassifierResponse(
+        documentClassifierArn: json.containsKey('DocumentClassifierArn')
+            ? json['DocumentClassifierArn'] as String
+            : null,
+      );
 }
 
 class CreateEntityRecognizerResponse {
@@ -1274,7 +1596,11 @@ class CreateEntityRecognizerResponse {
     this.entityRecognizerArn,
   });
   static CreateEntityRecognizerResponse fromJson(Map<String, dynamic> json) =>
-      CreateEntityRecognizerResponse();
+      CreateEntityRecognizerResponse(
+        entityRecognizerArn: json.containsKey('EntityRecognizerArn')
+            ? json['EntityRecognizerArn'] as String
+            : null,
+      );
 }
 
 class DeleteDocumentClassifierResponse {
@@ -1299,7 +1625,13 @@ class DescribeDocumentClassificationJobResponse {
   });
   static DescribeDocumentClassificationJobResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeDocumentClassificationJobResponse();
+      DescribeDocumentClassificationJobResponse(
+        documentClassificationJobProperties:
+            json.containsKey('DocumentClassificationJobProperties')
+                ? DocumentClassificationJobProperties.fromJson(
+                    json['DocumentClassificationJobProperties'])
+                : null,
+      );
 }
 
 class DescribeDocumentClassifierResponse {
@@ -1312,7 +1644,13 @@ class DescribeDocumentClassifierResponse {
   });
   static DescribeDocumentClassifierResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeDocumentClassifierResponse();
+      DescribeDocumentClassifierResponse(
+        documentClassifierProperties:
+            json.containsKey('DocumentClassifierProperties')
+                ? DocumentClassifierProperties.fromJson(
+                    json['DocumentClassifierProperties'])
+                : null,
+      );
 }
 
 class DescribeDominantLanguageDetectionJobResponse {
@@ -1326,7 +1664,13 @@ class DescribeDominantLanguageDetectionJobResponse {
   });
   static DescribeDominantLanguageDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeDominantLanguageDetectionJobResponse();
+      DescribeDominantLanguageDetectionJobResponse(
+        dominantLanguageDetectionJobProperties:
+            json.containsKey('DominantLanguageDetectionJobProperties')
+                ? DominantLanguageDetectionJobProperties.fromJson(
+                    json['DominantLanguageDetectionJobProperties'])
+                : null,
+      );
 }
 
 class DescribeEntitiesDetectionJobResponse {
@@ -1339,7 +1683,13 @@ class DescribeEntitiesDetectionJobResponse {
   });
   static DescribeEntitiesDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeEntitiesDetectionJobResponse();
+      DescribeEntitiesDetectionJobResponse(
+        entitiesDetectionJobProperties:
+            json.containsKey('EntitiesDetectionJobProperties')
+                ? EntitiesDetectionJobProperties.fromJson(
+                    json['EntitiesDetectionJobProperties'])
+                : null,
+      );
 }
 
 class DescribeEntityRecognizerResponse {
@@ -1350,7 +1700,13 @@ class DescribeEntityRecognizerResponse {
     this.entityRecognizerProperties,
   });
   static DescribeEntityRecognizerResponse fromJson(Map<String, dynamic> json) =>
-      DescribeEntityRecognizerResponse();
+      DescribeEntityRecognizerResponse(
+        entityRecognizerProperties:
+            json.containsKey('EntityRecognizerProperties')
+                ? EntityRecognizerProperties.fromJson(
+                    json['EntityRecognizerProperties'])
+                : null,
+      );
 }
 
 class DescribeKeyPhrasesDetectionJobResponse {
@@ -1363,7 +1719,13 @@ class DescribeKeyPhrasesDetectionJobResponse {
   });
   static DescribeKeyPhrasesDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeKeyPhrasesDetectionJobResponse();
+      DescribeKeyPhrasesDetectionJobResponse(
+        keyPhrasesDetectionJobProperties:
+            json.containsKey('KeyPhrasesDetectionJobProperties')
+                ? KeyPhrasesDetectionJobProperties.fromJson(
+                    json['KeyPhrasesDetectionJobProperties'])
+                : null,
+      );
 }
 
 class DescribeSentimentDetectionJobResponse {
@@ -1376,7 +1738,13 @@ class DescribeSentimentDetectionJobResponse {
   });
   static DescribeSentimentDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeSentimentDetectionJobResponse();
+      DescribeSentimentDetectionJobResponse(
+        sentimentDetectionJobProperties:
+            json.containsKey('SentimentDetectionJobProperties')
+                ? SentimentDetectionJobProperties.fromJson(
+                    json['SentimentDetectionJobProperties'])
+                : null,
+      );
 }
 
 class DescribeTopicsDetectionJobResponse {
@@ -1388,7 +1756,13 @@ class DescribeTopicsDetectionJobResponse {
   });
   static DescribeTopicsDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeTopicsDetectionJobResponse();
+      DescribeTopicsDetectionJobResponse(
+        topicsDetectionJobProperties:
+            json.containsKey('TopicsDetectionJobProperties')
+                ? TopicsDetectionJobProperties.fromJson(
+                    json['TopicsDetectionJobProperties'])
+                : null,
+      );
 }
 
 class DetectDominantLanguageResponse {
@@ -1404,7 +1778,13 @@ class DetectDominantLanguageResponse {
     this.languages,
   });
   static DetectDominantLanguageResponse fromJson(Map<String, dynamic> json) =>
-      DetectDominantLanguageResponse();
+      DetectDominantLanguageResponse(
+        languages: json.containsKey('Languages')
+            ? (json['Languages'] as List)
+                .map((e) => DominantLanguage.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DetectEntitiesResponse {
@@ -1418,7 +1798,11 @@ class DetectEntitiesResponse {
     this.entities,
   });
   static DetectEntitiesResponse fromJson(Map<String, dynamic> json) =>
-      DetectEntitiesResponse();
+      DetectEntitiesResponse(
+        entities: json.containsKey('Entities')
+            ? (json['Entities'] as List).map((e) => Entity.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DetectKeyPhrasesResponse {
@@ -1432,7 +1816,13 @@ class DetectKeyPhrasesResponse {
     this.keyPhrases,
   });
   static DetectKeyPhrasesResponse fromJson(Map<String, dynamic> json) =>
-      DetectKeyPhrasesResponse();
+      DetectKeyPhrasesResponse(
+        keyPhrases: json.containsKey('KeyPhrases')
+            ? (json['KeyPhrases'] as List)
+                .map((e) => KeyPhrase.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DetectSentimentResponse {
@@ -1449,7 +1839,13 @@ class DetectSentimentResponse {
     this.sentimentScore,
   });
   static DetectSentimentResponse fromJson(Map<String, dynamic> json) =>
-      DetectSentimentResponse();
+      DetectSentimentResponse(
+        sentiment:
+            json.containsKey('Sentiment') ? json['Sentiment'] as String : null,
+        sentimentScore: json.containsKey('SentimentScore')
+            ? SentimentScore.fromJson(json['SentimentScore'])
+            : null,
+      );
 }
 
 class DetectSyntaxResponse {
@@ -1463,7 +1859,13 @@ class DetectSyntaxResponse {
     this.syntaxTokens,
   });
   static DetectSyntaxResponse fromJson(Map<String, dynamic> json) =>
-      DetectSyntaxResponse();
+      DetectSyntaxResponse(
+        syntaxTokens: json.containsKey('SyntaxTokens')
+            ? (json['SyntaxTokens'] as List)
+                .map((e) => SyntaxToken.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides information for filtering a list of document classification jobs.
@@ -1493,6 +1895,7 @@ class DocumentClassificationJobFilter {
     this.submitTimeBefore,
     this.submitTimeAfter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a document classification job.
@@ -1565,7 +1968,37 @@ class DocumentClassificationJobProperties {
   });
   static DocumentClassificationJobProperties fromJson(
           Map<String, dynamic> json) =>
-      DocumentClassificationJobProperties();
+      DocumentClassificationJobProperties(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        documentClassifierArn: json.containsKey('DocumentClassifierArn')
+            ? json['DocumentClassifierArn'] as String
+            : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? InputDataConfig.fromJson(json['InputDataConfig'])
+            : null,
+        outputDataConfig: json.containsKey('OutputDataConfig')
+            ? OutputDataConfig.fromJson(json['OutputDataConfig'])
+            : null,
+        dataAccessRoleArn: json.containsKey('DataAccessRoleArn')
+            ? json['DataAccessRoleArn'] as String
+            : null,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+      );
 }
 
 /// Provides information for filtering a list of document classifiers. You can
@@ -1592,6 +2025,7 @@ class DocumentClassifierFilter {
     this.submitTimeBefore,
     this.submitTimeAfter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The input properties for training a document classifier.
@@ -1614,7 +2048,10 @@ class DocumentClassifierInputDataConfig {
   });
   static DocumentClassifierInputDataConfig fromJson(
           Map<String, dynamic> json) =>
-      DocumentClassifierInputDataConfig();
+      DocumentClassifierInputDataConfig(
+        s3Uri: json['S3Uri'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides output results configuration parameters for custom classifier jobs.
@@ -1652,7 +2089,12 @@ class DocumentClassifierOutputDataConfig {
   });
   static DocumentClassifierOutputDataConfig fromJson(
           Map<String, dynamic> json) =>
-      DocumentClassifierOutputDataConfig();
+      DocumentClassifierOutputDataConfig(
+        s3Uri: json.containsKey('S3Uri') ? json['S3Uri'] as String : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a document classifier.
@@ -1741,7 +2183,48 @@ class DocumentClassifierProperties {
     this.vpcConfig,
   });
   static DocumentClassifierProperties fromJson(Map<String, dynamic> json) =>
-      DocumentClassifierProperties();
+      DocumentClassifierProperties(
+        documentClassifierArn: json.containsKey('DocumentClassifierArn')
+            ? json['DocumentClassifierArn'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        trainingStartTime: json.containsKey('TrainingStartTime')
+            ? DateTime.parse(json['TrainingStartTime'])
+            : null,
+        trainingEndTime: json.containsKey('TrainingEndTime')
+            ? DateTime.parse(json['TrainingEndTime'])
+            : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? DocumentClassifierInputDataConfig.fromJson(
+                json['InputDataConfig'])
+            : null,
+        outputDataConfig: json.containsKey('OutputDataConfig')
+            ? DocumentClassifierOutputDataConfig.fromJson(
+                json['OutputDataConfig'])
+            : null,
+        classifierMetadata: json.containsKey('ClassifierMetadata')
+            ? ClassifierMetadata.fromJson(json['ClassifierMetadata'])
+            : null,
+        dataAccessRoleArn: json.containsKey('DataAccessRoleArn')
+            ? json['DataAccessRoleArn'] as String
+            : null,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+      );
 }
 
 /// Returns the code for the dominant language in the input text and the level
@@ -1762,7 +2245,12 @@ class DominantLanguage {
     this.score,
   });
   static DominantLanguage fromJson(Map<String, dynamic> json) =>
-      DominantLanguage();
+      DominantLanguage(
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        score: json.containsKey('Score') ? json['Score'] as double : null,
+      );
 }
 
 /// Provides information for filtering a list of dominant language detection
@@ -1791,6 +2279,7 @@ class DominantLanguageDetectionJobFilter {
     this.submitTimeBefore,
     this.submitTimeAfter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a dominant language detection job.
@@ -1859,7 +2348,34 @@ class DominantLanguageDetectionJobProperties {
   });
   static DominantLanguageDetectionJobProperties fromJson(
           Map<String, dynamic> json) =>
-      DominantLanguageDetectionJobProperties();
+      DominantLanguageDetectionJobProperties(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? InputDataConfig.fromJson(json['InputDataConfig'])
+            : null,
+        outputDataConfig: json.containsKey('OutputDataConfig')
+            ? OutputDataConfig.fromJson(json['OutputDataConfig'])
+            : null,
+        dataAccessRoleArn: json.containsKey('DataAccessRoleArn')
+            ? json['DataAccessRoleArn'] as String
+            : null,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+      );
 }
 
 /// Provides information for filtering a list of dominant language detection
@@ -1888,6 +2404,7 @@ class EntitiesDetectionJobFilter {
     this.submitTimeBefore,
     this.submitTimeAfter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about an entities detection job.
@@ -1962,7 +2479,40 @@ class EntitiesDetectionJobProperties {
     this.vpcConfig,
   });
   static EntitiesDetectionJobProperties fromJson(Map<String, dynamic> json) =>
-      EntitiesDetectionJobProperties();
+      EntitiesDetectionJobProperties(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        entityRecognizerArn: json.containsKey('EntityRecognizerArn')
+            ? json['EntityRecognizerArn'] as String
+            : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? InputDataConfig.fromJson(json['InputDataConfig'])
+            : null,
+        outputDataConfig: json.containsKey('OutputDataConfig')
+            ? OutputDataConfig.fromJson(json['OutputDataConfig'])
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        dataAccessRoleArn: json.containsKey('DataAccessRoleArn')
+            ? json['DataAccessRoleArn'] as String
+            : null,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+      );
 }
 
 /// Provides information about an entity.
@@ -1998,7 +2548,15 @@ class Entity {
     this.beginOffset,
     this.endOffset,
   });
-  static Entity fromJson(Map<String, dynamic> json) => Entity();
+  static Entity fromJson(Map<String, dynamic> json) => Entity(
+        score: json.containsKey('Score') ? json['Score'] as double : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        text: json.containsKey('Text') ? json['Text'] as String : null,
+        beginOffset:
+            json.containsKey('BeginOffset') ? json['BeginOffset'] as int : null,
+        endOffset:
+            json.containsKey('EndOffset') ? json['EndOffset'] as int : null,
+      );
 }
 
 /// Describes the annotations associated with a entity recognizer.
@@ -2012,7 +2570,10 @@ class EntityRecognizerAnnotations {
     @required this.s3Uri,
   });
   static EntityRecognizerAnnotations fromJson(Map<String, dynamic> json) =>
-      EntityRecognizerAnnotations();
+      EntityRecognizerAnnotations(
+        s3Uri: json['S3Uri'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the training documents submitted with an entity recognizer.
@@ -2026,7 +2587,10 @@ class EntityRecognizerDocuments {
     @required this.s3Uri,
   });
   static EntityRecognizerDocuments fromJson(Map<String, dynamic> json) =>
-      EntityRecognizerDocuments();
+      EntityRecognizerDocuments(
+        s3Uri: json['S3Uri'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the entity recognizer submitted with an entity recognizer.
@@ -2039,7 +2603,10 @@ class EntityRecognizerEntityList {
     @required this.s3Uri,
   });
   static EntityRecognizerEntityList fromJson(Map<String, dynamic> json) =>
-      EntityRecognizerEntityList();
+      EntityRecognizerEntityList(
+        s3Uri: json['S3Uri'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Detailed information about the accuracy of an entity recognizer.
@@ -2067,7 +2634,12 @@ class EntityRecognizerEvaluationMetrics {
   });
   static EntityRecognizerEvaluationMetrics fromJson(
           Map<String, dynamic> json) =>
-      EntityRecognizerEvaluationMetrics();
+      EntityRecognizerEvaluationMetrics(
+        precision:
+            json.containsKey('Precision') ? json['Precision'] as double : null,
+        recall: json.containsKey('Recall') ? json['Recall'] as double : null,
+        f1Score: json.containsKey('F1Score') ? json['F1Score'] as double : null,
+      );
 }
 
 /// Provides information for filtering a list of entity recognizers. You can
@@ -2092,6 +2664,7 @@ class EntityRecognizerFilter {
     this.submitTimeBefore,
     this.submitTimeAfter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies the format and location of the input data.
@@ -2116,7 +2689,19 @@ class EntityRecognizerInputDataConfig {
     this.entityList,
   });
   static EntityRecognizerInputDataConfig fromJson(Map<String, dynamic> json) =>
-      EntityRecognizerInputDataConfig();
+      EntityRecognizerInputDataConfig(
+        entityTypes: (json['EntityTypes'] as List)
+            .map((e) => EntityTypesListItem.fromJson(e))
+            .toList(),
+        documents: EntityRecognizerDocuments.fromJson(json['Documents']),
+        annotations: json.containsKey('Annotations')
+            ? EntityRecognizerAnnotations.fromJson(json['Annotations'])
+            : null,
+        entityList: json.containsKey('EntityList')
+            ? EntityRecognizerEntityList.fromJson(json['EntityList'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Detailed information about an entity recognizer.
@@ -2144,7 +2729,24 @@ class EntityRecognizerMetadata {
     this.entityTypes,
   });
   static EntityRecognizerMetadata fromJson(Map<String, dynamic> json) =>
-      EntityRecognizerMetadata();
+      EntityRecognizerMetadata(
+        numberOfTrainedDocuments: json.containsKey('NumberOfTrainedDocuments')
+            ? json['NumberOfTrainedDocuments'] as int
+            : null,
+        numberOfTestDocuments: json.containsKey('NumberOfTestDocuments')
+            ? json['NumberOfTestDocuments'] as int
+            : null,
+        evaluationMetrics: json.containsKey('EvaluationMetrics')
+            ? EntityRecognizerEvaluationMetrics.fromJson(
+                json['EvaluationMetrics'])
+            : null,
+        entityTypes: json.containsKey('EntityTypes')
+            ? (json['EntityTypes'] as List)
+                .map((e) =>
+                    EntityRecognizerMetadataEntityTypesListItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Individual item from the list of entity types in the metadata of an entity
@@ -2169,7 +2771,15 @@ class EntityRecognizerMetadataEntityTypesListItem {
   });
   static EntityRecognizerMetadataEntityTypesListItem fromJson(
           Map<String, dynamic> json) =>
-      EntityRecognizerMetadataEntityTypesListItem();
+      EntityRecognizerMetadataEntityTypesListItem(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        evaluationMetrics: json.containsKey('EvaluationMetrics')
+            ? EntityTypesEvaluationMetrics.fromJson(json['EvaluationMetrics'])
+            : null,
+        numberOfTrainMentions: json.containsKey('NumberOfTrainMentions')
+            ? json['NumberOfTrainMentions'] as int
+            : null,
+      );
 }
 
 /// Describes information about an entity recognizer.
@@ -2242,7 +2852,43 @@ class EntityRecognizerProperties {
     this.vpcConfig,
   });
   static EntityRecognizerProperties fromJson(Map<String, dynamic> json) =>
-      EntityRecognizerProperties();
+      EntityRecognizerProperties(
+        entityRecognizerArn: json.containsKey('EntityRecognizerArn')
+            ? json['EntityRecognizerArn'] as String
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        trainingStartTime: json.containsKey('TrainingStartTime')
+            ? DateTime.parse(json['TrainingStartTime'])
+            : null,
+        trainingEndTime: json.containsKey('TrainingEndTime')
+            ? DateTime.parse(json['TrainingEndTime'])
+            : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? EntityRecognizerInputDataConfig.fromJson(json['InputDataConfig'])
+            : null,
+        recognizerMetadata: json.containsKey('RecognizerMetadata')
+            ? EntityRecognizerMetadata.fromJson(json['RecognizerMetadata'])
+            : null,
+        dataAccessRoleArn: json.containsKey('DataAccessRoleArn')
+            ? json['DataAccessRoleArn'] as String
+            : null,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+      );
 }
 
 /// Detailed information about the accuracy of an entity recognizer for a
@@ -2270,7 +2916,12 @@ class EntityTypesEvaluationMetrics {
     this.f1Score,
   });
   static EntityTypesEvaluationMetrics fromJson(Map<String, dynamic> json) =>
-      EntityTypesEvaluationMetrics();
+      EntityTypesEvaluationMetrics(
+        precision:
+            json.containsKey('Precision') ? json['Precision'] as double : null,
+        recall: json.containsKey('Recall') ? json['Recall'] as double : null,
+        f1Score: json.containsKey('F1Score') ? json['F1Score'] as double : null,
+      );
 }
 
 /// Information about an individual item on a list of entity types.
@@ -2282,7 +2933,10 @@ class EntityTypesListItem {
     @required this.type,
   });
   static EntityTypesListItem fromJson(Map<String, dynamic> json) =>
-      EntityTypesListItem();
+      EntityTypesListItem(
+        type: json['Type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The input properties for a topic detection job.
@@ -2311,8 +2965,13 @@ class InputDataConfig {
     @required this.s3Uri,
     this.inputFormat,
   });
-  static InputDataConfig fromJson(Map<String, dynamic> json) =>
-      InputDataConfig();
+  static InputDataConfig fromJson(Map<String, dynamic> json) => InputDataConfig(
+        s3Uri: json['S3Uri'] as String,
+        inputFormat: json.containsKey('InputFormat')
+            ? json['InputFormat'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a key noun phrase.
@@ -2344,7 +3003,14 @@ class KeyPhrase {
     this.beginOffset,
     this.endOffset,
   });
-  static KeyPhrase fromJson(Map<String, dynamic> json) => KeyPhrase();
+  static KeyPhrase fromJson(Map<String, dynamic> json) => KeyPhrase(
+        score: json.containsKey('Score') ? json['Score'] as double : null,
+        text: json.containsKey('Text') ? json['Text'] as String : null,
+        beginOffset:
+            json.containsKey('BeginOffset') ? json['BeginOffset'] as int : null,
+        endOffset:
+            json.containsKey('EndOffset') ? json['EndOffset'] as int : null,
+      );
 }
 
 /// Provides information for filtering a list of dominant language detection
@@ -2373,6 +3039,7 @@ class KeyPhrasesDetectionJobFilter {
     this.submitTimeBefore,
     this.submitTimeAfter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a key phrases detection job.
@@ -2443,7 +3110,37 @@ class KeyPhrasesDetectionJobProperties {
     this.vpcConfig,
   });
   static KeyPhrasesDetectionJobProperties fromJson(Map<String, dynamic> json) =>
-      KeyPhrasesDetectionJobProperties();
+      KeyPhrasesDetectionJobProperties(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? InputDataConfig.fromJson(json['InputDataConfig'])
+            : null,
+        outputDataConfig: json.containsKey('OutputDataConfig')
+            ? OutputDataConfig.fromJson(json['OutputDataConfig'])
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        dataAccessRoleArn: json.containsKey('DataAccessRoleArn')
+            ? json['DataAccessRoleArn'] as String
+            : null,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+      );
 }
 
 class ListDocumentClassificationJobsResponse {
@@ -2460,7 +3157,16 @@ class ListDocumentClassificationJobsResponse {
   });
   static ListDocumentClassificationJobsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListDocumentClassificationJobsResponse();
+      ListDocumentClassificationJobsResponse(
+        documentClassificationJobPropertiesList:
+            json.containsKey('DocumentClassificationJobPropertiesList')
+                ? (json['DocumentClassificationJobPropertiesList'] as List)
+                    .map((e) => DocumentClassificationJobProperties.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDocumentClassifiersResponse {
@@ -2475,7 +3181,16 @@ class ListDocumentClassifiersResponse {
     this.nextToken,
   });
   static ListDocumentClassifiersResponse fromJson(Map<String, dynamic> json) =>
-      ListDocumentClassifiersResponse();
+      ListDocumentClassifiersResponse(
+        documentClassifierPropertiesList:
+            json.containsKey('DocumentClassifierPropertiesList')
+                ? (json['DocumentClassifierPropertiesList'] as List)
+                    .map((e) => DocumentClassifierProperties.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDominantLanguageDetectionJobsResponse {
@@ -2492,7 +3207,16 @@ class ListDominantLanguageDetectionJobsResponse {
   });
   static ListDominantLanguageDetectionJobsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListDominantLanguageDetectionJobsResponse();
+      ListDominantLanguageDetectionJobsResponse(
+        dominantLanguageDetectionJobPropertiesList: json
+                .containsKey('DominantLanguageDetectionJobPropertiesList')
+            ? (json['DominantLanguageDetectionJobPropertiesList'] as List)
+                .map((e) => DominantLanguageDetectionJobProperties.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListEntitiesDetectionJobsResponse {
@@ -2508,7 +3232,16 @@ class ListEntitiesDetectionJobsResponse {
   });
   static ListEntitiesDetectionJobsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListEntitiesDetectionJobsResponse();
+      ListEntitiesDetectionJobsResponse(
+        entitiesDetectionJobPropertiesList:
+            json.containsKey('EntitiesDetectionJobPropertiesList')
+                ? (json['EntitiesDetectionJobPropertiesList'] as List)
+                    .map((e) => EntitiesDetectionJobProperties.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListEntityRecognizersResponse {
@@ -2523,7 +3256,16 @@ class ListEntityRecognizersResponse {
     this.nextToken,
   });
   static ListEntityRecognizersResponse fromJson(Map<String, dynamic> json) =>
-      ListEntityRecognizersResponse();
+      ListEntityRecognizersResponse(
+        entityRecognizerPropertiesList:
+            json.containsKey('EntityRecognizerPropertiesList')
+                ? (json['EntityRecognizerPropertiesList'] as List)
+                    .map((e) => EntityRecognizerProperties.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListKeyPhrasesDetectionJobsResponse {
@@ -2540,7 +3282,16 @@ class ListKeyPhrasesDetectionJobsResponse {
   });
   static ListKeyPhrasesDetectionJobsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListKeyPhrasesDetectionJobsResponse();
+      ListKeyPhrasesDetectionJobsResponse(
+        keyPhrasesDetectionJobPropertiesList:
+            json.containsKey('KeyPhrasesDetectionJobPropertiesList')
+                ? (json['KeyPhrasesDetectionJobPropertiesList'] as List)
+                    .map((e) => KeyPhrasesDetectionJobProperties.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListSentimentDetectionJobsResponse {
@@ -2557,7 +3308,16 @@ class ListSentimentDetectionJobsResponse {
   });
   static ListSentimentDetectionJobsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListSentimentDetectionJobsResponse();
+      ListSentimentDetectionJobsResponse(
+        sentimentDetectionJobPropertiesList:
+            json.containsKey('SentimentDetectionJobPropertiesList')
+                ? (json['SentimentDetectionJobPropertiesList'] as List)
+                    .map((e) => SentimentDetectionJobProperties.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -2576,7 +3336,14 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListTopicsDetectionJobsResponse {
@@ -2591,7 +3358,16 @@ class ListTopicsDetectionJobsResponse {
     this.nextToken,
   });
   static ListTopicsDetectionJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListTopicsDetectionJobsResponse();
+      ListTopicsDetectionJobsResponse(
+        topicsDetectionJobPropertiesList:
+            json.containsKey('TopicsDetectionJobPropertiesList')
+                ? (json['TopicsDetectionJobPropertiesList'] as List)
+                    .map((e) => TopicsDetectionJobProperties.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Provides configuration parameters for the output of topic detection jobs.
@@ -2628,7 +3404,12 @@ class OutputDataConfig {
     this.kmsKeyId,
   });
   static OutputDataConfig fromJson(Map<String, dynamic> json) =>
-      OutputDataConfig();
+      OutputDataConfig(
+        s3Uri: json['S3Uri'] as String,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Identifies the part of speech represented by the token and gives the
@@ -2647,8 +3428,10 @@ class PartOfSpeechTag {
     this.tag,
     this.score,
   });
-  static PartOfSpeechTag fromJson(Map<String, dynamic> json) =>
-      PartOfSpeechTag();
+  static PartOfSpeechTag fromJson(Map<String, dynamic> json) => PartOfSpeechTag(
+        tag: json.containsKey('Tag') ? json['Tag'] as String : null,
+        score: json.containsKey('Score') ? json['Score'] as double : null,
+      );
 }
 
 /// Provides information for filtering a list of dominant language detection
@@ -2677,6 +3460,7 @@ class SentimentDetectionJobFilter {
     this.submitTimeBefore,
     this.submitTimeAfter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a sentiment detection job.
@@ -2747,7 +3531,37 @@ class SentimentDetectionJobProperties {
     this.vpcConfig,
   });
   static SentimentDetectionJobProperties fromJson(Map<String, dynamic> json) =>
-      SentimentDetectionJobProperties();
+      SentimentDetectionJobProperties(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? InputDataConfig.fromJson(json['InputDataConfig'])
+            : null,
+        outputDataConfig: json.containsKey('OutputDataConfig')
+            ? OutputDataConfig.fromJson(json['OutputDataConfig'])
+            : null,
+        languageCode: json.containsKey('LanguageCode')
+            ? json['LanguageCode'] as String
+            : null,
+        dataAccessRoleArn: json.containsKey('DataAccessRoleArn')
+            ? json['DataAccessRoleArn'] as String
+            : null,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+      );
 }
 
 /// Describes the level of confidence that Amazon Comprehend has in the accuracy
@@ -2775,7 +3589,14 @@ class SentimentScore {
     this.neutral,
     this.mixed,
   });
-  static SentimentScore fromJson(Map<String, dynamic> json) => SentimentScore();
+  static SentimentScore fromJson(Map<String, dynamic> json) => SentimentScore(
+        positive:
+            json.containsKey('Positive') ? json['Positive'] as double : null,
+        negative:
+            json.containsKey('Negative') ? json['Negative'] as double : null,
+        neutral: json.containsKey('Neutral') ? json['Neutral'] as double : null,
+        mixed: json.containsKey('Mixed') ? json['Mixed'] as double : null,
+      );
 }
 
 class StartDocumentClassificationJobResponse {
@@ -2806,7 +3627,11 @@ class StartDocumentClassificationJobResponse {
   });
   static StartDocumentClassificationJobResponse fromJson(
           Map<String, dynamic> json) =>
-      StartDocumentClassificationJobResponse();
+      StartDocumentClassificationJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StartDominantLanguageDetectionJobResponse {
@@ -2832,7 +3657,11 @@ class StartDominantLanguageDetectionJobResponse {
   });
   static StartDominantLanguageDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      StartDominantLanguageDetectionJobResponse();
+      StartDominantLanguageDetectionJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StartEntitiesDetectionJobResponse {
@@ -2863,7 +3692,11 @@ class StartEntitiesDetectionJobResponse {
   });
   static StartEntitiesDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      StartEntitiesDetectionJobResponse();
+      StartEntitiesDetectionJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StartKeyPhrasesDetectionJobResponse {
@@ -2889,7 +3722,11 @@ class StartKeyPhrasesDetectionJobResponse {
   });
   static StartKeyPhrasesDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      StartKeyPhrasesDetectionJobResponse();
+      StartKeyPhrasesDetectionJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StartSentimentDetectionJobResponse {
@@ -2915,7 +3752,11 @@ class StartSentimentDetectionJobResponse {
   });
   static StartSentimentDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      StartSentimentDetectionJobResponse();
+      StartSentimentDetectionJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StartTopicsDetectionJobResponse {
@@ -2941,7 +3782,11 @@ class StartTopicsDetectionJobResponse {
     this.jobStatus,
   });
   static StartTopicsDetectionJobResponse fromJson(Map<String, dynamic> json) =>
-      StartTopicsDetectionJobResponse();
+      StartTopicsDetectionJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StopDominantLanguageDetectionJobResponse {
@@ -2959,7 +3804,11 @@ class StopDominantLanguageDetectionJobResponse {
   });
   static StopDominantLanguageDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      StopDominantLanguageDetectionJobResponse();
+      StopDominantLanguageDetectionJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StopEntitiesDetectionJobResponse {
@@ -2976,7 +3825,11 @@ class StopEntitiesDetectionJobResponse {
     this.jobStatus,
   });
   static StopEntitiesDetectionJobResponse fromJson(Map<String, dynamic> json) =>
-      StopEntitiesDetectionJobResponse();
+      StopEntitiesDetectionJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StopKeyPhrasesDetectionJobResponse {
@@ -2994,7 +3847,11 @@ class StopKeyPhrasesDetectionJobResponse {
   });
   static StopKeyPhrasesDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      StopKeyPhrasesDetectionJobResponse();
+      StopKeyPhrasesDetectionJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StopSentimentDetectionJobResponse {
@@ -3012,7 +3869,11 @@ class StopSentimentDetectionJobResponse {
   });
   static StopSentimentDetectionJobResponse fromJson(
           Map<String, dynamic> json) =>
-      StopSentimentDetectionJobResponse();
+      StopSentimentDetectionJobResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+      );
 }
 
 class StopTrainingDocumentClassifierResponse {
@@ -3059,7 +3920,17 @@ class SyntaxToken {
     this.endOffset,
     this.partOfSpeech,
   });
-  static SyntaxToken fromJson(Map<String, dynamic> json) => SyntaxToken();
+  static SyntaxToken fromJson(Map<String, dynamic> json) => SyntaxToken(
+        tokenId: json.containsKey('TokenId') ? json['TokenId'] as int : null,
+        text: json.containsKey('Text') ? json['Text'] as String : null,
+        beginOffset:
+            json.containsKey('BeginOffset') ? json['BeginOffset'] as int : null,
+        endOffset:
+            json.containsKey('EndOffset') ? json['EndOffset'] as int : null,
+        partOfSpeech: json.containsKey('PartOfSpeech')
+            ? PartOfSpeechTag.fromJson(json['PartOfSpeech'])
+            : null,
+      );
 }
 
 /// A key-value pair that adds as a metadata to a resource used by Amazon
@@ -3084,7 +3955,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -3118,6 +3993,7 @@ class TopicsDetectionJobFilter {
     this.submitTimeBefore,
     this.submitTimeAfter,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a topic detection job.
@@ -3189,7 +4065,37 @@ class TopicsDetectionJobProperties {
     this.vpcConfig,
   });
   static TopicsDetectionJobProperties fromJson(Map<String, dynamic> json) =>
-      TopicsDetectionJobProperties();
+      TopicsDetectionJobProperties(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobName: json.containsKey('JobName') ? json['JobName'] as String : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        submitTime: json.containsKey('SubmitTime')
+            ? DateTime.parse(json['SubmitTime'])
+            : null,
+        endTime: json.containsKey('EndTime')
+            ? DateTime.parse(json['EndTime'])
+            : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? InputDataConfig.fromJson(json['InputDataConfig'])
+            : null,
+        outputDataConfig: json.containsKey('OutputDataConfig')
+            ? OutputDataConfig.fromJson(json['OutputDataConfig'])
+            : null,
+        numberOfTopics: json.containsKey('NumberOfTopics')
+            ? json['NumberOfTopics'] as int
+            : null,
+        dataAccessRoleArn: json.containsKey('DataAccessRoleArn')
+            ? json['DataAccessRoleArn'] as String
+            : null,
+        volumeKmsKeyId: json.containsKey('VolumeKmsKeyId')
+            ? json['VolumeKmsKeyId'] as String
+            : null,
+        vpcConfig: json.containsKey('VpcConfig')
+            ? VpcConfig.fromJson(json['VpcConfig'])
+            : null,
+      );
 }
 
 class UntagResourceResponse {
@@ -3223,5 +4129,10 @@ class VpcConfig {
     @required this.securityGroupIds,
     @required this.subnets,
   });
-  static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig();
+  static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig(
+        securityGroupIds:
+            (json['SecurityGroupIds'] as List).map((e) => e as String).toList(),
+        subnets: (json['Subnets'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

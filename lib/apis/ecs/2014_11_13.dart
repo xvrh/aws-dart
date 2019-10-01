@@ -22,6 +22,9 @@ import 'package:meta/meta.dart';
 /// cluster management and configuration management systems or worry about
 /// scaling your management infrastructure.
 class EcsApi {
+  final _client;
+  EcsApi(client) : _client = client.configured('ECS', serializer: 'json');
+
   /// Creates a new Amazon ECS cluster. By default, your account receives a
   /// `default` cluster when you launch your first container instance. However,
   /// you can create your own cluster with a unique name with the
@@ -76,7 +79,12 @@ class EcsApi {
       {String clusterName,
       List<Tag> tags,
       List<ClusterSetting> settings}) async {
-    return CreateClusterResponse.fromJson({});
+    var response_ = await _client.send('CreateCluster', {
+      if (clusterName != null) 'clusterName': clusterName,
+      if (tags != null) 'tags': tags,
+      if (settings != null) 'settings': settings,
+    });
+    return CreateClusterResponse.fromJson(response_);
   }
 
   /// Runs and maintains a desired number of tasks from a specified task
@@ -423,7 +431,35 @@ class EcsApi {
       List<Tag> tags,
       bool enableEcsManagedTags,
       String propagateTags}) async {
-    return CreateServiceResponse.fromJson({});
+    var response_ = await _client.send('CreateService', {
+      if (cluster != null) 'cluster': cluster,
+      'serviceName': serviceName,
+      if (taskDefinition != null) 'taskDefinition': taskDefinition,
+      if (loadBalancers != null) 'loadBalancers': loadBalancers,
+      if (serviceRegistries != null) 'serviceRegistries': serviceRegistries,
+      if (desiredCount != null) 'desiredCount': desiredCount,
+      if (clientToken != null) 'clientToken': clientToken,
+      if (launchType != null) 'launchType': launchType,
+      if (platformVersion != null) 'platformVersion': platformVersion,
+      if (role != null) 'role': role,
+      if (deploymentConfiguration != null)
+        'deploymentConfiguration': deploymentConfiguration,
+      if (placementConstraints != null)
+        'placementConstraints': placementConstraints,
+      if (placementStrategy != null) 'placementStrategy': placementStrategy,
+      if (networkConfiguration != null)
+        'networkConfiguration': networkConfiguration,
+      if (healthCheckGracePeriodSeconds != null)
+        'healthCheckGracePeriodSeconds': healthCheckGracePeriodSeconds,
+      if (schedulingStrategy != null) 'schedulingStrategy': schedulingStrategy,
+      if (deploymentController != null)
+        'deploymentController': deploymentController,
+      if (tags != null) 'tags': tags,
+      if (enableEcsManagedTags != null)
+        'enableECSManagedTags': enableEcsManagedTags,
+      if (propagateTags != null) 'propagateTags': propagateTags,
+    });
+    return CreateServiceResponse.fromJson(response_);
   }
 
   /// Create a task set in the specified cluster and service. This is used when
@@ -480,7 +516,21 @@ class EcsApi {
       String platformVersion,
       Scale scale,
       String clientToken}) async {
-    return CreateTaskSetResponse.fromJson({});
+    var response_ = await _client.send('CreateTaskSet', {
+      'service': service,
+      'cluster': cluster,
+      if (externalId != null) 'externalId': externalId,
+      'taskDefinition': taskDefinition,
+      if (networkConfiguration != null)
+        'networkConfiguration': networkConfiguration,
+      if (loadBalancers != null) 'loadBalancers': loadBalancers,
+      if (serviceRegistries != null) 'serviceRegistries': serviceRegistries,
+      if (launchType != null) 'launchType': launchType,
+      if (platformVersion != null) 'platformVersion': platformVersion,
+      if (scale != null) 'scale': scale,
+      if (clientToken != null) 'clientToken': clientToken,
+    });
+    return CreateTaskSetResponse.fromJson(response_);
   }
 
   /// Disables an account setting for a specified IAM user, IAM role, or the
@@ -502,7 +552,11 @@ class EcsApi {
   /// user.
   Future<DeleteAccountSettingResponse> deleteAccountSetting(String name,
       {String principalArn}) async {
-    return DeleteAccountSettingResponse.fromJson({});
+    var response_ = await _client.send('DeleteAccountSetting', {
+      'name': name,
+      if (principalArn != null) 'principalArn': principalArn,
+    });
+    return DeleteAccountSettingResponse.fromJson(response_);
   }
 
   /// Deletes one or more custom attributes from an Amazon ECS resource.
@@ -517,7 +571,11 @@ class EcsApi {
   /// the target ID using the short form, you must also specify the target type.
   Future<DeleteAttributesResponse> deleteAttributes(List<Attribute> attributes,
       {String cluster}) async {
-    return DeleteAttributesResponse.fromJson({});
+    var response_ = await _client.send('DeleteAttributes', {
+      if (cluster != null) 'cluster': cluster,
+      'attributes': attributes,
+    });
+    return DeleteAttributesResponse.fromJson(response_);
   }
 
   /// Deletes the specified cluster. You must deregister all container instances
@@ -528,7 +586,10 @@ class EcsApi {
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
   /// cluster to delete.
   Future<DeleteClusterResponse> deleteCluster(String cluster) async {
-    return DeleteClusterResponse.fromJson({});
+    var response_ = await _client.send('DeleteCluster', {
+      'cluster': cluster,
+    });
+    return DeleteClusterResponse.fromJson(response_);
   }
 
   /// Deletes a specified service within a cluster. You can delete a service if
@@ -562,7 +623,12 @@ class EcsApi {
   /// is using the `REPLICA` scheduling strategy.
   Future<DeleteServiceResponse> deleteService(String service,
       {String cluster, bool force}) async {
-    return DeleteServiceResponse.fromJson({});
+    var response_ = await _client.send('DeleteService', {
+      if (cluster != null) 'cluster': cluster,
+      'service': service,
+      if (force != null) 'force': force,
+    });
+    return DeleteServiceResponse.fromJson(response_);
   }
 
   /// Deletes a specified task set within a service. This is used when a service
@@ -586,7 +652,13 @@ class EcsApi {
       @required String service,
       @required String taskSet,
       bool force}) async {
-    return DeleteTaskSetResponse.fromJson({});
+    var response_ = await _client.send('DeleteTaskSet', {
+      'cluster': cluster,
+      'service': service,
+      'taskSet': taskSet,
+      if (force != null) 'force': force,
+    });
+    return DeleteTaskSetResponse.fromJson(response_);
   }
 
   /// Deregisters an Amazon ECS container instance from the specified cluster.
@@ -637,7 +709,12 @@ class EcsApi {
       String containerInstance,
       {String cluster,
       bool force}) async {
-    return DeregisterContainerInstanceResponse.fromJson({});
+    var response_ = await _client.send('DeregisterContainerInstance', {
+      if (cluster != null) 'cluster': cluster,
+      'containerInstance': containerInstance,
+      if (force != null) 'force': force,
+    });
+    return DeregisterContainerInstanceResponse.fromJson(response_);
   }
 
   /// Deregisters the specified task definition by family and revision. Upon
@@ -665,7 +742,10 @@ class EcsApi {
   /// specify a `revision`.
   Future<DeregisterTaskDefinitionResponse> deregisterTaskDefinition(
       String taskDefinition) async {
-    return DeregisterTaskDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeregisterTaskDefinition', {
+      'taskDefinition': taskDefinition,
+    });
+    return DeregisterTaskDefinitionResponse.fromJson(response_);
   }
 
   /// Describes one or more of your clusters.
@@ -694,7 +774,11 @@ class EcsApi {
   /// *   drainingFargateServiceCount
   Future<DescribeClustersResponse> describeClusters(
       {List<String> clusters, List<String> include}) async {
-    return DescribeClustersResponse.fromJson({});
+    var response_ = await _client.send('DescribeClusters', {
+      if (clusters != null) 'clusters': clusters,
+      if (include != null) 'include': include,
+    });
+    return DescribeClustersResponse.fromJson(response_);
   }
 
   /// Describes Amazon Elastic Container Service container instances. Returns
@@ -717,7 +801,12 @@ class EcsApi {
       List<String> containerInstances,
       {String cluster,
       List<String> include}) async {
-    return DescribeContainerInstancesResponse.fromJson({});
+    var response_ = await _client.send('DescribeContainerInstances', {
+      if (cluster != null) 'cluster': cluster,
+      'containerInstances': containerInstances,
+      if (include != null) 'include': include,
+    });
+    return DescribeContainerInstancesResponse.fromJson(response_);
   }
 
   /// Describes the specified services running in your cluster.
@@ -736,7 +825,12 @@ class EcsApi {
   /// this field is omitted, tags are not included in the response.
   Future<DescribeServicesResponse> describeServices(List<String> services,
       {String cluster, List<String> include}) async {
-    return DescribeServicesResponse.fromJson({});
+    var response_ = await _client.send('DescribeServices', {
+      if (cluster != null) 'cluster': cluster,
+      'services': services,
+      if (include != null) 'include': include,
+    });
+    return DescribeServicesResponse.fromJson(response_);
   }
 
   /// Describes a task definition. You can specify a `family` and `revision` to
@@ -758,7 +852,11 @@ class EcsApi {
   Future<DescribeTaskDefinitionResponse> describeTaskDefinition(
       String taskDefinition,
       {List<String> include}) async {
-    return DescribeTaskDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DescribeTaskDefinition', {
+      'taskDefinition': taskDefinition,
+      if (include != null) 'include': include,
+    });
+    return DescribeTaskDefinitionResponse.fromJson(response_);
   }
 
   /// Describes the task sets in the specified cluster and service. This is used
@@ -779,7 +877,12 @@ class EcsApi {
       {@required String cluster,
       @required String service,
       List<String> taskSets}) async {
-    return DescribeTaskSetsResponse.fromJson({});
+    var response_ = await _client.send('DescribeTaskSets', {
+      'cluster': cluster,
+      'service': service,
+      if (taskSets != null) 'taskSets': taskSets,
+    });
+    return DescribeTaskSetsResponse.fromJson(response_);
   }
 
   /// Describes a specified task or tasks.
@@ -797,7 +900,12 @@ class EcsApi {
   /// this field is omitted, tags are not included in the response.
   Future<DescribeTasksResponse> describeTasks(List<String> tasks,
       {String cluster, List<String> include}) async {
-    return DescribeTasksResponse.fromJson({});
+    var response_ = await _client.send('DescribeTasks', {
+      if (cluster != null) 'cluster': cluster,
+      'tasks': tasks,
+      if (include != null) 'include': include,
+    });
+    return DescribeTasksResponse.fromJson(response_);
   }
 
   /// This action is only used by the Amazon ECS agent, and it is not intended
@@ -816,7 +924,11 @@ class EcsApi {
   /// cluster to which the container instance belongs.
   Future<DiscoverPollEndpointResponse> discoverPollEndpoint(
       {String containerInstance, String cluster}) async {
-    return DiscoverPollEndpointResponse.fromJson({});
+    var response_ = await _client.send('DiscoverPollEndpoint', {
+      if (containerInstance != null) 'containerInstance': containerInstance,
+      if (cluster != null) 'cluster': cluster,
+    });
+    return DiscoverPollEndpointResponse.fromJson(response_);
   }
 
   /// Lists the account settings for a specified principal.
@@ -861,7 +973,15 @@ class EcsApi {
       bool effectiveSettings,
       String nextToken,
       int maxResults}) async {
-    return ListAccountSettingsResponse.fromJson({});
+    var response_ = await _client.send('ListAccountSettings', {
+      if (name != null) 'name': name,
+      if (value != null) 'value': value,
+      if (principalArn != null) 'principalArn': principalArn,
+      if (effectiveSettings != null) 'effectiveSettings': effectiveSettings,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListAccountSettingsResponse.fromJson(response_);
   }
 
   /// Lists the attributes for Amazon ECS resources within a specified target
@@ -909,7 +1029,15 @@ class EcsApi {
       String attributeValue,
       String nextToken,
       int maxResults}) async {
-    return ListAttributesResponse.fromJson({});
+    var response_ = await _client.send('ListAttributes', {
+      if (cluster != null) 'cluster': cluster,
+      'targetType': targetType,
+      if (attributeName != null) 'attributeName': attributeName,
+      if (attributeValue != null) 'attributeValue': attributeValue,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListAttributesResponse.fromJson(response_);
   }
 
   /// Returns a list of existing clusters.
@@ -934,7 +1062,11 @@ class EcsApi {
   /// `nextToken` value if applicable.
   Future<ListClustersResponse> listClusters(
       {String nextToken, int maxResults}) async {
-    return ListClustersResponse.fromJson({});
+    var response_ = await _client.send('ListClusters', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListClustersResponse.fromJson(response_);
   }
 
   /// Returns a list of container instances in a specified cluster. You can
@@ -986,7 +1118,14 @@ class EcsApi {
       String nextToken,
       int maxResults,
       String status}) async {
-    return ListContainerInstancesResponse.fromJson({});
+    var response_ = await _client.send('ListContainerInstances', {
+      if (cluster != null) 'cluster': cluster,
+      if (filter != null) 'filter': filter,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (status != null) 'status': status,
+    });
+    return ListContainerInstancesResponse.fromJson(response_);
   }
 
   /// Lists the services that are running in a specified cluster.
@@ -1023,7 +1162,14 @@ class EcsApi {
       int maxResults,
       String launchType,
       String schedulingStrategy}) async {
-    return ListServicesResponse.fromJson({});
+    var response_ = await _client.send('ListServices', {
+      if (cluster != null) 'cluster': cluster,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (launchType != null) 'launchType': launchType,
+      if (schedulingStrategy != null) 'schedulingStrategy': schedulingStrategy,
+    });
+    return ListServicesResponse.fromJson(response_);
   }
 
   /// List the tags for an Amazon ECS resource.
@@ -1033,7 +1179,10 @@ class EcsApi {
   /// ECS tasks, services, task definitions, clusters, and container instances.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Returns a list of task definition families that are registered to your
@@ -1083,7 +1232,13 @@ class EcsApi {
       String status,
       String nextToken,
       int maxResults}) async {
-    return ListTaskDefinitionFamiliesResponse.fromJson({});
+    var response_ = await _client.send('ListTaskDefinitionFamilies', {
+      if (familyPrefix != null) 'familyPrefix': familyPrefix,
+      if (status != null) 'status': status,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListTaskDefinitionFamiliesResponse.fromJson(response_);
   }
 
   /// Returns a list of task definitions that are registered to your account.
@@ -1133,7 +1288,14 @@ class EcsApi {
       String sort,
       String nextToken,
       int maxResults}) async {
-    return ListTaskDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('ListTaskDefinitions', {
+      if (familyPrefix != null) 'familyPrefix': familyPrefix,
+      if (status != null) 'status': status,
+      if (sort != null) 'sort': sort,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListTaskDefinitionsResponse.fromJson(response_);
   }
 
   /// Returns a list of tasks for a specified cluster. You can filter the
@@ -1209,7 +1371,18 @@ class EcsApi {
       String serviceName,
       String desiredStatus,
       String launchType}) async {
-    return ListTasksResponse.fromJson({});
+    var response_ = await _client.send('ListTasks', {
+      if (cluster != null) 'cluster': cluster,
+      if (containerInstance != null) 'containerInstance': containerInstance,
+      if (family != null) 'family': family,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (startedBy != null) 'startedBy': startedBy,
+      if (serviceName != null) 'serviceName': serviceName,
+      if (desiredStatus != null) 'desiredStatus': desiredStatus,
+      if (launchType != null) 'launchType': launchType,
+    });
+    return ListTasksResponse.fromJson(response_);
   }
 
   /// Modifies an account setting. Account settings are set on a per-Region
@@ -1271,7 +1444,12 @@ class EcsApi {
       {@required String name,
       @required String value,
       String principalArn}) async {
-    return PutAccountSettingResponse.fromJson({});
+    var response_ = await _client.send('PutAccountSetting', {
+      'name': name,
+      'value': value,
+      if (principalArn != null) 'principalArn': principalArn,
+    });
+    return PutAccountSettingResponse.fromJson(response_);
   }
 
   /// Modifies an account setting for all IAM users on an account for whom no
@@ -1292,7 +1470,11 @@ class EcsApi {
   /// Accepted values are `enabled` and `disabled`.
   Future<PutAccountSettingDefaultResponse> putAccountSettingDefault(
       {@required String name, @required String value}) async {
-    return PutAccountSettingDefaultResponse.fromJson({});
+    var response_ = await _client.send('PutAccountSettingDefault', {
+      'name': name,
+      'value': value,
+    });
+    return PutAccountSettingDefaultResponse.fromJson(response_);
   }
 
   /// Create or update an attribute on an Amazon ECS resource. If the attribute
@@ -1311,7 +1493,11 @@ class EcsApi {
   /// in a single call.
   Future<PutAttributesResponse> putAttributes(List<Attribute> attributes,
       {String cluster}) async {
-    return PutAttributesResponse.fromJson({});
+    var response_ = await _client.send('PutAttributes', {
+      if (cluster != null) 'cluster': cluster,
+      'attributes': attributes,
+    });
+    return PutAttributesResponse.fromJson(response_);
   }
 
   /// This action is only used by the Amazon ECS agent, and it is not intended
@@ -1384,7 +1570,21 @@ class EcsApi {
       List<Attribute> attributes,
       List<PlatformDevice> platformDevices,
       List<Tag> tags}) async {
-    return RegisterContainerInstanceResponse.fromJson({});
+    var response_ = await _client.send('RegisterContainerInstance', {
+      if (cluster != null) 'cluster': cluster,
+      if (instanceIdentityDocument != null)
+        'instanceIdentityDocument': instanceIdentityDocument,
+      if (instanceIdentityDocumentSignature != null)
+        'instanceIdentityDocumentSignature': instanceIdentityDocumentSignature,
+      if (totalResources != null) 'totalResources': totalResources,
+      if (versionInfo != null) 'versionInfo': versionInfo,
+      if (containerInstanceArn != null)
+        'containerInstanceArn': containerInstanceArn,
+      if (attributes != null) 'attributes': attributes,
+      if (platformDevices != null) 'platformDevices': platformDevices,
+      if (tags != null) 'tags': tags,
+    });
+    return RegisterContainerInstanceResponse.fromJson(response_);
   }
 
   /// Registers a new task definition from the supplied `family` and
@@ -1644,7 +1844,27 @@ class EcsApi {
       String ipcMode,
       ProxyConfiguration proxyConfiguration,
       List<InferenceAccelerator> inferenceAccelerators}) async {
-    return RegisterTaskDefinitionResponse.fromJson({});
+    var response_ = await _client.send('RegisterTaskDefinition', {
+      'family': family,
+      if (taskRoleArn != null) 'taskRoleArn': taskRoleArn,
+      if (executionRoleArn != null) 'executionRoleArn': executionRoleArn,
+      if (networkMode != null) 'networkMode': networkMode,
+      'containerDefinitions': containerDefinitions,
+      if (volumes != null) 'volumes': volumes,
+      if (placementConstraints != null)
+        'placementConstraints': placementConstraints,
+      if (requiresCompatibilities != null)
+        'requiresCompatibilities': requiresCompatibilities,
+      if (cpu != null) 'cpu': cpu,
+      if (memory != null) 'memory': memory,
+      if (tags != null) 'tags': tags,
+      if (pidMode != null) 'pidMode': pidMode,
+      if (ipcMode != null) 'ipcMode': ipcMode,
+      if (proxyConfiguration != null) 'proxyConfiguration': proxyConfiguration,
+      if (inferenceAccelerators != null)
+        'inferenceAccelerators': inferenceAccelerators,
+    });
+    return RegisterTaskDefinitionResponse.fromJson(response_);
   }
 
   /// Starts a new task using the specified task definition.
@@ -1799,7 +2019,26 @@ class EcsApi {
       List<Tag> tags,
       bool enableEcsManagedTags,
       String propagateTags}) async {
-    return RunTaskResponse.fromJson({});
+    var response_ = await _client.send('RunTask', {
+      if (cluster != null) 'cluster': cluster,
+      'taskDefinition': taskDefinition,
+      if (overrides != null) 'overrides': overrides,
+      if (count != null) 'count': count,
+      if (startedBy != null) 'startedBy': startedBy,
+      if (group != null) 'group': group,
+      if (placementConstraints != null)
+        'placementConstraints': placementConstraints,
+      if (placementStrategy != null) 'placementStrategy': placementStrategy,
+      if (launchType != null) 'launchType': launchType,
+      if (platformVersion != null) 'platformVersion': platformVersion,
+      if (networkConfiguration != null)
+        'networkConfiguration': networkConfiguration,
+      if (tags != null) 'tags': tags,
+      if (enableEcsManagedTags != null)
+        'enableECSManagedTags': enableEcsManagedTags,
+      if (propagateTags != null) 'propagateTags': propagateTags,
+    });
+    return RunTaskResponse.fromJson(response_);
   }
 
   /// Starts a new task from the specified task definition on the specified
@@ -1900,7 +2139,21 @@ class EcsApi {
       List<Tag> tags,
       bool enableEcsManagedTags,
       String propagateTags}) async {
-    return StartTaskResponse.fromJson({});
+    var response_ = await _client.send('StartTask', {
+      if (cluster != null) 'cluster': cluster,
+      'taskDefinition': taskDefinition,
+      if (overrides != null) 'overrides': overrides,
+      'containerInstances': containerInstances,
+      if (startedBy != null) 'startedBy': startedBy,
+      if (group != null) 'group': group,
+      if (networkConfiguration != null)
+        'networkConfiguration': networkConfiguration,
+      if (tags != null) 'tags': tags,
+      if (enableEcsManagedTags != null)
+        'enableECSManagedTags': enableEcsManagedTags,
+      if (propagateTags != null) 'propagateTags': propagateTags,
+    });
+    return StartTaskResponse.fromJson(response_);
   }
 
   /// Stops a running task. Any tags associated with the task will be deleted.
@@ -1934,7 +2187,12 @@ class EcsApi {
   /// characters are allowed in this message.
   Future<StopTaskResponse> stopTask(String task,
       {String cluster, String reason}) async {
-    return StopTaskResponse.fromJson({});
+    var response_ = await _client.send('StopTask', {
+      if (cluster != null) 'cluster': cluster,
+      'task': task,
+      if (reason != null) 'reason': reason,
+    });
+    return StopTaskResponse.fromJson(response_);
   }
 
   /// This action is only used by the Amazon ECS agent, and it is not intended
@@ -1949,7 +2207,11 @@ class EcsApi {
   Future<SubmitAttachmentStateChangesResponse> submitAttachmentStateChanges(
       List<AttachmentStateChange> attachments,
       {String cluster}) async {
-    return SubmitAttachmentStateChangesResponse.fromJson({});
+    var response_ = await _client.send('SubmitAttachmentStateChanges', {
+      if (cluster != null) 'cluster': cluster,
+      'attachments': attachments,
+    });
+    return SubmitAttachmentStateChangesResponse.fromJson(response_);
   }
 
   /// This action is only used by the Amazon ECS agent, and it is not intended
@@ -1983,7 +2245,17 @@ class EcsApi {
       int exitCode,
       String reason,
       List<NetworkBinding> networkBindings}) async {
-    return SubmitContainerStateChangeResponse.fromJson({});
+    var response_ = await _client.send('SubmitContainerStateChange', {
+      if (cluster != null) 'cluster': cluster,
+      if (task != null) 'task': task,
+      if (containerName != null) 'containerName': containerName,
+      if (runtimeId != null) 'runtimeId': runtimeId,
+      if (status != null) 'status': status,
+      if (exitCode != null) 'exitCode': exitCode,
+      if (reason != null) 'reason': reason,
+      if (networkBindings != null) 'networkBindings': networkBindings,
+    });
+    return SubmitContainerStateChangeResponse.fromJson(response_);
   }
 
   /// This action is only used by the Amazon ECS agent, and it is not intended
@@ -2022,7 +2294,18 @@ class EcsApi {
       DateTime pullStartedAt,
       DateTime pullStoppedAt,
       DateTime executionStoppedAt}) async {
-    return SubmitTaskStateChangeResponse.fromJson({});
+    var response_ = await _client.send('SubmitTaskStateChange', {
+      if (cluster != null) 'cluster': cluster,
+      if (task != null) 'task': task,
+      if (status != null) 'status': status,
+      if (reason != null) 'reason': reason,
+      if (containers != null) 'containers': containers,
+      if (attachments != null) 'attachments': attachments,
+      if (pullStartedAt != null) 'pullStartedAt': pullStartedAt,
+      if (pullStoppedAt != null) 'pullStoppedAt': pullStoppedAt,
+      if (executionStoppedAt != null) 'executionStoppedAt': executionStoppedAt,
+    });
+    return SubmitTaskStateChangeResponse.fromJson(response_);
   }
 
   /// Associates the specified tags to a resource with the specified
@@ -2061,7 +2344,11 @@ class EcsApi {
   /// this prefix do not count against your tags per resource limit.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Deletes specified tags from a resource.
@@ -2073,7 +2360,11 @@ class EcsApi {
   /// [tagKeys]: The keys of the tags to be removed.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Modifies the settings to use for a cluster.
@@ -2087,7 +2378,11 @@ class EcsApi {
   Future<UpdateClusterSettingsResponse> updateClusterSettings(
       {@required String cluster,
       @required List<ClusterSetting> settings}) async {
-    return UpdateClusterSettingsResponse.fromJson({});
+    var response_ = await _client.send('UpdateClusterSettings', {
+      'cluster': cluster,
+      'settings': settings,
+    });
+    return UpdateClusterSettingsResponse.fromJson(response_);
   }
 
   /// Updates the Amazon ECS container agent on a specified container instance.
@@ -2112,7 +2407,11 @@ class EcsApi {
   Future<UpdateContainerAgentResponse> updateContainerAgent(
       String containerInstance,
       {String cluster}) async {
-    return UpdateContainerAgentResponse.fromJson({});
+    var response_ = await _client.send('UpdateContainerAgent', {
+      if (cluster != null) 'cluster': cluster,
+      'containerInstance': containerInstance,
+    });
+    return UpdateContainerAgentResponse.fromJson(response_);
   }
 
   /// Modifies the status of an Amazon ECS container instance.
@@ -2186,7 +2485,12 @@ class EcsApi {
       {String cluster,
       @required List<String> containerInstances,
       @required String status}) async {
-    return UpdateContainerInstancesStateResponse.fromJson({});
+    var response_ = await _client.send('UpdateContainerInstancesState', {
+      if (cluster != null) 'cluster': cluster,
+      'containerInstances': containerInstances,
+      'status': status,
+    });
+    return UpdateContainerInstancesStateResponse.fromJson(response_);
   }
 
   /// Modifies the parameters of a service.
@@ -2360,7 +2664,21 @@ class EcsApi {
       String platformVersion,
       bool forceNewDeployment,
       int healthCheckGracePeriodSeconds}) async {
-    return UpdateServiceResponse.fromJson({});
+    var response_ = await _client.send('UpdateService', {
+      if (cluster != null) 'cluster': cluster,
+      'service': service,
+      if (desiredCount != null) 'desiredCount': desiredCount,
+      if (taskDefinition != null) 'taskDefinition': taskDefinition,
+      if (deploymentConfiguration != null)
+        'deploymentConfiguration': deploymentConfiguration,
+      if (networkConfiguration != null)
+        'networkConfiguration': networkConfiguration,
+      if (platformVersion != null) 'platformVersion': platformVersion,
+      if (forceNewDeployment != null) 'forceNewDeployment': forceNewDeployment,
+      if (healthCheckGracePeriodSeconds != null)
+        'healthCheckGracePeriodSeconds': healthCheckGracePeriodSeconds,
+    });
+    return UpdateServiceResponse.fromJson(response_);
   }
 
   /// Modifies which task set in a service is the primary task set. Any
@@ -2382,7 +2700,12 @@ class EcsApi {
       {@required String cluster,
       @required String service,
       @required String primaryTaskSet}) async {
-    return UpdateServicePrimaryTaskSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateServicePrimaryTaskSet', {
+      'cluster': cluster,
+      'service': service,
+      'primaryTaskSet': primaryTaskSet,
+    });
+    return UpdateServicePrimaryTaskSetResponse.fromJson(response_);
   }
 
   /// Modifies a task set. This is used when a service uses the `EXTERNAL`
@@ -2403,7 +2726,13 @@ class EcsApi {
       @required String service,
       @required String taskSet,
       @required Scale scale}) async {
-    return UpdateTaskSetResponse.fromJson({});
+    var response_ = await _client.send('UpdateTaskSet', {
+      'cluster': cluster,
+      'service': service,
+      'taskSet': taskSet,
+      'scale': scale,
+    });
+    return UpdateTaskSetResponse.fromJson(response_);
   }
 }
 
@@ -2430,7 +2759,16 @@ class Attachment {
     this.status,
     this.details,
   });
-  static Attachment fromJson(Map<String, dynamic> json) => Attachment();
+  static Attachment fromJson(Map<String, dynamic> json) => Attachment(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        details: json.containsKey('details')
+            ? (json['details'] as List)
+                .map((e) => KeyValuePair.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An object representing a change in state for a task attachment.
@@ -2445,6 +2783,7 @@ class AttachmentStateChange {
     @required this.attachmentArn,
     @required this.status,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An attribute is a name-value pair associated with an Amazon ECS object.
@@ -2477,7 +2816,16 @@ class Attribute {
     this.targetType,
     this.targetId,
   });
-  static Attribute fromJson(Map<String, dynamic> json) => Attribute();
+  static Attribute fromJson(Map<String, dynamic> json) => Attribute(
+        name: json['name'] as String,
+        value: json.containsKey('value') ? json['value'] as String : null,
+        targetType: json.containsKey('targetType')
+            ? json['targetType'] as String
+            : null,
+        targetId:
+            json.containsKey('targetId') ? json['targetId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the networking details for a task or service.
@@ -2510,7 +2858,16 @@ class AwsVpcConfiguration {
     this.assignPublicIp,
   });
   static AwsVpcConfiguration fromJson(Map<String, dynamic> json) =>
-      AwsVpcConfiguration();
+      AwsVpcConfiguration(
+        subnets: (json['subnets'] as List).map((e) => e as String).toList(),
+        securityGroups: json.containsKey('securityGroups')
+            ? (json['securityGroups'] as List).map((e) => e as String).toList()
+            : null,
+        assignPublicIp: json.containsKey('assignPublicIp')
+            ? json['assignPublicIp'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A regional grouping of one or more container instances on which you can run
@@ -2611,7 +2968,41 @@ class Cluster {
     this.tags,
     this.settings,
   });
-  static Cluster fromJson(Map<String, dynamic> json) => Cluster();
+  static Cluster fromJson(Map<String, dynamic> json) => Cluster(
+        clusterArn: json.containsKey('clusterArn')
+            ? json['clusterArn'] as String
+            : null,
+        clusterName: json.containsKey('clusterName')
+            ? json['clusterName'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        registeredContainerInstancesCount:
+            json.containsKey('registeredContainerInstancesCount')
+                ? json['registeredContainerInstancesCount'] as int
+                : null,
+        runningTasksCount: json.containsKey('runningTasksCount')
+            ? json['runningTasksCount'] as int
+            : null,
+        pendingTasksCount: json.containsKey('pendingTasksCount')
+            ? json['pendingTasksCount'] as int
+            : null,
+        activeServicesCount: json.containsKey('activeServicesCount')
+            ? json['activeServicesCount'] as int
+            : null,
+        statistics: json.containsKey('statistics')
+            ? (json['statistics'] as List)
+                .map((e) => KeyValuePair.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        settings: json.containsKey('settings')
+            ? (json['settings'] as List)
+                .map((e) => ClusterSetting.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The settings to use when creating a cluster. This parameter is used to
@@ -2633,7 +3024,11 @@ class ClusterSetting {
     this.name,
     this.value,
   });
-  static ClusterSetting fromJson(Map<String, dynamic> json) => ClusterSetting();
+  static ClusterSetting fromJson(Map<String, dynamic> json) => ClusterSetting(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A Docker container that is part of a task.
@@ -2705,7 +3100,44 @@ class Container {
     this.gpuIds,
     this.firelensConfiguration,
   });
-  static Container fromJson(Map<String, dynamic> json) => Container();
+  static Container fromJson(Map<String, dynamic> json) => Container(
+        containerArn: json.containsKey('containerArn')
+            ? json['containerArn'] as String
+            : null,
+        taskArn: json.containsKey('taskArn') ? json['taskArn'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        runtimeId:
+            json.containsKey('runtimeId') ? json['runtimeId'] as String : null,
+        lastStatus: json.containsKey('lastStatus')
+            ? json['lastStatus'] as String
+            : null,
+        exitCode: json.containsKey('exitCode') ? json['exitCode'] as int : null,
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+        networkBindings: json.containsKey('networkBindings')
+            ? (json['networkBindings'] as List)
+                .map((e) => NetworkBinding.fromJson(e))
+                .toList()
+            : null,
+        networkInterfaces: json.containsKey('networkInterfaces')
+            ? (json['networkInterfaces'] as List)
+                .map((e) => NetworkInterface.fromJson(e))
+                .toList()
+            : null,
+        healthStatus: json.containsKey('healthStatus')
+            ? json['healthStatus'] as String
+            : null,
+        cpu: json.containsKey('cpu') ? json['cpu'] as String : null,
+        memory: json.containsKey('memory') ? json['memory'] as String : null,
+        memoryReservation: json.containsKey('memoryReservation')
+            ? json['memoryReservation'] as String
+            : null,
+        gpuIds: json.containsKey('gpuIds')
+            ? (json['gpuIds'] as List).map((e) => e as String).toList()
+            : null,
+        firelensConfiguration: json.containsKey('firelensConfiguration')
+            ? FirelensConfiguration.fromJson(json['firelensConfiguration'])
+            : null,
+      );
 }
 
 /// Container definitions are used in task definitions to describe the different
@@ -3425,7 +3857,130 @@ class ContainerDefinition {
     this.firelensConfiguration,
   });
   static ContainerDefinition fromJson(Map<String, dynamic> json) =>
-      ContainerDefinition();
+      ContainerDefinition(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        image: json.containsKey('image') ? json['image'] as String : null,
+        repositoryCredentials: json.containsKey('repositoryCredentials')
+            ? RepositoryCredentials.fromJson(json['repositoryCredentials'])
+            : null,
+        cpu: json.containsKey('cpu') ? json['cpu'] as int : null,
+        memory: json.containsKey('memory') ? json['memory'] as int : null,
+        memoryReservation: json.containsKey('memoryReservation')
+            ? json['memoryReservation'] as int
+            : null,
+        links: json.containsKey('links')
+            ? (json['links'] as List).map((e) => e as String).toList()
+            : null,
+        portMappings: json.containsKey('portMappings')
+            ? (json['portMappings'] as List)
+                .map((e) => PortMapping.fromJson(e))
+                .toList()
+            : null,
+        essential:
+            json.containsKey('essential') ? json['essential'] as bool : null,
+        entryPoint: json.containsKey('entryPoint')
+            ? (json['entryPoint'] as List).map((e) => e as String).toList()
+            : null,
+        command: json.containsKey('command')
+            ? (json['command'] as List).map((e) => e as String).toList()
+            : null,
+        environment: json.containsKey('environment')
+            ? (json['environment'] as List)
+                .map((e) => KeyValuePair.fromJson(e))
+                .toList()
+            : null,
+        mountPoints: json.containsKey('mountPoints')
+            ? (json['mountPoints'] as List)
+                .map((e) => MountPoint.fromJson(e))
+                .toList()
+            : null,
+        volumesFrom: json.containsKey('volumesFrom')
+            ? (json['volumesFrom'] as List)
+                .map((e) => VolumeFrom.fromJson(e))
+                .toList()
+            : null,
+        linuxParameters: json.containsKey('linuxParameters')
+            ? LinuxParameters.fromJson(json['linuxParameters'])
+            : null,
+        secrets: json.containsKey('secrets')
+            ? (json['secrets'] as List).map((e) => Secret.fromJson(e)).toList()
+            : null,
+        dependsOn: json.containsKey('dependsOn')
+            ? (json['dependsOn'] as List)
+                .map((e) => ContainerDependency.fromJson(e))
+                .toList()
+            : null,
+        startTimeout: json.containsKey('startTimeout')
+            ? json['startTimeout'] as int
+            : null,
+        stopTimeout:
+            json.containsKey('stopTimeout') ? json['stopTimeout'] as int : null,
+        hostname:
+            json.containsKey('hostname') ? json['hostname'] as String : null,
+        user: json.containsKey('user') ? json['user'] as String : null,
+        workingDirectory: json.containsKey('workingDirectory')
+            ? json['workingDirectory'] as String
+            : null,
+        disableNetworking: json.containsKey('disableNetworking')
+            ? json['disableNetworking'] as bool
+            : null,
+        privileged:
+            json.containsKey('privileged') ? json['privileged'] as bool : null,
+        readonlyRootFilesystem: json.containsKey('readonlyRootFilesystem')
+            ? json['readonlyRootFilesystem'] as bool
+            : null,
+        dnsServers: json.containsKey('dnsServers')
+            ? (json['dnsServers'] as List).map((e) => e as String).toList()
+            : null,
+        dnsSearchDomains: json.containsKey('dnsSearchDomains')
+            ? (json['dnsSearchDomains'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        extraHosts: json.containsKey('extraHosts')
+            ? (json['extraHosts'] as List)
+                .map((e) => HostEntry.fromJson(e))
+                .toList()
+            : null,
+        dockerSecurityOptions: json.containsKey('dockerSecurityOptions')
+            ? (json['dockerSecurityOptions'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        interactive: json.containsKey('interactive')
+            ? json['interactive'] as bool
+            : null,
+        pseudoTerminal: json.containsKey('pseudoTerminal')
+            ? json['pseudoTerminal'] as bool
+            : null,
+        dockerLabels: json.containsKey('dockerLabels')
+            ? (json['dockerLabels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        ulimits: json.containsKey('ulimits')
+            ? (json['ulimits'] as List).map((e) => Ulimit.fromJson(e)).toList()
+            : null,
+        logConfiguration: json.containsKey('logConfiguration')
+            ? LogConfiguration.fromJson(json['logConfiguration'])
+            : null,
+        healthCheck: json.containsKey('healthCheck')
+            ? HealthCheck.fromJson(json['healthCheck'])
+            : null,
+        systemControls: json.containsKey('systemControls')
+            ? (json['systemControls'] as List)
+                .map((e) => SystemControl.fromJson(e))
+                .toList()
+            : null,
+        resourceRequirements: json.containsKey('resourceRequirements')
+            ? (json['resourceRequirements'] as List)
+                .map((e) => ResourceRequirement.fromJson(e))
+                .toList()
+            : null,
+        firelensConfiguration: json.containsKey('firelensConfiguration')
+            ? FirelensConfiguration.fromJson(json['firelensConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The dependencies defined for container startup and shutdown. A container can
@@ -3478,7 +4033,11 @@ class ContainerDependency {
     @required this.condition,
   });
   static ContainerDependency fromJson(Map<String, dynamic> json) =>
-      ContainerDependency();
+      ContainerDependency(
+        containerName: json['containerName'] as String,
+        condition: json['condition'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An EC2 instance that is running the Amazon ECS agent and has been registered
@@ -3629,7 +4188,61 @@ class ContainerInstance {
     this.tags,
   });
   static ContainerInstance fromJson(Map<String, dynamic> json) =>
-      ContainerInstance();
+      ContainerInstance(
+        containerInstanceArn: json.containsKey('containerInstanceArn')
+            ? json['containerInstanceArn'] as String
+            : null,
+        ec2InstanceId: json.containsKey('ec2InstanceId')
+            ? json['ec2InstanceId'] as String
+            : null,
+        version:
+            json.containsKey('version') ? BigInt.from(json['version']) : null,
+        versionInfo: json.containsKey('versionInfo')
+            ? VersionInfo.fromJson(json['versionInfo'])
+            : null,
+        remainingResources: json.containsKey('remainingResources')
+            ? (json['remainingResources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+        registeredResources: json.containsKey('registeredResources')
+            ? (json['registeredResources'] as List)
+                .map((e) => Resource.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusReason: json.containsKey('statusReason')
+            ? json['statusReason'] as String
+            : null,
+        agentConnected: json.containsKey('agentConnected')
+            ? json['agentConnected'] as bool
+            : null,
+        runningTasksCount: json.containsKey('runningTasksCount')
+            ? json['runningTasksCount'] as int
+            : null,
+        pendingTasksCount: json.containsKey('pendingTasksCount')
+            ? json['pendingTasksCount'] as int
+            : null,
+        agentUpdateStatus: json.containsKey('agentUpdateStatus')
+            ? json['agentUpdateStatus'] as String
+            : null,
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+        registeredAt: json.containsKey('registeredAt')
+            ? DateTime.parse(json['registeredAt'])
+            : null,
+        attachments: json.containsKey('attachments')
+            ? (json['attachments'] as List)
+                .map((e) => Attachment.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The overrides that should be sent to a container. An empty container
@@ -3683,7 +4296,28 @@ class ContainerOverride {
     this.resourceRequirements,
   });
   static ContainerOverride fromJson(Map<String, dynamic> json) =>
-      ContainerOverride();
+      ContainerOverride(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        command: json.containsKey('command')
+            ? (json['command'] as List).map((e) => e as String).toList()
+            : null,
+        environment: json.containsKey('environment')
+            ? (json['environment'] as List)
+                .map((e) => KeyValuePair.fromJson(e))
+                .toList()
+            : null,
+        cpu: json.containsKey('cpu') ? json['cpu'] as int : null,
+        memory: json.containsKey('memory') ? json['memory'] as int : null,
+        memoryReservation: json.containsKey('memoryReservation')
+            ? json['memoryReservation'] as int
+            : null,
+        resourceRequirements: json.containsKey('resourceRequirements')
+            ? (json['resourceRequirements'] as List)
+                .map((e) => ResourceRequirement.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a change in state for a container.
@@ -3715,6 +4349,7 @@ class ContainerStateChange {
     this.reason,
     this.status,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateClusterResponse {
@@ -3725,7 +4360,11 @@ class CreateClusterResponse {
     this.cluster,
   });
   static CreateClusterResponse fromJson(Map<String, dynamic> json) =>
-      CreateClusterResponse();
+      CreateClusterResponse(
+        cluster: json.containsKey('cluster')
+            ? Cluster.fromJson(json['cluster'])
+            : null,
+      );
 }
 
 class CreateServiceResponse {
@@ -3743,7 +4382,11 @@ class CreateServiceResponse {
     this.service,
   });
   static CreateServiceResponse fromJson(Map<String, dynamic> json) =>
-      CreateServiceResponse();
+      CreateServiceResponse(
+        service: json.containsKey('service')
+            ? Service.fromJson(json['service'])
+            : null,
+      );
 }
 
 class CreateTaskSetResponse {
@@ -3753,7 +4396,11 @@ class CreateTaskSetResponse {
     this.taskSet,
   });
   static CreateTaskSetResponse fromJson(Map<String, dynamic> json) =>
-      CreateTaskSetResponse();
+      CreateTaskSetResponse(
+        taskSet: json.containsKey('taskSet')
+            ? TaskSet.fromJson(json['taskSet'])
+            : null,
+      );
 }
 
 class DeleteAccountSettingResponse {
@@ -3764,7 +4411,11 @@ class DeleteAccountSettingResponse {
     this.setting,
   });
   static DeleteAccountSettingResponse fromJson(Map<String, dynamic> json) =>
-      DeleteAccountSettingResponse();
+      DeleteAccountSettingResponse(
+        setting: json.containsKey('setting')
+            ? Setting.fromJson(json['setting'])
+            : null,
+      );
 }
 
 class DeleteAttributesResponse {
@@ -3776,7 +4427,13 @@ class DeleteAttributesResponse {
     this.attributes,
   });
   static DeleteAttributesResponse fromJson(Map<String, dynamic> json) =>
-      DeleteAttributesResponse();
+      DeleteAttributesResponse(
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DeleteClusterResponse {
@@ -3787,7 +4444,11 @@ class DeleteClusterResponse {
     this.cluster,
   });
   static DeleteClusterResponse fromJson(Map<String, dynamic> json) =>
-      DeleteClusterResponse();
+      DeleteClusterResponse(
+        cluster: json.containsKey('cluster')
+            ? Cluster.fromJson(json['cluster'])
+            : null,
+      );
 }
 
 class DeleteServiceResponse {
@@ -3798,7 +4459,11 @@ class DeleteServiceResponse {
     this.service,
   });
   static DeleteServiceResponse fromJson(Map<String, dynamic> json) =>
-      DeleteServiceResponse();
+      DeleteServiceResponse(
+        service: json.containsKey('service')
+            ? Service.fromJson(json['service'])
+            : null,
+      );
 }
 
 class DeleteTaskSetResponse {
@@ -3808,7 +4473,11 @@ class DeleteTaskSetResponse {
     this.taskSet,
   });
   static DeleteTaskSetResponse fromJson(Map<String, dynamic> json) =>
-      DeleteTaskSetResponse();
+      DeleteTaskSetResponse(
+        taskSet: json.containsKey('taskSet')
+            ? TaskSet.fromJson(json['taskSet'])
+            : null,
+      );
 }
 
 /// The details of an Amazon ECS service deployment. This is used only when a
@@ -3884,7 +4553,37 @@ class Deployment {
     this.platformVersion,
     this.networkConfiguration,
   });
-  static Deployment fromJson(Map<String, dynamic> json) => Deployment();
+  static Deployment fromJson(Map<String, dynamic> json) => Deployment(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        taskDefinition: json.containsKey('taskDefinition')
+            ? json['taskDefinition'] as String
+            : null,
+        desiredCount: json.containsKey('desiredCount')
+            ? json['desiredCount'] as int
+            : null,
+        pendingCount: json.containsKey('pendingCount')
+            ? json['pendingCount'] as int
+            : null,
+        runningCount: json.containsKey('runningCount')
+            ? json['runningCount'] as int
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        updatedAt: json.containsKey('updatedAt')
+            ? DateTime.parse(json['updatedAt'])
+            : null,
+        launchType: json.containsKey('launchType')
+            ? json['launchType'] as String
+            : null,
+        platformVersion: json.containsKey('platformVersion')
+            ? json['platformVersion'] as String
+            : null,
+        networkConfiguration: json.containsKey('networkConfiguration')
+            ? NetworkConfiguration.fromJson(json['networkConfiguration'])
+            : null,
+      );
 }
 
 /// Optional deployment parameters that control how many tasks run during a
@@ -3944,7 +4643,15 @@ class DeploymentConfiguration {
     this.minimumHealthyPercent,
   });
   static DeploymentConfiguration fromJson(Map<String, dynamic> json) =>
-      DeploymentConfiguration();
+      DeploymentConfiguration(
+        maximumPercent: json.containsKey('maximumPercent')
+            ? json['maximumPercent'] as int
+            : null,
+        minimumHealthyPercent: json.containsKey('minimumHealthyPercent')
+            ? json['minimumHealthyPercent'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The deployment controller to use for the service. For more information, see
@@ -3981,7 +4688,10 @@ class DeploymentController {
     @required this.type,
   });
   static DeploymentController fromJson(Map<String, dynamic> json) =>
-      DeploymentController();
+      DeploymentController(
+        type: json['type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeregisterContainerInstanceResponse {
@@ -3993,7 +4703,11 @@ class DeregisterContainerInstanceResponse {
   });
   static DeregisterContainerInstanceResponse fromJson(
           Map<String, dynamic> json) =>
-      DeregisterContainerInstanceResponse();
+      DeregisterContainerInstanceResponse(
+        containerInstance: json.containsKey('containerInstance')
+            ? ContainerInstance.fromJson(json['containerInstance'])
+            : null,
+      );
 }
 
 class DeregisterTaskDefinitionResponse {
@@ -4004,7 +4718,11 @@ class DeregisterTaskDefinitionResponse {
     this.taskDefinition,
   });
   static DeregisterTaskDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      DeregisterTaskDefinitionResponse();
+      DeregisterTaskDefinitionResponse(
+        taskDefinition: json.containsKey('taskDefinition')
+            ? TaskDefinition.fromJson(json['taskDefinition'])
+            : null,
+      );
 }
 
 class DescribeClustersResponse {
@@ -4019,7 +4737,18 @@ class DescribeClustersResponse {
     this.failures,
   });
   static DescribeClustersResponse fromJson(Map<String, dynamic> json) =>
-      DescribeClustersResponse();
+      DescribeClustersResponse(
+        clusters: json.containsKey('clusters')
+            ? (json['clusters'] as List)
+                .map((e) => Cluster.fromJson(e))
+                .toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => Failure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeContainerInstancesResponse {
@@ -4035,7 +4764,18 @@ class DescribeContainerInstancesResponse {
   });
   static DescribeContainerInstancesResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeContainerInstancesResponse();
+      DescribeContainerInstancesResponse(
+        containerInstances: json.containsKey('containerInstances')
+            ? (json['containerInstances'] as List)
+                .map((e) => ContainerInstance.fromJson(e))
+                .toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => Failure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeServicesResponse {
@@ -4050,7 +4790,18 @@ class DescribeServicesResponse {
     this.failures,
   });
   static DescribeServicesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeServicesResponse();
+      DescribeServicesResponse(
+        services: json.containsKey('services')
+            ? (json['services'] as List)
+                .map((e) => Service.fromJson(e))
+                .toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => Failure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeTaskDefinitionResponse {
@@ -4090,7 +4841,14 @@ class DescribeTaskDefinitionResponse {
     this.tags,
   });
   static DescribeTaskDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTaskDefinitionResponse();
+      DescribeTaskDefinitionResponse(
+        taskDefinition: json.containsKey('taskDefinition')
+            ? TaskDefinition.fromJson(json['taskDefinition'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DescribeTaskSetsResponse {
@@ -4105,7 +4863,18 @@ class DescribeTaskSetsResponse {
     this.failures,
   });
   static DescribeTaskSetsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTaskSetsResponse();
+      DescribeTaskSetsResponse(
+        taskSets: json.containsKey('taskSets')
+            ? (json['taskSets'] as List)
+                .map((e) => TaskSet.fromJson(e))
+                .toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => Failure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeTasksResponse {
@@ -4120,7 +4889,16 @@ class DescribeTasksResponse {
     this.failures,
   });
   static DescribeTasksResponse fromJson(Map<String, dynamic> json) =>
-      DescribeTasksResponse();
+      DescribeTasksResponse(
+        tasks: json.containsKey('tasks')
+            ? (json['tasks'] as List).map((e) => Task.fromJson(e)).toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => Failure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An object representing a container instance host device.
@@ -4141,7 +4919,16 @@ class Device {
     this.containerPath,
     this.permissions,
   });
-  static Device fromJson(Map<String, dynamic> json) => Device();
+  static Device fromJson(Map<String, dynamic> json) => Device(
+        hostPath: json['hostPath'] as String,
+        containerPath: json.containsKey('containerPath')
+            ? json['containerPath'] as String
+            : null,
+        permissions: json.containsKey('permissions')
+            ? (json['permissions'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DiscoverPollEndpointResponse {
@@ -4156,7 +4943,13 @@ class DiscoverPollEndpointResponse {
     this.telemetryEndpoint,
   });
   static DiscoverPollEndpointResponse fromJson(Map<String, dynamic> json) =>
-      DiscoverPollEndpointResponse();
+      DiscoverPollEndpointResponse(
+        endpoint:
+            json.containsKey('endpoint') ? json['endpoint'] as String : null,
+        telemetryEndpoint: json.containsKey('telemetryEndpoint')
+            ? json['telemetryEndpoint'] as String
+            : null,
+      );
 }
 
 /// This parameter is specified when you are using Docker volumes. Docker
@@ -4219,7 +5012,22 @@ class DockerVolumeConfiguration {
     this.labels,
   });
   static DockerVolumeConfiguration fromJson(Map<String, dynamic> json) =>
-      DockerVolumeConfiguration();
+      DockerVolumeConfiguration(
+        scope: json.containsKey('scope') ? json['scope'] as String : null,
+        autoprovision: json.containsKey('autoprovision')
+            ? json['autoprovision'] as bool
+            : null,
+        driver: json.containsKey('driver') ? json['driver'] as String : null,
+        driverOpts: json.containsKey('driverOpts')
+            ? (json['driverOpts'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        labels: json.containsKey('labels')
+            ? (json['labels'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A failed resource.
@@ -4234,7 +5042,10 @@ class Failure {
     this.arn,
     this.reason,
   });
-  static Failure fromJson(Map<String, dynamic> json) => Failure();
+  static Failure fromJson(Map<String, dynamic> json) => Failure(
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+      );
 }
 
 /// The FireLens configuration for the container. This is used to specify and
@@ -4255,7 +5066,14 @@ class FirelensConfiguration {
     this.options,
   });
   static FirelensConfiguration fromJson(Map<String, dynamic> json) =>
-      FirelensConfiguration();
+      FirelensConfiguration(
+        type: json['type'] as String,
+        options: json.containsKey('options')
+            ? (json['options'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a container health check. Health check parameters
@@ -4323,7 +5141,15 @@ class HealthCheck {
     this.retries,
     this.startPeriod,
   });
-  static HealthCheck fromJson(Map<String, dynamic> json) => HealthCheck();
+  static HealthCheck fromJson(Map<String, dynamic> json) => HealthCheck(
+        command: (json['command'] as List).map((e) => e as String).toList(),
+        interval: json.containsKey('interval') ? json['interval'] as int : null,
+        timeout: json.containsKey('timeout') ? json['timeout'] as int : null,
+        retries: json.containsKey('retries') ? json['retries'] as int : null,
+        startPeriod:
+            json.containsKey('startPeriod') ? json['startPeriod'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Hostnames and IP address entries that are added to the `/etc/hosts` file of
@@ -4339,7 +5165,11 @@ class HostEntry {
     @required this.hostname,
     @required this.ipAddress,
   });
-  static HostEntry fromJson(Map<String, dynamic> json) => HostEntry();
+  static HostEntry fromJson(Map<String, dynamic> json) => HostEntry(
+        hostname: json['hostname'] as String,
+        ipAddress: json['ipAddress'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details on a container instance bind mount host volume.
@@ -4362,7 +5192,12 @@ class HostVolumeProperties {
     this.sourcePath,
   });
   static HostVolumeProperties fromJson(Map<String, dynamic> json) =>
-      HostVolumeProperties();
+      HostVolumeProperties(
+        sourcePath: json.containsKey('sourcePath')
+            ? json['sourcePath'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details on a Elastic Inference accelerator. For more information, see
@@ -4381,7 +5216,11 @@ class InferenceAccelerator {
     @required this.deviceType,
   });
   static InferenceAccelerator fromJson(Map<String, dynamic> json) =>
-      InferenceAccelerator();
+      InferenceAccelerator(
+        deviceName: json['deviceName'] as String,
+        deviceType: json['deviceType'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details on an Elastic Inference accelerator task override. This parameter is
@@ -4402,7 +5241,15 @@ class InferenceAcceleratorOverride {
     this.deviceType,
   });
   static InferenceAcceleratorOverride fromJson(Map<String, dynamic> json) =>
-      InferenceAcceleratorOverride();
+      InferenceAcceleratorOverride(
+        deviceName: json.containsKey('deviceName')
+            ? json['deviceName'] as String
+            : null,
+        deviceType: json.containsKey('deviceType')
+            ? json['deviceType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Linux capabilities for the container that are added to or dropped from
@@ -4460,7 +5307,15 @@ class KernelCapabilities {
     this.drop,
   });
   static KernelCapabilities fromJson(Map<String, dynamic> json) =>
-      KernelCapabilities();
+      KernelCapabilities(
+        add: json.containsKey('add')
+            ? (json['add'] as List).map((e) => e as String).toList()
+            : null,
+        drop: json.containsKey('drop')
+            ? (json['drop'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A key-value pair object.
@@ -4477,7 +5332,11 @@ class KeyValuePair {
     this.name,
     this.value,
   });
-  static KeyValuePair fromJson(Map<String, dynamic> json) => KeyValuePair();
+  static KeyValuePair fromJson(Map<String, dynamic> json) => KeyValuePair(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Linux-specific options that are applied to the container, such as Linux
@@ -4576,8 +5435,27 @@ class LinuxParameters {
     this.maxSwap,
     this.swappiness,
   });
-  static LinuxParameters fromJson(Map<String, dynamic> json) =>
-      LinuxParameters();
+  static LinuxParameters fromJson(Map<String, dynamic> json) => LinuxParameters(
+        capabilities: json.containsKey('capabilities')
+            ? KernelCapabilities.fromJson(json['capabilities'])
+            : null,
+        devices: json.containsKey('devices')
+            ? (json['devices'] as List).map((e) => Device.fromJson(e)).toList()
+            : null,
+        initProcessEnabled: json.containsKey('initProcessEnabled')
+            ? json['initProcessEnabled'] as bool
+            : null,
+        sharedMemorySize: json.containsKey('sharedMemorySize')
+            ? json['sharedMemorySize'] as int
+            : null,
+        tmpfs: json.containsKey('tmpfs')
+            ? (json['tmpfs'] as List).map((e) => Tmpfs.fromJson(e)).toList()
+            : null,
+        maxSwap: json.containsKey('maxSwap') ? json['maxSwap'] as int : null,
+        swappiness:
+            json.containsKey('swappiness') ? json['swappiness'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListAccountSettingsResponse {
@@ -4595,7 +5473,15 @@ class ListAccountSettingsResponse {
     this.nextToken,
   });
   static ListAccountSettingsResponse fromJson(Map<String, dynamic> json) =>
-      ListAccountSettingsResponse();
+      ListAccountSettingsResponse(
+        settings: json.containsKey('settings')
+            ? (json['settings'] as List)
+                .map((e) => Setting.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListAttributesResponse {
@@ -4613,7 +5499,15 @@ class ListAttributesResponse {
     this.nextToken,
   });
   static ListAttributesResponse fromJson(Map<String, dynamic> json) =>
-      ListAttributesResponse();
+      ListAttributesResponse(
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListClustersResponse {
@@ -4632,7 +5526,13 @@ class ListClustersResponse {
     this.nextToken,
   });
   static ListClustersResponse fromJson(Map<String, dynamic> json) =>
-      ListClustersResponse();
+      ListClustersResponse(
+        clusterArns: json.containsKey('clusterArns')
+            ? (json['clusterArns'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListContainerInstancesResponse {
@@ -4651,7 +5551,15 @@ class ListContainerInstancesResponse {
     this.nextToken,
   });
   static ListContainerInstancesResponse fromJson(Map<String, dynamic> json) =>
-      ListContainerInstancesResponse();
+      ListContainerInstancesResponse(
+        containerInstanceArns: json.containsKey('containerInstanceArns')
+            ? (json['containerInstanceArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListServicesResponse {
@@ -4670,7 +5578,13 @@ class ListServicesResponse {
     this.nextToken,
   });
   static ListServicesResponse fromJson(Map<String, dynamic> json) =>
-      ListServicesResponse();
+      ListServicesResponse(
+        serviceArns: json.containsKey('serviceArns')
+            ? (json['serviceArns'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -4681,7 +5595,11 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListTaskDefinitionFamiliesResponse {
@@ -4701,7 +5619,13 @@ class ListTaskDefinitionFamiliesResponse {
   });
   static ListTaskDefinitionFamiliesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListTaskDefinitionFamiliesResponse();
+      ListTaskDefinitionFamiliesResponse(
+        families: json.containsKey('families')
+            ? (json['families'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTaskDefinitionsResponse {
@@ -4720,7 +5644,15 @@ class ListTaskDefinitionsResponse {
     this.nextToken,
   });
   static ListTaskDefinitionsResponse fromJson(Map<String, dynamic> json) =>
-      ListTaskDefinitionsResponse();
+      ListTaskDefinitionsResponse(
+        taskDefinitionArns: json.containsKey('taskDefinitionArns')
+            ? (json['taskDefinitionArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTasksResponse {
@@ -4738,7 +5670,13 @@ class ListTasksResponse {
     this.nextToken,
   });
   static ListTasksResponse fromJson(Map<String, dynamic> json) =>
-      ListTasksResponse();
+      ListTasksResponse(
+        taskArns: json.containsKey('taskArns')
+            ? (json['taskArns'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Details on the load balancer or load balancers to use with a service or task
@@ -4796,7 +5734,21 @@ class LoadBalancer {
     this.containerName,
     this.containerPort,
   });
-  static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer();
+  static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer(
+        targetGroupArn: json.containsKey('targetGroupArn')
+            ? json['targetGroupArn'] as String
+            : null,
+        loadBalancerName: json.containsKey('loadBalancerName')
+            ? json['loadBalancerName'] as String
+            : null,
+        containerName: json.containsKey('containerName')
+            ? json['containerName'] as String
+            : null,
+        containerPort: json.containsKey('containerPort')
+            ? json['containerPort'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Log configuration options to send to a custom log driver for the container.
@@ -4847,7 +5799,19 @@ class LogConfiguration {
     this.secretOptions,
   });
   static LogConfiguration fromJson(Map<String, dynamic> json) =>
-      LogConfiguration();
+      LogConfiguration(
+        logDriver: json['logDriver'] as String,
+        options: json.containsKey('options')
+            ? (json['options'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        secretOptions: json.containsKey('secretOptions')
+            ? (json['secretOptions'] as List)
+                .map((e) => Secret.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details on a volume mount point that is used in a container definition.
@@ -4869,7 +5833,17 @@ class MountPoint {
     this.containerPath,
     this.readOnly,
   });
-  static MountPoint fromJson(Map<String, dynamic> json) => MountPoint();
+  static MountPoint fromJson(Map<String, dynamic> json) => MountPoint(
+        sourceVolume: json.containsKey('sourceVolume')
+            ? json['sourceVolume'] as String
+            : null,
+        containerPath: json.containsKey('containerPath')
+            ? json['containerPath'] as String
+            : null,
+        readOnly:
+            json.containsKey('readOnly') ? json['readOnly'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details on the network bindings between a container and its host container
@@ -4895,7 +5869,16 @@ class NetworkBinding {
     this.hostPort,
     this.protocol,
   });
-  static NetworkBinding fromJson(Map<String, dynamic> json) => NetworkBinding();
+  static NetworkBinding fromJson(Map<String, dynamic> json) => NetworkBinding(
+        bindIP: json.containsKey('bindIP') ? json['bindIP'] as String : null,
+        containerPort: json.containsKey('containerPort')
+            ? json['containerPort'] as int
+            : null,
+        hostPort: json.containsKey('hostPort') ? json['hostPort'] as int : null,
+        protocol:
+            json.containsKey('protocol') ? json['protocol'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the network configuration for a task or service.
@@ -4911,7 +5894,12 @@ class NetworkConfiguration {
     this.awsvpcConfiguration,
   });
   static NetworkConfiguration fromJson(Map<String, dynamic> json) =>
-      NetworkConfiguration();
+      NetworkConfiguration(
+        awsvpcConfiguration: json.containsKey('awsvpcConfiguration')
+            ? AwsVpcConfiguration.fromJson(json['awsvpcConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the elastic network interface for tasks that use the
@@ -4932,7 +5920,17 @@ class NetworkInterface {
     this.ipv6Address,
   });
   static NetworkInterface fromJson(Map<String, dynamic> json) =>
-      NetworkInterface();
+      NetworkInterface(
+        attachmentId: json.containsKey('attachmentId')
+            ? json['attachmentId'] as String
+            : null,
+        privateIpv4Address: json.containsKey('privateIpv4Address')
+            ? json['privateIpv4Address'] as String
+            : null,
+        ipv6Address: json.containsKey('ipv6Address')
+            ? json['ipv6Address'] as String
+            : null,
+      );
 }
 
 /// An object representing a constraint on task placement. For more information,
@@ -4962,7 +5960,13 @@ class PlacementConstraint {
     this.expression,
   });
   static PlacementConstraint fromJson(Map<String, dynamic> json) =>
-      PlacementConstraint();
+      PlacementConstraint(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        expression: json.containsKey('expression')
+            ? json['expression'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The task placement strategy for a task or service. For more information, see
@@ -4992,7 +5996,11 @@ class PlacementStrategy {
     this.field,
   });
   static PlacementStrategy fromJson(Map<String, dynamic> json) =>
-      PlacementStrategy();
+      PlacementStrategy(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        field: json.containsKey('field') ? json['field'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The devices that are available on the container instance. The only supported
@@ -5011,6 +6019,7 @@ class PlatformDevice {
     @required this.id,
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Port mappings allow containers to access ports on the host container
@@ -5088,7 +6097,15 @@ class PortMapping {
     this.hostPort,
     this.protocol,
   });
-  static PortMapping fromJson(Map<String, dynamic> json) => PortMapping();
+  static PortMapping fromJson(Map<String, dynamic> json) => PortMapping(
+        containerPort: json.containsKey('containerPort')
+            ? json['containerPort'] as int
+            : null,
+        hostPort: json.containsKey('hostPort') ? json['hostPort'] as int : null,
+        protocol:
+            json.containsKey('protocol') ? json['protocol'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration details for the App Mesh proxy.
@@ -5149,7 +6166,16 @@ class ProxyConfiguration {
     this.properties,
   });
   static ProxyConfiguration fromJson(Map<String, dynamic> json) =>
-      ProxyConfiguration();
+      ProxyConfiguration(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        containerName: json['containerName'] as String,
+        properties: json.containsKey('properties')
+            ? (json['properties'] as List)
+                .map((e) => KeyValuePair.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutAccountSettingDefaultResponse {
@@ -5159,7 +6185,11 @@ class PutAccountSettingDefaultResponse {
     this.setting,
   });
   static PutAccountSettingDefaultResponse fromJson(Map<String, dynamic> json) =>
-      PutAccountSettingDefaultResponse();
+      PutAccountSettingDefaultResponse(
+        setting: json.containsKey('setting')
+            ? Setting.fromJson(json['setting'])
+            : null,
+      );
 }
 
 class PutAccountSettingResponse {
@@ -5170,7 +6200,11 @@ class PutAccountSettingResponse {
     this.setting,
   });
   static PutAccountSettingResponse fromJson(Map<String, dynamic> json) =>
-      PutAccountSettingResponse();
+      PutAccountSettingResponse(
+        setting: json.containsKey('setting')
+            ? Setting.fromJson(json['setting'])
+            : null,
+      );
 }
 
 class PutAttributesResponse {
@@ -5181,7 +6215,13 @@ class PutAttributesResponse {
     this.attributes,
   });
   static PutAttributesResponse fromJson(Map<String, dynamic> json) =>
-      PutAttributesResponse();
+      PutAttributesResponse(
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class RegisterContainerInstanceResponse {
@@ -5193,7 +6233,11 @@ class RegisterContainerInstanceResponse {
   });
   static RegisterContainerInstanceResponse fromJson(
           Map<String, dynamic> json) =>
-      RegisterContainerInstanceResponse();
+      RegisterContainerInstanceResponse(
+        containerInstance: json.containsKey('containerInstance')
+            ? ContainerInstance.fromJson(json['containerInstance'])
+            : null,
+      );
 }
 
 class RegisterTaskDefinitionResponse {
@@ -5208,7 +6252,14 @@ class RegisterTaskDefinitionResponse {
     this.tags,
   });
   static RegisterTaskDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      RegisterTaskDefinitionResponse();
+      RegisterTaskDefinitionResponse(
+        taskDefinition: json.containsKey('taskDefinition')
+            ? TaskDefinition.fromJson(json['taskDefinition'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The repository credentials for private registry authentication.
@@ -5228,7 +6279,10 @@ class RepositoryCredentials {
     @required this.credentialsParameter,
   });
   static RepositoryCredentials fromJson(Map<String, dynamic> json) =>
-      RepositoryCredentials();
+      RepositoryCredentials(
+        credentialsParameter: json['credentialsParameter'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the resources available for a container instance.
@@ -5265,7 +6319,23 @@ class Resource {
     this.integerValue,
     this.stringSetValue,
   });
-  static Resource fromJson(Map<String, dynamic> json) => Resource();
+  static Resource fromJson(Map<String, dynamic> json) => Resource(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        doubleValue: json.containsKey('doubleValue')
+            ? json['doubleValue'] as double
+            : null,
+        longValue: json.containsKey('longValue')
+            ? BigInt.from(json['longValue'])
+            : null,
+        integerValue: json.containsKey('integerValue')
+            ? json['integerValue'] as int
+            : null,
+        stringSetValue: json.containsKey('stringSetValue')
+            ? (json['stringSetValue'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The type and amount of a resource to assign to a container. The supported
@@ -5296,7 +6366,11 @@ class ResourceRequirement {
     @required this.type,
   });
   static ResourceRequirement fromJson(Map<String, dynamic> json) =>
-      ResourceRequirement();
+      ResourceRequirement(
+        value: json['value'] as String,
+        type: json['type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RunTaskResponse {
@@ -5311,8 +6385,16 @@ class RunTaskResponse {
     this.tasks,
     this.failures,
   });
-  static RunTaskResponse fromJson(Map<String, dynamic> json) =>
-      RunTaskResponse();
+  static RunTaskResponse fromJson(Map<String, dynamic> json) => RunTaskResponse(
+        tasks: json.containsKey('tasks')
+            ? (json['tasks'] as List).map((e) => Task.fromJson(e)).toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => Failure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A floating-point percentage of the desired number of tasks to place and keep
@@ -5329,7 +6411,11 @@ class Scale {
     this.value,
     this.unit,
   });
-  static Scale fromJson(Map<String, dynamic> json) => Scale();
+  static Scale fromJson(Map<String, dynamic> json) => Scale(
+        value: json.containsKey('value') ? json['value'] as double : null,
+        unit: json.containsKey('unit') ? json['unit'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the secret to expose to your container. Secrets can
@@ -5365,7 +6451,11 @@ class Secret {
     @required this.name,
     @required this.valueFrom,
   });
-  static Secret fromJson(Map<String, dynamic> json) => Secret();
+  static Secret fromJson(Map<String, dynamic> json) => Secret(
+        name: json['name'] as String,
+        valueFrom: json['valueFrom'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details on a service within a cluster
@@ -5566,7 +6656,102 @@ class Service {
     this.enableEcsManagedTags,
     this.propagateTags,
   });
-  static Service fromJson(Map<String, dynamic> json) => Service();
+  static Service fromJson(Map<String, dynamic> json) => Service(
+        serviceArn: json.containsKey('serviceArn')
+            ? json['serviceArn'] as String
+            : null,
+        serviceName: json.containsKey('serviceName')
+            ? json['serviceName'] as String
+            : null,
+        clusterArn: json.containsKey('clusterArn')
+            ? json['clusterArn'] as String
+            : null,
+        loadBalancers: json.containsKey('loadBalancers')
+            ? (json['loadBalancers'] as List)
+                .map((e) => LoadBalancer.fromJson(e))
+                .toList()
+            : null,
+        serviceRegistries: json.containsKey('serviceRegistries')
+            ? (json['serviceRegistries'] as List)
+                .map((e) => ServiceRegistry.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        desiredCount: json.containsKey('desiredCount')
+            ? json['desiredCount'] as int
+            : null,
+        runningCount: json.containsKey('runningCount')
+            ? json['runningCount'] as int
+            : null,
+        pendingCount: json.containsKey('pendingCount')
+            ? json['pendingCount'] as int
+            : null,
+        launchType: json.containsKey('launchType')
+            ? json['launchType'] as String
+            : null,
+        platformVersion: json.containsKey('platformVersion')
+            ? json['platformVersion'] as String
+            : null,
+        taskDefinition: json.containsKey('taskDefinition')
+            ? json['taskDefinition'] as String
+            : null,
+        deploymentConfiguration: json.containsKey('deploymentConfiguration')
+            ? DeploymentConfiguration.fromJson(json['deploymentConfiguration'])
+            : null,
+        taskSets: json.containsKey('taskSets')
+            ? (json['taskSets'] as List)
+                .map((e) => TaskSet.fromJson(e))
+                .toList()
+            : null,
+        deployments: json.containsKey('deployments')
+            ? (json['deployments'] as List)
+                .map((e) => Deployment.fromJson(e))
+                .toList()
+            : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        events: json.containsKey('events')
+            ? (json['events'] as List)
+                .map((e) => ServiceEvent.fromJson(e))
+                .toList()
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        placementConstraints: json.containsKey('placementConstraints')
+            ? (json['placementConstraints'] as List)
+                .map((e) => PlacementConstraint.fromJson(e))
+                .toList()
+            : null,
+        placementStrategy: json.containsKey('placementStrategy')
+            ? (json['placementStrategy'] as List)
+                .map((e) => PlacementStrategy.fromJson(e))
+                .toList()
+            : null,
+        networkConfiguration: json.containsKey('networkConfiguration')
+            ? NetworkConfiguration.fromJson(json['networkConfiguration'])
+            : null,
+        healthCheckGracePeriodSeconds:
+            json.containsKey('healthCheckGracePeriodSeconds')
+                ? json['healthCheckGracePeriodSeconds'] as int
+                : null,
+        schedulingStrategy: json.containsKey('schedulingStrategy')
+            ? json['schedulingStrategy'] as String
+            : null,
+        deploymentController: json.containsKey('deploymentController')
+            ? DeploymentController.fromJson(json['deploymentController'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        createdBy:
+            json.containsKey('createdBy') ? json['createdBy'] as String : null,
+        enableEcsManagedTags: json.containsKey('enableECSManagedTags')
+            ? json['enableECSManagedTags'] as bool
+            : null,
+        propagateTags: json.containsKey('propagateTags')
+            ? json['propagateTags'] as String
+            : null,
+      );
 }
 
 /// Details on an event associated with a service.
@@ -5585,7 +6770,13 @@ class ServiceEvent {
     this.createdAt,
     this.message,
   });
-  static ServiceEvent fromJson(Map<String, dynamic> json) => ServiceEvent();
+  static ServiceEvent fromJson(Map<String, dynamic> json) => ServiceEvent(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 /// Details of the service registry.
@@ -5626,8 +6817,19 @@ class ServiceRegistry {
     this.containerName,
     this.containerPort,
   });
-  static ServiceRegistry fromJson(Map<String, dynamic> json) =>
-      ServiceRegistry();
+  static ServiceRegistry fromJson(Map<String, dynamic> json) => ServiceRegistry(
+        registryArn: json.containsKey('registryArn')
+            ? json['registryArn'] as String
+            : null,
+        port: json.containsKey('port') ? json['port'] as int : null,
+        containerName: json.containsKey('containerName')
+            ? json['containerName'] as String
+            : null,
+        containerPort: json.containsKey('containerPort')
+            ? json['containerPort'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The current account setting for a resource.
@@ -5648,7 +6850,13 @@ class Setting {
     this.value,
     this.principalArn,
   });
-  static Setting fromJson(Map<String, dynamic> json) => Setting();
+  static Setting fromJson(Map<String, dynamic> json) => Setting(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+        principalArn: json.containsKey('principalArn')
+            ? json['principalArn'] as String
+            : null,
+      );
 }
 
 class StartTaskResponse {
@@ -5664,7 +6872,16 @@ class StartTaskResponse {
     this.failures,
   });
   static StartTaskResponse fromJson(Map<String, dynamic> json) =>
-      StartTaskResponse();
+      StartTaskResponse(
+        tasks: json.containsKey('tasks')
+            ? (json['tasks'] as List).map((e) => Task.fromJson(e)).toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => Failure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class StopTaskResponse {
@@ -5675,7 +6892,9 @@ class StopTaskResponse {
     this.task,
   });
   static StopTaskResponse fromJson(Map<String, dynamic> json) =>
-      StopTaskResponse();
+      StopTaskResponse(
+        task: json.containsKey('task') ? Task.fromJson(json['task']) : null,
+      );
 }
 
 class SubmitAttachmentStateChangesResponse {
@@ -5687,7 +6906,11 @@ class SubmitAttachmentStateChangesResponse {
   });
   static SubmitAttachmentStateChangesResponse fromJson(
           Map<String, dynamic> json) =>
-      SubmitAttachmentStateChangesResponse();
+      SubmitAttachmentStateChangesResponse(
+        acknowledgment: json.containsKey('acknowledgment')
+            ? json['acknowledgment'] as String
+            : null,
+      );
 }
 
 class SubmitContainerStateChangeResponse {
@@ -5699,7 +6922,11 @@ class SubmitContainerStateChangeResponse {
   });
   static SubmitContainerStateChangeResponse fromJson(
           Map<String, dynamic> json) =>
-      SubmitContainerStateChangeResponse();
+      SubmitContainerStateChangeResponse(
+        acknowledgment: json.containsKey('acknowledgment')
+            ? json['acknowledgment'] as String
+            : null,
+      );
 }
 
 class SubmitTaskStateChangeResponse {
@@ -5710,7 +6937,11 @@ class SubmitTaskStateChangeResponse {
     this.acknowledgment,
   });
   static SubmitTaskStateChangeResponse fromJson(Map<String, dynamic> json) =>
-      SubmitTaskStateChangeResponse();
+      SubmitTaskStateChangeResponse(
+        acknowledgment: json.containsKey('acknowledgment')
+            ? json['acknowledgment'] as String
+            : null,
+      );
 }
 
 /// A list of namespaced kernel parameters to set in the container. This
@@ -5745,7 +6976,12 @@ class SystemControl {
     this.namespace,
     this.value,
   });
-  static SystemControl fromJson(Map<String, dynamic> json) => SystemControl();
+  static SystemControl fromJson(Map<String, dynamic> json) => SystemControl(
+        namespace:
+            json.containsKey('namespace') ? json['namespace'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The metadata that you apply to a resource to help you categorize and
@@ -5787,7 +7023,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('key') ? json['key'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -6034,7 +7274,93 @@ class Task {
     this.tags,
     this.inferenceAccelerators,
   });
-  static Task fromJson(Map<String, dynamic> json) => Task();
+  static Task fromJson(Map<String, dynamic> json) => Task(
+        taskArn: json.containsKey('taskArn') ? json['taskArn'] as String : null,
+        clusterArn: json.containsKey('clusterArn')
+            ? json['clusterArn'] as String
+            : null,
+        taskDefinitionArn: json.containsKey('taskDefinitionArn')
+            ? json['taskDefinitionArn'] as String
+            : null,
+        containerInstanceArn: json.containsKey('containerInstanceArn')
+            ? json['containerInstanceArn'] as String
+            : null,
+        overrides: json.containsKey('overrides')
+            ? TaskOverride.fromJson(json['overrides'])
+            : null,
+        lastStatus: json.containsKey('lastStatus')
+            ? json['lastStatus'] as String
+            : null,
+        desiredStatus: json.containsKey('desiredStatus')
+            ? json['desiredStatus'] as String
+            : null,
+        cpu: json.containsKey('cpu') ? json['cpu'] as String : null,
+        memory: json.containsKey('memory') ? json['memory'] as String : null,
+        containers: json.containsKey('containers')
+            ? (json['containers'] as List)
+                .map((e) => Container.fromJson(e))
+                .toList()
+            : null,
+        startedBy:
+            json.containsKey('startedBy') ? json['startedBy'] as String : null,
+        version:
+            json.containsKey('version') ? BigInt.from(json['version']) : null,
+        stoppedReason: json.containsKey('stoppedReason')
+            ? json['stoppedReason'] as String
+            : null,
+        stopCode:
+            json.containsKey('stopCode') ? json['stopCode'] as String : null,
+        connectivity: json.containsKey('connectivity')
+            ? json['connectivity'] as String
+            : null,
+        connectivityAt: json.containsKey('connectivityAt')
+            ? DateTime.parse(json['connectivityAt'])
+            : null,
+        pullStartedAt: json.containsKey('pullStartedAt')
+            ? DateTime.parse(json['pullStartedAt'])
+            : null,
+        pullStoppedAt: json.containsKey('pullStoppedAt')
+            ? DateTime.parse(json['pullStoppedAt'])
+            : null,
+        executionStoppedAt: json.containsKey('executionStoppedAt')
+            ? DateTime.parse(json['executionStoppedAt'])
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        startedAt: json.containsKey('startedAt')
+            ? DateTime.parse(json['startedAt'])
+            : null,
+        stoppingAt: json.containsKey('stoppingAt')
+            ? DateTime.parse(json['stoppingAt'])
+            : null,
+        stoppedAt: json.containsKey('stoppedAt')
+            ? DateTime.parse(json['stoppedAt'])
+            : null,
+        group: json.containsKey('group') ? json['group'] as String : null,
+        launchType: json.containsKey('launchType')
+            ? json['launchType'] as String
+            : null,
+        platformVersion: json.containsKey('platformVersion')
+            ? json['platformVersion'] as String
+            : null,
+        attachments: json.containsKey('attachments')
+            ? (json['attachments'] as List)
+                .map((e) => Attachment.fromJson(e))
+                .toList()
+            : null,
+        healthStatus: json.containsKey('healthStatus')
+            ? json['healthStatus'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        inferenceAccelerators: json.containsKey('inferenceAccelerators')
+            ? (json['inferenceAccelerators'] as List)
+                .map((e) => InferenceAccelerator.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The details of a task definition which describes the container and volume
@@ -6294,7 +7620,56 @@ class TaskDefinition {
     this.ipcMode,
     this.proxyConfiguration,
   });
-  static TaskDefinition fromJson(Map<String, dynamic> json) => TaskDefinition();
+  static TaskDefinition fromJson(Map<String, dynamic> json) => TaskDefinition(
+        taskDefinitionArn: json.containsKey('taskDefinitionArn')
+            ? json['taskDefinitionArn'] as String
+            : null,
+        containerDefinitions: json.containsKey('containerDefinitions')
+            ? (json['containerDefinitions'] as List)
+                .map((e) => ContainerDefinition.fromJson(e))
+                .toList()
+            : null,
+        family: json.containsKey('family') ? json['family'] as String : null,
+        taskRoleArn: json.containsKey('taskRoleArn')
+            ? json['taskRoleArn'] as String
+            : null,
+        executionRoleArn: json.containsKey('executionRoleArn')
+            ? json['executionRoleArn'] as String
+            : null,
+        networkMode: json.containsKey('networkMode')
+            ? json['networkMode'] as String
+            : null,
+        revision: json.containsKey('revision') ? json['revision'] as int : null,
+        volumes: json.containsKey('volumes')
+            ? (json['volumes'] as List).map((e) => Volume.fromJson(e)).toList()
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        requiresAttributes: json.containsKey('requiresAttributes')
+            ? (json['requiresAttributes'] as List)
+                .map((e) => Attribute.fromJson(e))
+                .toList()
+            : null,
+        placementConstraints: json.containsKey('placementConstraints')
+            ? (json['placementConstraints'] as List)
+                .map((e) => TaskDefinitionPlacementConstraint.fromJson(e))
+                .toList()
+            : null,
+        compatibilities: json.containsKey('compatibilities')
+            ? (json['compatibilities'] as List).map((e) => e as String).toList()
+            : null,
+        requiresCompatibilities: json.containsKey('requiresCompatibilities')
+            ? (json['requiresCompatibilities'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        cpu: json.containsKey('cpu') ? json['cpu'] as String : null,
+        memory: json.containsKey('memory') ? json['memory'] as String : null,
+        pidMode: json.containsKey('pidMode') ? json['pidMode'] as String : null,
+        ipcMode: json.containsKey('ipcMode') ? json['ipcMode'] as String : null,
+        proxyConfiguration: json.containsKey('proxyConfiguration')
+            ? ProxyConfiguration.fromJson(json['proxyConfiguration'])
+            : null,
+      );
 }
 
 /// An object representing a constraint on task placement in the task
@@ -6323,7 +7698,13 @@ class TaskDefinitionPlacementConstraint {
   });
   static TaskDefinitionPlacementConstraint fromJson(
           Map<String, dynamic> json) =>
-      TaskDefinitionPlacementConstraint();
+      TaskDefinitionPlacementConstraint(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        expression: json.containsKey('expression')
+            ? json['expression'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The overrides associated with a task.
@@ -6349,7 +7730,26 @@ class TaskOverride {
     this.taskRoleArn,
     this.executionRoleArn,
   });
-  static TaskOverride fromJson(Map<String, dynamic> json) => TaskOverride();
+  static TaskOverride fromJson(Map<String, dynamic> json) => TaskOverride(
+        containerOverrides: json.containsKey('containerOverrides')
+            ? (json['containerOverrides'] as List)
+                .map((e) => ContainerOverride.fromJson(e))
+                .toList()
+            : null,
+        inferenceAcceleratorOverrides:
+            json.containsKey('inferenceAcceleratorOverrides')
+                ? (json['inferenceAcceleratorOverrides'] as List)
+                    .map((e) => InferenceAcceleratorOverride.fromJson(e))
+                    .toList()
+                : null,
+        taskRoleArn: json.containsKey('taskRoleArn')
+            ? json['taskRoleArn'] as String
+            : null,
+        executionRoleArn: json.containsKey('executionRoleArn')
+            ? json['executionRoleArn'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a set of Amazon ECS tasks in either an AWS CodeDeploy or
@@ -6503,7 +7903,68 @@ class TaskSet {
     this.stabilityStatus,
     this.stabilityStatusAt,
   });
-  static TaskSet fromJson(Map<String, dynamic> json) => TaskSet();
+  static TaskSet fromJson(Map<String, dynamic> json) => TaskSet(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        taskSetArn: json.containsKey('taskSetArn')
+            ? json['taskSetArn'] as String
+            : null,
+        serviceArn: json.containsKey('serviceArn')
+            ? json['serviceArn'] as String
+            : null,
+        clusterArn: json.containsKey('clusterArn')
+            ? json['clusterArn'] as String
+            : null,
+        startedBy:
+            json.containsKey('startedBy') ? json['startedBy'] as String : null,
+        externalId: json.containsKey('externalId')
+            ? json['externalId'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        taskDefinition: json.containsKey('taskDefinition')
+            ? json['taskDefinition'] as String
+            : null,
+        computedDesiredCount: json.containsKey('computedDesiredCount')
+            ? json['computedDesiredCount'] as int
+            : null,
+        pendingCount: json.containsKey('pendingCount')
+            ? json['pendingCount'] as int
+            : null,
+        runningCount: json.containsKey('runningCount')
+            ? json['runningCount'] as int
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        updatedAt: json.containsKey('updatedAt')
+            ? DateTime.parse(json['updatedAt'])
+            : null,
+        launchType: json.containsKey('launchType')
+            ? json['launchType'] as String
+            : null,
+        platformVersion: json.containsKey('platformVersion')
+            ? json['platformVersion'] as String
+            : null,
+        networkConfiguration: json.containsKey('networkConfiguration')
+            ? NetworkConfiguration.fromJson(json['networkConfiguration'])
+            : null,
+        loadBalancers: json.containsKey('loadBalancers')
+            ? (json['loadBalancers'] as List)
+                .map((e) => LoadBalancer.fromJson(e))
+                .toList()
+            : null,
+        serviceRegistries: json.containsKey('serviceRegistries')
+            ? (json['serviceRegistries'] as List)
+                .map((e) => ServiceRegistry.fromJson(e))
+                .toList()
+            : null,
+        scale: json.containsKey('scale') ? Scale.fromJson(json['scale']) : null,
+        stabilityStatus: json.containsKey('stabilityStatus')
+            ? json['stabilityStatus'] as String
+            : null,
+        stabilityStatusAt: json.containsKey('stabilityStatusAt')
+            ? DateTime.parse(json['stabilityStatusAt'])
+            : null,
+      );
 }
 
 /// The container path, mount options, and size of the tmpfs mount.
@@ -6530,7 +7991,14 @@ class Tmpfs {
     @required this.size,
     this.mountOptions,
   });
-  static Tmpfs fromJson(Map<String, dynamic> json) => Tmpfs();
+  static Tmpfs fromJson(Map<String, dynamic> json) => Tmpfs(
+        containerPath: json['containerPath'] as String,
+        size: json['size'] as int,
+        mountOptions: json.containsKey('mountOptions')
+            ? (json['mountOptions'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The `ulimit` settings to pass to the container.
@@ -6549,7 +8017,12 @@ class Ulimit {
     @required this.softLimit,
     @required this.hardLimit,
   });
-  static Ulimit fromJson(Map<String, dynamic> json) => Ulimit();
+  static Ulimit fromJson(Map<String, dynamic> json) => Ulimit(
+        name: json['name'] as String,
+        softLimit: json['softLimit'] as int,
+        hardLimit: json['hardLimit'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -6565,7 +8038,11 @@ class UpdateClusterSettingsResponse {
     this.cluster,
   });
   static UpdateClusterSettingsResponse fromJson(Map<String, dynamic> json) =>
-      UpdateClusterSettingsResponse();
+      UpdateClusterSettingsResponse(
+        cluster: json.containsKey('cluster')
+            ? Cluster.fromJson(json['cluster'])
+            : null,
+      );
 }
 
 class UpdateContainerAgentResponse {
@@ -6576,7 +8053,11 @@ class UpdateContainerAgentResponse {
     this.containerInstance,
   });
   static UpdateContainerAgentResponse fromJson(Map<String, dynamic> json) =>
-      UpdateContainerAgentResponse();
+      UpdateContainerAgentResponse(
+        containerInstance: json.containsKey('containerInstance')
+            ? ContainerInstance.fromJson(json['containerInstance'])
+            : null,
+      );
 }
 
 class UpdateContainerInstancesStateResponse {
@@ -6592,7 +8073,18 @@ class UpdateContainerInstancesStateResponse {
   });
   static UpdateContainerInstancesStateResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateContainerInstancesStateResponse();
+      UpdateContainerInstancesStateResponse(
+        containerInstances: json.containsKey('containerInstances')
+            ? (json['containerInstances'] as List)
+                .map((e) => ContainerInstance.fromJson(e))
+                .toList()
+            : null,
+        failures: json.containsKey('failures')
+            ? (json['failures'] as List)
+                .map((e) => Failure.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateServicePrimaryTaskSetResponse {
@@ -6603,7 +8095,11 @@ class UpdateServicePrimaryTaskSetResponse {
   });
   static UpdateServicePrimaryTaskSetResponse fromJson(
           Map<String, dynamic> json) =>
-      UpdateServicePrimaryTaskSetResponse();
+      UpdateServicePrimaryTaskSetResponse(
+        taskSet: json.containsKey('taskSet')
+            ? TaskSet.fromJson(json['taskSet'])
+            : null,
+      );
 }
 
 class UpdateServiceResponse {
@@ -6614,7 +8110,11 @@ class UpdateServiceResponse {
     this.service,
   });
   static UpdateServiceResponse fromJson(Map<String, dynamic> json) =>
-      UpdateServiceResponse();
+      UpdateServiceResponse(
+        service: json.containsKey('service')
+            ? Service.fromJson(json['service'])
+            : null,
+      );
 }
 
 class UpdateTaskSetResponse {
@@ -6624,7 +8124,11 @@ class UpdateTaskSetResponse {
     this.taskSet,
   });
   static UpdateTaskSetResponse fromJson(Map<String, dynamic> json) =>
-      UpdateTaskSetResponse();
+      UpdateTaskSetResponse(
+        taskSet: json.containsKey('taskSet')
+            ? TaskSet.fromJson(json['taskSet'])
+            : null,
+      );
 }
 
 /// The Docker and Amazon ECS container agent version information about a
@@ -6646,7 +8150,17 @@ class VersionInfo {
     this.agentHash,
     this.dockerVersion,
   });
-  static VersionInfo fromJson(Map<String, dynamic> json) => VersionInfo();
+  static VersionInfo fromJson(Map<String, dynamic> json) => VersionInfo(
+        agentVersion: json.containsKey('agentVersion')
+            ? json['agentVersion'] as String
+            : null,
+        agentHash:
+            json.containsKey('agentHash') ? json['agentHash'] as String : null,
+        dockerVersion: json.containsKey('dockerVersion')
+            ? json['dockerVersion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A data volume used in a task definition. For tasks that use a Docker volume,
@@ -6687,7 +8201,17 @@ class Volume {
     this.host,
     this.dockerVolumeConfiguration,
   });
-  static Volume fromJson(Map<String, dynamic> json) => Volume();
+  static Volume fromJson(Map<String, dynamic> json) => Volume(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        host: json.containsKey('host')
+            ? HostVolumeProperties.fromJson(json['host'])
+            : null,
+        dockerVolumeConfiguration: json.containsKey('dockerVolumeConfiguration')
+            ? DockerVolumeConfiguration.fromJson(
+                json['dockerVolumeConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Details on a data volume from another container in the same task definition.
@@ -6705,5 +8229,12 @@ class VolumeFrom {
     this.sourceContainer,
     this.readOnly,
   });
-  static VolumeFrom fromJson(Map<String, dynamic> json) => VolumeFrom();
+  static VolumeFrom fromJson(Map<String, dynamic> json) => VolumeFrom(
+        sourceContainer: json.containsKey('sourceContainer')
+            ? json['sourceContainer'] as String
+            : null,
+        readOnly:
+            json.containsKey('readOnly') ? json['readOnly'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

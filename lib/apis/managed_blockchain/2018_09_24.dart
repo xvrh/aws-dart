@@ -7,6 +7,11 @@ import 'package:meta/meta.dart';
 /// trusted, central authority. Currently, Managed Blockchain supports the
 /// Hyperledger Fabric open source framework.
 class ManagedBlockchainApi {
+  final _client;
+  ManagedBlockchainApi(client)
+      : _client =
+            client.configured('ManagedBlockchain', serializer: 'rest-json');
+
   /// Creates a member within a Managed Blockchain network.
   ///
   /// [clientRequestToken]: A unique, case-sensitive identifier that you provide
@@ -27,7 +32,13 @@ class ManagedBlockchainApi {
       @required String invitationId,
       @required String networkId,
       @required MemberConfiguration memberConfiguration}) async {
-    return CreateMemberOutput.fromJson({});
+    var response_ = await _client.send('CreateMember', {
+      'ClientRequestToken': clientRequestToken,
+      'InvitationId': invitationId,
+      'NetworkId': networkId,
+      'MemberConfiguration': memberConfiguration,
+    });
+    return CreateMemberOutput.fromJson(response_);
   }
 
   /// Creates a new blockchain network using Amazon Managed Blockchain.
@@ -64,7 +75,18 @@ class ManagedBlockchainApi {
       NetworkFrameworkConfiguration frameworkConfiguration,
       @required VotingPolicy votingPolicy,
       @required MemberConfiguration memberConfiguration}) async {
-    return CreateNetworkOutput.fromJson({});
+    var response_ = await _client.send('CreateNetwork', {
+      'ClientRequestToken': clientRequestToken,
+      'Name': name,
+      if (description != null) 'Description': description,
+      'Framework': framework,
+      'FrameworkVersion': frameworkVersion,
+      if (frameworkConfiguration != null)
+        'FrameworkConfiguration': frameworkConfiguration,
+      'VotingPolicy': votingPolicy,
+      'MemberConfiguration': memberConfiguration,
+    });
+    return CreateNetworkOutput.fromJson(response_);
   }
 
   /// Creates a peer node in a member.
@@ -85,7 +107,13 @@ class ManagedBlockchainApi {
       @required String networkId,
       @required String memberId,
       @required NodeConfiguration nodeConfiguration}) async {
-    return CreateNodeOutput.fromJson({});
+    var response_ = await _client.send('CreateNode', {
+      'ClientRequestToken': clientRequestToken,
+      'NetworkId': networkId,
+      'MemberId': memberId,
+      'NodeConfiguration': nodeConfiguration,
+    });
+    return CreateNodeOutput.fromJson(response_);
   }
 
   /// Creates a proposal for a change to the network that other members of the
@@ -118,7 +146,14 @@ class ManagedBlockchainApi {
       @required String memberId,
       @required ProposalActions actions,
       String description}) async {
-    return CreateProposalOutput.fromJson({});
+    var response_ = await _client.send('CreateProposal', {
+      'ClientRequestToken': clientRequestToken,
+      'NetworkId': networkId,
+      'MemberId': memberId,
+      'Actions': actions,
+      if (description != null) 'Description': description,
+    });
+    return CreateProposalOutput.fromJson(response_);
   }
 
   /// Deletes a member. Deleting a member removes the member and all associated
@@ -135,7 +170,11 @@ class ManagedBlockchainApi {
   /// [memberId]: The unique identifier of the member to remove.
   Future<DeleteMemberOutput> deleteMember(
       {@required String networkId, @required String memberId}) async {
-    return DeleteMemberOutput.fromJson({});
+    var response_ = await _client.send('DeleteMember', {
+      'NetworkId': networkId,
+      'MemberId': memberId,
+    });
+    return DeleteMemberOutput.fromJson(response_);
   }
 
   /// Deletes a peer node from a member that your AWS account owns. All data on
@@ -151,7 +190,12 @@ class ManagedBlockchainApi {
       {@required String networkId,
       @required String memberId,
       @required String nodeId}) async {
-    return DeleteNodeOutput.fromJson({});
+    var response_ = await _client.send('DeleteNode', {
+      'NetworkId': networkId,
+      'MemberId': memberId,
+      'NodeId': nodeId,
+    });
+    return DeleteNodeOutput.fromJson(response_);
   }
 
   /// Returns detailed information about a member.
@@ -162,7 +206,11 @@ class ManagedBlockchainApi {
   /// [memberId]: The unique identifier of the member.
   Future<GetMemberOutput> getMember(
       {@required String networkId, @required String memberId}) async {
-    return GetMemberOutput.fromJson({});
+    var response_ = await _client.send('GetMember', {
+      'NetworkId': networkId,
+      'MemberId': memberId,
+    });
+    return GetMemberOutput.fromJson(response_);
   }
 
   /// Returns detailed information about a network.
@@ -170,7 +218,10 @@ class ManagedBlockchainApi {
   /// [networkId]: The unique identifier of the network to get information
   /// about.
   Future<GetNetworkOutput> getNetwork(String networkId) async {
-    return GetNetworkOutput.fromJson({});
+    var response_ = await _client.send('GetNetwork', {
+      'NetworkId': networkId,
+    });
+    return GetNetworkOutput.fromJson(response_);
   }
 
   /// Returns detailed information about a peer node.
@@ -185,7 +236,12 @@ class ManagedBlockchainApi {
       {@required String networkId,
       @required String memberId,
       @required String nodeId}) async {
-    return GetNodeOutput.fromJson({});
+    var response_ = await _client.send('GetNode', {
+      'NetworkId': networkId,
+      'MemberId': memberId,
+      'NodeId': nodeId,
+    });
+    return GetNodeOutput.fromJson(response_);
   }
 
   /// Returns detailed information about a proposal.
@@ -196,7 +252,11 @@ class ManagedBlockchainApi {
   /// [proposalId]: The unique identifier of the proposal.
   Future<GetProposalOutput> getProposal(
       {@required String networkId, @required String proposalId}) async {
-    return GetProposalOutput.fromJson({});
+    var response_ = await _client.send('GetProposal', {
+      'NetworkId': networkId,
+      'ProposalId': proposalId,
+    });
+    return GetProposalOutput.fromJson(response_);
   }
 
   /// Returns a listing of all invitations made on the specified network.
@@ -207,7 +267,11 @@ class ManagedBlockchainApi {
   /// to retrieve.
   Future<ListInvitationsOutput> listInvitations(
       {int maxResults, String nextToken}) async {
-    return ListInvitationsOutput.fromJson({});
+    var response_ = await _client.send('ListInvitations', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListInvitationsOutput.fromJson(response_);
   }
 
   /// Returns a listing of the members in a network and properties of their
@@ -235,7 +299,15 @@ class ManagedBlockchainApi {
       bool isOwned,
       int maxResults,
       String nextToken}) async {
-    return ListMembersOutput.fromJson({});
+    var response_ = await _client.send('ListMembers', {
+      'NetworkId': networkId,
+      if (name != null) 'Name': name,
+      if (status != null) 'Status': status,
+      if (isOwned != null) 'IsOwned': isOwned,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListMembersOutput.fromJson(response_);
   }
 
   /// Returns information about the networks in which the current AWS account
@@ -259,7 +331,14 @@ class ManagedBlockchainApi {
       String status,
       int maxResults,
       String nextToken}) async {
-    return ListNetworksOutput.fromJson({});
+    var response_ = await _client.send('ListNetworks', {
+      if (name != null) 'Name': name,
+      if (framework != null) 'Framework': framework,
+      if (status != null) 'Status': status,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListNetworksOutput.fromJson(response_);
   }
 
   /// Returns information about the nodes within a network.
@@ -282,7 +361,14 @@ class ManagedBlockchainApi {
       String status,
       int maxResults,
       String nextToken}) async {
-    return ListNodesOutput.fromJson({});
+    var response_ = await _client.send('ListNodes', {
+      'NetworkId': networkId,
+      'MemberId': memberId,
+      if (status != null) 'Status': status,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListNodesOutput.fromJson(response_);
   }
 
   /// Returns the listing of votes for a specified proposal, including the value
@@ -301,7 +387,13 @@ class ManagedBlockchainApi {
       @required String proposalId,
       int maxResults,
       String nextToken}) async {
-    return ListProposalVotesOutput.fromJson({});
+    var response_ = await _client.send('ListProposalVotes', {
+      'NetworkId': networkId,
+      'ProposalId': proposalId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListProposalVotesOutput.fromJson(response_);
   }
 
   /// Returns a listing of proposals for the network.
@@ -314,7 +406,12 @@ class ManagedBlockchainApi {
   /// to retrieve.
   Future<ListProposalsOutput> listProposals(String networkId,
       {int maxResults, String nextToken}) async {
-    return ListProposalsOutput.fromJson({});
+    var response_ = await _client.send('ListProposals', {
+      'NetworkId': networkId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListProposalsOutput.fromJson(response_);
   }
 
   /// Rejects an invitation to join a network. This action can be called by a
@@ -323,7 +420,10 @@ class ManagedBlockchainApi {
   ///
   /// [invitationId]: The unique identifier of the invitation to reject.
   Future<RejectInvitationOutput> rejectInvitation(String invitationId) async {
-    return RejectInvitationOutput.fromJson({});
+    var response_ = await _client.send('RejectInvitation', {
+      'InvitationId': invitationId,
+    });
+    return RejectInvitationOutput.fromJson(response_);
   }
 
   /// Casts a vote for a specified `ProposalId` on behalf of a member. The
@@ -342,7 +442,13 @@ class ManagedBlockchainApi {
       @required String proposalId,
       @required String voterMemberId,
       @required String vote}) async {
-    return VoteOnProposalOutput.fromJson({});
+    var response_ = await _client.send('VoteOnProposal', {
+      'NetworkId': networkId,
+      'ProposalId': proposalId,
+      'VoterMemberId': voterMemberId,
+      'Vote': vote,
+    });
+    return VoteOnProposalOutput.fromJson(response_);
   }
 }
 
@@ -378,7 +484,18 @@ class ApprovalThresholdPolicy {
     this.thresholdComparator,
   });
   static ApprovalThresholdPolicy fromJson(Map<String, dynamic> json) =>
-      ApprovalThresholdPolicy();
+      ApprovalThresholdPolicy(
+        thresholdPercentage: json.containsKey('ThresholdPercentage')
+            ? json['ThresholdPercentage'] as int
+            : null,
+        proposalDurationInHours: json.containsKey('ProposalDurationInHours')
+            ? json['ProposalDurationInHours'] as int
+            : null,
+        thresholdComparator: json.containsKey('ThresholdComparator')
+            ? json['ThresholdComparator'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateMemberOutput {
@@ -389,7 +506,10 @@ class CreateMemberOutput {
     this.memberId,
   });
   static CreateMemberOutput fromJson(Map<String, dynamic> json) =>
-      CreateMemberOutput();
+      CreateMemberOutput(
+        memberId:
+            json.containsKey('MemberId') ? json['MemberId'] as String : null,
+      );
 }
 
 class CreateNetworkOutput {
@@ -404,7 +524,12 @@ class CreateNetworkOutput {
     this.memberId,
   });
   static CreateNetworkOutput fromJson(Map<String, dynamic> json) =>
-      CreateNetworkOutput();
+      CreateNetworkOutput(
+        networkId:
+            json.containsKey('NetworkId') ? json['NetworkId'] as String : null,
+        memberId:
+            json.containsKey('MemberId') ? json['MemberId'] as String : null,
+      );
 }
 
 class CreateNodeOutput {
@@ -415,7 +540,9 @@ class CreateNodeOutput {
     this.nodeId,
   });
   static CreateNodeOutput fromJson(Map<String, dynamic> json) =>
-      CreateNodeOutput();
+      CreateNodeOutput(
+        nodeId: json.containsKey('NodeId') ? json['NodeId'] as String : null,
+      );
 }
 
 class CreateProposalOutput {
@@ -426,7 +553,11 @@ class CreateProposalOutput {
     this.proposalId,
   });
   static CreateProposalOutput fromJson(Map<String, dynamic> json) =>
-      CreateProposalOutput();
+      CreateProposalOutput(
+        proposalId: json.containsKey('ProposalId')
+            ? json['ProposalId'] as String
+            : null,
+      );
 }
 
 class DeleteMemberOutput {
@@ -448,8 +579,10 @@ class GetMemberOutput {
   GetMemberOutput({
     this.member,
   });
-  static GetMemberOutput fromJson(Map<String, dynamic> json) =>
-      GetMemberOutput();
+  static GetMemberOutput fromJson(Map<String, dynamic> json) => GetMemberOutput(
+        member:
+            json.containsKey('Member') ? Member.fromJson(json['Member']) : null,
+      );
 }
 
 class GetNetworkOutput {
@@ -460,7 +593,11 @@ class GetNetworkOutput {
     this.network,
   });
   static GetNetworkOutput fromJson(Map<String, dynamic> json) =>
-      GetNetworkOutput();
+      GetNetworkOutput(
+        network: json.containsKey('Network')
+            ? Network.fromJson(json['Network'])
+            : null,
+      );
 }
 
 class GetNodeOutput {
@@ -470,7 +607,9 @@ class GetNodeOutput {
   GetNodeOutput({
     this.node,
   });
-  static GetNodeOutput fromJson(Map<String, dynamic> json) => GetNodeOutput();
+  static GetNodeOutput fromJson(Map<String, dynamic> json) => GetNodeOutput(
+        node: json.containsKey('Node') ? Node.fromJson(json['Node']) : null,
+      );
 }
 
 class GetProposalOutput {
@@ -481,7 +620,11 @@ class GetProposalOutput {
     this.proposal,
   });
   static GetProposalOutput fromJson(Map<String, dynamic> json) =>
-      GetProposalOutput();
+      GetProposalOutput(
+        proposal: json.containsKey('Proposal')
+            ? Proposal.fromJson(json['Proposal'])
+            : null,
+      );
 }
 
 /// An invitation to an AWS account to create a member and join the network.
@@ -524,7 +667,21 @@ class Invitation {
     this.status,
     this.networkSummary,
   });
-  static Invitation fromJson(Map<String, dynamic> json) => Invitation();
+  static Invitation fromJson(Map<String, dynamic> json) => Invitation(
+        invitationId: json.containsKey('InvitationId')
+            ? json['InvitationId'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        expirationDate: json.containsKey('ExpirationDate')
+            ? DateTime.parse(json['ExpirationDate'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        networkSummary: json.containsKey('NetworkSummary')
+            ? NetworkSummary.fromJson(json['NetworkSummary'])
+            : null,
+      );
 }
 
 /// An action to invite a specific AWS account to create a member and join the
@@ -536,7 +693,10 @@ class InviteAction {
   InviteAction({
     @required this.principal,
   });
-  static InviteAction fromJson(Map<String, dynamic> json) => InviteAction();
+  static InviteAction fromJson(Map<String, dynamic> json) => InviteAction(
+        principal: json['Principal'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListInvitationsOutput {
@@ -551,7 +711,15 @@ class ListInvitationsOutput {
     this.nextToken,
   });
   static ListInvitationsOutput fromJson(Map<String, dynamic> json) =>
-      ListInvitationsOutput();
+      ListInvitationsOutput(
+        invitations: json.containsKey('Invitations')
+            ? (json['Invitations'] as List)
+                .map((e) => Invitation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListMembersOutput {
@@ -567,7 +735,15 @@ class ListMembersOutput {
     this.nextToken,
   });
   static ListMembersOutput fromJson(Map<String, dynamic> json) =>
-      ListMembersOutput();
+      ListMembersOutput(
+        members: json.containsKey('Members')
+            ? (json['Members'] as List)
+                .map((e) => MemberSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListNetworksOutput {
@@ -583,7 +759,15 @@ class ListNetworksOutput {
     this.nextToken,
   });
   static ListNetworksOutput fromJson(Map<String, dynamic> json) =>
-      ListNetworksOutput();
+      ListNetworksOutput(
+        networks: json.containsKey('Networks')
+            ? (json['Networks'] as List)
+                .map((e) => NetworkSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListNodesOutput {
@@ -598,8 +782,15 @@ class ListNodesOutput {
     this.nodes,
     this.nextToken,
   });
-  static ListNodesOutput fromJson(Map<String, dynamic> json) =>
-      ListNodesOutput();
+  static ListNodesOutput fromJson(Map<String, dynamic> json) => ListNodesOutput(
+        nodes: json.containsKey('Nodes')
+            ? (json['Nodes'] as List)
+                .map((e) => NodeSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListProposalVotesOutput {
@@ -614,7 +805,15 @@ class ListProposalVotesOutput {
     this.nextToken,
   });
   static ListProposalVotesOutput fromJson(Map<String, dynamic> json) =>
-      ListProposalVotesOutput();
+      ListProposalVotesOutput(
+        proposalVotes: json.containsKey('ProposalVotes')
+            ? (json['ProposalVotes'] as List)
+                .map((e) => VoteSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListProposalsOutput {
@@ -629,7 +828,15 @@ class ListProposalsOutput {
     this.nextToken,
   });
   static ListProposalsOutput fromJson(Map<String, dynamic> json) =>
-      ListProposalsOutput();
+      ListProposalsOutput(
+        proposals: json.containsKey('Proposals')
+            ? (json['Proposals'] as List)
+                .map((e) => ProposalSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Member configuration properties.
@@ -683,7 +890,22 @@ class Member {
     this.status,
     this.creationDate,
   });
-  static Member fromJson(Map<String, dynamic> json) => Member();
+  static Member fromJson(Map<String, dynamic> json) => Member(
+        networkId:
+            json.containsKey('NetworkId') ? json['NetworkId'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        frameworkAttributes: json.containsKey('FrameworkAttributes')
+            ? MemberFrameworkAttributes.fromJson(json['FrameworkAttributes'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 /// Configuration properties of the member.
@@ -703,6 +925,7 @@ class MemberConfiguration {
     this.description,
     @required this.frameworkConfiguration,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes of Hyperledger Fabric for a member in a Managed Blockchain
@@ -719,7 +942,14 @@ class MemberFabricAttributes {
     this.caEndpoint,
   });
   static MemberFabricAttributes fromJson(Map<String, dynamic> json) =>
-      MemberFabricAttributes();
+      MemberFabricAttributes(
+        adminUsername: json.containsKey('AdminUsername')
+            ? json['AdminUsername'] as String
+            : null,
+        caEndpoint: json.containsKey('CaEndpoint')
+            ? json['CaEndpoint'] as String
+            : null,
+      );
 }
 
 /// Configuration properties for Hyperledger Fabric for a member in a Managed
@@ -739,6 +969,7 @@ class MemberFabricConfiguration {
     @required this.adminUsername,
     @required this.adminPassword,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes relevant to a member for the blockchain framework that the
@@ -752,7 +983,11 @@ class MemberFrameworkAttributes {
     this.fabric,
   });
   static MemberFrameworkAttributes fromJson(Map<String, dynamic> json) =>
-      MemberFrameworkAttributes();
+      MemberFrameworkAttributes(
+        fabric: json.containsKey('Fabric')
+            ? MemberFabricAttributes.fromJson(json['Fabric'])
+            : null,
+      );
 }
 
 /// Configuration properties relevant to a member for the blockchain framework
@@ -765,6 +1000,7 @@ class MemberFrameworkConfiguration {
   MemberFrameworkConfiguration({
     this.fabric,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A summary of configuration properties for a member.
@@ -814,7 +1050,18 @@ class MemberSummary {
     this.creationDate,
     this.isOwned,
   });
-  static MemberSummary fromJson(Map<String, dynamic> json) => MemberSummary();
+  static MemberSummary fromJson(Map<String, dynamic> json) => MemberSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        isOwned: json.containsKey('IsOwned') ? json['IsOwned'] as bool : null,
+      );
 }
 
 /// Network configuration properties.
@@ -863,7 +1110,31 @@ class Network {
     this.status,
     this.creationDate,
   });
-  static Network fromJson(Map<String, dynamic> json) => Network();
+  static Network fromJson(Map<String, dynamic> json) => Network(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        framework:
+            json.containsKey('Framework') ? json['Framework'] as String : null,
+        frameworkVersion: json.containsKey('FrameworkVersion')
+            ? json['FrameworkVersion'] as String
+            : null,
+        frameworkAttributes: json.containsKey('FrameworkAttributes')
+            ? NetworkFrameworkAttributes.fromJson(json['FrameworkAttributes'])
+            : null,
+        vpcEndpointServiceName: json.containsKey('VpcEndpointServiceName')
+            ? json['VpcEndpointServiceName'] as String
+            : null,
+        votingPolicy: json.containsKey('VotingPolicy')
+            ? VotingPolicy.fromJson(json['VotingPolicy'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 /// Attributes of Hyperledger Fabric for a network.
@@ -881,7 +1152,12 @@ class NetworkFabricAttributes {
     this.edition,
   });
   static NetworkFabricAttributes fromJson(Map<String, dynamic> json) =>
-      NetworkFabricAttributes();
+      NetworkFabricAttributes(
+        orderingServiceEndpoint: json.containsKey('OrderingServiceEndpoint')
+            ? json['OrderingServiceEndpoint'] as String
+            : null,
+        edition: json.containsKey('Edition') ? json['Edition'] as String : null,
+      );
 }
 
 /// Hyperledger Fabric configuration properties for the network.
@@ -894,6 +1170,7 @@ class NetworkFabricConfiguration {
   NetworkFabricConfiguration({
     @required this.edition,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes relevant to the network for the blockchain framework that the
@@ -907,7 +1184,11 @@ class NetworkFrameworkAttributes {
     this.fabric,
   });
   static NetworkFrameworkAttributes fromJson(Map<String, dynamic> json) =>
-      NetworkFrameworkAttributes();
+      NetworkFrameworkAttributes(
+        fabric: json.containsKey('Fabric')
+            ? NetworkFabricAttributes.fromJson(json['Fabric'])
+            : null,
+      );
 }
 
 ///  Configuration properties relevant to the network for the blockchain
@@ -920,6 +1201,7 @@ class NetworkFrameworkConfiguration {
   NetworkFrameworkConfiguration({
     this.fabric,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A summary of network configuration properties.
@@ -954,7 +1236,22 @@ class NetworkSummary {
     this.status,
     this.creationDate,
   });
-  static NetworkSummary fromJson(Map<String, dynamic> json) => NetworkSummary();
+  static NetworkSummary fromJson(Map<String, dynamic> json) => NetworkSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        framework:
+            json.containsKey('Framework') ? json['Framework'] as String : null,
+        frameworkVersion: json.containsKey('FrameworkVersion')
+            ? json['FrameworkVersion'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 /// Configuration properties of a peer node.
@@ -993,7 +1290,26 @@ class Node {
     this.status,
     this.creationDate,
   });
-  static Node fromJson(Map<String, dynamic> json) => Node();
+  static Node fromJson(Map<String, dynamic> json) => Node(
+        networkId:
+            json.containsKey('NetworkId') ? json['NetworkId'] as String : null,
+        memberId:
+            json.containsKey('MemberId') ? json['MemberId'] as String : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        frameworkAttributes: json.containsKey('FrameworkAttributes')
+            ? NodeFrameworkAttributes.fromJson(json['FrameworkAttributes'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 /// Configuration properties of a peer node.
@@ -1008,6 +1324,7 @@ class NodeConfiguration {
     @required this.instanceType,
     @required this.availabilityZone,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Attributes of Hyperledger Fabric for a peer node on a Managed Blockchain
@@ -1026,7 +1343,14 @@ class NodeFabricAttributes {
     this.peerEventEndpoint,
   });
   static NodeFabricAttributes fromJson(Map<String, dynamic> json) =>
-      NodeFabricAttributes();
+      NodeFabricAttributes(
+        peerEndpoint: json.containsKey('PeerEndpoint')
+            ? json['PeerEndpoint'] as String
+            : null,
+        peerEventEndpoint: json.containsKey('PeerEventEndpoint')
+            ? json['PeerEventEndpoint'] as String
+            : null,
+      );
 }
 
 /// Attributes relevant to a peer node on a Managed Blockchain network for the
@@ -1040,7 +1364,11 @@ class NodeFrameworkAttributes {
     this.fabric,
   });
   static NodeFrameworkAttributes fromJson(Map<String, dynamic> json) =>
-      NodeFrameworkAttributes();
+      NodeFrameworkAttributes(
+        fabric: json.containsKey('Fabric')
+            ? NodeFabricAttributes.fromJson(json['Fabric'])
+            : null,
+      );
 }
 
 /// A summary of configuration properties for a peer node.
@@ -1067,7 +1395,19 @@ class NodeSummary {
     this.availabilityZone,
     this.instanceType,
   });
-  static NodeSummary fromJson(Map<String, dynamic> json) => NodeSummary();
+  static NodeSummary fromJson(Map<String, dynamic> json) => NodeSummary(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+      );
 }
 
 /// Properties of a proposal on a Managed Blockchain network.
@@ -1145,7 +1485,40 @@ class Proposal {
     this.noVoteCount,
     this.outstandingVoteCount,
   });
-  static Proposal fromJson(Map<String, dynamic> json) => Proposal();
+  static Proposal fromJson(Map<String, dynamic> json) => Proposal(
+        proposalId: json.containsKey('ProposalId')
+            ? json['ProposalId'] as String
+            : null,
+        networkId:
+            json.containsKey('NetworkId') ? json['NetworkId'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        actions: json.containsKey('Actions')
+            ? ProposalActions.fromJson(json['Actions'])
+            : null,
+        proposedByMemberId: json.containsKey('ProposedByMemberId')
+            ? json['ProposedByMemberId'] as String
+            : null,
+        proposedByMemberName: json.containsKey('ProposedByMemberName')
+            ? json['ProposedByMemberName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        expirationDate: json.containsKey('ExpirationDate')
+            ? DateTime.parse(json['ExpirationDate'])
+            : null,
+        yesVoteCount: json.containsKey('YesVoteCount')
+            ? json['YesVoteCount'] as int
+            : null,
+        noVoteCount:
+            json.containsKey('NoVoteCount') ? json['NoVoteCount'] as int : null,
+        outstandingVoteCount: json.containsKey('OutstandingVoteCount')
+            ? json['OutstandingVoteCount'] as int
+            : null,
+      );
 }
 
 ///  The actions to carry out if a proposal is `APPROVED`.
@@ -1163,8 +1536,19 @@ class ProposalActions {
     this.invitations,
     this.removals,
   });
-  static ProposalActions fromJson(Map<String, dynamic> json) =>
-      ProposalActions();
+  static ProposalActions fromJson(Map<String, dynamic> json) => ProposalActions(
+        invitations: json.containsKey('Invitations')
+            ? (json['Invitations'] as List)
+                .map((e) => InviteAction.fromJson(e))
+                .toList()
+            : null,
+        removals: json.containsKey('Removals')
+            ? (json['Removals'] as List)
+                .map((e) => RemoveAction.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Properties of a proposal.
@@ -1220,8 +1604,27 @@ class ProposalSummary {
     this.creationDate,
     this.expirationDate,
   });
-  static ProposalSummary fromJson(Map<String, dynamic> json) =>
-      ProposalSummary();
+  static ProposalSummary fromJson(Map<String, dynamic> json) => ProposalSummary(
+        proposalId: json.containsKey('ProposalId')
+            ? json['ProposalId'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        proposedByMemberId: json.containsKey('ProposedByMemberId')
+            ? json['ProposedByMemberId'] as String
+            : null,
+        proposedByMemberName: json.containsKey('ProposedByMemberName')
+            ? json['ProposedByMemberName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        expirationDate: json.containsKey('ExpirationDate')
+            ? DateTime.parse(json['ExpirationDate'])
+            : null,
+      );
 }
 
 class RejectInvitationOutput {
@@ -1240,7 +1643,10 @@ class RemoveAction {
   RemoveAction({
     @required this.memberId,
   });
-  static RemoveAction fromJson(Map<String, dynamic> json) => RemoveAction();
+  static RemoveAction fromJson(Map<String, dynamic> json) => RemoveAction(
+        memberId: json['MemberId'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class VoteOnProposalOutput {
@@ -1265,7 +1671,14 @@ class VoteSummary {
     this.memberName,
     this.memberId,
   });
-  static VoteSummary fromJson(Map<String, dynamic> json) => VoteSummary();
+  static VoteSummary fromJson(Map<String, dynamic> json) => VoteSummary(
+        vote: json.containsKey('Vote') ? json['Vote'] as String : null,
+        memberName: json.containsKey('MemberName')
+            ? json['MemberName'] as String
+            : null,
+        memberId:
+            json.containsKey('MemberId') ? json['MemberId'] as String : null,
+      );
 }
 
 ///  The voting rules for the network to decide if a proposal is accepted
@@ -1279,5 +1692,10 @@ class VotingPolicy {
   VotingPolicy({
     this.approvalThresholdPolicy,
   });
-  static VotingPolicy fromJson(Map<String, dynamic> json) => VotingPolicy();
+  static VotingPolicy fromJson(Map<String, dynamic> json) => VotingPolicy(
+        approvalThresholdPolicy: json.containsKey('ApprovalThresholdPolicy')
+            ? ApprovalThresholdPolicy.fromJson(json['ApprovalThresholdPolicy'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

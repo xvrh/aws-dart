@@ -6,11 +6,18 @@ import 'package:meta/meta.dart';
 /// efficiently and cost-effectively without having to build or manage your own
 /// ground station infrastructure.
 class GroundStationApi {
+  final _client;
+  GroundStationApi(client)
+      : _client = client.configured('GroundStation', serializer: 'rest-json');
+
   /// Cancels a contact with a specified contact ID.
   ///
   /// [contactId]: UUID of a contact.
   Future<ContactIdResponse> cancelContact(String contactId) async {
-    return ContactIdResponse.fromJson({});
+    var response_ = await _client.send('CancelContact', {
+      'contactId': contactId,
+    });
+    return ContactIdResponse.fromJson(response_);
   }
 
   /// Creates a `Config` with the specified `configData` parameters.
@@ -26,7 +33,12 @@ class GroundStationApi {
       {@required ConfigTypeData configData,
       @required String name,
       Map<String, String> tags}) async {
-    return ConfigIdResponse.fromJson({});
+    var response_ = await _client.send('CreateConfig', {
+      'configData': configData,
+      'name': name,
+      if (tags != null) 'tags': tags,
+    });
+    return ConfigIdResponse.fromJson(response_);
   }
 
   /// Creates a `DataflowEndpoint` group containing the specified list of
@@ -46,7 +58,11 @@ class GroundStationApi {
   Future<DataflowEndpointGroupIdResponse> createDataflowEndpointGroup(
       List<EndpointDetails> endpointDetails,
       {Map<String, String> tags}) async {
-    return DataflowEndpointGroupIdResponse.fromJson({});
+    var response_ = await _client.send('CreateDataflowEndpointGroup', {
+      'endpointDetails': endpointDetails,
+      if (tags != null) 'tags': tags,
+    });
+    return DataflowEndpointGroupIdResponse.fromJson(response_);
   }
 
   /// Creates a mission profile.
@@ -80,7 +96,19 @@ class GroundStationApi {
       @required String name,
       Map<String, String> tags,
       @required String trackingConfigArn}) async {
-    return MissionProfileIdResponse.fromJson({});
+    var response_ = await _client.send('CreateMissionProfile', {
+      if (contactPostPassDurationSeconds != null)
+        'contactPostPassDurationSeconds': contactPostPassDurationSeconds,
+      if (contactPrePassDurationSeconds != null)
+        'contactPrePassDurationSeconds': contactPrePassDurationSeconds,
+      'dataflowEdges': dataflowEdges,
+      'minimumViableContactDurationSeconds':
+          minimumViableContactDurationSeconds,
+      'name': name,
+      if (tags != null) 'tags': tags,
+      'trackingConfigArn': trackingConfigArn,
+    });
+    return MissionProfileIdResponse.fromJson(response_);
   }
 
   /// Deletes a `Config`.
@@ -90,7 +118,11 @@ class GroundStationApi {
   /// [configType]: Type of a `Config`.
   Future<ConfigIdResponse> deleteConfig(
       {@required String configId, @required String configType}) async {
-    return ConfigIdResponse.fromJson({});
+    var response_ = await _client.send('DeleteConfig', {
+      'configId': configId,
+      'configType': configType,
+    });
+    return ConfigIdResponse.fromJson(response_);
   }
 
   /// Deletes a dataflow endpoint group.
@@ -98,7 +130,10 @@ class GroundStationApi {
   /// [dataflowEndpointGroupId]: ID of a dataflow endpoint group.
   Future<DataflowEndpointGroupIdResponse> deleteDataflowEndpointGroup(
       String dataflowEndpointGroupId) async {
-    return DataflowEndpointGroupIdResponse.fromJson({});
+    var response_ = await _client.send('DeleteDataflowEndpointGroup', {
+      'dataflowEndpointGroupId': dataflowEndpointGroupId,
+    });
+    return DataflowEndpointGroupIdResponse.fromJson(response_);
   }
 
   /// Deletes a mission profile.
@@ -106,14 +141,20 @@ class GroundStationApi {
   /// [missionProfileId]: UUID of a mission profile.
   Future<MissionProfileIdResponse> deleteMissionProfile(
       String missionProfileId) async {
-    return MissionProfileIdResponse.fromJson({});
+    var response_ = await _client.send('DeleteMissionProfile', {
+      'missionProfileId': missionProfileId,
+    });
+    return MissionProfileIdResponse.fromJson(response_);
   }
 
   /// Describes an existing contact.
   ///
   /// [contactId]: UUID of a contact.
   Future<DescribeContactResponse> describeContact(String contactId) async {
-    return DescribeContactResponse.fromJson({});
+    var response_ = await _client.send('DescribeContact', {
+      'contactId': contactId,
+    });
+    return DescribeContactResponse.fromJson(response_);
   }
 
   /// Returns `Config` information.
@@ -125,7 +166,11 @@ class GroundStationApi {
   /// [configType]: Type of a `Config`.
   Future<GetConfigResponse> getConfig(
       {@required String configId, @required String configType}) async {
-    return GetConfigResponse.fromJson({});
+    var response_ = await _client.send('GetConfig', {
+      'configId': configId,
+      'configType': configType,
+    });
+    return GetConfigResponse.fromJson(response_);
   }
 
   /// Returns the dataflow endpoint group.
@@ -133,7 +178,10 @@ class GroundStationApi {
   /// [dataflowEndpointGroupId]: UUID of a dataflow endpoint group.
   Future<GetDataflowEndpointGroupResponse> getDataflowEndpointGroup(
       String dataflowEndpointGroupId) async {
-    return GetDataflowEndpointGroupResponse.fromJson({});
+    var response_ = await _client.send('GetDataflowEndpointGroup', {
+      'dataflowEndpointGroupId': dataflowEndpointGroupId,
+    });
+    return GetDataflowEndpointGroupResponse.fromJson(response_);
   }
 
   /// Returns a mission profile.
@@ -141,7 +189,10 @@ class GroundStationApi {
   /// [missionProfileId]: UUID of a mission profile.
   Future<GetMissionProfileResponse> getMissionProfile(
       String missionProfileId) async {
-    return GetMissionProfileResponse.fromJson({});
+    var response_ = await _client.send('GetMissionProfile', {
+      'missionProfileId': missionProfileId,
+    });
+    return GetMissionProfileResponse.fromJson(response_);
   }
 
   /// Returns a list of `Config` objects.
@@ -152,7 +203,11 @@ class GroundStationApi {
   /// `ListConfigs` call. Used to get the next page of results.
   Future<ListConfigsResponse> listConfigs(
       {int maxResults, String nextToken}) async {
-    return ListConfigsResponse.fromJson({});
+    var response_ = await _client.send('ListConfigs', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListConfigsResponse.fromJson(response_);
   }
 
   /// Returns a list of contacts.
@@ -185,7 +240,17 @@ class GroundStationApi {
       String satelliteArn,
       @required DateTime startTime,
       @required List<String> statusList}) async {
-    return ListContactsResponse.fromJson({});
+    var response_ = await _client.send('ListContacts', {
+      'endTime': endTime,
+      if (groundStation != null) 'groundStation': groundStation,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (missionProfileArn != null) 'missionProfileArn': missionProfileArn,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (satelliteArn != null) 'satelliteArn': satelliteArn,
+      'startTime': startTime,
+      'statusList': statusList,
+    });
+    return ListContactsResponse.fromJson(response_);
   }
 
   /// Returns a list of `DataflowEndpoint` groups.
@@ -196,7 +261,11 @@ class GroundStationApi {
   /// `ListDataflowEndpointGroups` call. Used to get the next page of results.
   Future<ListDataflowEndpointGroupsResponse> listDataflowEndpointGroups(
       {int maxResults, String nextToken}) async {
-    return ListDataflowEndpointGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListDataflowEndpointGroups', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListDataflowEndpointGroupsResponse.fromJson(response_);
   }
 
   /// Returns a list of mission profiles.
@@ -207,7 +276,11 @@ class GroundStationApi {
   /// `ListMissionProfiles` call. Used to get the next page of results.
   Future<ListMissionProfilesResponse> listMissionProfiles(
       {int maxResults, String nextToken}) async {
-    return ListMissionProfilesResponse.fromJson({});
+    var response_ = await _client.send('ListMissionProfiles', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListMissionProfilesResponse.fromJson(response_);
   }
 
   /// Reserves a contact using specified parameters.
@@ -230,7 +303,15 @@ class GroundStationApi {
       @required String satelliteArn,
       @required DateTime startTime,
       Map<String, String> tags}) async {
-    return ContactIdResponse.fromJson({});
+    var response_ = await _client.send('ReserveContact', {
+      'endTime': endTime,
+      'groundStation': groundStation,
+      'missionProfileArn': missionProfileArn,
+      'satelliteArn': satelliteArn,
+      'startTime': startTime,
+      if (tags != null) 'tags': tags,
+    });
+    return ContactIdResponse.fromJson(response_);
   }
 
   /// Updates the `Config` used when scheduling contacts.
@@ -250,7 +331,13 @@ class GroundStationApi {
       @required String configId,
       @required String configType,
       @required String name}) async {
-    return ConfigIdResponse.fromJson({});
+    var response_ = await _client.send('UpdateConfig', {
+      'configData': configData,
+      'configId': configId,
+      'configType': configType,
+      'name': name,
+    });
+    return ConfigIdResponse.fromJson(response_);
   }
 
   /// Updates a mission profile.
@@ -283,7 +370,20 @@ class GroundStationApi {
       int minimumViableContactDurationSeconds,
       String name,
       String trackingConfigArn}) async {
-    return MissionProfileIdResponse.fromJson({});
+    var response_ = await _client.send('UpdateMissionProfile', {
+      if (contactPostPassDurationSeconds != null)
+        'contactPostPassDurationSeconds': contactPostPassDurationSeconds,
+      if (contactPrePassDurationSeconds != null)
+        'contactPrePassDurationSeconds': contactPrePassDurationSeconds,
+      if (dataflowEdges != null) 'dataflowEdges': dataflowEdges,
+      if (minimumViableContactDurationSeconds != null)
+        'minimumViableContactDurationSeconds':
+            minimumViableContactDurationSeconds,
+      'missionProfileId': missionProfileId,
+      if (name != null) 'name': name,
+      if (trackingConfigArn != null) 'trackingConfigArn': trackingConfigArn,
+    });
+    return MissionProfileIdResponse.fromJson(response_);
   }
 
   /// Returns the number of minutes used by account.
@@ -293,14 +393,21 @@ class GroundStationApi {
   /// [year]: The year being requested, in the format of YYYY.
   Future<GetMinuteUsageResponse> getMinuteUsage(
       {@required int month, @required int year}) async {
-    return GetMinuteUsageResponse.fromJson({});
+    var response_ = await _client.send('GetMinuteUsage', {
+      'month': month,
+      'year': year,
+    });
+    return GetMinuteUsageResponse.fromJson(response_);
   }
 
   /// Returns a satellite.
   ///
   /// [satelliteId]: UUID of a satellite.
   Future<GetSatelliteResponse> getSatellite(String satelliteId) async {
-    return GetSatelliteResponse.fromJson({});
+    var response_ = await _client.send('GetSatellite', {
+      'satelliteId': satelliteId,
+    });
+    return GetSatelliteResponse.fromJson(response_);
   }
 
   /// Returns a list of ground stations.
@@ -311,7 +418,11 @@ class GroundStationApi {
   /// next page of ground stations.
   Future<ListGroundStationsResponse> listGroundStations(
       {int maxResults, String nextToken}) async {
-    return ListGroundStationsResponse.fromJson({});
+    var response_ = await _client.send('ListGroundStations', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListGroundStationsResponse.fromJson(response_);
   }
 
   /// Returns a list of satellites.
@@ -322,7 +433,11 @@ class GroundStationApi {
   /// next page of satellites.
   Future<ListSatellitesResponse> listSatellites(
       {int maxResults, String nextToken}) async {
-    return ListSatellitesResponse.fromJson({});
+    var response_ = await _client.send('ListSatellites', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListSatellitesResponse.fromJson(response_);
   }
 
   /// Returns a list of tags or a specified resource.
@@ -330,7 +445,10 @@ class GroundStationApi {
   /// [resourceArn]: ARN of a resource.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Assigns a tag to a resource.
@@ -340,7 +458,11 @@ class GroundStationApi {
   /// [tags]: Tags assigned to a resource.
   Future<TagResourceResponse> tagResource(String resourceArn,
       {Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      if (tags != null) 'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Deassigns a resource tag.
@@ -350,7 +472,11 @@ class GroundStationApi {
   /// [tagKeys]: Keys of a resource tag.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 }
 
@@ -392,7 +518,29 @@ class ConfigTypeData {
     this.trackingConfig,
     this.uplinkEchoConfig,
   });
-  static ConfigTypeData fromJson(Map<String, dynamic> json) => ConfigTypeData();
+  static ConfigTypeData fromJson(Map<String, dynamic> json) => ConfigTypeData(
+        antennaDownlinkConfig: json.containsKey('antennaDownlinkConfig')
+            ? AntennaDownlinkConfig.fromJson(json['antennaDownlinkConfig'])
+            : null,
+        antennaDownlinkDemodDecodeConfig:
+            json.containsKey('antennaDownlinkDemodDecodeConfig')
+                ? AntennaDownlinkDemodDecodeConfig.fromJson(
+                    json['antennaDownlinkDemodDecodeConfig'])
+                : null,
+        antennaUplinkConfig: json.containsKey('antennaUplinkConfig')
+            ? AntennaUplinkConfig.fromJson(json['antennaUplinkConfig'])
+            : null,
+        dataflowEndpointConfig: json.containsKey('dataflowEndpointConfig')
+            ? DataflowEndpointConfig.fromJson(json['dataflowEndpointConfig'])
+            : null,
+        trackingConfig: json.containsKey('trackingConfig')
+            ? TrackingConfig.fromJson(json['trackingConfig'])
+            : null,
+        uplinkEchoConfig: json.containsKey('uplinkEchoConfig')
+            ? UplinkEchoConfig.fromJson(json['uplinkEchoConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the ground station data.
@@ -412,7 +560,15 @@ class GroundStationData {
     this.region,
   });
   static GroundStationData fromJson(Map<String, dynamic> json) =>
-      GroundStationData();
+      GroundStationData(
+        groundStationId: json.containsKey('groundStationId')
+            ? json['groundStationId'] as String
+            : null,
+        groundStationName: json.containsKey('groundStationName')
+            ? json['groundStationName'] as String
+            : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+      );
 }
 
 /// Information about the endpoint details.
@@ -427,8 +583,15 @@ class EndpointDetails {
     this.endpoint,
     this.securityDetails,
   });
-  static EndpointDetails fromJson(Map<String, dynamic> json) =>
-      EndpointDetails();
+  static EndpointDetails fromJson(Map<String, dynamic> json) => EndpointDetails(
+        endpoint: json.containsKey('endpoint')
+            ? DataflowEndpoint.fromJson(json['endpoint'])
+            : null,
+        securityDetails: json.containsKey('securityDetails')
+            ? SecurityDetails.fromJson(json['securityDetails'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetMinuteUsageResponse {
@@ -460,7 +623,24 @@ class GetMinuteUsageResponse {
     this.upcomingMinutesScheduled,
   });
   static GetMinuteUsageResponse fromJson(Map<String, dynamic> json) =>
-      GetMinuteUsageResponse();
+      GetMinuteUsageResponse(
+        estimatedMinutesRemaining: json.containsKey('estimatedMinutesRemaining')
+            ? json['estimatedMinutesRemaining'] as int
+            : null,
+        isReservedMinutesCustomer: json.containsKey('isReservedMinutesCustomer')
+            ? json['isReservedMinutesCustomer'] as bool
+            : null,
+        totalReservedMinuteAllocation:
+            json.containsKey('totalReservedMinuteAllocation')
+                ? json['totalReservedMinuteAllocation'] as int
+                : null,
+        totalScheduledMinutes: json.containsKey('totalScheduledMinutes')
+            ? json['totalScheduledMinutes'] as int
+            : null,
+        upcomingMinutesScheduled: json.containsKey('upcomingMinutesScheduled')
+            ? json['upcomingMinutesScheduled'] as int
+            : null,
+      );
 }
 
 /// Item in a list of mission profiles.
@@ -484,7 +664,16 @@ class MissionProfileListItem {
     this.region,
   });
   static MissionProfileListItem fromJson(Map<String, dynamic> json) =>
-      MissionProfileListItem();
+      MissionProfileListItem(
+        missionProfileArn: json.containsKey('missionProfileArn')
+            ? json['missionProfileArn'] as String
+            : null,
+        missionProfileId: json.containsKey('missionProfileId')
+            ? json['missionProfileId'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+      );
 }
 
 class ListDataflowEndpointGroupsResponse {
@@ -501,7 +690,15 @@ class ListDataflowEndpointGroupsResponse {
   });
   static ListDataflowEndpointGroupsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListDataflowEndpointGroupsResponse();
+      ListDataflowEndpointGroupsResponse(
+        dataflowEndpointGroupList: json.containsKey('dataflowEndpointGroupList')
+            ? (json['dataflowEndpointGroupList'] as List)
+                .map((e) => DataflowEndpointListItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Information about how AWS Ground Station should conﬁgure an antenna for
@@ -522,7 +719,13 @@ class AntennaDownlinkDemodDecodeConfig {
     @required this.spectrumConfig,
   });
   static AntennaDownlinkDemodDecodeConfig fromJson(Map<String, dynamic> json) =>
-      AntennaDownlinkDemodDecodeConfig();
+      AntennaDownlinkDemodDecodeConfig(
+        decodeConfig: DecodeConfig.fromJson(json['decodeConfig']),
+        demodulationConfig:
+            DemodulationConfig.fromJson(json['demodulationConfig']),
+        spectrumConfig: SpectrumConfig.fromJson(json['spectrumConfig']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class MissionProfileIdResponse {
@@ -533,7 +736,11 @@ class MissionProfileIdResponse {
     this.missionProfileId,
   });
   static MissionProfileIdResponse fromJson(Map<String, dynamic> json) =>
-      MissionProfileIdResponse();
+      MissionProfileIdResponse(
+        missionProfileId: json.containsKey('missionProfileId')
+            ? json['missionProfileId'] as String
+            : null,
+      );
 }
 
 /// Information about the uplink `Config` of an antenna.
@@ -549,7 +756,11 @@ class AntennaUplinkConfig {
     @required this.targetEirp,
   });
   static AntennaUplinkConfig fromJson(Map<String, dynamic> json) =>
-      AntennaUplinkConfig();
+      AntennaUplinkConfig(
+        spectrumConfig: UplinkSpectrumConfig.fromJson(json['spectrumConfig']),
+        targetEirp: Eirp.fromJson(json['targetEirp']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about how AWS Ground Station should configure an antenna for
@@ -562,7 +773,10 @@ class AntennaDownlinkConfig {
     @required this.spectrumConfig,
   });
   static AntennaDownlinkConfig fromJson(Map<String, dynamic> json) =>
-      AntennaDownlinkConfig();
+      AntennaDownlinkConfig(
+        spectrumConfig: SpectrumConfig.fromJson(json['spectrumConfig']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an uplink echo `Config`.
@@ -582,7 +796,11 @@ class UplinkEchoConfig {
     @required this.enabled,
   });
   static UplinkEchoConfig fromJson(Map<String, dynamic> json) =>
-      UplinkEchoConfig();
+      UplinkEchoConfig(
+        antennaUplinkConfigArn: json['antennaUplinkConfigArn'] as String,
+        enabled: json['enabled'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the decode `Config`.
@@ -593,7 +811,10 @@ class DecodeConfig {
   DecodeConfig({
     @required this.unvalidatedJson,
   });
-  static DecodeConfig fromJson(Map<String, dynamic> json) => DecodeConfig();
+  static DecodeConfig fromJson(Map<String, dynamic> json) => DecodeConfig(
+        unvalidatedJson: json['unvalidatedJSON'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Object that describes the frequency.
@@ -608,7 +829,11 @@ class Frequency {
     @required this.units,
     @required this.value,
   });
-  static Frequency fromJson(Map<String, dynamic> json) => Frequency();
+  static Frequency fromJson(Map<String, dynamic> json) => Frequency(
+        units: json['units'] as String,
+        value: json['value'] as double,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -633,7 +858,15 @@ class ConfigIdResponse {
     this.configType,
   });
   static ConfigIdResponse fromJson(Map<String, dynamic> json) =>
-      ConfigIdResponse();
+      ConfigIdResponse(
+        configArn:
+            json.containsKey('configArn') ? json['configArn'] as String : null,
+        configId:
+            json.containsKey('configId') ? json['configId'] as String : null,
+        configType: json.containsKey('configType')
+            ? json['configType'] as String
+            : null,
+      );
 }
 
 /// Information about endpoints.
@@ -653,8 +886,13 @@ class SecurityDetails {
     @required this.securityGroupIds,
     @required this.subnetIds,
   });
-  static SecurityDetails fromJson(Map<String, dynamic> json) =>
-      SecurityDetails();
+  static SecurityDetails fromJson(Map<String, dynamic> json) => SecurityDetails(
+        roleArn: json['roleArn'] as String,
+        securityGroupIds:
+            (json['securityGroupIds'] as List).map((e) => e as String).toList(),
+        subnetIds: (json['subnetIds'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Object that determines whether tracking should be used during a contact
@@ -666,7 +904,10 @@ class TrackingConfig {
   TrackingConfig({
     @required this.autotrack,
   });
-  static TrackingConfig fromJson(Map<String, dynamic> json) => TrackingConfig();
+  static TrackingConfig fromJson(Map<String, dynamic> json) => TrackingConfig(
+        autotrack: json['autotrack'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Elevation angle of the satellite in the sky during a contact.
@@ -681,7 +922,10 @@ class Elevation {
     @required this.unit,
     @required this.value,
   });
-  static Elevation fromJson(Map<String, dynamic> json) => Elevation();
+  static Elevation fromJson(Map<String, dynamic> json) => Elevation(
+        unit: json['unit'] as String,
+        value: json['value'] as double,
+      );
 }
 
 /// Information about the uplink spectral `Config`.
@@ -697,7 +941,13 @@ class UplinkSpectrumConfig {
     this.polarization,
   });
   static UplinkSpectrumConfig fromJson(Map<String, dynamic> json) =>
-      UplinkSpectrumConfig();
+      UplinkSpectrumConfig(
+        centerFrequency: Frequency.fromJson(json['centerFrequency']),
+        polarization: json.containsKey('polarization')
+            ? json['polarization'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetMissionProfileResponse {
@@ -749,7 +999,40 @@ class GetMissionProfileResponse {
     this.trackingConfigArn,
   });
   static GetMissionProfileResponse fromJson(Map<String, dynamic> json) =>
-      GetMissionProfileResponse();
+      GetMissionProfileResponse(
+        contactPostPassDurationSeconds:
+            json.containsKey('contactPostPassDurationSeconds')
+                ? json['contactPostPassDurationSeconds'] as int
+                : null,
+        contactPrePassDurationSeconds:
+            json.containsKey('contactPrePassDurationSeconds')
+                ? json['contactPrePassDurationSeconds'] as int
+                : null,
+        dataflowEdges: json.containsKey('dataflowEdges')
+            ? (json['dataflowEdges'] as List)
+                .map((e) => (e as List).map((e) => e as String).toList())
+                .toList()
+            : null,
+        minimumViableContactDurationSeconds:
+            json.containsKey('minimumViableContactDurationSeconds')
+                ? json['minimumViableContactDurationSeconds'] as int
+                : null,
+        missionProfileArn: json.containsKey('missionProfileArn')
+            ? json['missionProfileArn'] as String
+            : null,
+        missionProfileId: json.containsKey('missionProfileId')
+            ? json['missionProfileId'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        region: json.containsKey('region') ? json['region'] as String : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        trackingConfigArn: json.containsKey('trackingConfigArn')
+            ? json['trackingConfigArn'] as String
+            : null,
+      );
 }
 
 class ContactIdResponse {
@@ -760,7 +1043,10 @@ class ContactIdResponse {
     this.contactId,
   });
   static ContactIdResponse fromJson(Map<String, dynamic> json) =>
-      ContactIdResponse();
+      ContactIdResponse(
+        contactId:
+            json.containsKey('contactId') ? json['contactId'] as String : null,
+      );
 }
 
 /// Object that describes a spectral `Config`.
@@ -779,7 +1065,14 @@ class SpectrumConfig {
     @required this.centerFrequency,
     this.polarization,
   });
-  static SpectrumConfig fromJson(Map<String, dynamic> json) => SpectrumConfig();
+  static SpectrumConfig fromJson(Map<String, dynamic> json) => SpectrumConfig(
+        bandwidth: FrequencyBandwidth.fromJson(json['bandwidth']),
+        centerFrequency: Frequency.fromJson(json['centerFrequency']),
+        polarization: json.containsKey('polarization')
+            ? json['polarization'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the demodulation `Config`.
@@ -791,7 +1084,10 @@ class DemodulationConfig {
     @required this.unvalidatedJson,
   });
   static DemodulationConfig fromJson(Map<String, dynamic> json) =>
-      DemodulationConfig();
+      DemodulationConfig(
+        unvalidatedJson: json['unvalidatedJSON'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListMissionProfilesResponse {
@@ -807,7 +1103,15 @@ class ListMissionProfilesResponse {
     this.nextToken,
   });
   static ListMissionProfilesResponse fromJson(Map<String, dynamic> json) =>
-      ListMissionProfilesResponse();
+      ListMissionProfilesResponse(
+        missionProfileList: json.containsKey('missionProfileList')
+            ? (json['missionProfileList'] as List)
+                .map((e) => MissionProfileListItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListConfigsResponse {
@@ -823,7 +1127,15 @@ class ListConfigsResponse {
     this.nextToken,
   });
   static ListConfigsResponse fromJson(Map<String, dynamic> json) =>
-      ListConfigsResponse();
+      ListConfigsResponse(
+        configList: json.containsKey('configList')
+            ? (json['configList'] as List)
+                .map((e) => ConfigListItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Object that represents EIRP.
@@ -838,7 +1150,11 @@ class Eirp {
     @required this.units,
     @required this.value,
   });
-  static Eirp fromJson(Map<String, dynamic> json) => Eirp();
+  static Eirp fromJson(Map<String, dynamic> json) => Eirp(
+        units: json['units'] as String,
+        value: json['value'] as double,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetSatelliteResponse {
@@ -869,7 +1185,27 @@ class GetSatelliteResponse {
     this.tags,
   });
   static GetSatelliteResponse fromJson(Map<String, dynamic> json) =>
-      GetSatelliteResponse();
+      GetSatelliteResponse(
+        dateCreated: json.containsKey('dateCreated')
+            ? DateTime.parse(json['dateCreated'])
+            : null,
+        lastUpdated: json.containsKey('lastUpdated')
+            ? DateTime.parse(json['lastUpdated'])
+            : null,
+        noradSatelliteID: json.containsKey('noradSatelliteID')
+            ? json['noradSatelliteID'] as int
+            : null,
+        satelliteArn: json.containsKey('satelliteArn')
+            ? json['satelliteArn'] as String
+            : null,
+        satelliteId: json.containsKey('satelliteId')
+            ? json['satelliteId'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Data describing a contact.
@@ -926,7 +1262,44 @@ class ContactData {
     this.startTime,
     this.tags,
   });
-  static ContactData fromJson(Map<String, dynamic> json) => ContactData();
+  static ContactData fromJson(Map<String, dynamic> json) => ContactData(
+        contactId:
+            json.containsKey('contactId') ? json['contactId'] as String : null,
+        contactStatus: json.containsKey('contactStatus')
+            ? json['contactStatus'] as String
+            : null,
+        endTime: json.containsKey('endTime')
+            ? DateTime.parse(json['endTime'])
+            : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+        groundStation: json.containsKey('groundStation')
+            ? json['groundStation'] as String
+            : null,
+        maximumElevation: json.containsKey('maximumElevation')
+            ? Elevation.fromJson(json['maximumElevation'])
+            : null,
+        missionProfileArn: json.containsKey('missionProfileArn')
+            ? json['missionProfileArn'] as String
+            : null,
+        postPassEndTime: json.containsKey('postPassEndTime')
+            ? DateTime.parse(json['postPassEndTime'])
+            : null,
+        prePassStartTime: json.containsKey('prePassStartTime')
+            ? DateTime.parse(json['prePassStartTime'])
+            : null,
+        satelliteArn: json.containsKey('satelliteArn')
+            ? json['satelliteArn'] as String
+            : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class ListGroundStationsResponse {
@@ -942,7 +1315,15 @@ class ListGroundStationsResponse {
     this.nextToken,
   });
   static ListGroundStationsResponse fromJson(Map<String, dynamic> json) =>
-      ListGroundStationsResponse();
+      ListGroundStationsResponse(
+        groundStationList: json.containsKey('groundStationList')
+            ? (json['groundStationList'] as List)
+                .map((e) => GroundStationData.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Information about a dataflow endpoint.
@@ -962,7 +1343,14 @@ class DataflowEndpoint {
     this.status,
   });
   static DataflowEndpoint fromJson(Map<String, dynamic> json) =>
-      DataflowEndpoint();
+      DataflowEndpoint(
+        address: json.containsKey('address')
+            ? SocketAddress.fromJson(json['address'])
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the socket address.
@@ -977,7 +1365,11 @@ class SocketAddress {
     @required this.name,
     @required this.port,
   });
-  static SocketAddress fromJson(Map<String, dynamic> json) => SocketAddress();
+  static SocketAddress fromJson(Map<String, dynamic> json) => SocketAddress(
+        name: json['name'] as String,
+        port: json['port'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetConfigResponse {
@@ -1008,7 +1400,19 @@ class GetConfigResponse {
     this.tags,
   });
   static GetConfigResponse fromJson(Map<String, dynamic> json) =>
-      GetConfigResponse();
+      GetConfigResponse(
+        configArn: json['configArn'] as String,
+        configData: ConfigTypeData.fromJson(json['configData']),
+        configId: json['configId'] as String,
+        configType: json.containsKey('configType')
+            ? json['configType'] as String
+            : null,
+        name: json['name'] as String,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class TagResourceResponse {
@@ -1034,7 +1438,17 @@ class SatelliteListItem {
     this.satelliteId,
   });
   static SatelliteListItem fromJson(Map<String, dynamic> json) =>
-      SatelliteListItem();
+      SatelliteListItem(
+        noradSatelliteID: json.containsKey('noradSatelliteID')
+            ? json['noradSatelliteID'] as int
+            : null,
+        satelliteArn: json.containsKey('satelliteArn')
+            ? json['satelliteArn'] as String
+            : null,
+        satelliteId: json.containsKey('satelliteId')
+            ? json['satelliteId'] as String
+            : null,
+      );
 }
 
 class ListSatellitesResponse {
@@ -1050,7 +1464,15 @@ class ListSatellitesResponse {
     this.satellites,
   });
   static ListSatellitesResponse fromJson(Map<String, dynamic> json) =>
-      ListSatellitesResponse();
+      ListSatellitesResponse(
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        satellites: json.containsKey('satellites')
+            ? (json['satellites'] as List)
+                .map((e) => SatelliteListItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about the dataflow endpoint `Config`.
@@ -1062,7 +1484,10 @@ class DataflowEndpointConfig {
     @required this.dataflowEndpointName,
   });
   static DataflowEndpointConfig fromJson(Map<String, dynamic> json) =>
-      DataflowEndpointConfig();
+      DataflowEndpointConfig(
+        dataflowEndpointName: json['dataflowEndpointName'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListTagsForResourceResponse {
@@ -1073,7 +1498,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class ListContactsResponse {
@@ -1089,7 +1519,15 @@ class ListContactsResponse {
     this.nextToken,
   });
   static ListContactsResponse fromJson(Map<String, dynamic> json) =>
-      ListContactsResponse();
+      ListContactsResponse(
+        contactList: json.containsKey('contactList')
+            ? (json['contactList'] as List)
+                .map((e) => ContactData.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeContactResponse {
@@ -1146,7 +1584,44 @@ class DescribeContactResponse {
     this.tags,
   });
   static DescribeContactResponse fromJson(Map<String, dynamic> json) =>
-      DescribeContactResponse();
+      DescribeContactResponse(
+        contactId:
+            json.containsKey('contactId') ? json['contactId'] as String : null,
+        contactStatus: json.containsKey('contactStatus')
+            ? json['contactStatus'] as String
+            : null,
+        endTime: json.containsKey('endTime')
+            ? DateTime.parse(json['endTime'])
+            : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+        groundStation: json.containsKey('groundStation')
+            ? json['groundStation'] as String
+            : null,
+        maximumElevation: json.containsKey('maximumElevation')
+            ? Elevation.fromJson(json['maximumElevation'])
+            : null,
+        missionProfileArn: json.containsKey('missionProfileArn')
+            ? json['missionProfileArn'] as String
+            : null,
+        postPassEndTime: json.containsKey('postPassEndTime')
+            ? DateTime.parse(json['postPassEndTime'])
+            : null,
+        prePassStartTime: json.containsKey('prePassStartTime')
+            ? DateTime.parse(json['prePassStartTime'])
+            : null,
+        satelliteArn: json.containsKey('satelliteArn')
+            ? json['satelliteArn'] as String
+            : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// An item in a list of `Config` objects.
@@ -1169,7 +1644,16 @@ class ConfigListItem {
     this.configType,
     this.name,
   });
-  static ConfigListItem fromJson(Map<String, dynamic> json) => ConfigListItem();
+  static ConfigListItem fromJson(Map<String, dynamic> json) => ConfigListItem(
+        configArn:
+            json.containsKey('configArn') ? json['configArn'] as String : null,
+        configId:
+            json.containsKey('configId') ? json['configId'] as String : null,
+        configType: json.containsKey('configType')
+            ? json['configType'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
 }
 
 /// Object that describes the frequency bandwidth.
@@ -1185,7 +1669,11 @@ class FrequencyBandwidth {
     @required this.value,
   });
   static FrequencyBandwidth fromJson(Map<String, dynamic> json) =>
-      FrequencyBandwidth();
+      FrequencyBandwidth(
+        units: json['units'] as String,
+        value: json['value'] as double,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Item in a list of `DataflowEndpoint` groups.
@@ -1201,7 +1689,14 @@ class DataflowEndpointListItem {
     this.dataflowEndpointGroupId,
   });
   static DataflowEndpointListItem fromJson(Map<String, dynamic> json) =>
-      DataflowEndpointListItem();
+      DataflowEndpointListItem(
+        dataflowEndpointGroupArn: json.containsKey('dataflowEndpointGroupArn')
+            ? json['dataflowEndpointGroupArn'] as String
+            : null,
+        dataflowEndpointGroupId: json.containsKey('dataflowEndpointGroupId')
+            ? json['dataflowEndpointGroupId'] as String
+            : null,
+      );
 }
 
 class GetDataflowEndpointGroupResponse {
@@ -1224,7 +1719,23 @@ class GetDataflowEndpointGroupResponse {
     this.tags,
   });
   static GetDataflowEndpointGroupResponse fromJson(Map<String, dynamic> json) =>
-      GetDataflowEndpointGroupResponse();
+      GetDataflowEndpointGroupResponse(
+        dataflowEndpointGroupArn: json.containsKey('dataflowEndpointGroupArn')
+            ? json['dataflowEndpointGroupArn'] as String
+            : null,
+        dataflowEndpointGroupId: json.containsKey('dataflowEndpointGroupId')
+            ? json['dataflowEndpointGroupId'] as String
+            : null,
+        endpointsDetails: json.containsKey('endpointsDetails')
+            ? (json['endpointsDetails'] as List)
+                .map((e) => EndpointDetails.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class DataflowEndpointGroupIdResponse {
@@ -1235,5 +1746,9 @@ class DataflowEndpointGroupIdResponse {
     this.dataflowEndpointGroupId,
   });
   static DataflowEndpointGroupIdResponse fromJson(Map<String, dynamic> json) =>
-      DataflowEndpointGroupIdResponse();
+      DataflowEndpointGroupIdResponse(
+        dataflowEndpointGroupId: json.containsKey('dataflowEndpointGroupId')
+            ? json['dataflowEndpointGroupId'] as String
+            : null,
+      );
 }

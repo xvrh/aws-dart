@@ -9,6 +9,10 @@ import 'package:meta/meta.dart';
 /// content in a secure rendering service in the AWS cloud. Amazon WorkLink
 /// doesn't download or store any internal web content on mobile devices.
 class WorkLinkApi {
+  final _client;
+  WorkLinkApi(client)
+      : _client = client.configured('WorkLink', serializer: 'rest-json');
+
   /// Specifies a domain to be associated to Amazon WorkLink.
   ///
   /// [fleetArn]: The Amazon Resource Name (ARN) of the fleet.
@@ -24,7 +28,13 @@ class WorkLinkApi {
       @required String domainName,
       String displayName,
       @required String acmCertificateArn}) async {
-    return AssociateDomainResponse.fromJson({});
+    var response_ = await _client.send('AssociateDomain', {
+      'FleetArn': fleetArn,
+      'DomainName': domainName,
+      if (displayName != null) 'DisplayName': displayName,
+      'AcmCertificateArn': acmCertificateArn,
+    });
+    return AssociateDomainResponse.fromJson(response_);
   }
 
   /// Associates a website authorization provider with a specified fleet. This
@@ -42,7 +52,13 @@ class WorkLinkApi {
           {@required String fleetArn,
           @required String authorizationProviderType,
           String domainName}) async {
-    return AssociateWebsiteAuthorizationProviderResponse.fromJson({});
+    var response_ =
+        await _client.send('AssociateWebsiteAuthorizationProvider', {
+      'FleetArn': fleetArn,
+      'AuthorizationProviderType': authorizationProviderType,
+      if (domainName != null) 'DomainName': domainName,
+    });
+    return AssociateWebsiteAuthorizationProviderResponse.fromJson(response_);
   }
 
   /// Imports the root certificate of a certificate authority (CA) used to
@@ -59,7 +75,12 @@ class WorkLinkApi {
           {@required String fleetArn,
           @required String certificate,
           String displayName}) async {
-    return AssociateWebsiteCertificateAuthorityResponse.fromJson({});
+    var response_ = await _client.send('AssociateWebsiteCertificateAuthority', {
+      'FleetArn': fleetArn,
+      'Certificate': certificate,
+      if (displayName != null) 'DisplayName': displayName,
+    });
+    return AssociateWebsiteCertificateAuthorityResponse.fromJson(response_);
   }
 
   /// Creates a fleet. A fleet consists of resources and the configuration that
@@ -75,7 +96,13 @@ class WorkLinkApi {
   /// which may be outside of your home Region.
   Future<CreateFleetResponse> createFleet(String fleetName,
       {String displayName, bool optimizeForEndUserLocation}) async {
-    return CreateFleetResponse.fromJson({});
+    var response_ = await _client.send('CreateFleet', {
+      'FleetName': fleetName,
+      if (displayName != null) 'DisplayName': displayName,
+      if (optimizeForEndUserLocation != null)
+        'OptimizeForEndUserLocation': optimizeForEndUserLocation,
+    });
+    return CreateFleetResponse.fromJson(response_);
   }
 
   /// Deletes a fleet. Prevents users from accessing previously associated
@@ -83,7 +110,10 @@ class WorkLinkApi {
   ///
   /// [fleetArn]: The ARN of the fleet.
   Future<DeleteFleetResponse> deleteFleet(String fleetArn) async {
-    return DeleteFleetResponse.fromJson({});
+    var response_ = await _client.send('DeleteFleet', {
+      'FleetArn': fleetArn,
+    });
+    return DeleteFleetResponse.fromJson(response_);
   }
 
   /// Describes the configuration for delivering audit streams to the customer
@@ -92,7 +122,10 @@ class WorkLinkApi {
   /// [fleetArn]: The ARN of the fleet.
   Future<DescribeAuditStreamConfigurationResponse>
       describeAuditStreamConfiguration(String fleetArn) async {
-    return DescribeAuditStreamConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DescribeAuditStreamConfiguration', {
+      'FleetArn': fleetArn,
+    });
+    return DescribeAuditStreamConfigurationResponse.fromJson(response_);
   }
 
   /// Describes the networking configuration to access the internal websites
@@ -101,7 +134,10 @@ class WorkLinkApi {
   /// [fleetArn]: The ARN of the fleet.
   Future<DescribeCompanyNetworkConfigurationResponse>
       describeCompanyNetworkConfiguration(String fleetArn) async {
-    return DescribeCompanyNetworkConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DescribeCompanyNetworkConfiguration', {
+      'FleetArn': fleetArn,
+    });
+    return DescribeCompanyNetworkConfigurationResponse.fromJson(response_);
   }
 
   /// Provides information about a user's device.
@@ -111,7 +147,11 @@ class WorkLinkApi {
   /// [deviceId]: A unique identifier for a registered user's device.
   Future<DescribeDeviceResponse> describeDevice(
       {@required String fleetArn, @required String deviceId}) async {
-    return DescribeDeviceResponse.fromJson({});
+    var response_ = await _client.send('DescribeDevice', {
+      'FleetArn': fleetArn,
+      'DeviceId': deviceId,
+    });
+    return DescribeDeviceResponse.fromJson(response_);
   }
 
   /// Describes the device policy configuration for the specified fleet.
@@ -119,7 +159,10 @@ class WorkLinkApi {
   /// [fleetArn]: The ARN of the fleet.
   Future<DescribeDevicePolicyConfigurationResponse>
       describeDevicePolicyConfiguration(String fleetArn) async {
-    return DescribeDevicePolicyConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DescribeDevicePolicyConfiguration', {
+      'FleetArn': fleetArn,
+    });
+    return DescribeDevicePolicyConfigurationResponse.fromJson(response_);
   }
 
   /// Provides information about the domain.
@@ -129,7 +172,11 @@ class WorkLinkApi {
   /// [domainName]: The name of the domain.
   Future<DescribeDomainResponse> describeDomain(
       {@required String fleetArn, @required String domainName}) async {
-    return DescribeDomainResponse.fromJson({});
+    var response_ = await _client.send('DescribeDomain', {
+      'FleetArn': fleetArn,
+      'DomainName': domainName,
+    });
+    return DescribeDomainResponse.fromJson(response_);
   }
 
   /// Provides basic information for the specified fleet, excluding identity
@@ -138,7 +185,10 @@ class WorkLinkApi {
   /// [fleetArn]: The ARN of the fleet.
   Future<DescribeFleetMetadataResponse> describeFleetMetadata(
       String fleetArn) async {
-    return DescribeFleetMetadataResponse.fromJson({});
+    var response_ = await _client.send('DescribeFleetMetadata', {
+      'FleetArn': fleetArn,
+    });
+    return DescribeFleetMetadataResponse.fromJson(response_);
   }
 
   /// Describes the identity provider configuration of the specified fleet.
@@ -146,7 +196,11 @@ class WorkLinkApi {
   /// [fleetArn]: The ARN of the fleet.
   Future<DescribeIdentityProviderConfigurationResponse>
       describeIdentityProviderConfiguration(String fleetArn) async {
-    return DescribeIdentityProviderConfigurationResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeIdentityProviderConfiguration', {
+      'FleetArn': fleetArn,
+    });
+    return DescribeIdentityProviderConfigurationResponse.fromJson(response_);
   }
 
   /// Provides information about the certificate authority.
@@ -157,7 +211,11 @@ class WorkLinkApi {
   Future<DescribeWebsiteCertificateAuthorityResponse>
       describeWebsiteCertificateAuthority(
           {@required String fleetArn, @required String websiteCaId}) async {
-    return DescribeWebsiteCertificateAuthorityResponse.fromJson({});
+    var response_ = await _client.send('DescribeWebsiteCertificateAuthority', {
+      'FleetArn': fleetArn,
+      'WebsiteCaId': websiteCaId,
+    });
+    return DescribeWebsiteCertificateAuthorityResponse.fromJson(response_);
   }
 
   /// Disassociates a domain from Amazon WorkLink. End users lose the ability to
@@ -168,7 +226,11 @@ class WorkLinkApi {
   /// [domainName]: The name of the domain.
   Future<DisassociateDomainResponse> disassociateDomain(
       {@required String fleetArn, @required String domainName}) async {
-    return DisassociateDomainResponse.fromJson({});
+    var response_ = await _client.send('DisassociateDomain', {
+      'FleetArn': fleetArn,
+      'DomainName': domainName,
+    });
+    return DisassociateDomainResponse.fromJson(response_);
   }
 
   /// Disassociates a website authorization provider from a specified fleet.
@@ -183,7 +245,12 @@ class WorkLinkApi {
       disassociateWebsiteAuthorizationProvider(
           {@required String fleetArn,
           @required String authorizationProviderId}) async {
-    return DisassociateWebsiteAuthorizationProviderResponse.fromJson({});
+    var response_ =
+        await _client.send('DisassociateWebsiteAuthorizationProvider', {
+      'FleetArn': fleetArn,
+      'AuthorizationProviderId': authorizationProviderId,
+    });
+    return DisassociateWebsiteAuthorizationProviderResponse.fromJson(response_);
   }
 
   /// Removes a certificate authority (CA).
@@ -194,7 +261,12 @@ class WorkLinkApi {
   Future<DisassociateWebsiteCertificateAuthorityResponse>
       disassociateWebsiteCertificateAuthority(
           {@required String fleetArn, @required String websiteCaId}) async {
-    return DisassociateWebsiteCertificateAuthorityResponse.fromJson({});
+    var response_ =
+        await _client.send('DisassociateWebsiteCertificateAuthority', {
+      'FleetArn': fleetArn,
+      'WebsiteCaId': websiteCaId,
+    });
+    return DisassociateWebsiteCertificateAuthorityResponse.fromJson(response_);
   }
 
   /// Retrieves a list of devices registered with the specified fleet.
@@ -209,7 +281,12 @@ class WorkLinkApi {
   /// page.
   Future<ListDevicesResponse> listDevices(String fleetArn,
       {String nextToken, int maxResults}) async {
-    return ListDevicesResponse.fromJson({});
+    var response_ = await _client.send('ListDevices', {
+      'FleetArn': fleetArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDevicesResponse.fromJson(response_);
   }
 
   /// Retrieves a list of domains associated to a specified fleet.
@@ -224,7 +301,12 @@ class WorkLinkApi {
   /// page.
   Future<ListDomainsResponse> listDomains(String fleetArn,
       {String nextToken, int maxResults}) async {
-    return ListDomainsResponse.fromJson({});
+    var response_ = await _client.send('ListDomains', {
+      'FleetArn': fleetArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDomainsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of fleets for the current account and Region.
@@ -237,7 +319,11 @@ class WorkLinkApi {
   /// page.
   Future<ListFleetsResponse> listFleets(
       {String nextToken, int maxResults}) async {
-    return ListFleetsResponse.fromJson({});
+    var response_ = await _client.send('ListFleets', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListFleetsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of website authorization providers associated with a
@@ -254,7 +340,12 @@ class WorkLinkApi {
   Future<ListWebsiteAuthorizationProvidersResponse>
       listWebsiteAuthorizationProviders(String fleetArn,
           {String nextToken, int maxResults}) async {
-    return ListWebsiteAuthorizationProvidersResponse.fromJson({});
+    var response_ = await _client.send('ListWebsiteAuthorizationProviders', {
+      'FleetArn': fleetArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListWebsiteAuthorizationProvidersResponse.fromJson(response_);
   }
 
   /// Retrieves a list of certificate authorities added for the current account
@@ -271,7 +362,12 @@ class WorkLinkApi {
   Future<ListWebsiteCertificateAuthoritiesResponse>
       listWebsiteCertificateAuthorities(String fleetArn,
           {int maxResults, String nextToken}) async {
-    return ListWebsiteCertificateAuthoritiesResponse.fromJson({});
+    var response_ = await _client.send('ListWebsiteCertificateAuthorities', {
+      'FleetArn': fleetArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListWebsiteCertificateAuthoritiesResponse.fromJson(response_);
   }
 
   /// Moves a domain to ACTIVE status if it was in the INACTIVE status.
@@ -281,7 +377,11 @@ class WorkLinkApi {
   /// [domainName]: The name of the domain.
   Future<RestoreDomainAccessResponse> restoreDomainAccess(
       {@required String fleetArn, @required String domainName}) async {
-    return RestoreDomainAccessResponse.fromJson({});
+    var response_ = await _client.send('RestoreDomainAccess', {
+      'FleetArn': fleetArn,
+      'DomainName': domainName,
+    });
+    return RestoreDomainAccessResponse.fromJson(response_);
   }
 
   /// Moves a domain to INACTIVE status if it was in the ACTIVE status.
@@ -291,7 +391,11 @@ class WorkLinkApi {
   /// [domainName]: The name of the domain.
   Future<RevokeDomainAccessResponse> revokeDomainAccess(
       {@required String fleetArn, @required String domainName}) async {
-    return RevokeDomainAccessResponse.fromJson({});
+    var response_ = await _client.send('RevokeDomainAccess', {
+      'FleetArn': fleetArn,
+      'DomainName': domainName,
+    });
+    return RevokeDomainAccessResponse.fromJson(response_);
   }
 
   /// Signs the user out from all of their devices. The user can sign in again
@@ -302,7 +406,11 @@ class WorkLinkApi {
   /// [username]: The name of the user.
   Future<SignOutUserResponse> signOutUser(
       {@required String fleetArn, @required String username}) async {
-    return SignOutUserResponse.fromJson({});
+    var response_ = await _client.send('SignOutUser', {
+      'FleetArn': fleetArn,
+      'Username': username,
+    });
+    return SignOutUserResponse.fromJson(response_);
   }
 
   /// Updates the audit stream configuration for the fleet.
@@ -314,7 +422,11 @@ class WorkLinkApi {
   Future<UpdateAuditStreamConfigurationResponse> updateAuditStreamConfiguration(
       String fleetArn,
       {String auditStreamArn}) async {
-    return UpdateAuditStreamConfigurationResponse.fromJson({});
+    var response_ = await _client.send('UpdateAuditStreamConfiguration', {
+      'FleetArn': fleetArn,
+      if (auditStreamArn != null) 'AuditStreamArn': auditStreamArn,
+    });
+    return UpdateAuditStreamConfigurationResponse.fromJson(response_);
   }
 
   /// Updates the company network configuration for the fleet.
@@ -334,7 +446,13 @@ class WorkLinkApi {
           @required String vpcId,
           @required List<String> subnetIds,
           @required List<String> securityGroupIds}) async {
-    return UpdateCompanyNetworkConfigurationResponse.fromJson({});
+    var response_ = await _client.send('UpdateCompanyNetworkConfiguration', {
+      'FleetArn': fleetArn,
+      'VpcId': vpcId,
+      'SubnetIds': subnetIds,
+      'SecurityGroupIds': securityGroupIds,
+    });
+    return UpdateCompanyNetworkConfigurationResponse.fromJson(response_);
   }
 
   /// Updates the device policy configuration for the fleet.
@@ -347,7 +465,12 @@ class WorkLinkApi {
   Future<UpdateDevicePolicyConfigurationResponse>
       updateDevicePolicyConfiguration(String fleetArn,
           {String deviceCaCertificate}) async {
-    return UpdateDevicePolicyConfigurationResponse.fromJson({});
+    var response_ = await _client.send('UpdateDevicePolicyConfiguration', {
+      'FleetArn': fleetArn,
+      if (deviceCaCertificate != null)
+        'DeviceCaCertificate': deviceCaCertificate,
+    });
+    return UpdateDevicePolicyConfigurationResponse.fromJson(response_);
   }
 
   /// Updates domain metadata, such as DisplayName.
@@ -361,7 +484,12 @@ class WorkLinkApi {
       {@required String fleetArn,
       @required String domainName,
       String displayName}) async {
-    return UpdateDomainMetadataResponse.fromJson({});
+    var response_ = await _client.send('UpdateDomainMetadata', {
+      'FleetArn': fleetArn,
+      'DomainName': domainName,
+      if (displayName != null) 'DisplayName': displayName,
+    });
+    return UpdateDomainMetadataResponse.fromJson(response_);
   }
 
   /// Updates fleet metadata, such as DisplayName.
@@ -376,7 +504,13 @@ class WorkLinkApi {
   /// which may be outside of your home Region.
   Future<UpdateFleetMetadataResponse> updateFleetMetadata(String fleetArn,
       {String displayName, bool optimizeForEndUserLocation}) async {
-    return UpdateFleetMetadataResponse.fromJson({});
+    var response_ = await _client.send('UpdateFleetMetadata', {
+      'FleetArn': fleetArn,
+      if (displayName != null) 'DisplayName': displayName,
+      if (optimizeForEndUserLocation != null)
+        'OptimizeForEndUserLocation': optimizeForEndUserLocation,
+    });
+    return UpdateFleetMetadataResponse.fromJson(response_);
   }
 
   /// Updates the identity provider configuration for the fleet.
@@ -393,7 +527,13 @@ class WorkLinkApi {
           {@required String fleetArn,
           @required String identityProviderType,
           String identityProviderSamlMetadata}) async {
-    return UpdateIdentityProviderConfigurationResponse.fromJson({});
+    var response_ = await _client.send('UpdateIdentityProviderConfiguration', {
+      'FleetArn': fleetArn,
+      'IdentityProviderType': identityProviderType,
+      if (identityProviderSamlMetadata != null)
+        'IdentityProviderSamlMetadata': identityProviderSamlMetadata,
+    });
+    return UpdateIdentityProviderConfigurationResponse.fromJson(response_);
   }
 }
 
@@ -412,7 +552,11 @@ class AssociateWebsiteAuthorizationProviderResponse {
   });
   static AssociateWebsiteAuthorizationProviderResponse fromJson(
           Map<String, dynamic> json) =>
-      AssociateWebsiteAuthorizationProviderResponse();
+      AssociateWebsiteAuthorizationProviderResponse(
+        authorizationProviderId: json.containsKey('AuthorizationProviderId')
+            ? json['AuthorizationProviderId'] as String
+            : null,
+      );
 }
 
 class AssociateWebsiteCertificateAuthorityResponse {
@@ -424,7 +568,11 @@ class AssociateWebsiteCertificateAuthorityResponse {
   });
   static AssociateWebsiteCertificateAuthorityResponse fromJson(
           Map<String, dynamic> json) =>
-      AssociateWebsiteCertificateAuthorityResponse();
+      AssociateWebsiteCertificateAuthorityResponse(
+        websiteCaId: json.containsKey('WebsiteCaId')
+            ? json['WebsiteCaId'] as String
+            : null,
+      );
 }
 
 class CreateFleetResponse {
@@ -435,7 +583,10 @@ class CreateFleetResponse {
     this.fleetArn,
   });
   static CreateFleetResponse fromJson(Map<String, dynamic> json) =>
-      CreateFleetResponse();
+      CreateFleetResponse(
+        fleetArn:
+            json.containsKey('FleetArn') ? json['FleetArn'] as String : null,
+      );
 }
 
 class DeleteFleetResponse {
@@ -454,7 +605,11 @@ class DescribeAuditStreamConfigurationResponse {
   });
   static DescribeAuditStreamConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeAuditStreamConfigurationResponse();
+      DescribeAuditStreamConfigurationResponse(
+        auditStreamArn: json.containsKey('AuditStreamArn')
+            ? json['AuditStreamArn'] as String
+            : null,
+      );
 }
 
 class DescribeCompanyNetworkConfigurationResponse {
@@ -475,7 +630,17 @@ class DescribeCompanyNetworkConfigurationResponse {
   });
   static DescribeCompanyNetworkConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeCompanyNetworkConfigurationResponse();
+      DescribeCompanyNetworkConfigurationResponse(
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        securityGroupIds: json.containsKey('SecurityGroupIds')
+            ? (json['SecurityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 class DescribeDevicePolicyConfigurationResponse {
@@ -488,7 +653,11 @@ class DescribeDevicePolicyConfigurationResponse {
   });
   static DescribeDevicePolicyConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeDevicePolicyConfigurationResponse();
+      DescribeDevicePolicyConfigurationResponse(
+        deviceCaCertificate: json.containsKey('DeviceCaCertificate')
+            ? json['DeviceCaCertificate'] as String
+            : null,
+      );
 }
 
 class DescribeDeviceResponse {
@@ -531,7 +700,30 @@ class DescribeDeviceResponse {
     this.username,
   });
   static DescribeDeviceResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDeviceResponse();
+      DescribeDeviceResponse(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        model: json.containsKey('Model') ? json['Model'] as String : null,
+        manufacturer: json.containsKey('Manufacturer')
+            ? json['Manufacturer'] as String
+            : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? json['OperatingSystem'] as String
+            : null,
+        operatingSystemVersion: json.containsKey('OperatingSystemVersion')
+            ? json['OperatingSystemVersion'] as String
+            : null,
+        patchLevel: json.containsKey('PatchLevel')
+            ? json['PatchLevel'] as String
+            : null,
+        firstAccessedTime: json.containsKey('FirstAccessedTime')
+            ? DateTime.parse(json['FirstAccessedTime'])
+            : null,
+        lastAccessedTime: json.containsKey('LastAccessedTime')
+            ? DateTime.parse(json['LastAccessedTime'])
+            : null,
+        username:
+            json.containsKey('Username') ? json['Username'] as String : null,
+      );
 }
 
 class DescribeDomainResponse {
@@ -559,7 +751,23 @@ class DescribeDomainResponse {
     this.acmCertificateArn,
   });
   static DescribeDomainResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDomainResponse();
+      DescribeDomainResponse(
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        domainStatus: json.containsKey('DomainStatus')
+            ? json['DomainStatus'] as String
+            : null,
+        acmCertificateArn: json.containsKey('AcmCertificateArn')
+            ? json['AcmCertificateArn'] as String
+            : null,
+      );
 }
 
 class DescribeFleetMetadataResponse {
@@ -595,7 +803,29 @@ class DescribeFleetMetadataResponse {
     this.fleetStatus,
   });
   static DescribeFleetMetadataResponse fromJson(Map<String, dynamic> json) =>
-      DescribeFleetMetadataResponse();
+      DescribeFleetMetadataResponse(
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+        fleetName:
+            json.containsKey('FleetName') ? json['FleetName'] as String : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        optimizeForEndUserLocation:
+            json.containsKey('OptimizeForEndUserLocation')
+                ? json['OptimizeForEndUserLocation'] as bool
+                : null,
+        companyCode: json.containsKey('CompanyCode')
+            ? json['CompanyCode'] as String
+            : null,
+        fleetStatus: json.containsKey('FleetStatus')
+            ? json['FleetStatus'] as String
+            : null,
+      );
 }
 
 class DescribeIdentityProviderConfigurationResponse {
@@ -615,7 +845,19 @@ class DescribeIdentityProviderConfigurationResponse {
   });
   static DescribeIdentityProviderConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeIdentityProviderConfigurationResponse();
+      DescribeIdentityProviderConfigurationResponse(
+        identityProviderType: json.containsKey('IdentityProviderType')
+            ? json['IdentityProviderType'] as String
+            : null,
+        serviceProviderSamlMetadata:
+            json.containsKey('ServiceProviderSamlMetadata')
+                ? json['ServiceProviderSamlMetadata'] as String
+                : null,
+        identityProviderSamlMetadata:
+            json.containsKey('IdentityProviderSamlMetadata')
+                ? json['IdentityProviderSamlMetadata'] as String
+                : null,
+      );
 }
 
 class DescribeWebsiteCertificateAuthorityResponse {
@@ -635,7 +877,17 @@ class DescribeWebsiteCertificateAuthorityResponse {
   });
   static DescribeWebsiteCertificateAuthorityResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeWebsiteCertificateAuthorityResponse();
+      DescribeWebsiteCertificateAuthorityResponse(
+        certificate: json.containsKey('Certificate')
+            ? json['Certificate'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+      );
 }
 
 /// The summary of devices.
@@ -650,7 +902,13 @@ class DeviceSummary {
     this.deviceId,
     this.deviceStatus,
   });
-  static DeviceSummary fromJson(Map<String, dynamic> json) => DeviceSummary();
+  static DeviceSummary fromJson(Map<String, dynamic> json) => DeviceSummary(
+        deviceId:
+            json.containsKey('DeviceId') ? json['DeviceId'] as String : null,
+        deviceStatus: json.containsKey('DeviceStatus')
+            ? json['DeviceStatus'] as String
+            : null,
+      );
 }
 
 class DisassociateDomainResponse {
@@ -693,7 +951,14 @@ class DomainSummary {
     @required this.createdTime,
     @required this.domainStatus,
   });
-  static DomainSummary fromJson(Map<String, dynamic> json) => DomainSummary();
+  static DomainSummary fromJson(Map<String, dynamic> json) => DomainSummary(
+        domainName: json['DomainName'] as String,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        createdTime: DateTime.parse(json['CreatedTime']),
+        domainStatus: json['DomainStatus'] as String,
+      );
 }
 
 /// The summary of the fleet.
@@ -728,7 +993,27 @@ class FleetSummary {
     this.companyCode,
     this.fleetStatus,
   });
-  static FleetSummary fromJson(Map<String, dynamic> json) => FleetSummary();
+  static FleetSummary fromJson(Map<String, dynamic> json) => FleetSummary(
+        fleetArn:
+            json.containsKey('FleetArn') ? json['FleetArn'] as String : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        lastUpdatedTime: json.containsKey('LastUpdatedTime')
+            ? DateTime.parse(json['LastUpdatedTime'])
+            : null,
+        fleetName:
+            json.containsKey('FleetName') ? json['FleetName'] as String : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        companyCode: json.containsKey('CompanyCode')
+            ? json['CompanyCode'] as String
+            : null,
+        fleetStatus: json.containsKey('FleetStatus')
+            ? json['FleetStatus'] as String
+            : null,
+      );
 }
 
 class ListDevicesResponse {
@@ -744,7 +1029,15 @@ class ListDevicesResponse {
     this.nextToken,
   });
   static ListDevicesResponse fromJson(Map<String, dynamic> json) =>
-      ListDevicesResponse();
+      ListDevicesResponse(
+        devices: json.containsKey('Devices')
+            ? (json['Devices'] as List)
+                .map((e) => DeviceSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDomainsResponse {
@@ -760,7 +1053,15 @@ class ListDomainsResponse {
     this.nextToken,
   });
   static ListDomainsResponse fromJson(Map<String, dynamic> json) =>
-      ListDomainsResponse();
+      ListDomainsResponse(
+        domains: json.containsKey('Domains')
+            ? (json['Domains'] as List)
+                .map((e) => DomainSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListFleetsResponse {
@@ -776,7 +1077,15 @@ class ListFleetsResponse {
     this.nextToken,
   });
   static ListFleetsResponse fromJson(Map<String, dynamic> json) =>
-      ListFleetsResponse();
+      ListFleetsResponse(
+        fleetSummaryList: json.containsKey('FleetSummaryList')
+            ? (json['FleetSummaryList'] as List)
+                .map((e) => FleetSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListWebsiteAuthorizationProvidersResponse {
@@ -793,7 +1102,16 @@ class ListWebsiteAuthorizationProvidersResponse {
   });
   static ListWebsiteAuthorizationProvidersResponse fromJson(
           Map<String, dynamic> json) =>
-      ListWebsiteAuthorizationProvidersResponse();
+      ListWebsiteAuthorizationProvidersResponse(
+        websiteAuthorizationProviders:
+            json.containsKey('WebsiteAuthorizationProviders')
+                ? (json['WebsiteAuthorizationProviders'] as List)
+                    .map((e) => WebsiteAuthorizationProviderSummary.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListWebsiteCertificateAuthoritiesResponse {
@@ -810,7 +1128,16 @@ class ListWebsiteCertificateAuthoritiesResponse {
   });
   static ListWebsiteCertificateAuthoritiesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListWebsiteCertificateAuthoritiesResponse();
+      ListWebsiteCertificateAuthoritiesResponse(
+        websiteCertificateAuthorities:
+            json.containsKey('WebsiteCertificateAuthorities')
+                ? (json['WebsiteCertificateAuthorities'] as List)
+                    .map((e) => WebsiteCaSummary.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class RestoreDomainAccessResponse {
@@ -894,7 +1221,18 @@ class WebsiteAuthorizationProviderSummary {
   });
   static WebsiteAuthorizationProviderSummary fromJson(
           Map<String, dynamic> json) =>
-      WebsiteAuthorizationProviderSummary();
+      WebsiteAuthorizationProviderSummary(
+        authorizationProviderId: json.containsKey('AuthorizationProviderId')
+            ? json['AuthorizationProviderId'] as String
+            : null,
+        authorizationProviderType: json['AuthorizationProviderType'] as String,
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+      );
 }
 
 /// The summary of the certificate authority (CA).
@@ -914,5 +1252,15 @@ class WebsiteCaSummary {
     this.displayName,
   });
   static WebsiteCaSummary fromJson(Map<String, dynamic> json) =>
-      WebsiteCaSummary();
+      WebsiteCaSummary(
+        websiteCaId: json.containsKey('WebsiteCaId')
+            ? json['WebsiteCaId'] as String
+            : null,
+        createdTime: json.containsKey('CreatedTime')
+            ? DateTime.parse(json['CreatedTime'])
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+      );
 }

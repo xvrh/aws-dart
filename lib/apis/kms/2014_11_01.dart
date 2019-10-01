@@ -85,6 +85,9 @@ import 'dart:typed_data';
 ///
 /// *    GenerateDataKeyWithoutPlaintext
 class KmsApi {
+  final _client;
+  KmsApi(client) : _client = client.configured('KMS', serializer: 'json');
+
   /// Cancels the deletion of a customer master key (CMK). When this operation
   /// is successful, the CMK is set to the `Disabled` state. To enable a CMK,
   /// use EnableKey. You cannot perform this operation on a CMK in a different
@@ -114,7 +117,10 @@ class KmsApi {
   ///
   /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
   Future<CancelKeyDeletionResponse> cancelKeyDeletion(String keyId) async {
-    return CancelKeyDeletionResponse.fromJson({});
+    var response_ = await _client.send('CancelKeyDeletion', {
+      'KeyId': keyId,
+    });
+    return CancelKeyDeletionResponse.fromJson(response_);
   }
 
   /// Connects or reconnects a
@@ -168,7 +174,10 @@ class KmsApi {
   /// DescribeCustomKeyStores operation.
   Future<ConnectCustomKeyStoreResponse> connectCustomKeyStore(
       String customKeyStoreId) async {
-    return ConnectCustomKeyStoreResponse.fromJson({});
+    var response_ = await _client.send('ConnectCustomKeyStore', {
+      'CustomKeyStoreId': customKeyStoreId,
+    });
+    return ConnectCustomKeyStoreResponse.fromJson(response_);
   }
 
   /// Creates a display name for a customer managed customer master key (CMK).
@@ -213,7 +222,12 @@ class KmsApi {
   /// [Finding the Key ID and ARN](https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn)
   /// in the _AWS Key Management Service Developer Guide_.
   Future<void> createAlias(
-      {@required String aliasName, @required String targetKeyId}) async {}
+      {@required String aliasName, @required String targetKeyId}) async {
+    await _client.send('CreateAlias', {
+      'AliasName': aliasName,
+      'TargetKeyId': targetKeyId,
+    });
+  }
 
   /// Creates a
   /// [custom key store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)
@@ -271,7 +285,13 @@ class KmsApi {
       @required String cloudHsmClusterId,
       @required String trustAnchorCertificate,
       @required String keyStorePassword}) async {
-    return CreateCustomKeyStoreResponse.fromJson({});
+    var response_ = await _client.send('CreateCustomKeyStore', {
+      'CustomKeyStoreName': customKeyStoreName,
+      'CloudHsmClusterId': cloudHsmClusterId,
+      'TrustAnchorCertificate': trustAnchorCertificate,
+      'KeyStorePassword': keyStorePassword,
+    });
+    return CreateCustomKeyStoreResponse.fromJson(response_);
   }
 
   /// Adds a grant to a customer master key (CMK). The grant allows the grantee
@@ -369,7 +389,16 @@ class KmsApi {
       GrantConstraints constraints,
       List<String> grantTokens,
       String name}) async {
-    return CreateGrantResponse.fromJson({});
+    var response_ = await _client.send('CreateGrant', {
+      'KeyId': keyId,
+      'GranteePrincipal': granteePrincipal,
+      if (retiringPrincipal != null) 'RetiringPrincipal': retiringPrincipal,
+      'Operations': operations,
+      if (constraints != null) 'Constraints': constraints,
+      if (grantTokens != null) 'GrantTokens': grantTokens,
+      if (name != null) 'Name': name,
+    });
+    return CreateGrantResponse.fromJson(response_);
   }
 
   /// Creates a customer managed
@@ -503,7 +532,17 @@ class KmsApi {
       String customKeyStoreId,
       bool bypassPolicyLockoutSafetyCheck,
       List<Tag> tags}) async {
-    return CreateKeyResponse.fromJson({});
+    var response_ = await _client.send('CreateKey', {
+      if (policy != null) 'Policy': policy,
+      if (description != null) 'Description': description,
+      if (keyUsage != null) 'KeyUsage': keyUsage,
+      if (origin != null) 'Origin': origin,
+      if (customKeyStoreId != null) 'CustomKeyStoreId': customKeyStoreId,
+      if (bypassPolicyLockoutSafetyCheck != null)
+        'BypassPolicyLockoutSafetyCheck': bypassPolicyLockoutSafetyCheck,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateKeyResponse.fromJson(response_);
   }
 
   /// Decrypts ciphertext. Ciphertext is plaintext that has been previously
@@ -543,7 +582,12 @@ class KmsApi {
   /// in the _AWS Key Management Service Developer Guide_.
   Future<DecryptResponse> decrypt(Uint8List ciphertextBlob,
       {Map<String, String> encryptionContext, List<String> grantTokens}) async {
-    return DecryptResponse.fromJson({});
+    var response_ = await _client.send('Decrypt', {
+      'CiphertextBlob': ciphertextBlob,
+      if (encryptionContext != null) 'EncryptionContext': encryptionContext,
+      if (grantTokens != null) 'GrantTokens': grantTokens,
+    });
+    return DecryptResponse.fromJson(response_);
   }
 
   /// Deletes the specified alias. You cannot perform this operation on an alias
@@ -561,7 +605,11 @@ class KmsApi {
   ///
   /// [aliasName]: The alias to be deleted. The alias name must begin with
   /// `alias/` followed by the alias name, such as `alias/ExampleAlias`.
-  Future<void> deleteAlias(String aliasName) async {}
+  Future<void> deleteAlias(String aliasName) async {
+    await _client.send('DeleteAlias', {
+      'AliasName': aliasName,
+    });
+  }
 
   /// Deletes a
   /// [custom key store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html).
@@ -603,7 +651,10 @@ class KmsApi {
   /// DescribeCustomKeyStores operation.
   Future<DeleteCustomKeyStoreResponse> deleteCustomKeyStore(
       String customKeyStoreId) async {
-    return DeleteCustomKeyStoreResponse.fromJson({});
+    var response_ = await _client.send('DeleteCustomKeyStore', {
+      'CustomKeyStoreId': customKeyStoreId,
+    });
+    return DeleteCustomKeyStoreResponse.fromJson(response_);
   }
 
   /// Deletes key material that you previously imported. This operation makes
@@ -639,7 +690,11 @@ class KmsApi {
   ///
   ///
   /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
-  Future<void> deleteImportedKeyMaterial(String keyId) async {}
+  Future<void> deleteImportedKeyMaterial(String keyId) async {
+    await _client.send('DeleteImportedKeyMaterial', {
+      'KeyId': keyId,
+    });
+  }
 
   /// Gets information about
   /// [custom key stores](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)
@@ -702,7 +757,13 @@ class KmsApi {
       String customKeyStoreName,
       int limit,
       String marker}) async {
-    return DescribeCustomKeyStoresResponse.fromJson({});
+    var response_ = await _client.send('DescribeCustomKeyStores', {
+      if (customKeyStoreId != null) 'CustomKeyStoreId': customKeyStoreId,
+      if (customKeyStoreName != null) 'CustomKeyStoreName': customKeyStoreName,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeCustomKeyStoresResponse.fromJson(response_);
   }
 
   /// Provides detailed information about the specified customer master key
@@ -750,7 +811,11 @@ class KmsApi {
   /// in the _AWS Key Management Service Developer Guide_.
   Future<DescribeKeyResponse> describeKey(String keyId,
       {List<String> grantTokens}) async {
-    return DescribeKeyResponse.fromJson({});
+    var response_ = await _client.send('DescribeKey', {
+      'KeyId': keyId,
+      if (grantTokens != null) 'GrantTokens': grantTokens,
+    });
+    return DescribeKeyResponse.fromJson(response_);
   }
 
   /// Sets the state of a customer master key (CMK) to disabled, thereby
@@ -779,7 +844,11 @@ class KmsApi {
   ///
   ///
   /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
-  Future<void> disableKey(String keyId) async {}
+  Future<void> disableKey(String keyId) async {
+    await _client.send('DisableKey', {
+      'KeyId': keyId,
+    });
+  }
 
   /// Disables
   /// [automatic rotation of the key material](https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html)
@@ -804,7 +873,11 @@ class KmsApi {
   ///
   ///
   /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
-  Future<void> disableKeyRotation(String keyId) async {}
+  Future<void> disableKeyRotation(String keyId) async {
+    await _client.send('DisableKeyRotation', {
+      'KeyId': keyId,
+    });
+  }
 
   /// Disconnects the
   /// [custom key store](https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html)
@@ -835,7 +908,10 @@ class KmsApi {
   /// DescribeCustomKeyStores operation.
   Future<DisconnectCustomKeyStoreResponse> disconnectCustomKeyStore(
       String customKeyStoreId) async {
-    return DisconnectCustomKeyStoreResponse.fromJson({});
+    var response_ = await _client.send('DisconnectCustomKeyStore', {
+      'CustomKeyStoreId': customKeyStoreId,
+    });
+    return DisconnectCustomKeyStoreResponse.fromJson(response_);
   }
 
   /// Sets the key state of a customer master key (CMK) to enabled. This allows
@@ -860,7 +936,11 @@ class KmsApi {
   ///
   ///
   /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
-  Future<void> enableKey(String keyId) async {}
+  Future<void> enableKey(String keyId) async {
+    await _client.send('EnableKey', {
+      'KeyId': keyId,
+    });
+  }
 
   /// Enables
   /// [automatic rotation of the key material](https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html)
@@ -889,7 +969,11 @@ class KmsApi {
   ///
   ///
   /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
-  Future<void> enableKeyRotation(String keyId) async {}
+  Future<void> enableKeyRotation(String keyId) async {
+    await _client.send('EnableKeyRotation', {
+      'KeyId': keyId,
+    });
+  }
 
   /// Encrypts plaintext into ciphertext by using a customer master key (CMK).
   /// The `Encrypt` operation has two primary use cases:
@@ -961,7 +1045,13 @@ class KmsApi {
       @required Uint8List plaintext,
       Map<String, String> encryptionContext,
       List<String> grantTokens}) async {
-    return EncryptResponse.fromJson({});
+    var response_ = await _client.send('Encrypt', {
+      'KeyId': keyId,
+      'Plaintext': plaintext,
+      if (encryptionContext != null) 'EncryptionContext': encryptionContext,
+      if (grantTokens != null) 'GrantTokens': grantTokens,
+    });
+    return EncryptResponse.fromJson(response_);
   }
 
   /// Generates a unique data key. This operation returns a plaintext copy of
@@ -1072,7 +1162,14 @@ class KmsApi {
       int numberOfBytes,
       String keySpec,
       List<String> grantTokens}) async {
-    return GenerateDataKeyResponse.fromJson({});
+    var response_ = await _client.send('GenerateDataKey', {
+      'KeyId': keyId,
+      if (encryptionContext != null) 'EncryptionContext': encryptionContext,
+      if (numberOfBytes != null) 'NumberOfBytes': numberOfBytes,
+      if (keySpec != null) 'KeySpec': keySpec,
+      if (grantTokens != null) 'GrantTokens': grantTokens,
+    });
+    return GenerateDataKeyResponse.fromJson(response_);
   }
 
   /// Generates a unique data key. This operation returns a data key that is
@@ -1151,7 +1248,14 @@ class KmsApi {
           String keySpec,
           int numberOfBytes,
           List<String> grantTokens}) async {
-    return GenerateDataKeyWithoutPlaintextResponse.fromJson({});
+    var response_ = await _client.send('GenerateDataKeyWithoutPlaintext', {
+      'KeyId': keyId,
+      if (encryptionContext != null) 'EncryptionContext': encryptionContext,
+      if (keySpec != null) 'KeySpec': keySpec,
+      if (numberOfBytes != null) 'NumberOfBytes': numberOfBytes,
+      if (grantTokens != null) 'GrantTokens': grantTokens,
+    });
+    return GenerateDataKeyWithoutPlaintextResponse.fromJson(response_);
   }
 
   /// Returns a random byte string that is cryptographically secure.
@@ -1174,7 +1278,11 @@ class KmsApi {
   /// operation.
   Future<GenerateRandomResponse> generateRandom(
       {int numberOfBytes, String customKeyStoreId}) async {
-    return GenerateRandomResponse.fromJson({});
+    var response_ = await _client.send('GenerateRandom', {
+      if (numberOfBytes != null) 'NumberOfBytes': numberOfBytes,
+      if (customKeyStoreId != null) 'CustomKeyStoreId': customKeyStoreId,
+    });
+    return GenerateRandomResponse.fromJson(response_);
   }
 
   /// Gets a key policy attached to the specified customer master key (CMK). You
@@ -1198,7 +1306,11 @@ class KmsApi {
   /// `default`. To get the names of key policies, use ListKeyPolicies.
   Future<GetKeyPolicyResponse> getKeyPolicy(
       {@required String keyId, @required String policyName}) async {
-    return GetKeyPolicyResponse.fromJson({});
+    var response_ = await _client.send('GetKeyPolicy', {
+      'KeyId': keyId,
+      'PolicyName': policyName,
+    });
+    return GetKeyPolicyResponse.fromJson(response_);
   }
 
   /// Gets a Boolean value that indicates whether
@@ -1238,7 +1350,10 @@ class KmsApi {
   /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
   Future<GetKeyRotationStatusResponse> getKeyRotationStatus(
       String keyId) async {
-    return GetKeyRotationStatusResponse.fromJson({});
+    var response_ = await _client.send('GetKeyRotationStatus', {
+      'KeyId': keyId,
+    });
+    return GetKeyRotationStatusResponse.fromJson(response_);
   }
 
   /// Returns the items you need in order to import key material into AWS KMS
@@ -1293,7 +1408,12 @@ class KmsApi {
       {@required String keyId,
       @required String wrappingAlgorithm,
       @required String wrappingKeySpec}) async {
-    return GetParametersForImportResponse.fromJson({});
+    var response_ = await _client.send('GetParametersForImport', {
+      'KeyId': keyId,
+      'WrappingAlgorithm': wrappingAlgorithm,
+      'WrappingKeySpec': wrappingKeySpec,
+    });
+    return GetParametersForImportResponse.fromJson(response_);
   }
 
   /// Imports key material into an existing AWS KMS customer master key (CMK)
@@ -1381,7 +1501,14 @@ class KmsApi {
       @required Uint8List encryptedKeyMaterial,
       DateTime validTo,
       String expirationModel}) async {
-    return ImportKeyMaterialResponse.fromJson({});
+    var response_ = await _client.send('ImportKeyMaterial', {
+      'KeyId': keyId,
+      'ImportToken': importToken,
+      'EncryptedKeyMaterial': encryptedKeyMaterial,
+      if (validTo != null) 'ValidTo': validTo,
+      if (expirationModel != null) 'ExpirationModel': expirationModel,
+    });
+    return ImportKeyMaterialResponse.fromJson(response_);
   }
 
   /// Gets a list of aliases in the caller's AWS account and region. You cannot
@@ -1424,7 +1551,12 @@ class KmsApi {
   /// the truncated response you just received.
   Future<ListAliasesResponse> listAliases(
       {String keyId, int limit, String marker}) async {
-    return ListAliasesResponse.fromJson({});
+    var response_ = await _client.send('ListAliases', {
+      if (keyId != null) 'KeyId': keyId,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListAliasesResponse.fromJson(response_);
   }
 
   /// Gets a list of all grants for the specified customer master key (CMK).
@@ -1459,7 +1591,12 @@ class KmsApi {
   /// To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
   Future<ListGrantsResponse> listGrants(String keyId,
       {int limit, String marker}) async {
-    return ListGrantsResponse.fromJson({});
+    var response_ = await _client.send('ListGrants', {
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+      'KeyId': keyId,
+    });
+    return ListGrantsResponse.fromJson(response_);
   }
 
   /// Gets the names of the key policies that are attached to a customer master
@@ -1496,7 +1633,12 @@ class KmsApi {
   /// the truncated response you just received.
   Future<ListKeyPoliciesResponse> listKeyPolicies(String keyId,
       {int limit, String marker}) async {
-    return ListKeyPoliciesResponse.fromJson({});
+    var response_ = await _client.send('ListKeyPolicies', {
+      'KeyId': keyId,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListKeyPoliciesResponse.fromJson(response_);
   }
 
   /// Gets a list of all customer master keys (CMKs) in the caller's AWS account
@@ -1513,7 +1655,11 @@ class KmsApi {
   /// response with truncated results. Set it to the value of `NextMarker` from
   /// the truncated response you just received.
   Future<ListKeysResponse> listKeys({int limit, String marker}) async {
-    return ListKeysResponse.fromJson({});
+    var response_ = await _client.send('ListKeys', {
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListKeysResponse.fromJson(response_);
   }
 
   /// Returns a list of all tags for the specified customer master key (CMK).
@@ -1549,7 +1695,12 @@ class KmsApi {
   /// from the truncated response you just received.
   Future<ListResourceTagsResponse> listResourceTags(String keyId,
       {int limit, String marker}) async {
-    return ListResourceTagsResponse.fromJson({});
+    var response_ = await _client.send('ListResourceTags', {
+      'KeyId': keyId,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListResourceTagsResponse.fromJson(response_);
   }
 
   /// Returns a list of all grants for which the grant's `RetiringPrincipal`
@@ -1581,7 +1732,12 @@ class KmsApi {
   /// Reference_.
   Future<ListGrantsResponse> listRetirableGrants(String retiringPrincipal,
       {int limit, String marker}) async {
-    return ListGrantsResponse.fromJson({});
+    var response_ = await _client.send('ListRetirableGrants', {
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+      'RetiringPrincipal': retiringPrincipal,
+    });
+    return ListGrantsResponse.fromJson(response_);
   }
 
   /// Attaches a key policy to the specified customer master key (CMK). You
@@ -1651,7 +1807,15 @@ class KmsApi {
       {@required String keyId,
       @required String policyName,
       @required String policy,
-      bool bypassPolicyLockoutSafetyCheck}) async {}
+      bool bypassPolicyLockoutSafetyCheck}) async {
+    await _client.send('PutKeyPolicy', {
+      'KeyId': keyId,
+      'PolicyName': policyName,
+      'Policy': policy,
+      if (bypassPolicyLockoutSafetyCheck != null)
+        'BypassPolicyLockoutSafetyCheck': bypassPolicyLockoutSafetyCheck,
+    });
+  }
 
   /// Encrypts data on the server side with a new customer master key (CMK)
   /// without exposing the plaintext of the data on the client side. The data is
@@ -1718,7 +1882,16 @@ class KmsApi {
       @required String destinationKeyId,
       Map<String, String> destinationEncryptionContext,
       List<String> grantTokens}) async {
-    return ReEncryptResponse.fromJson({});
+    var response_ = await _client.send('ReEncrypt', {
+      'CiphertextBlob': ciphertextBlob,
+      if (sourceEncryptionContext != null)
+        'SourceEncryptionContext': sourceEncryptionContext,
+      'DestinationKeyId': destinationKeyId,
+      if (destinationEncryptionContext != null)
+        'DestinationEncryptionContext': destinationEncryptionContext,
+      if (grantTokens != null) 'GrantTokens': grantTokens,
+    });
+    return ReEncryptResponse.fromJson(response_);
   }
 
   /// Retires a grant. To clean up, you can retire a grant when you're done
@@ -1754,7 +1927,13 @@ class KmsApi {
   /// *   Grant ID Example -
   /// 0123456789012345678901234567890123456789012345678901234567890123
   Future<void> retireGrant(
-      {String grantToken, String keyId, String grantId}) async {}
+      {String grantToken, String keyId, String grantId}) async {
+    await _client.send('RetireGrant', {
+      if (grantToken != null) 'GrantToken': grantToken,
+      if (keyId != null) 'KeyId': keyId,
+      if (grantId != null) 'GrantId': grantId,
+    });
+  }
 
   /// Revokes the specified grant for the specified customer master key (CMK).
   /// You can revoke a grant to actively deny operations that depend on it.
@@ -1780,7 +1959,12 @@ class KmsApi {
   ///
   /// [grantId]: Identifier of the grant to be revoked.
   Future<void> revokeGrant(
-      {@required String keyId, @required String grantId}) async {}
+      {@required String keyId, @required String grantId}) async {
+    await _client.send('RevokeGrant', {
+      'KeyId': keyId,
+      'GrantId': grantId,
+    });
+  }
 
   /// Schedules the deletion of a customer master key (CMK). You may provide a
   /// waiting period, specified in days, before deletion occurs. If you do not
@@ -1838,7 +2022,12 @@ class KmsApi {
   /// 30, inclusive. If you do not include a value, it defaults to 30.
   Future<ScheduleKeyDeletionResponse> scheduleKeyDeletion(String keyId,
       {int pendingWindowInDays}) async {
-    return ScheduleKeyDeletionResponse.fromJson({});
+    var response_ = await _client.send('ScheduleKeyDeletion', {
+      'KeyId': keyId,
+      if (pendingWindowInDays != null)
+        'PendingWindowInDays': pendingWindowInDays,
+    });
+    return ScheduleKeyDeletionResponse.fromJson(response_);
   }
 
   /// Adds or edits tags for a customer master key (CMK). You cannot perform
@@ -1875,7 +2064,12 @@ class KmsApi {
   ///
   /// [tags]: One or more tags. Each tag consists of a tag key and a tag value.
   Future<void> tagResource(
-      {@required String keyId, @required List<Tag> tags}) async {}
+      {@required String keyId, @required List<Tag> tags}) async {
+    await _client.send('TagResource', {
+      'KeyId': keyId,
+      'Tags': tags,
+    });
+  }
 
   /// Removes the specified tags from the specified customer master key (CMK).
   /// You cannot perform this operation on a CMK in a different AWS account.
@@ -1905,7 +2099,12 @@ class KmsApi {
   /// [tagKeys]: One or more tag keys. Specify only the tag keys, not the tag
   /// values.
   Future<void> untagResource(
-      {@required String keyId, @required List<String> tagKeys}) async {}
+      {@required String keyId, @required List<String> tagKeys}) async {
+    await _client.send('UntagResource', {
+      'KeyId': keyId,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Associates an existing alias with a different customer master key (CMK).
   /// Each CMK can have multiple aliases, but the aliases must be unique within
@@ -1954,7 +2153,12 @@ class KmsApi {
   ///
   /// To verify that the alias is mapped to the correct CMK, use ListAliases.
   Future<void> updateAlias(
-      {@required String aliasName, @required String targetKeyId}) async {}
+      {@required String aliasName, @required String targetKeyId}) async {
+    await _client.send('UpdateAlias', {
+      'AliasName': aliasName,
+      'TargetKeyId': targetKeyId,
+    });
+  }
 
   /// Changes the properties of a custom key store. Use the `CustomKeyStoreId`
   /// parameter to identify the custom key store you want to edit. Use the
@@ -2030,7 +2234,14 @@ class KmsApi {
       {String newCustomKeyStoreName,
       String keyStorePassword,
       String cloudHsmClusterId}) async {
-    return UpdateCustomKeyStoreResponse.fromJson({});
+    var response_ = await _client.send('UpdateCustomKeyStore', {
+      'CustomKeyStoreId': customKeyStoreId,
+      if (newCustomKeyStoreName != null)
+        'NewCustomKeyStoreName': newCustomKeyStoreName,
+      if (keyStorePassword != null) 'KeyStorePassword': keyStorePassword,
+      if (cloudHsmClusterId != null) 'CloudHsmClusterId': cloudHsmClusterId,
+    });
+    return UpdateCustomKeyStoreResponse.fromJson(response_);
   }
 
   /// Updates the description of a customer master key (CMK). To see the
@@ -2059,7 +2270,12 @@ class KmsApi {
   ///
   /// [description]: New description for the CMK.
   Future<void> updateKeyDescription(
-      {@required String keyId, @required String description}) async {}
+      {@required String keyId, @required String description}) async {
+    await _client.send('UpdateKeyDescription', {
+      'KeyId': keyId,
+      'Description': description,
+    });
+  }
 }
 
 /// Contains information about an alias.
@@ -2078,7 +2294,15 @@ class AliasListEntry {
     this.aliasArn,
     this.targetKeyId,
   });
-  static AliasListEntry fromJson(Map<String, dynamic> json) => AliasListEntry();
+  static AliasListEntry fromJson(Map<String, dynamic> json) => AliasListEntry(
+        aliasName:
+            json.containsKey('AliasName') ? json['AliasName'] as String : null,
+        aliasArn:
+            json.containsKey('AliasArn') ? json['AliasArn'] as String : null,
+        targetKeyId: json.containsKey('TargetKeyId')
+            ? json['TargetKeyId'] as String
+            : null,
+      );
 }
 
 class CancelKeyDeletionResponse {
@@ -2089,7 +2313,9 @@ class CancelKeyDeletionResponse {
     this.keyId,
   });
   static CancelKeyDeletionResponse fromJson(Map<String, dynamic> json) =>
-      CancelKeyDeletionResponse();
+      CancelKeyDeletionResponse(
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+      );
 }
 
 class ConnectCustomKeyStoreResponse {
@@ -2106,7 +2332,11 @@ class CreateCustomKeyStoreResponse {
     this.customKeyStoreId,
   });
   static CreateCustomKeyStoreResponse fromJson(Map<String, dynamic> json) =>
-      CreateCustomKeyStoreResponse();
+      CreateCustomKeyStoreResponse(
+        customKeyStoreId: json.containsKey('CustomKeyStoreId')
+            ? json['CustomKeyStoreId'] as String
+            : null,
+      );
 }
 
 class CreateGrantResponse {
@@ -2128,7 +2358,12 @@ class CreateGrantResponse {
     this.grantId,
   });
   static CreateGrantResponse fromJson(Map<String, dynamic> json) =>
-      CreateGrantResponse();
+      CreateGrantResponse(
+        grantToken: json.containsKey('GrantToken')
+            ? json['GrantToken'] as String
+            : null,
+        grantId: json.containsKey('GrantId') ? json['GrantId'] as String : null,
+      );
 }
 
 class CreateKeyResponse {
@@ -2139,7 +2374,11 @@ class CreateKeyResponse {
     this.keyMetadata,
   });
   static CreateKeyResponse fromJson(Map<String, dynamic> json) =>
-      CreateKeyResponse();
+      CreateKeyResponse(
+        keyMetadata: json.containsKey('KeyMetadata')
+            ? KeyMetadata.fromJson(json['KeyMetadata'])
+            : null,
+      );
 }
 
 /// Contains information about each custom key store in the custom key store
@@ -2223,7 +2462,29 @@ class CustomKeyStoresListEntry {
     this.creationDate,
   });
   static CustomKeyStoresListEntry fromJson(Map<String, dynamic> json) =>
-      CustomKeyStoresListEntry();
+      CustomKeyStoresListEntry(
+        customKeyStoreId: json.containsKey('CustomKeyStoreId')
+            ? json['CustomKeyStoreId'] as String
+            : null,
+        customKeyStoreName: json.containsKey('CustomKeyStoreName')
+            ? json['CustomKeyStoreName'] as String
+            : null,
+        cloudHsmClusterId: json.containsKey('CloudHsmClusterId')
+            ? json['CloudHsmClusterId'] as String
+            : null,
+        trustAnchorCertificate: json.containsKey('TrustAnchorCertificate')
+            ? json['TrustAnchorCertificate'] as String
+            : null,
+        connectionState: json.containsKey('ConnectionState')
+            ? json['ConnectionState'] as String
+            : null,
+        connectionErrorCode: json.containsKey('ConnectionErrorCode')
+            ? json['ConnectionErrorCode'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+      );
 }
 
 class DecryptResponse {
@@ -2239,8 +2500,11 @@ class DecryptResponse {
     this.keyId,
     this.plaintext,
   });
-  static DecryptResponse fromJson(Map<String, dynamic> json) =>
-      DecryptResponse();
+  static DecryptResponse fromJson(Map<String, dynamic> json) => DecryptResponse(
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        plaintext:
+            json.containsKey('Plaintext') ? Uint8List(json['Plaintext']) : null,
+      );
 }
 
 class DeleteCustomKeyStoreResponse {
@@ -2269,7 +2533,18 @@ class DescribeCustomKeyStoresResponse {
     this.truncated,
   });
   static DescribeCustomKeyStoresResponse fromJson(Map<String, dynamic> json) =>
-      DescribeCustomKeyStoresResponse();
+      DescribeCustomKeyStoresResponse(
+        customKeyStores: json.containsKey('CustomKeyStores')
+            ? (json['CustomKeyStores'] as List)
+                .map((e) => CustomKeyStoresListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        truncated:
+            json.containsKey('Truncated') ? json['Truncated'] as bool : null,
+      );
 }
 
 class DescribeKeyResponse {
@@ -2280,7 +2555,11 @@ class DescribeKeyResponse {
     this.keyMetadata,
   });
   static DescribeKeyResponse fromJson(Map<String, dynamic> json) =>
-      DescribeKeyResponse();
+      DescribeKeyResponse(
+        keyMetadata: json.containsKey('KeyMetadata')
+            ? KeyMetadata.fromJson(json['KeyMetadata'])
+            : null,
+      );
 }
 
 class DisconnectCustomKeyStoreResponse {
@@ -2301,8 +2580,12 @@ class EncryptResponse {
     this.ciphertextBlob,
     this.keyId,
   });
-  static EncryptResponse fromJson(Map<String, dynamic> json) =>
-      EncryptResponse();
+  static EncryptResponse fromJson(Map<String, dynamic> json) => EncryptResponse(
+        ciphertextBlob: json.containsKey('CiphertextBlob')
+            ? Uint8List(json['CiphertextBlob'])
+            : null,
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+      );
 }
 
 class GenerateDataKeyResponse {
@@ -2325,7 +2608,14 @@ class GenerateDataKeyResponse {
     this.keyId,
   });
   static GenerateDataKeyResponse fromJson(Map<String, dynamic> json) =>
-      GenerateDataKeyResponse();
+      GenerateDataKeyResponse(
+        ciphertextBlob: json.containsKey('CiphertextBlob')
+            ? Uint8List(json['CiphertextBlob'])
+            : null,
+        plaintext:
+            json.containsKey('Plaintext') ? Uint8List(json['Plaintext']) : null,
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+      );
 }
 
 class GenerateDataKeyWithoutPlaintextResponse {
@@ -2342,7 +2632,12 @@ class GenerateDataKeyWithoutPlaintextResponse {
   });
   static GenerateDataKeyWithoutPlaintextResponse fromJson(
           Map<String, dynamic> json) =>
-      GenerateDataKeyWithoutPlaintextResponse();
+      GenerateDataKeyWithoutPlaintextResponse(
+        ciphertextBlob: json.containsKey('CiphertextBlob')
+            ? Uint8List(json['CiphertextBlob'])
+            : null,
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+      );
 }
 
 class GenerateRandomResponse {
@@ -2354,7 +2649,10 @@ class GenerateRandomResponse {
     this.plaintext,
   });
   static GenerateRandomResponse fromJson(Map<String, dynamic> json) =>
-      GenerateRandomResponse();
+      GenerateRandomResponse(
+        plaintext:
+            json.containsKey('Plaintext') ? Uint8List(json['Plaintext']) : null,
+      );
 }
 
 class GetKeyPolicyResponse {
@@ -2365,7 +2663,9 @@ class GetKeyPolicyResponse {
     this.policy,
   });
   static GetKeyPolicyResponse fromJson(Map<String, dynamic> json) =>
-      GetKeyPolicyResponse();
+      GetKeyPolicyResponse(
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+      );
 }
 
 class GetKeyRotationStatusResponse {
@@ -2376,7 +2676,11 @@ class GetKeyRotationStatusResponse {
     this.keyRotationEnabled,
   });
   static GetKeyRotationStatusResponse fromJson(Map<String, dynamic> json) =>
-      GetKeyRotationStatusResponse();
+      GetKeyRotationStatusResponse(
+        keyRotationEnabled: json.containsKey('KeyRotationEnabled')
+            ? json['KeyRotationEnabled'] as bool
+            : null,
+      );
 }
 
 class GetParametersForImportResponse {
@@ -2405,7 +2709,17 @@ class GetParametersForImportResponse {
     this.parametersValidTo,
   });
   static GetParametersForImportResponse fromJson(Map<String, dynamic> json) =>
-      GetParametersForImportResponse();
+      GetParametersForImportResponse(
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        importToken: json.containsKey('ImportToken')
+            ? Uint8List(json['ImportToken'])
+            : null,
+        publicKey:
+            json.containsKey('PublicKey') ? Uint8List(json['PublicKey']) : null,
+        parametersValidTo: json.containsKey('ParametersValidTo')
+            ? DateTime.parse(json['ParametersValidTo'])
+            : null,
+      );
 }
 
 /// Use this structure to allow cryptographic operations in the grant only when
@@ -2465,7 +2779,17 @@ class GrantConstraints {
     this.encryptionContextEquals,
   });
   static GrantConstraints fromJson(Map<String, dynamic> json) =>
-      GrantConstraints();
+      GrantConstraints(
+        encryptionContextSubset: json.containsKey('EncryptionContextSubset')
+            ? (json['EncryptionContextSubset'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        encryptionContextEquals: json.containsKey('EncryptionContextEquals')
+            ? (json['EncryptionContextEquals'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about an entry in a list of grants.
@@ -2511,7 +2835,29 @@ class GrantListEntry {
     this.operations,
     this.constraints,
   });
-  static GrantListEntry fromJson(Map<String, dynamic> json) => GrantListEntry();
+  static GrantListEntry fromJson(Map<String, dynamic> json) => GrantListEntry(
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        grantId: json.containsKey('GrantId') ? json['GrantId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        granteePrincipal: json.containsKey('GranteePrincipal')
+            ? json['GranteePrincipal'] as String
+            : null,
+        retiringPrincipal: json.containsKey('RetiringPrincipal')
+            ? json['RetiringPrincipal'] as String
+            : null,
+        issuingAccount: json.containsKey('IssuingAccount')
+            ? json['IssuingAccount'] as String
+            : null,
+        operations: json.containsKey('Operations')
+            ? (json['Operations'] as List).map((e) => e as String).toList()
+            : null,
+        constraints: json.containsKey('Constraints')
+            ? GrantConstraints.fromJson(json['Constraints'])
+            : null,
+      );
 }
 
 class ImportKeyMaterialResponse {
@@ -2532,7 +2878,10 @@ class KeyListEntry {
     this.keyId,
     this.keyArn,
   });
-  static KeyListEntry fromJson(Map<String, dynamic> json) => KeyListEntry();
+  static KeyListEntry fromJson(Map<String, dynamic> json) => KeyListEntry(
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        keyArn: json.containsKey('KeyArn') ? json['KeyArn'] as String : null,
+      );
 }
 
 /// Contains metadata about a customer master key (CMK).
@@ -2633,7 +2982,43 @@ class KeyMetadata {
     this.expirationModel,
     this.keyManager,
   });
-  static KeyMetadata fromJson(Map<String, dynamic> json) => KeyMetadata();
+  static KeyMetadata fromJson(Map<String, dynamic> json) => KeyMetadata(
+        awsAccountId: json.containsKey('AWSAccountId')
+            ? json['AWSAccountId'] as String
+            : null,
+        keyId: json['KeyId'] as String,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        keyUsage:
+            json.containsKey('KeyUsage') ? json['KeyUsage'] as String : null,
+        keyState:
+            json.containsKey('KeyState') ? json['KeyState'] as String : null,
+        deletionDate: json.containsKey('DeletionDate')
+            ? DateTime.parse(json['DeletionDate'])
+            : null,
+        validTo: json.containsKey('ValidTo')
+            ? DateTime.parse(json['ValidTo'])
+            : null,
+        origin: json.containsKey('Origin') ? json['Origin'] as String : null,
+        customKeyStoreId: json.containsKey('CustomKeyStoreId')
+            ? json['CustomKeyStoreId'] as String
+            : null,
+        cloudHsmClusterId: json.containsKey('CloudHsmClusterId')
+            ? json['CloudHsmClusterId'] as String
+            : null,
+        expirationModel: json.containsKey('ExpirationModel')
+            ? json['ExpirationModel'] as String
+            : null,
+        keyManager: json.containsKey('KeyManager')
+            ? json['KeyManager'] as String
+            : null,
+      );
 }
 
 class ListAliasesResponse {
@@ -2656,7 +3041,18 @@ class ListAliasesResponse {
     this.truncated,
   });
   static ListAliasesResponse fromJson(Map<String, dynamic> json) =>
-      ListAliasesResponse();
+      ListAliasesResponse(
+        aliases: json.containsKey('Aliases')
+            ? (json['Aliases'] as List)
+                .map((e) => AliasListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        truncated:
+            json.containsKey('Truncated') ? json['Truncated'] as bool : null,
+      );
 }
 
 class ListGrantsResponse {
@@ -2679,7 +3075,18 @@ class ListGrantsResponse {
     this.truncated,
   });
   static ListGrantsResponse fromJson(Map<String, dynamic> json) =>
-      ListGrantsResponse();
+      ListGrantsResponse(
+        grants: json.containsKey('Grants')
+            ? (json['Grants'] as List)
+                .map((e) => GrantListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        truncated:
+            json.containsKey('Truncated') ? json['Truncated'] as bool : null,
+      );
 }
 
 class ListKeyPoliciesResponse {
@@ -2702,7 +3109,16 @@ class ListKeyPoliciesResponse {
     this.truncated,
   });
   static ListKeyPoliciesResponse fromJson(Map<String, dynamic> json) =>
-      ListKeyPoliciesResponse();
+      ListKeyPoliciesResponse(
+        policyNames: json.containsKey('PolicyNames')
+            ? (json['PolicyNames'] as List).map((e) => e as String).toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        truncated:
+            json.containsKey('Truncated') ? json['Truncated'] as bool : null,
+      );
 }
 
 class ListKeysResponse {
@@ -2725,7 +3141,18 @@ class ListKeysResponse {
     this.truncated,
   });
   static ListKeysResponse fromJson(Map<String, dynamic> json) =>
-      ListKeysResponse();
+      ListKeysResponse(
+        keys: json.containsKey('Keys')
+            ? (json['Keys'] as List)
+                .map((e) => KeyListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        truncated:
+            json.containsKey('Truncated') ? json['Truncated'] as bool : null,
+      );
 }
 
 class ListResourceTagsResponse {
@@ -2750,7 +3177,16 @@ class ListResourceTagsResponse {
     this.truncated,
   });
   static ListResourceTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListResourceTagsResponse();
+      ListResourceTagsResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        truncated:
+            json.containsKey('Truncated') ? json['Truncated'] as bool : null,
+      );
 }
 
 class ReEncryptResponse {
@@ -2770,7 +3206,15 @@ class ReEncryptResponse {
     this.keyId,
   });
   static ReEncryptResponse fromJson(Map<String, dynamic> json) =>
-      ReEncryptResponse();
+      ReEncryptResponse(
+        ciphertextBlob: json.containsKey('CiphertextBlob')
+            ? Uint8List(json['CiphertextBlob'])
+            : null,
+        sourceKeyId: json.containsKey('SourceKeyId')
+            ? json['SourceKeyId'] as String
+            : null,
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+      );
 }
 
 class ScheduleKeyDeletionResponse {
@@ -2787,7 +3231,12 @@ class ScheduleKeyDeletionResponse {
     this.deletionDate,
   });
   static ScheduleKeyDeletionResponse fromJson(Map<String, dynamic> json) =>
-      ScheduleKeyDeletionResponse();
+      ScheduleKeyDeletionResponse(
+        keyId: json.containsKey('KeyId') ? json['KeyId'] as String : null,
+        deletionDate: json.containsKey('DeletionDate')
+            ? DateTime.parse(json['DeletionDate'])
+            : null,
+      );
 }
 
 /// A key-value pair. A tag consists of a tag key and a tag value. Tag keys and
@@ -2807,7 +3256,11 @@ class Tag {
     @required this.tagKey,
     @required this.tagValue,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        tagKey: json['TagKey'] as String,
+        tagValue: json['TagValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateCustomKeyStoreResponse {

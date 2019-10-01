@@ -19,6 +19,9 @@ import 'dart:typed_data';
 /// list of available SDKs, go to
 /// [Tools for Amazon Web Services](http://aws.amazon.com/tools/).
 class SnsApi {
+  final _client;
+  SnsApi(client) : _client = client.configured('SNS', serializer: 'query');
+
   /// Adds a statement to a topic's access control policy, granting access for
   /// the specified AWS accounts to the specified actions.
   ///
@@ -38,7 +41,14 @@ class SnsApi {
       {@required String topicArn,
       @required String label,
       @required List<String> awsAccountId,
-      @required List<String> actionName}) async {}
+      @required List<String> actionName}) async {
+    await _client.send('AddPermission', {
+      'TopicArn': topicArn,
+      'Label': label,
+      'AWSAccountId': awsAccountId,
+      'ActionName': actionName,
+    });
+  }
 
   /// Accepts a phone number and indicates whether the phone holder has opted
   /// out of receiving SMS messages from your account. You cannot send SMS
@@ -51,7 +61,10 @@ class SnsApi {
   /// status.
   Future<CheckIfPhoneNumberIsOptedOutResponse> checkIfPhoneNumberIsOptedOut(
       String phoneNumber) async {
-    return CheckIfPhoneNumberIsOptedOutResponse.fromJson({});
+    var response_ = await _client.send('CheckIfPhoneNumberIsOptedOut', {
+      'phoneNumber': phoneNumber,
+    });
+    return CheckIfPhoneNumberIsOptedOutResponse.fromJson(response_);
   }
 
   /// Verifies an endpoint owner's intent to receive messages by validating the
@@ -75,7 +88,13 @@ class SnsApi {
       {@required String topicArn,
       @required String token,
       String authenticateOnUnsubscribe}) async {
-    return ConfirmSubscriptionResponse.fromJson({});
+    var response_ = await _client.send('ConfirmSubscription', {
+      'TopicArn': topicArn,
+      'Token': token,
+      if (authenticateOnUnsubscribe != null)
+        'AuthenticateOnUnsubscribe': authenticateOnUnsubscribe,
+    });
+    return ConfirmSubscriptionResponse.fromJson(response_);
   }
 
   /// Creates a platform application object for one of the supported push
@@ -123,7 +142,12 @@ class SnsApi {
       {@required String name,
       @required String platform,
       @required Map<String, String> attributes}) async {
-    return CreatePlatformApplicationResponse.fromJson({});
+    var response_ = await _client.send('CreatePlatformApplication', {
+      'Name': name,
+      'Platform': platform,
+      'Attributes': attributes,
+    });
+    return CreatePlatformApplicationResponse.fromJson(response_);
   }
 
   /// Creates an endpoint for a device and mobile app on one of the supported
@@ -163,7 +187,13 @@ class SnsApi {
       @required String token,
       String customUserData,
       Map<String, String> attributes}) async {
-    return CreateEndpointResponse.fromJson({});
+    var response_ = await _client.send('CreatePlatformEndpoint', {
+      'PlatformApplicationArn': platformApplicationArn,
+      'Token': token,
+      if (customUserData != null) 'CustomUserData': customUserData,
+      if (attributes != null) 'Attributes': attributes,
+    });
+    return CreateEndpointResponse.fromJson(response_);
   }
 
   /// Creates a topic to which notifications can be published. Users can create
@@ -206,7 +236,12 @@ class SnsApi {
   /// [tags]: The list of tags to add to a new topic.
   Future<CreateTopicResponse> createTopic(String name,
       {Map<String, String> attributes, List<Tag> tags}) async {
-    return CreateTopicResponse.fromJson({});
+    var response_ = await _client.send('CreateTopic', {
+      'Name': name,
+      if (attributes != null) 'Attributes': attributes,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateTopicResponse.fromJson(response_);
   }
 
   /// Deletes the endpoint for a device and mobile app from Amazon SNS. This
@@ -217,7 +252,11 @@ class SnsApi {
   /// must also unsubscribe the endpoint from the topic.
   ///
   /// [endpointArn]: EndpointArn of endpoint to delete.
-  Future<void> deleteEndpoint(String endpointArn) async {}
+  Future<void> deleteEndpoint(String endpointArn) async {
+    await _client.send('DeleteEndpoint', {
+      'EndpointArn': endpointArn,
+    });
+  }
 
   /// Deletes a platform application object for one of the supported push
   /// notification services, such as APNS and GCM. For more information, see
@@ -225,7 +264,11 @@ class SnsApi {
   ///
   /// [platformApplicationArn]: PlatformApplicationArn of platform application
   /// object to delete.
-  Future<void> deletePlatformApplication(String platformApplicationArn) async {}
+  Future<void> deletePlatformApplication(String platformApplicationArn) async {
+    await _client.send('DeletePlatformApplication', {
+      'PlatformApplicationArn': platformApplicationArn,
+    });
+  }
 
   /// Deletes a topic and all its subscriptions. Deleting a topic might prevent
   /// some messages previously sent to the topic from being delivered to
@@ -233,7 +276,11 @@ class SnsApi {
   /// exist does not result in an error.
   ///
   /// [topicArn]: The ARN of the topic you want to delete.
-  Future<void> deleteTopic(String topicArn) async {}
+  Future<void> deleteTopic(String topicArn) async {
+    await _client.send('DeleteTopic', {
+      'TopicArn': topicArn,
+    });
+  }
 
   /// Retrieves the endpoint attributes for a device on one of the supported
   /// push notification services, such as GCM and APNS. For more information,
@@ -243,7 +290,10 @@ class SnsApi {
   /// [endpointArn]: EndpointArn for GetEndpointAttributes input.
   Future<GetEndpointAttributesResponse> getEndpointAttributes(
       String endpointArn) async {
-    return GetEndpointAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetEndpointAttributes', {
+      'EndpointArn': endpointArn,
+    });
+    return GetEndpointAttributesResponse.fromJson(response_);
   }
 
   /// Retrieves the attributes of the platform application object for the
@@ -255,7 +305,10 @@ class SnsApi {
   /// GetPlatformApplicationAttributesInput.
   Future<GetPlatformApplicationAttributesResponse>
       getPlatformApplicationAttributes(String platformApplicationArn) async {
-    return GetPlatformApplicationAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetPlatformApplicationAttributes', {
+      'PlatformApplicationArn': platformApplicationArn,
+    });
+    return GetPlatformApplicationAttributesResponse.fromJson(response_);
   }
 
   /// Returns the settings for sending SMS messages from your account.
@@ -271,7 +324,10 @@ class SnsApi {
   /// If you don't use this parameter, Amazon SNS returns all SMS attributes.
   Future<GetSmsAttributesResponse> getSmsAttributes(
       {List<String> attributes}) async {
-    return GetSmsAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetSMSAttributes', {
+      if (attributes != null) 'attributes': attributes,
+    });
+    return GetSmsAttributesResponse.fromJson(response_);
   }
 
   /// Returns all of the properties of a subscription.
@@ -280,7 +336,10 @@ class SnsApi {
   /// to get.
   Future<GetSubscriptionAttributesResponse> getSubscriptionAttributes(
       String subscriptionArn) async {
-    return GetSubscriptionAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetSubscriptionAttributes', {
+      'SubscriptionArn': subscriptionArn,
+    });
+    return GetSubscriptionAttributesResponse.fromJson(response_);
   }
 
   /// Returns all of the properties of a topic. Topic properties returned might
@@ -288,7 +347,10 @@ class SnsApi {
   ///
   /// [topicArn]: The ARN of the topic whose properties you want to get.
   Future<GetTopicAttributesResponse> getTopicAttributes(String topicArn) async {
-    return GetTopicAttributesResponse.fromJson({});
+    var response_ = await _client.send('GetTopicAttributes', {
+      'TopicArn': topicArn,
+    });
+    return GetTopicAttributesResponse.fromJson(response_);
   }
 
   /// Lists the endpoints and endpoint attributes for devices in a supported
@@ -313,7 +375,11 @@ class SnsApi {
   Future<ListEndpointsByPlatformApplicationResponse>
       listEndpointsByPlatformApplication(String platformApplicationArn,
           {String nextToken}) async {
-    return ListEndpointsByPlatformApplicationResponse.fromJson({});
+    var response_ = await _client.send('ListEndpointsByPlatformApplication', {
+      'PlatformApplicationArn': platformApplicationArn,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListEndpointsByPlatformApplicationResponse.fromJson(response_);
   }
 
   /// Returns a list of phone numbers that are opted out, meaning you cannot
@@ -331,7 +397,10 @@ class SnsApi {
   /// available after the first page of results.
   Future<ListPhoneNumbersOptedOutResponse> listPhoneNumbersOptedOut(
       {String nextToken}) async {
-    return ListPhoneNumbersOptedOutResponse.fromJson({});
+    var response_ = await _client.send('ListPhoneNumbersOptedOut', {
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListPhoneNumbersOptedOutResponse.fromJson(response_);
   }
 
   /// Lists the platform application objects for the supported push notification
@@ -351,7 +420,10 @@ class SnsApi {
   /// available after the first page results.
   Future<ListPlatformApplicationsResponse> listPlatformApplications(
       {String nextToken}) async {
-    return ListPlatformApplicationsResponse.fromJson({});
+    var response_ = await _client.send('ListPlatformApplications', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListPlatformApplicationsResponse.fromJson(response_);
   }
 
   /// Returns a list of the requester's subscriptions. Each call returns a
@@ -364,7 +436,10 @@ class SnsApi {
   /// [nextToken]: Token returned by the previous `ListSubscriptions` request.
   Future<ListSubscriptionsResponse> listSubscriptions(
       {String nextToken}) async {
-    return ListSubscriptionsResponse.fromJson({});
+    var response_ = await _client.send('ListSubscriptions', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListSubscriptionsResponse.fromJson(response_);
   }
 
   /// Returns a list of the subscriptions to a specific topic. Each call returns
@@ -381,7 +456,11 @@ class SnsApi {
   Future<ListSubscriptionsByTopicResponse> listSubscriptionsByTopic(
       String topicArn,
       {String nextToken}) async {
-    return ListSubscriptionsByTopicResponse.fromJson({});
+    var response_ = await _client.send('ListSubscriptionsByTopic', {
+      'TopicArn': topicArn,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListSubscriptionsByTopicResponse.fromJson(response_);
   }
 
   /// List all tags added to the specified Amazon SNS topic. For an overview,
@@ -392,7 +471,10 @@ class SnsApi {
   /// [resourceArn]: The ARN of the topic for which to list tags.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Returns a list of the requester's topics. Each call returns a limited list
@@ -404,7 +486,10 @@ class SnsApi {
   ///
   /// [nextToken]: Token returned by the previous `ListTopics` request.
   Future<ListTopicsResponse> listTopics({String nextToken}) async {
-    return ListTopicsResponse.fromJson({});
+    var response_ = await _client.send('ListTopics', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTopicsResponse.fromJson(response_);
   }
 
   /// Use this request to opt in a phone number that is opted out, which enables
@@ -414,7 +499,10 @@ class SnsApi {
   ///
   /// [phoneNumber]: The phone number to opt in.
   Future<OptInPhoneNumberResponse> optInPhoneNumber(String phoneNumber) async {
-    return OptInPhoneNumberResponse.fromJson({});
+    var response_ = await _client.send('OptInPhoneNumber', {
+      'phoneNumber': phoneNumber,
+    });
+    return OptInPhoneNumberResponse.fromJson(response_);
   }
 
   /// Sends a message to an Amazon SNS topic or sends a text message (SMS
@@ -542,7 +630,16 @@ class SnsApi {
       String subject,
       String messageStructure,
       Map<String, MessageAttributeValue> messageAttributes}) async {
-    return PublishResponse.fromJson({});
+    var response_ = await _client.send('Publish', {
+      if (topicArn != null) 'TopicArn': topicArn,
+      if (targetArn != null) 'TargetArn': targetArn,
+      if (phoneNumber != null) 'PhoneNumber': phoneNumber,
+      'Message': message,
+      if (subject != null) 'Subject': subject,
+      if (messageStructure != null) 'MessageStructure': messageStructure,
+      if (messageAttributes != null) 'MessageAttributes': messageAttributes,
+    });
+    return PublishResponse.fromJson(response_);
   }
 
   /// Removes a statement from a topic's access control policy.
@@ -552,7 +649,12 @@ class SnsApi {
   ///
   /// [label]: The unique label of the statement you want to remove.
   Future<void> removePermission(
-      {@required String topicArn, @required String label}) async {}
+      {@required String topicArn, @required String label}) async {
+    await _client.send('RemovePermission', {
+      'TopicArn': topicArn,
+      'Label': label,
+    });
+  }
 
   /// Sets the attributes for an endpoint for a device on one of the supported
   /// push notification services, such as GCM and APNS. For more information,
@@ -578,7 +680,12 @@ class SnsApi {
   /// an app and mobile device are registered with the notification service.
   Future<void> setEndpointAttributes(
       {@required String endpointArn,
-      @required Map<String, String> attributes}) async {}
+      @required Map<String, String> attributes}) async {
+    await _client.send('SetEndpointAttributes', {
+      'EndpointArn': endpointArn,
+      'Attributes': attributes,
+    });
+  }
 
   /// Sets the attributes of the platform application object for the supported
   /// push notification services, such as APNS and GCM. For more information,
@@ -626,7 +733,12 @@ class SnsApi {
   /// successfully delivered messages.
   Future<void> setPlatformApplicationAttributes(
       {@required String platformApplicationArn,
-      @required Map<String, String> attributes}) async {}
+      @required Map<String, String> attributes}) async {
+    await _client.send('SetPlatformApplicationAttributes', {
+      'PlatformApplicationArn': platformApplicationArn,
+      'Attributes': attributes,
+    });
+  }
 
   /// Use this request to set the default settings for sending SMS messages and
   /// receiving daily SMS usage reports.
@@ -719,7 +831,10 @@ class SnsApi {
   /// in the _Amazon SNS Developer Guide_.
   Future<SetSmsAttributesResponse> setSmsAttributes(
       Map<String, String> attributes) async {
-    return SetSmsAttributesResponse.fromJson({});
+    var response_ = await _client.send('SetSMSAttributes', {
+      'attributes': attributes,
+    });
+    return SetSmsAttributesResponse.fromJson(response_);
   }
 
   /// Allows a subscription owner to set an attribute of the subscription to a
@@ -748,7 +863,13 @@ class SnsApi {
   Future<void> setSubscriptionAttributes(
       {@required String subscriptionArn,
       @required String attributeName,
-      String attributeValue}) async {}
+      String attributeValue}) async {
+    await _client.send('SetSubscriptionAttributes', {
+      'SubscriptionArn': subscriptionArn,
+      'AttributeName': attributeName,
+      if (attributeValue != null) 'AttributeValue': attributeValue,
+    });
+  }
 
   /// Allows a topic owner to set an attribute of the topic to a new value.
   ///
@@ -783,7 +904,13 @@ class SnsApi {
   Future<void> setTopicAttributes(
       {@required String topicArn,
       @required String attributeName,
-      String attributeValue}) async {}
+      String attributeValue}) async {
+    await _client.send('SetTopicAttributes', {
+      'TopicArn': topicArn,
+      'AttributeName': attributeName,
+      if (attributeValue != null) 'AttributeValue': attributeValue,
+    });
+  }
 
   /// Prepares to subscribe an endpoint by sending the endpoint a confirmation
   /// message. To actually create a subscription, the endpoint owner must call
@@ -875,7 +1002,15 @@ class SnsApi {
       String endpoint,
       Map<String, String> attributes,
       bool returnSubscriptionArn}) async {
-    return SubscribeResponse.fromJson({});
+    var response_ = await _client.send('Subscribe', {
+      'TopicArn': topicArn,
+      'Protocol': protocol,
+      if (endpoint != null) 'Endpoint': endpoint,
+      if (attributes != null) 'Attributes': attributes,
+      if (returnSubscriptionArn != null)
+        'ReturnSubscriptionArn': returnSubscriptionArn,
+    });
+    return SubscribeResponse.fromJson(response_);
   }
 
   /// Add tags to the specified Amazon SNS topic. For an overview, see
@@ -909,7 +1044,11 @@ class SnsApi {
   /// required key and an optional value.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Deletes a subscription. If the subscription requires authentication for
@@ -923,7 +1062,11 @@ class SnsApi {
   /// This action is throttled at 100 transactions per second (TPS).
   ///
   /// [subscriptionArn]: The ARN of the subscription to be deleted.
-  Future<void> unsubscribe(String subscriptionArn) async {}
+  Future<void> unsubscribe(String subscriptionArn) async {
+    await _client.send('Unsubscribe', {
+      'SubscriptionArn': subscriptionArn,
+    });
+  }
 
   /// Remove tags from the specified Amazon SNS topic. For an overview, see
   /// [Amazon SNS Tags](https://docs.aws.amazon.com/sns/latest/dg/sns-tags.html)
@@ -934,7 +1077,11 @@ class SnsApi {
   /// [tagKeys]: The list of tag keys to remove from the specified topic.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 }
 
@@ -954,7 +1101,10 @@ class CheckIfPhoneNumberIsOptedOutResponse {
   });
   static CheckIfPhoneNumberIsOptedOutResponse fromJson(
           Map<String, dynamic> json) =>
-      CheckIfPhoneNumberIsOptedOutResponse();
+      CheckIfPhoneNumberIsOptedOutResponse(
+        isOptedOut:
+            json.containsKey('isOptedOut') ? json['isOptedOut'] as bool : null,
+      );
 }
 
 /// Response for ConfirmSubscriptions action.
@@ -966,7 +1116,11 @@ class ConfirmSubscriptionResponse {
     this.subscriptionArn,
   });
   static ConfirmSubscriptionResponse fromJson(Map<String, dynamic> json) =>
-      ConfirmSubscriptionResponse();
+      ConfirmSubscriptionResponse(
+        subscriptionArn: json.containsKey('SubscriptionArn')
+            ? json['SubscriptionArn'] as String
+            : null,
+      );
 }
 
 /// Response from CreateEndpoint action.
@@ -978,7 +1132,11 @@ class CreateEndpointResponse {
     this.endpointArn,
   });
   static CreateEndpointResponse fromJson(Map<String, dynamic> json) =>
-      CreateEndpointResponse();
+      CreateEndpointResponse(
+        endpointArn: json.containsKey('EndpointArn')
+            ? json['EndpointArn'] as String
+            : null,
+      );
 }
 
 /// Response from CreatePlatformApplication action.
@@ -991,7 +1149,11 @@ class CreatePlatformApplicationResponse {
   });
   static CreatePlatformApplicationResponse fromJson(
           Map<String, dynamic> json) =>
-      CreatePlatformApplicationResponse();
+      CreatePlatformApplicationResponse(
+        platformApplicationArn: json.containsKey('PlatformApplicationArn')
+            ? json['PlatformApplicationArn'] as String
+            : null,
+      );
 }
 
 /// Response from CreateTopic action.
@@ -1003,7 +1165,10 @@ class CreateTopicResponse {
     this.topicArn,
   });
   static CreateTopicResponse fromJson(Map<String, dynamic> json) =>
-      CreateTopicResponse();
+      CreateTopicResponse(
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+      );
 }
 
 /// Endpoint for mobile app and device.
@@ -1018,7 +1183,15 @@ class Endpoint {
     this.endpointArn,
     this.attributes,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        endpointArn: json.containsKey('EndpointArn')
+            ? json['EndpointArn'] as String
+            : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Response from GetEndpointAttributes of the EndpointArn.
@@ -1043,7 +1216,12 @@ class GetEndpointAttributesResponse {
     this.attributes,
   });
   static GetEndpointAttributesResponse fromJson(Map<String, dynamic> json) =>
-      GetEndpointAttributesResponse();
+      GetEndpointAttributesResponse(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Response for GetPlatformApplicationAttributes action.
@@ -1069,7 +1247,12 @@ class GetPlatformApplicationAttributesResponse {
   });
   static GetPlatformApplicationAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      GetPlatformApplicationAttributesResponse();
+      GetPlatformApplicationAttributesResponse(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The response from the `GetSMSAttributes` request.
@@ -1081,7 +1264,12 @@ class GetSmsAttributesResponse {
     this.attributes,
   });
   static GetSmsAttributesResponse fromJson(Map<String, dynamic> json) =>
-      GetSmsAttributesResponse();
+      GetSmsAttributesResponse(
+        attributes: json.containsKey('attributes')
+            ? (json['attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Response for GetSubscriptionAttributes action.
@@ -1122,7 +1310,12 @@ class GetSubscriptionAttributesResponse {
   });
   static GetSubscriptionAttributesResponse fromJson(
           Map<String, dynamic> json) =>
-      GetSubscriptionAttributesResponse();
+      GetSubscriptionAttributesResponse(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Response for GetTopicAttributes action.
@@ -1160,7 +1353,12 @@ class GetTopicAttributesResponse {
     this.attributes,
   });
   static GetTopicAttributesResponse fromJson(Map<String, dynamic> json) =>
-      GetTopicAttributesResponse();
+      GetTopicAttributesResponse(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Response for ListEndpointsByPlatformApplication action.
@@ -1179,7 +1377,15 @@ class ListEndpointsByPlatformApplicationResponse {
   });
   static ListEndpointsByPlatformApplicationResponse fromJson(
           Map<String, dynamic> json) =>
-      ListEndpointsByPlatformApplicationResponse();
+      ListEndpointsByPlatformApplicationResponse(
+        endpoints: json.containsKey('Endpoints')
+            ? (json['Endpoints'] as List)
+                .map((e) => Endpoint.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The response from the `ListPhoneNumbersOptedOut` action.
@@ -1198,7 +1404,13 @@ class ListPhoneNumbersOptedOutResponse {
     this.nextToken,
   });
   static ListPhoneNumbersOptedOutResponse fromJson(Map<String, dynamic> json) =>
-      ListPhoneNumbersOptedOutResponse();
+      ListPhoneNumbersOptedOutResponse(
+        phoneNumbers: json.containsKey('phoneNumbers')
+            ? (json['phoneNumbers'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Response for ListPlatformApplications action.
@@ -1216,7 +1428,15 @@ class ListPlatformApplicationsResponse {
     this.nextToken,
   });
   static ListPlatformApplicationsResponse fromJson(Map<String, dynamic> json) =>
-      ListPlatformApplicationsResponse();
+      ListPlatformApplicationsResponse(
+        platformApplications: json.containsKey('PlatformApplications')
+            ? (json['PlatformApplications'] as List)
+                .map((e) => PlatformApplication.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Response for ListSubscriptionsByTopic action.
@@ -1233,7 +1453,15 @@ class ListSubscriptionsByTopicResponse {
     this.nextToken,
   });
   static ListSubscriptionsByTopicResponse fromJson(Map<String, dynamic> json) =>
-      ListSubscriptionsByTopicResponse();
+      ListSubscriptionsByTopicResponse(
+        subscriptions: json.containsKey('Subscriptions')
+            ? (json['Subscriptions'] as List)
+                .map((e) => Subscription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Response for ListSubscriptions action
@@ -1250,7 +1478,15 @@ class ListSubscriptionsResponse {
     this.nextToken,
   });
   static ListSubscriptionsResponse fromJson(Map<String, dynamic> json) =>
-      ListSubscriptionsResponse();
+      ListSubscriptionsResponse(
+        subscriptions: json.containsKey('Subscriptions')
+            ? (json['Subscriptions'] as List)
+                .map((e) => Subscription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -1261,7 +1497,11 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Response for ListTopics action.
@@ -1278,7 +1518,13 @@ class ListTopicsResponse {
     this.nextToken,
   });
   static ListTopicsResponse fromJson(Map<String, dynamic> json) =>
-      ListTopicsResponse();
+      ListTopicsResponse(
+        topics: json.containsKey('Topics')
+            ? (json['Topics'] as List).map((e) => Topic.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The user-specified message attribute value. For string data types, the value
@@ -1312,6 +1558,7 @@ class MessageAttributeValue {
     this.stringValue,
     this.binaryValue,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The response for the OptInPhoneNumber action.
@@ -1334,7 +1581,15 @@ class PlatformApplication {
     this.attributes,
   });
   static PlatformApplication fromJson(Map<String, dynamic> json) =>
-      PlatformApplication();
+      PlatformApplication(
+        platformApplicationArn: json.containsKey('PlatformApplicationArn')
+            ? json['PlatformApplicationArn'] as String
+            : null,
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// Response for Publish action.
@@ -1347,8 +1602,10 @@ class PublishResponse {
   PublishResponse({
     this.messageId,
   });
-  static PublishResponse fromJson(Map<String, dynamic> json) =>
-      PublishResponse();
+  static PublishResponse fromJson(Map<String, dynamic> json) => PublishResponse(
+        messageId:
+            json.containsKey('MessageId') ? json['MessageId'] as String : null,
+      );
 }
 
 /// The response for the SetSMSAttributes action.
@@ -1371,7 +1628,11 @@ class SubscribeResponse {
     this.subscriptionArn,
   });
   static SubscribeResponse fromJson(Map<String, dynamic> json) =>
-      SubscribeResponse();
+      SubscribeResponse(
+        subscriptionArn: json.containsKey('SubscriptionArn')
+            ? json['SubscriptionArn'] as String
+            : null,
+      );
 }
 
 /// A wrapper type for the attributes of an Amazon SNS subscription.
@@ -1398,7 +1659,18 @@ class Subscription {
     this.endpoint,
     this.topicArn,
   });
-  static Subscription fromJson(Map<String, dynamic> json) => Subscription();
+  static Subscription fromJson(Map<String, dynamic> json) => Subscription(
+        subscriptionArn: json.containsKey('SubscriptionArn')
+            ? json['SubscriptionArn'] as String
+            : null,
+        owner: json.containsKey('Owner') ? json['Owner'] as String : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        endpoint:
+            json.containsKey('Endpoint') ? json['Endpoint'] as String : null,
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+      );
 }
 
 /// The list of tags to be added to the specified topic.
@@ -1413,7 +1685,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -1431,7 +1707,10 @@ class Topic {
   Topic({
     this.topicArn,
   });
-  static Topic fromJson(Map<String, dynamic> json) => Topic();
+  static Topic fromJson(Map<String, dynamic> json) => Topic(
+        topicArn:
+            json.containsKey('TopicArn') ? json['TopicArn'] as String : null,
+      );
 }
 
 class UntagResourceResponse {

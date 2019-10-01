@@ -2,6 +2,11 @@ import 'package:meta/meta.dart';
 import 'dart:typed_data';
 
 class KinesisVideoArchivedMediaApi {
+  final _client;
+  KinesisVideoArchivedMediaApi(client)
+      : _client = client.configured('Kinesis Video Archived Media',
+            serializer: 'rest-json');
+
   /// Retrieves an MPEG Dynamic Adaptive Streaming over HTTP (DASH) URL for the
   /// stream. You can then open the URL in a media player to view the stream
   /// contents.
@@ -294,7 +299,21 @@ class KinesisVideoArchivedMediaApi {
       DashFragmentSelector dashFragmentSelector,
       int expires,
       BigInt maxManifestFragmentResults}) async {
-    return GetDashStreamingSessionUrlOutput.fromJson({});
+    var response_ = await _client.send('GetDASHStreamingSessionURL', {
+      if (streamName != null) 'StreamName': streamName,
+      if (streamArn != null) 'StreamARN': streamArn,
+      if (playbackMode != null) 'PlaybackMode': playbackMode,
+      if (displayFragmentTimestamp != null)
+        'DisplayFragmentTimestamp': displayFragmentTimestamp,
+      if (displayFragmentNumber != null)
+        'DisplayFragmentNumber': displayFragmentNumber,
+      if (dashFragmentSelector != null)
+        'DASHFragmentSelector': dashFragmentSelector,
+      if (expires != null) 'Expires': expires,
+      if (maxManifestFragmentResults != null)
+        'MaxManifestFragmentResults': maxManifestFragmentResults,
+    });
+    return GetDashStreamingSessionUrlOutput.fromJson(response_);
   }
 
   /// Retrieves an HTTP Live Streaming (HLS) URL for the stream. You can then
@@ -632,7 +651,21 @@ class KinesisVideoArchivedMediaApi {
       String displayFragmentTimestamp,
       int expires,
       BigInt maxMediaPlaylistFragmentResults}) async {
-    return GetHlsStreamingSessionUrlOutput.fromJson({});
+    var response_ = await _client.send('GetHLSStreamingSessionURL', {
+      if (streamName != null) 'StreamName': streamName,
+      if (streamArn != null) 'StreamARN': streamArn,
+      if (playbackMode != null) 'PlaybackMode': playbackMode,
+      if (hlsFragmentSelector != null)
+        'HLSFragmentSelector': hlsFragmentSelector,
+      if (containerFormat != null) 'ContainerFormat': containerFormat,
+      if (discontinuityMode != null) 'DiscontinuityMode': discontinuityMode,
+      if (displayFragmentTimestamp != null)
+        'DisplayFragmentTimestamp': displayFragmentTimestamp,
+      if (expires != null) 'Expires': expires,
+      if (maxMediaPlaylistFragmentResults != null)
+        'MaxMediaPlaylistFragmentResults': maxMediaPlaylistFragmentResults,
+    });
+    return GetHlsStreamingSessionUrlOutput.fromJson(response_);
   }
 
   /// Gets media for a list of fragments (specified by fragment number) from the
@@ -683,7 +716,11 @@ class KinesisVideoArchivedMediaApi {
   /// media. You retrieve these values with ListFragments.
   Future<GetMediaForFragmentListOutput> getMediaForFragmentList(
       {@required String streamName, @required List<String> fragments}) async {
-    return GetMediaForFragmentListOutput.fromJson({});
+    var response_ = await _client.send('GetMediaForFragmentList', {
+      'StreamName': streamName,
+      'Fragments': fragments,
+    });
+    return GetMediaForFragmentListOutput.fromJson(response_);
   }
 
   /// Returns a list of Fragment objects from the specified stream and timestamp
@@ -738,7 +775,13 @@ class KinesisVideoArchivedMediaApi {
       {BigInt maxResults,
       String nextToken,
       FragmentSelector fragmentSelector}) async {
-    return ListFragmentsOutput.fromJson({});
+    var response_ = await _client.send('ListFragments', {
+      'StreamName': streamName,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (fragmentSelector != null) 'FragmentSelector': fragmentSelector,
+    });
+    return ListFragmentsOutput.fromJson(response_);
   }
 }
 
@@ -784,6 +827,7 @@ class DashFragmentSelector {
     this.fragmentSelectorType,
     this.timestampRange,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The start and end of the timestamp range for the requested media.
@@ -832,6 +876,7 @@ class DashTimestampRange {
     this.startTimestamp,
     this.endTimestamp,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a segment of video or other time-delimited data.
@@ -860,7 +905,24 @@ class Fragment {
     this.serverTimestamp,
     this.fragmentLengthInMilliseconds,
   });
-  static Fragment fromJson(Map<String, dynamic> json) => Fragment();
+  static Fragment fromJson(Map<String, dynamic> json) => Fragment(
+        fragmentNumber: json.containsKey('FragmentNumber')
+            ? json['FragmentNumber'] as String
+            : null,
+        fragmentSizeInBytes: json.containsKey('FragmentSizeInBytes')
+            ? BigInt.from(json['FragmentSizeInBytes'])
+            : null,
+        producerTimestamp: json.containsKey('ProducerTimestamp')
+            ? DateTime.parse(json['ProducerTimestamp'])
+            : null,
+        serverTimestamp: json.containsKey('ServerTimestamp')
+            ? DateTime.parse(json['ServerTimestamp'])
+            : null,
+        fragmentLengthInMilliseconds:
+            json.containsKey('FragmentLengthInMilliseconds')
+                ? BigInt.from(json['FragmentLengthInMilliseconds'])
+                : null,
+      );
 }
 
 /// Describes the timestamp range and timestamp origin of a range of fragments.
@@ -892,6 +954,7 @@ class FragmentSelector {
     @required this.fragmentSelectorType,
     @required this.timestampRange,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetDashStreamingSessionUrlOutput {
@@ -903,7 +966,11 @@ class GetDashStreamingSessionUrlOutput {
     this.dashStreamingSessionUrl,
   });
   static GetDashStreamingSessionUrlOutput fromJson(Map<String, dynamic> json) =>
-      GetDashStreamingSessionUrlOutput();
+      GetDashStreamingSessionUrlOutput(
+        dashStreamingSessionUrl: json.containsKey('DASHStreamingSessionURL')
+            ? json['DASHStreamingSessionURL'] as String
+            : null,
+      );
 }
 
 class GetHlsStreamingSessionUrlOutput {
@@ -915,7 +982,11 @@ class GetHlsStreamingSessionUrlOutput {
     this.hlsStreamingSessionUrl,
   });
   static GetHlsStreamingSessionUrlOutput fromJson(Map<String, dynamic> json) =>
-      GetHlsStreamingSessionUrlOutput();
+      GetHlsStreamingSessionUrlOutput(
+        hlsStreamingSessionUrl: json.containsKey('HLSStreamingSessionURL')
+            ? json['HLSStreamingSessionURL'] as String
+            : null,
+      );
 }
 
 class GetMediaForFragmentListOutput {
@@ -956,7 +1027,13 @@ class GetMediaForFragmentListOutput {
     this.payload,
   });
   static GetMediaForFragmentListOutput fromJson(Map<String, dynamic> json) =>
-      GetMediaForFragmentListOutput();
+      GetMediaForFragmentListOutput(
+        contentType: json.containsKey('ContentType')
+            ? json['ContentType'] as String
+            : null,
+        payload:
+            json.containsKey('Payload') ? Uint8List(json['Payload']) : null,
+      );
 }
 
 /// Contains the range of timestamps for the requested media, and the source of
@@ -1001,6 +1078,7 @@ class HlsFragmentSelector {
     this.fragmentSelectorType,
     this.timestampRange,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The start and end of the timestamp range for the requested media.
@@ -1049,6 +1127,7 @@ class HlsTimestampRange {
     this.startTimestamp,
     this.endTimestamp,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListFragmentsOutput {
@@ -1066,7 +1145,15 @@ class ListFragmentsOutput {
     this.nextToken,
   });
   static ListFragmentsOutput fromJson(Map<String, dynamic> json) =>
-      ListFragmentsOutput();
+      ListFragmentsOutput(
+        fragments: json.containsKey('Fragments')
+            ? (json['Fragments'] as List)
+                .map((e) => Fragment.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The range of timestamps for which to return fragments.
@@ -1083,4 +1170,5 @@ class TimestampRange {
     @required this.startTimestamp,
     @required this.endTimestamp,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

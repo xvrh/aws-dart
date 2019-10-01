@@ -2,6 +2,11 @@ import 'package:meta/meta.dart';
 
 /// Provides AWS Marketplace business intelligence data on-demand.
 class MarketplaceCommerceAnalyticsApi {
+  final _client;
+  MarketplaceCommerceAnalyticsApi(client)
+      : _client = client.configured('Marketplace Commerce Analytics',
+            serializer: 'json');
+
   /// Given a data set type and data set publication date, asynchronously
   /// publishes the requested data set to the specified S3 bucket and notifies
   /// the specified SNS topic once the data is available. Returns a unique
@@ -179,7 +184,18 @@ class MarketplaceCommerceAnalyticsApi {
       String destinationS3Prefix,
       @required String snsTopicArn,
       Map<String, String> customerDefinedValues}) async {
-    return GenerateDataSetResult.fromJson({});
+    var response_ = await _client.send('GenerateDataSet', {
+      'dataSetType': dataSetType,
+      'dataSetPublicationDate': dataSetPublicationDate,
+      'roleNameArn': roleNameArn,
+      'destinationS3BucketName': destinationS3BucketName,
+      if (destinationS3Prefix != null)
+        'destinationS3Prefix': destinationS3Prefix,
+      'snsTopicArn': snsTopicArn,
+      if (customerDefinedValues != null)
+        'customerDefinedValues': customerDefinedValues,
+    });
+    return GenerateDataSetResult.fromJson(response_);
   }
 
   /// Given a data set type and a from date, asynchronously publishes the
@@ -242,7 +258,18 @@ class MarketplaceCommerceAnalyticsApi {
       String destinationS3Prefix,
       @required String snsTopicArn,
       Map<String, String> customerDefinedValues}) async {
-    return StartSupportDataExportResult.fromJson({});
+    var response_ = await _client.send('StartSupportDataExport', {
+      'dataSetType': dataSetType,
+      'fromDate': fromDate,
+      'roleNameArn': roleNameArn,
+      'destinationS3BucketName': destinationS3BucketName,
+      if (destinationS3Prefix != null)
+        'destinationS3Prefix': destinationS3Prefix,
+      'snsTopicArn': snsTopicArn,
+      if (customerDefinedValues != null)
+        'customerDefinedValues': customerDefinedValues,
+    });
+    return StartSupportDataExportResult.fromJson(response_);
   }
 }
 
@@ -257,7 +284,11 @@ class GenerateDataSetResult {
     this.dataSetRequestId,
   });
   static GenerateDataSetResult fromJson(Map<String, dynamic> json) =>
-      GenerateDataSetResult();
+      GenerateDataSetResult(
+        dataSetRequestId: json.containsKey('dataSetRequestId')
+            ? json['dataSetRequestId'] as String
+            : null,
+      );
 }
 
 /// Container for the result of the StartSupportDataExport operation.
@@ -271,5 +302,9 @@ class StartSupportDataExportResult {
     this.dataSetRequestId,
   });
   static StartSupportDataExportResult fromJson(Map<String, dynamic> json) =>
-      StartSupportDataExportResult();
+      StartSupportDataExportResult(
+        dataSetRequestId: json.containsKey('dataSetRequestId')
+            ? json['dataSetRequestId'] as String
+            : null,
+      );
 }

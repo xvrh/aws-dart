@@ -5,6 +5,10 @@ import 'package:meta/meta.dart';
 /// Amazon WorkSpaces enables you to provision virtual, cloud-based Microsoft
 /// Windows and Amazon Linux desktops for your users.
 class WorkSpacesApi {
+  final _client;
+  WorkSpacesApi(client)
+      : _client = client.configured('WorkSpaces', serializer: 'json');
+
   /// Associates the specified IP access control group with the specified
   /// directory.
   ///
@@ -13,7 +17,11 @@ class WorkSpacesApi {
   /// [groupIds]: The identifiers of one or more IP access control groups.
   Future<AssociateIpGroupsResult> associateIpGroups(
       {@required String directoryId, @required List<String> groupIds}) async {
-    return AssociateIpGroupsResult.fromJson({});
+    var response_ = await _client.send('AssociateIpGroups', {
+      'DirectoryId': directoryId,
+      'GroupIds': groupIds,
+    });
+    return AssociateIpGroupsResult.fromJson(response_);
   }
 
   /// Adds one or more rules to the specified IP access control group.
@@ -26,7 +34,11 @@ class WorkSpacesApi {
   /// [userRules]: The rules to add to the group.
   Future<AuthorizeIpRulesResult> authorizeIpRules(
       {@required String groupId, @required List<IpRuleItem> userRules}) async {
-    return AuthorizeIpRulesResult.fromJson({});
+    var response_ = await _client.send('AuthorizeIpRules', {
+      'GroupId': groupId,
+      'UserRules': userRules,
+    });
+    return AuthorizeIpRulesResult.fromJson(response_);
   }
 
   /// Copies the specified image from the specified Region to the current
@@ -47,7 +59,14 @@ class WorkSpacesApi {
       @required String sourceImageId,
       @required String sourceRegion,
       List<Tag> tags}) async {
-    return CopyWorkspaceImageResult.fromJson({});
+    var response_ = await _client.send('CopyWorkspaceImage', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'SourceImageId': sourceImageId,
+      'SourceRegion': sourceRegion,
+      if (tags != null) 'Tags': tags,
+    });
+    return CopyWorkspaceImageResult.fromJson(response_);
   }
 
   /// Creates an IP access control group.
@@ -73,7 +92,13 @@ class WorkSpacesApi {
   /// [tags]: The tags. Each WorkSpaces resource can have a maximum of 50 tags.
   Future<CreateIpGroupResult> createIpGroup(String groupName,
       {String groupDesc, List<IpRuleItem> userRules, List<Tag> tags}) async {
-    return CreateIpGroupResult.fromJson({});
+    var response_ = await _client.send('CreateIpGroup', {
+      'GroupName': groupName,
+      if (groupDesc != null) 'GroupDesc': groupDesc,
+      if (userRules != null) 'UserRules': userRules,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateIpGroupResult.fromJson(response_);
   }
 
   /// Creates the specified tags for the specified WorkSpaces resource.
@@ -85,7 +110,11 @@ class WorkSpacesApi {
   /// [tags]: The tags. Each WorkSpaces resource can have a maximum of 50 tags.
   Future<CreateTagsResult> createTags(
       {@required String resourceId, @required List<Tag> tags}) async {
-    return CreateTagsResult.fromJson({});
+    var response_ = await _client.send('CreateTags', {
+      'ResourceId': resourceId,
+      'Tags': tags,
+    });
+    return CreateTagsResult.fromJson(response_);
   }
 
   /// Creates one or more WorkSpaces.
@@ -97,7 +126,10 @@ class WorkSpacesApi {
   /// WorkSpaces.
   Future<CreateWorkspacesResult> createWorkspaces(
       List<WorkspaceRequest> workspaces) async {
-    return CreateWorkspacesResult.fromJson({});
+    var response_ = await _client.send('CreateWorkspaces', {
+      'Workspaces': workspaces,
+    });
+    return CreateWorkspacesResult.fromJson(response_);
   }
 
   /// Deletes the specified IP access control group.
@@ -107,7 +139,10 @@ class WorkSpacesApi {
   ///
   /// [groupId]: The identifier of the IP access control group.
   Future<DeleteIpGroupResult> deleteIpGroup(String groupId) async {
-    return DeleteIpGroupResult.fromJson({});
+    var response_ = await _client.send('DeleteIpGroup', {
+      'GroupId': groupId,
+    });
+    return DeleteIpGroupResult.fromJson(response_);
   }
 
   /// Deletes the specified tags from the specified WorkSpaces resource.
@@ -119,7 +154,11 @@ class WorkSpacesApi {
   /// [tagKeys]: The tag keys.
   Future<DeleteTagsResult> deleteTags(
       {@required String resourceId, @required List<String> tagKeys}) async {
-    return DeleteTagsResult.fromJson({});
+    var response_ = await _client.send('DeleteTags', {
+      'ResourceId': resourceId,
+      'TagKeys': tagKeys,
+    });
+    return DeleteTagsResult.fromJson(response_);
   }
 
   /// Deletes the specified image from your account. To delete an image, you
@@ -129,13 +168,17 @@ class WorkSpacesApi {
   /// [imageId]: The identifier of the image.
   Future<DeleteWorkspaceImageResult> deleteWorkspaceImage(
       String imageId) async {
-    return DeleteWorkspaceImageResult.fromJson({});
+    var response_ = await _client.send('DeleteWorkspaceImage', {
+      'ImageId': imageId,
+    });
+    return DeleteWorkspaceImageResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes the configuration of bring your own
   /// license (BYOL) for the specified account.
   Future<DescribeAccountResult> describeAccount() async {
-    return DescribeAccountResult.fromJson({});
+    var response_ = await _client.send('DescribeAccount', {});
+    return DescribeAccountResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes modifications to the configuration of
@@ -145,7 +188,10 @@ class WorkSpacesApi {
   /// paginated, provide this token to receive the next set of results.
   Future<DescribeAccountModificationsResult> describeAccountModifications(
       {String nextToken}) async {
-    return DescribeAccountModificationsResult.fromJson({});
+    var response_ = await _client.send('DescribeAccountModifications', {
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAccountModificationsResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes one or more specified Amazon WorkSpaces
@@ -154,7 +200,10 @@ class WorkSpacesApi {
   /// [resourceIds]: The resource identifier, in the form of directory IDs.
   Future<DescribeClientPropertiesResult> describeClientProperties(
       List<String> resourceIds) async {
-    return DescribeClientPropertiesResult.fromJson({});
+    var response_ = await _client.send('DescribeClientProperties', {
+      'ResourceIds': resourceIds,
+    });
+    return DescribeClientPropertiesResult.fromJson(response_);
   }
 
   /// Describes one or more of your IP access control groups.
@@ -167,7 +216,12 @@ class WorkSpacesApi {
   /// [maxResults]: The maximum number of items to return.
   Future<DescribeIpGroupsResult> describeIpGroups(
       {List<String> groupIds, String nextToken, int maxResults}) async {
-    return DescribeIpGroupsResult.fromJson({});
+    var response_ = await _client.send('DescribeIpGroups', {
+      if (groupIds != null) 'GroupIds': groupIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeIpGroupsResult.fromJson(response_);
   }
 
   /// Describes the specified tags for the specified WorkSpaces resource.
@@ -176,7 +230,10 @@ class WorkSpacesApi {
   /// resource types are WorkSpaces, registered directories, images, custom
   /// bundles, and IP access control groups.
   Future<DescribeTagsResult> describeTags(String resourceId) async {
-    return DescribeTagsResult.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      'ResourceId': resourceId,
+    });
+    return DescribeTagsResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes the available WorkSpace bundles.
@@ -196,7 +253,12 @@ class WorkSpacesApi {
   /// token from a previous call.)
   Future<DescribeWorkspaceBundlesResult> describeWorkspaceBundles(
       {List<String> bundleIds, String owner, String nextToken}) async {
-    return DescribeWorkspaceBundlesResult.fromJson({});
+    var response_ = await _client.send('DescribeWorkspaceBundles', {
+      if (bundleIds != null) 'BundleIds': bundleIds,
+      if (owner != null) 'Owner': owner,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeWorkspaceBundlesResult.fromJson(response_);
   }
 
   /// Describes the available AWS Directory Service directories that are
@@ -209,7 +271,11 @@ class WorkSpacesApi {
   /// paginated, provide this token to receive the next set of results.
   Future<DescribeWorkspaceDirectoriesResult> describeWorkspaceDirectories(
       {List<String> directoryIds, String nextToken}) async {
-    return DescribeWorkspaceDirectoriesResult.fromJson({});
+    var response_ = await _client.send('DescribeWorkspaceDirectories', {
+      if (directoryIds != null) 'DirectoryIds': directoryIds,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeWorkspaceDirectoriesResult.fromJson(response_);
   }
 
   /// Retrieves a list that describes one or more specified images, if the image
@@ -224,7 +290,12 @@ class WorkSpacesApi {
   /// [maxResults]: The maximum number of items to return.
   Future<DescribeWorkspaceImagesResult> describeWorkspaceImages(
       {List<String> imageIds, String nextToken, int maxResults}) async {
-    return DescribeWorkspaceImagesResult.fromJson({});
+    var response_ = await _client.send('DescribeWorkspaceImages', {
+      if (imageIds != null) 'ImageIds': imageIds,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return DescribeWorkspaceImagesResult.fromJson(response_);
   }
 
   /// Describes the specified WorkSpaces.
@@ -261,7 +332,15 @@ class WorkSpacesApi {
       String bundleId,
       int limit,
       String nextToken}) async {
-    return DescribeWorkspacesResult.fromJson({});
+    var response_ = await _client.send('DescribeWorkspaces', {
+      if (workspaceIds != null) 'WorkspaceIds': workspaceIds,
+      if (directoryId != null) 'DirectoryId': directoryId,
+      if (userName != null) 'UserName': userName,
+      if (bundleId != null) 'BundleId': bundleId,
+      if (limit != null) 'Limit': limit,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeWorkspacesResult.fromJson(response_);
   }
 
   /// Describes the connection status of the specified WorkSpaces.
@@ -274,7 +353,11 @@ class WorkSpacesApi {
   Future<DescribeWorkspacesConnectionStatusResult>
       describeWorkspacesConnectionStatus(
           {List<String> workspaceIds, String nextToken}) async {
-    return DescribeWorkspacesConnectionStatusResult.fromJson({});
+    var response_ = await _client.send('DescribeWorkspacesConnectionStatus', {
+      if (workspaceIds != null) 'WorkspaceIds': workspaceIds,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeWorkspacesConnectionStatusResult.fromJson(response_);
   }
 
   /// Disassociates the specified IP access control group from the specified
@@ -285,7 +368,11 @@ class WorkSpacesApi {
   /// [groupIds]: The identifiers of one or more IP access control groups.
   Future<DisassociateIpGroupsResult> disassociateIpGroups(
       {@required String directoryId, @required List<String> groupIds}) async {
-    return DisassociateIpGroupsResult.fromJson({});
+    var response_ = await _client.send('DisassociateIpGroups', {
+      'DirectoryId': directoryId,
+      'GroupIds': groupIds,
+    });
+    return DisassociateIpGroupsResult.fromJson(response_);
   }
 
   /// Imports the specified Windows 7 or Windows 10 bring your own license
@@ -308,7 +395,14 @@ class WorkSpacesApi {
       @required String imageName,
       @required String imageDescription,
       List<Tag> tags}) async {
-    return ImportWorkspaceImageResult.fromJson({});
+    var response_ = await _client.send('ImportWorkspaceImage', {
+      'Ec2ImageId': ec2ImageId,
+      'IngestionProcess': ingestionProcess,
+      'ImageName': imageName,
+      'ImageDescription': imageDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return ImportWorkspaceImageResult.fromJson(response_);
   }
 
   /// Retrieves a list of IP address ranges, specified as IPv4 CIDR blocks, that
@@ -331,7 +425,12 @@ class WorkSpacesApi {
   Future<ListAvailableManagementCidrRangesResult>
       listAvailableManagementCidrRanges(String managementCidrRangeConstraint,
           {int maxResults, String nextToken}) async {
-    return ListAvailableManagementCidrRangesResult.fromJson({});
+    var response_ = await _client.send('ListAvailableManagementCidrRanges', {
+      'ManagementCidrRangeConstraint': managementCidrRangeConstraint,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAvailableManagementCidrRangesResult.fromJson(response_);
   }
 
   /// Modifies the configuration of bring your own license (BYOL) for the
@@ -348,7 +447,14 @@ class WorkSpacesApi {
   Future<ModifyAccountResult> modifyAccount(
       {String dedicatedTenancySupport,
       String dedicatedTenancyManagementCidrRange}) async {
-    return ModifyAccountResult.fromJson({});
+    var response_ = await _client.send('ModifyAccount', {
+      if (dedicatedTenancySupport != null)
+        'DedicatedTenancySupport': dedicatedTenancySupport,
+      if (dedicatedTenancyManagementCidrRange != null)
+        'DedicatedTenancyManagementCidrRange':
+            dedicatedTenancyManagementCidrRange,
+    });
+    return ModifyAccountResult.fromJson(response_);
   }
 
   /// Modifies the properties of the specified Amazon WorkSpaces clients.
@@ -359,7 +465,11 @@ class WorkSpacesApi {
   Future<ModifyClientPropertiesResult> modifyClientProperties(
       {@required String resourceId,
       @required ClientProperties clientProperties}) async {
-    return ModifyClientPropertiesResult.fromJson({});
+    var response_ = await _client.send('ModifyClientProperties', {
+      'ResourceId': resourceId,
+      'ClientProperties': clientProperties,
+    });
+    return ModifyClientPropertiesResult.fromJson(response_);
   }
 
   /// Modifies the specified WorkSpace properties.
@@ -370,7 +480,11 @@ class WorkSpacesApi {
   Future<ModifyWorkspacePropertiesResult> modifyWorkspaceProperties(
       {@required String workspaceId,
       @required WorkspaceProperties workspaceProperties}) async {
-    return ModifyWorkspacePropertiesResult.fromJson({});
+    var response_ = await _client.send('ModifyWorkspaceProperties', {
+      'WorkspaceId': workspaceId,
+      'WorkspaceProperties': workspaceProperties,
+    });
+    return ModifyWorkspacePropertiesResult.fromJson(response_);
   }
 
   /// Sets the state of the specified WorkSpace.
@@ -386,7 +500,11 @@ class WorkSpacesApi {
   /// [workspaceState]: The WorkSpace state.
   Future<ModifyWorkspaceStateResult> modifyWorkspaceState(
       {@required String workspaceId, @required String workspaceState}) async {
-    return ModifyWorkspaceStateResult.fromJson({});
+    var response_ = await _client.send('ModifyWorkspaceState', {
+      'WorkspaceId': workspaceId,
+      'WorkspaceState': workspaceState,
+    });
+    return ModifyWorkspaceStateResult.fromJson(response_);
   }
 
   /// Reboots the specified WorkSpaces.
@@ -401,7 +519,10 @@ class WorkSpacesApi {
   /// 25 WorkSpaces.
   Future<RebootWorkspacesResult> rebootWorkspaces(
       List<RebootRequest> rebootWorkspaceRequests) async {
-    return RebootWorkspacesResult.fromJson({});
+    var response_ = await _client.send('RebootWorkspaces', {
+      'RebootWorkspaceRequests': rebootWorkspaceRequests,
+    });
+    return RebootWorkspacesResult.fromJson(response_);
   }
 
   /// Rebuilds the specified WorkSpace.
@@ -420,7 +541,10 @@ class WorkSpacesApi {
   /// single WorkSpace.
   Future<RebuildWorkspacesResult> rebuildWorkspaces(
       List<RebuildRequest> rebuildWorkspaceRequests) async {
-    return RebuildWorkspacesResult.fromJson({});
+    var response_ = await _client.send('RebuildWorkspaces', {
+      'RebuildWorkspaceRequests': rebuildWorkspaceRequests,
+    });
+    return RebuildWorkspacesResult.fromJson(response_);
   }
 
   /// Removes one or more rules from the specified IP access control group.
@@ -430,7 +554,11 @@ class WorkSpacesApi {
   /// [userRules]: The rules to remove from the group.
   Future<RevokeIpRulesResult> revokeIpRules(
       {@required String groupId, @required List<String> userRules}) async {
-    return RevokeIpRulesResult.fromJson({});
+    var response_ = await _client.send('RevokeIpRules', {
+      'GroupId': groupId,
+      'UserRules': userRules,
+    });
+    return RevokeIpRulesResult.fromJson(response_);
   }
 
   /// Starts the specified WorkSpaces.
@@ -442,7 +570,10 @@ class WorkSpacesApi {
   /// 25 WorkSpaces.
   Future<StartWorkspacesResult> startWorkspaces(
       List<StartRequest> startWorkspaceRequests) async {
-    return StartWorkspacesResult.fromJson({});
+    var response_ = await _client.send('StartWorkspaces', {
+      'StartWorkspaceRequests': startWorkspaceRequests,
+    });
+    return StartWorkspacesResult.fromJson(response_);
   }
 
   ///  Stops the specified WorkSpaces.
@@ -454,7 +585,10 @@ class WorkSpacesApi {
   /// WorkSpaces.
   Future<StopWorkspacesResult> stopWorkspaces(
       List<StopRequest> stopWorkspaceRequests) async {
-    return StopWorkspacesResult.fromJson({});
+    var response_ = await _client.send('StopWorkspaces', {
+      'StopWorkspaceRequests': stopWorkspaceRequests,
+    });
+    return StopWorkspacesResult.fromJson(response_);
   }
 
   /// Terminates the specified WorkSpaces.
@@ -472,7 +606,10 @@ class WorkSpacesApi {
   /// up to 25 WorkSpaces.
   Future<TerminateWorkspacesResult> terminateWorkspaces(
       List<TerminateRequest> terminateWorkspaceRequests) async {
-    return TerminateWorkspacesResult.fromJson({});
+    var response_ = await _client.send('TerminateWorkspaces', {
+      'TerminateWorkspaceRequests': terminateWorkspaceRequests,
+    });
+    return TerminateWorkspacesResult.fromJson(response_);
   }
 
   /// Replaces the current rules of the specified IP access control group with
@@ -483,7 +620,11 @@ class WorkSpacesApi {
   /// [userRules]: One or more rules.
   Future<UpdateRulesOfIpGroupResult> updateRulesOfIpGroup(
       {@required String groupId, @required List<IpRuleItem> userRules}) async {
-    return UpdateRulesOfIpGroupResult.fromJson({});
+    var response_ = await _client.send('UpdateRulesOfIpGroup', {
+      'GroupId': groupId,
+      'UserRules': userRules,
+    });
+    return UpdateRulesOfIpGroupResult.fromJson(response_);
   }
 }
 
@@ -520,7 +661,26 @@ class AccountModification {
     this.errorMessage,
   });
   static AccountModification fromJson(Map<String, dynamic> json) =>
-      AccountModification();
+      AccountModification(
+        modificationState: json.containsKey('ModificationState')
+            ? json['ModificationState'] as String
+            : null,
+        dedicatedTenancySupport: json.containsKey('DedicatedTenancySupport')
+            ? json['DedicatedTenancySupport'] as String
+            : null,
+        dedicatedTenancyManagementCidrRange:
+            json.containsKey('DedicatedTenancyManagementCidrRange')
+                ? json['DedicatedTenancyManagementCidrRange'] as String
+                : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class AssociateIpGroupsResult {
@@ -546,7 +706,12 @@ class ClientProperties {
     this.reconnectEnabled,
   });
   static ClientProperties fromJson(Map<String, dynamic> json) =>
-      ClientProperties();
+      ClientProperties(
+        reconnectEnabled: json.containsKey('ReconnectEnabled')
+            ? json['ReconnectEnabled'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the Amazon WorkSpaces client.
@@ -562,7 +727,14 @@ class ClientPropertiesResult {
     this.clientProperties,
   });
   static ClientPropertiesResult fromJson(Map<String, dynamic> json) =>
-      ClientPropertiesResult();
+      ClientPropertiesResult(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        clientProperties: json.containsKey('ClientProperties')
+            ? ClientProperties.fromJson(json['ClientProperties'])
+            : null,
+      );
 }
 
 /// Describes the compute type.
@@ -573,7 +745,9 @@ class ComputeType {
   ComputeType({
     this.name,
   });
-  static ComputeType fromJson(Map<String, dynamic> json) => ComputeType();
+  static ComputeType fromJson(Map<String, dynamic> json) => ComputeType(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CopyWorkspaceImageResult {
@@ -584,7 +758,9 @@ class CopyWorkspaceImageResult {
     this.imageId,
   });
   static CopyWorkspaceImageResult fromJson(Map<String, dynamic> json) =>
-      CopyWorkspaceImageResult();
+      CopyWorkspaceImageResult(
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+      );
 }
 
 class CreateIpGroupResult {
@@ -595,7 +771,9 @@ class CreateIpGroupResult {
     this.groupId,
   });
   static CreateIpGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateIpGroupResult();
+      CreateIpGroupResult(
+        groupId: json.containsKey('GroupId') ? json['GroupId'] as String : null,
+      );
 }
 
 class CreateTagsResult {
@@ -621,7 +799,18 @@ class CreateWorkspacesResult {
     this.pendingRequests,
   });
   static CreateWorkspacesResult fromJson(Map<String, dynamic> json) =>
-      CreateWorkspacesResult();
+      CreateWorkspacesResult(
+        failedRequests: json.containsKey('FailedRequests')
+            ? (json['FailedRequests'] as List)
+                .map((e) => FailedCreateWorkspaceRequest.fromJson(e))
+                .toList()
+            : null,
+        pendingRequests: json.containsKey('PendingRequests')
+            ? (json['PendingRequests'] as List)
+                .map((e) => Workspace.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the default values used to create a WorkSpace.
@@ -653,7 +842,23 @@ class DefaultWorkspaceCreationProperties {
   });
   static DefaultWorkspaceCreationProperties fromJson(
           Map<String, dynamic> json) =>
-      DefaultWorkspaceCreationProperties();
+      DefaultWorkspaceCreationProperties(
+        enableWorkDocs: json.containsKey('EnableWorkDocs')
+            ? json['EnableWorkDocs'] as bool
+            : null,
+        enableInternetAccess: json.containsKey('EnableInternetAccess')
+            ? json['EnableInternetAccess'] as bool
+            : null,
+        defaultOu:
+            json.containsKey('DefaultOu') ? json['DefaultOu'] as String : null,
+        customSecurityGroupId: json.containsKey('CustomSecurityGroupId')
+            ? json['CustomSecurityGroupId'] as String
+            : null,
+        userEnabledAsLocalAdministrator:
+            json.containsKey('UserEnabledAsLocalAdministrator')
+                ? json['UserEnabledAsLocalAdministrator'] as bool
+                : null,
+      );
 }
 
 class DeleteIpGroupResult {
@@ -688,7 +893,15 @@ class DescribeAccountModificationsResult {
   });
   static DescribeAccountModificationsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeAccountModificationsResult();
+      DescribeAccountModificationsResult(
+        accountModifications: json.containsKey('AccountModifications')
+            ? (json['AccountModifications'] as List)
+                .map((e) => AccountModification.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeAccountResult {
@@ -709,7 +922,15 @@ class DescribeAccountResult {
     this.dedicatedTenancyManagementCidrRange,
   });
   static DescribeAccountResult fromJson(Map<String, dynamic> json) =>
-      DescribeAccountResult();
+      DescribeAccountResult(
+        dedicatedTenancySupport: json.containsKey('DedicatedTenancySupport')
+            ? json['DedicatedTenancySupport'] as String
+            : null,
+        dedicatedTenancyManagementCidrRange:
+            json.containsKey('DedicatedTenancyManagementCidrRange')
+                ? json['DedicatedTenancyManagementCidrRange'] as String
+                : null,
+      );
 }
 
 class DescribeClientPropertiesResult {
@@ -720,7 +941,13 @@ class DescribeClientPropertiesResult {
     this.clientPropertiesList,
   });
   static DescribeClientPropertiesResult fromJson(Map<String, dynamic> json) =>
-      DescribeClientPropertiesResult();
+      DescribeClientPropertiesResult(
+        clientPropertiesList: json.containsKey('ClientPropertiesList')
+            ? (json['ClientPropertiesList'] as List)
+                .map((e) => ClientPropertiesResult.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeIpGroupsResult {
@@ -736,7 +963,15 @@ class DescribeIpGroupsResult {
     this.nextToken,
   });
   static DescribeIpGroupsResult fromJson(Map<String, dynamic> json) =>
-      DescribeIpGroupsResult();
+      DescribeIpGroupsResult(
+        result: json.containsKey('Result')
+            ? (json['Result'] as List)
+                .map((e) => WorkspacesIpGroup.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeTagsResult {
@@ -747,7 +982,11 @@ class DescribeTagsResult {
     this.tagList,
   });
   static DescribeTagsResult fromJson(Map<String, dynamic> json) =>
-      DescribeTagsResult();
+      DescribeTagsResult(
+        tagList: json.containsKey('TagList')
+            ? (json['TagList'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DescribeWorkspaceBundlesResult {
@@ -764,7 +1003,15 @@ class DescribeWorkspaceBundlesResult {
     this.nextToken,
   });
   static DescribeWorkspaceBundlesResult fromJson(Map<String, dynamic> json) =>
-      DescribeWorkspaceBundlesResult();
+      DescribeWorkspaceBundlesResult(
+        bundles: json.containsKey('Bundles')
+            ? (json['Bundles'] as List)
+                .map((e) => WorkspaceBundle.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeWorkspaceDirectoriesResult {
@@ -781,7 +1028,15 @@ class DescribeWorkspaceDirectoriesResult {
   });
   static DescribeWorkspaceDirectoriesResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeWorkspaceDirectoriesResult();
+      DescribeWorkspaceDirectoriesResult(
+        directories: json.containsKey('Directories')
+            ? (json['Directories'] as List)
+                .map((e) => WorkspaceDirectory.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeWorkspaceImagesResult {
@@ -797,7 +1052,15 @@ class DescribeWorkspaceImagesResult {
     this.nextToken,
   });
   static DescribeWorkspaceImagesResult fromJson(Map<String, dynamic> json) =>
-      DescribeWorkspaceImagesResult();
+      DescribeWorkspaceImagesResult(
+        images: json.containsKey('Images')
+            ? (json['Images'] as List)
+                .map((e) => WorkspaceImage.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeWorkspacesConnectionStatusResult {
@@ -814,7 +1077,16 @@ class DescribeWorkspacesConnectionStatusResult {
   });
   static DescribeWorkspacesConnectionStatusResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeWorkspacesConnectionStatusResult();
+      DescribeWorkspacesConnectionStatusResult(
+        workspacesConnectionStatus:
+            json.containsKey('WorkspacesConnectionStatus')
+                ? (json['WorkspacesConnectionStatus'] as List)
+                    .map((e) => WorkspaceConnectionStatus.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeWorkspacesResult {
@@ -833,7 +1105,15 @@ class DescribeWorkspacesResult {
     this.nextToken,
   });
   static DescribeWorkspacesResult fromJson(Map<String, dynamic> json) =>
-      DescribeWorkspacesResult();
+      DescribeWorkspacesResult(
+        workspaces: json.containsKey('Workspaces')
+            ? (json['Workspaces'] as List)
+                .map((e) => Workspace.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DisassociateIpGroupsResult {
@@ -860,7 +1140,16 @@ class FailedCreateWorkspaceRequest {
     this.errorMessage,
   });
   static FailedCreateWorkspaceRequest fromJson(Map<String, dynamic> json) =>
-      FailedCreateWorkspaceRequest();
+      FailedCreateWorkspaceRequest(
+        workspaceRequest: json.containsKey('WorkspaceRequest')
+            ? WorkspaceRequest.fromJson(json['WorkspaceRequest'])
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Describes a WorkSpace that could not be rebooted. (RebootWorkspaces),
@@ -883,7 +1172,16 @@ class FailedWorkspaceChangeRequest {
     this.errorMessage,
   });
   static FailedWorkspaceChangeRequest fromJson(Map<String, dynamic> json) =>
-      FailedWorkspaceChangeRequest();
+      FailedWorkspaceChangeRequest(
+        workspaceId: json.containsKey('WorkspaceId')
+            ? json['WorkspaceId'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 class ImportWorkspaceImageResult {
@@ -894,7 +1192,9 @@ class ImportWorkspaceImageResult {
     this.imageId,
   });
   static ImportWorkspaceImageResult fromJson(Map<String, dynamic> json) =>
-      ImportWorkspaceImageResult();
+      ImportWorkspaceImageResult(
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+      );
 }
 
 /// Describes a rule for an IP access control group.
@@ -909,7 +1209,12 @@ class IpRuleItem {
     this.ipRule,
     this.ruleDesc,
   });
-  static IpRuleItem fromJson(Map<String, dynamic> json) => IpRuleItem();
+  static IpRuleItem fromJson(Map<String, dynamic> json) => IpRuleItem(
+        ipRule: json.containsKey('ipRule') ? json['ipRule'] as String : null,
+        ruleDesc:
+            json.containsKey('ruleDesc') ? json['ruleDesc'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListAvailableManagementCidrRangesResult {
@@ -926,7 +1231,15 @@ class ListAvailableManagementCidrRangesResult {
   });
   static ListAvailableManagementCidrRangesResult fromJson(
           Map<String, dynamic> json) =>
-      ListAvailableManagementCidrRangesResult();
+      ListAvailableManagementCidrRangesResult(
+        managementCidrRanges: json.containsKey('ManagementCidrRanges')
+            ? (json['ManagementCidrRanges'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes a WorkSpace modification.
@@ -942,7 +1255,11 @@ class ModificationState {
     this.state,
   });
   static ModificationState fromJson(Map<String, dynamic> json) =>
-      ModificationState();
+      ModificationState(
+        resource:
+            json.containsKey('Resource') ? json['Resource'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+      );
 }
 
 class ModifyAccountResult {
@@ -977,8 +1294,9 @@ class OperatingSystem {
   OperatingSystem({
     this.type,
   });
-  static OperatingSystem fromJson(Map<String, dynamic> json) =>
-      OperatingSystem();
+  static OperatingSystem fromJson(Map<String, dynamic> json) => OperatingSystem(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
 }
 
 /// Describes the information used to reboot a WorkSpace.
@@ -989,6 +1307,7 @@ class RebootRequest {
   RebootRequest({
     @required this.workspaceId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RebootWorkspacesResult {
@@ -999,7 +1318,13 @@ class RebootWorkspacesResult {
     this.failedRequests,
   });
   static RebootWorkspacesResult fromJson(Map<String, dynamic> json) =>
-      RebootWorkspacesResult();
+      RebootWorkspacesResult(
+        failedRequests: json.containsKey('FailedRequests')
+            ? (json['FailedRequests'] as List)
+                .map((e) => FailedWorkspaceChangeRequest.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the information used to rebuild a WorkSpace.
@@ -1010,6 +1335,7 @@ class RebuildRequest {
   RebuildRequest({
     @required this.workspaceId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RebuildWorkspacesResult {
@@ -1020,7 +1346,13 @@ class RebuildWorkspacesResult {
     this.failedRequests,
   });
   static RebuildWorkspacesResult fromJson(Map<String, dynamic> json) =>
-      RebuildWorkspacesResult();
+      RebuildWorkspacesResult(
+        failedRequests: json.containsKey('FailedRequests')
+            ? (json['FailedRequests'] as List)
+                .map((e) => FailedWorkspaceChangeRequest.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class RevokeIpRulesResult {
@@ -1037,7 +1369,10 @@ class RootStorage {
   RootStorage({
     this.capacity,
   });
-  static RootStorage fromJson(Map<String, dynamic> json) => RootStorage();
+  static RootStorage fromJson(Map<String, dynamic> json) => RootStorage(
+        capacity:
+            json.containsKey('Capacity') ? json['Capacity'] as String : null,
+      );
 }
 
 /// Information used to start a WorkSpace.
@@ -1048,6 +1383,7 @@ class StartRequest {
   StartRequest({
     this.workspaceId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartWorkspacesResult {
@@ -1058,7 +1394,13 @@ class StartWorkspacesResult {
     this.failedRequests,
   });
   static StartWorkspacesResult fromJson(Map<String, dynamic> json) =>
-      StartWorkspacesResult();
+      StartWorkspacesResult(
+        failedRequests: json.containsKey('FailedRequests')
+            ? (json['FailedRequests'] as List)
+                .map((e) => FailedWorkspaceChangeRequest.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the information used to stop a WorkSpace.
@@ -1069,6 +1411,7 @@ class StopRequest {
   StopRequest({
     this.workspaceId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StopWorkspacesResult {
@@ -1079,7 +1422,13 @@ class StopWorkspacesResult {
     this.failedRequests,
   });
   static StopWorkspacesResult fromJson(Map<String, dynamic> json) =>
-      StopWorkspacesResult();
+      StopWorkspacesResult(
+        failedRequests: json.containsKey('FailedRequests')
+            ? (json['FailedRequests'] as List)
+                .map((e) => FailedWorkspaceChangeRequest.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a tag.
@@ -1094,7 +1443,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the information used to terminate a WorkSpace.
@@ -1105,6 +1458,7 @@ class TerminateRequest {
   TerminateRequest({
     @required this.workspaceId,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TerminateWorkspacesResult {
@@ -1115,7 +1469,13 @@ class TerminateWorkspacesResult {
     this.failedRequests,
   });
   static TerminateWorkspacesResult fromJson(Map<String, dynamic> json) =>
-      TerminateWorkspacesResult();
+      TerminateWorkspacesResult(
+        failedRequests: json.containsKey('FailedRequests')
+            ? (json['FailedRequests'] as List)
+                .map((e) => FailedWorkspaceChangeRequest.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateRulesOfIpGroupResult {
@@ -1132,7 +1492,10 @@ class UserStorage {
   UserStorage({
     this.capacity,
   });
-  static UserStorage fromJson(Map<String, dynamic> json) => UserStorage();
+  static UserStorage fromJson(Map<String, dynamic> json) => UserStorage(
+        capacity:
+            json.containsKey('Capacity') ? json['Capacity'] as String : null,
+      );
 }
 
 /// Describes a WorkSpace.
@@ -1200,7 +1563,50 @@ class Workspace {
     this.workspaceProperties,
     this.modificationStates,
   });
-  static Workspace fromJson(Map<String, dynamic> json) => Workspace();
+  static Workspace fromJson(Map<String, dynamic> json) => Workspace(
+        workspaceId: json.containsKey('WorkspaceId')
+            ? json['WorkspaceId'] as String
+            : null,
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        userName:
+            json.containsKey('UserName') ? json['UserName'] as String : null,
+        ipAddress:
+            json.containsKey('IpAddress') ? json['IpAddress'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        bundleId:
+            json.containsKey('BundleId') ? json['BundleId'] as String : null,
+        subnetId:
+            json.containsKey('SubnetId') ? json['SubnetId'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        computerName: json.containsKey('ComputerName')
+            ? json['ComputerName'] as String
+            : null,
+        volumeEncryptionKey: json.containsKey('VolumeEncryptionKey')
+            ? json['VolumeEncryptionKey'] as String
+            : null,
+        userVolumeEncryptionEnabled:
+            json.containsKey('UserVolumeEncryptionEnabled')
+                ? json['UserVolumeEncryptionEnabled'] as bool
+                : null,
+        rootVolumeEncryptionEnabled:
+            json.containsKey('RootVolumeEncryptionEnabled')
+                ? json['RootVolumeEncryptionEnabled'] as bool
+                : null,
+        workspaceProperties: json.containsKey('WorkspaceProperties')
+            ? WorkspaceProperties.fromJson(json['WorkspaceProperties'])
+            : null,
+        modificationStates: json.containsKey('ModificationStates')
+            ? (json['ModificationStates'] as List)
+                .map((e) => ModificationState.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a WorkSpace bundle.
@@ -1237,8 +1643,24 @@ class WorkspaceBundle {
     this.userStorage,
     this.computeType,
   });
-  static WorkspaceBundle fromJson(Map<String, dynamic> json) =>
-      WorkspaceBundle();
+  static WorkspaceBundle fromJson(Map<String, dynamic> json) => WorkspaceBundle(
+        bundleId:
+            json.containsKey('BundleId') ? json['BundleId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        owner: json.containsKey('Owner') ? json['Owner'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        rootStorage: json.containsKey('RootStorage')
+            ? RootStorage.fromJson(json['RootStorage'])
+            : null,
+        userStorage: json.containsKey('UserStorage')
+            ? UserStorage.fromJson(json['UserStorage'])
+            : null,
+        computeType: json.containsKey('ComputeType')
+            ? ComputeType.fromJson(json['ComputeType'])
+            : null,
+      );
 }
 
 /// Describes the connection status of a WorkSpace.
@@ -1263,7 +1685,22 @@ class WorkspaceConnectionStatus {
     this.lastKnownUserConnectionTimestamp,
   });
   static WorkspaceConnectionStatus fromJson(Map<String, dynamic> json) =>
-      WorkspaceConnectionStatus();
+      WorkspaceConnectionStatus(
+        workspaceId: json.containsKey('WorkspaceId')
+            ? json['WorkspaceId'] as String
+            : null,
+        connectionState: json.containsKey('ConnectionState')
+            ? json['ConnectionState'] as String
+            : null,
+        connectionStateCheckTimestamp:
+            json.containsKey('ConnectionStateCheckTimestamp')
+                ? DateTime.parse(json['ConnectionStateCheckTimestamp'])
+                : null,
+        lastKnownUserConnectionTimestamp:
+            json.containsKey('LastKnownUserConnectionTimestamp')
+                ? DateTime.parse(json['LastKnownUserConnectionTimestamp'])
+                : null,
+      );
 }
 
 /// Describes an AWS Directory Service directory that is used with Amazon
@@ -1328,7 +1765,44 @@ class WorkspaceDirectory {
     this.ipGroupIds,
   });
   static WorkspaceDirectory fromJson(Map<String, dynamic> json) =>
-      WorkspaceDirectory();
+      WorkspaceDirectory(
+        directoryId: json.containsKey('DirectoryId')
+            ? json['DirectoryId'] as String
+            : null,
+        alias: json.containsKey('Alias') ? json['Alias'] as String : null,
+        directoryName: json.containsKey('DirectoryName')
+            ? json['DirectoryName'] as String
+            : null,
+        registrationCode: json.containsKey('RegistrationCode')
+            ? json['RegistrationCode'] as String
+            : null,
+        subnetIds: json.containsKey('SubnetIds')
+            ? (json['SubnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        dnsIpAddresses: json.containsKey('DnsIpAddresses')
+            ? (json['DnsIpAddresses'] as List).map((e) => e as String).toList()
+            : null,
+        customerUserName: json.containsKey('CustomerUserName')
+            ? json['CustomerUserName'] as String
+            : null,
+        iamRoleId:
+            json.containsKey('IamRoleId') ? json['IamRoleId'] as String : null,
+        directoryType: json.containsKey('DirectoryType')
+            ? json['DirectoryType'] as String
+            : null,
+        workspaceSecurityGroupId: json.containsKey('WorkspaceSecurityGroupId')
+            ? json['WorkspaceSecurityGroupId'] as String
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        workspaceCreationProperties:
+            json.containsKey('WorkspaceCreationProperties')
+                ? DefaultWorkspaceCreationProperties.fromJson(
+                    json['WorkspaceCreationProperties'])
+                : null,
+        ipGroupIds: json.containsKey('ipGroupIds')
+            ? (json['ipGroupIds'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// Describes a WorkSpace image.
@@ -1368,7 +1842,25 @@ class WorkspaceImage {
     this.errorCode,
     this.errorMessage,
   });
-  static WorkspaceImage fromJson(Map<String, dynamic> json) => WorkspaceImage();
+  static WorkspaceImage fromJson(Map<String, dynamic> json) => WorkspaceImage(
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        operatingSystem: json.containsKey('OperatingSystem')
+            ? OperatingSystem.fromJson(json['OperatingSystem'])
+            : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        requiredTenancy: json.containsKey('RequiredTenancy')
+            ? json['RequiredTenancy'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Describes a WorkSpace.
@@ -1399,7 +1891,25 @@ class WorkspaceProperties {
     this.computeTypeName,
   });
   static WorkspaceProperties fromJson(Map<String, dynamic> json) =>
-      WorkspaceProperties();
+      WorkspaceProperties(
+        runningMode: json.containsKey('RunningMode')
+            ? json['RunningMode'] as String
+            : null,
+        runningModeAutoStopTimeoutInMinutes:
+            json.containsKey('RunningModeAutoStopTimeoutInMinutes')
+                ? json['RunningModeAutoStopTimeoutInMinutes'] as int
+                : null,
+        rootVolumeSizeGib: json.containsKey('RootVolumeSizeGib')
+            ? json['RootVolumeSizeGib'] as int
+            : null,
+        userVolumeSizeGib: json.containsKey('UserVolumeSizeGib')
+            ? json['UserVolumeSizeGib'] as int
+            : null,
+        computeTypeName: json.containsKey('ComputeTypeName')
+            ? json['ComputeTypeName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the information used to create a WorkSpace.
@@ -1443,7 +1953,29 @@ class WorkspaceRequest {
     this.tags,
   });
   static WorkspaceRequest fromJson(Map<String, dynamic> json) =>
-      WorkspaceRequest();
+      WorkspaceRequest(
+        directoryId: json['DirectoryId'] as String,
+        userName: json['UserName'] as String,
+        bundleId: json['BundleId'] as String,
+        volumeEncryptionKey: json.containsKey('VolumeEncryptionKey')
+            ? json['VolumeEncryptionKey'] as String
+            : null,
+        userVolumeEncryptionEnabled:
+            json.containsKey('UserVolumeEncryptionEnabled')
+                ? json['UserVolumeEncryptionEnabled'] as bool
+                : null,
+        rootVolumeEncryptionEnabled:
+            json.containsKey('RootVolumeEncryptionEnabled')
+                ? json['RootVolumeEncryptionEnabled'] as bool
+                : null,
+        workspaceProperties: json.containsKey('WorkspaceProperties')
+            ? WorkspaceProperties.fromJson(json['WorkspaceProperties'])
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an IP access control group.
@@ -1467,5 +1999,16 @@ class WorkspacesIpGroup {
     this.userRules,
   });
   static WorkspacesIpGroup fromJson(Map<String, dynamic> json) =>
-      WorkspacesIpGroup();
+      WorkspacesIpGroup(
+        groupId: json.containsKey('groupId') ? json['groupId'] as String : null,
+        groupName:
+            json.containsKey('groupName') ? json['groupName'] as String : null,
+        groupDesc:
+            json.containsKey('groupDesc') ? json['groupDesc'] as String : null,
+        userRules: json.containsKey('userRules')
+            ? (json['userRules'] as List)
+                .map((e) => IpRuleItem.fromJson(e))
+                .toList()
+            : null,
+      );
 }

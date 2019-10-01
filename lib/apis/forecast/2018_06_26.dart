@@ -2,6 +2,10 @@ import 'package:meta/meta.dart';
 
 /// Provides APIs for creating and managing Amazon Forecast resources.
 class ForecastApi {
+  final _client;
+  ForecastApi(client)
+      : _client = client.configured('forecast', serializer: 'json');
+
   /// Creates an Amazon Forecast dataset. The information about the dataset that
   /// you provide helps Forecast understand how to consume the data for model
   /// training. This includes the following:
@@ -67,7 +71,15 @@ class ForecastApi {
       String dataFrequency,
       @required Schema schema,
       EncryptionConfig encryptionConfig}) async {
-    return CreateDatasetResponse.fromJson({});
+    var response_ = await _client.send('CreateDataset', {
+      'DatasetName': datasetName,
+      'Domain': domain,
+      'DatasetType': datasetType,
+      if (dataFrequency != null) 'DataFrequency': dataFrequency,
+      'Schema': schema,
+      if (encryptionConfig != null) 'EncryptionConfig': encryptionConfig,
+    });
+    return CreateDatasetResponse.fromJson(response_);
   }
 
   /// Creates an Amazon Forecast dataset group, which holds a collection of
@@ -104,7 +116,12 @@ class ForecastApi {
       {@required String datasetGroupName,
       @required String domain,
       List<String> datasetArns}) async {
-    return CreateDatasetGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateDatasetGroup', {
+      'DatasetGroupName': datasetGroupName,
+      'Domain': domain,
+      if (datasetArns != null) 'DatasetArns': datasetArns,
+    });
+    return CreateDatasetGroupResponse.fromJson(response_);
   }
 
   /// Imports your training data to an Amazon Forecast dataset. You provide the
@@ -170,7 +187,13 @@ class ForecastApi {
       @required String datasetArn,
       @required DataSource dataSource,
       String timestampFormat}) async {
-    return CreateDatasetImportJobResponse.fromJson({});
+    var response_ = await _client.send('CreateDatasetImportJob', {
+      'DatasetImportJobName': datasetImportJobName,
+      'DatasetArn': datasetArn,
+      'DataSource': dataSource,
+      if (timestampFormat != null) 'TimestampFormat': timestampFormat,
+    });
+    return CreateDatasetImportJobResponse.fromJson(response_);
   }
 
   /// Creates a forecast for each item in the `TARGET_TIME_SERIES` dataset that
@@ -203,7 +226,11 @@ class ForecastApi {
   /// generate the forecast.
   Future<CreateForecastResponse> createForecast(
       {@required String forecastName, @required String predictorArn}) async {
-    return CreateForecastResponse.fromJson({});
+    var response_ = await _client.send('CreateForecast', {
+      'ForecastName': forecastName,
+      'PredictorArn': predictorArn,
+    });
+    return CreateForecastResponse.fromJson(response_);
   }
 
   /// Exports a forecast created by the CreateForecast operation to your Amazon
@@ -236,7 +263,12 @@ class ForecastApi {
       {@required String forecastExportJobName,
       @required String forecastArn,
       @required DataDestination destination}) async {
-    return CreateForecastExportJobResponse.fromJson({});
+    var response_ = await _client.send('CreateForecastExportJob', {
+      'ForecastExportJobName': forecastExportJobName,
+      'ForecastArn': forecastArn,
+      'Destination': destination,
+    });
+    return CreateForecastExportJobResponse.fromJson(response_);
   }
 
   /// Creates an Amazon Forecast predictor.
@@ -372,7 +404,21 @@ class ForecastApi {
       @required InputDataConfig inputDataConfig,
       @required FeaturizationConfig featurizationConfig,
       EncryptionConfig encryptionConfig}) async {
-    return CreatePredictorResponse.fromJson({});
+    var response_ = await _client.send('CreatePredictor', {
+      'PredictorName': predictorName,
+      if (algorithmArn != null) 'AlgorithmArn': algorithmArn,
+      'ForecastHorizon': forecastHorizon,
+      if (performAutoML != null) 'PerformAutoML': performAutoML,
+      if (performHpo != null) 'PerformHPO': performHpo,
+      if (trainingParameters != null) 'TrainingParameters': trainingParameters,
+      if (evaluationParameters != null)
+        'EvaluationParameters': evaluationParameters,
+      if (hpoConfig != null) 'HPOConfig': hpoConfig,
+      'InputDataConfig': inputDataConfig,
+      'FeaturizationConfig': featurizationConfig,
+      if (encryptionConfig != null) 'EncryptionConfig': encryptionConfig,
+    });
+    return CreatePredictorResponse.fromJson(response_);
   }
 
   /// Deletes an Amazon Forecast dataset created using the CreateDataset
@@ -380,7 +426,11 @@ class ForecastApi {
   /// `CREATE_FAILED`. Use the DescribeDataset operation to get the status.
   ///
   /// [datasetArn]: The Amazon Resource Name (ARN) of the dataset to delete.
-  Future<void> deleteDataset(String datasetArn) async {}
+  Future<void> deleteDataset(String datasetArn) async {
+    await _client.send('DeleteDataset', {
+      'DatasetArn': datasetArn,
+    });
+  }
 
   /// Deletes a dataset group created using the CreateDatasetGroup operation. To
   /// be deleted, the dataset group must have a status of `ACTIVE`,
@@ -392,7 +442,11 @@ class ForecastApi {
   ///
   /// [datasetGroupArn]: The Amazon Resource Name (ARN) of the dataset group to
   /// delete.
-  Future<void> deleteDatasetGroup(String datasetGroupArn) async {}
+  Future<void> deleteDatasetGroup(String datasetGroupArn) async {
+    await _client.send('DeleteDatasetGroup', {
+      'DatasetGroupArn': datasetGroupArn,
+    });
+  }
 
   /// Deletes a dataset import job created using the CreateDatasetImportJob
   /// operation. To be deleted, the import job must have a status of `ACTIVE` or
@@ -401,7 +455,11 @@ class ForecastApi {
   ///
   /// [datasetImportJobArn]: The Amazon Resource Name (ARN) of the dataset
   /// import job to delete.
-  Future<void> deleteDatasetImportJob(String datasetImportJobArn) async {}
+  Future<void> deleteDatasetImportJob(String datasetImportJobArn) async {
+    await _client.send('DeleteDatasetImportJob', {
+      'DatasetImportJobArn': datasetImportJobArn,
+    });
+  }
 
   /// Deletes a forecast created using the CreateForecast operation. To be
   /// deleted, the forecast must have a status of `ACTIVE` or `CREATE_FAILED`.
@@ -410,7 +468,11 @@ class ForecastApi {
   /// You can't delete a forecast while it is being exported.
   ///
   /// [forecastArn]: The Amazon Resource Name (ARN) of the forecast to delete.
-  Future<void> deleteForecast(String forecastArn) async {}
+  Future<void> deleteForecast(String forecastArn) async {
+    await _client.send('DeleteForecast', {
+      'ForecastArn': forecastArn,
+    });
+  }
 
   /// Deletes a forecast export job created using the CreateForecastExportJob
   /// operation. To be deleted, the export job must have a status of `ACTIVE` or
@@ -419,7 +481,11 @@ class ForecastApi {
   ///
   /// [forecastExportJobArn]: The Amazon Resource Name (ARN) of the forecast
   /// export job to delete.
-  Future<void> deleteForecastExportJob(String forecastExportJobArn) async {}
+  Future<void> deleteForecastExportJob(String forecastExportJobArn) async {
+    await _client.send('DeleteForecastExportJob', {
+      'ForecastExportJobArn': forecastExportJobArn,
+    });
+  }
 
   /// Deletes a predictor created using the CreatePredictor operation. To be
   /// deleted, the predictor must have a status of `ACTIVE` or `CREATE_FAILED`.
@@ -428,7 +494,11 @@ class ForecastApi {
   /// Any forecasts generated by the predictor will no longer be available.
   ///
   /// [predictorArn]: The Amazon Resource Name (ARN) of the predictor to delete.
-  Future<void> deletePredictor(String predictorArn) async {}
+  Future<void> deletePredictor(String predictorArn) async {
+    await _client.send('DeletePredictor', {
+      'PredictorArn': predictorArn,
+    });
+  }
 
   /// Describes an Amazon Forecast dataset created using the CreateDataset
   /// operation.
@@ -444,7 +514,10 @@ class ForecastApi {
   ///
   /// [datasetArn]: The Amazon Resource Name (ARN) of the dataset.
   Future<DescribeDatasetResponse> describeDataset(String datasetArn) async {
-    return DescribeDatasetResponse.fromJson({});
+    var response_ = await _client.send('DescribeDataset', {
+      'DatasetArn': datasetArn,
+    });
+    return DescribeDatasetResponse.fromJson(response_);
   }
 
   /// Describes a dataset group created using the CreateDatasetGroup operation.
@@ -464,7 +537,10 @@ class ForecastApi {
   /// [datasetGroupArn]: The Amazon Resource Name (ARN) of the dataset group.
   Future<DescribeDatasetGroupResponse> describeDatasetGroup(
       String datasetGroupArn) async {
-    return DescribeDatasetGroupResponse.fromJson({});
+    var response_ = await _client.send('DescribeDatasetGroup', {
+      'DatasetGroupArn': datasetGroupArn,
+    });
+    return DescribeDatasetGroupResponse.fromJson(response_);
   }
 
   /// Describes a dataset import job created using the CreateDatasetImportJob
@@ -490,7 +566,10 @@ class ForecastApi {
   /// import job.
   Future<DescribeDatasetImportJobResponse> describeDatasetImportJob(
       String datasetImportJobArn) async {
-    return DescribeDatasetImportJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeDatasetImportJob', {
+      'DatasetImportJobArn': datasetImportJobArn,
+    });
+    return DescribeDatasetImportJobResponse.fromJson(response_);
   }
 
   /// Describes a forecast created using the CreateForecast operation.
@@ -512,7 +591,10 @@ class ForecastApi {
   ///
   /// [forecastArn]: The Amazon Resource Name (ARN) of the forecast.
   Future<DescribeForecastResponse> describeForecast(String forecastArn) async {
-    return DescribeForecastResponse.fromJson({});
+    var response_ = await _client.send('DescribeForecast', {
+      'ForecastArn': forecastArn,
+    });
+    return DescribeForecastResponse.fromJson(response_);
   }
 
   /// Describes a forecast export job created using the CreateForecastExportJob
@@ -534,7 +616,10 @@ class ForecastApi {
   /// export job.
   Future<DescribeForecastExportJobResponse> describeForecastExportJob(
       String forecastExportJobArn) async {
-    return DescribeForecastExportJobResponse.fromJson({});
+    var response_ = await _client.send('DescribeForecastExportJob', {
+      'ForecastExportJobArn': forecastExportJobArn,
+    });
+    return DescribeForecastExportJobResponse.fromJson(response_);
   }
 
   /// Describes a predictor created using the CreatePredictor operation.
@@ -561,7 +646,10 @@ class ForecastApi {
   /// want information about.
   Future<DescribePredictorResponse> describePredictor(
       String predictorArn) async {
-    return DescribePredictorResponse.fromJson({});
+    var response_ = await _client.send('DescribePredictor', {
+      'PredictorArn': predictorArn,
+    });
+    return DescribePredictorResponse.fromJson(response_);
   }
 
   /// Provides metrics on the accuracy of the models that were trained by the
@@ -583,7 +671,10 @@ class ForecastApi {
   /// metrics for.
   Future<GetAccuracyMetricsResponse> getAccuracyMetrics(
       String predictorArn) async {
-    return GetAccuracyMetricsResponse.fromJson({});
+    var response_ = await _client.send('GetAccuracyMetrics', {
+      'PredictorArn': predictorArn,
+    });
+    return GetAccuracyMetricsResponse.fromJson(response_);
   }
 
   /// Returns a list of dataset groups created using the CreateDatasetGroup
@@ -599,7 +690,11 @@ class ForecastApi {
   /// [maxResults]: The number of items to return in the response.
   Future<ListDatasetGroupsResponse> listDatasetGroups(
       {String nextToken, int maxResults}) async {
-    return ListDatasetGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListDatasetGroups', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDatasetGroupsResponse.fromJson(response_);
   }
 
   /// Returns a list of dataset import jobs created using the
@@ -636,7 +731,12 @@ class ForecastApi {
   /// [ { "Condition": "IS", "Key": "Name", "Value": "my_dataset_import_job" } ]`
   Future<ListDatasetImportJobsResponse> listDatasetImportJobs(
       {String nextToken, int maxResults, List<Filter> filters}) async {
-    return ListDatasetImportJobsResponse.fromJson({});
+    var response_ = await _client.send('ListDatasetImportJobs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListDatasetImportJobsResponse.fromJson(response_);
   }
 
   /// Returns a list of datasets created using the CreateDataset operation. For
@@ -651,7 +751,11 @@ class ForecastApi {
   /// [maxResults]: The number of items to return in the response.
   Future<ListDatasetsResponse> listDatasets(
       {String nextToken, int maxResults}) async {
-    return ListDatasetsResponse.fromJson({});
+    var response_ = await _client.send('ListDatasets', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDatasetsResponse.fromJson(response_);
   }
 
   /// Returns a list of forecast export jobs created using the
@@ -688,7 +792,12 @@ class ForecastApi {
   /// [ { "Condition": "IS", "Key": "Name", "Value": "my_forecast_export_job" } ]`
   Future<ListForecastExportJobsResponse> listForecastExportJobs(
       {String nextToken, int maxResults, List<Filter> filters}) async {
-    return ListForecastExportJobsResponse.fromJson({});
+    var response_ = await _client.send('ListForecastExportJobs', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListForecastExportJobsResponse.fromJson(response_);
   }
 
   /// Returns a list of forecasts created using the CreateForecast operation.
@@ -723,7 +832,12 @@ class ForecastApi {
   /// [ { "Condition": "IS", "Key": "Name", "Value": "my_forecast" } ]`
   Future<ListForecastsResponse> listForecasts(
       {String nextToken, int maxResults, List<Filter> filters}) async {
-    return ListForecastsResponse.fromJson({});
+    var response_ = await _client.send('ListForecasts', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListForecastsResponse.fromJson(response_);
   }
 
   /// Returns a list of predictors created using the CreatePredictor operation.
@@ -759,7 +873,12 @@ class ForecastApi {
   /// [ { "Condition": "IS", "Key": "Name", "Value": "my_predictor" } ]`
   Future<ListPredictorsResponse> listPredictors(
       {String nextToken, int maxResults, List<Filter> filters}) async {
-    return ListPredictorsResponse.fromJson({});
+    var response_ = await _client.send('ListPredictors', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListPredictorsResponse.fromJson(response_);
   }
 
   /// Replaces any existing datasets in the dataset group with the specified
@@ -778,7 +897,11 @@ class ForecastApi {
   Future<UpdateDatasetGroupResponse> updateDatasetGroup(
       {@required String datasetGroupArn,
       @required List<String> datasetArns}) async {
-    return UpdateDatasetGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateDatasetGroup', {
+      'DatasetGroupArn': datasetGroupArn,
+      'DatasetArns': datasetArns,
+    });
+    return UpdateDatasetGroupResponse.fromJson(response_);
   }
 }
 
@@ -796,7 +919,11 @@ class CategoricalParameterRange {
     @required this.values,
   });
   static CategoricalParameterRange fromJson(Map<String, dynamic> json) =>
-      CategoricalParameterRange();
+      CategoricalParameterRange(
+        name: json['Name'] as String,
+        values: (json['Values'] as List).map((e) => e as String).toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies a continuous hyperparameter and it's range of tunable values. This
@@ -850,7 +977,15 @@ class ContinuousParameterRange {
     this.scalingType,
   });
   static ContinuousParameterRange fromJson(Map<String, dynamic> json) =>
-      ContinuousParameterRange();
+      ContinuousParameterRange(
+        name: json['Name'] as String,
+        maxValue: json['MaxValue'] as double,
+        minValue: json['MinValue'] as double,
+        scalingType: json.containsKey('ScalingType')
+            ? json['ScalingType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateDatasetGroupResponse {
@@ -861,7 +996,11 @@ class CreateDatasetGroupResponse {
     this.datasetGroupArn,
   });
   static CreateDatasetGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateDatasetGroupResponse();
+      CreateDatasetGroupResponse(
+        datasetGroupArn: json.containsKey('DatasetGroupArn')
+            ? json['DatasetGroupArn'] as String
+            : null,
+      );
 }
 
 class CreateDatasetImportJobResponse {
@@ -872,7 +1011,11 @@ class CreateDatasetImportJobResponse {
     this.datasetImportJobArn,
   });
   static CreateDatasetImportJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateDatasetImportJobResponse();
+      CreateDatasetImportJobResponse(
+        datasetImportJobArn: json.containsKey('DatasetImportJobArn')
+            ? json['DatasetImportJobArn'] as String
+            : null,
+      );
 }
 
 class CreateDatasetResponse {
@@ -883,7 +1026,11 @@ class CreateDatasetResponse {
     this.datasetArn,
   });
   static CreateDatasetResponse fromJson(Map<String, dynamic> json) =>
-      CreateDatasetResponse();
+      CreateDatasetResponse(
+        datasetArn: json.containsKey('DatasetArn')
+            ? json['DatasetArn'] as String
+            : null,
+      );
 }
 
 class CreateForecastExportJobResponse {
@@ -894,7 +1041,11 @@ class CreateForecastExportJobResponse {
     this.forecastExportJobArn,
   });
   static CreateForecastExportJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateForecastExportJobResponse();
+      CreateForecastExportJobResponse(
+        forecastExportJobArn: json.containsKey('ForecastExportJobArn')
+            ? json['ForecastExportJobArn'] as String
+            : null,
+      );
 }
 
 class CreateForecastResponse {
@@ -905,7 +1056,11 @@ class CreateForecastResponse {
     this.forecastArn,
   });
   static CreateForecastResponse fromJson(Map<String, dynamic> json) =>
-      CreateForecastResponse();
+      CreateForecastResponse(
+        forecastArn: json.containsKey('ForecastArn')
+            ? json['ForecastArn'] as String
+            : null,
+      );
 }
 
 class CreatePredictorResponse {
@@ -916,7 +1071,11 @@ class CreatePredictorResponse {
     this.predictorArn,
   });
   static CreatePredictorResponse fromJson(Map<String, dynamic> json) =>
-      CreatePredictorResponse();
+      CreatePredictorResponse(
+        predictorArn: json.containsKey('PredictorArn')
+            ? json['PredictorArn'] as String
+            : null,
+      );
 }
 
 /// The destination of an exported forecast and credentials to access the
@@ -929,8 +1088,10 @@ class DataDestination {
   DataDestination({
     @required this.s3Config,
   });
-  static DataDestination fromJson(Map<String, dynamic> json) =>
-      DataDestination();
+  static DataDestination fromJson(Map<String, dynamic> json) => DataDestination(
+        s3Config: S3Config.fromJson(json['S3Config']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The source of your training data and credentials to access the data. This
@@ -943,7 +1104,10 @@ class DataSource {
   DataSource({
     @required this.s3Config,
   });
-  static DataSource fromJson(Map<String, dynamic> json) => DataSource();
+  static DataSource fromJson(Map<String, dynamic> json) => DataSource(
+        s3Config: S3Config.fromJson(json['S3Config']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a summary of the dataset group properties used in the
@@ -971,7 +1135,20 @@ class DatasetGroupSummary {
     this.lastModificationTime,
   });
   static DatasetGroupSummary fromJson(Map<String, dynamic> json) =>
-      DatasetGroupSummary();
+      DatasetGroupSummary(
+        datasetGroupArn: json.containsKey('DatasetGroupArn')
+            ? json['DatasetGroupArn'] as String
+            : null,
+        datasetGroupName: json.containsKey('DatasetGroupName')
+            ? json['DatasetGroupName'] as String
+            : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 /// Provides a summary of the dataset import job properties used in the
@@ -1025,7 +1202,25 @@ class DatasetImportJobSummary {
     this.lastModificationTime,
   });
   static DatasetImportJobSummary fromJson(Map<String, dynamic> json) =>
-      DatasetImportJobSummary();
+      DatasetImportJobSummary(
+        datasetImportJobArn: json.containsKey('DatasetImportJobArn')
+            ? json['DatasetImportJobArn'] as String
+            : null,
+        datasetImportJobName: json.containsKey('DatasetImportJobName')
+            ? json['DatasetImportJobName'] as String
+            : null,
+        dataSource: json.containsKey('DataSource')
+            ? DataSource.fromJson(json['DataSource'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 /// Provides a summary of the dataset properties used in the ListDatasets
@@ -1062,7 +1257,24 @@ class DatasetSummary {
     this.creationTime,
     this.lastModificationTime,
   });
-  static DatasetSummary fromJson(Map<String, dynamic> json) => DatasetSummary();
+  static DatasetSummary fromJson(Map<String, dynamic> json) => DatasetSummary(
+        datasetArn: json.containsKey('DatasetArn')
+            ? json['DatasetArn'] as String
+            : null,
+        datasetName: json.containsKey('DatasetName')
+            ? json['DatasetName'] as String
+            : null,
+        datasetType: json.containsKey('DatasetType')
+            ? json['DatasetType'] as String
+            : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 class DescribeDatasetGroupResponse {
@@ -1122,7 +1334,25 @@ class DescribeDatasetGroupResponse {
     this.lastModificationTime,
   });
   static DescribeDatasetGroupResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDatasetGroupResponse();
+      DescribeDatasetGroupResponse(
+        datasetGroupName: json.containsKey('DatasetGroupName')
+            ? json['DatasetGroupName'] as String
+            : null,
+        datasetGroupArn: json.containsKey('DatasetGroupArn')
+            ? json['DatasetGroupArn'] as String
+            : null,
+        datasetArns: json.containsKey('DatasetArns')
+            ? (json['DatasetArns'] as List).map((e) => e as String).toList()
+            : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 class DescribeDatasetImportJobResponse {
@@ -1201,7 +1431,37 @@ class DescribeDatasetImportJobResponse {
     this.lastModificationTime,
   });
   static DescribeDatasetImportJobResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDatasetImportJobResponse();
+      DescribeDatasetImportJobResponse(
+        datasetImportJobName: json.containsKey('DatasetImportJobName')
+            ? json['DatasetImportJobName'] as String
+            : null,
+        datasetImportJobArn: json.containsKey('DatasetImportJobArn')
+            ? json['DatasetImportJobArn'] as String
+            : null,
+        datasetArn: json.containsKey('DatasetArn')
+            ? json['DatasetArn'] as String
+            : null,
+        timestampFormat: json.containsKey('TimestampFormat')
+            ? json['TimestampFormat'] as String
+            : null,
+        dataSource: json.containsKey('DataSource')
+            ? DataSource.fromJson(json['DataSource'])
+            : null,
+        fieldStatistics: json.containsKey('FieldStatistics')
+            ? (json['FieldStatistics'] as Map)
+                .map((k, v) => MapEntry(k as String, Statistics.fromJson(v)))
+            : null,
+        dataSize:
+            json.containsKey('DataSize') ? json['DataSize'] as double : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 class DescribeDatasetResponse {
@@ -1279,7 +1539,33 @@ class DescribeDatasetResponse {
     this.lastModificationTime,
   });
   static DescribeDatasetResponse fromJson(Map<String, dynamic> json) =>
-      DescribeDatasetResponse();
+      DescribeDatasetResponse(
+        datasetArn: json.containsKey('DatasetArn')
+            ? json['DatasetArn'] as String
+            : null,
+        datasetName: json.containsKey('DatasetName')
+            ? json['DatasetName'] as String
+            : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        datasetType: json.containsKey('DatasetType')
+            ? json['DatasetType'] as String
+            : null,
+        dataFrequency: json.containsKey('DataFrequency')
+            ? json['DataFrequency'] as String
+            : null,
+        schema:
+            json.containsKey('Schema') ? Schema.fromJson(json['Schema']) : null,
+        encryptionConfig: json.containsKey('EncryptionConfig')
+            ? EncryptionConfig.fromJson(json['EncryptionConfig'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 class DescribeForecastExportJobResponse {
@@ -1331,7 +1617,28 @@ class DescribeForecastExportJobResponse {
   });
   static DescribeForecastExportJobResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeForecastExportJobResponse();
+      DescribeForecastExportJobResponse(
+        forecastExportJobArn: json.containsKey('ForecastExportJobArn')
+            ? json['ForecastExportJobArn'] as String
+            : null,
+        forecastExportJobName: json.containsKey('ForecastExportJobName')
+            ? json['ForecastExportJobName'] as String
+            : null,
+        forecastArn: json.containsKey('ForecastArn')
+            ? json['ForecastArn'] as String
+            : null,
+        destination: json.containsKey('Destination')
+            ? DataDestination.fromJson(json['Destination'])
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 class DescribeForecastResponse {
@@ -1386,7 +1693,28 @@ class DescribeForecastResponse {
     this.lastModificationTime,
   });
   static DescribeForecastResponse fromJson(Map<String, dynamic> json) =>
-      DescribeForecastResponse();
+      DescribeForecastResponse(
+        forecastArn: json.containsKey('ForecastArn')
+            ? json['ForecastArn'] as String
+            : null,
+        forecastName: json.containsKey('ForecastName')
+            ? json['ForecastName'] as String
+            : null,
+        predictorArn: json.containsKey('PredictorArn')
+            ? json['PredictorArn'] as String
+            : null,
+        datasetGroupArn: json.containsKey('DatasetGroupArn')
+            ? json['DatasetGroupArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 class DescribePredictorResponse {
@@ -1491,7 +1819,62 @@ class DescribePredictorResponse {
     this.lastModificationTime,
   });
   static DescribePredictorResponse fromJson(Map<String, dynamic> json) =>
-      DescribePredictorResponse();
+      DescribePredictorResponse(
+        predictorArn: json.containsKey('PredictorArn')
+            ? json['PredictorArn'] as String
+            : null,
+        predictorName: json.containsKey('PredictorName')
+            ? json['PredictorName'] as String
+            : null,
+        algorithmArn: json.containsKey('AlgorithmArn')
+            ? json['AlgorithmArn'] as String
+            : null,
+        forecastHorizon: json.containsKey('ForecastHorizon')
+            ? json['ForecastHorizon'] as int
+            : null,
+        performAutoML: json.containsKey('PerformAutoML')
+            ? json['PerformAutoML'] as bool
+            : null,
+        performHpo:
+            json.containsKey('PerformHPO') ? json['PerformHPO'] as bool : null,
+        trainingParameters: json.containsKey('TrainingParameters')
+            ? (json['TrainingParameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        evaluationParameters: json.containsKey('EvaluationParameters')
+            ? EvaluationParameters.fromJson(json['EvaluationParameters'])
+            : null,
+        hpoConfig: json.containsKey('HPOConfig')
+            ? HyperParameterTuningJobConfig.fromJson(json['HPOConfig'])
+            : null,
+        inputDataConfig: json.containsKey('InputDataConfig')
+            ? InputDataConfig.fromJson(json['InputDataConfig'])
+            : null,
+        featurizationConfig: json.containsKey('FeaturizationConfig')
+            ? FeaturizationConfig.fromJson(json['FeaturizationConfig'])
+            : null,
+        encryptionConfig: json.containsKey('EncryptionConfig')
+            ? EncryptionConfig.fromJson(json['EncryptionConfig'])
+            : null,
+        datasetImportJobArns: json.containsKey('DatasetImportJobArns')
+            ? (json['DatasetImportJobArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        autoMLAlgorithmArns: json.containsKey('AutoMLAlgorithmArns')
+            ? (json['AutoMLAlgorithmArns'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 /// An AWS Key Management Service (KMS) key and an AWS Identity and Access
@@ -1514,7 +1897,11 @@ class EncryptionConfig {
     @required this.kmsKeyArn,
   });
   static EncryptionConfig fromJson(Map<String, dynamic> json) =>
-      EncryptionConfig();
+      EncryptionConfig(
+        roleArn: json['RoleArn'] as String,
+        kmsKeyArn: json['KMSKeyArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Parameters that define how to split a dataset into training data and testing
@@ -1545,7 +1932,15 @@ class EvaluationParameters {
     this.backTestWindowOffset,
   });
   static EvaluationParameters fromJson(Map<String, dynamic> json) =>
-      EvaluationParameters();
+      EvaluationParameters(
+        numberOfBacktestWindows: json.containsKey('NumberOfBacktestWindows')
+            ? json['NumberOfBacktestWindows'] as int
+            : null,
+        backTestWindowOffset: json.containsKey('BackTestWindowOffset')
+            ? json['BackTestWindowOffset'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The results of evaluating an algorithm. Returned as part of the
@@ -1564,7 +1959,16 @@ class EvaluationResult {
     this.testWindows,
   });
   static EvaluationResult fromJson(Map<String, dynamic> json) =>
-      EvaluationResult();
+      EvaluationResult(
+        algorithmArn: json.containsKey('AlgorithmArn')
+            ? json['AlgorithmArn'] as String
+            : null,
+        testWindows: json.containsKey('TestWindows')
+            ? (json['TestWindows'] as List)
+                .map((e) => WindowSummary.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides featurization (transformation) information for a dataset field.
@@ -1602,7 +2006,15 @@ class Featurization {
     @required this.attributeName,
     this.featurizationPipeline,
   });
-  static Featurization fromJson(Map<String, dynamic> json) => Featurization();
+  static Featurization fromJson(Map<String, dynamic> json) => Featurization(
+        attributeName: json['AttributeName'] as String,
+        featurizationPipeline: json.containsKey('FeaturizationPipeline')
+            ? (json['FeaturizationPipeline'] as List)
+                .map((e) => FeaturizationMethod.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// In a CreatePredictor operation, the specified algorithm trains a model using
@@ -1647,7 +2059,20 @@ class FeaturizationConfig {
     this.featurizations,
   });
   static FeaturizationConfig fromJson(Map<String, dynamic> json) =>
-      FeaturizationConfig();
+      FeaturizationConfig(
+        forecastFrequency: json['ForecastFrequency'] as String,
+        forecastDimensions: json.containsKey('ForecastDimensions')
+            ? (json['ForecastDimensions'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        featurizations: json.containsKey('Featurizations')
+            ? (json['Featurizations'] as List)
+                .map((e) => Featurization.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides information about a method that featurizes (transforms) a dataset
@@ -1688,7 +2113,15 @@ class FeaturizationMethod {
     this.featurizationMethodParameters,
   });
   static FeaturizationMethod fromJson(Map<String, dynamic> json) =>
-      FeaturizationMethod();
+      FeaturizationMethod(
+        featurizationMethodName: json['FeaturizationMethodName'] as String,
+        featurizationMethodParameters:
+            json.containsKey('FeaturizationMethodParameters')
+                ? (json['FeaturizationMethodParameters'] as Map)
+                    .map((k, v) => MapEntry(k as String, v as String))
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a filter for choosing a subset of objects. Each filter consists of
@@ -1710,6 +2143,7 @@ class Filter {
     @required this.value,
     @required this.condition,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a summary of the forecast export job properties used in the
@@ -1760,7 +2194,25 @@ class ForecastExportJobSummary {
     this.lastModificationTime,
   });
   static ForecastExportJobSummary fromJson(Map<String, dynamic> json) =>
-      ForecastExportJobSummary();
+      ForecastExportJobSummary(
+        forecastExportJobArn: json.containsKey('ForecastExportJobArn')
+            ? json['ForecastExportJobArn'] as String
+            : null,
+        forecastExportJobName: json.containsKey('ForecastExportJobName')
+            ? json['ForecastExportJobName'] as String
+            : null,
+        destination: json.containsKey('Destination')
+            ? DataDestination.fromJson(json['Destination'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 /// Provides a summary of the forecast properties used in the ListForecasts
@@ -1817,8 +2269,28 @@ class ForecastSummary {
     this.creationTime,
     this.lastModificationTime,
   });
-  static ForecastSummary fromJson(Map<String, dynamic> json) =>
-      ForecastSummary();
+  static ForecastSummary fromJson(Map<String, dynamic> json) => ForecastSummary(
+        forecastArn: json.containsKey('ForecastArn')
+            ? json['ForecastArn'] as String
+            : null,
+        forecastName: json.containsKey('ForecastName')
+            ? json['ForecastName'] as String
+            : null,
+        predictorArn: json.containsKey('PredictorArn')
+            ? json['PredictorArn'] as String
+            : null,
+        datasetGroupArn: json.containsKey('DatasetGroupArn')
+            ? json['DatasetGroupArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 class GetAccuracyMetricsResponse {
@@ -1829,7 +2301,14 @@ class GetAccuracyMetricsResponse {
     this.predictorEvaluationResults,
   });
   static GetAccuracyMetricsResponse fromJson(Map<String, dynamic> json) =>
-      GetAccuracyMetricsResponse();
+      GetAccuracyMetricsResponse(
+        predictorEvaluationResults:
+            json.containsKey('PredictorEvaluationResults')
+                ? (json['PredictorEvaluationResults'] as List)
+                    .map((e) => EvaluationResult.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Configuration information for a hyperparameter tuning job. This object is
@@ -1853,7 +2332,12 @@ class HyperParameterTuningJobConfig {
     this.parameterRanges,
   });
   static HyperParameterTuningJobConfig fromJson(Map<String, dynamic> json) =>
-      HyperParameterTuningJobConfig();
+      HyperParameterTuningJobConfig(
+        parameterRanges: json.containsKey('ParameterRanges')
+            ? ParameterRanges.fromJson(json['ParameterRanges'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The data used to train a predictor. The data includes a dataset group and
@@ -1871,8 +2355,15 @@ class InputDataConfig {
     @required this.datasetGroupArn,
     this.supplementaryFeatures,
   });
-  static InputDataConfig fromJson(Map<String, dynamic> json) =>
-      InputDataConfig();
+  static InputDataConfig fromJson(Map<String, dynamic> json) => InputDataConfig(
+        datasetGroupArn: json['DatasetGroupArn'] as String,
+        supplementaryFeatures: json.containsKey('SupplementaryFeatures')
+            ? (json['SupplementaryFeatures'] as List)
+                .map((e) => SupplementaryFeature.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Specifies an integer hyperparameter and it's range of tunable values. This
@@ -1925,7 +2416,15 @@ class IntegerParameterRange {
     this.scalingType,
   });
   static IntegerParameterRange fromJson(Map<String, dynamic> json) =>
-      IntegerParameterRange();
+      IntegerParameterRange(
+        name: json['Name'] as String,
+        maxValue: json['MaxValue'] as int,
+        minValue: json['MinValue'] as int,
+        scalingType: json.containsKey('ScalingType')
+            ? json['ScalingType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListDatasetGroupsResponse {
@@ -1941,7 +2440,15 @@ class ListDatasetGroupsResponse {
     this.nextToken,
   });
   static ListDatasetGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListDatasetGroupsResponse();
+      ListDatasetGroupsResponse(
+        datasetGroups: json.containsKey('DatasetGroups')
+            ? (json['DatasetGroups'] as List)
+                .map((e) => DatasetGroupSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDatasetImportJobsResponse {
@@ -1957,7 +2464,15 @@ class ListDatasetImportJobsResponse {
     this.nextToken,
   });
   static ListDatasetImportJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListDatasetImportJobsResponse();
+      ListDatasetImportJobsResponse(
+        datasetImportJobs: json.containsKey('DatasetImportJobs')
+            ? (json['DatasetImportJobs'] as List)
+                .map((e) => DatasetImportJobSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDatasetsResponse {
@@ -1973,7 +2488,15 @@ class ListDatasetsResponse {
     this.nextToken,
   });
   static ListDatasetsResponse fromJson(Map<String, dynamic> json) =>
-      ListDatasetsResponse();
+      ListDatasetsResponse(
+        datasets: json.containsKey('Datasets')
+            ? (json['Datasets'] as List)
+                .map((e) => DatasetSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListForecastExportJobsResponse {
@@ -1989,7 +2512,15 @@ class ListForecastExportJobsResponse {
     this.nextToken,
   });
   static ListForecastExportJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListForecastExportJobsResponse();
+      ListForecastExportJobsResponse(
+        forecastExportJobs: json.containsKey('ForecastExportJobs')
+            ? (json['ForecastExportJobs'] as List)
+                .map((e) => ForecastExportJobSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListForecastsResponse {
@@ -2005,7 +2536,15 @@ class ListForecastsResponse {
     this.nextToken,
   });
   static ListForecastsResponse fromJson(Map<String, dynamic> json) =>
-      ListForecastsResponse();
+      ListForecastsResponse(
+        forecasts: json.containsKey('Forecasts')
+            ? (json['Forecasts'] as List)
+                .map((e) => ForecastSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPredictorsResponse {
@@ -2021,7 +2560,15 @@ class ListPredictorsResponse {
     this.nextToken,
   });
   static ListPredictorsResponse fromJson(Map<String, dynamic> json) =>
-      ListPredictorsResponse();
+      ListPredictorsResponse(
+        predictors: json.containsKey('Predictors')
+            ? (json['Predictors'] as List)
+                .map((e) => PredictorSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Provides metrics used to evaluate the performance of a predictor. This
@@ -2039,7 +2586,14 @@ class Metrics {
     this.rmse,
     this.weightedQuantileLosses,
   });
-  static Metrics fromJson(Map<String, dynamic> json) => Metrics();
+  static Metrics fromJson(Map<String, dynamic> json) => Metrics(
+        rmse: json.containsKey('RMSE') ? json['RMSE'] as double : null,
+        weightedQuantileLosses: json.containsKey('WeightedQuantileLosses')
+            ? (json['WeightedQuantileLosses'] as List)
+                .map((e) => WeightedQuantileLoss.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Specifies the categorical, continuous, and integer hyperparameters, and
@@ -2062,8 +2616,25 @@ class ParameterRanges {
     this.continuousParameterRanges,
     this.integerParameterRanges,
   });
-  static ParameterRanges fromJson(Map<String, dynamic> json) =>
-      ParameterRanges();
+  static ParameterRanges fromJson(Map<String, dynamic> json) => ParameterRanges(
+        categoricalParameterRanges:
+            json.containsKey('CategoricalParameterRanges')
+                ? (json['CategoricalParameterRanges'] as List)
+                    .map((e) => CategoricalParameterRange.fromJson(e))
+                    .toList()
+                : null,
+        continuousParameterRanges: json.containsKey('ContinuousParameterRanges')
+            ? (json['ContinuousParameterRanges'] as List)
+                .map((e) => ContinuousParameterRange.fromJson(e))
+                .toList()
+            : null,
+        integerParameterRanges: json.containsKey('IntegerParameterRanges')
+            ? (json['IntegerParameterRanges'] as List)
+                .map((e) => IntegerParameterRange.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides a summary of the predictor properties used in the ListPredictors
@@ -2119,7 +2690,25 @@ class PredictorSummary {
     this.lastModificationTime,
   });
   static PredictorSummary fromJson(Map<String, dynamic> json) =>
-      PredictorSummary();
+      PredictorSummary(
+        predictorArn: json.containsKey('PredictorArn')
+            ? json['PredictorArn'] as String
+            : null,
+        predictorName: json.containsKey('PredictorName')
+            ? json['PredictorName'] as String
+            : null,
+        datasetGroupArn: json.containsKey('DatasetGroupArn')
+            ? json['DatasetGroupArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        creationTime: json.containsKey('CreationTime')
+            ? DateTime.parse(json['CreationTime'])
+            : null,
+        lastModificationTime: json.containsKey('LastModificationTime')
+            ? DateTime.parse(json['LastModificationTime'])
+            : null,
+      );
 }
 
 /// The path to the file(s) in an Amazon Simple Storage Service (Amazon S3)
@@ -2147,7 +2736,13 @@ class S3Config {
     @required this.roleArn,
     this.kmsKeyArn,
   });
-  static S3Config fromJson(Map<String, dynamic> json) => S3Config();
+  static S3Config fromJson(Map<String, dynamic> json) => S3Config(
+        path: json['Path'] as String,
+        roleArn: json['RoleArn'] as String,
+        kmsKeyArn:
+            json.containsKey('KMSKeyArn') ? json['KMSKeyArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Defines the fields of a dataset. This object is specified in the
@@ -2160,7 +2755,14 @@ class Schema {
   Schema({
     this.attributes,
   });
-  static Schema fromJson(Map<String, dynamic> json) => Schema();
+  static Schema fromJson(Map<String, dynamic> json) => Schema(
+        attributes: json.containsKey('Attributes')
+            ? (json['Attributes'] as List)
+                .map((e) => SchemaAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An attribute of a schema, which defines a field of a dataset. A schema
@@ -2177,8 +2779,15 @@ class SchemaAttribute {
     this.attributeName,
     this.attributeType,
   });
-  static SchemaAttribute fromJson(Map<String, dynamic> json) =>
-      SchemaAttribute();
+  static SchemaAttribute fromJson(Map<String, dynamic> json) => SchemaAttribute(
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+        attributeType: json.containsKey('AttributeType')
+            ? json['AttributeType'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Provides statistics for each data field imported to an Amazon Forecast
@@ -2218,7 +2827,19 @@ class Statistics {
     this.avg,
     this.stddev,
   });
-  static Statistics fromJson(Map<String, dynamic> json) => Statistics();
+  static Statistics fromJson(Map<String, dynamic> json) => Statistics(
+        count: json.containsKey('Count') ? json['Count'] as int : null,
+        countDistinct: json.containsKey('CountDistinct')
+            ? json['CountDistinct'] as int
+            : null,
+        countNull:
+            json.containsKey('CountNull') ? json['CountNull'] as int : null,
+        countNan: json.containsKey('CountNan') ? json['CountNan'] as int : null,
+        min: json.containsKey('Min') ? json['Min'] as String : null,
+        max: json.containsKey('Max') ? json['Max'] as String : null,
+        avg: json.containsKey('Avg') ? json['Avg'] as double : null,
+        stddev: json.containsKey('Stddev') ? json['Stddev'] as double : null,
+      );
 }
 
 /// Describes a supplementary feature of a dataset group. This object is part of
@@ -2250,7 +2871,11 @@ class SupplementaryFeature {
     @required this.value,
   });
   static SupplementaryFeature fromJson(Map<String, dynamic> json) =>
-      SupplementaryFeature();
+      SupplementaryFeature(
+        name: json['Name'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateDatasetGroupResponse {
@@ -2277,7 +2902,12 @@ class WeightedQuantileLoss {
     this.lossValue,
   });
   static WeightedQuantileLoss fromJson(Map<String, dynamic> json) =>
-      WeightedQuantileLoss();
+      WeightedQuantileLoss(
+        quantile:
+            json.containsKey('Quantile') ? json['Quantile'] as double : null,
+        lossValue:
+            json.containsKey('LossValue') ? json['LossValue'] as double : null,
+      );
 }
 
 /// The metrics for a time range within the evaluation portion of a dataset.
@@ -2311,5 +2941,20 @@ class WindowSummary {
     this.evaluationType,
     this.metrics,
   });
-  static WindowSummary fromJson(Map<String, dynamic> json) => WindowSummary();
+  static WindowSummary fromJson(Map<String, dynamic> json) => WindowSummary(
+        testWindowStart: json.containsKey('TestWindowStart')
+            ? DateTime.parse(json['TestWindowStart'])
+            : null,
+        testWindowEnd: json.containsKey('TestWindowEnd')
+            ? DateTime.parse(json['TestWindowEnd'])
+            : null,
+        itemCount:
+            json.containsKey('ItemCount') ? json['ItemCount'] as int : null,
+        evaluationType: json.containsKey('EvaluationType')
+            ? json['EvaluationType'] as String
+            : null,
+        metrics: json.containsKey('Metrics')
+            ? Metrics.fromJson(json['Metrics'])
+            : null,
+      );
 }

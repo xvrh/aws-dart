@@ -38,6 +38,9 @@ import 'package:meta/meta.dart';
 /// *    `UpdateEnvironmentMembership`: Changes the settings of an existing
 /// environment member for an environment.
 class Cloud9Api {
+  final _client;
+  Cloud9Api(client) : _client = client.configured('Cloud9', serializer: 'json');
+
   /// Creates an AWS Cloud9 development environment, launches an Amazon Elastic
   /// Compute Cloud (Amazon EC2) instance, and then connects from the instance
   /// to the environment.
@@ -75,7 +78,17 @@ class Cloud9Api {
       String subnetId,
       int automaticStopTimeMinutes,
       String ownerArn}) async {
-    return CreateEnvironmentEc2Result.fromJson({});
+    var response_ = await _client.send('CreateEnvironmentEC2', {
+      'name': name,
+      if (description != null) 'description': description,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+      'instanceType': instanceType,
+      if (subnetId != null) 'subnetId': subnetId,
+      if (automaticStopTimeMinutes != null)
+        'automaticStopTimeMinutes': automaticStopTimeMinutes,
+      if (ownerArn != null) 'ownerArn': ownerArn,
+    });
+    return CreateEnvironmentEc2Result.fromJson(response_);
   }
 
   /// Adds an environment member to an AWS Cloud9 development environment.
@@ -96,7 +109,12 @@ class Cloud9Api {
       {@required String environmentId,
       @required String userArn,
       @required String permissions}) async {
-    return CreateEnvironmentMembershipResult.fromJson({});
+    var response_ = await _client.send('CreateEnvironmentMembership', {
+      'environmentId': environmentId,
+      'userArn': userArn,
+      'permissions': permissions,
+    });
+    return CreateEnvironmentMembershipResult.fromJson(response_);
   }
 
   /// Deletes an AWS Cloud9 development environment. If an Amazon EC2 instance
@@ -105,7 +123,10 @@ class Cloud9Api {
   /// [environmentId]: The ID of the environment to delete.
   Future<DeleteEnvironmentResult> deleteEnvironment(
       String environmentId) async {
-    return DeleteEnvironmentResult.fromJson({});
+    var response_ = await _client.send('DeleteEnvironment', {
+      'environmentId': environmentId,
+    });
+    return DeleteEnvironmentResult.fromJson(response_);
   }
 
   /// Deletes an environment member from an AWS Cloud9 development environment.
@@ -117,7 +138,11 @@ class Cloud9Api {
   /// delete from the environment.
   Future<DeleteEnvironmentMembershipResult> deleteEnvironmentMembership(
       {@required String environmentId, @required String userArn}) async {
-    return DeleteEnvironmentMembershipResult.fromJson({});
+    var response_ = await _client.send('DeleteEnvironmentMembership', {
+      'environmentId': environmentId,
+      'userArn': userArn,
+    });
+    return DeleteEnvironmentMembershipResult.fromJson(response_);
   }
 
   /// Gets information about environment members for an AWS Cloud9 development
@@ -158,7 +183,14 @@ class Cloud9Api {
       List<String> permissions,
       String nextToken,
       int maxResults}) async {
-    return DescribeEnvironmentMembershipsResult.fromJson({});
+    var response_ = await _client.send('DescribeEnvironmentMemberships', {
+      if (userArn != null) 'userArn': userArn,
+      if (environmentId != null) 'environmentId': environmentId,
+      if (permissions != null) 'permissions': permissions,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return DescribeEnvironmentMembershipsResult.fromJson(response_);
   }
 
   /// Gets status information for an AWS Cloud9 development environment.
@@ -167,7 +199,10 @@ class Cloud9Api {
   /// about.
   Future<DescribeEnvironmentStatusResult> describeEnvironmentStatus(
       String environmentId) async {
-    return DescribeEnvironmentStatusResult.fromJson({});
+    var response_ = await _client.send('DescribeEnvironmentStatus', {
+      'environmentId': environmentId,
+    });
+    return DescribeEnvironmentStatusResult.fromJson(response_);
   }
 
   /// Gets information about AWS Cloud9 development environments.
@@ -176,7 +211,10 @@ class Cloud9Api {
   /// about.
   Future<DescribeEnvironmentsResult> describeEnvironments(
       List<String> environmentIds) async {
-    return DescribeEnvironmentsResult.fromJson({});
+    var response_ = await _client.send('DescribeEnvironments', {
+      'environmentIds': environmentIds,
+    });
+    return DescribeEnvironmentsResult.fromJson(response_);
   }
 
   /// Gets a list of AWS Cloud9 development environment identifiers.
@@ -191,7 +229,11 @@ class Cloud9Api {
   /// [maxResults]: The maximum number of environments to get identifiers for.
   Future<ListEnvironmentsResult> listEnvironments(
       {String nextToken, int maxResults}) async {
-    return ListEnvironmentsResult.fromJson({});
+    var response_ = await _client.send('ListEnvironments', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListEnvironmentsResult.fromJson(response_);
   }
 
   /// Changes the settings of an existing AWS Cloud9 development environment.
@@ -203,7 +245,12 @@ class Cloud9Api {
   /// [description]: Any new or replacement description for the environment.
   Future<UpdateEnvironmentResult> updateEnvironment(String environmentId,
       {String name, String description}) async {
-    return UpdateEnvironmentResult.fromJson({});
+    var response_ = await _client.send('UpdateEnvironment', {
+      'environmentId': environmentId,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+    });
+    return UpdateEnvironmentResult.fromJson(response_);
   }
 
   /// Changes the settings of an existing environment member for an AWS Cloud9
@@ -225,7 +272,12 @@ class Cloud9Api {
       {@required String environmentId,
       @required String userArn,
       @required String permissions}) async {
-    return UpdateEnvironmentMembershipResult.fromJson({});
+    var response_ = await _client.send('UpdateEnvironmentMembership', {
+      'environmentId': environmentId,
+      'userArn': userArn,
+      'permissions': permissions,
+    });
+    return UpdateEnvironmentMembershipResult.fromJson(response_);
   }
 }
 
@@ -237,7 +289,11 @@ class CreateEnvironmentEc2Result {
     this.environmentId,
   });
   static CreateEnvironmentEc2Result fromJson(Map<String, dynamic> json) =>
-      CreateEnvironmentEc2Result();
+      CreateEnvironmentEc2Result(
+        environmentId: json.containsKey('environmentId')
+            ? json['environmentId'] as String
+            : null,
+      );
 }
 
 class CreateEnvironmentMembershipResult {
@@ -249,7 +305,11 @@ class CreateEnvironmentMembershipResult {
   });
   static CreateEnvironmentMembershipResult fromJson(
           Map<String, dynamic> json) =>
-      CreateEnvironmentMembershipResult();
+      CreateEnvironmentMembershipResult(
+        membership: json.containsKey('membership')
+            ? EnvironmentMember.fromJson(json['membership'])
+            : null,
+      );
 }
 
 class DeleteEnvironmentMembershipResult {
@@ -281,7 +341,15 @@ class DescribeEnvironmentMembershipsResult {
   });
   static DescribeEnvironmentMembershipsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEnvironmentMembershipsResult();
+      DescribeEnvironmentMembershipsResult(
+        memberships: json.containsKey('memberships')
+            ? (json['memberships'] as List)
+                .map((e) => EnvironmentMember.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeEnvironmentStatusResult {
@@ -310,7 +378,10 @@ class DescribeEnvironmentStatusResult {
     this.message,
   });
   static DescribeEnvironmentStatusResult fromJson(Map<String, dynamic> json) =>
-      DescribeEnvironmentStatusResult();
+      DescribeEnvironmentStatusResult(
+        status: json.containsKey('status') ? json['status'] as String : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 class DescribeEnvironmentsResult {
@@ -321,7 +392,13 @@ class DescribeEnvironmentsResult {
     this.environments,
   });
   static DescribeEnvironmentsResult fromJson(Map<String, dynamic> json) =>
-      DescribeEnvironmentsResult();
+      DescribeEnvironmentsResult(
+        environments: json.containsKey('environments')
+            ? (json['environments'] as List)
+                .map((e) => Environment.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about an AWS Cloud9 development environment.
@@ -361,7 +438,20 @@ class Environment {
     this.ownerArn,
     this.lifecycle,
   });
-  static Environment fromJson(Map<String, dynamic> json) => Environment();
+  static Environment fromJson(Map<String, dynamic> json) => Environment(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        ownerArn:
+            json.containsKey('ownerArn') ? json['ownerArn'] as String : null,
+        lifecycle: json.containsKey('lifecycle')
+            ? EnvironmentLifecycle.fromJson(json['lifecycle'])
+            : null,
+      );
 }
 
 /// Information about the current creation or deletion lifecycle state of an AWS
@@ -389,7 +479,13 @@ class EnvironmentLifecycle {
     this.failureResource,
   });
   static EnvironmentLifecycle fromJson(Map<String, dynamic> json) =>
-      EnvironmentLifecycle();
+      EnvironmentLifecycle(
+        status: json.containsKey('status') ? json['status'] as String : null,
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+        failureResource: json.containsKey('failureResource')
+            ? json['failureResource'] as String
+            : null,
+      );
 }
 
 /// Information about an environment member for an AWS Cloud9 development
@@ -427,7 +523,19 @@ class EnvironmentMember {
     this.lastAccess,
   });
   static EnvironmentMember fromJson(Map<String, dynamic> json) =>
-      EnvironmentMember();
+      EnvironmentMember(
+        permissions: json.containsKey('permissions')
+            ? json['permissions'] as String
+            : null,
+        userId: json.containsKey('userId') ? json['userId'] as String : null,
+        userArn: json.containsKey('userArn') ? json['userArn'] as String : null,
+        environmentId: json.containsKey('environmentId')
+            ? json['environmentId'] as String
+            : null,
+        lastAccess: json.containsKey('lastAccess')
+            ? DateTime.parse(json['lastAccess'])
+            : null,
+      );
 }
 
 class ListEnvironmentsResult {
@@ -445,7 +553,13 @@ class ListEnvironmentsResult {
     this.environmentIds,
   });
   static ListEnvironmentsResult fromJson(Map<String, dynamic> json) =>
-      ListEnvironmentsResult();
+      ListEnvironmentsResult(
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+        environmentIds: json.containsKey('environmentIds')
+            ? (json['environmentIds'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class UpdateEnvironmentMembershipResult {
@@ -457,7 +571,11 @@ class UpdateEnvironmentMembershipResult {
   });
   static UpdateEnvironmentMembershipResult fromJson(
           Map<String, dynamic> json) =>
-      UpdateEnvironmentMembershipResult();
+      UpdateEnvironmentMembershipResult(
+        membership: json.containsKey('membership')
+            ? EnvironmentMember.fromJson(json['membership'])
+            : null,
+      );
 }
 
 class UpdateEnvironmentResult {

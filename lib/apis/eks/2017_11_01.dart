@@ -14,6 +14,9 @@ import 'package:meta/meta.dart';
 /// migrate any standard Kubernetes application to Amazon EKS without any code
 /// modification required.
 class EksApi {
+  final _client;
+  EksApi(client) : _client = client.configured('EKS', serializer: 'rest-json');
+
   /// Creates an Amazon EKS control plane.
   ///
   /// The Amazon EKS control plane consists of control plane instances that run
@@ -108,7 +111,16 @@ class EksApi {
       Logging logging,
       String clientRequestToken,
       Map<String, String> tags}) async {
-    return CreateClusterResponse.fromJson({});
+    var response_ = await _client.send('CreateCluster', {
+      'name': name,
+      if (version != null) 'version': version,
+      'roleArn': roleArn,
+      'resourcesVpcConfig': resourcesVpcConfig,
+      if (logging != null) 'logging': logging,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateClusterResponse.fromJson(response_);
   }
 
   /// Deletes the Amazon EKS cluster control plane.
@@ -125,7 +137,10 @@ class EksApi {
   ///
   /// [name]: The name of the cluster to delete.
   Future<DeleteClusterResponse> deleteCluster(String name) async {
-    return DeleteClusterResponse.fromJson({});
+    var response_ = await _client.send('DeleteCluster', {
+      'name': name,
+    });
+    return DeleteClusterResponse.fromJson(response_);
   }
 
   /// Returns descriptive information about an Amazon EKS cluster.
@@ -142,7 +157,10 @@ class EksApi {
   ///
   /// [name]: The name of the cluster to describe.
   Future<DescribeClusterResponse> describeCluster(String name) async {
-    return DescribeClusterResponse.fromJson({});
+    var response_ = await _client.send('DescribeCluster', {
+      'name': name,
+    });
+    return DescribeClusterResponse.fromJson(response_);
   }
 
   /// Returns descriptive information about an update against your Amazon EKS
@@ -157,7 +175,11 @@ class EksApi {
   /// [updateId]: The ID of the update to describe.
   Future<DescribeUpdateResponse> describeUpdate(
       {@required String name, @required String updateId}) async {
-    return DescribeUpdateResponse.fromJson({});
+    var response_ = await _client.send('DescribeUpdate', {
+      'name': name,
+      'updateId': updateId,
+    });
+    return DescribeUpdateResponse.fromJson(response_);
   }
 
   /// Lists the Amazon EKS clusters in your AWS account in the specified Region.
@@ -182,7 +204,11 @@ class EksApi {
   /// retrieve the next items in a list and not for other programmatic purposes.
   Future<ListClustersResponse> listClusters(
       {int maxResults, String nextToken}) async {
-    return ListClustersResponse.fromJson({});
+    var response_ = await _client.send('ListClusters', {
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListClustersResponse.fromJson(response_);
   }
 
   /// List the tags for an Amazon EKS resource.
@@ -192,7 +218,10 @@ class EksApi {
   /// EKS clusters.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'resourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Lists the updates associated with an Amazon EKS cluster in your AWS
@@ -215,7 +244,12 @@ class EksApi {
   /// `nextToken` value if applicable.
   Future<ListUpdatesResponse> listUpdates(String name,
       {String nextToken, int maxResults}) async {
-    return ListUpdatesResponse.fromJson({});
+    var response_ = await _client.send('ListUpdates', {
+      'name': name,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListUpdatesResponse.fromJson(response_);
   }
 
   /// Associates the specified tags to a resource with the specified
@@ -231,7 +265,11 @@ class EksApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'resourceArn': resourceArn,
+      'tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Deletes specified tags from a resource.
@@ -243,7 +281,11 @@ class EksApi {
   /// [tagKeys]: The keys of the tags to be removed.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'resourceArn': resourceArn,
+      'tagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates an Amazon EKS cluster configuration. Your cluster continues to
@@ -297,7 +339,13 @@ class EksApi {
       {VpcConfigRequest resourcesVpcConfig,
       Logging logging,
       String clientRequestToken}) async {
-    return UpdateClusterConfigResponse.fromJson({});
+    var response_ = await _client.send('UpdateClusterConfig', {
+      'name': name,
+      if (resourcesVpcConfig != null) 'resourcesVpcConfig': resourcesVpcConfig,
+      if (logging != null) 'logging': logging,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+    });
+    return UpdateClusterConfigResponse.fromJson(response_);
   }
 
   /// Updates an Amazon EKS cluster to the specified Kubernetes version. Your
@@ -320,7 +368,12 @@ class EksApi {
       {@required String name,
       @required String version,
       String clientRequestToken}) async {
-    return UpdateClusterVersionResponse.fromJson({});
+    var response_ = await _client.send('UpdateClusterVersion', {
+      'name': name,
+      'version': version,
+      if (clientRequestToken != null) 'clientRequestToken': clientRequestToken,
+    });
+    return UpdateClusterVersionResponse.fromJson(response_);
   }
 }
 
@@ -334,7 +387,9 @@ class Certificate {
   Certificate({
     this.data,
   });
-  static Certificate fromJson(Map<String, dynamic> json) => Certificate();
+  static Certificate fromJson(Map<String, dynamic> json) => Certificate(
+        data: json.containsKey('data') ? json['data'] as String : null,
+      );
 }
 
 /// An object representing an Amazon EKS cluster.
@@ -410,7 +465,40 @@ class Cluster {
     this.platformVersion,
     this.tags,
   });
-  static Cluster fromJson(Map<String, dynamic> json) => Cluster();
+  static Cluster fromJson(Map<String, dynamic> json) => Cluster(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        arn: json.containsKey('arn') ? json['arn'] as String : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        endpoint:
+            json.containsKey('endpoint') ? json['endpoint'] as String : null,
+        roleArn: json.containsKey('roleArn') ? json['roleArn'] as String : null,
+        resourcesVpcConfig: json.containsKey('resourcesVpcConfig')
+            ? VpcConfigResponse.fromJson(json['resourcesVpcConfig'])
+            : null,
+        logging: json.containsKey('logging')
+            ? Logging.fromJson(json['logging'])
+            : null,
+        identity: json.containsKey('identity')
+            ? Identity.fromJson(json['identity'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        certificateAuthority: json.containsKey('certificateAuthority')
+            ? Certificate.fromJson(json['certificateAuthority'])
+            : null,
+        clientRequestToken: json.containsKey('clientRequestToken')
+            ? json['clientRequestToken'] as String
+            : null,
+        platformVersion: json.containsKey('platformVersion')
+            ? json['platformVersion'] as String
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class CreateClusterResponse {
@@ -421,7 +509,11 @@ class CreateClusterResponse {
     this.cluster,
   });
   static CreateClusterResponse fromJson(Map<String, dynamic> json) =>
-      CreateClusterResponse();
+      CreateClusterResponse(
+        cluster: json.containsKey('cluster')
+            ? Cluster.fromJson(json['cluster'])
+            : null,
+      );
 }
 
 class DeleteClusterResponse {
@@ -432,7 +524,11 @@ class DeleteClusterResponse {
     this.cluster,
   });
   static DeleteClusterResponse fromJson(Map<String, dynamic> json) =>
-      DeleteClusterResponse();
+      DeleteClusterResponse(
+        cluster: json.containsKey('cluster')
+            ? Cluster.fromJson(json['cluster'])
+            : null,
+      );
 }
 
 class DescribeClusterResponse {
@@ -443,7 +539,11 @@ class DescribeClusterResponse {
     this.cluster,
   });
   static DescribeClusterResponse fromJson(Map<String, dynamic> json) =>
-      DescribeClusterResponse();
+      DescribeClusterResponse(
+        cluster: json.containsKey('cluster')
+            ? Cluster.fromJson(json['cluster'])
+            : null,
+      );
 }
 
 class DescribeUpdateResponse {
@@ -454,7 +554,10 @@ class DescribeUpdateResponse {
     this.update,
   });
   static DescribeUpdateResponse fromJson(Map<String, dynamic> json) =>
-      DescribeUpdateResponse();
+      DescribeUpdateResponse(
+        update:
+            json.containsKey('update') ? Update.fromJson(json['update']) : null,
+      );
 }
 
 /// An object representing an error when an asynchronous operation fails.
@@ -495,7 +598,16 @@ class ErrorDetail {
     this.errorMessage,
     this.resourceIds,
   });
-  static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail();
+  static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail(
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+        resourceIds: json.containsKey('resourceIds')
+            ? (json['resourceIds'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// An object representing an identity provider for authentication credentials.
@@ -507,7 +619,9 @@ class Identity {
   Identity({
     this.oidc,
   });
-  static Identity fromJson(Map<String, dynamic> json) => Identity();
+  static Identity fromJson(Map<String, dynamic> json) => Identity(
+        oidc: json.containsKey('oidc') ? Oidc.fromJson(json['oidc']) : null,
+      );
 }
 
 class ListClustersResponse {
@@ -525,7 +639,13 @@ class ListClustersResponse {
     this.nextToken,
   });
   static ListClustersResponse fromJson(Map<String, dynamic> json) =>
-      ListClustersResponse();
+      ListClustersResponse(
+        clusters: json.containsKey('clusters')
+            ? (json['clusters'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -536,7 +656,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 class ListUpdatesResponse {
@@ -554,7 +679,13 @@ class ListUpdatesResponse {
     this.nextToken,
   });
   static ListUpdatesResponse fromJson(Map<String, dynamic> json) =>
-      ListUpdatesResponse();
+      ListUpdatesResponse(
+        updateIds: json.containsKey('updateIds')
+            ? (json['updateIds'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// An object representing the enabled or disabled Kubernetes control plane logs
@@ -573,7 +704,13 @@ class LogSetup {
     this.types,
     this.enabled,
   });
-  static LogSetup fromJson(Map<String, dynamic> json) => LogSetup();
+  static LogSetup fromJson(Map<String, dynamic> json) => LogSetup(
+        types: json.containsKey('types')
+            ? (json['types'] as List).map((e) => e as String).toList()
+            : null,
+        enabled: json.containsKey('enabled') ? json['enabled'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the logging configuration for resources in your
@@ -585,7 +722,14 @@ class Logging {
   Logging({
     this.clusterLogging,
   });
-  static Logging fromJson(Map<String, dynamic> json) => Logging();
+  static Logging fromJson(Map<String, dynamic> json) => Logging(
+        clusterLogging: json.containsKey('clusterLogging')
+            ? (json['clusterLogging'] as List)
+                .map((e) => LogSetup.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the [OpenID Connect](https://openid.net/connect/)
@@ -597,7 +741,9 @@ class Oidc {
   Oidc({
     this.issuer,
   });
-  static Oidc fromJson(Map<String, dynamic> json) => Oidc();
+  static Oidc fromJson(Map<String, dynamic> json) => Oidc(
+        issuer: json.containsKey('issuer') ? json['issuer'] as String : null,
+      );
 }
 
 class TagResourceResponse {
@@ -640,7 +786,24 @@ class Update {
     this.createdAt,
     this.errors,
   });
-  static Update fromJson(Map<String, dynamic> json) => Update();
+  static Update fromJson(Map<String, dynamic> json) => Update(
+        id: json.containsKey('id') ? json['id'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        params: json.containsKey('params')
+            ? (json['params'] as List)
+                .map((e) => UpdateParam.fromJson(e))
+                .toList()
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? DateTime.parse(json['createdAt'])
+            : null,
+        errors: json.containsKey('errors')
+            ? (json['errors'] as List)
+                .map((e) => ErrorDetail.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class UpdateClusterConfigResponse {
@@ -650,7 +813,10 @@ class UpdateClusterConfigResponse {
     this.update,
   });
   static UpdateClusterConfigResponse fromJson(Map<String, dynamic> json) =>
-      UpdateClusterConfigResponse();
+      UpdateClusterConfigResponse(
+        update:
+            json.containsKey('update') ? Update.fromJson(json['update']) : null,
+      );
 }
 
 class UpdateClusterVersionResponse {
@@ -661,7 +827,10 @@ class UpdateClusterVersionResponse {
     this.update,
   });
   static UpdateClusterVersionResponse fromJson(Map<String, dynamic> json) =>
-      UpdateClusterVersionResponse();
+      UpdateClusterVersionResponse(
+        update:
+            json.containsKey('update') ? Update.fromJson(json['update']) : null,
+      );
 }
 
 /// An object representing the details of an update request.
@@ -676,7 +845,10 @@ class UpdateParam {
     this.type,
     this.value,
   });
-  static UpdateParam fromJson(Map<String, dynamic> json) => UpdateParam();
+  static UpdateParam fromJson(Map<String, dynamic> json) => UpdateParam(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
 }
 
 /// An object representing the VPC configuration to use for an Amazon EKS
@@ -717,6 +889,7 @@ class VpcConfigRequest {
     this.endpointPublicAccess,
     this.endpointPrivateAccess,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing an Amazon EKS cluster VPC configuration response.
@@ -752,5 +925,21 @@ class VpcConfigResponse {
     this.endpointPrivateAccess,
   });
   static VpcConfigResponse fromJson(Map<String, dynamic> json) =>
-      VpcConfigResponse();
+      VpcConfigResponse(
+        subnetIds: json.containsKey('subnetIds')
+            ? (json['subnetIds'] as List).map((e) => e as String).toList()
+            : null,
+        securityGroupIds: json.containsKey('securityGroupIds')
+            ? (json['securityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        vpcId: json.containsKey('vpcId') ? json['vpcId'] as String : null,
+        endpointPublicAccess: json.containsKey('endpointPublicAccess')
+            ? json['endpointPublicAccess'] as bool
+            : null,
+        endpointPrivateAccess: json.containsKey('endpointPrivateAccess')
+            ? json['endpointPrivateAccess'] as bool
+            : null,
+      );
 }

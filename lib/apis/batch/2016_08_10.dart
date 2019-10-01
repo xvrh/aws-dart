@@ -19,6 +19,10 @@ import 'package:meta/meta.dart';
 /// it easy for developers, scientists, and engineers to run their batch jobs in
 /// the AWS Cloud.
 class BatchApi {
+  final _client;
+  BatchApi(client)
+      : _client = client.configured('Batch', serializer: 'rest-json');
+
   /// Cancels a job in an AWS Batch job queue. Jobs that are in the `SUBMITTED`,
   /// `PENDING`, or `RUNNABLE` state are cancelled. Jobs that have progressed to
   /// `STARTING` or `RUNNING` are not cancelled (but the API operation still
@@ -32,7 +36,11 @@ class BatchApi {
   /// on the job. This message is also recorded in the AWS Batch activity logs.
   Future<CancelJobResponse> cancelJob(
       {@required String jobId, @required String reason}) async {
-    return CancelJobResponse.fromJson({});
+    var response_ = await _client.send('CancelJob', {
+      'jobId': jobId,
+      'reason': reason,
+    });
+    return CancelJobResponse.fromJson(response_);
   }
 
   /// Creates an AWS Batch compute environment. You can create `MANAGED` or
@@ -118,7 +126,14 @@ class BatchApi {
       String state,
       ComputeResource computeResources,
       @required String serviceRole}) async {
-    return CreateComputeEnvironmentResponse.fromJson({});
+    var response_ = await _client.send('CreateComputeEnvironment', {
+      'computeEnvironmentName': computeEnvironmentName,
+      'type': type,
+      if (state != null) 'state': state,
+      if (computeResources != null) 'computeResources': computeResources,
+      'serviceRole': serviceRole,
+    });
+    return CreateComputeEnvironmentResponse.fromJson(response_);
   }
 
   /// Creates an AWS Batch job queue. When you create a job queue, you associate
@@ -154,7 +169,13 @@ class BatchApi {
       String state,
       @required int priority,
       @required List<ComputeEnvironmentOrder> computeEnvironmentOrder}) async {
-    return CreateJobQueueResponse.fromJson({});
+    var response_ = await _client.send('CreateJobQueue', {
+      'jobQueueName': jobQueueName,
+      if (state != null) 'state': state,
+      'priority': priority,
+      'computeEnvironmentOrder': computeEnvironmentOrder,
+    });
+    return CreateJobQueueResponse.fromJson(response_);
   }
 
   /// Deletes an AWS Batch compute environment.
@@ -167,7 +188,10 @@ class BatchApi {
   /// compute environment to delete.
   Future<DeleteComputeEnvironmentResponse> deleteComputeEnvironment(
       String computeEnvironment) async {
-    return DeleteComputeEnvironmentResponse.fromJson({});
+    var response_ = await _client.send('DeleteComputeEnvironment', {
+      'computeEnvironment': computeEnvironment,
+    });
+    return DeleteComputeEnvironmentResponse.fromJson(response_);
   }
 
   /// Deletes the specified job queue. You must first disable submissions for a
@@ -180,7 +204,10 @@ class BatchApi {
   /// [jobQueue]: The short name or full Amazon Resource Name (ARN) of the queue
   /// to delete.
   Future<DeleteJobQueueResponse> deleteJobQueue(String jobQueue) async {
-    return DeleteJobQueueResponse.fromJson({});
+    var response_ = await _client.send('DeleteJobQueue', {
+      'jobQueue': jobQueue,
+    });
+    return DeleteJobQueueResponse.fromJson(response_);
   }
 
   /// Deregisters an AWS Batch job definition.
@@ -189,7 +216,10 @@ class BatchApi {
   /// Resource Name (ARN) of the job definition to deregister.
   Future<DeregisterJobDefinitionResponse> deregisterJobDefinition(
       String jobDefinition) async {
-    return DeregisterJobDefinitionResponse.fromJson({});
+    var response_ = await _client.send('DeregisterJobDefinition', {
+      'jobDefinition': jobDefinition,
+    });
+    return DeregisterJobDefinitionResponse.fromJson(response_);
   }
 
   /// Describes one or more of your compute environments.
@@ -225,7 +255,13 @@ class BatchApi {
       {List<String> computeEnvironments,
       int maxResults,
       String nextToken}) async {
-    return DescribeComputeEnvironmentsResponse.fromJson({});
+    var response_ = await _client.send('DescribeComputeEnvironments', {
+      if (computeEnvironments != null)
+        'computeEnvironments': computeEnvironments,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeComputeEnvironmentsResponse.fromJson(response_);
   }
 
   /// Describes a list of job definitions. You can specify a `status` (such as
@@ -264,7 +300,14 @@ class BatchApi {
       String jobDefinitionName,
       String status,
       String nextToken}) async {
-    return DescribeJobDefinitionsResponse.fromJson({});
+    var response_ = await _client.send('DescribeJobDefinitions', {
+      if (jobDefinitions != null) 'jobDefinitions': jobDefinitions,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (jobDefinitionName != null) 'jobDefinitionName': jobDefinitionName,
+      if (status != null) 'status': status,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeJobDefinitionsResponse.fromJson(response_);
   }
 
   /// Describes one or more of your job queues.
@@ -293,14 +336,22 @@ class BatchApi {
   /// retrieve the next items in a list and not for other programmatic purposes.
   Future<DescribeJobQueuesResponse> describeJobQueues(
       {List<String> jobQueues, int maxResults, String nextToken}) async {
-    return DescribeJobQueuesResponse.fromJson({});
+    var response_ = await _client.send('DescribeJobQueues', {
+      if (jobQueues != null) 'jobQueues': jobQueues,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return DescribeJobQueuesResponse.fromJson(response_);
   }
 
   /// Describes a list of AWS Batch jobs.
   ///
   /// [jobs]: A list of up to 100 job IDs.
   Future<DescribeJobsResponse> describeJobs(List<String> jobs) async {
-    return DescribeJobsResponse.fromJson({});
+    var response_ = await _client.send('DescribeJobs', {
+      'jobs': jobs,
+    });
+    return DescribeJobsResponse.fromJson(response_);
   }
 
   /// Returns a list of AWS Batch jobs.
@@ -356,7 +407,15 @@ class BatchApi {
       String jobStatus,
       int maxResults,
       String nextToken}) async {
-    return ListJobsResponse.fromJson({});
+    var response_ = await _client.send('ListJobs', {
+      if (jobQueue != null) 'jobQueue': jobQueue,
+      if (arrayJobId != null) 'arrayJobId': arrayJobId,
+      if (multiNodeJobId != null) 'multiNodeJobId': multiNodeJobId,
+      if (jobStatus != null) 'jobStatus': jobStatus,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListJobsResponse.fromJson(response_);
   }
 
   /// Registers an AWS Batch job definition.
@@ -406,7 +465,17 @@ class BatchApi {
       NodeProperties nodeProperties,
       RetryStrategy retryStrategy,
       JobTimeout timeout}) async {
-    return RegisterJobDefinitionResponse.fromJson({});
+    var response_ = await _client.send('RegisterJobDefinition', {
+      'jobDefinitionName': jobDefinitionName,
+      'type': type,
+      if (parameters != null) 'parameters': parameters,
+      if (containerProperties != null)
+        'containerProperties': containerProperties,
+      if (nodeProperties != null) 'nodeProperties': nodeProperties,
+      if (retryStrategy != null) 'retryStrategy': retryStrategy,
+      if (timeout != null) 'timeout': timeout,
+    });
+    return RegisterJobDefinitionResponse.fromJson(response_);
   }
 
   /// Submits an AWS Batch job from a job definition. Parameters specified
@@ -480,7 +549,19 @@ class BatchApi {
       NodeOverrides nodeOverrides,
       RetryStrategy retryStrategy,
       JobTimeout timeout}) async {
-    return SubmitJobResponse.fromJson({});
+    var response_ = await _client.send('SubmitJob', {
+      'jobName': jobName,
+      'jobQueue': jobQueue,
+      if (arrayProperties != null) 'arrayProperties': arrayProperties,
+      if (dependsOn != null) 'dependsOn': dependsOn,
+      'jobDefinition': jobDefinition,
+      if (parameters != null) 'parameters': parameters,
+      if (containerOverrides != null) 'containerOverrides': containerOverrides,
+      if (nodeOverrides != null) 'nodeOverrides': nodeOverrides,
+      if (retryStrategy != null) 'retryStrategy': retryStrategy,
+      if (timeout != null) 'timeout': timeout,
+    });
+    return SubmitJobResponse.fromJson(response_);
   }
 
   /// Terminates a job in a job queue. Jobs that are in the `STARTING` or
@@ -495,7 +576,11 @@ class BatchApi {
   /// on the job. This message is also recorded in the AWS Batch activity logs.
   Future<TerminateJobResponse> terminateJob(
       {@required String jobId, @required String reason}) async {
-    return TerminateJobResponse.fromJson({});
+    var response_ = await _client.send('TerminateJob', {
+      'jobId': jobId,
+      'reason': reason,
+    });
+    return TerminateJobResponse.fromJson(response_);
   }
 
   /// Updates an AWS Batch compute environment.
@@ -529,7 +614,13 @@ class BatchApi {
       {String state,
       ComputeResourceUpdate computeResources,
       String serviceRole}) async {
-    return UpdateComputeEnvironmentResponse.fromJson({});
+    var response_ = await _client.send('UpdateComputeEnvironment', {
+      'computeEnvironment': computeEnvironment,
+      if (state != null) 'state': state,
+      if (computeResources != null) 'computeResources': computeResources,
+      if (serviceRole != null) 'serviceRole': serviceRole,
+    });
+    return UpdateComputeEnvironmentResponse.fromJson(response_);
   }
 
   /// Updates a job queue.
@@ -553,7 +644,14 @@ class BatchApi {
       {String state,
       int priority,
       List<ComputeEnvironmentOrder> computeEnvironmentOrder}) async {
-    return UpdateJobQueueResponse.fromJson({});
+    var response_ = await _client.send('UpdateJobQueue', {
+      'jobQueue': jobQueue,
+      if (state != null) 'state': state,
+      if (priority != null) 'priority': priority,
+      if (computeEnvironmentOrder != null)
+        'computeEnvironmentOrder': computeEnvironmentOrder,
+    });
+    return UpdateJobQueueResponse.fromJson(response_);
   }
 }
 
@@ -565,6 +663,7 @@ class ArrayProperties {
   ArrayProperties({
     this.size,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the array properties of a job.
@@ -587,7 +686,14 @@ class ArrayPropertiesDetail {
     this.index,
   });
   static ArrayPropertiesDetail fromJson(Map<String, dynamic> json) =>
-      ArrayPropertiesDetail();
+      ArrayPropertiesDetail(
+        statusSummary: json.containsKey('statusSummary')
+            ? (json['statusSummary'] as Map)
+                .map((k, v) => MapEntry(k as String, v as int))
+            : null,
+        size: json.containsKey('size') ? json['size'] as int : null,
+        index: json.containsKey('index') ? json['index'] as int : null,
+      );
 }
 
 /// An object representing the array properties of a job.
@@ -605,7 +711,10 @@ class ArrayPropertiesSummary {
     this.index,
   });
   static ArrayPropertiesSummary fromJson(Map<String, dynamic> json) =>
-      ArrayPropertiesSummary();
+      ArrayPropertiesSummary(
+        size: json.containsKey('size') ? json['size'] as int : null,
+        index: json.containsKey('index') ? json['index'] as int : null,
+      );
 }
 
 /// An object representing the details of a container that is part of a job
@@ -645,7 +754,22 @@ class AttemptContainerDetail {
     this.networkInterfaces,
   });
   static AttemptContainerDetail fromJson(Map<String, dynamic> json) =>
-      AttemptContainerDetail();
+      AttemptContainerDetail(
+        containerInstanceArn: json.containsKey('containerInstanceArn')
+            ? json['containerInstanceArn'] as String
+            : null,
+        taskArn: json.containsKey('taskArn') ? json['taskArn'] as String : null,
+        exitCode: json.containsKey('exitCode') ? json['exitCode'] as int : null,
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+        logStreamName: json.containsKey('logStreamName')
+            ? json['logStreamName'] as String
+            : null,
+        networkInterfaces: json.containsKey('networkInterfaces')
+            ? (json['networkInterfaces'] as List)
+                .map((e) => NetworkInterface.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An object representing a job attempt.
@@ -673,7 +797,20 @@ class AttemptDetail {
     this.stoppedAt,
     this.statusReason,
   });
-  static AttemptDetail fromJson(Map<String, dynamic> json) => AttemptDetail();
+  static AttemptDetail fromJson(Map<String, dynamic> json) => AttemptDetail(
+        container: json.containsKey('container')
+            ? AttemptContainerDetail.fromJson(json['container'])
+            : null,
+        startedAt: json.containsKey('startedAt')
+            ? BigInt.from(json['startedAt'])
+            : null,
+        stoppedAt: json.containsKey('stoppedAt')
+            ? BigInt.from(json['stoppedAt'])
+            : null,
+        statusReason: json.containsKey('statusReason')
+            ? json['statusReason'] as String
+            : null,
+      );
 }
 
 class CancelJobResponse {
@@ -739,7 +876,23 @@ class ComputeEnvironmentDetail {
     this.serviceRole,
   });
   static ComputeEnvironmentDetail fromJson(Map<String, dynamic> json) =>
-      ComputeEnvironmentDetail();
+      ComputeEnvironmentDetail(
+        computeEnvironmentName: json['computeEnvironmentName'] as String,
+        computeEnvironmentArn: json['computeEnvironmentArn'] as String,
+        ecsClusterArn: json['ecsClusterArn'] as String,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusReason: json.containsKey('statusReason')
+            ? json['statusReason'] as String
+            : null,
+        computeResources: json.containsKey('computeResources')
+            ? ComputeResource.fromJson(json['computeResources'])
+            : null,
+        serviceRole: json.containsKey('serviceRole')
+            ? json['serviceRole'] as String
+            : null,
+      );
 }
 
 /// The order in which compute environments are tried for job placement within a
@@ -759,7 +912,11 @@ class ComputeEnvironmentOrder {
     @required this.computeEnvironment,
   });
   static ComputeEnvironmentOrder fromJson(Map<String, dynamic> json) =>
-      ComputeEnvironmentOrder();
+      ComputeEnvironmentOrder(
+        order: json['order'] as int,
+        computeEnvironment: json['computeEnvironment'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing an AWS Batch compute resource.
@@ -871,8 +1028,44 @@ class ComputeResource {
     this.spotIamFleetRole,
     this.launchTemplate,
   });
-  static ComputeResource fromJson(Map<String, dynamic> json) =>
-      ComputeResource();
+  static ComputeResource fromJson(Map<String, dynamic> json) => ComputeResource(
+        type: json['type'] as String,
+        minvCpus: json['minvCpus'] as int,
+        maxvCpus: json['maxvCpus'] as int,
+        desiredvCpus: json.containsKey('desiredvCpus')
+            ? json['desiredvCpus'] as int
+            : null,
+        instanceTypes:
+            (json['instanceTypes'] as List).map((e) => e as String).toList(),
+        imageId: json.containsKey('imageId') ? json['imageId'] as String : null,
+        subnets: (json['subnets'] as List).map((e) => e as String).toList(),
+        securityGroupIds: json.containsKey('securityGroupIds')
+            ? (json['securityGroupIds'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        ec2KeyPair: json.containsKey('ec2KeyPair')
+            ? json['ec2KeyPair'] as String
+            : null,
+        instanceRole: json['instanceRole'] as String,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        placementGroup: json.containsKey('placementGroup')
+            ? json['placementGroup'] as String
+            : null,
+        bidPercentage: json.containsKey('bidPercentage')
+            ? json['bidPercentage'] as int
+            : null,
+        spotIamFleetRole: json.containsKey('spotIamFleetRole')
+            ? json['spotIamFleetRole'] as String
+            : null,
+        launchTemplate: json.containsKey('launchTemplate')
+            ? LaunchTemplateSpecification.fromJson(json['launchTemplate'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the attributes of a compute environment that can be
@@ -892,6 +1085,7 @@ class ComputeResourceUpdate {
     this.maxvCpus,
     this.desiredvCpus,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the details of a container that is part of a job.
@@ -999,8 +1193,64 @@ class ContainerDetail {
     this.resourceRequirements,
     this.linuxParameters,
   });
-  static ContainerDetail fromJson(Map<String, dynamic> json) =>
-      ContainerDetail();
+  static ContainerDetail fromJson(Map<String, dynamic> json) => ContainerDetail(
+        image: json.containsKey('image') ? json['image'] as String : null,
+        vcpus: json.containsKey('vcpus') ? json['vcpus'] as int : null,
+        memory: json.containsKey('memory') ? json['memory'] as int : null,
+        command: json.containsKey('command')
+            ? (json['command'] as List).map((e) => e as String).toList()
+            : null,
+        jobRoleArn: json.containsKey('jobRoleArn')
+            ? json['jobRoleArn'] as String
+            : null,
+        volumes: json.containsKey('volumes')
+            ? (json['volumes'] as List).map((e) => Volume.fromJson(e)).toList()
+            : null,
+        environment: json.containsKey('environment')
+            ? (json['environment'] as List)
+                .map((e) => KeyValuePair.fromJson(e))
+                .toList()
+            : null,
+        mountPoints: json.containsKey('mountPoints')
+            ? (json['mountPoints'] as List)
+                .map((e) => MountPoint.fromJson(e))
+                .toList()
+            : null,
+        readonlyRootFilesystem: json.containsKey('readonlyRootFilesystem')
+            ? json['readonlyRootFilesystem'] as bool
+            : null,
+        ulimits: json.containsKey('ulimits')
+            ? (json['ulimits'] as List).map((e) => Ulimit.fromJson(e)).toList()
+            : null,
+        privileged:
+            json.containsKey('privileged') ? json['privileged'] as bool : null,
+        user: json.containsKey('user') ? json['user'] as String : null,
+        exitCode: json.containsKey('exitCode') ? json['exitCode'] as int : null,
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+        containerInstanceArn: json.containsKey('containerInstanceArn')
+            ? json['containerInstanceArn'] as String
+            : null,
+        taskArn: json.containsKey('taskArn') ? json['taskArn'] as String : null,
+        logStreamName: json.containsKey('logStreamName')
+            ? json['logStreamName'] as String
+            : null,
+        instanceType: json.containsKey('instanceType')
+            ? json['instanceType'] as String
+            : null,
+        networkInterfaces: json.containsKey('networkInterfaces')
+            ? (json['networkInterfaces'] as List)
+                .map((e) => NetworkInterface.fromJson(e))
+                .toList()
+            : null,
+        resourceRequirements: json.containsKey('resourceRequirements')
+            ? (json['resourceRequirements'] as List)
+                .map((e) => ResourceRequirement.fromJson(e))
+                .toList()
+            : null,
+        linuxParameters: json.containsKey('linuxParameters')
+            ? LinuxParameters.fromJson(json['linuxParameters'])
+            : null,
+      );
 }
 
 /// The overrides that should be sent to a container.
@@ -1046,6 +1296,7 @@ class ContainerOverrides {
     this.environment,
     this.resourceRequirements,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Container properties are used in job definitions to describe the container
@@ -1215,7 +1466,51 @@ class ContainerProperties {
     this.linuxParameters,
   });
   static ContainerProperties fromJson(Map<String, dynamic> json) =>
-      ContainerProperties();
+      ContainerProperties(
+        image: json.containsKey('image') ? json['image'] as String : null,
+        vcpus: json.containsKey('vcpus') ? json['vcpus'] as int : null,
+        memory: json.containsKey('memory') ? json['memory'] as int : null,
+        command: json.containsKey('command')
+            ? (json['command'] as List).map((e) => e as String).toList()
+            : null,
+        jobRoleArn: json.containsKey('jobRoleArn')
+            ? json['jobRoleArn'] as String
+            : null,
+        volumes: json.containsKey('volumes')
+            ? (json['volumes'] as List).map((e) => Volume.fromJson(e)).toList()
+            : null,
+        environment: json.containsKey('environment')
+            ? (json['environment'] as List)
+                .map((e) => KeyValuePair.fromJson(e))
+                .toList()
+            : null,
+        mountPoints: json.containsKey('mountPoints')
+            ? (json['mountPoints'] as List)
+                .map((e) => MountPoint.fromJson(e))
+                .toList()
+            : null,
+        readonlyRootFilesystem: json.containsKey('readonlyRootFilesystem')
+            ? json['readonlyRootFilesystem'] as bool
+            : null,
+        privileged:
+            json.containsKey('privileged') ? json['privileged'] as bool : null,
+        ulimits: json.containsKey('ulimits')
+            ? (json['ulimits'] as List).map((e) => Ulimit.fromJson(e)).toList()
+            : null,
+        user: json.containsKey('user') ? json['user'] as String : null,
+        instanceType: json.containsKey('instanceType')
+            ? json['instanceType'] as String
+            : null,
+        resourceRequirements: json.containsKey('resourceRequirements')
+            ? (json['resourceRequirements'] as List)
+                .map((e) => ResourceRequirement.fromJson(e))
+                .toList()
+            : null,
+        linuxParameters: json.containsKey('linuxParameters')
+            ? LinuxParameters.fromJson(json['linuxParameters'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing summary details of a container within a job.
@@ -1232,7 +1527,10 @@ class ContainerSummary {
     this.reason,
   });
   static ContainerSummary fromJson(Map<String, dynamic> json) =>
-      ContainerSummary();
+      ContainerSummary(
+        exitCode: json.containsKey('exitCode') ? json['exitCode'] as int : null,
+        reason: json.containsKey('reason') ? json['reason'] as String : null,
+      );
 }
 
 class CreateComputeEnvironmentResponse {
@@ -1247,7 +1545,14 @@ class CreateComputeEnvironmentResponse {
     this.computeEnvironmentArn,
   });
   static CreateComputeEnvironmentResponse fromJson(Map<String, dynamic> json) =>
-      CreateComputeEnvironmentResponse();
+      CreateComputeEnvironmentResponse(
+        computeEnvironmentName: json.containsKey('computeEnvironmentName')
+            ? json['computeEnvironmentName'] as String
+            : null,
+        computeEnvironmentArn: json.containsKey('computeEnvironmentArn')
+            ? json['computeEnvironmentArn'] as String
+            : null,
+      );
 }
 
 class CreateJobQueueResponse {
@@ -1262,7 +1567,10 @@ class CreateJobQueueResponse {
     @required this.jobQueueArn,
   });
   static CreateJobQueueResponse fromJson(Map<String, dynamic> json) =>
-      CreateJobQueueResponse();
+      CreateJobQueueResponse(
+        jobQueueName: json['jobQueueName'] as String,
+        jobQueueArn: json['jobQueueArn'] as String,
+      );
 }
 
 class DeleteComputeEnvironmentResponse {
@@ -1299,7 +1607,15 @@ class DescribeComputeEnvironmentsResponse {
   });
   static DescribeComputeEnvironmentsResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeComputeEnvironmentsResponse();
+      DescribeComputeEnvironmentsResponse(
+        computeEnvironments: json.containsKey('computeEnvironments')
+            ? (json['computeEnvironments'] as List)
+                .map((e) => ComputeEnvironmentDetail.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeJobDefinitionsResponse {
@@ -1317,7 +1633,15 @@ class DescribeJobDefinitionsResponse {
     this.nextToken,
   });
   static DescribeJobDefinitionsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeJobDefinitionsResponse();
+      DescribeJobDefinitionsResponse(
+        jobDefinitions: json.containsKey('jobDefinitions')
+            ? (json['jobDefinitions'] as List)
+                .map((e) => JobDefinition.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeJobQueuesResponse {
@@ -1335,7 +1659,15 @@ class DescribeJobQueuesResponse {
     this.nextToken,
   });
   static DescribeJobQueuesResponse fromJson(Map<String, dynamic> json) =>
-      DescribeJobQueuesResponse();
+      DescribeJobQueuesResponse(
+        jobQueues: json.containsKey('jobQueues')
+            ? (json['jobQueues'] as List)
+                .map((e) => JobQueueDetail.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class DescribeJobsResponse {
@@ -1346,7 +1678,11 @@ class DescribeJobsResponse {
     this.jobs,
   });
   static DescribeJobsResponse fromJson(Map<String, dynamic> json) =>
-      DescribeJobsResponse();
+      DescribeJobsResponse(
+        jobs: json.containsKey('jobs')
+            ? (json['jobs'] as List).map((e) => JobDetail.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// An object representing a container instance host device.
@@ -1368,7 +1704,16 @@ class Device {
     this.containerPath,
     this.permissions,
   });
-  static Device fromJson(Map<String, dynamic> json) => Device();
+  static Device fromJson(Map<String, dynamic> json) => Device(
+        hostPath: json['hostPath'] as String,
+        containerPath: json.containsKey('containerPath')
+            ? json['containerPath'] as String
+            : null,
+        permissions: json.containsKey('permissions')
+            ? (json['permissions'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Determine whether your data volume persists on the host container instance
@@ -1389,7 +1734,12 @@ class Host {
   Host({
     this.sourcePath,
   });
-  static Host fromJson(Map<String, dynamic> json) => Host();
+  static Host fromJson(Map<String, dynamic> json) => Host(
+        sourcePath: json.containsKey('sourcePath')
+            ? json['sourcePath'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing an AWS Batch job definition.
@@ -1445,7 +1795,29 @@ class JobDefinition {
     this.timeout,
     this.nodeProperties,
   });
-  static JobDefinition fromJson(Map<String, dynamic> json) => JobDefinition();
+  static JobDefinition fromJson(Map<String, dynamic> json) => JobDefinition(
+        jobDefinitionName: json['jobDefinitionName'] as String,
+        jobDefinitionArn: json['jobDefinitionArn'] as String,
+        revision: json['revision'] as int,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        type: json['type'] as String,
+        parameters: json.containsKey('parameters')
+            ? (json['parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        retryStrategy: json.containsKey('retryStrategy')
+            ? RetryStrategy.fromJson(json['retryStrategy'])
+            : null,
+        containerProperties: json.containsKey('containerProperties')
+            ? ContainerProperties.fromJson(json['containerProperties'])
+            : null,
+        timeout: json.containsKey('timeout')
+            ? JobTimeout.fromJson(json['timeout'])
+            : null,
+        nodeProperties: json.containsKey('nodeProperties')
+            ? NodeProperties.fromJson(json['nodeProperties'])
+            : null,
+      );
 }
 
 /// An object representing an AWS Batch job dependency.
@@ -1460,7 +1832,11 @@ class JobDependency {
     this.jobId,
     this.type,
   });
-  static JobDependency fromJson(Map<String, dynamic> json) => JobDependency();
+  static JobDependency fromJson(Map<String, dynamic> json) => JobDependency(
+        jobId: json.containsKey('jobId') ? json['jobId'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing an AWS Batch job.
@@ -1559,7 +1935,55 @@ class JobDetail {
     this.arrayProperties,
     this.timeout,
   });
-  static JobDetail fromJson(Map<String, dynamic> json) => JobDetail();
+  static JobDetail fromJson(Map<String, dynamic> json) => JobDetail(
+        jobName: json['jobName'] as String,
+        jobId: json['jobId'] as String,
+        jobQueue: json['jobQueue'] as String,
+        status: json['status'] as String,
+        attempts: json.containsKey('attempts')
+            ? (json['attempts'] as List)
+                .map((e) => AttemptDetail.fromJson(e))
+                .toList()
+            : null,
+        statusReason: json.containsKey('statusReason')
+            ? json['statusReason'] as String
+            : null,
+        createdAt: json.containsKey('createdAt')
+            ? BigInt.from(json['createdAt'])
+            : null,
+        retryStrategy: json.containsKey('retryStrategy')
+            ? RetryStrategy.fromJson(json['retryStrategy'])
+            : null,
+        startedAt: BigInt.from(json['startedAt']),
+        stoppedAt: json.containsKey('stoppedAt')
+            ? BigInt.from(json['stoppedAt'])
+            : null,
+        dependsOn: json.containsKey('dependsOn')
+            ? (json['dependsOn'] as List)
+                .map((e) => JobDependency.fromJson(e))
+                .toList()
+            : null,
+        jobDefinition: json['jobDefinition'] as String,
+        parameters: json.containsKey('parameters')
+            ? (json['parameters'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        container: json.containsKey('container')
+            ? ContainerDetail.fromJson(json['container'])
+            : null,
+        nodeDetails: json.containsKey('nodeDetails')
+            ? NodeDetails.fromJson(json['nodeDetails'])
+            : null,
+        nodeProperties: json.containsKey('nodeProperties')
+            ? NodeProperties.fromJson(json['nodeProperties'])
+            : null,
+        arrayProperties: json.containsKey('arrayProperties')
+            ? ArrayPropertiesDetail.fromJson(json['arrayProperties'])
+            : null,
+        timeout: json.containsKey('timeout')
+            ? JobTimeout.fromJson(json['timeout'])
+            : null,
+      );
 }
 
 /// An object representing the details of an AWS Batch job queue.
@@ -1597,7 +2021,19 @@ class JobQueueDetail {
     @required this.priority,
     @required this.computeEnvironmentOrder,
   });
-  static JobQueueDetail fromJson(Map<String, dynamic> json) => JobQueueDetail();
+  static JobQueueDetail fromJson(Map<String, dynamic> json) => JobQueueDetail(
+        jobQueueName: json['jobQueueName'] as String,
+        jobQueueArn: json['jobQueueArn'] as String,
+        state: json['state'] as String,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusReason: json.containsKey('statusReason')
+            ? json['statusReason'] as String
+            : null,
+        priority: json['priority'] as int,
+        computeEnvironmentOrder: (json['computeEnvironmentOrder'] as List)
+            .map((e) => ComputeEnvironmentOrder.fromJson(e))
+            .toList(),
+      );
 }
 
 /// An object representing summary details of a job.
@@ -1652,7 +2088,32 @@ class JobSummary {
     this.arrayProperties,
     this.nodeProperties,
   });
-  static JobSummary fromJson(Map<String, dynamic> json) => JobSummary();
+  static JobSummary fromJson(Map<String, dynamic> json) => JobSummary(
+        jobId: json['jobId'] as String,
+        jobName: json['jobName'] as String,
+        createdAt: json.containsKey('createdAt')
+            ? BigInt.from(json['createdAt'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusReason: json.containsKey('statusReason')
+            ? json['statusReason'] as String
+            : null,
+        startedAt: json.containsKey('startedAt')
+            ? BigInt.from(json['startedAt'])
+            : null,
+        stoppedAt: json.containsKey('stoppedAt')
+            ? BigInt.from(json['stoppedAt'])
+            : null,
+        container: json.containsKey('container')
+            ? ContainerSummary.fromJson(json['container'])
+            : null,
+        arrayProperties: json.containsKey('arrayProperties')
+            ? ArrayPropertiesSummary.fromJson(json['arrayProperties'])
+            : null,
+        nodeProperties: json.containsKey('nodeProperties')
+            ? NodePropertiesSummary.fromJson(json['nodeProperties'])
+            : null,
+      );
 }
 
 /// An object representing a job timeout configuration.
@@ -1665,7 +2126,12 @@ class JobTimeout {
   JobTimeout({
     this.attemptDurationSeconds,
   });
-  static JobTimeout fromJson(Map<String, dynamic> json) => JobTimeout();
+  static JobTimeout fromJson(Map<String, dynamic> json) => JobTimeout(
+        attemptDurationSeconds: json.containsKey('attemptDurationSeconds')
+            ? json['attemptDurationSeconds'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A key-value pair object.
@@ -1682,7 +2148,11 @@ class KeyValuePair {
     this.name,
     this.value,
   });
-  static KeyValuePair fromJson(Map<String, dynamic> json) => KeyValuePair();
+  static KeyValuePair fromJson(Map<String, dynamic> json) => KeyValuePair(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing a launch template associated with a compute resource.
@@ -1706,7 +2176,16 @@ class LaunchTemplateSpecification {
     this.version,
   });
   static LaunchTemplateSpecification fromJson(Map<String, dynamic> json) =>
-      LaunchTemplateSpecification();
+      LaunchTemplateSpecification(
+        launchTemplateId: json.containsKey('launchTemplateId')
+            ? json['launchTemplateId'] as String
+            : null,
+        launchTemplateName: json.containsKey('launchTemplateName')
+            ? json['launchTemplateName'] as String
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Linux-specific modifications that are applied to the container, such as
@@ -1724,8 +2203,12 @@ class LinuxParameters {
   LinuxParameters({
     this.devices,
   });
-  static LinuxParameters fromJson(Map<String, dynamic> json) =>
-      LinuxParameters();
+  static LinuxParameters fromJson(Map<String, dynamic> json) => LinuxParameters(
+        devices: json.containsKey('devices')
+            ? (json['devices'] as List).map((e) => Device.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListJobsResponse {
@@ -1743,7 +2226,13 @@ class ListJobsResponse {
     this.nextToken,
   });
   static ListJobsResponse fromJson(Map<String, dynamic> json) =>
-      ListJobsResponse();
+      ListJobsResponse(
+        jobSummaryList: (json['jobSummaryList'] as List)
+            .map((e) => JobSummary.fromJson(e))
+            .toList(),
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Details on a Docker volume mount point that is used in a job's container
@@ -1767,7 +2256,17 @@ class MountPoint {
     this.readOnly,
     this.sourceVolume,
   });
-  static MountPoint fromJson(Map<String, dynamic> json) => MountPoint();
+  static MountPoint fromJson(Map<String, dynamic> json) => MountPoint(
+        containerPath: json.containsKey('containerPath')
+            ? json['containerPath'] as String
+            : null,
+        readOnly:
+            json.containsKey('readOnly') ? json['readOnly'] as bool : null,
+        sourceVolume: json.containsKey('sourceVolume')
+            ? json['sourceVolume'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the elastic network interface for a multi-node
@@ -1788,7 +2287,17 @@ class NetworkInterface {
     this.privateIpv4Address,
   });
   static NetworkInterface fromJson(Map<String, dynamic> json) =>
-      NetworkInterface();
+      NetworkInterface(
+        attachmentId: json.containsKey('attachmentId')
+            ? json['attachmentId'] as String
+            : null,
+        ipv6Address: json.containsKey('ipv6Address')
+            ? json['ipv6Address'] as String
+            : null,
+        privateIpv4Address: json.containsKey('privateIpv4Address')
+            ? json['privateIpv4Address'] as String
+            : null,
+      );
 }
 
 /// An object representing the details of a multi-node parallel job node.
@@ -1806,7 +2315,12 @@ class NodeDetails {
     this.nodeIndex,
     this.isMainNode,
   });
-  static NodeDetails fromJson(Map<String, dynamic> json) => NodeDetails();
+  static NodeDetails fromJson(Map<String, dynamic> json) => NodeDetails(
+        nodeIndex:
+            json.containsKey('nodeIndex') ? json['nodeIndex'] as int : null,
+        isMainNode:
+            json.containsKey('isMainNode') ? json['isMainNode'] as bool : null,
+      );
 }
 
 /// Object representing any node overrides to a job definition that is used in a
@@ -1833,6 +2347,7 @@ class NodeOverrides {
     this.numNodes,
     this.nodePropertyOverrides,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the node properties of a multi-node parallel job.
@@ -1853,7 +2368,14 @@ class NodeProperties {
     @required this.mainNode,
     @required this.nodeRangeProperties,
   });
-  static NodeProperties fromJson(Map<String, dynamic> json) => NodeProperties();
+  static NodeProperties fromJson(Map<String, dynamic> json) => NodeProperties(
+        numNodes: json['numNodes'] as int,
+        mainNode: json['mainNode'] as int,
+        nodeRangeProperties: (json['nodeRangeProperties'] as List)
+            .map((e) => NodeRangeProperty.fromJson(e))
+            .toList(),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the properties of a node that is associated with a
@@ -1877,7 +2399,13 @@ class NodePropertiesSummary {
     this.nodeIndex,
   });
   static NodePropertiesSummary fromJson(Map<String, dynamic> json) =>
-      NodePropertiesSummary();
+      NodePropertiesSummary(
+        isMainNode:
+            json.containsKey('isMainNode') ? json['isMainNode'] as bool : null,
+        numNodes: json.containsKey('numNodes') ? json['numNodes'] as int : null,
+        nodeIndex:
+            json.containsKey('nodeIndex') ? json['nodeIndex'] as int : null,
+      );
 }
 
 /// Object representing any node overrides to a job definition that is used in a
@@ -1897,6 +2425,7 @@ class NodePropertyOverride {
     @required this.targetNodes,
     this.containerOverrides,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An object representing the properties of the node range for a multi-node
@@ -1919,7 +2448,13 @@ class NodeRangeProperty {
     this.container,
   });
   static NodeRangeProperty fromJson(Map<String, dynamic> json) =>
-      NodeRangeProperty();
+      NodeRangeProperty(
+        targetNodes: json['targetNodes'] as String,
+        container: json.containsKey('container')
+            ? ContainerProperties.fromJson(json['container'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class RegisterJobDefinitionResponse {
@@ -1938,7 +2473,11 @@ class RegisterJobDefinitionResponse {
     @required this.revision,
   });
   static RegisterJobDefinitionResponse fromJson(Map<String, dynamic> json) =>
-      RegisterJobDefinitionResponse();
+      RegisterJobDefinitionResponse(
+        jobDefinitionName: json['jobDefinitionName'] as String,
+        jobDefinitionArn: json['jobDefinitionArn'] as String,
+        revision: json['revision'] as int,
+      );
 }
 
 /// The type and amount of a resource to assign to a container. Currently, the
@@ -1958,7 +2497,11 @@ class ResourceRequirement {
     @required this.type,
   });
   static ResourceRequirement fromJson(Map<String, dynamic> json) =>
-      ResourceRequirement();
+      ResourceRequirement(
+        value: json['value'] as String,
+        type: json['type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The retry strategy associated with a job.
@@ -1972,7 +2515,10 @@ class RetryStrategy {
   RetryStrategy({
     this.attempts,
   });
-  static RetryStrategy fromJson(Map<String, dynamic> json) => RetryStrategy();
+  static RetryStrategy fromJson(Map<String, dynamic> json) => RetryStrategy(
+        attempts: json.containsKey('attempts') ? json['attempts'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SubmitJobResponse {
@@ -1987,7 +2533,10 @@ class SubmitJobResponse {
     @required this.jobId,
   });
   static SubmitJobResponse fromJson(Map<String, dynamic> json) =>
-      SubmitJobResponse();
+      SubmitJobResponse(
+        jobName: json['jobName'] as String,
+        jobId: json['jobId'] as String,
+      );
 }
 
 class TerminateJobResponse {
@@ -2012,7 +2561,12 @@ class Ulimit {
     @required this.name,
     @required this.softLimit,
   });
-  static Ulimit fromJson(Map<String, dynamic> json) => Ulimit();
+  static Ulimit fromJson(Map<String, dynamic> json) => Ulimit(
+        hardLimit: json['hardLimit'] as int,
+        name: json['name'] as String,
+        softLimit: json['softLimit'] as int,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateComputeEnvironmentResponse {
@@ -2027,7 +2581,14 @@ class UpdateComputeEnvironmentResponse {
     this.computeEnvironmentArn,
   });
   static UpdateComputeEnvironmentResponse fromJson(Map<String, dynamic> json) =>
-      UpdateComputeEnvironmentResponse();
+      UpdateComputeEnvironmentResponse(
+        computeEnvironmentName: json.containsKey('computeEnvironmentName')
+            ? json['computeEnvironmentName'] as String
+            : null,
+        computeEnvironmentArn: json.containsKey('computeEnvironmentArn')
+            ? json['computeEnvironmentArn'] as String
+            : null,
+      );
 }
 
 class UpdateJobQueueResponse {
@@ -2042,7 +2603,14 @@ class UpdateJobQueueResponse {
     this.jobQueueArn,
   });
   static UpdateJobQueueResponse fromJson(Map<String, dynamic> json) =>
-      UpdateJobQueueResponse();
+      UpdateJobQueueResponse(
+        jobQueueName: json.containsKey('jobQueueName')
+            ? json['jobQueueName'] as String
+            : null,
+        jobQueueArn: json.containsKey('jobQueueArn')
+            ? json['jobQueueArn'] as String
+            : null,
+      );
 }
 
 /// A data volume used in a job's container properties.
@@ -2063,5 +2631,9 @@ class Volume {
     this.host,
     this.name,
   });
-  static Volume fromJson(Map<String, dynamic> json) => Volume();
+  static Volume fromJson(Map<String, dynamic> json) => Volume(
+        host: json.containsKey('host') ? Host.fromJson(json['host']) : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

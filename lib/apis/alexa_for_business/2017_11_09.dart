@@ -11,13 +11,20 @@ import 'package:meta/meta.dart';
 /// can create fully integrated solutions, register their products with Alexa
 /// for Business, and manage them as shared devices in their organization.
 class AlexaForBusinessApi {
+  final _client;
+  AlexaForBusinessApi(client)
+      : _client = client.configured('Alexa For Business', serializer: 'json');
+
   /// Associates a skill with the organization under the customer's AWS account.
   /// If a skill is private, the user implicitly accepts access to this skill
   /// during enablement.
   ///
   /// [skillId]: The unique identifier of the skill.
   Future<ApproveSkillResponse> approveSkill(String skillId) async {
-    return ApproveSkillResponse.fromJson({});
+    var response_ = await _client.send('ApproveSkill', {
+      'SkillId': skillId,
+    });
+    return ApproveSkillResponse.fromJson(response_);
   }
 
   /// Associates a contact with a given address book.
@@ -30,7 +37,11 @@ class AlexaForBusinessApi {
       associateContactWithAddressBook(
           {@required String contactArn,
           @required String addressBookArn}) async {
-    return AssociateContactWithAddressBookResponse.fromJson({});
+    var response_ = await _client.send('AssociateContactWithAddressBook', {
+      'ContactArn': contactArn,
+      'AddressBookArn': addressBookArn,
+    });
+    return AssociateContactWithAddressBookResponse.fromJson(response_);
   }
 
   /// Associates a device with the specified network profile.
@@ -43,7 +54,11 @@ class AlexaForBusinessApi {
       associateDeviceWithNetworkProfile(
           {@required String deviceArn,
           @required String networkProfileArn}) async {
-    return AssociateDeviceWithNetworkProfileResponse.fromJson({});
+    var response_ = await _client.send('AssociateDeviceWithNetworkProfile', {
+      'DeviceArn': deviceArn,
+      'NetworkProfileArn': networkProfileArn,
+    });
+    return AssociateDeviceWithNetworkProfileResponse.fromJson(response_);
   }
 
   /// Associates a device with a given room. This applies all the settings from
@@ -57,7 +72,11 @@ class AlexaForBusinessApi {
   /// Required.
   Future<AssociateDeviceWithRoomResponse> associateDeviceWithRoom(
       {String deviceArn, String roomArn}) async {
-    return AssociateDeviceWithRoomResponse.fromJson({});
+    var response_ = await _client.send('AssociateDeviceWithRoom', {
+      if (deviceArn != null) 'DeviceArn': deviceArn,
+      if (roomArn != null) 'RoomArn': roomArn,
+    });
+    return AssociateDeviceWithRoomResponse.fromJson(response_);
   }
 
   /// Associates a skill group with a given room. This enables all skills in the
@@ -70,7 +89,11 @@ class AlexaForBusinessApi {
   /// Required.
   Future<AssociateSkillGroupWithRoomResponse> associateSkillGroupWithRoom(
       {String skillGroupArn, String roomArn}) async {
-    return AssociateSkillGroupWithRoomResponse.fromJson({});
+    var response_ = await _client.send('AssociateSkillGroupWithRoom', {
+      if (skillGroupArn != null) 'SkillGroupArn': skillGroupArn,
+      if (roomArn != null) 'RoomArn': roomArn,
+    });
+    return AssociateSkillGroupWithRoomResponse.fromJson(response_);
   }
 
   /// Associates a skill with a skill group.
@@ -82,7 +105,11 @@ class AlexaForBusinessApi {
   Future<AssociateSkillWithSkillGroupResponse> associateSkillWithSkillGroup(
       String skillId,
       {String skillGroupArn}) async {
-    return AssociateSkillWithSkillGroupResponse.fromJson({});
+    var response_ = await _client.send('AssociateSkillWithSkillGroup', {
+      if (skillGroupArn != null) 'SkillGroupArn': skillGroupArn,
+      'SkillId': skillId,
+    });
+    return AssociateSkillWithSkillGroupResponse.fromJson(response_);
   }
 
   /// Makes a private skill available for enrolled users to enable on their
@@ -92,7 +119,10 @@ class AlexaForBusinessApi {
   /// users.
   Future<AssociateSkillWithUsersResponse> associateSkillWithUsers(
       String skillId) async {
-    return AssociateSkillWithUsersResponse.fromJson({});
+    var response_ = await _client.send('AssociateSkillWithUsers', {
+      'SkillId': skillId,
+    });
+    return AssociateSkillWithUsersResponse.fromJson(response_);
   }
 
   /// Creates an address book with the specified details.
@@ -105,7 +135,12 @@ class AlexaForBusinessApi {
   /// that ensures idempotency.
   Future<CreateAddressBookResponse> createAddressBook(String name,
       {String description, String clientRequestToken}) async {
-    return CreateAddressBookResponse.fromJson({});
+    var response_ = await _client.send('CreateAddressBook', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return CreateAddressBookResponse.fromJson(response_);
   }
 
   /// Creates a recurring schedule for usage reports to deliver to the specified
@@ -136,7 +171,16 @@ class AlexaForBusinessApi {
       @required BusinessReportContentRange contentRange,
       BusinessReportRecurrence recurrence,
       String clientRequestToken}) async {
-    return CreateBusinessReportScheduleResponse.fromJson({});
+    var response_ = await _client.send('CreateBusinessReportSchedule', {
+      if (scheduleName != null) 'ScheduleName': scheduleName,
+      if (s3BucketName != null) 'S3BucketName': s3BucketName,
+      if (s3KeyPrefix != null) 'S3KeyPrefix': s3KeyPrefix,
+      'Format': format,
+      'ContentRange': contentRange,
+      if (recurrence != null) 'Recurrence': recurrence,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return CreateBusinessReportScheduleResponse.fromJson(response_);
   }
 
   /// Adds a new conference provider under the user's AWS account.
@@ -160,7 +204,15 @@ class AlexaForBusinessApi {
       PstnDialIn pstnDialIn,
       @required MeetingSetting meetingSetting,
       String clientRequestToken}) async {
-    return CreateConferenceProviderResponse.fromJson({});
+    var response_ = await _client.send('CreateConferenceProvider', {
+      'ConferenceProviderName': conferenceProviderName,
+      'ConferenceProviderType': conferenceProviderType,
+      if (ipDialIn != null) 'IPDialIn': ipDialIn,
+      if (pstnDialIn != null) 'PSTNDialIn': pstnDialIn,
+      'MeetingSetting': meetingSetting,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return CreateConferenceProviderResponse.fromJson(response_);
   }
 
   /// Creates a contact with the specified details.
@@ -191,7 +243,16 @@ class AlexaForBusinessApi {
       List<PhoneNumber> phoneNumbers,
       List<SipAddress> sipAddresses,
       String clientRequestToken}) async {
-    return CreateContactResponse.fromJson({});
+    var response_ = await _client.send('CreateContact', {
+      if (displayName != null) 'DisplayName': displayName,
+      'FirstName': firstName,
+      if (lastName != null) 'LastName': lastName,
+      if (phoneNumber != null) 'PhoneNumber': phoneNumber,
+      if (phoneNumbers != null) 'PhoneNumbers': phoneNumbers,
+      if (sipAddresses != null) 'SipAddresses': sipAddresses,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return CreateContactResponse.fromJson(response_);
   }
 
   /// Creates a gateway group with the specified details.
@@ -206,7 +267,12 @@ class AlexaForBusinessApi {
       {@required String name,
       String description,
       @required String clientRequestToken}) async {
-    return CreateGatewayGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateGatewayGroup', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'ClientRequestToken': clientRequestToken,
+    });
+    return CreateGatewayGroupResponse.fromJson(response_);
   }
 
   /// Creates a network profile with the specified details.
@@ -248,7 +314,20 @@ class AlexaForBusinessApi {
       String certificateAuthorityArn,
       List<String> trustAnchors,
       @required String clientRequestToken}) async {
-    return CreateNetworkProfileResponse.fromJson({});
+    var response_ = await _client.send('CreateNetworkProfile', {
+      'NetworkProfileName': networkProfileName,
+      if (description != null) 'Description': description,
+      'Ssid': ssid,
+      'SecurityType': securityType,
+      if (eapMethod != null) 'EapMethod': eapMethod,
+      if (currentPassword != null) 'CurrentPassword': currentPassword,
+      if (nextPassword != null) 'NextPassword': nextPassword,
+      if (certificateAuthorityArn != null)
+        'CertificateAuthorityArn': certificateAuthorityArn,
+      if (trustAnchors != null) 'TrustAnchors': trustAnchors,
+      'ClientRequestToken': clientRequestToken,
+    });
+    return CreateNetworkProfileResponse.fromJson(response_);
   }
 
   /// Creates a new room profile with the specified details.
@@ -288,7 +367,20 @@ class AlexaForBusinessApi {
       bool setupModeDisabled,
       int maxVolumeLimit,
       bool pstnEnabled}) async {
-    return CreateProfileResponse.fromJson({});
+    var response_ = await _client.send('CreateProfile', {
+      'ProfileName': profileName,
+      'Timezone': timezone,
+      'Address': address,
+      'DistanceUnit': distanceUnit,
+      'TemperatureUnit': temperatureUnit,
+      'WakeWord': wakeWord,
+      if (locale != null) 'Locale': locale,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (setupModeDisabled != null) 'SetupModeDisabled': setupModeDisabled,
+      if (maxVolumeLimit != null) 'MaxVolumeLimit': maxVolumeLimit,
+      if (pstnEnabled != null) 'PSTNEnabled': pstnEnabled,
+    });
+    return CreateProfileResponse.fromJson(response_);
   }
 
   /// Creates a room with the specified details.
@@ -311,7 +403,15 @@ class AlexaForBusinessApi {
       String providerCalendarId,
       String clientRequestToken,
       List<Tag> tags}) async {
-    return CreateRoomResponse.fromJson({});
+    var response_ = await _client.send('CreateRoom', {
+      'RoomName': roomName,
+      if (description != null) 'Description': description,
+      if (profileArn != null) 'ProfileArn': profileArn,
+      if (providerCalendarId != null) 'ProviderCalendarId': providerCalendarId,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateRoomResponse.fromJson(response_);
   }
 
   /// Creates a skill group with a specified name and description.
@@ -324,7 +424,12 @@ class AlexaForBusinessApi {
   /// that ensures idempotency.
   Future<CreateSkillGroupResponse> createSkillGroup(String skillGroupName,
       {String description, String clientRequestToken}) async {
-    return CreateSkillGroupResponse.fromJson({});
+    var response_ = await _client.send('CreateSkillGroup', {
+      'SkillGroupName': skillGroupName,
+      if (description != null) 'Description': description,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+    });
+    return CreateSkillGroupResponse.fromJson(response_);
   }
 
   /// Creates a user.
@@ -347,7 +452,15 @@ class AlexaForBusinessApi {
       String email,
       String clientRequestToken,
       List<Tag> tags}) async {
-    return CreateUserResponse.fromJson({});
+    var response_ = await _client.send('CreateUser', {
+      'UserId': userId,
+      if (firstName != null) 'FirstName': firstName,
+      if (lastName != null) 'LastName': lastName,
+      if (email != null) 'Email': email,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateUserResponse.fromJson(response_);
   }
 
   /// Deletes an address book by the address book ARN.
@@ -355,7 +468,10 @@ class AlexaForBusinessApi {
   /// [addressBookArn]: The ARN of the address book to delete.
   Future<DeleteAddressBookResponse> deleteAddressBook(
       String addressBookArn) async {
-    return DeleteAddressBookResponse.fromJson({});
+    var response_ = await _client.send('DeleteAddressBook', {
+      'AddressBookArn': addressBookArn,
+    });
+    return DeleteAddressBookResponse.fromJson(response_);
   }
 
   /// Deletes the recurring report delivery schedule with the specified schedule
@@ -364,7 +480,10 @@ class AlexaForBusinessApi {
   /// [scheduleArn]: The ARN of the business report schedule.
   Future<DeleteBusinessReportScheduleResponse> deleteBusinessReportSchedule(
       String scheduleArn) async {
-    return DeleteBusinessReportScheduleResponse.fromJson({});
+    var response_ = await _client.send('DeleteBusinessReportSchedule', {
+      'ScheduleArn': scheduleArn,
+    });
+    return DeleteBusinessReportScheduleResponse.fromJson(response_);
   }
 
   /// Deletes a conference provider.
@@ -372,21 +491,30 @@ class AlexaForBusinessApi {
   /// [conferenceProviderArn]: The ARN of the conference provider.
   Future<DeleteConferenceProviderResponse> deleteConferenceProvider(
       String conferenceProviderArn) async {
-    return DeleteConferenceProviderResponse.fromJson({});
+    var response_ = await _client.send('DeleteConferenceProvider', {
+      'ConferenceProviderArn': conferenceProviderArn,
+    });
+    return DeleteConferenceProviderResponse.fromJson(response_);
   }
 
   /// Deletes a contact by the contact ARN.
   ///
   /// [contactArn]: The ARN of the contact to delete.
   Future<DeleteContactResponse> deleteContact(String contactArn) async {
-    return DeleteContactResponse.fromJson({});
+    var response_ = await _client.send('DeleteContact', {
+      'ContactArn': contactArn,
+    });
+    return DeleteContactResponse.fromJson(response_);
   }
 
   /// Removes a device from Alexa For Business.
   ///
   /// [deviceArn]: The ARN of the device for which to request details.
   Future<DeleteDeviceResponse> deleteDevice(String deviceArn) async {
-    return DeleteDeviceResponse.fromJson({});
+    var response_ = await _client.send('DeleteDevice', {
+      'DeviceArn': deviceArn,
+    });
+    return DeleteDeviceResponse.fromJson(response_);
   }
 
   /// When this action is called for a specified shared device, it allows
@@ -399,7 +527,11 @@ class AlexaForBusinessApi {
   /// [deviceUsageType]: The type of usage data to delete.
   Future<DeleteDeviceUsageDataResponse> deleteDeviceUsageData(
       {@required String deviceArn, @required String deviceUsageType}) async {
-    return DeleteDeviceUsageDataResponse.fromJson({});
+    var response_ = await _client.send('DeleteDeviceUsageData', {
+      'DeviceArn': deviceArn,
+      'DeviceUsageType': deviceUsageType,
+    });
+    return DeleteDeviceUsageDataResponse.fromJson(response_);
   }
 
   /// Deletes a gateway group.
@@ -407,7 +539,10 @@ class AlexaForBusinessApi {
   /// [gatewayGroupArn]: The ARN of the gateway group to delete.
   Future<DeleteGatewayGroupResponse> deleteGatewayGroup(
       String gatewayGroupArn) async {
-    return DeleteGatewayGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteGatewayGroup', {
+      'GatewayGroupArn': gatewayGroupArn,
+    });
+    return DeleteGatewayGroupResponse.fromJson(response_);
   }
 
   /// Deletes a network profile by the network profile ARN.
@@ -416,21 +551,30 @@ class AlexaForBusinessApi {
   /// device.
   Future<DeleteNetworkProfileResponse> deleteNetworkProfile(
       String networkProfileArn) async {
-    return DeleteNetworkProfileResponse.fromJson({});
+    var response_ = await _client.send('DeleteNetworkProfile', {
+      'NetworkProfileArn': networkProfileArn,
+    });
+    return DeleteNetworkProfileResponse.fromJson(response_);
   }
 
   /// Deletes a room profile by the profile ARN.
   ///
   /// [profileArn]: The ARN of the room profile to delete. Required.
   Future<DeleteProfileResponse> deleteProfile({String profileArn}) async {
-    return DeleteProfileResponse.fromJson({});
+    var response_ = await _client.send('DeleteProfile', {
+      if (profileArn != null) 'ProfileArn': profileArn,
+    });
+    return DeleteProfileResponse.fromJson(response_);
   }
 
   /// Deletes a room by the room ARN.
   ///
   /// [roomArn]: The ARN of the room to delete. Required.
   Future<DeleteRoomResponse> deleteRoom({String roomArn}) async {
-    return DeleteRoomResponse.fromJson({});
+    var response_ = await _client.send('DeleteRoom', {
+      if (roomArn != null) 'RoomArn': roomArn,
+    });
+    return DeleteRoomResponse.fromJson(response_);
   }
 
   /// Deletes room skill parameter details by room, skill, and parameter key ID.
@@ -446,7 +590,12 @@ class AlexaForBusinessApi {
       {String roomArn,
       @required String skillId,
       @required String parameterKey}) async {
-    return DeleteRoomSkillParameterResponse.fromJson({});
+    var response_ = await _client.send('DeleteRoomSkillParameter', {
+      if (roomArn != null) 'RoomArn': roomArn,
+      'SkillId': skillId,
+      'ParameterKey': parameterKey,
+    });
+    return DeleteRoomSkillParameterResponse.fromJson(response_);
   }
 
   /// Unlinks a third-party account from a skill.
@@ -457,7 +606,11 @@ class AlexaForBusinessApi {
   Future<DeleteSkillAuthorizationResponse> deleteSkillAuthorization(
       String skillId,
       {String roomArn}) async {
-    return DeleteSkillAuthorizationResponse.fromJson({});
+    var response_ = await _client.send('DeleteSkillAuthorization', {
+      'SkillId': skillId,
+      if (roomArn != null) 'RoomArn': roomArn,
+    });
+    return DeleteSkillAuthorizationResponse.fromJson(response_);
   }
 
   /// Deletes a skill group by skill group ARN.
@@ -465,7 +618,10 @@ class AlexaForBusinessApi {
   /// [skillGroupArn]: The ARN of the skill group to delete. Required.
   Future<DeleteSkillGroupResponse> deleteSkillGroup(
       {String skillGroupArn}) async {
-    return DeleteSkillGroupResponse.fromJson({});
+    var response_ = await _client.send('DeleteSkillGroup', {
+      if (skillGroupArn != null) 'SkillGroupArn': skillGroupArn,
+    });
+    return DeleteSkillGroupResponse.fromJson(response_);
   }
 
   /// Deletes a specified user by user ARN and enrollment ARN.
@@ -476,7 +632,11 @@ class AlexaForBusinessApi {
   /// Required.
   Future<DeleteUserResponse> deleteUser(String enrollmentId,
       {String userArn}) async {
-    return DeleteUserResponse.fromJson({});
+    var response_ = await _client.send('DeleteUser', {
+      if (userArn != null) 'UserArn': userArn,
+      'EnrollmentId': enrollmentId,
+    });
+    return DeleteUserResponse.fromJson(response_);
   }
 
   /// Disassociates a contact from a given address book.
@@ -489,7 +649,11 @@ class AlexaForBusinessApi {
       disassociateContactFromAddressBook(
           {@required String contactArn,
           @required String addressBookArn}) async {
-    return DisassociateContactFromAddressBookResponse.fromJson({});
+    var response_ = await _client.send('DisassociateContactFromAddressBook', {
+      'ContactArn': contactArn,
+      'AddressBookArn': addressBookArn,
+    });
+    return DisassociateContactFromAddressBookResponse.fromJson(response_);
   }
 
   /// Disassociates a device from its current room. The device continues to be
@@ -499,7 +663,10 @@ class AlexaForBusinessApi {
   /// [deviceArn]: The ARN of the device to disassociate from a room. Required.
   Future<DisassociateDeviceFromRoomResponse> disassociateDeviceFromRoom(
       {String deviceArn}) async {
-    return DisassociateDeviceFromRoomResponse.fromJson({});
+    var response_ = await _client.send('DisassociateDeviceFromRoom', {
+      if (deviceArn != null) 'DeviceArn': deviceArn,
+    });
+    return DisassociateDeviceFromRoomResponse.fromJson(response_);
   }
 
   /// Disassociates a skill from a skill group.
@@ -510,7 +677,11 @@ class AlexaForBusinessApi {
   Future<DisassociateSkillFromSkillGroupResponse>
       disassociateSkillFromSkillGroup(String skillId,
           {String skillGroupArn}) async {
-    return DisassociateSkillFromSkillGroupResponse.fromJson({});
+    var response_ = await _client.send('DisassociateSkillFromSkillGroup', {
+      if (skillGroupArn != null) 'SkillGroupArn': skillGroupArn,
+      'SkillId': skillId,
+    });
+    return DisassociateSkillFromSkillGroupResponse.fromJson(response_);
   }
 
   /// Makes a private skill unavailable for enrolled users and prevents them
@@ -520,7 +691,10 @@ class AlexaForBusinessApi {
   /// users.
   Future<DisassociateSkillFromUsersResponse> disassociateSkillFromUsers(
       String skillId) async {
-    return DisassociateSkillFromUsersResponse.fromJson({});
+    var response_ = await _client.send('DisassociateSkillFromUsers', {
+      'SkillId': skillId,
+    });
+    return DisassociateSkillFromUsersResponse.fromJson(response_);
   }
 
   /// Disassociates a skill group from a specified room. This disables all
@@ -533,7 +707,11 @@ class AlexaForBusinessApi {
   /// disassociated. Required.
   Future<DisassociateSkillGroupFromRoomResponse> disassociateSkillGroupFromRoom(
       {String skillGroupArn, String roomArn}) async {
-    return DisassociateSkillGroupFromRoomResponse.fromJson({});
+    var response_ = await _client.send('DisassociateSkillGroupFromRoom', {
+      if (skillGroupArn != null) 'SkillGroupArn': skillGroupArn,
+      if (roomArn != null) 'RoomArn': roomArn,
+    });
+    return DisassociateSkillGroupFromRoomResponse.fromJson(response_);
   }
 
   /// Forgets smart home appliances associated to a room.
@@ -541,7 +719,10 @@ class AlexaForBusinessApi {
   /// [roomArn]: The room that the appliances are associated with.
   Future<ForgetSmartHomeAppliancesResponse> forgetSmartHomeAppliances(
       String roomArn) async {
-    return ForgetSmartHomeAppliancesResponse.fromJson({});
+    var response_ = await _client.send('ForgetSmartHomeAppliances', {
+      'RoomArn': roomArn,
+    });
+    return ForgetSmartHomeAppliancesResponse.fromJson(response_);
   }
 
   /// Gets address the book details by the address book ARN.
@@ -549,12 +730,16 @@ class AlexaForBusinessApi {
   /// [addressBookArn]: The ARN of the address book for which to request
   /// details.
   Future<GetAddressBookResponse> getAddressBook(String addressBookArn) async {
-    return GetAddressBookResponse.fromJson({});
+    var response_ = await _client.send('GetAddressBook', {
+      'AddressBookArn': addressBookArn,
+    });
+    return GetAddressBookResponse.fromJson(response_);
   }
 
   /// Retrieves the existing conference preferences.
   Future<GetConferencePreferenceResponse> getConferencePreference() async {
-    return GetConferencePreferenceResponse.fromJson({});
+    var response_ = await _client.send('GetConferencePreference', {});
+    return GetConferencePreferenceResponse.fromJson(response_);
   }
 
   /// Gets details about a specific conference provider.
@@ -562,28 +747,40 @@ class AlexaForBusinessApi {
   /// [conferenceProviderArn]: The ARN of the newly created conference provider.
   Future<GetConferenceProviderResponse> getConferenceProvider(
       String conferenceProviderArn) async {
-    return GetConferenceProviderResponse.fromJson({});
+    var response_ = await _client.send('GetConferenceProvider', {
+      'ConferenceProviderArn': conferenceProviderArn,
+    });
+    return GetConferenceProviderResponse.fromJson(response_);
   }
 
   /// Gets the contact details by the contact ARN.
   ///
   /// [contactArn]: The ARN of the contact for which to request details.
   Future<GetContactResponse> getContact(String contactArn) async {
-    return GetContactResponse.fromJson({});
+    var response_ = await _client.send('GetContact', {
+      'ContactArn': contactArn,
+    });
+    return GetContactResponse.fromJson(response_);
   }
 
   /// Gets the details of a device by device ARN.
   ///
   /// [deviceArn]: The ARN of the device for which to request details. Required.
   Future<GetDeviceResponse> getDevice({String deviceArn}) async {
-    return GetDeviceResponse.fromJson({});
+    var response_ = await _client.send('GetDevice', {
+      if (deviceArn != null) 'DeviceArn': deviceArn,
+    });
+    return GetDeviceResponse.fromJson(response_);
   }
 
   /// Retrieves the details of a gateway.
   ///
   /// [gatewayArn]: The ARN of the gateway to get.
   Future<GetGatewayResponse> getGateway(String gatewayArn) async {
-    return GetGatewayResponse.fromJson({});
+    var response_ = await _client.send('GetGateway', {
+      'GatewayArn': gatewayArn,
+    });
+    return GetGatewayResponse.fromJson(response_);
   }
 
   /// Retrieves the details of a gateway group.
@@ -591,14 +788,18 @@ class AlexaForBusinessApi {
   /// [gatewayGroupArn]: The ARN of the gateway group to get.
   Future<GetGatewayGroupResponse> getGatewayGroup(
       String gatewayGroupArn) async {
-    return GetGatewayGroupResponse.fromJson({});
+    var response_ = await _client.send('GetGatewayGroup', {
+      'GatewayGroupArn': gatewayGroupArn,
+    });
+    return GetGatewayGroupResponse.fromJson(response_);
   }
 
   /// Retrieves the configured values for the user enrollment invitation email
   /// template.
   Future<GetInvitationConfigurationResponse>
       getInvitationConfiguration() async {
-    return GetInvitationConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetInvitationConfiguration', {});
+    return GetInvitationConfigurationResponse.fromJson(response_);
   }
 
   /// Gets the network profile details by the network profile ARN.
@@ -607,7 +808,10 @@ class AlexaForBusinessApi {
   /// device.
   Future<GetNetworkProfileResponse> getNetworkProfile(
       String networkProfileArn) async {
-    return GetNetworkProfileResponse.fromJson({});
+    var response_ = await _client.send('GetNetworkProfile', {
+      'NetworkProfileArn': networkProfileArn,
+    });
+    return GetNetworkProfileResponse.fromJson(response_);
   }
 
   /// Gets the details of a room profile by profile ARN.
@@ -615,14 +819,20 @@ class AlexaForBusinessApi {
   /// [profileArn]: The ARN of the room profile for which to request details.
   /// Required.
   Future<GetProfileResponse> getProfile({String profileArn}) async {
-    return GetProfileResponse.fromJson({});
+    var response_ = await _client.send('GetProfile', {
+      if (profileArn != null) 'ProfileArn': profileArn,
+    });
+    return GetProfileResponse.fromJson(response_);
   }
 
   /// Gets room details by room ARN.
   ///
   /// [roomArn]: The ARN of the room for which to request details. Required.
   Future<GetRoomResponse> getRoom({String roomArn}) async {
-    return GetRoomResponse.fromJson({});
+    var response_ = await _client.send('GetRoom', {
+      if (roomArn != null) 'RoomArn': roomArn,
+    });
+    return GetRoomResponse.fromJson(response_);
   }
 
   /// Gets room skill parameter details by room, skill, and parameter key ARN.
@@ -639,7 +849,12 @@ class AlexaForBusinessApi {
       {String roomArn,
       @required String skillId,
       @required String parameterKey}) async {
-    return GetRoomSkillParameterResponse.fromJson({});
+    var response_ = await _client.send('GetRoomSkillParameter', {
+      if (roomArn != null) 'RoomArn': roomArn,
+      'SkillId': skillId,
+      'ParameterKey': parameterKey,
+    });
+    return GetRoomSkillParameterResponse.fromJson(response_);
   }
 
   /// Gets skill group details by skill group ARN.
@@ -647,7 +862,10 @@ class AlexaForBusinessApi {
   /// [skillGroupArn]: The ARN of the skill group for which to get details.
   /// Required.
   Future<GetSkillGroupResponse> getSkillGroup({String skillGroupArn}) async {
-    return GetSkillGroupResponse.fromJson({});
+    var response_ = await _client.send('GetSkillGroup', {
+      if (skillGroupArn != null) 'SkillGroupArn': skillGroupArn,
+    });
+    return GetSkillGroupResponse.fromJson(response_);
   }
 
   /// Lists the details of the schedules that a user configured.
@@ -658,7 +876,11 @@ class AlexaForBusinessApi {
   /// [maxResults]: The maximum number of schedules listed in the call.
   Future<ListBusinessReportSchedulesResponse> listBusinessReportSchedules(
       {String nextToken, int maxResults}) async {
-    return ListBusinessReportSchedulesResponse.fromJson({});
+    var response_ = await _client.send('ListBusinessReportSchedules', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListBusinessReportSchedulesResponse.fromJson(response_);
   }
 
   /// Lists conference providers under a specific AWS account.
@@ -669,7 +891,11 @@ class AlexaForBusinessApi {
   /// per paginated calls.
   Future<ListConferenceProvidersResponse> listConferenceProviders(
       {String nextToken, int maxResults}) async {
-    return ListConferenceProvidersResponse.fromJson({});
+    var response_ = await _client.send('ListConferenceProviders', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListConferenceProvidersResponse.fromJson(response_);
   }
 
   /// Lists the device event history, including device connection status, for up
@@ -694,7 +920,13 @@ class AlexaForBusinessApi {
   /// remaining results can be retrieved.
   Future<ListDeviceEventsResponse> listDeviceEvents(String deviceArn,
       {String eventType, String nextToken, int maxResults}) async {
-    return ListDeviceEventsResponse.fromJson({});
+    var response_ = await _client.send('ListDeviceEvents', {
+      'DeviceArn': deviceArn,
+      if (eventType != null) 'EventType': eventType,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListDeviceEventsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of gateway group summaries. Use GetGatewayGroup to
@@ -707,7 +939,11 @@ class AlexaForBusinessApi {
   /// default is 50.
   Future<ListGatewayGroupsResponse> listGatewayGroups(
       {String nextToken, int maxResults}) async {
-    return ListGatewayGroupsResponse.fromJson({});
+    var response_ = await _client.send('ListGatewayGroups', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListGatewayGroupsResponse.fromJson(response_);
   }
 
   /// Retrieves a list of gateway summaries. Use GetGateway to retrieve details
@@ -724,7 +960,12 @@ class AlexaForBusinessApi {
   /// default is 50.
   Future<ListGatewaysResponse> listGateways(
       {String gatewayGroupArn, String nextToken, int maxResults}) async {
-    return ListGatewaysResponse.fromJson({});
+    var response_ = await _client.send('ListGateways', {
+      if (gatewayGroupArn != null) 'GatewayGroupArn': gatewayGroupArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListGatewaysResponse.fromJson(response_);
   }
 
   /// Lists all enabled skills in a specific skill group.
@@ -753,7 +994,14 @@ class AlexaForBusinessApi {
       String skillType,
       String nextToken,
       int maxResults}) async {
-    return ListSkillsResponse.fromJson({});
+    var response_ = await _client.send('ListSkills', {
+      if (skillGroupArn != null) 'SkillGroupArn': skillGroupArn,
+      if (enablementType != null) 'EnablementType': enablementType,
+      if (skillType != null) 'SkillType': skillType,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListSkillsResponse.fromJson(response_);
   }
 
   /// Lists all categories in the Alexa skill store.
@@ -764,7 +1012,11 @@ class AlexaForBusinessApi {
   /// calls.
   Future<ListSkillsStoreCategoriesResponse> listSkillsStoreCategories(
       {String nextToken, int maxResults}) async {
-    return ListSkillsStoreCategoriesResponse.fromJson({});
+    var response_ = await _client.send('ListSkillsStoreCategories', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListSkillsStoreCategoriesResponse.fromJson(response_);
   }
 
   /// Lists all skills in the Alexa skill store by category.
@@ -778,7 +1030,12 @@ class AlexaForBusinessApi {
   Future<ListSkillsStoreSkillsByCategoryResponse>
       listSkillsStoreSkillsByCategory(BigInt categoryId,
           {String nextToken, int maxResults}) async {
-    return ListSkillsStoreSkillsByCategoryResponse.fromJson({});
+    var response_ = await _client.send('ListSkillsStoreSkillsByCategory', {
+      'CategoryId': categoryId,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListSkillsStoreSkillsByCategoryResponse.fromJson(response_);
   }
 
   /// Lists all of the smart home appliances associated with a room.
@@ -793,7 +1050,12 @@ class AlexaForBusinessApi {
       String roomArn,
       {int maxResults,
       String nextToken}) async {
-    return ListSmartHomeAppliancesResponse.fromJson({});
+    var response_ = await _client.send('ListSmartHomeAppliances', {
+      'RoomArn': roomArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListSmartHomeAppliancesResponse.fromJson(response_);
   }
 
   /// Lists all tags for the specified resource.
@@ -810,7 +1072,12 @@ class AlexaForBusinessApi {
   /// included in the response so that the remaining results can be retrieved.
   Future<ListTagsResponse> listTags(String arn,
       {String nextToken, int maxResults}) async {
-    return ListTagsResponse.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'Arn': arn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTagsResponse.fromJson(response_);
   }
 
   /// Sets the conference preferences on a specific conference provider at the
@@ -820,7 +1087,10 @@ class AlexaForBusinessApi {
   /// provider.
   Future<PutConferencePreferenceResponse> putConferencePreference(
       ConferencePreference conferencePreference) async {
-    return PutConferencePreferenceResponse.fromJson({});
+    var response_ = await _client.send('PutConferencePreference', {
+      'ConferencePreference': conferencePreference,
+    });
+    return PutConferencePreferenceResponse.fromJson(response_);
   }
 
   /// Configures the email template for the user enrollment invitation with the
@@ -838,7 +1108,12 @@ class AlexaForBusinessApi {
       String organizationName,
       {String contactEmail,
       List<String> privateSkillIds}) async {
-    return PutInvitationConfigurationResponse.fromJson({});
+    var response_ = await _client.send('PutInvitationConfiguration', {
+      'OrganizationName': organizationName,
+      if (contactEmail != null) 'ContactEmail': contactEmail,
+      if (privateSkillIds != null) 'PrivateSkillIds': privateSkillIds,
+    });
+    return PutInvitationConfigurationResponse.fromJson(response_);
   }
 
   /// Updates room skill parameter details by room, skill, and parameter key ID.
@@ -855,7 +1130,12 @@ class AlexaForBusinessApi {
       {String roomArn,
       @required String skillId,
       @required RoomSkillParameter roomSkillParameter}) async {
-    return PutRoomSkillParameterResponse.fromJson({});
+    var response_ = await _client.send('PutRoomSkillParameter', {
+      if (roomArn != null) 'RoomArn': roomArn,
+      'SkillId': skillId,
+      'RoomSkillParameter': roomSkillParameter,
+    });
+    return PutRoomSkillParameterResponse.fromJson(response_);
   }
 
   /// Links a user's account to a third-party skill provider. If this API
@@ -874,7 +1154,12 @@ class AlexaForBusinessApi {
       {@required Map<String, String> authorizationResult,
       @required String skillId,
       String roomArn}) async {
-    return PutSkillAuthorizationResponse.fromJson({});
+    var response_ = await _client.send('PutSkillAuthorization', {
+      'AuthorizationResult': authorizationResult,
+      'SkillId': skillId,
+      if (roomArn != null) 'RoomArn': roomArn,
+    });
+    return PutSkillAuthorizationResponse.fromJson(response_);
   }
 
   /// Registers an Alexa-enabled device built by an Original Equipment
@@ -901,7 +1186,14 @@ class AlexaForBusinessApi {
       @required String productId,
       @required String deviceSerialNumber,
       @required String amazonId}) async {
-    return RegisterAvsDeviceResponse.fromJson({});
+    var response_ = await _client.send('RegisterAVSDevice', {
+      'ClientId': clientId,
+      'UserCode': userCode,
+      'ProductId': productId,
+      'DeviceSerialNumber': deviceSerialNumber,
+      'AmazonId': amazonId,
+    });
+    return RegisterAvsDeviceResponse.fromJson(response_);
   }
 
   /// Disassociates a skill from the organization under a user's AWS account. If
@@ -911,7 +1203,10 @@ class AlexaForBusinessApi {
   ///
   /// [skillId]: The unique identifier of the skill.
   Future<RejectSkillResponse> rejectSkill(String skillId) async {
-    return RejectSkillResponse.fromJson({});
+    var response_ = await _client.send('RejectSkill', {
+      'SkillId': skillId,
+    });
+    return RejectSkillResponse.fromJson(response_);
   }
 
   /// Determines the details for the room from which a skill request was
@@ -922,7 +1217,11 @@ class AlexaForBusinessApi {
   /// [skillId]: The ARN of the skill that was requested. Required.
   Future<ResolveRoomResponse> resolveRoom(
       {@required String userId, @required String skillId}) async {
-    return ResolveRoomResponse.fromJson({});
+    var response_ = await _client.send('ResolveRoom', {
+      'UserId': userId,
+      'SkillId': skillId,
+    });
+    return ResolveRoomResponse.fromJson(response_);
   }
 
   /// Revokes an invitation and invalidates the enrollment URL.
@@ -933,7 +1232,11 @@ class AlexaForBusinessApi {
   /// [enrollmentId]: The ARN of the enrollment invitation to revoke. Required.
   Future<RevokeInvitationResponse> revokeInvitation(
       {String userArn, String enrollmentId}) async {
-    return RevokeInvitationResponse.fromJson({});
+    var response_ = await _client.send('RevokeInvitation', {
+      if (userArn != null) 'UserArn': userArn,
+      if (enrollmentId != null) 'EnrollmentId': enrollmentId,
+    });
+    return RevokeInvitationResponse.fromJson(response_);
   }
 
   /// Searches address books and lists the ones that meet a set of filter and
@@ -958,7 +1261,13 @@ class AlexaForBusinessApi {
       List<Sort> sortCriteria,
       String nextToken,
       int maxResults}) async {
-    return SearchAddressBooksResponse.fromJson({});
+    var response_ = await _client.send('SearchAddressBooks', {
+      if (filters != null) 'Filters': filters,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return SearchAddressBooksResponse.fromJson(response_);
   }
 
   /// Searches contacts and lists the ones that meet a set of filter and sort
@@ -985,7 +1294,13 @@ class AlexaForBusinessApi {
       List<Sort> sortCriteria,
       String nextToken,
       int maxResults}) async {
-    return SearchContactsResponse.fromJson({});
+    var response_ = await _client.send('SearchContacts', {
+      if (filters != null) 'Filters': filters,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return SearchContactsResponse.fromJson(response_);
   }
 
   /// Searches devices and lists the ones that meet a set of filter criteria.
@@ -1014,7 +1329,13 @@ class AlexaForBusinessApi {
       int maxResults,
       List<Filter> filters,
       List<Sort> sortCriteria}) async {
-    return SearchDevicesResponse.fromJson({});
+    var response_ = await _client.send('SearchDevices', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+    });
+    return SearchDevicesResponse.fromJson(response_);
   }
 
   /// Searches network profiles and lists the ones that meet a set of filter and
@@ -1040,7 +1361,13 @@ class AlexaForBusinessApi {
       int maxResults,
       List<Filter> filters,
       List<Sort> sortCriteria}) async {
-    return SearchNetworkProfilesResponse.fromJson({});
+    var response_ = await _client.send('SearchNetworkProfiles', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+    });
+    return SearchNetworkProfilesResponse.fromJson(response_);
   }
 
   /// Searches room profiles and lists the ones that meet a set of filter
@@ -1065,7 +1392,13 @@ class AlexaForBusinessApi {
       int maxResults,
       List<Filter> filters,
       List<Sort> sortCriteria}) async {
-    return SearchProfilesResponse.fromJson({});
+    var response_ = await _client.send('SearchProfiles', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+    });
+    return SearchProfilesResponse.fromJson(response_);
   }
 
   /// Searches rooms and lists the ones that meet a set of filter and sort
@@ -1090,7 +1423,13 @@ class AlexaForBusinessApi {
       int maxResults,
       List<Filter> filters,
       List<Sort> sortCriteria}) async {
-    return SearchRoomsResponse.fromJson({});
+    var response_ = await _client.send('SearchRooms', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+    });
+    return SearchRoomsResponse.fromJson(response_);
   }
 
   /// Searches skill groups and lists the ones that meet a set of filter and
@@ -1115,7 +1454,13 @@ class AlexaForBusinessApi {
       int maxResults,
       List<Filter> filters,
       List<Sort> sortCriteria}) async {
-    return SearchSkillGroupsResponse.fromJson({});
+    var response_ = await _client.send('SearchSkillGroups', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+    });
+    return SearchSkillGroupsResponse.fromJson(response_);
   }
 
   /// Searches users and lists the ones that meet a set of filter and sort
@@ -1143,7 +1488,13 @@ class AlexaForBusinessApi {
       int maxResults,
       List<Filter> filters,
       List<Sort> sortCriteria}) async {
-    return SearchUsersResponse.fromJson({});
+    var response_ = await _client.send('SearchUsers', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (filters != null) 'Filters': filters,
+      if (sortCriteria != null) 'SortCriteria': sortCriteria,
+    });
+    return SearchUsersResponse.fromJson(response_);
   }
 
   /// Triggers an asynchronous flow to send text, SSML, or audio announcements
@@ -1168,7 +1519,14 @@ class AlexaForBusinessApi {
       @required Content content,
       int timeToLiveInSeconds,
       @required String clientRequestToken}) async {
-    return SendAnnouncementResponse.fromJson({});
+    var response_ = await _client.send('SendAnnouncement', {
+      'RoomFilters': roomFilters,
+      'Content': content,
+      if (timeToLiveInSeconds != null)
+        'TimeToLiveInSeconds': timeToLiveInSeconds,
+      'ClientRequestToken': clientRequestToken,
+    });
+    return SendAnnouncementResponse.fromJson(response_);
   }
 
   /// Sends an enrollment invitation email with a URL to a user. The URL is
@@ -1177,7 +1535,10 @@ class AlexaForBusinessApi {
   ///
   /// [userArn]: The ARN of the user to whom to send an invitation. Required.
   Future<SendInvitationResponse> sendInvitation({String userArn}) async {
-    return SendInvitationResponse.fromJson({});
+    var response_ = await _client.send('SendInvitation', {
+      if (userArn != null) 'UserArn': userArn,
+    });
+    return SendInvitationResponse.fromJson(response_);
   }
 
   /// Resets a device and its account to the known default settings. This clears
@@ -1204,7 +1565,12 @@ class AlexaForBusinessApi {
   /// [features]: Request structure to start the device sync. Required.
   Future<StartDeviceSyncResponse> startDeviceSync(List<String> features,
       {String roomArn, String deviceArn}) async {
-    return StartDeviceSyncResponse.fromJson({});
+    var response_ = await _client.send('StartDeviceSync', {
+      if (roomArn != null) 'RoomArn': roomArn,
+      if (deviceArn != null) 'DeviceArn': deviceArn,
+      'Features': features,
+    });
+    return StartDeviceSyncResponse.fromJson(response_);
   }
 
   /// Initiates the discovery of any smart home appliances associated with the
@@ -1213,7 +1579,10 @@ class AlexaForBusinessApi {
   /// [roomArn]: The room where smart home appliance discovery was initiated.
   Future<StartSmartHomeApplianceDiscoveryResponse>
       startSmartHomeApplianceDiscovery(String roomArn) async {
-    return StartSmartHomeApplianceDiscoveryResponse.fromJson({});
+    var response_ = await _client.send('StartSmartHomeApplianceDiscovery', {
+      'RoomArn': roomArn,
+    });
+    return StartSmartHomeApplianceDiscoveryResponse.fromJson(response_);
   }
 
   /// Adds metadata tags to a specified resource.
@@ -1224,7 +1593,11 @@ class AlexaForBusinessApi {
   /// system tags. Required.
   Future<TagResourceResponse> tagResource(
       {@required String arn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'Arn': arn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes metadata tags from a specified resource.
@@ -1236,7 +1609,11 @@ class AlexaForBusinessApi {
   /// provide system tags. Required.
   Future<UntagResourceResponse> untagResource(
       {@required String arn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'Arn': arn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates address book details by the address book ARN.
@@ -1248,7 +1625,12 @@ class AlexaForBusinessApi {
   /// [description]: The updated description of the room.
   Future<UpdateAddressBookResponse> updateAddressBook(String addressBookArn,
       {String name, String description}) async {
-    return UpdateAddressBookResponse.fromJson({});
+    var response_ = await _client.send('UpdateAddressBook', {
+      'AddressBookArn': addressBookArn,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+    });
+    return UpdateAddressBookResponse.fromJson(response_);
   }
 
   /// Updates the configuration of the report delivery schedule with the
@@ -1273,7 +1655,15 @@ class AlexaForBusinessApi {
       String format,
       String scheduleName,
       BusinessReportRecurrence recurrence}) async {
-    return UpdateBusinessReportScheduleResponse.fromJson({});
+    var response_ = await _client.send('UpdateBusinessReportSchedule', {
+      'ScheduleArn': scheduleArn,
+      if (s3BucketName != null) 'S3BucketName': s3BucketName,
+      if (s3KeyPrefix != null) 'S3KeyPrefix': s3KeyPrefix,
+      if (format != null) 'Format': format,
+      if (scheduleName != null) 'ScheduleName': scheduleName,
+      if (recurrence != null) 'Recurrence': recurrence,
+    });
+    return UpdateBusinessReportScheduleResponse.fromJson(response_);
   }
 
   /// Updates an existing conference provider's settings.
@@ -1293,7 +1683,14 @@ class AlexaForBusinessApi {
       IPDialIn ipDialIn,
       PstnDialIn pstnDialIn,
       @required MeetingSetting meetingSetting}) async {
-    return UpdateConferenceProviderResponse.fromJson({});
+    var response_ = await _client.send('UpdateConferenceProvider', {
+      'ConferenceProviderArn': conferenceProviderArn,
+      'ConferenceProviderType': conferenceProviderType,
+      if (ipDialIn != null) 'IPDialIn': ipDialIn,
+      if (pstnDialIn != null) 'PSTNDialIn': pstnDialIn,
+      'MeetingSetting': meetingSetting,
+    });
+    return UpdateConferenceProviderResponse.fromJson(response_);
   }
 
   /// Updates the contact details by the contact ARN.
@@ -1321,7 +1718,16 @@ class AlexaForBusinessApi {
       String phoneNumber,
       List<PhoneNumber> phoneNumbers,
       List<SipAddress> sipAddresses}) async {
-    return UpdateContactResponse.fromJson({});
+    var response_ = await _client.send('UpdateContact', {
+      'ContactArn': contactArn,
+      if (displayName != null) 'DisplayName': displayName,
+      if (firstName != null) 'FirstName': firstName,
+      if (lastName != null) 'LastName': lastName,
+      if (phoneNumber != null) 'PhoneNumber': phoneNumber,
+      if (phoneNumbers != null) 'PhoneNumbers': phoneNumbers,
+      if (sipAddresses != null) 'SipAddresses': sipAddresses,
+    });
+    return UpdateContactResponse.fromJson(response_);
   }
 
   /// Updates the device name by device ARN.
@@ -1331,7 +1737,11 @@ class AlexaForBusinessApi {
   /// [deviceName]: The updated device name. Required.
   Future<UpdateDeviceResponse> updateDevice(
       {String deviceArn, String deviceName}) async {
-    return UpdateDeviceResponse.fromJson({});
+    var response_ = await _client.send('UpdateDevice', {
+      if (deviceArn != null) 'DeviceArn': deviceArn,
+      if (deviceName != null) 'DeviceName': deviceName,
+    });
+    return UpdateDeviceResponse.fromJson(response_);
   }
 
   /// Updates the details of a gateway. If any optional field is not provided,
@@ -1348,7 +1758,13 @@ class AlexaForBusinessApi {
   /// operation.
   Future<UpdateGatewayResponse> updateGateway(String gatewayArn,
       {String name, String description, String softwareVersion}) async {
-    return UpdateGatewayResponse.fromJson({});
+    var response_ = await _client.send('UpdateGateway', {
+      'GatewayArn': gatewayArn,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+      if (softwareVersion != null) 'SoftwareVersion': softwareVersion,
+    });
+    return UpdateGatewayResponse.fromJson(response_);
   }
 
   /// Updates the details of a gateway group. If any optional field is not
@@ -1361,7 +1777,12 @@ class AlexaForBusinessApi {
   /// [description]: The updated description of the gateway group.
   Future<UpdateGatewayGroupResponse> updateGatewayGroup(String gatewayGroupArn,
       {String name, String description}) async {
-    return UpdateGatewayGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateGatewayGroup', {
+      'GatewayGroupArn': gatewayGroupArn,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+    });
+    return UpdateGatewayGroupResponse.fromJson(response_);
   }
 
   /// Updates a network profile by the network profile ARN.
@@ -1395,7 +1816,17 @@ class AlexaForBusinessApi {
       String nextPassword,
       String certificateAuthorityArn,
       List<String> trustAnchors}) async {
-    return UpdateNetworkProfileResponse.fromJson({});
+    var response_ = await _client.send('UpdateNetworkProfile', {
+      'NetworkProfileArn': networkProfileArn,
+      if (networkProfileName != null) 'NetworkProfileName': networkProfileName,
+      if (description != null) 'Description': description,
+      if (currentPassword != null) 'CurrentPassword': currentPassword,
+      if (nextPassword != null) 'NextPassword': nextPassword,
+      if (certificateAuthorityArn != null)
+        'CertificateAuthorityArn': certificateAuthorityArn,
+      if (trustAnchors != null) 'TrustAnchors': trustAnchors,
+    });
+    return UpdateNetworkProfileResponse.fromJson(response_);
   }
 
   /// Updates an existing room profile by room profile ARN.
@@ -1437,7 +1868,21 @@ class AlexaForBusinessApi {
       bool setupModeDisabled,
       int maxVolumeLimit,
       bool pstnEnabled}) async {
-    return UpdateProfileResponse.fromJson({});
+    var response_ = await _client.send('UpdateProfile', {
+      if (profileArn != null) 'ProfileArn': profileArn,
+      if (profileName != null) 'ProfileName': profileName,
+      if (isDefault != null) 'IsDefault': isDefault,
+      if (timezone != null) 'Timezone': timezone,
+      if (address != null) 'Address': address,
+      if (distanceUnit != null) 'DistanceUnit': distanceUnit,
+      if (temperatureUnit != null) 'TemperatureUnit': temperatureUnit,
+      if (wakeWord != null) 'WakeWord': wakeWord,
+      if (locale != null) 'Locale': locale,
+      if (setupModeDisabled != null) 'SetupModeDisabled': setupModeDisabled,
+      if (maxVolumeLimit != null) 'MaxVolumeLimit': maxVolumeLimit,
+      if (pstnEnabled != null) 'PSTNEnabled': pstnEnabled,
+    });
+    return UpdateProfileResponse.fromJson(response_);
   }
 
   /// Updates room details by room ARN.
@@ -1457,7 +1902,14 @@ class AlexaForBusinessApi {
       String description,
       String providerCalendarId,
       String profileArn}) async {
-    return UpdateRoomResponse.fromJson({});
+    var response_ = await _client.send('UpdateRoom', {
+      if (roomArn != null) 'RoomArn': roomArn,
+      if (roomName != null) 'RoomName': roomName,
+      if (description != null) 'Description': description,
+      if (providerCalendarId != null) 'ProviderCalendarId': providerCalendarId,
+      if (profileArn != null) 'ProfileArn': profileArn,
+    });
+    return UpdateRoomResponse.fromJson(response_);
   }
 
   /// Updates skill group details by skill group ARN.
@@ -1469,7 +1921,12 @@ class AlexaForBusinessApi {
   /// [description]: The updated description for the skill group.
   Future<UpdateSkillGroupResponse> updateSkillGroup(
       {String skillGroupArn, String skillGroupName, String description}) async {
-    return UpdateSkillGroupResponse.fromJson({});
+    var response_ = await _client.send('UpdateSkillGroup', {
+      if (skillGroupArn != null) 'SkillGroupArn': skillGroupArn,
+      if (skillGroupName != null) 'SkillGroupName': skillGroupName,
+      if (description != null) 'Description': description,
+    });
+    return UpdateSkillGroupResponse.fromJson(response_);
   }
 }
 
@@ -1489,7 +1946,15 @@ class AddressBook {
     this.name,
     this.description,
   });
-  static AddressBook fromJson(Map<String, dynamic> json) => AddressBook();
+  static AddressBook fromJson(Map<String, dynamic> json) => AddressBook(
+        addressBookArn: json.containsKey('AddressBookArn')
+            ? json['AddressBookArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Information related to an address book.
@@ -1508,8 +1973,15 @@ class AddressBookData {
     this.name,
     this.description,
   });
-  static AddressBookData fromJson(Map<String, dynamic> json) =>
-      AddressBookData();
+  static AddressBookData fromJson(Map<String, dynamic> json) => AddressBookData(
+        addressBookArn: json.containsKey('AddressBookArn')
+            ? json['AddressBookArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 class ApproveSkillResponse {
@@ -1584,6 +2056,7 @@ class Audio {
     @required this.locale,
     @required this.location,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Usage report with specified parameters.
@@ -1611,7 +2084,21 @@ class BusinessReport {
     this.deliveryTime,
     this.downloadUrl,
   });
-  static BusinessReport fromJson(Map<String, dynamic> json) => BusinessReport();
+  static BusinessReport fromJson(Map<String, dynamic> json) => BusinessReport(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        failureCode: json.containsKey('FailureCode')
+            ? json['FailureCode'] as String
+            : null,
+        s3Location: json.containsKey('S3Location')
+            ? BusinessReportS3Location.fromJson(json['S3Location'])
+            : null,
+        deliveryTime: json.containsKey('DeliveryTime')
+            ? DateTime.parse(json['DeliveryTime'])
+            : null,
+        downloadUrl: json.containsKey('DownloadUrl')
+            ? json['DownloadUrl'] as String
+            : null,
+      );
 }
 
 /// The content range of the report.
@@ -1623,7 +2110,11 @@ class BusinessReportContentRange {
     this.interval,
   });
   static BusinessReportContentRange fromJson(Map<String, dynamic> json) =>
-      BusinessReportContentRange();
+      BusinessReportContentRange(
+        interval:
+            json.containsKey('Interval') ? json['Interval'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The recurrence of the reports.
@@ -1635,7 +2126,11 @@ class BusinessReportRecurrence {
     this.startDate,
   });
   static BusinessReportRecurrence fromJson(Map<String, dynamic> json) =>
-      BusinessReportRecurrence();
+      BusinessReportRecurrence(
+        startDate:
+            json.containsKey('StartDate') ? json['StartDate'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The S3 location of the output reports.
@@ -1651,7 +2146,12 @@ class BusinessReportS3Location {
     this.bucketName,
   });
   static BusinessReportS3Location fromJson(Map<String, dynamic> json) =>
-      BusinessReportS3Location();
+      BusinessReportS3Location(
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        bucketName: json.containsKey('BucketName')
+            ? json['BucketName'] as String
+            : null,
+      );
 }
 
 /// The schedule of the usage report.
@@ -1693,7 +2193,30 @@ class BusinessReportSchedule {
     this.lastBusinessReport,
   });
   static BusinessReportSchedule fromJson(Map<String, dynamic> json) =>
-      BusinessReportSchedule();
+      BusinessReportSchedule(
+        scheduleArn: json.containsKey('ScheduleArn')
+            ? json['ScheduleArn'] as String
+            : null,
+        scheduleName: json.containsKey('ScheduleName')
+            ? json['ScheduleName'] as String
+            : null,
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+        s3KeyPrefix: json.containsKey('S3KeyPrefix')
+            ? json['S3KeyPrefix'] as String
+            : null,
+        format: json.containsKey('Format') ? json['Format'] as String : null,
+        contentRange: json.containsKey('ContentRange')
+            ? BusinessReportContentRange.fromJson(json['ContentRange'])
+            : null,
+        recurrence: json.containsKey('Recurrence')
+            ? BusinessReportRecurrence.fromJson(json['Recurrence'])
+            : null,
+        lastBusinessReport: json.containsKey('LastBusinessReport')
+            ? BusinessReport.fromJson(json['LastBusinessReport'])
+            : null,
+      );
 }
 
 /// The skill store category that is shown. Alexa skills are assigned a specific
@@ -1709,7 +2232,14 @@ class Category {
     this.categoryId,
     this.categoryName,
   });
-  static Category fromJson(Map<String, dynamic> json) => Category();
+  static Category fromJson(Map<String, dynamic> json) => Category(
+        categoryId: json.containsKey('CategoryId')
+            ? BigInt.from(json['CategoryId'])
+            : null,
+        categoryName: json.containsKey('CategoryName')
+            ? json['CategoryName'] as String
+            : null,
+      );
 }
 
 /// The default conference provider that is used if no other scheduled meetings
@@ -1722,7 +2252,13 @@ class ConferencePreference {
     this.defaultConferenceProviderArn,
   });
   static ConferencePreference fromJson(Map<String, dynamic> json) =>
-      ConferencePreference();
+      ConferencePreference(
+        defaultConferenceProviderArn:
+            json.containsKey('DefaultConferenceProviderArn')
+                ? json['DefaultConferenceProviderArn'] as String
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// An entity that provides a conferencing solution. Alexa for Business acts as
@@ -1757,7 +2293,20 @@ class ConferenceProvider {
     this.meetingSetting,
   });
   static ConferenceProvider fromJson(Map<String, dynamic> json) =>
-      ConferenceProvider();
+      ConferenceProvider(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        ipDialIn: json.containsKey('IPDialIn')
+            ? IPDialIn.fromJson(json['IPDialIn'])
+            : null,
+        pstnDialIn: json.containsKey('PSTNDialIn')
+            ? PstnDialIn.fromJson(json['PSTNDialIn'])
+            : null,
+        meetingSetting: json.containsKey('MeetingSetting')
+            ? MeetingSetting.fromJson(json['MeetingSetting'])
+            : null,
+      );
 }
 
 /// A contact with attributes.
@@ -1795,7 +2344,31 @@ class Contact {
     this.phoneNumbers,
     this.sipAddresses,
   });
-  static Contact fromJson(Map<String, dynamic> json) => Contact();
+  static Contact fromJson(Map<String, dynamic> json) => Contact(
+        contactArn: json.containsKey('ContactArn')
+            ? json['ContactArn'] as String
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        firstName:
+            json.containsKey('FirstName') ? json['FirstName'] as String : null,
+        lastName:
+            json.containsKey('LastName') ? json['LastName'] as String : null,
+        phoneNumber: json.containsKey('PhoneNumber')
+            ? json['PhoneNumber'] as String
+            : null,
+        phoneNumbers: json.containsKey('PhoneNumbers')
+            ? (json['PhoneNumbers'] as List)
+                .map((e) => PhoneNumber.fromJson(e))
+                .toList()
+            : null,
+        sipAddresses: json.containsKey('SipAddresses')
+            ? (json['SipAddresses'] as List)
+                .map((e) => SipAddress.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information related to a contact.
@@ -1833,7 +2406,31 @@ class ContactData {
     this.phoneNumbers,
     this.sipAddresses,
   });
-  static ContactData fromJson(Map<String, dynamic> json) => ContactData();
+  static ContactData fromJson(Map<String, dynamic> json) => ContactData(
+        contactArn: json.containsKey('ContactArn')
+            ? json['ContactArn'] as String
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        firstName:
+            json.containsKey('FirstName') ? json['FirstName'] as String : null,
+        lastName:
+            json.containsKey('LastName') ? json['LastName'] as String : null,
+        phoneNumber: json.containsKey('PhoneNumber')
+            ? json['PhoneNumber'] as String
+            : null,
+        phoneNumbers: json.containsKey('PhoneNumbers')
+            ? (json['PhoneNumbers'] as List)
+                .map((e) => PhoneNumber.fromJson(e))
+                .toList()
+            : null,
+        sipAddresses: json.containsKey('SipAddresses')
+            ? (json['SipAddresses'] as List)
+                .map((e) => SipAddress.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The content definition. This can contain only one text, SSML, or audio list
@@ -1853,6 +2450,7 @@ class Content {
     this.ssmlList,
     this.audioList,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateAddressBookResponse {
@@ -1863,7 +2461,11 @@ class CreateAddressBookResponse {
     this.addressBookArn,
   });
   static CreateAddressBookResponse fromJson(Map<String, dynamic> json) =>
-      CreateAddressBookResponse();
+      CreateAddressBookResponse(
+        addressBookArn: json.containsKey('AddressBookArn')
+            ? json['AddressBookArn'] as String
+            : null,
+      );
 }
 
 class CreateBusinessReportScheduleResponse {
@@ -1875,7 +2477,11 @@ class CreateBusinessReportScheduleResponse {
   });
   static CreateBusinessReportScheduleResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateBusinessReportScheduleResponse();
+      CreateBusinessReportScheduleResponse(
+        scheduleArn: json.containsKey('ScheduleArn')
+            ? json['ScheduleArn'] as String
+            : null,
+      );
 }
 
 class CreateConferenceProviderResponse {
@@ -1886,7 +2492,11 @@ class CreateConferenceProviderResponse {
     this.conferenceProviderArn,
   });
   static CreateConferenceProviderResponse fromJson(Map<String, dynamic> json) =>
-      CreateConferenceProviderResponse();
+      CreateConferenceProviderResponse(
+        conferenceProviderArn: json.containsKey('ConferenceProviderArn')
+            ? json['ConferenceProviderArn'] as String
+            : null,
+      );
 }
 
 class CreateContactResponse {
@@ -1897,7 +2507,11 @@ class CreateContactResponse {
     this.contactArn,
   });
   static CreateContactResponse fromJson(Map<String, dynamic> json) =>
-      CreateContactResponse();
+      CreateContactResponse(
+        contactArn: json.containsKey('ContactArn')
+            ? json['ContactArn'] as String
+            : null,
+      );
 }
 
 class CreateGatewayGroupResponse {
@@ -1908,7 +2522,11 @@ class CreateGatewayGroupResponse {
     this.gatewayGroupArn,
   });
   static CreateGatewayGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateGatewayGroupResponse();
+      CreateGatewayGroupResponse(
+        gatewayGroupArn: json.containsKey('GatewayGroupArn')
+            ? json['GatewayGroupArn'] as String
+            : null,
+      );
 }
 
 class CreateNetworkProfileResponse {
@@ -1919,7 +2537,11 @@ class CreateNetworkProfileResponse {
     this.networkProfileArn,
   });
   static CreateNetworkProfileResponse fromJson(Map<String, dynamic> json) =>
-      CreateNetworkProfileResponse();
+      CreateNetworkProfileResponse(
+        networkProfileArn: json.containsKey('NetworkProfileArn')
+            ? json['NetworkProfileArn'] as String
+            : null,
+      );
 }
 
 class CreateProfileResponse {
@@ -1930,7 +2552,11 @@ class CreateProfileResponse {
     this.profileArn,
   });
   static CreateProfileResponse fromJson(Map<String, dynamic> json) =>
-      CreateProfileResponse();
+      CreateProfileResponse(
+        profileArn: json.containsKey('ProfileArn')
+            ? json['ProfileArn'] as String
+            : null,
+      );
 }
 
 class CreateRoomResponse {
@@ -1941,7 +2567,9 @@ class CreateRoomResponse {
     this.roomArn,
   });
   static CreateRoomResponse fromJson(Map<String, dynamic> json) =>
-      CreateRoomResponse();
+      CreateRoomResponse(
+        roomArn: json.containsKey('RoomArn') ? json['RoomArn'] as String : null,
+      );
 }
 
 class CreateSkillGroupResponse {
@@ -1952,7 +2580,11 @@ class CreateSkillGroupResponse {
     this.skillGroupArn,
   });
   static CreateSkillGroupResponse fromJson(Map<String, dynamic> json) =>
-      CreateSkillGroupResponse();
+      CreateSkillGroupResponse(
+        skillGroupArn: json.containsKey('SkillGroupArn')
+            ? json['SkillGroupArn'] as String
+            : null,
+      );
 }
 
 class CreateUserResponse {
@@ -1963,7 +2595,9 @@ class CreateUserResponse {
     this.userArn,
   });
   static CreateUserResponse fromJson(Map<String, dynamic> json) =>
-      CreateUserResponse();
+      CreateUserResponse(
+        userArn: json.containsKey('UserArn') ? json['UserArn'] as String : null,
+      );
 }
 
 class DeleteAddressBookResponse {
@@ -2071,7 +2705,16 @@ class DeveloperInfo {
     this.email,
     this.url,
   });
-  static DeveloperInfo fromJson(Map<String, dynamic> json) => DeveloperInfo();
+  static DeveloperInfo fromJson(Map<String, dynamic> json) => DeveloperInfo(
+        developerName: json.containsKey('DeveloperName')
+            ? json['DeveloperName'] as String
+            : null,
+        privacyPolicy: json.containsKey('PrivacyPolicy')
+            ? json['PrivacyPolicy'] as String
+            : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        url: json.containsKey('Url') ? json['Url'] as String : null,
+      );
 }
 
 /// A device with attributes.
@@ -2119,7 +2762,35 @@ class Device {
     this.deviceStatusInfo,
     this.networkProfileInfo,
   });
-  static Device fromJson(Map<String, dynamic> json) => Device();
+  static Device fromJson(Map<String, dynamic> json) => Device(
+        deviceArn:
+            json.containsKey('DeviceArn') ? json['DeviceArn'] as String : null,
+        deviceSerialNumber: json.containsKey('DeviceSerialNumber')
+            ? json['DeviceSerialNumber'] as String
+            : null,
+        deviceType: json.containsKey('DeviceType')
+            ? json['DeviceType'] as String
+            : null,
+        deviceName: json.containsKey('DeviceName')
+            ? json['DeviceName'] as String
+            : null,
+        softwareVersion: json.containsKey('SoftwareVersion')
+            ? json['SoftwareVersion'] as String
+            : null,
+        macAddress: json.containsKey('MacAddress')
+            ? json['MacAddress'] as String
+            : null,
+        roomArn: json.containsKey('RoomArn') ? json['RoomArn'] as String : null,
+        deviceStatus: json.containsKey('DeviceStatus')
+            ? json['DeviceStatus'] as String
+            : null,
+        deviceStatusInfo: json.containsKey('DeviceStatusInfo')
+            ? DeviceStatusInfo.fromJson(json['DeviceStatusInfo'])
+            : null,
+        networkProfileInfo: json.containsKey('NetworkProfileInfo')
+            ? DeviceNetworkProfileInfo.fromJson(json['NetworkProfileInfo'])
+            : null,
+      );
 }
 
 /// Device attributes.
@@ -2174,7 +2845,40 @@ class DeviceData {
     this.roomName,
     this.deviceStatusInfo,
   });
-  static DeviceData fromJson(Map<String, dynamic> json) => DeviceData();
+  static DeviceData fromJson(Map<String, dynamic> json) => DeviceData(
+        deviceArn:
+            json.containsKey('DeviceArn') ? json['DeviceArn'] as String : null,
+        deviceSerialNumber: json.containsKey('DeviceSerialNumber')
+            ? json['DeviceSerialNumber'] as String
+            : null,
+        deviceType: json.containsKey('DeviceType')
+            ? json['DeviceType'] as String
+            : null,
+        deviceName: json.containsKey('DeviceName')
+            ? json['DeviceName'] as String
+            : null,
+        softwareVersion: json.containsKey('SoftwareVersion')
+            ? json['SoftwareVersion'] as String
+            : null,
+        macAddress: json.containsKey('MacAddress')
+            ? json['MacAddress'] as String
+            : null,
+        deviceStatus: json.containsKey('DeviceStatus')
+            ? json['DeviceStatus'] as String
+            : null,
+        networkProfileArn: json.containsKey('NetworkProfileArn')
+            ? json['NetworkProfileArn'] as String
+            : null,
+        networkProfileName: json.containsKey('NetworkProfileName')
+            ? json['NetworkProfileName'] as String
+            : null,
+        roomArn: json.containsKey('RoomArn') ? json['RoomArn'] as String : null,
+        roomName:
+            json.containsKey('RoomName') ? json['RoomName'] as String : null,
+        deviceStatusInfo: json.containsKey('DeviceStatusInfo')
+            ? DeviceStatusInfo.fromJson(json['DeviceStatusInfo'])
+            : null,
+      );
 }
 
 /// The list of device events.
@@ -2193,7 +2897,13 @@ class DeviceEvent {
     this.value,
     this.timestamp,
   });
-  static DeviceEvent fromJson(Map<String, dynamic> json) => DeviceEvent();
+  static DeviceEvent fromJson(Map<String, dynamic> json) => DeviceEvent(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+      );
 }
 
 /// Detailed information about a device's network profile.
@@ -2213,7 +2923,17 @@ class DeviceNetworkProfileInfo {
     this.certificateExpirationTime,
   });
   static DeviceNetworkProfileInfo fromJson(Map<String, dynamic> json) =>
-      DeviceNetworkProfileInfo();
+      DeviceNetworkProfileInfo(
+        networkProfileArn: json.containsKey('NetworkProfileArn')
+            ? json['NetworkProfileArn'] as String
+            : null,
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+        certificateExpirationTime: json.containsKey('CertificateExpirationTime')
+            ? DateTime.parse(json['CertificateExpirationTime'])
+            : null,
+      );
 }
 
 /// Details of a device’s status.
@@ -2229,7 +2949,10 @@ class DeviceStatusDetail {
     this.code,
   });
   static DeviceStatusDetail fromJson(Map<String, dynamic> json) =>
-      DeviceStatusDetail();
+      DeviceStatusDetail(
+        feature: json.containsKey('Feature') ? json['Feature'] as String : null,
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+      );
 }
 
 /// Detailed information about a device's status.
@@ -2245,7 +2968,16 @@ class DeviceStatusInfo {
     this.connectionStatus,
   });
   static DeviceStatusInfo fromJson(Map<String, dynamic> json) =>
-      DeviceStatusInfo();
+      DeviceStatusInfo(
+        deviceStatusDetails: json.containsKey('DeviceStatusDetails')
+            ? (json['DeviceStatusDetails'] as List)
+                .map((e) => DeviceStatusDetail.fromJson(e))
+                .toList()
+            : null,
+        connectionStatus: json.containsKey('ConnectionStatus')
+            ? json['ConnectionStatus'] as String
+            : null,
+      );
 }
 
 class DisassociateContactFromAddressBookResponse {
@@ -2297,6 +3029,7 @@ class Filter {
     @required this.key,
     @required this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ForgetSmartHomeAppliancesResponse {
@@ -2331,7 +3064,19 @@ class Gateway {
     this.gatewayGroupArn,
     this.softwareVersion,
   });
-  static Gateway fromJson(Map<String, dynamic> json) => Gateway();
+  static Gateway fromJson(Map<String, dynamic> json) => Gateway(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        gatewayGroupArn: json.containsKey('GatewayGroupArn')
+            ? json['GatewayGroupArn'] as String
+            : null,
+        softwareVersion: json.containsKey('SoftwareVersion')
+            ? json['SoftwareVersion'] as String
+            : null,
+      );
 }
 
 /// The details of the gateway group.
@@ -2350,7 +3095,13 @@ class GatewayGroup {
     this.name,
     this.description,
   });
-  static GatewayGroup fromJson(Map<String, dynamic> json) => GatewayGroup();
+  static GatewayGroup fromJson(Map<String, dynamic> json) => GatewayGroup(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// The summary of a gateway group.
@@ -2370,7 +3121,13 @@ class GatewayGroupSummary {
     this.description,
   });
   static GatewayGroupSummary fromJson(Map<String, dynamic> json) =>
-      GatewayGroupSummary();
+      GatewayGroupSummary(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// The summary of a gateway.
@@ -2398,7 +3155,19 @@ class GatewaySummary {
     this.gatewayGroupArn,
     this.softwareVersion,
   });
-  static GatewaySummary fromJson(Map<String, dynamic> json) => GatewaySummary();
+  static GatewaySummary fromJson(Map<String, dynamic> json) => GatewaySummary(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        gatewayGroupArn: json.containsKey('GatewayGroupArn')
+            ? json['GatewayGroupArn'] as String
+            : null,
+        softwareVersion: json.containsKey('SoftwareVersion')
+            ? json['SoftwareVersion'] as String
+            : null,
+      );
 }
 
 class GetAddressBookResponse {
@@ -2409,7 +3178,11 @@ class GetAddressBookResponse {
     this.addressBook,
   });
   static GetAddressBookResponse fromJson(Map<String, dynamic> json) =>
-      GetAddressBookResponse();
+      GetAddressBookResponse(
+        addressBook: json.containsKey('AddressBook')
+            ? AddressBook.fromJson(json['AddressBook'])
+            : null,
+      );
 }
 
 class GetConferencePreferenceResponse {
@@ -2420,7 +3193,11 @@ class GetConferencePreferenceResponse {
     this.preference,
   });
   static GetConferencePreferenceResponse fromJson(Map<String, dynamic> json) =>
-      GetConferencePreferenceResponse();
+      GetConferencePreferenceResponse(
+        preference: json.containsKey('Preference')
+            ? ConferencePreference.fromJson(json['Preference'])
+            : null,
+      );
 }
 
 class GetConferenceProviderResponse {
@@ -2431,7 +3208,11 @@ class GetConferenceProviderResponse {
     this.conferenceProvider,
   });
   static GetConferenceProviderResponse fromJson(Map<String, dynamic> json) =>
-      GetConferenceProviderResponse();
+      GetConferenceProviderResponse(
+        conferenceProvider: json.containsKey('ConferenceProvider')
+            ? ConferenceProvider.fromJson(json['ConferenceProvider'])
+            : null,
+      );
 }
 
 class GetContactResponse {
@@ -2442,7 +3223,11 @@ class GetContactResponse {
     this.contact,
   });
   static GetContactResponse fromJson(Map<String, dynamic> json) =>
-      GetContactResponse();
+      GetContactResponse(
+        contact: json.containsKey('Contact')
+            ? Contact.fromJson(json['Contact'])
+            : null,
+      );
 }
 
 class GetDeviceResponse {
@@ -2453,7 +3238,10 @@ class GetDeviceResponse {
     this.device,
   });
   static GetDeviceResponse fromJson(Map<String, dynamic> json) =>
-      GetDeviceResponse();
+      GetDeviceResponse(
+        device:
+            json.containsKey('Device') ? Device.fromJson(json['Device']) : null,
+      );
 }
 
 class GetGatewayGroupResponse {
@@ -2463,7 +3251,11 @@ class GetGatewayGroupResponse {
     this.gatewayGroup,
   });
   static GetGatewayGroupResponse fromJson(Map<String, dynamic> json) =>
-      GetGatewayGroupResponse();
+      GetGatewayGroupResponse(
+        gatewayGroup: json.containsKey('GatewayGroup')
+            ? GatewayGroup.fromJson(json['GatewayGroup'])
+            : null,
+      );
 }
 
 class GetGatewayResponse {
@@ -2474,7 +3266,11 @@ class GetGatewayResponse {
     this.gateway,
   });
   static GetGatewayResponse fromJson(Map<String, dynamic> json) =>
-      GetGatewayResponse();
+      GetGatewayResponse(
+        gateway: json.containsKey('Gateway')
+            ? Gateway.fromJson(json['Gateway'])
+            : null,
+      );
 }
 
 class GetInvitationConfigurationResponse {
@@ -2496,7 +3292,17 @@ class GetInvitationConfigurationResponse {
   });
   static GetInvitationConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetInvitationConfigurationResponse();
+      GetInvitationConfigurationResponse(
+        organizationName: json.containsKey('OrganizationName')
+            ? json['OrganizationName'] as String
+            : null,
+        contactEmail: json.containsKey('ContactEmail')
+            ? json['ContactEmail'] as String
+            : null,
+        privateSkillIds: json.containsKey('PrivateSkillIds')
+            ? (json['PrivateSkillIds'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class GetNetworkProfileResponse {
@@ -2507,7 +3313,11 @@ class GetNetworkProfileResponse {
     this.networkProfile,
   });
   static GetNetworkProfileResponse fromJson(Map<String, dynamic> json) =>
-      GetNetworkProfileResponse();
+      GetNetworkProfileResponse(
+        networkProfile: json.containsKey('NetworkProfile')
+            ? NetworkProfile.fromJson(json['NetworkProfile'])
+            : null,
+      );
 }
 
 class GetProfileResponse {
@@ -2518,7 +3328,11 @@ class GetProfileResponse {
     this.profile,
   });
   static GetProfileResponse fromJson(Map<String, dynamic> json) =>
-      GetProfileResponse();
+      GetProfileResponse(
+        profile: json.containsKey('Profile')
+            ? Profile.fromJson(json['Profile'])
+            : null,
+      );
 }
 
 class GetRoomResponse {
@@ -2528,8 +3342,9 @@ class GetRoomResponse {
   GetRoomResponse({
     this.room,
   });
-  static GetRoomResponse fromJson(Map<String, dynamic> json) =>
-      GetRoomResponse();
+  static GetRoomResponse fromJson(Map<String, dynamic> json) => GetRoomResponse(
+        room: json.containsKey('Room') ? Room.fromJson(json['Room']) : null,
+      );
 }
 
 class GetRoomSkillParameterResponse {
@@ -2540,7 +3355,11 @@ class GetRoomSkillParameterResponse {
     this.roomSkillParameter,
   });
   static GetRoomSkillParameterResponse fromJson(Map<String, dynamic> json) =>
-      GetRoomSkillParameterResponse();
+      GetRoomSkillParameterResponse(
+        roomSkillParameter: json.containsKey('RoomSkillParameter')
+            ? RoomSkillParameter.fromJson(json['RoomSkillParameter'])
+            : null,
+      );
 }
 
 class GetSkillGroupResponse {
@@ -2551,7 +3370,11 @@ class GetSkillGroupResponse {
     this.skillGroup,
   });
   static GetSkillGroupResponse fromJson(Map<String, dynamic> json) =>
-      GetSkillGroupResponse();
+      GetSkillGroupResponse(
+        skillGroup: json.containsKey('SkillGroup')
+            ? SkillGroup.fromJson(json['SkillGroup'])
+            : null,
+      );
 }
 
 /// The IP endpoint and protocol for calling.
@@ -2566,7 +3389,11 @@ class IPDialIn {
     @required this.endpoint,
     @required this.commsProtocol,
   });
-  static IPDialIn fromJson(Map<String, dynamic> json) => IPDialIn();
+  static IPDialIn fromJson(Map<String, dynamic> json) => IPDialIn(
+        endpoint: json['Endpoint'] as String,
+        commsProtocol: json['CommsProtocol'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListBusinessReportSchedulesResponse {
@@ -2582,7 +3409,15 @@ class ListBusinessReportSchedulesResponse {
   });
   static ListBusinessReportSchedulesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListBusinessReportSchedulesResponse();
+      ListBusinessReportSchedulesResponse(
+        businessReportSchedules: json.containsKey('BusinessReportSchedules')
+            ? (json['BusinessReportSchedules'] as List)
+                .map((e) => BusinessReportSchedule.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListConferenceProvidersResponse {
@@ -2597,7 +3432,15 @@ class ListConferenceProvidersResponse {
     this.nextToken,
   });
   static ListConferenceProvidersResponse fromJson(Map<String, dynamic> json) =>
-      ListConferenceProvidersResponse();
+      ListConferenceProvidersResponse(
+        conferenceProviders: json.containsKey('ConferenceProviders')
+            ? (json['ConferenceProviders'] as List)
+                .map((e) => ConferenceProvider.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListDeviceEventsResponse {
@@ -2612,7 +3455,15 @@ class ListDeviceEventsResponse {
     this.nextToken,
   });
   static ListDeviceEventsResponse fromJson(Map<String, dynamic> json) =>
-      ListDeviceEventsResponse();
+      ListDeviceEventsResponse(
+        deviceEvents: json.containsKey('DeviceEvents')
+            ? (json['DeviceEvents'] as List)
+                .map((e) => DeviceEvent.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListGatewayGroupsResponse {
@@ -2628,7 +3479,15 @@ class ListGatewayGroupsResponse {
     this.nextToken,
   });
   static ListGatewayGroupsResponse fromJson(Map<String, dynamic> json) =>
-      ListGatewayGroupsResponse();
+      ListGatewayGroupsResponse(
+        gatewayGroups: json.containsKey('GatewayGroups')
+            ? (json['GatewayGroups'] as List)
+                .map((e) => GatewayGroupSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListGatewaysResponse {
@@ -2643,7 +3502,15 @@ class ListGatewaysResponse {
     this.nextToken,
   });
   static ListGatewaysResponse fromJson(Map<String, dynamic> json) =>
-      ListGatewaysResponse();
+      ListGatewaysResponse(
+        gateways: json.containsKey('Gateways')
+            ? (json['Gateways'] as List)
+                .map((e) => GatewaySummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListSkillsResponse {
@@ -2658,7 +3525,15 @@ class ListSkillsResponse {
     this.nextToken,
   });
   static ListSkillsResponse fromJson(Map<String, dynamic> json) =>
-      ListSkillsResponse();
+      ListSkillsResponse(
+        skillSummaries: json.containsKey('SkillSummaries')
+            ? (json['SkillSummaries'] as List)
+                .map((e) => SkillSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListSkillsStoreCategoriesResponse {
@@ -2674,7 +3549,15 @@ class ListSkillsStoreCategoriesResponse {
   });
   static ListSkillsStoreCategoriesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListSkillsStoreCategoriesResponse();
+      ListSkillsStoreCategoriesResponse(
+        categoryList: json.containsKey('CategoryList')
+            ? (json['CategoryList'] as List)
+                .map((e) => Category.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListSkillsStoreSkillsByCategoryResponse {
@@ -2690,7 +3573,15 @@ class ListSkillsStoreSkillsByCategoryResponse {
   });
   static ListSkillsStoreSkillsByCategoryResponse fromJson(
           Map<String, dynamic> json) =>
-      ListSkillsStoreSkillsByCategoryResponse();
+      ListSkillsStoreSkillsByCategoryResponse(
+        skillsStoreSkills: json.containsKey('SkillsStoreSkills')
+            ? (json['SkillsStoreSkills'] as List)
+                .map((e) => SkillsStoreSkill.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListSmartHomeAppliancesResponse {
@@ -2705,7 +3596,15 @@ class ListSmartHomeAppliancesResponse {
     this.nextToken,
   });
   static ListSmartHomeAppliancesResponse fromJson(Map<String, dynamic> json) =>
-      ListSmartHomeAppliancesResponse();
+      ListSmartHomeAppliancesResponse(
+        smartHomeAppliances: json.containsKey('SmartHomeAppliances')
+            ? (json['SmartHomeAppliances'] as List)
+                .map((e) => SmartHomeAppliance.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsResponse {
@@ -2720,7 +3619,13 @@ class ListTagsResponse {
     this.nextToken,
   });
   static ListTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsResponse();
+      ListTagsResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The values that indicate whether a pin is always required (YES), never
@@ -2739,7 +3644,10 @@ class MeetingSetting {
   MeetingSetting({
     @required this.requirePin,
   });
-  static MeetingSetting fromJson(Map<String, dynamic> json) => MeetingSetting();
+  static MeetingSetting fromJson(Map<String, dynamic> json) => MeetingSetting(
+        requirePin: json['RequirePin'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The network profile associated with a device.
@@ -2794,7 +3702,35 @@ class NetworkProfile {
     this.certificateAuthorityArn,
     this.trustAnchors,
   });
-  static NetworkProfile fromJson(Map<String, dynamic> json) => NetworkProfile();
+  static NetworkProfile fromJson(Map<String, dynamic> json) => NetworkProfile(
+        networkProfileArn: json.containsKey('NetworkProfileArn')
+            ? json['NetworkProfileArn'] as String
+            : null,
+        networkProfileName: json.containsKey('NetworkProfileName')
+            ? json['NetworkProfileName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        ssid: json.containsKey('Ssid') ? json['Ssid'] as String : null,
+        securityType: json.containsKey('SecurityType')
+            ? json['SecurityType'] as String
+            : null,
+        eapMethod:
+            json.containsKey('EapMethod') ? json['EapMethod'] as String : null,
+        currentPassword: json.containsKey('CurrentPassword')
+            ? json['CurrentPassword'] as String
+            : null,
+        nextPassword: json.containsKey('NextPassword')
+            ? json['NextPassword'] as String
+            : null,
+        certificateAuthorityArn: json.containsKey('CertificateAuthorityArn')
+            ? json['CertificateAuthorityArn'] as String
+            : null,
+        trustAnchors: json.containsKey('TrustAnchors')
+            ? (json['TrustAnchors'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// The data associated with a network profile.
@@ -2834,7 +3770,26 @@ class NetworkProfileData {
     this.certificateAuthorityArn,
   });
   static NetworkProfileData fromJson(Map<String, dynamic> json) =>
-      NetworkProfileData();
+      NetworkProfileData(
+        networkProfileArn: json.containsKey('NetworkProfileArn')
+            ? json['NetworkProfileArn'] as String
+            : null,
+        networkProfileName: json.containsKey('NetworkProfileName')
+            ? json['NetworkProfileName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        ssid: json.containsKey('Ssid') ? json['Ssid'] as String : null,
+        securityType: json.containsKey('SecurityType')
+            ? json['SecurityType'] as String
+            : null,
+        eapMethod:
+            json.containsKey('EapMethod') ? json['EapMethod'] as String : null,
+        certificateAuthorityArn: json.containsKey('CertificateAuthorityArn')
+            ? json['CertificateAuthorityArn'] as String
+            : null,
+      );
 }
 
 /// The information for public switched telephone network (PSTN) conferencing.
@@ -2861,7 +3816,13 @@ class PstnDialIn {
     @required this.oneClickIdDelay,
     @required this.oneClickPinDelay,
   });
-  static PstnDialIn fromJson(Map<String, dynamic> json) => PstnDialIn();
+  static PstnDialIn fromJson(Map<String, dynamic> json) => PstnDialIn(
+        countryCode: json['CountryCode'] as String,
+        phoneNumber: json['PhoneNumber'] as String,
+        oneClickIdDelay: json['OneClickIdDelay'] as String,
+        oneClickPinDelay: json['OneClickPinDelay'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The phone number for the contact containing the raw number and phone number
@@ -2877,7 +3838,11 @@ class PhoneNumber {
     @required this.number,
     @required this.type,
   });
-  static PhoneNumber fromJson(Map<String, dynamic> json) => PhoneNumber();
+  static PhoneNumber fromJson(Map<String, dynamic> json) => PhoneNumber(
+        number: json['Number'] as String,
+        type: json['Type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A room profile with attributes.
@@ -2936,7 +3901,40 @@ class Profile {
     this.pstnEnabled,
     this.addressBookArn,
   });
-  static Profile fromJson(Map<String, dynamic> json) => Profile();
+  static Profile fromJson(Map<String, dynamic> json) => Profile(
+        profileArn: json.containsKey('ProfileArn')
+            ? json['ProfileArn'] as String
+            : null,
+        profileName: json.containsKey('ProfileName')
+            ? json['ProfileName'] as String
+            : null,
+        isDefault:
+            json.containsKey('IsDefault') ? json['IsDefault'] as bool : null,
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+        distanceUnit: json.containsKey('DistanceUnit')
+            ? json['DistanceUnit'] as String
+            : null,
+        temperatureUnit: json.containsKey('TemperatureUnit')
+            ? json['TemperatureUnit'] as String
+            : null,
+        wakeWord:
+            json.containsKey('WakeWord') ? json['WakeWord'] as String : null,
+        locale: json.containsKey('Locale') ? json['Locale'] as String : null,
+        setupModeDisabled: json.containsKey('SetupModeDisabled')
+            ? json['SetupModeDisabled'] as bool
+            : null,
+        maxVolumeLimit: json.containsKey('MaxVolumeLimit')
+            ? json['MaxVolumeLimit'] as int
+            : null,
+        pstnEnabled: json.containsKey('PSTNEnabled')
+            ? json['PSTNEnabled'] as bool
+            : null,
+        addressBookArn: json.containsKey('AddressBookArn')
+            ? json['AddressBookArn'] as String
+            : null,
+      );
 }
 
 /// The data of a room profile.
@@ -2979,7 +3977,28 @@ class ProfileData {
     this.wakeWord,
     this.locale,
   });
-  static ProfileData fromJson(Map<String, dynamic> json) => ProfileData();
+  static ProfileData fromJson(Map<String, dynamic> json) => ProfileData(
+        profileArn: json.containsKey('ProfileArn')
+            ? json['ProfileArn'] as String
+            : null,
+        profileName: json.containsKey('ProfileName')
+            ? json['ProfileName'] as String
+            : null,
+        isDefault:
+            json.containsKey('IsDefault') ? json['IsDefault'] as bool : null,
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+        distanceUnit: json.containsKey('DistanceUnit')
+            ? json['DistanceUnit'] as String
+            : null,
+        temperatureUnit: json.containsKey('TemperatureUnit')
+            ? json['TemperatureUnit'] as String
+            : null,
+        wakeWord:
+            json.containsKey('WakeWord') ? json['WakeWord'] as String : null,
+        locale: json.containsKey('Locale') ? json['Locale'] as String : null,
+      );
 }
 
 class PutConferencePreferenceResponse {
@@ -3015,7 +4034,10 @@ class RegisterAvsDeviceResponse {
     this.deviceArn,
   });
   static RegisterAvsDeviceResponse fromJson(Map<String, dynamic> json) =>
-      RegisterAvsDeviceResponse();
+      RegisterAvsDeviceResponse(
+        deviceArn:
+            json.containsKey('DeviceArn') ? json['DeviceArn'] as String : null,
+      );
 }
 
 class RejectSkillResponse {
@@ -3040,7 +4062,16 @@ class ResolveRoomResponse {
     this.roomSkillParameters,
   });
   static ResolveRoomResponse fromJson(Map<String, dynamic> json) =>
-      ResolveRoomResponse();
+      ResolveRoomResponse(
+        roomArn: json.containsKey('RoomArn') ? json['RoomArn'] as String : null,
+        roomName:
+            json.containsKey('RoomName') ? json['RoomName'] as String : null,
+        roomSkillParameters: json.containsKey('RoomSkillParameters')
+            ? (json['RoomSkillParameters'] as List)
+                .map((e) => RoomSkillParameter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class RevokeInvitationResponse {
@@ -3073,7 +4104,20 @@ class Room {
     this.providerCalendarId,
     this.profileArn,
   });
-  static Room fromJson(Map<String, dynamic> json) => Room();
+  static Room fromJson(Map<String, dynamic> json) => Room(
+        roomArn: json.containsKey('RoomArn') ? json['RoomArn'] as String : null,
+        roomName:
+            json.containsKey('RoomName') ? json['RoomName'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        providerCalendarId: json.containsKey('ProviderCalendarId')
+            ? json['ProviderCalendarId'] as String
+            : null,
+        profileArn: json.containsKey('ProfileArn')
+            ? json['ProfileArn'] as String
+            : null,
+      );
 }
 
 /// The data of a room.
@@ -3104,7 +4148,23 @@ class RoomData {
     this.profileArn,
     this.profileName,
   });
-  static RoomData fromJson(Map<String, dynamic> json) => RoomData();
+  static RoomData fromJson(Map<String, dynamic> json) => RoomData(
+        roomArn: json.containsKey('RoomArn') ? json['RoomArn'] as String : null,
+        roomName:
+            json.containsKey('RoomName') ? json['RoomName'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        providerCalendarId: json.containsKey('ProviderCalendarId')
+            ? json['ProviderCalendarId'] as String
+            : null,
+        profileArn: json.containsKey('ProfileArn')
+            ? json['ProfileArn'] as String
+            : null,
+        profileName: json.containsKey('ProfileName')
+            ? json['ProfileName'] as String
+            : null,
+      );
 }
 
 /// A skill parameter associated with a room.
@@ -3121,7 +4181,11 @@ class RoomSkillParameter {
     @required this.parameterValue,
   });
   static RoomSkillParameter fromJson(Map<String, dynamic> json) =>
-      RoomSkillParameter();
+      RoomSkillParameter(
+        parameterKey: json['ParameterKey'] as String,
+        parameterValue: json['ParameterValue'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class SearchAddressBooksResponse {
@@ -3141,7 +4205,17 @@ class SearchAddressBooksResponse {
     this.totalCount,
   });
   static SearchAddressBooksResponse fromJson(Map<String, dynamic> json) =>
-      SearchAddressBooksResponse();
+      SearchAddressBooksResponse(
+        addressBooks: json.containsKey('AddressBooks')
+            ? (json['AddressBooks'] as List)
+                .map((e) => AddressBookData.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        totalCount:
+            json.containsKey('TotalCount') ? json['TotalCount'] as int : null,
+      );
 }
 
 class SearchContactsResponse {
@@ -3161,7 +4235,17 @@ class SearchContactsResponse {
     this.totalCount,
   });
   static SearchContactsResponse fromJson(Map<String, dynamic> json) =>
-      SearchContactsResponse();
+      SearchContactsResponse(
+        contacts: json.containsKey('Contacts')
+            ? (json['Contacts'] as List)
+                .map((e) => ContactData.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        totalCount:
+            json.containsKey('TotalCount') ? json['TotalCount'] as int : null,
+      );
 }
 
 class SearchDevicesResponse {
@@ -3180,7 +4264,17 @@ class SearchDevicesResponse {
     this.totalCount,
   });
   static SearchDevicesResponse fromJson(Map<String, dynamic> json) =>
-      SearchDevicesResponse();
+      SearchDevicesResponse(
+        devices: json.containsKey('Devices')
+            ? (json['Devices'] as List)
+                .map((e) => DeviceData.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        totalCount:
+            json.containsKey('TotalCount') ? json['TotalCount'] as int : null,
+      );
 }
 
 class SearchNetworkProfilesResponse {
@@ -3203,7 +4297,17 @@ class SearchNetworkProfilesResponse {
     this.totalCount,
   });
   static SearchNetworkProfilesResponse fromJson(Map<String, dynamic> json) =>
-      SearchNetworkProfilesResponse();
+      SearchNetworkProfilesResponse(
+        networkProfiles: json.containsKey('NetworkProfiles')
+            ? (json['NetworkProfiles'] as List)
+                .map((e) => NetworkProfileData.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        totalCount:
+            json.containsKey('TotalCount') ? json['TotalCount'] as int : null,
+      );
 }
 
 class SearchProfilesResponse {
@@ -3223,7 +4327,17 @@ class SearchProfilesResponse {
     this.totalCount,
   });
   static SearchProfilesResponse fromJson(Map<String, dynamic> json) =>
-      SearchProfilesResponse();
+      SearchProfilesResponse(
+        profiles: json.containsKey('Profiles')
+            ? (json['Profiles'] as List)
+                .map((e) => ProfileData.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        totalCount:
+            json.containsKey('TotalCount') ? json['TotalCount'] as int : null,
+      );
 }
 
 class SearchRoomsResponse {
@@ -3242,7 +4356,15 @@ class SearchRoomsResponse {
     this.totalCount,
   });
   static SearchRoomsResponse fromJson(Map<String, dynamic> json) =>
-      SearchRoomsResponse();
+      SearchRoomsResponse(
+        rooms: json.containsKey('Rooms')
+            ? (json['Rooms'] as List).map((e) => RoomData.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        totalCount:
+            json.containsKey('TotalCount') ? json['TotalCount'] as int : null,
+      );
 }
 
 class SearchSkillGroupsResponse {
@@ -3261,7 +4383,17 @@ class SearchSkillGroupsResponse {
     this.totalCount,
   });
   static SearchSkillGroupsResponse fromJson(Map<String, dynamic> json) =>
-      SearchSkillGroupsResponse();
+      SearchSkillGroupsResponse(
+        skillGroups: json.containsKey('SkillGroups')
+            ? (json['SkillGroups'] as List)
+                .map((e) => SkillGroupData.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        totalCount:
+            json.containsKey('TotalCount') ? json['TotalCount'] as int : null,
+      );
 }
 
 class SearchUsersResponse {
@@ -3280,7 +4412,15 @@ class SearchUsersResponse {
     this.totalCount,
   });
   static SearchUsersResponse fromJson(Map<String, dynamic> json) =>
-      SearchUsersResponse();
+      SearchUsersResponse(
+        users: json.containsKey('Users')
+            ? (json['Users'] as List).map((e) => UserData.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        totalCount:
+            json.containsKey('TotalCount') ? json['TotalCount'] as int : null,
+      );
 }
 
 class SendAnnouncementResponse {
@@ -3291,7 +4431,11 @@ class SendAnnouncementResponse {
     this.announcementArn,
   });
   static SendAnnouncementResponse fromJson(Map<String, dynamic> json) =>
-      SendAnnouncementResponse();
+      SendAnnouncementResponse(
+        announcementArn: json.containsKey('AnnouncementArn')
+            ? json['AnnouncementArn'] as String
+            : null,
+      );
 }
 
 class SendInvitationResponse {
@@ -3312,7 +4456,11 @@ class SipAddress {
     @required this.uri,
     @required this.type,
   });
-  static SipAddress fromJson(Map<String, dynamic> json) => SipAddress();
+  static SipAddress fromJson(Map<String, dynamic> json) => SipAddress(
+        uri: json['Uri'] as String,
+        type: json['Type'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Granular information about the skill.
@@ -3360,7 +4508,42 @@ class SkillDetails {
     this.reviews,
     this.developerInfo,
   });
-  static SkillDetails fromJson(Map<String, dynamic> json) => SkillDetails();
+  static SkillDetails fromJson(Map<String, dynamic> json) => SkillDetails(
+        productDescription: json.containsKey('ProductDescription')
+            ? json['ProductDescription'] as String
+            : null,
+        invocationPhrase: json.containsKey('InvocationPhrase')
+            ? json['InvocationPhrase'] as String
+            : null,
+        releaseDate: json.containsKey('ReleaseDate')
+            ? json['ReleaseDate'] as String
+            : null,
+        endUserLicenseAgreement: json.containsKey('EndUserLicenseAgreement')
+            ? json['EndUserLicenseAgreement'] as String
+            : null,
+        genericKeywords: json.containsKey('GenericKeywords')
+            ? (json['GenericKeywords'] as List).map((e) => e as String).toList()
+            : null,
+        bulletPoints: json.containsKey('BulletPoints')
+            ? (json['BulletPoints'] as List).map((e) => e as String).toList()
+            : null,
+        newInThisVersionBulletPoints:
+            json.containsKey('NewInThisVersionBulletPoints')
+                ? (json['NewInThisVersionBulletPoints'] as List)
+                    .map((e) => e as String)
+                    .toList()
+                : null,
+        skillTypes: json.containsKey('SkillTypes')
+            ? (json['SkillTypes'] as List).map((e) => e as String).toList()
+            : null,
+        reviews: json.containsKey('Reviews')
+            ? (json['Reviews'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+        developerInfo: json.containsKey('DeveloperInfo')
+            ? DeveloperInfo.fromJson(json['DeveloperInfo'])
+            : null,
+      );
 }
 
 /// A skill group with attributes.
@@ -3379,7 +4562,17 @@ class SkillGroup {
     this.skillGroupName,
     this.description,
   });
-  static SkillGroup fromJson(Map<String, dynamic> json) => SkillGroup();
+  static SkillGroup fromJson(Map<String, dynamic> json) => SkillGroup(
+        skillGroupArn: json.containsKey('SkillGroupArn')
+            ? json['SkillGroupArn'] as String
+            : null,
+        skillGroupName: json.containsKey('SkillGroupName')
+            ? json['SkillGroupName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// The attributes of a skill group.
@@ -3398,7 +4591,17 @@ class SkillGroupData {
     this.skillGroupName,
     this.description,
   });
-  static SkillGroupData fromJson(Map<String, dynamic> json) => SkillGroupData();
+  static SkillGroupData fromJson(Map<String, dynamic> json) => SkillGroupData(
+        skillGroupArn: json.containsKey('SkillGroupArn')
+            ? json['SkillGroupArn'] as String
+            : null,
+        skillGroupName: json.containsKey('SkillGroupName')
+            ? json['SkillGroupName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// The summary of skills.
@@ -3426,7 +4629,19 @@ class SkillSummary {
     this.enablementType,
     this.skillType,
   });
-  static SkillSummary fromJson(Map<String, dynamic> json) => SkillSummary();
+  static SkillSummary fromJson(Map<String, dynamic> json) => SkillSummary(
+        skillId: json.containsKey('SkillId') ? json['SkillId'] as String : null,
+        skillName:
+            json.containsKey('SkillName') ? json['SkillName'] as String : null,
+        supportsLinking: json.containsKey('SupportsLinking')
+            ? json['SupportsLinking'] as bool
+            : null,
+        enablementType: json.containsKey('EnablementType')
+            ? json['EnablementType'] as String
+            : null,
+        skillType:
+            json.containsKey('SkillType') ? json['SkillType'] as String : null,
+      );
 }
 
 /// The detailed information about an Alexa skill.
@@ -3462,7 +4677,26 @@ class SkillsStoreSkill {
     this.supportsLinking,
   });
   static SkillsStoreSkill fromJson(Map<String, dynamic> json) =>
-      SkillsStoreSkill();
+      SkillsStoreSkill(
+        skillId: json.containsKey('SkillId') ? json['SkillId'] as String : null,
+        skillName:
+            json.containsKey('SkillName') ? json['SkillName'] as String : null,
+        shortDescription: json.containsKey('ShortDescription')
+            ? json['ShortDescription'] as String
+            : null,
+        iconUrl: json.containsKey('IconUrl') ? json['IconUrl'] as String : null,
+        sampleUtterances: json.containsKey('SampleUtterances')
+            ? (json['SampleUtterances'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        skillDetails: json.containsKey('SkillDetails')
+            ? SkillDetails.fromJson(json['SkillDetails'])
+            : null,
+        supportsLinking: json.containsKey('SupportsLinking')
+            ? json['SupportsLinking'] as bool
+            : null,
+      );
 }
 
 /// A smart home appliance that can connect to a central system. Any domestic
@@ -3483,7 +4717,17 @@ class SmartHomeAppliance {
     this.manufacturerName,
   });
   static SmartHomeAppliance fromJson(Map<String, dynamic> json) =>
-      SmartHomeAppliance();
+      SmartHomeAppliance(
+        friendlyName: json.containsKey('FriendlyName')
+            ? json['FriendlyName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        manufacturerName: json.containsKey('ManufacturerName')
+            ? json['ManufacturerName'] as String
+            : null,
+      );
 }
 
 /// An object representing a sort criteria.
@@ -3498,6 +4742,7 @@ class Sort {
     @required this.key,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The SSML message. For more information, see
@@ -3514,6 +4759,7 @@ class Ssml {
     @required this.locale,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartDeviceSyncResponse {
@@ -3541,7 +4787,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -3562,6 +4812,7 @@ class Text {
     @required this.locale,
     @required this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceResponse {
@@ -3665,5 +4916,18 @@ class UserData {
     this.enrollmentStatus,
     this.enrollmentId,
   });
-  static UserData fromJson(Map<String, dynamic> json) => UserData();
+  static UserData fromJson(Map<String, dynamic> json) => UserData(
+        userArn: json.containsKey('UserArn') ? json['UserArn'] as String : null,
+        firstName:
+            json.containsKey('FirstName') ? json['FirstName'] as String : null,
+        lastName:
+            json.containsKey('LastName') ? json['LastName'] as String : null,
+        email: json.containsKey('Email') ? json['Email'] as String : null,
+        enrollmentStatus: json.containsKey('EnrollmentStatus')
+            ? json['EnrollmentStatus'] as String
+            : null,
+        enrollmentId: json.containsKey('EnrollmentId')
+            ? json['EnrollmentId'] as String
+            : null,
+      );
 }

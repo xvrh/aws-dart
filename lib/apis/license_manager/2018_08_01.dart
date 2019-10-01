@@ -12,6 +12,10 @@ import 'package:meta/meta.dart';
 /// tailored to the programming language or platform that you're using. For more
 /// information, see [AWS SDKs](http://aws.amazon.com/tools/#SDKs).
 class LicenseManagerApi {
+  final _client;
+  LicenseManagerApi(client)
+      : _client = client.configured('License Manager', serializer: 'json');
+
   /// Creates a new license configuration object. A license configuration is an
   /// abstraction of a customer license agreement that can be consumed and
   /// enforced by License Manager. Components include specifications for the
@@ -46,7 +50,17 @@ class LicenseManagerApi {
       bool licenseCountHardLimit,
       List<String> licenseRules,
       List<Tag> tags}) async {
-    return CreateLicenseConfigurationResponse.fromJson({});
+    var response_ = await _client.send('CreateLicenseConfiguration', {
+      'Name': name,
+      if (description != null) 'Description': description,
+      'LicenseCountingType': licenseCountingType,
+      if (licenseCount != null) 'LicenseCount': licenseCount,
+      if (licenseCountHardLimit != null)
+        'LicenseCountHardLimit': licenseCountHardLimit,
+      if (licenseRules != null) 'LicenseRules': licenseRules,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateLicenseConfigurationResponse.fromJson(response_);
   }
 
   /// Deletes an existing license configuration. This action fails if the
@@ -56,7 +70,10 @@ class LicenseManagerApi {
   /// delete.
   Future<DeleteLicenseConfigurationResponse> deleteLicenseConfiguration(
       String licenseConfigurationArn) async {
-    return DeleteLicenseConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DeleteLicenseConfiguration', {
+      'LicenseConfigurationArn': licenseConfigurationArn,
+    });
+    return DeleteLicenseConfigurationResponse.fromJson(response_);
   }
 
   /// Returns a detailed description of a license configuration.
@@ -65,13 +82,17 @@ class LicenseManagerApi {
   /// requested.
   Future<GetLicenseConfigurationResponse> getLicenseConfiguration(
       String licenseConfigurationArn) async {
-    return GetLicenseConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetLicenseConfiguration', {
+      'LicenseConfigurationArn': licenseConfigurationArn,
+    });
+    return GetLicenseConfigurationResponse.fromJson(response_);
   }
 
   /// Gets License Manager settings for a region. Exposes the configured S3
   /// bucket, SNS topic, etc., for inspection.
   Future<GetServiceSettingsResponse> getServiceSettings() async {
-    return GetServiceSettingsResponse.fromJson({});
+    var response_ = await _client.send('GetServiceSettings', {});
+    return GetServiceSettingsResponse.fromJson(response_);
   }
 
   /// Lists the resource associations for a license configuration. Resource
@@ -90,7 +111,13 @@ class LicenseManagerApi {
   Future<ListAssociationsForLicenseConfigurationResponse>
       listAssociationsForLicenseConfiguration(String licenseConfigurationArn,
           {int maxResults, String nextToken}) async {
-    return ListAssociationsForLicenseConfigurationResponse.fromJson({});
+    var response_ =
+        await _client.send('ListAssociationsForLicenseConfiguration', {
+      'LicenseConfigurationArn': licenseConfigurationArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListAssociationsForLicenseConfigurationResponse.fromJson(response_);
   }
 
   /// Lists license configuration objects for an account, each containing the
@@ -112,7 +139,14 @@ class LicenseManagerApi {
       int maxResults,
       String nextToken,
       List<Filter> filters}) async {
-    return ListLicenseConfigurationsResponse.fromJson({});
+    var response_ = await _client.send('ListLicenseConfigurations', {
+      if (licenseConfigurationArns != null)
+        'LicenseConfigurationArns': licenseConfigurationArns,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListLicenseConfigurationsResponse.fromJson(response_);
   }
 
   /// Returns the license configuration for a resource.
@@ -128,7 +162,12 @@ class LicenseManagerApi {
   Future<ListLicenseSpecificationsForResourceResponse>
       listLicenseSpecificationsForResource(String resourceArn,
           {int maxResults, String nextToken}) async {
-    return ListLicenseSpecificationsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListLicenseSpecificationsForResource', {
+      'ResourceArn': resourceArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListLicenseSpecificationsForResourceResponse.fromJson(response_);
   }
 
   /// Returns a detailed list of resources.
@@ -142,7 +181,12 @@ class LicenseManagerApi {
   /// [filters]: One or more filters.
   Future<ListResourceInventoryResponse> listResourceInventory(
       {int maxResults, String nextToken, List<InventoryFilter> filters}) async {
-    return ListResourceInventoryResponse.fromJson({});
+    var response_ = await _client.send('ListResourceInventory', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListResourceInventoryResponse.fromJson(response_);
   }
 
   /// Lists tags attached to a resource.
@@ -150,7 +194,10 @@ class LicenseManagerApi {
   /// [resourceArn]: ARN for the resource.
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Lists all license usage records for a license configuration, displaying
@@ -171,7 +218,13 @@ class LicenseManagerApi {
   Future<ListUsageForLicenseConfigurationResponse>
       listUsageForLicenseConfiguration(String licenseConfigurationArn,
           {int maxResults, String nextToken, List<Filter> filters}) async {
-    return ListUsageForLicenseConfigurationResponse.fromJson({});
+    var response_ = await _client.send('ListUsageForLicenseConfiguration', {
+      'LicenseConfigurationArn': licenseConfigurationArn,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (filters != null) 'Filters': filters,
+    });
+    return ListUsageForLicenseConfigurationResponse.fromJson(response_);
   }
 
   /// Attach one of more tags to any resource.
@@ -181,7 +234,11 @@ class LicenseManagerApi {
   /// [tags]: Names of the tags to attach to the resource.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Remove tags from a resource.
@@ -191,7 +248,11 @@ class LicenseManagerApi {
   /// [tagKeys]: List keys identifying tags to remove.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Modifies the attributes of an existing license configuration object. A
@@ -226,7 +287,18 @@ class LicenseManagerApi {
       bool licenseCountHardLimit,
       String name,
       String description}) async {
-    return UpdateLicenseConfigurationResponse.fromJson({});
+    var response_ = await _client.send('UpdateLicenseConfiguration', {
+      'LicenseConfigurationArn': licenseConfigurationArn,
+      if (licenseConfigurationStatus != null)
+        'LicenseConfigurationStatus': licenseConfigurationStatus,
+      if (licenseRules != null) 'LicenseRules': licenseRules,
+      if (licenseCount != null) 'LicenseCount': licenseCount,
+      if (licenseCountHardLimit != null)
+        'LicenseCountHardLimit': licenseCountHardLimit,
+      if (name != null) 'Name': name,
+      if (description != null) 'Description': description,
+    });
+    return UpdateLicenseConfigurationResponse.fromJson(response_);
   }
 
   /// Adds or removes license configurations for a specified AWS resource. This
@@ -247,7 +319,15 @@ class LicenseManagerApi {
       updateLicenseSpecificationsForResource(String resourceArn,
           {List<LicenseSpecification> addLicenseSpecifications,
           List<LicenseSpecification> removeLicenseSpecifications}) async {
-    return UpdateLicenseSpecificationsForResourceResponse.fromJson({});
+    var response_ =
+        await _client.send('UpdateLicenseSpecificationsForResource', {
+      'ResourceArn': resourceArn,
+      if (addLicenseSpecifications != null)
+        'AddLicenseSpecifications': addLicenseSpecifications,
+      if (removeLicenseSpecifications != null)
+        'RemoveLicenseSpecifications': removeLicenseSpecifications,
+    });
+    return UpdateLicenseSpecificationsForResourceResponse.fromJson(response_);
   }
 
   /// Updates License Manager service settings.
@@ -267,7 +347,15 @@ class LicenseManagerApi {
       String snsTopicArn,
       OrganizationConfiguration organizationConfiguration,
       bool enableCrossAccountsDiscovery}) async {
-    return UpdateServiceSettingsResponse.fromJson({});
+    var response_ = await _client.send('UpdateServiceSettings', {
+      if (s3BucketArn != null) 'S3BucketArn': s3BucketArn,
+      if (snsTopicArn != null) 'SnsTopicArn': snsTopicArn,
+      if (organizationConfiguration != null)
+        'OrganizationConfiguration': organizationConfiguration,
+      if (enableCrossAccountsDiscovery != null)
+        'EnableCrossAccountsDiscovery': enableCrossAccountsDiscovery,
+    });
+    return UpdateServiceSettingsResponse.fromJson(response_);
   }
 }
 
@@ -285,7 +373,14 @@ class ConsumedLicenseSummary {
     this.consumedLicenses,
   });
   static ConsumedLicenseSummary fromJson(Map<String, dynamic> json) =>
-      ConsumedLicenseSummary();
+      ConsumedLicenseSummary(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        consumedLicenses: json.containsKey('ConsumedLicenses')
+            ? BigInt.from(json['ConsumedLicenses'])
+            : null,
+      );
 }
 
 class CreateLicenseConfigurationResponse {
@@ -297,7 +392,11 @@ class CreateLicenseConfigurationResponse {
   });
   static CreateLicenseConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateLicenseConfigurationResponse();
+      CreateLicenseConfigurationResponse(
+        licenseConfigurationArn: json.containsKey('LicenseConfigurationArn')
+            ? json['LicenseConfigurationArn'] as String
+            : null,
+      );
 }
 
 class DeleteLicenseConfigurationResponse {
@@ -323,6 +422,7 @@ class Filter {
     this.name,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetLicenseConfigurationResponse {
@@ -386,7 +486,52 @@ class GetLicenseConfigurationResponse {
     this.tags,
   });
   static GetLicenseConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      GetLicenseConfigurationResponse();
+      GetLicenseConfigurationResponse(
+        licenseConfigurationId: json.containsKey('LicenseConfigurationId')
+            ? json['LicenseConfigurationId'] as String
+            : null,
+        licenseConfigurationArn: json.containsKey('LicenseConfigurationArn')
+            ? json['LicenseConfigurationArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        licenseCountingType: json.containsKey('LicenseCountingType')
+            ? json['LicenseCountingType'] as String
+            : null,
+        licenseRules: json.containsKey('LicenseRules')
+            ? (json['LicenseRules'] as List).map((e) => e as String).toList()
+            : null,
+        licenseCount: json.containsKey('LicenseCount')
+            ? BigInt.from(json['LicenseCount'])
+            : null,
+        licenseCountHardLimit: json.containsKey('LicenseCountHardLimit')
+            ? json['LicenseCountHardLimit'] as bool
+            : null,
+        consumedLicenses: json.containsKey('ConsumedLicenses')
+            ? BigInt.from(json['ConsumedLicenses'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        ownerAccountId: json.containsKey('OwnerAccountId')
+            ? json['OwnerAccountId'] as String
+            : null,
+        consumedLicenseSummaryList:
+            json.containsKey('ConsumedLicenseSummaryList')
+                ? (json['ConsumedLicenseSummaryList'] as List)
+                    .map((e) => ConsumedLicenseSummary.fromJson(e))
+                    .toList()
+                : null,
+        managedResourceSummaryList:
+            json.containsKey('ManagedResourceSummaryList')
+                ? (json['ManagedResourceSummaryList'] as List)
+                    .map((e) => ManagedResourceSummary.fromJson(e))
+                    .toList()
+                : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetServiceSettingsResponse {
@@ -411,7 +556,22 @@ class GetServiceSettingsResponse {
     this.enableCrossAccountsDiscovery,
   });
   static GetServiceSettingsResponse fromJson(Map<String, dynamic> json) =>
-      GetServiceSettingsResponse();
+      GetServiceSettingsResponse(
+        s3BucketArn: json.containsKey('S3BucketArn')
+            ? json['S3BucketArn'] as String
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicArn')
+            ? json['SnsTopicArn'] as String
+            : null,
+        organizationConfiguration: json.containsKey('OrganizationConfiguration')
+            ? OrganizationConfiguration.fromJson(
+                json['OrganizationConfiguration'])
+            : null,
+        enableCrossAccountsDiscovery:
+            json.containsKey('EnableCrossAccountsDiscovery')
+                ? json['EnableCrossAccountsDiscovery'] as bool
+                : null,
+      );
 }
 
 /// An inventory filter object.
@@ -430,6 +590,7 @@ class InventoryFilter {
     @required this.condition,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A license configuration is an abstraction of a customer license agreement
@@ -494,7 +655,49 @@ class LicenseConfiguration {
     this.managedResourceSummaryList,
   });
   static LicenseConfiguration fromJson(Map<String, dynamic> json) =>
-      LicenseConfiguration();
+      LicenseConfiguration(
+        licenseConfigurationId: json.containsKey('LicenseConfigurationId')
+            ? json['LicenseConfigurationId'] as String
+            : null,
+        licenseConfigurationArn: json.containsKey('LicenseConfigurationArn')
+            ? json['LicenseConfigurationArn'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        licenseCountingType: json.containsKey('LicenseCountingType')
+            ? json['LicenseCountingType'] as String
+            : null,
+        licenseRules: json.containsKey('LicenseRules')
+            ? (json['LicenseRules'] as List).map((e) => e as String).toList()
+            : null,
+        licenseCount: json.containsKey('LicenseCount')
+            ? BigInt.from(json['LicenseCount'])
+            : null,
+        licenseCountHardLimit: json.containsKey('LicenseCountHardLimit')
+            ? json['LicenseCountHardLimit'] as bool
+            : null,
+        consumedLicenses: json.containsKey('ConsumedLicenses')
+            ? BigInt.from(json['ConsumedLicenses'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        ownerAccountId: json.containsKey('OwnerAccountId')
+            ? json['OwnerAccountId'] as String
+            : null,
+        consumedLicenseSummaryList:
+            json.containsKey('ConsumedLicenseSummaryList')
+                ? (json['ConsumedLicenseSummaryList'] as List)
+                    .map((e) => ConsumedLicenseSummary.fromJson(e))
+                    .toList()
+                : null,
+        managedResourceSummaryList:
+            json.containsKey('ManagedResourceSummaryList')
+                ? (json['ManagedResourceSummaryList'] as List)
+                    .map((e) => ManagedResourceSummary.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Describes a server resource that is associated with a license configuration.
@@ -518,7 +721,20 @@ class LicenseConfigurationAssociation {
     this.associationTime,
   });
   static LicenseConfigurationAssociation fromJson(Map<String, dynamic> json) =>
-      LicenseConfigurationAssociation();
+      LicenseConfigurationAssociation(
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceOwnerId: json.containsKey('ResourceOwnerId')
+            ? json['ResourceOwnerId'] as String
+            : null,
+        associationTime: json.containsKey('AssociationTime')
+            ? DateTime.parse(json['AssociationTime'])
+            : null,
+      );
 }
 
 /// Contains details of the usage of each resource from the license pool.
@@ -553,7 +769,26 @@ class LicenseConfigurationUsage {
     this.consumedLicenses,
   });
   static LicenseConfigurationUsage fromJson(Map<String, dynamic> json) =>
-      LicenseConfigurationUsage();
+      LicenseConfigurationUsage(
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceStatus: json.containsKey('ResourceStatus')
+            ? json['ResourceStatus'] as String
+            : null,
+        resourceOwnerId: json.containsKey('ResourceOwnerId')
+            ? json['ResourceOwnerId'] as String
+            : null,
+        associationTime: json.containsKey('AssociationTime')
+            ? DateTime.parse(json['AssociationTime'])
+            : null,
+        consumedLicenses: json.containsKey('ConsumedLicenses')
+            ? BigInt.from(json['ConsumedLicenses'])
+            : null,
+      );
 }
 
 /// Object used for associating a license configuration with a resource.
@@ -565,7 +800,10 @@ class LicenseSpecification {
     @required this.licenseConfigurationArn,
   });
   static LicenseSpecification fromJson(Map<String, dynamic> json) =>
-      LicenseSpecification();
+      LicenseSpecification(
+        licenseConfigurationArn: json['LicenseConfigurationArn'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListAssociationsForLicenseConfigurationResponse {
@@ -583,7 +821,16 @@ class ListAssociationsForLicenseConfigurationResponse {
   });
   static ListAssociationsForLicenseConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      ListAssociationsForLicenseConfigurationResponse();
+      ListAssociationsForLicenseConfigurationResponse(
+        licenseConfigurationAssociations:
+            json.containsKey('LicenseConfigurationAssociations')
+                ? (json['LicenseConfigurationAssociations'] as List)
+                    .map((e) => LicenseConfigurationAssociation.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListLicenseConfigurationsResponse {
@@ -599,7 +846,15 @@ class ListLicenseConfigurationsResponse {
   });
   static ListLicenseConfigurationsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListLicenseConfigurationsResponse();
+      ListLicenseConfigurationsResponse(
+        licenseConfigurations: json.containsKey('LicenseConfigurations')
+            ? (json['LicenseConfigurations'] as List)
+                .map((e) => LicenseConfiguration.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListLicenseSpecificationsForResourceResponse {
@@ -615,7 +870,15 @@ class ListLicenseSpecificationsForResourceResponse {
   });
   static ListLicenseSpecificationsForResourceResponse fromJson(
           Map<String, dynamic> json) =>
-      ListLicenseSpecificationsForResourceResponse();
+      ListLicenseSpecificationsForResourceResponse(
+        licenseSpecifications: json.containsKey('LicenseSpecifications')
+            ? (json['LicenseSpecifications'] as List)
+                .map((e) => LicenseSpecification.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListResourceInventoryResponse {
@@ -630,7 +893,15 @@ class ListResourceInventoryResponse {
     this.nextToken,
   });
   static ListResourceInventoryResponse fromJson(Map<String, dynamic> json) =>
-      ListResourceInventoryResponse();
+      ListResourceInventoryResponse(
+        resourceInventoryList: json.containsKey('ResourceInventoryList')
+            ? (json['ResourceInventoryList'] as List)
+                .map((e) => ResourceInventory.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -641,7 +912,11 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListUsageForLicenseConfigurationResponse {
@@ -657,7 +932,16 @@ class ListUsageForLicenseConfigurationResponse {
   });
   static ListUsageForLicenseConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      ListUsageForLicenseConfigurationResponse();
+      ListUsageForLicenseConfigurationResponse(
+        licenseConfigurationUsageList:
+            json.containsKey('LicenseConfigurationUsageList')
+                ? (json['LicenseConfigurationUsageList'] as List)
+                    .map((e) => LicenseConfigurationUsage.fromJson(e))
+                    .toList()
+                : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Summary for a resource.
@@ -673,7 +957,14 @@ class ManagedResourceSummary {
     this.associationCount,
   });
   static ManagedResourceSummary fromJson(Map<String, dynamic> json) =>
-      ManagedResourceSummary();
+      ManagedResourceSummary(
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        associationCount: json.containsKey('AssociationCount')
+            ? BigInt.from(json['AssociationCount'])
+            : null,
+      );
 }
 
 /// Object containing configuration information for AWS Organizations.
@@ -685,7 +976,10 @@ class OrganizationConfiguration {
     @required this.enableIntegration,
   });
   static OrganizationConfiguration fromJson(Map<String, dynamic> json) =>
-      OrganizationConfiguration();
+      OrganizationConfiguration(
+        enableIntegration: json['EnableIntegration'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A set of attributes that describe a resource.
@@ -717,7 +1011,25 @@ class ResourceInventory {
     this.resourceOwningAccountId,
   });
   static ResourceInventory fromJson(Map<String, dynamic> json) =>
-      ResourceInventory();
+      ResourceInventory(
+        resourceId: json.containsKey('ResourceId')
+            ? json['ResourceId'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        platform:
+            json.containsKey('Platform') ? json['Platform'] as String : null,
+        platformVersion: json.containsKey('PlatformVersion')
+            ? json['PlatformVersion'] as String
+            : null,
+        resourceOwningAccountId: json.containsKey('ResourceOwningAccountId')
+            ? json['ResourceOwningAccountId'] as String
+            : null,
+      );
 }
 
 /// Tag for a resource in a key-value format.
@@ -732,7 +1044,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {

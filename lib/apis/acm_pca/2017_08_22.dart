@@ -20,6 +20,10 @@ import 'dart:typed_data';
 /// [API Rate Limits in ACM Private CA](https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaLimits.html#PcaLimits-api)
 /// in the ACM Private CA user guide.
 class AcmPcaApi {
+  final _client;
+  AcmPcaApi(client)
+      : _client = client.configured('ACM PCA', serializer: 'json');
+
   /// Creates a root or subordinate private certificate authority (CA). You must
   /// specify the CA configuration, the certificate revocation list (CRL)
   /// configuration, the CA type, and an optional idempotency token to avoid
@@ -68,7 +72,15 @@ class AcmPcaApi {
           String certificateAuthorityType,
       String idempotencyToken,
       List<Tag> tags}) async {
-    return CreateCertificateAuthorityResponse.fromJson({});
+    var response_ = await _client.send('CreateCertificateAuthority', {
+      'CertificateAuthorityConfiguration': certificateAuthorityConfiguration,
+      if (revocationConfiguration != null)
+        'RevocationConfiguration': revocationConfiguration,
+      'CertificateAuthorityType': certificateAuthorityType,
+      if (idempotencyToken != null) 'IdempotencyToken': idempotencyToken,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateCertificateAuthorityResponse.fromJson(response_);
   }
 
   /// Creates an audit report that lists every time that your CA private key is
@@ -93,7 +105,13 @@ class AcmPcaApi {
           {@required String certificateAuthorityArn,
           @required String s3BucketName,
           @required String auditReportResponseFormat}) async {
-    return CreateCertificateAuthorityAuditReportResponse.fromJson({});
+    var response_ =
+        await _client.send('CreateCertificateAuthorityAuditReport', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'S3BucketName': s3BucketName,
+      'AuditReportResponseFormat': auditReportResponseFormat,
+    });
+    return CreateCertificateAuthorityAuditReportResponse.fromJson(response_);
   }
 
   /// Assigns permissions from a private CA to a designated AWS service.
@@ -127,7 +145,14 @@ class AcmPcaApi {
       {@required String certificateAuthorityArn,
       @required String principal,
       String sourceAccount,
-      @required List<String> actions}) async {}
+      @required List<String> actions}) async {
+    await _client.send('CreatePermission', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'Principal': principal,
+      if (sourceAccount != null) 'SourceAccount': sourceAccount,
+      'Actions': actions,
+    });
+  }
 
   /// Deletes a private certificate authority (CA). You must provide the Amazon
   /// Resource Name (ARN) of the private CA that you want to delete. You can
@@ -167,7 +192,13 @@ class AcmPcaApi {
   /// after it has been deleted. This can be anywhere from 7 to 30 days, with 30
   /// being the default.
   Future<void> deleteCertificateAuthority(String certificateAuthorityArn,
-      {int permanentDeletionTimeInDays}) async {}
+      {int permanentDeletionTimeInDays}) async {
+    await _client.send('DeleteCertificateAuthority', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      if (permanentDeletionTimeInDays != null)
+        'PermanentDeletionTimeInDays': permanentDeletionTimeInDays,
+    });
+  }
 
   /// Revokes permissions that a private CA assigned to a designated AWS
   /// service. Permissions can be created with the CreatePermission action and
@@ -189,7 +220,13 @@ class AcmPcaApi {
   Future<void> deletePermission(
       {@required String certificateAuthorityArn,
       @required String principal,
-      String sourceAccount}) async {}
+      String sourceAccount}) async {
+    await _client.send('DeletePermission', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'Principal': principal,
+      if (sourceAccount != null) 'SourceAccount': sourceAccount,
+    });
+  }
 
   /// Lists information about your private certificate authority (CA). You
   /// specify the private CA on input by its ARN (Amazon Resource Name). The
@@ -225,7 +262,10 @@ class AcmPcaApi {
   /// .
   Future<DescribeCertificateAuthorityResponse> describeCertificateAuthority(
       String certificateAuthorityArn) async {
-    return DescribeCertificateAuthorityResponse.fromJson({});
+    var response_ = await _client.send('DescribeCertificateAuthority', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+    });
+    return DescribeCertificateAuthorityResponse.fromJson(response_);
   }
 
   /// Lists information about a specific audit report created by calling the
@@ -247,7 +287,12 @@ class AcmPcaApi {
       describeCertificateAuthorityAuditReport(
           {@required String certificateAuthorityArn,
           @required String auditReportId}) async {
-    return DescribeCertificateAuthorityAuditReportResponse.fromJson({});
+    var response_ =
+        await _client.send('DescribeCertificateAuthorityAuditReport', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'AuditReportId': auditReportId,
+    });
+    return DescribeCertificateAuthorityAuditReportResponse.fromJson(response_);
   }
 
   /// Retrieves a certificate from your private CA. The ARN of the certificate
@@ -275,7 +320,11 @@ class AcmPcaApi {
   Future<GetCertificateResponse> getCertificate(
       {@required String certificateAuthorityArn,
       @required String certificateArn}) async {
-    return GetCertificateResponse.fromJson({});
+    var response_ = await _client.send('GetCertificate', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'CertificateArn': certificateArn,
+    });
+    return GetCertificateResponse.fromJson(response_);
   }
 
   /// Retrieves the certificate and certificate chain for your private
@@ -291,7 +340,10 @@ class AcmPcaApi {
   /// .
   Future<GetCertificateAuthorityCertificateResponse>
       getCertificateAuthorityCertificate(String certificateAuthorityArn) async {
-    return GetCertificateAuthorityCertificateResponse.fromJson({});
+    var response_ = await _client.send('GetCertificateAuthorityCertificate', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+    });
+    return GetCertificateAuthorityCertificateResponse.fromJson(response_);
   }
 
   /// Retrieves the certificate signing request (CSR) for your private
@@ -310,7 +362,10 @@ class AcmPcaApi {
   /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
   Future<GetCertificateAuthorityCsrResponse> getCertificateAuthorityCsr(
       String certificateAuthorityArn) async {
-    return GetCertificateAuthorityCsrResponse.fromJson({});
+    var response_ = await _client.send('GetCertificateAuthorityCsr', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+    });
+    return GetCertificateAuthorityCsrResponse.fromJson(response_);
   }
 
   /// Imports a signed private CA certificate into ACM Private CA. This action
@@ -372,7 +427,13 @@ class AcmPcaApi {
   Future<void> importCertificateAuthorityCertificate(
       {@required String certificateAuthorityArn,
       @required Uint8List certificate,
-      Uint8List certificateChain}) async {}
+      Uint8List certificateChain}) async {
+    await _client.send('ImportCertificateAuthorityCertificate', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'Certificate': certificate,
+      if (certificateChain != null) 'CertificateChain': certificateChain,
+    });
+  }
 
   /// Uses your private certificate authority (CA) to issue a client
   /// certificate. This action returns the Amazon Resource Name (ARN) of the
@@ -448,7 +509,15 @@ class AcmPcaApi {
       String templateArn,
       @required Validity validity,
       String idempotencyToken}) async {
-    return IssueCertificateResponse.fromJson({});
+    var response_ = await _client.send('IssueCertificate', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'Csr': csr,
+      'SigningAlgorithm': signingAlgorithm,
+      if (templateArn != null) 'TemplateArn': templateArn,
+      'Validity': validity,
+      if (idempotencyToken != null) 'IdempotencyToken': idempotencyToken,
+    });
+    return IssueCertificateResponse.fromJson(response_);
   }
 
   /// Lists the private certificate authorities that you created by using the
@@ -465,7 +534,11 @@ class AcmPcaApi {
   /// subsequent request to retrieve additional items.
   Future<ListCertificateAuthoritiesResponse> listCertificateAuthorities(
       {String nextToken, int maxResults}) async {
-    return ListCertificateAuthoritiesResponse.fromJson({});
+    var response_ = await _client.send('ListCertificateAuthorities', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListCertificateAuthoritiesResponse.fromJson(response_);
   }
 
   /// Lists all the permissions, if any, that have been assigned by a private
@@ -492,7 +565,12 @@ class AcmPcaApi {
       String certificateAuthorityArn,
       {String nextToken,
       int maxResults}) async {
-    return ListPermissionsResponse.fromJson({});
+    var response_ = await _client.send('ListPermissions', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListPermissionsResponse.fromJson(response_);
   }
 
   /// Lists the tags, if any, that are associated with your private CA. Tags are
@@ -519,7 +597,12 @@ class AcmPcaApi {
   /// retrieve additional items.
   Future<ListTagsResponse> listTags(String certificateAuthorityArn,
       {String nextToken, int maxResults}) async {
-    return ListTagsResponse.fromJson({});
+    var response_ = await _client.send('ListTags', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListTagsResponse.fromJson(response_);
   }
 
   /// Restores a certificate authority (CA) that is in the `DELETED` state. You
@@ -546,7 +629,11 @@ class AcmPcaApi {
   ///
   /// `arn:aws:acm-pca:_region_:_account_:certificate-authority/_12345678-1234-1234-1234-123456789012_`
   Future<void> restoreCertificateAuthority(
-      String certificateAuthorityArn) async {}
+      String certificateAuthorityArn) async {
+    await _client.send('RestoreCertificateAuthority', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+    });
+  }
 
   /// Revokes a certificate that was issued inside ACM Private CA. If you enable
   /// a certificate revocation list (CRL) when you create or update your private
@@ -584,7 +671,13 @@ class AcmPcaApi {
   Future<void> revokeCertificate(
       {@required String certificateAuthorityArn,
       @required String certificateSerial,
-      @required String revocationReason}) async {}
+      @required String revocationReason}) async {
+    await _client.send('RevokeCertificate', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'CertificateSerial': certificateSerial,
+      'RevocationReason': revocationReason,
+    });
+  }
 
   /// Adds one or more tags to your private CA. Tags are labels that you can use
   /// to identify and organize your AWS resources. Each tag consists of a key
@@ -606,7 +699,12 @@ class AcmPcaApi {
   /// [tags]: List of tags to be associated with the CA.
   Future<void> tagCertificateAuthority(
       {@required String certificateAuthorityArn,
-      @required List<Tag> tags}) async {}
+      @required List<Tag> tags}) async {
+    await _client.send('TagCertificateAuthority', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'Tags': tags,
+    });
+  }
 
   /// Remove one or more tags from your private CA. A tag consists of a
   /// key-value pair. If you do not specify the value portion of the tag when
@@ -626,7 +724,12 @@ class AcmPcaApi {
   /// [tags]: List of tags to be removed from the CA.
   Future<void> untagCertificateAuthority(
       {@required String certificateAuthorityArn,
-      @required List<Tag> tags}) async {}
+      @required List<Tag> tags}) async {
+    await _client.send('UntagCertificateAuthority', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      'Tags': tags,
+    });
+  }
 
   /// Updates the status or configuration of a private certificate authority
   /// (CA). Your private CA must be in the `ACTIVE` or `DISABLED` state before
@@ -643,7 +746,14 @@ class AcmPcaApi {
   ///
   /// [status]: Status of your private CA.
   Future<void> updateCertificateAuthority(String certificateAuthorityArn,
-      {RevocationConfiguration revocationConfiguration, String status}) async {}
+      {RevocationConfiguration revocationConfiguration, String status}) async {
+    await _client.send('UpdateCertificateAuthority', {
+      'CertificateAuthorityArn': certificateAuthorityArn,
+      if (revocationConfiguration != null)
+        'RevocationConfiguration': revocationConfiguration,
+      if (status != null) 'Status': status,
+    });
+  }
 }
 
 /// Contains information about the certificate subject. The certificate can be
@@ -727,7 +837,40 @@ class Asn1Subject {
     this.pseudonym,
     this.generationQualifier,
   });
-  static Asn1Subject fromJson(Map<String, dynamic> json) => Asn1Subject();
+  static Asn1Subject fromJson(Map<String, dynamic> json) => Asn1Subject(
+        country: json.containsKey('Country') ? json['Country'] as String : null,
+        organization: json.containsKey('Organization')
+            ? json['Organization'] as String
+            : null,
+        organizationalUnit: json.containsKey('OrganizationalUnit')
+            ? json['OrganizationalUnit'] as String
+            : null,
+        distinguishedNameQualifier:
+            json.containsKey('DistinguishedNameQualifier')
+                ? json['DistinguishedNameQualifier'] as String
+                : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        commonName: json.containsKey('CommonName')
+            ? json['CommonName'] as String
+            : null,
+        serialNumber: json.containsKey('SerialNumber')
+            ? json['SerialNumber'] as String
+            : null,
+        locality:
+            json.containsKey('Locality') ? json['Locality'] as String : null,
+        title: json.containsKey('Title') ? json['Title'] as String : null,
+        surname: json.containsKey('Surname') ? json['Surname'] as String : null,
+        givenName:
+            json.containsKey('GivenName') ? json['GivenName'] as String : null,
+        initials:
+            json.containsKey('Initials') ? json['Initials'] as String : null,
+        pseudonym:
+            json.containsKey('Pseudonym') ? json['Pseudonym'] as String : null,
+        generationQualifier: json.containsKey('GenerationQualifier')
+            ? json['GenerationQualifier'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains information about your private certificate authority (CA). Your
@@ -796,7 +939,38 @@ class CertificateAuthority {
     this.restorableUntil,
   });
   static CertificateAuthority fromJson(Map<String, dynamic> json) =>
-      CertificateAuthority();
+      CertificateAuthority(
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        lastStateChangeAt: json.containsKey('LastStateChangeAt')
+            ? DateTime.parse(json['LastStateChangeAt'])
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        serial: json.containsKey('Serial') ? json['Serial'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        notBefore: json.containsKey('NotBefore')
+            ? DateTime.parse(json['NotBefore'])
+            : null,
+        notAfter: json.containsKey('NotAfter')
+            ? DateTime.parse(json['NotAfter'])
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+        certificateAuthorityConfiguration:
+            json.containsKey('CertificateAuthorityConfiguration')
+                ? CertificateAuthorityConfiguration.fromJson(
+                    json['CertificateAuthorityConfiguration'])
+                : null,
+        revocationConfiguration: json.containsKey('RevocationConfiguration')
+            ? RevocationConfiguration.fromJson(json['RevocationConfiguration'])
+            : null,
+        restorableUntil: json.containsKey('RestorableUntil')
+            ? DateTime.parse(json['RestorableUntil'])
+            : null,
+      );
 }
 
 /// Contains configuration information for your private certificate authority
@@ -825,7 +999,12 @@ class CertificateAuthorityConfiguration {
   });
   static CertificateAuthorityConfiguration fromJson(
           Map<String, dynamic> json) =>
-      CertificateAuthorityConfiguration();
+      CertificateAuthorityConfiguration(
+        keyAlgorithm: json['KeyAlgorithm'] as String,
+        signingAlgorithm: json['SigningAlgorithm'] as String,
+        subject: Asn1Subject.fromJson(json['Subject']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateCertificateAuthorityAuditReportResponse {
@@ -841,7 +1020,12 @@ class CreateCertificateAuthorityAuditReportResponse {
   });
   static CreateCertificateAuthorityAuditReportResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateCertificateAuthorityAuditReportResponse();
+      CreateCertificateAuthorityAuditReportResponse(
+        auditReportId: json.containsKey('AuditReportId')
+            ? json['AuditReportId'] as String
+            : null,
+        s3Key: json.containsKey('S3Key') ? json['S3Key'] as String : null,
+      );
 }
 
 class CreateCertificateAuthorityResponse {
@@ -858,7 +1042,11 @@ class CreateCertificateAuthorityResponse {
   });
   static CreateCertificateAuthorityResponse fromJson(
           Map<String, dynamic> json) =>
-      CreateCertificateAuthorityResponse();
+      CreateCertificateAuthorityResponse(
+        certificateAuthorityArn: json.containsKey('CertificateAuthorityArn')
+            ? json['CertificateAuthorityArn'] as String
+            : null,
+      );
 }
 
 /// Contains configuration information for a certificate revocation list (CRL).
@@ -955,7 +1143,19 @@ class CrlConfiguration {
     this.s3BucketName,
   });
   static CrlConfiguration fromJson(Map<String, dynamic> json) =>
-      CrlConfiguration();
+      CrlConfiguration(
+        enabled: json['Enabled'] as bool,
+        expirationInDays: json.containsKey('ExpirationInDays')
+            ? json['ExpirationInDays'] as int
+            : null,
+        customCname: json.containsKey('CustomCname')
+            ? json['CustomCname'] as String
+            : null,
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DescribeCertificateAuthorityAuditReportResponse {
@@ -980,7 +1180,18 @@ class DescribeCertificateAuthorityAuditReportResponse {
   });
   static DescribeCertificateAuthorityAuditReportResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeCertificateAuthorityAuditReportResponse();
+      DescribeCertificateAuthorityAuditReportResponse(
+        auditReportStatus: json.containsKey('AuditReportStatus')
+            ? json['AuditReportStatus'] as String
+            : null,
+        s3BucketName: json.containsKey('S3BucketName')
+            ? json['S3BucketName'] as String
+            : null,
+        s3Key: json.containsKey('S3Key') ? json['S3Key'] as String : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+      );
 }
 
 class DescribeCertificateAuthorityResponse {
@@ -993,7 +1204,11 @@ class DescribeCertificateAuthorityResponse {
   });
   static DescribeCertificateAuthorityResponse fromJson(
           Map<String, dynamic> json) =>
-      DescribeCertificateAuthorityResponse();
+      DescribeCertificateAuthorityResponse(
+        certificateAuthority: json.containsKey('CertificateAuthority')
+            ? CertificateAuthority.fromJson(json['CertificateAuthority'])
+            : null,
+      );
 }
 
 class GetCertificateAuthorityCertificateResponse {
@@ -1012,7 +1227,14 @@ class GetCertificateAuthorityCertificateResponse {
   });
   static GetCertificateAuthorityCertificateResponse fromJson(
           Map<String, dynamic> json) =>
-      GetCertificateAuthorityCertificateResponse();
+      GetCertificateAuthorityCertificateResponse(
+        certificate: json.containsKey('Certificate')
+            ? json['Certificate'] as String
+            : null,
+        certificateChain: json.containsKey('CertificateChain')
+            ? json['CertificateChain'] as String
+            : null,
+      );
 }
 
 class GetCertificateAuthorityCsrResponse {
@@ -1025,7 +1247,9 @@ class GetCertificateAuthorityCsrResponse {
   });
   static GetCertificateAuthorityCsrResponse fromJson(
           Map<String, dynamic> json) =>
-      GetCertificateAuthorityCsrResponse();
+      GetCertificateAuthorityCsrResponse(
+        csr: json.containsKey('Csr') ? json['Csr'] as String : null,
+      );
 }
 
 class GetCertificateResponse {
@@ -1042,7 +1266,14 @@ class GetCertificateResponse {
     this.certificateChain,
   });
   static GetCertificateResponse fromJson(Map<String, dynamic> json) =>
-      GetCertificateResponse();
+      GetCertificateResponse(
+        certificate: json.containsKey('Certificate')
+            ? json['Certificate'] as String
+            : null,
+        certificateChain: json.containsKey('CertificateChain')
+            ? json['CertificateChain'] as String
+            : null,
+      );
 }
 
 class IssueCertificateResponse {
@@ -1057,7 +1288,11 @@ class IssueCertificateResponse {
     this.certificateArn,
   });
   static IssueCertificateResponse fromJson(Map<String, dynamic> json) =>
-      IssueCertificateResponse();
+      IssueCertificateResponse(
+        certificateArn: json.containsKey('CertificateArn')
+            ? json['CertificateArn'] as String
+            : null,
+      );
 }
 
 class ListCertificateAuthoritiesResponse {
@@ -1074,7 +1309,15 @@ class ListCertificateAuthoritiesResponse {
   });
   static ListCertificateAuthoritiesResponse fromJson(
           Map<String, dynamic> json) =>
-      ListCertificateAuthoritiesResponse();
+      ListCertificateAuthoritiesResponse(
+        certificateAuthorities: json.containsKey('CertificateAuthorities')
+            ? (json['CertificateAuthorities'] as List)
+                .map((e) => CertificateAuthority.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPermissionsResponse {
@@ -1092,7 +1335,15 @@ class ListPermissionsResponse {
     this.nextToken,
   });
   static ListPermissionsResponse fromJson(Map<String, dynamic> json) =>
-      ListPermissionsResponse();
+      ListPermissionsResponse(
+        permissions: json.containsKey('Permissions')
+            ? (json['Permissions'] as List)
+                .map((e) => Permission.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsResponse {
@@ -1108,7 +1359,13 @@ class ListTagsResponse {
     this.nextToken,
   });
   static ListTagsResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsResponse();
+      ListTagsResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Permissions designate which private CA actions can be performed by an AWS
@@ -1147,7 +1404,23 @@ class Permission {
     this.actions,
     this.policy,
   });
-  static Permission fromJson(Map<String, dynamic> json) => Permission();
+  static Permission fromJson(Map<String, dynamic> json) => Permission(
+        certificateAuthorityArn: json.containsKey('CertificateAuthorityArn')
+            ? json['CertificateAuthorityArn'] as String
+            : null,
+        createdAt: json.containsKey('CreatedAt')
+            ? DateTime.parse(json['CreatedAt'])
+            : null,
+        principal:
+            json.containsKey('Principal') ? json['Principal'] as String : null,
+        sourceAccount: json.containsKey('SourceAccount')
+            ? json['SourceAccount'] as String
+            : null,
+        actions: json.containsKey('Actions')
+            ? (json['Actions'] as List).map((e) => e as String).toList()
+            : null,
+        policy: json.containsKey('Policy') ? json['Policy'] as String : null,
+      );
 }
 
 /// Certificate revocation information used by the CreateCertificateAuthority
@@ -1164,7 +1437,12 @@ class RevocationConfiguration {
     this.crlConfiguration,
   });
   static RevocationConfiguration fromJson(Map<String, dynamic> json) =>
-      RevocationConfiguration();
+      RevocationConfiguration(
+        crlConfiguration: json.containsKey('CrlConfiguration')
+            ? CrlConfiguration.fromJson(json['CrlConfiguration'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Tags are labels that you can use to identify and organize your private CAs.
@@ -1183,7 +1461,11 @@ class Tag {
     @required this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Length of time for which the certificate issued by your private certificate
@@ -1200,4 +1482,5 @@ class Validity {
     @required this.value,
     @required this.type,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

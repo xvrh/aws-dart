@@ -64,6 +64,10 @@ import 'package:meta/meta.dart';
 /// For more information, see
 /// [Announcement: Heads-up – Longer AWS Storage Gateway volume and snapshot IDs coming in 2016](https://forums.aws.amazon.com/ann.jspa?annID=3557).
 class StorageGatewayApi {
+  final _client;
+  StorageGatewayApi(client)
+      : _client = client.configured('Storage Gateway', serializer: 'json');
+
   /// Activates the gateway you previously deployed on your host. In the
   /// activation process, you specify information such as the AWS Region that
   /// you want to use for storing snapshots or tapes, the time zone for
@@ -144,7 +148,17 @@ class StorageGatewayApi {
       String tapeDriveType,
       String mediumChangerType,
       List<Tag> tags}) async {
-    return ActivateGatewayOutput.fromJson({});
+    var response_ = await _client.send('ActivateGateway', {
+      'ActivationKey': activationKey,
+      'GatewayName': gatewayName,
+      'GatewayTimezone': gatewayTimezone,
+      'GatewayRegion': gatewayRegion,
+      if (gatewayType != null) 'GatewayType': gatewayType,
+      if (tapeDriveType != null) 'TapeDriveType': tapeDriveType,
+      if (mediumChangerType != null) 'MediumChangerType': mediumChangerType,
+      if (tags != null) 'Tags': tags,
+    });
+    return ActivateGatewayOutput.fromJson(response_);
   }
 
   /// Configures one or more gateway local disks as cache for a gateway. This
@@ -162,7 +176,11 @@ class StorageGatewayApi {
   /// API.
   Future<AddCacheOutput> addCache(
       {@required String gatewayArn, @required List<String> diskIds}) async {
-    return AddCacheOutput.fromJson({});
+    var response_ = await _client.send('AddCache', {
+      'GatewayARN': gatewayArn,
+      'DiskIds': diskIds,
+    });
+    return AddCacheOutput.fromJson(response_);
   }
 
   /// Adds one or more tags to the specified resource. You use tags to add
@@ -197,7 +215,11 @@ class StorageGatewayApi {
   /// maximum length for a tag's value is 256.
   Future<AddTagsToResourceOutput> addTagsToResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return AddTagsToResourceOutput.fromJson({});
+    var response_ = await _client.send('AddTagsToResource', {
+      'ResourceARN': resourceArn,
+      'Tags': tags,
+    });
+    return AddTagsToResourceOutput.fromJson(response_);
   }
 
   /// Configures one or more gateway local disks as upload buffer for a
@@ -214,7 +236,11 @@ class StorageGatewayApi {
   /// API.
   Future<AddUploadBufferOutput> addUploadBuffer(
       {@required String gatewayArn, @required List<String> diskIds}) async {
-    return AddUploadBufferOutput.fromJson({});
+    var response_ = await _client.send('AddUploadBuffer', {
+      'GatewayARN': gatewayArn,
+      'DiskIds': diskIds,
+    });
+    return AddUploadBufferOutput.fromJson(response_);
   }
 
   /// Configures one or more gateway local disks as working storage for a
@@ -236,7 +262,11 @@ class StorageGatewayApi {
   /// API.
   Future<AddWorkingStorageOutput> addWorkingStorage(
       {@required String gatewayArn, @required List<String> diskIds}) async {
-    return AddWorkingStorageOutput.fromJson({});
+    var response_ = await _client.send('AddWorkingStorage', {
+      'GatewayARN': gatewayArn,
+      'DiskIds': diskIds,
+    });
+    return AddWorkingStorageOutput.fromJson(response_);
   }
 
   /// Assigns a tape to a tape pool for archiving. The tape assigned to a pool
@@ -259,7 +289,11 @@ class StorageGatewayApi {
   /// Valid values: "GLACIER", "DEEP_ARCHIVE"
   Future<AssignTapePoolOutput> assignTapePool(
       {@required String tapeArn, @required String poolId}) async {
-    return AssignTapePoolOutput.fromJson({});
+    var response_ = await _client.send('AssignTapePool', {
+      'TapeARN': tapeArn,
+      'PoolId': poolId,
+    });
+    return AssignTapePoolOutput.fromJson(response_);
   }
 
   /// Connects a volume to an iSCSI connection and then attaches the volume to
@@ -299,7 +333,14 @@ class StorageGatewayApi {
       @required String volumeArn,
       @required String networkInterfaceId,
       String diskId}) async {
-    return AttachVolumeOutput.fromJson({});
+    var response_ = await _client.send('AttachVolume', {
+      'GatewayARN': gatewayArn,
+      if (targetName != null) 'TargetName': targetName,
+      'VolumeARN': volumeArn,
+      'NetworkInterfaceId': networkInterfaceId,
+      if (diskId != null) 'DiskId': diskId,
+    });
+    return AttachVolumeOutput.fromJson(response_);
   }
 
   /// Cancels archiving of a virtual tape to the virtual tape shelf (VTS) after
@@ -310,7 +351,11 @@ class StorageGatewayApi {
   /// cancel archiving for.
   Future<CancelArchivalOutput> cancelArchival(
       {@required String gatewayArn, @required String tapeArn}) async {
-    return CancelArchivalOutput.fromJson({});
+    var response_ = await _client.send('CancelArchival', {
+      'GatewayARN': gatewayArn,
+      'TapeARN': tapeArn,
+    });
+    return CancelArchivalOutput.fromJson(response_);
   }
 
   /// Cancels retrieval of a virtual tape from the virtual tape shelf (VTS) to a
@@ -322,7 +367,11 @@ class StorageGatewayApi {
   /// cancel retrieval for.
   Future<CancelRetrievalOutput> cancelRetrieval(
       {@required String gatewayArn, @required String tapeArn}) async {
-    return CancelRetrievalOutput.fromJson({});
+    var response_ = await _client.send('CancelRetrieval', {
+      'GatewayARN': gatewayArn,
+      'TapeARN': tapeArn,
+    });
+    return CancelRetrievalOutput.fromJson(response_);
   }
 
   /// Creates a cached volume on a specified cached volume gateway. This
@@ -405,7 +454,19 @@ class StorageGatewayApi {
       bool kmsEncrypted,
       String kmsKey,
       List<Tag> tags}) async {
-    return CreateCachediScsiVolumeOutput.fromJson({});
+    var response_ = await _client.send('CreateCachediSCSIVolume', {
+      'GatewayARN': gatewayArn,
+      'VolumeSizeInBytes': volumeSizeInBytes,
+      if (snapshotId != null) 'SnapshotId': snapshotId,
+      'TargetName': targetName,
+      if (sourceVolumeArn != null) 'SourceVolumeARN': sourceVolumeArn,
+      'NetworkInterfaceId': networkInterfaceId,
+      'ClientToken': clientToken,
+      if (kmsEncrypted != null) 'KMSEncrypted': kmsEncrypted,
+      if (kmsKey != null) 'KMSKey': kmsKey,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateCachediScsiVolumeOutput.fromJson(response_);
   }
 
   /// Creates a Network File System (NFS) file share on an existing file
@@ -510,7 +571,27 @@ class StorageGatewayApi {
       bool guessMimeTypeEnabled,
       bool requesterPays,
       List<Tag> tags}) async {
-    return CreateNfsFileShareOutput.fromJson({});
+    var response_ = await _client.send('CreateNFSFileShare', {
+      'ClientToken': clientToken,
+      if (nfsFileShareDefaults != null)
+        'NFSFileShareDefaults': nfsFileShareDefaults,
+      'GatewayARN': gatewayArn,
+      if (kmsEncrypted != null) 'KMSEncrypted': kmsEncrypted,
+      if (kmsKey != null) 'KMSKey': kmsKey,
+      'Role': role,
+      'LocationARN': locationArn,
+      if (defaultStorageClass != null)
+        'DefaultStorageClass': defaultStorageClass,
+      if (objectAcl != null) 'ObjectACL': objectAcl,
+      if (clientList != null) 'ClientList': clientList,
+      if (squash != null) 'Squash': squash,
+      if (readOnly != null) 'ReadOnly': readOnly,
+      if (guessMimeTypeEnabled != null)
+        'GuessMIMETypeEnabled': guessMimeTypeEnabled,
+      if (requesterPays != null) 'RequesterPays': requesterPays,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateNfsFileShareOutput.fromJson(response_);
   }
 
   /// Creates a Server Message Block (SMB) file share on an existing file
@@ -636,7 +717,28 @@ class StorageGatewayApi {
       List<String> invalidUserList,
       String authentication,
       List<Tag> tags}) async {
-    return CreateSmbFileShareOutput.fromJson({});
+    var response_ = await _client.send('CreateSMBFileShare', {
+      'ClientToken': clientToken,
+      'GatewayARN': gatewayArn,
+      if (kmsEncrypted != null) 'KMSEncrypted': kmsEncrypted,
+      if (kmsKey != null) 'KMSKey': kmsKey,
+      'Role': role,
+      'LocationARN': locationArn,
+      if (defaultStorageClass != null)
+        'DefaultStorageClass': defaultStorageClass,
+      if (objectAcl != null) 'ObjectACL': objectAcl,
+      if (readOnly != null) 'ReadOnly': readOnly,
+      if (guessMimeTypeEnabled != null)
+        'GuessMIMETypeEnabled': guessMimeTypeEnabled,
+      if (requesterPays != null) 'RequesterPays': requesterPays,
+      if (smbaclEnabled != null) 'SMBACLEnabled': smbaclEnabled,
+      if (adminUserList != null) 'AdminUserList': adminUserList,
+      if (validUserList != null) 'ValidUserList': validUserList,
+      if (invalidUserList != null) 'InvalidUserList': invalidUserList,
+      if (authentication != null) 'Authentication': authentication,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateSmbFileShareOutput.fromJson(response_);
   }
 
   /// Initiates a snapshot of a volume.
@@ -689,7 +791,12 @@ class StorageGatewayApi {
       {@required String volumeArn,
       @required String snapshotDescription,
       List<Tag> tags}) async {
-    return CreateSnapshotOutput.fromJson({});
+    var response_ = await _client.send('CreateSnapshot', {
+      'VolumeARN': volumeArn,
+      'SnapshotDescription': snapshotDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateSnapshotOutput.fromJson(response_);
   }
 
   /// Initiates a snapshot of a gateway from a volume recovery point. This
@@ -736,7 +843,13 @@ class StorageGatewayApi {
           {@required String volumeArn,
           @required String snapshotDescription,
           List<Tag> tags}) async {
-    return CreateSnapshotFromVolumeRecoveryPointOutput.fromJson({});
+    var response_ =
+        await _client.send('CreateSnapshotFromVolumeRecoveryPoint', {
+      'VolumeARN': volumeArn,
+      'SnapshotDescription': snapshotDescription,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateSnapshotFromVolumeRecoveryPointOutput.fromJson(response_);
   }
 
   /// Creates a volume on a specified gateway. This operation is only supported
@@ -813,7 +926,18 @@ class StorageGatewayApi {
       bool kmsEncrypted,
       String kmsKey,
       List<Tag> tags}) async {
-    return CreateStorediScsiVolumeOutput.fromJson({});
+    var response_ = await _client.send('CreateStorediSCSIVolume', {
+      'GatewayARN': gatewayArn,
+      'DiskId': diskId,
+      if (snapshotId != null) 'SnapshotId': snapshotId,
+      'PreserveExistingData': preserveExistingData,
+      'TargetName': targetName,
+      'NetworkInterfaceId': networkInterfaceId,
+      if (kmsEncrypted != null) 'KMSEncrypted': kmsEncrypted,
+      if (kmsKey != null) 'KMSKey': kmsKey,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateStorediScsiVolumeOutput.fromJson(response_);
   }
 
   /// Creates a virtual tape by using your own barcode. You write data to the
@@ -878,7 +1002,16 @@ class StorageGatewayApi {
       String kmsKey,
       String poolId,
       List<Tag> tags}) async {
-    return CreateTapeWithBarcodeOutput.fromJson({});
+    var response_ = await _client.send('CreateTapeWithBarcode', {
+      'GatewayARN': gatewayArn,
+      'TapeSizeInBytes': tapeSizeInBytes,
+      'TapeBarcode': tapeBarcode,
+      if (kmsEncrypted != null) 'KMSEncrypted': kmsEncrypted,
+      if (kmsKey != null) 'KMSKey': kmsKey,
+      if (poolId != null) 'PoolId': poolId,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateTapeWithBarcodeOutput.fromJson(response_);
   }
 
   /// Creates one or more virtual tapes. You write data to the virtual tapes and
@@ -954,7 +1087,18 @@ class StorageGatewayApi {
       String kmsKey,
       String poolId,
       List<Tag> tags}) async {
-    return CreateTapesOutput.fromJson({});
+    var response_ = await _client.send('CreateTapes', {
+      'GatewayARN': gatewayArn,
+      'TapeSizeInBytes': tapeSizeInBytes,
+      'ClientToken': clientToken,
+      'NumTapesToCreate': numTapesToCreate,
+      'TapeBarcodePrefix': tapeBarcodePrefix,
+      if (kmsEncrypted != null) 'KMSEncrypted': kmsEncrypted,
+      if (kmsKey != null) 'KMSKey': kmsKey,
+      if (poolId != null) 'PoolId': poolId,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateTapesOutput.fromJson(response_);
   }
 
   /// Deletes the bandwidth rate limits of a gateway. You can delete either the
@@ -969,7 +1113,11 @@ class StorageGatewayApi {
   /// Valid Values: `Upload`, `Download`, `All`.
   Future<DeleteBandwidthRateLimitOutput> deleteBandwidthRateLimit(
       {@required String gatewayArn, @required String bandwidthType}) async {
-    return DeleteBandwidthRateLimitOutput.fromJson({});
+    var response_ = await _client.send('DeleteBandwidthRateLimit', {
+      'GatewayARN': gatewayArn,
+      'BandwidthType': bandwidthType,
+    });
+    return DeleteBandwidthRateLimitOutput.fromJson(response_);
   }
 
   /// Deletes Challenge-Handshake Authentication Protocol (CHAP) credentials for
@@ -982,7 +1130,11 @@ class StorageGatewayApi {
   /// [initiatorName]: The iSCSI initiator that connects to the target.
   Future<DeleteChapCredentialsOutput> deleteChapCredentials(
       {@required String targetArn, @required String initiatorName}) async {
-    return DeleteChapCredentialsOutput.fromJson({});
+    var response_ = await _client.send('DeleteChapCredentials', {
+      'TargetARN': targetArn,
+      'InitiatorName': initiatorName,
+    });
+    return DeleteChapCredentialsOutput.fromJson(response_);
   }
 
   /// Deletes a file share from a file gateway. This operation is only supported
@@ -998,7 +1150,11 @@ class StorageGatewayApi {
   /// FORCE_DELETING status.
   Future<DeleteFileShareOutput> deleteFileShare(String fileShareArn,
       {bool forceDelete}) async {
-    return DeleteFileShareOutput.fromJson({});
+    var response_ = await _client.send('DeleteFileShare', {
+      'FileShareARN': fileShareArn,
+      if (forceDelete != null) 'ForceDelete': forceDelete,
+    });
+    return DeleteFileShareOutput.fromJson(response_);
   }
 
   /// Deletes a gateway. To specify which gateway to delete, use the Amazon
@@ -1021,7 +1177,10 @@ class StorageGatewayApi {
   /// using the Amazon EC2 console. For more information, see the
   /// [AWS Storage Gateway Detail Page](http://aws.amazon.com/storagegateway).
   Future<DeleteGatewayOutput> deleteGateway(String gatewayArn) async {
-    return DeleteGatewayOutput.fromJson({});
+    var response_ = await _client.send('DeleteGateway', {
+      'GatewayARN': gatewayArn,
+    });
+    return DeleteGatewayOutput.fromJson(response_);
   }
 
   /// Deletes a snapshot of a volume.
@@ -1042,7 +1201,10 @@ class StorageGatewayApi {
   /// [volumeArn]: The volume which snapshot schedule to delete.
   Future<DeleteSnapshotScheduleOutput> deleteSnapshotSchedule(
       String volumeArn) async {
-    return DeleteSnapshotScheduleOutput.fromJson({});
+    var response_ = await _client.send('DeleteSnapshotSchedule', {
+      'VolumeARN': volumeArn,
+    });
+    return DeleteSnapshotScheduleOutput.fromJson(response_);
   }
 
   /// Deletes the specified virtual tape. This operation is only supported in
@@ -1055,7 +1217,11 @@ class StorageGatewayApi {
   /// [tapeArn]: The Amazon Resource Name (ARN) of the virtual tape to delete.
   Future<DeleteTapeOutput> deleteTape(
       {@required String gatewayArn, @required String tapeArn}) async {
-    return DeleteTapeOutput.fromJson({});
+    var response_ = await _client.send('DeleteTape', {
+      'GatewayARN': gatewayArn,
+      'TapeARN': tapeArn,
+    });
+    return DeleteTapeOutput.fromJson(response_);
   }
 
   /// Deletes the specified virtual tape from the virtual tape shelf (VTS). This
@@ -1064,7 +1230,10 @@ class StorageGatewayApi {
   /// [tapeArn]: The Amazon Resource Name (ARN) of the virtual tape to delete
   /// from the virtual tape shelf (VTS).
   Future<DeleteTapeArchiveOutput> deleteTapeArchive(String tapeArn) async {
-    return DeleteTapeArchiveOutput.fromJson({});
+    var response_ = await _client.send('DeleteTapeArchive', {
+      'TapeARN': tapeArn,
+    });
+    return DeleteTapeArchiveOutput.fromJson(response_);
   }
 
   /// Deletes the specified storage volume that you previously created using the
@@ -1088,7 +1257,10 @@ class StorageGatewayApi {
   /// [volumeArn]: The Amazon Resource Name (ARN) of the volume. Use the
   /// ListVolumes operation to return a list of gateway volumes.
   Future<DeleteVolumeOutput> deleteVolume(String volumeArn) async {
-    return DeleteVolumeOutput.fromJson({});
+    var response_ = await _client.send('DeleteVolume', {
+      'VolumeARN': volumeArn,
+    });
+    return DeleteVolumeOutput.fromJson(response_);
   }
 
   /// Returns the bandwidth rate limits of a gateway. By default, these limits
@@ -1101,7 +1273,10 @@ class StorageGatewayApi {
   /// your request.
   Future<DescribeBandwidthRateLimitOutput> describeBandwidthRateLimit(
       String gatewayArn) async {
-    return DescribeBandwidthRateLimitOutput.fromJson({});
+    var response_ = await _client.send('DescribeBandwidthRateLimit', {
+      'GatewayARN': gatewayArn,
+    });
+    return DescribeBandwidthRateLimitOutput.fromJson(response_);
   }
 
   /// Returns information about the cache of a gateway. This operation is only
@@ -1110,7 +1285,10 @@ class StorageGatewayApi {
   /// The response includes disk IDs that are configured as cache, and it
   /// includes the amount of cache allocated and used.
   Future<DescribeCacheOutput> describeCache(String gatewayArn) async {
-    return DescribeCacheOutput.fromJson({});
+    var response_ = await _client.send('DescribeCache', {
+      'GatewayARN': gatewayArn,
+    });
+    return DescribeCacheOutput.fromJson(response_);
   }
 
   /// Returns a description of the gateway volumes specified in the request.
@@ -1126,7 +1304,10 @@ class StorageGatewayApi {
   /// a gateway.
   Future<DescribeCachediScsiVolumesOutput> describeCachediScsiVolumes(
       List<String> volumeARNs) async {
-    return DescribeCachediScsiVolumesOutput.fromJson({});
+    var response_ = await _client.send('DescribeCachediSCSIVolumes', {
+      'VolumeARNs': volumeARNs,
+    });
+    return DescribeCachediScsiVolumesOutput.fromJson(response_);
   }
 
   /// Returns an array of Challenge-Handshake Authentication Protocol (CHAP)
@@ -1138,7 +1319,10 @@ class StorageGatewayApi {
   /// TargetARN for specified VolumeARN.
   Future<DescribeChapCredentialsOutput> describeChapCredentials(
       String targetArn) async {
-    return DescribeChapCredentialsOutput.fromJson({});
+    var response_ = await _client.send('DescribeChapCredentials', {
+      'TargetARN': targetArn,
+    });
+    return DescribeChapCredentialsOutput.fromJson(response_);
   }
 
   /// Returns metadata about a gateway such as its name, network interfaces,
@@ -1147,7 +1331,10 @@ class StorageGatewayApi {
   /// (ARN) of the gateway in your request.
   Future<DescribeGatewayInformationOutput> describeGatewayInformation(
       String gatewayArn) async {
-    return DescribeGatewayInformationOutput.fromJson({});
+    var response_ = await _client.send('DescribeGatewayInformation', {
+      'GatewayARN': gatewayArn,
+    });
+    return DescribeGatewayInformationOutput.fromJson(response_);
   }
 
   /// Returns your gateway's weekly maintenance start time including the day and
@@ -1155,7 +1342,10 @@ class StorageGatewayApi {
   /// zone.
   Future<DescribeMaintenanceStartTimeOutput> describeMaintenanceStartTime(
       String gatewayArn) async {
-    return DescribeMaintenanceStartTimeOutput.fromJson({});
+    var response_ = await _client.send('DescribeMaintenanceStartTime', {
+      'GatewayARN': gatewayArn,
+    });
+    return DescribeMaintenanceStartTimeOutput.fromJson(response_);
   }
 
   /// Gets a description for one or more Network File System (NFS) file shares
@@ -1165,7 +1355,10 @@ class StorageGatewayApi {
   /// each file share to be described.
   Future<DescribeNfsFileSharesOutput> describeNfsFileShares(
       List<String> fileShareArnList) async {
-    return DescribeNfsFileSharesOutput.fromJson({});
+    var response_ = await _client.send('DescribeNFSFileShares', {
+      'FileShareARNList': fileShareArnList,
+    });
+    return DescribeNfsFileSharesOutput.fromJson(response_);
   }
 
   /// Gets a description for one or more Server Message Block (SMB) file shares
@@ -1175,14 +1368,20 @@ class StorageGatewayApi {
   /// each file share to be described.
   Future<DescribeSmbFileSharesOutput> describeSmbFileShares(
       List<String> fileShareArnList) async {
-    return DescribeSmbFileSharesOutput.fromJson({});
+    var response_ = await _client.send('DescribeSMBFileShares', {
+      'FileShareARNList': fileShareArnList,
+    });
+    return DescribeSmbFileSharesOutput.fromJson(response_);
   }
 
   /// Gets a description of a Server Message Block (SMB) file share settings
   /// from a file gateway. This operation is only supported for file gateways.
   Future<DescribeSmbSettingsOutput> describeSmbSettings(
       String gatewayArn) async {
-    return DescribeSmbSettingsOutput.fromJson({});
+    var response_ = await _client.send('DescribeSMBSettings', {
+      'GatewayARN': gatewayArn,
+    });
+    return DescribeSmbSettingsOutput.fromJson(response_);
   }
 
   /// Describes the snapshot schedule for the specified gateway volume. The
@@ -1194,7 +1393,10 @@ class StorageGatewayApi {
   /// ListVolumes operation to return a list of gateway volumes.
   Future<DescribeSnapshotScheduleOutput> describeSnapshotSchedule(
       String volumeArn) async {
-    return DescribeSnapshotScheduleOutput.fromJson({});
+    var response_ = await _client.send('DescribeSnapshotSchedule', {
+      'VolumeARN': volumeArn,
+    });
+    return DescribeSnapshotScheduleOutput.fromJson(response_);
   }
 
   /// Returns the description of the gateway volumes specified in the request.
@@ -1209,7 +1411,10 @@ class StorageGatewayApi {
   /// a gateway.
   Future<DescribeStorediScsiVolumesOutput> describeStorediScsiVolumes(
       List<String> volumeARNs) async {
-    return DescribeStorediScsiVolumesOutput.fromJson({});
+    var response_ = await _client.send('DescribeStorediSCSIVolumes', {
+      'VolumeARNs': volumeARNs,
+    });
+    return DescribeStorediScsiVolumesOutput.fromJson(response_);
   }
 
   /// Returns a description of specified virtual tapes in the virtual tape shelf
@@ -1229,7 +1434,12 @@ class StorageGatewayApi {
   /// the specified number.
   Future<DescribeTapeArchivesOutput> describeTapeArchives(
       {List<String> tapeARNs, String marker, int limit}) async {
-    return DescribeTapeArchivesOutput.fromJson({});
+    var response_ = await _client.send('DescribeTapeArchives', {
+      if (tapeARNs != null) 'TapeARNs': tapeARNs,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeTapeArchivesOutput.fromJson(response_);
   }
 
   /// Returns a list of virtual tape recovery points that are available for the
@@ -1249,7 +1459,12 @@ class StorageGatewayApi {
       String gatewayArn,
       {String marker,
       int limit}) async {
-    return DescribeTapeRecoveryPointsOutput.fromJson({});
+    var response_ = await _client.send('DescribeTapeRecoveryPoints', {
+      'GatewayARN': gatewayArn,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeTapeRecoveryPointsOutput.fromJson(response_);
   }
 
   /// Returns a description of the specified Amazon Resource Name (ARN) of
@@ -1275,7 +1490,13 @@ class StorageGatewayApi {
   /// Amazon Web Services may impose its own limit, if this field is not set.
   Future<DescribeTapesOutput> describeTapes(String gatewayArn,
       {List<String> tapeARNs, String marker, int limit}) async {
-    return DescribeTapesOutput.fromJson({});
+    var response_ = await _client.send('DescribeTapes', {
+      'GatewayARN': gatewayArn,
+      if (tapeARNs != null) 'TapeARNs': tapeARNs,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeTapesOutput.fromJson(response_);
   }
 
   /// Returns information about the upload buffer of a gateway. This operation
@@ -1285,7 +1506,10 @@ class StorageGatewayApi {
   /// and it includes the amount of upload buffer space allocated and used.
   Future<DescribeUploadBufferOutput> describeUploadBuffer(
       String gatewayArn) async {
-    return DescribeUploadBufferOutput.fromJson({});
+    var response_ = await _client.send('DescribeUploadBuffer', {
+      'GatewayARN': gatewayArn,
+    });
+    return DescribeUploadBufferOutput.fromJson(response_);
   }
 
   /// Returns a description of virtual tape library (VTL) devices for the
@@ -1310,7 +1534,13 @@ class StorageGatewayApi {
   /// the specified number.
   Future<DescribeVtlDevicesOutput> describeVtlDevices(String gatewayArn,
       {List<String> vtlDeviceARNs, String marker, int limit}) async {
-    return DescribeVtlDevicesOutput.fromJson({});
+    var response_ = await _client.send('DescribeVTLDevices', {
+      'GatewayARN': gatewayArn,
+      if (vtlDeviceARNs != null) 'VTLDeviceARNs': vtlDeviceARNs,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return DescribeVtlDevicesOutput.fromJson(response_);
   }
 
   /// Returns information about the working storage of a gateway. This operation
@@ -1326,7 +1556,10 @@ class StorageGatewayApi {
   /// it includes the amount of working storage allocated and used.
   Future<DescribeWorkingStorageOutput> describeWorkingStorage(
       String gatewayArn) async {
-    return DescribeWorkingStorageOutput.fromJson({});
+    var response_ = await _client.send('DescribeWorkingStorage', {
+      'GatewayARN': gatewayArn,
+    });
+    return DescribeWorkingStorageOutput.fromJson(response_);
   }
 
   /// Disconnects a volume from an iSCSI connection and then detaches the volume
@@ -1344,7 +1577,11 @@ class StorageGatewayApi {
   /// from the target volume.
   Future<DetachVolumeOutput> detachVolume(String volumeArn,
       {bool forceDetach}) async {
-    return DetachVolumeOutput.fromJson({});
+    var response_ = await _client.send('DetachVolume', {
+      'VolumeARN': volumeArn,
+      if (forceDetach != null) 'ForceDetach': forceDetach,
+    });
+    return DetachVolumeOutput.fromJson(response_);
   }
 
   /// Disables a tape gateway when the gateway is no longer functioning. For
@@ -1358,7 +1595,10 @@ class StorageGatewayApi {
   ///
   /// Once a gateway is disabled it cannot be enabled.
   Future<DisableGatewayOutput> disableGateway(String gatewayArn) async {
-    return DisableGatewayOutput.fromJson({});
+    var response_ = await _client.send('DisableGateway', {
+      'GatewayARN': gatewayArn,
+    });
+    return DisableGatewayOutput.fromJson(response_);
   }
 
   /// Adds a file gateway to an Active Directory domain. This operation is only
@@ -1391,7 +1631,15 @@ class StorageGatewayApi {
       List<String> domainControllers,
       @required String userName,
       @required String password}) async {
-    return JoinDomainOutput.fromJson({});
+    var response_ = await _client.send('JoinDomain', {
+      'GatewayARN': gatewayArn,
+      'DomainName': domainName,
+      if (organizationalUnit != null) 'OrganizationalUnit': organizationalUnit,
+      if (domainControllers != null) 'DomainControllers': domainControllers,
+      'UserName': userName,
+      'Password': password,
+    });
+    return JoinDomainOutput.fromJson(response_);
   }
 
   /// Gets a list of the file shares for a specific file gateway, or the list of
@@ -1410,7 +1658,12 @@ class StorageGatewayApi {
   /// after a previous call to ListFileShares. Optional.
   Future<ListFileSharesOutput> listFileShares(
       {String gatewayArn, int limit, String marker}) async {
-    return ListFileSharesOutput.fromJson({});
+    var response_ = await _client.send('ListFileShares', {
+      if (gatewayArn != null) 'GatewayARN': gatewayArn,
+      if (limit != null) 'Limit': limit,
+      if (marker != null) 'Marker': marker,
+    });
+    return ListFileSharesOutput.fromJson(response_);
   }
 
   /// Lists gateways owned by an AWS account in an AWS Region specified in the
@@ -1432,7 +1685,11 @@ class StorageGatewayApi {
   /// [limit]: Specifies that the list of gateways returned be limited to the
   /// specified number of items.
   Future<ListGatewaysOutput> listGateways({String marker, int limit}) async {
-    return ListGatewaysOutput.fromJson({});
+    var response_ = await _client.send('ListGateways', {
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListGatewaysOutput.fromJson(response_);
   }
 
   /// Returns a list of the gateway's local disks. To specify which gateway to
@@ -1446,7 +1703,10 @@ class StorageGatewayApi {
   /// longer connected to the gateway), or mismatch (the disk node is occupied
   /// by a disk that has incorrect metadata or the disk content is corrupted).
   Future<ListLocalDisksOutput> listLocalDisks(String gatewayArn) async {
-    return ListLocalDisksOutput.fromJson({});
+    var response_ = await _client.send('ListLocalDisks', {
+      'GatewayARN': gatewayArn,
+    });
+    return ListLocalDisksOutput.fromJson(response_);
   }
 
   /// Lists the tags that have been added to the specified resource. This
@@ -1463,7 +1723,12 @@ class StorageGatewayApi {
   /// specified number of items.
   Future<ListTagsForResourceOutput> listTagsForResource(String resourceArn,
       {String marker, int limit}) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceARN': resourceArn,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   /// Lists virtual tapes in your virtual tape library (VTL) and your virtual
@@ -1486,7 +1751,12 @@ class StorageGatewayApi {
   /// this call.
   Future<ListTapesOutput> listTapes(
       {List<String> tapeARNs, String marker, int limit}) async {
-    return ListTapesOutput.fromJson({});
+    var response_ = await _client.send('ListTapes', {
+      if (tapeARNs != null) 'TapeARNs': tapeARNs,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListTapesOutput.fromJson(response_);
   }
 
   /// Lists iSCSI initiators that are connected to a volume. You can use this
@@ -1498,7 +1768,10 @@ class StorageGatewayApi {
   /// ListVolumes operation to return a list of gateway volumes for the gateway.
   Future<ListVolumeInitiatorsOutput> listVolumeInitiators(
       String volumeArn) async {
-    return ListVolumeInitiatorsOutput.fromJson({});
+    var response_ = await _client.send('ListVolumeInitiators', {
+      'VolumeARN': volumeArn,
+    });
+    return ListVolumeInitiatorsOutput.fromJson(response_);
   }
 
   /// Lists the recovery points for a specified gateway. This operation is only
@@ -1511,7 +1784,10 @@ class StorageGatewayApi {
   /// CreateSnapshotFromVolumeRecoveryPoint operation.
   Future<ListVolumeRecoveryPointsOutput> listVolumeRecoveryPoints(
       String gatewayArn) async {
-    return ListVolumeRecoveryPointsOutput.fromJson({});
+    var response_ = await _client.send('ListVolumeRecoveryPoints', {
+      'GatewayARN': gatewayArn,
+    });
+    return ListVolumeRecoveryPointsOutput.fromJson(response_);
   }
 
   /// Lists the iSCSI stored volumes of a gateway. Results are sorted by volume
@@ -1535,7 +1811,12 @@ class StorageGatewayApi {
   /// specified number of items.
   Future<ListVolumesOutput> listVolumes(
       {String gatewayArn, String marker, int limit}) async {
-    return ListVolumesOutput.fromJson({});
+    var response_ = await _client.send('ListVolumes', {
+      if (gatewayArn != null) 'GatewayARN': gatewayArn,
+      if (marker != null) 'Marker': marker,
+      if (limit != null) 'Limit': limit,
+    });
+    return ListVolumesOutput.fromJson(response_);
   }
 
   /// Sends you notification through CloudWatch Events when all files written to
@@ -1555,7 +1836,10 @@ class StorageGatewayApi {
   /// (https://docs.aws.amazon.com/storagegateway/latest/userguide/monitoring-file-gateway.html#get-upload-notification).
   Future<NotifyWhenUploadedOutput> notifyWhenUploaded(
       String fileShareArn) async {
-    return NotifyWhenUploadedOutput.fromJson({});
+    var response_ = await _client.send('NotifyWhenUploaded', {
+      'FileShareARN': fileShareArn,
+    });
+    return NotifyWhenUploadedOutput.fromJson(response_);
   }
 
   /// Refreshes the cache for the specified file share. This operation finds
@@ -1592,7 +1876,12 @@ class StorageGatewayApi {
   /// and used for the update. The default is "true".
   Future<RefreshCacheOutput> refreshCache(String fileShareArn,
       {List<String> folderList, bool recursive}) async {
-    return RefreshCacheOutput.fromJson({});
+    var response_ = await _client.send('RefreshCache', {
+      'FileShareARN': fileShareArn,
+      if (folderList != null) 'FolderList': folderList,
+      if (recursive != null) 'Recursive': recursive,
+    });
+    return RefreshCacheOutput.fromJson(response_);
   }
 
   /// Removes one or more tags from the specified resource. This operation is
@@ -1605,7 +1894,11 @@ class StorageGatewayApi {
   /// resource. A tag is composed of a key/value pair.
   Future<RemoveTagsFromResourceOutput> removeTagsFromResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return RemoveTagsFromResourceOutput.fromJson({});
+    var response_ = await _client.send('RemoveTagsFromResource', {
+      'ResourceARN': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return RemoveTagsFromResourceOutput.fromJson(response_);
   }
 
   /// Resets all cache disks that have encountered a error and makes the disks
@@ -1625,7 +1918,10 @@ class StorageGatewayApi {
   /// must configure at least one new cache disk for your gateway to function
   /// properly.
   Future<ResetCacheOutput> resetCache(String gatewayArn) async {
-    return ResetCacheOutput.fromJson({});
+    var response_ = await _client.send('ResetCache', {
+      'GatewayARN': gatewayArn,
+    });
+    return ResetCacheOutput.fromJson(response_);
   }
 
   /// Retrieves an archived virtual tape from the virtual tape shelf (VTS) to a
@@ -1650,7 +1946,11 @@ class StorageGatewayApi {
   /// must be a tape gateway.
   Future<RetrieveTapeArchiveOutput> retrieveTapeArchive(
       {@required String tapeArn, @required String gatewayArn}) async {
-    return RetrieveTapeArchiveOutput.fromJson({});
+    var response_ = await _client.send('RetrieveTapeArchive', {
+      'TapeARN': tapeArn,
+      'GatewayARN': gatewayArn,
+    });
+    return RetrieveTapeArchiveOutput.fromJson(response_);
   }
 
   /// Retrieves the recovery point for the specified virtual tape. This
@@ -1670,7 +1970,11 @@ class StorageGatewayApi {
   /// you want to retrieve the recovery point.
   Future<RetrieveTapeRecoveryPointOutput> retrieveTapeRecoveryPoint(
       {@required String tapeArn, @required String gatewayArn}) async {
-    return RetrieveTapeRecoveryPointOutput.fromJson({});
+    var response_ = await _client.send('RetrieveTapeRecoveryPoint', {
+      'TapeARN': tapeArn,
+      'GatewayARN': gatewayArn,
+    });
+    return RetrieveTapeRecoveryPointOutput.fromJson(response_);
   }
 
   /// Sets the password for your VM local console. When you log in to the local
@@ -1683,7 +1987,11 @@ class StorageGatewayApi {
   Future<SetLocalConsolePasswordOutput> setLocalConsolePassword(
       {@required String gatewayArn,
       @required String localConsolePassword}) async {
-    return SetLocalConsolePasswordOutput.fromJson({});
+    var response_ = await _client.send('SetLocalConsolePassword', {
+      'GatewayARN': gatewayArn,
+      'LocalConsolePassword': localConsolePassword,
+    });
+    return SetLocalConsolePasswordOutput.fromJson(response_);
   }
 
   /// Sets the password for the guest user `smbguest`. The `smbguest` user is
@@ -1696,7 +2004,11 @@ class StorageGatewayApi {
   /// [password]: The password that you want to set for your SMB Server.
   Future<SetSmbGuestPasswordOutput> setSmbGuestPassword(
       {@required String gatewayArn, @required String password}) async {
-    return SetSmbGuestPasswordOutput.fromJson({});
+    var response_ = await _client.send('SetSMBGuestPassword', {
+      'GatewayARN': gatewayArn,
+      'Password': password,
+    });
+    return SetSmbGuestPasswordOutput.fromJson(response_);
   }
 
   /// Shuts down a gateway. To specify which gateway to shut down, use the
@@ -1722,7 +2034,10 @@ class StorageGatewayApi {
   /// (using DeleteGateway) to no longer pay software charges associated with
   /// the gateway.
   Future<ShutdownGatewayOutput> shutdownGateway(String gatewayArn) async {
-    return ShutdownGatewayOutput.fromJson({});
+    var response_ = await _client.send('ShutdownGateway', {
+      'GatewayARN': gatewayArn,
+    });
+    return ShutdownGatewayOutput.fromJson(response_);
   }
 
   /// Starts a gateway that you previously shut down (see ShutdownGateway).
@@ -1739,7 +2054,10 @@ class StorageGatewayApi {
   /// To specify which gateway to start, use the Amazon Resource Name (ARN) of
   /// the gateway in your request.
   Future<StartGatewayOutput> startGateway(String gatewayArn) async {
-    return StartGatewayOutput.fromJson({});
+    var response_ = await _client.send('StartGateway', {
+      'GatewayARN': gatewayArn,
+    });
+    return StartGatewayOutput.fromJson(response_);
   }
 
   /// Updates the bandwidth rate limits of a gateway. You can update both the
@@ -1762,7 +2080,16 @@ class StorageGatewayApi {
       String gatewayArn,
       {BigInt averageUploadRateLimitInBitsPerSec,
       BigInt averageDownloadRateLimitInBitsPerSec}) async {
-    return UpdateBandwidthRateLimitOutput.fromJson({});
+    var response_ = await _client.send('UpdateBandwidthRateLimit', {
+      'GatewayARN': gatewayArn,
+      if (averageUploadRateLimitInBitsPerSec != null)
+        'AverageUploadRateLimitInBitsPerSec':
+            averageUploadRateLimitInBitsPerSec,
+      if (averageDownloadRateLimitInBitsPerSec != null)
+        'AverageDownloadRateLimitInBitsPerSec':
+            averageDownloadRateLimitInBitsPerSec,
+    });
+    return UpdateBandwidthRateLimitOutput.fromJson(response_);
   }
 
   /// Updates the Challenge-Handshake Authentication Protocol (CHAP) credentials
@@ -1801,7 +2128,14 @@ class StorageGatewayApi {
       @required String secretToAuthenticateInitiator,
       @required String initiatorName,
       String secretToAuthenticateTarget}) async {
-    return UpdateChapCredentialsOutput.fromJson({});
+    var response_ = await _client.send('UpdateChapCredentials', {
+      'TargetARN': targetArn,
+      'SecretToAuthenticateInitiator': secretToAuthenticateInitiator,
+      'InitiatorName': initiatorName,
+      if (secretToAuthenticateTarget != null)
+        'SecretToAuthenticateTarget': secretToAuthenticateTarget,
+    });
+    return UpdateChapCredentialsOutput.fromJson(response_);
   }
 
   /// Updates a gateway's metadata, which includes the gateway's name and time
@@ -1827,7 +2161,14 @@ class StorageGatewayApi {
       {String gatewayName,
       String gatewayTimezone,
       String cloudWatchLogGroupArn}) async {
-    return UpdateGatewayInformationOutput.fromJson({});
+    var response_ = await _client.send('UpdateGatewayInformation', {
+      'GatewayARN': gatewayArn,
+      if (gatewayName != null) 'GatewayName': gatewayName,
+      if (gatewayTimezone != null) 'GatewayTimezone': gatewayTimezone,
+      if (cloudWatchLogGroupArn != null)
+        'CloudWatchLogGroupARN': cloudWatchLogGroupArn,
+    });
+    return UpdateGatewayInformationOutput.fromJson(response_);
   }
 
   /// Updates the gateway virtual machine (VM) software. The request immediately
@@ -1848,7 +2189,10 @@ class StorageGatewayApi {
   /// respectively.
   Future<UpdateGatewaySoftwareNowOutput> updateGatewaySoftwareNow(
       String gatewayArn) async {
-    return UpdateGatewaySoftwareNowOutput.fromJson({});
+    var response_ = await _client.send('UpdateGatewaySoftwareNow', {
+      'GatewayARN': gatewayArn,
+    });
+    return UpdateGatewaySoftwareNowOutput.fromJson(response_);
   }
 
   /// Updates a gateway's weekly maintenance start time information, including
@@ -1880,7 +2224,14 @@ class StorageGatewayApi {
       @required int minuteOfHour,
       int dayOfWeek,
       int dayOfMonth}) async {
-    return UpdateMaintenanceStartTimeOutput.fromJson({});
+    var response_ = await _client.send('UpdateMaintenanceStartTime', {
+      'GatewayARN': gatewayArn,
+      'HourOfDay': hourOfDay,
+      'MinuteOfHour': minuteOfHour,
+      if (dayOfWeek != null) 'DayOfWeek': dayOfWeek,
+      if (dayOfMonth != null) 'DayOfMonth': dayOfMonth,
+    });
+    return UpdateMaintenanceStartTimeOutput.fromJson(response_);
   }
 
   /// Updates a Network File System (NFS) file share. This operation is only
@@ -1969,7 +2320,23 @@ class StorageGatewayApi {
       bool readOnly,
       bool guessMimeTypeEnabled,
       bool requesterPays}) async {
-    return UpdateNfsFileShareOutput.fromJson({});
+    var response_ = await _client.send('UpdateNFSFileShare', {
+      'FileShareARN': fileShareArn,
+      if (kmsEncrypted != null) 'KMSEncrypted': kmsEncrypted,
+      if (kmsKey != null) 'KMSKey': kmsKey,
+      if (nfsFileShareDefaults != null)
+        'NFSFileShareDefaults': nfsFileShareDefaults,
+      if (defaultStorageClass != null)
+        'DefaultStorageClass': defaultStorageClass,
+      if (objectAcl != null) 'ObjectACL': objectAcl,
+      if (clientList != null) 'ClientList': clientList,
+      if (squash != null) 'Squash': squash,
+      if (readOnly != null) 'ReadOnly': readOnly,
+      if (guessMimeTypeEnabled != null)
+        'GuessMIMETypeEnabled': guessMimeTypeEnabled,
+      if (requesterPays != null) 'RequesterPays': requesterPays,
+    });
+    return UpdateNfsFileShareOutput.fromJson(response_);
   }
 
   /// Updates a Server Message Block (SMB) file share.
@@ -2059,7 +2426,23 @@ class StorageGatewayApi {
       List<String> adminUserList,
       List<String> validUserList,
       List<String> invalidUserList}) async {
-    return UpdateSmbFileShareOutput.fromJson({});
+    var response_ = await _client.send('UpdateSMBFileShare', {
+      'FileShareARN': fileShareArn,
+      if (kmsEncrypted != null) 'KMSEncrypted': kmsEncrypted,
+      if (kmsKey != null) 'KMSKey': kmsKey,
+      if (defaultStorageClass != null)
+        'DefaultStorageClass': defaultStorageClass,
+      if (objectAcl != null) 'ObjectACL': objectAcl,
+      if (readOnly != null) 'ReadOnly': readOnly,
+      if (guessMimeTypeEnabled != null)
+        'GuessMIMETypeEnabled': guessMimeTypeEnabled,
+      if (requesterPays != null) 'RequesterPays': requesterPays,
+      if (smbaclEnabled != null) 'SMBACLEnabled': smbaclEnabled,
+      if (adminUserList != null) 'AdminUserList': adminUserList,
+      if (validUserList != null) 'ValidUserList': validUserList,
+      if (invalidUserList != null) 'InvalidUserList': invalidUserList,
+    });
+    return UpdateSmbFileShareOutput.fromJson(response_);
   }
 
   /// Updates the SMB security strategy on a file gateway. This action is only
@@ -2090,7 +2473,11 @@ class StorageGatewayApi {
   Future<UpdateSmbSecurityStrategyOutput> updateSmbSecurityStrategy(
       {@required String gatewayArn,
       @required String smbSecurityStrategy}) async {
-    return UpdateSmbSecurityStrategyOutput.fromJson({});
+    var response_ = await _client.send('UpdateSMBSecurityStrategy', {
+      'GatewayARN': gatewayArn,
+      'SMBSecurityStrategy': smbSecurityStrategy,
+    });
+    return UpdateSmbSecurityStrategyOutput.fromJson(response_);
   }
 
   /// Updates a snapshot schedule configured for a gateway volume. This
@@ -2134,7 +2521,14 @@ class StorageGatewayApi {
       @required int recurrenceInHours,
       String description,
       List<Tag> tags}) async {
-    return UpdateSnapshotScheduleOutput.fromJson({});
+    var response_ = await _client.send('UpdateSnapshotSchedule', {
+      'VolumeARN': volumeArn,
+      'StartAt': startAt,
+      'RecurrenceInHours': recurrenceInHours,
+      if (description != null) 'Description': description,
+      if (tags != null) 'Tags': tags,
+    });
+    return UpdateSnapshotScheduleOutput.fromJson(response_);
   }
 
   /// Updates the type of medium changer in a tape gateway. When you activate a
@@ -2151,7 +2545,11 @@ class StorageGatewayApi {
   ///  Valid Values: "STK-L700", "AWS-Gateway-VTL"
   Future<UpdateVtlDeviceTypeOutput> updateVtlDeviceType(
       {@required String vtlDeviceArn, @required String deviceType}) async {
-    return UpdateVtlDeviceTypeOutput.fromJson({});
+    var response_ = await _client.send('UpdateVTLDeviceType', {
+      'VTLDeviceARN': vtlDeviceArn,
+      'DeviceType': deviceType,
+    });
+    return UpdateVtlDeviceTypeOutput.fromJson(response_);
   }
 }
 
@@ -2172,7 +2570,11 @@ class ActivateGatewayOutput {
     this.gatewayArn,
   });
   static ActivateGatewayOutput fromJson(Map<String, dynamic> json) =>
-      ActivateGatewayOutput();
+      ActivateGatewayOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 class AddCacheOutput {
@@ -2181,7 +2583,11 @@ class AddCacheOutput {
   AddCacheOutput({
     this.gatewayArn,
   });
-  static AddCacheOutput fromJson(Map<String, dynamic> json) => AddCacheOutput();
+  static AddCacheOutput fromJson(Map<String, dynamic> json) => AddCacheOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// AddTagsToResourceOutput
@@ -2193,7 +2599,11 @@ class AddTagsToResourceOutput {
     this.resourceArn,
   });
   static AddTagsToResourceOutput fromJson(Map<String, dynamic> json) =>
-      AddTagsToResourceOutput();
+      AddTagsToResourceOutput(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+      );
 }
 
 class AddUploadBufferOutput {
@@ -2203,7 +2613,11 @@ class AddUploadBufferOutput {
     this.gatewayArn,
   });
   static AddUploadBufferOutput fromJson(Map<String, dynamic> json) =>
-      AddUploadBufferOutput();
+      AddUploadBufferOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the of the gateway for which working storage was
@@ -2215,7 +2629,11 @@ class AddWorkingStorageOutput {
     this.gatewayArn,
   });
   static AddWorkingStorageOutput fromJson(Map<String, dynamic> json) =>
-      AddWorkingStorageOutput();
+      AddWorkingStorageOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 class AssignTapePoolOutput {
@@ -2227,7 +2645,9 @@ class AssignTapePoolOutput {
     this.tapeArn,
   });
   static AssignTapePoolOutput fromJson(Map<String, dynamic> json) =>
-      AssignTapePoolOutput();
+      AssignTapePoolOutput(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+      );
 }
 
 /// AttachVolumeOutput
@@ -2245,7 +2665,12 @@ class AttachVolumeOutput {
     this.targetArn,
   });
   static AttachVolumeOutput fromJson(Map<String, dynamic> json) =>
-      AttachVolumeOutput();
+      AttachVolumeOutput(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        targetArn:
+            json.containsKey('TargetARN') ? json['TargetARN'] as String : null,
+      );
 }
 
 /// Describes an iSCSI cached volume.
@@ -2332,7 +2757,43 @@ class CachediScsiVolume {
     this.targetName,
   });
   static CachediScsiVolume fromJson(Map<String, dynamic> json) =>
-      CachediScsiVolume();
+      CachediScsiVolume(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        volumeStatus: json.containsKey('VolumeStatus')
+            ? json['VolumeStatus'] as String
+            : null,
+        volumeAttachmentStatus: json.containsKey('VolumeAttachmentStatus')
+            ? json['VolumeAttachmentStatus'] as String
+            : null,
+        volumeSizeInBytes: json.containsKey('VolumeSizeInBytes')
+            ? BigInt.from(json['VolumeSizeInBytes'])
+            : null,
+        volumeProgress: json.containsKey('VolumeProgress')
+            ? json['VolumeProgress'] as double
+            : null,
+        sourceSnapshotId: json.containsKey('SourceSnapshotId')
+            ? json['SourceSnapshotId'] as String
+            : null,
+        volumeiScsiAttributes: json.containsKey('VolumeiSCSIAttributes')
+            ? VolumeiScsiAttributes.fromJson(json['VolumeiSCSIAttributes'])
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        volumeUsedInBytes: json.containsKey('VolumeUsedInBytes')
+            ? BigInt.from(json['VolumeUsedInBytes'])
+            : null,
+        kmsKey: json.containsKey('KMSKey') ? json['KMSKey'] as String : null,
+        targetName: json.containsKey('TargetName')
+            ? json['TargetName'] as String
+            : null,
+      );
 }
 
 /// CancelArchivalOutput
@@ -2345,7 +2806,9 @@ class CancelArchivalOutput {
     this.tapeArn,
   });
   static CancelArchivalOutput fromJson(Map<String, dynamic> json) =>
-      CancelArchivalOutput();
+      CancelArchivalOutput(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+      );
 }
 
 /// CancelRetrievalOutput
@@ -2358,7 +2821,9 @@ class CancelRetrievalOutput {
     this.tapeArn,
   });
   static CancelRetrievalOutput fromJson(Map<String, dynamic> json) =>
-      CancelRetrievalOutput();
+      CancelRetrievalOutput(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+      );
 }
 
 /// Describes Challenge-Handshake Authentication Protocol (CHAP) information
@@ -2387,7 +2852,21 @@ class ChapInfo {
     this.initiatorName,
     this.secretToAuthenticateTarget,
   });
-  static ChapInfo fromJson(Map<String, dynamic> json) => ChapInfo();
+  static ChapInfo fromJson(Map<String, dynamic> json) => ChapInfo(
+        targetArn:
+            json.containsKey('TargetARN') ? json['TargetARN'] as String : null,
+        secretToAuthenticateInitiator:
+            json.containsKey('SecretToAuthenticateInitiator')
+                ? json['SecretToAuthenticateInitiator'] as String
+                : null,
+        initiatorName: json.containsKey('InitiatorName')
+            ? json['InitiatorName'] as String
+            : null,
+        secretToAuthenticateTarget:
+            json.containsKey('SecretToAuthenticateTarget')
+                ? json['SecretToAuthenticateTarget'] as String
+                : null,
+      );
 }
 
 class CreateCachediScsiVolumeOutput {
@@ -2403,7 +2882,12 @@ class CreateCachediScsiVolumeOutput {
     this.targetArn,
   });
   static CreateCachediScsiVolumeOutput fromJson(Map<String, dynamic> json) =>
-      CreateCachediScsiVolumeOutput();
+      CreateCachediScsiVolumeOutput(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        targetArn:
+            json.containsKey('TargetARN') ? json['TargetARN'] as String : null,
+      );
 }
 
 /// CreateNFSFileShareOutput
@@ -2415,7 +2899,11 @@ class CreateNfsFileShareOutput {
     this.fileShareArn,
   });
   static CreateNfsFileShareOutput fromJson(Map<String, dynamic> json) =>
-      CreateNfsFileShareOutput();
+      CreateNfsFileShareOutput(
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+      );
 }
 
 /// CreateSMBFileShareOutput
@@ -2427,7 +2915,11 @@ class CreateSmbFileShareOutput {
     this.fileShareArn,
   });
   static CreateSmbFileShareOutput fromJson(Map<String, dynamic> json) =>
-      CreateSmbFileShareOutput();
+      CreateSmbFileShareOutput(
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+      );
 }
 
 class CreateSnapshotFromVolumeRecoveryPointOutput {
@@ -2449,7 +2941,16 @@ class CreateSnapshotFromVolumeRecoveryPointOutput {
   });
   static CreateSnapshotFromVolumeRecoveryPointOutput fromJson(
           Map<String, dynamic> json) =>
-      CreateSnapshotFromVolumeRecoveryPointOutput();
+      CreateSnapshotFromVolumeRecoveryPointOutput(
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        volumeRecoveryPointTime: json.containsKey('VolumeRecoveryPointTime')
+            ? json['VolumeRecoveryPointTime'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -2469,7 +2970,13 @@ class CreateSnapshotOutput {
     this.snapshotId,
   });
   static CreateSnapshotOutput fromJson(Map<String, dynamic> json) =>
-      CreateSnapshotOutput();
+      CreateSnapshotOutput(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        snapshotId: json.containsKey('SnapshotId')
+            ? json['SnapshotId'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -2490,7 +2997,15 @@ class CreateStorediScsiVolumeOutput {
     this.targetArn,
   });
   static CreateStorediScsiVolumeOutput fromJson(Map<String, dynamic> json) =>
-      CreateStorediScsiVolumeOutput();
+      CreateStorediScsiVolumeOutput(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        volumeSizeInBytes: json.containsKey('VolumeSizeInBytes')
+            ? BigInt.from(json['VolumeSizeInBytes'])
+            : null,
+        targetArn:
+            json.containsKey('TargetARN') ? json['TargetARN'] as String : null,
+      );
 }
 
 /// CreateTapeOutput
@@ -2503,7 +3018,9 @@ class CreateTapeWithBarcodeOutput {
     this.tapeArn,
   });
   static CreateTapeWithBarcodeOutput fromJson(Map<String, dynamic> json) =>
-      CreateTapeWithBarcodeOutput();
+      CreateTapeWithBarcodeOutput(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+      );
 }
 
 /// CreateTapeOutput
@@ -2516,7 +3033,11 @@ class CreateTapesOutput {
     this.tapeARNs,
   });
   static CreateTapesOutput fromJson(Map<String, dynamic> json) =>
-      CreateTapesOutput();
+      CreateTapesOutput(
+        tapeARNs: json.containsKey('TapeARNs')
+            ? (json['TapeARNs'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// A JSON object containing the of the gateway whose bandwidth rate information
@@ -2528,7 +3049,11 @@ class DeleteBandwidthRateLimitOutput {
     this.gatewayArn,
   });
   static DeleteBandwidthRateLimitOutput fromJson(Map<String, dynamic> json) =>
-      DeleteBandwidthRateLimitOutput();
+      DeleteBandwidthRateLimitOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -2544,7 +3069,13 @@ class DeleteChapCredentialsOutput {
     this.initiatorName,
   });
   static DeleteChapCredentialsOutput fromJson(Map<String, dynamic> json) =>
-      DeleteChapCredentialsOutput();
+      DeleteChapCredentialsOutput(
+        targetArn:
+            json.containsKey('TargetARN') ? json['TargetARN'] as String : null,
+        initiatorName: json.containsKey('InitiatorName')
+            ? json['InitiatorName'] as String
+            : null,
+      );
 }
 
 /// DeleteFileShareOutput
@@ -2556,7 +3087,11 @@ class DeleteFileShareOutput {
     this.fileShareArn,
   });
   static DeleteFileShareOutput fromJson(Map<String, dynamic> json) =>
-      DeleteFileShareOutput();
+      DeleteFileShareOutput(
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the ID of the deleted gateway.
@@ -2567,7 +3102,11 @@ class DeleteGatewayOutput {
     this.gatewayArn,
   });
   static DeleteGatewayOutput fromJson(Map<String, dynamic> json) =>
-      DeleteGatewayOutput();
+      DeleteGatewayOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 class DeleteSnapshotScheduleOutput {
@@ -2578,7 +3117,10 @@ class DeleteSnapshotScheduleOutput {
     this.volumeArn,
   });
   static DeleteSnapshotScheduleOutput fromJson(Map<String, dynamic> json) =>
-      DeleteSnapshotScheduleOutput();
+      DeleteSnapshotScheduleOutput(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+      );
 }
 
 /// DeleteTapeArchiveOutput
@@ -2591,7 +3133,9 @@ class DeleteTapeArchiveOutput {
     this.tapeArn,
   });
   static DeleteTapeArchiveOutput fromJson(Map<String, dynamic> json) =>
-      DeleteTapeArchiveOutput();
+      DeleteTapeArchiveOutput(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+      );
 }
 
 /// DeleteTapeOutput
@@ -2603,7 +3147,9 @@ class DeleteTapeOutput {
     this.tapeArn,
   });
   static DeleteTapeOutput fromJson(Map<String, dynamic> json) =>
-      DeleteTapeOutput();
+      DeleteTapeOutput(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+      );
 }
 
 /// A JSON object containing the of the storage volume that was deleted
@@ -2616,7 +3162,10 @@ class DeleteVolumeOutput {
     this.volumeArn,
   });
   static DeleteVolumeOutput fromJson(Map<String, dynamic> json) =>
-      DeleteVolumeOutput();
+      DeleteVolumeOutput(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -2637,7 +3186,19 @@ class DescribeBandwidthRateLimitOutput {
     this.averageDownloadRateLimitInBitsPerSec,
   });
   static DescribeBandwidthRateLimitOutput fromJson(Map<String, dynamic> json) =>
-      DescribeBandwidthRateLimitOutput();
+      DescribeBandwidthRateLimitOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        averageUploadRateLimitInBitsPerSec:
+            json.containsKey('AverageUploadRateLimitInBitsPerSec')
+                ? BigInt.from(json['AverageUploadRateLimitInBitsPerSec'])
+                : null,
+        averageDownloadRateLimitInBitsPerSec:
+            json.containsKey('AverageDownloadRateLimitInBitsPerSec')
+                ? BigInt.from(json['AverageDownloadRateLimitInBitsPerSec'])
+                : null,
+      );
 }
 
 class DescribeCacheOutput {
@@ -2679,7 +3240,29 @@ class DescribeCacheOutput {
     this.cacheMissPercentage,
   });
   static DescribeCacheOutput fromJson(Map<String, dynamic> json) =>
-      DescribeCacheOutput();
+      DescribeCacheOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        diskIds: json.containsKey('DiskIds')
+            ? (json['DiskIds'] as List).map((e) => e as String).toList()
+            : null,
+        cacheAllocatedInBytes: json.containsKey('CacheAllocatedInBytes')
+            ? BigInt.from(json['CacheAllocatedInBytes'])
+            : null,
+        cacheUsedPercentage: json.containsKey('CacheUsedPercentage')
+            ? json['CacheUsedPercentage'] as double
+            : null,
+        cacheDirtyPercentage: json.containsKey('CacheDirtyPercentage')
+            ? json['CacheDirtyPercentage'] as double
+            : null,
+        cacheHitPercentage: json.containsKey('CacheHitPercentage')
+            ? json['CacheHitPercentage'] as double
+            : null,
+        cacheMissPercentage: json.containsKey('CacheMissPercentage')
+            ? json['CacheMissPercentage'] as double
+            : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -2692,7 +3275,13 @@ class DescribeCachediScsiVolumesOutput {
     this.cachediScsiVolumes,
   });
   static DescribeCachediScsiVolumesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeCachediScsiVolumesOutput();
+      DescribeCachediScsiVolumesOutput(
+        cachediScsiVolumes: json.containsKey('CachediSCSIVolumes')
+            ? (json['CachediSCSIVolumes'] as List)
+                .map((e) => CachediScsiVolume.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A JSON object containing a .
@@ -2720,7 +3309,13 @@ class DescribeChapCredentialsOutput {
     this.chapCredentials,
   });
   static DescribeChapCredentialsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeChapCredentialsOutput();
+      DescribeChapCredentialsOutput(
+        chapCredentials: json.containsKey('ChapCredentials')
+            ? (json['ChapCredentials'] as List)
+                .map((e) => ChapInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -2795,7 +3390,52 @@ class DescribeGatewayInformationOutput {
     this.cloudWatchLogGroupArn,
   });
   static DescribeGatewayInformationOutput fromJson(Map<String, dynamic> json) =>
-      DescribeGatewayInformationOutput();
+      DescribeGatewayInformationOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        gatewayId:
+            json.containsKey('GatewayId') ? json['GatewayId'] as String : null,
+        gatewayName: json.containsKey('GatewayName')
+            ? json['GatewayName'] as String
+            : null,
+        gatewayTimezone: json.containsKey('GatewayTimezone')
+            ? json['GatewayTimezone'] as String
+            : null,
+        gatewayState: json.containsKey('GatewayState')
+            ? json['GatewayState'] as String
+            : null,
+        gatewayNetworkInterfaces: json.containsKey('GatewayNetworkInterfaces')
+            ? (json['GatewayNetworkInterfaces'] as List)
+                .map((e) => NetworkInterface.fromJson(e))
+                .toList()
+            : null,
+        gatewayType: json.containsKey('GatewayType')
+            ? json['GatewayType'] as String
+            : null,
+        nextUpdateAvailabilityDate:
+            json.containsKey('NextUpdateAvailabilityDate')
+                ? json['NextUpdateAvailabilityDate'] as String
+                : null,
+        lastSoftwareUpdate: json.containsKey('LastSoftwareUpdate')
+            ? json['LastSoftwareUpdate'] as String
+            : null,
+        ec2InstanceId: json.containsKey('Ec2InstanceId')
+            ? json['Ec2InstanceId'] as String
+            : null,
+        ec2InstanceRegion: json.containsKey('Ec2InstanceRegion')
+            ? json['Ec2InstanceRegion'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        vpcEndpoint: json.containsKey('VPCEndpoint')
+            ? json['VPCEndpoint'] as String
+            : null,
+        cloudWatchLogGroupArn: json.containsKey('CloudWatchLogGroupARN')
+            ? json['CloudWatchLogGroupARN'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -2851,7 +3491,22 @@ class DescribeMaintenanceStartTimeOutput {
   });
   static DescribeMaintenanceStartTimeOutput fromJson(
           Map<String, dynamic> json) =>
-      DescribeMaintenanceStartTimeOutput();
+      DescribeMaintenanceStartTimeOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        hourOfDay:
+            json.containsKey('HourOfDay') ? json['HourOfDay'] as int : null,
+        minuteOfHour: json.containsKey('MinuteOfHour')
+            ? json['MinuteOfHour'] as int
+            : null,
+        dayOfWeek:
+            json.containsKey('DayOfWeek') ? json['DayOfWeek'] as int : null,
+        dayOfMonth:
+            json.containsKey('DayOfMonth') ? json['DayOfMonth'] as int : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+      );
 }
 
 /// DescribeNFSFileSharesOutput
@@ -2863,7 +3518,13 @@ class DescribeNfsFileSharesOutput {
     this.nfsFileShareInfoList,
   });
   static DescribeNfsFileSharesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeNfsFileSharesOutput();
+      DescribeNfsFileSharesOutput(
+        nfsFileShareInfoList: json.containsKey('NFSFileShareInfoList')
+            ? (json['NFSFileShareInfoList'] as List)
+                .map((e) => NfsFileShareInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// DescribeSMBFileSharesOutput
@@ -2875,7 +3536,13 @@ class DescribeSmbFileSharesOutput {
     this.smbFileShareInfoList,
   });
   static DescribeSmbFileSharesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeSmbFileSharesOutput();
+      DescribeSmbFileSharesOutput(
+        smbFileShareInfoList: json.containsKey('SMBFileShareInfoList')
+            ? (json['SMBFileShareInfoList'] as List)
+                .map((e) => SmbFileShareInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeSmbSettingsOutput {
@@ -2913,7 +3580,20 @@ class DescribeSmbSettingsOutput {
     this.smbSecurityStrategy,
   });
   static DescribeSmbSettingsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeSmbSettingsOutput();
+      DescribeSmbSettingsOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        domainName: json.containsKey('DomainName')
+            ? json['DomainName'] as String
+            : null,
+        smbGuestPasswordSet: json.containsKey('SMBGuestPasswordSet')
+            ? json['SMBGuestPasswordSet'] as bool
+            : null,
+        smbSecurityStrategy: json.containsKey('SMBSecurityStrategy')
+            ? json['SMBSecurityStrategy'] as String
+            : null,
+      );
 }
 
 class DescribeSnapshotScheduleOutput {
@@ -2950,7 +3630,22 @@ class DescribeSnapshotScheduleOutput {
     this.tags,
   });
   static DescribeSnapshotScheduleOutput fromJson(Map<String, dynamic> json) =>
-      DescribeSnapshotScheduleOutput();
+      DescribeSnapshotScheduleOutput(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        startAt: json.containsKey('StartAt') ? json['StartAt'] as int : null,
+        recurrenceInHours: json.containsKey('RecurrenceInHours')
+            ? json['RecurrenceInHours'] as int
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        timezone:
+            json.containsKey('Timezone') ? json['Timezone'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class DescribeStorediScsiVolumesOutput {
@@ -3009,7 +3704,13 @@ class DescribeStorediScsiVolumesOutput {
     this.storediScsiVolumes,
   });
   static DescribeStorediScsiVolumesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeStorediScsiVolumesOutput();
+      DescribeStorediScsiVolumesOutput(
+        storediScsiVolumes: json.containsKey('StorediSCSIVolumes')
+            ? (json['StorediSCSIVolumes'] as List)
+                .map((e) => StorediScsiVolume.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// DescribeTapeArchivesOutput
@@ -3033,7 +3734,14 @@ class DescribeTapeArchivesOutput {
     this.marker,
   });
   static DescribeTapeArchivesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTapeArchivesOutput();
+      DescribeTapeArchivesOutput(
+        tapeArchives: json.containsKey('TapeArchives')
+            ? (json['TapeArchives'] as List)
+                .map((e) => TapeArchive.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// DescribeTapeRecoveryPointsOutput
@@ -3058,7 +3766,17 @@ class DescribeTapeRecoveryPointsOutput {
     this.marker,
   });
   static DescribeTapeRecoveryPointsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTapeRecoveryPointsOutput();
+      DescribeTapeRecoveryPointsOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        tapeRecoveryPointInfos: json.containsKey('TapeRecoveryPointInfos')
+            ? (json['TapeRecoveryPointInfos'] as List)
+                .map((e) => TapeRecoveryPointInfo.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// DescribeTapesOutput
@@ -3078,7 +3796,12 @@ class DescribeTapesOutput {
     this.marker,
   });
   static DescribeTapesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeTapesOutput();
+      DescribeTapesOutput(
+        tapes: json.containsKey('Tapes')
+            ? (json['Tapes'] as List).map((e) => Tape.fromJson(e)).toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DescribeUploadBufferOutput {
@@ -3103,7 +3826,21 @@ class DescribeUploadBufferOutput {
     this.uploadBufferAllocatedInBytes,
   });
   static DescribeUploadBufferOutput fromJson(Map<String, dynamic> json) =>
-      DescribeUploadBufferOutput();
+      DescribeUploadBufferOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        diskIds: json.containsKey('DiskIds')
+            ? (json['DiskIds'] as List).map((e) => e as String).toList()
+            : null,
+        uploadBufferUsedInBytes: json.containsKey('UploadBufferUsedInBytes')
+            ? BigInt.from(json['UploadBufferUsedInBytes'])
+            : null,
+        uploadBufferAllocatedInBytes:
+            json.containsKey('UploadBufferAllocatedInBytes')
+                ? BigInt.from(json['UploadBufferAllocatedInBytes'])
+                : null,
+      );
 }
 
 /// DescribeVTLDevicesOutput
@@ -3126,7 +3863,17 @@ class DescribeVtlDevicesOutput {
     this.marker,
   });
   static DescribeVtlDevicesOutput fromJson(Map<String, dynamic> json) =>
-      DescribeVtlDevicesOutput();
+      DescribeVtlDevicesOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        vtlDevices: json.containsKey('VTLDevices')
+            ? (json['VTLDevices'] as List)
+                .map((e) => VtlDevice.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -3154,7 +3901,21 @@ class DescribeWorkingStorageOutput {
     this.workingStorageAllocatedInBytes,
   });
   static DescribeWorkingStorageOutput fromJson(Map<String, dynamic> json) =>
-      DescribeWorkingStorageOutput();
+      DescribeWorkingStorageOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        diskIds: json.containsKey('DiskIds')
+            ? (json['DiskIds'] as List).map((e) => e as String).toList()
+            : null,
+        workingStorageUsedInBytes: json.containsKey('WorkingStorageUsedInBytes')
+            ? BigInt.from(json['WorkingStorageUsedInBytes'])
+            : null,
+        workingStorageAllocatedInBytes:
+            json.containsKey('WorkingStorageAllocatedInBytes')
+                ? BigInt.from(json['WorkingStorageAllocatedInBytes'])
+                : null,
+      );
 }
 
 /// AttachVolumeOutput
@@ -3166,7 +3927,10 @@ class DetachVolumeOutput {
     this.volumeArn,
   });
   static DetachVolumeOutput fromJson(Map<String, dynamic> json) =>
-      DetachVolumeOutput();
+      DetachVolumeOutput(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+      );
 }
 
 /// Lists iSCSI information about a VTL device.
@@ -3191,7 +3955,19 @@ class DeviceiScsiAttributes {
     this.chapEnabled,
   });
   static DeviceiScsiAttributes fromJson(Map<String, dynamic> json) =>
-      DeviceiScsiAttributes();
+      DeviceiScsiAttributes(
+        targetArn:
+            json.containsKey('TargetARN') ? json['TargetARN'] as String : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        networkInterfacePort: json.containsKey('NetworkInterfacePort')
+            ? json['NetworkInterfacePort'] as int
+            : null,
+        chapEnabled: json.containsKey('ChapEnabled')
+            ? json['ChapEnabled'] as bool
+            : null,
+      );
 }
 
 /// DisableGatewayOutput
@@ -3203,7 +3979,11 @@ class DisableGatewayOutput {
     this.gatewayArn,
   });
   static DisableGatewayOutput fromJson(Map<String, dynamic> json) =>
-      DisableGatewayOutput();
+      DisableGatewayOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// Represents a gateway's local disk.
@@ -3245,7 +4025,30 @@ class Disk {
     this.diskAllocationResource,
     this.diskAttributeList,
   });
-  static Disk fromJson(Map<String, dynamic> json) => Disk();
+  static Disk fromJson(Map<String, dynamic> json) => Disk(
+        diskId: json.containsKey('DiskId') ? json['DiskId'] as String : null,
+        diskPath:
+            json.containsKey('DiskPath') ? json['DiskPath'] as String : null,
+        diskNode:
+            json.containsKey('DiskNode') ? json['DiskNode'] as String : null,
+        diskStatus: json.containsKey('DiskStatus')
+            ? json['DiskStatus'] as String
+            : null,
+        diskSizeInBytes: json.containsKey('DiskSizeInBytes')
+            ? BigInt.from(json['DiskSizeInBytes'])
+            : null,
+        diskAllocationType: json.containsKey('DiskAllocationType')
+            ? json['DiskAllocationType'] as String
+            : null,
+        diskAllocationResource: json.containsKey('DiskAllocationResource')
+            ? json['DiskAllocationResource'] as String
+            : null,
+        diskAttributeList: json.containsKey('DiskAttributeList')
+            ? (json['DiskAttributeList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a file share.
@@ -3267,7 +4070,23 @@ class FileShareInfo {
     this.fileShareStatus,
     this.gatewayArn,
   });
-  static FileShareInfo fromJson(Map<String, dynamic> json) => FileShareInfo();
+  static FileShareInfo fromJson(Map<String, dynamic> json) => FileShareInfo(
+        fileShareType: json.containsKey('FileShareType')
+            ? json['FileShareType'] as String
+            : null,
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+        fileShareId: json.containsKey('FileShareId')
+            ? json['FileShareId'] as String
+            : null,
+        fileShareStatus: json.containsKey('FileShareStatus')
+            ? json['FileShareStatus'] as String
+            : null,
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// Describes a gateway object.
@@ -3307,7 +4126,28 @@ class GatewayInfo {
     this.ec2InstanceId,
     this.ec2InstanceRegion,
   });
-  static GatewayInfo fromJson(Map<String, dynamic> json) => GatewayInfo();
+  static GatewayInfo fromJson(Map<String, dynamic> json) => GatewayInfo(
+        gatewayId:
+            json.containsKey('GatewayId') ? json['GatewayId'] as String : null,
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        gatewayType: json.containsKey('GatewayType')
+            ? json['GatewayType'] as String
+            : null,
+        gatewayOperationalState: json.containsKey('GatewayOperationalState')
+            ? json['GatewayOperationalState'] as String
+            : null,
+        gatewayName: json.containsKey('GatewayName')
+            ? json['GatewayName'] as String
+            : null,
+        ec2InstanceId: json.containsKey('Ec2InstanceId')
+            ? json['Ec2InstanceId'] as String
+            : null,
+        ec2InstanceRegion: json.containsKey('Ec2InstanceRegion')
+            ? json['Ec2InstanceRegion'] as String
+            : null,
+      );
 }
 
 /// JoinDomainOutput
@@ -3320,7 +4160,11 @@ class JoinDomainOutput {
     this.gatewayArn,
   });
   static JoinDomainOutput fromJson(Map<String, dynamic> json) =>
-      JoinDomainOutput();
+      JoinDomainOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// ListFileShareOutput
@@ -3343,7 +4187,17 @@ class ListFileSharesOutput {
     this.fileShareInfoList,
   });
   static ListFileSharesOutput fromJson(Map<String, dynamic> json) =>
-      ListFileSharesOutput();
+      ListFileSharesOutput(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        nextMarker: json.containsKey('NextMarker')
+            ? json['NextMarker'] as String
+            : null,
+        fileShareInfoList: json.containsKey('FileShareInfoList')
+            ? (json['FileShareInfoList'] as List)
+                .map((e) => FileShareInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListGatewaysOutput {
@@ -3360,7 +4214,14 @@ class ListGatewaysOutput {
     this.marker,
   });
   static ListGatewaysOutput fromJson(Map<String, dynamic> json) =>
-      ListGatewaysOutput();
+      ListGatewaysOutput(
+        gateways: json.containsKey('Gateways')
+            ? (json['Gateways'] as List)
+                .map((e) => GatewayInfo.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class ListLocalDisksOutput {
@@ -3376,7 +4237,14 @@ class ListLocalDisksOutput {
     this.disks,
   });
   static ListLocalDisksOutput fromJson(Map<String, dynamic> json) =>
-      ListLocalDisksOutput();
+      ListLocalDisksOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        disks: json.containsKey('Disks')
+            ? (json['Disks'] as List).map((e) => Disk.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// ListTagsForResourceOutput
@@ -3398,7 +4266,15 @@ class ListTagsForResourceOutput {
     this.tags,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -3419,8 +4295,14 @@ class ListTapesOutput {
     this.tapeInfos,
     this.marker,
   });
-  static ListTapesOutput fromJson(Map<String, dynamic> json) =>
-      ListTapesOutput();
+  static ListTapesOutput fromJson(Map<String, dynamic> json) => ListTapesOutput(
+        tapeInfos: json.containsKey('TapeInfos')
+            ? (json['TapeInfos'] as List)
+                .map((e) => TapeInfo.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// ListVolumeInitiatorsOutput
@@ -3433,7 +4315,11 @@ class ListVolumeInitiatorsOutput {
     this.initiators,
   });
   static ListVolumeInitiatorsOutput fromJson(Map<String, dynamic> json) =>
-      ListVolumeInitiatorsOutput();
+      ListVolumeInitiatorsOutput(
+        initiators: json.containsKey('Initiators')
+            ? (json['Initiators'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class ListVolumeRecoveryPointsOutput {
@@ -3447,7 +4333,16 @@ class ListVolumeRecoveryPointsOutput {
     this.volumeRecoveryPointInfos,
   });
   static ListVolumeRecoveryPointsOutput fromJson(Map<String, dynamic> json) =>
-      ListVolumeRecoveryPointsOutput();
+      ListVolumeRecoveryPointsOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        volumeRecoveryPointInfos: json.containsKey('VolumeRecoveryPointInfos')
+            ? (json['VolumeRecoveryPointInfos'] as List)
+                .map((e) => VolumeRecoveryPointInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -3474,7 +4369,17 @@ class ListVolumesOutput {
     this.volumeInfos,
   });
   static ListVolumesOutput fromJson(Map<String, dynamic> json) =>
-      ListVolumesOutput();
+      ListVolumesOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        volumeInfos: json.containsKey('VolumeInfos')
+            ? (json['VolumeInfos'] as List)
+                .map((e) => VolumeInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes Network File System (NFS) file share default values. Files and
@@ -3508,7 +4413,18 @@ class NfsFileShareDefaults {
     this.ownerId,
   });
   static NfsFileShareDefaults fromJson(Map<String, dynamic> json) =>
-      NfsFileShareDefaults();
+      NfsFileShareDefaults(
+        fileMode:
+            json.containsKey('FileMode') ? json['FileMode'] as String : null,
+        directoryMode: json.containsKey('DirectoryMode')
+            ? json['DirectoryMode'] as String
+            : null,
+        groupId:
+            json.containsKey('GroupId') ? BigInt.from(json['GroupId']) : null,
+        ownerId:
+            json.containsKey('OwnerId') ? BigInt.from(json['OwnerId']) : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Unix file permissions and ownership information assigned, by default, to
@@ -3595,7 +4511,52 @@ class NfsFileShareInfo {
     this.tags,
   });
   static NfsFileShareInfo fromJson(Map<String, dynamic> json) =>
-      NfsFileShareInfo();
+      NfsFileShareInfo(
+        nfsFileShareDefaults: json.containsKey('NFSFileShareDefaults')
+            ? NfsFileShareDefaults.fromJson(json['NFSFileShareDefaults'])
+            : null,
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+        fileShareId: json.containsKey('FileShareId')
+            ? json['FileShareId'] as String
+            : null,
+        fileShareStatus: json.containsKey('FileShareStatus')
+            ? json['FileShareStatus'] as String
+            : null,
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        kmsEncrypted: json.containsKey('KMSEncrypted')
+            ? json['KMSEncrypted'] as bool
+            : null,
+        kmsKey: json.containsKey('KMSKey') ? json['KMSKey'] as String : null,
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        locationArn: json.containsKey('LocationARN')
+            ? json['LocationARN'] as String
+            : null,
+        defaultStorageClass: json.containsKey('DefaultStorageClass')
+            ? json['DefaultStorageClass'] as String
+            : null,
+        objectAcl:
+            json.containsKey('ObjectACL') ? json['ObjectACL'] as String : null,
+        clientList: json.containsKey('ClientList')
+            ? (json['ClientList'] as List).map((e) => e as String).toList()
+            : null,
+        squash: json.containsKey('Squash') ? json['Squash'] as String : null,
+        readOnly:
+            json.containsKey('ReadOnly') ? json['ReadOnly'] as bool : null,
+        guessMimeTypeEnabled: json.containsKey('GuessMIMETypeEnabled')
+            ? json['GuessMIMETypeEnabled'] as bool
+            : null,
+        requesterPays: json.containsKey('RequesterPays')
+            ? json['RequesterPays'] as bool
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes a gateway's network interface.
@@ -3620,7 +4581,17 @@ class NetworkInterface {
     this.ipv6Address,
   });
   static NetworkInterface fromJson(Map<String, dynamic> json) =>
-      NetworkInterface();
+      NetworkInterface(
+        ipv4Address: json.containsKey('Ipv4Address')
+            ? json['Ipv4Address'] as String
+            : null,
+        macAddress: json.containsKey('MacAddress')
+            ? json['MacAddress'] as String
+            : null,
+        ipv6Address: json.containsKey('Ipv6Address')
+            ? json['Ipv6Address'] as String
+            : null,
+      );
 }
 
 class NotifyWhenUploadedOutput {
@@ -3633,7 +4604,14 @@ class NotifyWhenUploadedOutput {
     this.notificationId,
   });
   static NotifyWhenUploadedOutput fromJson(Map<String, dynamic> json) =>
-      NotifyWhenUploadedOutput();
+      NotifyWhenUploadedOutput(
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+        notificationId: json.containsKey('NotificationId')
+            ? json['NotificationId'] as String
+            : null,
+      );
 }
 
 /// RefreshCacheOutput
@@ -3647,7 +4625,14 @@ class RefreshCacheOutput {
     this.notificationId,
   });
   static RefreshCacheOutput fromJson(Map<String, dynamic> json) =>
-      RefreshCacheOutput();
+      RefreshCacheOutput(
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+        notificationId: json.containsKey('NotificationId')
+            ? json['NotificationId'] as String
+            : null,
+      );
 }
 
 /// RemoveTagsFromResourceOutput
@@ -3660,7 +4645,11 @@ class RemoveTagsFromResourceOutput {
     this.resourceArn,
   });
   static RemoveTagsFromResourceOutput fromJson(Map<String, dynamic> json) =>
-      RemoveTagsFromResourceOutput();
+      RemoveTagsFromResourceOutput(
+        resourceArn: json.containsKey('ResourceARN')
+            ? json['ResourceARN'] as String
+            : null,
+      );
 }
 
 class ResetCacheOutput {
@@ -3670,7 +4659,11 @@ class ResetCacheOutput {
     this.gatewayArn,
   });
   static ResetCacheOutput fromJson(Map<String, dynamic> json) =>
-      ResetCacheOutput();
+      ResetCacheOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// RetrieveTapeArchiveOutput
@@ -3682,7 +4675,9 @@ class RetrieveTapeArchiveOutput {
     this.tapeArn,
   });
   static RetrieveTapeArchiveOutput fromJson(Map<String, dynamic> json) =>
-      RetrieveTapeArchiveOutput();
+      RetrieveTapeArchiveOutput(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+      );
 }
 
 /// RetrieveTapeRecoveryPointOutput
@@ -3695,7 +4690,9 @@ class RetrieveTapeRecoveryPointOutput {
     this.tapeArn,
   });
   static RetrieveTapeRecoveryPointOutput fromJson(Map<String, dynamic> json) =>
-      RetrieveTapeRecoveryPointOutput();
+      RetrieveTapeRecoveryPointOutput(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+      );
 }
 
 /// The Windows file permissions and ownership information assigned, by default,
@@ -3808,7 +4805,60 @@ class SmbFileShareInfo {
     this.tags,
   });
   static SmbFileShareInfo fromJson(Map<String, dynamic> json) =>
-      SmbFileShareInfo();
+      SmbFileShareInfo(
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+        fileShareId: json.containsKey('FileShareId')
+            ? json['FileShareId'] as String
+            : null,
+        fileShareStatus: json.containsKey('FileShareStatus')
+            ? json['FileShareStatus'] as String
+            : null,
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        kmsEncrypted: json.containsKey('KMSEncrypted')
+            ? json['KMSEncrypted'] as bool
+            : null,
+        kmsKey: json.containsKey('KMSKey') ? json['KMSKey'] as String : null,
+        path: json.containsKey('Path') ? json['Path'] as String : null,
+        role: json.containsKey('Role') ? json['Role'] as String : null,
+        locationArn: json.containsKey('LocationARN')
+            ? json['LocationARN'] as String
+            : null,
+        defaultStorageClass: json.containsKey('DefaultStorageClass')
+            ? json['DefaultStorageClass'] as String
+            : null,
+        objectAcl:
+            json.containsKey('ObjectACL') ? json['ObjectACL'] as String : null,
+        readOnly:
+            json.containsKey('ReadOnly') ? json['ReadOnly'] as bool : null,
+        guessMimeTypeEnabled: json.containsKey('GuessMIMETypeEnabled')
+            ? json['GuessMIMETypeEnabled'] as bool
+            : null,
+        requesterPays: json.containsKey('RequesterPays')
+            ? json['RequesterPays'] as bool
+            : null,
+        smbaclEnabled: json.containsKey('SMBACLEnabled')
+            ? json['SMBACLEnabled'] as bool
+            : null,
+        adminUserList: json.containsKey('AdminUserList')
+            ? (json['AdminUserList'] as List).map((e) => e as String).toList()
+            : null,
+        validUserList: json.containsKey('ValidUserList')
+            ? (json['ValidUserList'] as List).map((e) => e as String).toList()
+            : null,
+        invalidUserList: json.containsKey('InvalidUserList')
+            ? (json['InvalidUserList'] as List).map((e) => e as String).toList()
+            : null,
+        authentication: json.containsKey('Authentication')
+            ? json['Authentication'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class SetLocalConsolePasswordOutput {
@@ -3818,7 +4868,11 @@ class SetLocalConsolePasswordOutput {
     this.gatewayArn,
   });
   static SetLocalConsolePasswordOutput fromJson(Map<String, dynamic> json) =>
-      SetLocalConsolePasswordOutput();
+      SetLocalConsolePasswordOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 class SetSmbGuestPasswordOutput {
@@ -3828,7 +4882,11 @@ class SetSmbGuestPasswordOutput {
     this.gatewayArn,
   });
   static SetSmbGuestPasswordOutput fromJson(Map<String, dynamic> json) =>
-      SetSmbGuestPasswordOutput();
+      SetSmbGuestPasswordOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the of the gateway that was shut down.
@@ -3839,7 +4897,11 @@ class ShutdownGatewayOutput {
     this.gatewayArn,
   });
   static ShutdownGatewayOutput fromJson(Map<String, dynamic> json) =>
-      ShutdownGatewayOutput();
+      ShutdownGatewayOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the of the gateway that was restarted.
@@ -3850,7 +4912,11 @@ class StartGatewayOutput {
     this.gatewayArn,
   });
   static StartGatewayOutput fromJson(Map<String, dynamic> json) =>
-      StartGatewayOutput();
+      StartGatewayOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// Describes an iSCSI stored volume.
@@ -3950,7 +5016,49 @@ class StorediScsiVolume {
     this.targetName,
   });
   static StorediScsiVolume fromJson(Map<String, dynamic> json) =>
-      StorediScsiVolume();
+      StorediScsiVolume(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        volumeStatus: json.containsKey('VolumeStatus')
+            ? json['VolumeStatus'] as String
+            : null,
+        volumeAttachmentStatus: json.containsKey('VolumeAttachmentStatus')
+            ? json['VolumeAttachmentStatus'] as String
+            : null,
+        volumeSizeInBytes: json.containsKey('VolumeSizeInBytes')
+            ? BigInt.from(json['VolumeSizeInBytes'])
+            : null,
+        volumeProgress: json.containsKey('VolumeProgress')
+            ? json['VolumeProgress'] as double
+            : null,
+        volumeDiskId: json.containsKey('VolumeDiskId')
+            ? json['VolumeDiskId'] as String
+            : null,
+        sourceSnapshotId: json.containsKey('SourceSnapshotId')
+            ? json['SourceSnapshotId'] as String
+            : null,
+        preservedExistingData: json.containsKey('PreservedExistingData')
+            ? json['PreservedExistingData'] as bool
+            : null,
+        volumeiScsiAttributes: json.containsKey('VolumeiSCSIAttributes')
+            ? VolumeiScsiAttributes.fromJson(json['VolumeiSCSIAttributes'])
+            : null,
+        createdDate: json.containsKey('CreatedDate')
+            ? DateTime.parse(json['CreatedDate'])
+            : null,
+        volumeUsedInBytes: json.containsKey('VolumeUsedInBytes')
+            ? BigInt.from(json['VolumeUsedInBytes'])
+            : null,
+        kmsKey: json.containsKey('KMSKey') ? json['KMSKey'] as String : null,
+        targetName: json.containsKey('TargetName')
+            ? json['TargetName'] as String
+            : null,
+      );
 }
 
 /// A key-value pair that helps you manage, filter, and search for your
@@ -3967,7 +5075,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a virtual tape object.
@@ -4027,7 +5139,30 @@ class Tape {
     this.kmsKey,
     this.poolId,
   });
-  static Tape fromJson(Map<String, dynamic> json) => Tape();
+  static Tape fromJson(Map<String, dynamic> json) => Tape(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+        tapeBarcode: json.containsKey('TapeBarcode')
+            ? json['TapeBarcode'] as String
+            : null,
+        tapeCreatedDate: json.containsKey('TapeCreatedDate')
+            ? DateTime.parse(json['TapeCreatedDate'])
+            : null,
+        tapeSizeInBytes: json.containsKey('TapeSizeInBytes')
+            ? BigInt.from(json['TapeSizeInBytes'])
+            : null,
+        tapeStatus: json.containsKey('TapeStatus')
+            ? json['TapeStatus'] as String
+            : null,
+        vtlDevice:
+            json.containsKey('VTLDevice') ? json['VTLDevice'] as String : null,
+        progress:
+            json.containsKey('Progress') ? json['Progress'] as double : null,
+        tapeUsedInBytes: json.containsKey('TapeUsedInBytes')
+            ? BigInt.from(json['TapeUsedInBytes'])
+            : null,
+        kmsKey: json.containsKey('KMSKey') ? json['KMSKey'] as String : null,
+        poolId: json.containsKey('PoolId') ? json['PoolId'] as String : null,
+      );
 }
 
 /// Represents a virtual tape that is archived in the virtual tape shelf (VTS).
@@ -4087,7 +5222,32 @@ class TapeArchive {
     this.kmsKey,
     this.poolId,
   });
-  static TapeArchive fromJson(Map<String, dynamic> json) => TapeArchive();
+  static TapeArchive fromJson(Map<String, dynamic> json) => TapeArchive(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+        tapeBarcode: json.containsKey('TapeBarcode')
+            ? json['TapeBarcode'] as String
+            : null,
+        tapeCreatedDate: json.containsKey('TapeCreatedDate')
+            ? DateTime.parse(json['TapeCreatedDate'])
+            : null,
+        tapeSizeInBytes: json.containsKey('TapeSizeInBytes')
+            ? BigInt.from(json['TapeSizeInBytes'])
+            : null,
+        completionTime: json.containsKey('CompletionTime')
+            ? DateTime.parse(json['CompletionTime'])
+            : null,
+        retrievedTo: json.containsKey('RetrievedTo')
+            ? json['RetrievedTo'] as String
+            : null,
+        tapeStatus: json.containsKey('TapeStatus')
+            ? json['TapeStatus'] as String
+            : null,
+        tapeUsedInBytes: json.containsKey('TapeUsedInBytes')
+            ? BigInt.from(json['TapeUsedInBytes'])
+            : null,
+        kmsKey: json.containsKey('KMSKey') ? json['KMSKey'] as String : null,
+        poolId: json.containsKey('PoolId') ? json['PoolId'] as String : null,
+      );
 }
 
 /// Describes a virtual tape.
@@ -4125,7 +5285,22 @@ class TapeInfo {
     this.gatewayArn,
     this.poolId,
   });
-  static TapeInfo fromJson(Map<String, dynamic> json) => TapeInfo();
+  static TapeInfo fromJson(Map<String, dynamic> json) => TapeInfo(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+        tapeBarcode: json.containsKey('TapeBarcode')
+            ? json['TapeBarcode'] as String
+            : null,
+        tapeSizeInBytes: json.containsKey('TapeSizeInBytes')
+            ? BigInt.from(json['TapeSizeInBytes'])
+            : null,
+        tapeStatus: json.containsKey('TapeStatus')
+            ? json['TapeStatus'] as String
+            : null,
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        poolId: json.containsKey('PoolId') ? json['PoolId'] as String : null,
+      );
 }
 
 /// Describes a recovery point.
@@ -4153,7 +5328,18 @@ class TapeRecoveryPointInfo {
     this.tapeStatus,
   });
   static TapeRecoveryPointInfo fromJson(Map<String, dynamic> json) =>
-      TapeRecoveryPointInfo();
+      TapeRecoveryPointInfo(
+        tapeArn: json.containsKey('TapeARN') ? json['TapeARN'] as String : null,
+        tapeRecoveryPointTime: json.containsKey('TapeRecoveryPointTime')
+            ? DateTime.parse(json['TapeRecoveryPointTime'])
+            : null,
+        tapeSizeInBytes: json.containsKey('TapeSizeInBytes')
+            ? BigInt.from(json['TapeSizeInBytes'])
+            : null,
+        tapeStatus: json.containsKey('TapeStatus')
+            ? json['TapeStatus'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the of the gateway whose throttle information was
@@ -4165,7 +5351,11 @@ class UpdateBandwidthRateLimitOutput {
     this.gatewayArn,
   });
   static UpdateBandwidthRateLimitOutput fromJson(Map<String, dynamic> json) =>
-      UpdateBandwidthRateLimitOutput();
+      UpdateBandwidthRateLimitOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the following fields:
@@ -4183,7 +5373,13 @@ class UpdateChapCredentialsOutput {
     this.initiatorName,
   });
   static UpdateChapCredentialsOutput fromJson(Map<String, dynamic> json) =>
-      UpdateChapCredentialsOutput();
+      UpdateChapCredentialsOutput(
+        targetArn:
+            json.containsKey('TargetARN') ? json['TargetARN'] as String : null,
+        initiatorName: json.containsKey('InitiatorName')
+            ? json['InitiatorName'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the ARN of the gateway that was updated.
@@ -4198,7 +5394,14 @@ class UpdateGatewayInformationOutput {
     this.gatewayName,
   });
   static UpdateGatewayInformationOutput fromJson(Map<String, dynamic> json) =>
-      UpdateGatewayInformationOutput();
+      UpdateGatewayInformationOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        gatewayName: json.containsKey('GatewayName')
+            ? json['GatewayName'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the of the gateway that was updated.
@@ -4209,7 +5412,11 @@ class UpdateGatewaySoftwareNowOutput {
     this.gatewayArn,
   });
   static UpdateGatewaySoftwareNowOutput fromJson(Map<String, dynamic> json) =>
-      UpdateGatewaySoftwareNowOutput();
+      UpdateGatewaySoftwareNowOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the of the gateway whose maintenance start time is
@@ -4221,7 +5428,11 @@ class UpdateMaintenanceStartTimeOutput {
     this.gatewayArn,
   });
   static UpdateMaintenanceStartTimeOutput fromJson(Map<String, dynamic> json) =>
-      UpdateMaintenanceStartTimeOutput();
+      UpdateMaintenanceStartTimeOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// UpdateNFSFileShareOutput
@@ -4233,7 +5444,11 @@ class UpdateNfsFileShareOutput {
     this.fileShareArn,
   });
   static UpdateNfsFileShareOutput fromJson(Map<String, dynamic> json) =>
-      UpdateNfsFileShareOutput();
+      UpdateNfsFileShareOutput(
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+      );
 }
 
 /// UpdateSMBFileShareOutput
@@ -4245,7 +5460,11 @@ class UpdateSmbFileShareOutput {
     this.fileShareArn,
   });
   static UpdateSmbFileShareOutput fromJson(Map<String, dynamic> json) =>
-      UpdateSmbFileShareOutput();
+      UpdateSmbFileShareOutput(
+        fileShareArn: json.containsKey('FileShareARN')
+            ? json['FileShareARN'] as String
+            : null,
+      );
 }
 
 class UpdateSmbSecurityStrategyOutput {
@@ -4255,7 +5474,11 @@ class UpdateSmbSecurityStrategyOutput {
     this.gatewayArn,
   });
   static UpdateSmbSecurityStrategyOutput fromJson(Map<String, dynamic> json) =>
-      UpdateSmbSecurityStrategyOutput();
+      UpdateSmbSecurityStrategyOutput(
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+      );
 }
 
 /// A JSON object containing the of the updated storage volume.
@@ -4268,7 +5491,10 @@ class UpdateSnapshotScheduleOutput {
     this.volumeArn,
   });
   static UpdateSnapshotScheduleOutput fromJson(Map<String, dynamic> json) =>
-      UpdateSnapshotScheduleOutput();
+      UpdateSnapshotScheduleOutput(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+      );
 }
 
 /// UpdateVTLDeviceTypeOutput
@@ -4280,7 +5506,11 @@ class UpdateVtlDeviceTypeOutput {
     this.vtlDeviceArn,
   });
   static UpdateVtlDeviceTypeOutput fromJson(Map<String, dynamic> json) =>
-      UpdateVtlDeviceTypeOutput();
+      UpdateVtlDeviceTypeOutput(
+        vtlDeviceArn: json.containsKey('VTLDeviceARN')
+            ? json['VTLDeviceARN'] as String
+            : null,
+      );
 }
 
 /// Represents a device object associated with a tape gateway.
@@ -4308,7 +5538,24 @@ class VtlDevice {
     this.vtlDeviceProductIdentifier,
     this.deviceiScsiAttributes,
   });
-  static VtlDevice fromJson(Map<String, dynamic> json) => VtlDevice();
+  static VtlDevice fromJson(Map<String, dynamic> json) => VtlDevice(
+        vtlDeviceArn: json.containsKey('VTLDeviceARN')
+            ? json['VTLDeviceARN'] as String
+            : null,
+        vtlDeviceType: json.containsKey('VTLDeviceType')
+            ? json['VTLDeviceType'] as String
+            : null,
+        vtlDeviceVendor: json.containsKey('VTLDeviceVendor')
+            ? json['VTLDeviceVendor'] as String
+            : null,
+        vtlDeviceProductIdentifier:
+            json.containsKey('VTLDeviceProductIdentifier')
+                ? json['VTLDeviceProductIdentifier'] as String
+                : null,
+        deviceiScsiAttributes: json.containsKey('DeviceiSCSIAttributes')
+            ? DeviceiScsiAttributes.fromJson(json['DeviceiSCSIAttributes'])
+            : null,
+      );
 }
 
 /// Describes a storage volume object.
@@ -4364,7 +5611,26 @@ class VolumeInfo {
     this.volumeSizeInBytes,
     this.volumeAttachmentStatus,
   });
-  static VolumeInfo fromJson(Map<String, dynamic> json) => VolumeInfo();
+  static VolumeInfo fromJson(Map<String, dynamic> json) => VolumeInfo(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        volumeId:
+            json.containsKey('VolumeId') ? json['VolumeId'] as String : null,
+        gatewayArn: json.containsKey('GatewayARN')
+            ? json['GatewayARN'] as String
+            : null,
+        gatewayId:
+            json.containsKey('GatewayId') ? json['GatewayId'] as String : null,
+        volumeType: json.containsKey('VolumeType')
+            ? json['VolumeType'] as String
+            : null,
+        volumeSizeInBytes: json.containsKey('VolumeSizeInBytes')
+            ? BigInt.from(json['VolumeSizeInBytes'])
+            : null,
+        volumeAttachmentStatus: json.containsKey('VolumeAttachmentStatus')
+            ? json['VolumeAttachmentStatus'] as String
+            : null,
+      );
 }
 
 /// Describes a storage volume recovery point object.
@@ -4393,7 +5659,19 @@ class VolumeRecoveryPointInfo {
     this.volumeRecoveryPointTime,
   });
   static VolumeRecoveryPointInfo fromJson(Map<String, dynamic> json) =>
-      VolumeRecoveryPointInfo();
+      VolumeRecoveryPointInfo(
+        volumeArn:
+            json.containsKey('VolumeARN') ? json['VolumeARN'] as String : null,
+        volumeSizeInBytes: json.containsKey('VolumeSizeInBytes')
+            ? BigInt.from(json['VolumeSizeInBytes'])
+            : null,
+        volumeUsageInBytes: json.containsKey('VolumeUsageInBytes')
+            ? BigInt.from(json['VolumeUsageInBytes'])
+            : null,
+        volumeRecoveryPointTime: json.containsKey('VolumeRecoveryPointTime')
+            ? json['VolumeRecoveryPointTime'] as String
+            : null,
+      );
 }
 
 /// Lists iSCSI information about a volume.
@@ -4421,5 +5699,19 @@ class VolumeiScsiAttributes {
     this.chapEnabled,
   });
   static VolumeiScsiAttributes fromJson(Map<String, dynamic> json) =>
-      VolumeiScsiAttributes();
+      VolumeiScsiAttributes(
+        targetArn:
+            json.containsKey('TargetARN') ? json['TargetARN'] as String : null,
+        networkInterfaceId: json.containsKey('NetworkInterfaceId')
+            ? json['NetworkInterfaceId'] as String
+            : null,
+        networkInterfacePort: json.containsKey('NetworkInterfacePort')
+            ? json['NetworkInterfacePort'] as int
+            : null,
+        lunNumber:
+            json.containsKey('LunNumber') ? json['LunNumber'] as int : null,
+        chapEnabled: json.containsKey('ChapEnabled')
+            ? json['ChapEnabled'] as bool
+            : null,
+      );
 }

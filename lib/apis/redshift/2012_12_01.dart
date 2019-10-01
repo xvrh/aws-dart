@@ -30,6 +30,10 @@ import 'package:meta/meta.dart';
 /// explains how to design, build, query, and maintain the databases that make
 /// up your data warehouse.
 class RedshiftApi {
+  final _client;
+  RedshiftApi(client)
+      : _client = client.configured('Redshift', serializer: 'query');
+
   /// Exchanges a DC1 Reserved Node for a DC2 Reserved Node with no changes to
   /// the configuration (term, payment type, or number of nodes) and no
   /// additional costs.
@@ -43,7 +47,11 @@ class RedshiftApi {
   Future<AcceptReservedNodeExchangeOutputMessage> acceptReservedNodeExchange(
       {@required String reservedNodeId,
       @required String targetReservedNodeOfferingId}) async {
-    return AcceptReservedNodeExchangeOutputMessage.fromJson({});
+    var response_ = await _client.send('AcceptReservedNodeExchange', {
+      'ReservedNodeId': reservedNodeId,
+      'TargetReservedNodeOfferingId': targetReservedNodeOfferingId,
+    });
+    return AcceptReservedNodeExchangeOutputMessage.fromJson(response_);
   }
 
   /// Adds an inbound (ingress) rule to an Amazon Redshift security group.
@@ -86,7 +94,15 @@ class RedshiftApi {
           {String cidrip,
           String ec2SecurityGroupName,
           String ec2SecurityGroupOwnerId}) async {
-    return AuthorizeClusterSecurityGroupIngressResult.fromJson({});
+    var response_ = await _client.send('AuthorizeClusterSecurityGroupIngress', {
+      'ClusterSecurityGroupName': clusterSecurityGroupName,
+      if (cidrip != null) 'CIDRIP': cidrip,
+      if (ec2SecurityGroupName != null)
+        'EC2SecurityGroupName': ec2SecurityGroupName,
+      if (ec2SecurityGroupOwnerId != null)
+        'EC2SecurityGroupOwnerId': ec2SecurityGroupOwnerId,
+    });
+    return AuthorizeClusterSecurityGroupIngressResult.fromJson(response_);
   }
 
   /// Authorizes the specified AWS customer account to restore the specified
@@ -112,7 +128,13 @@ class RedshiftApi {
       {@required String snapshotIdentifier,
       String snapshotClusterIdentifier,
       @required String accountWithRestoreAccess}) async {
-    return AuthorizeSnapshotAccessResult.fromJson({});
+    var response_ = await _client.send('AuthorizeSnapshotAccess', {
+      'SnapshotIdentifier': snapshotIdentifier,
+      if (snapshotClusterIdentifier != null)
+        'SnapshotClusterIdentifier': snapshotClusterIdentifier,
+      'AccountWithRestoreAccess': accountWithRestoreAccess,
+    });
+    return AuthorizeSnapshotAccessResult.fromJson(response_);
   }
 
   /// Deletes a set of cluster snapshots.
@@ -121,7 +143,10 @@ class RedshiftApi {
   /// delete.
   Future<BatchDeleteClusterSnapshotsResult> batchDeleteClusterSnapshots(
       List<DeleteClusterSnapshotMessage> identifiers) async {
-    return BatchDeleteClusterSnapshotsResult.fromJson({});
+    var response_ = await _client.send('BatchDeleteClusterSnapshots', {
+      'Identifiers': identifiers,
+    });
+    return BatchDeleteClusterSnapshotsResult.fromJson(response_);
   }
 
   /// Modifies the settings for a list of snapshots.
@@ -146,7 +171,13 @@ class RedshiftApi {
       List<String> snapshotIdentifierList,
       {int manualSnapshotRetentionPeriod,
       bool force}) async {
-    return BatchModifyClusterSnapshotsOutputMessage.fromJson({});
+    var response_ = await _client.send('BatchModifyClusterSnapshots', {
+      'SnapshotIdentifierList': snapshotIdentifierList,
+      if (manualSnapshotRetentionPeriod != null)
+        'ManualSnapshotRetentionPeriod': manualSnapshotRetentionPeriod,
+      if (force != null) 'Force': force,
+    });
+    return BatchModifyClusterSnapshotsOutputMessage.fromJson(response_);
   }
 
   /// Cancels a resize operation.
@@ -154,7 +185,10 @@ class RedshiftApi {
   /// [clusterIdentifier]: The unique identifier for the cluster that you want
   /// to cancel a resize operation for.
   Future<ResizeProgressMessage> cancelResize(String clusterIdentifier) async {
-    return ResizeProgressMessage.fromJson({});
+    var response_ = await _client.send('CancelResize', {
+      'ClusterIdentifier': clusterIdentifier,
+    });
+    return ResizeProgressMessage.fromJson(response_);
   }
 
   /// Copies the specified automated cluster snapshot to a new manual cluster
@@ -214,7 +248,15 @@ class RedshiftApi {
       String sourceSnapshotClusterIdentifier,
       @required String targetSnapshotIdentifier,
       int manualSnapshotRetentionPeriod}) async {
-    return CopyClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('CopyClusterSnapshot', {
+      'SourceSnapshotIdentifier': sourceSnapshotIdentifier,
+      if (sourceSnapshotClusterIdentifier != null)
+        'SourceSnapshotClusterIdentifier': sourceSnapshotClusterIdentifier,
+      'TargetSnapshotIdentifier': targetSnapshotIdentifier,
+      if (manualSnapshotRetentionPeriod != null)
+        'ManualSnapshotRetentionPeriod': manualSnapshotRetentionPeriod,
+    });
+    return CopyClusterSnapshotResult.fromJson(response_);
   }
 
   /// Creates a new cluster.
@@ -524,7 +566,51 @@ class RedshiftApi {
       List<String> iamRoles,
       String maintenanceTrackName,
       String snapshotScheduleIdentifier}) async {
-    return CreateClusterResult.fromJson({});
+    var response_ = await _client.send('CreateCluster', {
+      if (dbName != null) 'DBName': dbName,
+      'ClusterIdentifier': clusterIdentifier,
+      if (clusterType != null) 'ClusterType': clusterType,
+      'NodeType': nodeType,
+      'MasterUsername': masterUsername,
+      'MasterUserPassword': masterUserPassword,
+      if (clusterSecurityGroups != null)
+        'ClusterSecurityGroups': clusterSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (clusterSubnetGroupName != null)
+        'ClusterSubnetGroupName': clusterSubnetGroupName,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (clusterParameterGroupName != null)
+        'ClusterParameterGroupName': clusterParameterGroupName,
+      if (automatedSnapshotRetentionPeriod != null)
+        'AutomatedSnapshotRetentionPeriod': automatedSnapshotRetentionPeriod,
+      if (manualSnapshotRetentionPeriod != null)
+        'ManualSnapshotRetentionPeriod': manualSnapshotRetentionPeriod,
+      if (port != null) 'Port': port,
+      if (clusterVersion != null) 'ClusterVersion': clusterVersion,
+      if (allowVersionUpgrade != null)
+        'AllowVersionUpgrade': allowVersionUpgrade,
+      if (numberOfNodes != null) 'NumberOfNodes': numberOfNodes,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (encrypted != null) 'Encrypted': encrypted,
+      if (hsmClientCertificateIdentifier != null)
+        'HsmClientCertificateIdentifier': hsmClientCertificateIdentifier,
+      if (hsmConfigurationIdentifier != null)
+        'HsmConfigurationIdentifier': hsmConfigurationIdentifier,
+      if (elasticIp != null) 'ElasticIp': elasticIp,
+      if (tags != null) 'Tags': tags,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (enhancedVpcRouting != null) 'EnhancedVpcRouting': enhancedVpcRouting,
+      if (additionalInfo != null) 'AdditionalInfo': additionalInfo,
+      if (iamRoles != null) 'IamRoles': iamRoles,
+      if (maintenanceTrackName != null)
+        'MaintenanceTrackName': maintenanceTrackName,
+      if (snapshotScheduleIdentifier != null)
+        'SnapshotScheduleIdentifier': snapshotScheduleIdentifier,
+    });
+    return CreateClusterResult.fromJson(response_);
   }
 
   /// Creates an Amazon Redshift parameter group.
@@ -577,7 +663,13 @@ class RedshiftApi {
       @required String parameterGroupFamily,
       @required String description,
       List<Tag> tags}) async {
-    return CreateClusterParameterGroupResult.fromJson({});
+    var response_ = await _client.send('CreateClusterParameterGroup', {
+      'ParameterGroupName': parameterGroupName,
+      'ParameterGroupFamily': parameterGroupFamily,
+      'Description': description,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateClusterParameterGroupResult.fromJson(response_);
   }
 
   /// Creates a new Amazon Redshift security group. You use security groups to
@@ -609,7 +701,12 @@ class RedshiftApi {
       {@required String clusterSecurityGroupName,
       @required String description,
       List<Tag> tags}) async {
-    return CreateClusterSecurityGroupResult.fromJson({});
+    var response_ = await _client.send('CreateClusterSecurityGroup', {
+      'ClusterSecurityGroupName': clusterSecurityGroupName,
+      'Description': description,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateClusterSecurityGroupResult.fromJson(response_);
   }
 
   /// Creates a manual snapshot of the specified cluster. The cluster must be in
@@ -652,7 +749,14 @@ class RedshiftApi {
       @required String clusterIdentifier,
       int manualSnapshotRetentionPeriod,
       List<Tag> tags}) async {
-    return CreateClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('CreateClusterSnapshot', {
+      'SnapshotIdentifier': snapshotIdentifier,
+      'ClusterIdentifier': clusterIdentifier,
+      if (manualSnapshotRetentionPeriod != null)
+        'ManualSnapshotRetentionPeriod': manualSnapshotRetentionPeriod,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateClusterSnapshotResult.fromJson(response_);
   }
 
   /// Creates a new Amazon Redshift subnet group. You must provide a list of one
@@ -689,7 +793,13 @@ class RedshiftApi {
       @required String description,
       @required List<String> subnetIds,
       List<Tag> tags}) async {
-    return CreateClusterSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('CreateClusterSubnetGroup', {
+      'ClusterSubnetGroupName': clusterSubnetGroupName,
+      'Description': description,
+      'SubnetIds': subnetIds,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateClusterSubnetGroupResult.fromJson(response_);
   }
 
   /// Creates an Amazon Redshift event notification subscription. This action
@@ -775,7 +885,17 @@ class RedshiftApi {
       String severity,
       bool enabled,
       List<Tag> tags}) async {
-    return CreateEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('CreateEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (sourceIds != null) 'SourceIds': sourceIds,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (severity != null) 'Severity': severity,
+      if (enabled != null) 'Enabled': enabled,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateEventSubscriptionResult.fromJson(response_);
   }
 
   /// Creates an HSM client certificate that an Amazon Redshift cluster will use
@@ -797,7 +917,11 @@ class RedshiftApi {
   Future<CreateHsmClientCertificateResult> createHsmClientCertificate(
       String hsmClientCertificateIdentifier,
       {List<Tag> tags}) async {
-    return CreateHsmClientCertificateResult.fromJson({});
+    var response_ = await _client.send('CreateHsmClientCertificate', {
+      'HsmClientCertificateIdentifier': hsmClientCertificateIdentifier,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateHsmClientCertificateResult.fromJson(response_);
   }
 
   /// Creates an HSM configuration that contains the information required by an
@@ -836,7 +960,16 @@ class RedshiftApi {
       @required String hsmPartitionPassword,
       @required String hsmServerPublicCertificate,
       List<Tag> tags}) async {
-    return CreateHsmConfigurationResult.fromJson({});
+    var response_ = await _client.send('CreateHsmConfiguration', {
+      'HsmConfigurationIdentifier': hsmConfigurationIdentifier,
+      'Description': description,
+      'HsmIpAddress': hsmIpAddress,
+      'HsmPartitionName': hsmPartitionName,
+      'HsmPartitionPassword': hsmPartitionPassword,
+      'HsmServerPublicCertificate': hsmServerPublicCertificate,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateHsmConfigurationResult.fromJson(response_);
   }
 
   /// Creates a snapshot copy grant that permits Amazon Redshift to use a
@@ -871,7 +1004,12 @@ class RedshiftApi {
       String snapshotCopyGrantName,
       {String kmsKeyId,
       List<Tag> tags}) async {
-    return CreateSnapshotCopyGrantResult.fromJson({});
+    var response_ = await _client.send('CreateSnapshotCopyGrant', {
+      'SnapshotCopyGrantName': snapshotCopyGrantName,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreateSnapshotCopyGrantResult.fromJson(response_);
   }
 
   /// Creates a new snapshot schedule.
@@ -897,7 +1035,17 @@ class RedshiftApi {
       List<Tag> tags,
       bool dryRun,
       int nextInvocations}) async {
-    return SnapshotSchedule.fromJson({});
+    var response_ = await _client.send('CreateSnapshotSchedule', {
+      if (scheduleDefinitions != null)
+        'ScheduleDefinitions': scheduleDefinitions,
+      if (scheduleIdentifier != null) 'ScheduleIdentifier': scheduleIdentifier,
+      if (scheduleDescription != null)
+        'ScheduleDescription': scheduleDescription,
+      if (tags != null) 'Tags': tags,
+      if (dryRun != null) 'DryRun': dryRun,
+      if (nextInvocations != null) 'NextInvocations': nextInvocations,
+    });
+    return SnapshotSchedule.fromJson(response_);
   }
 
   /// Adds one or more tags to a specified resource.
@@ -919,7 +1067,12 @@ class RedshiftApi {
   /// with a space. For example, `--tags "Key"="owner","Value"="admin"
   /// "Key"="environment","Value"="test" "Key"="version","Value"="1.0"`.
   Future<void> createTags(
-      {@required String resourceName, @required List<Tag> tags}) async {}
+      {@required String resourceName, @required List<Tag> tags}) async {
+    await _client.send('CreateTags', {
+      'ResourceName': resourceName,
+      'Tags': tags,
+    });
+  }
 
   /// Deletes a previously provisioned cluster. A successful response from the
   /// web service indicates that the request was received correctly. Use
@@ -986,7 +1139,17 @@ class RedshiftApi {
       {bool skipFinalClusterSnapshot,
       String finalClusterSnapshotIdentifier,
       int finalClusterSnapshotRetentionPeriod}) async {
-    return DeleteClusterResult.fromJson({});
+    var response_ = await _client.send('DeleteCluster', {
+      'ClusterIdentifier': clusterIdentifier,
+      if (skipFinalClusterSnapshot != null)
+        'SkipFinalClusterSnapshot': skipFinalClusterSnapshot,
+      if (finalClusterSnapshotIdentifier != null)
+        'FinalClusterSnapshotIdentifier': finalClusterSnapshotIdentifier,
+      if (finalClusterSnapshotRetentionPeriod != null)
+        'FinalClusterSnapshotRetentionPeriod':
+            finalClusterSnapshotRetentionPeriod,
+    });
+    return DeleteClusterResult.fromJson(response_);
   }
 
   /// Deletes a specified Amazon Redshift parameter group.
@@ -1002,7 +1165,11 @@ class RedshiftApi {
   /// *   Must be the name of an existing cluster parameter group.
   ///
   /// *   Cannot delete a default cluster parameter group.
-  Future<void> deleteClusterParameterGroup(String parameterGroupName) async {}
+  Future<void> deleteClusterParameterGroup(String parameterGroupName) async {
+    await _client.send('DeleteClusterParameterGroup', {
+      'ParameterGroupName': parameterGroupName,
+    });
+  }
 
   /// Deletes an Amazon Redshift security group.
   ///
@@ -1016,7 +1183,11 @@ class RedshiftApi {
   /// [clusterSecurityGroupName]: The name of the cluster security group to be
   /// deleted.
   Future<void> deleteClusterSecurityGroup(
-      String clusterSecurityGroupName) async {}
+      String clusterSecurityGroupName) async {
+    await _client.send('DeleteClusterSecurityGroup', {
+      'ClusterSecurityGroupName': clusterSecurityGroupName,
+    });
+  }
 
   /// Deletes the specified manual snapshot. The snapshot must be in the
   /// `available` state, with no other users authorized to access the snapshot.
@@ -1042,45 +1213,73 @@ class RedshiftApi {
   Future<DeleteClusterSnapshotResult> deleteClusterSnapshot(
       String snapshotIdentifier,
       {String snapshotClusterIdentifier}) async {
-    return DeleteClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('DeleteClusterSnapshot', {
+      'SnapshotIdentifier': snapshotIdentifier,
+      if (snapshotClusterIdentifier != null)
+        'SnapshotClusterIdentifier': snapshotClusterIdentifier,
+    });
+    return DeleteClusterSnapshotResult.fromJson(response_);
   }
 
   /// Deletes the specified cluster subnet group.
   ///
   /// [clusterSubnetGroupName]: The name of the cluster subnet group name to be
   /// deleted.
-  Future<void> deleteClusterSubnetGroup(String clusterSubnetGroupName) async {}
+  Future<void> deleteClusterSubnetGroup(String clusterSubnetGroupName) async {
+    await _client.send('DeleteClusterSubnetGroup', {
+      'ClusterSubnetGroupName': clusterSubnetGroupName,
+    });
+  }
 
   /// Deletes an Amazon Redshift event notification subscription.
   ///
   /// [subscriptionName]: The name of the Amazon Redshift event notification
   /// subscription to be deleted.
-  Future<void> deleteEventSubscription(String subscriptionName) async {}
+  Future<void> deleteEventSubscription(String subscriptionName) async {
+    await _client.send('DeleteEventSubscription', {
+      'SubscriptionName': subscriptionName,
+    });
+  }
 
   /// Deletes the specified HSM client certificate.
   ///
   /// [hsmClientCertificateIdentifier]: The identifier of the HSM client
   /// certificate to be deleted.
   Future<void> deleteHsmClientCertificate(
-      String hsmClientCertificateIdentifier) async {}
+      String hsmClientCertificateIdentifier) async {
+    await _client.send('DeleteHsmClientCertificate', {
+      'HsmClientCertificateIdentifier': hsmClientCertificateIdentifier,
+    });
+  }
 
   /// Deletes the specified Amazon Redshift HSM configuration.
   ///
   /// [hsmConfigurationIdentifier]: The identifier of the Amazon Redshift HSM
   /// configuration to be deleted.
-  Future<void> deleteHsmConfiguration(
-      String hsmConfigurationIdentifier) async {}
+  Future<void> deleteHsmConfiguration(String hsmConfigurationIdentifier) async {
+    await _client.send('DeleteHsmConfiguration', {
+      'HsmConfigurationIdentifier': hsmConfigurationIdentifier,
+    });
+  }
 
   /// Deletes the specified snapshot copy grant.
   ///
   /// [snapshotCopyGrantName]: The name of the snapshot copy grant to delete.
-  Future<void> deleteSnapshotCopyGrant(String snapshotCopyGrantName) async {}
+  Future<void> deleteSnapshotCopyGrant(String snapshotCopyGrantName) async {
+    await _client.send('DeleteSnapshotCopyGrant', {
+      'SnapshotCopyGrantName': snapshotCopyGrantName,
+    });
+  }
 
   /// Deletes a snapshot schedule.
   ///
   /// [scheduleIdentifier]: A unique identifier of the snapshot schedule to
   /// delete.
-  Future<void> deleteSnapshotSchedule(String scheduleIdentifier) async {}
+  Future<void> deleteSnapshotSchedule(String scheduleIdentifier) async {
+    await _client.send('DeleteSnapshotSchedule', {
+      'ScheduleIdentifier': scheduleIdentifier,
+    });
+  }
 
   /// Deletes a tag or tags from a resource. You must provide the ARN of the
   /// resource from which you want to delete the tag or tags.
@@ -1091,14 +1290,22 @@ class RedshiftApi {
   ///
   /// [tagKeys]: The tag key that you want to delete.
   Future<void> deleteTags(
-      {@required String resourceName, @required List<String> tagKeys}) async {}
+      {@required String resourceName, @required List<String> tagKeys}) async {
+    await _client.send('DeleteTags', {
+      'ResourceName': resourceName,
+      'TagKeys': tagKeys,
+    });
+  }
 
   /// Returns a list of attributes attached to an account
   ///
   /// [attributeNames]: A list of attribute names.
   Future<AccountAttributeList> describeAccountAttributes(
       {List<String> attributeNames}) async {
-    return AccountAttributeList.fromJson({});
+    var response_ = await _client.send('DescribeAccountAttributes', {
+      if (attributeNames != null) 'AttributeNames': attributeNames,
+    });
+    return AccountAttributeList.fromJson(response_);
   }
 
   /// Returns an array of `ClusterDbRevision` objects.
@@ -1130,7 +1337,12 @@ class RedshiftApi {
   /// the `marker` parameter, but not both.
   Future<ClusterDbRevisionsMessage> describeClusterDbRevisions(
       {String clusterIdentifier, int maxRecords, String marker}) async {
-    return ClusterDbRevisionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeClusterDbRevisions', {
+      if (clusterIdentifier != null) 'ClusterIdentifier': clusterIdentifier,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ClusterDbRevisionsMessage.fromJson(response_);
   }
 
   /// Returns a list of Amazon Redshift parameter groups, including parameter
@@ -1195,7 +1407,14 @@ class RedshiftApi {
       String marker,
       List<String> tagKeys,
       List<String> tagValues}) async {
-    return ClusterParameterGroupsMessage.fromJson({});
+    var response_ = await _client.send('DescribeClusterParameterGroups', {
+      if (parameterGroupName != null) 'ParameterGroupName': parameterGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+    });
+    return ClusterParameterGroupsMessage.fromJson(response_);
   }
 
   /// Returns a detailed list of parameters contained within the specified
@@ -1244,7 +1463,13 @@ class RedshiftApi {
       {String source,
       int maxRecords,
       String marker}) async {
-    return ClusterParameterGroupDetails.fromJson({});
+    var response_ = await _client.send('DescribeClusterParameters', {
+      'ParameterGroupName': parameterGroupName,
+      if (source != null) 'Source': source,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ClusterParameterGroupDetails.fromJson(response_);
   }
 
   /// Returns information about Amazon Redshift security groups. If the name of
@@ -1312,7 +1537,15 @@ class RedshiftApi {
       String marker,
       List<String> tagKeys,
       List<String> tagValues}) async {
-    return ClusterSecurityGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeClusterSecurityGroups', {
+      if (clusterSecurityGroupName != null)
+        'ClusterSecurityGroupName': clusterSecurityGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+    });
+    return ClusterSecurityGroupMessage.fromJson(response_);
   }
 
   /// Returns one or more snapshot objects, which contain metadata about your
@@ -1427,7 +1660,21 @@ class RedshiftApi {
       List<String> tagValues,
       bool clusterExists,
       List<SnapshotSortingEntity> sortingEntities}) async {
-    return SnapshotMessage.fromJson({});
+    var response_ = await _client.send('DescribeClusterSnapshots', {
+      if (clusterIdentifier != null) 'ClusterIdentifier': clusterIdentifier,
+      if (snapshotIdentifier != null) 'SnapshotIdentifier': snapshotIdentifier,
+      if (snapshotType != null) 'SnapshotType': snapshotType,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (ownerAccount != null) 'OwnerAccount': ownerAccount,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+      if (clusterExists != null) 'ClusterExists': clusterExists,
+      if (sortingEntities != null) 'SortingEntities': sortingEntities,
+    });
+    return SnapshotMessage.fromJson(response_);
   }
 
   /// Returns one or more cluster subnet group objects, which contain metadata
@@ -1485,7 +1732,15 @@ class RedshiftApi {
       String marker,
       List<String> tagKeys,
       List<String> tagValues}) async {
-    return ClusterSubnetGroupMessage.fromJson({});
+    var response_ = await _client.send('DescribeClusterSubnetGroups', {
+      if (clusterSubnetGroupName != null)
+        'ClusterSubnetGroupName': clusterSubnetGroupName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+    });
+    return ClusterSubnetGroupMessage.fromJson(response_);
   }
 
   /// Returns a list of all the available maintenance tracks.
@@ -1504,7 +1759,13 @@ class RedshiftApi {
   /// request.
   Future<TrackListMessage> describeClusterTracks(
       {String maintenanceTrackName, int maxRecords, String marker}) async {
-    return TrackListMessage.fromJson({});
+    var response_ = await _client.send('DescribeClusterTracks', {
+      if (maintenanceTrackName != null)
+        'MaintenanceTrackName': maintenanceTrackName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return TrackListMessage.fromJson(response_);
   }
 
   /// Returns descriptions of the available Amazon Redshift cluster versions.
@@ -1550,7 +1811,14 @@ class RedshiftApi {
       String clusterParameterGroupFamily,
       int maxRecords,
       String marker}) async {
-    return ClusterVersionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeClusterVersions', {
+      if (clusterVersion != null) 'ClusterVersion': clusterVersion,
+      if (clusterParameterGroupFamily != null)
+        'ClusterParameterGroupFamily': clusterParameterGroupFamily,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ClusterVersionsMessage.fromJson(response_);
   }
 
   /// Returns properties of provisioned clusters including general cluster
@@ -1614,7 +1882,14 @@ class RedshiftApi {
       String marker,
       List<String> tagKeys,
       List<String> tagValues}) async {
-    return ClustersMessage.fromJson({});
+    var response_ = await _client.send('DescribeClusters', {
+      if (clusterIdentifier != null) 'ClusterIdentifier': clusterIdentifier,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+    });
+    return ClustersMessage.fromJson(response_);
   }
 
   /// Returns a list of parameter settings for the specified parameter group
@@ -1645,7 +1920,12 @@ class RedshiftApi {
   Future<DescribeDefaultClusterParametersResult>
       describeDefaultClusterParameters(String parameterGroupFamily,
           {int maxRecords, String marker}) async {
-    return DescribeDefaultClusterParametersResult.fromJson({});
+    var response_ = await _client.send('DescribeDefaultClusterParameters', {
+      'ParameterGroupFamily': parameterGroupFamily,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return DescribeDefaultClusterParametersResult.fromJson(response_);
   }
 
   /// Displays a list of event categories for all event source types, or for a
@@ -1660,7 +1940,10 @@ class RedshiftApi {
   /// cluster-security-group.
   Future<EventCategoriesMessage> describeEventCategories(
       {String sourceType}) async {
-    return EventCategoriesMessage.fromJson({});
+    var response_ = await _client.send('DescribeEventCategories', {
+      if (sourceType != null) 'SourceType': sourceType,
+    });
+    return EventCategoriesMessage.fromJson(response_);
   }
 
   /// Lists descriptions of all the Amazon Redshift event notification
@@ -1719,7 +2002,14 @@ class RedshiftApi {
       String marker,
       List<String> tagKeys,
       List<String> tagValues}) async {
-    return EventSubscriptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEventSubscriptions', {
+      if (subscriptionName != null) 'SubscriptionName': subscriptionName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+    });
+    return EventSubscriptionsMessage.fromJson(response_);
   }
 
   /// Returns events related to clusters, security groups, snapshots, and
@@ -1808,7 +2098,16 @@ class RedshiftApi {
       int duration,
       int maxRecords,
       String marker}) async {
-    return EventsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      if (sourceIdentifier != null) 'SourceIdentifier': sourceIdentifier,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (duration != null) 'Duration': duration,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return EventsMessage.fromJson(response_);
   }
 
   /// Returns information about the specified HSM client certificate. If no
@@ -1869,7 +2168,15 @@ class RedshiftApi {
       String marker,
       List<String> tagKeys,
       List<String> tagValues}) async {
-    return HsmClientCertificateMessage.fromJson({});
+    var response_ = await _client.send('DescribeHsmClientCertificates', {
+      if (hsmClientCertificateIdentifier != null)
+        'HsmClientCertificateIdentifier': hsmClientCertificateIdentifier,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+    });
+    return HsmClientCertificateMessage.fromJson(response_);
   }
 
   /// Returns information about the specified Amazon Redshift HSM configuration.
@@ -1929,7 +2236,15 @@ class RedshiftApi {
       String marker,
       List<String> tagKeys,
       List<String> tagValues}) async {
-    return HsmConfigurationMessage.fromJson({});
+    var response_ = await _client.send('DescribeHsmConfigurations', {
+      if (hsmConfigurationIdentifier != null)
+        'HsmConfigurationIdentifier': hsmConfigurationIdentifier,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+    });
+    return HsmConfigurationMessage.fromJson(response_);
   }
 
   /// Describes whether information, such as queries and connection attempts, is
@@ -1940,7 +2255,10 @@ class RedshiftApi {
   ///
   /// Example: `examplecluster`
   Future<LoggingStatus> describeLoggingStatus(String clusterIdentifier) async {
-    return LoggingStatus.fromJson({});
+    var response_ = await _client.send('DescribeLoggingStatus', {
+      'ClusterIdentifier': clusterIdentifier,
+    });
+    return LoggingStatus.fromJson(response_);
   }
 
   /// Returns a list of orderable cluster options. Before you create a new
@@ -1986,7 +2304,13 @@ class RedshiftApi {
       String nodeType,
       int maxRecords,
       String marker}) async {
-    return OrderableClusterOptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeOrderableClusterOptions', {
+      if (clusterVersion != null) 'ClusterVersion': clusterVersion,
+      if (nodeType != null) 'NodeType': nodeType,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return OrderableClusterOptionsMessage.fromJson(response_);
   }
 
   /// Returns a list of the available reserved node offerings by Amazon Redshift
@@ -2021,7 +2345,13 @@ class RedshiftApi {
   /// returned marker value in the `Marker` parameter and retrying the request.
   Future<ReservedNodeOfferingsMessage> describeReservedNodeOfferings(
       {String reservedNodeOfferingId, int maxRecords, String marker}) async {
-    return ReservedNodeOfferingsMessage.fromJson({});
+    var response_ = await _client.send('DescribeReservedNodeOfferings', {
+      if (reservedNodeOfferingId != null)
+        'ReservedNodeOfferingId': reservedNodeOfferingId,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ReservedNodeOfferingsMessage.fromJson(response_);
   }
 
   /// Returns the descriptions of the reserved nodes.
@@ -2046,7 +2376,12 @@ class RedshiftApi {
   /// value in the `Marker` parameter and retrying the request.
   Future<ReservedNodesMessage> describeReservedNodes(
       {String reservedNodeId, int maxRecords, String marker}) async {
-    return ReservedNodesMessage.fromJson({});
+    var response_ = await _client.send('DescribeReservedNodes', {
+      if (reservedNodeId != null) 'ReservedNodeId': reservedNodeId,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return ReservedNodesMessage.fromJson(response_);
   }
 
   /// Returns information about the last resize operation for the specified
@@ -2064,7 +2399,10 @@ class RedshiftApi {
   /// By default, resize operations for all clusters defined for an AWS account
   /// are returned.
   Future<ResizeProgressMessage> describeResize(String clusterIdentifier) async {
-    return ResizeProgressMessage.fromJson({});
+    var response_ = await _client.send('DescribeResize', {
+      'ClusterIdentifier': clusterIdentifier,
+    });
+    return ResizeProgressMessage.fromJson(response_);
   }
 
   /// Returns a list of snapshot copy grants owned by the AWS account in the
@@ -2115,7 +2453,15 @@ class RedshiftApi {
       String marker,
       List<String> tagKeys,
       List<String> tagValues}) async {
-    return SnapshotCopyGrantMessage.fromJson({});
+    var response_ = await _client.send('DescribeSnapshotCopyGrants', {
+      if (snapshotCopyGrantName != null)
+        'SnapshotCopyGrantName': snapshotCopyGrantName,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+    });
+    return SnapshotCopyGrantMessage.fromJson(response_);
   }
 
   /// Returns a list of snapshot schedules.
@@ -2149,13 +2495,22 @@ class RedshiftApi {
       List<String> tagValues,
       String marker,
       int maxRecords}) async {
-    return DescribeSnapshotSchedulesOutputMessage.fromJson({});
+    var response_ = await _client.send('DescribeSnapshotSchedules', {
+      if (clusterIdentifier != null) 'ClusterIdentifier': clusterIdentifier,
+      if (scheduleIdentifier != null) 'ScheduleIdentifier': scheduleIdentifier,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+      if (marker != null) 'Marker': marker,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+    });
+    return DescribeSnapshotSchedulesOutputMessage.fromJson(response_);
   }
 
   /// Returns the total amount of snapshot usage and provisioned storage in
   /// megabytes.
   Future<CustomerStorageMessage> describeStorage() async {
-    return CustomerStorageMessage.fromJson({});
+    var response_ = await _client.send('DescribeStorage', {});
+    return CustomerStorageMessage.fromJson(response_);
   }
 
   /// Lists the status of one or more table restore requests made using the
@@ -2188,7 +2543,14 @@ class RedshiftApi {
       String tableRestoreRequestId,
       int maxRecords,
       String marker}) async {
-    return TableRestoreStatusMessage.fromJson({});
+    var response_ = await _client.send('DescribeTableRestoreStatus', {
+      if (clusterIdentifier != null) 'ClusterIdentifier': clusterIdentifier,
+      if (tableRestoreRequestId != null)
+        'TableRestoreRequestId': tableRestoreRequestId,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return TableRestoreStatusMessage.fromJson(response_);
   }
 
   /// Returns a list of tags. You can return tags from a specific resource by
@@ -2283,7 +2645,15 @@ class RedshiftApi {
       String marker,
       List<String> tagKeys,
       List<String> tagValues}) async {
-    return TaggedResourceListMessage.fromJson({});
+    var response_ = await _client.send('DescribeTags', {
+      if (resourceName != null) 'ResourceName': resourceName,
+      if (resourceType != null) 'ResourceType': resourceType,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+      if (tagKeys != null) 'TagKeys': tagKeys,
+      if (tagValues != null) 'TagValues': tagValues,
+    });
+    return TaggedResourceListMessage.fromJson(response_);
   }
 
   /// Stops logging information, such as queries and connection attempts, for
@@ -2294,7 +2664,10 @@ class RedshiftApi {
   ///
   /// Example: `examplecluster`
   Future<LoggingStatus> disableLogging(String clusterIdentifier) async {
-    return LoggingStatus.fromJson({});
+    var response_ = await _client.send('DisableLogging', {
+      'ClusterIdentifier': clusterIdentifier,
+    });
+    return LoggingStatus.fromJson(response_);
   }
 
   /// Disables the automatic copying of snapshots from one region to another
@@ -2312,7 +2685,10 @@ class RedshiftApi {
   /// cross-region snapshot copy enabled.
   Future<DisableSnapshotCopyResult> disableSnapshotCopy(
       String clusterIdentifier) async {
-    return DisableSnapshotCopyResult.fromJson({});
+    var response_ = await _client.send('DisableSnapshotCopy', {
+      'ClusterIdentifier': clusterIdentifier,
+    });
+    return DisableSnapshotCopyResult.fromJson(response_);
   }
 
   /// Starts logging information, such as queries and connection attempts, for
@@ -2355,7 +2731,12 @@ class RedshiftApi {
       {@required String clusterIdentifier,
       @required String bucketName,
       String s3KeyPrefix}) async {
-    return LoggingStatus.fromJson({});
+    var response_ = await _client.send('EnableLogging', {
+      'ClusterIdentifier': clusterIdentifier,
+      'BucketName': bucketName,
+      if (s3KeyPrefix != null) 'S3KeyPrefix': s3KeyPrefix,
+    });
+    return LoggingStatus.fromJson(response_);
   }
 
   /// Enables the automatic copy of snapshots from one region to another region
@@ -2398,7 +2779,16 @@ class RedshiftApi {
       int retentionPeriod,
       String snapshotCopyGrantName,
       int manualSnapshotRetentionPeriod}) async {
-    return EnableSnapshotCopyResult.fromJson({});
+    var response_ = await _client.send('EnableSnapshotCopy', {
+      'ClusterIdentifier': clusterIdentifier,
+      'DestinationRegion': destinationRegion,
+      if (retentionPeriod != null) 'RetentionPeriod': retentionPeriod,
+      if (snapshotCopyGrantName != null)
+        'SnapshotCopyGrantName': snapshotCopyGrantName,
+      if (manualSnapshotRetentionPeriod != null)
+        'ManualSnapshotRetentionPeriod': manualSnapshotRetentionPeriod,
+    });
+    return EnableSnapshotCopyResult.fromJson(response_);
   }
 
   /// Returns a database user name and temporary password with temporary
@@ -2516,7 +2906,15 @@ class RedshiftApi {
       int durationSeconds,
       bool autoCreate,
       List<String> dbGroups}) async {
-    return ClusterCredentials.fromJson({});
+    var response_ = await _client.send('GetClusterCredentials', {
+      'DbUser': dbUser,
+      if (dbName != null) 'DbName': dbName,
+      'ClusterIdentifier': clusterIdentifier,
+      if (durationSeconds != null) 'DurationSeconds': durationSeconds,
+      if (autoCreate != null) 'AutoCreate': autoCreate,
+      if (dbGroups != null) 'DbGroups': dbGroups,
+    });
+    return ClusterCredentials.fromJson(response_);
   }
 
   /// Returns an array of DC2 ReservedNodeOfferings that matches the payment
@@ -2533,7 +2931,12 @@ class RedshiftApi {
   Future<GetReservedNodeExchangeOfferingsOutputMessage>
       getReservedNodeExchangeOfferings(String reservedNodeId,
           {int maxRecords, String marker}) async {
-    return GetReservedNodeExchangeOfferingsOutputMessage.fromJson({});
+    var response_ = await _client.send('GetReservedNodeExchangeOfferings', {
+      'ReservedNodeId': reservedNodeId,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (marker != null) 'Marker': marker,
+    });
+    return GetReservedNodeExchangeOfferingsOutputMessage.fromJson(response_);
   }
 
   /// Modifies the settings for a cluster. For example, you can add another
@@ -2785,7 +3188,42 @@ class RedshiftApi {
       String maintenanceTrackName,
       bool encrypted,
       String kmsKeyId}) async {
-    return ModifyClusterResult.fromJson({});
+    var response_ = await _client.send('ModifyCluster', {
+      'ClusterIdentifier': clusterIdentifier,
+      if (clusterType != null) 'ClusterType': clusterType,
+      if (nodeType != null) 'NodeType': nodeType,
+      if (numberOfNodes != null) 'NumberOfNodes': numberOfNodes,
+      if (clusterSecurityGroups != null)
+        'ClusterSecurityGroups': clusterSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (masterUserPassword != null) 'MasterUserPassword': masterUserPassword,
+      if (clusterParameterGroupName != null)
+        'ClusterParameterGroupName': clusterParameterGroupName,
+      if (automatedSnapshotRetentionPeriod != null)
+        'AutomatedSnapshotRetentionPeriod': automatedSnapshotRetentionPeriod,
+      if (manualSnapshotRetentionPeriod != null)
+        'ManualSnapshotRetentionPeriod': manualSnapshotRetentionPeriod,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (clusterVersion != null) 'ClusterVersion': clusterVersion,
+      if (allowVersionUpgrade != null)
+        'AllowVersionUpgrade': allowVersionUpgrade,
+      if (hsmClientCertificateIdentifier != null)
+        'HsmClientCertificateIdentifier': hsmClientCertificateIdentifier,
+      if (hsmConfigurationIdentifier != null)
+        'HsmConfigurationIdentifier': hsmConfigurationIdentifier,
+      if (newClusterIdentifier != null)
+        'NewClusterIdentifier': newClusterIdentifier,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (elasticIp != null) 'ElasticIp': elasticIp,
+      if (enhancedVpcRouting != null) 'EnhancedVpcRouting': enhancedVpcRouting,
+      if (maintenanceTrackName != null)
+        'MaintenanceTrackName': maintenanceTrackName,
+      if (encrypted != null) 'Encrypted': encrypted,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+    });
+    return ModifyClusterResult.fromJson(response_);
   }
 
   /// Modifies the database revision of a cluster. The database revision is a
@@ -2802,7 +3240,11 @@ class RedshiftApi {
   Future<ModifyClusterDbRevisionResult> modifyClusterDbRevision(
       {@required String clusterIdentifier,
       @required String revisionTarget}) async {
-    return ModifyClusterDbRevisionResult.fromJson({});
+    var response_ = await _client.send('ModifyClusterDbRevision', {
+      'ClusterIdentifier': clusterIdentifier,
+      'RevisionTarget': revisionTarget,
+    });
+    return ModifyClusterDbRevisionResult.fromJson(response_);
   }
 
   /// Modifies the list of AWS Identity and Access Management (IAM) roles that
@@ -2824,7 +3266,12 @@ class RedshiftApi {
       String clusterIdentifier,
       {List<String> addIamRoles,
       List<String> removeIamRoles}) async {
-    return ModifyClusterIamRolesResult.fromJson({});
+    var response_ = await _client.send('ModifyClusterIamRoles', {
+      'ClusterIdentifier': clusterIdentifier,
+      if (addIamRoles != null) 'AddIamRoles': addIamRoles,
+      if (removeIamRoles != null) 'RemoveIamRoles': removeIamRoles,
+    });
+    return ModifyClusterIamRolesResult.fromJson(response_);
   }
 
   /// Modifies the maintenance settings of a cluster. For example, you can defer
@@ -2855,7 +3302,19 @@ class RedshiftApi {
       DateTime deferMaintenanceStartTime,
       DateTime deferMaintenanceEndTime,
       int deferMaintenanceDuration}) async {
-    return ModifyClusterMaintenanceResult.fromJson({});
+    var response_ = await _client.send('ModifyClusterMaintenance', {
+      'ClusterIdentifier': clusterIdentifier,
+      if (deferMaintenance != null) 'DeferMaintenance': deferMaintenance,
+      if (deferMaintenanceIdentifier != null)
+        'DeferMaintenanceIdentifier': deferMaintenanceIdentifier,
+      if (deferMaintenanceStartTime != null)
+        'DeferMaintenanceStartTime': deferMaintenanceStartTime,
+      if (deferMaintenanceEndTime != null)
+        'DeferMaintenanceEndTime': deferMaintenanceEndTime,
+      if (deferMaintenanceDuration != null)
+        'DeferMaintenanceDuration': deferMaintenanceDuration,
+    });
+    return ModifyClusterMaintenanceResult.fromJson(response_);
   }
 
   /// Modifies the parameters of a parameter group.
@@ -2878,7 +3337,11 @@ class RedshiftApi {
   Future<ClusterParameterGroupNameMessage> modifyClusterParameterGroup(
       {@required String parameterGroupName,
       @required List<Parameter> parameters}) async {
-    return ClusterParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ModifyClusterParameterGroup', {
+      'ParameterGroupName': parameterGroupName,
+      'Parameters': parameters,
+    });
+    return ClusterParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Modifies the settings for a snapshot.
@@ -2901,7 +3364,13 @@ class RedshiftApi {
       String snapshotIdentifier,
       {int manualSnapshotRetentionPeriod,
       bool force}) async {
-    return ModifyClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('ModifyClusterSnapshot', {
+      'SnapshotIdentifier': snapshotIdentifier,
+      if (manualSnapshotRetentionPeriod != null)
+        'ManualSnapshotRetentionPeriod': manualSnapshotRetentionPeriod,
+      if (force != null) 'Force': force,
+    });
+    return ModifyClusterSnapshotResult.fromJson(response_);
   }
 
   /// Modifies a snapshot schedule for a cluster.
@@ -2915,7 +3384,14 @@ class RedshiftApi {
   /// [disassociateSchedule]: A boolean to indicate whether to remove the
   /// assoiciation between the cluster and the schedule.
   Future<void> modifyClusterSnapshotSchedule(String clusterIdentifier,
-      {String scheduleIdentifier, bool disassociateSchedule}) async {}
+      {String scheduleIdentifier, bool disassociateSchedule}) async {
+    await _client.send('ModifyClusterSnapshotSchedule', {
+      'ClusterIdentifier': clusterIdentifier,
+      if (scheduleIdentifier != null) 'ScheduleIdentifier': scheduleIdentifier,
+      if (disassociateSchedule != null)
+        'DisassociateSchedule': disassociateSchedule,
+    });
+  }
 
   /// Modifies a cluster subnet group to include the specified list of VPC
   /// subnets. The operation replaces the existing list of subnets with the new
@@ -2931,7 +3407,12 @@ class RedshiftApi {
       {@required String clusterSubnetGroupName,
       String description,
       @required List<String> subnetIds}) async {
-    return ModifyClusterSubnetGroupResult.fromJson({});
+    var response_ = await _client.send('ModifyClusterSubnetGroup', {
+      'ClusterSubnetGroupName': clusterSubnetGroupName,
+      if (description != null) 'Description': description,
+      'SubnetIds': subnetIds,
+    });
+    return ModifyClusterSubnetGroupResult.fromJson(response_);
   }
 
   /// Modifies an existing Amazon Redshift event notification subscription.
@@ -2981,7 +3462,16 @@ class RedshiftApi {
       List<String> eventCategories,
       String severity,
       bool enabled}) async {
-    return ModifyEventSubscriptionResult.fromJson({});
+    var response_ = await _client.send('ModifyEventSubscription', {
+      'SubscriptionName': subscriptionName,
+      if (snsTopicArn != null) 'SnsTopicArn': snsTopicArn,
+      if (sourceType != null) 'SourceType': sourceType,
+      if (sourceIds != null) 'SourceIds': sourceIds,
+      if (eventCategories != null) 'EventCategories': eventCategories,
+      if (severity != null) 'Severity': severity,
+      if (enabled != null) 'Enabled': enabled,
+    });
+    return ModifyEventSubscriptionResult.fromJson(response_);
   }
 
   /// Modifies the number of days to retain snapshots in the destination AWS
@@ -3030,7 +3520,12 @@ class RedshiftApi {
           {@required String clusterIdentifier,
           @required int retentionPeriod,
           bool manual}) async {
-    return ModifySnapshotCopyRetentionPeriodResult.fromJson({});
+    var response_ = await _client.send('ModifySnapshotCopyRetentionPeriod', {
+      'ClusterIdentifier': clusterIdentifier,
+      'RetentionPeriod': retentionPeriod,
+      if (manual != null) 'Manual': manual,
+    });
+    return ModifySnapshotCopyRetentionPeriodResult.fromJson(response_);
   }
 
   /// Modifies a snapshot schedule. Any schedule associated with a cluster is
@@ -3045,7 +3540,11 @@ class RedshiftApi {
   Future<SnapshotSchedule> modifySnapshotSchedule(
       {@required String scheduleIdentifier,
       @required List<String> scheduleDefinitions}) async {
-    return SnapshotSchedule.fromJson({});
+    var response_ = await _client.send('ModifySnapshotSchedule', {
+      'ScheduleIdentifier': scheduleIdentifier,
+      'ScheduleDefinitions': scheduleDefinitions,
+    });
+    return SnapshotSchedule.fromJson(response_);
   }
 
   /// Allows you to purchase reserved nodes. Amazon Redshift offers a predefined
@@ -3068,7 +3567,11 @@ class RedshiftApi {
   Future<PurchaseReservedNodeOfferingResult> purchaseReservedNodeOffering(
       String reservedNodeOfferingId,
       {int nodeCount}) async {
-    return PurchaseReservedNodeOfferingResult.fromJson({});
+    var response_ = await _client.send('PurchaseReservedNodeOffering', {
+      'ReservedNodeOfferingId': reservedNodeOfferingId,
+      if (nodeCount != null) 'NodeCount': nodeCount,
+    });
+    return PurchaseReservedNodeOfferingResult.fromJson(response_);
   }
 
   /// Reboots a cluster. This action is taken as soon as possible. It results in
@@ -3081,7 +3584,10 @@ class RedshiftApi {
   ///
   /// [clusterIdentifier]: The cluster identifier.
   Future<RebootClusterResult> rebootCluster(String clusterIdentifier) async {
-    return RebootClusterResult.fromJson({});
+    var response_ = await _client.send('RebootCluster', {
+      'ClusterIdentifier': clusterIdentifier,
+    });
+    return RebootClusterResult.fromJson(response_);
   }
 
   /// Sets one or more parameters of the specified parameter group to their
@@ -3106,7 +3612,12 @@ class RedshiftApi {
       String parameterGroupName,
       {bool resetAllParameters,
       List<Parameter> parameters}) async {
-    return ClusterParameterGroupNameMessage.fromJson({});
+    var response_ = await _client.send('ResetClusterParameterGroup', {
+      'ParameterGroupName': parameterGroupName,
+      if (resetAllParameters != null) 'ResetAllParameters': resetAllParameters,
+      if (parameters != null) 'Parameters': parameters,
+    });
+    return ClusterParameterGroupNameMessage.fromJson(response_);
   }
 
   /// Changes the size of the cluster. You can change the cluster's type, or
@@ -3149,7 +3660,14 @@ class RedshiftApi {
       String nodeType,
       @required int numberOfNodes,
       bool classic}) async {
-    return ResizeClusterResult.fromJson({});
+    var response_ = await _client.send('ResizeCluster', {
+      'ClusterIdentifier': clusterIdentifier,
+      if (clusterType != null) 'ClusterType': clusterType,
+      if (nodeType != null) 'NodeType': nodeType,
+      'NumberOfNodes': numberOfNodes,
+      if (classic != null) 'Classic': classic,
+    });
+    return ResizeClusterResult.fromJson(response_);
   }
 
   /// Creates a new cluster from a snapshot. By default, Amazon Redshift creates
@@ -3371,7 +3889,47 @@ class RedshiftApi {
       List<String> iamRoles,
       String maintenanceTrackName,
       String snapshotScheduleIdentifier}) async {
-    return RestoreFromClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('RestoreFromClusterSnapshot', {
+      'ClusterIdentifier': clusterIdentifier,
+      'SnapshotIdentifier': snapshotIdentifier,
+      if (snapshotClusterIdentifier != null)
+        'SnapshotClusterIdentifier': snapshotClusterIdentifier,
+      if (port != null) 'Port': port,
+      if (availabilityZone != null) 'AvailabilityZone': availabilityZone,
+      if (allowVersionUpgrade != null)
+        'AllowVersionUpgrade': allowVersionUpgrade,
+      if (clusterSubnetGroupName != null)
+        'ClusterSubnetGroupName': clusterSubnetGroupName,
+      if (publiclyAccessible != null) 'PubliclyAccessible': publiclyAccessible,
+      if (ownerAccount != null) 'OwnerAccount': ownerAccount,
+      if (hsmClientCertificateIdentifier != null)
+        'HsmClientCertificateIdentifier': hsmClientCertificateIdentifier,
+      if (hsmConfigurationIdentifier != null)
+        'HsmConfigurationIdentifier': hsmConfigurationIdentifier,
+      if (elasticIp != null) 'ElasticIp': elasticIp,
+      if (clusterParameterGroupName != null)
+        'ClusterParameterGroupName': clusterParameterGroupName,
+      if (clusterSecurityGroups != null)
+        'ClusterSecurityGroups': clusterSecurityGroups,
+      if (vpcSecurityGroupIds != null)
+        'VpcSecurityGroupIds': vpcSecurityGroupIds,
+      if (preferredMaintenanceWindow != null)
+        'PreferredMaintenanceWindow': preferredMaintenanceWindow,
+      if (automatedSnapshotRetentionPeriod != null)
+        'AutomatedSnapshotRetentionPeriod': automatedSnapshotRetentionPeriod,
+      if (manualSnapshotRetentionPeriod != null)
+        'ManualSnapshotRetentionPeriod': manualSnapshotRetentionPeriod,
+      if (kmsKeyId != null) 'KmsKeyId': kmsKeyId,
+      if (nodeType != null) 'NodeType': nodeType,
+      if (enhancedVpcRouting != null) 'EnhancedVpcRouting': enhancedVpcRouting,
+      if (additionalInfo != null) 'AdditionalInfo': additionalInfo,
+      if (iamRoles != null) 'IamRoles': iamRoles,
+      if (maintenanceTrackName != null)
+        'MaintenanceTrackName': maintenanceTrackName,
+      if (snapshotScheduleIdentifier != null)
+        'SnapshotScheduleIdentifier': snapshotScheduleIdentifier,
+    });
+    return RestoreFromClusterSnapshotResult.fromJson(response_);
   }
 
   /// Creates a new table from a table in an Amazon Redshift cluster snapshot.
@@ -3420,7 +3978,17 @@ class RedshiftApi {
       String targetDatabaseName,
       String targetSchemaName,
       @required String newTableName}) async {
-    return RestoreTableFromClusterSnapshotResult.fromJson({});
+    var response_ = await _client.send('RestoreTableFromClusterSnapshot', {
+      'ClusterIdentifier': clusterIdentifier,
+      'SnapshotIdentifier': snapshotIdentifier,
+      'SourceDatabaseName': sourceDatabaseName,
+      if (sourceSchemaName != null) 'SourceSchemaName': sourceSchemaName,
+      'SourceTableName': sourceTableName,
+      if (targetDatabaseName != null) 'TargetDatabaseName': targetDatabaseName,
+      if (targetSchemaName != null) 'TargetSchemaName': targetSchemaName,
+      'NewTableName': newTableName,
+    });
+    return RestoreTableFromClusterSnapshotResult.fromJson(response_);
   }
 
   /// Revokes an ingress rule in an Amazon Redshift security group for a
@@ -3455,7 +4023,15 @@ class RedshiftApi {
           {String cidrip,
           String ec2SecurityGroupName,
           String ec2SecurityGroupOwnerId}) async {
-    return RevokeClusterSecurityGroupIngressResult.fromJson({});
+    var response_ = await _client.send('RevokeClusterSecurityGroupIngress', {
+      'ClusterSecurityGroupName': clusterSecurityGroupName,
+      if (cidrip != null) 'CIDRIP': cidrip,
+      if (ec2SecurityGroupName != null)
+        'EC2SecurityGroupName': ec2SecurityGroupName,
+      if (ec2SecurityGroupOwnerId != null)
+        'EC2SecurityGroupOwnerId': ec2SecurityGroupOwnerId,
+    });
+    return RevokeClusterSecurityGroupIngressResult.fromJson(response_);
   }
 
   /// Removes the ability of the specified AWS customer account to restore the
@@ -3480,7 +4056,13 @@ class RedshiftApi {
       {@required String snapshotIdentifier,
       String snapshotClusterIdentifier,
       @required String accountWithRestoreAccess}) async {
-    return RevokeSnapshotAccessResult.fromJson({});
+    var response_ = await _client.send('RevokeSnapshotAccess', {
+      'SnapshotIdentifier': snapshotIdentifier,
+      if (snapshotClusterIdentifier != null)
+        'SnapshotClusterIdentifier': snapshotClusterIdentifier,
+      'AccountWithRestoreAccess': accountWithRestoreAccess,
+    });
+    return RevokeSnapshotAccessResult.fromJson(response_);
   }
 
   /// Rotates the encryption keys for a cluster.
@@ -3492,7 +4074,10 @@ class RedshiftApi {
   /// enabled.
   Future<RotateEncryptionKeyResult> rotateEncryptionKey(
       String clusterIdentifier) async {
-    return RotateEncryptionKeyResult.fromJson({});
+    var response_ = await _client.send('RotateEncryptionKey', {
+      'ClusterIdentifier': clusterIdentifier,
+    });
+    return RotateEncryptionKeyResult.fromJson(response_);
   }
 }
 
@@ -3504,7 +4089,11 @@ class AcceptReservedNodeExchangeOutputMessage {
   });
   static AcceptReservedNodeExchangeOutputMessage fromJson(
           Map<String, dynamic> json) =>
-      AcceptReservedNodeExchangeOutputMessage();
+      AcceptReservedNodeExchangeOutputMessage(
+        exchangedReservedNode: json.containsKey('ExchangedReservedNode')
+            ? ReservedNode.fromJson(json['ExchangedReservedNode'])
+            : null,
+      );
 }
 
 /// A name value pair that describes an aspect of an account.
@@ -3520,7 +4109,16 @@ class AccountAttribute {
     this.attributeValues,
   });
   static AccountAttribute fromJson(Map<String, dynamic> json) =>
-      AccountAttribute();
+      AccountAttribute(
+        attributeName: json.containsKey('AttributeName')
+            ? json['AttributeName'] as String
+            : null,
+        attributeValues: json.containsKey('AttributeValues')
+            ? (json['AttributeValues'] as List)
+                .map((e) => AttributeValueTarget.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class AccountAttributeList {
@@ -3531,7 +4129,13 @@ class AccountAttributeList {
     this.accountAttributes,
   });
   static AccountAttributeList fromJson(Map<String, dynamic> json) =>
-      AccountAttributeList();
+      AccountAttributeList(
+        accountAttributes: json.containsKey('AccountAttributes')
+            ? (json['AccountAttributes'] as List)
+                .map((e) => AccountAttribute.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes an AWS customer account authorized to restore a snapshot.
@@ -3549,7 +4153,13 @@ class AccountWithRestoreAccess {
     this.accountAlias,
   });
   static AccountWithRestoreAccess fromJson(Map<String, dynamic> json) =>
-      AccountWithRestoreAccess();
+      AccountWithRestoreAccess(
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        accountAlias: json.containsKey('AccountAlias')
+            ? json['AccountAlias'] as String
+            : null,
+      );
 }
 
 /// Describes an attribute value.
@@ -3561,7 +4171,11 @@ class AttributeValueTarget {
     this.attributeValue,
   });
   static AttributeValueTarget fromJson(Map<String, dynamic> json) =>
-      AttributeValueTarget();
+      AttributeValueTarget(
+        attributeValue: json.containsKey('AttributeValue')
+            ? json['AttributeValue'] as String
+            : null,
+      );
 }
 
 class AuthorizeClusterSecurityGroupIngressResult {
@@ -3572,7 +4186,11 @@ class AuthorizeClusterSecurityGroupIngressResult {
   });
   static AuthorizeClusterSecurityGroupIngressResult fromJson(
           Map<String, dynamic> json) =>
-      AuthorizeClusterSecurityGroupIngressResult();
+      AuthorizeClusterSecurityGroupIngressResult(
+        clusterSecurityGroup: json.containsKey('ClusterSecurityGroup')
+            ? ClusterSecurityGroup.fromJson(json['ClusterSecurityGroup'])
+            : null,
+      );
 }
 
 class AuthorizeSnapshotAccessResult {
@@ -3582,7 +4200,11 @@ class AuthorizeSnapshotAccessResult {
     this.snapshot,
   });
   static AuthorizeSnapshotAccessResult fromJson(Map<String, dynamic> json) =>
-      AuthorizeSnapshotAccessResult();
+      AuthorizeSnapshotAccessResult(
+        snapshot: json.containsKey('Snapshot')
+            ? Snapshot.fromJson(json['Snapshot'])
+            : null,
+      );
 }
 
 /// Describes an availability zone.
@@ -3597,7 +4219,14 @@ class AvailabilityZone {
     this.supportedPlatforms,
   });
   static AvailabilityZone fromJson(Map<String, dynamic> json) =>
-      AvailabilityZone();
+      AvailabilityZone(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        supportedPlatforms: json.containsKey('SupportedPlatforms')
+            ? (json['SupportedPlatforms'] as List)
+                .map((e) => SupportedPlatform.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDeleteClusterSnapshotsResult {
@@ -3613,7 +4242,16 @@ class BatchDeleteClusterSnapshotsResult {
   });
   static BatchDeleteClusterSnapshotsResult fromJson(
           Map<String, dynamic> json) =>
-      BatchDeleteClusterSnapshotsResult();
+      BatchDeleteClusterSnapshotsResult(
+        resources: json.containsKey('Resources')
+            ? (json['Resources'] as List).map((e) => e as String).toList()
+            : null,
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List)
+                .map((e) => SnapshotErrorMessage.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchModifyClusterSnapshotsOutputMessage {
@@ -3629,7 +4267,16 @@ class BatchModifyClusterSnapshotsOutputMessage {
   });
   static BatchModifyClusterSnapshotsOutputMessage fromJson(
           Map<String, dynamic> json) =>
-      BatchModifyClusterSnapshotsOutputMessage();
+      BatchModifyClusterSnapshotsOutputMessage(
+        resources: json.containsKey('Resources')
+            ? (json['Resources'] as List).map((e) => e as String).toList()
+            : null,
+        errors: json.containsKey('Errors')
+            ? (json['Errors'] as List)
+                .map((e) => SnapshotErrorMessage.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a cluster.
@@ -3921,7 +4568,157 @@ class Cluster {
     this.expectedNextSnapshotScheduleTimeStatus,
     this.resizeInfo,
   });
-  static Cluster fromJson(Map<String, dynamic> json) => Cluster();
+  static Cluster fromJson(Map<String, dynamic> json) => Cluster(
+        clusterIdentifier: json.containsKey('ClusterIdentifier')
+            ? json['ClusterIdentifier'] as String
+            : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        clusterStatus: json.containsKey('ClusterStatus')
+            ? json['ClusterStatus'] as String
+            : null,
+        clusterAvailabilityStatus: json.containsKey('ClusterAvailabilityStatus')
+            ? json['ClusterAvailabilityStatus'] as String
+            : null,
+        modifyStatus: json.containsKey('ModifyStatus')
+            ? json['ModifyStatus'] as String
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        dbName: json.containsKey('DBName') ? json['DBName'] as String : null,
+        endpoint: json.containsKey('Endpoint')
+            ? Endpoint.fromJson(json['Endpoint'])
+            : null,
+        clusterCreateTime: json.containsKey('ClusterCreateTime')
+            ? DateTime.parse(json['ClusterCreateTime'])
+            : null,
+        automatedSnapshotRetentionPeriod:
+            json.containsKey('AutomatedSnapshotRetentionPeriod')
+                ? json['AutomatedSnapshotRetentionPeriod'] as int
+                : null,
+        manualSnapshotRetentionPeriod:
+            json.containsKey('ManualSnapshotRetentionPeriod')
+                ? json['ManualSnapshotRetentionPeriod'] as int
+                : null,
+        clusterSecurityGroups: json.containsKey('ClusterSecurityGroups')
+            ? (json['ClusterSecurityGroups'] as List)
+                .map((e) => ClusterSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        vpcSecurityGroups: json.containsKey('VpcSecurityGroups')
+            ? (json['VpcSecurityGroups'] as List)
+                .map((e) => VpcSecurityGroupMembership.fromJson(e))
+                .toList()
+            : null,
+        clusterParameterGroups: json.containsKey('ClusterParameterGroups')
+            ? (json['ClusterParameterGroups'] as List)
+                .map((e) => ClusterParameterGroupStatus.fromJson(e))
+                .toList()
+            : null,
+        clusterSubnetGroupName: json.containsKey('ClusterSubnetGroupName')
+            ? json['ClusterSubnetGroupName'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        preferredMaintenanceWindow:
+            json.containsKey('PreferredMaintenanceWindow')
+                ? json['PreferredMaintenanceWindow'] as String
+                : null,
+        pendingModifiedValues: json.containsKey('PendingModifiedValues')
+            ? PendingModifiedValues.fromJson(json['PendingModifiedValues'])
+            : null,
+        clusterVersion: json.containsKey('ClusterVersion')
+            ? json['ClusterVersion'] as String
+            : null,
+        allowVersionUpgrade: json.containsKey('AllowVersionUpgrade')
+            ? json['AllowVersionUpgrade'] as bool
+            : null,
+        numberOfNodes: json.containsKey('NumberOfNodes')
+            ? json['NumberOfNodes'] as int
+            : null,
+        publiclyAccessible: json.containsKey('PubliclyAccessible')
+            ? json['PubliclyAccessible'] as bool
+            : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        restoreStatus: json.containsKey('RestoreStatus')
+            ? RestoreStatus.fromJson(json['RestoreStatus'])
+            : null,
+        dataTransferProgress: json.containsKey('DataTransferProgress')
+            ? DataTransferProgress.fromJson(json['DataTransferProgress'])
+            : null,
+        hsmStatus: json.containsKey('HsmStatus')
+            ? HsmStatus.fromJson(json['HsmStatus'])
+            : null,
+        clusterSnapshotCopyStatus: json.containsKey('ClusterSnapshotCopyStatus')
+            ? ClusterSnapshotCopyStatus.fromJson(
+                json['ClusterSnapshotCopyStatus'])
+            : null,
+        clusterPublicKey: json.containsKey('ClusterPublicKey')
+            ? json['ClusterPublicKey'] as String
+            : null,
+        clusterNodes: json.containsKey('ClusterNodes')
+            ? (json['ClusterNodes'] as List)
+                .map((e) => ClusterNode.fromJson(e))
+                .toList()
+            : null,
+        elasticIpStatus: json.containsKey('ElasticIpStatus')
+            ? ElasticIpStatus.fromJson(json['ElasticIpStatus'])
+            : null,
+        clusterRevisionNumber: json.containsKey('ClusterRevisionNumber')
+            ? json['ClusterRevisionNumber'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        enhancedVpcRouting: json.containsKey('EnhancedVpcRouting')
+            ? json['EnhancedVpcRouting'] as bool
+            : null,
+        iamRoles: json.containsKey('IamRoles')
+            ? (json['IamRoles'] as List)
+                .map((e) => ClusterIamRole.fromJson(e))
+                .toList()
+            : null,
+        pendingActions: json.containsKey('PendingActions')
+            ? (json['PendingActions'] as List).map((e) => e as String).toList()
+            : null,
+        maintenanceTrackName: json.containsKey('MaintenanceTrackName')
+            ? json['MaintenanceTrackName'] as String
+            : null,
+        elasticResizeNumberOfNodeOptions:
+            json.containsKey('ElasticResizeNumberOfNodeOptions')
+                ? json['ElasticResizeNumberOfNodeOptions'] as String
+                : null,
+        deferredMaintenanceWindows:
+            json.containsKey('DeferredMaintenanceWindows')
+                ? (json['DeferredMaintenanceWindows'] as List)
+                    .map((e) => DeferredMaintenanceWindow.fromJson(e))
+                    .toList()
+                : null,
+        snapshotScheduleIdentifier:
+            json.containsKey('SnapshotScheduleIdentifier')
+                ? json['SnapshotScheduleIdentifier'] as String
+                : null,
+        snapshotScheduleState: json.containsKey('SnapshotScheduleState')
+            ? json['SnapshotScheduleState'] as String
+            : null,
+        expectedNextSnapshotScheduleTime:
+            json.containsKey('ExpectedNextSnapshotScheduleTime')
+                ? DateTime.parse(json['ExpectedNextSnapshotScheduleTime'])
+                : null,
+        expectedNextSnapshotScheduleTimeStatus:
+            json.containsKey('ExpectedNextSnapshotScheduleTimeStatus')
+                ? json['ExpectedNextSnapshotScheduleTimeStatus'] as String
+                : null,
+        resizeInfo: json.containsKey('ResizeInfo')
+            ? ResizeInfo.fromJson(json['ResizeInfo'])
+            : null,
+      );
 }
 
 class ClusterAssociatedToSchedule {
@@ -3934,7 +4731,14 @@ class ClusterAssociatedToSchedule {
     this.scheduleAssociationState,
   });
   static ClusterAssociatedToSchedule fromJson(Map<String, dynamic> json) =>
-      ClusterAssociatedToSchedule();
+      ClusterAssociatedToSchedule(
+        clusterIdentifier: json.containsKey('ClusterIdentifier')
+            ? json['ClusterIdentifier'] as String
+            : null,
+        scheduleAssociationState: json.containsKey('ScheduleAssociationState')
+            ? json['ScheduleAssociationState'] as String
+            : null,
+      );
 }
 
 /// Temporary credentials with authorization to log on to an Amazon Redshift
@@ -3961,7 +4765,15 @@ class ClusterCredentials {
     this.expiration,
   });
   static ClusterCredentials fromJson(Map<String, dynamic> json) =>
-      ClusterCredentials();
+      ClusterCredentials(
+        dbUser: json.containsKey('DbUser') ? json['DbUser'] as String : null,
+        dbPassword: json.containsKey('DbPassword')
+            ? json['DbPassword'] as String
+            : null,
+        expiration: json.containsKey('Expiration')
+            ? DateTime.parse(json['Expiration'])
+            : null,
+      );
 }
 
 /// Describes a `ClusterDbRevision`.
@@ -3986,7 +4798,23 @@ class ClusterDbRevision {
     this.revisionTargets,
   });
   static ClusterDbRevision fromJson(Map<String, dynamic> json) =>
-      ClusterDbRevision();
+      ClusterDbRevision(
+        clusterIdentifier: json.containsKey('ClusterIdentifier')
+            ? json['ClusterIdentifier'] as String
+            : null,
+        currentDatabaseRevision: json.containsKey('CurrentDatabaseRevision')
+            ? json['CurrentDatabaseRevision'] as String
+            : null,
+        databaseRevisionReleaseDate:
+            json.containsKey('DatabaseRevisionReleaseDate')
+                ? DateTime.parse(json['DatabaseRevisionReleaseDate'])
+                : null,
+        revisionTargets: json.containsKey('RevisionTargets')
+            ? (json['RevisionTargets'] as List)
+                .map((e) => RevisionTarget.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ClusterDbRevisionsMessage {
@@ -4005,7 +4833,14 @@ class ClusterDbRevisionsMessage {
     this.clusterDbRevisions,
   });
   static ClusterDbRevisionsMessage fromJson(Map<String, dynamic> json) =>
-      ClusterDbRevisionsMessage();
+      ClusterDbRevisionsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        clusterDbRevisions: json.containsKey('ClusterDbRevisions')
+            ? (json['ClusterDbRevisions'] as List)
+                .map((e) => ClusterDbRevision.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// An AWS Identity and Access Management (IAM) role that can be used by the
@@ -4033,7 +4868,14 @@ class ClusterIamRole {
     this.iamRoleArn,
     this.applyStatus,
   });
-  static ClusterIamRole fromJson(Map<String, dynamic> json) => ClusterIamRole();
+  static ClusterIamRole fromJson(Map<String, dynamic> json) => ClusterIamRole(
+        iamRoleArn: json.containsKey('IamRoleArn')
+            ? json['IamRoleArn'] as String
+            : null,
+        applyStatus: json.containsKey('ApplyStatus')
+            ? json['ApplyStatus'] as String
+            : null,
+      );
 }
 
 /// The identifier of a node in a cluster.
@@ -4052,7 +4894,16 @@ class ClusterNode {
     this.privateIPAddress,
     this.publicIPAddress,
   });
-  static ClusterNode fromJson(Map<String, dynamic> json) => ClusterNode();
+  static ClusterNode fromJson(Map<String, dynamic> json) => ClusterNode(
+        nodeRole:
+            json.containsKey('NodeRole') ? json['NodeRole'] as String : null,
+        privateIPAddress: json.containsKey('PrivateIPAddress')
+            ? json['PrivateIPAddress'] as String
+            : null,
+        publicIPAddress: json.containsKey('PublicIPAddress')
+            ? json['PublicIPAddress'] as String
+            : null,
+      );
 }
 
 /// Describes a parameter group.
@@ -4077,7 +4928,20 @@ class ClusterParameterGroup {
     this.tags,
   });
   static ClusterParameterGroup fromJson(Map<String, dynamic> json) =>
-      ClusterParameterGroup();
+      ClusterParameterGroup(
+        parameterGroupName: json.containsKey('ParameterGroupName')
+            ? json['ParameterGroupName'] as String
+            : null,
+        parameterGroupFamily: json.containsKey('ParameterGroupFamily')
+            ? json['ParameterGroupFamily'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains the output from the DescribeClusterParameters action.
@@ -4098,7 +4962,14 @@ class ClusterParameterGroupDetails {
     this.marker,
   });
   static ClusterParameterGroupDetails fromJson(Map<String, dynamic> json) =>
-      ClusterParameterGroupDetails();
+      ClusterParameterGroupDetails(
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class ClusterParameterGroupNameMessage {
@@ -4115,7 +4986,14 @@ class ClusterParameterGroupNameMessage {
     this.parameterGroupStatus,
   });
   static ClusterParameterGroupNameMessage fromJson(Map<String, dynamic> json) =>
-      ClusterParameterGroupNameMessage();
+      ClusterParameterGroupNameMessage(
+        parameterGroupName: json.containsKey('ParameterGroupName')
+            ? json['ParameterGroupName'] as String
+            : null,
+        parameterGroupStatus: json.containsKey('ParameterGroupStatus')
+            ? json['ParameterGroupStatus'] as String
+            : null,
+      );
 }
 
 /// Describes the status of a parameter group.
@@ -4139,7 +5017,20 @@ class ClusterParameterGroupStatus {
     this.clusterParameterStatusList,
   });
   static ClusterParameterGroupStatus fromJson(Map<String, dynamic> json) =>
-      ClusterParameterGroupStatus();
+      ClusterParameterGroupStatus(
+        parameterGroupName: json.containsKey('ParameterGroupName')
+            ? json['ParameterGroupName'] as String
+            : null,
+        parameterApplyStatus: json.containsKey('ParameterApplyStatus')
+            ? json['ParameterApplyStatus'] as String
+            : null,
+        clusterParameterStatusList:
+            json.containsKey('ClusterParameterStatusList')
+                ? (json['ClusterParameterStatusList'] as List)
+                    .map((e) => ClusterParameterStatus.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Contains the output from the DescribeClusterParameterGroups action.
@@ -4160,7 +5051,14 @@ class ClusterParameterGroupsMessage {
     this.parameterGroups,
   });
   static ClusterParameterGroupsMessage fromJson(Map<String, dynamic> json) =>
-      ClusterParameterGroupsMessage();
+      ClusterParameterGroupsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        parameterGroups: json.containsKey('ParameterGroups')
+            ? (json['ParameterGroups'] as List)
+                .map((e) => ClusterParameterGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the status of a parameter group.
@@ -4203,7 +5101,18 @@ class ClusterParameterStatus {
     this.parameterApplyErrorDescription,
   });
   static ClusterParameterStatus fromJson(Map<String, dynamic> json) =>
-      ClusterParameterStatus();
+      ClusterParameterStatus(
+        parameterName: json.containsKey('ParameterName')
+            ? json['ParameterName'] as String
+            : null,
+        parameterApplyStatus: json.containsKey('ParameterApplyStatus')
+            ? json['ParameterApplyStatus'] as String
+            : null,
+        parameterApplyErrorDescription:
+            json.containsKey('ParameterApplyErrorDescription')
+                ? json['ParameterApplyErrorDescription'] as String
+                : null,
+      );
 }
 
 /// Describes a security group.
@@ -4233,7 +5142,27 @@ class ClusterSecurityGroup {
     this.tags,
   });
   static ClusterSecurityGroup fromJson(Map<String, dynamic> json) =>
-      ClusterSecurityGroup();
+      ClusterSecurityGroup(
+        clusterSecurityGroupName: json.containsKey('ClusterSecurityGroupName')
+            ? json['ClusterSecurityGroupName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        ec2SecurityGroups: json.containsKey('EC2SecurityGroups')
+            ? (json['EC2SecurityGroups'] as List)
+                .map((e) => Ec2SecurityGroup.fromJson(e))
+                .toList()
+            : null,
+        ipRanges: json.containsKey('IPRanges')
+            ? (json['IPRanges'] as List)
+                .map((e) => IPRange.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes a cluster security group.
@@ -4249,7 +5178,12 @@ class ClusterSecurityGroupMembership {
     this.status,
   });
   static ClusterSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      ClusterSecurityGroupMembership();
+      ClusterSecurityGroupMembership(
+        clusterSecurityGroupName: json.containsKey('ClusterSecurityGroupName')
+            ? json['ClusterSecurityGroupName'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class ClusterSecurityGroupMessage {
@@ -4268,7 +5202,14 @@ class ClusterSecurityGroupMessage {
     this.clusterSecurityGroups,
   });
   static ClusterSecurityGroupMessage fromJson(Map<String, dynamic> json) =>
-      ClusterSecurityGroupMessage();
+      ClusterSecurityGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        clusterSecurityGroups: json.containsKey('ClusterSecurityGroups')
+            ? (json['ClusterSecurityGroups'] as List)
+                .map((e) => ClusterSecurityGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returns the destination region and retention period that are configured for
@@ -4299,7 +5240,21 @@ class ClusterSnapshotCopyStatus {
     this.snapshotCopyGrantName,
   });
   static ClusterSnapshotCopyStatus fromJson(Map<String, dynamic> json) =>
-      ClusterSnapshotCopyStatus();
+      ClusterSnapshotCopyStatus(
+        destinationRegion: json.containsKey('DestinationRegion')
+            ? json['DestinationRegion'] as String
+            : null,
+        retentionPeriod: json.containsKey('RetentionPeriod')
+            ? BigInt.from(json['RetentionPeriod'])
+            : null,
+        manualSnapshotRetentionPeriod:
+            json.containsKey('ManualSnapshotRetentionPeriod')
+                ? json['ManualSnapshotRetentionPeriod'] as int
+                : null,
+        snapshotCopyGrantName: json.containsKey('SnapshotCopyGrantName')
+            ? json['SnapshotCopyGrantName'] as String
+            : null,
+      );
 }
 
 /// Describes a subnet group.
@@ -4332,7 +5287,24 @@ class ClusterSubnetGroup {
     this.tags,
   });
   static ClusterSubnetGroup fromJson(Map<String, dynamic> json) =>
-      ClusterSubnetGroup();
+      ClusterSubnetGroup(
+        clusterSubnetGroupName: json.containsKey('ClusterSubnetGroupName')
+            ? json['ClusterSubnetGroupName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        subnetGroupStatus: json.containsKey('SubnetGroupStatus')
+            ? json['SubnetGroupStatus'] as String
+            : null,
+        subnets: json.containsKey('Subnets')
+            ? (json['Subnets'] as List).map((e) => Subnet.fromJson(e)).toList()
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Contains the output from the DescribeClusterSubnetGroups action.
@@ -4352,7 +5324,14 @@ class ClusterSubnetGroupMessage {
     this.clusterSubnetGroups,
   });
   static ClusterSubnetGroupMessage fromJson(Map<String, dynamic> json) =>
-      ClusterSubnetGroupMessage();
+      ClusterSubnetGroupMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        clusterSubnetGroups: json.containsKey('ClusterSubnetGroups')
+            ? (json['ClusterSubnetGroups'] as List)
+                .map((e) => ClusterSubnetGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a cluster version, including the parameter group family and
@@ -4372,7 +5351,18 @@ class ClusterVersion {
     this.clusterParameterGroupFamily,
     this.description,
   });
-  static ClusterVersion fromJson(Map<String, dynamic> json) => ClusterVersion();
+  static ClusterVersion fromJson(Map<String, dynamic> json) => ClusterVersion(
+        clusterVersion: json.containsKey('ClusterVersion')
+            ? json['ClusterVersion'] as String
+            : null,
+        clusterParameterGroupFamily:
+            json.containsKey('ClusterParameterGroupFamily')
+                ? json['ClusterParameterGroupFamily'] as String
+                : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Contains the output from the DescribeClusterVersions action.
@@ -4392,7 +5382,14 @@ class ClusterVersionsMessage {
     this.clusterVersions,
   });
   static ClusterVersionsMessage fromJson(Map<String, dynamic> json) =>
-      ClusterVersionsMessage();
+      ClusterVersionsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        clusterVersions: json.containsKey('ClusterVersions')
+            ? (json['ClusterVersions'] as List)
+                .map((e) => ClusterVersion.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output from the DescribeClusters action.
@@ -4411,8 +5408,14 @@ class ClustersMessage {
     this.marker,
     this.clusters,
   });
-  static ClustersMessage fromJson(Map<String, dynamic> json) =>
-      ClustersMessage();
+  static ClustersMessage fromJson(Map<String, dynamic> json) => ClustersMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        clusters: json.containsKey('Clusters')
+            ? (json['Clusters'] as List)
+                .map((e) => Cluster.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CopyClusterSnapshotResult {
@@ -4422,7 +5425,11 @@ class CopyClusterSnapshotResult {
     this.snapshot,
   });
   static CopyClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CopyClusterSnapshotResult();
+      CopyClusterSnapshotResult(
+        snapshot: json.containsKey('Snapshot')
+            ? Snapshot.fromJson(json['Snapshot'])
+            : null,
+      );
 }
 
 class CreateClusterParameterGroupResult {
@@ -4433,7 +5440,11 @@ class CreateClusterParameterGroupResult {
   });
   static CreateClusterParameterGroupResult fromJson(
           Map<String, dynamic> json) =>
-      CreateClusterParameterGroupResult();
+      CreateClusterParameterGroupResult(
+        clusterParameterGroup: json.containsKey('ClusterParameterGroup')
+            ? ClusterParameterGroup.fromJson(json['ClusterParameterGroup'])
+            : null,
+      );
 }
 
 class CreateClusterResult {
@@ -4443,7 +5454,11 @@ class CreateClusterResult {
     this.cluster,
   });
   static CreateClusterResult fromJson(Map<String, dynamic> json) =>
-      CreateClusterResult();
+      CreateClusterResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class CreateClusterSecurityGroupResult {
@@ -4453,7 +5468,11 @@ class CreateClusterSecurityGroupResult {
     this.clusterSecurityGroup,
   });
   static CreateClusterSecurityGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateClusterSecurityGroupResult();
+      CreateClusterSecurityGroupResult(
+        clusterSecurityGroup: json.containsKey('ClusterSecurityGroup')
+            ? ClusterSecurityGroup.fromJson(json['ClusterSecurityGroup'])
+            : null,
+      );
 }
 
 class CreateClusterSnapshotResult {
@@ -4463,7 +5482,11 @@ class CreateClusterSnapshotResult {
     this.snapshot,
   });
   static CreateClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      CreateClusterSnapshotResult();
+      CreateClusterSnapshotResult(
+        snapshot: json.containsKey('Snapshot')
+            ? Snapshot.fromJson(json['Snapshot'])
+            : null,
+      );
 }
 
 class CreateClusterSubnetGroupResult {
@@ -4473,7 +5496,11 @@ class CreateClusterSubnetGroupResult {
     this.clusterSubnetGroup,
   });
   static CreateClusterSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      CreateClusterSubnetGroupResult();
+      CreateClusterSubnetGroupResult(
+        clusterSubnetGroup: json.containsKey('ClusterSubnetGroup')
+            ? ClusterSubnetGroup.fromJson(json['ClusterSubnetGroup'])
+            : null,
+      );
 }
 
 class CreateEventSubscriptionResult {
@@ -4483,7 +5510,11 @@ class CreateEventSubscriptionResult {
     this.eventSubscription,
   });
   static CreateEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      CreateEventSubscriptionResult();
+      CreateEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class CreateHsmClientCertificateResult {
@@ -4493,7 +5524,11 @@ class CreateHsmClientCertificateResult {
     this.hsmClientCertificate,
   });
   static CreateHsmClientCertificateResult fromJson(Map<String, dynamic> json) =>
-      CreateHsmClientCertificateResult();
+      CreateHsmClientCertificateResult(
+        hsmClientCertificate: json.containsKey('HsmClientCertificate')
+            ? HsmClientCertificate.fromJson(json['HsmClientCertificate'])
+            : null,
+      );
 }
 
 class CreateHsmConfigurationResult {
@@ -4503,7 +5538,11 @@ class CreateHsmConfigurationResult {
     this.hsmConfiguration,
   });
   static CreateHsmConfigurationResult fromJson(Map<String, dynamic> json) =>
-      CreateHsmConfigurationResult();
+      CreateHsmConfigurationResult(
+        hsmConfiguration: json.containsKey('HsmConfiguration')
+            ? HsmConfiguration.fromJson(json['HsmConfiguration'])
+            : null,
+      );
 }
 
 class CreateSnapshotCopyGrantResult {
@@ -4513,7 +5552,11 @@ class CreateSnapshotCopyGrantResult {
     this.snapshotCopyGrant,
   });
   static CreateSnapshotCopyGrantResult fromJson(Map<String, dynamic> json) =>
-      CreateSnapshotCopyGrantResult();
+      CreateSnapshotCopyGrantResult(
+        snapshotCopyGrant: json.containsKey('SnapshotCopyGrant')
+            ? SnapshotCopyGrant.fromJson(json['SnapshotCopyGrant'])
+            : null,
+      );
 }
 
 class CustomerStorageMessage {
@@ -4528,7 +5571,16 @@ class CustomerStorageMessage {
     this.totalProvisionedStorageInMegaBytes,
   });
   static CustomerStorageMessage fromJson(Map<String, dynamic> json) =>
-      CustomerStorageMessage();
+      CustomerStorageMessage(
+        totalBackupSizeInMegaBytes:
+            json.containsKey('TotalBackupSizeInMegaBytes')
+                ? json['TotalBackupSizeInMegaBytes'] as double
+                : null,
+        totalProvisionedStorageInMegaBytes:
+            json.containsKey('TotalProvisionedStorageInMegaBytes')
+                ? json['TotalProvisionedStorageInMegaBytes'] as double
+                : null,
+      );
 }
 
 /// Describes the status of a cluster while it is in the process of resizing
@@ -4564,7 +5616,27 @@ class DataTransferProgress {
     this.elapsedTimeInSeconds,
   });
   static DataTransferProgress fromJson(Map<String, dynamic> json) =>
-      DataTransferProgress();
+      DataTransferProgress(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        currentRateInMegaBytesPerSecond:
+            json.containsKey('CurrentRateInMegaBytesPerSecond')
+                ? json['CurrentRateInMegaBytesPerSecond'] as double
+                : null,
+        totalDataInMegaBytes: json.containsKey('TotalDataInMegaBytes')
+            ? BigInt.from(json['TotalDataInMegaBytes'])
+            : null,
+        dataTransferredInMegaBytes:
+            json.containsKey('DataTransferredInMegaBytes')
+                ? BigInt.from(json['DataTransferredInMegaBytes'])
+                : null,
+        estimatedTimeToCompletionInSeconds:
+            json.containsKey('EstimatedTimeToCompletionInSeconds')
+                ? BigInt.from(json['EstimatedTimeToCompletionInSeconds'])
+                : null,
+        elapsedTimeInSeconds: json.containsKey('ElapsedTimeInSeconds')
+            ? BigInt.from(json['ElapsedTimeInSeconds'])
+            : null,
+      );
 }
 
 /// Describes the default cluster parameters for a parameter group family.
@@ -4589,7 +5661,17 @@ class DefaultClusterParameters {
     this.parameters,
   });
   static DefaultClusterParameters fromJson(Map<String, dynamic> json) =>
-      DefaultClusterParameters();
+      DefaultClusterParameters(
+        parameterGroupFamily: json.containsKey('ParameterGroupFamily')
+            ? json['ParameterGroupFamily'] as String
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        parameters: json.containsKey('Parameters')
+            ? (json['Parameters'] as List)
+                .map((e) => Parameter.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a deferred maintenance window
@@ -4610,7 +5692,18 @@ class DeferredMaintenanceWindow {
     this.deferMaintenanceEndTime,
   });
   static DeferredMaintenanceWindow fromJson(Map<String, dynamic> json) =>
-      DeferredMaintenanceWindow();
+      DeferredMaintenanceWindow(
+        deferMaintenanceIdentifier:
+            json.containsKey('DeferMaintenanceIdentifier')
+                ? json['DeferMaintenanceIdentifier'] as String
+                : null,
+        deferMaintenanceStartTime: json.containsKey('DeferMaintenanceStartTime')
+            ? DateTime.parse(json['DeferMaintenanceStartTime'])
+            : null,
+        deferMaintenanceEndTime: json.containsKey('DeferMaintenanceEndTime')
+            ? DateTime.parse(json['DeferMaintenanceEndTime'])
+            : null,
+      );
 }
 
 class DeleteClusterResult {
@@ -4620,7 +5713,11 @@ class DeleteClusterResult {
     this.cluster,
   });
   static DeleteClusterResult fromJson(Map<String, dynamic> json) =>
-      DeleteClusterResult();
+      DeleteClusterResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class DeleteClusterSnapshotMessage {
@@ -4642,6 +5739,7 @@ class DeleteClusterSnapshotMessage {
     @required this.snapshotIdentifier,
     this.snapshotClusterIdentifier,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteClusterSnapshotResult {
@@ -4651,7 +5749,11 @@ class DeleteClusterSnapshotResult {
     this.snapshot,
   });
   static DeleteClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      DeleteClusterSnapshotResult();
+      DeleteClusterSnapshotResult(
+        snapshot: json.containsKey('Snapshot')
+            ? Snapshot.fromJson(json['Snapshot'])
+            : null,
+      );
 }
 
 class DescribeDefaultClusterParametersResult {
@@ -4662,7 +5764,12 @@ class DescribeDefaultClusterParametersResult {
   });
   static DescribeDefaultClusterParametersResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeDefaultClusterParametersResult();
+      DescribeDefaultClusterParametersResult(
+        defaultClusterParameters: json.containsKey('DefaultClusterParameters')
+            ? DefaultClusterParameters.fromJson(
+                json['DefaultClusterParameters'])
+            : null,
+      );
 }
 
 class DescribeSnapshotSchedulesOutputMessage {
@@ -4682,7 +5789,14 @@ class DescribeSnapshotSchedulesOutputMessage {
   });
   static DescribeSnapshotSchedulesOutputMessage fromJson(
           Map<String, dynamic> json) =>
-      DescribeSnapshotSchedulesOutputMessage();
+      DescribeSnapshotSchedulesOutputMessage(
+        snapshotSchedules: json.containsKey('SnapshotSchedules')
+            ? (json['SnapshotSchedules'] as List)
+                .map((e) => SnapshotSchedule.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class DisableSnapshotCopyResult {
@@ -4692,7 +5806,11 @@ class DisableSnapshotCopyResult {
     this.cluster,
   });
   static DisableSnapshotCopyResult fromJson(Map<String, dynamic> json) =>
-      DisableSnapshotCopyResult();
+      DisableSnapshotCopyResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 /// Describes an Amazon EC2 security group.
@@ -4717,7 +5835,18 @@ class Ec2SecurityGroup {
     this.tags,
   });
   static Ec2SecurityGroup fromJson(Map<String, dynamic> json) =>
-      Ec2SecurityGroup();
+      Ec2SecurityGroup(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        ec2SecurityGroupName: json.containsKey('EC2SecurityGroupName')
+            ? json['EC2SecurityGroupName'] as String
+            : null,
+        ec2SecurityGroupOwnerId: json.containsKey('EC2SecurityGroupOwnerId')
+            ? json['EC2SecurityGroupOwnerId'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the status of the elastic IP (EIP) address.
@@ -4732,8 +5861,11 @@ class ElasticIpStatus {
     this.elasticIp,
     this.status,
   });
-  static ElasticIpStatus fromJson(Map<String, dynamic> json) =>
-      ElasticIpStatus();
+  static ElasticIpStatus fromJson(Map<String, dynamic> json) => ElasticIpStatus(
+        elasticIp:
+            json.containsKey('ElasticIp') ? json['ElasticIp'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 class EnableSnapshotCopyResult {
@@ -4743,7 +5875,11 @@ class EnableSnapshotCopyResult {
     this.cluster,
   });
   static EnableSnapshotCopyResult fromJson(Map<String, dynamic> json) =>
-      EnableSnapshotCopyResult();
+      EnableSnapshotCopyResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 /// Describes a connection endpoint.
@@ -4758,7 +5894,10 @@ class Endpoint {
     this.address,
     this.port,
   });
-  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
+  static Endpoint fromJson(Map<String, dynamic> json) => Endpoint(
+        address: json.containsKey('Address') ? json['Address'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+      );
 }
 
 /// Describes an event.
@@ -4797,7 +5936,22 @@ class Event {
     this.date,
     this.eventId,
   });
-  static Event fromJson(Map<String, dynamic> json) => Event();
+  static Event fromJson(Map<String, dynamic> json) => Event(
+        sourceIdentifier: json.containsKey('SourceIdentifier')
+            ? json['SourceIdentifier'] as String
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+        severity:
+            json.containsKey('Severity') ? json['Severity'] as String : null,
+        date: json.containsKey('Date') ? DateTime.parse(json['Date']) : null,
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+      );
 }
 
 /// Describes event categories.
@@ -4814,7 +5968,16 @@ class EventCategoriesMap {
     this.events,
   });
   static EventCategoriesMap fromJson(Map<String, dynamic> json) =>
-      EventCategoriesMap();
+      EventCategoriesMap(
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List)
+                .map((e) => EventInfoMap.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class EventCategoriesMessage {
@@ -4825,7 +5988,13 @@ class EventCategoriesMessage {
     this.eventCategoriesMapList,
   });
   static EventCategoriesMessage fromJson(Map<String, dynamic> json) =>
-      EventCategoriesMessage();
+      EventCategoriesMessage(
+        eventCategoriesMapList: json.containsKey('EventCategoriesMapList')
+            ? (json['EventCategoriesMapList'] as List)
+                .map((e) => EventCategoriesMap.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes event information.
@@ -4850,7 +6019,17 @@ class EventInfoMap {
     this.eventDescription,
     this.severity,
   });
-  static EventInfoMap fromJson(Map<String, dynamic> json) => EventInfoMap();
+  static EventInfoMap fromJson(Map<String, dynamic> json) => EventInfoMap(
+        eventId: json.containsKey('EventId') ? json['EventId'] as String : null,
+        eventCategories: json.containsKey('EventCategories')
+            ? (json['EventCategories'] as List).map((e) => e as String).toList()
+            : null,
+        eventDescription: json.containsKey('EventDescription')
+            ? json['EventDescription'] as String
+            : null,
+        severity:
+            json.containsKey('Severity') ? json['Severity'] as String : null,
+      );
 }
 
 /// Describes event subscriptions.
@@ -4923,7 +6102,38 @@ class EventSubscription {
     this.tags,
   });
   static EventSubscription fromJson(Map<String, dynamic> json) =>
-      EventSubscription();
+      EventSubscription(
+        customerAwsId: json.containsKey('CustomerAwsId')
+            ? json['CustomerAwsId'] as String
+            : null,
+        custSubscriptionId: json.containsKey('CustSubscriptionId')
+            ? json['CustSubscriptionId'] as String
+            : null,
+        snsTopicArn: json.containsKey('SnsTopicArn')
+            ? json['SnsTopicArn'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        subscriptionCreationTime: json.containsKey('SubscriptionCreationTime')
+            ? DateTime.parse(json['SubscriptionCreationTime'])
+            : null,
+        sourceType: json.containsKey('SourceType')
+            ? json['SourceType'] as String
+            : null,
+        sourceIdsList: json.containsKey('SourceIdsList')
+            ? (json['SourceIdsList'] as List).map((e) => e as String).toList()
+            : null,
+        eventCategoriesList: json.containsKey('EventCategoriesList')
+            ? (json['EventCategoriesList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        severity:
+            json.containsKey('Severity') ? json['Severity'] as String : null,
+        enabled: json.containsKey('Enabled') ? json['Enabled'] as bool : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class EventSubscriptionsMessage {
@@ -4942,7 +6152,14 @@ class EventSubscriptionsMessage {
     this.eventSubscriptionsList,
   });
   static EventSubscriptionsMessage fromJson(Map<String, dynamic> json) =>
-      EventSubscriptionsMessage();
+      EventSubscriptionsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        eventSubscriptionsList: json.containsKey('EventSubscriptionsList')
+            ? (json['EventSubscriptionsList'] as List)
+                .map((e) => EventSubscription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class EventsMessage {
@@ -4960,7 +6177,12 @@ class EventsMessage {
     this.marker,
     this.events,
   });
-  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage();
+  static EventsMessage fromJson(Map<String, dynamic> json) => EventsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        events: json.containsKey('Events')
+            ? (json['Events'] as List).map((e) => Event.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetReservedNodeExchangeOfferingsOutputMessage {
@@ -4982,7 +6204,14 @@ class GetReservedNodeExchangeOfferingsOutputMessage {
   });
   static GetReservedNodeExchangeOfferingsOutputMessage fromJson(
           Map<String, dynamic> json) =>
-      GetReservedNodeExchangeOfferingsOutputMessage();
+      GetReservedNodeExchangeOfferingsOutputMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        reservedNodeOfferings: json.containsKey('ReservedNodeOfferings')
+            ? (json['ReservedNodeOfferings'] as List)
+                .map((e) => ReservedNodeOffering.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returns information about an HSM client certificate. The certificate is
@@ -5005,7 +6234,19 @@ class HsmClientCertificate {
     this.tags,
   });
   static HsmClientCertificate fromJson(Map<String, dynamic> json) =>
-      HsmClientCertificate();
+      HsmClientCertificate(
+        hsmClientCertificateIdentifier:
+            json.containsKey('HsmClientCertificateIdentifier')
+                ? json['HsmClientCertificateIdentifier'] as String
+                : null,
+        hsmClientCertificatePublicKey:
+            json.containsKey('HsmClientCertificatePublicKey')
+                ? json['HsmClientCertificatePublicKey'] as String
+                : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class HsmClientCertificateMessage {
@@ -5026,7 +6267,14 @@ class HsmClientCertificateMessage {
     this.hsmClientCertificates,
   });
   static HsmClientCertificateMessage fromJson(Map<String, dynamic> json) =>
-      HsmClientCertificateMessage();
+      HsmClientCertificateMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        hsmClientCertificates: json.containsKey('HsmClientCertificates')
+            ? (json['HsmClientCertificates'] as List)
+                .map((e) => HsmClientCertificate.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Returns information about an HSM configuration, which is an object that
@@ -5058,7 +6306,24 @@ class HsmConfiguration {
     this.tags,
   });
   static HsmConfiguration fromJson(Map<String, dynamic> json) =>
-      HsmConfiguration();
+      HsmConfiguration(
+        hsmConfigurationIdentifier:
+            json.containsKey('HsmConfigurationIdentifier')
+                ? json['HsmConfigurationIdentifier'] as String
+                : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        hsmIpAddress: json.containsKey('HsmIpAddress')
+            ? json['HsmIpAddress'] as String
+            : null,
+        hsmPartitionName: json.containsKey('HsmPartitionName')
+            ? json['HsmPartitionName'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class HsmConfigurationMessage {
@@ -5077,7 +6342,14 @@ class HsmConfigurationMessage {
     this.hsmConfigurations,
   });
   static HsmConfigurationMessage fromJson(Map<String, dynamic> json) =>
-      HsmConfigurationMessage();
+      HsmConfigurationMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        hsmConfigurations: json.containsKey('HsmConfigurations')
+            ? (json['HsmConfigurations'] as List)
+                .map((e) => HsmConfiguration.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the status of changes to HSM settings.
@@ -5101,7 +6373,17 @@ class HsmStatus {
     this.hsmConfigurationIdentifier,
     this.status,
   });
-  static HsmStatus fromJson(Map<String, dynamic> json) => HsmStatus();
+  static HsmStatus fromJson(Map<String, dynamic> json) => HsmStatus(
+        hsmClientCertificateIdentifier:
+            json.containsKey('HsmClientCertificateIdentifier')
+                ? json['HsmClientCertificateIdentifier'] as String
+                : null,
+        hsmConfigurationIdentifier:
+            json.containsKey('HsmConfigurationIdentifier')
+                ? json['HsmConfigurationIdentifier'] as String
+                : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes an IP range used in a security group.
@@ -5120,7 +6402,13 @@ class IPRange {
     this.cidrip,
     this.tags,
   });
-  static IPRange fromJson(Map<String, dynamic> json) => IPRange();
+  static IPRange fromJson(Map<String, dynamic> json) => IPRange(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        cidrip: json.containsKey('CIDRIP') ? json['CIDRIP'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Describes the status of logging for a cluster.
@@ -5151,7 +6439,27 @@ class LoggingStatus {
     this.lastFailureTime,
     this.lastFailureMessage,
   });
-  static LoggingStatus fromJson(Map<String, dynamic> json) => LoggingStatus();
+  static LoggingStatus fromJson(Map<String, dynamic> json) => LoggingStatus(
+        loggingEnabled: json.containsKey('LoggingEnabled')
+            ? json['LoggingEnabled'] as bool
+            : null,
+        bucketName: json.containsKey('BucketName')
+            ? json['BucketName'] as String
+            : null,
+        s3KeyPrefix: json.containsKey('S3KeyPrefix')
+            ? json['S3KeyPrefix'] as String
+            : null,
+        lastSuccessfulDeliveryTime:
+            json.containsKey('LastSuccessfulDeliveryTime')
+                ? DateTime.parse(json['LastSuccessfulDeliveryTime'])
+                : null,
+        lastFailureTime: json.containsKey('LastFailureTime')
+            ? DateTime.parse(json['LastFailureTime'])
+            : null,
+        lastFailureMessage: json.containsKey('LastFailureMessage')
+            ? json['LastFailureMessage'] as String
+            : null,
+      );
 }
 
 /// Defines a maintenance track that determines which Amazon Redshift version to
@@ -5176,7 +6484,19 @@ class MaintenanceTrack {
     this.updateTargets,
   });
   static MaintenanceTrack fromJson(Map<String, dynamic> json) =>
-      MaintenanceTrack();
+      MaintenanceTrack(
+        maintenanceTrackName: json.containsKey('MaintenanceTrackName')
+            ? json['MaintenanceTrackName'] as String
+            : null,
+        databaseVersion: json.containsKey('DatabaseVersion')
+            ? json['DatabaseVersion'] as String
+            : null,
+        updateTargets: json.containsKey('UpdateTargets')
+            ? (json['UpdateTargets'] as List)
+                .map((e) => UpdateTarget.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ModifyClusterDbRevisionResult {
@@ -5186,7 +6506,11 @@ class ModifyClusterDbRevisionResult {
     this.cluster,
   });
   static ModifyClusterDbRevisionResult fromJson(Map<String, dynamic> json) =>
-      ModifyClusterDbRevisionResult();
+      ModifyClusterDbRevisionResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class ModifyClusterIamRolesResult {
@@ -5196,7 +6520,11 @@ class ModifyClusterIamRolesResult {
     this.cluster,
   });
   static ModifyClusterIamRolesResult fromJson(Map<String, dynamic> json) =>
-      ModifyClusterIamRolesResult();
+      ModifyClusterIamRolesResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class ModifyClusterMaintenanceResult {
@@ -5206,7 +6534,11 @@ class ModifyClusterMaintenanceResult {
     this.cluster,
   });
   static ModifyClusterMaintenanceResult fromJson(Map<String, dynamic> json) =>
-      ModifyClusterMaintenanceResult();
+      ModifyClusterMaintenanceResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class ModifyClusterResult {
@@ -5216,7 +6548,11 @@ class ModifyClusterResult {
     this.cluster,
   });
   static ModifyClusterResult fromJson(Map<String, dynamic> json) =>
-      ModifyClusterResult();
+      ModifyClusterResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 class ModifyClusterSnapshotResult {
@@ -5226,7 +6562,11 @@ class ModifyClusterSnapshotResult {
     this.snapshot,
   });
   static ModifyClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      ModifyClusterSnapshotResult();
+      ModifyClusterSnapshotResult(
+        snapshot: json.containsKey('Snapshot')
+            ? Snapshot.fromJson(json['Snapshot'])
+            : null,
+      );
 }
 
 class ModifyClusterSubnetGroupResult {
@@ -5236,7 +6576,11 @@ class ModifyClusterSubnetGroupResult {
     this.clusterSubnetGroup,
   });
   static ModifyClusterSubnetGroupResult fromJson(Map<String, dynamic> json) =>
-      ModifyClusterSubnetGroupResult();
+      ModifyClusterSubnetGroupResult(
+        clusterSubnetGroup: json.containsKey('ClusterSubnetGroup')
+            ? ClusterSubnetGroup.fromJson(json['ClusterSubnetGroup'])
+            : null,
+      );
 }
 
 class ModifyEventSubscriptionResult {
@@ -5246,7 +6590,11 @@ class ModifyEventSubscriptionResult {
     this.eventSubscription,
   });
   static ModifyEventSubscriptionResult fromJson(Map<String, dynamic> json) =>
-      ModifyEventSubscriptionResult();
+      ModifyEventSubscriptionResult(
+        eventSubscription: json.containsKey('EventSubscription')
+            ? EventSubscription.fromJson(json['EventSubscription'])
+            : null,
+      );
 }
 
 class ModifySnapshotCopyRetentionPeriodResult {
@@ -5257,7 +6605,11 @@ class ModifySnapshotCopyRetentionPeriodResult {
   });
   static ModifySnapshotCopyRetentionPeriodResult fromJson(
           Map<String, dynamic> json) =>
-      ModifySnapshotCopyRetentionPeriodResult();
+      ModifySnapshotCopyRetentionPeriodResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 /// Describes an orderable cluster option.
@@ -5281,7 +6633,21 @@ class OrderableClusterOption {
     this.availabilityZones,
   });
   static OrderableClusterOption fromJson(Map<String, dynamic> json) =>
-      OrderableClusterOption();
+      OrderableClusterOption(
+        clusterVersion: json.containsKey('ClusterVersion')
+            ? json['ClusterVersion'] as String
+            : null,
+        clusterType: json.containsKey('ClusterType')
+            ? json['ClusterType'] as String
+            : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        availabilityZones: json.containsKey('AvailabilityZones')
+            ? (json['AvailabilityZones'] as List)
+                .map((e) => AvailabilityZone.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Contains the output from the DescribeOrderableClusterOptions action.
@@ -5302,7 +6668,14 @@ class OrderableClusterOptionsMessage {
     this.marker,
   });
   static OrderableClusterOptionsMessage fromJson(Map<String, dynamic> json) =>
-      OrderableClusterOptionsMessage();
+      OrderableClusterOptionsMessage(
+        orderableClusterOptions: json.containsKey('OrderableClusterOptions')
+            ? (json['OrderableClusterOptions'] as List)
+                .map((e) => OrderableClusterOption.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// Describes a parameter in a cluster parameter group.
@@ -5351,7 +6724,32 @@ class Parameter {
     this.isModifiable,
     this.minimumEngineVersion,
   });
-  static Parameter fromJson(Map<String, dynamic> json) => Parameter();
+  static Parameter fromJson(Map<String, dynamic> json) => Parameter(
+        parameterName: json.containsKey('ParameterName')
+            ? json['ParameterName'] as String
+            : null,
+        parameterValue: json.containsKey('ParameterValue')
+            ? json['ParameterValue'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+        dataType:
+            json.containsKey('DataType') ? json['DataType'] as String : null,
+        allowedValues: json.containsKey('AllowedValues')
+            ? json['AllowedValues'] as String
+            : null,
+        applyType:
+            json.containsKey('ApplyType') ? json['ApplyType'] as String : null,
+        isModifiable: json.containsKey('IsModifiable')
+            ? json['IsModifiable'] as bool
+            : null,
+        minimumEngineVersion: json.containsKey('MinimumEngineVersion')
+            ? json['MinimumEngineVersion'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes cluster attributes that are in a pending state. A change to one or
@@ -5417,7 +6815,41 @@ class PendingModifiedValues {
     this.encryptionType,
   });
   static PendingModifiedValues fromJson(Map<String, dynamic> json) =>
-      PendingModifiedValues();
+      PendingModifiedValues(
+        masterUserPassword: json.containsKey('MasterUserPassword')
+            ? json['MasterUserPassword'] as String
+            : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        numberOfNodes: json.containsKey('NumberOfNodes')
+            ? json['NumberOfNodes'] as int
+            : null,
+        clusterType: json.containsKey('ClusterType')
+            ? json['ClusterType'] as String
+            : null,
+        clusterVersion: json.containsKey('ClusterVersion')
+            ? json['ClusterVersion'] as String
+            : null,
+        automatedSnapshotRetentionPeriod:
+            json.containsKey('AutomatedSnapshotRetentionPeriod')
+                ? json['AutomatedSnapshotRetentionPeriod'] as int
+                : null,
+        clusterIdentifier: json.containsKey('ClusterIdentifier')
+            ? json['ClusterIdentifier'] as String
+            : null,
+        publiclyAccessible: json.containsKey('PubliclyAccessible')
+            ? json['PubliclyAccessible'] as bool
+            : null,
+        enhancedVpcRouting: json.containsKey('EnhancedVpcRouting')
+            ? json['EnhancedVpcRouting'] as bool
+            : null,
+        maintenanceTrackName: json.containsKey('MaintenanceTrackName')
+            ? json['MaintenanceTrackName'] as String
+            : null,
+        encryptionType: json.containsKey('EncryptionType')
+            ? json['EncryptionType'] as String
+            : null,
+      );
 }
 
 class PurchaseReservedNodeOfferingResult {
@@ -5428,7 +6860,11 @@ class PurchaseReservedNodeOfferingResult {
   });
   static PurchaseReservedNodeOfferingResult fromJson(
           Map<String, dynamic> json) =>
-      PurchaseReservedNodeOfferingResult();
+      PurchaseReservedNodeOfferingResult(
+        reservedNode: json.containsKey('ReservedNode')
+            ? ReservedNode.fromJson(json['ReservedNode'])
+            : null,
+      );
 }
 
 class RebootClusterResult {
@@ -5438,7 +6874,11 @@ class RebootClusterResult {
     this.cluster,
   });
   static RebootClusterResult fromJson(Map<String, dynamic> json) =>
-      RebootClusterResult();
+      RebootClusterResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 /// Describes a recurring charge.
@@ -5454,8 +6894,14 @@ class RecurringCharge {
     this.recurringChargeAmount,
     this.recurringChargeFrequency,
   });
-  static RecurringCharge fromJson(Map<String, dynamic> json) =>
-      RecurringCharge();
+  static RecurringCharge fromJson(Map<String, dynamic> json) => RecurringCharge(
+        recurringChargeAmount: json.containsKey('RecurringChargeAmount')
+            ? json['RecurringChargeAmount'] as double
+            : null,
+        recurringChargeFrequency: json.containsKey('RecurringChargeFrequency')
+            ? json['RecurringChargeFrequency'] as String
+            : null,
+      );
 }
 
 /// Describes a reserved node. You can call the DescribeReservedNodeOfferings
@@ -5531,7 +6977,43 @@ class ReservedNode {
     this.recurringCharges,
     this.reservedNodeOfferingType,
   });
-  static ReservedNode fromJson(Map<String, dynamic> json) => ReservedNode();
+  static ReservedNode fromJson(Map<String, dynamic> json) => ReservedNode(
+        reservedNodeId: json.containsKey('ReservedNodeId')
+            ? json['ReservedNodeId'] as String
+            : null,
+        reservedNodeOfferingId: json.containsKey('ReservedNodeOfferingId')
+            ? json['ReservedNodeOfferingId'] as String
+            : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        startTime: json.containsKey('StartTime')
+            ? DateTime.parse(json['StartTime'])
+            : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        nodeCount:
+            json.containsKey('NodeCount') ? json['NodeCount'] as int : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+        reservedNodeOfferingType: json.containsKey('ReservedNodeOfferingType')
+            ? json['ReservedNodeOfferingType'] as String
+            : null,
+      );
 }
 
 /// Describes a reserved node offering.
@@ -5579,7 +7061,34 @@ class ReservedNodeOffering {
     this.reservedNodeOfferingType,
   });
   static ReservedNodeOffering fromJson(Map<String, dynamic> json) =>
-      ReservedNodeOffering();
+      ReservedNodeOffering(
+        reservedNodeOfferingId: json.containsKey('ReservedNodeOfferingId')
+            ? json['ReservedNodeOfferingId'] as String
+            : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        fixedPrice: json.containsKey('FixedPrice')
+            ? json['FixedPrice'] as double
+            : null,
+        usagePrice: json.containsKey('UsagePrice')
+            ? json['UsagePrice'] as double
+            : null,
+        currencyCode: json.containsKey('CurrencyCode')
+            ? json['CurrencyCode'] as String
+            : null,
+        offeringType: json.containsKey('OfferingType')
+            ? json['OfferingType'] as String
+            : null,
+        recurringCharges: json.containsKey('RecurringCharges')
+            ? (json['RecurringCharges'] as List)
+                .map((e) => RecurringCharge.fromJson(e))
+                .toList()
+            : null,
+        reservedNodeOfferingType: json.containsKey('ReservedNodeOfferingType')
+            ? json['ReservedNodeOfferingType'] as String
+            : null,
+      );
 }
 
 class ReservedNodeOfferingsMessage {
@@ -5598,7 +7107,14 @@ class ReservedNodeOfferingsMessage {
     this.reservedNodeOfferings,
   });
   static ReservedNodeOfferingsMessage fromJson(Map<String, dynamic> json) =>
-      ReservedNodeOfferingsMessage();
+      ReservedNodeOfferingsMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        reservedNodeOfferings: json.containsKey('ReservedNodeOfferings')
+            ? (json['ReservedNodeOfferings'] as List)
+                .map((e) => ReservedNodeOffering.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ReservedNodesMessage {
@@ -5617,7 +7133,14 @@ class ReservedNodesMessage {
     this.reservedNodes,
   });
   static ReservedNodesMessage fromJson(Map<String, dynamic> json) =>
-      ReservedNodesMessage();
+      ReservedNodesMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        reservedNodes: json.containsKey('ReservedNodes')
+            ? (json['ReservedNodes'] as List)
+                .map((e) => ReservedNode.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ResizeClusterResult {
@@ -5627,7 +7150,11 @@ class ResizeClusterResult {
     this.cluster,
   });
   static ResizeClusterResult fromJson(Map<String, dynamic> json) =>
-      ResizeClusterResult();
+      ResizeClusterResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 /// Describes a resize operation.
@@ -5642,7 +7169,14 @@ class ResizeInfo {
     this.resizeType,
     this.allowCancelResize,
   });
-  static ResizeInfo fromJson(Map<String, dynamic> json) => ResizeInfo();
+  static ResizeInfo fromJson(Map<String, dynamic> json) => ResizeInfo(
+        resizeType: json.containsKey('ResizeType')
+            ? json['ResizeType'] as String
+            : null,
+        allowCancelResize: json.containsKey('AllowCancelResize')
+            ? json['AllowCancelResize'] as bool
+            : null,
+      );
 }
 
 /// Describes the result of a cluster resize operation.
@@ -5744,7 +7278,62 @@ class ResizeProgressMessage {
     this.dataTransferProgressPercent,
   });
   static ResizeProgressMessage fromJson(Map<String, dynamic> json) =>
-      ResizeProgressMessage();
+      ResizeProgressMessage(
+        targetNodeType: json.containsKey('TargetNodeType')
+            ? json['TargetNodeType'] as String
+            : null,
+        targetNumberOfNodes: json.containsKey('TargetNumberOfNodes')
+            ? json['TargetNumberOfNodes'] as int
+            : null,
+        targetClusterType: json.containsKey('TargetClusterType')
+            ? json['TargetClusterType'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        importTablesCompleted: json.containsKey('ImportTablesCompleted')
+            ? (json['ImportTablesCompleted'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        importTablesInProgress: json.containsKey('ImportTablesInProgress')
+            ? (json['ImportTablesInProgress'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        importTablesNotStarted: json.containsKey('ImportTablesNotStarted')
+            ? (json['ImportTablesNotStarted'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        avgResizeRateInMegaBytesPerSecond:
+            json.containsKey('AvgResizeRateInMegaBytesPerSecond')
+                ? json['AvgResizeRateInMegaBytesPerSecond'] as double
+                : null,
+        totalResizeDataInMegaBytes:
+            json.containsKey('TotalResizeDataInMegaBytes')
+                ? BigInt.from(json['TotalResizeDataInMegaBytes'])
+                : null,
+        progressInMegaBytes: json.containsKey('ProgressInMegaBytes')
+            ? BigInt.from(json['ProgressInMegaBytes'])
+            : null,
+        elapsedTimeInSeconds: json.containsKey('ElapsedTimeInSeconds')
+            ? BigInt.from(json['ElapsedTimeInSeconds'])
+            : null,
+        estimatedTimeToCompletionInSeconds:
+            json.containsKey('EstimatedTimeToCompletionInSeconds')
+                ? BigInt.from(json['EstimatedTimeToCompletionInSeconds'])
+                : null,
+        resizeType: json.containsKey('ResizeType')
+            ? json['ResizeType'] as String
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        targetEncryptionType: json.containsKey('TargetEncryptionType')
+            ? json['TargetEncryptionType'] as String
+            : null,
+        dataTransferProgressPercent:
+            json.containsKey('DataTransferProgressPercent')
+                ? json['DataTransferProgressPercent'] as double
+                : null,
+      );
 }
 
 class RestoreFromClusterSnapshotResult {
@@ -5754,7 +7343,11 @@ class RestoreFromClusterSnapshotResult {
     this.cluster,
   });
   static RestoreFromClusterSnapshotResult fromJson(Map<String, dynamic> json) =>
-      RestoreFromClusterSnapshotResult();
+      RestoreFromClusterSnapshotResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 /// Describes the status of a cluster restore action. Returns null if the
@@ -5790,7 +7383,26 @@ class RestoreStatus {
     this.elapsedTimeInSeconds,
     this.estimatedTimeToCompletionInSeconds,
   });
-  static RestoreStatus fromJson(Map<String, dynamic> json) => RestoreStatus();
+  static RestoreStatus fromJson(Map<String, dynamic> json) => RestoreStatus(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        currentRestoreRateInMegaBytesPerSecond:
+            json.containsKey('CurrentRestoreRateInMegaBytesPerSecond')
+                ? json['CurrentRestoreRateInMegaBytesPerSecond'] as double
+                : null,
+        snapshotSizeInMegaBytes: json.containsKey('SnapshotSizeInMegaBytes')
+            ? BigInt.from(json['SnapshotSizeInMegaBytes'])
+            : null,
+        progressInMegaBytes: json.containsKey('ProgressInMegaBytes')
+            ? BigInt.from(json['ProgressInMegaBytes'])
+            : null,
+        elapsedTimeInSeconds: json.containsKey('ElapsedTimeInSeconds')
+            ? BigInt.from(json['ElapsedTimeInSeconds'])
+            : null,
+        estimatedTimeToCompletionInSeconds:
+            json.containsKey('EstimatedTimeToCompletionInSeconds')
+                ? BigInt.from(json['EstimatedTimeToCompletionInSeconds'])
+                : null,
+      );
 }
 
 class RestoreTableFromClusterSnapshotResult {
@@ -5801,7 +7413,11 @@ class RestoreTableFromClusterSnapshotResult {
   });
   static RestoreTableFromClusterSnapshotResult fromJson(
           Map<String, dynamic> json) =>
-      RestoreTableFromClusterSnapshotResult();
+      RestoreTableFromClusterSnapshotResult(
+        tableRestoreStatus: json.containsKey('TableRestoreStatus')
+            ? TableRestoreStatus.fromJson(json['TableRestoreStatus'])
+            : null,
+      );
 }
 
 /// Describes a `RevisionTarget`.
@@ -5822,7 +7438,18 @@ class RevisionTarget {
     this.description,
     this.databaseRevisionReleaseDate,
   });
-  static RevisionTarget fromJson(Map<String, dynamic> json) => RevisionTarget();
+  static RevisionTarget fromJson(Map<String, dynamic> json) => RevisionTarget(
+        databaseRevision: json.containsKey('DatabaseRevision')
+            ? json['DatabaseRevision'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        databaseRevisionReleaseDate:
+            json.containsKey('DatabaseRevisionReleaseDate')
+                ? DateTime.parse(json['DatabaseRevisionReleaseDate'])
+                : null,
+      );
 }
 
 class RevokeClusterSecurityGroupIngressResult {
@@ -5833,7 +7460,11 @@ class RevokeClusterSecurityGroupIngressResult {
   });
   static RevokeClusterSecurityGroupIngressResult fromJson(
           Map<String, dynamic> json) =>
-      RevokeClusterSecurityGroupIngressResult();
+      RevokeClusterSecurityGroupIngressResult(
+        clusterSecurityGroup: json.containsKey('ClusterSecurityGroup')
+            ? ClusterSecurityGroup.fromJson(json['ClusterSecurityGroup'])
+            : null,
+      );
 }
 
 class RevokeSnapshotAccessResult {
@@ -5843,7 +7474,11 @@ class RevokeSnapshotAccessResult {
     this.snapshot,
   });
   static RevokeSnapshotAccessResult fromJson(Map<String, dynamic> json) =>
-      RevokeSnapshotAccessResult();
+      RevokeSnapshotAccessResult(
+        snapshot: json.containsKey('Snapshot')
+            ? Snapshot.fromJson(json['Snapshot'])
+            : null,
+      );
 }
 
 class RotateEncryptionKeyResult {
@@ -5853,7 +7488,11 @@ class RotateEncryptionKeyResult {
     this.cluster,
   });
   static RotateEncryptionKeyResult fromJson(Map<String, dynamic> json) =>
-      RotateEncryptionKeyResult();
+      RotateEncryptionKeyResult(
+        cluster: json.containsKey('Cluster')
+            ? Cluster.fromJson(json['Cluster'])
+            : null,
+      );
 }
 
 /// Describes a snapshot.
@@ -6028,7 +7667,107 @@ class Snapshot {
     this.manualSnapshotRemainingDays,
     this.snapshotRetentionStartTime,
   });
-  static Snapshot fromJson(Map<String, dynamic> json) => Snapshot();
+  static Snapshot fromJson(Map<String, dynamic> json) => Snapshot(
+        snapshotIdentifier: json.containsKey('SnapshotIdentifier')
+            ? json['SnapshotIdentifier'] as String
+            : null,
+        clusterIdentifier: json.containsKey('ClusterIdentifier')
+            ? json['ClusterIdentifier'] as String
+            : null,
+        snapshotCreateTime: json.containsKey('SnapshotCreateTime')
+            ? DateTime.parse(json['SnapshotCreateTime'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        clusterCreateTime: json.containsKey('ClusterCreateTime')
+            ? DateTime.parse(json['ClusterCreateTime'])
+            : null,
+        masterUsername: json.containsKey('MasterUsername')
+            ? json['MasterUsername'] as String
+            : null,
+        clusterVersion: json.containsKey('ClusterVersion')
+            ? json['ClusterVersion'] as String
+            : null,
+        snapshotType: json.containsKey('SnapshotType')
+            ? json['SnapshotType'] as String
+            : null,
+        nodeType:
+            json.containsKey('NodeType') ? json['NodeType'] as String : null,
+        numberOfNodes: json.containsKey('NumberOfNodes')
+            ? json['NumberOfNodes'] as int
+            : null,
+        dbName: json.containsKey('DBName') ? json['DBName'] as String : null,
+        vpcId: json.containsKey('VpcId') ? json['VpcId'] as String : null,
+        encrypted:
+            json.containsKey('Encrypted') ? json['Encrypted'] as bool : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        encryptedWithHsm: json.containsKey('EncryptedWithHSM')
+            ? json['EncryptedWithHSM'] as bool
+            : null,
+        accountsWithRestoreAccess: json.containsKey('AccountsWithRestoreAccess')
+            ? (json['AccountsWithRestoreAccess'] as List)
+                .map((e) => AccountWithRestoreAccess.fromJson(e))
+                .toList()
+            : null,
+        ownerAccount: json.containsKey('OwnerAccount')
+            ? json['OwnerAccount'] as String
+            : null,
+        totalBackupSizeInMegaBytes:
+            json.containsKey('TotalBackupSizeInMegaBytes')
+                ? json['TotalBackupSizeInMegaBytes'] as double
+                : null,
+        actualIncrementalBackupSizeInMegaBytes:
+            json.containsKey('ActualIncrementalBackupSizeInMegaBytes')
+                ? json['ActualIncrementalBackupSizeInMegaBytes'] as double
+                : null,
+        backupProgressInMegaBytes: json.containsKey('BackupProgressInMegaBytes')
+            ? json['BackupProgressInMegaBytes'] as double
+            : null,
+        currentBackupRateInMegaBytesPerSecond:
+            json.containsKey('CurrentBackupRateInMegaBytesPerSecond')
+                ? json['CurrentBackupRateInMegaBytesPerSecond'] as double
+                : null,
+        estimatedSecondsToCompletion:
+            json.containsKey('EstimatedSecondsToCompletion')
+                ? BigInt.from(json['EstimatedSecondsToCompletion'])
+                : null,
+        elapsedTimeInSeconds: json.containsKey('ElapsedTimeInSeconds')
+            ? BigInt.from(json['ElapsedTimeInSeconds'])
+            : null,
+        sourceRegion: json.containsKey('SourceRegion')
+            ? json['SourceRegion'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        restorableNodeTypes: json.containsKey('RestorableNodeTypes')
+            ? (json['RestorableNodeTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        enhancedVpcRouting: json.containsKey('EnhancedVpcRouting')
+            ? json['EnhancedVpcRouting'] as bool
+            : null,
+        maintenanceTrackName: json.containsKey('MaintenanceTrackName')
+            ? json['MaintenanceTrackName'] as String
+            : null,
+        manualSnapshotRetentionPeriod:
+            json.containsKey('ManualSnapshotRetentionPeriod')
+                ? json['ManualSnapshotRetentionPeriod'] as int
+                : null,
+        manualSnapshotRemainingDays:
+            json.containsKey('ManualSnapshotRemainingDays')
+                ? json['ManualSnapshotRemainingDays'] as int
+                : null,
+        snapshotRetentionStartTime:
+            json.containsKey('SnapshotRetentionStartTime')
+                ? DateTime.parse(json['SnapshotRetentionStartTime'])
+                : null,
+      );
 }
 
 /// The snapshot copy grant that grants Amazon Redshift permission to encrypt
@@ -6055,7 +7794,16 @@ class SnapshotCopyGrant {
     this.tags,
   });
   static SnapshotCopyGrant fromJson(Map<String, dynamic> json) =>
-      SnapshotCopyGrant();
+      SnapshotCopyGrant(
+        snapshotCopyGrantName: json.containsKey('SnapshotCopyGrantName')
+            ? json['SnapshotCopyGrantName'] as String
+            : null,
+        kmsKeyId:
+            json.containsKey('KmsKeyId') ? json['KmsKeyId'] as String : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class SnapshotCopyGrantMessage {
@@ -6078,7 +7826,14 @@ class SnapshotCopyGrantMessage {
     this.snapshotCopyGrants,
   });
   static SnapshotCopyGrantMessage fromJson(Map<String, dynamic> json) =>
-      SnapshotCopyGrantMessage();
+      SnapshotCopyGrantMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        snapshotCopyGrants: json.containsKey('SnapshotCopyGrants')
+            ? (json['SnapshotCopyGrants'] as List)
+                .map((e) => SnapshotCopyGrant.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the errors returned by a snapshot.
@@ -6102,7 +7857,20 @@ class SnapshotErrorMessage {
     this.failureReason,
   });
   static SnapshotErrorMessage fromJson(Map<String, dynamic> json) =>
-      SnapshotErrorMessage();
+      SnapshotErrorMessage(
+        snapshotIdentifier: json.containsKey('SnapshotIdentifier')
+            ? json['SnapshotIdentifier'] as String
+            : null,
+        snapshotClusterIdentifier: json.containsKey('SnapshotClusterIdentifier')
+            ? json['SnapshotClusterIdentifier'] as String
+            : null,
+        failureCode: json.containsKey('FailureCode')
+            ? json['FailureCode'] as String
+            : null,
+        failureReason: json.containsKey('FailureReason')
+            ? json['FailureReason'] as String
+            : null,
+      );
 }
 
 /// Contains the output from the DescribeClusterSnapshots action.
@@ -6121,8 +7889,14 @@ class SnapshotMessage {
     this.marker,
     this.snapshots,
   });
-  static SnapshotMessage fromJson(Map<String, dynamic> json) =>
-      SnapshotMessage();
+  static SnapshotMessage fromJson(Map<String, dynamic> json) => SnapshotMessage(
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+        snapshots: json.containsKey('Snapshots')
+            ? (json['Snapshots'] as List)
+                .map((e) => Snapshot.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a snapshot schedule. You can set a regular interval for creating
@@ -6159,7 +7933,35 @@ class SnapshotSchedule {
     this.associatedClusters,
   });
   static SnapshotSchedule fromJson(Map<String, dynamic> json) =>
-      SnapshotSchedule();
+      SnapshotSchedule(
+        scheduleDefinitions: json.containsKey('ScheduleDefinitions')
+            ? (json['ScheduleDefinitions'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        scheduleIdentifier: json.containsKey('ScheduleIdentifier')
+            ? json['ScheduleIdentifier'] as String
+            : null,
+        scheduleDescription: json.containsKey('ScheduleDescription')
+            ? json['ScheduleDescription'] as String
+            : null,
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextInvocations: json.containsKey('NextInvocations')
+            ? (json['NextInvocations'] as List)
+                .map((e) => DateTime.parse(e))
+                .toList()
+            : null,
+        associatedClusterCount: json.containsKey('AssociatedClusterCount')
+            ? json['AssociatedClusterCount'] as int
+            : null,
+        associatedClusters: json.containsKey('AssociatedClusters')
+            ? (json['AssociatedClusters'] as List)
+                .map((e) => ClusterAssociatedToSchedule.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a sorting entity
@@ -6174,6 +7976,7 @@ class SnapshotSortingEntity {
     @required this.attribute,
     this.sortOrder,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a subnet.
@@ -6191,7 +7994,17 @@ class Subnet {
     this.subnetAvailabilityZone,
     this.subnetStatus,
   });
-  static Subnet fromJson(Map<String, dynamic> json) => Subnet();
+  static Subnet fromJson(Map<String, dynamic> json) => Subnet(
+        subnetIdentifier: json.containsKey('SubnetIdentifier')
+            ? json['SubnetIdentifier'] as String
+            : null,
+        subnetAvailabilityZone: json.containsKey('SubnetAvailabilityZone')
+            ? AvailabilityZone.fromJson(json['SubnetAvailabilityZone'])
+            : null,
+        subnetStatus: json.containsKey('SubnetStatus')
+            ? json['SubnetStatus'] as String
+            : null,
+      );
 }
 
 /// Describes the operations that are allowed on a maintenance track.
@@ -6203,7 +8016,11 @@ class SupportedOperation {
     this.operationName,
   });
   static SupportedOperation fromJson(Map<String, dynamic> json) =>
-      SupportedOperation();
+      SupportedOperation(
+        operationName: json.containsKey('OperationName')
+            ? json['OperationName'] as String
+            : null,
+      );
 }
 
 /// A list of supported platforms for orderable clusters.
@@ -6214,7 +8031,9 @@ class SupportedPlatform {
     this.name,
   });
   static SupportedPlatform fromJson(Map<String, dynamic> json) =>
-      SupportedPlatform();
+      SupportedPlatform(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Describes the status of a RestoreTableFromClusterSnapshot operation.
@@ -6283,7 +8102,46 @@ class TableRestoreStatus {
     this.newTableName,
   });
   static TableRestoreStatus fromJson(Map<String, dynamic> json) =>
-      TableRestoreStatus();
+      TableRestoreStatus(
+        tableRestoreRequestId: json.containsKey('TableRestoreRequestId')
+            ? json['TableRestoreRequestId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        requestTime: json.containsKey('RequestTime')
+            ? DateTime.parse(json['RequestTime'])
+            : null,
+        progressInMegaBytes: json.containsKey('ProgressInMegaBytes')
+            ? BigInt.from(json['ProgressInMegaBytes'])
+            : null,
+        totalDataInMegaBytes: json.containsKey('TotalDataInMegaBytes')
+            ? BigInt.from(json['TotalDataInMegaBytes'])
+            : null,
+        clusterIdentifier: json.containsKey('ClusterIdentifier')
+            ? json['ClusterIdentifier'] as String
+            : null,
+        snapshotIdentifier: json.containsKey('SnapshotIdentifier')
+            ? json['SnapshotIdentifier'] as String
+            : null,
+        sourceDatabaseName: json.containsKey('SourceDatabaseName')
+            ? json['SourceDatabaseName'] as String
+            : null,
+        sourceSchemaName: json.containsKey('SourceSchemaName')
+            ? json['SourceSchemaName'] as String
+            : null,
+        sourceTableName: json.containsKey('SourceTableName')
+            ? json['SourceTableName'] as String
+            : null,
+        targetDatabaseName: json.containsKey('TargetDatabaseName')
+            ? json['TargetDatabaseName'] as String
+            : null,
+        targetSchemaName: json.containsKey('TargetSchemaName')
+            ? json['TargetSchemaName'] as String
+            : null,
+        newTableName: json.containsKey('NewTableName')
+            ? json['NewTableName'] as String
+            : null,
+      );
 }
 
 class TableRestoreStatusMessage {
@@ -6299,7 +8157,14 @@ class TableRestoreStatusMessage {
     this.marker,
   });
   static TableRestoreStatusMessage fromJson(Map<String, dynamic> json) =>
-      TableRestoreStatusMessage();
+      TableRestoreStatusMessage(
+        tableRestoreStatusDetails: json.containsKey('TableRestoreStatusDetails')
+            ? (json['TableRestoreStatusDetails'] as List)
+                .map((e) => TableRestoreStatus.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// A tag consisting of a name/value pair for a resource.
@@ -6314,7 +8179,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A tag and its associated resource.
@@ -6359,7 +8228,15 @@ class TaggedResource {
     this.resourceName,
     this.resourceType,
   });
-  static TaggedResource fromJson(Map<String, dynamic> json) => TaggedResource();
+  static TaggedResource fromJson(Map<String, dynamic> json) => TaggedResource(
+        tag: json.containsKey('Tag') ? Tag.fromJson(json['Tag']) : null,
+        resourceName: json.containsKey('ResourceName')
+            ? json['ResourceName'] as String
+            : null,
+        resourceType: json.containsKey('ResourceType')
+            ? json['ResourceType'] as String
+            : null,
+      );
 }
 
 class TaggedResourceListMessage {
@@ -6378,7 +8255,14 @@ class TaggedResourceListMessage {
     this.marker,
   });
   static TaggedResourceListMessage fromJson(Map<String, dynamic> json) =>
-      TaggedResourceListMessage();
+      TaggedResourceListMessage(
+        taggedResources: json.containsKey('TaggedResources')
+            ? (json['TaggedResources'] as List)
+                .map((e) => TaggedResource.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 class TrackListMessage {
@@ -6396,7 +8280,14 @@ class TrackListMessage {
     this.marker,
   });
   static TrackListMessage fromJson(Map<String, dynamic> json) =>
-      TrackListMessage();
+      TrackListMessage(
+        maintenanceTracks: json.containsKey('MaintenanceTracks')
+            ? (json['MaintenanceTracks'] as List)
+                .map((e) => MaintenanceTrack.fromJson(e))
+                .toList()
+            : null,
+        marker: json.containsKey('Marker') ? json['Marker'] as String : null,
+      );
 }
 
 /// A maintenance track that you can switch the current track to.
@@ -6415,7 +8306,19 @@ class UpdateTarget {
     this.databaseVersion,
     this.supportedOperations,
   });
-  static UpdateTarget fromJson(Map<String, dynamic> json) => UpdateTarget();
+  static UpdateTarget fromJson(Map<String, dynamic> json) => UpdateTarget(
+        maintenanceTrackName: json.containsKey('MaintenanceTrackName')
+            ? json['MaintenanceTrackName'] as String
+            : null,
+        databaseVersion: json.containsKey('DatabaseVersion')
+            ? json['DatabaseVersion'] as String
+            : null,
+        supportedOperations: json.containsKey('SupportedOperations')
+            ? (json['SupportedOperations'] as List)
+                .map((e) => SupportedOperation.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the members of a VPC security group.
@@ -6431,5 +8334,10 @@ class VpcSecurityGroupMembership {
     this.status,
   });
   static VpcSecurityGroupMembership fromJson(Map<String, dynamic> json) =>
-      VpcSecurityGroupMembership();
+      VpcSecurityGroupMembership(
+        vpcSecurityGroupId: json.containsKey('VpcSecurityGroupId')
+            ? json['VpcSecurityGroupId'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }

@@ -9,6 +9,10 @@ import 'package:meta/meta.dart';
 /// device, you'll need to use the Snowball client or the Amazon S3 API adapter
 /// for Snowball.
 class SnowballApi {
+  final _client;
+  SnowballApi(client)
+      : _client = client.configured('Snowball', serializer: 'json');
+
   /// Cancels a cluster job. You can only cancel a cluster job while it's in the
   /// `AwaitingQuorum` status. You'll have at least an hour after creating a
   /// cluster job to cancel it.
@@ -16,7 +20,10 @@ class SnowballApi {
   /// [clusterId]: The 39-character ID for the cluster that you want to cancel,
   /// for example `CID123e4567-e89b-12d3-a456-426655440000`.
   Future<CancelClusterResult> cancelCluster(String clusterId) async {
-    return CancelClusterResult.fromJson({});
+    var response_ = await _client.send('CancelCluster', {
+      'ClusterId': clusterId,
+    });
+    return CancelClusterResult.fromJson(response_);
   }
 
   /// Cancels the specified job. You can only cancel a job before its `JobState`
@@ -27,7 +34,10 @@ class SnowballApi {
   /// [jobId]: The 39-character job ID for the job that you want to cancel, for
   /// example `JID123e4567-e89b-12d3-a456-426655440000`.
   Future<CancelJobResult> cancelJob(String jobId) async {
-    return CancelJobResult.fromJson({});
+    var response_ = await _client.send('CancelJob', {
+      'JobId': jobId,
+    });
+    return CancelJobResult.fromJson(response_);
   }
 
   /// Creates an address for a Snowball to be shipped to. In most regions,
@@ -37,7 +47,10 @@ class SnowballApi {
   ///
   /// [address]: The address that you want the Snowball shipped to.
   Future<CreateAddressResult> createAddress(Address address) async {
-    return CreateAddressResult.fromJson({});
+    var response_ = await _client.send('CreateAddress', {
+      'Address': address,
+    });
+    return CreateAddressResult.fromJson(response_);
   }
 
   /// Creates an empty cluster. Each cluster supports five nodes. You use the
@@ -103,7 +116,20 @@ class SnowballApi {
       @required String shippingOption,
       Notification notification,
       String forwardingAddressId}) async {
-    return CreateClusterResult.fromJson({});
+    var response_ = await _client.send('CreateCluster', {
+      'JobType': jobType,
+      'Resources': resources,
+      if (description != null) 'Description': description,
+      'AddressId': addressId,
+      if (kmsKeyArn != null) 'KmsKeyARN': kmsKeyArn,
+      'RoleARN': roleArn,
+      if (snowballType != null) 'SnowballType': snowballType,
+      'ShippingOption': shippingOption,
+      if (notification != null) 'Notification': notification,
+      if (forwardingAddressId != null)
+        'ForwardingAddressId': forwardingAddressId,
+    });
+    return CreateClusterResult.fromJson(response_);
   }
 
   /// Creates a job to import or export data between Amazon S3 and your
@@ -189,7 +215,23 @@ class SnowballApi {
       String clusterId,
       String snowballType,
       String forwardingAddressId}) async {
-    return CreateJobResult.fromJson({});
+    var response_ = await _client.send('CreateJob', {
+      if (jobType != null) 'JobType': jobType,
+      if (resources != null) 'Resources': resources,
+      if (description != null) 'Description': description,
+      if (addressId != null) 'AddressId': addressId,
+      if (kmsKeyArn != null) 'KmsKeyARN': kmsKeyArn,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (snowballCapacityPreference != null)
+        'SnowballCapacityPreference': snowballCapacityPreference,
+      if (shippingOption != null) 'ShippingOption': shippingOption,
+      if (notification != null) 'Notification': notification,
+      if (clusterId != null) 'ClusterId': clusterId,
+      if (snowballType != null) 'SnowballType': snowballType,
+      if (forwardingAddressId != null)
+        'ForwardingAddressId': forwardingAddressId,
+    });
+    return CreateJobResult.fromJson(response_);
   }
 
   /// Takes an `AddressId` and returns specific details about that address in
@@ -197,7 +239,10 @@ class SnowballApi {
   ///
   /// [addressId]: The automatically generated ID for a specific address.
   Future<DescribeAddressResult> describeAddress(String addressId) async {
-    return DescribeAddressResult.fromJson({});
+    var response_ = await _client.send('DescribeAddress', {
+      'AddressId': addressId,
+    });
+    return DescribeAddressResult.fromJson(response_);
   }
 
   /// Returns a specified number of `ADDRESS` objects. Calling this API in one
@@ -212,7 +257,11 @@ class SnowballApi {
   /// addresses.
   Future<DescribeAddressesResult> describeAddresses(
       {int maxResults, String nextToken}) async {
-    return DescribeAddressesResult.fromJson({});
+    var response_ = await _client.send('DescribeAddresses', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAddressesResult.fromJson(response_);
   }
 
   /// Returns information about a specific cluster including shipping
@@ -220,7 +269,10 @@ class SnowballApi {
   ///
   /// [clusterId]: The automatically generated ID for a cluster.
   Future<DescribeClusterResult> describeCluster(String clusterId) async {
-    return DescribeClusterResult.fromJson({});
+    var response_ = await _client.send('DescribeCluster', {
+      'ClusterId': clusterId,
+    });
+    return DescribeClusterResult.fromJson(response_);
   }
 
   /// Returns information about a specific job including shipping information,
@@ -229,7 +281,10 @@ class SnowballApi {
   /// [jobId]: The automatically generated ID for a job, for example
   /// `JID123e4567-e89b-12d3-a456-426655440000`.
   Future<DescribeJobResult> describeJob(String jobId) async {
-    return DescribeJobResult.fromJson({});
+    var response_ = await _client.send('DescribeJob', {
+      'JobId': jobId,
+    });
+    return DescribeJobResult.fromJson(response_);
   }
 
   /// Returns a link to an Amazon S3 presigned URL for the manifest file
@@ -254,7 +309,10 @@ class SnowballApi {
   /// [jobId]: The ID for a job that you want to get the manifest file for, for
   /// example `JID123e4567-e89b-12d3-a456-426655440000`.
   Future<GetJobManifestResult> getJobManifest(String jobId) async {
-    return GetJobManifestResult.fromJson({});
+    var response_ = await _client.send('GetJobManifest', {
+      'JobId': jobId,
+    });
+    return GetJobManifestResult.fromJson(response_);
   }
 
   /// Returns the `UnlockCode` code value for the specified job. A particular
@@ -274,7 +332,10 @@ class SnowballApi {
   /// [jobId]: The ID for the job that you want to get the `UnlockCode` value
   /// for, for example `JID123e4567-e89b-12d3-a456-426655440000`.
   Future<GetJobUnlockCodeResult> getJobUnlockCode(String jobId) async {
-    return GetJobUnlockCodeResult.fromJson({});
+    var response_ = await _client.send('GetJobUnlockCode', {
+      'JobId': jobId,
+    });
+    return GetJobUnlockCodeResult.fromJson(response_);
   }
 
   /// Returns information about the Snowball service limit for your account, and
@@ -284,7 +345,8 @@ class SnowballApi {
   /// one time is 1. If you want to increase your service limit, contact AWS
   /// Support.
   Future<GetSnowballUsageResult> getSnowballUsage() async {
-    return GetSnowballUsageResult.fromJson({});
+    var response_ = await _client.send('GetSnowballUsage', {});
+    return GetSnowballUsageResult.fromJson(response_);
   }
 
   /// Returns an array of `JobListEntry` objects of the specified length. Each
@@ -301,7 +363,12 @@ class SnowballApi {
   /// specifying `NextToken` as the starting point for your returned list.
   Future<ListClusterJobsResult> listClusterJobs(String clusterId,
       {int maxResults, String nextToken}) async {
-    return ListClusterJobsResult.fromJson({});
+    var response_ = await _client.send('ListClusterJobs', {
+      'ClusterId': clusterId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListClusterJobsResult.fromJson(response_);
   }
 
   /// Returns an array of `ClusterListEntry` objects of the specified length.
@@ -315,7 +382,11 @@ class SnowballApi {
   /// specifying `NextToken` as the starting point for your returned list.
   Future<ListClustersResult> listClusters(
       {int maxResults, String nextToken}) async {
-    return ListClustersResult.fromJson({});
+    var response_ = await _client.send('ListClusters', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListClustersResult.fromJson(response_);
   }
 
   /// This action returns a list of the different Amazon EC2 Amazon Machine
@@ -333,7 +404,11 @@ class SnowballApi {
   /// `NextToken` as the starting point for your list of returned images.
   Future<ListCompatibleImagesResult> listCompatibleImages(
       {int maxResults, String nextToken}) async {
-    return ListCompatibleImagesResult.fromJson({});
+    var response_ = await _client.send('ListCompatibleImages', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListCompatibleImagesResult.fromJson(response_);
   }
 
   /// Returns an array of `JobListEntry` objects of the specified length. Each
@@ -348,7 +423,11 @@ class SnowballApi {
   /// "next" in the list of `JobListEntry` objects, you have the option of
   /// specifying `NextToken` as the starting point for your returned list.
   Future<ListJobsResult> listJobs({int maxResults, String nextToken}) async {
-    return ListJobsResult.fromJson({});
+    var response_ = await _client.send('ListJobs', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListJobsResult.fromJson(response_);
   }
 
   /// While a cluster's `ClusterState` value is in the `AwaitingQuorum` state,
@@ -386,7 +465,18 @@ class SnowballApi {
       String shippingOption,
       Notification notification,
       String forwardingAddressId}) async {
-    return UpdateClusterResult.fromJson({});
+    var response_ = await _client.send('UpdateCluster', {
+      'ClusterId': clusterId,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (description != null) 'Description': description,
+      if (resources != null) 'Resources': resources,
+      if (addressId != null) 'AddressId': addressId,
+      if (shippingOption != null) 'ShippingOption': shippingOption,
+      if (notification != null) 'Notification': notification,
+      if (forwardingAddressId != null)
+        'ForwardingAddressId': forwardingAddressId,
+    });
+    return UpdateClusterResult.fromJson(response_);
   }
 
   /// While a job's `JobState` value is `New`, you can update some of the
@@ -429,7 +519,20 @@ class SnowballApi {
       String description,
       String snowballCapacityPreference,
       String forwardingAddressId}) async {
-    return UpdateJobResult.fromJson({});
+    var response_ = await _client.send('UpdateJob', {
+      'JobId': jobId,
+      if (roleArn != null) 'RoleARN': roleArn,
+      if (notification != null) 'Notification': notification,
+      if (resources != null) 'Resources': resources,
+      if (addressId != null) 'AddressId': addressId,
+      if (shippingOption != null) 'ShippingOption': shippingOption,
+      if (description != null) 'Description': description,
+      if (snowballCapacityPreference != null)
+        'SnowballCapacityPreference': snowballCapacityPreference,
+      if (forwardingAddressId != null)
+        'ForwardingAddressId': forwardingAddressId,
+    });
+    return UpdateJobResult.fromJson(response_);
   }
 }
 
@@ -500,7 +603,35 @@ class Address {
     this.phoneNumber,
     this.isRestricted,
   });
-  static Address fromJson(Map<String, dynamic> json) => Address();
+  static Address fromJson(Map<String, dynamic> json) => Address(
+        addressId:
+            json.containsKey('AddressId') ? json['AddressId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        company: json.containsKey('Company') ? json['Company'] as String : null,
+        street1: json.containsKey('Street1') ? json['Street1'] as String : null,
+        street2: json.containsKey('Street2') ? json['Street2'] as String : null,
+        street3: json.containsKey('Street3') ? json['Street3'] as String : null,
+        city: json.containsKey('City') ? json['City'] as String : null,
+        stateOrProvince: json.containsKey('StateOrProvince')
+            ? json['StateOrProvince'] as String
+            : null,
+        prefectureOrDistrict: json.containsKey('PrefectureOrDistrict')
+            ? json['PrefectureOrDistrict'] as String
+            : null,
+        landmark:
+            json.containsKey('Landmark') ? json['Landmark'] as String : null,
+        country: json.containsKey('Country') ? json['Country'] as String : null,
+        postalCode: json.containsKey('PostalCode')
+            ? json['PostalCode'] as String
+            : null,
+        phoneNumber: json.containsKey('PhoneNumber')
+            ? json['PhoneNumber'] as String
+            : null,
+        isRestricted: json.containsKey('IsRestricted')
+            ? json['IsRestricted'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CancelClusterResult {
@@ -539,7 +670,19 @@ class ClusterListEntry {
     this.description,
   });
   static ClusterListEntry fromJson(Map<String, dynamic> json) =>
-      ClusterListEntry();
+      ClusterListEntry(
+        clusterId:
+            json.containsKey('ClusterId') ? json['ClusterId'] as String : null,
+        clusterState: json.containsKey('ClusterState')
+            ? json['ClusterState'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Contains metadata about a specific cluster.
@@ -625,8 +768,40 @@ class ClusterMetadata {
     this.notification,
     this.forwardingAddressId,
   });
-  static ClusterMetadata fromJson(Map<String, dynamic> json) =>
-      ClusterMetadata();
+  static ClusterMetadata fromJson(Map<String, dynamic> json) => ClusterMetadata(
+        clusterId:
+            json.containsKey('ClusterId') ? json['ClusterId'] as String : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        kmsKeyArn:
+            json.containsKey('KmsKeyARN') ? json['KmsKeyARN'] as String : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+        clusterState: json.containsKey('ClusterState')
+            ? json['ClusterState'] as String
+            : null,
+        jobType: json.containsKey('JobType') ? json['JobType'] as String : null,
+        snowballType: json.containsKey('SnowballType')
+            ? json['SnowballType'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        resources: json.containsKey('Resources')
+            ? JobResource.fromJson(json['Resources'])
+            : null,
+        addressId:
+            json.containsKey('AddressId') ? json['AddressId'] as String : null,
+        shippingOption: json.containsKey('ShippingOption')
+            ? json['ShippingOption'] as String
+            : null,
+        notification: json.containsKey('Notification')
+            ? Notification.fromJson(json['Notification'])
+            : null,
+        forwardingAddressId: json.containsKey('ForwardingAddressId')
+            ? json['ForwardingAddressId'] as String
+            : null,
+      );
 }
 
 /// A JSON-formatted object that describes a compatible Amazon Machine Image
@@ -644,8 +819,10 @@ class CompatibleImage {
     this.amiId,
     this.name,
   });
-  static CompatibleImage fromJson(Map<String, dynamic> json) =>
-      CompatibleImage();
+  static CompatibleImage fromJson(Map<String, dynamic> json) => CompatibleImage(
+        amiId: json.containsKey('AmiId') ? json['AmiId'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 class CreateAddressResult {
@@ -658,7 +835,10 @@ class CreateAddressResult {
     this.addressId,
   });
   static CreateAddressResult fromJson(Map<String, dynamic> json) =>
-      CreateAddressResult();
+      CreateAddressResult(
+        addressId:
+            json.containsKey('AddressId') ? json['AddressId'] as String : null,
+      );
 }
 
 class CreateClusterResult {
@@ -669,7 +849,10 @@ class CreateClusterResult {
     this.clusterId,
   });
   static CreateClusterResult fromJson(Map<String, dynamic> json) =>
-      CreateClusterResult();
+      CreateClusterResult(
+        clusterId:
+            json.containsKey('ClusterId') ? json['ClusterId'] as String : null,
+      );
 }
 
 class CreateJobResult {
@@ -680,8 +863,9 @@ class CreateJobResult {
   CreateJobResult({
     this.jobId,
   });
-  static CreateJobResult fromJson(Map<String, dynamic> json) =>
-      CreateJobResult();
+  static CreateJobResult fromJson(Map<String, dynamic> json) => CreateJobResult(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 /// Defines the real-time status of a Snowball's data transfer while the device
@@ -710,7 +894,20 @@ class DataTransfer {
     this.totalBytes,
     this.totalObjects,
   });
-  static DataTransfer fromJson(Map<String, dynamic> json) => DataTransfer();
+  static DataTransfer fromJson(Map<String, dynamic> json) => DataTransfer(
+        bytesTransferred: json.containsKey('BytesTransferred')
+            ? BigInt.from(json['BytesTransferred'])
+            : null,
+        objectsTransferred: json.containsKey('ObjectsTransferred')
+            ? BigInt.from(json['ObjectsTransferred'])
+            : null,
+        totalBytes: json.containsKey('TotalBytes')
+            ? BigInt.from(json['TotalBytes'])
+            : null,
+        totalObjects: json.containsKey('TotalObjects')
+            ? BigInt.from(json['TotalObjects'])
+            : null,
+      );
 }
 
 class DescribeAddressResult {
@@ -722,7 +919,11 @@ class DescribeAddressResult {
     this.address,
   });
   static DescribeAddressResult fromJson(Map<String, dynamic> json) =>
-      DescribeAddressResult();
+      DescribeAddressResult(
+        address: json.containsKey('Address')
+            ? Address.fromJson(json['Address'])
+            : null,
+      );
 }
 
 class DescribeAddressesResult {
@@ -739,7 +940,15 @@ class DescribeAddressesResult {
     this.nextToken,
   });
   static DescribeAddressesResult fromJson(Map<String, dynamic> json) =>
-      DescribeAddressesResult();
+      DescribeAddressesResult(
+        addresses: json.containsKey('Addresses')
+            ? (json['Addresses'] as List)
+                .map((e) => Address.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeClusterResult {
@@ -751,7 +960,11 @@ class DescribeClusterResult {
     this.clusterMetadata,
   });
   static DescribeClusterResult fromJson(Map<String, dynamic> json) =>
-      DescribeClusterResult();
+      DescribeClusterResult(
+        clusterMetadata: json.containsKey('ClusterMetadata')
+            ? ClusterMetadata.fromJson(json['ClusterMetadata'])
+            : null,
+      );
 }
 
 class DescribeJobResult {
@@ -768,7 +981,16 @@ class DescribeJobResult {
     this.subJobMetadata,
   });
   static DescribeJobResult fromJson(Map<String, dynamic> json) =>
-      DescribeJobResult();
+      DescribeJobResult(
+        jobMetadata: json.containsKey('JobMetadata')
+            ? JobMetadata.fromJson(json['JobMetadata'])
+            : null,
+        subJobMetadata: json.containsKey('SubJobMetadata')
+            ? (json['SubJobMetadata'] as List)
+                .map((e) => JobMetadata.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A JSON-formatted object that contains the IDs for an Amazon Machine Image
@@ -786,7 +1008,13 @@ class Ec2AmiResource {
     @required this.amiId,
     this.snowballAmiId,
   });
-  static Ec2AmiResource fromJson(Map<String, dynamic> json) => Ec2AmiResource();
+  static Ec2AmiResource fromJson(Map<String, dynamic> json) => Ec2AmiResource(
+        amiId: json['AmiId'] as String,
+        snowballAmiId: json.containsKey('SnowballAmiId')
+            ? json['SnowballAmiId'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The container for the EventTriggerDefinition$EventResourceARN.
@@ -799,7 +1027,12 @@ class EventTriggerDefinition {
     this.eventResourceArn,
   });
   static EventTriggerDefinition fromJson(Map<String, dynamic> json) =>
-      EventTriggerDefinition();
+      EventTriggerDefinition(
+        eventResourceArn: json.containsKey('EventResourceARN')
+            ? json['EventResourceARN'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetJobManifestResult {
@@ -811,7 +1044,11 @@ class GetJobManifestResult {
     this.manifestUri,
   });
   static GetJobManifestResult fromJson(Map<String, dynamic> json) =>
-      GetJobManifestResult();
+      GetJobManifestResult(
+        manifestUri: json.containsKey('ManifestURI')
+            ? json['ManifestURI'] as String
+            : null,
+      );
 }
 
 class GetJobUnlockCodeResult {
@@ -823,7 +1060,11 @@ class GetJobUnlockCodeResult {
     this.unlockCode,
   });
   static GetJobUnlockCodeResult fromJson(Map<String, dynamic> json) =>
-      GetJobUnlockCodeResult();
+      GetJobUnlockCodeResult(
+        unlockCode: json.containsKey('UnlockCode')
+            ? json['UnlockCode'] as String
+            : null,
+      );
 }
 
 class GetSnowballUsageResult {
@@ -839,7 +1080,14 @@ class GetSnowballUsageResult {
     this.snowballsInUse,
   });
   static GetSnowballUsageResult fromJson(Map<String, dynamic> json) =>
-      GetSnowballUsageResult();
+      GetSnowballUsageResult(
+        snowballLimit: json.containsKey('SnowballLimit')
+            ? json['SnowballLimit'] as int
+            : null,
+        snowballsInUse: json.containsKey('SnowballsInUse')
+            ? json['SnowballsInUse'] as int
+            : null,
+      );
 }
 
 /// Each `JobListEntry` object contains a job's state, a job's ID, and a value
@@ -883,7 +1131,23 @@ class JobListEntry {
     this.creationDate,
     this.description,
   });
-  static JobListEntry fromJson(Map<String, dynamic> json) => JobListEntry();
+  static JobListEntry fromJson(Map<String, dynamic> json) => JobListEntry(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobState:
+            json.containsKey('JobState') ? json['JobState'] as String : null,
+        isMaster:
+            json.containsKey('IsMaster') ? json['IsMaster'] as bool : null,
+        jobType: json.containsKey('JobType') ? json['JobType'] as String : null,
+        snowballType: json.containsKey('SnowballType')
+            ? json['SnowballType'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+      );
 }
 
 /// Contains job logs. Whenever Snowball is used to import data into or export
@@ -922,7 +1186,17 @@ class JobLogs {
     this.jobSuccessLogUri,
     this.jobFailureLogUri,
   });
-  static JobLogs fromJson(Map<String, dynamic> json) => JobLogs();
+  static JobLogs fromJson(Map<String, dynamic> json) => JobLogs(
+        jobCompletionReportUri: json.containsKey('JobCompletionReportURI')
+            ? json['JobCompletionReportURI'] as String
+            : null,
+        jobSuccessLogUri: json.containsKey('JobSuccessLogURI')
+            ? json['JobSuccessLogURI'] as String
+            : null,
+        jobFailureLogUri: json.containsKey('JobFailureLogURI')
+            ? json['JobFailureLogURI'] as String
+            : null,
+      );
 }
 
 /// Contains information about a specific job including shipping information,
@@ -1021,7 +1295,50 @@ class JobMetadata {
     this.clusterId,
     this.forwardingAddressId,
   });
-  static JobMetadata fromJson(Map<String, dynamic> json) => JobMetadata();
+  static JobMetadata fromJson(Map<String, dynamic> json) => JobMetadata(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+        jobState:
+            json.containsKey('JobState') ? json['JobState'] as String : null,
+        jobType: json.containsKey('JobType') ? json['JobType'] as String : null,
+        snowballType: json.containsKey('SnowballType')
+            ? json['SnowballType'] as String
+            : null,
+        creationDate: json.containsKey('CreationDate')
+            ? DateTime.parse(json['CreationDate'])
+            : null,
+        resources: json.containsKey('Resources')
+            ? JobResource.fromJson(json['Resources'])
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        kmsKeyArn:
+            json.containsKey('KmsKeyARN') ? json['KmsKeyARN'] as String : null,
+        roleArn: json.containsKey('RoleARN') ? json['RoleARN'] as String : null,
+        addressId:
+            json.containsKey('AddressId') ? json['AddressId'] as String : null,
+        shippingDetails: json.containsKey('ShippingDetails')
+            ? ShippingDetails.fromJson(json['ShippingDetails'])
+            : null,
+        snowballCapacityPreference:
+            json.containsKey('SnowballCapacityPreference')
+                ? json['SnowballCapacityPreference'] as String
+                : null,
+        notification: json.containsKey('Notification')
+            ? Notification.fromJson(json['Notification'])
+            : null,
+        dataTransferProgress: json.containsKey('DataTransferProgress')
+            ? DataTransfer.fromJson(json['DataTransferProgress'])
+            : null,
+        jobLogInfo: json.containsKey('JobLogInfo')
+            ? JobLogs.fromJson(json['JobLogInfo'])
+            : null,
+        clusterId:
+            json.containsKey('ClusterId') ? json['ClusterId'] as String : null,
+        forwardingAddressId: json.containsKey('ForwardingAddressId')
+            ? json['ForwardingAddressId'] as String
+            : null,
+      );
 }
 
 /// Contains an array of AWS resource objects. Each object represents an Amazon
@@ -1042,7 +1359,24 @@ class JobResource {
     this.lambdaResources,
     this.ec2AmiResources,
   });
-  static JobResource fromJson(Map<String, dynamic> json) => JobResource();
+  static JobResource fromJson(Map<String, dynamic> json) => JobResource(
+        s3Resources: json.containsKey('S3Resources')
+            ? (json['S3Resources'] as List)
+                .map((e) => S3Resource.fromJson(e))
+                .toList()
+            : null,
+        lambdaResources: json.containsKey('LambdaResources')
+            ? (json['LambdaResources'] as List)
+                .map((e) => LambdaResource.fromJson(e))
+                .toList()
+            : null,
+        ec2AmiResources: json.containsKey('Ec2AmiResources')
+            ? (json['Ec2AmiResources'] as List)
+                .map((e) => Ec2AmiResource.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Contains a key range. For export jobs, a `S3Resource` object can have an
@@ -1062,7 +1396,14 @@ class KeyRange {
     this.beginMarker,
     this.endMarker,
   });
-  static KeyRange fromJson(Map<String, dynamic> json) => KeyRange();
+  static KeyRange fromJson(Map<String, dynamic> json) => KeyRange(
+        beginMarker: json.containsKey('BeginMarker')
+            ? json['BeginMarker'] as String
+            : null,
+        endMarker:
+            json.containsKey('EndMarker') ? json['EndMarker'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Identifies
@@ -1080,7 +1421,16 @@ class LambdaResource {
     this.lambdaArn,
     this.eventTriggers,
   });
-  static LambdaResource fromJson(Map<String, dynamic> json) => LambdaResource();
+  static LambdaResource fromJson(Map<String, dynamic> json) => LambdaResource(
+        lambdaArn:
+            json.containsKey('LambdaArn') ? json['LambdaArn'] as String : null,
+        eventTriggers: json.containsKey('EventTriggers')
+            ? (json['EventTriggers'] as List)
+                .map((e) => EventTriggerDefinition.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ListClusterJobsResult {
@@ -1098,7 +1448,15 @@ class ListClusterJobsResult {
     this.nextToken,
   });
   static ListClusterJobsResult fromJson(Map<String, dynamic> json) =>
-      ListClusterJobsResult();
+      ListClusterJobsResult(
+        jobListEntries: json.containsKey('JobListEntries')
+            ? (json['JobListEntries'] as List)
+                .map((e) => JobListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListClustersResult {
@@ -1116,7 +1474,15 @@ class ListClustersResult {
     this.nextToken,
   });
   static ListClustersResult fromJson(Map<String, dynamic> json) =>
-      ListClustersResult();
+      ListClustersResult(
+        clusterListEntries: json.containsKey('ClusterListEntries')
+            ? (json['ClusterListEntries'] as List)
+                .map((e) => ClusterListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListCompatibleImagesResult {
@@ -1132,7 +1498,15 @@ class ListCompatibleImagesResult {
     this.nextToken,
   });
   static ListCompatibleImagesResult fromJson(Map<String, dynamic> json) =>
-      ListCompatibleImagesResult();
+      ListCompatibleImagesResult(
+        compatibleImages: json.containsKey('CompatibleImages')
+            ? (json['CompatibleImages'] as List)
+                .map((e) => CompatibleImage.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListJobsResult {
@@ -1149,7 +1523,15 @@ class ListJobsResult {
     this.jobListEntries,
     this.nextToken,
   });
-  static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult();
+  static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult(
+        jobListEntries: json.containsKey('JobListEntries')
+            ? (json['JobListEntries'] as List)
+                .map((e) => JobListEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The Amazon Simple Notification Service (Amazon SNS) notification settings
@@ -1185,7 +1567,19 @@ class Notification {
     this.jobStatesToNotify,
     this.notifyAll,
   });
-  static Notification fromJson(Map<String, dynamic> json) => Notification();
+  static Notification fromJson(Map<String, dynamic> json) => Notification(
+        snsTopicArn: json.containsKey('SnsTopicARN')
+            ? json['SnsTopicARN'] as String
+            : null,
+        jobStatesToNotify: json.containsKey('JobStatesToNotify')
+            ? (json['JobStatesToNotify'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        notifyAll:
+            json.containsKey('NotifyAll') ? json['NotifyAll'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Each `S3Resource` object represents an Amazon S3 bucket that your
@@ -1207,7 +1601,14 @@ class S3Resource {
     this.bucketArn,
     this.keyRange,
   });
-  static S3Resource fromJson(Map<String, dynamic> json) => S3Resource();
+  static S3Resource fromJson(Map<String, dynamic> json) => S3Resource(
+        bucketArn:
+            json.containsKey('BucketArn') ? json['BucketArn'] as String : null,
+        keyRange: json.containsKey('KeyRange')
+            ? KeyRange.fromJson(json['KeyRange'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The `Status` and `TrackingNumber` information for an inbound or outbound
@@ -1228,7 +1629,12 @@ class Shipment {
     this.status,
     this.trackingNumber,
   });
-  static Shipment fromJson(Map<String, dynamic> json) => Shipment();
+  static Shipment fromJson(Map<String, dynamic> json) => Shipment(
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        trackingNumber: json.containsKey('TrackingNumber')
+            ? json['TrackingNumber'] as String
+            : null,
+      );
 }
 
 /// A job's shipping information, including inbound and outbound tracking
@@ -1266,8 +1672,17 @@ class ShippingDetails {
     this.inboundShipment,
     this.outboundShipment,
   });
-  static ShippingDetails fromJson(Map<String, dynamic> json) =>
-      ShippingDetails();
+  static ShippingDetails fromJson(Map<String, dynamic> json) => ShippingDetails(
+        shippingOption: json.containsKey('ShippingOption')
+            ? json['ShippingOption'] as String
+            : null,
+        inboundShipment: json.containsKey('InboundShipment')
+            ? Shipment.fromJson(json['InboundShipment'])
+            : null,
+        outboundShipment: json.containsKey('OutboundShipment')
+            ? Shipment.fromJson(json['OutboundShipment'])
+            : null,
+      );
 }
 
 class UpdateClusterResult {

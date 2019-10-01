@@ -21,6 +21,9 @@ import 'package:meta/meta.dart';
 /// *
 /// [AWS Sever Migration Service User Guide](https://docs.aws.amazon.com/server-migration-service/latest/userguide/server-migration.html)
 class SmsApi {
+  final _client;
+  SmsApi(client) : _client = client.configured('SMS', serializer: 'json');
+
   /// Creates an application. An application consists of one or more server
   /// groups. Each server group contain one or more servers.
   ///
@@ -44,7 +47,15 @@ class SmsApi {
       String clientToken,
       List<ServerGroup> serverGroups,
       List<Tag> tags}) async {
-    return CreateAppResponse.fromJson({});
+    var response_ = await _client.send('CreateApp', {
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (roleName != null) 'roleName': roleName,
+      if (clientToken != null) 'clientToken': clientToken,
+      if (serverGroups != null) 'serverGroups': serverGroups,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateAppResponse.fromJson(response_);
   }
 
   /// Creates a replication job. The replication job schedules periodic
@@ -98,7 +109,20 @@ class SmsApi {
       int numberOfRecentAmisToKeep,
       bool encrypted,
       String kmsKeyId}) async {
-    return CreateReplicationJobResponse.fromJson({});
+    var response_ = await _client.send('CreateReplicationJob', {
+      'serverId': serverId,
+      'seedReplicationTime': seedReplicationTime,
+      if (frequency != null) 'frequency': frequency,
+      if (runOnce != null) 'runOnce': runOnce,
+      if (licenseType != null) 'licenseType': licenseType,
+      if (roleName != null) 'roleName': roleName,
+      if (description != null) 'description': description,
+      if (numberOfRecentAmisToKeep != null)
+        'numberOfRecentAmisToKeep': numberOfRecentAmisToKeep,
+      if (encrypted != null) 'encrypted': encrypted,
+      if (kmsKeyId != null) 'kmsKeyId': kmsKeyId,
+    });
+    return CreateReplicationJobResponse.fromJson(response_);
   }
 
   /// Deletes an existing application. Optionally deletes the launched stack
@@ -116,7 +140,13 @@ class SmsApi {
       {String appId,
       bool forceStopAppReplication,
       bool forceTerminateApp}) async {
-    return DeleteAppResponse.fromJson({});
+    var response_ = await _client.send('DeleteApp', {
+      if (appId != null) 'appId': appId,
+      if (forceStopAppReplication != null)
+        'forceStopAppReplication': forceStopAppReplication,
+      if (forceTerminateApp != null) 'forceTerminateApp': forceTerminateApp,
+    });
+    return DeleteAppResponse.fromJson(response_);
   }
 
   /// Deletes existing launch configuration for an application.
@@ -124,7 +154,10 @@ class SmsApi {
   /// [appId]: ID of the application associated with the launch configuration.
   Future<DeleteAppLaunchConfigurationResponse> deleteAppLaunchConfiguration(
       {String appId}) async {
-    return DeleteAppLaunchConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DeleteAppLaunchConfiguration', {
+      if (appId != null) 'appId': appId,
+    });
+    return DeleteAppLaunchConfigurationResponse.fromJson(response_);
   }
 
   /// Deletes existing replication configuration for an application.
@@ -133,7 +166,10 @@ class SmsApi {
   /// configuration.
   Future<DeleteAppReplicationConfigurationResponse>
       deleteAppReplicationConfiguration({String appId}) async {
-    return DeleteAppReplicationConfigurationResponse.fromJson({});
+    var response_ = await _client.send('DeleteAppReplicationConfiguration', {
+      if (appId != null) 'appId': appId,
+    });
+    return DeleteAppReplicationConfigurationResponse.fromJson(response_);
   }
 
   /// Deletes the specified replication job.
@@ -145,12 +181,16 @@ class SmsApi {
   /// [replicationJobId]: The identifier of the replication job.
   Future<DeleteReplicationJobResponse> deleteReplicationJob(
       String replicationJobId) async {
-    return DeleteReplicationJobResponse.fromJson({});
+    var response_ = await _client.send('DeleteReplicationJob', {
+      'replicationJobId': replicationJobId,
+    });
+    return DeleteReplicationJobResponse.fromJson(response_);
   }
 
   /// Deletes all servers from your server catalog.
   Future<DeleteServerCatalogResponse> deleteServerCatalog() async {
-    return DeleteServerCatalogResponse.fromJson({});
+    var response_ = await _client.send('DeleteServerCatalog', {});
+    return DeleteServerCatalogResponse.fromJson(response_);
   }
 
   /// Disassociates the specified connector from AWS SMS.
@@ -161,7 +201,10 @@ class SmsApi {
   /// [connectorId]: The identifier of the connector.
   Future<DisassociateConnectorResponse> disassociateConnector(
       String connectorId) async {
-    return DisassociateConnectorResponse.fromJson({});
+    var response_ = await _client.send('DisassociateConnector', {
+      'connectorId': connectorId,
+    });
+    return DisassociateConnectorResponse.fromJson(response_);
   }
 
   /// Generates a target change set for a currently launched stack and writes it
@@ -172,7 +215,11 @@ class SmsApi {
   /// [changesetFormat]: Format for the change set.
   Future<GenerateChangeSetResponse> generateChangeSet(
       {String appId, String changesetFormat}) async {
-    return GenerateChangeSetResponse.fromJson({});
+    var response_ = await _client.send('GenerateChangeSet', {
+      if (appId != null) 'appId': appId,
+      if (changesetFormat != null) 'changesetFormat': changesetFormat,
+    });
+    return GenerateChangeSetResponse.fromJson(response_);
   }
 
   /// Generates an Amazon CloudFormation template based on the current launch
@@ -186,14 +233,21 @@ class SmsApi {
   /// template.
   Future<GenerateTemplateResponse> generateTemplate(
       {String appId, String templateFormat}) async {
-    return GenerateTemplateResponse.fromJson({});
+    var response_ = await _client.send('GenerateTemplate', {
+      if (appId != null) 'appId': appId,
+      if (templateFormat != null) 'templateFormat': templateFormat,
+    });
+    return GenerateTemplateResponse.fromJson(response_);
   }
 
   /// Retrieve information about an application.
   ///
   /// [appId]: ID of the application whose information is being retrieved.
   Future<GetAppResponse> getApp({String appId}) async {
-    return GetAppResponse.fromJson({});
+    var response_ = await _client.send('GetApp', {
+      if (appId != null) 'appId': appId,
+    });
+    return GetAppResponse.fromJson(response_);
   }
 
   /// Retrieves the application launch configuration associated with an
@@ -202,7 +256,10 @@ class SmsApi {
   /// [appId]: ID of the application launch configuration.
   Future<GetAppLaunchConfigurationResponse> getAppLaunchConfiguration(
       {String appId}) async {
-    return GetAppLaunchConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetAppLaunchConfiguration', {
+      if (appId != null) 'appId': appId,
+    });
+    return GetAppLaunchConfigurationResponse.fromJson(response_);
   }
 
   /// Retrieves an application replication configuration associatd with an
@@ -212,7 +269,10 @@ class SmsApi {
   /// configuration.
   Future<GetAppReplicationConfigurationResponse> getAppReplicationConfiguration(
       {String appId}) async {
-    return GetAppReplicationConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetAppReplicationConfiguration', {
+      if (appId != null) 'appId': appId,
+    });
+    return GetAppReplicationConfigurationResponse.fromJson(response_);
   }
 
   /// Describes the connectors registered with the AWS SMS.
@@ -224,7 +284,11 @@ class SmsApi {
   /// call with the returned `NextToken` value.
   Future<GetConnectorsResponse> getConnectors(
       {String nextToken, int maxResults}) async {
-    return GetConnectorsResponse.fromJson({});
+    var response_ = await _client.send('GetConnectors', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetConnectorsResponse.fromJson(response_);
   }
 
   /// Describes the specified replication job or all of your replication jobs.
@@ -238,7 +302,12 @@ class SmsApi {
   /// call with the returned `NextToken` value.
   Future<GetReplicationJobsResponse> getReplicationJobs(
       {String replicationJobId, String nextToken, int maxResults}) async {
-    return GetReplicationJobsResponse.fromJson({});
+    var response_ = await _client.send('GetReplicationJobs', {
+      if (replicationJobId != null) 'replicationJobId': replicationJobId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetReplicationJobsResponse.fromJson(response_);
   }
 
   /// Describes the replication runs for the specified replication job.
@@ -252,7 +321,12 @@ class SmsApi {
   /// call with the returned `NextToken` value.
   Future<GetReplicationRunsResponse> getReplicationRuns(String replicationJobId,
       {String nextToken, int maxResults}) async {
-    return GetReplicationRunsResponse.fromJson({});
+    var response_ = await _client.send('GetReplicationRuns', {
+      'replicationJobId': replicationJobId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return GetReplicationRunsResponse.fromJson(response_);
   }
 
   /// Describes the servers in your server catalog.
@@ -271,7 +345,13 @@ class SmsApi {
       {String nextToken,
       int maxResults,
       List<VmServerAddress> vmServerAddressList}) async {
-    return GetServersResponse.fromJson({});
+    var response_ = await _client.send('GetServers', {
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+      if (vmServerAddressList != null)
+        'vmServerAddressList': vmServerAddressList,
+    });
+    return GetServersResponse.fromJson(response_);
   }
 
   /// Gathers a complete list of on-premises servers. Connectors must be
@@ -280,14 +360,18 @@ class SmsApi {
   /// This call returns immediately, but might take additional time to retrieve
   /// all the servers.
   Future<ImportServerCatalogResponse> importServerCatalog() async {
-    return ImportServerCatalogResponse.fromJson({});
+    var response_ = await _client.send('ImportServerCatalog', {});
+    return ImportServerCatalogResponse.fromJson(response_);
   }
 
   /// Launches an application stack.
   ///
   /// [appId]: ID of the application to launch.
   Future<LaunchAppResponse> launchApp({String appId}) async {
-    return LaunchAppResponse.fromJson({});
+    var response_ = await _client.send('LaunchApp', {
+      if (appId != null) 'appId': appId,
+    });
+    return LaunchAppResponse.fromJson(response_);
   }
 
   /// Returns a list of summaries for all applications.
@@ -301,7 +385,12 @@ class SmsApi {
   /// call with the returned `NextToken` value.
   Future<ListAppsResponse> listApps(
       {List<String> appIds, String nextToken, int maxResults}) async {
-    return ListAppsResponse.fromJson({});
+    var response_ = await _client.send('ListApps', {
+      if (appIds != null) 'appIds': appIds,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (maxResults != null) 'maxResults': maxResults,
+    });
+    return ListAppsResponse.fromJson(response_);
   }
 
   /// Creates a launch configuration for an application.
@@ -318,7 +407,13 @@ class SmsApi {
       String roleName,
       List<ServerGroupLaunchConfiguration>
           serverGroupLaunchConfigurations}) async {
-    return PutAppLaunchConfigurationResponse.fromJson({});
+    var response_ = await _client.send('PutAppLaunchConfiguration', {
+      if (appId != null) 'appId': appId,
+      if (roleName != null) 'roleName': roleName,
+      if (serverGroupLaunchConfigurations != null)
+        'serverGroupLaunchConfigurations': serverGroupLaunchConfigurations,
+    });
+    return PutAppLaunchConfigurationResponse.fromJson(response_);
   }
 
   /// Creates or updates a replication configuration for an application.
@@ -332,7 +427,13 @@ class SmsApi {
       {String appId,
       List<ServerGroupReplicationConfiguration>
           serverGroupReplicationConfigurations}) async {
-    return PutAppReplicationConfigurationResponse.fromJson({});
+    var response_ = await _client.send('PutAppReplicationConfiguration', {
+      if (appId != null) 'appId': appId,
+      if (serverGroupReplicationConfigurations != null)
+        'serverGroupReplicationConfigurations':
+            serverGroupReplicationConfigurations,
+    });
+    return PutAppReplicationConfigurationResponse.fromJson(response_);
   }
 
   /// Starts replicating an application.
@@ -340,7 +441,10 @@ class SmsApi {
   /// [appId]: ID of the application to replicate.
   Future<StartAppReplicationResponse> startAppReplication(
       {String appId}) async {
-    return StartAppReplicationResponse.fromJson({});
+    var response_ = await _client.send('StartAppReplication', {
+      if (appId != null) 'appId': appId,
+    });
+    return StartAppReplicationResponse.fromJson(response_);
   }
 
   /// Starts an on-demand replication run for the specified replication job.
@@ -356,21 +460,31 @@ class SmsApi {
   Future<StartOnDemandReplicationRunResponse> startOnDemandReplicationRun(
       String replicationJobId,
       {String description}) async {
-    return StartOnDemandReplicationRunResponse.fromJson({});
+    var response_ = await _client.send('StartOnDemandReplicationRun', {
+      'replicationJobId': replicationJobId,
+      if (description != null) 'description': description,
+    });
+    return StartOnDemandReplicationRunResponse.fromJson(response_);
   }
 
   /// Stops replicating an application.
   ///
   /// [appId]: ID of the application to stop replicating.
   Future<StopAppReplicationResponse> stopAppReplication({String appId}) async {
-    return StopAppReplicationResponse.fromJson({});
+    var response_ = await _client.send('StopAppReplication', {
+      if (appId != null) 'appId': appId,
+    });
+    return StopAppReplicationResponse.fromJson(response_);
   }
 
   /// Terminates the stack for an application.
   ///
   /// [appId]: ID of the application to terminate.
   Future<TerminateAppResponse> terminateApp({String appId}) async {
-    return TerminateAppResponse.fromJson({});
+    var response_ = await _client.send('TerminateApp', {
+      if (appId != null) 'appId': appId,
+    });
+    return TerminateAppResponse.fromJson(response_);
   }
 
   /// Updates an application.
@@ -394,7 +508,15 @@ class SmsApi {
       String roleName,
       List<ServerGroup> serverGroups,
       List<Tag> tags}) async {
-    return UpdateAppResponse.fromJson({});
+    var response_ = await _client.send('UpdateApp', {
+      if (appId != null) 'appId': appId,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (roleName != null) 'roleName': roleName,
+      if (serverGroups != null) 'serverGroups': serverGroups,
+      if (tags != null) 'tags': tags,
+    });
+    return UpdateAppResponse.fromJson(response_);
   }
 
   /// Updates the specified settings for the specified replication job.
@@ -443,7 +565,20 @@ class SmsApi {
       int numberOfRecentAmisToKeep,
       bool encrypted,
       String kmsKeyId}) async {
-    return UpdateReplicationJobResponse.fromJson({});
+    var response_ = await _client.send('UpdateReplicationJob', {
+      'replicationJobId': replicationJobId,
+      if (frequency != null) 'frequency': frequency,
+      if (nextReplicationRunStartTime != null)
+        'nextReplicationRunStartTime': nextReplicationRunStartTime,
+      if (licenseType != null) 'licenseType': licenseType,
+      if (roleName != null) 'roleName': roleName,
+      if (description != null) 'description': description,
+      if (numberOfRecentAmisToKeep != null)
+        'numberOfRecentAmisToKeep': numberOfRecentAmisToKeep,
+      if (encrypted != null) 'encrypted': encrypted,
+      if (kmsKeyId != null) 'kmsKeyId': kmsKeyId,
+    });
+    return UpdateReplicationJobResponse.fromJson(response_);
   }
 }
 
@@ -515,7 +650,49 @@ class AppSummary {
     this.totalServerGroups,
     this.totalServers,
   });
-  static AppSummary fromJson(Map<String, dynamic> json) => AppSummary();
+  static AppSummary fromJson(Map<String, dynamic> json) => AppSummary(
+        appId: json.containsKey('appId') ? json['appId'] as String : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusMessage: json.containsKey('statusMessage')
+            ? json['statusMessage'] as String
+            : null,
+        replicationStatus: json.containsKey('replicationStatus')
+            ? json['replicationStatus'] as String
+            : null,
+        replicationStatusMessage: json.containsKey('replicationStatusMessage')
+            ? json['replicationStatusMessage'] as String
+            : null,
+        latestReplicationTime: json.containsKey('latestReplicationTime')
+            ? DateTime.parse(json['latestReplicationTime'])
+            : null,
+        launchStatus: json.containsKey('launchStatus')
+            ? json['launchStatus'] as String
+            : null,
+        launchStatusMessage: json.containsKey('launchStatusMessage')
+            ? json['launchStatusMessage'] as String
+            : null,
+        launchDetails: json.containsKey('launchDetails')
+            ? LaunchDetails.fromJson(json['launchDetails'])
+            : null,
+        creationTime: json.containsKey('creationTime')
+            ? DateTime.parse(json['creationTime'])
+            : null,
+        lastModified: json.containsKey('lastModified')
+            ? DateTime.parse(json['lastModified'])
+            : null,
+        roleName:
+            json.containsKey('roleName') ? json['roleName'] as String : null,
+        totalServerGroups: json.containsKey('totalServerGroups')
+            ? json['totalServerGroups'] as int
+            : null,
+        totalServers: json.containsKey('totalServers')
+            ? json['totalServers'] as int
+            : null,
+      );
 }
 
 /// Represents a connector.
@@ -562,7 +739,33 @@ class Connector {
     this.macAddress,
     this.associatedOn,
   });
-  static Connector fromJson(Map<String, dynamic> json) => Connector();
+  static Connector fromJson(Map<String, dynamic> json) => Connector(
+        connectorId: json.containsKey('connectorId')
+            ? json['connectorId'] as String
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        capabilityList: json.containsKey('capabilityList')
+            ? (json['capabilityList'] as List).map((e) => e as String).toList()
+            : null,
+        vmManagerName: json.containsKey('vmManagerName')
+            ? json['vmManagerName'] as String
+            : null,
+        vmManagerType: json.containsKey('vmManagerType')
+            ? json['vmManagerType'] as String
+            : null,
+        vmManagerId: json.containsKey('vmManagerId')
+            ? json['vmManagerId'] as String
+            : null,
+        ipAddress:
+            json.containsKey('ipAddress') ? json['ipAddress'] as String : null,
+        macAddress: json.containsKey('macAddress')
+            ? json['macAddress'] as String
+            : null,
+        associatedOn: json.containsKey('associatedOn')
+            ? DateTime.parse(json['associatedOn'])
+            : null,
+      );
 }
 
 class CreateAppResponse {
@@ -581,7 +784,19 @@ class CreateAppResponse {
     this.tags,
   });
   static CreateAppResponse fromJson(Map<String, dynamic> json) =>
-      CreateAppResponse();
+      CreateAppResponse(
+        appSummary: json.containsKey('appSummary')
+            ? AppSummary.fromJson(json['appSummary'])
+            : null,
+        serverGroups: json.containsKey('serverGroups')
+            ? (json['serverGroups'] as List)
+                .map((e) => ServerGroup.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class CreateReplicationJobResponse {
@@ -592,7 +807,11 @@ class CreateReplicationJobResponse {
     this.replicationJobId,
   });
   static CreateReplicationJobResponse fromJson(Map<String, dynamic> json) =>
-      CreateReplicationJobResponse();
+      CreateReplicationJobResponse(
+        replicationJobId: json.containsKey('replicationJobId')
+            ? json['replicationJobId'] as String
+            : null,
+      );
 }
 
 class DeleteAppLaunchConfigurationResponse {
@@ -641,7 +860,11 @@ class GenerateChangeSetResponse {
     this.s3Location,
   });
   static GenerateChangeSetResponse fromJson(Map<String, dynamic> json) =>
-      GenerateChangeSetResponse();
+      GenerateChangeSetResponse(
+        s3Location: json.containsKey('s3Location')
+            ? S3Location.fromJson(json['s3Location'])
+            : null,
+      );
 }
 
 class GenerateTemplateResponse {
@@ -652,7 +875,11 @@ class GenerateTemplateResponse {
     this.s3Location,
   });
   static GenerateTemplateResponse fromJson(Map<String, dynamic> json) =>
-      GenerateTemplateResponse();
+      GenerateTemplateResponse(
+        s3Location: json.containsKey('s3Location')
+            ? S3Location.fromJson(json['s3Location'])
+            : null,
+      );
 }
 
 class GetAppLaunchConfigurationResponse {
@@ -673,7 +900,17 @@ class GetAppLaunchConfigurationResponse {
   });
   static GetAppLaunchConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetAppLaunchConfigurationResponse();
+      GetAppLaunchConfigurationResponse(
+        appId: json.containsKey('appId') ? json['appId'] as String : null,
+        roleName:
+            json.containsKey('roleName') ? json['roleName'] as String : null,
+        serverGroupLaunchConfigurations:
+            json.containsKey('serverGroupLaunchConfigurations')
+                ? (json['serverGroupLaunchConfigurations'] as List)
+                    .map((e) => ServerGroupLaunchConfiguration.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class GetAppReplicationConfigurationResponse {
@@ -687,7 +924,14 @@ class GetAppReplicationConfigurationResponse {
   });
   static GetAppReplicationConfigurationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetAppReplicationConfigurationResponse();
+      GetAppReplicationConfigurationResponse(
+        serverGroupReplicationConfigurations:
+            json.containsKey('serverGroupReplicationConfigurations')
+                ? (json['serverGroupReplicationConfigurations'] as List)
+                    .map((e) => ServerGroupReplicationConfiguration.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 class GetAppResponse {
@@ -705,7 +949,19 @@ class GetAppResponse {
     this.serverGroups,
     this.tags,
   });
-  static GetAppResponse fromJson(Map<String, dynamic> json) => GetAppResponse();
+  static GetAppResponse fromJson(Map<String, dynamic> json) => GetAppResponse(
+        appSummary: json.containsKey('appSummary')
+            ? AppSummary.fromJson(json['appSummary'])
+            : null,
+        serverGroups: json.containsKey('serverGroups')
+            ? (json['serverGroups'] as List)
+                .map((e) => ServerGroup.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetConnectorsResponse {
@@ -721,7 +977,15 @@ class GetConnectorsResponse {
     this.nextToken,
   });
   static GetConnectorsResponse fromJson(Map<String, dynamic> json) =>
-      GetConnectorsResponse();
+      GetConnectorsResponse(
+        connectorList: json.containsKey('connectorList')
+            ? (json['connectorList'] as List)
+                .map((e) => Connector.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetReplicationJobsResponse {
@@ -737,7 +1001,15 @@ class GetReplicationJobsResponse {
     this.nextToken,
   });
   static GetReplicationJobsResponse fromJson(Map<String, dynamic> json) =>
-      GetReplicationJobsResponse();
+      GetReplicationJobsResponse(
+        replicationJobList: json.containsKey('replicationJobList')
+            ? (json['replicationJobList'] as List)
+                .map((e) => ReplicationJob.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetReplicationRunsResponse {
@@ -757,7 +1029,18 @@ class GetReplicationRunsResponse {
     this.nextToken,
   });
   static GetReplicationRunsResponse fromJson(Map<String, dynamic> json) =>
-      GetReplicationRunsResponse();
+      GetReplicationRunsResponse(
+        replicationJob: json.containsKey('replicationJob')
+            ? ReplicationJob.fromJson(json['replicationJob'])
+            : null,
+        replicationRunList: json.containsKey('replicationRunList')
+            ? (json['replicationRunList'] as List)
+                .map((e) => ReplicationRun.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class GetServersResponse {
@@ -781,7 +1064,21 @@ class GetServersResponse {
     this.nextToken,
   });
   static GetServersResponse fromJson(Map<String, dynamic> json) =>
-      GetServersResponse();
+      GetServersResponse(
+        lastModifiedOn: json.containsKey('lastModifiedOn')
+            ? DateTime.parse(json['lastModifiedOn'])
+            : null,
+        serverCatalogStatus: json.containsKey('serverCatalogStatus')
+            ? json['serverCatalogStatus'] as String
+            : null,
+        serverList: json.containsKey('serverList')
+            ? (json['serverList'] as List)
+                .map((e) => Server.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ImportServerCatalogResponse {
@@ -812,7 +1109,14 @@ class LaunchDetails {
     this.stackName,
     this.stackId,
   });
-  static LaunchDetails fromJson(Map<String, dynamic> json) => LaunchDetails();
+  static LaunchDetails fromJson(Map<String, dynamic> json) => LaunchDetails(
+        latestLaunchTime: json.containsKey('latestLaunchTime')
+            ? DateTime.parse(json['latestLaunchTime'])
+            : null,
+        stackName:
+            json.containsKey('stackName') ? json['stackName'] as String : null,
+        stackId: json.containsKey('stackId') ? json['stackId'] as String : null,
+      );
 }
 
 class ListAppsResponse {
@@ -828,7 +1132,13 @@ class ListAppsResponse {
     this.nextToken,
   });
   static ListAppsResponse fromJson(Map<String, dynamic> json) =>
-      ListAppsResponse();
+      ListAppsResponse(
+        apps: json.containsKey('apps')
+            ? (json['apps'] as List).map((e) => AppSummary.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class PutAppLaunchConfigurationResponse {
@@ -936,7 +1246,56 @@ class ReplicationJob {
     this.kmsKeyId,
     this.replicationRunList,
   });
-  static ReplicationJob fromJson(Map<String, dynamic> json) => ReplicationJob();
+  static ReplicationJob fromJson(Map<String, dynamic> json) => ReplicationJob(
+        replicationJobId: json.containsKey('replicationJobId')
+            ? json['replicationJobId'] as String
+            : null,
+        serverId:
+            json.containsKey('serverId') ? json['serverId'] as String : null,
+        serverType: json.containsKey('serverType')
+            ? json['serverType'] as String
+            : null,
+        vmServer: json.containsKey('vmServer')
+            ? VmServer.fromJson(json['vmServer'])
+            : null,
+        seedReplicationTime: json.containsKey('seedReplicationTime')
+            ? DateTime.parse(json['seedReplicationTime'])
+            : null,
+        frequency:
+            json.containsKey('frequency') ? json['frequency'] as int : null,
+        runOnce: json.containsKey('runOnce') ? json['runOnce'] as bool : null,
+        nextReplicationRunStartTime:
+            json.containsKey('nextReplicationRunStartTime')
+                ? DateTime.parse(json['nextReplicationRunStartTime'])
+                : null,
+        licenseType: json.containsKey('licenseType')
+            ? json['licenseType'] as String
+            : null,
+        roleName:
+            json.containsKey('roleName') ? json['roleName'] as String : null,
+        latestAmiId: json.containsKey('latestAmiId')
+            ? json['latestAmiId'] as String
+            : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        statusMessage: json.containsKey('statusMessage')
+            ? json['statusMessage'] as String
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        numberOfRecentAmisToKeep: json.containsKey('numberOfRecentAmisToKeep')
+            ? json['numberOfRecentAmisToKeep'] as int
+            : null,
+        encrypted:
+            json.containsKey('encrypted') ? json['encrypted'] as bool : null,
+        kmsKeyId:
+            json.containsKey('kmsKeyId') ? json['kmsKeyId'] as String : null,
+        replicationRunList: json.containsKey('replicationRunList')
+            ? (json['replicationRunList'] as List)
+                .map((e) => ReplicationRun.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents a replication run.
@@ -1001,7 +1360,33 @@ class ReplicationRun {
     this.encrypted,
     this.kmsKeyId,
   });
-  static ReplicationRun fromJson(Map<String, dynamic> json) => ReplicationRun();
+  static ReplicationRun fromJson(Map<String, dynamic> json) => ReplicationRun(
+        replicationRunId: json.containsKey('replicationRunId')
+            ? json['replicationRunId'] as String
+            : null,
+        state: json.containsKey('state') ? json['state'] as String : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+        stageDetails: json.containsKey('stageDetails')
+            ? ReplicationRunStageDetails.fromJson(json['stageDetails'])
+            : null,
+        statusMessage: json.containsKey('statusMessage')
+            ? json['statusMessage'] as String
+            : null,
+        amiId: json.containsKey('amiId') ? json['amiId'] as String : null,
+        scheduledStartTime: json.containsKey('scheduledStartTime')
+            ? DateTime.parse(json['scheduledStartTime'])
+            : null,
+        completedTime: json.containsKey('completedTime')
+            ? DateTime.parse(json['completedTime'])
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        encrypted:
+            json.containsKey('encrypted') ? json['encrypted'] as bool : null,
+        kmsKeyId:
+            json.containsKey('kmsKeyId') ? json['kmsKeyId'] as String : null,
+      );
 }
 
 /// Details of the current stage of a replication run.
@@ -1017,7 +1402,12 @@ class ReplicationRunStageDetails {
     this.stageProgress,
   });
   static ReplicationRunStageDetails fromJson(Map<String, dynamic> json) =>
-      ReplicationRunStageDetails();
+      ReplicationRunStageDetails(
+        stage: json.containsKey('stage') ? json['stage'] as String : null,
+        stageProgress: json.containsKey('stageProgress')
+            ? json['stageProgress'] as String
+            : null,
+      );
 }
 
 /// Location of the Amazon S3 object in the customer's account.
@@ -1032,7 +1422,11 @@ class S3Location {
     this.bucket,
     this.key,
   });
-  static S3Location fromJson(Map<String, dynamic> json) => S3Location();
+  static S3Location fromJson(Map<String, dynamic> json) => S3Location(
+        bucket: json.containsKey('bucket') ? json['bucket'] as String : null,
+        key: json.containsKey('key') ? json['key'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a server.
@@ -1059,7 +1453,23 @@ class Server {
     this.replicationJobId,
     this.replicationJobTerminated,
   });
-  static Server fromJson(Map<String, dynamic> json) => Server();
+  static Server fromJson(Map<String, dynamic> json) => Server(
+        serverId:
+            json.containsKey('serverId') ? json['serverId'] as String : null,
+        serverType: json.containsKey('serverType')
+            ? json['serverType'] as String
+            : null,
+        vmServer: json.containsKey('vmServer')
+            ? VmServer.fromJson(json['vmServer'])
+            : null,
+        replicationJobId: json.containsKey('replicationJobId')
+            ? json['replicationJobId'] as String
+            : null,
+        replicationJobTerminated: json.containsKey('replicationJobTerminated')
+            ? json['replicationJobTerminated'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A logical grouping of servers.
@@ -1078,7 +1488,18 @@ class ServerGroup {
     this.name,
     this.serverList,
   });
-  static ServerGroup fromJson(Map<String, dynamic> json) => ServerGroup();
+  static ServerGroup fromJson(Map<String, dynamic> json) => ServerGroup(
+        serverGroupId: json.containsKey('serverGroupId')
+            ? json['serverGroupId'] as String
+            : null,
+        name: json.containsKey('name') ? json['name'] as String : null,
+        serverList: json.containsKey('serverList')
+            ? (json['serverList'] as List)
+                .map((e) => Server.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Launch configuration for a server group.
@@ -1099,7 +1520,20 @@ class ServerGroupLaunchConfiguration {
     this.serverLaunchConfigurations,
   });
   static ServerGroupLaunchConfiguration fromJson(Map<String, dynamic> json) =>
-      ServerGroupLaunchConfiguration();
+      ServerGroupLaunchConfiguration(
+        serverGroupId: json.containsKey('serverGroupId')
+            ? json['serverGroupId'] as String
+            : null,
+        launchOrder:
+            json.containsKey('launchOrder') ? json['launchOrder'] as int : null,
+        serverLaunchConfigurations:
+            json.containsKey('serverLaunchConfigurations')
+                ? (json['serverLaunchConfigurations'] as List)
+                    .map((e) => ServerLaunchConfiguration.fromJson(e))
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Replication configuration for a server group.
@@ -1117,7 +1551,18 @@ class ServerGroupReplicationConfiguration {
   });
   static ServerGroupReplicationConfiguration fromJson(
           Map<String, dynamic> json) =>
-      ServerGroupReplicationConfiguration();
+      ServerGroupReplicationConfiguration(
+        serverGroupId: json.containsKey('serverGroupId')
+            ? json['serverGroupId'] as String
+            : null,
+        serverReplicationConfigurations:
+            json.containsKey('serverReplicationConfigurations')
+                ? (json['serverReplicationConfigurations'] as List)
+                    .map((e) => ServerReplicationConfiguration.fromJson(e))
+                    .toList()
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Launch configuration for a server.
@@ -1162,7 +1607,30 @@ class ServerLaunchConfiguration {
     this.associatePublicIpAddress,
   });
   static ServerLaunchConfiguration fromJson(Map<String, dynamic> json) =>
-      ServerLaunchConfiguration();
+      ServerLaunchConfiguration(
+        server:
+            json.containsKey('server') ? Server.fromJson(json['server']) : null,
+        logicalId:
+            json.containsKey('logicalId') ? json['logicalId'] as String : null,
+        vpc: json.containsKey('vpc') ? json['vpc'] as String : null,
+        subnet: json.containsKey('subnet') ? json['subnet'] as String : null,
+        securityGroup: json.containsKey('securityGroup')
+            ? json['securityGroup'] as String
+            : null,
+        ec2KeyName: json.containsKey('ec2KeyName')
+            ? json['ec2KeyName'] as String
+            : null,
+        userData: json.containsKey('userData')
+            ? UserData.fromJson(json['userData'])
+            : null,
+        instanceType: json.containsKey('instanceType')
+            ? json['instanceType'] as String
+            : null,
+        associatePublicIpAddress: json.containsKey('associatePublicIpAddress')
+            ? json['associatePublicIpAddress'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Replication configuration of a server.
@@ -1179,7 +1647,16 @@ class ServerReplicationConfiguration {
     this.serverReplicationParameters,
   });
   static ServerReplicationConfiguration fromJson(Map<String, dynamic> json) =>
-      ServerReplicationConfiguration();
+      ServerReplicationConfiguration(
+        server:
+            json.containsKey('server') ? Server.fromJson(json['server']) : null,
+        serverReplicationParameters:
+            json.containsKey('serverReplicationParameters')
+                ? ServerReplicationParameters.fromJson(
+                    json['serverReplicationParameters'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Replication parameters for replicating a server.
@@ -1229,7 +1706,25 @@ class ServerReplicationParameters {
     this.kmsKeyId,
   });
   static ServerReplicationParameters fromJson(Map<String, dynamic> json) =>
-      ServerReplicationParameters();
+      ServerReplicationParameters(
+        seedTime: json.containsKey('seedTime')
+            ? DateTime.parse(json['seedTime'])
+            : null,
+        frequency:
+            json.containsKey('frequency') ? json['frequency'] as int : null,
+        runOnce: json.containsKey('runOnce') ? json['runOnce'] as bool : null,
+        licenseType: json.containsKey('licenseType')
+            ? json['licenseType'] as String
+            : null,
+        numberOfRecentAmisToKeep: json.containsKey('numberOfRecentAmisToKeep')
+            ? json['numberOfRecentAmisToKeep'] as int
+            : null,
+        encrypted:
+            json.containsKey('encrypted') ? json['encrypted'] as bool : null,
+        kmsKeyId:
+            json.containsKey('kmsKeyId') ? json['kmsKeyId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartAppReplicationResponse {
@@ -1247,7 +1742,11 @@ class StartOnDemandReplicationRunResponse {
   });
   static StartOnDemandReplicationRunResponse fromJson(
           Map<String, dynamic> json) =>
-      StartOnDemandReplicationRunResponse();
+      StartOnDemandReplicationRunResponse(
+        replicationRunId: json.containsKey('replicationRunId')
+            ? json['replicationRunId'] as String
+            : null,
+      );
 }
 
 class StopAppReplicationResponse {
@@ -1268,7 +1767,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('key') ? json['key'] as String : null,
+        value: json.containsKey('value') ? json['value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TerminateAppResponse {
@@ -1293,7 +1796,19 @@ class UpdateAppResponse {
     this.tags,
   });
   static UpdateAppResponse fromJson(Map<String, dynamic> json) =>
-      UpdateAppResponse();
+      UpdateAppResponse(
+        appSummary: json.containsKey('appSummary')
+            ? AppSummary.fromJson(json['appSummary'])
+            : null,
+        serverGroups: json.containsKey('serverGroups')
+            ? (json['serverGroups'] as List)
+                .map((e) => ServerGroup.fromJson(e))
+                .toList()
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class UpdateReplicationJobResponse {
@@ -1311,7 +1826,12 @@ class UserData {
   UserData({
     this.s3Location,
   });
-  static UserData fromJson(Map<String, dynamic> json) => UserData();
+  static UserData fromJson(Map<String, dynamic> json) => UserData(
+        s3Location: json.containsKey('s3Location')
+            ? S3Location.fromJson(json['s3Location'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a VM server.
@@ -1338,7 +1858,20 @@ class VmServer {
     this.vmManagerType,
     this.vmPath,
   });
-  static VmServer fromJson(Map<String, dynamic> json) => VmServer();
+  static VmServer fromJson(Map<String, dynamic> json) => VmServer(
+        vmServerAddress: json.containsKey('vmServerAddress')
+            ? VmServerAddress.fromJson(json['vmServerAddress'])
+            : null,
+        vmName: json.containsKey('vmName') ? json['vmName'] as String : null,
+        vmManagerName: json.containsKey('vmManagerName')
+            ? json['vmManagerName'] as String
+            : null,
+        vmManagerType: json.containsKey('vmManagerType')
+            ? json['vmManagerType'] as String
+            : null,
+        vmPath: json.containsKey('vmPath') ? json['vmPath'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a VM server location.
@@ -1353,6 +1886,11 @@ class VmServerAddress {
     this.vmManagerId,
     this.vmId,
   });
-  static VmServerAddress fromJson(Map<String, dynamic> json) =>
-      VmServerAddress();
+  static VmServerAddress fromJson(Map<String, dynamic> json) => VmServerAddress(
+        vmManagerId: json.containsKey('vmManagerId')
+            ? json['vmManagerId'] as String
+            : null,
+        vmId: json.containsKey('vmId') ? json['vmId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

@@ -44,6 +44,10 @@ import 'package:meta/meta.dart';
 /// [Control Access to the Amazon Chime Console](https://docs.aws.amazon.com/chime/latest/ag/control-access.html)
 /// in the _Amazon Chime Administration Guide_.
 class ChimeApi {
+  final _client;
+  ChimeApi(client)
+      : _client = client.configured('Chime', serializer: 'rest-json');
+
   /// Associates a phone number with the specified Amazon Chime user.
   ///
   /// [accountId]: The Amazon Chime account ID.
@@ -55,7 +59,12 @@ class ChimeApi {
       {@required String accountId,
       @required String userId,
       @required String e164PhoneNumber}) async {
-    return AssociatePhoneNumberWithUserResponse.fromJson({});
+    var response_ = await _client.send('AssociatePhoneNumberWithUser', {
+      'AccountId': accountId,
+      'UserId': userId,
+      'E164PhoneNumber': e164PhoneNumber,
+    });
+    return AssociatePhoneNumberWithUserResponse.fromJson(response_);
   }
 
   /// Associates a phone number with the specified Amazon Chime Voice Connector.
@@ -66,7 +75,12 @@ class ChimeApi {
   Future<AssociatePhoneNumbersWithVoiceConnectorResponse>
       associatePhoneNumbersWithVoiceConnector(String voiceConnectorId,
           {List<String> e164PhoneNumbers}) async {
-    return AssociatePhoneNumbersWithVoiceConnectorResponse.fromJson({});
+    var response_ =
+        await _client.send('AssociatePhoneNumbersWithVoiceConnector', {
+      'VoiceConnectorId': voiceConnectorId,
+      if (e164PhoneNumbers != null) 'E164PhoneNumbers': e164PhoneNumbers,
+    });
+    return AssociatePhoneNumbersWithVoiceConnectorResponse.fromJson(response_);
   }
 
   /// Moves phone numbers into the **Deletion queue**. Phone numbers must be
@@ -79,7 +93,10 @@ class ChimeApi {
   /// [phoneNumberIds]: List of phone number IDs.
   Future<BatchDeletePhoneNumberResponse> batchDeletePhoneNumber(
       List<String> phoneNumberIds) async {
-    return BatchDeletePhoneNumberResponse.fromJson({});
+    var response_ = await _client.send('BatchDeletePhoneNumber', {
+      'PhoneNumberIds': phoneNumberIds,
+    });
+    return BatchDeletePhoneNumberResponse.fromJson(response_);
   }
 
   /// Suspends up to 50 users from a `Team` or `EnterpriseLWA` Amazon Chime
@@ -104,7 +121,11 @@ class ChimeApi {
   /// [userIdList]: The request containing the user IDs to suspend.
   Future<BatchSuspendUserResponse> batchSuspendUser(
       {@required String accountId, @required List<String> userIdList}) async {
-    return BatchSuspendUserResponse.fromJson({});
+    var response_ = await _client.send('BatchSuspendUser', {
+      'AccountId': accountId,
+      'UserIdList': userIdList,
+    });
+    return BatchSuspendUserResponse.fromJson(response_);
   }
 
   /// Removes the suspension from up to 50 previously suspended users for the
@@ -123,7 +144,11 @@ class ChimeApi {
   /// [userIdList]: The request containing the user IDs to unsuspend.
   Future<BatchUnsuspendUserResponse> batchUnsuspendUser(
       {@required String accountId, @required List<String> userIdList}) async {
-    return BatchUnsuspendUserResponse.fromJson({});
+    var response_ = await _client.send('BatchUnsuspendUser', {
+      'AccountId': accountId,
+      'UserIdList': userIdList,
+    });
+    return BatchUnsuspendUserResponse.fromJson(response_);
   }
 
   /// Updates phone number product types. Choose from Amazon Chime Business
@@ -134,7 +159,10 @@ class ChimeApi {
   /// IDs and product types to update.
   Future<BatchUpdatePhoneNumberResponse> batchUpdatePhoneNumber(
       List<UpdatePhoneNumberRequestItem> updatePhoneNumberRequestItems) async {
-    return BatchUpdatePhoneNumberResponse.fromJson({});
+    var response_ = await _client.send('BatchUpdatePhoneNumber', {
+      'UpdatePhoneNumberRequestItems': updatePhoneNumberRequestItems,
+    });
+    return BatchUpdatePhoneNumberResponse.fromJson(response_);
   }
 
   /// Updates user details within the UpdateUserRequestItem object for up to 20
@@ -148,7 +176,11 @@ class ChimeApi {
   Future<BatchUpdateUserResponse> batchUpdateUser(
       {@required String accountId,
       @required List<UpdateUserRequestItem> updateUserRequestItems}) async {
-    return BatchUpdateUserResponse.fromJson({});
+    var response_ = await _client.send('BatchUpdateUser', {
+      'AccountId': accountId,
+      'UpdateUserRequestItems': updateUserRequestItems,
+    });
+    return BatchUpdateUserResponse.fromJson(response_);
   }
 
   /// Creates an Amazon Chime account under the administrator's AWS account.
@@ -159,7 +191,10 @@ class ChimeApi {
   ///
   /// [name]: The name of the Amazon Chime account.
   Future<CreateAccountResponse> createAccount(String name) async {
-    return CreateAccountResponse.fromJson({});
+    var response_ = await _client.send('CreateAccount', {
+      'Name': name,
+    });
+    return CreateAccountResponse.fromJson(response_);
   }
 
   /// Creates a bot for an Amazon Chime Enterprise account.
@@ -173,7 +208,12 @@ class ChimeApi {
       {@required String accountId,
       @required String displayName,
       String domain}) async {
-    return CreateBotResponse.fromJson({});
+    var response_ = await _client.send('CreateBot', {
+      'AccountId': accountId,
+      'DisplayName': displayName,
+      if (domain != null) 'Domain': domain,
+    });
+    return CreateBotResponse.fromJson(response_);
   }
 
   /// Creates an order for phone numbers to be provisioned. Choose from Amazon
@@ -187,7 +227,11 @@ class ChimeApi {
   Future<CreatePhoneNumberOrderResponse> createPhoneNumberOrder(
       {@required String productType,
       @required List<String> e164PhoneNumbers}) async {
-    return CreatePhoneNumberOrderResponse.fromJson({});
+    var response_ = await _client.send('CreatePhoneNumberOrder', {
+      'ProductType': productType,
+      'E164PhoneNumbers': e164PhoneNumbers,
+    });
+    return CreatePhoneNumberOrderResponse.fromJson(response_);
   }
 
   /// Creates an Amazon Chime Voice Connector under the administrator's AWS
@@ -202,7 +246,11 @@ class ChimeApi {
   /// Chime Voice Connector.
   Future<CreateVoiceConnectorResponse> createVoiceConnector(
       {@required String name, @required bool requireEncryption}) async {
-    return CreateVoiceConnectorResponse.fromJson({});
+    var response_ = await _client.send('CreateVoiceConnector', {
+      'Name': name,
+      'RequireEncryption': requireEncryption,
+    });
+    return CreateVoiceConnectorResponse.fromJson(response_);
   }
 
   /// Deletes the specified Amazon Chime account. You must suspend all users
@@ -222,7 +270,10 @@ class ChimeApi {
   ///
   /// [accountId]: The Amazon Chime account ID.
   Future<DeleteAccountResponse> deleteAccount(String accountId) async {
-    return DeleteAccountResponse.fromJson({});
+    var response_ = await _client.send('DeleteAccount', {
+      'AccountId': accountId,
+    });
+    return DeleteAccountResponse.fromJson(response_);
   }
 
   /// Deletes the events configuration that allows a bot to receive outgoing
@@ -232,7 +283,12 @@ class ChimeApi {
   ///
   /// [botId]: The bot ID.
   Future<void> deleteEventsConfiguration(
-      {@required String accountId, @required String botId}) async {}
+      {@required String accountId, @required String botId}) async {
+    await _client.send('DeleteEventsConfiguration', {
+      'AccountId': accountId,
+      'BotId': botId,
+    });
+  }
 
   /// Moves the specified phone number into the **Deletion queue**. A phone
   /// number must be disassociated from any users or Amazon Chime Voice
@@ -242,26 +298,42 @@ class ChimeApi {
   /// they are deleted permanently.
   ///
   /// [phoneNumberId]: The phone number ID.
-  Future<void> deletePhoneNumber(String phoneNumberId) async {}
+  Future<void> deletePhoneNumber(String phoneNumberId) async {
+    await _client.send('DeletePhoneNumber', {
+      'PhoneNumberId': phoneNumberId,
+    });
+  }
 
   /// Deletes the specified Amazon Chime Voice Connector. Any phone numbers
   /// assigned to the Amazon Chime Voice Connector must be unassigned from it
   /// before it can be deleted.
   ///
   /// [voiceConnectorId]: The Amazon Chime Voice Connector ID.
-  Future<void> deleteVoiceConnector(String voiceConnectorId) async {}
+  Future<void> deleteVoiceConnector(String voiceConnectorId) async {
+    await _client.send('DeleteVoiceConnector', {
+      'VoiceConnectorId': voiceConnectorId,
+    });
+  }
 
   /// Deletes the origination settings for the specified Amazon Chime Voice
   /// Connector.
   ///
   /// [voiceConnectorId]: The Amazon Chime Voice Connector ID.
-  Future<void> deleteVoiceConnectorOrigination(String voiceConnectorId) async {}
+  Future<void> deleteVoiceConnectorOrigination(String voiceConnectorId) async {
+    await _client.send('DeleteVoiceConnectorOrigination', {
+      'VoiceConnectorId': voiceConnectorId,
+    });
+  }
 
   /// Deletes the termination settings for the specified Amazon Chime Voice
   /// Connector.
   ///
   /// [voiceConnectorId]: The Amazon Chime Voice Connector ID.
-  Future<void> deleteVoiceConnectorTermination(String voiceConnectorId) async {}
+  Future<void> deleteVoiceConnectorTermination(String voiceConnectorId) async {
+    await _client.send('DeleteVoiceConnectorTermination', {
+      'VoiceConnectorId': voiceConnectorId,
+    });
+  }
 
   /// Deletes the specified SIP credentials used by your equipment to
   /// authenticate during call termination.
@@ -272,7 +344,12 @@ class ChimeApi {
   /// credentials, in US-ASCII format.
   Future<void> deleteVoiceConnectorTerminationCredentials(
       String voiceConnectorId,
-      {List<String> usernames}) async {}
+      {List<String> usernames}) async {
+    await _client.send('DeleteVoiceConnectorTerminationCredentials', {
+      'VoiceConnectorId': voiceConnectorId,
+      if (usernames != null) 'Usernames': usernames,
+    });
+  }
 
   /// Disassociates the primary provisioned phone number from the specified
   /// Amazon Chime user.
@@ -283,7 +360,11 @@ class ChimeApi {
   Future<DisassociatePhoneNumberFromUserResponse>
       disassociatePhoneNumberFromUser(
           {@required String accountId, @required String userId}) async {
-    return DisassociatePhoneNumberFromUserResponse.fromJson({});
+    var response_ = await _client.send('DisassociatePhoneNumberFromUser', {
+      'AccountId': accountId,
+      'UserId': userId,
+    });
+    return DisassociatePhoneNumberFromUserResponse.fromJson(response_);
   }
 
   /// Disassociates the specified phone number from the specified Amazon Chime
@@ -295,7 +376,13 @@ class ChimeApi {
   Future<DisassociatePhoneNumbersFromVoiceConnectorResponse>
       disassociatePhoneNumbersFromVoiceConnector(String voiceConnectorId,
           {List<String> e164PhoneNumbers}) async {
-    return DisassociatePhoneNumbersFromVoiceConnectorResponse.fromJson({});
+    var response_ =
+        await _client.send('DisassociatePhoneNumbersFromVoiceConnector', {
+      'VoiceConnectorId': voiceConnectorId,
+      if (e164PhoneNumbers != null) 'E164PhoneNumbers': e164PhoneNumbers,
+    });
+    return DisassociatePhoneNumbersFromVoiceConnectorResponse.fromJson(
+        response_);
   }
 
   /// Retrieves details for the specified Amazon Chime account, such as account
@@ -303,7 +390,10 @@ class ChimeApi {
   ///
   /// [accountId]: The Amazon Chime account ID.
   Future<GetAccountResponse> getAccount(String accountId) async {
-    return GetAccountResponse.fromJson({});
+    var response_ = await _client.send('GetAccount', {
+      'AccountId': accountId,
+    });
+    return GetAccountResponse.fromJson(response_);
   }
 
   /// Retrieves account settings for the specified Amazon Chime account ID, such
@@ -315,7 +405,10 @@ class ChimeApi {
   /// [accountId]: The Amazon Chime account ID.
   Future<GetAccountSettingsResponse> getAccountSettings(
       String accountId) async {
-    return GetAccountSettingsResponse.fromJson({});
+    var response_ = await _client.send('GetAccountSettings', {
+      'AccountId': accountId,
+    });
+    return GetAccountSettingsResponse.fromJson(response_);
   }
 
   /// Retrieves details for the specified bot, such as bot email address, bot
@@ -326,7 +419,11 @@ class ChimeApi {
   /// [botId]: The bot ID.
   Future<GetBotResponse> getBot(
       {@required String accountId, @required String botId}) async {
-    return GetBotResponse.fromJson({});
+    var response_ = await _client.send('GetBot', {
+      'AccountId': accountId,
+      'BotId': botId,
+    });
+    return GetBotResponse.fromJson(response_);
   }
 
   /// Gets details for an events configuration that allows a bot to receive
@@ -337,13 +434,18 @@ class ChimeApi {
   /// [botId]: The bot ID.
   Future<GetEventsConfigurationResponse> getEventsConfiguration(
       {@required String accountId, @required String botId}) async {
-    return GetEventsConfigurationResponse.fromJson({});
+    var response_ = await _client.send('GetEventsConfiguration', {
+      'AccountId': accountId,
+      'BotId': botId,
+    });
+    return GetEventsConfigurationResponse.fromJson(response_);
   }
 
   /// Retrieves global settings for the administrator's AWS account, such as
   /// Amazon Chime Business Calling and Amazon Chime Voice Connector settings.
   Future<GetGlobalSettingsResponse> getGlobalSettings() async {
-    return GetGlobalSettingsResponse.fromJson({});
+    var response_ = await _client.send('GetGlobalSettings', {});
+    return GetGlobalSettingsResponse.fromJson(response_);
   }
 
   /// Retrieves details for the specified phone number ID, such as associations,
@@ -351,7 +453,10 @@ class ChimeApi {
   ///
   /// [phoneNumberId]: The phone number ID.
   Future<GetPhoneNumberResponse> getPhoneNumber(String phoneNumberId) async {
-    return GetPhoneNumberResponse.fromJson({});
+    var response_ = await _client.send('GetPhoneNumber', {
+      'PhoneNumberId': phoneNumberId,
+    });
+    return GetPhoneNumberResponse.fromJson(response_);
   }
 
   /// Retrieves details for the specified phone number order, such as order
@@ -361,7 +466,10 @@ class ChimeApi {
   /// [phoneNumberOrderId]: The ID for the phone number order.
   Future<GetPhoneNumberOrderResponse> getPhoneNumberOrder(
       String phoneNumberOrderId) async {
-    return GetPhoneNumberOrderResponse.fromJson({});
+    var response_ = await _client.send('GetPhoneNumberOrder', {
+      'PhoneNumberOrderId': phoneNumberOrderId,
+    });
+    return GetPhoneNumberOrderResponse.fromJson(response_);
   }
 
   /// Retrieves details for the specified user ID, such as primary email
@@ -375,7 +483,11 @@ class ChimeApi {
   /// [userId]: The user ID.
   Future<GetUserResponse> getUser(
       {@required String accountId, @required String userId}) async {
-    return GetUserResponse.fromJson({});
+    var response_ = await _client.send('GetUser', {
+      'AccountId': accountId,
+      'UserId': userId,
+    });
+    return GetUserResponse.fromJson(response_);
   }
 
   /// Retrieves settings for the specified user ID, such as any associated phone
@@ -386,7 +498,11 @@ class ChimeApi {
   /// [userId]: The user ID.
   Future<GetUserSettingsResponse> getUserSettings(
       {@required String accountId, @required String userId}) async {
-    return GetUserSettingsResponse.fromJson({});
+    var response_ = await _client.send('GetUserSettings', {
+      'AccountId': accountId,
+      'UserId': userId,
+    });
+    return GetUserSettingsResponse.fromJson(response_);
   }
 
   /// Retrieves details for the specified Amazon Chime Voice Connector, such as
@@ -395,7 +511,10 @@ class ChimeApi {
   /// [voiceConnectorId]: The Amazon Chime Voice Connector ID.
   Future<GetVoiceConnectorResponse> getVoiceConnector(
       String voiceConnectorId) async {
-    return GetVoiceConnectorResponse.fromJson({});
+    var response_ = await _client.send('GetVoiceConnector', {
+      'VoiceConnectorId': voiceConnectorId,
+    });
+    return GetVoiceConnectorResponse.fromJson(response_);
   }
 
   /// Retrieves origination setting details for the specified Amazon Chime Voice
@@ -404,7 +523,10 @@ class ChimeApi {
   /// [voiceConnectorId]: The Amazon Chime Voice Connector ID.
   Future<GetVoiceConnectorOriginationResponse> getVoiceConnectorOrigination(
       String voiceConnectorId) async {
-    return GetVoiceConnectorOriginationResponse.fromJson({});
+    var response_ = await _client.send('GetVoiceConnectorOrigination', {
+      'VoiceConnectorId': voiceConnectorId,
+    });
+    return GetVoiceConnectorOriginationResponse.fromJson(response_);
   }
 
   /// Retrieves termination setting details for the specified Amazon Chime Voice
@@ -413,7 +535,10 @@ class ChimeApi {
   /// [voiceConnectorId]: The Amazon Chime Voice Connector ID.
   Future<GetVoiceConnectorTerminationResponse> getVoiceConnectorTermination(
       String voiceConnectorId) async {
-    return GetVoiceConnectorTerminationResponse.fromJson({});
+    var response_ = await _client.send('GetVoiceConnectorTermination', {
+      'VoiceConnectorId': voiceConnectorId,
+    });
+    return GetVoiceConnectorTerminationResponse.fromJson(response_);
   }
 
   /// Retrieves information about the last time a SIP `OPTIONS` ping was
@@ -423,7 +548,10 @@ class ChimeApi {
   /// [voiceConnectorId]: The Amazon Chime Voice Connector ID.
   Future<GetVoiceConnectorTerminationHealthResponse>
       getVoiceConnectorTerminationHealth(String voiceConnectorId) async {
-    return GetVoiceConnectorTerminationHealthResponse.fromJson({});
+    var response_ = await _client.send('GetVoiceConnectorTerminationHealth', {
+      'VoiceConnectorId': voiceConnectorId,
+    });
+    return GetVoiceConnectorTerminationHealthResponse.fromJson(response_);
   }
 
   /// Sends email invites to as many as 50 users, inviting them to the specified
@@ -436,7 +564,11 @@ class ChimeApi {
   Future<InviteUsersResponse> inviteUsers(
       {@required String accountId,
       @required List<String> userEmailList}) async {
-    return InviteUsersResponse.fromJson({});
+    var response_ = await _client.send('InviteUsers', {
+      'AccountId': accountId,
+      'UserEmailList': userEmailList,
+    });
+    return InviteUsersResponse.fromJson(response_);
   }
 
   /// Lists the Amazon Chime accounts under the administrator's AWS account. You
@@ -454,7 +586,13 @@ class ChimeApi {
   /// Defaults to 100.
   Future<ListAccountsResponse> listAccounts(
       {String name, String userEmail, String nextToken, int maxResults}) async {
-    return ListAccountsResponse.fromJson({});
+    var response_ = await _client.send('ListAccounts', {
+      if (name != null) 'Name': name,
+      if (userEmail != null) 'UserEmail': userEmail,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListAccountsResponse.fromJson(response_);
   }
 
   /// Lists the bots associated with the administrator's Amazon Chime Enterprise
@@ -468,7 +606,12 @@ class ChimeApi {
   /// [nextToken]: The token to use to retrieve the next page of results.
   Future<ListBotsResponse> listBots(String accountId,
       {int maxResults, String nextToken}) async {
-    return ListBotsResponse.fromJson({});
+    var response_ = await _client.send('ListBots', {
+      'AccountId': accountId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListBotsResponse.fromJson(response_);
   }
 
   /// Lists the phone number orders for the administrator's Amazon Chime
@@ -479,7 +622,11 @@ class ChimeApi {
   /// [maxResults]: The maximum number of results to return in a single call.
   Future<ListPhoneNumberOrdersResponse> listPhoneNumberOrders(
       {String nextToken, int maxResults}) async {
-    return ListPhoneNumberOrdersResponse.fromJson({});
+    var response_ = await _client.send('ListPhoneNumberOrders', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListPhoneNumberOrdersResponse.fromJson(response_);
   }
 
   /// Lists the phone numbers for the specified Amazon Chime account, Amazon
@@ -503,7 +650,15 @@ class ChimeApi {
       String filterValue,
       int maxResults,
       String nextToken}) async {
-    return ListPhoneNumbersResponse.fromJson({});
+    var response_ = await _client.send('ListPhoneNumbers', {
+      if (status != null) 'Status': status,
+      if (productType != null) 'ProductType': productType,
+      if (filterName != null) 'FilterName': filterName,
+      if (filterValue != null) 'FilterValue': filterValue,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListPhoneNumbersResponse.fromJson(response_);
   }
 
   /// Lists the users that belong to the specified Amazon Chime account. You can
@@ -521,7 +676,13 @@ class ChimeApi {
   /// [nextToken]: The token to use to retrieve the next page of results.
   Future<ListUsersResponse> listUsers(String accountId,
       {String userEmail, int maxResults, String nextToken}) async {
-    return ListUsersResponse.fromJson({});
+    var response_ = await _client.send('ListUsers', {
+      'AccountId': accountId,
+      if (userEmail != null) 'UserEmail': userEmail,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListUsersResponse.fromJson(response_);
   }
 
   /// Lists the SIP credentials for the specified Amazon Chime Voice Connector.
@@ -529,7 +690,11 @@ class ChimeApi {
   /// [voiceConnectorId]: The Amazon Chime Voice Connector ID.
   Future<ListVoiceConnectorTerminationCredentialsResponse>
       listVoiceConnectorTerminationCredentials(String voiceConnectorId) async {
-    return ListVoiceConnectorTerminationCredentialsResponse.fromJson({});
+    var response_ =
+        await _client.send('ListVoiceConnectorTerminationCredentials', {
+      'VoiceConnectorId': voiceConnectorId,
+    });
+    return ListVoiceConnectorTerminationCredentialsResponse.fromJson(response_);
   }
 
   /// Lists the Amazon Chime Voice Connectors for the administrator's AWS
@@ -540,7 +705,11 @@ class ChimeApi {
   /// [maxResults]: The maximum number of results to return in a single call.
   Future<ListVoiceConnectorsResponse> listVoiceConnectors(
       {String nextToken, int maxResults}) async {
-    return ListVoiceConnectorsResponse.fromJson({});
+    var response_ = await _client.send('ListVoiceConnectors', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+    });
+    return ListVoiceConnectorsResponse.fromJson(response_);
   }
 
   /// Logs out the specified user from all of the devices they are currently
@@ -551,7 +720,11 @@ class ChimeApi {
   /// [userId]: The user ID.
   Future<LogoutUserResponse> logoutUser(
       {@required String accountId, @required String userId}) async {
-    return LogoutUserResponse.fromJson({});
+    var response_ = await _client.send('LogoutUser', {
+      'AccountId': accountId,
+      'UserId': userId,
+    });
+    return LogoutUserResponse.fromJson(response_);
   }
 
   /// Creates an events configuration that allows a bot to receive outgoing
@@ -572,7 +745,14 @@ class ChimeApi {
       @required String botId,
       String outboundEventsHttpsEndpoint,
       String lambdaFunctionArn}) async {
-    return PutEventsConfigurationResponse.fromJson({});
+    var response_ = await _client.send('PutEventsConfiguration', {
+      'AccountId': accountId,
+      'BotId': botId,
+      if (outboundEventsHttpsEndpoint != null)
+        'OutboundEventsHTTPSEndpoint': outboundEventsHttpsEndpoint,
+      if (lambdaFunctionArn != null) 'LambdaFunctionArn': lambdaFunctionArn,
+    });
+    return PutEventsConfigurationResponse.fromJson(response_);
   }
 
   /// Adds origination settings for the specified Amazon Chime Voice Connector.
@@ -583,7 +763,11 @@ class ChimeApi {
   Future<PutVoiceConnectorOriginationResponse> putVoiceConnectorOrigination(
       {@required String voiceConnectorId,
       @required Origination origination}) async {
-    return PutVoiceConnectorOriginationResponse.fromJson({});
+    var response_ = await _client.send('PutVoiceConnectorOrigination', {
+      'VoiceConnectorId': voiceConnectorId,
+      'Origination': origination,
+    });
+    return PutVoiceConnectorOriginationResponse.fromJson(response_);
   }
 
   /// Adds termination settings for the specified Amazon Chime Voice Connector.
@@ -594,7 +778,11 @@ class ChimeApi {
   Future<PutVoiceConnectorTerminationResponse> putVoiceConnectorTermination(
       {@required String voiceConnectorId,
       @required Termination termination}) async {
-    return PutVoiceConnectorTerminationResponse.fromJson({});
+    var response_ = await _client.send('PutVoiceConnectorTermination', {
+      'VoiceConnectorId': voiceConnectorId,
+      'Termination': termination,
+    });
+    return PutVoiceConnectorTerminationResponse.fromJson(response_);
   }
 
   /// Adds termination SIP credentials for the specified Amazon Chime Voice
@@ -604,7 +792,12 @@ class ChimeApi {
   ///
   /// [credentials]: The termination SIP credentials.
   Future<void> putVoiceConnectorTerminationCredentials(String voiceConnectorId,
-      {List<Credential> credentials}) async {}
+      {List<Credential> credentials}) async {
+    await _client.send('PutVoiceConnectorTerminationCredentials', {
+      'VoiceConnectorId': voiceConnectorId,
+      if (credentials != null) 'Credentials': credentials,
+    });
+  }
 
   /// Regenerates the security token for a bot.
   ///
@@ -613,7 +806,11 @@ class ChimeApi {
   /// [botId]: The bot ID.
   Future<RegenerateSecurityTokenResponse> regenerateSecurityToken(
       {@required String accountId, @required String botId}) async {
-    return RegenerateSecurityTokenResponse.fromJson({});
+    var response_ = await _client.send('RegenerateSecurityToken', {
+      'AccountId': accountId,
+      'BotId': botId,
+    });
+    return RegenerateSecurityTokenResponse.fromJson(response_);
   }
 
   /// Resets the personal meeting PIN for the specified user on an Amazon Chime
@@ -624,7 +821,11 @@ class ChimeApi {
   /// [userId]: The user ID.
   Future<ResetPersonalPinResponse> resetPersonalPin(
       {@required String accountId, @required String userId}) async {
-    return ResetPersonalPinResponse.fromJson({});
+    var response_ = await _client.send('ResetPersonalPIN', {
+      'AccountId': accountId,
+      'UserId': userId,
+    });
+    return ResetPersonalPinResponse.fromJson(response_);
   }
 
   /// Moves a phone number from the **Deletion queue** back into the phone
@@ -633,7 +834,10 @@ class ChimeApi {
   /// [phoneNumberId]: The phone number.
   Future<RestorePhoneNumberResponse> restorePhoneNumber(
       String phoneNumberId) async {
-    return RestorePhoneNumberResponse.fromJson({});
+    var response_ = await _client.send('RestorePhoneNumber', {
+      'PhoneNumberId': phoneNumberId,
+    });
+    return RestorePhoneNumberResponse.fromJson(response_);
   }
 
   /// Searches phone numbers that can be ordered.
@@ -659,7 +863,16 @@ class ChimeApi {
       String tollFreePrefix,
       int maxResults,
       String nextToken}) async {
-    return SearchAvailablePhoneNumbersResponse.fromJson({});
+    var response_ = await _client.send('SearchAvailablePhoneNumbers', {
+      if (areaCode != null) 'AreaCode': areaCode,
+      if (city != null) 'City': city,
+      if (country != null) 'Country': country,
+      if (state != null) 'State': state,
+      if (tollFreePrefix != null) 'TollFreePrefix': tollFreePrefix,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return SearchAvailablePhoneNumbersResponse.fromJson(response_);
   }
 
   /// Updates account details for the specified Amazon Chime account. Currently,
@@ -670,7 +883,11 @@ class ChimeApi {
   /// [name]: The new name for the specified Amazon Chime account.
   Future<UpdateAccountResponse> updateAccount(String accountId,
       {String name}) async {
-    return UpdateAccountResponse.fromJson({});
+    var response_ = await _client.send('UpdateAccount', {
+      'AccountId': accountId,
+      if (name != null) 'Name': name,
+    });
+    return UpdateAccountResponse.fromJson(response_);
   }
 
   /// Updates the settings for the specified Amazon Chime account. You can
@@ -685,7 +902,11 @@ class ChimeApi {
   Future<UpdateAccountSettingsResponse> updateAccountSettings(
       {@required String accountId,
       @required AccountSettings accountSettings}) async {
-    return UpdateAccountSettingsResponse.fromJson({});
+    var response_ = await _client.send('UpdateAccountSettings', {
+      'AccountId': accountId,
+      'AccountSettings': accountSettings,
+    });
+    return UpdateAccountSettingsResponse.fromJson(response_);
   }
 
   /// Updates the status of the specified bot, such as starting or stopping the
@@ -701,7 +922,12 @@ class ChimeApi {
       {@required String accountId,
       @required String botId,
       bool disabled}) async {
-    return UpdateBotResponse.fromJson({});
+    var response_ = await _client.send('UpdateBot', {
+      'AccountId': accountId,
+      'BotId': botId,
+      if (disabled != null) 'Disabled': disabled,
+    });
+    return UpdateBotResponse.fromJson(response_);
   }
 
   /// Updates global settings for the administrator's AWS account, such as
@@ -712,7 +938,12 @@ class ChimeApi {
   /// [voiceConnector]: The Amazon Chime Voice Connector settings.
   Future<void> updateGlobalSettings(
       {@required BusinessCallingSettings businessCalling,
-      @required VoiceConnectorSettings voiceConnector}) async {}
+      @required VoiceConnectorSettings voiceConnector}) async {
+    await _client.send('UpdateGlobalSettings', {
+      'BusinessCalling': businessCalling,
+      'VoiceConnector': voiceConnector,
+    });
+  }
 
   /// Updates phone number details, such as product type, for the specified
   /// phone number ID. For toll-free numbers, you can use only the Amazon Chime
@@ -723,7 +954,11 @@ class ChimeApi {
   /// [productType]: The product type.
   Future<UpdatePhoneNumberResponse> updatePhoneNumber(String phoneNumberId,
       {String productType}) async {
-    return UpdatePhoneNumberResponse.fromJson({});
+    var response_ = await _client.send('UpdatePhoneNumber', {
+      'PhoneNumberId': phoneNumberId,
+      if (productType != null) 'ProductType': productType,
+    });
+    return UpdatePhoneNumberResponse.fromJson(response_);
   }
 
   /// Updates user details for a specified user ID. Currently, only
@@ -739,7 +974,12 @@ class ChimeApi {
       {@required String accountId,
       @required String userId,
       String licenseType}) async {
-    return UpdateUserResponse.fromJson({});
+    var response_ = await _client.send('UpdateUser', {
+      'AccountId': accountId,
+      'UserId': userId,
+      if (licenseType != null) 'LicenseType': licenseType,
+    });
+    return UpdateUserResponse.fromJson(response_);
   }
 
   /// Updates the settings for the specified user, such as phone number
@@ -753,7 +993,13 @@ class ChimeApi {
   Future<void> updateUserSettings(
       {@required String accountId,
       @required String userId,
-      @required UserSettings userSettings}) async {}
+      @required UserSettings userSettings}) async {
+    await _client.send('UpdateUserSettings', {
+      'AccountId': accountId,
+      'UserId': userId,
+      'UserSettings': userSettings,
+    });
+  }
 
   /// Updates details for the specified Amazon Chime Voice Connector.
   ///
@@ -767,7 +1013,12 @@ class ChimeApi {
       {@required String voiceConnectorId,
       @required String name,
       @required bool requireEncryption}) async {
-    return UpdateVoiceConnectorResponse.fromJson({});
+    var response_ = await _client.send('UpdateVoiceConnector', {
+      'VoiceConnectorId': voiceConnectorId,
+      'Name': name,
+      'RequireEncryption': requireEncryption,
+    });
+    return UpdateVoiceConnectorResponse.fromJson(response_);
   }
 }
 
@@ -807,7 +1058,25 @@ class Account {
     this.defaultLicense,
     this.supportedLicenses,
   });
-  static Account fromJson(Map<String, dynamic> json) => Account();
+  static Account fromJson(Map<String, dynamic> json) => Account(
+        awsAccountId: json['AwsAccountId'] as String,
+        accountId: json['AccountId'] as String,
+        name: json['Name'] as String,
+        accountType: json.containsKey('AccountType')
+            ? json['AccountType'] as String
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        defaultLicense: json.containsKey('DefaultLicense')
+            ? json['DefaultLicense'] as String
+            : null,
+        supportedLicenses: json.containsKey('SupportedLicenses')
+            ? (json['SupportedLicenses'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Settings related to the Amazon Chime account. This includes settings that
@@ -830,8 +1099,15 @@ class AccountSettings {
     this.disableRemoteControl,
     this.enableDialOut,
   });
-  static AccountSettings fromJson(Map<String, dynamic> json) =>
-      AccountSettings();
+  static AccountSettings fromJson(Map<String, dynamic> json) => AccountSettings(
+        disableRemoteControl: json.containsKey('DisableRemoteControl')
+            ? json['DisableRemoteControl'] as bool
+            : null,
+        enableDialOut: json.containsKey('EnableDialOut')
+            ? json['EnableDialOut'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class AssociatePhoneNumberWithUserResponse {
@@ -852,7 +1128,13 @@ class AssociatePhoneNumbersWithVoiceConnectorResponse {
   });
   static AssociatePhoneNumbersWithVoiceConnectorResponse fromJson(
           Map<String, dynamic> json) =>
-      AssociatePhoneNumbersWithVoiceConnectorResponse();
+      AssociatePhoneNumbersWithVoiceConnectorResponse(
+        phoneNumberErrors: json.containsKey('PhoneNumberErrors')
+            ? (json['PhoneNumberErrors'] as List)
+                .map((e) => PhoneNumberError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchDeletePhoneNumberResponse {
@@ -865,7 +1147,13 @@ class BatchDeletePhoneNumberResponse {
     this.phoneNumberErrors,
   });
   static BatchDeletePhoneNumberResponse fromJson(Map<String, dynamic> json) =>
-      BatchDeletePhoneNumberResponse();
+      BatchDeletePhoneNumberResponse(
+        phoneNumberErrors: json.containsKey('PhoneNumberErrors')
+            ? (json['PhoneNumberErrors'] as List)
+                .map((e) => PhoneNumberError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchSuspendUserResponse {
@@ -878,7 +1166,13 @@ class BatchSuspendUserResponse {
     this.userErrors,
   });
   static BatchSuspendUserResponse fromJson(Map<String, dynamic> json) =>
-      BatchSuspendUserResponse();
+      BatchSuspendUserResponse(
+        userErrors: json.containsKey('UserErrors')
+            ? (json['UserErrors'] as List)
+                .map((e) => UserError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchUnsuspendUserResponse {
@@ -891,7 +1185,13 @@ class BatchUnsuspendUserResponse {
     this.userErrors,
   });
   static BatchUnsuspendUserResponse fromJson(Map<String, dynamic> json) =>
-      BatchUnsuspendUserResponse();
+      BatchUnsuspendUserResponse(
+        userErrors: json.containsKey('UserErrors')
+            ? (json['UserErrors'] as List)
+                .map((e) => UserError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchUpdatePhoneNumberResponse {
@@ -904,7 +1204,13 @@ class BatchUpdatePhoneNumberResponse {
     this.phoneNumberErrors,
   });
   static BatchUpdatePhoneNumberResponse fromJson(Map<String, dynamic> json) =>
-      BatchUpdatePhoneNumberResponse();
+      BatchUpdatePhoneNumberResponse(
+        phoneNumberErrors: json.containsKey('PhoneNumberErrors')
+            ? (json['PhoneNumberErrors'] as List)
+                .map((e) => PhoneNumberError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class BatchUpdateUserResponse {
@@ -917,7 +1223,13 @@ class BatchUpdateUserResponse {
     this.userErrors,
   });
   static BatchUpdateUserResponse fromJson(Map<String, dynamic> json) =>
-      BatchUpdateUserResponse();
+      BatchUpdateUserResponse(
+        userErrors: json.containsKey('UserErrors')
+            ? (json['UserErrors'] as List)
+                .map((e) => UserError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// A resource that allows Enterprise account administrators to configure an
@@ -962,7 +1274,27 @@ class Bot {
     this.botEmail,
     this.securityToken,
   });
-  static Bot fromJson(Map<String, dynamic> json) => Bot();
+  static Bot fromJson(Map<String, dynamic> json) => Bot(
+        botId: json.containsKey('BotId') ? json['BotId'] as String : null,
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        botType: json.containsKey('BotType') ? json['BotType'] as String : null,
+        disabled:
+            json.containsKey('Disabled') ? json['Disabled'] as bool : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        updatedTimestamp: json.containsKey('UpdatedTimestamp')
+            ? DateTime.parse(json['UpdatedTimestamp'])
+            : null,
+        botEmail:
+            json.containsKey('BotEmail') ? json['BotEmail'] as String : null,
+        securityToken: json.containsKey('SecurityToken')
+            ? json['SecurityToken'] as String
+            : null,
+      );
 }
 
 /// The Amazon Chime Business Calling settings for the administrator's AWS
@@ -976,7 +1308,11 @@ class BusinessCallingSettings {
     this.cdrBucket,
   });
   static BusinessCallingSettings fromJson(Map<String, dynamic> json) =>
-      BusinessCallingSettings();
+      BusinessCallingSettings(
+        cdrBucket:
+            json.containsKey('CdrBucket') ? json['CdrBucket'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class CreateAccountResponse {
@@ -987,7 +1323,11 @@ class CreateAccountResponse {
     this.account,
   });
   static CreateAccountResponse fromJson(Map<String, dynamic> json) =>
-      CreateAccountResponse();
+      CreateAccountResponse(
+        account: json.containsKey('Account')
+            ? Account.fromJson(json['Account'])
+            : null,
+      );
 }
 
 class CreateBotResponse {
@@ -998,7 +1338,9 @@ class CreateBotResponse {
     this.bot,
   });
   static CreateBotResponse fromJson(Map<String, dynamic> json) =>
-      CreateBotResponse();
+      CreateBotResponse(
+        bot: json.containsKey('Bot') ? Bot.fromJson(json['Bot']) : null,
+      );
 }
 
 class CreatePhoneNumberOrderResponse {
@@ -1009,7 +1351,11 @@ class CreatePhoneNumberOrderResponse {
     this.phoneNumberOrder,
   });
   static CreatePhoneNumberOrderResponse fromJson(Map<String, dynamic> json) =>
-      CreatePhoneNumberOrderResponse();
+      CreatePhoneNumberOrderResponse(
+        phoneNumberOrder: json.containsKey('PhoneNumberOrder')
+            ? PhoneNumberOrder.fromJson(json['PhoneNumberOrder'])
+            : null,
+      );
 }
 
 class CreateVoiceConnectorResponse {
@@ -1020,7 +1366,11 @@ class CreateVoiceConnectorResponse {
     this.voiceConnector,
   });
   static CreateVoiceConnectorResponse fromJson(Map<String, dynamic> json) =>
-      CreateVoiceConnectorResponse();
+      CreateVoiceConnectorResponse(
+        voiceConnector: json.containsKey('VoiceConnector')
+            ? VoiceConnector.fromJson(json['VoiceConnector'])
+            : null,
+      );
 }
 
 /// The SIP credentials used to authenticate requests to your Amazon Chime Voice
@@ -1038,6 +1388,7 @@ class Credential {
     this.username,
     this.password,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class DeleteAccountResponse {
@@ -1064,7 +1415,13 @@ class DisassociatePhoneNumbersFromVoiceConnectorResponse {
   });
   static DisassociatePhoneNumbersFromVoiceConnectorResponse fromJson(
           Map<String, dynamic> json) =>
-      DisassociatePhoneNumbersFromVoiceConnectorResponse();
+      DisassociatePhoneNumbersFromVoiceConnectorResponse(
+        phoneNumberErrors: json.containsKey('PhoneNumberErrors')
+            ? (json['PhoneNumberErrors'] as List)
+                .map((e) => PhoneNumberError.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The configuration that allows a bot to receive outgoing events. Can be
@@ -1085,7 +1442,16 @@ class EventsConfiguration {
     this.lambdaFunctionArn,
   });
   static EventsConfiguration fromJson(Map<String, dynamic> json) =>
-      EventsConfiguration();
+      EventsConfiguration(
+        botId: json.containsKey('BotId') ? json['BotId'] as String : null,
+        outboundEventsHttpsEndpoint:
+            json.containsKey('OutboundEventsHTTPSEndpoint')
+                ? json['OutboundEventsHTTPSEndpoint'] as String
+                : null,
+        lambdaFunctionArn: json.containsKey('LambdaFunctionArn')
+            ? json['LambdaFunctionArn'] as String
+            : null,
+      );
 }
 
 class GetAccountResponse {
@@ -1096,7 +1462,11 @@ class GetAccountResponse {
     this.account,
   });
   static GetAccountResponse fromJson(Map<String, dynamic> json) =>
-      GetAccountResponse();
+      GetAccountResponse(
+        account: json.containsKey('Account')
+            ? Account.fromJson(json['Account'])
+            : null,
+      );
 }
 
 class GetAccountSettingsResponse {
@@ -1107,7 +1477,11 @@ class GetAccountSettingsResponse {
     this.accountSettings,
   });
   static GetAccountSettingsResponse fromJson(Map<String, dynamic> json) =>
-      GetAccountSettingsResponse();
+      GetAccountSettingsResponse(
+        accountSettings: json.containsKey('AccountSettings')
+            ? AccountSettings.fromJson(json['AccountSettings'])
+            : null,
+      );
 }
 
 class GetBotResponse {
@@ -1117,7 +1491,9 @@ class GetBotResponse {
   GetBotResponse({
     this.bot,
   });
-  static GetBotResponse fromJson(Map<String, dynamic> json) => GetBotResponse();
+  static GetBotResponse fromJson(Map<String, dynamic> json) => GetBotResponse(
+        bot: json.containsKey('Bot') ? Bot.fromJson(json['Bot']) : null,
+      );
 }
 
 class GetEventsConfigurationResponse {
@@ -1128,7 +1504,11 @@ class GetEventsConfigurationResponse {
     this.eventsConfiguration,
   });
   static GetEventsConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      GetEventsConfigurationResponse();
+      GetEventsConfigurationResponse(
+        eventsConfiguration: json.containsKey('EventsConfiguration')
+            ? EventsConfiguration.fromJson(json['EventsConfiguration'])
+            : null,
+      );
 }
 
 class GetGlobalSettingsResponse {
@@ -1143,7 +1523,14 @@ class GetGlobalSettingsResponse {
     this.voiceConnector,
   });
   static GetGlobalSettingsResponse fromJson(Map<String, dynamic> json) =>
-      GetGlobalSettingsResponse();
+      GetGlobalSettingsResponse(
+        businessCalling: json.containsKey('BusinessCalling')
+            ? BusinessCallingSettings.fromJson(json['BusinessCalling'])
+            : null,
+        voiceConnector: json.containsKey('VoiceConnector')
+            ? VoiceConnectorSettings.fromJson(json['VoiceConnector'])
+            : null,
+      );
 }
 
 class GetPhoneNumberOrderResponse {
@@ -1154,7 +1541,11 @@ class GetPhoneNumberOrderResponse {
     this.phoneNumberOrder,
   });
   static GetPhoneNumberOrderResponse fromJson(Map<String, dynamic> json) =>
-      GetPhoneNumberOrderResponse();
+      GetPhoneNumberOrderResponse(
+        phoneNumberOrder: json.containsKey('PhoneNumberOrder')
+            ? PhoneNumberOrder.fromJson(json['PhoneNumberOrder'])
+            : null,
+      );
 }
 
 class GetPhoneNumberResponse {
@@ -1165,7 +1556,11 @@ class GetPhoneNumberResponse {
     this.phoneNumber,
   });
   static GetPhoneNumberResponse fromJson(Map<String, dynamic> json) =>
-      GetPhoneNumberResponse();
+      GetPhoneNumberResponse(
+        phoneNumber: json.containsKey('PhoneNumber')
+            ? PhoneNumber.fromJson(json['PhoneNumber'])
+            : null,
+      );
 }
 
 class GetUserResponse {
@@ -1175,8 +1570,9 @@ class GetUserResponse {
   GetUserResponse({
     this.user,
   });
-  static GetUserResponse fromJson(Map<String, dynamic> json) =>
-      GetUserResponse();
+  static GetUserResponse fromJson(Map<String, dynamic> json) => GetUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+      );
 }
 
 class GetUserSettingsResponse {
@@ -1187,7 +1583,11 @@ class GetUserSettingsResponse {
     this.userSettings,
   });
   static GetUserSettingsResponse fromJson(Map<String, dynamic> json) =>
-      GetUserSettingsResponse();
+      GetUserSettingsResponse(
+        userSettings: json.containsKey('UserSettings')
+            ? UserSettings.fromJson(json['UserSettings'])
+            : null,
+      );
 }
 
 class GetVoiceConnectorOriginationResponse {
@@ -1199,7 +1599,11 @@ class GetVoiceConnectorOriginationResponse {
   });
   static GetVoiceConnectorOriginationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetVoiceConnectorOriginationResponse();
+      GetVoiceConnectorOriginationResponse(
+        origination: json.containsKey('Origination')
+            ? Origination.fromJson(json['Origination'])
+            : null,
+      );
 }
 
 class GetVoiceConnectorResponse {
@@ -1210,7 +1614,11 @@ class GetVoiceConnectorResponse {
     this.voiceConnector,
   });
   static GetVoiceConnectorResponse fromJson(Map<String, dynamic> json) =>
-      GetVoiceConnectorResponse();
+      GetVoiceConnectorResponse(
+        voiceConnector: json.containsKey('VoiceConnector')
+            ? VoiceConnector.fromJson(json['VoiceConnector'])
+            : null,
+      );
 }
 
 class GetVoiceConnectorTerminationHealthResponse {
@@ -1222,7 +1630,11 @@ class GetVoiceConnectorTerminationHealthResponse {
   });
   static GetVoiceConnectorTerminationHealthResponse fromJson(
           Map<String, dynamic> json) =>
-      GetVoiceConnectorTerminationHealthResponse();
+      GetVoiceConnectorTerminationHealthResponse(
+        terminationHealth: json.containsKey('TerminationHealth')
+            ? TerminationHealth.fromJson(json['TerminationHealth'])
+            : null,
+      );
 }
 
 class GetVoiceConnectorTerminationResponse {
@@ -1234,7 +1646,11 @@ class GetVoiceConnectorTerminationResponse {
   });
   static GetVoiceConnectorTerminationResponse fromJson(
           Map<String, dynamic> json) =>
-      GetVoiceConnectorTerminationResponse();
+      GetVoiceConnectorTerminationResponse(
+        termination: json.containsKey('Termination')
+            ? Termination.fromJson(json['Termination'])
+            : null,
+      );
 }
 
 /// Invitation object returned after emailing users to invite them to join the
@@ -1258,7 +1674,17 @@ class Invite {
     this.emailAddress,
     this.emailStatus,
   });
-  static Invite fromJson(Map<String, dynamic> json) => Invite();
+  static Invite fromJson(Map<String, dynamic> json) => Invite(
+        inviteId:
+            json.containsKey('InviteId') ? json['InviteId'] as String : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        emailAddress: json.containsKey('EmailAddress')
+            ? json['EmailAddress'] as String
+            : null,
+        emailStatus: json.containsKey('EmailStatus')
+            ? json['EmailStatus'] as String
+            : null,
+      );
 }
 
 class InviteUsersResponse {
@@ -1269,7 +1695,11 @@ class InviteUsersResponse {
     this.invites,
   });
   static InviteUsersResponse fromJson(Map<String, dynamic> json) =>
-      InviteUsersResponse();
+      InviteUsersResponse(
+        invites: json.containsKey('Invites')
+            ? (json['Invites'] as List).map((e) => Invite.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class ListAccountsResponse {
@@ -1284,7 +1714,15 @@ class ListAccountsResponse {
     this.nextToken,
   });
   static ListAccountsResponse fromJson(Map<String, dynamic> json) =>
-      ListAccountsResponse();
+      ListAccountsResponse(
+        accounts: json.containsKey('Accounts')
+            ? (json['Accounts'] as List)
+                .map((e) => Account.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListBotsResponse {
@@ -1299,7 +1737,13 @@ class ListBotsResponse {
     this.nextToken,
   });
   static ListBotsResponse fromJson(Map<String, dynamic> json) =>
-      ListBotsResponse();
+      ListBotsResponse(
+        bots: json.containsKey('Bots')
+            ? (json['Bots'] as List).map((e) => Bot.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPhoneNumberOrdersResponse {
@@ -1314,7 +1758,15 @@ class ListPhoneNumberOrdersResponse {
     this.nextToken,
   });
   static ListPhoneNumberOrdersResponse fromJson(Map<String, dynamic> json) =>
-      ListPhoneNumberOrdersResponse();
+      ListPhoneNumberOrdersResponse(
+        phoneNumberOrders: json.containsKey('PhoneNumberOrders')
+            ? (json['PhoneNumberOrders'] as List)
+                .map((e) => PhoneNumberOrder.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListPhoneNumbersResponse {
@@ -1329,7 +1781,15 @@ class ListPhoneNumbersResponse {
     this.nextToken,
   });
   static ListPhoneNumbersResponse fromJson(Map<String, dynamic> json) =>
-      ListPhoneNumbersResponse();
+      ListPhoneNumbersResponse(
+        phoneNumbers: json.containsKey('PhoneNumbers')
+            ? (json['PhoneNumbers'] as List)
+                .map((e) => PhoneNumber.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListUsersResponse {
@@ -1344,7 +1804,13 @@ class ListUsersResponse {
     this.nextToken,
   });
   static ListUsersResponse fromJson(Map<String, dynamic> json) =>
-      ListUsersResponse();
+      ListUsersResponse(
+        users: json.containsKey('Users')
+            ? (json['Users'] as List).map((e) => User.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListVoiceConnectorTerminationCredentialsResponse {
@@ -1356,7 +1822,11 @@ class ListVoiceConnectorTerminationCredentialsResponse {
   });
   static ListVoiceConnectorTerminationCredentialsResponse fromJson(
           Map<String, dynamic> json) =>
-      ListVoiceConnectorTerminationCredentialsResponse();
+      ListVoiceConnectorTerminationCredentialsResponse(
+        usernames: json.containsKey('Usernames')
+            ? (json['Usernames'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 class ListVoiceConnectorsResponse {
@@ -1371,7 +1841,15 @@ class ListVoiceConnectorsResponse {
     this.nextToken,
   });
   static ListVoiceConnectorsResponse fromJson(Map<String, dynamic> json) =>
-      ListVoiceConnectorsResponse();
+      ListVoiceConnectorsResponse(
+        voiceConnectors: json.containsKey('VoiceConnectors')
+            ? (json['VoiceConnectors'] as List)
+                .map((e) => VoiceConnector.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class LogoutUserResponse {
@@ -1393,7 +1871,12 @@ class OrderedPhoneNumber {
     this.status,
   });
   static OrderedPhoneNumber fromJson(Map<String, dynamic> json) =>
-      OrderedPhoneNumber();
+      OrderedPhoneNumber(
+        e164PhoneNumber: json.containsKey('E164PhoneNumber')
+            ? json['E164PhoneNumber'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Origination settings enable your SIP hosts to receive inbound calls using
@@ -1411,7 +1894,16 @@ class Origination {
     this.routes,
     this.disabled,
   });
-  static Origination fromJson(Map<String, dynamic> json) => Origination();
+  static Origination fromJson(Map<String, dynamic> json) => Origination(
+        routes: json.containsKey('Routes')
+            ? (json['Routes'] as List)
+                .map((e) => OriginationRoute.fromJson(e))
+                .toList()
+            : null,
+        disabled:
+            json.containsKey('Disabled') ? json['Disabled'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Origination routes define call distribution properties for your SIP hosts to
@@ -1444,7 +1936,15 @@ class OriginationRoute {
     this.weight,
   });
   static OriginationRoute fromJson(Map<String, dynamic> json) =>
-      OriginationRoute();
+      OriginationRoute(
+        host: json.containsKey('Host') ? json['Host'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        priority: json.containsKey('Priority') ? json['Priority'] as int : null,
+        weight: json.containsKey('Weight') ? json['Weight'] as int : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A phone number used for Amazon Chime Business Calling or an Amazon Chime
@@ -1492,7 +1992,36 @@ class PhoneNumber {
     this.updatedTimestamp,
     this.deletionTimestamp,
   });
-  static PhoneNumber fromJson(Map<String, dynamic> json) => PhoneNumber();
+  static PhoneNumber fromJson(Map<String, dynamic> json) => PhoneNumber(
+        phoneNumberId: json.containsKey('PhoneNumberId')
+            ? json['PhoneNumberId'] as String
+            : null,
+        e164PhoneNumber: json.containsKey('E164PhoneNumber')
+            ? json['E164PhoneNumber'] as String
+            : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        productType: json.containsKey('ProductType')
+            ? json['ProductType'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        capabilities: json.containsKey('Capabilities')
+            ? PhoneNumberCapabilities.fromJson(json['Capabilities'])
+            : null,
+        associations: json.containsKey('Associations')
+            ? (json['Associations'] as List)
+                .map((e) => PhoneNumberAssociation.fromJson(e))
+                .toList()
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        updatedTimestamp: json.containsKey('UpdatedTimestamp')
+            ? DateTime.parse(json['UpdatedTimestamp'])
+            : null,
+        deletionTimestamp: json.containsKey('DeletionTimestamp')
+            ? DateTime.parse(json['DeletionTimestamp'])
+            : null,
+      );
 }
 
 /// The phone number associations, such as Amazon Chime account ID, Amazon Chime
@@ -1514,7 +2043,13 @@ class PhoneNumberAssociation {
     this.associatedTimestamp,
   });
   static PhoneNumberAssociation fromJson(Map<String, dynamic> json) =>
-      PhoneNumberAssociation();
+      PhoneNumberAssociation(
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        associatedTimestamp: json.containsKey('AssociatedTimestamp')
+            ? DateTime.parse(json['AssociatedTimestamp'])
+            : null,
+      );
 }
 
 /// The phone number capabilities, such as enabled inbound and outbound calling
@@ -1547,7 +2082,24 @@ class PhoneNumberCapabilities {
     this.outboundMms,
   });
   static PhoneNumberCapabilities fromJson(Map<String, dynamic> json) =>
-      PhoneNumberCapabilities();
+      PhoneNumberCapabilities(
+        inboundCall: json.containsKey('InboundCall')
+            ? json['InboundCall'] as bool
+            : null,
+        outboundCall: json.containsKey('OutboundCall')
+            ? json['OutboundCall'] as bool
+            : null,
+        inboundSms:
+            json.containsKey('InboundSMS') ? json['InboundSMS'] as bool : null,
+        outboundSms: json.containsKey('OutboundSMS')
+            ? json['OutboundSMS'] as bool
+            : null,
+        inboundMms:
+            json.containsKey('InboundMMS') ? json['InboundMMS'] as bool : null,
+        outboundMms: json.containsKey('OutboundMMS')
+            ? json['OutboundMMS'] as bool
+            : null,
+      );
 }
 
 /// If the phone number action fails for one or more of the phone numbers in the
@@ -1569,7 +2121,16 @@ class PhoneNumberError {
     this.errorMessage,
   });
   static PhoneNumberError fromJson(Map<String, dynamic> json) =>
-      PhoneNumberError();
+      PhoneNumberError(
+        phoneNumberId: json.containsKey('PhoneNumberId')
+            ? json['PhoneNumberId'] as String
+            : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// The details of a phone number order created for Amazon Chime.
@@ -1602,7 +2163,26 @@ class PhoneNumberOrder {
     this.updatedTimestamp,
   });
   static PhoneNumberOrder fromJson(Map<String, dynamic> json) =>
-      PhoneNumberOrder();
+      PhoneNumberOrder(
+        phoneNumberOrderId: json.containsKey('PhoneNumberOrderId')
+            ? json['PhoneNumberOrderId'] as String
+            : null,
+        productType: json.containsKey('ProductType')
+            ? json['ProductType'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        orderedPhoneNumbers: json.containsKey('OrderedPhoneNumbers')
+            ? (json['OrderedPhoneNumbers'] as List)
+                .map((e) => OrderedPhoneNumber.fromJson(e))
+                .toList()
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        updatedTimestamp: json.containsKey('UpdatedTimestamp')
+            ? DateTime.parse(json['UpdatedTimestamp'])
+            : null,
+      );
 }
 
 class PutEventsConfigurationResponse {
@@ -1612,7 +2192,11 @@ class PutEventsConfigurationResponse {
     this.eventsConfiguration,
   });
   static PutEventsConfigurationResponse fromJson(Map<String, dynamic> json) =>
-      PutEventsConfigurationResponse();
+      PutEventsConfigurationResponse(
+        eventsConfiguration: json.containsKey('EventsConfiguration')
+            ? EventsConfiguration.fromJson(json['EventsConfiguration'])
+            : null,
+      );
 }
 
 class PutVoiceConnectorOriginationResponse {
@@ -1624,7 +2208,11 @@ class PutVoiceConnectorOriginationResponse {
   });
   static PutVoiceConnectorOriginationResponse fromJson(
           Map<String, dynamic> json) =>
-      PutVoiceConnectorOriginationResponse();
+      PutVoiceConnectorOriginationResponse(
+        origination: json.containsKey('Origination')
+            ? Origination.fromJson(json['Origination'])
+            : null,
+      );
 }
 
 class PutVoiceConnectorTerminationResponse {
@@ -1636,7 +2224,11 @@ class PutVoiceConnectorTerminationResponse {
   });
   static PutVoiceConnectorTerminationResponse fromJson(
           Map<String, dynamic> json) =>
-      PutVoiceConnectorTerminationResponse();
+      PutVoiceConnectorTerminationResponse(
+        termination: json.containsKey('Termination')
+            ? Termination.fromJson(json['Termination'])
+            : null,
+      );
 }
 
 class RegenerateSecurityTokenResponse {
@@ -1646,7 +2238,9 @@ class RegenerateSecurityTokenResponse {
     this.bot,
   });
   static RegenerateSecurityTokenResponse fromJson(Map<String, dynamic> json) =>
-      RegenerateSecurityTokenResponse();
+      RegenerateSecurityTokenResponse(
+        bot: json.containsKey('Bot') ? Bot.fromJson(json['Bot']) : null,
+      );
 }
 
 class ResetPersonalPinResponse {
@@ -1657,7 +2251,9 @@ class ResetPersonalPinResponse {
     this.user,
   });
   static ResetPersonalPinResponse fromJson(Map<String, dynamic> json) =>
-      ResetPersonalPinResponse();
+      ResetPersonalPinResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+      );
 }
 
 class RestorePhoneNumberResponse {
@@ -1668,7 +2264,11 @@ class RestorePhoneNumberResponse {
     this.phoneNumber,
   });
   static RestorePhoneNumberResponse fromJson(Map<String, dynamic> json) =>
-      RestorePhoneNumberResponse();
+      RestorePhoneNumberResponse(
+        phoneNumber: json.containsKey('PhoneNumber')
+            ? PhoneNumber.fromJson(json['PhoneNumber'])
+            : null,
+      );
 }
 
 class SearchAvailablePhoneNumbersResponse {
@@ -1680,7 +2280,13 @@ class SearchAvailablePhoneNumbersResponse {
   });
   static SearchAvailablePhoneNumbersResponse fromJson(
           Map<String, dynamic> json) =>
-      SearchAvailablePhoneNumbersResponse();
+      SearchAvailablePhoneNumbersResponse(
+        e164PhoneNumbers: json.containsKey('E164PhoneNumbers')
+            ? (json['E164PhoneNumbers'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Settings that allow management of telephony permissions for an Amazon Chime
@@ -1701,7 +2307,12 @@ class TelephonySettings {
     @required this.sms,
   });
   static TelephonySettings fromJson(Map<String, dynamic> json) =>
-      TelephonySettings();
+      TelephonySettings(
+        inboundCalling: json['InboundCalling'] as bool,
+        outboundCalling: json['OutboundCalling'] as bool,
+        sms: json['SMS'] as bool,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Termination settings enable your SIP hosts to make outbound calls using your
@@ -1730,7 +2341,21 @@ class Termination {
     this.cidrAllowedList,
     this.disabled,
   });
-  static Termination fromJson(Map<String, dynamic> json) => Termination();
+  static Termination fromJson(Map<String, dynamic> json) => Termination(
+        cpsLimit: json.containsKey('CpsLimit') ? json['CpsLimit'] as int : null,
+        defaultPhoneNumber: json.containsKey('DefaultPhoneNumber')
+            ? json['DefaultPhoneNumber'] as String
+            : null,
+        callingRegions: json.containsKey('CallingRegions')
+            ? (json['CallingRegions'] as List).map((e) => e as String).toList()
+            : null,
+        cidrAllowedList: json.containsKey('CidrAllowedList')
+            ? (json['CidrAllowedList'] as List).map((e) => e as String).toList()
+            : null,
+        disabled:
+            json.containsKey('Disabled') ? json['Disabled'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The termination health details, including the source IP address and
@@ -1748,7 +2373,12 @@ class TerminationHealth {
     this.source,
   });
   static TerminationHealth fromJson(Map<String, dynamic> json) =>
-      TerminationHealth();
+      TerminationHealth(
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+        source: json.containsKey('Source') ? json['Source'] as String : null,
+      );
 }
 
 class UpdateAccountResponse {
@@ -1759,7 +2389,11 @@ class UpdateAccountResponse {
     this.account,
   });
   static UpdateAccountResponse fromJson(Map<String, dynamic> json) =>
-      UpdateAccountResponse();
+      UpdateAccountResponse(
+        account: json.containsKey('Account')
+            ? Account.fromJson(json['Account'])
+            : null,
+      );
 }
 
 class UpdateAccountSettingsResponse {
@@ -1776,7 +2410,9 @@ class UpdateBotResponse {
     this.bot,
   });
   static UpdateBotResponse fromJson(Map<String, dynamic> json) =>
-      UpdateBotResponse();
+      UpdateBotResponse(
+        bot: json.containsKey('Bot') ? Bot.fromJson(json['Bot']) : null,
+      );
 }
 
 /// The phone number ID and product type fields to update, used with the
@@ -1792,6 +2428,7 @@ class UpdatePhoneNumberRequestItem {
     @required this.phoneNumberId,
     this.productType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdatePhoneNumberResponse {
@@ -1802,7 +2439,11 @@ class UpdatePhoneNumberResponse {
     this.phoneNumber,
   });
   static UpdatePhoneNumberResponse fromJson(Map<String, dynamic> json) =>
-      UpdatePhoneNumberResponse();
+      UpdatePhoneNumberResponse(
+        phoneNumber: json.containsKey('PhoneNumber')
+            ? PhoneNumber.fromJson(json['PhoneNumber'])
+            : null,
+      );
 }
 
 /// The user ID and user fields to update, used with the BatchUpdateUser action.
@@ -1817,6 +2458,7 @@ class UpdateUserRequestItem {
     @required this.userId,
     this.licenseType,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UpdateUserResponse {
@@ -1827,7 +2469,9 @@ class UpdateUserResponse {
     this.user,
   });
   static UpdateUserResponse fromJson(Map<String, dynamic> json) =>
-      UpdateUserResponse();
+      UpdateUserResponse(
+        user: json.containsKey('User') ? User.fromJson(json['User']) : null,
+      );
 }
 
 class UpdateVoiceConnectorResponse {
@@ -1838,7 +2482,11 @@ class UpdateVoiceConnectorResponse {
     this.voiceConnector,
   });
   static UpdateVoiceConnectorResponse fromJson(Map<String, dynamic> json) =>
-      UpdateVoiceConnectorResponse();
+      UpdateVoiceConnectorResponse(
+        voiceConnector: json.containsKey('VoiceConnector')
+            ? VoiceConnector.fromJson(json['VoiceConnector'])
+            : null,
+      );
 }
 
 /// The user on the Amazon Chime account.
@@ -1890,7 +2538,38 @@ class User {
     this.invitedOn,
     this.personalPin,
   });
-  static User fromJson(Map<String, dynamic> json) => User();
+  static User fromJson(Map<String, dynamic> json) => User(
+        userId: json['UserId'] as String,
+        accountId:
+            json.containsKey('AccountId') ? json['AccountId'] as String : null,
+        primaryEmail: json.containsKey('PrimaryEmail')
+            ? json['PrimaryEmail'] as String
+            : null,
+        primaryProvisionedNumber: json.containsKey('PrimaryProvisionedNumber')
+            ? json['PrimaryProvisionedNumber'] as String
+            : null,
+        displayName: json.containsKey('DisplayName')
+            ? json['DisplayName'] as String
+            : null,
+        licenseType: json.containsKey('LicenseType')
+            ? json['LicenseType'] as String
+            : null,
+        userRegistrationStatus: json.containsKey('UserRegistrationStatus')
+            ? json['UserRegistrationStatus'] as String
+            : null,
+        userInvitationStatus: json.containsKey('UserInvitationStatus')
+            ? json['UserInvitationStatus'] as String
+            : null,
+        registeredOn: json.containsKey('RegisteredOn')
+            ? DateTime.parse(json['RegisteredOn'])
+            : null,
+        invitedOn: json.containsKey('InvitedOn')
+            ? DateTime.parse(json['InvitedOn'])
+            : null,
+        personalPin: json.containsKey('PersonalPIN')
+            ? json['PersonalPIN'] as String
+            : null,
+      );
 }
 
 /// The list of errors returned when errors are encountered during the
@@ -1911,7 +2590,14 @@ class UserError {
     this.errorCode,
     this.errorMessage,
   });
-  static UserError fromJson(Map<String, dynamic> json) => UserError();
+  static UserError fromJson(Map<String, dynamic> json) => UserError(
+        userId: json.containsKey('UserId') ? json['UserId'] as String : null,
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        errorMessage: json.containsKey('ErrorMessage')
+            ? json['ErrorMessage'] as String
+            : null,
+      );
 }
 
 /// Settings associated with an Amazon Chime user, including inbound and
@@ -1923,7 +2609,10 @@ class UserSettings {
   UserSettings({
     @required this.telephony,
   });
-  static UserSettings fromJson(Map<String, dynamic> json) => UserSettings();
+  static UserSettings fromJson(Map<String, dynamic> json) => UserSettings(
+        telephony: TelephonySettings.fromJson(json['Telephony']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Amazon Chime Voice Connector configuration, including outbound host name
@@ -1956,7 +2645,24 @@ class VoiceConnector {
     this.createdTimestamp,
     this.updatedTimestamp,
   });
-  static VoiceConnector fromJson(Map<String, dynamic> json) => VoiceConnector();
+  static VoiceConnector fromJson(Map<String, dynamic> json) => VoiceConnector(
+        voiceConnectorId: json.containsKey('VoiceConnectorId')
+            ? json['VoiceConnectorId'] as String
+            : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        outboundHostName: json.containsKey('OutboundHostName')
+            ? json['OutboundHostName'] as String
+            : null,
+        requireEncryption: json.containsKey('RequireEncryption')
+            ? json['RequireEncryption'] as bool
+            : null,
+        createdTimestamp: json.containsKey('CreatedTimestamp')
+            ? DateTime.parse(json['CreatedTimestamp'])
+            : null,
+        updatedTimestamp: json.containsKey('UpdatedTimestamp')
+            ? DateTime.parse(json['UpdatedTimestamp'])
+            : null,
+      );
 }
 
 /// The Amazon Chime Voice Connector settings. Includes any Amazon S3 buckets
@@ -1969,5 +2675,9 @@ class VoiceConnectorSettings {
     this.cdrBucket,
   });
   static VoiceConnectorSettings fromJson(Map<String, dynamic> json) =>
-      VoiceConnectorSettings();
+      VoiceConnectorSettings(
+        cdrBucket:
+            json.containsKey('CdrBucket') ? json['CdrBucket'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

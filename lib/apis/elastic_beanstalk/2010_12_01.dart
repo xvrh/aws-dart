@@ -22,6 +22,10 @@ import 'package:meta/meta.dart';
 /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region)
 /// in the _Amazon Web Services Glossary_.
 class ElasticBeanstalkApi {
+  final _client;
+  ElasticBeanstalkApi(client)
+      : _client = client.configured('Elastic Beanstalk', serializer: 'query');
+
   /// Cancels in-progress environment configuration update or application
   /// version deployment.
   ///
@@ -31,7 +35,12 @@ class ElasticBeanstalkApi {
   /// [environmentName]: This specifies the name of the environment with the
   /// in-progress update that you want to cancel.
   Future<void> abortEnvironmentUpdate(
-      {String environmentId, String environmentName}) async {}
+      {String environmentId, String environmentName}) async {
+    await _client.send('AbortEnvironmentUpdate', {
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+    });
+  }
 
   /// Applies a scheduled managed action immediately. A managed action can be
   /// applied only if its status is `Scheduled`. Get the status and action ID of
@@ -46,7 +55,12 @@ class ElasticBeanstalkApi {
       String actionId,
       {String environmentName,
       String environmentId}) async {
-    return ApplyEnvironmentManagedActionResult.fromJson({});
+    var response_ = await _client.send('ApplyEnvironmentManagedAction', {
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      'ActionId': actionId,
+    });
+    return ApplyEnvironmentManagedActionResult.fromJson(response_);
   }
 
   /// Checks if the specified CNAME is available.
@@ -54,7 +68,10 @@ class ElasticBeanstalkApi {
   /// [cnamePrefix]: The prefix used when this CNAME is reserved.
   Future<CheckDnsAvailabilityResultMessage> checkDnsAvailability(
       String cnamePrefix) async {
-    return CheckDnsAvailabilityResultMessage.fromJson({});
+    var response_ = await _client.send('CheckDNSAvailability', {
+      'CNAMEPrefix': cnamePrefix,
+    });
+    return CheckDnsAvailabilityResultMessage.fromJson(response_);
   }
 
   /// Create or update a group of environments that each run a separate
@@ -84,7 +101,12 @@ class ElasticBeanstalkApi {
       {String applicationName,
       String groupName,
       List<String> versionLabels}) async {
-    return EnvironmentDescriptionsMessage.fromJson({});
+    var response_ = await _client.send('ComposeEnvironments', {
+      if (applicationName != null) 'ApplicationName': applicationName,
+      if (groupName != null) 'GroupName': groupName,
+      if (versionLabels != null) 'VersionLabels': versionLabels,
+    });
+    return EnvironmentDescriptionsMessage.fromJson(response_);
   }
 
   ///  Creates an application that has one configuration template named
@@ -110,7 +132,14 @@ class ElasticBeanstalkApi {
       {String description,
       ApplicationResourceLifecycleConfig resourceLifecycleConfig,
       List<Tag> tags}) async {
-    return ApplicationDescriptionMessage.fromJson({});
+    var response_ = await _client.send('CreateApplication', {
+      'ApplicationName': applicationName,
+      if (description != null) 'Description': description,
+      if (resourceLifecycleConfig != null)
+        'ResourceLifecycleConfig': resourceLifecycleConfig,
+      if (tags != null) 'Tags': tags,
+    });
+    return ApplicationDescriptionMessage.fromJson(response_);
   }
 
   /// Creates an application version for the specified application. You can
@@ -195,7 +224,20 @@ class ElasticBeanstalkApi {
       bool autoCreateApplication,
       bool process,
       List<Tag> tags}) async {
-    return ApplicationVersionDescriptionMessage.fromJson({});
+    var response_ = await _client.send('CreateApplicationVersion', {
+      'ApplicationName': applicationName,
+      'VersionLabel': versionLabel,
+      if (description != null) 'Description': description,
+      if (sourceBuildInformation != null)
+        'SourceBuildInformation': sourceBuildInformation,
+      if (sourceBundle != null) 'SourceBundle': sourceBundle,
+      if (buildConfiguration != null) 'BuildConfiguration': buildConfiguration,
+      if (autoCreateApplication != null)
+        'AutoCreateApplication': autoCreateApplication,
+      if (process != null) 'Process': process,
+      if (tags != null) 'Tags': tags,
+    });
+    return ApplicationVersionDescriptionMessage.fromJson(response_);
   }
 
   /// Creates a configuration template. Templates are associated with a specific
@@ -279,7 +321,19 @@ class ElasticBeanstalkApi {
       String description,
       List<ConfigurationOptionSetting> optionSettings,
       List<Tag> tags}) async {
-    return ConfigurationSettingsDescription.fromJson({});
+    var response_ = await _client.send('CreateConfigurationTemplate', {
+      'ApplicationName': applicationName,
+      'TemplateName': templateName,
+      if (solutionStackName != null) 'SolutionStackName': solutionStackName,
+      if (platformArn != null) 'PlatformArn': platformArn,
+      if (sourceConfiguration != null)
+        'SourceConfiguration': sourceConfiguration,
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (description != null) 'Description': description,
+      if (optionSettings != null) 'OptionSettings': optionSettings,
+      if (tags != null) 'Tags': tags,
+    });
+    return ConfigurationSettingsDescription.fromJson(response_);
   }
 
   /// Launches an environment for the specified application using the specified
@@ -364,7 +418,22 @@ class ElasticBeanstalkApi {
       String platformArn,
       List<ConfigurationOptionSetting> optionSettings,
       List<OptionSpecification> optionsToRemove}) async {
-    return EnvironmentDescription.fromJson({});
+    var response_ = await _client.send('CreateEnvironment', {
+      'ApplicationName': applicationName,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (groupName != null) 'GroupName': groupName,
+      if (description != null) 'Description': description,
+      if (cnamePrefix != null) 'CNAMEPrefix': cnamePrefix,
+      if (tier != null) 'Tier': tier,
+      if (tags != null) 'Tags': tags,
+      if (versionLabel != null) 'VersionLabel': versionLabel,
+      if (templateName != null) 'TemplateName': templateName,
+      if (solutionStackName != null) 'SolutionStackName': solutionStackName,
+      if (platformArn != null) 'PlatformArn': platformArn,
+      if (optionSettings != null) 'OptionSettings': optionSettings,
+      if (optionsToRemove != null) 'OptionsToRemove': optionsToRemove,
+    });
+    return EnvironmentDescription.fromJson(response_);
   }
 
   /// Create a new version of your custom platform.
@@ -394,7 +463,15 @@ class ElasticBeanstalkApi {
       String environmentName,
       List<ConfigurationOptionSetting> optionSettings,
       List<Tag> tags}) async {
-    return CreatePlatformVersionResult.fromJson({});
+    var response_ = await _client.send('CreatePlatformVersion', {
+      'PlatformName': platformName,
+      'PlatformVersion': platformVersion,
+      'PlatformDefinitionBundle': platformDefinitionBundle,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (optionSettings != null) 'OptionSettings': optionSettings,
+      if (tags != null) 'Tags': tags,
+    });
+    return CreatePlatformVersionResult.fromJson(response_);
   }
 
   /// Creates a bucket in Amazon S3 to store application versions, logs, and
@@ -404,7 +481,8 @@ class ElasticBeanstalkApi {
   /// `CreateStorageLocation` still returns the bucket name but does not create
   /// a new bucket.
   Future<CreateStorageLocationResultMessage> createStorageLocation() async {
-    return CreateStorageLocationResultMessage.fromJson({});
+    var response_ = await _client.send('CreateStorageLocation', {});
+    return CreateStorageLocationResultMessage.fromJson(response_);
   }
 
   /// Deletes the specified application along with all associated versions and
@@ -420,7 +498,13 @@ class ElasticBeanstalkApi {
   /// [terminateEnvByForce]: When set to true, running environments will be
   /// terminated before deleting the application.
   Future<void> deleteApplication(String applicationName,
-      {bool terminateEnvByForce}) async {}
+      {bool terminateEnvByForce}) async {
+    await _client.send('DeleteApplication', {
+      'ApplicationName': applicationName,
+      if (terminateEnvByForce != null)
+        'TerminateEnvByForce': terminateEnvByForce,
+    });
+  }
 
   /// Deletes the specified version from the specified application.
   ///
@@ -440,7 +524,13 @@ class ElasticBeanstalkApi {
   Future<void> deleteApplicationVersion(
       {@required String applicationName,
       @required String versionLabel,
-      bool deleteSourceBundle}) async {}
+      bool deleteSourceBundle}) async {
+    await _client.send('DeleteApplicationVersion', {
+      'ApplicationName': applicationName,
+      'VersionLabel': versionLabel,
+      if (deleteSourceBundle != null) 'DeleteSourceBundle': deleteSourceBundle,
+    });
+  }
 
   /// Deletes the specified configuration template.
   ///
@@ -456,8 +546,12 @@ class ElasticBeanstalkApi {
   ///
   /// [templateName]: The name of the configuration template to delete.
   Future<void> deleteConfigurationTemplate(
-      {@required String applicationName,
-      @required String templateName}) async {}
+      {@required String applicationName, @required String templateName}) async {
+    await _client.send('DeleteConfigurationTemplate', {
+      'ApplicationName': applicationName,
+      'TemplateName': templateName,
+    });
+  }
 
   /// Deletes the draft configuration associated with the running environment.
   ///
@@ -475,14 +569,22 @@ class ElasticBeanstalkApi {
   /// configuration from.
   Future<void> deleteEnvironmentConfiguration(
       {@required String applicationName,
-      @required String environmentName}) async {}
+      @required String environmentName}) async {
+    await _client.send('DeleteEnvironmentConfiguration', {
+      'ApplicationName': applicationName,
+      'EnvironmentName': environmentName,
+    });
+  }
 
   /// Deletes the specified version of a custom platform.
   ///
   /// [platformArn]: The ARN of the version of the custom platform.
   Future<DeletePlatformVersionResult> deletePlatformVersion(
       {String platformArn}) async {
-    return DeletePlatformVersionResult.fromJson({});
+    var response_ = await _client.send('DeletePlatformVersion', {
+      if (platformArn != null) 'PlatformArn': platformArn,
+    });
+    return DeletePlatformVersionResult.fromJson(response_);
   }
 
   /// Returns attributes related to AWS Elastic Beanstalk that are associated
@@ -490,7 +592,8 @@ class ElasticBeanstalkApi {
   ///
   /// The result currently has one set of attributes—resource quotas.
   Future<DescribeAccountAttributesResult> describeAccountAttributes() async {
-    return DescribeAccountAttributesResult.fromJson({});
+    var response_ = await _client.send('DescribeAccountAttributes', {});
+    return DescribeAccountAttributesResult.fromJson(response_);
   }
 
   /// Retrieve a list of application versions.
@@ -517,7 +620,13 @@ class ElasticBeanstalkApi {
       List<String> versionLabels,
       int maxRecords,
       String nextToken}) async {
-    return ApplicationVersionDescriptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeApplicationVersions', {
+      if (applicationName != null) 'ApplicationName': applicationName,
+      if (versionLabels != null) 'VersionLabels': versionLabels,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ApplicationVersionDescriptionsMessage.fromJson(response_);
   }
 
   /// Returns the descriptions of existing applications.
@@ -526,7 +635,10 @@ class ElasticBeanstalkApi {
   /// returned descriptions to only include those with the specified names.
   Future<ApplicationDescriptionsMessage> describeApplications(
       {List<String> applicationNames}) async {
-    return ApplicationDescriptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeApplications', {
+      if (applicationNames != null) 'ApplicationNames': applicationNames,
+    });
+    return ApplicationDescriptionsMessage.fromJson(response_);
   }
 
   /// Describes the configuration options that are used in a particular
@@ -560,7 +672,15 @@ class ElasticBeanstalkApi {
       String solutionStackName,
       String platformArn,
       List<OptionSpecification> options}) async {
-    return ConfigurationOptionsDescription.fromJson({});
+    var response_ = await _client.send('DescribeConfigurationOptions', {
+      if (applicationName != null) 'ApplicationName': applicationName,
+      if (templateName != null) 'TemplateName': templateName,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (solutionStackName != null) 'SolutionStackName': solutionStackName,
+      if (platformArn != null) 'PlatformArn': platformArn,
+      if (options != null) 'Options': options,
+    });
+    return ConfigurationOptionsDescription.fromJson(response_);
   }
 
   /// Returns a description of the settings for the specified configuration set,
@@ -597,7 +717,12 @@ class ElasticBeanstalkApi {
       String applicationName,
       {String templateName,
       String environmentName}) async {
-    return ConfigurationSettingsDescriptions.fromJson({});
+    var response_ = await _client.send('DescribeConfigurationSettings', {
+      'ApplicationName': applicationName,
+      if (templateName != null) 'TemplateName': templateName,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+    });
+    return ConfigurationSettingsDescriptions.fromJson(response_);
   }
 
   /// Returns information about the overall health of the specified environment.
@@ -619,7 +744,12 @@ class ElasticBeanstalkApi {
       {String environmentName,
       String environmentId,
       List<String> attributeNames}) async {
-    return DescribeEnvironmentHealthResult.fromJson({});
+    var response_ = await _client.send('DescribeEnvironmentHealth', {
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (attributeNames != null) 'AttributeNames': attributeNames,
+    });
+    return DescribeEnvironmentHealthResult.fromJson(response_);
   }
 
   /// Lists an environment's completed and failed managed actions.
@@ -637,7 +767,14 @@ class ElasticBeanstalkApi {
           String environmentName,
           String nextToken,
           int maxItems}) async {
-    return DescribeEnvironmentManagedActionHistoryResult.fromJson({});
+    var response_ =
+        await _client.send('DescribeEnvironmentManagedActionHistory', {
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxItems != null) 'MaxItems': maxItems,
+    });
+    return DescribeEnvironmentManagedActionHistoryResult.fromJson(response_);
   }
 
   /// Lists an environment's upcoming and in-progress managed actions.
@@ -650,7 +787,12 @@ class ElasticBeanstalkApi {
   Future<DescribeEnvironmentManagedActionsResult>
       describeEnvironmentManagedActions(
           {String environmentName, String environmentId, String status}) async {
-    return DescribeEnvironmentManagedActionsResult.fromJson({});
+    var response_ = await _client.send('DescribeEnvironmentManagedActions', {
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (status != null) 'Status': status,
+    });
+    return DescribeEnvironmentManagedActionsResult.fromJson(response_);
   }
 
   /// Returns AWS resources for this environment.
@@ -670,7 +812,11 @@ class ElasticBeanstalkApi {
   /// `MissingRequiredParameter` error.
   Future<EnvironmentResourceDescriptionsMessage> describeEnvironmentResources(
       {String environmentId, String environmentName}) async {
-    return EnvironmentResourceDescriptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEnvironmentResources', {
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+    });
+    return EnvironmentResourceDescriptionsMessage.fromJson(response_);
   }
 
   /// Returns descriptions for existing environments.
@@ -719,7 +865,18 @@ class ElasticBeanstalkApi {
       DateTime includedDeletedBackTo,
       int maxRecords,
       String nextToken}) async {
-    return EnvironmentDescriptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEnvironments', {
+      if (applicationName != null) 'ApplicationName': applicationName,
+      if (versionLabel != null) 'VersionLabel': versionLabel,
+      if (environmentIds != null) 'EnvironmentIds': environmentIds,
+      if (environmentNames != null) 'EnvironmentNames': environmentNames,
+      if (includeDeleted != null) 'IncludeDeleted': includeDeleted,
+      if (includedDeletedBackTo != null)
+        'IncludedDeletedBackTo': includedDeletedBackTo,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return EnvironmentDescriptionsMessage.fromJson(response_);
   }
 
   /// Returns list of event descriptions matching criteria up to the last 6
@@ -779,7 +936,21 @@ class ElasticBeanstalkApi {
       DateTime endTime,
       int maxRecords,
       String nextToken}) async {
-    return EventDescriptionsMessage.fromJson({});
+    var response_ = await _client.send('DescribeEvents', {
+      if (applicationName != null) 'ApplicationName': applicationName,
+      if (versionLabel != null) 'VersionLabel': versionLabel,
+      if (templateName != null) 'TemplateName': templateName,
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (platformArn != null) 'PlatformArn': platformArn,
+      if (requestId != null) 'RequestId': requestId,
+      if (severity != null) 'Severity': severity,
+      if (startTime != null) 'StartTime': startTime,
+      if (endTime != null) 'EndTime': endTime,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return EventDescriptionsMessage.fromJson(response_);
   }
 
   /// Retrieves detailed information about the health of instances in your AWS
@@ -800,7 +971,13 @@ class ElasticBeanstalkApi {
       String environmentId,
       List<String> attributeNames,
       String nextToken}) async {
-    return DescribeInstancesHealthResult.fromJson({});
+    var response_ = await _client.send('DescribeInstancesHealth', {
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (attributeNames != null) 'AttributeNames': attributeNames,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeInstancesHealthResult.fromJson(response_);
   }
 
   /// Describes the version of the platform.
@@ -808,14 +985,18 @@ class ElasticBeanstalkApi {
   /// [platformArn]: The ARN of the version of the platform.
   Future<DescribePlatformVersionResult> describePlatformVersion(
       {String platformArn}) async {
-    return DescribePlatformVersionResult.fromJson({});
+    var response_ = await _client.send('DescribePlatformVersion', {
+      if (platformArn != null) 'PlatformArn': platformArn,
+    });
+    return DescribePlatformVersionResult.fromJson(response_);
   }
 
   /// Returns a list of the available solution stack names, with the public
   /// version first and then in reverse chronological order.
   Future<ListAvailableSolutionStacksResultMessage>
       listAvailableSolutionStacks() async {
-    return ListAvailableSolutionStacksResultMessage.fromJson({});
+    var response_ = await _client.send('ListAvailableSolutionStacks', {});
+    return ListAvailableSolutionStacksResultMessage.fromJson(response_);
   }
 
   /// Lists the available platforms.
@@ -829,7 +1010,12 @@ class ElasticBeanstalkApi {
   /// the `NextToken` value from a previous `ListPlatformVersion` call.
   Future<ListPlatformVersionsResult> listPlatformVersions(
       {List<PlatformFilter> filters, int maxRecords, String nextToken}) async {
-    return ListPlatformVersionsResult.fromJson({});
+    var response_ = await _client.send('ListPlatformVersions', {
+      if (filters != null) 'Filters': filters,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListPlatformVersionsResult.fromJson(response_);
   }
 
   /// Returns the tags applied to an AWS Elastic Beanstalk resource. The
@@ -845,7 +1031,10 @@ class ElasticBeanstalkApi {
   /// Must be the ARN of an Elastic Beanstalk environment.
   Future<ResourceTagsDescriptionMessage> listTagsForResource(
       String resourceArn) async {
-    return ResourceTagsDescriptionMessage.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ResourceTagsDescriptionMessage.fromJson(response_);
   }
 
   /// Deletes and recreates all of the AWS resources (for example: the Auto
@@ -864,7 +1053,12 @@ class ElasticBeanstalkApi {
   /// you do not specify either, AWS Elastic Beanstalk returns
   /// `MissingRequiredParameter` error.
   Future<void> rebuildEnvironment(
-      {String environmentId, String environmentName}) async {}
+      {String environmentId, String environmentName}) async {
+    await _client.send('RebuildEnvironment', {
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+    });
+  }
 
   /// Initiates a request to compile the specified type of information of the
   /// deployed environment.
@@ -903,7 +1097,13 @@ class ElasticBeanstalkApi {
   ///
   /// [infoType]: The type of information to request.
   Future<void> requestEnvironmentInfo(String infoType,
-      {String environmentId, String environmentName}) async {}
+      {String environmentId, String environmentName}) async {
+    await _client.send('RequestEnvironmentInfo', {
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      'InfoType': infoType,
+    });
+  }
 
   /// Causes the environment to restart the application container server running
   /// on each Amazon EC2 instance.
@@ -920,7 +1120,12 @@ class ElasticBeanstalkApi {
   /// you do not specify either, AWS Elastic Beanstalk returns
   /// `MissingRequiredParameter` error.
   Future<void> restartAppServer(
-      {String environmentId, String environmentName}) async {}
+      {String environmentId, String environmentName}) async {
+    await _client.send('RestartAppServer', {
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+    });
+  }
 
   /// Retrieves the compiled information from a RequestEnvironmentInfo request.
   ///
@@ -950,7 +1155,12 @@ class ElasticBeanstalkApi {
       String infoType,
       {String environmentId,
       String environmentName}) async {
-    return RetrieveEnvironmentInfoResultMessage.fromJson({});
+    var response_ = await _client.send('RetrieveEnvironmentInfo', {
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      'InfoType': infoType,
+    });
+    return RetrieveEnvironmentInfoResultMessage.fromJson(response_);
   }
 
   /// Swaps the CNAMEs of two environments.
@@ -983,7 +1193,18 @@ class ElasticBeanstalkApi {
       {String sourceEnvironmentId,
       String sourceEnvironmentName,
       String destinationEnvironmentId,
-      String destinationEnvironmentName}) async {}
+      String destinationEnvironmentName}) async {
+    await _client.send('SwapEnvironmentCNAMEs', {
+      if (sourceEnvironmentId != null)
+        'SourceEnvironmentId': sourceEnvironmentId,
+      if (sourceEnvironmentName != null)
+        'SourceEnvironmentName': sourceEnvironmentName,
+      if (destinationEnvironmentId != null)
+        'DestinationEnvironmentId': destinationEnvironmentId,
+      if (destinationEnvironmentName != null)
+        'DestinationEnvironmentName': destinationEnvironmentName,
+    });
+  }
 
   /// Terminates the specified environment.
   ///
@@ -1024,7 +1245,13 @@ class ElasticBeanstalkApi {
       String environmentName,
       bool terminateResources,
       bool forceTerminate}) async {
-    return EnvironmentDescription.fromJson({});
+    var response_ = await _client.send('TerminateEnvironment', {
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (terminateResources != null) 'TerminateResources': terminateResources,
+      if (forceTerminate != null) 'ForceTerminate': forceTerminate,
+    });
+    return EnvironmentDescription.fromJson(response_);
   }
 
   /// Updates the specified application to have the specified properties.
@@ -1045,7 +1272,11 @@ class ElasticBeanstalkApi {
   Future<ApplicationDescriptionMessage> updateApplication(
       String applicationName,
       {String description}) async {
-    return ApplicationDescriptionMessage.fromJson({});
+    var response_ = await _client.send('UpdateApplication', {
+      'ApplicationName': applicationName,
+      if (description != null) 'Description': description,
+    });
+    return ApplicationDescriptionMessage.fromJson(response_);
   }
 
   /// Modifies lifecycle settings for an application.
@@ -1060,7 +1291,11 @@ class ElasticBeanstalkApi {
           @required
               ApplicationResourceLifecycleConfig
                   resourceLifecycleConfig}) async {
-    return ApplicationResourceLifecycleDescriptionMessage.fromJson({});
+    var response_ = await _client.send('UpdateApplicationResourceLifecycle', {
+      'ApplicationName': applicationName,
+      'ResourceLifecycleConfig': resourceLifecycleConfig,
+    });
+    return ApplicationResourceLifecycleDescriptionMessage.fromJson(response_);
   }
 
   /// Updates the specified application version to have the specified
@@ -1087,7 +1322,12 @@ class ElasticBeanstalkApi {
       {@required String applicationName,
       @required String versionLabel,
       String description}) async {
-    return ApplicationVersionDescriptionMessage.fromJson({});
+    var response_ = await _client.send('UpdateApplicationVersion', {
+      'ApplicationName': applicationName,
+      'VersionLabel': versionLabel,
+      if (description != null) 'Description': description,
+    });
+    return ApplicationVersionDescriptionMessage.fromJson(response_);
   }
 
   /// Updates the specified configuration template to have the specified
@@ -1126,7 +1366,14 @@ class ElasticBeanstalkApi {
       String description,
       List<ConfigurationOptionSetting> optionSettings,
       List<OptionSpecification> optionsToRemove}) async {
-    return ConfigurationSettingsDescription.fromJson({});
+    var response_ = await _client.send('UpdateConfigurationTemplate', {
+      'ApplicationName': applicationName,
+      'TemplateName': templateName,
+      if (description != null) 'Description': description,
+      if (optionSettings != null) 'OptionSettings': optionSettings,
+      if (optionsToRemove != null) 'OptionsToRemove': optionsToRemove,
+    });
+    return ConfigurationSettingsDescription.fromJson(response_);
   }
 
   /// Updates the environment description, deploys a new application version,
@@ -1210,7 +1457,21 @@ class ElasticBeanstalkApi {
       String platformArn,
       List<ConfigurationOptionSetting> optionSettings,
       List<OptionSpecification> optionsToRemove}) async {
-    return EnvironmentDescription.fromJson({});
+    var response_ = await _client.send('UpdateEnvironment', {
+      if (applicationName != null) 'ApplicationName': applicationName,
+      if (environmentId != null) 'EnvironmentId': environmentId,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      if (groupName != null) 'GroupName': groupName,
+      if (description != null) 'Description': description,
+      if (tier != null) 'Tier': tier,
+      if (versionLabel != null) 'VersionLabel': versionLabel,
+      if (templateName != null) 'TemplateName': templateName,
+      if (solutionStackName != null) 'SolutionStackName': solutionStackName,
+      if (platformArn != null) 'PlatformArn': platformArn,
+      if (optionSettings != null) 'OptionSettings': optionSettings,
+      if (optionsToRemove != null) 'OptionsToRemove': optionsToRemove,
+    });
+    return EnvironmentDescription.fromJson(response_);
   }
 
   /// Update the list of tags applied to an AWS Elastic Beanstalk resource. Two
@@ -1251,7 +1512,13 @@ class ElasticBeanstalkApi {
   ///
   /// If a tag key doesn't exist, it is silently ignored.
   Future<void> updateTagsForResource(String resourceArn,
-      {List<Tag> tagsToAdd, List<String> tagsToRemove}) async {}
+      {List<Tag> tagsToAdd, List<String> tagsToRemove}) async {
+    await _client.send('UpdateTagsForResource', {
+      'ResourceArn': resourceArn,
+      if (tagsToAdd != null) 'TagsToAdd': tagsToAdd,
+      if (tagsToRemove != null) 'TagsToRemove': tagsToRemove,
+    });
+  }
 
   /// Takes a set of configuration settings and either a configuration template
   /// or environment, and determines whether those values are valid.
@@ -1278,7 +1545,13 @@ class ElasticBeanstalkApi {
       String templateName,
       String environmentName,
       @required List<ConfigurationOptionSetting> optionSettings}) async {
-    return ConfigurationSettingsValidationMessages.fromJson({});
+    var response_ = await _client.send('ValidateConfigurationSettings', {
+      'ApplicationName': applicationName,
+      if (templateName != null) 'TemplateName': templateName,
+      if (environmentName != null) 'EnvironmentName': environmentName,
+      'OptionSettings': optionSettings,
+    });
+    return ConfigurationSettingsValidationMessages.fromJson(response_);
   }
 }
 
@@ -1319,7 +1592,35 @@ class ApplicationDescription {
     this.resourceLifecycleConfig,
   });
   static ApplicationDescription fromJson(Map<String, dynamic> json) =>
-      ApplicationDescription();
+      ApplicationDescription(
+        applicationArn: json.containsKey('ApplicationArn')
+            ? json['ApplicationArn'] as String
+            : null,
+        applicationName: json.containsKey('ApplicationName')
+            ? json['ApplicationName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        dateCreated: json.containsKey('DateCreated')
+            ? DateTime.parse(json['DateCreated'])
+            : null,
+        dateUpdated: json.containsKey('DateUpdated')
+            ? DateTime.parse(json['DateUpdated'])
+            : null,
+        versions: json.containsKey('Versions')
+            ? (json['Versions'] as List).map((e) => e as String).toList()
+            : null,
+        configurationTemplates: json.containsKey('ConfigurationTemplates')
+            ? (json['ConfigurationTemplates'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        resourceLifecycleConfig: json.containsKey('ResourceLifecycleConfig')
+            ? ApplicationResourceLifecycleConfig.fromJson(
+                json['ResourceLifecycleConfig'])
+            : null,
+      );
 }
 
 /// Result message containing a single description of an application.
@@ -1331,7 +1632,11 @@ class ApplicationDescriptionMessage {
     this.application,
   });
   static ApplicationDescriptionMessage fromJson(Map<String, dynamic> json) =>
-      ApplicationDescriptionMessage();
+      ApplicationDescriptionMessage(
+        application: json.containsKey('Application')
+            ? ApplicationDescription.fromJson(json['Application'])
+            : null,
+      );
 }
 
 /// Result message containing a list of application descriptions.
@@ -1343,7 +1648,13 @@ class ApplicationDescriptionsMessage {
     this.applications,
   });
   static ApplicationDescriptionsMessage fromJson(Map<String, dynamic> json) =>
-      ApplicationDescriptionsMessage();
+      ApplicationDescriptionsMessage(
+        applications: json.containsKey('Applications')
+            ? (json['Applications'] as List)
+                .map((e) => ApplicationDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Application request metrics for an AWS Elastic Beanstalk environment.
@@ -1373,7 +1684,18 @@ class ApplicationMetrics {
     this.latency,
   });
   static ApplicationMetrics fromJson(Map<String, dynamic> json) =>
-      ApplicationMetrics();
+      ApplicationMetrics(
+        duration: json.containsKey('Duration') ? json['Duration'] as int : null,
+        requestCount: json.containsKey('RequestCount')
+            ? json['RequestCount'] as int
+            : null,
+        statusCodes: json.containsKey('StatusCodes')
+            ? StatusCodes.fromJson(json['StatusCodes'])
+            : null,
+        latency: json.containsKey('Latency')
+            ? Latency.fromJson(json['Latency'])
+            : null,
+      );
 }
 
 /// The resource lifecycle configuration for an application. Defines lifecycle
@@ -1404,7 +1726,16 @@ class ApplicationResourceLifecycleConfig {
   });
   static ApplicationResourceLifecycleConfig fromJson(
           Map<String, dynamic> json) =>
-      ApplicationResourceLifecycleConfig();
+      ApplicationResourceLifecycleConfig(
+        serviceRole: json.containsKey('ServiceRole')
+            ? json['ServiceRole'] as String
+            : null,
+        versionLifecycleConfig: json.containsKey('VersionLifecycleConfig')
+            ? ApplicationVersionLifecycleConfig.fromJson(
+                json['VersionLifecycleConfig'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class ApplicationResourceLifecycleDescriptionMessage {
@@ -1420,7 +1751,15 @@ class ApplicationResourceLifecycleDescriptionMessage {
   });
   static ApplicationResourceLifecycleDescriptionMessage fromJson(
           Map<String, dynamic> json) =>
-      ApplicationResourceLifecycleDescriptionMessage();
+      ApplicationResourceLifecycleDescriptionMessage(
+        applicationName: json.containsKey('ApplicationName')
+            ? json['ApplicationName'] as String
+            : null,
+        resourceLifecycleConfig: json.containsKey('ResourceLifecycleConfig')
+            ? ApplicationResourceLifecycleConfig.fromJson(
+                json['ResourceLifecycleConfig'])
+            : null,
+      );
 }
 
 /// Describes the properties of an application version.
@@ -1490,7 +1829,35 @@ class ApplicationVersionDescription {
     this.status,
   });
   static ApplicationVersionDescription fromJson(Map<String, dynamic> json) =>
-      ApplicationVersionDescription();
+      ApplicationVersionDescription(
+        applicationVersionArn: json.containsKey('ApplicationVersionArn')
+            ? json['ApplicationVersionArn'] as String
+            : null,
+        applicationName: json.containsKey('ApplicationName')
+            ? json['ApplicationName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        versionLabel: json.containsKey('VersionLabel')
+            ? json['VersionLabel'] as String
+            : null,
+        sourceBuildInformation: json.containsKey('SourceBuildInformation')
+            ? SourceBuildInformation.fromJson(json['SourceBuildInformation'])
+            : null,
+        buildArn:
+            json.containsKey('BuildArn') ? json['BuildArn'] as String : null,
+        sourceBundle: json.containsKey('SourceBundle')
+            ? S3Location.fromJson(json['SourceBundle'])
+            : null,
+        dateCreated: json.containsKey('DateCreated')
+            ? DateTime.parse(json['DateCreated'])
+            : null,
+        dateUpdated: json.containsKey('DateUpdated')
+            ? DateTime.parse(json['DateUpdated'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Result message wrapping a single description of an application version.
@@ -1503,7 +1870,11 @@ class ApplicationVersionDescriptionMessage {
   });
   static ApplicationVersionDescriptionMessage fromJson(
           Map<String, dynamic> json) =>
-      ApplicationVersionDescriptionMessage();
+      ApplicationVersionDescriptionMessage(
+        applicationVersion: json.containsKey('ApplicationVersion')
+            ? ApplicationVersionDescription.fromJson(json['ApplicationVersion'])
+            : null,
+      );
 }
 
 /// Result message wrapping a list of application version descriptions.
@@ -1522,7 +1893,15 @@ class ApplicationVersionDescriptionsMessage {
   });
   static ApplicationVersionDescriptionsMessage fromJson(
           Map<String, dynamic> json) =>
-      ApplicationVersionDescriptionsMessage();
+      ApplicationVersionDescriptionsMessage(
+        applicationVersions: json.containsKey('ApplicationVersions')
+            ? (json['ApplicationVersions'] as List)
+                .map((e) => ApplicationVersionDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The application version lifecycle settings for an application. Defines the
@@ -1547,7 +1926,15 @@ class ApplicationVersionLifecycleConfig {
   });
   static ApplicationVersionLifecycleConfig fromJson(
           Map<String, dynamic> json) =>
-      ApplicationVersionLifecycleConfig();
+      ApplicationVersionLifecycleConfig(
+        maxCountRule: json.containsKey('MaxCountRule')
+            ? MaxCountRule.fromJson(json['MaxCountRule'])
+            : null,
+        maxAgeRule: json.containsKey('MaxAgeRule')
+            ? MaxAgeRule.fromJson(json['MaxAgeRule'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The result message containing information about the managed action.
@@ -1572,7 +1959,17 @@ class ApplyEnvironmentManagedActionResult {
   });
   static ApplyEnvironmentManagedActionResult fromJson(
           Map<String, dynamic> json) =>
-      ApplyEnvironmentManagedActionResult();
+      ApplyEnvironmentManagedActionResult(
+        actionId:
+            json.containsKey('ActionId') ? json['ActionId'] as String : null,
+        actionDescription: json.containsKey('ActionDescription')
+            ? json['ActionDescription'] as String
+            : null,
+        actionType: json.containsKey('ActionType')
+            ? json['ActionType'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+      );
 }
 
 /// Describes an Auto Scaling launch configuration.
@@ -1584,7 +1981,9 @@ class AutoScalingGroup {
     this.name,
   });
   static AutoScalingGroup fromJson(Map<String, dynamic> json) =>
-      AutoScalingGroup();
+      AutoScalingGroup(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Settings for an AWS CodeBuild build.
@@ -1626,6 +2025,7 @@ class BuildConfiguration {
     @required this.image,
     this.timeoutInMinutes,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The builder used to build the custom platform.
@@ -1636,7 +2036,9 @@ class Builder {
   Builder({
     this.arn,
   });
-  static Builder fromJson(Map<String, dynamic> json) => Builder();
+  static Builder fromJson(Map<String, dynamic> json) => Builder(
+        arn: json.containsKey('ARN') ? json['ARN'] as String : null,
+      );
 }
 
 /// CPU utilization metrics for an instance.
@@ -1695,7 +2097,18 @@ class CpuUtilization {
     this.softIrq,
     this.privileged,
   });
-  static CpuUtilization fromJson(Map<String, dynamic> json) => CpuUtilization();
+  static CpuUtilization fromJson(Map<String, dynamic> json) => CpuUtilization(
+        user: json.containsKey('User') ? json['User'] as double : null,
+        nice: json.containsKey('Nice') ? json['Nice'] as double : null,
+        system: json.containsKey('System') ? json['System'] as double : null,
+        idle: json.containsKey('Idle') ? json['Idle'] as double : null,
+        ioWait: json.containsKey('IOWait') ? json['IOWait'] as double : null,
+        irq: json.containsKey('IRQ') ? json['IRQ'] as double : null,
+        softIrq: json.containsKey('SoftIRQ') ? json['SoftIRQ'] as double : null,
+        privileged: json.containsKey('Privileged')
+            ? json['Privileged'] as double
+            : null,
+      );
 }
 
 /// Indicates if the specified CNAME is available.
@@ -1717,7 +2130,13 @@ class CheckDnsAvailabilityResultMessage {
   });
   static CheckDnsAvailabilityResultMessage fromJson(
           Map<String, dynamic> json) =>
-      CheckDnsAvailabilityResultMessage();
+      CheckDnsAvailabilityResultMessage(
+        available:
+            json.containsKey('Available') ? json['Available'] as bool : null,
+        fullyQualifiedCname: json.containsKey('FullyQualifiedCNAME')
+            ? json['FullyQualifiedCNAME'] as String
+            : null,
+      );
 }
 
 /// Describes the possible values for a configuration option.
@@ -1811,7 +2230,32 @@ class ConfigurationOptionDescription {
     this.regex,
   });
   static ConfigurationOptionDescription fromJson(Map<String, dynamic> json) =>
-      ConfigurationOptionDescription();
+      ConfigurationOptionDescription(
+        namespace:
+            json.containsKey('Namespace') ? json['Namespace'] as String : null,
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        defaultValue: json.containsKey('DefaultValue')
+            ? json['DefaultValue'] as String
+            : null,
+        changeSeverity: json.containsKey('ChangeSeverity')
+            ? json['ChangeSeverity'] as String
+            : null,
+        userDefined: json.containsKey('UserDefined')
+            ? json['UserDefined'] as bool
+            : null,
+        valueType:
+            json.containsKey('ValueType') ? json['ValueType'] as String : null,
+        valueOptions: json.containsKey('ValueOptions')
+            ? (json['ValueOptions'] as List).map((e) => e as String).toList()
+            : null,
+        minValue: json.containsKey('MinValue') ? json['MinValue'] as int : null,
+        maxValue: json.containsKey('MaxValue') ? json['MaxValue'] as int : null,
+        maxLength:
+            json.containsKey('MaxLength') ? json['MaxLength'] as int : null,
+        regex: json.containsKey('Regex')
+            ? OptionRestrictionRegex.fromJson(json['Regex'])
+            : null,
+      );
 }
 
 ///  A specification identifying an individual configuration option along with
@@ -1838,7 +2282,18 @@ class ConfigurationOptionSetting {
     this.value,
   });
   static ConfigurationOptionSetting fromJson(Map<String, dynamic> json) =>
-      ConfigurationOptionSetting();
+      ConfigurationOptionSetting(
+        resourceName: json.containsKey('ResourceName')
+            ? json['ResourceName'] as String
+            : null,
+        namespace:
+            json.containsKey('Namespace') ? json['Namespace'] as String : null,
+        optionName: json.containsKey('OptionName')
+            ? json['OptionName'] as String
+            : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes the settings for a specified configuration set.
@@ -1858,7 +2313,19 @@ class ConfigurationOptionsDescription {
     this.options,
   });
   static ConfigurationOptionsDescription fromJson(Map<String, dynamic> json) =>
-      ConfigurationOptionsDescription();
+      ConfigurationOptionsDescription(
+        solutionStackName: json.containsKey('SolutionStackName')
+            ? json['SolutionStackName'] as String
+            : null,
+        platformArn: json.containsKey('PlatformArn')
+            ? json['PlatformArn'] as String
+            : null,
+        options: json.containsKey('Options')
+            ? (json['Options'] as List)
+                .map((e) => ConfigurationOptionDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Describes the settings for a configuration set.
@@ -1922,7 +2389,40 @@ class ConfigurationSettingsDescription {
     this.optionSettings,
   });
   static ConfigurationSettingsDescription fromJson(Map<String, dynamic> json) =>
-      ConfigurationSettingsDescription();
+      ConfigurationSettingsDescription(
+        solutionStackName: json.containsKey('SolutionStackName')
+            ? json['SolutionStackName'] as String
+            : null,
+        platformArn: json.containsKey('PlatformArn')
+            ? json['PlatformArn'] as String
+            : null,
+        applicationName: json.containsKey('ApplicationName')
+            ? json['ApplicationName'] as String
+            : null,
+        templateName: json.containsKey('TemplateName')
+            ? json['TemplateName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        environmentName: json.containsKey('EnvironmentName')
+            ? json['EnvironmentName'] as String
+            : null,
+        deploymentStatus: json.containsKey('DeploymentStatus')
+            ? json['DeploymentStatus'] as String
+            : null,
+        dateCreated: json.containsKey('DateCreated')
+            ? DateTime.parse(json['DateCreated'])
+            : null,
+        dateUpdated: json.containsKey('DateUpdated')
+            ? DateTime.parse(json['DateUpdated'])
+            : null,
+        optionSettings: json.containsKey('OptionSettings')
+            ? (json['OptionSettings'] as List)
+                .map((e) => ConfigurationOptionSetting.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The results from a request to change the configuration settings of an
@@ -1936,7 +2436,13 @@ class ConfigurationSettingsDescriptions {
   });
   static ConfigurationSettingsDescriptions fromJson(
           Map<String, dynamic> json) =>
-      ConfigurationSettingsDescriptions();
+      ConfigurationSettingsDescriptions(
+        configurationSettings: json.containsKey('ConfigurationSettings')
+            ? (json['ConfigurationSettings'] as List)
+                .map((e) => ConfigurationSettingsDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Provides a list of validation messages.
@@ -1949,7 +2455,13 @@ class ConfigurationSettingsValidationMessages {
   });
   static ConfigurationSettingsValidationMessages fromJson(
           Map<String, dynamic> json) =>
-      ConfigurationSettingsValidationMessages();
+      ConfigurationSettingsValidationMessages(
+        messages: json.containsKey('Messages')
+            ? (json['Messages'] as List)
+                .map((e) => ValidationMessage.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class CreatePlatformVersionResult {
@@ -1964,7 +2476,14 @@ class CreatePlatformVersionResult {
     this.builder,
   });
   static CreatePlatformVersionResult fromJson(Map<String, dynamic> json) =>
-      CreatePlatformVersionResult();
+      CreatePlatformVersionResult(
+        platformSummary: json.containsKey('PlatformSummary')
+            ? PlatformSummary.fromJson(json['PlatformSummary'])
+            : null,
+        builder: json.containsKey('Builder')
+            ? Builder.fromJson(json['Builder'])
+            : null,
+      );
 }
 
 /// Results of a CreateStorageLocationResult call.
@@ -1977,7 +2496,10 @@ class CreateStorageLocationResultMessage {
   });
   static CreateStorageLocationResultMessage fromJson(
           Map<String, dynamic> json) =>
-      CreateStorageLocationResultMessage();
+      CreateStorageLocationResultMessage(
+        s3Bucket:
+            json.containsKey('S3Bucket') ? json['S3Bucket'] as String : null,
+      );
 }
 
 /// A custom AMI available to platforms.
@@ -1992,7 +2514,12 @@ class CustomAmi {
     this.virtualizationType,
     this.imageId,
   });
-  static CustomAmi fromJson(Map<String, dynamic> json) => CustomAmi();
+  static CustomAmi fromJson(Map<String, dynamic> json) => CustomAmi(
+        virtualizationType: json.containsKey('VirtualizationType')
+            ? json['VirtualizationType'] as String
+            : null,
+        imageId: json.containsKey('ImageId') ? json['ImageId'] as String : null,
+      );
 }
 
 class DeletePlatformVersionResult {
@@ -2003,7 +2530,11 @@ class DeletePlatformVersionResult {
     this.platformSummary,
   });
   static DeletePlatformVersionResult fromJson(Map<String, dynamic> json) =>
-      DeletePlatformVersionResult();
+      DeletePlatformVersionResult(
+        platformSummary: json.containsKey('PlatformSummary')
+            ? PlatformSummary.fromJson(json['PlatformSummary'])
+            : null,
+      );
 }
 
 /// Information about an application version deployment.
@@ -2035,7 +2566,18 @@ class Deployment {
     this.status,
     this.deploymentTime,
   });
-  static Deployment fromJson(Map<String, dynamic> json) => Deployment();
+  static Deployment fromJson(Map<String, dynamic> json) => Deployment(
+        versionLabel: json.containsKey('VersionLabel')
+            ? json['VersionLabel'] as String
+            : null,
+        deploymentId: json.containsKey('DeploymentId')
+            ? BigInt.from(json['DeploymentId'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        deploymentTime: json.containsKey('DeploymentTime')
+            ? DateTime.parse(json['DeploymentTime'])
+            : null,
+      );
 }
 
 class DescribeAccountAttributesResult {
@@ -2047,7 +2589,11 @@ class DescribeAccountAttributesResult {
     this.resourceQuotas,
   });
   static DescribeAccountAttributesResult fromJson(Map<String, dynamic> json) =>
-      DescribeAccountAttributesResult();
+      DescribeAccountAttributesResult(
+        resourceQuotas: json.containsKey('ResourceQuotas')
+            ? ResourceQuotas.fromJson(json['ResourceQuotas'])
+            : null,
+      );
 }
 
 /// Health details for an AWS Elastic Beanstalk environment.
@@ -2093,7 +2639,28 @@ class DescribeEnvironmentHealthResult {
     this.refreshedAt,
   });
   static DescribeEnvironmentHealthResult fromJson(Map<String, dynamic> json) =>
-      DescribeEnvironmentHealthResult();
+      DescribeEnvironmentHealthResult(
+        environmentName: json.containsKey('EnvironmentName')
+            ? json['EnvironmentName'] as String
+            : null,
+        healthStatus: json.containsKey('HealthStatus')
+            ? json['HealthStatus'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        color: json.containsKey('Color') ? json['Color'] as String : null,
+        causes: json.containsKey('Causes')
+            ? (json['Causes'] as List).map((e) => e as String).toList()
+            : null,
+        applicationMetrics: json.containsKey('ApplicationMetrics')
+            ? ApplicationMetrics.fromJson(json['ApplicationMetrics'])
+            : null,
+        instancesHealth: json.containsKey('InstancesHealth')
+            ? InstanceHealthSummary.fromJson(json['InstancesHealth'])
+            : null,
+        refreshedAt: json.containsKey('RefreshedAt')
+            ? DateTime.parse(json['RefreshedAt'])
+            : null,
+      );
 }
 
 /// A result message containing a list of completed and failed managed actions.
@@ -2111,7 +2678,15 @@ class DescribeEnvironmentManagedActionHistoryResult {
   });
   static DescribeEnvironmentManagedActionHistoryResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEnvironmentManagedActionHistoryResult();
+      DescribeEnvironmentManagedActionHistoryResult(
+        managedActionHistoryItems: json.containsKey('ManagedActionHistoryItems')
+            ? (json['ManagedActionHistoryItems'] as List)
+                .map((e) => ManagedActionHistoryItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The result message containing a list of managed actions.
@@ -2124,7 +2699,13 @@ class DescribeEnvironmentManagedActionsResult {
   });
   static DescribeEnvironmentManagedActionsResult fromJson(
           Map<String, dynamic> json) =>
-      DescribeEnvironmentManagedActionsResult();
+      DescribeEnvironmentManagedActionsResult(
+        managedActions: json.containsKey('ManagedActions')
+            ? (json['ManagedActions'] as List)
+                .map((e) => ManagedAction.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Detailed health information about the Amazon EC2 instances in an AWS Elastic
@@ -2149,7 +2730,18 @@ class DescribeInstancesHealthResult {
     this.nextToken,
   });
   static DescribeInstancesHealthResult fromJson(Map<String, dynamic> json) =>
-      DescribeInstancesHealthResult();
+      DescribeInstancesHealthResult(
+        instanceHealthList: json.containsKey('InstanceHealthList')
+            ? (json['InstanceHealthList'] as List)
+                .map((e) => SingleInstanceHealth.fromJson(e))
+                .toList()
+            : null,
+        refreshedAt: json.containsKey('RefreshedAt')
+            ? DateTime.parse(json['RefreshedAt'])
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribePlatformVersionResult {
@@ -2160,7 +2752,11 @@ class DescribePlatformVersionResult {
     this.platformDescription,
   });
   static DescribePlatformVersionResult fromJson(Map<String, dynamic> json) =>
-      DescribePlatformVersionResult();
+      DescribePlatformVersionResult(
+        platformDescription: json.containsKey('PlatformDescription')
+            ? PlatformDescription.fromJson(json['PlatformDescription'])
+            : null,
+      );
 }
 
 /// Describes the properties of an environment.
@@ -2286,7 +2882,65 @@ class EnvironmentDescription {
     this.environmentArn,
   });
   static EnvironmentDescription fromJson(Map<String, dynamic> json) =>
-      EnvironmentDescription();
+      EnvironmentDescription(
+        environmentName: json.containsKey('EnvironmentName')
+            ? json['EnvironmentName'] as String
+            : null,
+        environmentId: json.containsKey('EnvironmentId')
+            ? json['EnvironmentId'] as String
+            : null,
+        applicationName: json.containsKey('ApplicationName')
+            ? json['ApplicationName'] as String
+            : null,
+        versionLabel: json.containsKey('VersionLabel')
+            ? json['VersionLabel'] as String
+            : null,
+        solutionStackName: json.containsKey('SolutionStackName')
+            ? json['SolutionStackName'] as String
+            : null,
+        platformArn: json.containsKey('PlatformArn')
+            ? json['PlatformArn'] as String
+            : null,
+        templateName: json.containsKey('TemplateName')
+            ? json['TemplateName'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        endpointUrl: json.containsKey('EndpointURL')
+            ? json['EndpointURL'] as String
+            : null,
+        cname: json.containsKey('CNAME') ? json['CNAME'] as String : null,
+        dateCreated: json.containsKey('DateCreated')
+            ? DateTime.parse(json['DateCreated'])
+            : null,
+        dateUpdated: json.containsKey('DateUpdated')
+            ? DateTime.parse(json['DateUpdated'])
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        abortableOperationInProgress:
+            json.containsKey('AbortableOperationInProgress')
+                ? json['AbortableOperationInProgress'] as bool
+                : null,
+        health: json.containsKey('Health') ? json['Health'] as String : null,
+        healthStatus: json.containsKey('HealthStatus')
+            ? json['HealthStatus'] as String
+            : null,
+        resources: json.containsKey('Resources')
+            ? EnvironmentResourcesDescription.fromJson(json['Resources'])
+            : null,
+        tier: json.containsKey('Tier')
+            ? EnvironmentTier.fromJson(json['Tier'])
+            : null,
+        environmentLinks: json.containsKey('EnvironmentLinks')
+            ? (json['EnvironmentLinks'] as List)
+                .map((e) => EnvironmentLink.fromJson(e))
+                .toList()
+            : null,
+        environmentArn: json.containsKey('EnvironmentArn')
+            ? json['EnvironmentArn'] as String
+            : null,
+      );
 }
 
 /// Result message containing a list of environment descriptions.
@@ -2303,7 +2957,15 @@ class EnvironmentDescriptionsMessage {
     this.nextToken,
   });
   static EnvironmentDescriptionsMessage fromJson(Map<String, dynamic> json) =>
-      EnvironmentDescriptionsMessage();
+      EnvironmentDescriptionsMessage(
+        environments: json.containsKey('Environments')
+            ? (json['Environments'] as List)
+                .map((e) => EnvironmentDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The information retrieved from the Amazon EC2 instances.
@@ -2331,7 +2993,17 @@ class EnvironmentInfoDescription {
     this.message,
   });
   static EnvironmentInfoDescription fromJson(Map<String, dynamic> json) =>
-      EnvironmentInfoDescription();
+      EnvironmentInfoDescription(
+        infoType:
+            json.containsKey('InfoType') ? json['InfoType'] as String : null,
+        ec2InstanceId: json.containsKey('Ec2InstanceId')
+            ? json['Ec2InstanceId'] as String
+            : null,
+        sampleTimestamp: json.containsKey('SampleTimestamp')
+            ? DateTime.parse(json['SampleTimestamp'])
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// A link to another environment, defined in the environment's manifest. Links
@@ -2350,8 +3022,13 @@ class EnvironmentLink {
     this.linkName,
     this.environmentName,
   });
-  static EnvironmentLink fromJson(Map<String, dynamic> json) =>
-      EnvironmentLink();
+  static EnvironmentLink fromJson(Map<String, dynamic> json) => EnvironmentLink(
+        linkName:
+            json.containsKey('LinkName') ? json['LinkName'] as String : null,
+        environmentName: json.containsKey('EnvironmentName')
+            ? json['EnvironmentName'] as String
+            : null,
+      );
 }
 
 /// Describes the AWS resources in use by this environment. This data is live.
@@ -2391,7 +3068,44 @@ class EnvironmentResourceDescription {
     this.queues,
   });
   static EnvironmentResourceDescription fromJson(Map<String, dynamic> json) =>
-      EnvironmentResourceDescription();
+      EnvironmentResourceDescription(
+        environmentName: json.containsKey('EnvironmentName')
+            ? json['EnvironmentName'] as String
+            : null,
+        autoScalingGroups: json.containsKey('AutoScalingGroups')
+            ? (json['AutoScalingGroups'] as List)
+                .map((e) => AutoScalingGroup.fromJson(e))
+                .toList()
+            : null,
+        instances: json.containsKey('Instances')
+            ? (json['Instances'] as List)
+                .map((e) => Instance.fromJson(e))
+                .toList()
+            : null,
+        launchConfigurations: json.containsKey('LaunchConfigurations')
+            ? (json['LaunchConfigurations'] as List)
+                .map((e) => LaunchConfiguration.fromJson(e))
+                .toList()
+            : null,
+        launchTemplates: json.containsKey('LaunchTemplates')
+            ? (json['LaunchTemplates'] as List)
+                .map((e) => LaunchTemplate.fromJson(e))
+                .toList()
+            : null,
+        loadBalancers: json.containsKey('LoadBalancers')
+            ? (json['LoadBalancers'] as List)
+                .map((e) => LoadBalancer.fromJson(e))
+                .toList()
+            : null,
+        triggers: json.containsKey('Triggers')
+            ? (json['Triggers'] as List)
+                .map((e) => Trigger.fromJson(e))
+                .toList()
+            : null,
+        queues: json.containsKey('Queues')
+            ? (json['Queues'] as List).map((e) => Queue.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Result message containing a list of environment resource descriptions.
@@ -2404,7 +3118,12 @@ class EnvironmentResourceDescriptionsMessage {
   });
   static EnvironmentResourceDescriptionsMessage fromJson(
           Map<String, dynamic> json) =>
-      EnvironmentResourceDescriptionsMessage();
+      EnvironmentResourceDescriptionsMessage(
+        environmentResources: json.containsKey('EnvironmentResources')
+            ? EnvironmentResourceDescription.fromJson(
+                json['EnvironmentResources'])
+            : null,
+      );
 }
 
 /// Describes the AWS resources in use by this environment. This data is not
@@ -2417,7 +3136,11 @@ class EnvironmentResourcesDescription {
     this.loadBalancer,
   });
   static EnvironmentResourcesDescription fromJson(Map<String, dynamic> json) =>
-      EnvironmentResourcesDescription();
+      EnvironmentResourcesDescription(
+        loadBalancer: json.containsKey('LoadBalancer')
+            ? LoadBalancerDescription.fromJson(json['LoadBalancer'])
+            : null,
+      );
 }
 
 /// Describes the properties of an environment tier
@@ -2454,8 +3177,12 @@ class EnvironmentTier {
     this.type,
     this.version,
   });
-  static EnvironmentTier fromJson(Map<String, dynamic> json) =>
-      EnvironmentTier();
+  static EnvironmentTier fromJson(Map<String, dynamic> json) => EnvironmentTier(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes an event.
@@ -2499,7 +3226,31 @@ class EventDescription {
     this.severity,
   });
   static EventDescription fromJson(Map<String, dynamic> json) =>
-      EventDescription();
+      EventDescription(
+        eventDate: json.containsKey('EventDate')
+            ? DateTime.parse(json['EventDate'])
+            : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        applicationName: json.containsKey('ApplicationName')
+            ? json['ApplicationName'] as String
+            : null,
+        versionLabel: json.containsKey('VersionLabel')
+            ? json['VersionLabel'] as String
+            : null,
+        templateName: json.containsKey('TemplateName')
+            ? json['TemplateName'] as String
+            : null,
+        environmentName: json.containsKey('EnvironmentName')
+            ? json['EnvironmentName'] as String
+            : null,
+        platformArn: json.containsKey('PlatformArn')
+            ? json['PlatformArn'] as String
+            : null,
+        requestId:
+            json.containsKey('RequestId') ? json['RequestId'] as String : null,
+        severity:
+            json.containsKey('Severity') ? json['Severity'] as String : null,
+      );
 }
 
 /// Result message wrapping a list of event descriptions.
@@ -2517,7 +3268,15 @@ class EventDescriptionsMessage {
     this.nextToken,
   });
   static EventDescriptionsMessage fromJson(Map<String, dynamic> json) =>
-      EventDescriptionsMessage();
+      EventDescriptionsMessage(
+        events: json.containsKey('Events')
+            ? (json['Events'] as List)
+                .map((e) => EventDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// The description of an Amazon EC2 instance.
@@ -2528,7 +3287,9 @@ class Instance {
   Instance({
     this.id,
   });
-  static Instance fromJson(Map<String, dynamic> json) => Instance();
+  static Instance fromJson(Map<String, dynamic> json) => Instance(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+      );
 }
 
 /// Represents summary information about the health of an instance. For more
@@ -2577,7 +3338,16 @@ class InstanceHealthSummary {
     this.severe,
   });
   static InstanceHealthSummary fromJson(Map<String, dynamic> json) =>
-      InstanceHealthSummary();
+      InstanceHealthSummary(
+        noData: json.containsKey('NoData') ? json['NoData'] as int : null,
+        unknown: json.containsKey('Unknown') ? json['Unknown'] as int : null,
+        pending: json.containsKey('Pending') ? json['Pending'] as int : null,
+        ok: json.containsKey('Ok') ? json['Ok'] as int : null,
+        info: json.containsKey('Info') ? json['Info'] as int : null,
+        warning: json.containsKey('Warning') ? json['Warning'] as int : null,
+        degraded: json.containsKey('Degraded') ? json['Degraded'] as int : null,
+        severe: json.containsKey('Severe') ? json['Severe'] as int : null,
+      );
 }
 
 /// Represents the average latency for the slowest X percent of requests over
@@ -2625,7 +3395,16 @@ class Latency {
     this.p50,
     this.p10,
   });
-  static Latency fromJson(Map<String, dynamic> json) => Latency();
+  static Latency fromJson(Map<String, dynamic> json) => Latency(
+        p999: json.containsKey('P999') ? json['P999'] as double : null,
+        p99: json.containsKey('P99') ? json['P99'] as double : null,
+        p95: json.containsKey('P95') ? json['P95'] as double : null,
+        p90: json.containsKey('P90') ? json['P90'] as double : null,
+        p85: json.containsKey('P85') ? json['P85'] as double : null,
+        p75: json.containsKey('P75') ? json['P75'] as double : null,
+        p50: json.containsKey('P50') ? json['P50'] as double : null,
+        p10: json.containsKey('P10') ? json['P10'] as double : null,
+      );
 }
 
 /// Describes an Auto Scaling launch configuration.
@@ -2637,7 +3416,9 @@ class LaunchConfiguration {
     this.name,
   });
   static LaunchConfiguration fromJson(Map<String, dynamic> json) =>
-      LaunchConfiguration();
+      LaunchConfiguration(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Describes an Amazon EC2 launch template.
@@ -2648,7 +3429,9 @@ class LaunchTemplate {
   LaunchTemplate({
     this.id,
   });
-  static LaunchTemplate fromJson(Map<String, dynamic> json) => LaunchTemplate();
+  static LaunchTemplate fromJson(Map<String, dynamic> json) => LaunchTemplate(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+      );
 }
 
 /// A list of available AWS Elastic Beanstalk solution stacks.
@@ -2665,7 +3448,16 @@ class ListAvailableSolutionStacksResultMessage {
   });
   static ListAvailableSolutionStacksResultMessage fromJson(
           Map<String, dynamic> json) =>
-      ListAvailableSolutionStacksResultMessage();
+      ListAvailableSolutionStacksResultMessage(
+        solutionStacks: json.containsKey('SolutionStacks')
+            ? (json['SolutionStacks'] as List).map((e) => e as String).toList()
+            : null,
+        solutionStackDetails: json.containsKey('SolutionStackDetails')
+            ? (json['SolutionStackDetails'] as List)
+                .map((e) => SolutionStackDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class ListPlatformVersionsResult {
@@ -2681,7 +3473,15 @@ class ListPlatformVersionsResult {
     this.nextToken,
   });
   static ListPlatformVersionsResult fromJson(Map<String, dynamic> json) =>
-      ListPlatformVersionsResult();
+      ListPlatformVersionsResult(
+        platformSummaryList: json.containsKey('PlatformSummaryList')
+            ? (json['PlatformSummaryList'] as List)
+                .map((e) => PlatformSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Describes the properties of a Listener for the LoadBalancer.
@@ -2696,7 +3496,11 @@ class Listener {
     this.protocol,
     this.port,
   });
-  static Listener fromJson(Map<String, dynamic> json) => Listener();
+  static Listener fromJson(Map<String, dynamic> json) => Listener(
+        protocol:
+            json.containsKey('Protocol') ? json['Protocol'] as String : null,
+        port: json.containsKey('Port') ? json['Port'] as int : null,
+      );
 }
 
 /// Describes a LoadBalancer.
@@ -2707,7 +3511,9 @@ class LoadBalancer {
   LoadBalancer({
     this.name,
   });
-  static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer();
+  static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// Describes the details of a LoadBalancer.
@@ -2727,7 +3533,17 @@ class LoadBalancerDescription {
     this.listeners,
   });
   static LoadBalancerDescription fromJson(Map<String, dynamic> json) =>
-      LoadBalancerDescription();
+      LoadBalancerDescription(
+        loadBalancerName: json.containsKey('LoadBalancerName')
+            ? json['LoadBalancerName'] as String
+            : null,
+        domain: json.containsKey('Domain') ? json['Domain'] as String : null,
+        listeners: json.containsKey('Listeners')
+            ? (json['Listeners'] as List)
+                .map((e) => Listener.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The record of an upcoming or in-progress managed action.
@@ -2756,7 +3572,20 @@ class ManagedAction {
     this.status,
     this.windowStartTime,
   });
-  static ManagedAction fromJson(Map<String, dynamic> json) => ManagedAction();
+  static ManagedAction fromJson(Map<String, dynamic> json) => ManagedAction(
+        actionId:
+            json.containsKey('ActionId') ? json['ActionId'] as String : null,
+        actionDescription: json.containsKey('ActionDescription')
+            ? json['ActionDescription'] as String
+            : null,
+        actionType: json.containsKey('ActionType')
+            ? json['ActionType'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        windowStartTime: json.containsKey('WindowStartTime')
+            ? DateTime.parse(json['WindowStartTime'])
+            : null,
+      );
 }
 
 /// The record of a completed or failed managed action.
@@ -2796,7 +3625,29 @@ class ManagedActionHistoryItem {
     this.finishedTime,
   });
   static ManagedActionHistoryItem fromJson(Map<String, dynamic> json) =>
-      ManagedActionHistoryItem();
+      ManagedActionHistoryItem(
+        actionId:
+            json.containsKey('ActionId') ? json['ActionId'] as String : null,
+        actionType: json.containsKey('ActionType')
+            ? json['ActionType'] as String
+            : null,
+        actionDescription: json.containsKey('ActionDescription')
+            ? json['ActionDescription'] as String
+            : null,
+        failureType: json.containsKey('FailureType')
+            ? json['FailureType'] as String
+            : null,
+        status: json.containsKey('Status') ? json['Status'] as String : null,
+        failureDescription: json.containsKey('FailureDescription')
+            ? json['FailureDescription'] as String
+            : null,
+        executedTime: json.containsKey('ExecutedTime')
+            ? DateTime.parse(json['ExecutedTime'])
+            : null,
+        finishedTime: json.containsKey('FinishedTime')
+            ? DateTime.parse(json['FinishedTime'])
+            : null,
+      );
 }
 
 /// A lifecycle rule that deletes application versions after the specified
@@ -2817,7 +3668,16 @@ class MaxAgeRule {
     this.maxAgeInDays,
     this.deleteSourceFromS3,
   });
-  static MaxAgeRule fromJson(Map<String, dynamic> json) => MaxAgeRule();
+  static MaxAgeRule fromJson(Map<String, dynamic> json) => MaxAgeRule(
+        enabled: json['Enabled'] as bool,
+        maxAgeInDays: json.containsKey('MaxAgeInDays')
+            ? json['MaxAgeInDays'] as int
+            : null,
+        deleteSourceFromS3: json.containsKey('DeleteSourceFromS3')
+            ? json['DeleteSourceFromS3'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A lifecycle rule that deletes the oldest application version when the
@@ -2838,7 +3698,14 @@ class MaxCountRule {
     this.maxCount,
     this.deleteSourceFromS3,
   });
-  static MaxCountRule fromJson(Map<String, dynamic> json) => MaxCountRule();
+  static MaxCountRule fromJson(Map<String, dynamic> json) => MaxCountRule(
+        enabled: json['Enabled'] as bool,
+        maxCount: json.containsKey('MaxCount') ? json['MaxCount'] as int : null,
+        deleteSourceFromS3: json.containsKey('DeleteSourceFromS3')
+            ? json['DeleteSourceFromS3'] as bool
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A regular expression representing a restriction on a string configuration
@@ -2856,7 +3723,10 @@ class OptionRestrictionRegex {
     this.label,
   });
   static OptionRestrictionRegex fromJson(Map<String, dynamic> json) =>
-      OptionRestrictionRegex();
+      OptionRestrictionRegex(
+        pattern: json.containsKey('Pattern') ? json['Pattern'] as String : null,
+        label: json.containsKey('Label') ? json['Label'] as String : null,
+      );
 }
 
 /// A specification identifying an individual configuration option.
@@ -2875,6 +3745,7 @@ class OptionSpecification {
     this.namespace,
     this.optionName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Detailed information about a platform.
@@ -2954,7 +3825,72 @@ class PlatformDescription {
     this.supportedAddonList,
   });
   static PlatformDescription fromJson(Map<String, dynamic> json) =>
-      PlatformDescription();
+      PlatformDescription(
+        platformArn: json.containsKey('PlatformArn')
+            ? json['PlatformArn'] as String
+            : null,
+        platformOwner: json.containsKey('PlatformOwner')
+            ? json['PlatformOwner'] as String
+            : null,
+        platformName: json.containsKey('PlatformName')
+            ? json['PlatformName'] as String
+            : null,
+        platformVersion: json.containsKey('PlatformVersion')
+            ? json['PlatformVersion'] as String
+            : null,
+        solutionStackName: json.containsKey('SolutionStackName')
+            ? json['SolutionStackName'] as String
+            : null,
+        platformStatus: json.containsKey('PlatformStatus')
+            ? json['PlatformStatus'] as String
+            : null,
+        dateCreated: json.containsKey('DateCreated')
+            ? DateTime.parse(json['DateCreated'])
+            : null,
+        dateUpdated: json.containsKey('DateUpdated')
+            ? DateTime.parse(json['DateUpdated'])
+            : null,
+        platformCategory: json.containsKey('PlatformCategory')
+            ? json['PlatformCategory'] as String
+            : null,
+        description: json.containsKey('Description')
+            ? json['Description'] as String
+            : null,
+        maintainer: json.containsKey('Maintainer')
+            ? json['Maintainer'] as String
+            : null,
+        operatingSystemName: json.containsKey('OperatingSystemName')
+            ? json['OperatingSystemName'] as String
+            : null,
+        operatingSystemVersion: json.containsKey('OperatingSystemVersion')
+            ? json['OperatingSystemVersion'] as String
+            : null,
+        programmingLanguages: json.containsKey('ProgrammingLanguages')
+            ? (json['ProgrammingLanguages'] as List)
+                .map((e) => PlatformProgrammingLanguage.fromJson(e))
+                .toList()
+            : null,
+        frameworks: json.containsKey('Frameworks')
+            ? (json['Frameworks'] as List)
+                .map((e) => PlatformFramework.fromJson(e))
+                .toList()
+            : null,
+        customAmiList: json.containsKey('CustomAmiList')
+            ? (json['CustomAmiList'] as List)
+                .map((e) => CustomAmi.fromJson(e))
+                .toList()
+            : null,
+        supportedTierList: json.containsKey('SupportedTierList')
+            ? (json['SupportedTierList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        supportedAddonList: json.containsKey('SupportedAddonList')
+            ? (json['SupportedAddonList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Specify criteria to restrict the results when listing custom platforms.
@@ -2984,6 +3920,7 @@ class PlatformFilter {
     this.operator,
     this.values,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A framework supported by the custom platform.
@@ -2999,7 +3936,10 @@ class PlatformFramework {
     this.version,
   });
   static PlatformFramework fromJson(Map<String, dynamic> json) =>
-      PlatformFramework();
+      PlatformFramework(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 /// A programming language supported by the platform.
@@ -3015,7 +3955,10 @@ class PlatformProgrammingLanguage {
     this.version,
   });
   static PlatformProgrammingLanguage fromJson(Map<String, dynamic> json) =>
-      PlatformProgrammingLanguage();
+      PlatformProgrammingLanguage(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        version: json.containsKey('Version') ? json['Version'] as String : null,
+      );
 }
 
 /// Detailed information about a platform.
@@ -3055,8 +3998,36 @@ class PlatformSummary {
     this.supportedTierList,
     this.supportedAddonList,
   });
-  static PlatformSummary fromJson(Map<String, dynamic> json) =>
-      PlatformSummary();
+  static PlatformSummary fromJson(Map<String, dynamic> json) => PlatformSummary(
+        platformArn: json.containsKey('PlatformArn')
+            ? json['PlatformArn'] as String
+            : null,
+        platformOwner: json.containsKey('PlatformOwner')
+            ? json['PlatformOwner'] as String
+            : null,
+        platformStatus: json.containsKey('PlatformStatus')
+            ? json['PlatformStatus'] as String
+            : null,
+        platformCategory: json.containsKey('PlatformCategory')
+            ? json['PlatformCategory'] as String
+            : null,
+        operatingSystemName: json.containsKey('OperatingSystemName')
+            ? json['OperatingSystemName'] as String
+            : null,
+        operatingSystemVersion: json.containsKey('OperatingSystemVersion')
+            ? json['OperatingSystemVersion'] as String
+            : null,
+        supportedTierList: json.containsKey('SupportedTierList')
+            ? (json['SupportedTierList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        supportedAddonList: json.containsKey('SupportedAddonList')
+            ? (json['SupportedAddonList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Describes a queue.
@@ -3071,7 +4042,10 @@ class Queue {
     this.name,
     this.url,
   });
-  static Queue fromJson(Map<String, dynamic> json) => Queue();
+  static Queue fromJson(Map<String, dynamic> json) => Queue(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        url: json.containsKey('URL') ? json['URL'] as String : null,
+      );
 }
 
 /// The AWS Elastic Beanstalk quota information for a single resource type in an
@@ -3084,7 +4058,9 @@ class ResourceQuota {
   ResourceQuota({
     this.maximum,
   });
-  static ResourceQuota fromJson(Map<String, dynamic> json) => ResourceQuota();
+  static ResourceQuota fromJson(Map<String, dynamic> json) => ResourceQuota(
+        maximum: json.containsKey('Maximum') ? json['Maximum'] as int : null,
+      );
 }
 
 /// A set of per-resource AWS Elastic Beanstalk quotas associated with an AWS
@@ -3112,7 +4088,24 @@ class ResourceQuotas {
     this.configurationTemplateQuota,
     this.customPlatformQuota,
   });
-  static ResourceQuotas fromJson(Map<String, dynamic> json) => ResourceQuotas();
+  static ResourceQuotas fromJson(Map<String, dynamic> json) => ResourceQuotas(
+        applicationQuota: json.containsKey('ApplicationQuota')
+            ? ResourceQuota.fromJson(json['ApplicationQuota'])
+            : null,
+        applicationVersionQuota: json.containsKey('ApplicationVersionQuota')
+            ? ResourceQuota.fromJson(json['ApplicationVersionQuota'])
+            : null,
+        environmentQuota: json.containsKey('EnvironmentQuota')
+            ? ResourceQuota.fromJson(json['EnvironmentQuota'])
+            : null,
+        configurationTemplateQuota:
+            json.containsKey('ConfigurationTemplateQuota')
+                ? ResourceQuota.fromJson(json['ConfigurationTemplateQuota'])
+                : null,
+        customPlatformQuota: json.containsKey('CustomPlatformQuota')
+            ? ResourceQuota.fromJson(json['CustomPlatformQuota'])
+            : null,
+      );
 }
 
 class ResourceTagsDescriptionMessage {
@@ -3128,7 +4121,16 @@ class ResourceTagsDescriptionMessage {
     this.resourceTags,
   });
   static ResourceTagsDescriptionMessage fromJson(Map<String, dynamic> json) =>
-      ResourceTagsDescriptionMessage();
+      ResourceTagsDescriptionMessage(
+        resourceArn: json.containsKey('ResourceArn')
+            ? json['ResourceArn'] as String
+            : null,
+        resourceTags: json.containsKey('ResourceTags')
+            ? (json['ResourceTags'] as List)
+                .map((e) => Tag.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Result message containing a description of the requested environment info.
@@ -3141,7 +4143,13 @@ class RetrieveEnvironmentInfoResultMessage {
   });
   static RetrieveEnvironmentInfoResultMessage fromJson(
           Map<String, dynamic> json) =>
-      RetrieveEnvironmentInfoResultMessage();
+      RetrieveEnvironmentInfoResultMessage(
+        environmentInfo: json.containsKey('EnvironmentInfo')
+            ? (json['EnvironmentInfo'] as List)
+                .map((e) => EnvironmentInfoDescription.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// The bucket and key of an item stored in Amazon S3.
@@ -3156,7 +4164,12 @@ class S3Location {
     this.s3Bucket,
     this.s3Key,
   });
-  static S3Location fromJson(Map<String, dynamic> json) => S3Location();
+  static S3Location fromJson(Map<String, dynamic> json) => S3Location(
+        s3Bucket:
+            json.containsKey('S3Bucket') ? json['S3Bucket'] as String : null,
+        s3Key: json.containsKey('S3Key') ? json['S3Key'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Detailed health information about an Amazon EC2 instance in your Elastic
@@ -3210,7 +4223,36 @@ class SingleInstanceHealth {
     this.instanceType,
   });
   static SingleInstanceHealth fromJson(Map<String, dynamic> json) =>
-      SingleInstanceHealth();
+      SingleInstanceHealth(
+        instanceId: json.containsKey('InstanceId')
+            ? json['InstanceId'] as String
+            : null,
+        healthStatus: json.containsKey('HealthStatus')
+            ? json['HealthStatus'] as String
+            : null,
+        color: json.containsKey('Color') ? json['Color'] as String : null,
+        causes: json.containsKey('Causes')
+            ? (json['Causes'] as List).map((e) => e as String).toList()
+            : null,
+        launchedAt: json.containsKey('LaunchedAt')
+            ? DateTime.parse(json['LaunchedAt'])
+            : null,
+        applicationMetrics: json.containsKey('ApplicationMetrics')
+            ? ApplicationMetrics.fromJson(json['ApplicationMetrics'])
+            : null,
+        system: json.containsKey('System')
+            ? SystemStatus.fromJson(json['System'])
+            : null,
+        deployment: json.containsKey('Deployment')
+            ? Deployment.fromJson(json['Deployment'])
+            : null,
+        availabilityZone: json.containsKey('AvailabilityZone')
+            ? json['AvailabilityZone'] as String
+            : null,
+        instanceType: json.containsKey('InstanceType')
+            ? json['InstanceType'] as String
+            : null,
+      );
 }
 
 /// Describes the solution stack.
@@ -3226,7 +4268,16 @@ class SolutionStackDescription {
     this.permittedFileTypes,
   });
   static SolutionStackDescription fromJson(Map<String, dynamic> json) =>
-      SolutionStackDescription();
+      SolutionStackDescription(
+        solutionStackName: json.containsKey('SolutionStackName')
+            ? json['SolutionStackName'] as String
+            : null,
+        permittedFileTypes: json.containsKey('PermittedFileTypes')
+            ? (json['PermittedFileTypes'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+      );
 }
 
 /// Location of the source code for an application version.
@@ -3262,7 +4313,12 @@ class SourceBuildInformation {
     @required this.sourceLocation,
   });
   static SourceBuildInformation fromJson(Map<String, dynamic> json) =>
-      SourceBuildInformation();
+      SourceBuildInformation(
+        sourceType: json['SourceType'] as String,
+        sourceRepository: json['SourceRepository'] as String,
+        sourceLocation: json['SourceLocation'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A specification for an environment configuration
@@ -3277,6 +4333,7 @@ class SourceConfiguration {
     this.applicationName,
     this.templateName,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the percentage of requests over the last 10 seconds that resulted
@@ -3305,7 +4362,16 @@ class StatusCodes {
     this.status4xx,
     this.status5xx,
   });
-  static StatusCodes fromJson(Map<String, dynamic> json) => StatusCodes();
+  static StatusCodes fromJson(Map<String, dynamic> json) => StatusCodes(
+        status2xx:
+            json.containsKey('Status2xx') ? json['Status2xx'] as int : null,
+        status3xx:
+            json.containsKey('Status3xx') ? json['Status3xx'] as int : null,
+        status4xx:
+            json.containsKey('Status4xx') ? json['Status4xx'] as int : null,
+        status5xx:
+            json.containsKey('Status5xx') ? json['Status5xx'] as int : null,
+      );
 }
 
 /// CPU utilization and load average metrics for an Amazon EC2 instance.
@@ -3322,7 +4388,14 @@ class SystemStatus {
     this.cpuUtilization,
     this.loadAverage,
   });
-  static SystemStatus fromJson(Map<String, dynamic> json) => SystemStatus();
+  static SystemStatus fromJson(Map<String, dynamic> json) => SystemStatus(
+        cpuUtilization: json.containsKey('CPUUtilization')
+            ? CpuUtilization.fromJson(json['CPUUtilization'])
+            : null,
+        loadAverage: json.containsKey('LoadAverage')
+            ? (json['LoadAverage'] as List).map((e) => e as double).toList()
+            : null,
+      );
 }
 
 /// Describes a tag applied to a resource in an environment.
@@ -3337,7 +4410,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Describes a trigger.
@@ -3348,7 +4425,9 @@ class Trigger {
   Trigger({
     this.name,
   });
-  static Trigger fromJson(Map<String, dynamic> json) => Trigger();
+  static Trigger fromJson(Map<String, dynamic> json) => Trigger(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+      );
 }
 
 /// An error or warning for a desired configuration option value.
@@ -3378,5 +4457,14 @@ class ValidationMessage {
     this.optionName,
   });
   static ValidationMessage fromJson(Map<String, dynamic> json) =>
-      ValidationMessage();
+      ValidationMessage(
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+        severity:
+            json.containsKey('Severity') ? json['Severity'] as String : null,
+        namespace:
+            json.containsKey('Namespace') ? json['Namespace'] as String : null,
+        optionName: json.containsKey('OptionName')
+            ? json['OptionName'] as String
+            : null,
+      );
 }

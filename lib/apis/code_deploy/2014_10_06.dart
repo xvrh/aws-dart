@@ -80,6 +80,10 @@ import 'package:meta/meta.dart';
 /// *
 /// [AWS CodeDeploy Developer Forum](https://forums.aws.amazon.com/forum.jspa?forumID=179)
 class CodeDeployApi {
+  final _client;
+  CodeDeployApi(client)
+      : _client = client.configured('CodeDeploy', serializer: 'json');
+
   /// Adds tags to on-premises instances.
   ///
   /// [tags]: The tag key-value pairs to add to the on-premises instances.
@@ -90,7 +94,12 @@ class CodeDeployApi {
   /// [instanceNames]: The names of the on-premises instances to which to add
   /// tags.
   Future<void> addTagsToOnPremisesInstances(
-      {@required List<Tag> tags, @required List<String> instanceNames}) async {}
+      {@required List<Tag> tags, @required List<String> instanceNames}) async {
+    await _client.send('AddTagsToOnPremisesInstances', {
+      'tags': tags,
+      'instanceNames': instanceNames,
+    });
+  }
 
   /// Gets information about one or more application revisions. The maximum
   /// number of application revisions that can be returned is 25.
@@ -105,7 +114,11 @@ class CodeDeployApi {
   Future<BatchGetApplicationRevisionsOutput> batchGetApplicationRevisions(
       {@required String applicationName,
       @required List<RevisionLocation> revisions}) async {
-    return BatchGetApplicationRevisionsOutput.fromJson({});
+    var response_ = await _client.send('BatchGetApplicationRevisions', {
+      'applicationName': applicationName,
+      'revisions': revisions,
+    });
+    return BatchGetApplicationRevisionsOutput.fromJson(response_);
   }
 
   /// Gets information about one or more applications. The maximum number of
@@ -115,7 +128,10 @@ class CodeDeployApi {
   /// maximum number of application names you can specify is 25.
   Future<BatchGetApplicationsOutput> batchGetApplications(
       List<String> applicationNames) async {
-    return BatchGetApplicationsOutput.fromJson({});
+    var response_ = await _client.send('BatchGetApplications', {
+      'applicationNames': applicationNames,
+    });
+    return BatchGetApplicationsOutput.fromJson(response_);
   }
 
   /// Gets information about one or more deployment groups.
@@ -127,7 +143,11 @@ class CodeDeployApi {
   Future<BatchGetDeploymentGroupsOutput> batchGetDeploymentGroups(
       {@required String applicationName,
       @required List<String> deploymentGroupNames}) async {
-    return BatchGetDeploymentGroupsOutput.fromJson({});
+    var response_ = await _client.send('BatchGetDeploymentGroups', {
+      'applicationName': applicationName,
+      'deploymentGroupNames': deploymentGroupNames,
+    });
+    return BatchGetDeploymentGroupsOutput.fromJson(response_);
   }
 
   ///  This method works, but is deprecated. Use `BatchGetDeploymentTargets`
@@ -145,7 +165,11 @@ class CodeDeployApi {
   Future<BatchGetDeploymentInstancesOutput> batchGetDeploymentInstances(
       {@required String deploymentId,
       @required List<String> instanceIds}) async {
-    return BatchGetDeploymentInstancesOutput.fromJson({});
+    var response_ = await _client.send('BatchGetDeploymentInstances', {
+      'deploymentId': deploymentId,
+      'instanceIds': instanceIds,
+    });
+    return BatchGetDeploymentInstancesOutput.fromJson(response_);
   }
 
   ///  Returns an array of one or more targets associated with a deployment.
@@ -182,7 +206,11 @@ class CodeDeployApi {
   /// format `<clustername>:<servicename>`. Their target type is `ecsTarget`.
   Future<BatchGetDeploymentTargetsOutput> batchGetDeploymentTargets(
       {String deploymentId, List<String> targetIds}) async {
-    return BatchGetDeploymentTargetsOutput.fromJson({});
+    var response_ = await _client.send('BatchGetDeploymentTargets', {
+      if (deploymentId != null) 'deploymentId': deploymentId,
+      if (targetIds != null) 'targetIds': targetIds,
+    });
+    return BatchGetDeploymentTargetsOutput.fromJson(response_);
   }
 
   /// Gets information about one or more deployments. The maximum number of
@@ -192,7 +220,10 @@ class CodeDeployApi {
   /// maximum number of deployment IDs you can specify is 25.
   Future<BatchGetDeploymentsOutput> batchGetDeployments(
       List<String> deploymentIds) async {
-    return BatchGetDeploymentsOutput.fromJson({});
+    var response_ = await _client.send('BatchGetDeployments', {
+      'deploymentIds': deploymentIds,
+    });
+    return BatchGetDeploymentsOutput.fromJson(response_);
   }
 
   /// Gets information about one or more on-premises instances. The maximum
@@ -202,7 +233,10 @@ class CodeDeployApi {
   /// information. The maximum number of instance names you can specify is 25.
   Future<BatchGetOnPremisesInstancesOutput> batchGetOnPremisesInstances(
       List<String> instanceNames) async {
-    return BatchGetOnPremisesInstancesOutput.fromJson({});
+    var response_ = await _client.send('BatchGetOnPremisesInstances', {
+      'instanceNames': instanceNames,
+    });
+    return BatchGetOnPremisesInstancesOutput.fromJson(response_);
   }
 
   /// For a blue/green deployment, starts the process of rerouting traffic from
@@ -220,7 +254,12 @@ class CodeDeployApi {
   /// TERMINATION_WAIT indicates the traffic is shifted, but the original target
   /// is not terminated.
   Future<void> continueDeployment(
-      {String deploymentId, String deploymentWaitType}) async {}
+      {String deploymentId, String deploymentWaitType}) async {
+    await _client.send('ContinueDeployment', {
+      if (deploymentId != null) 'deploymentId': deploymentId,
+      if (deploymentWaitType != null) 'deploymentWaitType': deploymentWaitType,
+    });
+  }
 
   /// Creates an application.
   ///
@@ -235,7 +274,12 @@ class CodeDeployApi {
   /// optional value, both of which you define.
   Future<CreateApplicationOutput> createApplication(String applicationName,
       {String computePlatform, List<Tag> tags}) async {
-    return CreateApplicationOutput.fromJson({});
+    var response_ = await _client.send('CreateApplication', {
+      'applicationName': applicationName,
+      if (computePlatform != null) 'computePlatform': computePlatform,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateApplicationOutput.fromJson(response_);
   }
 
   /// Deploys an application revision through the specified deployment group.
@@ -317,7 +361,24 @@ class CodeDeployApi {
       AutoRollbackConfiguration autoRollbackConfiguration,
       bool updateOutdatedInstancesOnly,
       String fileExistsBehavior}) async {
-    return CreateDeploymentOutput.fromJson({});
+    var response_ = await _client.send('CreateDeployment', {
+      'applicationName': applicationName,
+      if (deploymentGroupName != null)
+        'deploymentGroupName': deploymentGroupName,
+      if (revision != null) 'revision': revision,
+      if (deploymentConfigName != null)
+        'deploymentConfigName': deploymentConfigName,
+      if (description != null) 'description': description,
+      if (ignoreApplicationStopFailures != null)
+        'ignoreApplicationStopFailures': ignoreApplicationStopFailures,
+      if (targetInstances != null) 'targetInstances': targetInstances,
+      if (autoRollbackConfiguration != null)
+        'autoRollbackConfiguration': autoRollbackConfiguration,
+      if (updateOutdatedInstancesOnly != null)
+        'updateOutdatedInstancesOnly': updateOutdatedInstancesOnly,
+      if (fileExistsBehavior != null) 'fileExistsBehavior': fileExistsBehavior,
+    });
+    return CreateDeploymentOutput.fromJson(response_);
   }
 
   ///  Creates a deployment configuration.
@@ -356,7 +417,15 @@ class CodeDeployApi {
       {MinimumHealthyHosts minimumHealthyHosts,
       TrafficRoutingConfig trafficRoutingConfig,
       String computePlatform}) async {
-    return CreateDeploymentConfigOutput.fromJson({});
+    var response_ = await _client.send('CreateDeploymentConfig', {
+      'deploymentConfigName': deploymentConfigName,
+      if (minimumHealthyHosts != null)
+        'minimumHealthyHosts': minimumHealthyHosts,
+      if (trafficRoutingConfig != null)
+        'trafficRoutingConfig': trafficRoutingConfig,
+      if (computePlatform != null) 'computePlatform': computePlatform,
+    });
+    return CreateDeploymentConfigOutput.fromJson(response_);
   }
 
   /// Creates a deployment group to which application revisions are deployed.
@@ -451,14 +520,42 @@ class CodeDeployApi {
       List<EcsService> ecsServices,
       OnPremisesTagSet onPremisesTagSet,
       List<Tag> tags}) async {
-    return CreateDeploymentGroupOutput.fromJson({});
+    var response_ = await _client.send('CreateDeploymentGroup', {
+      'applicationName': applicationName,
+      'deploymentGroupName': deploymentGroupName,
+      if (deploymentConfigName != null)
+        'deploymentConfigName': deploymentConfigName,
+      if (ec2TagFilters != null) 'ec2TagFilters': ec2TagFilters,
+      if (onPremisesInstanceTagFilters != null)
+        'onPremisesInstanceTagFilters': onPremisesInstanceTagFilters,
+      if (autoScalingGroups != null) 'autoScalingGroups': autoScalingGroups,
+      'serviceRoleArn': serviceRoleArn,
+      if (triggerConfigurations != null)
+        'triggerConfigurations': triggerConfigurations,
+      if (alarmConfiguration != null) 'alarmConfiguration': alarmConfiguration,
+      if (autoRollbackConfiguration != null)
+        'autoRollbackConfiguration': autoRollbackConfiguration,
+      if (deploymentStyle != null) 'deploymentStyle': deploymentStyle,
+      if (blueGreenDeploymentConfiguration != null)
+        'blueGreenDeploymentConfiguration': blueGreenDeploymentConfiguration,
+      if (loadBalancerInfo != null) 'loadBalancerInfo': loadBalancerInfo,
+      if (ec2TagSet != null) 'ec2TagSet': ec2TagSet,
+      if (ecsServices != null) 'ecsServices': ecsServices,
+      if (onPremisesTagSet != null) 'onPremisesTagSet': onPremisesTagSet,
+      if (tags != null) 'tags': tags,
+    });
+    return CreateDeploymentGroupOutput.fromJson(response_);
   }
 
   /// Deletes an application.
   ///
   /// [applicationName]: The name of an AWS CodeDeploy application associated
   /// with the IAM user or AWS account.
-  Future<void> deleteApplication(String applicationName) async {}
+  Future<void> deleteApplication(String applicationName) async {
+    await _client.send('DeleteApplication', {
+      'applicationName': applicationName,
+    });
+  }
 
   /// Deletes a deployment configuration.
   ///
@@ -469,7 +566,11 @@ class CodeDeployApi {
   ///
   /// [deploymentConfigName]: The name of a deployment configuration associated
   /// with the IAM user or AWS account.
-  Future<void> deleteDeploymentConfig(String deploymentConfigName) async {}
+  Future<void> deleteDeploymentConfig(String deploymentConfigName) async {
+    await _client.send('DeleteDeploymentConfig', {
+      'deploymentConfigName': deploymentConfigName,
+    });
+  }
 
   /// Deletes a deployment group.
   ///
@@ -481,7 +582,11 @@ class CodeDeployApi {
   Future<DeleteDeploymentGroupOutput> deleteDeploymentGroup(
       {@required String applicationName,
       @required String deploymentGroupName}) async {
-    return DeleteDeploymentGroupOutput.fromJson({});
+    var response_ = await _client.send('DeleteDeploymentGroup', {
+      'applicationName': applicationName,
+      'deploymentGroupName': deploymentGroupName,
+    });
+    return DeleteDeploymentGroupOutput.fromJson(response_);
   }
 
   /// Deletes a GitHub account connection.
@@ -489,20 +594,30 @@ class CodeDeployApi {
   /// [tokenName]: The name of the GitHub account connection to delete.
   Future<DeleteGitHubAccountTokenOutput> deleteGitHubAccountToken(
       {String tokenName}) async {
-    return DeleteGitHubAccountTokenOutput.fromJson({});
+    var response_ = await _client.send('DeleteGitHubAccountToken', {
+      if (tokenName != null) 'tokenName': tokenName,
+    });
+    return DeleteGitHubAccountTokenOutput.fromJson(response_);
   }
 
   /// Deregisters an on-premises instance.
   ///
   /// [instanceName]: The name of the on-premises instance to deregister.
-  Future<void> deregisterOnPremisesInstance(String instanceName) async {}
+  Future<void> deregisterOnPremisesInstance(String instanceName) async {
+    await _client.send('DeregisterOnPremisesInstance', {
+      'instanceName': instanceName,
+    });
+  }
 
   /// Gets information about an application.
   ///
   /// [applicationName]: The name of an AWS CodeDeploy application associated
   /// with the IAM user or AWS account.
   Future<GetApplicationOutput> getApplication(String applicationName) async {
-    return GetApplicationOutput.fromJson({});
+    var response_ = await _client.send('GetApplication', {
+      'applicationName': applicationName,
+    });
+    return GetApplicationOutput.fromJson(response_);
   }
 
   /// Gets information about an application revision.
@@ -515,7 +630,11 @@ class CodeDeployApi {
   Future<GetApplicationRevisionOutput> getApplicationRevision(
       {@required String applicationName,
       @required RevisionLocation revision}) async {
-    return GetApplicationRevisionOutput.fromJson({});
+    var response_ = await _client.send('GetApplicationRevision', {
+      'applicationName': applicationName,
+      'revision': revision,
+    });
+    return GetApplicationRevisionOutput.fromJson(response_);
   }
 
   /// Gets information about a deployment.
@@ -528,7 +647,10 @@ class CodeDeployApi {
   /// [deploymentId]:  The unique ID of a deployment associated with the IAM
   /// user or AWS account.
   Future<GetDeploymentOutput> getDeployment(String deploymentId) async {
-    return GetDeploymentOutput.fromJson({});
+    var response_ = await _client.send('GetDeployment', {
+      'deploymentId': deploymentId,
+    });
+    return GetDeploymentOutput.fromJson(response_);
   }
 
   /// Gets information about a deployment configuration.
@@ -537,7 +659,10 @@ class CodeDeployApi {
   /// with the IAM user or AWS account.
   Future<GetDeploymentConfigOutput> getDeploymentConfig(
       String deploymentConfigName) async {
-    return GetDeploymentConfigOutput.fromJson({});
+    var response_ = await _client.send('GetDeploymentConfig', {
+      'deploymentConfigName': deploymentConfigName,
+    });
+    return GetDeploymentConfigOutput.fromJson(response_);
   }
 
   /// Gets information about a deployment group.
@@ -550,7 +675,11 @@ class CodeDeployApi {
   Future<GetDeploymentGroupOutput> getDeploymentGroup(
       {@required String applicationName,
       @required String deploymentGroupName}) async {
-    return GetDeploymentGroupOutput.fromJson({});
+    var response_ = await _client.send('GetDeploymentGroup', {
+      'applicationName': applicationName,
+      'deploymentGroupName': deploymentGroupName,
+    });
+    return GetDeploymentGroupOutput.fromJson(response_);
   }
 
   /// Gets information about an instance as part of a deployment.
@@ -560,7 +689,11 @@ class CodeDeployApi {
   /// [instanceId]:  The unique ID of an instance in the deployment group.
   Future<GetDeploymentInstanceOutput> getDeploymentInstance(
       {@required String deploymentId, @required String instanceId}) async {
-    return GetDeploymentInstanceOutput.fromJson({});
+    var response_ = await _client.send('GetDeploymentInstance', {
+      'deploymentId': deploymentId,
+      'instanceId': instanceId,
+    });
+    return GetDeploymentInstanceOutput.fromJson(response_);
   }
 
   ///  Returns information about a deployment target.
@@ -570,7 +703,11 @@ class CodeDeployApi {
   /// [targetId]:  The unique ID of a deployment target.
   Future<GetDeploymentTargetOutput> getDeploymentTarget(
       {String deploymentId, String targetId}) async {
-    return GetDeploymentTargetOutput.fromJson({});
+    var response_ = await _client.send('GetDeploymentTarget', {
+      if (deploymentId != null) 'deploymentId': deploymentId,
+      if (targetId != null) 'targetId': targetId,
+    });
+    return GetDeploymentTargetOutput.fromJson(response_);
   }
 
   ///  Gets information about an on-premises instance.
@@ -579,7 +716,10 @@ class CodeDeployApi {
   /// information.
   Future<GetOnPremisesInstanceOutput> getOnPremisesInstance(
       String instanceName) async {
-    return GetOnPremisesInstanceOutput.fromJson({});
+    var response_ = await _client.send('GetOnPremisesInstance', {
+      'instanceName': instanceName,
+    });
+    return GetOnPremisesInstanceOutput.fromJson(response_);
   }
 
   /// Lists information about revisions for an application.
@@ -642,7 +782,16 @@ class CodeDeployApi {
       String s3KeyPrefix,
       String deployed,
       String nextToken}) async {
-    return ListApplicationRevisionsOutput.fromJson({});
+    var response_ = await _client.send('ListApplicationRevisions', {
+      'applicationName': applicationName,
+      if (sortBy != null) 'sortBy': sortBy,
+      if (sortOrder != null) 'sortOrder': sortOrder,
+      if (s3Bucket != null) 's3Bucket': s3Bucket,
+      if (s3KeyPrefix != null) 's3KeyPrefix': s3KeyPrefix,
+      if (deployed != null) 'deployed': deployed,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListApplicationRevisionsOutput.fromJson(response_);
   }
 
   /// Lists the applications registered with the IAM user or AWS account.
@@ -650,7 +799,10 @@ class CodeDeployApi {
   /// [nextToken]: An identifier returned from the previous list applications
   /// call. It can be used to return the next set of applications in the list.
   Future<ListApplicationsOutput> listApplications({String nextToken}) async {
-    return ListApplicationsOutput.fromJson({});
+    var response_ = await _client.send('ListApplications', {
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListApplicationsOutput.fromJson(response_);
   }
 
   /// Lists the deployment configurations with the IAM user or AWS account.
@@ -660,7 +812,10 @@ class CodeDeployApi {
   /// deployment configurations in the list.
   Future<ListDeploymentConfigsOutput> listDeploymentConfigs(
       {String nextToken}) async {
-    return ListDeploymentConfigsOutput.fromJson({});
+    var response_ = await _client.send('ListDeploymentConfigs', {
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListDeploymentConfigsOutput.fromJson(response_);
   }
 
   /// Lists the deployment groups for an application registered with the IAM
@@ -675,7 +830,11 @@ class CodeDeployApi {
   Future<ListDeploymentGroupsOutput> listDeploymentGroups(
       String applicationName,
       {String nextToken}) async {
-    return ListDeploymentGroupsOutput.fromJson({});
+    var response_ = await _client.send('ListDeploymentGroups', {
+      'applicationName': applicationName,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListDeploymentGroupsOutput.fromJson(response_);
   }
 
   ///  The newer BatchGetDeploymentTargets should be used instead because it
@@ -716,7 +875,14 @@ class CodeDeployApi {
       {String nextToken,
       List<String> instanceStatusFilter,
       List<String> instanceTypeFilter}) async {
-    return ListDeploymentInstancesOutput.fromJson({});
+    var response_ = await _client.send('ListDeploymentInstances', {
+      'deploymentId': deploymentId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (instanceStatusFilter != null)
+        'instanceStatusFilter': instanceStatusFilter,
+      if (instanceTypeFilter != null) 'instanceTypeFilter': instanceTypeFilter,
+    });
+    return ListDeploymentInstancesOutput.fromJson(response_);
   }
 
   ///  Returns an array of target IDs that are associated a deployment.
@@ -739,7 +905,12 @@ class CodeDeployApi {
       {String deploymentId,
       String nextToken,
       Map<String, List<String>> targetFilters}) async {
-    return ListDeploymentTargetsOutput.fromJson({});
+    var response_ = await _client.send('ListDeploymentTargets', {
+      if (deploymentId != null) 'deploymentId': deploymentId,
+      if (nextToken != null) 'nextToken': nextToken,
+      if (targetFilters != null) 'targetFilters': targetFilters,
+    });
+    return ListDeploymentTargetsOutput.fromJson(response_);
   }
 
   /// Lists the deployments in a deployment group for an application registered
@@ -788,7 +959,16 @@ class CodeDeployApi {
       List<String> includeOnlyStatuses,
       TimeRange createTimeRange,
       String nextToken}) async {
-    return ListDeploymentsOutput.fromJson({});
+    var response_ = await _client.send('ListDeployments', {
+      if (applicationName != null) 'applicationName': applicationName,
+      if (deploymentGroupName != null)
+        'deploymentGroupName': deploymentGroupName,
+      if (includeOnlyStatuses != null)
+        'includeOnlyStatuses': includeOnlyStatuses,
+      if (createTimeRange != null) 'createTimeRange': createTimeRange,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListDeploymentsOutput.fromJson(response_);
   }
 
   /// Lists the names of stored connections to GitHub accounts.
@@ -798,7 +978,10 @@ class CodeDeployApi {
   /// names in the list.
   Future<ListGitHubAccountTokenNamesOutput> listGitHubAccountTokenNames(
       {String nextToken}) async {
-    return ListGitHubAccountTokenNamesOutput.fromJson({});
+    var response_ = await _client.send('ListGitHubAccountTokenNames', {
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListGitHubAccountTokenNamesOutput.fromJson(response_);
   }
 
   /// Gets a list of names for one or more on-premises instances.
@@ -826,7 +1009,12 @@ class CodeDeployApi {
       {String registrationStatus,
       List<TagFilter> tagFilters,
       String nextToken}) async {
-    return ListOnPremisesInstancesOutput.fromJson({});
+    var response_ = await _client.send('ListOnPremisesInstances', {
+      if (registrationStatus != null) 'registrationStatus': registrationStatus,
+      if (tagFilters != null) 'tagFilters': tagFilters,
+      if (nextToken != null) 'nextToken': nextToken,
+    });
+    return ListOnPremisesInstancesOutput.fromJson(response_);
   }
 
   ///  Returns a list of tags for the resource identified by a specified ARN.
@@ -841,7 +1029,11 @@ class CodeDeployApi {
   /// applications in the list.
   Future<ListTagsForResourceOutput> listTagsForResource(String resourceArn,
       {String nextToken}) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   ///  Sets the result of a Lambda validation function. The function validates
@@ -862,7 +1054,13 @@ class CodeDeployApi {
           {String deploymentId,
           String lifecycleEventHookExecutionId,
           String status}) async {
-    return PutLifecycleEventHookExecutionStatusOutput.fromJson({});
+    var response_ = await _client.send('PutLifecycleEventHookExecutionStatus', {
+      if (deploymentId != null) 'deploymentId': deploymentId,
+      if (lifecycleEventHookExecutionId != null)
+        'lifecycleEventHookExecutionId': lifecycleEventHookExecutionId,
+      if (status != null) 'status': status,
+    });
+    return PutLifecycleEventHookExecutionStatusOutput.fromJson(response_);
   }
 
   /// Registers with AWS CodeDeploy a revision for the specified application.
@@ -877,7 +1075,13 @@ class CodeDeployApi {
   Future<void> registerApplicationRevision(
       {@required String applicationName,
       String description,
-      @required RevisionLocation revision}) async {}
+      @required RevisionLocation revision}) async {
+    await _client.send('RegisterApplicationRevision', {
+      'applicationName': applicationName,
+      if (description != null) 'description': description,
+      'revision': revision,
+    });
+  }
 
   /// Registers an on-premises instance.
   ///
@@ -894,7 +1098,13 @@ class CodeDeployApi {
   /// [iamUserArn]: The ARN of the IAM user to associate with the on-premises
   /// instance.
   Future<void> registerOnPremisesInstance(String instanceName,
-      {String iamSessionArn, String iamUserArn}) async {}
+      {String iamSessionArn, String iamUserArn}) async {
+    await _client.send('RegisterOnPremisesInstance', {
+      'instanceName': instanceName,
+      if (iamSessionArn != null) 'iamSessionArn': iamSessionArn,
+      if (iamUserArn != null) 'iamUserArn': iamUserArn,
+    });
+  }
 
   /// Removes one or more tags from one or more on-premises instances.
   ///
@@ -903,15 +1113,23 @@ class CodeDeployApi {
   /// [instanceNames]: The names of the on-premises instances from which to
   /// remove tags.
   Future<void> removeTagsFromOnPremisesInstances(
-      {@required List<Tag> tags, @required List<String> instanceNames}) async {}
+      {@required List<Tag> tags, @required List<String> instanceNames}) async {
+    await _client.send('RemoveTagsFromOnPremisesInstances', {
+      'tags': tags,
+      'instanceNames': instanceNames,
+    });
+  }
 
   /// In a blue/green deployment, overrides any specified wait time and starts
   /// terminating instances immediately after the traffic routing is complete.
   ///
   /// [deploymentId]:  The unique ID of a blue/green deployment for which you
   /// want to skip the instance termination wait time.
-  Future<void> skipWaitTimeForInstanceTermination(
-      {String deploymentId}) async {}
+  Future<void> skipWaitTimeForInstanceTermination({String deploymentId}) async {
+    await _client.send('SkipWaitTimeForInstanceTermination', {
+      if (deploymentId != null) 'deploymentId': deploymentId,
+    });
+  }
 
   /// Attempts to stop an ongoing deployment.
   ///
@@ -922,7 +1140,12 @@ class CodeDeployApi {
   /// version of the application revision.
   Future<StopDeploymentOutput> stopDeployment(String deploymentId,
       {bool autoRollbackEnabled}) async {
-    return StopDeploymentOutput.fromJson({});
+    var response_ = await _client.send('StopDeployment', {
+      'deploymentId': deploymentId,
+      if (autoRollbackEnabled != null)
+        'autoRollbackEnabled': autoRollbackEnabled,
+    });
+    return StopDeploymentOutput.fromJson(response_);
   }
 
   ///  Associates the list of tags in the input `Tags` parameter with the
@@ -935,7 +1158,11 @@ class CodeDeployApi {
   /// resource is identified by the `ResourceArn` input parameter.
   Future<TagResourceOutput> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceOutput.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceOutput.fromJson(response_);
   }
 
   ///  Disassociates a resource from a list of tags. The resource is identified
@@ -950,7 +1177,11 @@ class CodeDeployApi {
   /// `ResourceArn` input parameter.
   Future<UntagResourceOutput> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceOutput.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceOutput.fromJson(response_);
   }
 
   /// Changes the name of an application.
@@ -959,7 +1190,12 @@ class CodeDeployApi {
   ///
   /// [newApplicationName]: The new name to give the application.
   Future<void> updateApplication(
-      {String applicationName, String newApplicationName}) async {}
+      {String applicationName, String newApplicationName}) async {
+    await _client.send('UpdateApplication', {
+      if (applicationName != null) 'applicationName': applicationName,
+      if (newApplicationName != null) 'newApplicationName': newApplicationName,
+    });
+  }
 
   /// Changes information about a deployment group.
   ///
@@ -1043,7 +1279,32 @@ class CodeDeployApi {
       Ec2TagSet ec2TagSet,
       List<EcsService> ecsServices,
       OnPremisesTagSet onPremisesTagSet}) async {
-    return UpdateDeploymentGroupOutput.fromJson({});
+    var response_ = await _client.send('UpdateDeploymentGroup', {
+      'applicationName': applicationName,
+      'currentDeploymentGroupName': currentDeploymentGroupName,
+      if (newDeploymentGroupName != null)
+        'newDeploymentGroupName': newDeploymentGroupName,
+      if (deploymentConfigName != null)
+        'deploymentConfigName': deploymentConfigName,
+      if (ec2TagFilters != null) 'ec2TagFilters': ec2TagFilters,
+      if (onPremisesInstanceTagFilters != null)
+        'onPremisesInstanceTagFilters': onPremisesInstanceTagFilters,
+      if (autoScalingGroups != null) 'autoScalingGroups': autoScalingGroups,
+      if (serviceRoleArn != null) 'serviceRoleArn': serviceRoleArn,
+      if (triggerConfigurations != null)
+        'triggerConfigurations': triggerConfigurations,
+      if (alarmConfiguration != null) 'alarmConfiguration': alarmConfiguration,
+      if (autoRollbackConfiguration != null)
+        'autoRollbackConfiguration': autoRollbackConfiguration,
+      if (deploymentStyle != null) 'deploymentStyle': deploymentStyle,
+      if (blueGreenDeploymentConfiguration != null)
+        'blueGreenDeploymentConfiguration': blueGreenDeploymentConfiguration,
+      if (loadBalancerInfo != null) 'loadBalancerInfo': loadBalancerInfo,
+      if (ec2TagSet != null) 'ec2TagSet': ec2TagSet,
+      if (ecsServices != null) 'ecsServices': ecsServices,
+      if (onPremisesTagSet != null) 'onPremisesTagSet': onPremisesTagSet,
+    });
+    return UpdateDeploymentGroupOutput.fromJson(response_);
   }
 }
 
@@ -1056,7 +1317,10 @@ class Alarm {
   Alarm({
     this.name,
   });
-  static Alarm fromJson(Map<String, dynamic> json) => Alarm();
+  static Alarm fromJson(Map<String, dynamic> json) => Alarm(
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about alarms associated with the deployment group.
@@ -1085,7 +1349,16 @@ class AlarmConfiguration {
     this.alarms,
   });
   static AlarmConfiguration fromJson(Map<String, dynamic> json) =>
-      AlarmConfiguration();
+      AlarmConfiguration(
+        enabled: json.containsKey('enabled') ? json['enabled'] as bool : null,
+        ignorePollAlarmFailure: json.containsKey('ignorePollAlarmFailure')
+            ? json['ignorePollAlarmFailure'] as bool
+            : null,
+        alarms: json.containsKey('alarms')
+            ? (json['alarms'] as List).map((e) => Alarm.fromJson(e)).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  A revision for an AWS Lambda or Amazon ECS deployment that is a
@@ -1115,7 +1388,11 @@ class AppSpecContent {
     this.content,
     this.sha256,
   });
-  static AppSpecContent fromJson(Map<String, dynamic> json) => AppSpecContent();
+  static AppSpecContent fromJson(Map<String, dynamic> json) => AppSpecContent(
+        content: json.containsKey('content') ? json['content'] as String : null,
+        sha256: json.containsKey('sha256') ? json['sha256'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an application.
@@ -1148,8 +1425,26 @@ class ApplicationInfo {
     this.gitHubAccountName,
     this.computePlatform,
   });
-  static ApplicationInfo fromJson(Map<String, dynamic> json) =>
-      ApplicationInfo();
+  static ApplicationInfo fromJson(Map<String, dynamic> json) => ApplicationInfo(
+        applicationId: json.containsKey('applicationId')
+            ? json['applicationId'] as String
+            : null,
+        applicationName: json.containsKey('applicationName')
+            ? json['applicationName'] as String
+            : null,
+        createTime: json.containsKey('createTime')
+            ? DateTime.parse(json['createTime'])
+            : null,
+        linkedToGitHub: json.containsKey('linkedToGitHub')
+            ? json['linkedToGitHub'] as bool
+            : null,
+        gitHubAccountName: json.containsKey('gitHubAccountName')
+            ? json['gitHubAccountName'] as String
+            : null,
+        computePlatform: json.containsKey('computePlatform')
+            ? json['computePlatform'] as String
+            : null,
+      );
 }
 
 /// Information about a configuration for automatically rolling back to a
@@ -1168,7 +1463,13 @@ class AutoRollbackConfiguration {
     this.events,
   });
   static AutoRollbackConfiguration fromJson(Map<String, dynamic> json) =>
-      AutoRollbackConfiguration();
+      AutoRollbackConfiguration(
+        enabled: json.containsKey('enabled') ? json['enabled'] as bool : null,
+        events: json.containsKey('events')
+            ? (json['events'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an Auto Scaling group.
@@ -1184,7 +1485,10 @@ class AutoScalingGroup {
     this.hook,
   });
   static AutoScalingGroup fromJson(Map<String, dynamic> json) =>
-      AutoScalingGroup();
+      AutoScalingGroup(
+        name: json.containsKey('name') ? json['name'] as String : null,
+        hook: json.containsKey('hook') ? json['hook'] as String : null,
+      );
 }
 
 /// Represents the output of a BatchGetApplicationRevisions operation.
@@ -1206,7 +1510,19 @@ class BatchGetApplicationRevisionsOutput {
   });
   static BatchGetApplicationRevisionsOutput fromJson(
           Map<String, dynamic> json) =>
-      BatchGetApplicationRevisionsOutput();
+      BatchGetApplicationRevisionsOutput(
+        applicationName: json.containsKey('applicationName')
+            ? json['applicationName'] as String
+            : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+        revisions: json.containsKey('revisions')
+            ? (json['revisions'] as List)
+                .map((e) => RevisionInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a BatchGetApplications operation.
@@ -1218,7 +1534,13 @@ class BatchGetApplicationsOutput {
     this.applicationsInfo,
   });
   static BatchGetApplicationsOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetApplicationsOutput();
+      BatchGetApplicationsOutput(
+        applicationsInfo: json.containsKey('applicationsInfo')
+            ? (json['applicationsInfo'] as List)
+                .map((e) => ApplicationInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a BatchGetDeploymentGroups operation.
@@ -1234,7 +1556,16 @@ class BatchGetDeploymentGroupsOutput {
     this.errorMessage,
   });
   static BatchGetDeploymentGroupsOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetDeploymentGroupsOutput();
+      BatchGetDeploymentGroupsOutput(
+        deploymentGroupsInfo: json.containsKey('deploymentGroupsInfo')
+            ? (json['deploymentGroupsInfo'] as List)
+                .map((e) => DeploymentGroupInfo.fromJson(e))
+                .toList()
+            : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a BatchGetDeploymentInstances operation.
@@ -1251,7 +1582,16 @@ class BatchGetDeploymentInstancesOutput {
   });
   static BatchGetDeploymentInstancesOutput fromJson(
           Map<String, dynamic> json) =>
-      BatchGetDeploymentInstancesOutput();
+      BatchGetDeploymentInstancesOutput(
+        instancesSummary: json.containsKey('instancesSummary')
+            ? (json['instancesSummary'] as List)
+                .map((e) => InstanceSummary.fromJson(e))
+                .toList()
+            : null,
+        errorMessage: json.containsKey('errorMessage')
+            ? json['errorMessage'] as String
+            : null,
+      );
 }
 
 class BatchGetDeploymentTargetsOutput {
@@ -1272,7 +1612,13 @@ class BatchGetDeploymentTargetsOutput {
     this.deploymentTargets,
   });
   static BatchGetDeploymentTargetsOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetDeploymentTargetsOutput();
+      BatchGetDeploymentTargetsOutput(
+        deploymentTargets: json.containsKey('deploymentTargets')
+            ? (json['deploymentTargets'] as List)
+                .map((e) => DeploymentTarget.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Represents the output of a BatchGetDeployments operation.
@@ -1284,7 +1630,13 @@ class BatchGetDeploymentsOutput {
     this.deploymentsInfo,
   });
   static BatchGetDeploymentsOutput fromJson(Map<String, dynamic> json) =>
-      BatchGetDeploymentsOutput();
+      BatchGetDeploymentsOutput(
+        deploymentsInfo: json.containsKey('deploymentsInfo')
+            ? (json['deploymentsInfo'] as List)
+                .map((e) => DeploymentInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a BatchGetOnPremisesInstances operation.
@@ -1297,7 +1649,13 @@ class BatchGetOnPremisesInstancesOutput {
   });
   static BatchGetOnPremisesInstancesOutput fromJson(
           Map<String, dynamic> json) =>
-      BatchGetOnPremisesInstancesOutput();
+      BatchGetOnPremisesInstancesOutput(
+        instanceInfos: json.containsKey('instanceInfos')
+            ? (json['instanceInfos'] as List)
+                .map((e) => InstanceInfo.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about blue/green deployment options for a deployment group.
@@ -1320,7 +1678,22 @@ class BlueGreenDeploymentConfiguration {
     this.greenFleetProvisioningOption,
   });
   static BlueGreenDeploymentConfiguration fromJson(Map<String, dynamic> json) =>
-      BlueGreenDeploymentConfiguration();
+      BlueGreenDeploymentConfiguration(
+        terminateBlueInstancesOnDeploymentSuccess:
+            json.containsKey('terminateBlueInstancesOnDeploymentSuccess')
+                ? BlueInstanceTerminationOption.fromJson(
+                    json['terminateBlueInstancesOnDeploymentSuccess'])
+                : null,
+        deploymentReadyOption: json.containsKey('deploymentReadyOption')
+            ? DeploymentReadyOption.fromJson(json['deploymentReadyOption'])
+            : null,
+        greenFleetProvisioningOption:
+            json.containsKey('greenFleetProvisioningOption')
+                ? GreenFleetProvisioningOption.fromJson(
+                    json['greenFleetProvisioningOption'])
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about whether instances in the original environment are
@@ -1353,7 +1726,14 @@ class BlueInstanceTerminationOption {
     this.terminationWaitTimeInMinutes,
   });
   static BlueInstanceTerminationOption fromJson(Map<String, dynamic> json) =>
-      BlueInstanceTerminationOption();
+      BlueInstanceTerminationOption(
+        action: json.containsKey('action') ? json['action'] as String : null,
+        terminationWaitTimeInMinutes:
+            json.containsKey('terminationWaitTimeInMinutes')
+                ? json['terminationWaitTimeInMinutes'] as int
+                : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents the output of a CreateApplication operation.
@@ -1365,7 +1745,11 @@ class CreateApplicationOutput {
     this.applicationId,
   });
   static CreateApplicationOutput fromJson(Map<String, dynamic> json) =>
-      CreateApplicationOutput();
+      CreateApplicationOutput(
+        applicationId: json.containsKey('applicationId')
+            ? json['applicationId'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a CreateDeploymentConfig operation.
@@ -1377,7 +1761,11 @@ class CreateDeploymentConfigOutput {
     this.deploymentConfigId,
   });
   static CreateDeploymentConfigOutput fromJson(Map<String, dynamic> json) =>
-      CreateDeploymentConfigOutput();
+      CreateDeploymentConfigOutput(
+        deploymentConfigId: json.containsKey('deploymentConfigId')
+            ? json['deploymentConfigId'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a CreateDeploymentGroup operation.
@@ -1389,7 +1777,11 @@ class CreateDeploymentGroupOutput {
     this.deploymentGroupId,
   });
   static CreateDeploymentGroupOutput fromJson(Map<String, dynamic> json) =>
-      CreateDeploymentGroupOutput();
+      CreateDeploymentGroupOutput(
+        deploymentGroupId: json.containsKey('deploymentGroupId')
+            ? json['deploymentGroupId'] as String
+            : null,
+      );
 }
 
 ///  Represents the output of a CreateDeployment operation.
@@ -1401,7 +1793,11 @@ class CreateDeploymentOutput {
     this.deploymentId,
   });
   static CreateDeploymentOutput fromJson(Map<String, dynamic> json) =>
-      CreateDeploymentOutput();
+      CreateDeploymentOutput(
+        deploymentId: json.containsKey('deploymentId')
+            ? json['deploymentId'] as String
+            : null,
+      );
 }
 
 /// Represents the output of a DeleteDeploymentGroup operation.
@@ -1418,7 +1814,13 @@ class DeleteDeploymentGroupOutput {
     this.hooksNotCleanedUp,
   });
   static DeleteDeploymentGroupOutput fromJson(Map<String, dynamic> json) =>
-      DeleteDeploymentGroupOutput();
+      DeleteDeploymentGroupOutput(
+        hooksNotCleanedUp: json.containsKey('hooksNotCleanedUp')
+            ? (json['hooksNotCleanedUp'] as List)
+                .map((e) => AutoScalingGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Represents the output of a DeleteGitHubAccountToken operation.
@@ -1430,7 +1832,10 @@ class DeleteGitHubAccountTokenOutput {
     this.tokenName,
   });
   static DeleteGitHubAccountTokenOutput fromJson(Map<String, dynamic> json) =>
-      DeleteGitHubAccountTokenOutput();
+      DeleteGitHubAccountTokenOutput(
+        tokenName:
+            json.containsKey('tokenName') ? json['tokenName'] as String : null,
+      );
 }
 
 /// Information about a deployment configuration.
@@ -1464,7 +1869,26 @@ class DeploymentConfigInfo {
     this.trafficRoutingConfig,
   });
   static DeploymentConfigInfo fromJson(Map<String, dynamic> json) =>
-      DeploymentConfigInfo();
+      DeploymentConfigInfo(
+        deploymentConfigId: json.containsKey('deploymentConfigId')
+            ? json['deploymentConfigId'] as String
+            : null,
+        deploymentConfigName: json.containsKey('deploymentConfigName')
+            ? json['deploymentConfigName'] as String
+            : null,
+        minimumHealthyHosts: json.containsKey('minimumHealthyHosts')
+            ? MinimumHealthyHosts.fromJson(json['minimumHealthyHosts'])
+            : null,
+        createTime: json.containsKey('createTime')
+            ? DateTime.parse(json['createTime'])
+            : null,
+        computePlatform: json.containsKey('computePlatform')
+            ? json['computePlatform'] as String
+            : null,
+        trafficRoutingConfig: json.containsKey('trafficRoutingConfig')
+            ? TrafficRoutingConfig.fromJson(json['trafficRoutingConfig'])
+            : null,
+      );
 }
 
 /// Information about a deployment group.
@@ -1577,7 +2001,85 @@ class DeploymentGroupInfo {
     this.ecsServices,
   });
   static DeploymentGroupInfo fromJson(Map<String, dynamic> json) =>
-      DeploymentGroupInfo();
+      DeploymentGroupInfo(
+        applicationName: json.containsKey('applicationName')
+            ? json['applicationName'] as String
+            : null,
+        deploymentGroupId: json.containsKey('deploymentGroupId')
+            ? json['deploymentGroupId'] as String
+            : null,
+        deploymentGroupName: json.containsKey('deploymentGroupName')
+            ? json['deploymentGroupName'] as String
+            : null,
+        deploymentConfigName: json.containsKey('deploymentConfigName')
+            ? json['deploymentConfigName'] as String
+            : null,
+        ec2TagFilters: json.containsKey('ec2TagFilters')
+            ? (json['ec2TagFilters'] as List)
+                .map((e) => Ec2TagFilter.fromJson(e))
+                .toList()
+            : null,
+        onPremisesInstanceTagFilters:
+            json.containsKey('onPremisesInstanceTagFilters')
+                ? (json['onPremisesInstanceTagFilters'] as List)
+                    .map((e) => TagFilter.fromJson(e))
+                    .toList()
+                : null,
+        autoScalingGroups: json.containsKey('autoScalingGroups')
+            ? (json['autoScalingGroups'] as List)
+                .map((e) => AutoScalingGroup.fromJson(e))
+                .toList()
+            : null,
+        serviceRoleArn: json.containsKey('serviceRoleArn')
+            ? json['serviceRoleArn'] as String
+            : null,
+        targetRevision: json.containsKey('targetRevision')
+            ? RevisionLocation.fromJson(json['targetRevision'])
+            : null,
+        triggerConfigurations: json.containsKey('triggerConfigurations')
+            ? (json['triggerConfigurations'] as List)
+                .map((e) => TriggerConfig.fromJson(e))
+                .toList()
+            : null,
+        alarmConfiguration: json.containsKey('alarmConfiguration')
+            ? AlarmConfiguration.fromJson(json['alarmConfiguration'])
+            : null,
+        autoRollbackConfiguration: json.containsKey('autoRollbackConfiguration')
+            ? AutoRollbackConfiguration.fromJson(
+                json['autoRollbackConfiguration'])
+            : null,
+        deploymentStyle: json.containsKey('deploymentStyle')
+            ? DeploymentStyle.fromJson(json['deploymentStyle'])
+            : null,
+        blueGreenDeploymentConfiguration:
+            json.containsKey('blueGreenDeploymentConfiguration')
+                ? BlueGreenDeploymentConfiguration.fromJson(
+                    json['blueGreenDeploymentConfiguration'])
+                : null,
+        loadBalancerInfo: json.containsKey('loadBalancerInfo')
+            ? LoadBalancerInfo.fromJson(json['loadBalancerInfo'])
+            : null,
+        lastSuccessfulDeployment: json.containsKey('lastSuccessfulDeployment')
+            ? LastDeploymentInfo.fromJson(json['lastSuccessfulDeployment'])
+            : null,
+        lastAttemptedDeployment: json.containsKey('lastAttemptedDeployment')
+            ? LastDeploymentInfo.fromJson(json['lastAttemptedDeployment'])
+            : null,
+        ec2TagSet: json.containsKey('ec2TagSet')
+            ? Ec2TagSet.fromJson(json['ec2TagSet'])
+            : null,
+        onPremisesTagSet: json.containsKey('onPremisesTagSet')
+            ? OnPremisesTagSet.fromJson(json['onPremisesTagSet'])
+            : null,
+        computePlatform: json.containsKey('computePlatform')
+            ? json['computePlatform'] as String
+            : null,
+        ecsServices: json.containsKey('ecsServices')
+            ? (json['ecsServices'] as List)
+                .map((e) => EcsService.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Information about a deployment.
@@ -1751,7 +2253,94 @@ class DeploymentInfo {
     this.deploymentStatusMessages,
     this.computePlatform,
   });
-  static DeploymentInfo fromJson(Map<String, dynamic> json) => DeploymentInfo();
+  static DeploymentInfo fromJson(Map<String, dynamic> json) => DeploymentInfo(
+        applicationName: json.containsKey('applicationName')
+            ? json['applicationName'] as String
+            : null,
+        deploymentGroupName: json.containsKey('deploymentGroupName')
+            ? json['deploymentGroupName'] as String
+            : null,
+        deploymentConfigName: json.containsKey('deploymentConfigName')
+            ? json['deploymentConfigName'] as String
+            : null,
+        deploymentId: json.containsKey('deploymentId')
+            ? json['deploymentId'] as String
+            : null,
+        previousRevision: json.containsKey('previousRevision')
+            ? RevisionLocation.fromJson(json['previousRevision'])
+            : null,
+        revision: json.containsKey('revision')
+            ? RevisionLocation.fromJson(json['revision'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        errorInformation: json.containsKey('errorInformation')
+            ? ErrorInformation.fromJson(json['errorInformation'])
+            : null,
+        createTime: json.containsKey('createTime')
+            ? DateTime.parse(json['createTime'])
+            : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        completeTime: json.containsKey('completeTime')
+            ? DateTime.parse(json['completeTime'])
+            : null,
+        deploymentOverview: json.containsKey('deploymentOverview')
+            ? DeploymentOverview.fromJson(json['deploymentOverview'])
+            : null,
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        creator: json.containsKey('creator') ? json['creator'] as String : null,
+        ignoreApplicationStopFailures:
+            json.containsKey('ignoreApplicationStopFailures')
+                ? json['ignoreApplicationStopFailures'] as bool
+                : null,
+        autoRollbackConfiguration: json.containsKey('autoRollbackConfiguration')
+            ? AutoRollbackConfiguration.fromJson(
+                json['autoRollbackConfiguration'])
+            : null,
+        updateOutdatedInstancesOnly:
+            json.containsKey('updateOutdatedInstancesOnly')
+                ? json['updateOutdatedInstancesOnly'] as bool
+                : null,
+        rollbackInfo: json.containsKey('rollbackInfo')
+            ? RollbackInfo.fromJson(json['rollbackInfo'])
+            : null,
+        deploymentStyle: json.containsKey('deploymentStyle')
+            ? DeploymentStyle.fromJson(json['deploymentStyle'])
+            : null,
+        targetInstances: json.containsKey('targetInstances')
+            ? TargetInstances.fromJson(json['targetInstances'])
+            : null,
+        instanceTerminationWaitTimeStarted:
+            json.containsKey('instanceTerminationWaitTimeStarted')
+                ? json['instanceTerminationWaitTimeStarted'] as bool
+                : null,
+        blueGreenDeploymentConfiguration:
+            json.containsKey('blueGreenDeploymentConfiguration')
+                ? BlueGreenDeploymentConfiguration.fromJson(
+                    json['blueGreenDeploymentConfiguration'])
+                : null,
+        loadBalancerInfo: json.containsKey('loadBalancerInfo')
+            ? LoadBalancerInfo.fromJson(json['loadBalancerInfo'])
+            : null,
+        additionalDeploymentStatusInfo:
+            json.containsKey('additionalDeploymentStatusInfo')
+                ? json['additionalDeploymentStatusInfo'] as String
+                : null,
+        fileExistsBehavior: json.containsKey('fileExistsBehavior')
+            ? json['fileExistsBehavior'] as String
+            : null,
+        deploymentStatusMessages: json.containsKey('deploymentStatusMessages')
+            ? (json['deploymentStatusMessages'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        computePlatform: json.containsKey('computePlatform')
+            ? json['computePlatform'] as String
+            : null,
+      );
 }
 
 /// Information about the deployment status of the instances in the deployment.
@@ -1785,7 +2374,20 @@ class DeploymentOverview {
     this.ready,
   });
   static DeploymentOverview fromJson(Map<String, dynamic> json) =>
-      DeploymentOverview();
+      DeploymentOverview(
+        pending:
+            json.containsKey('Pending') ? BigInt.from(json['Pending']) : null,
+        inProgress: json.containsKey('InProgress')
+            ? BigInt.from(json['InProgress'])
+            : null,
+        succeeded: json.containsKey('Succeeded')
+            ? BigInt.from(json['Succeeded'])
+            : null,
+        failed: json.containsKey('Failed') ? BigInt.from(json['Failed']) : null,
+        skipped:
+            json.containsKey('Skipped') ? BigInt.from(json['Skipped']) : null,
+        ready: json.containsKey('Ready') ? BigInt.from(json['Ready']) : null,
+      );
 }
 
 /// Information about how traffic is rerouted to instances in a replacement
@@ -1814,7 +2416,15 @@ class DeploymentReadyOption {
     this.waitTimeInMinutes,
   });
   static DeploymentReadyOption fromJson(Map<String, dynamic> json) =>
-      DeploymentReadyOption();
+      DeploymentReadyOption(
+        actionOnTimeout: json.containsKey('actionOnTimeout')
+            ? json['actionOnTimeout'] as String
+            : null,
+        waitTimeInMinutes: json.containsKey('waitTimeInMinutes')
+            ? json['waitTimeInMinutes'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the type of deployment, either in-place or blue/green, you
@@ -1831,8 +2441,15 @@ class DeploymentStyle {
     this.deploymentType,
     this.deploymentOption,
   });
-  static DeploymentStyle fromJson(Map<String, dynamic> json) =>
-      DeploymentStyle();
+  static DeploymentStyle fromJson(Map<String, dynamic> json) => DeploymentStyle(
+        deploymentType: json.containsKey('deploymentType')
+            ? json['deploymentType'] as String
+            : null,
+        deploymentOption: json.containsKey('deploymentOption')
+            ? json['deploymentOption'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Information about the deployment target.
@@ -1860,7 +2477,20 @@ class DeploymentTarget {
     this.ecsTarget,
   });
   static DeploymentTarget fromJson(Map<String, dynamic> json) =>
-      DeploymentTarget();
+      DeploymentTarget(
+        deploymentTargetType: json.containsKey('deploymentTargetType')
+            ? json['deploymentTargetType'] as String
+            : null,
+        instanceTarget: json.containsKey('instanceTarget')
+            ? InstanceTarget.fromJson(json['instanceTarget'])
+            : null,
+        lambdaTarget: json.containsKey('lambdaTarget')
+            ? LambdaTarget.fromJson(json['lambdaTarget'])
+            : null,
+        ecsTarget: json.containsKey('ecsTarget')
+            ? EcsTarget.fromJson(json['ecsTarget'])
+            : null,
+      );
 }
 
 /// Diagnostic information about executable scripts that are part of a
@@ -1902,7 +2532,15 @@ class Diagnostics {
     this.message,
     this.logTail,
   });
-  static Diagnostics fromJson(Map<String, dynamic> json) => Diagnostics();
+  static Diagnostics fromJson(Map<String, dynamic> json) => Diagnostics(
+        errorCode:
+            json.containsKey('errorCode') ? json['errorCode'] as String : null,
+        scriptName: json.containsKey('scriptName')
+            ? json['scriptName'] as String
+            : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+        logTail: json.containsKey('logTail') ? json['logTail'] as String : null,
+      );
 }
 
 /// Information about an EC2 tag filter.
@@ -1927,7 +2565,12 @@ class Ec2TagFilter {
     this.value,
     this.type,
   });
-  static Ec2TagFilter fromJson(Map<String, dynamic> json) => Ec2TagFilter();
+  static Ec2TagFilter fromJson(Map<String, dynamic> json) => Ec2TagFilter(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about groups of EC2 instance tags.
@@ -1940,7 +2583,15 @@ class Ec2TagSet {
   Ec2TagSet({
     this.ec2TagSetList,
   });
-  static Ec2TagSet fromJson(Map<String, dynamic> json) => Ec2TagSet();
+  static Ec2TagSet fromJson(Map<String, dynamic> json) => Ec2TagSet(
+        ec2TagSetList: json.containsKey('ec2TagSetList')
+            ? (json['ec2TagSetList'] as List)
+                .map((e) =>
+                    (e as List).map((e) => Ec2TagFilter.fromJson(e)).toList())
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Contains the service and cluster names used to identify an Amazon ECS
@@ -1956,7 +2607,15 @@ class EcsService {
     this.serviceName,
     this.clusterName,
   });
-  static EcsService fromJson(Map<String, dynamic> json) => EcsService();
+  static EcsService fromJson(Map<String, dynamic> json) => EcsService(
+        serviceName: json.containsKey('serviceName')
+            ? json['serviceName'] as String
+            : null,
+        clusterName: json.containsKey('clusterName')
+            ? json['clusterName'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Information about the target of an Amazon ECS deployment.
@@ -1993,7 +2652,29 @@ class EcsTarget {
     this.status,
     this.taskSetsInfo,
   });
-  static EcsTarget fromJson(Map<String, dynamic> json) => EcsTarget();
+  static EcsTarget fromJson(Map<String, dynamic> json) => EcsTarget(
+        deploymentId: json.containsKey('deploymentId')
+            ? json['deploymentId'] as String
+            : null,
+        targetId:
+            json.containsKey('targetId') ? json['targetId'] as String : null,
+        targetArn:
+            json.containsKey('targetArn') ? json['targetArn'] as String : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        lifecycleEvents: json.containsKey('lifecycleEvents')
+            ? (json['lifecycleEvents'] as List)
+                .map((e) => LifecycleEvent.fromJson(e))
+                .toList()
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        taskSetsInfo: json.containsKey('taskSetsInfo')
+            ? (json['taskSetsInfo'] as List)
+                .map((e) => EcsTaskSet.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 ///  Information about a set of Amazon ECS tasks in an AWS CodeDeploy
@@ -2057,7 +2738,29 @@ class EcsTaskSet {
     this.targetGroup,
     this.taskSetLabel,
   });
-  static EcsTaskSet fromJson(Map<String, dynamic> json) => EcsTaskSet();
+  static EcsTaskSet fromJson(Map<String, dynamic> json) => EcsTaskSet(
+        identifer:
+            json.containsKey('identifer') ? json['identifer'] as String : null,
+        desiredCount: json.containsKey('desiredCount')
+            ? BigInt.from(json['desiredCount'])
+            : null,
+        pendingCount: json.containsKey('pendingCount')
+            ? BigInt.from(json['pendingCount'])
+            : null,
+        runningCount: json.containsKey('runningCount')
+            ? BigInt.from(json['runningCount'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        trafficWeight: json.containsKey('trafficWeight')
+            ? json['trafficWeight'] as double
+            : null,
+        targetGroup: json.containsKey('targetGroup')
+            ? TargetGroupInfo.fromJson(json['targetGroup'])
+            : null,
+        taskSetLabel: json.containsKey('taskSetLabel')
+            ? json['taskSetLabel'] as String
+            : null,
+      );
 }
 
 /// Information about a load balancer in Elastic Load Balancing to use in a
@@ -2075,7 +2778,10 @@ class ElbInfo {
   ElbInfo({
     this.name,
   });
-  static ElbInfo fromJson(Map<String, dynamic> json) => ElbInfo();
+  static ElbInfo fromJson(Map<String, dynamic> json) => ElbInfo(
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a deployment error.
@@ -2134,7 +2840,10 @@ class ErrorInformation {
     this.message,
   });
   static ErrorInformation fromJson(Map<String, dynamic> json) =>
-      ErrorInformation();
+      ErrorInformation(
+        code: json.containsKey('code') ? json['code'] as String : null,
+        message: json.containsKey('message') ? json['message'] as String : null,
+      );
 }
 
 /// Information about an application revision.
@@ -2162,7 +2871,25 @@ class GenericRevisionInfo {
     this.registerTime,
   });
   static GenericRevisionInfo fromJson(Map<String, dynamic> json) =>
-      GenericRevisionInfo();
+      GenericRevisionInfo(
+        description: json.containsKey('description')
+            ? json['description'] as String
+            : null,
+        deploymentGroups: json.containsKey('deploymentGroups')
+            ? (json['deploymentGroups'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        firstUsedTime: json.containsKey('firstUsedTime')
+            ? DateTime.parse(json['firstUsedTime'])
+            : null,
+        lastUsedTime: json.containsKey('lastUsedTime')
+            ? DateTime.parse(json['lastUsedTime'])
+            : null,
+        registerTime: json.containsKey('registerTime')
+            ? DateTime.parse(json['registerTime'])
+            : null,
+      );
 }
 
 /// Represents the output of a GetApplication operation.
@@ -2174,7 +2901,11 @@ class GetApplicationOutput {
     this.application,
   });
   static GetApplicationOutput fromJson(Map<String, dynamic> json) =>
-      GetApplicationOutput();
+      GetApplicationOutput(
+        application: json.containsKey('application')
+            ? ApplicationInfo.fromJson(json['application'])
+            : null,
+      );
 }
 
 /// Represents the output of a GetApplicationRevision operation.
@@ -2194,7 +2925,17 @@ class GetApplicationRevisionOutput {
     this.revisionInfo,
   });
   static GetApplicationRevisionOutput fromJson(Map<String, dynamic> json) =>
-      GetApplicationRevisionOutput();
+      GetApplicationRevisionOutput(
+        applicationName: json.containsKey('applicationName')
+            ? json['applicationName'] as String
+            : null,
+        revision: json.containsKey('revision')
+            ? RevisionLocation.fromJson(json['revision'])
+            : null,
+        revisionInfo: json.containsKey('revisionInfo')
+            ? GenericRevisionInfo.fromJson(json['revisionInfo'])
+            : null,
+      );
 }
 
 /// Represents the output of a GetDeploymentConfig operation.
@@ -2206,7 +2947,11 @@ class GetDeploymentConfigOutput {
     this.deploymentConfigInfo,
   });
   static GetDeploymentConfigOutput fromJson(Map<String, dynamic> json) =>
-      GetDeploymentConfigOutput();
+      GetDeploymentConfigOutput(
+        deploymentConfigInfo: json.containsKey('deploymentConfigInfo')
+            ? DeploymentConfigInfo.fromJson(json['deploymentConfigInfo'])
+            : null,
+      );
 }
 
 /// Represents the output of a GetDeploymentGroup operation.
@@ -2218,7 +2963,11 @@ class GetDeploymentGroupOutput {
     this.deploymentGroupInfo,
   });
   static GetDeploymentGroupOutput fromJson(Map<String, dynamic> json) =>
-      GetDeploymentGroupOutput();
+      GetDeploymentGroupOutput(
+        deploymentGroupInfo: json.containsKey('deploymentGroupInfo')
+            ? DeploymentGroupInfo.fromJson(json['deploymentGroupInfo'])
+            : null,
+      );
 }
 
 ///  Represents the output of a GetDeploymentInstance operation.
@@ -2230,7 +2979,11 @@ class GetDeploymentInstanceOutput {
     this.instanceSummary,
   });
   static GetDeploymentInstanceOutput fromJson(Map<String, dynamic> json) =>
-      GetDeploymentInstanceOutput();
+      GetDeploymentInstanceOutput(
+        instanceSummary: json.containsKey('instanceSummary')
+            ? InstanceSummary.fromJson(json['instanceSummary'])
+            : null,
+      );
 }
 
 /// Represents the output of a GetDeployment operation.
@@ -2242,7 +2995,11 @@ class GetDeploymentOutput {
     this.deploymentInfo,
   });
   static GetDeploymentOutput fromJson(Map<String, dynamic> json) =>
-      GetDeploymentOutput();
+      GetDeploymentOutput(
+        deploymentInfo: json.containsKey('deploymentInfo')
+            ? DeploymentInfo.fromJson(json['deploymentInfo'])
+            : null,
+      );
 }
 
 class GetDeploymentTargetOutput {
@@ -2257,7 +3014,11 @@ class GetDeploymentTargetOutput {
     this.deploymentTarget,
   });
   static GetDeploymentTargetOutput fromJson(Map<String, dynamic> json) =>
-      GetDeploymentTargetOutput();
+      GetDeploymentTargetOutput(
+        deploymentTarget: json.containsKey('deploymentTarget')
+            ? DeploymentTarget.fromJson(json['deploymentTarget'])
+            : null,
+      );
 }
 
 ///  Represents the output of a GetOnPremisesInstance operation.
@@ -2269,7 +3030,11 @@ class GetOnPremisesInstanceOutput {
     this.instanceInfo,
   });
   static GetOnPremisesInstanceOutput fromJson(Map<String, dynamic> json) =>
-      GetOnPremisesInstanceOutput();
+      GetOnPremisesInstanceOutput(
+        instanceInfo: json.containsKey('instanceInfo')
+            ? InstanceInfo.fromJson(json['instanceInfo'])
+            : null,
+      );
 }
 
 /// Information about the location of application artifacts stored in GitHub.
@@ -2288,7 +3053,14 @@ class GitHubLocation {
     this.repository,
     this.commitId,
   });
-  static GitHubLocation fromJson(Map<String, dynamic> json) => GitHubLocation();
+  static GitHubLocation fromJson(Map<String, dynamic> json) => GitHubLocation(
+        repository: json.containsKey('repository')
+            ? json['repository'] as String
+            : null,
+        commitId:
+            json.containsKey('commitId') ? json['commitId'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the instances that belong to the replacement environment
@@ -2307,7 +3079,10 @@ class GreenFleetProvisioningOption {
     this.action,
   });
   static GreenFleetProvisioningOption fromJson(Map<String, dynamic> json) =>
-      GreenFleetProvisioningOption();
+      GreenFleetProvisioningOption(
+        action: json.containsKey('action') ? json['action'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an on-premises instance.
@@ -2343,7 +3118,29 @@ class InstanceInfo {
     this.deregisterTime,
     this.tags,
   });
-  static InstanceInfo fromJson(Map<String, dynamic> json) => InstanceInfo();
+  static InstanceInfo fromJson(Map<String, dynamic> json) => InstanceInfo(
+        instanceName: json.containsKey('instanceName')
+            ? json['instanceName'] as String
+            : null,
+        iamSessionArn: json.containsKey('iamSessionArn')
+            ? json['iamSessionArn'] as String
+            : null,
+        iamUserArn: json.containsKey('iamUserArn')
+            ? json['iamUserArn'] as String
+            : null,
+        instanceArn: json.containsKey('instanceArn')
+            ? json['instanceArn'] as String
+            : null,
+        registerTime: json.containsKey('registerTime')
+            ? DateTime.parse(json['registerTime'])
+            : null,
+        deregisterTime: json.containsKey('deregisterTime')
+            ? DateTime.parse(json['deregisterTime'])
+            : null,
+        tags: json.containsKey('tags')
+            ? (json['tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// Information about an instance in a deployment.
@@ -2392,8 +3189,26 @@ class InstanceSummary {
     this.lifecycleEvents,
     this.instanceType,
   });
-  static InstanceSummary fromJson(Map<String, dynamic> json) =>
-      InstanceSummary();
+  static InstanceSummary fromJson(Map<String, dynamic> json) => InstanceSummary(
+        deploymentId: json.containsKey('deploymentId')
+            ? json['deploymentId'] as String
+            : null,
+        instanceId: json.containsKey('instanceId')
+            ? json['instanceId'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        lifecycleEvents: json.containsKey('lifecycleEvents')
+            ? (json['lifecycleEvents'] as List)
+                .map((e) => LifecycleEvent.fromJson(e))
+                .toList()
+            : null,
+        instanceType: json.containsKey('instanceType')
+            ? json['instanceType'] as String
+            : null,
+      );
 }
 
 ///  A target Amazon EC2 or on-premises instance during a deployment that uses
@@ -2430,7 +3245,27 @@ class InstanceTarget {
     this.lifecycleEvents,
     this.instanceLabel,
   });
-  static InstanceTarget fromJson(Map<String, dynamic> json) => InstanceTarget();
+  static InstanceTarget fromJson(Map<String, dynamic> json) => InstanceTarget(
+        deploymentId: json.containsKey('deploymentId')
+            ? json['deploymentId'] as String
+            : null,
+        targetId:
+            json.containsKey('targetId') ? json['targetId'] as String : null,
+        targetArn:
+            json.containsKey('targetArn') ? json['targetArn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        lifecycleEvents: json.containsKey('lifecycleEvents')
+            ? (json['lifecycleEvents'] as List)
+                .map((e) => LifecycleEvent.fromJson(e))
+                .toList()
+            : null,
+        instanceLabel: json.containsKey('instanceLabel')
+            ? json['instanceLabel'] as String
+            : null,
+      );
 }
 
 ///  Information about a Lambda function specified in a deployment.
@@ -2461,7 +3296,23 @@ class LambdaFunctionInfo {
     this.targetVersionWeight,
   });
   static LambdaFunctionInfo fromJson(Map<String, dynamic> json) =>
-      LambdaFunctionInfo();
+      LambdaFunctionInfo(
+        functionName: json.containsKey('functionName')
+            ? json['functionName'] as String
+            : null,
+        functionAlias: json.containsKey('functionAlias')
+            ? json['functionAlias'] as String
+            : null,
+        currentVersion: json.containsKey('currentVersion')
+            ? json['currentVersion'] as String
+            : null,
+        targetVersion: json.containsKey('targetVersion')
+            ? json['targetVersion'] as String
+            : null,
+        targetVersionWeight: json.containsKey('targetVersionWeight')
+            ? json['targetVersionWeight'] as double
+            : null,
+      );
 }
 
 ///  Information about the target AWS Lambda function during an AWS Lambda
@@ -2498,7 +3349,27 @@ class LambdaTarget {
     this.lifecycleEvents,
     this.lambdaFunctionInfo,
   });
-  static LambdaTarget fromJson(Map<String, dynamic> json) => LambdaTarget();
+  static LambdaTarget fromJson(Map<String, dynamic> json) => LambdaTarget(
+        deploymentId: json.containsKey('deploymentId')
+            ? json['deploymentId'] as String
+            : null,
+        targetId:
+            json.containsKey('targetId') ? json['targetId'] as String : null,
+        targetArn:
+            json.containsKey('targetArn') ? json['targetArn'] as String : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        lastUpdatedAt: json.containsKey('lastUpdatedAt')
+            ? DateTime.parse(json['lastUpdatedAt'])
+            : null,
+        lifecycleEvents: json.containsKey('lifecycleEvents')
+            ? (json['lifecycleEvents'] as List)
+                .map((e) => LifecycleEvent.fromJson(e))
+                .toList()
+            : null,
+        lambdaFunctionInfo: json.containsKey('lambdaFunctionInfo')
+            ? LambdaFunctionInfo.fromJson(json['lambdaFunctionInfo'])
+            : null,
+      );
 }
 
 /// Information about the most recent attempted or successful deployment to a
@@ -2525,7 +3396,18 @@ class LastDeploymentInfo {
     this.createTime,
   });
   static LastDeploymentInfo fromJson(Map<String, dynamic> json) =>
-      LastDeploymentInfo();
+      LastDeploymentInfo(
+        deploymentId: json.containsKey('deploymentId')
+            ? json['deploymentId'] as String
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+        endTime: json.containsKey('endTime')
+            ? DateTime.parse(json['endTime'])
+            : null,
+        createTime: json.containsKey('createTime')
+            ? DateTime.parse(json['createTime'])
+            : null,
+      );
 }
 
 /// Information about a deployment lifecycle event.
@@ -2565,7 +3447,21 @@ class LifecycleEvent {
     this.endTime,
     this.status,
   });
-  static LifecycleEvent fromJson(Map<String, dynamic> json) => LifecycleEvent();
+  static LifecycleEvent fromJson(Map<String, dynamic> json) => LifecycleEvent(
+        lifecycleEventName: json.containsKey('lifecycleEventName')
+            ? json['lifecycleEventName'] as String
+            : null,
+        diagnostics: json.containsKey('diagnostics')
+            ? Diagnostics.fromJson(json['diagnostics'])
+            : null,
+        startTime: json.containsKey('startTime')
+            ? DateTime.parse(json['startTime'])
+            : null,
+        endTime: json.containsKey('endTime')
+            ? DateTime.parse(json['endTime'])
+            : null,
+        status: json.containsKey('status') ? json['status'] as String : null,
+      );
 }
 
 /// Represents the output of a ListApplicationRevisions operation.
@@ -2583,7 +3479,15 @@ class ListApplicationRevisionsOutput {
     this.nextToken,
   });
   static ListApplicationRevisionsOutput fromJson(Map<String, dynamic> json) =>
-      ListApplicationRevisionsOutput();
+      ListApplicationRevisionsOutput(
+        revisions: json.containsKey('revisions')
+            ? (json['revisions'] as List)
+                .map((e) => RevisionLocation.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a ListApplications operation.
@@ -2601,7 +3505,13 @@ class ListApplicationsOutput {
     this.nextToken,
   });
   static ListApplicationsOutput fromJson(Map<String, dynamic> json) =>
-      ListApplicationsOutput();
+      ListApplicationsOutput(
+        applications: json.containsKey('applications')
+            ? (json['applications'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a ListDeploymentConfigs operation.
@@ -2620,7 +3530,15 @@ class ListDeploymentConfigsOutput {
     this.nextToken,
   });
   static ListDeploymentConfigsOutput fromJson(Map<String, dynamic> json) =>
-      ListDeploymentConfigsOutput();
+      ListDeploymentConfigsOutput(
+        deploymentConfigsList: json.containsKey('deploymentConfigsList')
+            ? (json['deploymentConfigsList'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a ListDeploymentGroups operation.
@@ -2642,7 +3560,18 @@ class ListDeploymentGroupsOutput {
     this.nextToken,
   });
   static ListDeploymentGroupsOutput fromJson(Map<String, dynamic> json) =>
-      ListDeploymentGroupsOutput();
+      ListDeploymentGroupsOutput(
+        applicationName: json.containsKey('applicationName')
+            ? json['applicationName'] as String
+            : null,
+        deploymentGroups: json.containsKey('deploymentGroups')
+            ? (json['deploymentGroups'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a ListDeploymentInstances operation.
@@ -2660,7 +3589,13 @@ class ListDeploymentInstancesOutput {
     this.nextToken,
   });
   static ListDeploymentInstancesOutput fromJson(Map<String, dynamic> json) =>
-      ListDeploymentInstancesOutput();
+      ListDeploymentInstancesOutput(
+        instancesList: json.containsKey('instancesList')
+            ? (json['instancesList'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListDeploymentTargetsOutput {
@@ -2677,7 +3612,13 @@ class ListDeploymentTargetsOutput {
     this.nextToken,
   });
   static ListDeploymentTargetsOutput fromJson(Map<String, dynamic> json) =>
-      ListDeploymentTargetsOutput();
+      ListDeploymentTargetsOutput(
+        targetIds: json.containsKey('targetIds')
+            ? (json['targetIds'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a ListDeployments operation.
@@ -2695,7 +3636,13 @@ class ListDeploymentsOutput {
     this.nextToken,
   });
   static ListDeploymentsOutput fromJson(Map<String, dynamic> json) =>
-      ListDeploymentsOutput();
+      ListDeploymentsOutput(
+        deployments: json.containsKey('deployments')
+            ? (json['deployments'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of a ListGitHubAccountTokenNames operation.
@@ -2714,7 +3661,13 @@ class ListGitHubAccountTokenNamesOutput {
   });
   static ListGitHubAccountTokenNamesOutput fromJson(
           Map<String, dynamic> json) =>
-      ListGitHubAccountTokenNamesOutput();
+      ListGitHubAccountTokenNamesOutput(
+        tokenNameList: json.containsKey('tokenNameList')
+            ? (json['tokenNameList'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 /// Represents the output of the list on-premises instances operation.
@@ -2732,7 +3685,13 @@ class ListOnPremisesInstancesOutput {
     this.nextToken,
   });
   static ListOnPremisesInstancesOutput fromJson(Map<String, dynamic> json) =>
-      ListOnPremisesInstancesOutput();
+      ListOnPremisesInstancesOutput(
+        instanceNames: json.containsKey('instanceNames')
+            ? (json['instanceNames'] as List).map((e) => e as String).toList()
+            : null,
+        nextToken:
+            json.containsKey('nextToken') ? json['nextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceOutput {
@@ -2750,7 +3709,13 @@ class ListTagsForResourceOutput {
     this.nextToken,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Information about the Elastic Load Balancing load balancer or target group
@@ -2780,7 +3745,24 @@ class LoadBalancerInfo {
     this.targetGroupPairInfoList,
   });
   static LoadBalancerInfo fromJson(Map<String, dynamic> json) =>
-      LoadBalancerInfo();
+      LoadBalancerInfo(
+        elbInfoList: json.containsKey('elbInfoList')
+            ? (json['elbInfoList'] as List)
+                .map((e) => ElbInfo.fromJson(e))
+                .toList()
+            : null,
+        targetGroupInfoList: json.containsKey('targetGroupInfoList')
+            ? (json['targetGroupInfoList'] as List)
+                .map((e) => TargetGroupInfo.fromJson(e))
+                .toList()
+            : null,
+        targetGroupPairInfoList: json.containsKey('targetGroupPairInfoList')
+            ? (json['targetGroupPairInfoList'] as List)
+                .map((e) => TargetGroupPairInfo.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about minimum healthy instance.
@@ -2824,7 +3806,11 @@ class MinimumHealthyHosts {
     this.type,
   });
   static MinimumHealthyHosts fromJson(Map<String, dynamic> json) =>
-      MinimumHealthyHosts();
+      MinimumHealthyHosts(
+        value: json.containsKey('value') ? json['value'] as int : null,
+        type: json.containsKey('type') ? json['type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about groups of on-premises instance tags.
@@ -2838,7 +3824,15 @@ class OnPremisesTagSet {
     this.onPremisesTagSetList,
   });
   static OnPremisesTagSet fromJson(Map<String, dynamic> json) =>
-      OnPremisesTagSet();
+      OnPremisesTagSet(
+        onPremisesTagSetList: json.containsKey('onPremisesTagSetList')
+            ? (json['onPremisesTagSetList'] as List)
+                .map((e) =>
+                    (e as List).map((e) => TagFilter.fromJson(e)).toList())
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutLifecycleEventHookExecutionStatusOutput {
@@ -2851,7 +3845,12 @@ class PutLifecycleEventHookExecutionStatusOutput {
   });
   static PutLifecycleEventHookExecutionStatusOutput fromJson(
           Map<String, dynamic> json) =>
-      PutLifecycleEventHookExecutionStatusOutput();
+      PutLifecycleEventHookExecutionStatusOutput(
+        lifecycleEventHookExecutionId:
+            json.containsKey('lifecycleEventHookExecutionId')
+                ? json['lifecycleEventHookExecutionId'] as String
+                : null,
+      );
 }
 
 /// A revision for an AWS Lambda deployment that is a YAML-formatted or
@@ -2870,7 +3869,11 @@ class RawString {
     this.content,
     this.sha256,
   });
-  static RawString fromJson(Map<String, dynamic> json) => RawString();
+  static RawString fromJson(Map<String, dynamic> json) => RawString(
+        content: json.containsKey('content') ? json['content'] as String : null,
+        sha256: json.containsKey('sha256') ? json['sha256'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an application revision.
@@ -2886,7 +3889,14 @@ class RevisionInfo {
     this.revisionLocation,
     this.genericRevisionInfo,
   });
-  static RevisionInfo fromJson(Map<String, dynamic> json) => RevisionInfo();
+  static RevisionInfo fromJson(Map<String, dynamic> json) => RevisionInfo(
+        revisionLocation: json.containsKey('revisionLocation')
+            ? RevisionLocation.fromJson(json['revisionLocation'])
+            : null,
+        genericRevisionInfo: json.containsKey('genericRevisionInfo')
+            ? GenericRevisionInfo.fromJson(json['genericRevisionInfo'])
+            : null,
+      );
 }
 
 /// Information about the location of an application revision.
@@ -2925,7 +3935,24 @@ class RevisionLocation {
     this.appSpecContent,
   });
   static RevisionLocation fromJson(Map<String, dynamic> json) =>
-      RevisionLocation();
+      RevisionLocation(
+        revisionType: json.containsKey('revisionType')
+            ? json['revisionType'] as String
+            : null,
+        s3Location: json.containsKey('s3Location')
+            ? S3Location.fromJson(json['s3Location'])
+            : null,
+        gitHubLocation: json.containsKey('gitHubLocation')
+            ? GitHubLocation.fromJson(json['gitHubLocation'])
+            : null,
+        string: json.containsKey('string')
+            ? RawString.fromJson(json['string'])
+            : null,
+        appSpecContent: json.containsKey('appSpecContent')
+            ? AppSpecContent.fromJson(json['appSpecContent'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a deployment rollback.
@@ -2947,7 +3974,18 @@ class RollbackInfo {
     this.rollbackTriggeringDeploymentId,
     this.rollbackMessage,
   });
-  static RollbackInfo fromJson(Map<String, dynamic> json) => RollbackInfo();
+  static RollbackInfo fromJson(Map<String, dynamic> json) => RollbackInfo(
+        rollbackDeploymentId: json.containsKey('rollbackDeploymentId')
+            ? json['rollbackDeploymentId'] as String
+            : null,
+        rollbackTriggeringDeploymentId:
+            json.containsKey('rollbackTriggeringDeploymentId')
+                ? json['rollbackTriggeringDeploymentId'] as String
+                : null,
+        rollbackMessage: json.containsKey('rollbackMessage')
+            ? json['rollbackMessage'] as String
+            : null,
+      );
 }
 
 /// Information about the location of application artifacts stored in Amazon S3.
@@ -2989,7 +4027,16 @@ class S3Location {
     this.version,
     this.eTag,
   });
-  static S3Location fromJson(Map<String, dynamic> json) => S3Location();
+  static S3Location fromJson(Map<String, dynamic> json) => S3Location(
+        bucket: json.containsKey('bucket') ? json['bucket'] as String : null,
+        key: json.containsKey('key') ? json['key'] as String : null,
+        bundleType: json.containsKey('bundleType')
+            ? json['bundleType'] as String
+            : null,
+        version: json.containsKey('version') ? json['version'] as String : null,
+        eTag: json.containsKey('eTag') ? json['eTag'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Represents the output of a StopDeployment operation.
@@ -3009,7 +4056,12 @@ class StopDeploymentOutput {
     this.statusMessage,
   });
   static StopDeploymentOutput fromJson(Map<String, dynamic> json) =>
-      StopDeploymentOutput();
+      StopDeploymentOutput(
+        status: json.containsKey('status') ? json['status'] as String : null,
+        statusMessage: json.containsKey('statusMessage')
+            ? json['statusMessage'] as String
+            : null,
+      );
 }
 
 /// Information about a tag.
@@ -3024,7 +4076,11 @@ class Tag {
     this.key,
     this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about an on-premises instance tag filter.
@@ -3049,7 +4105,12 @@ class TagFilter {
     this.value,
     this.type,
   });
-  static TagFilter fromJson(Map<String, dynamic> json) => TagFilter();
+  static TagFilter fromJson(Map<String, dynamic> json) => TagFilter(
+        key: json.containsKey('Key') ? json['Key'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceOutput {
@@ -3073,8 +4134,10 @@ class TargetGroupInfo {
   TargetGroupInfo({
     this.name,
   });
-  static TargetGroupInfo fromJson(Map<String, dynamic> json) =>
-      TargetGroupInfo();
+  static TargetGroupInfo fromJson(Map<String, dynamic> json) => TargetGroupInfo(
+        name: json.containsKey('name') ? json['name'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Information about two target groups and how traffic is routed during an
@@ -3100,7 +4163,20 @@ class TargetGroupPairInfo {
     this.testTrafficRoute,
   });
   static TargetGroupPairInfo fromJson(Map<String, dynamic> json) =>
-      TargetGroupPairInfo();
+      TargetGroupPairInfo(
+        targetGroups: json.containsKey('targetGroups')
+            ? (json['targetGroups'] as List)
+                .map((e) => TargetGroupInfo.fromJson(e))
+                .toList()
+            : null,
+        prodTrafficRoute: json.containsKey('prodTrafficRoute')
+            ? TrafficRoute.fromJson(json['prodTrafficRoute'])
+            : null,
+        testTrafficRoute: json.containsKey('testTrafficRoute')
+            ? TrafficRoute.fromJson(json['testTrafficRoute'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the instances to be used in the replacement environment in
@@ -3126,8 +4202,22 @@ class TargetInstances {
     this.autoScalingGroups,
     this.ec2TagSet,
   });
-  static TargetInstances fromJson(Map<String, dynamic> json) =>
-      TargetInstances();
+  static TargetInstances fromJson(Map<String, dynamic> json) => TargetInstances(
+        tagFilters: json.containsKey('tagFilters')
+            ? (json['tagFilters'] as List)
+                .map((e) => Ec2TagFilter.fromJson(e))
+                .toList()
+            : null,
+        autoScalingGroups: json.containsKey('autoScalingGroups')
+            ? (json['autoScalingGroups'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        ec2TagSet: json.containsKey('ec2TagSet')
+            ? Ec2TagSet.fromJson(json['ec2TagSet'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A configuration that shifts traffic from one version of a Lambda function to
@@ -3146,8 +4236,15 @@ class TimeBasedCanary {
     this.canaryPercentage,
     this.canaryInterval,
   });
-  static TimeBasedCanary fromJson(Map<String, dynamic> json) =>
-      TimeBasedCanary();
+  static TimeBasedCanary fromJson(Map<String, dynamic> json) => TimeBasedCanary(
+        canaryPercentage: json.containsKey('canaryPercentage')
+            ? json['canaryPercentage'] as int
+            : null,
+        canaryInterval: json.containsKey('canaryInterval')
+            ? json['canaryInterval'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A configuration that shifts traffic from one version of a Lambda function to
@@ -3167,8 +4264,15 @@ class TimeBasedLinear {
     this.linearPercentage,
     this.linearInterval,
   });
-  static TimeBasedLinear fromJson(Map<String, dynamic> json) =>
-      TimeBasedLinear();
+  static TimeBasedLinear fromJson(Map<String, dynamic> json) => TimeBasedLinear(
+        linearPercentage: json.containsKey('linearPercentage')
+            ? json['linearPercentage'] as int
+            : null,
+        linearInterval: json.containsKey('linearInterval')
+            ? json['linearInterval'] as int
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about a time range.
@@ -3191,6 +4295,7 @@ class TimeRange {
     this.start,
     this.end,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 ///  Information about a listener. The listener contains the path used to route
@@ -3204,7 +4309,12 @@ class TrafficRoute {
   TrafficRoute({
     this.listenerArns,
   });
-  static TrafficRoute fromJson(Map<String, dynamic> json) => TrafficRoute();
+  static TrafficRoute fromJson(Map<String, dynamic> json) => TrafficRoute(
+        listenerArns: json.containsKey('listenerArns')
+            ? (json['listenerArns'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The configuration that specifies how traffic is shifted from one version of
@@ -3231,7 +4341,16 @@ class TrafficRoutingConfig {
     this.timeBasedLinear,
   });
   static TrafficRoutingConfig fromJson(Map<String, dynamic> json) =>
-      TrafficRoutingConfig();
+      TrafficRoutingConfig(
+        type: json.containsKey('type') ? json['type'] as String : null,
+        timeBasedCanary: json.containsKey('timeBasedCanary')
+            ? TimeBasedCanary.fromJson(json['timeBasedCanary'])
+            : null,
+        timeBasedLinear: json.containsKey('timeBasedLinear')
+            ? TimeBasedLinear.fromJson(json['timeBasedLinear'])
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about notification triggers for the deployment group.
@@ -3251,7 +4370,18 @@ class TriggerConfig {
     this.triggerTargetArn,
     this.triggerEvents,
   });
-  static TriggerConfig fromJson(Map<String, dynamic> json) => TriggerConfig();
+  static TriggerConfig fromJson(Map<String, dynamic> json) => TriggerConfig(
+        triggerName: json.containsKey('triggerName')
+            ? json['triggerName'] as String
+            : null,
+        triggerTargetArn: json.containsKey('triggerTargetArn')
+            ? json['triggerTargetArn'] as String
+            : null,
+        triggerEvents: json.containsKey('triggerEvents')
+            ? (json['triggerEvents'] as List).map((e) => e as String).toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class UntagResourceOutput {
@@ -3273,5 +4403,11 @@ class UpdateDeploymentGroupOutput {
     this.hooksNotCleanedUp,
   });
   static UpdateDeploymentGroupOutput fromJson(Map<String, dynamic> json) =>
-      UpdateDeploymentGroupOutput();
+      UpdateDeploymentGroupOutput(
+        hooksNotCleanedUp: json.containsKey('hooksNotCleanedUp')
+            ? (json['hooksNotCleanedUp'] as List)
+                .map((e) => AutoScalingGroup.fromJson(e))
+                .toList()
+            : null,
+      );
 }

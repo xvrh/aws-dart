@@ -3,6 +3,10 @@ import 'dart:typed_data';
 
 /// The control plane for Amazon QLDB
 class QldbApi {
+  final _client;
+  QldbApi(client)
+      : _client = client.configured('QLDB', serializer: 'rest-json');
+
   /// Creates a new ledger in your AWS account.
   ///
   /// [name]: The name of the ledger that you want to create. The name must be
@@ -29,7 +33,13 @@ class QldbApi {
       Map<String, String> tags,
       @required String permissionsMode,
       bool deletionProtection}) async {
-    return CreateLedgerResponse.fromJson({});
+    var response_ = await _client.send('CreateLedger', {
+      'Name': name,
+      if (tags != null) 'Tags': tags,
+      'PermissionsMode': permissionsMode,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+    });
+    return CreateLedgerResponse.fromJson(response_);
   }
 
   /// Deletes a ledger and all of its contents. This action is irreversible.
@@ -41,7 +51,11 @@ class QldbApi {
   /// you when you use it to delete a ledger.
   ///
   /// [name]: The name of the ledger that you want to delete.
-  Future<void> deleteLedger(String name) async {}
+  Future<void> deleteLedger(String name) async {
+    await _client.send('DeleteLedger', {
+      'Name': name,
+    });
+  }
 
   /// Returns information about a journal export job, including the ledger name,
   /// export ID, when it was created, current status, and its start and end time
@@ -59,7 +73,11 @@ class QldbApi {
   /// describe.
   Future<DescribeJournalS3ExportResponse> describeJournalS3Export(
       {@required String name, @required String exportId}) async {
-    return DescribeJournalS3ExportResponse.fromJson({});
+    var response_ = await _client.send('DescribeJournalS3Export', {
+      'Name': name,
+      'ExportId': exportId,
+    });
+    return DescribeJournalS3ExportResponse.fromJson(response_);
   }
 
   /// Returns information about a ledger, including its state and when it was
@@ -67,7 +85,10 @@ class QldbApi {
   ///
   /// [name]: The name of the ledger that you want to describe.
   Future<DescribeLedgerResponse> describeLedger(String name) async {
-    return DescribeLedgerResponse.fromJson({});
+    var response_ = await _client.send('DescribeLedger', {
+      'Name': name,
+    });
+    return DescribeLedgerResponse.fromJson(response_);
   }
 
   /// Exports journal contents within a date and time range from a ledger into a
@@ -124,7 +145,14 @@ class QldbApi {
       @required DateTime exclusiveEndTime,
       @required S3ExportConfiguration s3ExportConfiguration,
       @required String roleArn}) async {
-    return ExportJournalToS3Response.fromJson({});
+    var response_ = await _client.send('ExportJournalToS3', {
+      'Name': name,
+      'InclusiveStartTime': inclusiveStartTime,
+      'ExclusiveEndTime': exclusiveEndTime,
+      'S3ExportConfiguration': s3ExportConfiguration,
+      'RoleArn': roleArn,
+    });
+    return ExportJournalToS3Response.fromJson(response_);
   }
 
   /// Returns a journal block object at a specified address in a ledger. Also
@@ -157,7 +185,12 @@ class QldbApi {
       {@required String name,
       @required ValueHolder blockAddress,
       ValueHolder digestTipAddress}) async {
-    return GetBlockResponse.fromJson({});
+    var response_ = await _client.send('GetBlock', {
+      'Name': name,
+      'BlockAddress': blockAddress,
+      if (digestTipAddress != null) 'DigestTipAddress': digestTipAddress,
+    });
+    return GetBlockResponse.fromJson(response_);
   }
 
   /// Returns the digest of a ledger at the latest committed block in the
@@ -165,7 +198,10 @@ class QldbApi {
   ///
   /// [name]: The name of the ledger.
   Future<GetDigestResponse> getDigest(String name) async {
-    return GetDigestResponse.fromJson({});
+    var response_ = await _client.send('GetDigest', {
+      'Name': name,
+    });
+    return GetDigestResponse.fromJson(response_);
   }
 
   /// Returns a revision data object for a specified document ID and block
@@ -192,7 +228,13 @@ class QldbApi {
       @required ValueHolder blockAddress,
       @required String documentId,
       ValueHolder digestTipAddress}) async {
-    return GetRevisionResponse.fromJson({});
+    var response_ = await _client.send('GetRevision', {
+      'Name': name,
+      'BlockAddress': blockAddress,
+      'DocumentId': documentId,
+      if (digestTipAddress != null) 'DigestTipAddress': digestTipAddress,
+    });
+    return GetRevisionResponse.fromJson(response_);
   }
 
   /// Returns an array of journal export job descriptions for all ledgers that
@@ -212,7 +254,11 @@ class QldbApi {
   /// that value as input here.
   Future<ListJournalS3ExportsResponse> listJournalS3Exports(
       {int maxResults, String nextToken}) async {
-    return ListJournalS3ExportsResponse.fromJson({});
+    var response_ = await _client.send('ListJournalS3Exports', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListJournalS3ExportsResponse.fromJson(response_);
   }
 
   /// Returns an array of journal export job descriptions for a specified
@@ -236,7 +282,12 @@ class QldbApi {
       String name,
       {int maxResults,
       String nextToken}) async {
-    return ListJournalS3ExportsForLedgerResponse.fromJson({});
+    var response_ = await _client.send('ListJournalS3ExportsForLedger', {
+      'Name': name,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListJournalS3ExportsForLedgerResponse.fromJson(response_);
   }
 
   /// Returns an array of ledger summaries that are associated with the current
@@ -255,7 +306,11 @@ class QldbApi {
   /// value as input here.
   Future<ListLedgersResponse> listLedgers(
       {int maxResults, String nextToken}) async {
-    return ListLedgersResponse.fromJson({});
+    var response_ = await _client.send('ListLedgers', {
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListLedgersResponse.fromJson(response_);
   }
 
   /// Returns all tags for a specified Amazon QLDB resource.
@@ -266,7 +321,10 @@ class QldbApi {
   ///  `arn:aws:qldb:us-east-1:123456789012:ledger/exampleLedger`
   Future<ListTagsForResourceResponse> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceResponse.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceArn': resourceArn,
+    });
+    return ListTagsForResourceResponse.fromJson(response_);
   }
 
   /// Adds one or more tags to a specified Amazon QLDB resource.
@@ -286,7 +344,11 @@ class QldbApi {
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
-    return TagResourceResponse.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceArn': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceResponse.fromJson(response_);
   }
 
   /// Removes one or more tags from a specified Amazon QLDB resource. You can
@@ -300,7 +362,11 @@ class QldbApi {
   /// [tagKeys]: The list of tag keys that you want to remove.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceResponse.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceArn': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceResponse.fromJson(response_);
   }
 
   /// Updates properties on a ledger.
@@ -318,7 +384,11 @@ class QldbApi {
   /// you when you use it to delete a ledger.
   Future<UpdateLedgerResponse> updateLedger(String name,
       {bool deletionProtection}) async {
-    return UpdateLedgerResponse.fromJson({});
+    var response_ = await _client.send('UpdateLedger', {
+      'Name': name,
+      if (deletionProtection != null) 'DeletionProtection': deletionProtection,
+    });
+    return UpdateLedgerResponse.fromJson(response_);
   }
 }
 
@@ -355,7 +425,17 @@ class CreateLedgerResponse {
     this.deletionProtection,
   });
   static CreateLedgerResponse fromJson(Map<String, dynamic> json) =>
-      CreateLedgerResponse();
+      CreateLedgerResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        deletionProtection: json.containsKey('DeletionProtection')
+            ? json['DeletionProtection'] as bool
+            : null,
+      );
 }
 
 class DescribeJournalS3ExportResponse {
@@ -367,7 +447,10 @@ class DescribeJournalS3ExportResponse {
     @required this.exportDescription,
   });
   static DescribeJournalS3ExportResponse fromJson(Map<String, dynamic> json) =>
-      DescribeJournalS3ExportResponse();
+      DescribeJournalS3ExportResponse(
+        exportDescription:
+            JournalS3ExportDescription.fromJson(json['ExportDescription']),
+      );
 }
 
 class DescribeLedgerResponse {
@@ -403,7 +486,17 @@ class DescribeLedgerResponse {
     this.deletionProtection,
   });
   static DescribeLedgerResponse fromJson(Map<String, dynamic> json) =>
-      DescribeLedgerResponse();
+      DescribeLedgerResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        deletionProtection: json.containsKey('DeletionProtection')
+            ? json['DeletionProtection'] as bool
+            : null,
+      );
 }
 
 class ExportJournalToS3Response {
@@ -417,7 +510,9 @@ class ExportJournalToS3Response {
     @required this.exportId,
   });
   static ExportJournalToS3Response fromJson(Map<String, dynamic> json) =>
-      ExportJournalToS3Response();
+      ExportJournalToS3Response(
+        exportId: json['ExportId'] as String,
+      );
 }
 
 class GetBlockResponse {
@@ -434,7 +529,12 @@ class GetBlockResponse {
     this.proof,
   });
   static GetBlockResponse fromJson(Map<String, dynamic> json) =>
-      GetBlockResponse();
+      GetBlockResponse(
+        block: ValueHolder.fromJson(json['Block']),
+        proof: json.containsKey('Proof')
+            ? ValueHolder.fromJson(json['Proof'])
+            : null,
+      );
 }
 
 class GetDigestResponse {
@@ -452,7 +552,10 @@ class GetDigestResponse {
     @required this.digestTipAddress,
   });
   static GetDigestResponse fromJson(Map<String, dynamic> json) =>
-      GetDigestResponse();
+      GetDigestResponse(
+        digest: Uint8List(json['Digest']),
+        digestTipAddress: ValueHolder.fromJson(json['DigestTipAddress']),
+      );
 }
 
 class GetRevisionResponse {
@@ -470,7 +573,12 @@ class GetRevisionResponse {
     @required this.revision,
   });
   static GetRevisionResponse fromJson(Map<String, dynamic> json) =>
-      GetRevisionResponse();
+      GetRevisionResponse(
+        proof: json.containsKey('Proof')
+            ? ValueHolder.fromJson(json['Proof'])
+            : null,
+        revision: ValueHolder.fromJson(json['Revision']),
+      );
 }
 
 /// The information about a journal export job, including the ledger name,
@@ -522,7 +630,17 @@ class JournalS3ExportDescription {
     @required this.roleArn,
   });
   static JournalS3ExportDescription fromJson(Map<String, dynamic> json) =>
-      JournalS3ExportDescription();
+      JournalS3ExportDescription(
+        ledgerName: json['LedgerName'] as String,
+        exportId: json['ExportId'] as String,
+        exportCreationTime: DateTime.parse(json['ExportCreationTime']),
+        status: json['Status'] as String,
+        inclusiveStartTime: DateTime.parse(json['InclusiveStartTime']),
+        exclusiveEndTime: DateTime.parse(json['ExclusiveEndTime']),
+        s3ExportConfiguration:
+            S3ExportConfiguration.fromJson(json['S3ExportConfiguration']),
+        roleArn: json['RoleArn'] as String,
+      );
 }
 
 /// Information about a ledger, including its name, state, and when it was
@@ -544,7 +662,13 @@ class LedgerSummary {
     this.state,
     this.creationDateTime,
   });
-  static LedgerSummary fromJson(Map<String, dynamic> json) => LedgerSummary();
+  static LedgerSummary fromJson(Map<String, dynamic> json) => LedgerSummary(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+      );
 }
 
 class ListJournalS3ExportsForLedgerResponse {
@@ -566,7 +690,15 @@ class ListJournalS3ExportsForLedgerResponse {
   });
   static ListJournalS3ExportsForLedgerResponse fromJson(
           Map<String, dynamic> json) =>
-      ListJournalS3ExportsForLedgerResponse();
+      ListJournalS3ExportsForLedgerResponse(
+        journalS3Exports: json.containsKey('JournalS3Exports')
+            ? (json['JournalS3Exports'] as List)
+                .map((e) => JournalS3ExportDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListJournalS3ExportsResponse {
@@ -587,7 +719,15 @@ class ListJournalS3ExportsResponse {
     this.nextToken,
   });
   static ListJournalS3ExportsResponse fromJson(Map<String, dynamic> json) =>
-      ListJournalS3ExportsResponse();
+      ListJournalS3ExportsResponse(
+        journalS3Exports: json.containsKey('JournalS3Exports')
+            ? (json['JournalS3Exports'] as List)
+                .map((e) => JournalS3ExportDescription.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListLedgersResponse {
@@ -610,7 +750,15 @@ class ListLedgersResponse {
     this.nextToken,
   });
   static ListLedgersResponse fromJson(Map<String, dynamic> json) =>
-      ListLedgersResponse();
+      ListLedgersResponse(
+        ledgers: json.containsKey('Ledgers')
+            ? (json['Ledgers'] as List)
+                .map((e) => LedgerSummary.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceResponse {
@@ -622,7 +770,12 @@ class ListTagsForResourceResponse {
     this.tags,
   });
   static ListTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceResponse();
+      ListTagsForResourceResponse(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as Map)
+                .map((k, v) => MapEntry(k as String, v as String))
+            : null,
+      );
 }
 
 /// The encryption settings that are used by a journal export job to write data
@@ -650,7 +803,12 @@ class S3EncryptionConfiguration {
     this.kmsKeyArn,
   });
   static S3EncryptionConfiguration fromJson(Map<String, dynamic> json) =>
-      S3EncryptionConfiguration();
+      S3EncryptionConfiguration(
+        objectEncryptionType: json['ObjectEncryptionType'] as String,
+        kmsKeyArn:
+            json.containsKey('KmsKeyArn') ? json['KmsKeyArn'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Amazon Simple Storage Service (Amazon S3) bucket location in which a
@@ -692,7 +850,13 @@ class S3ExportConfiguration {
     @required this.encryptionConfiguration,
   });
   static S3ExportConfiguration fromJson(Map<String, dynamic> json) =>
-      S3ExportConfiguration();
+      S3ExportConfiguration(
+        bucket: json['Bucket'] as String,
+        prefix: json['Prefix'] as String,
+        encryptionConfiguration:
+            S3EncryptionConfiguration.fromJson(json['EncryptionConfiguration']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceResponse {
@@ -740,7 +904,17 @@ class UpdateLedgerResponse {
     this.deletionProtection,
   });
   static UpdateLedgerResponse fromJson(Map<String, dynamic> json) =>
-      UpdateLedgerResponse();
+      UpdateLedgerResponse(
+        name: json.containsKey('Name') ? json['Name'] as String : null,
+        arn: json.containsKey('Arn') ? json['Arn'] as String : null,
+        state: json.containsKey('State') ? json['State'] as String : null,
+        creationDateTime: json.containsKey('CreationDateTime')
+            ? DateTime.parse(json['CreationDateTime'])
+            : null,
+        deletionProtection: json.containsKey('DeletionProtection')
+            ? json['DeletionProtection'] as bool
+            : null,
+      );
 }
 
 /// A structure that can contain an Amazon Ion value in multiple encoding
@@ -752,5 +926,8 @@ class ValueHolder {
   ValueHolder({
     this.ionText,
   });
-  static ValueHolder fromJson(Map<String, dynamic> json) => ValueHolder();
+  static ValueHolder fromJson(Map<String, dynamic> json) => ValueHolder(
+        ionText: json.containsKey('IonText') ? json['IonText'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }

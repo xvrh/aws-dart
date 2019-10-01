@@ -18,11 +18,19 @@ import 'dart:typed_data';
 /// visibility into resource utilization, application performance, and
 /// operational health.
 class CloudWatchApi {
+  final _client;
+  CloudWatchApi(client)
+      : _client = client.configured('CloudWatch', serializer: 'query');
+
   /// Deletes the specified alarms. You can delete up to 50 alarms in one
   /// operation. In the event of an error, no alarms are deleted.
   ///
   /// [alarmNames]: The alarms to be deleted.
-  Future<void> deleteAlarms(List<String> alarmNames) async {}
+  Future<void> deleteAlarms(List<String> alarmNames) async {
+    await _client.send('DeleteAlarms', {
+      'AlarmNames': alarmNames,
+    });
+  }
 
   /// Deletes the specified anomaly detection model from your account.
   ///
@@ -42,7 +50,13 @@ class CloudWatchApi {
       @required String metricName,
       List<Dimension> dimensions,
       @required String stat}) async {
-    return DeleteAnomalyDetectorOutput.fromJson({});
+    var response_ = await _client.send('DeleteAnomalyDetector', {
+      'Namespace': namespace,
+      'MetricName': metricName,
+      if (dimensions != null) 'Dimensions': dimensions,
+      'Stat': stat,
+    });
+    return DeleteAnomalyDetectorOutput.fromJson(response_);
   }
 
   /// Deletes all dashboards that you specify. You may specify up to 100
@@ -53,7 +67,10 @@ class CloudWatchApi {
   /// required.
   Future<DeleteDashboardsOutput> deleteDashboards(
       List<String> dashboardNames) async {
-    return DeleteDashboardsOutput.fromJson({});
+    var response_ = await _client.send('DeleteDashboards', {
+      'DashboardNames': dashboardNames,
+    });
+    return DeleteDashboardsOutput.fromJson(response_);
   }
 
   /// Retrieves the history for the specified alarm. You can filter the results
@@ -81,7 +98,15 @@ class CloudWatchApi {
       DateTime endDate,
       int maxRecords,
       String nextToken}) async {
-    return DescribeAlarmHistoryOutput.fromJson({});
+    var response_ = await _client.send('DescribeAlarmHistory', {
+      if (alarmName != null) 'AlarmName': alarmName,
+      if (historyItemType != null) 'HistoryItemType': historyItemType,
+      if (startDate != null) 'StartDate': startDate,
+      if (endDate != null) 'EndDate': endDate,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAlarmHistoryOutput.fromJson(response_);
   }
 
   /// Retrieves the specified alarms. If no alarms are specified, all alarms are
@@ -108,7 +133,15 @@ class CloudWatchApi {
       String actionPrefix,
       int maxRecords,
       String nextToken}) async {
-    return DescribeAlarmsOutput.fromJson({});
+    var response_ = await _client.send('DescribeAlarms', {
+      if (alarmNames != null) 'AlarmNames': alarmNames,
+      if (alarmNamePrefix != null) 'AlarmNamePrefix': alarmNamePrefix,
+      if (stateValue != null) 'StateValue': stateValue,
+      if (actionPrefix != null) 'ActionPrefix': actionPrefix,
+      if (maxRecords != null) 'MaxRecords': maxRecords,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return DescribeAlarmsOutput.fromJson(response_);
   }
 
   /// Retrieves the alarms for the specified metric. To filter the results,
@@ -139,7 +172,16 @@ class CloudWatchApi {
       List<Dimension> dimensions,
       int period,
       String unit}) async {
-    return DescribeAlarmsForMetricOutput.fromJson({});
+    var response_ = await _client.send('DescribeAlarmsForMetric', {
+      'MetricName': metricName,
+      'Namespace': namespace,
+      if (statistic != null) 'Statistic': statistic,
+      if (extendedStatistic != null) 'ExtendedStatistic': extendedStatistic,
+      if (dimensions != null) 'Dimensions': dimensions,
+      if (period != null) 'Period': period,
+      if (unit != null) 'Unit': unit,
+    });
+    return DescribeAlarmsForMetricOutput.fromJson(response_);
   }
 
   /// Lists the anomaly detection models that you have created in your account.
@@ -174,19 +216,34 @@ class CloudWatchApi {
       String namespace,
       String metricName,
       List<Dimension> dimensions}) async {
-    return DescribeAnomalyDetectorsOutput.fromJson({});
+    var response_ = await _client.send('DescribeAnomalyDetectors', {
+      if (nextToken != null) 'NextToken': nextToken,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (namespace != null) 'Namespace': namespace,
+      if (metricName != null) 'MetricName': metricName,
+      if (dimensions != null) 'Dimensions': dimensions,
+    });
+    return DescribeAnomalyDetectorsOutput.fromJson(response_);
   }
 
   /// Disables the actions for the specified alarms. When an alarm's actions are
   /// disabled, the alarm actions do not execute when the alarm state changes.
   ///
   /// [alarmNames]: The names of the alarms.
-  Future<void> disableAlarmActions(List<String> alarmNames) async {}
+  Future<void> disableAlarmActions(List<String> alarmNames) async {
+    await _client.send('DisableAlarmActions', {
+      'AlarmNames': alarmNames,
+    });
+  }
 
   /// Enables the actions for the specified alarms.
   ///
   /// [alarmNames]: The names of the alarms.
-  Future<void> enableAlarmActions(List<String> alarmNames) async {}
+  Future<void> enableAlarmActions(List<String> alarmNames) async {
+    await _client.send('EnableAlarmActions', {
+      'AlarmNames': alarmNames,
+    });
+  }
 
   /// Displays the details of the dashboard that you specify.
   ///
@@ -196,7 +253,10 @@ class CloudWatchApi {
   ///
   /// [dashboardName]: The name of the dashboard to be described.
   Future<GetDashboardOutput> getDashboard(String dashboardName) async {
-    return GetDashboardOutput.fromJson({});
+    var response_ = await _client.send('GetDashboard', {
+      'DashboardName': dashboardName,
+    });
+    return GetDashboardOutput.fromJson(response_);
   }
 
   /// You can use the `GetMetricData` API to retrieve as many as 100 different
@@ -313,7 +373,15 @@ class CloudWatchApi {
       String nextToken,
       String scanBy,
       int maxDatapoints}) async {
-    return GetMetricDataOutput.fromJson({});
+    var response_ = await _client.send('GetMetricData', {
+      'MetricDataQueries': metricDataQueries,
+      'StartTime': startTime,
+      'EndTime': endTime,
+      if (nextToken != null) 'NextToken': nextToken,
+      if (scanBy != null) 'ScanBy': scanBy,
+      if (maxDatapoints != null) 'MaxDatapoints': maxDatapoints,
+    });
+    return GetMetricDataOutput.fromJson(response_);
   }
 
   /// Gets statistics for the specified metric.
@@ -478,7 +546,18 @@ class CloudWatchApi {
       List<String> statistics,
       List<String> extendedStatistics,
       String unit}) async {
-    return GetMetricStatisticsOutput.fromJson({});
+    var response_ = await _client.send('GetMetricStatistics', {
+      'Namespace': namespace,
+      'MetricName': metricName,
+      if (dimensions != null) 'Dimensions': dimensions,
+      'StartTime': startTime,
+      'EndTime': endTime,
+      'Period': period,
+      if (statistics != null) 'Statistics': statistics,
+      if (extendedStatistics != null) 'ExtendedStatistics': extendedStatistics,
+      if (unit != null) 'Unit': unit,
+    });
+    return GetMetricStatisticsOutput.fromJson(response_);
   }
 
   /// You can use the `GetMetricWidgetImage` API to retrieve a snapshot graph of
@@ -542,7 +621,11 @@ class CloudWatchApi {
   /// `image/png`, and the body of the response is a PNG image.
   Future<GetMetricWidgetImageOutput> getMetricWidgetImage(String metricWidget,
       {String outputFormat}) async {
-    return GetMetricWidgetImageOutput.fromJson({});
+    var response_ = await _client.send('GetMetricWidgetImage', {
+      'MetricWidget': metricWidget,
+      if (outputFormat != null) 'OutputFormat': outputFormat,
+    });
+    return GetMetricWidgetImageOutput.fromJson(response_);
   }
 
   /// Returns a list of the dashboards for your account. If you include
@@ -562,7 +645,12 @@ class CloudWatchApi {
   /// is more data available.
   Future<ListDashboardsOutput> listDashboards(
       {String dashboardNamePrefix, String nextToken}) async {
-    return ListDashboardsOutput.fromJson({});
+    var response_ = await _client.send('ListDashboards', {
+      if (dashboardNamePrefix != null)
+        'DashboardNamePrefix': dashboardNamePrefix,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListDashboardsOutput.fromJson(response_);
   }
 
   /// List the specified metrics. You can use the returned metrics with
@@ -588,7 +676,13 @@ class CloudWatchApi {
       String metricName,
       List<DimensionFilter> dimensions,
       String nextToken}) async {
-    return ListMetricsOutput.fromJson({});
+    var response_ = await _client.send('ListMetrics', {
+      if (namespace != null) 'Namespace': namespace,
+      if (metricName != null) 'MetricName': metricName,
+      if (dimensions != null) 'Dimensions': dimensions,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return ListMetricsOutput.fromJson(response_);
   }
 
   /// Displays the tags associated with a CloudWatch resource. Alarms support
@@ -600,7 +694,10 @@ class CloudWatchApi {
   /// in the _Amazon Web Services General Reference_.
   Future<ListTagsForResourceOutput> listTagsForResource(
       String resourceArn) async {
-    return ListTagsForResourceOutput.fromJson({});
+    var response_ = await _client.send('ListTagsForResource', {
+      'ResourceARN': resourceArn,
+    });
+    return ListTagsForResourceOutput.fromJson(response_);
   }
 
   /// Creates an anomaly detection model for a CloudWatch metric. You can use
@@ -636,7 +733,14 @@ class CloudWatchApi {
       List<Dimension> dimensions,
       @required String stat,
       AnomalyDetectorConfiguration configuration}) async {
-    return PutAnomalyDetectorOutput.fromJson({});
+    var response_ = await _client.send('PutAnomalyDetector', {
+      'Namespace': namespace,
+      'MetricName': metricName,
+      if (dimensions != null) 'Dimensions': dimensions,
+      'Stat': stat,
+      if (configuration != null) 'Configuration': configuration,
+    });
+    return PutAnomalyDetectorOutput.fromJson(response_);
   }
 
   /// Creates a dashboard if it does not already exist, or updates an existing
@@ -674,7 +778,11 @@ class CloudWatchApi {
   /// CloudWatch-Dashboard-Body-Structure.
   Future<PutDashboardOutput> putDashboard(
       {@required String dashboardName, @required String dashboardBody}) async {
-    return PutDashboardOutput.fromJson({});
+    var response_ = await _client.send('PutDashboard', {
+      'DashboardName': dashboardName,
+      'DashboardBody': dashboardBody,
+    });
+    return PutDashboardOutput.fromJson(response_);
   }
 
   /// Creates or updates an alarm and associates it with the specified metric,
@@ -956,7 +1064,34 @@ class CloudWatchApi {
       String evaluateLowSampleCountPercentile,
       List<MetricDataQuery> metrics,
       List<Tag> tags,
-      String thresholdMetricId}) async {}
+      String thresholdMetricId}) async {
+    await _client.send('PutMetricAlarm', {
+      'AlarmName': alarmName,
+      if (alarmDescription != null) 'AlarmDescription': alarmDescription,
+      if (actionsEnabled != null) 'ActionsEnabled': actionsEnabled,
+      if (okActions != null) 'OKActions': okActions,
+      if (alarmActions != null) 'AlarmActions': alarmActions,
+      if (insufficientDataActions != null)
+        'InsufficientDataActions': insufficientDataActions,
+      if (metricName != null) 'MetricName': metricName,
+      if (namespace != null) 'Namespace': namespace,
+      if (statistic != null) 'Statistic': statistic,
+      if (extendedStatistic != null) 'ExtendedStatistic': extendedStatistic,
+      if (dimensions != null) 'Dimensions': dimensions,
+      if (period != null) 'Period': period,
+      if (unit != null) 'Unit': unit,
+      'EvaluationPeriods': evaluationPeriods,
+      if (datapointsToAlarm != null) 'DatapointsToAlarm': datapointsToAlarm,
+      if (threshold != null) 'Threshold': threshold,
+      'ComparisonOperator': comparisonOperator,
+      if (treatMissingData != null) 'TreatMissingData': treatMissingData,
+      if (evaluateLowSampleCountPercentile != null)
+        'EvaluateLowSampleCountPercentile': evaluateLowSampleCountPercentile,
+      if (metrics != null) 'Metrics': metrics,
+      if (tags != null) 'Tags': tags,
+      if (thresholdMetricId != null) 'ThresholdMetricId': thresholdMetricId,
+    });
+  }
 
   /// Publishes metric data points to Amazon CloudWatch. CloudWatch associates
   /// the data points with the specified metric. If the specified metric does
@@ -1011,7 +1146,12 @@ class CloudWatchApi {
   /// 20 metrics per call.
   Future<void> putMetricData(
       {@required String namespace,
-      @required List<MetricDatum> metricData}) async {}
+      @required List<MetricDatum> metricData}) async {
+    await _client.send('PutMetricData', {
+      'Namespace': namespace,
+      'MetricData': metricData,
+    });
+  }
 
   /// Temporarily sets the state of an alarm for testing purposes. When the
   /// updated state differs from the previous value, the action configured for
@@ -1037,7 +1177,14 @@ class CloudWatchApi {
       {@required String alarmName,
       @required String stateValue,
       @required String stateReason,
-      String stateReasonData}) async {}
+      String stateReasonData}) async {
+    await _client.send('SetAlarmState', {
+      'AlarmName': alarmName,
+      'StateValue': stateValue,
+      'StateReason': stateReason,
+      if (stateReasonData != null) 'StateReasonData': stateReasonData,
+    });
+  }
 
   /// Assigns one or more tags (key-value pairs) to the specified CloudWatch
   /// resource. Tags can help you organize and categorize your resources. You
@@ -1064,7 +1211,11 @@ class CloudWatchApi {
   /// [tags]: The list of key-value pairs to associate with the resource.
   Future<TagResourceOutput> tagResource(
       {@required String resourceArn, @required List<Tag> tags}) async {
-    return TagResourceOutput.fromJson({});
+    var response_ = await _client.send('TagResource', {
+      'ResourceARN': resourceArn,
+      'Tags': tags,
+    });
+    return TagResourceOutput.fromJson(response_);
   }
 
   /// Removes one or more tags from the specified resource.
@@ -1077,7 +1228,11 @@ class CloudWatchApi {
   /// [tagKeys]: The list of tag keys to remove from the resource.
   Future<UntagResourceOutput> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
-    return UntagResourceOutput.fromJson({});
+    var response_ = await _client.send('UntagResource', {
+      'ResourceARN': resourceArn,
+      'TagKeys': tagKeys,
+    });
+    return UntagResourceOutput.fromJson(response_);
   }
 }
 
@@ -1106,7 +1261,22 @@ class AlarmHistoryItem {
     this.historyData,
   });
   static AlarmHistoryItem fromJson(Map<String, dynamic> json) =>
-      AlarmHistoryItem();
+      AlarmHistoryItem(
+        alarmName:
+            json.containsKey('AlarmName') ? json['AlarmName'] as String : null,
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+        historyItemType: json.containsKey('HistoryItemType')
+            ? json['HistoryItemType'] as String
+            : null,
+        historySummary: json.containsKey('HistorySummary')
+            ? json['HistorySummary'] as String
+            : null,
+        historyData: json.containsKey('HistoryData')
+            ? json['HistoryData'] as String
+            : null,
+      );
 }
 
 /// An anomaly detection model associated with a particular CloudWatch metric
@@ -1137,8 +1307,22 @@ class AnomalyDetector {
     this.stat,
     this.configuration,
   });
-  static AnomalyDetector fromJson(Map<String, dynamic> json) =>
-      AnomalyDetector();
+  static AnomalyDetector fromJson(Map<String, dynamic> json) => AnomalyDetector(
+        namespace:
+            json.containsKey('Namespace') ? json['Namespace'] as String : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => Dimension.fromJson(e))
+                .toList()
+            : null,
+        stat: json.containsKey('Stat') ? json['Stat'] as String : null,
+        configuration: json.containsKey('Configuration')
+            ? AnomalyDetectorConfiguration.fromJson(json['Configuration'])
+            : null,
+      );
 }
 
 /// The configuration specifies details about how the anomaly detection model is
@@ -1165,7 +1349,17 @@ class AnomalyDetectorConfiguration {
     this.metricTimezone,
   });
   static AnomalyDetectorConfiguration fromJson(Map<String, dynamic> json) =>
-      AnomalyDetectorConfiguration();
+      AnomalyDetectorConfiguration(
+        excludedTimeRanges: json.containsKey('ExcludedTimeRanges')
+            ? (json['ExcludedTimeRanges'] as List)
+                .map((e) => Range.fromJson(e))
+                .toList()
+            : null,
+        metricTimezone: json.containsKey('MetricTimezone')
+            ? json['MetricTimezone'] as String
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a specific dashboard.
@@ -1190,7 +1384,18 @@ class DashboardEntry {
     this.lastModified,
     this.size,
   });
-  static DashboardEntry fromJson(Map<String, dynamic> json) => DashboardEntry();
+  static DashboardEntry fromJson(Map<String, dynamic> json) => DashboardEntry(
+        dashboardName: json.containsKey('DashboardName')
+            ? json['DashboardName'] as String
+            : null,
+        dashboardArn: json.containsKey('DashboardArn')
+            ? json['DashboardArn'] as String
+            : null,
+        lastModified: json.containsKey('LastModified')
+            ? DateTime.parse(json['LastModified'])
+            : null,
+        size: json.containsKey('Size') ? BigInt.from(json['Size']) : null,
+      );
 }
 
 /// An error or warning for the operation.
@@ -1206,7 +1411,11 @@ class DashboardValidationMessage {
     this.message,
   });
   static DashboardValidationMessage fromJson(Map<String, dynamic> json) =>
-      DashboardValidationMessage();
+      DashboardValidationMessage(
+        dataPath:
+            json.containsKey('DataPath') ? json['DataPath'] as String : null,
+        message: json.containsKey('Message') ? json['Message'] as String : null,
+      );
 }
 
 /// Encapsulates the statistical data that CloudWatch computes from metric data.
@@ -1246,7 +1455,23 @@ class Datapoint {
     this.unit,
     this.extendedStatistics,
   });
-  static Datapoint fromJson(Map<String, dynamic> json) => Datapoint();
+  static Datapoint fromJson(Map<String, dynamic> json) => Datapoint(
+        timestamp: json.containsKey('Timestamp')
+            ? DateTime.parse(json['Timestamp'])
+            : null,
+        sampleCount: json.containsKey('SampleCount')
+            ? json['SampleCount'] as double
+            : null,
+        average: json.containsKey('Average') ? json['Average'] as double : null,
+        sum: json.containsKey('Sum') ? json['Sum'] as double : null,
+        minimum: json.containsKey('Minimum') ? json['Minimum'] as double : null,
+        maximum: json.containsKey('Maximum') ? json['Maximum'] as double : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+        extendedStatistics: json.containsKey('ExtendedStatistics')
+            ? (json['ExtendedStatistics'] as Map)
+                .map((k, v) => MapEntry(k as String, v as double))
+            : null,
+      );
 }
 
 class DeleteAnomalyDetectorOutput {
@@ -1273,7 +1498,15 @@ class DescribeAlarmHistoryOutput {
     this.nextToken,
   });
   static DescribeAlarmHistoryOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAlarmHistoryOutput();
+      DescribeAlarmHistoryOutput(
+        alarmHistoryItems: json.containsKey('AlarmHistoryItems')
+            ? (json['AlarmHistoryItems'] as List)
+                .map((e) => AlarmHistoryItem.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeAlarmsForMetricOutput {
@@ -1284,7 +1517,13 @@ class DescribeAlarmsForMetricOutput {
     this.metricAlarms,
   });
   static DescribeAlarmsForMetricOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAlarmsForMetricOutput();
+      DescribeAlarmsForMetricOutput(
+        metricAlarms: json.containsKey('MetricAlarms')
+            ? (json['MetricAlarms'] as List)
+                .map((e) => MetricAlarm.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class DescribeAlarmsOutput {
@@ -1299,7 +1538,15 @@ class DescribeAlarmsOutput {
     this.nextToken,
   });
   static DescribeAlarmsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAlarmsOutput();
+      DescribeAlarmsOutput(
+        metricAlarms: json.containsKey('MetricAlarms')
+            ? (json['MetricAlarms'] as List)
+                .map((e) => MetricAlarm.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class DescribeAnomalyDetectorsOutput {
@@ -1315,7 +1562,15 @@ class DescribeAnomalyDetectorsOutput {
     this.nextToken,
   });
   static DescribeAnomalyDetectorsOutput fromJson(Map<String, dynamic> json) =>
-      DescribeAnomalyDetectorsOutput();
+      DescribeAnomalyDetectorsOutput(
+        anomalyDetectors: json.containsKey('AnomalyDetectors')
+            ? (json['AnomalyDetectors'] as List)
+                .map((e) => AnomalyDetector.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 /// Expands the identity of a metric.
@@ -1330,7 +1585,11 @@ class Dimension {
     @required this.name,
     @required this.value,
   });
-  static Dimension fromJson(Map<String, dynamic> json) => Dimension();
+  static Dimension fromJson(Map<String, dynamic> json) => Dimension(
+        name: json['Name'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents filters for a dimension.
@@ -1345,6 +1604,7 @@ class DimensionFilter {
     @required this.name,
     this.value,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class GetDashboardOutput {
@@ -1365,7 +1625,17 @@ class GetDashboardOutput {
     this.dashboardName,
   });
   static GetDashboardOutput fromJson(Map<String, dynamic> json) =>
-      GetDashboardOutput();
+      GetDashboardOutput(
+        dashboardArn: json.containsKey('DashboardArn')
+            ? json['DashboardArn'] as String
+            : null,
+        dashboardBody: json.containsKey('DashboardBody')
+            ? json['DashboardBody'] as String
+            : null,
+        dashboardName: json.containsKey('DashboardName')
+            ? json['DashboardName'] as String
+            : null,
+      );
 }
 
 class GetMetricDataOutput {
@@ -1392,7 +1662,20 @@ class GetMetricDataOutput {
     this.messages,
   });
   static GetMetricDataOutput fromJson(Map<String, dynamic> json) =>
-      GetMetricDataOutput();
+      GetMetricDataOutput(
+        metricDataResults: json.containsKey('MetricDataResults')
+            ? (json['MetricDataResults'] as List)
+                .map((e) => MetricDataResult.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        messages: json.containsKey('Messages')
+            ? (json['Messages'] as List)
+                .map((e) => MessageData.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetMetricStatisticsOutput {
@@ -1407,7 +1690,14 @@ class GetMetricStatisticsOutput {
     this.datapoints,
   });
   static GetMetricStatisticsOutput fromJson(Map<String, dynamic> json) =>
-      GetMetricStatisticsOutput();
+      GetMetricStatisticsOutput(
+        label: json.containsKey('Label') ? json['Label'] as String : null,
+        datapoints: json.containsKey('Datapoints')
+            ? (json['Datapoints'] as List)
+                .map((e) => Datapoint.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 class GetMetricWidgetImageOutput {
@@ -1418,7 +1708,11 @@ class GetMetricWidgetImageOutput {
     this.metricWidgetImage,
   });
   static GetMetricWidgetImageOutput fromJson(Map<String, dynamic> json) =>
-      GetMetricWidgetImageOutput();
+      GetMetricWidgetImageOutput(
+        metricWidgetImage: json.containsKey('MetricWidgetImage')
+            ? Uint8List(json['MetricWidgetImage'])
+            : null,
+      );
 }
 
 class ListDashboardsOutput {
@@ -1433,7 +1727,15 @@ class ListDashboardsOutput {
     this.nextToken,
   });
   static ListDashboardsOutput fromJson(Map<String, dynamic> json) =>
-      ListDashboardsOutput();
+      ListDashboardsOutput(
+        dashboardEntries: json.containsKey('DashboardEntries')
+            ? (json['DashboardEntries'] as List)
+                .map((e) => DashboardEntry.fromJson(e))
+                .toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListMetricsOutput {
@@ -1448,7 +1750,13 @@ class ListMetricsOutput {
     this.nextToken,
   });
   static ListMetricsOutput fromJson(Map<String, dynamic> json) =>
-      ListMetricsOutput();
+      ListMetricsOutput(
+        metrics: json.containsKey('Metrics')
+            ? (json['Metrics'] as List).map((e) => Metric.fromJson(e)).toList()
+            : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+      );
 }
 
 class ListTagsForResourceOutput {
@@ -1460,7 +1768,11 @@ class ListTagsForResourceOutput {
     this.tags,
   });
   static ListTagsForResourceOutput fromJson(Map<String, dynamic> json) =>
-      ListTagsForResourceOutput();
+      ListTagsForResourceOutput(
+        tags: json.containsKey('Tags')
+            ? (json['Tags'] as List).map((e) => Tag.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A message returned by the `GetMetricData`API, including a code and a
@@ -1476,7 +1788,10 @@ class MessageData {
     this.code,
     this.value,
   });
-  static MessageData fromJson(Map<String, dynamic> json) => MessageData();
+  static MessageData fromJson(Map<String, dynamic> json) => MessageData(
+        code: json.containsKey('Code') ? json['Code'] as String : null,
+        value: json.containsKey('Value') ? json['Value'] as String : null,
+      );
 }
 
 /// Represents a specific metric.
@@ -1495,7 +1810,19 @@ class Metric {
     this.metricName,
     this.dimensions,
   });
-  static Metric fromJson(Map<String, dynamic> json) => Metric();
+  static Metric fromJson(Map<String, dynamic> json) => Metric(
+        namespace:
+            json.containsKey('Namespace') ? json['Namespace'] as String : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => Dimension.fromJson(e))
+                .toList()
+            : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents an alarm.
@@ -1632,7 +1959,88 @@ class MetricAlarm {
     this.metrics,
     this.thresholdMetricId,
   });
-  static MetricAlarm fromJson(Map<String, dynamic> json) => MetricAlarm();
+  static MetricAlarm fromJson(Map<String, dynamic> json) => MetricAlarm(
+        alarmName:
+            json.containsKey('AlarmName') ? json['AlarmName'] as String : null,
+        alarmArn:
+            json.containsKey('AlarmArn') ? json['AlarmArn'] as String : null,
+        alarmDescription: json.containsKey('AlarmDescription')
+            ? json['AlarmDescription'] as String
+            : null,
+        alarmConfigurationUpdatedTimestamp:
+            json.containsKey('AlarmConfigurationUpdatedTimestamp')
+                ? DateTime.parse(json['AlarmConfigurationUpdatedTimestamp'])
+                : null,
+        actionsEnabled: json.containsKey('ActionsEnabled')
+            ? json['ActionsEnabled'] as bool
+            : null,
+        okActions: json.containsKey('OKActions')
+            ? (json['OKActions'] as List).map((e) => e as String).toList()
+            : null,
+        alarmActions: json.containsKey('AlarmActions')
+            ? (json['AlarmActions'] as List).map((e) => e as String).toList()
+            : null,
+        insufficientDataActions: json.containsKey('InsufficientDataActions')
+            ? (json['InsufficientDataActions'] as List)
+                .map((e) => e as String)
+                .toList()
+            : null,
+        stateValue: json.containsKey('StateValue')
+            ? json['StateValue'] as String
+            : null,
+        stateReason: json.containsKey('StateReason')
+            ? json['StateReason'] as String
+            : null,
+        stateReasonData: json.containsKey('StateReasonData')
+            ? json['StateReasonData'] as String
+            : null,
+        stateUpdatedTimestamp: json.containsKey('StateUpdatedTimestamp')
+            ? DateTime.parse(json['StateUpdatedTimestamp'])
+            : null,
+        metricName: json.containsKey('MetricName')
+            ? json['MetricName'] as String
+            : null,
+        namespace:
+            json.containsKey('Namespace') ? json['Namespace'] as String : null,
+        statistic:
+            json.containsKey('Statistic') ? json['Statistic'] as String : null,
+        extendedStatistic: json.containsKey('ExtendedStatistic')
+            ? json['ExtendedStatistic'] as String
+            : null,
+        dimensions: json.containsKey('Dimensions')
+            ? (json['Dimensions'] as List)
+                .map((e) => Dimension.fromJson(e))
+                .toList()
+            : null,
+        period: json.containsKey('Period') ? json['Period'] as int : null,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+        evaluationPeriods: json.containsKey('EvaluationPeriods')
+            ? json['EvaluationPeriods'] as int
+            : null,
+        datapointsToAlarm: json.containsKey('DatapointsToAlarm')
+            ? json['DatapointsToAlarm'] as int
+            : null,
+        threshold:
+            json.containsKey('Threshold') ? json['Threshold'] as double : null,
+        comparisonOperator: json.containsKey('ComparisonOperator')
+            ? json['ComparisonOperator'] as String
+            : null,
+        treatMissingData: json.containsKey('TreatMissingData')
+            ? json['TreatMissingData'] as String
+            : null,
+        evaluateLowSampleCountPercentile:
+            json.containsKey('EvaluateLowSampleCountPercentile')
+                ? json['EvaluateLowSampleCountPercentile'] as String
+                : null,
+        metrics: json.containsKey('Metrics')
+            ? (json['Metrics'] as List)
+                .map((e) => MetricDataQuery.fromJson(e))
+                .toList()
+            : null,
+        thresholdMetricId: json.containsKey('ThresholdMetricId')
+            ? json['ThresholdMetricId'] as String
+            : null,
+      );
 }
 
 /// This structure is used in both `GetMetricData` and `PutMetricAlarm`. The
@@ -1717,8 +2125,19 @@ class MetricDataQuery {
     this.label,
     this.returnData,
   });
-  static MetricDataQuery fromJson(Map<String, dynamic> json) =>
-      MetricDataQuery();
+  static MetricDataQuery fromJson(Map<String, dynamic> json) => MetricDataQuery(
+        id: json['Id'] as String,
+        metricStat: json.containsKey('MetricStat')
+            ? MetricStat.fromJson(json['MetricStat'])
+            : null,
+        expression: json.containsKey('Expression')
+            ? json['Expression'] as String
+            : null,
+        label: json.containsKey('Label') ? json['Label'] as String : null,
+        returnData:
+            json.containsKey('ReturnData') ? json['ReturnData'] as bool : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A `GetMetricData` call returns an array of `MetricDataResult` structures.
@@ -1762,7 +2181,26 @@ class MetricDataResult {
     this.messages,
   });
   static MetricDataResult fromJson(Map<String, dynamic> json) =>
-      MetricDataResult();
+      MetricDataResult(
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        label: json.containsKey('Label') ? json['Label'] as String : null,
+        timestamps: json.containsKey('Timestamps')
+            ? (json['Timestamps'] as List)
+                .map((e) => DateTime.parse(e))
+                .toList()
+            : null,
+        values: json.containsKey('Values')
+            ? (json['Values'] as List).map((e) => e as double).toList()
+            : null,
+        statusCode: json.containsKey('StatusCode')
+            ? json['StatusCode'] as String
+            : null,
+        messages: json.containsKey('Messages')
+            ? (json['Messages'] as List)
+                .map((e) => MessageData.fromJson(e))
+                .toList()
+            : null,
+      );
 }
 
 /// Encapsulates the information sent to either create a metric or add new
@@ -1842,6 +2280,7 @@ class MetricDatum {
     this.unit,
     this.storageResolution,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// This structure defines the metric to be returned, along with the statistics,
@@ -1876,7 +2315,13 @@ class MetricStat {
     @required this.stat,
     this.unit,
   });
-  static MetricStat fromJson(Map<String, dynamic> json) => MetricStat();
+  static MetricStat fromJson(Map<String, dynamic> json) => MetricStat(
+        metric: Metric.fromJson(json['Metric']),
+        period: json['Period'] as int,
+        stat: json['Stat'] as String,
+        unit: json.containsKey('Unit') ? json['Unit'] as String : null,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class PutAnomalyDetectorOutput {
@@ -1901,7 +2346,14 @@ class PutDashboardOutput {
     this.dashboardValidationMessages,
   });
   static PutDashboardOutput fromJson(Map<String, dynamic> json) =>
-      PutDashboardOutput();
+      PutDashboardOutput(
+        dashboardValidationMessages:
+            json.containsKey('DashboardValidationMessages')
+                ? (json['DashboardValidationMessages'] as List)
+                    .map((e) => DashboardValidationMessage.fromJson(e))
+                    .toList()
+                : null,
+      );
 }
 
 /// Specifies one range of days or times to exclude from use for training an
@@ -1919,7 +2371,11 @@ class Range {
     @required this.startTime,
     @required this.endTime,
   });
-  static Range fromJson(Map<String, dynamic> json) => Range();
+  static Range fromJson(Map<String, dynamic> json) => Range(
+        startTime: DateTime.parse(json['StartTime']),
+        endTime: DateTime.parse(json['EndTime']),
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Represents a set of statistics that describes a specific metric.
@@ -1942,6 +2398,7 @@ class StatisticSet {
     @required this.minimum,
     @required this.maximum,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// A key-value pair associated with a CloudWatch resource.
@@ -1957,7 +2414,11 @@ class Tag {
     @required this.key,
     @required this.value,
   });
-  static Tag fromJson(Map<String, dynamic> json) => Tag();
+  static Tag fromJson(Map<String, dynamic> json) => Tag(
+        key: json['Key'] as String,
+        value: json['Value'] as String,
+      );
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class TagResourceOutput {

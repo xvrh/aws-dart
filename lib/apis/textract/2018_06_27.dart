@@ -5,6 +5,10 @@ import 'dart:typed_data';
 /// machine-readable text. This is the API reference documentation for Amazon
 /// Textract.
 class TextractApi {
+  final _client;
+  TextractApi(client)
+      : _client = client.configured('Textract', serializer: 'json');
+
   /// Analyzes an input document for relationships between detected items.
   ///
   /// The types of information returned are as follows:
@@ -53,7 +57,11 @@ class TextractApi {
   Future<AnalyzeDocumentResponse> analyzeDocument(
       {@required Document document,
       @required List<String> featureTypes}) async {
-    return AnalyzeDocumentResponse.fromJson({});
+    var response_ = await _client.send('AnalyzeDocument', {
+      'Document': document,
+      'FeatureTypes': featureTypes,
+    });
+    return AnalyzeDocumentResponse.fromJson(response_);
   }
 
   /// Detects text in the input document. Amazon Textract can detect lines of
@@ -82,7 +90,10 @@ class TextractApi {
   /// base64-encode image bytes passed using the `Bytes` field.
   Future<DetectDocumentTextResponse> detectDocumentText(
       Document document) async {
-    return DetectDocumentTextResponse.fromJson({});
+    var response_ = await _client.send('DetectDocumentText', {
+      'Document': document,
+    });
+    return DetectDocumentTextResponse.fromJson(response_);
   }
 
   /// Gets the results for an Amazon Textract asynchronous operation that
@@ -144,7 +155,12 @@ class TextractApi {
   /// of blocks.
   Future<GetDocumentAnalysisResponse> getDocumentAnalysis(String jobId,
       {int maxResults, String nextToken}) async {
-    return GetDocumentAnalysisResponse.fromJson({});
+    var response_ = await _client.send('GetDocumentAnalysis', {
+      'JobId': jobId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetDocumentAnalysisResponse.fromJson(response_);
   }
 
   /// Gets the results for an Amazon Textract asynchronous operation that
@@ -197,7 +213,12 @@ class TextractApi {
       String jobId,
       {int maxResults,
       String nextToken}) async {
-    return GetDocumentTextDetectionResponse.fromJson({});
+    var response_ = await _client.send('GetDocumentTextDetection', {
+      'JobId': jobId,
+      if (maxResults != null) 'MaxResults': maxResults,
+      if (nextToken != null) 'NextToken': nextToken,
+    });
+    return GetDocumentTextDetectionResponse.fromJson(response_);
   }
 
   /// Starts asynchronous analysis of an input document for relationships
@@ -248,7 +269,15 @@ class TextractApi {
       String clientRequestToken,
       String jobTag,
       NotificationChannel notificationChannel}) async {
-    return StartDocumentAnalysisResponse.fromJson({});
+    var response_ = await _client.send('StartDocumentAnalysis', {
+      'DocumentLocation': documentLocation,
+      'FeatureTypes': featureTypes,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (jobTag != null) 'JobTag': jobTag,
+      if (notificationChannel != null)
+        'NotificationChannel': notificationChannel,
+    });
+    return StartDocumentAnalysisResponse.fromJson(response_);
   }
 
   /// Starts the asynchronous detection of text in a document. Amazon Textract
@@ -291,7 +320,14 @@ class TextractApi {
       {String clientRequestToken,
       String jobTag,
       NotificationChannel notificationChannel}) async {
-    return StartDocumentTextDetectionResponse.fromJson({});
+    var response_ = await _client.send('StartDocumentTextDetection', {
+      'DocumentLocation': documentLocation,
+      if (clientRequestToken != null) 'ClientRequestToken': clientRequestToken,
+      if (jobTag != null) 'JobTag': jobTag,
+      if (notificationChannel != null)
+        'NotificationChannel': notificationChannel,
+    });
+    return StartDocumentTextDetectionResponse.fromJson(response_);
   }
 }
 
@@ -307,7 +343,14 @@ class AnalyzeDocumentResponse {
     this.blocks,
   });
   static AnalyzeDocumentResponse fromJson(Map<String, dynamic> json) =>
-      AnalyzeDocumentResponse();
+      AnalyzeDocumentResponse(
+        documentMetadata: json.containsKey('DocumentMetadata')
+            ? DocumentMetadata.fromJson(json['DocumentMetadata'])
+            : null,
+        blocks: json.containsKey('Blocks')
+            ? (json['Blocks'] as List).map((e) => Block.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// A `Block` represents items that are recognized in a document within a group
@@ -453,7 +496,36 @@ class Block {
     this.selectionStatus,
     this.page,
   });
-  static Block fromJson(Map<String, dynamic> json) => Block();
+  static Block fromJson(Map<String, dynamic> json) => Block(
+        blockType:
+            json.containsKey('BlockType') ? json['BlockType'] as String : null,
+        confidence: json.containsKey('Confidence')
+            ? json['Confidence'] as double
+            : null,
+        text: json.containsKey('Text') ? json['Text'] as String : null,
+        rowIndex: json.containsKey('RowIndex') ? json['RowIndex'] as int : null,
+        columnIndex:
+            json.containsKey('ColumnIndex') ? json['ColumnIndex'] as int : null,
+        rowSpan: json.containsKey('RowSpan') ? json['RowSpan'] as int : null,
+        columnSpan:
+            json.containsKey('ColumnSpan') ? json['ColumnSpan'] as int : null,
+        geometry: json.containsKey('Geometry')
+            ? Geometry.fromJson(json['Geometry'])
+            : null,
+        id: json.containsKey('Id') ? json['Id'] as String : null,
+        relationships: json.containsKey('Relationships')
+            ? (json['Relationships'] as List)
+                .map((e) => Relationship.fromJson(e))
+                .toList()
+            : null,
+        entityTypes: json.containsKey('EntityTypes')
+            ? (json['EntityTypes'] as List).map((e) => e as String).toList()
+            : null,
+        selectionStatus: json.containsKey('SelectionStatus')
+            ? json['SelectionStatus'] as String
+            : null,
+        page: json.containsKey('Page') ? json['Page'] as int : null,
+      );
 }
 
 /// The bounding box around the recognized text, key, value, table or table cell
@@ -493,7 +565,12 @@ class BoundingBox {
     this.left,
     this.top,
   });
-  static BoundingBox fromJson(Map<String, dynamic> json) => BoundingBox();
+  static BoundingBox fromJson(Map<String, dynamic> json) => BoundingBox(
+        width: json.containsKey('Width') ? json['Width'] as double : null,
+        height: json.containsKey('Height') ? json['Height'] as double : null,
+        left: json.containsKey('Left') ? json['Left'] as double : null,
+        top: json.containsKey('Top') ? json['Top'] as double : null,
+      );
 }
 
 class DetectDocumentTextResponse {
@@ -509,7 +586,14 @@ class DetectDocumentTextResponse {
     this.blocks,
   });
   static DetectDocumentTextResponse fromJson(Map<String, dynamic> json) =>
-      DetectDocumentTextResponse();
+      DetectDocumentTextResponse(
+        documentMetadata: json.containsKey('DocumentMetadata')
+            ? DocumentMetadata.fromJson(json['DocumentMetadata'])
+            : null,
+        blocks: json.containsKey('Blocks')
+            ? (json['Blocks'] as List).map((e) => Block.fromJson(e)).toList()
+            : null,
+      );
 }
 
 /// The input document, either as bytes or as an S3 object.
@@ -552,6 +636,7 @@ class Document {
     this.bytes,
     this.s3Object,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The Amazon S3 bucket that contains the document to be processed. It's used
@@ -566,6 +651,7 @@ class DocumentLocation {
   DocumentLocation({
     this.s3Object,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// Information about the input document.
@@ -577,7 +663,9 @@ class DocumentMetadata {
     this.pages,
   });
   static DocumentMetadata fromJson(Map<String, dynamic> json) =>
-      DocumentMetadata();
+      DocumentMetadata(
+        pages: json.containsKey('Pages') ? json['Pages'] as int : null,
+      );
 }
 
 /// Information about where a recognized text, key, value, table, or table cell
@@ -595,7 +683,14 @@ class Geometry {
     this.boundingBox,
     this.polygon,
   });
-  static Geometry fromJson(Map<String, dynamic> json) => Geometry();
+  static Geometry fromJson(Map<String, dynamic> json) => Geometry(
+        boundingBox: json.containsKey('BoundingBox')
+            ? BoundingBox.fromJson(json['BoundingBox'])
+            : null,
+        polygon: json.containsKey('Polygon')
+            ? (json['Polygon'] as List).map((e) => Point.fromJson(e)).toList()
+            : null,
+      );
 }
 
 class GetDocumentAnalysisResponse {
@@ -630,7 +725,26 @@ class GetDocumentAnalysisResponse {
     this.statusMessage,
   });
   static GetDocumentAnalysisResponse fromJson(Map<String, dynamic> json) =>
-      GetDocumentAnalysisResponse();
+      GetDocumentAnalysisResponse(
+        documentMetadata: json.containsKey('DocumentMetadata')
+            ? DocumentMetadata.fromJson(json['DocumentMetadata'])
+            : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        blocks: json.containsKey('Blocks')
+            ? (json['Blocks'] as List).map((e) => Block.fromJson(e)).toList()
+            : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List)
+                .map((e) => Warning.fromJson(e))
+                .toList()
+            : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 class GetDocumentTextDetectionResponse {
@@ -666,7 +780,26 @@ class GetDocumentTextDetectionResponse {
     this.statusMessage,
   });
   static GetDocumentTextDetectionResponse fromJson(Map<String, dynamic> json) =>
-      GetDocumentTextDetectionResponse();
+      GetDocumentTextDetectionResponse(
+        documentMetadata: json.containsKey('DocumentMetadata')
+            ? DocumentMetadata.fromJson(json['DocumentMetadata'])
+            : null,
+        jobStatus:
+            json.containsKey('JobStatus') ? json['JobStatus'] as String : null,
+        nextToken:
+            json.containsKey('NextToken') ? json['NextToken'] as String : null,
+        blocks: json.containsKey('Blocks')
+            ? (json['Blocks'] as List).map((e) => Block.fromJson(e)).toList()
+            : null,
+        warnings: json.containsKey('Warnings')
+            ? (json['Warnings'] as List)
+                .map((e) => Warning.fromJson(e))
+                .toList()
+            : null,
+        statusMessage: json.containsKey('StatusMessage')
+            ? json['StatusMessage'] as String
+            : null,
+      );
 }
 
 /// The Amazon Simple Notification Service (Amazon SNS) topic to which Amazon
@@ -684,6 +817,7 @@ class NotificationChannel {
     @required this.snsTopicArn,
     @required this.roleArn,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 /// The X and Y coordinates of a point on a document page. The X and Y values
@@ -705,7 +839,10 @@ class Point {
     this.x,
     this.y,
   });
-  static Point fromJson(Map<String, dynamic> json) => Point();
+  static Point fromJson(Map<String, dynamic> json) => Point(
+        x: json.containsKey('X') ? json['X'] as double : null,
+        y: json.containsKey('Y') ? json['Y'] as double : null,
+      );
 }
 
 /// Information about how blocks are related to each other. A `Block` object
@@ -727,7 +864,12 @@ class Relationship {
     this.type,
     this.ids,
   });
-  static Relationship fromJson(Map<String, dynamic> json) => Relationship();
+  static Relationship fromJson(Map<String, dynamic> json) => Relationship(
+        type: json.containsKey('Type') ? json['Type'] as String : null,
+        ids: json.containsKey('Ids')
+            ? (json['Ids'] as List).map((e) => e as String).toList()
+            : null,
+      );
 }
 
 /// The S3 bucket name and file name that identifies the document.
@@ -753,6 +895,7 @@ class S3Object {
     this.name,
     this.version,
   });
+  Map<String, dynamic> toJson() => <String, dynamic>{};
 }
 
 class StartDocumentAnalysisResponse {
@@ -764,7 +907,9 @@ class StartDocumentAnalysisResponse {
     this.jobId,
   });
   static StartDocumentAnalysisResponse fromJson(Map<String, dynamic> json) =>
-      StartDocumentAnalysisResponse();
+      StartDocumentAnalysisResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 class StartDocumentTextDetectionResponse {
@@ -777,7 +922,9 @@ class StartDocumentTextDetectionResponse {
   });
   static StartDocumentTextDetectionResponse fromJson(
           Map<String, dynamic> json) =>
-      StartDocumentTextDetectionResponse();
+      StartDocumentTextDetectionResponse(
+        jobId: json.containsKey('JobId') ? json['JobId'] as String : null,
+      );
 }
 
 /// A warning about an issue that occurred during asynchronous text analysis
@@ -794,5 +941,11 @@ class Warning {
     this.errorCode,
     this.pages,
   });
-  static Warning fromJson(Map<String, dynamic> json) => Warning();
+  static Warning fromJson(Map<String, dynamic> json) => Warning(
+        errorCode:
+            json.containsKey('ErrorCode') ? json['ErrorCode'] as String : null,
+        pages: json.containsKey('Pages')
+            ? (json['Pages'] as List).map((e) => e as int).toList()
+            : null,
+      );
 }
